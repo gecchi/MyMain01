@@ -45,24 +45,24 @@ void PreDrawScene::initialize() {
     _id = 0;
     _pProg->set(1);
 
-    GgafDxDrawableActor* x;
-    x = (GgafDxDrawableActor*)(new MenuActor<CubeMapMeshActor       >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<CubeMapMeshSetActor    >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<CubeMapMorphMeshActor  >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<DefaultD3DXAniMeshActor>("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<DefaultBoardActor      >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<DefaultBoardSetActor   >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<DefaultMeshActor       >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<DefaultMeshSetActor    >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<DefaultMorphMeshActor  >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<DefaultPointSpriteActor>("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<DefaultSpriteActor     >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<DefaultSpriteSetActor  >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<SpriteMeshActor        >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<SpriteMeshSetActor     >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<StringBoardActor       >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<WallAABActor           >("aaa","bbb"));
-    x = (GgafDxDrawableActor*)(new MenuActor<WallAAPrismActor       >("aaa","bbb"));
+//    GgafDxDrawableActor* x;
+//    x = (GgafDxDrawableActor*)(new MenuActor<CubeMapMeshActor       >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<CubeMapMeshSetActor    >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<CubeMapMorphMeshActor  >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<DefaultD3DXAniMeshActor>("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<DefaultBoardActor      >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<DefaultBoardSetActor   >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<DefaultMeshActor       >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<DefaultMeshSetActor    >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<DefaultMorphMeshActor  >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<DefaultPointSpriteActor>("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<DefaultSpriteActor     >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<DefaultSpriteSetActor  >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<SpriteMeshActor        >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<SpriteMeshSetActor     >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<StringBoardActor       >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<WallAABActor           >("aaa","bbb"));
+//    x = (GgafDxDrawableActor*)(new MenuActor<WallAAPrismActor       >("aaa","bbb"));
 
 }
 

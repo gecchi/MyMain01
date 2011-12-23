@@ -6,22 +6,14 @@ using namespace GgafDxCore;
 unsigned int GgafDxDrawableActor::_hash_technique_last_draw = 0;
 
 GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
-                                           const char* prm_model,
-                                           const char* prm_effect,
-                                           const char* prm_technique,
-                                           GgafStatus* prm_pStat,
-                                           GgafDxChecker* prm_pChecker) :
+                                         const char* prm_model,
+                                         const char* prm_effect,
+                                         const char* prm_technique,
+                                         GgafStatus* prm_pStat,
+                                         GgafDxChecker* prm_pChecker) :
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker) {
     _obj_class |= Obj_GgafDxDrawableActor;
     _class_name = "GgafDxDrawableActor";
-
-    //_TRACE_("GgafDxDrawableActor::GgafDxDrawableActor(");
-    //_TRACE_("    prm_name="<<prm_name);
-    //_TRACE_("    prm_model="<<prm_model);
-    //_TRACE_("    prm_effect="<<prm_effect);
-    //_TRACE_("    prm_technique="<<prm_technique);
-    //_TRACE_(")");
-
     _hash_technique = GgafUtil::easy_hash(prm_technique);
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
@@ -29,7 +21,6 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     _hash_technique = 0;
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
-
     _pNext_TheSameDrawDepthLevel = NULL;
     //ƒ‚ƒfƒ‹Žæ“¾connectModelManager
     _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model);
@@ -51,17 +42,15 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     _zenable = true;
     _zwriteenable = true;
 }
-//((GgafDxCore::GgafDxModelConnection*)(GgafDxCore::GgafDxGod::_pModelManager->connect(prm_model))
-
 
 GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
-                                           const char* prm_model_id,
-                                           const char* prm_model_type,
-                                           const char* prm_effect_id,
-                                           const char* prm_effect_type,
-                                           const char* prm_technique,
-                                           GgafStatus* prm_pStat,
-                                           GgafDxChecker* prm_pChecker) :
+                                         const char* prm_model_id,
+                                         const char* prm_model_type,
+                                         const char* prm_effect_id,
+                                         const char* prm_effect_type,
+                                         const char* prm_technique,
+                                         GgafStatus* prm_pStat,
+                                         GgafDxChecker* prm_pChecker) :
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker) {
 
     _class_name = "GgafDxDrawableActor";

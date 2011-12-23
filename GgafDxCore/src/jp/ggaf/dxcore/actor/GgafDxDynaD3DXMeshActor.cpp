@@ -6,20 +6,20 @@ using namespace GgafDxCore;
 DWORD GgafDxDynaD3DXMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
 GgafDxDynaD3DXMeshActor::GgafDxDynaD3DXMeshActor(const char* prm_name,
-                                                   const char* prm_model_id,
-                                                   const char* prm_effect_id,
-                                                   const char* prm_technique,
-                                                   GgafStatus* prm_pStat,
-                                                   GgafDxChecker* prm_pChecker) :
+                                                 const char* prm_model_id,
+                                                 const char* prm_effect_id,
+                                                 const char* prm_technique,
+                                                 GgafStatus* prm_pStat,
+                                                 GgafDxChecker* prm_pChecker) :
 
-                                                       GgafDxDrawableActor(prm_name,
-                                                                            prm_model_id,
-                                                                            "d",
-                                                                            prm_effect_id,
-                                                                            "X",
-                                                                            prm_technique,
-                                                                            prm_pStat,
-                                                                            prm_pChecker) {
+                                                     GgafDxDrawableActor(prm_name,
+                                                                         prm_model_id,
+                                                                         "d",
+                                                                         prm_effect_id,
+                                                                         "X",
+                                                                         prm_technique,
+                                                                         prm_pStat,
+                                                                         prm_pChecker) {
     _obj_class |= Obj_GgafDxDynaD3DXMeshActor;
     _class_name = "GgafDxDynaD3DXMeshActor";
 

@@ -13,7 +13,7 @@ Item::Item(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat)
 
 TractorMagic* Item::getTractorMagic() {
     if (_pTractorMagic == NULL) {
-        _pTractorMagic = dynamic_cast<TractorMagic*>(P_MAGICMETER->_ringMagics.getNextFromFirst(0));
+        _pTractorMagic = dynamic_cast<TractorMagic*>(P_MAGICMETER->_ringMagics.getFromFirst(0));
         if (_pTractorMagic == NULL) {
             throwGgafCriticalException("Item::Item TractorMagicのメーター位置がおかしいです。");
         }

@@ -7,37 +7,41 @@ using namespace MyStg2nd;
 
 MenuBoardPause::MenuBoardPause(const char* prm_name) :
            MenuActor<DefaultBoardActor>(prm_name, "TurboMeter") {
-}
     _class_name = "MenuBoardPause";
-    GgafDxDrawableActor** papMenuItem[] = {
-          NEW LabelGecchi16Font("BACK TO GAME");
-          NEW LabelGecchi16Font("CONFIG");
-          NEW LabelGecchi16Font("BACK TO TITLE");
-          NEW LabelGecchi16Font("QUIT GAME");
+    char* apItemStr[] = {
+          "BACK TO GAME",   //0
+          "CONFIG",         //1
+          "BACK TO TITLE",  //2
+          "QUIT GAME",      //3
+
+          "DUMMY1",         //4
+          "DUMMY2",         //5
+          "DUMMY3",         //6
+          "DUMMY4",         //7
+
+          "DUMMY5",         //8
+          "DUMMY6",         //9
+          "DUMMY7",         //10
+          "DUMMY8"          //11
     };
-    _max_menu_item = 4;
-    _papMenuItemLabel = NEW LabelGecchi16Font*[_max_menu_item];
-    for (int i = 0; i < _max_menu_item; i++) {
-        _papMenuItemLabel[i] = NEW LabelGecchi16Font("menu_item");
-        _papMenuItemLabel[i]->_Z = 1;
-        _papMenuItemLabel[i]->update(item[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        _papMenuItemLabel[i]->inactivateImmediately();
-        getDirector()->addSubGroup(_papMenuItemLabel[i]);
+    for (int i = 0; i < 12; i++) {
+        LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("menuitem");
+        pLabel->update(apItemStr[i]);
+        addItem(pLabel, PX2CO(10+((i/4)*200)), PX2CO(100+((i%4)*20)), 0);
     }
+    relationItemExNext(0, 4);
+    relationItemExNext(4, 8);
+    relationItemExNext(8, 1);
+    relationItemExNext(1, 5);
+    relationItemExNext(5, 9);
+    relationItemExNext(9, 0);
+    setCursor(NEW CursorPauseMenu("CursorPauseMenu"), 10, 0.2, 0.7);
+    setSelectedItemIndex(0); //‰Šú‘I‘ð
 
-    _pCursor001= NEW Cursor001("Cursor001");
-    _pCursor001->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    _pCursor001->inactivateImmediately();
-    getDirector()->addSubGroup(_pCursor001);
-
-    _pSeCon_exec = connectSeManager("click07_2");
-    _active_item = 0;
-
+    locate(PX2CO(300),PX2CO(10));
 }
 
 void MenuBoardPause::initialize() {
-
-    onReset();
 }
 
 void MenuBoardPause::onReset() {
@@ -47,6 +51,7 @@ void MenuBoardPause::onActive() {
 }
 
 void MenuBoardPause::processBehavior() {
+    MenuActor<DefaultBoardActor>::processBehavior();
 }
 
 

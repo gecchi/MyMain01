@@ -4,17 +4,17 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
-                                     const char* prm_model_id,
-                                     const char* prm_effect_id,
-                                     const char* prm_technique) :
-                                         GgafDxDrawableActor(prm_name,
-                                                              prm_model_id,
-                                                              "B",
-                                                              prm_effect_id,
-                                                              "B",
-                                                              prm_technique,
-                                                              NULL,
-                                                              NULL) {
+                                   const char* prm_model_id,
+                                   const char* prm_effect_id,
+                                   const char* prm_technique) :
+                                       GgafDxDrawableActor(prm_name,
+                                                           prm_model_id,
+                                                           "B",
+                                                           prm_effect_id,
+                                                           "B",
+                                                           prm_technique,
+                                                           NULL,
+                                                           NULL) {
     _obj_class |= Obj_GgafDxBoardActor;
     _class_name = "GgafDxBoardActor";
 
@@ -34,6 +34,8 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
     _is2DActor = true;
     _pFunc_calcRotMvWorldMatrix = NULL;
     _Z = 0;
+    setZEnable(false);
+    setZWriteEnable(false);
 }
 
 void GgafDxBoardActor::processDraw() {

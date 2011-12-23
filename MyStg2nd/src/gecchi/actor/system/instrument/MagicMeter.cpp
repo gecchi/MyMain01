@@ -69,7 +69,7 @@ MagicMeter::MagicMeter(const char* prm_name)
     _papLvCursor = NEW MagicMeterCursor002*[_ringMagics.length()];
     Magic* pMagic;
     for (int i = 0; i < _ringMagics.length(); i++) {
-        pMagic = _ringMagics.getNextFromFirst(i);
+        pMagic = _ringMagics.getFromFirst(i);
         _paCursorLv[i] = pMagic->_level;
         _papLvCursor[i] = NEW MagicMeterCursor002("LvCursor", this, pMagic);
         addSubGroup(_papLvCursor[i]);

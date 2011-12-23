@@ -450,6 +450,10 @@ bool GgafDxUtil::chk2DLineCrossing(coord x11, coord y11, coord x12, coord y12, c
 int GgafDxUtil::getDistance(int x1, int y1, int x2, int y2) {
     return (int)sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))));
 }
+//int GgafDxUtil::getDistance(int x1, int y1, int z1, int x2, int y2, int z2) {
+//    return (int)sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))) + (((double)(z2 - z1)) * ((double)(z2 - z1))));
+//}
+
 
 void GgafDxUtil::getRzRyAng(coord vx,
                              coord vy,

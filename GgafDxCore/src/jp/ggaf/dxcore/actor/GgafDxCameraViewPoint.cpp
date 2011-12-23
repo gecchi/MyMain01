@@ -3,7 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxCameraViewPoint::GgafDxCameraViewPoint() : GgafDxGeometricActor("ViewPoint", NULL, NULL) {
+GgafDxCameraViewPoint::GgafDxCameraViewPoint() :
+        GgafDxGeometricActor("ViewPoint", NULL, NULL) {
     _class_name = "GgafDxCameraViewPoint";
 }
 

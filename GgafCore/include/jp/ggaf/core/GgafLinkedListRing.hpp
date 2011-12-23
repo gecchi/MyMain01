@@ -177,6 +177,18 @@ public:
         return _pElemActive;
     }
 
+
+    Elem* getElemFromFirst(int n) {
+        if (_pElemFirst == NULL) {
+            return NULL;
+        }
+        Elem* pElem_return = _pElemFirst;
+        for (int i = 0; i < n; i++) {
+            pElem_return = pElem_return->_pNext;
+        }
+        return pElem_return;
+    }
+
     /**
      * 引数要素を、カレント要素の「次」に追加する .
      * 追加される場所は以下の図のようになります。
@@ -492,7 +504,7 @@ public:
      */
     virtual T* getNext(int n);
 
-    virtual T* getNextFromFirst(int n);
+    virtual T* getFromFirst(int n);
 
 
 
@@ -721,6 +733,20 @@ GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
 }
 
 
+//template<class T>
+//T* GgafLinkedListRing<T>::getFromFirst(int n) {
+//    if (_pElemFirst == NULL) {
+//        return NULL;
+//    }
+//    Elem* pElem_return = _pElemFirst;
+//    for (int i = 0; i < n; i++) {
+//        pElem_return = pElem_return->_pNext;
+//    }
+//    return pElem_return->_pValue;
+//}
+
+
+
 template<class T>
 void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
     if (prm_pNew == NULL) {
@@ -903,7 +929,7 @@ T* GgafLinkedListRing<T>::getNext(int n) {
 }
 
 template<class T>
-T* GgafLinkedListRing<T>::getNextFromFirst(int n) {
+T* GgafLinkedListRing<T>::getFromFirst(int n) {
     if (_pElemFirst == NULL) {
         return NULL;
     }

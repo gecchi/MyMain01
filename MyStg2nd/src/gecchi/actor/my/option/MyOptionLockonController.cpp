@@ -175,17 +175,17 @@ MyOptionLockonController::~MyOptionLockonController() {
 
 void MyOptionLockonController::dumpTarget(GgafDxGeometricActor* pMain) {
 
-    if (_pRingTarget->getNextFromFirst(0) == NULL) {
+    if (_pRingTarget->getFromFirst(0) == NULL) {
         _TEXT_("NULL\n");
         return;
     } else {
         _TEXT_("ÅÃ");
     }
     for (int i = 0; i < _pRingTarget->length(); i++) {
-        if (_pRingTarget->getNextFromFirst(i) == pMain) {
+        if (_pRingTarget->getFromFirst(i) == pMain) {
             _TEXT_("ÅI");
         }
-        _TEXT_(_pRingTarget->getNextFromFirst(i)->getName()<<"["<<i<<"]ÅÃ");
+        _TEXT_(_pRingTarget->getFromFirst(i)->getName()<<"["<<i<<"]ÅÃ");
     }
     _TEXT_(" ... avtive="<<_pRingTarget->getCurrent()->getName()<<"\n");
 }

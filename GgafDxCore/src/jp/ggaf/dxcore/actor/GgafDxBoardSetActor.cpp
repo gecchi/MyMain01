@@ -4,17 +4,18 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
-                                           const char* prm_model_id,
-                                           const char* prm_effect_id,
-                                           const char* prm_technique) :
-                                               GgafDxDrawableActor(prm_name,
-                                                                    prm_model_id,
-                                                                    "b",
-                                                                    prm_effect_id,
-                                                                    "b",
-                                                                    prm_technique,
-                                                                    NULL,
-                                                                    NULL) {
+                                         const char* prm_model_id,
+                                         const char* prm_effect_id,
+                                         const char* prm_technique) :
+
+                                             GgafDxDrawableActor(prm_name,
+                                                                 prm_model_id,
+                                                                 "b",
+                                                                 prm_effect_id,
+                                                                 "b",
+                                                                 prm_technique,
+                                                                 NULL,
+                                                                 NULL) {
     _obj_class |= Obj_GgafDxBoardSetActor;
     _class_name = "GgafDxBoardSetActor";
 
@@ -40,6 +41,9 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
 
     _is2DActor = true;
     _pFunc_calcRotMvWorldMatrix = NULL;
+
+    setZEnable(false);
+    setZWriteEnable(false);
 
     _Z = 0;
 }

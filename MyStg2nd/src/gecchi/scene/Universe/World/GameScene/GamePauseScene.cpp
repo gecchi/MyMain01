@@ -16,30 +16,8 @@ GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePauseScene";
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    _pMenuBoardPause = NEW MenuBoardPause("MenuBoardPause");
+    getDirector()->addSubGroup(_pMenuBoardPause);
 
     useProgress(10);
     _pProg->change(GAMEPAUSESCENE_PROG_INIT);
@@ -89,6 +67,7 @@ void GamePauseScene::onReset() {
 }
 
 void GamePauseScene::onActive() {
+    _pMenuBoardPause->rise();
 }
 
 void GamePauseScene::initialize() {
@@ -112,6 +91,8 @@ void GamePauseScene::processBehavior() {
 
         case GAMEPAUSESCENE_PROG_SELECT: {
             if (_pProg->isJustChanged()) {
+
+
                 //ƒAƒCƒeƒ€
                 for (int i = 0; i < _max_menu_item; i++) {
                     //‰ŠúÝ’è
@@ -197,7 +178,9 @@ void GamePauseScene::processBehavior() {
     _pMsgLabel02->_pKurokoA->behave();
 
 }
-
+void GamePauseScene::onInactive() {
+    _pMenuBoardPause->sink();
+}
 void GamePauseScene::processFinal() {
 
 }

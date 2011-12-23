@@ -20,6 +20,24 @@ public:
      */
     MenuBoardPause(const char* prm_name);
 
+    bool condCursorNext() override {
+        return VB->isAutoRepeat(VB_UI_DOWN);
+    }
+    bool condCursorPrev() override {
+        return VB->isAutoRepeat(VB_UI_UP);
+    }
+    bool condCursorExNext() override {
+        return VB->isAutoRepeat(VB_UI_RIGHT);
+    }
+    bool condCursorExPrev() override {
+        return VB->isAutoRepeat(VB_UI_LEFT);
+    }
+
+    bool condCursorCancel() override {
+        return false;
+//        return VB->isAutoRepeat(VB_UI_CANCEL);
+    }
+
     void initialize() override;
 
     void onReset() override;
@@ -32,7 +50,6 @@ public:
 
     void onInactive() override;
 
-    void addVal(double prm_val);
 
 
     virtual ~MenuBoardPause();

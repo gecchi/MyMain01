@@ -4,20 +4,20 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxSpriteSetActor::GgafDxSpriteSetActor(const char* prm_name,
-                                       const char* prm_model_id,
-                                       const char* prm_effect_id,
-                                       const char* prm_technique,
-                                       GgafStatus* prm_pStat,
-                                       GgafDxChecker* prm_pChecker) :
+                                           const char* prm_model_id,
+                                           const char* prm_effect_id,
+                                           const char* prm_technique,
+                                           GgafStatus* prm_pStat,
+                                           GgafDxChecker* prm_pChecker) :
 
-                                           GgafDxDrawableActor(prm_name,
-                                                                prm_model_id,
-                                                                "s",
-                                                                prm_effect_id,
-                                                                "s",
-                                                                prm_technique,
-                                                                prm_pStat,
-                                                                prm_pChecker) {
+                                               GgafDxDrawableActor(prm_name,
+                                                                   prm_model_id,
+                                                                   "s",
+                                                                   prm_effect_id,
+                                                                   "s",
+                                                                   prm_technique,
+                                                                   prm_pStat,
+                                                                   prm_pChecker) {
     _obj_class |= Obj_GgafDxSpriteSetActor;
     _class_name = "GgafDxSpriteSetActor";
 

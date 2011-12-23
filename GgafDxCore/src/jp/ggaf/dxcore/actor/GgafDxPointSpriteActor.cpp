@@ -5,20 +5,20 @@ using namespace GgafDxCore;
 
 
 GgafDxPointSpriteActor::GgafDxPointSpriteActor(const char* prm_name,
-                                   const char* prm_model_id,
-                                   const char* prm_effect_id,
-                                   const char* prm_technique,
-                                   GgafStatus* prm_pStat,
-                                   GgafDxChecker* prm_pChecker) :
+                                               const char* prm_model_id,
+                                               const char* prm_effect_id,
+                                               const char* prm_technique,
+                                               GgafStatus* prm_pStat,
+                                               GgafDxChecker* prm_pChecker) :
 
-                                       GgafDxDrawableActor(prm_name,
-                                                            prm_model_id,
-                                                            "P",
-                                                            prm_effect_id,
-                                                            "P",
-                                                            prm_technique,
-                                                            prm_pStat,
-                                                            prm_pChecker) {
+                                                   GgafDxDrawableActor(prm_name,
+                                                                       prm_model_id,
+                                                                       "P",
+                                                                       prm_effect_id,
+                                                                       "P",
+                                                                       prm_technique,
+                                                                       prm_pStat,
+                                                                       prm_pChecker) {
     _obj_class |= Obj_GgafDxPointSpriteActor;
     _class_name = "GgafDxPointSpriteActor";
     _pPointSpriteModel = (GgafDxPointSpriteModel*)_pModel;
@@ -31,14 +31,6 @@ GgafDxPointSpriteActor::GgafDxPointSpriteActor(const char* prm_name,
                              _pPointSpriteModel->_texture_split_rowcol);
     _pUvFlipper->setActivePtnNo(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
-
-
-//    _pUvFlipper->setRotation(_pPointSpriteModel->_texture_split_rowcol,
-//                                      1.0 / _pPointSpriteModel->_texture_split_rowcol,
-//                                      1.0 / _pPointSpriteModel->_texture_split_rowcol );
-//    _pUvFlipper->forcePtnNoRange(0, _pPointSpriteModel->_texture_split_rowcol * _pPointSpriteModel->_texture_split_rowcol - 1);
-//    _pUvFlipper->setActivePtnNo(0);
-//    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
     setZEnable(false);
     setZWriteEnable(false);
 }

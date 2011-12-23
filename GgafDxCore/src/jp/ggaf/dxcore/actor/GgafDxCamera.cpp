@@ -10,7 +10,8 @@ int GgafDxCamera::_Y_ScreenBottom = 0;
 
 
 
-GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_dep) : GgafDxGeometricActor(prm_name, NULL, NULL) {
+GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_dep) :
+        GgafDxGeometricActor(prm_name, NULL, NULL) {
     _class_name = "GgafDxCamera";
 
     //‘S‚Ä‚ÌŠî€‚ÍfovX‚©‚çl‚¦‚é

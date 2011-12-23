@@ -19,6 +19,9 @@ public:
     LabelGecchi16Font** _papMenuItemLabel;
     Cursor001* _pCursor001;
 
+    MenuBoardPause* _pMenuBoardPause;
+
+
     int _max_menu_item;
     int _active_item;
     frame _frame_of_noinput;
@@ -28,6 +31,7 @@ public:
     void initialize() override;
     void onActive() override;
     void processBehavior() override;
+    void onInactive() override;
     void processFinal() override;
     virtual ~GamePauseScene();
 };

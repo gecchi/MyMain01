@@ -24,6 +24,7 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
     _width_len_px = 0;
 
     //デフォルトで名前(prm_name)が表示文字列になる
+	/*
     if (prm_name != NULL) {
         _draw_string = (char*)prm_name;
         _len = strlen(prm_name);
@@ -38,6 +39,7 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
             _width_len_px = 0;
         }
     }
+	*/
 }
 
 void GgafDxStringBoardActor::onCreateModel() {
