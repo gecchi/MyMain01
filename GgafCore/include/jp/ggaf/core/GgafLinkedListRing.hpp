@@ -980,7 +980,12 @@ T* GgafLinkedListRing<T>::getRelation(int prm_connection_index) {
     if (_relation_num-1 < prm_connection_index) {
         throwGgafCriticalException("GgafLinkedListRing<T>::getRelation Ú‘±—v‘f”Ô†‚Ì”ÍˆÍŠO‚Å‚·Bprm_connection_index="<<prm_connection_index);
     } else {
-        return _pElemActive->_papRelation[prm_connection_index]->_pValue;
+        Elem* pE = _pElemActive->_papRelation[prm_connection_index];
+        if (pE) {
+            return pE->_pValue;
+        } else {
+            return NULL;
+        }
     }
 }
 

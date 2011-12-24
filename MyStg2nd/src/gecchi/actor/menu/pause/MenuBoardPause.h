@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class MenuBoardPause :
-    public GgafLib::MenuActor<GgafLib::DefaultBoardActor> {
+    public DefaultBoardSetMenu {
 
 public:
 
@@ -20,23 +20,12 @@ public:
      */
     MenuBoardPause(const char* prm_name);
 
-    bool condCursorNext() override {
-        return VB->isAutoRepeat(VB_UI_DOWN);
-    }
-    bool condCursorPrev() override {
-        return VB->isAutoRepeat(VB_UI_UP);
-    }
-    bool condCursorExNext() override {
-        return VB->isAutoRepeat(VB_UI_RIGHT);
-    }
-    bool condCursorExPrev() override {
-        return VB->isAutoRepeat(VB_UI_LEFT);
-    }
-
-    bool condCursorCancel() override {
-        return false;
-//        return VB->isAutoRepeat(VB_UI_CANCEL);
-    }
+    bool condCursorNext() override;
+    bool condCursorPrev() override;
+    bool condCursorExNext() override;
+    bool condCursorExPrev() override;
+    bool condCursorCancel() override;
+    void moveCursor() override;
 
     void initialize() override;
 
@@ -49,7 +38,6 @@ public:
     void processJudgement() override;
 
     void onInactive() override;
-
 
 
     virtual ~MenuBoardPause();

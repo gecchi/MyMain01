@@ -35,7 +35,7 @@ public:
                          coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
 
     /**
-     * カーソルとなるアクターを設定する。
+     * カーソルとなるアクターと動きを設定する。
      * 【注意】<BR>
      * カーソル移動を制御するため、MenuActor<T>::processBehavior() 内で、<BR>
      * _pCursor->_pKurokoA->behave(); <BR>
@@ -43,14 +43,16 @@ public:
      * _pKurokoA->behave();
      * を実行する必要はありません。<BR>
      * @param prm_pCursor カーソルのアクター
-     * @param prm_move_frames アイテム間移動に費やすフレーム
-     * @param prm_move_p1 速度０～最高速に達する時点の割合
-     * @param prm_move_p2 最高速から減速を開始する割合
+     * @param prm_move_frames カーソルがアイテム間移動に費やすフレーム(デフォルト10フレーム)
+     * @param prm_move_p1 カーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
+     * @param prm_move_p2 カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合(デフォルト0.7)
      */
     virtual void setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
-                           int prm_move_frames, float prm_move_p1 = 0.2, float prm_move_p2 = 0.7);
+                           int prm_move_frames = 10, float prm_move_p1 = 0.2, float prm_move_p2 = 0.7);
+
 
     virtual void relationItemExNext(int prm_index_of_fromitem, int prm_index_of_toitem);
+//    virtual void relationItemExNext(int prm_index_of_fromitem, ...);
     virtual void relationItemExPrev(int prm_index_of_fromitem, int prm_index_of_toitem);
 
     virtual GgafDxCore::GgafDxDrawableActor* setSelectedItemIndex(int prm_index);
@@ -107,9 +109,11 @@ void MenuActor<T>::addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
     prm_pItem->_X_local = prm_X_local;
     prm_pItem->_Y_local = prm_Y_local;
     prm_pItem->_Z_local = prm_Z_local;
+    prm_pItem->_fAlpha = T::_fAlpha; //半透明αを共有させる。
+    prm_pItem->inactivateImmediately();
+
     _lstItems.addLast(prm_pItem);
     T::addSubLast(prm_pItem);
-    prm_pItem->inactivateImmediately();
 }
 
 template<class T>
@@ -120,6 +124,8 @@ void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
     _cursor_move_p1 = prm_move_p1;
     _cursor_move_p2 = prm_move_p2;
     T::addSubLast(prm_pCursor);
+
+    _pCursor->_fAlpha = T::_fAlpha;
     _pCursor->inactivateImmediately();
 }
 
@@ -130,6 +136,19 @@ void MenuActor<T>:: relationItemExNext(int prm_index_of_fromitem, int prm_index_
     _lstItems.getElemFromFirst(prm_index_of_toitem)->connect(
             ITEM_RELATION_EX_PREV, _lstItems.getElemFromFirst(prm_index_of_fromitem));
 }
+
+//template<class T>
+//void MenuActor<T>:: relationItemExNext(int prm_index_of_fromitem, ...) {
+//    va_list pArg;
+//    va_start(pArg, prm_index_of_fromitem);         //可変長引数操作開始
+//        va_arg( argptr, int );
+//
+//
+//
+//    va_end(pArg);      //可変長引数操作終了
+//}
+
+
 template<class T>
 void MenuActor<T>:: relationItemExPrev(int prm_index_of_fromitem, int prm_index_of_toitem) {
     _lstItems.getElemFromFirst(prm_index_of_fromitem)->connect(
@@ -167,32 +186,46 @@ void MenuActor<T>::moveCursorPrev() {
 
 template<class T>
 void MenuActor<T>::moveCursorExNext() {
-    _lstItems.gotoRelation(ITEM_RELATION_EX_NEXT);
-    moveCursor();
+    if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
+        _lstItems.gotoRelation(ITEM_RELATION_EX_NEXT);
+        moveCursor();
+    } else {
+
+    }
 }
 
 template<class T>
 void MenuActor<T>::moveCursorExPrev() {
-    _lstItems.gotoRelation(ITEM_RELATION_EX_PREV);
-    moveCursor();
+    if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
+        _lstItems.gotoRelation(ITEM_RELATION_EX_PREV);
+        moveCursor();
+    } else {
+
+    }
 }
 
 template<class T>
 void MenuActor<T>::moveCursorCancel() {
-    _lstItems.gotoRelation(ITEM_RELATION_TO_CANCEL);
-    moveCursor();
+    if (_lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
+        _lstItems.gotoRelation(ITEM_RELATION_TO_CANCEL);
+        moveCursor();
+    } else {
+
+    }
 }
 
 template<class T>
 void MenuActor<T>::moveCursor() {
-    GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
-    _pCursor->_pKurokoA->setMvAng(pTargetItem);
-    _pCursor->_pKurokoA->execSmoothMvVeloSequence(0, GgafDxCore::GgafDxUtil::getDistance(_pCursor, pTargetItem),
-                                                _cursor_move_frames,
-                                                _cursor_move_p1, _cursor_move_p2);
-    _X_cursor_target_begin = pTargetItem->_X;
-    _Y_cursor_target_begin = pTargetItem->_Y;
-    _Z_cursor_target_begin = pTargetItem->_Z;
+    if (_pCursor) {
+        GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
+        _pCursor->_pKurokoA->setMvAng(pTargetItem);
+        _pCursor->_pKurokoA->execSmoothMvVeloSequence(0, GgafDxCore::GgafDxUtil::getDistance(_pCursor, pTargetItem),
+                                                    _cursor_move_frames,
+                                                    _cursor_move_p1, _cursor_move_p2);
+        _X_cursor_target_begin = pTargetItem->_X;
+        _Y_cursor_target_begin = pTargetItem->_Y;
+        _Z_cursor_target_begin = pTargetItem->_Z;
+    }
 }
 
 
@@ -206,6 +239,7 @@ void MenuActor<T>::rise() {
         pItem->locate(T::_X + pItem->_X_local,
                       T::_Y + pItem->_Y_local,
                       T::_Z + pItem->_Z_local);
+        pItem->_fAlpha = T::_fAlpha;
         pElem = pElem->_pNext;
     }
     T::activateTree();
@@ -233,6 +267,19 @@ void MenuActor<T>::processBehavior() {
     }
     _pCursor->_pKurokoA->behave();
 
+    //メニューアイテム
+    GgafDxCore::GgafDxDrawableActor* pItem;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
+    for (int i = 0; i < _lstItems.length(); i++) {
+        pItem = pElem->_pValue;
+        pItem->locate(T::_X + pItem->_X_local,
+                      T::_Y + pItem->_Y_local,
+                      T::_Z + pItem->_Z_local);
+		pItem->_fAlpha = T::_fAlpha;
+        pElem = pElem->_pNext;
+    }
+
+    //カーソル
     GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
     if (_pCursor->_pKurokoA->isMoveingSmooth()) {
         _pCursor->_X += (pTargetItem->_X - _X_cursor_target_begin);
@@ -241,12 +288,16 @@ void MenuActor<T>::processBehavior() {
     } else {
         _pCursor->locateAs(pTargetItem);
     }
+    _pCursor->_fAlpha = T::_fAlpha;
 }
 
 
 template<class T>
 MenuActor<T>::~MenuActor() {
 }
+
+#define DefaultBoardMenu GgafLib::MenuActor<GgafLib::DefaultBoardActor>
+#define DefaultBoardSetMenu GgafLib::MenuActor<GgafLib::DefaultBoardSetActor>
 
 
 }
