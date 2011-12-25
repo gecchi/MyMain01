@@ -11,13 +11,13 @@ MyOptionLockonController::MyOptionLockonController(const char* prm_name) :
     _class_name = "MyOptionLockonController";
     _pRingTarget = NEW GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>();
     _pMainLockonEffect = NEW EffectLockon001_Main("MAIN");
-    _pMainLockonEffect->inactivateImmediately();
+    _pMainLockonEffect->inactivateImmed();
     addSubLast(_pMainLockonEffect);
     for (int i = 1; i < MyOption::_max_lockon_num; i++) {
         stringstream name;
         name <<  "SUB["<<i<<"]";
         EffectLockon001_Sub* pSubLockon = NEW EffectLockon001_Sub(name.str().c_str());
-        pSubLockon->inactivateImmediately();
+        pSubLockon->inactivateImmed();
         addSubLast(pSubLockon);
     }
 }
@@ -30,7 +30,7 @@ void MyOptionLockonController::onReset() {
     for (int i = 0; i < n; i++) {
         _pRingTarget->remove();
         ((EffectLockon001*)pLockonEffect_Active)->releaseLockon();
-        pLockonEffect_Active->getPrev()->moveLastImmediately();
+        pLockonEffect_Active->getPrev()->moveLastImmed();
     }
 }
 
@@ -68,7 +68,7 @@ void MyOptionLockonController::processBehavior() {
                     //メインロックオンエフェクトを直近ロックオンへ戻すし
                     //メインロックオンエフェクトの次のエフェクトを解放するという動作をしたい
                     ((EffectLockon001*)pLockonEffect_Active->getNext())->releaseLockon(); //次のロックオンエフェクトをリリース実行
-                    pLockonEffect_Active->getNext()->moveLastImmediately();               //次のロックオンエフェクトを末尾へ
+                    pLockonEffect_Active->getNext()->moveLastImmed();               //次のロックオンエフェクトを末尾へ
                     //「次回処理ロックオンエフェクトアクター次へ」の処理対象移動は不要。次に処理したいロックオンエフェクトアクターそのままであるため。
                 }
             } else {
@@ -77,7 +77,7 @@ void MyOptionLockonController::processBehavior() {
                 pTarget = _pRingTarget->getCurrent(); //次回処理ターゲットを次へ（remove()により次のターゲットはgetCurrent()となる）
                 ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンエフェクトをリリース実行
                 pLockonEffect_Active = pLockonEffect_Active->getNext();    //次回処理ロックオンエフェクトアクター次へ
-                pLockonEffect_Active->getPrev()->moveLastImmediately();    //今回処理ロックオンエフェクトアクターを末尾へ
+                pLockonEffect_Active->getPrev()->moveLastImmed();    //今回処理ロックオンエフェクトアクターを末尾へ
             }
         }
     }

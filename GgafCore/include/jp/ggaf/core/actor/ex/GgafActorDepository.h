@@ -27,7 +27,7 @@ public:
      * GgafNode<T>::addSubLast() を実行する前に、アクター種別のを引き継ぎを行います。
      * 最初に登録したアクターの種別が、本デポジトリの種別となります。
      * それ以降は同じ種別のアクターを登録する制限があります。<BR>
-     * また、引数のアクターには inactivateImmediately() が実行され、メンバーは非活動状態に強制されます。<BR>
+     * また、引数のアクターには inactivateImmed() が実行され、メンバーは非活動状態に強制されます。<BR>
      * @param prm_pSub 貸出メンバーアクター
      */
     virtual void addSubLast(GgafActor* prm_pSub) override;
@@ -143,7 +143,7 @@ public:
      * <pre><code>
      * GgafMainActor* pActor = pDepository->dispatchForce();
      * if (pActor->isActiveInTheTree()) {
-     *     pActor->inactivateImmediately();
+     *     pActor->inactivateImmed();
      *     pActor->onActive();
      * }
      * pActor->active();
@@ -154,7 +154,7 @@ public:
     virtual GgafCore::GgafMainActor* dispatchForce() {
         GgafMainActor* pActor = dispatch();
         if (pActor == NULL) {
-            getSubFirst()->moveLastImmediately(); //お尻に回す
+            getSubFirst()->moveLastImmed(); //お尻に回す
             pActor = getSubFirst();
         }
         return pActor;
@@ -162,7 +162,7 @@ public:
 
     /**
      * リセット時の処理 .
-     * メンバーを全てinactivateImmediately()します。
+     * メンバーを全てinactivateImmed()します。
      */
     virtual void onReset() override;
 

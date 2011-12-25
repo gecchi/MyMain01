@@ -27,7 +27,7 @@ public:
     virtual void processBehavior() override;
     virtual void processFinal() override;
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
-    virtual void onGarbaged() override;
+    virtual void onEnded() override;
 
 
     /**

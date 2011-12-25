@@ -40,8 +40,8 @@ void GgafTreeFormation::processJudgement() {
     }
 
 }
-void GgafTreeFormation::onGarbaged() {
-    GgafFormation::onGarbaged();
+void GgafTreeFormation::onEnded() {
+    GgafFormation::onEnded();
 }
 
 

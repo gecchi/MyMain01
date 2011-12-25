@@ -104,7 +104,7 @@ void EnemyMassalia::processBehavior() {
 //    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
 //        _pMorpher->beat(1, 30, 3, 22);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_7)) {
-//        _pMorpher->stopImmediately(1);
+//        _pMorpher->stopImmed(1);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_2)) {
 //        _pMorpher->intoTargetAcceStep(2, 1.0f, 0, 0.002f);
@@ -114,12 +114,12 @@ void EnemyMassalia::processBehavior() {
 //    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
 //        _pMorpher->beat(3, 20, 13, 2);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_9)) {
-//        _pMorpher->stopImmediately(3);
+//        _pMorpher->stopImmed(3);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
 //        _pMorpher->beat(4, 60, 3, 20);
 //    } else if (GgafDxInput::isBeingPressedKey(DIK_0)) {
-//        _pMorpher->stopImmediately(4);
+//        _pMorpher->stopImmed(4);
 //    }
 //    _pMorpher->behave();
 

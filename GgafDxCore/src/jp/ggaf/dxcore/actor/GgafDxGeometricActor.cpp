@@ -304,8 +304,8 @@ void GgafDxGeometricActor::rotateWith(GgafDxGeometricActor* prm_pActor) {
 }
 
 
-void GgafDxGeometricActor::onGarbaged() {
-    GgafDxBaseActor::onGarbaged();
+void GgafDxGeometricActor::onEnded() {
+    GgafDxBaseActor::onEnded();
     _pFormation = NULL;
 }
 

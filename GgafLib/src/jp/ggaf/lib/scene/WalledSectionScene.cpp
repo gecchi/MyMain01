@@ -124,7 +124,7 @@ void WalledSectionScene::processBehavior() {
                     }
                 }
                 if (pWallParts->isActiveInTheTree()) {
-                    pWallParts->inactivateImmediately();
+                    pWallParts->inactivateImmed();
                     pWallParts->onInactive();
                 }
 
@@ -135,7 +135,7 @@ void WalledSectionScene::processBehavior() {
                 pWallParts->locate(_pWallPartsLast==NULL ? _wall_start_X : _pWallPartsLast->_X + _wall_dep,
                                   ((-_area_height/2) + _papaWallInfo[_cnt_area_len][n]._Y) * _wall_height,
                                   ((-_area_width/2) + _papaWallInfo[_cnt_area_len][n]._Z) * _wall_width);
-                pWallParts->activateImmediately();
+                pWallParts->activateImmed();
                 pWallParts->onActive();
             }
             _pWallPartsLast = pWallParts;

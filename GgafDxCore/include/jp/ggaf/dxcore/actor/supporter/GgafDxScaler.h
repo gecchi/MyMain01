@@ -172,12 +172,12 @@ public:
     /**
      * スケーリングを停止させる。 （全軸指定） .
      */
-    void stopImmediately();
+    void stopImmed();
     /**
      * スケーリングを停止させる。 （軸単位で指定）.
      * @param prm_axis
      */
-    void stopImmediately(axis prm_axis);
+    void stopImmed(axis prm_axis);
 
     /**
      * 片道等速スケーリング（全軸・持続フレーム数指定） .

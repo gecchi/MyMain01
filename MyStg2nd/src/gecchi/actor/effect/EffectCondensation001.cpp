@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 EffectCondensation001::EffectCondensation001(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "8/Lockon001", NULL) {
     _class_name = "EffectCondensation001";
-    inactivateImmediately();
+    inactivateImmed();
     changeEffectTechnique("DestBlendOne"); //加算合成
     defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し

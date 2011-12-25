@@ -24,17 +24,17 @@ _pStageWorld(NULL) {
     _class_name = "GameScene";
     useProgress(GAMESCENE_PROG_FINISH);
     _pCommonScene = NEW CommonScene("Common");
-    _pCommonScene->inactivateImmediately();
+    _pCommonScene->inactivateImmed();
     addSubLast(_pCommonScene);
     _pMyShipScene = NEW MyShipScene("MyShipScene");
-    _pMyShipScene->inactivateImmediately();
+    _pMyShipScene->inactivateImmed();
     addSubLast(_pMyShipScene);
     _pStageWorld = new StageWorld("StageWorld");
-    _pStageWorld->inactivateImmediately();
+    _pStageWorld->inactivateImmed();
     addSubLast(_pStageWorld);
 
     _pGamePauseScene = new GamePauseScene("GamePauseScene");
-    _pGamePauseScene->inactivateImmediately();
+    _pGamePauseScene->inactivateImmed();
     addSubLast(_pGamePauseScene);
 
     addSubLast(NEW GamePreTitleScene("PreGameTitle"));
@@ -69,7 +69,7 @@ void GameScene::onReset() {
         if (pSubScene) {
             pSubScene->resetTree();
             pSubScene->fadeinSceneTree(0);
-            pSubScene->inactivateImmediately();
+            pSubScene->inactivateImmed();
         }
     }
     P_UNIVERSE->resetCameraWork();
@@ -275,9 +275,9 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         //CommonSceneを拾い上げ、解放順序が後になるように操作する。
         addSubLast(P_MYSHIP_SCENE->extract());
         addSubLast(P_COMMON_SCENE->extract());
-        P_MYSHIP_SCENE->moveFirstImmediately();
-        P_COMMON_SCENE->moveFirstImmediately();
-        //moveFirstImmediately()する理由は、解放は末尾ノードから行われるため。
+        P_MYSHIP_SCENE->moveFirstImmed();
+        P_COMMON_SCENE->moveFirstImmed();
+        //moveFirstImmed()する理由は、解放は末尾ノードから行われるため。
         //先にCommonSceneが解放されないようにするため。
         //GgafCore::template<class T> GgafNode<T>::~GgafNode() のコメントを参照
     } else if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {

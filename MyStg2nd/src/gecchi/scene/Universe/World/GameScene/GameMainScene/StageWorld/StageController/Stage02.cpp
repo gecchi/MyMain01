@@ -38,7 +38,7 @@ void Stage02::processBehavior() {
 
     if (_pProg->get() == STAGE_PROG_BEGIN) {
         if (_pProg->getFrameInProgress() == 180) { //ステージ2開始！
-            _pMessage->activateImmediately();
+            _pMessage->activateImmed();
             _pMessage->update(300*1000, 300*1000, "SCENE 02 START!");
             _pMessage->inactivateDelay(240);
             _pWorldBoundSpace->activateTree();
@@ -55,7 +55,7 @@ void Stage02::processBehavior() {
         }
 
         if (_pProg->getFrameInProgress() == 60) {
-            _pMessage->activateImmediately();
+            _pMessage->activateImmed();
             _pMessage->update(300*1000, 300*1000, "SCENE 02 CLEAR!!");
             _pMessage->inactivateDelay(120);
             fadeoutScene(300);

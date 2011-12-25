@@ -20,7 +20,7 @@ FormationThalia::FormationThalia(const char* prm_name) :
         //スプライン移動プログラム設定
         _papThalia[i]->setSplineSequence(NULL);
         _papThalia[i]->setDepository_Shot(_pDpcon->use()); //弾設定
-        _papThalia[i]->inactivateImmediately();
+        _papThalia[i]->inactivateImmed();
         addSubLast(_papThalia[i]);
     }
 }

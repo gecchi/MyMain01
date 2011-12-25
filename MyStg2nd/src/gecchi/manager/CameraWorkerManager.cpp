@@ -35,7 +35,7 @@ CameraWorker* CameraWorkerManager::processCreateResource(char* prm_idstr, void* 
     if (pResource == NULL) {
         throwGgafCriticalException("CameraWorkerManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。CameraWorkerが作成できません。");
     } else {
-        pResource->inactivateImmediately();
+        pResource->inactivateImmed();
         return pResource;
     }
 }

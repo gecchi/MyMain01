@@ -29,7 +29,7 @@ void GameBeginningScene::onReset() {
 //    fadeinScene(0);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
-    _pStringBoard02->_pFader->stopImmediately();
+    _pStringBoard02->_pFader->stopImmed();
     _pStringBoard02->_pFader->setAlphaToTop();
 }
 //void GameBeginningScene::ready() {

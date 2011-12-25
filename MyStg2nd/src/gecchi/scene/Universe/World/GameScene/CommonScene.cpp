@@ -18,7 +18,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         EffectExplosion001* pEffectExplosion;
         for (int i = 0; i < 100; i++) { //ストック100個
             pEffectExplosion = NEW EffectExplosion001("EffectExplosion001");
-            pEffectExplosion->inactivateTreeImmediately(); //最初非表示
+            pEffectExplosion->inactivateTreeImmed(); //最初非表示
             _pDP_EffectExplosion001->addSubLast(pEffectExplosion);
         }
         getDirector()->addSubGroup(_pDP_EffectExplosion001);
@@ -30,7 +30,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         MagicPointItem001* pMpItem001;
         for (int i = 0; i < 500; i++) { //ストック100個
             pMpItem001 = NEW MagicPointItem001("MP001");
-            pMpItem001->inactivateTreeImmediately(); //最初非表示
+            pMpItem001->inactivateTreeImmed(); //最初非表示
             _pDP_MagicPointItem001->addSubLast(pMpItem001);
         }
         getDirector()->addSubGroup(_pDP_MagicPointItem001);
@@ -42,7 +42,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         MagicPointItem002* pMpItem002;
         for (int i = 0; i < 10; i++) { //ストック100個
             pMpItem002 = NEW MagicPointItem002("MP002");
-            pMpItem002->inactivateTreeImmediately(); //最初非表示
+            pMpItem002->inactivateTreeImmed(); //最初非表示
             _pDP_MagicPointItem002->addSubLast(pMpItem002);
         }
         getDirector()->addSubGroup(_pDP_MagicPointItem002);
@@ -53,7 +53,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         EffectTurbo002* pEffectTurbo;
         for (int i = 0; i < 10; i++) { //ストック100個
             pEffectTurbo = NEW EffectTurbo002("EffectTurbo002");
-            pEffectTurbo->inactivateTreeImmediately(); //最初非表示
+            pEffectTurbo->inactivateTreeImmed(); //最初非表示
             _pDepo_EffectTurbo002->addSubLast(pEffectTurbo);
         }
         getDirector()->addSubGroup(_pDepo_EffectTurbo002);
@@ -64,7 +64,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //        EnemyCeresShot001* pEnemyShot;
     //        for (int i = 0; i < 36*7; i++) { //ストック256個
     //            pEnemyShot = NEW EnemyCeresShot001("EnemyCeresShot001");
-    //            pEnemyShot->inactivateTreeImmediately(); //最初非表示
+    //            pEnemyShot->inactivateTreeImmed(); //最初非表示
     //            _pDepo_EnemyShots001->addSubLast(pEnemyShot);
     //        }
     //        getDirector()->addSubGroup(_pDepo_EnemyShots001);
@@ -77,7 +77,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //        EffectExplosion003* pEffectExplosion;
     //        for (int i = 0; i < 50; i++) { //ストック100個
     //            pEffectExplosion = NEW EffectExplosion003("EffectExplosion003");
-    //            pEffectExplosion->inactivateTreeImmediately(); //最初非表示
+    //            pEffectExplosion->inactivateTreeImmed(); //最初非表示
     //            _pDepo_EffectExplosion003->addSubLast(pEffectExplosion);
     //        }
     //        getDirector()->addSubGroup(_pDepo_EffectExplosion003);
@@ -96,10 +96,10 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 //                stringstream name;
 //                name <<  "EnemyAstraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
 //                pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
-//                pChip->inactivateImmediately();
+//                pChip->inactivateImmed();
 //                pLaserChipDepo->addSubLast(pChip);
 //            }
-//            pLaserChipDepo->inactivateImmediately();
+//            pLaserChipDepo->inactivateImmed();
 //            _pDepo_LaserChipDepository->addSubLast(pLaserChipDepo);
 //        }
 //        getDirector()->addSubGroup(_pDepo_LaserChipDepository);

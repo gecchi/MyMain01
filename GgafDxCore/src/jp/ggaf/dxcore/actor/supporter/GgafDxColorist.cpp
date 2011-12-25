@@ -203,13 +203,13 @@ void GgafDxColorist::beat(int prm_c, frame prm_beat_target_frames, frame prm_att
     }
 }
 
-void GgafDxColorist::stopImmediately() {
+void GgafDxColorist::stopImmed() {
     for (int c = 0; c < 4; c++) {
-        stopImmediately(c);
+        stopImmed(c);
     }
 }
 
-void GgafDxColorist::stopImmediately(int prm_c) {
+void GgafDxColorist::stopImmed(int prm_c) {
     _method[prm_c] = NOCOLOR;
 }
 

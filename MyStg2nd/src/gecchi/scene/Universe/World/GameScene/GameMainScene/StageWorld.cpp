@@ -18,7 +18,7 @@ StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
 
 void StageWorld::onReset() {
     P_MYSHIP_SCENE->resetTree();
-    P_MYSHIP_SCENE->activateImmediately();
+    P_MYSHIP_SCENE->activateImmed();
     addSubLast(P_MYSHIP_SCENE->extract()); //ƒXƒ[‚Ì‰e‹¿‚ð—^‚¦‚È‚¢‚½‚ß‚Éˆê‚Âã
 }
 

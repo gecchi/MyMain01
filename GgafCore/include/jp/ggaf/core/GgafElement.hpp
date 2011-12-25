@@ -424,15 +424,15 @@ public:
      * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
      * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
      */
-    virtual void activateImmediately();
+    virtual void activateImmed();
 
     /**
      * 活動状態にする(自ツリー・即時・コールバック無し)
-     * 自身と配下ノード全てについて再帰的に activateImmediately() が実行される。<BR>
-     * activateImmediately() の説明を要参照。<BR>
+     * 自身と配下ノード全てについて再帰的に activateImmed() が実行される。<BR>
+     * activateImmed() の説明を要参照。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    virtual void activateTreeImmediately();
+    virtual void activateTreeImmed();
     //===================
     /**
      * 非活動状態にする(自ツリー・コールバック有り) .
@@ -477,15 +477,15 @@ public:
      * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
      * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
      */
-    virtual void inactivateImmediately();
+    virtual void inactivateImmed();
 
     /**
      * 非活動状態にする(自ツリー・即時・コールバック無し)  .
-     * 自身と配下ノード全てについて再帰的に inactivateImmediately() が実行される。<BR>
-     * inactivateImmediately() の説明を要参照。<BR>
+     * 自身と配下ノード全てについて再帰的に inactivateImmed() が実行される。<BR>
+     * inactivateImmed() の説明を要参照。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    virtual void inactivateTreeImmediately();
+    virtual void inactivateTreeImmed();
 
     //===================
     /**
@@ -515,15 +515,15 @@ public:
      * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
      * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
      */
-    virtual void pauseImmediately();
+    virtual void pauseImmed();
 
     /**
      * 一時停止状態にする(自ツリー・即時) .
-     * 自身と配下ノード全てについて再帰的に pauseImmediately() が実行される。<BR>
-     * pauseImmediately() の説明を要参照。<BR>
+     * 自身と配下ノード全てについて再帰的に pauseImmed() が実行される。<BR>
+     * pauseImmed() の説明を要参照。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    virtual void pauseTreeImmediately();
+    virtual void pauseTreeImmed();
 
     //===================
     /**
@@ -544,11 +544,11 @@ public:
 
     /**
      * 一時停止状態を解除する(自ツリー・即時) .
-     * 自身と配下ノード全てについて再帰的に unpauseImmediately() が実行される。<BR>
-     * unpauseImmediately() の説明を要参照。<BR>
+     * 自身と配下ノード全てについて再帰的に unpauseImmed() が実行される。<BR>
+     * unpauseImmed() の説明を要参照。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    virtual void unpauseTreeImmediately();
+    virtual void unpauseTreeImmed();
 
     /**
      * 一時停止状態を解除する(単体・即時) .
@@ -560,7 +560,7 @@ public:
      * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
      * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
      */
-    virtual void unpauseImmediately();
+    virtual void unpauseImmed();
     //===================
     /**
      * 状態をリセットする .
@@ -578,7 +578,7 @@ public:
     // ＜メモ initialize(), onReset(), onActive() の使い分けについて＞
     // 状態をリセット処理は、どこに実装するべきか？
     // initialize() ・・・ 生成後、最初の１回だけ事前にコールバックされる。初期化処理等に使用することを想定。
-    // onReset()    ・・・ 生成後、initialize() の後、１回だけ無条件でコールされる。その後、reset() 実行ででコールバックされる。
+    // onReset()    ・・・ 生成後、initialize() の後、１回だけ無条件でコールされる。その後、reset() 実行でコールバックされる。
     // onActive()   ・・・ 生成後、initialize() の後の活動状態時 １フレーム目の behave() 直前にコールされる。
     //                     その後 非活動→活動状態になった時、自動的にコールバックされる。
     // ノード(アクターやシーン)の処理サイクルによって使い分ける。
@@ -659,7 +659,7 @@ public:
      * そして神(GgafGod)処理に余裕のある時を見計らい clean() メソッドにより、<BR>
      * GgafGarbageBoxが保持するGgafDisusedActor 配下ノードを delete することとなる。<BR>
      * したがって、本メンバ関数を実行して引数の猶予フレーム後になっても、まだdeleteは行なわれず、<BR>
-     * GgafDisusedActor 配下に移るだけ。（タスクからは除外されている）。<BR>
+     * GgafGarbageBox 配下に移るだけ。（但し当然タスクシステムからは除外されている）。<BR>
      * 次フレーム以降でも直ぐには delete されるとは限らない。<BR>
      * インスタンスがすぐに解放されないことに注意せよ！（内部的なバグを生みやすい）。<BR>
      * @param prm_offset_frames 生存終了猶予フレーム(1～)
@@ -668,10 +668,10 @@ public:
 
     /**
      * ゴミ箱に放り込まれる直前に呼び出されるコールバック .
-     * end(frame) 実行後、GgafGarbageBox に取り込まれる直前に呼び出されます。
+     * end(frame) 実行後、ゴミ箱(GgafGarbageBox) に取り込まれる直前に呼び出されます。
      * 直前に処理が必要な場合は、オーバーライドして実装可能。
      */
-    virtual void onGarbaged() {
+    virtual void onEnded() {
     }
 
 
@@ -684,7 +684,7 @@ public:
         _will_mv_last_in_next_frame_flg = true;
     }
 
-    virtual void moveLastImmediately() {
+    virtual void moveLastImmed() {
         GgafNode<T>::moveLast();
     }
     /**
@@ -696,7 +696,7 @@ public:
         _will_mv_first_in_next_frame_flg = true;
     }
 
-    virtual void moveFirstImmediately() {
+    virtual void moveFirstImmed() {
         GgafNode<T>::moveFirst();
     }
 
@@ -880,7 +880,7 @@ void GgafElement<T>::nextFrame() {
     //moveLast予約時
     if (_will_mv_last_in_next_frame_flg) {
         _will_mv_last_in_next_frame_flg = false;
-        moveLastImmediately();
+        moveLastImmed();
         return;
         //即returnする事は重要。nextFrame() 処理の２重実行をさけるため。
         //このノードは、末尾に回されているため、必ずもう一度 nextFrame() の機会が訪れる。
@@ -960,12 +960,12 @@ void GgafElement<T>::nextFrame() {
             _frame_of_behaving++;
             // 進捗を反映
             if (_pProg) {
-//				if (GgafUtil::strcmp_ascii(getName(), "OPTION") == 0) { 
-//				_TRACE_("name="<<getName()<<"("<<this<<") _pProg="<<_pProg->get() <<" _pProg->update(); begin "<<getActivePartFrame()); 
+//				if (GgafUtil::strcmp_ascii(getName(), "OPTION") == 0) {
+//				_TRACE_("name="<<getName()<<"("<<this<<") _pProg="<<_pProg->get() <<" _pProg->update(); begin "<<getActivePartFrame());
 //				}
                 _pProg->update();
-//				if (GgafUtil::strcmp_ascii(getName(), "OPTION") == 0) { 
-//				_TRACE_("name="<<getName()<<"("<<this<<") _pProg="<<_pProg->get() <<" _pProg->update(); end"<<getActivePartFrame()); 
+//				if (GgafUtil::strcmp_ascii(getName(), "OPTION") == 0) {
+//				_TRACE_("name="<<getName()<<"("<<this<<") _pProg="<<_pProg->get() <<" _pProg->update(); end"<<getActivePartFrame());
 //				}
             }
             _frame_of_behaving_since_onActive++;
@@ -993,7 +993,7 @@ void GgafElement<T>::nextFrame() {
             if (pElementTemp->_is_last_flg) {
                 pElementTemp->nextFrame();
                 if (pElementTemp->_can_live_flg == false) {
-                    pElementTemp->onGarbaged();
+                    pElementTemp->onEnded();
                     GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
                 }
                 break;
@@ -1001,7 +1001,7 @@ void GgafElement<T>::nextFrame() {
                 pElementTemp = pElementTemp->_pNext;
                 pElementTemp->_pPrev->nextFrame();
                 if (pElementTemp->_pPrev->_can_live_flg == false) {
-                    ((T*)(pElementTemp->_pPrev))->onGarbaged();
+                    ((T*)(pElementTemp->_pPrev))->onEnded();
                     GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
                 }
             }
@@ -1011,7 +1011,7 @@ void GgafElement<T>::nextFrame() {
 
     if (_will_mv_first_in_next_frame_flg) {
         _will_mv_first_in_next_frame_flg = false;
-        moveFirstImmediately();
+        moveFirstImmed();
         //moveFirstを一番最後にすることは重要。
         //これは nextFrame() の２重実行を避けるため。
     }
@@ -1180,17 +1180,17 @@ void GgafElement<T>::activateTree() {
 }
 
 template<class T>
-void GgafElement<T>::activateImmediately() {
+void GgafElement<T>::activateImmed() {
     if (_can_live_flg) {
         _is_active_flg = true;
     }
 }
 
 template<class T>
-void GgafElement<T>::activateTreeImmediately() {
+void GgafElement<T>::activateTreeImmed() {
     if (_can_live_flg) {
-        activateImmediately();
-        callRecursive(&GgafElement<T>::activateTreeImmediately); //再帰
+        activateImmed();
+        callRecursive(&GgafElement<T>::activateTreeImmed); //再帰
     }
 }
 
@@ -1298,17 +1298,17 @@ void GgafElement<T>::inactivateTreeDelay(frame prm_offset_frames) {
 }
 
 template<class T>
-void GgafElement<T>::inactivateImmediately() {
+void GgafElement<T>::inactivateImmed() {
     if (_can_live_flg) {
         _is_active_flg = false;
     }
 }
 
 template<class T>
-void GgafElement<T>::inactivateTreeImmediately() {
+void GgafElement<T>::inactivateTreeImmed() {
     if (_can_live_flg) {
-        inactivateImmediately();
-        callRecursive(&GgafElement<T>::inactivateTreeImmediately); //再帰
+        inactivateImmed();
+        callRecursive(&GgafElement<T>::inactivateTreeImmed); //再帰
     }
 }
 
@@ -1329,16 +1329,16 @@ void GgafElement<T>::pause() {
 }
 
 template<class T>
-void GgafElement<T>::pauseTreeImmediately() {
+void GgafElement<T>::pauseTreeImmed() {
     if (_can_live_flg) {
         _was_paused_flg = true;
         _was_paused_flg_in_next_frame = true;
-        callRecursive(&GgafElement<T>::pauseTreeImmediately); //再帰
+        callRecursive(&GgafElement<T>::pauseTreeImmed); //再帰
     }
 }
 
 template<class T>
-void GgafElement<T>::pauseImmediately() {
+void GgafElement<T>::pauseImmed() {
     if (_can_live_flg) {
         _was_paused_flg = true;
         _was_paused_flg_in_next_frame = true;
@@ -1361,16 +1361,16 @@ void GgafElement<T>::unpause() {
 }
 
 template<class T>
-void GgafElement<T>::unpauseTreeImmediately() {
+void GgafElement<T>::unpauseTreeImmed() {
     if (_can_live_flg) {
         _was_paused_flg = false;
         _was_paused_flg_in_next_frame = false;
-        callRecursive(&GgafElement<T>::unpauseTreeImmediately); //再帰
+        callRecursive(&GgafElement<T>::unpauseTreeImmed); //再帰
     }
 }
 
 template<class T>
-void GgafElement<T>::unpauseImmediately() {
+void GgafElement<T>::unpauseImmed() {
     if (_can_live_flg) {
         _was_paused_flg = false;
         _was_paused_flg_in_next_frame = false;

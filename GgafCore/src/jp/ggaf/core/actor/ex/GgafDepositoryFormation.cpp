@@ -96,8 +96,8 @@ void GgafDepositoryFormation::processJudgement() {
 
 
 }
-void GgafDepositoryFormation::onGarbaged() {
-    GgafFormation::onGarbaged();
+void GgafDepositoryFormation::onEnded() {
+    GgafFormation::onEnded();
     sayonaraFollwer();
 }
 void GgafDepositoryFormation::sayonaraFollwer() {

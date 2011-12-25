@@ -43,7 +43,7 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
     _papEffect = NEW GgafDxDrawableActor*[8];
     for (int i = 0; i < 8; i++) {
         _papEffect[i] = NEW EffectMagic001("EF");
-        _papEffect[i]->inactivateImmediately();
+        _papEffect[i]->inactivateImmed();
         addSubGroup(_papEffect[i]);
     }
 }

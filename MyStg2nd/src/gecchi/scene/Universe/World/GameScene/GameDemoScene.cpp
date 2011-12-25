@@ -48,7 +48,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
                                                      ranking[i].score,
                                                      ranking[i].date.c_str());
         _papLabelRanking[i]->update(buf);
-        _papLabelRanking[i]->inactivateImmediately();
+        _papLabelRanking[i]->inactivateImmed();
         getDirector()->addSubGroup(_papLabelRanking[i]);
     }
 
@@ -73,7 +73,7 @@ void GameDemoScene::processBehavior() {
             _TRACE_("GameDemoScene::processBehavior() Prog(=GAMEDEMOSCENE_PROG_INIT) is Just Changed");
             addSubLast(P_STAGE_WORLD->extract());
             P_STAGE_WORLD->reset();
-            P_STAGE_WORLD->activateImmediately();
+            P_STAGE_WORLD->activateImmed();
             _pProg->change(GAMEDEMOSCENE_PROG_DEMOPLAY);
             break;
         }

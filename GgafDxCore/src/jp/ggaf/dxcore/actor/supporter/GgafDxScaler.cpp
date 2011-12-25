@@ -217,13 +217,13 @@ void GgafDxScaler::beat(axis prm_axis, frame prm_beat_target_frames, frame prm_a
     }
 }
 
-void GgafDxScaler::stopImmediately() {
+void GgafDxScaler::stopImmed() {
     for (int a = 0; a < 3; a++) {
-        stopImmediately((axis)a);
+        stopImmed((axis)a);
     }
 }
 
-void GgafDxScaler::stopImmediately(axis prm_axis) {
+void GgafDxScaler::stopImmed(axis prm_axis) {
     _method[prm_axis] = NOSCALE;
 }
 

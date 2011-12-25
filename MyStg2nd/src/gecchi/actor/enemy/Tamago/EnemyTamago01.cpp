@@ -98,7 +98,7 @@ void EnemyTamago01::processBehavior() {
 //        _pModel->_pTextureBlinker->->beat(20, 2 ,5, -1);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_7)) {
-//        _pModel->_pTextureBlinker->->stopImmediately();
+//        _pModel->_pTextureBlinker->->stopImmed();
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
 //        _pModel->_pTextureBlinker->->setScaleToBottom();

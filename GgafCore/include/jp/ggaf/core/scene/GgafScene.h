@@ -135,23 +135,23 @@ public:
     virtual void activateTree() override;
     virtual void activateDelay(frame prm_offset_frames = 1) override;
     virtual void activate() override;
-    virtual void activateTreeImmediately() override;
-    virtual void activateImmediately() override;
+    virtual void activateTreeImmed() override;
+    virtual void activateImmed() override;
     virtual void inactivateTree() override;
     virtual void inactivateDelay(frame prm_offset_frames = 1) override;
     virtual void inactivate() override;
-    virtual void inactivateTreeImmediately() override;
-    virtual void inactivateImmediately() override;
+    virtual void inactivateTreeImmed() override;
+    virtual void inactivateImmed() override;
 
     virtual void pauseTree() override;
     virtual void pause() override;
-    virtual void pauseTreeImmediately() override;
-    virtual void pauseImmediately() override;
+    virtual void pauseTreeImmed() override;
+    virtual void pauseImmed() override;
 
     virtual void unpauseTree() override;
     virtual void unpause() override;
-    virtual void unpauseTreeImmediately() override;
-    virtual void unpauseImmediately() override;
+    virtual void unpauseTreeImmed() override;
+    virtual void unpauseImmed() override;
 
     virtual void reset() override;
     virtual void resetTree() override;

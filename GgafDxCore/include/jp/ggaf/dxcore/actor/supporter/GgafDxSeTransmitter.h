@@ -50,11 +50,11 @@ public:
      * 即座にSEを再生する(擬似３D無し)。
      * @param prm_id SEのID ( 0 ～ SE数-1 )
      */
-    void playImmediately(int prm_id);
+    void playImmed(int prm_id);
 
     /**
      * SEを再生する(擬似３D無し)。
-     * playImmediately(int) と違い、次フレームに再生される予定リストに追加される。
+     * playImmed(int) と違い、次フレームに再生される予定リストに追加される。
      * もし、同一フレームに、同一種類のSEが多数登録された場合、音の跳ね上がりを抑えるため、
      * 最大８フレーム遅延し、ばらけて再生される機能を持っている。
      * @param prm_id SEのID ( 0 ～ SE数-1 )

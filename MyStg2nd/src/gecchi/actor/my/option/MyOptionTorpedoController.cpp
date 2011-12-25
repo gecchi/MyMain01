@@ -18,14 +18,14 @@ MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOpt
         stringstream name;
         name <<  "MYOPTION"<<(prm_pMyOption->_no)<<"'s Torpedo["<<i<<"]";
         _papMyTorpedo[i] = NEW MyTorpedo(name.str().c_str(), this);
-        _papMyTorpedo[i]->inactivateImmediately();
+        _papMyTorpedo[i]->inactivateImmed();
         addSubGroup(_papMyTorpedo[i]);
     }
 
     _pDepo_TorpedoBlast = NEW GgafActorDepository("DP_TorpedoBlast");
     for (int i = 0; i < MyOption::_max_lockon_num*2; i++) {
         MyTorpedoBlast* pTorpedoBlast = NEW MyTorpedoBlast("TorpedoBlast");
-        pTorpedoBlast->inactivateImmediately();
+        pTorpedoBlast->inactivateImmed();
         _pDepo_TorpedoBlast->addSubLast(pTorpedoBlast);
     }
     addSubGroup(_pDepo_TorpedoBlast);

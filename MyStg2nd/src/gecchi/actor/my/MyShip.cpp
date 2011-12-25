@@ -58,7 +58,7 @@ MyShip::MyShip(const char* prm_name) :
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
-        pShot->inactivateImmediately();
+        pShot->inactivateImmed();
         _pDepo_MyShots001->addSubLast(pShot);
     }
     addSubGroup(_pDepo_MyShots001);

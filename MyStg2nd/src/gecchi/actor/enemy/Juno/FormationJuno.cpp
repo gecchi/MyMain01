@@ -53,7 +53,7 @@ FormationJuno::FormationJuno(
         pEnemyJuno->_pKurokoB->setVxMvVelo(vX_AppBox*prm_veloMv_App);
         pEnemyJuno->_pKurokoB->setVyMvVelo(vY_AppBox*prm_veloMv_App);
         pEnemyJuno->_pKurokoB->setVzMvVelo(vZ_AppBox*prm_veloMv_App);
-        pEnemyJuno->inactivateTreeImmediately();
+        pEnemyJuno->inactivateTreeImmed();
         _pDepo_EnemyJuno->addSubLast(pEnemyJuno);
     }
     addSubGroup(_pDepo_EnemyJuno);

@@ -10,7 +10,7 @@ bool RankUpStage::_pause = false;
 RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "RankUpStage";
     _pWorldBoundSpace  = NEW WorldBoundSpaceRankUp("BG_RankUp");
-    _pWorldBoundSpace->inactivateImmediately();
+    _pWorldBoundSpace->inactivateImmed();
     getDirector()->addSubGroup(_pWorldBoundSpace);
     _pHoshiBoshi = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
     getDirector()->addSubGroup( _pHoshiBoshi);
@@ -96,8 +96,8 @@ void RankUpStage::processFinal() {
 void RankUpStage::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 }
 
-void RankUpStage::onGarbaged() {
-    _TRACE_("RankUpStage::onGarbaged() ["<<getName()<<"] throwEventToUpperTree EVENT_RANKUP_ON_GARBAGEDI");
+void RankUpStage::onEnded() {
+    _TRACE_("RankUpStage::onEnded() ["<<getName()<<"] throwEventToUpperTree EVENT_RANKUP_ON_GARBAGEDI");
     throwEventToUpperTree(EVENT_RANKUP_ON_GARBAGED, this);
 
 }

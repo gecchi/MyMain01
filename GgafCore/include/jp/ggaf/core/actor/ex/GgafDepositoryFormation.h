@@ -70,9 +70,9 @@ public:
     /**
      * メンバーが残っていれば解放します。
      * 継承してオーバーライドする場合は、処理内で
-     * GgafDepositoryFormation::onGarbaged() を呼び出して下さい。
+     * GgafDepositoryFormation::onEnded() を呼び出して下さい。
      */
-    virtual void onGarbaged() override;
+    virtual void onEnded() override;
 
     virtual void sayonaraFollwer();
 

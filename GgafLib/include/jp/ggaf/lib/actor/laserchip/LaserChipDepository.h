@@ -93,7 +93,7 @@ public:
 
     /**
      * リセット時の処理 .
-     * メンバーを全てinactivateImmediately()します。
+     * メンバーを全てinactivateImmed()します。
      */
     virtual void onReset() override;
 

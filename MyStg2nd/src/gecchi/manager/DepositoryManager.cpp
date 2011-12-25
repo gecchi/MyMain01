@@ -179,11 +179,11 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
                 stringstream name;
                 name <<  "EneWateringLaser001["<<set<<"]["<<n<<"]";
                 pChip = NEW EnemyWateringLaserChip001(name.str().c_str());
-                pChip->inactivateImmediately();
+                pChip->inactivateImmed();
                 pLaserChipDepo->addSubLast(pChip);
                 if (n % 20 == 0) { Sleep(1); }
             }
-            pLaserChipDepo->inactivateImmediately();
+            pLaserChipDepo->inactivateImmed();
             pResource->addSubLast(pLaserChipDepo);
 
         }

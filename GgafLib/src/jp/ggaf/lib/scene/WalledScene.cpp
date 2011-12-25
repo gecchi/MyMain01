@@ -34,7 +34,7 @@ void WalledScene::buildWalledScene(
     for (int i = 0; i < prm_section_num; i++) {
         addSubLast(prm_papSection[i]);
         prm_papSection[i]->config(_pDepo_WallAAB, _pDepo_WallAAPrism, prm_wall_dep, prm_wall_width, prm_wall_height);
-        prm_papSection[i]->inactivateImmediately();
+        prm_papSection[i]->inactivateImmed();
         _pRingSection->addLast(prm_papSection[i], false);
     }
     // 0b 00abcdef

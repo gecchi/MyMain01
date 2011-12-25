@@ -83,7 +83,7 @@ MyOptionController::MyOptionController(const char* prm_name) :
     addSubGroup(_papMyOption[7]);
 
     for (int i = 0; i < _max_option_num; i++) {
-        _papMyOption[i]->inactivateImmediately();
+        _papMyOption[i]->inactivateImmed();
     }
 
 
@@ -231,7 +231,7 @@ void MyOptionController::processBehavior() {
         _papMyOption[0]->_pModel->_pTextureBlinker->forceBlinkRange(0.01, 0.1, 3.0);
         _papMyOption[0]->_pModel->_pTextureBlinker->beat(30,10,2,-1);
     } else if (VB_PLAY->isReleasedUp(VB_OPTION)) {
-        _papMyOption[0]->_pModel->_pTextureBlinker->stopImmediately();
+        _papMyOption[0]->_pModel->_pTextureBlinker->stopImmed();
         _papMyOption[0]->_pModel->_pTextureBlinker->setBlink(1.0f);
     }
 

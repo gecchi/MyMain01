@@ -38,7 +38,7 @@ SpeedMagic::SpeedMagic(const char* prm_name, AmountGraph* prm_pMP)
     _lvinfo[5]._pno = 44;
 
     _pEffect = NEW EffectSpeedMagic("EffectSpeedMagic");
-    _pEffect->inactivateImmediately();
+    _pEffect->inactivateImmed();
     addSubGroup(_pEffect);
 }
 void SpeedMagic::processCastBegin(int prm_now_level, int prm_new_level) {

@@ -22,7 +22,7 @@ void GgafActorDepository::addSubLast(GgafActor* prm_pSub) {
         }
     }
     prm_pSub->_pDependenceDepository = this;
-    prm_pSub->inactivateImmediately(); //‹­§”ñŠˆ“®‚É
+    prm_pSub->inactivateImmed(); //‹­§”ñŠˆ“®‚É
     GgafDummyActor::addSubLast(prm_pSub);
 }
 

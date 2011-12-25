@@ -25,7 +25,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
     _pStageMainCannel = NULL;
 
     _pTransitStage = NEW TransitStage("TransitStage");
-    _pTransitStage->inactivateImmediately();
+    _pTransitStage->inactivateImmed();
     addSubLast(_pTransitStage);
 
     useProgress(STAGECONTROLLER_PROG_FINISH);
@@ -38,7 +38,7 @@ void StageController::onReset() {
     }
     //共通シーン、自機シーンを配下に引っ張ってくる
     P_COMMON_SCENE->resetTree();
-    P_COMMON_SCENE->activateImmediately();
+    P_COMMON_SCENE->activateImmed();
     addSubLast(P_COMMON_SCENE->extract());
     _pProg->set(STAGECONTROLLER_PROG_INIT);
 }

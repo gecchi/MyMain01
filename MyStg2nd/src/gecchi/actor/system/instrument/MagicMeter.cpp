@@ -142,7 +142,7 @@ void MagicMeter::processBehavior() {
         if (VB_PLAY->isAutoRepeat(VB_RIGHT)) {    //「→」押下時
             //レベル表示
             if (_paCursorLv[i] != pActiveMagic->_level) {
-                _pSeTransmitter->playImmediately(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                _pSeTransmitter->playImmed(SE_CURSOR_MOVE_LEVEL_CANCEL);
             }
             if (MAGIC_STATE_CASTING <= prg && prg <=  MAGIC_STATE_INVOKING) {
                 //詠唱～発動中は、アクティブレベルに戻さない
@@ -154,13 +154,13 @@ void MagicMeter::processBehavior() {
             //メータ表示
             _ringMagics.next(); //メーターを１つ進める
             _ringMagics.getCurrent()->rollOpen();
-            _pSeTransmitter->playImmediately(SE_CURSOR_MOVE_METER);
+            _pSeTransmitter->playImmed(SE_CURSOR_MOVE_METER);
             _pMagicCursor->moveTo(_ringMagics.indexOf(_ringMagics.getCurrent())); //メーターカーソルも１つ進める
 
         } else if (VB_PLAY->isAutoRepeat(VB_LEFT)) { //「←」押下時
             //レベル表示
             if (_paCursorLv[i] != pActiveMagic->_level) {
-                _pSeTransmitter->playImmediately(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                _pSeTransmitter->playImmed(SE_CURSOR_MOVE_LEVEL_CANCEL);
             }
             if (MAGIC_STATE_CASTING <= prg && prg <=  MAGIC_STATE_INVOKING) {
                 //詠唱～発動中は、アクティブレベルに戻さない
@@ -172,29 +172,29 @@ void MagicMeter::processBehavior() {
             //メータ表示
             _ringMagics.prev(); //メーターを１つ戻す
             _ringMagics.getCurrent()->rollOpen();
-            _pSeTransmitter->playImmediately(SE_CURSOR_MOVE_METER);
+            _pSeTransmitter->playImmed(SE_CURSOR_MOVE_METER);
             _pMagicCursor->moveTo(_ringMagics.indexOf(_ringMagics.getCurrent())); //メーターカーソルも１つ戻す
 
         } else if (VB_PLAY->isAutoRepeat(VB_UP)) {  // 「↑」押下時
             if (pActiveMagic->_max_level > _paCursorLv[i] ) {
                 if (prg != MAGIC_STATE_INVOKING) { //但し発動中は操作不可
-                    _pSeTransmitter->playImmediately(SE_CURSOR_MOVE_LEVEL);
+                    _pSeTransmitter->playImmed(SE_CURSOR_MOVE_LEVEL);
                     _paCursorLv[i] ++;
                     _papLvCursor[i]->moveToLv(_paCursorLv[i]);
                 } else {
-                    _pSeTransmitter->playImmediately(SE_CURSOR_BAD_MOVE); //ブッブーサウンド
+                    _pSeTransmitter->playImmed(SE_CURSOR_BAD_MOVE); //ブッブーサウンド
                 }
             }
 
         } else if (VB_PLAY->isAutoRepeat(VB_DOWN) && prg != MAGIC_STATE_INVOKING) {  //「↓」押下時
             if (prg != MAGIC_STATE_INVOKING) { //但し発動中は操作不可
                 if (0 < _paCursorLv[i]) {
-                    _pSeTransmitter->playImmediately(SE_CURSOR_MOVE_LEVEL);
+                    _pSeTransmitter->playImmed(SE_CURSOR_MOVE_LEVEL);
                     _paCursorLv[i] --;
                     _papLvCursor[i]->moveToLv(_paCursorLv[i]);
                 }
             } else {
-                _pSeTransmitter->playImmediately(SE_CURSOR_BAD_MOVE); //ブッブーサウンド
+                _pSeTransmitter->playImmed(SE_CURSOR_BAD_MOVE); //ブッブーサウンド
             }
         }
 
@@ -204,11 +204,11 @@ void MagicMeter::processBehavior() {
         progress prg = pActiveMagic->_pProg->get();
         int i = _ringMagics.indexOf(pActiveMagic);
         if (pActiveMagic->_level < _paCursorLv[i]) {
-            _pSeTransmitter->playImmediately(SE_EXECUTE_LEVELUP_MAGIC);
+            _pSeTransmitter->playImmed(SE_EXECUTE_LEVELUP_MAGIC);
             pActiveMagic->cast(_paCursorLv[i]); //レベルアップ魔法実行！
             _papLvCursor[i]->beginBlinking(); //ピカピカ！
         } else if (pActiveMagic->_level > _paCursorLv[i]) {
-            _pSeTransmitter->playImmediately(SE_EXECUTE_LEVELDOWN_MAGIC);
+            _pSeTransmitter->playImmed(SE_EXECUTE_LEVELDOWN_MAGIC);
             pActiveMagic->cast(_paCursorLv[i]);  //レベルダウン魔法実行！
             _papLvCursor[i]->beginBlinking(); //ピカピカ！
         } else if (pActiveMagic->_level == _paCursorLv[i]) {

@@ -18,7 +18,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOpti
         name <<  "MYOPTION"<<(_pMyOptionTorpedoController->_pMyOption->_no)<<"'s Torpedo's TailEffect["<<i<<"]";
         MyTorpedoTail* pChip = NEW MyTorpedoTail(name.str().c_str(), this);
 
-        pChip->inactivateImmediately();
+        pChip->inactivateImmed();
         _pTailEffectDepository->addSubLast(pChip);
     }
     addSubGroup(_pTailEffectDepository);

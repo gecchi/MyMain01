@@ -18,14 +18,14 @@ _pMyShip(NULL),
 _pMyOptionController(NULL) {
     _class_name = "MyShipScene";
     _pMyShip = NEW MyShip("MYSHIP");
-    _pMyShip->inactivateImmediately(); //配下に仮登録のアクター発送者とかあるし
+    _pMyShip->inactivateImmed(); //配下に仮登録のアクター発送者とかあるし
     _pMyOptionController = NEW MyOptionController("MY_OPTION_PARENT");
     getDirector()->addSubLast(_pMyOptionController);
 
     getDirector()->addSubGroup(KIND_MY_BODY_NOMAL, _pMyShip);
 
     _pEffectMyShipExplosion = NEW EffectMyShipExplosion("EffectMyShipExplosion");
-    _pEffectMyShipExplosion->inactivateImmediately();
+    _pEffectMyShipExplosion->inactivateImmed();
     getDirector()->addSubGroup(_pEffectMyShipExplosion);
     _pVamSysCamWorker = NULL;
 //    _pCon_VamSysCamWorker = connectCameraWorkerManager("VamSysCamWorker");

@@ -26,7 +26,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
         EnemyCeresShot001* pCeresShot001;
         for (int i = 0; i < 32; i++) {
             pCeresShot001 = NEW EnemyCeresShot001("EnemyMeshShot");
-            pCeresShot001->inactivateTreeImmediately(); //Å‰”ñ•\Ž¦
+            pCeresShot001->inactivateTreeImmed(); //Å‰”ñ•\Ž¦
             _pDepo_EnemyCeresShots001->addSubLast(pCeresShot001);
         }
         addSubGroup(_pDepo_EnemyCeresShots001);

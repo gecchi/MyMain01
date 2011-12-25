@@ -126,7 +126,7 @@ public:
     /**
      * 点滅を停止させる。.
      */
-    void stopImmediately();
+    void stopImmed();
 
     /**
      * 片道等速点灯（全軸・持続フレーム数指定） .

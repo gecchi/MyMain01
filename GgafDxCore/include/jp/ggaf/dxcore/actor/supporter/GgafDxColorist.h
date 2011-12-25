@@ -164,12 +164,12 @@ public:
     /**
      * スケーリングを停止させる。 （全色要素指定） .
      */
-    void stopImmediately();
+    void stopImmed();
     /**
      * スケーリングを停止させる。 （色要素単位で指定）.
      * @param prm_c
      */
-    void stopImmediately(int prm_c);
+    void stopImmed(int prm_c);
 
     /**
      * 片道等速スケーリング（全色要素・持続フレーム数指定） .

@@ -63,7 +63,7 @@ bool MenuBoardPause::condCursorCancel() {
 }
 void MenuBoardPause::moveCursor() {
     DefaultBoardSetMenu::moveCursor();
-    _pSeTransmitter->playImmediately(0);
+    _pSeTransmitter->playImmed(0);
 }
 
 void MenuBoardPause::initialize() {
@@ -73,12 +73,15 @@ void MenuBoardPause::onReset() {
 }
 
 void MenuBoardPause::onActive() {
+	_X = 0;
+	_Y = 0;
 }
 
 void MenuBoardPause::processBehavior() {
     DefaultBoardSetMenu::processBehavior();
+	_X += PX2CO(2);
+	_Y += PX2CO(1);
 }
-
 
 void MenuBoardPause::processJudgement() {
 }

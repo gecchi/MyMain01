@@ -110,7 +110,7 @@ public:
     /**
      * フェーディングを停止させる。
      */
-    void stopImmediately() {
+    void stopImmed() {
         _method = NO_ALPHAFADE;
     }
 
@@ -118,12 +118,12 @@ public:
      * 状態をリセットする .
      * 例えば beat() 中、途中で元に戻したい場合等に使用する。
      * 内部的には、次のように実行するだけです。
-     * stopImmediately()
+     * stopImmed()
      * setAlphaToTop()
      * behave()
      */
     void reset() {
-        stopImmediately();
+        stopImmed();
         setAlphaToTop();
         behave();
     }

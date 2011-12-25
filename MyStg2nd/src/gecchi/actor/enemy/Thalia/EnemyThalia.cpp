@@ -32,7 +32,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
         name <<  "EnemyStraightLaserChip001[" << i << "]";
         pChip = NEW EnemyStraightLaserChip001(name.str().c_str());
         pChip->setSource(this); //ˆÊ’uŒü‚«“¯Šú
-        pChip->inactivateImmediately();
+        pChip->inactivateImmed();
         _pLaserChipDepo->addSubLast(pChip);
     }
     addSubGroup(_pLaserChipDepo);

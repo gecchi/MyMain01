@@ -110,7 +110,7 @@ public:
      * モーフィングを停止する
      * @param prm_target_mesh モーフィング中のモーフターゲットメッシュNO
      */
-    void stopImmediately(int prm_target_mesh);
+    void stopImmed(int prm_target_mesh);
 
     /**
      * モーフターゲットへ一定速度でモーフィングする（フレーム数指定） .

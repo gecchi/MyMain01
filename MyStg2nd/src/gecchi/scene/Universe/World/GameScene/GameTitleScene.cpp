@@ -31,7 +31,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     for (int i = 0; i < _max_menu_item; i++) {
         _papStringItem[i] = NEW LabelGecchi16Font("menu_item");
         _papStringItem[i]->_Z = 1;
-        _papStringItem[i]->inactivateImmediately();
+        _papStringItem[i]->inactivateImmed();
         getDirector()->addSubGroup(_papStringItem[i]);
     }
     _papStringItem[0]->update("GAME START", ALIGN_LEFT, VALIGN_MIDDLE);
@@ -41,7 +41,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 
     _pCursor001= NEW Cursor001("Cursor001");
     _pCursor001->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    _pCursor001->inactivateImmediately();
+    _pCursor001->inactivateImmed();
     getDirector()->addSubGroup(_pCursor001);
 
     _pSeCon_exec = connectSeManager("yume_Sbend");

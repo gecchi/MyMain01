@@ -40,13 +40,13 @@ GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
         _papMenuItemLabel[i] = NEW LabelGecchi16Font("menu_item");
         _papMenuItemLabel[i]->_Z = 1;
         _papMenuItemLabel[i]->update(item[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        _papMenuItemLabel[i]->inactivateImmediately();
+        _papMenuItemLabel[i]->inactivateImmed();
         getDirector()->addSubGroup(_papMenuItemLabel[i]);
     }
 
     _pCursor001= NEW Cursor001("Cursor001");
     _pCursor001->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    _pCursor001->inactivateImmediately();
+    _pCursor001->inactivateImmed();
     getDirector()->addSubGroup(_pCursor001);
 
     _pSeCon_exec = connectSeManager("click07_2");
@@ -55,14 +55,14 @@ GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 void GamePauseScene::onReset() {
     _TRACE_("GamePauseScene::onReset()");
-    _pMsgLabel01->inactivateImmediately();
-    _pMsgLabel02->inactivateImmediately();
+    _pMsgLabel01->inactivateImmed();
+    _pMsgLabel02->inactivateImmed();
     for (int i = 0; i < _max_menu_item; i++) {
         _papMenuItemLabel[i]->_pKurokoA->setMvVelo(0);
-        _papMenuItemLabel[i]->inactivateImmediately();
+        _papMenuItemLabel[i]->inactivateImmed();
     }
     _pCursor001->_pKurokoA->setMvVelo(0);
-    _pCursor001->inactivateImmediately();
+    _pCursor001->inactivateImmed();
     _pProg->set(GAMEPAUSESCENE_PROG_INIT);
 }
 

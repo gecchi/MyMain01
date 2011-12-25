@@ -9,7 +9,7 @@ FormationCeres001::FormationCeres001(const char* prm_name) : TreeFormation(prm_n
     _class_name = "FormationCeres001";
     for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
         _pEnemyCeres[i] = NEW EnemyCeres("Ceres01");
-        _pEnemyCeres[i]->inactivateImmediately();
+        _pEnemyCeres[i]->inactivateImmed();
         addSubLast(_pEnemyCeres[i] );
     }
 }

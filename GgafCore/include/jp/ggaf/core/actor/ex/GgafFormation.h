@@ -52,9 +52,9 @@ public:
     /**
      * メンバーが残っていれば解放します。
      * 継承してオーバーライドする場合は、処理内で
-     * GgafFormation::onGarbaged() を呼び出して下さい。
+     * GgafFormation::onEnded() を呼び出して下さい。
      */
-    virtual void onGarbaged() override;
+    virtual void onEnded() override;
 
     virtual ~GgafFormation();
 };

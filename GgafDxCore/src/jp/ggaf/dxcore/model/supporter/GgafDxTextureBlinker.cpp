@@ -178,7 +178,7 @@ void GgafDxTextureBlinker::beat(frame prm_beat_target_frames, frame prm_attack_f
     }
 }
 
-void GgafDxTextureBlinker::stopImmediately() {
+void GgafDxTextureBlinker::stopImmed() {
     _method = NOBLINK;
 }
 

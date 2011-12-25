@@ -140,14 +140,14 @@ void GgafScene::activate() {
     _pDirector->activate();
 }
 
-void GgafScene::activateTreeImmediately() {
-    GgafElement<GgafScene>::activateTreeImmediately();
-    _pDirector->activateTreeImmediately();
+void GgafScene::activateTreeImmed() {
+    GgafElement<GgafScene>::activateTreeImmed();
+    _pDirector->activateTreeImmed();
 }
 
-void GgafScene::activateImmediately() {
-    GgafElement<GgafScene>::activateImmediately();
-    _pDirector->activateImmediately();
+void GgafScene::activateImmed() {
+    GgafElement<GgafScene>::activateImmed();
+    _pDirector->activateImmed();
 }
 
 void GgafScene::inactivateTree() {
@@ -165,14 +165,14 @@ void GgafScene::inactivate() {
     _pDirector->inactivate();
 }
 
-void GgafScene::inactivateTreeImmediately() {
-    GgafElement<GgafScene>::inactivateTreeImmediately();
-    _pDirector->inactivateTreeImmediately();
+void GgafScene::inactivateTreeImmed() {
+    GgafElement<GgafScene>::inactivateTreeImmed();
+    _pDirector->inactivateTreeImmed();
 }
 
-void GgafScene::inactivateImmediately() {
-    GgafElement<GgafScene>::inactivateImmediately();
-    _pDirector->inactivateImmediately();
+void GgafScene::inactivateImmed() {
+    GgafElement<GgafScene>::inactivateImmed();
+    _pDirector->inactivateImmed();
 }
 
 void GgafScene::pauseTree() {
@@ -185,14 +185,14 @@ void GgafScene::pause() {
     _pDirector->pause();
 }
 
-void GgafScene::pauseTreeImmediately() {
-    GgafElement<GgafScene>::pauseTreeImmediately();
-    _pDirector->pauseTreeImmediately();
+void GgafScene::pauseTreeImmed() {
+    GgafElement<GgafScene>::pauseTreeImmed();
+    _pDirector->pauseTreeImmed();
 }
 
-void GgafScene::pauseImmediately() {
-    GgafElement<GgafScene>::pauseImmediately();
-    _pDirector->pauseImmediately();
+void GgafScene::pauseImmed() {
+    GgafElement<GgafScene>::pauseImmed();
+    _pDirector->pauseImmed();
 }
 
 void GgafScene::unpauseTree() {
@@ -205,14 +205,14 @@ void GgafScene::unpause() {
     _pDirector->unpause();
 }
 
-void GgafScene::unpauseTreeImmediately() {
-    GgafElement<GgafScene>::unpauseTreeImmediately();
-    _pDirector->unpauseTreeImmediately();
+void GgafScene::unpauseTreeImmed() {
+    GgafElement<GgafScene>::unpauseTreeImmed();
+    _pDirector->unpauseTreeImmed();
 }
 
-void GgafScene::unpauseImmediately() {
-    GgafElement<GgafScene>::unpauseImmediately();
-    _pDirector->unpauseImmediately();
+void GgafScene::unpauseImmed() {
+    GgafElement<GgafScene>::unpauseImmed();
+    _pDirector->unpauseImmed();
 }
 
 void GgafScene::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {

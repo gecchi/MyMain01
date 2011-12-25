@@ -22,8 +22,8 @@ void GgafFormation::destroyedFollower(GgafActor* prm_pActor_Destroyed) {
         onDestroyedAll(prm_pActor_Destroyed);
     }
 }
-void GgafFormation::onGarbaged() {
-    GgafActor::onGarbaged();
+void GgafFormation::onEnded() {
+    GgafActor::onEnded();
 }
 
 

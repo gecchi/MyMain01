@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 EffectTurbo001::EffectTurbo001(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Turbo001", NULL) {
     _class_name = "EffectTurbo001";
-    inactivateImmediately();
+    inactivateImmed();
     changeEffectTechnique("DestBlendOne"); //加算合成
     defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し

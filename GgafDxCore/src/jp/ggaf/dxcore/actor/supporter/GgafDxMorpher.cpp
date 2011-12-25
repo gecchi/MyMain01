@@ -148,7 +148,7 @@ void GgafDxMorpher::beat(int prm_target_mesh, frame prm_beat_target_frames, fram
         _beat_progres[prm_target_mesh] = 1;
     }
 }
-void GgafDxMorpher::stopImmediately(int prm_target_mesh) {
+void GgafDxMorpher::stopImmed(int prm_target_mesh) {
     _method[prm_target_mesh] = NOMORPH;
 }
 

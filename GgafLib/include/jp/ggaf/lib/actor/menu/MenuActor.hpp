@@ -99,7 +99,7 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _X_cursor_target_begin = T::_X;
     _Y_cursor_target_begin = T::_Y;
     _Z_cursor_target_begin = T::_Z;
-    T::inactivateImmediately();
+    T::inactivateImmed();
 }
 
 
@@ -110,7 +110,7 @@ void MenuActor<T>::addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
     prm_pItem->_Y_local = prm_Y_local;
     prm_pItem->_Z_local = prm_Z_local;
     prm_pItem->_fAlpha = T::_fAlpha; //半透明αを共有させる。
-    prm_pItem->inactivateImmediately();
+    prm_pItem->inactivateImmed();
 
     _lstItems.addLast(prm_pItem);
     T::addSubLast(prm_pItem);
@@ -126,7 +126,7 @@ void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
     T::addSubLast(prm_pCursor);
 
     _pCursor->_fAlpha = T::_fAlpha;
-    _pCursor->inactivateImmediately();
+    _pCursor->inactivateImmed();
 }
 
 template<class T>
@@ -267,7 +267,7 @@ void MenuActor<T>::processBehavior() {
     }
     _pCursor->_pKurokoA->behave();
 
-    //メニューアイテム
+    //メニューアイテムをメニューに追従
     GgafDxCore::GgafDxDrawableActor* pItem;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
     for (int i = 0; i < _lstItems.length(); i++) {
@@ -279,12 +279,15 @@ void MenuActor<T>::processBehavior() {
         pElem = pElem->_pNext;
     }
 
-    //カーソル
+    //カーソルをメニューアイテムに追従
     GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
     if (_pCursor->_pKurokoA->isMoveingSmooth()) {
         _pCursor->_X += (pTargetItem->_X - _X_cursor_target_begin);
         _pCursor->_Y += (pTargetItem->_Y - _Y_cursor_target_begin);
         _pCursor->_Z += (pTargetItem->_Z - _Z_cursor_target_begin);
+        _X_cursor_target_begin = pTargetItem->_X;
+        _Y_cursor_target_begin = pTargetItem->_Y;
+        _Z_cursor_target_begin = pTargetItem->_Z;
     } else {
         _pCursor->locateAs(pTargetItem);
     }

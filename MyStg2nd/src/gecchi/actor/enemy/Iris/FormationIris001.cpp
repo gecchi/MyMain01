@@ -19,7 +19,7 @@ FormationIris001::FormationIris001(const char* prm_name) : TreeFormation(prm_nam
         //スプライン移動プログラム設定
         SplineSequence* pProgram = NEW FixedVelocitySplineSequence(_papIris[i]->_pKurokoA, _pSplLineCon->use(), 10000); //移動速度固定
         _papIris[i]->config(pProgram, _pDepoCon->use(), NULL);
-        _papIris[i]->inactivateImmediately();
+        _papIris[i]->inactivateImmed();
         addSubLast(_papIris[i]);
     }
 }

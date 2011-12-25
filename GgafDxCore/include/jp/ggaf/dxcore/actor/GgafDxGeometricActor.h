@@ -399,7 +399,7 @@ public:
         _rate_BoundingSphereRadius = prm_rate;
     }
 
-    virtual void onGarbaged() override;
+    virtual void onEnded() override;
 
     /**
      * デストラクタ

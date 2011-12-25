@@ -93,7 +93,7 @@ public:
 
     /**
      * 現テーブルに敵編隊要素追加 .
-     * 要素追加時、敵編隊アクターは非活動状態(inactivateImmediately())にさせられます。<BR>
+     * 要素追加時、敵編隊アクターは非活動状態(inactivateImmed())にさせられます。<BR>
      * 要素追加してから activate() は、しないでください。<BR>
      * @param prm_pFormationActor 敵編隊アクター
      * @param prm_max_delay_offset 次の敵出現までの、最大待ちフレーム数

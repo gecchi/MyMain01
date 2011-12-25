@@ -80,7 +80,7 @@ void GameMainScene::processBehavior() {
             _TRACE_("GameMainScene::processBehavior() Prog(=GAMEMAINSCENE_PROG_INIT)");
             addSubLast(P_STAGE_WORLD->extract());
             P_STAGE_WORLD->resetTree();
-            P_STAGE_WORLD->activateImmediately();
+            P_STAGE_WORLD->activateImmed();
             _pProg->change(GAMEMAINSCENE_PROG_BEGIN);
             break;
         }

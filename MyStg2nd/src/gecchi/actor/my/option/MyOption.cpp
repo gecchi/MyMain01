@@ -38,12 +38,12 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _ang_veloExpanseSlow = 1000;
 
     _pEffect = NEW EffectMyOption("EffectMyOption", this);
-//    _pEffect->inactivateImmediately();
+//    _pEffect->inactivateImmed();
     addSubGroup(_pEffect);
 
     //レーザー発射エフェクト
 //    _pEffect_LaserIrradiate = NEW EffectLockon001_Main("OP_Eff_Ref");
-//    _pEffect_LaserIrradiate->inactivateImmediately();
+//    _pEffect_LaserIrradiate->inactivateImmed();
 //    addSubGroup(_pEffect_LaserIrradiate);
     _pEffect_LaserIrradiate = NULL;
     _pLaserChipDepo = NEW LaserChipDepository("ROTLaser");
@@ -73,7 +73,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
-        pShot->inactivateImmediately();
+        pShot->inactivateImmed();
         _pDepo_MyShots001->addSubLast(pShot);
     }
     addSubGroup(_pDepo_MyShots001);

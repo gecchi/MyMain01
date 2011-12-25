@@ -22,7 +22,7 @@ FormationPallas001::FormationPallas001(const char* prm_name) :
         pSplSeq = _pSplManufCon->use()->createSplineSequence(_papPallas[i]->_pKurokoA);
         _papPallas[i]->config(pSplSeq, NULL, NULL);
         //_papPallas[i]->setDepository_Shot(_pDepoCon->use()); //’eÝ’è
-        _papPallas[i]->inactivateImmediately();
+        _papPallas[i]->inactivateImmed();
         addSubLast(_papPallas[i]);
     }
 }

@@ -39,7 +39,7 @@ void RankUp100::processBehavior() {
         }
         case STAGE_PROG_BEGIN: {
             if (_pProg->getFrameInProgress() == 180) { //ƒXƒe[ƒW‚PŠJŽnI
-                _pMessage->activateImmediately();
+                _pMessage->activateImmed();
                 _pWorldBoundSpace->activateTree();    //”wŒiON
                 _pHoshiBoshi->activateTree();    //”wŒiON
                 fadeinSceneTree(360);
@@ -62,7 +62,7 @@ void RankUp100::processBehavior() {
             }
 
             if (_pProg->getFrameInProgress() == 60) {
-                _pMessage->activateImmediately();
+                _pMessage->activateImmed();
                 _pMessage->update(PX2CO(300), PX2CO(300), "SCENE 01 CLEAR!!");
                 _pMessage->inactivateDelay(120);
                 fadeoutScene(300);
