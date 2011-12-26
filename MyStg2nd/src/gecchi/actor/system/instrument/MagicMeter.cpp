@@ -112,7 +112,7 @@ void MagicMeter::save(stringstream& sts) {
 
 void MagicMeter::load(stringstream& sts) {
     int mp;
-    sts << mp << " ";
+    sts >> mp;
     _mp.set(mp);
 
     Magic* pOrgMagic = _ringMagics.getCurrent();

@@ -33,9 +33,11 @@ _pStageWorld(NULL) {
     _pStageWorld->inactivateImmed();
     addSubLast(_pStageWorld);
 
-    _pGamePauseScene = new GamePauseScene("GamePauseScene");
-    _pGamePauseScene->inactivateImmed();
-    addSubLast(_pGamePauseScene);
+//    _pGamePauseScene = new GamePauseScene("GamePauseScene");
+//    _pGamePauseScene->inactivateImmed();
+//    addSubLast(_pGamePauseScene);
+    _pMenuBoardPause = NEW MenuBoardPause("MenuBoardPause");
+    getDirector()->addSubGroup(_pMenuBoardPause);
 
     addSubLast(NEW GamePreTitleScene("PreGameTitle"));
     addSubLast(NEW GameTitleScene("GameTitle"));
@@ -109,7 +111,7 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_INIT: {
 //            _TRACE_("GameScene::processBehavior() Prog(=GAMESCENE_PROG_INIT) is Just Changed");
             //P_GOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
-			if ((_pProg->getFrameInProgress() >= 180 && P_GOD->_fps > CFG_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) || GgafDxInput::isPushedDownKey(DIK_P)) {
+            if ((_pProg->getFrameInProgress() >= 180 && P_GOD->_fps > CFG_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) || GgafDxInput::isPushedDownKey(DIK_P)) {
                 _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
                 _pProg->changeWithScene_Crossfading(GAMESCENE_PROG_PRE_TITLE);
             }
@@ -188,8 +190,9 @@ void GameScene::processBehavior() {
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
                     _pProg->getGazeScene()->pauseTree(); //ポーズ！！
-                    _pGamePauseScene->reset();
-                    _pGamePauseScene->activate();
+                    _pMenuBoardPause->rise();
+//                    _pGamePauseScene->reset();
+//                    _pGamePauseScene->activate();
                 }
             }
             //今ポーズ時
@@ -207,13 +210,16 @@ void GameScene::processBehavior() {
 
                 //
 
-                if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+//                if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+
+                  if (_pMenuBoardPause->isJustSink() || _is_frame_advance) {
                     //ポーズ時に、ポーズキーを押して離した場合の処理
                     //ポーズ解除時直後の初期処理はココへ
                     _TRACE_("UNPAUSE!");
                     P_GOD->setVB(VB_PLAY);
                     _pProg->getGazeScene()->unpauseTree();//ポーズ解除！！
-                    _pGamePauseScene->inactivate();
+//                    _pMenuBoardPause->sink();
+//                    _pGamePauseScene->inactivate();
                 }
             }
             _was_paused_flg_GameMainScene_prev_frame = _pProg->getGazeScene()->_was_paused_flg;

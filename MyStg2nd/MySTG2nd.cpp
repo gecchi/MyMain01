@@ -5,7 +5,6 @@ using namespace std;
 
 #define MY_IDM_RESET_WINDOW_SIZE 10
 #define MY_IDM_ABOUT             11
-
 #define MAX_LOADSTRING 100
 // グローバル変数:
 HINSTANCE hInst; // 現在のインターフェイス

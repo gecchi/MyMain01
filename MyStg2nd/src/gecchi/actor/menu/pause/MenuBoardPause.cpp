@@ -4,9 +4,23 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
+enum {
+    PAUSE_MENU_ITEM_BACK_TO_GAME = 0 ,
+    PAUSE_MENU_ITEM_CONFIG,
+    PAUSE_MENU_ITEM_BACK_TO_TITLE,
+    PAUSE_MENU_ITEM_QUIT_GAME,
+    PAUSE_MENU_ITEM_DUMMY1,
+    PAUSE_MENU_ITEM_DUMMY2,
+    PAUSE_MENU_ITEM_DUMMY3,
+    PAUSE_MENU_ITEM_DUMMY4,
+    PAUSE_MENU_ITEM_DUMMY5,
+    PAUSE_MENU_ITEM_DUMMY6,
+    PAUSE_MENU_ITEM_DUMMY7,
+    PAUSE_MENU_ITEM_CANCEL
+};
 
 MenuBoardPause::MenuBoardPause(const char* prm_name) :
-        DefaultBoardSetMenu(prm_name, "TurboMeter") {
+        MenuBoard(prm_name, "TurboMeter") {
     _class_name = "MenuBoardPause";
     char* apItemStr[] = {
           "BACK TO GAME",   //0
@@ -22,7 +36,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
           "DUMMY5",         //8
           "DUMMY6",         //9
           "DUMMY7",         //10
-          "DUMMY8"          //11
+          "HOGEHOGE"        //11
     };
     for (int i = 0; i < 12; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("menuitem");
@@ -32,62 +46,49 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     relationItemExNext(0, 4);
     relationItemExNext(4, 8);
     relationItemExNext(8, 1);
+
     relationItemExNext(1, 5);
     relationItemExNext(5, 9);
-    relationItemExNext(9, 0);
+    relationItemExNext(9, 2);
+
+    relationItemExNext(2, 6);
+    relationItemExNext(6, 10);
+    relationItemExNext(10, 3);
+
+    relationItemExNext(3, 7);
+    relationItemExNext(7, 11);
+    relationItemExNext(11, 0);
+
+
+    relationItemCancel(PAUSE_MENU_ITEM_BACK_TO_GAME);
+
     CursorPauseMenu* pCursor = NEW CursorPauseMenu("CursorPauseMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    setCursor(pCursor, 8, 0.2, 0.7);
+    setCursor(pCursor);
+    config(30, 8, 0.2, 0.7);
+
     setSelectedItemIndex(0); //初期選択
-
-    locate(PX2CO(300),PX2CO(10));
-
-    _pSeTransmitter->useSe(2);
-    _pSeTransmitter->set(0, "click07_2"); //メーター移動
-    _pSeTransmitter->set(1, "SwingA@11"); //レベルダウン実行
+    setTargetLocate(PX2CO(300), PX2CO(10),  0, -PX2CO(100));
 }
-bool MenuBoardPause::condCursorNext() {
+bool MenuBoardPause::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
-bool MenuBoardPause::condCursorPrev() {
+bool MenuBoardPause::condMoveCursorPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
-bool MenuBoardPause::condCursorExNext() {
+bool MenuBoardPause::condMoveCursorExNext() {
     return VB->isAutoRepeat(VB_UI_RIGHT);
 }
-bool MenuBoardPause::condCursorExPrev() {
+bool MenuBoardPause::condMoveCursorExPrev() {
     return VB->isAutoRepeat(VB_UI_LEFT);
 }
-bool MenuBoardPause::condCursorCancel() {
-    return VB->isAutoRepeat(VB_UI_CANCEL);
-}
-void MenuBoardPause::moveCursor() {
-    DefaultBoardSetMenu::moveCursor();
-    _pSeTransmitter->playImmed(0);
-}
 
-void MenuBoardPause::initialize() {
+void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+    if (prm_item_index == PAUSE_MENU_ITEM_BACK_TO_GAME) {
+        sink();
+    } else if (prm_item_index == PAUSE_MENU_ITEM_QUIT_GAME) {
+        PostQuitMessage(0);
+    }
 }
-
-void MenuBoardPause::onReset() {
-}
-
-void MenuBoardPause::onActive() {
-	_X = 0;
-	_Y = 0;
-}
-
-void MenuBoardPause::processBehavior() {
-    DefaultBoardSetMenu::processBehavior();
-	_X += PX2CO(2);
-	_Y += PX2CO(1);
-}
-
-void MenuBoardPause::processJudgement() {
-}
-
-void MenuBoardPause::onInactive() {
-}
-
 MenuBoardPause::~MenuBoardPause() {
 }

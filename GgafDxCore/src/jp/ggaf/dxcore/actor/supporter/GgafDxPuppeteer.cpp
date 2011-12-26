@@ -9,7 +9,7 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
     _num_perform = 0;
     _paPerformances = NULL;
     _pAc = NULL;
-	//操り棒情報初期化
+    //操り棒情報初期化
     //左手の操り棒
     _aStick[GgafDxPuppeteerStick::LEFT_HAND]._no = 0;
     _aStick[GgafDxPuppeteerStick::LEFT_HAND]._pPerformance = NULL;
@@ -17,9 +17,9 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
     _aStick[GgafDxPuppeteerStick::RIGHT_HAND]._no = 1;
     _aStick[GgafDxPuppeteerStick::RIGHT_HAND]._pPerformance = NULL;
 
-	if (!_pModel->_pAcBase) {
-		throwGgafCriticalException("GgafDxPuppeteer::GgafDxPuppeteer アニメーションコントローラーが存在しません");
-	}
+    if (!_pModel->_pAcBase) {
+        throwGgafCriticalException("GgafDxPuppeteer::GgafDxPuppeteer アニメーションコントローラーが存在しません");
+    }
     HRESULT hr = _pModel->_pAcBase->CloneAnimationController(
                                         _pModel->_pAcBase->GetMaxNumAnimationOutputs(),
                                         _pModel->_pAcBase->GetMaxNumAnimationSets(),
@@ -30,13 +30,11 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
     _num_perform = _pAc->GetMaxNumAnimationSets();
     if (_pAc->GetMaxNumTracks() < 2) {
         throwGgafCriticalException("GgafDxPuppeteer::GgafDxPuppeteer()  アニメーショントラックが少なくとも2つ必要です。ご使用のビデオカードではトラック機能がありません。");
-		_paPerformances = NULL;
-		return;
+        _paPerformances = NULL;
+        return;
     }
     _TRACE_("_pAc->GetMaxNumTracks()="<<_pAc->GetMaxNumTracks());
     _TRACE_("_pAc->GetMaxNumAnimationSets()="<<_pAc->GetMaxNumAnimationSets());
-
-
     //int x = 'o'  ^0^  -~-  -0-  ~-~  +0+  0-0  *0*  0*0;
 
     //モーション情報初期化
@@ -87,9 +85,6 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
     //0秒進める（ことによって反映させる）。
     hr = _pAc->AdvanceTime(0,NULL);
     checkDxException(hr, D3D_OK, "失敗しました。");
-
-
-
 }
 
 void GgafDxPuppeteer::exchangPerformance() {
@@ -130,30 +125,30 @@ void GgafDxPuppeteer::play(GgafDxPuppeteerStick prm_handed,
                               GgafDxPuppeteerMethod prm_method ) {
     _aStick[prm_handed]._pPerformance = &(_paPerformances[prm_performance_no]);
     Performance* p = _aStick[prm_handed]._pPerformance;
-    p->_time_of_one_loop                   = p->_pAnimationSet->GetPeriod();
-//    p->_local_time                     = 0.0;
-    p->_target_loop                    = prm_loopnum;
-//    p->_loop                           = 0.0;
+    p->_time_of_one_loop = p->_pAnimationSet->GetPeriod();
+//    p->_local_time       = 0.0;
+    p->_target_loop      = prm_loopnum;
+//    p->_loop             = 0.0;
 
     if (prm_shift_speed_frames == 0) {
-        p->_speed                          = prm_target_speed;
-        p->_inc_speed                      = 0;
-        p->_is_shifting_speed              = false;
-        p->_target_speed                   = prm_target_speed;
+        p->_speed             = prm_target_speed;
+        p->_inc_speed         = 0;
+        p->_is_shifting_speed = false;
+        p->_target_speed      = prm_target_speed;
     } else {
-        p->_inc_speed                      = (prm_target_speed - p->_speed) / prm_shift_speed_frames;
-        p->_is_shifting_speed              = true;
-        p->_target_speed                   = prm_target_speed;
+        p->_inc_speed         = (prm_target_speed - p->_speed) / prm_shift_speed_frames;
+        p->_is_shifting_speed = true;
+        p->_target_speed      = prm_target_speed;
     }
     if (prm_shift_weight_frames == 0) {
-        p->_weight                         = prm_target_weight;
-        p->_inc_weight                     = 0;
-        p->_is_shifting_weight             = false;
-        p->_target_weight                  = prm_target_weight;
+        p->_weight             = prm_target_weight;
+        p->_inc_weight         = 0;
+        p->_is_shifting_weight = false;
+        p->_target_weight      = prm_target_weight;
     } else {
-        p->_inc_weight                     = (prm_target_weight - p->_weight) / prm_shift_weight_frames;
-        p->_is_shifting_weight             = true;
-        p->_target_weight                  = prm_target_weight;
+        p->_inc_weight         = (prm_target_weight - p->_weight) / prm_shift_weight_frames;
+        p->_is_shifting_weight = true;
+        p->_target_weight      = prm_target_weight;
     }
 
     //ローカル時間を単純化する。
@@ -236,8 +231,6 @@ void GgafDxPuppeteer::behave() {
                 _aStick[i]._pPerformance = NULL;
             }
         }
-
-
     }
 
 //    //シフト処理

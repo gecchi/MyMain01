@@ -144,7 +144,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
         if (_numPass >= 2) { //２パス目以降が存在
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() １パス目 EndPass() に失敗しました。");
-            for (int i = 1; i < _numPass; i++) {
+            for (UINT i = 1; i < _numPass; i++) {
                 hr = pID3DXEffect->BeginPass(i);
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() "<<i+1<<"パス目 BeginPass("<<i<<") に失敗しました。");
                 GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,

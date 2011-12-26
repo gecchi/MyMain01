@@ -27,7 +27,9 @@ class GameScene : public GgafLib::DefaultScene {
 public:
     CommonScene* _pCommonScene;
     MyShipScene* _pMyShipScene;
-    GamePauseScene* _pGamePauseScene;
+//    GamePauseScene* _pGamePauseScene;
+
+    MenuBoardPause* _pMenuBoardPause;
     /** GameMainAˆ½‚¢‚ÍADemo‚Ì”z‰º‚ÖˆÚ“®‚³‚ê‚é */
     StageWorld* _pStageWorld;
 
