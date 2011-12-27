@@ -1,20 +1,25 @@
-#ifndef MENUBOARDPAUSE_H_
-#define MENUBOARDPAUSE_H_
+#ifndef MENUBOARDCONFIRM_H_
+#define MENUBOARDCONFIRM_H_
+
+
+enum {
+    CONFIRM_MENU_ITEM_OK = 0 ,
+    CONFIRM_MENU_ITEM_CANCEL ,
+};
+
 
 namespace MyStg2nd {
 
 /**
- * ポーズ時メニュー .
+ * 確認メニュー .
  * @version 1.00
- * @since 2011/12/20
+ * @since 2011/12/27
  * @author Masatoshi Tsuge
  */
-class MenuBoardPause : public MenuBoard {
+class MenuBoardConfirm : public MenuBoard {
 
 public:
-    MenuBoardConfirm* _pConfirmMenu;
-
-    MenuBoardPause(const char* prm_name);
+    MenuBoardConfirm(const char* prm_name);
 
     bool condMoveCursorNext() override;
     bool condMoveCursorPrev() override;
@@ -22,12 +27,9 @@ public:
     bool condMoveCursorExPrev() override;
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
 
-
-    void processBehavior() override;
-
-    virtual ~MenuBoardPause();
+    virtual ~MenuBoardConfirm();
 };
 
 }
-#endif /*MENUBOARDPAUSE_H_*/
+#endif /*MENUBOARDCONFIRM_H_*/
 

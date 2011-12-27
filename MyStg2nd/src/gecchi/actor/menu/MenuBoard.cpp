@@ -109,8 +109,5 @@ void MenuBoard::onSunk() {
                );
 }
 
-void MenuBoard::onInactive() {
-}
-
 MenuBoard::~MenuBoard() {
 }

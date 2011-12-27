@@ -39,10 +39,15 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
           "HOGEHOGE"        //11
     };
     for (int i = 0; i < 12; i++) {
-        LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("menuitem");
+        LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addItem(pLabel, PX2CO(10+((i/4)*300)), PX2CO(100+((i%4)*40)), 0);
+        addSelectItem(pLabel, PX2CO(10+((i/4)*300)), PX2CO(100+((i%4)*40)));
     }
+
+    LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("message");
+    pMsg->update("PAUSE MENU !!!", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDispActor(pMsg, PX2CO(100), PX2CO(20));
+
     relationItemExNext(0, 4);
     relationItemExNext(4, 8);
     relationItemExNext(8, 1);
@@ -69,6 +74,9 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
 
     setSelectedItemIndex(0); //‰Šú‘I‘ð
     setTargetLocate(PX2CO(300), PX2CO(10),  0, -PX2CO(100));
+
+    _pConfirmMenu = NEW MenuBoardConfirm("confirm");
+    P_WORLD->getDirector()->addSubLast(_pConfirmMenu);
 }
 bool MenuBoardPause::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -83,11 +91,33 @@ bool MenuBoardPause::condMoveCursorExPrev() {
     return VB->isAutoRepeat(VB_UI_LEFT);
 }
 
+void MenuBoardPause::processBehavior() {
+    MenuBoard::processBehavior();
+    DefaultBoardSetMenu* pSub = getSubMenu();
+    if (pSub) {
+        if (pSub->isJustDecided()) {
+            if (pSub->getSelectedItemIndex() == CONFIRM_MENU_ITEM_OK) {
+                if (getSelectedItemIndex() == PAUSE_MENU_ITEM_QUIT_GAME) {
+                    PostQuitMessage(0);
+                } else {
+                    sinkSub();
+                }
+            } else if (pSub->getSelectedItemIndex() == CONFIRM_MENU_ITEM_CANCEL) {
+                sinkSub();
+            } else {
+                sinkSub();
+            }
+        } else {
+
+        }
+    }
+}
+
 void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == PAUSE_MENU_ITEM_BACK_TO_GAME) {
         sink();
     } else if (prm_item_index == PAUSE_MENU_ITEM_QUIT_GAME) {
-        PostQuitMessage(0);
+        riseSub(_pConfirmMenu);
     }
 }
 MenuBoardPause::~MenuBoardPause() {

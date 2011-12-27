@@ -4,7 +4,7 @@
 namespace MyStg2nd {
 
 /**
- * 標準メニューボード .
+ * 本アプリの標準メニューボード .
  * @version 1.00
  * @since 2011/12/26
  * @author Masatoshi Tsuge
@@ -40,8 +40,6 @@ public:
     void processJudgement() override;
 
     void onSunk() override;
-
-    void onInactive() override;
 
     virtual ~MenuBoard();
 };

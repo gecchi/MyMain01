@@ -427,8 +427,12 @@ class WallAAPrismTestActor;
 
 class VamSysCamPosition;
 class MenuBoard;
+class MenuBoardCofirm;
+class CursorCofirmMenu;
 class MenuBoardPause;
 class CursorPauseMenu;
+
+
 }
 
 #include "gecchi/GameGlobal.h"
@@ -665,6 +669,8 @@ class CursorPauseMenu;
 #include "gecchi/actor/_predrawer/WallAAPrismTestActor.h"
 
 #include "gecchi/actor/menu/MenuBoard.h"
+#include "gecchi/actor/menu/confirm/MenuBoardConfirm.h"
+#include "gecchi/actor/menu/confirm/CursorConfirmMenu.h"
 #include "gecchi/actor/menu/pause/MenuBoardPause.h"
 #include "gecchi/actor/menu/pause/CursorPauseMenu.h"
 

@@ -23,6 +23,7 @@ void myUnexpectedHandler();
 void myTerminateHandler();
 void resetWindowsize(HWND, int, int);
 
+
 /**
  * GNU GCC ならばエントリポイント
  */

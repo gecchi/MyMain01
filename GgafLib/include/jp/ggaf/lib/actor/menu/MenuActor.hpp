@@ -29,9 +29,20 @@ protected:
     /** フェードアウト中は true */
     bool _with_sinking;
     /** フェードインが開始した瞬間のフレームだけ true */
-    bool _is_just_with_rising;
+    bool _is_just_risen;
     /** フェードアウトが開始した瞬間のフレームだけ true */
-    bool _is_just_with_sinking;
+    bool _is_just_sunk;
+    /** 決定した瞬間のフレームだけ true */
+    bool _is_just_decided;
+
+    bool _will_be_rising_next_frame;
+
+    bool _will_be_sinking_next_frame;
+
+    bool _will_be_just_decide_next_frame;
+
+    bool _is_active_sub_menu;
+
     /**
      * _lstItems のアクティブ要素を next() へ移動させ、カーソルを移動 .
      */
@@ -63,6 +74,8 @@ public:
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _lstItems;
     /** [r]メニューカーソル */
     GgafDxCore::GgafDxDrawableActor* _pCursor;
+    /** [r]その他表示アイテムのリスト */
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _lstDispActors;
     /** [r/w]メニューフェイドイン・アウト時のアルファ速度 */
     float _velo_alpha_fade;
     /** [r]カーソルが、メニューアイテム間を移動する際に費やすスフレーム数 */
@@ -71,6 +84,7 @@ public:
     float _cursor_move_p1;
     /** [r]カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合 */
     float _cursor_move_p2;
+    MenuActor<T>* _pActiveSubMenu;
 
     /**
      * コンストラクタ .
@@ -80,14 +94,35 @@ public:
     MenuActor(const char* prm_name, const char* prm_model);
 
     /**
-     * メニューアイテムを追加する .
+     * メニューアイテム(選択可能)を追加する .
      * @param prm_pItem メニューアイテム
      * @param prm_X_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      * @param prm_Z_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Z座標
      */
-    virtual void addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
-                         coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
+    virtual void addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+                               coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
+
+    virtual void addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+                               coord prm_X_local, coord prm_Y_local) {
+        addSelectItem(prm_pItem, prm_X_local, prm_Y_local, T::_Z);
+    }
+
+    /**
+     * 表示用アクター(選択不可)を追加する .
+     * @param prm_pItem 表示用アイテム
+     * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
+     * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
+     * @param prm_Z_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Z座標
+     */
+    virtual void addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+                              coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
+
+    virtual void addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+                              coord prm_X_local, coord prm_Y_local) {
+        addDispActor(prm_pItem, prm_X_local, prm_Y_local, T::_Z);
+    }
+
     /**
      * メニューカーソルオブジェクトを設定する .
      * 【注意】<BR>
@@ -114,7 +149,7 @@ public:
 
     /**
      * メニューアイテム間のオーダー連結を拡張設定(自身がFrom ⇔ To) .
-     * addItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
+     * addSelectItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
      * 次、前、の線形オーダーが構築されている。<BR>
      * このメソッドはそれとは別にアイテム間の「次」、「前」、の関係を設定する。<BR>
      * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作にした場合に
@@ -128,7 +163,7 @@ public:
 
     /**
      * メニューアイテム間のオーダー連結を拡張設定(From ⇔ 自身がTo) .
-     * addItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
+     * addSelectItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
      * 次、前、の線形オーダーが構築されている。<BR>
      * このメソッドはそれとは別にアイテム間の「前」、「次」、の関係を設定する。<BR>
      * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作にした場合に
@@ -170,23 +205,25 @@ public:
      */
     virtual GgafDxCore::GgafDxDrawableActor* getSelectedItem();
 
+
+    virtual MenuActor<T>* getSubMenu();
     /**
      * カーソルが「次」へ移動する条件を実装する .
-     * 下位クラスでオーバーライドして、実装してください。
+     * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「次」へ移動の条件成立 / false:不成立
      */
     virtual bool condMoveCursorNext() = 0;
 
     /**
      * カーソルが「前」へ移動する条件を実装する .
-     * 下位クラスでオーバーライドして、実装してください。
+     * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「前」へ移動の条件成立 / false:不成立
      */
     virtual bool condMoveCursorPrev() = 0;
 
     /**
      * カーソルが「もう一つの別の次」へ移動する条件を実装する .
-     * 下位クラスでオーバーライドして、実装してください。
+     * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「もう一つの別の次」へ移動の条件成立 / false:不成立
      */
     virtual bool condMoveCursorExNext() = 0;
@@ -194,40 +231,48 @@ public:
 
     /**
      * カーソルが「もう一つの別の前」へ移動する条件を実装する .
-     * 下位クラスでオーバーライドして、実装してください。
+     * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「もう一つの別の前」へ移動の条件成立 / false:不成立
      */
     virtual bool condMoveCursorExPrev() = 0;
 
     /**
      * カーソルが「キャンセル」へ移動する条件を実装する .
-     * 下位クラスでオーバーライドして、実装してください。
+     * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「キャンセル」へ移動の条件成立 / false:不成立
      */
     virtual bool condMoveCursorCancel() = 0;
 
     /**
      * カーソル選択中のアイテムで決定であるという条件を実装する .
-     * 下位クラスでオーバーライドして、実装してください。
+     * 下位クラスでオーバーライドして、条件を実装してください。
      * @return 「決定」の条件成立 / false:不成立
      */
     virtual bool condDecision() = 0;
 
     /**
+     * メニューアイテムを選択し「決定」された場合に呼び出されるコールバック。
+     * 動作をオーバーライドして実装してください。<BR>
+     * @param prm_pItem 決定されたのアイテム
+     * @param prm_item_index 決定されたのアイテムのインデックス
+     */
+    virtual void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) = 0;
+
+    /**
      * カーソルを _lstItems のアクティブ要素へ移動させる .
      * カーソル移動時の効果音を鳴らす場合等は、オーバーライドして再定義してください。<BR>
-     * 但し、処理中に上位 moveCursor() を呼び出すのを忘れないように。<BR>
+     * 但し、その処理中に上位 moveCursor() を呼び出すのを忘れないように。<BR>
      */
     virtual void moveCursor();
 
-
-    virtual void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) = 0;
 
     /**
      * メニューを表示開始 .
      * 本オブジェクトを生成、タスクに追加後、表示させたいタイミングで実行してください。<BR>
      */
     void rise();
+
+    void riseSub(MenuActor<T>* prm_pSubMenu);
 
     /**
      * メニューを表示開始時の処理 .
@@ -247,14 +292,25 @@ public:
      */
     virtual void processRising();
 
+
+    virtual void nextFrame() override;
+
     /**
      * メニューの振る舞い .
      * カーソルの移動及び、アイテムとカーソルをメニューの母体座標に追従させる
      * 処理が実装済みです。<BR>
-     * メニューの振る舞いを追加する場合は、オーバーライドして、<BR>
-     * 処理中に上位 moveCursor() を呼び出すのを忘れないように。<BR>
+     * メニューの振る舞いを追加する場合は、オーバーライドして、
+     * 処理中に上位 processBehavior() を呼び出すのを忘れないように。<BR>
      */
     virtual void processBehavior() override;
+
+//    /**
+//     * フラグのリセット処理 .
+//     * 処理が実装済みです。<BR>
+//     * 下位で処理追加する場合は、オーバーライドして、
+//     * 処理中に上位 processFinal() を呼び出すのを忘れないように。<BR>
+//     */
+//    virtual void processFinal() override;
 
     /**
      * メニューを消去開始 .
@@ -262,8 +318,25 @@ public:
      */
     void sink();
 
+    void sinkSub();
+    /**
+     * rise()が実行された直後か否か .
+     * @return
+     */
+    bool isJustRise() {
+        return _is_just_risen;
+    }
+
+    /**
+     * sink()が実行された直後か否か .
+     * @return
+     */
     bool isJustSink() {
-        return _is_just_with_sinking;
+        return _is_just_sunk;
+    }
+
+    bool isJustDecided() {
+        return _is_just_decided;
     }
 
     /**
@@ -286,14 +359,13 @@ public:
     virtual void processSinking();
 
 
-
     virtual ~MenuActor();
 };
 
 
 template<class T>
 MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
-  T(prm_name, prm_model, NULL),_lstItems(3) { //枝を３つ
+  T(prm_name, prm_model, NULL),_lstItems(3) { //全アイテム枝を３つ追加：「その他次」「その他前」「キャンセル」の３つ
     T::_class_name = "MenuActor";
     _pCursor = NULL;
     _velo_alpha_fade = 1.0;
@@ -305,15 +377,59 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _Z_cursor_target_prev = T::_Z;
     _with_rising = false;
     _with_sinking = false;
-    _is_just_with_rising = false;
-    _is_just_with_sinking = false;
+    _is_just_risen = false;
+    _is_just_sunk = false;
+    _is_just_decided = false;
+    _will_be_rising_next_frame = false;
+    _will_be_sinking_next_frame = false;
+    _will_be_just_decide_next_frame = false;
+    _is_active_sub_menu = false;
+    _pActiveSubMenu = NULL;
     T::inactivateImmed();
 }
-
+template<class T>
+void MenuActor<T>::riseSub(MenuActor<T>* prm_pSubMenu) {
+    _pActiveSubMenu = prm_pSubMenu;
+    _pActiveSubMenu->rise();
+    _is_active_sub_menu = true;
+}
+template<class T>
+void MenuActor<T>::sinkSub() {
+    _pActiveSubMenu->sink();
+    _is_active_sub_menu = false;
+    _pActiveSubMenu = NULL;
+}
 
 template<class T>
-void MenuActor<T>::addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
-                           coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
+void MenuActor<T>::nextFrame() {
+    T::nextFrame();
+    _is_just_risen = false;
+    if (_will_be_rising_next_frame) {
+        _with_rising = true;
+        _is_just_risen = true;
+        onRisen();
+        _will_be_rising_next_frame = false;
+    }
+
+    _is_just_sunk = false;
+    if (_will_be_sinking_next_frame) {
+        _with_sinking = true;
+        _is_just_sunk = true;
+        onSunk();
+        _will_be_sinking_next_frame = false;
+    }
+
+    _is_just_decided = false;
+    if (_will_be_just_decide_next_frame) {
+        onDecision(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
+        _is_just_decided = true;
+        _will_be_just_decide_next_frame = false;
+    }
+}
+
+template<class T>
+void MenuActor<T>::addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+                                 coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
     prm_pItem->_X_local = prm_X_local;
     prm_pItem->_Y_local = prm_Y_local;
     prm_pItem->_Z_local = prm_Z_local;
@@ -321,6 +437,19 @@ void MenuActor<T>::addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
     prm_pItem->inactivateImmed();
 
     _lstItems.addLast(prm_pItem);
+    T::addSubLast(prm_pItem);
+}
+
+template<class T>
+void MenuActor<T>::addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+                                coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
+    prm_pItem->_X_local = prm_X_local;
+    prm_pItem->_Y_local = prm_Y_local;
+    prm_pItem->_Z_local = prm_Z_local;
+    prm_pItem->_fAlpha = T::_fAlpha; //半透明αを共有させる。
+    prm_pItem->inactivateImmed();
+
+    _lstDispActors.addLast(prm_pItem);
     T::addSubLast(prm_pItem);
 }
 
@@ -415,6 +544,11 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getSelectedItem() {
 }
 
 template<class T>
+MenuActor<T>* MenuActor<T>::getSubMenu() {
+    return _pActiveSubMenu;
+}
+
+template<class T>
 void MenuActor<T>::moveCursorNext() {
     if (_pCursor) {
         _pCursor->locateAs(_lstItems.getCurrent());
@@ -489,22 +623,35 @@ void MenuActor<T>::moveCursor() {
 
 template<class T>
 void MenuActor<T>::rise() {
-    _with_rising = true;
-    _is_just_with_rising = true;
+    _with_rising = false;
     _with_sinking = false;
-    _is_just_with_sinking = false;
+    _is_just_risen = false;
+    _is_just_sunk = false;
+    _will_be_rising_next_frame = true;
+    _will_be_sinking_next_frame = false;
     //メニューアイテム初期配置
     T::setAlpha(0.0);
-    GgafDxCore::GgafDxDrawableActor* pItem;
+    GgafDxCore::GgafDxDrawableActor* p;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
     for (int i = 0; i < _lstItems.length(); i++) {
-        pItem = pElem->_pValue;
-        pItem->locate(T::_X + pItem->_X_local,
-                      T::_Y + pItem->_Y_local,
-                      T::_Z + pItem->_Z_local);
-        pItem->setAlpha(T::getAlpha());
+        p = pElem->_pValue;
+        p->locate(T::_X + p->_X_local,
+                  T::_Y + p->_Y_local,
+                  T::_Z + p->_Z_local);
+        p->setAlpha(T::getAlpha());
         pElem = pElem->_pNext;
     }
+    //表示アイテム初期配置
+    pElem = _lstDispActors.getElemFirst();
+    for (int i = 0; i < _lstDispActors.length(); i++) {
+        p = pElem->_pValue;
+        p->locate(T::_X + p->_X_local,
+                  T::_Y + p->_Y_local,
+                  T::_Z + p->_Z_local);
+        p->setAlpha(T::getAlpha());
+        pElem = pElem->_pNext;
+    }
+    T::inactivateTreeImmed();
     T::activateTree();
 }
 
@@ -521,27 +668,38 @@ void MenuActor<T>::processRising() {
     }
 }
 
+
+
+
+
 template<class T>
 void MenuActor<T>::processBehavior() {
 
     if (_with_sinking) {
-        if (_is_just_with_sinking) {
-            onSunk();
-            _is_just_with_sinking = false;
-        }
         processSinking();
     }
     if (_with_rising) {
-        if (_is_just_with_rising) {
-            onRisen();
-            _is_just_with_rising = false;
-        }
         processRising();
     }
 
-    if (!_with_sinking) {
-		if (condDecision()) {
-            onDecision(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
+    if (!_is_active_sub_menu && !_with_sinking && !_will_be_rising_next_frame && !_will_be_sinking_next_frame) {
+        //TODO：!_will_be_rising_next_frame && !_will_be_sinking_next_frameを無くすために
+        //      nextFrame実装したはずが、やっぱりダメ。要調査。
+
+
+        // 「メモ」!_with_sinking で、フェードアウト中にカーソル操作を受け付けなくする
+        // !_will_be_rising_next_frame && !_will_be_sinking_next_frame が追加されている理由は、
+        // VB_PLAY → VB_UIに切り替えてメニュー操作を使用する際、
+        // VB_PLAY の状態から、P_GOD->setVB(VB_UI)を実行しても、有効になるのは次フレームからである為。
+        // もしフェードアウト中、直ぐに同一メニューを呼び出した場合、rise() の activateTree()が、
+        // 既に活動状態であるので意味をなさなくなる事により、メニューオブジェクトのツリーの追加の順番に
+        // よっては、即同一フレームでVB_PLAYのまま、このprocessBehavior() に処理がやってくる可能性がある。
+        // １フレーム待たないとVB_UIに切り替わらないので、切り替った直後は１フレームキー入力処理をしない
+        // ようにしている。
+        // 要はrise()実行時、１フレーム休憩し、それ以降からメニューの入力受付が有効になるようにできれば
+        // 何でも良い
+        if (condDecision()) {
+            _will_be_just_decide_next_frame = true;
         } else if (condMoveCursorNext()) {
             moveCursorNext();
         } else if (condMoveCursorPrev()) {
@@ -559,14 +717,24 @@ void MenuActor<T>::processBehavior() {
     }
 
     //メニューアイテムをメニューに追従
-    GgafDxCore::GgafDxDrawableActor* pItem;
+    GgafDxCore::GgafDxDrawableActor* p;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
     for (int i = 0; i < _lstItems.length(); i++) {
-        pItem = pElem->_pValue;
-        pItem->locate(T::_X + pItem->_X_local,
-                      T::_Y + pItem->_Y_local,
-                      T::_Z + pItem->_Z_local);
-        pItem->setAlpha(T::getAlpha());
+        p = pElem->_pValue;
+        p->locate(T::_X + p->_X_local,
+                  T::_Y + p->_Y_local,
+                  T::_Z + p->_Z_local);
+        p->setAlpha(T::getAlpha());
+        pElem = pElem->_pNext;
+    }
+    //表示アイテムをメニューに追従
+    pElem = _lstDispActors.getElemFirst();
+    for (int i = 0; i < _lstDispActors.length(); i++) {
+        p = pElem->_pValue;
+        p->locate(T::_X + p->_X_local,
+                  T::_Y + p->_Y_local,
+                  T::_Z + p->_Z_local);
+        p->setAlpha(T::getAlpha());
         pElem = pElem->_pNext;
     }
 
@@ -587,12 +755,27 @@ void MenuActor<T>::processBehavior() {
     }
 }
 
+//template<class T>
+//void MenuActor<T>::processFinal() {
+//    if (_was_called_onSunk && _is_just_sunk) {
+//        _is_just_sunk = false;
+//        _was_called_onSunk = false;
+//    }
+//
+//    if (_was_called_onRisen && _is_just_risen) {
+//        _is_just_risen = false;
+//        _was_called_onRisen = false;
+//    }
+//
+//}
 template<class T>
 void MenuActor<T>::sink() {
     _with_rising = false;
-    _is_just_with_rising = false;
-    _with_sinking = true;
-    _is_just_with_sinking = true;
+    _with_sinking = false;
+    _is_just_risen = false;
+    _is_just_sunk = false;
+    _will_be_rising_next_frame = false;
+    _will_be_sinking_next_frame = true;
 }
 
 
