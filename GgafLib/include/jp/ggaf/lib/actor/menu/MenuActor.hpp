@@ -41,8 +41,9 @@ protected:
 
     bool _will_be_just_decide_next_frame;
 
-    bool _is_active_sub_menu;
+    bool _can_controll;
 
+    bool _will_be_able_to_controll;
     /**
      * _lstItems のアクティブ要素を next() へ移動させ、カーソルを移動 .
      */
@@ -102,7 +103,12 @@ public:
      */
     virtual void addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                                coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
-
+    /**
+     * メニューアイテム(選択可能)を追加する .
+     * @param prm_pItem メニューアイテム
+     * @param prm_X_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
+     * @param prm_Y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
+     */
     virtual void addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                                coord prm_X_local, coord prm_Y_local) {
         addSelectItem(prm_pItem, prm_X_local, prm_Y_local, T::_Z);
@@ -117,7 +123,12 @@ public:
      */
     virtual void addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                               coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
-
+    /**
+     * 表示用アクター(選択不可)を追加する .
+     * @param prm_pItem 表示用アイテム
+     * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
+     * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
+     */
     virtual void addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                               coord prm_X_local, coord prm_Y_local) {
         addDispActor(prm_pItem, prm_X_local, prm_Y_local, T::_Z);
@@ -197,8 +208,9 @@ public:
      * 現在カーソルが選択中のアイテムのインデックスを取得 .
      * @return 選択中のアイテムオブジェクト
      */
-    virtual int getSelectedItemIndex();
+    virtual int getSelectedIndex();
 
+    virtual int getDecidedIndex();
     /**
      * 現在カーソルが選択中のアイテムのオブジェクトを取得 .
      * @return 選択中のアイテムオブジェクト
@@ -227,7 +239,6 @@ public:
      * @return true:「もう一つの別の次」へ移動の条件成立 / false:不成立
      */
     virtual bool condMoveCursorExNext() = 0;
-
 
     /**
      * カーソルが「もう一つの別の前」へ移動する条件を実装する .
@@ -383,7 +394,8 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _will_be_rising_next_frame = false;
     _will_be_sinking_next_frame = false;
     _will_be_just_decide_next_frame = false;
-    _is_active_sub_menu = false;
+    _can_controll = false;
+    _will_be_able_to_controll = false;
     _pActiveSubMenu = NULL;
     T::inactivateImmed();
 }
@@ -391,13 +403,13 @@ template<class T>
 void MenuActor<T>::riseSub(MenuActor<T>* prm_pSubMenu) {
     _pActiveSubMenu = prm_pSubMenu;
     _pActiveSubMenu->rise();
-    _is_active_sub_menu = true;
+    _will_be_able_to_controll = false;
 }
 template<class T>
 void MenuActor<T>::sinkSub() {
     _pActiveSubMenu->sink();
-    _is_active_sub_menu = false;
     _pActiveSubMenu = NULL;
+    _will_be_able_to_controll = true;
 }
 
 template<class T>
@@ -425,6 +437,7 @@ void MenuActor<T>::nextFrame() {
         _is_just_decided = true;
         _will_be_just_decide_next_frame = false;
     }
+    _can_controll = _will_be_able_to_controll;
 }
 
 template<class T>
@@ -512,7 +525,7 @@ void MenuActor<T>::relationItemCancel(int prm_index_of_cancel_item) {
 
 template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::setSelectedItemIndex(int prm_index) {
-    int n = getSelectedItemIndex();
+    int n = getSelectedIndex();
     if (n == prm_index) {
         return _lstItems.getCurrent();
     } else {
@@ -534,8 +547,17 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getCursor() {
 }
 
 template<class T>
-int MenuActor<T>::getSelectedItemIndex() {
+int MenuActor<T>::getSelectedIndex() {
     return _lstItems.getCurrentIndex();
+}
+
+template<class T>
+int MenuActor<T>::getDecidedIndex() {
+    if (_is_just_decided) {
+        return _lstItems.getCurrentIndex();
+    } else {
+        return -1;
+    }
 }
 
 template<class T>
@@ -629,8 +651,11 @@ void MenuActor<T>::rise() {
     _is_just_sunk = false;
     _will_be_rising_next_frame = true;
     _will_be_sinking_next_frame = false;
-    //メニューアイテム初期配置
+    _will_be_able_to_controll = true;
+
     T::setAlpha(0.0);
+    T::activate();
+    //メニューアイテム初期配置
     GgafDxCore::GgafDxDrawableActor* p;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
     for (int i = 0; i < _lstItems.length(); i++) {
@@ -639,6 +664,7 @@ void MenuActor<T>::rise() {
                   T::_Y + p->_Y_local,
                   T::_Z + p->_Z_local);
         p->setAlpha(T::getAlpha());
+        p->activate();
         pElem = pElem->_pNext;
     }
     //表示アイテム初期配置
@@ -649,10 +675,13 @@ void MenuActor<T>::rise() {
                   T::_Y + p->_Y_local,
                   T::_Z + p->_Z_local);
         p->setAlpha(T::getAlpha());
+        p->activate();
         pElem = pElem->_pNext;
     }
-    T::inactivateTreeImmed();
-    T::activateTree();
+    if (_pCursor) {
+        _pCursor->activate();
+    }
+
 }
 
 template<class T>
@@ -682,22 +711,7 @@ void MenuActor<T>::processBehavior() {
         processRising();
     }
 
-    if (!_is_active_sub_menu && !_with_sinking && !_will_be_rising_next_frame && !_will_be_sinking_next_frame) {
-        //TODO：!_will_be_rising_next_frame && !_will_be_sinking_next_frameを無くすために
-        //      nextFrame実装したはずが、やっぱりダメ。要調査。
-
-
-        // 「メモ」!_with_sinking で、フェードアウト中にカーソル操作を受け付けなくする
-        // !_will_be_rising_next_frame && !_will_be_sinking_next_frame が追加されている理由は、
-        // VB_PLAY → VB_UIに切り替えてメニュー操作を使用する際、
-        // VB_PLAY の状態から、P_GOD->setVB(VB_UI)を実行しても、有効になるのは次フレームからである為。
-        // もしフェードアウト中、直ぐに同一メニューを呼び出した場合、rise() の activateTree()が、
-        // 既に活動状態であるので意味をなさなくなる事により、メニューオブジェクトのツリーの追加の順番に
-        // よっては、即同一フレームでVB_PLAYのまま、このprocessBehavior() に処理がやってくる可能性がある。
-        // １フレーム待たないとVB_UIに切り替わらないので、切り替った直後は１フレームキー入力処理をしない
-        // ようにしている。
-        // 要はrise()実行時、１フレーム休憩し、それ以降からメニューの入力受付が有効になるようにできれば
-        // 何でも良い
+    if (_can_controll && T::getActivePartFrame() > 2) {
         if (condDecision()) {
             _will_be_just_decide_next_frame = true;
         } else if (condMoveCursorNext()) {
@@ -776,6 +790,7 @@ void MenuActor<T>::sink() {
     _is_just_sunk = false;
     _will_be_rising_next_frame = false;
     _will_be_sinking_next_frame = true;
+    _will_be_able_to_controll = false;
 }
 
 
@@ -789,7 +804,7 @@ void MenuActor<T>::processSinking() {
     if (T::getAlpha() <= 0.0) {
         T::setAlpha(0.0);
         _with_sinking = false;
-        T::inactivateTreeImmed();
+        T::inactivateTree();
     }
 }
 

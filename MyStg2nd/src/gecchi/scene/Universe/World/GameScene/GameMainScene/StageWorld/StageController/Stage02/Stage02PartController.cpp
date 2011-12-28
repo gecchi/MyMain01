@@ -151,7 +151,7 @@ void Stage02PartController::processBehavior() {
 void Stage02PartController::processFinal() {
 }
 
-void Stage02PartController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void Stage02PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG02_01_WAS_BROKEN) {
         _TRACE_("Stage02PartController::onCatchEvent() EVENT_STG02_01_WAS_BROKEN");
         ((Stage02_01*)prm_pSource)->end(30*60);

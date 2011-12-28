@@ -72,7 +72,7 @@ public:
      * ‰½‚©‚Ìˆ—<BR>
      * @param prm_no ‰½‚©‚ğ•\‚·”’l
      */
-    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
     /**

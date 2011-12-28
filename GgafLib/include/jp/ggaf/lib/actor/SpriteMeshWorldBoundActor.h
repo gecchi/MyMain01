@@ -30,7 +30,7 @@ public:
 //
 //    virtual void processPreDraw() override;
 
-    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {

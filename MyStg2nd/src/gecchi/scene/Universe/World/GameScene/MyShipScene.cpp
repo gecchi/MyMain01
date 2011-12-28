@@ -139,7 +139,7 @@ void MyShipScene::processBehavior() {
 
 }
 
-void MyShipScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
        _pProg->change(MYSHIPSCENE_PROG_DESTROY);

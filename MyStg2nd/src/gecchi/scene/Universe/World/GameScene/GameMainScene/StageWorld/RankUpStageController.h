@@ -38,7 +38,7 @@ public:
     void initialize() override;
     void processBehavior() override;
     void processFinal() override;
-    void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
+    void onCatchEvent(hashval prm_no, void* prm_pSource) override;
 
     virtual ~RankUpStageController();
 

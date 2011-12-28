@@ -102,7 +102,7 @@ void TransitStage::processFinal() {
 void TransitStage::onInactive() {
 
 }
-void TransitStage::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void TransitStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
     //if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
     //    _TRACE_("TransitStage::onCatchEvent(EVENT_STG01_CONTROLLER_WAS_END)");
     //    _pProg->change(STAGE_PROG_END);

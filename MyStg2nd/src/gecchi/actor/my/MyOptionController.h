@@ -53,7 +53,7 @@ public:
 //GgafDxGeometricActor‚Ìê‡‚ÍƒRƒƒ“ƒg‚ğŠO‚·‚±‚Æ
     virtual void processDraw() override {}
 
-    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {}
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
     virtual void processFinal() override {}
 

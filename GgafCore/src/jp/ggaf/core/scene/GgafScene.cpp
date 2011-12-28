@@ -108,12 +108,12 @@ void GgafScene::afterDraw() {
     _pDirector->afterDraw();
 }
 
-void GgafScene::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
+void GgafScene::throwEventToLowerTree(hashval prm_no, void* prm_pSource) {
     GgafElement<GgafScene>::throwEventToLowerTree(prm_no, prm_pSource);
     _pDirector->throwEventToLowerTree(prm_no, prm_pSource);
 }
 
-void GgafScene::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
+void GgafScene::throwEventToUpperTree(hashval prm_no, void* prm_pSource) {
     GgafElement<GgafScene>::throwEventToUpperTree(prm_no, prm_pSource);
 }
 

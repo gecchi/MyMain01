@@ -60,10 +60,10 @@ public:
     }
 
 
-    void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
+    void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) override {
+    void throwEventToUpperTree(hashval prm_no, void* prm_pSource) override {
         GgafScene* s = getPlatformScene();
         if (s) {
             s->throwEventToUpperTree(prm_no, this); //Ž©•ª‚æ‚èãˆÊ‚Í‹‚È‚¢B‚»‚±‚ÅŠ‘®ƒV[ƒ“‚Ö“Š‚°‚é

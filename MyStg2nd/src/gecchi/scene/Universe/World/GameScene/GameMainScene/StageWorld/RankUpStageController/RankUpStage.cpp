@@ -93,7 +93,7 @@ void RankUpStage::processBehavior() {
 }
 void RankUpStage::processFinal() {
 }
-void RankUpStage::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void RankUpStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 void RankUpStage::onEnded() {

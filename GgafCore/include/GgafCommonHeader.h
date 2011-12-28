@@ -320,14 +320,14 @@
 
 
 
-#define DECLARE_CONST(X) const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X)
+#define DECLARE_CONST(X) const static hashval X = GgafCore::GgafUtil::easy_hash(#X)
 
 
 //#define DECLARE_CONST(X)  const static UINT32 X=__LINE__*3+/*'"*/__TIME__"
 
 #define MAX2(a, b) ((a) > (b) ? (a) : (b))
 #define MAX3(a, b, c) ( (a)>(b) ? ((a)>(c)?(a):(c)) : ((b)>(c)?(b):(c)) )
-
+typedef UINT64 hashval;
 typedef UINT32 actorkind;
 typedef UINT32 frame;
 typedef std::map<std::string, std::string> GgafStrMap;

@@ -194,7 +194,7 @@ void GgafUtil::writeProperties(std::ostream &os, GgafStrMap* pMap, const char *h
     }
 }
 
-void GgafUtil::print(std::ostream &os, GgafStrMap* pMap)
+void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap)
 {
     GgafStrMap::iterator it = pMap->begin(), end = pMap->end();
     for (; it != end; ++it)

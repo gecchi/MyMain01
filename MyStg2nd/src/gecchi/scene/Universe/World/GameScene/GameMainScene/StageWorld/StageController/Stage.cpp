@@ -16,7 +16,7 @@ void Stage::initialize() {
     _pProg->set(STAGE_PROG_INIT);
 }
 
-void Stage::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void Stage::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 Stage::~Stage() {

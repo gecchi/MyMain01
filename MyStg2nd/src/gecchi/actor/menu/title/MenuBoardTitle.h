@@ -1,39 +1,43 @@
-#ifndef MENUBOARDCONFIRM_H_
-#define MENUBOARDCONFIRM_H_
+#ifndef MENUBOARDTITLE_H_
+#define MENUBOARDTITLE_H_
+
 
 
 namespace MyStg2nd {
 
 /**
- * 確認メニュー .
+ * タイトルメニュー .
  * @version 1.00
  * @since 2011/12/27
  * @author Masatoshi Tsuge
  */
-class MenuBoardConfirm : public MenuBoard {
+class MenuBoardTitle : public MenuBoard {
 
 public:
 
     enum {
-        ITEM_OK = 0 ,
-        ITEM_CANCEL ,
+        ITEM_GAME_START = 0 ,
+        ITEM_CONFIG,
+        ITEM_DEBUG,
+        ITEM_QUIT,
     };
+    MenuBoardConfirm* _pConfirmMenu;
 
 
-    MenuBoardConfirm(const char* prm_name);
+    MenuBoardTitle(const char* prm_name);
 
     bool condMoveCursorNext() override;
     bool condMoveCursorPrev() override;
     bool condMoveCursorExNext() override;
     bool condMoveCursorExPrev() override;
-
-    void onRisen() override;
-
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
 
-    virtual ~MenuBoardConfirm();
+    void riseConfirm();
+    void sinkConfirm();
+
+    virtual ~MenuBoardTitle();
 };
 
 }
-#endif /*MENUBOARDCONFIRM_H_*/
+#endif /*MENUBOARDTITLE_H_*/
 

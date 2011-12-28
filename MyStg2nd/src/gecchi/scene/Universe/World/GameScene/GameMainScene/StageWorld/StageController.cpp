@@ -154,7 +154,7 @@ void StageController::processBehavior() {
 //    http://msdn.microsoft.com/en-us/library/cby9kycs.aspx
 
 }
-void StageController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_PREPARE_TRANSIT_STAGE) {
         _TRACE_("StageController::onCatchEvent(EVENT_PREPARE_TRANSIT_STAGE)");
         _pTransitStage->ready(_main_stage);

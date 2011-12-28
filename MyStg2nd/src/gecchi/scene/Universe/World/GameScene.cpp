@@ -183,7 +183,7 @@ void GameScene::processBehavior() {
 
                 //
 
-                if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+                if (VB->isPushedDown(VB_PAUSE) || _is_frame_advance) {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
                     _is_frame_advance = false;
@@ -266,7 +266,7 @@ void GameScene::processBehavior() {
     }
 }
 
-void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 
 //    switch (prm_no) {
 //        case EVENT_GOD_WILL_DIE:

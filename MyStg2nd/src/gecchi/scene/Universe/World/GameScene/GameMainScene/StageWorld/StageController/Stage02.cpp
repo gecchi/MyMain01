@@ -72,7 +72,7 @@ void Stage02::processJudgement() {
 void Stage02::processFinal() {
 }
 
-void Stage02::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void Stage02::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG02_CONTROLLER_WAS_END ) {
         _TRACE_("Stage02::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_PROG_ENDへ");
         _pScene_Stage02PartController->end(60*60);

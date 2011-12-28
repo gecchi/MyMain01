@@ -387,7 +387,7 @@ void RankUpStageController::processBehavior() {
 //    }
 
 }
-void RankUpStageController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_RANKUP_WAS_END) {
         _TRACE_("RankUpStageController::onCatchEvent() prm_pSource="<<prm_pSource);
         RankUpStage* pScene = (RankUpStage*)prm_pSource; //I—¹éŒ¾‚µ‚½RankUpStage

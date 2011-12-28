@@ -256,7 +256,6 @@ void VirtualButton::init() {
 
 }
 
-
 VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
     VBRecord* pVBRecord_Temp = _pVBRecord_Active;
     for (frame i = 0; i < prm_frame_ago; i++) {
@@ -269,26 +268,26 @@ vbsta VirtualButton::isBeingPressed(vbsta prm_VB) {
     return _pVBRecord_Active->_state & prm_VB;
 }
 
-vbsta VirtualButton::isAutoRepeat(vbsta prm_VB) {
+vbsta VirtualButton::isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat, frame prm_while_repeat) {
     vbsta sta = _pVBRecord_Active->_state & prm_VB;
     if (sta) {
         _is_auto_repeat = true;
         if (sta == (_pVBRecord_Active->_prev->_state & prm_VB)) {
-            _repeat_counter[prm_VB] ++;
+            _auto_repeat_counter[prm_VB] ++;
         } else {
-            _repeat_counter[prm_VB] = 0;
+            _auto_repeat_counter[prm_VB] = 0;
         }
     } else {
         _is_auto_repeat = false;
-        _repeat_counter[prm_VB] = 0;
+        _auto_repeat_counter[prm_VB] = 0;
     }
 
     if (_is_auto_repeat) {
-        if (_repeat_counter[prm_VB] == 0) {
-            //キーイン時に成立
+        if (_auto_repeat_counter[prm_VB] == 0) {
+            //キーイン時にまず成立
             return sta;
-        } else if (_repeat_counter[prm_VB] > 20 && _repeat_counter[prm_VB] % 5 == 0) {
-            //20フレーム後以降は5フレーム毎に成立
+        } else if (_auto_repeat_counter[prm_VB] > prm_begin_repeat && _auto_repeat_counter[prm_VB] % prm_while_repeat == 0) {
+            //オートリピート時成立(デフォルトでは、20フレーム後以降は5フレーム毎に成立)
             return sta;
         }
     }
@@ -665,7 +664,9 @@ bool VirtualButton::isRoundPushDown(vbsta prm_VB, frame prm_frame_delay) {
 //
 //}
 
-
+vbsta VirtualButton::getState() {
+    return _pVBRecord_Active->_state;
+}
 
 
 void VirtualButton::update() {

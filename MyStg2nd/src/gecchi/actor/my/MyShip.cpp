@@ -607,7 +607,7 @@ void MyShip::setMoveSpeedLv(int lv) {
         _iMoveSpeed = PX2CO(lv);
     }
 
-void MyShip::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
 
     } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {

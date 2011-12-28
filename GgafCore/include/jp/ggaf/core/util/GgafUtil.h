@@ -24,6 +24,21 @@ public:
      */
     static char* getFileText(std::string prm_filename);
 
+    static std::vector<std::string> split(std::string str, std::string delim) {
+        std::vector<std::string> r;
+        int cutAt;
+        while ((cutAt = str.find_first_of(delim)) != str.npos) {
+            if (cutAt > 0) {
+                r.push_back(str.substr(0, cutAt));
+            }
+            str = str.substr(cutAt + 1);
+        }
+        if (str.length() > 0) {
+            r.push_back(str);
+        }
+        return r;
+    }
+
     static std::string itos(int prm_n) {
         std::ostringstream oss;
         oss << prm_n;
@@ -89,14 +104,13 @@ public:
 
     /**
      * 簡易ハッシュ .
-     * 文字列 を、さも一意のような32biｔ数値に変換。
-     * スピード優先のハッシュ関数のため、厳密ではない。
-     * 33を乗じると、衝突が少ないらしいという文献を信じる。
+     * 文字列 を、さも一意のような64bit数値に変換。
+     * もちろん完全ではない。
      * @param str 文字列
      * @return ハッシュ値
      */
-    static const UINT32 easy_hash(const char* str) {
-        UINT32 hash = 5381;
+    static const hashval easy_hash(const char* str) {
+        hashval hash = 5381;
         char c;
         while ((c = *str++) > 0) { //strの\0までループ （演算子 "==" と間違えていません）
             hash = ((hash << 5) + hash) + c; // hash * 33 + c  33倍してます
@@ -178,9 +192,8 @@ public:
     static void readProperties(std::istream &is, GgafStrMap* pMap);
     static void writeProperties(const char *filename, GgafStrMap* pMap, const char *header = NULL);
     static void writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header = NULL);
-    static void print(std::ostream &os, GgafStrMap* pMap);
-    static inline char m_hex(int nibble)
-    {
+    static void printProperties(std::ostream &os, GgafStrMap* pMap);
+    static inline char m_hex(int nibble) {
         static const char *digits = "0123456789ABCDEF";
         return digits[nibble & 0xf];
     }

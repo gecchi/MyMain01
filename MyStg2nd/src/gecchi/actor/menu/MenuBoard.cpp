@@ -41,13 +41,13 @@ bool MenuBoard::condMoveCursorExPrev() {
     return VB->isAutoRepeat(VB_UI_LEFT);
 }
 bool MenuBoard::condMoveCursorCancel() {
-    return VB->isReleasedUp(VB_UI_CANCEL);
+    return VB->isPushedDown(VB_UI_CANCEL);
 }
 
 bool MenuBoard::condDecision() {
-    if (VB->isReleasedUp(VB_UI_EXECUTE)) {
+    if (VB->isPushedDown(VB_UI_EXECUTE)) {
         return true;
-    } else if (VB->isReleasedUp(VB_UI_CANCEL) &&
+    } else if (VB->isPushedDown(VB_UI_CANCEL) &&
                _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != NULL &&
                _lstItems.getCurrent() == _lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         //キャンセルアイテム上でキャンセルボタンプッシュでもOK

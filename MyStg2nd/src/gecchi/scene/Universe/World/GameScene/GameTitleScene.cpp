@@ -26,23 +26,27 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _pTitleBoard = NEW TitleBoard("TitleBoard");
     getDirector()->addSubGroup(_pTitleBoard);
 
-    _max_menu_item = 4;
-    _papStringItem = NEW LabelGecchi16Font*[_max_menu_item];
-    for (int i = 0; i < _max_menu_item; i++) {
-        _papStringItem[i] = NEW LabelGecchi16Font("menu_item");
-        _papStringItem[i]->_Z = 1;
-        _papStringItem[i]->inactivateImmed();
-        getDirector()->addSubGroup(_papStringItem[i]);
-    }
-    _papStringItem[0]->update("GAME START", ALIGN_LEFT, VALIGN_MIDDLE);
-    _papStringItem[1]->update("CONFIG", ALIGN_LEFT, VALIGN_MIDDLE);
-    _papStringItem[2]->update("DEBUG", ALIGN_LEFT, VALIGN_MIDDLE);
-    _papStringItem[3]->update("QUIT", ALIGN_LEFT, VALIGN_MIDDLE);
+//    _max_menu_item = 4;
+//    _papStringItem = NEW LabelGecchi16Font*[_max_menu_item];
+//    for (int i = 0; i < _max_menu_item; i++) {
+//        _papStringItem[i] = NEW LabelGecchi16Font("menu_item");
+//        _papStringItem[i]->_Z = 1;
+//        _papStringItem[i]->inactivateImmed();
+//        getDirector()->addSubGroup(_papStringItem[i]);
+//    }
+//    _papStringItem[0]->update("GAME START", ALIGN_LEFT, VALIGN_MIDDLE);
+//    _papStringItem[1]->update("CONFIG", ALIGN_LEFT, VALIGN_MIDDLE);
+//    _papStringItem[2]->update("DEBUG", ALIGN_LEFT, VALIGN_MIDDLE);
+//    _papStringItem[3]->update("QUIT", ALIGN_LEFT, VALIGN_MIDDLE);
+//
+//    _pCursor001= NEW Cursor001("Cursor001");
+//    _pCursor001->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
+//    _pCursor001->inactivateImmed();
+//    getDirector()->addSubGroup(_pCursor001);
 
-    _pCursor001= NEW Cursor001("Cursor001");
-    _pCursor001->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    _pCursor001->inactivateImmed();
-    getDirector()->addSubGroup(_pCursor001);
+    _pMenu = NEW MenuBoardTitle("_pMenu");
+    _pMenu->setTargetLocate(PX2CO(900), PX2CO(200),  0, PX2CO(50));
+    getDirector()->addSubGroup(_pMenu);
 
     _pSeCon_exec = connectSeManager("yume_Sbend");
 
@@ -103,50 +107,84 @@ void GameTitleScene::processBehavior() {
 
         case GAMETITLESCENE_PROG_SELECT: {
             if (_pProg->isJustChanged()) {
-                _pStringBoard02->update("");
-                if (_pProg->isJustChanged()) {
-                    for (int i = 0; i < _max_menu_item; i++) {
-                        _papStringItem[i]->locate(PX2CO(700)+PX2CO(i*20), PX2CO(100+(i*20))*2);
-                        _papStringItem[i]->activate();
+                _pMenu->rise();
+//                _pStringBoard02->update("");
+//                if (_pProg->isJustChanged()) {
+//                    for (int i = 0; i < _max_menu_item; i++) {
+//                        _papStringItem[i]->locate(PX2CO(700)+PX2CO(i*20), PX2CO(100+(i*20))*2);
+//                        _papStringItem[i]->activate();
+//                    }
+//                }
+//                _active_item = 0;
+//                _pCursor001->locateAs(_papStringItem[_active_item]);
+//                _pCursor001->activate();
+//                _frame_of_noinput = _pProg->getFrameInProgress();
+            }
+
+
+            if (_pMenu->getSubMenu()) {
+                int d = _pMenu->getSubMenu()->getDecidedIndex();
+                if (d >= 0) {
+                    if (_pMenu->getSelectedIndex() == MenuBoardTitle::ITEM_QUIT) {
+                        if (d == MenuBoardConfirm::ITEM_OK) {
+                            PostQuitMessage(0);
+                        } else if (d == MenuBoardConfirm::ITEM_CANCEL) {
+							_pMenu->sinkConfirm();
+                        }
                     }
                 }
-                _active_item = 0;
-                _pCursor001->locateAs(_papStringItem[_active_item]);
-                _pCursor001->activate();
+            } else {
+                int d = _pMenu->getDecidedIndex();
+                if (d >= 0) {
+                    if (d == MenuBoardTitle::ITEM_GAME_START) {
+                        _pSeCon_exec->use()->play();
+                        _pProg->change(GAMETITLESCENE_PROG_GAMESTART);
+                    } else if (d == MenuBoardTitle::ITEM_CONFIG) {
+
+                    } else if (d == MenuBoardTitle::ITEM_DEBUG) {
+
+                    } else if (d == MenuBoardTitle::ITEM_QUIT) {
+                        _pMenu->riseConfirm();
+                    }
+                }
+            }
+
+
+
+//            _pCursor001->moveTo(_papStringItem[_active_item]);
+//
+//            if (VB->isAutoRepeat(VB_UI_UP)) {
+//                _active_item--;
+//                if (_active_item < 0) {
+//                    _active_item = _max_menu_item-1;
+//                }
+//                _frame_of_noinput = _pProg->getFrameInProgress();
+//            } else if (VB->isAutoRepeat(VB_UI_DOWN)) {
+//                _active_item++;
+//                if (_active_item > _max_menu_item-1) {
+//                    _active_item = 0;
+//                }
+//                _frame_of_noinput = _pProg->getFrameInProgress();
+//            } if (VB->isPushedDown(VB_UI_EXECUTE)) {
+//
+//                if (_active_item == 0) {
+//                    _pSeCon_exec->use()->play();
+//                    _pProg->change(GAMETITLESCENE_PROG_GAMESTART);
+//                } else if (_active_item == 1) {
+//
+//
+//                } else if (_active_item == 2) {
+//
+//
+//                } else if (_active_item == 3) {
+//                    PostQuitMessage(0);
+//                }
+//
+            if (VB->getState()) {
                 _frame_of_noinput = _pProg->getFrameInProgress();
             }
-            _pCursor001->moveTo(_papStringItem[_active_item]);
 
-            if (VB->isAutoRepeat(VB_UI_UP)) {
-                _active_item--;
-                if (_active_item < 0) {
-                    _active_item = _max_menu_item-1;
-                }
-                _frame_of_noinput = _pProg->getFrameInProgress();
-            } else if (VB->isAutoRepeat(VB_UI_DOWN)) {
-                _active_item++;
-                if (_active_item > _max_menu_item-1) {
-                    _active_item = 0;
-                }
-                _frame_of_noinput = _pProg->getFrameInProgress();
-            } if (VB->isPushedDown(VB_UI_EXECUTE)) {
-
-                if (_active_item == 0) {
-                    _pSeCon_exec->use()->play();
-                    _pProg->change(GAMETITLESCENE_PROG_GAMESTART);
-                } else if (_active_item == 1) {
-
-
-                } else if (_active_item == 2) {
-
-
-                } else if (_active_item == 3) {
-                    PostQuitMessage(0);
-                }
-
-
-
-            } else if (_pProg->getFrameInProgress() >= _frame_of_noinput + 300) {
+            if (_pProg->getFrameInProgress() >= _frame_of_noinput + 300) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
@@ -173,6 +211,7 @@ void GameTitleScene::processBehavior() {
 
         case GAMETITLESCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
+                _pMenu->sink();
 //                fadeoutSceneTree(FADE_FRAMES);
 //                inactivateDelay(FADE_FRAMES);
             }
@@ -190,6 +229,6 @@ void GameTitleScene::processFinal() {
 }
 
 GameTitleScene::~GameTitleScene() {
-    DELETEARR_IMPOSSIBLE_NULL(_papStringItem);
+//    DELETEARR_IMPOSSIBLE_NULL(_papStringItem);
     _pSeCon_exec->close();
 }

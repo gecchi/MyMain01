@@ -44,8 +44,6 @@ namespace GgafLib {
 #define VB_MAP_BUFFER 120
 #define VB_NUM 29
 
-
-
 /**
  * 仮想ボタン .
  * @version 1.00
@@ -115,7 +113,7 @@ public:
         }
     };
     /** オートリピート判定用カウンター */
-    __map__<vbsta, frame> _repeat_counter;
+    __map__<vbsta, frame> _auto_repeat_counter;
     /** オートリピート中ならば true */
     bool _is_auto_repeat;
 
@@ -307,7 +305,15 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true/false
      */
-    vbsta isAutoRepeat(vbsta prm_VB);
+
+    /**
+     * オートリピート入力判定 .
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @param prm_begin_repeat オートリピート開始フレーム数
+     * @param prm_while_repeat オートリピート開始後、リピート間隔フレーム数
+     * @return
+     */
+    vbsta isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat = 20, frame prm_while_repeat = 5);
 
     /**
      * グルッとポンか否か判定 .
@@ -316,11 +322,10 @@ public:
      * ↑ → ↓ ← の４方向ボタン押しが成立後、isPushedDown(prm_VB) が成立。
      * の場合に true としています。
      * @param prm_VB 「グルッとポン」の「ポン」のボタン
-     * @param prm_frame_delay 「グルッとポン」が成立する許容フレーム
+     * @param prm_frame_delay 「グルッとポン」が成立する全体の許容フレーム
      * @return true/false
      */
     bool isRoundPushDown(vbsta prm_VB, frame prm_frame_delay=30);
-
 
     /**
      * 現在押しっぱなしのスティックの番号を返す。
@@ -373,6 +378,8 @@ public:
 
 
     //vbsta isClicked(vbsta prm_VB);
+
+    vbsta getState();
 
     void update();
 

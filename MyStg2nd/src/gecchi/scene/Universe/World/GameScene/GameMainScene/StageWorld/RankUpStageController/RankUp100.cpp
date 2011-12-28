@@ -85,7 +85,7 @@ void RankUp100::processJudgement() {
 }
 
 
-void RankUp100::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void RankUp100::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
         _TRACE_("RankUp100::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_PROG_ENDへ");
         _pProg->change(STAGE_PROG_END);

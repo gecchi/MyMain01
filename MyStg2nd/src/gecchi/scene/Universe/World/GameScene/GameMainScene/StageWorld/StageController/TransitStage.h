@@ -33,7 +33,7 @@ public:
     virtual void processJudgement() override;
     virtual void processFinal() override;
     virtual void onInactive() override;
-    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
     void ready(int prm_stage);
     void setStage(int prm_stage) {
         _teansit_stage = prm_stage;

@@ -339,19 +339,19 @@ public:
 
     /**
      * 自ノードよりも親にあたるノード全てにイベントメッセージを通知します .
-     * イベントを受け取る側は、onCatchEvent(UINT32, void) を実装が必要です。
+     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要です。
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void throwEventToLowerTree(UINT32 prm_no, void* prm_pSource = NULL);
+    virtual void throwEventToLowerTree(hashval prm_no, void* prm_pSource = NULL);
 
     /**
      * 配下ノード全てにイベントメッセージを通知します .
-     * イベントを受け取る側は、onCatchEvent(UINT32, void) を実装が必要です。
+     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要です。
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource = NULL);
+    virtual void throwEventToUpperTree(hashval prm_no, void* prm_pSource = NULL);
 
 
     /**
@@ -359,7 +359,7 @@ public:
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) = 0;
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) = 0;
 
 
     virtual bool isDisappear();
@@ -1551,7 +1551,7 @@ void GgafElement<T>::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, vo
 }
 
 template<class T>
-void GgafElement<T>::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
+void GgafElement<T>::throwEventToLowerTree(hashval prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         _frameEnd = 0;
         onCatchEvent(prm_no, prm_pSource);
@@ -1570,7 +1570,7 @@ void GgafElement<T>::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
 }
 
 template<class T>
-void GgafElement<T>::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
+void GgafElement<T>::throwEventToUpperTree(hashval prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;

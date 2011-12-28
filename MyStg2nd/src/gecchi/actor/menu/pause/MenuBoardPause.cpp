@@ -76,7 +76,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     setTargetLocate(PX2CO(300), PX2CO(10),  0, -PX2CO(100));
 
     _pConfirmMenu = NEW MenuBoardConfirm("confirm");
-    P_WORLD->getDirector()->addSubLast(_pConfirmMenu);
+    addSubLast(_pConfirmMenu);
 }
 bool MenuBoardPause::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -93,19 +93,21 @@ bool MenuBoardPause::condMoveCursorExPrev() {
 
 void MenuBoardPause::processBehavior() {
     MenuBoard::processBehavior();
+
+    //サブメニュー判定
     DefaultBoardSetMenu* pSub = getSubMenu();
     if (pSub) {
         if (pSub->isJustDecided()) {
-            if (pSub->getSelectedItemIndex() == CONFIRM_MENU_ITEM_OK) {
-                if (getSelectedItemIndex() == PAUSE_MENU_ITEM_QUIT_GAME) {
+            if (pSub->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
+
+                if (getSelectedIndex() == PAUSE_MENU_ITEM_QUIT_GAME) {
                     PostQuitMessage(0);
-                } else {
-                    sinkSub();
                 }
-            } else if (pSub->getSelectedItemIndex() == CONFIRM_MENU_ITEM_CANCEL) {
+
+            } else if (pSub->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
+
                 sinkSub();
             } else {
-                sinkSub();
             }
         } else {
 
@@ -117,7 +119,7 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
     if (prm_item_index == PAUSE_MENU_ITEM_BACK_TO_GAME) {
         sink();
     } else if (prm_item_index == PAUSE_MENU_ITEM_QUIT_GAME) {
-        riseSub(_pConfirmMenu);
+        riseSub(_pConfirmMenu);     //サブメニュー起動
     }
 }
 MenuBoardPause::~MenuBoardPause() {

@@ -42,7 +42,7 @@ void StageWorld::processBehavior() {
         //_can_rank_up = false;
     }
 }
-void StageWorld::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_RANKUP_WAS_END) {
         _TRACE_("StageWorld::onCatchEvent EVENT_RANKUP_WAS_END");
         //ÉXÉçÅ[âÒïú

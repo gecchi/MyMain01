@@ -19,7 +19,7 @@ public:
     Stage(const char* prm_name);
 
     virtual void initialize() override;
-    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
 
     /**
      * ‰Šúˆ—

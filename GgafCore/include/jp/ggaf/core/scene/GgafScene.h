@@ -72,7 +72,7 @@ namespace GgafCore {
  * void processDraw() ・・・フレーム毎の描画本処理 <BR>
  * void processAfterDraw() ・・・フレーム毎の描画事後処理 <BR>
  * void processFinal() ・・・フレーム毎の終端処理 <BR>
- * void onCatchEvent(UINT32 prm_no, void* prm_pSource) ・・・その他のイベント時処理 <BR>
+ * void onCatchEvent(hashval prm_no, void* prm_pSource) ・・・その他のイベント時処理 <BR>
  * <BR>
  * @version 1.00
  * @since 2006/06/27
@@ -130,8 +130,8 @@ public:
     virtual void draw() override;
     virtual void afterDraw() override;
     virtual void doFinally() override;
-    virtual void throwEventToLowerTree(UINT32 prm_no, void* prm_pSource = NULL) override;
-    virtual void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource = NULL) override;
+    virtual void throwEventToLowerTree(hashval prm_no, void* prm_pSource = NULL) override;
+    virtual void throwEventToUpperTree(hashval prm_no, void* prm_pSource = NULL) override;
     virtual void activateTree() override;
     virtual void activateDelay(frame prm_offset_frames = 1) override;
     virtual void activate() override;
