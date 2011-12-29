@@ -9,8 +9,8 @@
 
 //MY_DEBUGは自分用のデバッグビルド
 #ifdef _DEBUG
-    //#undef _DEBUG
-    #define MY_DEBUG _DEBUG
+    #undef _DEBUG
+    //#define MY_DEBUG _DEBUG
 #endif
 
 
