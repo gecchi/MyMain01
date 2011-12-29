@@ -22,7 +22,7 @@ void CubeMapMorphMeshTestActor::onCreateModel() {
 void CubeMapMorphMeshTestActor::initialize() {
     setHitAble(false);
 //    _pMorpher->setWeight(0, 1.0);
-//    setScaleRate(0.1);
+//    setScaleR(0.1);
 }
 
 void CubeMapMorphMeshTestActor::onActive() {

@@ -4,20 +4,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
-enum {
-    PAUSE_MENU_ITEM_BACK_TO_GAME = 0 ,
-    PAUSE_MENU_ITEM_CONFIG,
-    PAUSE_MENU_ITEM_BACK_TO_TITLE,
-    PAUSE_MENU_ITEM_QUIT_GAME,
-    PAUSE_MENU_ITEM_DUMMY1,
-    PAUSE_MENU_ITEM_DUMMY2,
-    PAUSE_MENU_ITEM_DUMMY3,
-    PAUSE_MENU_ITEM_DUMMY4,
-    PAUSE_MENU_ITEM_DUMMY5,
-    PAUSE_MENU_ITEM_DUMMY6,
-    PAUSE_MENU_ITEM_DUMMY7,
-    PAUSE_MENU_ITEM_CANCEL
-};
 
 MenuBoardPause::MenuBoardPause(const char* prm_name) :
         MenuBoard(prm_name, "TurboMeter") {
@@ -65,16 +51,13 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     relationItemExNext(11, 0);
 
 
-    relationItemCancel(PAUSE_MENU_ITEM_BACK_TO_GAME);
+    relationItemCancel(ITEM_BACK_TO_GAME);
 
     CursorPauseMenu* pCursor = NEW CursorPauseMenu("CursorPauseMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    setCursor(pCursor);
-    config(30, 8, 0.2, 0.7);
-
+    setCursor(pCursor, 8, 0.2, 0.7);
     setSelectedItemIndex(0); //初期選択
-    setTargetLocate(PX2CO(300), PX2CO(10),  0, -PX2CO(100));
-
+    setTransition(30, PX2CO(0), -PX2CO(100));
     _pConfirmMenu = NEW MenuBoardConfirm("confirm");
     addSubLast(_pConfirmMenu);
 }
@@ -95,17 +78,16 @@ void MenuBoardPause::processBehavior() {
     MenuBoard::processBehavior();
 
     //サブメニュー判定
-    DefaultBoardSetMenu* pSub = getSubMenu();
+    DefaultBoardMenu* pSub = getSubMenu();
     if (pSub) {
         if (pSub->isJustDecided()) {
             if (pSub->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
 
-                if (getSelectedIndex() == PAUSE_MENU_ITEM_QUIT_GAME) {
+                if (getSelectedIndex() == MenuBoardPause::ITEM_QUIT_GAME) {
                     PostQuitMessage(0);
                 }
 
             } else if (pSub->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
-
                 sinkSub();
             } else {
             }
@@ -116,10 +98,10 @@ void MenuBoardPause::processBehavior() {
 }
 
 void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
-    if (prm_item_index == PAUSE_MENU_ITEM_BACK_TO_GAME) {
+    if (prm_item_index == MenuBoardPause::ITEM_BACK_TO_GAME) {
         sink();
-    } else if (prm_item_index == PAUSE_MENU_ITEM_QUIT_GAME) {
-        riseSub(_pConfirmMenu);     //サブメニュー起動
+    } else if (prm_item_index == MenuBoardPause::ITEM_QUIT_GAME) {
+        riseSub(_pConfirmMenu, getSelectedItem()->_X + PX2CO(50), getSelectedItem()->_Y + PX2CO(50));     //サブメニュー起動
     }
 }
 MenuBoardPause::~MenuBoardPause() {

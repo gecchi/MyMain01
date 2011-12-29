@@ -22,7 +22,7 @@ void MyOptionWateringLaserChip001::initialize() {
     _pKurokoA->relateFaceAngWithMvAng(true);
     registHitAreaCube(80000);
     setHitAble(true);
-    setScaleRate(6.0);
+    setScaleR(6.0);
     setAlpha(0.99);
 }
 

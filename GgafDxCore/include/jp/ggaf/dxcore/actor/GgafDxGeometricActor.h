@@ -251,28 +251,42 @@ public:
         _SX = S;
         _SY = S;
         _SZ = S;
-        setBoundingSphereRadiusRate((1.0*S)/1000);
+        setBoundingSphereRadiusRate(SC2R(S));
+    }
+
+    virtual void setScale(scale SX, scale SY, scale SZ) {
+        _SX = SX;
+        _SY = SY;
+        _SZ = SZ;
+        setBoundingSphereRadiusRate(SC2R(MAX3(_SX,_SY,_SZ)));
     }
 
     /**
-     * ÉXÉPÅ[ÉãÇî{ó¶Ç≈ê›íËÅB
+     * ÉXÉPÅ[ÉãÇäÑçáÇ≈ê›íËÅB
      * 1.0 Ç≈ 1.0î{ÅB
      * Åyíçà”Åz
      * _pScaler->behave(); Ç™ë∂ç›Ç∑ÇÈÇ∆ñ≥à”ñ°Ç…Ç»ÇËÇ‹Ç∑ÅB
      * @param prm_rate î{ó¶
      */
-    virtual void setScaleRate(float prm_rate) {
-        _SX = 1000*prm_rate;
-        _SY = 1000*prm_rate;
-        _SZ = 1000*prm_rate;
+    virtual void setScaleR(float prm_rate) {
+        _SX = R2SC(prm_rate);
+        _SY = R2SC(prm_rate);
+        _SZ = R2SC(prm_rate);
         setBoundingSphereRadiusRate(prm_rate);
+    }
+
+    virtual void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) {
+        _SX = R2SC(prm_x_rate);
+        _SY = R2SC(prm_y_rate);
+        _SZ = R2SC(prm_z_rate);
+        setBoundingSphereRadiusRate(MAX3(prm_x_rate,prm_y_rate,prm_z_rate));
     }
 
     virtual void addScale(scale dS) {
         _SX += dS;
         _SY += dS;
         _SZ += dS;
-        setBoundingSphereRadiusRate((1.0*_SX)/1000);
+        setBoundingSphereRadiusRate(SC2R(MAX3(_SX,_SY,_SZ)));
     }
 
 

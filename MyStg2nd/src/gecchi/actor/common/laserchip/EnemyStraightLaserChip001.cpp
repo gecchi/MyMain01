@@ -16,7 +16,7 @@ void EnemyStraightLaserChip001::initialize() {
     _pKurokoA->setRzRyMvAng(0,0);
     registHitAreaCube(20000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
-    setScaleRate(5.0);
+    setScaleR(5.0);
     setAlpha(0.9);
 }
 

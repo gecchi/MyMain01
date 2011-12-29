@@ -58,7 +58,7 @@ void EnemyThalia::initialize() {
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 90000);
-    setScaleRate(0.3);
+    setScaleR(0.3);
 }
 
 void EnemyThalia::onActive() {

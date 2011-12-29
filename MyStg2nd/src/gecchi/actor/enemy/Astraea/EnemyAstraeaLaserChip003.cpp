@@ -16,7 +16,7 @@ EnemyAstraeaLaserChip003::EnemyAstraeaLaserChip003(const char* prm_name) :
 void EnemyAstraeaLaserChip003::initialize() {
     registHitAreaCube(20000);
     setHitAble(true, false);
-    setScaleRate(5.0);
+    setScaleR(5.0);
     setAlpha(0.9);
     _pKurokoA->setMvVelo(30000);
     _pKurokoA->relateFaceAngWithMvAng(true);

@@ -57,7 +57,7 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         _papEffect[lv-1]->_pKurokoA->setMvVelo(2000);
         _papEffect[lv-1]->_pKurokoA->setMvAcce(-5);
         _papEffect[lv-1]->setAlpha(0.9);
-        _papEffect[lv-1]->setScaleRate(2.0f);
+        _papEffect[lv-1]->setScaleR(2.0f);
         _papEffect[lv-1]->activate();
         n++;
     }
@@ -69,7 +69,7 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
     _r_effect += 0.02;
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-        _papEffect[lv-1]->setScaleRate(_r_effect);
+        _papEffect[lv-1]->setScaleR(_r_effect);
     }
 }
 
@@ -118,7 +118,7 @@ void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
     //レベルアップ時、エフェクトの処理
     for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
         _papEffect[lv-1]->setAlpha(_r_effect);
-//        _papEffect[lv-1]->setScaleRate(3.0f+(1.0f-_r_effect)*4.0);
+//        _papEffect[lv-1]->setScaleR(3.0f+(1.0f-_r_effect)*4.0);
         _papEffect[lv-1]->locateAs(P_MYOPTIONCON->_papMyOption[lv-1]);
         P_MYOPTIONCON->_papMyOption[lv-1]->setAlpha(1.0f-_r_effect);
     }

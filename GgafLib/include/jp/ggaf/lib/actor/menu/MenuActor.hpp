@@ -18,6 +18,13 @@ template<class T>
 class MenuActor : public T {
 
 protected:
+    /** カーソルの補正X座標 */
+    coord _X_cursor_adjust;
+    /** カーソルの補正Y座標 */
+    coord _Y_cursor_adjust;
+    /** カーソルの補正Z座標 */
+    coord _Z_cursor_adjust;
+
     /** カーソル移動先アイテムの前フレームのX座標 */
     coord _X_cursor_target_prev;
     /** カーソル移動先アイテムの前フレームのY座標 */
@@ -94,6 +101,10 @@ public:
      */
     MenuActor(const char* prm_name, const char* prm_model);
 
+    virtual void setFadeFrames(frame prm_menu_fade_frames) {
+        _velo_alpha_fade = 1.0 / prm_menu_fade_frames;
+    }
+
     /**
      * メニューアイテム(選択可能)を追加する .
      * @param prm_pItem メニューアイテム
@@ -143,20 +154,34 @@ public:
      * _pKurokoA->behave(); <BR>
      * を実行する必要はありません。<BR>
      * @param prm_pCursor カーソル
-     */
-    virtual void setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor);
-
-    /**
-     * メニューの動きを設定する。
-     * @param prm_menu_fade_frames メニューのフェードイン（とフェードアウト）のフレーム数
      * @param prm_cursor_move_frames カーソルがアイテム間移動に費やすフレーム(デフォルト8フレーム)
      * @param prm_cursor_move_p1 カーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
      * @param prm_cursor_move_p2 カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合(デフォルト0.7)
      */
-    virtual void config(int prm_menu_fade_frames,
-                        int prm_cursor_move_frames = 8,
-                        float prm_cursor_move_p1 = 0.2,
-                        float prm_cursor_move_p2 = 0.7);
+
+    /**
+     * メニューカーソルオブジェクトを設定する .
+     * 【注意】<BR>
+     * カーソル移動を制御するため、MenuActor<T>::processBehavior() 内で、<BR>
+     * _pCursor->_pKurokoA->behave(); <BR>
+     * を実行しています。したがって、引数のカーソルクラスで、<BR>
+     * _pKurokoA->behave(); <BR>
+     * を実行する必要はありません。<BR>
+     * @param prm_pCursor カーソル
+     * @param prm_X_cursor_adjust アイテムとの重なりを補正するための加算される差分X座標
+     * @param prm_Y_cursor_adjust アイテムとの重なりを補正するための加算される差分Y座標
+     * @param prm_Z_cursor_adjust アイテムとの重なりを補正するための加算される差分Z座標
+     * @param prm_cursor_move_frames カーソルがアイテム間移動に費やすフレーム(デフォルト8フレーム)
+     * @param prm_cursor_move_p1 カーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
+     * @param prm_cursor_move_p2 カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合(デフォルト0.7)
+     */
+    virtual void setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
+                           coord prm_X_cursor_adjust = 0,
+                           coord prm_Y_cursor_adjust = 0,
+                           coord prm_Z_cursor_adjust = 0,
+                           int prm_cursor_move_frames = 8,
+                           float prm_cursor_move_p1 = 0.2,
+                           float prm_cursor_move_p2 = 0.7);
 
     /**
      * メニューアイテム間のオーダー連結を拡張設定(自身がFrom ⇔ To) .
@@ -210,7 +235,12 @@ public:
      */
     virtual int getSelectedIndex();
 
+    /**
+     * 「決定」が行われた時に、決定されたアイテムのインデックスを返します .
+     * @return 決定された時：そのアイテムのインデックス(>=0)／何も決定されていない場合：常に -1
+     */
     virtual int getDecidedIndex();
+
     /**
      * 現在カーソルが選択中のアイテムのオブジェクトを取得 .
      * @return 選択中のアイテムオブジェクト
@@ -276,14 +306,19 @@ public:
      */
     virtual void moveCursor();
 
-
     /**
      * メニューを表示開始 .
      * 本オブジェクトを生成、タスクに追加後、表示させたいタイミングで実行してください。<BR>
      */
-    void rise();
+    virtual void rise();
 
-    void riseSub(MenuActor<T>* prm_pSubMenu);
+    /**
+     * サブメニューを表示する .
+     * サブメニューを表示すると、サブメニューを閉じる(sinkSub()) まで、
+     * 呼び出し元メニューは操作不可能になります。
+     * @param prm_pSubMenu
+     */
+    virtual void riseSub(MenuActor<T>* prm_pSubMenu);
 
     /**
      * メニューを表示開始時の処理 .
@@ -327,14 +362,14 @@ public:
      * メニューを消去開始 .
      * 本オブジェクトを生成、タスクに追加後、表示させたいタイミングで実行してください。<BR>
      */
-    void sink();
+    virtual void sink();
 
-    void sinkSub();
+    virtual void sinkSub();
     /**
      * rise()が実行された直後か否か .
      * @return
      */
-    bool isJustRise() {
+    virtual bool isJustRise() {
         return _is_just_risen;
     }
 
@@ -342,11 +377,11 @@ public:
      * sink()が実行された直後か否か .
      * @return
      */
-    bool isJustSink() {
+    virtual bool isJustSink() {
         return _is_just_sunk;
     }
 
-    bool isJustDecided() {
+    virtual bool isJustDecided() {
         return _is_just_decided;
     }
 
@@ -379,6 +414,9 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
   T(prm_name, prm_model, NULL),_lstItems(3) { //全アイテム枝を３つ追加：「その他次」「その他前」「キャンセル」の３つ
     T::_class_name = "MenuActor";
     _pCursor = NULL;
+    _X_cursor_adjust = 0;
+    _Y_cursor_adjust = 0;
+    _Z_cursor_adjust = 0;
     _velo_alpha_fade = 1.0;
     _cursor_move_frames = 10;
     _cursor_move_p1 = 0.2;
@@ -403,6 +441,7 @@ template<class T>
 void MenuActor<T>::riseSub(MenuActor<T>* prm_pSubMenu) {
     _pActiveSubMenu = prm_pSubMenu;
     _pActiveSubMenu->rise();
+    //↑ココがオーバーライド先を読んでいるのか調査
     _will_be_able_to_controll = false;
 }
 template<class T>
@@ -467,21 +506,6 @@ void MenuActor<T>::addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
 }
 
 template<class T>
-void MenuActor<T>::config(int prm_menu_fade_frames,
-                          int prm_cursor_move_frames,
-                          float prm_cursor_move_p1,
-                          float prm_cursor_move_p2) {
-    _velo_alpha_fade = 1.0 / prm_menu_fade_frames;
-    _cursor_move_frames = prm_cursor_move_frames;
-    _cursor_move_p1 = prm_cursor_move_p1;
-    _cursor_move_p2 = prm_cursor_move_p2;
-    if (_pCursor) {
-        _pCursor->_fAlpha = T::_fAlpha;
-        _pCursor->inactivateImmed();
-    }
-}
-
-template<class T>
 void MenuActor<T>::relationItemExNext(int prm_index_of_fromitem, int prm_index_of_toitem) {
     _lstItems.getElemFromFirst(prm_index_of_fromitem)->connect(
             ITEM_RELATION_EX_NEXT, _lstItems.getElemFromFirst(prm_index_of_toitem));
@@ -536,9 +560,26 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::setSelectedItemIndex(int prm_inde
 }
 
 template<class T>
-void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor) {
+void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
+                             coord prm_X_cursor_adjust,
+                             coord prm_Y_cursor_adjust,
+                             coord prm_Z_cursor_adjust,
+                             int prm_cursor_move_frames,
+                             float prm_cursor_move_p1,
+                             float prm_cursor_move_p2) {
+
     _pCursor = prm_pCursor;
+    if (_pCursor) {
+        _pCursor->_fAlpha = T::_fAlpha;
+        _pCursor->inactivateImmed();
+    }
     T::addSubLast(_pCursor);
+    _X_cursor_adjust = prm_X_cursor_adjust;
+    _Y_cursor_adjust = prm_Y_cursor_adjust;
+    _Z_cursor_adjust = prm_Z_cursor_adjust;
+    _cursor_move_frames = prm_cursor_move_frames;
+    _cursor_move_p1 = prm_cursor_move_p1;
+    _cursor_move_p2 = prm_cursor_move_p2;
 }
 
 template<class T>
@@ -631,12 +672,25 @@ template<class T>
 void MenuActor<T>::moveCursor() {
     if (_pCursor) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
-        _pCursor->_pKurokoA->setMvAng(pTargetItem);
+        _pCursor->_pKurokoA->setMvAng(
+                                pTargetItem->_X + _X_cursor_adjust,
+                                pTargetItem->_Y + _Y_cursor_adjust,
+                                pTargetItem->_Z + _Z_cursor_adjust
+                            );
         _pCursor->_pKurokoA->setMvVelo(0);
         _pCursor->_pKurokoA->setMvAcce(0);
-        _pCursor->_pKurokoA->execSmoothMvVeloSequence(0, GgafDxCore::GgafDxUtil::getDistance(_pCursor, pTargetItem),
-                                                    _cursor_move_frames,
-                                                    _cursor_move_p1, _cursor_move_p2);
+        _pCursor->_pKurokoA->execSmoothMvVeloSequence(
+                                 0,
+                                 GgafDxCore::GgafDxUtil::getDistance(
+                                         _pCursor->_X,
+                                         _pCursor->_Y,
+                                         _pCursor->_Z,
+                                         pTargetItem->_X + _X_cursor_adjust,
+                                         pTargetItem->_Y + _Y_cursor_adjust,
+                                         pTargetItem->_Z + _Z_cursor_adjust),
+                                 _cursor_move_frames,
+                                 _cursor_move_p1, _cursor_move_p2);
+
         _X_cursor_target_prev = pTargetItem->_X;
         _Y_cursor_target_prev = pTargetItem->_Y;
         _Z_cursor_target_prev = pTargetItem->_Z;
@@ -763,7 +817,9 @@ void MenuActor<T>::processBehavior() {
             _Y_cursor_target_prev = pTargetItem->_Y;
             _Z_cursor_target_prev = pTargetItem->_Z;
         } else {
-            _pCursor->locateAs(pTargetItem);
+            _pCursor->locate(pTargetItem->_X + _X_cursor_adjust,
+                             pTargetItem->_Y + _Y_cursor_adjust,
+                             pTargetItem->_Z + _Z_cursor_adjust );
         }
         _pCursor->setAlpha(T::getAlpha());
     }

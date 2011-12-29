@@ -22,7 +22,7 @@ void CubeMapMeshSetTestActor::onCreateModel() {
 
 void CubeMapMeshSetTestActor::initialize() {
     setHitAble(false);
-    setScaleRate(2);
+    setScaleR(2);
 }
 
 void CubeMapMeshSetTestActor::onActive() {

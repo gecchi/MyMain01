@@ -16,7 +16,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         stringstream name;
         name <<  "Wall001_" << i;
         pWallAABActor = NEW Wall001(name.str().c_str());
-        pWallAABActor->setScaleRate(scale_r);
+        pWallAABActor->setScaleR(scale_r);
         pWallAABActor->inactivateTreeImmed();
         pDepo_WallAAB->addSubLast(pWallAABActor);
     }
@@ -29,7 +29,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         stringstream name;
         name <<  "Wall001Prism_" << i;
         pWallAAPrismActor = NEW Wall001Prism(name.str().c_str());
-        pWallAAPrismActor->setScaleRate(scale_r);
+        pWallAAPrismActor->setScaleR(scale_r);
         pWallAAPrismActor->inactivateTreeImmed();
         pDepo_WallAAPrism->addSubLast(pWallAAPrismActor);
     }

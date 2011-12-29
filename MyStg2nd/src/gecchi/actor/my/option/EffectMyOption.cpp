@@ -13,7 +13,7 @@ EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pMyOption) :
     setZEnable(true);        //Zバッファは考慮して描画
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setHitAble(false);
-//    setScaleRate(0.1);
+//    setScaleR(0.1);
     useProgress(10);
 }
 

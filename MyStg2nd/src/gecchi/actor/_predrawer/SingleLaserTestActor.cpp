@@ -18,7 +18,7 @@ void SingleLaserTestActor::initialize() {
 
 }
 void SingleLaserTestActor::onReset() {
-//    setScaleRate(100.0);
+//    setScaleR(100.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
 //    _pKurokoA->setMvVelo(40000);             //移動速度
 //    _pKurokoA->setMvAcce(1000);             //移動速度

@@ -45,7 +45,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 //    getDirector()->addSubGroup(_pCursor001);
 
     _pMenu = NEW MenuBoardTitle("_pMenu");
-    _pMenu->setTargetLocate(PX2CO(900), PX2CO(200),  0, PX2CO(50));
+    _pMenu->locate(PX2CO(900), PX2CO(200));
     getDirector()->addSubGroup(_pMenu);
 
     _pSeCon_exec = connectSeManager("yume_Sbend");
@@ -107,18 +107,7 @@ void GameTitleScene::processBehavior() {
 
         case GAMETITLESCENE_PROG_SELECT: {
             if (_pProg->isJustChanged()) {
-                _pMenu->rise();
-//                _pStringBoard02->update("");
-//                if (_pProg->isJustChanged()) {
-//                    for (int i = 0; i < _max_menu_item; i++) {
-//                        _papStringItem[i]->locate(PX2CO(700)+PX2CO(i*20), PX2CO(100+(i*20))*2);
-//                        _papStringItem[i]->activate();
-//                    }
-//                }
-//                _active_item = 0;
-//                _pCursor001->locateAs(_papStringItem[_active_item]);
-//                _pCursor001->activate();
-//                _frame_of_noinput = _pProg->getFrameInProgress();
+                _pMenu->rise(PX2CO(800), PX2CO(100));
             }
 
 
@@ -129,7 +118,7 @@ void GameTitleScene::processBehavior() {
                         if (d == MenuBoardConfirm::ITEM_OK) {
                             PostQuitMessage(0);
                         } else if (d == MenuBoardConfirm::ITEM_CANCEL) {
-							_pMenu->sinkConfirm();
+                            _pMenu->sinkConfirm();
                         }
                     }
                 }
@@ -149,37 +138,6 @@ void GameTitleScene::processBehavior() {
                 }
             }
 
-
-
-//            _pCursor001->moveTo(_papStringItem[_active_item]);
-//
-//            if (VB->isAutoRepeat(VB_UI_UP)) {
-//                _active_item--;
-//                if (_active_item < 0) {
-//                    _active_item = _max_menu_item-1;
-//                }
-//                _frame_of_noinput = _pProg->getFrameInProgress();
-//            } else if (VB->isAutoRepeat(VB_UI_DOWN)) {
-//                _active_item++;
-//                if (_active_item > _max_menu_item-1) {
-//                    _active_item = 0;
-//                }
-//                _frame_of_noinput = _pProg->getFrameInProgress();
-//            } if (VB->isPushedDown(VB_UI_EXECUTE)) {
-//
-//                if (_active_item == 0) {
-//                    _pSeCon_exec->use()->play();
-//                    _pProg->change(GAMETITLESCENE_PROG_GAMESTART);
-//                } else if (_active_item == 1) {
-//
-//
-//                } else if (_active_item == 2) {
-//
-//
-//                } else if (_active_item == 3) {
-//                    PostQuitMessage(0);
-//                }
-//
             if (VB->getState()) {
                 _frame_of_noinput = _pProg->getFrameInProgress();
             }

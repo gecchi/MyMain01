@@ -190,7 +190,7 @@ void GameScene::processBehavior() {
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
                     _pProg->getGazeScene()->pauseTree(); //ポーズ！！
-                    _pMenuBoardPause->rise();
+                    _pMenuBoardPause->rise(PX2CO(100), PX2CO(20));
 //                    _pGamePauseScene->reset();
 //                    _pGamePauseScene->activate();
                 }
