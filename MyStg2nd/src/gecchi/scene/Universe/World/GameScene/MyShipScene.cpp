@@ -5,13 +5,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-enum {
-    MYSHIPSCENE_PROG_INIT = 1,
-    MYSHIPSCENE_PROG_BEGIN   ,
-    MYSHIPSCENE_PROG_PLAY    ,
-    MYSHIPSCENE_PROG_DESTROY ,
-    MYSHIPSCENE_PROG_END
-};
 
 MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) ,
 _pMyShip(NULL),
@@ -53,7 +46,7 @@ void MyShipScene::onReset() {
     _pMyShip->resetTree();
     _pMyOptionController->resetTree();
     fadeinScene(0);
-    _pProg->set(MYSHIPSCENE_PROG_INIT);
+    _pProg->set(MyShipScene::PROG_INIT);
 }
 
 void MyShipScene::onActive() {
@@ -62,7 +55,7 @@ void MyShipScene::onActive() {
 void MyShipScene::processBehavior() {
 
     switch (_pProg->getPrev_WhenJustChanged()) {
-        case MYSHIPSCENE_PROG_BEGIN: {
+        case MyShipScene::PROG_BEGIN: {
             P_UNIVERSE->undoCameraWork(); //MyShipDivingCamWorker‰ðœ
             break;
         }
@@ -71,8 +64,8 @@ void MyShipScene::processBehavior() {
     }
 
     switch (_pProg->get()) {
-        case MYSHIPSCENE_PROG_INIT: {
-            _pProg->change(MYSHIPSCENE_PROG_BEGIN);
+        case MyShipScene::PROG_INIT: {
+            _pProg->change(MyShipScene::PROG_BEGIN);
             if (P_UNIVERSE->_pActiveCameraWorker != _pVamSysCamWorker) {
                 _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->switchCameraWork("VamSysCamWorker");
                 _pVamSysCamWorker->_pMyShip = _pMyShip;
@@ -80,7 +73,7 @@ void MyShipScene::processBehavior() {
             break;
         }
 
-        case MYSHIPSCENE_PROG_BEGIN: {
+        case MyShipScene::PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
                 fadeinScene(0);
                 _pMyShip->reset();
@@ -98,12 +91,12 @@ void MyShipScene::processBehavior() {
                 _pMyShip->_X = 0;
                 _pMyShip->_is_diving = false;
                 //P_UNIVERSE->undoCameraWork();
-                _pProg->change(MYSHIPSCENE_PROG_PLAY);
+                _pProg->change(MyShipScene::PROG_PLAY);
             }
             break;
         }
 
-        case MYSHIPSCENE_PROG_PLAY: {
+        case MyShipScene::PROG_PLAY: {
             if (_pProg->isJustChanged()) {
 //                _pMyShip->_can_control = true;
             }
@@ -111,7 +104,7 @@ void MyShipScene::processBehavior() {
             break;
         }
 
-        case MYSHIPSCENE_PROG_DESTROY: {
+        case MyShipScene::PROG_DESTROY: {
             if (_pProg->isJustChanged()) {
                 _pEffectMyShipExplosion->activate();
                 _pMyShip->inactivateDelay(60);
@@ -127,7 +120,7 @@ void MyShipScene::processBehavior() {
                    inactivate();
                 } else {
                    throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
-                   _pProg->change(MYSHIPSCENE_PROG_BEGIN);
+                   _pProg->change(MyShipScene::PROG_BEGIN);
                 }
             }
             break;
@@ -142,7 +135,7 @@ void MyShipScene::processBehavior() {
 void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
-       _pProg->change(MYSHIPSCENE_PROG_DESTROY);
+       _pProg->change(MyShipScene::PROG_DESTROY);
     }
 }
 

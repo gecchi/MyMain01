@@ -9,11 +9,11 @@ bool Stage::_pause = false;
 
 Stage::Stage(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage";
-    useProgress(STAGE_PROG_END);
+    useProgress(Stage::PROG_END);
 }
 
 void Stage::initialize() {
-    _pProg->set(STAGE_PROG_INIT);
+    _pProg->set(Stage::PROG_INIT);
 }
 
 void Stage::onCatchEvent(hashval prm_no, void* prm_pSource) {

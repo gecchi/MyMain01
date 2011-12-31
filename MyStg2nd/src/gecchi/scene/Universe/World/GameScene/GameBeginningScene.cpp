@@ -5,12 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-enum {
-    GAMEBEGINNINGSCENE_PROG_INIT = 1   ,
-    GAMEBEGINNINGSCENE_PROG_SELECT_MODE,
-    GAMEBEGINNINGSCENE_PROG_DECIDE     ,
-    GAMEBEGINNINGSCENE_PROG_FINISH     ,
-};
+
 
 GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameBeginningScene";
@@ -20,12 +15,12 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
     getDirector()->addSubGroup(KIND_EFFECT, _pStringBoard02);
     _selected_stage = 0;
-    useProgress(GAMEBEGINNINGSCENE_PROG_FINISH);
+    useProgress(GameBeginningScene::PROG_FINISH);
 }
 
 void GameBeginningScene::onReset() {
     _TRACE_("GameBeginningScene::onReset()");
-    _pProg->change(GAMEBEGINNINGSCENE_PROG_INIT);
+    _pProg->change(GameBeginningScene::PROG_INIT);
 //    fadeinScene(0);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
@@ -44,25 +39,25 @@ void GameBeginningScene::initialize() {
 void GameBeginningScene::processBehavior() {
 
     switch (_pProg->get()) {
-        case GAMEBEGINNINGSCENE_PROG_INIT: {
-            _pProg->change(GAMEBEGINNINGSCENE_PROG_SELECT_MODE);
+        case GameBeginningScene::PROG_INIT: {
+            _pProg->change(GameBeginningScene::PROG_SELECT_MODE);
             break;
         }
 
-        case GAMEBEGINNINGSCENE_PROG_SELECT_MODE: {
+        case GameBeginningScene::PROG_SELECT_MODE: {
             if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(PX2CO(200), PX2CO(200), "GAME_BEGINNING_SCENE BEGIN");
                 _pStringBoard02->update(PX2CO(200), PX2CO(250), "SELECT MODE!");
             }
-            if (_pProg->get() == GAMEBEGINNINGSCENE_PROG_SELECT_MODE) {
+            if (_pProg->get() == GameBeginningScene::PROG_SELECT_MODE) {
                 if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 300) {
-                    _pProg->change(GAMEBEGINNINGSCENE_PROG_DECIDE);
+                    _pProg->change(GameBeginningScene::PROG_DECIDE);
                 }
             }
             break;
         }
 
-        case GAMEBEGINNINGSCENE_PROG_DECIDE: {
+        case GameBeginningScene::PROG_DECIDE: {
             if (_pProg->isJustChanged()) {
                 _pStringBoard02->update(PX2CO(300), PX2CO(300), "OK OK OK");
                 _pStringBoard02->_pFader->beat(20,3,7,3,-1);
@@ -74,12 +69,12 @@ void GameBeginningScene::processBehavior() {
 
 //
 //            if (_pProg->getFrameInProgress() == FADE_FRAMES) {
-//                _pProg->change(GAMEBEGINNINGSCENE_PROG_FINISH);
+//                _pProg->change(GameBeginningScene::PROG_FINISH);
 //            }
             break;
         }
 
-        case GAMEBEGINNINGSCENE_PROG_FINISH: {
+        case GameBeginningScene::PROG_FINISH: {
             if (_pProg->isJustChanged()) {
                 //inactivate();
             }

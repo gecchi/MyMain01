@@ -5,6 +5,12 @@ namespace MyStg2nd {
 class GameOverScene : public GgafLib::DefaultScene {
 
 public:
+    enum {
+        PROG_INIT = 1,
+        PROG_DISP    ,
+        PROG_FINISH  ,
+    };
+
     LabelGecchi16Font* _pStringBoard01;
     GameOverScene(const char* prm_name);
     void onReset() override;

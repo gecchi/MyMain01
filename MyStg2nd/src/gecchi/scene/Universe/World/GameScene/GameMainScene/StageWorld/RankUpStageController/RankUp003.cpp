@@ -237,14 +237,14 @@ void RankUp003::processBehavior() {
 
 
     switch (_pProg->get()) {
-        case RANKUPSTAGE_PROG_PLAYING: {
+        case RankUpStage::PROG_PLAYING: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("RankUp003::processBehavior() RANKUPSTAGE_PROG_PLAYING ‚É‚È‚è‚Ü‚·‚½I");
+                _TRACE_("RankUp003::processBehavior() RankUpStage::PROG_PLAYING ‚É‚È‚è‚Ü‚·‚½I");
             }
 
             if (_pProg->getFrameInProgress() == 2500) {
-                _TRACE_("RankUp003::processBehavior() RANKUPSTAGE_PROG_PLAYING ‚¨‚í‚Á‚½");
-                _pProg->change(RANKUPSTAGE_PROG_RESULT); //RankUpStage‚Ì‹¤’Êˆ—‚Ö
+                _TRACE_("RankUp003::processBehavior() RankUpStage::PROG_PLAYING ‚¨‚í‚Á‚½");
+                _pProg->change(RankUpStage::PROG_RESULT); //RankUpStage‚Ì‹¤’Êˆ—‚Ö
             }
             break;
         }

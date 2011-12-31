@@ -4,18 +4,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
-enum {
-    STAGE02PARTCONTROLLER_PROG_INIT = 1            ,
-    STAGE02PARTCONTROLLER_PROG_STG02_01_BEGIN      ,
-    STAGE02PARTCONTROLLER_PROG_STG02_01_PLAYING    ,
-    STAGE02PARTCONTROLLER_PROG_STG02_02_BEGIN      ,
-    STAGE02PARTCONTROLLER_PROG_STG02_02_PLAYING    ,
-    STAGE02PARTCONTROLLER_PROG_STG02_03_BEGIN      ,
-    STAGE02PARTCONTROLLER_PROG_STG02_03_PLAYING    ,
-    STAGE02PARTCONTROLLER_PROG_STG02_CLIMAX_BEGIN  ,
-    STAGE02PARTCONTROLLER_PROG_STG02_CLIMAX_PLAYING,
-    STAGE02PARTCONTROLLER_PROG_FAINAL              ,
-};
 
 Stage02PartController::Stage02PartController(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage02PartController";
@@ -34,13 +22,13 @@ Stage02PartController::Stage02PartController(const char* prm_name) : DefaultScen
 	orderSceneToFactory(60000000, Stage02_01, "Stage02_01");
 	orderActorToFactory(60000002, EnemyAstraea, "Astraea_1");
     // gen01 end
-    useProgress(STAGE02PARTCONTROLLER_PROG_FAINAL);
+    useProgress(Stage02PartController::PROG_FAINAL);
 }
 
 void Stage02PartController::initialize() {
     _pBgmPerformer->play(0, GGAF_MIN_VOLUME, true);
     _pBgmPerformer->fadein(0, 420);
-    _pProg->change(STAGE02PARTCONTROLLER_PROG_INIT);
+    _pProg->change(Stage02PartController::PROG_INIT);
 }
 
 void Stage02PartController::processBehavior() {
@@ -55,7 +43,7 @@ void Stage02PartController::processBehavior() {
 			case 3: {
 				Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
 				addSubLast(pScene);
-				_pProg->change(STAGE02PARTCONTROLLER_PROG_STG02_01_BEGIN);
+				_pProg->change(Stage02PartController::PROG_STG02_01_BEGIN);
 				break;
 			}
 			case 100: {
@@ -72,7 +60,7 @@ void Stage02PartController::processBehavior() {
 			case 3000: {
 				Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
 				addSubLast(pScene);
-				_pProg->change(STAGE02PARTCONTROLLER_PROG_STG02_CLIMAX_BEGIN);
+				_pProg->change(Stage02PartController::PROG_STG02_CLIMAX_BEGIN);
 				break;
 			}
 			default :
@@ -82,57 +70,57 @@ void Stage02PartController::processBehavior() {
 	}
     // gen02 end
 
-    if (_pProg->isJustChangedTo(STAGE02PARTCONTROLLER_PROG_INIT)) {
+    if (_pProg->isJustChangedTo(Stage02PartController::PROG_INIT)) {
         _TRACE_("Stage02PartController::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
 
     }
 
-    if (_pProg->isJustChangedTo(STAGE02PARTCONTROLLER_PROG_STG02_01_BEGIN)) {
+    if (_pProg->isJustChangedTo(Stage02PartController::PROG_STG02_01_BEGIN)) {
         //STG02_01開始処理
 
-        _pProg->change(STAGE02PARTCONTROLLER_PROG_STG02_01_PLAYING);
-    } else if (_pProg->get() == STAGE02PARTCONTROLLER_PROG_STG02_01_PLAYING) {
+        _pProg->change(Stage02PartController::PROG_STG02_01_PLAYING);
+    } else if (_pProg->get() == Stage02PartController::PROG_STG02_01_PLAYING) {
         //STG02_01最中の処理
 
     }
 
-//    if (_pProg->isJustChangedTo(STAGE02PARTCONTROLLER_PROG_STG02_02_BEGIN)) {
+//    if (_pProg->isJustChangedTo(Stage02PartController::PROG_STG02_02_BEGIN)) {
 //        //STG02_02開始処理
 //        _pBgmPerformer->fadeout_stop(0, 420);        //BGM０番フェードアウト
 //        _pBgmPerformer->play(1, GGAF_MIN_VOLUME, true);//BGM１番フェードイン
 //        _pBgmPerformer->fadein(1, 420);
-//        _pProg->change(STAGE02PARTCONTROLLER_PROG_STG02_02_PLAYING);
-//    } else if (_pProg->get() == STAGE02PARTCONTROLLER_PROG_STG02_02_PLAYING) {
+//        _pProg->change(Stage02PartController::PROG_STG02_02_PLAYING);
+//    } else if (_pProg->get() == Stage02PartController::PROG_STG02_02_PLAYING) {
 //        //STG02_02最中の処理
 //
 //    }
 //
-//    if (_pProg->isJustChangedTo(STAGE02PARTCONTROLLER_PROG_STG02_03_BEGIN)) {
+//    if (_pProg->isJustChangedTo(Stage02PartController::PROG_STG02_03_BEGIN)) {
 //        //STG02_03開始処理
 //
-//        _pProg->change(STAGE02PARTCONTROLLER_PROG_STG02_03_PLAYING);
-//    } else if (_pProg->get() == STAGE02PARTCONTROLLER_PROG_STG02_03_PLAYING) {
+//        _pProg->change(Stage02PartController::PROG_STG02_03_PLAYING);
+//    } else if (_pProg->get() == Stage02PartController::PROG_STG02_03_PLAYING) {
 //        //STG02_03最中の処理
 //
 //    }
 
-    if (_pProg->isJustChangedTo(STAGE02PARTCONTROLLER_PROG_STG02_CLIMAX_BEGIN)) {
+    if (_pProg->isJustChangedTo(Stage02PartController::PROG_STG02_CLIMAX_BEGIN)) {
         //STG02_Climax開始処理
         _pBgmPerformer->fadeout_stop(1, 420);  //BGM１番フェードアウト
         _pBgmPerformer->play(2, GGAF_MIN_VOLUME, true); //BGM２番フェードイン
         _pBgmPerformer->fadein(2, 420);
-        _pProg->change(STAGE02PARTCONTROLLER_PROG_STG02_CLIMAX_PLAYING);
-    } else if (_pProg->get() == STAGE02PARTCONTROLLER_PROG_STG02_CLIMAX_PLAYING) {
+        _pProg->change(Stage02PartController::PROG_STG02_CLIMAX_PLAYING);
+    } else if (_pProg->get() == Stage02PartController::PROG_STG02_CLIMAX_PLAYING) {
         //STG02_Climax最中の処理
 
     }
 
-    if (_pProg->isJustChangedTo(STAGE02PARTCONTROLLER_PROG_FAINAL)) {
+    if (_pProg->isJustChangedTo(Stage02PartController::PROG_FAINAL)) {
         //STG02_Climax終焉の処理
-        _TRACE_("STG02_Climax終焉のSTAGE02PARTCONTROLLER_PROG_FAINALきた");
+        _TRACE_("STG02_Climax終焉のStage02PartController::PROG_FAINALきた");
         _pBgmPerformer->fadeout_stop(2, 420); //BGM１番フェードアウト
         _frame_prog_fainal = 0;
-    } else if (_pProg->get() == STAGE02PARTCONTROLLER_PROG_FAINAL) {
+    } else if (_pProg->get() == Stage02PartController::PROG_FAINAL) {
         //STG02_Climax終焉最中の処理
         _frame_prog_fainal++;
 
@@ -158,7 +146,7 @@ void Stage02PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_STG02_CLIMAX_WAS_BROKEN) {
         _TRACE_("Stage02PartController::onCatchEvent() EVENT_STG02_CLIMAX_WAS_BROKENキャッチした。STAGE02PARTCONTROLLER_ENDINGを投げる");
         ((Stage02_Climax*)prm_pSource)->end(30*60);
-        _pProg->change(STAGE02PARTCONTROLLER_PROG_FAINAL); //進捗をSTAGE02PARTCONTROLLER_PROG_FAINALに切り替える
+        _pProg->change(Stage02PartController::PROG_FAINAL); //進捗をStage02PartController::PROG_FAINALに切り替える
     } else {
 
     }

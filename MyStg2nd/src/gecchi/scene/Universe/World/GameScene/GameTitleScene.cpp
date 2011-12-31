@@ -5,20 +5,11 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-enum {
-    GAMETITLESCENE_PROG_INIT = 1 ,
-    GAMETITLESCENE_PROG_TITLE    ,
-    GAMETITLESCENE_PROG_SELECT   ,
-    GAMETITLESCENE_PROG_GAMESTART,
-    GAMETITLESCENE_PROG_FINISH   ,
-};
 #define GAMETITLE_TIMEOUT 240
-
-
 GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
     useProgress(10);
-    _pProg->change(GAMETITLESCENE_PROG_INIT);
+    _pProg->change(GameTitleScene::PROG_INIT);
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
     getDirector()->addSubGroup(_pStringBoard01);
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
@@ -61,7 +52,7 @@ void GameTitleScene::onReset() {
     _pStringBoard01->update("");
     _pStringBoard02->update("");
     _pTitleBoard->locate(200000, 100000);
-    _pProg->set(GAMETITLESCENE_PROG_INIT);
+    _pProg->set(GameTitleScene::PROG_INIT);
 //    fadeinScene(0);
 }
 
@@ -82,30 +73,30 @@ void GameTitleScene::processBehavior() {
 
 
     switch (_pProg->get()) {
-        case GAMETITLESCENE_PROG_INIT: {
-            _pProg->change(GAMETITLESCENE_PROG_TITLE);
+        case GameTitleScene::PROG_INIT: {
+            _pProg->change(GameTitleScene::PROG_TITLE);
             break;
         }
 
-        case GAMETITLESCENE_PROG_TITLE: {
+        case GameTitleScene::PROG_TITLE: {
             if (_pProg->isJustChanged()) {
                 _pStringBoard02->update(PX2CO(400), PX2CO(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 _pSeCon_exec->use()->play();
-                _pProg->change(GAMETITLESCENE_PROG_SELECT);
+                _pProg->change(GameTitleScene::PROG_SELECT);
 
 
             } else if (_pProg->getFrameInProgress() == GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
-                _pProg->change(GAMETITLESCENE_PROG_FINISH); //タイトルシーン終了へ
+                _pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }
             break;
         }
 
-        case GAMETITLESCENE_PROG_SELECT: {
+        case GameTitleScene::PROG_SELECT: {
             if (_pProg->isJustChanged()) {
                 _pMenu->rise(PX2CO(800), PX2CO(100));
             }
@@ -127,7 +118,7 @@ void GameTitleScene::processBehavior() {
                 if (d >= 0) {
                     if (d == MenuBoardTitle::ITEM_GAME_START) {
                         _pSeCon_exec->use()->play();
-                        _pProg->change(GAMETITLESCENE_PROG_GAMESTART);
+                        _pProg->change(GameTitleScene::PROG_GAMESTART);
                     } else if (d == MenuBoardTitle::ITEM_CONFIG) {
 
                     } else if (d == MenuBoardTitle::ITEM_DEBUG) {
@@ -146,17 +137,17 @@ void GameTitleScene::processBehavior() {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
-                _pProg->change(GAMETITLESCENE_PROG_FINISH); //タイトルシーン終了へ
+                _pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }
             break;
         }
 
-        case GAMETITLESCENE_PROG_GAMESTART: {
+        case GameTitleScene::PROG_GAMESTART: {
             if (_pProg->isJustChanged()) {
             }
             if (_pProg->getFrameInProgress() == 90) {
                 throwEventToUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
-                _pProg->change(GAMETITLESCENE_PROG_FINISH); //タイトルシーン終了へ
+                _pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }
             //点滅
             if (_pProg->getFrameInProgress() % 10 < 5 ) {
@@ -167,7 +158,7 @@ void GameTitleScene::processBehavior() {
             break;
         }
 
-        case GAMETITLESCENE_PROG_FINISH: {
+        case GameTitleScene::PROG_FINISH: {
             if (_pProg->isJustChanged()) {
                 _pMenu->sink();
 //                fadeoutSceneTree(FADE_FRAMES);

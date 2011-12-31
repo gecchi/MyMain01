@@ -32,11 +32,11 @@ void Stage02::initialize() {
 
 void Stage02::processBehavior() {
     Stage::processBehavior();
-    if (_pProg->get() == STAGE_PROG_INIT) {
-       _pProg->change(STAGE_PROG_BEGIN);
+    if (_pProg->get() == Stage::PROG_INIT) {
+       _pProg->change(Stage::PROG_BEGIN);
     }
 
-    if (_pProg->get() == STAGE_PROG_BEGIN) {
+    if (_pProg->get() == Stage::PROG_BEGIN) {
         if (_pProg->getFrameInProgress() == 180) { //ステージ2開始！
             _pMessage->activateImmed();
             _pMessage->update(300*1000, 300*1000, "SCENE 02 START!");
@@ -44,13 +44,13 @@ void Stage02::processBehavior() {
             _pWorldBoundSpace->activateTree();
             _pScene_Stage02PartController->activate();
             fadeinScene(240);
-            _pProg->change(STAGE_PROG_PLAYING);
+            _pProg->change(Stage::PROG_PLAYING);
         }
     }
 
-    if (_pProg->get() == STAGE_PROG_END) {
+    if (_pProg->get() == Stage::PROG_END) {
         if (_pProg->isJustChanged()) {
-            _TRACE_("Stage01::processBehavior()  STAGE_PROG_ENDになりますた！");
+            _TRACE_("Stage01::processBehavior()  Stage::PROG_ENDになりますた！");
             throwEventToUpperTree(EVENT_PREPARE_TRANSIT_STAGE, this); //通過ステージ準備へ
         }
 
@@ -74,9 +74,9 @@ void Stage02::processFinal() {
 
 void Stage02::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG02_CONTROLLER_WAS_END ) {
-        _TRACE_("Stage02::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_PROG_ENDへ");
+        _TRACE_("Stage02::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
         _pScene_Stage02PartController->end(60*60);
-        _pProg->change(STAGE_PROG_END);
+        _pProg->change(Stage::PROG_END);
     } else {
 
     }

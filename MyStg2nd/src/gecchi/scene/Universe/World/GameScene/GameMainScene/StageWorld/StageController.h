@@ -20,6 +20,15 @@ namespace MyStg2nd {
 class StageController : public GgafLib::DefaultScene {
 
 public:
+    enum {
+        PROG_INIT = 1,
+        PROG_BEGIN   ,
+        PROG_PLAY_STAGE,
+        PROG_PLAY_TRANSIT,
+        PROG_PLAY_RANKUP,
+        PROG_FINISH  ,
+    };
+
 //    static StageController* _pStageController;
 
     char _buf[60];

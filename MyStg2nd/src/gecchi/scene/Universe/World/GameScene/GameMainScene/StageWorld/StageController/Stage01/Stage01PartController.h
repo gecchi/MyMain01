@@ -13,6 +13,18 @@ class Stage01PartController : public StagePartController {
     GgafDxCore::GgafDxBgm* _bgm_st1;
 
 public:
+    enum {
+        PROG_INIT = 1            ,
+        PROG_STG01_01_BEGIN      ,
+        PROG_STG01_01_PLAYING    ,
+        PROG_STG01_02_BEGIN      ,
+        PROG_STG01_02_PLAYING    ,
+        PROG_STG01_03_BEGIN      ,
+        PROG_STG01_03_PLAYING    ,
+        PROG_STG01_CLIMAX_BEGIN  ,
+        PROG_STG01_CLIMAX_PLAYING,
+        PROG_FAINAL              ,
+    };
 
 
     Stage01PartController(const char* prm_name);

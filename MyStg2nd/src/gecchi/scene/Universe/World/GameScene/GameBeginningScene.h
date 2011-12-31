@@ -10,6 +10,13 @@ namespace MyStg2nd {
 class GameBeginningScene : public GgafLib::DefaultScene {
 
 public:
+    enum {
+        PROG_INIT = 1   ,
+        PROG_SELECT_MODE,
+        PROG_DECIDE     ,
+        PROG_FINISH     ,
+    };
+
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;
 

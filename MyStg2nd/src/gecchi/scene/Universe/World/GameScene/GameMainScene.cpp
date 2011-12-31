@@ -5,13 +5,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-enum {
-    GAMEMAINSCENE_PROG_INIT = 1,
-    GAMEMAINSCENE_PROG_BEGIN   ,
-    GAMEMAINSCENE_PROG_PLAY    ,
-    GAMEMAINSCENE_PROG_FINISH  ,
-};
-
 #define ORDER_ID_STAGE 11
 
 //GameMainScene* GameMainScene::_pGameMainScene = NULL;
@@ -48,12 +41,12 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pRankFont->locate(PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT)));
     getDirector()->addSubGroup(_pRankFont);
 
-    useProgress(GAMEMAINSCENE_PROG_FINISH);
+    useProgress(GameMainScene::PROG_FINISH);
 }
 
 void GameMainScene::onReset() {
     _TRACE_("GameMainScene::onReset()");
-    _pProg->set(GAMEMAINSCENE_PROG_INIT);
+    _pProg->set(GameMainScene::PROG_INIT);
 }
 
 void GameMainScene::initialize() {
@@ -76,33 +69,33 @@ void GameMainScene::processBehavior() {
     _pFont8_JIKI_Z->update(_buf);
 
     switch (_pProg->get()) {
-        case GAMEMAINSCENE_PROG_INIT: {
-            _TRACE_("GameMainScene::processBehavior() Prog(=GAMEMAINSCENE_PROG_INIT)");
+        case GameMainScene::PROG_INIT: {
+            _TRACE_("GameMainScene::processBehavior() Prog(=GameMainScene::PROG_INIT)");
             addSubLast(P_STAGE_WORLD->extract());
             P_STAGE_WORLD->resetTree();
             P_STAGE_WORLD->activateImmed();
-            _pProg->change(GAMEMAINSCENE_PROG_BEGIN);
+            _pProg->change(GameMainScene::PROG_BEGIN);
             break;
         }
 
-        case GAMEMAINSCENE_PROG_BEGIN: {
+        case GameMainScene::PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog(=GAMEMAINSCENE_PROG_BEGIN) is Just Changed");
-                _pProg->change(GAMEMAINSCENE_PROG_PLAY);
+                _TRACE_("GameMainScene::processBehavior() Prog(=GameMainScene::PROG_BEGIN) is Just Changed");
+                _pProg->change(GameMainScene::PROG_PLAY);
             }
             break;
         }
 
-        case GAMEMAINSCENE_PROG_PLAY: {
+        case GameMainScene::PROG_PLAY: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog(=GAMEMAINSCENE_PROG_PLAY) is Just Changed");
+                _TRACE_("GameMainScene::processBehavior() Prog(=GameMainScene::PROG_PLAY) is Just Changed");
             }
             break;
         }
 
-        case GAMEMAINSCENE_PROG_FINISH: {
+        case GameMainScene::PROG_FINISH: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog(=GAMEMAINSCENE_PROG_FINISH) is Just Changed");
+                _TRACE_("GameMainScene::processBehavior() Prog(=GameMainScene::PROG_FINISH) is Just Changed");
             }
             break;
         }

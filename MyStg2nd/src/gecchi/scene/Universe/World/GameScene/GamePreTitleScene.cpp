@@ -5,16 +5,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-enum {
-    GAMEPRETITLESCENE_PROG_INIT = 1,
-    GAMEPRETITLESCENE_PROG_EXEC    ,
-    GAMEPRETITLESCENE_PROG_FINISH  ,
-};
-
 GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePreTitleScene";
     useProgress(10);
-    _pProg->change(GAMEPRETITLESCENE_PROG_INIT);
+    _pProg->change(GamePreTitleScene::PROG_INIT);
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
     getDirector()->addSubGroup(_pStringBoard01);
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
@@ -28,7 +22,7 @@ void GamePreTitleScene::onReset() {
     _pStringBoard01->update("");
     _pStringBoard02->update("");
 //    fadeoutScene(0);
-    _pProg->change(GAMEPRETITLESCENE_PROG_INIT);
+    _pProg->change(GamePreTitleScene::PROG_INIT);
 }
 
 void GamePreTitleScene::onActive() {
@@ -41,12 +35,12 @@ void GamePreTitleScene::initialize() {
 void GamePreTitleScene::processBehavior() {
 
     switch (_pProg->get()) {
-        case GAMEPRETITLESCENE_PROG_INIT: {
-            _pProg->change(GAMEPRETITLESCENE_PROG_EXEC);
+        case GamePreTitleScene::PROG_INIT: {
+            _pProg->change(GamePreTitleScene::PROG_EXEC);
             break;
         }
 
-        case GAMEPRETITLESCENE_PROG_EXEC: {
+        case GamePreTitleScene::PROG_EXEC: {
             if (_pProg->isJustChanged()) {
 //                fadeinScene(FADE_FRAMES);
             }
@@ -62,13 +56,13 @@ void GamePreTitleScene::processBehavior() {
                 //タイトルが下からニューっと
                 _pTitleBoard->_Y -= 2*LEN_UNIT;
                 if (_pTitleBoard->_Y <= 100*LEN_UNIT) {
-                    _pProg->change(GAMEPRETITLESCENE_PROG_FINISH);
+                    _pProg->change(GamePreTitleScene::PROG_FINISH);
                 }
             }
             break;
         }
 
-        case GAMEPRETITLESCENE_PROG_FINISH: {
+        case GamePreTitleScene::PROG_FINISH: {
             if (_pProg->isJustChanged()) {
                 throwEventToUpperTree(EVENT_PREGAMETITLESCENE_FINISH);
 //                inactivate();

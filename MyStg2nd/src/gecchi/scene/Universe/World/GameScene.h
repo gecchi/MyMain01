@@ -25,6 +25,20 @@ namespace MyStg2nd {
 class GameScene : public GgafLib::DefaultScene {
 
 public:
+
+    enum {
+        PROG_INIT = 1 ,
+        PROG_PRE_TITLE,
+        PROG_TITLE    ,
+        PROG_DEMO     ,
+        PROG_BEGINNING,
+        PROG_MAIN     ,
+        PROG_ENDING   ,
+        PROG_GAME_OVER,
+        PROG_FINISH   ,
+    };
+
+
     CommonScene* _pCommonScene;
     MyShipScene* _pMyShipScene;
 //    GamePauseScene* _pGamePauseScene;

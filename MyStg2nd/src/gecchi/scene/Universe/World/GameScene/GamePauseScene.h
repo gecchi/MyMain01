@@ -12,6 +12,13 @@ namespace MyStg2nd {
 class GamePauseScene : public GgafLib::DefaultScene {
 
 public:
+    enum {
+        PROG_INIT = 1 ,
+        PROG_SELECT   ,
+        PROG_CONFIRM  ,
+        PROG_FINISH   ,
+    };
+
     GgafDxCore::GgafDxSeConnection* _pSeCon_exec;
 
     LabelGecchi16Font* _pMsgLabel01;

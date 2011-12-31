@@ -21,7 +21,11 @@ namespace MyStg2nd {
 class RankUpStageController : public GgafLib::DefaultScene {
 
 public:
-//    static RankUpStageController* _pRankUpStageController;
+    enum {
+        PROG_INIT = 1,
+        PROG_PLAY    ,
+        PROG_FINISH  ,
+    };
 
     char _buf[60];
     RankUpStage* _apRankUpStage[MAX_RANKUP_SCENE];

@@ -107,6 +107,8 @@ public:
 
     /**
      * メニューアイテム(選択可能)を追加する .
+     * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
+     * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。
      * @param prm_pItem メニューアイテム
      * @param prm_X_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
@@ -116,6 +118,8 @@ public:
                                coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
     /**
      * メニューアイテム(選択可能)を追加する .
+     * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
+     * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。
      * @param prm_pItem メニューアイテム
      * @param prm_X_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
@@ -488,7 +492,7 @@ void MenuActor<T>::addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
     prm_pItem->_fAlpha = T::_fAlpha; //半透明αを共有させる。
     prm_pItem->inactivateImmed();
 
-    _lstItems.addLast(prm_pItem);
+    _lstItems.addLast(prm_pItem, false);
     T::addSubLast(prm_pItem);
 }
 

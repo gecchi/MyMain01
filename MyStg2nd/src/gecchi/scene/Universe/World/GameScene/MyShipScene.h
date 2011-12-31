@@ -21,6 +21,14 @@ namespace MyStg2nd {
 class MyShipScene : public GgafLib::DefaultScene {
 
 public:
+    enum {
+        PROG_INIT = 1,
+        PROG_BEGIN   ,
+        PROG_PLAY    ,
+        PROG_DESTROY ,
+        PROG_END
+    };
+
     /** 自機 */
     MyShip* _pMyShip;
     /** 自機オプション部 */

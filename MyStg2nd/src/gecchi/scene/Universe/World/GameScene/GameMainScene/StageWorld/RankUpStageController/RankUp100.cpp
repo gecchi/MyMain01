@@ -33,21 +33,21 @@ void RankUp100::processBehavior() {
     RankUpStage::processBehavior();
 
     switch (_pProg->get()) {
-        case STAGE_PROG_INIT: {
-            _pProg->change(STAGE_PROG_BEGIN);
+        case Stage::PROG_INIT: {
+            _pProg->change(Stage::PROG_BEGIN);
             break;
         }
-        case STAGE_PROG_BEGIN: {
+        case Stage::PROG_BEGIN: {
             if (_pProg->getFrameInProgress() == 180) { //ステージ１開始！
                 _pMessage->activateImmed();
                 _pWorldBoundSpace->activateTree();    //背景ON
                 _pHoshiBoshi->activateTree();    //背景ON
                 fadeinSceneTree(360);
-                _pProg->change(STAGE_PROG_PLAYING);
+                _pProg->change(Stage::PROG_PLAYING);
             }
             break;
         }
-        case STAGE_PROG_PLAYING: {
+        case Stage::PROG_PLAYING: {
             if (_pProg->getFrameInProgress() == 60) { //ステージ１開始！
                 _pMessage->update(PX2CO(300),PX2CO(300), "SCENE 01 START!");
                 _pMessage->inactivateDelay(240);
@@ -55,9 +55,9 @@ void RankUp100::processBehavior() {
             //EVENT_STG01_CONTROLLER_WAS_ENDイベント待ち
             break;
         }
-        case STAGE_PROG_END: {
+        case Stage::PROG_END: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("RankUp100::processBehavior()  STAGE_PROG_ENDになりますた！");
+                _TRACE_("RankUp100::processBehavior()  Stage::PROG_ENDになりますた！");
                 throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, this); //次ステージ準備へ
             }
 
@@ -87,8 +87,8 @@ void RankUp100::processJudgement() {
 
 void RankUp100::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
-        _TRACE_("RankUp100::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_PROG_ENDへ");
-        _pProg->change(STAGE_PROG_END);
+        _TRACE_("RankUp100::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
+        _pProg->change(Stage::PROG_END);
     } else {
 
     }

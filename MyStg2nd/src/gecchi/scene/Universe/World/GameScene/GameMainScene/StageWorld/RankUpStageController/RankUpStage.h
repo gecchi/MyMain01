@@ -3,20 +3,20 @@
 
 namespace MyStg2nd {
 
-enum {
-    RANKUPSTAGE_PROG_INIT = 1,
-    RANKUPSTAGE_PROG_BEGIN   ,
-    RANKUPSTAGE_PROG_PLAYING ,
-    RANKUPSTAGE_PROG_RESULT  ,
-    RANKUPSTAGE_PROG_END     ,
-};
+
 
 class RankUpStage : public GgafLib::DefaultScene {
 
 public:
     static bool _pause;
-public:
 
+    enum {
+        PROG_INIT = 1,
+        PROG_BEGIN   ,
+        PROG_PLAYING ,
+        PROG_RESULT  ,
+        PROG_END     ,
+    };
     WorldBoundSpaceRankUp* _pWorldBoundSpace;
     HoshiBoshiRankUp* _pHoshiBoshi;
     LabelGecchi16Font* _pMessage;

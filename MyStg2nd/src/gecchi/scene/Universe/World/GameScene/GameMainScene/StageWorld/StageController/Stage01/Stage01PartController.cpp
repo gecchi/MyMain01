@@ -5,20 +5,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-enum {
-    STAGE01PARTCONTROLLER_PROG_INIT = 1            ,
-    STAGE01PARTCONTROLLER_PROG_STG01_01_BEGIN      ,
-    STAGE01PARTCONTROLLER_PROG_STG01_01_PLAYING    ,
-    STAGE01PARTCONTROLLER_PROG_STG01_02_BEGIN      ,
-    STAGE01PARTCONTROLLER_PROG_STG01_02_PLAYING    ,
-    STAGE01PARTCONTROLLER_PROG_STG01_03_BEGIN      ,
-    STAGE01PARTCONTROLLER_PROG_STG01_03_PLAYING    ,
-    STAGE01PARTCONTROLLER_PROG_STG01_CLIMAX_BEGIN  ,
-    STAGE01PARTCONTROLLER_PROG_STG01_CLIMAX_PLAYING,
-    STAGE01PARTCONTROLLER_PROG_FAINAL              ,
-};
-
-
 Stage01PartController::Stage01PartController(const char* prm_name) : StagePartController(prm_name) {
     _class_name = "Stage01PartController";
 
@@ -36,11 +22,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
 	orderActorToFactory(10000005, EnemyAstraea, "Astraea_1");
     // gen01 end
-    useProgress(STAGE01PARTCONTROLLER_PROG_FAINAL);
+    useProgress(Stage01PartController::PROG_FAINAL);
 }
 
 void Stage01PartController::initialize() {
-    _pProg->set(STAGE01PARTCONTROLLER_PROG_INIT);
+    _pProg->set(Stage01PartController::PROG_INIT);
 }
 
 void Stage01PartController::processBehavior() {
@@ -55,7 +41,7 @@ void Stage01PartController::processBehavior() {
 			case 100: {
 				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
 				addSubLast(pScene);
-				_pProg->change(STAGE01PARTCONTROLLER_PROG_STG01_01_BEGIN);
+				_pProg->change(Stage01PartController::PROG_STG01_01_BEGIN);
 				break;
 			}
 			case 120: {
@@ -80,7 +66,7 @@ void Stage01PartController::processBehavior() {
 			case 10000: {
 				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
 				addSubLast(pScene);
-				_pProg->change(STAGE01PARTCONTROLLER_PROG_STG01_02_BEGIN);
+				_pProg->change(Stage01PartController::PROG_STG01_02_BEGIN);
 				break;
 			}
 			case 13200: {
@@ -90,7 +76,7 @@ void Stage01PartController::processBehavior() {
 			case 15000: {
 				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000002);
 				addSubLast(pScene);
-				_pProg->change(STAGE01PARTCONTROLLER_PROG_STG01_03_BEGIN);
+				_pProg->change(Stage01PartController::PROG_STG01_03_BEGIN);
 				break;
 			}
 			case 18200: {
@@ -100,7 +86,7 @@ void Stage01PartController::processBehavior() {
 			case 20000: {
 				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000003);
 				addSubLast(pScene);
-				_pProg->change(STAGE01PARTCONTROLLER_PROG_STG01_CLIMAX_BEGIN);
+				_pProg->change(Stage01PartController::PROG_STG01_CLIMAX_BEGIN);
 				break;
 			}
 			default :
@@ -112,7 +98,7 @@ void Stage01PartController::processBehavior() {
 
 
     switch (_pProg->get()) {
-        case STAGE01PARTCONTROLLER_PROG_INIT: {
+        case Stage01PartController::PROG_INIT: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("Stage01PartController::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
             }
@@ -121,20 +107,20 @@ void Stage01PartController::processBehavior() {
         }
 
         //Stage01_01
-        case STAGE01PARTCONTROLLER_PROG_STG01_01_BEGIN: {
+        case Stage01PartController::PROG_STG01_01_BEGIN: {
             //BGM１番フェードイン
             _pBgmPerformer->play(0, 0, true);
             _pBgmPerformer->fadein(0, 420);
             _pProg->changeNext();
             break;
         }
-        case STAGE01PARTCONTROLLER_PROG_STG01_01_PLAYING: {
+        case Stage01PartController::PROG_STG01_01_PLAYING: {
             //進捗更新待ち
             break;
         }
 
         //Stage01_02
-        case STAGE01PARTCONTROLLER_PROG_STG01_02_BEGIN: {
+        case Stage01PartController::PROG_STG01_02_BEGIN: {
             //BGM０番フェードアウト
             _pBgmPerformer->fadeout_stop(0, 420);
             //BGM１番フェードイン
@@ -143,23 +129,23 @@ void Stage01PartController::processBehavior() {
             _pProg->changeNext();
             break;
         }
-        case STAGE01PARTCONTROLLER_PROG_STG01_02_PLAYING: {
+        case Stage01PartController::PROG_STG01_02_PLAYING: {
             //進捗更新待ち
             break;
         }
 
         //Stage01_03
-        case STAGE01PARTCONTROLLER_PROG_STG01_03_BEGIN: {
+        case Stage01PartController::PROG_STG01_03_BEGIN: {
             _pProg->changeNext();
             break;
         }
-        case STAGE01PARTCONTROLLER_PROG_STG01_03_PLAYING: {
+        case Stage01PartController::PROG_STG01_03_PLAYING: {
             //進捗更新待ち
             break;
         }
 
         //Stage01_Climax
-        case STAGE01PARTCONTROLLER_PROG_STG01_CLIMAX_BEGIN: {
+        case Stage01PartController::PROG_STG01_CLIMAX_BEGIN: {
             //BGM１番フェードアウト
             _pBgmPerformer->fadeout_stop(1, 420);
             //BGM２番フェードイン
@@ -168,16 +154,16 @@ void Stage01PartController::processBehavior() {
             _pProg->changeNext();
             break;
         }
-        case STAGE01PARTCONTROLLER_PROG_STG01_CLIMAX_PLAYING: {
+        case Stage01PartController::PROG_STG01_CLIMAX_PLAYING: {
             //進捗更新待ち
             break;
         }
 
         //Stage01_Climax の後
-        case STAGE01PARTCONTROLLER_PROG_FAINAL: {
+        case Stage01PartController::PROG_FAINAL: {
             if (_pProg->isJustChanged()) {
                 //STG01_Climax終焉の処理
-                _TRACE_("STG01_Climax終焉のSTAGE01PARTCONTROLLER_PROG_FAINALきた");
+                _TRACE_("STG01_Climax終焉のStage01PartController::PROG_FAINALきた");
             }
 
             if (_pProg->getFrameInProgress() == 60) {
@@ -209,7 +195,7 @@ void Stage01PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_STG01_CLIMAX_WAS_BROKEN) {
         _TRACE_("Stage01PartController::onCatchEvent() EVENT_STG01_CLIMAX_WAS_BROKENキャッチした。STAGE01PARTCONTROLLER_ENDINGを投げる");
         ((Stage01_Climax*)prm_pSource)->end(60*60);
-        _pProg->change(STAGE01PARTCONTROLLER_PROG_FAINAL); //進捗をSTAGE01PARTCONTROLLER_PROG_FAINALに切り替える
+        _pProg->change(Stage01PartController::PROG_FAINAL); //進捗をStage01PartController::PROG_FAINALに切り替える
     } else {
 
     }

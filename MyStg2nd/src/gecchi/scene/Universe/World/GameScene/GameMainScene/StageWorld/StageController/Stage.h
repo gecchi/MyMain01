@@ -3,18 +3,19 @@
 
 namespace MyStg2nd {
 
-enum {
-    STAGE_PROG_INIT = 1,
-    STAGE_PROG_BEGIN   ,
-    STAGE_PROG_PLAYING ,
-    STAGE_PROG_END     ,
-};
+
 
 class Stage : public GgafLib::DefaultScene {
 
 public:
+    enum {
+        PROG_INIT = 1,
+        PROG_BEGIN   ,
+        PROG_PLAYING ,
+        PROG_END     ,
+    };
+
     static bool _pause;
-public:
 
     Stage(const char* prm_name);
 

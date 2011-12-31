@@ -263,6 +263,7 @@ void GgafFactory::clean() {
 
 unsigned __stdcall GgafFactory::work(void* prm_arg) {
     //_CrtSetBreakAlloc(95299);
+	//_CrtSetBreakAlloc(65854);
 
     try {
         GgafObject* (*func)(void*, void*, void*) = NULL;

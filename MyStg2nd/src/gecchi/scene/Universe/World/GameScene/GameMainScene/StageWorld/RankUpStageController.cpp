@@ -5,11 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-enum {
-    RANKUPCONTROLLER_PROG_INIT = 1,
-    RANKUPCONTROLLER_PROG_PLAY    ,
-    RANKUPCONTROLLER_PROG_FINISH  ,
-};
+
 #define ORDER_ID_RANKUP 80
 
 RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScene(prm_name) {
@@ -19,7 +15,7 @@ RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScen
     for (int i = 0; i < MAX_RANKUP_SCENE; i ++) {
         _apRankUpStage[i] = NULL;
     }
-    useProgress(RANKUPCONTROLLER_PROG_FINISH);
+    useProgress(RankUpStageController::PROG_FINISH);
     ready(_RANK_UP_LEVEL_ + 1);
 }
 void RankUpStageController::execute() {
@@ -48,7 +44,7 @@ void RankUpStageController::execute() {
 }
 
 void RankUpStageController::onReset() {
-    _pProg->set(RANKUPCONTROLLER_PROG_INIT);
+    _pProg->set(RankUpStageController::PROG_INIT);
 }
 
 void RankUpStageController::ready(int prm_rank_level) {
@@ -364,19 +360,19 @@ void RankUpStageController::initialize() {
 
 void RankUpStageController::processBehavior() {
 //    switch (_pProg->get()) {
-//        case RANKUPCONTROLLER_PROG_INIT: {
-//            _pProg->change(RANKUPCONTROLLER_PROG_PLAY);
+//        case RankUpStageController::PROG_INIT: {
+//            _pProg->change(RankUpStageController::PROG_PLAY);
 //            break;
 //        }
 //
 //
-//        case RANKUPCONTROLLER_PROG_PLAY: {
+//        case RankUpStageController::PROG_PLAY: {
 //            if (_pProg->isJustChanged()) {
 //            }
 //            break;
 //        }
 //
-//        case RANKUPCONTROLLER_PROG_FINISH: {
+//        case RankUpStageController::PROG_FINISH: {
 //            if (_pProg->isJustChanged()) {
 //            }
 //            break;

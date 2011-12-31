@@ -9,7 +9,7 @@ TransitStage::TransitStage(const char* prm_name) : Stage(prm_name) {
     _class_name = "TransitStage";
     _TRACE_("TransitStage::TransitStage("<<prm_name<<")");
     _teansit_stage = 0;
-    _next_main_stage = 0;
+    _next_main_stage = 1;
     _pWorldBoundSpace = NEW WorldBoundSpaceTransit("WBSTransit");
     getDirector()->addSubGroup(_pWorldBoundSpace);
 
@@ -29,6 +29,7 @@ void TransitStage::initialize() {
 void TransitStage::onReset() {
     _TRACE_("TransitStage::onReset()");
     _pMessage->update("");
+    _pProg->set(Stage::PROG_INIT);
 }
 
 void TransitStage::onActive() {
@@ -39,27 +40,27 @@ void TransitStage::processBehavior() {
     Stage::processBehavior();
 
     switch (_pProg->get()) {
-        case STAGE_PROG_INIT: {
-            _TRACE_("TransitStage::processBehavior() Prog(=STAGE_PROG_INIT) is Just Changed");
-            _pProg->change(STAGE_PROG_BEGIN);
+        case Stage::PROG_INIT: {
+            _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_INIT) is Just Changed. STAGE="<<_teansit_stage<<"→?");
+            _pProg->change(Stage::PROG_BEGIN);
             break;
         }
-        case STAGE_PROG_BEGIN: {
+        case Stage::PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("TransitStage::processBehavior() Prog(=STAGE_PROG_BEGIN) is Just Changed");
+                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_BEGIN) is Just Changed. STAGE="<<_teansit_stage<<"→?");
             }
 
-            if (_pProg->getFrameInProgress() == 180) { //ステージ１開始！
-                _pProg->change(STAGE_PROG_PLAYING);
+            if (_pProg->getFrameInProgress() == 180) { //通過ステージ開始
+                _pProg->change(Stage::PROG_PLAYING);
             }
             break;
         }
-        case STAGE_PROG_PLAYING: {
+        case Stage::PROG_PLAYING: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("TransitStage::processBehavior() Prog(=STAGE_PROG_PLAYING) is Just Changed");
+                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_PLAYING) is Just Changed. STAGE="<<_teansit_stage<<"→?");
             }
 
-            if (_pProg->getFrameInProgress() == 60) { //ステージ開始！
+            if (_pProg->getFrameInProgress() == 120) { //次ステージ開始！
                 _pMessage->update("SELECT NEXT STAGE!");
 //                _pMessage->inactivateDelay(240);
             }
@@ -69,9 +70,9 @@ void TransitStage::processBehavior() {
             break;
         }
 
-        case STAGE_PROG_END: {
+        case Stage::PROG_END: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("TransitStage::processBehavior() Prog(=STAGE_PROG_END) is Just Changed");
+                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) is Just Changed. STAGE="<<_teansit_stage<<"→"<<_next_main_stage);
                 throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)_next_main_stage); //次ステージ準備へ
             }
 
@@ -80,7 +81,7 @@ void TransitStage::processBehavior() {
             }
 
             if (_pProg->getFrameInProgress() == 300) {
-                _TRACE_("TransitStage::processBehavior() Prog(=STAGE_PROG_END) throwEventToUpperTree(EVENT_TRANSIT_WAS_END)");
+                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) throwEventToUpperTree(EVENT_TRANSIT_WAS_END). STAGE="<<_teansit_stage<<"→"<<_next_main_stage);
                 throwEventToUpperTree(EVENT_TRANSIT_WAS_END);
             }
 
@@ -105,12 +106,14 @@ void TransitStage::onInactive() {
 void TransitStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
     //if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
     //    _TRACE_("TransitStage::onCatchEvent(EVENT_STG01_CONTROLLER_WAS_END)");
-    //    _pProg->change(STAGE_PROG_END);
+    //    _pProg->change(Stage::PROG_END);
     //} else {
     //
     //}
 }
 void TransitStage::ready(int prm_stage) {
+    _next_main_stage = -1; //次のステージは何か？
+
     switch (prm_stage) {
         case 1:
 
@@ -135,8 +138,8 @@ void TransitStage::processBehaviorProgPlaying() {
                 //５秒経ったら渡島氏
                 _pMessage->update("OKOKOK!! NEXT STAGE 2");
                 _next_main_stage = 2;
-                _TRACE_("TransitStage::processBehaviorProgPlaying() GOTO NEXT STAGE="<<_next_main_stage);
-                 _pProg->change(STAGE_PROG_END);
+                _TRACE_("TransitStage::processBehaviorProgPlaying() 1 GOTO NEXT STAGE="<<_teansit_stage<<"→"<<_next_main_stage);
+                 _pProg->change(Stage::PROG_END);
             }
             break;
         case 2:
@@ -145,8 +148,8 @@ void TransitStage::processBehaviorProgPlaying() {
                //５秒経ったら渡島氏
                 _pMessage->update("OKOKOK!! NEXT STAGE 3?");
                _next_main_stage = 3;
-               _TRACE_("TransitStage::processBehaviorProgPlaying() GOTO NEXT STAGE="<<_next_main_stage);
-                _pProg->change(STAGE_PROG_END);
+               _TRACE_("TransitStage::processBehaviorProgPlaying() 2 GOTO NEXT STAGE="<<_teansit_stage<<"→"<<_next_main_stage);
+                _pProg->change(Stage::PROG_END);
            }
             break;
         case 3:

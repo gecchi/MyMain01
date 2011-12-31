@@ -5,6 +5,13 @@ namespace MyStg2nd {
 class GameEndingScene : public GgafLib::DefaultScene {
 
 public:
+    enum {
+        PROG_INIT = 1,
+        PROG_BEGIN   ,
+        PROG_OPE     ,
+        PROG_DECIDE  ,
+        PROG_END     ,
+    };
 
     GameEndingScene(const char* prm_name);
     void onReset() override;

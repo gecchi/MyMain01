@@ -38,11 +38,11 @@ void Stage01::processBehavior() {
     Stage::processBehavior();
 
     switch (_pProg->get()) {
-        case STAGE_PROG_INIT: {
-            _pProg->change(STAGE_PROG_BEGIN);
+        case Stage::PROG_INIT: {
+            _pProg->change(Stage::PROG_BEGIN);
             break;
         }
-        case STAGE_PROG_BEGIN: {
+        case Stage::PROG_BEGIN: {
             if (_pProg->getFrameInProgress() == 180) { //ステージ１開始！
                 _pMessage->activateImmed();
                 _pWorldBoundSpace->activateTree();    //背景ON
@@ -52,11 +52,11 @@ void Stage01::processBehavior() {
                 _pPlanets->activate();
 
                 fadeinSceneTree(360);
-                _pProg->change(STAGE_PROG_PLAYING);
+                _pProg->change(Stage::PROG_PLAYING);
             }
             break;
         }
-        case STAGE_PROG_PLAYING: {
+        case Stage::PROG_PLAYING: {
             if (_pProg->getFrameInProgress() == 60) { //ステージ１開始！
                 _pMessage->update(PX2CO(300), PX2CO(300), "SCENE 01 START!");
                 _pMessage->inactivateDelay(240);
@@ -64,9 +64,9 @@ void Stage01::processBehavior() {
             //EVENT_STG01_CONTROLLER_WAS_ENDイベント待ち
             break;
         }
-        case STAGE_PROG_END: {
+        case Stage::PROG_END: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("Stage01::processBehavior()  STAGE_PROG_ENDになりますた！");
+                _TRACE_("Stage01::processBehavior()  Stage::PROG_ENDになりますた！");
                 throwEventToUpperTree(EVENT_PREPARE_TRANSIT_STAGE, this); //通過ステージ準備へ
             }
 
@@ -99,9 +99,9 @@ void Stage01::processFinal() {
 
 void Stage01::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
-        _TRACE_("Stage01::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_PROG_ENDへ");
+        _TRACE_("Stage01::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
         _pScene_Stage01PartController->end(60*60);
-        _pProg->change(STAGE_PROG_END);
+        _pProg->change(Stage::PROG_END);
     } else {
 
     }

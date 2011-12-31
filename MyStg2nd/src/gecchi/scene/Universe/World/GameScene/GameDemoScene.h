@@ -12,7 +12,12 @@ namespace MyStg2nd {
 class GameDemoScene : public GgafLib::DefaultScene {
 
 public:
-
+    enum {
+        PROG_INIT = 1,
+        PROG_DEMOPLAY,
+        PROG_RANKING ,
+        PROG_FINISH  ,
+    };
     struct ScoreInfo {
         int rank;
         std::string name;

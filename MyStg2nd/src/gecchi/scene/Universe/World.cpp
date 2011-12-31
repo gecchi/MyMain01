@@ -76,6 +76,7 @@ void World::processBehavior() {
     } else {
         //GameSceneçÏê¨äÆóπÇ‹Ç≈ë“Ç¬
         if (GgafFactory::chkProgress(1) == 2 && GgafFactory::chkProgress(2) == 2) {
+		//if (GgafFactory::chkProgress(2) == 2) {
             _pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
             addSubLast(_pPreDrawScene);
             _pGameScene = (GameScene*)obtainSceneFromFactory(2);

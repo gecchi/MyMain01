@@ -79,8 +79,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         _TRACE_("[GgafCriticalException]:" << e.getMsg());
         return EXIT_FAILURE;
     }
-
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
+	//_CrtSetBreakAlloc(203659);
 
     // ウインドウの生成
     if (CFG_PROPERTY(FULL_SCREEN)) {

@@ -13,7 +13,18 @@ class Stage02PartController : public GgafLib::DefaultScene {
     GgafDxCore::GgafDxBgm* _bgm_st1;
 
 public:
-
+    enum {
+        PROG_INIT = 1            ,
+        PROG_STG02_01_BEGIN      ,
+        PROG_STG02_01_PLAYING    ,
+        PROG_STG02_02_BEGIN      ,
+        PROG_STG02_02_PLAYING    ,
+        PROG_STG02_03_BEGIN      ,
+        PROG_STG02_03_PLAYING    ,
+        PROG_STG02_CLIMAX_BEGIN  ,
+        PROG_STG02_CLIMAX_PLAYING,
+        PROG_FAINAL              ,
+    };
     frame _frame_prog_fainal;
 
     Stage02PartController(const char* prm_name);

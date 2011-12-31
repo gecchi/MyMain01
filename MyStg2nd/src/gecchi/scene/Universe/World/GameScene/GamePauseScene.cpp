@@ -5,13 +5,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-enum {
-    GAMEPAUSESCENE_PROG_INIT = 1 ,
-    GAMEPAUSESCENE_PROG_SELECT   ,
-    GAMEPAUSESCENE_PROG_CONFIRM  ,
-    GAMEPAUSESCENE_PROG_FINISH   ,
-};
-
 GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePauseScene";
 
@@ -20,7 +13,7 @@ GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
     getDirector()->addSubGroup(_pMenuBoardPause);
 
     useProgress(10);
-    _pProg->change(GAMEPAUSESCENE_PROG_INIT);
+    _pProg->change(GamePauseScene::PROG_INIT);
     _pMsgLabel01 = NEW LabelGecchi16Font("STR01");
     _pMsgLabel01->update("PAUSE!!");
     getDirector()->addSubGroup(_pMsgLabel01);
@@ -63,7 +56,7 @@ void GamePauseScene::onReset() {
     }
     _pCursor001->_pKurokoA->setMvVelo(0);
     _pCursor001->inactivateImmed();
-    _pProg->set(GAMEPAUSESCENE_PROG_INIT);
+    _pProg->set(GamePauseScene::PROG_INIT);
 }
 
 void GamePauseScene::onActive() {
@@ -84,12 +77,12 @@ void GamePauseScene::processBehavior() {
 
 
     switch (_pProg->get()) {
-        case GAMEPAUSESCENE_PROG_INIT: {
-            _pProg->change(GAMEPAUSESCENE_PROG_SELECT);
+        case GamePauseScene::PROG_INIT: {
+            _pProg->change(GamePauseScene::PROG_SELECT);
             break;
         }
 
-        case GAMEPAUSESCENE_PROG_SELECT: {
+        case GamePauseScene::PROG_SELECT: {
             if (_pProg->isJustChanged()) {
 
 
@@ -134,27 +127,27 @@ void GamePauseScene::processBehavior() {
 
                 if (_active_item == 0) {
 
-//                    _pProg->change(GAMEPAUSESCENE_PROG_GAMESTART);
+//                    _pProg->change(GamePauseScene::PROG_GAMESTART);
                 } else if (_active_item == 1) {
 
 
                 } else if (_active_item == 2) {
-                    _pProg->change(GAMEPAUSESCENE_PROG_CONFIRM);
+                    _pProg->change(GamePauseScene::PROG_CONFIRM);
 
                 } else if (_active_item == 3) {
-//                    _pProg->change(GAMEPAUSESCENE_PROG_CONFIRM);
+//                    _pProg->change(GamePauseScene::PROG_CONFIRM);
                     PostQuitMessage(0);
                 }
             }
             break;
         }
 
-        case GAMEPAUSESCENE_PROG_CONFIRM: {
+        case GamePauseScene::PROG_CONFIRM: {
 
             break;
         }
 
-        case GAMEPAUSESCENE_PROG_FINISH: {
+        case GamePauseScene::PROG_FINISH: {
             if (_pProg->isJustChanged()) {
 //                fadeoutSceneTree(FADE_FRAMES);
 //                inactivateDelay(FADE_FRAMES);
