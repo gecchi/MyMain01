@@ -170,7 +170,6 @@ void GameScene::processBehavior() {
                 }
 
                 //通常進行時処理はココ
-
                 //
 
                 if (VB->isPushedDown(VB_PAUSE) || _is_frame_advance) {
@@ -181,8 +180,6 @@ void GameScene::processBehavior() {
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
                     _pProg->getGazeScene()->pauseTree(); //ポーズ！！
                     _pMenuBoardPause->rise(PX2CO(100), PX2CO(20));
-//                    _pGamePauseScene->reset();
-//                    _pGamePauseScene->activate();
                 }
             }
             //今ポーズ時
@@ -197,19 +194,14 @@ void GameScene::processBehavior() {
                 }
 
                 //ポーズ進行時処理はココ
-
                 //
 
-//                if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
-
-                  if (_pMenuBoardPause->isJustSink() || _is_frame_advance) {
+                if (_pMenuBoardPause->isJustSink() || _is_frame_advance) {
                     //ポーズ時に、ポーズキーを押して離した場合の処理
                     //ポーズ解除時直後の初期処理はココへ
                     _TRACE_("UNPAUSE!");
                     P_GOD->setVB(VB_PLAY);
                     _pProg->getGazeScene()->unpauseTree();//ポーズ解除！！
-//                    _pMenuBoardPause->sink();
-//                    _pGamePauseScene->inactivate();
                 }
             }
             _was_paused_flg_GameMainScene_prev_frame = _pProg->getGazeScene()->_was_paused_flg;
@@ -306,7 +298,6 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GOTO_GAMETITLE)");
         _pProg->changeWithScene_Flipping(GameScene::PROG_TITLE); //タイトルへ
     }
-
 
 
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {

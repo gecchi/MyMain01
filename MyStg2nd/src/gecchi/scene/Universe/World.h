@@ -19,9 +19,10 @@ class World : public GgafLib::DefaultScene {
 public:
     bool _is_create_GameScene;
     char _aBufDebug[80];
-    LabelGecchi16Font* _pFont16_Wait;
-    LabelGecchi16Font* _pFont16_Debug;
-    LabelGecchi16Font* _pStringBoard01;
+    LabelGecchi16Font* _pLabel_Title;
+    LabelGecchi16Font* _pLabel_Aster;
+    LabelGecchi16Font* _pLabel_Debug;
+    LabelGecchi16Font* _pLabel_Wait;
     PreDrawScene* _pPreDrawScene;
     GameScene* _pGameScene;
 

@@ -25,10 +25,7 @@ public:
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;
 
-
     MenuBoardTitle* _pMenu;
-//    LabelGecchi16Font** _papStringItem;
-//    Cursor001* _pCursor001;
 
     TitleBoard* _pTitleBoard;
 

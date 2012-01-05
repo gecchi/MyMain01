@@ -9,8 +9,9 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "World";
     _TRACE_("World::World");
     _is_create_GameScene = false;
-    _pFont16_Debug = NULL;
-    _pFont16_Wait = NULL;
+    _pLabel_Debug = NULL;
+    _pLabel_Aster = NULL;
+    _pLabel_Title = NULL;
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。
@@ -18,50 +19,40 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 
 void World::initialize() {
     _TRACE_("World::initialize()");
+    pixcoord cx = CFG_PROPERTY(GAME_BUFFER_WIDTH)/2;
+    pixcoord cy = CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2;
     orderActorToFactory(0, LabelGecchi16Font, "STR01");
-    _pStringBoard01 = (LabelGecchi16Font*)obtainActorFromFactory(0);
-    getDirector()->addSubGroup(_pStringBoard01);
-    _pStringBoard01->update(PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2),
+    _pLabel_Title = (LabelGecchi16Font*)obtainActorFromFactory(0);
+    getDirector()->addSubGroup(_pLabel_Title);
+    _pLabel_Title->update(PX2CO(cx), PX2CO(cy - 16),
+                            "[ VIOLET VREATH ]", ALIGN_CENTER, VALIGN_MIDDLE);
+
+
+    orderActorToFactory(0, LabelGecchi16Font, "STR01");
+    _pLabel_Wait = (LabelGecchi16Font*)obtainActorFromFactory(0);
+    getDirector()->addSubGroup(_pLabel_Wait);
+    _pLabel_Wait->update(PX2CO(cx), PX2CO(cy + 16),
                             "WATE A MOMENT PLASE...", ALIGN_CENTER, VALIGN_MIDDLE);
-//    _pStringBoard01->_pFader->beat(60,10,20,20,-1);
 
     orderActorToFactory(0, LabelGecchi16Font, "ASTER");
-    _pFont16_Wait = (LabelGecchi16Font*)obtainActorFromFactory(0);
-    getDirector()->addSubGroup(_pFont16_Wait);
-    _pFont16_Wait->update(PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
-    _pFont16_Wait->_pFader->beat(60,30,0,0,-1);
+    _pLabel_Aster = (LabelGecchi16Font*)obtainActorFromFactory(0);
+    getDirector()->addSubGroup(_pLabel_Aster);
+    _pLabel_Aster->update(PX2CO(cx), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
+    _pLabel_Aster->_pFader->beat(60, 30, 0, 0, -1); //チカチカ点滅
 #ifdef MY_DEBUG
-    ColliAABActor::get();   //当たり判定領域表示用直方体、プリロード
-    ColliAAPrismActor::get();   //当たり判定領域表示用直方体、プリロード
-    ColliSphereActor::get(); //当たり判定領域表示用球、プリロード
+    ColliAABActor::get();     //当たり判定領域表示用直方体、プリロード
+    ColliAAPrismActor::get(); //当たり判定領域表示用プリズム、プリロード
+    ColliSphereActor::get();  //当たり判定領域表示用球、プリロード
 #endif
-//#ifdef MY_DEBUG
     orderActorToFactory(0, LabelGecchi16Font, "DebugStr");
-    _pFont16_Debug = (LabelGecchi16Font*)obtainActorFromFactory(0);
-    getDirector()->addSubGroup(_pFont16_Debug);
-//    orderActorWithModelToFactory(3, DispFpsActor, "FPS_STRING", "28/GECCHI_16FONT");
-//    DispFpsActor* pDispFpsActor = (DispFpsActor*)obtainActorFromFactory(3);
-//    getDirector()->addSubGroup(KIND_EFFECT, pDispFpsActor);
-//#endif
+    _pLabel_Debug = (LabelGecchi16Font*)obtainActorFromFactory(0);
+    getDirector()->addSubGroup(_pLabel_Debug);
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
-//    PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
-//    addSubLast(pPreDrawScene);
-
     orderSceneToFactory(2, GameScene, "Game");
-
-    //GameScene* pGameScene = NEW GameScene("Game");
-    //addSubLast(pGameScene);
-//#ifdef MY_DEBUG
-//    DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "28/moji");
-//    getDirector()->addSubGroup(KIND_EFFECT, pDispFpsActor);
-//#endif
-
 }
 
 void World::processBehavior() {
-
-
     if (_is_create_GameScene) {
         //GameScene作成完了
         VB->update(); //入力情報更新
@@ -76,32 +67,29 @@ void World::processBehavior() {
     } else {
         //GameScene作成完了まで待つ
         if (GgafFactory::chkProgress(1) == 2 && GgafFactory::chkProgress(2) == 2) {
-		//if (GgafFactory::chkProgress(2) == 2) {
             _pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
             addSubLast(_pPreDrawScene);
             _pGameScene = (GameScene*)obtainSceneFromFactory(2);
             addSubLast(_pGameScene);
             _is_create_GameScene = true;
-            _pStringBoard01->end();
-            _pFont16_Wait->end();
+            _pLabel_Title->end();
+            _pLabel_Wait->end();
+            _pLabel_Aster->end();
         } else {
             //待ちぼうけ
-//            _pStringBoard01->_pFader->behave();
-            _pFont16_Wait->_pFader->behave();
+            _pLabel_Aster->_pFader->behave();
         }
     }
 
-
-
 #ifdef MY_DEBUG
     sprintf(_aBufDebug, "%05uDRAW / %06uCHK / %07uF /%.1fFPS", GgafGod::_num_actor_drawing, CollisionChecker::_num_check, (unsigned int)askGod()->_frame_of_God, askGod()->_fps);
-    _pFont16_Debug->update(1*1000, 1*1000, _aBufDebug);
+    _pLabel_Debug->update(PX2CO(1), PX2CO(1), _aBufDebug);
     if (getActivePartFrame() % 60 == 0) {
         _TRACE_("_aBufDebug="<<_aBufDebug);
     }
 #else
     sprintf(_aBufDebug, "%05uDRAW / %.1fFPS", GgafGod::_num_actor_drawing, askGod()->_fps);
-    _pFont16_Debug->update(1*1000, 1*1000, _aBufDebug);
+    _pLabel_Debug->update(PX2CO(1), PX2CO(1), _aBufDebug);
 #endif
 
 

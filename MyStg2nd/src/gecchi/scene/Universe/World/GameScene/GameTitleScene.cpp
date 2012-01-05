@@ -17,24 +17,6 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _pTitleBoard = NEW TitleBoard("TitleBoard");
     getDirector()->addSubGroup(_pTitleBoard);
 
-//    _max_menu_item = 4;
-//    _papStringItem = NEW LabelGecchi16Font*[_max_menu_item];
-//    for (int i = 0; i < _max_menu_item; i++) {
-//        _papStringItem[i] = NEW LabelGecchi16Font("menu_item");
-//        _papStringItem[i]->_Z = 1;
-//        _papStringItem[i]->inactivateImmed();
-//        getDirector()->addSubGroup(_papStringItem[i]);
-//    }
-//    _papStringItem[0]->update("GAME START", ALIGN_LEFT, VALIGN_MIDDLE);
-//    _papStringItem[1]->update("CONFIG", ALIGN_LEFT, VALIGN_MIDDLE);
-//    _papStringItem[2]->update("DEBUG", ALIGN_LEFT, VALIGN_MIDDLE);
-//    _papStringItem[3]->update("QUIT", ALIGN_LEFT, VALIGN_MIDDLE);
-//
-//    _pCursor001= NEW Cursor001("Cursor001");
-//    _pCursor001->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-//    _pCursor001->inactivateImmed();
-//    getDirector()->addSubGroup(_pCursor001);
-
     _pMenu = NEW MenuBoardTitle("_pMenu");
     _pMenu->locate(PX2CO(900), PX2CO(200));
     getDirector()->addSubGroup(_pMenu);
@@ -53,7 +35,6 @@ void GameTitleScene::onReset() {
     _pStringBoard02->update("");
     _pTitleBoard->locate(200000, 100000);
     _pProg->set(GameTitleScene::PROG_INIT);
-//    fadeinScene(0);
 }
 
 void GameTitleScene::onActive() {
