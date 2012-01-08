@@ -18,7 +18,6 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     getDirector()->addSubGroup(_pTitleBoard);
 
     _pMenu = NEW MenuBoardTitle("_pMenu");
-    _pMenu->locate(PX2CO(900), PX2CO(200));
     getDirector()->addSubGroup(_pMenu);
 
     _pSeCon_exec = connectSeManager("yume_Sbend");
@@ -33,7 +32,7 @@ void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
     _pStringBoard01->update("");
     _pStringBoard02->update("");
-    _pTitleBoard->locate(PX2CO(100), PX2CO(100));
+    _pTitleBoard->locate(PX2CO(100), PX2CO(90));
     _pProg->set(GameTitleScene::PROG_INIT);
 }
 
@@ -79,7 +78,7 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_SELECT: {
             if (_pProg->isJustChanged()) {
-                _pMenu->rise(PX2CO(800), PX2CO(100));
+                _pMenu->rise(PX2CO(50), PX2CO(350));
             }
 
 
@@ -110,7 +109,7 @@ void GameTitleScene::processBehavior() {
                 }
             }
 
-            if (VB->getState()) {
+            if (VB->getState() == VB_NEUTRAL_STC) { //
                 _frame_of_noinput = _pProg->getFrameInProgress();
             }
 

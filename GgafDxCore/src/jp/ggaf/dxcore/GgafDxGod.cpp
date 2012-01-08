@@ -873,7 +873,7 @@ HRESULT GgafDxGod::initDx9Device() {
     // ディザリング
     //GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_DITHERENABLE, TRUE );
     // マルチサンプリングアンチエイリアス(といってもフルスクリーンだけ？)↓TODO:まだ謎
-//    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
+    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
 //    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK, 0x00ffffff);
 
     //ピクセル単位のアルファテストを有効

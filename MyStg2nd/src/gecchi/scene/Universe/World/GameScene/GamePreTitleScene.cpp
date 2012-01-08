@@ -55,8 +55,8 @@ void GamePreTitleScene::processBehavior() {
             } else if (_pProg->getFrameInProgress() > 361) {
                 //タイトルが下からニューっと
                 _pTitleBoard->_Y -= PX2CO(1);
-                if (_pTitleBoard->_Y <= PX2CO(100)) {
-                    _pTitleBoard->_Y = PX2CO(100);
+                if (_pTitleBoard->_Y <= PX2CO(90)) {
+                    _pTitleBoard->_Y = PX2CO(90);
                     _pProg->change(GamePreTitleScene::PROG_FINISH);
                 }
             }

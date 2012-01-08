@@ -9,7 +9,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
         MenuBoard(prm_name, "Menuback001") {
     _class_name = "MenuBoardPause";
     //メニューウィンドウ設定
-    setScaleR(160, 190, 1);
+    setScaleR(160, 90, 1);
     //メニューアイテム設定
     char* apItemStr[] = {
           "GAME START",   //0
@@ -20,7 +20,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     for (int i = 0; i <= ITEM_QUIT; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addSelectItem(pLabel, PX2CO(80), PX2CO(10+(i*40)));
+        addSelectItem(pLabel, PX2CO(80), PX2CO(5+(i*20)));
     }
     //キャンセル押下時移動先アイテム
     relationItemCancel(ITEM_QUIT);
