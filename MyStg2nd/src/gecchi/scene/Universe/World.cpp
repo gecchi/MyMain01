@@ -37,7 +37,7 @@ void World::initialize() {
     orderActorToFactory(0, LabelGecchi16Font, "ASTER");
     _pLabel_Aster = (LabelGecchi16Font*)obtainActorFromFactory(0);
     getDirector()->addSubGroup(_pLabel_Aster);
-    _pLabel_Aster->update(PX2CO(cx), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
+    _pLabel_Aster->update(PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
     _pLabel_Aster->_pFader->beat(60, 30, 0, 0, -1); //チカチカ点滅
 #ifdef MY_DEBUG
     ColliAABActor::get();     //当たり判定領域表示用直方体、プリロード

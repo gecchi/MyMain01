@@ -89,6 +89,13 @@ public:
     DefaultScene* getGazeScene();
 
     /**
+     * 進捗状態に関連づいているシーンを取得 .
+     * @param prm_progress 進捗状態
+     * @return
+     */
+    DefaultScene* getScene(progress prm_progress);
+
+    /**
      * デストラクタ .
      */
     virtual ~SceneProgress();

@@ -13,8 +13,8 @@ public:
     static std::string DIR_SCENE_DATA;
     static std::string DIR_SPLINE_DATA;
 
-    static void load(std::string prm_ini_filename);
-    static void clean();
+    static void load(std::string prm_ini_filename); //shadows
+    static void clean();                            //shadows
 };
 
 }

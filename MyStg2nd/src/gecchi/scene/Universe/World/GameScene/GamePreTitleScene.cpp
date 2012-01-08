@@ -18,7 +18,7 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
 }
 void GamePreTitleScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
-    _pTitleBoard->locate(200000, 600000);
+    _pTitleBoard->locate(PX2CO(100), PX2CO(600));
     _pStringBoard01->update("");
     _pStringBoard02->update("");
 //    fadeoutScene(0);
@@ -52,10 +52,11 @@ void GamePreTitleScene::processBehavior() {
                 _pStringBoard01->update(PX2CO(100), PX2CO(50), "MA SORE HA OITOITE...");
             } else if (_pProg->getFrameInProgress() == 360) {
                 _pStringBoard01->update(PX2CO(100), PX2CO(50), "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
-            } else if (_pProg->getFrameInProgress() > 600) {
+            } else if (_pProg->getFrameInProgress() > 361) {
                 //タイトルが下からニューっと
-                _pTitleBoard->_Y -= 2*LEN_UNIT;
-                if (_pTitleBoard->_Y <= 100*LEN_UNIT) {
+                _pTitleBoard->_Y -= PX2CO(1);
+                if (_pTitleBoard->_Y <= PX2CO(100)) {
+                    _pTitleBoard->_Y = PX2CO(100);
                     _pProg->change(GamePreTitleScene::PROG_FINISH);
                 }
             }

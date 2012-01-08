@@ -33,7 +33,7 @@ void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
     _pStringBoard01->update("");
     _pStringBoard02->update("");
-    _pTitleBoard->locate(200000, 100000);
+    _pTitleBoard->locate(PX2CO(100), PX2CO(100));
     _pProg->set(GameTitleScene::PROG_INIT);
 }
 

@@ -65,7 +65,7 @@ void GgafGarbageBox::clean(int prm_num_cleaning) {
     }
     GgafGarbageBox::_wait = true;
     _pDisusedActor->clean(prm_num_cleaning);
-    _pDisusedScene->clean(prm_num_cleaning);
+    _pDisusedScene->clean(1); //ƒV[ƒ“‚Í1ŒÂ‚¾‚¯
     GgafGarbageBox::_wait = false;
 }
 

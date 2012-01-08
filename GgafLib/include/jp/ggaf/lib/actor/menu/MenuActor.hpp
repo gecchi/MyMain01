@@ -158,20 +158,6 @@ public:
      * _pKurokoA->behave(); <BR>
      * を実行する必要はありません。<BR>
      * @param prm_pCursor カーソル
-     * @param prm_cursor_move_frames カーソルがアイテム間移動に費やすフレーム(デフォルト8フレーム)
-     * @param prm_cursor_move_p1 カーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
-     * @param prm_cursor_move_p2 カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合(デフォルト0.7)
-     */
-
-    /**
-     * メニューカーソルオブジェクトを設定する .
-     * 【注意】<BR>
-     * カーソル移動を制御するため、MenuActor<T>::processBehavior() 内で、<BR>
-     * _pCursor->_pKurokoA->behave(); <BR>
-     * を実行しています。したがって、引数のカーソルクラスで、<BR>
-     * _pKurokoA->behave(); <BR>
-     * を実行する必要はありません。<BR>
-     * @param prm_pCursor カーソル
      * @param prm_X_cursor_adjust アイテムとの重なりを補正するための加算される差分X座標
      * @param prm_Y_cursor_adjust アイテムとの重なりを補正するための加算される差分Y座標
      * @param prm_Z_cursor_adjust アイテムとの重なりを補正するための加算される差分Z座標
@@ -342,7 +328,10 @@ public:
      */
     virtual void processRising();
 
-
+    /**
+     * 状態フラグ更新を追加のためオーバーライド .
+     * 内部で T::nextFrame(); もコールしています。
+     */
     virtual void nextFrame() override;
 
     /**
@@ -445,7 +434,6 @@ template<class T>
 void MenuActor<T>::riseSub(MenuActor<T>* prm_pSubMenu) {
     _pActiveSubMenu = prm_pSubMenu;
     _pActiveSubMenu->rise();
-    //↑ココがオーバーライド先を読んでいるのか調査
     _will_be_able_to_controll = false;
 }
 template<class T>
@@ -491,7 +479,6 @@ void MenuActor<T>::addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
     prm_pItem->_Z_local = prm_Z_local;
     prm_pItem->_fAlpha = T::_fAlpha; //半透明αを共有させる。
     prm_pItem->inactivateImmed();
-
     _lstItems.addLast(prm_pItem, false);
     T::addSubLast(prm_pItem);
 }
@@ -504,7 +491,6 @@ void MenuActor<T>::addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
     prm_pItem->_Z_local = prm_Z_local;
     prm_pItem->_fAlpha = T::_fAlpha; //半透明αを共有させる。
     prm_pItem->inactivateImmed();
-
     _lstDispActors.addLast(prm_pItem);
     T::addSubLast(prm_pItem);
 }
@@ -541,7 +527,6 @@ template<class T>
 void MenuActor<T>::relationItemCancel(int prm_index_of_cancel_item) {
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pCancelElem =
             _lstItems.getElemFromFirst(prm_index_of_cancel_item);
-
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem =
             _lstItems.getElemFirst();
     GgafDxCore::GgafDxDrawableActor* pItem;

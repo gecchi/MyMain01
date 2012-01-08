@@ -107,12 +107,12 @@ void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
 
 
     if (pOrder == NULL) {
-		string name_org;
-		if (prm_org->_obj_class & Obj_GgafActor) {
-			name_org = ((GgafActor*)prm_org)->getName();
-		} else if (prm_org->_obj_class  & Obj_GgafScene) {
-			name_org = ((GgafScene*)prm_org)->getName();
-		}
+        string name_org;
+        if (prm_org->_obj_class & Obj_GgafActor) {
+            name_org = ((GgafActor*)prm_org)->getName();
+        } else if (prm_org->_obj_class  & Obj_GgafScene) {
+            name_org = ((GgafScene*)prm_org)->getName();
+        }
         throwGgafCriticalException("GgafFactory::obtain("<<prm_id<<") Error! 注文リストはNULLで全て製造済みしています。\n"<<
                                    "orederとobtainの対応が取れていません。\n"<<
                                    "受取人(obtain呼び元)="<<name_org<<"("<<prm_org<<")");
@@ -129,18 +129,18 @@ void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
 #else
 
                     if (waittime > 1000*300) { //約300秒
-						string name_org;
-						if (prm_org->_obj_class & Obj_GgafActor) {
-							name_org = ((GgafActor*)prm_org)->getName();
-						} else if (prm_org->_obj_class  & Obj_GgafScene) {
-							name_org = ((GgafScene*)prm_org)->getName();
-						}
-						string name_orderer;
-						if (pOrder->_pOrderer->_obj_class & Obj_GgafActor) {
-							name_orderer = ((GgafActor*)pOrder->_pOrderer)->getName();
-						} else if (pOrder->_pOrderer->_obj_class  & Obj_GgafScene) {
-							name_orderer = ((GgafScene*)pOrder->_pOrderer)->getName();
-						}
+                        string name_org;
+                        if (prm_org->_obj_class & Obj_GgafActor) {
+                            name_org = ((GgafActor*)prm_org)->getName();
+                        } else if (prm_org->_obj_class  & Obj_GgafScene) {
+                            name_org = ((GgafScene*)prm_org)->getName();
+                        }
+                        string name_orderer;
+                        if (pOrder->_pOrderer->_obj_class & Obj_GgafActor) {
+                            name_orderer = ((GgafActor*)pOrder->_pOrderer)->getName();
+                        } else if (pOrder->_pOrderer->_obj_class  & Obj_GgafScene) {
+                            name_orderer = ((GgafScene*)pOrder->_pOrderer)->getName();
+                        }
                         throwGgafCriticalException("GgafFactory::obtain Error! ["<<prm_id<<"]の製造待ち時間タイムアウト、取得できません。\n"<<
                                                    "何らかの理由でメインスレッドが停止している可能性が大きいです。"<<
                                                    "発注者(order呼び元)="<<name_orderer<<"("<<pOrder->_pOrderer<<")／受取人(obtain呼び元)="<<name_org<<"("<<prm_org<<")");
@@ -263,7 +263,7 @@ void GgafFactory::clean() {
 
 unsigned __stdcall GgafFactory::work(void* prm_arg) {
     //_CrtSetBreakAlloc(95299);
-	//_CrtSetBreakAlloc(65854);
+    //_CrtSetBreakAlloc(65854);
 
     try {
         GgafObject* (*func)(void*, void*, void*) = NULL;
@@ -347,12 +347,12 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                  ___EndSynchronized1; // <----- 排他終了
                     if (GgafGod::_pGod->_fps > CFG_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
                         TRACE2("GgafFactory::work ＜工場長＞ FPSは高いなぁ、その間を利用してゴミ箱掃除でもやっときます。2");
-                        _pGarbageBox->clean(10); //暇なので、ゴミ箱掃除
+                        _pGarbageBox->clean(5); //暇なので、ゴミ箱掃除
                         _cnt_cleaned = 0;
                     }
                 }
             }
-            Sleep(10);
+            Sleep(2);
         }
         TRACE2("GgafFactory::work ＜工場長＞ 工場はこれにて店じまいです。さようなら、また会いましょう。");
         _was_finished_flg = true;

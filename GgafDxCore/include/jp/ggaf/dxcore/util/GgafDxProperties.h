@@ -12,27 +12,27 @@ class GgafDxProperties: public GgafCore::GgafProperties {
 public:
     static bool FULL_SCREEN;
     static bool DUAL_VIEW;
-    static int GAME_BUFFER_WIDTH;
-    static int GAME_BUFFER_HEIGHT;
+    static pixcoord GAME_BUFFER_WIDTH;
+    static pixcoord GAME_BUFFER_HEIGHT;
     static float GAME_SPACE_DEPTH;
-    static int RENDER_TARGET_BUFFER_WIDTH;
-    static int RENDER_TARGET_BUFFER_HEIGHT;
+    static pixcoord RENDER_TARGET_BUFFER_WIDTH;
+    static pixcoord RENDER_TARGET_BUFFER_HEIGHT;
 
-    static int SINGLE_VIEW_WINDOW_WIDTH;
-    static int SINGLE_VIEW_WINDOW_HEIGHT;
-    static int DUAL_VIEW_WINDOW1_WIDTH;
-    static int DUAL_VIEW_WINDOW1_HEIGHT;
-    static int DUAL_VIEW_WINDOW2_WIDTH;
-    static int DUAL_VIEW_WINDOW2_HEIGHT;
+    static pixcoord SINGLE_VIEW_WINDOW_WIDTH;
+    static pixcoord SINGLE_VIEW_WINDOW_HEIGHT;
+    static pixcoord DUAL_VIEW_WINDOW1_WIDTH;
+    static pixcoord DUAL_VIEW_WINDOW1_HEIGHT;
+    static pixcoord DUAL_VIEW_WINDOW2_WIDTH;
+    static pixcoord DUAL_VIEW_WINDOW2_HEIGHT;
 
-    static int SINGLE_VIEW_FULL_SCREEN_WIDTH;
-    static int SINGLE_VIEW_FULL_SCREEN_HEIGHT;
-    static int DUAL_VIEW_FULL_SCREEN1_WIDTH;
-    static int DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-    static int DUAL_VIEW_FULL_SCREEN2_WIDTH;
-    static int DUAL_VIEW_FULL_SCREEN2_HEIGHT;
-    static int DUAL_VIEW_FULL_SCREEN_WIDTH;
-    static int DUAL_VIEW_FULL_SCREEN_HEIGHT;
+    static pixcoord SINGLE_VIEW_FULL_SCREEN_WIDTH;
+    static pixcoord SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+    static pixcoord DUAL_VIEW_FULL_SCREEN1_WIDTH;
+    static pixcoord DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+    static pixcoord DUAL_VIEW_FULL_SCREEN2_WIDTH;
+    static pixcoord DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+    static pixcoord DUAL_VIEW_FULL_SCREEN_WIDTH;
+    static pixcoord DUAL_VIEW_FULL_SCREEN_HEIGHT;
     static bool FIXED_GAME_VIEW_ASPECT;
     static bool SWAP_GAME_VIEW;
     static int SINGLE_VIEW_DRAW_POSITION;
@@ -52,8 +52,8 @@ public:
 
     static bool REALTIME_EFFECT_COMPILE;
 
-    static void load(std::string prm_ini_filename);
-    static void clean();
+    static void load(std::string prm_ini_filename); //shadows
+    static void clean();                            //shadows
 };
 
 }

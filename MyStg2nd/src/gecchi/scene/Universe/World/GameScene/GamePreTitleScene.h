@@ -17,10 +17,10 @@ public:
         PROG_FINISH  ,
     };
 
+
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;
     TitleBoard* _pTitleBoard;
-
     GamePreTitleScene(const char* prm_name);
     void onReset() override;
     void initialize() override;

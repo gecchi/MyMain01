@@ -22,6 +22,7 @@ public:
 
     void processJudgement() override;
 
+    void processDraw() override;
 
     virtual ~TitleBoard();
 };
