@@ -34,7 +34,14 @@ MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOpt
 
 void MyOptionTorpedoController::initialize() {
 }
-
+void MyOptionTorpedoController::onActive() {
+    _in_firing = false;
+    for (int i = 0; i < MyOption::_max_lockon_num; i++) {
+        _papMyTorpedo[i]->_pTarget = NULL;
+        _papMyTorpedo[i]->inactivateImmed();
+    }
+    _pDepo_TorpedoBlast->reset();
+}
 void MyOptionTorpedoController::processBehavior() {
     if (_in_firing) {
         _in_firing = false;
@@ -49,7 +56,14 @@ void MyOptionTorpedoController::processBehavior() {
 
 void MyOptionTorpedoController::processJudgement() {
 }
-
+void MyOptionTorpedoController::onInactive() {
+    _in_firing = false;
+    for (int i = 0; i < MyOption::_max_lockon_num; i++) {
+        _papMyTorpedo[i]->_pTarget = NULL;
+        _papMyTorpedo[i]->inactivateImmed();
+    }
+    _pDepo_TorpedoBlast->reset();
+}
 void MyOptionTorpedoController::fire() {
     if (!_in_firing) {
         _in_firing = true;

@@ -34,9 +34,13 @@ public:
 
     void initialize() override;
 
+    void onActive() override;
+
     void processBehavior() override;
 
     void processJudgement() override;
+
+    void onInactive() override;
 
     /**
      * ‹›—‹‚ğˆêÄ”­Ë‚·‚éB

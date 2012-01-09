@@ -252,7 +252,7 @@ void MyOptionController::setNumOption(int prm_num) {
             _papMyOption[i]->inactivate();
         }
         if (i < _now_option_num) {
-            _papMyOption[i]->activate();
+            _papMyOption[i]->activate(); 
         }
     }
 }

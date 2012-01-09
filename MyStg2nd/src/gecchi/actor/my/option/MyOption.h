@@ -141,6 +141,8 @@ public:
 
     void processFinal() override;
 
+    void onInactive() override;
+
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~MyOption();

@@ -25,14 +25,24 @@ MyOptionLockonController::MyOptionLockonController(const char* prm_name) :
 void MyOptionLockonController::initialize() {
 }
 void MyOptionLockonController::onReset() {
-    GgafMainActor* pLockonEffect_Active = getSubFirst();
+    //ロックオンターゲットのリストを空にする
     int n = _pRingTarget->length();
     for (int i = 0; i < n; i++) {
         _pRingTarget->remove();
-        ((EffectLockon001*)pLockonEffect_Active)->releaseLockon();
-        pLockonEffect_Active->getPrev()->moveLastImmed();
+    }
+    //ロックオンアクターのリセット
+    EffectLockon001* pEffectLockon001;
+    for (int i = 0; i < MyOption::_max_lockon_num; i++) {
+        pEffectLockon001 = (EffectLockon001*)(getSub(i));
+        pEffectLockon001->releaseLockon();
+        pEffectLockon001->inactivate();
     }
 }
+
+void MyOptionLockonController::onActive() {
+    onReset();
+}
+
 
 void MyOptionLockonController::processBehavior() {
     //ロックオンターゲット生存確認
@@ -92,7 +102,9 @@ void MyOptionLockonController::processBehavior() {
 
 void MyOptionLockonController::processJudgement() {
 }
-
+void MyOptionLockonController::onInactive() {
+    onReset();
+}
 
 void MyOptionLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
     if (_pRingTarget->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ

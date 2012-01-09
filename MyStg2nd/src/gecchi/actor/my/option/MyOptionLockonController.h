@@ -23,9 +23,13 @@ public:
 
     void onReset() override;
 
+    void onActive() override;
+
     void processBehavior() override;
 
     void processJudgement() override;
+
+    void onInactive() override;
 
     void releaseAllLockon();
 

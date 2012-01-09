@@ -130,7 +130,10 @@ void MyOption::onReset() {
 }
 
 void MyOption::onActive() {
-
+    //レーザーやロックンターゲットや魚雷がサブにいるため
+    //個別に呼び出す
+    _pLockonController->onActive();
+    _pTorpedoController->onActive();
 }
 
 void MyOption::addRadiusPosition(int prm_radius_offset) {
@@ -476,6 +479,15 @@ void MyOption::processBehavior() {
 }
 
 void MyOption::processJudgement() {
+}
+
+void MyOption::onInactive() {
+    //レーザーやロックンターゲットや魚雷がサブにいるため
+    //個別に呼び出す
+    _pLockonController->onInactive();
+    _pTorpedoController->onInactive();
+    _pLaserChipDepo->reset();
+
 }
 
 void MyOption::onHit(GgafActor* prm_pOtherActor) {
