@@ -24,6 +24,7 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
     _lim_VP_behaind = MyShip::_lim_behaind + (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
     _lim_VP_zleft   = MyShip::_lim_zleft   - (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
     _lim_VP_zright  = MyShip::_lim_zright  + (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _is_cam_pos_option_back = false;
 }
 void VamSysCamWorker::initialize() {
     GgafDxCamera* pCam = P_CAM;
@@ -76,33 +77,12 @@ void VamSysCamWorker::processBehavior() {
     MyOptionController* pOptionController = P_MYOPTIONCON;
 
     //カメラ位置番号を決定処理
-//    if (VB_PLAY->isPushedDown(VB_VIEW)) {
-//        if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-//            _pos_camera = VAM_POS_RIGHT;
-//        } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-//            _pos_camera = VAM_POS_LEFT;
-//        } else if (VB_PLAY->isBeingPressed(VB_UP)) {
-//            _pos_camera = VAM_POS_TOP;
-//        } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-//            _pos_camera = VAM_POS_BOTTOM;
-//        } else {
-//            _pos_camera += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
-//        }
-//    } else if (VB_PLAY->isBeingPressed(VB_VIEW)) {
-//        if (VB_PLAY->isPushedDown(VB_RIGHT)) {
-//            _pos_camera = VAM_POS_RIGHT;
-//        } else if (VB_PLAY->isPushedDown(VB_LEFT)) {
-//            _pos_camera = VAM_POS_LEFT;
-//        } else if (VB_PLAY->isPushedDown(VB_UP)) {
-//            _pos_camera = VAM_POS_TOP;
-//        } else if (VB_PLAY->isPushedDown(VB_DOWN)) {
-//            _pos_camera = VAM_POS_BOTTOM;
-//        }
-//    }
-
-
-
-    if (VB_PLAY->isPushedDown(VB_VIEW)) {
+    _is_cam_pos_option_back = false;
+    if (VB_PLAY->isBeingPressed(VB_OPTION)) { //オプション操作時
+        if (VB_PLAY->isBeingPressed(VB_VIEW)) {
+            _is_cam_pos_option_back = true;
+        }
+    } else if (VB_PLAY->isPushedDown(VB_VIEW)) { //ビューボタンプッシュ                              //オプション非操作時（通常時）
         _TRACE_("VB_VIEW!! now _pos_camera="<<_pos_camera);
         if (_pos_camera < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
             _pos_camera += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
@@ -117,36 +97,26 @@ void VamSysCamWorker::processBehavior() {
             } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                 _pos_camera = VAM_POS_TOP;
             } else {
-                //方向未入力の場合、そのまま
-
-//                //方向未入力の場合、元のビューポイントへ
-//                _pos_camera -= VAM_POS_TO_BEHIND;
+                //方向未入力の場合、元のビューポイントへ
+                _pos_camera -= VAM_POS_TO_BEHIND;
             }
         }
         _TRACE_("VB_VIEW!!  -> _pos_camera="<<_pos_camera);
     }
 
     //カメラの移動目標座標
-    int move_target_X_CAM, move_target_Y_CAM, move_target_Z_CAM;
+    coord move_target_X_CAM, move_target_Y_CAM, move_target_Z_CAM;
     //カメラのビューポイントの移動目標座標
-    int move_target_X_VP, move_target_Y_VP, move_target_Z_VP;
+    coord move_target_X_VP, move_target_Y_VP, move_target_Z_VP;
     //カメラの目標UPアングル値
     angle move_target_XY_CAM_UP;
 
     //カメラの目標座標、ビューポイントの目標座標を設定
-    static int Dx = (int)((CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)/4*2);
+    static coord Dx = PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)/4);
     static int Ddx_hw = (int)((CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2) - (CFG_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2));
 
-//    static coord Dx = PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2)/4*2;
-//    static coord Ddx_hw = (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2) - (PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2));
-
-
-    //static int Dd = 30000;
-
-    //オプション操作中
-    if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isPushedDown(VB_VIEW)) {
-        //オプション操作中にポンと VB_VIEW を押す
-        //オプション背後に回る
+    if (_is_cam_pos_option_back) {
+        //オプション操作中のオプション背面に回る
         coord d = _dZ_camera_init*0.6;
         move_target_X_CAM = pOptionController->_X + pOptionController->_pKurokoA->_vX*-d;
         move_target_Y_CAM = pOptionController->_Y + pOptionController->_pKurokoA->_vY*-d;
@@ -156,7 +126,7 @@ void VamSysCamWorker::processBehavior() {
         move_target_Z_VP = pOptionController->_Z + pOptionController->_pKurokoA->_vZ*d;
         move_target_XY_CAM_UP = GgafDxUtil::simplifyAng(pOptionController->_pKurokoA->_angRzMv+D90ANG);
 
-    } else {//通常時
+    } else {//通常時VAM
         if (_pos_camera < VAM_POS_TO_BEHIND) {
             if (_pos_camera == VAM_POS_RIGHT) {
     //            move_target_X_CAM = 0;
@@ -178,6 +148,7 @@ void VamSysCamWorker::processBehavior() {
                 }
                 move_target_Y_CAM = _pMyShip->_Y;
                 move_target_Z_CAM = _pMyShip->_Z - _dZ_camera_init;
+
                 move_target_X_VP = Dx - (-_pMyShip->_X-200000)*2;
                 if (Dx < move_target_X_VP) {
                     move_target_X_VP = Dx;

@@ -221,11 +221,11 @@ float4 PS_HoshiBoshi(
 	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
 ) : COLOR  {
 	float2 uv = (float2)0;
-float4 color = prm_color;
-color.a = 1.0;
+    float4 color = prm_color;
+    color.a = 1.0;
 	uv.x = prm_uv_pointsprite.x / g_TextureSplitRowcol + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y / g_TextureSplitRowcol + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv)*color;// * prm_color; // * g_colMaterialDiffuse;
+	float4 out_color = tex2D( MyTextureSampler, uv) * color * g_colMaterialDiffuse;
 	out_color.a *= g_alpha_master; 
 	return out_color;
 }
@@ -239,7 +239,7 @@ float4 PS_Flush(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_color * FLUSH_COLOR;// * g_colMaterialDiffuse;
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_color * FLUSH_COLOR * g_colMaterialDiffuse;
 	out_color.a *= g_alpha_master; 
 	return out_color;
 }

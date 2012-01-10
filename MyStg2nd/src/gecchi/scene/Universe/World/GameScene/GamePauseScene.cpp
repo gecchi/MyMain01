@@ -8,7 +8,6 @@ using namespace MyStg2nd;
 GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePauseScene";
 
-
     _pMenuBoardPause = NEW MenuBoardPause("MenuBoardPause");
     getDirector()->addSubGroup(_pMenuBoardPause);
 
@@ -46,6 +45,7 @@ GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
     _active_item = 0;
 
 }
+
 void GamePauseScene::onReset() {
     _TRACE_("GamePauseScene::onReset()");
     _pMsgLabel01->inactivateImmed();
@@ -169,11 +169,12 @@ void GamePauseScene::processBehavior() {
     }
     _pMsgLabel01->_pKurokoA->behave();
     _pMsgLabel02->_pKurokoA->behave();
-
 }
+
 void GamePauseScene::onInactive() {
     _pMenuBoardPause->sink();
 }
+
 void GamePauseScene::processFinal() {
 
 }

@@ -67,7 +67,8 @@ public:
     coord _stop_dZ;
     /** カメラ目標座標に加えられるY軸座標オフセット補正値 */
     coord _stop_dY;
-
+    /** カメラはオプション背面中である場合true */
+    bool _is_cam_pos_option_back;
 
     VamSysCamWorker(const char* prm_name);
 

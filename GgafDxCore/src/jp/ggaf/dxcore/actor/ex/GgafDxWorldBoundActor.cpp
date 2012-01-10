@@ -18,7 +18,7 @@ GgafDxWorldBoundActor::GgafDxWorldBoundActor(const char* prm_name,
                                                                        prm_technique,
                                                                        prm_pStat,
                                                                        prm_pChecker),
-                                                 GgafDxICubeMapActor() {
+                                                     GgafDxICubeMapActor() {
     _obj_class |= Obj_GgafDxWorldBoundActor;
     _class_name = "GgafDxWorldBoundActor";
     _pWorldBoundModel = (GgafDxWorldBoundModel*)_pModel;
@@ -28,9 +28,6 @@ GgafDxWorldBoundActor::GgafDxWorldBoundActor(const char* prm_name,
 void GgafDxWorldBoundActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pWorldBoundEffect->_pID3DXEffect;
     HRESULT hr;
-//    hr = pID3DXEffect->SetMatrix(_pWorldBoundEffect->_h_matView, &P_CAM->_matView );
-//    checkDxException(hr, D3D_OK, "GgafDxWorldBoundActor::processDraw() SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetInt(_pWorldBoundEffect->_h_morph_target_num, _pWorldBoundModel->_morph_target_num);
     checkDxException(hr, D3D_OK, "GgafDxWorldBoundActor::processDraw() SetInt(_h_morph_target_num) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (int pattern = 1; pattern <= _pWorldBoundModel->_morph_target_num; pattern++) {

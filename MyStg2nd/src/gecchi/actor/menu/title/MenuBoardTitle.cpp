@@ -28,7 +28,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     CursorTitleMenu* pCursor = NEW CursorTitleMenu("CursorTitleMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor, 0, 0, 0, 8, 0.2, 0.7);
-    //スライド表示設定
+    //スライド表示の設定
     setTransition(10, PX2CO(0), +PX2CO(100));
     //初期選択
     setSelectedItemIndex(ITEM_GAME_START);
@@ -53,8 +53,7 @@ void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
 }
 
 void MenuBoardTitle::riseConfirm() {
-    riseSub(_pConfirmMenu,
-            getSelectedItem()->_X + PX2CO(50), getSelectedItem()->_Y + PX2CO(50));
+    riseSub(_pConfirmMenu, getSelectedItem()->_X + PX2CO(50), getSelectedItem()->_Y);
 }
 void MenuBoardTitle::sinkConfirm() {
     sinkSub();

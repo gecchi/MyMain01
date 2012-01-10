@@ -5,7 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-#define GAMETITLE_TIMEOUT 240
+#define GAMETITLE_TIMEOUT (60*20)
 GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
     useProgress(10);
@@ -20,14 +20,20 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _pMenu = NEW MenuBoardTitle("_pMenu");
     getDirector()->addSubGroup(_pMenu);
 
+    _pWorldBound = NEW WorldBoundTitle("TITLE_BG_WB");
+    getDirector()->addSubGroup(_pWorldBound);
+    _pHoshiBoshi = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
+    getDirector()->addSubGroup(_pHoshiBoshi);
+
     _pSeCon_exec = connectSeManager("yume_Sbend");
 
     _pBgmPerformer->useBgm(1);
     _pBgmPerformer->set(0, "BGM_DEMO");
-
+    _frame_of_noinput = 0;
     _active_item = 0;
 
 }
+
 void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
     _pStringBoard01->update("");
@@ -37,6 +43,12 @@ void GameTitleScene::onReset() {
 }
 
 void GameTitleScene::onActive() {
+    _pWorldBound->inactivateImmed();
+    _pHoshiBoshi->inactivateImmed();
+    _pWorldBound->activate();
+    _pHoshiBoshi->activate();
+    _pWorldBound->fadein();
+    _pHoshiBoshi->fadein();
 }
 
 void GameTitleScene::initialize() {
@@ -50,7 +62,6 @@ void GameTitleScene::processBehavior() {
             break;
         }
     }
-
 
     switch (_pProg->get()) {
         case GameTitleScene::PROG_INIT: {
@@ -79,6 +90,7 @@ void GameTitleScene::processBehavior() {
         case GameTitleScene::PROG_SELECT: {
             if (_pProg->isJustChanged()) {
                 _pMenu->rise(PX2CO(50), PX2CO(350));
+                _frame_of_noinput = _pProg->getFrameInProgress();
             }
 
 
@@ -109,11 +121,11 @@ void GameTitleScene::processBehavior() {
                 }
             }
 
-            if (VB->getState() == VB_NEUTRAL_STC) { //
+            if (VB->getState() != VB_NEUTRAL_STC) { //
                 _frame_of_noinput = _pProg->getFrameInProgress();
             }
 
-            if (_pProg->getFrameInProgress() >= _frame_of_noinput + 300) {
+            if (_pProg->getFrameInProgress() >= _frame_of_noinput + GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント

@@ -111,7 +111,6 @@ void MyTorpedo::processBehavior() {
                 //ターゲット完了
                 _move_section++;
             }
-
         }
         //ムーブ２
         if (_move_section == 2) {

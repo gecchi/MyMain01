@@ -639,8 +639,8 @@ public:
     virtual void resetTree();
 
     /**
-     * 状態をリセットする(ユーザー実装用) .
-     * reset() 或いは、resetTree() を実行することで呼び出されます。
+     * 実際の状態をリセットする処理(ユーザー実装用) .
+     * reset() 或いは、resetTree() を実行することでコールバックされます。
      * 個別のの状態リセット処理を、下位クラスでオーバーライドしてください。
      */
     virtual void onReset() {}
@@ -960,13 +960,7 @@ void GgafElement<T>::nextFrame() {
             _frame_of_behaving++;
             // 進捗を反映
             if (_pProg) {
-//				if (GgafUtil::strcmp_ascii(getName(), "OPTION") == 0) {
-//				_TRACE_("name="<<getName()<<"("<<this<<") _pProg="<<_pProg->get() <<" _pProg->update(); begin "<<getActivePartFrame());
-//				}
                 _pProg->update();
-//				if (GgafUtil::strcmp_ascii(getName(), "OPTION") == 0) {
-//				_TRACE_("name="<<getName()<<"("<<this<<") _pProg="<<_pProg->get() <<" _pProg->update(); end"<<getActivePartFrame());
-//				}
             }
             _frame_of_behaving_since_onActive++;
         }

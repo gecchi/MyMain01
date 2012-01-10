@@ -14,8 +14,7 @@ int MyOption::_lockon_num = 8;
 MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) :
         DefaultMeshSetActor(prm_name, "8/CORE4", STATUS(MyOption)) {
 
-
-_TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
+    _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _class_name = "MyOption";
     _pMyOptionController = prm_pMyOptionController;
     _no = prm_no;

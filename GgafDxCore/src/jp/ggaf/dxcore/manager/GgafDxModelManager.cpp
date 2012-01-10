@@ -1635,7 +1635,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
             (D3DXFRAME**)(&pFR),
             &pAC
          );
-	_TRACE_("pAH="<<pAH<<" pFR="<<pFR<<" pAC="<<pAC<<" xfile_name.c_str()="<<xfile_name.c_str());
+    _TRACE_("pAH="<<pAH<<" pFR="<<pFR<<" pAC="<<pAC<<" xfile_name.c_str()="<<xfile_name.c_str());
     checkDxException(hr, D3D_OK, "GgafDxModelManager::restoreD3DXAniMeshModel "<<xfile_name<<" 読み込みに失敗しました。対象="<<xfile_name);
     if (pFR == NULL) {
         throwGgafCriticalException("GgafDxModelManager::restoreD3DXAniMeshModel "<<xfile_name<<" のフレーム情報が取得できません！");
@@ -2288,31 +2288,6 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
 
     memcpy(pVertexBuffer, paVertex, prm_pBoardModel->_size_vertices); //pVertexBuffer ← paVertex
     prm_pBoardModel->_pIDirect3DVertexBuffer9->Unlock();
-
-    //全パターンのUV情報の配列作成しモデルに保持させる
-    //＜2009/3/13＞
-    //シェーダーでUV操作するようになってから、描画時にUV左上の情報(model_paRectUV[n]._aUV[0])以外は使用しなくなった。
-    //TODO:しばらくしたら余分な所を見直すか消す。
-//    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
-//    GgafDxRectUV* model_paRectUV = NEW GgafDxRectUV[pattnum];
-//    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
-//        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-//            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
-//            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-//            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
-//
-//            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-//            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
-//
-//            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-//            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
-//
-//            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-//            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
-//        }
-//    }
-//    prm_pBoardModel->_paRectUV = model_paRectUV;
-//    prm_pBoardModel->_pattno_max = pattnum-1;
     prm_pBoardModel->_dwNumMaterials = 1;
     D3DMATERIAL9* model_paMaterial;
     model_paMaterial = NEW D3DMATERIAL9[prm_pBoardModel->_dwNumMaterials];

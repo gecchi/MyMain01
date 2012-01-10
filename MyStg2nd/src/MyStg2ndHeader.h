@@ -291,10 +291,12 @@ class HoshiBoshiTransit;
 class HoshiBoshiRankUp;
 class HoshiBoshi001;
 class HoshiBoshi002;
+class HoshiBoshiTitle;
 class WorldBoundSpaceTransit;
 class WorldBoundSpace001;
 class WorldBoundSpace002;
 class WorldBoundSpaceRankUp;
+class WorldBoundTitle;
 
 class TurboMeter;
 class LabelGecchi8Font;
@@ -549,11 +551,13 @@ class CursorTitleMenu;
 #include "gecchi/actor/background/HoshiBoshi/HoshiBoshiRankUp.h"
 #include "gecchi/actor/background/HoshiBoshi/HoshiBoshi001.h"
 #include "gecchi/actor/background/HoshiBoshi/HoshiBoshi002.h"
+#include "gecchi/actor/background/HoshiBoshi/HoshiBoshiTitle.h"
 
 #include "gecchi/actor/background/WorldBound/WorldBoundSpaceTransit.h"
 #include "gecchi/actor/background/WorldBound/WorldBoundSpace001.h"
 #include "gecchi/actor/background/WorldBound/WorldBoundSpace002.h"
 #include "gecchi/actor/background/WorldBound/WorldBoundSpaceRankUp.h"
+#include "gecchi/actor/background/WorldBound/WorldBoundTitle.h"
 
 #include "gecchi/actor/label/LabelGecchi8Font.h"
 #include "gecchi/actor/label/LabelGecchi16Font.h"

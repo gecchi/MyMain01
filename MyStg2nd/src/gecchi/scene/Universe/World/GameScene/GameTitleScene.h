@@ -29,6 +29,8 @@ public:
 
     TitleBoard* _pTitleBoard;
 
+    WorldBoundTitle* _pWorldBound;
+    HoshiBoshiTitle* _pHoshiBoshi;
     int _max_menu_item;
     int _active_item;
     frame _frame_of_noinput;

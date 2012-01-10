@@ -20,9 +20,6 @@ public:
     void processJudgement() override;
 
     virtual ~HoshiBoshi001();
-
-
-
 };
 
 }

@@ -113,8 +113,8 @@ void GgafGod::be() {
         _time_at_beginning_frame = timeGetTime(); //
 
         //fpsŒvŽZ
-        if (_time_at_beginning_frame - _time_prev >= 1000) {
-            _fps = (float)(_frame_of_visualize - _frame_of_prev_visualize) / (float)((_time_at_beginning_frame - _time_prev) / 1000.0f);
+        if (_time_at_beginning_frame - _time_prev >= 200) {
+            _fps = (float)(_frame_of_visualize - _frame_of_prev_visualize) * (1000.0f / (_time_at_beginning_frame - _time_prev));
             _time_prev = _time_at_beginning_frame;
             _frame_of_prev_visualize = _frame_of_visualize;
         }

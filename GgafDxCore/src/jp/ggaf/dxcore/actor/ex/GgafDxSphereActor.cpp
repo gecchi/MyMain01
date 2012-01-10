@@ -4,15 +4,15 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxSphereActor::GgafDxSphereActor(const char* prm_name,
-                                       GgafStatus* prm_pStat,
-                                       GgafDxChecker* prm_pChecker) :
+                                     GgafStatus* prm_pStat,
+                                     GgafDxChecker* prm_pChecker) :
 
-                                   GgafDxMeshActor(prm_name,
-                                                    "sphere",
-                                                    "DefaultMeshEffect",
-                                                    "DefaultMeshTechnique",
-                                                    prm_pStat,
-                                                    prm_pChecker) {
+                                     GgafDxMeshActor(prm_name,
+                                                     "sphere",
+                                                     "DefaultMeshEffect",
+                                                     "DefaultMeshTechnique",
+                                                     prm_pStat,
+                                                     prm_pChecker) {
     _class_name = "GgafDxSphereActor";
 }
 

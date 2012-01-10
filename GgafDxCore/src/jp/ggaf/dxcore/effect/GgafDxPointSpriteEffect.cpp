@@ -25,6 +25,7 @@ GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(char* prm_effect_name) : GgafDx
     //シェーダーハンドル
     _h_matView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _h_matWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
+    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( NULL, "g_colMaterialDiffuse" );
     _hAlpha    = _pID3DXEffect->GetParameterByName( NULL, "g_hAlpha" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );

@@ -24,7 +24,7 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
     _width_len_px = 0;
 
     //デフォルトで名前(prm_name)が表示文字列になる
-	/*
+    /*
     if (prm_name != NULL) {
         _draw_string = (char*)prm_name;
         _len = strlen(prm_name);
@@ -39,7 +39,7 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
             _width_len_px = 0;
         }
     }
-	*/
+    */
 }
 
 void GgafDxStringBoardActor::onCreateModel() {
@@ -172,15 +172,15 @@ void GgafDxStringBoardActor::processDraw() {
     }
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
+    pixcoord y = CO2PX(_Y);
     if (_valign == VALIGN_BOTTOM) {
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)-_chr_height_px));
+        y = y - _chr_height_px;
     } else  if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)-(_chr_height_px/2)));
+        y = y - (_chr_height_px/2);
     } else {
         //VALIGN_TOP
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)));
     }
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)));
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], y);
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(CO2PX(_Z)));
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahDepthZ) に失敗しました。");
@@ -198,6 +198,13 @@ void GgafDxStringBoardActor::processDraw() {
                 strindex = pack * _pBoardSetModel->_set_num + i;
                 if (_draw_string[strindex] == '\0') {
                     break;
+//                } if (_draw_string[strindex] == '\n') {
+//                    x = CO2PX(_X) - (_width_len_px/2);
+//                    x_tmp = x;
+//                    y += _chr_height_px;
+//                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[i], y);
+//                    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) に失敗しました。");
+//                    continue;
                 } else if (_draw_string[strindex]  - ' ' > '_'  || _draw_string[strindex] - ' ' < 0) {
                     pattno = '?' - ' '; //範囲外は"?"を表示
                 } else {
@@ -219,7 +226,7 @@ void GgafDxStringBoardActor::processDraw() {
         }
     } else if (_align == ALIGN_RIGHT) {
         int strindex, pattno;
-        pixcoord x = CO2PX(_X)-_aWidthPx[_len-1];
+        pixcoord x = CO2PX(_X);//-_aWidthPx[_len-1];
         pixcoord x_tmp = x;
         float u,v;
         for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
@@ -228,6 +235,13 @@ void GgafDxStringBoardActor::processDraw() {
                 strindex = _len - (pack * _pBoardSetModel->_set_num + i) - 1;
                 if (_draw_string[strindex] == '\0') {
                     break;
+//                } if (_draw_string[strindex] == '\n') {
+//                    x = CO2PX(_X);
+//                    x_tmp = x;
+//                    y -= _chr_height_px;
+//                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[i], y);
+//                    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) に失敗しました。");
+//                    continue;
                 } else if (_draw_string[strindex]  - ' ' > '_'  || _draw_string[strindex] - ' ' < 0) {
                     pattno = '?' - ' '; //範囲外は"?"を表示
                 } else {
@@ -235,8 +249,8 @@ void GgafDxStringBoardActor::processDraw() {
                 }
                 //プロポーショナルな幅計算
                 int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
-                x = x_tmp + w;
-                x_tmp = x - _chr_width_px + w;
+                x = x_tmp - (w + _aWidthPx[(unsigned char)(_draw_string[strindex])]);
+                x_tmp = x + w;
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], float(x));
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedX) に失敗しました。");
                 _pUvFlipper->getUV(pattno, u, v);
@@ -247,7 +261,6 @@ void GgafDxStringBoardActor::processDraw() {
             }
             _pBoardSetModel->draw(this, _draw_set_num);
         }
-
     }
 }
 

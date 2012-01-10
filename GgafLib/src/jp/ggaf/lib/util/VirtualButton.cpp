@@ -774,7 +774,7 @@ void VirtualButton::update() {
         } else if (_pVBRecord_Active->_state & VB_UI_LEFT) {
             _pVBRecord_Active->_state |= VB_LEFT_STC;
         } else {
-            _pVBRecord_Active->_state |= VB_NEUTRAL_STC;
+            _pVBRecord_Active->_state |= VB_NEUTRAL_STC; //何も入力しなかった場合、結果は VB_NEUTRAL_STC になる
         }
     }
     _pRpy->write(_pVBRecord_Active->_state); //リプレイ情報記録

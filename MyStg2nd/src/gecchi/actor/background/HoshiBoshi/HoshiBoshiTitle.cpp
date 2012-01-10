@@ -5,31 +5,34 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-
-
-HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
+HoshiBoshiTitle::HoshiBoshiTitle(const char* prm_name) :
         HoshiBoshi(prm_name, "HoshiBoshi001") {
-    _class_name = "HoshiBoshi001";
+    _class_name = "HoshiBoshiTitle";
     //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñB
-    _far_rate = 30.0f;
+    _far_rate = 10.0f;
     _SX = _SY = _SZ =  (P_CAM->_zf*LEN_UNIT)*_far_rate;
 }
 
-void HoshiBoshi001::onActive() {
+void HoshiBoshiTitle::onActive() {
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 6);
 }
 
-void HoshiBoshi001::processBehavior() {
+void HoshiBoshiTitle::processBehavior() {
     if (_X < -_CAM_ZF*_far_rate) {
         _X += (_CAM_ZF*_far_rate*2);
     } else {
-        _X -= 1000*_far_rate;
+        _X -= 10000*_far_rate;
     }
     _pUvFlipper->behave();
+    _pFader->behave();
 }
 
-void HoshiBoshi001::processJudgement() {
+void HoshiBoshiTitle::processJudgement() {
 }
 
-HoshiBoshi001::~HoshiBoshi001() {
+void HoshiBoshiTitle::fadein() {
+    _pFader->setAlphaToBottom();
+    _pFader->intoTargetAlphaLinerUntil(1.0, 240);
+}
+HoshiBoshiTitle::~HoshiBoshiTitle() {
 }
