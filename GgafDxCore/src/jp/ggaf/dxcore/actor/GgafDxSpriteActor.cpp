@@ -48,19 +48,7 @@ void GgafDxSpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetMatrix(_h_matWorld) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _fAlpha);
     checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetFloat(_fAlpha) に失敗しました。");
-
-//    // Zバッファを無効に
-//    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-//    // Zバッファ書き込み不可
-//    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-
     _pSpriteModel->draw(this);
-
-//    // Zバッファを有効に
-//    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-//    // Zバッファ書き込み可
-//    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-
 }
 
 void GgafDxSpriteActor::setAlpha(float prm_fAlpha) {

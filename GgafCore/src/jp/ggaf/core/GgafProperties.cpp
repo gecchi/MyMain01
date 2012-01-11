@@ -64,7 +64,7 @@ int GgafProperties::getInt(string prm_key) {
 
 UINT32 GgafProperties::getUInt(string prm_key) {
     if (isExistKey(prm_key)) {
-        UINT32 ret = (UINT32)(atoi((*_pMapProperties)[prm_key].c_str()));
+        UINT32 ret = (UINT32)(_atoi64((*_pMapProperties)[prm_key].c_str()));
         return ret;
     } else {
         throwGgafCriticalException("GgafProperties::getUInt() Error! プロパティに、キー("<<prm_key<<")が存在しません。");

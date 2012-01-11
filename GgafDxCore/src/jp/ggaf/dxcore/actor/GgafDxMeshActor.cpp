@@ -72,14 +72,9 @@ void GgafDxMeshActor::addAlpha(float prm_fAlpha) {
 void GgafDxMeshActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;
-//    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matView, &P_CAM->_matView );
-//    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-
     _pMeshModel->draw(this);
-
 }
 
 GgafDxMeshActor::~GgafDxMeshActor() {

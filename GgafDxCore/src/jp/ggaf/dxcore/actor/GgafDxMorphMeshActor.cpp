@@ -81,7 +81,6 @@ void GgafDxMorphMeshActor::processDraw() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_h_matView, &P_CAM->_matView );
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetInt(_pMorphMeshEffect->_h_morph_target_num, _pMorphMeshModel->_morph_target_num);
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetInt(_h_morph_target_num) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (int pattern = 1; pattern <= _pMorphMeshModel->_morph_target_num; pattern++) {
@@ -90,7 +89,6 @@ void GgafDxMorphMeshActor::processDraw() {
     }
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
     _pMorphMeshModel->draw(this);
 }
 

@@ -388,6 +388,7 @@ enum GgafDxValign {
 namespace GgafDxCore {
 
 class GgafDxCriticalException;
+class GgafDxProperties;
 class GgafDxGod;
 class GgafDxInput;
 class GgafDxSound;
@@ -479,7 +480,6 @@ class GgafDxSphereRadiusVectors;
 class GgafDxQuaternion;
 class GgafDxCollisionArea;
 class GgafDxCollisionPart;
-class GgafDxProperties;
 class GgafDxGeoElem;
 class GgafDxGeoChain;
 class GgafDxKurokoA;
@@ -515,7 +515,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/util/XFile/ToolBox/TBox_Textures.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
@@ -603,7 +603,6 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
-#include "jp/ggaf/dxcore/util/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoChain.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"

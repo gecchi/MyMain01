@@ -314,10 +314,21 @@
 //#define PP_ADD(m, n) PP_ADD_I(m, n)
 //#define PP_ADD_I(m, n) PP_ADD_ ## m ## _ ## n
 
-
-
-
 #define DECLARE_CONST(X) const static hashval X = GgafCore::GgafUtil::easy_hash(#X)
+
+/** 共通遅延解放フレーム数 */
+#define GGAF_SAYONARA_DELAY (60*15)
+//GGAF_SAYONARA_DELAYは全Element共通の解放遅延フレーム数で、
+//長めに設定しないと、いろいろ不都合が多い。
+//消失後もなお参照が可能とするための仕組みで、
+//例えば、消滅後の爆発SE等で、3D効果のためSE発声元座標情報がしばらく必要とか、
+//消滅後の消滅アクターに属する子アクターの発射弾が、親アクターの座標を参照しているなど、
+//消滅しても、しばらくは残存させなければいけない場合がある。
+//基本的に、消滅確定→完全に消失までのフレームの最大フレームを指定する。
+//GGAF_SAYONARA_DELAYを短めに設定すると、現在は10秒(60*15)
+//消滅後の子の発射弾については、残された発射弾が突然消えるので少し不自然。という程度で問題はない。
+//しかし、SEの3D効果は、エラーになるため、SE再生時間の最大フレーム数を設定しなければいけない。
+//例えば爆発SEが１分かかるような物が一つでも使用したい場合は、最大の1分(60*60)を設定しなければならない。
 
 
 //#define DECLARE_CONST(X)  const static UINT32 X=__LINE__*3+/*'"*/__TIME__"
@@ -405,8 +416,6 @@ class GgafLinearOctreeSpace;
 class GgafLinearOctreeElem;
 
 class GgafCurtain;
-
-
 }
 
 #include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
@@ -451,8 +460,6 @@ class GgafCurtain;
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 #include "jp/ggaf/core/util/GgafCurtain.h"
-
-
 
 
 #endif /*GGAFCOMMONHEADER_H_*/

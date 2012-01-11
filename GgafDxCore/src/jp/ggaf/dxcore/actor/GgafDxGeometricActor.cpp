@@ -171,13 +171,13 @@ void GgafDxGeometricActor::processSettlementBehavior() {
 
 
 GgafGroupHead* GgafDxGeometricActor::addSubBone(actorkind prm_kind,
-                                                  GgafDxGeometricActor* prm_pGeoActor,
-                                                  coord prm_X_init_local,
-                                                  coord prm_Y_init_local,
-                                                  coord prm_Z_init_local,
-                                                  coord prm_RX_init_local,
-                                                  coord prm_RZ_init_local,
-                                                  coord prm_RY_init_local) {
+                                                GgafDxGeometricActor* prm_pGeoActor,
+                                                coord prm_X_init_local,
+                                                coord prm_Y_init_local,
+                                                coord prm_Z_init_local,
+                                                coord prm_RX_init_local,
+                                                coord prm_RZ_init_local,
+                                                coord prm_RY_init_local) {
     GgafGroupHead* pGroupHead = addSubGroup(prm_kind, prm_pGeoActor);
     prm_pGeoActor->_pActor_Base = this;
     prm_pGeoActor->changeGeoLocal();

@@ -7,8 +7,6 @@ GgafCriticalException* GgafGod::_pException_Factory = NULL;
 HINSTANCE GgafGod::_hInstance = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
-int GgafGod::ppp = 0;
-
 
 int GgafGod::_num_actor_drawing = 0;
 GgafGod* GgafGod::_pGod = NULL;
@@ -91,15 +89,6 @@ void GgafGod::be() {
                 _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
             }
             _expected_time_of_next_frame += _aaTime_OffsetOfNextFrame[_slowdown_mode][_frame_of_God % 60];
-
-            //            //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_frame_of_God % 60]; //予定は変わらない
-            //            if (_num_actor_drawing > 500) {
-            //                _expected_time_of_next_frame += (DWORD)(_aaTime_OffsetOfNextFrame[0][_frame_of_God % 60] * 2);
-            //            } else if (_num_actor_drawing > 400) {
-            //                _expected_time_of_next_frame += (DWORD)(_aaTime_OffsetOfNextFrame[0][_frame_of_God % 60] * 1.5);
-            //            } else {
-            //                _expected_time_of_next_frame += _aaTime_OffsetOfNextFrame[0][_frame_of_God % 60];
-
 
             if (_expected_time_of_next_frame <= timeGetTime()) { //描画タイミングフレームになった、或いは過ぎている場合
                 //makeUniversalMaterialize はパス

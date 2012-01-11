@@ -32,9 +32,7 @@ private:
     bool _is_materialized_flg;
 
 public:
-    static int ppp;
-
-    /** be() できるかどうか */
+    /** [r] be() できるかどうか */
     static volatile bool _can_be;
     /** [r] クリティカルセクションその１（セマフォ） */
     static CRITICAL_SECTION CS1;
@@ -91,34 +89,34 @@ public:
 
     /**
      * 「存在する」というメソッド .
-     * 神が存在すなわち、この世(GgafUniverse)が動き、アプリが進行します。<BR>
+     * 神が存在する、すなわち、この世(GgafUniverse)が動き、アプリが進行します。<BR>
      * 初回呼び出し時、この世(GgafUniverse)が作成されます。<BR>
-     * アプリケーションは、最小時間単位(frame)でこのメソッドをひたすら呼び続けてください。<BR>
+     * アプリケーションは、最小時間単位でこのメソッドをひたすら呼び続けてください。<BR>
      */
     void be();
 
     /**
-     * この世の瞬間を創造 .
+     * この世に、とある瞬間を創造 .
      */
     virtual void presentUniversalMoment();
 
     /**
-     * この世を審判する .
+     * この世の創造された瞬間について審判（チェック）する .
      */
     virtual void executeUniversalJudge();
 
     /**
-     * この世の具現的なものを作成 .
+     * この世の創造された瞬間を描き具現化する .
      */
     virtual void makeUniversalMaterialize();
 
     /**
-     * この世の状態を視覚化 .
+     * この世に描いた物を、人間にも認識できるように表面化する .
      */
     virtual void presentUniversalVisualize();
 
     /**
-     * この世の後始末 .
+     * この世の次の瞬間を創造するための準備、後始末 .
      */
     virtual void finalizeUniversal();
 
@@ -133,7 +131,7 @@ public:
 
     /**
      * この世を創造 .
-     * 下位でこの世の生成方法を実装してください。<BR>
+     * 下位でこの世の創造方法を実装してください。<BR>
      * @return この世
      */
     virtual GgafUniverse* createUniverse() = 0;

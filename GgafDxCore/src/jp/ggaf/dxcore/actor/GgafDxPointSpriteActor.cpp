@@ -63,15 +63,11 @@ void GgafDxPointSpriteActor::processDraw() {
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
 //    _TRACE_("_pUvFlipper->_pattno_uvflip_now="<<_pUvFlipper->_pattno_uvflip_now);
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetInt(_hUvFlipPtnNo) に失敗しました。");
-    // Zバッファを無効に
     //ポイントスプライトON
     GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
-    //ポイントスケールON
-    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);//TRUEの必要はない？
+    //スケールはシェーダー内で独自計算
     _pPointSpriteModel->draw(this);
     //ポイントスプライトOFF
-    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
-    //ポイントスケールOFF
     GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);
 }
 

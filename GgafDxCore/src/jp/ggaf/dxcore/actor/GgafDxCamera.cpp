@@ -43,7 +43,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_d
 
     // VIEW変換行列作成
     D3DXMatrixLookAtLH(
-       &_matView,         // pOut [in, out] 演算結果である D3DXMATRIX 構造体へのポインタ。
+       &_matView,             // pOut [in, out] 演算結果である D3DXMATRIX 構造体へのポインタ。
         _pVecCamFromPoint,    // pEye [in] 視点を定義する D3DXVECTOR3 構造体へのポインタ。この値は、平行移動に使用される。
         _pVecCamLookatPoint,  // pAt  [in] カメラの注視対象を定義する D3DXVECTOR3 構造体へのポインタ。
         _pVecCamUp            // pUp  [in] カレント ワールドの上方、一般には [0, 1, 0] を定義する D3DXVECTOR3 構造体へのポインタ。
@@ -56,8 +56,8 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_d
     _TRACE_("GgafDxCamera::GgafDxCamera 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
     D3DXMatrixPerspectiveFovLH(
             &_matProj,
-            _rad_fovY,        //y方向視野角ラディアン(0～π)
-            _screen_aspect,   //アスペクト比  640×480 の場合  640/480
+            _rad_fovY,       //y方向視野角ラディアン(0～π)
+            _screen_aspect,  //アスペクト比  640×480 の場合  640/480
             _zn,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
             _zf              //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
             //(FLOAT)(-1.0f*dCam*4)
@@ -124,12 +124,12 @@ void GgafDxCamera::processBehavior() {
     // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
     for( int i = 0; i < 4; ++i ) {
         D3DXVec3Unproject(
-            &_vecNear[i],   //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
-            &_vecNear[i],   //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。
-            &_viewport,      //CONST D3DVIEWPORT9 *pViewport,[in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
-            &_matProj,  //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
-            &_matView,  //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
-            &mat_world      //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
+            &_vecNear[i], //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
+            &_vecNear[i], //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。
+            &_viewport,   //CONST D3DVIEWPORT9 *pViewport,  [in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
+            &_matProj,    //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
+            &_matView,    //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
+            &mat_world    //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
         );
         D3DXVec3Unproject(
             &_vecFar[i],
@@ -190,17 +190,17 @@ void GgafDxCamera::processBehavior() {
     );
 
     // 中心垂直面 （ボリュームパンで使用）
-    _vecVerticalCenter[0] = D3DXVECTOR3( (_vecFar[1].x + _vecFar[0].x)/2.0,
-                                         (_vecFar[1].y + _vecFar[0].y)/2.0,
-                                         (_vecFar[1].z + _vecFar[0].z)/2.0
+    _vecVerticalCenter[0] = D3DXVECTOR3( (_vecFar[1].x + _vecFar[0].x)/2.0f,
+                                         (_vecFar[1].y + _vecFar[0].y)/2.0f,
+                                         (_vecFar[1].z + _vecFar[0].z)/2.0f
                                        );
-    _vecVerticalCenter[1] = D3DXVECTOR3( (_vecNear[3].x + _vecNear[2].x)/2.0,
-                                         (_vecNear[3].y + _vecNear[2].y)/2.0,
-                                         (_vecNear[3].z + _vecNear[2].z)/2.0
+    _vecVerticalCenter[1] = D3DXVECTOR3( (_vecNear[3].x + _vecNear[2].x)/2.0f,
+                                         (_vecNear[3].y + _vecNear[2].y)/2.0f,
+                                         (_vecNear[3].z + _vecNear[2].z)/2.0f
                                        );
-    _vecVerticalCenter[2] = D3DXVECTOR3( (_vecNear[1].x + _vecNear[0].x)/2.0,
-                                         (_vecNear[1].y + _vecNear[0].y)/2.0,
-                                         (_vecNear[1].z + _vecNear[0].z)/2.0
+    _vecVerticalCenter[2] = D3DXVECTOR3( (_vecNear[1].x + _vecNear[0].x)/2.0f,
+                                         (_vecNear[1].y + _vecNear[0].y)/2.0f,
+                                         (_vecNear[1].z + _vecNear[0].z)/2.0f
                                        );
     D3DXPlaneNormalize(
         &_plnVerticalCenter,
@@ -244,7 +244,6 @@ void GgafDxCamera::setViewPoint(GgafDxGeometricActor* prm_pActor) {
     _pViewPoint->locateAs(prm_pActor);
 }
 
-
 void GgafDxCamera::setDefaultPosition() {
     _X = 0;
     _Y = 0;
@@ -256,7 +255,6 @@ void GgafDxCamera::setDefaultPosition() {
     _pVecCamUp->y = 1.0f;
     _pVecCamUp->z = 0.0f;
 }
-
 
 GgafDxCamera::~GgafDxCamera() {
     DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
