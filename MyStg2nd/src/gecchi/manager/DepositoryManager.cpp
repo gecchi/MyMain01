@@ -165,6 +165,25 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 //        }
     }
 
+    if (GgafUtil::strcmp_ascii("DpCon_Massalia", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_Massalia");
+        EnemyMassalia* p;
+        for (int i = 0; i < 300; i++) {
+            p = NEW EnemyMassalia("EnemyMassalia");
+            pResource->addSubLast(p);
+        }
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+    }
+
+    if (GgafUtil::strcmp_ascii("DpCon_MassaliaFragment", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_MassaliaFragment");
+        EnemyMassaliaFragment* p;
+        for (int i = 0; i < 300; i++) {
+            p = NEW EnemyMassaliaFragment("EnemyMassaliaFragment");
+            pResource->addSubLast(p);
+        }
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+    }
     //敵カーブレーザー01未使用。こぴぺのために残す
     /*
     if (GgafUtil::strcmp_ascii("DpCon_EneWateringLaser001Dp", prm_idstr) == 0) {

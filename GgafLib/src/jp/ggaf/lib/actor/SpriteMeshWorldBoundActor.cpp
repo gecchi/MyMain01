@@ -13,7 +13,6 @@ SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
                                NULL) {
 
     _class_name = "SpriteMeshWorldBoundActor";
-    _offset_frames = 0;
     _pScaler = NEW GgafDxScaler(this);
     changeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
     defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_ScMv); //拡大×平行移動のみ

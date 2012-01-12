@@ -1,21 +1,19 @@
-#ifndef ENEMYMASSALIA_H_
-#define ENEMYMASSALIA_H_
+#ifndef ENEMYMASSALIAFRAGMENT_H_
+#define ENEMYMASSALIAFRAGMENT_H_
 namespace MyStg2nd {
 
 /**
- * マッサリア  .
- * 隕石群の隕石
+ * マッサリア断片  .
+ * 隕石の断片
  * @version 1.00
  * @since 2011/10/15
  * @author Masatoshi Tsuge
  */
-class EnemyMassalia : public GgafLib::DefaultMeshActor {
+class EnemyMassaliaFragment : public GgafLib::DefaultMeshActor {
 
 public:
-    /** マッサリア断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* _pDepoCon_Fragment;
 
-    EnemyMassalia(const char* prm_name);
+    EnemyMassaliaFragment(const char* prm_name);
 
     void onCreateModel() override;
 
@@ -36,9 +34,9 @@ public:
 
     void onInactive() override;
 
-    virtual ~EnemyMassalia();
+    virtual ~EnemyMassaliaFragment();
 };
 
 }
-#endif /*ENEMYMASSALIA_H_*/
+#endif /*ENEMYMASSALIAFRAGMENT_H_*/
 

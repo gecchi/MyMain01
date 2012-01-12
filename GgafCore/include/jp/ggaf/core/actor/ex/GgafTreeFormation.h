@@ -4,8 +4,9 @@
 namespace GgafCore {
 
 /**
- * フォーメーションアクタークラス .
- * processJudgement()を実装済みのため、
+ * 配下管理フォーメーションアクタークラス .
+ * 編隊メンバーは使い捨てのフォーメーション。
+ * processJudgement()を実装済み。
  * @version 1.00
  * @since 2008/08/08
  * @author Masatoshi Tsuge
@@ -17,10 +18,8 @@ private:
 
 
 public:
-
     /** 全滅時 true (GgafActor::notifyFormationAboutDestroyed() が設定) */
     bool _was_all_destroyed;
-    bool _is_init;
 
     /**
      * コンストラクタ .
@@ -32,9 +31,11 @@ public:
 
 
     /**
-     * サブが無ければ死 .
-     * processJudgement() を実装済みのため、オーバーライドしないで下さい。
-     * どうしてもオーバーライドが必要な場合は、処理中での何処かで
+     * サブが無ければ本オブジェクト解放という処理 .
+     * 構成メンバーが全て sayonara() した場合、本フォーメーションオブジェクトが自動解放される
+     * ようにするために実装済みです。
+     * 下位で processJudgement() の処理が必要な場合は、
+     * オーバーライドして、その処理中での何処かで
      * <code>
      * GgafTreeFormation::processJudgement();
      * </code>
@@ -44,14 +45,18 @@ public:
 
 
     /**
-     * 編隊のメンバーの登録します.
-     * デポジトリモードではない場合、構成メンバーをこのメソッドにより初期登録しておく必要がある。
-     * 具体的には、addSubLast() を呼び出し、種別を引き継ぎます。
+     * 編隊のメンバーを登録します.
+     * GgafFormation は２つのフォーメーション管理モードが存在する。
+     * 構成メンバーを、配下アクターにするか、デポジトリに置くかで管理モードが決定する。
+     * 本メソッドを実行し、編隊構成メンバーを配下アクターに設定した場合、
+     * 本フォーメーションオブジェクトは配下管理モードになる。このモードの編隊メンバーは使い捨てである。
+     * 配下管理モードは、構成メンバーをこのメソッドにより初期登録しておく必要がある。
      * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をaddSubLastしてください。
-     * @param prm_pSub 登録アクター
+     * 構成メンバーを活動させるには、通常通り activate() を使用。
+     * 構成メンバーを活動終了時は、sayonara() を使用。
+     * @param prm_pSub 編隊のメンバーのアクター
      */
     virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override;
-
 
     /**
      * メンバーが残っていれば解放します。

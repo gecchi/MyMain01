@@ -13,21 +13,18 @@ class FormationEunomia : public GgafLib::DepositoryFormation {
 public:
     /** エウノミア借り入れ元Depository資源への接続 */
     DepositoryConnection* _pDepoCon_Eunomia;
-
     /** エウノミアの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* _pDepoCon_shot;
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection** _papSplManufCon;
     /** 編隊列数(RANK変動) */
-    int _num_formation_col;
+    int _R_num_formation_col;
     /** １列の編隊数(RANK変動) */
-    int _num_formation_row;
-    /** 編隊間隔フレーム(RANK変動) */
-    frame _interval_frames;
-    /** 移動速度(RANK変動) */
-    velo _mv_velo;
-
-    int _n;
+    int _R_num_formation_row;
+    /** 編隊メンバーの出現間隔フレーム(RANK変動) */
+    frame _R_interval_frames;
+    /** 編隊メンバーの移動速度(RANK変動) */
+    velo _R_mv_velo;
 
     /**
      * コンストラクタ .
@@ -36,7 +33,11 @@ public:
      */
     FormationEunomia(const char* prm_name, const char* prm_spl_id) ;
 
+    void updateRankParameter();
+
     virtual void initialize() override;
+
+    virtual void onActive() override;
 
     virtual void processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) = 0;
 

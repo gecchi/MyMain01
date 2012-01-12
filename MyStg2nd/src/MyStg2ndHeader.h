@@ -65,46 +65,62 @@
 #define STAT_RecessiveDefenceRate   8
 #define STAT_LockonAble             9
 
-
-
-
-#define R_Shot001_MvVelo (5000+_RANK_*5000)       //移動速度
-#define R_Shot001_AngVelo (6000+_RANK_*6000)  //きりもみ具合
-
-#define R_Shot002_MvVelo (8000+_RANK_*8000)       //移動速度
-#define R_Shot002_AngVelo (1000+_RANK_*1000)  //きりもみ具合
-
-#define R_EnemyEunomia_ShotWay (10+_RANK_*10) //ショットWAY数
-
-#define R_FormationEunomia001_Col (5 + (_RANK_>1.0?1.0:_RANK_)*2)    //編隊列数
-#define R_FormationEunomia001_Num (20 + _RANK_*10)  //１列の編隊数
-#define R_FormationEunomia001_LaunchInterval (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔(frame)
-#define R_FormationEunomia001_MvVelo (10000 + _RANK_*10000) //移動速度
-
-#define R_EnemyIris_ShotWay (10+_RANK_*10) //ショットWAY数
-#define R_FormationIris001_Num   (7 + _RANK_*7)    //編隊数
-#define R_FormationIris001_LaunchInterval (5 + (20 - (_RANK_>1.0?1.0:_RANK_) *20))   //出現間隔(frame)
-#define R_FormationIris001_MvVelo (8000+_RANK_*8000) //移動速度
-#define R_FormationIris002_Num   (10 +_RANK_*10)    //編隊数
-#define R_FormationIris002_LaunchInterval (5  + (20 - (_RANK_>1.0?1.0:_RANK_) *20))   //出現間隔(frame)
-#define R_FormationIris002_MvVelo (16000+_RANK_*1600) //移動速度
-
-#define R_EnemyPallas_ShotWay (10+_RANK_*10) //ショットWAY数
-#define R_FormationPallas001_Num   (7 + _RANK_*7)    //編隊数
-#define R_FormationPallas001_LaunchInterval (5 + (20 - (_RANK_>1.0?1.0:_RANK_) *20))   //出現間隔(frame)
-#define R_FormationPallas001_MvVelo (8000+_RANK_*8000) //移動速度
-#define R_FormationPallas002_Num   (12+_RANK_*8)    //編隊数
-#define R_FormationPallas002_LaunchInterval (5  + (20 - (_RANK_>1.0?1.0:_RANK_) *20))   //出現間隔(frame)
-#define R_FormationPallas002_MvVelo (10000+_RANK_*10000) //移動速度
-
-#define R_EnemyThalia_ShotWay (20+_RANK_*10)  //やられ
-#define R_FormationThalia_Num   (7+_RANK_*4)    //編隊数
-#define R_FormationThalia_LaunchInterval (5 + (20 - (_RANK_>1.0?1.0:_RANK_) *20))   //出現間隔(frame)
-#define R_FormationThalia_MvVelo (14000+_RANK_*10000) //移動速度
-
-#define R_EnemyVesta_ShotInterval (2 + (25 - (_RANK_>1.0?1.0:_RANK_) * 25))
+// 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
+// コード変更は「RankAdjuster.xls」から行っていただきたい。
 // gen01 start
-
+// EnemyEunomia のランク式
+#define R_EnemyEunomia_ShotWay  (10+_RANK_*10)  //発射WAY数
+// FormationEunomia001 のランク式
+#define R_FormationEunomia001_Col  (5 + (_RANK_>1.0?1.0:_RANK_)*2)  //列数
+#define R_FormationEunomia001_Num  (20 + _RANK_*10)  //隊数
+#define R_FormationEunomia001_LaunchInterval  (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔
+#define R_FormationEunomia001_MvVelo  (10000 + _RANK_*10000)  //移動速度
+// FormationEunomia002 のランク式
+#define R_FormationEunomia002_Col  (5 + (_RANK_>1.0?1.0:_RANK_)*2)  //列数
+#define R_FormationEunomia002_Num  (20 + _RANK_*10)  //隊数
+#define R_FormationEunomia002_LaunchInterval  (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔
+#define R_FormationEunomia002_MvVelo  (10000 + _RANK_*10000)  //移動速度
+// EnemyIris のランク式
+#define R_EnemyIris_ShotWay  (10+_RANK_*10)  //発射WAY数
+// FormationIris001 のランク式
+#define R_FormationIris001_Num  (7 + _RANK_*7)  //隊数
+#define R_FormationIris001_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
+#define R_FormationIris001_MvVelo  (16000+_RANK_*1600)  //移動速度
+// FormationIris002 のランク式
+#define R_FormationIris002_Num  (7 + _RANK_*7)  //隊数
+#define R_FormationIris002_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
+#define R_FormationIris002_MvVelo  (16000+_RANK_*1600)  //移動速度
+// EnemyPallas のランク式
+#define R_EnemyPallas_ShotWay  (10+_RANK_*10)  //発射WAY数
+// FormationPallas001 のランク式
+#define R_FormationPallas001_Num  (12+_RANK_*8)  //隊数
+#define R_FormationPallas001_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
+#define R_FormationPallas001_MvVelo  (10000 + _RANK_*10000)  //移動速度
+// FormationPallas002 のランク式
+#define R_FormationPallas002_Num  (12+_RANK_*8)  //隊数
+#define R_FormationPallas002_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
+#define R_FormationPallas002_MvVelo  (10000 + _RANK_*10000)  //移動速度
+// EnemyThalia のランク式
+#define R_EnemyThalia_ShotWay  (20+_RANK_*10)  //発射WAY数
+// FormationThalia のランク式
+#define R_FormationThalia_Num  (7+_RANK_*4)  //隊数
+#define R_FormationThalia_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_) *20))  //出現間隔
+#define R_FormationThalia_MvVelo  (14000+_RANK_*10000)  //移動速度
+// EnemyVesta のランク式
+#define R_EnemyVesta_ShotInterval  (2 + (25 - (_RANK_>1.0?1.0:_RANK_) * 25))  //発射間隔
+// Shot001 のランク式
+#define R_Shot001_MvVelo  (5000+_RANK_*5000)  //移動速度
+#define R_Shot001_AngVelo  (6000+_RANK_*6000)  //角速度
+// Shot002 のランク式
+#define R_Shot002_MvVelo  (8000+_RANK_*8000)  //移動速度
+#define R_Shot002_AngVelo  (1000+_RANK_*1000)  //角速度
+// EnemyMassalia のランク式
+#define R_EnemyMassalia_ShotWay  (2+_RANK_*2)  //発射WAY数
+// EnemyMassaliaFragment のランク式
+// FormationMassalia のランク式
+#define R_FormationMassalia_LaunchInterval  (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔
+#define R_FormationMassalia_MvVelo  (8000+_RANK_*8000)  //移動速度
+#define R_FormationMassalia_DurationFreams  (300 )  //持続時間
 // gen02 end
 
 //1/√2
@@ -119,6 +135,8 @@
 
 #define DRAW_DEPTH_LEVEL_HOSHIBOSHI (MAX_DRAW_DEPTH_LEVEL-1)
 #define DRAW_DEPTH_LEVEL_BIGOBJ     (MAX_DRAW_DEPTH_LEVEL-2)
+
+#define RND(_FROM_, _TO_) ((GgafCore::CmRandomNumberGenerator::getInstance()->genrand_int32() % ((_TO_) - (_FROM_)) ) + (_FROM_) )
 
 //イベント用 UINT32 数値宣言
 DECLARE_CONST(EVENT_GOD_WILL_DIE);
@@ -358,7 +376,8 @@ class EnemyThalia;
 class FormationThalia;
 
 class EnemyMassalia;
-
+class EnemyMassaliaFragment;
+class FormationMassalia;
 
 class DepositoryConnection;
 class DepositoryManager;
@@ -592,21 +611,30 @@ class CursorTitleMenu;
 #include "gecchi/actor/enemy/Juno/EnemyJuno.h"
 #include "gecchi/actor/enemy/Juno/FormationJuno.h"
 #include "gecchi/actor/enemy/Juno/FormationJuno001.h"
+
 #include "gecchi/actor/enemy/Metis/EnemyMetis.h"
 #include "gecchi/actor/enemy/Metis/FormationMetis001.h"
+
 #include "gecchi/actor/enemy/Astraea/EnemyAstraea.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip001.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip002.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip003.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip004.h"
+
 #include "gecchi/actor/enemy/Iris/EnemyIris.h"
 #include "gecchi/actor/enemy/Iris/FormationIris001.h"
 #include "gecchi/actor/enemy/Iris/FormationIris002.h"
+
 #include "gecchi/actor/enemy/Vesta/EnemyVesta.h"
+
 #include "gecchi/actor/enemy/Circe/EnemyCirce.h"
+
 #include "gecchi/actor/enemy/Thalia/EnemyThalia.h"
 #include "gecchi/actor/enemy/Thalia/FormationThalia.h"
+
 #include "gecchi/actor/enemy/Massalia/EnemyMassalia.h"
+#include "gecchi/actor/enemy/Massalia/EnemyMassaliaFragment.h"
+#include "gecchi/actor/enemy/Massalia/FormationMassalia.h"
 
 #include "gecchi/actor/chikei/Torus/Torus.h"
 #include "gecchi/actor/chikei/Torus/VarietyTorus001.h"

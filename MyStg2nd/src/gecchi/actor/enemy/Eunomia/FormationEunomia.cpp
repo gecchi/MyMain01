@@ -8,16 +8,10 @@ using namespace MyStg2nd;
 FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationEunomia";
-    _num_formation_col = 7;   //編隊列数
-    _num_formation_row = 1;  //１列の編隊数
-    _interval_frames   = R_FormationEunomia001_LaunchInterval;  //エウノミアの間隔(frame)
-    _mv_velo           = 10; //速度
-    _n = 0;
 
-    //エウノミア編隊作成
+    //エウノミア編隊用デポジトリ
     _pDepoCon_Eunomia = connectDepositoryManager("DpCon_EnemyEunomia4Formation", this);
     setFormationAbleActorDepository(_pDepoCon_Eunomia->use());
-
 
     //スプライン定義ファイルを読み込む
     _papSplManufCon = NEW SplineManufactureConnection*[7];
@@ -27,10 +21,21 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
         _papSplManufCon[i] = connectSplineManufactureManager(spl_id.str().c_str());
     }
     _pDepoCon_shot = NULL;
+    updateRankParameter();
+}
+
+void FormationEunomia::updateRankParameter() {
+    _R_num_formation_col = R_FormationEunomia001_Col;            //編隊列数
+    _R_num_formation_row = R_FormationEunomia001_Num;            //１列の編隊数
+    _R_interval_frames   = R_FormationEunomia001_LaunchInterval; //エウノミアの間隔(frame)
+    _R_mv_velo           = R_FormationEunomia001_MvVelo;         //速度
 }
 
 void FormationEunomia::initialize() {
-    _n = 0;
+}
+
+void FormationEunomia::onActive() {
+    updateRankParameter();
 }
 
 void FormationEunomia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
@@ -49,35 +54,26 @@ void FormationEunomia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
 
 
 void FormationEunomia::processBehavior() {
-
-    if (_n < _num_formation_row && getActivePartFrame() % _interval_frames == 0) {
-        _num_formation_col = R_FormationEunomia001_Col;   //編隊列数
-        _num_formation_row = R_FormationEunomia001_Num;  //１列の編隊数
-        _interval_frames   = R_FormationEunomia001_LaunchInterval;   //エウノミアの間隔(frame)
-        _mv_velo           = R_FormationEunomia001_MvVelo; //速度
-        for (int i = 0; i < _num_formation_col; i++) {
-            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpUntil(_num_formation_col*_num_formation_row);
+    if (! isAllCalledUp() && (getActivePartFrame() % _R_interval_frames == 0)) {
+        for (int i = 0; i < _R_num_formation_col; i++) {
+            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpUntil(_R_num_formation_col*_R_num_formation_row);
             if (pEunomia) {
                 SplineSequence* pSplSeq = _papSplManufCon[i]->use()->
                                               createSplineSequence(pEunomia->_pKurokoA);
                 pEunomia->config(pSplSeq, NULL, NULL);
-                pEunomia->_pKurokoA->setMvVelo(_mv_velo);
-    //            _papapEunomia[i][_n]->activate();
+                pEunomia->_pKurokoA->setMvVelo(_R_mv_velo);
                 processOnActiveEunomia(pEunomia, i); //フォーメーション個別実装の処理
             }
         }
-        _n++;
     }
 }
 
 FormationEunomia::~FormationEunomia() {
     _pDepoCon_Eunomia->close();
-
     for (int i = 0; i < 7; i++) {
         _papSplManufCon[i]->close();
     }
     DELETEARR_IMPOSSIBLE_NULL(_papSplManufCon);
-
     if (_pDepoCon_shot) {
         _pDepoCon_shot->close();
     }

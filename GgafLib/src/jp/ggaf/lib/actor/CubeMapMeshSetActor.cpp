@@ -13,7 +13,6 @@ CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name, const char* prm_m
                                NEW CollisionChecker(this) ) {
 
     _class_name = "CubeMapMeshSetActor";
-    _offset_frames = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 }

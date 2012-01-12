@@ -13,11 +13,10 @@ class DefaultD3DXAniMeshActor : public GgafDxCore::GgafDxD3DXAniMeshActor {
 
 
 public:
-    frame _offset_frames;
-
-    CollisionChecker* _pCollisionChecker;
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* _pScaler;
+    /** 衝突判定支援オブジェクト */
+    CollisionChecker* _pCollisionChecker;
 
     DefaultD3DXAniMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 

@@ -7,10 +7,9 @@ GgafFormation::GgafFormation(const char* prm_name, frame prm_offset_frames_end) 
 {
     _obj_class |= Obj_GgafFormation;
     _class_name = "GgafFormation";
-    _offset_frames_end = prm_offset_frames_end;
+    _offset_frames_end = prm_offset_frames_end > 0 ? prm_offset_frames_end : 1;
     _num_sub = 0;
     setHitAble(false);
-    _is_init = false;
     _num_destory = 0;
     _was_all_destroyed = false;
 }

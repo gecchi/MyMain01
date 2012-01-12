@@ -161,16 +161,17 @@ public:
     GgafActorDepository* getDependenceDepository() {
         return _pDependenceDepository;
     }
+
     /**
      * 自身が破壊された事を所属のフォーメーション(GgafDxFormationActor)に通知するメソッド .
      * 自身がフォーメーションに所属(_pFormation != NULL)している場合、
      * フォーメーションの編隊全滅判定を行うために、自身が編隊全滅に有効な消滅
-     * （画面外等では無く、破壊されたとかボム等）であることを通知する必要があります。<BR>
-     * 破壊されたタイミングで本メソッドを実行し、フォーメーションに通知して下さい。<BR>
-     * 通知を行うことにより、管理されている GgafDxFormationActor オブジェクトから、
+     * （画面外、自滅等では無く、自機に破壊された場合）であることを通知する必要があります。<BR>
+     * 破壊されたタイミングで本メソッドを実行すると、管理フォーメーションに通知しされます。<BR>
+     * 通知を行うことにより、管理されている Formation オブジェクトから、
      * 編隊全滅時に、
      *
-     * TreeFormation::onDestroyedAll()
+     * Formation::onDestroyedAll()
      *
      * のコールバックが行われます。
      * 編隊ボーナス、アイテム出現等の処理を GgafDxFormationActor::onDestroyedAll() の
@@ -183,7 +184,7 @@ public:
      *        //Hitの相手のチェック
      *        if (pOther->getKind() & KIND_MY) {
      *            //Hitの相手は自機関連（自機、自機ユニット、自機発射弾)
-     *            informDestroyedFollower(); //編隊全滅判定に有効な破壊を通知する
+     *            notifyFormationAboutDestroyed(); //編隊全滅判定に有効な破壊を通知する
      *        }
      *    }
      * }

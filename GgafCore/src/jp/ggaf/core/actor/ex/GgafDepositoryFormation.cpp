@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 
 GgafDepositoryFormation::GgafDepositoryFormation(const char* prm_name, frame prm_offset_frames_end) :
-        GgafFormation(prm_name, NULL)
+        GgafFormation(prm_name, prm_offset_frames_end)
 {
     _class_name = "GgafDepositoryFormation";
     _pDepo = NULL;
@@ -65,6 +65,10 @@ GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
             return NULL; //Ç‡Ç§Ç±ÇÍà»è„callUpUntilïsâ¬
         }
     }
+}
+
+bool GgafDepositoryFormation::isAllCalledUp() {
+    return _is_all_called_up;
 }
 
 void GgafDepositoryFormation::processJudgement() {

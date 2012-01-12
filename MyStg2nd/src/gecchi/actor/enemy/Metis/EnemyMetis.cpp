@@ -44,7 +44,7 @@ void EnemyMetis::onActive() {
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
 
     CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
-    pRndGen->changeSeed(P_GAME_SCENE->_frame_of_behaving);
+    pRndGen->changeSeed(P_MYSHIP->_Y);
     DWORD appearances_renge_Z = (MyShip::_lim_zleft - MyShip::_lim_zright) * 3;
     DWORD appearances_renge_Y = (MyShip::_lim_top - MyShip::_lim_bottom) * 3;
     _X = GgafDxUniverse::_X_goneRight - 1000;

@@ -12,12 +12,10 @@ namespace GgafLib {
 class DefaultD3DXMeshActor : public GgafDxCore::GgafDxD3DXMeshActor {
 
 public:
-    frame _offset_frames;
-
-    CollisionChecker* _pCollisionChecker;
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* _pScaler;
-
+    /** 衝突判定支援オブジェクト */
+    CollisionChecker* _pCollisionChecker;
 
     DefaultD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 

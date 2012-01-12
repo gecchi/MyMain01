@@ -234,8 +234,10 @@ public:
 	static GgafCore::GgafStatus* resetEnemyEunomiaStatus(GgafCore::GgafStatus* p);
 	//自機ショット
 	static GgafCore::GgafStatus* resetMyShot001Status(GgafCore::GgafStatus* p);
-	//
+	//マッサリア
 	static GgafCore::GgafStatus* resetEnemyMassaliaStatus(GgafCore::GgafStatus* p);
+	//マッサリア断片
+	static GgafCore::GgafStatus* resetEnemyMassaliaFragmentStatus(GgafCore::GgafStatus* p);
 	//
 	static GgafCore::GgafStatus* resetMyOptionStatus(GgafCore::GgafStatus* p);
 	//アイテム

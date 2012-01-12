@@ -9,6 +9,7 @@ bool Stage::_pause = false;
 
 Stage::Stage(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage";
+    CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL);
     useProgress(Stage::PROG_END);
 }
 

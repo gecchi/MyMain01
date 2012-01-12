@@ -14,10 +14,9 @@ class SpriteMeshSetActor : public GgafDxCore::GgafDxSpriteMeshSetActor {
 public:
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* _pScaler;
-
-    frame _offset_frames;
-
+    /** 衝突判定支援オブジェクト */
     CollisionChecker* _pCollisionChecker;
+
     /**
      * コンストラクタ
      * DefaultMeshSetActor で使用するモデルIDは避けて下さい。

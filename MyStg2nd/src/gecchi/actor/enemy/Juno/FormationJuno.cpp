@@ -23,7 +23,7 @@ FormationJuno::FormationJuno(
     _pDepoCon = connectDepositoryManager("DpCon_Shot004", NULL); //Juno‚Ì’e
 
     _pRndGen = CmRandomNumberGenerator::getInstance();
-    _pRndGen->changeSeed(P_MYSHIP->_Z);
+    _pRndGen->changeSeed(P_MYSHIP->_Y);
 
     _X1_app = prm_X1_app;
     _Y1_app = prm_Y1_app;

@@ -12,8 +12,7 @@ namespace GgafLib {
 class DefaultSpriteActor : public GgafDxCore::GgafDxSpriteActor {
 
 public:
-    frame _offset_frames;
-
+    /** 衝突判定支援オブジェクト */
     CollisionChecker* _pCollisionChecker;
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* _pScaler;

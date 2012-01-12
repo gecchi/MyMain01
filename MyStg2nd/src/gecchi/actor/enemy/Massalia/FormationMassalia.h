@@ -1,0 +1,48 @@
+#ifndef FORMATIONMASSALIA_H_
+#define FORMATIONMASSALIA_H_
+namespace MyStg2nd {
+
+/**
+ * マッサリア群 .
+ * @version 1.00
+ * @since 2012/01/12
+ * @author Masatoshi Tsuge
+ */
+class FormationMassalia : public GgafLib::DepositoryFormation {
+
+public:
+    /** マッサリア借り入れ元Depository資源への接続 */
+    DepositoryConnection* _pDepoCon_Massalia;
+    /** 編隊メンバーの出現間隔フレーム(RANK変動) */
+    frame _R_interval_frames;
+    /** 編隊メンバーの初期移動速度(RANK変動) */
+    velo _R_mv_velo;
+
+    /**
+     * コンストラクタ .
+     * @param prm_name
+     * @param prm_spl_id スプライン定義ID(XXX.spl の XXX)
+     */
+    FormationMassalia(const char* prm_name, const char* prm_spl_id) ;
+
+    void updateRankParameter();
+
+    virtual void initialize() override;
+
+    virtual void onActive() override;
+
+    virtual void processOnActiveMassalia(EnemyMassalia* pEnemyMassalia, int col) = 0;
+
+    /**
+     * 編隊が全て自機側の攻撃で殲滅させられた場合
+     * @param prm_pActorLast 最後に破壊されたアクター
+     */
+    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override;
+
+    virtual void processBehavior() override;
+
+    virtual ~FormationMassalia();
+};
+
+}
+#endif /*FORMATIONEUNOMIA_H_*/

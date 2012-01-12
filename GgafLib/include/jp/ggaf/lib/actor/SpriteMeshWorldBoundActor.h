@@ -14,7 +14,6 @@ public:
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* _pScaler;
 
-    frame _offset_frames;
 
     SpriteMeshWorldBoundActor(const char* prm_name,
                               const char* prm_model,

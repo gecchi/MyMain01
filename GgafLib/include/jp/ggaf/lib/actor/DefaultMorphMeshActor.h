@@ -12,12 +12,11 @@ namespace GgafLib {
 class DefaultMorphMeshActor : public GgafDxCore::GgafDxMorphMeshActor {
 
 public:
-    frame _offset_frames;
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* _pScaler;
-	/** モーフィング支援オブジェクト */
+    /** モーフィング支援オブジェクト */
     GgafDxCore::GgafDxMorpher* _pMorpher;
-	/** チェッカー */
+    /** 衝突判定支援オブジェクト */
     CollisionChecker* _pCollisionChecker;
 
     DefaultMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat);

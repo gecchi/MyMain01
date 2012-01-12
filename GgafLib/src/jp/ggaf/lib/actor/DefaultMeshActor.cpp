@@ -15,7 +15,6 @@ DefaultMeshActor::DefaultMeshActor(const char* prm_name,
                      NEW CollisionChecker(this) ) {
 
     _class_name = "DefaultMeshActor";
-    _offset_frames = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 }
