@@ -115,12 +115,12 @@
 #define R_Shot002_MvVelo  (8000+_RANK_*8000)  //移動速度
 #define R_Shot002_AngVelo  (1000+_RANK_*1000)  //角速度
 // EnemyMassalia のランク式
-#define R_EnemyMassalia_ShotWay  (2+_RANK_*2)  //発射WAY数
+#define R_EnemyMassalia_ShotWay  (4+_RANK_*4)  //発射WAY数
 // EnemyMassaliaFragment のランク式
 // FormationMassalia のランク式
-#define R_FormationMassalia_LaunchInterval  (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔
+#define R_FormationMassalia_LaunchInterval  (5  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔
 #define R_FormationMassalia_MvVelo  (8000+_RANK_*8000)  //移動速度
-#define R_FormationMassalia_DurationFreams  (300 )  //持続時間
+#define R_FormationMassalia_DurationFreams  (60*20)  //持続時間
 // gen02 end
 
 //1/√2
@@ -136,7 +136,7 @@
 #define DRAW_DEPTH_LEVEL_HOSHIBOSHI (MAX_DRAW_DEPTH_LEVEL-1)
 #define DRAW_DEPTH_LEVEL_BIGOBJ     (MAX_DRAW_DEPTH_LEVEL-2)
 
-#define RND(_FROM_, _TO_) ((GgafCore::CmRandomNumberGenerator::getInstance()->genrand_int32() % ((_TO_) - (_FROM_)) ) + (_FROM_) )
+#define RND(_FROM_,_TO_) ((GgafCore::CmRandomNumberGenerator::getInstance()->genrand_int32() % ((_TO_) - (_FROM_)) ) + (_FROM_) )
 
 //イベント用 UINT32 数値宣言
 DECLARE_CONST(EVENT_GOD_WILL_DIE);

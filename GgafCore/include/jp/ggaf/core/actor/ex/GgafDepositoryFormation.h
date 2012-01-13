@@ -30,7 +30,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_offset_frames_end 子が無くなったときに解放する猶予フレーム
+     * @param prm_offset_frames_end フォーメーション終了時の猶予フレーム
      * @return
      */
     GgafDepositoryFormation(const char* prm_name, frame prm_offset_frames_end);
@@ -66,6 +66,11 @@ public:
      * デポジトリからメンバー呼び出しする。 .
      * デポジトリモード時呼び出し可能。setFormationAbleActorDepository() の事前実行が必要。
      * 本メソッドを呼び出すと、デポジトリに管理されたメンバーが一つ dispatch() されます。(同時に activate() もされる)
+     * デポジトリのメンバーが枯渇した場合 NULL が返ります。
+     * また、引数の prm_formation_sub_num は最大編隊構成要員数で、この数以上の呼び出しでも NULL が返ります。
+     * 一度でも NULL が返されると、内部フラグ isAllCalledUp() が true になり、以降本フォーメーションオブジェクトは
+     * メンバー呼び出しできないようになります。と同時に、 processJudgement() で自動的に sayonara() がコールされ
+     * フォーメーションオブジェクトは解放されます。
      * 注意。初っ端に呼び出してもメンバーが確保できない場合も、
      * 本フォーメーションオブジェクトは終了してしまいます。
      * 構成メンバーを登録後に呼び出すようにして下さい。

@@ -11,6 +11,8 @@ namespace MyStg2nd {
 class FormationMassalia : public GgafLib::DepositoryFormation {
 
 public:
+    /** マッサリア断片借り入れ元Depository資源への接続 */
+    DepositoryConnection* _pDepoCon_Fragment;
     /** マッサリア借り入れ元Depository資源への接続 */
     DepositoryConnection* _pDepoCon_Massalia;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
@@ -21,9 +23,8 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_spl_id スプライン定義ID(XXX.spl の XXX)
      */
-    FormationMassalia(const char* prm_name, const char* prm_spl_id) ;
+    FormationMassalia(const char* prm_name);
 
     void updateRankParameter();
 
@@ -31,7 +32,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void processOnActiveMassalia(EnemyMassalia* pEnemyMassalia, int col) = 0;
+//    virtual void processOnActiveMassalia(EnemyMassalia* pEnemyMassalia, int col) = 0;
 
     /**
      * 編隊が全て自機側の攻撃で殲滅させられた場合

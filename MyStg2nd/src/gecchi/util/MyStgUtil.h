@@ -97,7 +97,7 @@ public:
                              actorkind kind_opp) {
         //—D«—ò«”»’è
         int my_domi = MyStgUtil::judgeMyDominant(kind_my, kind_opp);
-        //‘ŠèUŒ‚—Í
+        //‘Šè(“G)UŒ‚—Í
         int opp_attack = pStatOpp->get(STAT_Attack);
         //—D«—ò«‚É‰‚¶‚Ä–hŒä—¦‚ğæ‚¸‚é
         if (my_domi > 0) {
@@ -109,7 +109,7 @@ public:
             return pStatMy->minus(STAT_Stamina,
                                   (int)(opp_attack * pStatMy->getDouble(STAT_RecessiveDefenceRate)));
         } else {
-            //‘Šè‚Æ“¯Ši
+            //‘Šè(“G)‚Æ“¯Ši
             return pStatMy->minus(STAT_Stamina,
                                   (int)(opp_attack * pStatMy->getDouble(STAT_DefaultDefenceRate)));
         }
@@ -121,37 +121,26 @@ public:
                                 actorkind kind_opp) {
         //—D«—ò«”»’è
         int enemy_domi = MyStgUtil::judgeEnemyDominant(kind_enemy, kind_opp);
-        //_TRACE_("enemy_domi="<<enemy_domi);
-        //‘Šè(©‹@ŠÖ˜A)UŒ‚—Í
+        //‘Šè(©‹@)UŒ‚—Í
         int opp_attack = pStatOpp->get(STAT_Attack);
-        //_TRACE_("my_attack="<<my_attack);
         //—D«—ò«‚É‰‚¶‚Ä–hŒä—¦‚ğæ‚¸‚é
         int enemy_stamina;
         if (enemy_domi > 0) {
-            //©•ªi“GŠÖ˜Aj‚ª—D«
-//_TRACE_("pStatEnemy->get(STAT_DominantDefenceRate)="<<pStatEnemy->get(STAT_DominantDefenceRate));
-
+            //©•ªi“Gj‚ª—D«
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
                                               (int)(opp_attack * pStatEnemy->getDouble(STAT_DominantDefenceRate)));
-        //_TRACE_("enemy_stamina="<<enemy_stamina);
         } else if (enemy_domi < 0) {
-            //©•ªi“GŠÖ˜Aj‚ª—ò«
-//_TRACE_("pStatEnemy->get(STAT_DominantDefenceRate)="<<pStatEnemy->getDouble(STAT_RecessiveDefenceRate));
+            //©•ªi“Gj‚ª—ò«
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
                                               (int)(opp_attack * pStatEnemy->get(STAT_RecessiveDefenceRate)));
 
-        _TRACE_("enemy_stamina="<<enemy_stamina);
         } else {
-//_TRACE_("pStatEnemy->get(STAT_DominantDefenceRate)="<<pStatEnemy->getDouble(STAT_DefaultDefenceRate));
-
-            //‘Šè(©‹@ŠÖ˜A)‚Æ“¯Ši
+            //‘Šè(©‹@)‚Æ“¯Ši
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
                                               (int)(opp_attack * pStatEnemy->getDouble(STAT_DefaultDefenceRate)));
-        //_TRACE_("enemy_stamina="<<enemy_stamina);
         }
-//_TRACE_("enemy_stamina="<<enemy_stamina);
         if (enemy_stamina <= 0 && (kind_opp & KIND_MY)) {
-            //‘Šè‚Ìí•Ê‚ª My ‚È‚ç‚Î“¾“_‰ÁZ
+            //‘Šè(©‹@)‚Ìí•Ê‚ª MY*** i©‹@ŠÖ˜Aj ‚È‚ç‚Î“¾“_&ƒ‰ƒ“ƒN‰ÁZ
             _SCORE_ += pStatEnemy->get(STAT_AddScorePoint);
             _RANK_  += pStatEnemy->getDouble(STAT_AddRankPoint);
         }

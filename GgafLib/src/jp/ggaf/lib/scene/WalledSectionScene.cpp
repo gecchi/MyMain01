@@ -84,7 +84,7 @@ void WalledSectionScene::config(
 
 void WalledSectionScene::initialize() {
     if (_pDepo_WallAAB == NULL) {
-        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorDepository* _pDepo_WallAAB をセットして下さい。")
+        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorDepository* _pDepo_WallAAB をセットして下さい。");
     }
 }
 

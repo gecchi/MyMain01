@@ -25,7 +25,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     _pDepo_ShotEffect = NULL;
 
     _pLaserChipDepo = NEW LaserChipDepository("MyRotLaser");
-    _pLaserChipDepo->config(100, 0, NULL);
+    _pLaserChipDepo->config(60, 1, NULL);
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         stringstream name;
@@ -67,7 +67,7 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(1, 0.0);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
     _pKurokoA->execSmoothMvVeloSequenceD(_veloTopMv, 1000,
-                                             MyShip::_lim_front - _X, 0.4, 0.6);
+                                         MyShip::_lim_front-_X, 0.4, 0.6);
     _pProg->set(THALIA_PROG_MOVE);
     _iMovePatternNo = 0; //行動パターンリセット
 
@@ -82,7 +82,7 @@ void EnemyThalia::processBehavior() {
     switch (_pProg->get()) {
         case THALIA_PROG_MOVE: {
             if (!_pKurokoA->isMoveingSmooth()) {
-                _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0005);
+                _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //0.0004 開く速さ
                 _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                     0, 100,
                                                     TURN_CLOSE_TO);
@@ -109,14 +109,14 @@ void EnemyThalia::processBehavior() {
         case THALIA_PROG_IN_FIRE: {
             if (getActivePartFrame() % 10 == 0) {
                 _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                                    100, 0,
+                                                    10, 0,
                                                     TURN_CLOSE_TO);
             }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipDepo->dispatch();
             if (pLaser) {
                 if (pLaser->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
-                    _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
+                    _pKurokoA->setFaceAngVelo(AXIS_X, 5000);//発射中は速い回転
                 }
             } else {
                 _pProg->change(THALIA_PROG_CLOSE);
@@ -125,7 +125,7 @@ void EnemyThalia::processBehavior() {
         }
         case THALIA_PROG_CLOSE: {
             //１サイクルレーザー打ち切った
-            _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
+            _pMorpher->intoTargetLinerUntil(1, 0.0, 60); //閉じる
             _pKurokoA->execSmoothMvVeloSequenceD(_veloTopMv, 1000, 1500000, 0.4, 0.6);
 //            _pKurokoA->execSmoothMvVeloSequence(200, 1000000, 180);
             _pKurokoA->setFaceAngVelo(AXIS_X, 1000);

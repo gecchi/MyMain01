@@ -14,7 +14,7 @@ GgafGroupHead* FormationTableScene::addToTable(GgafFormation* prm_pFormationActo
     if (prm_pFormationActor->_obj_class | Obj_GgafFormation) {
         //OK
     } else {
-        throwGgafCriticalException("FormationTableScene::addToTable() TreeFormation ˆÈŠO‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B")
+        throwGgafCriticalException("FormationTableScene::addToTable() TreeFormation ˆÈŠO‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B");
     }
     prm_pFormationActor->_offset_frames_end = FORMATION_END_DELAY;
     prm_pFormationActor->inactivateImmed();

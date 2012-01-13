@@ -11,13 +11,13 @@ LaserChipDepositoryStore::LaserChipDepositoryStore(const char* prm_name, GgafSta
 void LaserChipDepositoryStore::processBehavior() {
 }
 
-LaserChipDepository* LaserChipDepositoryStore::dispatch() {
+LaserChipDepository* LaserChipDepositoryStore::dispatch(frame prm_offset_frames) {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
             throwGgafCriticalException("LaserChipDepositoryStore::dispatch() Žq‚ª‚ ‚è‚Ü‚¹‚ñ");
         }
 #endif
-        GgafMainActor* p = GgafActorDepository::dispatch();
+        GgafMainActor* p = GgafActorDepository::dispatch(prm_offset_frames);
 #ifdef MY_DEBUG
         if (p->_obj_class & Obj_GgafActorDepository) {
             //OK

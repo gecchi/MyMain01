@@ -22,7 +22,7 @@ public:
      * 使い終われば sayonara() か、inactivate() を実行してください。自動的にストックに戻ります。
      * @return 借り入れしたレーザーチップディパッチャー。借り入れできない場合はNULL
      */
-    virtual LaserChipDepository* dispatch() override;
+    virtual LaserChipDepository* dispatch(frame prm_offset_frames = 1) override;
 
     /**
      * レーザーチップディパッチャーストックの追加 .

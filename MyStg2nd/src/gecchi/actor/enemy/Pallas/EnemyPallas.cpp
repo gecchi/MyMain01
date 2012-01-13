@@ -147,9 +147,6 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
         if (pOther->getKind() & KIND_MY) {
             notifyFormationAboutDestroyed();
         }
-//        if ((pOther->getKind() & KIND_MY) && (getParent()->_obj_class & Obj_FormationActor)) {
-//            ((FormationActor*)getParent())->wasDestroyedFollower(this);
-//        }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
         sayonara();
     }

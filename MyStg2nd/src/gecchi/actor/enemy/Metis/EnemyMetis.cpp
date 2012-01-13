@@ -42,14 +42,11 @@ void EnemyMetis::onActive() {
     _pKurokoA->setMvVelo(0);
     _pKurokoB->setVxMvVelo(-3000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
-
-    CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
-    pRndGen->changeSeed(P_MYSHIP->_Y);
-    DWORD appearances_renge_Z = (MyShip::_lim_zleft - MyShip::_lim_zright) * 3;
-    DWORD appearances_renge_Y = (MyShip::_lim_top - MyShip::_lim_bottom) * 3;
+    static DWORD appearances_renge_Z = (MyShip::_lim_zleft - MyShip::_lim_zright) * 3;
+    static DWORD appearances_renge_Y = (MyShip::_lim_top - MyShip::_lim_bottom) * 3;
     _X = GgafDxUniverse::_X_goneRight - 1000;
-    _Y = (pRndGen->genrand_int32() % (appearances_renge_Y)) - (appearances_renge_Y/2);
-    _Z = (pRndGen->genrand_int32() % (appearances_renge_Z)) - (appearances_renge_Z/2);
+    _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
+    _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
     setHitAble(true);
 }
 

@@ -31,7 +31,7 @@ void LaserChipDepository::config(int prm_num_continual_employ_max,
 }
 
 
-LaserChip* LaserChipDepository::dispatch() {
+LaserChip* LaserChipDepository::dispatch(frame prm_offset_frames) {
     if (_num_continual_employ_count > _num_continual_employ_max) { //_num_continual_employ_max連続発射時、弾切れにする(_num_interval_frame_countをリセット)。
         _is_tear_laser = true;
         _pChip_prev_employ = NULL;
@@ -51,9 +51,8 @@ LaserChip* LaserChipDepository::dispatch() {
         _num_interval_frame_count++;
         return NULL;
     } else {
-        LaserChip* pChip = (LaserChip*)GgafActorDepository::dispatch();
+        LaserChip* pChip = (LaserChip*)GgafActorDepository::dispatch(prm_offset_frames);
         if (pChip) {
-//            pChip->activate();
             if (_pChip_prev_employ) {
                 //以前のdispatch()したチップ
                 if (_frame_of_behaving_prev_employ+1 == _pChip_prev_employ->getBehaveingFrame()) {

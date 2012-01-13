@@ -142,26 +142,26 @@
 
     //メモリ解放用マクロ
     /** NULLかどうか不明なdelete */
-    #define DELETE_POSSIBLE_NULL(POINTER) { \
+    #define DELETE_POSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             delete (POINTER); \
             (POINTER) = NULL; \
         } else { \
             (POINTER) = NULL; \
         } \
-    }
+    } while(0)
     /** NULLかどうか不明なdelete[] */
-    #define DELETEARR_POSSIBLE_NULL(POINTER) { \
+    #define DELETEARR_POSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             delete[] (POINTER); \
             (POINTER) = NULL; \
         } else { \
             (POINTER) = NULL; \
         } \
-    }
+    } while(0)
 
     /** NULLはありえないdelete */
-    #define DELETE_IMPOSSIBLE_NULL(POINTER) { \
+    #define DELETE_IMPOSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             delete (POINTER); \
             (POINTER) = NULL; \
@@ -172,9 +172,9 @@
             GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = NULL; \
         } \
-    }
+    } while(0)
     /** NULLはありえないdelete[] */
-    #define DELETEARR_IMPOSSIBLE_NULL(POINTER) { \
+    #define DELETEARR_IMPOSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             delete[] (POINTER); \
             (POINTER) = NULL; \
@@ -185,9 +185,9 @@
             GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = NULL; \
         } \
-    }
+    } while(0)
     /** NULLかどうか不明なRelease() */
-    #define RELEASE_POSSIBLE_NULL(POINTER) { \
+    #define RELEASE_POSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             int rc = (POINTER)->AddRef(); \
             rc = (POINTER)->Release(); \
@@ -209,9 +209,9 @@
         } else { \
             (POINTER) = NULL; \
         } \
-    }
+    } while(0)
     /** NULLはありえないRelease() */
-    #define RELEASE_IMPOSSIBLE_NULL(POINTER) { \
+    #define RELEASE_IMPOSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             int rc = (POINTER)->AddRef(); \
             rc = (POINTER)->Release(); \
@@ -237,16 +237,16 @@
             GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = NULL; \
         } \
-    }
+    } while(0)
     /** 自明で検査不要の何も言わないRelease() */
-    #define RELEASE_SAFETY(POINTER) { \
+    #define RELEASE_SAFETY(POINTER) do { \
         if (POINTER) { \
             (POINTER)->Release(); \
             (POINTER) = NULL; \
         } else { \
             (POINTER) = NULL; \
         } \
-    }
+    } while(0)
 //#define RELEASE_POSSIBLE_NULL(POINTER) {(POINTER) = NULL;}
 //#define RELEASE_IMPOSSIBLE_NULL(POINTER) {(POINTER) = NULL;}
 //#define RELEASE_SAFETY(POINTER) {(POINTER) = NULL;}
@@ -282,27 +282,27 @@
 
     //メモリ解放用マクロ
     /** NULLかもしれない delete */
-    #define DELETE_POSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
+    #define DELETE_POSSIBLE_NULL(POINTER)       do { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
     /** NULLかもしれない delete[] */
-    #define DELETEARR_POSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
+    #define DELETEARR_POSSIBLE_NULL(POINTER)    do { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
     /** NULLかもしれない Release() */
-    #define RELEASE_POSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }
+    #define RELEASE_POSSIBLE_NULL(POINTER)      do { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
     /** NULLはありえない delete */
-    #define DELETE_IMPOSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
+    #define DELETE_IMPOSSIBLE_NULL(POINTER)     do { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
     /** NULLはありえない delete[] */
-    #define DELETEARR_IMPOSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
+    #define DELETEARR_IMPOSSIBLE_NULL(POINTER)  do { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
     /** NULLはありえない Release() */
-    #define RELEASE_IMPOSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }
+    #define RELEASE_IMPOSSIBLE_NULL(POINTER)    do { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
     /** 自明で検査不要の何も言わないRelease() */
-    #define RELEASE_SAFETY(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }
+    #define RELEASE_SAFETY(POINTER)       do { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
 
 #endif
 
-#define throwGgafCriticalException(X) { \
+#define throwGgafCriticalException(X)  do { \
     std::stringstream ss; \
     ss <<__FILE__<<"("<<__LINE__<<") : "<< X; \
     throw GgafCore::GgafCriticalException(ss.str()); \
-}
+} while(0)
 
 //#define PP_ADD_0_0 0
 //#define PP_ADD_0_1 1

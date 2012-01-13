@@ -3,9 +3,9 @@
 namespace GgafLib {
 
 enum SplinTraceOption {
-    ABSOLUTE_COORD,
-    RELATIVE_COORD,
-    RELATIVE_DIRECTION,
+    ABSOLUTE_COORD,     //絶対座標移動
+    RELATIVE_COORD,     //始点を現座標とし、スプライン座標群は相対移動で計算
+    RELATIVE_DIRECTION, //始点を現座標とし、さらに現在の向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
 };
 
 /**

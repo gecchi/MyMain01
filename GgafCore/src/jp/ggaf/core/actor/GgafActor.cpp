@@ -119,7 +119,9 @@ void GgafActor::notifyFormationAboutDestroyed() {
 #endif
     _pFormation->destroyedFollower(this);
 }
-
+GgafFormation* GgafActor::getFormation() {
+    return _pFormation;
+}
 
 void GgafActor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_behaving_since_onActive<<

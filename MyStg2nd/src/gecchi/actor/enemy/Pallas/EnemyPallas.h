@@ -4,6 +4,7 @@ namespace MyStg2nd {
 
 /**
  * 敵機パラス .
+ * 羽の多いファン
  * @version 1.00
  * @since 2010/06/13
  * @author Masatoshi Tsuge

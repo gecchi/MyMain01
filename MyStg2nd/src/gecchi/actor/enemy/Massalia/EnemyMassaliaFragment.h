@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2011/10/15
  * @author Masatoshi Tsuge
  */
-class EnemyMassaliaFragment : public GgafLib::DefaultMeshActor {
+class EnemyMassaliaFragment : public GgafLib::DefaultMeshSetActor {
 
 public:
 

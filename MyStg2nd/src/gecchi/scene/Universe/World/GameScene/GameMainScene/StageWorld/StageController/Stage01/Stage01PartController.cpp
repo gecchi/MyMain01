@@ -15,7 +15,7 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,120,3200,5000,8200,10000,13200,15000,18200,20000};
+	frame f[] = {1,100,120,8200,10000,13200,15000,28200,30000,38200,40000};
 	_paFrame_NextEvent = new frame[11];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 11;
@@ -50,15 +50,6 @@ void Stage01PartController::processBehavior() {
 				pAstraea1->locate(3000000,0,0);
 				break;
 			}
-			case 3200: {
-				orderSceneToFactory(10000004, Stage01WalledScene, "GroStage01WalledScene");
-				break;
-			}
-			case 5000: {
-				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000004);
-				addSubLast(pScene);
-				break;
-			}
 			case 8200: {
 				orderSceneToFactory(10000001, Stage01_02, "Stage01_02");
 				break;
@@ -79,12 +70,21 @@ void Stage01PartController::processBehavior() {
 				_pProg->change(Stage01PartController::PROG_STG01_03_BEGIN);
 				break;
 			}
-			case 18200: {
-				orderSceneToFactory(10000003, Stage01_Climax, "Stage01_Climax");
+			case 28200: {
+				orderSceneToFactory(10000003, Stage01WalledScene, "GroStage01WalledScene");
 				break;
 			}
-			case 20000: {
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000003);
+			case 30000: {
+				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000003);
+				addSubLast(pScene);
+				break;
+			}
+			case 38200: {
+				orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
+				break;
+			}
+			case 40000: {
+				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
 				addSubLast(pScene);
 				_pProg->change(Stage01PartController::PROG_STG01_CLIMAX_BEGIN);
 				break;

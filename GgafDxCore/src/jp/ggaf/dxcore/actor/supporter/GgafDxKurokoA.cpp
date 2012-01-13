@@ -562,6 +562,14 @@ void GgafDxKurokoA::setFaceAngVelo(axis prm_axis, ang_velo prm_ang_veloRot) {
     }
 }
 
+void GgafDxKurokoA::setFaceAngVelo(ang_velo prm_axis_X_ang_veloRot,
+                                   ang_velo prm_axis_Y_ang_veloRot,
+                                   ang_velo prm_axis_Z_ang_veloRot) {
+    setFaceAngVelo(AXIS_X, prm_axis_X_ang_veloRot);
+    setFaceAngVelo(AXIS_Y, prm_axis_Y_ang_veloRot);
+    setFaceAngVelo(AXIS_Z, prm_axis_Z_ang_veloRot);
+}
+
 void GgafDxKurokoA::forceFaceAngVeloRange(axis prm_axis,
                                                ang_velo prm_ang_veloRot01,
                                                ang_velo prm_ang_veloRot02) {

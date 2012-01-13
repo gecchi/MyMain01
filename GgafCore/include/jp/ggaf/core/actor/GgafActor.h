@@ -193,6 +193,12 @@ public:
     virtual void notifyFormationAboutDestroyed();
 
     /**
+     * 自身がの所属のフォーメーションを返す .
+     * @return フォーメーション。或いは、所属してない場合はNULL
+     */
+    virtual GgafFormation* getFormation();
+
+    /**
      * さよならします .
      * Depository に所属している場合は inactiveAfter(prm_offset_frames) <BR>
      * Depository に所属していない場合は end(prm_offset_frames) <BR>

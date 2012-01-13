@@ -5,19 +5,18 @@
 
 namespace GgafLib {
 
-//本クラスはIshida So 氏作成のサンプルを参考に作成しました。
-//機能的なサンプルを作成されたIshida So氏に感謝いたします。
-//参考サイト
-//「Samayou Oharikui」
-//http://www5d.biglobe.ne.jp/~stssk/
-//内のコンテンツ
-//「簡略化した３次スプライン曲線の生成方法」
-//http://www5d.biglobe.ne.jp/~stssk/maze/spline.html
-//
-//                                2009/10/16 Masatoshi Tsuge
-
 /**
  * 空間B-スプライン曲線クラス .
+ * <pre>
+ * 本クラスはIshida So 氏作成のサンプルを参考に作成しました。
+ * 機能的なサンプルを作成されたIshida So氏に感謝いたします。
+ * 参考サイト
+ * 「Samayou Oharikui」
+ * http://www5d.biglobe.ne.jp/~stssk/
+ * 内のコンテンツ
+ * 「簡略化した３次スプライン曲線の生成方法」
+ * http://www5d.biglobe.ne.jp/~stssk/maze/spline.html
+ * </pre>
  * @version 1.00
  * @since 2009/10/16
  * @author Masatoshi Tsuge

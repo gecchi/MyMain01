@@ -129,8 +129,22 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
                                 coord prm_tY,
                                 int prm_way_allow = TURN_BOTH,
                                 ang_velo prm_ang_veloAllowRyMv = D180ANG);
-
+    /**
+     * 軸回転方角の角速度（軸回転方角に毎フレーム加算する値）を設定 .
+     * @param prm_axis 回転軸（AXIS_X / AXIS_Y / AXIS_Z)
+     * @param prm_ang_veloRot 角速度
+     */
     void setFaceAngVelo(axis prm_axis, ang_velo prm_ang_veloRot);
+
+    /**
+     * 軸回転方角の角速度（軸回転方角に毎フレーム加算する値）を設定 .
+     * @param prm_axis_X_ang_veloRot X軸回転の角速度
+     * @param prm_axis_Y_ang_veloRot Y軸回転の角速度
+     * @param prm_axis_Z_ang_veloRot Z軸回転の角速度
+     */
+    void setFaceAngVelo(ang_velo prm_axis_X_ang_veloRot,
+                        ang_velo prm_axis_Y_ang_veloRot,
+                        ang_velo prm_axis_Z_ang_veloRot);
 
     void forceFaceAngVeloRange(axis prm_axis,
                                ang_velo prm_ang_veloRot01,

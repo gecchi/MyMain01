@@ -58,7 +58,8 @@ public:
 
     /**
      * メンバー借り入れを試み、借り入れできれば取得し活動状態にする。 .
-     * 暇そうなメンバー（active中、またはactive予約されていない）が存在すれば、取得し活動状態にする。<BR>
+     * 暇そうなメンバー（active中、またはactive予約されていない）が存在すれば、
+     * 取得し、活動状態にする（遅延設定可）。<BR>
      * 暇なメンバーが居ない場合 NULL が返ります。<BR>
      * 取得できる場合、アクターに activate()が実行され、ポインタを返すと共に、
      * そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
@@ -73,9 +74,11 @@ public:
      * }
      *
      * </code></pre>
+     *
+     * @param prm_offset_frames 活動状態にする遅延フレーム
      * @return アクター発送者の暇そうなメンバーアクターのポインタ
      */
-    virtual GgafCore::GgafMainActor* dispatch() {
+    virtual GgafCore::GgafMainActor* dispatch(frame prm_offset_frames = 1) {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
             throwGgafCriticalException("GgafActorDepository::dispatch() "<<getName()<<" の子がありません");
@@ -85,7 +88,7 @@ public:
         while (true) {
             if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
                 pActor->moveLast(); //次フレームお尻に回す
-                pActor->activate(); //activate自動実行。
+                pActor->activateDelay(prm_offset_frames); //activate自動実行。
                 break;//取得！
             } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
                 if (pActor->isLast()) {

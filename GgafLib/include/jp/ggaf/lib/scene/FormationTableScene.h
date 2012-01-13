@@ -16,10 +16,10 @@ namespace GgafLib {
  *     FormationTableScene* ftbl = NEW FormationTableScene("TableScene_9");
  *     addSubLast(ftbl);               //子シーンとして登録
  *     ftbl->setMaxPerformFrame(280);  //編隊テーブル全体フレーム数設定
- *     ftbl->addToTable(((FormationPallas001a*)obtainActorFromFactory(21047100)), 100);   //編隊a。全消滅しなくとも、次の編隊bは100フレーム後出現
- *     ftbl->addToTable(((FormationPallas001b*)obtainActorFromFactory(21057100)), 100);   //編隊b。全消滅しなくとも、次の編隊cは100フレーム後出現
- *     ftbl->addToTable(((FormationPallas001c*)obtainActorFromFactory(21067100)), 100);   //編隊c。全消滅しなくとも、次の編隊dは100フレーム後出現
- *     ftbl->addToTable(((FormationPallas001d*)obtainActorFromFactory(21077100)), 100);   //編隊d。全消滅しなくとも、次の編隊eは100フレーム後出現
+ *     ftbl->addToTable(((FormationPallas001a*)obtainActorFromFactory(21047100)), 100);   //編隊a。次の 編隊b は 編隊a が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
+ *     ftbl->addToTable(((FormationPallas001b*)obtainActorFromFactory(21057100)), 100);   //編隊b。次の 編隊c は 編隊b が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
+ *     ftbl->addToTable(((FormationPallas001c*)obtainActorFromFactory(21067100)), 100);   //編隊c。次の 編隊d は 編隊c が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
+ *     ftbl->addToTable(((FormationPallas001d*)obtainActorFromFactory(21077100)), 100);   //編隊d。次の 編隊e は 編隊d が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
  *     ftbl->addToTable(((FormationPallas001e*)obtainActorFromFactory(21087100)));        //編隊e。次の敵が無いため、フレーム数設定の意味は無くなる。
  *
  * ・これは下図のような事を意味する。

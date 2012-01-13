@@ -5,6 +5,7 @@ namespace MyStg2nd {
 
 /**
  * 敵機タリア .
+ * スペハリのトモスもどき
  * @version 1.00
  * @since 2010/08/03
  * @author Masatoshi Tsuge

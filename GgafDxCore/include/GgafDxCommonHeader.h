@@ -92,22 +92,22 @@ DECLARE_CONST(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
 
 
 #ifdef MY_DEBUG
-    #define checkDxException(HR, OKVAL, X) { \
+    #define checkDxException(HR, OKVAL, X) do { \
         if (HR != OKVAL) { \
             std::stringstream ss; \
             ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
             throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
         } \
-    }
+    } while(0)
 #else
     #define checkDxException(HR, OKVAL, X)
 #endif
 
-#define throwGgafDxCriticalException(HR, X) { \
-        std::stringstream ss; \
-        ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
-        throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
-}
+#define throwGgafDxCriticalException(HR, X) do { \
+    std::stringstream ss; \
+    ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
+    throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
+} while(0)
 
 
 //シェーダー2.0の限界のモーフターゲットは6個だった
@@ -197,9 +197,9 @@ typedef GgafDxAxis axis;
 #define PX2CO(X) ((X) * LEN_UNIT)
 
 /** アプリのアングル値→度数法角度 変換 */
-#define ANG2DEG(X) ((float)(X / 1000))
+#define ANG2DEG(X) ((float)((X) / 1000))
 /** 度数法角度→アプリのアングル値 変換 */
-#define DEG2ANG(X) ((angle)(X * 1000))
+#define DEG2ANG(X) ((angle)((X) * 1000))
 /** アプリのアングル値→ラジアン 変換 */
 #define ANG2RAD(X) (GgafDxCore::GgafDxUtil::RAD[(X) / SANG_RATE])
 /** アプリのアングル値→正弦 変換 */

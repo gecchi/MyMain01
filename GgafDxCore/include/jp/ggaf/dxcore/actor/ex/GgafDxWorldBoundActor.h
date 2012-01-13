@@ -3,7 +3,7 @@
 namespace GgafDxCore {
 
 /**
- * 環境マップモーフメッシュアクター.
+ * 環境マップ球アクター.
  * @version 1.00
  * @since 2010/12/24
  * @author Masatoshi Tsuge

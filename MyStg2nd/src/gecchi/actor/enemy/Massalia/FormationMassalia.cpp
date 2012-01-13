@@ -5,9 +5,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-FormationMassalia::FormationMassalia(const char* prm_name, const char* prm_spl_id)
+FormationMassalia::FormationMassalia(const char* prm_name)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationMassalia";
+    _pDepoCon_Fragment = connectDepositoryManager("DpCon_MassaliaFragment", this);
     _pDepoCon_Massalia = connectDepositoryManager("DpCon_Massalia", this);
     setFormationAbleActorDepository(_pDepoCon_Massalia->use());
 }
@@ -18,6 +19,7 @@ void FormationMassalia::updateRankParameter() {
 }
 
 void FormationMassalia::initialize() {
+
 }
 
 void FormationMassalia::onActive() {
@@ -43,4 +45,5 @@ void FormationMassalia::processBehavior() {
 
 FormationMassalia::~FormationMassalia() {
     _pDepoCon_Massalia->close();
+    _pDepoCon_Fragment->close();
 }

@@ -9,12 +9,9 @@ namespace MyStg2nd {
  * @since 2011/10/15
  * @author Masatoshi Tsuge
  */
-class EnemyMassalia : public GgafLib::DefaultMeshActor {
+class EnemyMassalia : public GgafLib::DefaultMeshSetActor {
 
 public:
-    /** マッサリア断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* _pDepoCon_Fragment;
-
     EnemyMassalia(const char* prm_name);
 
     void onCreateModel() override;

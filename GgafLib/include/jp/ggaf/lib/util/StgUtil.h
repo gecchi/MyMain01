@@ -4,6 +4,11 @@ namespace GgafLib {
 
 class StgUtil: public GgafDxCore::GgafDxUtil {
 public:
+    struct Pos {
+        coord X;
+        coord Y;
+        coord Z;
+    };
 
     static inline bool isHit(CollisionChecker* pCChecker01, GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAB* pAAB01,
                              CollisionChecker* pCChecker02, GgafDxCore::GgafDxGeometricActor* pActor02, ColliAAB* pAAB02) {
@@ -746,7 +751,7 @@ public:
      * @param prm_acce 加速度
      */
     static void shotWay001(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
-                           GgafCore::GgafActorDepository*      prm_pDepo_Shot,
+                           GgafCore::GgafActorDepository*    prm_pDepo_Shot,
                            GgafDxCore::GgafDxGeometricActor* prm_pTarget,
                            int prm_way, angle prm_angClearance,
                            velo prm_velo, acce prm_acce);
@@ -771,7 +776,7 @@ public:
 
 
     /**
-     * Ry は目標への向き＋D90ANGで、Rz変化による nWay放射弾を打つ .
+     * Ry は目標への向き＋D90ANGで、Rz変化による nWay放射弾を打つ（花火） .
      * @param prm_pFrom 発射元
      * @param prm_pDepo_Shot 発射するショットのデポジトリ
      * @param prm_pTarget 目標
@@ -787,7 +792,7 @@ public:
                            velo prm_velo, acce prm_acce);
 
     /**
-     * shotWay002弾を複数セット同時に撃つ .
+     * shotWay002弾を複数セット同時に撃つ（花火） .
      * @param prm_pFrom 発射元
      * @param prm_pDepo_Shot 発射するショットのデポジトリ
      * @param prm_pTarget 目標
@@ -799,11 +804,34 @@ public:
      * @param prm_attenuated 次のWAY弾の初期速度加速度の減衰率
      */
     static void shotWay002v2(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
-                             GgafCore::GgafActorDepository*      prm_pDepo_Shot,
+                             GgafCore::GgafActorDepository*    prm_pDepo_Shot,
                              GgafDxCore::GgafDxGeometricActor* prm_pTarget,
                              int prm_way, angle prm_angBegin,
                              velo prm_velo_top, acce prm_acce_top,
                              int prm_num, float prm_attenuated);
+
+    /**
+     * 自分の向いている方向（_RX > _RZ > _RY）に向かって N*M Way弾を撃つ（TODO:未検証） .
+     * 内部で次の項目が設定されます。
+     * ・ショットの _X, _Y, _Z 座標
+     * ・ショットの GgafDxKurokoA の移動方向、向き、移動速度、加速度
+     * @param prm_pFrom 発射元
+     * @param prm_pDepo_Shot 発射するショットのデポジトリ
+     * @param prm_r 発射元と発射するショットの初期距離(発射元からの半径)。
+     *              同時に方向ベクトルになるため、但し0より大きい必要がある。
+     * @param prm_way_N N-Way数
+     * @param prm_way_M M-Way数
+     * @param prm_angClearance N-Wayの間隔角度
+     * @param prm_angClearance M-Wayの間隔角度
+     * @param prm_velo 発射するショット初期速度
+     * @param prm_acce 発射するショット加速度
+     */
+    static void shotWay003(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+                           GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                           coord prm_r,
+                           int prm_way_N, int prm_way_M,
+                           angle prm_angClearance_N, angle prm_angClearance_M,
+                           velo prm_velo, acce prm_acce);
 
 };
 
