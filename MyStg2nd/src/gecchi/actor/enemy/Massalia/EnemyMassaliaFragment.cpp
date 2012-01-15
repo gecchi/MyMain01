@@ -51,6 +51,12 @@ void EnemyMassaliaFragment::onHit(GgafActor* prm_pOtherActor) {
         }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
         sayonara();
+
+        //アイテム出現
+        Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
+        if (pItem) {
+            pItem->locateAs(this);
+        }
     }
 }
 

@@ -258,7 +258,7 @@ public:
         _SX = SX;
         _SY = SY;
         _SZ = SZ;
-        setBoundingSphereRadiusRate(SC2R(MAX3(_SX,_SY,_SZ)));
+        setBoundingSphereRadiusRate(SC2R(max3(_SX,_SY,_SZ)));
     }
 
     /**
@@ -279,14 +279,14 @@ public:
         _SX = R2SC(prm_x_rate);
         _SY = R2SC(prm_y_rate);
         _SZ = R2SC(prm_z_rate);
-        setBoundingSphereRadiusRate(MAX3(prm_x_rate,prm_y_rate,prm_z_rate));
+        setBoundingSphereRadiusRate(max3(prm_x_rate, prm_y_rate, prm_z_rate));
     }
 
     virtual void addScale(scale dS) {
         _SX += dS;
         _SY += dS;
         _SZ += dS;
-        setBoundingSphereRadiusRate(SC2R(MAX3(_SX,_SY,_SZ)));
+        setBoundingSphereRadiusRate(SC2R(max3(_SX,_SY,_SZ)));
     }
 
 
@@ -313,12 +313,10 @@ public:
     virtual void rotateWith(GgafDxGeometricActor* prm_pActor);
 
     /**
-     * _matInvWorldRotMvの逆行列を返す。
-     * 計算済みならばそれを返す。
-     * 未計算なら計算してそれを返す
-     * @return
+     * 自身の内部ワールド変換(_matWorldRotMv) の逆行列を未計算なら計算し、計算済みならそのまま返す .
+     * @return _matInvWorldRotMv
      */
-    D3DXMATRIX* gatInvMatWorldRotMv() {
+    D3DXMATRIX* getInvMatWorldRotMv() {
         if (_wasCalc_matInvWorldRotMv) {
             return &_matInvWorldRotMv;
         } else {

@@ -204,7 +204,7 @@ void EnemyVesta::processBehavior() {
         int MvY = P_MYSHIP->_Y - _Y;
         int MvZ = P_MYSHIP->_Z - _Z;
         //逆行列取得
-        D3DXMATRIX* pBaseInvMatRM = _pActor_Base->gatInvMatWorldRotMv();
+        D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
         //ローカル座標でのターゲットとなる方向ベクトル計算
         int TvX = MvX*pBaseInvMatRM->_11 + MvY*pBaseInvMatRM->_21 + MvZ * pBaseInvMatRM->_31;
         int TvY = MvX*pBaseInvMatRM->_12 + MvY*pBaseInvMatRM->_22 + MvZ * pBaseInvMatRM->_32;
@@ -256,6 +256,12 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         _pSeTransmitter->play3D(0);
         sayonara();
+
+        //アイテム出現
+        Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
+        if (pItem) {
+            pItem->locateAs(this);
+        }
     }
 }
 

@@ -92,9 +92,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int vVMz = _pKurokoB->_veloVzMv*5;
 
                 //|仮自|
-                int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
+				int lVM = max3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
                 //|的|
-                int lT =  MAX3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
+                int lT =  max3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
                 //|仮自|/|的|
                 double r = 1.5*lVM / lT;
                 //1.5は 右上図のように一直線に並んだ際も、進行方向を維持するために、
@@ -186,9 +186,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
             int vVMy = _pKurokoB->_veloVyMv*5;
             int vVMz = _pKurokoB->_veloVzMv*5;
             //|仮自|
-            int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
+            int lVM = max3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
             //|的|
-            int lT =  MAX3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
+            int lT =  max3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
             //|仮自|/|的|
             double r = 1.5*lVM / lT;
             //1.5は 右上図のように一直線に並んだ際も、進行方向を維持するために、

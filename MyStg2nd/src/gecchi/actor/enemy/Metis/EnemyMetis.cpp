@@ -94,6 +94,12 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
             pExplo001_2->activate();
         }
         sayonara();
+
+        //アイテム出現
+        Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
+        if (pItem) {
+            pItem->locateAs(this);
+        }
     }
 }
 

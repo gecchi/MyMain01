@@ -1,6 +1,10 @@
 #ifndef GGAFUTIL_H_
 #define GGAFUTIL_H_
 
+#define sgn(X) (GgafDxCore::GgafDxUtil::sign(X))
+#define max3(a,b,c) (GgafCore::GgafUtil::maximum3(a,b,c))
+
+
 namespace GgafCore {
 
 /**
@@ -179,6 +183,15 @@ public:
 
     //static DWORD max3(DWORD a, DWORD b, DWORD c);
 
+    template<typename T>
+    static T maximum2(T a, T b) {
+        return ( ((a) > (b) ? (a) : (b))   );
+    }
+
+    template<typename T>
+    static T maximum3(T a, T b, T c) {
+        return ( (a)>(b) ? ((a)>(c)?(a):(c)) : ((b)>(c)?(b):(c)) );
+    }
 
     static size_t hex2dec(const std::string &prm_hex) {
         std::istringstream iss(prm_hex);

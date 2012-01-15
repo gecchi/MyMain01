@@ -2,9 +2,6 @@
 #define GGAFDXUTIL_H_
 namespace GgafDxCore {
 
-#define sgn(X) (GgafDxCore::GgafDxUtil::sign(X))
-#define max3(A,B,C) (GgafDxCore::GgafDxUtil::max3(A,B,C))
-
 
 /**
  * ユーティリティクラス .
