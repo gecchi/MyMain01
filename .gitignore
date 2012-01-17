@@ -1,12 +1,14 @@
 /Debug
-/MySTG2nd.ncb
-/MySTG2nd.sln
 /Release
-/MySTG2nd.suo
 /.project
 *.stackdump
 /_cppTest_
+*.XML
+*.sdf
+*.ncb
+*.suo
 *.obj
+*.user
 *.o
 *.exe
 *.swp
@@ -22,3 +24,5 @@
 *.svn
 /.svn
 /Doc
+/ipch
+/_UpgradeReport_Files

@@ -5,10 +5,11 @@ using namespace GgafCore;
 
 GgafStrMap* GgafProperties::_pMapProperties = NULL;
 
-UINT32 GgafProperties::MAX_SKIP_FRAME = 0;
-int GgafProperties::DRAWNUM_TO_SLOWDOWN1 = 0;
-int GgafProperties::DRAWNUM_TO_SLOWDOWN2 = 0;
-float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 55.0f;
+UINT32 GgafProperties::MAX_SKIP_FRAME = 12;
+int GgafProperties::DRAWNUM_TO_SLOWDOWN1 = 350;
+int GgafProperties::DRAWNUM_TO_SLOWDOWN2 = 500;
+float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 50.0f;
+
 void GgafProperties::load(string prm_properties_filename) {
     if (_pMapProperties == NULL) {
         _pMapProperties = NEW GgafStrMap();
@@ -18,10 +19,18 @@ void GgafProperties::load(string prm_properties_filename) {
 //        }
     }
 
-    GgafProperties::MAX_SKIP_FRAME = getUInt("MAX_SKIP_FRAME");
-    GgafProperties::DRAWNUM_TO_SLOWDOWN1 = getInt("DRAWNUM_TO_SLOWDOWN1");
-    GgafProperties::DRAWNUM_TO_SLOWDOWN2 = getInt("DRAWNUM_TO_SLOWDOWN2");
-    GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = getFloat("FPS_TO_CLEAN_GARBAGE_BOX");
+    if (GgafProperties::isExistKey("MAX_SKIP_FRAME")) {
+        GgafProperties::MAX_SKIP_FRAME = getUInt("MAX_SKIP_FRAME");
+    }
+    if (GgafProperties::isExistKey("DRAWNUM_TO_SLOWDOWN1")) {
+        GgafProperties::DRAWNUM_TO_SLOWDOWN1 = getInt("DRAWNUM_TO_SLOWDOWN1");
+    }
+    if (GgafProperties::isExistKey("DRAWNUM_TO_SLOWDOWN2")) {
+        GgafProperties::DRAWNUM_TO_SLOWDOWN2 = getInt("DRAWNUM_TO_SLOWDOWN2");
+    }
+    if (GgafProperties::isExistKey("FPS_TO_CLEAN_GARBAGE_BOX")) {
+        GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = getFloat("FPS_TO_CLEAN_GARBAGE_BOX");
+    }
     _TRACE_("GgafProperties::MAX_SKIP_FRAME="<<GgafProperties::MAX_SKIP_FRAME);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN1="<<GgafProperties::DRAWNUM_TO_SLOWDOWN1);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::DRAWNUM_TO_SLOWDOWN2);

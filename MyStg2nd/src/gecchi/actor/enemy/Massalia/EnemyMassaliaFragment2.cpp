@@ -5,51 +5,44 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-EnemyMassalia::EnemyMassalia(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Massalia", STATUS(EnemyMassalia)) {
+EnemyMassaliaFragment2::EnemyMassaliaFragment2(const char* prm_name) :
+        DefaultMeshSetActor(prm_name, "Massalia", STATUS(EnemyMassaliaFragment2)) {
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
 }
 
-void EnemyMassalia::onCreateModel() {
+void EnemyMassaliaFragment2::onCreateModel() {
 }
 
-void EnemyMassalia::initialize() {
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliSphere(0, PX2CO(100));
-    _pKurokoA->setFaceAngVelo(DEG2ANG(1), DEG2ANG(2), DEG2ANG(3));
-    setScaleR(0.5);
-}
-
-void EnemyMassalia::onActive() {
-    //ステータスリセット
-    MyStgUtil::resetEnemyMassaliaStatus(_pStatus);
+void EnemyMassaliaFragment2::initialize() {
     setHitAble(true);
-    static DWORD appearances_renge_Z = (MyShip::_lim_zleft - MyShip::_lim_zright) * 3;
-    static DWORD appearances_renge_Y = (MyShip::_lim_top - MyShip::_lim_bottom) * 3;
-    _X = GgafDxUniverse::_X_goneRight - 1000;
-    _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
-    _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
-    _pKurokoA->setMvAng(0, D180ANG);
-    _pKurokoA->addRyMvAng(RND(DEG2ANG(-5), DEG2ANG(+5)));
-    _pKurokoA->addRzMvAng(RND(DEG2ANG(-5), DEG2ANG(+5)));
+    setScaleR(0.1);
+    _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliSphere(0, PX2CO(30));
+    _pKurokoA->setFaceAngVelo(DEG2ANG(0), DEG2ANG(10), DEG2ANG(0));
 }
 
-void EnemyMassalia::processBehavior() {
+void EnemyMassaliaFragment2::onActive() {
+    //ステータスリセット
+    MyStgUtil::resetEnemyMassaliaFragment2Status(_pStatus);
+    setHitAble(true);
+}
+
+void EnemyMassaliaFragment2::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     _pKurokoA->behave();
 }
 
-void EnemyMassalia::processJudgement() {
+void EnemyMassaliaFragment2::processJudgement() {
     if (isOutOfUniverse()) {
         sayonara();
     }
 }
 
-void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void EnemyMassaliaFragment2::onHit(GgafActor* prm_pOtherActor) {
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         _pSeTransmitter->play3D(0);
@@ -59,11 +52,11 @@ void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
         }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
         sayonara();
-        //断片出現
-        DepositoryConnection* pCon = connectDepositoryManager("DpCon_MassaliaFragment", this);
+        //断片の断片の断片出現
+        DepositoryConnection* pCon = connectDepositoryManager("DpCon_MassaliaFragment3", this);
         GgafActorDepository* pDepo = pCon->use();
         for (int i =0; i < R_EnemyMassalia_ShotWay; i++) {
-            EnemyMassaliaFragment* p = (EnemyMassaliaFragment*)(pDepo->dispatch());
+            EnemyMassaliaFragment3* p = (EnemyMassaliaFragment3*)(pDepo->dispatch());
             if (p) {
                 p->locateAs(this);
                 p->_pKurokoA->takeoverMvFrom(this->_pKurokoA);
@@ -77,10 +70,10 @@ void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
 }
 
 
-void EnemyMassalia::onInactive() {
+void EnemyMassaliaFragment2::onInactive() {
     sayonara();
 }
 
 
-EnemyMassalia::~EnemyMassalia() {
+EnemyMassaliaFragment2::~EnemyMassaliaFragment2() {
 }

@@ -9,7 +9,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOpti
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
     _pMyOptionTorpedoController = prm_pMyOptionTorpedoController;
-    _length_TailEffect = 4;
+    _length_TailEffect = 8;
 
     _pTailEffectDepository = NEW LaserChipDepository("DP_TailEffect");
     _pTailEffectDepository->config(_length_TailEffect, 0, NULL);

@@ -158,10 +158,10 @@ typedef int pixcoord;
 /** DirectX座標単位  (目安： 1 dxcoord   =  10 pixcoord  =  10000 coord ) */
 typedef float dxcoord;
 
-/** アプリケーションスケール単位 (目安： 1 scale  =  0.0001 倍) */
+/** アプリケーションスケール単位 (目安： 1 scale  =  0.001 倍) */
 typedef int scale;
 
-/** アプリケーション角度単位 (目安： 1 angle  =  0.0001 度) */
+/** アプリケーション角度単位 (目安： 1 angle  =  0.001 度) */
 typedef int angle;
 /** アプリケーション角度単位系の角速度 */
 typedef int ang_velo;

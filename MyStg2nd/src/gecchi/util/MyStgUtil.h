@@ -227,6 +227,10 @@ public:
 	static GgafCore::GgafStatus* resetEnemyMassaliaStatus(GgafCore::GgafStatus* p);
 	//マッサリア断片
 	static GgafCore::GgafStatus* resetEnemyMassaliaFragmentStatus(GgafCore::GgafStatus* p);
+	//マッサリア断片の断片
+	static GgafCore::GgafStatus* resetEnemyMassaliaFragment2Status(GgafCore::GgafStatus* p);
+	//マッサリア断片の断片の断片
+	static GgafCore::GgafStatus* resetEnemyMassaliaFragment3Status(GgafCore::GgafStatus* p);
 	//
 	static GgafCore::GgafStatus* resetMyOptionStatus(GgafCore::GgafStatus* p);
 	//アイテム

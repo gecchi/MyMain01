@@ -437,7 +437,7 @@ using namespace MyStg2nd;
 		p->set(STAT_AddScorePoint, 1000 );  //‰ÁZ“¾“_
 		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-		p->set(STAT_Stamina, 3000 );  //‘Ì—Í
+		p->set(STAT_Stamina, 4000 );  //‘Ì—Í
 		p->set(STAT_Attack, 100 );  //UŒ‚—Í
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
@@ -447,10 +447,36 @@ using namespace MyStg2nd;
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragmentStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
 		p->set(STAT_LockonAble, 1 );  //ƒƒbƒNƒIƒ“‰Â”Û
+		p->set(STAT_AddScorePoint, 300 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 2000 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+		return p;
+	}
+	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment2Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_LockonAble, 1 );  //ƒƒbƒNƒIƒ“‰Â”Û
 		p->set(STAT_AddScorePoint, 100 );  //‰ÁZ“¾“_
 		p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-		p->set(STAT_Stamina, 1500 );  //‘Ì—Í
+		p->set(STAT_Stamina, 1000 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+		return p;
+	}
+	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment3Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_LockonAble, 0 );  //ƒƒbƒNƒIƒ“‰Â”Û
+		p->set(STAT_AddScorePoint, 100 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
 		p->set(STAT_Attack, 100 );  //UŒ‚—Í
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦

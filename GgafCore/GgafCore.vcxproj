@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4CD46674-BB16-4B83-B01E-D6DAF7FB6C81}</ProjectGuid>
+    <RootNamespace>GgafCore</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>$(MYSTG2ND_HOME)\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
+    <ClCompile Include="src\DetectMemoryLeaks.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\GgafActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafActorDepository.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafActorDepositoryStore.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\exception\GgafCriticalException.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafCurtain.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafDepositoryFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\GgafDirector.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\GgafDummyActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\exception\GgafException.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GgafFactory.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GgafGarbageBox.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GgafGod.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\GgafGroupHead.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctree.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeElem.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeSpace.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafLogger.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\GgafMainActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\scene\GgafMainScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GgafObject.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GgafOrder.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GgafProgress.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GgafProperties.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafRepeatSeq.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\scene\GgafScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafStasus.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafTreeFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\scene\GgafUniverse.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafUtil.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
+    <ClInclude Include="include\DetectMemoryLeaks.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\GgafActor.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafActorDepository.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafActorDepositoryStore.h" />
+    <ClInclude Include="include\GgafCommonHeader.h" />
+    <ClInclude Include="include\jp\ggaf\core\exception\GgafCriticalException.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafCurtain.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafDepositoryFormation.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\GgafDirector.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\GgafDisusedActor.h" />
+    <ClInclude Include="include\jp\ggaf\core\scene\GgafDisusedScene.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\GgafDummyActor.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafElement.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\exception\GgafException.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafFactory.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafFormation.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafGarbageBox.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafGod.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\GgafGroupHead.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctree.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeElem.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeSpace.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafLinkedListRing.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafLogger.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\GgafMainActor.h" />
+    <ClInclude Include="include\jp\ggaf\core\scene\GgafMainScene.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafNode.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\GgafObject.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafOrder.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafProgress.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafProperties.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafRepeatSeq.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafResourceConnection.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\GgafResourceManager.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafRgb.h" />
+    <ClInclude Include="include\jp\ggaf\core\scene\GgafScene.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafStatus.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafTreeFormation.h" />
+    <ClInclude Include="include\jp\ggaf\core\scene\GgafUniverse.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafUtil.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

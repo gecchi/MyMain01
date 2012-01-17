@@ -168,7 +168,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (GgafUtil::strcmp_ascii("DpCon_Massalia", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_Massalia");
         EnemyMassalia* p;
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 200; i++) {
             p = NEW EnemyMassalia("EnemyMassalia");
             pResource->addSubLast(p);
         }
@@ -178,8 +178,26 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (GgafUtil::strcmp_ascii("DpCon_MassaliaFragment", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_MassaliaFragment");
         EnemyMassaliaFragment* p;
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 200; i++) {
             p = NEW EnemyMassaliaFragment("EnemyMassaliaFragment");
+            pResource->addSubLast(p);
+        }
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+    }
+    if (GgafUtil::strcmp_ascii("DpCon_MassaliaFragment2", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_MassaliaFragment2");
+        EnemyMassaliaFragment2* p;
+        for (int i = 0; i < 200; i++) {
+            p = NEW EnemyMassaliaFragment2("EnemyMassaliaFragment2");
+            pResource->addSubLast(p);
+        }
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+    }
+    if (GgafUtil::strcmp_ascii("DpCon_MassaliaFragment3", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_MassaliaFragment3");
+        EnemyMassaliaFragment3* p;
+        for (int i = 0; i < 200; i++) {
+            p = NEW EnemyMassaliaFragment3("EnemyMassaliaFragment3");
             pResource->addSubLast(p);
         }
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);

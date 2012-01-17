@@ -11,10 +11,15 @@ namespace MyStg2nd {
 class FormationMassalia : public GgafLib::DepositoryFormation {
 
 public:
-    /** マッサリア断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* _pDepoCon_Fragment;
     /** マッサリア借り入れ元Depository資源への接続 */
     DepositoryConnection* _pDepoCon_Massalia;
+    /** マッサリア断片借り入れ元Depository資源への接続 */
+    DepositoryConnection* _pDepoCon_Fragment;
+    /** マッサリア断片の断片借り入れ元Depository資源への接続 */
+    DepositoryConnection* _pDepoCon_Fragment2;
+    /** マッサリア断片の断片借り入れ元Depository資源への接続 */
+    DepositoryConnection* _pDepoCon_Fragment3;
+
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
     frame _R_interval_frames;
     /** 編隊メンバーの初期移動速度(RANK変動) */

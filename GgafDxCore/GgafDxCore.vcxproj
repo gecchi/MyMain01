@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F04B2BAE-F007-4DE8-A91F-EA7E9DDCB6F2}</ProjectGuid>
+    <RootNamespace>GgafDxCore</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
+    <ReferencePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DXSDK_DIR)\Lib\x86;$(ReferencePath)</ReferencePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
+    <ReferencePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DXSDK_DIR)\Lib\x86;$(ReferencePath)</ReferencePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(MYSTG2ND_HOME)\GgafCore\include;$(MYSTG2ND_HOME)\IkdLib\include;$(MYSTG2ND_HOME)\PaulCoppensLib\include;$(MYSTG2ND_HOME)\CustomizeVorbis_static\include;$(MYSTG2ND_HOME)\CustomizeOgg_static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>$(MYSTG2ND_HOME)\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>$(MYSTG2ND_HOME)\GgafCore\include;$(MYSTG2ND_HOME)\PaulCoppensLib\include;$(MYSTG2ND_HOME)\CustomizeVorbis_static\include;$(MYSTG2ND_HOME)\CustomizeOgg_static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>$(MYSTG2ND_HOME)\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\CWaveDecorder.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\framework\Frm_Mesh.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\framework\Frm_Tbuff.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxAAPrismActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxAllocHierarchy.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxAllocHierarchyWorldFrame.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxAlphaCurtain.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAlphaFader.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxBaseActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgm.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxBgmConnection.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxBgmManager.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformer.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxBoardActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxBoardEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxBoardModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxBoardSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxBoardSetEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxBoardSetModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxCamera.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxCameraViewPoint.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxChecker.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxCollisionArea.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxCollisionPart.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxColorist.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\exception\GgafDxCriticalException.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMeshModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMeshSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshSetEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMeshSetModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMorphMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMorphMeshEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMorphMeshModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxD3DXAniMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxD3DXAniMeshEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxD3DXAniMeshModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxD3DXMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxD3DXMeshModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxDrawableActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxDynaD3DXMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxEffectConnection.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxEffectManager.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxGeometricActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\GgafDxGod.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\interface\GgafDxICubeMapActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxInput.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoA.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoB.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMeshEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMeshModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMeshSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMeshSetEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMeshSetModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxModelConnection.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxModelManager.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxMorpher.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMorphMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMorphMeshEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMorphMeshModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxPointSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxPointSpriteEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxPointSpriteModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\GgafDxProperties.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxPuppeteer.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxQuaternion.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxRectUV.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxScaler.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\scene\GgafDxScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSe.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxSeConnection.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxSeManager.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitter.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSound.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxSphereActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxSphereRadiusVectors.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxSpriteEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxSpriteMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxSpriteMeshSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxSpriteModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxSpriteSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxSpriteSetEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxSpriteSetModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxStringBoardActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxStringSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\texture\GgafDxTexture.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\supporter\GgafDxTextureBlinker.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxTextureConnection.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxTextureManager.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\scene\GgafDxUniverse.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxUtil.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxUvFlipper.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxWorldBoundActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\ex\GgafDxWorldBoundEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\ex\GgafDxWorldBoundModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxWorldMatStack.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\Toolbox\ioModel_X.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\Toolbox\iotexture_bmp.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\IkdLib\OggDecoder.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\IkdLib\OggVorbisFile.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\IkdLib\OggVorbisMemory.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\IkdLib\PCMDecoder.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\IkdLib\PCMPlayer.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\Toolbox\TBox_Textures.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\CWaveDecorder.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_3DMath.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_IO.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Manager.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Material.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Mesh.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Tbuff.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Timer.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_types.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxAAPrismActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxAgainstWay.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxAllocHierarchy.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxAllocHierarchyWorldFrame.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\GgafDxAlphaCurtain.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxAlphaFader.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxBaseActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\GgafDxBgm.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxBgmConnection.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxBgmManager.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformer.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxBoardActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxBoardEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxBoardModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxBoardSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxBoardSetEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxBoardSetModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxCamera.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxCameraViewPoint.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxChecker.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxCollisionArea.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxCollisionPart.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxColorist.h" />
+    <ClInclude Include="include\GgafDxCommonHeader.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\exception\GgafDxCriticalException.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMeshModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMeshSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshSetEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMeshSetModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMorphMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMorphMeshEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMorphMeshModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxD3DXAniMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxD3DXAniMeshEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxD3DXAniMeshModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxD3DXMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxD3DXMeshModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxDrawableActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxDynaD3DXMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxEffectConnection.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxEffectManager.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxGeoChain.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxGeoElem.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxGeometricActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\GgafDxGod.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\interface\GgafDxICubeMapActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxInput.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoA.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoB.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxMeshEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxMeshModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMeshSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxMeshSetEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxMeshSetModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxModelConnection.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxModelManager.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxMorpher.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMorphMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxMorphMeshEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxMorphMeshModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxPointSpriteActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxPointSpriteEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxPointSpriteModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\GgafDxProperties.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxPuppeteer.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxQuaternion.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxRectUV.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxScaler.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\scene\GgafDxScene.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\GgafDxSe.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxSeConnection.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxSeManager.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitter.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\GgafDxSound.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxSphereActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxSphereRadiusVectors.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxSpriteActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxSpriteEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxSpriteMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxSpriteMeshSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxSpriteModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxSpriteSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxSpriteSetEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxSpriteSetModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxStringBoardActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxStringSpriteActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\texture\GgafDxTexture.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\supporter\GgafDxTextureBlinker.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxTextureConnection.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxTextureManager.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\scene\GgafDxUniverse.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxUtil.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxUvFlipper.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxWorldBoundActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\ex\GgafDxWorldBoundEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\ex\GgafDxWorldBoundModel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxWorldMatStack.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\IOModel_X.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\IOTexture_BMP.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\MyTrace.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\OggDecoder.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\OggVorbisFile.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\OggVorbisMemory.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\OggVorbisResource.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\PCMDecoder.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\PCMPlayer.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\TBox_Textures.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\XFileStructs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CustomizeOgg_static\CustomizeOgg_static.vcxproj">
+      <Project>{2fdefa24-55e5-4955-8497-44085c92a5b1}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomizeVorbis_static\CustomizeVorbis_static.vcxproj">
+      <Project>{3a06bba2-2a59-4965-8095-3836e2a10840}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\GgafCore\GgafCore.vcxproj">
+      <Project>{4cd46674-bb16-4b83-b01e-d6daf7fb6c81}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

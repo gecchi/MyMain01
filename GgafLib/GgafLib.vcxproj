@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{55C018DB-2586-4F20-ADDB-8DA23932824C}</ProjectGuid>
+    <RootNamespace>GgafLib</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
+    <ReferencePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DXSDK_DIR)\Lib\x86;$(ReferencePath)</ReferencePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
+    <ReferencePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DXSDK_DIR)\Lib\x86;$(ReferencePath)</ReferencePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(MYSTG2ND_HOME)\PaulCoppensLib\include;$(MYSTG2ND_HOME)\CustomizeOgg_static\include;$(MYSTG2ND_HOME)\CustomizeVorbis_static\include;$(MYSTG2ND_HOME)\GgafCore\include;$(MYSTG2ND_HOME)\IkdLib\include;$(MYSTG2ND_HOME)\GgafDxCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>$(MYSTG2ND_HOME)\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>$(MYSTG2ND_HOME)\PaulCoppensLib\include;$(MYSTG2ND_HOME)\CustomizeOgg_static\include;$(MYSTG2ND_HOME)\CustomizeVorbis_static\include;$(MYSTG2ND_HOME)\GgafCore\include;$(MYSTG2ND_HOME)\GgafDxCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>$(MYSTG2ND_HOME)\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\lib\util\AmountGraph.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\ColliAAB.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\ColliAABActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPrism.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\ColliAAPrismActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\CollisionCheckerLaserChip.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\ColliSphere.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\ColliSphereActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\CubeMapMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\CubeMapMeshSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\CubeMapMorphMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultBoardActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultBoardSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultCamera.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultD3DXAniMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultD3DXMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultDynaD3DXMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultGeometricActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\DefaultGod.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMeshSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMorphMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultPointSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\DefaultScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\DefaultUniverse.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DepositoryFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineSequence.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineSequence.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\FontSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\FontSpriteString.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\FormationTableScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\HomingLaserChip.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\LaserChip.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\LaserChipDepository.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\LaserChipDepositoryStore.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\LinearOctreeForActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\ScrolledScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\SingleLaser.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineLine.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineManufacture.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\manager\SplineManufactureConnection.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\manager\SplineManufactureManager.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineSequence.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineSource.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\manager\SplineSourceConnection.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\manager\SplineSourceManager.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshWorldBoundActor.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\StgProperties.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\StgUtil.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\StraightLaserChip.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\StringBoardActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\TreeFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\VBReplayRecorder.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\VirtualButton.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\WallAABActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\WallAAPrismActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\WalledScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\WalledSectionScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\WallPartsActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\WateringLaserChip.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\WorldBoundActor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\jp\ggaf\lib\util\AmountGraph.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\ColliAAB.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\ColliAABActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPrism.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\ColliAAPrismActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\CollisionCheckerLaserChip.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\ColliSphere.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\ColliSphereActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\CubeMapMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\CubeMapMeshSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\CubeMapMorphMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultBoardActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultBoardSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultCamera.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultD3DXAniMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultD3DXMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultDynaD3DXMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultGeometricActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\DefaultGod.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMeshSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMorphMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultPointSpriteActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\DefaultScene.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\DefaultUniverse.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DepositoryFormation.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineSequence.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedVelocitySplineSequence.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\FontSpriteActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\FontSpriteString.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\FormationTableScene.h" />
+    <ClInclude Include="include\GgafLibHeader.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\HomingLaserChip.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChip.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChipDepository.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChipDepositoryStore.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\LinearOctreeActorElem.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\LinearOctreeForActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\menu\MenuActor.hpp" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\ScrolledScene.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\SingleLaser.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineLine.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineManufacture.h" />
+    <ClInclude Include="include\jp\ggaf\lib\manager\SplineManufactureConnection.h" />
+    <ClInclude Include="include\jp\ggaf\lib\manager\SplineManufactureManager.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineSequence.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineSource.h" />
+    <ClInclude Include="include\jp\ggaf\lib\manager\SplineSourceConnection.h" />
+    <ClInclude Include="include\jp\ggaf\lib\manager\SplineSourceManager.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshWorldBoundActor.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="include\jp\ggaf\lib\StgProperties.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\StgUtil.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\StraightLaserChip.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\StringBoardActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\TreeFormation.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\VBReplayRecorder.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\VirtualButton.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\WallAABActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\WallAAPrismActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\WalledScene.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\WalledSectionScene.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\WallPartsActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\WateringLaserChip.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\WorldBoundActor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Release\BuildLog.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GgafDxCore\GgafDxCore.vcxproj">
+      <Project>{f04b2bae-f007-4de8-a91f-ea7e9ddcb6f2}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

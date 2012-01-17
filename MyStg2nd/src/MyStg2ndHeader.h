@@ -117,6 +117,8 @@
 // EnemyMassalia のランク式
 #define R_EnemyMassalia_ShotWay  (4+_RANK_*4)  //発射WAY数
 // EnemyMassaliaFragment のランク式
+// EnemyMassaliaFragment2 のランク式
+// EnemyMassaliaFragment3 のランク式
 // FormationMassalia のランク式
 #define R_FormationMassalia_LaunchInterval  (5  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔
 #define R_FormationMassalia_MvVelo  (8000+_RANK_*8000)  //移動速度
@@ -377,6 +379,8 @@ class FormationThalia;
 
 class EnemyMassalia;
 class EnemyMassaliaFragment;
+class EnemyMassaliaFragment2;
+class EnemyMassaliaFragment3;
 class FormationMassalia;
 
 class DepositoryConnection;
@@ -634,6 +638,8 @@ class CursorTitleMenu;
 
 #include "gecchi/actor/enemy/Massalia/EnemyMassalia.h"
 #include "gecchi/actor/enemy/Massalia/EnemyMassaliaFragment.h"
+#include "gecchi/actor/enemy/Massalia/EnemyMassaliaFragment2.h"
+#include "gecchi/actor/enemy/Massalia/EnemyMassaliaFragment3.h"
 #include "gecchi/actor/enemy/Massalia/FormationMassalia.h"
 
 #include "gecchi/actor/chikei/Torus/Torus.h"
