@@ -10,7 +10,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationEunomia";
 
     //エウノミア編隊用デポジトリ
-    _pDepoCon_Eunomia = connectDepositoryManager("DpCon_EnemyEunomia4Formation", this);
+    _pDepoCon_Eunomia = connectToDepositoryManager("DpCon_EnemyEunomia4Formation", this);
     setFormationAbleActorDepository(_pDepoCon_Eunomia->use());
 
     //スプライン定義ファイルを読み込む

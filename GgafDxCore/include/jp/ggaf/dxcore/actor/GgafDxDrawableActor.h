@@ -16,7 +16,7 @@ private:
     /** [r]一時テクニック名 */
     char* _temp_technique;
     /** [r]一時テクニック名ハッシュ値 */
-    unsigned int _hash_temp_technique;
+    hashval _hash_temp_technique;
     /** [r]一時テクニック終了フレーム */
     frame _frame_of_behaving_temp_technique_end;
     /** [r]一時テクニック適用中の場合 true */
@@ -51,7 +51,7 @@ public:
     /** [r]現在描画に使用しているシェーダーテクニック名 */
     char* _technique;
     /** [r]現在描画に使用しているのシェーダーテクニックのハッシュコード */
-    unsigned int _hash_technique;
+    hashval _hash_technique;
     /** [r]現在のマテリアルカラー */
     D3DMATERIAL9* _paMaterial;
     /** [r]モデル資源 */

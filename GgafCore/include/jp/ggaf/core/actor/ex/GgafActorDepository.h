@@ -152,10 +152,11 @@ public:
      * pActor->active();
      * </code></pre>
      *
+     * @param prm_offset_frames Šˆ“®ó‘Ô‚É‚·‚é’x‰„ƒtƒŒ[ƒ€
      * @return
      */
-    virtual GgafCore::GgafMainActor* dispatchForce() {
-        GgafMainActor* pActor = dispatch();
+    virtual GgafCore::GgafMainActor* dispatchForce(frame prm_offset_frames = 1) {
+        GgafMainActor* pActor = dispatch(prm_offset_frames);
         if (pActor == NULL) {
             getSubFirst()->moveLastImmed(); //‚¨K‚É‰ñ‚·
             pActor = getSubFirst();

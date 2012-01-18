@@ -22,7 +22,7 @@ EnemyVesta::EnemyVesta(const char* prm_name) :
     _frame_of_morph_interval   = 60;
 
     _pDepo_Fired = NULL;
-    _pDpcon = connectDepositoryManager("DpCon_Shot004", NULL);
+    _pDpcon = connectToDepositoryManager("DpCon_Shot004", NULL);
 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));

@@ -385,25 +385,25 @@ void RankUpStageController::processBehavior() {
 }
 void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_RANKUP_WAS_END) {
-        _TRACE_("RankUpStageController::onCatchEvent() prm_pSource="<<prm_pSource);
+        _TRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
         RankUpStage* pScene = (RankUpStage*)prm_pSource; //終了宣言したRankUpStage
         pScene->fadeoutScene(240);
         pScene->end(240);
     }
 
     if (prm_no == EVENT_RANKUP_ON_GARBAGED) {
-        _TRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
+        _TRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_ON_GARBAGED prm_pSource="<<prm_pSource);
         //スロー回復
         GgafScene* pRankUpStage = getSubFirst();
         if (pRankUpStage) {
             //他のランクアップ中
-            //既存ランクアップシーンをスローにする
+            //既存ランクアップシーンをスロー回復
             while (1) {
                 if (pRankUpStage == prm_pSource) {
                     break;
                 } else {
-                    pRankUpStage->addRunFrameOnce(-1);
-                    _TRACE_("pRankUpStage="<<pRankUpStage->getName()<<"をスロー");
+                    pRankUpStage->addRunFrameOnce(-1); //スロー回復
+                    _TRACE_("pRankUpStage="<<pRankUpStage->getName()<<"をスロー回復");
                     pRankUpStage = pRankUpStage->getNext();
                 }
             }

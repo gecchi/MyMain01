@@ -21,16 +21,6 @@ class GgafFactory {
     friend class GgafGod;
 
 private:
-    /** 先頭の注文 */
-    static GgafOrder* ROOT_ORDER;
-    /** 現在製造中の注文 */
-    static GgafOrder* CREATING_ORDER;
-    //CREATING_ORDER は、全て製造済みの場合、最終注文を指しつづける
-    //全て製造済みかつ、製品が全て取得されてしまった場合は NULL になる。
-    //_is_last_order_flg == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
-    //製造を行って次に進める。 _is_last_order_flg == false になるまで製造しつづける
-
-
     /**
      * 工場に注文を行う .
      * @param prm_id	注文識別ID番号
@@ -58,6 +48,15 @@ private:
     static void* obtain(unsigned long prm_id, GgafObject* prm_org);
 
 public:
+    /** 先頭の注文 */
+    static GgafOrder* ROOT_ORDER;
+    /** 現在製造中の注文 */
+    static GgafOrder* CREATING_ORDER;
+    //CREATING_ORDER は、全て製造済みの場合、最終注文を指しつづける
+    //全て製造済みかつ、製品が全て取得されてしまった場合は NULL になる。
+    //_is_last_order_flg == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
+    //製造を行って次に進める。 _is_last_order_flg == false になるまで製造しつづける
+
     /** [r]ゴミ箱(不要なアクター置き場) */
     static GgafGarbageBox* _pGarbageBox;
 

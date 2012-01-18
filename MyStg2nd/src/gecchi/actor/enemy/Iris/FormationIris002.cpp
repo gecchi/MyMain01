@@ -12,8 +12,8 @@ FormationIris002::FormationIris002(const char* prm_name) :
     _interval_frames = R_FormationIris002_LaunchInterval;   //イリスの間隔(frame)
     _mv_velo         = R_FormationIris002_MvVelo; //速度
     //スプライン移動の定義
-    _pSplLineCon = connectSplineLineManager("SpCon_002_02");
-    _pDepoCon = connectDepositoryManager("DpCon_Shot002", NULL);
+    _pSplLineCon = connectToSplineLineManager("SpCon_002_02");
+    _pDepoCon = connectToDepositoryManager("DpCon_Shot002", NULL);
     //イリス編隊作成
     _papIris = NEW EnemyIris*[_num_Iris];
     for (int i = 0; i < _num_Iris; i++) {

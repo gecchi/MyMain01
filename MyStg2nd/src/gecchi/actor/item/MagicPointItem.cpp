@@ -95,7 +95,6 @@ void MagicPointItem::processBehavior() {
             _pKurokoB->execGravitationVxyzMvSequence(pMyShip, 20000, 1000, 50000);
             _pKurokoA->setMvVelo(0);
             _pKurokoA->setMvAcce(0);
-            _pKurokoA->setMvVelo(5000);
         }
 
         //‚©‚ÂŽ©‹@‹ß•Ó‚É“ž’BH

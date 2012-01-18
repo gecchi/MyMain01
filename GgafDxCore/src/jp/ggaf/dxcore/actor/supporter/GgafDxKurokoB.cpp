@@ -63,6 +63,7 @@ void GgafDxKurokoB::behave() {
 
     if(_gravitation_mv_seq_flg) {
         int dX, dY, dZ;
+        double rdX,rdY,rdZ;
         if (_gravitation_mv_seq_pActor_target) {
             dX = _gravitation_mv_seq_pActor_target->_X - _pActor->_X;
             dY = _gravitation_mv_seq_pActor_target->_Y - _pActor->_Y;
@@ -72,6 +73,10 @@ void GgafDxKurokoB::behave() {
             dY = _gravitation_mv_seq_target_Y - _pActor->_Y;
             dZ = _gravitation_mv_seq_target_Z - _pActor->_Z;
         }
+//        double dMAX = (double)max3(GgafUtil::abs(dX), GgafUtil::abs(dY), GgafUtil::abs(dZ));
+//        rdX = dX / dMAX;
+//        rdY = dY / dMAX;
+//        rdZ = dZ / dMAX;
 
         velo last_veloVxMv = _veloVxMv;
         velo new_veloVxMv = _gravitation_mv_seq_max_velo * (dX * 1.0 / _gravitation_mv_seq_stop_renge);

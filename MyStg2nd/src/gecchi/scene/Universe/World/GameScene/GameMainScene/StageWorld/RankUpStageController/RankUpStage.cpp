@@ -52,7 +52,6 @@ void RankUpStage::processBehavior() {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
             }
             //継承実装クラスのRankUpStage::PROG_RESULTへ進捗更新待ちイベント待ち
-            _pMessage->_pFader->behave();
             break;
         }
         case RankUpStage::PROG_RESULT: {
@@ -89,6 +88,7 @@ void RankUpStage::processBehavior() {
         default:
             break;
     }
+    _pMessage->_pFader->behave();
 
 }
 void RankUpStage::processFinal() {

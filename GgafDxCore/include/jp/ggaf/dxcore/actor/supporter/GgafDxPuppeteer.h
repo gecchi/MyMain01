@@ -86,7 +86,6 @@ public:
      */
     GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet);
 
-
     /**
      * プレイしてもらう（＝パペットが操られる） .
      * @param prm_handed プレイするパペッターの操り棒 (LEFT_HAND or RIGHT_HAND)

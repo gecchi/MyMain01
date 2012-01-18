@@ -99,7 +99,7 @@ void GameDemoScene::processBehavior() {
                 _TRACE_("GameDemoScene::processBehavior() Prog(=GameDemoScene::PROG_RANKING) is Just Changed");
                 _pStringBoard01->update(100*1000, 100*1000, "RANKING NOW");
                 for (int i = 0; i < 10; i++) {
-                    _papLabelRanking[i]->locate(800*1000, 50*1000+(i*22*1000));
+                    _papLabelRanking[i]->locate(400*1000, 50*1000+(i*22*1000));
                     _papLabelRanking[i]->activate();
                     _papLabelRanking[i]->_pFader->setAlphaToBottom();
                     _papLabelRanking[i]->_pFader->beat(25*60, 2*60, 20*60, 1*60, 1);
@@ -140,9 +140,14 @@ void GameDemoScene::processFinal() {
 
 }
 void GameDemoScene::onInactive() {
+    _TRACE_("GameDemoScene::onInactive() ");
     if (P_STAGE_CONTROLLER->_pStageMainCannel) {
+        _TRACE_("GameDemoScene::onInactive() P_STAGE_CONTROLLER->_pStageMainCanne("<<
+                P_STAGE_CONTROLLER->_pStageMainCannel->getName()<<") をend()");
         P_STAGE_CONTROLLER->_pStageMainCannel->end();
         P_STAGE_CONTROLLER->_pStageMainCannel = NULL;
+    } else {
+        throwGgafCriticalException("GameDemoScene::onInactive() デモシーンのシーンが無い。あり得ないよ");
     }
 }
 

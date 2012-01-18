@@ -53,9 +53,9 @@ void EnemyMassaliaFragment2::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false); //Á–Å‚µ‚½ê‡A“¯ˆêƒtƒŒ[ƒ€“à‚ÌˆÈ~‚Ìˆ—‚Åƒqƒbƒg‚³‚¹‚È‚¢‚½‚ßid—vj
         sayonara();
         //’f•Ð‚Ì’f•Ð‚Ì’f•ÐoŒ»
-        DepositoryConnection* pCon = connectDepositoryManager("DpCon_MassaliaFragment3", this);
+        DepositoryConnection* pCon = connectToDepositoryManager("DpCon_MassaliaFragment3", this);
         GgafActorDepository* pDepo = pCon->use();
-        for (int i =0; i < R_EnemyMassalia_ShotWay; i++) {
+        for (int i = 0; i < R_EnemyMassalia_ShotWay; i++) {
             EnemyMassaliaFragment3* p = (EnemyMassaliaFragment3*)(pDepo->dispatch());
             if (p) {
                 p->locateAs(this);

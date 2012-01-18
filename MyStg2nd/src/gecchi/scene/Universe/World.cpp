@@ -27,7 +27,6 @@ void World::initialize() {
     _pLabel_Title->update(PX2CO(cx), PX2CO(cy - 16),
                             "[ VIOLET VREATH ]", ALIGN_CENTER, VALIGN_MIDDLE);
 
-
     orderActorToFactory(0, LabelGecchi16Font, "STR01");
     _pLabel_Wait = (LabelGecchi16Font*)obtainActorFromFactory(0);
     getDirector()->addSubGroup(_pLabel_Wait);
@@ -82,13 +81,26 @@ void World::processBehavior() {
     }
 
 #ifdef MY_DEBUG
-    sprintf(_aBufDebug, "%05uDRAW / %06uCHK / %07uF /%.1fFPS", GgafGod::_num_actor_drawing, CollisionChecker::_num_check, (unsigned int)askGod()->_frame_of_God, askGod()->_fps);
+    sprintf(_aBufDebug, "%05uDRAW / %06uCHK / %07uF / %03.1fFPS / NEW=%d",
+            GgafGod::_num_actor_drawing,
+            CollisionChecker::_num_check,
+            (unsigned int)askGod()->_frame_of_God,
+            askGod()->_fps,
+//            ((GgafFactory::CREATING_ORDER->_progress==1) ? GgafFactory::CREATING_ORDER->_pObject_Creation->toString() : "NOTHING"),
+            ((GgafFactory::CREATING_ORDER->_progress==1) ? GgafFactory::CREATING_ORDER->_id : 0)
+            );
     _pLabel_Debug->update(PX2CO(1), PX2CO(1), _aBufDebug);
     if (getActivePartFrame() % 60 == 0) {
         _TRACE_("_aBufDebug="<<_aBufDebug);
     }
 #else
-    sprintf(_aBufDebug, "%05uDRAW / %.1fFPS", GgafGod::_num_actor_drawing, askGod()->_fps);
+    sprintf(_aBufDebug, "%05uDRAW / %06uCHK / %07uF / %03.1fFPS / NEW=%d",
+            GgafGod::_num_actor_drawing,
+            CollisionChecker::_num_check,
+            (unsigned int)askGod()->_frame_of_God,
+            askGod()->_fps,
+            ((GgafFactory::CREATING_ORDER->_progress==1)  ? GgafFactory::CREATING_ORDER->_id : 0)
+            );
     _pLabel_Debug->update(PX2CO(1), PX2CO(1), _aBufDebug);
 #endif
 

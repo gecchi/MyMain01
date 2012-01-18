@@ -138,6 +138,7 @@
 #define DRAW_DEPTH_LEVEL_HOSHIBOSHI (MAX_DRAW_DEPTH_LEVEL-1)
 #define DRAW_DEPTH_LEVEL_BIGOBJ     (MAX_DRAW_DEPTH_LEVEL-2)
 
+/** int32ランダム関数マクロ。_FROM_と_TO_が逆転してはいけない(負の%演算はVC++で不定) */
 #define RND(_FROM_,_TO_) ((GgafCore::CmRandomNumberGenerator::getInstance()->genrand_int32() % ((_TO_) - (_FROM_)) ) + (_FROM_) )
 
 //イベント用 UINT32 数値宣言

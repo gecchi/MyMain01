@@ -31,8 +31,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         }
     }
 
-    _pCon_RefractionEffectDepository = connectDepositoryManager("DpCon_EffRefraction001", NULL);
-    _pCon_LaserChipDepoStore = connectDepositoryManager(
+    _pCon_RefractionEffectDepository = connectToDepositoryManager("DpCon_EffRefraction001", NULL);
+    _pCon_LaserChipDepoStore = connectToDepositoryManager(
             "DpCon_EnemyAstraeaLaserChip004DepoStore",
          //"DpCon_EnemyAstraeaLaserChip003DepoStore",
          //"DpCon_EnemyAstraeaLaserChip001DepoStore",

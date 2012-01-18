@@ -13,10 +13,7 @@ namespace GgafCore {
 class GgafOrder : public GgafObject {
     friend class GgafGod;
     friend class GgafFactory;
-
 private:
-    /** 注文識別ID */
-    unsigned long _id;
     /** 発注者 */
     GgafObject* _pOrderer;
     /** 一つ次の注文 */
@@ -27,8 +24,6 @@ private:
     bool _is_first_order_flg;
     /** 最後の注文フラグ */
     bool _is_last_order_flg;
-    /** 商品へのポインタ */
-    GgafObject* _pObject_Creation;
     /** 商品製造メソッド */
     GgafObject* (*_pFunc)(void*, void*, void*);
     /** 商品製造メソッドのパラメータ1 */
@@ -37,9 +32,14 @@ private:
     void* _pArg2;
     /** 商品製造メソッドのパラメータ3 */
     void* _pArg3;
+public:
+    /** 注文識別ID */
+    unsigned long _id;
     /** 進捗具合（0:未着手/1:製造中/2:製造済み） */
     int _progress;
-public:
+    /** 商品へのポインタ */
+    GgafObject* _pObject_Creation;
+
     GgafOrder(unsigned long prm_id);
     virtual ~GgafOrder();
 };

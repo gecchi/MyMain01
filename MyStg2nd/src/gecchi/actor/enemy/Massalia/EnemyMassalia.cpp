@@ -60,7 +60,7 @@ void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
         sayonara();
         //断片出現
-        DepositoryConnection* pCon = connectDepositoryManager("DpCon_MassaliaFragment", this);
+        DepositoryConnection* pCon = connectToDepositoryManager("DpCon_MassaliaFragment", this);
         GgafActorDepository* pDepo = pCon->use();
         for (int i =0; i < R_EnemyMassalia_ShotWay; i++) {
             EnemyMassaliaFragment* p = (EnemyMassaliaFragment*)(pDepo->dispatch());

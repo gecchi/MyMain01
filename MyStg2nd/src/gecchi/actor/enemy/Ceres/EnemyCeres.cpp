@@ -37,7 +37,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
         _createGgafActorDepository = false;
     }
 
-    _pSplLineCon = connectSplineLineManager("SpCon_001");
+    _pSplLineCon = connectToSplineLineManager("SpCon_001");
     _pProgram_CeresMove = NEW FixedVelocitySplineSequence(_pKurokoA, _pSplLineCon->use(), 5000); //ˆÚ“®‘¬“xŒÅ’è
 
 //    _pProgram_CeresMove = NEW FixedFrameSplineSequence(_pKurokoA, _pSplLineCon->use(), 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è

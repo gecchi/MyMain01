@@ -8,10 +8,10 @@ using namespace MyStg2nd;
 FormationMassalia::FormationMassalia(const char* prm_name)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationMassalia";
-    _pDepoCon_Massalia = connectDepositoryManager("DpCon_Massalia", this);
-    _pDepoCon_Fragment = connectDepositoryManager("DpCon_MassaliaFragment", this);
-    _pDepoCon_Fragment2 = connectDepositoryManager("DpCon_MassaliaFragment2", this);
-    _pDepoCon_Fragment3 = connectDepositoryManager("DpCon_MassaliaFragment3", this);
+    _pDepoCon_Massalia = connectToDepositoryManager("DpCon_Massalia", this);
+    _pDepoCon_Fragment = connectToDepositoryManager("DpCon_MassaliaFragment", this);
+    _pDepoCon_Fragment2 = connectToDepositoryManager("DpCon_MassaliaFragment2", this);
+    _pDepoCon_Fragment3 = connectToDepositoryManager("DpCon_MassaliaFragment3", this);
 
 
     setFormationAbleActorDepository(_pDepoCon_Massalia->use());

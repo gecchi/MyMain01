@@ -11,9 +11,9 @@ namespace MyStg2nd {
 #define VB MyStg2nd::God::_pVbtn_Active
 
 
-//#define connectDepositoryManager(X) (connectDepositoryManager(X)))
-#define connectDepositoryManager(X,Y) ((MyStg2nd::DepositoryConnection*)(P_GOD->_pDepoManager->connect((X),(Y))))
-#define connectSplineLineManager(X)   ((MyStg2nd::SplineLineConnection*)(P_GOD->_pSpl3DManager->connect(X)))
+//#define connectToDepositoryManager(X) (connectToDepositoryManager(X)))
+#define connectToDepositoryManager(X,Y) ((MyStg2nd::DepositoryConnection*)(P_GOD->_pDepoManager->connect((X),(Y))))
+#define connectToSplineLineManager(X)   ((MyStg2nd::SplineLineConnection*)(P_GOD->_pSpl3DManager->connect(X)))
 
 /**
  * ê_

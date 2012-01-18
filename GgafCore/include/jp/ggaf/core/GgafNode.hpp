@@ -320,6 +320,11 @@ public:
         return _is_last_flg;
     }
 
+    virtual char* toString() override {
+        return getName();
+
+    }
+
 };
 
 //////////////////////////////////////////////////////////////////

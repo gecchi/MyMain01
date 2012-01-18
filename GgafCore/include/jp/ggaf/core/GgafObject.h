@@ -24,7 +24,7 @@ public:
      */
 //    virtual char* getName();
 
-    virtual std::string toString();
+    virtual char* toString();
     virtual ~GgafObject();
 };
 

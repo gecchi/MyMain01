@@ -116,29 +116,27 @@ void GgafDxPuppeteer::exchangPerformance() {
 }
 
 void GgafDxPuppeteer::play(GgafDxPuppeteerStick prm_handed,
-                              UINT prm_performance_no,
-                              double prm_loopnum,
-                              double prm_target_speed,
-                              frame prm_shift_speed_frames,
-                              double prm_target_weight,
-                              frame prm_shift_weight_frames,
-                              GgafDxPuppeteerMethod prm_method ) {
+                           UINT prm_performance_no,
+                           double prm_loopnum,
+                           double prm_target_speed,
+                           frame prm_shift_speed_frames,
+                           double prm_target_weight,
+                           frame prm_shift_weight_frames,
+                           GgafDxPuppeteerMethod prm_method ) {
     _aStick[prm_handed]._pPerformance = &(_paPerformances[prm_performance_no]);
     Performance* p = _aStick[prm_handed]._pPerformance;
     p->_time_of_one_loop = p->_pAnimationSet->GetPeriod();
-//    p->_local_time       = 0.0;
     p->_target_loop      = prm_loopnum;
-//    p->_loop             = 0.0;
 
     if (prm_shift_speed_frames == 0) {
-        p->_speed             = prm_target_speed;
-        p->_inc_speed         = 0;
-        p->_is_shifting_speed = false;
-        p->_target_speed      = prm_target_speed;
+        p->_speed              = prm_target_speed;
+        p->_inc_speed          = 0;
+        p->_is_shifting_speed  = false;
+        p->_target_speed       = prm_target_speed;
     } else {
-        p->_inc_speed         = (prm_target_speed - p->_speed) / prm_shift_speed_frames;
-        p->_is_shifting_speed = true;
-        p->_target_speed      = prm_target_speed;
+        p->_inc_speed          = (prm_target_speed - p->_speed) / prm_shift_speed_frames;
+        p->_is_shifting_speed  = true;
+        p->_target_speed       = prm_target_speed;
     }
     if (prm_shift_weight_frames == 0) {
         p->_weight             = prm_target_weight;
@@ -222,11 +220,11 @@ void GgafDxPuppeteer::behave() {
                     //—‘z’l‚É•â³
                     p->_local_time = - (p->_target_loop * p->_time_of_one_loop);
                 }
-                p->_inc_speed                      = 0;
-                p->_is_shifting_speed              = false;
+                p->_inc_speed          = 0;
+                p->_is_shifting_speed  = false;
 
-                p->_inc_weight                     = 0;
-                p->_is_shifting_weight             = false;
+                p->_inc_weight         = 0;
+                p->_is_shifting_weight = false;
 
                 _aStick[i]._pPerformance = NULL;
             }

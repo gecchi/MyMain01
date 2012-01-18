@@ -190,9 +190,7 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
             pOppColliPart = pOppCollisionArea->_papColliPart[j];
             if (!pOppColliPart->_is_valid_flg) { continue; }
             opp_shape_kind = pOppColliPart->_shape_kind;
-#ifdef MY_DEBUG
             CollisionChecker::_num_check++;
-#endif
             if (shape_kind == COLLI_AAB) {
                 if (opp_shape_kind == COLLI_AAB) {
                     //ÅÉAAB Ç∆ AABÅÑ
