@@ -74,11 +74,9 @@ public:
      * 壁ブロック情報ファイルを読み込み、オブジェクトに展開します。
      * @param prm_name シーン名
      * @param prm_data_filename 壁ブロック情報ファイル
-     * @return
+     * @param prm_pScrolledScene スクロールシーンを継承したシーンオブジェクト
      */
     WalledSectionScene(const char* prm_name, const char* prm_data_filename, ScrolledScene* prm_pScrolledScene);
-
-
 
     /**
      * 外壁シーンを設定.

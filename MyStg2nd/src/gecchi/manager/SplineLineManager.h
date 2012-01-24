@@ -15,13 +15,13 @@ public:
 
     /**
      * コンストラクタ
-     * @param prm_manager_name マネージャ名称(リテラル必須)
+     * @param prm_manager_name マネージャ名称
      */
     SplineLineManager(const char* prm_manager_name);
 
-    GgafLib::SplineLine* processCreateResource(char* prm_idstr, void* prm_p);
+    GgafLib::SplineLine* processCreateResource(char* prm_idstr, void* prm_p) override;
 
-    GgafCore::GgafResourceConnection<GgafLib::SplineLine>* processCreateConnection(char* prm_idstr, GgafLib::SplineLine* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafLib::SplineLine>* processCreateConnection(char* prm_idstr, GgafLib::SplineLine* prm_pResource) override;
 
 
     virtual ~SplineLineManager() {

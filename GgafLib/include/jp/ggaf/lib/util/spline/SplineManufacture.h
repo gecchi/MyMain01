@@ -51,6 +51,10 @@ public:
      */
     SplineManufacture(const char* prm_source_file);
 
+    /**
+     * コンストラクタ .
+     * @param prm_pSplSrc スプライン座標情報オブジェクト
+     */
     SplineManufacture(SplineSource* prm_pSplSrc);
 
 

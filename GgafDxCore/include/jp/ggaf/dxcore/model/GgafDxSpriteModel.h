@@ -40,18 +40,11 @@ public:
     GgafDxSpriteModel(char* prm_model_name);
 
 public:
-    /** 全アニメパターン数(0～) */
-//    int _pattno_uvflip_Max;
     float _fSize_SpriteModelWidthPx;
     float _fSize_SpriteModelHeightPx;
     int _row_texture_split;
     int _col_texture_split;
 
-    /**
-     * GgafDxSpriteModelオブジェクトの描画<BR>
-     * @param	prm_pActor_Target 描画するGgafDxSpriteActor
-     * @return	HRESULT
-     */
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;

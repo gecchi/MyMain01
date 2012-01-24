@@ -148,10 +148,12 @@ public:
     float _velo_rr;
 
 public:
+
     /**
      * 魔法の定義を行う .
      * 飛びレベルとはレベル差が１より大きい(レベル差２以上)を指す。
      * @param prm_name 魔法名
+     * @param prm_pMP マジックポイントの数量バー
      * @param prm_max_level 本魔法の最高レベル 1～MMETER_MAX_LEVEL
      * @param prm_cost_base 基本魔法コスト
      * @param prm_fRate_cost 飛びレベル時の魔法コスト削減割合 0.0～1.0 (1.0:飛びレベルでも割引無し、0.8:レベル差２以上時、魔法コスト２割引)
@@ -267,14 +269,14 @@ public:
 
     /**
      * 魔法発動終了コールバック(１回だけコールバック) .
-     * @param prm_last_level 発動中だった頃の、現在のレベル。(0～ )
-     * @param prm_now_level 発動により、これから昇格する新しいレベル。(1～ )
+     * @param prm_now_level 発動中だった頃の、現在のレベル。(0～ )
+     * @param prm_new_level 発動により、これから昇格する新しいレベル。(1～ )
      */
     virtual void processInvokeFinish(int prm_now_level, int prm_new_level) {};
 
     /**
      * 効果発揮実行 .
-     * @param prm_new_level
+     * @param prm_level 効果発揮時レベル
      */
     virtual int effect(int prm_level);
 
@@ -342,10 +344,11 @@ public:
 //    virtual void processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {};
 
 
-    /**
-     * 魔法を完了する .
-     */
+//    /**
+//     * 魔法を完了する .
+//     */
 //    virtual void commit();
+
     /**
      * 魔法をキャンセルする .
      */

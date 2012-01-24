@@ -70,6 +70,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name アクターの名前
+     * @param prm_pStat アクターのステータス（NULLの場合は自動生成される）
      */
     GgafActor(const char* prm_name, GgafStatus* prm_pStat);
 
@@ -176,7 +177,7 @@ public:
      * のコールバックが行われます。
      * 編隊ボーナス、アイテム出現等の処理を GgafDxFormationActor::onDestroyedAll() の
      * オーバーライドで行って下さい。
-     * <pre><code>
+     * <code><pre>
      * ＜例＞
      * void SampleActor::onHit(GgafActor* prm_pOtherActor) {
      *    //自身の耐久力チェック

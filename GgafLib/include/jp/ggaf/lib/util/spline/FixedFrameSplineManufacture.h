@@ -25,18 +25,29 @@ public:
     bool _turn_optimize;
     /** [r]最終地点到着までのフレーム数 */
     frame _spent_frame;
+
     /**
      * コンストラクタ .
      * @param prm_source_file スプライン座標情報ファイル
      * @param prm_spent_frame 最終地点到着までのフレーム数
      * @param prm_ang_veloRzRyMv アクターの旋回角度
+     * @param prm_turn_way アクターの旋回方法(デフォルト TURN_CLOSE_TO)
+     * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト true)
      */
-    FixedFrameSplineManufacture(const char* prm_source_file, 
-                                frame prm_spent_frame, 
+    FixedFrameSplineManufacture(const char* prm_source_file,
+                                frame prm_spent_frame,
                                 ang_velo prm_ang_veloRzRyMv = (D90ANG/9),
                                 int prm_turn_way = TURN_CLOSE_TO,
                                 bool prm_turn_optimaize = true );
 
+    /**
+     * コンストラクタ .
+     * @param prm_pSplSrc スプライン座標情報オブジェクト
+     * @param prm_spent_frame スプライン座標情報ファイル
+     * @param prm_ang_veloRzRyMv アクターの旋回角度
+     * @param prm_turn_way アクターの旋回方法 (デフォルト TURN_CLOSE_TO)
+     * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト true)
+     */
     FixedFrameSplineManufacture(SplineSource* prm_pSplSrc,
                                 frame prm_spent_frame,
                                 ang_velo prm_ang_veloRzRyMv = (D90ANG/9),

@@ -69,8 +69,9 @@ public:
     }
 
     /**
-     * 何かの処理<BR>
-     * @param prm_no 何かを表す数値
+     * 何かのイベント処理<BR>
+     * @param prm_no イベント番号
+     * @param prm_pSource イベント発生元
      */
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }

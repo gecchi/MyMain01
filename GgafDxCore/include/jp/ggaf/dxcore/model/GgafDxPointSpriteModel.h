@@ -47,11 +47,7 @@ public:
     GgafDxPointSpriteModel(char* prm_model_name);
 
 public:
-    /**
-     * GgafDxPointSpriteModelオブジェクトの描画<BR>
-     * @param   prm_pActor_Target 描画するGgafDxPointSpriteActor
-     * @return  HRESULT
-     */
+
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;

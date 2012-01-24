@@ -41,8 +41,11 @@ private:
     virtual GgafResourceConnection<T>* find(char* prm_idstr);
 
     /**
-     * 資源のを生成。.
-     * @param prm_idstr 識別名
+     * 資源のを生成する .
+     * connect() 時、資源が実生成場合呼び出されます。
+     * processCreateResource(char*, void*) をコールします。
+     * @param prm_idstr connect() で渡された識別名
+     * @param prm_p connect() で渡された自由パラメータ
      */
     T* createResource(char* prm_idstr, void* prm_p);
 
@@ -82,6 +85,7 @@ protected:
      * このメソッドは createResource から呼び出され、本テンプレート利用者が実装する必要があります。<BR>
      * prm_idstr から 資源を生成するロジックを実装してく下さい。<BR>
      * @param prm_idstr この識別名が渡された時、どういう資源を生成(new)するか？ という識別名
+     * @param prm_p 自由パラメータ
      * @return 資源インスタンスのポインタ
      */
     virtual T* processCreateResource(char* prm_idstr, void* prm_p) = 0;

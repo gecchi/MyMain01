@@ -147,7 +147,7 @@ void GameDemoScene::onInactive() {
         P_STAGE_CONTROLLER->_pStageMainCannel->end();
         P_STAGE_CONTROLLER->_pStageMainCannel = NULL;
     } else {
-        throwGgafCriticalException("GameDemoScene::onInactive() デモシーンのシーンが無い。あり得ないよ");
+        //throwGgafCriticalException("GameDemoScene::onInactive() デモシーンのシーンが無い。あり得ないよ");
     }
 }
 

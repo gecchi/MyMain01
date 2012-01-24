@@ -30,13 +30,6 @@ public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pCollisionChecker;
 
-    /**
-     * コンストラクタ
-     * DefaultMeshSetActor で使用するモデルIDは避けて下さい。
-     * @param prm_name
-     * @param prm_model
-     * @return
-     */
     SpriteMeshSetActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override {

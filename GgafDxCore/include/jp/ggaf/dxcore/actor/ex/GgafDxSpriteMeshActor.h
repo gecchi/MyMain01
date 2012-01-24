@@ -23,8 +23,8 @@ public:
      * GgafDxSpriteMeshSetActor で使用するモデルIDは避けて下さい。
      * @param prm_name
      * @param prm_model
+     * @param prm_pStat
      * @param prm_pChecker
-     * @return
      */
     GgafDxSpriteMeshActor(const char* prm_name,
                            const char* prm_model,

@@ -14,12 +14,11 @@ public:
     /** [rw]各文字間隔(px) */
     float _aWidthPx[256];
 
-
     /**
      *
      * @param prm_name
-     * @param prm_model 文字セットテクスチャのモデル
-     * @return
+     * @param prm_model  文字セットテクスチャのモデル
+     * @param prm_pStat
      */
     GgafDxStringSpriteActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 

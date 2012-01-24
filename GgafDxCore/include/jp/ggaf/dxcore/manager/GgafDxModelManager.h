@@ -77,6 +77,7 @@ public:
      *  "C"          --> GgafDxD3DXMeshModel のモデル。読み込むファイルは "cube.x"
      *  </pre>
      * @param prm_idstr モデル識別ID
+     * @param prm_p 自由パラメータ、現在未使用
      * @return モデルオブジェクト
      */
     GgafDxModel* processCreateResource(char* prm_idstr, void* prm_p) override;

@@ -36,7 +36,8 @@ public:
     /**
      * コンストラクタ .
      * @param prm_hInstance
-     * @param prm_pHWndPrimary
+     * @param prm_pHWndPrimary １画面目HWND
+     * @param prm_pHWndSecondary ２画面目HWND
      */
     God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
 

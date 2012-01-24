@@ -15,13 +15,15 @@ public:
 
     /**
      * コンストラクタ
-     * @param prm_manager_name マネージャ名称(リテラル必須)
+     * @param prm_manager_name マネージャ名称
      */
     GgafDxSeManager(const char* prm_manager_name);
 
-    GgafDxSe* processCreateResource(char* prm_idstr, void* prm_p);
+    GgafCore::GgafResourceConnection<GgafDxSe>* processCreateConnection(char* prm_idstr, GgafDxSe* prm_pResource) override;
 
-    GgafCore::GgafResourceConnection<GgafDxSe>* processCreateConnection(char* prm_idstr, GgafDxSe* prm_pResource);
+    GgafDxSe* processCreateResource(char* prm_idstr, void* prm_p) override;
+
+
 
     virtual ~GgafDxSeManager() {
     }

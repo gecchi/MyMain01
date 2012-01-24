@@ -76,9 +76,11 @@ public:
     }
 
     /**
-     * モデルを描画します.
+     * モデルを描画 .
+     * 下位クラスでモデル描画ロジックを実装して下さい。
      * @param prm_pActor_Target 描画するモデルのアクター
-     * @return HRESULT
+     * @param prm_draw_set_num 描画するモデルのセット数
+     * @return
      */
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) = 0;
 

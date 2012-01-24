@@ -191,42 +191,61 @@ void MyOptionWateringLaserChip001::processBehavior() {
 //
             int vTx,vTy,vTz;
             if (_pChip_front == NULL) {
-//                //先端ならば特別に、オプションの反対の座標をターゲットする
-//                int dx = (_X - _pOrg->_X);
-//                int dy = (_Y - _pOrg->_Y);
-//                int dz = (_Z - _pOrg->_Z);
-//                static coord zf = DX2CO(P_CAM->_zf)*2;
-//                vTx = _X+dx*(dx == 0 ? zf : abs(zf/dx));
-//                vTy = _Y+dy*(dy == 0 ? zf : abs(zf/dy));
-//                vTz = _Z+dz*(dz == 0 ? zf : abs(zf/dz));
-
-//                //先端ならば特別に
-//                vTx = _X+_pKurokoB->_veloVxMv*5;
-//                vTy = _Y+_pKurokoB->_veloVyMv*5;
-//                vTz = _Z+_pKurokoB->_veloVzMv*5;
-
-                vTx = (_X - _pOrg->_X);
-                vTy = (_Y - _pOrg->_Y);
-                vTz = (_Z - _pOrg->_Z);
-
+                if (_pKurokoB->_veloVxMv > 0) {
+                    vTx = (Universe::_X_goneRight + 1000) - _X;
+                    vTy = 0;
+                    vTz = 0;
+                } else {
+                    vTx = (Universe::_X_goneLeft - 1000) - _X;
+                    vTy = 0;
+                    vTz = 0;
+                }
             } else {
                 LaserChip* p = _pChip_front;
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 3; i++) {
                     if (p->_pChip_front == NULL) {
                         vTx = (p->_X - _X);
                         vTy = (p->_Y - _Y);
                         vTz = (p->_Z - _Z);
+                        break;
                     } else {
                         p = p->_pChip_front;
                     }
                 }
-
-
-//                vTx = _X+_pChip_front->_pKurokoB->_veloVxMv*3;
-//                vTy = _Y+_pChip_front->_pKurokoB->_veloVyMv*3;
-//                vTz = _Z+_pChip_front->_pKurokoB->_veloVzMv*3;
-
             }
+//            if (_pChip_front == NULL) {
+////                //先端ならば特別に、オプションの反対の座標をターゲットする
+////                int dx = (_X - _pOrg->_X);
+////                int dy = (_Y - _pOrg->_Y);
+////                int dz = (_Z - _pOrg->_Z);
+////                static coord zf = DX2CO(P_CAM->_zf)*2;
+////                vTx = _X+dx*(dx == 0 ? zf : abs(zf/dx));
+////                vTy = _Y+dy*(dy == 0 ? zf : abs(zf/dy));
+////                vTz = _Z+dz*(dz == 0 ? zf : abs(zf/dz));
+//
+////                //先端ならば特別に
+////                vTx = _X+_pKurokoB->_veloVxMv*5;
+////                vTy = _Y+_pKurokoB->_veloVyMv*5;
+////                vTz = _Z+_pKurokoB->_veloVzMv*5;
+//                vTx = (_X - _pOrg->_X);
+//                vTy = (_Y - _pOrg->_Y);
+//                vTz = (_Z - _pOrg->_Z);
+//            } else {
+//                LaserChip* p = _pChip_front;
+//                for (int i = 0; i < 5; i++) {
+//                    if (p->_pChip_front == NULL) {
+//                        vTx = (p->_X - _X);
+//                        vTy = (p->_Y - _Y);
+//                        vTz = (p->_Z - _Z);
+//                    } else {
+//                        p = p->_pChip_front;
+//                    }
+//                }
+////                vTx = _X+_pChip_front->_pKurokoB->_veloVxMv*3;
+////                vTy = _Y+_pChip_front->_pKurokoB->_veloVyMv*3;
+////                vTz = _Z+_pChip_front->_pKurokoB->_veloVzMv*3;
+//
+//            }
 
             //自→仮自。上図の |仮自| = 5*vM
             int vVMx = _pKurokoB->_veloVxMv*5;

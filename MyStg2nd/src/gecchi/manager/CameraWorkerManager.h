@@ -13,21 +13,11 @@ class CameraWorkerManager : public GgafCore::GgafResourceManager<CameraWorker> {
 
 public:
 
-    /**
-     * コンストラクタ
-     * @param prm_manager_name マネージャ名称(リテラル必須)
-     */
     CameraWorkerManager(const char* prm_manager_name);
 
-    /**
-     * CameraWorker を識別文字列から生成。
-     * 本アプリのCameraWorker はココに集約しようと思っている。
-     * @param prm_idstr
-     * @return CameraWorker
-     */
-    CameraWorker* processCreateResource(char* prm_idstr, void* prm_p);
+    CameraWorker* processCreateResource(char* prm_idstr, void* prm_p) override;
 
-    GgafCore::GgafResourceConnection<CameraWorker>* processCreateConnection(char* prm_idstr, CameraWorker* prm_pResource);
+    GgafCore::GgafResourceConnection<CameraWorker>* processCreateConnection(char* prm_idstr, CameraWorker* prm_pResource) override;
 
     virtual ~CameraWorkerManager() {
     }

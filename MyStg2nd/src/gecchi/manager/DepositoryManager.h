@@ -19,15 +19,9 @@ public:
      */
     DepositoryManager(const char* prm_manager_name);
 
-    /**
-     * デポジトリを識別文字列から生成。
-     * 本アプリのデポジトリはココに集約しようと思っている。
-     * @param prm_idstr
-     * @return デポジトリ
-     */
-    GgafCore::GgafActorDepository* processCreateResource(char* prm_idstr, void* prm_p);
+    GgafCore::GgafActorDepository* processCreateResource(char* prm_idstr, void* prm_p) override;
 
-    GgafCore::GgafResourceConnection<GgafCore::GgafActorDepository>* processCreateConnection(char* prm_idstr, GgafCore::GgafActorDepository* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafCore::GgafActorDepository>* processCreateConnection(char* prm_idstr, GgafCore::GgafActorDepository* prm_pResource) override;
 
     virtual ~DepositoryManager() {
     }

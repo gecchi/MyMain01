@@ -120,7 +120,7 @@
 // EnemyMassaliaFragment2 のランク式
 // EnemyMassaliaFragment3 のランク式
 // FormationMassalia のランク式
-#define R_FormationMassalia_LaunchInterval  (5  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔
+#define R_FormationMassalia_LaunchInterval  (10  + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
 #define R_FormationMassalia_MvVelo  (8000+_RANK_*8000)  //移動速度
 #define R_FormationMassalia_DurationFreams  (60*20)  //持続時間
 // gen02 end

@@ -10,10 +10,5 @@ StagePartController::StagePartController(const char* prm_name) : DefaultScene(pr
     _class_name = "StagePartController";
 }
 
-//void StagePartController::addSubLast(GgafScene* prm_pScene) {
-//    DefaultScene::addSubLast(prm_pScene);
-//
-//}
-
 StagePartController::~StagePartController() {
 }

@@ -51,6 +51,11 @@ public:
     int _flip_Y;
     int _flip_Z;
 
+    /**
+     *
+     * @param prm_pManufacture
+     * @param prm_pKurokoA
+     */
     SplineSequence(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
 
     /**

@@ -212,7 +212,7 @@ public:
      * @param x2 右下奥X座標
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
-     * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_prism プリズム位置（POS_PRISM_**_**)
      * @param rotX 当たり判定の直方体を、向きに伴ってローカルX軸での回転並行移動を行う場合 true
      * @param rotY 当たり判定の直方体を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
      * @param rotZ 当たり判定の直方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true

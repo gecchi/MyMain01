@@ -37,6 +37,7 @@ private:
     /**
      * ツリー構造において、再帰呼び出しを行う。
      * @param pFunc 再帰呼び出しするメソッド(frame 引数有り)
+     * @param prm_frame pFuncの引数であるframe
      */
     void callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame);
 

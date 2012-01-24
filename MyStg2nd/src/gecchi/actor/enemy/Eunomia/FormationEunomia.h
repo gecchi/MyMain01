@@ -42,8 +42,8 @@ public:
     virtual void processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) = 0;
 
     /**
-     * 編隊が全て自機側の攻撃で殲滅させられた場合
-     * @param prm_pActorLast 最後に破壊されたアクター
+     * 編隊が全て自機側の攻撃で殲滅させられた場合の処理実装 .
+     * @param prm_pActor_LastDestroyed  最後に破壊されたアクター
      */
     virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override;
 

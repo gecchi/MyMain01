@@ -155,6 +155,13 @@ public:
 
     virtual void reset() override;
     virtual void resetTree() override;
+
+    /**
+     * 配下全てのシーンと、その各シーンの監督(GgafDirector)、その配下全アクターに対して指定の関数を実行させる .
+     * @param pFunc オブジェクトに実行させたい関数
+     * @param prm1 渡したい引数その１
+     * @param prm2 渡したい引数その２
+     */
     virtual void executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
 
     /**

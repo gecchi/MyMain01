@@ -19,21 +19,13 @@ public:
      */
     GgafDxTextureManager(const char* prm_manager_name);
 
-    /**
-     * オーバーライド
-     */
-    GgafDxTexture* processCreateResource(char* prm_idstr, void* prm_p);
+    GgafCore::GgafResourceConnection<GgafDxTexture>* processCreateConnection(char* prm_idstr, GgafDxTexture* prm_pResource) override;
+
+    GgafDxTexture* processCreateResource(char* prm_idstr, void* prm_p) override;
 
     void releaseAll();
 
     void restoreAll();
-
-
-
-    /**
-     * オーバーライド
-     */
-    GgafCore::GgafResourceConnection<GgafDxTexture>* processCreateConnection(char* prm_idstr, GgafDxTexture* prm_pResource);
 
     virtual ~GgafDxTextureManager() {
     }

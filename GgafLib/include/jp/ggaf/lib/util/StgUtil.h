@@ -810,19 +810,20 @@ public:
                              velo prm_velo_top, acce prm_acce_top,
                              int prm_num, float prm_attenuated);
 
+
     /**
      * 自分の向いている方向（_RX > _RZ > _RY）に向かって N*M Way弾を撃つ（TODO:未検証） .
-     * 内部で次の項目が設定されます。
-     * ・ショットの _X, _Y, _Z 座標
-     * ・ショットの GgafDxKurokoA の移動方向、向き、移動速度、加速度
+     * 内部で次の項目が設定されます。<BR>
+     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの GgafDxKurokoA の移動方向、向き、移動速度、加速度<BR>
      * @param prm_pFrom 発射元
      * @param prm_pDepo_Shot 発射するショットのデポジトリ
      * @param prm_r 発射元と発射するショットの初期距離(発射元からの半径)。
      *              同時に方向ベクトルになるため、但し0より大きい必要がある。
      * @param prm_way_N N-Way数
      * @param prm_way_M M-Way数
-     * @param prm_angClearance N-Wayの間隔角度
-     * @param prm_angClearance M-Wayの間隔角度
+     * @param prm_angClearance_N N-Wayの間隔角度
+     * @param prm_angClearance_M M-Wayの間隔角度
      * @param prm_velo 発射するショット初期速度
      * @param prm_acce 発射するショット加速度
      */

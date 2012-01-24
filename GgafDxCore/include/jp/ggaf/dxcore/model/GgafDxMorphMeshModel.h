@@ -118,11 +118,6 @@ public:
 
 public:
 
-    /**
-     * GgafDxMorphMeshModelオブジェクトの描画<BR>
-     * @param	prm_pActor_Target 描画するGgafDxMorphMeshModel
-     * @return	HRESULT
-     */
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;

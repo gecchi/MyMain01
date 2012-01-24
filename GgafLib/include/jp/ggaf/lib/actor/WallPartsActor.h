@@ -88,13 +88,14 @@ public:
     virtual void drawHitArea() override;
 
     /**
-     * 壁ブロックを設定する
+     * 壁ブロックを設定する .
+     * @param prm_pWalledSectionScene WalledSectionSceneオブジェクト
+     * @param prm_pos_prism プリズム位置番号（プリズム型ブロックの場合のみ）
      * @param prm_wall_draw_face 壁ブロック表示面情報
      * @param prm_aColliBoxStretch 壁ブロック当たり判定情報
      */
     virtual void config(WalledSectionScene* prm_pWalledSectionScene,
                         int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch);
-
 
     virtual ~WallPartsActor();
 };

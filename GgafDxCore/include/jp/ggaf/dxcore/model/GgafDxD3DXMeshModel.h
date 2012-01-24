@@ -36,11 +36,6 @@ public:
      */
     GgafDxD3DXMeshModel(char* prm_model, DWORD prm_dwOptions);
 
-    /**
-     * GgafDxD3DXMeshModelオブジェクトの描画<BR>
-     * @param	prm_pActor_Target 描画するGgafDxD3DXMeshActor
-     * @return	HRESULT
-     */
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;

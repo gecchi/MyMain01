@@ -14,19 +14,13 @@ public:
 
     /**
      * コンストラクタ
-     * @param prm_manager_name マネージャ名称(リテラル必須)
+     * @param prm_manager_name マネージャ名称
      */
     SplineManufactureManager(const char* prm_manager_name);
 
-    /**
-     * デポジトリを識別文字列から生成。
-     * 本アプリのスプライン座標セットはココに集約しようと思っている。
-     * @param prm_idstr
-     * @return SplineManufactureオブジェクト
-     */
-    SplineManufacture* processCreateResource(char* prm_idstr, void* prm_p);
+    SplineManufacture* processCreateResource(char* prm_idstr, void* prm_p) override;
 
-    GgafCore::GgafResourceConnection<SplineManufacture>* processCreateConnection(char* prm_idstr, SplineManufacture* prm_pResource);
+    GgafCore::GgafResourceConnection<SplineManufacture>* processCreateConnection(char* prm_idstr, SplineManufacture* prm_pResource) override;
 
     virtual ~SplineManufactureManager() {
     }

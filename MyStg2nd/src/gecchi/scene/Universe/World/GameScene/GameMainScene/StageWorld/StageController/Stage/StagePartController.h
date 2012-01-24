@@ -9,13 +9,6 @@ public:
 
     StagePartController(const char* prm_name);
 
-//ここで挫折。方針変更
-//    /**
-//     * スロー
-//     * @param prm_pScene
-//     */
-//    virtual void addSubLast(GgafScene* prm_pScene) override;
-
     virtual ~StagePartController();
 };
 

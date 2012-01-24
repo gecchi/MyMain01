@@ -81,6 +81,17 @@ public:
      * @param prm_pArg2	製造処理を行う関数への引数2
      * @param prm_pArg3	製造処理を行う関数への引数3
      */
+
+    /**
+     * 工場にアクター作成の注文を行う（メインスレッドが使用） .
+     * メイン処理が呼び出します。<BR>
+     * @param prm_id    注文識別ID番号
+     * @param prm_pFunc 実際に製造処理を行う関数のポインタ
+     * @param prm_pOrderer 注文元オブジェクト
+     * @param prm_pArg1 製造処理を行う関数への引数1
+     * @param prm_pArg2 製造処理を行う関数への引数2
+     * @param prm_pArg3 製造処理を行う関数への引数3
+     */
     template<class X>
     static void orderActor(unsigned long prm_id,
                            X* (*prm_pFunc)(void*, void*, void*),
@@ -96,6 +107,7 @@ public:
      * メイン処理が呼び出します。<BR>
      * @param prm_id	注文識別ID番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
+     * @param prm_pOrderer 注文元オブジェクト
      * @param prm_pArg1	製造処理を行う関数への引数1
      * @param prm_pArg2	製造処理を行う関数への引数2
      * @param prm_pArg3	製造処理を行う関数への引数3

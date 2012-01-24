@@ -43,14 +43,12 @@ public:
      * "LaserChipEffect.fx"を読み込む GgafDxMeshSetEffectインスタンス を返す。
      * </pre>
      * @param prm_idstr エフェクト識別ID
+     * @param prm_p 自由パラメータ、現在未使用
      * @return エフェクトオブジェクト
      */
-    GgafDxEffect* processCreateResource(char* prm_idstr, void* prm_p);
+    GgafDxEffect* processCreateResource(char* prm_idstr, void* prm_p) override;
 
-    /**
-     * オーバーライド
-     */
-    GgafCore::GgafResourceConnection<GgafDxEffect>* processCreateConnection(char* prm_idstr, GgafDxEffect* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafDxEffect>* processCreateConnection(char* prm_idstr, GgafDxEffect* prm_pResource) override;
 
     void setParamPerFrameAll();
 

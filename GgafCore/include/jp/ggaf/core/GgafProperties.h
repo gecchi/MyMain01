@@ -79,7 +79,7 @@ public:
     static int getInt(std::string prm_key);
 
     /**
-     * キーに対するプロパティ値を float で取得 .
+     * キーに対するプロパティ値を UINT32 で取得 .
      * 内部で _atoi64() して、UINT32にキャスト
      * @param prm_key キー文字列
      * @return プロパティ値(UINT32)

@@ -30,12 +30,21 @@ public:
      * コンストラクタ .
      * @param prm_source_file スプライン座標情報ファイル
      * @param prm_ang_veloRzRyMv アクターの旋回角度
+     * @param prm_turn_way アクターの旋回方法(デフォルト TURN_CLOSE_TO)
+     * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト true)
      */
     FixedVelocitySplineManufacture(const char* prm_source_file,
                                    ang_velo prm_ang_veloRzRyMv = (D90ANG/9),
                                    int prm_turn_way = TURN_CLOSE_TO,
                                    bool prm_turn_optimaize = true );
 
+    /**
+     *
+     * @param prm_pSplSrc スプライン座標情報オブジェクト
+     * @param prm_ang_veloRzRyMv アクターの旋回角度
+     * @param prm_turn_way アクターの旋回方法(デフォルト TURN_CLOSE_TO)
+     * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト true)
+     */
     FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc,
                                    ang_velo prm_ang_veloRzRyMv = (D90ANG/9),
                                    int prm_turn_way = TURN_CLOSE_TO,

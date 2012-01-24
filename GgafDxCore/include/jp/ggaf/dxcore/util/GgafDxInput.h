@@ -82,9 +82,9 @@ public:
 
     /**
      * マウスポインタの移動量を調べる .
-     * @param x [out]ポインタのX座標の移動量が返される
-     * @param y [out]ポインタのY座標の移動量が返される
-     * @param z [out]ホイールの移動量が返される
+     * @param dx [out]ポインタのX座標の移動量が返される
+     * @param dy [out]ポインタのY座標の移動量が返される
+     * @param dz [out]ホイールの移動量が返される
      */
     static void getMousePointer_REL(long* dx, long* dy, long* dz);
 
@@ -111,7 +111,7 @@ public:
     /**
      * キーボードのキーが離された直後の状態を調べる .
      * @param prm_DIK prm_DIK 調べたいキー(DIK_*)
-     * @returntrue：そのキーは離された直後である／false：そうでは無い
+     * @return true：そのキーは離された直後である／false：そうでは無い
      */
     static bool isReleasedUpDownKey(int prm_DIK);
 

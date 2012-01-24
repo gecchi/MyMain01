@@ -22,7 +22,8 @@ public:
     /**
      * デポジトリを識別文字列から生成。
      * 本アプリのスプライン座標セットはココに集約しようと思っている。
-     * @param prm_idstr
+     * @param prm_idstr 識別ID
+     * @param prm_p 自由パラメータ（未使用）
      * @return SplineSourceオブジェクト
      */
     SplineSource* processCreateResource(char* prm_idstr, void* prm_p);
