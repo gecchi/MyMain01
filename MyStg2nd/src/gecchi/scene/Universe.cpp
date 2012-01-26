@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 Universe::Universe(const char* prm_name, GgafDxCamera* prm_pCamera) : DefaultUniverse(prm_name, prm_pCamera) {
     _class_name = "Universe";
-
+    _pWorld = NULL;
     _TRACE_("Universe::Universe()");
     _pCameraWorkerManager = NEW CameraWorkerManager("CameraWorkerManager");
 

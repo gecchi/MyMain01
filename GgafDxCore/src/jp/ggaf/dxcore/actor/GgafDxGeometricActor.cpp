@@ -66,37 +66,50 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     _fZ = CO2DX(_Z);
     //World変換行列（_matWorld）を更新
     if (_pFunc_calcRotMvWorldMatrix) {
+        //回転×移動のみ計算し _matWorldRotMv に保持
         (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
-        //スケールを考慮
-        if (_SX != LEN_UNIT || _SY != LEN_UNIT || _SZ != LEN_UNIT) {
-           float Sx = SC2R(_SX);
-           float Sy = SC2R(_SY);
-           float Sz = SC2R(_SZ);
-
-           _matWorld._11 = Sx * _matWorldRotMv._11;
-           _matWorld._12 = Sx * _matWorldRotMv._12;
-           _matWorld._13 = Sx * _matWorldRotMv._13;
-           _matWorld._14 = _matWorldRotMv._14;
-
-           _matWorld._21 = Sy * _matWorldRotMv._21;
-           _matWorld._22 = Sy * _matWorldRotMv._22;
-           _matWorld._23 = Sy * _matWorldRotMv._23;
-           _matWorld._24 = _matWorldRotMv._24;
-
-           _matWorld._31 = Sz * _matWorldRotMv._31;
-           _matWorld._32 = Sz * _matWorldRotMv._32;
-           _matWorld._33 = Sz * _matWorldRotMv._33;
-           _matWorld._34 = _matWorldRotMv._34;
-
-           _matWorld._41 = _matWorldRotMv._41;
-           _matWorld._42 = _matWorldRotMv._42;
-           _matWorld._43 = _matWorldRotMv._43;
-           _matWorld._44 = _matWorldRotMv._44;
+        //スケールを考慮して、最終的な _matWorld を保持
+        if (_SX != LEN_UNIT) {
+            float Sx = SC2R(_SX);
+            _matWorld._11 = Sx * _matWorldRotMv._11;
+            _matWorld._12 = Sx * _matWorldRotMv._12;
+            _matWorld._13 = Sx * _matWorldRotMv._13;
         } else {
-           _matWorld = _matWorldRotMv;
+            _matWorld._11 = _matWorldRotMv._11;
+            _matWorld._12 = _matWorldRotMv._12;
+            _matWorld._13 = _matWorldRotMv._13;
         }
-    }
+        _matWorld._14 = _matWorldRotMv._14;
 
+        if (_SY != LEN_UNIT) {
+            float Sy = SC2R(_SY);
+            _matWorld._21 = Sy * _matWorldRotMv._21;
+            _matWorld._22 = Sy * _matWorldRotMv._22;
+            _matWorld._23 = Sy * _matWorldRotMv._23;
+        } else {
+            _matWorld._21 = _matWorldRotMv._21;
+            _matWorld._22 = _matWorldRotMv._22;
+            _matWorld._23 = _matWorldRotMv._23;
+        }
+        _matWorld._24 = _matWorldRotMv._24;
+
+        if (_SZ != LEN_UNIT) {
+            float Sz = SC2R(_SZ);
+            _matWorld._31 = Sz * _matWorldRotMv._31;
+            _matWorld._32 = Sz * _matWorldRotMv._32;
+            _matWorld._33 = Sz * _matWorldRotMv._33;
+        } else {
+            _matWorld._31 = _matWorldRotMv._31;
+            _matWorld._32 = _matWorldRotMv._32;
+            _matWorld._33 = _matWorldRotMv._33;
+        }
+        _matWorld._34 = _matWorldRotMv._34;
+
+        _matWorld._41 = _matWorldRotMv._41;
+        _matWorld._42 = _matWorldRotMv._42;
+        _matWorld._43 = _matWorldRotMv._43;
+        _matWorld._44 = _matWorldRotMv._44;
+    }
 
     if (_pActor_Base) {
         //絶対座標に変換

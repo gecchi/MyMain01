@@ -41,14 +41,18 @@ void GgafDxBgmPerformer::fade(int prm_id, frame prm_frame, int prm_target_volume
 
 void GgafDxBgmPerformer::set(int prm_id, const char* prm_bgm_name) {
     if (prm_id < 0 || prm_id >= _bgm_num) {
-        throwGgafCriticalException("GgafDxBgmPerformer::seteBGM() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
+        throwGgafCriticalException("GgafDxBgmPerformer::set() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id<<" prm_bgm_name="<<prm_bgm_name);
+    }
+    if (_papBgmCon[prm_id]) {
+        _TRACE_("【警告】GgafDxBgmPerformer::set() IDが使用済みです、上書きしますが意図してますか？？。prm_id="<<prm_id<<" prm_bgm_name="<<prm_bgm_name);
+        _papBgmCon[prm_id]->close();
     }
     _papBgmCon[prm_id] = (GgafDxBgmConnection*)GgafDxSound::_pBgmManager->connect(prm_bgm_name);
 }
 
 void GgafDxBgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
     if (prm_id < 0 || prm_id >= _bgm_num) {
-        throwGgafCriticalException("GgafDxBgmPerformer::play() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
+        throwGgafCriticalException("GgafDxBgmPerformer::play() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id<<"");
     }
     _pa_now_volume[prm_id] = (double)prm_volume;
     _pa_is_fade[prm_id] = false;

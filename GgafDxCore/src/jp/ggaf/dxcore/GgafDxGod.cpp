@@ -412,6 +412,14 @@ HRESULT GgafDxGod::init() {
     //0にしておく
     _paPresetParam[0].Flags = 0;
 
+//    >EnableAutoDepthStencil == FALSE だと、SetDepthStencilSurface()すると
+//    >デブス系のレンダーステートが勝手にOFFになるようだ
+//    これはどうやらちょっと違うようだ
+//    EnableAutoDepthStencil == FALSE だと、D3DRS_ZENABLEステートがFALSEに
+//    EnableAutoDepthStencil == TRUE だと、D3DRS_ZENABLEステートがTRUEになるようだ
+//
+//まじで！
+
     if (CFG_PROPERTY(FULL_SCREEN)) {
         //フルスクリーン時
         _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
@@ -431,10 +439,14 @@ HRESULT GgafDxGod::init() {
     //２画面使用時の D3DPRESENT_PARAMETERS 差分上書き
     _paPresetParam[1] = _paPresetParam[0]; //共通が多いためコピー
 
+    _clear_flags = D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER;
     if (CFG_PROPERTY(FULL_SCREEN)) {
         if(CFG_PROPERTY(DUAL_VIEW)) {
             _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
             _paPresetParam[1].BackBufferFormat = _paPresetParam[0].BackBufferFormat;
+            _paPresetParam[0].EnableAutoDepthStencil = FALSE; //Z バッファの自動作成
+            _paPresetParam[1].EnableAutoDepthStencil = FALSE; //Z バッファの自動作成
+            _clear_flags = D3DCLEAR_TARGET;
         } else {
             _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8;
             _paPresetParam[1].BackBufferFormat = D3DFMT_UNKNOWN;
@@ -768,11 +780,11 @@ HRESULT GgafDxGod::init() {
 }
 
 HRESULT GgafDxGod::createDx9Device(UINT Adapter,
-                                    D3DDEVTYPE DeviceType,
-                                    HWND hFocusWindow,
-                                    DWORD BehaviorFlags,
-                                    D3DPRESENT_PARAMETERS* pPresentationParameters,
-                                    D3DDISPLAYMODEEX *pFullscreenDisplayMode
+                                   D3DDEVTYPE DeviceType,
+                                   HWND hFocusWindow,
+                                   DWORD BehaviorFlags,
+                                   D3DPRESENT_PARAMETERS* pPresentationParameters,
+                                   D3DDISPLAYMODEEX *pFullscreenDisplayMode
                                   ) {
     HRESULT hr;
     if (_can_wddm) {
@@ -782,22 +794,22 @@ HRESULT GgafDxGod::createDx9Device(UINT Adapter,
         IDirect3D9Ex* pID3D9Ex = (IDirect3D9Ex*)GgafDxGod::_pID3D9;
         IDirect3DDevice9Ex* pID3DDevice9Ex;
         hr = pID3D9Ex->CreateDeviceEx(Adapter,
-                                       DeviceType,
-                                       hFocusWindow,
-                                       BehaviorFlags,
-                                       pPresentationParameters,
-                                       pFullscreenDisplayMode,
-                                       &pID3DDevice9Ex
-                                       );
+                                      DeviceType,
+                                      hFocusWindow,
+                                      BehaviorFlags,
+                                      pPresentationParameters,
+                                      pFullscreenDisplayMode,
+                                      &pID3DDevice9Ex
+                                      );
         GgafDxGod::_pID3DDevice9 = (IDirect3DDevice9Ex*)pID3DDevice9Ex;
     } else {
         hr = GgafDxGod::_pID3D9->CreateDevice(Adapter,
-                                               DeviceType,
-                                               hFocusWindow,
-                                               BehaviorFlags,
-                                               pPresentationParameters,
-                                               &GgafDxGod::_pID3DDevice9
-                                               );
+                                              DeviceType,
+                                              hFocusWindow,
+                                              BehaviorFlags,
+                                              pPresentationParameters,
+                                              &GgafDxGod::_pID3DDevice9
+                                              );
     }
     return hr;
  }
@@ -960,12 +972,12 @@ HRESULT GgafDxGod::initDx9Device() {
     //バックバッファをウィンドウBG色でクリア
     //ここではRenderTargetはまだ、通常のバックバッファである
     hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-                                          NULL, // 矩形領域
-                                          D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                          //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                          _color_background, //クリッピング背景色
-                                          1.0f, // Zバッファのクリア値
-                                          0     // ステンシルバッファのクリア値
+                                         NULL, // 矩形領域
+                                         _clear_flags, // レンダリングターゲットと深度バッファをクリア
+                                         //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
+                                         _color_background, //クリッピング背景色
+                                         1.0f, // Zバッファのクリア値
+                                         0     // ステンシルバッファのクリア値
                                          );
     returnWhenFailed(hr, D3D_OK, "背景色(_color_background)の塗りつぶしよる、画面クリアに失敗しました。");
     return D3D_OK;
@@ -1028,7 +1040,7 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     //背景色でクリア
     hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                           NULL, // 矩形領域
-                                          D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                                          _clear_flags, // レンダリングターゲットと深度バッファをクリア
                                           _color_background, // 背景色
                                           1.0f,              // Zバッファのクリア値
                                           0                  // ステンシルバッファのクリア値
@@ -1036,7 +1048,7 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     hr = GgafDxGod::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
     hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                           NULL, // 矩形領域
-                                          D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                                          _clear_flags, // レンダリングターゲットと深度バッファをクリア
                                           _color_background, // 背景色
                                           1.0f,              // Zバッファのクリア値
                                           0                  // ステンシルバッファのクリア値
@@ -1456,7 +1468,7 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
         HRESULT hr;
         hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                               NULL, // 矩形領域
-                                              D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                                              _clear_flags, // レンダリングターゲットと深度バッファをクリア
                                               _color_background, //背景色
                                               1.0f, // Zバッファのクリア値
                                               0 // ステンシルバッファのクリア値

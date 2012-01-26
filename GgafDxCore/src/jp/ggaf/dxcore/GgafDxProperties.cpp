@@ -94,17 +94,30 @@ void GgafDxProperties::load(string prm_ini_filename) {
     if (GgafProperties::isExistKey("SINGLE_VIEW_FULL_SCREEN_HEIGHT")) {
         GgafDxProperties::SINGLE_VIEW_FULL_SCREEN_HEIGHT = getInt("SINGLE_VIEW_FULL_SCREEN_HEIGHT");
     }
-    if (GgafProperties::isExistKey("DUAL_VIEW_FULL_SCREEN_WIDTH")) {
-        GgafDxProperties::DUAL_VIEW_FULL_SCREEN_WIDTH    = getInt("DUAL_VIEW_FULL_SCREEN_WIDTH");
-    }
-    if (GgafProperties::isExistKey("DUAL_VIEW_FULL_SCREEN_HEIGHT")) {
-        GgafDxProperties::DUAL_VIEW_FULL_SCREEN_HEIGHT   = getInt("DUAL_VIEW_FULL_SCREEN_HEIGHT");
-    }
-    GgafDxProperties::DUAL_VIEW_FULL_SCREEN1_WIDTH   = DUAL_VIEW_FULL_SCREEN_WIDTH ;
-    GgafDxProperties::DUAL_VIEW_FULL_SCREEN1_HEIGHT  = DUAL_VIEW_FULL_SCREEN_HEIGHT;
-    GgafDxProperties::DUAL_VIEW_FULL_SCREEN2_WIDTH   = DUAL_VIEW_FULL_SCREEN_WIDTH ;
-    GgafDxProperties::DUAL_VIEW_FULL_SCREEN2_HEIGHT  = DUAL_VIEW_FULL_SCREEN_HEIGHT;
+//    if (GgafProperties::isExistKey("DUAL_VIEW_FULL_SCREEN_WIDTH")) {
+//        GgafDxProperties::DUAL_VIEW_FULL_SCREEN_WIDTH    = getInt("DUAL_VIEW_FULL_SCREEN_WIDTH");
+//    }
+//    if (GgafProperties::isExistKey("DUAL_VIEW_FULL_SCREEN_HEIGHT")) {
+//        GgafDxProperties::DUAL_VIEW_FULL_SCREEN_HEIGHT   = getInt("DUAL_VIEW_FULL_SCREEN_HEIGHT");
+//    }
+//    GgafDxProperties::DUAL_VIEW_FULL_SCREEN1_WIDTH   = DUAL_VIEW_FULL_SCREEN_WIDTH ;
+//    GgafDxProperties::DUAL_VIEW_FULL_SCREEN1_HEIGHT  = DUAL_VIEW_FULL_SCREEN_HEIGHT;
+//    GgafDxProperties::DUAL_VIEW_FULL_SCREEN2_WIDTH   = DUAL_VIEW_FULL_SCREEN_WIDTH ;
+//    GgafDxProperties::DUAL_VIEW_FULL_SCREEN2_HEIGHT  = DUAL_VIEW_FULL_SCREEN_HEIGHT;
 
+
+    if (GgafProperties::isExistKey("DUAL_VIEW_FULL_SCREEN1_WIDTH")) {
+        GgafDxProperties::DUAL_VIEW_FULL_SCREEN1_WIDTH    = getInt("DUAL_VIEW_FULL_SCREEN1_WIDTH");
+    }
+    if (GgafProperties::isExistKey("DUAL_VIEW_FULL_SCREEN1_HEIGHT")) {
+        GgafDxProperties::DUAL_VIEW_FULL_SCREEN1_HEIGHT    = getInt("DUAL_VIEW_FULL_SCREEN1_HEIGHT");
+    }
+    if (GgafProperties::isExistKey("DUAL_VIEW_FULL_SCREEN2_WIDTH")) {
+        GgafDxProperties::DUAL_VIEW_FULL_SCREEN2_WIDTH    = getInt("DUAL_VIEW_FULL_SCREEN2_WIDTH");
+    }
+    if (GgafProperties::isExistKey("DUAL_VIEW_FULL_SCREEN2_HEIGHT")) {
+        GgafDxProperties::DUAL_VIEW_FULL_SCREEN2_HEIGHT    = getInt("DUAL_VIEW_FULL_SCREEN2_HEIGHT");
+    }
 
     if (GgafProperties::isExistKey("FIXED_GAME_VIEW_ASPECT")) {
         GgafDxProperties::FIXED_GAME_VIEW_ASPECT         = getBool("FIXED_GAME_VIEW_ASPECT");
@@ -192,6 +205,7 @@ void GgafDxProperties::load(string prm_ini_filename) {
     _TRACE_("GgafDxProperties::DIR_WAVE="<<GgafDxProperties::DIR_WAVE);
 
     _TRACE_("GgafDxProperties::REALTIME_EFFECT_COMPILE="<<GgafDxProperties::REALTIME_EFFECT_COMPILE);
+
 }
 
 void GgafDxProperties::clean() {

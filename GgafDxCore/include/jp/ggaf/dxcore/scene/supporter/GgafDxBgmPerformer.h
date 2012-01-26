@@ -48,7 +48,7 @@ public:
         _pa_is_fadeout_stop[prm_id] = true;
     }
 
-    void prepare(int prm_id, const char* prm_se_name) ;
+//    void prepare(int prm_id, const char* prm_se_name) ;
     void setVolume(int prm_id, int prm_volume);
     void play(int prm_id, bool prm_is_loop) {
         play(prm_id, GGAF_MAX_VOLUME, prm_is_loop);

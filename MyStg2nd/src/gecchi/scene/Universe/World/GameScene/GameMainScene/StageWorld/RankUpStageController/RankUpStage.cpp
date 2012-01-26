@@ -35,7 +35,7 @@ void RankUpStage::processBehavior() {
         case RankUpStage::PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
-                _pMessage->update(PX2CO(500), PX2CO(200), "RankUpStage::PROG_BEGIN");
+                _pMessage->update(PX2CO(500), PX2CO(200), "RANKUPSTAGE::PROG_BEGIN");
                 _pBgmPerformer->play(0, 0, true);
                 _pBgmPerformer->fadein(0, 420);
             }
@@ -47,7 +47,7 @@ void RankUpStage::processBehavior() {
         }
         case RankUpStage::PROG_PLAYING: {
             if (_pProg->isJustChanged()) {
-                _pMessage->update("RankUpStage::PROG_PLAYING");
+                _pMessage->update("RANKUPSTAGE::PROG_PLAYING");
                 _pMessage->_pFader->beat(120,30,30,30,-1);
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
             }
@@ -57,16 +57,17 @@ void RankUpStage::processBehavior() {
         case RankUpStage::PROG_RESULT: {
             if (_pProg->isJustChanged()) {
                 _pMessage->_pFader->reset();
-                _pMessage->update("RankUpStage::PROG_RESULT");
+                _pMessage->update("RANKUPSTAGE::PROG_RESULT");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_RESULT !");
             }
 
             //Œ‹‰Ê•\Ž¦H
             if (_pProg->getFrameInProgress() == 120) {
                 _pMessage->update("KEKKA HAPYOU!!!");
+                _pBgmPerformer->fadeout_stop(0, 300);
             }
 
-            if (_pProg->getFrameInProgress() == 200) {
+            if (_pProg->getFrameInProgress() == 120+300) {
                 _pProg->change(RankUpStage::PROG_END);
             }
             break;
@@ -74,9 +75,8 @@ void RankUpStage::processBehavior() {
         case RankUpStage::PROG_END: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_END‚É‚È‚è‚Ü‚·‚½I");
-                _pMessage->update("RankUpStage::PROG_END");
+                _pMessage->update("RANKUPSTAGE::PROG_END");
                 throwEventToUpperTree(EVENT_RANKUP_WAS_END, this);
-                _pBgmPerformer->fadeout_stop(0, 420);
             }
 
             if (_pProg->getFrameInProgress() == 180) {

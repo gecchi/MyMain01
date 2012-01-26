@@ -70,7 +70,7 @@ public:
     dxcoord _fDist_VpPlnFront;
     /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     dxcoord _fDist_VpPlnBack;
-    /** [r/w]WORLD変換行列計算関数 */
+    /** [r/w]WORLD変換(回転×移動)行列計算関数 */
     void (*_pFunc_calcRotMvWorldMatrix)(GgafDxGeometricActor*, D3DXMATRIX&);
     /** [r]自身の現在のWorld変換行列(通常は「拡大縮小×回転×移動」) */
     D3DXMATRIX _matWorld;

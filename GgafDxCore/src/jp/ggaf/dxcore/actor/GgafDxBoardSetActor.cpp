@@ -21,11 +21,6 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
 
     _pBoardSetModel = (GgafDxBoardSetModel*)_pModel;
     _pBoardSetEffect = (GgafDxBoardSetEffect*)_pEffect;
-//    _pUvFlipper = NEW GgafDxUvFlipper(this);
-//    _pUvFlipper->forcePtnNoRange(0, _pBoardSetModel->_pattno_max);
-//    _pUvFlipper->setActivePtnNo(0);
-//    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
-
     _pUvFlipper = NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureCon[0]->use());
     _pUvFlipper->setRotation(_pBoardSetModel->_col_texture_split,
                              _pBoardSetModel->_row_texture_split

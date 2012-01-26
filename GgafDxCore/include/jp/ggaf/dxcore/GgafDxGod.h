@@ -121,7 +121,7 @@ public:
     /** [r] フルスクリーン時２画面目の左上Y座標 */
     pixcoord _secondary_screen_y;
 
-
+    DWORD _clear_flags;
 
     /**
      * コンストラクタ<BR>
