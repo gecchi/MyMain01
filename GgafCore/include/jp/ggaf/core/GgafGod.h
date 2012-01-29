@@ -67,6 +67,8 @@ public:
     float _fps;
     /** [r] 前回fps計算時のシステム時間 */
     DWORD _time_prev;
+
+    DWORD _time_calc_fps_next;
     /** [r] 描画フレームカウンタ */
     frame _frame_of_visualize;
     /** [r] 前回fps計算時の描画フレームカウント値 */

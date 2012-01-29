@@ -37,6 +37,7 @@ GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
     _time_at_beginning_frame = timeGetTime();
     _expected_time_of_next_frame = (frame)(_time_at_beginning_frame + 3000); //3秒松
     _time_prev = _time_at_beginning_frame;
+    _time_calc_fps_next = _time_at_beginning_frame + 1;
     _frame_of_visualize = 0;
     _frame_of_prev_visualize = 0;
     _is_behaved_flg = false;
@@ -102,10 +103,15 @@ void GgafGod::be() {
         _time_at_beginning_frame = timeGetTime(); //
 
         //fps計算
-        if (_time_at_beginning_frame - _time_prev >= 200) {
-            _fps = (float)(_frame_of_visualize - _frame_of_prev_visualize) * (1000.0f / (_time_at_beginning_frame - _time_prev));
-            _time_prev = _time_at_beginning_frame;
-            _frame_of_prev_visualize = _frame_of_visualize;
+        if (_time_at_beginning_frame >= _time_calc_fps_next + 200) {
+            if (_time_at_beginning_frame - _time_prev == 0) {
+                _fps = 0;
+            } else {
+                _time_calc_fps_next += 200;
+                _fps = (float)(_frame_of_visualize) * (1000.0f / (_time_at_beginning_frame - _time_prev));
+                _time_prev = _time_at_beginning_frame;
+                _frame_of_visualize = 0;
+            }
         }
 
         if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //描画タイミングフレームになった、或いは過ぎている場合
