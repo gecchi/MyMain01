@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace MyStg2nd;
 
 GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    GgafDxMeshActor(prm_name, 
+    GgafDxMeshActor(prm_name,
                      prm_model,
                      "GroundMeshEffect",
                      "GroundMeshTechnique",
@@ -47,7 +47,7 @@ void GroundMeshActor::processDraw() {
 //    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
 //    // Zバッファ書き込み不可
 //    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
-    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //カリングOFF
+//    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //カリングOFF
     _pMeshModel->draw(this);
 
 //    // Zバッファを有効に

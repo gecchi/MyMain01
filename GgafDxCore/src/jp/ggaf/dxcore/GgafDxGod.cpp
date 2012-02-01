@@ -402,63 +402,51 @@ HRESULT GgafDxGod::init() {
     FreeLibrary(hD3D);
 
     //デバイスパラメータ作成
-    _paPresetParam = NEW D3DPRESENT_PARAMETERS[2];
-    ZeroMemory(&_paPresetParam[0], sizeof(D3DPRESENT_PARAMETERS));
-    //バックバッファの数
-    _paPresetParam[0].BackBufferCount = 1;
-    //深度ステンシルバッファ
-    _paPresetParam[0].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
-    _paPresetParam[0].AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D16;
-    //0にしておく
-    _paPresetParam[0].Flags = 0;
+    _paPresetPrm = NEW D3DPRESENT_PARAMETERS[2];
+    ZeroMemory(&_paPresetPrm[0], sizeof(D3DPRESENT_PARAMETERS));
 
-//    >EnableAutoDepthStencil == FALSE だと、SetDepthStencilSurface()すると
-//    >デブス系のレンダーステートが勝手にOFFになるようだ
-//    これはどうやらちょっと違うようだ
-//    EnableAutoDepthStencil == FALSE だと、D3DRS_ZENABLEステートがFALSEに
-//    EnableAutoDepthStencil == TRUE だと、D3DRS_ZENABLEステートがTRUEになるようだ
-//
-//まじで！
+    //ウィンドウ時・フルスクリーン時共通
+    _paPresetPrm[0].BackBufferCount        = 1;            //バックバッファの数
+    _paPresetPrm[0].EnableAutoDepthStencil = TRUE;         //バックバッファの Zバッファの自動作成
+    _paPresetPrm[0].AutoDepthStencilFormat = D3DFMT_D24S8; //深度ステンシルバッファ //D3DFMT_D16;
+    _paPresetPrm[0].Flags                  = 0;            //0にしておく
 
     if (CFG_PROPERTY(FULL_SCREEN)) {
+
         //フルスクリーン時
-        _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
-        _paPresetParam[0].Windowed = false; //フルスクリーンモード時
-        _paPresetParam[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
-        _paPresetParam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
-        _paPresetParam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
-    } else {
-        //ウィンドウ時
-        _paPresetParam[0].Windowed = true; //ウィンドウモード時
-        _paPresetParam[0].FullScreen_RefreshRateInHz = 0; //リフレッシュレート
-        _paPresetParam[0].PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
-        _paPresetParam[0].SwapEffect = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
-    }
+        _paPresetPrm[0].BackBufferFormat           = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
+        _paPresetPrm[0].Windowed                   = false; //フルスクリーンモード時
+        _paPresetPrm[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
+        _paPresetPrm[0].PresentationInterval       = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
+        _paPresetPrm[0].SwapEffect                 = D3DSWAPEFFECT_DISCARD;
 
-
-    //２画面使用時の D3DPRESENT_PARAMETERS 差分上書き
-    _paPresetParam[1] = _paPresetParam[0]; //共通が多いためコピー
-
-    _clear_flags = D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER;
-    if (CFG_PROPERTY(FULL_SCREEN)) {
         if(CFG_PROPERTY(DUAL_VIEW)) {
-            _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
-            _paPresetParam[1].BackBufferFormat = _paPresetParam[0].BackBufferFormat;
-            _paPresetParam[0].EnableAutoDepthStencil = FALSE; //Z バッファの自動作成
-            _paPresetParam[1].EnableAutoDepthStencil = FALSE; //Z バッファの自動作成
-            _clear_flags = D3DCLEAR_TARGET;
+            _paPresetPrm[1] = _paPresetPrm[0]; //ココまでを複製
+
+            _paPresetPrm[0].EnableAutoDepthStencil = FALSE;   //Zバッファの自動作成無効
+            _paPresetPrm[1].EnableAutoDepthStencil = FALSE;
+            //【メモ】
+            //EnableAutoDepthStencil = FALSE;
+            //とすると、レンダリングステートの D3DRS_ZENABLE が FALSE になるだけのように見える。
+            //従って「無効」にしただけであり、「使用不可」ではないのだろう・・・。
         } else {
-            _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8;
-            _paPresetParam[1].BackBufferFormat = D3DFMT_UNKNOWN;
+            _paPresetPrm[0].EnableAutoDepthStencil = FALSE; //Z バッファの自動作成有効
         }
     } else {
+        //ウィンドウ時
+        _paPresetPrm[0].BackBufferFormat           = D3DFMT_UNKNOWN; //現在の表示モードフォーマット
+        _paPresetPrm[0].Windowed                   = true; //ウィンドウモード時
+        _paPresetPrm[0].FullScreen_RefreshRateInHz = 0; //リフレッシュレート
+        _paPresetPrm[0].PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
+        _paPresetPrm[0].SwapEffect                 = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
 
         if(CFG_PROPERTY(DUAL_VIEW)) {
-            _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
-            _paPresetParam[1].BackBufferFormat = _paPresetParam[0].BackBufferFormat;
+            _paPresetPrm[1] = _paPresetPrm[0]; //ココまでを複製
+            _paPresetPrm[0].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
+            _paPresetPrm[1].EnableAutoDepthStencil = TRUE;
         } else {
-            _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8;
-            _paPresetParam[1].BackBufferFormat = D3DFMT_UNKNOWN;
+
+            _paPresetPrm[0].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
         }
 
 
@@ -470,11 +458,11 @@ HRESULT GgafDxGod::init() {
 //            D3DDISPLAYMODE structD3DDisplayMode1;
 //            hr = GgafDxGod::_pID3D9->GetAdapterDisplayMode(1, &structD3DDisplayMode1);
 //            returnWhenFailed(hr, D3D_OK, "2画面目 GetAdapterDisplayMode に失敗しました");
-//            _paPresetParam[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
-//            _paPresetParam[1].BackBufferFormat = structD3DDisplayMode1.Format; //現在の画面モードを利用
+//            _paPresetPrm[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
+//            _paPresetPrm[1].BackBufferFormat = structD3DDisplayMode1.Format; //現在の画面モードを利用
 //        } else {
-//            _paPresetParam[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
-//            _paPresetParam[1].BackBufferFormat = D3DFMT_UNKNOWN; //現在の画面モードを利用
+//            _paPresetPrm[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
+//            _paPresetPrm[1].BackBufferFormat = D3DFMT_UNKNOWN; //現在の画面モードを利用
 //        }
     }
 
@@ -484,7 +472,7 @@ HRESULT GgafDxGod::init() {
 //    if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
 //        D3DADAPTER_DEFAULT,
 //        D3DDEVTYPE_HAL,
-//        _paPresetParam[0].BackBufferFormat,  //TODO:ウィンドウモード時は
+//        _paPresetPrm[0].BackBufferFormat,  //TODO:ウィンドウモード時は
 //        CFG_PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
 //        D3DMULTISAMPLE_2_SAMPLES,
 //        &qualityLevels) ) )
@@ -492,7 +480,7 @@ HRESULT GgafDxGod::init() {
 //        if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
 //            D3DADAPTER_DEFAULT,
 //            D3DDEVTYPE_HAL,
-//            _paPresetParam[0].AutoDepthStencilFormat,
+//            _paPresetPrm[0].AutoDepthStencilFormat,
 //            CFG_PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
 //            D3DMULTISAMPLE_2_SAMPLES,
 //            NULL) ) )
@@ -510,77 +498,76 @@ HRESULT GgafDxGod::init() {
 
     if(CFG_PROPERTY(DUAL_VIEW)) {
         //マルチサンプルの数
-        _paPresetParam[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
         //マルチサンプルの品質レベル
-        _paPresetParam[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+        _paPresetPrm[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
         //マルチサンプルの数
-        _paPresetParam[1].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        _paPresetPrm[1].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
         //マルチサンプルの品質レベル
-        _paPresetParam[1].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+        _paPresetPrm[1].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
     } else {
         //マルチサンプルの数
-        _paPresetParam[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
         //マルチサンプルの品質レベル
-        _paPresetParam[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+        _paPresetPrm[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
     }
 
 //    //マルチサンプルの数
-//    _paPresetParam[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+//    _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
 //    //マルチサンプルの品質レベル
-//    _paPresetParam[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
+//    _paPresetPrm[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
 
 
 
 
 
     //Windowハンドルを個別指定
-    _paPresetParam[0].hDeviceWindow = _pHWndPrimary;
-    _paPresetParam[1].hDeviceWindow = _pHWndSecondary;
+    _paPresetPrm[0].hDeviceWindow = _pHWndPrimary;
+    _paPresetPrm[1].hDeviceWindow = _pHWndSecondary;
     //バックバッファサイズ
     if (CFG_PROPERTY(FULL_SCREEN)) {
         if(CFG_PROPERTY(DUAL_VIEW)) {
             //フルスクリーンモード・２画面使用
-            _paPresetParam[0].BackBufferWidth  = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_WIDTH);
-            _paPresetParam[0].BackBufferHeight = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_HEIGHT);
-            _paPresetParam[1].BackBufferWidth  = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_WIDTH);
-            _paPresetParam[1].BackBufferHeight = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT);
+            _paPresetPrm[0].BackBufferWidth  = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_WIDTH);
+            _paPresetPrm[0].BackBufferHeight = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_HEIGHT);
+            _paPresetPrm[1].BackBufferWidth  = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_WIDTH);
+            _paPresetPrm[1].BackBufferHeight = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT);
         } else {
             //フルスクリーンモード・１画面使用
-            _paPresetParam[0].BackBufferWidth  = CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_WIDTH);
-            _paPresetParam[0].BackBufferHeight = CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT);
-            _paPresetParam[1].BackBufferWidth  = 0;
-            _paPresetParam[1].BackBufferHeight = 0;
+            _paPresetPrm[0].BackBufferWidth  = CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_WIDTH);
+            _paPresetPrm[0].BackBufferHeight = CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT);
+            _paPresetPrm[1].BackBufferWidth  = 0;
+            _paPresetPrm[1].BackBufferHeight = 0;
         }
     } else {
         if(CFG_PROPERTY(DUAL_VIEW)) {
             //ウィンドウモード・２画面使用
-            _paPresetParam[0].BackBufferWidth  = CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH);
-            _paPresetParam[0].BackBufferHeight = CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT);
-            _paPresetParam[1].BackBufferWidth  = 0;
-            _paPresetParam[1].BackBufferHeight = 0;
+            _paPresetPrm[0].BackBufferWidth  = CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH);
+            _paPresetPrm[0].BackBufferHeight = CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT);
+            _paPresetPrm[1].BackBufferWidth  = 0;
+            _paPresetPrm[1].BackBufferHeight = 0;
         } else {
             //ウィンドウモード・１画面使用
-            //テステス
-            _paPresetParam[0].BackBufferWidth  = CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH);
-            _paPresetParam[0].BackBufferHeight = CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT);
-            _paPresetParam[1].BackBufferWidth  = 0;
-            _paPresetParam[1].BackBufferHeight = 0;
+            _paPresetPrm[0].BackBufferWidth  = CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH);
+            _paPresetPrm[0].BackBufferHeight = CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT);
+            _paPresetPrm[1].BackBufferWidth  = 0;
+            _paPresetPrm[1].BackBufferHeight = 0;
         }
     }
 
     _paDisplayMode = NEW D3DDISPLAYMODEEX[2];
     _paDisplayMode[0].Size = sizeof(_paDisplayMode[0]);
-    _paDisplayMode[0].Width = _paPresetParam[0].BackBufferWidth;
-    _paDisplayMode[0].Height = _paPresetParam[0].BackBufferHeight;
-    _paDisplayMode[0].Format = _paPresetParam[0].BackBufferFormat;
-    _paDisplayMode[0].RefreshRate = _paPresetParam[0].FullScreen_RefreshRateInHz;
+    _paDisplayMode[0].Width = _paPresetPrm[0].BackBufferWidth;
+    _paDisplayMode[0].Height = _paPresetPrm[0].BackBufferHeight;
+    _paDisplayMode[0].Format = _paPresetPrm[0].BackBufferFormat;
+    _paDisplayMode[0].RefreshRate = _paPresetPrm[0].FullScreen_RefreshRateInHz;
     _paDisplayMode[0].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
 
     _paDisplayMode[1].Size = sizeof(_paDisplayMode[1]);
-    _paDisplayMode[1].Width = _paPresetParam[1].BackBufferWidth;
-    _paDisplayMode[1].Height = _paPresetParam[1].BackBufferHeight;
-    _paDisplayMode[1].Format = _paPresetParam[1].BackBufferFormat;
-    _paDisplayMode[1].RefreshRate = _paPresetParam[1].FullScreen_RefreshRateInHz;
+    _paDisplayMode[1].Width = _paPresetPrm[1].BackBufferWidth;
+    _paDisplayMode[1].Height = _paPresetPrm[1].BackBufferHeight;
+    _paDisplayMode[1].Format = _paPresetPrm[1].BackBufferFormat;
+    _paDisplayMode[1].RefreshRate = _paPresetPrm[1].FullScreen_RefreshRateInHz;
     _paDisplayMode[1].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
 
     //フルスクリーンに出来るか調べる
@@ -594,16 +581,16 @@ HRESULT GgafDxGod::init() {
     if (CFG_PROPERTY(FULL_SCREEN)) {
         for (int disp_no = 0; disp_no <= (CFG_PROPERTY(DUAL_VIEW) ? 1 : 0); disp_no++) {
             int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(disp_no,
-                                                                    _paPresetParam[0].BackBufferFormat);
+                                                                    _paPresetPrm[0].BackBufferFormat);
             if (mode_num) {
                 D3DDISPLAYMODE adp;
                 for (int i = 0; i < mode_num; i++) {
                     GgafDxGod::_pID3D9->EnumAdapterModes(disp_no,
-                                                          _paPresetParam[0].BackBufferFormat, i, &adp);
+                                                          _paPresetPrm[0].BackBufferFormat, i, &adp);
                     _TRACE_("["<<disp_no<<"]"<<adp.Width<<"x"<<adp.Height);
-                    if (adp.Format == _paPresetParam[disp_no].BackBufferFormat &&
-                        adp.Width  == _paPresetParam[disp_no].BackBufferWidth  &&
-                        adp.Height == _paPresetParam[disp_no].BackBufferHeight ) {
+                    if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat &&
+                        adp.Width  == _paPresetPrm[disp_no].BackBufferWidth  &&
+                        adp.Height == _paPresetPrm[disp_no].BackBufferHeight ) {
                         //OK
                         _TRACE_("BINGO!");
                         break;
@@ -612,10 +599,10 @@ HRESULT GgafDxGod::init() {
                         //要求した使える解像度が見つからない
                         stringstream ss;
                         if (CFG_PROPERTY(DUAL_VIEW)) {
-                            ss << _paPresetParam[disp_no].BackBufferWidth<<"x"<<_paPresetParam[disp_no].BackBufferHeight<<" フルスクリーンモードにする事ができません。\n"<<
+                            ss << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" フルスクリーンモードにする事ができません。\n"<<
                                    (disp_no+1)<<"画面目の解像度の設定を確認してください。";
                         } else {
-                            ss << _paPresetParam[disp_no].BackBufferWidth<<"x"<<_paPresetParam[disp_no].BackBufferHeight<<" フルスクリーンモードにする事ができません。\n"<<
+                            ss << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" フルスクリーンモードにする事ができません。\n"<<
                                     "解像度の設定を確認してください。";
                         }
                         MessageBox(GgafDxGod::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
@@ -674,21 +661,21 @@ HRESULT GgafDxGod::init() {
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
         hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDxGod::_pHWndPrimary,
                              D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
-                             _paPresetParam, _paDisplayMode);
+                             _paPresetPrm, _paDisplayMode);
         if (hr != D3D_OK) {
             _TRACE_("マルチヘッドD3DCREATE_HARDWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
 
             //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
             hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDxGod::_pHWndPrimary,
                                  D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
-                                 _paPresetParam, _paDisplayMode);
+                                 _paPresetPrm, _paDisplayMode);
             if (hr != D3D_OK) {
                 _TRACE_("マルチヘッドD3DCREATE_HARDWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
 
                 //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
                 hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDxGod::_pHWndPrimary,
                                      D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
-                                     _paPresetParam, _paDisplayMode);
+                                     _paPresetPrm, _paDisplayMode);
                 if (hr != D3D_OK) {
                     _TRACE_("マルチヘッドD3DCREATE_SOFTWARE_VERTEXPROCESSING : "<<GgafDxCriticalException::getHresultMsg(hr));
 
@@ -713,19 +700,19 @@ HRESULT GgafDxGod::init() {
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
         hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDxGod::_pHWndPrimary,
                              D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
-                             &_paPresetParam[0], &_paDisplayMode[0]);
+                             &_paPresetPrm[0], &_paDisplayMode[0]);
 //                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
 //                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
         if (hr != D3D_OK) {
             //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
             hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDxGod::_pHWndPrimary,
                                  D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
-                                 &_paPresetParam[0], &_paDisplayMode[0]);
+                                 &_paPresetPrm[0], &_paDisplayMode[0]);
             if (hr != D3D_OK) {
                 //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
                 hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDxGod::_pHWndPrimary,
                                      D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
-                                     &_paPresetParam[0], &_paDisplayMode[0]);
+                                     &_paPresetPrm[0], &_paDisplayMode[0]);
                 if (hr != D3D_OK) {
                     //どのデバイスの作成も失敗した場合
                     MessageBox(GgafDxGod::_pHWndPrimary, TEXT("DirectXの初期化に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
@@ -784,7 +771,7 @@ HRESULT GgafDxGod::createDx9Device(UINT Adapter,
                                    HWND hFocusWindow,
                                    DWORD BehaviorFlags,
                                    D3DPRESENT_PARAMETERS* pPresentationParameters,
-                                   D3DDISPLAYMODEEX *pFullscreenDisplayMode
+                                   D3DDISPLAYMODEEX* pFullscreenDisplayMode
                                   ) {
     HRESULT hr;
     if (_can_wddm) {
@@ -971,14 +958,7 @@ HRESULT GgafDxGod::initDx9Device() {
     HRESULT hr;
     //バックバッファをウィンドウBG色でクリア
     //ここではRenderTargetはまだ、通常のバックバッファである
-    hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-                                         NULL, // 矩形領域
-                                         _clear_flags, // レンダリングターゲットと深度バッファをクリア
-                                         //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                         _color_background, //クリッピング背景色
-                                         1.0f, // Zバッファのクリア値
-                                         0     // ステンシルバッファのクリア値
-                                         );
+    hr = GgafDxGod::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_TARGET, _color_background, 1.0f, 0);
     returnWhenFailed(hr, D3D_OK, "背景色(_color_background)の塗りつぶしよる、画面クリアに失敗しました。");
     return D3D_OK;
 }
@@ -996,7 +976,7 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
                                         CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT),
                                         1, //MipLevel Mip無し
                                         D3DUSAGE_RENDERTARGET,
-                                        _paPresetParam[0].BackBufferFormat,
+                                        _paPresetPrm[0].BackBufferFormat,
                                         D3DPOOL_DEFAULT,
                                         &_pRenderTexture,
                                         NULL);
@@ -1026,9 +1006,9 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     hr = GgafDxGod::_pID3DDevice9->CreateDepthStencilSurface(
             CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH),
             CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT),
-            _paPresetParam[0].AutoDepthStencilFormat, //D3DFORMAT           Format,
-            _paPresetParam[0].MultiSampleType,        //D3DMULTISAMPLE_TYPE MultiSample,
-            _paPresetParam[0].MultiSampleQuality,     //DWORD               MultisampleQuality,
+            _paPresetPrm[0].AutoDepthStencilFormat, //D3DFORMAT           Format,
+            _paPresetPrm[0].MultiSampleType,        //D3DMULTISAMPLE_TYPE MultiSample,
+            _paPresetPrm[0].MultiSampleQuality,     //DWORD               MultisampleQuality,
             TRUE,                                     //BOOL                Discard, SetDepthStencileSurface関数で深度バッファを変更した時にバッファを破棄するかどうか
             &_pRenderTextureZ,                        //IDirect3DSurface9** ppSurface,
             NULL                                      //HANDLE*             pHandle 現在未使用
@@ -1038,21 +1018,9 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     hr =  GgafDxGod::_pID3DDevice9->SetDepthStencilSurface(_pRenderTextureZ);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetDepthStencilSurface 出来ませんでした。");
     //背景色でクリア
-    hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-                                          NULL, // 矩形領域
-                                          _clear_flags, // レンダリングターゲットと深度バッファをクリア
-                                          _color_background, // 背景色
-                                          1.0f,              // Zバッファのクリア値
-                                          0                  // ステンシルバッファのクリア値
-                                          );
+    hr = GgafDxGod::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_TARGET, _color_background, 1.0f, 0);
     hr = GgafDxGod::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
-    hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-                                          NULL, // 矩形領域
-                                          _clear_flags, // レンダリングターゲットと深度バッファをクリア
-                                          _color_background, // 背景色
-                                          1.0f,              // Zバッファのクリア値
-                                          0                  // ステンシルバッファのクリア値
-                                          );
+    hr = GgafDxGod::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_TARGET, _color_background, 1.0f, 0);
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_background)の塗りつぶしよる、画面クリアに失敗しました。");
 
     //アダプタに関連付けられたスワップチェーンを取得してバックバッファ取得
@@ -1365,9 +1333,9 @@ void GgafDxGod::presentUniversalVisualize() {
         _TRACE_("【デバイスロスト処理】デバイスリセット BEGIN ------>");
         for(int i = 0; i < 100*60*10; i++) {
             if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
-                hr = GgafDxGod::_pID3DDevice9->Reset(_paPresetParam);
+                hr = GgafDxGod::_pID3DDevice9->Reset(_paPresetPrm);
             } else {
-                hr = GgafDxGod::_pID3DDevice9->Reset(&(_paPresetParam[0]));
+                hr = GgafDxGod::_pID3DDevice9->Reset(&(_paPresetPrm[0]));
             }
             if (hr != D3D_OK) {
                 if (hr == D3DERR_DRIVERINTERNALERROR) {
@@ -1466,13 +1434,7 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
     RECT rect;
     if (prm_pHWnd && !CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(FIXED_GAME_VIEW_ASPECT)) {
         HRESULT hr;
-        hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-                                              NULL, // 矩形領域
-                                              _clear_flags, // レンダリングターゲットと深度バッファをクリア
-                                              _color_background, //背景色
-                                              1.0f, // Zバッファのクリア値
-                                              0 // ステンシルバッファのクリア値
-                                             );
+        hr = GgafDxGod::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_TARGET, _color_background, 1.0f, 0);
         checkDxException(hr, D3D_OK, "GgafDxGod::_pID3DDevice9->Clear() に失敗しました。");
         if (::GetClientRect(prm_pHWnd, &rect)) {
             LONG width = rect.right;
@@ -1581,7 +1543,7 @@ GgafDxGod::~GgafDxGod() {
 
     _TRACE_("_pID3DDevice9 解放きたー");
     Sleep(60);
-    DELETEARR_IMPOSSIBLE_NULL(_paPresetParam);
+    DELETEARR_IMPOSSIBLE_NULL(_paPresetPrm);
     DELETEARR_IMPOSSIBLE_NULL(_paDisplayMode);
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);

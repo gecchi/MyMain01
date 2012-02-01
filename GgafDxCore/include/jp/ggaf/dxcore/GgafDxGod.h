@@ -34,7 +34,7 @@ private:
     IDirect3DSurface9* _apBackBuffer[2];
 
     /** デバイス作成時パラメーター */
-    D3DPRESENT_PARAMETERS* _paPresetParam;
+    D3DPRESENT_PARAMETERS* _paPresetPrm;
     /** デバイス作成時パラメーター（WDDM使用時のみ必要） */
     D3DDISPLAYMODEEX* _paDisplayMode;
 
@@ -54,7 +54,7 @@ private:
                             HWND hFocusWindow,
                             DWORD BehaviorFlags,
                             D3DPRESENT_PARAMETERS* pPresentationParameters,
-                            D3DDISPLAYMODEEX *pFullscreenDisplayMode
+                            D3DDISPLAYMODEEX* pFullscreenDisplayMode
                           );
     HRESULT initDx9Device();
 
@@ -120,8 +120,6 @@ public:
     pixcoord _secondary_screen_x;
     /** [r] フルスクリーン時２画面目の左上Y座標 */
     pixcoord _secondary_screen_y;
-
-    DWORD _clear_flags;
 
     /**
      * コンストラクタ<BR>

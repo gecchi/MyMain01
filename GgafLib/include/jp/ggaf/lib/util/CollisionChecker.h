@@ -89,7 +89,6 @@ public:
         setColliSphere(prm_index, 0, 0, 0, r, false, false, false);
     }
 
-
     /**
      * 当たり判定領域要素を軸並行直方体として定義 .
      * @param prm_index 当たり判定領域の要素番号
@@ -157,7 +156,7 @@ public:
      * @param prm_height 高さ
      * @param prm_depth 深さ（奥行）
      */
-    void setColliAAB_WHD(int prm_index, int prm_width, int prm_height, int prm_depth) {
+    void setColliAAB_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth) {
         setColliAAB_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth);
     }
 
@@ -171,8 +170,8 @@ public:
      * @param z 当たり判定の立方体の中心ローカルZ座標
      * @param prm_edge １辺の長さ
      */
-    void setColliAAB_Cube(int prm_index, int x, int y, int z, int prm_edge) {
-        int h = prm_edge / 2;
+    void setColliAAB_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge) {
+        coord h = prm_edge / 2;
         setColliAAB(prm_index, x-h, y-h, z-h, x+h, y+h, z+h);
     }
 
@@ -188,7 +187,7 @@ public:
      * @param rotY 当たり判定の立方体を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
      * @param rotZ 当たり判定の立方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
      */
-    void setColliAAB_Cube(int prm_index, int x, int y, int z, int prm_edge, bool rotX, bool rotY, bool rotZ) {
+    void setColliAAB_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, bool rotX, bool rotY, bool rotZ) {
         int h = prm_edge / 2;
         setColliAAB(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, rotX, rotY, rotZ);
     }
@@ -199,7 +198,7 @@ public:
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_edge １辺の長さ
      */
-    void setColliAAB_Cube(int prm_index, int prm_edge) {
+    void setColliAAB_Cube(int prm_index, coord prm_edge) {
         setColliAAB_Cube(prm_index, 0, 0, 0, prm_edge);
     }
 
@@ -217,7 +216,7 @@ public:
      * @param rotY 当たり判定の直方体を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
      * @param rotZ 当たり判定の直方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
      */
-    void setColliAAPrism(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism, bool rotX, bool rotY, bool rotZ);
+    void setColliAAPrism(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_prism, bool rotX, bool rotY, bool rotZ);
 
     /**
      * 当たり判定領域要素を軸並行直方体として定義 .
@@ -231,20 +230,18 @@ public:
      * @param z2 右下奥Z座標
      * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism) {
+    void setColliAAPrism(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_prism) {
         setColliAAPrism(prm_index, x1, y1, z1, x2, y2, z2, pos_prism, false, false, false);
     }
 
 
 
-    void setColliAAPrism_WHD(int prm_index, int x, int y, int z, int prm_width, int prm_height, int prm_depth, int pos_prism) {
+    void setColliAAPrism_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth, int pos_prism) {
         int hw = prm_width  / 2;
         int hh = prm_height / 2;
         int hd = prm_depth  / 2;
-
         setColliAAPrism(prm_index, x-hw, y-hh, z-hd, x+hw, y+hh, z+hd, pos_prism);
     }
-
 
     /**
      * 当たり判定領域要素を軸並行直方体として定義 .
@@ -255,10 +252,9 @@ public:
      * @param prm_depth 深さ(Z軸方向幅)
      * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism_WHD(int prm_index, int prm_width, int prm_height, int prm_depth, int pos_prism) {
+    void setColliAAPrism_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth, int pos_prism) {
         setColliAAPrism_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth, pos_prism);
     }
-
 
     /**
      * 当たり判定領域要素を軸並行立方体として定義 .
@@ -270,7 +266,7 @@ public:
      * @param prm_edge １辺の長さ
      * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism_Cube(int prm_index, int x, int y, int z, int prm_edge, int pos_prism) {
+    void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_prism) {
         int h = prm_edge / 2;
         setColliAAPrism(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_prism);
     }
@@ -288,7 +284,7 @@ public:
      * @param rotZ 当たり判定の立方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
      * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism_Cube(int prm_index, int x, int y, int z, int prm_edge, int pos_prism, bool rotX, bool rotY, bool rotZ) {
+    void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_prism, bool rotX, bool rotY, bool rotZ) {
         int h = prm_edge / 2;
         setColliAAPrism(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_prism, rotX, rotY, rotZ);
     }
@@ -300,7 +296,7 @@ public:
      * @param prm_edge １辺の長さ
      * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism_Cube(int prm_index, int prm_edge, int pos_prism) {
+    void setColliAAPrism_Cube(int prm_index, coord prm_edge, int pos_prism) {
         setColliAAPrism_Cube(prm_index, 0, 0, 0, prm_edge, pos_prism);
     }
 

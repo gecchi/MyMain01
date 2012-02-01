@@ -281,9 +281,9 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                 }
             }
 
-        } //for (int j = 0; j < pOppCollisionArea->_nColliPart; j++)
+        }
 
-    } //for (int i = 0; i < _pCollisionArea->_nColliPart; i++)
+    }
     return false;
 }
 

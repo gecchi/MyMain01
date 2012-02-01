@@ -74,6 +74,21 @@ void GgafGod::be() {
         }
 #endif
 
+//‡@Mo = presentUniversalMoment();
+//‡AJa = executeUniversalJudge();
+//‡BMa = makeUniversalMaterialize();
+//‡CVi = presentUniversalVisualize();
+//‡DFi = finalizeUniversal();
+
+//—‘zŒ^
+//   _expected_time_of_next_frame                                       _expected_time_of_next_frame
+//                 |                                                                |
+//                 v 2Frame                                                         v 3Frame
+// ----------------+----------------------------------------------------------------+-------------------------------------------------------->
+//   <-- wait ---> | 2F-‡CVi | 2F-‡DFi | 3F-‡@Mo | 3F-‡AJa | 3F-‡BMa | <-- wait --->| 3F-‡CVi | 3F-‡DFi | 4F-‡@Mo | 4F-‡AJa | 4F-‡BMa |
+//
+
+
         if (_is_behaved_flg == false) {
             _is_behaved_flg = true;
         ___BeginSynchronized1; // ----->”r‘¼ŠJŽn
@@ -103,15 +118,15 @@ void GgafGod::be() {
         _time_at_beginning_frame = timeGetTime(); //
 
         //fpsŒvŽZ
-        if (_time_at_beginning_frame >= _time_calc_fps_next + 200) {
+        if (_time_at_beginning_frame >= _time_calc_fps_next + 500) {
+            _frame_of_visualize = 0;
+            _time_calc_fps_next += 500;
             if (_time_at_beginning_frame - _time_prev == 0) {
                 _fps = 0;
             } else {
-                _time_calc_fps_next += 200;
                 _fps = (float)(_frame_of_visualize) * (1000.0f / (_time_at_beginning_frame - _time_prev));
-                _time_prev = _time_at_beginning_frame;
-                _frame_of_visualize = 0;
             }
+            _time_prev = _time_at_beginning_frame;
         }
 
         if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚½Aˆ½‚¢‚Í‰ß‚¬‚Ä‚¢‚éê‡
@@ -136,7 +151,12 @@ void GgafGod::be() {
                 } else {
                     //ƒXƒLƒbƒvŽž‚ÍfinalizeUniversal()‚¾‚¯
                  ___BeginSynchronized1; // ----->”r‘¼ŠJŽn
-                    finalizeUniversal();
+                     if (_is_materialized_flg) {
+                         presentUniversalVisualize();
+                         finalizeUniversal();
+                     } else {
+                         finalizeUniversal();
+                     }
                  ___EndSynchronized1; // <----- ”r‘¼I—¹
                 }
             } else {
@@ -148,10 +168,10 @@ void GgafGod::be() {
                     presentUniversalVisualize();
                     finalizeUniversal();
                 } else {
+                    //‚±‚±‚Í—ˆ‚È‚¢ƒnƒY
                     makeUniversalMaterialize();
                     presentUniversalVisualize();
                     finalizeUniversal();
-
                 }
              ___EndSynchronized1; // <----- ”r‘¼I—¹
             }
