@@ -65,14 +65,12 @@ public:
     GgafUniverse* _pUniverse;
     /** [r] fps値（約1000ms毎に計算される） */
     float _fps;
-    /** [r] 前回fps計算時のシステム時間 */
-    DWORD _time_prev;
 
     DWORD _time_calc_fps_next;
     /** [r] 描画フレームカウンタ */
-    frame _frame_of_visualize;
+    frame _visualize_frames;
     /** [r] 前回fps計算時の描画フレームカウント値 */
-    frame _frame_of_prev_visualize;
+    frame _prev_visualize_frames;
     /** [r] 元フレームの描画回数 */
     static int _num_actor_drawing;
     /** [r] 描画処理、最高スキップフレーム数 */

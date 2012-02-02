@@ -16,35 +16,35 @@ GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) :
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMv = 0;
     //X軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVxMv = 256 * LEN_UNIT;
+    _veloTopVxMv = PX2CO(256);
     //X軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVxMv = -256 * LEN_UNIT;
+    _veloBottomVxMv = -PX2CO(256);
     //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVxMv = 0;
-    _acceTopVxMv = 256 * LEN_UNIT;
-    _acceBottomVxMv = -256 * LEN_UNIT;
+    _acceTopVxMv = PX2CO(256);
+    _acceBottomVxMv = -PX2CO(256);
     //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
     _veloVyMv = 0;
     //Y軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVyMv = 256 * LEN_UNIT;
+    _veloTopVyMv = PX2CO(256);
     //Y軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVyMv = -256 * LEN_UNIT;
+    _veloBottomVyMv = -PX2CO(256);
     //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVyMv = 0;
 
-    _acceTopVyMv = 256 * LEN_UNIT;
-    _acceBottomVyMv = -256 * LEN_UNIT;
+    _acceTopVyMv = PX2CO(256);
+    _acceBottomVyMv = -PX2CO(256);
 
     //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
     _veloVzMv = 0;
     //Z軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVzMv = 256 * LEN_UNIT;
+    _veloTopVzMv = PX2CO(256);
     //Z軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVzMv = -256 * LEN_UNIT;
+    _veloBottomVzMv = -PX2CO(256);
     //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVzMv = 0;
-    _acceTopVzMv = 256 * LEN_UNIT;
-    _acceBottomVzMv = -256 * LEN_UNIT;
+    _acceTopVzMv = PX2CO(256);
+    _acceBottomVzMv = -PX2CO(256);
 
     _gravitation_mv_seq_target_X = 0;
     _gravitation_mv_seq_target_Y = 0;
@@ -58,9 +58,6 @@ GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) :
 }
 
 void GgafDxKurokoB::behave() {
-
-
-
     if(_gravitation_mv_seq_flg) {
         int dX, dY, dZ;
         double rdX,rdY,rdZ;
@@ -73,10 +70,14 @@ void GgafDxKurokoB::behave() {
             dY = _gravitation_mv_seq_target_Y - _pActor->_Y;
             dZ = _gravitation_mv_seq_target_Z - _pActor->_Z;
         }
-//        double dMAX = (double)max3(GgafUtil::abs(dX), GgafUtil::abs(dY), GgafUtil::abs(dZ));
-//        rdX = dX / dMAX;
-//        rdY = dY / dMAX;
-//        rdZ = dZ / dMAX;
+
+        int dmax = max3(GgafUtil::abs(dX), GgafUtil::abs(dY), GgafUtil::abs(dZ));
+        if (dmax > _gravitation_mv_seq_max_velo) {
+            double rr = 1.0*_gravitation_mv_seq_max_velo / dmax;
+            dX *= rr;
+            dY *= rr;
+            dZ *= rr;
+        }
 
         velo last_veloVxMv = _veloVxMv;
         velo new_veloVxMv = _gravitation_mv_seq_max_velo * (dX * 1.0 / _gravitation_mv_seq_stop_renge);
@@ -118,7 +119,6 @@ void GgafDxKurokoB::behave() {
         }
     }
 
-
     //X軸方向移動加速度の処理
     _veloVxMv += _acceVxMv;
     setVxMvVelo(_veloVxMv);
@@ -133,14 +133,12 @@ void GgafDxKurokoB::behave() {
     _pActor->_X += _veloVxMv;
     _pActor->_Y += _veloVyMv;
     _pActor->_Z += _veloVzMv;
-
-
 }
-
 
 int GgafDxKurokoB::dot(int prm_vX, int prm_vY, int prm_vZ) {
     return (prm_vX * _veloVxMv) + (prm_vY *_veloVyMv) + (prm_vZ*_veloVzMv);
 }
+
 void GgafDxKurokoB::forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02) {
     if (prm_veloVxMv01 < prm_veloVxMv02) {
         _veloTopVxMv = prm_veloVxMv02;
@@ -185,7 +183,6 @@ void GgafDxKurokoB::addVxMvAcce(acce prm_acceVxMv) {
     setVxMvAcce(_acceVxMv + prm_acceVxMv);
 }
 
-
 void GgafDxKurokoB::forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02) {
     if (prm_acceVxMv01 < prm_acceVxMv02) {
         _acceTopVxMv = prm_acceVxMv02;
@@ -196,7 +193,6 @@ void GgafDxKurokoB::forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02)
     }
     setVxMvAcce(_acceVxMv); //再設定して範囲内に補正
 }
-
 
 void GgafDxKurokoB::forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02) {
     if (prm_veloVyMv01 < prm_veloVyMv02) {
@@ -241,7 +237,6 @@ void GgafDxKurokoB::setVyMvAcce(acce prm_acceVyMv) {
 void GgafDxKurokoB::addVyMvAcce(acce prm_acceVyMv) {
     setVyMvAcce(_acceVyMv + prm_acceVyMv);
 }
-
 
 void GgafDxKurokoB::forceVyMvAcceRange(acce prm_acceVyMv01, acce prm_acceVyMv02) {
     if (prm_acceVyMv01 < prm_acceVyMv02) {
@@ -298,7 +293,6 @@ void GgafDxKurokoB::addVzMvAcce(acce prm_acceVzMv) {
     setVzMvAcce(_acceVzMv + prm_acceVzMv);
 }
 
-
 void GgafDxKurokoB::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02) {
     if (prm_acceVzMv01 < prm_acceVzMv02) {
         _acceTopVzMv = prm_acceVzMv02;
@@ -309,8 +303,6 @@ void GgafDxKurokoB::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02)
     }
     setVzMvAcce(_acceVzMv); //再設定して範囲内に補正
 }
-
-
 
 void GgafDxKurokoB::forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02) {
     forceVxMvVeloRange(prm_veloVxyzMv01, prm_veloVxyzMv02);
@@ -323,22 +315,10 @@ void GgafDxKurokoB::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxy
     forceVzMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
 }
 
-
-
-
-
-
-
-
-
-
-
-void GgafDxKurokoB::execGravitationVxyzMvSequence(
-        coord prm_tX, coord prm_tY, coord prm_tZ,
-        velo prm_max_velo,
-        acce prm_acce,
-        int prm_stop_renge
-        ) {
+void GgafDxKurokoB::execGravitationVxyzMvSequence(coord prm_tX, coord prm_tY, coord prm_tZ,
+                                                  velo prm_max_velo,
+                                                  acce prm_acce,
+                                                  int prm_stop_renge ) {
     _gravitation_mv_seq_target_X = prm_tX;
     _gravitation_mv_seq_target_Y = prm_tY;
     _gravitation_mv_seq_target_Z = prm_tZ;
@@ -353,12 +333,10 @@ void GgafDxKurokoB::execGravitationVxyzMvSequence(
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void GgafDxKurokoB::execGravitationVxyzMvSequence(
-        GgafDxGeometricActor* prm_pActor_target,
-        velo prm_max_velo,
-        acce prm_acce,
-        int prm_stop_renge
-        ) {
+void GgafDxKurokoB::execGravitationVxyzMvSequence(GgafDxGeometricActor* prm_pActor_target,
+                                                  velo prm_max_velo,
+                                                  acce prm_acce,
+                                                  int prm_stop_renge ) {
     _gravitation_mv_seq_target_X = 0;
     _gravitation_mv_seq_target_Y = 0;
     _gravitation_mv_seq_target_Z = 0;
@@ -417,40 +395,38 @@ void GgafDxKurokoB::takeoverMvFrom(GgafDxKurokoB* prm_pKurokoB) {
 }
 
 void GgafDxKurokoB::resetMv() {
-
-
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMv = 0;
     //X軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVxMv = 256 * LEN_UNIT;
+    _veloTopVxMv = PX2CO(256);
     //X軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVxMv = -256 * LEN_UNIT;
+    _veloBottomVxMv = -PX2CO(256);
     //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVxMv = 0;
-    _acceTopVxMv = 256 * LEN_UNIT;
-    _acceBottomVxMv = -256 * LEN_UNIT;
+    _acceTopVxMv = PX2CO(256);
+    _acceBottomVxMv = -PX2CO(256);
     //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
     _veloVyMv = 0;
     //Y軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVyMv = 256 * LEN_UNIT;
+    _veloTopVyMv = PX2CO(256);
     //Y軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVyMv = -256 * LEN_UNIT;
+    _veloBottomVyMv = -PX2CO(256);
     //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVyMv = 0;
 
-    _acceTopVyMv = 256 * LEN_UNIT;
-    _acceBottomVyMv = -256 * LEN_UNIT;
+    _acceTopVyMv = PX2CO(256);
+    _acceBottomVyMv = -PX2CO(256);
 
     //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
     _veloVzMv = 0;
     //Z軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVzMv = 256 * LEN_UNIT;
+    _veloTopVzMv = PX2CO(256);
     //Z軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVzMv = -256 * LEN_UNIT;
+    _veloBottomVzMv = -PX2CO(256);
     //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVzMv = 0;
-    _acceTopVzMv = 256 * LEN_UNIT;
-    _acceBottomVzMv = -256 * LEN_UNIT;
+    _acceTopVzMv = PX2CO(256);
+    _acceBottomVzMv = -PX2CO(256);
 }
 
 GgafDxKurokoB::~GgafDxKurokoB() {

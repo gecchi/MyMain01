@@ -378,6 +378,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\gecchi\actor\effect\EffectWormhole.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\gecchi\actor\effect\EffectWormhole001.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\gecchi\actor\system\instrument\MagicMeter\EnagyBar.cpp"
 				>
 			</File>
@@ -1245,6 +1253,14 @@
 			</File>
 			<File
 				RelativePath=".\src\gecchi\actor\effect\EffectTurbo002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\gecchi\actor\effect\EffectWormhole.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\gecchi\actor\effect\EffectWormhole001.h"
 				>
 			</File>
 			<File

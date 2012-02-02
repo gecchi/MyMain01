@@ -69,13 +69,13 @@ public:
     acce _acceBottomVzMv;
 
 
-    int _gravitation_mv_seq_target_X;
-    int _gravitation_mv_seq_target_Y;
-    int _gravitation_mv_seq_target_Z;
+    coord _gravitation_mv_seq_target_X;
+    coord _gravitation_mv_seq_target_Y;
+    coord _gravitation_mv_seq_target_Z;
     GgafDxGeometricActor* _gravitation_mv_seq_pActor_target;
     velo _gravitation_mv_seq_max_velo;
     acce _gravitation_mv_seq_acce;
-    int _gravitation_mv_seq_stop_renge;
+    coord _gravitation_mv_seq_stop_renge;
     bool _gravitation_mv_seq_flg;
 
 
@@ -86,27 +86,32 @@ public:
      * @param prm_veloVxMv X軸方向移動速度
      */
     void setVxMvVelo(velo prm_veloVxMv);
+
     /**
      * X軸方向移動速度加算 .
      * @param prm_veloVxMv X軸方向移動速度差分
      */
     void addVxMvVelo(velo prm_veloVxMv);
+
     /**
      * X軸方向移動速度の上限下限を強制 .
      * @param prm_veloVxMv01 速度１
      * @param prm_veloVxMv02 速度２
      */
     void forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02);
+
     /**
      * X軸方向移動加速度設定 .
      * @param prm_acceVxMv X軸方向移動加速度
      */
     void setVxMvAcce(acce prm_acceVxMv);
+
     /**
      * X軸方向移動加速度加算 .
      * @param prm_acceVxMv X軸方向移動加速度差分
      */
     void addVxMvAcce(acce prm_acceVxMv);
+
     /**
      * X軸方向移動加速度の上限下限を強制 .
      * @param prm_acceVxMv01 加速度１
@@ -119,27 +124,32 @@ public:
      * @param prm_veloVyMv Y軸方向移動速度
      */
     void setVyMvVelo(velo prm_veloVyMv);
+
     /**
      * Y軸方向移動速度加算 .
      * @param prm_veloVyMv Y軸方向移動速度差分
      */
     void addVyMvVelo(velo prm_veloVyMv);
+
     /**
      * Y軸方向移動速度の上限下限を強制 .
      * @param prm_veloVyMv01 速度１
      * @param prm_veloVyMv02 速度２
      */
     void forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02);
+
     /**
      * Y軸方向移動加速度設定 .
      * @param prm_acceVyMv Y軸方向移動加速度
      */
     void setVyMvAcce(acce prm_acceVyMv);
+
     /**
      * Y軸方向移動加速度加算 .
      * @param prm_acceVyMv Y軸方向移動加速度差分
      */
     void addVyMvAcce(acce prm_acceVyMv);
+
     /**
      * Y軸方向移動加速度の上限下限を強制 .
      * @param prm_acceVyMv01 加速度１
@@ -152,27 +162,32 @@ public:
      * @param prm_veloVzMv Z軸方向移動速度
      */
     void setVzMvVelo(velo prm_veloVzMv);
+
     /**
      * Z軸方向移動速度加算 .
      * @param prm_veloVzMv Z軸方向移動速度差分
      */
     void addVzMvVelo(velo prm_veloVzMv);
+
     /**
      * Z軸方向移動速度の上限下限を強制 .
      * @param prm_veloVzMv01 速度１
      * @param prm_veloVzMv02 速度２
      */
     void forceVzMvVeloRange(velo prm_veloVzMv01, velo prm_veloVzMv02);
+
     /**
      * Z軸方向移動加速度設定 .
      * @param prm_acceVzMv Z軸方向移動加速度
      */
     void setVzMvAcce(acce prm_acceVzMv);
+
     /**
      * Z軸方向移動加速度加算 .
      * @param prm_acceVzMv Z軸方向移動加速度差分
      */
     void addVzMvAcce(acce prm_acceVzMv);
+
     /**
      * Z軸方向移動加速度の上限下限を強制 .
      * @param prm_acceVzMv01 加速度１
@@ -213,7 +228,7 @@ public:
     }
 
     /**
-     * 重力により物体が引き寄せられるかような感じの動き。かのような・・・ .
+     * 重力により物体が引き寄せられるかような感じの動きみたいな感じを実行 .
      * 【アルゴリズム概要】<BR>
      * X,Y,Zの各軸の座標それぞれに、目標の座標とアクターの座標差分を取り、<BR>
      * その正負により、加速度を加算減算させて目標に近づこうとします。<BR>
@@ -221,9 +236,8 @@ public:
      * そこで、目標の座標X,Y,Zの各軸と、アクターの座標差が<BR>
      * -1*prm_stop_renge ～ prm_stop_renge<BR>
      * の範囲内になった場合、速度を緩和(減速)し、目標の座標に更に近づこうします。<BR>
-     * 各軸それぞれ、目標に近づくと軸速度は0に近づく、という訳で、重力とは根本的に動きが異なります。<BR>
+     * 各軸それぞれ、目標に近づくと軸速度は0に近づく、という訳で重力とは根本的に動きが異なります。<BR>
      * 数学的には、目標の座標に限りなく近づくだけで、目標座標と一致することはありません。<BR>
-     * ホーミングミサイルにも向きません。<BR>
      * @param prm_tX 引き寄せられて到達する目標のX座標
      * @param prm_tY 引き寄せられて到達する目標のY座標
      * @param prm_tZ 引き寄せられて到達する目標のZ座標
@@ -231,15 +245,13 @@ public:
      * @param prm_acce 引き寄せられている最中の各軸(XYZ)の軸移動加速度上限値
      * @param prm_stop_renge 速度が抑えられる目標座標からの各軸の距離
      */
-    void execGravitationVxyzMvSequence(
-            coord prm_tX, coord prm_tY, coord prm_tZ,
-            velo prm_max_velo,
-            acce prm_acce,
-            int prm_stop_renge
-            );
+    void execGravitationVxyzMvSequence(coord prm_tX, coord prm_tY, coord prm_tZ,
+                                       velo prm_max_velo,
+                                       acce prm_acce,
+                                       coord prm_stop_renge);
 
     /**
-     * 重力により物体が引き寄せられるかような感じの動き .
+     * 重力により物体が引き寄せられるかような感じの動きみたいな感じを実行 .
      * 説明は、
      * execGravitationVxyzMvSequence(coord,coord,coord,velo,acce,int)
      * を参照。
@@ -248,12 +260,10 @@ public:
      * @param prm_acce 引き寄せられている最中の各軸(XYZ)の軸移動加速度上限値
      * @param prm_stop_renge 速度が抑えられる目標座標からの各軸の距離
      */
-    void execGravitationVxyzMvSequence(
-            GgafDxGeometricActor* prm_pActor_target,
-            velo prm_max_velo,
-            acce prm_acce,
-            int prm_stop_renge
-            );
+    void execGravitationVxyzMvSequence(GgafDxGeometricActor* prm_pActor_target,
+                                       velo prm_max_velo,
+                                       acce prm_acce,
+                                       coord prm_stop_renge);
 
     /**
      * 黒子Bの仕事を引継ぐ .
@@ -266,7 +276,7 @@ public:
     void resetMv();
 
     /**
-     * 黒子Bが動く .
+     * 黒子Bが振る舞う .
      * 黒子B機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
      * 逆に黒子Bを必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
      */

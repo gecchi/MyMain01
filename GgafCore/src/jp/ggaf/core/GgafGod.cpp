@@ -36,10 +36,9 @@ GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
     GgafGod::_pGod = this;
     _time_at_beginning_frame = timeGetTime();
     _expected_time_of_next_frame = (frame)(_time_at_beginning_frame + 3000); //3ïbèº
-    _time_prev = _time_at_beginning_frame;
     _time_calc_fps_next = _time_at_beginning_frame + 1;
-    _frame_of_visualize = 0;
-    _frame_of_prev_visualize = 0;
+    _visualize_frames = 0;
+    _prev_visualize_frames = 0;
     _is_behaved_flg = false;
     _is_materialized_flg = false;
     GgafFactory::_pGarbageBox = NEW GgafGarbageBox();
@@ -88,7 +87,6 @@ void GgafGod::be() {
 //   <-- wait ---> | 2F-áCVi | 2F-áDFi | 3F-á@Mo | 3F-áAJa | 3F-áBMa | <-- wait --->| 3F-áCVi | 3F-áDFi | 4F-á@Mo | 4F-áAJa | 4F-áBMa |
 //
 
-
         if (_is_behaved_flg == false) {
             _is_behaved_flg = true;
         ___BeginSynchronized1; // ----->îrëºäJén
@@ -118,15 +116,15 @@ void GgafGod::be() {
         _time_at_beginning_frame = timeGetTime(); //
 
         //fpsåvéZ
-        if (_time_at_beginning_frame >= _time_calc_fps_next + 500) {
-            _frame_of_visualize = 0;
-            _time_calc_fps_next += 500;
-            if (_time_at_beginning_frame - _time_prev == 0) {
+        if (_time_at_beginning_frame >= _time_calc_fps_next) {
+            int d_visualize_frames = _visualize_frames - _prev_visualize_frames;
+            if (d_visualize_frames == 0) {
                 _fps = 0;
             } else {
-                _fps = (float)(_frame_of_visualize) * (1000.0f / (_time_at_beginning_frame - _time_prev));
+                _fps = (float)(d_visualize_frames) * (1000.0f / 500);
             }
-            _time_prev = _time_at_beginning_frame;
+            _time_calc_fps_next += 500;
+            _prev_visualize_frames = _visualize_frames;
         }
 
         if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //ï`âÊÉ^ÉCÉ~ÉìÉOÉtÉåÅ[ÉÄÇ…Ç»Ç¡ÇΩÅAàΩÇ¢ÇÕâﬂÇ¨ÇƒÇ¢ÇÈèÍçá
@@ -137,14 +135,13 @@ void GgafGod::be() {
                 if (_skip_count_of_frame >= _max_skip_frames && _sync_frame_time == false) {
                     //ÉXÉLÉbÉvÇ∑ÇÈÇ∆Ç¢Ç¡ÇƒÇ‡MAX_SKIP_FRAMEÉtÉåÅ[ÉÄÇ…ÇPâÒÇÕï`âÊÇÕÇ∑ÇÈÅB
                     _skip_count_of_frame = 0;
-                    _frame_of_visualize++;
                  ___BeginSynchronized1; // ----->îrëºäJén
                     if (_is_materialized_flg) {
-                        presentUniversalVisualize();
+                        presentUniversalVisualize(); _visualize_frames++;
                         finalizeUniversal();
                     } else {
                         makeUniversalMaterialize();
-                        presentUniversalVisualize();
+                        presentUniversalVisualize(); _visualize_frames++;
                         finalizeUniversal();
                     }
                  ___EndSynchronized1; // <----- îrëºèIóπ
@@ -162,15 +159,14 @@ void GgafGod::be() {
             } else {
                 //í èÌéûï`âÊÅiÉXÉLÉbÉvÇ»ÇµÅj
                 _sync_frame_time = false;
-                _frame_of_visualize++;
              ___BeginSynchronized1; // ----->îrëºäJén
                 if (_is_materialized_flg) {
-                    presentUniversalVisualize();
+                    presentUniversalVisualize(); _visualize_frames++;
                     finalizeUniversal();
                 } else {
                     //Ç±Ç±ÇÕóàÇ»Ç¢ÉnÉY
                     makeUniversalMaterialize();
-                    presentUniversalVisualize();
+                    presentUniversalVisualize(); _visualize_frames++;
                     finalizeUniversal();
                 }
              ___EndSynchronized1; // <----- îrëºèIóπ

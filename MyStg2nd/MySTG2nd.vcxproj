@@ -134,6 +134,8 @@
   <ItemGroup>
     <ClCompile Include="src\gecchi\actor\Camera.cpp" />
     <ClCompile Include="src\gecchi\actor\common\CameraWorker.cpp" />
+    <ClCompile Include="src\gecchi\actor\effect\EffectWormhole.cpp" />
+    <ClCompile Include="src\gecchi\actor\effect\EffectWormhole001.cpp" />
     <ClCompile Include="src\gecchi\actor\enemy\Massalia\EnemyMassaliaFragment2.cpp" />
     <ClCompile Include="src\gecchi\actor\enemy\Massalia\EnemyMassaliaFragment3.cpp" />
     <ClCompile Include="src\gecchi\manager\CameraWorkerConnection.cpp" />
@@ -351,6 +353,8 @@
   <ItemGroup>
     <ClInclude Include="src\gecchi\actor\Camera.h" />
     <ClInclude Include="src\gecchi\actor\common\CameraWorker.h" />
+    <ClInclude Include="src\gecchi\actor\effect\EffectWormhole.h" />
+    <ClInclude Include="src\gecchi\actor\effect\EffectWormhole001.h" />
     <ClInclude Include="src\gecchi\actor\enemy\massalia\enemymassaliafragment2.h" />
     <ClInclude Include="src\gecchi\actor\enemy\massalia\enemymassaliafragment3.h" />
     <ClInclude Include="src\gecchi\manager\CameraWorkerConnection.h" />

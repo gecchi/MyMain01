@@ -250,9 +250,6 @@ class Stage02_Climax;
 
 
 
-
-
-
 class Camera;
 class ViewPointGuide;
 class CameraWorker;
@@ -307,6 +304,9 @@ class EffectTurbo001;
 class EffectTurbo002;
 class EffectCondensation001;
 class EffectLaserRefraction001;
+class EffectWormhole;
+class EffectWormhole001;
+
 
 class HoshiBoshiTransit;
 class HoshiBoshiRankUp;
@@ -548,6 +548,9 @@ class CursorTitleMenu;
 #include "gecchi/actor/effect/EffectTurbo002.h"
 #include "gecchi/actor/effect/EffectCondensation001.h"
 #include "gecchi/actor/effect/EffectLaserRefraction001.h"
+#include "gecchi/actor/effect/EffectWormhole.h"
+#include "gecchi/actor/effect/EffectWormhole001.h"
+
 
 #include "gecchi/actor/my/option/MyOption.h"
 #include "gecchi/actor/my/option/EffectMyOption.h"
