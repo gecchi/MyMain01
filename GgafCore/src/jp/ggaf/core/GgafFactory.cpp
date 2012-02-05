@@ -128,7 +128,7 @@ void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
                     //デバッグ時はタイムアウト無し
 #else
 
-                    if (waittime > 1000*300) { //約300秒
+                    if (waittime > 1000*600) { //約10分
                         string name_org;
                         if (prm_org->_obj_class & Obj_GgafActor) {
                             name_org = ((GgafActor*)prm_org)->getName();

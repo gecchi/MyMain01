@@ -49,7 +49,7 @@ GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
     _max_skip_frames = (int)CFG_PROPERTY(MAX_SKIP_FRAME);
     _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     _sync_frame_time = false;
-
+    _cnt_frame = 0;
     _can_be = true;
 }
 
@@ -102,9 +102,10 @@ void GgafGod::be() {
             } else {
                 _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
             }
-            _expected_time_of_next_frame += _aaTime_OffsetOfNextFrame[_slowdown_mode][_frame_of_God % 60];
+            _expected_time_of_next_frame += _aaTime_OffsetOfNextFrame[_slowdown_mode][_cnt_frame];
+            _cnt_frame = _cnt_frame == 59 ? 0 : _cnt_frame++;
 
-            if (_expected_time_of_next_frame <= timeGetTime()) { //描画タイミングフレームになった、或いは過ぎている場合
+            if (timeGetTime() >= _expected_time_of_next_frame) { //描画タイミングフレームになった、或いは過ぎている場合
                 //makeUniversalMaterialize はパス
             } else {
                 //余裕有り
@@ -121,61 +122,53 @@ void GgafGod::be() {
             if (d_visualize_frames == 0) {
                 _fps = 0;
             } else {
-                _fps = (float)(d_visualize_frames) * (1000.0f / 500);
+                _fps = (float)(d_visualize_frames) * (1000.0f / 200);
             }
-            _time_calc_fps_next += 500;
+            _time_calc_fps_next += 200;
             _prev_visualize_frames = _visualize_frames;
         }
 
-        if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //描画タイミングフレームになった、或いは過ぎている場合
+        //
+        if (_time_at_beginning_frame >= _expected_time_of_next_frame) {
+            //描画タイミングフレームになった、或いは過ぎている場合
 
-            if (_time_at_beginning_frame > _expected_time_of_next_frame + _aaTime_OffsetOfNextFrame[_slowdown_mode][_frame_of_God % 60]) {
-                //大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
-                _skip_count_of_frame++;
-                if (_skip_count_of_frame >= _max_skip_frames && _sync_frame_time == false) {
-                    //スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
-                    _skip_count_of_frame = 0;
+            if (_is_materialized_flg) {
+                //描画有り時（スキップなし）
+             ___BeginSynchronized1; // ----->排他開始
+                presentUniversalVisualize(); _visualize_frames++;
+                finalizeUniversal();
+             ___EndSynchronized1; // <----- 排他終了
+            } else {
+                //描画無し（スキップ時）
+                if (_sync_frame_time) {
+                    //無条件で描画なし。
                  ___BeginSynchronized1; // ----->排他開始
-                    if (_is_materialized_flg) {
-                        presentUniversalVisualize(); _visualize_frames++;
-                        finalizeUniversal();
-                    } else {
+                    finalizeUniversal();
+                 ___EndSynchronized1; // <----- 排他終了
+                } else {
+                    _skip_count_of_frame++;
+                    //通常スキップ時、
+                    //スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
+                    if (_skip_count_of_frame >= _max_skip_frames) {
+                    ___BeginSynchronized1; // ----->排他開始
                         makeUniversalMaterialize();
                         presentUniversalVisualize(); _visualize_frames++;
                         finalizeUniversal();
+                    ___EndSynchronized1; // <----- 排他終了
+                        _skip_count_of_frame = 0;
+                    } else {
+                    ___BeginSynchronized1; // ----->排他開始
+                       finalizeUniversal();
+                    ___EndSynchronized1; // <----- 排他終了
                     }
-                 ___EndSynchronized1; // <----- 排他終了
-                } else {
-                    //スキップ時はfinalizeUniversal()だけ
-                 ___BeginSynchronized1; // ----->排他開始
-                     if (_is_materialized_flg) {
-                         presentUniversalVisualize(); _visualize_frames++;
-                         finalizeUniversal();
-                     } else {
-                         finalizeUniversal();
-                     }
-                 ___EndSynchronized1; // <----- 排他終了
                 }
-            } else {
-                //通常時描画（スキップなし）
-                _sync_frame_time = false;
-             ___BeginSynchronized1; // ----->排他開始
-                if (_is_materialized_flg) {
-                    presentUniversalVisualize(); _visualize_frames++;
-                    finalizeUniversal();
-                } else {
-                    //ここは来ないハズ
-                    makeUniversalMaterialize();
-                    presentUniversalVisualize(); _visualize_frames++;
-                    finalizeUniversal();
-                }
-             ___EndSynchronized1; // <----- 排他終了
             }
-            _is_behaved_flg = false;
-            _is_materialized_flg = false;
-        } else {//描画タイミングフレームになってない(余裕がある)
-            Sleep(2); //工場（別スレッド）に回す
-        }
+             _is_behaved_flg = false;
+             _is_materialized_flg = false;
+         } else {//描画タイミングフレームになってない(余裕がある)
+             _sync_frame_time = false;
+             Sleep(2); //工場（別スレッド）に回す
+         }
         _is_being = false;
     }
     return;

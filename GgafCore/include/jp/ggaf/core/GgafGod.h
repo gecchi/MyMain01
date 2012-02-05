@@ -59,6 +59,8 @@ public:
     DWORD _expected_time_of_next_frame;
     /** [r] 神誕生からのフレーム数 */
     frame _frame_of_God;
+    int _cnt_frame;
+
     /** [r] この世を視覚化できなかった（スキップした）回数 */
     int _skip_count_of_frame;
     /** [r] この世 */
