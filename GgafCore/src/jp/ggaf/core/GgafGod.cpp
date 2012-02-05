@@ -149,7 +149,7 @@ void GgafGod::be() {
                     //スキップ時はfinalizeUniversal()だけ
                  ___BeginSynchronized1; // ----->排他開始
                      if (_is_materialized_flg) {
-                         presentUniversalVisualize();
+                         presentUniversalVisualize(); _visualize_frames++;
                          finalizeUniversal();
                      } else {
                          finalizeUniversal();

@@ -42,7 +42,7 @@ void MagicPointItem::onActive() {
     _pKurokoA->setMvVelo(2000);
     _pKurokoA->setMvAcce(100);
     _pKurokoA->forceMvVeloRange(0, 20000);
-    _pKurokoB->forceVxyzMvVeloRange(-20000, 20000);
+    _pKurokoB->forceVxyzMvVeloRange(-30000, 30000);
     _pKurokoB->setZeroVxyzMvVelo();
     _pKurokoB->setZeroVxyzMvAcce();
     _pKurokoB->_gravitation_mv_seq_flg = false;
@@ -55,7 +55,7 @@ void MagicPointItem::onActive() {
     //散らばり範囲正方形１辺の長さ
     int scattered_renge    = _pCollisionChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
     //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
-    int scattered_distance = scattered_renge/2 + 800000;
+    int scattered_distance = scattered_renge/2 + 400000;
     //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
 
     float vX, vY, vZ;
@@ -92,7 +92,7 @@ void MagicPointItem::processBehavior() {
             _pKurokoB->setVxMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv);
             _pKurokoB->setVyMvVelo(_pKurokoA->_vY*_pKurokoA->_veloMv);
             _pKurokoB->setVzMvVelo(_pKurokoA->_vZ*_pKurokoA->_veloMv);
-            _pKurokoB->execGravitationVxyzMvSequence(pMyShip, 20000, 1000, 50000);
+            _pKurokoB->execGravitationVxyzMvSequence(pMyShip, PX2CO(30), 100, 60000);
             _pKurokoA->setMvVelo(0);
             _pKurokoA->setMvAcce(0);
         }

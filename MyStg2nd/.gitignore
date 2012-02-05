@@ -2,11 +2,10 @@
 /GprofCdt
 /Debug*
 /gmon.out
-/MySTG2nd.vcproj
 /log
 /*settings
 /MySTG2nd.exe
-/MySTG2nd.vcproj.*.*.user
+/*user
 /.checkstyle
 /MySTG2nd.aps
 /VB_UI_LAST.rep

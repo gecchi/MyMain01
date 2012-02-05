@@ -4,5 +4,4 @@
 /Release
 /GprofCdt
 /Debug
-/GgafDxCore.vcproj
-/GgafDxCore.vcproj.*.*.user
+/*.user
