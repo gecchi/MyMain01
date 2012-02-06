@@ -35,7 +35,7 @@ GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
     ::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
     GgafGod::_pGod = this;
     _time_at_beginning_frame = timeGetTime();
-    _expected_time_of_next_frame = (frame)(_time_at_beginning_frame + 3000); //3秒松
+    _time_of_next_view = (frame)(_time_at_beginning_frame + 3000); //3秒松
     _time_calc_fps_next = _time_at_beginning_frame + 1;
     _visualize_frames = 0;
     _prev_visualize_frames = 0;
@@ -54,6 +54,30 @@ GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
 }
 
 void GgafGod::be() {
+
+    //①Mo = presentUniversalMoment();     ･･･ メイン処理・必須処理
+    //②Ja = executeUniversalJudge();      ･･･ 判定処理・必須処理
+    //③Ma = makeUniversalMaterialize();   ･･･ 描画処理(重い)・スキップ可
+    //④Vi = presentUniversalVisualize();  ･･･ フリップ処理・③とセット
+    //⑤Fi = finalizeUniversal();          ･･･ 最終処理・必須処理
+    //
+    //【安定時の理想】
+    // ④Vi を 1/60 秒毎に安定して実行することを理想とする。
+    //
+    //        _time_of_next_view                                              _time_of_next_view
+    //                 |                                                                |
+    //                 |                 3frame                                         |                 4frame
+    //                 |                   |                                            |                   |
+    //                 v                   v                                            v                   v
+    // ----------------+----------------------------------------------------------------+----------------------------------------------------------->
+    //  <--- wait ---> | 2f-④Vi | 2f-⑤Fi | 3f-①Mo | 3f-②Ja | 3f-③Ma |<--- wait --->| 3f-④Vi | 3f-⑤Fi | 4f-①Mo | 4f-②Ja | 4f-③Ma |<--- wait
+    //
+    // -- 2frame ------------------------->|<-------------------------- 3frame ---------------------------->|<----------------  4frame ---------
+    //
+    //                 |<--------------------------- 1/60s  --------------------------->|
+    //
+    //
+
     if (_can_be) {
         _is_being = true;
         if (_pUniverse == NULL) {
@@ -73,101 +97,77 @@ void GgafGod::be() {
         }
 #endif
 
-//①Mo = presentUniversalMoment();
-//②Ja = executeUniversalJudge();
-//③Ma = makeUniversalMaterialize();
-//④Vi = presentUniversalVisualize();
-//⑤Fi = finalizeUniversal();
-
-//理想型
-//   _expected_time_of_next_frame                                       _expected_time_of_next_frame
-//                 |                                                                |
-//                 v 2Frame                                                         v 3Frame
-// ----------------+----------------------------------------------------------------+-------------------------------------------------------->
-//   <-- wait ---> | 2F-④Vi | 2F-⑤Fi | 3F-①Mo | 3F-②Ja | 3F-③Ma | <-- wait --->| 3F-④Vi | 3F-⑤Fi | 4F-①Mo | 4F-②Ja | 4F-③Ma |
-//
-
         if (_is_behaved_flg == false) {
             _is_behaved_flg = true;
-        ___BeginSynchronized1; // ----->排他開始
+         ___BeginSynchronized1; // ----->排他開始
             _frame_of_God++;
             presentUniversalMoment();
             executeUniversalJudge();
-        ___EndSynchronized1; // <----- 排他終了
-            //描画タイミングフレーム加算
-            if (_num_actor_drawing > CFG_PROPERTY(DRAWNUM_TO_SLOWDOWN2)) {
-                _slowdown_mode = SLOWDOWN_MODE_30FPS;
-            } else if (_num_actor_drawing > CFG_PROPERTY(DRAWNUM_TO_SLOWDOWN1)) {
-                _slowdown_mode = SLOWDOWN_MODE_40FPS;
-            } else {
-                _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
-            }
-            _expected_time_of_next_frame += _aaTime_OffsetOfNextFrame[_slowdown_mode][_cnt_frame];
+         ___EndSynchronized1; // <----- 排他終了
+            _time_of_next_view += _aaTime_OffsetOfNextFrame[_slowdown_mode][_cnt_frame];
             _cnt_frame = _cnt_frame == 59 ? 0 : _cnt_frame++;
-
-            if (timeGetTime() >= _expected_time_of_next_frame) { //描画タイミングフレームになった、或いは過ぎている場合
+            if (timeGetTime() >= _time_of_next_view) { //描画タイミングフレームになった、或いは過ぎている場合
                 //makeUniversalMaterialize はパス
+                _is_materialized_flg = false;
             } else {
-                //余裕有り
+                //描画タイミングフレームになっていない。余裕がある。
                 _is_materialized_flg = true;
                 makeUniversalMaterialize();
+                //但し makeUniversalMaterialize() によりオーバーするかもしれない。
             }
         }
 
-        _time_at_beginning_frame = timeGetTime(); //
+        _time_at_beginning_frame = timeGetTime();
 
-        //fps計算
-        if (_time_at_beginning_frame >= _time_calc_fps_next) {
-            int d_visualize_frames = _visualize_frames - _prev_visualize_frames;
-            if (d_visualize_frames == 0) {
-                _fps = 0;
-            } else {
-                _fps = (float)(d_visualize_frames) * (1000.0f / 200);
-            }
-            _time_calc_fps_next += 200;
-            _prev_visualize_frames = _visualize_frames;
-        }
-
-        //
-        if (_time_at_beginning_frame >= _expected_time_of_next_frame) {
+        if (_time_at_beginning_frame >= _time_of_next_view) {
             //描画タイミングフレームになった、或いは過ぎている場合
-
-            if (_is_materialized_flg) {
-                //描画有り時（スキップなし）
+            if (_is_materialized_flg) { //makeUniversalMaterialize() 実行済みの場合
+                //描画有り（スキップなし）
              ___BeginSynchronized1; // ----->排他開始
                 presentUniversalVisualize(); _visualize_frames++;
                 finalizeUniversal();
-             ___EndSynchronized1; // <----- 排他終了
-            } else {
+             ___EndSynchronized1;   // <----- 排他終了
+            } else {                    //makeUniversalMaterialize() 実行していない場合
                 //描画無し（スキップ時）
-                if (_sync_frame_time) {
+                if (_sync_frame_time) { //同期調整モード時は
                     //無条件で描画なし。
                  ___BeginSynchronized1; // ----->排他開始
                     finalizeUniversal();
-                 ___EndSynchronized1; // <----- 排他終了
-                } else {
+                 ___EndSynchronized1;   // <----- 排他終了
+                } else {                //同期調整モードではない場合は通常スキップ
                     _skip_count_of_frame++;
-                    //通常スキップ時、
-                    //スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
+                    //但し、スキップするといっても MAX_SKIP_FRAME フレームに１回は描画はする。
                     if (_skip_count_of_frame >= _max_skip_frames) {
-                    ___BeginSynchronized1; // ----->排他開始
+                     ___BeginSynchronized1; // ----->排他開始
                         makeUniversalMaterialize();
                         presentUniversalVisualize(); _visualize_frames++;
                         finalizeUniversal();
-                    ___EndSynchronized1; // <----- 排他終了
+                     ___EndSynchronized1;   // <----- 排他終了
                         _skip_count_of_frame = 0;
                     } else {
-                    ___BeginSynchronized1; // ----->排他開始
-                       finalizeUniversal();
-                    ___EndSynchronized1; // <----- 排他終了
+                     ___BeginSynchronized1; // ----->排他開始
+                        finalizeUniversal();
+                     ___EndSynchronized1;   // <----- 排他終了
                     }
                 }
             }
-             _is_behaved_flg = false;
-             _is_materialized_flg = false;
-         } else {//描画タイミングフレームになってない(余裕がある)
+            _is_behaved_flg = false;
+
+            //fps計算
+            if (_time_at_beginning_frame >= _time_calc_fps_next) {
+                int d_visualize_frames = _visualize_frames - _prev_visualize_frames;
+                if (d_visualize_frames == 0) {
+                    _fps = 0;
+                } else {
+                    _fps = (float)(d_visualize_frames) * (1000.0f / 200);
+                }
+                _time_calc_fps_next += 200;
+                _prev_visualize_frames = _visualize_frames;
+            }
+
+         } else { //描画タイミングフレームになってない(余裕がある)
              _sync_frame_time = false;
-             Sleep(2); //工場（別スレッド）に回す
+             Sleep(1); //<--- wait ---> な ひととき
          }
         _is_being = false;
     }
@@ -185,6 +185,13 @@ void GgafGod::executeUniversalJudge() {
 }
 
 void GgafGod::makeUniversalMaterialize() {
+    if (_num_actor_drawing > CFG_PROPERTY(DRAWNUM_TO_SLOWDOWN2)) {
+        _slowdown_mode = SLOWDOWN_MODE_30FPS;
+    } else if (_num_actor_drawing > CFG_PROPERTY(DRAWNUM_TO_SLOWDOWN1)) {
+        _slowdown_mode = SLOWDOWN_MODE_40FPS;
+    } else {
+        _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
+    }
     _num_actor_drawing = 0;
     _pUniverse->preDraw();
     _pUniverse->draw();

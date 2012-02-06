@@ -56,7 +56,7 @@ public:
     /** [r] 神のフレーム開始システム時間 */
     DWORD _time_at_beginning_frame;
     /** [r] 次にこの世を活動させるシステム時間 */
-    DWORD _expected_time_of_next_frame;
+    DWORD _time_of_next_view;
     /** [r] 神誕生からのフレーム数 */
     frame _frame_of_God;
     int _cnt_frame;
@@ -79,7 +79,7 @@ public:
     int _max_skip_frames;
     /** [r] 現在の処理落ちモード 0:60fps 1:40fps 2:30fps。_aaTime_OffsetOfNextFrameの一つ目の要素 */
     int _slowdown_mode;
-    /** [r] 時間とフレームの動機調整モード中はtrue */
+    /** [r] 時間とフレームの同期調整モード中はtrue */
     bool _sync_frame_time;
     bool _was_cleaned;
 
