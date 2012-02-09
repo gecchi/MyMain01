@@ -63,9 +63,6 @@ void EffectMyOption::processPreDraw() {
 void EffectMyOption::onHit(GgafActor* prm_pOtherActor) {
 }
 
-void EffectMyOption::processFinal() {
-}
-
 EffectMyOption::~EffectMyOption() {
 }
 

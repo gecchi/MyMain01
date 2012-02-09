@@ -33,8 +33,9 @@ public:
 
     HomingLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
-    virtual void initialize() override;
+    virtual void onCreateModel() override {}
 
+    virtual void initialize() override {}
 
     /**
      * レーザーチップ座標計算等処理 .
@@ -43,7 +44,11 @@ public:
      */
     virtual void processBehavior() override;
 
+    virtual void processJudgement() override {}
+
     virtual void processSettlementBehavior() override;
+
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
     /**
      * ホーミングレーザーの先頭チップの動きを実装する .
@@ -53,22 +58,11 @@ public:
     virtual void processBehaviorHeadChip() = 0;
 
     /**
-     * レーザーチップ判定等処理 .
-     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの processJudgement() メソッドも呼び出してください。
-     * 実は本メソッドで、GgafDxGeometricActor::updateWorldMatrix_Mv(this, _matWorld) を呼び出しており、
-     * このタイミングでワールド変換行列が確定しますので、オーバーライドの際は最後に HomingLaserChip::processJudgement(); と
-     * したほうが良いでしょう。
-     */
-    virtual void processJudgement() override;
-
-    /**
      * レーザーチップ出現時処理 .
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
      * その際 は、本クラスの onActive() メソッドも呼び出してください。
      */
     virtual void onActive() override;
-
 
     /**
      * レーザーチップ消失時処理 .
@@ -77,8 +71,6 @@ public:
      */
     virtual void onInactive() override;
 
-
-    //virtual void initializeHoming(GgafDxCore::GgafDxGeometricActor* prm_pActor_Target);
 
     virtual ~HomingLaserChip();
 

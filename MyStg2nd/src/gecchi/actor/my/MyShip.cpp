@@ -497,13 +497,12 @@ void MyShip::processJudgement() {
         _frame_shot_pressed = 0;
     }
 
-
+    //レーザー発射
     if (_is_shooting_laser) {
-        if (VB_PLAY->isBeingPressed(VB_SHOT1)) {//isBeingPressed
-            //GgafActorDepositoryの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
-            MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDepo->dispatch();
-            if (pLaser) {
-                if (pLaser->_pChip_front == NULL) {
+        if (VB_PLAY->isBeingPressed(VB_SHOT1)) {
+            LaserChip* pLaserChip = _pLaserChipDepo->dispatch();
+            if (pLaserChip) {
+                if (pLaserChip->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
                 }
             }
@@ -544,7 +543,7 @@ void MyShip::processJudgement() {
     }
     MyOptionController* pMyOptionController = P_MYOPTIONCON;
 
-    //    if (VB_PLAY->isPushedDown(VB_SHOT2)) {
+    //光子魚雷発射
     if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         bool can_fire = true;
         for (int i = 0; i < pMyOptionController->_now_option_num; i++) {

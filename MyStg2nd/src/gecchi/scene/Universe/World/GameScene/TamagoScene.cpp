@@ -92,8 +92,5 @@ void TamagoScene::processBehavior() {
 
 }
 
-void TamagoScene::processFinal() {
-}
-
 TamagoScene::~TamagoScene() {
 }

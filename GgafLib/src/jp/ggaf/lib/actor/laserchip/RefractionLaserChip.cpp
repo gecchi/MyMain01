@@ -22,16 +22,6 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _prev_pRefractionEffect = NULL;
 }
 
-void RefractionLaserChip::initialize() {
-    //初期設定です。
-    //30px/frame の移動速度
-    //当たり判定あり。
-    //α＝0.99
-    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    _pKurokoA->setMvVelo(30000);
-    _fAlpha = 0.99;
-}
-
 
 void RefractionLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
@@ -127,8 +117,6 @@ void RefractionLaserChip::onInactive() {
 }
 
 void RefractionLaserChip::processBehavior() {
-    LaserChip::processBehavior();
-
     //レーザーチップ消失時処理
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
@@ -227,12 +215,6 @@ void RefractionLaserChip::processSettlementBehavior() {
     } else {
         LaserChip::processSettlementBehavior();
     }
-}
-
-void RefractionLaserChip::processJudgement() {
-    LaserChip::processJudgement();
-    //TODO:コメント未検証　たぶん問題なし
-    //GgafDxUtil::setWorldMatrix_RxRzRyScMv(this, _matWorld);
 }
 
 RefractionLaserChip::~RefractionLaserChip() {

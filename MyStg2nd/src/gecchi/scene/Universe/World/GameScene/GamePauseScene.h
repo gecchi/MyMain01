@@ -39,7 +39,6 @@ public:
     void onActive() override;
     void processBehavior() override;
     void onInactive() override;
-    void processFinal() override;
     virtual ~GamePauseScene();
 };
 

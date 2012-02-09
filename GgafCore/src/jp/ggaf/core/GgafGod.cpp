@@ -10,7 +10,7 @@ CRITICAL_SECTION GgafGod::CS2;
 
 int GgafGod::_num_actor_drawing = 0;
 GgafGod* GgafGod::_pGod = NULL;
-DWORD GgafGod::_aaTime_OffsetOfNextFrame[3][60] = {
+DWORD GgafGod::_aaTime_offset_of_next_view[3][60] = {
         {17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16},
         {25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25},
         {33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34}
@@ -55,26 +55,28 @@ GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
 
 void GgafGod::be() {
 
-    //‡@Mo = presentUniversalMoment();     ¥¥¥ ƒƒCƒ“ˆ—E•K{ˆ—
-    //‡AJa = executeUniversalJudge();      ¥¥¥ ”»’èˆ—E•K{ˆ—
-    //‡BMa = makeUniversalMaterialize();   ¥¥¥ •`‰æˆ—(d‚¢)EƒXƒLƒbƒv‰Â
-    //‡CVi = presentUniversalVisualize();  ¥¥¥ ƒtƒŠƒbƒvˆ—E‡B‚ÆƒZƒbƒg
-    //‡DFi = finalizeUniversal();          ¥¥¥ ÅIˆ—E•K{ˆ—
+    //
+    // ‡@Mo = presentUniversalMoment();     ¥¥¥ ƒƒCƒ“ˆ—E•K{ˆ—
+    // ‡AJa = executeUniversalJudge();      ¥¥¥ ”»’èˆ—E•K{ˆ—
+    // ‡BMa = makeUniversalMaterialize();   ¥¥¥ •`‰æˆ—(d‚¢)EƒXƒLƒbƒv‰Â
+    // ‡CVi = presentUniversalVisualize();  ¥¥¥ ƒtƒŠƒbƒvˆ—E‡B‚ÆƒZƒbƒg
+    // ‡DFi = finalizeUniversal();          ¥¥¥ ÅIˆ—E•K{ˆ—
+    // ‚Æ‚·‚éB
+    // ‡CVi ‚ð 1/60 •b–ˆ‚ÉˆÀ’è‚µ‚ÄŽÀs‚·‚é‚±‚Æ‚ð—‘z‚Æ‚·‚éB
+    // ‡BMaA‡CVi ‚ðŽÀs‚·‚é‚©‚Ç‚¤‚©‚ÍA‡AJa ‚ðŽÀs‚µ‚½Žž“_‚Å”»’fB
+    // ‡BMa ŽÀsŒãA_time_of_next_view ‚Ü‚Å‘Ò‚¿ ‡CVi ŽÀsB‰ß‚¬‚Ä‚¢‚ê‚ÎA‘¦À‚É ‡CVi ŽÀsB
     //
     //yˆÀ’èŽž‚Ì—‘zz
-    // ‡CVi ‚ð 1/60 •b–ˆ‚ÉˆÀ’è‚µ‚ÄŽÀs‚·‚é‚±‚Æ‚ð—‘z‚Æ‚·‚éB
-    //
     //        _time_of_next_view                                              _time_of_next_view
-    //                 |                                                                |
-    //                 |                 3frame                                         |                 4frame
+    //                 |              3frame begin                                      |              4frame begin
     //                 |                   |                                            |                   |
     //                 v                   v                                            v                   v
     // ----------------+----------------------------------------------------------------+----------------------------------------------------------->
     //  <--- wait ---> | 2f-‡CVi | 2f-‡DFi | 3f-‡@Mo | 3f-‡AJa | 3f-‡BMa |<--- wait --->| 3f-‡CVi | 3f-‡DFi | 4f-‡@Mo | 4f-‡AJa | 4f-‡BMa |<--- wait
-    //
+    //                 |                   |                                            |                   |
     // -- 2frame ------------------------->|<-------------------------- 3frame ---------------------------->|<----------------  4frame ---------
-    //
-    //                 |<--------------------------- 1/60s  --------------------------->|
+    //                 |                                                                |
+    //                 |<---------------- 1/60 sec (17 or 16 msec)  ------------------->|
     //
     //
 
@@ -101,10 +103,10 @@ void GgafGod::be() {
             _is_behaved_flg = true;
          ___BeginSynchronized1; // ----->”r‘¼ŠJŽn
             _frame_of_God++;
-            presentUniversalMoment();
-            executeUniversalJudge();
-         ___EndSynchronized1; // <----- ”r‘¼I—¹
-            _time_of_next_view += _aaTime_OffsetOfNextFrame[_slowdown_mode][_cnt_frame];
+            presentUniversalMoment(); //‡@
+            executeUniversalJudge();  //‡A
+         ___EndSynchronized1;  // <-----”r‘¼I—¹
+            _time_of_next_view += _aaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
             _cnt_frame = _cnt_frame == 59 ? 0 : _cnt_frame++;
             if (timeGetTime() >= _time_of_next_view) { //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚½Aˆ½‚¢‚Í‰ß‚¬‚Ä‚¢‚éê‡
                 //makeUniversalMaterialize ‚ÍƒpƒX
@@ -112,7 +114,7 @@ void GgafGod::be() {
             } else {
                 //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚Ä‚¢‚È‚¢B—]—T‚ª‚ ‚éB
                 _is_materialized_flg = true;
-                makeUniversalMaterialize();
+                makeUniversalMaterialize(); //‡B
                 //’A‚µ makeUniversalMaterialize() ‚É‚æ‚èƒI[ƒo[‚·‚é‚©‚à‚µ‚ê‚È‚¢B
             }
         }
@@ -121,33 +123,33 @@ void GgafGod::be() {
 
         if (_time_at_beginning_frame >= _time_of_next_view) {
             //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚½Aˆ½‚¢‚Í‰ß‚¬‚Ä‚¢‚éê‡
-            if (_is_materialized_flg) { //makeUniversalMaterialize() ŽÀsÏ‚Ý‚Ìê‡
+            if (_is_materialized_flg) { // ‡B makeUniversalMaterialize() ŽÀsÏ‚Ý‚Ìê‡
                 //•`‰æ—L‚èiƒXƒLƒbƒv‚È‚µj
-             ___BeginSynchronized1; // ----->”r‘¼ŠJŽn
-                presentUniversalVisualize(); _visualize_frames++;
-                finalizeUniversal();
-             ___EndSynchronized1;   // <----- ”r‘¼I—¹
-            } else {                    //makeUniversalMaterialize() ŽÀs‚µ‚Ä‚¢‚È‚¢ê‡
+                presentUniversalVisualize(); _visualize_frames++; //‡C
+             ___BeginSynchronized1;  // ----->”r‘¼ŠJŽn
+                finalizeUniversal(); //‡D
+             ___EndSynchronized1;    // <-----”r‘¼I—¹
+            } else {                   // ‡B makeUniversalMaterialize() ŽÀs‚µ‚Ä‚¢‚È‚¢ê‡
                 //•`‰æ–³‚µiƒXƒLƒbƒvŽžj
                 if (_sync_frame_time) { //“¯Šú’²®ƒ‚[ƒhŽž‚Í
                     //–³ðŒ‚Å•`‰æ‚È‚µB
-                 ___BeginSynchronized1; // ----->”r‘¼ŠJŽn
-                    finalizeUniversal();
-                 ___EndSynchronized1;   // <----- ”r‘¼I—¹
-                } else {                //“¯Šú’²®ƒ‚[ƒh‚Å‚Í‚È‚¢ê‡‚Í’ÊíƒXƒLƒbƒv
+                 ___BeginSynchronized1;  // ----->”r‘¼ŠJŽn
+                    finalizeUniversal(); //‡D
+                 ___EndSynchronized1;    // <-----”r‘¼I—¹
+                } else {   //“¯Šú’²®ƒ‚[ƒh‚Å‚Í‚È‚¢ê‡‚Í’ÊíƒXƒLƒbƒv
                     _skip_count_of_frame++;
                     //’A‚µAƒXƒLƒbƒv‚·‚é‚Æ‚¢‚Á‚Ä‚à MAX_SKIP_FRAME ƒtƒŒ[ƒ€‚É‚P‰ñ‚Í•`‰æ‚Í‚·‚éB
                     if (_skip_count_of_frame >= _max_skip_frames) {
-                     ___BeginSynchronized1; // ----->”r‘¼ŠJŽn
-                        makeUniversalMaterialize();
-                        presentUniversalVisualize(); _visualize_frames++;
-                        finalizeUniversal();
-                     ___EndSynchronized1;   // <----- ”r‘¼I—¹
+                        makeUniversalMaterialize(); //‡B
+                        presentUniversalVisualize(); _visualize_frames++; //‡C
+                     ___BeginSynchronized1;         // ----->”r‘¼ŠJŽn
+                        finalizeUniversal();        //‡D
+                     ___EndSynchronized1;           // <-----”r‘¼I—¹
                         _skip_count_of_frame = 0;
                     } else {
-                     ___BeginSynchronized1; // ----->”r‘¼ŠJŽn
-                        finalizeUniversal();
-                     ___EndSynchronized1;   // <----- ”r‘¼I—¹
+                     ___BeginSynchronized1;  // ----->”r‘¼ŠJŽn
+                        finalizeUniversal(); //‡D
+                     ___EndSynchronized1;    // <-----”r‘¼I—¹
                     }
                 }
             }

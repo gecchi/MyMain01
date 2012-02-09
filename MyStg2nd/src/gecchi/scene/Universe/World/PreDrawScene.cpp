@@ -115,8 +115,5 @@ void PreDrawScene::processBehavior() {
 
 }
 
-void PreDrawScene::processFinal() {
-}
-
 PreDrawScene::~PreDrawScene() {
 }

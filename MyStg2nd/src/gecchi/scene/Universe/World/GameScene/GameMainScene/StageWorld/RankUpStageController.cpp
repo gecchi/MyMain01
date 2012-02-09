@@ -413,8 +413,6 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
         }
     }
 }
-void RankUpStageController::processFinal() {
-}
 
 RankUpStageController::~RankUpStageController() {
 }

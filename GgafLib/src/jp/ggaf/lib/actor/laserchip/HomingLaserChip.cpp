@@ -11,17 +11,6 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, Gg
     _is_leader = false;
 }
 
-void HomingLaserChip::initialize() {
-    //初期設定です。
-    //30px/frame の移動速度
-    //当たり判定あり。
-    //α＝0.99
-    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    _pKurokoA->setMvVelo(30000);
-    _fAlpha = 0.99;
-}
-
-
 void HomingLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
@@ -141,8 +130,6 @@ void HomingLaserChip::onInactive() {
 }
 
 void HomingLaserChip::processBehavior() {
-    LaserChip::processBehavior();
-
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
@@ -187,11 +174,6 @@ void HomingLaserChip::processSettlementBehavior() {
     } else {
         LaserChip::processSettlementBehavior();
     }
-}
-
-void HomingLaserChip::processJudgement() {
-    LaserChip::processJudgement();
-    //GgafDxUtil::setWorldMatrix_RxRzRyScMv(this, _matWorld);
 }
 
 HomingLaserChip::~HomingLaserChip() {

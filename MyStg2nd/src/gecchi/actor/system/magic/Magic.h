@@ -188,22 +188,19 @@ public:
 
 //          GgafDxCore::GgafDxGeometricActor* prm_pCaster,
 //          GgafDxCore::GgafDxGeometricActor* prm_pReceiver);
-    void initialize() override {
-    }
+    void initialize() override {}
 
-    void onReset() override {
-    }
+    void onReset() override {}
 
     void processBehavior() override;
 
-    void processJudgement() override {
-    }
-    void processDraw() override {
-    }
-    void processFinal()  override {
-    }
-    void onCatchEvent(hashval prm_no, void* prm_pSource) override {
-    }
+    void processJudgement() override {}
+
+    void processDraw() override {}
+
+    void processFinal() override {}
+
+    void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
     void save(std::stringstream& sts);
 

@@ -27,8 +27,5 @@ void GameEndingScene::initialize() {
 void GameEndingScene::processBehavior() {
 }
 
-void GameEndingScene::processFinal() {
-}
-
 GameEndingScene::~GameEndingScene() {
 }

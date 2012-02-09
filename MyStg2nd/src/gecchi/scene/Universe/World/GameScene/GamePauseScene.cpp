@@ -175,10 +175,6 @@ void GamePauseScene::onInactive() {
     _pMenuBoardPause->sink();
 }
 
-void GamePauseScene::processFinal() {
-
-}
-
 GamePauseScene::~GamePauseScene() {
     DELETEARR_IMPOSSIBLE_NULL(_papMenuItemLabel);
     _pSeCon_exec->close();

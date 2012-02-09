@@ -68,7 +68,9 @@ public:
         _pDispatche_RefractionEffect = prm_pDispatche_RefractionEffect;
     }
 
-    virtual void initialize() override;
+    virtual void onCreateModel() override {}
+
+    virtual void initialize() override {}
 
     /**
      * レーザーチップ座標計算等処理 .
@@ -77,7 +79,11 @@ public:
      */
     virtual void processBehavior() override;
 
+    virtual void processJudgement() override {}
+
     virtual void processSettlementBehavior() override;
+
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
     /**
      * 先頭チップのレーザーの直進終了～屈折開始時の処理 .
@@ -92,16 +98,6 @@ public:
     virtual void onRefractionFinish(int prm_num_refraction) = 0;
 
     /**
-     * レーザーチップ判定等処理 .
-     * 下位クラスで独自設定のため、オーバーライドし対場合は、内部で
-     * 本クラスの processJudgement() メソッドも呼び出してください。
-     * 実は本メソッドで、GgafDxGeometricActor::updateWorldMatrix_Mv(this, _matWorld) を呼び出しており、
-     * このタイミングでワールド変換行列が確定しますので、オーバーライドの際は最後に RefractionLaserChip::processJudgement(); と
-     * したほうが良いでしょう。
-     */
-    virtual void processJudgement() override;
-
-    /**
      * レーザーチップ出現時処理 .
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
      * その際 は、本クラスの onActive() メソッドも呼び出してください。
@@ -114,9 +110,6 @@ public:
      * その際 は、本クラスの onInactive() メソッドも呼び出してください。
      */
     virtual void onInactive() override;
-
-
-    //virtual void initializeRefraction(GgafDxCore::GgafDxGeometricActor* prm_pActor_Target);
 
     virtual ~RefractionLaserChip();
 

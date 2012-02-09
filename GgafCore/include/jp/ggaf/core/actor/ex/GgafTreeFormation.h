@@ -34,15 +34,14 @@ public:
      * サブが無ければ本オブジェクト解放という処理 .
      * 構成メンバーが全て sayonara() した場合、本フォーメーションオブジェクトが自動解放される
      * ようにするために実装済みです。
-     * 下位で processJudgement() の処理が必要な場合は、
+     * 下位で processFinal() の処理が必要な場合は、
      * オーバーライドして、その処理中での何処かで
      * <code>
-     * GgafTreeFormation::processJudgement();
+     * GgafTreeFormation::processFinal();
      * </code>
      * を呼び出してください、
      */
-    virtual void processJudgement() override;
-
+    virtual void processFinal() override;
 
     /**
      * 編隊のメンバーを登録します.

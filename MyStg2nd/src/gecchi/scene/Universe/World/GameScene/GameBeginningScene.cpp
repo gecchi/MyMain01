@@ -87,8 +87,5 @@ void GameBeginningScene::processBehavior() {
     _pStringBoard02->_pFader->behave();
 }
 
-void GameBeginningScene::processFinal() {
-}
-
 GameBeginningScene::~GameBeginningScene() {
 }

@@ -49,9 +49,6 @@ public:
 
     void processJudgement() override;
 
-    void processFinal() override {
-    }
-
     void onInactive() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;

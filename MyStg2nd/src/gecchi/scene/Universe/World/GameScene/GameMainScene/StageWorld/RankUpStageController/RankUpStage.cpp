@@ -91,8 +91,7 @@ void RankUpStage::processBehavior() {
     _pMessage->_pFader->behave();
 
 }
-void RankUpStage::processFinal() {
-}
+
 void RankUpStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 

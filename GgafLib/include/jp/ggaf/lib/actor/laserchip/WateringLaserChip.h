@@ -19,27 +19,9 @@ public:
     int _tmpX, _tmpY, _tmpZ;
     WateringLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
-    virtual void initialize() override;
+    virtual void onCreateModel() override {}
 
-    /**
-     * レーザーチップ座標計算等処理 .
-     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの processBehavior() メソッドも呼び出してください。
-     */
-    virtual void processBehavior() override;
-
-
-    virtual void processSettlementBehavior() override;
-
-    /**
-     * レーザーチップ判定等処理 .
-     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの processJudgement() メソッドも呼び出してください。
-     * 実は本メソッドで、GgafDxGeometricActor::updateWorldMatrix_Mv(this, _matWorld) を呼び出しており、
-     * このタイミングでワールド変換行列が確定しますので、オーバーライドの際は最後に WateringLaserChip::processJudgement(); と
-     * したほうが良いでしょう。
-     */
-    virtual void processJudgement() override;
+    virtual void initialize() override {}
 
     /**
      * レーザーチップ出現時処理 .
@@ -49,11 +31,17 @@ public:
     virtual void onActive() override;
 
     /**
-     * レーザーチップ消失時処理 .
+     * レーザーチップ座標計算等処理 .
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの onInactive() メソッドも呼び出してください。
+     * その際 は、本クラスの processBehavior() メソッドも呼び出してください。
      */
-    virtual void onInactive() override;
+    virtual void processBehavior() override;
+
+    virtual void processJudgement() override {}
+
+    virtual void processSettlementBehavior() override;
+
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
     virtual ~WateringLaserChip();
 

@@ -165,10 +165,6 @@ void GameTitleScene::processBehavior() {
     }
 }
 
-void GameTitleScene::processFinal() {
-
-}
-
 GameTitleScene::~GameTitleScene() {
 //    DELETEARR_IMPOSSIBLE_NULL(_papStringItem);
     _pSeCon_exec->close();

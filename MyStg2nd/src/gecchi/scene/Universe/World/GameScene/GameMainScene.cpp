@@ -117,9 +117,6 @@ void GameMainScene::onInactive() {
 void GameMainScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
-void GameMainScene::processFinal() {
-}
-
 GameMainScene::~GameMainScene() {
 }
 

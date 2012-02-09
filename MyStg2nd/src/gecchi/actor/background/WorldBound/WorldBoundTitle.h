@@ -28,9 +28,6 @@ public:
 
     void processJudgement() override;
 
-    void processFinal() override {
-    }
-
     void fadein();
 
     virtual ~WorldBoundTitle();

@@ -93,10 +93,6 @@ void Stage01::processBehavior() {
 void Stage01::processJudgement() {
 }
 
-void Stage01::processFinal() {
-
-}
-
 void Stage01::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
         _TRACE_("Stage01::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");

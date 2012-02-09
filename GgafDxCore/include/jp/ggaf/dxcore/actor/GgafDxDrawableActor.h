@@ -11,7 +11,6 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxDrawableActor : public GgafDxGeometricActor {
-
 private:
     /** [r]一時テクニック名 */
     char* _temp_technique;

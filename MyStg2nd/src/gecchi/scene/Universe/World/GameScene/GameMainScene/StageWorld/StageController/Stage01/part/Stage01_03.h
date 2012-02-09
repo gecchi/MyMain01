@@ -21,8 +21,6 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void processFinal() override;
-
     virtual ~Stage01_03();
 };
 

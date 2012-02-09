@@ -43,17 +43,22 @@ public:
 
     StraightLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
-    virtual void initialize() override;
+    virtual void onCreateModel() override {}
 
+    virtual void initialize() override {}
+
+    /**
+     * レーザーチップ座標計算等処理 .
+     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+     * その際 は、本クラスの processBehavior() メソッドも呼び出してください。
+     */
     virtual void processBehavior() override;
+
+    virtual void processJudgement() override {}
 
     virtual void processSettlementBehavior() override;
 
-    virtual void processJudgement() override;
-
-    virtual void onActive() override;
-
-    virtual void onInactive() override;
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
     /**
      * 平行移動と回転移動の同期をとる発射アクターを設定 .

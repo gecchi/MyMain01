@@ -15,8 +15,5 @@ void Stage03::initialize() {
 void Stage03::processBehavior() {
 }
 
-void Stage03::processFinal() {
-}
-
 Stage03::~Stage03() {
 }

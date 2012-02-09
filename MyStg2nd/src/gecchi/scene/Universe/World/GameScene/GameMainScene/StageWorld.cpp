@@ -50,11 +50,6 @@ void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
         P_STAGE_CONTROLLER->addRunFrameOnce(-1); //スロー開始
     }
 }
-void StageWorld::processFinal() {
-
-
-
-}
 
 StageWorld::~StageWorld() {
     if (P_STAGE_CONTROLLER->_pStageMainCannel) {

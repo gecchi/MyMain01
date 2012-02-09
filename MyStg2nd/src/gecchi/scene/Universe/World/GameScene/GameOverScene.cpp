@@ -64,8 +64,5 @@ void GameOverScene::processBehavior() {
      }
 }
 
-void GameOverScene::processFinal() {
-}
-
 GameOverScene::~GameOverScene() {
 }

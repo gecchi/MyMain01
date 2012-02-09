@@ -77,9 +77,5 @@ void GamePreTitleScene::processBehavior() {
      }
 }
 
-void GamePreTitleScene::processFinal() {
-
-}
-
 GamePreTitleScene::~GamePreTitleScene() {
 }

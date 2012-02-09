@@ -53,14 +53,14 @@ public:
      * 構成メンバーが全て sayonara() し、デポジトリに戻った場合、
      * 本フォーメーションオブジェクトが自動解放されるようにするための
      * 実装です。
-     * 下位で processJudgement() の処理が必要な場合は、
+     * 下位で processFinal() の処理が必要な場合は、
      * オーバーライドして、その処理中での何処かで
      * <code>
-     * GgafTreeFormation::processJudgement();
+     * GgafTreeFormation::processFinal();
      * </code>
      * を呼び出してください、
      */
-    virtual void processJudgement() override;
+    virtual void processFinal() override;
 
     /**
      * デポジトリからメンバー呼び出しする。 .

@@ -493,15 +493,6 @@ void MyOption::onHit(GgafActor* prm_pOtherActor) {
     sayonara();
 }
 
-void MyOption::processFinal() {
-//    //ロックオンが体力が無くなれば、存在してようが切る
-//    if (_pLockonTarget) {
-//        if (_pLockonTarget->_pStatus->get(STAT_Stamina) <= 0) {
-//            _pLockonController->releaseLockon();
-//            _pLockonTarget = NULL;
-//        }
-//    }
-}
 MyOption::~MyOption() {
 }
 

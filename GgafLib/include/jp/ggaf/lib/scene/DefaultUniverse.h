@@ -22,15 +22,13 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class DefaultUniverse : public GgafDxCore::GgafDxUniverse {
+    virtual void processFinal() override;
 
 public:
 
     LinearOctreeForActor* _pLinearOctree;
 
     DefaultUniverse(const char* prm_name, GgafDxCore::GgafDxCamera* prm_pCamera);
-
-
-    virtual void processFinal() override;
 
     virtual ~DefaultUniverse();
 };

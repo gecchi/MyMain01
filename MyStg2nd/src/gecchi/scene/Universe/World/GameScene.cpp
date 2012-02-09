@@ -345,8 +345,5 @@ void GameScene::processJudgement() {
     }
 }
 
-void GameScene::processFinal() {
-}
-
 GameScene::~GameScene() {
 }

@@ -36,42 +36,7 @@ void GgafDepositoryFormation::setFormationAbleActorDepository(GgafActorDepositor
     }
 }
 
-
-GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
-    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
-        //終了を待つのみ
-        return NULL;
-    }
-#ifdef MY_DEBUG
-    if (!_pDepo) {
-        throwGgafCriticalException("GgafDepositoryFormation::callUpUntil "<<getName()<<"は、Depositoryが指定されてません。setFormationAbleActorDepositoryが必要です。"<<
-                                   "this="<<getName()<<" _num_sub="<<_num_sub);
-    }
-#endif
-    _is_called_up = true;
-    if (prm_formation_sub_num < _num_sub) {
-        _is_all_called_up = true;
-        return NULL; //もうこれ以上callUpUntil不可
-    } else {
-        GgafMainActor* pActor = _pDepo->dispatch();
-        if (pActor) {
-            _num_sub++;
-            _is_all_called_up = false;
-            pActor->_pFormation = this;
-            _listFllower.addLast(pActor, false);
-            return (GgafActor*)pActor;
-        } else {
-            _is_all_called_up = true;
-            return NULL; //もうこれ以上callUpUntil不可
-        }
-    }
-}
-
-bool GgafDepositoryFormation::isAllCalledUp() {
-    return _is_all_called_up;
-}
-
-void GgafDepositoryFormation::processJudgement() {
+void GgafDepositoryFormation::processFinal() {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
     }
@@ -97,9 +62,42 @@ void GgafDepositoryFormation::processJudgement() {
             }
         }
     }
-
-
 }
+
+GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
+    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+        //終了を待つのみ
+        return NULL;
+    }
+#ifdef MY_DEBUG
+    if (!_pDepo) {
+        throwGgafCriticalException("GgafDepositoryFormation::callUpUntil "<<getName()<<"は、Depositoryが指定されてません。setFormationAbleActorDepositoryが必要です。"<<
+                                   "this="<<getName()<<" _num_sub="<<_num_sub);
+    }
+#endif
+    _is_called_up = true;
+    if (prm_formation_sub_num <= _num_sub) {
+        _is_all_called_up = true;
+        return NULL; //もうこれ以上callUpUntil不可
+    } else {
+        GgafMainActor* pActor = _pDepo->dispatch();
+        if (pActor) {
+            _num_sub++;
+            _is_all_called_up = false;
+            pActor->_pFormation = this;
+            _listFllower.addLast(pActor, false);
+            return (GgafActor*)pActor;
+        } else {
+            _is_all_called_up = true;
+            return NULL; //もうこれ以上callUpUntil不可
+        }
+    }
+}
+
+bool GgafDepositoryFormation::isAllCalledUp() {
+    return _is_all_called_up;
+}
+
 void GgafDepositoryFormation::onEnded() {
     GgafFormation::onEnded();
     sayonaraFollwer();

@@ -183,8 +183,6 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     }
 
 }
-void StageController::processFinal() {
-}
 
 StageController::~StageController() {
 }

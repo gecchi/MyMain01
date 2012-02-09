@@ -43,7 +43,7 @@ public:
     /** [r] 生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */
     static GgafCriticalException* _pException_Factory;
     /** [r] 次にこの世を活動させる時間のオフセット */
-    static DWORD _aaTime_OffsetOfNextFrame[3][60];
+    static DWORD _aaTime_offset_of_next_view[3][60];
     /** [r] 本アプリケーションのインスタンスハンドル */
     static HINSTANCE _hInstance;
 
@@ -77,7 +77,7 @@ public:
     static int _num_actor_drawing;
     /** [r] 描画処理、最高スキップフレーム数 */
     int _max_skip_frames;
-    /** [r] 現在の処理落ちモード 0:60fps 1:40fps 2:30fps。_aaTime_OffsetOfNextFrameの一つ目の要素 */
+    /** [r] 現在の処理落ちモード 0:60fps 1:40fps 2:30fps。_aaTime_offset_of_next_viewの一つ目の要素 */
     int _slowdown_mode;
     /** [r] 時間とフレームの同期調整モード中はtrue */
     bool _sync_frame_time;

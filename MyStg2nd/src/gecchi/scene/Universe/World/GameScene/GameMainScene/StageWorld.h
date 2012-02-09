@@ -22,10 +22,7 @@ public:
     void onReset() override;
     void initialize() override;
     void processBehavior() override;
-    void processFinal() override;
     void onCatchEvent(hashval prm_no, void* prm_pSource) override;
-//    void slowdown(RankUpStage* prm_pLastAdded);
-//    void slowRelease(RankUpStage* prm_pInactive);
     virtual ~StageWorld();
 };
 

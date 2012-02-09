@@ -39,7 +39,6 @@ public:
     void initialize() override;
     void onActive() override;
     void processBehavior() override;
-    void processFinal() override;
     void onInactive() override;
     virtual ~GameDemoScene();
 };

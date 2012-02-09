@@ -23,14 +23,7 @@ public:
     virtual void processBehavior() override {
     }
 
-    /**
-     * 毎フレームのGgafDummyActor判定処理
-     * サブが無ければ自動的に死亡する処理になっている。
-     */
     virtual void processJudgement() override {
-        if (getSubFirst() == NULL) {
-            end(1); //1フレーム後
-        }
     }
 
     virtual void processPreDraw() override {
@@ -46,6 +39,9 @@ public:
     }
 
     virtual void processFinal() override {
+        if (getSubFirst() == NULL) {
+            end(1); //1フレーム後
+        }
     }
 
     /**

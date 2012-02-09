@@ -27,9 +27,6 @@ public:
 
     void processJudgement() override;
 
-    void processFinal() override {
-    }
-
     void onInactive() override;
 
 //    int isOutOfView() override {

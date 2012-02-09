@@ -16,13 +16,5 @@ void Stage04::initialize() {
 void Stage04::processBehavior() {
 }
 
-void Stage04::processFinal() {
-
-    if (getBehaveingFrame() == 1) {
-        _TRACE_("Stage04::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
-        this->inactivateTree(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
-    }
-}
-
 Stage04::~Stage04() {
 }

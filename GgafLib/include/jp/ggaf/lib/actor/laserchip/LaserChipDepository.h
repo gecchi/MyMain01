@@ -42,16 +42,16 @@ public:
     /** [r]レーザーチップ切断されたフラグ(読み取り専用、true=連続発射状態は遮断されている/false=連続発射状態) */
     bool _is_tear_laser;
     /** [r]前回（前フレーム）取得されたレーザーチップ(読み取り専用) */
-    LaserChip* _pChip_prev_employ;
+    LaserChip* _pChip_prev_dispatch;
     /** [r]前回（前フレーム）取得されたレーザーチップの取得された時点の活動フレーム(読み取り専用) */
-    frame _frame_of_behaving_prev_employ;
+    frame _frame_of_behaving_prev_dispatch;
     /** [r]レーザーチップ連続取得カウント(読み取り専用) */
-    int _num_continual_employ_count;
+    int _num_continual_dispatch_count;
     /** [r]レーザーチップ連続未取得カウント(読み取り専用) */
     int _num_interval_frame_count;
 
     /** [r/w]弾切れに移行するチップの連続取得数。（読み書き可／デフォルト：addSubLast()完了後 _num_chip_max と同じになっている。 */
-    int _num_continual_employ_max;
+    int _num_continual_dispatch_max;
     /** [r/w]弾切れフレーム数（読み書き可／デフォルト=20） */
     int _num_chip_interval;
     /** [r/w]レーザー発射時エフェクト。不要の場合はNULLを設定する */
@@ -61,11 +61,11 @@ public:
 
     /**
      * LaserChipDepositoryを設定する。
-     * @param prm_num_continual_employ_max 強制的に弾切れに移行するチップの連続取得数。
+     * @param prm_num_continual_dispatch_max 強制的に弾切れに移行するチップの連続取得数。
      * @param prm_num_chip_interval 弾切れフレーム数
      * @param prm_pEffectActor_Irradiate シーン所属済み発射中エフェクト(不要時はNULL)。解放は呼び元で。
      */
-    virtual void config(int prm_num_continual_employ_max,
+    virtual void config(int prm_num_continual_dispatch_max,
                         UINT32 prm_num_chip_interval,
                         GgafDxCore::GgafDxDrawableActor* prm_pEffectActor_Irradiate = NULL);
 

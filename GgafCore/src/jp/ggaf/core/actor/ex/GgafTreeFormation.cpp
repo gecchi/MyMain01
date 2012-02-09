@@ -30,7 +30,7 @@ void GgafTreeFormation::addSubLast(GgafActor* prm_pSub) {
 }
 
 
-void GgafTreeFormation::processJudgement() {
+void GgafTreeFormation::processFinal() {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //I—¹‚ğ‘Ò‚Â‚Ì‚İ
     } else {

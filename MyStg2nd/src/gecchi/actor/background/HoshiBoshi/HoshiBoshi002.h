@@ -28,8 +28,6 @@ public:
 
     void processJudgement() override;
 
-//    void processPreDraw() override;
-
     int isOutOfView() override;
 
     bool isOutOfUniverse() override;

@@ -30,7 +30,6 @@ public:
     void processBehaviorProgPlaying();
 
     virtual void processJudgement() override;
-    virtual void processFinal() override;
     virtual void onInactive() override;
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
     void ready(int prm_stage);

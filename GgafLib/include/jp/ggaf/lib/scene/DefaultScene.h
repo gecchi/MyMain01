@@ -36,23 +36,15 @@ public:
     }
 
     virtual void processBehavior() override {
-        TRACE("DefaultScene::processBehavior " << getName() << "frame:" << _frame_of_behaving);
     }
 
     virtual void processJudgement() override {
-        TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_behaving);
     }
 
     virtual void processDraw() override {
-        TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_behaving);
     }
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
-        TRACE("DefaultScene::catchEvent " << getName() << "no:" << prm_no);
-    }
-
-    virtual void processFinal() override {
-        TRACE("DefaultScene::processFinally " << getName() << "frame:" << _frame_of_behaving);
     }
 
     virtual ~DefaultScene();

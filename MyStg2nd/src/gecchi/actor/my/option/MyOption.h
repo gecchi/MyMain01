@@ -24,9 +24,6 @@ private:
     void addRadiusPosition(int prm_radius_offset);
 
 
-
-
-
 public:
     //ˆê•Ï”’B
     int _Xorg,_Yorg,_Zorg;
@@ -138,8 +135,6 @@ public:
     void processBehavior() override;
 
     void processJudgement() override;
-
-    void processFinal() override;
 
     void onInactive() override;
 

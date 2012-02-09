@@ -24,8 +24,6 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void processFinal() override;
-
     virtual ~Stage02_Climax();
 };
 

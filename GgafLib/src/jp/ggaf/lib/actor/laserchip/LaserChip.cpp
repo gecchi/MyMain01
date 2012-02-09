@@ -75,27 +75,12 @@ void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 
-//void LaserChip::onCreateModel() {
-//    _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
-//    _TRACE_("LaserChip::onCreateModel() "<<_pMeshSetModel->getName()<<" のセット数は "<< _pMeshSetModel->_set_num<<" 個に強制されました。");
-//}
-
-void LaserChip::initialize() {
-    //_TRACE_("LaserChip::initialize() "<<getName()<<" bump="<<canHit());
-    _pKurokoA->setMvVelo(40000);
-    _fAlpha = 0.99;
-}
-
-
 void LaserChip::onActive() {
     //出現時
     _chip_kind = 1;
     if (_pDepo) {
         _pDepo->_num_chip_active++;
     }
-}
-
-void LaserChip::processBehavior() {
 }
 
 void LaserChip::processSettlementBehavior() {
@@ -175,22 +160,17 @@ void LaserChip::processSettlementBehavior() {
     } else {
         _chip_kind = 4; //先端チップ。何も描画したくない
         setHitAble(false);
+//        if (_pChip_behind == NULL) {
+//            sayonara();
+//        }
+    }
+    if (isOutOfUniverse()) {
+        sayonara();
     }
 
     GgafDxMeshSetActor::processSettlementBehavior(); //８分木登録
     //TODO:８分木登録だけならprocessSettlementBehavior()を呼び出すのは少し効率が悪かもしれない。
     //当たり判定領域を更新してからprocessSettlementBehaviorで８分木登録すること。
-
-}
-
-void LaserChip::processJudgement() {
-    if (_chip_kind == 4 && _pChip_behind == NULL) {
-        sayonara();
-    }
-    //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canHit());
-    if (isOutOfUniverse()) {
-        sayonara();
-    }
 }
 
 void LaserChip::processPreDraw() {
@@ -252,16 +232,10 @@ void LaserChip::processDraw() {
 }
 
 void LaserChip::drawHitArea() {
-    //_TRACE_("LaserChip::drawHitArea()st "<<getName()<<" bump="<<canHit());
     ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliAAPrismActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
-    //_TRACE_("LaserChip::drawHitArea()ed "<<getName()<<" bump="<<canHit());
-}
-
-void LaserChip::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void LaserChip::onInactive() {
-
     //消失時
     if (_pDepo) {
         _pDepo->_num_chip_active--;
@@ -295,6 +269,5 @@ void LaserChip::registHitAreaCube(int prm_edge_length) {
 
 LaserChip::~LaserChip() {
     DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
-
 }
 

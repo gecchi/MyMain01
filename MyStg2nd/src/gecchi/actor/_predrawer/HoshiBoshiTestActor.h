@@ -36,10 +36,6 @@ public:
 
     void processDraw() override;
 
-
-    void processFinal() override {
-    }
-
     void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 

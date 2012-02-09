@@ -15,7 +15,6 @@ public:
     void ready();
     virtual void initialize() override;
     virtual void processBehavior() override;
-    virtual void processFinal() override;
     virtual ~PreDrawScene();
 };
 

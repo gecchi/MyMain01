@@ -36,12 +36,9 @@ public:
 
     void onReset() override;
     void ready(int prm_rank_level);
-//    void readyNextStage();
-//    void cannelStage(int prm_stage);
 
     void initialize() override;
     void processBehavior() override;
-    void processFinal() override;
     void onCatchEvent(hashval prm_no, void* prm_pSource) override;
 
     virtual ~RankUpStageController();

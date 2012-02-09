@@ -136,9 +136,6 @@ void GameDemoScene::processBehavior() {
 
 }
 
-void GameDemoScene::processFinal() {
-
-}
 void GameDemoScene::onInactive() {
     _TRACE_("GameDemoScene::onInactive() ");
     if (P_STAGE_CONTROLLER->_pStageMainCannel) {

@@ -172,15 +172,15 @@ void GgafDxDrawableActor::processPreDraw() {
                 // 1001.07 つまり約10000px相当の奥行きを描画
                 dxcoord dep = -_fDist_VpPlnFront; //オブジェクトの視点からの距離(DIRECTX距離)
 
-                static double dep_rate_point1 = 0.3;                                //荒くなるポイント１の割合(カメラ可視奥行の 3/10 の地点)
-                static double dep_rate_point2 = 0.6;                                //荒くなるポイント２の割合(カメラ可視奥行の 6/10 の地点)
-                static dxcoord roughly_dep_point1 = (P_CAM->_zf * dep_rate_point1); //荒くなるポイント１距離
-                static dxcoord roughly_dep_point2 = (P_CAM->_zf * dep_rate_point2); //荒くなるポイント２距離
-                static double dep_level_rate_cam_to_point1 = 0.5;                   //視点～荒くなるポイント１までの、深度レベルを求めるために距離に乗ずる割合。
-                static double dep_level_rate_point1_to_point2 = 0.2;                //荒くなるポイント１～ポイント２間の、深度レベルを求めるために距離に乗ずる割合。
-                static double dep_level_rate_point2_to_far_away = 0.01;             //荒くなるポイント２～最遠の、深度レベルを求めるために距離に乗ずる割合。
-                static int roughly_dep_point1_DRAW_DEPTH_LEVEL = roughly_dep_point1*dep_level_rate_cam_to_point1;    //荒くなるポイント１深度レベル
-                static int roughly_dep_point2_DRAW_DEPTH_LEVEL = roughly_dep_point1_DRAW_DEPTH_LEVEL +
+                static const double dep_rate_point1 = 0.3;                                //荒くなるポイント１の割合(カメラ可視奥行の 3/10 の地点)
+                static const double dep_rate_point2 = 0.6;                                //荒くなるポイント２の割合(カメラ可視奥行の 6/10 の地点)
+                static const dxcoord roughly_dep_point1 = (P_CAM->_zf * dep_rate_point1); //荒くなるポイント１距離
+                static const dxcoord roughly_dep_point2 = (P_CAM->_zf * dep_rate_point2); //荒くなるポイント２距離
+                static const double dep_level_rate_cam_to_point1 = 0.5;                   //視点～荒くなるポイント１までの、深度レベルを求めるために距離に乗ずる割合。
+                static const double dep_level_rate_point1_to_point2 = 0.2;                //荒くなるポイント１～ポイント２間の、深度レベルを求めるために距離に乗ずる割合。
+                static const double dep_level_rate_point2_to_far_away = 0.01;             //荒くなるポイント２～最遠の、深度レベルを求めるために距離に乗ずる割合。
+                static const int roughly_dep_point1_DRAW_DEPTH_LEVEL = roughly_dep_point1*dep_level_rate_cam_to_point1;    //荒くなるポイント１深度レベル
+                static const int roughly_dep_point2_DRAW_DEPTH_LEVEL = roughly_dep_point1_DRAW_DEPTH_LEVEL +
                                ((roughly_dep_point2 - roughly_dep_point1) * dep_level_rate_point1_to_point2);        //荒くなるポイント２深度レベル
 
                 if (_specal_drawdepth < 0) { //特別な描画深度指定無し
@@ -233,24 +233,16 @@ void GgafDxDrawableActor::processPreDraw() {
 }
 
 
-#ifdef MY_DEBUG
-
 void GgafDxDrawableActor::processAfterDraw() {
+#ifdef MY_DEBUG
     //当たり判定領域表示
     if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
         GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
         drawHitArea();
         GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDxGod::_d3dfillmode);
     }
-}
-
-#else
-
-void GgafDxDrawableActor::processAfterDraw() {}
-
 #endif
-
-
+}
 
 void GgafDxDrawableActor::setMaterialColor(float r, float g, float b) {
     for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++) {

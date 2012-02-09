@@ -16,7 +16,6 @@ public:
     void onReset() override;
     virtual void initialize() override;
     virtual void processBehavior() override;
-    virtual void processFinal() override;
     virtual ~GameOverScene();
 };
 

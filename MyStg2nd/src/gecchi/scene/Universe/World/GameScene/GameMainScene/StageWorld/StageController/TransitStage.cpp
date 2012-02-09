@@ -97,9 +97,6 @@ void TransitStage::processBehavior() {
 void TransitStage::processJudgement() {
 }
 
-void TransitStage::processFinal() {
-
-}
 void TransitStage::onInactive() {
 
 }

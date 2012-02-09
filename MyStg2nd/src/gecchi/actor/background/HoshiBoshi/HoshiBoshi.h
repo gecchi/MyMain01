@@ -36,9 +36,6 @@ public:
 
     virtual void processDraw() override;
 
-    virtual void processFinal() override {
-    }
-
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 

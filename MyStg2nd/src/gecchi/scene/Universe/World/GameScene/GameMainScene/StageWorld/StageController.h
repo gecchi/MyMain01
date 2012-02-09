@@ -47,7 +47,6 @@ public:
     void readyStage(int prm_main_stage);
     void initialize() override;
     void processBehavior() override;
-    void processFinal() override;
     void onCatchEvent(hashval prm_no, void* prm_pSource) override;
     virtual ~StageController();
 

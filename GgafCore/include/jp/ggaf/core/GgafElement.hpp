@@ -317,14 +317,14 @@ public:
     virtual void processAfterDraw() {};
 
     /**
-     * ノードのフレーム毎の個別終端処理を実装。(本ユーザー実装用) .
+     * ノードのフレーム毎の個別終端処理を実装。(本フレームワーク実装用) .
      * doFinally() 時の処理先頭でコールバックされる。<BR>
      * このメンバ関数を下位クラスでオーバーライドして、ノード個別の終端処理を実装する。<BR>
      * 終端処理とは、フラグ管理の実行などである。<BR>
      * 想定している振る舞い処理とは、主に座標計算と移動処理である。その他なんでも良いである。<BR>
      * 本メンバ関数がコールバックされると言う事は、全ノード対して、processJudgement() が実行済みで 描画処理は終了していることを保証する。<BR>
      */
-    virtual void processFinal() = 0;
+    virtual void processFinal() {};
 
     /**
      * 自ノードよりも親にあたるノード全てにイベントメッセージを通知(通知対象：ツリー全て) .
@@ -864,7 +864,7 @@ _was_paused_flg(false),
 _can_live_flg(true),
 _was_paused_flg_in_next_frame(false),
 _will_end_after_flg(false),
-_frame_of_life_when_end(MAXDWORD),
+_frame_of_life_when_end(MAX_FRAME),
 _will_activate_after_flg(false),
 _frame_of_life_when_activation(0),
 _will_inactivate_after_flg(false),

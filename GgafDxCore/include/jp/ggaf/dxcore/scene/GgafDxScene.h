@@ -18,6 +18,11 @@ namespace GgafDxCore {
 class GgafDxScene : public GgafCore::GgafMainScene {
 private :
     /**
+     * 下位で使用禁止 .
+     */
+    void processFinal() override {
+    }
+    /**
      * draw() のオーバーライド禁止 .
      * 世界(GgafDxUniverse)が全ての描画を行う仕組みになりました。<BR>
      * したがって、オーバーライドしてもフレームワークより呼び出されることはありません。<BR>

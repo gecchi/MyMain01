@@ -59,7 +59,6 @@ public:
 
     void processBehavior() override;
     void processJudgement() override;
-    void processFinal() override;
 
     void onCatchEvent(hashval prm_no, void* prm_pSource) override;
 

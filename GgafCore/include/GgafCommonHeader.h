@@ -337,6 +337,8 @@
 typedef UINT64 hashval;
 typedef UINT32 actorkind;
 typedef UINT32 frame;
+#define MAX_FRAME MAXDWORD
+
 typedef std::map<std::string, std::string> GgafStrMap;
 
 
@@ -352,7 +354,7 @@ typedef std::map<std::string, std::string> GgafStrMap;
 #define Obj_GgafGroupHead         (0x10)             //0b 00000000 00000000 00000000 00010000
 #define Obj_GgafDisusedActor      (0x20)             //0b 00000000 00000000 00000000 00100000
 #define Obj_GgafActorDepository   (0x40)             //0b 00000000 00000000 00000000 01000000
-#define Obj_GgafFormation    (0x80)             //0b 00000000 00000000 00000000 10000000
+#define Obj_GgafFormation         (0x80)             //0b 00000000 00000000 00000000 10000000
 
 #define P_GOD (GgafCore::GgafGod::_pGod)
 #define P_UNIVERSE (P_GOD->_pUniverse)

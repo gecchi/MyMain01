@@ -110,11 +110,7 @@ public:
      */
     virtual void processBehavior() override;
 
-    virtual void processFinal() override;
-
     WallPartsActor* getLastWallParts();
-
-
 
     /**
      * 手前ブロックの透過機能を有効にする。

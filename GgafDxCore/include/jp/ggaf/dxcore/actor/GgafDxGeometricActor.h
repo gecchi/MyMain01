@@ -15,6 +15,12 @@ namespace GgafDxCore {
 class GgafDxGeometricActor : public GgafDxBaseActor {
 
 private:
+    /**
+     * 下位で使用禁止 .
+     */
+    void processFinal() override {
+    }
+
     /** 画面外種別。isOutOfView()が内部で使用。未計算時は -1 */
     int _offscreenkind;
 

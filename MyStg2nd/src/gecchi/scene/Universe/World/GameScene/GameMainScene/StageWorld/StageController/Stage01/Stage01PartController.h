@@ -35,8 +35,6 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void processFinal() override;
-
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
 
     virtual ~Stage01PartController();

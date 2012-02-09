@@ -41,13 +41,6 @@ void WallPartsActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 
 void WallPartsActor::initialize() {
-//    if (_pWalledSectionScene == NULL) {
-//        _pWalledSectionScene = (WalledSectionScene*)getPlatformScene();
-//        _TRACE_("ini getPlatformScene() = _pWalledSectionScene = "<<_pWalledSectionScene->getName());
-//        _wall_dep = _pWalledSectionScene->_wall_dep;
-//        _wall_width = _pWalledSectionScene->_wall_width;
-//        _wall_height = _pWalledSectionScene->_wall_height;
-//    }
     setHitAble(true);
 }
 

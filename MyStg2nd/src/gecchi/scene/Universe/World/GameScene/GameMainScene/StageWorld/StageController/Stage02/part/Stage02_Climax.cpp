@@ -40,9 +40,6 @@ void Stage02_Climax::processBehavior() {
 
 }
 
-void Stage02_Climax::processFinal() {
-}
-
 Stage02_Climax::~Stage02_Climax() {
 
 }

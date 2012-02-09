@@ -58,8 +58,6 @@ public:
     void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    void processFinal() override {
-    }
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     void onInactive() override;
