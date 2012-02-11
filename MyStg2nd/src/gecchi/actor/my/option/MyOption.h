@@ -90,6 +90,11 @@ public:
     //GgafDxCore::GgafDxQuaternion _Q;
     EffectMyOption* _pEffect;
 
+    /** 自機から離れた時（ぐるっとポン時）の座標 */
+    coord _X_on_free;
+    coord _Y_on_free;
+    coord _Z_on_free;
+
     /**
      * コンストラクタ .
      * @param prm_name
@@ -139,6 +144,9 @@ public:
     void onInactive() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+
+    void onFreeFromMyShipMode();
+
 
     virtual ~MyOption();
 

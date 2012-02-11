@@ -351,6 +351,7 @@
     <ClCompile Include="src\gecchi\actor\background\WorldBound\WorldBoundTitle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\gecchi\actor\Camera.h" />
     <ClInclude Include="src\gecchi\actor\common\CameraWorker.h" />
     <ClInclude Include="src\gecchi\actor\effect\EffectWormhole.h" />

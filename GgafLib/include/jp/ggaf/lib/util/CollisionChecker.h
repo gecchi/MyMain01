@@ -138,7 +138,17 @@ public:
                       false);
     }
 
-
+    /**
+     * 当たり判定領域要素を軸並行直方体として定義 .
+     * BOX中心座標と、幅、高さ、奥行で指定
+     * @param prm_index
+     * @param x 中心X座標
+     * @param y 中心Y座標
+     * @param z 中心Z座標
+     * @param prm_width 幅
+     * @param prm_height 高さ
+     * @param prm_depth 深さ（奥行）
+     */
     void setColliAAB_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth) {
         int hw = prm_width  / 2;
         int hh = prm_height / 2;
@@ -146,7 +156,6 @@ public:
 
         setColliAAB(prm_index, x-hw, y-hh, z-hd, x+hw, y+hh, z+hd);
     }
-
 
     /**
      * 当たり判定領域要素を軸並行直方体として定義 .
@@ -175,6 +184,17 @@ public:
         setColliAAB(prm_index, x-h, y-h, z-h, x+h, y+h, z+h);
     }
 
+
+    /**
+     * 当たり判定領域要素を軸並行立方体として定義 .
+     * オブジェクトの基点を中心として、１辺の長さで指定
+     * @param prm_index 当たり判定領域の要素番号
+     * @param prm_edge １辺の長さ
+     */
+    void setColliAAB_Cube(int prm_index, coord prm_edge) {
+        setColliAAB_Cube(prm_index, 0, 0, 0, prm_edge);
+    }
+
     /**
      * 当たり判定領域要素を軸並行立方体として定義 .
      * 引数座標を中心として、１辺の長さで指定
@@ -192,15 +212,7 @@ public:
         setColliAAB(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, rotX, rotY, rotZ);
     }
 
-    /**
-     * 当たり判定領域要素を軸並行立方体として定義 .
-     * オブジェクトの基点を中心として、１辺の長さで指定
-     * @param prm_index 当たり判定領域の要素番号
-     * @param prm_edge １辺の長さ
-     */
-    void setColliAAB_Cube(int prm_index, coord prm_edge) {
-        setColliAAB_Cube(prm_index, 0, 0, 0, prm_edge);
-    }
+
 
     /**
      * 当たり判定領域要素を軸並行プリズム型として定義 .

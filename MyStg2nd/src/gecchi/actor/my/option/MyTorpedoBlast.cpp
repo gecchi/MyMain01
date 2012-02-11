@@ -9,16 +9,16 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "MyTorpedoBlast",STATUS(MyTorpedoBlast)) {
     _class_name = "MyTorpedoBlast";
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
-    setAlpha(0.2);
+    setAlpha(0.3);
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
 }
 
 void MyTorpedoBlast::initialize() {
     _pCollisionChecker->makeCollision(1);
-    _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(27));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, DEG2ANG(33));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(17));
+    _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(0));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, DEG2ANG(6));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(0));
     setHitAble(true);
 }
 

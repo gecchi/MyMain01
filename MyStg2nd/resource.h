@@ -7,13 +7,11 @@
 #define IDS_APP_TITLE                   103
 #define IDD_ABOUTBOX                    103
 #define IDM_ABOUT                       104
-#define IDM_EXIT                        105
 #define IDI_MYSTG2ND                    107
 #define IDI_SMALL                       108
 #define IDC_MYSTG2ND                    109
 #define IDR_MAINFRAME                   128
 #define IDR_MENU1                       129
-#define IDD_DIALOG1                     130
 #define _APS_NEXT_TURBO_VALUE           1000
 #define IDC_STATIC                      -1
 

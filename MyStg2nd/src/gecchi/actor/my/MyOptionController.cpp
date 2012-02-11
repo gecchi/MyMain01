@@ -179,7 +179,9 @@ void MyOptionController::processBehavior() {
             _pKurokoB->setVxMvVelo(0);
             _pKurokoB->setVyMvVelo(0);
             _pKurokoB->setVzMvVelo(0);
-
+			for (int i = 0; i < _now_option_num; i++) {
+				_papMyOption[i]->onFreeFromMyShipMode();
+			}
         }
     }
 
@@ -194,7 +196,8 @@ void MyOptionController::processBehavior() {
             _pKurokoA->setMvVelo(0);
         }
     } else {
-        GgafDxGeoElem* pGeoMyShip = P_MYSHIP->_pRing_GeoHistory->getPrev(4); //Ž©‹@‚É‚·‚±‚µ‚¨‚­‚ê‚Ä’Ç]
+        //GgafDxGeoElem* pGeoMyShip = P_MYSHIP->_pRing_GeoHistory->getPrev(4); //Ž©‹@‚É‚·‚±‚µ‚¨‚­‚ê‚Ä’Ç]
+		MyShip* pGeoMyShip = P_MYSHIP;
         if (_return_to_default_position_seq) {
             //Œ³‚ÌˆÊ’u‚Ö
             int dx = pGeoMyShip->_X - (_X + _pKurokoB->_veloVxMv*6);

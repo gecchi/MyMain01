@@ -86,7 +86,7 @@ void MyOptionTorpedoController::fire() {
             }
             _papMyTorpedo[i]->_pKurokoA->setRzRyMvAng(0, 0);
             _papMyTorpedo[i]->_pKurokoA->getRzRyMvAngDistance(TURN_CLOSE_TO,
-                                                             pa_angWay[i], D90ANG,
+                                                             pa_angWay[i], D135ANG, //D135ANGŒã‚ëŽÎ‚ß‚S‚T“x
                                                              out_dz, out_dy,
                                                              out_rz, out_ry
                                                             );

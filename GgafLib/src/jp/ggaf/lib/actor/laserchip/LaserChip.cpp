@@ -93,7 +93,9 @@ void LaserChip::processSettlementBehavior() {
             dX = _pChip_front->_X - _X;
             dY = _pChip_front->_Y - _Y;
             dZ = _pChip_front->_Z - _Z;
-            if (GgafUtil::abs(dX) >= _hitarea_edge_length*3 || GgafUtil::abs(dY) >= _hitarea_edge_length*3 || GgafUtil::abs(dZ) >= _hitarea_edge_length*3) {
+            if (GgafUtil::abs(dX) >= _hitarea_edge_length*3 ||
+                GgafUtil::abs(dY) >= _hitarea_edge_length*3 ||
+                GgafUtil::abs(dZ) >= _hitarea_edge_length*3) {
                 //自身と前方チップの中間に当たり判定を作り出す
                 cX = dX / 2;
                 cY = dY / 2;
@@ -148,21 +150,26 @@ void LaserChip::processSettlementBehavior() {
             if (_pChip_behind->isActiveInTheTree()) {
                 if (_pChip_front->_pChip_front) {
                     _chip_kind = 2; //中間テクスチャチップ
+                    _pLeader = _pChip_front->_pLeader;
                 } else {
                     _chip_kind = 3; //先頭テクスチャチップ
+                    _pLeader = _pChip_front->_pLeader;
                 }
             } else {
                 _chip_kind = 1; //発射元の末端テクスチャチップ
+                _pLeader = _pChip_front->_pLeader;
             }
         } else {
             _chip_kind = 1; //普通の末端テクスチャ
+            _pLeader = _pChip_front->_pLeader;
         }
     } else {
         _chip_kind = 4; //先端チップ。何も描画したくない
+        _pLeader = this;
+        if (getActivePartFrame() > 1 && _pChip_behind == NULL) {
+            sayonara();
+        }
         setHitAble(false);
-//        if (_pChip_behind == NULL) {
-//            sayonara();
-//        }
     }
     if (isOutOfUniverse()) {
         sayonara();
@@ -225,9 +232,7 @@ void LaserChip::processDraw() {
     }
     GgafDxUniverse::_pActor_DrawActive = pLaserChip; //描画セットの最後アクターをセット
     if (_draw_set_num > 0) { //描画されない可能性があるためこの判定が必要
-        GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_BLENDFACTOR,0x00888888);
         _pMeshSetModel->draw(this, _draw_set_num);
-        GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_BLENDFACTOR,0x00888888);
     }
 }
 
@@ -249,7 +254,7 @@ void LaserChip::onInactive() {
         _pChip_behind->_pChip_front = NULL;
     }
     _pChip_behind = NULL;
-
+    _pLeader = NULL;
 }
 
 void LaserChip::registHitAreaCube(int prm_edge_length) {

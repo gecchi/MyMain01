@@ -92,12 +92,12 @@ void MyTorpedo::processBehavior() {
                     _pKurokoA->execTurnMvAngSequence(
                                 _pTarget,
                                 2000, 200,
-                                TURN_CLOSE_TO, false);
+                                TURN_ANTICLOSE_TO, false);
                 } else {
                     _pKurokoA->execTurnMvAngSequence(
                                 GgafDxUniverse::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                 2000, 200,
-                                TURN_CLOSE_TO, false);
+                                TURN_ANTICLOSE_TO, false);
                 }
                 _move_section++;
             }

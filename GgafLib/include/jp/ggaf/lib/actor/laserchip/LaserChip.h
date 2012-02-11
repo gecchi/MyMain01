@@ -48,6 +48,8 @@ public:
     /** 地形ヒットありチップ(20回に1回) */
     bool _can_chikei_hit;
 
+    LaserChip* _pLeader;
+
     LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;

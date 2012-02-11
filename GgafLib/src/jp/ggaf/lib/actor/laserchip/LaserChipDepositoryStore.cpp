@@ -4,7 +4,8 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-LaserChipDepositoryStore::LaserChipDepositoryStore(const char* prm_name, GgafStatus* prm_pStat) : GgafActorDepository(prm_name, prm_pStat) {
+LaserChipDepositoryStore::LaserChipDepositoryStore(const char* prm_name, GgafStatus* prm_pStat) :
+        GgafActorDepository(prm_name, prm_pStat) {
     _class_name = "LaserChipDepositoryStore";
 }
 

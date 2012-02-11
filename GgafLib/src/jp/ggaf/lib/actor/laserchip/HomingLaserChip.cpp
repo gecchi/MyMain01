@@ -6,7 +6,7 @@ using namespace GgafLib;
 
 
 HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    LaserChip(prm_name, prm_model, prm_pStat) {
+            LaserChip(prm_name, prm_model, prm_pStat) {
     _class_name = "HomingLaserChip";
     _is_leader = false;
 }
@@ -45,16 +45,9 @@ void HomingLaserChip::onActive() {
         _RY = _begining_RY;
         _RZ = _begining_RZ;
     }
-
-
-
-
 }
 
 void HomingLaserChip::onInactive() {
-
-
-
     //レーザーチップ消失時処理
     //      -==========<>            レーザーは
     //

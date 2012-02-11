@@ -86,7 +86,7 @@ MyShip::MyShip(const char* prm_name) :
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GgafDxGeoElem>();
-    for (UINT32 i = 0; i < 100; i++) {
+    for (UINT32 i = 0; i < 300; i++) {
         _pRing_GeoHistory->addLast(NEW GgafDxGeoElem(this));
     }
 

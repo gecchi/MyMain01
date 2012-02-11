@@ -6,7 +6,7 @@ using namespace GgafLib;
 
 
 WateringLaserChip::WateringLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    LaserChip(prm_name, prm_model, prm_pStat) {
+            LaserChip(prm_name, prm_model, prm_pStat) {
     _class_name = "WateringLaserChip";
     _tmpX = 0;
     _tmpY = 0;

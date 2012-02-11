@@ -86,6 +86,10 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     addSubGroup(_pTorpedoController);
 
 
+    _X_on_free = _X;
+    _Y_on_free = _Y;
+    _Z_on_free = _Z;
+
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
     _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
@@ -267,18 +271,118 @@ void MyOption::processBehavior() {
     } else {
         //オプション広がりと向き制御
         if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isBeingPressed(VB_TURBO)) {
+            int pos_camera = P_VAM->_pos_camera;
+            if (pos_camera == VAM_POS_RIGHT) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _ang_veloExpanseNomal;
-                } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                }
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     _angExpanse -= _ang_veloExpanseNomal;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
                     addRadiusPosition(2000 * (_radiusPosition_base/60000));
-                    //_angExpanse += _ang_veloExpanseSlow;
-                } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-                    //_angExpanse -= _ang_veloExpanseSlow;
+                    //_angExpanse += _angveloExpanseSlow;
                 }
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
+                    //_angExpanse -= _angveloExpanseSlow;
+                }
+            } else if (pos_camera == VAM_POS_LEFT) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                    _angExpanse -= _ang_veloExpanseNomal;
+                }
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                    _angExpanse += _ang_veloExpanseNomal;
+                }
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
+                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
+                    //_angExpanse += _angveloExpanseSlow;
+                }
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
+                    //_angExpanse -= _angveloExpanseSlow;
+                }
+            } else if (pos_camera == VAM_POS_TOP) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
+                    //_angExpanse += _angveloExpanseSlow;
+                }
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
+                    //_angExpanse -= _angveloExpanseSlow;
+                }
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
+                    _angExpanse += _ang_veloExpanseNomal;
+                }
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                    _angExpanse -= _ang_veloExpanseNomal;
+                }
+            } else if (pos_camera == VAM_POS_BOTTOM) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
+                    //_angExpanse -= _angveloExpanseSlow;
+                }
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
+                    //_angExpanse += _angveloExpanseSlow;
+                }
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
+                    _angExpanse -= _ang_veloExpanseNomal;
+                }
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                    _angExpanse += _ang_veloExpanseNomal;
+                }
+            } else if (pos_camera > VAM_POS_TO_BEHIND) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                    _angExpanse += _ang_veloExpanseNomal;
+                }
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                    _angExpanse -= _ang_veloExpanseNomal;
+                }
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
+                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
+                    //_angExpanse += _angveloExpanseSlow;
+                }
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
+                    //_angExpanse -= _angveloExpanseSlow;
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+//                    _angExpanse += _ang_veloExpanseNomal;
+//                } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+//                    _angExpanse -= _ang_veloExpanseNomal;
+//                }
+//                if (VB_PLAY->isBeingPressed(VB_UP)) {
+//                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
+//                    //_angExpanse += _ang_veloExpanseSlow;
+//                } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+//                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
+//                    //_angExpanse -= _ang_veloExpanseSlow;
+//                }
+
+
+
+
+
+
+
 
             _angExpanse = GgafDxUtil::simplifyAng(_angExpanse);
         }
@@ -402,9 +506,18 @@ void MyOption::processBehavior() {
 
 //    _RZ = GgafDxUtil::simplifyAng(_RZ);
 //    _RY = GgafDxUtil::simplifyAng(_RY);
-    _X += _pMyOptionController->_X;
-    _Y += _pMyOptionController->_Y;
-    _Z += _pMyOptionController->_Z;
+
+
+    if (_pMyOptionController->_is_free_from_myship_mode) {
+        _X += (_pMyOptionController->_X + _X_on_free);
+        _Y += (_pMyOptionController->_Y + _Y_on_free);
+        _Z += (_pMyOptionController->_Z + _Z_on_free);
+    } else {
+        GgafDxGeoElem* pGeoMyShip = pMyShip->_pRing_GeoHistory->getPrev(20*(_no+1)); //自機にすこしおくれて追従
+        _X += pGeoMyShip->_X;
+        _Y += pGeoMyShip->_Y;
+        _Z += pGeoMyShip->_Z;
+    }
 
     //TODO
     //最適化
@@ -439,12 +552,12 @@ void MyOption::processBehavior() {
 //            pLaserChip->_pKurokoA->_angFace[AXIS_Z] = _RZ;
 //            pLaserChip->_pKurokoA->_angFace[AXIS_Y] = _RY;
 
-            pLaserChip->_pKurokoB->setVxMvVelo(_Q._x*pLaserChip->_renge);
-            pLaserChip->_pKurokoB->setVyMvVelo(_Q._y*pLaserChip->_renge);
-            pLaserChip->_pKurokoB->setVzMvVelo(_Q._z*pLaserChip->_renge);
-            pLaserChip->_pKurokoB->setVxMvAcce(_Q._x*pLaserChip->_renge/pLaserChip->_r_maxacce);
-            pLaserChip->_pKurokoB->setVyMvAcce(_Q._y*pLaserChip->_renge/pLaserChip->_r_maxacce);
-            pLaserChip->_pKurokoB->setVzMvAcce(_Q._z*pLaserChip->_renge/pLaserChip->_r_maxacce);
+            pLaserChip->_pKurokoB->setVxMvVelo(_Q._x*pLaserChip->_max_velo_renge);
+            pLaserChip->_pKurokoB->setVyMvVelo(_Q._y*pLaserChip->_max_velo_renge);
+            pLaserChip->_pKurokoB->setVzMvVelo(_Q._z*pLaserChip->_max_velo_renge);
+            pLaserChip->_pKurokoB->setVxMvAcce(_Q._x*pLaserChip->_max_velo_renge/pLaserChip->_r_max_acce);
+            pLaserChip->_pKurokoB->setVyMvAcce(_Q._y*pLaserChip->_max_velo_renge/pLaserChip->_r_max_acce);
+            pLaserChip->_pKurokoB->setVzMvAcce(_Q._z*pLaserChip->_max_velo_renge/pLaserChip->_r_max_acce);
 //            pLaserChip->_pKurokoA->behave();
             pLaserChip->_pKurokoB->behave();
             pLaserChip->_X = _X;
@@ -487,6 +600,13 @@ void MyOption::onInactive() {
     _pTorpedoController->onInactive();
     _pLaserChipDepo->reset();
 
+}
+
+void MyOption::onFreeFromMyShipMode() {
+    MyShip* pMyShip = P_MYSHIP;
+    _X_on_free = _X - pMyShip->_X;
+    _Y_on_free = _Y - pMyShip->_Y;
+    _Z_on_free = _Z - pMyShip->_Z;
 }
 
 void MyOption::onHit(GgafActor* prm_pOtherActor) {

@@ -6,7 +6,7 @@ using namespace GgafLib;
 
 
 StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    LaserChip(prm_name, prm_model, prm_pStat) {
+            LaserChip(prm_name, prm_model, prm_pStat) {
 //    _pPosSourceActor = NULL;
 //    _pAngleSourceActor = NULL;
     _pSourceActor = NULL;

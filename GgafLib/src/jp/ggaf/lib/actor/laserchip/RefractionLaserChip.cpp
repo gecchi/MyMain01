@@ -5,7 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    LaserChip(prm_name, prm_model, prm_pStat) {
+        LaserChip(prm_name, prm_model, prm_pStat) {
     _class_name = "RefractionLaserChip";
     _is_leader = false;
     _num_refraction = 2;
@@ -73,7 +73,7 @@ void RefractionLaserChip::onInactive() {
 
     //一つ後方のチップがあれば、自分の意思（移動など）を引き継がせる
     //これは、レーザーがちぎれた場合、以下のパラメーターのみ引き継がせ、移動を継続させるため。
-    //加速度なや、移動予約など引き継がれないものが多数あるので、複雑な移動をする際は、ココに注意を払うこと！
+    //加速度や、移動予約など引き継がれないものが多数あるので、複雑な移動をする際は、ココに注意を払うこと！
     //レーザーがゲーム領域外にたっしたときも、先頭チップから順に連続で引継ぎが発生することになる。
     //ちょっと無駄っぽいけど、さもなば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
     if (_pChip_behind) {
@@ -112,7 +112,6 @@ void RefractionLaserChip::onInactive() {
             _prev_pRefractionEffect = NULL;
         }
     }
-
     LaserChip::onInactive(); //つながりを切断処理
 }
 
