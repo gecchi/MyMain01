@@ -105,7 +105,6 @@ void GgafGod::be() {
             _frame_of_God++;
             presentUniversalMoment(); //①
             executeUniversalJudge();  //②
-         ___EndSynchronized1;  // <-----排他終了
             _time_of_next_view += _aaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
             _cnt_frame = _cnt_frame == 59 ? 0 : _cnt_frame++;
             if (timeGetTime() >= _time_of_next_view) { //描画タイミングフレームになった、或いは過ぎている場合
@@ -113,47 +112,42 @@ void GgafGod::be() {
                 _is_materialized_flg = false;
             } else {
                 //描画タイミングフレームになっていない。余裕がある。
-                _is_materialized_flg = true;
+                 _is_materialized_flg = true;
                 makeUniversalMaterialize(); //③
                 //但し makeUniversalMaterialize() によりオーバーするかもしれない。
             }
+         ___EndSynchronized1;  // <-----排他終了
         }
 
         _time_at_beginning_frame = timeGetTime();
 
         if (_time_at_beginning_frame >= _time_of_next_view) {
             //描画タイミングフレームになった、或いは過ぎている場合
+         ___BeginSynchronized1;  // ----->排他開始
             if (_is_materialized_flg) { // ③ makeUniversalMaterialize() 実行済みの場合
                 //描画有り（スキップなし）
                 presentUniversalVisualize(); _visualize_frames++; //④
-             ___BeginSynchronized1;  // ----->排他開始
                 finalizeUniversal(); //⑤
-             ___EndSynchronized1;    // <-----排他終了
             } else {                   // ③ makeUniversalMaterialize() 実行していない場合
                 //描画無し（スキップ時）
                 if (_sync_frame_time) { //同期調整モード時は
                     //無条件で描画なし。
-                 ___BeginSynchronized1;  // ----->排他開始
                     finalizeUniversal(); //⑤
-                 ___EndSynchronized1;    // <-----排他終了
                 } else {   //同期調整モードではない場合は通常スキップ
                     _skip_count_of_frame++;
                     //但し、スキップするといっても MAX_SKIP_FRAME フレームに１回は描画はする。
                     if (_skip_count_of_frame >= _max_skip_frames) {
                         makeUniversalMaterialize(); //③
                         presentUniversalVisualize(); _visualize_frames++; //④
-                     ___BeginSynchronized1;         // ----->排他開始
                         finalizeUniversal();        //⑤
-                     ___EndSynchronized1;           // <-----排他終了
                         _skip_count_of_frame = 0;
                     } else {
-                     ___BeginSynchronized1;  // ----->排他開始
                         finalizeUniversal(); //⑤
-                     ___EndSynchronized1;    // <-----排他終了
                     }
                 }
             }
             _is_behaved_flg = false;
+         ___EndSynchronized1;    // <-----排他終了
 
             //fps計算
             if (_time_at_beginning_frame >= _time_calc_fps_next) {
