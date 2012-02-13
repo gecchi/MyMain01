@@ -1,0 +1,16 @@
+#include "stdafx.h"
+using namespace std;
+using namespace GgafCore;
+using namespace GgafDxCore;
+using namespace GgafLib;
+using namespace VioletVreath;
+
+DefaultCamWorker::DefaultCamWorker(const char* prm_name) : CameraWorker(prm_name) {
+    _class_name = "DefaultCamWorker";
+}
+
+void DefaultCamWorker::processBehavior() {
+}
+
+DefaultCamWorker::~DefaultCamWorker() {
+}

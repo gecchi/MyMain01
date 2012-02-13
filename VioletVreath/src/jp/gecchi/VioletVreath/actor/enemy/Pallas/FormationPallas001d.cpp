@@ -1,0 +1,27 @@
+#include "stdafx.h"
+using namespace std;
+using namespace GgafCore;
+using namespace GgafDxCore;
+using namespace GgafLib;
+using namespace VioletVreath;
+
+FormationPallas001d::FormationPallas001d(const char* prm_name) : FormationPallas001(prm_name) {
+    _class_name = "FormationPallas001d";
+}
+void FormationPallas001d::onActive() {
+    for (int i = 0; i < _num_Pallas; i++) {
+//        _papPallas[i]->_pSplSeq->adjustAxisRate(
+//                                            MyShip::_lim_front, //Xï˚å¸î{ó¶
+//                                           -MyShip::_lim_top,   //Yï˚å¸î{ó¶
+//                                           -MyShip::_lim_zleft  //Zï˚å¸î{ó¶
+//                                        );
+        _papPallas[i]->_pSplSeq->adjustAxisYFlip();
+        _papPallas[i]->_pSplSeq->adjustAxisZFlip();
+        _papPallas[i]->_pSplSeq->setAbsoluteBeginCoordinate();
+        _papPallas[i]->_pKurokoA->setMvVelo(_mv_velo);
+        _papPallas[i]->activateDelay(i*_interval_frames + 1);//_interval_framesä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
+    }
+}
+
+FormationPallas001d::~FormationPallas001d() {
+}

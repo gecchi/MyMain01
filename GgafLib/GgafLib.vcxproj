@@ -58,7 +58,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(MYSTG2ND_HOME)\PaulCoppensLib\include;$(MYSTG2ND_HOME)\CustomizeOgg_static\include;$(MYSTG2ND_HOME)\CustomizeVorbis_static\include;$(MYSTG2ND_HOME)\GgafCore\include;$(MYSTG2ND_HOME)\IkdLib\include;$(MYSTG2ND_HOME)\GgafDxCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MY_DEV_ROOT)\PaulCoppensLib\include;$(MY_DEV_ROOT)\CustomizeOgg_static\include;$(MY_DEV_ROOT)\CustomizeVorbis_static\include;$(MY_DEV_ROOT)\GgafCore\include;$(MY_DEV_ROOT)\IkdLib\include;$(MY_DEV_ROOT)\GgafDxCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -69,7 +69,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Lib>
-      <AdditionalLibraryDirectories>$(MYSTG2ND_HOME)\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MY_DEV_ROOT)\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,7 +78,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>$(MYSTG2ND_HOME)\PaulCoppensLib\include;$(MYSTG2ND_HOME)\CustomizeOgg_static\include;$(MYSTG2ND_HOME)\CustomizeVorbis_static\include;$(MYSTG2ND_HOME)\GgafCore\include;$(MYSTG2ND_HOME)\GgafDxCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MY_DEV_ROOT)\PaulCoppensLib\include;$(MY_DEV_ROOT)\CustomizeOgg_static\include;$(MY_DEV_ROOT)\CustomizeVorbis_static\include;$(MY_DEV_ROOT)\GgafCore\include;$(MY_DEV_ROOT)\GgafDxCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -88,7 +88,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Lib>
-      <AdditionalLibraryDirectories>$(MYSTG2ND_HOME)\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MY_DEV_ROOT)\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

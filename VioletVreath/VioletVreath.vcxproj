@@ -1,0 +1,603 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{90B4BB52-94AC-403C-8906-24712F5218E5}</ProjectGuid>
+    <RootNamespace>VioletVreath</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.;$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
+    <ReferencePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.;$(DXSDK_DIR)\Lib\x86;$(ReferencePath)</ReferencePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.;$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.;$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
+    <ReferencePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.;$(DXSDK_DIR)\Lib\x86;$(ReferencePath)</ReferencePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.;$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
+    <SourcePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.;$(DXSDK_DIR)\Include;$(SourcePath)</SourcePath>
+    <SourcePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.;$(DXSDK_DIR)\Include;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent>
+      <Command>CD $(MY_DEV_ROOT)\VioletVreath\model\effect &amp; _make_all_fx.bat</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(MY_DEV_ROOT)\GgafLib\include;$(MY_DEV_ROOT)\GgafDxCore\include;$(MY_DEV_ROOT)\GgafCore\include;$(MY_DEV_ROOT)\CustomizeVorbis_static\include;$(MY_DEV_ROOT)\CustomizeOgg_static\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <Link>
+      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;CustomizeOgg_static.lib;CustomizeVorbis_static.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;d3dxof.lib;dxerr.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(MY_DEV_ROOT)\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>COPY /Y $(MY_DEV_ROOT)\debug\VioletVreath.exe $(MY_DEV_ROOT)\VioletVreath</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(MY_DEV_ROOT)\GgafLib\include;$(MY_DEV_ROOT)\GgafDxCore\include;$(MY_DEV_ROOT)\GgafCore\include;$(MY_DEV_ROOT)\CustomizeVorbis_static\include;$(MY_DEV_ROOT)\CustomizeOgg_static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;CustomizeOgg_static.lib;CustomizeVorbis_static.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;d3dxof.lib;dxerr.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(MY_DEV_ROOT)\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <NoEntryPoint>false</NoEntryPoint>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>COPY /Y $(MY_DEV_ROOT)\release\VioletVreath.exe $(MY_DEV_ROOT)\VioletVreath</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\board\TurboMeter.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiRankUp.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTitle.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTransit.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpace001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpace002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpaceRunkUp.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpaceTransit.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\Camera.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\MyShipDivingCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\PauseCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\TestCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\VamSysCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planets\Planets001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\Torus.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus003.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus004.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001Prism.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\CameraWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\DefaultCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyWateringLaserChip001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot003.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot004.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\TestDepository.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectCondensation001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion003.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraea.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip003.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip004.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeres.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeresShot001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ceres\FormationCeres001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ceres\FormationCeres002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Circe\EnemyCirce.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\EnemyEunomia.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia001a.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia001b.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002a.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002b.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Iris\EnemyIris.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Iris\FormationIris001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Iris\FormationIris002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Juno\EnemyJuno.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Juno\FormationJuno.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Juno\FormationJuno001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassalia.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment2.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment3.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\FormationMassalia.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Metis\EnemyMetis.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Metis\FormationMetis001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Pallas\EnemyPallas.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001a.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001b.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001c.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001d.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\EnemyTamago01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\TamagoActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thalia\EnemyThalia.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thalia\FormationThalia.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Vesta\EnemyVesta.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\Item.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi16Font.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankFont.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\MenuBoardPause.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerDirectionVector.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerGizmo.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyShip.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyShot001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyStraightLaserChip001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyWave001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\EffectLockon001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\EffectLockon001_Main.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\EffectLockon001_Sub.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\EffectMyOption.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOption.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionLockonController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionTorpedoController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionWateringLaserChip001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedo.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedoBlast.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedoTail.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnagyBar.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterStatus.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffecMagic001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectSpeedMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\LaserMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\LockonMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\Magic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\OptionMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\SpeedMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\TorpedoMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\TractorMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMorphMeshTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardSetTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultD3DXAniMeshTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultD3DXMeshTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMeshSetTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMeshTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMorphMeshTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultPointSpriteTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultSpriteSetTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultSpriteTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\HoshiBoshiTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\LaserChipTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SingleLaserTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshSetTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\StringBoardTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAABTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAAPrismTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerConnection.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerManager.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineLineConnection.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineLineManager.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\Properties.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\CommonScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameBeginningScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameDemoScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameEndingScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\RankUpStageController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp003.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp100.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUpStage.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WalledScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WalledSection001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_02.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_03.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_Climax.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\Stage01PartController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage02.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\part\Stage02_01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\part\Stage02_Climax.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\Stage02PartController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage03.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage04.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage05.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage\StagePartController.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\TransitStage.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePauseScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePreTitleScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameTitleScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\MyShipScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\TamagoScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\PreDrawScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.cpp" />
+    <ClCompile Include="VioletVreath.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\board\turbometer.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshi.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshi001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshi002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshirankup.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshititle.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshitransit.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\worldbound\worldboundspace001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\worldbound\worldboundspace002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\worldbound\worldboundspacerankup.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\worldbound\worldboundspacetransit.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\worldbound\worldboundtitle.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\myshipdivingcamworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\pausecamworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\testcamworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\vamsyscamworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\planets\planets001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\torus.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\varietytorus001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\varietytorus002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\varietytorus003.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\varietytorus004.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\wall\wall001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\wall\wall001prism.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\cameraworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\defaultcamworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\laserchip\enemystraightlaserchip001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\laserchip\enemywateringlaserchip001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\mesh\groundmeshactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\shot\shot001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\shot\shot002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\shot\shot003.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\shot\shot004.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\template\formation001.hpp" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\testdepository.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectcondensation001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectexplosion001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectexplosion002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectexplosion003.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectlaserrefraction001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectturbo001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectturbo002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectwormhole.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectwormhole001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraea.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraealaserchip001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraealaserchip002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraealaserchip003.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraealaserchip004.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\ceres\enemyceres.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\ceres\enemyceresshot001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\ceres\formationceres001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\ceres\formationceres002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\circe\enemycirce.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\enemyeunomia.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\formationeunomia.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\formationeunomia001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\formationeunomia001a.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\formationeunomia001b.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\formationeunomia002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\formationeunomia002a.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\formationeunomia002b.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\iris\enemyiris.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\iris\formationiris001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\iris\formationiris002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\juno\enemyjuno.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\juno\formationjuno.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\juno\formationjuno001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\massalia\enemymassalia.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\massalia\enemymassaliafragment.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\massalia\enemymassaliafragment2.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\massalia\enemymassaliafragment3.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\massalia\formationmassalia.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\metis\enemymetis.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\metis\formationmetis001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\pallas\enemypallas.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\pallas\formationpallas001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\pallas\formationpallas001a.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\pallas\formationpallas001b.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\pallas\formationpallas001c.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\pallas\formationpallas001d.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\pallas\formationpallas002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\tamago\enemytamago01.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\tamago\tamagoactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thalia\enemythalia.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thalia\formationthalia.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\vesta\enemyvesta.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\item.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\magicpointitem.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\magicpointitem001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\magicpointitem002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelgecchi16font.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelgecchi8font.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelrankfont.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelrankingfont.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\confirm\cursorconfirmmenu.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\confirm\menuboardconfirm.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\menuboard.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\pause\cursorpausemenu.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\pause\menuboardpause.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\title\cursortitlemenu.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\title\menuboardtitle.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\effectmyshipexplosion.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\myoptioncontroller.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\myoptioncontrollerdirectionvector.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\myoptioncontrollergizmo.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\myship.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\myshot001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\mystraightlaserchip001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\mywave001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\effectlockon001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\effectlockon001_main.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\effectlockon001_sub.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\effectmyoption.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoption.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoptionlockoncontroller.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoptionstraightlaserchip001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoptiontorpedocontroller.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoptionwateringlaserchip001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\mytorpedo.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\mytorpedoblast.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\mytorpedotail.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\enagybar.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magicmetercursor001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magicmetercursor002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magicmeterstatus.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\effect\effectmagic001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\effect\effectspeedmagic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\lasermagic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\lockonmagic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\magic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\optionmagic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\speedmagic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\torpedomagic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\tractormagic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\title\cursor001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\title\titleboard.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\viewpointguide.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\cubemapmeshsettestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\cubemapmeshtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\cubemapmorphmeshtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\defaultboardsettestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\defaultboardtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\defaultd3dxanimeshtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\defaultd3dxmeshtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\defaultmeshsettestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\defaultmeshtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\defaultmorphmeshtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\defaultpointspritetestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\defaultspritesettestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\defaultspritetestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\hoshiboshitestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\laserchiptestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\singlelasertestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\spritemeshsettestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\spritemeshtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\stringboardtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\wallaabtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\_predrawer\wallaaprismtestactor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\manager\cameraworkerconnection.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\manager\cameraworkermanager.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\manager\depositoryconnection.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\manager\depositorymanager.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\manager\splinelineconnection.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\manager\splinelinemanager.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Properties.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\commonscene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamebeginningscene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamedemoscene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gameendingscene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\rankupstagecontroller.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\rankupstagecontroller\rankup001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\rankupstagecontroller\rankup002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\rankupstagecontroller\rankup003.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\rankupstagecontroller\rankup100.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\rankupstagecontroller\rankupstage.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01walledscene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01walledsection001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01_01.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01_02.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01_03.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01_climax.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\stage01partcontroller.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage02.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage02\part\stage02_01.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage02\part\stage02_climax.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage02\stage02partcontroller.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage03.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage04.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage05.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage\stagepartcontroller.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\transitstage.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gameoverscene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamepausescene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamepretitlescene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gametitlescene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\myshipscene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\tamagoscene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\predrawscene.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\util\mystgutil.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\util\vamsyscamposition.h" />
+    <ClInclude Include="VioletVreath.h" />
+    <ClInclude Include="src\VioletVreathHeader.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VioletVreath.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VioletVreath.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CustomizeOgg_static\CustomizeOgg_static.vcxproj">
+      <Project>{2fdefa24-55e5-4955-8497-44085c92a5b1}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomizeVorbis_static\CustomizeVorbis_static.vcxproj">
+      <Project>{3a06bba2-2a59-4965-8095-3836e2a10840}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\GgafCore\GgafCore.vcxproj">
+      <Project>{4cd46674-bb16-4b83-b01e-d6daf7fb6c81}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\GgafDxCore\GgafDxCore.vcxproj">
+      <Project>{f04b2bae-f007-4de8-a91f-ea7e9ddcb6f2}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\GgafLib\GgafLib.vcxproj">
+      <Project>{55c018db-2586-4f20-addb-8da23932824c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

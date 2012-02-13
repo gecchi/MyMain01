@@ -80,7 +80,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="&quot;$(MY_MAIN)\debug&quot;"
+				AdditionalLibraryDirectories="&quot;$(MY_DEV_ROOT)\debug&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
