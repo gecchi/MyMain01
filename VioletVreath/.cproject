@@ -102,7 +102,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/DebugCdt}&quot;"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.184456478" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/VioletVreath/VClib/chkstk.o}&quot; -Wl,--enable-auto-import  -mwindows --input-charset=cp932 --exec-charset=cp932  -std=gnu++0x " valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.184456478" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/VioletVreath/VClib/chkstk.o}&quot; -Wl,--enable-auto-import  -mwindows --input-charset=cp932 --exec-charset=cp932  -std=gnu++0x -static-libgcc -static-libstdc++ " valueType="string"/>
 								<option id="gnu.cpp.link.option.userobjs.599840029" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs"/>
 								<option id="gnu.cpp.link.option.other.144572081" name="その他のオプション (-Xlinker [option])" superClass="gnu.cpp.link.option.other" valueType="stringList">
 									<listOptionValue builtIn="false" value="VioletVreath_rc.o "/>
@@ -349,7 +349,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/GprofCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/GprofCdt}&quot;"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.163018919" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/VioletVreath/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x -g -pg " valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.163018919" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/VioletVreath/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x -static-libgcc -static-libstdc++ -g -pg " valueType="string"/>
 								<option id="gnu.cpp.link.option.userobjs.1168997606" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs"/>
 								<option id="gnu.cpp.link.option.other.2131437724" name="その他のオプション (-Xlinker [option])" superClass="gnu.cpp.link.option.other" valueType="stringList">
 									<listOptionValue builtIn="false" value="VioletVreath_rc.o "/>
@@ -376,7 +376,9 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="17_008_02.cdt.managedbuild.target.gnu.cygwin.exe.262198400" name="実行可能ファイル (Gnu Windows 版)" projectType="cdt.managedbuild.target.gnu.cygwin.exe"/>
 	</storageModule>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="1">
+		<resource resourceType="PROJECT" workspacePath="/VioletVreath"/>
+	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets/>
 	</storageModule>
