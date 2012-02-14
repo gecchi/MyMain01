@@ -283,7 +283,7 @@ public:
 
     State _state;
 
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* _pRing_GeoHistory;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* _pRing_MyShipGeoHistory;
 
     GgafCore::GgafActorDepository* _pDepo_MyShots001;
     GgafCore::GgafActorDepository* _pDP_EffectExplosion001;

@@ -85,9 +85,9 @@ MyShip::MyShip(const char* prm_name) :
 
 
     //トレース用履歴
-    _pRing_GeoHistory = NEW GgafLinkedListRing<GgafDxGeoElem>();
+    _pRing_MyShipGeoHistory = NEW GgafLinkedListRing<GgafDxGeoElem>();
     for (UINT32 i = 0; i < 300; i++) {
-        _pRing_GeoHistory->addLast(NEW GgafDxGeoElem(this));
+        _pRing_MyShipGeoHistory->addLast(NEW GgafDxGeoElem(this));
     }
 
     _iMoveVelo = 0;
@@ -472,7 +472,7 @@ void MyShip::processBehavior() {
             _Z = MyShip::_lim_zright;
         }
     }
-    _pRing_GeoHistory->next()->set(this);
+    _pRing_MyShipGeoHistory->next()->set(this);
 }
 
 void MyShip::processJudgement() {
@@ -615,7 +615,7 @@ void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 MyShip::~MyShip() {
-    DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
+    DELETE_IMPOSSIBLE_NULL(_pRing_MyShipGeoHistory);
 
 }
 

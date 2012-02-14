@@ -499,25 +499,31 @@ void MyOption::processBehavior() {
     _Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
-    GgafDxUtil::getRzRyAng(
-            _Q._x, _Q._y, _Q._z,
-        _RZ, _RY
-     );
+    GgafDxUtil::getRzRyAng(_Q._x, _Q._y, _Q._z,
+                           _RZ, _RY);
 
 //    _RZ = GgafDxUtil::simplifyAng(_RZ);
 //    _RY = GgafDxUtil::simplifyAng(_RY);
 
+        GgafDxGeoElem* pGeoOpCon = _pMyOptionController->_pRing_OpConGeoHistory->getPrev(20*(_no+1)); //自機にすこしおくれて追従
+        _X += pGeoOpCon->_X;
+        _Y += pGeoOpCon->_Y;
+        _Z += pGeoOpCon->_Z;
 
-    if (_pMyOptionController->_is_free_from_myship_mode) {
-        _X += (_pMyOptionController->_X + _X_on_free);
-        _Y += (_pMyOptionController->_Y + _Y_on_free);
-        _Z += (_pMyOptionController->_Z + _Z_on_free);
-    } else {
-        GgafDxGeoElem* pGeoMyShip = pMyShip->_pRing_GeoHistory->getPrev(20*(_no+1)); //自機にすこしおくれて追従
-        _X += pGeoMyShip->_X;
-        _Y += pGeoMyShip->_Y;
-        _Z += pGeoMyShip->_Z;
-    }
+//        _X += (_pMyOptionController->_X);
+//        _Y += (_pMyOptionController->_Y);
+//        _Z += (_pMyOptionController->_Z);
+
+//    if (_pMyOptionController->_is_free_from_myship_mode) {
+//        _X += (_pMyOptionController->_X + _X_on_free);
+//        _Y += (_pMyOptionController->_Y + _Y_on_free);
+//        _Z += (_pMyOptionController->_Z + _Z_on_free);
+//    } else {
+//        GgafDxGeoElem* pGeoMyShip = pMyShip->_pRing_MyShipGeoHistory->getPrev(20*(_no+1)); //自機にすこしおくれて追従
+//        _X += pGeoMyShip->_X;
+//        _Y += pGeoMyShip->_Y;
+//        _Z += pGeoMyShip->_Z;
+//    }
 
     //TODO
     //最適化

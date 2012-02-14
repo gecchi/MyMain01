@@ -23,7 +23,7 @@ public:
     MyOptionControllerGizmo* _pGizmo;
     MyOptionControllerDirectionVector* _pDirectionVector;
 
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* _pRing_GeoHistory;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* _pRing_OpConGeoHistory;
     velo _veloOptionsMv;
     MyShip::MoveWay _way_myship_prev;
     static int _max_option_num;

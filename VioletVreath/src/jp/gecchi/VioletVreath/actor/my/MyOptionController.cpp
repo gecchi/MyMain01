@@ -99,9 +99,9 @@ MyOptionController::MyOptionController(const char* prm_name) :
     addSubGroup(_pDirectionVector);
 
     //トレース用履歴
-    _pRing_GeoHistory = NEW GgafLinkedListRing<GgafDxGeoElem>();
-    for (DWORD i = 0; i < 100; i++) {
-        _pRing_GeoHistory->addLast(NEW GgafDxGeoElem(this));
+    _pRing_OpConGeoHistory = NEW GgafLinkedListRing<GgafDxGeoElem>();
+    for (DWORD i = 0; i < 300; i++) {
+        _pRing_OpConGeoHistory->addLast(NEW GgafDxGeoElem(this));
     }
 
 }
@@ -179,9 +179,9 @@ void MyOptionController::processBehavior() {
             _pKurokoB->setVxMvVelo(0);
             _pKurokoB->setVyMvVelo(0);
             _pKurokoB->setVzMvVelo(0);
-			for (int i = 0; i < _now_option_num; i++) {
-				_papMyOption[i]->onFreeFromMyShipMode();
-			}
+            for (int i = 0; i < _now_option_num; i++) {
+                _papMyOption[i]->onFreeFromMyShipMode();
+            }
         }
     }
 
@@ -196,8 +196,8 @@ void MyOptionController::processBehavior() {
             _pKurokoA->setMvVelo(0);
         }
     } else {
-        //GgafDxGeoElem* pGeoMyShip = P_MYSHIP->_pRing_GeoHistory->getPrev(4); //自機にすこしおくれて追従
-		MyShip* pGeoMyShip = P_MYSHIP;
+        //GgafDxGeoElem* pGeoMyShip = P_MYSHIP->_pRing_OpConGeoHistory->getPrev(4); //自機にすこしおくれて追従
+        MyShip* pGeoMyShip = P_MYSHIP;
         if (_return_to_default_position_seq) {
             //元の位置へ
             int dx = pGeoMyShip->_X - (_X + _pKurokoB->_veloVxMv*6);
@@ -245,7 +245,7 @@ void MyOptionController::processBehavior() {
 
     _pKurokoA->behave();
     _pKurokoB->behave();
-    _pRing_GeoHistory->next()->set(this);
+    _pRing_OpConGeoHistory->next()->set(this);
 }
 
 void MyOptionController::setNumOption(int prm_num) {
@@ -255,7 +255,7 @@ void MyOptionController::setNumOption(int prm_num) {
             _papMyOption[i]->inactivate();
         }
         if (i < _now_option_num) {
-            _papMyOption[i]->activate(); 
+            _papMyOption[i]->activate();
         }
     }
 }
@@ -276,6 +276,6 @@ void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame) {
 }
 MyOptionController::~MyOptionController() {
     DELETEARR_IMPOSSIBLE_NULL(_papMyOption);
-    DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
+    DELETE_IMPOSSIBLE_NULL(_pRing_OpConGeoHistory);
 }
 
