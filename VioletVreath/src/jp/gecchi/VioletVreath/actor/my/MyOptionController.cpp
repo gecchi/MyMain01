@@ -5,7 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 int MyOptionController::_max_option_num = 8;
-
+int MyOptionController::_o2o = 15;
 //MyOptionController::MyOptionController(const char* prm_name) :
 //    DefaultMeshActor(prm_name, "Gizmo") {
 
@@ -100,9 +100,12 @@ MyOptionController::MyOptionController(const char* prm_name) :
 
     //トレース用履歴
     _pRing_OpConGeoHistory = NEW GgafLinkedListRing<GgafDxGeoElem>();
-    for (DWORD i = 0; i < 300; i++) {
+    for (DWORD i = 0; i < _max_option_num*_o2o; i++) {
         _pRing_OpConGeoHistory->addLast(NEW GgafDxGeoElem(this));
     }
+    _X_on_free = _X;
+    _Y_on_free = _Y;
+    _Z_on_free = _Z;
 
 }
 
@@ -149,6 +152,24 @@ void MyOptionController::processBehavior() {
             _papMyOption[i]->_return_to_base_radiusPosition_seq = true;
             _papMyOption[i]->_return_to_base_angExpanse_seq= true;
         }
+        //トレース履歴を書き換える
+        GgafLinkedListRing<GgafDxGeoElem>::Elem* pElem = _pRing_OpConGeoHistory->getElemFirst();
+        GgafDxGeoElem* p;
+        while (true) {
+            p = pElem->_pValue;
+            p->_X += (_X-_X_on_free);
+            p->_Y += (_Y-_Y_on_free);
+            p->_Z += (_Z-_Z_on_free);
+
+            if (pElem->_is_last_flg) {
+                break;
+            } else {
+                pElem = pElem -> _pNext;
+            }
+        }
+        _X_on_free = _X;
+        _Y_on_free = _Y;
+        _Z_on_free = _Z;
 
 
     } else if (VB_PLAY->isBeingPressed(VB_OPTION) && !VB_PLAY->isBeingPressed(VB_TURBO)) {
@@ -170,7 +191,11 @@ void MyOptionController::processBehavior() {
 
     if (VB_PLAY->isRoundPushDown(VB_OPTION)) {
     //if (VB_PLAY->isPushedDown(VB_OPTION) && GgafDxInput::isBeingPressedKey(DIK_S)) {
+
         if (_papMyOption[0]) {
+            _X_on_free = _X;
+            _Y_on_free = _Y;
+            _Z_on_free = _Z;
             _is_free_from_myship_mode = true;
             _is_handle_move_mode = true;
             _pKurokoB->setVxMvAcce(0);
@@ -179,11 +204,9 @@ void MyOptionController::processBehavior() {
             _pKurokoB->setVxMvVelo(0);
             _pKurokoB->setVyMvVelo(0);
             _pKurokoB->setVzMvVelo(0);
-            for (int i = 0; i < _now_option_num; i++) {
-                _papMyOption[i]->onFreeFromMyShipMode();
-            }
         }
     }
+
 
     if (_is_free_from_myship_mode) {
         if (VB_PLAY->isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
@@ -197,6 +220,9 @@ void MyOptionController::processBehavior() {
         }
     } else {
         //GgafDxGeoElem* pGeoMyShip = P_MYSHIP->_pRing_OpConGeoHistory->getPrev(4); //自機にすこしおくれて追従
+
+
+
         MyShip* pGeoMyShip = P_MYSHIP;
         if (_return_to_default_position_seq) {
             //元の位置へ
@@ -245,7 +271,13 @@ void MyOptionController::processBehavior() {
 
     _pKurokoA->behave();
     _pKurokoB->behave();
-    _pRing_OpConGeoHistory->next()->set(this);
+
+
+    if (_is_free_from_myship_mode) {
+
+    } else {
+        _pRing_OpConGeoHistory->next()->set(this);
+    }
 }
 
 void MyOptionController::setNumOption(int prm_num) {

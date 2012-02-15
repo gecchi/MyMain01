@@ -27,6 +27,9 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
 
     _angPosition_base = _angPosition;
     _radiusPosition_base = _radiusPosition;
+    _radiusPosition_stopping = _radiusPosition;
+    _velo_radius = 0;
+
     _angExpanse_default = _angExpanse;
     _veloMv_base = _veloMv;
 
@@ -63,9 +66,7 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
 
         _pLaserChipDepo->addSubLast(pChip);
     }
-    _pLaserChipDepo->config(
-                               90, 25, _pEffect_LaserIrradiate
-                           );
+    _pLaserChipDepo->config(90, 25, _pEffect_LaserIrradiate);
     addSubGroup(_pLaserChipDepo);
 
     _pDepo_MyShots001 = NEW GgafActorDepository("RotShot001");
@@ -84,11 +85,6 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     //フォトンコントローラー
     _pTorpedoController = NEW MyOptionTorpedoController("TorpedoController", this);
     addSubGroup(_pTorpedoController);
-
-
-    _X_on_free = _X;
-    _Y_on_free = _Y;
-    _Z_on_free = _Z;
 
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
@@ -139,7 +135,7 @@ void MyOption::onActive() {
     _pTorpedoController->onActive();
 }
 
-void MyOption::addRadiusPosition(int prm_radius_offset) {
+void MyOption::addRadiusPosition(int prm_radius_offset, int prm_min_radius, int prm_max_radius) {
     //    _X = _Xorg;
     //    _Y = _Yorg;
     //    _Z = _Zorg;
@@ -167,9 +163,12 @@ void MyOption::addRadiusPosition(int prm_radius_offset) {
 
     int radius;
     radius = _radiusPosition + prm_radius_offset;
-    if (_radiusPosition < 30000) {
-        radius = 30000; //オプション最低半径距離
+    if (_radiusPosition < prm_min_radius) {
+        radius = prm_min_radius; //オプション最低半径距離
+    } else if (_radiusPosition > prm_max_radius) {
+        radius = prm_max_radius; //オプション最低半径距離
     }
+
     setRadiusPosition(radius);
 }
 
@@ -240,6 +239,8 @@ void MyOption::processBehavior() {
         }
         if (-10000 < _radiusPosition_base-_radiusPosition && _radiusPosition_base-_radiusPosition < 10000) {
             setRadiusPosition(_radiusPosition_base);
+            _radiusPosition_stopping = _radiusPosition;
+            _velo_radius = 0;
             _return_to_base_radiusPosition_seq = false;
         }
 
@@ -348,43 +349,34 @@ void MyOption::processBehavior() {
                     //_angExpanse -= _angveloExpanseSlow;
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-//                    _angExpanse += _ang_veloExpanseNomal;
-//                } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-//                    _angExpanse -= _ang_veloExpanseNomal;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_UP)) {
-//                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
-//                    //_angExpanse += _ang_veloExpanseSlow;
-//                } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-//                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-//                    //_angExpanse -= _ang_veloExpanseSlow;
-//                }
-
-
-
-
-
-
-
-
+            _radiusPosition_stopping = _radiusPosition;
+            _velo_radius = 0;
             _angExpanse = GgafDxUtil::simplifyAng(_angExpanse);
+        } else {
+            if (_pMyOptionController->_is_free_from_myship_mode) {
+                //
+            } else {
+
+                //
+                if (VB_PLAY->isBeingPressed(VB_OPTION) || VB_PLAY->isBeingPressed(VB_POWERUP)) {
+                    //
+                } else {
+                    //MyOptionController::_o2o*(_no+1);
+                    if (VB_PLAY->isBeingPressed(VB_UDLR)) {
+                        //オプションボタンを押さずに方向入力時
+//                        _velo_radius -= 100;
+                        //addRadiusPosition(-5000/(_no+1), 1);
+                        addRadiusPosition(-2000, 1);
+                        _veloMv = _veloMv_base/10 + 1;
+                    } else {
+                        //オプションボタンを押さずに方向未入力時
+//                        _velo_radius += 100;
+//                        addRadiusPosition(+5000/(_no+1), 1, _radiusPosition_stopping);
+                        addRadiusPosition(+2000, 1, _radiusPosition_stopping);
+                        _veloMv = _veloMv_base;
+                    }
+                }
+            }
         }
     }
 
@@ -504,26 +496,17 @@ void MyOption::processBehavior() {
 
 //    _RZ = GgafDxUtil::simplifyAng(_RZ);
 //    _RY = GgafDxUtil::simplifyAng(_RY);
+    GgafDxGeoElem* pGeoOpCon = _pMyOptionController->_pRing_OpConGeoHistory->getPrev(MyOptionController::_o2o*(_no+1));
+    _X += pGeoOpCon->_X;
+    _Y += pGeoOpCon->_Y;
+    _Z += pGeoOpCon->_Z;
+    if (_pMyOptionController->_is_free_from_myship_mode) {
+        _X += (_pMyOptionController->_X - _pMyOptionController->_X_on_free);
+        _Y += (_pMyOptionController->_Y - _pMyOptionController->_Y_on_free);
+        _Z += (_pMyOptionController->_Z - _pMyOptionController->_Z_on_free);
+    } else {
 
-        GgafDxGeoElem* pGeoOpCon = _pMyOptionController->_pRing_OpConGeoHistory->getPrev(20*(_no+1)); //自機にすこしおくれて追従
-        _X += pGeoOpCon->_X;
-        _Y += pGeoOpCon->_Y;
-        _Z += pGeoOpCon->_Z;
-
-//        _X += (_pMyOptionController->_X);
-//        _Y += (_pMyOptionController->_Y);
-//        _Z += (_pMyOptionController->_Z);
-
-//    if (_pMyOptionController->_is_free_from_myship_mode) {
-//        _X += (_pMyOptionController->_X + _X_on_free);
-//        _Y += (_pMyOptionController->_Y + _Y_on_free);
-//        _Z += (_pMyOptionController->_Z + _Z_on_free);
-//    } else {
-//        GgafDxGeoElem* pGeoMyShip = pMyShip->_pRing_MyShipGeoHistory->getPrev(20*(_no+1)); //自機にすこしおくれて追従
-//        _X += pGeoMyShip->_X;
-//        _Y += pGeoMyShip->_Y;
-//        _Z += pGeoMyShip->_Z;
-//    }
+    }
 
     //TODO
     //最適化
@@ -606,13 +589,6 @@ void MyOption::onInactive() {
     _pTorpedoController->onInactive();
     _pLaserChipDepo->reset();
 
-}
-
-void MyOption::onFreeFromMyShipMode() {
-    MyShip* pMyShip = P_MYSHIP;
-    _X_on_free = _X - pMyShip->_X;
-    _Y_on_free = _Y - pMyShip->_Y;
-    _Z_on_free = _Z - pMyShip->_Z;
 }
 
 void MyOption::onHit(GgafActor* prm_pOtherActor) {

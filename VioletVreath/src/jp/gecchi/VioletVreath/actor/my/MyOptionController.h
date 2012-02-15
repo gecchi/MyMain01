@@ -19,6 +19,11 @@ class MyOptionController : public GgafDxCore::GgafDxGeometricActor {
 
 
 public:
+    /** [r]最大オプション数 */
+    static int _max_option_num;
+    /** [r]トレース時のオプションとオプションの間隔 */
+    static int _o2o;
+
     MyOption** _papMyOption;
     MyOptionControllerGizmo* _pGizmo;
     MyOptionControllerDirectionVector* _pDirectionVector;
@@ -26,12 +31,23 @@ public:
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* _pRing_OpConGeoHistory;
     velo _veloOptionsMv;
     MyShip::MoveWay _way_myship_prev;
-    static int _max_option_num;
-    int _now_option_num;
-    bool _is_handle_move_mode;
-    bool _is_free_from_myship_mode;
 
+    /** [r]現在のオプション数 */
+    int _now_option_num;
+    /** [r]オプションフリーモードの場合 true */
+    bool _is_free_from_myship_mode;
+    /** [r]オプションフリーモード時の、オプション操作モードの場合 true */
+    bool _is_handle_move_mode;
+    /** [r]オプション位置初期化中は true */
     bool _return_to_default_position_seq;
+
+
+    /** 自機から離れた時（ぐるっとポン時）の座標 */
+    coord _X_on_free;
+    coord _Y_on_free;
+    coord _Z_on_free;
+
+
     /** 対象アクター */
 
     /** 方向転換角速度 */

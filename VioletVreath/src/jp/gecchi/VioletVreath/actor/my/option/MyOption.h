@@ -20,8 +20,9 @@ private:
      * 旋廻円周半径を差分で再設定する .
      * 特定の条件下でのみ呼び出し可能。
      * @param prm_radius_offset 半径差分
+     * @param prm_min_radius 最低半径距離
      */
-    void addRadiusPosition(int prm_radius_offset);
+    void addRadiusPosition(int prm_radius_offset, int prm_min_radius = 30000, int prm_max_radius = 1000000);
 
 
 public:
@@ -49,6 +50,7 @@ public:
     /** [r]レーザー発射中のエフェクト */
     GgafDxCore::GgafDxDrawableActor* _pEffect_LaserIrradiate;
 
+    int _velo_radius;
 
     /** [r]計算された現在の旋廻円周移動角速度（読み出し専用） */
     ang_velo _ang_veloMove;
@@ -65,6 +67,8 @@ public:
     angle _angPosition_base;
     /** [r]初期旋廻円周半径 */
     int _radiusPosition_base;
+    int _radiusPosition_stopping;
+
     /** [r]初期旋廻円周移動速度 */
     velo _veloMv_base;
     /** [r]初期オプションの広がり回転角 */
@@ -89,11 +93,6 @@ public:
 
     //GgafDxCore::GgafDxQuaternion _Q;
     EffectMyOption* _pEffect;
-
-    /** 自機から離れた時（ぐるっとポン時）の座標 */
-    coord _X_on_free;
-    coord _Y_on_free;
-    coord _Z_on_free;
 
     /**
      * コンストラクタ .
@@ -123,9 +122,10 @@ public:
         _radiusPosition = prm_radiusPosition;
         _angExpanse = prm_angExpanse;
         _veloMv = prm_veloMv;
-
         _angPosition_base = prm_angPosition;
         _radiusPosition_base = prm_radiusPosition;
+        _radiusPosition_stopping = _radiusPosition_base;
+        _velo_radius = 0;
         _angExpanse_default = prm_angExpanse;
         _veloMv_base = prm_veloMv;
     }
@@ -144,9 +144,6 @@ public:
     void onInactive() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
-
-    void onFreeFromMyShipMode();
-
 
     virtual ~MyOption();
 
