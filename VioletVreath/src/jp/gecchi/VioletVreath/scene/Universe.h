@@ -89,7 +89,7 @@ public:
     World* _pWorld;
     CameraWorkerConnectionStack _stack_CameraWorkerCon;
 
-    Universe(const char* prm_name, GgafDxCore::GgafDxCamera* prm_pCamera);
+    Universe(const char* prm_name, Camera* prm_pCamera);
 
     void initialize() override;
 

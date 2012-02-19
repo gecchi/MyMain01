@@ -8,5 +8,16 @@ DefaultCamera::DefaultCamera(const char* prm_name, float prm_rad_fovX, float prm
     _class_name = "DefaultCamera";
 }
 
+DefaultCamera::DefaultCamera(const char* prm_name, float prm_rad_fovX) :
+        GgafDxCamera(prm_name, prm_rad_fovX, GGAF_PROPERTY(GAME_SPACE_DEPTH)) {
+    _class_name = "DefaultCamera";
+}
+
+DefaultCamera::DefaultCamera(const char* prm_name) :
+        GgafDxCamera(prm_name, PI * 90.0f / 180.0f, GGAF_PROPERTY(GAME_SPACE_DEPTH)) {
+    _class_name = "DefaultCamera";
+}
+
+
 DefaultCamera::~DefaultCamera() {
 }

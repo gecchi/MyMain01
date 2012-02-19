@@ -31,7 +31,7 @@ public:
     GgafDxCore::GgafDxScaler* _pScaler;
 
 
-    DefaultPointSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat);
+    DefaultPointSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat=NULL);
 
     virtual void onCreateModel() override {
     }

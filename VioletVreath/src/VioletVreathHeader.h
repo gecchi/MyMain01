@@ -722,5 +722,4 @@ class CursorTitleMenu;
 
 
 
-
 #endif /*VIOLETVREATHHEADER_H_*/

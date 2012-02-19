@@ -23,7 +23,7 @@ MagicMeter::MagicMeter(const char* prm_name)
     _height = PX2CO(_height_px);
 
     _X = 100*LEN_UNIT;
-    _Y = (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - (_height_px*2)) * LEN_UNIT;
+    _Y = (GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - (_height_px*2)) * LEN_UNIT;
     _Z = 10;
 //    AmountGraph _qu;
 //    _qu.set(1.0);
@@ -81,7 +81,7 @@ MagicMeter::MagicMeter(const char* prm_name)
 
     //エネルギーバー設置
     _pEnagyBar = NEW EnagyBar("EnagyBar", &_mp);
-    _pEnagyBar->locate(PX2CO(100), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
+    _pEnagyBar->locate(PX2CO(100), PX2CO(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
     addSubGroup(_pEnagyBar);
 
     _pSeTransmitter->useSe(SE_EXECUTE_LEVELDOWN_MAGIC+1);

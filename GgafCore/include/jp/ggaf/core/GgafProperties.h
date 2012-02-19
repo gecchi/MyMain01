@@ -1,10 +1,10 @@
 #ifndef GGAFPROPERTIES_H_
 #define GGAFPROPERTIES_H_
 
-#ifdef CFG_PROPERTY
-    #undef CFG_PROPERTY
+#ifdef GGAF_PROPERTY
+    #undef GGAF_PROPERTY
 #endif
-#define CFG_PROPERTY(X) (GgafCore::GgafProperties::X)
+#define GGAF_PROPERTY(X) (GgafCore::GgafProperties::X)
 
 namespace GgafCore {
 

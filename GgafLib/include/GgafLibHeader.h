@@ -38,7 +38,7 @@ class WalledSectionScene;
 
 
 
-class StgProperties;
+class GgafLibProperties;
 class TreeFormation;
 class DepositoryFormation;
 class DefaultGeometricActor;
@@ -118,7 +118,7 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/scene/WalledScene.h"
 #include "jp/ggaf/lib/scene/WalledSectionScene.h"
 
-#include "jp/ggaf/lib/StgProperties.h"
+#include "jp/ggaf/lib/GgafLibProperties.h"
 
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
@@ -182,6 +182,27 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepositoryStore.h"
 
 #include "jp/ggaf/lib/actor/menu/MenuActor.hpp"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

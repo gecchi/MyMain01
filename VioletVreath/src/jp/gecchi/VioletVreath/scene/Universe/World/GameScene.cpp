@@ -101,7 +101,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_INIT: {
 //            _TRACE_("GameScene::processBehavior() Prog(=GameScene::PROG_INIT) is Just Changed");
             //P_GOD->syncTimeFrame(); //•`‰æ‚ð’†Ž~‚µ‚ÄAƒtƒŒ[ƒ€‚ÆŽžŠÔ‚Ì“¯Šú‚ðs‚¤
-            if ((_pProg->getFrameInProgress() >= 180 && P_GOD->_fps > CFG_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) || GgafDxInput::isPushedDownKey(DIK_P)) {
+            if ((_pProg->getFrameInProgress() >= 180 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) || GgafDxInput::isPushedDownKey(DIK_P)) {
                 _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
                 _pProg->changeWithScene_Crossfading(GameScene::PROG_PRE_TITLE);
             }

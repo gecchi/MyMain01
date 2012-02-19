@@ -32,7 +32,7 @@ PROJECT_NAME           = "Violet Vreath"
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = 0.0.001
+PROJECT_NUMBER         = 0.0.002
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description 
 # for a project that appears at the top of each page and should give viewer 
@@ -631,6 +631,7 @@ WARN_LOGFILE           =
 INPUT                  = ../GgafCore \
                          ../GgafDxCore \
                          ../GgafLib \
+                         ../SimpleSample \
                          ../VioletVreath
 
 # This tag can be used to specify the character encoding of the source files 

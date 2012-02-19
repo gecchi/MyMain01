@@ -28,7 +28,7 @@ public:
 
     LinearOctreeForActor* _pLinearOctree;
 
-    DefaultUniverse(const char* prm_name, GgafDxCore::GgafDxCamera* prm_pCamera);
+    DefaultUniverse(const char* prm_name, DefaultCamera* prm_pCamera);
 
     virtual ~DefaultUniverse();
 };

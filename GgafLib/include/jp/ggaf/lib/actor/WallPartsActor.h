@@ -54,7 +54,7 @@ public:
               const char* prm_model_id,
               const char* prm_effect_id,
               const char* prm_technique,
-              GgafCore::GgafStatus* prm_pStat
+              GgafCore::GgafStatus* prm_pStat=NULL
               );
 
 

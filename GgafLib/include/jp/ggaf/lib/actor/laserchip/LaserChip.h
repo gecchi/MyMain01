@@ -50,7 +50,7 @@ public:
 
     LaserChip* _pLeader;
 
-    LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+    LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
 
     virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
 

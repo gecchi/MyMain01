@@ -118,12 +118,12 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
     return pResource;
 }
 
-//MyShip::_lim_top     = CFG_PROPERTY(GAME_BUFFER_HEIGHT)*5*LEN_UNIT / 2;      //ã‰º‚Í‰æ–Ê‚‚³‚Ì‘å‘Ì‚T‰æ–Ê•ª
-//MyShip::_lim_bottom  = -(CFG_PROPERTY(GAME_BUFFER_HEIGHT)*5*LEN_UNIT / 2);
-//MyShip::_lim_front   = CFG_PROPERTY(GAME_BUFFER_WIDTH)*4*LEN_UNIT / 2 ;    //‘OŒã‚Í‰æ–Ê•‚Ì‘å‘Ì‚S‰æ–Ê•ª
-//MyShip::_lim_behaind = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*0.5*LEN_UNIT / 2 );
-//MyShip::_lim_zleft   = CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2;       //‰œŽè‘O‚Í‰æ–Ê•‚Ì‘å‘Ì‚T‰æ–Ê•ª
-//MyShip::_lim_zright  = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2);
+//MyShip::_lim_top     = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*5*LEN_UNIT / 2;      //ã‰º‚Í‰æ–Ê‚‚³‚Ì‘å‘Ì‚T‰æ–Ê•ª
+//MyShip::_lim_bottom  = -(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*5*LEN_UNIT / 2);
+//MyShip::_lim_front   = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*4*LEN_UNIT / 2 ;    //‘OŒã‚Í‰æ–Ê•‚Ì‘å‘Ì‚S‰æ–Ê•ª
+//MyShip::_lim_behaind = -(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*0.5*LEN_UNIT / 2 );
+//MyShip::_lim_zleft   = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2;       //‰œŽè‘O‚Í‰æ–Ê•‚Ì‘å‘Ì‚T‰æ–Ê•ª
+//MyShip::_lim_zright  = -(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2);
 //GgafDxUniverse::_X_goneLeft   = GgafDxCamera::_X_ScreenLeft - 3000*LEN_UNIT; //Å‘å3000px‚ÌƒIƒuƒWƒFƒNƒg‚Ü‚Å‘z’è
 //GgafDxUniverse::_X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
 //GgafDxUniverse::_Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);

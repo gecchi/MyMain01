@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CustomizeOgg_static", "Cust
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CustomizeVorbis_static", "CustomizeVorbis_static\CustomizeVorbis_static.vcxproj", "{3A06BBA2-2A59-4965-8095-3836E2A10840}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleSample", "SimpleSample\SimpleSample.vcxproj", "{7F532FE9-8CFA-43D4-B219-8B775DC4C243}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -43,6 +45,10 @@ Global
 		{3A06BBA2-2A59-4965-8095-3836E2A10840}.Debug|Win32.Build.0 = Debug|Win32
 		{3A06BBA2-2A59-4965-8095-3836E2A10840}.Release|Win32.ActiveCfg = Release|Win32
 		{3A06BBA2-2A59-4965-8095-3836E2A10840}.Release|Win32.Build.0 = Release|Win32
+		{7F532FE9-8CFA-43D4-B219-8B775DC4C243}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7F532FE9-8CFA-43D4-B219-8B775DC4C243}.Debug|Win32.Build.0 = Debug|Win32
+		{7F532FE9-8CFA-43D4-B219-8B775DC4C243}.Release|Win32.ActiveCfg = Release|Win32
+		{7F532FE9-8CFA-43D4-B219-8B775DC4C243}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

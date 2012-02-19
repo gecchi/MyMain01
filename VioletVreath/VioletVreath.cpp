@@ -1,6 +1,7 @@
 #include "stdafx.h"
-#include "VioletVreath.h"
+#include "GgafLibEntory.h"
 #include "resource.h"
+
 using namespace std;
 
 #define MY_IDM_RESET_WINDOW_SIZE 10
@@ -12,8 +13,6 @@ TCHAR szTitle[MAX_LOADSTRING]; // タイトル バーのテキスト
 TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
 
 // このコード モジュールに含まれる関数の宣言を転送します:
-ATOM MyRegisterClass_Primary(HINSTANCE hInstance);
-ATOM MyRegisterClass_Secondary(HINSTANCE hInstance);
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
@@ -21,54 +20,30 @@ BOOL CustmizeSysMenu(HWND hWnd);
 
 void myUnexpectedHandler();
 void myTerminateHandler();
-void resetWindowsize(HWND, int, int);
 
 
 /**
  * GNU GCC ならばエントリポイント
  */
 int main(int argc, char *argv[]) {
-    STARTUPINFO StatUpInfo;
-    HINSTANCE hInstance;
-    HANDLE hPrevInstance;
-    LPSTR lpCmdLine;
-    int nCmdShow;
-
-    GetStartupInfo(&StatUpInfo);
-    hInstance = GetModuleHandle(0);
-    hPrevInstance = 0;
-    lpCmdLine = GetCommandLine();
-    nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW) ? StatUpInfo.wShowWindow : SW_SHOWNORMAL;
-    /* GetCommandLineからプログラム名を抜きます。 */
-    while (*lpCmdLine != ' ' && *lpCmdLine != '\0')
-        lpCmdLine++;
-    while (*lpCmdLine == ' ')
-        lpCmdLine++;
-    cout << lpCmdLine << endl;
-    //本来のWinMainへ
-    WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
+    GgafLibMain(argc, argv);
     return 0;
 }
 
 static VioletVreath::God* pGod = NULL;
-HWND hWnd1 = NULL;
-HWND hWnd2 = NULL;
 
 /**
  * VCならばエントリポイント
  */
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+    GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
     std::set_unexpected(myUnexpectedHandler);
     std::set_terminate(myTerminateHandler);
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
-    MSG msg;
+
 
     // グローバル文字列を初期化しています。
     LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    _TRACE_("szTitle = "<<szTitle);
     LoadString(hInstance, IDC_VIOLETVREATH, szWindowClass, MAX_LOADSTRING);
-    _TRACE_("szWindowClass = "<<szWindowClass);
 
     //プロパティファイル読込み
     try {
@@ -80,139 +55,34 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         return EXIT_FAILURE;
     }
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
-	//_CrtSetBreakAlloc(203659);
 
-    // ウインドウの生成
-    if (CFG_PROPERTY(FULL_SCREEN)) {
-        if (CFG_PROPERTY(DUAL_VIEW)) {
-            //フルスクリーンモード・２画面使用
-            MyRegisterClass_Primary(hInstance);
-            hWnd1 = CreateWindowEx(
-                        WS_EX_APPWINDOW,
-                        szWindowClass, //WINDOW_CLASS,
-                        szTitle,//WINDOW_TITLE,
-                        WS_POPUP | WS_VISIBLE,
-                        CW_USEDEFAULT,
-                        CW_USEDEFAULT,
-                        CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_WIDTH),
-                        CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_HEIGHT),
-                        HWND_DESKTOP,
-                        NULL,
-                        hInstance,
-                        NULL
-                    );
 
-            MyRegisterClass_Secondary(hInstance);
-            hWnd2 = CreateWindowEx(
-                        WS_EX_APPWINDOW,
-                        "secondary", //WINDOW_CLASS,
-                        "secondary",//WINDOW_TITLE,
-                        WS_POPUP | WS_VISIBLE,
-                        CW_USEDEFAULT,
-                        CW_USEDEFAULT,
-                        CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_WIDTH),
-                        CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT),
-                        HWND_DESKTOP,
-                        NULL,
-                        hInstance,
-                        NULL
-                    );
 
-        } else {
-            //フルスクリーンモード・１画面使用
-            MyRegisterClass_Primary(hInstance);
-            hWnd1 = CreateWindowEx(
-                        WS_EX_APPWINDOW,
-                        szWindowClass, //WINDOW_CLASS,
-                        szTitle,//WINDOW_TITLE,
-                        WS_POPUP | WS_VISIBLE,
-                        CW_USEDEFAULT,
-                        CW_USEDEFAULT,
-                        CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_WIDTH),
-                        CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT),
-                        HWND_DESKTOP,
-                        NULL,
-                        hInstance,
-                        NULL
-                    );
 
-        }
-    } else {
-        if (CFG_PROPERTY(DUAL_VIEW)) {
-            MyRegisterClass_Primary(hInstance);
-            hWnd1 = CreateWindow(
-                    szWindowClass, //WINDOW_CLASS,          // ウインドウクラス名
-                    szTitle,//WINDOW_TITLE,             // ウインドウのタイトル名
-                    WS_OVERLAPPEDWINDOW, // ウインドウスタイル
-                    CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
-                    CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH), // ウィンドウの幅
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT), // ウィンドウの幅
-                    HWND_DESKTOP, // 親ウインドウ
-                    NULL, // ウインドウメニュー
-                    hInstance, // インスタンスハンドル
-                    NULL // WM_CREATE情報
-            );
 
-            MyRegisterClass_Secondary(hInstance);
-            hWnd2 = CreateWindow(
-                    "secondary", //WINDOW_CLASS,
-                    "secondary",//WINDOW_TITLE,
-                    //WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX, // ウインドウスタイル
-                    WS_OVERLAPPEDWINDOW, // ウインドウスタイル
-                    CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
-                    CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH), // ウィンドウの幅
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT), // ウィンドウの幅
-                    HWND_DESKTOP, // 親ウインドウ
-                    NULL, // ウインドウメニュー
-                    hInstance, // インスタンスハンドル
-                    NULL // WM_CREATE情報
-            );
-        } else {
-            MyRegisterClass_Primary(hInstance);
-            hWnd1 = CreateWindow(
-                    szWindowClass, //WINDOW_CLASS,          // ウインドウクラス名
-                    szTitle,//WINDOW_TITLE,             // ウインドウのタイトル名
-                    WS_OVERLAPPEDWINDOW, // ウインドウスタイル
-                    CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
-                    CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                    CFG_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH), // ウィンドウの幅
-                    CFG_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT), // ウィンドウの幅
-                    HWND_DESKTOP, // 親ウインドウ
-                    NULL, // ウインドウメニュー
-                    hInstance, // インスタンスハンドル
-                    NULL // WM_CREATE情報
-            );
-        }
-    }
+    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(GGAF_PROPERTY(BORDER_COLOR));
+    WNDCLASSEX wcex1;
+    wcex1.cbSize = sizeof(WNDCLASSEX);
+    wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
+    wcex1.lpfnWndProc =  (WNDPROC)WndProc; //ウィンドウプロシージャのアドレスを指定する。
+    wcex1.cbClsExtra = 0;
+    wcex1.cbWndExtra = 0;
+    wcex1.hInstance = hInstance;
+    wcex1.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_VIOLETVREATH));
+    wcex1.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wcex1.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
+    wcex1.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_VIOLETVREATH);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
+    wcex1.lpszClassName = szWindowClass;
+    wcex1.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
-    if (!hWnd1) {
-        cout << "can't CreateWindow " << endl;
-        cout << "szWindowClass=" << szWindowClass << endl;
-        cout << "szTitle=" << szTitle << endl;
-        return FALSE;
-    }
 
-    //ウィンドウ時、
-    //クライアント領域を所望の大きさにするため、
-    //タイトルバー、リサイズボーダーの厚さを考慮し、再設定。
-    if (!CFG_PROPERTY(FULL_SCREEN)) {
-        if (CFG_PROPERTY(DUAL_VIEW)) {
-            resetWindowsize(hWnd1, CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH), CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT));
-            resetWindowsize(hWnd2, CFG_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH), CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT));
-        } else {
-            resetWindowsize(hWnd1, CFG_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH), CFG_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT));
-        }
-    }
+    WNDCLASSEX wcex2 = wcex1;
+    wcex2.lpszClassName = "secondary";
 
-    //アクティブに
-    ShowWindow(hWnd1, nCmdShow);
-    UpdateWindow(hWnd1);
-    if (CFG_PROPERTY(DUAL_VIEW)) {
-        ShowWindow(hWnd2, nCmdShow);
-        UpdateWindow(hWnd2);
-    }
+    HWND hWnd1, hWnd2;
+    GgafLibCreateWindow(wcex1, wcex2, szTitle, "secondary", hWnd1, hWnd2);
+
+    //_CrtSetBreakAlloc(203659);
 
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
@@ -237,7 +107,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     #endif
 #endif
 
-
+    MSG msg;
     try {
         //神の誕生
         pGod = NEW VioletVreath::God(hInstance, hWnd1, hWnd2);
@@ -355,121 +225,27 @@ void myTerminateHandler() {
 }
 
 
-ATOM MyRegisterClass_Primary(HINSTANCE hInstance) {
-    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(CFG_PROPERTY(BG_COLOR));
-    WNDCLASSEX wcex;
-    wcex.cbSize = sizeof(WNDCLASSEX);
-    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
-    wcex.lpfnWndProc =  (WNDPROC)WndProc; //ウィンドウプロシージャのアドレスを指定する。
-    wcex.cbClsExtra = 0;
-    wcex.cbWndExtra = 0;
-    wcex.hInstance = hInstance;
-    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_VIOLETVREATH));
-    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.hbrBackground = CreateSolidBrush(
-                            RGB(rgb._R, rgb._G, rgb._B)
-                         );
-    wcex.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_VIOLETVREATH);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
-    wcex.lpszClassName = szWindowClass;
-    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
-
-    return RegisterClassEx(&wcex);
-}
-
-ATOM MyRegisterClass_Secondary(HINSTANCE hInstance) {
-    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(CFG_PROPERTY(BG_COLOR));
-    WNDCLASSEX wcex;
-    wcex.cbSize = sizeof(WNDCLASSEX);
-    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
-    wcex.lpfnWndProc =  (WNDPROC)WndProc;
-                       //(WNDPROC)GetWindowLong(_pHWndPrimary, GWL_WNDPROC ); //１画面目のウィンドウプロシージャを共通指定する。
-    wcex.cbClsExtra = 0;
-    wcex.cbWndExtra = 0;
-    wcex.hInstance = hInstance;
-    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_VIOLETVREATH));
-    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.hbrBackground = CreateSolidBrush(
-                            RGB(rgb._R, rgb._G, rgb._B)
-                         );
-    wcex.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_VIOLETVREATH);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
-    wcex.lpszClassName = "secondary";
-    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
-
-    return RegisterClassEx(&wcex);
-}
-
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    //  int wmId, wmEvent;
-    //PAINTSTRUCT ps;
-    //HDC hdc;
+    GgafLibWndProc(hWnd, message, wParam, lParam);
 
     switch (message) {
-        case WM_CREATE:
 
+        case WM_CREATE:
             // システムメニューカスタム関数を呼ぶ
             CustmizeSysMenu(hWnd);
-            break;
-        case WM_SIZE:
-            if (GgafDxCore::GgafDxGod::_can_be) {
-                if (!CFG_PROPERTY(FULL_SCREEN)) {
-                    GgafDxCore::GgafDxGod::_adjustGameScreen = true;
-                    GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = hWnd;
-                }
-            }
-            break;
-        case WM_SETFOCUS:
-            HRESULT hr;
-            if (GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Mouse) {
-                hr = GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Mouse->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
-                if (hr != D3D_OK) {
-                    _TRACE_("GgafDxInput::initDx9Input() _pHWndSecondaryマウスのSetCooperativeLevelに失敗しました");
-                }
-            }
-                // キーボード強調レベル設定
-            if (GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Keyboard) {
-                hr = GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Keyboard->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
-                if (hr != D3D_OK) {
-                    MessageBox(hWnd, TEXT("GgafDxInput::initDx9Input() キーボードのSetCooperativeLevelに失敗しました"),
-                               TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
-                }
-            }
-            if (GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Joystick) {
-                // ゲームスティック協調レベルを設定する
-                hr = GgafDxCore::GgafDxInput::_pIDirectInputDevice8_Joystick->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
-                if (hr != D3D_OK) {
-                    _TRACE_("GgafDxInput::initDx9Input() ジョイスティックSetCooperativeLevelに失敗しました");
-                }
-            }
-
             break;
         case WM_SYSCOMMAND:
             if ( (wParam & 0xFFF0) == SC_SCREENSAVE ) {
                 return 1;
             }
-            if(wParam == SC_CLOSE){
-                PostQuitMessage(0);
-            } else if(wParam == MY_IDM_ABOUT) {
+            if(wParam == MY_IDM_ABOUT) {
                 //バージョンダイアログ
 //                dhwnd  = CreateDialog(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
                 DialogBox(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
             } else if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
                 //ウィンドウリサイズ
-                if (!CFG_PROPERTY(FULL_SCREEN)) {
-                    if (CFG_PROPERTY(DUAL_VIEW)) {
-                        if (hWnd == hWnd2) {
-                            resetWindowsize(hWnd, CFG_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH), CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT));
-                        } else if (hWnd == hWnd1) {
-                            resetWindowsize(hWnd, CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH), CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT));
-                        }
-                    } else {
-                        resetWindowsize(hWnd, CFG_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH), CFG_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT));
-                    }
-                }
+                resetWindowsize(hWnd);
             }
-            break;
-        case WM_DESTROY:
-            PostQuitMessage(0);
             break;
         default:
             break;
@@ -518,33 +294,7 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
     return (INT_PTR) FALSE;
 }
 
-void resetWindowsize(HWND hWnd, int client_width, int client_height) {
-    RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
-    int ww1, wh1; // ウィンドウ全体の幅、高さ
-    int cw1, ch1; // クライアント領域の幅、高さ
-    int fw1, fh1; // フレームの幅、高さ
-    // ウィンドウ全体の幅・高さを計算
-    GetWindowRect(hWnd, &wRect1);
-    ww1 = wRect1.right - wRect1.left;
-    wh1 = wRect1.bottom - wRect1.top;
-    // クライアント領域の幅・高さを計算
-    GetClientRect(hWnd, &cRect1);
-    cw1 = cRect1.right - cRect1.left;
-    ch1 = cRect1.bottom - cRect1.top;
-    // クライアント領域以外に必要なサイズを計算
-    fw1 = ww1 - cw1;
-    fh1 = wh1 - ch1;
-    // 計算した幅と高さをウィンドウに設定
-    SetWindowPos(
-            hWnd,
-            HWND_TOP,
-            0,
-            0,
-            client_width + fw1,
-            client_height + fh1,
-            SWP_NOMOVE
-    );
-}
+
 //// システムメニューの挙動を記述
 //LRESULT SysMenuProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 //{
@@ -559,53 +309,5 @@ void resetWindowsize(HWND hWnd, int client_width, int client_height) {
 //        break;
 //}
 //}
-
-//
-//#include <windows.h>
-//#include <iphlpapi.h>
-//#include <stdio.h>
-//
-//
-
-//int main(void) {
-//    PIP_ADAPTER_INFO pAdapterInfo;
-//    DWORD aiSize;
-//    BYTE* paBuff;
-//
-//    GetAdaptersInfo(NULL, &aiSize);//必要バッファサイズ取得
-//    paBuff = new BYTE[aiSize];
-//    pAdapterInfo = (PIP_ADAPTER_INFO) paBuff;
-//
-//    if (GetAdaptersInfo(pAdapterInfo, &aiSize) != ERROR_SUCCESS) {
-//        printf("GetAdapterInfo呼び出し失敗\n");
-//        return 1;
-//    }
-//    std::stringstream ss;
-//
-//
-//    while (pAdapterInfo) {
-//        //fprintf(stdout, "MACアドレス = [");
-//
-//        for (UINT i = 0; i < pAdapterInfo->AddressLength; i++) {
-//            ss.width(2);
-//            ss.fill('0');
-//            ss << std::hex << (int)pAdapterInfo->Address[i];
-//            //fprintf(stdout, "%.2X", (int)pAdapterInfo->Address[i]);
-//
-//            if (i == (pAdapterInfo->AddressLength - 1)) {
-//                //fputs("]\n", stdout);
-//            } else {
-//                ss.width(1);
-//                ss << "-";
-//                //fputs("-", stdout);
-//            }
-//        }
-//        pAdapterInfo = pAdapterInfo->Next;
-//    }
-//    delete[] paBuff;
-//    printf("%s", ss.str().c_str());
-//    return 0;
-//}
-
 
 

@@ -24,7 +24,7 @@ public:
 //    int _aAddFace[12];
 
 
-    WallAAPrismActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+    WallAAPrismActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
 
     virtual void processDraw() override;
 

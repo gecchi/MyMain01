@@ -1,14 +1,14 @@
 #ifndef PROPERTIES_H_
 #define PROPERTIES_H_
 
-#ifdef CFG_PROPERTY
-    #undef CFG_PROPERTY
+#ifdef GGAF_PROPERTY
+    #undef GGAF_PROPERTY
 #endif
-#define CFG_PROPERTY(X) (VioletVreath::Properties::X)
+#define GGAF_PROPERTY(X) (VioletVreath::Properties::X)
 
 namespace VioletVreath {
 
-class Properties: public GgafLib::StgProperties {
+class Properties: public GgafLib::GgafLibProperties {
 public:
     static std::string MY_KEY_SHOT1;
     static std::string MY_KEY_SHOT2;

@@ -178,10 +178,6 @@
     <ClInclude Include="lib\window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CustomizeOgg_static\CustomizeOgg_static.vcxproj">
       <Project>{2fdefa24-55e5-4955-8497-44085c92a5b1}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

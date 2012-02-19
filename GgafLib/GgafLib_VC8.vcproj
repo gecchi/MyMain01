@@ -314,6 +314,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\lib\GgafLibProperties.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\lib\actor\laserchip\HomingLaserChip.cpp"
 				>
 			</File>
@@ -430,10 +434,6 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\jp\ggaf\lib\StgProperties.cpp"
-				>
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\lib\util\StgUtil.cpp"
@@ -638,7 +638,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\GgafLibEntory.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\GgafLibHeader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\lib\GgafLibProperties.h"
 				>
 			</File>
 			<File
@@ -734,10 +742,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\StgProperties.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\lib\util\StgUtil.h"
 				>
 			</File>
@@ -796,10 +800,6 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
-		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

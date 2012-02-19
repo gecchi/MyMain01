@@ -28,27 +28,69 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     //板ポリゴン定義ファイル読込み
     HRESULT hr;
     DirectXFileCreate( &_pIDirectXFile_sprx );
-    char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(CFG_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
-    if (paChar_SpriteModelineTemplate == NULL) {
-        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] スプライト情報読込みテンプレート\""<<CFG_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" が開けません。");
-    }
+//    char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(GGAF_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
+//    if (paChar_SpriteModelineTemplate == NULL) {
+//        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] スプライト情報読込みテンプレート\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" が開けません。");
+//    }
+    char* paChar_SpriteModelineTemplate =
+    "xof 0303txt 0032\n" \
+    "template SpriteDef {" \
+    "   <E4EECE4C-E106-11DC-9B62-346D55D89593>" \
+    "   FLOAT  Width;" \
+    "   FLOAT  Height;" \
+    "   STRING TextureFile;" \
+    "   DWORD  TextureSplitRows;" \
+    "   DWORD  TextureSplitCols;" \
+    "}";
+
     hr = _pIDirectXFile_sprx->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<CFG_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
+        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
     }
-    DELETE_IMPOSSIBLE_NULL(paChar_SpriteModelineTemplate);
+//    DELETE_IMPOSSIBLE_NULL(paChar_SpriteModelineTemplate);
 
     //板ポリゴン定義ファイル読込み
     DirectXFileCreate( &_pIDirectXFile_psprx );
-    char* paChar_PointSpriteModelineTemplate = GgafUtil::getFileText(CFG_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_pointspritemodel_define.x");
-    if (paChar_PointSpriteModelineTemplate == NULL) {
-        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] ポイントスプライト情報読込みテンプレート\""<<CFG_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\" が開けません。");
-    }
+//    char* paChar_PointSpriteModelineTemplate = GgafUtil::getFileText(GGAF_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_pointspritemodel_define.x");
+//    if (paChar_PointSpriteModelineTemplate == NULL) {
+//        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] ポイントスプライト情報読込みテンプレート\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\" が開けません。");
+//    }
+
+    char* paChar_PointSpriteModelineTemplate =
+            "xof 0303txt 0032\n" \
+            "\n" \
+            "template Vector {\n" \
+            "  <3d82ab5e-62da-11cf-ab39-0020af71e433>\n" \
+            "  FLOAT x;\n" \
+            "  FLOAT y;\n" \
+            "  FLOAT z;\n" \
+            "}\n" \
+            "\n" \
+            "template ColorRGBA {\n" \
+            "  <35ff44e0-6c7c-11cf-8f52-0040333594a3>\n" \
+            "  FLOAT red;\n" \
+            "  FLOAT green;\n" \
+            "  FLOAT blue;\n" \
+            "  FLOAT alpha;\n" \
+            "}\n" \
+            "\n" \
+            "template PointSpriteDef {\n" \
+            "  <E4EECE4C-E106-11DC-9B62-346D55D89593>\n" \
+            "  FLOAT  SquareSize;\n" \
+            "  STRING TextureFile;\n" \
+            "  DWORD  TextureSplitRowCol;\n" \
+            "  DWORD  VerticesNum;\n" \
+            "  array  Vector    Vertices[VerticesNum];\n" \
+            "  array  ColorRGBA VertexColors[VerticesNum];\n" \
+            "  array  DWORD     InitUvPtnNo[VerticesNum];\n" \
+            "  array  FLOAT     InitScale[VerticesNum];\n" \
+            "}\n" \
+            "\n";
     hr = _pIDirectXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<CFG_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
+        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
     }
-    DELETE_IMPOSSIBLE_NULL(paChar_PointSpriteModelineTemplate);
+//    DELETE_IMPOSSIBLE_NULL(paChar_PointSpriteModelineTemplate);
 
 }
 
@@ -234,7 +276,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
 
 
-    string xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+    string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     HRESULT hr;
 
     //流し込む頂点バッファデータ作成
@@ -805,7 +847,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
 
     for(int i = 0; i < morph_target_num+1; i++) {
         char* xfilename_base = prm_pMorphMeshModel->_model_name + 2; //２文字目以降  "2/ceres" → "ceres"
-        paXfileName[i] = CFG_PROPERTY(DIR_MESH_MODEL) + string(xfilename_base) + "_" + (char)('0'+i) + ".x"; //"ceres_0.x"となる
+        paXfileName[i] = GGAF_PROPERTY(DIR_MESH_MODEL) + string(xfilename_base) + "_" + (char)('0'+i) + ".x"; //"ceres_0.x"となる
     }
     HRESULT hr;
     //流し込む頂点バッファデータ作成
@@ -1485,7 +1527,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     D3DMATERIAL9* model_paMaterial; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDxTextureConnection** model_papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
-    string xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+    string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
 
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
@@ -1588,7 +1630,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     D3DMATERIAL9* model_paMaterial = NULL; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDxTextureConnection** model_papTextureCon = NULL; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
-    string xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+    string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
 
 
     //AnimTicksPerSecondの値を独自に取り出す
@@ -1729,7 +1771,7 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
 
 
     HRESULT hr;
-    string xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteModel->_model_name) + ".sprx";
+    string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteModel->_model_name) + ".sprx";
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
@@ -1771,7 +1813,7 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     }
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
     //テクスチャ取得しモデルに保持させる
-    //string texture_filename = CFG_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
+    //string texture_filename = GGAF_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
     GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pSpriteModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
@@ -1924,11 +1966,11 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
     string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
     //"12/Bomb" or "8/Bomb" or "Bomb" から "Bomb" だけ取とりだしてフルパス名取得
     if (*(prm_pSpriteSetModel->_model_name + 1) == '/') {
-        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 2) + ".sprx";
+        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 2) + ".sprx";
     } else if (*(prm_pSpriteSetModel->_model_name + 2) == '/') {
-        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 3) + ".sprx";
+        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 3) + ".sprx";
     } else {
-        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name) + ".sprx";
+        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name) + ".sprx";
     }
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
     checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreSpriteSetModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
@@ -2186,7 +2228,7 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
 //    prm_pBoardModel->_paRectUV = NULL;
 
     HRESULT hr;
-    string xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardModel->_model_name) + ".sprx";
+    string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardModel->_model_name) + ".sprx";
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
@@ -2328,11 +2370,11 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
     //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
     //TODO:数値3桁("123/Moji"とか)が来たら困る。
     if (*(prm_pBoardSetModel->_model_name + 1) == '/') {
-        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 2) + ".sprx";
+        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 2) + ".sprx";
     } else if (*(prm_pBoardSetModel->_model_name + 2) == '/') {
-        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 3) + ".sprx";
+        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 3) + ".sprx";
     } else {
-        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name) + ".sprx";
+        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name) + ".sprx";
     }
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
 
@@ -2562,11 +2604,11 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     //"12/Ceres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
     //TODO:数値３桁以上の時はだめ
     if (*(prm_pMeshSetModel->_model_name + 1) == '/') {
-        xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 2) + ".x";
+        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 2) + ".x";
     } else if (*(prm_pMeshSetModel->_model_name + 2) == '/') {
-        xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 3) + ".x";
+        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 3) + ".x";
     } else {
-        xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     }
 
 
@@ -3125,7 +3167,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
 
     prm_pPointSpriteModel->_papTextureCon = NULL;
     HRESULT hr;
-    string xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pPointSpriteModel->_model_name) + ".psprx";
+    string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pPointSpriteModel->_model_name) + ".psprx";
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;

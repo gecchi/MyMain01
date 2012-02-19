@@ -331,7 +331,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                 //無条件待機
                 TRACE2("GgafFactory::work ＜工場長＞ 工場には何～んもありません。さぁなんでも注文来い来い！！・・・ないのん？。（待機）");
              ___EndSynchronized1; // <----- 排他終了
-                if (GgafGod::_pGod->_fps > CFG_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
+                if (GgafGod::_pGod->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
                     TRACE2("GgafFactory::work ＜工場長＞ FPSは高いよなぁ、その間を利用してゴミ箱掃除でもやっときます。1");
                     _pGarbageBox->clean(5); //暇なので、ゴミ箱掃除
                     _cnt_cleaned = 0;
@@ -345,7 +345,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                 } else {
                     TRACE2("GgafFactory::work ＜工場長＞ さて、未製造注文は無し。あ～棚に製造済のがたまってるす、早く取に来やがれ！。（待機）");
                  ___EndSynchronized1; // <----- 排他終了
-                    if (GgafGod::_pGod->_fps > CFG_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
+                    if (GgafGod::_pGod->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
                         TRACE2("GgafFactory::work ＜工場長＞ FPSは高いなぁ、その間を利用してゴミ箱掃除でもやっときます。2");
                         _pGarbageBox->clean(5); //暇なので、ゴミ箱掃除
                         _cnt_cleaned = 0;

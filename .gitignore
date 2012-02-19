@@ -9,7 +9,6 @@
 *.suo
 *.obj
 *.user
-*.o
 *.exe
 *.swp
 *.htm

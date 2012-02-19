@@ -1,0 +1,11 @@
+/Release*
+/GprofCdt
+/Debug*
+/log
+/*settings
+/SimpleSample.exe
+/*user
+/.checkstyle
+/SimpleSample.aps
+*.rep
+/back.properties

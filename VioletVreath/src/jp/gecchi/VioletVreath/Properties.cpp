@@ -39,7 +39,7 @@ string Properties::MY_JOY_UI_CANCEL = "";
 
 
 void Properties::load(string prm_ini_filename) {
-    StgProperties::load(prm_ini_filename);
+    GgafLibProperties::load(prm_ini_filename);
     Properties::MY_KEY_SHOT1      = getStr("MY_KEY_SHOT1");
     Properties::MY_KEY_SHOT2      = getStr("MY_KEY_SHOT2");
     Properties::MY_KEY_OPTION     = getStr("MY_KEY_OPTION");
@@ -106,5 +106,5 @@ void Properties::load(string prm_ini_filename) {
 }
 
 void Properties::clean() {
-    StgProperties::clean();
+    GgafLibProperties::clean();
 }

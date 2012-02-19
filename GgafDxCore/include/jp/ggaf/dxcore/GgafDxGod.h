@@ -18,7 +18,7 @@ private:
     /** Windows Display Driver Model（WDDM）が使用可能か否か */
     bool _can_wddm;
     /** ゲーム表示領域以外のクリップ領域背景色 */
-    D3DCOLOR _color_background;
+    D3DCOLOR _color_border;
     /** ゲーム表示領域の表示クリア時の背景色 */
     D3DCOLOR _color_clear;
 

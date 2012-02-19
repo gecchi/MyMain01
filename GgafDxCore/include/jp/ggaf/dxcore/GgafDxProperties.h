@@ -1,10 +1,10 @@
 #ifndef GGAFDXPROPERTIES_H_
 #define GGAFDXPROPERTIES_H_
 
-#ifdef CFG_PROPERTY
-    #undef CFG_PROPERTY
+#ifdef GGAF_PROPERTY
+    #undef GGAF_PROPERTY
 #endif
-#define CFG_PROPERTY(X) (GgafDxCore::GgafDxProperties::X)
+#define GGAF_PROPERTY(X) (GgafDxCore::GgafDxProperties::X)
 
 namespace GgafDxCore {
 
@@ -63,6 +63,8 @@ public:
     /** [r/w] ２画面モード時かつゲーム表示領域アスペクト比を固定時、２画面目の表示領域場所を指定(場所＝テンキーの数値) */
     static int DUAL_VIEW_DRAW_POSITION2;
     /** [r/w] ゲーム表示領域アスペクト比を固定時、ゲーム表示領域外の背景色 */
+    static std::string BORDER_COLOR;
+    /** [r/w] ゲーム表示領域内の背景色 */
     static std::string BG_COLOR;
     /** [r/w] マスターボリューム(0～100) */
     static int MASTER_VOLUME;

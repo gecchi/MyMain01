@@ -33,7 +33,8 @@ int GgafDxProperties::SINGLE_VIEW_DRAW_POSITION = 5;
 int GgafDxProperties::DUAL_VIEW_DRAW_POSITION1 = 6;
 int GgafDxProperties::DUAL_VIEW_DRAW_POSITION2 = 4;
 
-string GgafDxProperties::BG_COLOR = "#222222";
+string GgafDxProperties::BORDER_COLOR = "#222222";
+string GgafDxProperties::BG_COLOR = "#000000";
 
 int GgafDxProperties::MASTER_VOLUME = 80;
 int GgafDxProperties::BGM_VOLUME = 80;
@@ -134,10 +135,12 @@ void GgafDxProperties::load(string prm_ini_filename) {
     if (GgafProperties::isExistKey("DUAL_VIEW_DRAW_POSITION2")) {
         GgafDxProperties::DUAL_VIEW_DRAW_POSITION2       = getInt("DUAL_VIEW_DRAW_POSITION2");
     }
+    if (GgafProperties::isExistKey("BORDER_COLOR")) {
+        GgafDxProperties::BORDER_COLOR                   = getStr("BORDER_COLOR");
+    }
     if (GgafProperties::isExistKey("BG_COLOR")) {
         GgafDxProperties::BG_COLOR                       = getStr("BG_COLOR");
     }
-
     if (GgafProperties::isExistKey("MASTER_VOLUME")) {
         GgafDxProperties::MASTER_VOLUME                  = getInt("MASTER_VOLUME");
     }
@@ -191,12 +194,11 @@ void GgafDxProperties::load(string prm_ini_filename) {
     _TRACE_("GgafDxProperties::SINGLE_VIEW_DRAW_POSITION="<<GgafDxProperties::SINGLE_VIEW_DRAW_POSITION);
     _TRACE_("GgafDxProperties::DUAL_VIEW_DRAW_POSITION1="<<GgafDxProperties::DUAL_VIEW_DRAW_POSITION1);
     _TRACE_("GgafDxProperties::DUAL_VIEW_DRAW_POSITION2="<<GgafDxProperties::DUAL_VIEW_DRAW_POSITION2);
+    _TRACE_("GgafDxProperties::BORDER_COLOR="<<GgafDxProperties::BORDER_COLOR);
     _TRACE_("GgafDxProperties::BG_COLOR="<<GgafDxProperties::BG_COLOR);
-
     _TRACE_("GgafDxProperties::MASTER_VOLUME="<<GgafDxProperties::MASTER_VOLUME);
     _TRACE_("GgafDxProperties::BGM_VOLUME="<<GgafDxProperties::BGM_VOLUME);
     _TRACE_("GgafDxProperties::SE_VOLUME="<<GgafDxProperties::SE_VOLUME);
-
     _TRACE_("GgafDxProperties::DIR_MESH_MODEL="<<GgafDxProperties::DIR_MESH_MODEL);
     _TRACE_("GgafDxProperties::DIR_SPRITE_MODEL="<<GgafDxProperties::DIR_SPRITE_MODEL);
     _TRACE_("GgafDxProperties::DIR_TEXTURE="<<GgafDxProperties::DIR_TEXTURE);

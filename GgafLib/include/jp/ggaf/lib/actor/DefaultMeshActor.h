@@ -35,7 +35,7 @@ public:
      * @param prm_model モデル定義
      * @param prm_pStat 定義済みのステータスを渡す。種別(STAT_DEFAULT_ACTOR_KIND)は衝突判定で使用される。
      */
-    DefaultMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+    DefaultMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
 
     virtual void onCreateModel() override {
     }

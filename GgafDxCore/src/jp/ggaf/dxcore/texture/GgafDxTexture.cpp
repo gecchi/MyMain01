@@ -16,7 +16,7 @@ void GgafDxTexture::restore() {
     _pIDirect3DBaseTexture9 = NULL;
     _pD3DXIMAGE_INFO = NEW D3DXIMAGE_INFO();
     string texture_name = string(_texture_name);
-    string texture_file_name = CFG_PROPERTY(DIR_TEXTURE) + texture_name;
+    string texture_file_name = GGAF_PROPERTY(DIR_TEXTURE) + texture_name;
 
     //テクスチャファイル名に "cubemap" or "CubeMap" or "Cubemap" が含まれていれば、環境マップテクスチャとみなす
     if (texture_name.find("cubemap") == string::npos &&
@@ -44,7 +44,7 @@ void GgafDxTexture::restore() {
         if (hr != D3D_OK) {
             _TRACE_("GgafDxTextureManager::restore() D3DXCreateTextureFromFileEx失敗。対象="<<texture_name);
             //失敗用テクスチャ"GgafDxIlligalTexture.png"を設定
-            string texture_file_name2 = CFG_PROPERTY(DIR_TEXTURE) + "GgafDxIlligalTexture.png";
+            string texture_file_name2 = GGAF_PROPERTY(DIR_TEXTURE) + "GgafDxIlligalTexture.png";
             HRESULT hr2 = D3DXCreateTextureFromFileEx(
                              GgafDxGod::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
                              texture_file_name2.c_str(),// [in] LPCTSTR pSrcFile,
@@ -90,7 +90,7 @@ void GgafDxTexture::restore() {
         if (hr != D3D_OK) {
             _TRACE_("＜警告＞GgafDxTextureManager::restore() D3DXCreateCubeTextureFromFileEx 失敗。対象="<<texture_name);
             //失敗用環境マップテクスチャ"GgafDxIlligalCubeMapTexture.dds"を設定
-            string texture_file_name2 = CFG_PROPERTY(DIR_TEXTURE) + "GgafDxIlligalCubeMapTexture.dds";
+            string texture_file_name2 = GGAF_PROPERTY(DIR_TEXTURE) + "GgafDxIlligalCubeMapTexture.dds";
             HRESULT hr2 = D3DXCreateCubeTextureFromFileEx(
                                     GgafDxGod::_pID3DDevice9,     // [in ] LPDIRECT3DDEVICE9 pDevice,
                                     texture_file_name2.c_str(),     // [in ] LPCTSTR pSrcFile,

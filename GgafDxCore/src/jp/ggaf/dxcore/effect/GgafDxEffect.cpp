@@ -15,15 +15,15 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
     strcpy(_effect_name, prm_effect_name);
 
     string effect_file_name;
-    if (CFG_PROPERTY(REALTIME_EFFECT_COMPILE)) {
+    if (GGAF_PROPERTY(REALTIME_EFFECT_COMPILE)) {
         //fx ファイルからコンパイル
-        effect_file_name = CFG_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
+        effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
     } else {
         //コンパイル済み fxo ファイルを読み込み
         if ( GgafDxGod::_ps_v >= D3DPS_VERSION(3, 0)) {
-            effect_file_name = CFG_PROPERTY(DIR_EFFECT) + "3_0_" + string(prm_effect_name) + ".fxo";
+            effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + "3_0_" + string(prm_effect_name) + ".fxo";
         } else {
-            effect_file_name = CFG_PROPERTY(DIR_EFFECT) + "2_0_" + string(prm_effect_name) + ".fxo";
+            effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + "2_0_" + string(prm_effect_name) + ".fxo";
         }
     }
 

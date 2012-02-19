@@ -34,9 +34,9 @@ void GgafDxSound::init() {
     _pBgmManager = NEW GgafDxBgmManager("OggBgmManager");
     _pSeManager = NEW GgafDxSeManager("SoundEffectManager");
 
-    GgafDxSound::setBgmVolume(1.0*CFG_PROPERTY(BGM_VOLUME)/GGAF_MAX_VOLUME);
-    GgafDxSound::setSeVolume(1.0*CFG_PROPERTY(SE_VOLUME)/GGAF_MAX_VOLUME);
-    GgafDxSound::setMasterVolume(1.0*CFG_PROPERTY(MASTER_VOLUME)/GGAF_MAX_VOLUME);
+    GgafDxSound::setBgmVolume(1.0*GGAF_PROPERTY(BGM_VOLUME)/GGAF_MAX_VOLUME);
+    GgafDxSound::setSeVolume(1.0*GGAF_PROPERTY(SE_VOLUME)/GGAF_MAX_VOLUME);
+    GgafDxSound::setMasterVolume(1.0*GGAF_PROPERTY(MASTER_VOLUME)/GGAF_MAX_VOLUME);
 
     //メモ：ボリューム値(0~100)、減衰デシベル(DSBVOLUME_MIN~DSBVOLUME_MAX)変換配列
     //DirectSounnd の SetVolume の引数の値(単位：1/100dB) ＝ 33.22f * 100.0 * log10(volume)   但し0.0 < volume <= 1.0

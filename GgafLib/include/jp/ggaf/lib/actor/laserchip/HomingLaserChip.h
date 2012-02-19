@@ -31,7 +31,7 @@ public:
     angle _prev_RY;
     angle _prev_RZ;
 
-    HomingLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+    HomingLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
 
     virtual void onCreateModel() override {}
 

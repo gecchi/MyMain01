@@ -7,11 +7,11 @@ using namespace GgafDxCore;
 GgafDxBoardSetEffect::GgafDxBoardSetEffect(char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
-//    static float game_buffer_width = (float)(CFG_PROPERTY(GAME_BUFFER_WIDTH));
-//    static float game_buffer_height = (float)(CFG_PROPERTY(GAME_BUFFER_HEIGHT));
+//    static float game_buffer_width = (float)(GGAF_PROPERTY(GAME_BUFFER_WIDTH));
+//    static float game_buffer_height = (float)(GGAF_PROPERTY(GAME_BUFFER_HEIGHT));
 
-    static float game_buffer_width = (float)(CFG_PROPERTY(GAME_BUFFER_WIDTH));
-    static float game_buffer_height = (float)(CFG_PROPERTY(GAME_BUFFER_HEIGHT));
+    static float game_buffer_width = (float)(GGAF_PROPERTY(GAME_BUFFER_WIDTH));
+    static float game_buffer_height = (float)(GGAF_PROPERTY(GAME_BUFFER_HEIGHT));
 
     hr = _pID3DXEffect->SetFloat("g_game_buffer_width", game_buffer_width);
     checkDxException(hr, D3D_OK, "GgafDxBoardEffect::GgafDxBoardEffect SetFloat(g_game_buffer_width) に失敗しました。");

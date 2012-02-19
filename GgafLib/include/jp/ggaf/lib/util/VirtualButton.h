@@ -129,7 +129,7 @@ public:
     bool _was_replay_done;
 
 
-    VirtualButton(const char* prm_replay_file);
+    VirtualButton(const char* prm_replay_file = "VirtualButton.rep");
 
     VBRecord* _pVBRecord_Active; //Œ»İƒtƒŒ[ƒ€‚Ì“ü—Íó‘Ô
 
