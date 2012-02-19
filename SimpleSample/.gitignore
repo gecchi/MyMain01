@@ -3,9 +3,9 @@
 /Debug*
 /log
 /*settings
-/SimpleSample.exe
+SimpleSample.exe
 /*user
 /.checkstyle
 /SimpleSample.aps
 *.rep
-/back.properties
+back.properties
