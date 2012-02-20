@@ -10,7 +10,7 @@ extern "C" {
 
 #else
     //無理やりリンクエラー回避 for GCC
-    //VC では不要。良い方法がないものか・・・
+    //VC では不要。これで良いだろうか・・・
     uintptr_t __security_cookie;
     void __declspec(naked) __fastcall __security_check_cookie(DWORD_PTR cookie) {}
 #endif
@@ -82,7 +82,7 @@ void GgafLibMain(int argc, char *argv[]) {
     lpCmdLine = GetCommandLine();
     nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW) ? StatUpInfo.wShowWindow : SW_SHOWNORMAL;
 
-    /* GetCommandLineからプログラム名を抜きます。 */
+    //PG名除去
     while (*lpCmdLine != ' ' && *lpCmdLine != '\0')
         lpCmdLine++;
     while (*lpCmdLine == ' ')
@@ -166,8 +166,8 @@ void GgafLibCreateWindow(WNDCLASSEX& wndclass1, WNDCLASSEX& wndclass2,
             RegisterClassEx(&wndclass1);
             _hWnd1_ = CreateWindowEx(
                         WS_EX_APPWINDOW,
-                        wndclass1.lpszClassName, //WINDOW_CLASS,
-                        title1,//WINDOW_TITLE,
+                        wndclass1.lpszClassName,
+                        title1,
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
@@ -182,8 +182,8 @@ void GgafLibCreateWindow(WNDCLASSEX& wndclass1, WNDCLASSEX& wndclass2,
             RegisterClassEx(&wndclass2);
             _hWnd2_ = CreateWindowEx(
                         WS_EX_APPWINDOW,
-                        wndclass2.lpszClassName, //WINDOW_CLASS,
-                        title2,//WINDOW_TITLE,
+                        wndclass2.lpszClassName,
+                        title2,
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
@@ -200,8 +200,8 @@ void GgafLibCreateWindow(WNDCLASSEX& wndclass1, WNDCLASSEX& wndclass2,
             RegisterClassEx(&wndclass1);
             _hWnd1_ = CreateWindowEx(
                         WS_EX_APPWINDOW,
-                        wndclass1.lpszClassName, //WINDOW_CLASS,
-                        title1,//WINDOW_TITLE,
+                        wndclass1.lpszClassName,
+                        title1,
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
@@ -216,50 +216,51 @@ void GgafLibCreateWindow(WNDCLASSEX& wndclass1, WNDCLASSEX& wndclass2,
         }
     } else {
         if (GGAF_PROPERTY(DUAL_VIEW)) {
+            //ウインドモード・２窓使用
             RegisterClassEx(&wndclass1);
             _hWnd1_ = CreateWindow(
-                    wndclass1.lpszClassName, //WINDOW_CLASS,          // ウインドウクラス名
-                    title1,//WINDOW_TITLE,             // ウインドウのタイトル名
-                    WS_OVERLAPPEDWINDOW, // ウインドウスタイル
-                    CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
-                    CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                    GGAF_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH), // ウィンドウの幅
-                    GGAF_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT), // ウィンドウの幅
-                    HWND_DESKTOP, // 親ウインドウ
-                    NULL, // ウインドウメニュー
-                    wndclass1.hInstance, // インスタンスハンドル
-                    NULL // WM_CREATE情報
+                    wndclass1.lpszClassName,
+                    title1,
+                    WS_OVERLAPPEDWINDOW,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    GGAF_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH),
+                    GGAF_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT),
+                    HWND_DESKTOP,
+                    NULL,
+                    wndclass1.hInstance,
+                    NULL
             );
 
             RegisterClassEx(&wndclass2);
             _hWnd2_ = CreateWindow(
-                    wndclass2.lpszClassName, //WINDOW_CLASS,
-                    title2,//WINDOW_TITLE,
-                    //WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX, // ウインドウスタイル
-                    WS_OVERLAPPEDWINDOW, // ウインドウスタイル
-                    CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
-                    CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                    GGAF_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH), // ウィンドウの幅
-                    GGAF_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT), // ウィンドウの幅
-                    HWND_DESKTOP, // 親ウインドウ
-                    NULL, // ウインドウメニュー
-                    wndclass2.hInstance, // インスタンスハンドル
-                    NULL // WM_CREATE情報
+                    wndclass2.lpszClassName,
+                    title2,
+                    WS_OVERLAPPEDWINDOW,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    GGAF_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH),
+                    GGAF_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT),
+                    HWND_DESKTOP,
+                    NULL,
+                    wndclass2.hInstance,
+                    NULL
             );
         } else {
+            //ウインドモード・１窓使用
             RegisterClassEx(&wndclass1);
             _hWnd1_ = CreateWindow(
-                    wndclass1.lpszClassName, //WINDOW_CLASS,          // ウインドウクラス名
-                    title1,//WINDOW_TITLE,             // ウインドウのタイトル名
-                    WS_OVERLAPPEDWINDOW, // ウインドウスタイル
-                    CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
-                    CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                    GGAF_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH), // ウィンドウの幅
-                    GGAF_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT), // ウィンドウの幅
-                    HWND_DESKTOP, // 親ウインドウ
-                    NULL, // ウインドウメニュー
-                    wndclass1.hInstance, // インスタンスハンドル
-                    NULL // WM_CREATE情報
+                    wndclass1.lpszClassName,
+                    title1,
+                    WS_OVERLAPPEDWINDOW,
+                    CW_USEDEFAULT,
+                    CW_USEDEFAULT,
+                    GGAF_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH),
+                    GGAF_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT),
+                    HWND_DESKTOP,
+                    NULL,
+                    wndclass1.hInstance,
+                    NULL
             );
         }
     }
@@ -271,9 +272,8 @@ void GgafLibCreateWindow(WNDCLASSEX& wndclass1, WNDCLASSEX& wndclass2,
         cout << "can't CreateWindow " << endl;
     }
 
-    //ウィンドウ時、
-    //クライアント領域を所望の大きさにするため、
-    //タイトルバー、リサイズボーダーの厚さを考慮し、再設定。
+    //ウィンドウモード時、クライアント領域を所望の大きさにするため、
+    //タイトルバー、リサイズボーダーの厚さを考慮し再設定。
     if (!GGAF_PROPERTY(FULL_SCREEN)) {
         if (GGAF_PROPERTY(DUAL_VIEW)) {
             resetWindowsize(_hWnd1_, GGAF_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH), GGAF_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT));

@@ -37,6 +37,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
+								<option id="gnu.cpp.compiler.option.other.other.1994231129" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1156033824" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.2094705463" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug">
@@ -53,6 +54,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
+								<option id="gnu.c.compiler.option.misc.other.1555123963" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1563114085" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.debug.2125711551" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.debug"/>
@@ -74,7 +76,15 @@
 									<listOptionValue builtIn="false" value="dsound"/>
 									<listOptionValue builtIn="false" value="winmm"/>
 								</option>
-								<option id="gnu.cpp.link.option.paths.1822767778" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths"/>
+								<option id="gnu.cpp.link.option.paths.1822767778" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/ReleaseCdt}&quot;"/>
+								</option>
+								<option id="gnu.cpp.link.option.flags.986609506" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/GgafLib/vclib/x86/chkstk.o}&quot; -Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=gnu++0x -static-libgcc -static-libstdc++ " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1999760981" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -121,8 +131,8 @@
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.1226513029" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
-								<option id="gnu.cpp.compiler.option.warnings.allwarn.160988770" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
-								<option id="gnu.cpp.compiler.option.warnings.nowarn.2048732702" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.warnings.allwarn.160988770" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.warnings.nowarn.2048732702" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1736147991" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.release.640778656" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.release">
@@ -140,15 +150,14 @@
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1062982026" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
-								<option id="gnu.c.compiler.option.warnings.allwarn.867347915" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
-								<option id="gnu.c.compiler.option.warnings.nowarn.1125220365" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.warnings.allwarn.867347915" name="すべての警告 (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.warnings.nowarn.1125220365" name="すべての警告を禁止 (-w)" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.2054475341" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.release.1736480571" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.release"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release.1374908851" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release">
 								<option id="gnu.cpp.link.option.paths.116739193" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/ReleaseCdt}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/VClib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/ReleaseCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/ReleaseCdt}&quot;"/>
@@ -172,7 +181,7 @@
 									<listOptionValue builtIn="false" value="dsound"/>
 									<listOptionValue builtIn="false" value="winmm"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.1918374225" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/VioletVreath/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=gnu++0x -static-libgcc -static-libstdc++ " valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.1918374225" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/GgafLib/vclib/x86/chkstk.o}&quot; -Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=gnu++0x -static-libgcc -static-libstdc++ " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1612207107" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

@@ -19,3 +19,4 @@ GgafUniverse* God::createUniverse() {
 
 God::~God() {
 }
+
