@@ -15,9 +15,6 @@ public:
 
     HoshiBoshi002(const char* prm_name);
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
     void initialize() override;
 
     void onActive() override;

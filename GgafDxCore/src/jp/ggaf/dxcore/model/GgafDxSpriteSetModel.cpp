@@ -85,7 +85,6 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
         checkDxException(hr, S_OK, "GgafDxSpriteSetActor::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
         TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name<<"("<<pSpriteSetEffect<<")");
-        UINT numPass;
         hr = pID3DXEffect->Begin( &_numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::draw() Begin() に失敗しました。");
         hr = pID3DXEffect->BeginPass(0);
@@ -162,7 +161,6 @@ void GgafDxSpriteSetModel::release() {
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
-//    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);

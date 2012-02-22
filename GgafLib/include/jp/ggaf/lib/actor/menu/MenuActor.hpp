@@ -529,7 +529,6 @@ void MenuActor<T>::relationItemCancel(int prm_index_of_cancel_item) {
             _lstItems.getElemFromFirst(prm_index_of_cancel_item);
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem =
             _lstItems.getElemFirst();
-    GgafDxCore::GgafDxDrawableActor* pItem;
     for (int i = 0; i < _lstItems.length(); i++) {
         pElem->connect(ITEM_RELATION_TO_CANCEL, pCancelElem);
         pElem = pElem->_pNext;

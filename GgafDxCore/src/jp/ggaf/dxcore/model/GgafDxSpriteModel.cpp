@@ -12,9 +12,7 @@ GgafDxSpriteModel::GgafDxSpriteModel(char* prm_model_name) : GgafDxModel(prm_mod
     _fSize_SpriteModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-//    _pattno_uvflip_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
-//    _paRectUV = NULL;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel*)
@@ -136,7 +134,6 @@ void GgafDxSpriteModel::release() {
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
-//    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
     TRACE3("GgafDxSpriteModel::release() " << _model_name << " end");

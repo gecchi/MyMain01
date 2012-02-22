@@ -16,62 +16,8 @@ int GgafDxInput::_active_KeyboardState = 0;
 DIDEVCAPS GgafDxInput::_didevcap;
 DIJOYSTATE GgafDxInput::_dijoystate;
 
-/**
- * ゲームスティックデバイス列挙コールバック関数
- */
-BOOL CALLBACK EnumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VOID *pContext) {
-    _TRACE_("EnumGameCtrlCallback こーるばっく！");
-
-    HRESULT hr;
-
-    // ゲームスティックデバイスを探すする
-    hr = GgafDxInput::_pIDirectInput8->CreateDevice(pDIDeviceInstance->guidInstance, &GgafDxInput::_pIDirectInputDevice8_Joystick, NULL);
-    if(hr != D3D_OK) {
-        _TRACE_("EnumGameCtrlCallback ジョイスティックCreateDeviceに失敗しました");
-        // デバイスの作成に失敗したら列挙を続ける（さらに探す）
-        return DIENUM_CONTINUE;
-    }
-
-    // ジョイスティックの能力を取得
-    GgafDxInput::_didevcap.dwSize = sizeof(DIDEVCAPS);
-    hr = GgafDxInput::_pIDirectInputDevice8_Joystick->GetCapabilities( &GgafDxInput::_didevcap );
-    if( hr != D3D_OK ) {
-        _TRACE_("EnumGameCtrlCallback ジョイスティックGetCapabilitiesに失敗しました");
-        // ジョイスティックの能力を取得出来ないようなら、勘弁願う
-        GgafDxInput::_pIDirectInputDevice8_Joystick->Release();
-        return DIENUM_CONTINUE;
-    }
-
-    //生き残ればデバイス採用
-    return DIENUM_STOP;
-}
-
-/**
- * 軸ボタン列挙コールバック関数
- * 各軸の最低値を -255、最高値を 255 に設定
- */
-BOOL CALLBACK EnumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
-    _TRACE_("EnumPadAxisCallback こーるばっく！");
-    DIPROPRANGE diproprange;
-    ZeroMemory( &diproprange, sizeof(diproprange) );
-    diproprange.diph.dwSize = sizeof(diproprange);
-    diproprange.diph.dwHeaderSize = sizeof(diproprange.diph);
-    diproprange.diph.dwHow = DIPH_BYID;
-    diproprange.diph.dwObj = lpddoi->dwType;
-    diproprange.lMin = -255;
-    diproprange.lMax = +255;
-
-    HRESULT hr = GgafDxInput::_pIDirectInputDevice8_Joystick->SetProperty(DIPROP_RANGE, &diproprange.diph);
-    if(hr != D3D_OK) {
-        _TRACE_("EnumPadAxisCallback ジョイスティックSetPropertyに失敗しました");
-        return DIENUM_STOP;
-    }
-    return DIENUM_CONTINUE;
-}
-
 
 HRESULT GgafDxInput::init() {
-
     HRESULT hr;
     // DirectInput の作成
     hr = DirectInput8Create(GgafGod::_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
@@ -178,7 +124,7 @@ HRESULT GgafDxInput::init() {
 
 
     // ゲームスティックを列挙してデバイスを得る
-    hr = _pIDirectInput8->EnumDevices(DI8DEVCLASS_GAMECTRL, EnumGameCtrlCallback, NULL, DIEDFL_ATTACHEDONLY);
+    hr = _pIDirectInput8->EnumDevices(DI8DEVCLASS_GAMECTRL, GgafDxInput::enumGameCtrlCallback, NULL, DIEDFL_ATTACHEDONLY);
     if (hr != D3D_OK || _pIDirectInputDevice8_Joystick == NULL) {
         _TRACE_("GgafDxInput::initDx9Input() EnumDevices列挙しましたが、でジョイスティックが見つかりませんでした");
         _pIDirectInputDevice8_Joystick = NULL;
@@ -201,7 +147,7 @@ HRESULT GgafDxInput::init() {
         }
 
         // ゲームスティックの軸データの範囲を設定する
-        hr = _pIDirectInputDevice8_Joystick->EnumObjects(EnumPadAxisCallback, NULL, DIDFT_AXIS);
+        hr = _pIDirectInputDevice8_Joystick->EnumObjects(GgafDxInput::enumPadAxisCallback, NULL, DIDFT_AXIS);
         if (hr != D3D_OK) {
             _TRACE_("GgafDxInput::initDx9Input() ジョイスティックEnumObjectsに失敗しました");
             return FALSE;
@@ -233,6 +179,51 @@ HRESULT GgafDxInput::init() {
     return S_OK;
 }
 
+BOOL CALLBACK GgafDxInput::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VOID *pContext) {
+    _TRACE_("enumGameCtrlCallback こーるばっく！");
+
+    HRESULT hr;
+
+    // ゲームスティックデバイスを探すする
+    hr = GgafDxInput::_pIDirectInput8->CreateDevice(pDIDeviceInstance->guidInstance, &GgafDxInput::_pIDirectInputDevice8_Joystick, NULL);
+    if(hr != D3D_OK) {
+        _TRACE_("enumGameCtrlCallback ジョイスティックCreateDeviceに失敗しました");
+        // デバイスの作成に失敗したら列挙を続ける（さらに探す）
+        return DIENUM_CONTINUE;
+    }
+
+    // ジョイスティックの能力を取得
+    GgafDxInput::_didevcap.dwSize = sizeof(DIDEVCAPS);
+    hr = GgafDxInput::_pIDirectInputDevice8_Joystick->GetCapabilities( &GgafDxInput::_didevcap );
+    if( hr != D3D_OK ) {
+        _TRACE_("enumGameCtrlCallback ジョイスティックGetCapabilitiesに失敗しました");
+        // ジョイスティックの能力を取得出来ないようなら、勘弁願う
+        GgafDxInput::_pIDirectInputDevice8_Joystick->Release();
+        return DIENUM_CONTINUE;
+    }
+
+    //生き残ればデバイス採用
+    return DIENUM_STOP;
+}
+
+BOOL CALLBACK GgafDxInput::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
+    _TRACE_("enumPadAxisCallback こーるばっく！");
+    DIPROPRANGE diproprange;
+    ZeroMemory( &diproprange, sizeof(diproprange) );
+    diproprange.diph.dwSize = sizeof(diproprange);
+    diproprange.diph.dwHeaderSize = sizeof(diproprange.diph);
+    diproprange.diph.dwHow = DIPH_BYID;
+    diproprange.diph.dwObj = lpddoi->dwType;
+    diproprange.lMin = -255;
+    diproprange.lMax = +255;
+
+    HRESULT hr = GgafDxInput::_pIDirectInputDevice8_Joystick->SetProperty(DIPROP_RANGE, &diproprange.diph);
+    if(hr != D3D_OK) {
+        _TRACE_("enumPadAxisCallback ジョイスティックSetPropertyに失敗しました");
+        return DIENUM_STOP;
+    }
+    return DIENUM_CONTINUE;
+}
 
 void GgafDxInput::updateMouseState() {
     if (_pIDirectInputDevice8_Mouse == NULL) {

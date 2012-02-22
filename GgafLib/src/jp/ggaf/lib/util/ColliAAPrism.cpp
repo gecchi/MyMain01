@@ -18,7 +18,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
 
     //   y  = {(y2-y1)/(x2-x1)} (x-x1) + y1
     //+90ìxÇ≈ñ@ê¸Ç≈çsÇ±Ç§
-    int x1_s, y1_s, x2_e, y2_e;
+    int x1_s=0, y1_s=0, x2_e=0, y2_e=0;
     _pos_prism = pos_prism;
     if (_pos_prism & POS_PRISM_XY) {
         if (_pos_prism & POS_PRISM_pp) {

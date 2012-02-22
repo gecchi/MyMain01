@@ -13,7 +13,7 @@ public:
     WorldBoundSpace001* _pWorldBoundSpace;
     HoshiBoshi001* _pHoshiBoshi;
 
-    Planets001* _pPlanets;
+    Planet001* _pPlanet;
     LabelGecchi16Font* _pMessage;
 
     Stage01(const char* prm_name);

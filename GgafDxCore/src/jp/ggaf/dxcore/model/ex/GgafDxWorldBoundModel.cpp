@@ -36,25 +36,11 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_Target, int 
         checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pWorldBoundEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
-//        hr = pID3DXEffect->SetFloat(pWorldBoundEffect->_h_specular, _specular);
-//        checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() SetFloat(_h_specular) に失敗しました。");
-//        hr = pID3DXEffect->SetFloat(pWorldBoundEffect->_h_specular_power, _specular_power);
-//        checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() SetFloat(_h_specular_power) に失敗しました。");
     }
 
     //描画
     for (UINT i = 0; i < _nMaterialListGrp; i++) {
         material_no = _paIndexParam[i].MaterialNo;
-//        if (GgafDxModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
-//            if (_papTextureCon[material_no]) {
-//                //テクスチャをs0レジスタにセット
-//                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->use()->_pIDirect3DBaseTexture9);
-//            } else {
-//                _TRACE_("GgafDxWorldBoundModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
-//                //無ければテクスチャ無し
-//                GgafDxGod::_pID3DDevice9->SetTexture(0, NULL);
-//            }
-//        }
         hr = pID3DXEffect->SetValue(pWorldBoundEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw()SetValue(g_colMaterialDiffuse) に失敗しました。");
 

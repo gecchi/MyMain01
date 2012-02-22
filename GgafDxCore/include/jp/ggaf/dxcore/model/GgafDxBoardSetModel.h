@@ -36,8 +36,6 @@ public:
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
     /** 頂点のFVF */
     static DWORD FVF;
-    /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
-//    GgafDxRectUV* _paRectUV;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertices;
     /** 1頂点のサイズ */
@@ -50,8 +48,6 @@ public:
     GgafDxBoardSetModel(char* prm_model_name);
 
 public:
-    /** 全アニメパターン数(0～) */
-//    int _pattno_max;
     float _fSize_BoardSetModelWidthPx;
     float _fSize_BoardSetModelHeightPx;
     int _row_texture_split;

@@ -11,14 +11,14 @@ protected:
    list<D3DXFRAME_WORLD*> m_DrawFrameList;
 
 public:
-   GgafDxWorldMatStack(void);
-   ~GgafDxWorldMatStack(void);
+   GgafDxWorldMatStack();
+   virtual ~GgafDxWorldMatStack();
    virtual void SetWorldMatrix( D3DXMATRIX* worldmat );
-   virtual void UpdateFrame( D3DXFRAME_WORLD* frame );
+   virtual void UpdateFrame( D3DXFRAME_WORLD* frame_world );
    list< D3DXFRAME_WORLD*>  *GetDrawList();
 
 protected:
-   void CalcFrameWorldMatrix( D3DXFRAME_WORLD* frame );   // フレームワールド行列算出再帰関数
+   void CalcFrameWorldMatrix( D3DXFRAME_WORLD* frame_world );   // フレームワールド行列算出再帰関数
 };
 
 }

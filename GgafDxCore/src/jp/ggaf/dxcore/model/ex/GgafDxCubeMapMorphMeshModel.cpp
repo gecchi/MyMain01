@@ -92,7 +92,6 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target
             //à»â∫ç≈ëÂÇXÇ‹Ç≈
             hr = pID3DXEffect->BeginPass(_morph_target_num);
             checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() BeginPass("<<_morph_target_num<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
 #ifdef MY_DEBUG
             if (pCubeMapMorphMeshEffect->_begin == true) {
                 throwGgafCriticalException("End ÇµÇƒÇ¢Ç‹ÇπÇÒ "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
@@ -100,7 +99,6 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target
                 pCubeMapMorphMeshEffect->_begin = true;
             }
 #endif
-
         } else {
             hr = pID3DXEffect->CommitChanges();
             checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw()CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

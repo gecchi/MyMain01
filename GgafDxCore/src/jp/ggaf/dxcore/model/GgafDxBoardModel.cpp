@@ -12,9 +12,7 @@ GgafDxBoardModel::GgafDxBoardModel(char* prm_model_name) :
     _fSize_BoardModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-//    _pattno_max = 1;
     _pIDirect3DVertexBuffer9 = NULL;
-//    _paRectUV = NULL;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel*)
@@ -23,10 +21,6 @@ GgafDxBoardModel::GgafDxBoardModel(char* prm_model_name) :
 
 HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
     TRACE4("GgafDxBoardModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-    //TODO クリアするかどうか
-    //GgafDxGod::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);
-    //↑TODO なぜここでクリアしようと考えが湧いたのかわからなくなった。
-
     //対象Actor
     GgafDxBoardActor* pTargetActor = (GgafDxBoardActor*)prm_pActor_Target;
     //対象BoardActorのエフェクトラッパ
@@ -36,15 +30,11 @@ HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_d
     //今回描画のUV
     float u,v;
     pTargetActor->_pUvFlipper->getUV(u,v);
-
-//    GgafDxRectUV* pRectUV_Active = _paRectUV + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
-
     HRESULT hr;
     if (GgafDxModelManager::_pModelLastDraw != this) {
         GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDxGod::_pID3DDevice9->SetFVF(GgafDxBoardModel::FVF);
         GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->use()->_pIDirect3DBaseTexture9);
-        //GgafDxGod::_pID3DDevice9->SetTexture(1, _papTextureCon[0]->use()->_pIDirect3DBaseTexture9);
 
         hr = pID3DXEffect->SetFloat(pBoardEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -124,7 +114,6 @@ void GgafDxBoardModel::release() {
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
-//    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
     TRACE3("GgafDxBoardModel::release() " << _model_name << " end");

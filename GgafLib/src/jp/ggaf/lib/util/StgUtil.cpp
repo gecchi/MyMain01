@@ -9,16 +9,16 @@ using namespace GgafLib;
 
 
 void StgUtil::shotWay001(GgafDxGeometricActor* prm_pFrom,
-                       GgafActorDepository* prm_pDepo_Shot,
-                       GgafDxGeometricActor* prm_pTarget,
-                       int prm_way, angle prm_angClearance,
-                       velo prm_velo, acce prm_acce) {
+                         GgafActorDepository* prm_pDepo_Shot,
+                         GgafDxGeometricActor* prm_pTarget,
+                         int prm_way, angle prm_angClearance,
+                         velo prm_velo, acce prm_acce) {
     angle* paAngWay = NEW angle[prm_way];
     angle rz,ry;
     GgafDxUtil::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
-                            prm_pTarget->_Y - prm_pFrom->_Y,
-                            prm_pTarget->_Z - prm_pFrom->_Z,
-                            rz, ry);
+                           prm_pTarget->_Y - prm_pFrom->_Y,
+                           prm_pTarget->_Z - prm_pFrom->_Z,
+                           rz, ry);
     GgafDxUtil::getWayAngle2D(0,prm_way, prm_angClearance, paAngWay);
     GgafDxDrawableActor* pActor_Shot;
     for (int i = 0; i < prm_way; i++) {
@@ -176,8 +176,10 @@ void StgUtil::shotWay003(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                 GgafDxUtil::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
                 pActor_Shot->locate(prm_pFrom->_X+vX, prm_pFrom->_Y+vY, prm_pFrom->_Z+vZ);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(Rz, Ry);
-                pActor_Shot->_pKurokoA->_angFace[AXIS_Z] = Rz;
-                pActor_Shot->_pKurokoA->_angFace[AXIS_Y] = Ry;
+                pActor_Shot->_pKurokoA->setMvVelo(prm_velo);
+                pActor_Shot->_pKurokoA->setMvAcce(prm_acce);
+//                pActor_Shot->_pKurokoA->_angFace[AXIS_Z] = Rz;
+//                pActor_Shot->_pKurokoA->_angFace[AXIS_Y] = Ry;
             }
         }
     }

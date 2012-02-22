@@ -94,7 +94,6 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
             //理由はGgafDxMeshSetActorのメモ【GgafDxMeshSetActorのマテリアルカラーについて】を参照
         }
 
-
         if (material_grp_index == 0 && (GgafDxEffectManager::_pEffect_Active != pMeshSetEffect || GgafDxDrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)) {
             if (GgafDxEffectManager::_pEffect_Active) {
                 TRACE4("EndPass("<<GgafDxEffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDxEffectManager::_pEffect_Active->_effect_name<<"("<<GgafDxEffectManager::_pEffect_Active<<")");
@@ -102,7 +101,6 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() EndPass() に失敗しました。");
                 hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() End() に失敗しました。");
-
 #ifdef MY_DEBUG
                 if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
                     throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
@@ -110,7 +108,6 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
                     GgafDxEffectManager::_pEffect_Active->_begin = false;
                 }
 #endif
-
             }
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);

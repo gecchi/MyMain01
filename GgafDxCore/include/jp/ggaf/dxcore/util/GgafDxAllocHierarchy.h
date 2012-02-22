@@ -4,25 +4,25 @@
 namespace GgafDxCore {
 
 
-
-
+/**
+ * ID3DXAllocateHierarchy実装クラス .
+ */
 class GgafDxAllocHierarchy : public ID3DXAllocateHierarchy
 {
 protected:
-    // 削除人
-    class deleterBase {
+    class DeleterBase {
     public:
-        virtual ~deleterBase() {}
+        virtual ~DeleterBase() {}
     };
 
     template< class T >
-    class deleter : public deleterBase {
+    class Deleter : public DeleterBase {
     public:
         T* pObj;
         bool isAry;
 
-        deleter( T* deletePtr, bool is_Ary = false ) : pObj(deletePtr), isAry( is_Ary ) {};
-        virtual ~deleter(){
+        Deleter( T* deletePtr, bool is_Ary = false ) : pObj(deletePtr), isAry( is_Ary ) {};
+        virtual ~Deleter(){
             if ( isAry ) {
                 T* pa = (T*)pObj;
                 delete[] pa;
@@ -34,7 +34,7 @@ protected:
     };
 
 protected:
-    list<deleterBase*> m_DelList;   // 消去リスト
+    list<DeleterBase*> m_DelList;   // 消去リスト
     list<IUnknown*> m_ReleaseList;   // リリースリスト
 
 public:
@@ -45,7 +45,7 @@ public:
     STDMETHOD(CreateFrame)(THIS_
         LPCSTR Name,
         LPD3DXFRAME *ppNewFrame
-    );
+    ) override;
 
     // コンテナを生成する
     STDMETHOD(CreateMeshContainer)(THIS_
@@ -57,49 +57,49 @@ public:
         CONST DWORD *pAdjacency,
         LPD3DXSKININFO pSkinInfo,
         LPD3DXMESHCONTAINER *ppNewMeshContainer
-    );
+    ) override;
 
     // フレームを削除する
     STDMETHOD(DestroyFrame)(THIS_
         LPD3DXFRAME pFrameToFree
-    );
+    ) override;
 
     // コンテナを削除する
     STDMETHOD(DestroyMeshContainer)(THIS_
         LPD3DXMESHCONTAINER pMeshContainerToFree
-    );
+    ) override;
 
 
 protected:
     // 消去リストに登録する
-    virtual void AddDelList( deleterBase* ptr, bool isAry = false );
+    virtual void addDelList( DeleterBase* ptr, bool isAry = false );
 
     // 文字列をコピーする
-    virtual LPSTR CopyStr(LPCSTR name);
+    virtual LPSTR copyStr(LPCSTR name);
 
     // フレーム構造体を生成する
-    virtual D3DXFRAME* CreateNewFrame();
+    virtual D3DXFRAME* createNewFrame();
 
     // メッシュコンテナ構造体を生成する
-    virtual D3DXMESHCONTAINER* CreateNewMeshContainer();
+    virtual D3DXMESHCONTAINER* createNewMeshContainer();
 
     // メッシュデータを登録
-    virtual void RegistMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest);
+    virtual void registMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest);
 
     // リリースリストに登録
-    virtual void AddReleaseList( IUnknown *comptr);
+    virtual void addReleaseList( IUnknown *comptr);
 
     // マテリアル登録
-    virtual void RegistMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXMATERIAL **pDest);
+    virtual void registMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXMATERIAL **pDest);
 
     // エフェクト登録
-    virtual void RegistEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTINSTANCE **ppDest);
+    virtual void registEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTINSTANCE **ppDest);
 
     // 隣接ポリゴン登録
-    virtual void RegistAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest);
+    virtual void registAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest);
 
     // スキン登録
-    virtual void RegistSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest);
+    virtual void registSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest);
 };
 
 }

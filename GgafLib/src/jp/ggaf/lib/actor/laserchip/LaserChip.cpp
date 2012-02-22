@@ -87,20 +87,19 @@ void LaserChip::processSettlementBehavior() {
     //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
     //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
 
-    int dX, dY, dZ,cX, cY, cZ,h;
+
     if (_is_regist_hitarea) { //registHitAreaCubeメソッドによって登録された場合。
         if (_pChip_front != NULL) {
-            dX = _pChip_front->_X - _X;
-            dY = _pChip_front->_Y - _Y;
-            dZ = _pChip_front->_Z - _Z;
+            int dX = _pChip_front->_X - _X;
+            int dY = _pChip_front->_Y - _Y;
+            int dZ = _pChip_front->_Z - _Z;
             if (GgafUtil::abs(dX) >= _hitarea_edge_length*3 ||
                 GgafUtil::abs(dY) >= _hitarea_edge_length*3 ||
                 GgafUtil::abs(dZ) >= _hitarea_edge_length*3) {
                 //自身と前方チップの中間に当たり判定を作り出す
-                cX = dX / 2;
-                cY = dY / 2;
-                cZ = dZ / 2;
-                h = _hitarea_edge_length / 2;
+                int cX = dX / 2;
+                int cY = dY / 2;
+                int cZ = dZ / 2;
                 _pCollisionChecker->setColliAAB(
                               1,
                               cX - _harf_hitarea_edge_length,

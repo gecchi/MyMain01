@@ -22,6 +22,7 @@ public:
     D3DXHANDLE _h_specular;
     D3DXHANDLE _h_specular_power;
     D3DXHANDLE _h_posCam;
+    D3DXHANDLE _h_far_rate;
 public:
     /**
      * コンストラクタ<BR>

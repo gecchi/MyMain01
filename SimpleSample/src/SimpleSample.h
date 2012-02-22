@@ -20,5 +20,4 @@ class TestActor;
 #include "actor/Camera.h"
 #include "actor/TestActor.h"
 
-
 #endif /*SIMPLESAMPLEHEADER_H_*/

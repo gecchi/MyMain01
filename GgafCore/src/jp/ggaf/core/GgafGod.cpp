@@ -106,7 +106,7 @@ void GgafGod::be() {
             presentUniversalMoment(); //①
             executeUniversalJudge();  //②
             _time_of_next_view += _aaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
-            _cnt_frame = _cnt_frame == 59 ? 0 : _cnt_frame++;
+            _cnt_frame = (_cnt_frame == 59 ? 0 : (_cnt_frame++));
             if (timeGetTime() >= _time_of_next_view) { //描画タイミングフレームになった、或いは過ぎている場合
                 //makeUniversalMaterialize はパス
                 _is_materialized_flg = false;

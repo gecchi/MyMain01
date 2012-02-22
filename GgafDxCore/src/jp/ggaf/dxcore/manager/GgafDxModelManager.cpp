@@ -25,13 +25,9 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
 
     //テクスチャマネジャー
     _pModelTextureManager = NEW GgafDxTextureManager("GgafDxTextureManager");
-    //板ポリゴン定義ファイル読込み
+    //板ポリゴンモデル定義ファイル(拡張子sprx)のフォーマット定義
     HRESULT hr;
     DirectXFileCreate( &_pIDirectXFile_sprx );
-//    char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(GGAF_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
-//    if (paChar_SpriteModelineTemplate == NULL) {
-//        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] スプライト情報読込みテンプレート\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" が開けません。");
-//    }
     char* paChar_SpriteModelineTemplate =
     "xof 0303txt 0032\n" \
     "template SpriteDef {" \
@@ -47,15 +43,9 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     if(hr != DXFILE_OK) {
         throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
     }
-//    DELETE_IMPOSSIBLE_NULL(paChar_SpriteModelineTemplate);
 
-    //板ポリゴン定義ファイル読込み
+    //ポイントスプライト定義ファイル(拡張子psprx)のフォーマット定義
     DirectXFileCreate( &_pIDirectXFile_psprx );
-//    char* paChar_PointSpriteModelineTemplate = GgafUtil::getFileText(GGAF_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_pointspritemodel_define.x");
-//    if (paChar_PointSpriteModelineTemplate == NULL) {
-//        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] ポイントスプライト情報読込みテンプレート\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\" が開けません。");
-//    }
-
     char* paChar_PointSpriteModelineTemplate =
             "xof 0303txt 0032\n" \
             "\n" \
@@ -90,7 +80,6 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     if(hr != DXFILE_OK) {
         throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
     }
-//    DELETE_IMPOSSIBLE_NULL(paChar_PointSpriteModelineTemplate);
 
 }
 
@@ -354,8 +343,6 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
             }
         }
 
-
-
         //法線設定。
         //共有頂点の法線は平均化を試みる！
         //【2009/03/04の脳みそによるアイディア】
@@ -419,7 +406,6 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
                     //法線が無い場合
                     indexNormals_per_Face[j] = (unsigned short)0;
                 }
-
             }
             if (nFaceNormals > i) {
                 rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
@@ -478,7 +464,6 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
                 model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (Plane.c * rate);
             }
         }
-
 
         int n = 0;
         int nVertices_begin = 0;
@@ -564,11 +549,6 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
                 model_paVtxBuffer_org[i].nz = vec.z;
             }
         }
-//        TRACE3("法線正規化後----------------------------");
-//        for (int i = 0; i < nVertices; i++) {
-//            TRACE3("["<<i<<"]=" << model_paVtxBuffer_org[i].x << "\t, " << model_paVtxBuffer_org[i].y << "\t, " << model_paVtxBuffer_org[i].z << "\t, " << model_paVtxBuffer_org[i].nx << "\t, " << model_paVtxBuffer_org[i].ny << "\t, " << model_paVtxBuffer_org[i].nz << "\t, " << model_paVtxBuffer_org[i].tu << "\t, " << model_paVtxBuffer_org[i].tv);
-//        }
-//        TRACE3("--------------------------------------");
 
         //インデックスバッファ登録
         model_paIdxBuffer_org = NEW WORD[nFaces*3];
@@ -577,12 +557,6 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
             model_paIdxBuffer_org[i*3 + 1] = model_pMeshesFront->_Faces[i].data[1];
             model_paIdxBuffer_org[i*3 + 2] = model_pMeshesFront->_Faces[i].data[2];
         }
-
-        //マテリアルリスト
-//        UINT aMaterialsGrp = UINT[nFaces];
-//        for (int i = 0; i < nFaces; i++) {
-//            aMaterialsGrp[i] =  model_pMeshesFront->_FaceMaterials[i];
-//        }
 
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
         GgafDxMeshModel::INDEXPARAM* paParam = NEW GgafDxMeshModel::INDEXPARAM[nFaces]; //最高にマテリアルがバラバラだった場合nFaces必要
@@ -852,14 +826,14 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     HRESULT hr;
     //流し込む頂点バッファデータ作成
     ToolBox::IO_Model_X* paIOX = NULL;
-    Frm::Model3D**                         model_papModel3D = NULL;
-    Frm::Mesh**                            model_papMeshesFront = NULL;
+    Frm::Model3D**                        model_papModel3D = NULL;
+    Frm::Mesh**                           model_papMeshesFront = NULL;
 
     GgafDxMorphMeshModel::INDEXPARAM*     model_paIndexParam = NULL;
     GgafDxMorphMeshModel::VERTEX_PRIMARY* model_paVtxBuffer_org_primary = NULL;
     GgafDxMorphMeshModel::VERTEX_MORPH**  model_papaVtxBuffer_org_morph = NULL;
-    WORD*                                  model_paIdxBuffer_org = NULL;
-    D3DMATERIAL9*                          model_paMaterial = NULL;
+    WORD*                                 model_paIdxBuffer_org = NULL;
+    D3DMATERIAL9*                         model_paMaterial = NULL;
 
     GgafDxTextureConnection** model_papTextureCon = NULL;
 
@@ -890,22 +864,14 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
             }
             model_papModel3D[pattern]->ConcatenateMeshes(); //メッシュを繋げる
             model_papMeshesFront[pattern] = model_papModel3D[pattern]->_Meshes.front();
-//            _TRACE_("---");
             nVertices = model_papMeshesFront[pattern]->_nVertices;
-//            _TRACE_("pattern="<<pattern<<"/nVertices="<<nVertices);
             nTextureCoords = model_papMeshesFront[pattern]->_nTextureCoords;
-//            _TRACE_("pattern="<<pattern<<"/nTextureCoords="<<nTextureCoords);
             nFaces = model_papMeshesFront[pattern]->_nFaces;
-//            _TRACE_("pattern="<<pattern<<"/nFaces="<<nFaces);
             nFaceNormals = model_papMeshesFront[pattern]->_nFaceNormals;
-//            _TRACE_("pattern="<<pattern<<"/nFaceNormals="<<nFaceNormals);
 
             if (nVertices*(morph_target_num+1) > 65535) {
                 throwGgafCriticalException("[GgafDxModelManager::restoreMorphMeshModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pMorphMeshModel->getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(morph_target_num+1));
             }
-//            if (nFaces * 3 * (morph_target_num+1) > 65535) {
-//                throwGgafCriticalException("[GgafDxModelManager::restoreMorphMeshModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pMorphMeshModel->getName()<<"  nFaces:"<<nFaces<<"(*3)  セット数:"<<(morph_target_num+1));
-//            }
 
             if (pattern == 0) {
                 //プライマリメッシュ
@@ -953,7 +919,6 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
                 }
             }
 
-            int nTextureCoords = model_papMeshesFront[pattern]->_nTextureCoords;
             if (nVertices < nTextureCoords) {
                 TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
                 TRACE3("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<paXfileName[pattern]);
@@ -1236,12 +1201,6 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
             model_paIdxBuffer_org[i*3 + 1] = model_papMeshesFront[0]->_Faces[i].data[1];
             model_paIdxBuffer_org[i*3 + 2] = model_papMeshesFront[0]->_Faces[i].data[2];
         }
-
-        //マテリアルリスト
-//        UINT aMaterialsGrp = UINT[nFaces];
-//        for (int i = 0; i < nFaces; i++) {
-//            aMaterialsGrp[i] =  model_pMeshesFront->_FaceMaterials[i];
-//        }
 
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
         GgafDxMeshModel::INDEXPARAM* paParam = NEW GgafDxMeshModel::INDEXPARAM[nFaces];
@@ -1617,10 +1576,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
 
 void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3DXAniMeshModel) {
     TRACE3("GgafDxModelManager::restoreD3DXAniMeshModel(" << prm_pD3DXAniMeshModel->_model_name << ")");
-    //TODO:作成中！！！！！！！！
-
-
-
+    //TODO:作成中？！！！！！！！！
 
     //【restoreD3DXAniMeshModel再構築（＝初期化）処理概要】
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
@@ -1726,12 +1682,6 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     FLOAT model_radius_bounding_sphere;
     D3DXFrameCalculateBoundingSphere(pFR, &vecCenter, &model_radius_bounding_sphere);
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
-
-
-
-
-
-
 
     prm_pD3DXAniMeshModel->_pAH = pAH;
     prm_pD3DXAniMeshModel->_pFR = pFR;
@@ -1898,31 +1848,6 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     memcpy(pVertexBuffer, paVertex, prm_pSpriteModel->_size_vertices); //pVertexBuffer ← paVertex
     prm_pSpriteModel->_pIDirect3DVertexBuffer9->Unlock();
 
-    //全パターンのUV情報の配列作成しモデルに保持させる
-    //＜2009/3/13＞
-    //シェーダーでUV操作するようになってから、描画時にUV左上の情報(model_paRectUV[n]._aUV[0])以外は使用しなくなった。
-    //TODO:しばらくしたら見直すか消す。
-
-//    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
-//    GgafDxRectUV* model_paRectUV = NEW GgafDxRectUV[pattnum];
-//    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
-//        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-//            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
-//            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
-//            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
-//
-//            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
-//            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
-//
-//            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
-//            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
-//
-//            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
-//            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
-//        }
-//    }
-//    prm_pSpriteModel->_paRectUV = model_paRectUV;
-//    prm_pSpriteModel->_pattno_uvflip_Max=pattnum-1;
     prm_pSpriteModel->_dwNumMaterials = 1;
     D3DMATERIAL9* model_paMaterial;
     model_paMaterial = NEW D3DMATERIAL9[prm_pSpriteModel->_dwNumMaterials];
@@ -2065,23 +1990,6 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
             paVertex[i*4 + 3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
             paVertex[i*4 + 3].index = (float)i;
 
-//            _TRACE_("paVertex["<<(i*4 + 0)<<"].x ="<<paVertex[i*4 + 0].x );
-//            _TRACE_("paVertex["<<(i*4 + 0)<<"].y ="<<paVertex[i*4 + 0].y );
-//            _TRACE_("paVertex["<<(i*4 + 0)<<"].z ="<<paVertex[i*4 + 0].z );
-//            _TRACE_("paVertex["<<(i*4 + 0)<<"].index ="<<paVertex[i*4 + 0].index );
-//            _TRACE_("paVertex["<<(i*4 + 1)<<"].x ="<<paVertex[i*4 + 1].x );
-//            _TRACE_("paVertex["<<(i*4 + 1)<<"].y ="<<paVertex[i*4 + 1].y );
-//            _TRACE_("paVertex["<<(i*4 + 1)<<"].z ="<<paVertex[i*4 + 1].z );
-//            _TRACE_("paVertex["<<(i*4 + 1)<<"].index ="<<paVertex[i*4 + 1].index );
-//            _TRACE_("paVertex["<<(i*4 + 2)<<"].x ="<<paVertex[i*4 + 2].x );
-//            _TRACE_("paVertex["<<(i*4 + 2)<<"].y ="<<paVertex[i*4 + 2].y );
-//            _TRACE_("paVertex["<<(i*4 + 2)<<"].z ="<<paVertex[i*4 + 2].z );
-//            _TRACE_("paVertex["<<(i*4 + 2)<<"].index ="<<paVertex[i*4 + 2].index );
-//            _TRACE_("paVertex["<<(i*4 + 3)<<"].x ="<<paVertex[i*4 + 3].x );
-//            _TRACE_("paVertex["<<(i*4 + 3)<<"].y ="<<paVertex[i*4 + 3].y );
-//            _TRACE_("paVertex["<<(i*4 + 3)<<"].z ="<<paVertex[i*4 + 3].z );
-//            _TRACE_("paVertex["<<(i*4 + 3)<<"].index ="<<paVertex[i*4 + 3].index );
-
         }
 
         //距離
@@ -2132,16 +2040,12 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         unit_paIdxBuffer[4] = 3;
         unit_paIdxBuffer[5] = 2;
 
-        //_TRACE_("prm_pSpriteSetModel->_set_num="<<prm_pSpriteSetModel->_set_num);
         WORD* paIdxBufferSet = NEW WORD[(nFaces*3) * prm_pSpriteSetModel->_set_num];
         for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
                 paIdxBufferSet[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
                 paIdxBufferSet[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
                 paIdxBufferSet[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
-//                _TRACE_("paIdxBufferSet["<<(((i*nFaces*3)+(j*3)) + 0)<<"] = unit_paIdxBuffer["<<(j*3 + 0)<<"] + (nVertices*"<<i<<")="<<(unit_paIdxBuffer[j*3 + 0] + (nVertices*i)));
-//                _TRACE_("paIdxBufferSet["<<(((i*nFaces*3)+(j*3)) + 1)<<"] = unit_paIdxBuffer["<<(j*3 + 1)<<"] + (nVertices*"<<i<<")="<<(unit_paIdxBuffer[j*3 + 1] + (nVertices*i)));
-//                _TRACE_("paIdxBufferSet["<<(((i*nFaces*3)+(j*3)) + 2)<<"] = unit_paIdxBuffer["<<(j*3 + 2)<<"] + (nVertices*"<<i<<")="<<(unit_paIdxBuffer[j*3 + 2] + (nVertices*i)));
             }
         }
 
@@ -2178,30 +2082,6 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         prm_pSpriteSetModel->_paIndexParam = paIndexParam;
     }
 
-    //全パターンのUV情報の配列作成しモデルに保持させる
-    //＜2009/3/13＞
-    //シェーダーでUV操作するようになってから、描画時にUV左上の情報(model_paRectUV[n]._aUV[0])以外は使用しなくなった。
-    //TODO:しばらくしたら見直すか消す。
-    //int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
-    //GgafDxRectUV* model_paRectUV = NEW GgafDxRectUV[pattnum];
-    //for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
-    //    for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-    //        int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
-    //        model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
-    //        model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
-
-    //        model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
-    //        model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
-
-    //        model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
-    //        model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
-
-    //        model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
-    //        model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
-    //    }
-    //}
-//    prm_pSpriteSetModel->_paRectUV = model_paRectUV;
-//    prm_pSpriteSetModel->_pattno_uvflip_Max=pattnum-1;
     prm_pSpriteSetModel->_dwNumMaterials = 1;
     D3DMATERIAL9* model_paMaterial = NEW D3DMATERIAL9[prm_pSpriteSetModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pSpriteSetModel->_dwNumMaterials; i++){
@@ -2225,8 +2105,6 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     TRACE3("GgafDxModelManager::restoreBoardModel(" << prm_pBoardModel->_model_name << ")");
 
     prm_pBoardModel->_papTextureCon = NULL;
-//    prm_pBoardModel->_paRectUV = NULL;
-
     HRESULT hr;
     string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardModel->_model_name) + ".sprx";
 
@@ -2334,7 +2212,6 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     D3DMATERIAL9* model_paMaterial;
     model_paMaterial = NEW D3DMATERIAL9[prm_pBoardModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pBoardModel->_dwNumMaterials; i++){
-        //model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
         model_paMaterial[i].Diffuse.r = 1.0f;
         model_paMaterial[i].Diffuse.g = 1.0f;
         model_paMaterial[i].Diffuse.b = 1.0f;
@@ -2358,13 +2235,8 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
     if (4*prm_pBoardSetModel->_set_num > 65535) {
         throwGgafCriticalException("[GgafDxModelManager::restoreBoardSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pBoardSetModel->getName()<<"  nVertices:4  セット数:"<<(prm_pBoardSetModel->_set_num));
     }
-//    if ( 2 * 3 * prm_pBoardSetModel->_set_num > 65535) {
-//        throwGgafCriticalException("[GgafDxModelManager::restoreBoardSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pBoardSetModel->getName()<<"  nFaces:2(*3)  セット数:"<<(prm_pBoardSetModel->_set_num));
-//    }
 
     prm_pBoardSetModel->_papTextureCon = NULL;
-    //prm_pBoardSetModel->_paRectUV = NULL;
-
     HRESULT hr;
     string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
     //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
@@ -2552,31 +2424,6 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
         prm_pBoardSetModel->_paIndexParam = paIndexParam;
     }
 
-
-    //全パターンのUV情報の配列作成しモデルに保持させる
-    //＜2009/3/13＞
-    //シェーダーでUV操作するようになってから、描画時にUV左上の情報(model_paRectUV[n]._aUV[0])以外は使用しなくなった。
-    //TODO:しばらくしたら余分な所を見直すか消す。
-//    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
-//    GgafDxRectUV* model_paRectUV = NEW GgafDxRectUV[pattnum];
-//    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
-//        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-//            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
-//            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-//            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
-//
-//            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-//            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
-//
-//            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-//            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
-//
-//            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-//            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
-//        }
-//    }
-//    prm_pBoardSetModel->_paRectUV = model_paRectUV;
-//    prm_pBoardSetModel->_pattno_max = pattnum-1;
     prm_pBoardSetModel->_dwNumMaterials = 1;
     D3DMATERIAL9* model_paMaterial = NEW D3DMATERIAL9[prm_pBoardSetModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pBoardSetModel->_dwNumMaterials; i++){
@@ -2610,7 +2457,6 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     } else {
         xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     }
-
 
     HRESULT hr;
     //流し込む頂点バッファデータ作成
@@ -2662,10 +2508,6 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
             throwGgafCriticalException("[GgafDxModelManager::restoreMeshSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pMeshSetModel->getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(prm_pMeshSetModel->_set_num));
         }
 
-//        if ( nFaces * 3 * prm_pMeshSetModel->_set_num > 65535) {
-//            throwGgafCriticalException("[GgafDxModelManager::restoreMeshSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pMeshSetModel->getName()<<"  nFaces:"<<nFaces<<"(*3)  セット数:"<<(prm_pMeshSetModel->_set_num));
-//        }
-
         prm_pMeshSetModel->_nVertices = nVertices;
         prm_pMeshSetModel->_nFaces = nFaces;
         prm_pMeshSetModel->_size_vertices = sizeof(GgafDxMeshSetModel::VERTEX) * nVertices;
@@ -2699,7 +2541,6 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
             }
         }
 
-        int nTextureCoords = model_pMeshesFront->_nTextureCoords;
         if (nVertices < nTextureCoords) {
             TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
             TRACE3("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
@@ -2778,8 +2619,6 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
                 unit_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
                 unit_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
             } else {
-
-
                 //法線が無い場合、法線を計算して作りだす。
 
                 //面に対する頂点インデックス３つ
@@ -2907,12 +2746,6 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
                 unit_paVtxBuffer_org[i].nz = vec.z;
             }
         }
-//        TRACE3("法線正規化後----------------------------");
-//        for (int i = 0; i < nVertices; i++) {
-//            TRACE3("["<<i<<"]=" << unit_paVtxBuffer_org[i].x << "\t, " << unit_paVtxBuffer_org[i].y << "\t, " << unit_paVtxBuffer_org[i].z << "\t, " << unit_paVtxBuffer_org[i].nx << "\t, " << unit_paVtxBuffer_org[i].ny << "\t, " << unit_paVtxBuffer_org[i].nz << "\t, " << unit_paVtxBuffer_org[i].tu << "\t, " << unit_paVtxBuffer_org[i].tv);
-//        }
-//        TRACE3("--------------------------------------");
-
 
         //インデックスバッファ登録
         unit_paIdxBuffer_org = NEW WORD[nFaces*3];
@@ -3018,12 +2851,6 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
 
             model_papaIndexParam[set_index] = NEW GgafDxMeshSetModel::INDEXPARAM[paramno];
             for (int i = 0; i < paramno; i++) {
-//                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].MaterialNo = paParam["<<i<<"].MaterialNo = "<<paParam[i].MaterialNo);
-//                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].BaseVertexIndex = paParam["<<i<<"].BaseVertexIndex = "<<paParam[i].BaseVertexIndex);
-//                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].MinIndex = paParam["<<i<<"].MinIndex = "<<paParam[i].MinIndex);
-//                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].NumVertices = paParam["<<i<<"].NumVertices = "<<paParam[i].NumVertices);
-//                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].StartIndex = paParam["<<i<<"].StartIndex = "<<paParam[i].StartIndex);
-//                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].PrimitiveCount = paParam["<<i<<"].PrimitiveCount = "<<paParam[i].PrimitiveCount);
                 model_papaIndexParam[set_index][i].MaterialNo = paParam[i].MaterialNo;
                 model_papaIndexParam[set_index][i].BaseVertexIndex = paParam[i].BaseVertexIndex;
                 model_papaIndexParam[set_index][i].MinIndex = paParam[i].MinIndex;
@@ -3033,8 +2860,6 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
             }
 
             prm_pMeshSetModel->_pa_nMaterialListGrp[set_index] = paramno;
-
-            //_TRACE_("prm_pMeshSetModel->_pa_nMaterialListGrp["<<set_index<<"]="<<prm_pMeshSetModel->_pa_nMaterialListGrp[set_index]);
             delete[] paParam;
         }
 
@@ -3053,11 +2878,6 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
                 &(prm_pMeshSetModel->_pIDirect3DVertexBuffer9),
                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMeshSetModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pMeshSetModel->_model_name));
-
-//        char str[256];
-//        sprintf (str, "VertexBuffer %s = %p \n",prm_pMeshSetModel->_model_name, prm_pMeshSetModel->_pIDirect3DVertexBuffer9);
-//        MessageBox(GgafDxGod::_pHWndPrimary, str, TEXT("情報"), MB_OK );
-
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
         hr = prm_pMeshSetModel->_pIDirect3DVertexBuffer9->Lock(
@@ -3080,7 +2900,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     //流し込むインデックスバッファデータ作成
     if (prm_pMeshSetModel->_pIDirect3DIndexBuffer9 == NULL) {
 
-        int nFaces = model_pMeshesFront->_nFaces;
+        nFaces = model_pMeshesFront->_nFaces;
 
         hr = GgafDxGod::_pID3DDevice9->CreateIndexBuffer(
                                sizeof(WORD) * nFaces * 3 * prm_pMeshSetModel->_set_num,
@@ -3231,18 +3051,8 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     //頂点バッファ作成
     GgafDxPointSpriteModel::VERTEX* model_paVtxBuffer_org = NEW GgafDxPointSpriteModel::VERTEX[model_vertices_num];
 
-
-//    GgafDxUvFlipper uvflipper(NULL);
-//    uvflipper.setRotation(model_texture_split_rowcol,
-//                                   1.0f / model_texture_split_rowcol,
-//                                   1.0f / model_texture_split_rowcol );
-//    uvflipper.forcePtnNoRange(0, model_texture_split_rowcol * model_texture_split_rowcol-1);
-//    float u = 0;
-//    float v = 0;
     float dis;
     for (int i = 0; i < model_vertices_num; i++) {
-//        uvflipper.setActivePtnNo(paInt_InitUvPtnNo[i]);
-//        uvflipper.getUV(u, v);
         model_paVtxBuffer_org[i].x = paD3DVECTOR_Vertices[i].x;
         model_paVtxBuffer_org[i].y = paD3DVECTOR_Vertices[i].y;
         model_paVtxBuffer_org[i].z = paD3DVECTOR_Vertices[i].z;
@@ -3252,8 +3062,6 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
                                                              paD3DVECTOR_VertexColors[i].g,
                                                              paD3DVECTOR_VertexColors[i].b,
                                                              paD3DVECTOR_VertexColors[i].a );
-//        model_paVtxBuffer_org[i].tu = u;
-//        model_paVtxBuffer_org[i].tv = v;
         model_paVtxBuffer_org[i].tu = (float)(paInt_InitUvPtnNo[i]);
         model_paVtxBuffer_org[i].tv = 0;
 
@@ -3268,14 +3076,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
          }
     }
 
-//    for (int i = 0; i < model_vertices_num; i++) {
-//        _TRACE_("rmodel_paVtxBuffer_org["<<i<<"].x = "<<(model_paVtxBuffer_org[i].x));
-//        _TRACE_("rmodel_paVtxBuffer_org["<<i<<"].y = "<<(model_paVtxBuffer_org[i].y));
-//        _TRACE_("rmodel_paVtxBuffer_org["<<i<<"].z = "<<(model_paVtxBuffer_org[i].z));
-//    }
     D3DMATERIAL9*   model_paMaterial = NULL;
-
-
     if (prm_pPointSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
 
         //頂点バッファ作成

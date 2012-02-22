@@ -46,6 +46,23 @@ public:
     static HRESULT init();
 
     /**
+     * 軸ボタン列挙コールバック関数 .
+     * 各軸の最低値を -255、最高値を 255 に設定
+     * @param lpddoi
+     * @param pvRef
+     * @return
+     */
+    static BOOL CALLBACK enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
+
+    /**
+     * ゲームスティックデバイス列挙コールバック関数 .
+     * @param pDIDeviceInstance
+     * @param pContext
+     * @return
+     */
+    static BOOL CALLBACK enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VOID *pContext);
+
+    /**
      * マウスの状態を更新 .
      * 結果は _dimousestate の表か裏に格納される。
      */

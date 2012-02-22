@@ -20,7 +20,7 @@ public:
 
 protected:
     // ƒtƒŒ[ƒ€\‘¢‘Ì‚ğ¶¬‚·‚é
-    virtual D3DXFRAME* CreateNewFrame();
+    virtual D3DXFRAME* createNewFrame();
 };
 
 }

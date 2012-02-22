@@ -38,7 +38,6 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
                 GgafDxGod::_pID3DDevice9->SetTexture(0, NULL);
             }
             //マテリアルのセット
-            //GgafDxGod::_pID3DDevice9->SetMaterial(&(pTargetActor->_paMaterial[i]));
             hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[i].Diffuse), sizeof(D3DCOLORVALUE) );
             checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
 
@@ -61,7 +60,6 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
                 checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() EndPass() に失敗しました。");
                 hr = GgafDxEffectManager::_pEffect_Active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() End() に失敗しました。");
-
 #ifdef MY_DEBUG
                 if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
                     throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
@@ -69,7 +67,6 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
                     GgafDxEffectManager::_pEffect_Active->_begin = false;
                 }
 #endif
-
             }
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);

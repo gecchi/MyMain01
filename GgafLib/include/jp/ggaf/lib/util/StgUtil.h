@@ -740,8 +740,12 @@ public:
         }
         return false;
     }
+
     /**
-     * Rz変化による nWay弾を撃つ .
+     * Rz変化による nWay 弾を１セット撃つ .
+     * 発射するショットに、次の項目が設定されます。<BR>
+     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom 発射元
      * @param prm_pDepo_Shot 発射するショットのデポジトリ
      * @param prm_pTarget 目標
@@ -756,7 +760,10 @@ public:
                            int prm_way, angle prm_angClearance,
                            velo prm_velo, acce prm_acce);
     /**
-     * Rz変化による nWay弾を複数セット同時に撃つ .
+     * Rz変化による nWay弾 を複数セット同時に撃つ .
+     * 発射するショットに、次の項目が設定されます。<BR>
+     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom        発射元
      * @param prm_pDepo_Shot 発射するショットのデポジトリ
      * @param prm_pTarget      目標
@@ -776,7 +783,10 @@ public:
 
 
     /**
-     * Ry は目標への向き＋D90ANGで、Rz変化による nWay放射弾を打つ（花火） .
+     * Ry は目標への向き＋D90ANGで、Rz変化による nWay放射弾を１セット撃つ（花火） .
+     * 発射するショットに、次の項目が設定されます。<BR>
+     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom 発射元
      * @param prm_pDepo_Shot 発射するショットのデポジトリ
      * @param prm_pTarget 目標
@@ -793,6 +803,9 @@ public:
 
     /**
      * shotWay002弾を複数セット同時に撃つ（花火） .
+     * 発射するショットに、次の項目が設定されます。<BR>
+     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom 発射元
      * @param prm_pDepo_Shot 発射するショットのデポジトリ
      * @param prm_pTarget 目標
@@ -813,9 +826,9 @@ public:
 
     /**
      * 自分の向いている方向（_RX > _RZ > _RY）に向かって N*M Way弾を撃つ（TODO:未検証） .
-     * 内部で次の項目が設定されます。<BR>
+     * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _X, _Y, _Z 座標 <BR>
-     * ・ショットの GgafDxKurokoA の移動方向、向き、移動速度、加速度<BR>
+     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom 発射元
      * @param prm_pDepo_Shot 発射するショットのデポジトリ
      * @param prm_r 発射元と発射するショットの初期距離(発射元からの半径)。

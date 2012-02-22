@@ -34,6 +34,7 @@ GgafDxMeshEffect::GgafDxMeshEffect(char* prm_effect_name) : GgafDxEffect(prm_eff
     _h_specular = _pID3DXEffect->GetParameterByName( NULL, "g_specular" );
     _h_specular_power = _pID3DXEffect->GetParameterByName( NULL, "g_specular_power" );
     _h_posCam = _pID3DXEffect->GetParameterByName( NULL, "g_posCam" );
+    _h_far_rate = _pID3DXEffect->GetParameterByName( NULL, "g_far_rate" );
 }
 
 void GgafDxMeshEffect::setParamPerFrame() {

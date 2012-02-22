@@ -245,20 +245,20 @@ void MyShip::onActive() {
 
 void MyShip::processBehavior() {
 
-    ///////////////////////スペキュラテスト
-    if (GgafDxInput::isBeingPressedKey(DIK_9)) {
-        _pModel->_specular += 0.1;
-    }
-    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
-        _pModel->_specular -= 0.1;
-    }
-    if (GgafDxInput::isBeingPressedKey(DIK_O)) {
-        _pModel->_specular_power += 0.1;
-    }
-    if (GgafDxInput::isBeingPressedKey(DIK_P)) {
-        _pModel->_specular_power -= 0.1;
-    }
-    /////////////////////////////////////
+//    ///////////////////////スペキュラテスト
+//    if (GgafDxInput::isBeingPressedKey(DIK_9)) {
+//        _pModel->_specular += 0.1;
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
+//        _pModel->_specular -= 0.1;
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_O)) {
+//        _pModel->_specular_power += 0.1;
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_P)) {
+//        _pModel->_specular_power -= 0.1;
+//    }
+//    /////////////////////////////////////
 
     if (!_can_control) {
         return;

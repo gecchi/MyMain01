@@ -33,11 +33,6 @@ public:
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
 
-    /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
-//    GgafDxRectUV* _paRectUV;
-
-    /** 全アニメパターン数 */
-//    int _pattno_max;
     float _fSize_BoardModelWidthPx;
     float _fSize_BoardModelHeightPx;
     int _row_texture_split;

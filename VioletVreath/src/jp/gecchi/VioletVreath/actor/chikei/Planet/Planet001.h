@@ -1,5 +1,5 @@
-#ifndef PLANETS001_H_
-#define PLANETS001_H_
+#ifndef PLANET001_H_
+#define PLANET001_H_
 namespace VioletVreath {
 
 /**
@@ -8,11 +8,11 @@ namespace VioletVreath {
  * @since 2011/11/14
  * @author Masatoshi Tsuge
  */
-class Planets001 : public GgafLib::DefaultMeshActor {
+class Planet001 : public GgafLib::DefaultMeshActor {
 
 public:
 
-    Planets001(const char* prm_name);
+    Planet001(const char* prm_name);
 
     virtual void onCreateModel() override;
 
@@ -24,12 +24,14 @@ public:
         return 0;
     }
 
-    virtual bool isOutOfUniverse() override;
+    virtual bool isOutOfUniverse() override {
+        return false;
+    }
 
-    virtual ~Planets001();
+    virtual ~Planet001();
 
 };
 
 }
-#endif /*PLANETS001_H_*/
+#endif /*PLANET001_H_*/
 

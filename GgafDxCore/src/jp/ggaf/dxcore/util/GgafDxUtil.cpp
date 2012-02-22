@@ -613,6 +613,8 @@ void GgafDxUtil::getNormalizeVectorZY(angle prm_angFaceZ,
             Xsign = 1;
             Ysign = 1;
             Zsign = 1;
+        } else {
+            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(1) prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
         }
     } else if (D90ANG <= prm_angFaceZ && prm_angFaceZ < D180ANG) {
         rZ = (D180ANG - prm_angFaceZ) / SANG_RATE;
@@ -637,6 +639,8 @@ void GgafDxUtil::getNormalizeVectorZY(angle prm_angFaceZ,
             Xsign = -1;
             Ysign = 1;
             Zsign = -1;
+        } else {
+            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(2) prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
         }
 
     } else if (D180ANG <= prm_angFaceZ && prm_angFaceZ < D270ANG) {
@@ -661,6 +665,8 @@ void GgafDxUtil::getNormalizeVectorZY(angle prm_angFaceZ,
             Xsign = -1;
             Ysign = -1;
             Zsign = -1;
+        } else {
+            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(3) prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
         }
     } else if (D270ANG <= prm_angFaceZ && prm_angFaceZ <= D360ANG) {
         rZ = (D360ANG - prm_angFaceZ) / SANG_RATE;
@@ -684,13 +690,13 @@ void GgafDxUtil::getNormalizeVectorZY(angle prm_angFaceZ,
             Xsign = 1;
             Ysign = -1;
             Zsign = 1;
+        } else {
+            throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(4) prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
         }
     } else {
-        throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
+        throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(5) prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
     }
     UINT32 vx, vy, vz;
-    //  _TRACE_("prm_angFaceZ="<<prm_angFaceZ<<"/prm_angFaceY="<<prm_angFaceY<<" rY="<<rY<<"/rZ="<<rZ<<")");
-    //  _TRACE_("("<<Xsign<<","<<Ysign<<","<<Zsign<<")");
     _srv.getVectorClosely(rY_rev, rZ, vx, vy, vz);
     out_nvx = Xsign * (int)vx / 1000000.0f;
     out_nvy = Ysign * (int)vy / 1000000.0f;

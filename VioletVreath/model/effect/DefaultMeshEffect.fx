@@ -38,6 +38,8 @@ float g_tex_blink_threshold;
 float g_alpha_master;
 /** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
 float g_zf;
+
+float g_far_rate;
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
     
@@ -76,8 +78,10 @@ OUT_VS GgafDxVS_DefaultMesh(
       float2 prm_uv     : TEXCOORD0 
 ) {
     OUT_VS out_vs = (OUT_VS)0;
+
     //頂点計算
     float4 posWorld = mul(prm_pos, g_matWorld);
+
     out_vs.pos = mul( mul( posWorld, g_matView), g_matProj);  //World*View*射影
 
     //UV計算
@@ -94,9 +98,16 @@ OUT_VS GgafDxVS_DefaultMesh(
     out_vs.cam = normalize(g_posCam.xyz - posWorld.xyz);
     //αはマテリアルαを最優先とする（上書きする）
     out_vs.color.a = g_colMaterialDiffuse.a;
-    //αフォグ
-    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+
+    if (g_far_rate > 0.0) {
+        if (out_vs.pos.z > g_zf*g_far_rate) {   
+            out_vs.pos.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+        }
+    } else {
+        //αフォグ
+        if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+            out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+        }
     }
     //マスターα
     out_vs.color.a *= g_alpha_master;

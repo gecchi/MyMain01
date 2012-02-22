@@ -24,9 +24,6 @@ public:
     /** D3DXLoadMeshFromXのオプション */
     DWORD _dwOptions;
 
-    /** メッシュに含まれる各面の隣接面を格納するポインタ */
-    //	LPD3DXBUFFER	_pAdjacency;
-
 public:
     /**
      * コンストラクタ<BR>

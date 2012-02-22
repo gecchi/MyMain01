@@ -19,6 +19,9 @@ public:
     /** エフェクト資源 */
     GgafDxMeshEffect* _pMeshEffect;
 
+    /** 座標の単位割合 */
+    float _far_rate;
+
     /**
      * コンストラクタ
      * @param prm_name モデル名称（デバッグログで表示、なんでも良い）
@@ -57,6 +60,10 @@ public:
                     GgafDxChecker* prm_pChecker);
 
     virtual void processDraw() override;
+
+    void setFarRate(float prm_far_rate) {
+        _far_rate = prm_far_rate;
+    }
 
     /**
      * α設定.

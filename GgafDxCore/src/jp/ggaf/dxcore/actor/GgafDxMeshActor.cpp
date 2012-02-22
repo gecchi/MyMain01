@@ -23,6 +23,7 @@ GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
     _class_name = "GgafDxMeshActor";
     _pMeshModel = (GgafDxMeshModel*)_pModel;
     _pMeshEffect = (GgafDxMeshEffect*)_pEffect;
+    _far_rate = -1.0f;
     _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
 }
 
@@ -47,6 +48,7 @@ GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
     _class_name = "GgafDxMeshActor";
     _pMeshModel = (GgafDxMeshModel*)_pModel;
     _pMeshEffect = (GgafDxMeshEffect*)_pEffect;
+    _far_rate = -1.0f;
     _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
 }
 
@@ -74,6 +76,8 @@ void GgafDxMeshActor::processDraw() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_far_rate, _far_rate );
+
     _pMeshModel->draw(this);
 }
 
