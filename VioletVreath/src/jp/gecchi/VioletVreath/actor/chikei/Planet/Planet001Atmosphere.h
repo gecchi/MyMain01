@@ -1,20 +1,18 @@
-#ifndef PLANET001_H_
-#define PLANET001_H_
+#ifndef PLANET001ATMOSPHERE_H_
+#define PLANET001ATMOSPHERE_H_
 namespace VioletVreath {
 
 /**
- * òfêØ001 .
+ * òfêØ001ÇÃëÂãCåó .
  * @version 1.00
- * @since 2011/11/14
+ * @since 2012/02/23
  * @author Masatoshi Tsuge
  */
-class Planet001 : public GgafLib::DefaultMeshActor {
+class Planet001Atmosphere : public GgafLib::DefaultMeshActor {
 
 public:
 
-    Planet001Atmosphere* _pAtmosphere;
-
-    Planet001(const char* prm_name);
+    Planet001Atmosphere(const char* prm_name);
 
     virtual void onCreateModel() override;
 
@@ -30,10 +28,10 @@ public:
         return false;
     }
 
-    virtual ~Planet001();
+    virtual ~Planet001Atmosphere();
 
 };
 
 }
-#endif /*PLANET001_H_*/
+#endif /*PLANET001ATMOSPHERE_H_*/
 

@@ -21,6 +21,8 @@ public:
     /** UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
 
+    float _far_rate;
+
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
@@ -41,6 +43,18 @@ public:
     virtual void processDraw() override;
 
     virtual ~GgafDxSpriteActor();
+
+    /**
+     * 遠くの座標でも強制表示 .
+     * @param prm_b
+     */
+    void viewAlsoForcesFar(bool prm_b) {
+        if (prm_b) {
+            _far_rate = 0.999f;
+        } else {
+            _far_rate = -1.0f;
+        }
+    }
 
     /**
      * α設定.

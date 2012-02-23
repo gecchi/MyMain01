@@ -36,6 +36,7 @@ GgafDxSpriteActor::GgafDxSpriteActor(const char* prm_name,
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
 
     _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
+    _far_rate = -1.0f;
 }
 
 void GgafDxSpriteActor::processDraw() {
@@ -48,6 +49,8 @@ void GgafDxSpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _fAlpha);
     checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetFloat(_fAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pSpriteEffect->_h_far_rate, _far_rate );
+    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pSpriteModel->draw(this);
 }
 

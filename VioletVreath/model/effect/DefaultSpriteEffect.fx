@@ -16,6 +16,7 @@ float g_tex_blink_power;
 float g_tex_blink_threshold;
 float g_alpha_master;
 float g_zf;
+float g_far_rate;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -42,6 +43,12 @@ OUT_VS GgafDxVS_DefaultSprite(
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
+    if (g_far_rate > 0.0) {
+        if (out_vs.pos.z > g_zf*g_far_rate) {   
+            out_vs.pos.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+        }
+    } 
+
 	//UVのオフセット(パターン番号による増分)加算
 	out_vs.uv.x = prm_uv.x + g_offsetU;
 	out_vs.uv.y = prm_uv.y + g_offsetV;

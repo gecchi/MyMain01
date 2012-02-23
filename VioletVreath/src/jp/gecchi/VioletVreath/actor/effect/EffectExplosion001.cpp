@@ -9,7 +9,7 @@ EffectExplosion001::EffectExplosion001(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "EffectExplosion001", NULL) {
     _class_name = "EffectExplosion001";
     changeEffectTechnique("DestBlendOne"); //加算合成Technique指定
-    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv);
+    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv); //XYZ軸ビルボード
 }
 
 void EffectExplosion001::initialize() {

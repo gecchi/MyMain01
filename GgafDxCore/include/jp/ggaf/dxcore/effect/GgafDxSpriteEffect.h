@@ -19,7 +19,7 @@ public:
     D3DXHANDLE _hOffsetU;
     D3DXHANDLE _hOffsetV;
     D3DXHANDLE _hAlpha;
-
+    D3DXHANDLE _h_far_rate;
 public:
     /**
      * コンストラクタ<BR>

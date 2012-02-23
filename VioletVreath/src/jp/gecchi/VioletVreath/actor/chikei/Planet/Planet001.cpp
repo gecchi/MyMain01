@@ -13,8 +13,13 @@ Planet001::Planet001(const char* prm_name) :
     setZEnable(true);        //Zバッファは考慮
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_WORLDBOUND-2);
-    setFarRate(0.999);
+    viewAlsoForcesFar(true);//遠くても表示
+
+    //大気圏エフェクトスプライト
+    _pAtmosphere = NEW Planet001Atmosphere("P001ATMOS");
+    addSubLast(_pAtmosphere);
 }
+
 void Planet001::onCreateModel() {
 }
 
@@ -22,8 +27,12 @@ void Planet001::initialize() {
     //setAlpha(0.99);
     _X = (GgafDxUniverse::_X_goneRight*1);
     _pScaler->setScale(1000*1000);
-    //_pKurokoA->setFaceAng(AXIS_Z, DEG2ANG(-30));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 10);
+    _pKurokoA->setFaceAng(AXIS_Z, D90ANG - DEG2ANG(30));
+    _pKurokoA->setFaceAng(AXIS_Y, D45ANG);
+    _pKurokoA->setFaceAngVelo(AXIS_X, 20); //自転の速さ
+
+    _pAtmosphere->_pScaler->setScale(_pScaler->_scale[0]);
+    _pAtmosphere->locateAs(this);
 }
 void Planet001::processBehavior() {
     //巨大オブジェクトテスト
@@ -59,6 +68,9 @@ void Planet001::processBehavior() {
     //_X = _X - PX2CO(1);
     _pScaler->behave();
     _pKurokoA->behave();
+
+    _pAtmosphere->_pScaler->setScale(_pScaler->_scale[0]);
+    _pAtmosphere->locateAs(this);
 }
 
 Planet001::~Planet001() {

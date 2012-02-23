@@ -125,7 +125,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				UseUnicodeResponseFiles="false"
-				Optimization="3"
+				Optimization="2"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
@@ -135,7 +135,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
-				FloatingPointModel="2"
+				FloatingPointModel="0"
 				UsePrecompiledHeader="2"
 				WarningLevel="0"
 				Detect64BitPortabilityProblems="false"

@@ -19,7 +19,6 @@ public:
     /** エフェクト資源 */
     GgafDxMeshEffect* _pMeshEffect;
 
-    /** 座標の単位割合 */
     float _far_rate;
 
     /**
@@ -61,8 +60,16 @@ public:
 
     virtual void processDraw() override;
 
-    void setFarRate(float prm_far_rate) {
-        _far_rate = prm_far_rate;
+    /**
+     * 遠くの座標でも強制表示 .
+     * @param prm_b
+     */
+    void viewAlsoForcesFar(bool prm_b) {
+        if (prm_b) {
+            _far_rate = 0.999f;
+        } else {
+            _far_rate = -1.0f;
+        }
     }
 
     /**

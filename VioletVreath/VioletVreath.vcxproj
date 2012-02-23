@@ -149,7 +149,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\PauseCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\TestCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\VamSysCamWorker.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planets\Planets001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\Torus.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus002.cpp" />
@@ -369,7 +370,8 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\pausecamworker.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\testcamworker.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\vamsyscamworker.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\planets\planets001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\planet\planet001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\torus.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\varietytorus001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\varietytorus002.h" />

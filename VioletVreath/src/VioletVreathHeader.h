@@ -426,6 +426,7 @@ class Formation001;
 
 
 class Planet001;
+class Planet001Atmosphere;
 
 class CubeMapMeshTestActor;
 class CubeMapMeshSetTestActor;
@@ -688,6 +689,8 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/common/TestDepository.h"
 
 #include "jp/gecchi/VioletVreath/actor/chikei/Planet/Planet001.h"
+#include "jp/gecchi/VioletVreath/actor/chikei/Planet/Planet001Atmosphere.h"
+
 
 #include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMeshTestActor.h"
 #include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMeshSetTestActor.h"

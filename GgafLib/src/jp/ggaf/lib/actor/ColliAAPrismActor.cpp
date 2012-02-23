@@ -45,7 +45,7 @@ void ColliAAPrismActor::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
                             pActor->_X + prism->_x2,
                             pActor->_Y + prism->_y2,
                             pActor->_Z + prism->_z2,
-                            prism->_pos_prism);
+                            prism->_pos_prism); //TODO:prism->_pos_prism が 0 で pos2r[pos_prism]._ry がおかしな値で落ちる
                     GgafGod::_num_actor_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
                 }
             }

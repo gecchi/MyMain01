@@ -17,7 +17,6 @@ GgafDxSpriteEffect::GgafDxSpriteEffect(char* prm_effect_name) : GgafDxEffect(prm
     hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf);
     checkDxException(hr, D3D_OK, "GgafDxSpriteEffect::GgafDxSpriteEffect SetFloat(g_zf) に失敗しました。");
 
-
     //シェーダーハンドル
     _h_matView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _h_matWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
@@ -26,6 +25,7 @@ GgafDxSpriteEffect::GgafDxSpriteEffect(char* prm_effect_name) : GgafDxEffect(prm
     _hOffsetV  = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
+    _h_far_rate = _pID3DXEffect->GetParameterByName( NULL, "g_far_rate" );
 }
 
 void GgafDxSpriteEffect::setParamPerFrame() {
