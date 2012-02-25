@@ -13,27 +13,7 @@ using namespace GgafDxCore;
 }
 
 //TODO:コメントとか多すぎる。整理する。
-/**
- * マルチディスプレイ、フルスクリーンモード時、
- * GgafDxGodのメンバーの _secondary_screen_x, _secondary_screen_y に
- * ２画面目の左上座標を保持させるためだけの、
- * EnumDisplayMonitorsによるコールバック関数。
- */
-BOOL CALLBACK getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
-                                                  HDC hdcMonitor,
-                                                  LPRECT lprcMonitor,
-                                                  LPARAM dwData) {
-    MONITORINFOEX moniter_info;
-    moniter_info.cbSize = sizeof(MONITORINFOEX);
-    GetMonitorInfo(hMonitor, &moniter_info);
-    if (moniter_info.dwFlags != MONITORINFOF_PRIMARY) {
-        //プライマリモニタでは無い、よってセカンダリと見なす・・・
-        //２画面目の左上座標を保存
-        P_GOD->_secondary_screen_x = moniter_info.rcMonitor.left;
-        P_GOD->_secondary_screen_y = moniter_info.rcMonitor.top;
-    }
-    return TRUE;
-}
+
 
 
 HWND GgafDxGod::_pHWndPrimary = NULL;
@@ -766,6 +746,23 @@ HRESULT GgafDxGod::init() {
     return D3D_OK;
 }
 
+BOOL CALLBACK GgafDxGod::getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
+                                                             HDC hdcMonitor,
+                                                             LPRECT lprcMonitor,
+                                                             LPARAM dwData) {
+    GgafDxGod* pGod = (GgafDxGod*)dwData;
+    MONITORINFOEX moniter_info;
+    moniter_info.cbSize = sizeof(MONITORINFOEX);
+    GetMonitorInfo(hMonitor, &moniter_info);
+    if (moniter_info.dwFlags != MONITORINFOF_PRIMARY) {
+        //プライマリモニタでは無い、よってセカンダリと見なす(安直；)・・・
+        //２画面目の左上座標を保存
+        pGod->_secondary_screen_x = moniter_info.rcMonitor.left;
+        pGod->_secondary_screen_y = moniter_info.rcMonitor.top;
+    }
+    return TRUE;
+}
+
 HRESULT GgafDxGod::createDx9Device(UINT Adapter,
                                    D3DDEVTYPE DeviceType,
                                    HWND hFocusWindow,
@@ -1009,9 +1006,9 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
             _paPresetPrm[0].AutoDepthStencilFormat, //D3DFORMAT           Format,
             _paPresetPrm[0].MultiSampleType,        //D3DMULTISAMPLE_TYPE MultiSample,
             _paPresetPrm[0].MultiSampleQuality,     //DWORD               MultisampleQuality,
-            TRUE,                                     //BOOL                Discard, SetDepthStencileSurface関数で深度バッファを変更した時にバッファを破棄するかどうか
-            &_pRenderTextureZ,                        //IDirect3DSurface9** ppSurface,
-            NULL                                      //HANDLE*             pHandle 現在未使用
+            TRUE,                                   //BOOL                Discard, SetDepthStencileSurface関数で深度バッファを変更した時にバッファを破棄するかどうか
+            &_pRenderTextureZ,                      //IDirect3DSurface9** ppSurface,
+            NULL                                    //HANDLE*             pHandle 現在未使用
     );
     //深度バッファ作成自動生成の、深度バッファ用サーフェイスを上記に変更
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのZバッファ作成に失敗しました。");
@@ -1089,7 +1086,7 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
 
     if (GGAF_PROPERTY(DUAL_VIEW)) {
         //２画面目のウィンドウ位置を補正
-        EnumDisplayMonitors(NULL, NULL, getSecondaryMoniterPixcoordCallback, NULL);
+        EnumDisplayMonitors(NULL, NULL, GgafDxGod::getSecondaryMoniterPixcoordCallback, (LPARAM)this);
         _TRACE_("２画面目の座標("<<_secondary_screen_x<<","<<_secondary_screen_y<<")");
         ShowWindow(_pHWndSecondary, SW_SHOWNORMAL);
         UpdateWindow(_pHWndSecondary);
@@ -1165,12 +1162,12 @@ void GgafDxGod::makeUniversalMaterialize() {
 
     //バッファクリア
     hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-                                          NULL, // 矩形領域
-                                          D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                          _color_clear, //クリア色（not 背景色）
-                                          1.0f,         // Zバッファのクリア値
-                                          0             // ステンシルバッファのクリア値
-                                         );
+                                         NULL, // 矩形領域
+                                         D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                                         _color_clear, //クリア色（not 背景色）
+                                         1.0f,         // Zバッファのクリア値
+                                         0             // ステンシルバッファのクリア値
+                                        );
     checkDxException(hr, D3D_OK, "GgafDxGod::_pID3DDevice9->Clear() に失敗しました。");
 
     //描画事前処理
@@ -1348,7 +1345,6 @@ void GgafDxGod::presentUniversalVisualize() {
                 } else {
                     Sleep(10);
                     return;
-//                    throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】リセットに失敗しました。");
                 }
             } else {
                 break;
@@ -1391,13 +1387,13 @@ void GgafDxGod::presentUniversalVisualize() {
         _TRACE_("【デバイスロスト処理】<-------- END");
 
         Sleep(500);
-        hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-                                              NULL, // 矩形領域
-                                              D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                              _color_border, //背景色      //D3DCOLOR_XRGB( 0, 0, 0 )
-                                              1.0f, // Zバッファのクリア値
-                                              0     // ステンシルバッファのクリア値
-                                              );
+        hr = GgafDxGod::_pID3DDevice9->Clear(0,    // クリアする矩形領域の数
+                                             NULL, // 矩形領域
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                                             _color_border, //背景色      //D3DCOLOR_XRGB( 0, 0, 0 )
+                                             1.0f, // Zバッファのクリア値
+                                             0     // ステンシルバッファのクリア値
+                                            );
     }
 }
 
@@ -1503,28 +1499,30 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
     _pHWnd_adjustScreen = NULL;
 }
 
-void GgafDxGod::positionPresentRect(int prm_pos, RECT& prm_rectPresent, int prm_screen_width, int prm_screen_height) {
-//789
-//456
-//123
+void GgafDxGod::positionPresentRect(int prm_pos, RECT& out_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height) {
+    // ７　８　９
+    // 　＼｜／
+    // ４ー５ー６
+    // 　／｜＼
+    // １　２　３
+    //1:左下、2:下、3:右下、4:左、5:真ん中、6:右、7:左上、8:上、9:右上
     if (prm_pos == 5) {
         return;
     }
-
     if (prm_pos == 7 || prm_pos == 8 || prm_pos == 9) {
-        prm_rectPresent.bottom = prm_rectPresent.bottom - prm_rectPresent.top;
-        prm_rectPresent.top = 0;
+        out_rectPresent.bottom = out_rectPresent.bottom - out_rectPresent.top;
+        out_rectPresent.top = 0;
     } else if (prm_pos == 1 || prm_pos == 2 || prm_pos == 3) {
-        prm_rectPresent.top = prm_screen_height - (prm_rectPresent.bottom - prm_rectPresent.top);
-        prm_rectPresent.bottom = prm_screen_height;
+        out_rectPresent.top = prm_screen_height - (out_rectPresent.bottom - out_rectPresent.top);
+        out_rectPresent.bottom = prm_screen_height;
     }
 
     if (prm_pos == 7 || prm_pos == 4 || prm_pos == 1) {
-        prm_rectPresent.right = prm_rectPresent.right - prm_rectPresent.left;
-        prm_rectPresent.left = 0;
+        out_rectPresent.right = out_rectPresent.right - out_rectPresent.left;
+        out_rectPresent.left = 0;
     } else if (prm_pos == 9 || prm_pos == 6 || prm_pos == 3) {
-        prm_rectPresent.left = prm_screen_width - (prm_rectPresent.right - prm_rectPresent.left);
-        prm_rectPresent.right = prm_screen_width;
+        out_rectPresent.left = prm_screen_width - (out_rectPresent.right - out_rectPresent.left);
+        out_rectPresent.right = prm_screen_width;
     }
 }
 

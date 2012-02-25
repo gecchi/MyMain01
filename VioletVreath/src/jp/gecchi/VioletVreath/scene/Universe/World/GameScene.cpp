@@ -104,6 +104,8 @@ void GameScene::processBehavior() {
             if ((_pProg->getFrameInProgress() >= 180 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) || GgafDxInput::isPushedDownKey(DIK_P)) {
                 _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
                 _pProg->changeWithScene_Crossfading(GameScene::PROG_PRE_TITLE);
+                P_WORLD->_pPreDrawScene->inactivateTreeImmed();
+                P_WORLD->_pPreDrawScene->pauseTreeImmed();
             }
             break;
         }

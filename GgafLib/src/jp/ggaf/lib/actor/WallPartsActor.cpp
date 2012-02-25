@@ -23,6 +23,10 @@ WallPartsActor::WallPartsActor(const char* prm_name,
     _wall_draw_face = 0;
     _pos_prism = 0;
     _pWalledSectionScene = NULL;
+
+    _wall_dep = 0;
+    _wall_width = 0;
+    _wall_height = 0;
 }
 
 void WallPartsActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {

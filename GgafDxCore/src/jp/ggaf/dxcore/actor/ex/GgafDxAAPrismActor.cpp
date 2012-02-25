@@ -52,6 +52,8 @@ GgafDxAAPrismActor::GgafDxAAPrismActor(const char* prm_name, GgafStatus* prm_pSt
         pos2r[POS_PRISM_ZX_np] = RotPosPrism(D90ANG , D0ANG  , D270ANG);
         pos2r[POS_PRISM_ZX_pn] = RotPosPrism(D90ANG , D0ANG  , D90ANG );
         pos2r[POS_PRISM_ZX_pp] = RotPosPrism(D90ANG , D0ANG  , D180ANG);
+
+        pos2r[0] = RotPosPrism(D0ANG  , D0ANG  , D0ANG  );
         init = true;
     }
 }

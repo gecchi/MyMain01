@@ -166,7 +166,7 @@ void GgafUtil::writeProperties(std::ostream &os, GgafStrMap* pMap, const char *h
                           &val = (*it).second;
         os << key << '=';
 
-        bool empty = false;
+        //bool empty = false;
 
         for (size_t i = 0, sz = val.size(); i < sz; i++)
         {
@@ -188,7 +188,7 @@ void GgafUtil::writeProperties(std::ostream &os, GgafStrMap* pMap, const char *h
                     break;
             }
 
-            empty = false;
+            //empty = false;
         }
         os << std::endl;
     }

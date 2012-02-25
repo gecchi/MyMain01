@@ -26,7 +26,7 @@ private:
      */
     GgafDirector* extract() override {
         throwGgafCriticalException("GgafDirector ‚É extract() ‚ÍÀs‚Å‚«‚Ü‚¹‚ñBname="<<getName());
-        return NULL;
+        return (GgafDirector*)NULL;
     }
 
 public:

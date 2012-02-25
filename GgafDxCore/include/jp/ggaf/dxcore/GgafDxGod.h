@@ -59,11 +59,30 @@ private:
     HRESULT initDx9Device();
 
     HRESULT restoreFullScreenRenderTarget();
+
     HRESULT releaseFullScreenRenderTarget();
+
     void adjustGameScreen(HWND prm_pHWnd);
 
-    void positionPresentRect(int prm_pos, RECT& prm_rectPresent, int prm_screen_width, int prm_screen_height);
+    /**
+     * 表示位置番号に対応する矩形座標範囲(ピクセル)を取得する。
+     * @param prm_pos 表示位置番号
+     * @param out_rectPresent [out]対応する矩形座標範囲
+     * @param prm_screen_width 画面幅(ピクセル)
+     * @param prm_screen_height 画面高さ(ピクセル)
+     */
+    void positionPresentRect(int prm_pos, RECT& out_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height);
 
+    /**
+     * マルチディスプレイ、フルスクリーンモード時、
+     * GgafDxGodのメンバーの _secondary_screen_x, _secondary_screen_y に
+     * ２画面目の左上座標を保持させるためだけの、
+     * EnumDisplayMonitorsによるコールバック関数。
+     */
+    static BOOL CALLBACK getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
+                                                             HDC      hdcMonitor,
+                                                             LPRECT   lprcMonitor,
+                                                             LPARAM   dwData    );
 public:
     /** モデル(GgafDxModel)資源管理者 */
     static GgafDxModelManager* _pModelManager;
@@ -100,17 +119,17 @@ public:
     /** [r] ピクセルシェーダーのバージョン(D3DPS_VERSION(_Major,_Minor)) */
     static UINT32 _ps_v;
 
-    /** [r] ゲームバッファ領域 */
+    /** [r] ゲームバッファ領域(ピクセル的な系) */
     RECT _rectGameBuffer;
-    /** [r] フルスクリーン時、レンダリングターゲットテクスチャの領域 */
+    /** [r] フルスクリーン時、レンダリングターゲットテクスチャの領域(ピクセル) */
     RECT _rectRenderTargetBuffer;
-    /** [r] ゲームバッファ領域の、[0]:左半分領域、[1]:右半分領域 */
+    /** [r] ゲームバッファ領域の、[0]:左半分領域、[1]:右半分領域 (ピクセル) */
     RECT _aRect_HarfGameBuffer[2];
-    /** [r] フルスクリーン時、レンダリングターゲットテクスチャ領域の、[0]:左半分領域、[1]:右半分領域 */
+    /** [r] フルスクリーン時、レンダリングターゲットテクスチャ領域の、[0]:左半分領域、[1]:右半分領域 (ピクセル) */
     RECT _aRect_HarfRenderTargetBuffer[2];
-    /** [r] 最終表示フロントバッファフレームの領域、[0]:１画面目、[1]:２画面目 */
+    /** [r] 最終表示フロントバッファフレームの領域、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_ViewScreen[2];
-    /** [r] Present領域、[0]:１画面目、[1]:２画面目  */
+    /** [r] Present領域、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_Present[2];
     /** [r] １画面目の _aRect_HarfRenderTargetBuffer[] の序数 0 or 1 */
     int _primary;
@@ -126,9 +145,6 @@ public:
      */
     GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
 
-    /**
-     * 初期化<BR>
-     */
     HRESULT init();
 
     virtual void presentUniversalMoment() override;

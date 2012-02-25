@@ -41,7 +41,7 @@ public:
      * ï€éùÇ≥ÇÍÇÈRGBÇÕ(0, 0, 0)
      */
     GgafRgb() : GgafObject(),
-            _allowedChars("0123456789abcdefABCDEF#") , _R(0), _G(0), _B(0), _is_valid(true), _hex("000000") {
+            _allowedChars("0123456789abcdefABCDEF#") , _R(0), _G(0), _B(0), _hex("000000"), _is_valid(true) {
     }
 
     /**
@@ -50,7 +50,7 @@ public:
      * @param prm_hex "#FFFFFF"å`éÆÇÃï∂éöóÒ Åi"#"ÇÕè»ó™â¬Åj
      */
     GgafRgb(std::string prm_hex) : GgafObject(),
-            _allowedChars("0123456789abcdefABCDEF#") , _R(0), _G(0), _B(0), _is_valid(true), _hex("000000") {
+            _allowedChars("0123456789abcdefABCDEF#") , _R(0), _G(0), _B(0), _hex("000000"), _is_valid(true) {
         set(prm_hex);
     }
 

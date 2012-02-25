@@ -46,7 +46,7 @@ public:
     static pixcoord DUAL_VIEW_FULL_SCREEN1_HEIGHT;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの解像度(横) */
     static pixcoord DUAL_VIEW_FULL_SCREEN2_WIDTH;
-    /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの解像度(縦) */
+    /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの解像度(縦) */
     static pixcoord DUAL_VIEW_FULL_SCREEN2_HEIGHT;
     /** [r] ２画面フルスクリーンモードだった場合の両画面のスクリーンの解像度(横) */
     static pixcoord DUAL_VIEW_FULL_SCREEN_WIDTH;
