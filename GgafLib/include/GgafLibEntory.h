@@ -27,11 +27,17 @@ HINSTANCE WinMain_hPrevInstance;
 LPTSTR WinMain_lpCmdLine;
 int WinMain_nCmdShow;
 
-void resetWindowsize(HWND hWnd, int client_width, int client_height) {
+/**
+ * ウィンドウのサイズを再設定 .
+ * @param hWnd 再設定するウィンドウのHWND
+ * @param client_width クライアント領域横幅（ピクセル）
+ * @param client_height クライアント領域縦幅（ピクセル）
+ */
+void resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height) {
     RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
-    int ww1, wh1; // ウィンドウ全体の幅、高さ
-    int cw1, ch1; // クライアント領域の幅、高さ
-    int fw1, fh1; // フレームの幅、高さ
+    pixcoord ww1, wh1; // ウィンドウ全体の幅、高さ
+    pixcoord cw1, ch1; // クライアント領域の幅、高さ
+    pixcoord fw1, fh1; // フレームの幅、高さ
     // ウィンドウ全体の幅・高さを計算
     GetWindowRect(hWnd, &wRect1);
     ww1 = wRect1.right - wRect1.left;
@@ -55,6 +61,11 @@ void resetWindowsize(HWND hWnd, int client_width, int client_height) {
     );
 }
 
+
+/**
+ * ウィンドウのサイズを元の大きさにリセット .
+ * @param hWnd リセットするウィンドウのHWND
+ */
 void resetWindowsize(HWND hWnd) {
     if (!GGAF_PROPERTY(FULL_SCREEN)) {
         if (GGAF_PROPERTY(DUAL_VIEW)) {
@@ -69,7 +80,13 @@ void resetWindowsize(HWND hWnd) {
     }
 }
 
-void GgafLibMain(int argc, char *argv[]) {
+/**
+ * メイン処理 .
+ * @param argc
+ * @param argv
+ * @return
+ */
+int GgafLibMain(int argc, char *argv[]) {
     STARTUPINFO StatUpInfo;
     HINSTANCE hInstance;
     HANDLE hPrevInstance;
@@ -90,9 +107,16 @@ void GgafLibMain(int argc, char *argv[]) {
     cout << lpCmdLine << endl;
 
     //本来のWinMainへ
-    WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
+    return WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
 }
 
+/**
+ * WinMainの初期処理 .
+ * @param hInstance
+ * @param hPrevInstance
+ * @param lpCmdLine
+ * @param nCmdShow
+ */
 void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -102,7 +126,13 @@ void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLi
     WinMain_nCmdShow = nCmdShow;
 }
 
-
+/**
+ * Ggafフレームワークのウィンドウプロシージャ処理 .
+ * @param hWnd
+ * @param message
+ * @param wParam
+ * @param lParam
+ */
 void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_SIZE:
@@ -151,23 +181,32 @@ void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     }
 }
 
-void GgafLibCreateWindow(WNDCLASSEX& wndclass1, WNDCLASSEX& wndclass2,
-                         const char* title1, const char* title2,
-                         HWND& out_hWnd1, HWND& out_hWnd2) {
+/**
+ * ウィンドウ生成処理
+ * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
+ * @param prm_wndclass2 ２画面目のWNDCLASSEXパラメータ
+ * @param prm_title1 １画面目のタイトル
+ * @param prm_title2 ２画面目のタイトル
+ * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
+ * @param out_hWnd2 （戻り値）２画面目のウィンドウハンドル
+ */
+void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
+                         const char* prm_title1   , const char* prm_title2,
+                         HWND&       out_hWnd1    , HWND&       out_hWnd2) {
 
     GgafCore::GgafRgb rgb = GgafCore::GgafRgb(GGAF_PROPERTY(BORDER_COLOR));
-    wndclass1.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
-    wndclass2.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
+    prm_wndclass1.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
+    prm_wndclass2.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
 
     // ウインドウの生成
     if (GGAF_PROPERTY(FULL_SCREEN)) {
         if (GGAF_PROPERTY(DUAL_VIEW)) {
             //フルスクリーンモード・２画面使用
-            RegisterClassEx(&wndclass1);
+            RegisterClassEx(&prm_wndclass1);
             _hWnd1_ = CreateWindowEx(
                         WS_EX_APPWINDOW,
-                        wndclass1.lpszClassName,
-                        title1,
+                        prm_wndclass1.lpszClassName,
+                        prm_title1,
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
@@ -175,15 +214,15 @@ void GgafLibCreateWindow(WNDCLASSEX& wndclass1, WNDCLASSEX& wndclass2,
                         GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN1_HEIGHT),
                         HWND_DESKTOP,
                         NULL,
-                        wndclass1.hInstance,
+                        prm_wndclass1.hInstance,
                         NULL
-                    );
+                      );
 
-            RegisterClassEx(&wndclass2);
+            RegisterClassEx(&prm_wndclass2);
             _hWnd2_ = CreateWindowEx(
                         WS_EX_APPWINDOW,
-                        wndclass2.lpszClassName,
-                        title2,
+                        prm_wndclass2.lpszClassName,
+                        prm_title2,
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
@@ -191,17 +230,17 @@ void GgafLibCreateWindow(WNDCLASSEX& wndclass1, WNDCLASSEX& wndclass2,
                         GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT),
                         HWND_DESKTOP,
                         NULL,
-                        wndclass2.hInstance,
+                        prm_wndclass2.hInstance,
                         NULL
-                    );
+                      );
 
         } else {
             //フルスクリーンモード・１画面使用
-            RegisterClassEx(&wndclass1);
+            RegisterClassEx(&prm_wndclass1);
             _hWnd1_ = CreateWindowEx(
                         WS_EX_APPWINDOW,
-                        wndclass1.lpszClassName,
-                        title1,
+                        prm_wndclass1.lpszClassName,
+                        prm_title1,
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
@@ -209,59 +248,59 @@ void GgafLibCreateWindow(WNDCLASSEX& wndclass1, WNDCLASSEX& wndclass2,
                         GGAF_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT),
                         HWND_DESKTOP,
                         NULL,
-                        wndclass1.hInstance,
+                        prm_wndclass1.hInstance,
                         NULL
-                    );
+                      );
 
         }
     } else {
         if (GGAF_PROPERTY(DUAL_VIEW)) {
             //ウインドモード・２窓使用
-            RegisterClassEx(&wndclass1);
+            RegisterClassEx(&prm_wndclass1);
             _hWnd1_ = CreateWindow(
-                    wndclass1.lpszClassName,
-                    title1,
-                    WS_OVERLAPPEDWINDOW,
-                    CW_USEDEFAULT,
-                    CW_USEDEFAULT,
-                    GGAF_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH),
-                    GGAF_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT),
-                    HWND_DESKTOP,
-                    NULL,
-                    wndclass1.hInstance,
-                    NULL
-            );
+                        prm_wndclass1.lpszClassName,
+                        prm_title1,
+                        WS_OVERLAPPEDWINDOW,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        GGAF_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH),
+                        GGAF_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT),
+                        HWND_DESKTOP,
+                        NULL,
+                        prm_wndclass1.hInstance,
+                        NULL
+                      );
 
-            RegisterClassEx(&wndclass2);
+            RegisterClassEx(&prm_wndclass2);
             _hWnd2_ = CreateWindow(
-                    wndclass2.lpszClassName,
-                    title2,
-                    WS_OVERLAPPEDWINDOW,
-                    CW_USEDEFAULT,
-                    CW_USEDEFAULT,
-                    GGAF_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH),
-                    GGAF_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT),
-                    HWND_DESKTOP,
-                    NULL,
-                    wndclass2.hInstance,
-                    NULL
-            );
+                        prm_wndclass2.lpszClassName,
+                        prm_title2,
+                        WS_OVERLAPPEDWINDOW,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        GGAF_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH),
+                        GGAF_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT),
+                        HWND_DESKTOP,
+                        NULL,
+                        prm_wndclass2.hInstance,
+                        NULL
+                      );
         } else {
             //ウインドモード・１窓使用
-            RegisterClassEx(&wndclass1);
+            RegisterClassEx(&prm_wndclass1);
             _hWnd1_ = CreateWindow(
-                    wndclass1.lpszClassName,
-                    title1,
-                    WS_OVERLAPPEDWINDOW,
-                    CW_USEDEFAULT,
-                    CW_USEDEFAULT,
-                    GGAF_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH),
-                    GGAF_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT),
-                    HWND_DESKTOP,
-                    NULL,
-                    wndclass1.hInstance,
-                    NULL
-            );
+                        prm_wndclass1.lpszClassName,
+                        prm_title1,
+                        WS_OVERLAPPEDWINDOW,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        GGAF_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH),
+                        GGAF_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT),
+                        HWND_DESKTOP,
+                        NULL,
+                        prm_wndclass1.hInstance,
+                        NULL
+                      );
         }
     }
 
@@ -291,16 +330,6 @@ void GgafLibCreateWindow(WNDCLASSEX& wndclass1, WNDCLASSEX& wndclass2,
         UpdateWindow(_hWnd2_);
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

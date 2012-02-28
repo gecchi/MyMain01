@@ -26,8 +26,7 @@ void myTerminateHandler();
  * GNU GCC ならばエントリポイント
  */
 int main(int argc, char *argv[]) {
-    GgafLibMain(argc, argv);
-    return 0;
+    return GgafLibMain(argc, argv);
 }
 
 static VioletVreath::God* pGod = NULL;

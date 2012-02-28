@@ -11,13 +11,12 @@ Camera::Camera(const char* prm_name) :
                       GGAF_PROPERTY(GAME_SPACE_DEPTH)) {
     _class_name = "Camera";
 }
+
 void Camera::initialize() {
     DefaultCamera::initialize();
 }
 
-
 void Camera::processBehavior() {
-
     DefaultCamera::processBehavior();
 }
 

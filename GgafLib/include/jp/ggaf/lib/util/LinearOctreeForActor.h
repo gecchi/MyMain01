@@ -48,7 +48,7 @@ public:
          */
         inline GgafCore::GgafActor* pop() {
             if (_p == 0) {
-                return NULL;
+                return (GgafCore::GgafActor*)NULL;
             } else {
                 _p--;
                 return (_apActor[_p]);

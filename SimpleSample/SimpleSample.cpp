@@ -12,8 +12,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
  * GCC のエントリポイント
  */
 int main(int argc, char *argv[]) {
-    GgafLibMain(argc, argv); //直後に、この様に呼び出して下さい。
-    return 0;
+    return GgafLibMain(argc, argv); //直後に、この様に呼び出して下さい。
 }
 
 /**
@@ -37,20 +36,21 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
     HWND hWnd1, hWnd2;
-    GgafLibCreateWindow(wcex1, wcex2, "SimpleSample[1]", "SimpleSample[2]", hWnd1, hWnd2);
+    GgafLibCreateWindow(wcex1            , wcex2,
+                        "SimpleSample[1]", "SimpleSample[2]", //タイトル
+                        hWnd1            , hWnd2);            //HWNDが代入されます(戻り値)
 
     MSG msg;
     try {
         //神の誕生
-        SimpleSample::God* pGod = NEW SimpleSample::God(hInstance, hWnd1, hWnd2);
+        SimpleSample::God* pGod = new SimpleSample::God(hInstance, hWnd1, hWnd2);
         pGod->init();
         //ゲームループ
         timeBeginPeriod(1);
         while (true) {
             if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
-                    //終了メッセージの場合この様に実装し、
-                    //アプリを終了させます。
+                    //終了メッセージの場合アプリを終了
                     if (SimpleSample::God::_can_be) {
                         SimpleSample::God::_can_be = false;
                         while (pGod->_is_being) { Sleep(2); }
