@@ -1,7 +1,7 @@
 #ifndef IKD_DIX_PCMPLAYER_H
 #define IKD_DIX_PCMPLAYER_H
 
-namespace Dix {
+namespace IkdLib {
 
 /**
  * PCMDecoder .
@@ -37,7 +37,7 @@ public:
 
     //! ˆêŽž’âŽ~
     void pause();
-
+    void unpause();
     //! ’âŽ~
     void stop();
 

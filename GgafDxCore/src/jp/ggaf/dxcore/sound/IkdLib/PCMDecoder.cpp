@@ -3,7 +3,7 @@
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
-using namespace Dix;
+using namespace IkdLib;
 
 PCMDecoder::PCMDecoder() :
         _is_looping(false), _is_ready(false), _num_channel(0), _sampling_rate(0), _bit_rate(0)

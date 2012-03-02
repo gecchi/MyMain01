@@ -3,7 +3,7 @@
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
-using namespace Dix;
+using namespace IkdLib;
 
 namespace {
 const unsigned int requestSize_g = 4096; // ì«Ç›çûÇ›íPà 

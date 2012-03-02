@@ -10,6 +10,7 @@ GgafDxBgmPerformer::GgafDxBgmPerformer() : GgafObject() {
 
     _bgm_num = 0;
     _papBgmCon = NULL;
+    _pa_pause_stat = NULL;
     _pa_is_fade = NULL;
     _pa_now_volume = NULL;
     _pa_target_volume = NULL;
@@ -24,6 +25,7 @@ void GgafDxBgmPerformer::useBgm(int prm_bgm_num) {
     _pa_now_volume = NEW double[_bgm_num];
     _pa_target_volume = NEW double[_bgm_num];
     _pa_inc_volume = NEW double[_bgm_num];
+    _pa_pause_stat = NEW IkdLib::PCMPlayer::STATE[_bgm_num];
     for (int i = 0; i < _bgm_num; i++) {
         _papBgmCon[i] = NULL;
         _pa_is_fade[i] = false;
@@ -31,6 +33,7 @@ void GgafDxBgmPerformer::useBgm(int prm_bgm_num) {
         _pa_now_volume[i] = GGAF_MAX_VOLUME;
         _pa_target_volume[i] = GGAF_MAX_VOLUME;
         _pa_inc_volume[i] = 0;
+        _pa_pause_stat[i] = IkdLib::PCMPlayer::STATE_STOP;
     }
 }
 void GgafDxBgmPerformer::fade(int prm_id, frame prm_frame, int prm_target_volume) {
@@ -74,6 +77,24 @@ void GgafDxBgmPerformer::pause(int prm_id) {
     _papBgmCon[prm_id]->use()->pause();
 }
 
+void GgafDxBgmPerformer::pause() {
+    for (int id = 0; id < _bgm_num; id++) {
+        pause(id);
+    }
+}
+
+void GgafDxBgmPerformer::unpause(int prm_id) {
+    if (prm_id < 0 || prm_id >= _bgm_num) {
+        throwGgafCriticalException("GgafDxBgmPerformer::pause() IDÇ™îÕàÕäOÇ≈Ç∑ÅB0~"<<(_bgm_num-1)<<"Ç≈Ç®äËÇ¢ÇµÇ‹Ç∑ÅBprm_id="<<prm_id);
+    }
+    _papBgmCon[prm_id]->use()->unpause();
+}
+
+void GgafDxBgmPerformer::unpause() {
+    for (int id = 0; id < _bgm_num; id++) {
+        unpause(id);
+    }
+}
 void GgafDxBgmPerformer::behave() {
     for (int id = 0; id < _bgm_num; id++) {
 

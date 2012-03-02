@@ -1,7 +1,7 @@
 #ifndef IKD_DIX_PCMDECODER_H
 #define IKD_DIX_PCMDECODER_H
 
-namespace Dix {
+namespace IkdLib {
 
 /**
  * PCMDecoder .

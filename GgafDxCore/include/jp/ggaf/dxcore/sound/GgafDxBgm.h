@@ -10,9 +10,9 @@ public:
     int _bpm;
     std::string _title;
     std::string _ogg_file_name;
-    Dix::PCMPlayer* _pPcmPlayer;
-    Dix::OggVorbisFile* _pOggResource;
-    Dix::OggDecoder* _pOggDecoder;
+    IkdLib::PCMPlayer* _pPcmPlayer;
+    IkdLib::OggVorbisFile* _pOggResource;
+    IkdLib::OggDecoder* _pOggDecoder;
 
     /**
      *
@@ -33,6 +33,7 @@ public:
         play(GGAF_MAX_VOLUME, 0.0f, prm_is_looping);
     }
     void pause();
+    void unpause();
     void stop();
     void setVolume(int volume);
     void setPan(float pan);

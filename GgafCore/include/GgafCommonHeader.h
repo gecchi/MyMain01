@@ -80,7 +80,8 @@
 #ifndef _MSC_VER
     //GCCの場合、sal.hを別途インクルード
     #include "sal.h"
-    //GCCの場合sal.hで何故かNULL が __null で 未定義のため強制的に再定義(ナンノコッチャ)
+    // GCCの場合sal.hで何故かNULL が __null で 未定義のため強制的に再定義(ﾅﾝﾉｺｯﾁｬ)
+    // /GgafCore/MSVC_include/sal.h コード内の忘備録メモを参照
     #undef NULL
     #ifdef __cplusplus
         #define NULL 0

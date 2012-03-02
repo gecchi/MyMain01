@@ -6,12 +6,24 @@ using namespace std;
 
 #define MY_IDM_RESET_WINDOW_SIZE 10
 #define MY_IDM_ABOUT             11
+#define MY_IDM_VPOS_1             21
+#define MY_IDM_VPOS_2             22
+#define MY_IDM_VPOS_3             23
+#define MY_IDM_VPOS_4             24
+#define MY_IDM_VPOS_5             25
+#define MY_IDM_VPOS_6             26
+#define MY_IDM_VPOS_7             27
+#define MY_IDM_VPOS_8             28
+#define MY_IDM_VPOS_9             29
+#define MY_IDM_ASPECT_FIXED             31
+#define MY_IDM_ASPECT_STRETCH             32
+
 #define MAX_LOADSTRING 100
 // グローバル変数:
 HINSTANCE hInst; // 現在のインターフェイス
 TCHAR szTitle[MAX_LOADSTRING]; // タイトル バーのテキスト
 TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
-
+HWND hWnd1, hWnd2;
 // このコード モジュールに含まれる関数の宣言を転送します:
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -78,7 +90,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
 
-    HWND hWnd1, hWnd2;
+
     GgafLibCreateWindow(wcex1, wcex2, szTitle, "secondary", hWnd1, hWnd2);
 
     //_CrtSetBreakAlloc(203659);
@@ -224,6 +236,32 @@ void myTerminateHandler() {
 }
 
 
+void chengeViewPos(HWND prm_pHWnd, int pos) {
+    if (GGAF_PROPERTY(DUAL_VIEW)) {
+        if (prm_pHWnd == hWnd1) {
+            GGAF_PROPERTY(DUAL_VIEW_DRAW_POSITION1) = pos;
+        } else if (prm_pHWnd == hWnd2) {
+            GGAF_PROPERTY(DUAL_VIEW_DRAW_POSITION2) = pos;
+        }
+    } else {
+        GGAF_PROPERTY(SINGLE_VIEW_DRAW_POSITION) = pos;
+    }
+    if (GgafDxCore::GgafDxGod::_can_be) {
+        if (!GGAF_PROPERTY(FULL_SCREEN)) {
+            GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+            GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
+        }
+    }
+}
+void chengeViewAspect(HWND prm_pHWnd, bool prm_b) {
+    GGAF_PROPERTY(FIXED_GAME_VIEW_ASPECT) = prm_b;
+    if (GgafDxCore::GgafDxGod::_can_be) {
+        if (!GGAF_PROPERTY(FULL_SCREEN)) {
+            GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+            GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
+        }
+    }
+}
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     GgafLibWndProc(hWnd, message, wParam, lParam);
 
@@ -244,6 +282,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             } else if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
                 //ウィンドウリサイズ
                 resetWindowsize(hWnd);
+            } else if(wParam == MY_IDM_VPOS_1) {
+                chengeViewPos(hWnd, 1);
+            } else if(wParam == MY_IDM_VPOS_2) {
+                chengeViewPos(hWnd, 2);
+            } else if(wParam == MY_IDM_VPOS_3) {
+                chengeViewPos(hWnd, 3);
+            } else if(wParam == MY_IDM_VPOS_4) {
+                chengeViewPos(hWnd, 4);
+            } else if(wParam == MY_IDM_VPOS_5) {
+                chengeViewPos(hWnd, 5);
+            } else if(wParam == MY_IDM_VPOS_6) {
+                chengeViewPos(hWnd, 6);
+            } else if(wParam == MY_IDM_VPOS_7) {
+                chengeViewPos(hWnd, 7);
+            } else if(wParam == MY_IDM_VPOS_8) {
+                chengeViewPos(hWnd, 8);
+            } else if(wParam == MY_IDM_VPOS_9) {
+                chengeViewPos(hWnd, 9);
+            } else if(wParam == MY_IDM_ASPECT_FIXED) {
+                chengeViewAspect(hWnd, true);
+            } else if(wParam == MY_IDM_ASPECT_STRETCH) {
+                chengeViewAspect(hWnd, false);
             }
             break;
         default:
@@ -255,23 +315,46 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 // システムメニューをカスタマイズします。
 BOOL CustmizeSysMenu(HWND hWnd)
 {
-    HMENU hMenu;
-    // システムメニューのハンドルを取得
-    hMenu = GetSystemMenu(hWnd, FALSE);
 //    for (i = 0; i <= 5; i++)
 //        //システムメニューの項目を消去
 //        DeleteMenu(hMenu, 0, MF_BYPOSITION);
 //    //システムメニューの項目を追加
-    InsertMenu(hMenu, 5, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
-    InsertMenu(hMenu, 6, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE, "Reset window size.");
-    InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING, MY_IDM_ABOUT, "about");
 
-//    AppendMenu(hMenu, MF_STRING, IDM_ABOUT, "アバウト");
+
+    HMENU menu_vp = CreateMenu();
+    InsertMenu(menu_vp,  0, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_7, "7");
+    InsertMenu(menu_vp,  1, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp,  2, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_4, "4");
+    InsertMenu(menu_vp,  3, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp,  4, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_1, "1");
+    InsertMenu(menu_vp,  5, MF_STRING | MF_BYPOSITION | MF_MENUBARBREAK, MY_IDM_VPOS_8, "8");
+    InsertMenu(menu_vp,  6, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp,  7, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_5, "5");
+    InsertMenu(menu_vp,  8, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp,  9, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_2, "2");
+    InsertMenu(menu_vp, 10, MF_STRING | MF_BYPOSITION | MF_MENUBARBREAK, MY_IDM_VPOS_9, "9");
+    InsertMenu(menu_vp, 11, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp, 12, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_6, "6");
+    InsertMenu(menu_vp, 13, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp, 14, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_3, "3");
+
+    HMENU menu_aspect = CreateMenu();
+    InsertMenu(menu_aspect, 0, MF_STRING | MF_BYPOSITION, MY_IDM_ASPECT_FIXED, "Fix");
+    InsertMenu(menu_aspect, 1, MF_STRING | MF_BYPOSITION, MY_IDM_ASPECT_STRETCH, "Stretch");
+
+    HMENU hMenu = GetSystemMenu(hWnd, FALSE);
+    InsertMenu(hMenu, 5, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(hMenu, 6, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE    , "Reset window size.");
+    InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT)menu_aspect, "Game view aspect.");
+    InsertMenu(hMenu, 8, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT)menu_vp    , "Game view position.");
+    InsertMenu(hMenu, 9, MF_BYPOSITION | MF_STRING, MY_IDM_ABOUT, "About");
+
     //システムメニューを作成
     DrawMenuBar(hWnd);
 
     return TRUE;
 }
+
 
 // バージョン情報ボックスのメッセージ ハンドラです。
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {

@@ -28,18 +28,43 @@ template<class T>
 class GgafElement : public GgafNode<T> {
 
 private:
+
     /**
      * ツリー構造において、再帰呼び出しを行う。
      * @param pFunc 再帰呼び出しするメソッド
      */
-    void callRecursive(void (GgafElement<T>::*pFunc)());
+    inline void callRecursive(void (GgafElement<T>::*pFunc)()) {
+        if (GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafNode<T>::_pSubFirst;
+            while(true) {
+                (pElementTemp->*pFunc)(); //実行
+                if (pElementTemp->_is_last_flg) {
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->_pNext;
+                }
+            }
+        }
+    }
 
     /**
      * ツリー構造において、再帰呼び出しを行う。
      * @param pFunc 再帰呼び出しするメソッド(frame 引数有り)
      * @param prm_frame pFuncの引数であるframe
      */
-    void callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame);
+    inline void callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame) {
+        if (GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafNode<T>::_pSubFirst;
+            while(true) {
+                (pElementTemp->*pFunc)(prm_frame); //実行
+                if (pElementTemp->_is_last_flg) {
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->_pNext;
+                }
+            }
+        }
+    }
 
 
 public:
@@ -780,17 +805,6 @@ public:
      */
     virtual UINT32 getActivePartFrame();
 
-//
-//    /**
-//     * 相対経過振る舞いフレームの判定。
-//     * 直前の relativeFrame(int) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。
-//     * 初回呼び出しは、getBehaveingFrame() == ０からの相対フレーム数となるため、１度は空呼び出しを行う（なんとかしたい）事になるかもしれない。
-//     * 注意：入れ子や条件分岐により、relativeFrame(int) が呼び出される回数が変化する場合、相対経過フレームも変化する。
-//     * @param   prm_frameEnd    相対振る舞いフレーム数
-//     * @return  bool    true:経過フレーム数に達した/false:達していない
-//     */
-//    virtual bool relativeFrame(frame prm_frameEnd);
-
     /**
      * 配下全てのオブジェクトに対して指定の関数を実行させる .
      * 配下オブジェクト（アクターかシーン）のポインタが、引数関数ポインタの pFuncの第１引数に渡ってくる。<BR>
@@ -845,6 +859,8 @@ public:
             _TRACE_("["<<GgafNode<T>::getName()<<"] は既に useProgress している。prm_num="<<prm_num);
         }
     }
+
+    virtual void updateActiveInTheTree() = 0;
 
 };
 
@@ -951,17 +967,7 @@ void GgafElement<T>::nextFrame() {
 
     }
     //_is_active_in_the_tree_flg更新
-    T* pParent = GgafNode<T>::_pParent;
-    if (pParent) {
-        if (pParent->_is_active_in_the_tree_flg) {
-            _is_active_in_the_tree_flg = _is_active_flg;
-        } else {
-            _is_active_in_the_tree_flg = false;
-        }
-
-    } else {
-        _is_active_in_the_tree_flg = _is_active_flg;
-    }
+    updateActiveInTheTree();
 
     if (!_was_paused_flg) {
         if (_is_active_in_the_tree_flg) {
@@ -1099,36 +1105,6 @@ void GgafElement<T>::doFinally() {
             processFinal();
         }
         callRecursive(&GgafElement<T>::doFinally); //再帰
-    }
-}
-
-template<class T>
-void GgafElement<T>::callRecursive(void (GgafElement<T>::*pFunc)()) {
-    if (GgafNode<T>::_pSubFirst) {
-        T* pElementTemp = GgafNode<T>::_pSubFirst;
-        while(true) {
-            (pElementTemp->*pFunc)(); //実行
-            if (pElementTemp->_is_last_flg) {
-                break;
-            } else {
-                pElementTemp = pElementTemp->_pNext;
-            }
-        }
-    }
-}
-
-template<class T>
-void GgafElement<T>::callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame) {
-    if (GgafNode<T>::_pSubFirst) {
-        T* pElementTemp = GgafNode<T>::_pSubFirst;
-        while(true) {
-            (pElementTemp->*pFunc)(prm_frame); //実行
-            if (pElementTemp->_is_last_flg) {
-                break;
-            } else {
-                pElementTemp = pElementTemp->_pNext;
-            }
-        }
     }
 }
 

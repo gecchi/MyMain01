@@ -1,7 +1,7 @@
 #ifndef IKD_DIX_OGGVORBISFILE_H
 #define IKD_DIX_OGGVORBISFILE_H
 
-namespace Dix {
+namespace IkdLib {
 /**
  * OggVorbisFile .
  * 本プログラムは、<BR>

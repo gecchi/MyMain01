@@ -3,7 +3,7 @@
 
 #include "vorbis/vorbisfile.h"
 
-namespace Dix {
+namespace IkdLib {
 
 /**
  * OggVorbisResource .

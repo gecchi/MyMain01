@@ -15,6 +15,11 @@ void GgafDxScene::processSettlementBehavior() {
         _pAlphaCurtain->behave();
     }
     _pBgmPerformer->behave();
+    if (_was_paused_flg_in_next_frame == true) {
+        _pBgmPerformer->pause();
+    } else {
+        _pBgmPerformer->unpause();
+    }
 }
 
 void GgafDxScene::fadeinSceneTree(int prm_frame_fade) {

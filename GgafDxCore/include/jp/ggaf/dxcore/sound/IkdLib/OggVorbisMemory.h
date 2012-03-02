@@ -1,7 +1,7 @@
 #ifndef IKD_DIX_OGGVORBISMEMORY_H
 #define IKD_DIX_OGGVORBISMEMORY_H
 
-namespace Dix {
+namespace IkdLib {
 
 /**
  * OggVorbisMemory .

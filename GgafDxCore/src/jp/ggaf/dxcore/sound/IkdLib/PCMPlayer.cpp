@@ -10,7 +10,7 @@
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
-using namespace Dix;
+using namespace IkdLib;
 
 
 #ifdef _MSC_VER
@@ -23,7 +23,7 @@ namespace {
 double playTime_g = 1; // 1 sec.
 }
 
-//namespace Dix {
+//namespace IkdLib {
 PCMPlayer::PCMPlayer() :
         _pDS8(NULL), _pDSBuffer(NULL), _pPCMDecoder(NULL), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
 {
@@ -326,9 +326,21 @@ void PCMPlayer::pause() {
         // “®‚¢‚Ä‚¢‚½‚ç~‚ß‚é
         _pDSBuffer->Stop();
         _state = STATE_PAUSE;
-    } else {
-        // ~‚Ü‚Á‚Ä‚¢‚½‚çÄ¶
+    } else if (_state == STATE_PAUSE) {
+        //PAUSE’†‚Épause()‚µ‚Ä‚à–³‹
+    } else if (_state == STATE_STOP) {
+        //’â~’†‚Épause()‚µ‚Ä‚à–³‹
+    }
+}
+void PCMPlayer::unpause() {
+    if (_state == STATE_PLAY) {
+        //‰‰‘t’†‚É unpause() ‚µ‚Ä‚à–³‹
+    } else if (_state == STATE_PAUSE) {
+        // PAUSE’†‚È‚çÄ¶
+        _state = STATE_PLAY;
         play(_is_looping);
+    } else if (_state == STATE_STOP) {
+        //’â~’†‚Éunpause()‚µ‚Ä‚à–³‹
     }
 }
 

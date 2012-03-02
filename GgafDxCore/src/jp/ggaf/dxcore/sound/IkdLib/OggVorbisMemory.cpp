@@ -3,7 +3,7 @@
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
-using namespace Dix;
+using namespace IkdLib;
 
 OggVorbisMemory::OggVorbisMemory() :
         _size(0), _pos_current(0)

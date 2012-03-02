@@ -259,6 +259,24 @@ GgafGod* GgafScene::askGod() {
     return _pGod;
 }
 
+void GgafScene::updateActiveInTheTree() {
+    if (_pParent) {
+        if (_pParent->_is_active_in_the_tree_flg) {
+            _is_active_in_the_tree_flg = _is_active_flg;
+        } else {
+            _is_active_in_the_tree_flg = false;
+        }
+    } else {
+        if (_obj_class & Obj_GgafUniverse == Obj_GgafUniverse) {
+            _is_active_in_the_tree_flg = _is_active_flg;
+        } else {
+            //自身が GgafUniverse以外でかつ _pParent=NULL で、
+            //updateActiveInTheTree() がコールされることはありえないはず。
+            throwGgafCriticalException("GgafScene::updateActiveInTheTree() _is_active_in_the_tree_flg 更新できません。 name="<<getName()<<" this="<<this);
+        }
+    }
+}
+
 void GgafScene::dump() {
     _TRACE_("●"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_behaving_since_onActive<<
                                                                 "/"<<

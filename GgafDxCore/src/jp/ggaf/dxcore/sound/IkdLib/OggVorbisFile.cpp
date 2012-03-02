@@ -2,7 +2,7 @@
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
-using namespace Dix;
+using namespace IkdLib;
 
 OggVorbisFile::OggVorbisFile() {
 }

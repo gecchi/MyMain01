@@ -1431,7 +1431,10 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
     if (prm_pHWnd && !GGAF_PROPERTY(FULL_SCREEN) && GGAF_PROPERTY(FIXED_GAME_VIEW_ASPECT)) {
         HRESULT hr;
         hr = GgafDxGod::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
-        checkDxException(hr, D3D_OK, "GgafDxGod::_pID3DDevice9->Clear() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = GgafDxGod::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+        if (GGAF_PROPERTY(DUAL_VIEW)) {
+            hr = GgafDxGod::_pID3DDevice9->Present(NULL, NULL, _pHWndSecondary, NULL);
+        }
         if (::GetClientRect(prm_pHWnd, &rect)) {
             LONG width = rect.right;
             LONG height = rect.bottom;

@@ -2,7 +2,7 @@
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
-using namespace Dix;
+using namespace IkdLib;
 
 //GgafDxBgm::GgafDxBgm(char* prm_ogg_name) : GgafObject() {
 //    _TRACE_("GgafDxBgm::GgafDxBgm "<<prm_ogg_name);
@@ -39,6 +39,9 @@ void GgafDxBgm::play(int prm_volume, float prm_pan, bool prm_is_looping) {
 
 void GgafDxBgm::pause() {
     _pPcmPlayer->pause();
+}
+void GgafDxBgm::unpause() {
+    _pPcmPlayer->unpause();
 }
 
 void GgafDxBgm::stop() {

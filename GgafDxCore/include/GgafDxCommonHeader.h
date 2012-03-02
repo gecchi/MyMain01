@@ -122,7 +122,7 @@ DECLARE_CONST(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
 #include <dsound.h>
 #include <dxfile.h>
 //#pragma GCC diagnostic pop
-namespace Dix {
+namespace IkdLib {
 class PCMPlayer;
 class OggVorbisResource;
 class PCMDecoder;

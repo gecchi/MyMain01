@@ -572,6 +572,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="small.ico" />
     <None Include="VioletVreath.ico" />
   </ItemGroup>
   <ItemGroup>

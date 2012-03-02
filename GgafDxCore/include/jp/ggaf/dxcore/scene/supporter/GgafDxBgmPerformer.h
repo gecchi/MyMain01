@@ -24,6 +24,8 @@ public:
     /** Bgm‘Œ¹Ú‘± */
     GgafDxBgmConnection** _papBgmCon;
 
+    IkdLib::PCMPlayer::STATE* _pa_pause_stat;
+
     GgafDxBgmPerformer();
     void useBgm(int prm_bgm_num);
     /**
@@ -59,6 +61,11 @@ public:
     void stop(int prm_id);
 
     void pause(int prm_id);
+    void unpause(int prm_id);
+
+    void pause();
+    void unpause();
+
     virtual ~GgafDxBgmPerformer();
 };
 
