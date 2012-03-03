@@ -860,6 +860,9 @@ public:
         }
     }
 
+    /**
+     * ツリー考慮ありノード活動フラグ(自)
+     */
     virtual void updateActiveInTheTree() = 0;
 
 };
@@ -966,7 +969,8 @@ void GgafElement<T>::nextFrame() {
         }
 
     }
-    //_is_active_in_the_tree_flg更新
+
+    //_is_active_in_the_tree_flg を更新
     updateActiveInTheTree();
 
     if (!_was_paused_flg) {
@@ -1096,7 +1100,6 @@ void GgafElement<T>::afterDraw() {
     }
 }
 
-
 template<class T>
 void GgafElement<T>::doFinally() {
     if (_is_active_in_the_tree_flg && !_was_paused_flg && _can_live_flg) {
@@ -1123,7 +1126,6 @@ void GgafElement<T>::reset() {
         }
     }
 }
-
 
 template<class T>
 void GgafElement<T>::resetTree() {
@@ -1190,6 +1192,7 @@ void GgafElement<T>::activateDelay(frame prm_offset_frames) {
         _frame_of_life_when_activation = _frame_of_life + prm_offset_frames;
     }
 }
+
 template<class T>
 void GgafElement<T>::activateWhile(frame prm_frames) {
 #ifdef MY_DEBUG
@@ -1204,7 +1207,6 @@ void GgafElement<T>::activateWhile(frame prm_frames) {
         _frame_of_life_when_inactivation = _frame_of_life + prm_frames;
     }
 }
-
 
 template<class T>
 void GgafElement<T>::activateTreeDelay(frame prm_offset_frames) {
@@ -1249,7 +1251,6 @@ void GgafElement<T>::inactivateDelay(frame prm_offset_frames) {
                 _will_activate_after_flg = false;
             }
         }
-
         if (_will_inactivate_after_flg) {
             //既にinactivateDelay()実行済みの場合、より早く inactivate するならば上書きする
             if (_frame_of_life_when_inactivation < _frame_of_life + prm_offset_frames) {
@@ -1354,6 +1355,7 @@ void GgafElement<T>::unpauseImmed() {
         _was_paused_flg_in_next_frame = false;
     }
 }
+
 template<class T>
 void GgafElement<T>::end(frame prm_offset_frames) {
     if (_will_end_after_flg) {
@@ -1418,7 +1420,6 @@ bool GgafElement<T>::onChangeToInactive() {
     }
 }
 
-
 template<class T>
 bool GgafElement<T>::wasPause() {
     if (_was_paused_flg) {
@@ -1436,7 +1437,6 @@ bool GgafElement<T>::wasDeclaredEnd() {
         return false;
     }
 }
-
 
 //template<class T>
 //T* GgafElement<T>::extract() {
@@ -1458,7 +1458,6 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
     T* pWk;
 
     while(GgafFactory::_cnt_cleaned < prm_num_cleaning) {
-
         if (pElementTemp->_pSubFirst) {
             //子の子がまだのっている場合さらにもぐる
             pElementTemp->clean(prm_num_cleaning);
@@ -1466,7 +1465,6 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
                 break;
             }
         }
-
         if (pElementTemp->_is_first_flg) { //最後の一つ
             if (pElementTemp->_pSubFirst) {
                 //子の子がまだのっている場合さらにもぐる
@@ -1498,7 +1496,6 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
     }
 }
 
-
 template<class T>
 UINT32 GgafElement<T>::getBehaveingFrame() {
    return _frame_of_behaving;
@@ -1508,6 +1505,7 @@ template<class T>
 UINT32 GgafElement<T>::getActivePartFrame() {
    return _frame_of_behaving_since_onActive;
 }
+
 template<class T>
 void GgafElement<T>::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
     if (_can_live_flg) {
@@ -1572,7 +1570,6 @@ bool GgafElement<T>::isDisappear() {
         return false;
     }
 }
-
 
 template<class T>
 GgafElement<T>::~GgafElement() {

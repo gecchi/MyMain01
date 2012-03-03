@@ -267,7 +267,7 @@ CPP_CLI_SUPPORT        = YES
 # Doxygen will parse them like normal C++ but will assume all classes use public 
 # instead of private inheritance when no explicit protection keyword is present.
 
-SIP_SUPPORT            = NO
+SIP_SUPPORT            = YES
 
 # For Microsoft's IDL there are propget and propput attributes to indicate getter 
 # and setter methods for a property. Setting this option to YES (the default) 
@@ -298,7 +298,7 @@ SUBGROUPING            = YES
 # @ingroup) instead of on a separate page (for HTML and Man pages) or 
 # section (for LaTeX and RTF).
 
-INLINE_GROUPED_CLASSES = NO
+INLINE_GROUPED_CLASSES = YES
 
 # When the INLINE_SIMPLE_STRUCTS tag is set to YES, structs, classes, and 
 # unions with only public data fields will be shown inline in the documentation 
@@ -307,7 +307,7 @@ INLINE_GROUPED_CLASSES = NO
 # structs, classes, and unions are shown on a separate page (for HTML and Man 
 # pages) or section (for LaTeX and RTF).
 
-INLINE_SIMPLE_STRUCTS  = NO
+INLINE_SIMPLE_STRUCTS  = YES
 
 # When TYPEDEF_HIDES_STRUCT is enabled, a typedef of a struct, union, or enum 
 # is documented as struct, union, or enum with the name of the typedef. So 
@@ -317,7 +317,7 @@ INLINE_SIMPLE_STRUCTS  = NO
 # be useful for C code in case the coding convention dictates that all compound 
 # types are typedef'ed and only the typedef is referenced, never the tag name.
 
-TYPEDEF_HIDES_STRUCT   = NO
+TYPEDEF_HIDES_STRUCT   = YES
 
 # The SYMBOL_CACHE_SIZE determines the size of the internal cache use to 
 # determine which symbols to keep in memory and which to flush to disk. 

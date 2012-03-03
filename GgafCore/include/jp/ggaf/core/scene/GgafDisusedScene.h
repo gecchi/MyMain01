@@ -35,6 +35,8 @@ public:
     }
     void processFinal() override {
     }
+    virtual void updateActiveInTheTree() override {}
+
     virtual ~GgafDisusedScene() {
     }
 };

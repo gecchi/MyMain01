@@ -123,29 +123,6 @@ GgafFormation* GgafActor::getFormation() {
     return _pFormation;
 }
 
-void GgafActor::updateActiveInTheTree() {
-    if (_pParent) {
-        if (_pParent->_is_active_in_the_tree_flg) {
-            _is_active_in_the_tree_flg = _is_active_flg;
-        } else {
-            _is_active_in_the_tree_flg = false;
-        }
-    } else {
-        if (_obj_class & Obj_GgafDirector) {
-            //自身が GgafDirector である。
-            if (getPlatformScene()->_is_active_in_the_tree_flg) {
-                _is_active_in_the_tree_flg = _is_active_flg;
-            } else {
-                _is_active_in_the_tree_flg = false;
-            }
-        } else {
-            //自身が GgafDirector以外でかつ _pParent=NULL で、
-            //updateActiveInTheTree() がコールされることはありえないはず。
-            throwGgafCriticalException("GgafActor::updateActiveInTheTree() _is_active_in_the_tree_flg 更新できません。 name="<<getName()<<" this="<<this);
-        }
-    }
-}
-
 void GgafActor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_behaving_since_onActive<<
                                                                                "/"<<

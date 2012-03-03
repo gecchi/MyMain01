@@ -82,13 +82,7 @@ public:
     virtual void processFinal() override {
     }
 
-    /**
-     * 活動フラグ（常に活動）を返す .
-     * @return
-     */
-    bool isActiveInTheTree() override {
-        return true;
-    }
+    virtual void updateActiveInTheTree() override;
 
     virtual ~GgafUniverse();
 };

@@ -215,7 +215,6 @@ public:
      */
     virtual GgafActor* extract() override;
 
-    virtual void updateActiveInTheTree() override;
     /**
      * デバッグ用：ツリー構造を表示<BR>
      */

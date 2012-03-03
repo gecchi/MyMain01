@@ -188,7 +188,6 @@ public:
      */
     virtual GgafDirector* getDirector();
 
-    virtual void updateActiveInTheTree() override;
 
     /**
      * デバッグ用：ツリー構造を表示 .

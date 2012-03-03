@@ -18,6 +18,8 @@ public:
 
     GgafMainScene(const char* prm_name);
 
+    virtual void updateActiveInTheTree() override;
+
     virtual ~GgafMainScene();
 
 };

@@ -66,11 +66,17 @@ GgafGroupHead* GgafDirector::searchSubGroupHead(actorkind prm_kind) {
     }
 }
 
-/*
- GgafGroupHead* GgafDirector::getMyGroupHead(string prm_kind) {
-
- }
- */
+void GgafDirector::updateActiveInTheTree() {
+    if (getPlatformScene()) {
+        if (_pScene_Platform->_is_active_in_the_tree_flg) {
+            _is_active_in_the_tree_flg = _is_active_flg;
+        } else {
+            _is_active_in_the_tree_flg = false;
+        }
+    } else {
+        throwGgafCriticalException("GgafDirector::updateActiveInTheTree() _is_active_in_the_tree_flg XV‚Å‚«‚Ü‚¹‚ñB name="<<getName()<<" this="<<this);
+    }
+}
 
 GgafGod* GgafDirector::askGod() {
     if (_pGod == NULL) {

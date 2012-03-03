@@ -41,6 +41,9 @@ public:
     GgafGod* askGod() {
         return NULL;
     }
+
+    virtual void updateActiveInTheTree() override {}
+
     virtual ~GgafDisusedActor() {
     }
 };

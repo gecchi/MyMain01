@@ -6,7 +6,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace SimpleSample;
 
-TestActor::TestActor(const char* prm_name) : 
+TestActor::TestActor(const char* prm_name) :
         DefaultMeshActor(prm_name, "Guruguru") { //Guruguru.x が参照される。
 }
 
@@ -19,6 +19,7 @@ void TestActor::initialize() {
 
 void TestActor::processBehavior() {
     _pKurokoA->behave(); //黒子Aを活動させる（Z軸回転する）
+    updateActiveInTheTree();
 }
 
 TestActor::~TestActor() {

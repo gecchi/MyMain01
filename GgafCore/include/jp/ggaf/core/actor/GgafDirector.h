@@ -148,6 +148,7 @@ public:
     GgafGroupHead* searchSubGroupHead(actorkind prm_kind);
 
 
+    virtual void updateActiveInTheTree() override;
 
     /**
      * ê_Ç…âyå© .

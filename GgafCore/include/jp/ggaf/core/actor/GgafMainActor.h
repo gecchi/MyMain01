@@ -48,6 +48,9 @@ public:
         return (GgafMainActor*)GgafActor::getSubFirst();
     }
 
+
+    virtual void updateActiveInTheTree() override;
+
     /**
      * 自ツリーノードを連結リストから切り離し、独立する。 .
      * 切り離され穴が開いた部分は、周りのノードが穴を埋めます（再連結します）<BR>

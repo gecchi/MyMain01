@@ -18,13 +18,17 @@ GgafMainActor* GgafMainActor::extract() {
     return pActor;
 }
 
-//bool GgafMainActor::isActiveInTheTree() {
-//    if (GgafActor::isActiveInTheTree() && getPlatformScene() && getPlatformScene()->isActiveInTheTree()) {
-//        return true;
-//    } else {
-//        return false;
-//    }
-//}
+void GgafMainActor::updateActiveInTheTree() {
+    if (getParent()) {
+        if (_pParent->_is_active_in_the_tree_flg) {
+            _is_active_in_the_tree_flg = _is_active_flg;
+        } else {
+            _is_active_in_the_tree_flg = false;
+        }
+    } else {
+        throwGgafCriticalException("GgafMainActor::updateActiveInTheTree() _is_active_in_the_tree_flg XV‚Å‚«‚Ü‚¹‚ñB name="<<getName()<<" this="<<this);
+    }
+}
 
 void GgafMainActor::setSceneDirector(GgafDirector* prm_pDirector) {
     _pDirector = prm_pDirector;

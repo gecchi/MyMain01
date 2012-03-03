@@ -107,6 +107,8 @@ public:
      */
     GgafGod* askGod();
 
+    virtual void updateActiveInTheTree() override;
+
     virtual ~GgafGroupHead();
 };
 
