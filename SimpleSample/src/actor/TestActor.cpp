@@ -19,7 +19,6 @@ void TestActor::initialize() {
 
 void TestActor::processBehavior() {
     _pKurokoA->behave(); //•qA‚ğŠˆ“®‚³‚¹‚éiZ²‰ñ“]‚·‚éj
-    updateActiveInTheTree();
 }
 
 TestActor::~TestActor() {
