@@ -6,11 +6,11 @@ class MyOptionStraightLaserChip001 : public GgafLib::StraightLaserChip {
 
 public:
     /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
-    int _lockon;
-    MyOption* _pOrg;
-    bool _isLockon;
+    int lockon_;
+    MyOption* pOrg_;
+    bool isLockon_;
 
-    int _default_stamina;
+    int default_stamina_;
     MyOptionStraightLaserChip001(const char* prm_name);
 
     void initialize() override;

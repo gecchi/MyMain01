@@ -26,13 +26,13 @@ public:
     };
 
     vector<ScoreInfo> ranking;
-    LabelRankingFont** _papLabelRanking;
+    LabelRankingFont** papLabelRanking_;
 
-    LabelGecchi16Font* _pStringBoard01;
-    LabelGecchi16Font* _pStringBoard02;
-    int _demo_stage;
+    LabelGecchi16Font* pStringBoard01_;
+    LabelGecchi16Font* pStringBoard02_;
+    int demo_stage_;
 
-    int _ranking_num;
+    int ranking_num_;
 
     GameDemoScene(const char* prm_name);
     void onReset() override;

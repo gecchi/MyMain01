@@ -9,7 +9,7 @@ MyOptionControllerDirectionVector::MyOptionControllerDirectionVector(const char*
         DefaultMeshActor(prm_name, "Nothing", NULL) {
     _class_name = "MyOptionControllerDirectionVector";
 
-    _ptn_no = 0;
+    ptn_no_ = 0;
 }
 
 void MyOptionControllerDirectionVector::initialize() {

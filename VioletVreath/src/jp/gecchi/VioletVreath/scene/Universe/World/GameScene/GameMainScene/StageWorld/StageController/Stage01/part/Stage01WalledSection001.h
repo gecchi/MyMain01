@@ -15,7 +15,7 @@ class Stage01WalledSection001 : public GgafLib::WalledSectionScene {
 
 public:
 
-    float _bound_alpha;
+    float bound_alpha_;
 
     Stage01WalledSection001(const char* prm_name,  GgafLib::ScrolledScene* prm_pScrolledScene, const char* prm_data_filename);
 

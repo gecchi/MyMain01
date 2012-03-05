@@ -29,12 +29,12 @@ void MyWave001::initialize() {
     _pCollisionChecker->setColliAAB(6,  -10000,  -10000,  120000,   10000,   10000,  140000, true, true, true);
 
 
-    //	_pCollisionChecker->_pHitAreaBoxs->setLine(0, -20000, 20000, 20000, 20000, true);
-    //	_pCollisionChecker->_pHitAreaBoxs->setLine(1, 20000, 20000, 20000, -20000, true);
-    //	_pCollisionChecker->_pHitAreaBoxs->setLine(2, 20000, -20000, -20000, -20000, true);
-    //	_pCollisionChecker->_pHitAreaBoxs->setLine(3, -20000, -20000, -20000, 20000, true);
-    //	_pCollisionChecker->_pHitAreaBoxs->setLine(4, 30000, 30000, -30000, -30000, true);
-    //	_pCollisionChecker->_pHitAreaBoxs->setLine(5, -30000, 30000, 30000, -30000, true);
+    //	_pCollisionChecker->pHitAreaBoxs_->setLine(0, -20000, 20000, 20000, 20000, true);
+    //	_pCollisionChecker->pHitAreaBoxs_->setLine(1, 20000, 20000, 20000, -20000, true);
+    //	_pCollisionChecker->pHitAreaBoxs_->setLine(2, 20000, -20000, -20000, -20000, true);
+    //	_pCollisionChecker->pHitAreaBoxs_->setLine(3, -20000, -20000, -20000, 20000, true);
+    //	_pCollisionChecker->pHitAreaBoxs_->setLine(4, 30000, 30000, -30000, -30000, true);
+    //	_pCollisionChecker->pHitAreaBoxs_->setLine(5, -30000, 30000, 30000, -30000, true);
     //
     _pScaler->forceScaleRange(1000,20000);
     //setAlpha(0.2);

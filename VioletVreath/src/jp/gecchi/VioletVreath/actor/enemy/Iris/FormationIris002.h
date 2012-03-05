@@ -10,17 +10,17 @@ namespace VioletVreath {
  */
 class FormationIris002 : public GgafLib::TreeFormation {
 
-    DepositoryConnection* _pDepoCon;
-    SplineLineConnection* _pSplLineCon;
+    DepositoryConnection* pDepoCon_;
+    SplineLineConnection* pSplLineCon_;
 public:
     /** 編隊数(RANK変動) */
-    int _num_Iris;
+    int num_Iris_;
     /** イリスの配列(RANK変動) */
-    EnemyIris** _papIris;
+    EnemyIris** papIris_;
     /** 編隊間隔フレーム(RANK変動) */
-    frame _interval_frames;
+    frame interval_frames_;
     /** 移動速度(RANK変動) */
-    velo _mv_velo;
+    velo velo_mv_;
 
     FormationIris002(const char* prm_name);
 

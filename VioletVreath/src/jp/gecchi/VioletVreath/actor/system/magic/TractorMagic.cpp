@@ -30,11 +30,11 @@ TractorMagic::TractorMagic(const char* prm_name, AmountGraph* prm_pMP)
     //    | 52,  53,  54,  55 |
     //    | 56,  57,  58,  59 |
     //    | 60,  61,  62,  63 |
-    _lvinfo[0]._pno = 3;
-    _lvinfo[1]._pno = 28;
-    _lvinfo[2]._pno = 24;
+    lvinfo_[0].pno_ = 3;
+    lvinfo_[1].pno_ = 28;
+    lvinfo_[2].pno_ = 24;
 
-    _is_tracting = false;
+    is_tracting_ = false;
 }
 
 void TractorMagic::processCastBegin(int prm_now_level, int prm_new_level) {
@@ -54,7 +54,7 @@ void TractorMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
 }
 
 int TractorMagic::effect(int prm_level) {
-    _is_tracting = true; //
+    is_tracting_ = true; //
     int r = Magic::effect(prm_level);
     return r;
 }
@@ -64,7 +64,7 @@ void TractorMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 void TractorMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
 }
 void TractorMagic::processEffectFinish(int prm_justbefore_level) {
-    _is_tracting = false;
+    is_tracting_ = false;
 }
 
 TractorMagic::~TractorMagic() {

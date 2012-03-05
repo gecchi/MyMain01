@@ -5,35 +5,35 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-VirtualButton* God::_pVbtn_PLAY = NULL;
-VirtualButton* God::_pVbtn_UI = NULL;
-VirtualButton* God::_pVbtn_Active = NULL;
-VirtualButton* God::_pVbtn_Active_next_frame = NULL;
+VirtualButton* God::pVbtn_PLAY_ = NULL;
+VirtualButton* God::pVbtn_UI_ = NULL;
+VirtualButton* God::pVbtn_Active_ = NULL;
+VirtualButton* God::pVbtn_Active_next_frame_ = NULL;
 
 God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
       DefaultGod(prm_hInstance, prm_pHWndPrimary, prm_pHWndSecondary) {
-    _pDepoManager = NEW DepositoryManager("DepositoryManager");
-    _pSpl3DManager = NEW SplineLineManager("SplineLineManager");
-    God::_pVbtn_PLAY = NEW VirtualButton("VB_PLAY.rep");
-    God::_pVbtn_UI   = NEW VirtualButton("VB_UI.rep");
+    pDepoManager_ = NEW DepositoryManager("DepositoryManager");
+    pSpl3DManager_ = NEW SplineLineManager("SplineLineManager");
+    God::pVbtn_PLAY_ = NEW VirtualButton("VB_PLAY.rep");
+    God::pVbtn_UI_   = NEW VirtualButton("VB_UI.rep");
 #ifdef MY_DEBUG
-    _pVbtn_PLAY->_pRpy->setRealtimeOutputFile("VB_PLAY_LAST_REALTIME.rep");
-    _pVbtn_UI->_pRpy->setRealtimeOutputFile("VB_UI_LAST_REALTIME.rep");
+    pVbtn_PLAY_->_pRpy->setRealtimeOutputFile("VB_PLAY_LAST_REALTIME.rep");
+    pVbtn_UI_->_pRpy->setRealtimeOutputFile("VB_UI_LAST_REALTIME.rep");
 #endif
-    God::_pVbtn_Active = God::_pVbtn_UI;
-    God::_pVbtn_Active_next_frame = God::_pVbtn_UI;
+    God::pVbtn_Active_ = God::pVbtn_UI_;
+    God::pVbtn_Active_next_frame_ = God::pVbtn_UI_;
 
-    if (_pVbtn_PLAY->_is_replaying && _pVbtn_UI->_is_replaying) {
+    if (pVbtn_PLAY_->_is_replaying && pVbtn_UI_->_is_replaying) {
         _TRACE_("プレイリプレイ情報○、UIリプレイ情報○");
         _TRACE_("リプレイ再生モードです。");
-    } else if (!_pVbtn_PLAY->_is_replaying && _pVbtn_UI->_is_replaying) {
+    } else if (!pVbtn_PLAY_->_is_replaying && pVbtn_UI_->_is_replaying) {
         _TRACE_("プレイリプレイ情報×、UIリプレイ情報○");
-    } else if (_pVbtn_PLAY->_is_replaying && !_pVbtn_UI->_is_replaying) {
+    } else if (pVbtn_PLAY_->_is_replaying && !pVbtn_UI_->_is_replaying) {
         _TRACE_("プレイリプレイ情報○、UIリプレイ情報×");
         _TRACE_("リプレイ再生モードです。");
         _TRACE_("但し、プレイリプレイから PAUSE情報を切り取ります。");
         //プレイリプレイあり、かつUIリプレイ無しの場合のみ、プレイリプレイのPAUSE情報を除去する
-        VBReplayRecorder* pRepPlay = _pVbtn_PLAY->_pRpy;
+        VBReplayRecorder* pRepPlay = pVbtn_PLAY_->_pRpy;
         VBReplayRecorder::VBRecordNote* pRecNote = pRepPlay->_pFirstVBNote;
         while (pRecNote) {
             pRecNote->_state = pRecNote->_state & ~((vbsta)VB_PAUSE);
@@ -106,10 +106,10 @@ void God::clean() {
         }
         _TRACE_("God::clean() begin");
         DefaultGod::clean();
-        DELETE_IMPOSSIBLE_NULL(_pVbtn_PLAY);
-        DELETE_IMPOSSIBLE_NULL(_pVbtn_UI);
-        DELETE_IMPOSSIBLE_NULL(_pDepoManager);
-        DELETE_IMPOSSIBLE_NULL(_pSpl3DManager);
+        DELETE_IMPOSSIBLE_NULL(pVbtn_PLAY_);
+        DELETE_IMPOSSIBLE_NULL(pVbtn_UI_);
+        DELETE_IMPOSSIBLE_NULL(pDepoManager_);
+        DELETE_IMPOSSIBLE_NULL(pSpl3DManager_);
         _TRACE_("God::clean() end");
     }
 }

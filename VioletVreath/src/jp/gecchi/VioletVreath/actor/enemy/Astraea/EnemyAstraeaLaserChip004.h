@@ -6,8 +6,8 @@ class EnemyAstraeaLaserChip004 : public GgafLib::HomingLaserChip {
 
 public:
 
-    GgafLib::SplineManufactureConnection* _pSplManufCon;
-    GgafLib::SplineSequence* _pSplSeq;
+    GgafLib::SplineManufactureConnection* pSplManufCon_;
+    GgafLib::SplineSequence* pSplSeq_;
     EnemyAstraeaLaserChip004(const char* prm_name);
 
     void initialize() override;

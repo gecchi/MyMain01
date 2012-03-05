@@ -7,11 +7,11 @@ class Stage02 : public Stage {
 
 public:
 
-    Stage02PartController* _pScene_Stage02PartController;
-    WorldBoundSpace002* _pWorldBoundSpace;
-    HoshiBoshi001* _pHoshiBoshi;
+    Stage02PartController* pScene_Stage02PartController_;
+    WorldBoundSpace002* pWorldBoundSpace_;
+    HoshiBoshi001* pHoshiBoshi_;
 
-    LabelGecchi16Font* _pMessage;
+    LabelGecchi16Font* pMessage_;
 
     Stage02(const char* prm_name);
     /**

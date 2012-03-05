@@ -8,7 +8,7 @@ using namespace VioletVreath;
 
 TitleBoard::TitleBoard(const char* prm_name) : DefaultBoardSetActor(prm_name, "Title") {
     _class_name = "TitleBoard";
-    //_z = 0.9999999f;  //ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
+    //z_ = 0.9999999f;  //ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     setZEnable(false);
     setZWriteEnable(false);
 }

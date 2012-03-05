@@ -9,18 +9,18 @@ using namespace VioletVreath;
 MagicMeterCursor002::MagicMeterCursor002(const char* prm_name, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic) :
         DefaultBoardActor(prm_name, "MagicMeter") {
     _class_name = "MagicMeterCursor002";
-    _pMagicMeter = prm_pMagicMeter;
-    _pMagic = prm_pMagic;
-    _magic_index = _pMagicMeter->_ringMagics.indexOf(_pMagic);
-    if (_magic_index < 0) {
+    pMagicMeter_ = prm_pMagicMeter;
+    pMagic_ = prm_pMagic;
+    magic_index_ = pMagicMeter_->ringMagics_.indexOf(pMagic_);
+    if (magic_index_ < 0) {
         throwGgafCriticalException("MagicMeterCursor002::MagicMeterCursor002 prm_pMagic("<<prm_pMagic->getName()<<")は"<<
                                    "MagicMeterに登録されていません。");
     }
 }
 void MagicMeterCursor002::initialize() {
-    _X = _tX = _pMagicMeter->_X + (_pMagicMeter->_width * _magic_index);
-    _Y = _tY = _pMagicMeter->_Y;
-    _tmp_Y = _Y;
+    _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_);
+    _Y = tY_ = pMagicMeter_->_Y;
+    tmp_Y_ = _Y;
     _pUvFlipper->setActivePtnNo(0);
     _Z = 1;
 }
@@ -30,11 +30,11 @@ void MagicMeterCursor002::onActive() {
 }
 
 void MagicMeterCursor002::processBehavior() {
-    setAlpha(_pMagic->_rr);
+    setAlpha(pMagic_->rr_);
     _Z = 1;
     if (_pKurokoA->isMoveingSmooth() == false) {
-        _X = _tX;
-        _Y = _tY;
+        _X = tX_;
+        _Y = tY_;
     }
     _pKurokoA->behave();
     _pUvFlipper->behave();
@@ -46,14 +46,14 @@ void MagicMeterCursor002::processJudgement() {
 
 void MagicMeterCursor002::processPreDraw() {
     //ロールを考慮せずにLVカーソル移動させ、ここで、ロール分を補正
-    _tmp_Y = _Y;
-    _Y += (_pMagicMeter->_height * (_pMagicMeter->_paCursorLv[_magic_index]+1) * (1.0-_pMagic->_rr));
+    tmp_Y_ = _Y;
+    _Y += (pMagicMeter_->height_ * (pMagicMeter_->paCursorLv_[magic_index_]+1) * (1.0-pMagic_->rr_));
     DefaultBoardActor::processPreDraw();
 }
 
 void MagicMeterCursor002::processAfterDraw() {
     DefaultBoardActor::processAfterDraw();
-    _Y = _tmp_Y;
+    _Y = tmp_Y_;
 }
 
 void MagicMeterCursor002::beginBlinking() {
@@ -62,14 +62,14 @@ void MagicMeterCursor002::beginBlinking() {
 
 void MagicMeterCursor002::stopBlinking() {
     //_pFader->beat(8, 0, 4, 4, 1); //ピカピカ終了
-    setAlpha(_pMagic->_rr);
+    setAlpha(pMagic_->rr_);
 }
 
 void MagicMeterCursor002::moveToLv(int prm_lv) {
-    _tX = _X;
-    _tY = _pMagicMeter->_Y - (_pMagicMeter->_height*(prm_lv+1));
-    _pKurokoA->setMvAng(_tX, _tY);
-    _pKurokoA->execSmoothMvVeloSequence(0, GgafDxUtil::getDistance(_X, _Y, _tX, _tY),
+    tX_ = _X;
+    tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(prm_lv+1));
+    _pKurokoA->setMvAng(tX_, tY_);
+    _pKurokoA->execSmoothMvVeloSequence(0, GgafDxUtil::getDistance(_X, _Y, tX_, tY_),
                                         10, 0.2, 0.4); //ロールを考慮せずにとりあえず移動
 }
 

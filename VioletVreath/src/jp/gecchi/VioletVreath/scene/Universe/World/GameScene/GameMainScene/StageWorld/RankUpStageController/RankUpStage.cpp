@@ -5,17 +5,17 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-bool RankUpStage::_pause = false;
+bool RankUpStage::pause_ = false;
 
 RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "RankUpStage";
-    _pWorldBoundSpace  = NEW WorldBoundSpaceRankUp("BG_RankUp");
-    _pWorldBoundSpace->inactivateImmed();
-    getDirector()->addSubGroup(_pWorldBoundSpace);
-    _pHoshiBoshi = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
-    getDirector()->addSubGroup( _pHoshiBoshi);
-    _pMessage = NEW LabelGecchi16Font("RankUpMsg");
-    getDirector()->addSubGroup(_pMessage);
+    pWorldBoundSpace_  = NEW WorldBoundSpaceRankUp("BG_RankUp");
+    pWorldBoundSpace_->inactivateImmed();
+    getDirector()->addSubGroup(pWorldBoundSpace_);
+    pHoshiBoshi_ = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
+    getDirector()->addSubGroup( pHoshiBoshi_);
+    pMessage_ = NEW LabelGecchi16Font("RankUpMsg");
+    getDirector()->addSubGroup(pMessage_);
     useProgress(RankUpStage::PROG_END);
 
     _pBgmPerformer->useBgm(1);
@@ -35,7 +35,7 @@ void RankUpStage::processBehavior() {
         case RankUpStage::PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
-                _pMessage->update(PX2CO(500), PX2CO(200), "RANKUPSTAGE::PROG_BEGIN");
+                pMessage_->update(PX2CO(500), PX2CO(200), "RANKUPSTAGE::PROG_BEGIN");
                 _pBgmPerformer->play(0, 0, true);
                 _pBgmPerformer->fadein(0, 420);
             }
@@ -47,8 +47,8 @@ void RankUpStage::processBehavior() {
         }
         case RankUpStage::PROG_PLAYING: {
             if (_pProg->isJustChanged()) {
-                _pMessage->update("RANKUPSTAGE::PROG_PLAYING");
-                _pMessage->_pFader->beat(120,30,30,30,-1);
+                pMessage_->update("RANKUPSTAGE::PROG_PLAYING");
+                pMessage_->_pFader->beat(120,30,30,30,-1);
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
             }
             //継承実装クラスのRankUpStage::PROG_RESULTへ進捗更新待ちイベント待ち
@@ -56,14 +56,14 @@ void RankUpStage::processBehavior() {
         }
         case RankUpStage::PROG_RESULT: {
             if (_pProg->isJustChanged()) {
-                _pMessage->_pFader->reset();
-                _pMessage->update("RANKUPSTAGE::PROG_RESULT");
+                pMessage_->_pFader->reset();
+                pMessage_->update("RANKUPSTAGE::PROG_RESULT");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_RESULT !");
             }
 
             //結果表示？
             if (_pProg->getFrameInProgress() == 120) {
-                _pMessage->update("KEKKA HAPYOU!!!");
+                pMessage_->update("KEKKA HAPYOU!!!");
                 _pBgmPerformer->fadeout_stop(0, 300);
             }
 
@@ -75,12 +75,12 @@ void RankUpStage::processBehavior() {
         case RankUpStage::PROG_END: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_ENDになりますた！");
-                _pMessage->update("RANKUPSTAGE::PROG_END");
+                pMessage_->update("RANKUPSTAGE::PROG_END");
                 throwEventToUpperTree(EVENT_RANKUP_WAS_END, this);
             }
 
             if (_pProg->getFrameInProgress() == 180) {
-                _pMessage->update("BYBY!");
+                pMessage_->update("BYBY!");
             }
 
             break;
@@ -88,7 +88,7 @@ void RankUpStage::processBehavior() {
         default:
             break;
     }
-    _pMessage->_pFader->behave();
+    pMessage_->_pFader->behave();
 
 }
 

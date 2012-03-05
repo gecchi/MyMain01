@@ -26,7 +26,7 @@ void EffectLockon001_Main::onActive() {
     _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeTransmitter->play3D(0); //ロックオンSE
-    locateAs(_pTarget);
+    locateAs(pTarget_);
     _pProg->change(LOCKON001_PROG_FIRST_LOCK);
 }
 
@@ -45,17 +45,17 @@ void EffectLockon001_Main::processBehavior() {
              _pScaler->beat(30, 2, 2, -1); //無限ループ
              _pProg->change(LOCKON001_PROG_LOCK);
          }
-         if (_pTarget) {
-             if (_pTarget->isActiveInTheTree() || _pTarget->_will_activate_after_flg) {
-                 if (abs(_pTarget->_X-_X) <= 200000 &&
-                     abs(_pTarget->_Y-_Y) <= 200000 &&
-                     abs(_pTarget->_Z-_Z) <= 200000) {
-                     locateAs(_pTarget);
+         if (pTarget_) {
+             if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
+                 if (abs(pTarget_->_X-_X) <= 200000 &&
+                     abs(pTarget_->_Y-_Y) <= 200000 &&
+                     abs(pTarget_->_Z-_Z) <= 200000) {
+                     locateAs(pTarget_);
                      _pKurokoA->setMvVelo(0);
                      _pKurokoA->_ang_veloFace[AXIS_Z] = 1000;
                  } else {
                      _pKurokoA->_ang_veloFace[AXIS_Z] = 3000; //速周り
-                     _pKurokoA->setMvAng(_pTarget);
+                     _pKurokoA->setMvAng(pTarget_);
                      _pKurokoA->setMvVelo(200000);
                  }
              } else {
@@ -67,7 +67,7 @@ void EffectLockon001_Main::processBehavior() {
     }
 
     if (_pProg->get() == LOCKON001_PROG_RELEASE) {
-        _pTarget = NULL;
+        pTarget_ = NULL;
         addAlpha(-0.05);
         if (_pScaler->_method[0] == NOSCALE || getAlpha() <= 0.0) {
             _pScaler->setScale(2000);
@@ -90,10 +90,10 @@ void EffectLockon001_Main::onInactive() {
 }
 
 void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
-    if (prm_pTarget == NULL || _pTarget == prm_pTarget) {
+    if (prm_pTarget == NULL || pTarget_ == prm_pTarget) {
         return;
     }
-    _pTarget = prm_pTarget;
+    pTarget_ = prm_pTarget;
 
     if (_pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
 
@@ -123,7 +123,7 @@ void EffectLockon001_Main::releaseLockon() {
             //何も無し
         }
     }
-    _pTarget = NULL;
+    pTarget_ = NULL;
 }
 
 EffectLockon001_Main::~EffectLockon001_Main() {

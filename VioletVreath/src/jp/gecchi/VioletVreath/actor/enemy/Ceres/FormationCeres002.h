@@ -8,9 +8,9 @@ namespace VioletVreath {
  */
 class FormationCeres002 : public GgafLib::TreeFormation {
 
-    EnemyCeres* _pEnemyCeres[NUM_CERES_FORMATION002];
+    EnemyCeres* pEnemyCeres_[NUM_CERES_FORMATION002];
 public:
-//    GgafCore::GgafActorDepository* _pDepo_EnemyMeshShots001;
+//    GgafCore::GgafActorDepository* pDepo_EnemyMeshShots001_;
 
     FormationCeres002(const char* prm_name);
 

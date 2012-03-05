@@ -6,11 +6,11 @@
 //
 //public:
 //    /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
-//    int _lockon;
-//    MyOption* _pOrg;
-//    velo _veloCurve;
-//    int _renge;
-//    float _maxAcceRange;
+//    int lockon_;
+//    MyOption* pOrg_;
+//    velo veloCurve_;
+//    int renge_;
+//    float maxAcceRange_;
 //
 //
 //    EnemyWateringLaserChip001(const char* prm_name);

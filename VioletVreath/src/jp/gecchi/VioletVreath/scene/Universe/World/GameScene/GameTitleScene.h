@@ -20,20 +20,20 @@ public:
         PROG_FINISH   ,
     };
 
-    GgafDxCore::GgafDxSeConnection* _pSeCon_exec;
+    GgafDxCore::GgafDxSeConnection* pSeCon_exec_;
 
-    LabelGecchi16Font* _pStringBoard01;
-    LabelGecchi16Font* _pStringBoard02;
+    LabelGecchi16Font* pStringBoard01_;
+    LabelGecchi16Font* pStringBoard02_;
 
-    MenuBoardTitle* _pMenu;
+    MenuBoardTitle* pMenu_;
 
-    TitleBoard* _pTitleBoard;
+    TitleBoard* pTitleBoard_;
 
-    WorldBoundTitle* _pWorldBound;
-    HoshiBoshiTitle* _pHoshiBoshi;
-    int _max_menu_item;
-    int _active_item;
-    frame _frame_of_noinput;
+    WorldBoundTitle* pWorldBound_;
+    HoshiBoshiTitle* pHoshiBoshi_;
+    int max_menu_item_;
+    int active_item_;
+    frame frame_of_noinput_;
 
     GameTitleScene(const char* prm_name);
     void onReset() override;

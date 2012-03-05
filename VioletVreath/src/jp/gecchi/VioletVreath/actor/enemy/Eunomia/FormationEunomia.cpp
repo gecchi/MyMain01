@@ -10,25 +10,25 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationEunomia";
 
     //エウノミア編隊用デポジトリ
-    _pDepoCon_Eunomia = connectToDepositoryManager("DpCon_EnemyEunomia4Formation", this);
-    setFormationAbleActorDepository(_pDepoCon_Eunomia->use());
+    pDepoCon_Eunomia_ = connectToDepositoryManager("DpCon_EnemyEunomia4Formation", this);
+    setFormationAbleActorDepository(pDepoCon_Eunomia_->use());
 
     //スプライン定義ファイルを読み込む
-    _papSplManufCon = NEW SplineManufactureConnection*[7];
+    papSplManufCon_ = NEW SplineManufactureConnection*[7];
     for (int i = 0; i < 7; i++) {
         stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
-        _papSplManufCon[i] = connectSplineManufactureManager(spl_id.str().c_str());
+        papSplManufCon_[i] = connectSplineManufactureManager(spl_id.str().c_str());
     }
-    _pDepoCon_shot = NULL;
+    pDepoCon_Shot_ = NULL;
     updateRankParameter();
 }
 
 void FormationEunomia::updateRankParameter() {
-    _R_num_formation_col = R_FormationEunomia001_Col;            //編隊列数
-    _R_num_formation_row = R_FormationEunomia001_Num;            //１列の編隊数
-    _R_interval_frames   = R_FormationEunomia001_LaunchInterval; //エウノミアの間隔(frame)
-    _R_mv_velo           = R_FormationEunomia001_MvVelo;         //速度
+    R_num_formation_col_ = R_FormationEunomia001_Col;            //編隊列数
+    R_num_formation_row_ = R_FormationEunomia001_Num;            //１列の編隊数
+    R_interval_frames_   = R_FormationEunomia001_LaunchInterval; //エウノミアの間隔(frame)
+    R_mv_velo_           = R_FormationEunomia001_MvVelo;         //速度
 }
 
 void FormationEunomia::initialize() {
@@ -40,13 +40,13 @@ void FormationEunomia::onActive() {
 
 void FormationEunomia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
     //編隊消滅時の実験
-    EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDepo_EffectTurbo002->dispatchForce();
+    EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->pDepo_EffectTurbo002_->dispatchForce();
     if (pTurbo002) {
         pTurbo002->locateAs((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
         pTurbo002->activate();
     }
     //編隊全滅アイテム出現
-    Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem002->dispatch();
+    Item* pItem = (Item*)P_COMMON_SCENE->pDP_MagicPointItem002_->dispatch();
     if (pItem) {
         pItem->locateAs((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
     }
@@ -54,14 +54,14 @@ void FormationEunomia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
 
 
 void FormationEunomia::processBehavior() {
-    if (! isAllCalledUp() && (getActivePartFrame() % _R_interval_frames == 0)) {
-        for (int i = 0; i < _R_num_formation_col; i++) {
-            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpUntil(_R_num_formation_col*_R_num_formation_row);
+    if (! isAllCalledUp() && (getActivePartFrame() % R_interval_frames_ == 0)) {
+        for (int i = 0; i < R_num_formation_col_; i++) {
+            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpUntil(R_num_formation_col_*R_num_formation_row_);
             if (pEunomia) {
-                SplineSequence* pSplSeq = _papSplManufCon[i]->use()->
+                SplineSequence* pSplSeq = papSplManufCon_[i]->use()->
                                               createSplineSequence(pEunomia->_pKurokoA);
                 pEunomia->config(pSplSeq, NULL, NULL);
-                pEunomia->_pKurokoA->setMvVelo(_R_mv_velo);
+                pEunomia->_pKurokoA->setMvVelo(R_mv_velo_);
                 processOnActiveEunomia(pEunomia, i); //フォーメーション個別実装の処理
             }
         }
@@ -69,12 +69,12 @@ void FormationEunomia::processBehavior() {
 }
 
 FormationEunomia::~FormationEunomia() {
-    _pDepoCon_Eunomia->close();
+    pDepoCon_Eunomia_->close();
     for (int i = 0; i < 7; i++) {
-        _papSplManufCon[i]->close();
+        papSplManufCon_[i]->close();
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papSplManufCon);
-    if (_pDepoCon_shot) {
-        _pDepoCon_shot->close();
+    DELETEARR_IMPOSSIBLE_NULL(papSplManufCon_);
+    if (pDepoCon_Shot_) {
+        pDepoCon_Shot_->close();
     }
 }

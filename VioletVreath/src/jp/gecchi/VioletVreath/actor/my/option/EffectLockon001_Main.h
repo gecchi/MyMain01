@@ -1,5 +1,5 @@
-#ifndef EFFECTLOCKON001_MAIN_H_
-#define EFFECTLOCKON001_MAIN_H_
+#ifndef EFFECTLOCKON001MAIN_H_
+#define EFFECTLOCKON001MAIN_H_
 namespace VioletVreath {
 
 /**
@@ -26,11 +26,11 @@ public:
 
     void releaseLockon() override;
 
-    void lockon(GgafDxGeometricActor* prm_pTarget)  override;
+    void lockon(GgafDxGeometricActor* prm_pTarget) override;
 
     virtual ~EffectLockon001_Main();
 };
 
 }
-#endif /*EFFECTLOCKON001_MAIN_H_*/
+#endif /*EFFECTLOCKON001MAIN_H_*/
 

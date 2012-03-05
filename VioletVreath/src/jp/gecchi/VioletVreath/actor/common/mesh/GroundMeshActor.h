@@ -12,7 +12,7 @@ class GroundMeshActor : public GgafDxCore::GgafDxMeshActor {
 public:
     GgafDxCore::GgafDxScaler* _pScaler;
 
-    frame _offset_frames;
+    frame offset_frames_;
 
     GgafLib::CollisionChecker* _pCollisionChecker;
 

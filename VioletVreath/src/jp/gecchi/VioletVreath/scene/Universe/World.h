@@ -4,7 +4,7 @@ namespace VioletVreath {
 
 
 #ifdef P_UNIVERSE
-    #define P_WORLD ((VioletVreath::World*)(P_UNIVERSE->_pWorld))
+    #define P_WORLD ((VioletVreath::World*)(P_UNIVERSE->pWorld_))
 #else
     #error P_UNIVERSE isnt define
 #endif
@@ -17,14 +17,14 @@ namespace VioletVreath {
 class World : public GgafLib::DefaultScene {
 
 public:
-    bool _is_create_GameScene;
-    char _aBufDebug[80];
-    LabelGecchi16Font* _pLabel_Title;
-    LabelGecchi16Font* _pLabel_Aster;
-    LabelGecchi16Font* _pLabel_Debug;
-    LabelGecchi16Font* _pLabel_Wait;
-    PreDrawScene* _pPreDrawScene;
-    GameScene* _pGameScene;
+    bool is_create_GameScene_;
+    char aBufDebug_[80];
+    LabelGecchi16Font* pLabel_Title_;
+    LabelGecchi16Font* pLabel_Aster_;
+    LabelGecchi16Font* pLabel_Debug_;
+    LabelGecchi16Font* pLabel_Wait_;
+    PreDrawScene* pPreDrawScene_;
+    GameScene* pGameScene_;
 
     World(const char* prm_name);
 

@@ -1,5 +1,5 @@
-#ifndef STAGE01MAIN_H_
-#define STAGE01MAIN_H_
+#ifndef STAGE01_02_H_
+#define STAGE01_02_H_
 namespace VioletVreath {
 
 /**
@@ -25,4 +25,4 @@ public:
 };
 
 }
-#endif /*STAGE01MAIN_H_*/
+#endif /*STAGE01_02_H_*/

@@ -10,12 +10,12 @@ FormationEunomia002b::FormationEunomia002b(const char* prm_name) : FormationEuno
 }
 
 void FormationEunomia002b::processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) {
-//    pEnemyEunomia->_pSplSeq->adjustAxisRate(
-//                                        MyShip::_lim_front, //X•ûŒü”{—¦
-//                                       -1.0 * MyShip::_lim_top,   //Y•ûŒü”{—¦
-//                                        MyShip::_lim_zleft  //Z•ûŒü”{—¦
+//    pEnemyEunomia->pSplSeq_->adjustAxisRate(
+//                                        MyShip::lim_front_, //X•ûŒü”{—¦
+//                                       -1.0 * MyShip::lim_top_,   //Y•ûŒü”{—¦
+//                                        MyShip::lim_zleft_  //Z•ûŒü”{—¦
 //                                    );
-//    pEnemyEunomia->locate(_papSplLineCon[col]->use()->_pSp->_X_basepoint[0], 0, 0);
+//    pEnemyEunomia->locate(papSplLineCon_[col]->use()->pSp_->_Xbasepoint_[0], 0, 0);
 }
 
 FormationEunomia002b::~FormationEunomia002b() {

@@ -3,7 +3,7 @@
 
 
 #ifdef P_WORLD
-    #define P_GAME_SCENE (P_WORLD->_pGameScene)
+    #define P_GAME_SCENE (P_WORLD->pGameScene_)
 #else
     #error P_WORLD isnt define
 #endif
@@ -39,17 +39,17 @@ public:
     };
 
 
-    CommonScene* _pCommonScene;
-    MyShipScene* _pMyShipScene;
-//    GamePauseScene* _pGamePauseScene;
+    CommonScene* pCommonScene_;
+    MyShipScene* pMyShip_Scene;
+//    GamePauseScene* pGamePauseScene_;
 
-    MenuBoardPause* _pMenuBoardPause;
+    MenuBoardPause* pMenuBoardPause_;
     /** GameMain、或いは、Demoの配下へ移動される */
-    StageWorld* _pStageWorld;
+    StageWorld* pStageWorld_;
 
     /** コマ送りフラグ */
-    bool _is_frame_advance;
-    bool _was_paused_flg_GameMainScene_prev_frame;
+    bool is_frame_advance_;
+    bool was_paused_flg_GameMainScene_prev_frame_;
 
     GameScene(const char* prm_name);
 

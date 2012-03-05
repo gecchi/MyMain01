@@ -10,7 +10,7 @@ namespace VioletVreath {
  */
 class SpeedMagic : public Magic {
 
-    EffectSpeedMagic* _pEffect;
+    EffectSpeedMagic* pEffect_;
 
 public:
     SpeedMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);

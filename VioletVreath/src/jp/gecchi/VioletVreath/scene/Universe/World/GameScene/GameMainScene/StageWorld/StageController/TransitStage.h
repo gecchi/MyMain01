@@ -13,11 +13,11 @@ namespace VioletVreath {
 class TransitStage : public Stage {
 
 public:
-    int _teansit_stage;
-    int _next_main_stage;
-    WorldBoundSpaceTransit* _pWorldBoundSpace;
-    HoshiBoshiTransit* _pHoshiBoshi;
-    LabelGecchi16Font* _pMessage;
+    int teansit_stage_;
+    int next_main_stage_;
+    WorldBoundSpaceTransit* pWorldBoundSpace_;
+    HoshiBoshiTransit* pHoshiBoshi_;
+    LabelGecchi16Font* pMessage_;
 
     TransitStage(const char* prm_name);
     /**
@@ -34,7 +34,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
     void ready(int prm_stage);
     void setStage(int prm_stage) {
-        _teansit_stage = prm_stage;
+        teansit_stage_ = prm_stage;
     }
     virtual ~TransitStage();
 };

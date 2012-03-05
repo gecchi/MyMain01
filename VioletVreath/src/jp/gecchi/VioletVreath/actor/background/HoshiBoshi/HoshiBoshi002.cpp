@@ -10,9 +10,9 @@ HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
     _class_name = "HoshiBoshi002";
     changeEffectTechnique("DestBlendOne"); //加算合成
     setHitAble(false);
-    _CAM_ZF = abs(DX2CO(P_CAM->_zf));
+    CAM_ZF_ = abs(DX2CO(P_CAM->_zf));
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_HOSHIBOSHI);
-    _TRACE_("HoshiBoshi002::HoshiBoshi002 _CAM_ZF="<<_CAM_ZF);
+    _TRACE_("HoshiBoshi002::HoshiBoshi002 CAM_ZF_="<<CAM_ZF_);
 }
 
 int HoshiBoshi002::isOutOfView() {
@@ -33,8 +33,8 @@ void HoshiBoshi002::onActive() {
 }
 
 void HoshiBoshi002::processBehavior() {
-    if (_X < -_CAM_ZF) {
-        _X += (_CAM_ZF*2);
+    if (_X < -CAM_ZF_) {
+        _X += (CAM_ZF_*2);
     } else {
         _X -= 10000;
     }
@@ -59,14 +59,14 @@ void HoshiBoshi002::processJudgement() {
 //    GgafDxUniverse::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL-1,this); //最深部-1、最深部はWorldBound
 //
 ////    //一時テクニック期間チェック
-////    if (_is_temp_technique) {
-////        if (_frame_of_behaving_temp_technique_end <= _frame_of_behaving) {
+////    if (is_temp_technique_) {
+////        if (frame_of_behaving_temp_technique_end_ <= frame_of_behaving_) {
 ////            //一時テクニック期間満了。元に戻す
-////            _hash_technique = _hash_temp_technique;
-////            strcpy(_technique, _temp_technique);
-////            _is_temp_technique = false;
-////            //これはダメ。配列領域がどこかにいくため。_temp_technique = "";
-////            _hash_temp_technique = 0;
+////            hash_technique_ = hash_temp_technique_;
+////            strcpy(technique_, temp_technique_);
+////            is_temp_technique_ = false;
+////            //これはダメ。配列領域がどこかにいくため。temp_technique_ = "";
+////            hash_temp_technique_ = 0;
 ////        }
 ////    }
 //}

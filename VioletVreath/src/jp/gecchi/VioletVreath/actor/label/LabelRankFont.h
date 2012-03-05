@@ -56,7 +56,7 @@ private:
 
 public:
     /** [r]‘OƒtƒŒ[ƒ€‚Ì_RANK_DISP_ */
-    int _tmp_rank;
+    int tmp_rank_;
 
 
     /**

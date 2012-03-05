@@ -8,14 +8,14 @@ namespace VioletVreath {
  */
 class FormationJuno : public GgafLib::DefaultGeometricActor {
     /** ジュノーストック */
-    GgafCore::GgafActorDepository* _pDepo_EnemyJuno;
-	GgafCore::CmRandomNumberGenerator* _pRndGen;
-    DepositoryConnection* _pDepoCon;
+    GgafCore::GgafActorDepository* pDepo_EnemyJuno_;
+	GgafCore::CmRandomNumberGenerator* pRndGen_;
+    DepositoryConnection* pDepoCon_;
 
 public:
     /** 出現範囲幅BOX */
-    int _X1_app, _Y1_app, _Z1_app, _X2_app, _Y2_app, _Z2_app;
-    int _frame_app_interval;
+    int X1_app_, Y1_app_, Z1_app_, X2_app_, Y2_app_, Z2_app_;
+    int frame_app_interval_;
 
     /**
      * コンストラクタ .

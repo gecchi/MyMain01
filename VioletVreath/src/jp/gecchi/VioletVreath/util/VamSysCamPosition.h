@@ -19,31 +19,30 @@ public:
 
     class Pos {
     public:
-        int _pos_cam;
-        angle _Rz_up;
-        angle _Ry_up;
+        int pos_cam_;
+        angle Rz_up_;
+        angle Ry_up_;
 
-        Pos* _pLeft;
-        Pos* _pUp;
-        Pos* _pRight;
-        Pos* _pDown;
+        Pos* pLeft_;
+        Pos* pUp_;
+        Pos* pRight_;
+        Pos* pDown_;
 
         Pos(int prm_pos_cam, angle prm_Rz_up, angle prm_Ry_up) {
-            _pLeft = _pUp = _pRight = _pDown = NULL;
-            _pos_cam = prm_pos_cam;
-            _Rz_up = prm_Rz_up;
-            _Ry_up = prm_Ry_up;
+            pLeft_ = pUp_ = pRight_ = pDown_ = NULL;
+            pos_cam_ = prm_pos_cam;
+            Rz_up_ = prm_Rz_up;
+            Ry_up_ = prm_Ry_up;
         }
         void set(Pos* prm_pLeft, Pos* prm_pUp, Pos* prm_pRight, Pos* prm_pDown) {
-            _pLeft  = prm_pLeft;
-            _pUp    = prm_pUp;
-            _pRight = prm_pRight;
-            _pDown  = prm_pDown;
+            pLeft_  = prm_pLeft;
+            pUp_    = prm_pUp;
+            pRight_ = prm_pRight;
+            pDown_  = prm_pDown;
         }
     };
 
 
-    Pos* _pPos;
 
     VamSysCamPosition(MyShip* prm_pMyShip);
 

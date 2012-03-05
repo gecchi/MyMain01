@@ -8,7 +8,7 @@ using namespace VioletVreath;
 EnemyCirce::EnemyCirce(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ceres", STATUS(EnemyCirce)) { //8/‚ð‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
     _class_name = "EnemyCirce";
-    _iMovePatternNo = 0;
+    iMovePatternNo_ = 0;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
@@ -31,7 +31,7 @@ void EnemyCirce::initialize() {
 
 void EnemyCirce::onActive() {
     _pStatus->reset();
-    _iMovePatternNo = 0;
+    iMovePatternNo_ = 0;
 }
 
 void EnemyCirce::processBehavior() {
@@ -53,7 +53,7 @@ void EnemyCirce::processJudgement() {
 void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 =
-            (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+            (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
     _pSeTransmitter->play3D(0);
     if (pExplo001) {
         pExplo001->locateAs(this);

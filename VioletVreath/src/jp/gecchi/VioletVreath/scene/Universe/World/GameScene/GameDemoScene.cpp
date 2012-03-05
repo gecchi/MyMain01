@@ -10,21 +10,21 @@ using namespace VioletVreath;
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameDemoScene";
     useProgress(GameDemoScene::PROG_FINISH);
-    _pStringBoard01 = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(_pStringBoard01);
-    _pStringBoard02 = NEW LabelGecchi16Font("STR02");
-    getDirector()->addSubGroup(_pStringBoard02);
+    pStringBoard01_ = NEW LabelGecchi16Font("STR01");
+    getDirector()->addSubGroup(pStringBoard01_);
+    pStringBoard02_ = NEW LabelGecchi16Font("STR02");
+    getDirector()->addSubGroup(pStringBoard02_);
     _pBgmPerformer->useBgm(1);
     _pBgmPerformer->set(0, "BGM_DEMO");
 
-    _demo_stage = 1;
-    _ranking_num = 10;
+    demo_stage_ = 1;
+    ranking_num_ = 10;
 
     int  rank[] = {1, 2, 3, 4, 5, 6,7,8,9,10};
     string name[] = {"AAAXXX", "BBBXXX", "CCCXXX", "DDDXXX", "EEEXXX", "FFFXXX", "GGGXXX", "HHHXXX", "IIIXXX","JJJXXX"};
     int  score[] = {1000000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000};
     string date[] = {"2011/08/01", "2011/08/02", "2011/08/03", "2011/08/04", "2011/08/05", "2011/08/06", "2011/08/07", "2011/08/08", "2011/08/09", "2011/08/10"};
-    for (int i = 0; i < _ranking_num; i++) {
+    for (int i = 0; i < ranking_num_; i++) {
         ScoreInfo r = {
             rank[i],
             name[i],
@@ -34,23 +34,23 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
         ranking.push_back(r);
     }
     char buf[80];
-    _papLabelRanking = NEW LabelRankingFont*[10];
-    for (int i = 0; i < _ranking_num; i++) {
-        _papLabelRanking[i] = NEW LabelRankingFont("RANK_INFO");
+    papLabelRanking_ = NEW LabelRankingFont*[10];
+    for (int i = 0; i < ranking_num_; i++) {
+        papLabelRanking_[i] = NEW LabelRankingFont("RANK_INFO");
         sprintf(buf, "NO.%02d...%8s...%010d...%10s", ranking[i].rank,
                                                      ranking[i].name.c_str(),
                                                      ranking[i].score,
                                                      ranking[i].date.c_str());
-        _papLabelRanking[i]->update(buf);
-        _papLabelRanking[i]->inactivateImmed();
-        getDirector()->addSubGroup(_papLabelRanking[i]);
+        papLabelRanking_[i]->update(buf);
+        papLabelRanking_[i]->inactivateImmed();
+        getDirector()->addSubGroup(papLabelRanking_[i]);
     }
 
 }
 void GameDemoScene::onReset() {
     _pProg->set(GameDemoScene::PROG_INIT);
-    _pStringBoard01->update("");
-    _pStringBoard02->update("");
+    pStringBoard01_->update("");
+    pStringBoard02_->update("");
 //    fadeinScene(0);
 }
 
@@ -75,16 +75,16 @@ void GameDemoScene::processBehavior() {
         case GameDemoScene::PROG_DEMOPLAY: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("GameDemoScene::processBehavior() Prog(=GameDemoScene::PROG_DEMOPLAY) is Just Changed");
-                _pStringBoard01->update(100*1000, 100*1000, "DEMOPLAY NOW");
-                _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
-                _pStringBoard02->_pFader->setAlphaToTop();
-                _pStringBoard02->_pFader->beat(60,3,27,27,-1);
+                pStringBoard01_->update(100*1000, 100*1000, "DEMOPLAY NOW");
+                pStringBoard02_->update(100*1000, 150*1000, "GAME OVER");
+                pStringBoard02_->_pFader->setAlphaToTop();
+                pStringBoard02_->_pFader->beat(60,3,27,27,-1);
             }
 
 //            if (_pProg->getFrameInProgress() % 60 == 0) {
-//                _pStringBoard02->update("");
+//                pStringBoard02_->update("");
 //            } else if (_pProg->getFrameInProgress() % 60 == 30) {
-//                _pStringBoard02->update("GAME OVER");
+//                pStringBoard02_->update("GAME OVER");
 //            }
 
 
@@ -97,21 +97,21 @@ void GameDemoScene::processBehavior() {
         case GameDemoScene::PROG_RANKING: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("GameDemoScene::processBehavior() Prog(=GameDemoScene::PROG_RANKING) is Just Changed");
-                _pStringBoard01->update(100*1000, 100*1000, "RANKING NOW");
+                pStringBoard01_->update(100*1000, 100*1000, "RANKING NOW");
                 for (int i = 0; i < 10; i++) {
-                    _papLabelRanking[i]->locate(400*1000, 50*1000+(i*22*1000));
-                    _papLabelRanking[i]->activate();
-                    _papLabelRanking[i]->_pFader->setAlphaToBottom();
-                    _papLabelRanking[i]->_pFader->beat(25*60, 2*60, 20*60, 1*60, 1);
+                    papLabelRanking_[i]->locate(400*1000, 50*1000+(i*22*1000));
+                    papLabelRanking_[i]->activate();
+                    papLabelRanking_[i]->_pFader->setAlphaToBottom();
+                    papLabelRanking_[i]->_pFader->beat(25*60, 2*60, 20*60, 1*60, 1);
                 }
             }
-            if (_papLabelRanking[0]->_pFader->isWorking()) {
+            if (papLabelRanking_[0]->_pFader->isWorking()) {
                 for (int i = 0; i < 10; i++) {
-                    _papLabelRanking[i]->_pFader->behave();
+                    papLabelRanking_[i]->_pFader->behave();
                 }
             } else {
                 for (int i = 0; i < 10; i++) {
-                    _papLabelRanking[i]->inactivate();
+                    papLabelRanking_[i]->inactivate();
                 }
                 _pProg->change(GameDemoScene::PROG_FINISH);
             }
@@ -132,22 +132,22 @@ void GameDemoScene::processBehavior() {
         default:
             break;
     }
-    _pStringBoard02->_pFader->behave();
+    pStringBoard02_->_pFader->behave();
 
 }
 
 void GameDemoScene::onInactive() {
     _TRACE_("GameDemoScene::onInactive() ");
-    if (P_STAGE_CONTROLLER->_pStageMainCannel) {
-        _TRACE_("GameDemoScene::onInactive() P_STAGE_CONTROLLER->_pStageMainCanne("<<
-                P_STAGE_CONTROLLER->_pStageMainCannel->getName()<<") をend()");
-        P_STAGE_CONTROLLER->_pStageMainCannel->end();
-        P_STAGE_CONTROLLER->_pStageMainCannel = NULL;
+    if (P_STAGE_CONTROLLER->pStageMainCannel_) {
+        _TRACE_("GameDemoScene::onInactive() P_STAGE_CONTROLLER->pStageMainCanne_("<<
+                P_STAGE_CONTROLLER->pStageMainCannel_->getName()<<") をend()");
+        P_STAGE_CONTROLLER->pStageMainCannel_->end();
+        P_STAGE_CONTROLLER->pStageMainCannel_ = NULL;
     } else {
         //throwGgafCriticalException("GameDemoScene::onInactive() デモシーンのシーンが無い。あり得ないよ");
     }
 }
 
 GameDemoScene::~GameDemoScene() {
-    DELETEARR_IMPOSSIBLE_NULL(_papLabelRanking);
+    DELETEARR_IMPOSSIBLE_NULL(papLabelRanking_);
 }

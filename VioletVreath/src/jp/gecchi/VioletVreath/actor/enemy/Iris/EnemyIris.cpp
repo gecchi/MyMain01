@@ -9,10 +9,10 @@ using namespace VioletVreath;
 EnemyIris::EnemyIris(const char* prm_name)
       : DefaultMeshSetActor(prm_name, "Iris", STATUS(EnemyIris)) {
     _class_name = "EnemyIris";
-    _iMovePatternNo = 0;
-    _pSplSeq = NULL;
-    _pDepo_Shot = NULL;
-    _pDepo_ShotEffect = NULL;
+    iMovePatternNo_ = 0;
+    pSplSeq_ = NULL;
+    pDepo_Shot_ = NULL;
+    pDepo_ShotEffect_ = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
 }
@@ -33,42 +33,42 @@ void EnemyIris::initialize() {
 
 void EnemyIris::onActive() {
     _pStatus->reset();
-    _iMovePatternNo = 0; //行動パターンリセット
+    iMovePatternNo_ = 0; //行動パターンリセット
 }
 
 void EnemyIris::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    switch (_iMovePatternNo) {
+    switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (_pSplSeq) {
-                _pSplSeq->exec(ABSOLUTE_COORD); //スプライン移動を開始
+            if (pSplSeq_) {
+                pSplSeq_->exec(ABSOLUTE_COORD); //スプライン移動を開始
             }
-            _iMovePatternNo++; //次の行動パターンへ
+            iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (_pSplSeq) {
+            if (pSplSeq_) {
                 //スプライン移動有り
-                if (!(_pSplSeq->isExecuting())) {
-                    _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
+                if (!(pSplSeq_->isExecuting())) {
+                    iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
                 //スプライン移動無し
-                _iMovePatternNo++; //すぐに次の行動パターンへ
+                iMovePatternNo_++; //すぐに次の行動パターンへ
             }
             break;
 
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
-            if (_pDepo_Shot) {
+            if (pDepo_Shot_) {
                 //放射状ショット
                 int way = R_EnemyIris_ShotWay; //ショットWAY数
                 angle* paAngWay = NEW angle[way];
                 GgafDxUtil::getRadialAngle2D(0, way, paAngWay);
                 GgafDxDrawableActor* pActor_Shot;
                 for (int i = 0; i < way; i++) {
-                    pActor_Shot = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();
+                    pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->locateAs(this);
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], D90ANG);
@@ -76,8 +76,8 @@ void EnemyIris::processBehavior() {
                 }
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
                 //ショット発射エフェクト
-                if (_pDepo_ShotEffect) {
-                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)_pDepo_ShotEffect->dispatch();
+                if (pDepo_ShotEffect_) {
+                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
                     if (pTestActor_Shot) {
                         pTestActor_Shot->locateAs(this);
                     }
@@ -87,17 +87,17 @@ void EnemyIris::processBehavior() {
             _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                 3000, 0,
                                                 TURN_CLOSE_TO);
-            _iMovePatternNo++; //次の行動パターンへ
+            iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_Z-10000 < P_MYSHIP->_Z && P_MYSHIP->_Z < _Z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                _pKurokoA->execTurnMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
+                _pKurokoA->execTurnMvAngSequence(MyShip::lim_behaind_ - 500000 , _Y, _Z,
                                                    10000, 0,
                                                    TURN_CLOSE_TO);
                 _pKurokoA->setMvAcce(100);
-                _iMovePatternNo++;
+                iMovePatternNo_++;
             } else {
                 //自機とZ軸が接近するまで待つ
             }
@@ -107,8 +107,8 @@ void EnemyIris::processBehavior() {
     }
 
 
-    if (_pSplSeq) {
-        _pSplSeq->behave(); //スプライン移動を振る舞い
+    if (pSplSeq_) {
+        pSplSeq_->behave(); //スプライン移動を振る舞い
     }
     _pKurokoA->behave();
     //_pSeTransmitter->behave();
@@ -132,7 +132,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
             notifyFormationAboutDestroyed();
         }
 
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->locateAs(this);
@@ -148,5 +148,5 @@ void EnemyIris::onInactive() {
 }
 
 EnemyIris::~EnemyIris() {
-    DELETE_POSSIBLE_NULL(_pSplSeq);
+    DELETE_POSSIBLE_NULL(pSplSeq_);
 }

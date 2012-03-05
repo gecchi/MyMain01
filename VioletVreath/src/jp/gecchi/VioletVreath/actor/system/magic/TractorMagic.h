@@ -11,7 +11,7 @@ namespace VioletVreath {
 class TractorMagic : public Magic {
 public:
     /** TractorMagicŒø‰Ê‘±’†‚Ítrue */
-    bool _is_tracting;
+    bool is_tracting_;
 
     TractorMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
 

@@ -20,39 +20,39 @@ class MyOptionController : public GgafDxCore::GgafDxGeometricActor {
 
 public:
     /** [r]最大オプション数 */
-    static int _max_option_num;
+    static int max_option_num_;
     /** [r]トレース時のオプションとオプションの間隔 */
-    static int _o2o;
+    static int o2o_;
 
-    MyOption** _papMyOption;
-    MyOptionControllerGizmo* _pGizmo;
-    MyOptionControllerDirectionVector* _pDirectionVector;
+    MyOption** papMyOption_;
+    MyOptionControllerGizmo* pGizmo_;
+    MyOptionControllerDirectionVector* pDirectionVector_;
 
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* _pRing_OpConGeoHistory;
-    velo _veloOptionsMv;
-    MyShip::MoveWay _way_myship_prev;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_OpConGeoHistory_;
+    velo veloOptionsMv_;
+    MyShip::MoveWay way_myship_prev_;
 
     /** [r]現在のオプション数 */
-    int _now_option_num;
+    int now_option_num_;
     /** [r]オプションフリーモードの場合 true */
-    bool _is_free_from_myship_mode;
+    bool is_free_from_myship_mode_;
     /** [r]オプションフリーモード時の、オプション操作モードの場合 true */
-    bool _is_handle_move_mode;
+    bool is_handle_move_mode_;
     /** [r]オプション位置初期化中は true */
-    bool _return_to_default_position_seq;
+    bool return_to_default_position_seq_;
 
 
     /** 自機から離れた時（ぐるっとポン時）の座標 */
-    coord _X_on_free;
-    coord _Y_on_free;
-    coord _Z_on_free;
+    coord X_on_free_;
+    coord Y_on_free_;
+    coord Z_on_free_;
 
 
     /** 対象アクター */
 
     /** 方向転換角速度 */
-    ang_velo _angVelo_Turn;
-    int _renge;
+    ang_velo angVelo_Turn_;
+    int renge_;
     MyOptionController(const char* prm_name);
 
     virtual void initialize() override;

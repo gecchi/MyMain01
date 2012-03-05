@@ -8,24 +8,24 @@ using namespace VioletVreath;
 MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOptionTorpedoController)
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
-    _pMyOptionTorpedoController = prm_pMyOptionTorpedoController;
-    _length_TailEffect = 8;
+    pMyOptionTorpedoController_ = prm_pMyOptionTorpedoController;
+    length_TailEffect_ = 8;
 
-    _pTailEffectDepository = NEW LaserChipDepository("DP_TailEffect");
-    _pTailEffectDepository->config(_length_TailEffect, 0, NULL);
-    for (int i = 0; i < _length_TailEffect; i++) {
+    pTailEffectDepository_ = NEW LaserChipDepository("DP_TailEffect");
+    pTailEffectDepository_->config(length_TailEffect_, 0, NULL);
+    for (int i = 0; i < length_TailEffect_; i++) {
         stringstream name;
-        name <<  "MYOPTION"<<(_pMyOptionTorpedoController->_pMyOption->_no)<<"'s Torpedo's TailEffect["<<i<<"]";
+        name <<  "MYOPTION"<<(pMyOptionTorpedoController_->pMyOption_->no_)<<"'s Torpedo's TailEffect["<<i<<"]";
         MyTorpedoTail* pChip = NEW MyTorpedoTail(name.str().c_str(), this);
 
         pChip->inactivateImmed();
-        _pTailEffectDepository->addSubLast(pChip);
+        pTailEffectDepository_->addSubLast(pChip);
     }
-    addSubGroup(_pTailEffectDepository);
+    addSubGroup(pTailEffectDepository_);
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
-    _pTarget = NULL;
+    pTarget_ = NULL;
     useProgress(10);
 }
 
@@ -35,7 +35,7 @@ void MyTorpedo::initialize() {
 }
 
 void MyTorpedo::onReset() {
-    _pTarget = NULL;
+    pTarget_ = NULL;
 }
 
 void MyTorpedo::onActive() {
@@ -57,17 +57,17 @@ void MyTorpedo::onActive() {
     _pKurokoA->forceRzMvAngVeloRange(-40000, 40000);
     _pKurokoA->forceRyMvAngVeloRange(-40000, 40000);
     _pKurokoA->stopTurnMvAngSequence();
-    _begin_X = _X;
-    _begin_Y = _Y;
-    _begin_Z = _Z;
+    begin_X_ = _X;
+    begin_Y_ = _Y;
+    begin_Z_ = _Z;
     setHitAble(true);
     _pProg->set(MyTorpedo_IN_FIRE);
-    _move_section = 0;
+    move_section_ = 0;
 }
 
 void MyTorpedo::processBehavior() {
     if (_pProg->get() == MyTorpedo_RELEASE) {
-        if (_pTailEffectDepository->_num_chip_active == 0) {
+        if (pTailEffectDepository_->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合
             inactivate(); //自身を最後にinactivate()
         } else {
@@ -77,20 +77,20 @@ void MyTorpedo::processBehavior() {
 
     if (_pProg->get() == MyTorpedo_IN_FIRE) {
         //尾っぽエフェクト追加処理
-        if (_pTailEffectDepository->_num_chip_active < _length_TailEffect) {
-            MyTorpedoTail* pTailEffect = (MyTorpedoTail*)_pTailEffectDepository->dispatch();
+        if (pTailEffectDepository_->_num_chip_active < length_TailEffect_) {
+            MyTorpedoTail* pTailEffect = (MyTorpedoTail*)pTailEffectDepository_->dispatch();
             if (pTailEffect) {
-                pTailEffect->locate(_begin_X,_begin_Y,_begin_Z);
+                pTailEffect->locate(begin_X_,begin_Y_,begin_Z_);
             }
         }
         //魚雷のムーブ
-        if (_move_section == 0) {
+        if (move_section_ == 0) {
             if (_pKurokoA->_veloMv == _pKurokoA->_veloBottomMv) {
                 //減速終了
                 _pKurokoA->setMvAcce(500);
-                if (_pTarget) {
+                if (pTarget_) {
                     _pKurokoA->execTurnMvAngSequence(
-                                _pTarget,
+                                pTarget_,
                                 2000, 200,
                                 TURN_ANTICLOSE_TO, false);
                 } else {
@@ -99,27 +99,27 @@ void MyTorpedo::processBehavior() {
                                 2000, 200,
                                 TURN_ANTICLOSE_TO, false);
                 }
-                _move_section++;
+                move_section_++;
             }
         }
 
         //ムーブ１
-        if (_move_section == 1) {
+        if (move_section_ == 1) {
             if (_pKurokoA->isTurningMvAng()) {
                 //ターゲット完了を待つ
             } else {
                 //ターゲット完了
-                _move_section++;
+                move_section_++;
             }
         }
         //ムーブ２
-        if (_move_section == 2) {
+        if (move_section_ == 2) {
             if (getActivePartFrame() < 120) {
                 if (getActivePartFrame() % 10 == 0) {
-                    if (_pTarget) {
-                        if (_pTarget->isActiveInTheTree())  {
+                    if (pTarget_) {
+                        if (pTarget_->isActiveInTheTree())  {
                             _pKurokoA->execTurnMvAngSequence(
-                                        _pTarget,
+                                        pTarget_,
                                         1000, 200,
                                         TURN_CLOSE_TO, false);
                         } else {
@@ -139,17 +139,17 @@ void MyTorpedo::processBehavior() {
                    //
                 }
             } else {
-                _move_section++;
+                move_section_++;
             }
         }
         //ムーブ３
-        if (_move_section == 3) {
+        if (move_section_ == 3) {
             if (getActivePartFrame() < 300) {
                 if (getActivePartFrame() % 20 == 0) {
-                    if (_pTarget) {
-                        if (_pTarget->isActiveInTheTree())  {
+                    if (pTarget_) {
+                        if (pTarget_->isActiveInTheTree())  {
                             _pKurokoA->execTurnMvAngSequence(
-                                        _pTarget,
+                                        pTarget_,
                                         300, 0,
                                         TURN_CLOSE_TO, false);
                         } else {
@@ -169,11 +169,11 @@ void MyTorpedo::processBehavior() {
                    //
                 }
             } else {
-                _move_section++;
+                move_section_++;
             }
         }
         //ムーブ４
-        if (_move_section == 4) {
+        if (move_section_ == 4) {
             _pKurokoA->setRzMvAngVelo(0);
             _pKurokoA->setRyMvAngVelo(0);
             _pKurokoA->setRzMvAngAcce(0);
@@ -189,8 +189,8 @@ void MyTorpedo::processJudgement() {
     if (isOutOfUniverse() && _pProg->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
         _pProg->change(MyTorpedo_RELEASE);
-        GgafMainActor* pTailEffect = _pTailEffectDepository->getSubFirst();
-        for (int i = 0; i < _length_TailEffect; i++) {
+        GgafMainActor* pTailEffect = pTailEffectDepository_->getSubFirst();
+        for (int i = 0; i < length_TailEffect_; i++) {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
         }
@@ -211,8 +211,8 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
     setHitAble(false);
     _pProg->change(MyTorpedo_RELEASE);
-    GgafMainActor* pTailEffect = _pTailEffectDepository->getSubFirst();
-    for (int i = 0; i < _length_TailEffect; i++) {
+    GgafMainActor* pTailEffect = pTailEffectDepository_->getSubFirst();
+    for (int i = 0; i < length_TailEffect_; i++) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();
     }
@@ -221,7 +221,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 
     //爆風発生
-    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)_pMyOptionTorpedoController->_pDepo_TorpedoBlast->dispatch();
+    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)pMyOptionTorpedoController_->pDepo_TorpedoBlast_->dispatch();
     if (pBlast) {
         pBlast->locateAs(this);
         pBlast->reset();

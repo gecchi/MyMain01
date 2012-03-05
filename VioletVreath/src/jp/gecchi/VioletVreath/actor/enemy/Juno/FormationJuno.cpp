@@ -5,8 +5,8 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-//int FormationJuno::_X_FormationWhole = 0;
-//int FormationJuno::_incX = -2000;
+//int FormationJuno::X_FormationWhole_ = 0;
+//int FormationJuno::incX_ = -2000;
 
 FormationJuno::FormationJuno(
             const char* prm_name,
@@ -20,17 +20,17 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : DefaultGeometricActor(prm_name, NULL) {
     _class_name = "FormationJuno";
-    _pDepoCon = connectToDepositoryManager("DpCon_Shot004", NULL); //Juno‚Ì’e
+    pDepoCon_ = connectToDepositoryManager("DpCon_Shot004", NULL); //Juno‚Ì’e
 
-    _pRndGen = CmRandomNumberGenerator::getInstance();
-    _pRndGen->changeSeed(P_MYSHIP->_Y);
+    pRndGen_ = CmRandomNumberGenerator::getInstance();
+    pRndGen_->changeSeed(P_MYSHIP->_Y);
 
-    _X1_app = prm_X1_app;
-    _Y1_app = prm_Y1_app;
-    _Z1_app = prm_Z1_app;
-    _X2_app = prm_X2_app;
-    _Y2_app = prm_Y2_app;
-    _Z2_app = prm_Z2_app;
+    X1_app_ = prm_X1_app;
+    Y1_app_ = prm_Y1_app;
+    Z1_app_ = prm_Z1_app;
+    X2_app_ = prm_X2_app;
+    Y2_app_ = prm_Y2_app;
+    Z2_app_ = prm_Z2_app;
 
     _X = prm_X;
     _Y = prm_Y;
@@ -41,12 +41,12 @@ FormationJuno::FormationJuno(
     GgafDxUtil::getNormalizeVectorZY(prm_angRzMv_AppBox, prm_angRyMv_AppBox,
                                       vX_AppBox, vY_AppBox, vZ_AppBox);
 
-    _frame_app_interval = prm_frame_app_interval;
+    frame_app_interval_ = prm_frame_app_interval;
 
-    _pDepo_EnemyJuno = NEW GgafActorDepository("RotEnemyJuno");
+    pDepo_EnemyJuno_ = NEW GgafActorDepository("RotEnemyJuno");
     for (int i = 0; i < prm_nJunoStock; i++) {
         EnemyJuno* pEnemyJuno = NEW EnemyJuno("Juno01");
-        pEnemyJuno->setDepository_Shot(_pDepoCon->use()); //’eÝ’è
+        pEnemyJuno->setDepository_Shot(pDepoCon_->use()); //’eÝ’è
         pEnemyJuno->_pKurokoA->relateFaceAngWithMvAng(true);
         pEnemyJuno->_pKurokoA->setMvVelo(prm_veloMv_Juno);
         pEnemyJuno->_pKurokoA->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
@@ -54,21 +54,21 @@ FormationJuno::FormationJuno(
         pEnemyJuno->_pKurokoB->setVyMvVelo(vY_AppBox*prm_veloMv_App);
         pEnemyJuno->_pKurokoB->setVzMvVelo(vZ_AppBox*prm_veloMv_App);
         pEnemyJuno->inactivateTreeImmed();
-        _pDepo_EnemyJuno->addSubLast(pEnemyJuno);
+        pDepo_EnemyJuno_->addSubLast(pEnemyJuno);
     }
-    addSubGroup(_pDepo_EnemyJuno);
+    addSubGroup(pDepo_EnemyJuno_);
 }
 
 void FormationJuno::initialize() {
 }
 
 void FormationJuno::processBehavior() {
-    if (getActivePartFrame() % _frame_app_interval == 0) {
-        EnemyJuno* pEnemyJuno = (EnemyJuno*)_pDepo_EnemyJuno->dispatch();
+    if (getActivePartFrame() % frame_app_interval_ == 0) {
+        EnemyJuno* pEnemyJuno = (EnemyJuno*)pDepo_EnemyJuno_->dispatch();
         if (pEnemyJuno) {
-            pEnemyJuno->_X = (_pRndGen->genrand_int32() % (_X2_app-_X1_app)) + _X1_app + _X;
-            pEnemyJuno->_Y = (_pRndGen->genrand_int32() % (_Y2_app-_Y1_app)) + _Y1_app + _Y;
-            pEnemyJuno->_Z = (_pRndGen->genrand_int32() % (_Z2_app-_Z1_app)) + _Z1_app + _Z;
+            pEnemyJuno->_X = (pRndGen_->genrand_int32() % (X2_app_-X1_app_)) + X1_app_ + _X;
+            pEnemyJuno->_Y = (pRndGen_->genrand_int32() % (Y2_app_-Y1_app_)) + Y1_app_ + _Y;
+            pEnemyJuno->_Z = (pRndGen_->genrand_int32() % (Z2_app_-Z1_app_)) + Z1_app_ + _Z;
         }
     }
     _pKurokoA->behave();
@@ -76,5 +76,5 @@ void FormationJuno::processBehavior() {
 }
 
 FormationJuno::~FormationJuno() {
-    _pDepoCon->close();
+    pDepoCon_->close();
 }

@@ -9,8 +9,8 @@ using namespace VioletVreath;
 EnemyAstraeaLaserChip004::EnemyAstraeaLaserChip004(const char* prm_name) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001", STATUS(EnemyAstraeaLaserChip004)) {
     _class_name = "EnemyAstraeaLaserChip004";
-    _pSplManufCon = connectSplineManufactureManager("GURUGURU");
-    _pSplSeq = _pSplManufCon->use()->createSplineSequence(_pKurokoA);
+    pSplManufCon_ = connectSplineManufactureManager("GURUGURU");
+    pSplSeq_ = pSplManufCon_->use()->createSplineSequence(_pKurokoA);
 }
 
 void EnemyAstraeaLaserChip004::initialize() {
@@ -27,7 +27,7 @@ void EnemyAstraeaLaserChip004::onActive() {
     _pKurokoA->setMvVelo(10000);
     _pKurokoA->setMvAcce(400);
     _pKurokoA->relateFaceAngWithMvAng(true);
-    _pSplSeq->stop();
+    pSplSeq_->stop();
 }
 
 void EnemyAstraeaLaserChip004::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -44,9 +44,9 @@ void EnemyAstraeaLaserChip004::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void EnemyAstraeaLaserChip004::processBehaviorHeadChip() {
     if (getActivePartFrame() == 2) {
-        _pSplSeq->exec(RELATIVE_DIRECTION); //Œü‚¢‚½•ûŒü‚Éƒ[ƒ‹ƒh•ÏŠ·
+        pSplSeq_->exec(RELATIVE_DIRECTION); //Œü‚¢‚½•ûŒü‚Éƒ[ƒ‹ƒh•ÏŠ·
     }
-    _pSplSeq->behave(); //©“r’†‚Å‚¿‚å‚ñ‚¬‚ê‚½‚ç‚¾‚ß‚¶‚á‚ñ
+    pSplSeq_->behave(); //©“r’†‚Å‚¿‚å‚ñ‚¬‚ê‚½‚ç‚¾‚ß‚¶‚á‚ñ
     _pKurokoA->behave();
 }
 
@@ -64,7 +64,7 @@ void EnemyAstraeaLaserChip004::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyAstraeaLaserChip004::~EnemyAstraeaLaserChip004() {
-    DELETE_IMPOSSIBLE_NULL(_pSplSeq);
-    _pSplManufCon->close();
+    DELETE_IMPOSSIBLE_NULL(pSplSeq_);
+    pSplManufCon_->close();
 }
 

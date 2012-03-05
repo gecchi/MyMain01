@@ -9,7 +9,7 @@ Shot004::Shot004(const char* prm_name) :
         SingleLaser(prm_name, "Shot004", STATUS(Shot004)) { //SingleLaserは最大27セットである
         //SingleLaser(prm_name, "27/laser_single") { //SingleLaserは最大27セットである
     _class_name = "Shot004";
-    _view_in = false;
+    view_in_ = false;
 }
 
 void Shot004::initialize() {
@@ -28,7 +28,7 @@ void Shot004::onReset() {
 
 void Shot004::onActive() {
     setHitAble(true, false);
-    _view_in = false;
+    view_in_ = false;
 }
 
 void Shot004::processBehavior() {
@@ -42,14 +42,14 @@ void Shot004::processBehavior() {
 
 void Shot004::processJudgement() {
     if (isOutOfView()) {
-        if (_view_in) {
+        if (view_in_) {
             sayonara();
         }
         if (getActivePartFrame() > 60) {
             sayonara();
         }
     } else {
-        _view_in = true;
+        view_in_ = true;
     }
     if (isOutOfUniverse()) {
         sayonara();
@@ -62,7 +62,7 @@ void Shot004::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         if (pExplo001) {
             pExplo001->locateAs(this);
         }

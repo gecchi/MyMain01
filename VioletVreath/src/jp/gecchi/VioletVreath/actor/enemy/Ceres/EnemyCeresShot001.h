@@ -14,21 +14,21 @@ class EnemyCeresShot001 : public GgafLib::DefaultMeshSetActor {
 public:
     //本Actorのカスタムプロパティ --->
     /** 出現時の初速 */
-    int _iMvVelo_1st;
+    int iMvVelo_1st_;
     /** 出現時の加速度（負で遅くなる */
-    int _iMoveAcce_1st;
+    int iMoveAcce_1st_;
     /** 自身が出現してから、自機の方向に方向転換を開始するフレーム */
-    frame _frame_TurnBegin;
+    frame frame_TurnBegin_;
     /** 移動速度上限 */
-    int _iMvVelo_Top;
+    int iMvVelo_Top_;
     /** 最低保証移動速度 */
-    int _iMvVelo_Bottom;
+    int iMvVelo_Bottom_;
     /** 方向転換に費やすことができるフレーム数 */
-    frame _frame_TurnInterval;
+    frame frame_TurnInterval_;
     /** 方向転換中の角速度アングル値 */
-    angle _angVelo_Turn;
-    /** 方向転換を開始（_frame_TurnBegin）から再設定される加速度 */
-    int _iMoveAcce_2nd;
+    angle angVelo_Turn_;
+    /** 方向転換を開始（frame_TurnBegin_）から再設定される加速度 */
+    int iMoveAcce_2nd_;
     //<--- 本Actorのカスタムプロパティ
 
 public:

@@ -9,8 +9,8 @@ using namespace VioletVreath;
 EnemyAstraeaLaserChip003::EnemyAstraeaLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "AstraeaLaserChip001", STATUS(EnemyAstraeaLaserChip003)) {
     _class_name = "EnemyAstraeaLaserChip003";
-    _pSplManufCon = connectSplineManufactureManager("GURUGURU");
-    _pSplSeq = _pSplManufCon->use()->createSplineSequence(_pKurokoA);
+    pSplManufCon_ = connectSplineManufactureManager("GURUGURU");
+    pSplSeq_ = pSplManufCon_->use()->createSplineSequence(_pKurokoA);
 }
 
 void EnemyAstraeaLaserChip003::initialize() {
@@ -26,11 +26,11 @@ void EnemyAstraeaLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    _pSplSeq->exec(RELATIVE_DIRECTION); //向いた方向にワールド変換
+    pSplSeq_->exec(RELATIVE_DIRECTION); //向いた方向にワールド変換
 }
 
 void EnemyAstraeaLaserChip003::processBehavior() {
-    _pSplSeq->behave();
+    pSplSeq_->behave();
     _pKurokoA->behave();
     WateringLaserChip::processBehavior();
 }
@@ -52,7 +52,7 @@ void EnemyAstraeaLaserChip003::onInactive() {
 }
 
 EnemyAstraeaLaserChip003::~EnemyAstraeaLaserChip003() {
-    DELETE_IMPOSSIBLE_NULL(_pSplSeq);
-    _pSplManufCon->close();
+    DELETE_IMPOSSIBLE_NULL(pSplSeq_);
+    pSplManufCon_->close();
 }
 

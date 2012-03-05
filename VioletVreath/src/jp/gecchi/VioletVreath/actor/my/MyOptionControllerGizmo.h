@@ -11,7 +11,7 @@ namespace VioletVreath {
 class MyOptionControllerGizmo : public GgafLib::DefaultMeshActor {
 
 public:
-    int _ptn_no;
+    int ptn_no_;
 
     MyOptionControllerGizmo(const char* prm_name);
 

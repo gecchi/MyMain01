@@ -6,13 +6,13 @@ class TurboMeter : public GgafLib::DefaultBoardActor {
 
 public:
     /** 100%のメーターの長さ(px) */
-    float _max_px;
+    float max_px_;
     /** 100%のメーターの値 */
-    float _max_val;
+    float max_val_;
     /** 現在のメーター値 */
-    float _val;
+    float val_;
     /** メーター値 1 の ピクセル値     */
-    float _unit_px;
+    float unit_px_;
 
     TurboMeter(const char* prm_name);
 
@@ -22,9 +22,9 @@ public:
      * @param prm_max_val メーター値が100%とする実際の値
      */
     void graduateScale(float prm_max_px, float prm_max_val) {
-        _max_px = prm_max_px;
-        _max_val = prm_max_val;
-        _unit_px = _max_px / _max_val;
+        max_px_ = prm_max_px;
+        max_val_ = prm_max_px;
+        unit_px_ = max_px_ / max_val_;
     }
 
     void initialize() override;

@@ -8,7 +8,7 @@ namespace VioletVreath {
  */
 class FormationCeres001 : public GgafLib::TreeFormation {
 
-    EnemyCeres* _pEnemyCeres[NUM_CERES_FORMATION001];
+    EnemyCeres* pEnemyCeres_[NUM_CERES_FORMATION001];
 public:
     FormationCeres001(const char* prm_name);
 

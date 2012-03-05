@@ -10,7 +10,7 @@ namespace VioletVreath {
  */
 class Stage02PartController : public GgafLib::DefaultScene {
 
-    GgafDxCore::GgafDxBgm* _bgm_st1;
+    GgafDxCore::GgafDxBgm* bgm_st1_;
 
 public:
     enum {
@@ -25,7 +25,7 @@ public:
         PROG_STG02_CLIMAX_PLAYING,
         PROG_FAINAL              ,
     };
-    frame _frame_prog_fainal;
+    frame frame_prog_fainal_;
 
     Stage02PartController(const char* prm_name);
     /**

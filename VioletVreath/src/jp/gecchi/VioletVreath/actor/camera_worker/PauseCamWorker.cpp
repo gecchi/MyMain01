@@ -7,18 +7,18 @@ using namespace VioletVreath;
 
 PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     _class_name = "PauseCamWorker";
-    _cd = 0;
-    _mdz_flg = false;
-    _pVPGuide = NULL;
-    _mdz_vx = _mdz_vy = _mdz_vz = _mdz_t = 0.0;
+    cd_ = 0;
+    mdz_flg_ = false;
+    pVPGuide_ = NULL;
+    mdz_vx_ = mdz_vy_ = mdz_vz_ = mdz_t_ = 0.0;
     orderActorToFactory(GgafUtil::easy_hash("VPGuide"), ViewPointGuide, "VPGuide");
-    _pVPGuide = (ViewPointGuide*)(obtainActorFromFactory(GgafUtil::easy_hash("VPGuide")));
+    pVPGuide_ = (ViewPointGuide*)(obtainActorFromFactory(GgafUtil::easy_hash("VPGuide")));
 
 }
 
 void PauseCamWorker::initialize() {
-    _pVPGuide->inactivateImmed();
-    P_WORLD->getDirector()->addSubGroup(_pVPGuide);
+    pVPGuide_->inactivateImmed();
+    P_WORLD->getDirector()->addSubGroup(pVPGuide_);
 }
 
 
@@ -33,9 +33,9 @@ void PauseCamWorker::processBehavior() {
     mdy = -mdy; //Yはインバーズ
 
 //    if (GgafDxInput::isPushedDownMouseButton(0) || GgafDxInput::isPushedDownMouseButton(1) || GgafDxInput::isPushedDownMouseButton(2)) {
-//        _pVPGuide->activate(); //ガイドON
+//        pVPGuide_->activate(); //ガイドON
 //    } else if(GgafDxInput::isReleasedUpMouseButton(0) || GgafDxInput::isReleasedUpMouseButton(1) || GgafDxInput::isReleasedUpMouseButton(2)) {
-//        _pVPGuide->inactivate(); //ガイドOFF
+//        pVPGuide_->inactivate(); //ガイドOFF
 //    }
 
     if (GgafDxInput::isPushedDownMouseButton(0) || GgafDxInput::isPushedDownMouseButton(1) || GgafDxInput::isPushedDownMouseButton(2)) {
@@ -46,23 +46,23 @@ void PauseCamWorker::processBehavior() {
         cw = cRect.right - cRect.left;
         ch = cRect.bottom - cRect.top;
         if (cw > ch) {
-            _cd = ch;
+            cd_ = ch;
         } else {
-            _cd = cw;
+            cd_ = cw;
         }
         if (!pCam->_pKurokoA->isMoveingSmooth()) {
-            _move_target_X_CAM = pCam->_X;
-            _move_target_Y_CAM = pCam->_Y;
-            _move_target_Z_CAM = pCam->_Z;
+            move_target_X_CAM_ = pCam->_X;
+            move_target_Y_CAM_ = pCam->_Y;
+            move_target_Z_CAM_ = pCam->_Z;
         }
         if (!pVP->_pKurokoA->isMoveingSmooth()) {
             //正確なVPに再設定
             pVP->_X = DX2CO(pCam->_pVecCamLookatPoint->x);
             pVP->_Y = DX2CO(pCam->_pVecCamLookatPoint->y);
             pVP->_Z = DX2CO(pCam->_pVecCamLookatPoint->z);
-            _move_target_X_VP = pVP->_X;
-            _move_target_Y_VP = pVP->_Y;
-            _move_target_Z_VP = pVP->_Z;
+            move_target_X_VP_ = pVP->_X;
+            move_target_Y_VP_ = pVP->_Y;
+            move_target_Z_VP_ = pVP->_Z;
         }
     }
 
@@ -93,12 +93,12 @@ void PauseCamWorker::processBehavior() {
         //VP→CAMのワールド空間方向ベクトルを法線とする平面上に回転軸ベクトルは存在する
 
         D3DXMATRIX InvView;
-        D3DXMatrixInverse( &InvView, NULL, &pCam->_matView );
+        D3DXMatrixInverse( &InvView, NULL, &pCam->_matView);
         //(vx,vy,vz) * InvView
-        // _11, _12, _13, _14
-        // _21, _22, _23, _24
-        // _31, _32, _33, _34
-        // vx*_11 + vy*_21 + vz*_31 + _41, vx*_12 + vy*_22 + vz*_32 + _42, vx*_13 + vy*_23 + vz*_33 + _43, vx*_14 + vy*_24 + vz*_34 + _44
+        // 11_, 12_, 13_, 14_
+        // 21_, 22_, 23_, 24_
+        // 31_, 32_, 33_, 34_
+        // vx*11_ + vy*21_ + vz*31_ + 41_, vx*12_ + vy*22_ + vz*32_ + 42_, vx*13_ + vy*23_ + vz*33_ + 43_, vx*14_ + vy*24_ + vz*34_ + 44_
         //方向ベクトル(0,0,0)->(vx,vy,vz) を逆ビュー変換
         //変換後方向ベクトル = (vx,vy,vz)変換後座標 - (0,0,0)変換後座標
         //               <------------  (vx,vy,vz)変換後座標-------------------------->    <-- (0,0,0)変換後座標 -->
@@ -125,14 +125,14 @@ void PauseCamWorker::processBehavior() {
         //視点を中心にカメラが回転移動
         if (GgafDxInput::isBeingPressedMouseButton(0) && (mdx != 0 || mdy != 0)) {
             //視点→カメラ の方向ベクトル(x,y,z)
-            double x = _move_target_X_CAM - _move_target_X_VP;
-            double y = _move_target_Y_CAM - _move_target_Y_VP;
-            double z = _move_target_Z_CAM - _move_target_Z_VP;
+            double x = move_target_X_CAM_ - move_target_X_VP_;
+            double y = move_target_Y_CAM_ - move_target_Y_VP_;
+            double z = move_target_Z_CAM_ - move_target_Z_VP_;
 
             angle rz1 = GgafDxUtil::getAngle2D(x, y);
 
             //回転させたい角度
-            double ang = (PI) * (d/_cd);
+            double ang = (PI) * (d/cd_);
             double sinHalf = sin(ang/2);
             double cosHalf = cos(ang/2);
 
@@ -141,24 +141,24 @@ void PauseCamWorker::processBehavior() {
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
             angle rz2 = GgafDxUtil::getAngle2D(Q._x,Q._y);
 
-            //Q._x, Q._y, Q._z が回転後の座標となる
+            //Q.x_, Q.y_, Q.z_ が回転後の座標となる
             if (abs(mdy) > abs(mdx)/2) { //上下ブレ補正
-                _move_target_XY_CAM_UP += GgafDxUtil::getAngDiff(rz1, rz2);
-                _move_target_XY_CAM_UP = GgafDxUtil::simplifyAng(_move_target_XY_CAM_UP);
+                move_target_XY_CAM_UP_ += GgafDxUtil::getAngDiff(rz1, rz2);
+                move_target_XY_CAM_UP_ = GgafDxUtil::simplifyAng(move_target_XY_CAM_UP_);
             }
-            _move_target_X_CAM = Q._x + _move_target_X_VP;
-            _move_target_Y_CAM = Q._y + _move_target_Y_VP;
-            _move_target_Z_CAM = Q._z + _move_target_Z_VP;
+            move_target_X_CAM_ = Q._x + move_target_X_VP_;
+            move_target_Y_CAM_ = Q._y + move_target_Y_VP_;
+            move_target_Z_CAM_ = Q._z + move_target_Z_VP_;
         }
         //カメラを中心に視点が回転移動
         if (GgafDxInput::isBeingPressedMouseButton(1) && (mdx != 0 || mdy != 0)) {
             //カメラ→視点 の方向ベクトル(x,y,z)
-            double x = _move_target_X_VP - _move_target_X_CAM;
-            double y = _move_target_Y_VP - _move_target_Y_CAM;
-            double z = _move_target_Z_VP - _move_target_Z_CAM;
+            double x = move_target_X_VP_ - move_target_X_CAM_;
+            double y = move_target_Y_VP_ - move_target_Y_CAM_;
+            double z = move_target_Z_VP_ - move_target_Z_CAM_;
             angle rz1 = GgafDxUtil::getAngle2D(x, y);
             //回転させたい角度
-            double ang = (PI) * (d/_cd);
+            double ang = (PI) * (d/cd_);
             double sinHalf = sin(ang/2);
             double cosHalf = cos(ang/2);
             GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
@@ -166,24 +166,24 @@ void PauseCamWorker::processBehavior() {
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
             angle rz2 = GgafDxUtil::getAngle2D(Q._x,Q._y);
             if (abs(mdy) > abs(mdx)/2) { //上下ブレ補正
-                _move_target_XY_CAM_UP += GgafDxUtil::getAngDiff(rz1, rz2);
-                _move_target_XY_CAM_UP = GgafDxUtil::simplifyAng(_move_target_XY_CAM_UP);
+                move_target_XY_CAM_UP_ += GgafDxUtil::getAngDiff(rz1, rz2);
+                move_target_XY_CAM_UP_ = GgafDxUtil::simplifyAng(move_target_XY_CAM_UP_);
             }
-            //Q._x, Q._y, Q._z が回転後の座標となる
-            _move_target_X_VP = Q._x + _move_target_X_CAM;
-            _move_target_Y_VP = Q._y + _move_target_Y_CAM;
-            _move_target_Z_VP = Q._z + _move_target_Z_CAM;
+            //Q.x_, Q.y_, Q.z_ が回転後の座標となる
+            move_target_X_VP_ = Q._x + move_target_X_CAM_;
+            move_target_Y_VP_ = Q._y + move_target_Y_CAM_;
+            move_target_Z_VP_ = Q._z + move_target_Z_CAM_;
         }
         //カメラをと視点が平行移動
         if (GgafDxInput::isBeingPressedMouseButton(2) && (mdx != 0 || mdy != 0)) {
-            _stop_renge = 60000;
+            stop_renge_ = 60000;
             double ang = -PI/2.0;
             double sinHalf = sin(ang/2); //回転させたい角度
             double cosHalf = cos(ang/2);
 
-            double x = _move_target_X_VP - _move_target_X_CAM;
-            double y = _move_target_Y_VP - _move_target_Y_CAM;
-            double z = _move_target_Z_VP - _move_target_Z_CAM;
+            double x = move_target_X_VP_ - move_target_X_CAM_;
+            double y = move_target_Y_VP_ - move_target_Y_CAM_;
+            double z = move_target_Z_VP_ - move_target_Z_CAM_;
 
             //正規化
             double d3 = sqrt(x * x + y * y + z * z);
@@ -196,91 +196,91 @@ void PauseCamWorker::processBehavior() {
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
 
-            double r = ((d/_cd) * PX2CO(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2));
+            double r = ((d/cd_) * PX2CO(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2));
 
-            _move_target_X_CAM += (Q._x*r);
-            _move_target_Y_CAM += (Q._y*r);
-            _move_target_Z_CAM += (Q._z*r);
+            move_target_X_CAM_ += (Q._x*r);
+            move_target_Y_CAM_ += (Q._y*r);
+            move_target_Z_CAM_ += (Q._z*r);
 
-            _move_target_X_VP += (Q._x*r);
-            _move_target_Y_VP += (Q._y*r);
-            _move_target_Z_VP += (Q._z*r);
+            move_target_X_VP_ += (Q._x*r);
+            move_target_Y_VP_ += (Q._y*r);
+            move_target_Z_VP_ += (Q._z*r);
         }
 
     } else if (mdz != 0 || (GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1))) {
-        _stop_renge = 60000;
-        if (_mdz_flg == false) {
-            _mdz_total = 0;
+        stop_renge_ = 60000;
+        if (mdz_flg_ == false) {
+            mdz_total_ = 0;
             if (!pCam->_pKurokoA->isMoveingSmooth()) {
-                _move_target_X_CAM = pCam->_X;
-                _move_target_Y_CAM = pCam->_Y;
-                _move_target_Z_CAM = pCam->_Z;
+                move_target_X_CAM_ = pCam->_X;
+                move_target_Y_CAM_ = pCam->_Y;
+                move_target_Z_CAM_ = pCam->_Z;
             }
             if (!pVP->_pKurokoA->isMoveingSmooth()) {
                 pVP->_X = DX2CO(pCam->_pVecCamLookatPoint->x);
                 pVP->_Y = DX2CO(pCam->_pVecCamLookatPoint->y);
                 pVP->_Z = DX2CO(pCam->_pVecCamLookatPoint->z);
-                _move_target_X_VP = pVP->_X;
-                _move_target_Y_VP = pVP->_Y;
-                _move_target_Z_VP = pVP->_Z;
+                move_target_X_VP_ = pVP->_X;
+                move_target_Y_VP_ = pVP->_Y;
+                move_target_Z_VP_ = pVP->_Z;
             }
-            _cam_X = pCam->_X;
-            _cam_Y = pCam->_Y;
-            _cam_Z = pCam->_Z;
-            _vp_X = pVP->_X;
-            _vp_Y = pVP->_Y;
-            _vp_Z = pVP->_Z;
+            cam_X_ = pCam->_X;
+            cam_Y_ = pCam->_Y;
+            cam_Z_ = pCam->_Z;
+            vp_X_ = pVP->_X;
+            vp_Y_ = pVP->_Y;
+            vp_Z_ = pVP->_Z;
             //カメラ → 視点 の方向ベクトル
             double vx = pVP->_X - pCam->_X;
             double vy = pVP->_Y - pCam->_Y;
             double vz = pVP->_Z - pCam->_Z;
             double t = 1.0 / sqrt(vx * vx + vy * vy + vz * vz);
-            _mdz_vx = t * vx;
-            _mdz_vy = t * vy;
-            _mdz_vz = t * vz;
+            mdz_vx_ = t * vx;
+            mdz_vy_ = t * vy;
+            mdz_vz_ = t * vz;
         }
-//        _mdz_total += mdz; //連続ホイール回転時、加算
-//        double r = (_mdz_total*PX_UNIT*LEN_UNIT/10.0);
-//        _move_target_X_CAM = _cam_X + _mdz_vx*r;
-//        _move_target_Y_CAM = _cam_Y + _mdz_vy*r;
-//        _move_target_Z_CAM = _cam_Z + _mdz_vz*r;
-//        _move_target_X_VP  = _vp_X + _mdz_vx*r;
-//        _move_target_Y_VP  = _vp_Y + _mdz_vy*r;
-//        _move_target_Z_VP  = _vp_Z + _mdz_vz*r;
+//        mdz_total_ += mdz; //連続ホイール回転時、加算
+//        double r = (mdz_total_*PX_UNIT*LEN_UNIT/10.0);
+//        move_target_X_CAM_ = cam_X_ + mdz_vx_*r;
+//        move_target_Y_CAM_ = cam_Y_ + mdz_vy_*r;
+//        move_target_Z_CAM_ = cam_Z_ + mdz_vz_*r;
+//        move_target_X_VP_  = vp_X_ + mdz_vx_*r;
+//        move_target_Y_VP_  = vp_Y_ + mdz_vy_*r;
+//        move_target_Z_VP_  = vp_Z_ + mdz_vz_*r;
         double r = 0.0;
         if (mdz != 0) {
             r = (mdz*PX_UNIT*LEN_UNIT/10.0);
         } else if ((GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1))) {
-            r = ((1.0*mdy/_cd) * GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2)*LEN_UNIT;
+            r = ((1.0*mdy/cd_) * GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2)*LEN_UNIT;
         }
-        _move_target_X_CAM += _mdz_vx*r;
-        _move_target_Y_CAM += _mdz_vy*r;
-        _move_target_Z_CAM += _mdz_vz*r;
-        _move_target_X_VP  += _mdz_vx*r;
-        _move_target_Y_VP  += _mdz_vy*r;
-        _move_target_Z_VP  += _mdz_vz*r;
-        _mdz_flg = true;
+        move_target_X_CAM_ += mdz_vx_*r;
+        move_target_Y_CAM_ += mdz_vy_*r;
+        move_target_Z_CAM_ += mdz_vz_*r;
+        move_target_X_VP_  += mdz_vx_*r;
+        move_target_Y_VP_  += mdz_vy_*r;
+        move_target_Z_VP_  += mdz_vz_*r;
+        mdz_flg_ = true;
     } else {
-        _mdz_flg = false;
+        mdz_flg_ = false;
     }
 
-    if (abs(_move_target_X_CAM - pCam->_X) < 10 && abs(_move_target_Y_CAM - pCam->_Y) < 10 && abs(_move_target_Z_CAM - pCam->_Z) < 10) {
+    if (abs(move_target_X_CAM_ - pCam->_X) < 10 && abs(move_target_Y_CAM_ - pCam->_Y) < 10 && abs(move_target_Z_CAM_ - pCam->_Z) < 10) {
         //OK
     } else {
-        pCam->_pKurokoA->setMvAng(_move_target_X_CAM, _move_target_Y_CAM, _move_target_Z_CAM);
+        pCam->_pKurokoA->setMvAng(move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
 
         int td1 = GgafDxUtil::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
-                                           _move_target_X_CAM, _move_target_Y_CAM, _move_target_Z_CAM);
+                                           move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
         if (MyStgUtil::abs(td1) > 10) {
             pCam->_pKurokoA->execSmoothMvVeloSequence(0, td1, 20, 0.4, 0.6);
         }
     }
-    if (abs(_move_target_X_VP - pVP->_X) < 10 && abs(_move_target_Y_VP - pVP->_Y) < 10 && abs(_move_target_Z_VP - pVP->_Z) < 10) {
+    if (abs(move_target_X_VP_ - pVP->_X) < 10 && abs(move_target_Y_VP_ - pVP->_Y) < 10 && abs(move_target_Z_VP_ - pVP->_Z) < 10) {
         //OK
     } else {
-        pVP->_pKurokoA->setMvAng(_move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP);
+        pVP->_pKurokoA->setMvAng(move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
         int td2 = GgafDxUtil::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
-                                           _move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP);
+                                           move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
         if (MyStgUtil::abs(td2) > 10) {
             pVP->_pKurokoA->execSmoothMvVeloSequence(0, td2, 20, 0.4, 0.6);
         }
@@ -289,16 +289,16 @@ void PauseCamWorker::processBehavior() {
 
     //カメラのUPを計算
     ang_velo ang_velo_cam_up = 30000 / 20;
-    if (_angXY_nowCamUp != _move_target_XY_CAM_UP) {
-        angle da = GgafDxUtil::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
+    if (angXY_nowCamUp_ != move_target_XY_CAM_UP_) {
+        angle da = GgafDxUtil::getAngDiff(angXY_nowCamUp_, move_target_XY_CAM_UP_);
         if (-ang_velo_cam_up < da && da < ang_velo_cam_up) {
-            _angXY_nowCamUp = _move_target_XY_CAM_UP;
+            angXY_nowCamUp_ = move_target_XY_CAM_UP_;
         } else {
-            _angXY_nowCamUp += (ang_velo_cam_up * sgn(da));
+            angXY_nowCamUp_ += (ang_velo_cam_up * sgn(da));
         }
-        _angXY_nowCamUp = GgafDxUtil::simplifyAng(_angXY_nowCamUp);
-        pCam->_pVecCamUp->x = GgafDxUtil::COS[_angXY_nowCamUp / SANG_RATE];
-        pCam->_pVecCamUp->y = GgafDxUtil::SIN[_angXY_nowCamUp / SANG_RATE];
+        angXY_nowCamUp_ = GgafDxUtil::simplifyAng(angXY_nowCamUp_);
+        pCam->_pVecCamUp->x = GgafDxUtil::COS[angXY_nowCamUp_ / SANG_RATE];
+        pCam->_pVecCamUp->y = GgafDxUtil::SIN[angXY_nowCamUp_ / SANG_RATE];
         pCam->_pVecCamUp->z = 0.0f;
     }
 

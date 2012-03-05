@@ -8,17 +8,17 @@ using namespace VioletVreath;
 GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePauseScene";
 
-    _pMenuBoardPause = NEW MenuBoardPause("MenuBoardPause");
-    getDirector()->addSubGroup(_pMenuBoardPause);
+    pMenuBoardPause_ = NEW MenuBoardPause("MenuBoardPause");
+    getDirector()->addSubGroup(pMenuBoardPause_);
 
     useProgress(10);
     _pProg->change(GamePauseScene::PROG_INIT);
-    _pMsgLabel01 = NEW LabelGecchi16Font("STR01");
-    _pMsgLabel01->update("PAUSE!!");
-    getDirector()->addSubGroup(_pMsgLabel01);
-    _pMsgLabel02 = NEW LabelGecchi16Font("STR02");
-    _pMsgLabel02->update("YOU SURE ?");
-    getDirector()->addSubGroup(_pMsgLabel02);
+    pMsgLabel01_ = NEW LabelGecchi16Font("STR01");
+    pMsgLabel01_->update("PAUSE!!");
+    getDirector()->addSubGroup(pMsgLabel01_);
+    pMsgLabel02_ = NEW LabelGecchi16Font("STR02");
+    pMsgLabel02_->update("YOU SURE ?");
+    getDirector()->addSubGroup(pMsgLabel02_);
 
     const char* item[] = {
           "BACK TO GAME",
@@ -26,41 +26,41 @@ GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
           "BACK TO TITLE",
           "QUIT GAME"
     };
-    _max_menu_item = 4;
-    _papMenuItemLabel = NEW LabelGecchi16Font*[_max_menu_item];
-    for (int i = 0; i < _max_menu_item; i++) {
-        _papMenuItemLabel[i] = NEW LabelGecchi16Font("menu_item");
-        _papMenuItemLabel[i]->_Z = 1;
-        _papMenuItemLabel[i]->update(item[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        _papMenuItemLabel[i]->inactivateImmed();
-        getDirector()->addSubGroup(_papMenuItemLabel[i]);
+    max_menu_item_ = 4;
+    papMenuItemLabel_ = NEW LabelGecchi16Font*[max_menu_item_];
+    for (int i = 0; i < max_menu_item_; i++) {
+        papMenuItemLabel_[i] = NEW LabelGecchi16Font("menu_item");
+        papMenuItemLabel_[i]->_Z = 1;
+        papMenuItemLabel_[i]->update(item[i], ALIGN_CENTER, VALIGN_MIDDLE);
+        papMenuItemLabel_[i]->inactivateImmed();
+        getDirector()->addSubGroup(papMenuItemLabel_[i]);
     }
 
-    _pCursor001= NEW Cursor001("Cursor001");
-    _pCursor001->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    _pCursor001->inactivateImmed();
-    getDirector()->addSubGroup(_pCursor001);
+    pCursor001_= NEW Cursor001("Cursor001");
+    pCursor001_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    pCursor001_->inactivateImmed();
+    getDirector()->addSubGroup(pCursor001_);
 
-    _pSeCon_exec = connectSeManager("click07_2");
-    _active_item = 0;
+    pSeCon_exec_ = connectSeManager("click07");
+    active_item_ = 0;
 
 }
 
 void GamePauseScene::onReset() {
     _TRACE_("GamePauseScene::onReset()");
-    _pMsgLabel01->inactivateImmed();
-    _pMsgLabel02->inactivateImmed();
-    for (int i = 0; i < _max_menu_item; i++) {
-        _papMenuItemLabel[i]->_pKurokoA->setMvVelo(0);
-        _papMenuItemLabel[i]->inactivateImmed();
+    pMsgLabel01_->inactivateImmed();
+    pMsgLabel02_->inactivateImmed();
+    for (int i = 0; i < max_menu_item_; i++) {
+        papMenuItemLabel_[i]->_pKurokoA->setMvVelo(0);
+        papMenuItemLabel_[i]->inactivateImmed();
     }
-    _pCursor001->_pKurokoA->setMvVelo(0);
-    _pCursor001->inactivateImmed();
+    pCursor001_->_pKurokoA->setMvVelo(0);
+    pCursor001_->inactivateImmed();
     _pProg->set(GamePauseScene::PROG_INIT);
 }
 
 void GamePauseScene::onActive() {
-    _pMenuBoardPause->rise();
+    pMenuBoardPause_->rise();
 }
 
 void GamePauseScene::initialize() {
@@ -87,54 +87,54 @@ void GamePauseScene::processBehavior() {
 
 
                 //アイテム
-                for (int i = 0; i < _max_menu_item; i++) {
+                for (int i = 0; i < max_menu_item_; i++) {
                     //初期設定
-                    _papMenuItemLabel[i]->locate(PX2CO(-256), PX2CO(0));
-                    _papMenuItemLabel[i]->activateDelay(i*10+1); //パラパラと順に
+                    papMenuItemLabel_[i]->locate(PX2CO(-256), PX2CO(0));
+                    papMenuItemLabel_[i]->activateDelay(i*10+1); //パラパラと順に
                     //飛ばす
                     coord tX = PX2CO(1000);
                     coord tY = PX2CO(200+i*32);
-                    _papMenuItemLabel[i]->_pKurokoA->setMvAng(tX, tY);
-                    _papMenuItemLabel[i]->_pKurokoA->execSmoothMvVeloSequence(
+                    papMenuItemLabel_[i]->_pKurokoA->setMvAng(tX, tY);
+                    papMenuItemLabel_[i]->_pKurokoA->execSmoothMvVeloSequence(
                                                         0,
-                                                        GgafDxUtil::getDistance(_papMenuItemLabel[i]->_X, _papMenuItemLabel[i]->_Y, tX, tY),
+                                                        GgafDxUtil::getDistance(papMenuItemLabel_[i]->_X, papMenuItemLabel_[i]->_Y, tX, tY),
                                                         30,
                                                         0.3, 0.7);
                 }
 
                 //カーソル
-                _pCursor001->locateAs(_papMenuItemLabel[_active_item]);
-                _pCursor001->activate();
+                pCursor001_->locateAs(papMenuItemLabel_[active_item_]);
+                pCursor001_->activate();
             }
             //メインループ
 
-            _pCursor001->moveTo(_papMenuItemLabel[_active_item]);
+            pCursor001_->moveTo(papMenuItemLabel_[active_item_]);
             if (VB->isAutoRepeat(VB_UI_UP)) {
-                _pSeCon_exec->use()->play();
-                _active_item--;
-                if (_active_item < 0) {
-                    _active_item = _max_menu_item-1;
+                pSeCon_exec_->use()->play();
+                active_item_--;
+                if (active_item_ < 0) {
+                    active_item_ = max_menu_item_-1;
                 }
-                _frame_of_noinput = _pProg->getFrameInProgress();
+                frame_of_noinput_ = _pProg->getFrameInProgress();
             } else if (VB->isAutoRepeat(VB_UI_DOWN)) {
-                _pSeCon_exec->use()->play();
-                _active_item++;
-                if (_active_item > _max_menu_item-1) {
-                    _active_item = 0;
+                pSeCon_exec_->use()->play();
+                active_item_++;
+                if (active_item_ > max_menu_item_-1) {
+                    active_item_ = 0;
                 }
-                _frame_of_noinput = _pProg->getFrameInProgress();
+                frame_of_noinput_ = _pProg->getFrameInProgress();
             } if (VB->isPushedDown(VB_UI_EXECUTE)) {
 
-                if (_active_item == 0) {
+                if (active_item_ == 0) {
 
 //                    _pProg->change(GamePauseScene::PROG_GAMESTART);
-                } else if (_active_item == 1) {
+                } else if (active_item_ == 1) {
 
 
-                } else if (_active_item == 2) {
+                } else if (active_item_ == 2) {
                     _pProg->change(GamePauseScene::PROG_CONFIRM);
 
-                } else if (_active_item == 3) {
+                } else if (active_item_ == 3) {
 //                    _pProg->change(GamePauseScene::PROG_CONFIRM);
                     PostQuitMessage(0);
                 }
@@ -162,20 +162,20 @@ void GamePauseScene::processBehavior() {
 
 
 
-    for (int i = 0; i < _max_menu_item; i++) {
-        if (_papMenuItemLabel[i]->isActiveInTheTree()) {
-            _papMenuItemLabel[i]->_pKurokoA->behave();
+    for (int i = 0; i < max_menu_item_; i++) {
+        if (papMenuItemLabel_[i]->isActiveInTheTree()) {
+            papMenuItemLabel_[i]->_pKurokoA->behave();
         }
     }
-    _pMsgLabel01->_pKurokoA->behave();
-    _pMsgLabel02->_pKurokoA->behave();
+    pMsgLabel01_->_pKurokoA->behave();
+    pMsgLabel02_->_pKurokoA->behave();
 }
 
 void GamePauseScene::onInactive() {
-    _pMenuBoardPause->sink();
+    pMenuBoardPause_->sink();
 }
 
 GamePauseScene::~GamePauseScene() {
-    DELETEARR_IMPOSSIBLE_NULL(_papMenuItemLabel);
-    _pSeCon_exec->close();
+    DELETEARR_IMPOSSIBLE_NULL(papMenuItemLabel_);
+    pSeCon_exec_->close();
 }

@@ -5,7 +5,7 @@ namespace VioletVreath {
 /**
  * 魚雷コントローラー .
  * １オプションにつき１つの魚雷コントローラーを保持しています。
- * 魚雷の発射数は、１オプションの最大ロックオン可能数(MyOption::_max_lockon_num)と一致します。
+ * 魚雷の発射数は、１オプションの最大ロックオン可能数(MyOption::max_lockon_num_)と一致します。
  * @version 1.00
  * @since 2010/09/15
  * @author Masatoshi Tsuge
@@ -14,15 +14,15 @@ class MyOptionTorpedoController : public GgafCore::GgafDummyActor {
 
 public:
     /** [r]親アクターとなるオプション */
-    MyOption* _pMyOption;
-    /** [r]保持する魚雷配列（要素数は MyOption::_max_lockon_num 個） */
-    MyTorpedo** _papMyTorpedo;
+    MyOption* pMyOption_;
+    /** [r]保持する魚雷配列（要素数は MyOption::max_lockon_num_ 個） */
+    MyTorpedo** papMyTorpedo_;
     /** [r]保持する魚雷爆風デポジトリ */
-    GgafCore::GgafActorDepository* _pDepo_TorpedoBlast;
+    GgafCore::GgafActorDepository* pDepo_TorpedoBlast_;
     /** 同時発射魚雷数 */
-    int _firing_num;
+    int firing_num_;
     /** 現在魚雷発射中かどうか true:いづれかの魚雷が活動中/false:全ての魚雷が非活動状態 */
-    bool _in_firing;
+    bool in_firing_;
 
     /**
      * コンストラクタ .

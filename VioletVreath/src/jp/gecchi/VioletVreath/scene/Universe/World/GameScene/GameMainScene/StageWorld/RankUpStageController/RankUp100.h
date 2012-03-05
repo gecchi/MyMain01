@@ -9,11 +9,11 @@ class RankUp100 : public RankUpStage {
 
 public:
 
-    WorldBoundSpace001* _pWorldBoundSpace;
-    HoshiBoshi001* _pHoshiBoshi;
+    WorldBoundSpace001* pWorldBoundSpace_;
+    HoshiBoshi001* pHoshiBoshi_;
 
 
-    LabelGecchi16Font* _pMessage;
+    LabelGecchi16Font* pMessage_;
 
     RankUp100(const char* prm_name);
     /**

@@ -9,7 +9,7 @@ MyOptionControllerGizmo::MyOptionControllerGizmo(const char* prm_name) :
         DefaultMeshActor(prm_name, "Nothing", NULL) {
     _class_name = "MyOptionControllerGizmo";
 
-    _ptn_no = 0;
+    ptn_no_ = 0;
 }
 
 void MyOptionControllerGizmo::initialize() {

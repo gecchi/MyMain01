@@ -22,7 +22,7 @@ void VarietyTorus001::initialize() {
     makeCollisionArea(16);
     setHitAble(true);
     setAlpha(1.00);
-    _X = GgafDxCore::GgafDxUniverse::_X_goneRight+_r1+_r2;
+    _X = GgafDxCore::GgafDxUniverse::_X_goneRight+r1_+r2_;
     _pKurokoA->setRzRyMvAng(D180ANG, 0);
     _pKurokoA->setMvVelo(3000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, 100);

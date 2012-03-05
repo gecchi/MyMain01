@@ -12,12 +12,12 @@ class HoshiBoshi : public GgafDxCore::GgafDxPointSpriteActor {
 
 public:
 
-    coord _CAM_ZF;
-    float _far_rate;
-    D3DXHANDLE _h_fX_MyShip;
-    D3DXHANDLE _h_fY_MyShip;
-    D3DXHANDLE _h_fZ_MyShip;
-    D3DXHANDLE _h_far_rate;
+    coord CAM_ZF_;
+    float far_rate_;
+    D3DXHANDLE h_fX_MyShip_;
+    D3DXHANDLE h_fY_MyShip_;
+    D3DXHANDLE h_fZ_MyShip_;
+    D3DXHANDLE h_far_rate_;
 
     HoshiBoshi(const char* prm_name, const char* prm_model_id);
 

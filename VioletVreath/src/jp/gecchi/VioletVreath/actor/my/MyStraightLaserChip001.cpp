@@ -9,7 +9,7 @@ using namespace VioletVreath;
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "MyOptionWateringLaserChip001", STATUS(MyStraightLaserChip001)) {
     _class_name = "MyStraightLaserChip001";
-    _default_stamina = _pStatus->get(STAT_Stamina);
+    default_stamina_ = _pStatus->get(STAT_Stamina);
     _veloMv = 100000;
 }
 
@@ -48,7 +48,7 @@ void MyStraightLaserChip001::onActive() {
     _pKurokoA->setMvVelo(80000);
     _pKurokoA->setMvAcce(300);
     _pStatus->reset();
-    _default_stamina = _pStatus->get(STAT_Stamina);
+    default_stamina_ = _pStatus->get(STAT_Stamina);
 }
 
 void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
@@ -61,19 +61,19 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
             if (pExplo001) {
                 pExplo001->locateAs(this);
             }
             sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
-            _pStatus->set(STAT_Stamina, _default_stamina);
+            _pStatus->set(STAT_Stamina, default_stamina_);
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら
         //破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         if (pExplo001) {
             pExplo001->locateAs(this);
             pExplo001->activate();

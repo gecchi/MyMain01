@@ -13,7 +13,7 @@ namespace VioletVreath {
 class Item : public GgafLib::DefaultMeshSetActor {
 
 public:
-    TractorMagic* _pTractorMagic;
+    TractorMagic* pTractorMagic_;
 
     Item(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 

@@ -13,9 +13,9 @@ namespace VioletVreath {
 class Torus : public GgafLib::CubeMapMeshActor {
 public:
     /** トーラス半径1(輪) */
-    coord _r1;
+    coord r1_;
     /** トーラス半径2(太さ) */
-    coord _r2;
+    coord r2_;
 
     /**
      * コンストラクタ .

@@ -11,15 +11,15 @@ namespace VioletVreath {
 class FormationThalia : public GgafLib::TreeFormation {
 public:
     /** 編隊数(RANK変動) */
-    int _num_Thalia;
+    int num_Thalia_;
     /** タリアの配列(RANK変動) */
-    EnemyThalia** _papThalia;
+    EnemyThalia** papThalia_;
     /** 編隊間隔フレーム(RANK変動) */
-    frame _interval_frames;
+    frame interval_frames_;
     /** 移動速度(RANK変動) */
-    velo _mv_velo;
+    velo velo_mv_;
 
-    DepositoryConnection* _pDpcon;
+    DepositoryConnection* pDpcon_;
 
     FormationThalia(const char* prm_name);
 

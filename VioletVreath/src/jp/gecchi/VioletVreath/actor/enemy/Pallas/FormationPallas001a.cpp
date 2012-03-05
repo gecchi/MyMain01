@@ -9,15 +9,15 @@ FormationPallas001a::FormationPallas001a(const char* prm_name) : FormationPallas
     _class_name = "FormationPallas001a";
 }
 void FormationPallas001a::onActive() {
-    for (int i = 0; i < _num_Pallas; i++) {
-//        _papPallas[i]->_pSplSeq->adjustAxisRate(
-//                                            MyShip::_lim_front, //X•ûŒü”{—¦
-//                                            MyShip::_lim_top,   //Y•ûŒü”{—¦
-//                                            MyShip::_lim_zleft  //Z•ûŒü”{—¦
+    for (int i = 0; i < num_Pallas_; i++) {
+//        papPallas_[i]->pSplSeq_->adjustAxisRate(
+//                                            MyShip::lim_front_, //X•ûŒü”{—¦
+//                                            MyShip::lim_top_,   //Y•ûŒü”{—¦
+//                                            MyShip::lim_zleft_  //Z•ûŒü”{—¦
 //                                        );
-        _papPallas[i]->_pSplSeq->setAbsoluteBeginCoordinate();
-        _papPallas[i]->_pKurokoA->setMvVelo(_mv_velo);
-        _papPallas[i]->activateDelay(i*_interval_frames + 1);//_interval_framesŠÔŠu‚ÅActive‚É‚·‚éB
+        papPallas_[i]->pSplSeq_->setAbsoluteBeginCoordinate();
+        papPallas_[i]->_pKurokoA->setMvVelo(velo_mv_);
+        papPallas_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_ŠÔŠu‚ÅActive‚É‚·‚éB
     }
 }
 

@@ -12,11 +12,11 @@ namespace VioletVreath {
 class EnemyMetis : public GgafLib::DefaultMeshSetActor {
 
 public:
-    int _iMovePatternNo;
+    int iMovePatternNo_;
 
-    int _width_X;
-    int _height_Z;
-    int _depth_Y;
+    int width_X_;
+    int height_Z_;
+    int depth_Y_;
 
     EnemyMetis(const char* prm_name);
 

@@ -11,7 +11,7 @@ namespace VioletVreath {
 class HoshiBoshi002 : public GgafLib::DefaultPointSpriteActor {
 
 public:
-    int _CAM_ZF;
+    int CAM_ZF_;
 
     HoshiBoshi002(const char* prm_name);
 

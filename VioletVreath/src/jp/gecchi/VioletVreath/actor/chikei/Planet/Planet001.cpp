@@ -16,8 +16,8 @@ Planet001::Planet001(const char* prm_name) :
     viewAlsoForcesFar(true);//遠くても表示
 
     //大気圏エフェクトスプライト
-    _pAtmosphere = NEW Planet001Atmosphere("P001ATMOS");
-    addSubLast(_pAtmosphere);
+    pAtmosphere_ = NEW Planet001Atmosphere("P001ATMOS");
+    addSubLast(pAtmosphere_);
 }
 
 void Planet001::onCreateModel() {
@@ -31,8 +31,8 @@ void Planet001::initialize() {
     _pKurokoA->setFaceAng(AXIS_Y, D45ANG);
     _pKurokoA->setFaceAngVelo(AXIS_X, 20); //自転の速さ
 
-    _pAtmosphere->_pScaler->setScale(_pScaler->_scale[0]);
-    _pAtmosphere->locateAs(this);
+    pAtmosphere_->_pScaler->setScale(_pScaler->_scale[0]);
+    pAtmosphere_->locateAs(this);
 }
 void Planet001::processBehavior() {
     //巨大オブジェクトテスト
@@ -69,8 +69,8 @@ void Planet001::processBehavior() {
     _pScaler->behave();
     _pKurokoA->behave();
 
-    _pAtmosphere->_pScaler->setScale(_pScaler->_scale[0]);
-    _pAtmosphere->locateAs(this);
+    pAtmosphere_->_pScaler->setScale(_pScaler->_scale[0]);
+    pAtmosphere_->locateAs(this);
 }
 
 Planet001::~Planet001() {

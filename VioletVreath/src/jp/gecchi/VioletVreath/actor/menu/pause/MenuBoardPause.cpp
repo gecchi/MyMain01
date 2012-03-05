@@ -58,8 +58,8 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     setCursor(pCursor, 8, 0.2, 0.7);
     setSelectedItemIndex(0); //初期選択
     setTransition(30, PX2CO(0), -PX2CO(100));
-    _pConfirmMenu = NEW MenuBoardConfirm("confirm");
-    addSubLast(_pConfirmMenu);
+    pConfirmMenu_ = NEW MenuBoardConfirm("confirm");
+    addSubLast(pConfirmMenu_);
 }
 bool MenuBoardPause::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -101,7 +101,7 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
     if (prm_item_index == MenuBoardPause::ITEM_BACK_TO_GAME) {
         sink();
     } else if (prm_item_index == MenuBoardPause::ITEM_QUIT_GAME) {
-        riseSub(_pConfirmMenu, getSelectedItem()->_X + PX2CO(50), getSelectedItem()->_Y + PX2CO(50));     //サブメニュー起動
+        riseSub(pConfirmMenu_, getSelectedItem()->_X + PX2CO(50), getSelectedItem()->_Y + PX2CO(50));     //サブメニュー起動
     }
 }
 MenuBoardPause::~MenuBoardPause() {

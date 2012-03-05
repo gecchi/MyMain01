@@ -19,19 +19,19 @@ public:
         PROG_FINISH   ,
     };
 
-    GgafDxCore::GgafDxSeConnection* _pSeCon_exec;
+    GgafDxCore::GgafDxSeConnection* pSeCon_exec_;
 
-    LabelGecchi16Font* _pMsgLabel01;
-    LabelGecchi16Font* _pMsgLabel02;
-    LabelGecchi16Font** _papMenuItemLabel;
-    Cursor001* _pCursor001;
+    LabelGecchi16Font* pMsgLabel01_;
+    LabelGecchi16Font* pMsgLabel02_;
+    LabelGecchi16Font** papMenuItemLabel_;
+    Cursor001* pCursor001_;
 
-    MenuBoardPause* _pMenuBoardPause;
+    MenuBoardPause* pMenuBoardPause_;
 
 
-    int _max_menu_item;
-    int _active_item;
-    frame _frame_of_noinput;
+    int max_menu_item_;
+    int active_item_;
+    frame frame_of_noinput_;
 
     GamePauseScene(const char* prm_name);
     void onReset() override;

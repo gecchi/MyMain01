@@ -11,7 +11,7 @@ namespace VioletVreath {
 class MyOptionControllerDirectionVector : public GgafLib::DefaultMeshActor {
 
 public:
-    int _ptn_no;
+    int ptn_no_;
 
     MyOptionControllerDirectionVector(const char* prm_name);
 

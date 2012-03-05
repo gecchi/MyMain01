@@ -12,15 +12,15 @@ class EnemyTamago01 : public GgafLib::SpriteMeshSetActor {
 
 public:
     /** 行動パターン番号 */
-    int _iMovePatternNo;
+    int iMovePatternNo_;
     /** 移動スプラインプログラム */
-    GgafLib::SplineSequence* _pProgram_Tamago01Move;
+    GgafLib::SplineSequence* pProgram_Tamago01Move_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* _pDepo_Shot;
+    GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* _pDepo_ShotEffect;
+    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 
-    DepositoryConnection* _pDepoCon;
+    DepositoryConnection* pDepoCon_;
 
 
     /**
@@ -68,7 +68,7 @@ public:
      * @param prm_pDepo (GgafDxDrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
      */
     void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
-        _pDepo_Shot = prm_pDepo;
+        pDepo_Shot_ = prm_pDepo;
     }
 
     /**
@@ -76,7 +76,7 @@ public:
      * @param prm_pDepo (GgafDxDrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
      */
     void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
-        _pDepo_ShotEffect = prm_pDepo;
+        pDepo_ShotEffect_ = prm_pDepo;
     }
 
     virtual ~EnemyTamago01();

@@ -8,19 +8,19 @@ using namespace VioletVreath;
 Stage02::Stage02(const char* prm_name) : Stage(prm_name) {
     _class_name = "Stage02";
 
-    _pScene_Stage02PartController = NEW Stage02PartController("Stage02Ctrl");
-    _pScene_Stage02PartController->inactivate();
-    addSubLast(_pScene_Stage02PartController);
+    pScene_Stage02PartController_ = NEW Stage02PartController("Stage02Ctrl");
+    pScene_Stage02PartController_->inactivate();
+    addSubLast(pScene_Stage02PartController_);
     Sleep(2);
-    _pWorldBoundSpace  = NEW WorldBoundSpace002("BG_SPACE_TEST");
-    getDirector()->addSubGroup(KIND_EFFECT, _pWorldBoundSpace);
+    pWorldBoundSpace_  = NEW WorldBoundSpace002("BG_SPACE_TEST");
+    getDirector()->addSubGroup(KIND_EFFECT, pWorldBoundSpace_);
 
-    _pHoshiBoshi = NEW HoshiBoshi001("HoshiBoshi001");
-    getDirector()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
+    pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
+    getDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
 
-    _pMessage = NEW LabelGecchi16Font("Stage02Msg");
-    getDirector()->addSubGroup(KIND_EFFECT, _pMessage);
-    _pMessage->inactivate();
+    pMessage_ = NEW LabelGecchi16Font("Stage02Msg");
+    getDirector()->addSubGroup(KIND_EFFECT, pMessage_);
+    pMessage_->inactivate();
 
     fadeoutScene(0); //最初は非表示
     useProgress(10);
@@ -38,11 +38,11 @@ void Stage02::processBehavior() {
 
     if (_pProg->get() == Stage::PROG_BEGIN) {
         if (_pProg->getFrameInProgress() == 180) { //ステージ2開始！
-            _pMessage->activateImmed();
-            _pMessage->update(300*1000, 300*1000, "SCENE 02 START!");
-            _pMessage->inactivateDelay(240);
-            _pWorldBoundSpace->activateTree();
-            _pScene_Stage02PartController->activate();
+            pMessage_->activateImmed();
+            pMessage_->update(300*1000, 300*1000, "SCENE 02 START!");
+            pMessage_->inactivateDelay(240);
+            pWorldBoundSpace_->activateTree();
+            pScene_Stage02PartController_->activate();
             fadeinScene(240);
             _pProg->change(Stage::PROG_PLAYING);
         }
@@ -55,9 +55,9 @@ void Stage02::processBehavior() {
         }
 
         if (_pProg->getFrameInProgress() == 60) {
-            _pMessage->activateImmed();
-            _pMessage->update(300*1000, 300*1000, "SCENE 02 CLEAR!!");
-            _pMessage->inactivateDelay(120);
+            pMessage_->activateImmed();
+            pMessage_->update(300*1000, 300*1000, "SCENE 02 CLEAR!!");
+            pMessage_->inactivateDelay(120);
             fadeoutScene(300);
         }
         if (_pProg->getFrameInProgress() == 300) {
@@ -72,7 +72,7 @@ void Stage02::processJudgement() {
 void Stage02::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG02_CONTROLLER_WAS_END ) {
         _TRACE_("Stage02::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
-        _pScene_Stage02PartController->end(60*60);
+        pScene_Stage02PartController_->end(60*60);
         _pProg->change(Stage::PROG_END);
     } else {
 

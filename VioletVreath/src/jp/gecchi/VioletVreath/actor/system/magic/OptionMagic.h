@@ -11,9 +11,9 @@ namespace VioletVreath {
 class OptionMagic : public Magic {
 
 public:
-    GgafDxCore::GgafDxDrawableActor** _papEffect;
-    float _r_effect;
-    int _old_level;
+    GgafDxCore::GgafDxDrawableActor** papEffect_;
+    float r_effect_;
+    int old_level_;
     OptionMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
 
     virtual void processCastBegin(int prm_now_level, int prm_new_level) override;

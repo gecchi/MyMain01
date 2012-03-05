@@ -15,7 +15,7 @@ public:
         PROG_END     ,
     };
 
-    static bool _pause;
+    static bool pause_;
 
     Stage(const char* prm_name);
 

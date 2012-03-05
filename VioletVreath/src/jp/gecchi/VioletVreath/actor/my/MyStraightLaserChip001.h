@@ -5,7 +5,7 @@ namespace VioletVreath {
 class MyStraightLaserChip001 : public GgafLib::StraightLaserChip {
 
 public:
-    int _default_stamina;
+    int default_stamina_;
     MyStraightLaserChip001(const char* prm_name);
 
     void initialize() override;

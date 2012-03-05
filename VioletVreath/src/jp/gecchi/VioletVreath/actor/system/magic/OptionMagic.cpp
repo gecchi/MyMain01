@@ -30,21 +30,21 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
 //    | 52,  53,  54,  55 |
 //    | 56,  57,  58,  59 |
 //    | 60,  61,  62,  63 |
-    _lvinfo[0]._pno = 3;
-    _lvinfo[1]._pno = 61;
-    _lvinfo[2]._pno = 57;
-    _lvinfo[3]._pno = 53;
-    _lvinfo[4]._pno = 49;
-    _lvinfo[5]._pno = 45;
-    _lvinfo[6]._pno = 49;
-    _lvinfo[7]._pno = 45;
-    _lvinfo[8]._pno = 41;
+    lvinfo_[0].pno_ = 3;
+    lvinfo_[1].pno_ = 61;
+    lvinfo_[2].pno_ = 57;
+    lvinfo_[3].pno_ = 53;
+    lvinfo_[4].pno_ = 49;
+    lvinfo_[5].pno_ = 45;
+    lvinfo_[6].pno_ = 49;
+    lvinfo_[7].pno_ = 45;
+    lvinfo_[8].pno_ = 41;
 
-    _papEffect = NEW GgafDxDrawableActor*[8];
+    papEffect_ = NEW GgafDxDrawableActor*[8];
     for (int i = 0; i < 8; i++) {
-        _papEffect[i] = NEW EffectMagic001("EF");
-        _papEffect[i]->inactivateImmed();
-        addSubGroup(_papEffect[i]);
+        papEffect_[i] = NEW EffectMagic001("EF");
+        papEffect_[i]->inactivateImmed();
+        addSubGroup(papEffect_[i]);
     }
 }
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
@@ -52,24 +52,24 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     GgafDxUtil::getRadialAngle2D(0, prm_new_level-prm_now_level, paAngWay);
     int n = 0;
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-        _papEffect[lv-1]->locateAs(P_MYSHIP);
-        _papEffect[lv-1]->_pKurokoA->setRzRyMvAng(paAngWay[n], D90ANG);
-        _papEffect[lv-1]->_pKurokoA->setMvVelo(2000);
-        _papEffect[lv-1]->_pKurokoA->setMvAcce(-5);
-        _papEffect[lv-1]->setAlpha(0.9);
-        _papEffect[lv-1]->setScaleR(2.0f);
-        _papEffect[lv-1]->activate();
+        papEffect_[lv-1]->locateAs(P_MYSHIP);
+        papEffect_[lv-1]->_pKurokoA->setRzRyMvAng(paAngWay[n], D90ANG);
+        papEffect_[lv-1]->_pKurokoA->setMvVelo(2000);
+        papEffect_[lv-1]->_pKurokoA->setMvAcce(-5);
+        papEffect_[lv-1]->setAlpha(0.9);
+        papEffect_[lv-1]->setScaleR(2.0f);
+        papEffect_[lv-1]->activate();
         n++;
     }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
-    _r_effect = 1;
+    r_effect_ = 1;
 
 }
 
 void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
-    _r_effect += 0.02;
+    r_effect_ += 0.02;
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-        _papEffect[lv-1]->setScaleR(_r_effect);
+        papEffect_[lv-1]->setScaleR(r_effect_);
     }
 }
 
@@ -78,14 +78,14 @@ void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level) {
 }
 
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
-    _r_effect = 1;
+    r_effect_ = 1;
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-        _papEffect[lv-1]->_pKurokoA->setMvVelo(0);
-        _papEffect[lv-1]->_pKurokoA->setMvAcce(0);
-        _papEffect[lv-1]->_pKurokoB->execGravitationVxyzMvSequence(
-               P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[lv-1]->_Xorg,
-               P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[lv-1]->_Yorg,
-               P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[lv-1]->_Zorg,
+        papEffect_[lv-1]->_pKurokoA->setMvVelo(0);
+        papEffect_[lv-1]->_pKurokoA->setMvAcce(0);
+        papEffect_[lv-1]->_pKurokoB->execGravitationVxyzMvSequence(
+               P_MYOPTIONCON->_X + P_MYOPTIONCON->papMyOption_[lv-1]->Xorg_,
+               P_MYOPTIONCON->_Y + P_MYOPTIONCON->papMyOption_[lv-1]->Yorg_,
+               P_MYOPTIONCON->_Z + P_MYOPTIONCON->papMyOption_[lv-1]->Zorg_,
                20000, 1000, 50000);
     }
 
@@ -108,24 +108,24 @@ int OptionMagic::effect(int prm_level) {
 void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     //レベルアップ時、エフェクトの処理
     for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-        _papEffect[lv-1]->inactivateDelay(120); //非活動の保険
-        _papEffect[lv-1]->_pKurokoB->_gravitation_mv_seq_pActor_target = P_MYOPTIONCON->_papMyOption[lv-1];
+        papEffect_[lv-1]->inactivateDelay(120); //非活動の保険
+        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_pActor_target = P_MYOPTIONCON->papMyOption_[lv-1];
     }
 }
 
 void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-    _r_effect -= 0.01f;
+    r_effect_ -= 0.01f;
     //レベルアップ時、エフェクトの処理
     for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-        _papEffect[lv-1]->setAlpha(_r_effect);
-//        _papEffect[lv-1]->setScaleR(3.0f+(1.0f-_r_effect)*4.0);
-        _papEffect[lv-1]->locateAs(P_MYOPTIONCON->_papMyOption[lv-1]);
-        P_MYOPTIONCON->_papMyOption[lv-1]->setAlpha(1.0f-_r_effect);
+        papEffect_[lv-1]->setAlpha(r_effect_);
+//        papEffect_[lv-1]->setScaleR(3.0f+(1.0f-r_effect_)*4.0);
+        papEffect_[lv-1]->locateAs(P_MYOPTIONCON->papMyOption_[lv-1]);
+        P_MYOPTIONCON->papMyOption_[lv-1]->setAlpha(1.0f-r_effect_);
     }
-    if (_r_effect < 0) {
+    if (r_effect_ < 0) {
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-            _papEffect[lv-1]->inactivate();
-            P_MYOPTIONCON->_papMyOption[lv-1]->setAlpha(1.0);
+            papEffect_[lv-1]->inactivate();
+            P_MYOPTIONCON->papMyOption_[lv-1]->setAlpha(1.0);
         }
     }
 }
@@ -135,5 +135,5 @@ void OptionMagic::processEffectFinish(int prm_justbefore_level) {
 }
 
 OptionMagic::~OptionMagic() {
-    DELETEARR_IMPOSSIBLE_NULL(_papEffect);
+    DELETEARR_IMPOSSIBLE_NULL(papEffect_);
 }

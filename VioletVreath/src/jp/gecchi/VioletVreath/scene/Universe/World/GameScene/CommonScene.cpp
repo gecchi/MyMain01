@@ -14,78 +14,78 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //汎用爆発エフェクト EffectExplosion001
     {
-        _pDP_EffectExplosion001 = NEW GgafActorDepository("DpExplo001");
+        pDP_EffectExplosion001_ = NEW GgafActorDepository("DpExplo001");
         EffectExplosion001* pEffectExplosion;
         for (int i = 0; i < 100; i++) { //ストック100個
             pEffectExplosion = NEW EffectExplosion001("EffectExplosion001");
             pEffectExplosion->inactivateTreeImmed(); //最初非表示
-            _pDP_EffectExplosion001->addSubLast(pEffectExplosion);
+            pDP_EffectExplosion001_->addSubLast(pEffectExplosion);
         }
-        getDirector()->addSubGroup(_pDP_EffectExplosion001);
+        getDirector()->addSubGroup(pDP_EffectExplosion001_);
     }
 
     //アイテム小
-    { //_pDP_MagicPointItem001
-        _pDP_MagicPointItem001 = NEW GgafActorDepository("DpMpItem001");
+    { //pDP_MagicPointItem001_
+        pDP_MagicPointItem001_ = NEW GgafActorDepository("DpMpItem001");
         MagicPointItem001* pMpItem001;
         for (int i = 0; i < 500; i++) { //ストック100個
             pMpItem001 = NEW MagicPointItem001("MP001");
             pMpItem001->inactivateTreeImmed(); //最初非表示
-            _pDP_MagicPointItem001->addSubLast(pMpItem001);
+            pDP_MagicPointItem001_->addSubLast(pMpItem001);
         }
-        getDirector()->addSubGroup(_pDP_MagicPointItem001);
+        getDirector()->addSubGroup(pDP_MagicPointItem001_);
     }
 
     //アイテム中
-    { //_pDP_MagicPointItem002
-        _pDP_MagicPointItem002 = NEW GgafActorDepository("DpMpItem002");
+    { //pDP_MagicPointItem002_
+        pDP_MagicPointItem002_ = NEW GgafActorDepository("DpMpItem002");
         MagicPointItem002* pMpItem002;
         for (int i = 0; i < 10; i++) { //ストック100個
             pMpItem002 = NEW MagicPointItem002("MP002");
             pMpItem002->inactivateTreeImmed(); //最初非表示
-            _pDP_MagicPointItem002->addSubLast(pMpItem002);
+            pDP_MagicPointItem002_->addSubLast(pMpItem002);
         }
-        getDirector()->addSubGroup(_pDP_MagicPointItem002);
+        getDirector()->addSubGroup(pDP_MagicPointItem002_);
     }
 
     { //Effect EffectTurbo002 ターボ噴射
-        _pDepo_EffectTurbo002 = NEW GgafActorDepository("RotExplo002");
+        pDepo_EffectTurbo002_ = NEW GgafActorDepository("RotExplo002");
         EffectTurbo002* pEffectTurbo;
         for (int i = 0; i < 10; i++) { //ストック100個
             pEffectTurbo = NEW EffectTurbo002("EffectTurbo002");
             pEffectTurbo->inactivateTreeImmed(); //最初非表示
-            _pDepo_EffectTurbo002->addSubLast(pEffectTurbo);
+            pDepo_EffectTurbo002_->addSubLast(pEffectTurbo);
         }
-        getDirector()->addSubGroup(_pDepo_EffectTurbo002);
+        getDirector()->addSubGroup(pDepo_EffectTurbo002_);
     }
 
     //    { //EnemyShot001
-    //        _pDepo_EnemyShots001 = NEW GgafActorDepository("TAMAS001");
+    //        pDepo_EnemyShots001_ = NEW GgafActorDepository("TAMAS001");
     //        EnemyCeresShot001* pEnemyShot;
     //        for (int i = 0; i < 36*7; i++) { //ストック256個
     //            pEnemyShot = NEW EnemyCeresShot001("EnemyCeresShot001");
     //            pEnemyShot->inactivateTreeImmed(); //最初非表示
-    //            _pDepo_EnemyShots001->addSubLast(pEnemyShot);
+    //            pDepo_EnemyShots001_->addSubLast(pEnemyShot);
     //        }
-    //        getDirector()->addSubGroup(_pDepo_EnemyShots001);
+    //        getDirector()->addSubGroup(pDepo_EnemyShots001_);
     //    }
 
 
 
     //    { //Effect EffectExplosion001
-    //        _pDepo_EffectExplosion003 = NEW GgafActorDepository("RotExplo003");
+    //        pDepo_EffectExplosion003_ = NEW GgafActorDepository("RotExplo003");
     //        EffectExplosion003* pEffectExplosion;
     //        for (int i = 0; i < 50; i++) { //ストック100個
     //            pEffectExplosion = NEW EffectExplosion003("EffectExplosion003");
     //            pEffectExplosion->inactivateTreeImmed(); //最初非表示
-    //            _pDepo_EffectExplosion003->addSubLast(pEffectExplosion);
+    //            pDepo_EffectExplosion003_->addSubLast(pEffectExplosion);
     //        }
-    //        getDirector()->addSubGroup(_pDepo_EffectExplosion003);
+    //        getDirector()->addSubGroup(pDepo_EffectExplosion003_);
     //    }
 
 //
 //    {
-//        _pDepo_LaserChipDepository = NEW GgafActorDepository("LCDD");
+//        pDepo_LaserChipDepository_ = NEW GgafActorDepository("LCDD");
 //        LaserChipDepository* pLaserChipDepo;
 //        EnemyAstraeaLaserChip002* pChip;
 //        for (int nLaser = 0; nLaser < 27; nLaser++) {
@@ -100,9 +100,9 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 //                pLaserChipDepo->addSubLast(pChip);
 //            }
 //            pLaserChipDepo->inactivateImmed();
-//            _pDepo_LaserChipDepository->addSubLast(pLaserChipDepo);
+//            pDepo_LaserChipDepository_->addSubLast(pLaserChipDepo);
 //        }
-//        getDirector()->addSubGroup(_pDepo_LaserChipDepository);
+//        getDirector()->addSubGroup(pDepo_LaserChipDepository_);
 //    }
 }
 

@@ -8,10 +8,10 @@ using namespace VioletVreath;
 EnemyPallas::EnemyPallas(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Pallas", STATUS(EnemyPallas)) {
     _class_name = "EnemyPallas";
-    _iMovePatternNo = 0;
-    _pSplSeq = NULL;
-    _pDepo_Shot = NULL;
-    _pDepo_ShotEffect = NULL;
+    iMovePatternNo_ = 0;
+    pSplSeq_ = NULL;
+    pDepo_Shot_ = NULL;
+    pDepo_ShotEffect_ = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     useProgress(10);
@@ -30,12 +30,12 @@ void EnemyPallas::initialize() {
 }
 
 void EnemyPallas::onActive() {
-    if (_pSplSeq == NULL) {
+    if (pSplSeq_ == NULL) {
         throwGgafCriticalException("EnemyPallasはスプライン必須ですconfigして下さい");
     }
 
     _pStatus->reset();
-   _iMovePatternNo = 0; //行動パターンリセット
+   iMovePatternNo_ = 0; //行動パターンリセット
     _pProg->change(1);
 }
 
@@ -45,11 +45,11 @@ void EnemyPallas::processBehavior() {
 
     //【パターン1：スプライン移動】
     if (_pProg->isJustChangedTo(1)) {
-        _pSplSeq->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+        pSplSeq_->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
     }
     if (_pProg->get() == 1) {
         //スプライン移動終了待ち
-        if (_pSplSeq->isExecuting()) {
+        if (pSplSeq_->isExecuting()) {
             //待ちぼうけ
         } else {
             _pProg->changeNext(); //次のパターンへ
@@ -57,35 +57,35 @@ void EnemyPallas::processBehavior() {
     }
 
 
-    switch (_iMovePatternNo) {
+    switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (_pSplSeq) {
-                _pSplSeq->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+            if (pSplSeq_) {
+                pSplSeq_->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
             }
-            _iMovePatternNo++; //次の行動パターンへ
+            iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (_pSplSeq) {
+            if (pSplSeq_) {
                 //スプライン移動有り
-                if (!(_pSplSeq->isExecuting())) {
-                    _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
+                if (!(pSplSeq_->isExecuting())) {
+                    iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
                 //スプライン移動無し
-                _iMovePatternNo++; //すぐに次の行動パターンへ
+                iMovePatternNo_++; //すぐに次の行動パターンへ
             }
             break;
 
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
-            if (_pDepo_Shot) {
+            if (pDepo_Shot_) {
                 //放射状ショット
                 int way = R_EnemyPallas_ShotWay; //ショットWAY数
                 angle* paAngWay = NEW angle[way];
                 GgafDxUtil::getRadialAngle2D(0, way, paAngWay);
                 GgafDxDrawableActor* pActor_Shot;
                 for (int i = 0; i < way; i++) {
-                    pActor_Shot = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();
+                    pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->locateAs(this);
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], D90ANG);
@@ -94,8 +94,8 @@ void EnemyPallas::processBehavior() {
                 }
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
                 //ショット発射エフェクト
-                if (_pDepo_ShotEffect) {
-                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)_pDepo_ShotEffect->dispatch();
+                if (pDepo_ShotEffect_) {
+                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
                     if (pTestActor_Shot) {
                         pTestActor_Shot->locateAs(this);
                     }
@@ -105,7 +105,7 @@ void EnemyPallas::processBehavior() {
             _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
                                                 2000, 0,
                                                 TURN_CLOSE_TO);
-            _iMovePatternNo++; //次の行動パターンへ
+            iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 3:  //【行動パターン３】
@@ -116,8 +116,8 @@ void EnemyPallas::processBehavior() {
     }
 
 
-    if (_pSplSeq) {
-        _pSplSeq->behave(); //スプライン移動を振る舞い
+    if (pSplSeq_) {
+        pSplSeq_->behave(); //スプライン移動を振る舞い
     }
     _pKurokoA->behave();
     //_pSeTransmitter->behave();
@@ -135,7 +135,7 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->locateAs(this);
@@ -157,5 +157,5 @@ void EnemyPallas::onInactive() {
 }
 
 EnemyPallas::~EnemyPallas() {
-    DELETE_POSSIBLE_NULL(_pSplSeq);
+    DELETE_POSSIBLE_NULL(pSplSeq_);
 }

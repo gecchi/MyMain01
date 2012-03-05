@@ -8,7 +8,7 @@ using namespace VioletVreath;
 EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id) :
         DefaultSpriteSetActor(prm_name, prm_model_id, NULL) {
     _class_name = "EffectLockon001";
-    _pTarget = NULL;
+    pTarget_ = NULL;
     inactivateImmed();
     defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     changeEffectTechnique("DestBlendOne"); //エフェクトテクニックは加算合成に強制
@@ -49,41 +49,41 @@ EffectLockon001::~EffectLockon001() {
 
 //
 //DEBUGモードアプリ終了時のツリー表示時、
-//_pTargetが不正になる場合があるため、必要なときにコメントを外して仕様することとする。
+//pTarget_が不正になる場合があるため、必要なときにコメントを外して仕様することとする。
 //
 //
 //void EffectLockon001::dump() {
-//    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"] Target="<<(_pTarget==NULL?"NULL":_pTarget->getName())<<" "<<
-//                                                                               "@"<<_frame_of_behaving_since_onActive<<
+//    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==NULL?"NULL":pTarget_->getName())<<" "<<
+//                                                                               "@"<<frame_of_behaving_since_onActive_<<
 //                                                                               "/"<<
-//                                                                               _frame_of_behaving<<
+//                                                                               frame_of_behaving_<<
 //                                                                               "/"<<
-//                                                                               _frame_of_life<<
+//                                                                               frame_of_life_<<
 //                                                                               ","<<
-//                                                                               _was_initialize_flg<<
+//                                                                               was_initialize_flg_<<
 //                                                                               ","<<
-//                                                                               _can_live_flg<<
-//                                                                               _is_active_flg<<
+//                                                                               can_live_flg_<<
+//                                                                               is_active_flg_<<
 //                                                                               ","<<
 //                                                                               _will_activate_after_flg<<
-//                                                                               "("<<_frame_of_life_when_activation<<")"<<
-//                                                                               _on_change_to_active_flg<<
+//                                                                               "("<<frame_of_life_when_activation_<<")"<<
+//                                                                               on_change_to_active_flg_<<
 //                                                                               ","<<
-//                                                                               _will_inactivate_after_flg<<
-//                                                                               "("<<_frame_of_life_when_inactivation<<")"<<
-//                                                                               _on_change_to_inactive_flg<<
+//                                                                               will_inactivate_after_flg_<<
+//                                                                               "("<<frame_of_life_when_inactivation_<<")"<<
+//                                                                               on_change_to_inactive_flg_<<
 //                                                                               ","<<
-//                                                                               _will_end_after_flg<<
-//                                                                               "("<<(_frame_of_life_when_end==MAX_FRAME ? 0 : _frame_of_life_when_end)<<")"<<
+//                                                                               will_end_after_flg_<<
+//                                                                               "("<<(frame_of_life_when_end_==MAX_FRAME ? 0 : frame_of_life_when_end_)<<")"<<
 //                                                                               ","<<
 //                                                                               _was_paused_flg<<
-//                                                                               _was_paused_flg_in_next_frame<<
-//                                                                               _will_mv_first_in_next_frame_flg<<
-//                                                                               _will_mv_last_in_next_frame_flg
+//                                                                               was_paused_flg_in_next_frame_<<
+//                                                                               will_mv_first_in_next_frame_flg_<<
+//                                                                               will_mv_last_in_next_frame_flg_
 //                                                                               );
 //
-//    GgafActor* pActor_tmp = _pSubFirst;
-//    if (_pSubFirst) {
+//    GgafActor* pActor_tmp = pSubFirst_;
+//    if (pSubFirst_) {
 //        while (true) {
 //            pActor_tmp->dump("\t\t\t\t\t\t\t\t｜");
 //            if (pActor_tmp->_pNext) {
@@ -92,7 +92,7 @@ EffectLockon001::~EffectLockon001() {
 //                _TRACE_("【警告】"<<_class_name<<"("<<this<<")["<<getName()<<"]のnextがNULLっています");
 //                break;
 //            }
-//            if (pActor_tmp->_is_first_flg) {
+//            if (pActor_tmp->is_first_flg_) {
 //                _TRACE_("\t\t\t\t\t\t\t\t└─");
 //                break;
 //            }
@@ -102,37 +102,37 @@ EffectLockon001::~EffectLockon001() {
 
 
 //void EffectLockon001::dump(string prm_parent) {
-//    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"] Target="<<(_pTarget==NULL?"NULL":_pTarget->getName())<<" "<<
-//                                                                         "@"<<_frame_of_behaving_since_onActive<<
+//    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==NULL?"NULL":pTarget_->getName())<<" "<<
+//                                                                         "@"<<frame_of_behaving_since_onActive_<<
 //                                                                         "/"<<
-//                                                                         _frame_of_behaving<<
+//                                                                         frame_of_behaving_<<
 //                                                                         "/"<<
-//                                                                         _frame_of_life<<
+//                                                                         frame_of_life_<<
 //                                                                         ","<<
-//                                                                         _was_initialize_flg<<
+//                                                                         was_initialize_flg_<<
 //                                                                         ","<<
-//                                                                         _can_live_flg<<
-//                                                                         _is_active_flg<<
+//                                                                         can_live_flg_<<
+//                                                                         is_active_flg_<<
 //                                                                         ","<<
 //                                                                         _will_activate_after_flg<<
-//                                                                         "("<<_frame_of_life_when_activation<<")"<<
-//                                                                         _on_change_to_active_flg<<
+//                                                                         "("<<frame_of_life_when_activation_<<")"<<
+//                                                                         on_change_to_active_flg_<<
 //                                                                         ","<<
-//                                                                         _will_inactivate_after_flg<<
-//                                                                         "("<<_frame_of_life_when_inactivation<<")"<<
-//                                                                         _on_change_to_inactive_flg<<
+//                                                                         will_inactivate_after_flg_<<
+//                                                                         "("<<frame_of_life_when_inactivation_<<")"<<
+//                                                                         on_change_to_inactive_flg_<<
 //                                                                         ","<<
-//                                                                         _will_end_after_flg<<
-//                                                                         "("<<(_frame_of_life_when_end==MAX_FRAME ? 0 : _frame_of_life_when_end)<<")"<<
+//                                                                         will_end_after_flg_<<
+//                                                                         "("<<(frame_of_life_when_end_==MAX_FRAME ? 0 : frame_of_life_when_end_)<<")"<<
 //                                                                         ","<<
 //                                                                         _was_paused_flg<<
-//                                                                         _was_paused_flg_in_next_frame<<
-//                                                                         _will_mv_first_in_next_frame_flg<<
-//                                                                         _will_mv_last_in_next_frame_flg
+//                                                                         was_paused_flg_in_next_frame_<<
+//                                                                         will_mv_first_in_next_frame_flg_<<
+//                                                                         will_mv_last_in_next_frame_flg_
 //                                                                         );
 //
-//    GgafActor* pActor_tmp = _pSubFirst;
-//    if (_pSubFirst) {
+//    GgafActor* pActor_tmp = pSubFirst_;
+//    if (pSubFirst_) {
 //        while (true) {
 //            pActor_tmp->dump(prm_parent + "｜");
 //            if (pActor_tmp->_pNext) {
@@ -141,7 +141,7 @@ EffectLockon001::~EffectLockon001() {
 //                _TRACE_("【警告】"<<_class_name<<"("<<this<<")["<<getName()<<"]のnextがNULLっています");
 //                break;
 //            }
-//            if (pActor_tmp->_is_first_flg) {
+//            if (pActor_tmp->is_first_flg_) {
 //                _TRACE_(prm_parent+"└─");
 //                break;
 //            }

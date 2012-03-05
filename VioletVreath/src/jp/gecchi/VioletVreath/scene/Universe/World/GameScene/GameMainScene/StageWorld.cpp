@@ -8,11 +8,11 @@ using namespace VioletVreath;
 StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageWorld";
 
-    _can_rank_up = true;
-    _pStageController = NEW StageController("StageController");
-    addSubLast(_pStageController);
-    _pRankUpStageController = NEW RankUpStageController("RankUpStageController");
-    addSubLast(_pRankUpStageController);
+    can_rank_up_ = true;
+    pStageController_ = NEW StageController("StageController");
+    addSubLast(pStageController_);
+    pRankUpStageController_ = NEW RankUpStageController("RankUpStageController");
+    addSubLast(pRankUpStageController_);
 
 }
 
@@ -30,16 +30,16 @@ void StageWorld::processBehavior() {
 
     if (VB_PLAY->isPushedDown(VB_BUTTON7)) {
         _TRACE_("_RANK_UP_LEVEL_？？？"<<_RANK_UP_LEVEL_);
-        if (_can_rank_up) {
+        if (can_rank_up_) {
             _RANK_UP_LEVEL_ = _RANK_UP_LEVEL_ + 1;
-            _pRankUpStageController->execute();
+            pRankUpStageController_->execute();
             _TRACE_("P_STAGE_CONTROLLER をスロー");
             P_STAGE_CONTROLLER->addRunFrameOnce(1); //スロー開始
         } else {
             //スルー
         }
     } else {
-        //_can_rank_up = false;
+        //can_rank_up_ = false;
     }
 }
 void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
@@ -52,8 +52,8 @@ void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 StageWorld::~StageWorld() {
-    if (P_STAGE_CONTROLLER->_pStageMainCannel) {
-        P_STAGE_CONTROLLER->_pStageMainCannel->end();
-        P_STAGE_CONTROLLER->_pStageMainCannel = NULL;
+    if (P_STAGE_CONTROLLER->pStageMainCannel_) {
+        P_STAGE_CONTROLLER->pStageMainCannel_->end();
+        P_STAGE_CONTROLLER->pStageMainCannel_ = NULL;
     }
 }

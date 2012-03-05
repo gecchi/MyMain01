@@ -19,13 +19,13 @@ void EffectLockon001_Sub::initialize() {
 
 void EffectLockon001_Sub::onActive() {
     EffectLockon001::onActive();
-    _pEffectLockon001_Main = (EffectLockon001_Main*)getParent()->getSubFirst();
+    pEffectLockon001_Main_ = (EffectLockon001_Main*)getParent()->getSubFirst();
     _pUvFlipper->setActivePtnNoToTop();
     setAlpha(0.01);
-    _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
+    _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //右回転
     //_pSeTransmitter->play3D(0); //ロックオンSE
-    locateAs(_pTarget);
+    locateAs(pTarget_);
 
     _pProg->change(LOCKON001_PROG_LOCK);
 }
@@ -35,26 +35,26 @@ void EffectLockon001_Sub::processBehavior() {
 
     if (_pProg->get() == LOCKON001_PROG_LOCK) {
         if (getAlpha() < 0.7) {
-            if (_pEffectLockon001_Main->_pProg->get() == LOCKON001_PROG_LOCK) {
+            if (pEffectLockon001_Main_->_pProg->get() == LOCKON001_PROG_LOCK) {
                 addAlpha(0.07);
-            } else if (_pEffectLockon001_Main->_pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
+            } else if (pEffectLockon001_Main_->_pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
                 addAlpha(0.01);
             } else {
                 addAlpha(0.01);
             }
          }
          //縮小完了後、Mainのビートに合わせる
-         _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
-         _pKurokoA->_ang_veloFace[AXIS_Z] = _pEffectLockon001_Main->_pKurokoA->_ang_veloFace[AXIS_Z];
-         if (_pTarget) {
-             if (_pTarget->isActiveInTheTree() || _pTarget->_will_activate_after_flg) {
-                 if (abs(_pTarget->_X-_X) <= 200000 &&
-                     abs(_pTarget->_Y-_Y) <= 200000 &&
-                     abs(_pTarget->_Z-_Z) <= 200000) {
-                     locateAs(_pTarget);
+         _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
+         _pKurokoA->_ang_veloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_ang_veloFace[AXIS_Z];
+         if (pTarget_) {
+             if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
+                 if (abs(pTarget_->_X-_X) <= 200000 &&
+                     abs(pTarget_->_Y-_Y) <= 200000 &&
+                     abs(pTarget_->_Z-_Z) <= 200000) {
+                     locateAs(pTarget_);
                      _pKurokoA->setMvVelo(0);
                  } else {
-                     _pKurokoA->setMvAng(_pTarget);
+                     _pKurokoA->setMvAng(pTarget_);
                      _pKurokoA->setMvVelo(200000);
                  }
              } else {
@@ -66,10 +66,10 @@ void EffectLockon001_Sub::processBehavior() {
     }
 
     if (_pProg->get() == LOCKON001_PROG_RELEASE) {
-        _pTarget = NULL;
+        pTarget_ = NULL;
         addAlpha(-0.05);
-        _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
-        _pKurokoA->_ang_veloFace[AXIS_Z] = _pEffectLockon001_Main->_pKurokoA->_ang_veloFace[AXIS_Z];
+        _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
+        _pKurokoA->_ang_veloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_ang_veloFace[AXIS_Z];
         if (getAlpha() <= 0.0) {
             inactivate();
         }
@@ -88,10 +88,10 @@ void EffectLockon001_Sub::onInactive() {
 }
 
 void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
-    if (prm_pTarget == NULL || _pTarget == prm_pTarget) {
+    if (prm_pTarget == NULL || pTarget_ == prm_pTarget) {
         return;
     }
-    _pTarget = prm_pTarget;
+    pTarget_ = prm_pTarget;
 
     if (_pProg->get() == LOCKON001_PROG_LOCK) {
     } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {
@@ -109,7 +109,7 @@ void EffectLockon001_Sub::releaseLockon() {
             //何も無し
         }
     }
-    _pTarget = NULL;
+    pTarget_ = NULL;
 }
 
 EffectLockon001_Sub::~EffectLockon001_Sub() {

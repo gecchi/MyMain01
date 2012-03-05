@@ -9,19 +9,19 @@ class EnemyAstraea : public GgafLib::DefaultMeshActor {
 
 private:
     /** 発射済みレーザーチップ数 */
-    int _cnt_laserchip;
+    int cnt_laserchip_;
 
 public:
     /** レーザ発射間隔(frame) */
-    int _laser_interval;
+    int laser_interval_;
     /** 発射レーザーチップの数（レーザー長さ） */
-    int _laser_length;
+    int laser_length_;
     /** レーザーWay数(n×n)の一辺の本数 */
-    int _laser_way;
+    int laser_way_;
     /** レーザーとレーザーの間隔開き角度 */
-    angle _angClearance;
+    angle angClearance_;
     /** 方向転換角速度 */
-    ang_velo _ang_veloTurn;
+    ang_velo ang_veloTurn_;
 
 
     struct PosLaser {
@@ -30,18 +30,18 @@ public:
         int Z;
     };
     /** レーザー発射ローカル座標 */
-    PosLaser** _papaPosLaser;
+    PosLaser** papaPosLaser_;
 
-    DepositoryConnection* _pCon_RefractionEffectDepository;
+    DepositoryConnection* pCon_RefractionEffectDepository_;
 
-    DepositoryConnection* _pCon_LaserChipDepoStore;
+    DepositoryConnection* pCon_LaserChipDepoStore_;
 
 
 
-    GgafLib::LaserChipDepository*** _papapLaserChipDepo;
+    GgafLib::LaserChipDepository*** papapLaserChipDepo_;
 
     /** 出現エフェクト */
-    GgafDxCore::GgafDxDrawableActor* _pEffect_Appearance;
+    GgafDxCore::GgafDxDrawableActor* pEffect_Appearance_;
 
     EnemyAstraea(const char* prm_name);
 

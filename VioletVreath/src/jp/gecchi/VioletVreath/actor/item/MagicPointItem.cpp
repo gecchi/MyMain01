@@ -25,7 +25,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     _pKurokoA->setFaceAngVelo(AXIS_Y, DEG2ANG(5));
     _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(7));
     _pKurokoA->relateFaceAngWithMvAng(true);
-    _kDX = _kDY = _kDZ = 0;
+    kDX_ = kDY_ = kDZ_ = 0;
     useProgress();
     setHitAble(true, false); //画面外当たり判定は無効
     _pCollisionChecker->makeCollision(1);
@@ -76,7 +76,7 @@ void MagicPointItem::processBehavior() {
     //通常移動
     if (_pProg->get() == ITEM_PROG_DRIFT) {
         //TractorMagic発動中はITEM_PROG_ATTACHへ移行
-        if (getTractorMagic()->_is_tracting) {
+        if (getTractorMagic()->is_tracting_) {
             changeEffectTechniqueInterim("Flush", 6); //フラッシュ
             setHitAble(false);
             _pProg->change(ITEM_PROG_ATTACH);
@@ -102,9 +102,9 @@ void MagicPointItem::processBehavior() {
             abs(pMyShip->_Y - _Y) < 20000 &&
             abs(pMyShip->_Z - _Z) < 20000 ) {
 
-            _kDX = pMyShip->_X - _X;
-            _kDY = pMyShip->_Y - _Y;
-            _kDZ = pMyShip->_Z - _Z;
+            kDX_ = pMyShip->_X - _X;
+            kDY_ = pMyShip->_Y - _Y;
+            kDZ_ = pMyShip->_Z - _Z;
             _pProg->change(ITEM_PROG_ABSORB); //吸着吸収へ
         }
 
@@ -118,9 +118,9 @@ void MagicPointItem::processBehavior() {
             _pKurokoB->setZeroVxyzMvAcce();
             _pKurokoB->stopGravitationVxyzMvSequence();
         }
-        _X = pMyShip->_X + _kDX;
-        _Y = pMyShip->_Y + _kDY;
-        _Z = pMyShip->_Z + _kDZ;
+        _X = pMyShip->_X + kDX_;
+        _Y = pMyShip->_Y + kDY_;
+        _Z = pMyShip->_Z + kDZ_;
         _SX -= 100;
         _SY -= 100;
         _SZ -= 100;
@@ -129,7 +129,7 @@ void MagicPointItem::processBehavior() {
             _pProg->change(ITEM_PROG_NOTIONG);
             sayonara(); //終了
         }
-        P_MYSHIP_SCENE->_pMagicMeter->_pEnagyBar->_pAmount->inc(1);
+        P_MYSHIP_SCENE->pMagicMeter_->pEnagyBar_->pAmount_->inc(1);
     }
     _pKurokoA->behave();
     _pKurokoB->behave();

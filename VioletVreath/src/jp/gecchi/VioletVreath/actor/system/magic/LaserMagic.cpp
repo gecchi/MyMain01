@@ -30,9 +30,9 @@ LaserMagic::LaserMagic(const char* prm_name, AmountGraph* prm_pMP)
     //    | 52,  53,  54,  55 |
     //    | 56,  57,  58,  59 |
     //    | 60,  61,  62,  63 |
-    _lvinfo[0]._pno = 3;
-    _lvinfo[1]._pno = 62;
-    _lvinfo[2]._pno = 58;
+    lvinfo_[0].pno_ = 3;
+    lvinfo_[1].pno_ = 62;
+    lvinfo_[2].pno_ = 58;
 }
 
 LaserMagic::~LaserMagic() {

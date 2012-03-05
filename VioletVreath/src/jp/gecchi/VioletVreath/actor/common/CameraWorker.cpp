@@ -7,56 +7,56 @@ using namespace VioletVreath;
 
 CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, NULL) {
     _class_name = "CameraWorker";
-    _pos_camera = 0;
-    _pLockOnTarget = NULL;
-    _move_target_XY_CAM_UP = D90ANG;
-    _angXY_nowCamUp = D90ANG;
-    _burenai_speed = 10000;
-    _cam_velo_renge = 30000;
-    _stop_renge = 60000;
-    _move_target_X_CAM = 0;
-    _move_target_Y_CAM = 0;
-    _move_target_Z_CAM = 0;
-    _move_target_X_VP =  0;
-    _move_target_Y_VP =  0;
-    _move_target_Z_VP =  0;
+    pos_camera_ = 0;
+    pLockOnTarget_ = NULL;
+    move_target_XY_CAM_UP_ = D90ANG;
+    angXY_nowCamUp_ = D90ANG;
+    burenai_speed_ = 10000;
+    cam_velo_renge_ = 30000;
+    stop_renge_ = 60000;
+    move_target_X_CAM_ = 0;
+    move_target_Y_CAM_ = 0;
+    move_target_Z_CAM_ = 0;
+    move_target_X_VP_ =  0;
+    move_target_Y_VP_ =  0;
+    move_target_Z_VP_ =  0;
     //注意：Cameraはまだ生成されていないためここでP_CAMは使用不可
 }
 
 void CameraWorker::setMoveTargetCamBy(GgafDxCore::GgafDxGeometricActor* pTarget) {
-    _move_target_X_CAM = pTarget->_X;
-    _move_target_Y_CAM = pTarget->_Y;
-    _move_target_Z_CAM = pTarget->_Z;
+    move_target_X_CAM_ = pTarget->_X;
+    move_target_Y_CAM_ = pTarget->_Y;
+    move_target_Z_CAM_ = pTarget->_Z;
 }
 void CameraWorker::setMoveTargetCamVpBy(GgafDxCore::GgafDxGeometricActor* pTarget) {
-    _move_target_X_VP = pTarget->_X;
-    _move_target_Y_VP = pTarget->_Y;
-    _move_target_Z_VP = pTarget->_Z;
+    move_target_X_VP_ = pTarget->_X;
+    move_target_Y_VP_ = pTarget->_Y;
+    move_target_Z_VP_ = pTarget->_Z;
 }
 
 void CameraWorker::setMoveTargetCam(coord X, coord Y, coord Z) {
-    _move_target_X_CAM = X;
-    _move_target_Y_CAM = Y;
-    _move_target_Z_CAM = Z;
+    move_target_X_CAM_ = X;
+    move_target_Y_CAM_ = Y;
+    move_target_Z_CAM_ = Z;
 }
 void CameraWorker::setMoveTargetCamVp(coord X, coord Y, coord Z) {
-    _move_target_X_VP = X;
-    _move_target_Y_VP = Y;
-    _move_target_Z_VP = Z;
+    move_target_X_VP_ = X;
+    move_target_Y_VP_ = Y;
+    move_target_Z_VP_ = Z;
 }
 void CameraWorker::lockCamVp(GgafDxCore::GgafDxGeometricActor* pTarget) {
-    _pLockOnTarget = pTarget;
+    pLockOnTarget_ = pTarget;
 }
 void CameraWorker::unlockCamVp() {
-    _pLockOnTarget = NULL;
+    pLockOnTarget_ = NULL;
 }
 
 
 void CameraWorker::onSwitchCameraWork() {
     setMoveTargetCamBy(P_CAM);
     setMoveTargetCamVpBy(P_CAM->_pViewPoint);
-    _angXY_nowCamUp = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
-    _move_target_XY_CAM_UP = _angXY_nowCamUp;
+    angXY_nowCamUp_ = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    move_target_XY_CAM_UP_ = angXY_nowCamUp_;
 }
 
 void CameraWorker::onUndoCameraWork() {
@@ -66,7 +66,7 @@ void CameraWorker::onSwitchToOherCameraWork() {
 }
 
 void CameraWorker::onCameBackFromOtherCameraWork() {
-    _angXY_nowCamUp = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    angXY_nowCamUp_ = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
 }
 
 void CameraWorker::processBehavior() {
@@ -78,7 +78,7 @@ void CameraWorker::processBehavior() {
     GgafDxCamera* pCam = P_CAM;
     GgafDxGeometricActor* pVP = pCam->_pViewPoint;
 
-    int cam_velo_renge = _cam_velo_renge;  //カメラの移動速度の最大、最小敷居値
+    int cam_velo_renge = cam_velo_renge_;  //カメラの移動速度の最大、最小敷居値
     //カメラの移動速度の最大、最小制限を設定
     pCam->_pKurokoB->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
     pCam->_pKurokoB->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
@@ -90,24 +90,24 @@ void CameraWorker::processBehavior() {
     //カメラ、及びビューポイントの移動速度を求める。
 
     //カメラの目標座標までの各軸の距離（座標差分）
-    int dX_CAM = _move_target_X_CAM - pCam->_X;
-    int dY_CAM = _move_target_Y_CAM - pCam->_Y;
-    int dZ_CAM = _move_target_Z_CAM - pCam->_Z;
-    if ( _pLockOnTarget) {
-        _move_target_X_VP = _pLockOnTarget->_X;
-        _move_target_Y_VP = _pLockOnTarget->_Y;
-        _move_target_Z_VP = _pLockOnTarget->_Z;
+    int dX_CAM = move_target_X_CAM_ - pCam->_X;
+    int dY_CAM = move_target_Y_CAM_ - pCam->_Y;
+    int dZ_CAM = move_target_Z_CAM_ - pCam->_Z;
+    if ( pLockOnTarget_) {
+        move_target_X_VP_ = pLockOnTarget_->_X;
+        move_target_Y_VP_ = pLockOnTarget_->_Y;
+        move_target_Z_VP_ = pLockOnTarget_->_Z;
     }
     //ビューポイントの目標座標までの各軸の距離（座標差分）
-    int dX_VP = _move_target_X_VP - pVP->_X;
-    int dY_VP = _move_target_Y_VP - pVP->_Y;
-    int dZ_VP = _move_target_Z_VP - pVP->_Z;
+    int dX_VP = move_target_X_VP_ - pVP->_X;
+    int dY_VP = move_target_Y_VP_ - pVP->_Y;
+    int dZ_VP = move_target_Z_VP_ - pVP->_Z;
     velo veloVxRenge = 4000;
     velo veloVyRenge = 4000;
     velo veloVzRenge = 4000;
 
     velo last_CAM_veloVxMv = pCam->_pKurokoB->_veloVxMv;
-    velo  new_CAM_veloVxMv = _burenai_speed*(dX_CAM*1.0 / _stop_renge);
+    velo  new_CAM_veloVxMv = burenai_speed_*(dX_CAM*1.0 / stop_renge_);
     if (last_CAM_veloVxMv-veloVxRenge <= new_CAM_veloVxMv && new_CAM_veloVxMv <= last_CAM_veloVxMv+veloVxRenge) {
         pCam->_pKurokoB->setVxMvVelo(new_CAM_veloVxMv);
     } else {
@@ -118,7 +118,7 @@ void CameraWorker::processBehavior() {
         }
     }
     velo last_VP_veloVxMv = pVP->_pKurokoB->_veloVxMv;
-    velo  new_VP_veloVxMv = _burenai_speed*(dX_VP*1.0 / _stop_renge);
+    velo  new_VP_veloVxMv = burenai_speed_*(dX_VP*1.0 / stop_renge_);
     if (last_VP_veloVxMv-veloVxRenge <= new_VP_veloVxMv && new_VP_veloVxMv <= last_VP_veloVxMv+veloVxRenge) {
         pVP->_pKurokoB->setVxMvVelo(new_VP_veloVxMv);
     } else {
@@ -130,7 +130,7 @@ void CameraWorker::processBehavior() {
     }
 
     velo last_CAM_veloVyMv = pCam->_pKurokoB->_veloVyMv;
-    velo  new_CAM_veloVyMv = _burenai_speed*(dY_CAM*1.0 / _stop_renge);
+    velo  new_CAM_veloVyMv = burenai_speed_*(dY_CAM*1.0 / stop_renge_);
     if (last_CAM_veloVyMv-veloVyRenge <= new_CAM_veloVyMv && new_CAM_veloVyMv <= last_CAM_veloVyMv+veloVyRenge) {
         pCam->_pKurokoB->setVyMvVelo(new_CAM_veloVyMv);
     } else {
@@ -141,7 +141,7 @@ void CameraWorker::processBehavior() {
         }
     }
     velo last_VP_veloVyMv = pVP->_pKurokoB->_veloVyMv;
-    velo  new_VP_veloVyMv = _burenai_speed*(dY_VP*1.0 / _stop_renge);
+    velo  new_VP_veloVyMv = burenai_speed_*(dY_VP*1.0 / stop_renge_);
     if (last_VP_veloVyMv-veloVyRenge <= new_VP_veloVyMv && new_VP_veloVyMv <= last_VP_veloVyMv+veloVyRenge) {
         pVP->_pKurokoB->setVyMvVelo(new_VP_veloVyMv);
     } else {
@@ -153,7 +153,7 @@ void CameraWorker::processBehavior() {
     }
 
     velo last_CAM_veloVzMv = pCam->_pKurokoB->_veloVzMv;
-    velo  new_CAM_veloVzMv = _burenai_speed*(dZ_CAM*1.0 / _stop_renge);
+    velo  new_CAM_veloVzMv = burenai_speed_*(dZ_CAM*1.0 / stop_renge_);
     if (last_CAM_veloVzMv-veloVzRenge <= new_CAM_veloVzMv && new_CAM_veloVzMv <= last_CAM_veloVzMv+veloVzRenge) {
         pCam->_pKurokoB->setVzMvVelo(new_CAM_veloVzMv);
     } else {
@@ -164,7 +164,7 @@ void CameraWorker::processBehavior() {
         }
     }
     velo last_VP_veloVzMv = pVP->_pKurokoB->_veloVzMv;
-    velo  new_VP_veloVzMv = _burenai_speed*(dZ_VP*1.0 / _stop_renge);
+    velo  new_VP_veloVzMv = burenai_speed_*(dZ_VP*1.0 / stop_renge_);
     if (last_VP_veloVzMv-veloVzRenge <= new_VP_veloVzMv && new_VP_veloVzMv <= last_VP_veloVzMv+veloVzRenge) {
         pVP->_pKurokoB->setVzMvVelo(new_VP_veloVzMv);
     } else {
@@ -178,16 +178,16 @@ void CameraWorker::processBehavior() {
     //カメラのUPを計算
     ang_velo ang_velo_cam_up = cam_velo_renge/20;
 
-    if (_angXY_nowCamUp != _move_target_XY_CAM_UP) {
-        angle da = GgafDxUtil::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
+    if (angXY_nowCamUp_ != move_target_XY_CAM_UP_) {
+        angle da = GgafDxUtil::getAngDiff(angXY_nowCamUp_, move_target_XY_CAM_UP_);
         if (-ang_velo_cam_up < da && da < ang_velo_cam_up) {
-            _angXY_nowCamUp = _move_target_XY_CAM_UP;
+            angXY_nowCamUp_ = move_target_XY_CAM_UP_;
         } else {
-            _angXY_nowCamUp += (ang_velo_cam_up * sgn(da));
+            angXY_nowCamUp_ += (ang_velo_cam_up * sgn(da));
         }
-        _angXY_nowCamUp = GgafDxUtil::simplifyAng(_angXY_nowCamUp);
-        pCam->_pVecCamUp->x = GgafDxUtil::COS[_angXY_nowCamUp/SANG_RATE];
-        pCam->_pVecCamUp->y = GgafDxUtil::SIN[_angXY_nowCamUp/SANG_RATE];
+        angXY_nowCamUp_ = GgafDxUtil::simplifyAng(angXY_nowCamUp_);
+        pCam->_pVecCamUp->x = GgafDxUtil::COS[angXY_nowCamUp_/SANG_RATE];
+        pCam->_pVecCamUp->y = GgafDxUtil::SIN[angXY_nowCamUp_/SANG_RATE];
         pCam->_pVecCamUp->z = 0.0f;
     }
 

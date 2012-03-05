@@ -12,19 +12,19 @@ class FormationEunomia : public GgafLib::DepositoryFormation {
 
 public:
     /** エウノミア借り入れ元Depository資源への接続 */
-    DepositoryConnection* _pDepoCon_Eunomia;
+    DepositoryConnection* pDepoCon_Eunomia_;
     /** エウノミアの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* _pDepoCon_shot;
+    DepositoryConnection* pDepoCon_Shot_;
     /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection** _papSplManufCon;
+    GgafLib::SplineManufactureConnection** papSplManufCon_;
     /** 編隊列数(RANK変動) */
-    int _R_num_formation_col;
+    int R_num_formation_col_;
     /** １列の編隊数(RANK変動) */
-    int _R_num_formation_row;
+    int R_num_formation_row_;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
-    frame _R_interval_frames;
+    frame R_interval_frames_;
     /** 編隊メンバーの移動速度(RANK変動) */
-    velo _R_mv_velo;
+    velo R_mv_velo_;
 
     /**
      * コンストラクタ .

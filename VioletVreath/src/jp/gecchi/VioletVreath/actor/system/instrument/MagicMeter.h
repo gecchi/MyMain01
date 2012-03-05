@@ -5,7 +5,7 @@ namespace VioletVreath {
 #define MMETER_MAX_LEVEL 8
 
 #ifdef P_MYSHIP_SCENE
-    #define P_MAGICMETER (P_MYSHIP_SCENE->_pMagicMeter)
+    #define P_MAGICMETER (P_MYSHIP_SCENE->pMagicMeter_)
 #else
     #error P_MYSHIP_SCENE isnt define
 #endif
@@ -20,33 +20,33 @@ namespace VioletVreath {
 class MagicMeter : public GgafLib::DefaultBoardSetActor {
 
 public:
-    D3DXHANDLE _h_active_magic;
+    D3DXHANDLE h_active_magic_;
     /** MP */
-    GgafLib::AmountGraph _mp;
+    GgafLib::AmountGraph mp_;
     /** 残魔法効果持続時間表示 */
-    MagicMeterStatus* _pMagicMeterStatus;
+    MagicMeterStatus* pMagicMeterStatus_;
     /** エネルギーバー */
-    EnagyBar* _pEnagyBar;
+    EnagyBar* pEnagyBar_;
     /** 魔法リスト */
-    GgafCore::GgafLinkedListRing<Magic> _ringMagics;
+    GgafCore::GgafLinkedListRing<Magic> ringMagics_;
 
     /** メータ主カーソル */
-    MagicMeterCursor001* _pMagicCursor;
+    MagicMeterCursor001* pMagicCursor_;
     /** 各魔法のレベルカーソル(配列) */
-    MagicMeterCursor002** _papLvCursor;
+    MagicMeterCursor002** papLvCursor_;
     /** 各魔法のレベルカーソルが指しているレベル(配列) */
-    int* _paCursorLv;
+    int* paCursorLv_;
 
     /** 魔法メーター１つの横幅(px) */
-    float _width_px;
+    float width_px_;
     /** 魔法メーター１つの高さ(px) */
     float _height_px;
     /** 魔法メーター１つの横幅 */
-    coord _width;
+    coord width_;
     /** 魔法メーター１つの高さ */
-    coord _height;
+    coord height_;
 
-    stringstream _st[10];
+    stringstream st_[10];
 
     MagicMeter(const char* prm_name);
 

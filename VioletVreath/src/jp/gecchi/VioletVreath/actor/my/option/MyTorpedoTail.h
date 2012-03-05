@@ -12,7 +12,7 @@ class MyTorpedoTail : public GgafLib::HomingLaserChip {
 
 public:
     /** [r]軌跡を描く元の魚雷オブジェクト */
-    MyTorpedo* _pMyTorpedo;
+    MyTorpedo* pMyTorpedo_;
 
     /**
      *

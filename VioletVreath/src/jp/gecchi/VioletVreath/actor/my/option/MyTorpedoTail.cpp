@@ -10,7 +10,7 @@ using namespace VioletVreath;
 MyTorpedoTail::MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pMyTorpedo) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001", NULL) {
     _class_name = "MyTorpedoTail";
-    _pMyTorpedo = prm_pMyTorpedo;
+    pMyTorpedo_ = prm_pMyTorpedo;
 }
 
 void MyTorpedoTail::initialize() {
@@ -29,8 +29,8 @@ void MyTorpedoTail::onInactive() {
 }
 void MyTorpedoTail::processBehaviorHeadChip() {
 
-    locateAs(_pMyTorpedo);
-    rotateWith(_pMyTorpedo);
+    locateAs(pMyTorpedo_);
+    rotateWith(pMyTorpedo_);
 }
 
 MyTorpedoTail::~MyTorpedoTail() {

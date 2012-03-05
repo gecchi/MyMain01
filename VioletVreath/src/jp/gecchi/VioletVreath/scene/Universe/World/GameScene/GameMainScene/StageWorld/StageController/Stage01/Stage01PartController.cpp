@@ -15,12 +15,12 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-    frame f[] = {1,100,120,8200,10000,13200,15000,28200,30000,38200,40000};
-    _paFrame_NextEvent = new frame[11];
-    memcpy(_paFrame_NextEvent, f, sizeof(f));
-    _event_num = 11;
-    orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
-    orderActorToFactory(10000005, EnemyAstraea, "Astraea_1");
+	frame f[] = {1,100,120,8200,10000,13200,15000,28200,30000,38200,40000};
+	_paFrame_NextEvent = new frame[11];
+	memcpy(_paFrame_NextEvent, f, sizeof(f));
+	_event_num = 11;
+	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
+	orderActorToFactory(10000005, EnemyAstraea, "Astraea_1");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -33,67 +33,67 @@ void Stage01PartController::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-    if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
-        switch (getActivePartFrame()) {
-            case 1: {
-                break;
-            }
-            case 100: {
-                Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
-                addSubLast(pScene);
-                _pProg->change(Stage01PartController::PROG_STG01_01_BEGIN);
-                break;
-            }
-            case 120: {
-                EnemyAstraea* pAstraea1 = (EnemyAstraea*)obtainActorFromFactory(10000005);
-                getDirector()->addSubGroup(pAstraea1);
-                pAstraea1->locate(3000000,0,0);
-                break;
-            }
-            case 8200: {
-                orderSceneToFactory(10000001, Stage01_02, "Stage01_02");
-                break;
-            }
-            case 10000: {
-                Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
-                addSubLast(pScene);
-                _pProg->change(Stage01PartController::PROG_STG01_02_BEGIN);
-                break;
-            }
-            case 13200: {
-                orderSceneToFactory(10000002, Stage01_03, "Stage01_03");
-                break;
-            }
-            case 15000: {
-                Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000002);
-                addSubLast(pScene);
-                _pProg->change(Stage01PartController::PROG_STG01_03_BEGIN);
-                break;
-            }
-            case 28200: {
-                orderSceneToFactory(10000003, Stage01WalledScene, "GroStage01WalledScene");
-                break;
-            }
-            case 30000: {
-                Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000003);
-                addSubLast(pScene);
-                break;
-            }
-            case 38200: {
-                orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
-                break;
-            }
-            case 40000: {
-                Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
-                addSubLast(pScene);
-                _pProg->change(Stage01PartController::PROG_STG01_CLIMAX_BEGIN);
-                break;
-            }
-            default :
-                break;
-        }
-        _iCnt_Event = (_iCnt_Event < 11-1 ? _iCnt_Event+1 : _iCnt_Event);
-    }
+	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+		switch (getActivePartFrame()) {
+			case 1: {
+				break;
+			}
+			case 100: {
+				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
+				addSubLast(pScene);
+				_pProg->change(Stage01PartController::PROG_STG01_01_BEGIN);
+				break;
+			}
+			case 120: {
+				EnemyAstraea* pAstraea1 = (EnemyAstraea*)obtainActorFromFactory(10000005);
+				getDirector()->addSubGroup(pAstraea1);
+				pAstraea1->locate(3000000,0,0);
+				break;
+			}
+			case 8200: {
+				orderSceneToFactory(10000001, Stage01_02, "Stage01_02");
+				break;
+			}
+			case 10000: {
+				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
+				addSubLast(pScene);
+				_pProg->change(Stage01PartController::PROG_STG01_02_BEGIN);
+				break;
+			}
+			case 13200: {
+				orderSceneToFactory(10000002, Stage01_03, "Stage01_03");
+				break;
+			}
+			case 15000: {
+				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000002);
+				addSubLast(pScene);
+				_pProg->change(Stage01PartController::PROG_STG01_03_BEGIN);
+				break;
+			}
+			case 28200: {
+				orderSceneToFactory(10000003, Stage01WalledScene, "GroStage01WalledScene");
+				break;
+			}
+			case 30000: {
+				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000003);
+				addSubLast(pScene);
+				break;
+			}
+			case 38200: {
+				orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
+				break;
+			}
+			case 40000: {
+				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
+				addSubLast(pScene);
+				_pProg->change(Stage01PartController::PROG_STG01_CLIMAX_BEGIN);
+				break;
+			}
+			default :
+				break;
+		}
+		_iCnt_Event = (_iCnt_Event < 11-1 ? _iCnt_Event+1 : _iCnt_Event);
+	}
     // gen02 end
 
 
@@ -129,7 +129,7 @@ void Stage01PartController::processBehavior() {
             _pProg->changeNext();
             break;
         }
-        case Stage01PartController::PROG_STG01_02_PLAYING: {
+        case Stage01PartController::PROG_STG01_02_PLAYING_: {
             //進捗更新待ち
             break;
         }
@@ -162,8 +162,8 @@ void Stage01PartController::processBehavior() {
         //Stage01_Climax の後
         case Stage01PartController::PROG_FAINAL: {
             if (_pProg->isJustChanged()) {
-                //STG01_Climax終焉の処理
-                _TRACE_("STG01_Climax終焉のStage01PartController::PROG_FAINALきた");
+                //STG01Climax_終焉の処理
+                _TRACE_("STG01Climax_終焉のStage01PartController::PROG_FAINALきた");
             }
 
             if (_pProg->getFrameInProgress() == 60) {

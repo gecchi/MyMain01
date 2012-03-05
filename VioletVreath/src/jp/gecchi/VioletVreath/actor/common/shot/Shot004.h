@@ -12,7 +12,7 @@ namespace VioletVreath {
 class Shot004 : public GgafLib::SingleLaser {
 public:
 
-    bool _view_in;
+    bool view_in_;
     Shot004(const char* prm_name);
 
 

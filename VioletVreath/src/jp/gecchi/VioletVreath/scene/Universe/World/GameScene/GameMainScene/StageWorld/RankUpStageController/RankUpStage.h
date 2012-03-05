@@ -8,7 +8,7 @@ namespace VioletVreath {
 class RankUpStage : public GgafLib::DefaultScene {
 
 public:
-    static bool _pause;
+    static bool pause_;
 
     enum {
         PROG_INIT = 1,
@@ -17,9 +17,9 @@ public:
         PROG_RESULT  ,
         PROG_END     ,
     };
-    WorldBoundSpaceRankUp* _pWorldBoundSpace;
-    HoshiBoshiRankUp* _pHoshiBoshi;
-    LabelGecchi16Font* _pMessage;
+    WorldBoundSpaceRankUp* pWorldBoundSpace_;
+    HoshiBoshiRankUp* pHoshiBoshi_;
+    LabelGecchi16Font* pMessage_;
 
     RankUpStage(const char* prm_name);
 

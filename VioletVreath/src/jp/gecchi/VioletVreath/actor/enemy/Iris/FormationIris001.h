@@ -10,18 +10,18 @@ namespace VioletVreath {
  */
 class FormationIris001 : public GgafLib::TreeFormation {
     /** イリスの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* _pDepoCon;
+    DepositoryConnection* pDepoCon_;
     /** スプライン定義資源への接続 */
-    SplineLineConnection* _pSplLineCon;
+    SplineLineConnection* pSplLineCon_;
 public:
     /** 編隊数(RANK変動) */
-    int _num_Iris;
+    int num_Iris_;
     /** イリスの配列(RANK変動) */
-    EnemyIris** _papIris;
+    EnemyIris** papIris_;
     /** 編隊間隔フレーム(RANK変動) */
-    frame _interval_frames;
+    frame interval_frames_;
     /** 移動速度(RANK変動) */
-    velo _mv_velo;
+    velo velo_mv_;
 
     FormationIris001(const char* prm_name);
 

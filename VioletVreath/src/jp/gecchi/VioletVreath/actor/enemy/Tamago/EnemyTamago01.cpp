@@ -9,15 +9,15 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
         SpriteMeshSetActor(prm_name, "8/tamago", STATUS(EnemyTamago01)) { //8/をいれとかないとユニークにならない
 
     _class_name = "EnemyTamago01";
-    _iMovePatternNo = 0;
-    _pProgram_Tamago01Move = NULL;
-    _pDepoCon = NULL;
-    _pDepo_Shot = NULL;
-    _pDepo_ShotEffect = NULL;
+    iMovePatternNo_ = 0;
+    pProgram_Tamago01Move_ = NULL;
+    pDepoCon_ = NULL;
+    pDepo_Shot_ = NULL;
+    pDepo_ShotEffect_ = NULL;
 
-    _pDepoCon = connectToDepositoryManager("DpCon_Shot001", NULL);
-    //_pDepo_Shot = _pDepoCon->use();
-_pDepo_Shot = NULL;
+    pDepoCon_ = connectToDepositoryManager("DpCon_Shot001", NULL);
+    //pDepo_Shot_ = pDepoCon_->use();
+pDepo_Shot_ = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
@@ -60,15 +60,15 @@ void EnemyTamago01::initialize() {
 
 void EnemyTamago01::onActive() {
     _pStatus->reset();
-    if (_pProgram_Tamago01Move) {
-        _pProgram_Tamago01Move->exec(ABSOLUTE_COORD); //スプライン移動をプログラムしておく
+    if (pProgram_Tamago01Move_) {
+        pProgram_Tamago01Move_->exec(ABSOLUTE_COORD); //スプライン移動をプログラムしておく
     }
 
 //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
 //    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
 //    _pUvFlipper->forcePtnNoRange(0, 16*16-1);
 //    _pUvFlipper->setActivePtnNo(0);
-    _iMovePatternNo = 0;
+    iMovePatternNo_ = 0;
 }
 
 void EnemyTamago01::processBehavior() {
@@ -108,32 +108,32 @@ void EnemyTamago01::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    if (_iMovePatternNo == 0) {
+    if (iMovePatternNo_ == 0) {
         //スプライン移動中
-        if (_pProgram_Tamago01Move && !(_pProgram_Tamago01Move->isExecuting())) {
-            _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
+        if (pProgram_Tamago01Move_ && !(pProgram_Tamago01Move_->isExecuting())) {
+            iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
         }
     }
 
-    if (_iMovePatternNo == 1) {
+    if (iMovePatternNo_ == 1) {
         //スプライン移動終了時
         _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                    2000, 0,
                                                    TURN_CLOSE_TO);
-        _iMovePatternNo++; //次の行動パターンへ
+        iMovePatternNo_++; //次の行動パターンへ
     }
 
-    if (_iMovePatternNo == 2) {
-        _iMovePatternNo++;
+    if (iMovePatternNo_ == 2) {
+        iMovePatternNo_++;
     }
 
-    if (_iMovePatternNo == 3) {
+    if (iMovePatternNo_ == 3) {
 
     }
     if (getBehaveingFrame() % 30 == 0) {
         _pKurokoA->execTurnMvAngSequence(P_MYSHIP, 2000,0,TURN_CLOSE_TO);
 
-        if (_pDepo_Shot) {
+        if (pDepo_Shot_) {
             //放射状ショット発射
             int way = 8;
             angle* paAngWay = NEW angle[way];
@@ -144,7 +144,7 @@ void EnemyTamago01::processBehavior() {
             GgafDxUtil::getWayAngle2D(target_RyRz_Ry, way, 10000, paAngWay);
             GgafDxDrawableActor* pActor;
             for (int i = 0; i < way; i++) {
-                pActor = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();
+                pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                 if (pActor) {
                     pActor->_pKurokoA->relateFaceAngWithMvAng(true);
                     pActor->_pKurokoA->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
@@ -153,8 +153,8 @@ void EnemyTamago01::processBehavior() {
             }
             DELETEARR_IMPOSSIBLE_NULL(paAngWay);
             //ショット発射エフェクト
-            if (_pDepo_ShotEffect) {
-                pActor = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();
+            if (pDepo_ShotEffect_) {
+                pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                 if (pActor) {
                     pActor->locateAs(this);
                 }
@@ -162,8 +162,8 @@ void EnemyTamago01::processBehavior() {
         }
 
     }
-    if (_pProgram_Tamago01Move) {
-        _pProgram_Tamago01Move->behave();
+    if (pProgram_Tamago01Move_) {
+        pProgram_Tamago01Move_->behave();
     }
     _pKurokoA->behave();
     _pScaler->behave();
@@ -179,7 +179,7 @@ void EnemyTamago01::processJudgement() {
 
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
     _pSeTransmitter->play3D(0);
     _TRACE_("HIT!!!");
     if (pExplo001) {
@@ -196,6 +196,6 @@ void EnemyTamago01::onInactive() {
 }
 
 EnemyTamago01::~EnemyTamago01() {
-    _pDepoCon->close();
-    DELETE_POSSIBLE_NULL(_pProgram_Tamago01Move);
+    pDepoCon_->close();
+    DELETE_POSSIBLE_NULL(pProgram_Tamago01Move_);
 }

@@ -3,7 +3,7 @@
 
 
 #ifdef P_GAME_SCENE
-    #define P_COMMON_SCENE (P_GAME_SCENE->_pCommonScene)
+    #define P_COMMON_SCENE (P_GAME_SCENE->pCommonScene_)
 #else
     #error P_GAME_SCENE isnt define
 #endif
@@ -19,10 +19,10 @@ class CommonScene : public GgafLib::DefaultScene {
 
 public:
     /** ”Ä—p”š”­ */
-    GgafCore::GgafActorDepository* _pDP_EffectExplosion001;
-    GgafCore::GgafActorDepository* _pDepo_EffectTurbo002;
-    GgafCore::GgafActorDepository* _pDP_MagicPointItem001;
-    GgafCore::GgafActorDepository* _pDP_MagicPointItem002;
+    GgafCore::GgafActorDepository* pDP_EffectExplosion001_;
+    GgafCore::GgafActorDepository* pDepo_EffectTurbo002_;
+    GgafCore::GgafActorDepository* pDP_MagicPointItem001_;
+    GgafCore::GgafActorDepository* pDP_MagicPointItem002_;
 
     CommonScene(const char* prm_name);
     /**

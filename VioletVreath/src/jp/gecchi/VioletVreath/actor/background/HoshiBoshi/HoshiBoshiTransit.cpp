@@ -11,8 +11,8 @@ HoshiBoshiTransit::HoshiBoshiTransit(const char* prm_name) :
         HoshiBoshi(prm_name, "HoshiBoshiTransit") {
     _class_name = "HoshiBoshiTransit";
     //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñ‚ÅA
-    _far_rate = 1.0f;
-    _SX = _SY = _SZ =  (P_CAM->_zf*LEN_UNIT)*_far_rate;
+    far_rate_ = 1.0f;
+    _SX = _SY = _SZ =  (P_CAM->_zf*LEN_UNIT)*far_rate_;
 }
 
 void HoshiBoshiTransit::onActive() {
@@ -20,10 +20,10 @@ void HoshiBoshiTransit::onActive() {
 }
 
 void HoshiBoshiTransit::processBehavior() {
-    if (_X < -_CAM_ZF*_far_rate) {
-        _X += (_CAM_ZF*_far_rate*2);
+    if (_X < -CAM_ZF_*far_rate_) {
+        _X += (CAM_ZF_*far_rate_*2);
     } else {
-        _X -= 90000*_far_rate;
+        _X -= 90000*far_rate_;
     }
     _pUvFlipper->behave();
 }

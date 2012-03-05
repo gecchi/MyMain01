@@ -9,17 +9,17 @@ RankUp100::RankUp100(const char* prm_name) : RankUpStage(prm_name) {
     _class_name = "RankUp100";
 
     Sleep(2);
-    _pWorldBoundSpace  = NEW WorldBoundSpace001("BG_SPACE");
-    _pWorldBoundSpace->inactivateTree();
-    getDirector()->addSubGroup(KIND_EFFECT, _pWorldBoundSpace);
+    pWorldBoundSpace_  = NEW WorldBoundSpace001("BG_SPACE");
+    pWorldBoundSpace_->inactivateTree();
+    getDirector()->addSubGroup(KIND_EFFECT, pWorldBoundSpace_);
 
-    _pHoshiBoshi = NEW HoshiBoshi001("HoshiBoshi001");
-    _pHoshiBoshi->inactivateTree();
-    getDirector()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
+    pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
+    pHoshiBoshi_->inactivateTree();
+    getDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
 
-    _pMessage = NEW LabelGecchi16Font("RankUp100Msg");
-    getDirector()->addSubGroup(KIND_EFFECT, _pMessage);
-    _pMessage->inactivate();
+    pMessage_ = NEW LabelGecchi16Font("RankUp100Msg");
+    getDirector()->addSubGroup(KIND_EFFECT, pMessage_);
+    pMessage_->inactivate();
 
     fadeoutScene(0); //Å‰‚Í”ñ•\Ž¦
     useProgress(10);
@@ -39,9 +39,9 @@ void RankUp100::processBehavior() {
         }
         case Stage::PROG_BEGIN: {
             if (_pProg->getFrameInProgress() == 180) { //ƒXƒe[ƒW‚PŠJŽnI
-                _pMessage->activateImmed();
-                _pWorldBoundSpace->activateTree();    //”wŒiON
-                _pHoshiBoshi->activateTree();    //”wŒiON
+                pMessage_->activateImmed();
+                pWorldBoundSpace_->activateTree();    //”wŒiON
+                pHoshiBoshi_->activateTree();    //”wŒiON
                 fadeinSceneTree(360);
                 _pProg->change(Stage::PROG_PLAYING);
             }
@@ -49,8 +49,8 @@ void RankUp100::processBehavior() {
         }
         case Stage::PROG_PLAYING: {
             if (_pProg->getFrameInProgress() == 60) { //ƒXƒe[ƒW‚PŠJŽnI
-                _pMessage->update(PX2CO(300),PX2CO(300), "SCENE 01 START!");
-                _pMessage->inactivateDelay(240);
+                pMessage_->update(PX2CO(300),PX2CO(300), "SCENE 01 START!");
+                pMessage_->inactivateDelay(240);
             }
             //EVENT_STG01_CONTROLLER_WAS_ENDƒCƒxƒ“ƒg‘Ò‚¿
             break;
@@ -62,9 +62,9 @@ void RankUp100::processBehavior() {
             }
 
             if (_pProg->getFrameInProgress() == 60) {
-                _pMessage->activateImmed();
-                _pMessage->update(PX2CO(300), PX2CO(300), "SCENE 01 CLEAR!!");
-                _pMessage->inactivateDelay(120);
+                pMessage_->activateImmed();
+                pMessage_->update(PX2CO(300), PX2CO(300), "SCENE 01 CLEAR!!");
+                pMessage_->inactivateDelay(120);
                 fadeoutScene(300);
             }
             if (_pProg->getFrameInProgress() == 300) {

@@ -17,7 +17,7 @@ enum {
 class EffectLockon001 : public GgafLib::DefaultSpriteSetActor {
 
 public:
-    GgafDxCore::GgafDxGeometricActor* _pTarget;
+    GgafDxCore::GgafDxGeometricActor* pTarget_;
 
     EffectLockon001(const char* prm_name, const char* prm_model_id);
 
@@ -41,7 +41,7 @@ public:
 
 
 //DEBUGモードアプリ終了時のツリー表示時、
-//_pTargetが不正になる場合があるため、必要なときにコメントを外して仕様することとする。
+//pTarget_が不正になる場合があるため、必要なときにコメントを外して仕様することとする。
 //
 //    /**
 //     * ターゲットも表示するダンプ(デバッグ用) .

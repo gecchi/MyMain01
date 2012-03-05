@@ -2,7 +2,7 @@
 #define RANKUPSTAGECONTROLLER_H_
 
 #ifdef P_STAGE_WORLD
-    #define P_RANK_UP_CONTROLLER (P_STAGE_WORLD->_pRankUpStageController)
+    #define P_RANK_UP_CONTROLLER (P_STAGE_WORLD->pRankUpStageController_)
 #else
     #error P_STAGE_CONTROLLER isnt define
 #endif
@@ -27,9 +27,9 @@ public:
         PROG_FINISH  ,
     };
 
-    char _buf[60];
-    RankUpStage* _apRankUpStage[MAX_RANKUP_SCENE];
-    RankUpStage* _pNowRankUpStage;
+    char buf_[60];
+    RankUpStage* apRankUpStage_[MAX_RANKUP_SCENE];
+    RankUpStage* pNowRankUpStage_;
 
     RankUpStageController(const char* prm_name);
     void execute();

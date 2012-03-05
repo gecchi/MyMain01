@@ -17,10 +17,10 @@ public:
         PROG_FINISH     ,
     };
 
-    LabelGecchi16Font* _pStringBoard01;
-    LabelGecchi16Font* _pStringBoard02;
+    LabelGecchi16Font* pStringBoard01_;
+    LabelGecchi16Font* pStringBoard02_;
 
-    int _selected_stage;
+    int selected_stage_;
 
     GameBeginningScene(const char* prm_name);
     void onReset() override;

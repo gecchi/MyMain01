@@ -3,7 +3,7 @@
 
 
 #ifdef P_GAME_SCENE
-    #define P_STAGE_WORLD (P_GAME_SCENE->_pStageWorld)
+    #define P_STAGE_WORLD (P_GAME_SCENE->pStageWorld_)
 #else
     #error P_GAME_SCENE isnt define
 #endif
@@ -15,9 +15,9 @@ class StageWorld : public GgafLib::DefaultScene {
 
 public:
     /** ランクアップ挿入シーン */
-    RankUpStageController* _pRankUpStageController;
-    StageController* _pStageController;
-    bool _can_rank_up;
+    RankUpStageController* pRankUpStageController_;
+    StageController* pStageController_;
+    bool can_rank_up_;
     StageWorld(const char* prm_name);
     void onReset() override;
     void initialize() override;

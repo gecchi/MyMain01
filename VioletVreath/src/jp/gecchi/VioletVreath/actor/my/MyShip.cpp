@@ -8,12 +8,12 @@ int MyShip::wk_dist = 0;
 angle MyShip::wk_angRx = 0;
 
 #define S_OPTION 0
-coord MyShip::_lim_top     =  0;
-coord MyShip::_lim_bottom  =  0;
-coord MyShip::_lim_front   =  0;
-coord MyShip::_lim_behaind =  0;
-coord MyShip::_lim_zleft   =  0;
-coord MyShip::_lim_zright  =  0;
+coord MyShip::lim_top_     =  0;
+coord MyShip::lim_bottom_  =  0;
+coord MyShip::lim_front_   =  0;
+coord MyShip::lim_behaind_ =  0;
+coord MyShip::lim_zleft_   =  0;
+coord MyShip::lim_zright_  =  0;
 
 MyShip::MyShip(const char* prm_name) :
         DefaultD3DXMeshActor(prm_name, "VicViper", STATUS(MyShip)) {
@@ -28,42 +28,42 @@ MyShip::MyShip(const char* prm_name) :
     int harf_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2;
     int harf_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2;
 
-    _lim_top     =  harf_height + GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*4*LEN_UNIT; //上は、高さ4画面分
-    _lim_bottom  = -harf_height - GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*4*LEN_UNIT; //下は、高さ4画面分
-    _lim_front   =  harf_width + GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //前は、幅の2画面分
-    _lim_behaind = -harf_width - GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //後ろは、幅の2画面分
-    _lim_zleft   =  harf_width + GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //手前は、幅の2画面分
-    _lim_zright  = -harf_width - GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //奥は、幅の2画面分
-    _TRACE_("MyShip::MyShip 範囲 X("<<_lim_behaind<<" ~ "<<_lim_front<<") Y("<<_lim_bottom<<" ~ "<<_lim_top<<") Z("<<_lim_zright<<" ~ "<<_lim_zleft<<")");
+    lim_top_     =  harf_height + GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*4*LEN_UNIT; //上は、高さ4画面分
+    lim_bottom_  = -harf_height - GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*4*LEN_UNIT; //下は、高さ4画面分
+    lim_front_   =  harf_width + GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //前は、幅の2画面分
+    lim_behaind_ = -harf_width - GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //後ろは、幅の2画面分
+    lim_zleft_   =  harf_width + GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //手前は、幅の2画面分
+    lim_zright_  = -harf_width - GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //奥は、幅の2画面分
+    _TRACE_("MyShip::MyShip 範囲 X("<<lim_behaind_<<" ~ "<<lim_front_<<") Y("<<lim_bottom_<<" ~ "<<lim_top_<<") Z("<<lim_zright_<<" ~ "<<lim_zleft_<<")");
 
     /** 移動スピードレベルに相応する移動スピード */
-    _iMoveSpeed = 2000;
+    iMoveSpeed_ = 2000;
     //CommonSceneがnewの場合設定
-    _angRXVelo_BeginMZ = 1000; //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
-    _angRXAcce_MZ = 300; //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度
-    _angRXTopVelo_MZ = 5000; //奥又は手前へ通常Z移動中のX軸回転角速度の上限角速度
-    _angRXStop_MZ = 90000; //奥又は手前へ通常Z移動中のX軸回転角の目標停止角度
+    angRXVelo_BeginMZ_ = 1000; //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
+    angRXAcce_MZ_ = 300; //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度
+    angRXTopVelo_MZ_ = 5000; //奥又は手前へ通常Z移動中のX軸回転角速度の上限角速度
+    angRXStop_MZ_ = 90000; //奥又は手前へ通常Z移動中のX軸回転角の目標停止角度
 
-    //_angRXVelo_BeginMZT = 23000; //奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
-    _angRXVelo_BeginMZT = 40000;
+    //angRXVelo_BeginMZT_ = 23000; //奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
+    angRXVelo_BeginMZT_ = 40000;
 
-    _iMvBtmVelo_MT = 0; //Turbo移動中の移動速度の最低速度
-    _iMvVelo_BeginMT = 40000; //Turbo移動開始時の移動速度の初速度
-    _iMvAcce_MT = -200; //Turbo移動中の移動速度の加速度
+    iMvBtmVelo_MT_ = 0; //Turbo移動中の移動速度の最低速度
+    iMvVelo_BeginMT_ = 40000; //Turbo移動開始時の移動速度の初速度
+    iMvAcce_MT_ = -200; //Turbo移動中の移動速度の加速度
 
-//    _pMyOptionController = NEW MyOptionController("MY_OPTION_PARENT");
-//    addSubLast(_pMyOptionController);
+//    pMyOptionController_ = NEW MyOptionController("MY_OPTION_PARENT");
+//    addSubLast(pMyOptionController_);
 
-    _pDepo_MyShots001 = NEW GgafActorDepository("RotShot001");
+    pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateImmed();
-        _pDepo_MyShots001->addSubLast(pShot);
+        pDepo_MyShots001_->addSubLast(pShot);
     }
-    addSubGroup(_pDepo_MyShots001);
+    addSubGroup(pDepo_MyShots001_);
 
-    _pLaserChipDepo = NEW LaserChipDepository("MyRotLaser");
+    pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     MyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         stringstream name;
@@ -71,26 +71,26 @@ MyShip::MyShip(const char* prm_name) :
         string name2 = name.str();
         pChip = NEW MyStraightLaserChip001(name2.c_str());
         pChip->setPositionSource(this); //位置だけ同期
-        _pLaserChipDepo->addSubLast(pChip);
+        pLaserChipDepo_->addSubLast(pChip);
     }
-    addSubGroup(_pLaserChipDepo);
+    addSubGroup(pLaserChipDepo_);
 
 
-    _pEffectTurbo001 = NEW EffectTurbo001("EffectTurbo001");
-    addSubGroup(_pEffectTurbo001);
-//    _pEffectTurbo002 = NEW EffectTurbo002("EffectTurbo002");
-//    addSubGroup(_pEffectTurbo002);
+    pEffectTurbo001_ = NEW EffectTurbo001("EffectTurbo001");
+    addSubGroup(pEffectTurbo001_);
+//    pEffectTurbo002_ = NEW EffectTurbo002("EffectTurbo002");
+//    addSubGroup(pEffectTurbo002_);
 
 
 
 
     //トレース用履歴
-    _pRing_MyShipGeoHistory = NEW GgafLinkedListRing<GgafDxGeoElem>();
+    pRing_MyShipGeoHistory_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
     for (UINT32 i = 0; i < 300; i++) {
-        _pRing_MyShipGeoHistory->addLast(NEW GgafDxGeoElem(this));
+        pRing_MyShipGeoHistory_->addLast(NEW GgafDxGeoElem(this));
     }
 
-    _iMoveVelo = 0;
+    iMoveVelo_ = 0;
 
     //     X   Y   Z
     //    -----------
@@ -163,19 +163,19 @@ MyShip::MyShip(const char* prm_name) :
     _pSeTransmitter->set(2,"fire01", 99);
     _pSeTransmitter->set(3,"bse5", 99);
 
-    _iMvVelo_TurboTop = 30000;
-    _iMvVelo_TurboBottom = 10000;
+    iMvVelo_TurboTop_ = 30000;
+    iMvVelo_TurboBottom_ = 10000;
 
-    _can_control = true;
-    _is_diving = false;
+    can_control_ = true;
+    is_diving_ = false;
 
-    _blown_veloX = 0;
-    _blown_veloY = 0;
-    _blown_veloZ = 0;
-    _anti_blown_velo = 100;
-    _way = WAY_NONE;
-    _prev_way = WAY_NONE;
-    _is_just_change_way = true;
+    blown_veloX_ = 0;
+    blown_veloY_ = 0;
+    blown_veloZ_ = 0;
+    anti_blown_velo_ = 100;
+    way_ = WAY_NONE;
+    prev_way_ = WAY_NONE;
+    is_just_change_way_ = true;
 
 }
 void MyShip::onCreateModel() {
@@ -185,9 +185,9 @@ void MyShip::onCreateModel() {
 void MyShip::initialize() {
 
     //種別に振り分け
-//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDepo_MyShots001->extract());
-//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDepo_MyWaves001->extract());
-    //getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDepo->extract());
+//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
+//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyWaves001_->extract());
+    //getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
 
     setHitAble(true);
     _pCollisionChecker->makeCollision(1);
@@ -207,31 +207,31 @@ void MyShip::initialize() {
     setAlpha(1.0);
 
 
-    _pKurokoB->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
-    _pKurokoB->forceVyMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
-    _pKurokoB->forceVzMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
+    _pKurokoB->forceVxMvVeloRange(-iMvVelo_TurboTop_, iMvVelo_TurboTop_);
+    _pKurokoB->forceVyMvVeloRange(-iMvVelo_TurboTop_, iMvVelo_TurboTop_);
+    _pKurokoB->forceVzMvVeloRange(-iMvVelo_TurboTop_, iMvVelo_TurboTop_);
 
     _pKurokoB->setVxMvAcce(0);
     _pKurokoB->setVyMvAcce(0);
     _pKurokoB->setVzMvAcce(0);
-    //        _pKurokoA->forceMvVeloRange(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
-    //        _pKurokoA->addMvVelo(_iMvVelo_BeginMT);  //速度追加
-    //        _pKurokoA->setMvAcce(_iMvAcce_MT);
+    //        _pKurokoA->forceMvVeloRange(iMvBtmVelo_MT_, iMvVelo_BeginMT_);
+    //        _pKurokoA->addMvVelo(iMvVelo_BeginMT_);  //速度追加
+    //        _pKurokoA->setMvAcce(iMvAcce_MT_);
 
     _pKurokoA->setFaceAngVelo(AXIS_X, 300);
 }
 
 
 void MyShip::onReset() {
-    _frame_soft_rapidshot = 0;
-    _is_being_soft_rapidshot = false;
-    _just_shot = false;
-    _is_shooting_laser = false;
-    _frame_shot_pressed = 0;
+    frame_soft_rapidshot_ = 0;
+    is_being_soft_rapidshot_ = false;
+    just_shot_ = false;
+    is_shooting_laser_ = false;
+    frame_shot_pressed_ = 0;
     _X = _Y = _Z = 0;
-    _way = WAY_NONE;
-    _prev_way = WAY_NONE;
-    _way_switch.reset();
+    way_ = WAY_NONE;
+    prev_way_ = WAY_NONE;
+    way_switch_.reset();
     _pStatus->reset();
 
 }
@@ -253,127 +253,127 @@ void MyShip::processBehavior() {
 //        _pModel->_specular -= 0.1;
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_O)) {
-//        _pModel->_specular_power += 0.1;
+//        _pModel->specular_power_ += 0.1;
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_P)) {
-//        _pModel->_specular_power -= 0.1;
+//        _pModel->specular_power_ -= 0.1;
 //    }
 //    /////////////////////////////////////
 
-    if (!_can_control) {
+    if (!can_control_) {
         return;
     }
 
     //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
-    _stc = VB_PLAY->getBeingPressedStick();
-    if (P_VAM->_pos_camera == VAM_POS_RIGHT) {
+    stc_ = VB_PLAY->getBeingPressedStick();
+    if (P_VAM->pos_camera_ == VAM_POS_RIGHT) {
         //右サイドビュー(右から左へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
-            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
+            way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
         if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
-            _way_switch.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //前方
+            way_switch_.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //前方
         }
         if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
-            _way_switch.ON_LEFT(SW_SUB, SW_NOP, SW_NOP);  //後方
+            way_switch_.ON_LEFT(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
-            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
+            way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (P_VAM->_pos_camera == VAM_POS_LEFT) {
+    } else if (P_VAM->pos_camera_ == VAM_POS_LEFT) {
         //左サイドビュー(左から右へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
-            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
+            way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
         if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
-            _way_switch.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //後方
+            way_switch_.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //後方
         }
         if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
-            _way_switch.ON_LEFT(SW_ADD, SW_NOP, SW_NOP);  //前方
+            way_switch_.ON_LEFT(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
-            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
+            way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (P_VAM->_pos_camera == VAM_POS_TOP) {
+    } else if (P_VAM->pos_camera_ == VAM_POS_TOP) {
         //トップビュー(上から下へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
-            _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
+            way_switch_.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
         }
         if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
-            _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
+            way_switch_.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
         if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
-            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
+            way_switch_.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
-            _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
+            way_switch_.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
-    } else if (P_VAM->_pos_camera == VAM_POS_BOTTOM) {
+    } else if (P_VAM->pos_camera_ == VAM_POS_BOTTOM) {
         //ボトムビュー(下から上へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
-            _way_switch.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
+            way_switch_.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
         }
         if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
-            _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
+            way_switch_.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
         if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
-            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
+            way_switch_.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
-            _way_switch.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
+            way_switch_.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
-    } else if (P_VAM->_pos_camera > VAM_POS_TO_BEHIND) {
+    } else if (P_VAM->pos_camera_ > VAM_POS_TO_BEHIND) {
         //背後ビュー（奥から手前にスクロール）
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
-            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
+            way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
         if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
-            _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
+            way_switch_.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
         if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
-            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
+            way_switch_.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
-            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
+            way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
     }
     if (VB_PLAY->isReleasedUp(VB_UP)) {
-        _way_switch.OFF_UP();    // ↑ を離す
+        way_switch_.OFF_UP();    // ↑ を離す
     }
     if (VB_PLAY->isReleasedUp(VB_RIGHT)) {
-        _way_switch.OFF_RIGHT(); // → を離す
+        way_switch_.OFF_RIGHT(); // → を離す
     }
     if (VB_PLAY->isReleasedUp(VB_LEFT)) {
-        _way_switch.OFF_LEFT();  // ← を離す
+        way_switch_.OFF_LEFT();  // ← を離す
     }
     if (VB_PLAY->isReleasedUp(VB_DOWN)) {
-        _way_switch.OFF_DOWN();  // ↓ を離す
+        way_switch_.OFF_DOWN();  // ↓ を離す
     }
-    MoveWay prev_way = _way;
-    _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向値が入る
-    if (prev_way != _way) {
-        _is_just_change_way = true;
+    MoveWay prev_way = way_;
+    way_ = (MoveWay)(way_switch_.getIndex()); //上記を考慮された方向値が入る
+    if (prev_way != way_) {
+        is_just_change_way_ = true;
     } else {
-        _is_just_change_way = false;
+        is_just_change_way_ = false;
     }
     if (VB_PLAY->isBeingPressed(VB_OPTION)) {
-        int tmp = _iMoveSpeed;
-        _iMoveSpeed = _iMoveSpeed / 8; //オプション操作中移動は遅い
-        (this->*paFuncMove[_way])();   //方向値に応じた移動処理メソッドを呼び出す
-        _iMoveSpeed = tmp;
+        int tmp = iMoveSpeed_;
+        iMoveSpeed_ = iMoveSpeed_ / 8; //オプション操作中移動は遅い
+        (this->*paFuncMove[way_])();   //方向値に応じた移動処理メソッドを呼び出す
+        iMoveSpeed_ = tmp;
     } else {
-        (this->*paFuncMove[_way])();   //方向値に応じた移動処理メソッドを呼び出す
+        (this->*paFuncMove[way_])();   //方向値に応じた移動処理メソッドを呼び出す
     }
 
     if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
-        EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDepo_EffectTurbo002->dispatchForce();
+        EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->pDepo_EffectTurbo002_->dispatchForce();
          if (pTurbo002) {
              pTurbo002->locateAs(this);
              pTurbo002->activate();
          }
-        (this->*paFuncTurbo[_way])();
+        (this->*paFuncTurbo[way_])();
     } else {
         //Notターボ開始時
         if (VB_PLAY->isBeingPressed(VB_TURBO)) {
@@ -389,13 +389,13 @@ void MyShip::processBehavior() {
     }
 
     //スピンが勢いよく回っているならば速度を弱める
-    ang_velo MZ = _angRXTopVelo_MZ-3000; //3000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
+    ang_velo MZ = angRXTopVelo_MZ_-3000; //3000は通常旋回時に速度を弱めてangRXTopVelo_MZ_を超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
     if (_pKurokoA->_ang_veloFace[AXIS_X] >= MZ) {
         _pKurokoA->_ang_veloFace[AXIS_X] *= 0.93;
-        //_pKurokoA->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ*2);
+        //_pKurokoA->setFaceAngAcce(AXIS_X, -1*angRXAcce_MZ_*2);
     } else if (_pKurokoA->_ang_veloFace[AXIS_X] <= -MZ) {
         _pKurokoA->_ang_veloFace[AXIS_X] *= 0.93;
-        //_pKurokoA->setFaceAngAcce(AXIS_X, _angRXAcce_MZ*2);
+        //_pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_*2);
     }
 
     //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTarget_FaceAngの第4引数より角速度がゆるい場合受け入れ）
@@ -405,12 +405,12 @@ void MyShip::processBehavior() {
 
         angle dist = _pKurokoA->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < D180ANG) {
-            _pKurokoA->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
+            _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_);
         } else if (-1*D180ANG < dist && dist < 0) {
-            _pKurokoA->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
+            _pKurokoA->setFaceAngAcce(AXIS_X, -1*angRXAcce_MZ_);
         }
         _pKurokoA->setMvAcce(0);
-        _pKurokoA->setStopTarget_FaceAng(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+        _pKurokoA->setStopTarget_FaceAng(AXIS_X, 0, TURN_BOTH, angRXTopVelo_MZ_);
     }
 
     ////////////////////////////////////////////////////
@@ -424,59 +424,59 @@ void MyShip::processBehavior() {
     _pSeTransmitter->behave();
 
     //吹っ飛び
-    if (GgafUtil::abs(_blown_veloX) < 1000) {
-        _blown_veloX = 0;
-    } else if (_blown_veloX > 0) {
-        _blown_veloX -= 1000;
-    } else if (_blown_veloX < 0) {
-        _blown_veloX += 1000;
+    if (GgafUtil::abs(blown_veloX_) < 1000) {
+        blown_veloX_ = 0;
+    } else if (blown_veloX_ > 0) {
+        blown_veloX_ -= 1000;
+    } else if (blown_veloX_ < 0) {
+        blown_veloX_ += 1000;
     }
-    if (GgafUtil::abs(_blown_veloY) < 1000) {
-        _blown_veloY = 0;
-    } else if (_blown_veloY > 0) {
-        _blown_veloY -= 1000;
-    } else if (_blown_veloY < 0) {
-        _blown_veloY += 1000;
+    if (GgafUtil::abs(blown_veloY_) < 1000) {
+        blown_veloY_ = 0;
+    } else if (blown_veloY_ > 0) {
+        blown_veloY_ -= 1000;
+    } else if (blown_veloY_ < 0) {
+        blown_veloY_ += 1000;
     }
-    if (GgafUtil::abs(_blown_veloZ) < 1000) {
-        _blown_veloZ = 0;
-    } else if (_blown_veloZ > 0) {
-        _blown_veloZ -= 1000;
-    } else if (_blown_veloZ < 0) {
-        _blown_veloZ += 1000;
+    if (GgafUtil::abs(blown_veloZ_) < 1000) {
+        blown_veloZ_ = 0;
+    } else if (blown_veloZ_ > 0) {
+        blown_veloZ_ -= 1000;
+    } else if (blown_veloZ_ < 0) {
+        blown_veloZ_ += 1000;
     }
-    _X += _blown_veloX;
-    _Y += _blown_veloY;
-    _Z += _blown_veloZ;
+    _X += blown_veloX_;
+    _Y += blown_veloY_;
+    _Z += blown_veloZ_;
 
 
-    if (!_is_diving) {
-        if (_Y > MyShip::_lim_top) {
-            _Y = MyShip::_lim_top;
+    if (!is_diving_) {
+        if (_Y > MyShip::lim_top_) {
+            _Y = MyShip::lim_top_;
         }
-        if (_Y < MyShip::_lim_bottom ) {
-            _Y = MyShip::_lim_bottom;
-        }
-
-        if (_X > MyShip::_lim_front) {
-            _X = MyShip::_lim_front;
-        }
-        if (_X < MyShip::_lim_behaind) {
-            _X = MyShip::_lim_behaind;
+        if (_Y < MyShip::lim_bottom_ ) {
+            _Y = MyShip::lim_bottom_;
         }
 
-        if (_Z > MyShip::_lim_zleft) {
-            _Z = MyShip::_lim_zleft;
+        if (_X > MyShip::lim_front_) {
+            _X = MyShip::lim_front_;
         }
-        if (_Z < MyShip::_lim_zright) {
-            _Z = MyShip::_lim_zright;
+        if (_X < MyShip::lim_behaind_) {
+            _X = MyShip::lim_behaind_;
+        }
+
+        if (_Z > MyShip::lim_zleft_) {
+            _Z = MyShip::lim_zleft_;
+        }
+        if (_Z < MyShip::lim_zright_) {
+            _Z = MyShip::lim_zright_;
         }
     }
-    _pRing_MyShipGeoHistory->next()->set(this);
+    pRing_MyShipGeoHistory_->next()->set(this);
 }
 
 void MyShip::processJudgement() {
-    if (!_can_control) {
+    if (!can_control_) {
         return;
     }
     //自機消滅テスト
@@ -487,20 +487,20 @@ void MyShip::processJudgement() {
 
 
     //ショット関連処理
-    _is_shooting_laser = false;
+    is_shooting_laser_ = false;
     if (VB_PLAY->isBeingPressed(VB_SHOT1)) {
-        _frame_shot_pressed ++;
-        if (_frame_shot_pressed > 30) { //12フレーム押しっぱなしでレーザーへ
-            _is_shooting_laser = true;
+        frame_shot_pressed_ ++;
+        if (frame_shot_pressed_ > 30) { //12フレーム押しっぱなしでレーザーへ
+            is_shooting_laser_ = true;
         }
     } else {
-        _frame_shot_pressed = 0;
+        frame_shot_pressed_ = 0;
     }
 
     //レーザー発射
-    if (_is_shooting_laser) {
+    if (is_shooting_laser_) {
         if (VB_PLAY->isBeingPressed(VB_SHOT1)) {
-            LaserChip* pLaserChip = _pLaserChipDepo->dispatch();
+            LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
                 if (pLaserChip->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
@@ -512,52 +512,52 @@ void MyShip::processJudgement() {
     //ソフト連射
     //1プッシュで4F毎に最大3発
     if (VB_PLAY->isPushedDown(VB_SHOT1)) {
-        _is_being_soft_rapidshot = true;
-        if (_frame_soft_rapidshot >= SOFT_RAPIDSHOT_INTERVAL) {
+        is_being_soft_rapidshot_ = true;
+        if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL) {
             //SOFT_RAPIDSHOT_INTERVAL フレームより遅い場合
             //連射と連射のつなぎ目が無いようにする
-            _frame_soft_rapidshot = _frame_soft_rapidshot % SOFT_RAPIDSHOT_INTERVAL;
+            frame_soft_rapidshot_ = frame_soft_rapidshot_ % SOFT_RAPIDSHOT_INTERVAL;
         } else {
             //SOFT_RAPIDSHOT_INTERVAL フレームより速い連射の場合
             //これを受け入れて強制的に発射できる(手動連射のほうが速く連射できるようにしたい。)
-            _frame_soft_rapidshot = 0;
+            frame_soft_rapidshot_ = 0;
         }
     }
-    _just_shot = false;
-    if (_is_being_soft_rapidshot) {
-        if (_frame_soft_rapidshot % SOFT_RAPIDSHOT_INTERVAL == 0) {
-            _just_shot = true;//たった今ショットしましたフラグ
-            MyShot001* pShot = (MyShot001*)_pDepo_MyShots001->dispatch();
+    just_shot_ = false;
+    if (is_being_soft_rapidshot_) {
+        if (frame_soft_rapidshot_ % SOFT_RAPIDSHOT_INTERVAL == 0) {
+            just_shot_ = true;//たった今ショットしましたフラグ
+            MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
             if (pShot) {
                 _pSeTransmitter->play3D(2);
                 pShot->locateAs(this);
             }
-            if (_frame_soft_rapidshot >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
+            if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
                 //SOFT_RAPIDSHOT_NUM 発打ち終えたらソフト連射終了
-                _is_being_soft_rapidshot = false;
+                is_being_soft_rapidshot_ = false;
             }
         }
     }
-    if (_is_being_soft_rapidshot) {
-        _frame_soft_rapidshot++;
+    if (is_being_soft_rapidshot_) {
+        frame_soft_rapidshot_++;
     }
     MyOptionController* pMyOptionController = P_MYOPTIONCON;
 
     //光子魚雷発射
     if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         bool can_fire = true;
-        for (int i = 0; i < pMyOptionController->_now_option_num; i++) {
-            if (pMyOptionController->_papMyOption[i]->_pTorpedoController->_in_firing) {
+        for (int i = 0; i < pMyOptionController->now_option_num_; i++) {
+            if (pMyOptionController->papMyOption_[i]->pTorpedoController_->in_firing_) {
                 can_fire = false;
                 break;
             }
         }
         if (can_fire) {
-            for (int i = 0; i < pMyOptionController->_now_option_num; i++) {
+            for (int i = 0; i < pMyOptionController->now_option_num_; i++) {
                 if (i == 0) {
                     _pSeTransmitter->play3D(3);
                 }
-                pMyOptionController->_papMyOption[i]->_pTorpedoController->fire();
+                pMyOptionController->papMyOption_[i]->pTorpedoController_->fire();
             }
         }
     }
@@ -578,13 +578,13 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     //壁の場合特別な処理
     if (pOther->getKind() & KIND_CHIKEI) {
 
-        _blown_veloX = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKurokoB->_veloVxMv)));
-        _blown_veloY = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKurokoB->_veloVyMv)));
-        _blown_veloZ = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKurokoB->_veloVzMv)));
+        blown_veloX_ = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKurokoB->_veloVxMv)));
+        blown_veloY_ = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKurokoB->_veloVyMv)));
+        blown_veloZ_ = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKurokoB->_veloVzMv)));
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         if (pExplo001) {
             pExplo001->locateAs(this);
         }
@@ -602,8 +602,8 @@ void MyShip::doNotingMoveInput() {
 
 }
 void MyShip::setMoveSpeedLv(int lv) {
-        //_lv_MoveSpeed = lv;
-        _iMoveSpeed = PX2CO(lv);
+        //lv_MoveSpeed_ = lv;
+        iMoveSpeed_ = PX2CO(lv);
     }
 
 void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {
@@ -615,7 +615,7 @@ void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 MyShip::~MyShip() {
-    DELETE_IMPOSSIBLE_NULL(_pRing_MyShipGeoHistory);
+    DELETE_IMPOSSIBLE_NULL(pRing_MyShipGeoHistory_);
 
 }
 

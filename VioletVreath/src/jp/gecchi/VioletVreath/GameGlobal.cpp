@@ -6,15 +6,15 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-bool GameGlobal::_isInit = false;
-double GameGlobal::_rank = 0.0;
-int GameGlobal::_rank_up_level = 0;
-UINT32 GameGlobal::_score = 0;
+bool GameGlobal::is_init_ = false;
+double GameGlobal::rank_ = 0.0;
+int GameGlobal::rank_up_level_ = 0;
+UINT32 GameGlobal::score_ = 0;
 
 
 void GameGlobal::init() {
-    GameGlobal::_rank = 0.0;
-    GameGlobal::_rank_up_level = 0;
-    GameGlobal::_score = 0;
-    GameGlobal::_isInit = true;
+    GameGlobal::rank_ = 0.0;
+    GameGlobal::rank_up_level_ = 0;
+    GameGlobal::score_ = 0;
+    GameGlobal::is_init_ = true;
 }

@@ -9,8 +9,8 @@ Torus::Torus(const char* prm_name, const char* prm_model, coord prm_r1, coord pr
         CubeMapMeshActor(prm_name, prm_model, STATUS(Torus)) {
     _class_name = "Torus";
     setCubeMapTexture("BkSky_cubemap.dds");
-    _r1 = prm_r1;
-    _r2 = prm_r2;
+    r1_ = prm_r1;
+    r2_ = prm_r2;
 }
 
 void Torus::addSubBoneOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
@@ -18,27 +18,27 @@ void Torus::addSubBoneOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_a
     s_ang angPos1 = prm_angPos1 /SANG_RATE;
     s_ang angPos2 = prm_angPos2 /SANG_RATE;
     //位置を求める
-    //平行移動( +_r2, +0, +0) > angPos2のY軸回転 > 平行移動( +0, +0, -_r1) > angPos1のX軸回転 変換行列の dx, dy, dz が欲しい
+    //平行移動( +r2_, +0, +0) > angPos2のY軸回転 > 平行移動( +0, +0, -r1_) > angPos1のX軸回転 変換行列の dx, dy, dz が欲しい
     //
     //    | COS[angPos2]    , -SIN[angPos2]*-SIN[angPos1]             , -SIN[angPos2]*COS[angPos1]             , 0 |
     //    | 0               ,  COS[angPos1]                           ,  SIN[angPos1]                          , 0 |
     //    | SIN[angPos2]    ,  COS[angPos2]*-SIN[angPos1]             ,  COS[angPos2]*COS[angPos]              , 0 |
-    //    | _r2*COS[angPos2], (_r2*-SIN[angPos2] + -_r1)*-SIN[angPos1], (_r2*-SIN[angPos2] + -_r1)*COS[angPos1], 1 |
+    //    | r2_*COS[angPos2], (r2_*-SIN[angPos2] + -r1_)*-SIN[angPos1], (r2_*-SIN[angPos2] + -r1_)*COS[angPos1], 1 |
     //より
-    double X = _r2*GgafDxUtil::COS[angPos2];
-    double Y = (_r2*-GgafDxUtil::SIN[angPos2] - _r1) * -GgafDxUtil::SIN[angPos1];
-    double Z = (_r2*-GgafDxUtil::SIN[angPos2] - _r1) *  GgafDxUtil::COS[angPos1];
+    double X = r2_*GgafDxUtil::COS[angPos2];
+    double Y = (r2_*-GgafDxUtil::SIN[angPos2] - r1_) * -GgafDxUtil::SIN[angPos1];
+    double Z = (r2_*-GgafDxUtil::SIN[angPos2] - r1_) *  GgafDxUtil::COS[angPos1];
 
     //向きを求める
-    //平行移動( +0, +0, -_r1) > angPos1のX軸回転 変換行列の dx, dy, dz を使用
+    //平行移動( +0, +0, -r1_) > angPos1のX軸回転 変換行列の dx, dy, dz を使用
     //    | 1, 0                 , 0                , 0 |
     //    | 0, COS[angPos1]      , SIN[angPos1]     , 0 |
     //    | 0, -SIN[angPos1]     , COS[angPos1]     , 0 |
-    //    | 0, -_r1*-SIN[angPos1], -_r1*COS[angPos1], 1 |
+    //    | 0, -r1_*-SIN[angPos1], -r1_*COS[angPos1], 1 |
     //より
     double CX = 0;
-    double CY = -_r1*-GgafDxUtil::SIN[angPos1];
-    double CZ = -_r1*GgafDxUtil::COS[angPos1];
+    double CY = -r1_*-GgafDxUtil::SIN[angPos1];
+    double CZ = -r1_*GgafDxUtil::COS[angPos1];
     angle angRz, angRy;
     GgafDxUtil::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
     //ボーンとして追加
@@ -52,8 +52,8 @@ void Torus::makeCollisionArea(int prm_nSphere){
     for (int i = 0; i < prm_nSphere; i++) {
         _pCollisionChecker->setColliSphere(
                 i,
-                0 , GgafDxUtil::SIN[paAngRadial[i]/SANG_RATE] * _r1, GgafDxUtil::COS[paAngRadial[i]/SANG_RATE] * _r1,
-                _r2,
+                0 , GgafDxUtil::SIN[paAngRadial[i]/SANG_RATE] * r1_, GgafDxUtil::COS[paAngRadial[i]/SANG_RATE] * r1_,
+                r2_,
                 false, true, true
                 );
     }

@@ -6,7 +6,7 @@ class EnagyBar : public GgafLib::DefaultBoardActor {
 
 public:
     /** “à—e—Ê */
-    GgafLib::AmountGraph* _pAmount;
+    GgafLib::AmountGraph* pAmount_;
 
     float _fSize_BoardModelWidthPx;
 

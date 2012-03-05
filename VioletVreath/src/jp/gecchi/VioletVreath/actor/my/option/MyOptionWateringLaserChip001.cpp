@@ -10,13 +10,13 @@ using namespace VioletVreath;
 MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name) :
         WateringLaserChip(prm_name, "MyOptionWateringLaserChip001", STATUS(MyOptionWateringLaserChip001)) {
     _class_name = "MyOptionWateringLaserChip001";
-    _default_stamina = _pStatus->get(STAT_Stamina);
-    _pOrg = NULL;
-    _lockon = 0;
-    _isLockon = false;
-    _max_acce_renge = 0;
-    _max_velo_renge = 160000; //この値を大きくすると、最高速度が早くなる。
-    _r_max_acce = 18; //この値を大きくすると、カーブが緩くなる
+    default_stamina_ = _pStatus->get(STAT_Stamina);
+    pOrg_ = NULL;
+    lockon_ = 0;
+    isLockon_ = false;
+    max_acce_renge_ = 0;
+    max_velo_renge_ = 160000; //この値を大きくすると、最高速度が早くなる。
+    r_max_acce_ = 18; //この値を大きくすると、カーブが緩くなる
 }
 
 void MyOptionWateringLaserChip001::initialize() {
@@ -29,54 +29,52 @@ void MyOptionWateringLaserChip001::initialize() {
 
 void MyOptionWateringLaserChip001::onActive() {
     _pStatus->reset();
-    _default_stamina = _pStatus->get(STAT_Stamina);
+    default_stamina_ = _pStatus->get(STAT_Stamina);
     WateringLaserChip::onActive();
-    GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonController_->pRingTarget_->getCurrent();
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
         if (_pChip_front == NULL) {
             //先端チップ
-            _lockon = 1;
+            lockon_ = 1;
         } else {
             //先端以外
             MyOptionWateringLaserChip001* pF = (MyOptionWateringLaserChip001*) _pChip_front;
-            _lockon = pF->_lockon;//一つ前のロックオン情報を引き継ぐ
+            lockon_ = pF->lockon_;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
         if (_pChip_front == NULL) {
             //先端チップ
-            _lockon = 0;
+            lockon_ = 0;
         } else {
             //先端以外
             MyOptionWateringLaserChip001* pF = (MyOptionWateringLaserChip001*) _pChip_front;
-            _lockon = pF->_lockon;//一つ前のロックオン情報を引き継ぐ
+            lockon_ = pF->lockon_;//一つ前のロックオン情報を引き継ぐ
         }
     }
     _pKurokoB->setZeroVxyzMvAcce(); //加速度リセット
     //Vxyzの速度はオプション側で設定される
 
 
-    _pKurokoB->forceVxyzMvVeloRange(-_max_velo_renge, _max_velo_renge);
-    _max_acce_renge = _max_velo_renge/_r_max_acce;
-    _pKurokoB->forceVxyzMvAcceRange(-_max_acce_renge, _max_acce_renge);
+    _pKurokoB->forceVxyzMvVeloRange(-max_velo_renge_, max_velo_renge_);
+    max_acce_renge_ = max_velo_renge_/r_max_acce_;
+    _pKurokoB->forceVxyzMvAcceRange(-max_acce_renge_, max_acce_renge_);
 }
 
 void MyOptionWateringLaserChip001::processBehavior() {
-    _KTRACE_("this="<<this<<" "<<getName()<<"  "<<_pChip_front <<"<--["<<this<<"]<--"<<_pChip_behind);
-
-    GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonController_->pRingTarget_->getCurrent();
     if (getActivePartFrame() > 6) {
-        if (_lockon == 1) {
+        if (lockon_ == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
                 moveChip(pMainLockOnTarget->_X,
                          pMainLockOnTarget->_Y,
                          pMainLockOnTarget->_Z );
             } else {
                 //_pKurokoB->setZeroVxyzMvAcce();
-                _lockon = 2;
+                lockon_ = 2;
             }
         }
 
-        if (_lockon == 2) {
+        if (lockon_ == 2) {
             if (_pLeader) {
                 if (_pLeader == this) {
                     moveChip(_X + _pKurokoB->_veloVxMv*4+1,
@@ -92,7 +90,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
-        locateAs(_pOrg);
+        locateAs(pOrg_);
         _tmpX = _X;
         _tmpY = _Y;
         _tmpZ = _Z;
@@ -114,7 +112,7 @@ void MyOptionWateringLaserChip001::moveChip(int tX,int tY, int tZ) {
     //    |                   vT 的   ／                               |       的
     //    |             ┌       ^  ／                                 |       ↑
     //    |               ＼    / ┐vM 現在の移動方向ベクトル          |       ｜
-    //    | vVP 仮自→仮的  ＼ /／ (_veloVxMv,_veloVyMv,_veloVzMv)     |       ｜
+    //    | vVP 仮自→仮的  ＼ /／ (veloVxMv_,veloVyMv_,veloVzMv_)     |       ｜
     //    |                   自                                       |       自
     // ---+------------------------------------------               ---+---------------------------
     //    |                                                            |
@@ -142,9 +140,9 @@ void MyOptionWateringLaserChip001::moveChip(int tX,int tY, int tZ) {
     //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
 
     //vVP 仮自→仮的 の加速度設定
-    double accX = ((vTx * r) - vVMx) / _r_max_acce;
-    double accY = ((vTy * r) - vVMy) / _r_max_acce;
-    double accZ = ((vTz * r) - vVMz) / _r_max_acce;
+    double accX = ((vTx * r) - vVMx) / r_max_acce_;
+    double accY = ((vTy * r) - vVMy) / r_max_acce_;
+    double accZ = ((vTz * r) - vVMz) / r_max_acce_;
 
     if (_pChip_front == NULL) {
         //先頭はやや速めに
@@ -157,7 +155,7 @@ void MyOptionWateringLaserChip001::moveChip(int tX,int tY, int tZ) {
         _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*3);
     }
     //ネジレ描画が汚くならないように回転を制限
-    if (lVM > _max_velo_renge/2) {
+    if (lVM > max_velo_renge_/2) {
         angle RZ_temp = _RZ;
         angle RY_temp = _RY;
         GgafDxUtil::getRzRyAng(vVMx, vVMy, vVMz,
@@ -208,7 +206,7 @@ void MyOptionWateringLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActo
 
 void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
-    GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonController_->pRingTarget_->getCurrent();
     //ヒットエフェクト
     //無し
 
@@ -217,10 +215,10 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             if (pOther == pMainLockOnTarget) {
                 //オプションのロックオンに見事命中した場合
 
-                _lockon = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
+                lockon_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
                 if (_pChip_front && _pChip_front->_pChip_front == NULL) {
                     //中間先頭チップがヒットした場合、先端にも伝える(先端は当たり判定ないため中間先頭と同値にする)
-                    ((MyOptionWateringLaserChip001*)_pChip_front)->_lockon = 2;
+                    ((MyOptionWateringLaserChip001*)_pChip_front)->lockon_ = 2;
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合
@@ -234,29 +232,29 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
             if (pExplo001) {
                 pExplo001->locateAs(this);
                 pExplo001->activate();
             }
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-                _pOrg->_pLockonController->lockon(pOther);
+                pOrg_->pLockonController_->lockon(pOther);
             }
             sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
-            _pStatus->set(STAT_Stamina, _default_stamina);
+            _pStatus->set(STAT_Stamina, default_stamina_);
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-                _pOrg->_pLockonController->lockon(pOther);
+                pOrg_->pLockonController_->lockon(pOther);
             }
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら
 
         //破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         if (pExplo001) {
             pExplo001->locateAs(this);
             pExplo001->activate();
@@ -267,7 +265,7 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 
 void MyOptionWateringLaserChip001::onInactive() {
     WateringLaserChip::onInactive();
-    _lockon = 0;
+    lockon_ = 0;
 }
 
 MyOptionWateringLaserChip001::~MyOptionWateringLaserChip001() {

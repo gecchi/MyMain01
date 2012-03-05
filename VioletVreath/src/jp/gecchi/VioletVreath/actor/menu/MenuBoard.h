@@ -19,11 +19,11 @@ public:
         SE_DECIDED_CANCEL,
         SE_MENU_CLOSE,
     };
-    coord _menu_fade_frames;
-    coord _slide_from_offset_X;
-    coord _slide_from_offset_Y;
-    coord _target_X;
-    coord _target_Y;
+    coord menu_fade_frames_;
+    coord slide_from_offset_X_;
+    coord slide_from_offset_Y_;
+    coord target_X_;
+    coord target_Y_;
 
     MenuBoard(const char* prm_name, const char* prm_model);
 

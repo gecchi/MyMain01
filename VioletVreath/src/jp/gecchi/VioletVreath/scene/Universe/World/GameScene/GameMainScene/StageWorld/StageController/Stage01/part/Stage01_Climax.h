@@ -12,9 +12,9 @@ class Stage01_Climax : public GgafLib::DefaultScene {
 
 
 public:
-    bool _waiting;
+    bool waiting_;
 
-    EnemyAstraea* _pBoss;
+    EnemyAstraea* pBoss_;
 
     Stage01_Climax(const char* prm_name);
     /**

@@ -14,14 +14,14 @@ class EnemyPallas :
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineSequence* _pSplSeq;
+    GgafLib::SplineSequence* pSplSeq_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* _pDepo_Shot;
+    GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* _pDepo_ShotEffect;
+    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 
     /** 行動パターン番号 */
-    int _iMovePatternNo;
+    int iMovePatternNo_;
 
     /**
      * コンストラクタ
@@ -72,9 +72,9 @@ public:
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
             ) {
-        _pSplSeq = prm_pSplSeq;
-        _pDepo_Shot = prm_pDepo_Shot;
-        _pDepo_ShotEffect = prm_pDepo_ShotEffect;
+        pSplSeq_ = prm_pSplSeq;
+        pDepo_Shot_ = prm_pDepo_Shot;
+        pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
     }
 
 

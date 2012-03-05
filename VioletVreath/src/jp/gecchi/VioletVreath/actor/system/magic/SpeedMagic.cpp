@@ -30,41 +30,41 @@ SpeedMagic::SpeedMagic(const char* prm_name, AmountGraph* prm_pMP)
     //    | 52,  53,  54,  55 |
     //    | 56,  57,  58,  59 |
     //    | 60,  61,  62,  63 |
-    _lvinfo[0]._pno = 3;
-    _lvinfo[1]._pno = 60;
-    _lvinfo[2]._pno = 56;
-    _lvinfo[3]._pno = 52;
-    _lvinfo[4]._pno = 48;
-    _lvinfo[5]._pno = 44;
+    lvinfo_[0].pno_ = 3;
+    lvinfo_[1].pno_ = 60;
+    lvinfo_[2].pno_ = 56;
+    lvinfo_[3].pno_ = 52;
+    lvinfo_[4].pno_ = 48;
+    lvinfo_[5].pno_ = 44;
 
-    _pEffect = NEW EffectSpeedMagic("EffectSpeedMagic");
-    _pEffect->inactivateImmed();
-    addSubGroup(_pEffect);
+    pEffect_ = NEW EffectSpeedMagic("EffectSpeedMagic");
+    pEffect_->inactivateImmed();
+    addSubGroup(pEffect_);
 }
 void SpeedMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    _pEffect->locateAs(P_MYSHIP);
-    _pEffect->setAlpha(0.9);
-    _pEffect->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
-    _pEffect->_pScaler->setScale(1000);
-    _pEffect->activate();
+    pEffect_->locateAs(P_MYSHIP);
+    pEffect_->setAlpha(0.9);
+    pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
+    pEffect_->_pScaler->setScale(1000);
+    pEffect_->activate();
 }
 void SpeedMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
-    _pEffect->locateAs(P_MYSHIP);
-    _pEffect->_pScaler->addScale(10);
+    pEffect_->locateAs(P_MYSHIP);
+    pEffect_->_pScaler->addScale(10);
 }
 void SpeedMagic::processCastFinish(int prm_now_level, int prm_new_level) {
 }
 
 
 void SpeedMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
-    _pEffect->_pScaler->setScale(1000);
-    _pEffect->_pKurokoA->setFaceAngVelo(AXIS_Z, 3000);
+    pEffect_->_pScaler->setScale(1000);
+    pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 3000);
 }
 void SpeedMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level) {
-    _pEffect->_pScaler->addScale(100);
+    pEffect_->_pScaler->addScale(100);
 }
 void SpeedMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
-    _pEffect->inactivate();
+    pEffect_->inactivate();
 }
 
 int SpeedMagic::effect(int prm_level) {

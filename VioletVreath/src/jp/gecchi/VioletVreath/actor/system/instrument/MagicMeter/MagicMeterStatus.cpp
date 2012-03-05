@@ -9,7 +9,7 @@ MagicMeterStatus::MagicMeterStatus(const char* prm_name, MagicMeter* prm_pMagicM
         StringBoardActor(prm_name, "Gecchi_8Font")
 {
     _class_name = "MagicMeterStatus";
-    _pMagicMeter = prm_pMagicMeter;
+    pMagicMeter_ = prm_pMagicMeter;
 }
 void MagicMeterStatus::initialize() {
 }
@@ -23,30 +23,30 @@ void MagicMeterStatus::processDraw() {
     HRESULT hr;
     //パワーメーター
     //[====]が１つの大きさ [====][====][====]
-    GgafLinkedListRing<Magic>::Elem* pElem = _pMagicMeter->_ringMagics.getElemFirst();
+    GgafLinkedListRing<Magic>::Elem* pElem = pMagicMeter_->ringMagics_.getElemFirst();
     Magic* pMagic;
-    int len_magics = _pMagicMeter->_ringMagics.length();
+    int len_magics = pMagicMeter_->ringMagics_.length();
 
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
         //各メーター下段表示
-        if (pMagic->_level > 0) {
+        if (pMagic->level_ > 0) {
             setAlpha(1.0);
-            _X = _pMagicMeter->_X + PX2CO(_pMagicMeter->_width_px)*i;
-            _Y = _pMagicMeter->_Y + PX2CO(_pMagicMeter->_height_px);
-            sprintf(_aBuf, "%06d", (pMagic->_lvinfo[pMagic->_level]._remaining_time_of_effect)/60);
-            update(_aBuf);
+            _X = pMagicMeter_->_X + PX2CO(pMagicMeter_->width_px_)*i;
+            _Y = pMagicMeter_->_Y + PX2CO(pMagicMeter_->_height_px);
+            sprintf(aBuf_, "%06d", (pMagic->lvinfo_[pMagic->level_].remainingtime_of_effect_)/60);
+            update(aBuf_);
             StringBoardActor::processDraw();
         }
 
-        _X = _pMagicMeter->_X + PX2CO(_pMagicMeter->_width_px)*(i+1); //i+1 は右隣に表示
+        _X = pMagicMeter_->_X + PX2CO(pMagicMeter_->width_px_)*(i+1); //i+1 は右隣に表示
         //各マジック要素
-        if (pMagic->_rr > 0.1) {
-            for (int j = 1; j <= pMagic->_level; j++) {
-                setAlpha(pMagic->_rr);
-                _Y = _pMagicMeter->_Y - (PX2CO(_pMagicMeter->_height_px)*(j+1)*pMagic->_rr); //j+1 の +1 は最下段が nothing の為
-                sprintf(_aBuf, "%06d", (pMagic->_lvinfo[j]._remaining_time_of_effect)/60);
-                update(_aBuf);
+        if (pMagic->rr_ > 0.1) {
+            for (int j = 1; j <= pMagic->level_; j++) {
+                setAlpha(pMagic->rr_);
+                _Y = pMagicMeter_->_Y - (PX2CO(pMagicMeter_->_height_px)*(j+1)*pMagic->rr_); //j+1 の +1 は最下段が nothing の為
+                sprintf(aBuf_, "%06d", (pMagic->lvinfo_[j].remainingtime_of_effect_)/60);
+                update(aBuf_);
                 StringBoardActor::processDraw();
             }
         }

@@ -6,7 +6,7 @@ namespace VioletVreath {
 class TamagoScene : public GgafLib::DefaultScene {
 
 public:
-    TurboMeter* _pTurboMeter001;
+    TurboMeter* pTurboMeter001_;
 
     TamagoScene(const char* prm_name);
     void onReset() override;

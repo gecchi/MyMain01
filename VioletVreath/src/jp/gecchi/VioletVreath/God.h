@@ -4,16 +4,16 @@
 namespace VioletVreath {
 
 /** ゲーム時のVirtualButton */
-#define VB_PLAY VioletVreath::God::_pVbtn_PLAY
+#define VB_PLAY VioletVreath::God::pVbtn_PLAY_
 /** UI操作時のVirtualButton */
-#define VB_UI VioletVreath::God::_pVbtn_UI
+#define VB_UI VioletVreath::God::pVbtn_UI_
 /** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
-#define VB VioletVreath::God::_pVbtn_Active
+#define VB VioletVreath::God::pVbtn_Active_
 
 
 //#define connectToDepositoryManager(X) (connectToDepositoryManager(X)))
-#define connectToDepositoryManager(X,Y) ((VioletVreath::DepositoryConnection*)(P_GOD->_pDepoManager->connect((X),(Y))))
-#define connectToSplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(P_GOD->_pSpl3DManager->connect(X)))
+#define connectToDepositoryManager(X,Y) ((VioletVreath::DepositoryConnection*)(P_GOD->pDepoManager_->connect((X),(Y))))
+#define connectToSplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(P_GOD->pSpl3DManager_->connect(X)))
 
 /**
  * 神
@@ -24,14 +24,13 @@ namespace VioletVreath {
 class God : public GgafLib::DefaultGod {
 
 public:
-    DepositoryManager* _pDepoManager;
-    SplineLineManager* _pSpl3DManager;
+    DepositoryManager* pDepoManager_;
+    SplineLineManager* pSpl3DManager_;
 
-
-    static GgafLib::VirtualButton* _pVbtn_PLAY;
-    static GgafLib::VirtualButton* _pVbtn_UI;
-    static GgafLib::VirtualButton* _pVbtn_Active;
-    static GgafLib::VirtualButton* _pVbtn_Active_next_frame;
+    static GgafLib::VirtualButton* pVbtn_PLAY_;
+    static GgafLib::VirtualButton* pVbtn_UI_;
+    static GgafLib::VirtualButton* pVbtn_Active_;
+    static GgafLib::VirtualButton* pVbtn_Active_next_frame_;
 
     /**
      * コンストラクタ .
@@ -46,10 +45,10 @@ public:
      * @param prm_pVB
      */
     void setVB(GgafLib::VirtualButton* prm_pVB) {
-        if (_pVbtn_Active != prm_pVB) {
+        if (pVbtn_Active_ != prm_pVB) {
             //VBのセットが切り替わる
         }
-        _pVbtn_Active_next_frame = prm_pVB;
+        pVbtn_Active_next_frame_ = prm_pVB;
     }
 
     /**
@@ -57,7 +56,7 @@ public:
      */
     virtual void presentUniversalMoment() override {
         //VBを反映
-        _pVbtn_Active = _pVbtn_Active_next_frame;
+        pVbtn_Active_ = pVbtn_Active_next_frame_;
         //上位呼び出し
         GgafLib::DefaultGod::presentUniversalMoment();
     }

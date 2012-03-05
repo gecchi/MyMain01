@@ -15,28 +15,28 @@ class CameraWorker : public GgafCore::GgafMainActor {
 
 public:
     /** カメラ位置番号 */
-    int _pos_camera;
+    int pos_camera_;
 
-    GgafDxCore::GgafDxGeometricActor* _pLockOnTarget;
+    GgafDxCore::GgafDxGeometricActor* pLockOnTarget_;
 
     /** 原点から初期カメラZ位置の距離 */
-    coord _dZ_camera_init;
+    coord dZ_camera_init_;
     //カメラの移動目標座標
-    coord _move_target_X_CAM, _move_target_Y_CAM, _move_target_Z_CAM;
+    coord move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_;
     //カメラのビューポイントの移動目標座標
-    coord _move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP;
+    coord move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_;
     //カメラの目標UPアングル値
-    angle _move_target_XY_CAM_UP;
-    angle _angXY_nowCamUp;
+    angle move_target_XY_CAM_UP_;
+    angle angXY_nowCamUp_;
 
     /** カメラの最高速度（上限、負数で下限） */
-    velo _cam_velo_renge;
+    velo cam_velo_renge_;
     /** カメラの速度が、丁度自機の通常移動速度の1.0倍となるカメラ目標座標からの距離。 */
-    coord _stop_renge; //カメラ目標座標距離が、これより小さいと、     1.0倍より減
+    coord stop_renge_; //カメラ目標座標距離が、これより小さいと、     1.0倍より減
                      //カメラ目標座標距離が、これより大きいとさいと 1.0倍より超
 
     /** 等速でブレないスピード */
-    velo _burenai_speed;
+    velo burenai_speed_;
 
     CameraWorker(const char* prm_name);
 

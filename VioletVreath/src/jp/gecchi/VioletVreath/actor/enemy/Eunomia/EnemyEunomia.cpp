@@ -8,10 +8,10 @@ using namespace VioletVreath;
 EnemyEunomia::EnemyEunomia(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Eunomia", STATUS(EnemyEunomia)) {
     _class_name = "EnemyEunomia";
-    _iMovePatternNo = 0;
-    _pSplSeq = NULL;
-    _pDepo_Shot = NULL;
-    _pDepo_ShotEffect = NULL;
+    iMovePatternNo_ = 0;
+    pSplSeq_ = NULL;
+    pDepo_Shot_ = NULL;
+    pDepo_ShotEffect_ = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     useProgress(10);
@@ -38,21 +38,21 @@ void EnemyEunomia::config(
         GgafCore::GgafActorDepository* prm_pDepo_Shot,
         GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
         ) {
-    DELETE_POSSIBLE_NULL(_pSplSeq);
-    _pSplSeq = prm_pSplSeq;
-    _pDepo_Shot = prm_pDepo_Shot;
-    _pDepo_ShotEffect = prm_pDepo_ShotEffect;
+    DELETE_POSSIBLE_NULL(pSplSeq_);
+    pSplSeq_ = prm_pSplSeq;
+    pDepo_Shot_ = prm_pDepo_Shot;
+    pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
 }
 
 
 void EnemyEunomia::onActive() {
-    if (_pSplSeq == NULL) {
+    if (pSplSeq_ == NULL) {
         throwGgafCriticalException("EnemyEunomiaはスプライン必須ですconfigして下さい");
     }
     _pStatus->reset();
     setHitAble(true);
     _pKurokoA->setFaceAng(AXIS_X, 0);
-    _iMovePatternNo = 0; //行動パターンリセット
+    iMovePatternNo_ = 0; //行動パターンリセット
     _pProg->change(1);
 }
 
@@ -61,46 +61,46 @@ void EnemyEunomia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //【パターン1：スプライン移動】
     if (_pProg->isJustChangedTo(1)) {
-        _pSplSeq->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+        pSplSeq_->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
     }
     if (_pProg->get() == 1) {
         //スプライン移動終了待ち
-        if (_pSplSeq->isExecuting()) {
+        if (pSplSeq_->isExecuting()) {
             //待ちぼうけ
         } else {
             _pProg->changeNext(); //次のパターンへ
         }
     }
 
-    switch (_iMovePatternNo) {
+    switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (_pSplSeq) {
-                _pSplSeq->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+            if (pSplSeq_) {
+                pSplSeq_->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
             }
-            _iMovePatternNo++; //次の行動パターンへ
+            iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (_pSplSeq) {
+            if (pSplSeq_) {
                 //スプライン移動有り
-                if (!(_pSplSeq->isExecuting())) {
-                    _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
+                if (!(pSplSeq_->isExecuting())) {
+                    iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
                 //スプライン移動無し
-                _iMovePatternNo++; //すぐに次の行動パターンへ
+                iMovePatternNo_++; //すぐに次の行動パターンへ
             }
             break;
 
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
-            if (_pDepo_Shot) {
+            if (pDepo_Shot_) {
                 //放射状ショット
                 int way = R_EnemyEunomia_ShotWay; //ショットWAY数
                 angle* paAngWay = NEW angle[way];
                 GgafDxUtil::getRadialAngle2D(0, way, paAngWay);
                 GgafDxDrawableActor* pActor_Shot;
                 for (int i = 0; i < way; i++) {
-                    pActor_Shot = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();
+                    pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->locateAs(this);
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], D90ANG);
@@ -108,8 +108,8 @@ void EnemyEunomia::processBehavior() {
                 }
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
                 //ショット発射エフェクト
-                if (_pDepo_ShotEffect) {
-                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)_pDepo_ShotEffect->dispatch();
+                if (pDepo_ShotEffect_) {
+                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
                     if (pTestActor_Shot) {
                         pTestActor_Shot->locateAs(this);
                     }
@@ -119,7 +119,7 @@ void EnemyEunomia::processBehavior() {
             _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
                                                 2000, 0,
                                                 TURN_CLOSE_TO);
-            _iMovePatternNo++; //次の行動パターンへ
+            iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 3:  //【行動パターン３】
@@ -130,8 +130,8 @@ void EnemyEunomia::processBehavior() {
     }
 
 
-    if (_pSplSeq) {
-        _pSplSeq->behave(); //スプライン移動を振る舞い
+    if (pSplSeq_) {
+        pSplSeq_->behave(); //スプライン移動を振る舞い
     }
     _pKurokoA->behave();
     //_pSeTransmitter->behave();
@@ -147,7 +147,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->locateAs(this);
@@ -159,7 +159,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
             //フォーメーションに自身が撃たれた事を伝える。
             notifyFormationAboutDestroyed();
             //アイテム出現
-            Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
+            Item* pItem = (Item*)P_COMMON_SCENE->pDP_MagicPointItem001_->dispatch();
             if (pItem) {
                 pItem->locateAs(this);
             }
@@ -170,11 +170,11 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyEunomia::onInactive() {
-    DELETE_POSSIBLE_NULL(_pSplSeq);
+    DELETE_POSSIBLE_NULL(pSplSeq_);
 }
 
 EnemyEunomia::~EnemyEunomia() {
-    DELETE_POSSIBLE_NULL(_pSplSeq);
+    DELETE_POSSIBLE_NULL(pSplSeq_);
 }
 
 

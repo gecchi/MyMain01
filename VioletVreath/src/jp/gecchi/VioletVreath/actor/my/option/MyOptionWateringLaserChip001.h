@@ -12,23 +12,23 @@ namespace VioletVreath {
  */
 class MyOptionWateringLaserChip001 : public GgafLib::WateringLaserChip {
     /** 耐久力初期設定値 */
-    int _default_stamina;
-    /** 加速度範囲( _max_velo_renge / _r_max_acce ) */
-    float _max_acce_renge;
+    int default_stamina_;
+    /** 加速度範囲( max_velo_renge_ / r_max_acce_ ) */
+    float max_acce_renge_;
     /** チップの動きを計算 */
     void moveChip(int vTx, int vTy, int vTz);
 
 public:
     /** [r]ロックオンしている場合 true */
-    bool _isLockon;
+    bool isLockon_;
     /** [r]0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
-    int _lockon;
+    int lockon_;
     /** [r]レーザー発射元 */
-    MyOption* _pOrg;
+    MyOption* pOrg_;
     /** [r/w]速度範囲（この値を大きくすると、最高速度が早くなる。） */
-    int _max_velo_renge;
+    int max_velo_renge_;
     /** [r/w]速度に対する加速度の割合（この値を大きくすると、カーブが緩くなる） */
-    int _r_max_acce;
+    int r_max_acce_;
 
     MyOptionWateringLaserChip001(const char* prm_name);
 

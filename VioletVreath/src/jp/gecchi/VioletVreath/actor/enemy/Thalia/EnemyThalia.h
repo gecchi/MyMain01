@@ -14,21 +14,21 @@ class EnemyThalia :
   public GgafLib::DefaultMorphMeshActor {
 //class EnemyThalia : public GgafLib::CubeMapMorphMeshActor {
     /** 移動スプラインプログラム */
-    GgafLib::SplineSequence* _pSplSeq;
+    GgafLib::SplineSequence* pSplSeq_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* _pDepo_Shot;
+    GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* _pDepo_ShotEffect;
+    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 
     /** 原点から初期カメラZ位置の距離 */
-    int _dZ_camera_init;
+    int dZ_camera_init_;
 public:
     /** 行動パターン番号 */
-    int _iMovePatternNo;
+    int iMovePatternNo_;
 
-    velo _veloTopMv;
+    velo veloTopMv_;
 
-    GgafLib::LaserChipDepository* _pLaserChipDepo;
+    GgafLib::LaserChipDepository* pLaserChipDepo_;
     /**
      * コンストラクタ
      * @param prm_name
@@ -73,7 +73,7 @@ public:
      * @param prm_pDepo
      */
     void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
-        _pDepo_Shot = prm_pDepo;
+        pDepo_Shot_ = prm_pDepo;
     }
 
     /**
@@ -82,7 +82,7 @@ public:
      * @param prm_pSplSeq
      */
     void setSplineSequence(GgafLib::SplineSequence* prm_pSplSeq) {
-        _pSplSeq = prm_pSplSeq;
+        pSplSeq_ = prm_pSplSeq;
     }
 
     /**
@@ -90,7 +90,7 @@ public:
      * @param prm_pDepo
      */
     void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
-        _pDepo_ShotEffect = prm_pDepo;
+        pDepo_ShotEffect_ = prm_pDepo;
     }
 
     virtual ~EnemyThalia();

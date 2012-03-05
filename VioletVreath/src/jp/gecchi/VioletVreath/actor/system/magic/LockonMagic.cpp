@@ -31,12 +31,12 @@ LockonMagic::LockonMagic(const char* prm_name, AmountGraph* prm_pMP)
     //    | 52,  53,  54,  55 |
     //    | 56,  57,  58,  59 |
     //    | 60,  61,  62,  63 |
-    _lvinfo[0]._pno = 3;
-    _lvinfo[1]._pno = 54;
-    _lvinfo[2]._pno = 50;
-    _lvinfo[3]._pno = 46;
-    _lvinfo[4]._pno = 42;
-    _lvinfo[5]._pno = 38;
+    lvinfo_[0].pno_ = 3;
+    lvinfo_[1].pno_ = 54;
+    lvinfo_[2].pno_ = 50;
+    lvinfo_[3].pno_ = 46;
+    lvinfo_[4].pno_ = 42;
+    lvinfo_[5].pno_ = 38;
 }
 
 LockonMagic::~LockonMagic() {

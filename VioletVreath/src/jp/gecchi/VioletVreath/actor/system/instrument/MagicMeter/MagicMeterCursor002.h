@@ -14,18 +14,18 @@ class MagicMeterCursor002 : public GgafLib::DefaultBoardActor {
 
 public:
     /** 移動目標X座標 */
-    coord _tX;
+    coord tX_;
     /** 移動目標Y座標 */
-    coord _tY;
+    coord tY_;
 
     /** 対象魔法 */
-    Magic* _pMagic;
+    Magic* pMagic_;
     /** 対象魔法メーター */
-    MagicMeter* _pMagicMeter;
+    MagicMeter* pMagicMeter_;
 
-    int _magic_index;
+    int magic_index_;
 
-    coord _tmp_Y;
+    coord tmp_Y_;
 
     MagicMeterCursor002(const char* prm_name, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic);
 

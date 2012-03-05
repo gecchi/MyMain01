@@ -7,27 +7,27 @@ using namespace VioletVreath;
 
 
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
-_pCommonScene(NULL),
-_pMyShipScene(NULL),
-_pStageWorld(NULL) {
+pCommonScene_(NULL),
+pMyShip_Scene(NULL),
+pStageWorld_(NULL) {
 
     _class_name = "GameScene";
     useProgress(GameScene::PROG_FINISH);
-    _pCommonScene = NEW CommonScene("Common");
-    _pCommonScene->inactivateImmed();
-    addSubLast(_pCommonScene);
-    _pMyShipScene = NEW MyShipScene("MyShipScene");
-    _pMyShipScene->inactivateImmed();
-    addSubLast(_pMyShipScene);
-    _pStageWorld = new StageWorld("StageWorld");
-    _pStageWorld->inactivateImmed();
-    addSubLast(_pStageWorld);
+    pCommonScene_ = NEW CommonScene("Common");
+    pCommonScene_->inactivateImmed();
+    addSubLast(pCommonScene_);
+    pMyShip_Scene = NEW MyShipScene("MyShipScene");
+    pMyShip_Scene->inactivateImmed();
+    addSubLast(pMyShip_Scene);
+    pStageWorld_ = new StageWorld("StageWorld");
+    pStageWorld_->inactivateImmed();
+    addSubLast(pStageWorld_);
 
-//    _pGamePauseScene = new GamePauseScene("GamePauseScene");
-//    _pGamePauseScene->inactivateImmed();
-//    addSubLast(_pGamePauseScene);
-    _pMenuBoardPause = NEW MenuBoardPause("MenuBoardPause");
-    getDirector()->addSubGroup(_pMenuBoardPause);
+//    pGamePauseScene_ = new GamePauseScene("GamePauseScene");
+//    pGamePauseScene_->inactivateImmed();
+//    addSubLast(pGamePauseScene_);
+    pMenuBoardPause_ = NEW MenuBoardPause("MenuBoardPause");
+    getDirector()->addSubGroup(pMenuBoardPause_);
 
     addSubLast(NEW GamePreTitleScene("PreGameTitle"));
     addSubLast(NEW GameTitleScene("GameTitle"));
@@ -40,9 +40,9 @@ _pStageWorld(NULL) {
     _pProg->relatSubScene(GameScene::PROG_PRE_TITLE, GameScene::PROG_GAME_OVER,  "PreGameTitle");
     //たまご
     //addSubLast(NEW TamagoScene("TamagoScene"));
-    _is_frame_advance = false;
+    is_frame_advance_ = false;
 
-    _was_paused_flg_GameMainScene_prev_frame = false;
+    was_paused_flg_GameMainScene_prev_frame_ = false;
 
 }
 
@@ -104,8 +104,8 @@ void GameScene::processBehavior() {
             if ((_pProg->getFrameInProgress() >= 180 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) || GgafDxInput::isPushedDownKey(DIK_P)) {
                 _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
                 _pProg->changeWithScene_Crossfading(GameScene::PROG_PRE_TITLE);
-                P_WORLD->_pPreDrawScene->inactivateTreeImmed();
-                P_WORLD->_pPreDrawScene->pauseTreeImmed();
+                P_WORLD->pPreDrawScene_->inactivateTreeImmed();
+                P_WORLD->pPreDrawScene_->pauseTreeImmed();
             }
             break;
         }
@@ -165,7 +165,7 @@ void GameScene::processBehavior() {
 
             //今ポーズではない時
             if (!_pProg->getGazeScene()->_was_paused_flg) {
-                if (_was_paused_flg_GameMainScene_prev_frame == true)  {
+                if (was_paused_flg_GameMainScene_prev_frame_ == true)  {
                     //現フレームポーズではない、かつ前フレームポーズの場合。
                     //ポーズ解除から最初のフレーム処理はココへ
                     P_UNIVERSE->undoCameraWork();
@@ -174,19 +174,19 @@ void GameScene::processBehavior() {
                 //通常進行時処理はココ
                 //
 
-                if (VB->isPushedDown(VB_PAUSE) || _is_frame_advance) {
+                if (VB->isPushedDown(VB_PAUSE) || is_frame_advance_) {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
-                    _is_frame_advance = false;
+                    is_frame_advance_ = false;
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
                     _pProg->getGazeScene()->pauseTree(); //ポーズ！！
-                    _pMenuBoardPause->rise(PX2CO(100), PX2CO(20));
+                    pMenuBoardPause_->rise(PX2CO(100), PX2CO(20));
                 }
             }
             //今ポーズ時
             if (_pProg->getGazeScene()->_was_paused_flg) {
-                if (_was_paused_flg_GameMainScene_prev_frame == false) {
+                if (was_paused_flg_GameMainScene_prev_frame_ == false) {
                     //現フレームポーズで、前フレームポーズではない場合
                     //ポーズ発生後の、最初のフレーム処理はココへ
                     GgafDxInput::updateMouseState();
@@ -198,7 +198,7 @@ void GameScene::processBehavior() {
                 //ポーズ進行時処理はココ
                 //
 
-                if (_pMenuBoardPause->isJustSink() || _is_frame_advance) {
+                if (pMenuBoardPause_->isJustSink() || is_frame_advance_) {
                     //ポーズ時に、ポーズキーを押して離した場合の処理
                     //ポーズ解除時直後の初期処理はココへ
                     _TRACE_("UNPAUSE!");
@@ -206,7 +206,7 @@ void GameScene::processBehavior() {
                     _pProg->getGazeScene()->unpauseTree();//ポーズ解除！！
                 }
             }
-            _was_paused_flg_GameMainScene_prev_frame = _pProg->getGazeScene()->_was_paused_flg;
+            was_paused_flg_GameMainScene_prev_frame_ = _pProg->getGazeScene()->_was_paused_flg;
             //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
             break;
         }

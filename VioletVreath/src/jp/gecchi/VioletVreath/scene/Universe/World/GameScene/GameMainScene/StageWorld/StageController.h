@@ -2,7 +2,7 @@
 #define STAGECONTROLLER_H_
 
 #ifdef P_STAGE_WORLD
-    #define P_STAGE_CONTROLLER (P_STAGE_WORLD->_pStageController)
+    #define P_STAGE_CONTROLLER (P_STAGE_WORLD->pStageController_)
 #else
     #error P_STAGE_WORLD isnt define
 #endif
@@ -29,16 +29,16 @@ public:
         PROG_FINISH  ,
     };
 
-//    static StageController* _pStageController;
+//    static StageController* pStageController_;
 
-    char _buf[60];
+    char buf_[60];
     /** メインステージ(現在アクティブな面のシーンポインタ） */
-    Stage* _pStageMainCannel;
+    Stage* pStageMainCannel_;
     /** 通過ステージシーン */
-    TransitStage* _pTransitStage;
+    TransitStage* pTransitStage_;
 
-    int _loop;
-    int _main_stage;
+    int loop_;
+    int main_stage_;
 
     StageController(const char* prm_name);
 

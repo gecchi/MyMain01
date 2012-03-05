@@ -25,8 +25,8 @@ void EnemyMassalia::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyMassaliaStatus(_pStatus);
     setHitAble(true);
-    static DWORD appearances_renge_Z = (MyShip::_lim_zleft - MyShip::_lim_zright) * 3;
-    static DWORD appearances_renge_Y = (MyShip::_lim_top - MyShip::_lim_bottom) * 3;
+    static DWORD appearances_renge_Z = (MyShip::lim_zleft_ - MyShip::lim_zright_) * 3;
+    static DWORD appearances_renge_Y = (MyShip::lim_top_ - MyShip::lim_bottom_) * 3;
     _X = GgafDxUniverse::_X_goneRight - 1000;
     _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
     _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
@@ -51,7 +51,7 @@ void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->locateAs(this);

@@ -8,8 +8,8 @@ using namespace VioletVreath;
 #define ID_ORDER_BEGIN 11
 PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "PreDrawScene";
-    _order_id_begin = ID_ORDER_BEGIN;
-    int id = _order_id_begin;
+    order_id_begin_ = ID_ORDER_BEGIN;
+    int id = order_id_begin_;
     orderActorToFactory(id, CubeMapMeshTestActor       , "CubeMapMeshTestActor");           id++;
     orderActorToFactory(id, CubeMapMeshSetTestActor    , "CubeMapMeshSetTestActor");        id++;
     orderActorToFactory(id, CubeMapMorphMeshTestActor  , "CubeMapMorphMeshTestActor");      id++;
@@ -30,7 +30,7 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
 //    orderActorToFactory(id, StringBoardTestActor       , "StringBoardTestActor");           id++;
     orderActorToFactory(id, WallAABTestActor           , "WallAABTestActor");               id++;
     orderActorToFactory(id, WallAAPrismTestActor       , "WallAAPrismTestActor");           id++;
-    _order_id_end = id - 1;
+    order_id_end_ = id - 1;
     useProgress();
 }
 
@@ -72,10 +72,10 @@ void PreDrawScene::processBehavior() {
 //
     if (_pProg->get() == 1) {
         if (getActivePartFrame() % 10 == 0) {
-            if (_id > _order_id_end-_order_id_begin) {
+            if (_id > order_id_end_-order_id_begin_) {
                 _pProg->changeNext();
             } else {
-                GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id+_order_id_begin);
+                GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id+order_id_begin_);
                 pActor->locate(PX2CO(_id*70 - 500),0,0);
                 getDirector()->addSubGroup(pActor);  _id++;
             }

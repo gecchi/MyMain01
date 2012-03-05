@@ -13,7 +13,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     GgafActorDepository* pResource = NULL;
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot001", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_Shot001_Stock");
+        pResource = NEW GgafActorDepository("DP_Shot001Stock_");
         Shot001* pShot001;
         for (int i = 0; i < 100; i++) { //ストック100個
             pShot001 = NEW Shot001("Shot001");
@@ -23,7 +23,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot002", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_Shot002_Stock");
+        pResource = NEW GgafActorDepository("DP_Shot002Stock_");
         Shot002* pShot002;
         for (int i = 0; i < 100; i++) { //ストック100個
             pShot002 = NEW Shot002("Shot002");
@@ -33,7 +33,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot003", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_Shot003_Stock");
+        pResource = NEW GgafActorDepository("DP_Shot003Stock_");
         Shot003* pShot003;
         for (int i = 0; i < 300; i++) {
             pShot003 = NEW Shot003("Shot003");
@@ -44,7 +44,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot004", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_Shot004_Stock");
+        pResource = NEW GgafActorDepository("DP_Shot004Stock_");
         Shot004* pShot004;
         for (int i = 0; i < 1600; i++) {
             pShot004 = NEW Shot004("Shot004");

@@ -8,10 +8,10 @@ using namespace VioletVreath;
 EnemyMetis::EnemyMetis(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Metis", STATUS(EnemyMetis)) {
     _class_name = "EnemyMetis";
-    _width_X = 220*2*LEN_UNIT;
-    _height_Z = 220*2*LEN_UNIT;
-    _depth_Y = 36*2*LEN_UNIT;
-    _iMovePatternNo = 0;
+    width_X_ = 220*2*LEN_UNIT;
+    height_Z_ = 220*2*LEN_UNIT;
+    depth_Y_ = 36*2*LEN_UNIT;
+    iMovePatternNo_ = 0;
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_MetisHit"));
     _pSeTransmitter->set(1, "bom10", GgafRepeatSeq::nextVal("CH_MetisDestroy"));     //爆発
@@ -23,13 +23,13 @@ void EnemyMetis::onCreateModel() {
 
 void EnemyMetis::initialize() {
     int nArea = 0;
-    for (int i = 0; i < (_width_X - _depth_Y) ; i+= _depth_Y) {
+    for (int i = 0; i < (width_X_ - depth_Y_) ; i+= depth_Y_) {
         nArea++;
     }
     _pCollisionChecker->makeCollision(nArea);
-    for (int i = 0, n = 0; i < (_width_X - _depth_Y)  ; i+= _depth_Y, n++) {
-        _pCollisionChecker->setColliAAB(n, i - ((_depth_Y/2.0)/1.5)-(_width_X/2 - _depth_Y/2.0), -((_depth_Y/2.0)/1.5), -(_height_Z/2.0),
-                                           i + ((_depth_Y/2.0)/1.5)-(_width_X/2 - _depth_Y/2.0),  ((_depth_Y/2.0)/1.5),  (_height_Z/2.0),
+    for (int i = 0, n = 0; i < (width_X_ - depth_Y_)  ; i+= depth_Y_, n++) {
+        _pCollisionChecker->setColliAAB(n, i - ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0), -((depth_Y_/2.0)/1.5), -(height_Z_/2.0),
+                                           i + ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0),  ((depth_Y_/2.0)/1.5),  (height_Z_/2.0),
                                            false, false, true
                                        );
     }
@@ -37,13 +37,13 @@ void EnemyMetis::initialize() {
 
 void EnemyMetis::onActive() {
     _pStatus->reset();
-    _iMovePatternNo = 0;
+    iMovePatternNo_ = 0;
     setAlpha(1.0);
     _pKurokoA->setMvVelo(0);
     _pKurokoB->setVxMvVelo(-3000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
-    static DWORD appearances_renge_Z = (MyShip::_lim_zleft - MyShip::_lim_zright) * 3;
-    static DWORD appearances_renge_Y = (MyShip::_lim_top - MyShip::_lim_bottom) * 3;
+    static DWORD appearances_renge_Z = (MyShip::lim_zleft_ - MyShip::lim_zright_) * 3;
+    static DWORD appearances_renge_Y = (MyShip::lim_top_ - MyShip::lim_bottom_) * 3;
     _X = GgafDxUniverse::_X_goneRight - 1000;
     _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
     _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
@@ -76,7 +76,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     _pSeTransmitter->play3D(0);
         //ここに消滅エフェクト
     if (pOther->getKind() & KIND_MY) {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         if (pExplo001) {
             pExplo001->locateAs((GgafDxGeometricActor*)prm_pOtherActor);
             pExplo001->activate();
@@ -87,16 +87,16 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
 
-        EffectExplosion001* pExplo001_2 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo0012_ = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         _pSeTransmitter->play3D(1);
-        if (pExplo001_2) {
-            pExplo001_2->locateAs((GgafDxGeometricActor*)prm_pOtherActor);
-            pExplo001_2->activate();
+        if (pExplo0012_) {
+            pExplo0012_->locateAs((GgafDxGeometricActor*)prm_pOtherActor);
+            pExplo0012_->activate();
         }
         sayonara();
 
         //アイテム出現
-        Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
+        Item* pItem = (Item*)P_COMMON_SCENE->pDP_MagicPointItem001_->dispatch();
         if (pItem) {
             pItem->locateAs(this);
         }

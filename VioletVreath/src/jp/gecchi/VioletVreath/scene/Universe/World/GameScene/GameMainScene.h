@@ -19,14 +19,14 @@ public:
         PROG_FINISH  ,
     };
 
-    char _buf[60];
-    LabelGecchi16Font* _pFont16_SCORE;
-    LabelGecchi16Font* _pFont16_RANK;
-    LabelGecchi16Font* _pFont16_STAMINA;
-    LabelGecchi8Font* _pFont8_JIKI_X;
-    LabelGecchi8Font* _pFont8_JIKI_Y;
-    LabelGecchi8Font* _pFont8_JIKI_Z;
-    LabelRankFont* _pRankFont;
+    char buf_[60];
+    LabelGecchi16Font* pFont16_SCORE_;
+    LabelGecchi16Font* pFont16_RANK_;
+    LabelGecchi16Font* pFont16_STAMINA_;
+    LabelGecchi8Font* pFont8_JIKI_X_;
+    LabelGecchi8Font* pFont8_JIKI_Y_;
+    LabelGecchi8Font* pFont8_JIKI_Z_;
+    LabelRankFont* pRankFont_;
 
     GameMainScene(const char* prm_name);
     void onReset() override;

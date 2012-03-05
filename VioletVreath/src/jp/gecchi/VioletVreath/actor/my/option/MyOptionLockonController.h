@@ -13,9 +13,9 @@ class MyOptionLockonController : public GgafCore::GgafDummyActor {
 
 public:
     /** メインロックオンエフェクト */
-    EffectLockon001_Main* _pMainLockonEffect;
+    EffectLockon001_Main* pMainLockonEffect_;
     /** ロックオンターゲットリストリング */
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* _pRingTarget;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* pRingTarget_;
 
     MyOptionLockonController(const char* prm_name);
 
@@ -37,7 +37,7 @@ public:
 
     virtual ~MyOptionLockonController();
     /**
-     * _pRingTarget内容表示(デバッグ用) .
+     * pRingTarget_内容表示(デバッグ用) .
      * @param pMain
      */
     void dumpTarget(GgafDxCore::GgafDxGeometricActor* pMain);

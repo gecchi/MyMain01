@@ -21,7 +21,7 @@ public:
         ITEM_DEBUG,
         ITEM_QUIT,
     };
-    MenuBoardConfirm* _pConfirmMenu;
+    MenuBoardConfirm* pConfirmMenu_;
 
 
     MenuBoardTitle(const char* prm_name);

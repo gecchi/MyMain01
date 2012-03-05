@@ -13,7 +13,7 @@ RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScen
     _TRACE_("RankUpStageController::RankUpStageController("<<prm_name<<")");
 
     for (int i = 0; i < MAX_RANKUP_SCENE; i ++) {
-        _apRankUpStage[i] = NULL;
+        apRankUpStage_[i] = NULL;
     }
     useProgress(RankUpStageController::PROG_FINISH);
     ready(_RANK_UP_LEVEL_ + 1);
@@ -21,8 +21,8 @@ RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScen
 void RankUpStageController::execute() {
     ready(_RANK_UP_LEVEL_);     //これはパスされるはずであるが、念のため。
     ready(_RANK_UP_LEVEL_ + 1); //次のシーンを先行予約
-    _pNowRankUpStage = (RankUpStage*)obtainSceneFromFactory(ORDER_ID_RANKUP+_RANK_UP_LEVEL_);
-    _TRACE_("RankUpStageController::execute() _pNowRankUpStage="<<_pNowRankUpStage);
+    pNowRankUpStage_ = (RankUpStage*)obtainSceneFromFactory(ORDER_ID_RANKUP+_RANK_UP_LEVEL_);
+    _TRACE_("RankUpStageController::execute() pNowRankUpStage_="<<pNowRankUpStage_);
     GgafScene* pRankUpStage = getSubFirst();
     if (pRankUpStage) {
         //他のランクアップ中
@@ -36,10 +36,10 @@ void RankUpStageController::execute() {
             }
         }
     }
-    addSubLast(_pNowRankUpStage);
-    _pNowRankUpStage->fadeoutScene(0);
-    _pNowRankUpStage->fadeinSceneTree(240);
-    _apRankUpStage[_RANK_UP_LEVEL_-1] = _pNowRankUpStage;
+    addSubLast(pNowRankUpStage_);
+    pNowRankUpStage_->fadeoutScene(0);
+    pNowRankUpStage_->fadeinSceneTree(240);
+    apRankUpStage_[_RANK_UP_LEVEL_-1] = pNowRankUpStage_;
     //スローダウン
 }
 

@@ -20,8 +20,8 @@ void VarietyTorus004::initialize() {
     makeCollisionArea(16);
     setHitAble(true);
     setAlpha(1.00);
-    _X = GgafDxCore::GgafDxUniverse::_X_goneRight+_r1+_r2;
-    _Y = MyShip::_lim_bottom;
+    _X = GgafDxCore::GgafDxUniverse::_X_goneRight+r1_+r2_;
+    _Y = MyShip::lim_bottom_;
     _Z = 0;
     _pKurokoA->setRzRyMvAng(D180ANG, 0);
     _pKurokoA->setMvVelo(3000);

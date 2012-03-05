@@ -7,48 +7,48 @@ using namespace VioletVreath;
 
 
 /** １オプション当たりの最大可能ロックオン数 */
-int MyOption::_max_lockon_num = 9;
-int MyOption::_lockon_num = 8;
+int MyOption::max_lockon_num_ = 9;
+int MyOption::lockon_num_ = 8;
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
-//MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : CubeMapMeshSetActor(prm_name, "4/Core4_cm") {
+//MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : CubeMapMeshSetActor(prm_name, "4/Core4cm_") {
 MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) :
         DefaultMeshSetActor(prm_name, "8/CORE4", STATUS(MyOption)) {
 
     _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _class_name = "MyOption";
-    _pMyOptionController = prm_pMyOptionController;
-    _no = prm_no;
-    _ang_veloMove = 0;//旋廻移動角速度（読み出し専用）
+    pMyOptionController_ = prm_pMyOptionController;
+    no_ = prm_no;
+    ang_veloMove_ = 0;//旋廻移動角速度（読み出し専用）
 
-    _angPosition = 0;     //円周上初期位置角度（周囲角）（上書き初期設定可）
-    _radiusPosition = 150000;     //旋廻半径距離（上書き初期設定可）
-    _veloMv = 5000;     //旋廻移動速度（上書き初期設定可）
-    _angExpanse = 0;      //オプションの広がり角の回転角（上書き初期設定可）
+    angPosition_ = 0;     //円周上初期位置角度（周囲角）（上書き初期設定可）
+    radiusPosition_ = 150000;     //旋廻半径距離（上書き初期設定可）
+    veloMv_ = 5000;     //旋廻移動速度（上書き初期設定可）
+    angExpanse_ = 0;      //オプションの広がり角の回転角（上書き初期設定可）
 
-    _angPosition_base = _angPosition;
-    _radiusPosition_base = _radiusPosition;
-    _radiusPosition_stopping = _radiusPosition;
-    _velo_radius = 0;
+    angPosition_base_ = angPosition_;
+    radiusPosition_base_ = radiusPosition_;
+    radiusPosition_stopping_ = radiusPosition_;
+    velo_radius_ = 0;
 
-    _angExpanse_default = _angExpanse;
-    _veloMv_base = _veloMv;
+    angExpanse_default_ = angExpanse_;
+    veloMv_base_ = veloMv_;
 
-    _return_to_base_radiusPosition_seq = false;
-    _return_to_base_angExpanse_seq = false;
+    return_to_base_radiusPosition_seq_ = false;
+    return_to_base_angExpanse_seq_ = false;
 
-    _ang_veloExpanseNomal = 3000;
-    _ang_veloExpanseSlow = 1000;
+    ang_veloExpanseNomal_ = 3000;
+    ang_veloExpanseSlow_ = 1000;
 
-    _pEffect = NEW EffectMyOption("EffectMyOption", this);
-//    _pEffect->inactivateImmed();
-    addSubGroup(_pEffect);
+    pEffect_ = NEW EffectMyOption("EffectMyOption", this);
+//    pEffect_->inactivateImmed();
+    addSubGroup(pEffect_);
 
     //レーザー発射エフェクト
-//    _pEffect_LaserIrradiate = NEW EffectLockon001_Main("OP_Eff_Ref");
-//    _pEffect_LaserIrradiate->inactivateImmed();
-//    addSubGroup(_pEffect_LaserIrradiate);
-    _pEffect_LaserIrradiate = NULL;
-    _pLaserChipDepo = NEW LaserChipDepository("ROTLaser");
+//    pEffect_LaserIrradiate_ = NEW EffectLockon001_Main("OP_Eff_Ref");
+//    pEffect_LaserIrradiate_->inactivateImmed();
+//    addSubGroup(pEffect_LaserIrradiate_);
+    pEffect_LaserIrradiate_ = NULL;
+    pLaserChipDepo_ = NEW LaserChipDepository("ROTLaser");
     MyOptionWateringLaserChip001* pChip;
 //    MyOptionStraightLaserChip001* pChip;
     for (int i = 0; i < 90; i++) { //レーザーストック
@@ -60,31 +60,31 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
         //MyOptionStraightLaserChip001の場合以下が必要
         //ストレート用
 //        pChip->setSource(this);
-//        pChip->_pSource_vX = &_Q._x;
-//        pChip->_pSource_vY = &_Q._y;
-//        pChip->_pSource_vZ = &_Q._z;
+//        pChip->pSource_vX_ = &Q_._x;
+//        pChip->pSource_vY_ = &Q_._y;
+//        pChip->pSource_vZ_ = &Q_._z;
 
-        _pLaserChipDepo->addSubLast(pChip);
+        pLaserChipDepo_->addSubLast(pChip);
     }
-    _pLaserChipDepo->config(90, 25, _pEffect_LaserIrradiate);
-    addSubGroup(_pLaserChipDepo);
+    pLaserChipDepo_->config(90, 25, pEffect_LaserIrradiate_);
+    addSubGroup(pLaserChipDepo_);
 
-    _pDepo_MyShots001 = NEW GgafActorDepository("RotShot001");
+    pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateImmed();
-        _pDepo_MyShots001->addSubLast(pShot);
+        pDepo_MyShots001_->addSubLast(pShot);
     }
-    addSubGroup(_pDepo_MyShots001);
+    addSubGroup(pDepo_MyShots001_);
 
     //ロックオンコントローラー
-    _pLockonController = NEW MyOptionLockonController("LockonController");
-    addSubGroup(_pLockonController);
+    pLockonController_ = NEW MyOptionLockonController("LockonController");
+    addSubGroup(pLockonController_);
 
     //フォトンコントローラー
-    _pTorpedoController = NEW MyOptionTorpedoController("TorpedoController", this);
-    addSubGroup(_pTorpedoController);
+    pTorpedoController_ = NEW MyOptionTorpedoController("TorpedoController", this);
+    addSubGroup(pTorpedoController_);
 
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
@@ -105,67 +105,67 @@ void MyOption::initialize() {
 }
 
 void MyOption::onReset() {
-    _ang_veloMove = ((1.0f*_veloMv / _radiusPosition)*(double)D180ANG)/PI;
-    _pKurokoA->setMvVelo(_veloMv);
-    _pKurokoA->setRzMvAng(_angPosition+D90ANG);
+    ang_veloMove_ = ((1.0f*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
+    _pKurokoA->setMvVelo(veloMv_);
+    _pKurokoA->setRzMvAng(angPosition_+D90ANG);
     _pKurokoA->setRyMvAng(-D90ANG);
-    _pKurokoA->setRzMvAngVelo(_ang_veloMove);//∵半径Ｒ＝速度Ｖ／角速度ω
+    _pKurokoA->setRzMvAngVelo(ang_veloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
     _pKurokoA->setRyMvAngVelo(0);//∵半径Ｒ＝速度Ｖ／角速度ω
-    _Z = GgafDxUtil::COS[_angPosition/SANG_RATE]*_radiusPosition; //X軸中心回転なのでXYではなくてZY
-    _Y = GgafDxUtil::SIN[_angPosition/SANG_RATE]*_radiusPosition; //X軸の正の方向を向いて時計回りに配置
+    _Z = GgafDxUtil::COS[angPosition_/SANG_RATE]*radiusPosition_; //X軸中心回転なのでXYではなくてZY
+    _Y = GgafDxUtil::SIN[angPosition_/SANG_RATE]*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                                                                     //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
     _X = 0;
     _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
-    _Xorg = _X;
-    _Yorg = _Y;
-    _Zorg = _Z;
-    //P_COMMON_SCENE->getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDepo->extract());
-    _angPosition = _pKurokoA->_angRzMv;
+    Xorg_ = _X;
+    Yorg_ = _Y;
+    Zorg_ = _Z;
+    //P_COMMON_SCENE->getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
+    angPosition_ = _pKurokoA->_angRzMv;
 
-    _adjust_angPos_seq_progress = 0;
-    _adjust_angPos_seq_new_angPosition_base = _angPosition;
-    _adjust_angPos_seq_spent_frame = 0;
-    _adjust_angPos_seq_angPosition = 0;
+    adjust_angPos_seq_progress_ = 0;
+    adjust_angPos_seq_new_angPosition_base_ = angPosition_;
+    adjust_angPos_seq_spent_frame_ = 0;
+    adjust_angPos_seq_angPosition_ = 0;
 }
 
 void MyOption::onActive() {
     //レーザーやロックンターゲットや魚雷がサブにいるため
     //個別に呼び出す
-    _pLockonController->onActive();
-    _pTorpedoController->onActive();
+    pLockonController_->onActive();
+    pTorpedoController_->onActive();
 }
 
 void MyOption::addRadiusPosition(int prm_radius_offset, int prm_min_radius, int prm_max_radius) {
-    //    _X = _Xorg;
-    //    _Y = _Yorg;
-    //    _Z = _Zorg;
+    //    _X = Xorg_;
+    //    _Y = Yorg_;
+    //    _Z = Zorg_;
     //より後
-    //    _Xorg = _X;
-    //    _Yorg = _Y;
-    //    _Zorg = _Z;
+    //    Xorg_ = _X;
+    //    Yorg_ = _Y;
+    //    Zorg_ = _Z;
     //より前
     //でしか呼び出してはいけません。
 
 
 //負の半径も許す場合は如何のロジックのコメントを外す
 //    int radius;
-//    if (_radiusPosition == -1 * prm_radius_offset) { //差分を加えると0になる場合
+//    if (radiusPosition_ == -1 * prm_radius_offset) { //差分を加えると0になる場合
 //        //半径は0にしてはいけない。0割り算を避けるため
-//        if (_radiusPosition > 0) {
+//        if (radiusPosition_ > 0) {
 //            radius = -100;
 //        } else {
 //            radius = 100;
 //        }
 //    } else {
-//        radius = _radiusPosition + prm_radius_offset;
+//        radius = radiusPosition_ + prm_radius_offset;
 //    }
 //    setRadiusPosition(radius);
 
     int radius;
-    radius = _radiusPosition + prm_radius_offset;
-    if (_radiusPosition < prm_min_radius) {
+    radius = radiusPosition_ + prm_radius_offset;
+    if (radiusPosition_ < prm_min_radius) {
         radius = prm_min_radius; //オプション最低半径距離
-    } else if (_radiusPosition > prm_max_radius) {
+    } else if (radiusPosition_ > prm_max_radius) {
         radius = prm_max_radius; //オプション最低半径距離
     }
 
@@ -174,50 +174,50 @@ void MyOption::addRadiusPosition(int prm_radius_offset, int prm_min_radius, int 
 
 
 void MyOption::setRadiusPosition(int prm_radius) {
-//    _X = _Xorg;
-//    _Y = _Yorg;
-//    _Z = _Zorg;
+//    _X = Xorg_;
+//    _Y = Yorg_;
+//    _Z = Zorg_;
 //より後
-//    _Xorg = _X;
-//    _Yorg = _Y;
-//    _Zorg = _Z;
+//    Xorg_ = _X;
+//    Yorg_ = _Y;
+//    Zorg_ = _Z;
 //より前
 //でしか呼び出してはいけません。
 
-    if (_radiusPosition == -1 * prm_radius) {
-        if (_radiusPosition > 0) {
-            _radiusPosition = -100;
+    if (radiusPosition_ == -1 * prm_radius) {
+        if (radiusPosition_ > 0) {
+            radiusPosition_ = -100;
         } else {
-            _radiusPosition = 100;
+            radiusPosition_ = 100;
         }
     } else {
-        _radiusPosition += prm_radius;
+        radiusPosition_ += prm_radius;
     }
 
-    _radiusPosition = prm_radius;
+    radiusPosition_ = prm_radius;
     angle angZY_ROTANG_X;
-    if (_radiusPosition > 0) {
+    if (radiusPosition_ > 0) {
         angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
-        _Z = _radiusPosition * GgafDxUtil::COS[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
-        _Y = _radiusPosition * GgafDxUtil::SIN[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
+        _Z = radiusPosition_ * GgafDxUtil::COS[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
+        _Y = radiusPosition_ * GgafDxUtil::SIN[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
     } else {
         angZY_ROTANG_X = MyStgUtil::getAngle2D(-_Z, -_Y); //自分の位置
-        _Z = _radiusPosition * GgafDxUtil::COS[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
-        _Y = _radiusPosition * GgafDxUtil::SIN[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
+        _Z = radiusPosition_ * GgafDxUtil::COS[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
+        _Y = radiusPosition_ * GgafDxUtil::SIN[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
     }
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
     //よって、移動方角、移動角速度を現在の位置(_Z,_Y)で再設定しなければズレる。
     _pKurokoA->setRzMvAng(GgafDxUtil::simplifyAng(angZY_ROTANG_X + D90ANG));
-    _ang_veloMove = ((1.0*_veloMv / _radiusPosition)*(double)D180ANG)/PI;
-    _pKurokoA->setRzMvAngVelo(_ang_veloMove);
+    ang_veloMove_ = ((1.0*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
+    _pKurokoA->setRzMvAngVelo(ang_veloMove_);
 }
 
 
 void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent_frame) {
-    _adjust_angPos_seq_progress = 1;
-    _adjust_angPos_seq_new_angPosition_base = MyStgUtil::simplifyAng(prm_new_angPosition_base);
-    _adjust_angPos_seq_spent_frame = prm_spent_frame + 1;
+    adjust_angPos_seq_progress_ = 1;
+    adjust_angPos_seq_new_angPosition_base_ = MyStgUtil::simplifyAng(prm_new_angPosition_base);
+    adjust_angPos_seq_spent_frame_ = prm_spent_frame + 1;
 }
 
 
@@ -225,135 +225,135 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
 void MyOption::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
     //処理メイン
-    _X = _Xorg;
-    _Y = _Yorg;
-    _Z = _Zorg;
+    _X = Xorg_;
+    _Y = Yorg_;
+    _Z = Zorg_;
 
-    if (_return_to_base_radiusPosition_seq) {
+    if (return_to_base_radiusPosition_seq_) {
         //自動戻り
-        if (_radiusPosition > _radiusPosition_base) {
+        if (radiusPosition_ > radiusPosition_base_) {
             addRadiusPosition(-10000);
         }
-        if (_radiusPosition < _radiusPosition_base) {
+        if (radiusPosition_ < radiusPosition_base_) {
             addRadiusPosition(10000);
         }
-        if (-10000 < _radiusPosition_base-_radiusPosition && _radiusPosition_base-_radiusPosition < 10000) {
-            setRadiusPosition(_radiusPosition_base);
-            _radiusPosition_stopping = _radiusPosition;
-            _velo_radius = 0;
-            _return_to_base_radiusPosition_seq = false;
+        if (-10000 < radiusPosition_base_-radiusPosition_ && radiusPosition_base_-radiusPosition_ < 10000) {
+            setRadiusPosition(radiusPosition_base_);
+            radiusPosition_stopping_ = radiusPosition_;
+            velo_radius_ = 0;
+            return_to_base_radiusPosition_seq_ = false;
         }
 
     } else {
 
         //オプション独立移動制御時
-        if (VB_PLAY->isBeingPressed(VB_OPTION) && _pMyOptionController->_is_handle_move_mode) {
+        if (VB_PLAY->isBeingPressed(VB_OPTION) && pMyOptionController_->is_handle_move_mode_) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちの旋回半径増加速度のみを設定。
-            addRadiusPosition(GgafDxUtil::SIN[_angExpanse/ SANG_RATE] * _pMyOptionController->_veloOptionsMv);
+            addRadiusPosition(GgafDxUtil::SIN[angExpanse_/ SANG_RATE] * pMyOptionController_->veloOptionsMv_);
             //オプション移動速度の処理はMyOptionクラスで行う。
         }
     }
 
-    if (_return_to_base_angExpanse_seq) {
+    if (return_to_base_angExpanse_seq_) {
 
         //自動戻り
-        if (_angExpanse > _angExpanse_default) {
-            _angExpanse -= 3000;
+        if (angExpanse_ > angExpanse_default_) {
+            angExpanse_ -= 3000;
         }
-        if (_angExpanse < _angExpanse_default) {
-            _angExpanse += 3000;
+        if (angExpanse_ < angExpanse_default_) {
+            angExpanse_ += 3000;
         }
-        if (-3000 <= _angExpanse_default-_angExpanse && _angExpanse_default-_angExpanse <= 3000) {
-            _angExpanse = _angExpanse_default;
-            _return_to_base_angExpanse_seq = false;
+        if (-3000 <= angExpanse_default_-angExpanse_ && angExpanse_default_-angExpanse_ <= 3000) {
+            angExpanse_ = angExpanse_default_;
+            return_to_base_angExpanse_seq_ = false;
         }
-        _angExpanse = GgafDxUtil::simplifyAng(_angExpanse);
+        angExpanse_ = GgafDxUtil::simplifyAng(angExpanse_);
     } else {
         //オプション広がりと向き制御
         if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isBeingPressed(VB_TURBO)) {
-            int pos_camera = P_VAM->_pos_camera;
+            int pos_camera = P_VAM->pos_camera_;
             if (pos_camera == VAM_POS_RIGHT) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-                    _angExpanse += _ang_veloExpanseNomal;
+                    angExpanse_ += ang_veloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-                    _angExpanse -= _ang_veloExpanseNomal;
+                    angExpanse_ -= ang_veloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
-                    //_angExpanse += _angveloExpanseSlow;
+                    addRadiusPosition(2000 * (radiusPosition_base_/60000));
+                    //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-                    //_angExpanse -= _angveloExpanseSlow;
+                    addRadiusPosition(-2000 * (radiusPosition_base_/60000));
+                    //angExpanse_ -= angveloExpanseSlow_;
                 }
             } else if (pos_camera == VAM_POS_LEFT) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-                    _angExpanse -= _ang_veloExpanseNomal;
+                    angExpanse_ -= ang_veloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-                    _angExpanse += _ang_veloExpanseNomal;
+                    angExpanse_ += ang_veloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
-                    //_angExpanse += _angveloExpanseSlow;
+                    addRadiusPosition(2000 * (radiusPosition_base_/60000));
+                    //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-                    //_angExpanse -= _angveloExpanseSlow;
+                    addRadiusPosition(-2000 * (radiusPosition_base_/60000));
+                    //angExpanse_ -= angveloExpanseSlow_;
                 }
             } else if (pos_camera == VAM_POS_TOP) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
-                    //_angExpanse += _angveloExpanseSlow;
+                    addRadiusPosition(2000 * (radiusPosition_base_/60000));
+                    //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-                    //_angExpanse -= _angveloExpanseSlow;
+                    addRadiusPosition(-2000 * (radiusPosition_base_/60000));
+                    //angExpanse_ -= angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    _angExpanse += _ang_veloExpanseNomal;
+                    angExpanse_ += ang_veloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    _angExpanse -= _ang_veloExpanseNomal;
+                    angExpanse_ -= ang_veloExpanseNomal_;
                 }
             } else if (pos_camera == VAM_POS_BOTTOM) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-                    //_angExpanse -= _angveloExpanseSlow;
+                    addRadiusPosition(-2000 * (radiusPosition_base_/60000));
+                    //angExpanse_ -= angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
-                    //_angExpanse += _angveloExpanseSlow;
+                    addRadiusPosition(2000 * (radiusPosition_base_/60000));
+                    //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    _angExpanse -= _ang_veloExpanseNomal;
+                    angExpanse_ -= ang_veloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    _angExpanse += _ang_veloExpanseNomal;
+                    angExpanse_ += ang_veloExpanseNomal_;
                 }
             } else if (pos_camera > VAM_POS_TO_BEHIND) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-                    _angExpanse += _ang_veloExpanseNomal;
+                    angExpanse_ += ang_veloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-                    _angExpanse -= _ang_veloExpanseNomal;
+                    angExpanse_ -= ang_veloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
-                    //_angExpanse += _angveloExpanseSlow;
+                    addRadiusPosition(2000 * (radiusPosition_base_/60000));
+                    //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-                    //_angExpanse -= _angveloExpanseSlow;
+                    addRadiusPosition(-2000 * (radiusPosition_base_/60000));
+                    //angExpanse_ -= angveloExpanseSlow_;
                 }
             }
-            _radiusPosition_stopping = _radiusPosition;
-            _velo_radius = 0;
-            _angExpanse = GgafDxUtil::simplifyAng(_angExpanse);
+            radiusPosition_stopping_ = radiusPosition_;
+            velo_radius_ = 0;
+            angExpanse_ = GgafDxUtil::simplifyAng(angExpanse_);
         } else {
-            if (_pMyOptionController->_is_free_from_myship_mode) {
+            if (pMyOptionController_->is_free_from_myship_mode_) {
                 //
             } else {
 
@@ -361,77 +361,77 @@ void MyOption::processBehavior() {
                 if (VB_PLAY->isBeingPressed(VB_OPTION) || VB_PLAY->isBeingPressed(VB_POWERUP)) {
                     //
                 } else {
-                    //MyOptionController::_o2o*(_no+1);
+                    //MyOptionController::o2o_*(no_+1);
                     if (VB_PLAY->isBeingPressed(VB_UDLR)) {
                         //オプションボタンを押さずに方向入力時
-//                        _velo_radius -= 100;
-                        //addRadiusPosition(-5000/(_no+1), 1);
+//                        velo_radius_ -= 100;
+                        //addRadiusPosition(-5000/(no_+1), 1);
                         addRadiusPosition(-2000, 1);
-                        _veloMv = _veloMv_base/10 + 1;
+                        veloMv_ = veloMv_base_/10 + 1;
                     } else {
                         //オプションボタンを押さずに方向未入力時
-//                        _velo_radius += 100;
-//                        addRadiusPosition(+5000/(_no+1), 1, _radiusPosition_stopping);
-                        addRadiusPosition(+2000, 1, _radiusPosition_stopping);
-                        _veloMv = _veloMv_base;
+//                        velo_radius_ += 100;
+//                        addRadiusPosition(+5000/(no_+1), 1, radiusPosition_stopping_);
+                        addRadiusPosition(+2000, 1, radiusPosition_stopping_);
+                        veloMv_ = veloMv_base_;
                     }
                 }
             }
         }
     }
 
-    if (_adjust_angPos_seq_progress > 0) {
-        if (_adjust_angPos_seq_progress == 1) {
+    if (adjust_angPos_seq_progress_ > 0) {
+        if (adjust_angPos_seq_progress_ == 1) {
             //初期処理
-            _adjust_angPos_seq_progress = 2;
+            adjust_angPos_seq_progress_ = 2;
         }
 
 
-        if (_adjust_angPos_seq_progress == 2) {
+        if (adjust_angPos_seq_progress_ == 2) {
             //自分の角度位置取得
-            if (_radiusPosition > 0) {
-                _adjust_angPos_seq_angPosition = MyStgUtil::getAngle2D(_Z, _Y);
+            if (radiusPosition_ > 0) {
+                adjust_angPos_seq_angPosition_ = MyStgUtil::getAngle2D(_Z, _Y);
             } else {
-                _adjust_angPos_seq_angPosition = MyStgUtil::getAngle2D(-_Z, -_Y);
+                adjust_angPos_seq_angPosition_ = MyStgUtil::getAngle2D(-_Z, -_Y);
             }
             //現在の角距離
-            angle ang_diff = MyStgUtil::getAngDiff(_adjust_angPos_seq_angPosition, _adjust_angPos_seq_new_angPosition_base, sgn(_veloMv));
+            angle ang_diff = MyStgUtil::getAngDiff(adjust_angPos_seq_angPosition_, adjust_angPos_seq_new_angPosition_base_, sgn(veloMv_));
             //残フレームと残移動角より必要な角速度
-            ang_velo ang_velo_need = ang_diff / (ang_velo)_adjust_angPos_seq_spent_frame;
+            ang_velo ang_velo_need = ang_diff / (ang_velo)adjust_angPos_seq_spent_frame_;
             //必要な角速度差分
-            ang_velo ang_velo_offset = ang_velo_need - _ang_veloMove;
+            ang_velo ang_velo_offset = ang_velo_need - ang_veloMove_;
             //必要な角速度差分に対応する移動速度を求める
-            velo veloMv_offset =  (2.0*PI*_radiusPosition * ang_velo_offset) / D360ANG;
+            velo veloMv_offset =  (2.0*PI*radiusPosition_ * ang_velo_offset) / D360ANG;
             //速度設定
-            _pKurokoA->setRzMvAngVelo(_ang_veloMove + ang_velo_offset);
-            _pKurokoA->setMvVelo(_veloMv + veloMv_offset);
-            _adjust_angPos_seq_spent_frame --;
+            _pKurokoA->setRzMvAngVelo(ang_veloMove_ + ang_velo_offset);
+            _pKurokoA->setMvVelo(veloMv_ + veloMv_offset);
+            adjust_angPos_seq_spent_frame_ --;
 
-            if (_adjust_angPos_seq_spent_frame == 0) {
-                _angPosition_base = _adjust_angPos_seq_new_angPosition_base;
+            if (adjust_angPos_seq_spent_frame_ == 0) {
+                angPosition_base_ = adjust_angPos_seq_new_angPosition_base_;
                 //誤差修正のため理想位置に再設定
-                _ang_veloMove = ((1.0*_veloMv / _radiusPosition)*(double)D180ANG)/PI;
-                _pKurokoA->setMvVelo(_veloMv);
-                _pKurokoA->setRzMvAng(GgafDxUtil::simplifyAng(_angPosition_base + D90ANG));
-                _pKurokoA->setRzMvAngVelo(_ang_veloMove);//∵半径Ｒ＝速度Ｖ／角速度ω
-                _Z = GgafDxUtil::COS[_angPosition_base/SANG_RATE]*_radiusPosition; //X軸中心回転なのでXYではなくてZY
-                _Y = GgafDxUtil::SIN[_angPosition_base/SANG_RATE]*_radiusPosition; //X軸の正の方向を向いて時計回りに配置
+                ang_veloMove_ = ((1.0*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
+                _pKurokoA->setMvVelo(veloMv_);
+                _pKurokoA->setRzMvAng(GgafDxUtil::simplifyAng(angPosition_base_ + D90ANG));
+                _pKurokoA->setRzMvAngVelo(ang_veloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
+                _Z = GgafDxUtil::COS[angPosition_base_/SANG_RATE]*radiusPosition_; //X軸中心回転なのでXYではなくてZY
+                _Y = GgafDxUtil::SIN[angPosition_base_/SANG_RATE]*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                 _X = 0;
-                _adjust_angPos_seq_progress = 0;
+                adjust_angPos_seq_progress_ = 0;
             }
         }
     } else {
          //通常時
-        _pKurokoA->setMvVelo(_veloMv);
+        _pKurokoA->setMvVelo(veloMv_);
     }
-    _angPosition = GgafDxUtil::simplifyAng(_angPosition+_ang_veloMove);
+    angPosition_ = GgafDxUtil::simplifyAng(angPosition_+ang_veloMove_);
 
     _pKurokoA->behave();
     //_pKurokoB->behave();
 
-    _Xorg = _X;
-    _Yorg = _Y;
-    _Zorg = _Z;
+    Xorg_ = _X;
+    Yorg_ = _Y;
+    Zorg_ = _Z;
 
     //＜メモ＞
     //ここまでで、GgafDxKurokoAの機能のみで、
@@ -446,24 +446,24 @@ void MyOption::processBehavior() {
     //
     //                    ↑
     //○        自        ○
-    //↓     (0,0,0)      (-50000, 0, _radiusPosition)
+    //↓     (0,0,0)      (-50000, 0, radiusPosition_)
     //
     //
     //          ○→
-    //          (-50000, -1*_radiusPosition, 0)
+    //          (-50000, -1*radiusPosition_, 0)
     //
     //しかしまだ色々と回転したいため。あとは普通に計算（力技）で、座標回転、向き回転を行なう。
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
 
-    float sinRZ = GgafDxUtil::SIN[_pMyOptionController->_pKurokoA->_angFace[AXIS_Z] / SANG_RATE];
-    float cosRZ = GgafDxUtil::COS[_pMyOptionController->_pKurokoA->_angFace[AXIS_Z] / SANG_RATE];
-    float sinRY = GgafDxUtil::SIN[_pMyOptionController->_pKurokoA->_angFace[AXIS_Y] / SANG_RATE];
-    float cosRY = GgafDxUtil::COS[_pMyOptionController->_pKurokoA->_angFace[AXIS_Y] / SANG_RATE];
+    float sinRZ = GgafDxUtil::SIN[pMyOptionController_->_pKurokoA->_angFace[AXIS_Z] / SANG_RATE];
+    float cosRZ = GgafDxUtil::COS[pMyOptionController_->_pKurokoA->_angFace[AXIS_Z] / SANG_RATE];
+    float sinRY = GgafDxUtil::SIN[pMyOptionController_->_pKurokoA->_angFace[AXIS_Y] / SANG_RATE];
+    float cosRY = GgafDxUtil::COS[pMyOptionController_->_pKurokoA->_angFace[AXIS_Y] / SANG_RATE];
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
-    _X = cosRY*cosRZ*_Xorg + cosRY*-sinRZ*_Yorg + sinRY*_Zorg;
-    _Y = sinRZ*_Xorg + cosRZ*_Yorg;
-    _Z = -sinRY*cosRZ*_Xorg + -sinRY*-sinRZ*_Yorg + cosRY*_Zorg;
+    _X = cosRY*cosRZ*Xorg_ + cosRY*-sinRZ*Yorg_ + sinRY*Zorg_;
+    _Y = sinRZ*Xorg_ + cosRZ*Yorg_;
+    _Z = -sinRY*cosRZ*Xorg_ + -sinRY*-sinRZ*Yorg_ + cosRY*Zorg_;
 
 
 
@@ -471,8 +471,8 @@ void MyOption::processBehavior() {
     float vX_axis = cosRY*cosRZ*_pKurokoA->_vX + cosRY*-sinRZ*_pKurokoA->_vY + sinRY*_pKurokoA->_vZ;
     float vY_axis = sinRZ*_pKurokoA->_vX + cosRZ*_pKurokoA->_vY;
     float vZ_axis = -sinRY*cosRZ*_pKurokoA->_vX + -sinRY*-sinRZ*_pKurokoA->_vY + cosRY*_pKurokoA->_vZ;
-    float sinHalf = GgafDxUtil::SIN[_angExpanse/SANG_RATE/2]; //_angExpanse=回転させたい角度
-    float cosHalf = GgafDxUtil::COS[_angExpanse/SANG_RATE/2];
+    float sinHalf = GgafDxUtil::SIN[angExpanse_/SANG_RATE/2]; //angExpanse_=回転させたい角度
+    float cosHalf = GgafDxUtil::COS[angExpanse_/SANG_RATE/2];
 
     //計算
     //ある座標(x, y, z)において、回転の軸が(α, β, γ)で、θ回す回転
@@ -482,28 +482,28 @@ void MyOption::processBehavior() {
     //
     //R P Q = (0; 答え)
     //
-    //回転軸 は(vX_axis, vY_axis, vZ_axis) 回転角は _angExpanse
-    _Q.set(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-    _Q.mul(0,
-           _pMyOptionController->_pKurokoA->_vX,
-           _pMyOptionController->_pKurokoA->_vY,
-           _pMyOptionController->_pKurokoA->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
-    _Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
+    //回転軸 は(vX_axis, vY_axis, vZ_axis) 回転角は angExpanse_
+    Q_.set(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+    Q_.mul(0,
+           pMyOptionController_->_pKurokoA->_vX,
+           pMyOptionController_->_pKurokoA->_vY,
+           pMyOptionController_->_pKurokoA->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
+    Q_.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
-    GgafDxUtil::getRzRyAng(_Q._x, _Q._y, _Q._z,
+    GgafDxUtil::getRzRyAng(Q_._x, Q_._y, Q_._z,
                            _RZ, _RY);
 
 //    _RZ = GgafDxUtil::simplifyAng(_RZ);
 //    _RY = GgafDxUtil::simplifyAng(_RY);
-    GgafDxGeoElem* pGeoOpCon = _pMyOptionController->_pRing_OpConGeoHistory->getPrev(MyOptionController::_o2o*(_no+1));
+    GgafDxGeoElem* pGeoOpCon = pMyOptionController_->pRing_OpConGeoHistory_->getPrev(MyOptionController::o2o_*(no_+1));
     _X += pGeoOpCon->_X;
     _Y += pGeoOpCon->_Y;
     _Z += pGeoOpCon->_Z;
-    if (_pMyOptionController->_is_free_from_myship_mode) {
-        _X += (_pMyOptionController->_X - _pMyOptionController->_X_on_free);
-        _Y += (_pMyOptionController->_Y - _pMyOptionController->_Y_on_free);
-        _Z += (_pMyOptionController->_Z - _pMyOptionController->_Z_on_free);
+    if (pMyOptionController_->is_free_from_myship_mode_) {
+        _X += (pMyOptionController_->_X - pMyOptionController_->X_on_free_);
+        _Y += (pMyOptionController_->_Y - pMyOptionController_->Y_on_free_);
+        _Z += (pMyOptionController_->_Z - pMyOptionController_->Z_on_free_);
     } else {
 
     }
@@ -513,40 +513,40 @@ void MyOption::processBehavior() {
     //_pKurokoB->_veloVxMv = 0;
     //_pKurokoB->_veloVyMv = 0;
     //_pKurokoB->_veloVzMv = 0;
-    if (pMyShip->_is_shooting_laser && VB_PLAY->isBeingPressed(VB_SHOT1)) {
+    if (pMyShip->is_shooting_laser_ && VB_PLAY->isBeingPressed(VB_SHOT1)) {
 
 
-        MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)_pLaserChipDepo->dispatch();
-//        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)_pLaserChipDepo->dispatch();
+        MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)pLaserChipDepo_->dispatch();
+//        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)pLaserChipDepo_->dispatch();
 
         if (pLaserChip) {
 
 
-            if (_pLaserChipDepo->_pEffectActor_Irradiate) {
-                _pLaserChipDepo->_pEffectActor_Irradiate->locateAs(this);
+            if (pLaserChipDepo_->_pEffectActor_Irradiate) {
+                pLaserChipDepo_->_pEffectActor_Irradiate->locateAs(this);
             }
             //ストレート用
 //            pLaserChip->_pKurokoA->behave();
 //            pLaserChip->_pKurokoB->behave();
-//            pLaserChip->_pOrg = this;
+//            pLaserChip->pOrg_ = this;
 //            pLaserChip->activate();
 
               //カーブ用
-//            pLaserChip->_pKurokoA->_vX = _Q._x;
-//            pLaserChip->_pKurokoA->_vY = _Q._y;
-//            pLaserChip->_pKurokoA->_vZ = _Q._z;
+//            pLaserChip->_pKurokoA->_vX = Q_._x;
+//            pLaserChip->_pKurokoA->_vY = Q_._y;
+//            pLaserChip->_pKurokoA->_vZ = Q_._z;
 //            pLaserChip->_pKurokoA->_angRzMv = _RZ;
 //            pLaserChip->_pKurokoA->_angRyMv = _RY;
 ////            pLaserChip->_pKurokoA->_angFace[AXIS_X] = _pKurokoA->_angFace[AXIS_X];
 //            pLaserChip->_pKurokoA->_angFace[AXIS_Z] = _RZ;
 //            pLaserChip->_pKurokoA->_angFace[AXIS_Y] = _RY;
 
-            pLaserChip->_pKurokoB->setVxMvVelo(_Q._x*pLaserChip->_max_velo_renge);
-            pLaserChip->_pKurokoB->setVyMvVelo(_Q._y*pLaserChip->_max_velo_renge);
-            pLaserChip->_pKurokoB->setVzMvVelo(_Q._z*pLaserChip->_max_velo_renge);
-            pLaserChip->_pKurokoB->setVxMvAcce(_Q._x*pLaserChip->_max_velo_renge/pLaserChip->_r_max_acce);
-            pLaserChip->_pKurokoB->setVyMvAcce(_Q._y*pLaserChip->_max_velo_renge/pLaserChip->_r_max_acce);
-            pLaserChip->_pKurokoB->setVzMvAcce(_Q._z*pLaserChip->_max_velo_renge/pLaserChip->_r_max_acce);
+            pLaserChip->_pKurokoB->setVxMvVelo(Q_._x*pLaserChip->max_velo_renge_);
+            pLaserChip->_pKurokoB->setVyMvVelo(Q_._y*pLaserChip->max_velo_renge_);
+            pLaserChip->_pKurokoB->setVzMvVelo(Q_._z*pLaserChip->max_velo_renge_);
+            pLaserChip->_pKurokoB->setVxMvAcce(Q_._x*pLaserChip->max_velo_renge_/pLaserChip->r_max_acce_);
+            pLaserChip->_pKurokoB->setVyMvAcce(Q_._y*pLaserChip->max_velo_renge_/pLaserChip->r_max_acce_);
+            pLaserChip->_pKurokoB->setVzMvAcce(Q_._z*pLaserChip->max_velo_renge_/pLaserChip->r_max_acce_);
 //            pLaserChip->_pKurokoA->behave();
             pLaserChip->_pKurokoB->behave();
             pLaserChip->_X = _X;
@@ -554,17 +554,17 @@ void MyOption::processBehavior() {
             pLaserChip->_Z = _Z;
             pLaserChip->_RZ = _RZ;
             pLaserChip->_RY = _RY;
-            pLaserChip->_pOrg = this;
+            pLaserChip->pOrg_ = this;
 
             if (pLaserChip->_pChip_front == NULL) {
                 _pSeTransmitter->play3D(0);
             }
         }
     } else {
-        _pLockonController->releaseAllLockon();
+        pLockonController_->releaseAllLockon();
     }
-    if (pMyShip->_just_shot) {
-        MyShot001* pShot = (MyShot001*)_pDepo_MyShots001->dispatch();
+    if (pMyShip->just_shot_) {
+        MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
         if (pShot) {
             _pSeTransmitter->play3D(1);
             pShot->locateAs(this);
@@ -585,9 +585,9 @@ void MyOption::processJudgement() {
 void MyOption::onInactive() {
     //レーザーやロックンターゲットや魚雷がサブにいるため
     //個別に呼び出す
-    _pLockonController->onInactive();
-    _pTorpedoController->onInactive();
-    _pLaserChipDepo->reset();
+    pLockonController_->onInactive();
+    pTorpedoController_->onInactive();
+    pLaserChipDepo_->reset();
 
 }
 

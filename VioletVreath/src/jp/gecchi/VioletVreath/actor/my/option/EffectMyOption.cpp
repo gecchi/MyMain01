@@ -9,7 +9,7 @@ using namespace VioletVreath;
 EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pMyOption) :
         DefaultMeshSetActor(prm_name, "8/option_enagy", NULL) {
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
-    _pMyOption = prm_pMyOption;
+    pMyOption_ = prm_pMyOption;
     setZEnable(true);        //Zバッファは考慮して描画
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setHitAble(false);
@@ -46,7 +46,7 @@ void EffectMyOption::processBehavior() {
 //        _pScaler->beat(30,8,2,-1);
 //        _pProg->change(2);
 //    }
-    locateAs(_pMyOption);
+    locateAs(pMyOption_);
     _pKurokoA->behave();
     _pScaler->behave();
 }
@@ -55,7 +55,7 @@ void EffectMyOption::processJudgement() {
 }
 
 void EffectMyOption::processPreDraw() {
-    setSpecialDrawDepth(_pMyOption->_now_drawdepth-1);//親オプションより後に描画するため
+    setSpecialDrawDepth(pMyOption_->_now_drawdepth-1);//親オプションより後に描画するため
     DefaultMeshSetActor::processPreDraw();
 }
 

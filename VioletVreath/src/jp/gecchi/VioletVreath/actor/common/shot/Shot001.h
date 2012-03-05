@@ -13,9 +13,9 @@ class Shot001 : public GgafLib::DefaultMeshSetActor {
 public:
 
     /** 移動スプラインプログラム */
-    GgafLib::SplineSequence* _pSplSeq;
+    GgafLib::SplineSequence* pSplSeq_;
     /** スプライン定義資源への接続 */
-    SplineLineConnection* _pSplLineCon;
+    SplineLineConnection* pSplLineCon_;
     Shot001(const char* prm_name);
 
     void initialize() override;

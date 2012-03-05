@@ -35,26 +35,26 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
         pResource = NEW SplineLine(p, 17, 0.2);//粒度 0.2
     }
 
-    if (GgafUtil::strcmp_ascii("SpCon_002_01", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("SpCon_00201_", prm_idstr) == 0) {
         //後方から
         double p[][3] = { //           X  ,                       Y ,                         Z
-           { MyShip::_lim_behaind - 500000.0 ,                    0.0 ,  MyShip::_lim_zleft * 0.8 },
-           {                       3000000 , MyShip::_lim_top * 0.2 ,                       0.0 },
-           {                       3000000 , MyShip::_lim_top * 0.5 , MyShip::_lim_zright * 0.3 },
-           {                       3000000 , MyShip::_lim_top * 1.0 ,                       0.0 },
+           { MyShip::lim_behaind_ - 500000.0 ,                    0.0 ,  MyShip::lim_zleft_ * 0.8 },
+           {                       3000000 , MyShip::lim_top_ * 0.2 ,                       0.0 },
+           {                       3000000 , MyShip::lim_top_ * 0.5 , MyShip::lim_zright_ * 0.3 },
+           {                       3000000 , MyShip::lim_top_ * 1.0 ,                       0.0 },
            {                       3000000 ,                    0.0 ,                       0.0 }
         };
         pResource = NEW SplineLine(p, 5, 0.2); //粒度 0.2
     }
 
-    if (GgafUtil::strcmp_ascii("SpCon_002_02", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("SpCon_00202_", prm_idstr) == 0) {
         //後方から
         double p[][3] = { //           X  ,                          Y ,                         Z
-           { MyShip::_lim_behaind - 500000.0 ,                       0.0 , MyShip::_lim_zright * 0.8 },
-           {      MyShip::_lim_front * 1.5 , MyShip::_lim_bottom * 0.2 ,                       0.0 },
-           {      MyShip::_lim_front * 2.5 , MyShip::_lim_bottom * 0.5 ,  MyShip::_lim_zleft * 0.3 },
-           {      MyShip::_lim_front * 2.2 , MyShip::_lim_bottom * 1.0 ,                       0.0 },
-           {      MyShip::_lim_front * 2.0 ,                       0.0 ,                       0.0 }
+           { MyShip::lim_behaind_ - 500000.0 ,                       0.0 , MyShip::lim_zright_ * 0.8 },
+           {      MyShip::lim_front_ * 1.5 , MyShip::lim_bottom_ * 0.2 ,                       0.0 },
+           {      MyShip::lim_front_ * 2.5 , MyShip::lim_bottom_ * 0.5 ,  MyShip::lim_zleft_ * 0.3 },
+           {      MyShip::lim_front_ * 2.2 , MyShip::lim_bottom_ * 1.0 ,                       0.0 },
+           {      MyShip::lim_front_ * 2.0 ,                       0.0 ,                       0.0 }
         };
         pResource = NEW SplineLine(p, 5, 0.2); //粒度 0.2
     }
@@ -105,11 +105,11 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
         };
         for (int i = 0; i < 17; i++) {
             //X
-            p[i][0] = p[i][0] * MyShip::_lim_front;
+            p[i][0] = p[i][0] * MyShip::lim_front_;
             //Y
-            p[i][1] = p[i][1] * MyShip::_lim_top;
+            p[i][1] = p[i][1] * MyShip::lim_top_;
             //Z
-            p[i][2] = p[i][2] * MyShip::_lim_zleft;
+            p[i][2] = p[i][2] * MyShip::lim_zleft_;
 
         }
         pResource = NEW SplineLine(p, 17, 0.2); //粒度 0.2
@@ -117,19 +117,6 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
 
     return pResource;
 }
-
-//MyShip::_lim_top     = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*5*LEN_UNIT / 2;      //上下は画面高さの大体５画面分
-//MyShip::_lim_bottom  = -(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*5*LEN_UNIT / 2);
-//MyShip::_lim_front   = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*4*LEN_UNIT / 2 ;    //前後は画面幅の大体４画面分
-//MyShip::_lim_behaind = -(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*0.5*LEN_UNIT / 2 );
-//MyShip::_lim_zleft   = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2;       //奥手前は画面幅の大体５画面分
-//MyShip::_lim_zright  = -(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2);
-//GgafDxUniverse::_X_goneLeft   = GgafDxCamera::_X_ScreenLeft - 3000*LEN_UNIT; //最大3000pxのオブジェクトまで想定
-//GgafDxUniverse::_X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-//GgafDxUniverse::_Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-//GgafDxUniverse::_Y_goneBottom = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-//GgafDxUniverse::_Z_goneFar   = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-//GgafDxUniverse::_Z_goneNear  = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
 
 GgafResourceConnection<GgafLib::SplineLine>* SplineLineManager::processCreateConnection(char* prm_idstr, SplineLine* prm_pResource) {
     TRACE3(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成開始。");

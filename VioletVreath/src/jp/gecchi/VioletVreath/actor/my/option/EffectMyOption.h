@@ -8,7 +8,7 @@ class EffectMyOption : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 親オプション */
-    MyOption* _pMyOption;
+    MyOption* pMyOption_;
 
     /**
      * コンストラクタ .

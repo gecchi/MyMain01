@@ -8,17 +8,17 @@ using namespace VioletVreath;
 Item::Item(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat)
                : DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "Item";
-    _pTractorMagic = NULL;
+    pTractorMagic_ = NULL;
 }
 
 TractorMagic* Item::getTractorMagic() {
-    if (_pTractorMagic == NULL) {
-        _pTractorMagic = dynamic_cast<TractorMagic*>(P_MAGICMETER->_ringMagics.getFromFirst(0));
-        if (_pTractorMagic == NULL) {
+    if (pTractorMagic_ == NULL) {
+        pTractorMagic_ = dynamic_cast<TractorMagic*>(P_MAGICMETER->ringMagics_.getFromFirst(0));
+        if (pTractorMagic_ == NULL) {
             throwGgafCriticalException("Item::Item TractorMagicのメーター位置がおかしいです。");
         }
     }
-    return _pTractorMagic;
+    return pTractorMagic_;
 }
 
 void Item::initialize() {

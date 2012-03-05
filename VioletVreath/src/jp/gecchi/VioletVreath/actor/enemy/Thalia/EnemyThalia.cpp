@@ -18,14 +18,14 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
         //CubeMapMorphMeshActor(prm_name, "1/ThaliaCM", STATUS(EnemyThalia)) {
 
     _class_name = "EnemyThalia";
-    _veloTopMv = 20000;
-    _iMovePatternNo = 0;
-    _pSplSeq = NULL;
-    _pDepo_Shot = NULL;
-    _pDepo_ShotEffect = NULL;
+    veloTopMv_ = 20000;
+    iMovePatternNo_ = 0;
+    pSplSeq_ = NULL;
+    pDepo_Shot_ = NULL;
+    pDepo_ShotEffect_ = NULL;
 
-    _pLaserChipDepo = NEW LaserChipDepository("MyRotLaser");
-    _pLaserChipDepo->config(60, 1, NULL);
+    pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
+    pLaserChipDepo_->config(60, 1, NULL);
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         stringstream name;
@@ -33,16 +33,16 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
         pChip = NEW EnemyStraightLaserChip001(name.str().c_str());
         pChip->setSource(this); //位置向き同期
         pChip->inactivateImmed();
-        _pLaserChipDepo->addSubLast(pChip);
+        pLaserChipDepo_->addSubLast(pChip);
     }
-    addSubGroup(_pLaserChipDepo);
+    addSubGroup(pLaserChipDepo_);
 
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     _pSeTransmitter->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //爆発
     useProgress(THALIA_PROG_CLOSE);
     //初期カメラZ位置
-    _dZ_camera_init = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
+    dZ_camera_init_ = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 }
 
 void EnemyThalia::onCreateModel() {
@@ -66,10 +66,10 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
-    _pKurokoA->execSmoothMvVeloSequenceD(_veloTopMv, 1000,
-                                         MyShip::_lim_front-_X, 0.4, 0.6);
+    _pKurokoA->execSmoothMvVeloSequenceD(veloTopMv_, 1000,
+                                         MyShip::lim_front_-_X, 0.4, 0.6);
     _pProg->set(THALIA_PROG_MOVE);
-    _iMovePatternNo = 0; //行動パターンリセット
+    iMovePatternNo_ = 0; //行動パターンリセット
 
 }
 
@@ -99,7 +99,7 @@ void EnemyThalia::processBehavior() {
         }
 
         case THALIA_PROG_FIRE_BEGIN: {
-            if ( _X - P_MYSHIP->_X > -_dZ_camera_init) {
+            if ( _X - P_MYSHIP->_X > -dZ_camera_init_) {
                 _pProg->change(THALIA_PROG_IN_FIRE);
             } else {
                 _pProg->change(THALIA_PROG_CLOSE);
@@ -112,7 +112,7 @@ void EnemyThalia::processBehavior() {
                                                     10, 0,
                                                     TURN_CLOSE_TO);
             }
-            EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipDepo->dispatch();
+            EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
@@ -126,7 +126,7 @@ void EnemyThalia::processBehavior() {
         case THALIA_PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60); //閉じる
-            _pKurokoA->execSmoothMvVeloSequenceD(_veloTopMv, 1000, 1500000, 0.4, 0.6);
+            _pKurokoA->execSmoothMvVeloSequenceD(veloTopMv_, 1000, 1500000, 0.4, 0.6);
 //            _pKurokoA->execSmoothMvVeloSequence(200, 1000000, 180);
             _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(THALIA_PROG_MOVE);
@@ -153,7 +153,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
     if (_pProg->get() != THALIA_PROG_MOVE && (pOther->getKind() & KIND_MY) ) {
         changeEffectTechniqueInterim("Flush", 2); //フラッシュ
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         if (pExplo001) {
             pExplo001->locateAs(this);
         }
@@ -161,7 +161,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
 
         if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
             if (pExplo001) {
                 pExplo001->locateAs(this);
             }
@@ -169,25 +169,25 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
 
             //打ち返し弾
-            if (_pDepo_Shot) {
+            if (pDepo_Shot_) {
 //                MyStgUtil::shotWay001(this,
-//                                       _pDepo_Shot,
+//                                       pDepo_Shot_,
 //                                       P_MYSHIP,
 //                                       10+_RANK_*10, 10000,
 //                                       2000, 200);
 //                MyStgUtil::shotWay001v2(this,
-//                                       _pDepo_Shot,
+//                                       pDepo_Shot_,
 //                                       P_MYSHIP,
 //                                       10+_RANK_*10, 10000,
 //                                       3000, 200,
 //                                       5, 0.8);
 //                MyStgUtil::shotWay002(this,
-//                                       _pDepo_Shot,
+//                                       pDepo_Shot_,
 //                                       P_MYSHIP,
 //                                       20+_RANK_*10, 0,
 //                                       2000, 200);
                   StgUtil::shotWay002v2(this,
-                                       _pDepo_Shot,
+                                       pDepo_Shot_,
                                        P_MYSHIP,
                                        R_EnemyThalia_ShotWay, 0,
                                        2000, 200,
@@ -209,5 +209,5 @@ void EnemyThalia::onInactive() {
 }
 
 EnemyThalia::~EnemyThalia() {
-    DELETE_POSSIBLE_NULL(_pSplSeq);
+    DELETE_POSSIBLE_NULL(pSplSeq_);
 }

@@ -11,25 +11,25 @@ namespace VioletVreath {
 class EnemyVesta : public GgafLib::DefaultMorphMeshActor {
 private:
     /** [r]次回ハッチが開くフレーム */
-    frame _frame_of_moment_nextopen;
+    frame frame_of_moment_nextopen_;
     /** [r]次回ハッチが閉じるフレーム */
-    frame _frame_of_moment_nextclose;
+    frame frame_of_moment_nextclose_;
 public:
     /** [r]行動パターン番号 */
-    int _iMovePatternNo;
+    int iMovePatternNo_;
     /** [r]状況 */
-    bool _is_open_hatch;
+    bool is_open_hatch_;
     /** [r/w]ハッチが開いているフレーム間隔 */
-    frame _frame_of_open_interval;
+    frame frame_of_open_interval_;
     /** [r/w]ハッチが閉じていているフレーム間隔 */
-    frame _frame_of_close_interval;
+    frame frame_of_close_interval_;
     /** [r/w]ハッチ開＞閉 或いは、閉＞開 のモーフアニメーションフレーム数 */
-    frame _frame_of_morph_interval;
+    frame frame_of_morph_interval_;
     /** [r/w]ハッチの土台となってるアクター */
 
     /** [r/w]ハッチから発射されるアクターをメンバーに持つデポジトリ */
-    GgafCore::GgafActorDepository* _pDepo_Fired;
-    DepositoryConnection* _pDpcon;
+    GgafCore::GgafActorDepository* pDepo_Fired_;
+    DepositoryConnection* pDpcon_;
 
     /**
      * コンストラクタ

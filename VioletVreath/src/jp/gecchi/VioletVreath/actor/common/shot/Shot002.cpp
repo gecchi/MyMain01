@@ -8,7 +8,7 @@ using namespace VioletVreath;
 Shot002::Shot002(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
-    _my_frame = 0;
+    my_frame_ = 0;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
@@ -25,7 +25,7 @@ void Shot002::onActive() {
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setMvVelo(R_Shot002_MvVelo);
     _pKurokoA->setFaceAngVelo(AXIS_X, R_Shot002_AngVelo);
-    _my_frame = 0;
+    my_frame_ = 0;
 }
 
 void Shot002::processBehavior() {
@@ -34,13 +34,13 @@ void Shot002::processBehavior() {
 
 
 
-    if (_my_frame == 70) {
+    if (my_frame_ == 70) {
         _pKurokoA->execTurnMvAngSequence(P_MYSHIP,
                                            3000, 0,
                                            TURN_CLOSE_TO);
     }
 
-    if (_my_frame > 70 && _pKurokoA->_mv_ang_ry_target_flg == false && _pKurokoA->_mv_ang_rz_target_flg == false) {
+    if (my_frame_ > 70 && _pKurokoA->_mv_ang_ry_target_flg == false && _pKurokoA->_mv_ang_rz_target_flg == false) {
         _pKurokoA->execTurnMvAngSequence(
                     P_MYSHIP,
                     100, 0,
@@ -50,7 +50,7 @@ void Shot002::processBehavior() {
     _pKurokoA->behave();
     _pScaler->behave();
     _pSeTransmitter->behave();
-    _my_frame++;
+    my_frame_++;
 }
 
 void Shot002::processJudgement() {
@@ -64,7 +64,7 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->locateAs(this);

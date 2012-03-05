@@ -13,10 +13,10 @@ class HoshiBoshiTestActor : public GgafDxCore::GgafDxPointSpriteActor {
 
 public:
 
-    int _CAM_ZF;
-    D3DXHANDLE _h_fX_MyShip;
-    D3DXHANDLE _h_fY_MyShip;
-    D3DXHANDLE _h_fZ_MyShip;
+    int CAM_ZF_;
+    D3DXHANDLE h_fX_MyShip_;
+    D3DXHANDLE h_fY_MyShip_;
+    D3DXHANDLE h_fZ_MyShip_;
 
 
     HoshiBoshiTestActor(const char* prm_name);

@@ -6,17 +6,17 @@ namespace VioletVreath {
 class EnemyJuno : public GgafLib::DefaultMeshSetActor {
 
 public:
-    int _iMovePatternNo;
+    int iMovePatternNo_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* _pDepo_Shot;
+    GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* _pDepo_ShotEffect;
-    bool _do_Shot;
-    bool _can_Shot;
-    frame _frame_when_shot;
-    int _nMaxShot;
-    int _nShot;
-    velo _veloMv_begin;
+    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
+    bool do_Shot_;
+    bool can_Shot_;
+    frame frame_when_shot_;
+    int max_shots_;
+    int shot_num_;
+    velo velo_mv_begin_;
 
     EnemyJuno(const char* prm_name);
 
@@ -41,7 +41,7 @@ public:
      * @param prm_pDepo (GgafDxDrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
      */
     void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
-        _pDepo_Shot = prm_pDepo;
+        pDepo_Shot_ = prm_pDepo;
     }
 };
 

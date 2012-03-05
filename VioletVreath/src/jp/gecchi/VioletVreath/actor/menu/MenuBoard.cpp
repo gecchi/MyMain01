@@ -8,26 +8,26 @@ using namespace VioletVreath;
 MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
         DefaultBoardMenu(prm_name, prm_model) {
     _class_name = "MenuBoard";
-    _menu_fade_frames = 0;
-    _slide_from_offset_X = 0;
-    _slide_from_offset_Y = 0;
-    _target_X = _X;
-    _target_Y = _Y;
+    menu_fade_frames_ = 0;
+    slide_from_offset_X_ = 0;
+    slide_from_offset_Y_ = 0;
+    target_X_ = _X;
+    target_Y_ = _Y;
 
     _pSeTransmitter->useSe(SE_MENU_CLOSE + 1);
-    _pSeTransmitter->set(SE_MENU_OPEN     , "click07_2"); //メーター移動
-    _pSeTransmitter->set(SE_MOVE_CURSOR   , "click07_2"); //メーター移動
-    _pSeTransmitter->set(SE_DECIDED_NOMAL , "click07_2"); //メーター移動
-    _pSeTransmitter->set(SE_DECIDED_CANCEL, "click07_2"); //メーター移動
-    _pSeTransmitter->set(SE_MENU_CLOSE    , "click07_2"); //メーター移動
+    _pSeTransmitter->set(SE_MENU_OPEN     , "click07"); //メーター移動
+    _pSeTransmitter->set(SE_MOVE_CURSOR   , "click07"); //メーター移動
+    _pSeTransmitter->set(SE_DECIDED_NOMAL , "click07"); //メーター移動
+    _pSeTransmitter->set(SE_DECIDED_CANCEL, "click07"); //メーター移動
+    _pSeTransmitter->set(SE_MENU_CLOSE    , "click07"); //メーター移動
 }
 
 void MenuBoard::setTransition(frame prm_menu_fade_frames,
                               coord prm_slide_from_offset_X, coord prm_slide_from_offset_Y) {
     setFadeFrames(prm_menu_fade_frames);
-    _menu_fade_frames = prm_menu_fade_frames;
-    _slide_from_offset_X = prm_slide_from_offset_X;
-    _slide_from_offset_Y = prm_slide_from_offset_Y;
+    menu_fade_frames_ = prm_menu_fade_frames;
+    slide_from_offset_X_ = prm_slide_from_offset_X;
+    slide_from_offset_Y_ = prm_slide_from_offset_Y;
 }
 
 bool MenuBoard::condMoveCursorNext() {
@@ -47,14 +47,14 @@ bool MenuBoard::condMoveCursorCancel() {
 }
 
 void MenuBoard::rise() {
-    _target_X = _X;
-    _target_Y = _Y;
+    target_X_ = _X;
+    target_Y_ = _Y;
     DefaultBoardMenu::rise();
 }
 
 void MenuBoard::rise(coord prm_target_X, coord prm_target_Y) {
-    _target_X = prm_target_X;
-    _target_Y = prm_target_Y;
+    target_X_ = prm_target_X;
+    target_Y_ = prm_target_Y;
     DefaultBoardMenu::rise();
 }
 
@@ -87,18 +87,18 @@ void MenuBoard::initialize() {
 
 void MenuBoard::onRisen() {
     //スライドイントランジション
-    locate(_target_X + _slide_from_offset_X,
-           _target_Y + _slide_from_offset_Y);
-    _pKurokoA->setMvAng(_target_X, _target_Y);
+    locate(target_X_ + slide_from_offset_X_,
+           target_Y_ + slide_from_offset_Y_);
+    _pKurokoA->setMvAng(target_X_, target_Y_);
     _pKurokoA->execSmoothMvVeloSequence(
                     0,
                     GgafDxCore::GgafDxUtil::getDistance(
                         _X,
                         _Y,
-                        _target_X,
-                        _target_Y
+                        target_X_,
+                        target_Y_
                      ),
-                     _menu_fade_frames, 0.1, 0.3
+                     menu_fade_frames_, 0.1, 0.3
                );
     _pSeTransmitter->playImmed(SE_MENU_OPEN);
 }
@@ -109,7 +109,7 @@ void MenuBoard::processBehavior() {
         //スライド中
     } else {
         //スライド終了時、目的の座標へ補正
-        locate(_target_X, _target_Y);
+        locate(target_X_, target_Y_);
     }
     _pKurokoA->behave();
 }
@@ -119,15 +119,15 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSunk() {
     //スライドアウトトランジション
-    _pKurokoA->setMvAng(_target_X + _slide_from_offset_X,
-                        _target_Y + _slide_from_offset_Y);
+    _pKurokoA->setMvAng(target_X_ + slide_from_offset_X_,
+                        target_Y_ + slide_from_offset_Y_);
     _pKurokoA->execSmoothMvVeloSequence(
                     0,
                     GgafDxCore::GgafDxUtil::getDistance(
                         _X,
                         _Y,
-                        _target_X + _slide_from_offset_X,
-                        _target_Y + _slide_from_offset_Y
+                        target_X_ + slide_from_offset_X_,
+                        target_Y_ + slide_from_offset_Y_
                     ),
                     60, 0.2, 0.3
                );

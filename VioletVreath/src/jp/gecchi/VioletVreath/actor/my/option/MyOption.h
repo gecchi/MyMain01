@@ -6,7 +6,7 @@ namespace VioletVreath {
 class MyOption : public GgafLib::DefaultMeshSetActor {
 
 
-    GgafDxCore::GgafDxQuaternion _Q;
+    GgafDxCore::GgafDxQuaternion Q_;
 
 private:
     /**
@@ -27,72 +27,70 @@ private:
 
 public:
     //一時変数達
-    int _Xorg,_Yorg,_Zorg;
-    //angle _RXorg,_RYorg,_RZorg;
-    float _vXwk,_vYwk,_vZwk;
+    int Xorg_,Yorg_,Zorg_;
 
     /** [r]親アクター */
-    MyOptionController* _pMyOptionController;
+    MyOptionController* pMyOptionController_;
     /** [r]自身のオプション番号(０～・・・) */
-    int _no;
+    int no_;
     /** [r]１オプション当たりの最大可能ロックオン数 */
-    static int _max_lockon_num;
+    static int max_lockon_num_;
     /** [r]１オプション当たりの現在可能ロックオン数 */
-    static int _lockon_num;
+    static int lockon_num_;
     /** [r]ロックオンコントローラー */
-    MyOptionLockonController* _pLockonController;
+    MyOptionLockonController* pLockonController_;
     /** [r]魚雷コントローラー */
-    MyOptionTorpedoController* _pTorpedoController;
+    MyOptionTorpedoController* pTorpedoController_;
     /** [r]発射するレーザーチップのデポジトリ */
-    GgafLib::LaserChipDepository* _pLaserChipDepo;
+    GgafLib::LaserChipDepository* pLaserChipDepo_;
     /** [r]発射するショットのデポジトリ */
-    GgafCore::GgafActorDepository* _pDepo_MyShots001;
+    GgafCore::GgafActorDepository* pDepo_MyShots001_;
     /** [r]レーザー発射中のエフェクト */
-    GgafDxCore::GgafDxDrawableActor* _pEffect_LaserIrradiate;
+    GgafDxCore::GgafDxDrawableActor* pEffect_LaserIrradiate_;
 
-    int _velo_radius;
+    int velo_radius_;
 
     /** [r]計算された現在の旋廻円周移動角速度（読み出し専用） */
-    ang_velo _ang_veloMove;
+    ang_velo ang_veloMove_;
     /** [r]円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0） */
-    angle _angPosition;
+    angle angPosition_;
     /** [r]旋廻円周半径（initialize()までに変更可／デフォルト=200000） */
-    int _radiusPosition;
+    int radiusPosition_;
     /** [r/w]旋廻円周移動速度（随時変更可／デフォルト=1000） */
-    velo _veloMv;
+    velo veloMv_;
     /** [r/w]オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionControllerと同じ方向（前方）を向いている） */
-    angle _angExpanse;
+    angle angExpanse_;
 
     /** [r]初期円周上初期位置角度 */
-    angle _angPosition_base;
+    angle angPosition_base_;
     /** [r]初期旋廻円周半径 */
-    int _radiusPosition_base;
-    int _radiusPosition_stopping;
+    int radiusPosition_base_;
+    int radiusPosition_stopping_;
 
     /** [r]初期旋廻円周移動速度 */
-    velo _veloMv_base;
+    velo veloMv_base_;
     /** [r]初期オプションの広がり回転角 */
-    angle _angExpanse_default;
+    angle angExpanse_default_;
 
     /** オプションの広がり回転角速度（通常時） */
-    ang_velo _ang_veloExpanseNomal;
+    ang_velo ang_veloExpanseNomal_;
     /** オプションの広がり回転角速度（微調整時） */
-    ang_velo _ang_veloExpanseSlow;
+    ang_velo ang_veloExpanseSlow_;
 
     /** オプションの初期位置に自動戻りを行っている最中は true */
-    bool _return_to_base_radiusPosition_seq;
+    bool return_to_base_radiusPosition_seq_;
     /** オプションの初期円周半径に自動戻りを行っている最中は true */
-    bool _return_to_base_angExpanse_seq;
+    bool return_to_base_angExpanse_seq_;
 
 
 
-    int _adjust_angPos_seq_progress;
-    angle _adjust_angPos_seq_new_angPosition_base;
-    frame _adjust_angPos_seq_spent_frame;
-    angle _adjust_angPos_seq_angPosition;
+    int adjust_angPos_seq_progress_;
+    angle adjust_angPos_seq_new_angPosition_base_;
+    frame adjust_angPos_seq_spent_frame_;
+    angle adjust_angPos_seq_angPosition_;
 
-    //GgafDxCore::GgafDxQuaternion _Q;
-    EffectMyOption* _pEffect;
+    //GgafDxCore::GgafDxQuaternion Q_;
+    EffectMyOption* pEffect_;
 
     /**
      * コンストラクタ .
@@ -118,16 +116,16 @@ public:
             angle prm_angExpanse,
             velo prm_veloMv)
     {
-        _angPosition = prm_angPosition;
-        _radiusPosition = prm_radiusPosition;
-        _angExpanse = prm_angExpanse;
-        _veloMv = prm_veloMv;
-        _angPosition_base = prm_angPosition;
-        _radiusPosition_base = prm_radiusPosition;
-        _radiusPosition_stopping = _radiusPosition_base;
-        _velo_radius = 0;
-        _angExpanse_default = prm_angExpanse;
-        _veloMv_base = prm_veloMv;
+        angPosition_ = prm_angPosition;
+        radiusPosition_ = prm_radiusPosition;
+        angExpanse_ = prm_angExpanse;
+        veloMv_ = prm_veloMv;
+        angPosition_base_ = prm_angPosition;
+        radiusPosition_base_ = prm_radiusPosition;
+        radiusPosition_stopping_ = radiusPosition_base_;
+        velo_radius_ = 0;
+        angExpanse_default_ = prm_angExpanse;
+        veloMv_base_ = prm_veloMv;
     }
     void onCreateModel() override;
 

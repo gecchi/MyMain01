@@ -7,14 +7,14 @@ using namespace VioletVreath;
 
 GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameOverScene";
-    _pStringBoard01 = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(_pStringBoard01);
+    pStringBoard01_ = NEW LabelGecchi16Font("STR01");
+    getDirector()->addSubGroup(pStringBoard01_);
     useProgress(10);
 }
 
 void GameOverScene::onReset() {
     fadeoutScene(0);
-    _pStringBoard01->update("");
+    pStringBoard01_->update("");
     _pProg->change(GameOverScene::PROG_INIT);
 }
 void GameOverScene::initialize() {
@@ -43,7 +43,7 @@ void GameOverScene::processBehavior() {
 
         case GameOverScene::PROG_DISP: {
             if (_pProg->isJustChanged()) {
-                _pStringBoard01->update(500*1000, 500*1000, "GAME OVER (-_-;)");
+                pStringBoard01_->update(500*1000, 500*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
             }
             if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 420) {

@@ -9,8 +9,8 @@ namespace VioletVreath {
 template<class T>
 class Formation001 : public GgafLib::TreeFormation {
 
-    GgafCore::GgafActorDepository* _pDepo;
-    bool _was_create_dispatcher;
+    GgafCore::GgafActorDepository* pDepo_;
+    bool was_create_dispatcher_;
 public:
     Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo = NULL);
 
@@ -24,24 +24,23 @@ template<class T>
 Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo) : GgafLib::TreeFormation(prm_name) {
     _class_name = "Formation001";
     if (prm_pDepo == NULL) {
-        _was_create_dispatcher = true;
-        _pDepo = NEW GgafCore::GgafActorDepository("Depository_Formation001");
-        T* _paActor = NEW T[ACTOR_NUM_FORMATION001];
+        was_create_dispatcher_ = true;
+        pDepo_ = NEW GgafCore::GgafActorDepository("Depository_Formation001");
         T* pActor;
         for (int i = 0; i < ACTOR_NUM_FORMATION001; i++) {
             pActor = NEW T("Actor_Formation001");
             pActor->inactivateImmed(); //Å‰”ñ•\Ž¦
-            _pDepo->addSubLast(pActor);
+            pDepo_->addSubLast(pActor);
         }
     } else {
-        _was_create_dispatcher = false;
-        _pDepo = prm_pDepo;
+        was_create_dispatcher_ = false;
+        pDepo_ = prm_pDepo;
     }
 }
 
 template<class T>
 void Formation001<T>::initialize() {
-    if (_pParent){
+    if (getParent()){
     }
 }
 

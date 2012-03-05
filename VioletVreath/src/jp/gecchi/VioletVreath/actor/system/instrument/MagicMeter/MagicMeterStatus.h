@@ -11,8 +11,8 @@ namespace VioletVreath {
 class MagicMeterStatus : public GgafLib::StringBoardActor {
 
 public:
-    MagicMeter* _pMagicMeter;
-    char _aBuf[30];
+    MagicMeter* pMagicMeter_;
+    char aBuf_[30];
     MagicMeterStatus(const char* prm_name, MagicMeter* prm_pMagicMeter);
     virtual void initialize() override;
     virtual void processBehavior() override;

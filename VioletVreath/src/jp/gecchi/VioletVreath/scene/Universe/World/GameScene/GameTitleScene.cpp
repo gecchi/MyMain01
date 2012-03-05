@@ -10,45 +10,45 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
     useProgress(10);
     _pProg->change(GameTitleScene::PROG_INIT);
-    _pStringBoard01 = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(_pStringBoard01);
-    _pStringBoard02 = NEW LabelGecchi16Font("STR02");
-    getDirector()->addSubGroup(_pStringBoard02);
-    _pTitleBoard = NEW TitleBoard("TitleBoard");
-    getDirector()->addSubGroup(_pTitleBoard);
+    pStringBoard01_ = NEW LabelGecchi16Font("STR01");
+    getDirector()->addSubGroup(pStringBoard01_);
+    pStringBoard02_ = NEW LabelGecchi16Font("STR02");
+    getDirector()->addSubGroup(pStringBoard02_);
+    pTitleBoard_ = NEW TitleBoard("TitleBoard");
+    getDirector()->addSubGroup(pTitleBoard_);
 
-    _pMenu = NEW MenuBoardTitle("_pMenu");
-    getDirector()->addSubGroup(_pMenu);
+    pMenu_ = NEW MenuBoardTitle("pMenu_");
+    getDirector()->addSubGroup(pMenu_);
 
-    _pWorldBound = NEW WorldBoundTitle("TITLE_BG_WB");
-    getDirector()->addSubGroup(_pWorldBound);
-    _pHoshiBoshi = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
-    getDirector()->addSubGroup(_pHoshiBoshi);
+    pWorldBound_ = NEW WorldBoundTitle("TITLE_BG_WB");
+    getDirector()->addSubGroup(pWorldBound_);
+    pHoshiBoshi_ = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
+    getDirector()->addSubGroup(pHoshiBoshi_);
 
-    _pSeCon_exec = connectSeManager("yume_Sbend");
+    pSeCon_exec_ = connectSeManager("yume_Sbend");
 
     _pBgmPerformer->useBgm(1);
     _pBgmPerformer->set(0, "BGM_DEMO");
-    _frame_of_noinput = 0;
-    _active_item = 0;
+    frame_of_noinput_ = 0;
+    active_item_ = 0;
 
 }
 
 void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
-    _pStringBoard01->update("");
-    _pStringBoard02->update("");
-    _pTitleBoard->locate(PX2CO(100), PX2CO(90));
+    pStringBoard01_->update("");
+    pStringBoard02_->update("");
+    pTitleBoard_->locate(PX2CO(100), PX2CO(90));
     _pProg->set(GameTitleScene::PROG_INIT);
 }
 
 void GameTitleScene::onActive() {
-    _pWorldBound->inactivateImmed();
-    _pHoshiBoshi->inactivateImmed();
-    _pWorldBound->activate();
-    _pHoshiBoshi->activate();
-    _pWorldBound->fadein();
-    _pHoshiBoshi->fadein();
+    pWorldBound_->inactivateImmed();
+    pHoshiBoshi_->inactivateImmed();
+    pWorldBound_->activate();
+    pHoshiBoshi_->activate();
+    pWorldBound_->fadein();
+    pHoshiBoshi_->fadein();
 }
 
 void GameTitleScene::initialize() {
@@ -71,10 +71,10 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_TITLE: {
             if (_pProg->isJustChanged()) {
-                _pStringBoard02->update(PX2CO(400), PX2CO(400), "PUSH UI_EXECUTE TO BEGIN!");
+                pStringBoard02_->update(PX2CO(400), PX2CO(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                _pSeCon_exec->use()->play();
+                pSeCon_exec_->use()->play();
                 _pProg->change(GameTitleScene::PROG_SELECT);
 
 
@@ -89,43 +89,43 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_SELECT: {
             if (_pProg->isJustChanged()) {
-                _pMenu->rise(PX2CO(50), PX2CO(350));
-                _frame_of_noinput = _pProg->getFrameInProgress();
+                pMenu_->rise(PX2CO(50), PX2CO(350));
+                frame_of_noinput_ = _pProg->getFrameInProgress();
             }
 
 
-            if (_pMenu->getSubMenu()) {
-                int d = _pMenu->getSubMenu()->getDecidedIndex();
+            if (pMenu_->getSubMenu()) {
+                int d = pMenu_->getSubMenu()->getDecidedIndex();
                 if (d >= 0) {
-                    if (_pMenu->getSelectedIndex() == MenuBoardTitle::ITEM_QUIT) {
+                    if (pMenu_->getSelectedIndex() == MenuBoardTitle::ITEM_QUIT) {
                         if (d == MenuBoardConfirm::ITEM_OK) {
                             PostQuitMessage(0);
                         } else if (d == MenuBoardConfirm::ITEM_CANCEL) {
-                            _pMenu->sinkConfirm();
+                            pMenu_->sinkConfirm();
                         }
                     }
                 }
             } else {
-                int d = _pMenu->getDecidedIndex();
+                int d = pMenu_->getDecidedIndex();
                 if (d >= 0) {
                     if (d == MenuBoardTitle::ITEM_GAME_START) {
-                        _pSeCon_exec->use()->play();
+                        pSeCon_exec_->use()->play();
                         _pProg->change(GameTitleScene::PROG_GAMESTART);
                     } else if (d == MenuBoardTitle::ITEM_CONFIG) {
 
                     } else if (d == MenuBoardTitle::ITEM_DEBUG) {
 
                     } else if (d == MenuBoardTitle::ITEM_QUIT) {
-                        _pMenu->riseConfirm();
+                        pMenu_->riseConfirm();
                     }
                 }
             }
 
             if (VB->getState() != VB_NEUTRAL_STC) { //
-                _frame_of_noinput = _pProg->getFrameInProgress();
+                frame_of_noinput_ = _pProg->getFrameInProgress();
             }
 
-            if (_pProg->getFrameInProgress() >= _frame_of_noinput + GAMETITLE_TIMEOUT) {
+            if (_pProg->getFrameInProgress() >= frame_of_noinput_ + GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
@@ -143,16 +143,16 @@ void GameTitleScene::processBehavior() {
             }
             //点滅
             if (_pProg->getFrameInProgress() % 10 < 5 ) {
-                _pStringBoard02->update(PX2CO(700), PX2CO(200), "READY GO!");
+                pStringBoard02_->update(PX2CO(700), PX2CO(200), "READY GO!");
             } else {
-                _pStringBoard02->update(PX2CO(700), PX2CO(200), "");
+                pStringBoard02_->update(PX2CO(700), PX2CO(200), "");
             }
             break;
         }
 
         case GameTitleScene::PROG_FINISH: {
             if (_pProg->isJustChanged()) {
-                _pMenu->sink();
+                pMenu_->sink();
 //                fadeoutSceneTree(FADE_FRAMES);
 //                inactivateDelay(FADE_FRAMES);
             }
@@ -166,6 +166,6 @@ void GameTitleScene::processBehavior() {
 }
 
 GameTitleScene::~GameTitleScene() {
-//    DELETEARR_IMPOSSIBLE_NULL(_papStringItem);
-    _pSeCon_exec->close();
+//    DELETEARR_IMPOSSIBLE_NULL(papStringItem_);
+    pSeCon_exec_->close();
 }

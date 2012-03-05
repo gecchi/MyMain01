@@ -12,7 +12,7 @@ class EnemyCirce : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 行動パターン番号 */
-    int _iMovePatternNo;
+    int iMovePatternNo_;
 
     /**
      * コンストラクタ

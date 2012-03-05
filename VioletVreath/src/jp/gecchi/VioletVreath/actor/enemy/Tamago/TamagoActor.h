@@ -10,8 +10,8 @@ namespace VioletVreath {
  */
 class TamagoActor : public  GgafLib::DefaultD3DXAniMeshActor {
 
-    int _rnd;
-    double _last_time;
+    int rnd_;
+    double last_time_;
 public:
     TamagoActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat);
 

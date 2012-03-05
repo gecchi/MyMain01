@@ -7,8 +7,7 @@ namespace VioletVreath {
  * 画面右端で折り返して左に直進します。<BR>
  * initialize()までに上書き可能な設定可能なパラメータ<BR>
  * ・_X,_Y,_Z 初期位置、但し _Z<0 であること。（折り返しが逆になって変だから）<BR>
- * ・_X_turn, _Y_turn 折り返し目標XY座標。初期位置からこのこの地点を目指すッス。<BR>
- * ・_veloBegin 折り返し地点に行くまでの加速度<BR>
+ * ・X_turn_, Y_turn_ 折り返し目標XY座標。初期位置からこのこの地点を目指すッス。<BR>
  *
  */
 class EnemyCeres : public GgafLib::DefaultMeshSetActor {
@@ -17,22 +16,20 @@ private:
 
 public:
     /** 弾ストック */
-    GgafCore::GgafActorDepository* _pDepo_EnemyCeresShots001;
+    GgafCore::GgafActorDepository* pDepo_EnemyCeresShots001_;
     /** スプラインプログラム */
-    GgafLib::SplineSequence* _pProgram_CeresMove;
+    GgafLib::SplineSequence* pProgram_CeresMove_;
 
     /** GgafActorDepositoryをコンストラクタで生成したか否か */
-    bool _createGgafActorDepository;
+    bool createGgafActorDepository_;
 
-    int _X_turn; // 折り返すX座標
-    int _Y_turn; // 折り返すY座標
-    int _Z_turn; // 折り返すZ座標
-    int _veloBegin;
-    int _incZ;
+    int X_turn_; // 折り返すX座標
+    int Y_turn_; // 折り返すY座標
+    int Z_turn_; // 折り返すZ座標
 
-    int _iMovePatternNo;
-    frame _frame_Active;
-    SplineLineConnection* _pSplLineCon;
+    int iMovePatternNo_;
+    frame frame_Active_;
+    SplineLineConnection* pSplLineCon_;
 
     /**
      * コンストラクタ

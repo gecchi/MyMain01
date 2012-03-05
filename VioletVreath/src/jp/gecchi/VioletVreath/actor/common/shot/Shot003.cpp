@@ -43,7 +43,7 @@ void Shot003::onHit(GgafActor* prm_pOtherActor) {
 //    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 //        //破壊された場合
 //        //・・・ココに破壊されたエフェクト
-//        EffectExplosion003* pExplo003 = (EffectExplosion003*)P_COMMON_SCENE->_pDepo_EffectExplosion003->dispatch();
+//        EffectExplosion003* pExplo003 = (EffectExplosion003*)P_COMMON_SCENE->pDepo_EffectExplosion003_->dispatch();
 //        playSe3D1();
 //        if (pExplo003) {
 //            pExplo003->locateAs(this);

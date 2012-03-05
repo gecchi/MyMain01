@@ -13,15 +13,15 @@ namespace VioletVreath {
 class PauseCamWorker : public CameraWorker {
 
 public:
-    ViewPointGuide* _pVPGuide;
+    ViewPointGuide* pVPGuide_;
 
-    int _cd;
+    int cd_;
 
-    int _cam_X,_cam_Y,_cam_Z, _vp_X, _vp_Y, _vp_Z;
+    int cam_X_, cam_Y_, cam_Z_, vp_X_, vp_Y_, vp_Z_;
 
-    bool _mdz_flg;
-    double _mdz_vx, _mdz_vy, _mdz_vz, _mdz_t;
-    int _mdz_total;
+    bool mdz_flg_;
+    double mdz_vx_, mdz_vy_, mdz_vz_, mdz_t_;
+    int mdz_total_;
     PauseCamWorker(const char* prm_name);
 
     virtual void initialize() override;

@@ -2,10 +2,10 @@
 #define MYSHIPSCENE_H_
 
 #ifdef P_GAME_SCENE
-    #define P_MYSHIP_SCENE (P_GAME_SCENE->_pMyShipScene)
-    #define P_MYSHIP (P_MYSHIP_SCENE->_pMyShip)
-    #define P_MYOPTIONCON (P_MYSHIP_SCENE->_pMyOptionController)
-    #define P_VAM (P_MYSHIP_SCENE->_pVamSysCamWorker)
+    #define P_MYSHIP_SCENE (P_GAME_SCENE->pMyShip_Scene)
+    #define P_MYSHIP (P_MYSHIP_SCENE->pMyShip_)
+    #define P_MYOPTIONCON (P_MYSHIP_SCENE->pMyOptionController_)
+    #define P_VAM (P_MYSHIP_SCENE->pVamSysCamWorker_)
 #else
     #error P_GAME_SCENE isnt define
 #endif
@@ -30,18 +30,18 @@ public:
     };
 
     /** 自機 */
-    MyShip* _pMyShip;
+    MyShip* pMyShip_;
     /** 自機オプション部 */
-    MyOptionController* _pMyOptionController;
+    MyOptionController* pMyOptionController_;
     /** 自機爆発エフェクト */
-    EffectMyShipExplosion* _pEffectMyShipExplosion;
+    EffectMyShipExplosion* pEffectMyShipExplosion_;
     /** VAMSYSTEM カメラワーク */
-    VamSysCamWorker* _pVamSysCamWorker;
+    VamSysCamWorker* pVamSysCamWorker_;
 
     /** 魔法メーター */
-    MagicMeter* _pMagicMeter;
+    MagicMeter* pMagicMeter_;
 
-    int _zanki;
+    int zanki_;
 
     MyShipScene(const char* prm_name);
     /**

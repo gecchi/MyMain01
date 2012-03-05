@@ -8,18 +8,18 @@ using namespace VioletVreath;
 FormationMassalia::FormationMassalia(const char* prm_name)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationMassalia";
-    _pDepoCon_Massalia = connectToDepositoryManager("DpCon_Massalia", this);
-    _pDepoCon_Fragment = connectToDepositoryManager("DpCon_MassaliaFragment", this);
-    _pDepoCon_Fragment2 = connectToDepositoryManager("DpCon_MassaliaFragment2", this);
-    _pDepoCon_Fragment3 = connectToDepositoryManager("DpCon_MassaliaFragment3", this);
+    pDepoCon_Massalia_ = connectToDepositoryManager("DpCon_Massalia", this);
+    pDepoCon_Fragment_ = connectToDepositoryManager("DpCon_MassaliaFragment", this);
+    pDepoCon_Fragment_2_ = connectToDepositoryManager("DpCon_MassaliaFragment2", this);
+    pDepoCon_Fragment_3_ = connectToDepositoryManager("DpCon_MassaliaFragment3", this);
 
 
-    setFormationAbleActorDepository(_pDepoCon_Massalia->use());
+    setFormationAbleActorDepository(pDepoCon_Massalia_->use());
 }
 
 void FormationMassalia::updateRankParameter() {
-    _R_interval_frames   = R_FormationMassalia_LaunchInterval; //ŠÔŠu
-    _R_mv_velo           = R_FormationMassalia_MvVelo;         //‘¬“x
+    R_interval_frames_   = R_FormationMassalia_LaunchInterval; //ŠÔŠu
+    R_mv_velo_           = R_FormationMassalia_MvVelo;         //‘¬“x
 }
 
 void FormationMassalia::initialize() {
@@ -38,18 +38,18 @@ void FormationMassalia::processBehavior() {
     if (getActivePartFrame() >= R_FormationMassalia_DurationFreams) {
         sayonara(20*60);
     } else {
-        if (!isAllCalledUp() && (getActivePartFrame() % _R_interval_frames == 0)) {
+        if (!isAllCalledUp() && (getActivePartFrame() % R_interval_frames_ == 0)) {
             EnemyMassalia* pMassalia = (EnemyMassalia*)callUpUntil();
             if (pMassalia) {
-                pMassalia->_pKurokoA->setMvVelo(_R_mv_velo);
+                pMassalia->_pKurokoA->setMvVelo(R_mv_velo_);
             }
         }
     }
 }
 
 FormationMassalia::~FormationMassalia() {
-    _pDepoCon_Massalia->close();
-    _pDepoCon_Fragment->close();
-    _pDepoCon_Fragment2->close();
-    _pDepoCon_Fragment3->close();
+    pDepoCon_Massalia_->close();
+    pDepoCon_Fragment_->close();
+    pDepoCon_Fragment_2_->close();
+    pDepoCon_Fragment_3_->close();
 }

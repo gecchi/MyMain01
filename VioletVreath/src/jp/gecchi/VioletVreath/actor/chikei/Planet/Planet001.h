@@ -12,7 +12,7 @@ class Planet001 : public GgafLib::DefaultMeshActor {
 
 public:
 
-    Planet001Atmosphere* _pAtmosphere;
+    Planet001Atmosphere* pAtmosphere_;
 
     Planet001(const char* prm_name);
 

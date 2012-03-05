@@ -13,16 +13,16 @@ EnemyVesta::EnemyVesta(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Vesta", STATUS(EnemyVesta)) {
     _class_name = "EnemyVesta";
     _pActor_Base = NULL;
-    _iMovePatternNo = 0;
-    _is_open_hatch = false;
-    _frame_of_open_interval  = 3*60;
-    _frame_of_close_interval = 4*60;
-    _frame_of_moment_nextopen = 0;
-    _frame_of_moment_nextclose = 0;
-    _frame_of_morph_interval   = 60;
+    iMovePatternNo_ = 0;
+    is_open_hatch_ = false;
+    frame_of_open_interval_  = 3*60;
+    frame_of_close_interval_ = 4*60;
+    frame_of_moment_nextopen_ = 0;
+    frame_of_moment_nextclose_ = 0;
+    frame_of_morph_interval_   = 60;
 
-    _pDepo_Fired = NULL;
-    _pDpcon = connectToDepositoryManager("DpCon_Shot004", NULL);
+    pDepo_Fired_ = NULL;
+    pDpcon_ = connectToDepositoryManager("DpCon_Shot004", NULL);
 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
@@ -48,15 +48,15 @@ void EnemyVesta::initialize() {
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 1200);
     _pScaler->beat(30, 5, 5, -1);
-    _pDepo_Fired = _pDpcon->use();
+    pDepo_Fired_ = pDpcon_->use();
 }
 
 void EnemyVesta::onActive() {
     _pStatus->reset();
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
-    _is_open_hatch = false;
-    _iMovePatternNo = VESTA_HATCH_CLOSED;
-    _frame_of_moment_nextopen = 60;
+    is_open_hatch_ = false;
+    iMovePatternNo_ = VESTA_HATCH_CLOSED;
+    frame_of_moment_nextopen_ = 60;
 }
 
 void EnemyVesta::processBehavior() {
@@ -107,27 +107,27 @@ void EnemyVesta::processBehavior() {
     //    changeGeoFinal();
     //TODO:混在感をもっとなくす。
 
-    switch (_iMovePatternNo) {
+    switch (iMovePatternNo_) {
         case VESTA_HATCH_CLOSED:
-            if (getActivePartFrame() == _frame_of_moment_nextopen-(_frame_of_morph_interval/2)) {
+            if (getActivePartFrame() == frame_of_moment_nextopen_-(frame_of_morph_interval_/2)) {
                 _pMorpher->intoTargetLinerUntil(MORPHTARGET_VESTA_HATCH_OPENED,
-                                                1.0f, _frame_of_morph_interval);
+                                                1.0f, frame_of_morph_interval_);
                 _pKurokoA->setFaceAngVelo(AXIS_X, -3000);
             }
-            if (getActivePartFrame() == _frame_of_moment_nextopen) {
-                _frame_of_moment_nextclose = getActivePartFrame() + _frame_of_close_interval;
-                _iMovePatternNo = VESTA_HATCH_OPENED;
+            if (getActivePartFrame() == frame_of_moment_nextopen_) {
+                frame_of_moment_nextclose_ = getActivePartFrame() + frame_of_close_interval_;
+                iMovePatternNo_ = VESTA_HATCH_OPENED;
             }
             break;
         case VESTA_HATCH_OPENED:
-            if (getActivePartFrame() == _frame_of_moment_nextclose - (_frame_of_morph_interval/2)) {
+            if (getActivePartFrame() == frame_of_moment_nextclose_ - (frame_of_morph_interval_/2)) {
                 _pMorpher->intoTargetLinerUntil(MORPHTARGET_VESTA_HATCH_OPENED,
-                                                0.0f, _frame_of_morph_interval);
+                                                0.0f, frame_of_morph_interval_);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 0);
             }
-            if (getActivePartFrame() == _frame_of_moment_nextclose) {
-                _frame_of_moment_nextopen = getActivePartFrame() + _frame_of_open_interval;
-                _iMovePatternNo = VESTA_HATCH_CLOSED;
+            if (getActivePartFrame() == frame_of_moment_nextclose_) {
+                frame_of_moment_nextopen_ = getActivePartFrame() + frame_of_open_interval_;
+                iMovePatternNo_ = VESTA_HATCH_CLOSED;
             }
             break;
         default :
@@ -137,37 +137,37 @@ void EnemyVesta::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     //オープン時敵出現
-    if (_iMovePatternNo == VESTA_HATCH_OPENED) {
-        int openningFrame = getActivePartFrame() - _frame_of_moment_nextopen; //開いてからのフレーム数。
-        //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
+    if (iMovePatternNo_ == VESTA_HATCH_OPENED) {
+        int openningFrame = getActivePartFrame() - frame_of_moment_nextopen_; //開いてからのフレーム数。
+        //frame_of_moment_nextopen_は、ここの処理の時点では直近でオープンしたフレームとなる。
         if (openningFrame % (int)(R_EnemyVesta_ShotInterval) == 0) {
-            if (_pDepo_Fired) {
-                GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)_pDepo_Fired->dispatch();
+            if (pDepo_Fired_) {
+                GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
                 if (pActor) {
                     pActor->locateAs(this);
                     pActor->_pKurokoA->relateFaceAngWithMvAng(true);
                     //＜現在の最終的な向きを、RzRyで取得する＞
                     //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
-                    //元の方向ベクトルを(_Xorg,_Yorg,_Zorg)、
+                    //元の方向ベクトルを(Xorg_,Yorg_,Zorg_)、
                     //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
                     //最終的な方向ベクトルを(vX, vY, vZ) とすると
                     //
                     //                      | mat_11 mat_12 mat_13 |
-                    //| _Xorg _Yorg _Zorg | | mat_21 mat_22 mat_23 | = | vX vY vZ |
+                    //| Xorg_ Yorg_ Zorg_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
                     //                      | mat_31 mat_32 mat_33 |
                     //
-                    //vX = _Xorg*mat_11 + _Yorg*mat_21 + _Zorg*mat_31
-                    //vY = _Xorg*mat_12 + _Yorg*mat_22 + _Zorg*mat_32
-                    //vZ = _Xorg*mat_13 + _Yorg*mat_23 + _Zorg*mat_33
+                    //vX = Xorg_*mat_11 + Yorg_*mat_21 + Zorg_*mat_31
+                    //vY = Xorg_*mat_12 + Yorg_*mat_22 + Zorg_*mat_32
+                    //vZ = Xorg_*mat_13 + Yorg_*mat_23 + Zorg_*mat_33
                     //
                     //さてここで、元々が前方の単位方向ベクトル(1,0,0)の場合はどうなるか考えると
                     //
-                    //vX = _Xorg*mat_11
-                    //vY = _Xorg*mat_12
-                    //vZ = _Xorg*mat_13
+                    //vX = Xorg_*mat_11
+                    //vY = Xorg_*mat_12
+                    //vZ = Xorg_*mat_13
                     //
                     //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
-                    //最終的な方向ベクトルは（_Xorg*mat_11, _Xorg*mat_12, _Xorg*mat_13) である。
+                    //最終的な方向ベクトルは（Xorg_*mat_11, Xorg_*mat_12, Xorg_*mat_13) である。
                     angle Rz, Ry;
                     GgafDxUtil::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                             Rz, Ry); //現在の最終的な向きを、RzRyで取得！
@@ -247,7 +247,7 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
 
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
 
     if (pExplo001) {
         pExplo001->locateAs(this);
@@ -258,7 +258,7 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
         sayonara();
 
         //アイテム出現
-        Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
+        Item* pItem = (Item*)P_COMMON_SCENE->pDP_MagicPointItem001_->dispatch();
         if (pItem) {
             pItem->locateAs(this);
         }
@@ -270,5 +270,5 @@ void EnemyVesta::onInactive() {
 }
 
 EnemyVesta::~EnemyVesta() {
-    _pDpcon->close();
+    pDpcon_->close();
 }

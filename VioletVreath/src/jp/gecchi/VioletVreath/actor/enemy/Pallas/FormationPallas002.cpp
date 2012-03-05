@@ -8,38 +8,38 @@ using namespace VioletVreath;
 FormationPallas002::FormationPallas002(const char* prm_name) :
         TreeFormation(prm_name, 30*60) {
     _class_name = "FormationPallas002";
-    _num_Pallas      = R_FormationPallas002_Num;  //編隊数
-    _interval_frames = R_FormationPallas002_LaunchInterval;  //パラスの間隔(frame)
-    _mv_velo         = R_FormationPallas002_MvVelo; //速度
+    num_Pallas_      = R_FormationPallas002_Num;  //編隊数
+    interval_frames_ = R_FormationPallas002_LaunchInterval;  //パラスの間隔(frame)
+    velo_mv_         = R_FormationPallas002_MvVelo; //速度
     //パラス編隊作成
-    _pSplManufCon = connectSplineManufactureManager("Pallas02");
-//    _pSplLineCon     = connectToSplineLineManager("SpCon_Pallas01"); //スプライン定義
-    //_pDepoCon = connectToDepositoryManager("DpCon_Shot002", NULL);
-    _pDepoCon = NULL;
-    _papPallas = NEW EnemyPallas*[_num_Pallas];
-    for (int i = 0; i < _num_Pallas; i++) {
-        _papPallas[i] = NEW EnemyPallas("Pallas01");
+    pSplManufCon_ = connectSplineManufactureManager("Pallas02");
+//    pSplLineCon_     = connectToSplineLineManager("SpCon_Pallas01"); //スプライン定義
+    //pDepoCon_ = connectToDepositoryManager("DpCon_Shot002", NULL);
+    pDepoCon_ = NULL;
+    papPallas_ = NEW EnemyPallas*[num_Pallas_];
+    for (int i = 0; i < num_Pallas_; i++) {
+        papPallas_[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = _pSplManufCon->use()->createSplineSequence(_papPallas[i]->_pKurokoA); //移動速度固定
-        _papPallas[i]->config(pProgram, NULL, NULL);
-        //_papPallas[i]->setDepository_Shot(_pDepoCon->use()); //弾設定
-        _papPallas[i]->inactivateImmed();
-        addSubLast(_papPallas[i]);
+        SplineSequence* pProgram = pSplManufCon_->use()->createSplineSequence(papPallas_[i]->_pKurokoA); //移動速度固定
+        papPallas_[i]->config(pProgram, NULL, NULL);
+        //papPallas_[i]->setDepository_Shot(pDepoCon_->use()); //弾設定
+        papPallas_[i]->inactivateImmed();
+        addSubLast(papPallas_[i]);
     }
 }
 
 void FormationPallas002::onActive() {
-    for (int i = 0; i < _num_Pallas; i++) {
-        _papPallas[i]->locate(MyShip::_lim_behaind *2 , P_MYSHIP->_Y+300000,  P_MYSHIP->_Z);
-        _papPallas[i]->_pKurokoA->setMvVelo(_mv_velo);
-        _papPallas[i]->activateDelay(i*_interval_frames + 1);//_interval_frames間隔でActiveにする。
+    for (int i = 0; i < num_Pallas_; i++) {
+        papPallas_[i]->locate(MyShip::lim_behaind_ *2 , P_MYSHIP->_Y+300000,  P_MYSHIP->_Z);
+        papPallas_[i]->_pKurokoA->setMvVelo(velo_mv_);
+        papPallas_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_間隔でActiveにする。
     }
 }
 
 FormationPallas002::~FormationPallas002() {
-    _pSplManufCon->close();
-    if (_pDepoCon) {
-        _pDepoCon->close();
+    pSplManufCon_->close();
+    if (pDepoCon_) {
+        pDepoCon_->close();
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papPallas);
+    DELETEARR_IMPOSSIBLE_NULL(papPallas_);
 }

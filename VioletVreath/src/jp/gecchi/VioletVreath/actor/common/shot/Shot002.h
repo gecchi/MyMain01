@@ -12,7 +12,7 @@ namespace VioletVreath {
 class Shot002 : public GgafLib::DefaultMeshSetActor {
 public:
     /** 自機へ方向転換開始フレーム */
-    frame _my_frame;
+    frame my_frame_;
 
     Shot002(const char* prm_name);
 

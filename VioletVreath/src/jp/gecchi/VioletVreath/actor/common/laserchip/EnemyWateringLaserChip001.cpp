@@ -9,8 +9,8 @@
 //        WateringLaserChip(prm_name, "EnemyWateringLaserChip001") {
 //    _class_name = "EnemyWateringLaserChip001";
 //    MyStgUtil::resetEnemyWateringLaserChip001Status(_pStatus);
-//    _pOrg = NULL;
-//    _lockon = 0;
+//    pOrg_ = NULL;
+//    lockon_ = 0;
 //
 //}
 //
@@ -31,55 +31,55 @@
 //    _pKurokoA->setVxMvAcce(0);
 //    _pKurokoA->setVyMvAcce(0);
 //    _pKurokoA->setVzMvAcce(0);
-//    if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActiveInTheTree()) {
+//    if (pOrg_->pLockonTarget_ && pOrg_->pLockonTarget_->isActiveInTheTree()) {
 //        if (_pChip_front == NULL) {
 //            //先端チップ
-//            _lockon = 1;
+//            lockon_ = 1;
 //        } else {
 //            //先端以外
-//            _lockon = ((EnemyWateringLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+//            lockon_ = ((EnemyWateringLaserChip001*) _pChip_front)->lockon_;//一つ前のロックオン情報を引き継ぐ
 //        }
 //    } else {
 //        if (_pChip_front == NULL) {
 //            //先端チップ
-//            _lockon = 0;
+//            lockon_ = 0;
 //        } else {
 //            //先端以外
-//            _lockon = ((EnemyWateringLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+//            lockon_ = ((EnemyWateringLaserChip001*) _pChip_front)->lockon_;//一つ前のロックオン情報を引き継ぐ
 //        }
-//        _pOrg->_pLockonTarget = NULL;
+//        pOrg_->pLockonTarget_ = NULL;
 //    }
-//    _renge = 150000;
-//    _pKurokoA->forceVxMvVeloRange(-_renge, _renge);
-//    _pKurokoA->forceVyMvVeloRange(-_renge, _renge);
-//    _pKurokoA->forceVzMvVeloRange(-_renge, _renge);
-//    _maxAcceRange= _renge / 30;
-//    _pKurokoA->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
-//    _pKurokoA->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
-//    _pKurokoA->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+//    renge_ = 150000;
+//    _pKurokoA->forceVxMvVeloRange(-renge_, renge_);
+//    _pKurokoA->forceVyMvVeloRange(-renge_, renge_);
+//    _pKurokoA->forceVzMvVeloRange(-renge_, renge_);
+//    maxAcceRange_= renge_ / 30;
+//    _pKurokoA->forceVxMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//    _pKurokoA->forceVyMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//    _pKurokoA->forceVzMvAcceRange(-maxAcceRange_, maxAcceRange_);
 //}
 //
 //void EnemyWateringLaserChip001::processBehavior() {
-//    if (_lockon == 1) {
+//    if (lockon_ == 1) {
 //        if (getActivePartFrame() < 100) {
-//            _maxAcceRange+=100;
-//            _pKurokoA->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
-//            _pKurokoA->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
-//            _pKurokoA->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
-//            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActiveInTheTree()) {
+//            maxAcceRange_+=100;
+//            _pKurokoA->forceVxMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//            _pKurokoA->forceVyMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//            _pKurokoA->forceVzMvAcceRange(-maxAcceRange_, maxAcceRange_);
+//            if (pOrg_->pLockonTarget_ && pOrg_->pLockonTarget_->isActiveInTheTree()) {
 //                float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
 //                rate = rate > 0 ? rate : 0;
-//                int fdx = _pOrg->_pLockonTarget->_X - (_X + _pKurokoA->_veloVxMv*rate);
-//                int fdy = _pOrg->_pLockonTarget->_Y - (_Y + _pKurokoA->_veloVyMv*rate);
-//                int fdz = _pOrg->_pLockonTarget->_Z - (_Z + _pKurokoA->_veloVzMv*rate);
+//                int fdx = pOrg_->pLockonTarget_->_X - (_X + _pKurokoA->_veloVxMv*rate);
+//                int fdy = pOrg_->pLockonTarget_->_Y - (_Y + _pKurokoA->_veloVyMv*rate);
+//                int fdz = pOrg_->pLockonTarget_->_Z - (_Z + _pKurokoA->_veloVzMv*rate);
 //                _pKurokoA->setVxMvAcce(fdx);
 //                _pKurokoA->setVyMvAcce(fdy);
 //                _pKurokoA->setVzMvAcce(fdz);
 ////                //上記のホーミングは優秀だが、距離に応じて減速していくため移動する敵には永遠に当たらない。
 ////                //ある程度近づいたら見切りで直進させる
-////                int dx = _pOrg->_pLockonTarget->_X - _X;
-////                int dy = _pOrg->_pLockonTarget->_Y - _Y;
-////                int dz = _pOrg->_pLockonTarget->_Z - _Z;
+////                int dx = pOrg_->pLockonTarget_->_X - _X;
+////                int dy = pOrg_->pLockonTarget_->_Y - _Y;
+////                int dz = pOrg_->pLockonTarget_->_Z - _Z;
 ////                if (abs(dx)+abs(dy)+abs(dz) < 150*1000) {
 ////                    _pKurokoA->setVxMvVelo(dx);
 ////                    _pKurokoA->setVyMvVelo(dy);
@@ -87,21 +87,21 @@
 ////                    _pKurokoA->setVxMvAcce(dx/10);
 ////                    _pKurokoA->setVyMvAcce(dy/10);
 ////                    _pKurokoA->setVzMvAcce(dz/10);
-////                    _lockon = 2;
+////                    lockon_ = 2;
 ////                }
 //
 //            } else {
-//                _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+//                lockon_ = 2; //非ロックオン（ロックオン→非ロックオン）
 //            }
 //        } else {
-//            _lockon = 2;
+//            lockon_ = 2;
 //        }
-//    } else if (_lockon == 2) {
+//    } else if (lockon_ == 2) {
 //        int dx, dy, dz;
 //        if (_pChip_front == NULL) {
-////            _pKurokoA->addVxMvAcce(_pKurokoA->_acceVxMv);
-////            _pKurokoA->addVyMvAcce(_pKurokoA->_acceVyMv);
-////            _pKurokoA->addVzMvAcce(_pKurokoA->_acceVzMv);
+////            _pKurokoA->addVxMvAcce(_pKurokoA->acceVxMv_);
+////            _pKurokoA->addVyMvAcce(_pKurokoA->acceVyMv_);
+////            _pKurokoA->addVzMvAcce(_pKurokoA->acceVzMv_);
 //        } else if (_pChip_front->_pChip_front == NULL) {
 //            //新たなターゲットを作成
 //            dx = _pChip_front->_X - (_X + _pKurokoA->_veloVxMv);
@@ -143,18 +143,18 @@
 //    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
 //
 //    if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-//        if (_pOrg->_pLockonTarget) { //既にオプションはロックオン中
-//            if (pOther == _pOrg->_pLockonTarget) {
+//        if (pOrg_->pLockonTarget_) { //既にオプションはロックオン中
+//            if (pOther == pOrg_->pLockonTarget_) {
 //                //オプションのロックオンに見事命中した場合
 //
-//                _lockon = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
+//                lockon_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
 //                //もうホーミングする必要はない。今後の方針を決定
 //
 //                //中間先頭チップがヒットした場合の処理。(_chip_kind=3の場合)
 //                if (_pChip_front && _pChip_front->_pChip_front == NULL) {
 //                    //先端チップへ今後の方針を伝える。（先端チップは当たり判定がないため）
 //                    EnemyWateringLaserChip001* pTip = (EnemyWateringLaserChip001*)_pChip_front; //先端チップ
-//                    pTip->_lockon = 2; //先端に伝える
+//                    pTip->lockon_ = 2; //先端に伝える
 //                    //今後の移動方角(加速度)を伝えるのだが、先端チップや自身や移動方向は、急激な角度に曲がっている可能性が極めて高く
 //                    //不自然な角度のカーブを描きかねないので、やや後方のチップが存在するならば、そちらの移動方向をコピーする。
 //                    LaserChip* pChipPrev = this;
@@ -170,9 +170,9 @@
 //                    pTip->_pKurokoA->setVzMvVelo(pChipPrev->_pKurokoA->_veloVzMv*2);
 //                    //ターゲットがなくなり、レーザーの「ハジけた感（解放感）」を演出するため
 //                    //加速度の正負逆を設定する。
-//                    pTip->_pKurokoA->setVxMvAcce(-(pChipPrev->_pKurokoA->_acceVxMv));
-//                    pTip->_pKurokoA->setVyMvAcce(-(pChipPrev->_pKurokoA->_acceVyMv));
-//                    pTip->_pKurokoA->setVzMvAcce(-(pChipPrev->_pKurokoA->_acceVzMv));
+//                    pTip->_pKurokoA->setVxMvAcce(-(pChipPrev->_pKurokoA->acceVxMv_));
+//                    pTip->_pKurokoA->setVyMvAcce(-(pChipPrev->_pKurokoA->acceVyMv_));
+//                    pTip->_pKurokoA->setVzMvAcce(-(pChipPrev->_pKurokoA->acceVzMv_));
 //                }
 //            } else {
 //                //オプションのロックオン以外のアクターに命中した場合
@@ -189,44 +189,44 @@
 //            sayonara();
 //            //ロックオン可能アクターならロックオン更新
 //            if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-//                _pOrg->_pLockonTarget = pOther;
+//                pOrg_->pLockonTarget_ = pOther;
 //            }
 //        } else {
 //            //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
 //            _pStatus->set(STAT_Stamina, default_stamina);
 //            //ロックオン可能アクターならロックオン更新
 //            if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-//                _pOrg->_pLockonTarget = pOther;
+//                pOrg_->pLockonTarget_ = pOther;
 //            }
 //        }
 //    } else if (pOther->getKind() & KIND_CHIKEI) {
 //        sayonara();
 //    }
-////        if (_pOrg->_pLockonTarget) {
+////        if (pOrg_->pLockonTarget_) {
 ////            _pKurokoA->setVxMvVelo(-(_pKurokoA->_veloVxMv));
 ////            _pKurokoA->setVyMvVelo(-(_pKurokoA->_veloVyMv));
 ////            _pKurokoA->setVzMvVelo(-(_pKurokoA->_veloVzMv));
 ////        }
 //
-//////        if (_pOrg->_pLockonTarget) {
+//////        if (pOrg_->pLockonTarget_) {
 ////            _pKurokoA->setVxMvVelo(-(_pKurokoA->_veloVxMv));
-////            //_pKurokoA->setVxMvAcce(-(_pKurokoA->_acceVxMv));
+////            //_pKurokoA->setVxMvAcce(-(_pKurokoA->acceVxMv_));
 ////            _pKurokoA->setVyMvVelo(-(_pKurokoA->_veloVyMv));
-////            //_pKurokoA->setVyMvAcce(-(_pKurokoA->_acceVyMv));
+////            //_pKurokoA->setVyMvAcce(-(_pKurokoA->acceVyMv_));
 ////            _pKurokoA->setVzMvVelo(-(_pKurokoA->_veloVzMv));
-////            //_pKurokoA->setVzMvAcce(-(_pKurokoA->_acceVzMv));
+////            //_pKurokoA->setVzMvAcce(-(_pKurokoA->acceVzMv_));
 ////            _pKurokoA->behave();
 //////        }
 //
 ////        if (abs(_pKurokoA->_veloVxMv) >= abs(_pKurokoA->_veloVyMv) && abs(_pKurokoA->_veloVxMv) >= abs(_pKurokoA->_veloVzMv)) {
 ////            _pKurokoA->setVxMvVelo(-(_pKurokoA->_veloVxMv));
-////            _pKurokoA->setVxMvAcce(-(_pKurokoA->_acceVxMv));
+////            _pKurokoA->setVxMvAcce(-(_pKurokoA->acceVxMv_));
 ////        } else if (abs(_pKurokoA->_veloVyMv) >= abs(_pKurokoA->_veloVxMv) && abs(_pKurokoA->_veloVyMv) >= abs(_pKurokoA->_veloVzMv)) {
 ////            _pKurokoA->setVyMvVelo(-(_pKurokoA->_veloVyMv));
-////            _pKurokoA->setVyMvAcce(-(_pKurokoA->_acceVyMv));
+////            _pKurokoA->setVyMvAcce(-(_pKurokoA->acceVyMv_));
 ////        } else if (abs(_pKurokoA->_veloVzMv) >= abs(_pKurokoA->_veloVxMv) && abs(_pKurokoA->_veloVzMv) >= abs(_pKurokoA->_veloVyMv)) {
 ////            _pKurokoA->setVzMvVelo(-(_pKurokoA->_veloVzMv));
-////            _pKurokoA->setVzMvAcce(-(_pKurokoA->_acceVzMv));
+////            _pKurokoA->setVzMvAcce(-(_pKurokoA->acceVzMv_));
 ////        }
 //
 //
@@ -234,17 +234,17 @@
 //void EnemyWateringLaserChip001::processFinal() {
 //    WateringLaserChip::processFinal();
 //    //ロックオンが消滅ならば、切る
-//    if (_pOrg->_pLockonTarget) {
-//        if (_pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) <= 0) {
-//            _pOrg->_pLockonTarget = NULL;
-//            _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+//    if (pOrg_->pLockonTarget_) {
+//        if (pOrg_->pLockonTarget_->_pStatus->get(STAT_Stamina) <= 0) {
+//            pOrg_->pLockonTarget_ = NULL;
+//            lockon_ = 2; //非ロックオン（ロックオン→非ロックオン）
 //        }
 //    }
 //}
 //
 //void EnemyWateringLaserChip001::onInactive() {
 //    WateringLaserChip::onInactive();
-//    _lockon = 0;
+//    lockon_ = 0;
 //}
 //
 //EnemyWateringLaserChip001::~EnemyWateringLaserChip001() {

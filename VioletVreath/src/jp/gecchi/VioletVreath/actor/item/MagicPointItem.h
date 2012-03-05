@@ -11,7 +11,7 @@ namespace VioletVreath {
  */
 class MagicPointItem : public Item {
     /** ‹z’…·•ªÀ•W */
-    int _kDX, _kDY, _kDZ;
+    int kDX_, kDY_, kDZ_;
 
 public:
     MagicPointItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);

@@ -6,9 +6,9 @@ namespace VioletVreath {
 class PreDrawScene : public GgafLib::DefaultScene {
 
 public:
-    TurboMeter* _pTurboMeter001;
-    int _order_id_begin;
-    int _order_id_end;
+    TurboMeter* pTurboMeter001_;
+    int order_id_begin_;
+    int order_id_end_;
     int _id;
     PreDrawScene(const char* prm_name);
     void onReset() override;

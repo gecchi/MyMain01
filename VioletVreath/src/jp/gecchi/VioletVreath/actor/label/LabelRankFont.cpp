@@ -144,7 +144,7 @@ void LabelRankFont::onCreateModel() {
 }
 
 void LabelRankFont::initialize() {
-    _tmp_rank = _RANK_DISP_;
+    tmp_rank_ = _RANK_DISP_;
     _pProg->set(RANKFONT_PROG_NOMALDISP);
     _draw_string = _buf;
 }
@@ -154,13 +154,13 @@ void LabelRankFont::processBehavior() {
         _RANK_+=0.0001;
     }
     int rank_level = _RANK_DISP_;
-    if (rank_level != _tmp_rank) {
+    if (rank_level != tmp_rank_) {
         cnvRankStr(rank_level, _draw_string);
         _len = strlen(_draw_string);
         _len_pack_num = _len/_pBoardSetModel->_set_num;
         _remainder_len = _len%_pBoardSetModel->_set_num;
         _pProg->set(RANKFONT_PROG_RANKUP);
-        _tmp_rank = rank_level;
+        tmp_rank_ = rank_level;
     }
 
 
@@ -226,9 +226,9 @@ void LabelRankFont::processDraw() {
             checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahTransformedX) ‚É¸”s‚µ‚Ü‚µ‚½B");
             _pUvFlipper->getUV(pattno, u, v);
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[i], u);
-            checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_hOffsetU) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(hOffsetU_) ‚É¸”s‚µ‚Ü‚µ‚½B");
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[i], v);
-            checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_hOffsetV) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(hOffsetV_) ‚É¸”s‚µ‚Ü‚µ‚½B");
             x += _chr_width_px;
         }
         _pBoardSetModel->draw(this, _draw_set_num);

@@ -57,7 +57,7 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
                     TURN_CLOSE_TO, false);
     }
 //
-//    if (_frame_of_behaving_from_onActive == 35) {
+//    if (frame_of_behaving_from_onActive_ == 35) {
 //        _pKurokoA->execTurnMvAngSequence(
 //                    P_MYSHIP,
 //                    20000, TURN_ANTICLOSE_TO);

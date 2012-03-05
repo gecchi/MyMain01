@@ -8,7 +8,7 @@ namespace VioletVreath {
  */
 class FormationMetis001 : public GgafLib::TreeFormation {
 
-    EnemyMetis* _pEnemyMetis[NUM_METIS_FORMATION001];
+    EnemyMetis* apEnemyMetis_[NUM_METIS_FORMATION001];
 public:
     FormationMetis001(const char* prm_name);
 

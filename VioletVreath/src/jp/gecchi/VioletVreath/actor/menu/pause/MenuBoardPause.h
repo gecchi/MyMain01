@@ -27,7 +27,7 @@ public:
         ITEM_CANCEL
     };
 
-    MenuBoardConfirm* _pConfirmMenu;
+    MenuBoardConfirm* pConfirmMenu_;
 
     MenuBoardPause(const char* prm_name);
 

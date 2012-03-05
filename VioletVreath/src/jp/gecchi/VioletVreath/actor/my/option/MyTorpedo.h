@@ -16,17 +16,17 @@ class MyTorpedo : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** [r]親アクターとなる魚雷コンローラー */
-    MyOptionTorpedoController* _pMyOptionTorpedoController;
+    MyOptionTorpedoController* pMyOptionTorpedoController_;
     /** [r]魚雷の移動軌跡エフェクトの数 */
-    int _length_TailEffect;
+    int length_TailEffect_;
     /** [r]魚雷の移動軌跡エフェクトのデポジトリ */
-    GgafLib::LaserChipDepository* _pTailEffectDepository;
+    GgafLib::LaserChipDepository* pTailEffectDepository_;
     /** [r]魚雷発射時の座標 */
-    int _begin_X,_begin_Y,_begin_Z;
+    int begin_X_,begin_Y_,begin_Z_;
     /** [r]到達目標のアクター。NULLの場合は自機前方のゲーム領域境界点を目標とする仕組み */
-    GgafDxCore::GgafDxGeometricActor* _pTarget;
+    GgafDxCore::GgafDxGeometricActor* pTarget_;
 
-    int _move_section;
+    int move_section_;
 
     /**
      * コンストラクタ .

@@ -8,17 +8,17 @@ using namespace VioletVreath;
 TransitStage::TransitStage(const char* prm_name) : Stage(prm_name) {
     _class_name = "TransitStage";
     _TRACE_("TransitStage::TransitStage("<<prm_name<<")");
-    _teansit_stage = 0;
-    _next_main_stage = 1;
-    _pWorldBoundSpace = NEW WorldBoundSpaceTransit("WBSTransit");
-    getDirector()->addSubGroup(_pWorldBoundSpace);
+    teansit_stage_ = 0;
+    next_main_stage_ = 1;
+    pWorldBoundSpace_ = NEW WorldBoundSpaceTransit("WBSTransit");
+    getDirector()->addSubGroup(pWorldBoundSpace_);
 
-    _pHoshiBoshi = NEW HoshiBoshiTransit("HoshiBoshiTransit");
-    getDirector()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
+    pHoshiBoshi_ = NEW HoshiBoshiTransit("HoshiBoshiTransit");
+    getDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
 
-    _pMessage = NEW LabelGecchi16Font("TransitStageMsg");
-    _pMessage->update(300*1000, 300*1000, "");
-    getDirector()->addSubGroup(KIND_EFFECT, _pMessage);
+    pMessage_ = NEW LabelGecchi16Font("TransitStageMsg");
+    pMessage_->update(300*1000, 300*1000, "");
+    getDirector()->addSubGroup(KIND_EFFECT, pMessage_);
     useProgress(10);
 }
 
@@ -28,7 +28,7 @@ void TransitStage::initialize() {
 
 void TransitStage::onReset() {
     _TRACE_("TransitStage::onReset()");
-    _pMessage->update("");
+    pMessage_->update("");
     _pProg->set(Stage::PROG_INIT);
 }
 
@@ -41,13 +41,13 @@ void TransitStage::processBehavior() {
 
     switch (_pProg->get()) {
         case Stage::PROG_INIT: {
-            _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_INIT) is Just Changed. STAGE="<<_teansit_stage<<"→?");
+            _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_INIT) is Just Changed. STAGE="<<teansit_stage_<<"→?");
             _pProg->change(Stage::PROG_BEGIN);
             break;
         }
         case Stage::PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_BEGIN) is Just Changed. STAGE="<<_teansit_stage<<"→?");
+                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_BEGIN) is Just Changed. STAGE="<<teansit_stage_<<"→?");
             }
 
             if (_pProg->getFrameInProgress() == 180) { //通過ステージ開始
@@ -57,12 +57,12 @@ void TransitStage::processBehavior() {
         }
         case Stage::PROG_PLAYING: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_PLAYING) is Just Changed. STAGE="<<_teansit_stage<<"→?");
+                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_PLAYING) is Just Changed. STAGE="<<teansit_stage_<<"→?");
             }
 
             if (_pProg->getFrameInProgress() == 120) { //次ステージ開始！
-                _pMessage->update("SELECT NEXT STAGE!");
-//                _pMessage->inactivateDelay(240);
+                pMessage_->update("SELECT NEXT STAGE!");
+//                pMessage_->inactivateDelay(240);
             }
 
             processBehaviorProgPlaying();
@@ -72,16 +72,16 @@ void TransitStage::processBehavior() {
 
         case Stage::PROG_END: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) is Just Changed. STAGE="<<_teansit_stage<<"→"<<_next_main_stage);
-                throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)_next_main_stage); //次ステージ準備へ
+                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) is Just Changed. STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
+                throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)next_main_stage_); //次ステージ準備へ
             }
 
             if (_pProg->getFrameInProgress() == 120) {
-                _pMessage->update("GOOD LUCK!");
+                pMessage_->update("GOOD LUCK!");
             }
 
             if (_pProg->getFrameInProgress() == 300) {
-                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) throwEventToUpperTree(EVENT_TRANSIT_WAS_END). STAGE="<<_teansit_stage<<"→"<<_next_main_stage);
+                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) throwEventToUpperTree(EVENT_TRANSIT_WAS_END). STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                 throwEventToUpperTree(EVENT_TRANSIT_WAS_END);
             }
 
@@ -109,7 +109,7 @@ void TransitStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
     //}
 }
 void TransitStage::ready(int prm_stage) {
-    _next_main_stage = -1; //次のステージは何か？
+    next_main_stage_ = -1; //次のステージは何か？
 
     switch (prm_stage) {
         case 1:
@@ -128,14 +128,14 @@ void TransitStage::ready(int prm_stage) {
     }
 }
 void TransitStage::processBehaviorProgPlaying() {
-    switch (_teansit_stage) {
+    switch (teansit_stage_) {
         case 1:
              if (_pProg->getFrameInProgress() == 5*60) {
 
                 //５秒経ったら渡島氏
-                _pMessage->update("OKOKOK!! NEXT STAGE 2");
-                _next_main_stage = 2;
-                _TRACE_("TransitStage::processBehaviorProgPlaying() 1 GOTO NEXT STAGE="<<_teansit_stage<<"→"<<_next_main_stage);
+                pMessage_->update("OKOKOK!! NEXT STAGE 2");
+                next_main_stage_ = 2;
+                _TRACE_("TransitStage::processBehaviorProgPlaying() 1 GOTO NEXT STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                  _pProg->change(Stage::PROG_END);
             }
             break;
@@ -143,9 +143,9 @@ void TransitStage::processBehaviorProgPlaying() {
             if (_pProg->getFrameInProgress() == 5*60) {
 
                //５秒経ったら渡島氏
-                _pMessage->update("OKOKOK!! NEXT STAGE 3?");
-               _next_main_stage = 3;
-               _TRACE_("TransitStage::processBehaviorProgPlaying() 2 GOTO NEXT STAGE="<<_teansit_stage<<"→"<<_next_main_stage);
+                pMessage_->update("OKOKOK!! NEXT STAGE 3?");
+               next_main_stage_ = 3;
+               _TRACE_("TransitStage::processBehaviorProgPlaying() 2 GOTO NEXT STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                 _pProg->change(Stage::PROG_END);
            }
             break;

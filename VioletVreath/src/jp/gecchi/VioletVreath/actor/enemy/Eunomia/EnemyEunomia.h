@@ -13,14 +13,14 @@ class EnemyEunomia :
 
 public:
     /** 移動スプラインのシークエンスプログラム */
-    GgafLib::SplineSequence* _pSplSeq;
+    GgafLib::SplineSequence* pSplSeq_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* _pDepo_Shot;
+    GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* _pDepo_ShotEffect;
+    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 
     /** 行動パターン番号 */
-    int _iMovePatternNo;
+    int iMovePatternNo_;
 
     /**
      * コンストラクタ
