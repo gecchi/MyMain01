@@ -15,9 +15,9 @@ class World : public GgafLib::DefaultScene {
 
 public:
     /** 入力受付 */
-    GgafLib::VirtualButton _vb;
+    GgafLib::VirtualButton vb_;
     /** テストキャラ */
-    TestActor* _pActor;
+    TestActor* pActor_;
 
     /**
      * コンストラクタ .

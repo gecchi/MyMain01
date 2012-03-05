@@ -129,7 +129,7 @@ void Stage01PartController::processBehavior() {
             _pProg->changeNext();
             break;
         }
-        case Stage01PartController::PROG_STG01_02_PLAYING_: {
+        case Stage01PartController::PROG_STG01_02_PLAYING: {
             //êiíªçXêVë“Çø
             break;
         }
