@@ -64,19 +64,19 @@ private:
         Performance* _pPerformance;
     };
 
-    /** パペットのモデル */
+    /** [r]パペットのモデル */
     GgafDxD3DXAniMeshModel* _pModel;
-    /** パペットのアニメーションコントローラー */
+    /** [r]パペットのアニメーションコントローラー */
     ID3DXAnimationController* _pAc;
 
 public:
-    /** パペット */
+    /** [r]パペット */
     GgafDxD3DXAniMeshActor* _pPuppet;
-    /** パペットの持ちネタ(芸) */
+    /** [r/w]パペットの持ちネタ(芸) */
     Performance* _paPerformances;
-    /** パペットの持ちネタ(芸)の数 */
+    /** [r]パペットの持ちネタ(芸)の数 */
     UINT _num_perform;
-    /** 左手用、右手用のパペッターの操り棒  [0]:左手用／[1]:右手用  */
+    /** [r/w]左手用、右手用のパペッターの操り棒  [0]:左手用／[1]:右手用  */
     Stick _aStick[2];
 
     /**

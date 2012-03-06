@@ -14,11 +14,11 @@ namespace GgafDxCore {
 class GgafDxSpriteActor : public GgafDxDrawableActor {
 
 public:
-    /** モデルオブジェクトへのポインタ */
+    /** [r]モデル資源 */
     GgafDxSpriteModel* _pSpriteModel;
-    /** エフェクト */
+    /** [r]エフェクト資源 */
     GgafDxSpriteEffect* _pSpriteEffect;
-    /** UVフリッパー(パラパラアニメ) */
+    /** [r]UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
 
     float _far_rate;

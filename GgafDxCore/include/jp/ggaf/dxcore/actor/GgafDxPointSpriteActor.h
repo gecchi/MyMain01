@@ -123,11 +123,11 @@ class GgafDxPointSpriteActor : public GgafDxDrawableActor {
 
 public:
 
-    /** モデル資源 */
+    /** [r]モデル資源 */
     GgafDxPointSpriteModel* _pPointSpriteModel;
-    /** エフェクト資源 */
+    /** [r]エフェクト資源 */
     GgafDxPointSpriteEffect* _pPointSpriteEffect;
-    /** UVフリッパー(パラパラアニメ) */
+    /** [r]UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
 
     /**

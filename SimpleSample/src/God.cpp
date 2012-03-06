@@ -6,14 +6,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace SimpleSample;
 
-God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
-      DefaultGod(prm_hInstance, prm_pHWndPrimary, prm_pHWndSecondary) {
+God::God(HINSTANCE prm_hInstance, HWND prm_hWnd1, HWND prm_hWnd2) :
+        DefaultGod(prm_hInstance, prm_hWnd1, prm_hWnd2) {
 }
 
 GgafUniverse* God::createUniverse() {
-    //この世の作成例
-    Camera* pCamera = new Camera("SIMPLE_CAMERA");                  //カメラ作成し、
-    Universe* pUniverse = new Universe("SIMPLE_UNIVERSE", pCamera); //この世を生成。
+    //この世の作成のサンプル
+    Camera* pCam = new Camera("SIMPLE_CAMERA");                  //カメラ作成し、
+    Universe* pUniverse = new Universe("SIMPLE_UNIVERSE", pCam); //この世を生成。
     return (GgafUniverse*)pUniverse;
 }
 

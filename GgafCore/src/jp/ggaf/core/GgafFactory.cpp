@@ -108,10 +108,10 @@ void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
 
     if (pOrder == NULL) {
         string name_org;
-        if (prm_org->_obj_class & Obj_GgafActor) {
-            name_org = ((GgafActor*)prm_org)->getName();
-        } else if (prm_org->_obj_class  & Obj_GgafScene) {
+        if ((prm_org->_obj_class & Obj_GgafScene) == Obj_GgafScene) {
             name_org = ((GgafScene*)prm_org)->getName();
+        } else if (prm_org->_obj_class & Obj_GgafActor) {
+            name_org = ((GgafActor*)prm_org)->getName();
         }
         throwGgafCriticalException("GgafFactory::obtain("<<prm_id<<") Error! 注文リストはNULLで全て製造済みしています。\n"<<
                                    "orederとobtainの対応が取れていません。\n"<<
@@ -130,16 +130,16 @@ void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
 
                     if (waittime > 1000*600) { //約10分
                         string name_org;
-                        if (prm_org->_obj_class & Obj_GgafActor) {
-                            name_org = ((GgafActor*)prm_org)->getName();
-                        } else if (prm_org->_obj_class  & Obj_GgafScene) {
+                        if ((prm_org->_obj_class & Obj_GgafScene) == Obj_GgafScene) {
                             name_org = ((GgafScene*)prm_org)->getName();
+                        } else if (prm_org->_obj_class & Obj_GgafActor) {
+                            name_org = ((GgafActor*)prm_org)->getName();
                         }
                         string name_orderer;
-                        if (pOrder->_pOrderer->_obj_class & Obj_GgafActor) {
-                            name_orderer = ((GgafActor*)pOrder->_pOrderer)->getName();
-                        } else if (pOrder->_pOrderer->_obj_class  & Obj_GgafScene) {
+                        if ((pOrder->_pOrderer->_obj_class & Obj_GgafScene) == Obj_GgafScene) {
                             name_orderer = ((GgafScene*)pOrder->_pOrderer)->getName();
+                        } else if (pOrder->_pOrderer->_obj_class & Obj_GgafActor) {
+                            name_orderer = ((GgafActor*)pOrder->_pOrderer)->getName();
                         }
                         throwGgafCriticalException("GgafFactory::obtain Error! ["<<prm_id<<"]の製造待ち時間タイムアウト、取得できません。\n"<<
                                                    "何らかの理由でメインスレッドが停止している可能性が大きいです。"<<
@@ -203,16 +203,16 @@ void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
         } else {
             if (pOrder->_is_last_order_flg) {
                 string name_orderer;
-                if (pOrder->_pOrderer->_obj_class & Obj_GgafActor) {
-                    name_orderer = ((GgafActor*)pOrder->_pOrderer)->getName();
-                } else if (pOrder->_pOrderer->_obj_class  & Obj_GgafScene) {
+                if ((pOrder->_pOrderer->_obj_class  & Obj_GgafScene) == Obj_GgafScene) {
                     name_orderer = ((GgafScene*)pOrder->_pOrderer)->getName();
+                } else if (pOrder->_pOrderer->_obj_class & Obj_GgafActor) {
+                    name_orderer = ((GgafActor*)pOrder->_pOrderer)->getName();
                 }
                 string name_org;
-                if (prm_org->_obj_class & Obj_GgafActor) {
-                    name_org = ((GgafActor*)prm_org)->getName();
-                } else if (prm_org->_obj_class  & Obj_GgafScene) {
+                if ((prm_org->_obj_class  & Obj_GgafScene) == Obj_GgafScene) {
                     name_org = ((GgafScene*)prm_org)->getName();
+                } else if (prm_org->_obj_class & Obj_GgafActor) {
+                    name_org = ((GgafActor*)prm_org)->getName();
                 }
                 throwGgafCriticalException("GgafFactory::obtain Error! ＜工場長＞全部探しましたけど、そんな注文(prm_id="<<prm_id<<")は、ありません。\n "<<
                                            "oreder() と obtain() の対応が取れていません。oreder()漏れ、或いは同じ obtain() を２回以上してませんか？。\n"<<

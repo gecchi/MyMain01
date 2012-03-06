@@ -98,58 +98,58 @@ void GgafDxMorpher::behave() {
     }
 }
 
-void GgafDxMorpher::intoTargetLinerUntil(int prm_target_mesh, float prm_target_weight, frame prm_spend_frame) {
-    _method[prm_target_mesh] = TARGET_MORPH_LINER;
-    _target_weight[prm_target_mesh] = prm_target_weight;
-    _velo_weight[prm_target_mesh] = (prm_target_weight - _weight[prm_target_mesh]) / (int)(prm_spend_frame);
+void GgafDxMorpher::intoTargetLinerUntil(int prm_target_mesh_no, float prm_target_weight, frame prm_spend_frame) {
+    _method[prm_target_mesh_no] = TARGET_MORPH_LINER;
+    _target_weight[prm_target_mesh_no] = prm_target_weight;
+    _velo_weight[prm_target_mesh_no] = (prm_target_weight - _weight[prm_target_mesh_no]) / (int)(prm_spend_frame);
 }
 
-void GgafDxMorpher::intoTargetAcceStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight, float prm_acce_weight) {
-    _method[prm_target_mesh] = TARGET_MORPH_ACCELERATION;
-    _target_weight[prm_target_mesh] = prm_target_weight;
-    _velo_weight[prm_target_mesh] = prm_velo_weight;
-    _acce_weight[prm_target_mesh] = prm_acce_weight;
+void GgafDxMorpher::intoTargetAcceStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight, float prm_acce_weight) {
+    _method[prm_target_mesh_no] = TARGET_MORPH_ACCELERATION;
+    _target_weight[prm_target_mesh_no] = prm_target_weight;
+    _velo_weight[prm_target_mesh_no] = prm_velo_weight;
+    _acce_weight[prm_target_mesh_no] = prm_acce_weight;
 }
 
 
-void GgafDxMorpher::intoTargetLinerStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight) {
-    _method[prm_target_mesh] = TARGET_MORPH_LINER;
-    _target_weight[prm_target_mesh] = prm_target_weight;
-    _velo_weight[prm_target_mesh] = sgn(prm_target_weight - _weight[prm_target_mesh])*prm_velo_weight;
+void GgafDxMorpher::intoTargetLinerStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight) {
+    _method[prm_target_mesh_no] = TARGET_MORPH_LINER;
+    _target_weight[prm_target_mesh_no] = prm_target_weight;
+    _velo_weight[prm_target_mesh_no] = sgn(prm_target_weight - _weight[prm_target_mesh_no])*prm_velo_weight;
 }
 
-void GgafDxMorpher::loopLiner(int prm_target_mesh, frame prm_beat_target_frames, float prm_beat_num) {
-    _method[prm_target_mesh] = LOOP_MORPH_LINER;
-    _halfloop_cnt[prm_target_mesh] = 0;
-    _stop_halfloop_num[prm_target_mesh] = (int)(prm_beat_num*2.0f);
-    _velo_weight[prm_target_mesh] = 1.0f / ((float)prm_beat_target_frames / 2.0f);
+void GgafDxMorpher::loopLiner(int prm_target_mesh_no, frame prm_beat_target_frames, float prm_beat_num) {
+    _method[prm_target_mesh_no] = LOOP_MORPH_LINER;
+    _halfloop_cnt[prm_target_mesh_no] = 0;
+    _stop_halfloop_num[prm_target_mesh_no] = (int)(prm_beat_num*2.0f);
+    _velo_weight[prm_target_mesh_no] = 1.0f / ((float)prm_beat_target_frames / 2.0f);
 }
 
-void GgafDxMorpher::beat(int prm_target_mesh, frame prm_beat_target_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
-    _method[prm_target_mesh] = LOOP_MORPH_TRIANGLEWAVE;
+void GgafDxMorpher::beat(int prm_target_mesh_no, frame prm_beat_target_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
+    _method[prm_target_mesh_no] = LOOP_MORPH_TRIANGLEWAVE;
 
-    _halfloop_cnt[prm_target_mesh] = 0;
-    _stop_halfloop_num[prm_target_mesh] = (int)(prm_beat_num*2.0f);
+    _halfloop_cnt[prm_target_mesh_no] = 0;
+    _stop_halfloop_num[prm_target_mesh_no] = (int)(prm_beat_num*2.0f);
 
-    _beat_attack_frames[prm_target_mesh] = prm_attack_frames;
-    _beat_rest_frames[prm_target_mesh] = prm_rest_frames;
-    _beat_target_frames[prm_target_mesh] = prm_beat_target_frames;
-    _beat_down_frames[prm_target_mesh] = _beat_target_frames[prm_target_mesh] - _beat_attack_frames[prm_target_mesh] - _beat_rest_frames[prm_target_mesh];
-    _beat_frame_count[prm_target_mesh] = 0;
+    _beat_attack_frames[prm_target_mesh_no] = prm_attack_frames;
+    _beat_rest_frames[prm_target_mesh_no] = prm_rest_frames;
+    _beat_target_frames[prm_target_mesh_no] = prm_beat_target_frames;
+    _beat_down_frames[prm_target_mesh_no] = _beat_target_frames[prm_target_mesh_no] - _beat_attack_frames[prm_target_mesh_no] - _beat_rest_frames[prm_target_mesh_no];
+    _beat_frame_count[prm_target_mesh_no] = 0;
 
     //最初のアタックまでのvelo
-    if (_beat_attack_frames[prm_target_mesh] > 0) {
-        _velo_weight[prm_target_mesh] = (_top_weight[prm_target_mesh] - _weight[prm_target_mesh]) / float(_beat_attack_frames[prm_target_mesh]);
-        _beat_progres[prm_target_mesh] = 0;
+    if (_beat_attack_frames[prm_target_mesh_no] > 0) {
+        _velo_weight[prm_target_mesh_no] = (_top_weight[prm_target_mesh_no] - _weight[prm_target_mesh_no]) / float(_beat_attack_frames[prm_target_mesh_no]);
+        _beat_progres[prm_target_mesh_no] = 0;
     } else { //アタックまでが無いの場合
-        _weight[prm_target_mesh] = _top_weight[prm_target_mesh];
-        _velo_weight[prm_target_mesh] = (_bottom_weight[prm_target_mesh] - _top_weight[prm_target_mesh]) / float(_beat_down_frames[prm_target_mesh]);
-        _halfloop_cnt[prm_target_mesh]++; //半ループカウント＋１
-        _beat_progres[prm_target_mesh] = 1;
+        _weight[prm_target_mesh_no] = _top_weight[prm_target_mesh_no];
+        _velo_weight[prm_target_mesh_no] = (_bottom_weight[prm_target_mesh_no] - _top_weight[prm_target_mesh_no]) / float(_beat_down_frames[prm_target_mesh_no]);
+        _halfloop_cnt[prm_target_mesh_no]++; //半ループカウント＋１
+        _beat_progres[prm_target_mesh_no] = 1;
     }
 }
-void GgafDxMorpher::stopImmed(int prm_target_mesh) {
-    _method[prm_target_mesh] = NOMORPH;
+void GgafDxMorpher::stopImmed(int prm_target_mesh_no) {
+    _method[prm_target_mesh_no] = NOMORPH;
 }
 
 GgafDxMorpher::~GgafDxMorpher() {

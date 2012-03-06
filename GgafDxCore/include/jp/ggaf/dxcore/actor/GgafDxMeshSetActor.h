@@ -15,9 +15,9 @@ private:
 
 public:
 
-    /** モデル資源 */
+    /** [r]モデル資源 */
     GgafDxMeshSetModel* _pMeshSetModel;
-    /** エフェクト資源 */
+    /** [r]エフェクト資源 */
     GgafDxMeshSetEffect* _pMeshSetEffect;
 
     /** 描画時のオブジェクト数 */

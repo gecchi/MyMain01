@@ -40,26 +40,26 @@ public:
     /** [r/w]描画時、Zバッファへ書き込みを行うか否か。true:Zバッファへ深度を書き込む／false:Zバッファへは何も書き込まない */
     bool _zwriteenable;
 
-    /** 直近の描画時に使用されたテクニック名のハッシュコード */
+    /** [r]直近の描画時に使用されたテクニック名のハッシュコード */
     static unsigned int _hash_technique_last_draw;
 
     /** [r]同一描画レベルの次のアクター */
     GgafDxDrawableActor* _pNext_TheSameDrawDepthLevel;
-    /** [r]現在のマテリアルのα値 (0.0 <= _fAlpha <= 1.0) */
+    /** [r/w]現在のマテリアルのα値 (0.0 <= _fAlpha <= 1.0) */
     float _fAlpha;
     /** [r]現在描画に使用しているシェーダーテクニック名 */
     char* _technique;
     /** [r]現在描画に使用しているのシェーダーテクニックのハッシュコード */
     hashval _hash_technique;
-    /** [r]現在のマテリアルカラー */
+    /** [r/w]現在のマテリアルカラー */
     D3DMATERIAL9* _paMaterial;
     /** [r]モデル資源 */
     GgafDxModel* _pModel;
     /** [r]エフェクト資源 */
     GgafDxEffect* _pEffect;
-    /** [r]現在の描画深度 */
+    /** [r/w]現在の描画深度 */
     int _now_drawdepth;
-    /** [r]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
+    /** [r/w]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
     int _specal_drawdepth;
     /** [r]フィードインフェードアウト支援 */
     GgafDxAlphaFader* _pFader;

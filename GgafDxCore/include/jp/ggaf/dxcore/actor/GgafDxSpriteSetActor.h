@@ -13,16 +13,13 @@ namespace GgafDxCore {
 class GgafDxSpriteSetActor : public GgafDxDrawableActor {
 
 public:
-    /** 同時描画セット数 */
+    /** [r]同時描画セット数 */
     int _draw_set_num;
-
-    /** モデルオブジェクトへのポインタ */
+    /** [r]モデル資源 */
     GgafDxSpriteSetModel* _pSpriteSetModel;
-
-    /** エフェクト */
+    /** [r]エフェクト資源 */
     GgafDxSpriteSetEffect* _pSpriteSetEffect;
-
-    /** UVフリッパー(パラパラアニメ) */
+    /** [r]UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
 
     /**
@@ -36,11 +33,11 @@ public:
      * @return
      */
     GgafDxSpriteSetActor(const char* prm_name,
-                          const char* prm_model_id,
-                          const char* prm_effect_id,
-                          const char* prm_technique,
-                          GgafCore::GgafStatus* prm_pStat,
-                          GgafDxChecker* prm_pChecker );
+                         const char* prm_model_id,
+                         const char* prm_effect_id,
+                         const char* prm_technique,
+                         GgafCore::GgafStatus* prm_pStat,
+                         GgafDxChecker* prm_pChecker );
 
     virtual void processDraw() override;
 

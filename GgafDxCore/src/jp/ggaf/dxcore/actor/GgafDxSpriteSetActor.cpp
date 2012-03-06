@@ -42,9 +42,7 @@ void GgafDxSpriteSetActor::processDraw() {
 
     GgafDxDrawableActor* pDrawActor = this;
     GgafDxSpriteSetActor* pSpriteSetActor = NULL;
-//    GgafDxRectUV* pRectUV_Active;
     float u,v;
-//    pTargetActor->_pUvFlipper->getUV(u,v);
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pSpriteSetModel && pDrawActor->_hash_technique == _hash_technique) {

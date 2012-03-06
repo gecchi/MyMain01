@@ -6,7 +6,9 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace SimpleSample;
 
-Universe::Universe(const char* prm_name, Camera* prm_pCamera) : DefaultUniverse(prm_name, prm_pCamera) {
+Universe::Universe(const char* prm_name, Camera* prm_pCam) :
+        DefaultUniverse(prm_name, prm_pCam) {
+    //「この世」コンストラクタ内で、シーンの new は行わないで下さい。
 }
 
 void Universe::initialize() {

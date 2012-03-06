@@ -3,13 +3,6 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-int GgafDxCamera::_X_ScreenLeft   = 0;
-int GgafDxCamera::_X_ScreenRight  = 0;
-int GgafDxCamera::_Y_ScreenTop    = 0;
-int GgafDxCamera::_Y_ScreenBottom = 0;
-
-
-
 GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_dep) :
         GgafDxGeometricActor(prm_name, NULL, NULL) {
     _class_name = "GgafDxCamera";
@@ -86,10 +79,10 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_d
     _pViewPoint = NEW GgafDxCameraViewPoint();
     _pViewPoint->locate(0, 0, 0);
 
-    _X_ScreenLeft   = PX2CO(GGAF_PROPERTY(GAME_BUFFER_WIDTH)) / -2;
-    _X_ScreenRight  = PX2CO(GGAF_PROPERTY(GAME_BUFFER_WIDTH)) / 2;
-    _Y_ScreenTop    = PX2CO(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / 2;
-    _Y_ScreenBottom = PX2CO(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / -2;
+    _X_buffer_left   = PX2CO(GGAF_PROPERTY(GAME_BUFFER_WIDTH)) / -2;
+    _X_buffer_right  = PX2CO(GGAF_PROPERTY(GAME_BUFFER_WIDTH)) / 2;
+    _Y_buffer_top    = PX2CO(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / 2;
+    _Y_buffer_bottom = PX2CO(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / -2;
     GgafDxGod::_pID3DDevice9->GetViewport(&_viewport);
 }
 

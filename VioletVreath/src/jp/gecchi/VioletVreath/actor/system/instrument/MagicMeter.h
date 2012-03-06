@@ -40,7 +40,7 @@ public:
     /** 魔法メーター１つの横幅(px) */
     float width_px_;
     /** 魔法メーター１つの高さ(px) */
-    float _height_px;
+    float height_px_;
     /** 魔法メーター１つの横幅 */
     coord width_;
     /** 魔法メーター１つの高さ */

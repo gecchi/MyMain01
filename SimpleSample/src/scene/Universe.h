@@ -12,14 +12,13 @@ namespace SimpleSample {
 class Universe : public GgafLib::DefaultUniverse {
 
 public:
-    Camera* _pCamera;
 
     /**
      * コンストラクタ .
      * @param prm_name 名称
-     * @param prm_pCamera カメラ
+     * @param prm_pCam カメラオブジェクト
      */
-    Universe(const char* prm_name, Camera* prm_pCamera);
+    Universe(const char* prm_name, Camera* prm_pCam);
 
     /**
      * 「この世」の初期処理 .

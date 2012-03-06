@@ -30,75 +30,74 @@ public:
     D3DVIEWPORT9 _viewport;
 
     // 視錐台の6つの面の頂点座標
-    /** 視錐台面、手前の四角形の頂点(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台面、手前の四角形の頂点(読み込み専用、毎フレーム更新) */
     D3DXVECTOR3 _vecNear[4];
-    /** 視錐台面、奥の四角形の頂点(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台面、奥の四角形の頂点(読み込み専用、毎フレーム更新) */
     D3DXVECTOR3 _vecFar[4];
 
     D3DXVECTOR3 _vecVerticalCenter[4];
 
     // 視錐台の6つの面
-    /** 視錐台面、上(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台面、上(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnTop;
-    /** 視錐台面、下(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台面、下(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnBottom;
-    /** 視錐台面、左(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台面、左(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnLeft;
-    /** 視錐台面、右(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台面、右(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnRight;
-    /** 視錐台面、手前(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台面、手前(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnFront;
-    /** 視錐台面、奥(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台面、奥(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnBack;
-
+    /** [r]視錐台を左右に分割する垂直面、左右の効果音のパンに使用(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnVerticalCenter;
 
-    /** 射影変換魚売れる */
+    /** [r]射影変換行列 */
     D3DXMATRIX _matProj;
-    /** 正射影変換魚売れる */
+    /** [r]正射影変換行列 */
     D3DXMATRIX _vMatrixOrthoProj;
 
-    /** カメラの位置(読み込み専用、フレーム毎更新) */
+    /** [r]カメラの位置(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamFromPoint;
-    /** カメラの注視点(読み込み専用、フレーム毎更新) */
+    /** [r]カメラの注視点(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamLookatPoint;
-    /** カメラの上ベクトル(読み込み専用、生成後不変) */
+    /** [r]カメラの上ベクトル(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamUp;
-    /** VIEW変換行列(読み込み専用、フレーム毎更新) */
+    /** [r]VIEW変換行列(フレーム毎更新) */
     D3DXMATRIX _matView;
-    /** 視野角X(読み込み専用、生成後不変) */
+    /** [r]視野角Xラジアン */
     float _rad_fovX;
-    /** 視野角Xの半分(読み込み専用、生成後不変) */
+    /** [r]視野角Xラジアンの半分 */
     float _rad_half_fovX;
-    /** 視野角Y(読み込み専用、生成後不変) */
+    /** [r]視野角Yラジアン */
     float _rad_fovY;
-    /** 視野角Yの半分(読み込み専用、生成後不変) */
+    /** [r]視野角Yラジアンの半分 */
     float _rad_half_fovY;
-    /** カメラのZ座標(読み込み専用) */
+    /** [r]カメラのZ座標 */
     dxcoord _cameraZ;
-    /** カメラのZ座標初期位置(読み込み専用、生成後不変) */
+    /** [r]カメラのZ座標初期位置 */
     dxcoord _cameraZ_org;
-    /** アスペクト比(読み込み専用、生成後不変) */
+    /** [r]アスペクト比 */
     float _screen_aspect;
-
+    /** [r]視野角Yタンジェントの半分 */
     float _tan_half_fovY;
+    /** [r]視野角Xタンジェントの半分 */
     float _tan_half_fovX;
-    float _dCamHarfXfovTan;
-
-    /** カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
+    /** [r]カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
     dxcoord _zn;
-    /** カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn  */
+    /** [r]カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
     dxcoord _zf;
-
+    /** [r]深さ（_cameraZ_orgの何倍か)  */
     float _dep;
-    /** 注視点 **/
+    /** [r/w]注視点 **/
     GgafDxCameraViewPoint* _pViewPoint;
 
 
-    static coord _X_ScreenLeft;
-    static coord _X_ScreenRight;
-    static coord _Y_ScreenTop;
-    static coord _Y_ScreenBottom;
+    coord _X_buffer_left;
+    coord _X_buffer_right;
+    coord _Y_buffer_top;
+    coord _Y_buffer_bottom;
 
 
     /**

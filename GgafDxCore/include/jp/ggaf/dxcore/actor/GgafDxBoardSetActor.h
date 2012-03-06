@@ -82,11 +82,11 @@ private:
 
 public:
     int _draw_set_num;
-    /** モデルオブジェクトへのポインタ */
+    /** [r]モデルオブジェクトへのポインタ */
     GgafDxBoardSetModel* _pBoardSetModel;
-    /** エフェクト */
+    /** [r]エフェクト */
     GgafDxBoardSetEffect* _pBoardSetEffect;
-    /** UVフリッパー(パラパラアニメ) */
+    /** [r]UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
     /** [r]幅(px) */
     pixcoord _width_px;

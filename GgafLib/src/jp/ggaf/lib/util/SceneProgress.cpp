@@ -75,9 +75,6 @@ void SceneProgress::changeWithScene_Crossfading(progress prm_progress, frame prm
 }
 
 void SceneProgress::changeWithScene_FadeoutFadin(progress prm_progress, frame prm_fade_frames) {
-
-
-
 }
 
 void SceneProgress::changeWithScene_Overlapping(progress prm_progress, frame prm_frames) {

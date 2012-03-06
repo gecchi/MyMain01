@@ -15,14 +15,14 @@ class God : public GgafLib::DefaultGod {
 public:
     /**
      * コンストラクタ .
-     * @param prm_hInstance HINSTANCE
-     * @param prm_pHWndPrimary １画面目HWND
-     * @param prm_pHWndSecondary ２画面目HWND
+     * @param prm_hInstance インスタンスハンドル
+     * @param prm_hWnd1 １画面目ウインドウハンドル
+     * @param prm_hWnd2 ２画面目ウインドウハンドル
      */
-    God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
+    God(HINSTANCE prm_hInstance, HWND prm_hWnd1, HWND prm_hWnd2);
 
     /**
-     * この世生成方法 .
+     * この世生成方法の実装 .
      * 神クラスを作成するには、「この世」の生成方法を実装する必要があります。
      * @return 生成した「この世」
      */

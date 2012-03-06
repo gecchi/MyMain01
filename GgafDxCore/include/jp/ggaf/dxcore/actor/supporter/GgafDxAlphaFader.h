@@ -15,40 +15,41 @@ namespace GgafDxCore {
 class GgafDxAlphaFader : public GgafCore::GgafObject {
 
 public:
-    /** 対象アクター */
+    /** [r]対象アクター */
     GgafDxDrawableActor* _pActor;
 
-    /** αの強度(0:透明～1.0:不透明) */
+    /** [r/w]αの強度(0:透明～1.0:不透明) */
     float _alpha;
-    /** αの目標の強度 */
+    /** [r/w]αの目標の強度 */
     float _target_alpha;
-    /** αの強度上限 */
+    /** [r/w]αの強度上限 */
     float _top_alpha;
-    /** αの強度下限 */
+    /** [r/w]αの強度下限 */
     float _bottom_alpha;
-    /** αの毎フレームの強度の増分 */
+    /** [r/w]αの毎フレームの強度の増分 */
     float _velo_alpha;
-    /** αの毎フレームの強度の増分の増分 */
+    /** [r/w]αの毎フレームの強度の増分の増分 */
     float _acce_alpha;
-    /** αのループカウント（2で拡大縮小ワンセット、1ならば拡大or縮小の片道） */
+    /** [r]αのループカウント（2で拡大縮小ワンセット、1ならば拡大or縮小の片道） */
     int _one_way_cnt;
-    /** αのストップする予定のループカウント */
+    /** [r]αのストップする予定のループカウント */
     int _stop_one_way_num;
-    /** αのフェーディング方法 */
+    /** [r]αのフェーディング方法 */
     GgafDxAlphaFadingMethod _method;
 
-    /** ビート時、αの三角波の波形でフェーディングのアタックフレーム数 */
+    /** [r]ビート時、αの台形波の波形でフェーディングのアタックフレーム数 */
     frame _beat_attack_frames;
-    /** ビート時、αの三角波の波形でフェーディングのレストフレーム数 */
+    /** [r]ビート時、αの台形波の波形でフェーディングのレストフレーム数 */
     frame _beat_rest_frames;
+    /** [r]ビート時、αの台形波の波形でアタックからの持続フレーム数 */
     frame _beat_duration_frames;
-    /** ビート時、αのフェーディングに費やすフレーム数 */
+    /** [r]ビート時、αのフェーディングに費やすフレーム数 */
     frame _beat_target_frames;
-    /** ビート時、αのアタックから下限までのフレーム数 */
+    /** [r]ビート時、αのアタックから下限までのフレーム数 */
     frame _beat_down_frames;
-    /** ビート時、内部カウンター */
+    /** [r]ビート時、内部カウンター */
     frame _beat_frame_count;
-    /** ビート時、内部進捗番号 */
+    /** [r]ビート時、内部進捗番号 */
     int _beat_progres;
 
 public:
@@ -79,6 +80,7 @@ public:
             _alpha = prm_alpha;
         }
     }
+
     /**
      * 強度の上限下限を設定
      * @param prm_alpha1 強度値1
@@ -179,7 +181,7 @@ public:
     void loopLiner(frame prm_beat_target_frames, float prm_beat_num);
 
     /**
-     * 矩形波でフェーディングする。 .
+     * 台形波でフェーディングする。 .
      * <PRE>
      *             ←③→
      * ⑤  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _

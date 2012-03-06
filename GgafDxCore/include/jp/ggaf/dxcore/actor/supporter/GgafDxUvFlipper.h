@@ -24,34 +24,41 @@ public:
         float _v;
     };
 
-
+    /** [r]アニメパターンテクスチャ */
     GgafDxTexture* _pTexture;
-
-    float _one_ptn_tex_width;
-    float _one_ptn_tex_height;
-    int _ptn_col_num;
-    int _ptn_row_num;
+    /** [r/w]アニメパターン0番の左上基準U座標(0.0～1.0) */
     float _base_u;
+    /** [r/w]アニメパターン0番の左上基準V座標(0.0～1.0) */
     float _base_v;
+    /** [r/w]１つのアニメパターンの幅(0.0～1.0) */
+    float _one_ptn_tex_width;
+    /** [r/w]１つのアニメパターンの高さ(0.0～1.0) */
+    float _one_ptn_tex_height;
+    /** [r]アニメパターンのカラム数(横に並ぶパターン数) */
+    int _ptn_col_num;
+    /** [r]アニメパターンの行数(縦に並ぶパターン数) */
+    int _ptn_row_num;
 
-    /** 現在表示中のアニメパターン番号(0～) */
+    /** [r/w]現在表示中のアニメパターン番号(0～) */
     int _pattno_uvflip_now;
-    /** 最大アニメパターン番号 */
+    /** [r/w]最大アニメパターン番号 */
     int _pattno_uvflip_max;
-    /** アニメパターン番号の上限番号 */
+    /** [r/w]アニメパターン番号の上限番号 */
     int _pattno_uvflip_top;
-    /** アニメパターン番号の下限番号 */
+    /** [r/w]アニメパターン番号の下限番号 */
     int _pattno_uvflip_bottom;
-    /** パターンとパターンの間隔フレーム数 */
+    /** [r/w]パターンとパターンの間隔フレーム数 */
     frame _uvflip_interval_frames;
-    /** アニメ方式 */
+    /** [r]アニメ方式 */
     GgafDxUvFlippingMethod _uvflip_method;
-    /** FLIP_OSCILLATE_LOOP用の現在のアニメ方向 */
+    /** [r]FLIP_OSCILLATE_LOOP用の現在のアニメ方向 */
     bool _is_reverse_order_in_oscillate_animation_flg;
 
+    /** */
     int* _paInt_PtnOffset_Customized;
     int _nPtn_Customized;
     int _cnt_Customized;
+    /** [r]内部UV配列 */
     UV* _paUV;
 
 
@@ -62,15 +69,15 @@ public:
 
 
     void copyStatesFrom(GgafDxUvFlipper* prm_pUvFlipper_Other) {
-        _one_ptn_tex_width             = prm_pUvFlipper_Other->_one_ptn_tex_width;
-        _one_ptn_tex_height            = prm_pUvFlipper_Other->_one_ptn_tex_height;
-        _ptn_col_num           = prm_pUvFlipper_Other->_ptn_col_num;
-        _pattno_uvflip_now     = prm_pUvFlipper_Other->_pattno_uvflip_now;
-        _pattno_uvflip_top     = prm_pUvFlipper_Other->_pattno_uvflip_top;
-        _pattno_uvflip_bottom  = prm_pUvFlipper_Other->_pattno_uvflip_bottom;
+        _one_ptn_tex_width      = prm_pUvFlipper_Other->_one_ptn_tex_width;
+        _one_ptn_tex_height     = prm_pUvFlipper_Other->_one_ptn_tex_height;
+        _ptn_col_num            = prm_pUvFlipper_Other->_ptn_col_num;
+        _pattno_uvflip_now      = prm_pUvFlipper_Other->_pattno_uvflip_now;
+        _pattno_uvflip_top      = prm_pUvFlipper_Other->_pattno_uvflip_top;
+        _pattno_uvflip_bottom   = prm_pUvFlipper_Other->_pattno_uvflip_bottom;
         _pattno_uvflip_max      = prm_pUvFlipper_Other->_pattno_uvflip_max;
         _uvflip_interval_frames = prm_pUvFlipper_Other->_uvflip_interval_frames;
-        _uvflip_method         = prm_pUvFlipper_Other->_uvflip_method;
+        _uvflip_method          = prm_pUvFlipper_Other->_uvflip_method;
         _is_reverse_order_in_oscillate_animation_flg =
                 prm_pUvFlipper_Other->_is_reverse_order_in_oscillate_animation_flg;
     }

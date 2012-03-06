@@ -351,8 +351,6 @@ void GgafDxKurokoB::execGravitationVxyzMvSequence(GgafDxGeometricActor* prm_pAct
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-
-
 void GgafDxKurokoB::takeoverMvFrom(GgafDxKurokoB* prm_pKurokoB) {
 
     // XŽ²•ûŒüˆÚ“®‘¬“x

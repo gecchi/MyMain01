@@ -96,10 +96,10 @@ void World::processBehavior() {
 #else
     sprintf(aBufDebug_, "%05uDRAW / %06uCHK / %07uF / %03.1fFPS / NEW=%d",
             GgafGod::_num_actor_drawing,
-            CollisionChecker::num_check_,
+            CollisionChecker::_num_check,
             (unsigned int)askGod()->_frame_of_God,
             askGod()->_fps,
-            ((GgafFactory::CREATING_ORDER->progress_==1)  ? GgafFactory::CREATING_ORDER->_id : 0)
+            ((GgafFactory::CREATING_ORDER->_progress==1)  ? GgafFactory::CREATING_ORDER->_id : 0)
             );
     pLabel_Debug_->update(PX2CO(1), PX2CO(1), aBufDebug_);
 #endif

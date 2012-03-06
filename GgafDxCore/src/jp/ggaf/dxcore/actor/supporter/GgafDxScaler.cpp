@@ -133,12 +133,9 @@ void GgafDxScaler::intoTargetScaleLinerUntil(int prm_target_scale, frame prm_spe
 }
 
 void GgafDxScaler::intoTargetScaleLinerUntil(axis prm_axis, int prm_target_scale, frame prm_spend_frame) {
-    //_TRACE_("intoTargetScaleLinerUntil prm_axis="<<prm_axis<<"/prm_target_scale="<<prm_target_scale<<"/prm_spend_frame="<<prm_spend_frame);
     _method[prm_axis] = TARGET_SCALE_LINER;
     _target_scale[prm_axis] = prm_target_scale;
     _velo_scale[prm_axis] = (prm_target_scale - _scale[prm_axis]) / (int)prm_spend_frame;
-    //_TRACE_("intoTargetScaleLinerUntil prm_target_scale="<<prm_target_scale<<"/ _scale["<<prm_axis<<"]="<<_scale[prm_axis]);
-    //_TRACE_("intoTargetScaleLinerUntil _velo_scale["<<prm_axis<<"]="<<_velo_scale[prm_axis]);
     if (_velo_scale[prm_axis] == 0) {
         _velo_scale[prm_axis] = prm_target_scale - _scale[prm_axis];
     }
@@ -169,7 +166,6 @@ void GgafDxScaler::intoTargetScaleLinerStep(axis prm_axis, int prm_target_scale,
     _velo_scale[prm_axis] = sgn(prm_target_scale - _scale[prm_axis])*prm_velo_scale;
 }
 
-
 void GgafDxScaler::loopLiner(frame prm_beat_target_frames, float prm_beat_num) {
     for (int a = 0; a < 3; a++) {
         loopLiner((axis)a, prm_beat_target_frames, prm_beat_num);
@@ -192,7 +188,6 @@ void GgafDxScaler::beat(frame prm_beat_target_frames, frame prm_attack_frames, f
         beat((axis)a, prm_beat_target_frames, prm_attack_frames, prm_rest_frames, prm_beat_num);
     }
 }
-
 
 void GgafDxScaler::beat(axis prm_axis, frame prm_beat_target_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
     _method[prm_axis] = BEAT_SCALE_TRIANGLEWAVE;

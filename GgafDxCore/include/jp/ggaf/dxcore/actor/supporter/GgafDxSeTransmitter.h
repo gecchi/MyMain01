@@ -18,13 +18,15 @@ private:
     void updatePanVolume3D();
 
 public:
-    /** SE資源接続 */
+    /** [r]SE資源接続の配列 */
     GgafDxSeConnection** _papSeCon;
-    /** 擬似３D再生か否か */
+    /** [r/w]各SE（配列）は、擬似３D再生かどうかを保持 */
     bool* _pa_is3D;
-
+    /** [r]SE種類数 */
     int _se_num;
+    /** [r]SE発生元アクター */
     GgafDxGeometricActor* _pActor;
+
     /**
      * コンストラクタ .
      */
@@ -33,7 +35,7 @@ public:
     /**
      * SE使用数を宣言する .
      * 本オブジェクトの機能を利用するには、必須。
-     * @param prm_se_num SE数
+     * @param prm_se_num SE数（種類数）
      */
     void useSe(int prm_se_num);
 
@@ -69,8 +71,6 @@ public:
      * @param prm_id SEのID ( 0 ～ SE数-1 )
      */
     void play3D(int prm_id);
-
-
 
     /**
      * 毎フレームの処理 .

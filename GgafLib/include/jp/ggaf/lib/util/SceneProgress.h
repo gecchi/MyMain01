@@ -2,6 +2,9 @@
 #define SCENEPROGRESS_H_
 namespace GgafLib {
 
+
+typedef std::map<progress, GgafLib::DefaultScene*> ProgSceneMap;
+
 /**
  * 進捗管理(シーン用)クラス .
  * @version 1.00
@@ -13,7 +16,7 @@ public:
     /** 進捗管理対象シーン */
     DefaultScene* _pScene;
     /** 進捗番号 対 サブシーン */
-    std::map<progress, DefaultScene*> _mapProg2Scene;
+    ProgSceneMap _mapProg2Scene;
 
     /**
      * コンストラクタ .

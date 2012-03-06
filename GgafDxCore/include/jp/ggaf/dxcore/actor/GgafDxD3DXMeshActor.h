@@ -15,9 +15,9 @@ private:
 
 public:
     static DWORD FVF;
-    /** モデル */
+    /** [r]モデル */
     GgafDxD3DXMeshModel* _pD3DXMeshModel;
-    /** エフェクト資源 */
+    /** [r]エフェクト資源 */
     GgafDxMeshEffect* _pMeshEffect;
 
     GgafDxD3DXMeshActor(const char* prm_name,
@@ -28,7 +28,7 @@ public:
                          GgafDxChecker* prm_pChecker);
 
     /**
-     * ＜OverRide です＞<BR>
+     * GgafDxD3DXMeshActorを描画 .
      */
     virtual void processDraw() override;
 

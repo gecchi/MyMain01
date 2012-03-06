@@ -14,9 +14,9 @@ class GgafDxMeshActor : public GgafDxDrawableActor {
 
 public:
 
-    /** モデル資源 */
+    /** [r]モデル資源 */
     GgafDxMeshModel* _pMeshModel;
-    /** エフェクト資源 */
+    /** [r]エフェクト資源 */
     GgafDxMeshEffect* _pMeshEffect;
 
     float _far_rate;

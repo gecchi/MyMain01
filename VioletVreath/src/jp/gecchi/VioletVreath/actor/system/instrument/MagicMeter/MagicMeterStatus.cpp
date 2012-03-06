@@ -33,7 +33,7 @@ void MagicMeterStatus::processDraw() {
         if (pMagic->level_ > 0) {
             setAlpha(1.0);
             _X = pMagicMeter_->_X + PX2CO(pMagicMeter_->width_px_)*i;
-            _Y = pMagicMeter_->_Y + PX2CO(pMagicMeter_->_height_px);
+            _Y = pMagicMeter_->_Y + PX2CO(pMagicMeter_->height_px_);
             sprintf(aBuf_, "%06d", (pMagic->lvinfo_[pMagic->level_].remainingtime_of_effect_)/60);
             update(aBuf_);
             StringBoardActor::processDraw();
@@ -44,7 +44,7 @@ void MagicMeterStatus::processDraw() {
         if (pMagic->rr_ > 0.1) {
             for (int j = 1; j <= pMagic->level_; j++) {
                 setAlpha(pMagic->rr_);
-                _Y = pMagicMeter_->_Y - (PX2CO(pMagicMeter_->_height_px)*(j+1)*pMagic->rr_); //j+1 ‚Ì +1 ‚ÍÅ‰º’i‚ª nothing ‚Ìˆ×
+                _Y = pMagicMeter_->_Y - (PX2CO(pMagicMeter_->height_px_)*(j+1)*pMagic->rr_); //j+1 ‚Ì +1 ‚ÍÅ‰º’i‚ª nothing ‚Ìˆ×
                 sprintf(aBuf_, "%06d", (pMagic->lvinfo_[j].remainingtime_of_effect_)/60);
                 update(aBuf_);
                 StringBoardActor::processDraw();

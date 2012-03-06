@@ -12,7 +12,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
     _X = -356000; //ŠJŽnÀ•W
     _Y = 0;
     _Z = -680000;
-    X_turn_ = GgafDxCamera::_X_ScreenRight - 30000;
+    X_turn_ = P_CAM->_X_buffer_right - 30000;
     Y_turn_ = -10000;
     Z_turn_ = 0;
 
@@ -126,7 +126,7 @@ void EnemyCeres::onInactive() {
 }
 
 bool EnemyCeres::isOutOfUniverse() {
-    if (_X < GgafDxCamera::_X_ScreenLeft - 20000000) {
+    if (_X < P_CAM->_X_buffer_left - 20000000) {
         return true;
     } else {
         return false;

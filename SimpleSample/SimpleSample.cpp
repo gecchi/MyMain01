@@ -36,9 +36,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
     HWND hWnd1, hWnd2;
-    GgafLibCreateWindow(wcex1            , wcex2,
-                        "SimpleSample[1]", "SimpleSample[2]", //タイトル
-                        hWnd1            , hWnd2);            //HWNDが代入されます(戻り値)
+    GgafLibCreateWindow(wcex1, wcex2,
+                        "SimpleSample[1]", "SimpleSample[2]", //タイトル文字列
+                        hWnd1, hWnd2); //HWNDが代入されます(戻り値)
 
     MSG msg;
     try {

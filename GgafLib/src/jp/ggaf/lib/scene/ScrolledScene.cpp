@@ -12,7 +12,7 @@ ScrolledScene::ScrolledScene(const char* prm_name) : DefaultScene(prm_name) {
 
 
 void ScrolledScene::scroll_X(GgafObject* pThat, void* p1, void* p2) {
-    if (pThat->_obj_class >= Obj_GgafScene) {
+    if ((pThat->_obj_class & Obj_GgafScene) == Obj_GgafScene) {
         return; //ƒV[ƒ“‚È‚ç‚Î–³‹
     }
     GgafActor* pActor = (GgafActor*)pThat;

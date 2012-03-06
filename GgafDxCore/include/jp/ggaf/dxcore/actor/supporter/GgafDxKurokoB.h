@@ -30,42 +30,41 @@ public:
      */
     GgafDxKurokoB(GgafDxGeometricActor* prm_pActor);
 
-
-    /** X軸方向移動速度 */
+    /** [r/w]X軸方向移動速度 */
     velo _veloVxMv;
-    /** X軸方向移動速度上限 */
+    /** [r/w]X軸方向移動速度上限 */
     velo _veloTopVxMv;
-    /** X軸方向移動速度下限 */
+    /** [r/w]X軸方向移動速度下限 */
     velo _veloBottomVxMv;
-    /** X軸方向移動加速度 */
+    /** [r/w]X軸方向移動加速度 */
     acce _acceVxMv;
-    /** X軸方向移動加速度上限*/
+    /** [r/w]X軸方向移動加速度上限*/
     acce _acceTopVxMv;
-    /** X軸方向移動加速度下限*/
+    /** [r/w]X軸方向移動加速度下限*/
     acce _acceBottomVxMv;
-    /** Y軸方向移動速度 */
+    /** [r/w]Y軸方向移動速度 */
     velo _veloVyMv;
-    /** Y軸方向移動速度上限 */
+    /** [r/w]Y軸方向移動速度上限 */
     velo _veloTopVyMv;
-    /** Y軸方向移動速度下限 */
+    /** [r/w]Y軸方向移動速度下限 */
     velo _veloBottomVyMv;
-    /** Y軸方向移動加速度 */
+    /** [r/w]Y軸方向移動加速度 */
     acce _acceVyMv;
-    /** Y軸方向移動加速度上限*/
+    /** [r/w]Y軸方向移動加速度上限*/
     acce _acceTopVyMv;
-    /** Y軸方向移動加速度下限*/
+    /** [r/w]Y軸方向移動加速度下限*/
     acce _acceBottomVyMv;
-    /** Z軸方向移動速度 */
+    /** [r/w]Z軸方向移動速度 */
     velo _veloVzMv;
-    /** Z軸方向移動速度上限 */
+    /** [r/w]Z軸方向移動速度上限 */
     velo _veloTopVzMv;
-    /** Z軸方向移動速度下限 */
+    /** [r/w]Z軸方向移動速度下限 */
     velo _veloBottomVzMv;
-    /** Z軸方向移動加速度 */
+    /** [r/w]Z軸方向移動加速度 */
     acce _acceVzMv;
-    /** Z軸方向移動加速度上限*/
+    /** [r/w]Z軸方向移動加速度上限*/
     acce _acceTopVzMv;
-    /** Z軸方向移動加速度下限*/
+    /** [r/w]Z軸方向移動加速度下限*/
     acce _acceBottomVzMv;
 
 

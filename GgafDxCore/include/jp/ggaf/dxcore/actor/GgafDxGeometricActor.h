@@ -87,19 +87,19 @@ public:
     /** [r]カレントフレームで自身の現在のWorld変換行列の逆行列(_matInvWorldRotMv)を計算して求めたかどうかのフラグ。 */
     bool _wasCalc_matInvWorldRotMv;
 
-    /** 土台となるアクター、土台が無い場合はNULL（IK用） */
+    /** [r]土台となるアクター、土台が無い場合はNULL（IK用） */
     GgafDxCore::GgafDxGeometricActor* _pActor_Base;
-    /** 土台アクター上でのワールドX座標 */
+    /** [r]土台アクター上でのワールドX座標 */
     coord _X_local;
-    /** 土台アクター上でのワールドY座標 */
+    /** [r]土台アクター上でのワールドY座標 */
     coord _Y_local;
-    /** 土台アクター上でのワールドZ座標 */
+    /** [r]土台アクター上でのワールドZ座標 */
     coord _Z_local;
-    /** 土台アクター上でのワールドX軸回転角 */
+    /** [r]土台アクター上でのワールドX軸回転角 */
     angle _RX_local;
-    /** 土台アクター上でのワールドY軸回転角 */
+    /** [r]土台アクター上でのワールドY軸回転角 */
     angle _RY_local;
-    /** 土台アクター上でのワールドZ軸回転角 */
+    /** [r]土台アクター上でのワールドZ軸回転角 */
     angle _RZ_local;
 
     coord _X_final;
@@ -295,7 +295,6 @@ public:
         setBoundingSphereRadiusRate(SC2R(max3(_SX,_SY,_SZ)));
     }
 
-
     /**
      * 未変換座標をコピーして設定 .
      * @param prm_pActor コピー元アクター
@@ -350,6 +349,9 @@ public:
                                                 int prm_RZ_init_local,
                                                 int prm_RY_init_local);
 
+    /**
+     * 座標系をローカル(土台からの相対座標)に変換 .
+     */
     virtual void changeGeoLocal() {
         if (_is_local) {
             return;
@@ -369,6 +371,10 @@ public:
             _is_local = true;
         }
     }
+
+    /**
+     * 座標系を絶対座標に変換 .
+     */
     virtual void changeGeoFinal() {
         if (_is_local) {
             _X_local = _X;
@@ -386,7 +392,6 @@ public:
             _is_local = false;
         } else {
             return;
-
         }
     }
 
