@@ -4,7 +4,7 @@ namespace SimpleSample {
 
 /**
  * 「この世」の雛形 .
- * GgafLib::DefaultUniverse を継承し「この世」クラスを作成して下さい。<BR>
+ * GgafLib::DefaultUniverse を継承し「この世」クラスを作成して下さい。
  * @version 1.00
  * @since 2012/02/16
  * @author Masatoshi Tsuge
@@ -12,7 +12,6 @@ namespace SimpleSample {
 class SmpUniverse : public GgafLib::DefaultUniverse {
 
 public:
-
     /**
      * コンストラクタ .
      * @param prm_name 名称
