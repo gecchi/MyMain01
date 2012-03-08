@@ -1,4 +1,7 @@
 #include "stdafx.h"
+
+using namespace std; //add tsuge
+
 ////////////////////////////////////////////////////////
 // IOModel_X.cpp
 // load/save Frame descriptions

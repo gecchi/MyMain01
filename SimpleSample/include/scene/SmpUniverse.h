@@ -1,5 +1,5 @@
-#ifndef UNIVERSE_H_
-#define UNIVERSE_H_
+#ifndef SMPUNIVERSE_H_
+#define SMPUNIVERSE_H_
 namespace SimpleSample {
 
 /**
@@ -9,7 +9,7 @@ namespace SimpleSample {
  * @since 2012/02/16
  * @author Masatoshi Tsuge
  */
-class Universe : public GgafLib::DefaultUniverse {
+class SmpUniverse : public GgafLib::DefaultUniverse {
 
 public:
 
@@ -18,7 +18,7 @@ public:
      * @param prm_name 名称
      * @param prm_pCam カメラオブジェクト
      */
-    Universe(const char* prm_name, Camera* prm_pCam);
+    SmpUniverse(const char* prm_name, SmpCamera* prm_pCam);
 
     /**
      * 「この世」の初期処理 .
@@ -30,8 +30,8 @@ public:
      */
     void processBehavior() override {}
 
-    virtual ~Universe();
+    virtual ~SmpUniverse();
 };
 
 }
-#endif /*UNIVERSE_H_*/
+#endif /*SMPUNIVERSE_H_*/

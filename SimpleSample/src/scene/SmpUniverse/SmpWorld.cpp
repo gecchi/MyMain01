@@ -1,18 +1,13 @@
 #include "stdafx.h"
-
-using namespace std;
-using namespace GgafCore;
-using namespace GgafDxCore;
-using namespace GgafLib;
 using namespace SimpleSample;
 
-World::World(const char* prm_name) : DefaultScene(prm_name) {
-    pActor_ = new TestActor("TEST");     //キャラ作成＆保持
+SmpWorld::SmpWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
+    pActor_ = new SmpActor("TEST");     //キャラ作成＆保持
     getDirector()->addSubGroup(pActor_); //キャラをシーン監督の配下に所属（表示される）
-    VirtualButton::_tagKeymap.BUTTON1 = DIK_SPACE; //ボタン１=スペースキー とする。
+    GgafLib::VirtualButton::_tagKeymap.BUTTON1 = DIK_SPACE; //ボタン１=スペースキー とする。
 }
 
-void World::processBehavior() {
+void SmpWorld::processBehavior() {
     //キャラをボタン入力で移動
     vb_.update(); //入力状況更新
     if (vb_.isBeingPressed(VB_BUTTON1)) {
@@ -40,5 +35,5 @@ void World::processBehavior() {
     }
 }
 
-World::~World() {
+SmpWorld::~SmpWorld() {
 }

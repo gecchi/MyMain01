@@ -14,7 +14,7 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
     }
     //線形８分木配列作成
     _num_space = (int)((_paPow[_top_space_level+1] -1) / 7); //空間数
-    _TRACE_("線形８分木空間配列要素数 _num_space="<<_num_space);
+    _TRACE_("線形八分木空間配列要素数 _num_space="<<_num_space);
     _paSpace = NEW GgafLinearOctreeSpace[_num_space];
     for (UINT32 i = 0; i < _num_space; i++) {
         _paSpace[i]._my_index = i;
@@ -32,6 +32,8 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
     _top_level_dX = ((_root_X2-_root_X1) / ((float)(1<<_top_space_level))) + 1;
     _top_level_dY = ((_root_Y2-_root_Y1) / ((float)(1<<_top_space_level))) + 1;
     _top_level_dZ = ((_root_Z2-_root_Z1) / ((float)(1<<_top_space_level))) + 1; //+1は空間数をオーバーしないように余裕をもたせるため
+    _TRACE_("八分木レベル0空間=" << _root_X2-_root_X1 << "x" << _root_Y2-_root_Y1 << "x" << _root_Z2-_root_Z1);
+    _TRACE_("八分木レベル"<<_top_space_level<<"空間=" << _top_level_dX << "x" << _top_level_dY << "x" << _top_level_dZ);
 }
 
 void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
@@ -205,23 +207,21 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
     prm_pElem->_pLinearOctree = this;
     prm_pElem->addElem(&(_paSpace[index]));
 }
+
 void GgafLinearOctree::clearElem() {
     if (_pRegElemFirst == NULL) {
         return;
     }
     GgafLinearOctreeElem* pElem = _pRegElemFirst;
     while(true) {
-
         pElem->extract();
         pElem = pElem -> _pRegLinkNext;
         if (pElem == NULL) {
             break;
         }
-
     }
     _pRegElemFirst = NULL;
 }
-
 
 GgafLinearOctree::~GgafLinearOctree() {
     DELETEARR_IMPOSSIBLE_NULL(_paSpace);

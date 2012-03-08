@@ -1,5 +1,5 @@
-#ifndef WORLD_H_
-#define WORLD_H_
+#ifndef SMPWORLD_H_
+#define SMPWORLD_H_
 namespace SimpleSample {
 
 /**
@@ -11,19 +11,19 @@ namespace SimpleSample {
  * @since 2012/02/16
  * @author Masatoshi Tsuge
  */
-class World : public GgafLib::DefaultScene {
+class SmpWorld : public GgafLib::DefaultScene {
 
 public:
     /** 入力受付 */
     GgafLib::VirtualButton vb_;
     /** テストキャラ */
-    TestActor* pActor_;
+    SmpActor* pActor_;
 
     /**
      * コンストラクタ .
      * @param prm_name 名称
      */
-    World(const char* prm_name);
+    SmpWorld(const char* prm_name);
 
     /**
      * 世界シーンの初期処理 .
@@ -35,8 +35,8 @@ public:
      */
     void processBehavior() override;
 
-    virtual ~World();
+    virtual ~SmpWorld();
 };
 
 }
-#endif /*WORLD_H_*/
+#endif /*SMPWORLD_H_*/

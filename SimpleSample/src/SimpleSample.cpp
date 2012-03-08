@@ -1,10 +1,12 @@
 /**
- * 「Gecchi Game App Freamework ライブラリ」使用サンプル
+ * 「Gecchi Game App Framework ライブラリ」使用サンプル
  */
 #include "stdafx.h"
-#include "GgafLibEntory.h"
+#include "GgafLibEntory.h" //"GgafLibEntory.h" をインクルードし、
+                           //main関数 WinMain関数 ウィンドウプロシージャは
+                           //１つのファイルに記述します。
+using namespace SimpleSample;
 
-using namespace std;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -43,7 +45,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     MSG msg;
     try {
         //神の誕生
-        SimpleSample::God* pGod = new SimpleSample::God(hInstance, hWnd1, hWnd2);
+        SmpGod* pGod = new SmpGod(hInstance, hWnd1, hWnd2);
         pGod->init();
         //ゲームループ
         timeBeginPeriod(1);
@@ -51,8 +53,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
             if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
                     //終了メッセージの場合アプリを終了
-                    if (SimpleSample::God::_can_be) {
-                        SimpleSample::God::_can_be = false;
+                    if (SmpGod::_can_be) {
+                        SmpGod::_can_be = false;
                         while (pGod->_is_being) { Sleep(2); }
                         delete pGod;
                         GgafLib::GgafLibProperties::clean(); //プロパティ解放
@@ -64,13 +66,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                 DispatchMessage(&msg);
             } else {
                 //通常時は、次のようにひたすら be() メソッドをコールしてください。
-                if (SimpleSample::God::_can_be) {
+                if (SmpGod::_can_be) {
                     pGod->be();
                 }
             }
         }
-    } catch (exception& e2) {
-        string what(e2.what());
+    } catch (std::exception& e2) {
+        std::string what(e2.what());
         MessageBox(NULL, what.c_str(), "SimpleSample Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
         _TRACE_("[エラー]:"<<what); //_TRACE_() はデバッグモード時のみ標準出力に出力されます。
         timeEndPeriod(1);

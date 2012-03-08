@@ -1,16 +1,16 @@
-#ifndef GOD_H_
-#define GOD_H_
+#ifndef SMPGOD_H_
+#define SMPGOD_H_
 namespace SimpleSample {
 
 /**
  * 神の雛形 .
  * GgafLib::DefaultGod を継承し、神クラスを作成して下さい。<BR>
- * その際、GgafCore::GgafUniverse* createUniverse() をオーバーライドし、実装して下さい。<BR>
+ * その際、GgafCore::GgafUniverse* createUniverse() をオーバーライド＆実装して下さい。<BR>
  * @version 1.00
  * @since 2012/02/16
  * @author Masatoshi Tsuge
  */
-class God : public GgafLib::DefaultGod {
+class SmpGod : public GgafLib::DefaultGod {
 
 public:
     /**
@@ -19,7 +19,7 @@ public:
      * @param prm_hWnd1 １画面目ウインドウハンドル
      * @param prm_hWnd2 ２画面目ウインドウハンドル
      */
-    God(HINSTANCE prm_hInstance, HWND prm_hWnd1, HWND prm_hWnd2);
+    SmpGod(HINSTANCE prm_hInstance, HWND prm_hWnd1, HWND prm_hWnd2);
 
     /**
      * この世生成方法の実装 .
@@ -28,8 +28,8 @@ public:
      */
     GgafCore::GgafUniverse* createUniverse() override;
 
-    virtual ~God();
+    virtual ~SmpGod();
 };
 
 }
-#endif /*GOD_H_*/
+#endif /*SMPGOD_H_*/

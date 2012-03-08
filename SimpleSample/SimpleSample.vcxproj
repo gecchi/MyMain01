@@ -58,7 +58,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(MY_DEV_ROOT)\GgafLib\include;$(MY_DEV_ROOT)\GgafDxCore\include;$(MY_DEV_ROOT)\GgafCore\include;$(MY_DEV_ROOT)\CustomizeVorbis_static\include;$(MY_DEV_ROOT)\CustomizeOgg_static\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;$(MY_DEV_ROOT)\GgafLib\include;$(MY_DEV_ROOT)\GgafDxCore\include;$(MY_DEV_ROOT)\GgafCore\include;$(MY_DEV_ROOT)\CustomizeVorbis_static\include;$(MY_DEV_ROOT)\CustomizeOgg_static\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -94,12 +94,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\actor\Camera.h" />
-    <ClInclude Include="src\actor\TestActor.h" />
-    <ClInclude Include="src\God.h" />
-    <ClInclude Include="src\scene\Universe.h" />
-    <ClInclude Include="src\scene\Universe\World.h" />
-    <ClInclude Include="src\SimpleSample.h" />
+    <ClInclude Include="include\actor\SmpActor.h" />
+    <ClInclude Include="include\actor\SmpCamera.h" />
+    <ClInclude Include="include\scene\SmpUniverse.h" />
+    <ClInclude Include="include\scene\SmpUniverse\SmpWorld.h" />
+    <ClInclude Include="include\SimpleSample.h" />
+    <ClInclude Include="include\SmpGod.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -120,12 +120,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SimpleSample.cpp" />
-    <ClCompile Include="src\actor\Camera.cpp" />
-    <ClCompile Include="src\actor\TestActor.cpp" />
-    <ClCompile Include="src\God.cpp" />
-    <ClCompile Include="src\scene\Universe.cpp" />
-    <ClCompile Include="src\scene\Universe\World.cpp" />
+    <ClCompile Include="src\actor\SmpActor.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\actor\SmpCamera.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\scene\SmpUniverse.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\scene\SmpUniverse\SmpWorld.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\SimpleSample.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\SmpGod.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

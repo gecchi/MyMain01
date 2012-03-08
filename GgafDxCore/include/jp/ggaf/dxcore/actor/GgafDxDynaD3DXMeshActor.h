@@ -33,9 +33,6 @@ public:
                              GgafCore::GgafStatus* prm_pStat,
                              GgafDxChecker* prm_pChecker );
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
-     */
     virtual void processDraw() override;
 
     /**

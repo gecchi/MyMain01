@@ -122,7 +122,7 @@
 // FormationMassalia ‚Ìƒ‰ƒ“ƒN®
 #define R_FormationMassalia_LaunchInterval  (10  + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //oŒ»ŠÔŠu
 #define R_FormationMassalia_MvVelo  (8000+_RANK_*8000)  //ˆÚ“®‘¬“x
-#define R_FormationMassalia_DurationFreams  (60*20)  //‘±ŠÔ
+#define R_FormationMassalia_DurationFrames  (60*20)  //‘±ŠÔ
 // gen02 end
 
 //1/ã2

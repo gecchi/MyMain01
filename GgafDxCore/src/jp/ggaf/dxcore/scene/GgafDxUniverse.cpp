@@ -102,6 +102,7 @@ void GgafDxUniverse::processSettlementBehavior() {
         pSeArray->_p = 0; //ƒŠƒZƒbƒg
     }
 
+    GgafRepeatSeq::setMax("_SE_D_"); //ŽŸ‚ÌnextVal‚Å0‚ð•Ô‚·ˆ×
 }
 
 void GgafDxUniverse::draw() {
@@ -216,8 +217,6 @@ void GgafDxUniverse::draw() {
         GgafDxEffectManager::_pEffect_Active = NULL;
         GgafDxModelManager::_pModelLastDraw = NULL;
         GgafDxDrawableActor::_hash_technique_last_draw = 0;
-
-
     }
 
 }

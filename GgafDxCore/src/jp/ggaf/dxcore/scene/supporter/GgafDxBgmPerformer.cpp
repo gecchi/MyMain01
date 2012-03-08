@@ -16,6 +16,7 @@ GgafDxBgmPerformer::GgafDxBgmPerformer() : GgafObject() {
     _pa_target_volume = NULL;
     _pa_inc_volume = NULL;
     _pa_is_fadeout_stop = NULL;
+    _pa_pause_stat = NULL; //TODO:_pa_pause_statŽg‚Á‚Ä‚È‚¢
 }
 void GgafDxBgmPerformer::useBgm(int prm_bgm_num) {
     _bgm_num = prm_bgm_num;
@@ -25,7 +26,7 @@ void GgafDxBgmPerformer::useBgm(int prm_bgm_num) {
     _pa_now_volume = NEW double[_bgm_num];
     _pa_target_volume = NEW double[_bgm_num];
     _pa_inc_volume = NEW double[_bgm_num];
-    _pa_pause_stat = NEW IkdLib::PCMPlayer::STATE[_bgm_num];
+    _pa_pause_stat = NEW IkdLib::PCMPlayer::STATE[_bgm_num]; 
     for (int i = 0; i < _bgm_num; i++) {
         _papBgmCon[i] = NULL;
         _pa_is_fade[i] = false;
@@ -138,4 +139,5 @@ GgafDxBgmPerformer::~GgafDxBgmPerformer() {
     DELETEARR_POSSIBLE_NULL(_pa_now_volume);
     DELETEARR_POSSIBLE_NULL(_pa_target_volume);
     DELETEARR_POSSIBLE_NULL(_pa_inc_volume);
+    DELETEARR_POSSIBLE_NULL(_pa_pause_stat);
 }

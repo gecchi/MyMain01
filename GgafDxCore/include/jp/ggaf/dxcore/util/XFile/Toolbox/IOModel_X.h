@@ -36,7 +36,7 @@ public:
     }
 
 private:
-    ifstream fin;
+    std::ifstream fin;
     Frm::Bone* _LoadSkeletton;
     Frm::Mesh* _LoadMesh;
     Frm::AnimationSet* _LoadAnimationSet;

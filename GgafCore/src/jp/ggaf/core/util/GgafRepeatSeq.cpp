@@ -15,6 +15,41 @@ void GgafRepeatSeq::create(string ID, int min, int max) {
         mapMinval[ID] = min;
     }
 }
+void GgafRepeatSeq::set(string ID, int val) {
+#ifdef MY_DEBUG
+    if (isExist(ID) ) {
+#endif
+        mapNowval[ID] = val;
+#ifdef MY_DEBUG
+    } else {
+        throwGgafCriticalException("GgafRepeatSeq::set() ID="<<ID<<"‚Í‘¶Ý‚µ‚Ü‚¹‚ñ");
+    }
+#endif
+}
+
+void GgafRepeatSeq::setMax(string ID) {
+#ifdef MY_DEBUG
+    if (isExist(ID) ) {
+#endif
+        mapNowval[ID] = mapMaxval[ID];
+#ifdef MY_DEBUG
+    } else {
+        throwGgafCriticalException("GgafRepeatSeq::setMax() ID="<<ID<<"‚Í‘¶Ý‚µ‚Ü‚¹‚ñ");
+    }
+#endif
+}
+
+void GgafRepeatSeq::setMin(string ID) {
+#ifdef MY_DEBUG
+    if (isExist(ID) ) {
+#endif
+    mapNowval[ID] = mapMinval[ID];
+#ifdef MY_DEBUG
+    } else {
+        throwGgafCriticalException("GgafRepeatSeq::setMin() ID="<<ID<<"‚Í‘¶Ý‚µ‚Ü‚¹‚ñ");
+    }
+#endif
+}
 
 bool GgafRepeatSeq::isExist(string ID) {
     map<string, int>::iterator i = mapNowval.find(ID);
@@ -30,7 +65,7 @@ int GgafRepeatSeq::nextVal(string ID) {
     if (isExist(ID) ) {
 #endif
         mapNowval[ID] = mapNowval[ID] + 1;
-        if (mapNowval[ID]  > mapMaxval[ID]) {
+        if (mapNowval[ID] > mapMaxval[ID]) {
             mapNowval[ID] = mapMinval[ID];
         }
         return mapNowval[ID];

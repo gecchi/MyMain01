@@ -63,9 +63,9 @@ public:
 
     /**
      * WorldƒV[ƒ“‚ğì¬B‚ğÀ‘•
-     * ƒOverRide ‚Å‚·„
      */
     GgafCore::GgafUniverse* createUniverse() override;
+
     virtual void clean() override;
 
     virtual void oops() override;

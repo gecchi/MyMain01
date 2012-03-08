@@ -1,7 +1,7 @@
 #ifndef VBRTUALBUTTON_H_
 #define VBRTUALBUTTON_H_
 
-typedef __map__<string, int> keymap;
+typedef __map__<std::string, int> keymap;
 typedef unsigned long int vbsta;
 
 namespace GgafLib {
@@ -125,6 +125,7 @@ public:
     static keymap _mapDIK;
     static bool _is_init;
 
+    /** [r]リプレイモード再生時true */
     bool _is_replaying;
     bool _was_replay_done;
 
@@ -208,7 +209,6 @@ public:
      */
     vbsta wasReleasedUp(vbsta prm_VB, frame prm_frame_ago);
 
-
     /**
      * チョン押し判定 .
      * 「ボタンを押していなかった→ボタンを押した→ボタンを離した」という状態遷移が、
@@ -237,11 +237,11 @@ public:
     /**
      * 複数ボタン同時押し判定 .
      * isPushedDown(vbsta) の引数に複数ボタンを指定して判定を行えば、同時押し判定は可能である。
-     * しかし、複数ボタンを押す際に1フレームでもバラツキがあれば成立せず、完全に同時に押さなければ
-     * ならないという問題点がある。
-     * そこで、本メソッドは、このバラツキを考慮した同時押し判定である。
+     * しかし、その判定方法は複数ボタンを押す際に1フレームでもバラツキがあれば成立せず、
+     * 完全に同時に押さなければならないため、シビアすぎるという問題点がある。
+     * そこで、本メソッドは、同時押しのバラツキを許容考慮した同時押し判定である。
      * 具体的には、引数のそれぞれの各ボタンの現在に至るまでの４フレームの状態履歴が、
-     * 次のいずれかの状態遷移であれば1回成立という判定を行っている。
+     * 次のいずれかの状態遷移であれば1回成立という判定を行っている。(つまり3フレーム猶予)
      * <pre>
      * ↑ > ？ > ？ > ↓
      *       or
@@ -252,14 +252,14 @@ public:
      * ※↓：押している ／ ↑：離している ／ ？：任意
      * ※一番右が現在の状態、左が過去
      * </pre>
-     * @param prm_aVB 同時押し判定対象仮想ボタン配列
+     * @param prm_aVB (3フレ猶予)同時押し判定対象仮想ボタン配列
      * @param prm_iButtonNum 配列の要素数
      * @return true/false
      */
     vbsta arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum);
 
     /**
-     * ２つボタン同時押し判定 .
+     * ３フレ猶予の２つボタン同時押し判定 .
      * @param prm_VB1 判定対象仮想ボタン１
      * @param prm_VB2 判定対象仮想ボタン２
      * @return true/false
@@ -272,7 +272,7 @@ public:
     }
 
     /**
-     * ３つボタン同時押し判定 .
+     * ３フレ猶予の３つボタン同時押し判定 .
      * @param prm_VB1 判定対象仮想ボタン１
      * @param prm_VB2 判定対象仮想ボタン２
      * @param prm_VB3 判定対象仮想ボタン３
@@ -287,7 +287,7 @@ public:
     }
 
     /**
-     * ４つボタン同時押し判定 .
+     * ３フレ猶予の４つボタン同時押し判定 .
      * @param prm_VB1 判定対象仮想ボタン１
      * @param prm_VB2 判定対象仮想ボタン２
      * @param prm_VB3 判定対象仮想ボタン３
@@ -306,15 +306,9 @@ public:
     /**
      * オートリピート入力判定 .
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
-     * @return true/false
-     */
-
-    /**
-     * オートリピート入力判定 .
-     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_begin_repeat オートリピート開始フレーム数
      * @param prm_while_repeat オートリピート開始後、リピート間隔フレーム数
-     * @return
+     * @return true/false
      */
     vbsta isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat = 20, frame prm_while_repeat = 5);
 
@@ -384,6 +378,11 @@ public:
 
     vbsta getState();
 
+    /**
+     * 入力情報を更新 .
+     * 通常時はキー入力、ジョイスティック、マウスのデバイスに入力により、内部ステートを更新。
+     * 但し、リプレイ再生中は、読み込まれた外部ファイルのデータで、内部ステートを更新。
+     */
     void update();
 
     void init();

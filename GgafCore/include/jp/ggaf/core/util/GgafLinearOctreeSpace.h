@@ -10,13 +10,13 @@ namespace GgafCore {
  */
 class GgafLinearOctreeSpace {
 public:
-    /** 線形八分木配列の自身の要素番号 */
+    /** [r]線形八分木配列の自身の要素番号 */
     UINT32 _my_index;
-    /** 所属してる要素の種別情報 */
+    /** [r]所属してる要素の種別情報 */
     UINT32 _kindinfobit;
-    /** ぶら下がる要素の先頭 */
+    /** [r]ぶら下がる要素の先頭 */
     GgafLinearOctreeElem* _pElemFirst;
-    /** ぶら下がる要素の末尾 */
+    /** [r]ぶら下がる要素の末尾 */
     GgafLinearOctreeElem* _pElemLast;
 
     /**

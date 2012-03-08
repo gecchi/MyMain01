@@ -137,7 +137,7 @@ public:
     /** [r]飛びレベル時の発動時間削減割合(0.0～1.0) */
     float fRate_time_of_invoking_;
     /** [r]各レベル毎の効果持続時間削減割合(0.0～1.0) */
-    float fRatetime_of_effect_ing_;
+    float fRatetime_of_effecting_;
     /** [r]各レベル毎の維持コスト増加割合 (1.0～ )*/
     float fRatekeep_cost_;
 
@@ -164,8 +164,8 @@ public:
      * @param prm_fRate_time_of_casting 飛びレベル時の詠唱時間削減割合0.0～1.0 (1.0:飛びレベルでも割引無し, 0.8:レベル差２以上時、詠唱時間２割引)
      * @param prm_time_of_invoking_base 基本魔法発動時間
      * @param prm_fRate_time_of_invoking 飛びレベル時の発動時間削減割合0.0～1.0 (1.0:飛びレベルでも割引無し, 0.8:レベル差２以上時、発動時間２割引)
-     * @param prm_time_of_effect 基本魔法効果持続時間
-     * @param prm_fRatetime_of_effect_ing 各レベル毎の効果持続時間削減割合  0.0～1.0
+     * @param prm_time_of_effect_base 基本魔法効果持続時間
+     * @param prm_fRatetime_of_effecting 各レベル毎の効果持続時間削減割合  0.0～1.0
      *                            (1.0:レベルによる効果持続時削減無し,
      *                            (0.8:レベル1のとき prm_time_of_effect
      *                                 レベル2のとき prm_time_of_effect * 0.8
@@ -185,12 +185,9 @@ public:
           magic_point prm_cost_base, float prm_fRate_cost,
           magic_time  prm_time_of_casting_base , float prm_fRate_time_of_casting,
           magic_time  prm_time_of_invoking_base, float prm_fRate_time_of_invoking,
-          magic_time  prm_time_of_effect_base  , float prm_fRatetime_of_effect_ing,
+          magic_time  prm_time_of_effect_base  , float prm_fRatetime_of_effecting,
           magic_point prm_keep_cost_base       , float prm_fRatekeep_cost_base);
 
-
-//          GgafDxCore::GgafDxGeometricActor* prm_pCaster,
-//          GgafDxCore::GgafDxGeometricActor* prm_pReceiver);
     void initialize() override {}
 
     void onReset() override {}
@@ -327,27 +324,6 @@ public:
      * @return
      */
     int chkEffectAble(int prm_level);
-
-//    /**
-//     * 魔法破棄コールバック .
-//     * @param prm_last_high_level 降格前の現在のレベル
-//     * @param prm_new_low_level 新しく変わる降格レベル
-//     */
-//    virtual void processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {};
-//
-//
-//    /**
-//     * 魔法破棄コールバック .
-//     * @param prm_last_high_level 降格前の現在のレベル
-//     * @param prm_new_low_level 新しく変わる降格レベル
-//     */
-//    virtual void processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {};
-
-
-//    /**
-//     * 魔法を完了する .
-//     */
-//    virtual void commit();
 
     /**
      * 魔法をキャンセルする .

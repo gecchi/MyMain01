@@ -35,7 +35,7 @@ void FormationMassalia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
 
 void FormationMassalia::processBehavior() {
     updateRankParameter();
-    if (getActivePartFrame() >= R_FormationMassalia_DurationFreams) {
+    if (getActivePartFrame() >= R_FormationMassalia_DurationFrames) {
         sayonara(20*60);
     } else {
         if (!isAllCalledUp() && (getActivePartFrame() % R_interval_frames_ == 0)) {

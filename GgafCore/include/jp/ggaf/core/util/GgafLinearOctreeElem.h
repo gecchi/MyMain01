@@ -1,7 +1,7 @@
 #ifndef GGAFLINEAROCTREEELEM_H_
 #define GGAFLINEAROCTREEELEM_H_
-namespace GgafCore {
 
+namespace GgafCore {
 
 /**
  * 線形八分木配列用空間の要素クラス .
@@ -11,19 +11,19 @@ namespace GgafCore {
  */
 class GgafLinearOctreeElem {
 public:
-    /** 所属ツリー */
+    /** [r]所属ツリー */
     GgafLinearOctree* _pLinearOctree;
-    /** 所属空間 */
+    /** [r]所属空間 */
     GgafLinearOctreeSpace* _pSpace_Current;
-    /** 次要素 */
+    /** [r]次要素 */
     GgafLinearOctreeElem* _pNext;
-    /** 前要素 */
+    /** [r]前要素 */
     GgafLinearOctreeElem* _pPrev;
-    /** 対象オブジェクト */
+    /** [r]対象オブジェクト */
     GgafObject* _pObject;
-    /** 対象オブジェクト種別 */
+    /** [r]対象オブジェクト種別 */
     UINT32 _kindbit;
-    /** 登録リスト用リンク */
+    /** [r]登録リスト用リンク */
     GgafLinearOctreeElem* _pRegLinkNext;
 
     /**
@@ -44,7 +44,7 @@ public:
      */
     void addElem(GgafLinearOctreeSpace* prm_pSpace_target);
 
-//    /**
+//    /*
 //     * 自身が自ら他空間へ移動
 //     * extract()してaddElem()します.
 //     * @param prm_pSpace_target

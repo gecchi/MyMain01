@@ -22,10 +22,10 @@ public:
     virtual bool Save(std::string pFilename, std::vector<T> &pVT)=0;/**/
     void LoadInBuffer(std::string pFilename) {
         int length;
-        ifstream fin(pFilename.c_str());
-        fin.seekg(0, ios::end);
+        std::ifstream fin(pFilename.c_str());
+        fin.seekg(0, std::ios::end);
         length = fin.tellg();
-        fin.seekg(0, ios::beg);
+        fin.seekg(0, std::ios::beg);
 
         Buffer = NEW char[length];
         // read data as a block:

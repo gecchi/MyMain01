@@ -2,7 +2,6 @@
 #define GGAFDXCOMMONHEADER_H_
 #include "GgafCommonHeader.h"
 
-
 #define DIRECTINPUT_VERSION 0x0800
 
 #ifndef DECLSPEC_DEPRECATED
@@ -508,7 +507,7 @@ class CWaveDecorder;
 
 }
 
-#include "jp/ggaf/dxcore/util/XFile/framework/frm_mesh.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/Frm_Mesh.h"
 #include "jp/ggaf/dxcore/util/XFile/framework/Frm_Tbuff.h"
 #include "jp/ggaf/dxcore/util/XFile/ToolBox/IOModel_X.h"
 #include "jp/ggaf/dxcore/util/XFile/ToolBox/IOTexture_Bmp.h"

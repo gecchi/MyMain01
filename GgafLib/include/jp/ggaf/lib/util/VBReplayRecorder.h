@@ -51,7 +51,7 @@ public:
     /** [r]同一ステータス継続フレームカウンタ */
     frame _frame_of_the_same_vbsta_reading;
 
-    ofstream _ofs_realtime;
+    std::ofstream _ofs_realtime;
 
     bool _write_realtime;
     /**

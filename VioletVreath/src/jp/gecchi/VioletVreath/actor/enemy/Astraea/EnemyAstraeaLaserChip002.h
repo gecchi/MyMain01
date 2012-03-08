@@ -9,12 +9,8 @@ public:
     /** 反射時エフェクトデポジトリへの接続 */
     DepositoryConnection* pCon_RefractionEffectDepository_;
 
-
     EnemyAstraeaLaserChip002(const char* prm_name);
 
-    /**
-     * ＜OverRide です＞
-     */
     void initialize() override;
 
     void onActive() override;
@@ -24,7 +20,6 @@ public:
     void onRefractionBegin(int prm_num_refraction) override;
 
     void onRefractionFinish(int prm_num_refraction) override;
-
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

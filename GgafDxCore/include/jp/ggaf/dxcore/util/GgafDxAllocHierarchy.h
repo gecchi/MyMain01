@@ -34,8 +34,8 @@ protected:
     };
 
 protected:
-    list<DeleterBase*> m_DelList;   // 消去リスト
-    list<IUnknown*> m_ReleaseList;   // リリースリスト
+    std::list<DeleterBase*> m_DelList;   // 消去リスト
+    std::list<IUnknown*> m_ReleaseList;   // リリースリスト
 
 public:
     GgafDxAllocHierarchy(void);

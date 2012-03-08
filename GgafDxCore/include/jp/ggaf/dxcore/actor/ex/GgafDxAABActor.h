@@ -17,11 +17,6 @@ public:
                     GgafCore::GgafStatus* prm_pStat,
                     GgafDxChecker* prm_pChecker);
 
-///**
-//     * ＜OverRide です＞<BR>
-//     */
-//    virtual void processDraw();
-//
     void drawBox(coord prm_x1, coord prm_y1, coord prm_z1, coord prm_x2, coord prm_y2, coord prm_z2);
 
     virtual ~GgafDxAABActor(); //デストラクタ

@@ -222,15 +222,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\actor\Camera.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\God.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SimpleSample.cpp"
+				RelativePath=".\src\SimpleSample.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -240,25 +232,25 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\src\actor\TestActor.cpp"
+				RelativePath=".\src\actor\SmpActor.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\scene\Universe.cpp"
+				RelativePath=".\src\actor\SmpCamera.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\scene\Universe\World.cpp"
+				RelativePath=".\src\SmpGod.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\scene\SmpUniverse.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\scene\SmpUniverse\SmpWorld.cpp"
 				>
 			</File>
 		</Filter>
@@ -268,31 +260,31 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\src\actor\Camera.h"
+				RelativePath=".\include\SimpleSample.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\God.h"
+				RelativePath=".\include\actor\SmpActor.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\SimpleSample.h"
+				RelativePath=".\include\actor\SmpCamera.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\SmpGod.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\scene\SmpUniverse.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\scene\SmpUniverse\SmpWorld.h"
 				>
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\TestActor.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\scene\Universe.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\scene\Universe\World.h"
 				>
 			</File>
 		</Filter>

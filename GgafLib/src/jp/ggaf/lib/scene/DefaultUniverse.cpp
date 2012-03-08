@@ -14,9 +14,11 @@ DefaultUniverse::DefaultUniverse(const char* prm_name, DefaultCamera* prm_pCamer
     _TRACE_("８分木作成終了");
 }
 
-
 void DefaultUniverse::processFinal() {
     _pLinearOctree->clearElem();
+    //ルート空間更新
+//    _pLinearOctree->setRootSpace(_X_goneLeft  ,_Y_goneBottom, _Z_goneNear ,
+//                                     _X_goneRight ,_Y_goneTop   , _Z_goneFar   );
 }
 
 DefaultUniverse::~DefaultUniverse() {

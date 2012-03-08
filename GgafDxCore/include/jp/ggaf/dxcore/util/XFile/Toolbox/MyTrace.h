@@ -5,8 +5,6 @@
 
 #include <stdio.h>
 
-using namespace std;
-
 namespace ToolBox {
 
 static std::string temp;

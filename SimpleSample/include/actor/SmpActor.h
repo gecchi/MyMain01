@@ -1,5 +1,5 @@
-#ifndef TESTACTOR_H_
-#define TESTACTOR_H_
+#ifndef SMPACTOR_H_
+#define SMPACTOR_H_
 namespace SimpleSample {
 
 /**
@@ -8,7 +8,7 @@ namespace SimpleSample {
  * @since 2011/02/16
  * @author Masatoshi Tsuge
  */
-class TestActor : public GgafLib::DefaultMeshActor {
+class SmpActor : public GgafLib::DefaultMeshActor {
 
 public:
     /**
@@ -16,7 +16,7 @@ public:
      * @param prm_name
      * @return
      */
-    TestActor(const char* prm_name);
+    SmpActor(const char* prm_name);
 
     /**
      * ƒLƒƒƒ‰‚Ì‰Šúˆ— .
@@ -28,9 +28,9 @@ public:
      */
     void processBehavior() override;
 
-    virtual ~TestActor();
+    virtual ~SmpActor();
 };
 
 }
-#endif /*TESTACTOR_H_*/
+#endif /*SMPACTOR_H_*/
 

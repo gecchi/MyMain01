@@ -126,7 +126,7 @@ HRESULT GgafDxInput::init() {
     // ゲームスティックを列挙してデバイスを得る
     hr = _pIDirectInput8->EnumDevices(DI8DEVCLASS_GAMECTRL, GgafDxInput::enumGameCtrlCallback, NULL, DIEDFL_ATTACHEDONLY);
     if (hr != D3D_OK || _pIDirectInputDevice8_Joystick == NULL) {
-        _TRACE_("GgafDxInput::initDx9Input() EnumDevices列挙しましたが、でジョイスティックが見つかりませんでした");
+        _TRACE_("GgafDxInput::initDx9Input() EnumDevices列挙しましたが、ジョイスティックが見つかりませんでした");
         _pIDirectInputDevice8_Joystick = NULL;
     } else {
         _TRACE_("GgafDxInput::initDx9Input() ジョイスティックデバイス取得");

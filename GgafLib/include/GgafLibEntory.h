@@ -100,11 +100,8 @@ int GgafLibMain(int argc, char *argv[]) {
     nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW) ? StatUpInfo.wShowWindow : SW_SHOWNORMAL;
 
     //PG名除去
-    while (*lpCmdLine != ' ' && *lpCmdLine != '\0')
-        lpCmdLine++;
-    while (*lpCmdLine == ' ')
-        lpCmdLine++;
-    cout << lpCmdLine << endl;
+    while (*lpCmdLine != ' ' && *lpCmdLine != '\0') { lpCmdLine++; }
+    while (*lpCmdLine == ' ') { lpCmdLine++; }
 
     //本来のWinMainへ
     return WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
@@ -308,7 +305,7 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
     out_hWnd2 = _hWnd2_;
 
     if (!_hWnd1_) {
-        cout << "can't CreateWindow " << endl;
+        std::cout << "can't CreateWindow " << std::endl;
     }
 
     //ウィンドウモード時、クライアント領域を所望の大きさにするため、

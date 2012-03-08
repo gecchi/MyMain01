@@ -13,22 +13,14 @@ class EffectTurbo001 : public GgafLib::DefaultSpriteActor {
 public:
     EffectTurbo001(const char* prm_name);
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
     void initialize() override;
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
     void processBehavior() override;
 
     void onActive() override;
 
     void onInactive() override;
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
+
     void processJudgement() override;
 
     virtual ~EffectTurbo001();

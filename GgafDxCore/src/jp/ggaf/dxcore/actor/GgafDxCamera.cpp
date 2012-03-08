@@ -133,6 +133,8 @@ void GgafDxCamera::processBehavior() {
             &mat_world
         );
     }
+
+    // 視錐台の面
     //-------------------------------------------------
     //  平面方程式：ax+by+cz+d
     //  平面の法線ベクトル：n = (a, b, c)

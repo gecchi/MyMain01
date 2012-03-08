@@ -31,11 +31,6 @@ public:
                         GgafCore::GgafStatus* prm_pStat,
                         GgafDxChecker* prm_pChecker);
 
-///**
-//     * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
-//     */
-//    virtual void processDraw();
-//
     void drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
                    coord prm_x2, coord prm_y2, coord prm_z2, int pos_prism);
 

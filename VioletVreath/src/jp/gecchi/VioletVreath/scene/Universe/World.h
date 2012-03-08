@@ -33,14 +33,8 @@ public:
      */
     void initialize() override;
 
-     /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
     void processBehavior() override;
 
-     /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
     void processJudgement() override;
 
     virtual ~World();

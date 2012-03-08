@@ -17,20 +17,6 @@ Universe::Universe(const char* prm_name, Camera* prm_pCamera) : DefaultUniverse(
     pActiveCameraWorker_ = pDefaultCameraWorkerCon->use();
     getDirector()->addSubGroup(pActiveCameraWorker_); //基底デフォルトカメラワーク
 
-
-    GgafRepeatSeq::create("CH_bomb1", 0, 20);
-    GgafRepeatSeq::create("CH_yume_Sbend", 0, 8);
-    GgafRepeatSeq::create("CH_MetisHit", 0, 20);
-    GgafRepeatSeq::create("CH_break_glass01", 0, 20);
-    GgafRepeatSeq::create("CH_a_shot", 0, 5);
-    GgafRepeatSeq::create("CH_laser001", 0, 8); //オプションレーザー
-    GgafRepeatSeq::create("CH_cm-22", 0, 8); //Juno発射音
-    GgafRepeatSeq::create("CH_MetisDestroy", 0, 20); //Metis爆発
-    GgafRepeatSeq::create("CH_explos3", 0, 3); //Vesta爆発
-    GgafRepeatSeq::create("CH_humei10", 0, 1); //Lockon
-    GgafRepeatSeq::create("CH_fire01", 0, 16); //自機ショット
-
-
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。

@@ -108,34 +108,34 @@ class GgafLinearOctree {
 
 public:
 
-    /** 8分木の空間を意味する線形配列 */
+    /** [r]八分木の空間を一直線に並べた線形配列 */
     GgafLinearOctreeSpace* _paSpace; //_paSpace[0] は ROOT空間へのポインタ
-    /**s     */
+    /** [r]八分木の空間に登録を行った要素の先頭要素 */
     GgafLinearOctreeElem* _pRegElemFirst;
-    /** root空間の対角の頂点となるx座標の小さい方 */
+    /** [r]root空間の対角の頂点となるx座標の小さい方 */
     int _root_X1;
-    /** root空間の対角の頂点となるy座標の小さい方 */
+    /** [r]root空間の対角の頂点となるy座標の小さい方 */
     int _root_Y1;
-    /** root空間の対角の頂点となるz座標の小さい方 */
+    /** [r]root空間の対角の頂点となるz座標の小さい方 */
     int _root_Z1;
-    /** root空間の対角の頂点となるx座標大きい方 */
+    /** [r]root空間の対角の頂点となるx座標大きい方 */
     int _root_X2;
-    /** root空間の対角の頂点となるy座標大きい方 */
+    /** [r]root空間の対角の頂点となるy座標大きい方 */
     int _root_Y2;
-    /** root空間の対角の頂点となるz座標大きい方 */
+    /** [r]root空間の対角の頂点となるz座標大きい方 */
     int _root_Z2;
-    /** 最小空間(=最高空間レベル)のXの距離 */
+    /** [r]最小空間(=最高空間レベル)のXの距離 */
     int _top_level_dX;
-    /** 最小空間(=最高空間レベル)のYの距離 */
+    /** [r]最小空間(=最高空間レベル)のYの距離 */
     int _top_level_dY;
-    /** 最小空間(=最高空間レベル)のZの距離 */
+    /** [r]最小空間(=最高空間レベル)のZの距離 */
     int _top_level_dZ;
 
-    /** 8の累乗の値を予め計算して保持している配列 */
+    /** [r]8の累乗の値を予め計算して保持している配列 */
     UINT32* _paPow;
-    /** 全空間数 */
+    /** [r]全空間数 */
     UINT32 _num_space;
-    /** 最大空間レベル */
+    /** [r]最大空間レベル */
     int _top_space_level; //ルート空間はLevel=0
 
     /**
@@ -172,6 +172,9 @@ public:
                             int tX1 ,int tY1 ,int tZ1 ,
                             int tX2 ,int tY2 ,int tZ2);
 
+    /**
+     * 八分木空間に登録されている要素を消去 .
+     */
     virtual void clearElem();
 
     /**

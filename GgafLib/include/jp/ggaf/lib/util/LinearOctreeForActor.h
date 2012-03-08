@@ -12,17 +12,17 @@ namespace GgafLib {
 class LinearOctreeForActor : public GgafCore::GgafLinearOctree {
 
 public:
-
     /**
      * 当たり判定アクターを保持するスタック .
      * 速さの事しか考えてない危険なスタック
      */
     class CollisionStack {
     public:
-        /** 一つの空間居るアクターの配列 */
-        GgafCore::GgafActor* _apActor[3000]; //3000 もキャラが集まらないだろうという安易で浅はかな見積もり
-        /** カーソルポインタ  */
+        /** [r]一つの空間にスタックするアクターの配列 */
+        GgafCore::GgafActor* _apActor[3000]; //１空間に 3000 もキャラが集まらないだろうという安易で浅はかな見積もり
+        /** [r]カーソルポインタ  */
         UINT32 _p;
+
         /**
          * コンストラクタ
          * @return
@@ -72,19 +72,19 @@ public:
         }
     };
 
-    /** 全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
+    /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
     CollisionStack _stackCurrentSpaceActor_GroupA;
-    /** 全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
+    /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
     CollisionStack _stackCurrentSpaceActor_GroupB;
 
-    /** ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Aグループのスタック */
+    /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Aグループのスタック */
     CollisionStack _stackParentSpaceActor_GroupA;
-    /** ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Bグループのスタック */
+    /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Bグループのスタック */
     CollisionStack _stackParentSpaceActor_GroupB;
 
-    /** 今回当たり判定を行うアクター種別A */
+    /** [r]今回当たり判定を行うアクター種別A */
     actorkind _kind_groupA;
-    /** 今回当たり判定を行うアクター種別B */
+    /** [r]今回当たり判定を行うアクター種別B */
     actorkind _kind_groupB;
 
 

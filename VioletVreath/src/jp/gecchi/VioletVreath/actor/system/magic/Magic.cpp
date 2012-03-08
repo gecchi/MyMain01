@@ -11,7 +11,7 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
              magic_point  prm_cost_base            , float prm_fRate_cost             ,
              magic_time   prm_time_of_casting_base , float prm_fRate_time_of_casting  ,
              magic_time   prm_time_of_invoking_base, float prm_fRate_time_of_invoking ,
-             magic_time   prm_time_of_effect_base  , float prm_fRatetime_of_effect_ing,
+             magic_time   prm_time_of_effect_base  , float prm_fRatetime_of_effecting,
              magic_point  prm_keep_cost_base       , float prm_fRatekeep_cost_
                 ) : GgafMainActor(prm_name, NULL) {
 //    GgafDxGeometricActor* prm_pCaster,
@@ -30,7 +30,7 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     fRate_cost_               = prm_fRate_cost;
     fRate_time_of_casting_    = prm_fRate_time_of_casting;
     fRate_time_of_invoking_   = prm_fRate_time_of_invoking;
-    fRatetime_of_effect_ing_  = prm_fRatetime_of_effect_ing;
+    fRatetime_of_effecting_  = prm_fRatetime_of_effecting;
     fRatekeep_cost_          = prm_fRatekeep_cost_;
 
     //îÚÇ—ÉåÉxÉãç∑ï èÓïÒÇê›íË
@@ -51,7 +51,7 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     for (int i = 1; i <= max_level_; i++) {
         lvinfo_[i].is_working_ = false;
         lvinfo_[i].remainingtime_of_effect_ = 0;
-        lvinfo_[i].time_of_effect_ = time_of_effect_base + ((i-1) * time_of_effect_base * fRatetime_of_effect_ing_);
+        lvinfo_[i].time_of_effect_ = time_of_effect_base + ((i-1) * time_of_effect_base * fRatetime_of_effecting_);
         lvinfo_[i].keep_cost_      = keep_cost_base_      + ((i-1) * keep_cost_base_ * fRatekeep_cost_);
     }
 

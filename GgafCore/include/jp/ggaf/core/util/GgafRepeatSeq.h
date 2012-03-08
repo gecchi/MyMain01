@@ -23,6 +23,10 @@ public:
      */
     static void create(std::string ID, int min, int max);
 
+    static void set(std::string ID, int val);
+    static void setMax(std::string ID);
+    static void setMin(std::string ID);
+
     /**
      * IDの順序オブジェクトが作成済みか調べる .
      * @param ID 順序オブジェクトID

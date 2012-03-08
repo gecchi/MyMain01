@@ -15,9 +15,6 @@ public:
 
     DefaultPointSpriteTestActor(const char* prm_name);
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
     void initialize() override;
 
     void onActive() override;

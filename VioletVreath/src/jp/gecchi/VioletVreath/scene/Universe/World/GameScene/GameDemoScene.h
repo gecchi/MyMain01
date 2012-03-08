@@ -25,7 +25,7 @@ public:
         std::string date;
     };
 
-    vector<ScoreInfo> ranking;
+    std::vector<ScoreInfo> ranking;
     LabelRankingFont** papLabelRanking_;
 
     LabelGecchi16Font* pStringBoard01_;

@@ -306,7 +306,7 @@ public:
      * オブジェクトの基点を中心として、１辺の長さで指定
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_edge １辺の長さ
-     * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_prism プリズム位置（GgafDxAAPrismActor.h の、捕捉コメント参照)
      */
     void setColliAAPrism_Cube(int prm_index, coord prm_edge, int pos_prism) {
         setColliAAPrism_Cube(prm_index, 0, 0, 0, prm_edge, pos_prism);

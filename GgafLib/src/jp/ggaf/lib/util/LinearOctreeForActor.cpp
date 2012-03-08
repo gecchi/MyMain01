@@ -8,7 +8,6 @@ using namespace GgafLib;
 LinearOctreeForActor::LinearOctreeForActor(int prm_level) : GgafLinearOctree(prm_level) {
 }
 
-
 void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_groupB) {
     _kind_groupA = prm_groupA;
     _kind_groupB = prm_groupB;
@@ -22,7 +21,6 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
         _stackParentSpaceActor_GroupB.clear();
     }
 }
-
 
 void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
     LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElemFirst));
@@ -101,11 +99,9 @@ void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA,
     UINT32 num_stackB = prm_pStackB->_p;
     GgafActor** papStackActor_A = prm_pStackA->_apActor;
     GgafActor** papStackActor_B = prm_pStackB->_apActor;
-    GgafActor* pActor_A;
     for (UINT32 i = 0; i < num_stackA; i++) {
-        pActor_A = papStackActor_A[i];
         for (UINT32 j = 0; j < num_stackB; j++) {
-            pActor_A->executeHitChk_MeAnd(papStackActor_B[j]);
+            papStackActor_A[i]->executeHitChk_MeAnd(papStackActor_B[j]);
         }
     }
 }

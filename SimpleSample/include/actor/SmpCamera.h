@@ -1,5 +1,5 @@
-#ifndef CAMERA_H_
-#define CAMERA_H_
+#ifndef SMPCAMERA_H_
+#define SMPCAMERA_H_
 namespace SimpleSample {
 
 /**
@@ -11,13 +11,13 @@ namespace SimpleSample {
  * @since 2012/02/16
  * @author Masatoshi Tsuge
  */
-class Camera : public GgafLib::DefaultCamera {
+class SmpCamera : public GgafLib::DefaultCamera {
 
 public:
-    Camera(const char* prm_name);
+    SmpCamera(const char* prm_name);
 
-    virtual ~Camera();
+    virtual ~SmpCamera();
 };
 
 }
-#endif /*CAMERA_H_*/
+#endif /*SMPCAMERA_H_*/
