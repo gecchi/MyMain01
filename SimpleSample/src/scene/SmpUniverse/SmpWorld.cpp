@@ -27,7 +27,7 @@ void SmpWorld::processBehavior() {
             pActor_->_X -= PX2CO(2); //¶
         }
         if (vb_.isBeingPressed(VB_UP)) {
-            pActor_->_Y += PX2CO(2); //ãiYŽ²‚Íã‚ª³j
+            pActor_->_Y += PX2CO(2); //ã
         }
         if (vb_.isBeingPressed(VB_DOWN)) {
             pActor_->_Y -= PX2CO(2); //‰º
