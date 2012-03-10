@@ -253,10 +253,10 @@ public:
      * ※一番右が現在の状態、左が過去
      * </pre>
      * @param prm_aVB (3フレ猶予)同時押し判定対象仮想ボタン配列
-     * @param prm_iButtonNum 配列の要素数
+     * @param prm_num_button 配列の要素数
      * @return true/false
      */
-    vbsta arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum);
+    vbsta arePushedDownAtOnce(vbsta prm_aVB[], int prm_num_button);
 
     /**
      * ３フレ猶予の２つボタン同時押し判定 .

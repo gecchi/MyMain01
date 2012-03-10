@@ -788,7 +788,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Planets\Planets001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.cpp"
 				>
 			</File>
 			<File
@@ -1670,7 +1674,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Planets\Planets001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h"
 				>
 			</File>
 			<File

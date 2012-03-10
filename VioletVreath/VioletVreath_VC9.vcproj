@@ -29,7 +29,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="CD $(MY_DEV_ROOT)\VioletVreath\model\effect &amp; _make_all_fx.bat"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -130,7 +130,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="CD $(MY_DEV_ROOT)\VioletVreath\model\effect &amp; _make_all_fx.bat"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1925,10 +1925,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\ViewPointGuide.h"
-				>
-			</File>
-			<File
-				RelativePath=".\VioletVreath.h"
 				>
 			</File>
 			<File

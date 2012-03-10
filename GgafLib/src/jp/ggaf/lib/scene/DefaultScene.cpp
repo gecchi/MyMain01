@@ -7,7 +7,7 @@ using namespace GgafLib;
 DefaultScene::DefaultScene(const char* prm_name) : GgafDxScene(prm_name) {
     _class_name = "DefaultScene";
     _paFrame_NextEvent = NULL;
-    _iCnt_Event = 0;
+    _cnt_event = 0;
     _event_num = 0;
 }
 

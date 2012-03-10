@@ -9,7 +9,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafObject {
-    static int _iSeq;
+    static int _obj_seq;
 
 public:
     int _id;

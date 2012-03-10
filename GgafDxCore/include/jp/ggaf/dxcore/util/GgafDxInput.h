@@ -2,7 +2,7 @@
 #define GGAFDXINPUT_H_
 
 //Pキーを押したときだけ_TRACE_(デバッグ用)
-#define _KTRACE_(M) {if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) { _TRACE_(M); }}
+#define _PTRACE_(M) {if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) { _TRACE_(M); }}
 
 namespace GgafDxCore {
 
@@ -70,24 +70,24 @@ public:
 
     /**
      * マウスのボタンの状態を調べる .
-     * @param prm_iButtonNo マウスボタン番号
+     * @param prm_button_no マウスボタン番号
      * @return true：そのボタンは押されている状態である／false：そうでは無い
      */
-    static bool isBeingPressedMouseButton(int prm_iButtonNo);
+    static bool isBeingPressedMouseButton(int prm_button_no);
 
     /**
      * マウスのボタンが押された直後の状態を調べる .
-     * @param prm_iButtonNo マウスボタン番号
+     * @param prm_button_no マウスボタン番号
      * @return true：そのボタンは押された直後である／false：そうでは無い
      */
-    static bool isPushedDownMouseButton(int prm_iButtonNo);
+    static bool isPushedDownMouseButton(int prm_button_no);
 
     /**
      * マウスのボタンが離された直後の状態を調べる .
-     * @param prm_iButtonNo マウスボタン番号
+     * @param prm_button_no マウスボタン番号
      * @return true：そのボタンは離された直後である／false：そうでは無い
      */
-    static bool isReleasedUpMouseButton(int prm_iButtonNo);
+    static bool isReleasedUpMouseButton(int prm_button_no);
 
     /**
      * マウスポインタの座標を調べる .
@@ -140,10 +140,10 @@ public:
 
     /**
      * ジョイスティックのボタンの状態を調べる .
-     * @param prm_iRgbButtonNo ジョイスティックボタン番号
+     * @param prm_rgb_button_no ジョイスティックボタン番号
      * @return  true：そのボタンは押されている状態である／false：そうでは無い
      */
-    static bool isBeingPressedJoyRgbButton(int prm_iRgbButtonNo);
+    static bool isBeingPressedJoyRgbButton(int prm_rgb_button_no);
 
     /**
      * ジョイスティックの上方向の状態を調べる .
@@ -171,10 +171,10 @@ public:
 
     /**
      * ジョイスティックのアナログスティックの方向の状態を調べる .
-     * @param prm_iDirectionNo 調べたい方向番号(８方向、テンキーの番号に対応)
+     * @param prm_direction_no 調べたい方向番号(８方向、テンキーの番号に対応)
      * @return true：その方向番号はONである／false：そうでは無い
      */
-    static bool isBeingPressedJoyDirection(int prm_iDirectionNo);
+    static bool isBeingPressedJoyDirection(int prm_direction_no);
 
     static void release();
 

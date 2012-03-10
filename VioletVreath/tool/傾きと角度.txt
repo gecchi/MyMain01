@@ -1,41 +1,3 @@
-'MySTG2nd.exe': 'D:\workspace\release\MySTG2nd.exe' を読み込みました。シンボルが読み込まれました。
-'MySTG2nd.exe': 'C:\Windows\System32\ntdll.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\kernel32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\d3d9.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\msvcrt.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\user32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\gdi32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\advapi32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\rpcrt4.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\version.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\d3d8thk.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\dwmapi.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\D3DX9_41.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\dinput8.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\dsound.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\ole32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\winmm.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\oleaut32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\oleacc.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\powrprof.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\d3dxof.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_5090ab56bcba71c2\msvcp90.dll' を読み込みました。シンボルが読み込まれました。
-'MySTG2nd.exe': 'C:\Windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_5090ab56bcba71c2\msvcr90.dll' を読み込みました。シンボルが読み込まれました。
-'MySTG2nd.exe': 'C:\Windows\System32\shimeng.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\apphelp.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\AppPatch\AcLayers.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\shell32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\shlwapi.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\userenv.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\secur32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\winspool.drv' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\mpr.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\imm32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\msctf.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\lpk.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\usp10.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\avgrsstx.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\winsxs\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.6001.18000_none_5cdbaa5a083979cc\comctl32.dll' を読み込みました
 11119666 <DEBUG> GGAF_PROPERTY(MAX_SKIP_FRAME)=60
 11119666 <DEBUG> GGAFDX9_PROPERTY(FULL_SCREEN)=0
 11119667 <DEBUG> GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)=800
@@ -76,27 +38,7 @@
 11119679 <DEBUG> PROPERTY(MY_JOY_PAUSE)=JOY_BUTTON_09
 11119679 <DEBUG> PROPERTY(MY_JOY_UI_EXECUTE)=JOY_BUTTON_00
 11119680 <DEBUG> PROPERTY(MY_JOY_UI_CANCEL)=JOY_BUTTON_01
-'MySTG2nd.exe': 'C:\Windows\System32\uxtheme.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Program Files\UberIcon\UberIcon.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\winsxs\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.6001.18000_none_886786f450a74a05\comctl32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Program Files\Logicool\SetPoint\lgscroll.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\winsxs\x86_microsoft.vc80.crt_1fc8b3b9a1e18e3b_8.0.50727.3053_none_d08d7bba442a9b36\msvcr80.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\ntmarta.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\Wldap32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\ws2_32.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\nsi.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\psapi.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\samlib.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\IMJP12.IME' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\IMJP12.IME' をアンロード
-'MySTG2nd.exe': 'C:\Windows\System32\IMJP12.IME' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\winsxs\x86_microsoft.vc80.crt_1fc8b3b9a1e18e3b_8.0.50727.3053_none_d08d7bba442a9b36\msvcp80.dll' を読み込みました
-'MySTG2nd.exe': 'C:\Windows\System32\IMJP12K.DLL' を読み込みました
-'MySTG2nd.exe': 'C:\Program Files\Common Files\microsoft shared\IME12\IMEJP\IMJPAPI.DLL' を読み込みました
-'MySTG2nd.exe': 'C:\Program Files\Common Files\microsoft shared\IME12\SHARED\IMJKAPI.DLL' を読み込みました
-'MySTG2nd.exe': 'C:\Program Files\Common Files\microsoft shared\IME12\IMEJP\IMJPPRED.DLL' を読み込みました
 11127877 <DEBUG> [detect memory leaks] start
-'MySTG2nd.exe': 'C:\Windows\System32\nvd3dum.dll' を読み込みました
 11127934 <DEBUG> Look for 'NVIDIA PerfHUD' adapter...
 11128110 <DEBUG> GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。
 11128111 <DEBUG> Hardware Vertex Shader Version = 3_0
@@ -47554,25 +47496,10 @@
 11165174 <DEBUG> 			●DefaultScene[GameEnding]@1,001,001,0(0)
 11165174 <DEBUG> 											GgafLordActor[GameEnding]@1,0,001,001,0(0)
 11165175 <DEBUG> GgafDx9God::~GgafDx9God()
-スレッド 'Win32 スレッド' (0x224c) はコード 0 (0x0) で終了しました。
 11165205 <DEBUG> ●GgafScene[GarbageRootScene]@0,101,101,0(0)
 11165206 <DEBUG> 								GgafLordActor[GarbageRootScene]@0,0,101,101,0(0)
 11165206 <DEBUG> 								GgafActor[GarbageRootActor]@0,0,101,101,0(0)
-'MySTG2nd.exe': 'C:\Program Files\VID_0F0D&PID_0008\KingChuang\Wireless anasin PC\GaJoyFF.dll' をアンロード
-'MySTG2nd.exe': 'C:\Windows\System32\dinput.dll' をアンロード
-スレッド 'Win32 スレッド' (0xc4c) はコード 0 (0x0) で終了しました。
-スレッド 'Win32 スレッド' (0x2fa0) はコード 0 (0x0) で終了しました。
-'MySTG2nd.exe': 'C:\Program Files\Common Files\microsoft shared\IME12\IMEJP\IMJPCMPS.DLL' をアンロード
-'MySTG2nd.exe': 'C:\Windows\System32\IME\shared\IMEAPIS.DLL' をアンロード
-スレッド 'Win32 スレッド' (0xd24) はコード 0 (0x0) で終了しました。
-スレッド 'Win32 スレッド' (0x1588) はコード 0 (0x0) で終了しました。
-スレッド 'Win32 スレッド' (0xed0) はコード 0 (0x0) で終了しました。
 11165854 <DEBUG> RELEASE_IMPOSSIBLE_NULL(file:.\src\jp\ggaf\dx9core\GgafDx9God.cpp line:595) _pID3DDevice9は、まだ解放されません。参照カウンタ=1
 11165855 <DEBUG> RELEASE_IMPOSSIBLE_NULL(file:.\src\jp\ggaf\dx9core\GgafDx9God.cpp line:596) _pID3D9は、まだ解放されません。参照カウンタ=1
 11165855 <DEBUG> [detect memory leaks] end
 11165856 <DEBUG> memory leak is nothing.
-スレッド 'Win32 スレッド' (0x1938) はコード 0 (0x0) で終了しました。
-スレッド 'Win32 スレッド' (0x2af4) はコード 0 (0x0) で終了しました。
-スレッド 'Win32 スレッド' (0x1ccc) はコード 0 (0x0) で終了しました。
-スレッド 'Win32 スレッド' (0x2994) はコード 0 (0x0) で終了しました。
-プログラム '[12168] MySTG2nd.exe: ネイティブ' はコード 0 (0x0) で終了しました。

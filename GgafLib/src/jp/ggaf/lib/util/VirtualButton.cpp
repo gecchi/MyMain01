@@ -390,10 +390,10 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, frame prm_frame_push, fram
 //	}
 //}
 
-vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum) {
+vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_num_button) {
 
     //現在は全て押されていなければならない
-    for (int i = 0; i < prm_iButtonNum; i++) {
+    for (int i = 0; i < prm_num_button; i++) {
         if (isBeingPressed(prm_aVB[i]) == false) {
             return false;
         }
@@ -407,7 +407,7 @@ vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum) {
     //       or
     // ？ > ？ > ↑ > ↓
     static bool prev1Flg, prev2Flg, prev3Flg;
-    for (int i = 0; i < prm_iButtonNum; i++) {
+    for (int i = 0; i < prm_num_button; i++) {
         prev1Flg = wasNotBeingPressed(prm_aVB[i], 1);
         prev2Flg = wasNotBeingPressed(prm_aVB[i], 2);
         prev3Flg = wasNotBeingPressed(prm_aVB[i], 3);
@@ -424,7 +424,7 @@ vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum) {
 
     //但し1つ前のフレームで、全て押されていては成立しない。
     //この条件入れないと、「同時押し→押しっぱなし」の場合、最大３フレーム連続で成立してしまう場合がある。
-    for (int i = 0; i < prm_iButtonNum; i++) {
+    for (int i = 0; i < prm_num_button; i++) {
         if (wasNotBeingPressed(prm_aVB[i], 1)) {
             return true;
         }

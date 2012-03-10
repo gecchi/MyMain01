@@ -87,7 +87,7 @@ int GgafDxSe::writeBuffer(CWaveDecorder& WaveFile) {
     return true;
 }
 
-void GgafDxSe::play(int prm_iVolume, float prm_fPan, float prm_fRate_Frequency) {
+void GgafDxSe::play(int prm_volume, float prm_fPan, float prm_fRate_Frequency) {
     if (_pIDirectSoundBuffer == NULL) {
         _TRACE_("_pIDirectSoundBuffer==NULL;!");
     }
@@ -103,7 +103,7 @@ void GgafDxSe::play(int prm_iVolume, float prm_fPan, float prm_fRate_Frequency) 
             _TRACE_("GgafDxSe::play() restore() Ž¸”s");
         }
     }
-    setVolume(prm_iVolume);
+    setVolume(prm_volume);
     setPan(prm_fPan);
     setFrequencyRate(prm_fRate_Frequency);
     HRESULT hr;
@@ -113,10 +113,10 @@ void GgafDxSe::play(int prm_iVolume, float prm_fPan, float prm_fRate_Frequency) 
     checkDxException(hr, DS_OK, "GgafDxSe::play() Play(0, 0, 0x00000000) ‚ªŽ¸”s‚µ‚Ü‚µ‚½B");
 }
 
-void GgafDxSe::setVolume(int prm_iVolume) {
-    int db = GgafDxSound::aDbVolume[(LONG)(prm_iVolume * GgafDxSound::_master_volume_rate * GgafDxSound::_se_volume_rate)];
+void GgafDxSe::setVolume(int prm_volume) {
+    int db = GgafDxSound::aDbVolume[(LONG)(prm_volume * GgafDxSound::_master_volume_rate * GgafDxSound::_se_volume_rate)];
     HRESULT hr = _pIDirectSoundBuffer->SetVolume(db);
-    checkDxException(hr, DS_OK, "GgafDxSe::setVolume() SetVolume("<<prm_iVolume<<") ‚ªŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, DS_OK, "GgafDxSe::setVolume() SetVolume("<<prm_volume<<") ‚ªŽ¸”s‚µ‚Ü‚µ‚½B");
 }
 
 void GgafDxSe::setPan(float prm_fPan) {

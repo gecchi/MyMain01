@@ -17,7 +17,7 @@ public:
     /** シーンのイベント数（_paFrame_NextEventの要素数）(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _event_num;
     /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
-    int _iCnt_Event;
+    int _cnt_event;
     /** シーン進捗管理(GgafElement<GgafScene>::GgafProgress* _pProg; をシャドー) */
     SceneProgress* _pProg;
 

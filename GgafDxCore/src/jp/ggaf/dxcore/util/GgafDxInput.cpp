@@ -251,12 +251,12 @@ again:
 
 
 
-bool GgafDxInput::isBeingPressedMouseButton(int prm_iButtonNo) {
-    if (prm_iButtonNo < 0 || 8 < prm_iButtonNo) {
+bool GgafDxInput::isBeingPressedMouseButton(int prm_button_no) {
+    if (prm_button_no < 0 || 8 < prm_button_no) {
         _TRACE_("isBeingPressedMouseButton:範囲外");
         return false;
     } else {
-        if (_dimousestate[_active_MouseState].rgbButtons[prm_iButtonNo] & 0x80) {
+        if (_dimousestate[_active_MouseState].rgbButtons[prm_button_no] & 0x80) {
             return true;
         } else {
             return false;
@@ -264,9 +264,9 @@ bool GgafDxInput::isBeingPressedMouseButton(int prm_iButtonNo) {
     }
 }
 
-bool GgafDxInput::isPushedDownMouseButton(int prm_iButtonNo) {
-    if (GgafDxInput::isBeingPressedMouseButton(prm_iButtonNo)) { //今は押している
-        if (_dimousestate[!_active_MouseState].rgbButtons[prm_iButtonNo] & 0x80) {
+bool GgafDxInput::isPushedDownMouseButton(int prm_button_no) {
+    if (GgafDxInput::isBeingPressedMouseButton(prm_button_no)) { //今は押している
+        if (_dimousestate[!_active_MouseState].rgbButtons[prm_button_no] & 0x80) {
             //前回セット[!_active_MouseState]も押されている。押しっぱなし
             return false;
         } else {
@@ -278,9 +278,9 @@ bool GgafDxInput::isPushedDownMouseButton(int prm_iButtonNo) {
     }
 }
 
-bool GgafDxInput::isReleasedUpMouseButton(int prm_iButtonNo) {
-    if (!GgafDxInput::isBeingPressedMouseButton(prm_iButtonNo)) { //今は離している
-        if (_dimousestate[!_active_MouseState].rgbButtons[prm_iButtonNo] & 0x80) {
+bool GgafDxInput::isReleasedUpMouseButton(int prm_button_no) {
+    if (!GgafDxInput::isBeingPressedMouseButton(prm_button_no)) { //今は離している
+        if (_dimousestate[!_active_MouseState].rgbButtons[prm_button_no] & 0x80) {
             //前回セット[!_active_MouseState]も押されていた。成立。
             return true;
         } else {
@@ -406,12 +406,12 @@ void GgafDxInput::updateJoystickState() {
     }
 }
 
-bool GgafDxInput::isBeingPressedJoyRgbButton(int prm_iRgbButtonNo) {
-    if (prm_iRgbButtonNo < 0 || 31 < prm_iRgbButtonNo) {
+bool GgafDxInput::isBeingPressedJoyRgbButton(int prm_rgb_button_no) {
+    if (prm_rgb_button_no < 0 || 31 < prm_rgb_button_no) {
         _TRACE_("isBeingPressedJoyRgbButton:範囲外");
         return false;
     } else {
-        if (_dijoystate.rgbButtons[prm_iRgbButtonNo] & 0x80) {
+        if (_dijoystate.rgbButtons[prm_rgb_button_no] & 0x80) {
             return true;
         } else {
             return false;
@@ -451,35 +451,35 @@ bool GgafDxInput::isBeingPressedJoyRight() {
     }
 }
 
-bool GgafDxInput::isBeingPressedJoyDirection(int prm_iDirectionNo) {
-    if (prm_iDirectionNo < 1 || 9 < prm_iDirectionNo) {
+bool GgafDxInput::isBeingPressedJoyDirection(int prm_direction_no) {
+    if (prm_direction_no < 1 || 9 < prm_direction_no) {
         return false;
     } else {
         if (_dijoystate.lY < -127) {
-            if (_dijoystate.lX > 127 && prm_iDirectionNo == 9) {
+            if (_dijoystate.lX > 127 && prm_direction_no == 9) {
                 return true;
-            } else if (_dijoystate.lX < -127 && prm_iDirectionNo == 7) {
+            } else if (_dijoystate.lX < -127 && prm_direction_no == 7) {
                 return true;
-            } else if (prm_iDirectionNo == 8) {
+            } else if (prm_direction_no == 8) {
                 return true;
             } else {
                 return false;
             }
         } else if (_dijoystate.lY > 127) {
-            if (_dijoystate.lX > 127 && prm_iDirectionNo == 3) {
+            if (_dijoystate.lX > 127 && prm_direction_no == 3) {
                 return true;
-            } else if (_dijoystate.lX < -127 && prm_iDirectionNo == 1) {
+            } else if (_dijoystate.lX < -127 && prm_direction_no == 1) {
                 return true;
-            } else if (prm_iDirectionNo == 2) {
+            } else if (prm_direction_no == 2) {
                 return true;
             } else {
                 return false;
             }
-        } else if (_dijoystate.lX > 127 && prm_iDirectionNo == 6) {
+        } else if (_dijoystate.lX > 127 && prm_direction_no == 6) {
             return true;
-        } else if (_dijoystate.lX < -127 && prm_iDirectionNo == 4) {
+        } else if (_dijoystate.lX < -127 && prm_direction_no == 4) {
             return true;
-        } else if (prm_iDirectionNo == 5) {
+        } else if (prm_direction_no == 5) {
             return true;
         } else {
             return false;
