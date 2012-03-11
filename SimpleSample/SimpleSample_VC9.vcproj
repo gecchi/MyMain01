@@ -224,74 +224,26 @@
 			<File
 				RelativePath=".\src\SimpleSample.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\actor\SmpActor.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\actor\SmpCamera.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\SmpGod.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\scene\SmpUniverse.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\scene\SmpUniverse\SmpWorld.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\stdafx.cpp"
@@ -320,27 +272,27 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\include\SimpleSample.h"
+				RelativePath=".\src\SimpleSample.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\actor\SmpActor.h"
+				RelativePath=".\src\actor\SmpActor.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\actor\SmpCamera.h"
+				RelativePath=".\src\actor\SmpCamera.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\SmpGod.h"
+				RelativePath=".\src\SmpGod.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\scene\SmpUniverse.h"
+				RelativePath=".\src\scene\SmpUniverse.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\scene\SmpUniverse\SmpWorld.h"
+				RelativePath=".\src\scene\SmpUniverse\SmpWorld.h"
 				>
 			</File>
 			<File
