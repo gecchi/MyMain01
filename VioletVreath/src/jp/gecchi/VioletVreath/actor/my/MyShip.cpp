@@ -541,23 +541,22 @@ void MyShip::processJudgement() {
     if (is_being_soft_rapidshot_) {
         frame_soft_rapidshot_++;
     }
-    MyOptionController* pMyOptionController = P_MYOPTIONCON;
-
+    MyOptionController** papMyOptionController = P_MYSHIP_SCENE->papMyOptionController_;
     //ŒõŽq‹›—‹”­ŽË
     if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         bool can_fire = true;
-        for (int i = 0; i < pMyOptionController->now_option_num_; i++) {
-            if (pMyOptionController->papMyOption_[i]->pTorpedoController_->in_firing_) {
+        for (int i = 0; i < MyOptionController::now_option_num_; i++) {
+            if (papMyOptionController[i]->pMyOption_->pTorpedoController_->in_firing_) {
                 can_fire = false;
                 break;
             }
         }
         if (can_fire) {
-            for (int i = 0; i < pMyOptionController->now_option_num_; i++) {
+            for (int i = 0; i < MyOptionController::now_option_num_; i++) {
                 if (i == 0) {
                     _pSeTransmitter->play3D(3);
                 }
-                pMyOptionController->papMyOption_[i]->pTorpedoController_->fire();
+                papMyOptionController[i]->pMyOption_->pTorpedoController_->fire();
             }
         }
     }

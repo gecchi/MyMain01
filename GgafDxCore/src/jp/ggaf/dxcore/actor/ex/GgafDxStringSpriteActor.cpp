@@ -79,7 +79,7 @@ void GgafDxStringSpriteActor::processDraw() {
     pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
 
-    hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahAlpha[0], _fAlpha);
+    hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahAlpha[0], _alpha);
     checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw SetFloat(_ahAlpha) ‚É¸”s‚µ‚Ü‚µ‚½B");
     int len_pack_num = _len/_pSpriteSetModel->_set_num;
     int remainder_len = _len%_pSpriteSetModel->_set_num;

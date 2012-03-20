@@ -11,8 +11,8 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
              magic_point  prm_cost_base            , float prm_fRate_cost             ,
              magic_time   prm_time_of_casting_base , float prm_fRate_time_of_casting  ,
              magic_time   prm_time_of_invoking_base, float prm_fRate_time_of_invoking ,
-             magic_time   prm_time_of_effect_base  , float prm_fRatetime_of_effecting,
-             magic_point  prm_keep_cost_base       , float prm_fRatekeep_cost_
+             magic_time   prm_time_of_effect_base  , float prm_fRate_time_of_effecting,
+             magic_point  prm_keep_cost_base       , float prm_fRate_keep_cost
                 ) : GgafMainActor(prm_name, NULL) {
 //    GgafDxGeometricActor* prm_pCaster,
 //     GgafDxGeometricActor* prm_pReceiver) : GgafDxBoardSetActor(prm_name, "magic") {
@@ -26,12 +26,11 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     time_of_invoking_base_ = prm_time_of_invoking_base;
     time_of_effect_base   = prm_time_of_effect_base;
     keep_cost_base_        = prm_keep_cost_base;
-
-    fRate_cost_               = prm_fRate_cost;
-    fRate_time_of_casting_    = prm_fRate_time_of_casting;
-    fRate_time_of_invoking_   = prm_fRate_time_of_invoking;
-    fRatetime_of_effecting_  = prm_fRatetime_of_effecting;
-    fRatekeep_cost_          = prm_fRatekeep_cost_;
+    fRate_cost_             = prm_fRate_cost;
+    fRate_time_of_casting_  = prm_fRate_time_of_casting;
+    fRate_time_of_invoking_ = prm_fRate_time_of_invoking;
+    fRate_time_of_effecting_ = prm_fRate_time_of_effecting;
+    fRate_keep_cost_        = prm_fRate_keep_cost;
 
     //îÚÇ—ÉåÉxÉãç∑ï èÓïÒÇê›íË
     interest_cost_[0] = 0;
@@ -51,8 +50,8 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     for (int i = 1; i <= max_level_; i++) {
         lvinfo_[i].is_working_ = false;
         lvinfo_[i].remainingtime_of_effect_ = 0;
-        lvinfo_[i].time_of_effect_ = time_of_effect_base + ((i-1) * time_of_effect_base * fRatetime_of_effecting_);
-        lvinfo_[i].keep_cost_      = keep_cost_base_      + ((i-1) * keep_cost_base_ * fRatekeep_cost_);
+        lvinfo_[i].time_of_effect_ = time_of_effect_base + ((i-1) * time_of_effect_base * fRate_time_of_effecting_);
+        lvinfo_[i].keep_cost_      = keep_cost_base_      + ((i-1) * keep_cost_base_ * fRate_keep_cost_);
     }
 
     time_of_next_state_ = 0;

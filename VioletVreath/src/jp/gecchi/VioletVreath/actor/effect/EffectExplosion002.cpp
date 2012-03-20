@@ -20,12 +20,12 @@ void EffectExplosion002::initialize() {
 void EffectExplosion002::onActive() {
     _pUvFlipper->setActivePtnNoToTop();
     _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 1); //パラパラアニメ無し
-    _fAlpha = 0.99;
+    _alpha = 0.99;
     _SX = _SY = _SZ = 1000;
 }
 
 void EffectExplosion002::processBehavior() {
-    _fAlpha -= 0.03;
+    _alpha -= 0.03;
     _SX+= 100;
     _SY+= 100;
     _pUvFlipper->behave();
@@ -34,7 +34,7 @@ void EffectExplosion002::processBehavior() {
 }
 
 void EffectExplosion002::processJudgement() {
-    if (_fAlpha < 0) {
+    if (_alpha < 0) {
         sayonara();
     }
 }

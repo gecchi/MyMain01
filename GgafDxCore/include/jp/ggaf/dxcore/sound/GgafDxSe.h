@@ -12,7 +12,7 @@ public:
     /** waveファイル名 */
     char* _wave_name;
     /** 元の周波数 */
-    DWORD _dwDefaultFrequency;
+    DWORD _default_frequency;
 
     /**
      * コンストラクタ
@@ -36,19 +36,19 @@ public:
 
     /**
      * ボリュームとパンと周波数の率を指定してSEを１回再生
-     * @param prm_volume ボリューム(min:-9600 max:0)
-     * @param prm_fPan    パン(left:-10000 right:10000)
-     * @param prm_fRate_Frequency 元の周波数に乗ずる率
+     * @param prm_volume ボリューム(min:0 max:100)
+     * @param prm_pan パン(left:-1.0 center:0 right:1.0)
+     * @param prm_frequency 元の周波数に乗ずる率
      */
-    virtual void play(int prm_volume, float prm_fPan, float prm_fRate_Frequency);
+    virtual void play(int prm_volume, float prm_pan, float prm_frequency);
 
     /**
      * ボリュームとパンを指定してSEを1回再生
      * @param prm_volume ボリューム(min:0 max:100)
-     * @param prm_fPan    パン(left:-1.0 center:0 right:1.0)
+     * @param prm_pan    パン(left:-1.0 center:0 right:1.0)
      */
-    virtual void play(int prm_volume, float prm_fPan) {
-        play(prm_volume, prm_fPan, 1.0f);
+    virtual void play(int prm_volume, float prm_pan) {
+        play(prm_volume, prm_pan, 1.0f);
     }
 
     /**
@@ -74,16 +74,16 @@ public:
     /**
      * パンを変更 .
      * play()実行後、SEが再生中に使用することを想定 .
-     * @param prm_fPan パン(left:-1.0 center:0 right:1.0)
+     * @param prm_pan パン(left:-1.0 center:0 right:1.0)
      */
-    void setPan(float prm_fPan);
+    void setPan(float prm_pan);
 
     /**
      * 周波数の率を変更 .
      * play()実行後、SEが再生中に使用することを想定 .
-     * @param prm_fRate_Frequency 元の周波数に乗ずる率
+     * @param prm_frequency 元の周波数に乗ずる率
      */
-    void setFrequencyRate(float prm_fRate_Frequency);
+    void setFrequencyRate(float prm_frequency);
 
     virtual ~GgafDxSe();
 };

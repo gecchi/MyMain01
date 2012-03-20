@@ -49,21 +49,21 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
     _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
 }
 
-void GgafDxMeshSetActor::setAlpha(float prm_fAlpha) {
-    _fAlpha = prm_fAlpha;
+void GgafDxMeshSetActor::setAlpha(float prm_alpha) {
+    _alpha = prm_alpha;
     //GgafDxMeshSetActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pMeshSetModel->_dwNumMaterials; i++) {
-        _paMaterial[i].Ambient.a = _fAlpha;
-        _paMaterial[i].Diffuse.a = _fAlpha;
+    for (DWORD i = 0; i < _pMeshSetModel->_num_materials; i++) {
+        _paMaterial[i].Ambient.a = _alpha;
+        _paMaterial[i].Diffuse.a = _alpha;
     }
 }
 
-void GgafDxMeshSetActor::addAlpha(float prm_fAlpha) {
-    _fAlpha += prm_fAlpha;
+void GgafDxMeshSetActor::addAlpha(float prm_alpha) {
+    _alpha += prm_alpha;
     //GgafDxMeshSetActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pMeshSetModel->_dwNumMaterials; i++) {
-        _paMaterial[i].Ambient.a = _fAlpha;
-        _paMaterial[i].Diffuse.a = _fAlpha;
+    for (DWORD i = 0; i < _pMeshSetModel->_num_materials; i++) {
+        _paMaterial[i].Ambient.a = _alpha;
+        _paMaterial[i].Diffuse.a = _alpha;
     }
 }
 

@@ -58,21 +58,21 @@ GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
     }
 }
 
-void GgafDxMorphMeshActor::setAlpha(float prm_fAlpha) {
-    _fAlpha = prm_fAlpha;
+void GgafDxMorphMeshActor::setAlpha(float prm_alpha) {
+    _alpha = prm_alpha;
     //GgafDxMorphMeshActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pMorphMeshModel->_dwNumMaterials; i++) {
-        _paMaterial[i].Ambient.a = _fAlpha;
-        _paMaterial[i].Diffuse.a = _fAlpha;
+    for (DWORD i = 0; i < _pMorphMeshModel->_num_materials; i++) {
+        _paMaterial[i].Ambient.a = _alpha;
+        _paMaterial[i].Diffuse.a = _alpha;
     }
 }
 
-void GgafDxMorphMeshActor::addAlpha(float prm_fAlpha) {
-    _fAlpha += prm_fAlpha;
+void GgafDxMorphMeshActor::addAlpha(float prm_alpha) {
+    _alpha += prm_alpha;
     //GgafDxMorphMeshActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pMorphMeshModel->_dwNumMaterials; i++) {
-        _paMaterial[i].Ambient.a = _fAlpha;
-        _paMaterial[i].Diffuse.a = _fAlpha;
+    for (DWORD i = 0; i < _pMorphMeshModel->_num_materials; i++) {
+        _paMaterial[i].Ambient.a = _alpha;
+        _paMaterial[i].Diffuse.a = _alpha;
     }
 }
 

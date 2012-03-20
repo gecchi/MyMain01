@@ -13,8 +13,8 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
     _SX = _SY = _SZ = LEN_UNIT;
-    _radius_bounding_sphere = 0;
-    _rate_BoundingSphereRadius = 1.0f;
+    _bounding_sphere_radius = 0;
+    _rate_of_bounding_sphere_radius = 1.0f;
     _pChecker = prm_pChecker;
     _pKurokoA = NEW GgafDxKurokoA(this);
     _pKurokoB = NEW GgafDxKurokoB(this);
@@ -142,32 +142,32 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     }
     GgafDxCamera* pCam = P_CAM;
     //Ž‹‘ä
-    _fDist_VpPlnTop    = pCam->_plnTop.a*_fX +
+    _dest_from_vppln_top    = pCam->_plnTop.a*_fX +
                          pCam->_plnTop.b*_fY +
                          pCam->_plnTop.c*_fZ +
                          pCam->_plnTop.d;
 
-    _fDist_VpPlnBottom = pCam->_plnBottom.a*_fX +
+    _dest_from_vppln_bottom = pCam->_plnBottom.a*_fX +
                          pCam->_plnBottom.b*_fY +
                          pCam->_plnBottom.c*_fZ +
                          pCam->_plnBottom.d;
 
-    _fDist_VpPlnLeft   = pCam->_plnLeft.a*_fX +
+    _dest_from_vppln_left   = pCam->_plnLeft.a*_fX +
                          pCam->_plnLeft.b*_fY +
                          pCam->_plnLeft.c*_fZ +
                          pCam->_plnLeft.d;
 
-    _fDist_VpPlnRight  = pCam->_plnRight.a*_fX +
+    _dest_from_vppln_right  = pCam->_plnRight.a*_fX +
                          pCam->_plnRight.b*_fY +
                          pCam->_plnRight.c*_fZ +
                          pCam->_plnRight.d;
 
-    _fDist_VpPlnFront  = pCam->_plnFront.a*_fX +
+    _dest_from_vppln_front  = pCam->_plnFront.a*_fX +
                          pCam->_plnFront.b*_fY +
                          pCam->_plnFront.c*_fZ +
                          pCam->_plnFront.d;
 
-    _fDist_VpPlnBack   = pCam->_plnBack.a*_fX +
+    _dest_from_vppln_back   = pCam->_plnBack.a*_fX +
                          pCam->_plnBack.b*_fY +
                          pCam->_plnBack.c*_fZ +
                          pCam->_plnBack.d;
@@ -241,15 +241,15 @@ bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 
 
 int GgafDxGeometricActor::isOutOfView() {
-    //_TRACE_("name="<<getName()<<" _radius_bounding_sphere="<<_radius_bounding_sphere);
-    dxcoord bound = _radius_bounding_sphere * _rate_BoundingSphereRadius*1.5;//1.2‚Í‚â‚â‹«ŠE‹…‚ð‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ð—}‚¦‚é
+    //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
+    dxcoord bound = _bounding_sphere_radius * _rate_of_bounding_sphere_radius*1.5;//1.2‚Í‚â‚â‹«ŠE‹…‚ð‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ð—}‚¦‚é
     if (_offscreenkind == -1) {
-        if (_fDist_VpPlnTop <= bound) {
-            if (_fDist_VpPlnBottom <= bound) {
-                if (_fDist_VpPlnLeft <= bound) {
-                    if (_fDist_VpPlnRight <= bound) {
-                        if (_fDist_VpPlnFront <= bound) {
-                            if (_fDist_VpPlnBack <= bound) {
+        if (_dest_from_vppln_top <= bound) {
+            if (_dest_from_vppln_bottom <= bound) {
+                if (_dest_from_vppln_left <= bound) {
+                    if (_dest_from_vppln_right <= bound) {
+                        if (_dest_from_vppln_front <= bound) {
+                            if (_dest_from_vppln_back <= bound) {
                                 //Viewport”ÍˆÍ“à
                                 _offscreenkind = 0;
                             } else {
@@ -323,7 +323,7 @@ GgafDxGeometricActor::~GgafDxGeometricActor() {
 
 
 void GgafDxGeometricActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<DUMP_FLGS);
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")"<<DUMP_FLGS);
 
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst) {
@@ -344,7 +344,7 @@ void GgafDxGeometricActor::dump() {
 }
 
 void GgafDxGeometricActor::dump(string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<DUMP_FLGS);
+    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst) {
         while (true) {

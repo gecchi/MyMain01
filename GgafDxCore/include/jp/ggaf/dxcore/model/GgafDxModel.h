@@ -24,10 +24,10 @@ public:
     /** [r]マテリアル配列 */
     D3DMATERIAL9* _paMaterial_default;
     /** [r]マテリアル数 */
-    DWORD _dwNumMaterials;
+    DWORD _num_materials;
 
     /** [rw]モデルの境界球半径。画面外判定に利用される */
-    FLOAT _radius_bounding_sphere;
+    FLOAT _bounding_sphere_radius;
     /** [r]点滅強度 (0.0 <= _fblink <= 1.0)。GgafDxTextureBlinkerにより操作すること */
     FLOAT _power_blink;
     /** [r]点滅対象RGB値(0.0 <= tex2D()のrgbの何れか <= 1.0)。GgafDxTextureBlinkerにより操作すること */

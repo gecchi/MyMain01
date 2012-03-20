@@ -45,8 +45,8 @@ public:
 
     /** [r]同一描画レベルの次のアクター */
     GgafDxDrawableActor* _pNext_TheSameDrawDepthLevel;
-    /** [r/w]現在のマテリアルのα値 (0.0 <= _fAlpha <= 1.0) */
-    float _fAlpha;
+    /** [r/w]現在のマテリアルのα値 (0.0 <= _alpha <= 1.0) */
+    float _alpha;
     /** [r]現在描画に使用しているシェーダーテクニック名 */
     char* _technique;
     /** [r]現在描画に使用しているのシェーダーテクニックのハッシュコード */
@@ -194,18 +194,18 @@ public:
      * 1.0 以上の場合カリングがON、<br>
      * 1.0 より小さな場合、カリングがOFF、<br>
      * という機能もあわせ持つ。<br>
-     * @param prm_fAlpha アクターのマテリアルアルファ値
+     * @param prm_alpha アクターのマテリアルアルファ値
      */
-    virtual void setAlpha(float prm_fAlpha) {
-        _fAlpha = prm_fAlpha;
+    virtual void setAlpha(float prm_alpha) {
+        _alpha = prm_alpha;
     }
 
     /**
      * 本アクターの描画時のマテリアルアルファ値を加算する .
-     * @param prm_fAlpha 加算するマテリアルアルファ値
+     * @param prm_alpha 加算するマテリアルアルファ値
      */
-    virtual void addAlpha(float prm_fAlpha) {
-        _fAlpha += prm_fAlpha;
+    virtual void addAlpha(float prm_alpha) {
+        _alpha += prm_alpha;
     }
 
     /**
@@ -213,7 +213,7 @@ public:
      * @return アクターの現在のアルファ値
      */
     virtual float getAlpha() {
-        return _fAlpha;
+        return _alpha;
     }
 
     /**

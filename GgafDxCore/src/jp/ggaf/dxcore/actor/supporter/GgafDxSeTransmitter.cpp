@@ -87,7 +87,7 @@ void GgafDxSeTransmitter::play3D(int prm_id) {
             pCam->_plnVerticalCenter.c*_pActor->_fZ +
             pCam->_plnVerticalCenter.d;
 
-    angle ang = GgafDxUtil::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
+    angle ang = GgafDxUtil::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
     float pan = GgafDxUtil::COS[ang/SANG_RATE] * 0.7; //0.7ÇÕäÆëSÇ…âEÇÃÇ›àΩÇ¢ÇÕç∂ÇÃÇ›Ç©ÇÁï∑Ç±Ç¶ÇÈÇÃÇîÇØÇÈÇΩÇﬂ
 
     int delay = (d / (pCam->_zf*PX_UNIT))*MAX_SE_DELAY-10; //10ÉtÉåÅ[ÉÄíÍè„Ç∞
@@ -98,13 +98,13 @@ void GgafDxSeTransmitter::play3D(int prm_id) {
     }
 
     float rate_frequency = 1.0;
-    if (_pActor->_fDist_VpPlnFront > 0) { //îwå„ÇÃèÍçáé¸îgêîÇâ∫Ç∞ÅAâπÇè≠ÇµÇÆÇÆÇ‡ÇÁÇπÇÈÅB
-        if (_pActor->_fDist_VpPlnFront > PX2DX(800)) {
+    if (_pActor->_dest_from_vppln_front > 0) { //îwå„ÇÃèÍçáé¸îgêîÇâ∫Ç∞ÅAâπÇè≠ÇµÇÆÇÆÇ‡ÇÁÇπÇÈÅB
+        if (_pActor->_dest_from_vppln_front > PX2DX(800)) {
             //îwå„800px Å`
             rate_frequency = 0.9;
         } else {
             //îwå„0px Å` 800px
-            rate_frequency = 1.0 - (0.1 * (_pActor->_fDist_VpPlnFront / PX2DX(800)));
+            rate_frequency = 1.0 - (0.1 * (_pActor->_dest_from_vppln_front / PX2DX(800)));
         }
     }
 
@@ -113,8 +113,8 @@ void GgafDxSeTransmitter::play3D(int prm_id) {
 
     _pa_is3D[prm_id] = true;
     //ê^ÇÒíÜÇ©ÇÁÇÃãóó£
-   //                float dPlnLeft = abs(_fDist_VpPlnLeft);
-   //                float dPlnRight = abs(_fDist_VpPlnRight);
+   //                float dPlnLeft = abs(_dest_from_vppln_left);
+   //                float dPlnRight = abs(_dest_from_vppln_right);
    //                if (dPlnLeft < dPlnRight) {
    //                    //sinÉ∆ = dPlnLeft/d;
    //                    //É∆ = asin(dPlnLeft/d)
@@ -172,17 +172,17 @@ void GgafDxSeTransmitter::updatePanVolume3D() {
                             pCam->_plnVerticalCenter.b*_pActor->_fY +
                             pCam->_plnVerticalCenter.c*_pActor->_fZ +
                             pCam->_plnVerticalCenter.d;
-                    angle ang = GgafDxUtil::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
+                    angle ang = GgafDxUtil::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
                     pan = GgafDxUtil::COS[ang/SANG_RATE] * 0.7; //0.7à”ñ°ÇÕÅAäÆëSÇ…âEÇÃÇ›àΩÇ¢ÇÕç∂ÇÃÇ›Ç©ÇÁï∑Ç±Ç¶ÇÈÇÃÇîÇØÇÈÇΩÇﬂ
                                                                 //ç≈çÇÇ≈ 0.3 : 0.7 ÇÃäÑçáÇ…óØÇﬂÇÈÇΩÇﬂÅB
                     //ÉäÉAÉãÉ^ÉCÉÄÇÃÉpÉìÇåvéZ
-                    if (_pActor->_fDist_VpPlnFront > 0) { //îwå„ÇÃèÍçáé¸îgêîÇâ∫Ç∞ÅAâπÇè≠ÇµÇÆÇÆÇ‡ÇÁÇπÇÈÅB
-                        if (_pActor->_fDist_VpPlnFront > PX2DX(800)) {
+                    if (_pActor->_dest_from_vppln_front > 0) { //îwå„ÇÃèÍçáé¸îgêîÇâ∫Ç∞ÅAâπÇè≠ÇµÇÆÇÆÇ‡ÇÁÇπÇÈÅB
+                        if (_pActor->_dest_from_vppln_front > PX2DX(800)) {
                             //îwå„800px Å`
                             rate_frequency = 0.9;
                         } else {
                             //îwå„0px Å` 800px
-                            rate_frequency = 1.0 - (0.1 * (_pActor->_fDist_VpPlnFront / PX2DX(800)));
+                            rate_frequency = 1.0 - (0.1 * (_pActor->_dest_from_vppln_front / PX2DX(800)));
                         }
                     }
                     //ã[éóÇRDâπ

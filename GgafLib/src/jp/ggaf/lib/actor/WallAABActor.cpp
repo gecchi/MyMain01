@@ -47,7 +47,7 @@ void WallAABActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     if (_pWalledSectionScene->_pTarget_FrontAlpha) {
-        hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pTarget_FrontAlpha->_fDist_VpPlnFront));
+        hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pTarget_FrontAlpha->_dest_from_vppln_front));
         checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     } else {
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -100.0f);

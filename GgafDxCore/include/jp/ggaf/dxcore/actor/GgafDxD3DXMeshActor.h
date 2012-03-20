@@ -34,15 +34,15 @@ public:
 
     /**
      * α設定.
-     * @param prm_fAlpha
+     * @param prm_alpha
      */
-    void setAlpha(float prm_fAlpha) override;
+    void setAlpha(float prm_alpha) override;
 
     /**
      * α加算 .
-     * @param prm_fAlpha
+     * @param prm_alpha
      */
-    void addAlpha(float prm_fAlpha) override;
+    void addAlpha(float prm_alpha) override;
 
     virtual ~GgafDxD3DXMeshActor(); //デストラクタ
 };

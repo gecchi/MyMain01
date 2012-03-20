@@ -47,25 +47,25 @@ void GgafDxSpriteActor::processDraw() {
     //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetMatrix(_h_matWorld) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _fAlpha);
-    checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetFloat(_fAlpha) に失敗しました。");
+    hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _alpha);
+    checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetFloat(_alpha) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_h_far_rate, _far_rate );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetFloat(_h_far_rate) に失敗しました。");
     _pSpriteModel->draw(this);
 }
 
-void GgafDxSpriteActor::setAlpha(float prm_fAlpha) {
-    _fAlpha = prm_fAlpha;
+void GgafDxSpriteActor::setAlpha(float prm_alpha) {
+    _alpha = prm_alpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _fAlpha;
-    _paMaterial[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _alpha;
+    _paMaterial[0].Diffuse.a = _alpha;
 }
 
-void GgafDxSpriteActor::addAlpha(float prm_fAlpha) {
-    _fAlpha += prm_fAlpha;
+void GgafDxSpriteActor::addAlpha(float prm_alpha) {
+    _alpha += prm_alpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _fAlpha;
-    _paMaterial[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _alpha;
+    _paMaterial[0].Diffuse.a = _alpha;
 }
 
 

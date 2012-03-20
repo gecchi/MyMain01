@@ -40,7 +40,7 @@ void EffectWormhole::processBehavior() {
 }
 
 void EffectWormhole::processJudgement() {
-//    if (_fAlpha < 0) {
+//    if (_alpha < 0) {
 //        sayonara();
 //    }
 }

@@ -37,7 +37,7 @@ void EffectLaserRefraction001::processBehavior() {
 }
 
 void EffectLaserRefraction001::processJudgement() {
-//    if (_fAlpha < 0) {
+//    if (_alpha < 0) {
 //        sayonara();
 //    }
 }

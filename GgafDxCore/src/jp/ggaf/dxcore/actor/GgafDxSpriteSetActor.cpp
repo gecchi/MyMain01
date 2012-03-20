@@ -55,8 +55,8 @@ void GgafDxSpriteSetActor::processDraw() {
                 checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw() SetFloat(_hOffsetU) に失敗しました。");
                 hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetV[_draw_set_num], v);
                 checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw() SetFloat(_hOffsetV) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahAlpha[_draw_set_num], pDrawActor->_fAlpha);
-                checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw SetFloat(_fAlpha) に失敗しました。");
+                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahAlpha[_draw_set_num], pDrawActor->_alpha);
+                checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw SetFloat(_alpha) に失敗しました。");
 
                 _draw_set_num++;
                 if (_draw_set_num >= _pSpriteSetModel->_set_num) {
@@ -74,18 +74,18 @@ void GgafDxSpriteSetActor::processDraw() {
     _pSpriteSetModel->draw(this, _draw_set_num);
 }
 
-void GgafDxSpriteSetActor::setAlpha(float prm_fAlpha) {
-    _fAlpha = prm_fAlpha;
+void GgafDxSpriteSetActor::setAlpha(float prm_alpha) {
+    _alpha = prm_alpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _fAlpha; //＜ーこっちは今のところ無意味
-    _paMaterial[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _alpha; //＜ーこっちは今のところ無意味
+    _paMaterial[0].Diffuse.a = _alpha;
 }
 
-void GgafDxSpriteSetActor::addAlpha(float prm_fAlpha) {
-    _fAlpha += prm_fAlpha;
+void GgafDxSpriteSetActor::addAlpha(float prm_alpha) {
+    _alpha += prm_alpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _fAlpha; //＜ーこっちは今のところ無意味
-    _paMaterial[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _alpha; //＜ーこっちは今のところ無意味
+    _paMaterial[0].Diffuse.a = _alpha;
 }
 
 GgafDxSpriteSetActor::~GgafDxSpriteSetActor() {

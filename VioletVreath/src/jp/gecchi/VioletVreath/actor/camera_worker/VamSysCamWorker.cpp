@@ -74,7 +74,7 @@ void VamSysCamWorker::processBehavior() {
 
     GgafDxCamera* pCam = P_CAM;
     GgafDxGeometricActor* pVP = pCam->_pViewPoint;
-    MyOptionController* pOptionController = P_MYOPTIONCON;
+    MyOptionController* pOptionController = P_MYSHIP_SCENE->papMyOptionController_[0];
 
     //ƒJƒƒ‰ˆÊ’u”Ô†‚ğŒˆ’èˆ—
     is_cam_pos_option_back_ = false;

@@ -29,14 +29,14 @@ void EffectExplosion003::onActive() {
 }
 
 void EffectExplosion003::processBehavior() {
-    _fAlpha -= 0.01;
+    _alpha -= 0.01;
     _pUvFlipper->behave();
     _pKurokoA->behave();
     _pScaler->behave();
 }
 
 void EffectExplosion003::processJudgement() {
-    if (_fAlpha < 0) {
+    if (_alpha < 0) {
         sayonara();
     }
 }

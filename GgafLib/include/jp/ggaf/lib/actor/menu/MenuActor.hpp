@@ -177,7 +177,7 @@ public:
      * メニューアイテム間のオーダー連結を拡張設定(自身がFrom ⇔ To) .
      * addSelectItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
      * 次、前、の線形オーダーが構築されている。<BR>
-     * このメソッドはそれとは別にアイテム間の「次」、「前」、の関係を設定する。<BR>
+     * このメソッドはそれとは別にアイテム間の「次」、「前」、の関係を追加設定する。<BR>
      * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作にした場合に
      * 「↑」「↓」の移動先を設定するといった使用方法を想定。<BR>
      * @param prm_index_of_fromitem 連結元のメニューアイテムのインデックス
@@ -191,7 +191,7 @@ public:
      * メニューアイテム間のオーダー連結を拡張設定(From ⇔ 自身がTo) .
      * addSelectItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
      * 次、前、の線形オーダーが構築されている。<BR>
-     * このメソッドはそれとは別にアイテム間の「前」、「次」、の関係を設定する。<BR>
+     * このメソッドはそれとは別にアイテム間の「前」、「次」、の関係を追加設定する。<BR>
      * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作にした場合に
      * 「↑」「↓」の移動先を設定するといった使用方法を想定。<BR>
      * @param prm_index_of_fromitem 連結元のメニューアイテムのインデックス
@@ -343,14 +343,6 @@ public:
      */
     virtual void processBehavior() override;
 
-//    /**
-//     * フラグのリセット処理 .
-//     * 処理が実装済みです。<BR>
-//     * 下位で処理追加する場合は、オーバーライドして、
-//     * 処理中に上位 processFinal() を呼び出すのを忘れないように。<BR>
-//     */
-//    virtual void processFinal() override;
-
     /**
      * メニューを消去開始 .
      * 本オブジェクトを生成、タスクに追加後、表示させたいタイミングで実行してください。<BR>
@@ -477,7 +469,7 @@ void MenuActor<T>::addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
     prm_pItem->_X_local = prm_X_local;
     prm_pItem->_Y_local = prm_Y_local;
     prm_pItem->_Z_local = prm_Z_local;
-    prm_pItem->_fAlpha = T::_fAlpha; //半透明αを共有させる。
+    prm_pItem->_alpha = T::_alpha; //半透明αを共有させる。
     prm_pItem->inactivateImmed();
     _lstItems.addLast(prm_pItem, false);
     T::addSubLast(prm_pItem);
@@ -489,7 +481,7 @@ void MenuActor<T>::addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
     prm_pItem->_X_local = prm_X_local;
     prm_pItem->_Y_local = prm_Y_local;
     prm_pItem->_Z_local = prm_Z_local;
-    prm_pItem->_fAlpha = T::_fAlpha; //半透明αを共有させる。
+    prm_pItem->_alpha = T::_alpha; //半透明αを共有させる。
     prm_pItem->inactivateImmed();
     _lstDispActors.addLast(prm_pItem);
     T::addSubLast(prm_pItem);
@@ -558,7 +550,7 @@ void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
 
     _pCursor = prm_pCursor;
     if (_pCursor) {
-        _pCursor->_fAlpha = T::_fAlpha;
+        _pCursor->_alpha = T::_alpha;
         _pCursor->inactivateImmed();
     }
     T::addSubLast(_pCursor);
@@ -813,19 +805,6 @@ void MenuActor<T>::processBehavior() {
     }
 }
 
-//template<class T>
-//void MenuActor<T>::processFinal() {
-//    if (_was_called_onSunk && _is_just_sunk) {
-//        _is_just_sunk = false;
-//        _was_called_onSunk = false;
-//    }
-//
-//    if (_was_called_onRisen && _is_just_risen) {
-//        _is_just_risen = false;
-//        _was_called_onRisen = false;
-//    }
-//
-//}
 template<class T>
 void MenuActor<T>::sink() {
     _with_rising = false;
@@ -836,7 +815,6 @@ void MenuActor<T>::sink() {
     _will_be_sinking_next_frame = true;
     _will_be_able_to_controll = false;
 }
-
 
 template<class T>
 void MenuActor<T>::onSunk() {

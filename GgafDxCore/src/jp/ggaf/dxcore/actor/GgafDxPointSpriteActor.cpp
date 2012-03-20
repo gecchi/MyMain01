@@ -36,18 +36,18 @@ GgafDxPointSpriteActor::GgafDxPointSpriteActor(const char* prm_name,
 }
 
 
-void GgafDxPointSpriteActor::setAlpha(float prm_fAlpha) {
-    _fAlpha = prm_fAlpha;
+void GgafDxPointSpriteActor::setAlpha(float prm_alpha) {
+    _alpha = prm_alpha;
     //GgafDxPointSpriteActorはメッシュαも設定（シェーダーで参照するため）
-    _paMaterial[0].Ambient.a = _fAlpha;
-    _paMaterial[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _alpha;
+    _paMaterial[0].Diffuse.a = _alpha;
 }
 
-void GgafDxPointSpriteActor::addAlpha(float prm_fAlpha) {
-    _fAlpha += prm_fAlpha;
+void GgafDxPointSpriteActor::addAlpha(float prm_alpha) {
+    _alpha += prm_alpha;
     //GgafDxPointSpriteActorはメッシュαも設定（シェーダーで参照するため）
-    _paMaterial[0].Ambient.a = _fAlpha;
-    _paMaterial[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _alpha;
+    _paMaterial[0].Diffuse.a = _alpha;
 }
 
 void GgafDxPointSpriteActor::processDraw() {
@@ -58,7 +58,7 @@ void GgafDxPointSpriteActor::processDraw() {
     //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_h_dist_VpFrontPlane, -_fDist_VpPlnFront);
+    hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_h_dist_VpFrontPlane, -_dest_from_vppln_front);
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(g_h_dist_VpFrontPlane) に失敗しました。");
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
 //    _TRACE_("_pUvFlipper->_pattno_uvflip_now="<<_pUvFlipper->_pattno_uvflip_now);

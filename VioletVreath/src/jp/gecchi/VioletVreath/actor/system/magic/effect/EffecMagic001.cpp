@@ -32,7 +32,7 @@ void EffectMagic001::processBehavior() {
 }
 
 void EffectMagic001::processJudgement() {
-//    if (_fAlpha < 0) {
+//    if (_alpha < 0) {
 //        sayonara();
 //    }
 }

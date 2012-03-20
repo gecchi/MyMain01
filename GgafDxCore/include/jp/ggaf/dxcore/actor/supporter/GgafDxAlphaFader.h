@@ -6,7 +6,7 @@ namespace GgafDxCore {
 /**
  * フェーディング支援クラス .
  * GgafDxDrawableActor のメンバの
- * _fAlpha(アクターのα強度)をなめらかに変化させ、<BR>
+ * _alpha(アクターのα強度)をなめらかに変化させ、<BR>
  * フェーディングを行うことを主な目的<BR>
  * @version 1.00
  * @since 2010/07/28

@@ -137,9 +137,9 @@ public:
     /** [r]飛びレベル時の発動時間削減割合(0.0～1.0) */
     float fRate_time_of_invoking_;
     /** [r]各レベル毎の効果持続時間削減割合(0.0～1.0) */
-    float fRatetime_of_effecting_;
+    float fRate_time_of_effecting_;
     /** [r]各レベル毎の維持コスト増加割合 (1.0～ )*/
-    float fRatekeep_cost_;
+    float fRate_keep_cost_;
 
     /** [r]次の進捗状態になる為に必要なフレーム数(を一時保持) */
     magic_time time_of_next_state_;
@@ -165,14 +165,14 @@ public:
      * @param prm_time_of_invoking_base 基本魔法発動時間
      * @param prm_fRate_time_of_invoking 飛びレベル時の発動時間削減割合0.0～1.0 (1.0:飛びレベルでも割引無し, 0.8:レベル差２以上時、発動時間２割引)
      * @param prm_time_of_effect_base 基本魔法効果持続時間
-     * @param prm_fRatetime_of_effecting 各レベル毎の効果持続時間削減割合  0.0～1.0
+     * @param prm_fRate_time_of_effecting 各レベル毎の効果持続時間削減割合  0.0～1.0
      *                            (1.0:レベルによる効果持続時削減無し,
      *                            (0.8:レベル1のとき prm_time_of_effect
      *                                 レベル2のとき prm_time_of_effect * 0.8
      *                                 レベル3のとき prm_time_of_effect * 0.8 * 0.8
      *                                 レベル4のとき prm_time_of_effect * 0.8 * 0.8 * 0.8  という持続時間が設定される)
      * @param prm_keep_cost_base 基本魔法効果持続中維持コスト
-     * @param prm_fRatekeep_cost_base 各レベル毎の維持コスト増加割合 1.0～
+     * @param prm_fRate_keep_costbase 各レベル毎の維持コスト増加割合 1.0～
      *                            (1.0:レベルによる維持コスト増加無し,
      *                            (1.2:レベル1のとき prm_keep_cost_base
      *                                 レベル2のとき prm_keep_cost_base * 1.2
@@ -185,8 +185,8 @@ public:
           magic_point prm_cost_base, float prm_fRate_cost,
           magic_time  prm_time_of_casting_base , float prm_fRate_time_of_casting,
           magic_time  prm_time_of_invoking_base, float prm_fRate_time_of_invoking,
-          magic_time  prm_time_of_effect_base  , float prm_fRatetime_of_effecting,
-          magic_point prm_keep_cost_base       , float prm_fRatekeep_cost_base);
+          magic_time  prm_time_of_effect_base  , float prm_fRate_time_of_effecting,
+          magic_point prm_keep_cost_base       , float prm_fRate_keep_costbase);
 
     void initialize() override {}
 

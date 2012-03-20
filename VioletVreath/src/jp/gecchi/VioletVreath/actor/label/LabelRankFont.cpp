@@ -206,7 +206,7 @@ void LabelRankFont::processDraw() {
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahTransformedY) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(CO2PX(_Z)));
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahDepthZ) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha);
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _alpha);
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahAlpha) に失敗しました。");
     int strindex, pattno;
     pixcoord x = CO2PX(_X) - (_chr_width_px * _len); //右詰にするため _chr_width_px*_len をマイナス

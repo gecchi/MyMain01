@@ -260,7 +260,7 @@ GgafGod* GgafScene::askGod() {
 }
 
 void GgafScene::dump() {
-    _TRACE_("Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<DUMP_FLGS);
+    _TRACE_("Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
     if (_pDirector) {
         _pDirector->dump();
         GgafScene* pScene_tmp = _pSubFirst;
@@ -282,7 +282,7 @@ void GgafScene::dump() {
 }
 
 void GgafScene::dump(string prm_parent) {
-    _TRACE_(prm_parent+"Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<DUMP_FLGS);
+    _TRACE_(prm_parent+"Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
     if (_pDirector) {
         _pDirector->dump(prm_parent + "\t\t\t\t\t\t\t\t");
         GgafScene* pScene_tmp = _pSubFirst;

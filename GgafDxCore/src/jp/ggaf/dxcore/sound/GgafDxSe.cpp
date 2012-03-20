@@ -39,7 +39,7 @@ GgafDxSe::GgafDxSe(char* prm_wave_name) : GgafObject() {
     if (!writeBuffer(WaveFile)) {
         _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_name<<") ＜警告＞GgafDxSe::writeBuffer()が失敗しています。");
     }
-    hr = _pIDirectSoundBuffer->GetFrequency(&_dwDefaultFrequency);
+    hr = _pIDirectSoundBuffer->GetFrequency(&_default_frequency);
     checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_name<<") GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
 	_TRACE_("GgafDxSe::GgafDxSe() _wave_name="<<_wave_name<<" this="<<this<<" _id="<<_id);
@@ -87,7 +87,7 @@ int GgafDxSe::writeBuffer(CWaveDecorder& WaveFile) {
     return true;
 }
 
-void GgafDxSe::play(int prm_volume, float prm_fPan, float prm_fRate_Frequency) {
+void GgafDxSe::play(int prm_volume, float prm_pan, float prm_frequency) {
     if (_pIDirectSoundBuffer == NULL) {
         _TRACE_("_pIDirectSoundBuffer==NULL;!");
     }
@@ -104,8 +104,8 @@ void GgafDxSe::play(int prm_volume, float prm_fPan, float prm_fRate_Frequency) {
         }
     }
     setVolume(prm_volume);
-    setPan(prm_fPan);
-    setFrequencyRate(prm_fRate_Frequency);
+    setPan(prm_pan);
+    setFrequencyRate(prm_frequency);
     HRESULT hr;
     hr = _pIDirectSoundBuffer->SetCurrentPosition(0); //バッファ頭だし
     checkDxException(hr, DS_OK, "GgafDxSe::play() SetCurrentPosition(0) が失敗しました。");
@@ -119,14 +119,14 @@ void GgafDxSe::setVolume(int prm_volume) {
     checkDxException(hr, DS_OK, "GgafDxSe::setVolume() SetVolume("<<prm_volume<<") が失敗しました。");
 }
 
-void GgafDxSe::setPan(float prm_fPan) {
-    HRESULT hr = _pIDirectSoundBuffer->SetPan(prm_fPan*DSBPAN_RIGHT);
-    checkDxException(hr, DS_OK, "GgafDxSe::setPan() SetPan("<<prm_fPan<<") が失敗しました。");
+void GgafDxSe::setPan(float prm_pan) {
+    HRESULT hr = _pIDirectSoundBuffer->SetPan(prm_pan*DSBPAN_RIGHT);
+    checkDxException(hr, DS_OK, "GgafDxSe::setPan() SetPan("<<prm_pan<<") が失敗しました。");
 }
 
-void GgafDxSe::setFrequencyRate(float prm_fRate_Frequency) {
-    HRESULT hr = _pIDirectSoundBuffer->SetFrequency((DWORD)(_dwDefaultFrequency*prm_fRate_Frequency)); //再生周波数設定
-    checkDxException(hr, DS_OK, "GgafDxSe::setFrequencyRate() SetFrequency((DWORD)"<<(_dwDefaultFrequency*prm_fRate_Frequency)<<") が失敗しました。");
+void GgafDxSe::setFrequencyRate(float prm_frequency) {
+    HRESULT hr = _pIDirectSoundBuffer->SetFrequency((DWORD)(_default_frequency*prm_frequency)); //再生周波数設定
+    checkDxException(hr, DS_OK, "GgafDxSe::setFrequencyRate() SetFrequency((DWORD)"<<(_default_frequency*prm_frequency)<<") が失敗しました。");
 }
 
 int GgafDxSe::restore(void) {

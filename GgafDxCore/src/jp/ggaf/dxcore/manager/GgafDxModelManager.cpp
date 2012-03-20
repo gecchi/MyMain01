@@ -317,7 +317,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
 
         //頂点バッファ作成開始！
         //法線以外設定
-        FLOAT model_radius_bounding_sphere;
+        FLOAT model_bounding_sphere_radius;
         for (int i = 0; i < nVertices; i++) {
             model_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
             model_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
@@ -335,11 +335,11 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
             }
 
             //距離
-            model_radius_bounding_sphere = (FLOAT)(GgafDxUtil::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
+            model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
                                                  model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
                                                  model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
-            if (prm_pMeshModel->_radius_bounding_sphere < model_radius_bounding_sphere) {
-                prm_pMeshModel->_radius_bounding_sphere = model_radius_bounding_sphere;
+            if (prm_pMeshModel->_bounding_sphere_radius < model_bounding_sphere_radius) {
+                prm_pMeshModel->_bounding_sphere_radius = model_bounding_sphere_radius;
             }
         }
 
@@ -727,7 +727,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     prm_pMeshModel->_paIndexParam = model_paIndexParam;
     prm_pMeshModel->_paMaterial_default = model_paMaterial;
     prm_pMeshModel->_papTextureCon = model_papTextureCon;
-    prm_pMeshModel->_dwNumMaterials = model_nMaterials;
+    prm_pMeshModel->_num_materials = model_nMaterials;
 
 //    {
 //        //デバッグ
@@ -846,7 +846,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
         int nTextureCoords = 0;
         int nFaces = 0;
         int nFaceNormals = 0;
-        FLOAT model_radius_bounding_sphere;
+        FLOAT model_bounding_sphere_radius;
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
             model_papModel3D[pattern] = NEW Frm::Model3D();
             bool r = paIOX[pattern].Load(paXfileName[pattern], model_papModel3D[pattern]);
@@ -896,11 +896,11 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
                     }
 
                     //距離
-                    model_radius_bounding_sphere = (FLOAT)(GgafDxUtil::sqrt_fast(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
+                    model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
                                                          model_paVtxBuffer_org_primary[i].y * model_paVtxBuffer_org_primary[i].y +
                                                          model_paVtxBuffer_org_primary[i].z * model_paVtxBuffer_org_primary[i].z));
-                    if (prm_pMorphMeshModel->_radius_bounding_sphere < model_radius_bounding_sphere) {
-                        prm_pMorphMeshModel->_radius_bounding_sphere = model_radius_bounding_sphere;
+                    if (prm_pMorphMeshModel->_bounding_sphere_radius < model_bounding_sphere_radius) {
+                        prm_pMorphMeshModel->_bounding_sphere_radius = model_bounding_sphere_radius;
                     }
                 }
             } else {
@@ -1472,7 +1472,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     prm_pMorphMeshModel->_paIndexParam = model_paIndexParam;
     prm_pMorphMeshModel->_paMaterial_default = model_paMaterial;
     prm_pMorphMeshModel->_papTextureCon = model_papTextureCon;
-    prm_pMorphMeshModel->_dwNumMaterials = model_nMaterials;
+    prm_pMorphMeshModel->_num_materials = model_nMaterials;
 }
 
 void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMeshModel) {
@@ -1485,7 +1485,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
     D3DMATERIAL9* model_paMaterial; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDxTextureConnection** model_papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
-    DWORD dwNumMaterials;
+    DWORD _num_materials;
     string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
 
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
@@ -1498,7 +1498,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
            NULL,                       //[out] LPD3DXBUFFER* ppAdjacency
            &pID3DXBuffer,              //[out] LPD3DXBUFFER* ppMaterials
            NULL,                       //[out] LPD3DXBUFFER* ppEffectInstances
-           &dwNumMaterials,            //[out] DWORD* pNumMaterials
+           &_num_materials,            //[out] DWORD* pNumMaterials
            &pID3DXMesh                 //[out] LPD3DXMESH* pMesh
          );
     checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
@@ -1519,8 +1519,8 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     // やっていることメモ
     // GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
     //構造体を物理コピーをして保存することにしましょ～、とりあえずそ～しましょう。
-    model_paMaterial = NEW D3DMATERIAL9[dwNumMaterials];
-    for( DWORD i = 0; i < dwNumMaterials; i++){
+    model_paMaterial = NEW D3DMATERIAL9[_num_materials];
+    for( DWORD i = 0; i < _num_materials; i++){
         model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
     }
 
@@ -1532,14 +1532,14 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     //＜2009/3/13＞
     //固定パイプラインはもう使わなくなった。それに伴いマテリアルDiffuseはシェーダーのパラメータのみで利用している。
     //TODO:現在マテリアルAmbientは参照されない。今後もそうする？
-    for( DWORD i = 0; i < dwNumMaterials; i++) {
+    for( DWORD i = 0; i < _num_materials; i++) {
         model_paMaterial[i].Ambient = model_paMaterial[i].Diffuse;
     }
 
     //テクスチャを取り出す
-    model_papTextureCon = NEW GgafDxTextureConnection*[dwNumMaterials];
+    model_papTextureCon = NEW GgafDxTextureConnection*[_num_materials];
     char* texture_filename;
-    for( DWORD i = 0; i < dwNumMaterials; i++) {
+    for( DWORD i = 0; i < _num_materials; i++) {
         texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
             model_papTextureCon[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
@@ -1569,8 +1569,8 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     prm_pD3DXMeshModel->_pID3DXMesh = pID3DXMesh;
     prm_pD3DXMeshModel->_paMaterial_default = model_paMaterial;
     prm_pD3DXMeshModel->_papTextureCon = model_papTextureCon;
-    prm_pD3DXMeshModel->_dwNumMaterials = dwNumMaterials;
-    prm_pD3DXMeshModel->_radius_bounding_sphere = 10.0f; //TODO:境界球半径大きさとりあえず100px
+    prm_pD3DXMeshModel->_num_materials = _num_materials;
+    prm_pD3DXMeshModel->_bounding_sphere_radius = 10.0f; //TODO:境界球半径大きさとりあえず100px
 
 }
 
@@ -1585,7 +1585,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     LPD3DXMESH pID3DXAniMesh; //メッシュ(ID3DXAniMeshインターフェイスへのポインタ）
     D3DMATERIAL9* model_paMaterial = NULL; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDxTextureConnection** model_papTextureCon = NULL; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
-    DWORD dwNumMaterials;
+    DWORD _num_materials;
     string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
 
 
@@ -1679,22 +1679,22 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     }
     //境界球
     D3DXVECTOR3 vecCenter;
-    FLOAT model_radius_bounding_sphere;
-    D3DXFrameCalculateBoundingSphere(pFR, &vecCenter, &model_radius_bounding_sphere);
+    FLOAT model_bounding_sphere_radius;
+    D3DXFrameCalculateBoundingSphere(pFR, &vecCenter, &model_bounding_sphere_radius);
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
 
     prm_pD3DXAniMeshModel->_pAH = pAH;
     prm_pD3DXAniMeshModel->_pFR = pFR;
     prm_pD3DXAniMeshModel->_pAcBase = pAC;
-    prm_pD3DXAniMeshModel->_radius_bounding_sphere = model_radius_bounding_sphere;
-    _TRACE_("境界球半径="<<model_radius_bounding_sphere);
+    prm_pD3DXAniMeshModel->_bounding_sphere_radius = model_bounding_sphere_radius;
+    _TRACE_("境界球半径="<<model_bounding_sphere_radius);
 //    prm_pD3DXAniMeshModel->_advance_time_per_frame0 =  advanceTimePerFrame0; //トラック0番１ループの時間
 //    _TRACE_("アニメーションセット0番_advance_time_per_frame");
 
 //    prm_pD3DXAniMeshModel->_pID3DXAniMesh = pID3DXAniMesh;
     prm_pD3DXAniMeshModel->_paMaterial_default = model_paMaterial;
     prm_pD3DXAniMeshModel->_papTextureCon = model_papTextureCon;
-    prm_pD3DXAniMeshModel->_dwNumMaterials = model_nMaterials;
+    prm_pD3DXAniMeshModel->_num_materials = model_nMaterials;
     prm_pD3DXAniMeshModel->_anim_ticks_per_second = anim_ticks_per_second;
 }
 
@@ -1821,10 +1821,10 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
 
 
     //距離
-    FLOAT model_radius_bounding_sphere = (FLOAT)(GgafDxUtil::sqrt_fast(paVertex[0].x * paVertex[0].x +
+    FLOAT model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(paVertex[0].x * paVertex[0].x +
                                                paVertex[0].y * paVertex[0].y +
                                                paVertex[0].z * paVertex[0].z));
-    prm_pSpriteModel->_radius_bounding_sphere = model_radius_bounding_sphere;
+    prm_pSpriteModel->_bounding_sphere_radius = model_bounding_sphere_radius;
 
 
     //バッファ作成
@@ -1848,10 +1848,10 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     memcpy(pVertexBuffer, paVertex, prm_pSpriteModel->_size_vertices); //pVertexBuffer ← paVertex
     prm_pSpriteModel->_pIDirect3DVertexBuffer9->Unlock();
 
-    prm_pSpriteModel->_dwNumMaterials = 1;
+    prm_pSpriteModel->_num_materials = 1;
     D3DMATERIAL9* model_paMaterial;
-    model_paMaterial = NEW D3DMATERIAL9[prm_pSpriteModel->_dwNumMaterials];
-    for( DWORD i = 0; i < prm_pSpriteModel->_dwNumMaterials; i++){
+    model_paMaterial = NEW D3DMATERIAL9[prm_pSpriteModel->_num_materials];
+    for( DWORD i = 0; i < prm_pSpriteModel->_num_materials; i++){
         //model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
         model_paMaterial[i].Diffuse.r = 1.0f;
         model_paMaterial[i].Diffuse.g = 1.0f;
@@ -1993,10 +1993,10 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         }
 
         //距離
-        FLOAT model_radius_bounding_sphere = (FLOAT)(GgafDxUtil::sqrt_fast(paVertex[0].x * paVertex[0].x +
+        FLOAT model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(paVertex[0].x * paVertex[0].x +
                                                    paVertex[0].y * paVertex[0].y +
                                                    paVertex[0].z * paVertex[0].z));
-        prm_pSpriteSetModel->_radius_bounding_sphere = model_radius_bounding_sphere;
+        prm_pSpriteSetModel->_bounding_sphere_radius = model_bounding_sphere_radius;
 
 
         hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
@@ -2082,9 +2082,9 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         prm_pSpriteSetModel->_paIndexParam = paIndexParam;
     }
 
-    prm_pSpriteSetModel->_dwNumMaterials = 1;
-    D3DMATERIAL9* model_paMaterial = NEW D3DMATERIAL9[prm_pSpriteSetModel->_dwNumMaterials];
-    for( DWORD i = 0; i < prm_pSpriteSetModel->_dwNumMaterials; i++){
+    prm_pSpriteSetModel->_num_materials = 1;
+    D3DMATERIAL9* model_paMaterial = NEW D3DMATERIAL9[prm_pSpriteSetModel->_num_materials];
+    for( DWORD i = 0; i < prm_pSpriteSetModel->_num_materials; i++){
         //model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
         model_paMaterial[i].Diffuse.r = 1.0f;
         model_paMaterial[i].Diffuse.g = 1.0f;
@@ -2208,10 +2208,10 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
 
     memcpy(pVertexBuffer, paVertex, prm_pBoardModel->_size_vertices); //pVertexBuffer ← paVertex
     prm_pBoardModel->_pIDirect3DVertexBuffer9->Unlock();
-    prm_pBoardModel->_dwNumMaterials = 1;
+    prm_pBoardModel->_num_materials = 1;
     D3DMATERIAL9* model_paMaterial;
-    model_paMaterial = NEW D3DMATERIAL9[prm_pBoardModel->_dwNumMaterials];
-    for( DWORD i = 0; i < prm_pBoardModel->_dwNumMaterials; i++){
+    model_paMaterial = NEW D3DMATERIAL9[prm_pBoardModel->_num_materials];
+    for( DWORD i = 0; i < prm_pBoardModel->_num_materials; i++){
         model_paMaterial[i].Diffuse.r = 1.0f;
         model_paMaterial[i].Diffuse.g = 1.0f;
         model_paMaterial[i].Diffuse.b = 1.0f;
@@ -2424,9 +2424,9 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
         prm_pBoardSetModel->_paIndexParam = paIndexParam;
     }
 
-    prm_pBoardSetModel->_dwNumMaterials = 1;
-    D3DMATERIAL9* model_paMaterial = NEW D3DMATERIAL9[prm_pBoardSetModel->_dwNumMaterials];
-    for( DWORD i = 0; i < prm_pBoardSetModel->_dwNumMaterials; i++){
+    prm_pBoardSetModel->_num_materials = 1;
+    D3DMATERIAL9* model_paMaterial = NEW D3DMATERIAL9[prm_pBoardSetModel->_num_materials];
+    for( DWORD i = 0; i < prm_pBoardSetModel->_num_materials; i++){
         //model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
         model_paMaterial[i].Diffuse.r = 1.0f;
         model_paMaterial[i].Diffuse.g = 1.0f;
@@ -2514,7 +2514,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
         prm_pMeshSetModel->_size_vertex_unit = sizeof(GgafDxMeshSetModel::VERTEX);
 
         //法線以外設定
-        FLOAT model_radius_bounding_sphere;
+        FLOAT model_bounding_sphere_radius;
         for (int i = 0; i < nVertices; i++) {
             unit_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
             unit_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
@@ -2533,11 +2533,11 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
             unit_paVtxBuffer_org[i].index = 0; //頂点番号（むりやり埋め込み）
 
             //距離
-            model_radius_bounding_sphere = (FLOAT)(GgafDxUtil::sqrt_fast(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
+            model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
                                                  unit_paVtxBuffer_org[i].y * unit_paVtxBuffer_org[i].y +
                                                  unit_paVtxBuffer_org[i].z * unit_paVtxBuffer_org[i].z));
-            if (prm_pMeshSetModel->_radius_bounding_sphere < model_radius_bounding_sphere) {
-                prm_pMeshSetModel->_radius_bounding_sphere = model_radius_bounding_sphere;
+            if (prm_pMeshSetModel->_bounding_sphere_radius < model_bounding_sphere_radius) {
+                prm_pMeshSetModel->_bounding_sphere_radius = model_bounding_sphere_radius;
             }
         }
 
@@ -2978,7 +2978,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     prm_pMeshSetModel->_papaIndexParam = model_papaIndexParam;
     prm_pMeshSetModel->_paMaterial_default = model_paMaterial;
     prm_pMeshSetModel->_papTextureCon = model_papTextureCon;
-    prm_pMeshSetModel->_dwNumMaterials = model_nMaterials;
+    prm_pMeshSetModel->_num_materials = model_nMaterials;
 }
 
 void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPointSpriteModel) {
@@ -3046,7 +3046,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
 
     float texWidth  = (float)(model_papTextureCon[0]->use()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
     float texHeight = (float)(model_papTextureCon[0]->use()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
-    FLOAT model_radius_bounding_sphere = 0;
+    FLOAT model_bounding_sphere_radius = 0;
 
     //頂点バッファ作成
     GgafDxPointSpriteModel::VERTEX* model_paVtxBuffer_org = NEW GgafDxPointSpriteModel::VERTEX[model_vertices_num];
@@ -3071,8 +3071,8 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
                        + (((model_fSquareSize/PX_UNIT) * 1.41421356 ) / 2.0)
                      );
 
-         if (model_radius_bounding_sphere < dis) {
-             model_radius_bounding_sphere = dis;
+         if (model_bounding_sphere_radius < dis) {
+             model_bounding_sphere_radius = dis;
          }
     }
 
@@ -3106,7 +3106,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     //モデルに保持させる
     prm_pPointSpriteModel->_paMaterial_default = model_paMaterial;
     prm_pPointSpriteModel->_papTextureCon = model_papTextureCon;
-    prm_pPointSpriteModel->_dwNumMaterials = 1;
+    prm_pPointSpriteModel->_num_materials = 1;
     prm_pPointSpriteModel->_fSquareSize = model_fSquareSize;
     prm_pPointSpriteModel->_fTexSize = texWidth;
     prm_pPointSpriteModel->_texture_split_rowcol = model_texture_split_rowcol;
@@ -3114,7 +3114,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     prm_pPointSpriteModel->_size_vertices = model_size_vertices;
     prm_pPointSpriteModel->_size_vertex_unit = model_size_vertex_unit;
     prm_pPointSpriteModel->_paVtxBuffer_org = model_paVtxBuffer_org;
-    prm_pPointSpriteModel->_radius_bounding_sphere = model_radius_bounding_sphere;
+    prm_pPointSpriteModel->_bounding_sphere_radius = model_bounding_sphere_radius;
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }

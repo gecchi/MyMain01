@@ -302,23 +302,25 @@
 
 #define MAX_FRAME MAXDWORD
 
-#define DUMP_FLGS   _was_initialize_flg<< \
-                    _was_paused_flg<< \
-                    "("<<_was_paused_flg_in_next_frame<<")"<< \
-                    ","<< \
+#define DUMP_FLGS   "@"<< \
                     _frame_of_behaving_since_onActive<< \
                     "/"<< \
                     _frame_of_behaving<< \
                     "/"<< \
                     _frame_of_life<< \
                     ","<< \
+                    _can_live_flg<<\
+                    _was_initialize_flg<< \
+                    _was_paused_flg<< \
+                    "("<<_was_paused_flg_in_next_frame<<")"<< \
+                    ","<< \
                     _is_active_in_the_tree_flg<< \
                     _is_active_flg<< \
-                    ","<< \
+                    "-"<< \
                     _will_activate_after_flg<< \
                     "("<<_frame_of_life_when_activation<<")"<< \
                     _on_change_to_active_flg<< \
-                    ","<< \
+                    "-"<< \
                     _will_inactivate_after_flg<< \
                     "("<<_frame_of_life_when_inactivation<<")"<< \
                     _on_change_to_inactive_flg<< \
@@ -327,9 +329,7 @@
                     "("<<(_frame_of_life_when_end==MAX_FRAME ? 0 : _frame_of_life_when_end)<<")"<< \
                     ","<< \
                     _will_mv_first_in_next_frame_flg<< \
-                    _will_mv_last_in_next_frame_flg<< \
-                    ","<< \
-                    _can_live_flg
+                    _will_mv_last_in_next_frame_flg
 
 
 #define throwGgafCriticalException(X)  do { \

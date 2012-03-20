@@ -88,11 +88,11 @@ void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int p
     }
     HRESULT hr;
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
-    hr = pID3DXEffect->SetFloat(_h_wall_dep, CO2DX(_wall_dep)/_rate_BoundingSphereRadius);
+    hr = pID3DXEffect->SetFloat(_h_wall_dep, CO2DX(_wall_dep)/_rate_of_bounding_sphere_radius);
     checkDxException(hr, D3D_OK, "WallAAPrismActor::WallAAPrismActor() SetInt(_h_wall_dep) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_h_wall_height, CO2DX(_wall_height)/_rate_BoundingSphereRadius);
+    hr = pID3DXEffect->SetFloat(_h_wall_height, CO2DX(_wall_height)/_rate_of_bounding_sphere_radius);
     checkDxException(hr, D3D_OK, "WallAAPrismActor::WallAAPrismActor() SetInt(_h_wall_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_h_wall_width, CO2DX(_wall_width)/_rate_BoundingSphereRadius);
+    hr = pID3DXEffect->SetFloat(_h_wall_width, CO2DX(_wall_width)/_rate_of_bounding_sphere_radius);
     checkDxException(hr, D3D_OK, "WallAAPrismActor::WallAAPrismActor() SetInt(_h_wall_width) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 }
@@ -103,7 +103,7 @@ void WallAAPrismActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     if (_pWalledSectionScene->_pTarget_FrontAlpha) {
-        hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pTarget_FrontAlpha->_fDist_VpPlnFront));
+        hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pTarget_FrontAlpha->_dest_from_vppln_front));
         checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(_h_distance_AlphaTarget) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     } else {
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -100.0f);

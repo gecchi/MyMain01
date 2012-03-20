@@ -29,14 +29,14 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     _pEffectCon = (GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(prm_effect);
     _pEffect = (GgafDxEffect*)_pEffectCon->use();
     //マテリアルをコピー
-    _paMaterial = NEW D3DMATERIAL9[_pModel->_dwNumMaterials];
-    for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++){
+    _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
+    for (DWORD i = 0; i < _pModel->_num_materials; i++){
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
-    _fAlpha = 1.0f;
+    _alpha = 1.0f;
     _pFader = NEW GgafDxAlphaFader(this);
     //最大距離頂点
-    _radius_bounding_sphere = _pModel->_radius_bounding_sphere;
+    _bounding_sphere_radius = _pModel->_bounding_sphere_radius;
     _now_drawdepth = 0;
     _specal_drawdepth = -1;
     _zenable = true;
@@ -92,14 +92,14 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     _pEffectCon = (GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(effelct_name);
     _pEffect = (GgafDxEffect*)_pEffectCon->use();
     //マテリアルをコピー
-    _paMaterial = NEW D3DMATERIAL9[_pModel->_dwNumMaterials];
-    for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++){
+    _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
+    for (DWORD i = 0; i < _pModel->_num_materials; i++){
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
-    _fAlpha = 1.0f;
+    _alpha = 1.0f;
     _pFader = NEW GgafDxAlphaFader(this);
     //最大距離頂点
-    _radius_bounding_sphere = _pModel->_radius_bounding_sphere;
+    _bounding_sphere_radius = _pModel->_bounding_sphere_radius;
 
     DELETEARR_IMPOSSIBLE_NULL(model_name);
     DELETEARR_IMPOSSIBLE_NULL(effelct_name);
@@ -126,13 +126,13 @@ void GgafDxDrawableActor::processPreDraw() {
 //                                (int)((1.0*_Z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
 //                                this
 //                             );
-            if (_fAlpha <= 0.0f || ((GgafDxScene*)getPlatformScene())->_pAlphaCurtain->_alpha <= 0.0f) {
+            if (_alpha <= 0.0f || ((GgafDxScene*)getPlatformScene())->_pAlphaCurtain->_alpha <= 0.0f) {
                 //描画しないので登録なし
             } else {
                 _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(_Z, this); //2Dは_Zはプライオリティに使用。
             }
         } else {
-            if (isOutOfView() || _fAlpha <= 0.0f || ((GgafDxScene*)getPlatformScene())->_pAlphaCurtain->_alpha <= 0.0f) {
+            if (isOutOfView() || _alpha <= 0.0f || ((GgafDxScene*)getPlatformScene())->_pAlphaCurtain->_alpha <= 0.0f) {
                 //描画しないので登録なし
             } else {
                 //＜メモ＞
@@ -143,13 +143,13 @@ void GgafDxDrawableActor::processPreDraw() {
                 //本ライブラリはDIRECTX座標の1は原点付近ので画面上約10px相当という計算を行っている。よって
                 //次の文は約10px間隔相当の奥からの段階レンダリングの設定となる
                 //
-                //  GgafDxUniverse::setDrawDepthLevel(-1.0*_fDist_VpPlnFront, this);
-                //   (※_fDist_VpPlnFrontは視錐台手前面からオブジェクトまでの距離の負数)
+                //  GgafDxUniverse::setDrawDepthLevel(-1.0*_dest_from_vppln_front, this);
+                //   (※_dest_from_vppln_frontは視錐台手前面からオブジェクトまでの距離の負数)
                 //
                 //これは、1000 段階の深度判定となる。
                 //また、
                 //
-                //  GgafDxUniverse::setDrawDepthLevel(-1.0*_fDist_VpPlnFront*10.0, this);
+                //  GgafDxUniverse::setDrawDepthLevel(-1.0*_dest_from_vppln_front*10.0, this);
                 //
                 //これは1px間隔相当で約 10000 段階となる。
                 //MAX_DRAW_DEPTH_LEVELを増やせば問題ないが、600段階ぐらいが研究の末パフォーマンス的にちょうどよさげである。
@@ -170,7 +170,7 @@ void GgafDxDrawableActor::processPreDraw() {
                 //   7975036 <DEBUG> GgafDxCamera::GgafDxCamera 範囲 [0.01 ~ 1001.07]
                 //
                 // 1001.07 つまり約10000px相当の奥行きを描画
-                dxcoord dep = -_fDist_VpPlnFront; //オブジェクトの視点からの距離(DIRECTX距離)
+                dxcoord dep = -_dest_from_vppln_front; //オブジェクトの視点からの距離(DIRECTX距離)
 
                 static const double dep_rate_point1 = 0.3;                                //荒くなるポイント１の割合(カメラ可視奥行の 3/10 の地点)
                 static const double dep_rate_point2 = 0.6;                                //荒くなるポイント２の割合(カメラ可視奥行の 6/10 の地点)
@@ -245,7 +245,7 @@ void GgafDxDrawableActor::processAfterDraw() {
 }
 
 void GgafDxDrawableActor::setMaterialColor(float r, float g, float b) {
-    for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++) {
+    for (DWORD i = 0; i < _pModel->_num_materials; i++) {
         _paMaterial[i].Ambient.r = r;
         _paMaterial[i].Diffuse.r = r;
         _paMaterial[i].Ambient.g = g;
@@ -256,7 +256,7 @@ void GgafDxDrawableActor::setMaterialColor(float r, float g, float b) {
 }
 
 void GgafDxDrawableActor::resetMaterialColor() {
-    for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++) {
+    for (DWORD i = 0; i < _pModel->_num_materials; i++) {
         _paMaterial[i].Ambient.r = _pModel->_paMaterial_default[i].Ambient.r;
         _paMaterial[i].Diffuse.r = _pModel->_paMaterial_default[i].Diffuse.r;
         _paMaterial[i].Ambient.g = _pModel->_paMaterial_default[i].Ambient.g;

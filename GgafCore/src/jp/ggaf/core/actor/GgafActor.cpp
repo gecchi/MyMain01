@@ -123,7 +123,7 @@ GgafFormation* GgafActor::getFormation() {
 }
 
 void GgafActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<DUMP_FLGS);
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
 
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst) {
@@ -144,7 +144,7 @@ void GgafActor::dump() {
 }
 
 void GgafActor::dump(string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]@"<<DUMP_FLGS);
+    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst) {
         while (true) {

@@ -32,7 +32,7 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
     _height_px = (int)(_pBoardSetModel->_fSize_BoardSetModelHeightPx); //‚‚³(px)
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
-    _fAlpha = 1.0f;
+    _alpha = 1.0f;
 
     _is2DActor = true;
     _pFunc_calcRotMvWorldMatrix = NULL;
@@ -77,7 +77,7 @@ void GgafDxBoardSetActor::processDraw() {
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[_draw_set_num], float(CO2PX(_Z)));
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahDepthZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[_draw_set_num], pDrawActor->_fAlpha);
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[_draw_set_num], pDrawActor->_alpha);
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 //                pRectUV_Active = _pBoardSetModel->_paRectUV + (((GgafDxBoardSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);

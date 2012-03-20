@@ -79,13 +79,16 @@ void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level) {
 
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     r_effect_ = 1;
+
+
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
+        MyOptionController* p = P_MYSHIP_SCENE->papMyOptionController_[lv-1];
         papEffect_[lv-1]->_pKurokoA->setMvVelo(0);
         papEffect_[lv-1]->_pKurokoA->setMvAcce(0);
         papEffect_[lv-1]->_pKurokoB->execGravitationVxyzMvSequence(
-               P_MYOPTIONCON->_X + P_MYOPTIONCON->papMyOption_[lv-1]->Xorg_,
-               P_MYOPTIONCON->_Y + P_MYOPTIONCON->papMyOption_[lv-1]->Yorg_,
-               P_MYOPTIONCON->_Z + P_MYOPTIONCON->papMyOption_[lv-1]->Zorg_,
+               p->_X + p->pMyOption_->Xorg_,
+               p->_Y + p->pMyOption_->Yorg_,
+               p->_Z + p->pMyOption_->Zorg_,
                20000, 1000, 50000);
     }
 
@@ -100,16 +103,17 @@ int OptionMagic::effect(int prm_level) {
     int r = Magic::effect(prm_level);
     //オプション有効にする。
     //(processEffectBegin 時、 option は一度はbehave()されて座標を計算しておいてほしい）
-    P_MYOPTIONCON->setNumOption(prm_level);
-    P_MYOPTIONCON->adjustDefaltAngPosition(60);
-	return r;
+    MyOptionController::setNumOption(prm_level);
+    MyOptionController::adjustDefaltAngPosition(60);
+    return r;
 }
 
 void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     //レベルアップ時、エフェクトの処理
     for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
+        MyOptionController* p = P_MYSHIP_SCENE->papMyOptionController_[lv-1];
         papEffect_[lv-1]->inactivateDelay(120); //非活動の保険
-        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_pActor_target = P_MYOPTIONCON->papMyOption_[lv-1];
+        papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_pActor_target = p->pMyOption_;
     }
 }
 
@@ -117,21 +121,23 @@ void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
     r_effect_ -= 0.01f;
     //レベルアップ時、エフェクトの処理
     for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
+        MyOptionController* p = P_MYSHIP_SCENE->papMyOptionController_[lv-1];
         papEffect_[lv-1]->setAlpha(r_effect_);
 //        papEffect_[lv-1]->setScaleR(3.0f+(1.0f-r_effect_)*4.0);
-        papEffect_[lv-1]->locateAs(P_MYOPTIONCON->papMyOption_[lv-1]);
-        P_MYOPTIONCON->papMyOption_[lv-1]->setAlpha(1.0f-r_effect_);
+        papEffect_[lv-1]->locateAs(p->pMyOption_);
+        p->pMyOption_->setAlpha(1.0f-r_effect_);
     }
     if (r_effect_ < 0) {
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
+            MyOptionController* p = P_MYSHIP_SCENE->papMyOptionController_[lv-1];
             papEffect_[lv-1]->inactivate();
-            P_MYOPTIONCON->papMyOption_[lv-1]->setAlpha(1.0);
+            p->pMyOption_->setAlpha(1.0);
         }
     }
 }
 
 void OptionMagic::processEffectFinish(int prm_justbefore_level) {
-    P_MYOPTIONCON->setNumOption(0);
+    MyOptionController::setNumOption(0);
 }
 
 OptionMagic::~OptionMagic() {

@@ -157,7 +157,7 @@ void GgafDxMeshModel::release() {
 
     //テクスチャを解放
     if (_papTextureCon) {
-        for (int i = 0; i < (int)_dwNumMaterials; i++) {
+        for (int i = 0; i < (int)_num_materials; i++) {
             if (_papTextureCon[i]) {
                 TRACE3("close() _papTextureCon["<<i<<"]->"<<(_papTextureCon[i]->getIdStr()));
                 _papTextureCon[i]->close();

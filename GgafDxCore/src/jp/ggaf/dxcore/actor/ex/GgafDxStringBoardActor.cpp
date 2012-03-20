@@ -184,7 +184,7 @@ void GgafDxStringBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(CO2PX(_Z)));
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahDepthZ) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha); //注意：アルファは文字ごとは不可
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _alpha); //注意：アルファは文字ごとは不可
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahAlpha) に失敗しました。");
 
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {

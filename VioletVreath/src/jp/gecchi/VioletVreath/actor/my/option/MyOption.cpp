@@ -126,6 +126,8 @@ void MyOption::onReset() {
     adjust_angPos_seq_new_angPosition_base_ = angPosition_;
     adjust_angPos_seq_spent_frame_ = 0;
     adjust_angPos_seq_angPosition_ = 0;
+
+    radiusPosition_stopping_ = radiusPosition_;
 }
 
 void MyOption::onActive() {
@@ -183,18 +185,16 @@ void MyOption::setRadiusPosition(int prm_radius) {
 //    Zorg_ = _Z;
 //より前
 //でしか呼び出してはいけません。
+    radiusPosition_ = prm_radius;
+    if (radiusPosition_ == -1  || radiusPosition_ == 0 || radiusPosition_ == 1) {
+        _Z = _Y = 0;
+        _pKurokoA->setRzMvAng(D90ANG);
+        ang_veloMove_ = 0;
+        _pKurokoA->setRzMvAngVelo(ang_veloMove_);
+        return;
 
-    if (radiusPosition_ == -1 * prm_radius) {
-        if (radiusPosition_ > 0) {
-            radiusPosition_ = -100;
-        } else {
-            radiusPosition_ = 100;
-        }
-    } else {
-        radiusPosition_ += prm_radius;
     }
 
-    radiusPosition_ = prm_radius;
     angle angZY_ROTANG_X;
     if (radiusPosition_ > 0) {
         angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
@@ -208,7 +208,7 @@ void MyOption::setRadiusPosition(int prm_radius) {
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
     //よって、移動方角、移動角速度を現在の位置(_Z,_Y)で再設定しなければズレる。
-    _pKurokoA->setRzMvAng(GgafDxUtil::simplifyAng(angZY_ROTANG_X + D90ANG));
+    _pKurokoA->setRzMvAng(angZY_ROTANG_X + D90ANG);
     ang_veloMove_ = ((1.0*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
     _pKurokoA->setRzMvAngVelo(ang_veloMove_);
 }
@@ -240,7 +240,7 @@ void MyOption::processBehavior() {
         if (-10000 < radiusPosition_base_-radiusPosition_ && radiusPosition_base_-radiusPosition_ < 10000) {
             setRadiusPosition(radiusPosition_base_);
             radiusPosition_stopping_ = radiusPosition_;
-            velo_radius_ = 0;
+//            velo_radius_ = 0;
             return_to_base_radiusPosition_seq_ = false;
         }
 
@@ -350,32 +350,39 @@ void MyOption::processBehavior() {
                 }
             }
             radiusPosition_stopping_ = radiusPosition_;
-            velo_radius_ = 0;
+//            velo_radius_ = 0;
             angExpanse_ = GgafDxUtil::simplifyAng(angExpanse_);
         } else {
             if (pMyOptionController_->is_free_from_myship_mode_) {
                 //
             } else {
-
-                //
                 if (VB_PLAY->isBeingPressed(VB_OPTION) || VB_PLAY->isBeingPressed(VB_POWERUP)) {
-                    //
                 } else {
-                    //MyOptionController::o2o_*(no_+1);
-                    if (VB_PLAY->isBeingPressed(VB_UDLR)) {
-                        //オプションボタンを押さずに方向入力時
-//                        velo_radius_ -= 100;
-                        //addRadiusPosition(-5000/(no_+1), 1);
-                        addRadiusPosition(-2000, 1);
-                        veloMv_ = veloMv_base_/10 + 1;
-                    } else {
-                        //オプションボタンを押さずに方向未入力時
-//                        velo_radius_ += 100;
-//                        addRadiusPosition(+5000/(no_+1), 1, radiusPosition_stopping_);
+                    GgafDxGeoElem* pGeoOpCon = pMyOptionController_->pRing_OpConGeoHistory_->getPrev();
+                    if (pGeoOpCon->_X == pMyOptionController_->_X &&
+                        pGeoOpCon->_Y == pMyOptionController_->_Y &&
+                        pGeoOpCon->_Z == pMyOptionController_->_Z) {
+                        //非移動時
                         addRadiusPosition(+2000, 1, radiusPosition_stopping_);
-                        veloMv_ = veloMv_base_;
+                        if (veloMv_ == veloMv_base_) {
+
+                        } else {
+                            veloMv_ += 100;
+                            if (veloMv_ >= veloMv_base_) {
+                                MyOptionController::adjustDefaltAngPosition(120);
+                                veloMv_ = veloMv_base_;
+                            }
+                        }
+                    } else {
+                        //移動時
+                        addRadiusPosition(-2000, 1);
+                        veloMv_ -= 100;
+                        if (veloMv_ < 0) {
+                            veloMv_ = 0;
+                        }
                     }
                 }
+
             }
         }
     }
@@ -494,19 +501,24 @@ void MyOption::processBehavior() {
     GgafDxUtil::getRzRyAng(Q_._x, Q_._y, Q_._z,
                            _RZ, _RY);
 
+
+    _X += pMyOptionController_->_X;
+    _Y += pMyOptionController_->_Y;
+    _Z += pMyOptionController_->_Z;
+
 //    _RZ = GgafDxUtil::simplifyAng(_RZ);
 //    _RY = GgafDxUtil::simplifyAng(_RY);
-    GgafDxGeoElem* pGeoOpCon = pMyOptionController_->pRing_OpConGeoHistory_->getPrev(MyOptionController::o2o_*(no_+1));
-    _X += pGeoOpCon->_X;
-    _Y += pGeoOpCon->_Y;
-    _Z += pGeoOpCon->_Z;
-    if (pMyOptionController_->is_free_from_myship_mode_) {
-        _X += (pMyOptionController_->_X - pMyOptionController_->X_on_free_);
-        _Y += (pMyOptionController_->_Y - pMyOptionController_->Y_on_free_);
-        _Z += (pMyOptionController_->_Z - pMyOptionController_->Z_on_free_);
-    } else {
-
-    }
+//    GgafDxGeoElem* pGeoOpCon = pMyOptionController_->pRing_OpConGeoHistory_->getPrev(MyOptionController::o2o_*(no_+2));
+//    _X += pGeoOpCon->_X;
+//    _Y += pGeoOpCon->_Y;
+//    _Z += pGeoOpCon->_Z;
+//    if (pMyOptionController_->is_free_from_myship_mode_) {
+//        _X += (pMyOptionController_->_X - pMyOptionController_->X_on_free_);
+//        _Y += (pMyOptionController_->_Y - pMyOptionController_->Y_on_free_);
+//        _Z += (pMyOptionController_->_Z - pMyOptionController_->Z_on_free_);
+//    } else {
+//
+//    }
 
     //TODO
     //最適化

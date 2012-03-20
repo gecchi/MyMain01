@@ -55,9 +55,9 @@ public:
     GgafDxSeTransmitter* _pSeTransmitter;
 
     /** [r/w]境界球の半径(DirectXの単位)。画面外判定に使用される */
-    dxcoord _radius_bounding_sphere;
+    dxcoord _bounding_sphere_radius;
     /** [rw]モデルの境界球半径倍率 */
-    dxcoord _rate_BoundingSphereRadius;
+    dxcoord _rate_of_bounding_sphere_radius;
     /** [r] 内部で _X から計算されるDirectXのワールドX座標(_X : _fX = 1000 : 0.1) */
     dxcoord _fX;
     /** [r] 内部で _Y から計算されるDirectYのワールドY座標(_Y : _fY = 1000 : 0.1) */
@@ -65,17 +65,17 @@ public:
     /** [r] 内部で _Z から計算されるDirectZのワールドZ座標(_Z : _fZ = 1000 : 0.1) */
     dxcoord _fZ;
     /** [r]視錐台上面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    dxcoord _fDist_VpPlnTop;
+    dxcoord _dest_from_vppln_top;
     /** [r]視錐台下面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    dxcoord _fDist_VpPlnBottom;
+    dxcoord _dest_from_vppln_bottom;
     /** [r]視錐台左面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    dxcoord _fDist_VpPlnLeft;
+    dxcoord _dest_from_vppln_left;
     /** [r]視錐台右面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    dxcoord _fDist_VpPlnRight;
+    dxcoord _dest_from_vppln_right;
     /** [r]視錐台手前面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    dxcoord _fDist_VpPlnFront;
+    dxcoord _dest_from_vppln_front;
     /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    dxcoord _fDist_VpPlnBack;
+    dxcoord _dest_from_vppln_back;
     /** [r/w]WORLD変換(回転×移動)行列計算関数 */
     void (*_pFunc_calcRotMvWorldMatrix)(GgafDxGeometricActor*, D3DXMATRIX&);
     /** [r]自身の現在のWorld変換行列(通常は「拡大縮小×回転×移動」) */
@@ -172,12 +172,12 @@ public:
      *     _fX <BR>
      *     _fY <BR>
      *     _fZ <BR>
-     *     _fDist_VpPlnTop <BR>
-     *     _fDist_VpPlnBottom <BR>
-     *     _fDist_VpPlnLeft <BR>
-     *     _fDist_VpPlnRight <BR>
-     *     _fDist_VpPlnFront <BR>
-     *     _fDist_VpPlnBack <BR>
+     *     _dest_from_vppln_top <BR>
+     *     _dest_from_vppln_bottom <BR>
+     *     _dest_from_vppln_left <BR>
+     *     _dest_from_vppln_right <BR>
+     *     _dest_from_vppln_front <BR>
+     *     _dest_from_vppln_back <BR>
      * ② 自身の座標情報からワールド変換行列を作成し_matWorldに保持
      * ③ processJudgement() を呼び出すのため準備処理として、 <BR>
      *    自身の座標情報から線形８分木配列への登録を行う。 <BR>
@@ -419,7 +419,7 @@ public:
      * @param prm_rate 拡大率
      */
     virtual void setBoundingSphereRadiusRate(FLOAT prm_rate) {
-        _rate_BoundingSphereRadius = prm_rate;
+        _rate_of_bounding_sphere_radius = prm_rate;
     }
 
     virtual void onEnded() override;

@@ -8,7 +8,7 @@ GgafDxD3DXAniMeshModel::GgafDxD3DXAniMeshModel(char* prm_model_name) : GgafDxMod
     _pAH = NULL;
     _pFR = NULL;
     _pAcBase = NULL;
-    _dwNumMaterials = 0L;
+    _num_materials = 0L;
     _anim_ticks_per_second = 4800; //restoreD3DXAniMeshModel で上書きされる場合がある。
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel*)
@@ -141,7 +141,7 @@ void GgafDxD3DXAniMeshModel::release() {
 //        throwGgafCriticalException("[GgafDxD3DXAniMeshModel::release] Error! _pID3DXAniMeshが オブジェクトになっていないため release できません！");
 //    }
     if (_papTextureCon) {
-        for (int i = 0; i < (int)_dwNumMaterials; i++) {
+        for (int i = 0; i < (int)_num_materials; i++) {
             if (_papTextureCon[i]) {
                 TRACE3("close() _papTextureCon["<<i<<"]->"<<(_papTextureCon[i]->getIdStr()));
                 _papTextureCon[i]->close();

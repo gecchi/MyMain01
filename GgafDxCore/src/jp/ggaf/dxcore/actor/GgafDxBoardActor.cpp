@@ -30,7 +30,7 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
     _height_px = (int)(_pBoardModel->_fSize_BoardModelHeightPx); //çÇÇ≥(px)
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
-    _fAlpha = 1.0f;
+    _alpha = 1.0f;
     _is2DActor = true;
     _pFunc_calcRotMvWorldMatrix = NULL;
     _Z = 0;
@@ -61,7 +61,7 @@ void GgafDxBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, float(CO2PX(_Z)));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hAlpha, _fAlpha);
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hAlpha, _alpha);
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, float(SC2R(_SX)));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sx) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

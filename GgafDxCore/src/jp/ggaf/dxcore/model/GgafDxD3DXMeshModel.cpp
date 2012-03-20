@@ -6,7 +6,7 @@ using namespace GgafDxCore;
 GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions) : GgafDxModel(prm_model_name) {
     TRACE("GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(" << prm_model_name << ")");
     _pID3DXMesh = NULL;
-    _dwNumMaterials = 0L;
+    _num_materials = 0L;
     _dwOptions = prm_dwOptions;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
@@ -27,8 +27,8 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
     GgafDxGod::_pID3DDevice9->SetFVF(GgafDxD3DXMeshActor::FVF);
     HRESULT hr;
 
-    for (DWORD i = 0; i < _dwNumMaterials; i++) {
-        if (GgafDxModelManager::_pModelLastDraw != this || _dwNumMaterials != 1) {
+    for (DWORD i = 0; i < _num_materials; i++) {
+        if (GgafDxModelManager::_pModelLastDraw != this || _num_materials != 1) {
             if (_papTextureCon[i]) {
                 //テクスチャのセット
                 GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->use()->_pIDirect3DBaseTexture9);
@@ -137,7 +137,7 @@ void GgafDxD3DXMeshModel::release() {
     }
     //テクスチャを解放
     if (_papTextureCon) {
-        for (int i = 0; i < (int)_dwNumMaterials; i++) {
+        for (int i = 0; i < (int)_num_materials; i++) {
             if (_papTextureCon[i]) {
                 TRACE3("close() _papTextureCon["<<i<<"]->"<<(_papTextureCon[i]->getIdStr()));
                 _papTextureCon[i]->close();

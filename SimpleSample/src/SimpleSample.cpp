@@ -89,3 +89,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     //必要があれば、メッセージ処理をココに追加記述
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
+

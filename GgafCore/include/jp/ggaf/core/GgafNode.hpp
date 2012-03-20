@@ -76,7 +76,6 @@ namespace GgafCore {
 
 template<class T>
 class GgafNode : public GgafObject {
-
 private:
     /** ループ用 */
     T* _pNodeTemp;
@@ -86,7 +85,6 @@ public:
     char* _name;
     /** [r]クラス名 */
     const char* _class_name;
-
     /** [r]親ノード */
     T* _pParent;
     /** [r]次ノード */
@@ -171,7 +169,7 @@ public:
     /**
      * 自ノードを、最終ノードへ移動する .
      * 子ノードも道連れにして移動します。自ノードと子ノードの関係は崩れません。<BR>
-     *<PRE STYLE="font-size:18px">
+     *<PRE>
      * ----------------「実行前」
      *         親
      *         ↓
@@ -190,7 +188,7 @@ public:
     /**
      * 自ノードを、先頭ノードへ移動する .
      * 子ノードも道連れにして移動します。自ノードと子ノードの関係は崩れません。<BR>
-     *<PRE STYLE="font-size:18px">
+     *<PRE>
      * ----------------「実行前」
      *       親
      *       ↓
@@ -241,7 +239,7 @@ public:
     /**
      * 引数ノードを子ノードとして追加する .
      * 追加される場所は以下の図のようになります。<BR>
-     *<PRE STYLE="font-size:18px">
+     *<PRE>
      * ----------------「実行前」
      *       Ｃ
      *       ↓

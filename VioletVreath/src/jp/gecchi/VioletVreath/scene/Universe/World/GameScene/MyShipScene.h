@@ -4,7 +4,6 @@
 #ifdef P_GAME_SCENE
     #define P_MYSHIP_SCENE (P_GAME_SCENE->pMyShip_Scene)
     #define P_MYSHIP (P_MYSHIP_SCENE->pMyShip_)
-    #define P_MYOPTIONCON (P_MYSHIP_SCENE->pMyOptionController_)
     #define P_VAM (P_MYSHIP_SCENE->pVamSysCamWorker_)
 #else
     #error P_GAME_SCENE isnt define
@@ -32,7 +31,7 @@ public:
     /** 自機 */
     MyShip* pMyShip_;
     /** 自機オプション部 */
-    MyOptionController* pMyOptionController_;
+    MyOptionController** papMyOptionController_;
     /** 自機爆発エフェクト */
     EffectMyShipExplosion* pEffectMyShipExplosion_;
     /** VAMSYSTEM カメラワーク */

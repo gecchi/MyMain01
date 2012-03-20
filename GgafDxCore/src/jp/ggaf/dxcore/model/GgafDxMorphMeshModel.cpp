@@ -175,7 +175,7 @@ void GgafDxMorphMeshModel::release() {
 
     //テクスチャを解放
     if (_papTextureCon) {
-        for (DWORD i = 0; i < _dwNumMaterials; i++) {
+        for (DWORD i = 0; i < _num_materials; i++) {
             if (_papTextureCon[i]) {
                 _papTextureCon[i]->close();
             }

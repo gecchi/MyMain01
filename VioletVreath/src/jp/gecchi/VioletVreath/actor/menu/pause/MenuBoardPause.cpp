@@ -50,14 +50,13 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     relationItemExNext(7, 11);
     relationItemExNext(11, 0);
 
-
     relationItemCancel(ITEM_BACK_TO_GAME);
 
     CursorPauseMenu* pCursor = NEW CursorPauseMenu("CursorPauseMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor, 8, 0.2, 0.7);
     setSelectedItemIndex(0); //初期選択
-    setTransition(30, PX2CO(0), -PX2CO(100));
+    setTransition(30, PX2CO(0), -PX2CO(100)); //上から下へ少しスライド
     pConfirmMenu_ = NEW MenuBoardConfirm("confirm");
     addSubLast(pConfirmMenu_);
 }
@@ -101,7 +100,7 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
     if (prm_item_index == MenuBoardPause::ITEM_BACK_TO_GAME) {
         sink();
     } else if (prm_item_index == MenuBoardPause::ITEM_QUIT_GAME) {
-        riseSub(pConfirmMenu_, getSelectedItem()->_X + PX2CO(50), getSelectedItem()->_Y + PX2CO(50));     //サブメニュー起動
+        riseSub(pConfirmMenu_, getSelectedItem()->_X + PX2CO(50), getSelectedItem()->_Y + PX2CO(50)); //サブメニュー起動
     }
 }
 MenuBoardPause::~MenuBoardPause() {

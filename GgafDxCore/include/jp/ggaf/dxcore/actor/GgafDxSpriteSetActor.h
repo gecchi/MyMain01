@@ -45,15 +45,15 @@ public:
 
     /**
      * ƒ¿İ’è.
-     * @param prm_fAlpha
+     * @param prm_alpha
      */
-    void setAlpha(float prm_fAlpha) override;
+    void setAlpha(float prm_alpha) override;
 
     /**
      * ƒ¿‰ÁZ .
-     * @param prm_fAlpha
+     * @param prm_alpha
      */
-    void addAlpha(float prm_fAlpha) override;
+    void addAlpha(float prm_alpha) override;
 };
 
 }
