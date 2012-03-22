@@ -16,12 +16,12 @@ GgafDxBoardEffect::GgafDxBoardEffect(char* prm_effect_name) : GgafDxEffect(prm_e
     checkDxException(hr, D3D_OK, "GgafDxBoardEffect::GgafDxBoardEffect SetFloat(g_game_buffer_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     //ƒnƒ“ƒhƒ‹
-    _hAlpha = _pID3DXEffect->GetParameterByName( NULL, "g_alpha" );
-    _hOffsetU = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU" );
-    _hOffsetV = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV" );
-    _hTransformedX = _pID3DXEffect->GetParameterByName( NULL, "g_transformedX" );
-    _hTransformedY = _pID3DXEffect->GetParameterByName( NULL, "g_transformedY" );
-    _hDepthZ = _pID3DXEffect->GetParameterByName( NULL, "g_depthZ" );
+    _h_alpha = _pID3DXEffect->GetParameterByName( NULL, "g_alpha" );
+    _h_offset_u = _pID3DXEffect->GetParameterByName( NULL, "g_offset_u" );
+    _h_offset_v = _pID3DXEffect->GetParameterByName( NULL, "g_offset_v" );
+    _hTransformedX = _pID3DXEffect->GetParameterByName( NULL, "g_transformed_X" );
+    _hTransformedY = _pID3DXEffect->GetParameterByName( NULL, "g_transformed_Y" );
+    _hDepthZ = _pID3DXEffect->GetParameterByName( NULL, "g_depth_Z" );
     _hSx = _pID3DXEffect->GetParameterByName( NULL, "g_sx" );
     _hSy = _pID3DXEffect->GetParameterByName( NULL, "g_sy" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );

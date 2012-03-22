@@ -61,8 +61,8 @@ void GgafDxBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, float(CO2PX(_Z)));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hDepthZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hAlpha, _alpha);
-    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_hAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
+    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, float(SC2R(_SX)));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sx) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, float(SC2R(_SY)));

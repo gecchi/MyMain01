@@ -125,7 +125,7 @@ void MagicPointItem::processBehavior() {
         _SY -= 100;
         _SZ -= 100;
         if (_SX < 5) {
-            _pSeTransmitter->playImmed(0);
+            _pSeTransmitter->play(0);
             _pProg->change(ITEM_PROG_NOTIONG);
             sayonara(); //èIóπ
         }

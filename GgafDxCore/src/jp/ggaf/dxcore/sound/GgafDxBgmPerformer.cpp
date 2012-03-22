@@ -7,42 +7,20 @@ int GgafDxBgmPerformer::_active_bgm_bpm = 120;
 
 
 GgafDxBgmPerformer::GgafDxBgmPerformer() : GgafObject() {
-
     _bgm_num = 0;
+    _pa_volume = NULL;
     _papBgmCon = NULL;
-    _pa_pause_stat = NULL;
-    _pa_is_fade = NULL;
-    _pa_now_volume = NULL;
-    _pa_target_volume = NULL;
-    _pa_inc_volume = NULL;
-    _pa_is_fadeout_stop = NULL;
-    _pa_pause_stat = NULL; //TODO:_pa_pause_stat使ってない
 }
+
 void GgafDxBgmPerformer::useBgm(int prm_bgm_num) {
     _bgm_num = prm_bgm_num;
     _papBgmCon = NEW GgafDxBgmConnection*[_bgm_num];
-    _pa_is_fade = NEW bool[_bgm_num];
-    _pa_is_fadeout_stop = NEW bool[_bgm_num];
-    _pa_now_volume = NEW double[_bgm_num];
-    _pa_target_volume = NEW double[_bgm_num];
-    _pa_inc_volume = NEW double[_bgm_num];
-    _pa_pause_stat = NEW IkdLib::PCMPlayer::STATE[_bgm_num]; 
+    _pa_volume = NEW double[_bgm_num];
     for (int i = 0; i < _bgm_num; i++) {
         _papBgmCon[i] = NULL;
-        _pa_is_fade[i] = false;
-        _pa_is_fadeout_stop[i] = true;
-        _pa_now_volume[i] = GGAF_MAX_VOLUME;
-        _pa_target_volume[i] = GGAF_MAX_VOLUME;
-        _pa_inc_volume[i] = 0;
-        _pa_pause_stat[i] = IkdLib::PCMPlayer::STATE_STOP;
+        _pa_volume[i] = GGAF_MAX_VOLUME;
     }
 }
-void GgafDxBgmPerformer::fade(int prm_id, frame prm_frame, int prm_target_volume) {
-    _pa_is_fade[prm_id] = true;
-    _pa_target_volume[prm_id] = (double)prm_target_volume;
-    _pa_inc_volume[prm_id] = (prm_target_volume - _pa_now_volume[prm_id]) / (double)prm_frame;
-}
-
 void GgafDxBgmPerformer::set(int prm_id, const char* prm_bgm_name) {
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDxBgmPerformer::set() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id<<" prm_bgm_name="<<prm_bgm_name);
@@ -51,15 +29,14 @@ void GgafDxBgmPerformer::set(int prm_id, const char* prm_bgm_name) {
         _TRACE_("【警告】GgafDxBgmPerformer::set() IDが使用済みです、上書きしますが意図してますか？？。prm_id="<<prm_id<<" prm_bgm_name="<<prm_bgm_name);
         _papBgmCon[prm_id]->close();
     }
-    _papBgmCon[prm_id] = (GgafDxBgmConnection*)GgafDxSound::_pBgmManager->connect(prm_bgm_name);
+    _papBgmCon[prm_id] = connectBgmManager(prm_bgm_name);
 }
 
 void GgafDxBgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDxBgmPerformer::play() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id<<"");
     }
-    _pa_now_volume[prm_id] = (double)prm_volume;
-    _pa_is_fade[prm_id] = false;
+    _pa_volume[prm_id] = (double)prm_volume;
     _papBgmCon[prm_id]->use()->play(prm_volume, 0.0f, prm_is_loop);
     GgafDxBgmPerformer::_active_bgm_bpm = _papBgmCon[prm_id]->use()->_bpm; //最新のBGMのBPMリズム
 }
@@ -96,32 +73,9 @@ void GgafDxBgmPerformer::unpause() {
         unpause(id);
     }
 }
-void GgafDxBgmPerformer::behave() {
-    for (int id = 0; id < _bgm_num; id++) {
-
-        if (_pa_is_fade[id]) {
-            _pa_now_volume[id] += _pa_inc_volume[id];
-            _papBgmCon[id]->use()->setVolume(_pa_now_volume[id]);
-            if (_pa_inc_volume[id] > 0 && _pa_now_volume[id] >= _pa_target_volume[id]) {
-                //増音量時
-                setVolume(id, (int)_pa_target_volume[id]);
-                _pa_is_fade[id] = false;
-            } else if (_pa_inc_volume[id] < 0 && _pa_now_volume[id] <= _pa_target_volume[id]) {
-                //減音量時
-                setVolume(id, (int)_pa_target_volume[id]);
-                _pa_is_fade[id] = false;
-                if (_pa_is_fadeout_stop[id]) {
-                    stop(id);
-                }
-            }
-        }
-
-    }
-
-}
 
 void GgafDxBgmPerformer::setVolume(int prm_id, int prm_volume) {
-    _pa_now_volume[prm_id] = (double)prm_volume;
+    _pa_volume[prm_id] = (double)prm_volume;
     _papBgmCon[prm_id]->use()->setVolume(prm_volume);
 }
 GgafDxBgmPerformer::~GgafDxBgmPerformer() {
@@ -134,10 +88,5 @@ GgafDxBgmPerformer::~GgafDxBgmPerformer() {
         }
     }
     DELETEARR_POSSIBLE_NULL(_papBgmCon);
-    DELETEARR_POSSIBLE_NULL(_pa_is_fade);
-    DELETEARR_POSSIBLE_NULL(_pa_is_fadeout_stop);
-    DELETEARR_POSSIBLE_NULL(_pa_now_volume);
-    DELETEARR_POSSIBLE_NULL(_pa_target_volume);
-    DELETEARR_POSSIBLE_NULL(_pa_inc_volume);
-    DELETEARR_POSSIBLE_NULL(_pa_pause_stat);
+    DELETEARR_POSSIBLE_NULL(_pa_volume);
 }

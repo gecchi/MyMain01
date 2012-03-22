@@ -7,7 +7,7 @@
 namespace GgafDxCore {
 
 /**
- * 入力インターフェイスユーティリティ .
+ * DirectInput ユーティリティクラス .
  * @version 1.00
  * @since 2006/01/10
  * @author Masatoshi Tsuge

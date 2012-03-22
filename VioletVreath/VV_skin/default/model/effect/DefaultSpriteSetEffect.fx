@@ -32,43 +32,43 @@ float4x4 g_matWorld016;
 float4x4 g_matWorld017;
 float4x4 g_matWorld018;
 
-float g_offsetU001;
-float g_offsetU002;
-float g_offsetU003;
-float g_offsetU004;
-float g_offsetU005;
-float g_offsetU006;
-float g_offsetU007;
-float g_offsetU008;
-float g_offsetU009;
-float g_offsetU010;
-float g_offsetU011;
-float g_offsetU012;
-float g_offsetU013;
-float g_offsetU014;
-float g_offsetU015;
-float g_offsetU016;
-float g_offsetU017;
-float g_offsetU018;
+float g_offset_u001;
+float g_offset_u002;
+float g_offset_u003;
+float g_offset_u004;
+float g_offset_u005;
+float g_offset_u006;
+float g_offset_u007;
+float g_offset_u008;
+float g_offset_u009;
+float g_offset_u010;
+float g_offset_u011;
+float g_offset_u012;
+float g_offset_u013;
+float g_offset_u014;
+float g_offset_u015;
+float g_offset_u016;
+float g_offset_u017;
+float g_offset_u018;
 
-float g_offsetV001;
-float g_offsetV002;
-float g_offsetV003;
-float g_offsetV004;
-float g_offsetV005;
-float g_offsetV006;
-float g_offsetV007;
-float g_offsetV008;
-float g_offsetV009;
-float g_offsetV010;
-float g_offsetV011;
-float g_offsetV012;
-float g_offsetV013;
-float g_offsetV014;
-float g_offsetV015;
-float g_offsetV016;
-float g_offsetV017;
-float g_offsetV018;
+float g_offset_v001;
+float g_offset_v002;
+float g_offset_v003;
+float g_offset_v004;
+float g_offset_v005;
+float g_offset_v006;
+float g_offset_v007;
+float g_offset_v008;
+float g_offset_v009;
+float g_offset_v010;
+float g_offset_v011;
+float g_offset_v012;
+float g_offset_v013;
+float g_offset_v014;
+float g_offset_v015;
+float g_offset_v016;
+float g_offset_v017;
+float g_offset_v018;
 
 float g_alpha001;
 float g_alpha002;
@@ -120,93 +120,93 @@ OUT_VS GgafDxVS_DefaultSpriteSet(
 
 	if (index == 0) {
 		matWorld = g_matWorld001;
-		offsetU  = g_offsetU001;
-		offsetV  = g_offsetV001;
+		offsetU  = g_offset_u001;
+		offsetV  = g_offset_v001;
 		alpha   = g_alpha001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
-		offsetU  = g_offsetU002;
-		offsetV  = g_offsetV002;
+		offsetU  = g_offset_u002;
+		offsetV  = g_offset_v002;
 		alpha   = g_alpha002;
 	} else if (index == 2) {
 		matWorld = g_matWorld003;
-		offsetU  = g_offsetU003;
-		offsetV  = g_offsetV003;
+		offsetU  = g_offset_u003;
+		offsetV  = g_offset_v003;
 		alpha   = g_alpha003;
 	} else if (index == 3) {
 		matWorld = g_matWorld004;
-		offsetU  = g_offsetU004;
-		offsetV  = g_offsetV004;
+		offsetU  = g_offset_u004;
+		offsetV  = g_offset_v004;
 		alpha   = g_alpha004;
 	} else if (index == 4) {
 		matWorld = g_matWorld005;
-		offsetU  = g_offsetU005;
-		offsetV  = g_offsetV005;
+		offsetU  = g_offset_u005;
+		offsetV  = g_offset_v005;
 		alpha   = g_alpha005;
 	} else if (index == 5) {
 		matWorld = g_matWorld006;
-		offsetU  = g_offsetU006;
-		offsetV  = g_offsetV006;
+		offsetU  = g_offset_u006;
+		offsetV  = g_offset_v006;
 		alpha   = g_alpha006;
 	} else if (index == 6) {	
 		matWorld = g_matWorld007;
-		offsetU  = g_offsetU007;
-		offsetV  = g_offsetV007;
+		offsetU  = g_offset_u007;
+		offsetV  = g_offset_v007;
 		alpha   = g_alpha007;
 	} else if (index == 7) {	
 		matWorld = g_matWorld008;
-		offsetU  = g_offsetU008;
-		offsetV  = g_offsetV008;
+		offsetU  = g_offset_u008;
+		offsetV  = g_offset_v008;
 		alpha   = g_alpha008;
 	} else if (index == 8) {	
 		matWorld = g_matWorld009;
-		offsetU  = g_offsetU009;
-		offsetV  = g_offsetV009;
+		offsetU  = g_offset_u009;
+		offsetV  = g_offset_v009;
 		alpha   = g_alpha009;
 	} else if (index == 9) {	
 		matWorld = g_matWorld010;
-		offsetU  = g_offsetU010;
-		offsetV  = g_offsetV010;
+		offsetU  = g_offset_u010;
+		offsetV  = g_offset_v010;
 		alpha   = g_alpha010;
 	} else if (index == 10) {	
 		matWorld = g_matWorld011;
-		offsetU  = g_offsetU011;
-		offsetV  = g_offsetV011;
+		offsetU  = g_offset_u011;
+		offsetV  = g_offset_v011;
 		alpha   = g_alpha011;
 	} else if (index == 11) {	
 		matWorld = g_matWorld012;
-		offsetU  = g_offsetU012;
-		offsetV  = g_offsetV012;
+		offsetU  = g_offset_u012;
+		offsetV  = g_offset_v012;
 		alpha   = g_alpha012;
 	} else if (index == 12) {	
 		matWorld = g_matWorld013;
-		offsetU  = g_offsetU013;
-		offsetV  = g_offsetV013;
+		offsetU  = g_offset_u013;
+		offsetV  = g_offset_v013;
 		alpha   = g_alpha013;
 	} else if (index == 13) {	
 		matWorld = g_matWorld014;
-		offsetU  = g_offsetU014;
-		offsetV  = g_offsetV014;
+		offsetU  = g_offset_u014;
+		offsetV  = g_offset_v014;
 		alpha   = g_alpha014;
 	} else if (index == 14) {	
 		matWorld = g_matWorld015;
-		offsetU  = g_offsetU015;
-		offsetV  = g_offsetV015;
+		offsetU  = g_offset_u015;
+		offsetV  = g_offset_v015;
 		alpha   = g_alpha015;
 	} else if (index == 15) {	
 		matWorld = g_matWorld016;
-		offsetU  = g_offsetU016;
-		offsetV  = g_offsetV016;
+		offsetU  = g_offset_u016;
+		offsetV  = g_offset_v016;
 		alpha   = g_alpha016;
 	} else if (index == 16) {	
 		matWorld = g_matWorld017;
-		offsetU  = g_offsetU017;
-		offsetV  = g_offsetV017;
+		offsetU  = g_offset_u017;
+		offsetV  = g_offset_v017;
 		alpha   = g_alpha017;
 	} else { 
 		matWorld = g_matWorld018;
-		offsetU  = g_offsetU018;
-		offsetV  = g_offsetV018;
+		offsetU  = g_offset_u018;
+		offsetV  = g_offset_v018;
 		alpha   = g_alpha018;
 	}
 
@@ -268,9 +268,9 @@ float4 PS_Flush(
 // float4x4 g_matWorld		:	World変換行列
 // float4x4 g_matView		:	View変換行列
 // float4x4 g_matProj		:	射影変換行列   
-// float g_hAlpha			:	α値
-// float g_offsetU			:	テクスチャU座標増分
-// float g_offsetV			:	テクスチャV座標増分
+// float g_alpha			:	α値
+// float g_offset_u			:	テクスチャU座標増分
+// float g_offset_v			:	テクスチャV座標増分
 // s0レジスタ				:	2Dテクスチャ
 technique DefaultSpriteSetTechnique
 {

@@ -17,11 +17,13 @@ protected:
 
 public:
     D3DXHANDLE _h_alpha_master;
-    /** エフェクト定義の識別名。(50文字まで) */
+    /** [r]エフェクト定義の識別名。(50文字まで) */
     char* _effect_name;
+    /** [r]エフェクト */
     ID3DXEffect* _pID3DXEffect;
-
+#ifdef MY_DEBUG
     bool _begin;
+#endif
     /**
      * コンストラクタ<BR>
      * @param prm_effect_name エフェクト定義の識別名。".fx"を追加するとエフェクトファイル名になる。

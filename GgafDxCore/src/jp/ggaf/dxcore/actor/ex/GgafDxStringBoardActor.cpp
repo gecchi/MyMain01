@@ -180,12 +180,12 @@ void GgafDxStringBoardActor::processDraw() {
     } else {
         //VALIGN_TOP
     }
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], y);
-    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) ‚É¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(CO2PX(_Z)));
-    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahDepthZ) ‚É¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _alpha); //’ˆÓFƒAƒ‹ƒtƒ@‚Í•¶š‚²‚Æ‚Í•s‰Â
-    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahAlpha) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], y);
+    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_Y) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[0], float(CO2PX(_Z)));
+    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_depth_Z) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[0], _alpha); //’ˆÓFƒAƒ‹ƒtƒ@‚Í•¶š‚²‚Æ‚Í•s‰Â
+    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_alpha) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
         int strindex, pattno;
@@ -202,8 +202,8 @@ void GgafDxStringBoardActor::processDraw() {
 //                    x = CO2PX(_X) - (_width_len_px/2);
 //                    x_tmp = x;
 //                    y += _chr_height_px;
-//                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[i], y);
-//                    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) ‚É¸”s‚µ‚Ü‚µ‚½B");
+//                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[i], y);
+//                    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_Y) ‚É¸”s‚µ‚Ü‚µ‚½B");
 //                    continue;
                 } else if (_draw_string[strindex]  - ' ' > '_'  || _draw_string[strindex] - ' ' < 0) {
                     pattno = '?' - ' '; //”ÍˆÍŠO‚Í"?"‚ğ•\¦
@@ -214,13 +214,13 @@ void GgafDxStringBoardActor::processDraw() {
                 int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
                 x = x_tmp - w;
                 x_tmp = x + _chr_width_px - w;
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], float(x));
-                checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedX) ‚É¸”s‚µ‚Ü‚µ‚½B");
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[i], float(x));
+                checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_X) ‚É¸”s‚µ‚Ü‚µ‚½B");
                 _pUvFlipper->getUV(pattno, u, v);
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[i], u);
-                checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_hOffsetU) ‚É¸”s‚µ‚Ü‚µ‚½B");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[i], v);
-                checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_hOffsetV) ‚É¸”s‚µ‚Ü‚µ‚½B");
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[i], u);
+                checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_offset_u) ‚É¸”s‚µ‚Ü‚µ‚½B");
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[i], v);
+                checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_offset_v) ‚É¸”s‚µ‚Ü‚µ‚½B");
             }
             _pBoardSetModel->draw(this, _draw_set_num);
         }
@@ -239,8 +239,8 @@ void GgafDxStringBoardActor::processDraw() {
 //                    x = CO2PX(_X);
 //                    x_tmp = x;
 //                    y -= _chr_height_px;
-//                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[i], y);
-//                    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) ‚É¸”s‚µ‚Ü‚µ‚½B");
+//                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[i], y);
+//                    checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_Y) ‚É¸”s‚µ‚Ü‚µ‚½B");
 //                    continue;
                 } else if (_draw_string[strindex]  - ' ' > '_'  || _draw_string[strindex] - ' ' < 0) {
                     pattno = '?' - ' '; //”ÍˆÍŠO‚Í"?"‚ğ•\¦
@@ -251,13 +251,13 @@ void GgafDxStringBoardActor::processDraw() {
                 int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
                 x = x_tmp - (w + _aWidthPx[(unsigned char)(_draw_string[strindex])]);
                 x_tmp = x + w;
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], float(x));
-                checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedX) ‚É¸”s‚µ‚Ü‚µ‚½B");
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[i], float(x));
+                checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_X) ‚É¸”s‚µ‚Ü‚µ‚½B");
                 _pUvFlipper->getUV(pattno, u, v);
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[i], u);
-                checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_hOffsetU) ‚É¸”s‚µ‚Ü‚µ‚½B");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[i], v);
-                checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_hOffsetV) ‚É¸”s‚µ‚Ü‚µ‚½B");
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[i], u);
+                checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_offset_u) ‚É¸”s‚µ‚Ü‚µ‚½B");
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[i], v);
+                checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_offset_v) ‚É¸”s‚µ‚Ü‚µ‚½B");
             }
             _pBoardSetModel->draw(this, _draw_set_num);
         }

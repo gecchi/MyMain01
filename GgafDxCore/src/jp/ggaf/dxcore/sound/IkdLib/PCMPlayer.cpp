@@ -23,7 +23,6 @@ namespace {
 double playTime_g = 1; // 1 sec.
 }
 
-//namespace IkdLib {
 PCMPlayer::PCMPlayer() :
         _pDS8(NULL), _pDSBuffer(NULL), _pPCMDecoder(NULL), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
 {
@@ -385,5 +384,3 @@ bool PCMPlayer::isPlaying() {
 PCMPlayer::STATE PCMPlayer::getState() {
     return _state;
 }
-
-//}

@@ -7,7 +7,8 @@ GgafDxScene::GgafDxScene(const char* prm_name) : GgafMainScene(prm_name) {
     _obj_class |= Obj_GgafDxScene;
     _class_name = "GgafDxScene";
     _pAlphaCurtain = NEW GgafDxAlphaCurtain(this);
-    _pBgmPerformer = NEW GgafDxBgmPerformer();
+    _pBgmPerformer = NEW GgafDxBgmPerformerForScene(this);
+    _master_alpha = 1.0f;
 }
 
 void GgafDxScene::processSettlementBehavior() {

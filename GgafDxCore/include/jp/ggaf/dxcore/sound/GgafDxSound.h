@@ -3,11 +3,11 @@
 
 namespace GgafDxCore {
 
-#define connectSeManager(X) ((GgafDxCore::GgafDxSeConnection*)GgafDxCore::GgafDxSound::_pSeManager->connect(X))
-
+#define connectSeManager(X)  ((GgafDxCore::GgafDxSeConnection*)GgafDxCore::GgafDxSound::_pSeManager->connect(X))
+#define connectBgmManager(X) ((GgafDxCore::GgafDxBgmConnection*)GgafDxCore::GgafDxSound::_pBgmManager->connect(X))
 
 /**
- * サウンドクラス.
+ * DirectSound ユーティリティクラス.
  * IDirectSound8を保持し、サウンドに関するもろもろの機能を持ったクラスです
  * @version 1.00
  * @since 2008/03/04
@@ -17,16 +17,32 @@ class GgafDxSound {
 public:
     /** IDirectSound8インターフェイス */
     static IDirectSound8* _pIDirectSound8;
+    /** [r]DSCAPS */
     static DSCAPS _dsCaps;
-    static void init();
-    static void release();
+    /** [r]GgafDxSe 管理クラス */
     static GgafDxSeManager* _pSeManager;
+    /** [r]GgafDxBgm 管理クラス */
     static GgafDxBgmManager* _pBgmManager;
+    /** [r/w]マスターボリューム割合 0.0～1.0 */
     static float _master_volume_rate;
+    /** [r/w]BGM全般のボリューム割合 0.0～1.0 */
     static float _bgm_volume_rate;
+    /** [r/w]サウンドエフェクト全般のボリューム割合 0.0～1.0 */
     static float _se_volume_rate;
-    /** 要素番号にボリューム値を入れると、対応デシベルが取得できる配列 */
+    /** [r/w]要素番号にボリューム値を入れると、対応デシベルが取得できる配列 */
     static LONG aDbVolume[GGAF_MAX_VOLUME+1];
+
+    /**
+     * 初期設定 .
+     * GgafDxSeManager、GgafDxBgmManager を使用可能にします。
+     */
+    static void init();
+
+    /**
+     * 解放処理 .
+     * 使用が済んだら呼び出して下さい。
+     */
+    static void release();
 
     /**
      * マスタボリューム設定の率設定 .

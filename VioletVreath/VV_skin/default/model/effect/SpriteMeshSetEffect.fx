@@ -67,39 +67,39 @@ float4 g_colMaterialDiffuse014;
 float4 g_colMaterialDiffuse015;
 //float4 g_colMaterialDiffuse016;
 
-float g_offsetU001;
-float g_offsetU002;
-float g_offsetU003;
-float g_offsetU004;
-float g_offsetU005;
-float g_offsetU006;
-float g_offsetU007;
-float g_offsetU008;
-float g_offsetU009;
-float g_offsetU010;
-float g_offsetU011;
-float g_offsetU012;
-float g_offsetU013;
-float g_offsetU014;
-float g_offsetU015;
-//float g_offsetU016;
+float g_offset_u001;
+float g_offset_u002;
+float g_offset_u003;
+float g_offset_u004;
+float g_offset_u005;
+float g_offset_u006;
+float g_offset_u007;
+float g_offset_u008;
+float g_offset_u009;
+float g_offset_u010;
+float g_offset_u011;
+float g_offset_u012;
+float g_offset_u013;
+float g_offset_u014;
+float g_offset_u015;
+//float g_offset_u016;
 
-float g_offsetV001;
-float g_offsetV002;
-float g_offsetV003;
-float g_offsetV004;
-float g_offsetV005;
-float g_offsetV006;
-float g_offsetV007;
-float g_offsetV008;
-float g_offsetV009;
-float g_offsetV010;
-float g_offsetV011;
-float g_offsetV012;
-float g_offsetV013;
-float g_offsetV014;
-float g_offsetV015;
-//float g_offsetV016;
+float g_offset_v001;
+float g_offset_v002;
+float g_offset_v003;
+float g_offset_v004;
+float g_offset_v005;
+float g_offset_v006;
+float g_offset_v007;
+float g_offset_v008;
+float g_offset_v009;
+float g_offset_v010;
+float g_offset_v011;
+float g_offset_v012;
+float g_offset_v013;
+float g_offset_v014;
+float g_offset_v015;
+//float g_offset_v016;
 
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
@@ -135,84 +135,84 @@ OUT_VS GgafDxVS_SpriteMeshSet(
 	if (index == 0) {
 		matWorld = g_matWorld001;
 		colorMaterialDiffuse = g_colMaterialDiffuse001;
-		offsetU  = g_offsetU001;
-		offsetV  = g_offsetV001;
+		offsetU  = g_offset_u001;
+		offsetV  = g_offset_v001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
 		colorMaterialDiffuse = g_colMaterialDiffuse002;
-		offsetU  = g_offsetU002;
-		offsetV  = g_offsetV002;
+		offsetU  = g_offset_u002;
+		offsetV  = g_offset_v002;
 	} else if (index == 2) {
 		matWorld = g_matWorld003;
 		colorMaterialDiffuse = g_colMaterialDiffuse003;
-		offsetU  = g_offsetU003;
-		offsetV  = g_offsetV003;
+		offsetU  = g_offset_u003;
+		offsetV  = g_offset_v003;
 	} else if (index == 3) {
 		matWorld = g_matWorld004;
 		colorMaterialDiffuse = g_colMaterialDiffuse004;
-		offsetU  = g_offsetU004;
-		offsetV  = g_offsetV004;
+		offsetU  = g_offset_u004;
+		offsetV  = g_offset_v004;
 	} else if (index == 4) {
 		matWorld = g_matWorld005;
 		colorMaterialDiffuse = g_colMaterialDiffuse005;
-		offsetU  = g_offsetU005;
-		offsetV  = g_offsetV005;
+		offsetU  = g_offset_u005;
+		offsetV  = g_offset_v005;
 	} else if (index == 5) {
 		matWorld = g_matWorld006;
 		colorMaterialDiffuse = g_colMaterialDiffuse006;
-		offsetU  = g_offsetU006;
-		offsetV  = g_offsetV006;
+		offsetU  = g_offset_u006;
+		offsetV  = g_offset_v006;
 	} else if (index == 6) {
 		matWorld = g_matWorld007;
 		colorMaterialDiffuse = g_colMaterialDiffuse007;
-		offsetU  = g_offsetU007;
-		offsetV  = g_offsetV007;
+		offsetU  = g_offset_u007;
+		offsetV  = g_offset_v007;
 	} else if (index == 7) {
 		matWorld = g_matWorld008;
 		colorMaterialDiffuse = g_colMaterialDiffuse008;
-		offsetU  = g_offsetU008;
-		offsetV  = g_offsetV008;
+		offsetU  = g_offset_u008;
+		offsetV  = g_offset_v008;
 	} else if (index == 8) {
 		matWorld = g_matWorld009;
 		colorMaterialDiffuse = g_colMaterialDiffuse009;
-		offsetU  = g_offsetU009;
-		offsetV  = g_offsetV009;
+		offsetU  = g_offset_u009;
+		offsetV  = g_offset_v009;
 	} else if (index == 9) {
 		matWorld = g_matWorld010;
 		colorMaterialDiffuse = g_colMaterialDiffuse010;
-		offsetU  = g_offsetU010;
-		offsetV  = g_offsetV010;
+		offsetU  = g_offset_u010;
+		offsetV  = g_offset_v010;
 	} else if (index == 10) {
 		matWorld = g_matWorld011;
 		colorMaterialDiffuse = g_colMaterialDiffuse011;
-		offsetU  = g_offsetU011;
-		offsetV  = g_offsetV011;
+		offsetU  = g_offset_u011;
+		offsetV  = g_offset_v011;
 	} else if (index == 11) {
 		matWorld = g_matWorld012;
 		colorMaterialDiffuse = g_colMaterialDiffuse012;
-		offsetU  = g_offsetU012;
-		offsetV  = g_offsetV012;
+		offsetU  = g_offset_u012;
+		offsetV  = g_offset_v012;
 	} else if (index == 12) {
 		matWorld = g_matWorld013;
 		colorMaterialDiffuse = g_colMaterialDiffuse013;
-		offsetU  = g_offsetU013;
-		offsetV  = g_offsetV013;
+		offsetU  = g_offset_u013;
+		offsetV  = g_offset_v013;
 	} else if (index == 13) {
 		matWorld = g_matWorld014;
 		colorMaterialDiffuse = g_colMaterialDiffuse014;
-		offsetU  = g_offsetU014;
-		offsetV  = g_offsetV014;
+		offsetU  = g_offset_u014;
+		offsetV  = g_offset_v014;
 	} else { //if (index == 14) {
 		matWorld = g_matWorld015;
 		colorMaterialDiffuse = g_colMaterialDiffuse015;
-		offsetU  = g_offsetU015;
-		offsetV  = g_offsetV015;
+		offsetU  = g_offset_u015;
+		offsetV  = g_offset_v015;
 	} 
 //	else {
 //		matWorld = g_matWorld016;
 //		colorMaterialDiffuse = g_colMaterialDiffuse016;
-//		offsetU  = g_offsetU016;
-//		offsetV  = g_offsetV016;
+//		offsetU  = g_offset_u016;
+//		offsetV  = g_offset_v016;
 //	}
 	//World*View*射影変換
 	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);

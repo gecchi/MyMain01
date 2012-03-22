@@ -36,8 +36,7 @@ void RankUpStage::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
                 pMessage_->update(PX2CO(500), PX2CO(200), "RANKUPSTAGE::PROG_BEGIN");
-                _pBgmPerformer->play(0, 0, true);
-                _pBgmPerformer->fadein(0, 420);
+                _pBgmPerformer->play_fadein(0);
             }
 
             if (_pProg->getFrameInProgress() == 60) { //ステージ開始！
@@ -64,7 +63,7 @@ void RankUpStage::processBehavior() {
             //結果表示？
             if (_pProg->getFrameInProgress() == 120) {
                 pMessage_->update("KEKKA HAPYOU!!!");
-                _pBgmPerformer->fadeout_stop(0, 300);
+                _pBgmPerformer->fadeout_stop(0);
             }
 
             if (_pProg->getFrameInProgress() == 120+300) {

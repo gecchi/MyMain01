@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-unsigned int GgafDxDrawableActor::_hash_technique_last_draw = 0;
+hashval GgafDxDrawableActor::_hash_technique_last_draw = 0;
 
 GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
                                          const char* prm_model,
@@ -126,7 +126,7 @@ void GgafDxDrawableActor::processPreDraw() {
 //                                (int)((1.0*_Z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
 //                                this
 //                             );
-            if (_alpha <= 0.0f || ((GgafDxScene*)getPlatformScene())->_pAlphaCurtain->_alpha <= 0.0f) {
+            if (_alpha <= 0.0f || ((GgafDxScene*)getPlatformScene())->_master_alpha <= 0.0f) {
                 //描画しないので登録なし
             } else {
                 _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(_Z, this); //2Dは_Zはプライオリティに使用。

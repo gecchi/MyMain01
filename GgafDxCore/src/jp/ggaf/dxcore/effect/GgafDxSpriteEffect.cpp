@@ -20,9 +20,9 @@ GgafDxSpriteEffect::GgafDxSpriteEffect(char* prm_effect_name) : GgafDxEffect(prm
     //シェーダーハンドル
     _h_matView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _h_matWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
-    _hAlpha    = _pID3DXEffect->GetParameterByName( NULL, "g_hAlpha" );
-    _hOffsetU  = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU" );
-    _hOffsetV  = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV" );
+    _h_alpha    = _pID3DXEffect->GetParameterByName( NULL, "g_alpha" );
+    _h_offset_u = _pID3DXEffect->GetParameterByName( NULL, "g_offset_u" );
+    _h_offset_v = _pID3DXEffect->GetParameterByName( NULL, "g_offset_v" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
     _h_far_rate = _pID3DXEffect->GetParameterByName( NULL, "g_far_rate" );

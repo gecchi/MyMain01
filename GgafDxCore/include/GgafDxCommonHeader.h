@@ -489,8 +489,10 @@ class GgafDxAlphaFader;
 class GgafDxColorist;
 class GgafDxMorpher;
 class GgafDxSeTransmitter;
+class GgafDxSeTransmitterForActor;
 class GgafDxBgmPerformer;
 class GgafDxAlphaCurtain;
+class GgafDxBgmPerformerForScene;
 class GgafDxTextureBlinker;
 class GgafDxUvFlipper;
 class GgafDxPuppeteer;
@@ -604,6 +606,13 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoChain.h"
+
+#include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgmPerformer.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSeTransmitter.h"
+
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
@@ -611,19 +620,18 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitter.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxPuppeteer.h"
-#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformer.h"
+
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
+#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
 
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxRectUV.h"
 
-#include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
-#include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
+
 #include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
 #include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
 #include "jp/ggaf/dxcore/manager/GgafDxBgmConnection.h"

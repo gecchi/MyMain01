@@ -130,7 +130,7 @@ void GgafDxUniverse::draw() {
 #endif
         pScene = (GgafDxScene*)(_pActor_DrawActive->getPlatformScene());
         _pActor_DrawActive->_pEffect->_pID3DXEffect->SetFloat(
-                _pActor_DrawActive->_pEffect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha
+                _pActor_DrawActive->_pEffect->_h_alpha_master, pScene->_master_alpha
         );
         if (_pActor_DrawActive->_alpha < 1.0f) {
             GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //”¼“§–¾—v‘f‚ ‚è‚Æ‚¢‚¤‚±‚Æ‚ÅƒJƒŠƒ“ƒO‚ðˆêŽžOFF

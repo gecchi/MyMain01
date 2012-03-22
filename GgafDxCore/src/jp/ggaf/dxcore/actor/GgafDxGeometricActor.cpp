@@ -18,8 +18,8 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _pChecker = prm_pChecker;
     _pKurokoA = NEW GgafDxKurokoA(this);
     _pKurokoB = NEW GgafDxKurokoB(this);
-    _pSeTransmitter = NEW GgafDxSeTransmitter(this);
-    _offscreenkind = -1;
+    _pSeTransmitter = NEW GgafDxSeTransmitterForActor(this);
+    _offscreen_kind = -1;
     _pFunc_calcRotMvWorldMatrix = NULL;
     _pActor_Base = NULL;
 
@@ -171,7 +171,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
                          pCam->_plnBack.b*_fY +
                          pCam->_plnBack.c*_fZ +
                          pCam->_plnBack.d;
-    _offscreenkind = -1;
+    _offscreen_kind = -1;
 
 }
 
@@ -243,7 +243,7 @@ bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 int GgafDxGeometricActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
     dxcoord bound = _bounding_sphere_radius * _rate_of_bounding_sphere_radius*1.5;//1.2はやや境界球を大きくして、画面境界のチラツキを抑える
-    if (_offscreenkind == -1) {
+    if (_offscreen_kind == -1) {
         if (_dest_from_vppln_top <= bound) {
             if (_dest_from_vppln_bottom <= bound) {
                 if (_dest_from_vppln_left <= bound) {
@@ -251,33 +251,33 @@ int GgafDxGeometricActor::isOutOfView() {
                         if (_dest_from_vppln_front <= bound) {
                             if (_dest_from_vppln_back <= bound) {
                                 //Viewport範囲内
-                                _offscreenkind = 0;
+                                _offscreen_kind = 0;
                             } else {
                                 //奥平面より奥で範囲外
-                                _offscreenkind = 6;
+                                _offscreen_kind = 6;
                             }
                         } else {
                             //手前平面より手前で範囲外
-                            _offscreenkind = 5;
+                            _offscreen_kind = 5;
                         }
                     } else {
                         //右平面より右で範囲外
-                        _offscreenkind = 4;
+                        _offscreen_kind = 4;
                     }
                 } else {
                     //左平面より左で範囲外
-                    _offscreenkind = 3;
+                    _offscreen_kind = 3;
                 }
             } else {
                 //下平面より下で範囲外
-                _offscreenkind = 2;
+                _offscreen_kind = 2;
             }
         } else {
             //上平面より上で範囲外
-            _offscreenkind = 1;
+            _offscreen_kind = 1;
         }
     }
-    return _offscreenkind;
+    return _offscreen_kind;
 }
 
 bool GgafDxGeometricActor::isOutOfUniverse() {

@@ -21,8 +21,6 @@ enum GgafCurtainState {
 class GgafCurtain : public GgafObject {
 
 public:
-    /** [r]カーテンを取り付けるシーン */
-    GgafScene* _pScene;
     /** [r]現在のカーテンの状態 */
     GgafCurtainState _state;
     /** [r/w]カーテンの長さ */
@@ -34,15 +32,13 @@ public:
     /** [r]カーテンを閉める際の速度 */
     float _closing_velocity;
 
-
     /**
      * コンストラクタ .
      * カーテンの長さはデフォルトで 1.0 に設定されます。<BR>
      * また、初期状態はカーテンは開いています。<BR>
-     * @param prm_pScene カーテンを取り付けるシーン
      * @param prm_curtain_length カーテンの長さ(デフォルト 1.0)
      */
-    GgafCurtain(GgafScene* prm_pScene, float prm_curtain_length = 1.0f);
+    GgafCurtain(float prm_curtain_length = 1.0f);
 
     /**
      * カーテンを徐々に開ける .

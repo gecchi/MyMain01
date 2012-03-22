@@ -66,12 +66,12 @@ void MenuBoard::riseSub(MenuBoard* prm_pSubMenu,
 
 bool MenuBoard::condDecision() {
     if (VB->isPushedDown(VB_UI_EXECUTE)) {
-        _pSeTransmitter->playImmed(SE_DECIDED_NOMAL);
+        _pSeTransmitter->play(SE_DECIDED_NOMAL);
         return true;
     } else if (VB->isPushedDown(VB_UI_CANCEL) &&
                _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != NULL &&
                _lstItems.getCurrent() == _lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
-        _pSeTransmitter->playImmed(SE_DECIDED_CANCEL);
+        _pSeTransmitter->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -79,7 +79,7 @@ bool MenuBoard::condDecision() {
 }
 void MenuBoard::moveCursor() {
     DefaultBoardMenu::moveCursor();
-    _pSeTransmitter->playImmed(SE_MOVE_CURSOR);
+    _pSeTransmitter->play(SE_MOVE_CURSOR);
 }
 
 void MenuBoard::initialize() {
@@ -100,7 +100,7 @@ void MenuBoard::onRisen() {
                      ),
                      menu_fade_frames_, 0.1, 0.3
                );
-    _pSeTransmitter->playImmed(SE_MENU_OPEN);
+    _pSeTransmitter->play(SE_MENU_OPEN);
 }
 
 void MenuBoard::processBehavior() {
@@ -131,7 +131,7 @@ void MenuBoard::onSunk() {
                     ),
                     60, 0.2, 0.3
                );
-    _pSeTransmitter->playImmed(SE_MENU_CLOSE);
+    _pSeTransmitter->play(SE_MENU_CLOSE);
 }
 
 MenuBoard::~MenuBoard() {

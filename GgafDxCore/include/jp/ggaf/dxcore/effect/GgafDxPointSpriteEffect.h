@@ -16,10 +16,10 @@ public:
     D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_matView;
     D3DXHANDLE _h_matWorld;
-    D3DXHANDLE _hOffsetU;
-    D3DXHANDLE _hOffsetV;
+    D3DXHANDLE _h_offset_u;
+    D3DXHANDLE _h_offset_v;
     D3DXHANDLE _h_colMaterialDiffuse;
-    D3DXHANDLE _hAlpha;
+    D3DXHANDLE _h_alpha;
     D3DXHANDLE _h_dist_VpFrontPlane;
     D3DXHANDLE _hTexSize;
     D3DXHANDLE _hTextureSplitRowcol;

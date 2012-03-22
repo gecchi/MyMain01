@@ -33,11 +33,12 @@ private :
     }
 
 public :
-    /** αカーテン */
+    /** [r]αカーテン */
     GgafDxAlphaCurtain* _pAlphaCurtain;
-    /** BGM演奏者 */
-    GgafDxBgmPerformer* _pBgmPerformer;
+    /** [r]BGM演奏者 */
+    GgafDxBgmPerformerForScene* _pBgmPerformer;
 
+    float _master_alpha;
     /**
      * コンストラクタ .
      * @param prm_name

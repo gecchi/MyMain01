@@ -19,8 +19,8 @@ int g_TextureSplitRowcol; //テクスチャの縦横分割数。
                             //1：縦横１分割＝分割無し。
                             //2：縦横２分割＝４個のアニメパターン
                             //3：縦横３分割＝９個のアニメパターン
-float g_offsetU;        //テクスチャU座標増分
-float g_offsetV;         //テクスチャV座標増分
+float g_offset_u;        //テクスチャU座標増分
+float g_offset_v;         //テクスチャV座標増分
 float g_UvFlipPtnNo;
 
 float3 g_vecLightDirection; // ライトの方向

@@ -26,7 +26,7 @@ GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(char* prm_effect_name) : GgafDx
     _h_matView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _h_matWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( NULL, "g_colMaterialDiffuse" );
-    _hAlpha    = _pID3DXEffect->GetParameterByName( NULL, "g_hAlpha" );
+    _h_alpha    = _pID3DXEffect->GetParameterByName( NULL, "g_alpha" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
     _h_dist_VpFrontPlane = _pID3DXEffect->GetParameterByName( NULL, "g_dist_VpFrontPlane" );

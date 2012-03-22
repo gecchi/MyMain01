@@ -17,7 +17,7 @@ class LaserChip : public GgafDxCore::GgafDxMeshSetActor {
     friend class LaserChipDepositoryStore;
 
 private:
-    D3DXHANDLE _ahKind[11];
+    D3DXHANDLE _ah_kind[11];
     D3DXHANDLE _ah_matWorld_front[11];
     D3DXHANDLE _h_cnt_vertec;
 
@@ -45,9 +45,9 @@ public:
     LaserChip* _pChip_behind;
     /** レーザーテクスチャ種別  1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
     int _chip_kind;
-    /** 地形ヒットありチップ(20回に1回) */
+    /** [r]地形ヒットありチップ(20回に1回) */
     bool _can_chikei_hit;
-
+    /** [r]自身が所属する先端チップ */
     LaserChip* _pLeader;
 
     LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);

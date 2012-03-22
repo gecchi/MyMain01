@@ -95,7 +95,12 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitterForActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformerForScene.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\CWaveDecorder.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgmPerformer.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSeTransmitter.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxAgainstWay.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\framework\Frm_Mesh.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\framework\Frm_Tbuff.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.cpp" />
@@ -108,7 +113,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgm.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxBgmConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxBgmManager.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformer.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxBoardEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxBoardModel.cpp" />
@@ -172,7 +176,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSe.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxSeConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxSeManager.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitter.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSound.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxSphereActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxSphereRadiusVectors.cpp" />
@@ -211,7 +214,11 @@
     <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\Toolbox\TBox_Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxsetransmitterforactor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\ggafdxbgmperformerforscene.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\CWaveDecorder.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxbgmperformer.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxsetransmitter.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_3DMath.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_IO.h" />
@@ -232,7 +239,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\sound\GgafDxBgm.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxBgmConnection.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxBgmManager.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformer.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxBoardEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxBoardModel.h" />
@@ -299,7 +305,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\sound\GgafDxSe.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxSeConnection.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxSeManager.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitter.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\GgafDxSound.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxSphereActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxSphereRadiusVectors.h" />

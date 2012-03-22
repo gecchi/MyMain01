@@ -7,11 +7,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 float g_alpha; //α
-float g_offsetU; //テクスチャU座標増分
-float g_offsetV; //テクスチャV座標増分
-float g_transformedX; //変換済みX座標(px)
-float g_transformedY; //変換済みY座標(px)
-float g_depthZ; //深度Z (0 ～ +1)
+float g_offset_u; //テクスチャU座標増分
+float g_offset_v; //テクスチャV座標増分
+float g_transformed_X; //変換済みX座標(px)
+float g_transformed_Y; //変換済みY座標(px)
+float g_depth_Z; //深度Z (0 ～ +1)
 float g_game_buffer_width; //画面幅(px)
 float g_game_buffer_height; //画面高さ(px)
 float g_sx;
@@ -40,13 +40,13 @@ OUT_VS GgafDxVS_DefaultBoard(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-	out_vs.pos.x = - 1 + ((2*prm_pos.x*g_sx + 2*g_transformedX - 1) / g_game_buffer_width);
-	out_vs.pos.y =   1 - ((2*prm_pos.y*g_sy + 2*g_transformedY - 1) / g_game_buffer_height);
-	out_vs.pos.z = g_depthZ;
+	out_vs.pos.x = - 1 + ((2*prm_pos.x*g_sx + 2*g_transformed_X - 1) / g_game_buffer_width);
+	out_vs.pos.y =   1 - ((2*prm_pos.y*g_sy + 2*g_transformed_Y - 1) / g_game_buffer_height);
+	out_vs.pos.z = g_depth_Z;
 	out_vs.pos.w = 1.0;
 	//UVのオフセットを加算
-	out_vs.uv.x = prm_uv.x + g_offsetU;
-	out_vs.uv.y = prm_uv.y + g_offsetV;
+	out_vs.uv.x = prm_uv.x + g_offset_u;
+	out_vs.uv.y = prm_uv.y + g_offset_v;
 
 	return out_vs;
 }
@@ -98,14 +98,14 @@ float4 PS_Flush(
 //・半透明α
 //
 //【設定グローバル】
-// float g_hAlpha			:	α値
-// float g_transformedX		: 	変換済みX座標(px)
-// float g_transformedY		:	変換済みY座標(px)
-// float g_depthZ			:	深度Z (0 ～ +1)
+// float g_alpha			:	α値
+// float g_transformed_X		: 	変換済みX座標(px)
+// float g_transformed_Y		:	変換済みY座標(px)
+// float g_depth_Z			:	深度Z (0 ～ +1)
 // float g_game_buffer_width		:	画面幅(px)
 // float g_game_buffer_height		:	画面高さ(px)
-// float g_offsetU			:	テクスチャU座標増分
-// float g_offsetV			:	テクスチャV座標増分
+// float g_offset_u			:	テクスチャU座標増分
+// float g_offset_v			:	テクスチャV座標増分
 // s0レジスタ				:	2Dテクスチャ
 technique DefaultBoardTechnique
 {

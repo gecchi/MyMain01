@@ -3,8 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafCurtain::GgafCurtain(GgafScene* prm_pScene, float prm_curtain_length) : GgafObject() {
-    _pScene = prm_pScene;
+GgafCurtain::GgafCurtain(float prm_curtain_length) : GgafObject() {
     _curtain_length = prm_curtain_length;
     _now_curtain_length = 0.0f; //Å‰‚ÍŠJ‚¢‚Ä‚¢‚Ü‚·
     _state = OPENED;

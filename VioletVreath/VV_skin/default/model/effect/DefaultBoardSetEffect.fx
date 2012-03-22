@@ -10,158 +10,158 @@ float g_game_buffer_height; //画面高さ(px)
 float g_tex_blink_power;   
 float g_tex_blink_threshold;
 float g_alpha_master;
-//float g_offsetU; //テクスチャU座標増分
-//float g_offsetV; //テクスチャV座標増分
-//float g_transformedX; //変換済みX座標(px)
-//float g_transformedY; //変換済みY座標(px)
-//float g_depthZ; //深度Z (0 ～ +1)
+//float g_offset_u; //テクスチャU座標増分
+//float g_offset_v; //テクスチャV座標増分
+//float g_transformed_X; //変換済みX座標(px)
+//float g_transformed_Y; //変換済みY座標(px)
+//float g_depth_Z; //深度Z (0 ～ +1)
 //float g_alpha; //α
 //
 
-float g_offsetU001;
-float g_offsetU002;
-float g_offsetU003;
-float g_offsetU004;
-float g_offsetU005;
-float g_offsetU006;
-float g_offsetU007;
-float g_offsetU008;
-float g_offsetU009;
-float g_offsetU010;
-float g_offsetU011;
-float g_offsetU012;
-float g_offsetU013;
-float g_offsetU014;
-float g_offsetU015;
-float g_offsetU016;
-float g_offsetU017;
-float g_offsetU018;
-float g_offsetU019;
-float g_offsetU020;
-float g_offsetU021;
-float g_offsetU022;
-float g_offsetU023;
-float g_offsetU024;
-float g_offsetU025;
-float g_offsetU026;
-float g_offsetU027;
-float g_offsetU028;
+float g_offset_u001;
+float g_offset_u002;
+float g_offset_u003;
+float g_offset_u004;
+float g_offset_u005;
+float g_offset_u006;
+float g_offset_u007;
+float g_offset_u008;
+float g_offset_u009;
+float g_offset_u010;
+float g_offset_u011;
+float g_offset_u012;
+float g_offset_u013;
+float g_offset_u014;
+float g_offset_u015;
+float g_offset_u016;
+float g_offset_u017;
+float g_offset_u018;
+float g_offset_u019;
+float g_offset_u020;
+float g_offset_u021;
+float g_offset_u022;
+float g_offset_u023;
+float g_offset_u024;
+float g_offset_u025;
+float g_offset_u026;
+float g_offset_u027;
+float g_offset_u028;
 
-float g_offsetV001;
-float g_offsetV002;
-float g_offsetV003;
-float g_offsetV004;
-float g_offsetV005;
-float g_offsetV006;
-float g_offsetV007;
-float g_offsetV008;
-float g_offsetV009;
-float g_offsetV010;
-float g_offsetV011;
-float g_offsetV012;
-float g_offsetV013;
-float g_offsetV014;
-float g_offsetV015;
-float g_offsetV016;
-float g_offsetV017;
-float g_offsetV018;
-float g_offsetV019;
-float g_offsetV020;
-float g_offsetV021;
-float g_offsetV022;
-float g_offsetV023;
-float g_offsetV024;
-float g_offsetV025;
-float g_offsetV026;
-float g_offsetV027;
-float g_offsetV028;
+float g_offset_v001;
+float g_offset_v002;
+float g_offset_v003;
+float g_offset_v004;
+float g_offset_v005;
+float g_offset_v006;
+float g_offset_v007;
+float g_offset_v008;
+float g_offset_v009;
+float g_offset_v010;
+float g_offset_v011;
+float g_offset_v012;
+float g_offset_v013;
+float g_offset_v014;
+float g_offset_v015;
+float g_offset_v016;
+float g_offset_v017;
+float g_offset_v018;
+float g_offset_v019;
+float g_offset_v020;
+float g_offset_v021;
+float g_offset_v022;
+float g_offset_v023;
+float g_offset_v024;
+float g_offset_v025;
+float g_offset_v026;
+float g_offset_v027;
+float g_offset_v028;
 
-float g_transformedX001;
-float g_transformedX002;
-float g_transformedX003;
-float g_transformedX004;
-float g_transformedX005;
-float g_transformedX006;
-float g_transformedX007;
-float g_transformedX008;
-float g_transformedX009;
-float g_transformedX010;
-float g_transformedX011;
-float g_transformedX012;
-float g_transformedX013;
-float g_transformedX014;
-float g_transformedX015;
-float g_transformedX016;
-float g_transformedX017;
-float g_transformedX018;
-float g_transformedX019;
-float g_transformedX020;
-float g_transformedX021;
-float g_transformedX022;
-float g_transformedX023;
-float g_transformedX024;
-float g_transformedX025;
-float g_transformedX026;
-float g_transformedX027;
-float g_transformedX028;
+float g_transformed_X001;
+float g_transformed_X002;
+float g_transformed_X003;
+float g_transformed_X004;
+float g_transformed_X005;
+float g_transformed_X006;
+float g_transformed_X007;
+float g_transformed_X008;
+float g_transformed_X009;
+float g_transformed_X010;
+float g_transformed_X011;
+float g_transformed_X012;
+float g_transformed_X013;
+float g_transformed_X014;
+float g_transformed_X015;
+float g_transformed_X016;
+float g_transformed_X017;
+float g_transformed_X018;
+float g_transformed_X019;
+float g_transformed_X020;
+float g_transformed_X021;
+float g_transformed_X022;
+float g_transformed_X023;
+float g_transformed_X024;
+float g_transformed_X025;
+float g_transformed_X026;
+float g_transformed_X027;
+float g_transformed_X028;
 
-float g_transformedY001;
-float g_transformedY002;
-float g_transformedY003;
-float g_transformedY004;
-float g_transformedY005;
-float g_transformedY006;
-float g_transformedY007;
-float g_transformedY008;
-float g_transformedY009;
-float g_transformedY010;
-float g_transformedY011;
-float g_transformedY012;
-float g_transformedY013;
-float g_transformedY014;
-float g_transformedY015;
-float g_transformedY016;
-float g_transformedY017;
-float g_transformedY018;
-float g_transformedY019;
-float g_transformedY020;
-float g_transformedY021;
-float g_transformedY022;
-float g_transformedY023;
-float g_transformedY024;
-float g_transformedY025;
-float g_transformedY026;
-float g_transformedY027;
-float g_transformedY028;
+float g_transformed_Y001;
+float g_transformed_Y002;
+float g_transformed_Y003;
+float g_transformed_Y004;
+float g_transformed_Y005;
+float g_transformed_Y006;
+float g_transformed_Y007;
+float g_transformed_Y008;
+float g_transformed_Y009;
+float g_transformed_Y010;
+float g_transformed_Y011;
+float g_transformed_Y012;
+float g_transformed_Y013;
+float g_transformed_Y014;
+float g_transformed_Y015;
+float g_transformed_Y016;
+float g_transformed_Y017;
+float g_transformed_Y018;
+float g_transformed_Y019;
+float g_transformed_Y020;
+float g_transformed_Y021;
+float g_transformed_Y022;
+float g_transformed_Y023;
+float g_transformed_Y024;
+float g_transformed_Y025;
+float g_transformed_Y026;
+float g_transformed_Y027;
+float g_transformed_Y028;
 
-float g_depthZ001;
-float g_depthZ002;
-float g_depthZ003;
-float g_depthZ004;
-float g_depthZ005;
-float g_depthZ006;
-float g_depthZ007;
-float g_depthZ008;
-float g_depthZ009;
-float g_depthZ010;
-float g_depthZ011;
-float g_depthZ012;
-float g_depthZ013;
-float g_depthZ014;
-float g_depthZ015;
-float g_depthZ016;
-float g_depthZ017;
-float g_depthZ018;
-float g_depthZ019;
-float g_depthZ020;
-float g_depthZ021;
-float g_depthZ022;
-float g_depthZ023;
-float g_depthZ024;
-float g_depthZ025;
-float g_depthZ026;
-float g_depthZ027;
-float g_depthZ028;
+float g_depth_Z001;
+float g_depth_Z002;
+float g_depth_Z003;
+float g_depth_Z004;
+float g_depth_Z005;
+float g_depth_Z006;
+float g_depth_Z007;
+float g_depth_Z008;
+float g_depth_Z009;
+float g_depth_Z010;
+float g_depth_Z011;
+float g_depth_Z012;
+float g_depth_Z013;
+float g_depth_Z014;
+float g_depth_Z015;
+float g_depth_Z016;
+float g_depth_Z017;
+float g_depth_Z018;
+float g_depth_Z019;
+float g_depth_Z020;
+float g_depth_Z021;
+float g_depth_Z022;
+float g_depth_Z023;
+float g_depth_Z024;
+float g_depth_Z025;
+float g_depth_Z026;
+float g_depth_Z027;
+float g_depth_Z028;
 
 float g_alpha001;
 float g_alpha002;
@@ -223,201 +223,201 @@ OUT_VS GgafDxVS_DefaultBoardSet(
 	float alpha; //α
 
 	if (index == 0) {
-		transformedX = g_transformedX001;
-		transformedY = g_transformedY001;
-		depthZ = g_depthZ001;
+		transformedX = g_transformed_X001;
+		transformedY = g_transformed_Y001;
+		depthZ = g_depth_Z001;
 
-		offsetU = g_offsetU001;
-		offsetV = g_offsetV001;
+		offsetU = g_offset_u001;
+		offsetV = g_offset_v001;
 		alpha = g_alpha001;
 	} else if (index == 1) {
-		transformedX = g_transformedX002;
-		transformedY = g_transformedY002;
-		depthZ = g_depthZ002;
-		offsetU = g_offsetU002;
-		offsetV = g_offsetV002;
+		transformedX = g_transformed_X002;
+		transformedY = g_transformed_Y002;
+		depthZ = g_depth_Z002;
+		offsetU = g_offset_u002;
+		offsetV = g_offset_v002;
 		alpha = g_alpha002;
 	} else if (index == 2) {
-		transformedX = g_transformedX003;
-		transformedY = g_transformedY003;
-		depthZ = g_depthZ003;
-		offsetU = g_offsetU003;
-		offsetV = g_offsetV003;
+		transformedX = g_transformed_X003;
+		transformedY = g_transformed_Y003;
+		depthZ = g_depth_Z003;
+		offsetU = g_offset_u003;
+		offsetV = g_offset_v003;
 		alpha = g_alpha003;
 	} else if (index == 3) {
-		transformedX = g_transformedX004;
-		transformedY = g_transformedY004;
-		depthZ = g_depthZ004;
-		offsetU = g_offsetU004;
-		offsetV = g_offsetV004;
+		transformedX = g_transformed_X004;
+		transformedY = g_transformed_Y004;
+		depthZ = g_depth_Z004;
+		offsetU = g_offset_u004;
+		offsetV = g_offset_v004;
 		alpha = g_alpha004;
 	} else if (index == 4) {
-		transformedX = g_transformedX005;
-		transformedY = g_transformedY005;
-		depthZ = g_depthZ005;
-		offsetU = g_offsetU005;
-		offsetV = g_offsetV005;
+		transformedX = g_transformed_X005;
+		transformedY = g_transformed_Y005;
+		depthZ = g_depth_Z005;
+		offsetU = g_offset_u005;
+		offsetV = g_offset_v005;
 		alpha = g_alpha005;
 	} else if (index == 5) {
-		transformedX = g_transformedX006;
-		transformedY = g_transformedY006;
-		depthZ = g_depthZ006;
-		offsetU = g_offsetU006;
-		offsetV = g_offsetV006;
+		transformedX = g_transformed_X006;
+		transformedY = g_transformed_Y006;
+		depthZ = g_depth_Z006;
+		offsetU = g_offset_u006;
+		offsetV = g_offset_v006;
 		alpha = g_alpha006;
 	} else if (index == 6) {	
-		transformedX = g_transformedX007;
-		transformedY = g_transformedY007;
-		depthZ = g_depthZ007;
-		offsetU = g_offsetU007;
-		offsetV = g_offsetV007;
+		transformedX = g_transformed_X007;
+		transformedY = g_transformed_Y007;
+		depthZ = g_depth_Z007;
+		offsetU = g_offset_u007;
+		offsetV = g_offset_v007;
 		alpha = g_alpha007;
 	} else if (index == 7) {	
-		transformedX = g_transformedX008;
-		transformedY = g_transformedY008;
-		depthZ = g_depthZ008;
-		offsetU = g_offsetU008;
-		offsetV = g_offsetV008;
+		transformedX = g_transformed_X008;
+		transformedY = g_transformed_Y008;
+		depthZ = g_depth_Z008;
+		offsetU = g_offset_u008;
+		offsetV = g_offset_v008;
 		alpha = g_alpha008;
 	} else if (index == 8) {	
-		transformedX = g_transformedX009;
-		transformedY = g_transformedY009;
-		depthZ = g_depthZ009;
-		offsetU = g_offsetU009;
-		offsetV = g_offsetV009;
+		transformedX = g_transformed_X009;
+		transformedY = g_transformed_Y009;
+		depthZ = g_depth_Z009;
+		offsetU = g_offset_u009;
+		offsetV = g_offset_v009;
 		alpha = g_alpha009;
 	} else if (index == 9) {	
-		transformedX = g_transformedX010;
-		transformedY = g_transformedY010;
-		depthZ = g_depthZ010;
-		offsetU = g_offsetU010;
-		offsetV = g_offsetV010;
+		transformedX = g_transformed_X010;
+		transformedY = g_transformed_Y010;
+		depthZ = g_depth_Z010;
+		offsetU = g_offset_u010;
+		offsetV = g_offset_v010;
 		alpha = g_alpha010;
 	} else if (index == 10) {	
-		transformedX = g_transformedX011;
-		transformedY = g_transformedY011;
-		depthZ = g_depthZ011;
-		offsetU = g_offsetU011;
-		offsetV = g_offsetV011;
+		transformedX = g_transformed_X011;
+		transformedY = g_transformed_Y011;
+		depthZ = g_depth_Z011;
+		offsetU = g_offset_u011;
+		offsetV = g_offset_v011;
 		alpha = g_alpha011;
 	} else if (index == 11) {	
-		transformedX = g_transformedX012;
-		transformedY = g_transformedY012;
-		depthZ = g_depthZ012;
-		offsetU = g_offsetU012;
-		offsetV = g_offsetV012;
+		transformedX = g_transformed_X012;
+		transformedY = g_transformed_Y012;
+		depthZ = g_depth_Z012;
+		offsetU = g_offset_u012;
+		offsetV = g_offset_v012;
 		alpha = g_alpha012;
 	} else if (index == 12) {	
-		transformedX = g_transformedX013;
-		transformedY = g_transformedY013;
-		depthZ = g_depthZ013;
-		offsetU = g_offsetU013;
-		offsetV = g_offsetV013;
+		transformedX = g_transformed_X013;
+		transformedY = g_transformed_Y013;
+		depthZ = g_depth_Z013;
+		offsetU = g_offset_u013;
+		offsetV = g_offset_v013;
 		alpha = g_alpha013;
 	} else if (index == 13) {	
-		transformedX = g_transformedX014;
-		transformedY = g_transformedY014;
-		depthZ = g_depthZ014;
-		offsetU = g_offsetU014;
-		offsetV = g_offsetV014;
+		transformedX = g_transformed_X014;
+		transformedY = g_transformed_Y014;
+		depthZ = g_depth_Z014;
+		offsetU = g_offset_u014;
+		offsetV = g_offset_v014;
 		alpha = g_alpha014;
 	} else if (index == 14) {	
-		transformedX = g_transformedX015;
-		transformedY = g_transformedY015;
-		depthZ = g_depthZ015;
-		offsetU = g_offsetU015;
-		offsetV = g_offsetV015;
+		transformedX = g_transformed_X015;
+		transformedY = g_transformed_Y015;
+		depthZ = g_depth_Z015;
+		offsetU = g_offset_u015;
+		offsetV = g_offset_v015;
 		alpha = g_alpha015;
 	} else if (index == 15) {	
-		transformedX = g_transformedX016;
-		transformedY = g_transformedY016;
-		depthZ = g_depthZ016;
-		offsetU = g_offsetU016;
-		offsetV = g_offsetV016;
+		transformedX = g_transformed_X016;
+		transformedY = g_transformed_Y016;
+		depthZ = g_depth_Z016;
+		offsetU = g_offset_u016;
+		offsetV = g_offset_v016;
 		alpha = g_alpha016;
 	} else if (index == 16) {	
-		transformedX = g_transformedX017;
-		transformedY = g_transformedY017;
-		depthZ = g_depthZ017;
-		offsetU = g_offsetU017;
-		offsetV = g_offsetV017;
+		transformedX = g_transformed_X017;
+		transformedY = g_transformed_Y017;
+		depthZ = g_depth_Z017;
+		offsetU = g_offset_u017;
+		offsetV = g_offset_v017;
 		alpha = g_alpha017;
 	} else if (index == 17) {	
-		transformedX = g_transformedX018;
-		transformedY = g_transformedY018;
-		depthZ = g_depthZ018;
-		offsetU = g_offsetU018;
-		offsetV = g_offsetV018;
+		transformedX = g_transformed_X018;
+		transformedY = g_transformed_Y018;
+		depthZ = g_depth_Z018;
+		offsetU = g_offset_u018;
+		offsetV = g_offset_v018;
 		alpha = g_alpha018;
 	} else if (index == 18) {	
-		transformedX = g_transformedX019;
-		transformedY = g_transformedY019;
-		depthZ = g_depthZ019;
-		offsetU = g_offsetU019;
-		offsetV = g_offsetV019;
+		transformedX = g_transformed_X019;
+		transformedY = g_transformed_Y019;
+		depthZ = g_depth_Z019;
+		offsetU = g_offset_u019;
+		offsetV = g_offset_v019;
 		alpha = g_alpha019;
 	} else if (index == 19) {	
-		transformedX = g_transformedX020;
-		transformedY = g_transformedY020;
-		depthZ = g_depthZ020;
-		offsetU = g_offsetU020;
-		offsetV = g_offsetV020;
+		transformedX = g_transformed_X020;
+		transformedY = g_transformed_Y020;
+		depthZ = g_depth_Z020;
+		offsetU = g_offset_u020;
+		offsetV = g_offset_v020;
 		alpha = g_alpha020;
 	} else if (index == 20) {	
-		transformedX = g_transformedX021;
-		transformedY = g_transformedY021;
-		depthZ = g_depthZ021;
-		offsetU = g_offsetU021;
-		offsetV = g_offsetV021;
+		transformedX = g_transformed_X021;
+		transformedY = g_transformed_Y021;
+		depthZ = g_depth_Z021;
+		offsetU = g_offset_u021;
+		offsetV = g_offset_v021;
 		alpha = g_alpha021;
 	} else if (index == 21) {	
-		transformedX = g_transformedX022;
-		transformedY = g_transformedY022;
-		depthZ = g_depthZ022;
-		offsetU = g_offsetU022;
-		offsetV = g_offsetV022;
+		transformedX = g_transformed_X022;
+		transformedY = g_transformed_Y022;
+		depthZ = g_depth_Z022;
+		offsetU = g_offset_u022;
+		offsetV = g_offset_v022;
 		alpha = g_alpha022;
 	} else if (index == 22) {	
-		transformedX = g_transformedX023;
-		transformedY = g_transformedY023;
-		depthZ = g_depthZ023;
-		offsetU = g_offsetU023;
-		offsetV = g_offsetV023;
+		transformedX = g_transformed_X023;
+		transformedY = g_transformed_Y023;
+		depthZ = g_depth_Z023;
+		offsetU = g_offset_u023;
+		offsetV = g_offset_v023;
 		alpha = g_alpha023;
 	} else if (index == 23) {	
-		transformedX = g_transformedX024;
-		transformedY = g_transformedY024;
-		depthZ = g_depthZ024;
-		offsetU = g_offsetU024;
-		offsetV = g_offsetV024;
+		transformedX = g_transformed_X024;
+		transformedY = g_transformed_Y024;
+		depthZ = g_depth_Z024;
+		offsetU = g_offset_u024;
+		offsetV = g_offset_v024;
 		alpha = g_alpha024;
 	} else if (index == 24) {	
-		transformedX = g_transformedX025;
-		transformedY = g_transformedY025;
-		depthZ = g_depthZ025;
-		offsetU = g_offsetU025;
-		offsetV = g_offsetV025;
+		transformedX = g_transformed_X025;
+		transformedY = g_transformed_Y025;
+		depthZ = g_depth_Z025;
+		offsetU = g_offset_u025;
+		offsetV = g_offset_v025;
 		alpha = g_alpha025;
 	} else if (index == 25) {	
-		transformedX = g_transformedX026;
-		transformedY = g_transformedY026;
-		depthZ = g_depthZ026;
-		offsetU = g_offsetU026;
-		offsetV = g_offsetV026;
+		transformedX = g_transformed_X026;
+		transformedY = g_transformed_Y026;
+		depthZ = g_depth_Z026;
+		offsetU = g_offset_u026;
+		offsetV = g_offset_v026;
 		alpha = g_alpha026;
 	} else if (index == 26) {	
-		transformedX = g_transformedX027;
-		transformedY = g_transformedY027;
-		depthZ = g_depthZ027;
-		offsetU = g_offsetU027;
-		offsetV = g_offsetV027;
+		transformedX = g_transformed_X027;
+		transformedY = g_transformed_Y027;
+		depthZ = g_depth_Z027;
+		offsetU = g_offset_u027;
+		offsetV = g_offset_v027;
 		alpha = g_alpha027;
 	} else {	
-		transformedX = g_transformedX028;
-		transformedY = g_transformedY028;
-		depthZ = g_depthZ028;
-		offsetU = g_offsetU028;
-		offsetV = g_offsetV028;
+		transformedX = g_transformed_X028;
+		transformedY = g_transformed_Y028;
+		depthZ = g_depth_Z028;
+		offsetU = g_offset_u028;
+		offsetV = g_offset_v028;
 		alpha = g_alpha028;
 	} 
 
@@ -477,14 +477,14 @@ float4 PS_Flush(
 //・半透明α
 //
 //【設定グローバル】
-// float g_hAlpha			:	α値
-// float g_transformedX		: 	変換済みX座標(px)
-// float g_transformedY		:	変換済みY座標(px)
-// float g_depthZ			:	深度Z (0 ～ +1)
+// float g_alpha			:	α値
+// float g_transformed_X		: 	変換済みX座標(px)
+// float g_transformed_Y		:	変換済みY座標(px)
+// float g_depth_Z			:	深度Z (0 ～ +1)
 // float g_game_buffer_width		:	画面幅(px)
 // float g_game_buffer_height		:	画面高さ(px)
-// float g_offsetU			:	テクスチャU座標増分
-// float g_offsetV			:	テクスチャV座標増分
+// float g_offset_u			:	テクスチャU座標増分
+// float g_offset_v			:	テクスチャV座標増分
 // s0レジスタ				:	2Dテクスチャ
 technique DefaultBoardSetTechnique
 {

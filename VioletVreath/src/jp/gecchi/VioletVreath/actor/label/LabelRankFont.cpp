@@ -196,18 +196,18 @@ void LabelRankFont::processDraw() {
 
 
     if (_valign == VALIGN_BOTTOM) {
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)-_height_px));
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], float(CO2PX(_Y)-_height_px));
     } else if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)-_height_px/2));
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], float(CO2PX(_Y)-_height_px/2));
     } else {
         //VALIGN_TOP
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)));
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], float(CO2PX(_Y)));
     }
-    checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(CO2PX(_Z)));
-    checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _alpha);
-    checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ah_transformed_Y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[0], float(CO2PX(_Z)));
+    checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ah_depth_Z) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[0], _alpha);
+    checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ah_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     int strindex, pattno;
     pixcoord x = CO2PX(_X) - (_chr_width_px * _len); //âEãlÇ…Ç∑ÇÈÇΩÇﬂ _chr_width_px*_len ÇÉ}ÉCÉiÉX
     float u,v;
@@ -222,12 +222,12 @@ void LabelRankFont::processDraw() {
             } else {
                 pattno = _draw_string[strindex] - ' '; //í èÌï∂éöóÒ
             }
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], float(x));
-            checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahTransformedX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[i], float(x));
+            checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ah_transformed_X) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             _pUvFlipper->getUV(pattno, u, v);
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[i], u);
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[i], u);
             checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(hOffsetU_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[i], v);
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[i], v);
             checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(hOffsetV_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             x += _chr_width_px;
         }

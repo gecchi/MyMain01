@@ -22,7 +22,7 @@ private:
     }
 
     /** 画面外種別。isOutOfView()が内部で使用。未計算時は -1 */
-    int _offscreenkind;
+    int _offscreen_kind;
 
 public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
@@ -52,17 +52,17 @@ public:
     /** [r]チェッカー */
     GgafDxChecker* _pChecker;
     /** [r]効果音発生管理オブジェクト */
-    GgafDxSeTransmitter* _pSeTransmitter;
+    GgafDxSeTransmitterForActor* _pSeTransmitter;
 
-    /** [r/w]境界球の半径(DirectXの単位)。画面外判定に使用される */
+    /** [r]境界球の半径(DirectXの単位)。画面外判定に使用される */
     dxcoord _bounding_sphere_radius;
-    /** [rw]モデルの境界球半径倍率 */
+    /** [r]モデルの境界球半径倍率 */
     dxcoord _rate_of_bounding_sphere_radius;
-    /** [r] 内部で _X から計算されるDirectXのワールドX座標(_X : _fX = 1000 : 0.1) */
+    /** [r]内部で _X から計算されるDirectXのワールドX座標(_X : _fX = 1000 : 0.1) */
     dxcoord _fX;
-    /** [r] 内部で _Y から計算されるDirectYのワールドY座標(_Y : _fY = 1000 : 0.1) */
+    /** [r]内部で _Y から計算されるDirectYのワールドY座標(_Y : _fY = 1000 : 0.1) */
     dxcoord _fY;
-    /** [r] 内部で _Z から計算されるDirectZのワールドZ座標(_Z : _fZ = 1000 : 0.1) */
+    /** [r]内部で _Z から計算されるDirectZのワールドZ座標(_Z : _fZ = 1000 : 0.1) */
     dxcoord _fZ;
     /** [r]視錐台上面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     dxcoord _dest_from_vppln_top;

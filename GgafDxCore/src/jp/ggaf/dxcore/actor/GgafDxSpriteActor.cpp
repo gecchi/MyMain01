@@ -47,7 +47,7 @@ void GgafDxSpriteActor::processDraw() {
     //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetMatrix(_h_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _alpha);
+    hr = pID3DXEffect->SetFloat(_pSpriteEffect->_h_alpha, _alpha);
     checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetFloat(_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_h_far_rate, _far_rate );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetFloat(_h_far_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

@@ -18,8 +18,8 @@ public:
     //D3DXHANDLE _h_matWorld;
     D3DXHANDLE _ah_matWorld[19];
     D3DXHANDLE _ah_materialDiffuse[19];
-    D3DXHANDLE _ahOffsetU[19];
-    D3DXHANDLE _ahOffsetV[19];
+    D3DXHANDLE _ah_offset_u[19];
+    D3DXHANDLE _ah_offset_v[19];
     D3DXHANDLE _h_specular;
     D3DXHANDLE _h_specular_power;
     D3DXHANDLE _h_posCam;

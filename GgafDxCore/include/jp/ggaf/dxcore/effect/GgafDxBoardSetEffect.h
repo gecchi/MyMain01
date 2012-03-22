@@ -14,12 +14,12 @@ class GgafDxBoardSetEffect : public GgafDxEffect {
 public:
     D3DXHANDLE _h_tex_blink_power;
     D3DXHANDLE _h_tex_blink_threshold;
-    D3DXHANDLE _ahOffsetU[28];
-    D3DXHANDLE _ahOffsetV[28];
-    D3DXHANDLE _ahTransformedX[28];
-    D3DXHANDLE _ahTransformedY[28];
-    D3DXHANDLE _ahAlpha[28];
-    D3DXHANDLE _ahDepthZ[28];
+    D3DXHANDLE _ah_offset_u[28];
+    D3DXHANDLE _ah_offset_v[28];
+    D3DXHANDLE _ah_transformed_X[28];
+    D3DXHANDLE _ah_transformed_Y[28];
+    D3DXHANDLE _ah_alpha[28];
+    D3DXHANDLE _ah_depth_Z[28];
 
 public:
     /**

@@ -4,62 +4,29 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 
-GgafDxSeTransmitter::GgafDxSeTransmitter(GgafDxGeometricActor* prm_pActor) :
-                                       GgafObject() {
+GgafDxSeTransmitterForActor::GgafDxSeTransmitterForActor(GgafDxGeometricActor* prm_pActor) :
+        GgafDxSeTransmitter() {
     _pActor = prm_pActor;
-    _se_num = 0;
-    _papSeCon = NULL;
     _pa_is3D = NULL;
 }
 
-void GgafDxSeTransmitter::useSe(int prm_se_num) {
-    _se_num = prm_se_num;
-    _papSeCon = NEW GgafDxSeConnection*[_se_num];
+void GgafDxSeTransmitterForActor::useSe(int prm_se_num) {
+    GgafDxSeTransmitter::useSe(prm_se_num);
     _pa_is3D = NEW bool[_se_num];
     for (int i = 0; i < _se_num; i++) {
-        _papSeCon[i] = NULL;
         _pa_is3D[i] = false;
     }
 }
 
-void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_name, int prm_cannel) {
-#ifdef MY_DEBUG
-    if (_se_num <= 0) {
-        throwGgafCriticalException("GgafDxSeTransmitter::set() useSeで使用するSe数を事前に宣言してください。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
-    }
-    if (prm_id < 0 || prm_id >= _se_num) {
-        throwGgafCriticalException("GgafDxSeTransmitter::set() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
-    }
-#endif
-    char idstr[129];
-    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
-    _papSeCon[prm_id] = connectSeManager(idstr);
-}
-
-void GgafDxSeTransmitter::playImmed(int prm_id) {
-#ifdef MY_DEBUG
-    if (prm_id < 0 || prm_id >= _se_num) {
-        throwGgafCriticalException("GgafDxSeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
-    }
-#endif
-    _papSeCon[prm_id]->use()->play(GGAF_MAX_VOLUME, 0.0);
+void GgafDxSeTransmitterForActor::play(int prm_id) {
+    GgafDxSeTransmitter::play(prm_id);
     _pa_is3D[prm_id] = false;
 }
 
-
-void GgafDxSeTransmitter::play(int prm_id) {
+void GgafDxSeTransmitterForActor::play3D(int prm_id) {
 #ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _se_num) {
-        throwGgafCriticalException("GgafDxSeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
-    }
-#endif
-    P_UNIVERSE->registSe(_papSeCon[prm_id]->use(), GGAF_MAX_VOLUME, 0.0, 1.0, 0);
-    _pa_is3D[prm_id] = false;
-}
-void GgafDxSeTransmitter::play3D(int prm_id) {
-#ifdef MY_DEBUG
-    if (prm_id < 0 || prm_id >= _se_num) {
-        throwGgafCriticalException("GgafDxSeTransmitter::play3D() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
+        throwGgafCriticalException("GgafDxSeTransmitterForActor::play3D() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
 #endif
     static const int VOLUME_MAX_3D = GGAF_MAX_VOLUME;
@@ -130,7 +97,7 @@ void GgafDxSeTransmitter::play3D(int prm_id) {
    // _papSe[prm_id]->play();
 }
 
-void GgafDxSeTransmitter::updatePanVolume3D() {
+void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     static const int VOLUME_MAX_3D = GGAF_MAX_VOLUME;
     static const int VOLUME_MIN_3D = GGAF_MIN_VOLUME;
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
@@ -197,21 +164,14 @@ void GgafDxSeTransmitter::updatePanVolume3D() {
     }
 }
 
-void GgafDxSeTransmitter::behave() {
+void GgafDxSeTransmitterForActor::behave() {
     if (_pActor->_frame_of_life % 2 == 0) {
         //擬似３D音効果の為2フレームに１回SEの環境効果更新し、
         updatePanVolume3D();
-
     }
 }
 
-GgafDxSeTransmitter::~GgafDxSeTransmitter() {
-    for (int i = 0; i < _se_num; i++) {
-        if (_papSeCon[i]) {
-            _papSeCon[i]->close();
-        }
-    }
-    DELETEARR_POSSIBLE_NULL(_papSeCon);
+GgafDxSeTransmitterForActor::~GgafDxSeTransmitterForActor() {
     DELETEARR_POSSIBLE_NULL(_pa_is3D);
 }
 

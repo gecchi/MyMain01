@@ -41,7 +41,7 @@ public:
     bool _zwriteenable;
 
     /** [r]直近の描画時に使用されたテクニック名のハッシュコード */
-    static unsigned int _hash_technique_last_draw;
+    static hashval _hash_technique_last_draw;
 
     /** [r]同一描画レベルの次のアクター */
     GgafDxDrawableActor* _pNext_TheSameDrawDepthLevel;
@@ -51,7 +51,7 @@ public:
     char* _technique;
     /** [r]現在描画に使用しているのシェーダーテクニックのハッシュコード */
     hashval _hash_technique;
-    /** [r/w]現在のマテリアルカラー */
+    /** [r/w]現在のマテリアル別カラー */
     D3DMATERIAL9* _paMaterial;
     /** [r]モデル資源 */
     GgafDxModel* _pModel;
@@ -75,11 +75,11 @@ public:
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
      */
     GgafDxDrawableActor(const char* prm_name,
-                         const char* prm_model,
-                         const char* prm_effect,
-                         const char* prm_technique,
-                         GgafCore::GgafStatus* prm_pStat,
-                         GgafDxChecker* prm_pChecker);
+                        const char* prm_model,
+                        const char* prm_effect,
+                        const char* prm_technique,
+                        GgafCore::GgafStatus* prm_pStat,
+                        GgafDxChecker* prm_pChecker);
 
     /**
      * コンストラクタ .

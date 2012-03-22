@@ -31,13 +31,14 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
     HRESULT hr;
 #ifdef MY_DEBUG
     DWORD dwFlags = D3DXSHADER_DEBUG; //|D3DXSHADER_SKIPOPTIMIZATION;//|D3DXSHADER_FORCE_PS_SOFTWARE_NOOPT|D3DXSHADER_FORCE_VS_SOFTWARE_NOOPT|D3DXSHADER_SKIPOPTIMIZATION;
+    _begin = false;
 #else
     DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;
 #endif
     if ( GgafDxGod::_ps_v >= D3DPS_VERSION(3, 0)) {
         //ピクセルシェーダーが 3.0 以上の場合
         hr = D3DXCreateEffectFromFile(
-                 GgafDxGod::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
+                 GgafDxGod::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
                  effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
                  _aD3DXMacro_Defines,       // [in] CONST D3DXMACRO* pDefines
                  0,                         // [in] LPD3DXINCLUDE pInclude
@@ -49,7 +50,7 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
     } else {
         //ピクセルシェーダーが 3.0 未満の場合(2.0と想定する)
         hr = D3DXCreateEffectFromFile(
-                 GgafDxGod::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
+                 GgafDxGod::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
                  effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
                  0,                         // [in] CONST D3DXMACRO* pDefines
                  0,                         // [in] LPD3DXINCLUDE pInclude
@@ -65,7 +66,6 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
     checkDxException(hr, D3D_OK, "GgafDxEffect::GgafDxEffect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
     _TRACE_(" GgafDxEffect::GgafDxEffect "<<prm_effect_name<<" のエフェクトを生成しました。ADD:"<<this);
     _h_alpha_master = _pID3DXEffect->GetParameterByName( NULL, "g_alpha_master" ); //マスターα
-    _begin = false;
 }
 
 GgafDxEffect::~GgafDxEffect() {

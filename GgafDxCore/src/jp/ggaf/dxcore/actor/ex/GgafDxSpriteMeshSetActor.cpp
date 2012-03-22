@@ -70,9 +70,9 @@ void GgafDxSpriteMeshSetActor::processDraw() {
 
                 //UVオフセット設定
                 pSpriteMeshSetActor->_pUvFlipper->getUV(u, v);
-                hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ahOffsetU[_draw_set_num], u);
+                hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ah_offset_u[_draw_set_num], u);
                 checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetMatrix(_h_offset_u) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ahOffsetV[_draw_set_num], v);
+                hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ah_offset_v[_draw_set_num], v);
                 checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetMatrix(_h_offset_v) に失敗しました。");
 
 

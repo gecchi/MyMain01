@@ -79,8 +79,8 @@ void GgafDxStringSpriteActor::processDraw() {
     pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
 
-    hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahAlpha[0], _alpha);
-    checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw SetFloat(_ahAlpha) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_alpha[0], _alpha);
+    checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw SetFloat(_ah_alpha) ‚É¸”s‚µ‚Ü‚µ‚½B");
     int len_pack_num = _len/_pSpriteSetModel->_set_num;
     int remainder_len = _len%_pSpriteSetModel->_set_num;
     int strindex;
@@ -112,10 +112,10 @@ void GgafDxStringSpriteActor::processDraw() {
             hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ah_matWorld[i], &_matWorld );
             checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw SetMatrix(_h_matWorld) ‚É¸”s‚µ‚Ü‚µ‚½B");
             _pUvFlipper->getUV(pattno, u, v);
-            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetU[i], u);
-            checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() SetFloat(_hOffsetU) ‚É¸”s‚µ‚Ü‚µ‚½B");
-            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetV[i], v);
-            checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() SetFloat(_hOffsetV) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_u[i], u);
+            checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() SetFloat(_h_offset_u) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_v[i], v);
+            checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() SetFloat(_h_offset_v) ‚É¸”s‚µ‚Ü‚µ‚½B");
         }
         _pSpriteSetModel->draw(this, _draw_set_num);
     }

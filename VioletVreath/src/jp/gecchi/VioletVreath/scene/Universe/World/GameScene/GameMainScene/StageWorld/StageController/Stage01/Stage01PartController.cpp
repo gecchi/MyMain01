@@ -15,12 +15,12 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,120,8200,10000,13200,15000,28200,30000,38200,40000};
-	_paFrame_NextEvent = new frame[11];
-	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 11;
-	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
-	orderActorToFactory(10000005, EnemyAstraea, "Astraea_1");
+    frame f[] = {1,100,120,8200,10000,13200,15000,28200,30000,38200,40000};
+    _paFrame_NextEvent = new frame[11];
+    memcpy(_paFrame_NextEvent, f, sizeof(f));
+    _event_num = 11;
+    orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
+    orderActorToFactory(10000005, EnemyAstraea, "Astraea_1");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -33,67 +33,67 @@ void Stage01PartController::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getActivePartFrame() == _paFrame_NextEvent[_cnt_event]) {
-		switch (getActivePartFrame()) {
-			case 1: {
-				break;
-			}
-			case 100: {
-				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
-				addSubLast(pScene);
-				_pProg->change(Stage01PartController::PROG_STG01_01_BEGIN);
-				break;
-			}
-			case 120: {
-				EnemyAstraea* pAstraea1 = (EnemyAstraea*)obtainActorFromFactory(10000005);
-				getDirector()->addSubGroup(pAstraea1);
-				pAstraea1->locate(3000000,0,0);
-				break;
-			}
-			case 8200: {
-				orderSceneToFactory(10000001, Stage01_02, "Stage01_02");
-				break;
-			}
-			case 10000: {
-				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
-				addSubLast(pScene);
-				_pProg->change(Stage01PartController::PROG_STG01_02_BEGIN);
-				break;
-			}
-			case 13200: {
-				orderSceneToFactory(10000002, Stage01_03, "Stage01_03");
-				break;
-			}
-			case 15000: {
-				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000002);
-				addSubLast(pScene);
-				_pProg->change(Stage01PartController::PROG_STG01_03_BEGIN);
-				break;
-			}
-			case 28200: {
-				orderSceneToFactory(10000003, Stage01WalledScene, "GroStage01WalledScene");
-				break;
-			}
-			case 30000: {
-				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000003);
-				addSubLast(pScene);
-				break;
-			}
-			case 38200: {
-				orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
-				break;
-			}
-			case 40000: {
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
-				addSubLast(pScene);
-				_pProg->change(Stage01PartController::PROG_STG01_CLIMAX_BEGIN);
-				break;
-			}
-			default :
-				break;
-		}
-		_cnt_event = (_cnt_event < 11-1 ? _cnt_event+1 : _cnt_event);
-	}
+    if (getActivePartFrame() == _paFrame_NextEvent[_cnt_event]) {
+        switch (getActivePartFrame()) {
+            case 1: {
+                break;
+            }
+            case 100: {
+                Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
+                addSubLast(pScene);
+                _pProg->change(Stage01PartController::PROG_STG01_01_BEGIN);
+                break;
+            }
+            case 120: {
+                EnemyAstraea* pAstraea1 = (EnemyAstraea*)obtainActorFromFactory(10000005);
+                getDirector()->addSubGroup(pAstraea1);
+                pAstraea1->locate(3000000,0,0);
+                break;
+            }
+            case 8200: {
+                orderSceneToFactory(10000001, Stage01_02, "Stage01_02");
+                break;
+            }
+            case 10000: {
+                Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
+                addSubLast(pScene);
+                _pProg->change(Stage01PartController::PROG_STG01_02_BEGIN);
+                break;
+            }
+            case 13200: {
+                orderSceneToFactory(10000002, Stage01_03, "Stage01_03");
+                break;
+            }
+            case 15000: {
+                Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000002);
+                addSubLast(pScene);
+                _pProg->change(Stage01PartController::PROG_STG01_03_BEGIN);
+                break;
+            }
+            case 28200: {
+                orderSceneToFactory(10000003, Stage01WalledScene, "GroStage01WalledScene");
+                break;
+            }
+            case 30000: {
+                Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000003);
+                addSubLast(pScene);
+                break;
+            }
+            case 38200: {
+                orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
+                break;
+            }
+            case 40000: {
+                Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
+                addSubLast(pScene);
+                _pProg->change(Stage01PartController::PROG_STG01_CLIMAX_BEGIN);
+                break;
+            }
+            default :
+                break;
+        }
+        _cnt_event = (_cnt_event < 11-1 ? _cnt_event+1 : _cnt_event);
+    }
     // gen02 end
 
 
@@ -109,8 +109,7 @@ void Stage01PartController::processBehavior() {
         //Stage01_01
         case Stage01PartController::PROG_STG01_01_BEGIN: {
             //BGM１番フェードイン
-            _pBgmPerformer->play(0, 0, true);
-            _pBgmPerformer->fadein(0, 420);
+            _pBgmPerformer->play_fadein(0, 420);
             _pProg->changeNext();
             break;
         }
@@ -122,10 +121,9 @@ void Stage01PartController::processBehavior() {
         //Stage01_02
         case Stage01PartController::PROG_STG01_02_BEGIN: {
             //BGM０番フェードアウト
-            _pBgmPerformer->fadeout_stop(0, 420);
+            _pBgmPerformer->fadeout_stop(0);
             //BGM１番フェードイン
-            _pBgmPerformer->play(1, GGAF_MIN_VOLUME, true);
-            _pBgmPerformer->fadein(1, 420);
+            _pBgmPerformer->play_fadein(1);
             _pProg->changeNext();
             break;
         }
@@ -147,10 +145,9 @@ void Stage01PartController::processBehavior() {
         //Stage01_Climax
         case Stage01PartController::PROG_STG01_CLIMAX_BEGIN: {
             //BGM１番フェードアウト
-            _pBgmPerformer->fadeout_stop(1, 420);
+            _pBgmPerformer->fadeout_stop(1);
             //BGM２番フェードイン
-            _pBgmPerformer->play(2, GGAF_MIN_VOLUME, true);
-            _pBgmPerformer->fadein(2, 420);
+            _pBgmPerformer->play_fadein(2);
             _pProg->changeNext();
             break;
         }
@@ -167,7 +164,7 @@ void Stage01PartController::processBehavior() {
             }
 
             if (_pProg->getFrameInProgress() == 60) {
-                _pBgmPerformer->fadeout_stop(2, 60*60); //BGM１番フェードアウト
+                _pBgmPerformer->fadeout_stop(2); //BGM2番フェードアウト
                 fadeoutScene(300);
                 throwEventToUpperTree(EVENT_STG01_CONTROLLER_WAS_END); //ステージエンドを上位に伝える
             }
