@@ -7,13 +7,14 @@ map<string, int> GgafRepeatSeq::mapMaxval;
 map<string, int> GgafRepeatSeq::mapMinval;
 
 void GgafRepeatSeq::create(string ID, int min, int max) {
+#ifdef MY_DEBUG
     if (isExist(ID)) {
         throwGgafCriticalException("GgafRepeatSeq::create() ID="<<ID<<"‚ÍŠù‚É‘¶Ý‚µ‚Ü‚·");
-    } else {
-        mapNowval[ID] = min;
-        mapMaxval[ID] = max;
-        mapMinval[ID] = min;
     }
+#endif
+    mapNowval[ID] = min;
+    mapMaxval[ID] = max;
+    mapMinval[ID] = min;
 }
 void GgafRepeatSeq::set(string ID, int val) {
 #ifdef MY_DEBUG

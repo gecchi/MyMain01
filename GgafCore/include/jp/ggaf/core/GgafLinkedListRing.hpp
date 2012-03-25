@@ -810,9 +810,11 @@ GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
 
 template<class T>
 void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
+#ifdef MY_DEBUG
     if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! ˆø”‚ªNULL‚Å‚·");
+        throwGgafCriticalException("[GgafLinkedListRing::addNext()] Error! ˆø”‚ªNULL‚Å‚·");
     }
+#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
     if (_pElemFirst == NULL) {
         //Å‰‚Ì‚P‚Â
@@ -840,9 +842,11 @@ void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
 
 template<class T>
 void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
+#ifdef MY_DEBUG
     if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! ˆø”‚ªNULL‚Å‚·");
+        throwGgafCriticalException("[GgafLinkedListRing::addPrev()] Error! ˆø”‚ªNULL‚Å‚·");
     }
+#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
     if (_pElemFirst == NULL) {
         //Å‰‚Ì‚P‚Â
@@ -871,9 +875,11 @@ void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
 
 template<class T>
 void GgafLinkedListRing<T>::addLast(T* prm_pNew, bool prm_is_delete_value) {
+#ifdef MY_DEBUG
     if (prm_pNew == NULL) {
         throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! ˆø”‚ªNULL‚Å‚·");
     }
+#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
 
     if (_pElemFirst == NULL) {
@@ -901,9 +907,11 @@ void GgafLinkedListRing<T>::addLast(T* prm_pNew, bool prm_is_delete_value) {
 
 template<class T>
 void GgafLinkedListRing<T>::addFirst(T* prm_pNew, bool prm_is_delete_value) {
+#ifdef MY_DEBUG
     if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! ˆø”‚ªNULL‚Å‚·");
+        throwGgafCriticalException("[GgafLinkedListRing::addFirst()] Error! ˆø”‚ªNULL‚Å‚·");
     }
+#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
     if (_pElemFirst == NULL) {
         //Å‰‚Ì‚P‚Â
@@ -965,13 +973,17 @@ T* GgafLinkedListRing<T>::current(int n) {
 
 template<class T>
 T* GgafLinkedListRing<T>::gotoRelation(int prm_connection_index) {
+#ifdef MY_DEBUG
     if (_relation_num-1 < prm_connection_index) {
         throwGgafCriticalException("GgafLinkedListRing<T>::gotoRelation Ú‘±—v‘f”Ô†‚Ì”ÍˆÍŠO‚Å‚·Bprm_connection_index="<<prm_connection_index);
     }
+#endif
     _pElemActive = _pElemActive->_papRelation[prm_connection_index];
+#ifdef MY_DEBUG
     if (_pElemActive == NULL) {
         throwGgafCriticalException("GgafLinkedListRing<T>::gotoRelation Ú‘±—v‘f”Ô†‚Ì—v‘f‚ª–¢İ’è‚Å‚·Bprm_connection_index="<<prm_connection_index);
     }
+#endif
     return _pElemActive->_pValue;
 }
 
@@ -1038,15 +1050,16 @@ T* GgafLinkedListRing<T>::getCurrent() {
 
 template<class T>
 T* GgafLinkedListRing<T>::getRelation(int prm_connection_index) {
+#ifdef MY_DEBUG
     if (_relation_num-1 < prm_connection_index) {
         throwGgafCriticalException("GgafLinkedListRing<T>::getRelation Ú‘±—v‘f”Ô†‚Ì”ÍˆÍŠO‚Å‚·Bprm_connection_index="<<prm_connection_index);
+    }
+#endif
+    Elem* pE = _pElemActive->_papRelation[prm_connection_index];
+    if (pE) {
+        return pE->_pValue;
     } else {
-        Elem* pE = _pElemActive->_papRelation[prm_connection_index];
-        if (pE) {
-            return pE->_pValue;
-        } else {
-            return NULL;
-        }
+        return NULL;
     }
 }
 

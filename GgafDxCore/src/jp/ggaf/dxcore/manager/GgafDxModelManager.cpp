@@ -40,9 +40,11 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     "}";
 
     hr = _pIDirectXFile_sprx->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
+#ifdef MY_DEBUG
     if(hr != DXFILE_OK) {
         throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
     }
+#endif
 
     //ポイントスプライト定義ファイル(拡張子psprx)のフォーマット定義
     DirectXFileCreate( &_pIDirectXFile_psprx );
@@ -77,10 +79,11 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
             "}\n" \
             "\n";
     hr = _pIDirectXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
+#ifdef MY_DEBUG
     if(hr != DXFILE_OK) {
         throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
     }
-
+#endif
 }
 
 GgafDxModel* GgafDxModelManager::processCreateResource(char* prm_idstr, void* prm_p) {

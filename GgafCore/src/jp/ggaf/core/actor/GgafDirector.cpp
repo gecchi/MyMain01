@@ -37,6 +37,7 @@ GgafGroupHead* GgafDirector::addSubGroup(actorkind prm_kind, GgafMainActor* prm_
 GgafGroupHead* GgafDirector::addSubGroup(GgafMainActor* prm_pMainActor) {
     //_pStatus->get() はint 型だが、例え負の数になっていたとしても、ビットの情報に影響はない
     //したがって actorkind へキャストしても問題ない。
+    //TODO:64bitCPUの場合これは危ない。あとで考える・・・。
     return addSubGroup((actorkind)(prm_pMainActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)), prm_pMainActor);
 }
 

@@ -23,17 +23,17 @@ void GgafDepositoryFormation::setFormationAbleActorDepository(GgafActorDepositor
                                    "this="<<getName()<<" prm_pDepo="<<prm_pDepo);
 
     }
-
 #endif
     _pDepo = prm_pDepo;
     //団長に種別を正しく伝えるためにデポジトリ種別引継ぎ
     _pStatus->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
-
+#ifdef MY_DEBUG
     if (_pDepo->getSubFirst()) {
 
     } else {
         throwGgafCriticalException("GgafDepositoryFormation::setFormationAbleActorDepository("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません this="<<getName());
     }
+#endif
 }
 
 void GgafDepositoryFormation::processFinal() {

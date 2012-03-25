@@ -26,11 +26,13 @@ GgafDxUvFlipper::GgafDxUvFlipper(GgafDxTexture* prm_pTexture) : GgafObject() {
 }
 
 void GgafDxUvFlipper::setRotation(float prm_base_u, float prm_base_v,
-                                   float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
-                                   int prm_ptn_col_num, int prm_num_of_max_patterns) {
+                                  float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
+                                  int prm_ptn_col_num, int prm_num_of_max_patterns) {
+#ifdef MY_DEBUG
     if (prm_ptn_col_num < 0) {
         throwGgafCriticalException("GgafDxUvFlipper::setRotation prm_ptn_col_numは0より大きい数で設定して下さい。Texture="<<_pTexture->_texture_name);
     }
+#endif
     _base_u = prm_base_v;
     _base_v = prm_base_u;
     _one_ptn_tex_width = prm_one_ptn_tex_width;
@@ -101,8 +103,6 @@ void GgafDxUvFlipper::behave() {
         throwGgafCriticalException("GgafDxUvFlipper::behave 事前にsetRotation()でパターンしてください。_pTexture="<<_pTexture->getName());
     }
 #endif
-
-
     _frame_counter_uvflip++;
     if (_uvflip_interval_frames < _frame_counter_uvflip) {
         if (_uvflip_method == FLIP_ORDER_LOOP) { //例：0,1,2,3,4,5,0,1,2,3,4,5,...

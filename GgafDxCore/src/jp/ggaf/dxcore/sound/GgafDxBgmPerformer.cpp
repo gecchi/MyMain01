@@ -22,9 +22,11 @@ void GgafDxBgmPerformer::useBgm(int prm_bgm_num) {
     }
 }
 void GgafDxBgmPerformer::set(int prm_id, const char* prm_bgm_name) {
+#ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDxBgmPerformer::set() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id<<" prm_bgm_name="<<prm_bgm_name);
     }
+#endif
     if (_papBgmCon[prm_id]) {
         _TRACE_("【警告】GgafDxBgmPerformer::set() IDが使用済みです、上書きしますが意図してますか？？。prm_id="<<prm_id<<" prm_bgm_name="<<prm_bgm_name);
         _papBgmCon[prm_id]->close();
@@ -33,25 +35,31 @@ void GgafDxBgmPerformer::set(int prm_id, const char* prm_bgm_name) {
 }
 
 void GgafDxBgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
+#ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDxBgmPerformer::play() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id<<"");
     }
+#endif
     _pa_volume[prm_id] = (double)prm_volume;
     _papBgmCon[prm_id]->use()->play(prm_volume, 0.0f, prm_is_loop);
     GgafDxBgmPerformer::_active_bgm_bpm = _papBgmCon[prm_id]->use()->_bpm; //最新のBGMのBPMリズム
 }
 
 void GgafDxBgmPerformer::stop(int prm_id) {
+#ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDxBgmPerformer::stop() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
+#endif
     _papBgmCon[prm_id]->use()->stop();
 }
 
 void GgafDxBgmPerformer::pause(int prm_id) {
+#ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDxBgmPerformer::pause() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
+#endif
     _papBgmCon[prm_id]->use()->pause();
 }
 
@@ -62,9 +70,11 @@ void GgafDxBgmPerformer::pause() {
 }
 
 void GgafDxBgmPerformer::unpause(int prm_id) {
+#ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDxBgmPerformer::pause() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
+#endif
     _papBgmCon[prm_id]->use()->unpause();
 }
 
