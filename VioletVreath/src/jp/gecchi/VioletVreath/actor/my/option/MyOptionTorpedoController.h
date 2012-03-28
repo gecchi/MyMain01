@@ -14,9 +14,9 @@ class MyOptionTorpedoController : public GgafCore::GgafDummyActor {
 
 public:
     /** [r]親アクターとなるオプション */
-    MyOption* pMyOption_;
+    MyOption* pOption_;
     /** [r]保持する魚雷配列（要素数は MyOption::max_lockon_num_ 個） */
-    MyTorpedo** papMyTorpedo_;
+    MyTorpedo** papTorpedo_;
     /** [r]保持する魚雷爆風デポジトリ */
     GgafCore::GgafActorDepository* pDepo_TorpedoBlast_;
     /** 同時発射魚雷数 */
@@ -27,10 +27,10 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_pMyOption 親となるオプション
+     * @param prm_pOption 親となるオプション
      * @return
      */
-    MyOptionTorpedoController(const char* prm_name, MyOption* prm_pMyOption);
+    MyOptionTorpedoController(const char* prm_name, MyOption* prm_pOption);
 
     void initialize() override;
 

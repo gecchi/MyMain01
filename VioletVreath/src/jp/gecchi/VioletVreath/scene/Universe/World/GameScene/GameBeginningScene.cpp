@@ -10,10 +10,10 @@ using namespace VioletVreath;
 GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameBeginningScene";
 
-    pStringBoard01_ = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(KIND_EFFECT, pStringBoard01_);
-    pStringBoard02_ = NEW LabelGecchi16Font("STR02");
-    getDirector()->addSubGroup(KIND_EFFECT, pStringBoard02_);
+    pLabel01_ = NEW LabelGecchi16Font("STR01");
+    getDirector()->addSubGroup(KIND_EFFECT, pLabel01_);
+    pLabel02_ = NEW LabelGecchi16Font("STR02");
+    getDirector()->addSubGroup(KIND_EFFECT, pLabel02_);
     selected_stage_ = 0;
     useProgress(GameBeginningScene::PROG_FINISH);
 }
@@ -22,10 +22,10 @@ void GameBeginningScene::onReset() {
     _TRACE_("GameBeginningScene::onReset()");
     _pProg->change(GameBeginningScene::PROG_INIT);
 //    fadeinScene(0);
-    pStringBoard01_->update("");
-    pStringBoard02_->update("");
-    pStringBoard02_->_pFader->stopImmed();
-    pStringBoard02_->_pFader->setAlphaToTop();
+    pLabel01_->update("");
+    pLabel02_->update("");
+    pLabel02_->_pFader->stopImmed();
+    pLabel02_->_pFader->setAlphaToTop();
 }
 //void GameBeginningScene::ready() {
 //    _TRACE_("GameBeginningScene::ready()");
@@ -46,8 +46,8 @@ void GameBeginningScene::processBehavior() {
 
         case GameBeginningScene::PROG_SELECT_MODE: {
             if (_pProg->isJustChanged()) {
-                pStringBoard01_->update(PX2CO(200), PX2CO(200), "GAME_BEGINNING_SCENE BEGIN");
-                pStringBoard02_->update(PX2CO(200), PX2CO(250), "SELECT MODE!");
+                pLabel01_->update(P2C(200), P2C(200), "GAME_BEGINNING_SCENE BEGIN");
+                pLabel02_->update(P2C(200), P2C(250), "SELECT MODE!");
             }
             if (_pProg->get() == GameBeginningScene::PROG_SELECT_MODE) {
                 if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 300) {
@@ -59,8 +59,8 @@ void GameBeginningScene::processBehavior() {
 
         case GameBeginningScene::PROG_DECIDE: {
             if (_pProg->isJustChanged()) {
-                pStringBoard02_->update(PX2CO(300), PX2CO(300), "OK OK OK");
-                pStringBoard02_->_pFader->beat(20,3,7,3,-1);
+                pLabel02_->update(P2C(300), P2C(300), "OK OK OK");
+                pLabel02_->_pFader->beat(20,3,7,3,-1);
 //                fadeoutScene(FADE_FRAMES);
             }
             if (_pProg->getFrameInProgress() == 20) {
@@ -84,7 +84,7 @@ void GameBeginningScene::processBehavior() {
         default:
             break;
     }
-    pStringBoard02_->_pFader->behave();
+    pLabel02_->_pFader->behave();
 }
 
 GameBeginningScene::~GameBeginningScene() {

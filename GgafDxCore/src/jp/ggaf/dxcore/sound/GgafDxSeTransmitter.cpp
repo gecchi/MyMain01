@@ -37,7 +37,7 @@ void GgafDxSeTransmitter::play(int prm_id) {
         throwGgafCriticalException("GgafDxSeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
 #endif
-    _papSeCon[prm_id]->use()->play(GGAF_MAX_VOLUME, 0.0);
+    _papSeCon[prm_id]->fetch()->play(GGAF_MAX_VOLUME, 0.0);
 }
 
 GgafDxSe* GgafDxSeTransmitter::get(int prm_id) {
@@ -46,7 +46,7 @@ GgafDxSe* GgafDxSeTransmitter::get(int prm_id) {
         throwGgafCriticalException("GgafDxSeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
 #endif
-    return _papSeCon[prm_id]->use();
+    return _papSeCon[prm_id]->fetch();
 }
 
 

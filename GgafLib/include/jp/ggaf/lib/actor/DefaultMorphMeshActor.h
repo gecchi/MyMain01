@@ -16,7 +16,7 @@ namespace GgafLib {
  * <TR><TD>_pSeTransmitter</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * <TR><TD>_pScaler</TD><TD>拡大縮小支援</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
  * <TR><TD>_pMorpher</TD><TD>モーフィング支援</TD><TD>GgafDxCore::GgafDxMorpher</TD></TR>
- * <TR><TD>_pCollisionChecker</TD><TD>衝突判定支援</TD><TD>GgafLib::CollisionChecker</TD></TR>
+ * <TR><TD>_pColliChecker</TD><TD>衝突判定支援</TD><TD>GgafLib::CollisionChecker</TD></TR>
  * </TABLE>
  * @version 1.00
  * @since 2009/05/08
@@ -30,7 +30,7 @@ public:
     /** モーフィング支援オブジェクト */
     GgafDxCore::GgafDxMorpher* _pMorpher;
     /** 衝突判定支援オブジェクト */
-    CollisionChecker* _pCollisionChecker;
+    CollisionChecker* _pColliChecker;
 
     DefaultMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat=NULL);
 

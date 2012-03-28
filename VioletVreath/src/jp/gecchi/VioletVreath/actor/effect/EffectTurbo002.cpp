@@ -14,13 +14,13 @@ EffectTurbo002::EffectTurbo002(const char* prm_name) :
 }
 
 void EffectTurbo002::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 0);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
+    _pUvFlipper->forcePtnRange(0, 0);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 2); //ƒAƒjƒ‡˜
 
 }
 
 void EffectTurbo002::onActive() {
-    _pUvFlipper->setActivePtnNoToTop();
+    _pUvFlipper->setActivePtnToTop();
     setAlpha(0.4);
     _pScaler->forceScaleRange(100000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
     _pScaler->setScale(1000);

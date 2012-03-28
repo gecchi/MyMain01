@@ -26,10 +26,10 @@ public:
     };
 
     std::vector<ScoreInfo> ranking;
-    LabelRankingFont** papLabelRanking_;
+    LabelRankingFont** papLabel_Ranking_;
 
-    LabelGecchi16Font* pStringBoard01_;
-    LabelGecchi16Font* pStringBoard02_;
+    LabelGecchi16Font* pLabel01_;
+    LabelGecchi16Font* pLabel02_;
     int demo_stage_;
 
     int ranking_num_;

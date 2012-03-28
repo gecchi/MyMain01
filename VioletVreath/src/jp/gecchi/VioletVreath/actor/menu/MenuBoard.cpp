@@ -90,7 +90,7 @@ void MenuBoard::onRisen() {
     locate(target_X_ + slide_from_offset_X_,
            target_Y_ + slide_from_offset_Y_);
     _pKurokoA->setMvAng(target_X_, target_Y_);
-    _pKurokoA->execSmoothMvVeloSequence(
+    _pKurokoA->execSmoothMvSequence(
                     0,
                     GgafDxCore::GgafDxUtil::getDistance(
                         _X,
@@ -121,7 +121,7 @@ void MenuBoard::onSunk() {
     //スライドアウトトランジション
     _pKurokoA->setMvAng(target_X_ + slide_from_offset_X_,
                         target_Y_ + slide_from_offset_Y_);
-    _pKurokoA->execSmoothMvVeloSequence(
+    _pKurokoA->execSmoothMvSequence(
                     0,
                     GgafDxCore::GgafDxUtil::getDistance(
                         _X,

@@ -24,8 +24,8 @@ void EnemyEunomia::onCreateModel() {
 void EnemyEunomia::initialize() {
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, -4000);
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB_Cube(0, 40000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB_Cube(0, 40000);
 }
 
 void EnemyEunomia::onReset() {
@@ -102,7 +102,7 @@ void EnemyEunomia::processBehavior() {
                 for (int i = 0; i < way; i++) {
                     pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
-                        pActor_Shot->locateAs(this);
+                        pActor_Shot->locatedBy(this);
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], D90ANG);
                     }
                 }
@@ -111,7 +111,7 @@ void EnemyEunomia::processBehavior() {
                 if (pDepo_ShotEffect_) {
                     GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
                     if (pTestActor_Shot) {
-                        pTestActor_Shot->locateAs(this);
+                        pTestActor_Shot->locatedBy(this);
                     }
                 }
             }
@@ -147,10 +147,10 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
             pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
 
@@ -159,9 +159,9 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
             //フォーメーションに自身が撃たれた事を伝える。
             notifyFormationAboutDestroyed();
             //アイテム出現
-            Item* pItem = (Item*)P_COMMON_SCENE->pDP_MagicPointItem001_->dispatch();
+            Item* pItem = getFromCommon(MagicPointItem001);
             if (pItem) {
-                pItem->locateAs(this);
+                pItem->locatedBy(this);
             }
         }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）

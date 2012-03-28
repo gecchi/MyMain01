@@ -724,9 +724,9 @@ void GgafDxKurokoA::setMvAcceBy_Dv(coord prm_target_distance, velo prm_target_ve
     //    Vo <= 0  Ç©Ç¬  Vt <= 0 èÍçáÅAÇ†ÇÈÇ¢ÇÕ  Vo >= 0  Ç©Ç¬  Vt >= 0  èÍçáÇ∆ìØÇ∂Ç≈Ç†ÇÈ
 }
 
-void GgafDxKurokoA::execSmoothMvVeloSequence(velo prm_end_velo, coord prm_target_distance,
-                                                  int prm_target_frames, float prm_p1, float prm_p2,
-                                                  bool prm_endacc_flg) {
+void GgafDxKurokoA::execSmoothMvSequence(velo prm_end_velo, coord prm_target_distance,
+                                         int prm_target_frames, float prm_p1, float prm_p2,
+                                         bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_p1 = (int)(prm_target_frames*prm_p1);
     _smooth_mv_velo_seq_p2 = (int)(prm_target_frames*prm_p2);
@@ -765,9 +765,9 @@ void GgafDxKurokoA::execSmoothMvVeloSequence(velo prm_end_velo, coord prm_target
 
 }
 
-void GgafDxKurokoA::execSmoothMvVeloSequenceD(velo prm_top_velo, velo prm_end_velo,
-                                                   coord prm_target_distance, float prm_p1, float prm_p2,
-                                                   bool prm_endacc_flg) {
+void GgafDxKurokoA::execSmoothMvSequenceD(velo prm_top_velo, velo prm_end_velo,
+                                          coord prm_target_distance, float prm_p1, float prm_p2,
+                                          bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
     _smooth_mv_velo_seq_top_velo = prm_top_velo;
@@ -782,9 +782,9 @@ void GgafDxKurokoA::execSmoothMvVeloSequenceD(velo prm_top_velo, velo prm_end_ve
 }
 
 
-void GgafDxKurokoA::execSmoothMvVeloSequenceT(velo prm_top_velo, velo prm_end_velo,
-                                                   int prm_target_frames, float prm_p1, float prm_p2,
-                                                   bool prm_endacc_flg) {
+void GgafDxKurokoA::execSmoothMvSequenceT(velo prm_top_velo, velo prm_end_velo,
+                                          int prm_target_frames, float prm_p1, float prm_p2,
+                                          bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
     _smooth_mv_velo_seq_top_velo = prm_top_velo;
@@ -799,7 +799,7 @@ void GgafDxKurokoA::execSmoothMvVeloSequenceT(velo prm_top_velo, velo prm_end_ve
 }
 
 
-//void GgafDxKurokoA::execSmoothMvVeloSequence4(velo prm_end_velo, coord prm_target_distance, int prm_target_frames,
+//void GgafDxKurokoA::execSmoothMvSequence4(velo prm_end_velo, coord prm_target_distance, int prm_target_frames,
 //                                                      bool prm_endacc_flg) {
 //    _smooth_mv_velo_seq_flg = true;
 //    _smooth_mv_velo_seq_p1 = (int)(prm_target_distance*1.0 / 4.0);

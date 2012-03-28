@@ -13,14 +13,14 @@ EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) :
 }
 
 void EffectMyShipExplosion::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 15);
+    _pUvFlipper->forcePtnRange(0, 15);
     setHitAble(false);
 }
 
 void EffectMyShipExplosion::onActive() {
-    _pUvFlipper->setActivePtnNoToTop();
+    _pUvFlipper->setActivePtnToTop();
     _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 20);
-    locateAs(P_MYSHIP);
+    locatedBy(P_MYSHIP);
     _alpha = 0.99;
     _pScaler->setScale(8000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, 2000);
@@ -28,7 +28,7 @@ void EffectMyShipExplosion::onActive() {
 
 void EffectMyShipExplosion::processBehavior() {
     _alpha -= 0.01;
-    locateAs(P_MYSHIP);
+    locatedBy(P_MYSHIP);
     _pUvFlipper->behave();
     _pKurokoA->behave();
     _pScaler->behave();

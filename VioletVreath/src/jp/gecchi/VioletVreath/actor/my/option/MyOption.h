@@ -30,7 +30,7 @@ public:
     int Xorg_,Yorg_,Zorg_;
 
     /** [r]親アクター */
-    MyOptionController* pMyOptionController_;
+    MyOptionController* pOptionCtrler_;
     /** [r]自身のオプション番号(０～・・・) */
     int no_;
     /** [r]１オプション当たりの最大可能ロックオン数 */
@@ -38,9 +38,9 @@ public:
     /** [r]１オプション当たりの現在可能ロックオン数 */
     static int lockon_num_;
     /** [r]ロックオンコントローラー */
-    MyOptionLockonController* pLockonController_;
+    MyOptionLockonController* pLockonCtrler_;
     /** [r]魚雷コントローラー */
-    MyOptionTorpedoController* pTorpedoController_;
+    MyOptionTorpedoController* pTorpedoCtrler_;
     /** [r]発射するレーザーチップのデポジトリ */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /** [r]発射するショットのデポジトリ */
@@ -96,10 +96,10 @@ public:
      * コンストラクタ .
      * @param prm_name
      * @param prm_no オプション番号（0～...)
-     * @param prm_pMyOptionController 親アクター
+     * @param prm_pOptCtrler 親アクター
      * @return
      */
-    MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController);
+    MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrler);
 
     /**
      * 初期設定パラメーター .

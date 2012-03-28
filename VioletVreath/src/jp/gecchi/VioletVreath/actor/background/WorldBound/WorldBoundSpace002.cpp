@@ -14,8 +14,8 @@ WorldBoundSpace002::WorldBoundSpace002(const char* prm_name) :
 void WorldBoundSpace002::initialize() {
     //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
     //    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
-    //    _pUvFlipper->forcePtnNoRange(0, 16*16-1);
-    //    _pUvFlipper->setActivePtnNo(0);
+    //    _pUvFlipper->forcePtnRange(0, 16*16-1);
+    //    _pUvFlipper->setActivePtn(0);
     setHitAble(false);
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;

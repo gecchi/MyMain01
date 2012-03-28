@@ -7,10 +7,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-MyTorpedoTail::MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pMyTorpedo) :
+MyTorpedoTail::MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pTorpedo) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001", NULL) {
     _class_name = "MyTorpedoTail";
-    pMyTorpedo_ = prm_pMyTorpedo;
+    pTorpedo_ = prm_pTorpedo;
 }
 
 void MyTorpedoTail::initialize() {
@@ -29,8 +29,8 @@ void MyTorpedoTail::onInactive() {
 }
 void MyTorpedoTail::processBehaviorHeadChip() {
 
-    locateAs(pMyTorpedo_);
-    rotateWith(pMyTorpedo_);
+    locatedBy(pTorpedo_);
+    rotateWith(pTorpedo_);
 }
 
 MyTorpedoTail::~MyTorpedoTail() {

@@ -12,15 +12,15 @@ class MyTorpedoTail : public GgafLib::HomingLaserChip {
 
 public:
     /** [r]軌跡を描く元の魚雷オブジェクト */
-    MyTorpedo* pMyTorpedo_;
+    MyTorpedo* pTorpedo_;
 
     /**
      *
      * @param prm_name
-     * @param prm_pMyTorpedo 軌跡を描く元の魚雷オブジェクト
+     * @param prm_pTorpedo 軌跡を描く元の魚雷オブジェクト
      * @return
      */
-    MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pMyTorpedo);
+    MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pTorpedo);
 
     void initialize() override;
 

@@ -14,8 +14,8 @@ Shot002::Shot002(const char* prm_name) :
 }
 
 void Shot002::initialize() {
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -50000, -50000, -50000, 50000, 50000, 50000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB(0, -50000, -50000, -50000, 50000, 50000, 50000);
 }
 
 void Shot002::onActive() {
@@ -64,10 +64,10 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
         }
         sayonara();
     }

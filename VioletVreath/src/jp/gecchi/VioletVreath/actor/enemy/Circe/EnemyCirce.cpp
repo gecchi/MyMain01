@@ -24,9 +24,9 @@ void EnemyCirce::initialize() {
     _pScaler->setScale(1000);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setMvVelo(3000);
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
-    _X = PX2CO(200);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    _X = P2C(200);
 }
 
 void EnemyCirce::onActive() {
@@ -53,10 +53,10 @@ void EnemyCirce::processJudgement() {
 void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 =
-            (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+            getFromCommon(EffectExplosion001);
     _pSeTransmitter->play3D(0);
     if (pExplo001) {
-        pExplo001->locateAs(this);
+        pExplo001->locatedBy(this);
         pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
     }
 

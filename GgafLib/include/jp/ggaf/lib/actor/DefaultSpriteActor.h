@@ -16,7 +16,7 @@ namespace GgafLib {
  * <TR><TD>_pUvFlipper</TD><TD>パラパラアニメーション支援</TD><TD>GgafDxCore::GgafDxUvFlipper</TD></TR>
  * <TR><TD>_pSeTransmitter</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * <TR><TD>_pScaler</TD><TD>拡大縮小支援</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
- * <TR><TD>_pCollisionChecker</TD><TD>衝突判定支援</TD><TD>GgafLib::CollisionChecker</TD></TR>
+ * <TR><TD>_pColliChecker</TD><TD>衝突判定支援</TD><TD>GgafLib::CollisionChecker</TD></TR>
  * </TABLE>
  * @version 1.00
  * @since 2008/02/25
@@ -26,7 +26,7 @@ class DefaultSpriteActor : public GgafDxCore::GgafDxSpriteActor {
 
 public:
     /** 衝突判定支援オブジェクト */
-    CollisionChecker* _pCollisionChecker;
+    CollisionChecker* _pColliChecker;
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* _pScaler;
 

@@ -50,7 +50,7 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     }
 
 
-    if (_pKurokoA->_mv_ang_ry_target_flg == false && _pKurokoA->_mv_ang_rz_target_flg == false) {
+    if (!_pKurokoA->isTurningMvAng()) {
         _pKurokoA->execTurnMvAngSequence(
                     P_MYSHIP,
                     100, 0,

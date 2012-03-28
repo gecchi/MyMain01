@@ -8,6 +8,12 @@
     #error P_GAME_SCENE isnt define
 #endif
 
+/**
+ * 共通オブジェクト取得マクロ
+ * EffectExplosion001, EffectTurbo002, MagicPointItem001, MagicPointItem002 のみ可能
+ */
+#define getFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch())
+
 namespace VioletVreath {
 
 /**
@@ -18,11 +24,14 @@ class CommonScene : public GgafLib::DefaultScene {
 
 
 public:
-    /** 汎用爆発 */
-    GgafCore::GgafActorDepository* pDP_EffectExplosion001_;
+    /** 汎用爆発エフェクト用デポジトリ */
+    GgafCore::GgafActorDepository* pDepo_EffectExplosion001_;
+    /** ターボエフェクト用デポジトリ */
     GgafCore::GgafActorDepository* pDepo_EffectTurbo002_;
-    GgafCore::GgafActorDepository* pDP_MagicPointItem001_;
-    GgafCore::GgafActorDepository* pDP_MagicPointItem002_;
+    /** アイテムオブジェクトその１用デポジトリ */
+    GgafCore::GgafActorDepository* pDepo_MagicPointItem001_;
+    /** アイテムオブジェクトその１用デポジトリ */
+    GgafCore::GgafActorDepository* pDepo_MagicPointItem002_;
 
     CommonScene(const char* prm_name);
     /**

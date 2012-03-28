@@ -19,9 +19,9 @@ FormationPallas001::FormationPallas001(const char* prm_name) :
     for (int i = 0; i < num_Pallas_; i++) {
         papPallas_[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
-        pSplSeq = pSplManufCon_->use()->createSplineSequence(papPallas_[i]->_pKurokoA);
+        pSplSeq = pSplManufCon_->fetch()->createSplineSequence(papPallas_[i]->_pKurokoA);
         papPallas_[i]->config(pSplSeq, NULL, NULL);
-        //papPallas_[i]->setDepository_Shot(pDepoCon_->use()); //弾設定
+        //papPallas_[i]->setDepository_Shot(pDepoCon_->fetch()); //弾設定
         papPallas_[i]->inactivateImmed();
         addSubLast(papPallas_[i]);
     }
@@ -47,7 +47,7 @@ void FormationPallas001::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
     //編隊消滅時の実験
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->pDepo_EffectTurbo002_->dispatchForce();
     if (pTurbo002) {
-		pTurbo002->locateAs((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
+		pTurbo002->locatedBy((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
         pTurbo002->activate();
     }
 }

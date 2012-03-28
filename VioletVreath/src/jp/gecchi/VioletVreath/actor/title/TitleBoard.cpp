@@ -26,11 +26,11 @@ void TitleBoard::processJudgement() {
 
 void TitleBoard::processDraw() {
     //‰¡‚É‚Q˜AŒ‹
-    _pUvFlipper->setActivePtnNo(0);
+    _pUvFlipper->setActivePtn(0);
     DefaultBoardSetActor::processDraw();
     coord tmpX = _X;
-    _X += PX2CO(600);
-    _pUvFlipper->setActivePtnNo(1);
+    _X += P2C(600);
+    _pUvFlipper->setActivePtn(1);
     DefaultBoardSetActor::processDraw();
     _X = tmpX;
 }

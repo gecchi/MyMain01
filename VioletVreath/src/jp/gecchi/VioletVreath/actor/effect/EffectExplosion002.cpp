@@ -12,13 +12,13 @@ EffectExplosion002::EffectExplosion002(const char* prm_name) :
 }
 
 void EffectExplosion002::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 15);
+    _pUvFlipper->forcePtnRange(0, 15);
     setHitAble(false);
 
 }
 
 void EffectExplosion002::onActive() {
-    _pUvFlipper->setActivePtnNoToTop();
+    _pUvFlipper->setActivePtnToTop();
     _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 1); //パラパラアニメ無し
     _alpha = 0.99;
     _SX = _SY = _SZ = 1000;

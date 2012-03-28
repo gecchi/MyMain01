@@ -2161,8 +2161,8 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     prm_pBoardModel->_size_vertex_unit = sizeof(GgafDxBoardModel::VERTEX);
 
     //1pxあたりのuvの大きさを求める
-    float texWidth  = (float)(model_pTextureCon->use()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-    float texHeight = (float)(model_pTextureCon->use()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+    float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
      float pxU = 1.0f / texWidth; //テクスチャの幅(px)で割る
      float pxV = 1.0f / texHeight; //テクスチャの高さ(px)で割る
 
@@ -2304,8 +2304,8 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
         GgafDxBoardSetModel::VERTEX* paVertex = NEW GgafDxBoardSetModel::VERTEX[4 * prm_pBoardSetModel->_set_num];
 
         //1pxあたりのuvの大きさを求める
-        float texWidth  = (float)(model_pTextureCon->use()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-        float texHeight = (float)(model_pTextureCon->use()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+        float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+        float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
         float pxU = 1.0f / texWidth; //テクスチャの幅(px)で割る
         float pxV = 1.0f / texHeight; //テクスチャの高さ(px)で割る
 
@@ -3047,8 +3047,8 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     model_papTextureCon = NEW GgafDxTextureConnection*[1];
     model_papTextureCon[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
 
-    float texWidth  = (float)(model_papTextureCon[0]->use()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-    float texHeight = (float)(model_papTextureCon[0]->use()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
+    float texWidth  = (float)(model_papTextureCon[0]->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(model_papTextureCon[0]->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
     FLOAT model_bounding_sphere_radius = 0;
 
     //頂点バッファ作成
@@ -3144,7 +3144,7 @@ void GgafDxModelManager::restoreAll() {
     GgafResourceConnection<GgafDxModel>* pCurrent = _pFirstConnection;
     TRACE3("restoreAll pCurrent="<<pCurrent);
     while (pCurrent) {
-        pCurrent->use()->restore();
+        pCurrent->fetch()->restore();
         pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDxModelManager::restoreAll() end<--");
@@ -3155,9 +3155,9 @@ void GgafDxModelManager::onDeviceLostAll() {
     GgafResourceConnection<GgafDxModel>* pCurrent = _pFirstConnection;
     TRACE3("onDeviceLostAll pCurrent="<<pCurrent);
     while (pCurrent) {
-        _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->use()->_model_name<<"] onDeviceLost begin");
-        pCurrent->use()->onDeviceLost();
-        _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->use()->_model_name<<"] onDeviceLost end");
+        _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->fetch()->_model_name<<"] onDeviceLost begin");
+        pCurrent->fetch()->onDeviceLost();
+        _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->fetch()->_model_name<<"] onDeviceLost end");
         pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDxModelManager::onDeviceLostAll() end<--");
@@ -3167,7 +3167,7 @@ void GgafDxModelManager::releaseAll() {
     TRACE3("GgafDxModelManager::releaseAll() start-->");
     GgafResourceConnection<GgafDxModel>* pCurrent = _pFirstConnection;
     while (pCurrent) {
-        pCurrent->use()->release();
+        pCurrent->fetch()->release();
         pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDxModelManager::releaseAll() end<--");

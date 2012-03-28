@@ -14,7 +14,7 @@ FormationMassalia::FormationMassalia(const char* prm_name)
     pDepoCon_Fragment_3_ = connectToDepositoryManager("DpCon_MassaliaFragment3", this);
 
 
-    setFormationAbleActorDepository(pDepoCon_Massalia_->use());
+    setFormationAbleActorDepository(pDepoCon_Massalia_->fetch());
 }
 
 void FormationMassalia::updateRankParameter() {

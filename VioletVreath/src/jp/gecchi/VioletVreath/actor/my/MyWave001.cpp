@@ -19,22 +19,22 @@ void MyWave001::initialize() {
     //_pKurokoA->setFaceAng(AXIS_Z, 0);
     _pKurokoA->setMvVelo(20000);
 
-    _pCollisionChecker->makeCollision(7);
-    _pCollisionChecker->setColliAAB(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
-    _pCollisionChecker->setColliAAB(1,  -10000, -140000,  -10000,   10000, -120000,   10000, true, true, true);
-    _pCollisionChecker->setColliAAB(2,  -10000,  120000,  -10000,   10000,  140000,   10000, true, true, true);
-    _pCollisionChecker->setColliAAB(3, -140000,  -10000,  -10000, -120000,   10000,   10000, true, true, true);
-    _pCollisionChecker->setColliAAB(4,  120000,  -10000,  -10000,  140000,   10000,   10000, true, true, true);
-    _pCollisionChecker->setColliAAB(5,  -10000,  -10000, -140000,   10000,   10000, -120000, true, true, true);
-    _pCollisionChecker->setColliAAB(6,  -10000,  -10000,  120000,   10000,   10000,  140000, true, true, true);
+    _pColliChecker->makeCollision(7);
+    _pColliChecker->setColliAAB(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
+    _pColliChecker->setColliAAB(1,  -10000, -140000,  -10000,   10000, -120000,   10000, true, true, true);
+    _pColliChecker->setColliAAB(2,  -10000,  120000,  -10000,   10000,  140000,   10000, true, true, true);
+    _pColliChecker->setColliAAB(3, -140000,  -10000,  -10000, -120000,   10000,   10000, true, true, true);
+    _pColliChecker->setColliAAB(4,  120000,  -10000,  -10000,  140000,   10000,   10000, true, true, true);
+    _pColliChecker->setColliAAB(5,  -10000,  -10000, -140000,   10000,   10000, -120000, true, true, true);
+    _pColliChecker->setColliAAB(6,  -10000,  -10000,  120000,   10000,   10000,  140000, true, true, true);
 
 
-    //	_pCollisionChecker->pHitAreaBoxs_->setLine(0, -20000, 20000, 20000, 20000, true);
-    //	_pCollisionChecker->pHitAreaBoxs_->setLine(1, 20000, 20000, 20000, -20000, true);
-    //	_pCollisionChecker->pHitAreaBoxs_->setLine(2, 20000, -20000, -20000, -20000, true);
-    //	_pCollisionChecker->pHitAreaBoxs_->setLine(3, -20000, -20000, -20000, 20000, true);
-    //	_pCollisionChecker->pHitAreaBoxs_->setLine(4, 30000, 30000, -30000, -30000, true);
-    //	_pCollisionChecker->pHitAreaBoxs_->setLine(5, -30000, 30000, 30000, -30000, true);
+    //	_pColliChecker->pHitAreaBoxs_->setLine(0, -20000, 20000, 20000, 20000, true);
+    //	_pColliChecker->pHitAreaBoxs_->setLine(1, 20000, 20000, 20000, -20000, true);
+    //	_pColliChecker->pHitAreaBoxs_->setLine(2, 20000, -20000, -20000, -20000, true);
+    //	_pColliChecker->pHitAreaBoxs_->setLine(3, -20000, -20000, -20000, 20000, true);
+    //	_pColliChecker->pHitAreaBoxs_->setLine(4, 30000, 30000, -30000, -30000, true);
+    //	_pColliChecker->pHitAreaBoxs_->setLine(5, -30000, 30000, 30000, -30000, true);
     //
     _pScaler->forceScaleRange(1000,20000);
     //setAlpha(0.2);
@@ -50,7 +50,7 @@ void MyWave001::processBehavior() {
         _pScaler->intoTargetScaleLinerStep(100000,100);
         _pScaler->behave();
         setHitAble(true);
-        locateAs(P_MYSHIP);
+        locatedBy(P_MYSHIP);
         _pKurokoA->setFaceAng(AXIS_Z, P_MYSHIP->_pKurokoA->_angFace[AXIS_Z]);
         _pKurokoA->setFaceAng(AXIS_Y, P_MYSHIP->_pKurokoA->_angFace[AXIS_Y]);
         _pKurokoA->setRzRyMvAng(P_MYSHIP->_pKurokoA->_angFace[AXIS_Z],

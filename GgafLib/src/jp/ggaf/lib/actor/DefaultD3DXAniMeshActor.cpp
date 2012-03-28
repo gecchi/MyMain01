@@ -12,16 +12,16 @@ DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const cha
                             prm_pStat,
                             NEW CollisionChecker(this) ) {
     _class_name = "DefaultD3DXAniMeshActor";
-    _pCollisionChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 }
 
 void DefaultD3DXAniMeshActor::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pCollisionChecker);
-    ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pColliChecker);
+    ColliSphereActor::get()->drawHitarea(_pColliChecker);
 }
 
 DefaultD3DXAniMeshActor::~DefaultD3DXAniMeshActor() {
-    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
+    DELETE_IMPOSSIBLE_NULL(_pColliChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

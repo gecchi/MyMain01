@@ -18,7 +18,7 @@ WallPartsActor::WallPartsActor(const char* prm_name,
                                             NEW CollisionChecker(this) ) {
     _class_name = "WallPartsActor";
     _obj_class |= Obj_WallPartsActor;
-    _pCollisionChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
     _wall_draw_face = 0;
     _pos_prism = 0;
@@ -86,10 +86,10 @@ void WallPartsActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm
 }
 
 void WallPartsActor::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliAAPrismActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
 }
 
 WallPartsActor::~WallPartsActor() {
-    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
+    DELETE_IMPOSSIBLE_NULL(_pColliChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

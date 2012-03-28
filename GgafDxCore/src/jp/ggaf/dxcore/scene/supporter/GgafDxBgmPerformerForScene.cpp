@@ -69,7 +69,7 @@ void GgafDxBgmPerformerForScene::behave() {
     for (int id = 0; id < _bgm_num; id++) {
         if (_pa_is_fade[id]) {
             _pa_volume[id] += _pa_inc_volume[id];
-            _papBgmCon[id]->use()->setVolume(_pa_volume[id]);
+            _papBgmCon[id]->fetch()->setVolume(_pa_volume[id]);
             if (_pa_inc_volume[id] > 0 && _pa_volume[id] >= _pa_target_volume[id]) {
                 //‘‰¹—Ê
                 setVolume(id, (int)_pa_target_volume[id]);

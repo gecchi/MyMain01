@@ -193,7 +193,7 @@ typedef GgafDxAxis axis;
 /** アプリの座標 → ピクセル座標(初期カメラ位置の時) 変換 */
 #define CO2PX(X) (1.0f * (X) / LEN_UNIT)
 /** ピクセル座標(初期カメラ位置の時) → アプリの座標 変換 */
-#define PX2CO(X) ((X) * LEN_UNIT)
+#define P2C(X) ((X) * LEN_UNIT)
 
 /** アプリのアングル値→度数法角度 変換 */
 #define ANG2DEG(X) ((float)((X) / 1000))

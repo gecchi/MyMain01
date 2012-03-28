@@ -15,8 +15,8 @@ void Shot003::initialize() {
     _SX = _SY = _SZ = R2SC(50);
     setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
     changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
 }
 
 void Shot003::onActive() {
@@ -46,7 +46,7 @@ void Shot003::onHit(GgafActor* prm_pOtherActor) {
 //        EffectExplosion003* pExplo003 = (EffectExplosion003*)P_COMMON_SCENE->pDepo_EffectExplosion003_->dispatch();
 //        playSe3D1();
 //        if (pExplo003) {
-//            pExplo003->locateAs(this);
+//            pExplo003->locatedBy(this);
 //        }
 //        sayonara();
 //    }

@@ -14,7 +14,7 @@ public:
 
     frame offset_frames_;
 
-    GgafLib::CollisionChecker* _pCollisionChecker;
+    GgafLib::CollisionChecker* _pColliChecker;
 
     GroundMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
     virtual void onCreateModel() override {

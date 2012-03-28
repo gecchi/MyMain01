@@ -24,11 +24,11 @@ GgafDxSpriteSetActor::GgafDxSpriteSetActor(const char* prm_name,
     //ƒ‚ƒfƒ‹Žæ“¾
     _pSpriteSetModel = (GgafDxSpriteSetModel*)_pModel;
     _pSpriteSetEffect = (GgafDxSpriteSetEffect*)_pEffect;
-    _pUvFlipper = NEW GgafDxUvFlipper(_pSpriteSetModel->_papTextureCon[0]->use());
+    _pUvFlipper = NEW GgafDxUvFlipper(_pSpriteSetModel->_papTextureCon[0]->fetch());
     _pUvFlipper->setRotation(_pSpriteSetModel->_col_texture_split,
                              _pSpriteSetModel->_row_texture_split
                             );
-    _pUvFlipper->setActivePtnNo(0);
+    _pUvFlipper->setActivePtn(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
 
     _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;

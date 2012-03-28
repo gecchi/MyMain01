@@ -18,8 +18,8 @@ public:
     };
 
 
-    LabelGecchi16Font* pStringBoard01_;
-    LabelGecchi16Font* pStringBoard02_;
+    LabelGecchi16Font* pLabel01_;
+    LabelGecchi16Font* pLabel02_;
     TitleBoard* pTitleBoard_;
     GamePreTitleScene(const char* prm_name);
     void onReset() override;

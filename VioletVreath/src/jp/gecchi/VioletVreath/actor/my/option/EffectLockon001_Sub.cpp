@@ -13,19 +13,19 @@ EffectLockon001_Sub::EffectLockon001_Sub(const char* prm_name) :
 
 void EffectLockon001_Sub::initialize() {
     EffectLockon001::initialize();
-    _pUvFlipper->forcePtnNoRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
+    _pUvFlipper->forcePtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
 }
 
 void EffectLockon001_Sub::onActive() {
     EffectLockon001::onActive();
     pEffectLockon001_Main_ = (EffectLockon001_Main*)getParent()->getSubFirst();
-    _pUvFlipper->setActivePtnNoToTop();
+    _pUvFlipper->setActivePtnToTop();
     setAlpha(0.01);
     _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //‰E‰ñ“]
     //_pSeTransmitter->play3D(0); //ƒƒbƒNƒIƒ“SE
-    locateAs(pTarget_);
+    locatedBy(pTarget_);
 
     _pProg->change(LOCKON001_PROG_LOCK);
 }
@@ -51,7 +51,7 @@ void EffectLockon001_Sub::processBehavior() {
                  if (abs(pTarget_->_X-_X) <= 200000 &&
                      abs(pTarget_->_Y-_Y) <= 200000 &&
                      abs(pTarget_->_Z-_Z) <= 200000) {
-                     locateAs(pTarget_);
+                     locatedBy(pTarget_);
                      _pKurokoA->setMvVelo(0);
                  } else {
                      _pKurokoA->setMvAng(pTarget_);

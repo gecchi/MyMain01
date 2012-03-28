@@ -13,7 +13,7 @@
 
 
 namespace VioletVreath {
-#define connectCameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_UNIVERSE->pCameraWorkerManager_->connect(X))
+#define connectCameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_UNIVERSE->pCamWorkerManager_->connect(X))
 
 
 /**
@@ -29,26 +29,26 @@ class Universe : public GgafLib::DefaultUniverse {
 
     class CameraWorkerConnectionStack {
     public:
-        CameraWorkerConnection* apCameraWorkerCon_[30];
+        CameraWorkerConnection* apCamWorkerCon_[30];
         UINT32 p_;
         CameraWorkerConnectionStack() {
             p_ = 0;
             for (int i = 0; i < 30; i++) {
-                apCameraWorkerCon_[i] = NULL;
+                apCamWorkerCon_[i] = NULL;
             }
         }
         CameraWorkerConnection* getLast() {
             if (p_ == 0) {
                 return NULL;
             } else {
-                return apCameraWorkerCon_[p_-1];
+                return apCamWorkerCon_[p_-1];
             }
         }
-        void push(CameraWorkerConnection* prm_pCameraWorkerCon) {
+        void push(CameraWorkerConnection* prm_pCamWorkerCon) {
             if (p_ > 30-1) {
-                throwGgafCriticalException("CameraWorkerConnectionStack::push("<<prm_pCameraWorkerCon->getIdStr()<<") スタックを使い切りました。");
+                throwGgafCriticalException("CameraWorkerConnectionStack::push("<<prm_pCamWorkerCon->getIdStr()<<") スタックを使い切りました。");
             }
-            apCameraWorkerCon_[p_] = prm_pCameraWorkerCon;
+            apCamWorkerCon_[p_] = prm_pCamWorkerCon;
             p_++;
         }
         CameraWorkerConnection* pop() {
@@ -56,23 +56,23 @@ class Universe : public GgafLib::DefaultUniverse {
                 throwGgafCriticalException("CameraWorkerConnectionStack::pop() ポップしすぎです");
             } else {
                 p_--;
-                CameraWorkerConnection* r = apCameraWorkerCon_[p_];
-                apCameraWorkerCon_[p_] = NULL;
+                CameraWorkerConnection* r = apCamWorkerCon_[p_];
+                apCamWorkerCon_[p_] = NULL;
                 return r;
             }
         }
         void clear() {
             p_ = 0;
             for (int i = 0; i < 30; i++) {
-                apCameraWorkerCon_[i] = NULL;
+                apCamWorkerCon_[i] = NULL;
             }
         }
 
         void dump() {
             _TRACE_("CameraWorkerConnectionStack p_="<<p_);
             for (int i = 0; i < 30; i++) {
-                if (apCameraWorkerCon_[i]) {
-                    _TRACE_("apCameraWorkerCon_["<<i<<"]="<<(apCameraWorkerCon_[i]->getIdStr()));
+                if (apCamWorkerCon_[i]) {
+                    _TRACE_("apCamWorkerCon_["<<i<<"]="<<(apCamWorkerCon_[i]->getIdStr()));
                 }
             }
         }
@@ -84,10 +84,10 @@ class Universe : public GgafLib::DefaultUniverse {
 
 public:
 
-    CameraWorker* pActiveCameraWorker_;
-    CameraWorkerManager* pCameraWorkerManager_;
+    CameraWorker* pActiveCamWorker_;
+    CameraWorkerManager* pCamWorkerManager_;
     World* pWorld_;
-    CameraWorkerConnectionStack stack_CameraWorkerCon_;
+    CameraWorkerConnectionStack stack_CamWorkerCon_;
 
     Universe(const char* prm_name, Camera* prm_pCamera);
 

@@ -19,7 +19,7 @@ FormationThalia::FormationThalia(const char* prm_name) :
         papThalia_[i] = NEW EnemyThalia("Thalia01");
         //スプライン移動プログラム設定
         papThalia_[i]->setSplineSequence(NULL);
-        papThalia_[i]->setDepository_Shot(pDpcon_->use()); //弾設定
+        papThalia_[i]->setDepository_Shot(pDpcon_->fetch()); //弾設定
         papThalia_[i]->inactivateImmed();
         addSubLast(papThalia_[i]);
     }

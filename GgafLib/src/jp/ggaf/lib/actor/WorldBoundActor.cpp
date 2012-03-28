@@ -27,7 +27,7 @@ void WorldBoundActor::processSettlementBehavior() {
     //E‚W•ª–Ø“o˜^
     //E‹‘ä‚©‚ç‚Ì‹——£ŒvZ
     //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
-    locateAs(P_CAM);
+    locatedBy(P_CAM);
     _fX = CO2DX(_X);
     _fY = CO2DX(_Y);
     _fZ = CO2DX(_Z);

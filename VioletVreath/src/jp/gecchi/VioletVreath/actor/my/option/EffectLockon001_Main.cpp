@@ -12,21 +12,21 @@ EffectLockon001_Main::EffectLockon001_Main(const char* prm_name) :
 
 void EffectLockon001_Main::initialize() {
     EffectLockon001::initialize();
-    _pUvFlipper->forcePtnNoRange(0, 3);   //アニメ範囲を０～１５
+    _pUvFlipper->forcePtnRange(0, 3);   //アニメ範囲を０～１５
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //アニメ順序
     _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
 }
 
 void EffectLockon001_Main::onActive() {
     EffectLockon001::onActive();
-    _pUvFlipper->setActivePtnNoToTop();
+    _pUvFlipper->setActivePtnToTop();
     setAlpha(0.01);
     _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
     _pScaler->setScale(60000); //(6000%)
     _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeTransmitter->play3D(0); //ロックオンSE
-    locateAs(pTarget_);
+    locatedBy(pTarget_);
     _pProg->change(LOCKON001_PROG_FIRST_LOCK);
 }
 
@@ -50,7 +50,7 @@ void EffectLockon001_Main::processBehavior() {
                  if (abs(pTarget_->_X-_X) <= 200000 &&
                      abs(pTarget_->_Y-_Y) <= 200000 &&
                      abs(pTarget_->_Z-_Z) <= 200000) {
-                     locateAs(pTarget_);
+                     locatedBy(pTarget_);
                      _pKurokoA->setMvVelo(0);
                      _pKurokoA->_ang_veloFace[AXIS_Z] = 1000;
                  } else {

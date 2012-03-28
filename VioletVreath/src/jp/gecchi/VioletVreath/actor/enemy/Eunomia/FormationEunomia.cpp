@@ -11,7 +11,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
 
     //エウノミア編隊用デポジトリ
     pDepoCon_Eunomia_ = connectToDepositoryManager("DpCon_EnemyEunomia4Formation", this);
-    setFormationAbleActorDepository(pDepoCon_Eunomia_->use());
+    setFormationAbleActorDepository(pDepoCon_Eunomia_->fetch());
 
     //スプライン定義ファイルを読み込む
     papSplManufCon_ = NEW SplineManufactureConnection*[7];
@@ -42,13 +42,13 @@ void FormationEunomia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
     //編隊消滅時の実験
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->pDepo_EffectTurbo002_->dispatchForce();
     if (pTurbo002) {
-        pTurbo002->locateAs((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
+        pTurbo002->locatedBy((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
         pTurbo002->activate();
     }
     //編隊全滅アイテム出現
-    Item* pItem = (Item*)P_COMMON_SCENE->pDP_MagicPointItem002_->dispatch();
+    Item* pItem = getFromCommon(MagicPointItem002);
     if (pItem) {
-        pItem->locateAs((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
+        pItem->locatedBy((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
     }
 }
 
@@ -58,7 +58,7 @@ void FormationEunomia::processBehavior() {
         for (int i = 0; i < R_num_formation_col_; i++) {
             EnemyEunomia* pEunomia = (EnemyEunomia*)callUpUntil(R_num_formation_col_*R_num_formation_row_);
             if (pEunomia) {
-                SplineSequence* pSplSeq = papSplManufCon_[i]->use()->
+                SplineSequence* pSplSeq = papSplManufCon_[i]->fetch()->
                                               createSplineSequence(pEunomia->_pKurokoA);
                 pEunomia->config(pSplSeq, NULL, NULL);
                 pEunomia->_pKurokoA->setMvVelo(R_mv_velo_);

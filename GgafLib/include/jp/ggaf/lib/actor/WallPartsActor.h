@@ -44,7 +44,7 @@ public:
 
 
     GgafDxCore::GgafDxScaler* _pScaler;
-    GgafLib::CollisionChecker* _pCollisionChecker;
+    GgafLib::CollisionChecker* _pColliChecker;
 
     /** [r]äOï«ÉVÅ[Éì */
     WalledSectionScene* _pWalledSectionScene;

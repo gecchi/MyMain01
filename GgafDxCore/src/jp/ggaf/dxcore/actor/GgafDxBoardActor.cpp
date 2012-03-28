@@ -20,11 +20,11 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
 
     _pBoardModel = (GgafDxBoardModel*)_pModel;
     _pBoardEffect = (GgafDxBoardEffect*)_pEffect;
-    _pUvFlipper = NEW GgafDxUvFlipper(_pBoardModel->_papTextureCon[0]->use());
+    _pUvFlipper = NEW GgafDxUvFlipper(_pBoardModel->_papTextureCon[0]->fetch());
     _pUvFlipper->setRotation(_pBoardModel->_col_texture_split,
                              _pBoardModel->_row_texture_split
                             );
-    _pUvFlipper->setActivePtnNo(0);
+    _pUvFlipper->setActivePtn(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
     _width_px = (int)(_pBoardModel->_fSize_BoardModelWidthPx); //•(px)
     _height_px = (int)(_pBoardModel->_fSize_BoardModelHeightPx); //‚‚³(px)
@@ -74,7 +74,7 @@ void GgafDxBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) 
     _align = prm_align;
     _valign = prm_valign;
 }
-void GgafDxBoardActor::locateAs(GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxBoardActor::locatedBy(GgafDxGeoElem* prm_pGeoElem) {
     _X = prm_pGeoElem->_X;
     _Y = prm_pGeoElem->_Y;
 }

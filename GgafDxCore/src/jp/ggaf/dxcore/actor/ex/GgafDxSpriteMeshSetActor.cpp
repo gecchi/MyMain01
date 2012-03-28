@@ -18,10 +18,10 @@ GgafDxSpriteMeshSetActor::GgafDxSpriteMeshSetActor(const char* prm_name,
     _obj_class |= Obj_GgafDxSpriteMeshSetActor;
     _class_name = "GgafDxSpriteMeshSetActor";
 
-    GgafDxTexture* pTexture = _pMeshSetModel->_papTextureCon[0]->use();
+    GgafDxTexture* pTexture = _pMeshSetModel->_papTextureCon[0]->fetch();
     _pUvFlipper = NEW GgafDxUvFlipper(pTexture);
     _pUvFlipper->setRotation(1, 1);
-    _pUvFlipper->setActivePtnNo(0);
+    _pUvFlipper->setActivePtn(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
 }
 

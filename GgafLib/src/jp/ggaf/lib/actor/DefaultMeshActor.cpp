@@ -15,15 +15,15 @@ DefaultMeshActor::DefaultMeshActor(const char* prm_name,
                      NEW CollisionChecker(this) ) {
 
     _class_name = "DefaultMeshActor";
-    _pCollisionChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 }
 
 void DefaultMeshActor::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliAAPrismActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
 }
 
 DefaultMeshActor::~DefaultMeshActor() {
-    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
+    DELETE_IMPOSSIBLE_NULL(_pColliChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

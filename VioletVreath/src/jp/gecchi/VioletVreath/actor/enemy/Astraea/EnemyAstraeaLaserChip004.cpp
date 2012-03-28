@@ -10,7 +10,7 @@ EnemyAstraeaLaserChip004::EnemyAstraeaLaserChip004(const char* prm_name) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001", STATUS(EnemyAstraeaLaserChip004)) {
     _class_name = "EnemyAstraeaLaserChip004";
     pSplManufCon_ = connectSplineManufactureManager("GURUGURU");
-    pSplSeq_ = pSplManufCon_->use()->createSplineSequence(_pKurokoA);
+    pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
 }
 
 void EnemyAstraeaLaserChip004::initialize() {

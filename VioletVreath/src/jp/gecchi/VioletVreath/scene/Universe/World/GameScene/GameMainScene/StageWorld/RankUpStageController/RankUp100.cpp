@@ -49,10 +49,10 @@ void RankUp100::processBehavior() {
         }
         case Stage::PROG_PLAYING: {
             if (_pProg->getFrameInProgress() == 60) { //ステージ１開始！
-                pMessage_->update(PX2CO(300),PX2CO(300), "SCENE 01 START!");
+                pMessage_->update(P2C(300),P2C(300), "SCENE 01 START!");
                 pMessage_->inactivateDelay(240);
             }
-            //EVENT_STG01_CONTROLLER_WAS_ENDイベント待ち
+            //EVENT_STG01_CTRLER_WAS_ENDイベント待ち
             break;
         }
         case Stage::PROG_END: {
@@ -63,7 +63,7 @@ void RankUp100::processBehavior() {
 
             if (_pProg->getFrameInProgress() == 60) {
                 pMessage_->activateImmed();
-                pMessage_->update(PX2CO(300), PX2CO(300), "SCENE 01 CLEAR!!");
+                pMessage_->update(P2C(300), P2C(300), "SCENE 01 CLEAR!!");
                 pMessage_->inactivateDelay(120);
                 fadeoutScene(300);
             }
@@ -86,7 +86,7 @@ void RankUp100::processJudgement() {
 
 
 void RankUp100::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
+    if (prm_no == EVENT_STG01_CTRLER_WAS_END ) {
         _TRACE_("RankUp100::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
         _pProg->change(Stage::PROG_END);
     } else {

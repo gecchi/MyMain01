@@ -21,11 +21,11 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
 
     _pBoardSetModel = (GgafDxBoardSetModel*)_pModel;
     _pBoardSetEffect = (GgafDxBoardSetEffect*)_pEffect;
-    _pUvFlipper = NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureCon[0]->use());
+    _pUvFlipper = NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureCon[0]->fetch());
     _pUvFlipper->setRotation(_pBoardSetModel->_col_texture_split,
                              _pBoardSetModel->_row_texture_split
                             );
-    _pUvFlipper->setActivePtnNo(0);
+    _pUvFlipper->setActivePtn(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
 
     _width_px = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //•(px)
@@ -103,7 +103,7 @@ void GgafDxBoardSetActor::processDraw() {
     _pBoardSetModel->draw(this, _draw_set_num);
 }
 
-void GgafDxBoardSetActor::locateAs(GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxBoardSetActor::locatedBy(GgafDxGeoElem* prm_pGeoElem) {
     _X = prm_pGeoElem->_X;
     _Y = prm_pGeoElem->_Y;
 }

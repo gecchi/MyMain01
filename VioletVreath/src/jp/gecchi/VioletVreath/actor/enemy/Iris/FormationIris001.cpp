@@ -17,8 +17,8 @@ FormationIris001::FormationIris001(const char* prm_name) : TreeFormation(prm_nam
     for (int i = 0; i < num_Iris_; i++) {
         papIris_[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(papIris_[i]->_pKurokoA, pSplLineCon_->use(), 10000); //移動速度固定
-        papIris_[i]->config(pProgram, pDepoCon_->use(), NULL);
+        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(papIris_[i]->_pKurokoA, pSplLineCon_->fetch(), 10000); //移動速度固定
+        papIris_[i]->config(pProgram, pDepoCon_->fetch(), NULL);
         papIris_[i]->inactivateImmed();
         addSubLast(papIris_[i]);
     }

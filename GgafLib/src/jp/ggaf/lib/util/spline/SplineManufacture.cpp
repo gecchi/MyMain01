@@ -7,7 +7,7 @@ using namespace GgafLib;
 SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject() {
     _source_file = string(prm_source_file);
     _pSplSrcCon = (SplineSourceConnection*)((P_GOD)->_pSplSrcManager->connect(prm_source_file));
-    _pSplSrc = _pSplSrcCon->use();
+    _pSplSrc = _pSplSrcCon->fetch();
     _sp = _pSplSrc->_pSp;
     _rate_X = 1.0;
     _rate_Y = 1.0;

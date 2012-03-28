@@ -8,9 +8,9 @@ using namespace VioletVreath;
 Stage02::Stage02(const char* prm_name) : Stage(prm_name) {
     _class_name = "Stage02";
 
-    pScene_Stage02PartController_ = NEW Stage02PartController("Stage02Ctrl");
-    pScene_Stage02PartController_->inactivate();
-    addSubLast(pScene_Stage02PartController_);
+    pScene_Stage02PartCtrler_ = NEW Stage02PartController("Stage02Ctrl");
+    pScene_Stage02PartCtrler_->inactivate();
+    addSubLast(pScene_Stage02PartCtrler_);
     Sleep(2);
     pWorldBoundSpace_  = NEW WorldBoundSpace002("BG_SPACE_TEST");
     getDirector()->addSubGroup(KIND_EFFECT, pWorldBoundSpace_);
@@ -42,7 +42,7 @@ void Stage02::processBehavior() {
             pMessage_->update(300*1000, 300*1000, "SCENE 02 START!");
             pMessage_->inactivateDelay(240);
             pWorldBoundSpace_->activateTree();
-            pScene_Stage02PartController_->activate();
+            pScene_Stage02PartCtrler_->activate();
             fadeinScene(240);
             _pProg->change(Stage::PROG_PLAYING);
         }
@@ -70,9 +70,9 @@ void Stage02::processJudgement() {
 }
 
 void Stage02::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_STG02_CONTROLLER_WAS_END ) {
+    if (prm_no == EVENT_STG02_CTRLER_WAS_END ) {
         _TRACE_("Stage02::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
-        pScene_Stage02PartController_->end(60*60);
+        pScene_Stage02PartCtrler_->end(60*60);
         _pProg->change(Stage::PROG_END);
     } else {
 

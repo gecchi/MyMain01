@@ -37,7 +37,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
          //"DpCon_EnemyAstraeaLaserChip003DepoStore",
          //"DpCon_EnemyAstraeaLaserChip001DepoStore",
          //"DpCon_EnemyAstraeaLaserChip002DepoStore",
-         pCon_RefractionEffectDepository_->use()
+         pCon_RefractionEffectDepository_->fetch()
         );
 
     papaPosLaser_ = NEW PosLaser*[laser_way_];
@@ -51,9 +51,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         for (int j = 0; j < laser_way_; j++) {
             Ry = GgafDxUtil::simplifyAng(paAngWay[j]);
             GgafDxUtil::getNormalizeVectorZY(Rz, Ry, vx, vy, vz);
-            papaPosLaser_[i][j].X = vx * PX2CO(100);
-            papaPosLaser_[i][j].Y = vy * PX2CO(100);
-            papaPosLaser_[i][j].Z = vz * PX2CO(100);
+            papaPosLaser_[i][j].X = vx * P2C(100);
+            papaPosLaser_[i][j].Y = vy * P2C(100);
+            papaPosLaser_[i][j].Z = vz * P2C(100);
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
@@ -75,10 +75,10 @@ void EnemyAstraea::onCreateModel() {
 void EnemyAstraea::initialize() {
     setHitAble(true);
     setAlpha(0.99);
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliSphere(0, PX2CO(200));
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliSphere(0, P2C(200));
     _pKurokoA->setRzRyMvAng(0, D180ANG);
-    _pKurokoA->setMvVelo(PX2CO(5));
+    _pKurokoA->setMvVelo(P2C(5));
 }
 
 void EnemyAstraea::onActive() {
@@ -133,7 +133,7 @@ void EnemyAstraea::processBehavior() {
             if (_pProg->isJustChanged()) {
                 //レーザーセット、借入
                 GgafActorDepositoryStore* pLaserChipDepoStore =
-                        (GgafActorDepositoryStore*)(pCon_LaserChipDepoStore_->use());
+                        (GgafActorDepositoryStore*)(pCon_LaserChipDepoStore_->fetch());
                 bool can_fire = false;
                 for (int i = 0; i < laser_way_; i++) {
                     for (int j = 0; j < laser_way_; j++) {
@@ -210,9 +210,9 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
         }
         _pSeTransmitter->play3D(1);
         sayonara();

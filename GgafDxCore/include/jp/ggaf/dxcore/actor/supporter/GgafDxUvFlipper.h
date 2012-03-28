@@ -88,7 +88,7 @@ public:
      * ＜例＞
      *
      *   setRotation(0, 0, 1.0/5, 1.0/4, 3, 10);
-     *   setActivePtnNo(5);
+     *   setActivePtn(5);
      *
      * を実行時のパターン概念図
      *
@@ -142,7 +142,7 @@ public:
      *       ----------------------------------------------------------
      *       _pUvFlipper = NEW GgafDxUvFlipper(this);
      *       _pUvFlipper->setRotation(縦分割数, 横分割数);
-     *       _pUvFlipper->setActivePtnNo(0);
+     *       _pUvFlipper->setActivePtn(0);
      *       _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
      *       ----------------------------------------------------------
      *       縦分割数, 横分割数はスプライト定義ファイル(.sprx)から取得される。
@@ -153,7 +153,7 @@ public:
      *       ----------------------------------------------------------
      *       _pUvFlipper = NEW GgafDxUvFlipper(this);
      *       _pUvFlipper->setRotation(1, 1);
-     *       _pUvFlipper->setActivePtnNo(0);
+     *       _pUvFlipper->setActivePtn(0);
      *       _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
      *       ----------------------------------------------------------
      *
@@ -232,26 +232,26 @@ public:
      * 現在のアニメーションパターンを設定する .
      * @param prm_pattno_uvflip アニメーションパターン番号
      */
-    void setActivePtnNo(int prm_pattno_uvflip);
+    void setActivePtn(int prm_pattno_uvflip);
 
     /**
      * アニメーションパターンを上限のアニメーションパターン番号(一番若い番号)に設定する .
      */
-    void setActivePtnNoToTop();
+    void setActivePtnToTop();
 
     /**
      * アニメーションパターンの範囲を制限する .
      * @param prm_top 上限のアニメーションパターン番号(若い方の番号)
      * @param prm_bottom 下限のアニメーションパターン番号(古い方の番号。若いの反対語ってないのか)
      */
-    void forcePtnNoRange(int prm_top, int prm_bottom);
+    void forcePtnRange(int prm_top, int prm_bottom);
 
     void customizePtnOrder(int prm_aPtnOffset[], int prm_num);
 
     /**
      * アニメーション方法を設定する .
      * <pre>
-     * ＜例＞forcePtnNoRange(0,5) が設定済みとした場合。
+     * ＜例＞forcePtnRange(0,5) が設定済みとした場合。
      * FLIP_ORDER_LOOP     : 0,1,2,3,4,5,0,1,2,3,4,5,...
      * FLIP_REVERSE_LOOP   : 5,4,3,2,1,0,5,4,3,2,1,0,5,4...
      * FLIP_ORDER_NOLOOP   : 0,1,2,3,4,5,5,5,5,5,5,5...

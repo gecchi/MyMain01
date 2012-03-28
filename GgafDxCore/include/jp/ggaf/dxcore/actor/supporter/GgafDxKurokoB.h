@@ -221,9 +221,19 @@ public:
         _acceVxMv = _acceVyMv = _acceVzMv = 0;
     }
 
-
-    void stopGravitationVxyzMvSequence() {
+    /**
+     * 重力により物体が引き寄せられるかような感じの動きみたいな感じをやめる .
+     */
+    void stopGravitationMvSequence() {
         _gravitation_mv_seq_flg = false;
+    }
+
+    /**
+     * 重力により物体が引き寄せられるかような感じの動きみたいな感じの最中かどうか
+     * @return true:重力により物体が引き寄せられるかような感じの動きみたいな感じ中/false:そうでない
+     */
+    bool isGravitationMvSequence() {
+        return _gravitation_mv_seq_flg;
     }
 
     /**
@@ -244,25 +254,25 @@ public:
      * @param prm_acce 引き寄せられている最中の各軸(XYZ)の軸移動加速度上限値
      * @param prm_stop_renge 速度が抑えられる目標座標からの各軸の距離
      */
-    void execGravitationVxyzMvSequence(coord prm_tX, coord prm_tY, coord prm_tZ,
-                                       velo prm_max_velo,
-                                       acce prm_acce,
-                                       coord prm_stop_renge);
+    void execGravitationMvSequence(coord prm_tX, coord prm_tY, coord prm_tZ,
+                                   velo prm_max_velo,
+                                   acce prm_acce,
+                                   coord prm_stop_renge);
 
     /**
      * 重力により物体が引き寄せられるかような感じの動きみたいな感じを実行 .
      * 説明は、
-     * execGravitationVxyzMvSequence(coord,coord,coord,velo,acce,int)
+     * execGravitationMvSequence(coord,coord,coord,velo,acce,int)
      * を参照。
      * @param prm_pActor_target 引き寄せられて到達する目標座標となるアクター
      * @param prm_max_velo 引き寄せられている最中の各軸(XYZ)の軸移動速度上限値
      * @param prm_acce 引き寄せられている最中の各軸(XYZ)の軸移動加速度上限値
      * @param prm_stop_renge 速度が抑えられる目標座標からの各軸の距離
      */
-    void execGravitationVxyzMvSequence(GgafDxGeometricActor* prm_pActor_target,
-                                       velo prm_max_velo,
-                                       acce prm_acce,
-                                       coord prm_stop_renge);
+    void execGravitationMvSequence(GgafDxGeometricActor* prm_pActor_target,
+                                   velo prm_max_velo,
+                                   acce prm_acce,
+                                   coord prm_stop_renge);
 
     /**
      * 黒子Bの仕事を引継ぐ .

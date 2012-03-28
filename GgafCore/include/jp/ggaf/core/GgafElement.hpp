@@ -774,7 +774,7 @@ public:
      * ˆê’â~ó‘Ô‚©‚Ç‚¤‚©”»’f
      * @return true:ˆê’â~ó‘Ô^false:ˆê’â~ó‘Ô‚Å‚Í–³‚¢
      */
-    virtual bool wasPause();
+    virtual bool wasPaused();
 
     /**
      * I—¹éŒ¾‚µ‚½‚©‚Ç‚¤‚© .
@@ -1421,7 +1421,7 @@ bool GgafElement<T>::onChangeToInactive() {
 }
 
 template<class T>
-bool GgafElement<T>::wasPause() {
+bool GgafElement<T>::wasPaused() {
     if (_was_paused_flg) {
         return true;
     } else {

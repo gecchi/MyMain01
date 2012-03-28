@@ -9,18 +9,18 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
     _class_name = "GamePreTitleScene";
     useProgress(10);
     _pProg->change(GamePreTitleScene::PROG_INIT);
-    pStringBoard01_ = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(pStringBoard01_);
-    pStringBoard02_ = NEW LabelGecchi16Font("STR02");
-    getDirector()->addSubGroup(pStringBoard02_);
+    pLabel01_ = NEW LabelGecchi16Font("STR01");
+    getDirector()->addSubGroup(pLabel01_);
+    pLabel02_ = NEW LabelGecchi16Font("STR02");
+    getDirector()->addSubGroup(pLabel02_);
     pTitleBoard_ = NEW TitleBoard("TitleBoard");
     getDirector()->addSubGroup(pTitleBoard_);
 }
 void GamePreTitleScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
-    pTitleBoard_->locate(PX2CO(100), PX2CO(600));
-    pStringBoard01_->update("");
-    pStringBoard02_->update("");
+    pTitleBoard_->locate(P2C(100), P2C(600));
+    pLabel01_->update("");
+    pLabel02_->update("");
 //    fadeoutScene(0);
     _pProg->change(GamePreTitleScene::PROG_INIT);
 }
@@ -45,18 +45,18 @@ void GamePreTitleScene::processBehavior() {
 //                fadeinScene(FADE_FRAMES);
             }
             if (_pProg->getFrameInProgress() == 1) {
-                pStringBoard01_->update(PX2CO(100), PX2CO(50), "[STORY]");
+                pLabel01_->update(P2C(100), P2C(50), "[STORY]");
             } else if (_pProg->getFrameInProgress() == 120) {
-                pStringBoard01_->update(PX2CO(100), PX2CO(50), "MUKASHI MUKASHI ARU TOKORONI.");
+                pLabel01_->update(P2C(100), P2C(50), "MUKASHI MUKASHI ARU TOKORONI.");
             } else if (_pProg->getFrameInProgress() == 240) {
-                pStringBoard01_->update(PX2CO(100), PX2CO(50), "MA SORE HA OITOITE...");
+                pLabel01_->update(P2C(100), P2C(50), "MA SORE HA OITOITE...");
             } else if (_pProg->getFrameInProgress() == 360) {
-                pStringBoard01_->update(PX2CO(100), PX2CO(50), "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
+                pLabel01_->update(P2C(100), P2C(50), "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
             } else if (_pProg->getFrameInProgress() > 361) {
                 //タイトルが下からニューっと
-                pTitleBoard_->_Y -= PX2CO(1);
-                if (pTitleBoard_->_Y <= PX2CO(90)) {
-                    pTitleBoard_->_Y = PX2CO(90);
+                pTitleBoard_->_Y -= P2C(1);
+                if (pTitleBoard_->_Y <= P2C(90)) {
+                    pTitleBoard_->_Y = P2C(90);
                     _pProg->change(GamePreTitleScene::PROG_FINISH);
                 }
             }

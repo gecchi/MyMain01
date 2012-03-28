@@ -136,7 +136,7 @@ void StageController::processBehavior() {
         if (can_rank_up_) {
             can_rank_up_ = false;
             _RANK_UP_LEVEL_++;
-            pRankUpStageController_->execute();
+            pRankUpStageCtrler_->execute();
         } else {
             //ƒXƒ‹[
         }

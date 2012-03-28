@@ -22,8 +22,8 @@ public:
 
     GgafDxCore::GgafDxSeConnection* pSeCon_exec_;
 
-    LabelGecchi16Font* pStringBoard01_;
-    LabelGecchi16Font* pStringBoard02_;
+    LabelGecchi16Font* pLabel01_;
+    LabelGecchi16Font* pLabel02_;
 
     MenuBoardTitle* pMenu_;
 

@@ -16,7 +16,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pDepo_ShotEffect_ = NULL;
 
     pDepoCon_ = connectToDepositoryManager("DpCon_Shot001", NULL);
-    //pDepo_Shot_ = pDepoCon_->use();
+    //pDepo_Shot_ = pDepoCon_->fetch();
 pDepo_Shot_ = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
@@ -35,23 +35,23 @@ void EnemyTamago01::initialize() {
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
     _pKurokoA->setMvAng(900000, 300000, 300000);
     _pKurokoA->setMvVelo(3000);
-    _pCollisionChecker->makeCollision(1);
-//    _pCollisionChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
-//        _pCollisionChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
+    _pColliChecker->makeCollision(1);
+//    _pColliChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
+//        _pColliChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
 
     //ƒqƒbƒg‚µ‚È‚¢——R‚ğ’T‚¹II
-//      _pCollisionChecker->setColliAAPrism_WHD(0,20000,-30000,50000,
+//      _pColliChecker->setColliAAPrism_WHD(0,20000,-30000,50000,
 //                                                90000,140000,60000,POS_PRISM_XY_nn);
 //
-//      _pCollisionChecker->setColliAAPrism_WHD(1,-20000,-30000,-50000,
+//      _pColliChecker->setColliAAPrism_WHD(1,-20000,-30000,-50000,
 //                                                 60000,90000,140000,POS_PRISM_ZX_pp);
 
-//    _pCollisionChecker->setColliAAB_WHD(0,20000,-30000,50000,
+//    _pColliChecker->setColliAAB_WHD(0,20000,-30000,50000,
 //                                              90000,140000,60000);
-    _pCollisionChecker->setColliAAB_Cube(0, 50000);
+    _pColliChecker->setColliAAB_Cube(0, 50000);
 
 
-    //_pCollisionChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    //_pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _X = -50000;
     _Y = 200000;
     _Z = 100000;
@@ -66,8 +66,8 @@ void EnemyTamago01::onActive() {
 
 //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
 //    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
-//    _pUvFlipper->forcePtnNoRange(0, 16*16-1);
-//    _pUvFlipper->setActivePtnNo(0);
+//    _pUvFlipper->forcePtnRange(0, 16*16-1);
+//    _pUvFlipper->setActivePtn(0);
     iMovePatternNo_ = 0;
 }
 
@@ -148,7 +148,7 @@ void EnemyTamago01::processBehavior() {
                 if (pActor) {
                     pActor->_pKurokoA->relateFaceAngWithMvAng(true);
                     pActor->_pKurokoA->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
-                    pActor->locateAs(this);
+                    pActor->locatedBy(this);
                 }
             }
             DELETEARR_IMPOSSIBLE_NULL(paAngWay);
@@ -156,7 +156,7 @@ void EnemyTamago01::processBehavior() {
             if (pDepo_ShotEffect_) {
                 pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                 if (pActor) {
-                    pActor->locateAs(this);
+                    pActor->locatedBy(this);
                 }
             }
         }
@@ -179,11 +179,11 @@ void EnemyTamago01::processJudgement() {
 
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+    EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
     _pSeTransmitter->play3D(0);
     _TRACE_("HIT!!!");
     if (pExplo001) {
-        pExplo001->locateAs(this);
+        pExplo001->locatedBy(this);
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

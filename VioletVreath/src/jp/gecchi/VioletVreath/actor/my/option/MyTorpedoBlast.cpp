@@ -15,7 +15,7 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 }
 
 void MyTorpedoBlast::initialize() {
-    _pCollisionChecker->makeCollision(1);
+    _pColliChecker->makeCollision(1);
     _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(0));
     _pKurokoA->setFaceAngVelo(AXIS_Y, DEG2ANG(6));
     _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(0));
@@ -24,7 +24,7 @@ void MyTorpedoBlast::initialize() {
 
 void MyTorpedoBlast::onReset() {
     _pStatus->reset();
-    _pCollisionChecker->setColliSphere(0, PX2CO(10));
+    _pColliChecker->setColliSphere(0, P2C(10));
     _pKurokoA->setMvVelo(0);
     _pScaler->setScale(R2SC(1));
     _pScaler->forceScaleRange(R2SC(1), R2SC(400));
@@ -39,7 +39,7 @@ void MyTorpedoBlast::processBehavior() {
     if (_pScaler->_method[AXIS_X] == NOSCALE) {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Ş‚ªI—¹
     } else {
-        _pCollisionChecker->setColliSphere(0, _pScaler->_scale[AXIS_X]); //“–‚½‚è”»’è‚à•Ï‰»
+        _pColliChecker->setColliSphere(0, _pScaler->_scale[AXIS_X]); //“–‚½‚è”»’è‚à•Ï‰»
         _pKurokoA->behave();
         _pScaler->behave();
     }

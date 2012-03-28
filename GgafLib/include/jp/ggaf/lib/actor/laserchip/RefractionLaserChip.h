@@ -20,7 +20,7 @@ class RefractionLaserChip : public LaserChip {
 private:
     frame _frame_refraction_enter;
     frame _frame_refraction_out;
-    bool _isRefracting;
+    bool _is_refracting;
     int _cnt_refraction;
 
     /** 先導チップ（本当の先頭チップ）フラグ */
@@ -38,7 +38,7 @@ private:
     angle _prev_RY;
     angle _prev_RZ;
 
-    bool _prev_isRefracting;
+    bool _prev_is_refracting;
     GgafDxCore::GgafDxDrawableActor* _prev_pRefractionEffect;
     int _num_refraction;
     frame _frame_between_refraction;

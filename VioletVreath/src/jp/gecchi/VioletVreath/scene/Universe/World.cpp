@@ -21,30 +21,26 @@ void World::initialize() {
     _TRACE_("World::initialize()");
     pixcoord cx = GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2;
     pixcoord cy = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)/2;
-    orderActorToFactory(0, LabelGecchi16Font, "STR01");
-    pLabel_Title_ = (LabelGecchi16Font*)obtainActorFromFactory(0);
+    pLabel_Title_ = makeInFactory(LabelGecchi16Font, "STR01");
     getDirector()->addSubGroup(pLabel_Title_);
-    pLabel_Title_->update(PX2CO(cx), PX2CO(cy - 16),
+    pLabel_Title_->update(P2C(cx), P2C(cy - 16),
                             "[ VIOLET VREATH ]", ALIGN_CENTER, VALIGN_MIDDLE);
 
-    orderActorToFactory(0, LabelGecchi16Font, "STR01");
-    pLabel_Wait_ = (LabelGecchi16Font*)obtainActorFromFactory(0);
+    pLabel_Wait_ = makeInFactory(LabelGecchi16Font, "STR02");
     getDirector()->addSubGroup(pLabel_Wait_);
-    pLabel_Wait_->update(PX2CO(cx), PX2CO(cy + 16),
+    pLabel_Wait_->update(P2C(cx), P2C(cy + 16),
                             "WATE A MOMENT PLASE...", ALIGN_CENTER, VALIGN_MIDDLE);
 
-    orderActorToFactory(0, LabelGecchi16Font, "ASTER");
-    pLabel_Aster_ = (LabelGecchi16Font*)obtainActorFromFactory(0);
+    pLabel_Aster_ = makeInFactory(LabelGecchi16Font, "ASTER");
     getDirector()->addSubGroup(pLabel_Aster_);
-    pLabel_Aster_->update(PX2CO(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
+    pLabel_Aster_->update(P2C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
     pLabel_Aster_->_pFader->beat(60, 30, 0, 0, -1); //チカチカ点滅
 #ifdef MY_DEBUG
     ColliAABActor::get();     //当たり判定領域表示用直方体、プリロード
     ColliAAPrismActor::get(); //当たり判定領域表示用プリズム、プリロード
     ColliSphereActor::get();  //当たり判定領域表示用球、プリロード
 #endif
-    orderActorToFactory(0, LabelGecchi16Font, "DebugStr");
-    pLabel_Debug_ = (LabelGecchi16Font*)obtainActorFromFactory(0);
+    pLabel_Debug_ = makeInFactory(LabelGecchi16Font, "DebugStr");
     getDirector()->addSubGroup(pLabel_Debug_);
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
@@ -89,7 +85,7 @@ void World::processBehavior() {
 //            ((GgafFactory::CREATING_ORDER->progress_==1) ? GgafFactory::CREATING_ORDER->pObject_Creation_->toString() : "NOTHING"),
             ((GgafFactory::CREATING_ORDER->_progress==1) ? GgafFactory::CREATING_ORDER->_id : 0)
             );
-    pLabel_Debug_->update(PX2CO(1), PX2CO(1), aBufDebug_);
+    pLabel_Debug_->update(P2C(1), P2C(1), aBufDebug_);
     if (getActivePartFrame() % 60 == 0) {
         _TRACE_("aBufDebug_="<<aBufDebug_);
     }
@@ -101,7 +97,7 @@ void World::processBehavior() {
             askGod()->_fps,
             ((GgafFactory::CREATING_ORDER->_progress==1)  ? GgafFactory::CREATING_ORDER->_id : 0)
             );
-    pLabel_Debug_->update(PX2CO(1), PX2CO(1), aBufDebug_);
+    pLabel_Debug_->update(P2C(1), P2C(1), aBufDebug_);
 #endif
 
 

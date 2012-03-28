@@ -30,8 +30,8 @@ void EnemyJuno::onCreateModel() {
 
 void EnemyJuno::initialize() {
     setHitAble(false);
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB_Cube(0, 45000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB_Cube(0, 45000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, -7000);
     _pKurokoA->forceMvVeloRange(1, _pKurokoA->_veloMv);
 }
@@ -62,7 +62,7 @@ void EnemyJuno::processBehavior() {
                 GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                 if (pShot) {
                     shot_num_++;
-                    pShot->locateAs(this);
+                    pShot->locatedBy(this);
                     pShot->_pKurokoA->relateFaceAngWithMvAng(true);
                     pShot->_pKurokoA->setMvAng(P_MYSHIP);
                     pShot->reset();
@@ -105,9 +105,9 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         _pSeTransmitter->play3D(0);
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
             pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
         sayonara();

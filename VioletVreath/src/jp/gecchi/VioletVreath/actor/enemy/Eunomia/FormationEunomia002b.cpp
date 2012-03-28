@@ -15,7 +15,7 @@ void FormationEunomia002b::processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, i
 //                                       -1.0 * MyShip::lim_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_zleft_  //Z•ûŒü”{—¦
 //                                    );
-//    pEnemyEunomia->locate(papSplLineCon_[col]->use()->pSp_->_Xbasepoint_[0], 0, 0);
+//    pEnemyEunomia->locate(papSplLineCon_[col]->fetch()->pSp_->_Xbasepoint_[0], 0, 0);
 }
 
 FormationEunomia002b::~FormationEunomia002b() {

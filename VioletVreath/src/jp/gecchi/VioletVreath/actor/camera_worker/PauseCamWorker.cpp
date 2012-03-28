@@ -196,7 +196,7 @@ void PauseCamWorker::processBehavior() {
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
 
-            double r = ((d/cd_) * PX2CO(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2));
+            double r = ((d/cd_) * P2C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2));
 
             move_target_X_CAM_ += (Q._x*r);
             move_target_Y_CAM_ += (Q._y*r);
@@ -272,7 +272,7 @@ void PauseCamWorker::processBehavior() {
         int td1 = GgafDxUtil::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
                                            move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
         if (MyStgUtil::abs(td1) > 10) {
-            pCam->_pKurokoA->execSmoothMvVeloSequence(0, td1, 20, 0.4, 0.6);
+            pCam->_pKurokoA->execSmoothMvSequence(0, td1, 20, 0.4, 0.6);
         }
     }
     if (abs(move_target_X_VP_ - pVP->_X) < 10 && abs(move_target_Y_VP_ - pVP->_Y) < 10 && abs(move_target_Z_VP_ - pVP->_Z) < 10) {
@@ -282,7 +282,7 @@ void PauseCamWorker::processBehavior() {
         int td2 = GgafDxUtil::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
                                            move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
         if (MyStgUtil::abs(td2) > 10) {
-            pVP->_pKurokoA->execSmoothMvVeloSequence(0, td2, 20, 0.4, 0.6);
+            pVP->_pKurokoA->execSmoothMvSequence(0, td2, 20, 0.4, 0.6);
         }
     }
 

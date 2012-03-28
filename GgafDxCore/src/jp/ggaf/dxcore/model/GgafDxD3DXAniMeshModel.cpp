@@ -41,7 +41,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
     LPDIRECT3DBASETEXTURE9 pTex = NULL;
     LPDIRECT3DBASETEXTURE9 pLastTex = NULL;
     if (_papTextureCon[n]) {
-        pLastTex = _papTextureCon[n]->use()->_pIDirect3DBaseTexture9;
+        pLastTex = _papTextureCon[n]->fetch()->_pIDirect3DBaseTexture9;
         GgafDxGod::_pID3DDevice9->SetTexture(0, pLastTex);
     } else {
         //無ければテクスチャ無し
@@ -96,7 +96,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
         } else {
             for (int j = 0; j < (int)((*it)->pMeshContainer->NumMaterials); j++) {
                 if (n > 0) {
-                    pTex = _papTextureCon[n]->use()->_pIDirect3DBaseTexture9;
+                    pTex = _papTextureCon[n]->fetch()->_pIDirect3DBaseTexture9;
                     if (pTex != pLastTex) {
                         //テクスチャが異なれば設定
                         GgafDxGod::_pID3DDevice9->SetTexture(0, pTex);

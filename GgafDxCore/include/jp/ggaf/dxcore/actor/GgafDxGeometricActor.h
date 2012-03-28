@@ -299,7 +299,7 @@ public:
      * 未変換座標をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void locateAs(GgafDxGeometricActor* prm_pActor) {
+    virtual void locatedBy(GgafDxGeometricActor* prm_pActor) {
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;
@@ -309,7 +309,7 @@ public:
      * 未変換座標をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
-    virtual void locateAs(GgafDxGeoElem* prm_pGeoElem);
+    virtual void locatedBy(GgafDxGeoElem* prm_pGeoElem);
 
     /**
      * 回転角度(_RX, _RY, _RZ)をコピーして設定 .

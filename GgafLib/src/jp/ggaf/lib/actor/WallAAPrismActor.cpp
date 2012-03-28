@@ -22,8 +22,8 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
     _pMeshSetModel->_set_num = 11; //WallPartsActor最大セット数は20。
 
 
-    _pCollisionChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
-    _pCollisionChecker->setColliAAPrism(0, 0,0,0, 0,0,0, 0);
+    _pColliChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
+    _pColliChecker->setColliAAPrism(0, 0,0,0, 0,0,0, 0);
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
@@ -73,9 +73,9 @@ void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int p
     WallPartsActor::config(prm_pWalledSectionScene, prm_pos_prism,  prm_wall_draw_face,  prm_aColliBoxStretch);
 
     if (prm_aColliBoxStretch[0] == 0) {
-        _pCollisionChecker->disable(0);
+        _pColliChecker->disable(0);
     } else {
-        _pCollisionChecker->setColliAAPrism(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
+        _pColliChecker->setColliAAPrism(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                                -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                                -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
                                                 (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
@@ -84,7 +84,7 @@ void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int p
                                                 _pos_prism
                                             );
 
-         _pCollisionChecker->enable(0);
+         _pColliChecker->enable(0);
     }
     HRESULT hr;
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;

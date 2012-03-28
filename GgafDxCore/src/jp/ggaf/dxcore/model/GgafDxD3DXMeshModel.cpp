@@ -31,7 +31,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
         if (GgafDxModelManager::_pModelLastDraw != this || _num_materials != 1) {
             if (_papTextureCon[i]) {
                 //テクスチャのセット
-                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->use()->_pIDirect3DBaseTexture9);
+                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->fetch()->_pIDirect3DBaseTexture9);
             } else {
                 _TRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
                 //無ければテクスチャ無し

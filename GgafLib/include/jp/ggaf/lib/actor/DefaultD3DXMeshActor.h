@@ -17,7 +17,7 @@ namespace GgafLib {
  * <TR><TD>_pScaler</TD><TD>Šg‘åk¬x‰‡</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
  * <TR><TD>_pSeTransmitter</TD><TD>Œø‰Ê‰¹”­¶ŠÇ—</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * <TR><TD>_pScaler</TD><TD>Šg‘åk¬x‰‡</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
- * <TR><TD>_pCollisionChecker</TD><TD>Õ“Ë”»’èx‰‡</TD><TD>GgafLib::CollisionChecker</TD></TR>
+ * <TR><TD>_pColliChecker</TD><TD>Õ“Ë”»’èx‰‡</TD><TD>GgafLib::CollisionChecker</TD></TR>
  * </TABLE>
  * @version 1.00
  * @since 2008/11/17
@@ -29,7 +29,7 @@ public:
     /** Šg‘åk¬x‰‡ƒIƒuƒWƒFƒNƒg */
     GgafDxCore::GgafDxScaler* _pScaler;
     /** Õ“Ë”»’èx‰‡ƒIƒuƒWƒFƒNƒg */
-    CollisionChecker* _pCollisionChecker;
+    CollisionChecker* _pColliChecker;
 
     DefaultD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
 

@@ -35,16 +35,16 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
     }
 
     pSplLineCon_ = connectToSplineLineManager("SpCon_001");
-    pProgram_CeresMove_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->use(), 5000); //移動速度固定
+    pProgram_CeresMove_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->fetch(), 5000); //移動速度固定
 
-//    pProgram_CeresMove_ = NEW FixedFrameSplineSequence(_pKurokoA, pSplLineCon_->use(), 600, 5000); //移動フレーム数固定
+//    pProgram_CeresMove_ = NEW FixedFrameSplineSequence(_pKurokoA, pSplLineCon_->fetch(), 600, 5000); //移動フレーム数固定
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "a_shot", GgafRepeatSeq::nextVal("CH_a_shot"));
 }
 
 void EnemyCeres::initialize() {
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
 }
 
 void EnemyCeres::onActive() {
@@ -108,9 +108,9 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
         //破壊された場合
         setHitAble(false);
         _pSeTransmitter->play3D(0);
-        GgafDxDrawableActor* pExplo001 = (GgafDxDrawableActor*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        GgafDxDrawableActor* pExplo001 = getFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
         }
         sayonara();
     }

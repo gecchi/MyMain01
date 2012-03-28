@@ -32,19 +32,19 @@ void MagicMeterStatus::processDraw() {
         //各メーター下段表示
         if (pMagic->level_ > 0) {
             setAlpha(1.0);
-            _X = pMagicMeter_->_X + PX2CO(pMagicMeter_->width_px_)*i;
-            _Y = pMagicMeter_->_Y + PX2CO(pMagicMeter_->height_px_);
+            _X = pMagicMeter_->_X + P2C(pMagicMeter_->width_px_)*i;
+            _Y = pMagicMeter_->_Y + P2C(pMagicMeter_->height_px_);
             sprintf(aBuf_, "%06d", (pMagic->lvinfo_[pMagic->level_].remainingtime_of_effect_)/60);
             update(aBuf_);
             StringBoardActor::processDraw();
         }
 
-        _X = pMagicMeter_->_X + PX2CO(pMagicMeter_->width_px_)*(i+1); //i+1 は右隣に表示
+        _X = pMagicMeter_->_X + P2C(pMagicMeter_->width_px_)*(i+1); //i+1 は右隣に表示
         //各マジック要素
         if (pMagic->rr_ > 0.1) {
             for (int j = 1; j <= pMagic->level_; j++) {
                 setAlpha(pMagic->rr_);
-                _Y = pMagicMeter_->_Y - (PX2CO(pMagicMeter_->height_px_)*(j+1)*pMagic->rr_); //j+1 の +1 は最下段が nothing の為
+                _Y = pMagicMeter_->_Y - (P2C(pMagicMeter_->height_px_)*(j+1)*pMagic->rr_); //j+1 の +1 は最下段が nothing の為
                 sprintf(aBuf_, "%06d", (pMagic->lvinfo_[j].remainingtime_of_effect_)/60);
                 update(aBuf_);
                 StringBoardActor::processDraw();

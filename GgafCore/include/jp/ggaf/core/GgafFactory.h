@@ -75,16 +75,6 @@ public:
     /**
      * 工場にアクター作成の注文を行う（メインスレッドが使用） .
      * メイン処理が呼び出します。<BR>
-     * @param prm_id	注文識別ID番号
-     * @param prm_pFunc	実際に製造処理を行う関数のポインタ
-     * @param prm_pArg1	製造処理を行う関数への引数1
-     * @param prm_pArg2	製造処理を行う関数への引数2
-     * @param prm_pArg3	製造処理を行う関数への引数3
-     */
-
-    /**
-     * 工場にアクター作成の注文を行う（メインスレッドが使用） .
-     * メイン処理が呼び出します。<BR>
      * @param prm_id    注文識別ID番号
      * @param prm_pFunc 実際に製造処理を行う関数のポインタ
      * @param prm_pOrderer 注文元オブジェクト
@@ -142,9 +132,23 @@ public:
      */
     static GgafMainScene* obtainScene(unsigned long prm_id, GgafObject* prm_org);
 
+
+    template<class X>
+    static X* makeObject(X* (*prm_pFunc)(void*, void*, void*),
+                           GgafObject* prm_pOrderer,
+                           void* prm_pArg1,
+                           void* prm_pArg2,
+                           void* prm_pArg3,
+                           GgafObject* prm_org) {
+        order(ULONG_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
+        return (X*)(obtainActor(ULONG_MAX, prm_org));
+    }
+
+
     /**
      * 注文した商品が出来上がっているか調べる。（メインスレッドが使用） .
-     * @return  進捗具合(-2:工場自体が動いてない/-1:注文すらしていない/0:注文済みで工場未着手/1:製造中/2:製造済み）
+     * @param   prm_id   注文識別ID
+     * @return   注文識別IDの商品の進捗具合(-2:工場自体が動いてない/-1:注文すらしていない/0:注文済みで工場未着手/1:製造中/2:製造済み）
      */
     static int chkProgress(unsigned long prm_id);
 
@@ -207,30 +211,30 @@ public:
         return p;
     }
 
-    template<class X>
-    static X* createActorWithModel(void* p1, void* p2, void* p3) {
-        //p1 : 識別名称
-        //p2 : モデル識別文字列
-        X* p = NEW X((char*)p1, (char*)p2);
-        return p;
-    }
-
-    template<class X>
-    static X* createActorWithDp(void* p1, void* p2, void* p3) {
-        //p1 : 識別名称
-        //p2 : アクター発送者
-        X* p = NEW X((char*)p1, (GgafCore::GgafActorDepository*)p2);
-        return p;
-    }
-
-    template<class X>
-    static X* createActorWithModelDp(void* p1, void* p2, void* p3) {
-        //p1 : 識別名称
-        //p2 : モデル識別文字列
-        //p3 : アクター発送者
-        X* p = NEW X((char*)p1, (char*)p2, (GgafCore::GgafActorDepository*)p3);
-        return p;
-    }
+//    template<class X>
+//    static X* createActorWithModel(void* p1, void* p2, void* p3) {
+//        //p1 : 識別名称
+//        //p2 : モデル識別文字列
+//        X* p = NEW X((char*)p1, (char*)p2);
+//        return p;
+//    }
+//
+//    template<class X>
+//    static X* createActorWithDp(void* p1, void* p2, void* p3) {
+//        //p1 : 識別名称
+//        //p2 : アクター発送者
+//        X* p = NEW X((char*)p1, (GgafCore::GgafActorDepository*)p2);
+//        return p;
+//    }
+//
+//    template<class X>
+//    static X* createActorWithModelDp(void* p1, void* p2, void* p3) {
+//        //p1 : 識別名称
+//        //p2 : モデル識別文字列
+//        //p3 : アクター発送者
+//        X* p = NEW X((char*)p1, (char*)p2, (GgafCore::GgafActorDepository*)p3);
+//        return p;
+//    }
 
     template<class X>
     static X* createScene(void* p1, void* p2, void* p3) {
@@ -240,15 +244,16 @@ public:
         return p;
     }
 
+
 };
 #define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene, this, (void*)(NAME),(void*)(NULL),(void*)(NULL)))
 #define orderActorToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor, this, (void*)(NAME),(void*)(NULL),(void*)(NULL)))
-#define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModel,this,(void*)(NAME),(void*)(MODEL),(void*)(NULL)))
-#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModelDp,this,(void*)(NAME),(void*)(MODEL),(void*)(DEPOSITORY)))
-#define orderActorWithDpToFactory(ID, CLASS, NAME, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithDp,this,(void*)(NAME),(void*)(DEPOSITORY), (void*)(NULL)))
+//#define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModel,this,(void*)(NAME),(void*)(MODEL),(void*)(NULL)))
+//#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModelDp,this,(void*)(NAME),(void*)(MODEL),(void*)(DEPOSITORY)))
+//#define orderActorWithDpToFactory(ID, CLASS, NAME, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithDp,this,(void*)(NAME),(void*)(DEPOSITORY), (void*)(NULL)))
 
 #define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID),this))
 #define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID),this))
-
+#define makeInFactory(CLASS, NAME) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::createActor, this, (void*)(NAME),(void*)(NULL),(void*)(NULL),this))
 }
 #endif /*GGAFGACTORY_H_*/

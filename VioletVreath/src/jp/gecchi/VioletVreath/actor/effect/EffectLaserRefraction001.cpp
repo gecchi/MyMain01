@@ -14,12 +14,12 @@ EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
 }
 
 void EffectLaserRefraction001::initialize() {
-//    _pUvFlipper->forcePtnNoRange(0, 63);
+//    _pUvFlipper->forcePtnRange(0, 63);
     setHitAble(false);
 }
 
 void EffectLaserRefraction001::onActive() {
-    //_pUvFlipper->setActivePtnNoToTop();
+    //_pUvFlipper->setActivePtnToTop();
     //_pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
     setAlpha(0.5);
     _pScaler->setScale(R2SC(6));

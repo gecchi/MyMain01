@@ -103,7 +103,7 @@ void GameScene::processBehavior() {
             //P_GOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
             if ((_pProg->getFrameInProgress() >= 180 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) || GgafDxInput::isPushedDownKey(DIK_P)) {
                 _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
-                _pProg->changeWithScene_Crossfading(GameScene::PROG_PRE_TITLE);
+                _pProg->changeWithSceneCrossfading(GameScene::PROG_PRE_TITLE);
                 P_WORLD->pPreDrawScene_->inactivateTreeImmed();
                 P_WORLD->pPreDrawScene_->pauseTreeImmed();
             }
@@ -117,7 +117,7 @@ void GameScene::processBehavior() {
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
-                _pProg->changeWithScene_Flipping(GameScene::PROG_TITLE);
+                _pProg->changeWithSceneFlipping(GameScene::PROG_TITLE);
             }
             //EVENT_PREGAMETITLESCENE_FINISH イベント受付
             break;
@@ -139,7 +139,7 @@ void GameScene::processBehavior() {
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                _pProg->changeWithScene_Flipping(GameScene::PROG_TITLE);
+                _pProg->changeWithSceneFlipping(GameScene::PROG_TITLE);
             }
 
             //或いは EVENT_GAMEDEMOSCENE_FINISH イベント受付
@@ -164,7 +164,7 @@ void GameScene::processBehavior() {
             }
 
             //今ポーズではない時
-            if (!_pProg->getGazeScene()->_was_paused_flg) {
+            if (!_pProg->getGazedScene()->wasPaused()) {
                 if (was_paused_flg_GameMainScene_prev_frame_ == true)  {
                     //現フレームポーズではない、かつ前フレームポーズの場合。
                     //ポーズ解除から最初のフレーム処理はココへ
@@ -180,12 +180,12 @@ void GameScene::processBehavior() {
                     is_frame_advance_ = false;
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
-                    _pProg->getGazeScene()->pauseTree(); //ポーズ！！
-                    pMenuBoardPause_->rise(PX2CO(100), PX2CO(20));
+                    _pProg->getGazedScene()->pauseTree(); //ポーズ！！
+                    pMenuBoardPause_->rise(P2C(100), P2C(20));
                 }
             }
             //今ポーズ時
-            if (_pProg->getGazeScene()->_was_paused_flg) {
+            if (_pProg->getGazedScene()->wasPaused()) {
                 if (was_paused_flg_GameMainScene_prev_frame_ == false) {
                     //現フレームポーズで、前フレームポーズではない場合
                     //ポーズ発生後の、最初のフレーム処理はココへ
@@ -203,10 +203,10 @@ void GameScene::processBehavior() {
                     //ポーズ解除時直後の初期処理はココへ
                     _TRACE_("UNPAUSE!");
                     P_GOD->setVB(VB_PLAY);
-                    _pProg->getGazeScene()->unpauseTree();//ポーズ解除！！
+                    _pProg->getGazedScene()->unpauseTree();//ポーズ解除！！
                 }
             }
-            was_paused_flg_GameMainScene_prev_frame_ = _pProg->getGazeScene()->_was_paused_flg;
+            was_paused_flg_GameMainScene_prev_frame_ = _pProg->getGazedScene()->wasPaused();
             //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
             break;
         }
@@ -273,38 +273,38 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {
         //プレタイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_PREGAMETITLESCENE_FINISH)");
-        _pProg->changeWithScene_Flipping(GameScene::PROG_TITLE); //タイトルへ
+        _pProg->changeWithSceneFlipping(GameScene::PROG_TITLE); //タイトルへ
 
     } else if (prm_no == EVENT_GAMETITLESCENE_FINISH) {
         //タイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLESCENE_FINISH)");
         //changeFlippingSubScene(GameScene::PROG_DEMO);
-        _pProg->changeWithScene_Crossfading(GameScene::PROG_DEMO); //デモへ
+        _pProg->changeWithSceneCrossfading(GameScene::PROG_DEMO); //デモへ
 
     } else if (prm_no == EVENT_GAMEDEMOSCENE_FINISH) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
-        _pProg->changeWithScene_Crossfading(GameScene::PROG_INIT); //最初へ
+        _pProg->changeWithSceneCrossfading(GameScene::PROG_INIT); //最初へ
 
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMESTART)");
-        _pProg->changeWithScene_Crossfading(GameScene::PROG_BEGINNING); //オープニング（ゲームモードセレクト）へ
+        _pProg->changeWithSceneCrossfading(GameScene::PROG_BEGINNING); //オープニング（ゲームモードセレクト）へ
 
     } else if (prm_no == EVENT_GAMEMODE_DECIDE) {
         //ゲームモードセレクト完了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
-        _pProg->changeWithScene_Crossfading(GameScene::PROG_MAIN,600);//メインへ
+        _pProg->changeWithSceneCrossfading(GameScene::PROG_MAIN,600);//メインへ
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生
         _TRACE_("GameScene::onCatchEvent(EVENT_GOTO_GAMETITLE)");
-        _pProg->changeWithScene_Flipping(GameScene::PROG_TITLE); //タイトルへ
+        _pProg->changeWithSceneFlipping(GameScene::PROG_TITLE); //タイトルへ
     }
 
 
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
-        _pProg->changeWithScene_Crossfading(GameScene::PROG_GAME_OVER); //ゲームオーバーへ
+        _pProg->changeWithSceneCrossfading(GameScene::PROG_GAME_OVER); //ゲームオーバーへ
     } else if (prm_no == EVENT_GAME_OVER_FINISH) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GAME_OVER_FINISH)");
         _pProg->change(GameScene::PROG_FINISH);

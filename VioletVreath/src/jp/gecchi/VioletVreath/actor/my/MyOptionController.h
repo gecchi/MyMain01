@@ -24,11 +24,11 @@ public:
     /** [r]トレース時のオプションとオプションの間隔 */
     static int o2o_;
     int no_;
-    MyOption* pMyOption_;
+    MyOption* pOption_;
 //    MyOptionControllerGizmo* pGizmo_;
 //    MyOptionControllerDirectionVector* pDirectionVector_;
 
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_OpConGeoHistory_;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_OptCtrlGeoHistory_;
     velo veloOptionsMv_;
     MyShip::MoveWay way_myship_prev_;
 

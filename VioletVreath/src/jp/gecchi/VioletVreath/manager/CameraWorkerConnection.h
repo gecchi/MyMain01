@@ -15,9 +15,9 @@ public:
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名
-     * @param prm_pCameraWorker デポジトリ
+     * @param prm_pCamWorker デポジトリ
      */
-    CameraWorkerConnection(char* prm_idstr, CameraWorker* prm_pCameraWorker);
+    CameraWorkerConnection(char* prm_idstr, CameraWorker* prm_pCamWorker);
 
     void processReleaseResource(CameraWorker* prm_pResource);
 

@@ -89,13 +89,13 @@ void GamePauseScene::processBehavior() {
                 //アイテム
                 for (int i = 0; i < max_menu_item_; i++) {
                     //初期設定
-                    papMenuItemLabel_[i]->locate(PX2CO(-256), PX2CO(0));
+                    papMenuItemLabel_[i]->locate(P2C(-256), P2C(0));
                     papMenuItemLabel_[i]->activateDelay(i*10+1); //パラパラと順に
                     //飛ばす
-                    coord tX = PX2CO(1000);
-                    coord tY = PX2CO(200+i*32);
+                    coord tX = P2C(1000);
+                    coord tY = P2C(200+i*32);
                     papMenuItemLabel_[i]->_pKurokoA->setMvAng(tX, tY);
-                    papMenuItemLabel_[i]->_pKurokoA->execSmoothMvVeloSequence(
+                    papMenuItemLabel_[i]->_pKurokoA->execSmoothMvSequence(
                                                         0,
                                                         GgafDxUtil::getDistance(papMenuItemLabel_[i]->_X, papMenuItemLabel_[i]->_Y, tX, tY),
                                                         30,
@@ -103,21 +103,21 @@ void GamePauseScene::processBehavior() {
                 }
 
                 //カーソル
-                pCursor001_->locateAs(papMenuItemLabel_[active_item_]);
+                pCursor001_->locatedBy(papMenuItemLabel_[active_item_]);
                 pCursor001_->activate();
             }
             //メインループ
 
             pCursor001_->moveTo(papMenuItemLabel_[active_item_]);
             if (VB->isAutoRepeat(VB_UI_UP)) {
-                pSeCon_exec_->use()->play();
+                pSeCon_exec_->fetch()->play();
                 active_item_--;
                 if (active_item_ < 0) {
                     active_item_ = max_menu_item_-1;
                 }
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             } else if (VB->isAutoRepeat(VB_UI_DOWN)) {
-                pSeCon_exec_->use()->play();
+                pSeCon_exec_->fetch()->play();
                 active_item_++;
                 if (active_item_ > max_menu_item_-1) {
                     active_item_ = 0;

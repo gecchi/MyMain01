@@ -32,27 +32,27 @@ void Planet001::initialize() {
     _pKurokoA->setFaceAngVelo(AXIS_X, 20); //自転の速さ
 
     pAtmosphere_->_pScaler->setScale(_pScaler->_scale[0]);
-    pAtmosphere_->locateAs(this);
+    pAtmosphere_->locatedBy(this);
 }
 void Planet001::processBehavior() {
     //巨大オブジェクトテスト
     if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-        _X += PX2CO(100);
+        _X += P2C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_U)) {
-        _X -= PX2CO(100);
+        _X -= P2C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_8)) {
-        _Y += PX2CO(100);
+        _Y += P2C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_J)) {
-        _Y -= PX2CO(100);
+        _Y -= P2C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_9)) {
-        _Z += PX2CO(100);
+        _Z += P2C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_K)) {
-        _Z -= PX2CO(100);
+        _Z -= P2C(100);
     }
 
     if (GgafDxInput::isBeingPressedKey(DIK_0)) {
@@ -65,12 +65,12 @@ void Planet001::processBehavior() {
     if (GgafDxInput::isPushedDownKey(DIK_O)) {
         _TRACE_("Planet001  "<<_X<<","<<_Y<<","<<_Z);
     }
-    //_X = _X - PX2CO(1);
+    //_X = _X - P2C(1);
     _pScaler->behave();
     _pKurokoA->behave();
 
     pAtmosphere_->_pScaler->setScale(_pScaler->_scale[0]);
-    pAtmosphere_->locateAs(this);
+    pAtmosphere_->locatedBy(this);
 }
 
 Planet001::~Planet001() {

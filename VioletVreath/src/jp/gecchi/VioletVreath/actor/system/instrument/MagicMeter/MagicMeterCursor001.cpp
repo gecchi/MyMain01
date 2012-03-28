@@ -15,7 +15,7 @@ MagicMeterCursor001::MagicMeterCursor001(const char* prm_name, MagicMeter* prm_p
 void MagicMeterCursor001::initialize() {
     _X = tX_ = pMagicMeter_->_X + pMagicMeter_->width_*pMagicMeter_->ringMagics_.getCurrentIndex();
     _Y = tY_ = pMagicMeter_->_Y;
-    _pUvFlipper->setActivePtnNo(0);
+    _pUvFlipper->setActivePtn(0);
 }
 
 void MagicMeterCursor001::onActive() {
@@ -42,7 +42,7 @@ void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     tX_ = pMagicMeter_->_X + pMagicMeter_->width_*prm_magic_mater_index;
     tY_ = pMagicMeter_->_Y;
     _pKurokoA->setMvAng(tX_, tY_);
-    _pKurokoA->execSmoothMvVeloSequence(0, GgafDxUtil::getDistance(_X, _Y, tX_, tY_),
+    _pKurokoA->execSmoothMvSequence(0, GgafDxUtil::getDistance(_X, _Y, tX_, tY_),
                                         10, 0.2, 0.4);
 }
 

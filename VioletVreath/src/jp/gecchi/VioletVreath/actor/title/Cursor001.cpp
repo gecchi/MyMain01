@@ -27,7 +27,7 @@ void Cursor001::processJudgement() {
 
 void Cursor001::moveTo(int X, int Y) {
     _pKurokoA->setMvAng(X, Y);
-    _pKurokoA->execSmoothMvVeloSequence(0,GgafDxUtil::getDistance(_X, _Y, X, Y),
+    _pKurokoA->execSmoothMvSequence(0,GgafDxUtil::getDistance(_X, _Y, X, Y),
                                             8,0.2,0.3);
 }
 

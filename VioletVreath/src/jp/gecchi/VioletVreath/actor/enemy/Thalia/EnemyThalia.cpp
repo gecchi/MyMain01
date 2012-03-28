@@ -27,7 +27,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     pLaserChipDepo_->config(60, 1, NULL);
     EnemyStraightLaserChip001* pChip;
-    for (int i = 0; i < 60; i++) { //レーザーストック
+    for (int i = 0; i < 65; i++) { //レーザーストック
         stringstream name;
         name <<  "EnemyStraightLaserChip001[" << i << "]";
         pChip = NEW EnemyStraightLaserChip001(name.str().c_str());
@@ -56,8 +56,8 @@ void EnemyThalia::onCreateModel() {
 void EnemyThalia::initialize() {
     setHitAble(true);
     _pKurokoA->relateFaceAngWithMvAng(true);
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliSphere(0, 90000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliSphere(0, 90000);
     setScaleR(0.3);
 }
 
@@ -66,8 +66,8 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
-    _pKurokoA->execSmoothMvVeloSequenceD(veloTopMv_, 1000,
-                                         MyShip::lim_front_-_X, 0.4, 0.6);
+    _pKurokoA->execSmoothMvSequenceD(veloTopMv_, 1000,
+                                     MyShip::lim_front_-_X, 0.4, 0.6);
     _pProg->set(THALIA_PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
 
@@ -84,8 +84,8 @@ void EnemyThalia::processBehavior() {
             if (!_pKurokoA->isMoveingSmooth()) {
                 _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //0.0004 開く速さ
                 _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                                    0, 100,
-                                                    TURN_CLOSE_TO);
+                                                 0, 100,
+                                                 TURN_CLOSE_TO);
 
                 _pProg->changeNext();
             }
@@ -109,8 +109,8 @@ void EnemyThalia::processBehavior() {
         case THALIA_PROG_IN_FIRE: {
             if (getActivePartFrame() % 10 == 0) {
                 _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                                    10, 0,
-                                                    TURN_CLOSE_TO);
+                                                 10, 0,
+                                                 TURN_CLOSE_TO);
             }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
@@ -126,12 +126,13 @@ void EnemyThalia::processBehavior() {
         case THALIA_PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60); //閉じる
-            _pKurokoA->execSmoothMvVeloSequenceD(veloTopMv_, 1000, 1500000, 0.4, 0.6);
-//            _pKurokoA->execSmoothMvVeloSequence(200, 1000000, 180);
+            _pKurokoA->execSmoothMvSequenceD(veloTopMv_, 1000, 1500000, 0.4, 0.6);
+//            _pKurokoA->execSmoothMvSequence(200, 1000000, 180);
             _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(THALIA_PROG_MOVE);
-        }
             break;
+        }
+
         default:
             break;
     }
@@ -153,17 +154,17 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
     if (_pProg->get() != THALIA_PROG_MOVE && (pOther->getKind() & KIND_MY) ) {
         changeEffectTechniqueInterim("Flush", 2); //フラッシュ
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
         }
         _pSeTransmitter->play3D(0);
 
 
         if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+            EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
             if (pExplo001) {
-                pExplo001->locateAs(this);
+                pExplo001->locatedBy(this);
             }
             _pSeTransmitter->play3D(0);
 

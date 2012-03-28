@@ -51,8 +51,8 @@ MyShip::MyShip(const char* prm_name) :
     iMvVelo_BeginMT_ = 40000; //Turbo移動開始時の移動速度の初速度
     iMvAcce_MT_ = -200; //Turbo移動中の移動速度の加速度
 
-//    pMyOptionController_ = NEW MyOptionController("MY_OPTION_PARENT");
-//    addSubLast(pMyOptionController_);
+//    pOptionCtrler_ = NEW MyOptionController("MY_OPTION_PARENT");
+//    addSubLast(pOptionCtrler_);
 
     pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
     MyShot001* pShot;
@@ -190,14 +190,14 @@ void MyShip::initialize() {
     //getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
 
     setHitAble(true);
-    _pCollisionChecker->makeCollision(1);
-//    _pCollisionChecker->setColliSphere(0, -100000, -50000, 20000, 100000);
-// _pCollisionChecker->setColliAAB(0, -100000, -50000, 20000, 10000, 40000, 80000);
-      _pCollisionChecker->setColliAAB_Cube(0, 40000);
-//    _pCollisionChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
-//    _pCollisionChecker->setColliSphere(2, 0,100000,0, 30000, true, true, true);
-//    _pCollisionChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
-//    _pCollisionChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
+    _pColliChecker->makeCollision(1);
+//    _pColliChecker->setColliSphere(0, -100000, -50000, 20000, 100000);
+// _pColliChecker->setColliAAB(0, -100000, -50000, 20000, 10000, 40000, 80000);
+      _pColliChecker->setColliAAB_Cube(0, 40000);
+//    _pColliChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
+//    _pColliChecker->setColliSphere(2, 0,100000,0, 30000, true, true, true);
+//    _pColliChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
+//    _pColliChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
     _pKurokoA->setMvVelo(0);
     _pScaler->setScale(1000);
@@ -368,9 +368,9 @@ void MyShip::processBehavior() {
 
     if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
-        EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->pDepo_EffectTurbo002_->dispatchForce();
+        EffectTurbo002* pTurbo002 = getFromCommon(EffectTurbo002);
          if (pTurbo002) {
-             pTurbo002->locateAs(this);
+             pTurbo002->locatedBy(this);
              pTurbo002->activate();
          }
         (this->*paFuncTurbo[way_])();
@@ -530,7 +530,7 @@ void MyShip::processJudgement() {
             MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
             if (pShot) {
                 _pSeTransmitter->play3D(2);
-                pShot->locateAs(this);
+                pShot->locatedBy(this);
             }
             if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
                 //SOFT_RAPIDSHOT_NUM 発打ち終えたらソフト連射終了
@@ -541,12 +541,12 @@ void MyShip::processJudgement() {
     if (is_being_soft_rapidshot_) {
         frame_soft_rapidshot_++;
     }
-    MyOptionController** papMyOptionController = P_MYSHIP_SCENE->papMyOptionController_;
+    MyOptionController** papOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_;
     //光子魚雷発射
     if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         bool can_fire = true;
         for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-            if (papMyOptionController[i]->pMyOption_->pTorpedoController_->in_firing_) {
+            if (papOptCtrler[i]->pOption_->pTorpedoCtrler_->in_firing_) {
                 can_fire = false;
                 break;
             }
@@ -556,7 +556,7 @@ void MyShip::processJudgement() {
                 if (i == 0) {
                     _pSeTransmitter->play3D(3);
                 }
-                papMyOptionController[i]->pMyOption_->pTorpedoController_->fire();
+                papOptCtrler[i]->pOption_->pTorpedoCtrler_->fire();
             }
         }
     }
@@ -577,15 +577,15 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     //壁の場合特別な処理
     if (pOther->getKind() & KIND_CHIKEI) {
 
-        blown_veloX_ = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKurokoB->_veloVxMv)));
-        blown_veloY_ = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKurokoB->_veloVyMv)));
-        blown_veloZ_ = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKurokoB->_veloVzMv)));
+        blown_veloX_ = (GgafUtil::sign(_pColliChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKurokoB->_veloVxMv)));
+        blown_veloY_ = (GgafUtil::sign(_pColliChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKurokoB->_veloVyMv)));
+        blown_veloZ_ = (GgafUtil::sign(_pColliChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKurokoB->_veloVzMv)));
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
         }
         _pSeTransmitter->play3D(0);
     }
@@ -602,7 +602,7 @@ void MyShip::doNotingMoveInput() {
 }
 void MyShip::setMoveSpeedLv(int lv) {
         //lv_MoveSpeed_ = lv;
-        iMoveSpeed_ = PX2CO(lv);
+        iMoveSpeed_ = P2C(lv);
     }
 
 void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {

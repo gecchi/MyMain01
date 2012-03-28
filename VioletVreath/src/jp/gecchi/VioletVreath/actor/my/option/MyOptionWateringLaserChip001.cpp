@@ -12,8 +12,8 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     _class_name = "MyOptionWateringLaserChip001";
     default_stamina_ = _pStatus->get(STAT_Stamina);
     pOrg_ = NULL;
-    lockon_ = 0;
-    isLockon_ = false;
+    lockon_st_ = 0;
+    is_lockon_ = false;
     max_acce_renge_ = 0;
     max_velo_renge_ = 160000; //この値を大きくすると、最高速度が早くなる。
     r_max_acce_ = 18; //この値を大きくすると、カーブが緩くなる
@@ -31,24 +31,24 @@ void MyOptionWateringLaserChip001::onActive() {
     _pStatus->reset();
     default_stamina_ = _pStatus->get(STAT_Stamina);
     WateringLaserChip::onActive();
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonController_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
         if (_pChip_front == NULL) {
             //先端チップ
-            lockon_ = 1;
+            lockon_st_ = 1;
         } else {
             //先端以外
             MyOptionWateringLaserChip001* pF = (MyOptionWateringLaserChip001*) _pChip_front;
-            lockon_ = pF->lockon_;//一つ前のロックオン情報を引き継ぐ
+            lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
         if (_pChip_front == NULL) {
             //先端チップ
-            lockon_ = 0;
+            lockon_st_ = 0;
         } else {
             //先端以外
             MyOptionWateringLaserChip001* pF = (MyOptionWateringLaserChip001*) _pChip_front;
-            lockon_ = pF->lockon_;//一つ前のロックオン情報を引き継ぐ
+            lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     }
     _pKurokoB->setZeroVxyzMvAcce(); //加速度リセット
@@ -61,20 +61,20 @@ void MyOptionWateringLaserChip001::onActive() {
 }
 
 void MyOptionWateringLaserChip001::processBehavior() {
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonController_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     if (getActivePartFrame() > 6) {
-        if (lockon_ == 1) {
+        if (lockon_st_ == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
                 moveChip(pMainLockOnTarget->_X,
                          pMainLockOnTarget->_Y,
                          pMainLockOnTarget->_Z );
             } else {
                 //_pKurokoB->setZeroVxyzMvAcce();
-                lockon_ = 2;
+                lockon_st_ = 2;
             }
         }
 
-        if (lockon_ == 2) {
+        if (lockon_st_ == 2) {
             if (_pLeader) {
                 if (_pLeader == this) {
                     moveChip(_X + _pKurokoB->_veloVxMv*4+1,
@@ -90,7 +90,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
-        locateAs(pOrg_);
+        locatedBy(pOrg_);
         _tmpX = _X;
         _tmpY = _Y;
         _tmpZ = _Z;
@@ -206,7 +206,7 @@ void MyOptionWateringLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActo
 
 void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonController_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     //ヒットエフェクト
     //無し
 
@@ -215,10 +215,10 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             if (pOther == pMainLockOnTarget) {
                 //オプションのロックオンに見事命中した場合
 
-                lockon_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
+                lockon_st_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
                 if (_pChip_front && _pChip_front->_pChip_front == NULL) {
                     //中間先頭チップがヒットした場合、先端にも伝える(先端は当たり判定ないため中間先頭と同値にする)
-                    ((MyOptionWateringLaserChip001*)_pChip_front)->lockon_ = 2;
+                    ((MyOptionWateringLaserChip001*)_pChip_front)->lockon_st_ = 2;
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合
@@ -232,14 +232,14 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+            EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
             if (pExplo001) {
-                pExplo001->locateAs(this);
+                pExplo001->locatedBy(this);
                 pExplo001->activate();
             }
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-                pOrg_->pLockonController_->lockon(pOther);
+                pOrg_->pLockonCtrler_->lockon(pOther);
             }
             sayonara();
         } else {
@@ -247,16 +247,16 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             _pStatus->set(STAT_Stamina, default_stamina_);
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-                pOrg_->pLockonController_->lockon(pOther);
+                pOrg_->pLockonCtrler_->lockon(pOther);
             }
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら
 
         //破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
             pExplo001->activate();
         }
         sayonara();
@@ -265,7 +265,7 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 
 void MyOptionWateringLaserChip001::onInactive() {
     WateringLaserChip::onInactive();
-    lockon_ = 0;
+    lockon_st_ = 0;
 }
 
 MyOptionWateringLaserChip001::~MyOptionWateringLaserChip001() {

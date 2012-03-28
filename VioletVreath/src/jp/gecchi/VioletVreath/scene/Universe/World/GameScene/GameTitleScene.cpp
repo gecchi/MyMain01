@@ -9,11 +9,14 @@ using namespace VioletVreath;
 GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
     useProgress(10);
-    _pProg->change(GameTitleScene::PROG_INIT);
-    pStringBoard01_ = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(pStringBoard01_);
-    pStringBoard02_ = NEW LabelGecchi16Font("STR02");
-    getDirector()->addSubGroup(pStringBoard02_);
+    _pProg->set(GameTitleScene::PROG_INIT);
+
+    pLabel01_ = NEW LabelGecchi16Font("STR01");
+    getDirector()->addSubGroup(pLabel01_);
+
+    pLabel02_ = NEW LabelGecchi16Font("STR02");
+    getDirector()->addSubGroup(pLabel02_);
+
     pTitleBoard_ = NEW TitleBoard("TitleBoard");
     getDirector()->addSubGroup(pTitleBoard_);
 
@@ -22,6 +25,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 
     pWorldBound_ = NEW WorldBoundTitle("TITLE_BG_WB");
     getDirector()->addSubGroup(pWorldBound_);
+
     pHoshiBoshi_ = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
     getDirector()->addSubGroup(pHoshiBoshi_);
 
@@ -36,9 +40,9 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 
 void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
-    pStringBoard01_->update("");
-    pStringBoard02_->update("");
-    pTitleBoard_->locate(PX2CO(100), PX2CO(90));
+    pLabel01_->update("");
+    pLabel02_->update("");
+    pTitleBoard_->locate(P2C(100), P2C(90));
     _pProg->set(GameTitleScene::PROG_INIT);
 }
 
@@ -71,10 +75,10 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_TITLE: {
             if (_pProg->isJustChanged()) {
-                pStringBoard02_->update(PX2CO(400), PX2CO(400), "PUSH UI_EXECUTE TO BEGIN!");
+                pLabel02_->update(P2C(400), P2C(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                pSeCon_exec_->use()->play();
+                pSeCon_exec_->fetch()->play();
                 _pProg->change(GameTitleScene::PROG_SELECT);
 
 
@@ -89,7 +93,7 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_SELECT: {
             if (_pProg->isJustChanged()) {
-                pMenu_->rise(PX2CO(50), PX2CO(350));
+                pMenu_->rise(P2C(50), P2C(350));
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             }
 
@@ -109,7 +113,7 @@ void GameTitleScene::processBehavior() {
                 int d = pMenu_->getDecidedIndex();
                 if (d >= 0) {
                     if (d == MenuBoardTitle::ITEM_GAME_START) {
-                        pSeCon_exec_->use()->play();
+                        pSeCon_exec_->fetch()->play();
                         _pProg->change(GameTitleScene::PROG_GAMESTART);
                     } else if (d == MenuBoardTitle::ITEM_CONFIG) {
 
@@ -143,9 +147,9 @@ void GameTitleScene::processBehavior() {
             }
             //“_–Å
             if (_pProg->getFrameInProgress() % 10 < 5 ) {
-                pStringBoard02_->update(PX2CO(700), PX2CO(200), "READY GO!");
+                pLabel02_->update(P2C(700), P2C(200), "READY GO!");
             } else {
-                pStringBoard02_->update(PX2CO(700), PX2CO(200), "");
+                pLabel02_->update(P2C(700), P2C(200), "");
             }
             break;
         }

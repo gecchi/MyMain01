@@ -21,7 +21,7 @@ void ViewPointGuide::onActive() {
 }
 
 void ViewPointGuide::processBehavior() {
-    locateAs(P_CAM->_pViewPoint);
+    locatedBy(P_CAM->_pViewPoint);
 }
 
 void ViewPointGuide::processJudgement() {

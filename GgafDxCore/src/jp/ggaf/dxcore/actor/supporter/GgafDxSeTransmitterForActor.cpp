@@ -76,7 +76,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     }
 
 
-    P_UNIVERSE->registSe(_papSeCon[prm_id]->use(), vol, pan, rate_frequency, delay); // + (GgafDxSe::VOLUME_RANGE / 6) ‚Í‰¹—Ê’êã‚°
+    P_UNIVERSE->registSe(_papSeCon[prm_id]->fetch(), vol, pan, rate_frequency, delay); // + (GgafDxSe::VOLUME_RANGE / 6) ‚Í‰¹—Ê’êã‚°
 
     _pa_is3D[prm_id] = true;
     //^‚ñ’†‚©‚ç‚Ì‹——£
@@ -108,7 +108,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     GgafDxCamera* pCam = P_CAM;
     for (int i = 0; i < _se_num; i++) {
         if (_pa_is3D[i]) {
-            if (_papSeCon[i]->use()->isPlaying()) {
+            if (_papSeCon[i]->fetch()->isPlaying()) {
                 rate_frequency = 1.0;
                 if (calc_flg) {
                     calc_flg = false;
@@ -153,9 +153,9 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                         }
                     }
                     //‹[—‚RD‰¹
-                    _papSeCon[i]->use()->setPan(pan);
-                    _papSeCon[i]->use()->setVolume(vol);
-                    _papSeCon[i]->use()->setFrequencyRate(rate_frequency);
+                    _papSeCon[i]->fetch()->setPan(pan);
+                    _papSeCon[i]->fetch()->setVolume(vol);
+                    _papSeCon[i]->fetch()->setFrequencyRate(rate_frequency);
                 }
             } else {
                 _pa_is3D[i] = false;

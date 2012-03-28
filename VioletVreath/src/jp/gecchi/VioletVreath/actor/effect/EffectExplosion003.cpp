@@ -15,13 +15,13 @@ EffectExplosion003::EffectExplosion003(const char* prm_name) :
 }
 
 void EffectExplosion003::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 63);
+    _pUvFlipper->forcePtnRange(0, 63);
     _pScaler->forceScaleRange(500, 2000);
     setHitAble(false);
 }
 
 void EffectExplosion003::onActive() {
-    _pUvFlipper->setActivePtnNoToTop();
+    _pUvFlipper->setActivePtnToTop();
     _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 1);
     _pScaler->setScale(500);
     _pScaler->intoTargetScaleLinerUntil(2000, 64);

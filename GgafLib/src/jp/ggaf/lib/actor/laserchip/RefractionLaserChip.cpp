@@ -15,7 +15,7 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _cnt_refraction = 0;
     _frame_refraction_enter = 0;
     _frame_refraction_out = 0;
-    _isRefracting = false;
+    _is_refracting = false;
 
     _pDispatche_RefractionEffect = NULL;
     _pRefractionEffect = NULL;
@@ -64,8 +64,8 @@ void RefractionLaserChip::onActive() {
         _frame_refraction_out = INT_MAX;
     }
 
-    _isRefracting = false;
-    _prev_isRefracting = false;
+    _is_refracting = false;
+    _prev_is_refracting = false;
 }
 
 void RefractionLaserChip::onInactive() {
@@ -90,7 +90,7 @@ void RefractionLaserChip::onInactive() {
         pChip_behind->_cnt_refraction = _cnt_refraction;
         pChip_behind->_frame_refraction_enter = _frame_refraction_enter;
         pChip_behind->_frame_refraction_out = _frame_refraction_out;
-        pChip_behind->_isRefracting = _isRefracting;
+        pChip_behind->_is_refracting = _is_refracting;
         //屈折エフェクトを解除
         if (_pRefractionEffect) {
             _pRefractionEffect->sayonara();
@@ -134,22 +134,22 @@ void RefractionLaserChip::processBehavior() {
             _prev_RX = _RX;
             _prev_RY = _RY;
             _prev_RZ = _RZ;
-            _prev_isRefracting = _isRefracting;
+            _prev_is_refracting = _is_refracting;
             _prev_pRefractionEffect = _pRefractionEffect;
 
             _pRefractionEffect = NULL;
-            if (!_isRefracting) {
+            if (!_is_refracting) {
                 if (getBehaveingFrame() >= _frame_refraction_enter) {
                     if (_cnt_refraction < _num_refraction) {
                         _cnt_refraction++;
                         onRefractionBegin(_cnt_refraction);
                         _frame_refraction_out = getBehaveingFrame()  + _frame_standstill_refraction;
-                        _isRefracting = true;
+                        _is_refracting = true;
 
                         if (_pDispatche_RefractionEffect) {
                             _pRefractionEffect = (GgafDxDrawableActor*)_pDispatche_RefractionEffect->dispatch();
                             if (_pRefractionEffect) {
-                                _pRefractionEffect->locateAs(this);
+                                _pRefractionEffect->locatedBy(this);
                                 //最長時間の解除予約。
                                 //何かの拍子でレーザーチップが消滅した場合、正しくsayonara()出来ない場合がある。その場合の保険。
                                 _pRefractionEffect->inactivateDelay(_pDepo->_num_chip_max +_frame_standstill_refraction);
@@ -159,7 +159,7 @@ void RefractionLaserChip::processBehavior() {
                 }
             }
 
-            if (_isRefracting) {
+            if (_is_refracting) {
                 if (getBehaveingFrame() >= _frame_refraction_out) {
                     onRefractionFinish(_cnt_refraction);
                     _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
@@ -168,14 +168,14 @@ void RefractionLaserChip::processBehavior() {
                     X = _X; Y = _Y; Z = _Z;
                     _pKurokoA->behave(); //
                     _X = X; _Y = Y; _Z = Z;
-                    _isRefracting = false;
+                    _is_refracting = false;
 
                     return;
                 }
             }
 
-            if (!_isRefracting) {
-                //_isRefracting中は停止しなくてはいけないため_pKurokoA->behave()を実行しない。
+            if (!_is_refracting) {
+                //_is_refracting中は停止しなくてはいけないため_pKurokoA->behave()を実行しない。
                 //_pKurokoA->behave();以外で座標を操作している場合は、完全な停止にならないので注意
                 _pKurokoA->behave();
             }
@@ -188,7 +188,7 @@ void RefractionLaserChip::processBehavior() {
             _prev_RX = _RX;
             _prev_RY = _RY;
             _prev_RZ = _RZ;
-            _prev_isRefracting = _isRefracting;
+            _prev_is_refracting = _is_refracting;
             _prev_pRefractionEffect = _pRefractionEffect;
             _X  = pChip_front->_prev_X;
             _Y  = pChip_front->_prev_Y;
@@ -196,7 +196,7 @@ void RefractionLaserChip::processBehavior() {
             _RX = pChip_front->_prev_RX;
             _RY = pChip_front->_prev_RY;
             _RZ = pChip_front->_prev_RZ;
-            _isRefracting =  pChip_front->_prev_isRefracting;
+            _is_refracting =  pChip_front->_prev_is_refracting;
             _pRefractionEffect = pChip_front->_prev_pRefractionEffect;
             if (_pChip_behind == NULL) {
                 if (_pRefractionEffect) {

@@ -643,8 +643,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTurnFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
-                                      ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                      int prm_way, bool prm_optimize_ang = true);
+                                 ang_velo prm_angVelo, ang_acce prm_angAcce,
+                                 int prm_way, bool prm_optimize_ang = true);
 
     /**
      * 軸回転方角を目標にターゲットするシークエンスを実行 .
@@ -945,9 +945,9 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequence(velo prm_end_velo, coord prm_target_distance,
-                                  int prm_target_frames, float prm_p1, float prm_p2,
-                                  bool prm_endacc_flg = true);
+    void execSmoothMvSequence(velo prm_end_velo, coord prm_target_distance,
+                              int prm_target_frames, float prm_p1, float prm_p2,
+                              bool prm_endacc_flg = true);
 
 
     /**
@@ -985,9 +985,9 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_p2 減速を開始距離となるような、距離(D)に対する割合
      * @param prm_endacc_flg
      */
-    void execSmoothMvVeloSequenceD(velo prm_top_velo, velo prm_end_velo,
-                                   coord prm_target_distance, float prm_p1, float prm_p2,
-                                   bool prm_endacc_flg = true);
+    void execSmoothMvSequenceD(velo prm_top_velo, velo prm_end_velo,
+                               coord prm_target_distance, float prm_p1, float prm_p2,
+                               bool prm_endacc_flg = true);
 
 
     /**
@@ -1026,14 +1026,14 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(0.0～1.0)
      * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequenceT(velo prm_top_velo, velo prm_end_velo,
-                                   int prm_target_frames, float prm_p1, float prm_p2,
-                                   bool prm_endacc_flg = true);
+    void execSmoothMvSequenceT(velo prm_top_velo, velo prm_end_velo,
+                               int prm_target_frames, float prm_p1, float prm_p2,
+                               bool prm_endacc_flg = true);
 
 
 
 
-//    void execSmoothMvVeloSequence4(velo prm_end_velo, coord prm_target_distance, int prm_target_frames,
+//    void execSmoothMvSequence4(velo prm_end_velo, coord prm_target_distance, int prm_target_frames,
 //                                   bool prm_endacc_flg = true);
     bool isMoveingSmooth();
 
@@ -1049,7 +1049,7 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
 
 
     /**
-     * 黒子Aが機能する .
+     * 黒子Aが振る舞う .
      * 黒子A機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
      * 逆に黒子Aを必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
      */

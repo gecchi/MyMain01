@@ -13,8 +13,8 @@ MyOptionStraightLaserChip001::MyOptionStraightLaserChip001(const char* prm_name)
     _veloMv = 100000;
     
     pOrg_ = NULL;
-    lockon_ = 0;
-    isLockon_ = false;
+    lockon_st_ = 0;
+    is_lockon_ = false;
 }
 
 void MyOptionStraightLaserChip001::initialize() {
@@ -32,28 +32,28 @@ void MyOptionStraightLaserChip001::onActive() {
     default_stamina_ = _pStatus->get(STAT_Stamina);
     StraightLaserChip::onActive();
 
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonController_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     _pKurokoA->setMvVelo(80000);
     _pKurokoA->setMvAcce(300);
-    isLockon_ = false;
+    is_lockon_ = false;
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
         if (_pChip_front == NULL) {
             //先端チップ
-            lockon_ = 1;
-            isLockon_ = true;
+            lockon_st_ = 1;
+            is_lockon_ = true;
         } else {
             //先端以外
-            lockon_ = ((MyOptionStraightLaserChip001*) _pChip_front)->lockon_;//一つ前のロックオン情報を引き継ぐ
-            isLockon_ = ((MyOptionStraightLaserChip001*) _pChip_front)->isLockon_;//一つ前のロックオン情報を引き継ぐ
+            lockon_st_ = ((MyOptionStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
+            is_lockon_ = ((MyOptionStraightLaserChip001*) _pChip_front)->is_lockon_;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
         if (_pChip_front == NULL) {
             //先端チップ
-            lockon_ = 0;
+            lockon_st_ = 0;
         } else {
             //先端以外
-            lockon_ = ((MyOptionStraightLaserChip001*) _pChip_front)->lockon_;//一つ前のロックオン情報を引き継ぐ
-            isLockon_ = ((MyOptionStraightLaserChip001*) _pChip_front)->isLockon_;//一つ前のロックオン情報を引き継ぐ
+            lockon_st_ = ((MyOptionStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
+            is_lockon_ = ((MyOptionStraightLaserChip001*) _pChip_front)->is_lockon_;//一つ前のロックオン情報を引き継ぐ
         }
     }
 
@@ -62,22 +62,22 @@ void MyOptionStraightLaserChip001::onActive() {
 
 
 void MyOptionStraightLaserChip001::processBehavior() {
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonController_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
 
 
-    if (lockon_ == 1) {
+    if (lockon_st_ == 1) {
         if (getActivePartFrame() < 120) {
             if (pMainLockOnTarget) {
             } else {
-                lockon_ = 2;
+                lockon_st_ = 2;
             }
         } else {
-            lockon_ = 2;
+            lockon_st_ = 2;
         }
     }
-    if (lockon_ == 2) {
-        if (isLockon_) {
-            isLockon_ = false;
+    if (lockon_st_ == 2) {
+        if (is_lockon_) {
+            is_lockon_ = false;
 //            if (_pChip_front == NULL) {
 //            }
         }
@@ -95,7 +95,7 @@ void MyOptionStraightLaserChip001::processBehavior() {
     //根元からレーザー表示のため強敵に座標補正
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
-        locateAs(pOrg_);
+        locatedBy(pOrg_);
 //        _tmpX = _X;
 //        _tmpY = _Y;
 //        _tmpZ = _Z;
@@ -121,7 +121,7 @@ void MyOptionStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActo
 
 void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonController_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     //ヒットエフェクト
     //無し
 
@@ -130,10 +130,10 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             if (pOther == pMainLockOnTarget) {
                 //オプションのロックオンに見事命中した場合
 
-                lockon_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
+                lockon_st_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
                 if (_pChip_front && _pChip_front->_pChip_front == NULL) {
                     //中間先頭チップがヒットした場合、先端にも伝える
-                    ((MyOptionStraightLaserChip001*)_pChip_front)->lockon_ = 2;
+                    ((MyOptionStraightLaserChip001*)_pChip_front)->lockon_st_ = 2;
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合
@@ -147,13 +147,13 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+            EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
             if (pExplo001) {
-                pExplo001->locateAs(this);
+                pExplo001->locatedBy(this);
             }
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-                pOrg_->pLockonController_->lockon(pOther);
+                pOrg_->pLockonCtrler_->lockon(pOther);
             }
             sayonara();
         } else {
@@ -161,16 +161,16 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             _pStatus->set(STAT_Stamina, default_stamina_);
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-                pOrg_->pLockonController_->lockon(pOther);
+                pOrg_->pLockonCtrler_->lockon(pOther);
             }
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら
 
         //破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
         }
         sayonara();
     }
@@ -183,9 +183,9 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //            //一撃でチップ消滅の攻撃力
 //
 //            //破壊されたエフェクト
-//            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+//            EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
 //            if (pExplo001) {
-//                pExplo001->locateAs(this);
+//                pExplo001->locatedBy(this);
 //                pExplo001->activate();
 //            }
 //            sayonara();
@@ -196,9 +196,9 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //    } else if (pOther->getKind() & KIND_CHIKEI) {
 //        //地形相手は無条件さようなら
 //        //破壊されたエフェクト
-//        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+//        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
 //        if (pExplo001) {
-//            pExplo001->locateAs(this);
+//            pExplo001->locatedBy(this);
 //        }
 //        sayonara();
 //    }
@@ -206,7 +206,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 }
 void MyOptionStraightLaserChip001::onInactive() {
     StraightLaserChip::onInactive();
-    lockon_ = 0;
+    lockon_st_ = 0;
 }
 
 MyOptionStraightLaserChip001::~MyOptionStraightLaserChip001() {

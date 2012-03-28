@@ -11,12 +11,12 @@ Shot001::Shot001(const char* prm_name) :
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
     pSplLineCon_ = (SplineLineConnection*)(P_GOD->pSpl3DManager_->connect("SpCon_HAN")); //スプライン定義
-    pSplSeq_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->use(), 10000); //移動速度固定
+    pSplSeq_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->fetch(), 10000); //移動速度固定
 }
 
 void Shot001::initialize() {
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
     _pScaler->setScale(2000);
     _pScaler->forceScaleRange(2000, 3000);
 }
@@ -52,10 +52,10 @@ void Shot001::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
         }
 
         sayonara();

@@ -286,10 +286,10 @@ public:
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory_;
 
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
-    GgafCore::GgafActorDepository* pDP_EffectExplosion001_;
+    GgafCore::GgafActorDepository* pDepo_EffectExplosion001_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
-//    MyOptionController* pMyOptionController_;
+//    MyOptionController* pOptionCtrler_;
     EffectTurbo001* pEffectTurbo001_;
 
     /** ソフト連射開始からの経過フレーム数 */

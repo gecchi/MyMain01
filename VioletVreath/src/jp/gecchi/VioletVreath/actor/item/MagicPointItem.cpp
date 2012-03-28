@@ -28,8 +28,8 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress();
     setHitAble(true, false); //画面外当たり判定は無効
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB_Cube(0, 400000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB_Cube(0, 400000);
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "decide1");
 }
@@ -45,7 +45,7 @@ void MagicPointItem::onActive() {
     _pKurokoB->forceVxyzMvVeloRange(-30000, 30000);
     _pKurokoB->setZeroVxyzMvVelo();
     _pKurokoB->setZeroVxyzMvAcce();
-    _pKurokoB->_gravitation_mv_seq_flg = false;
+    _pKurokoB->stopGravitationMvSequence();
     _pProg->set(ITEM_PROG_DRIFT);
     _SX = _SY = _SZ = 1000;
 
@@ -53,7 +53,7 @@ void MagicPointItem::onActive() {
     MyShip* pMyShip = P_MYSHIP;
     GgafCore::CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
     //散らばり範囲正方形１辺の長さ
-    int scattered_renge    = _pCollisionChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
+    int scattered_renge    = _pColliChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
     //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
     int scattered_distance = scattered_renge/2 + 400000;
     //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
@@ -92,7 +92,7 @@ void MagicPointItem::processBehavior() {
             _pKurokoB->setVxMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv);
             _pKurokoB->setVyMvVelo(_pKurokoA->_vY*_pKurokoA->_veloMv);
             _pKurokoB->setVzMvVelo(_pKurokoA->_vZ*_pKurokoA->_veloMv);
-            _pKurokoB->execGravitationVxyzMvSequence(pMyShip, PX2CO(30), 100, 60000);
+            _pKurokoB->execGravitationMvSequence(pMyShip, P2C(30), 100, 60000);
             _pKurokoA->setMvVelo(0);
             _pKurokoA->setMvAcce(0);
         }
@@ -116,7 +116,7 @@ void MagicPointItem::processBehavior() {
         if (_pProg->isJustChanged()) {
             _pKurokoB->setZeroVxyzMvVelo();
             _pKurokoB->setZeroVxyzMvAcce();
-            _pKurokoB->stopGravitationVxyzMvSequence();
+            _pKurokoB->stopGravitationMvSequence();
         }
         _X = pMyShip->_X + kDX_;
         _Y = pMyShip->_Y + kDY_;

@@ -20,9 +20,9 @@ FormationPallas002::FormationPallas002(const char* prm_name) :
     for (int i = 0; i < num_Pallas_; i++) {
         papPallas_[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = pSplManufCon_->use()->createSplineSequence(papPallas_[i]->_pKurokoA); //移動速度固定
+        SplineSequence* pProgram = pSplManufCon_->fetch()->createSplineSequence(papPallas_[i]->_pKurokoA); //移動速度固定
         papPallas_[i]->config(pProgram, NULL, NULL);
-        //papPallas_[i]->setDepository_Shot(pDepoCon_->use()); //弾設定
+        //papPallas_[i]->setDepository_Shot(pDepoCon_->fetch()); //弾設定
         papPallas_[i]->inactivateImmed();
         addSubLast(papPallas_[i]);
     }

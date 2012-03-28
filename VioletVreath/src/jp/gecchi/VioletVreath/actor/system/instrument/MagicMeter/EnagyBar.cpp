@@ -15,7 +15,7 @@ EnagyBar::EnagyBar(const char* prm_name, AmountGraph* prm_pAmount) : DefaultBoar
 }
 
 void EnagyBar::initialize() {
-//    /_pUvFlipper->forcePtnNoRange(0, 10);
+//    /_pUvFlipper->forcePtnRange(0, 10);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
 
     onReset();

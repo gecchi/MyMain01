@@ -13,8 +13,8 @@ SingleLaserTestActor::SingleLaserTestActor(const char* prm_name) :
 
 void SingleLaserTestActor::initialize() {
     setHitAble(false);
-//    _pCollisionChecker->makeCollision(1);
-//    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+//    _pColliChecker->makeCollision(1);
+//    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
 
 }
 void SingleLaserTestActor::onReset() {
@@ -50,9 +50,9 @@ void SingleLaserTestActor::onHit(GgafActor* prm_pOtherActor) {
 //    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 //        //破壊された場合
 //        //・・・ココに破壊されたエフェクト
-//        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+//        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
 //        if (pExplo001) {
-//            pExplo001->locateAs(this);
+//            pExplo001->locatedBy(this);
 //        }
 //        sayonara();
 //    }

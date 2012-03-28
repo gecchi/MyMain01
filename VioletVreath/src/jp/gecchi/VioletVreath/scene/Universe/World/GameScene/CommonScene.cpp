@@ -14,47 +14,35 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //汎用爆発エフェクト EffectExplosion001
     {
-        pDP_EffectExplosion001_ = NEW GgafActorDepository("DpExplo001");
-        EffectExplosion001* pEffectExplosion;
+        pDepo_EffectExplosion001_ = NEW GgafActorDepository("DpExplo001");
         for (int i = 0; i < 100; i++) { //ストック100個
-            pEffectExplosion = NEW EffectExplosion001("EffectExplosion001");
-            pEffectExplosion->inactivateTreeImmed(); //最初非表示
-            pDP_EffectExplosion001_->addSubLast(pEffectExplosion);
+            pDepo_EffectExplosion001_->addSubLast(NEW EffectExplosion001("EffectExplosion001"));
         }
-        getDirector()->addSubGroup(pDP_EffectExplosion001_);
+        getDirector()->addSubGroup(pDepo_EffectExplosion001_);
     }
 
     //アイテム小
-    { //pDP_MagicPointItem001_
-        pDP_MagicPointItem001_ = NEW GgafActorDepository("DpMpItem001");
-        MagicPointItem001* pMpItem001;
+    { //pDepo_MagicPointItem001_
+        pDepo_MagicPointItem001_ = NEW GgafActorDepository("DpMpItem001");
         for (int i = 0; i < 500; i++) { //ストック100個
-            pMpItem001 = NEW MagicPointItem001("MP001");
-            pMpItem001->inactivateTreeImmed(); //最初非表示
-            pDP_MagicPointItem001_->addSubLast(pMpItem001);
+            pDepo_MagicPointItem001_->addSubLast(NEW MagicPointItem001("MP001"));
         }
-        getDirector()->addSubGroup(pDP_MagicPointItem001_);
+        getDirector()->addSubGroup(pDepo_MagicPointItem001_);
     }
 
     //アイテム中
-    { //pDP_MagicPointItem002_
-        pDP_MagicPointItem002_ = NEW GgafActorDepository("DpMpItem002");
-        MagicPointItem002* pMpItem002;
+    { //pDepo_MagicPointItem002_
+        pDepo_MagicPointItem002_ = NEW GgafActorDepository("DpMpItem002");
         for (int i = 0; i < 10; i++) { //ストック100個
-            pMpItem002 = NEW MagicPointItem002("MP002");
-            pMpItem002->inactivateTreeImmed(); //最初非表示
-            pDP_MagicPointItem002_->addSubLast(pMpItem002);
+            pDepo_MagicPointItem002_->addSubLast(NEW MagicPointItem002("MP002"));
         }
-        getDirector()->addSubGroup(pDP_MagicPointItem002_);
+        getDirector()->addSubGroup(pDepo_MagicPointItem002_);
     }
 
     { //Effect EffectTurbo002 ターボ噴射
         pDepo_EffectTurbo002_ = NEW GgafActorDepository("RotExplo002");
-        EffectTurbo002* pEffectTurbo;
         for (int i = 0; i < 10; i++) { //ストック100個
-            pEffectTurbo = NEW EffectTurbo002("EffectTurbo002");
-            pEffectTurbo->inactivateTreeImmed(); //最初非表示
-            pDepo_EffectTurbo002_->addSubLast(pEffectTurbo);
+            pDepo_EffectTurbo002_->addSubLast(NEW EffectTurbo002("EffectTurbo002"));
         }
         getDirector()->addSubGroup(pDepo_EffectTurbo002_);
     }

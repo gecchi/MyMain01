@@ -26,9 +26,9 @@ void EnemyMetis::initialize() {
     for (int i = 0; i < (width_X_ - depth_Y_) ; i+= depth_Y_) {
         nArea++;
     }
-    _pCollisionChecker->makeCollision(nArea);
+    _pColliChecker->makeCollision(nArea);
     for (int i = 0, n = 0; i < (width_X_ - depth_Y_)  ; i+= depth_Y_, n++) {
-        _pCollisionChecker->setColliAAB(n, i - ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0), -((depth_Y_/2.0)/1.5), -(height_Z_/2.0),
+        _pColliChecker->setColliAAB(n, i - ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0), -((depth_Y_/2.0)/1.5), -(height_Z_/2.0),
                                            i + ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0),  ((depth_Y_/2.0)/1.5),  (height_Z_/2.0),
                                            false, false, true
                                        );
@@ -76,9 +76,9 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     _pSeTransmitter->play3D(0);
         //ここに消滅エフェクト
     if (pOther->getKind() & KIND_MY) {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs((GgafDxGeometricActor*)prm_pOtherActor);
+            pExplo001->locatedBy((GgafDxGeometricActor*)prm_pOtherActor);
             pExplo001->activate();
         }
     } else {
@@ -87,18 +87,18 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
 
-        EffectExplosion001* pExplo0012_ = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         _pSeTransmitter->play3D(1);
-        if (pExplo0012_) {
-            pExplo0012_->locateAs((GgafDxGeometricActor*)prm_pOtherActor);
-            pExplo0012_->activate();
+        if (pExplo001) {
+            pExplo001->locatedBy((GgafDxGeometricActor*)prm_pOtherActor);
+            pExplo001->activate();
         }
         sayonara();
 
         //アイテム出現
-        Item* pItem = (Item*)P_COMMON_SCENE->pDP_MagicPointItem001_->dispatch();
+        Item* pItem = getFromCommon(MagicPointItem001);
         if (pItem) {
-            pItem->locateAs(this);
+            pItem->locatedBy(this);
         }
     }
 }

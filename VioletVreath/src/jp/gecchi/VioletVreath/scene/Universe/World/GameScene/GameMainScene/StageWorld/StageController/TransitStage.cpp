@@ -101,8 +101,8 @@ void TransitStage::onInactive() {
 
 }
 void TransitStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    //if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
-    //    _TRACE_("TransitStage::onCatchEvent(EVENT_STG01_CONTROLLER_WAS_END)");
+    //if (prm_no == EVENT_STG01_CTRLER_WAS_END ) {
+    //    _TRACE_("TransitStage::onCatchEvent(EVENT_STG01_CTRLER_WAS_END)");
     //    _pProg->change(Stage::PROG_END);
     //} else {
     //

@@ -14,7 +14,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
                          NEW CollisionChecker(this) ) {
     _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
     _obj_class |= Obj_LaserChip;
-    _pCollisionChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _class_name = "LaserChip";
     _pChip_front = NULL;
     _pChip_behind = NULL;
@@ -100,7 +100,7 @@ void LaserChip::processSettlementBehavior() {
                 int cX = dX / 2;
                 int cY = dY / 2;
                 int cZ = dZ / 2;
-                _pCollisionChecker->setColliAAB(
+                _pColliChecker->setColliAAB(
                               1,
                               cX - _harf_hitarea_edge_length,
                               cY - _harf_hitarea_edge_length,
@@ -109,16 +109,16 @@ void LaserChip::processSettlementBehavior() {
                               cY + _harf_hitarea_edge_length,
                               cZ + _harf_hitarea_edge_length
                               );
-                _pCollisionChecker->enable(1);
+                _pColliChecker->enable(1);
             } else {
-                _pCollisionChecker->disable(1);
+                _pColliChecker->disable(1);
             }
 //            //伸びすぎたら切れる
 //            if (abs(dX) >= _hitarea_edge_length*5 || abs(dY) >= _hitarea_edge_length*5 || abs(dZ) >= _hitarea_edge_length*5) {
 //                sayonara();
 //            }
         } else {
-            _pCollisionChecker->disable(1);
+            _pColliChecker->disable(1);
         }
     }
 
@@ -236,7 +236,7 @@ void LaserChip::processDraw() {
 }
 
 void LaserChip::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliAAPrismActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
 }
 
 void LaserChip::onInactive() {
@@ -262,16 +262,16 @@ void LaserChip::registHitAreaCube(int prm_edge_length) {
     _is_regist_hitarea = true;
     _hitarea_edge_length = prm_edge_length;
     _harf_hitarea_edge_length = _hitarea_edge_length / 2;
-    _pCollisionChecker->makeCollision(2);
-    _pCollisionChecker->setColliAAB_Cube(0, prm_edge_length);
-    _pCollisionChecker->setColliAAB_Cube(1, prm_edge_length);
-    _pCollisionChecker->disable(1);
+    _pColliChecker->makeCollision(2);
+    _pColliChecker->setColliAAB_Cube(0, prm_edge_length);
+    _pColliChecker->setColliAAB_Cube(1, prm_edge_length);
+    _pColliChecker->disable(1);
     setHitAble(true);
     //_TRACE_("LaserChip::registHitAreaCube()ed "<<getName()<<" bump="<<canHit());
 
 }
 
 LaserChip::~LaserChip() {
-    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
+    DELETE_IMPOSSIBLE_NULL(_pColliChecker);
 }
 

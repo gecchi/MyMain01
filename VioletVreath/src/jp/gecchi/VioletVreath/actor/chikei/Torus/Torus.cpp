@@ -48,9 +48,9 @@ void Torus::addSubBoneOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_a
 void Torus::makeCollisionArea(int prm_nSphere){
     angle* paAngRadial = NEW angle[prm_nSphere];
     GgafDxUtil::getRadialAngle2D(0, prm_nSphere, paAngRadial);
-    _pCollisionChecker->makeCollision(prm_nSphere);
+    _pColliChecker->makeCollision(prm_nSphere);
     for (int i = 0; i < prm_nSphere; i++) {
-        _pCollisionChecker->setColliSphere(
+        _pColliChecker->setColliSphere(
                 i,
                 0 , GgafDxUtil::SIN[paAngRadial[i]/SANG_RATE] * r1_, GgafDxUtil::COS[paAngRadial[i]/SANG_RATE] * r1_,
                 r2_,

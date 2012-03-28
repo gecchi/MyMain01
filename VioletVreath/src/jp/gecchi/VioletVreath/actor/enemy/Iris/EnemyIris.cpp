@@ -27,8 +27,8 @@ void EnemyIris::initialize() {
     setHitAble(true);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 5000);
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
 }
 
 void EnemyIris::onActive() {
@@ -70,7 +70,7 @@ void EnemyIris::processBehavior() {
                 for (int i = 0; i < way; i++) {
                     pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
-                        pActor_Shot->locateAs(this);
+                        pActor_Shot->locatedBy(this);
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], D90ANG);
                     }
                 }
@@ -79,7 +79,7 @@ void EnemyIris::processBehavior() {
                 if (pDepo_ShotEffect_) {
                     GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
                     if (pTestActor_Shot) {
-                        pTestActor_Shot->locateAs(this);
+                        pTestActor_Shot->locatedBy(this);
                     }
                 }
             }
@@ -132,10 +132,10 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
             notifyFormationAboutDestroyed();
         }
 
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
             pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
         setHitAble(false); //同一フレーム内で複数回ヒットさせないため重要

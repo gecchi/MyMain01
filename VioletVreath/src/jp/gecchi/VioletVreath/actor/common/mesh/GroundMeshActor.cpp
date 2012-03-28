@@ -15,7 +15,7 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, Gg
 
     _class_name = "GroundMeshActor";
     offset_frames_ = 0;
-    _pCollisionChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 
 //    if (pMeshModel_->paVtxBuffer_org_[0].nx == 0 &&
@@ -60,10 +60,10 @@ void GroundMeshActor::processDraw() {
 
 
 void GroundMeshActor::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliAAPrismActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
 }
 
 GroundMeshActor::~GroundMeshActor() {
-    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
+    DELETE_IMPOSSIBLE_NULL(_pColliChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

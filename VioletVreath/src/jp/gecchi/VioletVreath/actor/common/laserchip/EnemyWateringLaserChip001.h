@@ -6,7 +6,7 @@
 //
 //public:
 //    /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
-//    int lockon_;
+//    int lockon_st_;
 //    MyOption* pOrg_;
 //    velo veloCurve_;
 //    int renge_;

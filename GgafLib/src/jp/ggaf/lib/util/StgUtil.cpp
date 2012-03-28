@@ -24,7 +24,7 @@ void StgUtil::shotWay001(GgafDxGeometricActor* prm_pFrom,
     for (int i = 0; i < prm_way; i++) {
         pActor_Shot = (GgafDxDrawableActor*)prm_pDepo_Shot->dispatch();
         if (pActor_Shot) {
-            pActor_Shot->locateAs(prm_pFrom);
+            pActor_Shot->locatedBy(prm_pFrom);
             pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry);
             pActor_Shot->_pKurokoA->setMvVelo(prm_velo);
             pActor_Shot->_pKurokoA->setMvAcce(prm_acce);
@@ -53,7 +53,7 @@ void StgUtil::shotWay001v2(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
         for (int i = 0; i < prm_way; i++) {
             pActor_Shot = (GgafDxDrawableActor*)prm_pDepo_Shot->dispatch();
             if (pActor_Shot) {
-                pActor_Shot->locateAs(prm_pFrom);
+                pActor_Shot->locatedBy(prm_pFrom);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry);
                 pActor_Shot->_pKurokoA->setMvVelo(now_velo);
                 pActor_Shot->_pKurokoA->setMvAcce(now_acce);
@@ -81,7 +81,7 @@ void StgUtil::shotWay002(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
     for (int i = 0; i < prm_way; i++) {
         pActor_Shot = (GgafDxDrawableActor*)prm_pDepo_Shot->dispatch();
         if (pActor_Shot) {
-            pActor_Shot->locateAs(prm_pFrom);
+            pActor_Shot->locatedBy(prm_pFrom);
             pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry+D90ANG);
             pActor_Shot->_pKurokoA->setMvVelo(prm_velo);
             pActor_Shot->_pKurokoA->setMvAcce(prm_acce);
@@ -109,7 +109,7 @@ void StgUtil::shotWay002v2(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
         for (int i = 0; i < prm_way; i++) {
             pActor_Shot = (GgafDxDrawableActor*)prm_pDepo_Shot->dispatch();
             if (pActor_Shot) {
-                pActor_Shot->locateAs(prm_pFrom);
+                pActor_Shot->locatedBy(prm_pFrom);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry+D90ANG);
                 pActor_Shot->_pKurokoA->setMvVelo(now_velo);
                 pActor_Shot->_pKurokoA->setMvAcce(now_acce);

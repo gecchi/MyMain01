@@ -5,17 +5,17 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOptionTorpedoController)
+MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pOptionTorpedoController)
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
-    pMyOptionTorpedoController_ = prm_pMyOptionTorpedoController;
+    pOptionTorpedoCtrler_ = prm_pOptionTorpedoController;
     length_TailEffect_ = 8;
 
     pTailEffectDepository_ = NEW LaserChipDepository("DP_TailEffect");
     pTailEffectDepository_->config(length_TailEffect_, 0, NULL);
     for (int i = 0; i < length_TailEffect_; i++) {
         stringstream name;
-        name <<  "MYOPTION"<<(pMyOptionTorpedoController_->pMyOption_->no_)<<"'s Torpedo's TailEffect["<<i<<"]";
+        name <<  "MYOPTION"<<(pOptionTorpedoCtrler_->pOption_->no_)<<"'s Torpedo's TailEffect["<<i<<"]";
         MyTorpedoTail* pChip = NEW MyTorpedoTail(name.str().c_str(), this);
 
         pChip->inactivateImmed();
@@ -30,8 +30,8 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOpti
 }
 
 void MyTorpedo::initialize() {
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB_Cube(0, 70000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB_Cube(0, 70000);
 }
 
 void MyTorpedo::onReset() {
@@ -221,9 +221,9 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 
     //爆風発生
-    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)pMyOptionTorpedoController_->pDepo_TorpedoBlast_->dispatch();
+    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)pOptionTorpedoCtrler_->pDepo_TorpedoBlast_->dispatch();
     if (pBlast) {
-        pBlast->locateAs(this);
+        pBlast->locatedBy(this);
         pBlast->reset();
     }
 

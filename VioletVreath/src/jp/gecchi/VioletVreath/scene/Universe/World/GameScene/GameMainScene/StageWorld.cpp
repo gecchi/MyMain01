@@ -9,10 +9,10 @@ StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageWorld";
 
     can_rank_up_ = true;
-    pStageController_ = NEW StageController("StageController");
-    addSubLast(pStageController_);
-    pRankUpStageController_ = NEW RankUpStageController("RankUpStageController");
-    addSubLast(pRankUpStageController_);
+    pStageCtrler_ = NEW StageController("StageController");
+    addSubLast(pStageCtrler_);
+    pRankUpStageCtrler_ = NEW RankUpStageController("RankUpStageController");
+    addSubLast(pRankUpStageCtrler_);
 
 }
 
@@ -32,9 +32,9 @@ void StageWorld::processBehavior() {
         _TRACE_("_RANK_UP_LEVEL_？？？"<<_RANK_UP_LEVEL_);
         if (can_rank_up_) {
             _RANK_UP_LEVEL_ = _RANK_UP_LEVEL_ + 1;
-            pRankUpStageController_->execute();
-            _TRACE_("P_STAGE_CONTROLLER をスロー");
-            P_STAGE_CONTROLLER->addRunFrameOnce(1); //スロー開始
+            pRankUpStageCtrler_->execute();
+            _TRACE_("P_STAGE_CTRLER をスロー");
+            P_STAGE_CTRLER->addRunFrameOnce(1); //スロー開始
         } else {
             //スルー
         }
@@ -46,14 +46,14 @@ void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_RANKUP_WAS_END) {
         _TRACE_("StageWorld::onCatchEvent EVENT_RANKUP_WAS_END");
         //スロー回復
-        _TRACE_("P_STAGE_CONTROLLER をスロー回復");
-        P_STAGE_CONTROLLER->addRunFrameOnce(-1); //スロー開始
+        _TRACE_("P_STAGE_CTRLER をスロー回復");
+        P_STAGE_CTRLER->addRunFrameOnce(-1); //スロー開始
     }
 }
 
 StageWorld::~StageWorld() {
-    if (P_STAGE_CONTROLLER->pStageMainCannel_) {
-        P_STAGE_CONTROLLER->pStageMainCannel_->end();
-        P_STAGE_CONTROLLER->pStageMainCannel_ = NULL;
+    if (P_STAGE_CTRLER->pStageMainCannel_) {
+        P_STAGE_CTRLER->pStageMainCannel_->end();
+        P_STAGE_CTRLER->pStageMainCannel_ = NULL;
     }
 }

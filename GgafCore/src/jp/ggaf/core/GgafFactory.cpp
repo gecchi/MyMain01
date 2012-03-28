@@ -15,6 +15,8 @@ volatile bool GgafFactory::_was_finished_flg = false;
 int GgafFactory::_cnt_cleaned = 0;
 GgafGarbageBox* GgafFactory::_pGarbageBox = NULL;
 
+
+
 GgafMainActor* GgafFactory::obtainActor(unsigned long prm_id, GgafObject* prm_org) {
     return (GgafMainActor*)obtain(prm_id, prm_org);
 }

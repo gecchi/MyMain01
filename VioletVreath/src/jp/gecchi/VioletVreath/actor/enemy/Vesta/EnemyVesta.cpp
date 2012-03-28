@@ -43,12 +43,12 @@ void EnemyVesta::initialize() {
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB_Cube(0, 200000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB_Cube(0, 200000);
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 1200);
     _pScaler->beat(30, 5, 5, -1);
-    pDepo_Fired_ = pDpcon_->use();
+    pDepo_Fired_ = pDpcon_->fetch();
 }
 
 void EnemyVesta::onActive() {
@@ -144,7 +144,7 @@ void EnemyVesta::processBehavior() {
             if (pDepo_Fired_) {
                 GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
                 if (pActor) {
-                    pActor->locateAs(this);
+                    pActor->locatedBy(this);
                     pActor->_pKurokoA->relateFaceAngWithMvAng(true);
                     //＜現在の最終的な向きを、RzRyで取得する＞
                     //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
@@ -247,10 +247,10 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
 
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+    EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
 
     if (pExplo001) {
-        pExplo001->locateAs(this);
+        pExplo001->locatedBy(this);
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
@@ -258,9 +258,9 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
         sayonara();
 
         //アイテム出現
-        Item* pItem = (Item*)P_COMMON_SCENE->pDP_MagicPointItem001_->dispatch();
+        Item* pItem = getFromCommon(MagicPointItem001);
         if (pItem) {
-            pItem->locateAs(this);
+            pItem->locatedBy(this);
         }
     }
 }

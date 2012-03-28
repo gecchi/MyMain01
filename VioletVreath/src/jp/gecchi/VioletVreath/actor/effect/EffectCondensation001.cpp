@@ -15,13 +15,13 @@ EffectCondensation001::EffectCondensation001(const char* prm_name) :
 }
 
 void EffectCondensation001::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
+    _pUvFlipper->forcePtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
 
 }
 
 void EffectCondensation001::onActive() {
-    _pUvFlipper->setActivePtnNoToTop();
+    _pUvFlipper->setActivePtnToTop();
     setAlpha(0.01);
     _pScaler->forceScaleRange(30000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
     _pScaler->setScale(30000);

@@ -34,8 +34,8 @@ void EnemyCeresShot001::initialize() {
     _pKurokoA->forceMvVeloRange(iMvVelo_Top_, iMvVelo_Bottom_);
     _pKurokoA->relateFaceAngWithMvAng(true);
 
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
     setHitAble(true);
 }
 
@@ -57,8 +57,8 @@ void EnemyCeresShot001::processBehavior() {
     if (getActivePartFrame() == frame_TurnBegin_) {
 
         _pKurokoA->execTurnMvAngSequence(P_MYSHIP,
-                                                   angVelo_Turn_, 0,
-                                                   TURN_CLOSE_TO);
+                                         angVelo_Turn_, 0,
+                                         TURN_CLOSE_TO);
         _pKurokoA->setMvAcce(iMoveAcce_2nd_);
     }
 
@@ -91,9 +91,9 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
 
         EffectExplosion001* pExplo001 =
-                (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+                getFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
         }
 
         sayonara();

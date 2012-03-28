@@ -166,7 +166,7 @@ void Stage01PartController::processBehavior() {
             if (_pProg->getFrameInProgress() == 60) {
                 _pBgmPerformer->fadeout_stop(2); //BGM2番フェードアウト
                 fadeoutScene(300);
-                throwEventToUpperTree(EVENT_STG01_CONTROLLER_WAS_END); //ステージエンドを上位に伝える
+                throwEventToUpperTree(EVENT_STG01_CTRLER_WAS_END); //ステージエンドを上位に伝える
             }
             //イベント発生待ち
             break;

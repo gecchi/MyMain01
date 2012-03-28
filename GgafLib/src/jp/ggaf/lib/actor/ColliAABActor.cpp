@@ -23,21 +23,21 @@ void ColliAABActor::release() {
     DELETE_POSSIBLE_NULL(ColliAABActor::_pObj);
 }
 
-void ColliAABActor::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
-    if (prm_pCollisionChecker != NULL &&
-        prm_pCollisionChecker->_pCollisionArea != NULL &&
-        prm_pCollisionChecker->getTargetActor()->canHit() &&
-        prm_pCollisionChecker->getTargetActor()->isActiveInTheTree()) {
+void ColliAABActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
+    if (prm_pColliChecker != NULL &&
+        prm_pColliChecker->_pCollisionArea != NULL &&
+        prm_pColliChecker->getTargetActor()->canHit() &&
+        prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
 
-        GgafDxGeometricActor* pActor = prm_pCollisionChecker->getTargetActor();
-        GgafDxCollisionArea* pCollisionArea = prm_pCollisionChecker->_pCollisionArea;
+        GgafDxGeometricActor* pActor = prm_pColliChecker->getTargetActor();
+        GgafDxCollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
         int iAreaNum = pCollisionArea->_nColliPart;
         if (iAreaNum > 0) {
             GgafDxCollisionPart** papColliPart = pCollisionArea->_papColliPart;
             for (int i = 0; i < iAreaNum; i++) {
                 if (papColliPart[i]->_is_valid_flg && papColliPart[i]->_shape_kind == COLLI_AAB) {
                     ColliAAB* box = (ColliAAB*)papColliPart[i];
-                    //_TRACE_("drawHitarea name="<<prm_pCollisionChecker->getTargetActor()->getName()<<" index="<<i);
+                    //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
 
                     drawBox(pActor->_X + box->_x1,
                             pActor->_Y + box->_y1,

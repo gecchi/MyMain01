@@ -20,12 +20,12 @@ public:
     };
 
     char buf_[60];
-    LabelGecchi16Font* pFont16_SCORE_;
-    LabelGecchi16Font* pFont16_RANK_;
-    LabelGecchi16Font* pFont16_STAMINA_;
-    LabelGecchi8Font* pFont8_JIKI_X_;
-    LabelGecchi8Font* pFont8_JIKI_Y_;
-    LabelGecchi8Font* pFont8_JIKI_Z_;
+    LabelGecchi16Font* pLabel_SCORE_;
+    LabelGecchi16Font* pLabel_RANK_;
+    LabelGecchi16Font* pLabel_STAMINA_;
+    LabelGecchi8Font* pLabel_JIKI_X_;
+    LabelGecchi8Font* pLabel_JIKI_Y_;
+    LabelGecchi8Font* pLabel_JIKI_Z_;
     LabelRankFont* pRankFont_;
 
     GameMainScene(const char* prm_name);

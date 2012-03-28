@@ -40,28 +40,28 @@ void SceneProgress::changeWithScene(progress prm_progress) {
     change(prm_progress);
 }
 
-void SceneProgress::changeWithScene_Flipping(progress prm_progress) {
+void SceneProgress::changeWithSceneFlipping(progress prm_progress) {
     if (_mapProg2Scene[get()]) {
         _mapProg2Scene[get()]->inactivate();
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithScene_Flipping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
+        _TRACE_("＜警告＞SceneProgress::changeWithSceneFlipping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
     }
     if (_mapProg2Scene[prm_progress]) {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
         _mapProg2Scene[prm_progress]->fadeinSceneTree(0);
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithScene_Flipping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
+        _TRACE_("＜警告＞SceneProgress::changeWithSceneFlipping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
     }
     change(prm_progress);
 }
 
-void SceneProgress::changeWithScene_Crossfading(progress prm_progress, frame prm_fade_frames) {
+void SceneProgress::changeWithSceneCrossfading(progress prm_progress, frame prm_fade_frames) {
     if (_mapProg2Scene[get()]) {
         _mapProg2Scene[get()]->fadeoutSceneTree(prm_fade_frames);
         _mapProg2Scene[get()]->inactivateDelay(prm_fade_frames);
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithScene_Crossfading シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
+        _TRACE_("＜警告＞SceneProgress::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
     }
     if (_mapProg2Scene[prm_progress]) {
         _mapProg2Scene[prm_progress]->reset();
@@ -69,32 +69,32 @@ void SceneProgress::changeWithScene_Crossfading(progress prm_progress, frame prm
         _mapProg2Scene[prm_progress]->fadeoutSceneTree(0);
         _mapProg2Scene[prm_progress]->fadeinSceneTree(prm_fade_frames);
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithScene_Crossfading シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
+        _TRACE_("＜警告＞SceneProgress::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
     }
     change(prm_progress);
 }
 
-void SceneProgress::changeWithScene_FadeoutFadin(progress prm_progress, frame prm_fade_frames) {
+void SceneProgress::changeWithSceneFadeoutFadin(progress prm_progress, frame prm_fade_frames) {
 }
 
-void SceneProgress::changeWithScene_Overlapping(progress prm_progress, frame prm_frames) {
+void SceneProgress::changeWithSceneOverlapping(progress prm_progress, frame prm_frames) {
     if (_mapProg2Scene[get()]) {
         _mapProg2Scene[get()]->inactivateDelay(prm_frames);
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithScene_Overlapping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
+        _TRACE_("＜警告＞SceneProgress::changeWithSceneOverlapping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
     }
     if (_mapProg2Scene[prm_progress]) {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithScene_Overlapping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
+        _TRACE_("＜警告＞SceneProgress::changeWithSceneOverlapping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
     }
     change(prm_progress);
 }
 
 
 
-DefaultScene* SceneProgress::getGazeScene() {
+DefaultScene* SceneProgress::getGazedScene() {
     return (_mapProg2Scene[get()]);
 }
 

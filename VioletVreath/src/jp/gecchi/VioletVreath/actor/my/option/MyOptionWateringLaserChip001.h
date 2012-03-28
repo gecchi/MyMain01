@@ -20,9 +20,9 @@ class MyOptionWateringLaserChip001 : public GgafLib::WateringLaserChip {
 
 public:
     /** [r]ロックオンしている場合 true */
-    bool isLockon_;
+    bool is_lockon_;
     /** [r]0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
-    int lockon_;
+    int lockon_st_;
     /** [r]レーザー発射元 */
     MyOption* pOrg_;
     /** [r/w]速度範囲（この値を大きくすると、最高速度が早くなる。） */

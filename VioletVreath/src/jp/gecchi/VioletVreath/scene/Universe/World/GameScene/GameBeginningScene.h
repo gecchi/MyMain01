@@ -17,8 +17,8 @@ public:
         PROG_FINISH     ,
     };
 
-    LabelGecchi16Font* pStringBoard01_;
-    LabelGecchi16Font* pStringBoard02_;
+    LabelGecchi16Font* pLabel01_;
+    LabelGecchi16Font* pLabel02_;
 
     int selected_stage_;
 

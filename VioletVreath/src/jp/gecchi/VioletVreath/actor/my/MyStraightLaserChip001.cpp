@@ -26,7 +26,7 @@ void MyStraightLaserChip001::processBehavior() {
     StraightLaserChip::processBehavior();
     //根元からレーザー表示のため強敵に座標補正
     if (onChangeToActive()) {
-        locateAs(P_MYSHIP);
+        locatedBy(P_MYSHIP);
     }
 }
 
@@ -61,9 +61,9 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+            EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
             if (pExplo001) {
-                pExplo001->locateAs(this);
+                pExplo001->locatedBy(this);
             }
             sayonara();
         } else {
@@ -73,9 +73,9 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     } else if (pOther->getKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら
         //破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->pDP_EffectExplosion001_->dispatch();
+        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->locatedBy(this);
             pExplo001->activate();
         }
         sayonara();

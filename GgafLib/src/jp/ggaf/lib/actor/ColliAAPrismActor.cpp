@@ -23,20 +23,20 @@ void ColliAAPrismActor::release() {
     DELETE_POSSIBLE_NULL(ColliAAPrismActor::_pObj);
 }
 
-void ColliAAPrismActor::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
-    if (prm_pCollisionChecker != NULL &&
-        prm_pCollisionChecker->_pCollisionArea != NULL &&
-        prm_pCollisionChecker->getTargetActor()->canHit() &&
-        prm_pCollisionChecker->getTargetActor()->isActiveInTheTree()) {
+void ColliAAPrismActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
+    if (prm_pColliChecker != NULL &&
+        prm_pColliChecker->_pCollisionArea != NULL &&
+        prm_pColliChecker->getTargetActor()->canHit() &&
+        prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
 
-        GgafDxGeometricActor* pActor = prm_pCollisionChecker->getTargetActor();
-        GgafDxCollisionArea* pCollisionArea = prm_pCollisionChecker->_pCollisionArea;
+        GgafDxGeometricActor* pActor = prm_pColliChecker->getTargetActor();
+        GgafDxCollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
         int iAreaNum = pCollisionArea->_nColliPart;
         if (iAreaNum > 0) {
             for (int i = 0; i < iAreaNum; i++) {
                 if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAPRISM) {
                     ColliAAPrism* prism = (ColliAAPrism*)pCollisionArea->_papColliPart[i];
-                    //_TRACE_("drawHitarea name="<<prm_pCollisionChecker->getTargetActor()->getName()<<" index="<<i);
+                    //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
 
                     if (prism->_pos_prism == 0) {
                         _TRACE_("ÅyåxçêÅzColliAAPrismActor::drawHitarea BADPOS i="<<i<<" Target="<<pActor->getName()<<" óví≤ç∏");

@@ -11,7 +11,7 @@ public:
         PROG_FINISH  ,
     };
 
-    LabelGecchi16Font* pStringBoard01_;
+    LabelGecchi16Font* pLabel01_;
     GameOverScene(const char* prm_name);
     void onReset() override;
     virtual void initialize() override;

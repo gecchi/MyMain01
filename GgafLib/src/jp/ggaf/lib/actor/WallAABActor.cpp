@@ -17,8 +17,8 @@ WallAABActor::WallAABActor(const char* prm_name,
     _class_name = "WallAABActor";
     _pMeshSetModel->_set_num = 19; //WallPartsActor最大セット数は20。
     _h_distance_AlphaTarget = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_distance_AlphaTarget" );
-    _pCollisionChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
-    _pCollisionChecker->setColliAAB(0, 0,0,0, 0,0,0);
+    _pColliChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
+    _pColliChecker->setColliAAB(0, 0,0,0, 0,0,0);
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
 }
@@ -28,16 +28,16 @@ void WallAABActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_p
     WallPartsActor::config(prm_pWalledSectionScene, prm_pos_prism,  prm_wall_draw_face,  prm_aColliBoxStretch);
 
     if (prm_aColliBoxStretch[0] == 0) {
-        _pCollisionChecker->disable(0);
+        _pColliChecker->disable(0);
     } else {
-        _pCollisionChecker->setColliAAB(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
+        _pColliChecker->setColliAAB(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                            -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                            -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
                                             (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
                                             (_wall_height/2) + (_wall_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
                                             (_wall_width/2)  + (_wall_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1))
                                        );
-         _pCollisionChecker->enable(0);
+         _pColliChecker->enable(0);
     }
 }
 

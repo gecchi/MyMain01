@@ -8,15 +8,15 @@ class EffectMyOption : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 親オプション */
-    MyOption* pMyOption_;
+    MyOption* pOption_;
 
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_pMyOption 親のオプション
+     * @param prm_pOption 親のオプション
      * @return
      */
-    EffectMyOption(const char* prm_name, MyOption* prm_pMyOption);
+    EffectMyOption(const char* prm_name, MyOption* prm_pOption);
 
     void onCreateModel() override;
 

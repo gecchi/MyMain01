@@ -405,12 +405,14 @@ void GgafNode<T>::moveLast() {
         _pPrev->_pNext = _pNext;
         _pNext->_pPrev = _pPrev;
         //末尾ノードと先頭ノードの間にもぐりこませる
-        _pParent->_pSubFirst->_pPrev->_is_last_flg = false;
-        _is_last_flg = true;
-        _pPrev = _pParent->_pSubFirst->_pPrev;
-        _pNext = _pParent->_pSubFirst;
-        _pParent->_pSubFirst->_pPrev->_pNext = (T*)this;
-        _pParent->_pSubFirst->_pPrev = (T*)this;
+        T* pFirst = _pParent->_pSubFirst; //現First
+        T* pLast = pFirst->_pPrev;        //現Last
+        pLast->_is_last_flg = false;      //現LastのLastだフラグ解除
+        _is_last_flg = true;              //俺が新Lastだフラグセット
+        _pPrev = pLast;                   //俺の前は現Lastで
+        _pNext = pFirst;                  //俺の次は現Firstだ。
+        pLast->_pNext = (T*)this;         //現Lastの次は俺で
+        pFirst->_pPrev = (T*)this;        //現Firstの前は俺となる。
     }
 }
 
@@ -429,13 +431,15 @@ void GgafNode<T>::moveFirst() {
         _pPrev->_pNext = _pNext;
         _pNext->_pPrev = _pPrev;
         //末尾ノードと先頭ノードの間にもぐりこませる
-        _pParent->_pSubFirst->_is_first_flg = false;
-        _is_first_flg = true;
-        _pPrev = _pParent->_pSubFirst->_pPrev;
-        _pNext = _pParent->_pSubFirst;
-        _pParent->_pSubFirst->_pPrev->_pNext = (T*)this;
-        _pParent->_pSubFirst->_pPrev = (T*)this;
-        _pParent->_pSubFirst = (T*)this;
+        T* pFirst = _pParent->_pSubFirst; //現First
+        T* pLast = pFirst->_pPrev;        //現Last
+        pFirst->_is_last_flg = false;     //現FirstのFirstだフラグ解除
+        _is_first_flg = true;             //俺が新Firstだフラグセット
+        _pPrev = pLast;                   //俺の前は現Lastで、
+        _pNext = pFirst;                  //俺の次は現Firstだ。
+        pLast->_pNext = (T*)this;         //現Lastの次は俺で、
+        pFirst->_pPrev = (T*)this;        //現Firstの前は俺となる。
+        _pParent->_pSubFirst = (T*)this;  //さらに、親のSubFirstとなるのだ。
     }
 }
 
