@@ -23,9 +23,8 @@ Universe::Universe(const char* prm_name, Camera* prm_pCamera) : DefaultUniverse(
 }
 
 void Universe::initialize() {
-    pWorld_ = NEW World("WORLD");
+    pWorld_ = createInFactory(World, "WORLD");
     addSubLast(pWorld_);
-
     _TRACE_("Universe::initialize()");
 }
 

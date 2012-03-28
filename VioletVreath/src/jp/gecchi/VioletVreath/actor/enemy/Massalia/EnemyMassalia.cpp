@@ -16,7 +16,7 @@ void EnemyMassalia::onCreateModel() {
 
 void EnemyMassalia::initialize() {
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, P2C(100));
+    _pColliChecker->setColliSphere(0, PxC(100));
     _pKurokoA->setFaceAngVelo(DEG2ANG(1), DEG2ANG(2), DEG2ANG(3));
     setScaleR(0.5);
 }
@@ -51,7 +51,7 @@ void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->locatedBy(this);
@@ -60,7 +60,7 @@ void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
         sayonara();
         //断片出現
-        DepositoryConnection* pCon = connectToDepositoryManager("DpCon_MassaliaFragment", this);
+        DepositoryConnection* pCon = connectDepositoryManager("DpCon_MassaliaFragment", this);
         GgafActorDepository* pDepo = pCon->fetch();
         for (int i =0; i < R_EnemyMassalia_ShotWay; i++) {
             EnemyMassaliaFragment* p = (EnemyMassaliaFragment*)(pDepo->dispatch());

@@ -19,8 +19,8 @@ MagicMeter::MagicMeter(const char* prm_name)
     _class_name = "MagicMeter";
     width_px_ = _pBoardSetModel->_fSize_BoardSetModelWidthPx + 1.0f;
     height_px_ = _pBoardSetModel->_fSize_BoardSetModelHeightPx + 1.0f;
-    width_ = P2C(width_px_);
-    height_ = P2C(height_px_);
+    width_ = PxC(width_px_);
+    height_ = PxC(height_px_);
 
     _X = 100*LEN_UNIT;
     _Y = (GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - (height_px_*2)) * LEN_UNIT;
@@ -81,7 +81,7 @@ MagicMeter::MagicMeter(const char* prm_name)
 
     //エネルギーバー設置
     pEnagyBar_ = NEW EnagyBar("EnagyBar", &mp_);
-    pEnagyBar_->locate(P2C(100), P2C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
+    pEnagyBar_->locate(PxC(100), PxC(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
     addSubGroup(pEnagyBar_);
 
     _pSeTransmitter->useSe(SE_EXECUTE_LEVELDOWN_MAGIC+1);

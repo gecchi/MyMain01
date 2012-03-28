@@ -92,7 +92,7 @@ void MagicPointItem::processBehavior() {
             _pKurokoB->setVxMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv);
             _pKurokoB->setVyMvVelo(_pKurokoA->_vY*_pKurokoA->_veloMv);
             _pKurokoB->setVzMvVelo(_pKurokoA->_vZ*_pKurokoA->_veloMv);
-            _pKurokoB->execGravitationMvSequence(pMyShip, P2C(30), 100, 60000);
+            _pKurokoB->execGravitationMvSequence(pMyShip, PxC(30), 100, 60000);
             _pKurokoA->setMvVelo(0);
             _pKurokoA->setMvAcce(0);
         }

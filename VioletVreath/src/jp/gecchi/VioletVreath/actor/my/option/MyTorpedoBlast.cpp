@@ -24,7 +24,7 @@ void MyTorpedoBlast::initialize() {
 
 void MyTorpedoBlast::onReset() {
     _pStatus->reset();
-    _pColliChecker->setColliSphere(0, P2C(10));
+    _pColliChecker->setColliSphere(0, PxC(10));
     _pKurokoA->setMvVelo(0);
     _pScaler->setScale(R2SC(1));
     _pScaler->forceScaleRange(R2SC(1), R2SC(400));

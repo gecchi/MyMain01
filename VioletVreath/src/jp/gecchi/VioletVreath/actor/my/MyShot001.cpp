@@ -17,14 +17,14 @@ void MyShot001::initialize() {
     setBoundingSphereRadiusRate(45.0f);
     setAlpha(0.99); //半透明にすることで両面レンダリング
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -P2C(50), -P2C(50), -P2C(50),
-                                    P2C(50),  P2C(50),  P2C(50));
+    _pColliChecker->setColliAAB(0, -PxC(50), -PxC(50), -PxC(50),
+                                    PxC(50),  PxC(50),  PxC(50));
     _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(12));
 }
 
 void MyShot001::onActive() {
     setHitAble(true);
-    _pKurokoA->setMvVelo(P2C(70));             //移動速度
+    _pKurokoA->setMvVelo(PxC(70));             //移動速度
     _pKurokoA->setMvAcce(100);
 }
 
@@ -50,7 +50,7 @@ void MyShot001::processJudgement() {
 void MyShot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locatedBy(this);
         }

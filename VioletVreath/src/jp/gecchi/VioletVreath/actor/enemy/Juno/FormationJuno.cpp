@@ -20,7 +20,7 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : DefaultGeometricActor(prm_name, NULL) {
     _class_name = "FormationJuno";
-    pDepoCon_ = connectToDepositoryManager("DpCon_Shot004", NULL); //Juno‚Ì’e
+    pDepoCon_ = connectDepositoryManager("DpCon_Shot004", NULL); //Juno‚Ì’e
 
     pRndGen_ = CmRandomNumberGenerator::getInstance();
     pRndGen_->changeSeed(P_MYSHIP->_Y);

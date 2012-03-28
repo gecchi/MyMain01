@@ -12,7 +12,7 @@
  * 共通オブジェクト取得マクロ
  * EffectExplosion001, EffectTurbo002, MagicPointItem001, MagicPointItem002 のみ可能
  */
-#define getFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch())
+#define employFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch())
 
 namespace VioletVreath {
 

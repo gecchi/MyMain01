@@ -254,6 +254,6 @@ public:
 
 #define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID),this))
 #define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID),this))
-#define makeInFactory(CLASS, NAME) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::createActor, this, (void*)(NAME),(void*)(NULL),(void*)(NULL),this))
+#define createInFactory(CLASS, NAME) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::createActor, this, (void*)(NAME),(void*)(NULL),(void*)(NULL),this))
 }
 #endif /*GGAFGACTORY_H_*/

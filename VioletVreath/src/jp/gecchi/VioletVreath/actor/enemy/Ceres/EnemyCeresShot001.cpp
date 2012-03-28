@@ -91,7 +91,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
 
         EffectExplosion001* pExplo001 =
-                getFromCommon(EffectExplosion001);
+                employFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locatedBy(this);
         }

@@ -15,7 +15,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //汎用爆発エフェクト EffectExplosion001
     {
         pDepo_EffectExplosion001_ = NEW GgafActorDepository("DpExplo001");
-        for (int i = 0; i < 100; i++) { //ストック100個
+        for (int i = 0; i < 300; i++) { //ストック100個
             pDepo_EffectExplosion001_->addSubLast(NEW EffectExplosion001("EffectExplosion001"));
         }
         getDirector()->addSubGroup(pDepo_EffectExplosion001_);

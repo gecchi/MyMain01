@@ -368,7 +368,7 @@ void MyShip::processBehavior() {
 
     if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
-        EffectTurbo002* pTurbo002 = getFromCommon(EffectTurbo002);
+        EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
          if (pTurbo002) {
              pTurbo002->locatedBy(this);
              pTurbo002->activate();
@@ -583,7 +583,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {
-        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locatedBy(this);
         }
@@ -602,7 +602,7 @@ void MyShip::doNotingMoveInput() {
 }
 void MyShip::setMoveSpeedLv(int lv) {
         //lv_MoveSpeed_ = lv;
-        iMoveSpeed_ = P2C(lv);
+        iMoveSpeed_ = PxC(lv);
     }
 
 void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {

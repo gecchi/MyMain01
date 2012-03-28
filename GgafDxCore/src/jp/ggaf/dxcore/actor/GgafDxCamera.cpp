@@ -79,10 +79,10 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_d
     _pViewPoint = NEW GgafDxCameraViewPoint();
     _pViewPoint->locate(0, 0, 0);
 
-    _X_buffer_left   = P2C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)) / -2;
-    _X_buffer_right  = P2C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)) / 2;
-    _Y_buffer_top    = P2C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / 2;
-    _Y_buffer_bottom = P2C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / -2;
+    _X_buffer_left   = PxC(GGAF_PROPERTY(GAME_BUFFER_WIDTH)) / -2;
+    _X_buffer_right  = PxC(GGAF_PROPERTY(GAME_BUFFER_WIDTH)) / 2;
+    _Y_buffer_top    = PxC(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / 2;
+    _Y_buffer_bottom = PxC(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / -2;
     GgafDxGod::_pID3DDevice9->GetViewport(&_viewport);
 }
 

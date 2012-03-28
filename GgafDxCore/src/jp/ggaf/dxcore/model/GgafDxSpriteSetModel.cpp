@@ -104,11 +104,11 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name);
     GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                    _paIndexParam[prm_draw_set_num - 1].BaseVertexIndex,
-                                                    _paIndexParam[prm_draw_set_num - 1].MinIndex,
-                                                    _paIndexParam[prm_draw_set_num - 1].NumVertices,
-                                                    _paIndexParam[prm_draw_set_num - 1].StartIndex,
-                                                    _paIndexParam[prm_draw_set_num - 1].PrimitiveCount);
+                                                   _paIndexParam[prm_draw_set_num - 1].BaseVertexIndex,
+                                                   _paIndexParam[prm_draw_set_num - 1].MinIndex,
+                                                   _paIndexParam[prm_draw_set_num - 1].NumVertices,
+                                                   _paIndexParam[prm_draw_set_num - 1].StartIndex,
+                                                   _paIndexParam[prm_draw_set_num - 1].PrimitiveCount);
     if (_numPass >= 2) { //‚QƒpƒX–ÚˆÈ~‚ª‘¶Ý
         hr = pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() ‚PƒpƒX–Ú EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -117,11 +117,11 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
             hr = pID3DXEffect->BeginPass(pass);
             checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() "<<pass+1<<"ƒpƒX–Ú BeginPass("<<pass<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                            _paIndexParam[prm_draw_set_num - 1].BaseVertexIndex,
-                                                            _paIndexParam[prm_draw_set_num - 1].MinIndex,
-                                                            _paIndexParam[prm_draw_set_num - 1].NumVertices,
-                                                            _paIndexParam[prm_draw_set_num - 1].StartIndex,
-                                                            _paIndexParam[prm_draw_set_num - 1].PrimitiveCount);
+                                                           _paIndexParam[prm_draw_set_num - 1].BaseVertexIndex,
+                                                           _paIndexParam[prm_draw_set_num - 1].MinIndex,
+                                                           _paIndexParam[prm_draw_set_num - 1].NumVertices,
+                                                           _paIndexParam[prm_draw_set_num - 1].StartIndex,
+                                                           _paIndexParam[prm_draw_set_num - 1].PrimitiveCount);
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() "<<pass+1<<"ƒpƒX–Ú EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         }

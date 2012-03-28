@@ -109,11 +109,11 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
         GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                        _paIndexParam[i].BaseVertexIndex,
-                                                        _paIndexParam[i].MinIndex,
-                                                        _paIndexParam[i].NumVertices,
-                                                        _paIndexParam[i].StartIndex,
-                                                        _paIndexParam[i].PrimitiveCount);
+                                                       _paIndexParam[i].BaseVertexIndex,
+                                                       _paIndexParam[i].MinIndex,
+                                                       _paIndexParam[i].NumVertices,
+                                                       _paIndexParam[i].StartIndex,
+                                                       _paIndexParam[i].PrimitiveCount);
         if (_numPass >= 2) { //‚QƒpƒX–ÚˆÈ~‚ª‘¶Ý
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() ‚PƒpƒX–Ú EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -121,11 +121,11 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
                 hr = pID3DXEffect->BeginPass(pass);
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() "<<pass+1<<"ƒpƒX–Ú BeginPass("<<pass<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                                _paIndexParam[i].BaseVertexIndex,
-                                                                _paIndexParam[i].MinIndex,
-                                                                _paIndexParam[i].NumVertices,
-                                                                _paIndexParam[i].StartIndex,
-                                                                _paIndexParam[i].PrimitiveCount);
+                                                               _paIndexParam[i].BaseVertexIndex,
+                                                               _paIndexParam[i].MinIndex,
+                                                               _paIndexParam[i].NumVertices,
+                                                               _paIndexParam[i].StartIndex,
+                                                               _paIndexParam[i].PrimitiveCount);
                 hr = pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() "<<pass+1<<"ƒpƒX–Ú EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             }

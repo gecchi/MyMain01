@@ -8,7 +8,8 @@ SmpUniverse::SmpUniverse(const char* prm_name, SmpCamera* prm_pCam) :
 
 void SmpUniverse::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
-    addSubLast(new SmpWorld("SIMPLE_WORLD"));
+    SmpWorld* pWorld = createInFactory(SmpWorld, "SIMPLE_WORLD");
+    addSubLast(pWorld);
 }
 
 SmpUniverse::~SmpUniverse() {

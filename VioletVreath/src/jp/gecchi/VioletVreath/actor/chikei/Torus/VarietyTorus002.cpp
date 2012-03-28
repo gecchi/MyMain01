@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 VarietyTorus002::VarietyTorus002(const char* prm_name) :
-        Torus(prm_name, "Torus", P2C(2000), P2C(800)) {
+        Torus(prm_name, "Torus", PxC(2000), PxC(800)) {
     _class_name = "VarietyTorus002";
     for (angle angPos1 = D0ANG; angPos1 < D360ANG;  angPos1 += DEG2ANG(60)) {
         for (angle angPos2 = D0ANG; angPos2 < D360ANG;  angPos2 += DEG2ANG(20)) {

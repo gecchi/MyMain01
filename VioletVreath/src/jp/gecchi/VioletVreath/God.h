@@ -11,9 +11,19 @@ namespace VioletVreath {
 #define VB VioletVreath::God::pVbtn_Active_
 
 
-//#define connectToDepositoryManager(X) (connectToDepositoryManager(X)))
-#define connectToDepositoryManager(X,Y) ((VioletVreath::DepositoryConnection*)(P_GOD->pDepoManager_->connect((X),(Y))))
-#define connectToSplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(P_GOD->pSpl3DManager_->connect(X)))
+/**
+ * 神が保持する DepositoryManager に接続し、コネクションを取得。
+ * X：識別文字列（DepositoryManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_idstr に渡る)
+ * Y：パラメータ（DepositoryManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_p に渡る)
+ */
+#define connectDepositoryManager(X,Y) ((VioletVreath::DepositoryConnection*)(P_GOD->pDepoManager_->connect((X),(Y))))
+
+/**
+ * 神が保持する SplineLineManager に接続し、コネクションを取得。
+ * X：識別文字列（SplineLineManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_idstr に渡る)
+ * また、SplineLineManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_p には NULL がセットされている。
+ */
+#define connectSplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(P_GOD->pSpl3DManager_->connect(X)))
 
 /**
  * 神

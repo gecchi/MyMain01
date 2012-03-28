@@ -31,8 +31,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         }
     }
 
-    pCon_RefractionEffectDepository_ = connectToDepositoryManager("DpCon_EffRefraction001", NULL);
-    pCon_LaserChipDepoStore_ = connectToDepositoryManager(
+    pCon_RefractionEffectDepository_ = connectDepositoryManager("DpCon_EffRefraction001", NULL);
+    pCon_LaserChipDepoStore_ = connectDepositoryManager(
             "DpCon_EnemyAstraeaLaserChip004DepoStore",
          //"DpCon_EnemyAstraeaLaserChip003DepoStore",
          //"DpCon_EnemyAstraeaLaserChip001DepoStore",
@@ -51,9 +51,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         for (int j = 0; j < laser_way_; j++) {
             Ry = GgafDxUtil::simplifyAng(paAngWay[j]);
             GgafDxUtil::getNormalizeVectorZY(Rz, Ry, vx, vy, vz);
-            papaPosLaser_[i][j].X = vx * P2C(100);
-            papaPosLaser_[i][j].Y = vy * P2C(100);
-            papaPosLaser_[i][j].Z = vz * P2C(100);
+            papaPosLaser_[i][j].X = vx * PxC(100);
+            papaPosLaser_[i][j].Y = vy * PxC(100);
+            papaPosLaser_[i][j].Z = vz * PxC(100);
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
@@ -76,9 +76,9 @@ void EnemyAstraea::initialize() {
     setHitAble(true);
     setAlpha(0.99);
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, P2C(200));
+    _pColliChecker->setColliSphere(0, PxC(200));
     _pKurokoA->setRzRyMvAng(0, D180ANG);
-    _pKurokoA->setMvVelo(P2C(5));
+    _pKurokoA->setMvVelo(PxC(5));
 }
 
 void EnemyAstraea::onActive() {
@@ -210,7 +210,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locatedBy(this);
         }

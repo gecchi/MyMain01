@@ -134,7 +134,7 @@ public:
      * @param y2 âEâ∫âúYç¿ïW
      */
     void setColliAAB(int prm_index, coord x1, coord y1, coord x2, coord y2) {
-        setColliAAB(prm_index, x1, y1, -1 * P2C(1) / 2, x2, y2, P2C(1) / 2, false, false,
+        setColliAAB(prm_index, x1, y1, -1 * PxC(1) / 2, x2, y2, PxC(1) / 2, false, false,
                       false);
     }
 

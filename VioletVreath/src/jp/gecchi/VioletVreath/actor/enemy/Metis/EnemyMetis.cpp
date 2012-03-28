@@ -76,7 +76,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     _pSeTransmitter->play3D(0);
         //ここに消滅エフェクト
     if (pOther->getKind() & KIND_MY) {
-        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locatedBy((GgafDxGeometricActor*)prm_pOtherActor);
             pExplo001->activate();
@@ -87,7 +87,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
 
-        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTransmitter->play3D(1);
         if (pExplo001) {
             pExplo001->locatedBy((GgafDxGeometricActor*)prm_pOtherActor);
@@ -96,7 +96,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         sayonara();
 
         //アイテム出現
-        Item* pItem = getFromCommon(MagicPointItem001);
+        Item* pItem = employFromCommon(MagicPointItem001);
         if (pItem) {
             pItem->locatedBy(this);
         }

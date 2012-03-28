@@ -125,7 +125,7 @@ void GgafDxTextureBlinker::intoTargetBlinkLinerUntil(float prm_target_power_blin
     _method = TARGET_BLINK_LINER;
     _target_power_blink = prm_target_power_blink;
     _velo_power_blink = (prm_target_power_blink - _power_blink) / (int)prm_spend_frame;
-    if (_velo_power_blink == 0.0f) {
+    if (_velo_power_blink == 0.0f) { //TODO:‚±‚±‰½‚Æ‚©‚·‚é
         _method = NOBLINK;
     }
 }

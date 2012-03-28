@@ -20,7 +20,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     for (int i = 0; i <= ITEM_QUIT; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addSelectItem(pLabel, P2C(80), P2C(5+(i*20)));
+        addSelectItem(pLabel, PxC(80), PxC(5+(i*20)));
     }
     //キャンセル押下時移動先アイテム
     relationItemCancel(ITEM_QUIT);
@@ -29,7 +29,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor, 0, 0, 0, 8, 0.2, 0.7);
     //スライド表示の設定
-    setTransition(10, P2C(0), +P2C(100));
+    setTransition(10, PxC(0), +PxC(100));
     //初期選択
     setSelectedItemIndex(ITEM_GAME_START);
     //確認サブメニュー
@@ -53,7 +53,7 @@ void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
 }
 
 void MenuBoardTitle::riseConfirm() {
-    riseSub(pConfirmMenu_, getSelectedItem()->_X + P2C(50), getSelectedItem()->_Y);
+    riseSub(pConfirmMenu_, getSelectedItem()->_X + PxC(50), getSelectedItem()->_Y);
 }
 void MenuBoardTitle::sinkConfirm() {
     sinkSub();

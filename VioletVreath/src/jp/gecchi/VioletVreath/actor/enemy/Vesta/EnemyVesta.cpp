@@ -22,7 +22,7 @@ EnemyVesta::EnemyVesta(const char* prm_name) :
     frame_of_morph_interval_   = 60;
 
     pDepo_Fired_ = NULL;
-    pDpcon_ = connectToDepositoryManager("DpCon_Shot004", NULL);
+    pDpcon_ = connectDepositoryManager("DpCon_Shot004", NULL);
 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
@@ -247,7 +247,7 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
 
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+    EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
 
     if (pExplo001) {
         pExplo001->locatedBy(this);
@@ -258,7 +258,7 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
         sayonara();
 
         //アイテム出現
-        Item* pItem = getFromCommon(MagicPointItem001);
+        Item* pItem = employFromCommon(MagicPointItem001);
         if (pItem) {
             pItem->locatedBy(this);
         }

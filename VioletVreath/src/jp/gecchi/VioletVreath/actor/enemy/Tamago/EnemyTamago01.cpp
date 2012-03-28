@@ -15,7 +15,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
 
-    pDepoCon_ = connectToDepositoryManager("DpCon_Shot001", NULL);
+    pDepoCon_ = connectDepositoryManager("DpCon_Shot001", NULL);
     //pDepo_Shot_ = pDepoCon_->fetch();
 pDepo_Shot_ = NULL;
     _pSeTransmitter->useSe(1);
@@ -179,7 +179,7 @@ void EnemyTamago01::processJudgement() {
 
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+    EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
     _pSeTransmitter->play3D(0);
     _TRACE_("HIT!!!");
     if (pExplo001) {

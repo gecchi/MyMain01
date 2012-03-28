@@ -9,7 +9,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     _class_name = "Stage01WalledScene";
 
     //壁ブロックデポジトリ生成
-    float scale_r = 3.0f; //壁ブロックの元モデルからの拡大率
+    float scale_r = 10.0f; //壁ブロックの元モデルからの拡大率
     WallAABActor* pWallAABActor;
     GgafActorDepository* pDepo_WallAAB = NEW GgafActorDepository("Dp_WallAAB");
     for (int i = 0; i < 1500; i++) {
@@ -17,7 +17,6 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         name <<  "Wall001_" << i;
         pWallAABActor = NEW Wall001(name.str().c_str());
         pWallAABActor->setScaleR(scale_r);
-        pWallAABActor->inactivateTreeImmed();
         pDepo_WallAAB->addSubLast(pWallAABActor);
     }
     P_COMMON_SCENE->getDirector()->addSubGroup(pDepo_WallAAB);
@@ -30,7 +29,6 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         name <<  "Wall001Prism_" << i;
         pWallAAPrismActor = NEW Wall001Prism(name.str().c_str());
         pWallAAPrismActor->setScaleR(scale_r);
-        pWallAAPrismActor->inactivateTreeImmed();
         pDepo_WallAAPrism->addSubLast(pWallAAPrismActor);
     }
     P_COMMON_SCENE->getDirector()->addSubGroup(pDepo_WallAAPrism);
@@ -56,11 +54,11 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100};
-	_paFrame_NextEvent = new frame[2];
-	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 2;
-	orderActorToFactory(20000000, FormationThalia, "FormationThalia_1");
+    frame f[] = {1,100};
+    _paFrame_NextEvent = new frame[2];
+    memcpy(_paFrame_NextEvent, f, sizeof(f));
+    _event_num = 2;
+    orderActorToFactory(20000000, FormationThalia, "FormationThalia_1");
     // gen01 end
 }
 
@@ -75,21 +73,21 @@ void Stage01WalledScene::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getActivePartFrame() == _paFrame_NextEvent[_cnt_event]) {
-		switch (getActivePartFrame()) {
-			case 1: {
-				break;
-			}
-			case 100: {
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(20000000);
-				getDirector()->addSubGroup(pF);
-				break;
-			}
-			default :
-				break;
-		}
-		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
-	}
+    if (getActivePartFrame() == _paFrame_NextEvent[_cnt_event]) {
+        switch (getActivePartFrame()) {
+            case 1: {
+                break;
+            }
+            case 100: {
+                FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(20000000);
+                getDirector()->addSubGroup(pF);
+                break;
+            }
+            default :
+                break;
+        }
+        _cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
+    }
     // gen02 end
 }
 

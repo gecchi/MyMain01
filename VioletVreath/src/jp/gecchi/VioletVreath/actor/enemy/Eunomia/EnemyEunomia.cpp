@@ -147,7 +147,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->locatedBy(this);
@@ -159,7 +159,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
             //フォーメーションに自身が撃たれた事を伝える。
             notifyFormationAboutDestroyed();
             //アイテム出現
-            Item* pItem = getFromCommon(MagicPointItem001);
+            Item* pItem = employFromCommon(MagicPointItem001);
             if (pItem) {
                 pItem->locatedBy(this);
             }

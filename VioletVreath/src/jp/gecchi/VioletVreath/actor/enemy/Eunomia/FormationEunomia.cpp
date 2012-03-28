@@ -10,7 +10,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationEunomia";
 
     //エウノミア編隊用デポジトリ
-    pDepoCon_Eunomia_ = connectToDepositoryManager("DpCon_EnemyEunomia4Formation", this);
+    pDepoCon_Eunomia_ = connectDepositoryManager("DpCon_EnemyEunomia4Formation", this);
     setFormationAbleActorDepository(pDepoCon_Eunomia_->fetch());
 
     //スプライン定義ファイルを読み込む
@@ -40,13 +40,12 @@ void FormationEunomia::onActive() {
 
 void FormationEunomia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
     //編隊消滅時の実験
-    EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->pDepo_EffectTurbo002_->dispatchForce();
+    EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
     if (pTurbo002) {
         pTurbo002->locatedBy((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
-        pTurbo002->activate();
     }
     //編隊全滅アイテム出現
-    Item* pItem = getFromCommon(MagicPointItem002);
+    Item* pItem = employFromCommon(MagicPointItem002);
     if (pItem) {
         pItem->locatedBy((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
     }

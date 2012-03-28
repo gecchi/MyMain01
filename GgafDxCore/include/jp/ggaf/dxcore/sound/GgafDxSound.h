@@ -2,8 +2,17 @@
 #define GGAFDXSOUND_H_
 
 namespace GgafDxCore {
-
+/**
+ * 神が保持する GgafDxSeConnection に接続し、コネクションを取得。
+ * @param X：スプライン定義識別文字列。プロパティ DIR_WAVE 配下の「X + ".wave"」というファイル名を使用する。
+ *           チャンネル指定時は、スラッシュを挿入 ("1/click" 等）
+ */
 #define connectSeManager(X)  ((GgafDxCore::GgafDxSeConnection*)GgafDxCore::GgafDxSound::_pSeManager->connect(X))
+
+/**
+ * 神が保持する GgafDxSeConnection に接続し、コネクションを取得。
+ * @param X：スプライン定義識別文字列。プロパティ DIR_OGG 配下から、プロパティ X +"_OGG" の値のファイル名を使用する。
+ */
 #define connectBgmManager(X) ((GgafDxCore::GgafDxBgmConnection*)GgafDxCore::GgafDxSound::_pBgmManager->connect(X))
 
 /**

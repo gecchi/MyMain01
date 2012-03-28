@@ -37,22 +37,22 @@ void Planet001::initialize() {
 void Planet001::processBehavior() {
     //巨大オブジェクトテスト
     if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-        _X += P2C(100);
+        _X += PxC(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_U)) {
-        _X -= P2C(100);
+        _X -= PxC(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_8)) {
-        _Y += P2C(100);
+        _Y += PxC(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_J)) {
-        _Y -= P2C(100);
+        _Y -= PxC(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_9)) {
-        _Z += P2C(100);
+        _Z += PxC(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_K)) {
-        _Z -= P2C(100);
+        _Z -= PxC(100);
     }
 
     if (GgafDxInput::isBeingPressedKey(DIK_0)) {
@@ -65,7 +65,7 @@ void Planet001::processBehavior() {
     if (GgafDxInput::isPushedDownKey(DIK_O)) {
         _TRACE_("Planet001  "<<_X<<","<<_Y<<","<<_Z);
     }
-    //_X = _X - P2C(1);
+    //_X = _X - PxC(1);
     _pScaler->behave();
     _pKurokoA->behave();
 

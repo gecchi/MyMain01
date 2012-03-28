@@ -196,7 +196,7 @@ void PauseCamWorker::processBehavior() {
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
 
-            double r = ((d/cd_) * P2C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2));
+            double r = ((d/cd_) * PxC(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2));
 
             move_target_X_CAM_ += (Q._x*r);
             move_target_Y_CAM_ += (Q._y*r);

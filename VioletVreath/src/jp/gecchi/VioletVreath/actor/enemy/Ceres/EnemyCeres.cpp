@@ -34,7 +34,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
         createGgafActorDepository_ = false;
     }
 
-    pSplLineCon_ = connectToSplineLineManager("SpCon_001");
+    pSplLineCon_ = connectSplineLineManager("SpCon_001");
     pProgram_CeresMove_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->fetch(), 5000); //ˆÚ“®‘¬“xŒÅ’è
 
 //    pProgram_CeresMove_ = NEW FixedFrameSplineSequence(_pKurokoA, pSplLineCon_->fetch(), 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è
@@ -108,7 +108,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
         //”j‰ó‚³‚ê‚½ê‡
         setHitAble(false);
         _pSeTransmitter->play3D(0);
-        GgafDxDrawableActor* pExplo001 = getFromCommon(EffectExplosion001);
+        GgafDxDrawableActor* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locatedBy(this);
         }

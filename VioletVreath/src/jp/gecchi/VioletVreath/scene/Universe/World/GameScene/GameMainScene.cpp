@@ -14,31 +14,31 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 
     pLabel_SCORE_ = NEW LabelGecchi16Font("SCORE");
     pLabel_SCORE_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-    pLabel_SCORE_->locate(P2C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), P2C(1));
+    pLabel_SCORE_->locate(PxC(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), PxC(1));
     getDirector()->addSubGroup(pLabel_SCORE_);
 
     pLabel_RANK_ = NEW LabelGecchi16Font("RANK");
     pLabel_RANK_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-    pLabel_RANK_->locate(P2C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), P2C(20));
+    pLabel_RANK_->locate(PxC(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), PxC(20));
     getDirector()->addSubGroup(pLabel_RANK_);
 
     pLabel_STAMINA_ = NEW LabelGecchi16Font("STAMINA");
     pLabel_STAMINA_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-    pLabel_STAMINA_->locate(P2C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), P2C(40));
+    pLabel_STAMINA_->locate(PxC(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), PxC(40));
     getDirector()->addSubGroup(pLabel_STAMINA_);
 
     pLabel_JIKI_X_ = NEW LabelGecchi8Font("JIKI_X");
     pLabel_JIKI_Y_ = NEW LabelGecchi8Font("JIKI_Y");
     pLabel_JIKI_Z_ = NEW LabelGecchi8Font("JIKI_Z");
-    pLabel_JIKI_X_->locate(P2C(1), P2C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1));
-    pLabel_JIKI_Y_->locate(P2C(1), P2C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1));
-    pLabel_JIKI_Z_->locate(P2C(1), P2C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1));
+    pLabel_JIKI_X_->locate(PxC(1), PxC(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1));
+    pLabel_JIKI_Y_->locate(PxC(1), PxC(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1));
+    pLabel_JIKI_Z_->locate(PxC(1), PxC(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1));
     getDirector()->addSubGroup(pLabel_JIKI_X_);
     getDirector()->addSubGroup(pLabel_JIKI_Y_);
     getDirector()->addSubGroup(pLabel_JIKI_Z_);
 
     pRankFont_ = NEW LabelRankFont("RankFont"); //LabelRankFont‚Í ALIGN_RIGHT,VALIGN_BOTTOM ŒÅ’è
-    pRankFont_->locate(P2C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), P2C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)));
+    pRankFont_->locate(PxC(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), PxC(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)));
     getDirector()->addSubGroup(pRankFont_);
 
     useProgress(GameMainScene::PROG_FINISH);
@@ -53,19 +53,20 @@ void GameMainScene::initialize() {
 }
 
 void GameMainScene::processBehavior() {
+    MyShip* pMyShip = P_MYSHIP;
     //SCORE•\¦
     sprintf(buf_, "SCORE %07u", _SCORE_);
     pLabel_SCORE_->update(buf_);
     sprintf(buf_, "RANK %.7f", _RANK_);
     pLabel_RANK_->update(buf_);
-    sprintf(buf_, "STAMINA %7d", P_MYSHIP->_pStatus->get(STAT_Stamina));
+    sprintf(buf_, "STAMINA %7d", pMyShip->_pStatus->get(STAT_Stamina));
     pLabel_STAMINA_->update(buf_);
 
-    sprintf(buf_, "X:%8d", P_MYSHIP->_X);
+    sprintf(buf_, "X:%8d", pMyShip->_X);
     pLabel_JIKI_X_->update(buf_);
-    sprintf(buf_, "Y:%8d", P_MYSHIP->_Y);
+    sprintf(buf_, "Y:%8d", pMyShip->_Y);
     pLabel_JIKI_Y_->update(buf_);
-    sprintf(buf_, "Z:%8d", P_MYSHIP->_Z);
+    sprintf(buf_, "Z:%8d", pMyShip->_Z);
     pLabel_JIKI_Z_->update(buf_);
 
     switch (_pProg->get()) {

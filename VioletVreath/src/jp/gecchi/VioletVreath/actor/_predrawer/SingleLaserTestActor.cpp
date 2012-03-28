@@ -50,7 +50,7 @@ void SingleLaserTestActor::onHit(GgafActor* prm_pOtherActor) {
 //    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 //        //破壊された場合
 //        //・・・ココに破壊されたエフェクト
-//        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+//        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
 //        if (pExplo001) {
 //            pExplo001->locatedBy(this);
 //        }

@@ -72,7 +72,6 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
         checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() SetFloat(_h_specular_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
 
-
     //ï`âÊ
     for (UINT material_grp_index = 0; material_grp_index < _pa_nMaterialListGrp[prm_draw_set_num-1]; material_grp_index++) {
         // TODO
@@ -133,11 +132,11 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
         GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                        _papaIndexParam[prm_draw_set_num-1][material_grp_index].BaseVertexIndex,
-                                        _papaIndexParam[prm_draw_set_num-1][material_grp_index].MinIndex,
-                                        _papaIndexParam[prm_draw_set_num-1][material_grp_index].NumVertices,
-                                        _papaIndexParam[prm_draw_set_num-1][material_grp_index].StartIndex,
-                                        _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
+                                                       _papaIndexParam[prm_draw_set_num-1][material_grp_index].BaseVertexIndex,
+                                                       _papaIndexParam[prm_draw_set_num-1][material_grp_index].MinIndex,
+                                                       _papaIndexParam[prm_draw_set_num-1][material_grp_index].NumVertices,
+                                                       _papaIndexParam[prm_draw_set_num-1][material_grp_index].StartIndex,
+                                                       _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
         if (_numPass >= 2) { //ÇQÉpÉXñ⁄à»ç~Ç™ë∂ç›
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() ÇPÉpÉXñ⁄ EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -145,11 +144,11 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
                 hr = pID3DXEffect->BeginPass(i);
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() "<<i+1<<"ÉpÉXñ⁄ BeginPass("<<i<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                _papaIndexParam[prm_draw_set_num-1][material_grp_index].BaseVertexIndex,
-                                                _papaIndexParam[prm_draw_set_num-1][material_grp_index].MinIndex,
-                                                _papaIndexParam[prm_draw_set_num-1][material_grp_index].NumVertices,
-                                                _papaIndexParam[prm_draw_set_num-1][material_grp_index].StartIndex,
-                                                _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
+                                                               _papaIndexParam[prm_draw_set_num-1][material_grp_index].BaseVertexIndex,
+                                                               _papaIndexParam[prm_draw_set_num-1][material_grp_index].MinIndex,
+                                                               _papaIndexParam[prm_draw_set_num-1][material_grp_index].NumVertices,
+                                                               _papaIndexParam[prm_draw_set_num-1][material_grp_index].StartIndex,
+                                                               _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
                 hr = pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() "<<i+1<<"ÉpÉXñ⁄ EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             }

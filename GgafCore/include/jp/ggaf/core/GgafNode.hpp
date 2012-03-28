@@ -433,7 +433,7 @@ void GgafNode<T>::moveFirst() {
         //末尾ノードと先頭ノードの間にもぐりこませる
         T* pFirst = _pParent->_pSubFirst; //現First
         T* pLast = pFirst->_pPrev;        //現Last
-        pFirst->_is_last_flg = false;     //現FirstのFirstだフラグ解除
+        pFirst->_is_first_flg = false;    //現FirstのFirstだフラグ解除
         _is_first_flg = true;             //俺が新Firstだフラグセット
         _pPrev = pLast;                   //俺の前は現Lastで、
         _pNext = pFirst;                  //俺の次は現Firstだ。

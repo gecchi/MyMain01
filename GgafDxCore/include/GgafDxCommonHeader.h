@@ -80,7 +80,7 @@
 #define LEN_UNIT (1000)
 #define PI (3.14159265358979)
 //#define MAX_DRAW_DEPTH_LEVEL 1000
-#define MAX_DRAW_DEPTH_LEVEL 220
+#define MAX_DRAW_DEPTH_LEVEL 500
 #define DRAW_DEPTH_LEVEL_WORLDBOUND (MAX_DRAW_DEPTH_LEVEL)
 #define MAX_SE_AT_ONCE 10
 #define MAX_SE_DELAY 240
@@ -193,7 +193,7 @@ typedef GgafDxAxis axis;
 /** アプリの座標 → ピクセル座標(初期カメラ位置の時) 変換 */
 #define CO2PX(X) (1.0f * (X) / LEN_UNIT)
 /** ピクセル座標(初期カメラ位置の時) → アプリの座標 変換 */
-#define P2C(X) ((X) * LEN_UNIT)
+#define PxC(X) ((X) * LEN_UNIT)
 
 /** アプリのアングル値→度数法角度 変換 */
 #define ANG2DEG(X) ((float)((X) / 1000))
@@ -210,15 +210,6 @@ typedef GgafDxAxis axis;
 #define SC2R(X) (1.0f * (X) / LEN_UNIT)
 /** 拡大率 → アプリのスケール値 変換 */
 #define R2SC(X) ((X) * LEN_UNIT)
-//
-///** X軸を表す定数 */
-//#define AXIS_X 0
-///** Y軸を表す定数 */
-//#define AXIS_Y 1
-///** Z軸を表す定数 */
-//#define AXIS_Z 2
-
-
 
 /** 度数法 0 度に対応するアプリのアングル値定数 */
 #define D0ANG   (0)

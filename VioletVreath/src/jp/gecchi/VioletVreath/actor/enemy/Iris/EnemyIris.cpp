@@ -121,8 +121,6 @@ void EnemyIris::processJudgement() {
 }
 
 void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
-    //_TRACE_("EnemyIris::onHit!!! this="<<getName()<<"("<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
-    //_TRACE_("EnemyIris::onHit!!! prm_pOtherActor="<<prm_pOtherActor->getName()<<"("<<prm_pOtherActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
@@ -132,7 +130,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
             notifyFormationAboutDestroyed();
         }
 
-        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->locatedBy(this);

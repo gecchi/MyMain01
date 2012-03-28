@@ -101,11 +101,11 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
     }
     TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
     GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                    _paIndexParam[prm_draw_set_num-1].BaseVertexIndex,
-                                                    _paIndexParam[prm_draw_set_num-1].MinIndex,
-                                                    _paIndexParam[prm_draw_set_num-1].NumVertices,
-                                                    _paIndexParam[prm_draw_set_num-1].StartIndex,
-                                                    _paIndexParam[prm_draw_set_num-1].PrimitiveCount);
+                                                   _paIndexParam[prm_draw_set_num-1].BaseVertexIndex,
+                                                   _paIndexParam[prm_draw_set_num-1].MinIndex,
+                                                   _paIndexParam[prm_draw_set_num-1].NumVertices,
+                                                   _paIndexParam[prm_draw_set_num-1].StartIndex,
+                                                   _paIndexParam[prm_draw_set_num-1].PrimitiveCount);
 
     //ëOâÒï`âÊÉÇÉfÉãï€éù
     GgafDxModelManager::_pModelLastDraw = this;

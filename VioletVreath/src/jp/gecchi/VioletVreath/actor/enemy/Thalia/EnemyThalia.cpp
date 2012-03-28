@@ -154,7 +154,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
     if (_pProg->get() != THALIA_PROG_MOVE && (pOther->getKind() & KIND_MY) ) {
         changeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
-        EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locatedBy(this);
         }
@@ -162,7 +162,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
 
         if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-            EffectExplosion001* pExplo001 = getFromCommon(EffectExplosion001);
+            EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
             if (pExplo001) {
                 pExplo001->locatedBy(this);
             }

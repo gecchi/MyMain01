@@ -42,7 +42,7 @@ void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
     pLabel01_->update("");
     pLabel02_->update("");
-    pTitleBoard_->locate(P2C(100), P2C(90));
+    pTitleBoard_->locate(PxC(100), PxC(90));
     _pProg->set(GameTitleScene::PROG_INIT);
 }
 
@@ -75,7 +75,7 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_TITLE: {
             if (_pProg->isJustChanged()) {
-                pLabel02_->update(P2C(400), P2C(400), "PUSH UI_EXECUTE TO BEGIN!");
+                pLabel02_->update(PxC(400), PxC(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 pSeCon_exec_->fetch()->play();
@@ -93,7 +93,7 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_SELECT: {
             if (_pProg->isJustChanged()) {
-                pMenu_->rise(P2C(50), P2C(350));
+                pMenu_->rise(PxC(50), PxC(350));
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             }
 
@@ -147,9 +147,9 @@ void GameTitleScene::processBehavior() {
             }
             //“_–Å
             if (_pProg->getFrameInProgress() % 10 < 5 ) {
-                pLabel02_->update(P2C(700), P2C(200), "READY GO!");
+                pLabel02_->update(PxC(700), PxC(200), "READY GO!");
             } else {
-                pLabel02_->update(P2C(700), P2C(200), "");
+                pLabel02_->update(PxC(700), PxC(200), "");
             }
             break;
         }
