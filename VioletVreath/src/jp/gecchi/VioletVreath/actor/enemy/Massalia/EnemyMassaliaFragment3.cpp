@@ -18,8 +18,8 @@ void EnemyMassaliaFragment3::initialize() {
     setHitAble(true);
     setScaleR(0.04);
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, PxC(20));
-    _pKurokoA->setFaceAngVelo(DEG2ANG(0), DEG2ANG(10), DEG2ANG(0));
+    _pColliChecker->setColliSphere(0, PXCO(20));
+    _pKurokoA->setFaceAngVelo(DANG(0), DANG(10), DANG(0));
 }
 
 void EnemyMassaliaFragment3::onActive() {

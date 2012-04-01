@@ -176,14 +176,14 @@ void CameraWorker::processBehavior() {
     }
 
     //ÉJÉÅÉâÇÃUPÇåvéZ
-    ang_velo ang_velo_cam_up = cam_velo_renge/20;
+    angvelo angvelo_cam_up = cam_velo_renge/20;
 
     if (angXY_nowCamUp_ != move_target_XY_CAM_UP_) {
         angle da = GgafDxUtil::getAngDiff(angXY_nowCamUp_, move_target_XY_CAM_UP_);
-        if (-ang_velo_cam_up < da && da < ang_velo_cam_up) {
+        if (-angvelo_cam_up < da && da < angvelo_cam_up) {
             angXY_nowCamUp_ = move_target_XY_CAM_UP_;
         } else {
-            angXY_nowCamUp_ += (ang_velo_cam_up * sgn(da));
+            angXY_nowCamUp_ += (angvelo_cam_up * sgn(da));
         }
         angXY_nowCamUp_ = GgafDxUtil::simplifyAng(angXY_nowCamUp_);
         pCam->_pVecCamUp->x = GgafDxUtil::COS[angXY_nowCamUp_/SANG_RATE];

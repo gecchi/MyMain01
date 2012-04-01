@@ -10,7 +10,7 @@ SplineManufactureManager::SplineManufactureManager(const char* prm_manager_name)
 
 SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_idstr, void* prm_p) {
     frame spent_frame = 0;
-    ang_velo ang_veloRzRyMv = 0;
+    angvelo angveloRzRyMv = 0;
     string classname = "";
     int turn_way = -1;
     bool turn_optimize = true;
@@ -60,7 +60,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     }
 
     if (GgafUtil::isExistKey("ANGLE_VELOCITY", &mapSplPropperties)) {
-        ang_veloRzRyMv = (ang_velo)atoi(mapSplPropperties["ANGLE_VELOCITY"].c_str());
+        angveloRzRyMv = (angvelo)atoi(mapSplPropperties["ANGLE_VELOCITY"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] Ç™éwíËÇ≥ÇÍÇƒÇ‹ÇπÇÒÅB");
     }
@@ -105,14 +105,14 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
             throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPENT_FRAME] Ç™0Ç≈Ç∑ÅB");
         }
         pSplManuf = NEW FixedFrameSplineManufacture(spl_data_file.c_str(), spent_frame,
-                                                    ang_veloRzRyMv,
+                                                    angveloRzRyMv,
                                                     turn_way,
                                                     turn_optimize);
         pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //ägëÂèkè¨
         pSplManuf->calculate();
     } else if (classname.find("FixedVelocitySpline") != string::npos) {
         pSplManuf = NEW FixedVelocitySplineManufacture(spl_data_file.c_str(),
-                                                       ang_veloRzRyMv,
+                                                       angveloRzRyMv,
                                                        turn_way,
                                                        turn_optimize);
         pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //ägëÂèkè¨
@@ -120,7 +120,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource _classname="<<classname<< "ÇÕïsñæÇ»ÉNÉâÉXÇ≈Ç∑");
     }
-    if (ang_veloRzRyMv == 0) {
+    if (angveloRzRyMv == 0) {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [ANGLE_VELOCITY] Ç™éwíËÇ≥ÇÍÇƒÇ‹ÇπÇÒÅB");
     }
     return pSplManuf;

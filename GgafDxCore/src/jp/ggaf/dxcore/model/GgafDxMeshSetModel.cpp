@@ -32,7 +32,7 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_m
     }
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
-    _pa_nMaterialListGrp = NULL;
+    _paUint_material_list_grp_num = NULL;
     _paVtxBuffer_org = NULL;
     _paIdxBuffer_org = NULL;
     _papaIndexParam = NULL;
@@ -73,12 +73,12 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
     }
 
     //描画
-    for (UINT material_grp_index = 0; material_grp_index < _pa_nMaterialListGrp[prm_draw_set_num-1]; material_grp_index++) {
+    for (UINT material_grp_index = 0; material_grp_index < _paUint_material_list_grp_num[prm_draw_set_num-1]; material_grp_index++) {
         // TODO
         //モデルが同じでかつ、セット数も同じかつ、マテリアルNOが１つしかないならば、テクスチャ設定もスキップできる
         if (GgafDxModelManager::_pModelLastDraw  != this      ||
             //GgafDxMeshSetModel::_draw_set_num_LastDraw != draw_set_num ||
-            _pa_nMaterialListGrp[prm_draw_set_num-1] != 1)
+            _paUint_material_list_grp_num[prm_draw_set_num-1] != 1)
         {
             material_no = _papaIndexParam[prm_draw_set_num-1][material_grp_index].MaterialNo;
             if (_papTextureCon[material_no]) {
@@ -202,7 +202,7 @@ void GgafDxMeshSetModel::release() {
         DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam[i]);
     }
     DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam);
-    DELETEARR_IMPOSSIBLE_NULL(_pa_nMaterialListGrp);
+    DELETEARR_IMPOSSIBLE_NULL(_paUint_material_list_grp_num);
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);

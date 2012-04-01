@@ -25,7 +25,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     pDepo_ShotEffect_ = NULL;
 
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
-    pLaserChipDepo_->config(60, 1, NULL);
+    pLaserChipDepo_->config(60, 1, NULL); //Thaliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 65; i++) { //レーザーストック
         stringstream name;
@@ -82,7 +82,7 @@ void EnemyThalia::processBehavior() {
     switch (_pProg->get()) {
         case THALIA_PROG_MOVE: {
             if (!_pKurokoA->isMoveingSmooth()) {
-                _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //0.0004 開く速さ
+                _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
                 _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                  0, 100,
                                                  TURN_CLOSE_TO);
@@ -92,7 +92,7 @@ void EnemyThalia::processBehavior() {
             break;
         }
         case THALIA_PROG_TURN_OPEN: {
-            if (_pMorpher->_method[1] == NOMORPH ) {
+            if (_pProg->getFrameInProgress() > 120) {
                 _pProg->changeNext();
             }
             break;
@@ -102,6 +102,7 @@ void EnemyThalia::processBehavior() {
             if ( _X - P_MYSHIP->_X > -dZ_camera_init_) {
                 _pProg->change(THALIA_PROG_IN_FIRE);
             } else {
+                //背後からは撃たない。
                 _pProg->change(THALIA_PROG_CLOSE);
             }
             break;
@@ -187,15 +188,30 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 //                                       P_MYSHIP,
 //                                       20+_RANK_*10, 0,
 //                                       2000, 200);
-                  StgUtil::shotWay002v2(this,
-                                       pDepo_Shot_,
-                                       P_MYSHIP,
-                                       R_EnemyThalia_ShotWay, 0,
-                                       2000, 200,
-                                       5, 0.8);
+//                  StgUtil::shotWay002v2(this,
+//                                       pDepo_Shot_,
+//                                       P_MYSHIP,
+//                                       R_EnemyThalia_ShotWay, 0,
+//                                       2000, 200,
+//                                       5, 0.8);
+//                  StgUtil::shotWay003(this, pDepo_Shot_,
+//                                      PXCO(20),
+//                                      5, 5, DANG(10), DANG(10),
+//                                      2000, 200);
+
+//                  StgUtil::shotWay003(this, pDepo_Shot_,
+//                                      PXCO(20),
+//                                      6, 6, DANG(8), DANG(8),
+//                                      2000, 200,
+//                                      20, 60, 0.9);
+
+                  StgUtil::shotWay004(this, pDepo_Shot_,
+                                      PXCO(20),
+                                      8, DANG(40),
+                                      2000, 200,
+                                      10, 30, 0.9);
 
             }
-
             sayonara();
         }
 

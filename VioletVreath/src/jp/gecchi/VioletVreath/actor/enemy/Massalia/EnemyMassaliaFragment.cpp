@@ -18,8 +18,8 @@ void EnemyMassaliaFragment::initialize() {
     setHitAble(true);
     setScaleR(0.3);
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, PxC(50));
-    _pKurokoA->setFaceAngVelo(DEG2ANG(0), DEG2ANG(10), DEG2ANG(0));
+    _pColliChecker->setColliSphere(0, PXCO(50));
+    _pKurokoA->setFaceAngVelo(DANG(0), DANG(10), DANG(0));
 }
 
 void EnemyMassaliaFragment::onActive() {
@@ -61,8 +61,8 @@ void EnemyMassaliaFragment::onHit(GgafActor* prm_pOtherActor) {
                 p->locatedBy(this);
                 p->_pKurokoA->takeoverMvFrom(this->_pKurokoA);
                 p->_pKurokoA->setMvVelo(p->_pKurokoA->_veloMv/2); //半分のスピードへ
-                p->_pKurokoA->addRyMvAng(RND(DEG2ANG(-45), DEG2ANG(+45)));
-                p->_pKurokoA->addRzMvAng(RND(DEG2ANG(-45), DEG2ANG(+45)));
+                p->_pKurokoA->addRyMvAng(RND(DANG(-45), DANG(+45)));
+                p->_pKurokoA->addRzMvAng(RND(DANG(-45), DANG(+45)));
             }
         }
         pCon->close();

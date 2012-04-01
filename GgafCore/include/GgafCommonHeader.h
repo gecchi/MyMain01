@@ -106,7 +106,7 @@
     #else
         //GCC で自分用デバッグビルド時
         //GCC用のリーク検出を仕込む
-        //#include "DetectMemoryLeaks.h"
+        //#include "jp/ggaf/core/DetectMemoryLeaks.h"
         //#define NEW new(__FILE__, __LINE__)
         #define NEW new
     #endif

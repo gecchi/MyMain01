@@ -16,15 +16,15 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 
 void MyTorpedoBlast::initialize() {
     _pColliChecker->makeCollision(1);
-    _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(0));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, DEG2ANG(6));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(0));
+    _pKurokoA->setFaceAngVelo(AXIS_X, DANG(0));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, DANG(6));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, DANG(0));
     setHitAble(true);
 }
 
 void MyTorpedoBlast::onReset() {
     _pStatus->reset();
-    _pColliChecker->setColliSphere(0, PxC(10));
+    _pColliChecker->setColliSphere(0, PXCO(10));
     _pKurokoA->setMvVelo(0);
     _pScaler->setScale(R2SC(1));
     _pScaler->forceScaleRange(R2SC(1), R2SC(400));

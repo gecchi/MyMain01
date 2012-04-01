@@ -9,7 +9,7 @@ void SmpActor::initialize() {
     //座標設定
     _X = _Y = _Z = 0; //(0,0,0) は画面の中心
     //黒子AにキャラのZ軸回転の角速度を設定(毎フレーム2度)
-    _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(2));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, DANG(2));
 }
 
 void SmpActor::processBehavior() {

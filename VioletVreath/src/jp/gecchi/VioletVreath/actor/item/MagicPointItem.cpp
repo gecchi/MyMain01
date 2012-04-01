@@ -21,9 +21,9 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.9);
 
-    _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(3));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, DEG2ANG(5));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(7));
+    _pKurokoA->setFaceAngVelo(AXIS_X, DANG(3));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, DANG(5));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, DANG(7));
     _pKurokoA->relateFaceAngWithMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress();
@@ -92,7 +92,7 @@ void MagicPointItem::processBehavior() {
             _pKurokoB->setVxMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv);
             _pKurokoB->setVyMvVelo(_pKurokoA->_vY*_pKurokoA->_veloMv);
             _pKurokoB->setVzMvVelo(_pKurokoA->_vZ*_pKurokoA->_veloMv);
-            _pKurokoB->execGravitationMvSequence(pMyShip, PxC(30), 100, 60000);
+            _pKurokoB->execGravitationMvSequence(pMyShip, PXCO(30), 100, 60000);
             _pKurokoA->setMvVelo(0);
             _pKurokoA->setMvAcce(0);
         }

@@ -31,7 +31,7 @@ public:
     /** 自機 */
     MyShip* pMyShip_;
     /** 自機オプション部 */
-    MyOptionController** papOptionCtrler_;
+    MyOptionController** papOptionCtrlr_;
     /** 自機爆発エフェクト */
     EffectMyShipExplosion* pEffectMyShipExplosion_;
     /** VAMSYSTEM カメラワーク */

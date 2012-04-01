@@ -5,11 +5,11 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_source_file,
-                                                               ang_velo prm_ang_veloRzRyMv,
+                                                               angvelo prm_angveloRzRyMv,
                                                                int prm_turn_way,
                                                                bool prm_turn_optimaize) :
         SplineManufacture(prm_source_file) {
-    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
+    _angveloRzRyMv = prm_angveloRzRyMv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
 
@@ -19,11 +19,11 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_s
 }
 
 FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc,
-                                                               ang_velo prm_ang_veloRzRyMv,
+                                                               angvelo prm_angveloRzRyMv,
                                                                int prm_turn_way,
                                                                bool prm_turn_optimaize) :
         SplineManufacture(prm_pSplSrc) {
-    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
+    _angveloRzRyMv = prm_angveloRzRyMv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
 

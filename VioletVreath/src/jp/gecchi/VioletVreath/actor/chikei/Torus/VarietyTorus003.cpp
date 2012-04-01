@@ -5,10 +5,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-VarietyTorus003::VarietyTorus003(const char* prm_name) : Torus(prm_name, "Torus", PxC(2000), PxC(800)) {
+VarietyTorus003::VarietyTorus003(const char* prm_name) : Torus(prm_name, "Torus", PXCO(2000), PXCO(800)) {
     _class_name = "VarietyTorus003";
-    for (angle angPos1 = D0ANG; angPos1 < D360ANG;  angPos1 += DEG2ANG(60)) {
-        for (angle angPos2 = D0ANG; angPos2 < D360ANG;  angPos2 += DEG2ANG(20)) {
+    for (angle angPos1 = D0ANG; angPos1 < D360ANG;  angPos1 += DANG(60)) {
+        for (angle angPos2 = D0ANG; angPos2 < D360ANG;  angPos2 += DANG(20)) {
             EnemyVesta* p = NEW EnemyVesta("pEV1");
             addSubBoneOnSurface(p, angPos1, angPos2);
             Sleep(1);

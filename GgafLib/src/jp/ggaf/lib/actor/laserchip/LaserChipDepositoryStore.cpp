@@ -12,7 +12,7 @@ LaserChipDepositoryStore::LaserChipDepositoryStore(const char* prm_name, GgafSta
 void LaserChipDepositoryStore::processBehavior() {
 }
 
-LaserChipDepository* LaserChipDepositoryStore::dispatch(frame prm_offset_frames) {
+LaserChipDepository* LaserChipDepositoryStore::dispatch(int prm_offset_frames) {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
             throwGgafCriticalException("LaserChipDepositoryStore::dispatch() Žq‚ª‚ ‚è‚Ü‚¹‚ñ");

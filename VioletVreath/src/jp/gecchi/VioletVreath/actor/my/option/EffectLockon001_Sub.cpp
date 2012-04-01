@@ -45,7 +45,7 @@ void EffectLockon001_Sub::processBehavior() {
          }
          //k¬Š®—¹ŒãAMain‚Ìƒr[ƒg‚É‡‚í‚¹‚é
          _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
-         _pKurokoA->_ang_veloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_ang_veloFace[AXIS_Z];
+         _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
          if (pTarget_) {
              if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
                  if (abs(pTarget_->_X-_X) <= 200000 &&
@@ -69,7 +69,7 @@ void EffectLockon001_Sub::processBehavior() {
         pTarget_ = NULL;
         addAlpha(-0.05);
         _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
-        _pKurokoA->_ang_veloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_ang_veloFace[AXIS_Z];
+        _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
         if (getAlpha() <= 0.0) {
             inactivate();
         }
@@ -103,7 +103,7 @@ void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
 void EffectLockon001_Sub::releaseLockon() {
     if (isActiveInTheTree()) {
         if (_pProg->get() == LOCKON001_PROG_LOCK) {
-            _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_ang_veloFace[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
+            _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_angveloFace[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
             _pProg->change(LOCKON001_PROG_RELEASE);
         } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {
             //‰½‚à–³‚µ

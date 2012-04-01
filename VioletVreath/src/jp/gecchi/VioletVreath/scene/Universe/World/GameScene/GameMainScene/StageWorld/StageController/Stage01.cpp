@@ -8,9 +8,9 @@ using namespace VioletVreath;
 Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     _class_name = "Stage01";
 
-    pScene_Stage01PartCtrler_ = NEW Stage01PartController("Stage01Ctrl");
-    pScene_Stage01PartCtrler_->inactivate();
-    addSubLast(pScene_Stage01PartCtrler_);
+    pScene_Stage01PartCtrlr_ = NEW Stage01PartController("Stage01Ctrl");
+    pScene_Stage01PartCtrlr_->inactivate();
+    addSubLast(pScene_Stage01PartCtrlr_);
     Sleep(2);
     pWorldBoundSpace_  = NEW WorldBoundSpace001("BG_SPACE");
     getDirector()->addSubGroup(pWorldBoundSpace_);
@@ -47,7 +47,7 @@ void Stage01::processBehavior() {
                 pMessage_->activateImmed();
                 pWorldBoundSpace_->activateTree();    //背景ON
                 pHoshiBoshi_->activateTree();    //背景ON
-                pScene_Stage01PartCtrler_->activate();
+                pScene_Stage01PartCtrlr_->activate();
 
                 pPlanet_->activate();
 
@@ -58,7 +58,7 @@ void Stage01::processBehavior() {
         }
         case Stage::PROG_PLAYING: {
             if (_pProg->getFrameInProgress() == 60) { //ステージ１開始！
-                pMessage_->update(PxC(300), PxC(300), "SCENE 01 START!");
+                pMessage_->update(PXCO(300), PXCO(300), "SCENE 01 START!");
                 pMessage_->inactivateDelay(240);
             }
             //EVENT_STG01_CTRLER_WAS_ENDイベント待ち
@@ -72,7 +72,7 @@ void Stage01::processBehavior() {
 
             if (_pProg->getFrameInProgress() == 60) {
                 pMessage_->activateImmed();
-                pMessage_->update(PxC(300), PxC(300), "SCENE 01 CLEAR!!");
+                pMessage_->update(PXCO(300), PXCO(300), "SCENE 01 CLEAR!!");
                 pMessage_->inactivateDelay(120);
                 fadeoutScene(300);
             }
@@ -96,7 +96,7 @@ void Stage01::processJudgement() {
 void Stage01::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_CTRLER_WAS_END ) {
         _TRACE_("Stage01::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
-        pScene_Stage01PartCtrler_->end(60*60);
+        pScene_Stage01PartCtrlr_->end(60*60);
         _pProg->change(Stage::PROG_END);
     } else {
 

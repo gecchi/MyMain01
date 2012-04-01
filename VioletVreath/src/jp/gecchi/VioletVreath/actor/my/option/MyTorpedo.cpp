@@ -8,14 +8,14 @@ using namespace VioletVreath;
 MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pOptionTorpedoController)
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
-    pOptionTorpedoCtrler_ = prm_pOptionTorpedoController;
+    pOptionTorpedoCtrlr_ = prm_pOptionTorpedoController;
     length_TailEffect_ = 8;
 
     pTailEffectDepository_ = NEW LaserChipDepository("DP_TailEffect");
     pTailEffectDepository_->config(length_TailEffect_, 0, NULL);
     for (int i = 0; i < length_TailEffect_; i++) {
         stringstream name;
-        name <<  "MYOPTION"<<(pOptionTorpedoCtrler_->pOption_->no_)<<"'s Torpedo's TailEffect["<<i<<"]";
+        name <<  "MYOPTION"<<(pOptionTorpedoCtrlr_->pOption_->no_)<<"'s Torpedo's TailEffect["<<i<<"]";
         MyTorpedoTail* pChip = NEW MyTorpedoTail(name.str().c_str(), this);
 
         pChip->inactivateImmed();
@@ -44,9 +44,9 @@ void MyTorpedo::onActive() {
     _SX = _SY = _SZ = 100;
     _pScaler->setScale(100);
     _pScaler->intoTargetScaleLinerStep(7000, 500);
-    _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(3));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, DEG2ANG(5));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(7));
+    _pKurokoA->setFaceAngVelo(AXIS_X, DANG(3));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, DANG(5));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, DANG(7));
     _pKurokoA->setMvVelo(20000);
     _pKurokoA->setMvAcce(-1000);
     _pKurokoA->setRzMvAngVelo(0);
@@ -221,7 +221,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 
     //爆風発生
-    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)pOptionTorpedoCtrler_->pDepo_TorpedoBlast_->dispatch();
+    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)pOptionTorpedoCtrlr_->pDepo_TorpedoBlast_->dispatch();
     if (pBlast) {
         pBlast->locatedBy(this);
         pBlast->reset();

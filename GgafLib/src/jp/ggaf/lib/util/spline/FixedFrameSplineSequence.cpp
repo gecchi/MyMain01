@@ -17,10 +17,10 @@ FixedFrameSplineSequence::FixedFrameSplineSequence(SplineManufacture* prm_pManuf
 FixedFrameSplineSequence::FixedFrameSplineSequence(GgafDxKurokoA* prmpKurokoA_target,
                                                  SplineLine* prmpSpl,
                                                  frame prm_spent_frame,
-                                                 ang_velo prm_ang_veloRzRyMv):
+                                                 angvelo prm_angveloRzRyMv):
         SplineSequence(NULL, prmpKurokoA_target) {  //NULLで渡す事により、_is_created_pManufacture が falseになる
 
-    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prmpSpl), prm_spent_frame, prm_ang_veloRzRyMv);
+    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prmpSpl), prm_spent_frame, prm_angveloRzRyMv);
     _pFixedFrameSplManuf->calculate();//これも忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedFrameSplManuf;
 
@@ -91,21 +91,21 @@ void FixedFrameSplineSequence::behave() {
                                 ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * _COS_RyMv_begin  + dz*_SIN_RyMv_begin) - _X_begin,
                                  (dx*_SIN_RzMv_begin + dy* _COS_RzMv_begin) - _Y_begin,
                                 ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) - _Z_begin,
-                                _pFixedFrameSplManuf->_ang_veloRzRyMv, 0,
+                                _pFixedFrameSplManuf->_angveloRzRyMv, 0,
                                 _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
 
             } else if (_option == RELATIVE_COORD) {
                 //相対座標ターゲット
                 pKurokoA_target->execTurnMvAngSequence(
                                 dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
-                                _pFixedFrameSplManuf->_ang_veloRzRyMv, 0,
+                                _pFixedFrameSplManuf->_angveloRzRyMv, 0,
                                 _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
 
             } else { //RELATIVE_DIRECTION
                 //絶対座標ターゲット
                 pKurokoA_target->execTurnMvAngSequence(
                                 dx, dy, dz,
-                                _pFixedFrameSplManuf->_ang_veloRzRyMv, 0,
+                                _pFixedFrameSplManuf->_angveloRzRyMv, 0,
                                 _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
             }
 

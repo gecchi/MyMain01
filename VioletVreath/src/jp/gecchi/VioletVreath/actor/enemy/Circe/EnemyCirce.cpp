@@ -26,7 +26,7 @@ void EnemyCirce::initialize() {
     _pKurokoA->setMvVelo(3000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
-    _X = PxC(200);
+    _X = PXCO(200);
 }
 
 void EnemyCirce::onActive() {

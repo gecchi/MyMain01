@@ -6,14 +6,14 @@ using namespace GgafCore;
 GgafLinearOctree::GgafLinearOctree(int prm_level) {
     _top_space_level = prm_level;
     //べき乗作成
-    _paPow = NEW UINT32[(prm_level+1)+1];
-    _paPow[0] = 1;
+    _paUint32_pow = NEW UINT32[(prm_level+1)+1];
+    _paUint32_pow[0] = 1;
     for(int i = 1; i < (prm_level+1)+1; i++) {
-        _paPow[i] = _paPow[i-1] * 8;
-        //_TRACE_("_paPow["<<i<<"]="<<_paPow[i]);
+        _paUint32_pow[i] = _paUint32_pow[i-1] * 8;
+        //_TRACE_("_paUint32_pow["<<i<<"]="<<_paUint32_pow[i]);
     }
     //線形８分木配列作成
-    _num_space = (int)((_paPow[_top_space_level+1] -1) / 7); //空間数
+    _num_space = (int)((_paUint32_pow[_top_space_level+1] -1) / 7); //空間数
     _TRACE_("線形八分木空間配列要素数 _num_space="<<_num_space);
     _paSpace = NEW GgafLinearOctreeSpace[_num_space];
     for (UINT32 i = 0; i < _num_space; i++) {
@@ -149,8 +149,8 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
     // あとはこれを配列Indexに変換するのみ
 
     //所属空間(シフト回数)とその空間のモートン順序通し空間番号から線形八分木配列の要素番号を求める
-    index = morton_order_space_num + (_paPow[_top_space_level-shift_num]-1)/7;
-    //(_paPow[_top_space_level-shift_num]-1)/7;
+    index = morton_order_space_num + (_paUint32_pow[_top_space_level-shift_num]-1)/7;
+    //(_paUint32_pow[_top_space_level-shift_num]-1)/7;
     //は、線形八分木空間配列の、所属空間レベルの最初の空間の要素番号をあらわす。
     //等比数列の和
     // Σr^k = r^0 + r^1 + r^2 + ... + r^n
@@ -225,7 +225,7 @@ void GgafLinearOctree::clearElem() {
 
 GgafLinearOctree::~GgafLinearOctree() {
     DELETEARR_IMPOSSIBLE_NULL(_paSpace);
-    DELETEARR_IMPOSSIBLE_NULL(_paPow);
+    DELETEARR_IMPOSSIBLE_NULL(_paUint32_pow);
 }
 
 

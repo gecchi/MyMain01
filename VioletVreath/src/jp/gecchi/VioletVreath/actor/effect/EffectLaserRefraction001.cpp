@@ -23,9 +23,9 @@ void EffectLaserRefraction001::onActive() {
     //_pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
     setAlpha(0.5);
     _pScaler->setScale(R2SC(6));
-    _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(3));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, DEG2ANG(5));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(7));
+    _pKurokoA->setFaceAngVelo(AXIS_X, DANG(3));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, DANG(5));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, DANG(7));
 }
 
 void EffectLaserRefraction001::processBehavior() {

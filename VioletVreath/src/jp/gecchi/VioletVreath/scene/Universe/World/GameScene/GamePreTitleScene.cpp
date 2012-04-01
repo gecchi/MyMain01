@@ -18,7 +18,7 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
 }
 void GamePreTitleScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
-    pTitleBoard_->locate(PxC(100), PxC(600));
+    pTitleBoard_->locate(PXCO(100), PXCO(600));
     pLabel01_->update("");
     pLabel02_->update("");
 //    fadeoutScene(0);
@@ -45,18 +45,18 @@ void GamePreTitleScene::processBehavior() {
 //                fadeinScene(FADE_FRAMES);
             }
             if (_pProg->getFrameInProgress() == 1) {
-                pLabel01_->update(PxC(100), PxC(50), "[STORY]");
+                pLabel01_->update(PXCO(100), PXCO(50), "[STORY]");
             } else if (_pProg->getFrameInProgress() == 120) {
-                pLabel01_->update(PxC(100), PxC(50), "MUKASHI MUKASHI ARU TOKORONI.");
+                pLabel01_->update(PXCO(100), PXCO(50), "MUKASHI MUKASHI ARU TOKORONI.");
             } else if (_pProg->getFrameInProgress() == 240) {
-                pLabel01_->update(PxC(100), PxC(50), "MA SORE HA OITOITE...");
+                pLabel01_->update(PXCO(100), PXCO(50), "MA SORE HA OITOITE...");
             } else if (_pProg->getFrameInProgress() == 360) {
-                pLabel01_->update(PxC(100), PxC(50), "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
+                pLabel01_->update(PXCO(100), PXCO(50), "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
             } else if (_pProg->getFrameInProgress() > 361) {
                 //タイトルが下からニューっと
-                pTitleBoard_->_Y -= PxC(1);
-                if (pTitleBoard_->_Y <= PxC(90)) {
-                    pTitleBoard_->_Y = PxC(90);
+                pTitleBoard_->_Y -= PXCO(1);
+                if (pTitleBoard_->_Y <= PXCO(90)) {
+                    pTitleBoard_->_Y = PXCO(90);
                     _pProg->change(GamePreTitleScene::PROG_FINISH);
                 }
             }

@@ -769,17 +769,17 @@ public:
      * @param prm_pTarget      目標
      * @param prm_way          Way数
      * @param prm_angClearance Wayの間隔
-     * @param prm_velo_top     初弾WAYの初期速度
-     * @param prm_acce_top     初弾WAYの加速度
-     * @param prm_num          撃つWAY弾のセット数
+     * @param prm_velo_first     初弾WAYの初期速度
+     * @param prm_acce_first     初弾WAYの加速度
+     * @param prm_set_num          撃つWAY弾のセット数
      * @param prm_attenuated   次のWAY弾の初期速度加速度の減衰率
      */
     static void shotWay001v2(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                              GgafCore::GgafActorDepository*      prm_pDepo_Shot,
                              GgafDxCore::GgafDxGeometricActor* prm_pTarget,
                              int prm_way, angle prm_angClearance,
-                             velo prm_velo_top, acce prm_acce_top,
-                             int prm_num, float prm_attenuated);
+                             velo prm_velo_first, acce prm_acce_first,
+                             int prm_set_num, float prm_attenuated);
 
 
     /**
@@ -811,42 +811,66 @@ public:
      * @param prm_pTarget 目標
      * @param prm_way 放射Way数
      * @param prm_angBegin 放射開始アングル
-     * @param prm_velo_top 初弾放射WAYの初期速度
-     * @param prm_acce_top 初弾放射WAYの加速度
-     * @param prm_num      撃つ放射WAY弾のセット数
+     * @param prm_velo_first 初弾放射WAYの初期速度
+     * @param prm_acce_first 初弾放射WAYの加速度
+     * @param prm_set_num      撃つ放射WAY弾のセット数
      * @param prm_attenuated 次のWAY弾の初期速度加速度の減衰率
      */
     static void shotWay002v2(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                              GgafCore::GgafActorDepository*    prm_pDepo_Shot,
                              GgafDxCore::GgafDxGeometricActor* prm_pTarget,
                              int prm_way, angle prm_angBegin,
-                             velo prm_velo_top, acce prm_acce_top,
-                             int prm_num, float prm_attenuated);
-
+                             velo prm_velo_first, acce prm_acce_first,
+                             int prm_set_num, float prm_attenuated);
 
     /**
-     * 自分の向いている方向（_RX > _RZ > _RY）に向かって N*M Way弾を撃つ（TODO:未検証） .
+     * 自分の向いている方向（_RX > _RZ > _RY）に向かって N*M-Way弾を複数セット撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _X, _Y, _Z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
-     * @param prm_pFrom 発射元
-     * @param prm_pDepo_Shot 発射するショットのデポジトリ
-     * @param prm_r 発射元と発射するショットの初期距離(発射元からの半径)。
-     *              同時に方向ベクトルになるため、但し0より大きい必要がある。
-     * @param prm_way_N N-Way数
-     * @param prm_way_M M-Way数
-     * @param prm_angClearance_N N-Wayの間隔角度
-     * @param prm_angClearance_M M-Wayの間隔角度
-     * @param prm_velo 発射するショット初期速度
-     * @param prm_acce 発射するショット加速度
+     * @param prm_pFrom           発射元
+     * @param prm_pDepo_Shot      発射するショットのデポジトリ
+     * @param prm_r               発射元と発射するショットの初期表示位置(発射元からの半径)。0より大きい値の必要有り。
+     * @param prm_way_N           N-Way数
+     * @param prm_way_M           M-Way数
+     * @param prm_angClearance_N  N-Wayの間隔角度
+     * @param prm_angClearance_M  M-Wayの間隔角度
+     * @param prm_velo_first      N*M-Way弾初弾セットのショット初期速度
+     * @param prm_acce_first      N*M-Way弾初弾セットのショット初期加速度
+     * @param prm_set_num         発射する N*M-Way弾セットの合計セット数
+     * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
+     * @param prm_attenuated      初弾セット以降の各セット毎のショット初期速度・加速度の減衰率(> 1.0)、或いは増幅率(>1.0)
      */
     static void shotWay003(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                            GgafCore::GgafActorDepository* prm_pDepo_Shot,
                            coord prm_r,
                            int prm_way_N, int prm_way_M,
                            angle prm_angClearance_N, angle prm_angClearance_M,
-                           velo prm_velo, acce prm_acce);
+                           velo prm_velo_first, acce prm_acce_first,
+                           int prm_set_num, frame prm_interval_frames, float prm_attenuated);
 
+    /**
+     * 自分の向いている方向（_RX > _RZ > _RY）に向かって拡散ポンデリング弾を複数セット同時に撃つ .
+     * 発射するショットに、次の項目が設定されます。<BR>
+     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
+     * @param prm_pFrom           発射元
+     * @param prm_pDepo_Shot      発射するショットのデポジトリ
+     * @param prm_r               発射元と発射するショットの初期表示位置(発射元からの半径)。0より大きい値の必要有り。
+     * @param prm_radial_way_num  放射Way数
+     * @param prm_expanse_angle   放射弾の照射角(0 ～ D180ANG。懐中電灯の光の広がり角のようなイメージ。小さいと弾の間隔が狭い)
+     * @param prm_velo_first      初弾セットのショット初期速度
+     * @param prm_acce_first      初弾セットのショット初期加速度
+     * @param prm_set_num         撃つ放射WAY弾の合計セット数
+     * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度・加速度の減衰率(> 1.0)、或いは増幅率(>1.0)
+     */
+    static void shotWay004(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+                           GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                           angle prm_r,
+                           int prm_radial_way_num, angle prm_expanse_angle,
+                           velo prm_velo_first, acce prm_acce_first,
+                           int prm_set_num, frame prm_interval_frames, float prm_attenuated);
 };
 
 }

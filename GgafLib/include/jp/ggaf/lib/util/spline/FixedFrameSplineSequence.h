@@ -31,7 +31,7 @@ public:
     FixedFrameSplineSequence(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
                              SplineLine* prmpSpl,
                              frame prm_spent_frame,
-                             ang_velo prm_ang_veloRzRyMv);
+                             angvelo prm_angveloRzRyMv);
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動

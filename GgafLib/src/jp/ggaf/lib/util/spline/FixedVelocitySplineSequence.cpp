@@ -17,9 +17,9 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_
 
 FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDxKurokoA* prmpKurokoA_target,
                                                          SplineLine* prmpSpl,
-                                                         ang_velo prm_ang_veloRzRyMv):
+                                                         angvelo prm_angveloRzRyMv):
         SplineSequence(NULL, prmpKurokoA_target) { //NULLで渡す事により、_is_created_pManufacture が falseになる
-    _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_ang_veloRzRyMv);
+    _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_angveloRzRyMv);
     _pFixedVeloSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedVeloSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
 
@@ -136,7 +136,7 @@ void FixedVelocitySplineSequence::behave() {
                                     ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * _COS_RyMv_begin + dz*_SIN_RyMv_begin) - _X_begin,
                                     (dx*_SIN_RzMv_begin + dy*_COS_RzMv_begin) - _Y_begin,
                                     ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) - _Z_begin,
-                                    _pFixedVeloSplManuf->_ang_veloRzRyMv, 0,
+                                    _pFixedVeloSplManuf->_angveloRzRyMv, 0,
                                     _pFixedVeloSplManuf->_turn_way,
                                     _pFixedVeloSplManuf->_turn_optimize);
 
@@ -144,7 +144,7 @@ void FixedVelocitySplineSequence::behave() {
                     //相対座標ターゲット
                     pKurokoA_target->execTurnMvAngSequence(
                                     dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
-                                    _pFixedVeloSplManuf->_ang_veloRzRyMv, 0,
+                                    _pFixedVeloSplManuf->_angveloRzRyMv, 0,
                                     _pFixedVeloSplManuf->_turn_way,
                                     _pFixedVeloSplManuf->_turn_optimize);
 
@@ -152,7 +152,7 @@ void FixedVelocitySplineSequence::behave() {
                     //絶対座標ターゲット
                     pKurokoA_target->execTurnMvAngSequence(
                                     dx, dy, dz,
-                                    _pFixedVeloSplManuf->_ang_veloRzRyMv, 0,
+                                    _pFixedVeloSplManuf->_angveloRzRyMv, 0,
                                     _pFixedVeloSplManuf->_turn_way,
                                     _pFixedVeloSplManuf->_turn_optimize);
 

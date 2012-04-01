@@ -17,14 +17,14 @@ void MyShot001::initialize() {
     setBoundingSphereRadiusRate(45.0f);
     setAlpha(0.99); //半透明にすることで両面レンダリング
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -PxC(50), -PxC(50), -PxC(50),
-                                    PxC(50),  PxC(50),  PxC(50));
-    _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(12));
+    _pColliChecker->setColliAAB(0, -PXCO(50), -PXCO(50), -PXCO(50),
+                                    PXCO(50),  PXCO(50),  PXCO(50));
+    _pKurokoA->setFaceAngVelo(AXIS_X, DANG(12));
 }
 
 void MyShot001::onActive() {
     setHitAble(true);
-    _pKurokoA->setMvVelo(PxC(70));             //移動速度
+    _pKurokoA->setMvVelo(PXCO(70));             //移動速度
     _pKurokoA->setMvAcce(100);
 }
 

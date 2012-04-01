@@ -32,7 +32,7 @@ void MyOptionStraightLaserChip001::onActive() {
     default_stamina_ = _pStatus->get(STAT_Stamina);
     StraightLaserChip::onActive();
 
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrlr_->pRingTarget_->getCurrent();
     _pKurokoA->setMvVelo(80000);
     _pKurokoA->setMvAcce(300);
     is_lockon_ = false;
@@ -62,7 +62,7 @@ void MyOptionStraightLaserChip001::onActive() {
 
 
 void MyOptionStraightLaserChip001::processBehavior() {
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrlr_->pRingTarget_->getCurrent();
 
 
     if (lockon_st_ == 1) {
@@ -121,7 +121,7 @@ void MyOptionStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActo
 
 void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrlr_->pRingTarget_->getCurrent();
     //ヒットエフェクト
     //無し
 
@@ -153,7 +153,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             }
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-                pOrg_->pLockonCtrler_->lockon(pOther);
+                pOrg_->pLockonCtrlr_->lockon(pOther);
             }
             sayonara();
         } else {
@@ -161,7 +161,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             _pStatus->set(STAT_Stamina, default_stamina_);
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-                pOrg_->pLockonCtrler_->lockon(pOther);
+                pOrg_->pLockonCtrlr_->lockon(pOther);
             }
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {

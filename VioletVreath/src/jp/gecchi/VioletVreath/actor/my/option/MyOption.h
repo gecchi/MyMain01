@@ -6,7 +6,7 @@ namespace VioletVreath {
 class MyOption : public GgafLib::DefaultMeshSetActor {
 
 
-    GgafDxCore::GgafDxQuaternion Q_;
+//    GgafDxCore::GgafDxQuaternion Q_;
 
 private:
     /**
@@ -30,7 +30,7 @@ public:
     int Xorg_,Yorg_,Zorg_;
 
     /** [r]親アクター */
-    MyOptionController* pOptionCtrler_;
+    MyOptionController* pOptionCtrlr_;
     /** [r]自身のオプション番号(０～・・・) */
     int no_;
     /** [r]１オプション当たりの最大可能ロックオン数 */
@@ -38,9 +38,9 @@ public:
     /** [r]１オプション当たりの現在可能ロックオン数 */
     static int lockon_num_;
     /** [r]ロックオンコントローラー */
-    MyOptionLockonController* pLockonCtrler_;
+    MyOptionLockonController* pLockonCtrlr_;
     /** [r]魚雷コントローラー */
-    MyOptionTorpedoController* pTorpedoCtrler_;
+    MyOptionTorpedoController* pTorpedoCtrlr_;
     /** [r]発射するレーザーチップのデポジトリ */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /** [r]発射するショットのデポジトリ */
@@ -51,7 +51,7 @@ public:
     int velo_radius_;
 
     /** [r]計算された現在の旋廻円周移動角速度（読み出し専用） */
-    ang_velo ang_veloMove_;
+    angvelo angveloMove_;
     /** [r]円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0） */
     angle angPosition_;
     /** [r]旋廻円周半径（initialize()までに変更可／デフォルト=200000） */
@@ -73,9 +73,9 @@ public:
     angle angExpanse_default_;
 
     /** オプションの広がり回転角速度（通常時） */
-    ang_velo ang_veloExpanseNomal_;
+    angvelo angveloExpanseNomal_;
     /** オプションの広がり回転角速度（微調整時） */
-    ang_velo ang_veloExpanseSlow_;
+    angvelo angveloExpanseSlow_;
 
     /** オプションの初期位置に自動戻りを行っている最中は true */
     bool return_to_base_radiusPosition_seq_;
@@ -91,15 +91,15 @@ public:
 
     //GgafDxCore::GgafDxQuaternion Q_;
     EffectMyOption* pEffect_;
-
+    bool need_adjust_pos_flg_;
     /**
      * コンストラクタ .
      * @param prm_name
      * @param prm_no オプション番号（0～...)
-     * @param prm_pOptCtrler 親アクター
+     * @param prm_pOptCtrlr 親アクター
      * @return
      */
-    MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrler);
+    MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrlr);
 
     /**
      * 初期設定パラメーター .

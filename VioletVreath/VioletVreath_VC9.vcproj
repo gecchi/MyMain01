@@ -53,7 +53,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="false"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(MY_DEV_ROOT)\CustomizeOgg_static\include&quot;;&quot;$(MY_DEV_ROOT)\CustomizeVorbis_static\include&quot;;&quot;$(MY_DEV_ROOT)\GgafCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafDxCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafLib\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(MY_DEV_ROOT)\CustomizeOgg_static\include&quot;;&quot;$(MY_DEV_ROOT)\CustomizeVorbis_static\include&quot;;&quot;$(MY_DEV_ROOT)\GgafCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafDxCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafLib\include&quot;;&quot;$(MY_DEV_ROOT)\VioletVreath&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -154,7 +154,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="&quot;$(MY_DEV_ROOT)\CustomizeOgg_static\include&quot;;&quot;$(MY_DEV_ROOT)\CustomizeVorbis_static\include&quot;;&quot;$(MY_DEV_ROOT)\GgafCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafDxCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafLib\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(MY_DEV_ROOT)\CustomizeOgg_static\include&quot;;&quot;$(MY_DEV_ROOT)\CustomizeVorbis_static\include&quot;;&quot;$(MY_DEV_ROOT)\GgafCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafDxCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafLib\include&quot;;&quot;$(MY_DEV_ROOT)\VioletVreath&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
@@ -1054,7 +1054,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\VioletVreath.cpp"
+				RelativePath=".\src\VioletVreath.cpp"
 				>
 			</File>
 			<File

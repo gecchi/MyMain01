@@ -163,11 +163,11 @@ typedef int scale;
 /** アプリケーション角度単位 (目安： 1 angle  =  0.001 度) */
 typedef int angle;
 /** アプリケーション角度単位系の角速度 */
-typedef int ang_velo;
+typedef int angvelo;
 /** アプリケーション角度単位系の角加速度 */
-typedef int ang_acce;
+typedef int angacce;
 /** アプリケーション角度単位系の角加加速度 */
-typedef int ang_jerk;
+typedef int angjerk;
 
 /** アプリケーション内部の角度精度単位(フレームワーク用) */
 typedef int s_ang;
@@ -193,19 +193,18 @@ typedef GgafDxAxis axis;
 /** アプリの座標 → ピクセル座標(初期カメラ位置の時) 変換 */
 #define CO2PX(X) (1.0f * (X) / LEN_UNIT)
 /** ピクセル座標(初期カメラ位置の時) → アプリの座標 変換 */
-#define PxC(X) ((X) * LEN_UNIT)
+#define PXCO(X) ((X) * LEN_UNIT)
 
 /** アプリのアングル値→度数法角度 変換 */
 #define ANG2DEG(X) ((float)((X) / 1000))
 /** 度数法角度→アプリのアングル値 変換 */
-#define DEG2ANG(X) ((angle)((X) * 1000))
+#define DANG(X) ((angle)((X) * 1000))
 /** アプリのアングル値→ラジアン 変換 */
 #define ANG2RAD(X) (GgafDxCore::GgafDxUtil::RAD[(X) / SANG_RATE])
 /** アプリのアングル値→正弦 変換 */
 #define ANG2SIN(X) (GgafDxCore::GgafDxUtil::SIN[(X) / SANG_RATE])
 /** アプリのアングル値→余弦 変換 */
 #define ANG2COS(X) (GgafDxCore::GgafDxUtil::COS[(X) / SANG_RATE])
-
 /** アプリのスケール値 → 拡大率 変換 */
 #define SC2R(X) (1.0f * (X) / LEN_UNIT)
 /** 拡大率 → アプリのスケール値 変換 */

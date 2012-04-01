@@ -101,7 +101,10 @@ void CommonScene::onReset() {
 }
 
 void CommonScene::processBehavior() {
-
+    //ƒeƒXƒg
+    if (getActivePartFrame() == 60) {
+        getDirector()->addSubGroup( NEW FormationThalia("AAA"));
+    }
 
 }
 

@@ -259,15 +259,15 @@ public:
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** 奥(+Z)又は手前(-Z)へ通常移動開始時のX軸回転角速度の初速度 */
-    ang_velo angRXVelo_BeginMZ_; //Rotation axisX angle Velo when I Begin To Move Z
+    angvelo angRXVelo_BeginMZ_; //Rotation axisX angle Velo when I Begin To Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ通常移動中のX軸回転角速度の角加速度 */
-    ang_acce angRXAcce_MZ_; //Rotation axisX angle Acce while I Move Z
+    angacce angRXAcce_MZ_; //Rotation axisX angle Acce while I Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ移動中のX軸回転角速度の上限角速度 */
-    ang_velo angRXTopVelo_MZ_; //Rotation axisX Top angle Velo while I Move Z
+    angvelo angRXTopVelo_MZ_; //Rotation axisX Top angle Velo while I Move Z
     //下限角速度はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ通常Z移動中のX軸回転角の停止角度 */
@@ -275,7 +275,7 @@ public:
 
 
     /** 上(+Y)又は下(-Y)へTurbo移動開始時のZ軸回転角速度の初速度 */
-    ang_velo angRXVelo_BeginMZT_; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
+    angvelo angRXVelo_BeginMZT_; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
 
@@ -283,13 +283,14 @@ public:
 
     State state_;
 
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory_;
-
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory4OptCtrlr_;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
+//    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoOffsetHistory_;
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
     GgafCore::GgafActorDepository* pDepo_EffectExplosion001_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
-//    MyOptionController* pOptionCtrler_;
+//    MyOptionController* pOptionCtrlr_;
     EffectTurbo001* pEffectTurbo001_;
 
     /** ソフト連射開始からの経過フレーム数 */
@@ -317,6 +318,10 @@ public:
     int blown_veloZ_;
     /** 吹っ飛びを抑える力 */
     int anti_blown_velo_;
+
+
+
+
 
     MyShip(const char* prm_name);
 

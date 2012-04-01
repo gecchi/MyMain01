@@ -1285,7 +1285,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     if (prm_pMorphMeshModel->_pIDirect3DVertexDeclaration9 == NULL) {
 
         int elemnum = (4+(2*morph_target_num))+1; //D3DVERTEXELEMENT9 構造体の配列要素数
-        D3DVERTEXELEMENT9* paDecl = NEW D3DVERTEXELEMENT9[elemnum];
+        D3DVERTEXELEMENT9* paVtxelem = NEW D3DVERTEXELEMENT9[elemnum];
                                                          // 4 = プライマリメッシュ
                                                          // (2*morph_target_num) = モーフターゲットメッシュ
                                                          // 1 = D3DDECL_END()
@@ -1294,63 +1294,63 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
         //TODO:頂点フォーマットを毎回構築ではなくて、モデル側に保時させたい。
         //プライマリ部頂点フォーマット
         //float x, y, z; // 頂点座標
-        paDecl[0].Stream = 0;
-        paDecl[0].Offset = 0;
-        paDecl[0].Type = D3DDECLTYPE_FLOAT3;
-        paDecl[0].Method = D3DDECLMETHOD_DEFAULT;
-        paDecl[0].Usage = D3DDECLUSAGE_POSITION;
-        paDecl[0].UsageIndex = 0;
+        paVtxelem[0].Stream = 0;
+        paVtxelem[0].Offset = 0;
+        paVtxelem[0].Type = D3DDECLTYPE_FLOAT3;
+        paVtxelem[0].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[0].Usage = D3DDECLUSAGE_POSITION;
+        paVtxelem[0].UsageIndex = 0;
         //float nx, ny, nz; // 法線
-        paDecl[1].Stream = 0;
-        paDecl[1].Offset = sizeof(float)*3;
-        paDecl[1].Type = D3DDECLTYPE_FLOAT3;
-        paDecl[1].Method = D3DDECLMETHOD_DEFAULT;
-        paDecl[1].Usage = D3DDECLUSAGE_NORMAL;
-        paDecl[1].UsageIndex = 0;
+        paVtxelem[1].Stream = 0;
+        paVtxelem[1].Offset = sizeof(float)*3;
+        paVtxelem[1].Type = D3DDECLTYPE_FLOAT3;
+        paVtxelem[1].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[1].Usage = D3DDECLUSAGE_NORMAL;
+        paVtxelem[1].UsageIndex = 0;
         //DWORD color; // 頂点カラー
-        paDecl[2].Stream = 0;
-        paDecl[2].Offset = sizeof(float)*6;
-        paDecl[2].Type = D3DDECLTYPE_D3DCOLOR;
-        paDecl[2].Method = D3DDECLMETHOD_DEFAULT;
-        paDecl[2].Usage = D3DDECLUSAGE_COLOR;
-        paDecl[2].UsageIndex = 0;
+        paVtxelem[2].Stream = 0;
+        paVtxelem[2].Offset = sizeof(float)*6;
+        paVtxelem[2].Type = D3DDECLTYPE_D3DCOLOR;
+        paVtxelem[2].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[2].Usage = D3DDECLUSAGE_COLOR;
+        paVtxelem[2].UsageIndex = 0;
         //float tu, tv; // テクスチャ座標
-        paDecl[3].Stream = 0;
-        paDecl[3].Offset = sizeof(float)*6+sizeof(DWORD);
-        paDecl[3].Type = D3DDECLTYPE_FLOAT2;
-        paDecl[3].Method = D3DDECLMETHOD_DEFAULT;
-        paDecl[3].Usage = D3DDECLUSAGE_TEXCOORD;
-        paDecl[3].UsageIndex = 0;
+        paVtxelem[3].Stream = 0;
+        paVtxelem[3].Offset = sizeof(float)*6+sizeof(DWORD);
+        paVtxelem[3].Type = D3DDECLTYPE_FLOAT2;
+        paVtxelem[3].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[3].Usage = D3DDECLUSAGE_TEXCOORD;
+        paVtxelem[3].UsageIndex = 0;
         //モーフターゲットメッシュ部頂点フォーマット
         for (int i = 4, s = 1; i < elemnum-1; i+=2, s++) {
             //float x, y, z; // 頂点座標
-            paDecl[i].Stream = s;
-            paDecl[i].Offset = 0;
-            paDecl[i].Type = D3DDECLTYPE_FLOAT3;
-            paDecl[i].Method = D3DDECLMETHOD_DEFAULT;
-            paDecl[i].Usage = D3DDECLUSAGE_POSITION;
-            paDecl[i].UsageIndex = s;
+            paVtxelem[i].Stream = s;
+            paVtxelem[i].Offset = 0;
+            paVtxelem[i].Type = D3DDECLTYPE_FLOAT3;
+            paVtxelem[i].Method = D3DDECLMETHOD_DEFAULT;
+            paVtxelem[i].Usage = D3DDECLUSAGE_POSITION;
+            paVtxelem[i].UsageIndex = s;
             //float nx, ny, nz; // 法線
-            paDecl[i+1].Stream = s;
-            paDecl[i+1].Offset = sizeof(float)*3;
-            paDecl[i+1].Type = D3DDECLTYPE_FLOAT3;
-            paDecl[i+1].Method = D3DDECLMETHOD_DEFAULT;
-            paDecl[i+1].Usage = D3DDECLUSAGE_NORMAL;
-            paDecl[i+1].UsageIndex = s;
+            paVtxelem[i+1].Stream = s;
+            paVtxelem[i+1].Offset = sizeof(float)*3;
+            paVtxelem[i+1].Type = D3DDECLTYPE_FLOAT3;
+            paVtxelem[i+1].Method = D3DDECLMETHOD_DEFAULT;
+            paVtxelem[i+1].Usage = D3DDECLUSAGE_NORMAL;
+            paVtxelem[i+1].UsageIndex = s;
         }
         //D3DDECL_END()
-        paDecl[elemnum-1].Stream = 0xFF;
-        paDecl[elemnum-1].Offset = 0;
-        paDecl[elemnum-1].Type = D3DDECLTYPE_UNUSED;
-        paDecl[elemnum-1].Method = 0;
-        paDecl[elemnum-1].Usage = 0;
-        paDecl[elemnum-1].UsageIndex = 0;
+        paVtxelem[elemnum-1].Stream = 0xFF;
+        paVtxelem[elemnum-1].Offset = 0;
+        paVtxelem[elemnum-1].Type = D3DDECLTYPE_UNUSED;
+        paVtxelem[elemnum-1].Method = 0;
+        paVtxelem[elemnum-1].Usage = 0;
+        paVtxelem[elemnum-1].UsageIndex = 0;
 
-        hr = GgafDxGod::_pID3DDevice9->CreateVertexDeclaration( paDecl, &(prm_pMorphMeshModel->_pIDirect3DVertexDeclaration9) );
+        hr = GgafDxGod::_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(prm_pMorphMeshModel->_pIDirect3DVertexDeclaration9) );
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] GgafDxGod::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(prm_pMorphMeshModel->_model_name));
         //ストリーム数取得        hr = m_pDecl->GetDeclaration( m_pElement, &m_numElements);
 
-        DELETEARR_IMPOSSIBLE_NULL(paDecl);
+        DELETEARR_IMPOSSIBLE_NULL(paVtxelem);
     }
 
     //頂点バッファ作成
@@ -2789,7 +2789,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
 
         //パラメータもをセット数分繰り返しコピーで作成
         model_papaIndexParam = NEW GgafDxMeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_set_num];
-        prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_set_num];
+        prm_pMeshSetModel->_paUint_material_list_grp_num = NEW UINT[prm_pMeshSetModel->_set_num];
         for (int set_index = 0; set_index < prm_pMeshSetModel->_set_num; set_index++) {
             GgafDxMeshSetModel::INDEXPARAM* paParam = NEW GgafDxMeshSetModel::INDEXPARAM[nFaces * (set_index+1)];
             int prev_materialno = -1;
@@ -2862,7 +2862,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
                 model_papaIndexParam[set_index][i].PrimitiveCount = paParam[i].PrimitiveCount;
             }
 
-            prm_pMeshSetModel->_pa_nMaterialListGrp[set_index] = paramno;
+            prm_pMeshSetModel->_paUint_material_list_grp_num[set_index] = paramno;
             delete[] paParam;
         }
 

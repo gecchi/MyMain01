@@ -128,8 +128,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\jp\ggaf\core\DetectMemoryLeaks.h" />
     <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
-    <ClInclude Include="include\DetectMemoryLeaks.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafActorDepository.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafActorDepositoryStore.h" />

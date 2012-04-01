@@ -16,7 +16,7 @@ class MyTorpedo : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** [r]親アクターとなる魚雷コンローラー */
-    MyOptionTorpedoController* pOptionTorpedoCtrler_;
+    MyOptionTorpedoController* pOptionTorpedoCtrlr_;
     /** [r]魚雷の移動軌跡エフェクトの数 */
     int length_TailEffect_;
     /** [r]魚雷の移動軌跡エフェクトのデポジトリ */

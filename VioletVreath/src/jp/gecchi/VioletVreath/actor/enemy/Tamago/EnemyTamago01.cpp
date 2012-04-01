@@ -136,22 +136,22 @@ void EnemyTamago01::processBehavior() {
         if (pDepo_Shot_) {
             //放射状ショット発射
             int way = 8;
-            angle* paAngWay = NEW angle[way];
+            angle* paAng_way = NEW angle[way];
             angle target_RzRy_Rz, target_RzRy_Ry;
             GgafDxUtil::getRzRyAng(P_MYSHIP->_X - _X, P_MYSHIP->_Y - _Y, P_MYSHIP->_Z - _Z, target_RzRy_Rz, target_RzRy_Ry);
             angle target_RyRz_Ry, target_RyRz_Rz;
             GgafDxUtil::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);
-            GgafDxUtil::getWayAngle2D(target_RyRz_Ry, way, 10000, paAngWay);
+            GgafDxUtil::getWayAngle2D(target_RyRz_Ry, way, 10000, paAng_way);
             GgafDxDrawableActor* pActor;
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                 if (pActor) {
                     pActor->_pKurokoA->relateFaceAngWithMvAng(true);
-                    pActor->_pKurokoA->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
+                    pActor->_pKurokoA->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
                     pActor->locatedBy(this);
                 }
             }
-            DELETEARR_IMPOSSIBLE_NULL(paAngWay);
+            DELETEARR_IMPOSSIBLE_NULL(paAng_way);
             //ショット発射エフェクト
             if (pDepo_ShotEffect_) {
                 pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();

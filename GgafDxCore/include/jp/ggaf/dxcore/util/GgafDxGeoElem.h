@@ -81,6 +81,16 @@ public:
         _RY = prm_pActor->_RY;
         _RZ = prm_pActor->_RZ;
     }
+
+    void set(GgafDxGeoElem* prm_pGeoElem) {
+        _X = prm_pGeoElem->_X;
+        _Y = prm_pGeoElem->_Y;
+        _Z = prm_pGeoElem->_Z;
+        _RX = prm_pGeoElem->_RX;
+        _RY = prm_pGeoElem->_RY;
+        _RZ = prm_pGeoElem->_RZ;
+
+    }
     virtual ~GgafDxGeoElem() {
         _next = NULL;
     }

@@ -19,8 +19,8 @@ MagicMeter::MagicMeter(const char* prm_name)
     _class_name = "MagicMeter";
     width_px_ = _pBoardSetModel->_fSize_BoardSetModelWidthPx + 1.0f;
     height_px_ = _pBoardSetModel->_fSize_BoardSetModelHeightPx + 1.0f;
-    width_ = PxC(width_px_);
-    height_ = PxC(height_px_);
+    width_ = PXCO(width_px_);
+    height_ = PXCO(height_px_);
 
     _X = 100*LEN_UNIT;
     _Y = (GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - (height_px_*2)) * LEN_UNIT;
@@ -65,12 +65,12 @@ MagicMeter::MagicMeter(const char* prm_name)
     pMagicCursor_ = NEW MagicMeterCursor001("MagicCursor", this);
     addSubGroup(pMagicCursor_);
 
-    paCursorLv_ = NEW int[ringMagics_.length()];
+    paLv_cursor_point_ = NEW int[ringMagics_.length()];
     papLvCursor_ = NEW MagicMeterCursor002*[ringMagics_.length()];
     Magic* pMagic;
     for (int i = 0; i < ringMagics_.length(); i++) {
         pMagic = ringMagics_.getFromFirst(i);
-        paCursorLv_[i] = pMagic->level_;
+        paLv_cursor_point_[i] = pMagic->level_;
         papLvCursor_[i] = NEW MagicMeterCursor002("LvCursor", this, pMagic);
         addSubGroup(papLvCursor_[i]);
     }
@@ -81,7 +81,7 @@ MagicMeter::MagicMeter(const char* prm_name)
 
     //エネルギーバー設置
     pEnagyBar_ = NEW EnagyBar("EnagyBar", &mp_);
-    pEnagyBar_->locate(PxC(100), PxC(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
+    pEnagyBar_->locate(PXCO(100), PXCO(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
     addSubGroup(pEnagyBar_);
 
     _pSeTransmitter->useSe(SE_EXECUTE_LEVELDOWN_MAGIC+1);
@@ -141,14 +141,14 @@ void MagicMeter::processBehavior() {
         progress prg = pActiveMagic->_pProg->get();
         if (VB_PLAY->isAutoRepeat(VB_RIGHT)) {    //「→」押下時
             //レベル表示
-            if (paCursorLv_[i] != pActiveMagic->level_) {
+            if (paLv_cursor_point_[i] != pActiveMagic->level_) {
                 _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
             }
             if (MAGIC_STATE_CASTING <= prg && prg <=  MAGIC_STATE_INVOKING) {
                 //詠唱～発動中は、アクティブレベルに戻さない
             } else {
-                paCursorLv_[i] = pActiveMagic->level_; //実行されなかった為、アクティブレベルに戻す
-                papLvCursor_[i]->moveToLv(paCursorLv_[i]); //レベルカーソルもアクティブレベルに戻す
+                paLv_cursor_point_[i] = pActiveMagic->level_; //実行されなかった為、アクティブレベルに戻す
+                papLvCursor_[i]->moveToLv(paLv_cursor_point_[i]); //レベルカーソルもアクティブレベルに戻す
             }
             pActiveMagic->rollClose();
             //メータ表示
@@ -159,14 +159,14 @@ void MagicMeter::processBehavior() {
 
         } else if (VB_PLAY->isAutoRepeat(VB_LEFT)) { //「←」押下時
             //レベル表示
-            if (paCursorLv_[i] != pActiveMagic->level_) {
+            if (paLv_cursor_point_[i] != pActiveMagic->level_) {
                 _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
             }
             if (MAGIC_STATE_CASTING <= prg && prg <=  MAGIC_STATE_INVOKING) {
                 //詠唱～発動中は、アクティブレベルに戻さない
             } else {
-                paCursorLv_[i] = pActiveMagic->level_; //実行されなかった為、アクティブレベルに戻す
-                papLvCursor_[i]->moveToLv(paCursorLv_[i]); //レベルカーソルもアクティブレベルに戻す
+                paLv_cursor_point_[i] = pActiveMagic->level_; //実行されなかった為、アクティブレベルに戻す
+                papLvCursor_[i]->moveToLv(paLv_cursor_point_[i]); //レベルカーソルもアクティブレベルに戻す
             }
             pActiveMagic->rollClose();
             //メータ表示
@@ -176,11 +176,11 @@ void MagicMeter::processBehavior() {
             pMagicCursor_->moveTo(ringMagics_.indexOf(ringMagics_.getCurrent())); //メーターカーソルも１つ戻す
 
         } else if (VB_PLAY->isAutoRepeat(VB_UP)) {  // 「↑」押下時
-            if (pActiveMagic->max_level_ > paCursorLv_[i] ) {
+            if (pActiveMagic->max_level_ > paLv_cursor_point_[i] ) {
                 if (prg != MAGIC_STATE_INVOKING) { //但し発動中は操作不可
                     _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL);
-                    paCursorLv_[i] ++;
-                    papLvCursor_[i]->moveToLv(paCursorLv_[i]);
+                    paLv_cursor_point_[i] ++;
+                    papLvCursor_[i]->moveToLv(paLv_cursor_point_[i]);
                 } else {
                     _pSeTransmitter->play(SE_CURSOR_BAD_MOVE); //ブッブーサウンド
                 }
@@ -188,10 +188,10 @@ void MagicMeter::processBehavior() {
 
         } else if (VB_PLAY->isAutoRepeat(VB_DOWN) && prg != MAGIC_STATE_INVOKING) {  //「↓」押下時
             if (prg != MAGIC_STATE_INVOKING) { //但し発動中は操作不可
-                if (0 < paCursorLv_[i]) {
+                if (0 < paLv_cursor_point_[i]) {
                     _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL);
-                    paCursorLv_[i] --;
-                    papLvCursor_[i]->moveToLv(paCursorLv_[i]);
+                    paLv_cursor_point_[i] --;
+                    papLvCursor_[i]->moveToLv(paLv_cursor_point_[i]);
                 }
             } else {
                 _pSeTransmitter->play(SE_CURSOR_BAD_MOVE); //ブッブーサウンド
@@ -203,15 +203,15 @@ void MagicMeter::processBehavior() {
         Magic* pActiveMagic = ringMagics_.getCurrent();
         progress prg = pActiveMagic->_pProg->get();
         int i = ringMagics_.indexOf(pActiveMagic);
-        if (pActiveMagic->level_ < paCursorLv_[i]) {
+        if (pActiveMagic->level_ < paLv_cursor_point_[i]) {
             _pSeTransmitter->play(SE_EXECUTE_LEVELUP_MAGIC);
-            pActiveMagic->cast(paCursorLv_[i]); //レベルアップ魔法実行！
+            pActiveMagic->cast(paLv_cursor_point_[i]); //レベルアップ魔法実行！
             papLvCursor_[i]->beginBlinking(); //ピカピカ！
-        } else if (pActiveMagic->level_ > paCursorLv_[i]) {
+        } else if (pActiveMagic->level_ > paLv_cursor_point_[i]) {
             _pSeTransmitter->play(SE_EXECUTE_LEVELDOWN_MAGIC);
-            pActiveMagic->cast(paCursorLv_[i]);  //レベルダウン魔法実行！
+            pActiveMagic->cast(paLv_cursor_point_[i]);  //レベルダウン魔法実行！
             papLvCursor_[i]->beginBlinking(); //ピカピカ！
-        } else if (pActiveMagic->level_ == paCursorLv_[i]) {
+        } else if (pActiveMagic->level_ == paLv_cursor_point_[i]) {
             if (MAGIC_STATE_CASTING <= prg && prg < MAGIC_STATE_INVOKING) {
                 //詠唱～発動前までの場合は、キャンセルを意味する。
             } else {
@@ -336,6 +336,6 @@ void MagicMeter::processDraw() {
 }
 
 MagicMeter::~MagicMeter() {
-    DELETEARR_IMPOSSIBLE_NULL(paCursorLv_);
+    DELETEARR_IMPOSSIBLE_NULL(paLv_cursor_point_);
     DELETEARR_IMPOSSIBLE_NULL(papLvCursor_);
 }

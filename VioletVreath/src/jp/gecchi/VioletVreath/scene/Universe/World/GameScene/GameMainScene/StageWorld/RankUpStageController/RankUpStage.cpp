@@ -35,7 +35,7 @@ void RankUpStage::processBehavior() {
         case RankUpStage::PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
-                pMessage_->update(PxC(500), PxC(200), "RANKUPSTAGE::PROG_BEGIN");
+                pMessage_->update(PXCO(500), PXCO(200), "RANKUPSTAGE::PROG_BEGIN");
                 _pBgmPerformer->play_fadein(0);
             }
 

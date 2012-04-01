@@ -7,20 +7,20 @@ using namespace GgafDxCore;
 GgafDxSeTransmitterForActor::GgafDxSeTransmitterForActor(GgafDxGeometricActor* prm_pActor) :
         GgafDxSeTransmitter() {
     _pActor = prm_pActor;
-    _pa_is3D = NULL;
+    _paBool_is_3d = NULL;
 }
 
 void GgafDxSeTransmitterForActor::useSe(int prm_se_num) {
     GgafDxSeTransmitter::useSe(prm_se_num);
-    _pa_is3D = NEW bool[_se_num];
+    _paBool_is_3d = NEW bool[_se_num];
     for (int i = 0; i < _se_num; i++) {
-        _pa_is3D[i] = false;
+        _paBool_is_3d[i] = false;
     }
 }
 
 void GgafDxSeTransmitterForActor::play(int prm_id) {
     GgafDxSeTransmitter::play(prm_id);
-    _pa_is3D[prm_id] = false;
+    _paBool_is_3d[prm_id] = false;
 }
 
 void GgafDxSeTransmitterForActor::play3D(int prm_id) {
@@ -78,7 +78,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
 
     P_UNIVERSE->registSe(_papSeCon[prm_id]->fetch(), vol, pan, rate_frequency, delay); // + (GgafDxSe::VOLUME_RANGE / 6) ÇÕâπó íÍè„Ç∞
 
-    _pa_is3D[prm_id] = true;
+    _paBool_is_3d[prm_id] = true;
     //ê^ÇÒíÜÇ©ÇÁÇÃãóó£
    //                float dPlnLeft = abs(_dest_from_vppln_left);
    //                float dPlnRight = abs(_dest_from_vppln_right);
@@ -107,7 +107,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     bool calc_flg = true;
     GgafDxCamera* pCam = P_CAM;
     for (int i = 0; i < _se_num; i++) {
-        if (_pa_is3D[i]) {
+        if (_paBool_is_3d[i]) {
             if (_papSeCon[i]->fetch()->isPlaying()) {
                 rate_frequency = 1.0;
                 if (calc_flg) {
@@ -158,7 +158,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                     _papSeCon[i]->fetch()->setFrequencyRate(rate_frequency);
                 }
             } else {
-                _pa_is3D[i] = false;
+                _paBool_is_3d[i] = false;
             }
         }
     }
@@ -172,6 +172,6 @@ void GgafDxSeTransmitterForActor::behave() {
 }
 
 GgafDxSeTransmitterForActor::~GgafDxSeTransmitterForActor() {
-    DELETEARR_POSSIBLE_NULL(_pa_is3D);
+    DELETEARR_POSSIBLE_NULL(_paBool_is_3d);
 }
 

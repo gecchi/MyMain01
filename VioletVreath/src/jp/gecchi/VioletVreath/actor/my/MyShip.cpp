@@ -51,8 +51,8 @@ MyShip::MyShip(const char* prm_name) :
     iMvVelo_BeginMT_ = 40000; //Turbo移動開始時の移動速度の初速度
     iMvAcce_MT_ = -200; //Turbo移動中の移動速度の加速度
 
-//    pOptionCtrler_ = NEW MyOptionController("MY_OPTION_PARENT");
-//    addSubLast(pOptionCtrler_);
+//    pOptionCtrlr_ = NEW MyOptionController("MY_OPTION_PARENT");
+//    addSubLast(pOptionCtrlr_);
 
     pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
     MyShot001* pShot;
@@ -85,9 +85,13 @@ MyShip::MyShip(const char* prm_name) :
 
 
     //トレース用履歴
-    pRing_MyShipGeoHistory_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
+    pRing_MyShipGeoHistory4OptCtrlr_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
+    pRing_MyShipGeoHistory2_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
+//    pRing_MyShipGeoOffsetHistory_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
     for (UINT32 i = 0; i < 300; i++) {
-        pRing_MyShipGeoHistory_->addLast(NEW GgafDxGeoElem(this));
+        pRing_MyShipGeoHistory4OptCtrlr_->addLast(NEW GgafDxGeoElem(this));
+        pRing_MyShipGeoHistory2_->addLast(NEW GgafDxGeoElem(0,0,0));
+//        pRing_MyShipGeoOffsetHistory_->addLast(NEW GgafDxGeoElem(this));
     }
 
     iMoveVelo_ = 0;
@@ -389,12 +393,12 @@ void MyShip::processBehavior() {
     }
 
     //スピンが勢いよく回っているならば速度を弱める
-    ang_velo MZ = angRXTopVelo_MZ_-3000; //3000は通常旋回時に速度を弱めてangRXTopVelo_MZ_を超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
-    if (_pKurokoA->_ang_veloFace[AXIS_X] >= MZ) {
-        _pKurokoA->_ang_veloFace[AXIS_X] *= 0.93;
+    angvelo MZ = angRXTopVelo_MZ_-3000; //3000は通常旋回時に速度を弱めてangRXTopVelo_MZ_を超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
+    if (_pKurokoA->_angveloFace[AXIS_X] >= MZ) {
+        _pKurokoA->_angveloFace[AXIS_X] *= 0.93;
         //_pKurokoA->setFaceAngAcce(AXIS_X, -1*angRXAcce_MZ_*2);
-    } else if (_pKurokoA->_ang_veloFace[AXIS_X] <= -MZ) {
-        _pKurokoA->_ang_veloFace[AXIS_X] *= 0.93;
+    } else if (_pKurokoA->_angveloFace[AXIS_X] <= -MZ) {
+        _pKurokoA->_angveloFace[AXIS_X] *= 0.93;
         //_pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_*2);
     }
 
@@ -472,7 +476,40 @@ void MyShip::processBehavior() {
             _Z = MyShip::lim_zright_;
         }
     }
-    pRing_MyShipGeoHistory_->next()->set(this);
+
+
+
+    pRing_MyShipGeoHistory2_->next()->set(this);
+    if (VB_PLAY->isBeingPressed(VB_OPTION)) {
+        GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory2_->getPrev();
+        _X_local += (_X - pGeoMyShipPrev->_X);
+        _Y_local += (_Y - pGeoMyShipPrev->_Y);
+        _Z_local += (_Z - pGeoMyShipPrev->_Z);
+    } else {
+        pRing_MyShipGeoHistory4OptCtrlr_->next()->set(_X - _X_local ,
+                                                      _Y - _Y_local ,
+                                                      _Z - _Z_local);
+    }
+
+
+
+
+//    GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory4OptCtrlr_->getPrev();
+//    pRing_MyShipGeoOffsetHistory_->next()->set(_X - pGeoMyShipPrev->_X,
+//                                               _Y - pGeoMyShipPrev->_Y,
+//                                               _Z - pGeoMyShipPrev->_Z);
+
+//    if (VB_PLAY->isBeingPressed(VB_OPTION)) {
+//        pRing_MyShipGeoHistory4OptCtrlr_->next()->set(this);
+//        GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory4OptCtrlr_->getPrev();
+//        pRing_MyShipGeoOffsetHistory_->next()->set(_X - pGeoMyShipPrev->_X,
+//                                                   _Y - pGeoMyShipPrev->_Y,
+//                                                   _Z - pGeoMyShipPrev->_Z);
+//    } else {
+//        pRing_MyShipGeoHistory4OptCtrlr_->next()->set(this);
+//        GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory4OptCtrlr_->getPrev();
+//        pRing_MyShipGeoOffsetHistory_->next()->set(pRing_MyShipGeoOffsetHistory_->getPrev());
+//    }
 }
 
 void MyShip::processJudgement() {
@@ -541,12 +578,12 @@ void MyShip::processJudgement() {
     if (is_being_soft_rapidshot_) {
         frame_soft_rapidshot_++;
     }
-    MyOptionController** papOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_;
+    MyOptionController** papOptCtrlr = P_MYSHIP_SCENE->papOptionCtrlr_;
     //光子魚雷発射
     if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         bool can_fire = true;
         for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-            if (papOptCtrler[i]->pOption_->pTorpedoCtrler_->in_firing_) {
+            if (papOptCtrlr[i]->pOption_->pTorpedoCtrlr_->in_firing_) {
                 can_fire = false;
                 break;
             }
@@ -556,7 +593,7 @@ void MyShip::processJudgement() {
                 if (i == 0) {
                     _pSeTransmitter->play3D(3);
                 }
-                papOptCtrler[i]->pOption_->pTorpedoCtrler_->fire();
+                papOptCtrlr[i]->pOption_->pTorpedoCtrlr_->fire();
             }
         }
     }
@@ -602,7 +639,7 @@ void MyShip::doNotingMoveInput() {
 }
 void MyShip::setMoveSpeedLv(int lv) {
         //lv_MoveSpeed_ = lv;
-        iMoveSpeed_ = PxC(lv);
+        iMoveSpeed_ = PXCO(lv);
     }
 
 void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {
@@ -614,7 +651,7 @@ void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 MyShip::~MyShip() {
-    DELETE_IMPOSSIBLE_NULL(pRing_MyShipGeoHistory_);
-
+    DELETE_IMPOSSIBLE_NULL(pRing_MyShipGeoHistory4OptCtrlr_);
+    DELETE_IMPOSSIBLE_NULL(pRing_MyShipGeoHistory2_);
 }
 

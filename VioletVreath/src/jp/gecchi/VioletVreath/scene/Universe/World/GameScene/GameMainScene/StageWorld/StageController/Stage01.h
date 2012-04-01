@@ -9,7 +9,7 @@ class Stage01 : public Stage {
 
 public:
 
-    Stage01PartController* pScene_Stage01PartCtrler_;
+    Stage01PartController* pScene_Stage01PartCtrlr_;
     WorldBoundSpace001* pWorldBoundSpace_;
     HoshiBoshi001* pHoshiBoshi_;
 

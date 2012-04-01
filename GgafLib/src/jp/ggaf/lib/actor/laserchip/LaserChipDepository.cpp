@@ -32,13 +32,13 @@ void LaserChipDepository::config(int prm_num_continual_dispatch_max,
 }
 
 
-LaserChip* LaserChipDepository::dispatch(frame prm_offset_frames) {
+LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
     if (_num_continual_dispatch_count > _num_continual_dispatch_max) { //_num_continual_dispatch_max連続発射時、弾切れにする(_num_interval_frame_countをリセット)。
         _is_tear_laser = true;
         _pChip_prev_dispatch = NULL;
         _frame_of_behaving_prev_dispatch = 0;
         _num_continual_dispatch_count = 0;
-        _num_interval_frame_count = 0;
+        _num_interval_frame_count = 1; //ココに処理が来たことにより既に１フレーム弾切れなので１を設定
         return NULL;
     } else if (_num_interval_frame_count < _num_chip_interval) { //_num_chip_intervalフレーム以内なので弾切れにする。
         _is_tear_laser = true;

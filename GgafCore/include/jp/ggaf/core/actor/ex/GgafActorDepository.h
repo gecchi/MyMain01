@@ -78,17 +78,18 @@ public:
      * @param prm_offset_frames 活動状態にする遅延フレーム
      * @return アクター発送者の暇そうなメンバーアクターのポインタ
      */
-    virtual GgafCore::GgafMainActor* dispatch(frame prm_offset_frames = 1) {
+    virtual GgafCore::GgafMainActor* dispatch(int prm_offset_frames = 1) {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
             throwGgafCriticalException("GgafActorDepository::dispatch() "<<getName()<<" の子がありません");
         }
 #endif
+        frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);
         GgafMainActor* pActor = getSubFirst();
         while (true) {
             if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
                 pActor->moveLast(); //次フレームお尻に回す
-                pActor->activateDelay(prm_offset_frames); //activate自動実行。
+                pActor->activateDelay(offset_frames); //activate自動実行。
                 break;//取得！
             } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
                 if (pActor->isLast()) {

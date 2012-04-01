@@ -13,24 +13,24 @@ void SmpWorld::processBehavior() {
     if (vb_.isBeingPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
         if (vb_.isBeingPressed(VB_UP)) {
-            pActor_->_Z += PxC(2); //奥
+            pActor_->_Z += PXCO(2); //奥
         }
         if (vb_.isBeingPressed(VB_DOWN)) {
-            pActor_->_Z -= PxC(2); //手前
+            pActor_->_Z -= PXCO(2); //手前
         }
     } else {
         //ボタン１（スペースキー）を離している場合
         if (vb_.isBeingPressed(VB_RIGHT)) {
-            pActor_->_X += PxC(2); //右
+            pActor_->_X += PXCO(2); //右
         }
         if (vb_.isBeingPressed(VB_LEFT)) {
-            pActor_->_X -= PxC(2); //左
+            pActor_->_X -= PXCO(2); //左
         }
         if (vb_.isBeingPressed(VB_UP)) {
-            pActor_->_Y += PxC(2); //上
+            pActor_->_Y += PXCO(2); //上
         }
         if (vb_.isBeingPressed(VB_DOWN)) {
-            pActor_->_Y -= PxC(2); //下
+            pActor_->_Y -= PXCO(2); //下
         }
     }
 }

@@ -21,7 +21,7 @@ private:
 
 public:
     /** [r/w]各SE（配列）は、擬似３D再生かどうかを保持 */
-    bool* _pa_is3D;
+    bool* _paBool_is_3d;
     /** [r]SE発生元アクター */
     GgafDxGeometricActor* _pActor;
 

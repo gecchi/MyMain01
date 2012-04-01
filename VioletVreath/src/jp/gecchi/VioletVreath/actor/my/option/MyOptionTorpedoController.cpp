@@ -67,7 +67,7 @@ void MyOptionTorpedoController::onInactive() {
 void MyOptionTorpedoController::fire() {
     if (!in_firing_) {
         in_firing_ = true;
-        int target_num = pOption_->pLockonCtrler_->pRingTarget_->length();
+        int target_num = pOption_->pLockonCtrlr_->pRingTarget_->length();
         firing_num_ = target_num == 0 ? 1 : target_num;
                  // = MyOption::max_lockon_num_;
                  // = target_num == 0 ? MyOption::max_lockon_num_ : target_num;
@@ -75,25 +75,25 @@ void MyOptionTorpedoController::fire() {
         angle angRenge  = D360ANG / MyOptionController::now_option_num_;
         angle angFireCenter = angBegin + (D360ANG*(pOption_->no_-1) / MyOptionController::now_option_num_);
         angle out_rz,out_ry,out_dz,out_dy;
-        angle* pa_angWay = NEW angle[ firing_num_+2];
-        GgafDxUtil::getWayAngle2D(angFireCenter, firing_num_+1, angRenge / firing_num_, pa_angWay);
+        angle* paAng_way = NEW angle[ firing_num_+2];
+        GgafDxUtil::getWayAngle2D(angFireCenter, firing_num_+1, angRenge / firing_num_, paAng_way);
         for (int i = 0; i < firing_num_; i++) { //—¼’[‚Ì•ûŒü‚Í•s—v
             papTorpedo_[i]->locatedBy(P_MYSHIP);
             if (target_num == 0) {
                 papTorpedo_[i]->pTarget_ = NULL;
             } else {
-                papTorpedo_[i]->pTarget_ = pOption_->pLockonCtrler_->pRingTarget_->getNext(i);
+                papTorpedo_[i]->pTarget_ = pOption_->pLockonCtrlr_->pRingTarget_->getNext(i);
             }
             papTorpedo_[i]->_pKurokoA->setRzRyMvAng(0, 0);
             papTorpedo_[i]->_pKurokoA->getRzRyMvAngDistance(TURN_CLOSE_TO,
-                                                             pa_angWay[i], D135ANG, //D135ANGŒã‚ëŽÎ‚ß‚S‚T“x
+                                                             paAng_way[i], D135ANG, //D135ANGŒã‚ëŽÎ‚ß‚S‚T“x
                                                              out_dz, out_dy,
                                                              out_rz, out_ry
                                                             );
             papTorpedo_[i]->_pKurokoA->setRzRyMvAng(out_rz, out_ry);
             papTorpedo_[i]->activate();
         }
-        DELETEARR_IMPOSSIBLE_NULL(pa_angWay);
+        DELETEARR_IMPOSSIBLE_NULL(paAng_way);
     }
 }
 

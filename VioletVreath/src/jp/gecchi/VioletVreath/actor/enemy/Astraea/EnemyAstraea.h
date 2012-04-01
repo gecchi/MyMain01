@@ -21,7 +21,7 @@ public:
     /** レーザーとレーザーの間隔開き角度 */
     angle angClearance_;
     /** 方向転換角速度 */
-    ang_velo ang_veloTurn_;
+    angvelo angveloTurn_;
 
 
     struct PosLaser {
@@ -42,7 +42,8 @@ public:
 
     /** 出現エフェクト */
     GgafDxCore::GgafDxDrawableActor* pEffect_Appearance_;
-
+    DepositoryConnection* pCon_ShotDepo_;
+    GgafCore::GgafActorDepository* pDepo_Shot_;
     EnemyAstraea(const char* prm_name);
 
     void onCreateModel() override;

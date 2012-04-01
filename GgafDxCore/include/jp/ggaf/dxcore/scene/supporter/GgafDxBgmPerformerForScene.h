@@ -15,10 +15,10 @@ private:
 
 public:
     GgafDxScene* _pDxScene;
-    double* _pa_target_volume;
-    double* _pa_inc_volume;
-    bool* _pa_is_fade;
-    bool* _pa_is_fadeout_stop;
+    double* _paDouble_target_volume;
+    double* _paDouble_inc_volume;
+    bool* _paBool_is_fade;
+    bool* _paBool_is_fadeout_stop;
     frame _default_fade;
 
     GgafDxBgmPerformerForScene(GgafDxScene* prm_pDxScene);

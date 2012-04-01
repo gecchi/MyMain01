@@ -81,7 +81,7 @@ public:
      * 自動的にストックに戻ります。
      * @return 借り入れしたレーザーチップ。借り入れできない場合はNULL
      */
-    virtual LaserChip* dispatch(frame prm_offset_frames = 1) override;
+    virtual LaserChip* dispatch(int prm_offset_frames = 1) override;
 
     /**
      * レーザーチップストックの追加 .

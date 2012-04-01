@@ -8,40 +8,40 @@ using namespace VioletVreath;
 
 MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) ,
 pMyShip_(NULL),
-papOptionCtrler_(NULL) {
+papOptionCtrlr_(NULL) {
     _class_name = "MyShipScene";
     pMyShip_ = NEW MyShip("MYSHIP");
     pMyShip_->inactivateImmed(); //配下に仮登録のアクター発送者とかあるし
-    papOptionCtrler_ = NEW MyOptionController*[MyOptionController::max_option_num_];
+    papOptionCtrlr_ = NEW MyOptionController*[MyOptionController::max_option_num_];
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
-        papOptionCtrler_[i] = NEW MyOptionController("MyOpCtrl", i);
-        getDirector()->addSubLast(papOptionCtrler_[i]);
+        papOptionCtrlr_[i] = NEW MyOptionController("MyOpCtrl", i);
+        getDirector()->addSubLast(papOptionCtrlr_[i]);
     }
 
-    papOptionCtrler_[0]->pOption_->config(60000, D0ANG, 0, 1000);
-    papOptionCtrler_[0]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
-    papOptionCtrler_[0]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[1]->pOption_->config(60000, D90ANG, 0, 1000);
-    papOptionCtrler_[1]->pOption_->setMaterialColor(0.8, 1.0, 1.0);
-    papOptionCtrler_[1]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[2]->pOption_->config(60000, D180ANG, 0, 1000);
-    papOptionCtrler_[2]->pOption_->setMaterialColor(1.0, 0.8, 0.8);
-    papOptionCtrler_[2]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[3]->pOption_->config(60000, D270ANG, 0, 1000);
-    papOptionCtrler_[3]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
-    papOptionCtrler_[3]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[4]->pOption_->config(120000, D0ANG, 0, -1500);
-    papOptionCtrler_[4]->pOption_->setMaterialColor(0.8, 0.8, 1.0);
-    papOptionCtrler_[4]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[5]->pOption_->config(120000, D90ANG, 0, -1500);
-    papOptionCtrler_[5]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
-    papOptionCtrler_[5]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[6]->pOption_->config(120000, D180ANG, 0, -1500);
-    papOptionCtrler_[6]->pOption_->setMaterialColor(1.0, 0.8, 0);
-    papOptionCtrler_[6]->pOption_->setAlpha(0.7);
-    papOptionCtrler_[7]->pOption_->config(120000, D270ANG, 0, -1500);
-    papOptionCtrler_[7]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
-    papOptionCtrler_[7]->pOption_->setAlpha(0.7);
+    papOptionCtrlr_[0]->pOption_->config(60000, D0ANG, 0, 1000);
+    papOptionCtrlr_[0]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
+    papOptionCtrlr_[0]->pOption_->setAlpha(0.7);
+    papOptionCtrlr_[1]->pOption_->config(60000, D90ANG, 0, 1000);
+    papOptionCtrlr_[1]->pOption_->setMaterialColor(0.8, 1.0, 1.0);
+    papOptionCtrlr_[1]->pOption_->setAlpha(0.7);
+    papOptionCtrlr_[2]->pOption_->config(60000, D180ANG, 0, 1000);
+    papOptionCtrlr_[2]->pOption_->setMaterialColor(1.0, 0.8, 0.8);
+    papOptionCtrlr_[2]->pOption_->setAlpha(0.7);
+    papOptionCtrlr_[3]->pOption_->config(60000, D270ANG, 0, 1000);
+    papOptionCtrlr_[3]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
+    papOptionCtrlr_[3]->pOption_->setAlpha(0.7);
+    papOptionCtrlr_[4]->pOption_->config(120000, D0ANG, 0, -1500);
+    papOptionCtrlr_[4]->pOption_->setMaterialColor(0.8, 0.8, 1.0);
+    papOptionCtrlr_[4]->pOption_->setAlpha(0.7);
+    papOptionCtrlr_[5]->pOption_->config(120000, D90ANG, 0, -1500);
+    papOptionCtrlr_[5]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
+    papOptionCtrlr_[5]->pOption_->setAlpha(0.7);
+    papOptionCtrlr_[6]->pOption_->config(120000, D180ANG, 0, -1500);
+    papOptionCtrlr_[6]->pOption_->setMaterialColor(1.0, 0.8, 0);
+    papOptionCtrlr_[6]->pOption_->setAlpha(0.7);
+    papOptionCtrlr_[7]->pOption_->config(120000, D270ANG, 0, -1500);
+    papOptionCtrlr_[7]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
+    papOptionCtrlr_[7]->pOption_->setAlpha(0.7);
 
 
 
@@ -59,7 +59,7 @@ papOptionCtrler_(NULL) {
     //z_ = 0.9999999f;
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter");
-    pMagicMeter_->locate(PxC(100), PxC(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f), 0.00000001f );
+    pMagicMeter_->locate(PXCO(100), PXCO(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f), 0.00000001f );
     getDirector()->addSubGroup(pMagicMeter_);
 
     zanki_ = 3;
@@ -76,7 +76,7 @@ void MyShipScene::onReset() {
     zanki_ = 3;
     pMyShip_->resetTree();
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
-        papOptionCtrler_[i]->resetTree();
+        papOptionCtrlr_[i]->resetTree();
     }
     fadeinScene(0);
     _pProg->set(MyShipScene::PROG_INIT);
@@ -143,7 +143,7 @@ void MyShipScene::processBehavior() {
                 pMyShip_->inactivateDelay(60);
                 pMyShip_->can_control_ = false;
                 for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
-                    papOptionCtrler_[i]->is_free_from_myship_mode_ = true;
+                    papOptionCtrlr_[i]->is_free_from_myship_mode_ = true;
                 }
                 zanki_ -= 1;
             }
@@ -175,7 +175,7 @@ void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 MyShipScene::~MyShipScene() {
-    DELETEARR_IMPOSSIBLE_NULL(papOptionCtrler_);
+    DELETEARR_IMPOSSIBLE_NULL(papOptionCtrlr_);
 
     //P_UNIVERSE->undoCameraWork();
 //    pCon_VamSysCamWorker_->close();

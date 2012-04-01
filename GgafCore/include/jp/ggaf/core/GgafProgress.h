@@ -25,7 +25,7 @@ public:
     /** [r]次の単位時間加算時に反映予定の進捗番号(0, 1～) */
     progress _progress_next;
     /** [r]各進捗番号の進捗変更時の時間の保存 */
-    frame* _paFrame_ProgressChanged;
+    frame* _paFrame_progress_changed;
     /** [r]時間カウンター(時間経過に伴い増加する何らかの変数)の参照 */
     frame* _pFrame_count;
     /** 管理される進捗番号の個数 */

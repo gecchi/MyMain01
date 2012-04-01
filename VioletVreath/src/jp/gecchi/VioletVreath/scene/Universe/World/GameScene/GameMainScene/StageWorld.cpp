@@ -9,10 +9,10 @@ StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageWorld";
 
     can_rank_up_ = true;
-    pStageCtrler_ = NEW StageController("StageController");
-    addSubLast(pStageCtrler_);
-    pRankUpStageCtrler_ = NEW RankUpStageController("RankUpStageController");
-    addSubLast(pRankUpStageCtrler_);
+    pStageCtrlr_ = NEW StageController("StageController");
+    addSubLast(pStageCtrlr_);
+    pRankUpStageCtrlr_ = NEW RankUpStageController("RankUpStageController");
+    addSubLast(pRankUpStageCtrlr_);
 
 }
 
@@ -32,7 +32,7 @@ void StageWorld::processBehavior() {
         _TRACE_("_RANK_UP_LEVEL_？？？"<<_RANK_UP_LEVEL_);
         if (can_rank_up_) {
             _RANK_UP_LEVEL_ = _RANK_UP_LEVEL_ + 1;
-            pRankUpStageCtrler_->execute();
+            pRankUpStageCtrlr_->execute();
             _TRACE_("P_STAGE_CTRLER をスロー");
             P_STAGE_CTRLER->addRunFrameOnce(1); //スロー開始
         } else {

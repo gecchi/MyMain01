@@ -21,7 +21,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     _Z = 0;
     laser_length_ = 30;
     laser_interval_ = 300;
-    ang_veloTurn_ = 100;
+    angveloTurn_ = 100;
     angClearance_ = 30000;//開き具合
     papapLaserChipDepo_ = NEW LaserChipDepository**[laser_way_];
     for (int i = 0; i < laser_way_; i++) {
@@ -41,22 +41,22 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         );
 
     papaPosLaser_ = NEW PosLaser*[laser_way_];
-    angle* paAngWay = NEW angle[laser_way_];
-    GgafDxUtil::getWayAngle2D(0, laser_way_, angClearance_, paAngWay);
+    angle* paAng_way = NEW angle[laser_way_];
+    GgafDxUtil::getWayAngle2D(0, laser_way_, angClearance_, paAng_way);
     angle Rz,Ry;
     float vx, vy, vz;
     for (int i = 0; i < laser_way_; i++) {
-        Rz = GgafDxUtil::simplifyAng(paAngWay[i]);
+        Rz = GgafDxUtil::simplifyAng(paAng_way[i]);
         papaPosLaser_[i] = NEW PosLaser[laser_way_];
         for (int j = 0; j < laser_way_; j++) {
-            Ry = GgafDxUtil::simplifyAng(paAngWay[j]);
+            Ry = GgafDxUtil::simplifyAng(paAng_way[j]);
             GgafDxUtil::getNormalizeVectorZY(Rz, Ry, vx, vy, vz);
-            papaPosLaser_[i][j].X = vx * PxC(100);
-            papaPosLaser_[i][j].Y = vy * PxC(100);
-            papaPosLaser_[i][j].Z = vz * PxC(100);
+            papaPosLaser_[i][j].X = vx * PXCO(100);
+            papaPosLaser_[i][j].Y = vy * PXCO(100);
+            papaPosLaser_[i][j].Z = vz * PXCO(100);
         }
     }
-    DELETEARR_IMPOSSIBLE_NULL(paAngWay);
+    DELETEARR_IMPOSSIBLE_NULL(paAng_way);
 
     pEffect_Appearance_ = NULL;
 
@@ -64,6 +64,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     _pSeTransmitter->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
     _pSeTransmitter->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
     useProgress(ASTRAEA_PROG_FIRE);
+    pCon_ShotDepo_ = connectDepositoryManager("DpCon_Shot004", NULL);
+    pDepo_Shot_ = pCon_ShotDepo_->fetch();
 }
 
 void EnemyAstraea::onCreateModel() {
@@ -76,9 +78,9 @@ void EnemyAstraea::initialize() {
     setHitAble(true);
     setAlpha(0.99);
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, PxC(200));
+    _pColliChecker->setColliSphere(0, PXCO(200));
     _pKurokoA->setRzRyMvAng(0, D180ANG);
-    _pKurokoA->setMvVelo(PxC(5));
+    _pKurokoA->setMvVelo(PXCO(5));
 }
 
 void EnemyAstraea::onActive() {
@@ -98,8 +100,8 @@ void EnemyAstraea::processBehavior() {
         case ASTRAEA_PROG_MOVE: {
             if (_pProg->isJustChanged()) {
                 _pKurokoA->setFaceAngVelo(AXIS_X, 0);
-                _pKurokoA->setFaceAngVelo(AXIS_Z, ang_veloTurn_*0.3);
-                _pKurokoA->setFaceAngVelo(AXIS_Y, ang_veloTurn_*0.5);
+                _pKurokoA->setFaceAngVelo(AXIS_Z, angveloTurn_*0.3);
+                _pKurokoA->setFaceAngVelo(AXIS_Y, angveloTurn_*0.5);
                 _pKurokoA->setMvVelo(5000);
                 //_pKurokoA->setMvVelo(0);
             }
@@ -112,7 +114,7 @@ void EnemyAstraea::processBehavior() {
         case ASTRAEA_PROG_TURN: {
             if (_pProg->isJustChanged()) {
                 //ターン開始
-                _pKurokoA->execTurnFaceAngSequence(P_MYSHIP, ang_veloTurn_*20, 0,
+                _pKurokoA->execTurnFaceAngSequence(P_MYSHIP, angveloTurn_*20, 0,
                                                    TURN_COUNTERCLOCKWISE, false);
                 cnt_laserchip_ = 0;
             }
@@ -120,7 +122,7 @@ void EnemyAstraea::processBehavior() {
                 //ターン中
             } else {
                 //自機にがいた方向に振り向きが完了時
-                _pKurokoA->setFaceAngVelo(AXIS_X, ang_veloTurn_*40);
+                _pKurokoA->setFaceAngVelo(AXIS_X, angveloTurn_*40);
                 _pKurokoA->setFaceAngVelo(AXIS_Z, 0);
                 _pKurokoA->setFaceAngVelo(AXIS_Y, 0);
                 _pKurokoA->setMvVelo(0);
@@ -215,6 +217,11 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
             pExplo001->locatedBy(this);
         }
         _pSeTransmitter->play3D(1);
+          StgUtil::shotWay003(this, pDepo_Shot_,
+                              PXCO(20),
+                              6, 6, DANG(8), DANG(8),
+                              2000, 200,
+                              10, 60, 0.9);
         sayonara();
         //消滅エフェクト
     } else {
@@ -240,6 +247,7 @@ void EnemyAstraea::onInactive() {
 EnemyAstraea::~EnemyAstraea() {
     pCon_RefractionEffectDepository_->close();
     pCon_LaserChipDepoStore_->close();
+    pCon_ShotDepo_->close();
     for (int i = 0; i < laser_way_; i++) {
         DELETEARR_IMPOSSIBLE_NULL(papaPosLaser_[i]);
         DELETEARR_IMPOSSIBLE_NULL(papapLaserChipDepo_[i]);

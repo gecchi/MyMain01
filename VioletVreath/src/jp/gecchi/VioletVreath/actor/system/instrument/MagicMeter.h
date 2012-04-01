@@ -32,10 +32,10 @@ public:
 
     /** メータ主カーソル */
     MagicMeterCursor001* pMagicCursor_;
-    /** 各魔法のレベルカーソル(配列) */
+    /** 各魔法(配列)のレベルのカーソル */
     MagicMeterCursor002** papLvCursor_;
-    /** 各魔法のレベルカーソルが指しているレベル(配列) */
-    int* paCursorLv_;
+    /** 各魔法(配列)のレベルのカーソルが指しているレベル数 */
+    int* paLv_cursor_point_;
 
     /** 魔法メーター１つの横幅(px) */
     float width_px_;

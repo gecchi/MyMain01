@@ -346,7 +346,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\PreDrawScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.cpp" />
-    <ClCompile Include="VioletVreath.cpp" />
+    <ClCompile Include="src\VioletVreath.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

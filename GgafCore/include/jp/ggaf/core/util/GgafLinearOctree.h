@@ -132,7 +132,7 @@ public:
     int _top_level_dZ;
 
     /** [r]8の累乗の値を予め計算して保持している配列 */
-    UINT32* _paPow;
+    UINT32* _paUint32_pow;
     /** [r]全空間数 */
     UINT32 _num_space;
     /** [r]最大空間レベル */

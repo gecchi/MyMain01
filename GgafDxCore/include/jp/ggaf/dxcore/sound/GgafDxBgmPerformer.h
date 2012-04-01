@@ -14,7 +14,7 @@ public:
     static int _active_bgm_bpm;
     int _bgm_num;
 
-    double* _pa_volume;
+    double* _paDouble_volume;
     /** Bgm‘Œ¹Ú‘± */
     GgafDxBgmConnection** _papBgmCon;
 

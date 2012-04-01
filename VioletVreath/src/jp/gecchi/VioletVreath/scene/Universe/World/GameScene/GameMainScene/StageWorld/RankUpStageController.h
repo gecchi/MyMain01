@@ -2,7 +2,7 @@
 #define RANKUPSTAGECONTROLLER_H_
 
 #ifdef P_STAGE_WORLD
-    #define P_RANK_UP_CONTROLLER (P_STAGE_WORLD->pRankUpStageCtrler_)
+    #define P_RANK_UP_CONTROLLER (P_STAGE_WORLD->pRankUpStageCtrlr_)
 #else
     #error P_STAGE_CTRLER isnt define
 #endif

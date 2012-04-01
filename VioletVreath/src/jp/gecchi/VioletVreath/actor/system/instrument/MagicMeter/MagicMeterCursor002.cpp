@@ -47,7 +47,7 @@ void MagicMeterCursor002::processJudgement() {
 void MagicMeterCursor002::processPreDraw() {
     //ロールを考慮せずにLVカーソル移動させ、ここで、ロール分を補正
     tmp_Y_ = _Y;
-    _Y += (pMagicMeter_->height_ * (pMagicMeter_->paCursorLv_[magic_index_]+1) * (1.0-pMagic_->rr_));
+    _Y += (pMagicMeter_->height_ * (pMagicMeter_->paLv_cursor_point_[magic_index_]+1) * (1.0-pMagic_->rr_));
     DefaultBoardActor::processPreDraw();
 }
 

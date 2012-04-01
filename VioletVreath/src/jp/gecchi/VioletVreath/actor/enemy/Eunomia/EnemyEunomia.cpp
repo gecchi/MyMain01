@@ -96,17 +96,17 @@ void EnemyEunomia::processBehavior() {
             if (pDepo_Shot_) {
                 //放射状ショット
                 int way = R_EnemyEunomia_ShotWay; //ショットWAY数
-                angle* paAngWay = NEW angle[way];
-                GgafDxUtil::getRadialAngle2D(0, way, paAngWay);
+                angle* paAng_way = NEW angle[way];
+                GgafDxUtil::getRadialAngle2D(0, way, paAng_way);
                 GgafDxDrawableActor* pActor_Shot;
                 for (int i = 0; i < way; i++) {
                     pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->locatedBy(this);
-                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], D90ANG);
+                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
                     }
                 }
-                DELETEARR_IMPOSSIBLE_NULL(paAngWay);
+                DELETEARR_IMPOSSIBLE_NULL(paAng_way);
                 //ショット発射エフェクト
                 if (pDepo_ShotEffect_) {
                     GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
