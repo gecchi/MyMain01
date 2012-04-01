@@ -850,7 +850,7 @@ public:
                            int prm_set_num, frame prm_interval_frames, float prm_attenuated);
 
     /**
-     * 自分の向いている方向（_RX > _RZ > _RY）に向かって拡散ポンデリング弾を複数セット同時に撃つ .
+     * 自分の向いている方向（_RX > _RZ > _RY）に向かって拡散放射弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _X, _Y, _Z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>

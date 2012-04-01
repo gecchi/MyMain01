@@ -31,7 +31,7 @@ void StgUtil::shotWay001(GgafDxGeometricActor* prm_pFrom,
 }
 
 void StgUtil::shotWay001v2(GgafDxGeometricActor* prm_pFrom,
-                           GgafActorDepository*    prm_pDepo_Shot,
+                           GgafActorDepository*  prm_pDepo_Shot,
                            GgafDxGeometricActor* prm_pTarget,
                            int prm_way, angle prm_angClearance,
                            velo prm_velo_first, acce prm_acce_first,
@@ -39,9 +39,9 @@ void StgUtil::shotWay001v2(GgafDxGeometricActor* prm_pFrom,
     angle* paAng_way = NEW angle[prm_way];
     angle rz,ry;
     GgafDxUtil::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
-                            prm_pTarget->_Y - prm_pFrom->_Y,
-                            prm_pTarget->_Z - prm_pFrom->_Z,
-                            rz, ry);
+                           prm_pTarget->_Y - prm_pFrom->_Y,
+                           prm_pTarget->_Z - prm_pFrom->_Z,
+                           rz, ry);
     GgafDxUtil::getWayAngle2D(0,prm_way, prm_angClearance, paAng_way);
     GgafDxDrawableActor* pActor_Shot;
     velo now_velo = prm_velo_first;
@@ -63,16 +63,16 @@ void StgUtil::shotWay001v2(GgafDxGeometricActor* prm_pFrom,
 }
 
 void StgUtil::shotWay002(GgafDxGeometricActor* prm_pFrom,
-                         GgafActorDepository*     prm_pDepo_Shot,
+                         GgafActorDepository*  prm_pDepo_Shot,
                          GgafDxGeometricActor* prm_pTarget,
                          int prm_way, angle prm_angBegin,
                          velo prm_velo, acce prm_acce) {
     angle* paAng_way = NEW angle[prm_way];
     angle rz,ry;
     GgafDxUtil::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
-                            prm_pTarget->_Y - prm_pFrom->_Y,
-                            prm_pTarget->_Z - prm_pFrom->_Z,
-                            rz, ry);
+                           prm_pTarget->_Y - prm_pFrom->_Y,
+                           prm_pTarget->_Z - prm_pFrom->_Z,
+                           rz, ry);
     GgafDxUtil::getRadialAngle2D(prm_angBegin, prm_way, paAng_way);
     GgafDxDrawableActor* pActor_Shot;
     for (int i = 0; i < prm_way; i++) {
