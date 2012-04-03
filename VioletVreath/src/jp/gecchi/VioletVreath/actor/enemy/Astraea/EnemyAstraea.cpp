@@ -219,9 +219,9 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
         _pSeTransmitter->play3D(1);
           StgUtil::shotWay003(this, pDepo_Shot_,
                               PXCO(20),
-                              6, 6, DANG(8), DANG(8),
-                              2000, 200,
-                              10, 60, 0.9);
+                              5, 5, DANG(6), DANG(6),
+                              3000, 200,
+                              3, 5, 0.9);
         sayonara();
         //消滅エフェクト
     } else {

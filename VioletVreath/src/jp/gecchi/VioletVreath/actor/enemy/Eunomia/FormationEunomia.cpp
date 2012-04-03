@@ -20,7 +20,8 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
         spl_id << prm_spl_id << "_" << i;  //ƒ—á„"FormationEunomia001_0"
         papSplManufCon_[i] = connectSplineManufactureManager(spl_id.str().c_str());
     }
-    pDepoCon_Shot_ = NULL;
+    pCon_ShotDepo_ = connectDepositoryManager("DpCon_Shot004", NULL); //Eunomia‚Ì’e;
+    pDepo_Shot_ = pCon_ShotDepo_->fetch();
     updateRankParameter();
 }
 
@@ -65,6 +66,26 @@ void FormationEunomia::processBehavior() {
             }
         }
     }
+
+
+    if (getActivePartFrame() == 60 * 20) {
+        MyShip* pMy = P_MYSHIP;
+        GgafActor* pFllower = _listFllower.getCurrent();
+        int num_follwer = _listFllower.length();
+        EnemyEunomia* pEunomia;
+        GgafDxGeometricActor* pShot;
+        for (int i = 0; i < num_follwer; i++) {
+            pEunomia = (EnemyEunomia*)pFllower;
+            pShot = (GgafDxGeometricActor*)pDepo_Shot_->dispatch();
+            if (pShot) {
+                pShot->locatedBy(pEunomia);
+                pShot->_pKurokoA->setMvAng(pMy);
+                pShot->_pKurokoA->setMvVelo(PXCO(10));
+                pShot->_pKurokoA->setMvAcce(0);
+            }
+            pFllower = _listFllower.next();
+        }
+    }
 }
 
 FormationEunomia::~FormationEunomia() {
@@ -73,7 +94,7 @@ FormationEunomia::~FormationEunomia() {
         papSplManufCon_[i]->close();
     }
     DELETEARR_IMPOSSIBLE_NULL(papSplManufCon_);
-    if (pDepoCon_Shot_) {
-        pDepoCon_Shot_->close();
+    if (pCon_ShotDepo_) {
+        pCon_ShotDepo_->close();
     }
 }

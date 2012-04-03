@@ -788,6 +788,41 @@ void GgafDxUtil::setWorldMatrix_RzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRI
     out_matWorld._44 = 1.0f;
 }
 
+
+void GgafDxUtil::setWorldMatrix_RzRy(angle prm_Rz, angle prm_Ry, D3DXMATRIX& out_matWorld) {
+    //Worldïœä∑
+    //íPà çsóÒ Å~ Zé≤âÒì] Å~ Yé≤âÒì] ÇÃïœä∑çsóÒÇçÏê¨
+    //Å¶XYZÇÃèáÇ≈Ç»Ç¢Ç±Ç∆Ç…íçà”
+    // |  cosRz*cosRy, sinRz,  cosRz*-sinRy,   0  |
+    // | -sinRz*cosRy, cosRz, -sinRz*-sinRy,   0  |
+    // |        sinRy,     0,         cosRy,   0  |
+    // |            0,     0,             0,   1  |
+    float sinRy = ANG2SIN(prm_Ry);
+    float cosRy = ANG2COS(prm_Ry);
+    float sinRz = ANG2SIN(prm_Rz);
+    float cosRz = ANG2COS(prm_Rz);
+
+    out_matWorld._11 = cosRz*cosRy;
+    out_matWorld._12 = sinRz;
+    out_matWorld._13 = cosRz*-sinRy;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = -sinRz*cosRy;
+    out_matWorld._22 = cosRz;
+    out_matWorld._23 = -sinRz*-sinRy;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = sinRy;
+    out_matWorld._32 = 0.0f;
+    out_matWorld._33 = cosRy;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = 0.0f;
+    out_matWorld._42 = 0.0f;
+    out_matWorld._43 = 0.0f;
+    out_matWorld._44 = 1.0f;
+}
+
 void GgafDxUtil::setWorldMatrix_RxRzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
     //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Yé≤âÒì] ÇÃïœä∑çsóÒÇçÏê¨
@@ -824,7 +859,41 @@ void GgafDxUtil::setWorldMatrix_RxRzRy(GgafDxGeometricActor* prm_pActor, D3DXMAT
     out_matWorld._44 = 1.0f;
 }
 
+void GgafDxUtil::setWorldMatrix_RxRzRy(angle prm_RX, angle prm_RZ, angle prm_RY, D3DXMATRIX& out_matWorld) {
+    //Worldïœä∑
+    //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Yé≤âÒì] ÇÃïœä∑çsóÒÇçÏê¨
+    //Å¶XYZÇÃèáÇ≈Ç»Ç¢Ç±Ç∆Ç…íçà”
+    // |                         cosRz*cosRy,          sinRz,                         cosRz*-sinRy,   0  |
+    // | ( cosRx*-sinRz*cosRy + sinRx*sinRy),    cosRx*cosRz, ( cosRx*-sinRz*-sinRy + sinRx*cosRy),   0  |
+    // | (-sinRx*-sinRz*cosRy + cosRx*sinRy),   -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy),   0  |
+    // |                                   0,              0,                                    0,   1  |
+    float sinRx = ANG2SIN(prm_RX);
+    float cosRx = ANG2COS(prm_RX);
+    float sinRy = ANG2SIN(prm_RY);
+    float cosRy = ANG2COS(prm_RY);
+    float sinRz = ANG2SIN(prm_RZ);
+    float cosRz = ANG2COS(prm_RZ);
 
+    out_matWorld._11 = cosRz * cosRy;
+    out_matWorld._12 = sinRz;
+    out_matWorld._13 = cosRz * -sinRy;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = (cosRx * -sinRz * cosRy) + (sinRx * sinRy);
+    out_matWorld._22 = cosRx * cosRz;
+    out_matWorld._23 = (cosRx * -sinRz * -sinRy) + (sinRx * cosRy);
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = (-sinRx * -sinRz * cosRy) + (cosRx * sinRy);
+    out_matWorld._32 = -sinRx * cosRz;
+    out_matWorld._33 = (-sinRx * -sinRz * -sinRy) + (cosRx * cosRy);
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = 0.0f;
+    out_matWorld._42 = 0.0f;
+    out_matWorld._43 = 0.0f;
+    out_matWorld._44 = 1.0f;
+}
 
 
 void GgafDxUtil::setWorldMatrix_ScRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {

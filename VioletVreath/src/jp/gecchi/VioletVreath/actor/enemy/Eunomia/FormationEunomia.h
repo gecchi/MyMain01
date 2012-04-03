@@ -14,7 +14,10 @@ public:
     /** エウノミア借り入れ元Depository資源への接続 */
     DepositoryConnection* pDepoCon_Eunomia_;
     /** エウノミアの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoCon_Shot_;
+    DepositoryConnection* pCon_ShotDepo_;
+    GgafCore::GgafActorDepository* pDepo_Shot_;
+
+
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection** papSplManufCon_;
     /** 編隊列数(RANK変動) */

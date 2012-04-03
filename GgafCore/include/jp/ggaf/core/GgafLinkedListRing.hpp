@@ -810,11 +810,11 @@ GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
 
 template<class T>
 void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
-#ifdef MY_DEBUG
-    if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addNext()] Error! ˆø”‚ªNULL‚Å‚·");
-    }
-#endif
+//#ifdef MY_DEBUG
+//    if (prm_pNew == NULL) {
+//        throwGgafCriticalException("[GgafLinkedListRing::addNext()] Error! ˆø”‚ªNULL‚Å‚·");
+//    }
+//#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
     if (_pElemFirst == NULL) {
         //Å‰‚Ì‚P‚Â
@@ -842,11 +842,11 @@ void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
 
 template<class T>
 void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
-#ifdef MY_DEBUG
-    if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addPrev()] Error! ˆø”‚ªNULL‚Å‚·");
-    }
-#endif
+//#ifdef MY_DEBUG
+//    if (prm_pNew == NULL) {
+//        throwGgafCriticalException("[GgafLinkedListRing::addPrev()] Error! ˆø”‚ªNULL‚Å‚·");
+//    }
+//#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
     if (_pElemFirst == NULL) {
         //Å‰‚Ì‚P‚Â
@@ -875,11 +875,11 @@ void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
 
 template<class T>
 void GgafLinkedListRing<T>::addLast(T* prm_pNew, bool prm_is_delete_value) {
-#ifdef MY_DEBUG
-    if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! ˆø”‚ªNULL‚Å‚·");
-    }
-#endif
+//#ifdef MY_DEBUG
+//    if (prm_pNew == NULL) {
+//        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! ˆø”‚ªNULL‚Å‚·");
+//    }
+//#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
 
     if (_pElemFirst == NULL) {
@@ -907,11 +907,11 @@ void GgafLinkedListRing<T>::addLast(T* prm_pNew, bool prm_is_delete_value) {
 
 template<class T>
 void GgafLinkedListRing<T>::addFirst(T* prm_pNew, bool prm_is_delete_value) {
-#ifdef MY_DEBUG
-    if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addFirst()] Error! ˆø”‚ªNULL‚Å‚·");
-    }
-#endif
+//#ifdef MY_DEBUG
+//    if (prm_pNew == NULL) {
+//        throwGgafCriticalException("[GgafLinkedListRing::addFirst()] Error! ˆø”‚ªNULL‚Å‚·");
+//    }
+//#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
     if (_pElemFirst == NULL) {
         //Å‰‚Ì‚P‚Â

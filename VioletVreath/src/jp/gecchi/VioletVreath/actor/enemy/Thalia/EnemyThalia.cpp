@@ -207,9 +207,9 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
                   StgUtil::shotWay004(this, pDepo_Shot_,
                                       PXCO(20),
-                                      8, DANG(40),
+                                      8, DANG(10),
                                       2000, 200,
-                                      10, 30, 0.9);
+                                      12, 3, 0.9);
 
             }
             sayonara();

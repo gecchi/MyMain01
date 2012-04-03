@@ -18,6 +18,7 @@ namespace GgafCore {
  */
 class GgafActorDepository : public GgafDummyActor {
 public:
+//    GgafCore::GgafLinkedListRing<GgafActor> _listDispatched;
 
     GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat = NULL);
 

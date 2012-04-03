@@ -55,22 +55,37 @@ void EnemyJuno::processBehavior() {
 
     if (do_Shot_) {
         if (getActivePartFrame() == frame_when_shot_) {
-            _pKurokoA->setMvVelo(500); //減速
+            _pKurokoA->setMvVelo(PXCO(3)); //減速
             _pKurokoA->execTurnRxSpinAngSequence(D180ANG, 8000, 0, TURN_CLOCKWISE);
         } else if (getActivePartFrame() == frame_when_shot_ + 20) {
+            MyShip* pM = P_MYSHIP;
             if (pDepo_Shot_) {
-                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
-                if (pShot) {
+                GgafDxGeometricActor* pFirst =
+                  StgUtil::shotWay001(_X, _Y, _Z,
+                                      pM->_X, pM->_Y, pM->_Z,
+                                      pDepo_Shot_,
+                                      PXCO(10),
+                                      10000, 200,
+                                      3, 5, 0.9,
+                                      EnemyJuno::callbackDispatched);
+                if (pFirst) {
                     shot_num_++;
-                    pShot->locatedBy(this);
-                    pShot->_pKurokoA->relateFaceAngWithMvAng(true);
-                    pShot->_pKurokoA->setMvAng(P_MYSHIP);
-                    pShot->reset();
                     do_Shot_ = false;
                     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
                     _pSeTransmitter->play3D(1);
-
                 }
+//                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
+//                if (pShot) {
+//                    shot_num_++;
+//                    pShot->locatedBy(this);
+//                    pShot->_pKurokoA->relateFaceAngWithMvAng(true);
+//                    pShot->_pKurokoA->setMvAng(P_MYSHIP);
+//                    pShot->reset();
+//                    do_Shot_ = false;
+//                    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
+//                    _pSeTransmitter->play3D(1);
+//                }
+
                 //ショット発射エフェクト
                 if (pDepo_ShotEffect_) {
                 }
@@ -79,8 +94,9 @@ void EnemyJuno::processBehavior() {
         }
     } else {
         if (can_Shot_) {
-            if (P_MYSHIP->_Z - 500000 < _Z && _Z < P_MYSHIP->_Z + 500000 &&
-                P_MYSHIP->_Y - 500000 < _Y && _Y < P_MYSHIP->_Y + 500000 &&
+            MyShip* pM = P_MYSHIP;
+            if (pM->_Z - 500000 < _Z && _Z < pM->_Z + 500000 &&
+                pM->_Y - 500000 < _Y && _Y < pM->_Y + 500000 &&
                 max_shots_ > shot_num_
             ) {
                 frame_when_shot_ = getActivePartFrame() + (CmRandomNumberGenerator::getInstance()->genrand_int32() % 60) + 1;
@@ -116,3 +132,7 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
 
 EnemyJuno::~EnemyJuno() {
 }
+
+void EnemyJuno::callbackDispatched(GgafDxGeometricActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {
+}
+

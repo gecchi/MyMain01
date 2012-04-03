@@ -15,7 +15,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //汎用爆発エフェクト EffectExplosion001
     {
         pDepo_EffectExplosion001_ = NEW GgafActorDepository("DpExplo001");
-        for (int i = 0; i < 300; i++) { //ストック100個
+        for (int i = 0; i < 700; i++) {
             pDepo_EffectExplosion001_->addSubLast(NEW EffectExplosion001("EffectExplosion001"));
         }
         getDirector()->addSubGroup(pDepo_EffectExplosion001_);
@@ -24,7 +24,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //アイテム小
     { //pDepo_MagicPointItem001_
         pDepo_MagicPointItem001_ = NEW GgafActorDepository("DpMpItem001");
-        for (int i = 0; i < 500; i++) { //ストック100個
+        for (int i = 0; i < 500; i++) {
             pDepo_MagicPointItem001_->addSubLast(NEW MagicPointItem001("MP001"));
         }
         getDirector()->addSubGroup(pDepo_MagicPointItem001_);
@@ -33,7 +33,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //アイテム中
     { //pDepo_MagicPointItem002_
         pDepo_MagicPointItem002_ = NEW GgafActorDepository("DpMpItem002");
-        for (int i = 0; i < 10; i++) { //ストック100個
+        for (int i = 0; i < 10; i++) {
             pDepo_MagicPointItem002_->addSubLast(NEW MagicPointItem002("MP002"));
         }
         getDirector()->addSubGroup(pDepo_MagicPointItem002_);

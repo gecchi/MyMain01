@@ -43,6 +43,10 @@ public:
     void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
         pDepo_Shot_ = prm_pDepo;
     }
+
+    static void callbackDispatched(GgafDxCore::GgafDxGeometricActor* prm_pDispatched,
+                                   int prm_dispatched_seq,
+                                   int prm_set_seq);
 };
 
 }

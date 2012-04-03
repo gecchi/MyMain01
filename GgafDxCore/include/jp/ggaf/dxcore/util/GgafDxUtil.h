@@ -485,6 +485,10 @@ public:
     static void setWorldMatrix_RzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
     static void setWorldMatrix_RxRzRy(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
+    static void setWorldMatrix_RxRzRy(angle prm_RX, angle prm_RZ, angle prm_RY, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_RzRy(angle prm_Rz, angle prm_Ry, D3DXMATRIX& out_matWorld);
+
+
     /**
      * world•ÏŠ·s—ñİ’è .
      * X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
