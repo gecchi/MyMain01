@@ -921,7 +921,7 @@ public:
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated      初弾セット以降の各セット毎のショット初期速度・加速度の減衰率(> 1.0)、或いは増幅率(>1.0)
      */
-    static void shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
+    static void shotWay002(coord prm_X, coord prm_Y, coord prm_Z,
                            angle prm_RX, angle prm_RZ, angle prm_RY,
                            GgafCore::GgafActorDepository* prm_pDepo_Shot,
                            coord prm_r,
@@ -930,6 +930,10 @@ public:
                            velo prm_velo_first, acce prm_acce_first,
                            int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                            void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int, int) = NULL);
+
+
+
+
 
     /**
      * 発射元の向いている方向（_RX > _RZ > _RY）に向かって N*M-Way弾を複数セット撃つ .
@@ -949,10 +953,31 @@ public:
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated      初弾セット以降の各セット毎のショット初期速度・加速度の減衰率(> 1.0)、或いは増幅率(>1.0)
      */
+    static void shotWay002(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+                           GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                           coord prm_r,
+                           int prm_way_N, int prm_way_M,
+                           angle prm_angClearance_N, angle prm_angClearance_M,
+                           velo prm_velo_first, acce prm_acce_first,
+                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int, int) = NULL);
+
+
+    static void shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
+                           angle prm_RX, angle prm_RZ, angle prm_RY,
+                           GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                           coord prm_r,
+                           int prm_way_N, int prm_way_M,
+                           UINT32* prm_pSpriteDollar,
+                           angle prm_angClearance_N, angle prm_angClearance_M,
+                           velo prm_velo_first, acce prm_acce_first,
+                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int, int) = NULL);
     static void shotWay003(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                            GgafCore::GgafActorDepository* prm_pDepo_Shot,
                            coord prm_r,
                            int prm_way_N, int prm_way_M,
+                           UINT32* prm_pSpriteDollar,
                            angle prm_angClearance_N, angle prm_angClearance_M,
                            velo prm_velo_first, acce prm_acce_first,
                            int prm_set_num, frame prm_interval_frames, float prm_attenuated,

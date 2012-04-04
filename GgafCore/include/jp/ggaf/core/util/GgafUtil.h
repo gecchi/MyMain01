@@ -20,6 +20,7 @@ public:
 
     static UINT32 getSystemTime();
 
+
     /**
      * ファイル読み込み .
      * 戻り値は呼び元で delete[] する必要があります。

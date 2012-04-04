@@ -78,6 +78,7 @@ public:
      */
     static float ROOT_1_MINUS_XX[1000];
 
+    static UINT32 BITNUM[];
 
     static GgafDxSphereRadiusVectors _srv;
 

@@ -194,12 +194,12 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 //                                       R_EnemyThalia_ShotWay, 0,
 //                                       2000, 200,
 //                                       5, 0.8);
-//                  StgUtil::shotWay003(this, pDepo_Shot_,
+//                  StgUtil::shotWay002(this, pDepo_Shot_,
 //                                      PXCO(20),
 //                                      5, 5, DANG(10), DANG(10),
 //                                      2000, 200);
 
-//                  StgUtil::shotWay003(this, pDepo_Shot_,
+//                  StgUtil::shotWay002(this, pDepo_Shot_,
 //                                      PXCO(20),
 //                                      6, 6, DANG(8), DANG(8),
 //                                      2000, 200,
