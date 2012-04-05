@@ -269,6 +269,8 @@ class Shot001;
 class Shot002;
 class Shot003;
 class Shot004;
+class Shot004Blue;
+class Shot004Yellow;
 class EnemyWateringLaserChip001;
 class EnemyStraightLaserChip001;
 
@@ -525,6 +527,8 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/common/shot/Shot002.h"
 #include "jp/gecchi/VioletVreath/actor/common/shot/Shot003.h"
 #include "jp/gecchi/VioletVreath/actor/common/shot/Shot004.h"
+#include "jp/gecchi/VioletVreath/actor/common/shot/Shot004Blue.h"
+#include "jp/gecchi/VioletVreath/actor/common/shot/Shot004Yellow.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyWateringLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
 

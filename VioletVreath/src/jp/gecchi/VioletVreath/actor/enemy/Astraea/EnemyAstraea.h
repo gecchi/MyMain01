@@ -44,6 +44,10 @@ public:
     GgafDxCore::GgafDxDrawableActor* pEffect_Appearance_;
     DepositoryConnection* pCon_ShotDepo_;
     GgafCore::GgafActorDepository* pDepo_Shot_;
+    DepositoryConnection* pCon_ShotDepo2_;
+    GgafCore::GgafActorDepository* pDepo_Shot2_;
+    DepositoryConnection* pCon_ShotDepo3_;
+    GgafCore::GgafActorDepository* pDepo_Shot3_;
     EnemyAstraea(const char* prm_name);
 
     void onCreateModel() override;

@@ -66,6 +66,10 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     useProgress(ASTRAEA_PROG_FIRE);
     pCon_ShotDepo_ = connectDepositoryManager("DpCon_Shot004", NULL);
     pDepo_Shot_ = pCon_ShotDepo_->fetch();
+    pCon_ShotDepo2_ = connectDepositoryManager("DpCon_Shot004Yellow", NULL);
+    pDepo_Shot2_ = pCon_ShotDepo2_->fetch();
+    pCon_ShotDepo3_ = connectDepositoryManager("DpCon_Shot004Blue", NULL);
+    pDepo_Shot3_ = pCon_ShotDepo3_->fetch();
 }
 
 void EnemyAstraea::onCreateModel() {
@@ -250,13 +254,56 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
                                          1536              //  000000000000011000000000
         };
 
-        StgUtil::shotWay003(this, pDepo_Shot_,
+
+static UINT32 red_dot[11] = {
+                             32  ,       //  00000100000
+                             112 ,       //  00001110000
+                             248 ,       //  00011111000
+                             428 ,       //  00110101100
+                             32  ,       //  00000100000
+                             0   ,       //  00000000000
+                             0   ,       //  00000000000
+                             0   ,       //  00000000000
+                             0   ,       //  00000000000
+                             0   ,       //  00000000000
+                             0           //  00000000000
+	};
+static UINT32 yellow_dot[11] = {
+		0	,		//	00000000000
+		0	,		//	00000000000
+		0	,		//	00000000000
+		594	,		//	01001010010
+		990	,		//	01111011110
+		508	,		//	00111111100
+		168	,		//	00010101000
+		32	,		//	00000100000
+		32	,		//	00000100000
+		32	,		//	00000100000
+		32			//	00000100000
+	};
+static UINT32 blue_dot[11] = {
+		0	,		//	00000000000
+	1025	,		//	10000000001
+	1025	,		//	10000000001
+	1025	,		//	10000000001
+	1025	,		//	10000000001
+	1539	,		//	11000000011
+		774	,		//	01100000110
+		396	,		//	00110001100
+		136	,		//	00010001000
+		0	,		//	00000000000
+		0	 		//	00000000000
+	};
+
+        StgUtil::shotWay002(this,
+                            pDepo_Shot_, red_dot,
+                            pDepo_Shot2_, yellow_dot,
+                            pDepo_Shot3_, blue_dot,
                             PXCO(20),
-                            24, 24,
-                            spritedoller,
+                            11, 11,
                             DANG(1), DANG(1),
-                            3000, 200,
-                            3, 1, 0.99);
+                            5000, 100,
+                            2, 1, 0.9);
         sayonara();
         //消滅エフェクト
     } else {
@@ -283,6 +330,8 @@ EnemyAstraea::~EnemyAstraea() {
     pCon_RefractionEffectDepository_->close();
     pCon_LaserChipDepoStore_->close();
     pCon_ShotDepo_->close();
+    pCon_ShotDepo2_->close();
+    pCon_ShotDepo3_->close();
     for (int i = 0; i < laser_way_; i++) {
         DELETEARR_IMPOSSIBLE_NULL(papaPosLaser_[i]);
         DELETEARR_IMPOSSIBLE_NULL(papapLaserChipDepo_[i]);

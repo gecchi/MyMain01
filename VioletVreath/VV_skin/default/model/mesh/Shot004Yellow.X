@@ -160,7 +160,7 @@ Frame Plane01 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "Shot004.png";
+     "Shot004Yellow.png";
     }
    }
   }

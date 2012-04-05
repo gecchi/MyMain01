@@ -858,6 +858,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Blue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Yellow.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\SingleLaserTestActor.cpp"
 				>
 			</File>
@@ -1745,6 +1753,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Blue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Yellow.h"
 				>
 			</File>
 			<File

@@ -4,7 +4,7 @@ namespace GgafLib {
 
 /**
  * メッシュアクターの具象クラス.
- * GgafDxCore::GgafDxMeshActor を空実装した具象アクターです。
+ * GgafDxCore::GgafDxMeshSetActor を空実装した具象アクターです。
  * 本クラスを継承してキャラクターを作成しましょう。<BR>
  * 以下に使用可能な支援オブジェクトを記す。<BR>
  * <TABLE border=1>
