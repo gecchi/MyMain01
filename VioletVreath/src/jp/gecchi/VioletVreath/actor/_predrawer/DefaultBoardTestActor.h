@@ -23,7 +23,6 @@ public:
 
     void processJudgement() override;
 
-
     virtual ~DefaultBoardTestActor();
 };
 

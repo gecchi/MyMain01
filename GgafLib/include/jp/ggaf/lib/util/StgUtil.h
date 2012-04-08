@@ -758,7 +758,7 @@ public:
      * @param prm_acce            初弾のショット初期加速度
      * @param prm_set_num         撃つ弾の合計数
      * @param prm_interval_frames 弾と弾の出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全弾一斉発射。）
-     * @param prm_attenuated      初弾以降のショット初期速度・加速度の減衰率(> 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾以降のショット初期速度・加速度の減衰率(< 1.0)、或いは増幅率(>1.0)
      */
     static GgafDxCore::GgafDxGeometricActor* shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
                                                        angle prm_RZ, angle prm_RY,
@@ -785,7 +785,7 @@ public:
      * @param prm_acce            ショット初期加速度
      * @param prm_set_num         撃つ弾の合計数
      * @param prm_interval_frames 弾と弾の出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全弾一斉発射。）
-     * @param prm_attenuated      初弾以降のショット初期速度の減衰率(> 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾以降のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
      */
     static GgafDxCore::GgafDxGeometricActor* shotWay001(coord prm_from_X, coord prm_from_Y, coord prm_from_Z,
                                                        coord prm_to_X, coord prm_to_Y, coord prm_to_Z,
@@ -807,7 +807,7 @@ public:
      * @param prm_acce            ショット初期加速度
      * @param prm_set_num         撃つ弾の合計数
      * @param prm_interval_frames 弾と弾の出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全弾一斉発射。）
-     * @param prm_attenuated      初弾以降のショット初期速度の減衰率(> 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾以降のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
      */
     static GgafDxCore::GgafDxGeometricActor* shotWay001(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
@@ -842,7 +842,7 @@ public:
      * @param prm_acce             N*M-Way弾各セットのショット初期加速度
      * @param prm_set_num          発射する N*M-Way弾セットの合計セット数
      * @param prm_interval_frames  弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(> 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
      */
     static void shotWay002(coord prm_X, coord prm_Y, coord prm_Z,
                            angle prm_RX, angle prm_RZ, angle prm_RY,
@@ -878,7 +878,7 @@ public:
      * @param prm_acce             N*M-Way弾各セットのショット初期加速度
      * @param prm_set_num          発射する N*M-Way弾セットの合計セット数
      * @param prm_interval_frames  弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(> 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
      */
     static void shotWay002(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
                            GgafCore::GgafActorDepository* prm_pDepo_Shot1, UINT32* prm_paUint32_dotmat1,
@@ -910,7 +910,7 @@ public:
      * @param prm_acce            各セットのショット初期加速度
      * @param prm_set_num         撃つ放射WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(> 1.0)、或いは増幅率(>1.0)
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(< 1.0)、或いは増幅率(>1.0)
      */
     static void shotWay004(coord prm_X, coord prm_Y, coord prm_Z,
                            angle prm_RZ, angle prm_RY,

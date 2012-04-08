@@ -34,7 +34,7 @@ private:
      * 使用不可のため、privateでoverride
      * @return
      */
-    GgafCore::GgafGroupHead* addSubBone(actorkind prm_kind,
+    GgafCore::GgafGroupHead* addSubFk(actorkind prm_kind,
                                          GgafDxGeometricActor* prm_pGeoActor,
                                          int prm_X_init_local,
                                          int prm_Y_init_local,
@@ -49,7 +49,7 @@ private:
      * 使用不可のため、privateでoverride
      * @return
      */
-    GgafCore::GgafGroupHead* addSubBone(GgafDxGeometricActor* prm_pGeoActor,
+    GgafCore::GgafGroupHead* addSubFk(GgafDxGeometricActor* prm_pGeoActor,
                                          int prm_X_init_local,
                                          int prm_Y_init_local,
                                          int prm_Z_init_local,

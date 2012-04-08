@@ -27,12 +27,12 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     for (int i = 0; i < 12; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addSelectItem(pLabel, PXCO(10+((i/4)*300)), PXCO(100+((i%4)*40)));
+        addSelectItem(pLabel, PX_C(10+((i/4)*300)), PX_C(100+((i%4)*40)));
     }
 
     LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("message");
     pMsg->update("PAUSE MENU !!!", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispActor(pMsg, PXCO(100), PXCO(20));
+    addDispActor(pMsg, PX_C(100), PX_C(20));
 
     relationItemExNext(0, 4);
     relationItemExNext(4, 8);
@@ -56,7 +56,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor, 8, 0.2, 0.7);
     setSelectedItemIndex(0); //初期選択
-    setTransition(30, PXCO(0), -PXCO(100)); //上から下へ少しスライド
+    setTransition(30, PX_C(0), -PX_C(100)); //上から下へ少しスライド
     pConfirmMenu_ = NEW MenuBoardConfirm("confirm");
     addSubLast(pConfirmMenu_);
 }
@@ -100,7 +100,7 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
     if (prm_item_index == MenuBoardPause::ITEM_BACK_TO_GAME) {
         sink();
     } else if (prm_item_index == MenuBoardPause::ITEM_QUIT_GAME) {
-        riseSub(pConfirmMenu_, getSelectedItem()->_X + PXCO(50), getSelectedItem()->_Y + PXCO(50)); //サブメニュー起動
+        riseSub(pConfirmMenu_, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //サブメニュー起動
     }
 }
 MenuBoardPause::~MenuBoardPause() {

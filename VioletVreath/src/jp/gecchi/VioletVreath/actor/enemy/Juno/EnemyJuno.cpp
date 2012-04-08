@@ -55,7 +55,7 @@ void EnemyJuno::processBehavior() {
 
     if (do_Shot_) {
         if (getActivePartFrame() == frame_when_shot_) {
-            _pKurokoA->setMvVelo(PXCO(3)); //Œ¸‘¬
+            _pKurokoA->setMvVelo(PX_C(3)); //Œ¸‘¬
             _pKurokoA->execTurnRxSpinAngSequence(D180ANG, 8000, 0, TURN_CLOCKWISE);
         } else if (getActivePartFrame() == frame_when_shot_ + 20) {
             MyShip* pM = P_MYSHIP;
@@ -64,7 +64,7 @@ void EnemyJuno::processBehavior() {
                   StgUtil::shotWay001(_X, _Y, _Z,
                                       pM->_X, pM->_Y, pM->_Z,
                                       pDepo_Shot_,
-                                      PXCO(10),
+                                      PX_C(10),
                                       10000, 200,
                                       3, 5, 0.9,
                                       EnemyJuno::callbackDispatched);

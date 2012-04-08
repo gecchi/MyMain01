@@ -10,6 +10,7 @@ DefaultBoardTestActor::DefaultBoardTestActor(const char* prm_name) :
         DefaultBoardActor(prm_name, "_chk_DefaultBoardTestModel") {
     _class_name = "DefaultBoardTestActor";
 }
+
 void DefaultBoardTestActor::initialize() {
 }
 
@@ -21,7 +22,6 @@ void DefaultBoardTestActor::processBehavior() {
 
 void DefaultBoardTestActor::processJudgement() {
 }
-
 
 DefaultBoardTestActor::~DefaultBoardTestActor() {
 }

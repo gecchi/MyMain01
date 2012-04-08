@@ -16,35 +16,35 @@ GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) :
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMv = 0;
     //X軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVxMv = PXCO(256);
+    _veloTopVxMv = PX_C(256);
     //X軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVxMv = -PXCO(256);
+    _veloBottomVxMv = -PX_C(256);
     //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVxMv = 0;
-    _acceTopVxMv = PXCO(256);
-    _acceBottomVxMv = -PXCO(256);
+    _acceTopVxMv = PX_C(256);
+    _acceBottomVxMv = -PX_C(256);
     //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
     _veloVyMv = 0;
     //Y軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVyMv = PXCO(256);
+    _veloTopVyMv = PX_C(256);
     //Y軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVyMv = -PXCO(256);
+    _veloBottomVyMv = -PX_C(256);
     //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVyMv = 0;
 
-    _acceTopVyMv = PXCO(256);
-    _acceBottomVyMv = -PXCO(256);
+    _acceTopVyMv = PX_C(256);
+    _acceBottomVyMv = -PX_C(256);
 
     //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
     _veloVzMv = 0;
     //Z軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVzMv = PXCO(256);
+    _veloTopVzMv = PX_C(256);
     //Z軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVzMv = -PXCO(256);
+    _veloBottomVzMv = -PX_C(256);
     //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVzMv = 0;
-    _acceTopVzMv = PXCO(256);
-    _acceBottomVzMv = -PXCO(256);
+    _acceTopVzMv = PX_C(256);
+    _acceBottomVzMv = -PX_C(256);
 
     _gravitation_mv_seq_target_X = 0;
     _gravitation_mv_seq_target_Y = 0;
@@ -396,35 +396,35 @@ void GgafDxKurokoB::resetMv() {
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMv = 0;
     //X軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVxMv = PXCO(256);
+    _veloTopVxMv = PX_C(256);
     //X軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVxMv = -PXCO(256);
+    _veloBottomVxMv = -PX_C(256);
     //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVxMv = 0;
-    _acceTopVxMv = PXCO(256);
-    _acceBottomVxMv = -PXCO(256);
+    _acceTopVxMv = PX_C(256);
+    _acceBottomVxMv = -PX_C(256);
     //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
     _veloVyMv = 0;
     //Y軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVyMv = PXCO(256);
+    _veloTopVyMv = PX_C(256);
     //Y軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVyMv = -PXCO(256);
+    _veloBottomVyMv = -PX_C(256);
     //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVyMv = 0;
 
-    _acceTopVyMv = PXCO(256);
-    _acceBottomVyMv = -PXCO(256);
+    _acceTopVyMv = PX_C(256);
+    _acceBottomVyMv = -PX_C(256);
 
     //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
     _veloVzMv = 0;
     //Z軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVzMv = PXCO(256);
+    _veloTopVzMv = PX_C(256);
     //Z軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVzMv = -PXCO(256);
+    _veloBottomVzMv = -PX_C(256);
     //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVzMv = 0;
-    _acceTopVzMv = PXCO(256);
-    _acceBottomVzMv = -PXCO(256);
+    _acceTopVzMv = PX_C(256);
+    _acceBottomVzMv = -PX_C(256);
 }
 
 GgafDxKurokoB::~GgafDxKurokoB() {

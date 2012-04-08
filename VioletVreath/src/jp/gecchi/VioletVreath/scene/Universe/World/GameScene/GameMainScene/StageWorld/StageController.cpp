@@ -80,7 +80,6 @@ void StageController::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _TRACE_("StageController::processBehavior() Prog(=StageController::PROG_BEGIN) is Just Changed");
             }
-
             if (_pProg->getFrameInProgress() == 120) { //‚Q•b—V‚Ô
                 _pProg->change(StageController::PROG_PLAY_STAGE);
             }
@@ -111,10 +110,8 @@ void StageController::processBehavior() {
                 pTransitStage_->fadeinSceneTree(180);
             }
             //EVENT_TRANSIT_WAS_ENDƒCƒxƒ“ƒg‘Ò‚¿
-
             break;
         }
-
 
         case StageController::PROG_FINISH: {
             if (_pProg->isJustChanged()) {

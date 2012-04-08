@@ -27,7 +27,7 @@ void Planet001::initialize() {
     //setAlpha(0.99);
     _X = (GgafDxUniverse::_X_goneRight*10);
     _pScaler->setScale(1000*1000);
-    _pKurokoA->setFaceAng(AXIS_Z, D90ANG - DANG(30));
+    _pKurokoA->setFaceAng(AXIS_Z, D90ANG - D_ANG(30));
     _pKurokoA->setFaceAng(AXIS_Y, D45ANG);
     _pKurokoA->setFaceAngVelo(AXIS_X, 20); //自転の速さ
 
@@ -37,22 +37,22 @@ void Planet001::initialize() {
 void Planet001::processBehavior() {
     //巨大オブジェクトテスト
     if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-        _X += PXCO(100);
+        _X += PX_C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_U)) {
-        _X -= PXCO(100);
+        _X -= PX_C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_8)) {
-        _Y += PXCO(100);
+        _Y += PX_C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_J)) {
-        _Y -= PXCO(100);
+        _Y -= PX_C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_9)) {
-        _Z += PXCO(100);
+        _Z += PX_C(100);
     }
     if (GgafDxInput::isBeingPressedKey(DIK_K)) {
-        _Z -= PXCO(100);
+        _Z -= PX_C(100);
     }
 
     if (GgafDxInput::isBeingPressedKey(DIK_0)) {
@@ -65,7 +65,7 @@ void Planet001::processBehavior() {
     if (GgafDxInput::isPushedDownKey(DIK_O)) {
         _TRACE_("Planet001  "<<_X<<","<<_Y<<","<<_Z);
     }
-    //_X = _X - PXCO(1);
+    //_X = _X - PX_C(1);
     _pScaler->behave();
     _pKurokoA->behave();
 

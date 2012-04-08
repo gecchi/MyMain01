@@ -42,7 +42,7 @@ void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
     pLabel01_->update("");
     pLabel02_->update("");
-    pTitleBoard_->locate(PXCO(100), PXCO(90));
+    pTitleBoard_->locate(PX_C(100), PX_C(90));
     _pProg->set(GameTitleScene::PROG_INIT);
 }
 
@@ -75,13 +75,11 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_TITLE: {
             if (_pProg->isJustChanged()) {
-                pLabel02_->update(PXCO(400), PXCO(400), "PUSH UI_EXECUTE TO BEGIN!");
+                pLabel02_->update(PX_C(400), PX_C(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 pSeCon_exec_->fetch()->play();
                 _pProg->change(GameTitleScene::PROG_SELECT);
-
-
             } else if (_pProg->getFrameInProgress() == GAMETITLE_TIMEOUT) {
                 //ƒ{[‚Á‚ÆŒ©‚Ä‚½ê‡
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH)");
@@ -93,10 +91,9 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_SELECT: {
             if (_pProg->isJustChanged()) {
-                pMenu_->rise(PXCO(50), PXCO(350));
+                pMenu_->rise(PX_C(50), PX_C(350));
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             }
-
 
             if (pMenu_->getSubMenu()) {
                 int d = pMenu_->getSubMenu()->getDecidedIndex();
@@ -147,9 +144,9 @@ void GameTitleScene::processBehavior() {
             }
             //“_–Å
             if (_pProg->getFrameInProgress() % 10 < 5 ) {
-                pLabel02_->update(PXCO(700), PXCO(200), "READY GO!");
+                pLabel02_->update(PX_C(700), PX_C(200), "READY GO!");
             } else {
-                pLabel02_->update(PXCO(700), PXCO(200), "");
+                pLabel02_->update(PX_C(700), PX_C(200), "");
             }
             break;
         }

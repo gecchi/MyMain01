@@ -80,7 +80,7 @@ void FormationEunomia::processBehavior() {
             if (pShot) {
                 pShot->locatedBy(pEunomia);
                 pShot->_pKurokoA->setMvAng(pMy);
-                pShot->_pKurokoA->setMvVelo(PXCO(10));
+                pShot->_pKurokoA->setMvVelo(PX_C(10));
                 pShot->_pKurokoA->setMvAcce(0);
             }
             pFllower = _listFllower.next();

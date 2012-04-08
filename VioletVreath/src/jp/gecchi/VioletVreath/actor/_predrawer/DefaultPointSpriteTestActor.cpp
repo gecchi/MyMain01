@@ -44,9 +44,9 @@ void DefaultPointSpriteTestActor::processBehavior() {
 void DefaultPointSpriteTestActor::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
     //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
-    _fX = CO2DX(_X);
-    _fY = CO2DX(_Y);
-    _fZ = CO2DX(_Z);
+    _fX = C_DX(_X);
+    _fY = C_DX(_Y);
+    _fZ = C_DX(_Z);
 }
 
 void DefaultPointSpriteTestActor::processJudgement() {

@@ -1,6 +1,5 @@
 #ifndef DEFAULTBOARDSETEFFECTACTOR_H_
 #define DEFAULTBOARDSETEFFECTACTOR_H_
-
 namespace VioletVreath {
 
 /**

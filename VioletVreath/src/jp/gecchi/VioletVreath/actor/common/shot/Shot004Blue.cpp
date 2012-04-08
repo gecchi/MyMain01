@@ -21,6 +21,7 @@ void Shot004Blue::initialize() {
 void Shot004Blue::onReset() {
     setScaleR(3.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
+    _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
     _pKurokoA->setMvVelo(40000);             //移動速度
     _pKurokoA->setMvAcce(1000);             //移動速度
     _pKurokoA->relateFaceAngWithMvAng(true);

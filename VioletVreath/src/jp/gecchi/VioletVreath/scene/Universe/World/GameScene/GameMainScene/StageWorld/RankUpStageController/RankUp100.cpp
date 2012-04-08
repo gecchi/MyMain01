@@ -49,7 +49,7 @@ void RankUp100::processBehavior() {
         }
         case Stage::PROG_PLAYING: {
             if (_pProg->getFrameInProgress() == 60) { //ステージ１開始！
-                pMessage_->update(PXCO(300),PXCO(300), "SCENE 01 START!");
+                pMessage_->update(PX_C(300),PX_C(300), "SCENE 01 START!");
                 pMessage_->inactivateDelay(240);
             }
             //EVENT_STG01_CTRLER_WAS_ENDイベント待ち
@@ -63,7 +63,7 @@ void RankUp100::processBehavior() {
 
             if (_pProg->getFrameInProgress() == 60) {
                 pMessage_->activateImmed();
-                pMessage_->update(PXCO(300), PXCO(300), "SCENE 01 CLEAR!!");
+                pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 CLEAR!!");
                 pMessage_->inactivateDelay(120);
                 fadeoutScene(300);
             }

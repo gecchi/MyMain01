@@ -32,6 +32,7 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(id, WallAAPrismTestActor       , "WallAAPrismTestActor");           id++;
     order_id_end_ = id - 1;
     useProgress();
+    _pProg->set(PreDrawScene::PROG_INIT);
 }
 
 void PreDrawScene::onReset() {
@@ -43,7 +44,7 @@ void PreDrawScene::initialize() {
     GgafDxInput::updateMouseState();
     GgafDxInput::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
     _id = 0;
-    _pProg->set(1);
+
 
 //    GgafDxDrawableActor* x;
 //    x = (GgafDxDrawableActor*)(new MenuActor<CubeMapMeshActor       >("aaa","bbb"));
@@ -67,19 +68,34 @@ void PreDrawScene::initialize() {
 }
 
 void PreDrawScene::processBehavior() {
-
+    switch (_pProg->get()) {
+        case PreDrawScene::PROG_INIT: {
+            if (_pProg->getFrameInProgress() % 10 == 0 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
+                if (_id > order_id_end_-order_id_begin_) {
+                    _pProg->changeNext();
+                } else {
+                    GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id+order_id_begin_);
+                    pActor->locate(PX_C(_id*70 - 500), PX_C(-100), 0);
+                    getDirector()->addSubGroup(pActor);  _id++;
+                }
+            }
+            break;
+        }
+        case PreDrawScene::PROG_CALM: {
+            if (_pProg->getFrameInProgress() >= 60 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
+                fadeoutSceneTree(120);
+                _pProg->changeNext();
+            }
+            break;
+        }
+        case PreDrawScene::PROG_WAIT: {
+            break;
+        }
+    }
 
 //
     if (_pProg->get() == 1) {
-        if (getActivePartFrame() % 10 == 0) {
-            if (_id > order_id_end_-order_id_begin_) {
-                _pProg->changeNext();
-            } else {
-                GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id+order_id_begin_);
-                pActor->locate(PXCO(_id*70 - 500),0,0);
-                getDirector()->addSubGroup(pActor);  _id++;
-            }
-        }
+
     }
 
     if (_pProg->get() == 2) {

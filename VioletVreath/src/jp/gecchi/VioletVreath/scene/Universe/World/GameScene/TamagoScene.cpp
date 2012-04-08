@@ -70,12 +70,12 @@ void TamagoScene::processBehavior() {
 //
 //        EnemyCirce* p9 = (EnemyCirce*)obtainActorFromFactory(100000009);
 //        p9->locate(80000,50000,50000);
-//        p9->addSubBone(p1,       0,       0,  300000, D0ANG,   D0ANG, D270ANG);
-//        p9->addSubBone(p2,  300000,       0,       0, D0ANG,   D0ANG, D0ANG);
-//        p9->addSubBone(p3,       0,       0, -300000, D0ANG,   D0ANG, D90ANG);
-//        p9->addSubBone(p4, -300000,       0,       0, D0ANG,   D0ANG, D180ANG);
-//        p9->addSubBone(p5,       0,  300000,       0, D0ANG,  D90ANG, D0ANG);
-//        p9->addSubBone(p6,       0, -300000,       0, D0ANG, D270ANG, D0ANG);
+//        p9->addSubFk(p1,       0,       0,  300000, D0ANG,   D0ANG, D270ANG);
+//        p9->addSubFk(p2,  300000,       0,       0, D0ANG,   D0ANG, D0ANG);
+//        p9->addSubFk(p3,       0,       0, -300000, D0ANG,   D0ANG, D90ANG);
+//        p9->addSubFk(p4, -300000,       0,       0, D0ANG,   D0ANG, D180ANG);
+//        p9->addSubFk(p5,       0,  300000,       0, D0ANG,  D90ANG, D0ANG);
+//        p9->addSubFk(p6,       0, -300000,       0, D0ANG, D270ANG, D0ANG);
 //
 //        getDirector()->addSubGroup(p9);
 //

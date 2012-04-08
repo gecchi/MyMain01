@@ -21,9 +21,9 @@ void EffectMagic001::initialize() {
 }
 
 void EffectMagic001::onActive() {
-    _pKurokoA->setFaceAngVelo(AXIS_X, PXCO(3));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, PXCO(5));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, PXCO(7));
+    _pKurokoA->setFaceAngVelo(AXIS_X, PX_C(3));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, PX_C(5));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, PX_C(7));
 }
 
 void EffectMagic001::processBehavior() {

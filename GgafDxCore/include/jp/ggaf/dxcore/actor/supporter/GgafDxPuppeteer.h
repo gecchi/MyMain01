@@ -29,7 +29,8 @@ private:
     /**
      * 芸(モーション) .
      */
-    struct Performance {
+    class Performance {
+    public:
         /** アニメーションセット */
         LPD3DXANIMATIONSET _pAnimationSet;
         /** １ループの時間 */
@@ -56,6 +57,24 @@ private:
         bool   _is_shifting_weight;
         /** ループ方法 */
         GgafDxPuppeteerMethod _method;
+
+        Performance() {
+            _time_of_one_loop   = 0.0;
+            _local_time         = 0.0;
+            _target_loop        = -1;
+            _target_speed       = 1.0;
+            _speed              = 1.0;
+            _inc_speed          = 0.0;
+            _is_shifting_speed  = false;
+            _target_weight      = 1.0;
+            _weight             = 1.0;
+            _inc_weight         = 0.0;
+            _is_shifting_weight = false;
+            _method             = PLAY_LOOPING;
+        }
+
+        virtual ~Performance() {
+        }
     };
 
     /** パペッターの操り棒 */

@@ -13,7 +13,7 @@ Torus::Torus(const char* prm_name, const char* prm_model, coord prm_r1, coord pr
     r2_ = prm_r2;
 }
 
-void Torus::addSubBoneOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
+void Torus::addSubFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
     //トーラスはZY平面に円
     s_ang angPos1 = prm_angPos1 /SANG_RATE;
     s_ang angPos2 = prm_angPos2 /SANG_RATE;
@@ -42,7 +42,7 @@ void Torus::addSubBoneOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_a
     angle angRz, angRy;
     GgafDxUtil::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
     //ボーンとして追加
-    this->addSubBone(prm_pGeoActor, X, Y, Z, D0ANG, angRz, angRy);
+    this->addSubFk(prm_pGeoActor, X, Y, Z, D0ANG, angRz, angRy);
 }
 
 void Torus::makeCollisionArea(int prm_nSphere){

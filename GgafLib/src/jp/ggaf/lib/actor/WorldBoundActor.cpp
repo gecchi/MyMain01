@@ -28,9 +28,9 @@ void WorldBoundActor::processSettlementBehavior() {
     //・視錐台からの距離計算
     //GgafDxGeometricActor::processSettlementBehavior() と同期を取る事！
     locatedBy(P_CAM);
-    _fX = CO2DX(_X);
-    _fY = CO2DX(_Y);
-    _fZ = CO2DX(_Z);
+    _fX = C_DX(_X);
+    _fY = C_DX(_Y);
+    _fZ = C_DX(_Z);
     GgafDxUtil::setWorldMatrix_ScRxRzRyMv(this, _matWorld); //ワールド変換
 }
 //void WorldBoundActor::processPreDraw() {

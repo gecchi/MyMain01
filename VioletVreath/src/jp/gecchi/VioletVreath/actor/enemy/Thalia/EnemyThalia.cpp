@@ -195,19 +195,19 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 //                                       2000, 200,
 //                                       5, 0.8);
 //                  StgUtil::shotWay002(this, pDepo_Shot_,
-//                                      PXCO(20),
-//                                      5, 5, DANG(10), DANG(10),
+//                                      PX_C(20),
+//                                      5, 5, D_ANG(10), D_ANG(10),
 //                                      2000, 200);
 
 //                  StgUtil::shotWay002(this, pDepo_Shot_,
-//                                      PXCO(20),
-//                                      6, 6, DANG(8), DANG(8),
+//                                      PX_C(20),
+//                                      6, 6, D_ANG(8), D_ANG(8),
 //                                      2000, 200,
 //                                      20, 60, 0.9);
 
                   StgUtil::shotWay004(this, pDepo_Shot_,
-                                      PXCO(20),
-                                      8, DANG(10),
+                                      PX_C(20),
+                                      8, D_ANG(10),
                                       2000, 200,
                                       12, 3, 0.9);
 

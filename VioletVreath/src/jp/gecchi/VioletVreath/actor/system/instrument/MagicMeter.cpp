@@ -19,8 +19,8 @@ MagicMeter::MagicMeter(const char* prm_name)
     _class_name = "MagicMeter";
     width_px_ = _pBoardSetModel->_fSize_BoardSetModelWidthPx + 1.0f;
     height_px_ = _pBoardSetModel->_fSize_BoardSetModelHeightPx + 1.0f;
-    width_ = PXCO(width_px_);
-    height_ = PXCO(height_px_);
+    width_ = PX_C(width_px_);
+    height_ = PX_C(height_px_);
 
     _X = 100*LEN_UNIT;
     _Y = (GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - (height_px_*2)) * LEN_UNIT;
@@ -81,7 +81,7 @@ MagicMeter::MagicMeter(const char* prm_name)
 
     //エネルギーバー設置
     pEnagyBar_ = NEW EnagyBar("EnagyBar", &mp_);
-    pEnagyBar_->locate(PXCO(100), PXCO(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
+    pEnagyBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
     addSubGroup(pEnagyBar_);
 
     _pSeTransmitter->useSe(SE_EXECUTE_LEVELDOWN_MAGIC+1);
@@ -255,9 +255,9 @@ void MagicMeter::processDraw() {
     int len_magics = ringMagics_.length();
     int n = 0;
     float u,v;
-    float x = float(CO2PX(_X));
-    float y = float(CO2PX(_Y));
-    float z = float(CO2PX(_Z));
+    float x = float(C_PX(_X));
+    float y = float(C_PX(_Y));
+    float z = float(C_PX(_Z));
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
         n = 0;

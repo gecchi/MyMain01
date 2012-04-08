@@ -51,9 +51,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         for (int j = 0; j < laser_way_; j++) {
             Ry = GgafDxUtil::simplifyAng(paAng_way[j]);
             GgafDxUtil::getNormalizeVectorZY(Rz, Ry, vx, vy, vz);
-            papaPosLaser_[i][j].X = vx * PXCO(100);
-            papaPosLaser_[i][j].Y = vy * PXCO(100);
-            papaPosLaser_[i][j].Z = vz * PXCO(100);
+            papaPosLaser_[i][j].X = vx * PX_C(100);
+            papaPosLaser_[i][j].Y = vy * PX_C(100);
+            papaPosLaser_[i][j].Z = vz * PX_C(100);
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(paAng_way);
@@ -82,9 +82,9 @@ void EnemyAstraea::initialize() {
     setHitAble(true);
     setAlpha(0.99);
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, PXCO(200));
+    _pColliChecker->setColliSphere(0, PX_C(200));
     _pKurokoA->setRzRyMvAng(0, D180ANG);
-    _pKurokoA->setMvVelo(PXCO(5));
+    _pKurokoA->setMvVelo(PX_C(5));
 }
 
 void EnemyAstraea::onActive() {
@@ -222,8 +222,8 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
         }
         _pSeTransmitter->play3D(1);
 //          StgUtil::shotWay002(this, pDepo_Shot_,
-//                              PXCO(20),
-//                              5, 5, DANG(6), DANG(6),
+//                              PX_C(20),
+//                              5, 5, D_ANG(6), D_ANG(6),
 //                              3000, 200,
 //                              3, 5, 0.9);
 
@@ -255,53 +255,53 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
         };
 
 
-static UINT32 red_dot[11] = {
-                             32  ,       //  00000100000
-                             112 ,       //  00001110000
-                             248 ,       //  00011111000
-                             428 ,       //  00110101100
-                             32  ,       //  00000100000
-                             0   ,       //  00000000000
-                             0   ,       //  00000000000
-                             0   ,       //  00000000000
-                             0   ,       //  00000000000
-                             0   ,       //  00000000000
-                             0           //  00000000000
-	};
-static UINT32 yellow_dot[11] = {
-		0	,		//	00000000000
-		0	,		//	00000000000
-		0	,		//	00000000000
-		594	,		//	01001010010
-		990	,		//	01111011110
-		508	,		//	00111111100
-		168	,		//	00010101000
-		32	,		//	00000100000
-		32	,		//	00000100000
-		32	,		//	00000100000
-		32			//	00000100000
-	};
-static UINT32 blue_dot[11] = {
-		0	,		//	00000000000
-	1025	,		//	10000000001
-	1025	,		//	10000000001
-	1025	,		//	10000000001
-	1025	,		//	10000000001
-	1539	,		//	11000000011
-		774	,		//	01100000110
-		396	,		//	00110001100
-		136	,		//	00010001000
-		0	,		//	00000000000
-		0	 		//	00000000000
-	};
+        static UINT32 red_dot[11] = {
+                32  ,       //  00000100000
+                112 ,       //  00001110000
+                248 ,       //  00011111000
+                428 ,       //  00110101100
+                32  ,       //  00000100000
+                0   ,       //  00000000000
+                0   ,       //  00000000000
+                0   ,       //  00000000000
+                0   ,       //  00000000000
+                0   ,       //  00000000000
+                0           //  00000000000
+        };
+        static UINT32 yellow_dot[11] = {
+                0   ,       //  00000000000
+                0   ,       //  00000000000
+                0   ,       //  00000000000
+                594 ,       //  01001010010
+                990 ,       //  01111011110
+                508 ,       //  00111111100
+                168 ,       //  00010101000
+                32  ,       //  00000100000
+                32  ,       //  00000100000
+                32  ,       //  00000100000
+                32          //  00000100000
+            };
+        static UINT32 blue_dot[11] = {
+                0   ,       //  00000000000
+                1025,       //  10000000001
+                1025,       //  10000000001
+                1025,       //  10000000001
+                1025,       //  10000000001
+                1539,       //  11000000011
+                774 ,       //  01100000110
+                396 ,       //  00110001100
+                136 ,       //  00010001000
+                0   ,       //  00000000000
+                0           //  00000000000
+            };
 
         StgUtil::shotWay002(this,
                             pDepo_Shot_, red_dot,
                             pDepo_Shot2_, yellow_dot,
                             pDepo_Shot3_, blue_dot,
-                            PXCO(20),
+                            PX_C(20),
                             11, 11,
-                            DANG(1), DANG(1),
+                            D_ANG(1), D_ANG(1),
                             5000, 100,
                             2, 1, 0.9);
         sayonara();

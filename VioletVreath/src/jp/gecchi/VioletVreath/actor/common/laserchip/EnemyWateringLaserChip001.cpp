@@ -18,7 +18,7 @@
 //    _pKurokoA->relateFaceAngWithMvAng(true);
 //    registHitAreaCube(80000);
 //    setHitAble(true);
-//    _SX = _SY = _SZ = R2SC(6);
+//    _SX = _SY = _SZ = R_SC(6);
 //    _alpha = 0.99f;
 //    _bounding_sphere_radius = 60.0f;
 //

@@ -46,17 +46,17 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
         hr = _pAc->GetAnimationSet(i, &(_paPerformances[i]._pAnimationSet)); //アニメーションセット保持
         checkDxException(hr, D3D_OK, "失敗しました。");
         _paPerformances[i]._time_of_one_loop   = _paPerformances[i]._pAnimationSet->GetPeriod();
-        _paPerformances[i]._local_time         = 0.0;
-        _paPerformances[i]._target_loop        = -1;
-        _paPerformances[i]._target_speed       = 1.0;
-        _paPerformances[i]._speed              = 1.0;
-        _paPerformances[i]._inc_speed          = 0.0;
-        _paPerformances[i]._is_shifting_speed  = false;
-        _paPerformances[i]._target_weight      = 1.0;
-        _paPerformances[i]._weight             = 1.0;
-        _paPerformances[i]._inc_weight         = 0.0;
-        _paPerformances[i]._is_shifting_weight = false;
-        _paPerformances[i]._method             = PLAY_LOOPING;
+//        _paPerformances[i]._local_time         = 0.0;
+//        _paPerformances[i]._target_loop        = -1;
+//        _paPerformances[i]._target_speed       = 1.0;
+//        _paPerformances[i]._speed              = 1.0;
+//        _paPerformances[i]._inc_speed          = 0.0;
+//        _paPerformances[i]._is_shifting_speed  = false;
+//        _paPerformances[i]._target_weight      = 1.0;
+//        _paPerformances[i]._weight             = 1.0;
+//        _paPerformances[i]._inc_weight         = 0.0;
+//        _paPerformances[i]._is_shifting_weight = false;
+//        _paPerformances[i]._method             = PLAY_LOOPING;
     }
 
     //グローバル時間を0にする

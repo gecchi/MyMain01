@@ -13,7 +13,6 @@ Shot004::Shot004(const char* prm_name) :
 }
 
 void Shot004::initialize() {
-
     setHitAble(false);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
@@ -21,6 +20,7 @@ void Shot004::initialize() {
 void Shot004::onReset() {
     setScaleR(3.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
+    _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
     _pKurokoA->setMvVelo(40000);             //移動速度
     _pKurokoA->setMvAcce(1000);             //移動速度
     _pKurokoA->relateFaceAngWithMvAng(true);

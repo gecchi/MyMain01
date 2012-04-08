@@ -639,7 +639,7 @@ void MyShip::doNotingMoveInput() {
 }
 void MyShip::setMoveSpeedLv(int lv) {
         //lv_MoveSpeed_ = lv;
-        iMoveSpeed_ = PXCO(lv);
+        iMoveSpeed_ = PX_C(lv);
     }
 
 void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {

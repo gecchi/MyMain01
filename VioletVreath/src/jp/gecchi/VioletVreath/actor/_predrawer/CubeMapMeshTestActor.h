@@ -2,7 +2,6 @@
 #define CUBEMAPMESHEFFECTACTOR_H_
 namespace VioletVreath {
 
-
 /**
  * プリレンダ用テストアクター .
  * @version 1.00

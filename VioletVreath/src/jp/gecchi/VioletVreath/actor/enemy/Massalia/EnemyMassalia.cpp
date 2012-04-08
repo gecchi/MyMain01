@@ -16,8 +16,8 @@ void EnemyMassalia::onCreateModel() {
 
 void EnemyMassalia::initialize() {
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, PXCO(100));
-    _pKurokoA->setFaceAngVelo(DANG(1), DANG(2), DANG(3));
+    _pColliChecker->setColliSphere(0, PX_C(100));
+    _pKurokoA->setFaceAngVelo(D_ANG(1), D_ANG(2), D_ANG(3));
     setScaleR(0.5);
 }
 
@@ -31,8 +31,8 @@ void EnemyMassalia::onActive() {
     _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
     _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
     _pKurokoA->setMvAng(0, D180ANG);
-    _pKurokoA->addRyMvAng(RND(DANG(-5), DANG(+5)));
-    _pKurokoA->addRzMvAng(RND(DANG(-5), DANG(+5)));
+    _pKurokoA->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
+    _pKurokoA->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));
 }
 
 void EnemyMassalia::processBehavior() {
@@ -68,8 +68,8 @@ void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
                 p->locatedBy(this);
                 p->_pKurokoA->takeoverMvFrom(this->_pKurokoA);
                 p->_pKurokoA->setMvVelo(p->_pKurokoA->_veloMv/2); //半分のスピードへ
-                p->_pKurokoA->addRyMvAng(RND(DANG(-45), DANG(+45)));
-                p->_pKurokoA->addRzMvAng(RND(DANG(-45), DANG(+45)));
+                p->_pKurokoA->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));
+                p->_pKurokoA->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));
             }
         }
         pCon->close();

@@ -13,7 +13,6 @@ public:
 
     SingleLaserTestActor(const char* prm_name);
 
-
     void initialize() override;
 
     void onReset() override;

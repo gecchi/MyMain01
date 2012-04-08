@@ -11,7 +11,6 @@ namespace VioletVreath {
 class CubeMapMeshSetTestActor : public GgafLib::CubeMapMeshSetActor {
 
 public:
-
     CubeMapMeshSetTestActor(const char* prm_name);
 
     void onCreateModel() override;

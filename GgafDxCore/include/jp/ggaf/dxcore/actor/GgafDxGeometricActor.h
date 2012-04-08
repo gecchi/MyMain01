@@ -257,14 +257,14 @@ public:
         _SX = S;
         _SY = S;
         _SZ = S;
-        setBoundingSphereRadiusRate(SC2R(S));
+        setBoundingSphereRadiusRate(SC_R(S));
     }
 
     virtual void setScale(scale SX, scale SY, scale SZ) {
         _SX = SX;
         _SY = SY;
         _SZ = SZ;
-        setBoundingSphereRadiusRate(SC2R(max3(_SX,_SY,_SZ)));
+        setBoundingSphereRadiusRate(SC_R(max3(_SX,_SY,_SZ)));
     }
 
     /**
@@ -275,16 +275,16 @@ public:
      * @param prm_rate î{ó¶
      */
     virtual void setScaleR(float prm_rate) {
-        _SX = R2SC(prm_rate);
-        _SY = R2SC(prm_rate);
-        _SZ = R2SC(prm_rate);
+        _SX = R_SC(prm_rate);
+        _SY = R_SC(prm_rate);
+        _SZ = R_SC(prm_rate);
         setBoundingSphereRadiusRate(prm_rate);
     }
 
     virtual void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) {
-        _SX = R2SC(prm_x_rate);
-        _SY = R2SC(prm_y_rate);
-        _SZ = R2SC(prm_z_rate);
+        _SX = R_SC(prm_x_rate);
+        _SY = R_SC(prm_y_rate);
+        _SZ = R_SC(prm_z_rate);
         setBoundingSphereRadiusRate(max3(prm_x_rate, prm_y_rate, prm_z_rate));
     }
 
@@ -292,7 +292,7 @@ public:
         _SX += dS;
         _SY += dS;
         _SZ += dS;
-        setBoundingSphereRadiusRate(SC2R(max3(_SX,_SY,_SZ)));
+        setBoundingSphereRadiusRate(SC_R(max3(_SX,_SY,_SZ)));
     }
 
     /**
@@ -332,22 +332,22 @@ public:
     }
 
 
-    virtual GgafCore::GgafGroupHead* addSubBone(actorkind prm_kind,
-                                                GgafDxGeometricActor* prm_pGeoActor,
-                                                int prm_X_init_local,
-                                                int prm_Y_init_local,
-                                                int prm_Z_init_local,
-                                                int prm_RX_init_local,
-                                                int prm_RZ_init_local,
-                                                int prm_RY_init_local);
+    virtual GgafCore::GgafGroupHead* addSubFk(actorkind prm_kind,
+                                              GgafDxGeometricActor* prm_pGeoActor,
+                                              int prm_X_init_local,
+                                              int prm_Y_init_local,
+                                              int prm_Z_init_local,
+                                              int prm_RX_init_local,
+                                              int prm_RZ_init_local,
+                                              int prm_RY_init_local);
 
-    virtual GgafCore::GgafGroupHead* addSubBone(GgafDxGeometricActor* prm_pGeoActor,
-                                                int prm_X_init_local,
-                                                int prm_Y_init_local,
-                                                int prm_Z_init_local,
-                                                int prm_RX_init_local,
-                                                int prm_RZ_init_local,
-                                                int prm_RY_init_local);
+    virtual GgafCore::GgafGroupHead* addSubFk(GgafDxGeometricActor* prm_pGeoActor,
+                                              int prm_X_init_local,
+                                              int prm_Y_init_local,
+                                              int prm_Z_init_local,
+                                              int prm_RX_init_local,
+                                              int prm_RZ_init_local,
+                                              int prm_RY_init_local);
 
     /**
      * ç¿ïWånÇÉçÅ[ÉJÉã(ìyë‰Ç©ÇÁÇÃëäëŒç¿ïW)Ç…ïœä∑ .

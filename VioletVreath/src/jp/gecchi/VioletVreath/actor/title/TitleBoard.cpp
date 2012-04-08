@@ -29,7 +29,7 @@ void TitleBoard::processDraw() {
     _pUvFlipper->setActivePtn(0);
     DefaultBoardSetActor::processDraw();
     coord tmpX = _X;
-    _X += PXCO(600);
+    _X += PX_C(600);
     _pUvFlipper->setActivePtn(1);
     DefaultBoardSetActor::processDraw();
     _X = tmpX;

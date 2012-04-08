@@ -172,7 +172,7 @@ void GgafDxStringBoardActor::processDraw() {
     }
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
-    pixcoord y = CO2PX(_Y);
+    pixcoord y = C_PX(_Y);
     if (_valign == VALIGN_BOTTOM) {
         y = y - _chr_height_px;
     } else  if (_valign == VALIGN_MIDDLE) {
@@ -182,14 +182,14 @@ void GgafDxStringBoardActor::processDraw() {
     }
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], y);
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_Y) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[0], float(CO2PX(_Z)));
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[0], float(C_PX(_Z)));
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_depth_Z) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[0], _alpha); //注意：アルファは文字ごとは不可
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_alpha) に失敗しました。");
 
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
         int strindex, pattno;
-        pixcoord x = CO2PX(_X) - (_width_len_px/2);
+        pixcoord x = C_PX(_X) - (_width_len_px/2);
         pixcoord x_tmp = x;
         float u,v;
         for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
@@ -199,7 +199,7 @@ void GgafDxStringBoardActor::processDraw() {
                 if (_draw_string[strindex] == '\0') {
                     break;
 //                } if (_draw_string[strindex] == '\n') {
-//                    x = CO2PX(_X) - (_width_len_px/2);
+//                    x = C_PX(_X) - (_width_len_px/2);
 //                    x_tmp = x;
 //                    y += _chr_height_px;
 //                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[i], y);
@@ -226,7 +226,7 @@ void GgafDxStringBoardActor::processDraw() {
         }
     } else if (_align == ALIGN_RIGHT) {
         int strindex, pattno;
-        pixcoord x = CO2PX(_X);//-_aWidthPx[_len-1];
+        pixcoord x = C_PX(_X);//-_aWidthPx[_len-1];
         pixcoord x_tmp = x;
         float u,v;
         for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
@@ -236,7 +236,7 @@ void GgafDxStringBoardActor::processDraw() {
                 if (_draw_string[strindex] == '\0') {
                     break;
 //                } if (_draw_string[strindex] == '\n') {
-//                    x = CO2PX(_X);
+//                    x = C_PX(_X);
 //                    x_tmp = x;
 //                    y -= _chr_height_px;
 //                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[i], y);

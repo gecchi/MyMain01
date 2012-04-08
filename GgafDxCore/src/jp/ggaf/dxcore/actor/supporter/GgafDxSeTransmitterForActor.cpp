@@ -66,12 +66,12 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
 
     float rate_frequency = 1.0;
     if (_pActor->_dest_from_vppln_front > 0) { //”wŒã‚Ìê‡Žü”g”‚ð‰º‚°A‰¹‚ð­‚µ‚®‚®‚à‚ç‚¹‚éB
-        if (_pActor->_dest_from_vppln_front > PX2DX(800)) {
+        if (_pActor->_dest_from_vppln_front > PX_DX(800)) {
             //”wŒã800px `
             rate_frequency = 0.9;
         } else {
             //”wŒã0px ` 800px
-            rate_frequency = 1.0 - (0.1 * (_pActor->_dest_from_vppln_front / PX2DX(800)));
+            rate_frequency = 1.0 - (0.1 * (_pActor->_dest_from_vppln_front / PX_DX(800)));
         }
     }
 
@@ -144,12 +144,12 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                                                                 //Å‚‚Å 0.3 : 0.7 ‚ÌŠ„‡‚É—¯‚ß‚é‚½‚ßB
                     //ƒŠƒAƒ‹ƒ^ƒCƒ€‚Ìƒpƒ“‚ðŒvŽZ
                     if (_pActor->_dest_from_vppln_front > 0) { //”wŒã‚Ìê‡Žü”g”‚ð‰º‚°A‰¹‚ð­‚µ‚®‚®‚à‚ç‚¹‚éB
-                        if (_pActor->_dest_from_vppln_front > PX2DX(800)) {
+                        if (_pActor->_dest_from_vppln_front > PX_DX(800)) {
                             //”wŒã800px `
                             rate_frequency = 0.9;
                         } else {
                             //”wŒã0px ` 800px
-                            rate_frequency = 1.0 - (0.1 * (_pActor->_dest_from_vppln_front / PX2DX(800)));
+                            rate_frequency = 1.0 - (0.1 * (_pActor->_dest_from_vppln_front / PX_DX(800)));
                         }
                     }
                     //‹[Ž—‚RD‰¹

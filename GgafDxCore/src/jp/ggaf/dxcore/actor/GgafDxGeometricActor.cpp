@@ -61,16 +61,16 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     }
 
     //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-    _fX = CO2DX(_X);
-    _fY = CO2DX(_Y);
-    _fZ = CO2DX(_Z);
+    _fX = C_DX(_X);
+    _fY = C_DX(_Y);
+    _fZ = C_DX(_Z);
     //World変換行列（_matWorld）を更新
     if (_pFunc_calcRotMvWorldMatrix) {
         //回転×移動のみ計算し _matWorldRotMv に保持
         (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
         //スケールを考慮して、最終的な _matWorld を保持
         if (_SX != LEN_UNIT) {
-            float Sx = SC2R(_SX);
+            float Sx = SC_R(_SX);
             _matWorld._11 = Sx * _matWorldRotMv._11;
             _matWorld._12 = Sx * _matWorldRotMv._12;
             _matWorld._13 = Sx * _matWorldRotMv._13;
@@ -82,7 +82,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         _matWorld._14 = _matWorldRotMv._14;
 
         if (_SY != LEN_UNIT) {
-            float Sy = SC2R(_SY);
+            float Sy = SC_R(_SY);
             _matWorld._21 = Sy * _matWorldRotMv._21;
             _matWorld._22 = Sy * _matWorldRotMv._22;
             _matWorld._23 = Sy * _matWorldRotMv._23;
@@ -94,7 +94,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         _matWorld._24 = _matWorldRotMv._24;
 
         if (_SZ != LEN_UNIT) {
-            float Sz = SC2R(_SZ);
+            float Sz = SC_R(_SZ);
             _matWorld._31 = Sz * _matWorldRotMv._31;
             _matWorld._32 = Sz * _matWorldRotMv._32;
             _matWorld._33 = Sz * _matWorldRotMv._33;
@@ -117,9 +117,9 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //合成
         changeGeoFinal();
         //ワールド変換行列から飛行移動を取り出し最終的な座標とする
-        _X = DX2CO(_matWorld._41);
-        _Y = DX2CO(_matWorld._42);
-        _Z = DX2CO(_matWorld._43);
+        _X = DX_C(_matWorld._41);
+        _Y = DX_C(_matWorld._42);
+        _Z = DX_C(_matWorld._43);
         _fX = _matWorld._41;
         _fY = _matWorld._42;
         _fZ = _matWorld._43;
@@ -176,14 +176,14 @@ void GgafDxGeometricActor::processSettlementBehavior() {
 }
 
 
-GgafGroupHead* GgafDxGeometricActor::addSubBone(actorkind prm_kind,
-                                                GgafDxGeometricActor* prm_pGeoActor,
-                                                coord prm_X_init_local,
-                                                coord prm_Y_init_local,
-                                                coord prm_Z_init_local,
-                                                coord prm_RX_init_local,
-                                                coord prm_RZ_init_local,
-                                                coord prm_RY_init_local) {
+GgafGroupHead* GgafDxGeometricActor::addSubFk(actorkind prm_kind,
+                                              GgafDxGeometricActor* prm_pGeoActor,
+                                              coord prm_X_init_local,
+                                              coord prm_Y_init_local,
+                                              coord prm_Z_init_local,
+                                              coord prm_RX_init_local,
+                                              coord prm_RZ_init_local,
+                                              coord prm_RY_init_local) {
     GgafGroupHead* pGroupHead = addSubGroup(prm_kind, prm_pGeoActor);
     prm_pGeoActor->_pActor_Base = this;
     prm_pGeoActor->changeGeoLocal();
@@ -201,21 +201,21 @@ GgafGroupHead* GgafDxGeometricActor::addSubBone(actorkind prm_kind,
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;
 }
-GgafGroupHead* GgafDxGeometricActor::addSubBone(GgafDxGeometricActor* prm_pGeoActor,
-                                                  coord prm_X_init_local,
-                                                  coord prm_Y_init_local,
-                                                  coord prm_Z_init_local,
-                                                  coord prm_RX_init_local,
-                                                  coord prm_RZ_init_local,
-                                                  coord prm_RY_init_local) {
-    return addSubBone(prm_pGeoActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND),
-                      prm_pGeoActor,
-                      prm_X_init_local,
-                      prm_Y_init_local,
-                      prm_Z_init_local,
-                      prm_RX_init_local,
-                      prm_RZ_init_local,
-                      prm_RY_init_local);
+GgafGroupHead* GgafDxGeometricActor::addSubFk(GgafDxGeometricActor* prm_pGeoActor,
+                                              coord prm_X_init_local,
+                                              coord prm_Y_init_local,
+                                              coord prm_Z_init_local,
+                                              coord prm_RX_init_local,
+                                              coord prm_RZ_init_local,
+                                              coord prm_RY_init_local) {
+    return addSubFk(prm_pGeoActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND),
+                    prm_pGeoActor,
+                    prm_X_init_local,
+                    prm_Y_init_local,
+                    prm_Z_init_local,
+                    prm_RX_init_local,
+                    prm_RZ_init_local,
+                    prm_RY_init_local);
 }
 
 bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {

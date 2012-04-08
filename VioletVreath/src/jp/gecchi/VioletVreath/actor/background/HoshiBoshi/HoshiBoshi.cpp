@@ -21,7 +21,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     h_far_rate_   = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_far_rate" );
     changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false);
-    CAM_ZF_ = abs(DX2CO(P_CAM->_zf));
+    CAM_ZF_ = abs(DX_C(P_CAM->_zf));
     _TRACE_("HoshiBoshi::HoshiBoshi CAM_ZF_="<<CAM_ZF_);
     //“ÆŽ©ƒ[ƒ‹ƒh•ÏŠ·
     defineRotMvWorldMatrix(HoshiBoshi::setWorldMatrix_HoshiBoshi);
@@ -61,9 +61,9 @@ void HoshiBoshi::processBehavior() {
 void HoshiBoshi::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
     //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ðŽæ‚éŽ–I
-    _fX = CO2DX(_X);
-    _fY = CO2DX(_Y);
-    _fZ = CO2DX(_Z);
+    _fX = C_DX(_X);
+    _fY = C_DX(_Y);
+    _fZ = C_DX(_Z);
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ƒ[ƒ‹ƒh•ÏŠ·
 }
 
@@ -96,15 +96,15 @@ void HoshiBoshi::setWorldMatrix_HoshiBoshi(GgafDxGeometricActor* prm_pActor, D3D
     //World•ÏŠ·
     //Šg‘åk¬ ~ XŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ YŽ²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ðÝ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
-    float sinRx = ANG2SIN(prm_pActor->_RX);
-    float cosRx = ANG2COS(prm_pActor->_RX);
-    float sinRy = ANG2SIN(prm_pActor->_RY);
-    float cosRy = ANG2COS(prm_pActor->_RY);
-    float sinRz = ANG2SIN(prm_pActor->_RZ);
-    float cosRz = ANG2COS(prm_pActor->_RZ);
-    float Sx = SC2R(prm_pActor->_SX);
-    float Sy = SC2R(prm_pActor->_SY);
-    float Sz = SC2R(prm_pActor->_SZ);
+    float sinRx = ANG_SIN(prm_pActor->_RX);
+    float cosRx = ANG_COS(prm_pActor->_RX);
+    float sinRy = ANG_SIN(prm_pActor->_RY);
+    float cosRy = ANG_COS(prm_pActor->_RY);
+    float sinRz = ANG_SIN(prm_pActor->_RZ);
+    float cosRz = ANG_COS(prm_pActor->_RZ);
+    float Sx = SC_R(prm_pActor->_SX);
+    float Sy = SC_R(prm_pActor->_SY);
+    float Sz = SC_R(prm_pActor->_SZ);
 
     out_matWorld._11 = Sx * cosRz *cosRy;
     out_matWorld._12 = Sx * sinRz;

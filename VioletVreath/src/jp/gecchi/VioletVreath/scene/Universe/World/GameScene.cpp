@@ -101,7 +101,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_INIT: {
 //            _TRACE_("GameScene::processBehavior() Prog(=GameScene::PROG_INIT) is Just Changed");
             //P_GOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
-            if ((_pProg->getFrameInProgress() >= 180 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) || GgafDxInput::isPushedDownKey(DIK_P)) {
+            if ((_pProg->getFrameInProgress() == 120)) {
                 _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
                 _pProg->changeWithSceneCrossfading(GameScene::PROG_PRE_TITLE);
                 P_WORLD->pPreDrawScene_->inactivateTreeImmed();
@@ -181,7 +181,7 @@ void GameScene::processBehavior() {
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
                     _pProg->getGazedScene()->pauseTree(); //ポーズ！！
-                    pMenuBoardPause_->rise(PXCO(100), PXCO(20));
+                    pMenuBoardPause_->rise(PX_C(100), PX_C(20));
                 }
             }
             //今ポーズ時

@@ -3,7 +3,7 @@
 namespace GgafDxCore {
 
 /**
- * GgafDxD3DXActor用モデルクラス.(未使用、自前のアニメーションフレームで解決。addSubBone()で事足りる)
+ * GgafDxD3DXActor用モデルクラス.(未使用、自前のアニメーションフレームで解決。addSubFk()で事足りる)
  * GgafDxD3DXAniMeshModel は D3DXLoadMeshFromX を使用して、Xファイルからモデルデータを読み込み設定する。<BR>
  * @version 1.00
  * @since 2009/11/25

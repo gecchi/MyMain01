@@ -29,7 +29,6 @@ void CubeMapMeshSetTestActor::onActive() {
     _pKurokoA->setFaceAngVelo(AXIS_Y, 200);
 }
 
-
 void CubeMapMeshSetTestActor::processBehavior() {
     _pKurokoA->behave();
 }
