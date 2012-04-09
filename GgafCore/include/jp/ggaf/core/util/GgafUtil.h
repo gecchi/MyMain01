@@ -157,14 +157,8 @@ public:
         }
     }
 
-    static int abs(int x) {
-        if (x < 0) {
-            return -x;
-        } else if (x > 0) {
-            return x;
-        } else {
-            return 0;
-        }
+    static inline INT32 abs(INT32 x) {
+        return (x ^ (x>>31)) - (x>>31);
     }
 
     /**

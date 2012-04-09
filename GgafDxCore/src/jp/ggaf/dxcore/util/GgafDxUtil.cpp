@@ -90,7 +90,7 @@ void GgafDxUtil::init() {
     }
 
     for (s_ang ang = 0; ang < D360SANG+1; ang++) {
-        double rad = (PI * 2.0f * ang) / D360SANG;
+        double rad = (PI * 2.0 * ang) / D360SANG;
 
 
         COS[ang] = (float)(cos(rad));
@@ -148,7 +148,7 @@ void GgafDxUtil::init() {
     //2010/03/09 SLANT2ANG‚Ì¸“x10”{‚ÉƒAƒbƒv
     //Œ»Ý‚Í—v‘f”Ô†‚ÍAŒX‚«*100000
     for (int ang = 0; ang <= 45000; ang++) {
-        rad = (PI * 2.0f * ang) / 360000;
+        rad = (PI * 2.0 * ang) / 360000;
         vx = cos(rad);
         vy = sin(rad);
         if (vx == 0) {
@@ -311,10 +311,10 @@ void GgafDxUtil::init() {
 
 
 void GgafDxUtil::getWayAngle2D(int prm_vx_Center,
-                                int prm_vy_Center,
-                                int prm_nWay,
-                                angle prm_angClearance,
-                                angle* out_paAngle) {
+                               int prm_vy_Center,
+                               int prm_nWay,
+                               angle prm_angClearance,
+                               angle* out_paAngle) {
     return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_nWay, prm_angClearance, out_paAngle);
 }
 
@@ -492,10 +492,10 @@ int GgafDxUtil::getDistance(int x1, int y1, int x2, int y2) {
 
 
 void GgafDxUtil::getRzRyAng(coord vx,
-                             coord vy,
-                             coord vz,
-                             angle& out_angRZ,
-                             angle& out_angRY ) {
+                            coord vy,
+                            coord vz,
+                            angle& out_angRZ,
+                            angle& out_angRY ) {
 
     if (vz == 0) {
         out_angRZ = getAngle2D(vx, vy);
@@ -519,11 +519,11 @@ void GgafDxUtil::getRzRyAng(coord vx,
 
     angle rotZ, rotY_rev;
     if (0 <= prj_rXZ && prj_rXZ <= D45ANG) {
-        rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0f)][(int)(prj_rXZ/100.0f)];
-        rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0f)][(int)(prj_rXZ/100.0f)];
+        rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100)][(int)(prj_rXZ/100)];
+        rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100)][(int)(prj_rXZ/100)];
     } else if (D45ANG <= prj_rXZ && prj_rXZ <= D90ANG) {
-        rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY/100.0f)][(int)(prj_rZX/100.0f)];
-        rotY_rev = D90ANG - PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100.0f)][(int)(prj_rZX/100.0f)];;
+        rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY/100)][(int)(prj_rZX/100)];
+        rotY_rev = D90ANG - PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100)][(int)(prj_rZX/100)];
     } else {
         throwGgafCriticalException("GgafDxUtil::getRzRyAng ”ÍˆÍ‚ª”jù‚µ‚Ä‚Ü‚·Bprj_rXZ="<<prj_rXZ);
     }
@@ -606,10 +606,10 @@ void GgafDxUtil::getNormalizeVector(coord x,
                                     float& out_nvx,
                                     float& out_nvy,
                                     float& out_nvz) {
-    float vx = C_DX(x);
-    float vy = C_DX(y);
-    float vz = C_DX(z);
-    float t = 1.0 / sqrt_fast(vx * vx + vy * vy + vz * vz);
+    dxcoord vx = C_DX(x);
+    dxcoord vy = C_DX(y);
+    dxcoord vz = C_DX(z);
+    double t = 1.0 / sqrt_fast(vx * vx + vy * vy + vz * vz);
     out_nvx = t * vx;
     out_nvy = t * vy;
     out_nvz = t * vz;
@@ -734,9 +734,9 @@ void GgafDxUtil::getNormalizeVectorZY(angle prm_angFaceZ,
     }
     UINT32 vx, vy, vz;
     _srv.getVectorClosely(rY_rev, rZ, vx, vy, vz);
-    out_nvx = Xsign * (int)vx / 1000000.0f;
-    out_nvy = Ysign * (int)vy / 1000000.0f;
-    out_nvz = Zsign * (int)vz / 1000000.0f;
+    out_nvx = Xsign * (int)vx / 1000000.0;
+    out_nvy = Ysign * (int)vy / 1000000.0;
+    out_nvz = Zsign * (int)vz / 1000000.0;
 }
 
 

@@ -12,16 +12,15 @@
 namespace GgafDxCore {
 /**
  @brief		Waveファイルデコーダ
-
-
  */
 
 /**
  * waveデコーダ制御クラス .
  * 本プログラムは、<BR>
  *「越後屋Cyber」 http://www.e-cyber.org/ <BR>
- * のメンバーのアンダー氏のサンプルプログラムがオリジナルです。<BR>
- * 一部変更して使用しています。<BR>
+ * のメンバーのアンダー氏のサンプルプログラムがベースになっております。<BR>
+ * ちなみに、クラス化される前の大元は、恐らくマイクロソフトの "wave.c" と思われます。<BR>
+ * ありがたく流用させていただきます。<BR>
  * 対象： CWaveDecorder クラス<BR>
  *                                            2009/01/13 Masatoshi Tsuge<BR>
  * @author      Ander/Echigo-ya koubou

@@ -131,9 +131,9 @@ void MyOptionWateringLaserChip001::moveChip(int tX,int tY, int tZ) {
     int vVMz = _pKurokoB->_veloVzMv*5;
 
     //|仮自|
-    int lVM = max3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
+    int lVM = max3(GgafUtil::abs(vVMx), GgafUtil::abs(vVMy), GgafUtil::abs(vVMz)); //仮自ベクトル大きさ簡易版
     //|的|
-    int lT =  max3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
+    int lT =  max3(GgafUtil::abs(vTx), GgafUtil::abs(vTy), GgafUtil::abs(vTz)); //的ベクトル大きさ簡易版
     //|仮自|/|的|      vT の何倍が vVT 仮的 になるのかを求める。
     double r = (lVM*1.5) / lT;
     //* 2は 右上図のように一直線に並んだ際も、進行方向を維持するために、

@@ -98,9 +98,9 @@ void MagicPointItem::processBehavior() {
         }
 
         //‚©‚ÂŽ©‹@‹ß•Ó‚É“ž’BH
-        if (abs(pMyShip->_X - _X) < 20000 &&
-            abs(pMyShip->_Y - _Y) < 20000 &&
-            abs(pMyShip->_Z - _Z) < 20000 ) {
+        if (GgafUtil::abs(pMyShip->_X - _X) < 20000 &&
+            GgafUtil::abs(pMyShip->_Y - _Y) < 20000 &&
+            GgafUtil::abs(pMyShip->_Z - _Z) < 20000 ) {
 
             kDX_ = pMyShip->_X - _X;
             kDY_ = pMyShip->_Y - _Y;

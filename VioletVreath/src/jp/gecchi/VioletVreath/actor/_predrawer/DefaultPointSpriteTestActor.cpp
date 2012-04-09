@@ -9,7 +9,7 @@ DefaultPointSpriteTestActor::DefaultPointSpriteTestActor(const char* prm_name) :
     _class_name = "DefaultPointSpriteTestActor";
     changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false);
-    CAM_ZF_ = abs(P_CAM->_zf * PX_UNIT * LEN_UNIT);
+    CAM_ZF_ = GgafUtil::abs(P_CAM->_zf * PX_UNIT * LEN_UNIT);
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-1);
     _TRACE_("DefaultPointSpriteTestActor::DefaultPointSpriteTestActor CAM_ZF_="<<CAM_ZF_);
 }

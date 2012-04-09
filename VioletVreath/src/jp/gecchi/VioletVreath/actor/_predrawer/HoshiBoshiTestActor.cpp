@@ -21,7 +21,7 @@ HoshiBoshiTestActor::HoshiBoshiTestActor(const char* prm_name) :
 
     changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false);
-    CAM_ZF_ = abs(P_CAM->_zf * PX_UNIT * LEN_UNIT);
+    CAM_ZF_ = GgafUtil::abs(P_CAM->_zf * PX_UNIT * LEN_UNIT);
     _TRACE_("HoshiBoshiTestActor::HoshiBoshiTestActor CAM_ZF_="<<CAM_ZF_);
     //“ÆŽ©ƒ[ƒ‹ƒh•ÏŠ·
     defineRotMvWorldMatrix(HoshiBoshiTestActor::setWorldMatrix_HoshiBoshiTestActor);

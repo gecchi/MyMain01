@@ -232,18 +232,22 @@ void MyOption::processBehavior() {
 
     if (return_to_base_radiusPosition_seq_) {
         //Ž©“®–ß‚è
-        if (radiusPosition_ > radiusPosition_base_) {
-            addRadiusPosition(-10000);
-        }
-        if (radiusPosition_ < radiusPosition_base_) {
-            addRadiusPosition(10000);
-        }
-        if (-10000 < radiusPosition_base_-radiusPosition_ && radiusPosition_base_-radiusPosition_ < 10000) {
-            setRadiusPosition(radiusPosition_base_);
-            radiusPosition_stopping_ = radiusPosition_;
-//            velo_radius_ = 0;
+        if (radiusPosition_ == radiusPosition_base_) {
+            //kk
             return_to_base_radiusPosition_seq_ = false;
+        } else if (radiusPosition_ > radiusPosition_base_) {
+            addRadiusPosition(-10000, radiusPosition_base_);
+        } else if (radiusPosition_ < radiusPosition_base_) {
+            addRadiusPosition(10000, 1, radiusPosition_base_);
         }
+
+        radiusPosition_stopping_ = radiusPosition_base_;
+//        if (-10000 < radiusPosition_base_-radiusPosition_ && radiusPosition_base_-radiusPosition_ < 10000) {
+//            setRadiusPosition(radiusPosition_base_);
+//            radiusPosition_stopping_ = radiusPosition_;
+//            velo_radius_ = 0;
+//            return_to_base_radiusPosition_seq_ = false;
+//        }
 
     } else {
 
@@ -368,8 +372,12 @@ void MyOption::processBehavior() {
                                pGeoOpCon->_Z == pOptionCtrlr_->_Z )
                     {
                         //”ñˆÚ“®Žž
-                        if (radiusPosition_stopping_ > radiusPosition_) {
+                        if (radiusPosition_stopping_ == radiusPosition_) {
+                            //kk
+                        } else if (radiusPosition_stopping_ > radiusPosition_) {
                             addRadiusPosition(+2000, 1, radiusPosition_stopping_);
+                        } else if (radiusPosition_stopping_ < radiusPosition_) {
+                            addRadiusPosition(-2000, radiusPosition_);
                         }
                         if (veloMv_ == veloMv_base_) {
 

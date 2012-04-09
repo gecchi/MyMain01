@@ -147,7 +147,7 @@ bool PCMPlayer::setDecoder(PCMDecoder* prm_pPcmDecoder) {
 
     // バッファを初期化
     //内部のpDSBuffer->Lock で極稀におちる。
-    //→initializeBuffer() と再生を排他すればよさそうというような記事が○×掲示板に投稿されていた.
+    //→initializeBuffer() と再生を排他すればよさそう
     bool r = initializeBuffer();
     if (r == false) {
         return false;

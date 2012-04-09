@@ -48,9 +48,9 @@ void EffectLockon001_Sub::processBehavior() {
          _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
          if (pTarget_) {
              if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
-                 if (abs(pTarget_->_X-_X) <= 200000 &&
-                     abs(pTarget_->_Y-_Y) <= 200000 &&
-                     abs(pTarget_->_Z-_Z) <= 200000) {
+                 if (GgafUtil::abs(pTarget_->_X-_X) <= 200000 &&
+                     GgafUtil::abs(pTarget_->_Y-_Y) <= 200000 &&
+                     GgafUtil::abs(pTarget_->_Z-_Z) <= 200000) {
                      locatedBy(pTarget_);
                      _pKurokoA->setMvVelo(0);
                  } else {
