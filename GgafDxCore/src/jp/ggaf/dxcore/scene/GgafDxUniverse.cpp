@@ -3,7 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxDrawableActor* GgafDxUniverse::_apAlphaActorList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL+1];
+GgafDxDrawableActor* GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL+1];
+GgafDxDrawableActor* GgafDxUniverse::_apAlphaActorLastList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL+1];
 GgafDxDrawableActor* GgafDxUniverse::_pActors_DrawMaxDrawDepth = NULL;
 GgafDxDrawableActor* GgafDxUniverse::_pActor_DrawActive = NULL;
 
@@ -40,8 +41,9 @@ void GgafDxUniverse::SeArray::play(int index) {
 GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) : GgafUniverse(prm_name) {
     _obj_class |= Obj_GgafDxUniverse;
     _class_name = "GgafDxUniverse";
-    for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
-        _apAlphaActorList_DrawDepthLevel[i] = NULL;
+    for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL+1; i++) {
+        _apAlphaActorFirstList_DrawDepthLevel[i] = NULL;
+        _apAlphaActorLastList_DrawDepthLevel[i] = NULL;
     }
     //先にカメラはNEWしておかないといけない。
     _pCamera = prm_pCamera;
@@ -151,7 +153,7 @@ void GgafDxUniverse::draw() {
     //float tmpAlpah;
     //int alphapoint = MAX_DRAW_DEPTH_LEVEL/4*3;
     for (int i = MAX_DRAW_DEPTH_LEVEL; i >= 0; i--) {
-        _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
+        _pActor_DrawActive = _apAlphaActorFirstList_DrawDepthLevel[i];
         while (_pActor_DrawActive) {
 #ifdef MY_DEBUG
             if (_pActor_DrawActive->getPlatformScene()->_obj_class & Obj_GgafDxScene) {
@@ -195,7 +197,8 @@ void GgafDxUniverse::draw() {
 
             _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
-        _apAlphaActorList_DrawDepthLevel[i] = NULL; //次回のためにリセット
+        _apAlphaActorFirstList_DrawDepthLevel[i] = NULL; //次回のためにリセット
+        _apAlphaActorLastList_DrawDepthLevel[i] = NULL;
     }
 
     //最後のEndPass
@@ -248,31 +251,38 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
         draw_depth_level = 1+prm_draw_depth_level;
     }
 
-    if (_apAlphaActorList_DrawDepthLevel[draw_depth_level] == NULL) {
+    if (_apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] == NULL) {
         //そのprm_draw_depth_levelで最初のアクターの場合
         prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
-        _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
+        _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] = prm_pActor;
+        _apAlphaActorLastList_DrawDepthLevel[draw_depth_level] = prm_pActor;
     } else {
-        //そのprm_draw_depth_levelで既にアクター登録済みだった場合
-        //表示順が固定にならないように、お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
-        //何故そんなことをするかというと、Zバッファ有りのテクスチャに透明があるオブジェクトや、半透明オブジェクトが交差した場合、
-        //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
-        //これを描画順を毎フレーム変化させることで、交互表示でちらつかせ若干のごまかしを行う。
-        //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
-        if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) {
-
+        if (prm_pActor->_is2DActor) {
             //前に追加
-            pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
+            pActorTmp = _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level];
             prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
-            _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
+            _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] = prm_pActor;
         } else {
-            //お尻に追加
-            pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
-            while(pActorTmp->_pNext_TheSameDrawDepthLevel) {
-                pActorTmp = pActorTmp->_pNext_TheSameDrawDepthLevel;
+            //そのprm_draw_depth_levelで既にアクター登録済みだった場合
+            //表示順が固定にならないように、お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
+            //何故そんなことをするかというと、Zバッファ有りのテクスチャに透明があるオブジェクトや、半透明オブジェクトが交差した場合、
+            //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
+            //これを描画順を毎フレーム変化させることで、交互表示でちらつかせ若干のごまかしを行う。
+            //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
+
+            if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) {
+
+                //前に追加
+                pActorTmp = _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level];
+                prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
+                _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] = prm_pActor;
+            } else {
+                //お尻に追加
+                pActorTmp = _apAlphaActorLastList_DrawDepthLevel[draw_depth_level];
+                pActorTmp->_pNext_TheSameDrawDepthLevel = prm_pActor;
+                prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
+                _apAlphaActorLastList_DrawDepthLevel[draw_depth_level] = prm_pActor;
             }
-            pActorTmp->_pNext_TheSameDrawDepthLevel = prm_pActor;
-            prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
         }
     }
     return draw_depth_level;

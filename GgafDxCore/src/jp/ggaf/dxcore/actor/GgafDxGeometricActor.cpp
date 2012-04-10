@@ -37,12 +37,6 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _RZ_final = 0;
     _pFormation = NULL;
 
-//    _X_offset  = 0;
-//    _Y_offset  = 0;
-//    _Z_offset  = 0;
-//    _RX_offset = 0;
-//    _RY_offset = 0;
-//    _RZ_offset = 0;
     _is_local = false;
     _wasCalc_matInvWorldRotMv = false;
 }
@@ -143,34 +137,34 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     GgafDxCamera* pCam = P_CAM;
     //Ž‹‘ä
     _dest_from_vppln_top    = pCam->_plnTop.a*_fX +
-                         pCam->_plnTop.b*_fY +
-                         pCam->_plnTop.c*_fZ +
-                         pCam->_plnTop.d;
+                              pCam->_plnTop.b*_fY +
+                              pCam->_plnTop.c*_fZ +
+                              pCam->_plnTop.d;
 
     _dest_from_vppln_bottom = pCam->_plnBottom.a*_fX +
-                         pCam->_plnBottom.b*_fY +
-                         pCam->_plnBottom.c*_fZ +
-                         pCam->_plnBottom.d;
+                              pCam->_plnBottom.b*_fY +
+                              pCam->_plnBottom.c*_fZ +
+                              pCam->_plnBottom.d;
 
     _dest_from_vppln_left   = pCam->_plnLeft.a*_fX +
-                         pCam->_plnLeft.b*_fY +
-                         pCam->_plnLeft.c*_fZ +
-                         pCam->_plnLeft.d;
+                              pCam->_plnLeft.b*_fY +
+                              pCam->_plnLeft.c*_fZ +
+                              pCam->_plnLeft.d;
 
     _dest_from_vppln_right  = pCam->_plnRight.a*_fX +
-                         pCam->_plnRight.b*_fY +
-                         pCam->_plnRight.c*_fZ +
-                         pCam->_plnRight.d;
+                              pCam->_plnRight.b*_fY +
+                              pCam->_plnRight.c*_fZ +
+                              pCam->_plnRight.d;
 
     _dest_from_vppln_front  = pCam->_plnFront.a*_fX +
-                         pCam->_plnFront.b*_fY +
-                         pCam->_plnFront.c*_fZ +
-                         pCam->_plnFront.d;
+                              pCam->_plnFront.b*_fY +
+                              pCam->_plnFront.c*_fZ +
+                              pCam->_plnFront.d;
 
     _dest_from_vppln_back   = pCam->_plnBack.a*_fX +
-                         pCam->_plnBack.b*_fY +
-                         pCam->_plnBack.c*_fZ +
-                         pCam->_plnBack.d;
+                              pCam->_plnBack.b*_fY +
+                              pCam->_plnBack.c*_fZ +
+                              pCam->_plnBack.d;
     _offscreen_kind = -1;
 
 }
@@ -242,14 +236,14 @@ bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 
 int GgafDxGeometricActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
-    dxcoord bound = _bounding_sphere_radius * _rate_of_bounding_sphere_radius*1.5;//1.2‚Í‚â‚â‹«ŠE‹…‚ð‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ð—}‚¦‚é
     if (_offscreen_kind == -1) {
-        if (_dest_from_vppln_top <= bound) {
-            if (_dest_from_vppln_bottom <= bound) {
-                if (_dest_from_vppln_left <= bound) {
-                    if (_dest_from_vppln_right <= bound) {
-                        if (_dest_from_vppln_front <= bound) {
-                            if (_dest_from_vppln_back <= bound) {
+        dxcoord bound = _bounding_sphere_radius * _rate_of_bounding_sphere_radius*1.5;//1.2‚Í‚â‚â‹«ŠE‹…‚ð‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ð—}‚¦‚é
+        if (_dest_from_vppln_top < bound) {
+            if (_dest_from_vppln_bottom < bound) {
+                if (_dest_from_vppln_left < bound) {
+                    if (_dest_from_vppln_right < bound) {
+                        if (_dest_from_vppln_front < bound) {
+                            if (_dest_from_vppln_back < bound) {
                                 //Viewport”ÍˆÍ“à
                                 _offscreen_kind = 0;
                             } else {

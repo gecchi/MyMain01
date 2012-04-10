@@ -85,15 +85,15 @@ public:
      * @param prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      * @param prm_can_hit_out_of_view_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
      */
-    void setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg = true);
-
+    void setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg);
+    void setHitAble(bool prm_can_hit_flg);
     /**
      * 自ツリーアクターの衝突判定有無を設定する。 .
      * @param prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      * @param prm_can_hit_out_of_view_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
      */
-    void setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg = true);
-
+    void setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg);
+    void setHitAbleTree(bool prm_can_hit_flg);
     /**
      * 現在衝突できる状況かどうか判定 .
      * 注意：衝突能力があるかどうかでは無い。

@@ -91,13 +91,6 @@ void MyOptionLockonController::processBehavior() {
             }
         }
     }
-
-//    if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-//        dumpTarget(pRingTarget_->getCurrent());
-//        dump();
-//    }
-
-
 }
 
 void MyOptionLockonController::processJudgement() {

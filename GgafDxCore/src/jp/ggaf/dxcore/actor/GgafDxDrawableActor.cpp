@@ -201,15 +201,16 @@ void GgafDxDrawableActor::processPreDraw() {
                     }
                 } else {
                     //特別な描画深度指定有り
-                    if (GgafDxUniverse::_apAlphaActorList_DrawDepthLevel[_specal_drawdepth] == NULL) {
+                    if (GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] == NULL) {
                         //そのprm_draw_depth_levelで最初のアクターの場合
                         this->_pNext_TheSameDrawDepthLevel = NULL;
-                        GgafDxUniverse:: _apAlphaActorList_DrawDepthLevel[_specal_drawdepth] = this;
+                        GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] = this;
+                        GgafDxUniverse::_apAlphaActorLastList_DrawDepthLevel[_specal_drawdepth] = this;
                     } else {
                         //前に追加
-                        GgafDxDrawableActor* pActorTmp = GgafDxUniverse::_apAlphaActorList_DrawDepthLevel[_specal_drawdepth];
+                        GgafDxDrawableActor* pActorTmp = GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth];
                         this->_pNext_TheSameDrawDepthLevel = pActorTmp;
-                        GgafDxUniverse::_apAlphaActorList_DrawDepthLevel[_specal_drawdepth] = this;
+                        GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] = this;
                     }
                     _now_drawdepth = _specal_drawdepth;
                 }

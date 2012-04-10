@@ -29,24 +29,9 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     _pKurokoB->forceVyMvAcceRange(-renge_ / 30, renge_ / 30);
     _pKurokoB->forceVzMvAcceRange(-renge_ / 30, renge_ / 30);
 
-//    papOption_ = NEW MyOption*[max_option_num_];
-//    for (int i = 0; i < max_option_num_; i++) {
-//        papOption_[i] = NULL;
-//    }
-
     pOption_ = NEW MyOption("MY_OPTION01", no_, this);
     addSubGroup(pOption_);
-
-
-//    for (int i = 0; i < max_option_num_; i++) {
-//        papOption_[i]->inactivateImmed();
-//    }
     pOption_->inactivateImmed();
-
-//    for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-//        papOption_[i]->activate();
-//    }
-//    pOption_->activate();
 
 //    //ギズモ
 //    pGizmo_ = NEW MyOptionControllerGizmo("MyPGizmo");
@@ -60,9 +45,6 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     for (DWORD i = 0; i < max_option_num_*o2o_; i++) {
         pRing_OptCtrlGeoHistory_->addLast(NEW GgafDxGeoElem(this));
     }
-//    X_on_free_ = _X;
-//    Y_on_free_ = _Y;
-//    Z_on_free_ = _Z;
 }
 
 
@@ -103,34 +85,13 @@ void MyOptionController::processBehavior() {
         is_handle_move_mode_ = false;
         return_to_default_position_seq_ = true;
         MyOptionController::adjustDefaltAngPosition(60);
-//        for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-//            //オプションの半径位置を元に戻す指示
-//            papOption_[i]->return_to_base_radiusPosition_seq_ = true;
-//            papOption_[i]->return_to_base_angExpanse_seq_= true;
-//        }
         pOption_->return_to_base_radiusPosition_seq_ = true;
         pOption_->return_to_base_angExpanse_seq_= true;
-
-//        //トレース履歴を書き換える
-//        GgafLinkedListRing<GgafDxGeoElem>::Elem* pElem = pRing_OptCtrlGeoHistory_->getElemFirst();
-//        GgafDxGeoElem* p;
-//        while (true) {
-//            p = pElem->_pValue;
-//            p->_X += (_X-X_on_free_);
-//            p->_Y += (_Y-Y_on_free_);
-//            p->_Z += (_Z-Z_on_free_);
-//
-//            if (pElem->_is_last_flg) {
-//                break;
-//            } else {
-//                pElem = pElem -> _pNext;
-//            }
-//        }
-//        X_on_free_ = _X;
-//        Y_on_free_ = _Y;
-//        Z_on_free_ = _Z;
-
-
+        EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
+        if (pTurbo002) {
+            pTurbo002->locatedBy(pOption_);
+            pTurbo002->activate();
+        }
     } else if (VB_PLAY->isBeingPressed(VB_OPTION) && !VB_PLAY->isBeingPressed(VB_TURBO)) {
         //オプション向き操作
         if (VB_PLAY->isBeingPressed(VB_UP)) {
@@ -149,13 +110,7 @@ void MyOptionController::processBehavior() {
     }
 
     if (VB_PLAY->isRoundPushDown(VB_OPTION)) {
-    //if (VB_PLAY->isPushedDown(VB_OPTION) && GgafDxInput::isBeingPressedKey(DIK_S)) {
-
-        //if (papOption_[0]) {
         if (pOption_) {
-//            X_on_free_ = _X;
-//            Y_on_free_ = _Y;
-//            Z_on_free_ = _Z;
             is_free_from_myship_mode_ = true;
             is_handle_move_mode_ = true;
             _pKurokoB->setVxMvAcce(0);
@@ -164,6 +119,11 @@ void MyOptionController::processBehavior() {
             _pKurokoB->setVxMvVelo(0);
             _pKurokoB->setVyMvVelo(0);
             _pKurokoB->setVzMvVelo(0);
+            EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
+            if (pTurbo002) {
+                pTurbo002->locatedBy(pOption_);
+                pTurbo002->activate();
+            }
         }
     }
 
@@ -220,14 +180,6 @@ void MyOptionController::processBehavior() {
     }
 
 
-//    if (VB_PLAY->isPushedDown(VB_OPTION)) {
-//        papOption_[0]->_pModel->_pTextureBlinker->forceBlinkRange(0.01, 0.1, 3.0);
-//        papOption_[0]->_pModel->_pTextureBlinker->beat(30,10,2,-1);
-//    } else if (VB_PLAY->isReleasedUp(VB_OPTION)) {
-//        papOption_[0]->_pModel->_pTextureBlinker->stopImmed();
-//        papOption_[0]->_pModel->_pTextureBlinker->setBlink(1.0f);
-//    }
-
 
 //    //ギズモ
 //    pDirectionVector_->locatedBy(this);
@@ -237,11 +189,6 @@ void MyOptionController::processBehavior() {
     _pKurokoB->behave();
 
     pRing_OptCtrlGeoHistory_->next()->set(this);
-//    if (is_free_from_myship_mode_) {
-//
-//    } else {
-//        pRing_OptCtrlGeoHistory_->next()->set(this);
-//    }
 }
 
 

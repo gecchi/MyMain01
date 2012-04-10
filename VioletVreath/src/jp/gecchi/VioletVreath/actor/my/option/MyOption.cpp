@@ -166,9 +166,9 @@ void MyOption::addRadiusPosition(int prm_radius_offset, int prm_min_radius, int 
 
     int radius;
     radius = radiusPosition_ + prm_radius_offset;
-    if (radiusPosition_ < prm_min_radius) {
+    if (radius < prm_min_radius) {
         radius = prm_min_radius; //オプション最低半径距離
-    } else if (radiusPosition_ > prm_max_radius) {
+    } else if (radius > prm_max_radius) {
         radius = prm_max_radius; //オプション最低半径距離
     }
 
@@ -242,13 +242,6 @@ void MyOption::processBehavior() {
         }
 
         radiusPosition_stopping_ = radiusPosition_base_;
-//        if (-10000 < radiusPosition_base_-radiusPosition_ && radiusPosition_base_-radiusPosition_ < 10000) {
-//            setRadiusPosition(radiusPosition_base_);
-//            radiusPosition_stopping_ = radiusPosition_;
-//            velo_radius_ = 0;
-//            return_to_base_radiusPosition_seq_ = false;
-//        }
-
     } else {
 
         //オプション独立移動制御時
@@ -361,8 +354,6 @@ void MyOption::processBehavior() {
             if (pOptionCtrlr_->is_free_from_myship_mode_) {
                 //
             } else {
-//                if (VB_PLAY->isBeingPressed(VB_OPTION) || VB_PLAY->isBeingPressed(VB_POWERUP)) {
-//                } else {
                     GgafDxGeoElem* pGeoOpCon = pOptionCtrlr_->pRing_OptCtrlGeoHistory_->getPrev();
                     if (VB_PLAY->isBeingPressed(VB_OPTION)) {
                         //オプションボタン押下時は
@@ -529,34 +520,14 @@ void MyOption::processBehavior() {
     _Y += pOptionCtrlr_->_Y;
     _Z += pOptionCtrlr_->_Z;
 
-//    _RZ = GgafDxUtil::simplifyAng(_RZ);
-//    _RY = GgafDxUtil::simplifyAng(_RY);
-//    GgafDxGeoElem* pGeoOpCon = pOptionCtrlr_->pRing_OptCtrlGeoHistory_->getPrev(MyOptionController::o2o_*(no_+2));
-//    _X += pGeoOpCon->_X;
-//    _Y += pGeoOpCon->_Y;
-//    _Z += pGeoOpCon->_Z;
-//    if (pOptionCtrlr_->is_free_from_myship_mode_) {
-//        _X += (pOptionCtrlr_->_X - pOptionCtrlr_->X_on_free_);
-//        _Y += (pOptionCtrlr_->_Y - pOptionCtrlr_->Y_on_free_);
-//        _Z += (pOptionCtrlr_->_Z - pOptionCtrlr_->Z_on_free_);
-//    } else {
-//
-//    }
 
     //TODO
     //最適化
-    //_pKurokoB->_veloVxMv = 0;
-    //_pKurokoB->_veloVyMv = 0;
-    //_pKurokoB->_veloVzMv = 0;
     if (pMyShip->is_shooting_laser_ && VB_PLAY->isBeingPressed(VB_SHOT1)) {
-
-
         MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)pLaserChipDepo_->dispatch();
 //        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)pLaserChipDepo_->dispatch();
 
         if (pLaserChip) {
-
-
             if (pLaserChipDepo_->_pEffectActor_Irradiate) {
                 pLaserChipDepo_->_pEffectActor_Irradiate->locatedBy(this);
             }

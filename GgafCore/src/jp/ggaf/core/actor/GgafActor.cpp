@@ -16,7 +16,7 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
     _pScene_Platform = NULL;
     _pGod = NULL;
     _can_hit_flg = false;
-    _can_hit_out_of_view = false;
+    _can_hit_out_of_view = true;
     _pDependenceDepository = NULL;
     _pFormation = NULL;
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
@@ -50,6 +50,10 @@ void GgafActor::setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_fl
     _can_hit_flg = prm_can_hit_flg;
     _can_hit_out_of_view = prm_can_hit_out_of_view_flg;
 }
+void GgafActor::setHitAble(bool prm_can_hit_flg) {
+    TRACE("GgafActor::setHitAble() " << getName());
+    _can_hit_flg = prm_can_hit_flg;
+}
 
 void GgafActor::setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg) {
     TRACE("GgafActor::setHitAble() " << getName());
@@ -60,6 +64,23 @@ void GgafActor::setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_vie
         pActor_tmp = _pSubFirst;
         while (true) {
             pActor_tmp->setHitAble(prm_can_hit_flg, prm_can_hit_out_of_view_flg);
+            if (pActor_tmp->_is_last_flg) {
+                break;
+            } else {
+                pActor_tmp = pActor_tmp->_pNext;
+            }
+        }
+    }
+}
+
+void GgafActor::setHitAbleTree(bool prm_can_hit_flg) {
+    TRACE("GgafActor::setHitAble() " << getName());
+    _can_hit_flg = prm_can_hit_flg;
+    GgafActor* pActor_tmp;
+    if (_pSubFirst) {
+        pActor_tmp = _pSubFirst;
+        while (true) {
+            pActor_tmp->setHitAble(prm_can_hit_flg);
             if (pActor_tmp->_is_last_flg) {
                 break;
             } else {

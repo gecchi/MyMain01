@@ -51,7 +51,8 @@ public:
     GgafDxCamera* _pCamera;
 
     /** アクター順序レンダリングのための遠さ別のグループ */
-    static GgafDxDrawableActor* _apAlphaActorList_DrawDepthLevel[];
+    static GgafDxDrawableActor* _apAlphaActorFirstList_DrawDepthLevel[];
+    static GgafDxDrawableActor* _apAlphaActorLastList_DrawDepthLevel[];
     /** アクター順序レンダリング最遠グループ(一番最初にレンダリング) */
     static GgafDxDrawableActor* _pActors_DrawMaxDrawDepth;
     static GgafDxDrawableActor* _pActor_DrawActive;

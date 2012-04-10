@@ -6,8 +6,6 @@ namespace VioletVreath {
 class MyOption : public GgafLib::DefaultMeshSetActor {
 
 
-//    GgafDxCore::GgafDxQuaternion Q_;
-
 private:
     /**
      * ù‰ô‰~ü”¼Œa‚ğÄİ’è‚·‚é .

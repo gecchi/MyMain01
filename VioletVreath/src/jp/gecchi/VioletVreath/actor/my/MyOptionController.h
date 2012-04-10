@@ -41,14 +41,6 @@ public:
     /** [r]オプション位置初期化中は true */
     bool return_to_default_position_seq_;
 
-//    /** 自機から離れた時（ぐるっとポン時）の座標 */
-//    coord X_on_free_;
-//    coord Y_on_free_;
-//    coord Z_on_free_;
-
-
-    /** 対象アクター */
-
     /** 方向転換角速度 */
     angvelo angVelo_Turn_;
     int renge_;
