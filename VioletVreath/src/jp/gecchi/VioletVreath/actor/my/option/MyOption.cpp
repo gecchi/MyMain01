@@ -257,12 +257,12 @@ void MyOption::processBehavior() {
 
         //Ž©“®–ß‚è
         if (angExpanse_ > angExpanse_default_) {
-            angExpanse_ -= 3000;
+            angExpanse_ -= 5000;
         }
         if (angExpanse_ < angExpanse_default_) {
-            angExpanse_ += 3000;
+            angExpanse_ += 5000;
         }
-        if (-3000 <= angExpanse_default_-angExpanse_ && angExpanse_default_-angExpanse_ <= 3000) {
+        if (-5000 <= angExpanse_default_-angExpanse_ && angExpanse_default_-angExpanse_ <= 5000) {
             angExpanse_ = angExpanse_default_;
             return_to_base_angExpanse_seq_ = false;
         }
@@ -279,11 +279,13 @@ void MyOption::processBehavior() {
                     angExpanse_ -= angveloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(2000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(3000 * (radiusPosition_base_/60000));
+                    radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
                     //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-2000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(-3000 * (radiusPosition_base_/60000));
+                    radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
             } else if (pos_camera == VAM_POS_LEFT) {
@@ -294,20 +296,24 @@ void MyOption::processBehavior() {
                     angExpanse_ += angveloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(2000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(3000 * (radiusPosition_base_/60000));
+                    radiusPosition_stopping_+=(+3000 * (radiusPosition_base_/60000));
                     //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-2000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(-3000 * (radiusPosition_base_/60000));
+                    radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
             } else if (pos_camera == VAM_POS_TOP) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-                    addRadiusPosition(2000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(3000 * (radiusPosition_base_/60000));
+                    radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
                     //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-                    addRadiusPosition(-2000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(-3000 * (radiusPosition_base_/60000));
+                    radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
@@ -318,11 +324,13 @@ void MyOption::processBehavior() {
                 }
             } else if (pos_camera == VAM_POS_BOTTOM) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-                    addRadiusPosition(-2000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(-3000 * (radiusPosition_base_/60000));
+                    radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-                    addRadiusPosition(2000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(3000 * (radiusPosition_base_/60000));
+                    radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
                     //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
@@ -339,15 +347,17 @@ void MyOption::processBehavior() {
                     angExpanse_ -= angveloExpanseNomal_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(2000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(3000 * (radiusPosition_base_/60000));
+                    radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
                     //angExpanse_ += angveloExpanseSlow_;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-2000 * (radiusPosition_base_/60000));
+                    addRadiusPosition(-3000 * (radiusPosition_base_/60000));
+                    radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
             }
-            radiusPosition_stopping_ = radiusPosition_;
+//            radiusPosition_stopping_ = radiusPosition_;
 //            velo_radius_ = 0;
             angExpanse_ = GgafDxUtil::simplifyAng(angExpanse_);
         } else {
@@ -366,9 +376,9 @@ void MyOption::processBehavior() {
                         if (radiusPosition_stopping_ == radiusPosition_) {
                             //kk
                         } else if (radiusPosition_stopping_ > radiusPosition_) {
-                            addRadiusPosition(+2000, 1, radiusPosition_stopping_);
+                            addRadiusPosition(+3000, 1, radiusPosition_stopping_);
                         } else if (radiusPosition_stopping_ < radiusPosition_) {
-                            addRadiusPosition(-2000, radiusPosition_);
+                            addRadiusPosition(-3000, radiusPosition_);
                         }
                         if (veloMv_ == veloMv_base_) {
 
@@ -385,7 +395,7 @@ void MyOption::processBehavior() {
                     } else {
                         //ˆÚ“®Žž
                         if (1 < radiusPosition_) {
-                            addRadiusPosition(-2000, 1);
+                            addRadiusPosition(-3000, 1);
                         }
                         if (radiusPosition_ < 10000) {
                             need_adjust_pos_flg_ = true;
