@@ -46,8 +46,6 @@ public:
     /** [r]レーザー発射中のエフェクト */
     GgafDxCore::GgafDxDrawableActor* pEffect_LaserIrradiate_;
 
-    int velo_radius_;
-
     /** [r]計算された現在の旋廻円周移動角速度（読み出し専用） */
     angvelo angveloMove_;
     /** [r]円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0） */
@@ -59,10 +57,11 @@ public:
     /** [r/w]オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionControllerと同じ方向（前方）を向いている） */
     angle angExpanse_;
 
-    /** [r]初期円周上初期位置角度 */
+    /** [r]初期円周上角度位置 */
     angle angPosition_base_;
     /** [r]初期旋廻円周半径 */
     int radiusPosition_base_;
+    /** [r]停止時に戻るべき廻円周半径 */
     int radiusPosition_stopping_;
 
     /** [r]初期旋廻円周移動速度 */
@@ -81,14 +80,17 @@ public:
     bool return_to_base_angExpanse_seq_;
 
 
-
+    /** [r]初期円周上角度位置へ自動戻りシークエンス進捗番号 */
     int adjust_angPos_seq_progress_;
+    /** [r]初期円周上角度位置へ自動戻りシークエンス時、ターゲット円周上角度位置 */
     angle adjust_angPos_seq_new_angPosition_base_;
+    /** [r]初期円周上角度位置へ自動戻りシークエンス時、ターゲット円周上角度位置に到達するまでに費やされるフレーム数 */
     frame adjust_angPos_seq_spent_frame_;
-    angle adjust_angPos_seq_angPosition_;
 
     //GgafDxCore::GgafDxQuaternion Q_;
     EffectMyOption* pEffect_;
+
+    /** [r]停止時、初期円周上角度位置へ自動戻りシークエンスの実行が必要かどうかフラグ */
     bool need_adjust_pos_flg_;
     /**
      * コンストラクタ .
@@ -121,7 +123,6 @@ public:
         angPosition_base_ = prm_angPosition;
         radiusPosition_base_ = prm_radiusPosition;
         radiusPosition_stopping_ = radiusPosition_base_;
-        velo_radius_ = 0;
         angExpanse_default_ = prm_angExpanse;
         veloMv_base_ = prm_veloMv;
     }

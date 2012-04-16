@@ -2,7 +2,7 @@
 #define MAGICMETER_H_
 namespace VioletVreath {
 
-#define MMETER_MAX_LEVEL 8
+#define MMETER_MAX_LEVEL 9
 
 #ifdef P_MYSHIP_SCENE
     #define P_MAGICMETER (P_MYSHIP_SCENE->pMagicMeter_)

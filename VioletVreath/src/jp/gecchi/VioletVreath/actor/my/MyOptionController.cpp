@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-int MyOptionController::max_option_num_ = 8;
+int MyOptionController::max_option_num_ = 9;
 int MyOptionController::o2o_ = 15;
 int MyOptionController::now_option_num_ = 0;
 MyOptionController::MyOptionController(const char* prm_name, int prm_no) :

@@ -30,19 +30,22 @@ papOptionCtrlr_(NULL) {
     papOptionCtrlr_[3]->pOption_->config(60000, D270ANG, 0, 1000);
     papOptionCtrlr_[3]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
     papOptionCtrlr_[3]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[4]->pOption_->config(120000, D0ANG, 0, -1500);
+
+    papOptionCtrlr_[4]->pOption_->config(120000, D_ANG(72*0), 0, -1500);
     papOptionCtrlr_[4]->pOption_->setMaterialColor(0.8, 0.8, 1.0);
     papOptionCtrlr_[4]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[5]->pOption_->config(120000, D90ANG, 0, -1500);
+    papOptionCtrlr_[5]->pOption_->config(120000, D_ANG(72*1), 0, -1500);
     papOptionCtrlr_[5]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
     papOptionCtrlr_[5]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[6]->pOption_->config(120000, D180ANG, 0, -1500);
+    papOptionCtrlr_[6]->pOption_->config(120000, D_ANG(72*2), 0, -1500);
     papOptionCtrlr_[6]->pOption_->setMaterialColor(1.0, 0.8, 0);
     papOptionCtrlr_[6]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[7]->pOption_->config(120000, D270ANG, 0, -1500);
+    papOptionCtrlr_[7]->pOption_->config(120000, D_ANG(72*3), 0, -1500);
     papOptionCtrlr_[7]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
     papOptionCtrlr_[7]->pOption_->setAlpha(0.7);
-
+    papOptionCtrlr_[8]->pOption_->config(120000, D_ANG(72*4), 0, -1500);
+    papOptionCtrlr_[8]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
+    papOptionCtrlr_[8]->pOption_->setAlpha(0.7);
 
 
 

@@ -490,26 +490,6 @@ void MyShip::processBehavior() {
                                                       _Y - _Y_local ,
                                                       _Z - _Z_local);
     }
-
-
-
-
-//    GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory4OptCtrlr_->getPrev();
-//    pRing_MyShipGeoOffsetHistory_->next()->set(_X - pGeoMyShipPrev->_X,
-//                                               _Y - pGeoMyShipPrev->_Y,
-//                                               _Z - pGeoMyShipPrev->_Z);
-
-//    if (VB_PLAY->isBeingPressed(VB_OPTION)) {
-//        pRing_MyShipGeoHistory4OptCtrlr_->next()->set(this);
-//        GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory4OptCtrlr_->getPrev();
-//        pRing_MyShipGeoOffsetHistory_->next()->set(_X - pGeoMyShipPrev->_X,
-//                                                   _Y - pGeoMyShipPrev->_Y,
-//                                                   _Z - pGeoMyShipPrev->_Z);
-//    } else {
-//        pRing_MyShipGeoHistory4OptCtrlr_->next()->set(this);
-//        GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory4OptCtrlr_->getPrev();
-//        pRing_MyShipGeoOffsetHistory_->next()->set(pRing_MyShipGeoOffsetHistory_->getPrev());
-//    }
 }
 
 void MyShip::processJudgement() {

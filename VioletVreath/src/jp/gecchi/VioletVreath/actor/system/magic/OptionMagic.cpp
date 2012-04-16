@@ -7,7 +7,7 @@ using namespace VioletVreath;
 
 OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
     : Magic(prm_name, prm_pMP,
-            8,               //max_level
+            9,               //max_level
             1000    , 0.9,   //基本魔法コスト , 飛びレベル時の rate
             60*2    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60*0.2  , 0.9,   //基本発動時間   , 飛びレベル時の rate
@@ -39,9 +39,10 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
     lvinfo_[6].pno_ = 49;
     lvinfo_[7].pno_ = 45;
     lvinfo_[8].pno_ = 41;
+    lvinfo_[9].pno_ = 37;
 
-    papEffect_ = NEW GgafDxDrawableActor*[8];
-    for (int i = 0; i < 8; i++) {
+    papEffect_ = NEW GgafDxDrawableActor*[max_level_];
+    for (int i = 0; i < max_level_; i++) {
         papEffect_[i] = NEW EffectMagic001("EF");
         papEffect_[i]->inactivateImmed();
         addSubGroup(papEffect_[i]);

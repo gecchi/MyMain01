@@ -28,7 +28,6 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     angPosition_base_ = angPosition_;
     radiusPosition_base_ = radiusPosition_;
     radiusPosition_stopping_ = radiusPosition_;
-    velo_radius_ = 0;
 
     angExpanse_default_ = angExpanse_;
     veloMv_base_ = veloMv_;
@@ -40,7 +39,6 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     angveloExpanseSlow_ = 1000;
 
     pEffect_ = NEW EffectMyOption("EffectMyOption", this);
-//    pEffect_->inactivateImmed();
     addSubGroup(pEffect_);
 
     //レーザー発射エフェクト
@@ -120,13 +118,11 @@ void MyOption::onReset() {
     Xorg_ = _X;
     Yorg_ = _Y;
     Zorg_ = _Z;
-    //P_COMMON_SCENE->getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
     angPosition_ = _pKurokoA->_angRzMv;
 
     adjust_angPos_seq_progress_ = 0;
     adjust_angPos_seq_new_angPosition_base_ = angPosition_;
     adjust_angPos_seq_spent_frame_ = 0;
-    adjust_angPos_seq_angPosition_ = 0;
 
     radiusPosition_stopping_ = radiusPosition_;
 }
@@ -257,12 +253,12 @@ void MyOption::processBehavior() {
 
         //自動戻り
         if (angExpanse_ > angExpanse_default_) {
-            angExpanse_ -= 5000;
+            angExpanse_ -= 2000;
         }
         if (angExpanse_ < angExpanse_default_) {
-            angExpanse_ += 5000;
+            angExpanse_ += 2000;
         }
-        if (-5000 <= angExpanse_default_-angExpanse_ && angExpanse_default_-angExpanse_ <= 5000) {
+        if (-2000 <= angExpanse_default_-angExpanse_ && angExpanse_default_-angExpanse_ <= 2000) {
             angExpanse_ = angExpanse_default_;
             return_to_base_angExpanse_seq_ = false;
         }
@@ -357,8 +353,6 @@ void MyOption::processBehavior() {
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
             }
-//            radiusPosition_stopping_ = radiusPosition_;
-//            velo_radius_ = 0;
             angExpanse_ = GgafDxUtil::simplifyAng(angExpanse_);
         } else {
             if (pOptionCtrlr_->is_free_from_myship_mode_) {
@@ -376,9 +370,9 @@ void MyOption::processBehavior() {
                         if (radiusPosition_stopping_ == radiusPosition_) {
                             //kk
                         } else if (radiusPosition_stopping_ > radiusPosition_) {
-                            addRadiusPosition(+3000, 1, radiusPosition_stopping_);
+                            addRadiusPosition(+2000, 1, radiusPosition_stopping_);
                         } else if (radiusPosition_stopping_ < radiusPosition_) {
-                            addRadiusPosition(-3000, radiusPosition_);
+                            addRadiusPosition(-2000, radiusPosition_);
                         }
                         if (veloMv_ == veloMv_base_) {
 
@@ -401,7 +395,7 @@ void MyOption::processBehavior() {
                             need_adjust_pos_flg_ = true;
                         }
 
-                        veloMv_ -= 100;
+                        veloMv_ -= 200;
                         if (veloMv_ < 0) {
                             veloMv_ = 0;
                         }
@@ -420,14 +414,18 @@ void MyOption::processBehavior() {
 
 
         if (adjust_angPos_seq_progress_ == 2) {
+            angle angPosition_now;
             //自分の角度位置取得
             if (radiusPosition_ > 0) {
-                adjust_angPos_seq_angPosition_ = MyStgUtil::getAngle2D(_Z, _Y);
+                angPosition_now = MyStgUtil::getAngle2D(_Z, _Y);
             } else {
-                adjust_angPos_seq_angPosition_ = MyStgUtil::getAngle2D(-_Z, -_Y);
+                angPosition_now = MyStgUtil::getAngle2D(-_Z, -_Y);
             }
             //現在の角距離
-            angle ang_diff = MyStgUtil::getAngDiff(adjust_angPos_seq_angPosition_, adjust_angPos_seq_new_angPosition_base_, sgn(veloMv_));
+            angle ang_diff = MyStgUtil::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, sgn(veloMv_));
+            if (GgafUtil::abs(ang_diff) > D_ANG(350)) {
+                ang_diff = MyStgUtil::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, TURN_CLOSE_TO);
+            }
             //残フレームと残移動角より必要な角速度
             angvelo angvelo_need = ang_diff / (angvelo)adjust_angPos_seq_spent_frame_;
             //必要な角速度差分
