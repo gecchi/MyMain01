@@ -1,16 +1,16 @@
-#ifndef MAGICMETERCURSOR002_H_
-#define MAGICMETERCURSOR002_H_
+#ifndef MAGICMETERCURSOR003_H_
+#define MAGICMETERCURSOR003_H_
 
 
 namespace VioletVreath {
 
 /**
- * 各魔法のレベルカーソル（操作移動用） .
+ * 各魔法のレベルカーソル（現在のレベル強調） .
  * @version 1.00
- * @since 2011/12/12
+ * @since 2012/04/19
  * @author Masatoshi Tsuge
  */
-class MagicMeterCursor002 : public GgafLib::DefaultBoardActor {
+class MagicMeterCursor003 : public GgafLib::DefaultBoardActor {
 
 public:
     /** 移動目標X座標 */
@@ -23,6 +23,8 @@ public:
     /** [r]魔法メーター */
     MagicMeter* pMagicMeter_;
 
+
+
     int magic_index_;
 
     coord tmp_Y_;
@@ -33,7 +35,7 @@ public:
      * @param prm_pMagicMeter メーター
      * @param prm_pMagic レベルカーソルの対象の魔法
      */
-    MagicMeterCursor002(const char* prm_name, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic);
+    MagicMeterCursor003(const char* prm_name, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic);
 
     void initialize() override;
 
@@ -56,9 +58,9 @@ public:
     void beginBlinking();
     void stopBlinking();
 
-    virtual ~MagicMeterCursor002();
+    virtual ~MagicMeterCursor003();
 };
 
 }
-#endif /*MAGICMETERCURSOR002_H_*/
+#endif /*MAGICMETERCURSOR003_H_*/
 

@@ -42,7 +42,7 @@ public:
      * 現在は GgafDxGeometricActor::processSettlementBehavior から毎フレームコールされている。<br>
      * もし processSettlementBehavior() を下位でオーバーライドする場合は気を付けるべし！<br>
      */
-    virtual void updateHitArea();
+    virtual void updateHitArea() override;
 
     /**
      * 当たり判定領域を作成する（＝当たり判定領域要素の配列を作成する） .

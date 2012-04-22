@@ -74,7 +74,6 @@ void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
     }
 }
 
-
 void LaserChip::onActive() {
     //出現時
     _chip_kind = 1;
@@ -86,8 +85,6 @@ void LaserChip::onActive() {
 void LaserChip::processSettlementBehavior() {
     //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
     //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
-
-
     if (_is_regist_hitarea) { //registHitAreaCubeメソッドによって登録された場合。
         if (_pChip_front != NULL) {
             int dX = _pChip_front->_X - _X;
@@ -257,7 +254,6 @@ void LaserChip::onInactive() {
 }
 
 void LaserChip::registHitAreaCube(int prm_edge_length) {
-    //_TRACE_("LaserChip::registHitAreaCube()st "<<getName()<<" bump="<<canHit());
     //下位レーザーチップでオーバーライトされている可能性あり
     _is_regist_hitarea = true;
     _hitarea_edge_length = prm_edge_length;
@@ -267,8 +263,6 @@ void LaserChip::registHitAreaCube(int prm_edge_length) {
     _pColliChecker->setColliAAB_Cube(1, prm_edge_length);
     _pColliChecker->disable(1);
     setHitAble(true);
-    //_TRACE_("LaserChip::registHitAreaCube()ed "<<getName()<<" bump="<<canHit());
-
 }
 
 LaserChip::~LaserChip() {

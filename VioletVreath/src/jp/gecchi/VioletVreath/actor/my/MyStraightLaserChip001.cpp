@@ -7,7 +7,7 @@ using namespace VioletVreath;
 
 
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
-        StraightLaserChip(prm_name, "MyOptionWateringLaserChip001", STATUS(MyStraightLaserChip001)) {
+        StraightLaserChip(prm_name, "MyStraightLaserChip001", STATUS(MyStraightLaserChip001)) {
     _class_name = "MyStraightLaserChip001";
     default_stamina_ = _pStatus->get(STAT_Stamina);
     _veloMv = 100000;
@@ -76,7 +76,6 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locatedBy(this);
-            pExplo001->activate();
         }
         sayonara();
     }

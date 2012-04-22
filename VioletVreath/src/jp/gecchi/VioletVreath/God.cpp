@@ -94,7 +94,7 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     GgafRepeatSeq::create("CH_explos3", 0, 3); //Vesta爆発
     GgafRepeatSeq::create("CH_humei10", 0, 1); //Lockon
     GgafRepeatSeq::create("CH_fire01", 0, 16); //自機ショット
-
+    GgafRepeatSeq::create("CH_torpedo", 0, 5); //ミサイル
 
 }
 

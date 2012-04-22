@@ -248,7 +248,7 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
     } else if (prm_draw_depth_level < 1) {
         draw_depth_level = 1;
     } else {
-        draw_depth_level = 1+prm_draw_depth_level;
+        draw_depth_level = prm_draw_depth_level;
     }
 
     if (_apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] == NULL) {

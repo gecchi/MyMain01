@@ -1,0 +1,9 @@
+xof 0303txt 0032
+
+SpriteDef MagicMeterCursor002 {
+   256.0;                      # FLOAT  Width
+   64.0;                       # FLOAT  Height
+   "MagicMeterCursor002.png";  # STRING TextureFile
+   4;                          # DWORD  TextureSplitRows
+   1;                          # DWORD  TextureSplitCols
+}

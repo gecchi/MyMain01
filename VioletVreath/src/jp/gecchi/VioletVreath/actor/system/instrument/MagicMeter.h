@@ -33,9 +33,18 @@ public:
     /** メータ主カーソル */
     MagicMeterCursor001* pMagicCursor_;
     /** 各魔法(配列)のレベルのカーソル */
-    MagicMeterCursor002** papLvCursor_;
-    /** 各魔法(配列)のレベルのカーソルが指しているレベル数 */
+    MagicMeterCursor002** papLvTargetCursor_;
+    /** 各魔法(配列)の現レベル強調表示用カーソル */
+    MagicMeterCursor003** papLvHilightCursor_;
+
+    /** 各魔法(配列)のレベルのカーソル(papLvTargetCursor_)が指しているレベル数 */
     int* paLv_cursor_point_;
+
+    /** [r]現在の各魔法(配列)のロールアップ表示状態(0.0:閉じている ～ 1.0:開いている) */
+    float* paFloat_rr_;
+    /** [r/w]各魔法(配列)のロールアップの速さ */
+    float* paFloat_velo_rr_;
+
 
     /** 魔法メーター１つの横幅(px) */
     float width_px_;
@@ -69,6 +78,10 @@ public:
     void onInactive() override;
 
     void processDraw() override;
+
+    void rollOpen(int prm_meter_index);
+
+    void rollClose(int prm_meter_index);
 
     virtual ~MagicMeter();
 };

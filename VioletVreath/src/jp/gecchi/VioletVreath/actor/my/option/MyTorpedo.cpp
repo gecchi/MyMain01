@@ -9,7 +9,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pOption
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
     pOptionTorpedoCtrlr_ = prm_pOptionTorpedoController;
-    length_TailEffect_ = 8;
+    length_TailEffect_ = 4;
 
     pTailEffectDepository_ = NEW LaserChipDepository("DP_TailEffect");
     pTailEffectDepository_->config(length_TailEffect_, 0, NULL);
@@ -48,12 +48,12 @@ void MyTorpedo::onActive() {
     _pKurokoA->setFaceAngVelo(AXIS_Y, D_ANG(5));
     _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(7));
     _pKurokoA->setMvVelo(20000);
-    _pKurokoA->setMvAcce(-1000);
+    _pKurokoA->setMvAcce(-500); //最初減速
     _pKurokoA->setRzMvAngVelo(0);
     _pKurokoA->setRyMvAngVelo(0);
     _pKurokoA->setRzMvAngAcce(0);
     _pKurokoA->setRyMvAngAcce(0);
-    _pKurokoA->forceMvVeloRange(200, 80000);
+    _pKurokoA->forceMvVeloRange(4000, 80000);
     _pKurokoA->forceRzMvAngVeloRange(-40000, 40000);
     _pKurokoA->forceRyMvAngVeloRange(-40000, 40000);
     _pKurokoA->stopTurnMvAngSequence();
@@ -85,8 +85,7 @@ void MyTorpedo::processBehavior() {
         }
         //魚雷のムーブ
         if (move_section_ == 0) {
-            if (_pKurokoA->_veloMv == _pKurokoA->_veloBottomMv) {
-                //減速終了
+            if (_pKurokoA->_veloMv == _pKurokoA->_veloBottomMv) { //減速終了
                 _pKurokoA->setMvAcce(500);
                 if (pTarget_) {
                     _pKurokoA->execTurnMvAngSequence(
@@ -95,9 +94,15 @@ void MyTorpedo::processBehavior() {
                                 TURN_ANTICLOSE_TO, false);
                 } else {
                     _pKurokoA->execTurnMvAngSequence(
-                                GgafDxUniverse::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                2000, 200,
-                                TURN_ANTICLOSE_TO, false);
+                                pOptionTorpedoCtrlr_->pOption_->_RZ,
+                                pOptionTorpedoCtrlr_->pOption_->_RY,
+                                1000, 100,
+                                TURN_CLOSE_TO, false);
+
+//                    _pKurokoA->execTurnMvAngSequence(
+//                                GgafDxUniverse::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
+//                                2000, 200,
+//                                TURN_ANTICLOSE_TO, false);
                 }
                 move_section_++;
             }
@@ -106,9 +111,9 @@ void MyTorpedo::processBehavior() {
         //ムーブ１
         if (move_section_ == 1) {
             if (_pKurokoA->isTurningMvAng()) {
-                //ターゲット完了を待つ
+                //TURN_ANTICLOSE_TOターゲット完了を待つ
             } else {
-                //ターゲット完了
+                //TURN_ANTICLOSE_TOターゲット完了
                 move_section_++;
             }
         }
@@ -130,10 +135,15 @@ void MyTorpedo::processBehavior() {
                             _pKurokoA->setRyMvAngAcce(0);
                         }
                     } else {
-                            _pKurokoA->execTurnMvAngSequence(
-                                        GgafDxUniverse::_X_goneRight, _Y, _Z,
-                                        1000, 200,
-                                        TURN_CLOSE_TO, false);
+                        _pKurokoA->execTurnMvAngSequence(
+                                    pOptionTorpedoCtrlr_->pOption_->_RZ,
+                                    pOptionTorpedoCtrlr_->pOption_->_RY,
+                                    1000, 200,
+                                    TURN_CLOSE_TO, false);
+//                            _pKurokoA->execTurnMvAngSequence(
+//                                        GgafDxUniverse::_X_goneRight, _Y, _Z,
+//                                        1000, 200,
+//                                        TURN_CLOSE_TO, false);
                     }
                 } else {
                    //
@@ -160,10 +170,16 @@ void MyTorpedo::processBehavior() {
                             _pKurokoA->setRyMvAngAcce(0);
                         }
                     } else {
-                            _pKurokoA->execTurnMvAngSequence(
-                                        GgafDxUniverse::_X_goneRight, _Y, _Z,
-                                        300, 0,
-                                        TURN_CLOSE_TO, false);
+                        _pKurokoA->execTurnMvAngSequence(
+                                    pOptionTorpedoCtrlr_->pOption_->_RZ,
+                                    pOptionTorpedoCtrlr_->pOption_->_RY,
+                                    300, 0,
+                                    TURN_CLOSE_TO, false);
+
+//                            _pKurokoA->execTurnMvAngSequence(
+//                                        GgafDxUniverse::_X_goneRight, _Y, _Z,
+//                                        300, 0,
+//                                        TURN_CLOSE_TO, false);
                     }
                 } else {
                    //

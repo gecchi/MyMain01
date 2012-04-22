@@ -22,7 +22,6 @@ namespace VioletVreath {
  */
 class CommonScene : public GgafLib::DefaultScene {
 
-
 public:
     /** 汎用爆発エフェクト用デポジトリ */
     GgafCore::GgafActorDepository* pDepo_EffectExplosion001_;

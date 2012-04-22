@@ -49,7 +49,7 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     pLaserChipDepo_ = NEW LaserChipDepository("ROTLaser");
     MyOptionWateringLaserChip001* pChip;
 //    MyOptionStraightLaserChip001* pChip;
-    for (int i = 0; i < 90; i++) { //レーザーストック
+    for (int i = 0; i < 80; i++) { //レーザーストック
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
@@ -64,7 +64,7 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
 
         pLaserChipDepo_->addSubLast(pChip);
     }
-    pLaserChipDepo_->config(90, 25, pEffect_LaserIrradiate_);
+    pLaserChipDepo_->config(80, 25, pEffect_LaserIrradiate_);
     addSubGroup(pLaserChipDepo_);
 
     pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
@@ -84,10 +84,10 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     pTorpedoCtrlr_ = NEW MyOptionTorpedoController("TorpedoController", this);
     addSubGroup(pTorpedoCtrlr_);
 
-    _pSeTransmitter->useSe(2);
+    _pSeTransmitter->useSe(3);
     _pSeTransmitter->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
     _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
-
+    _pSeTransmitter->set(2, "bse5", GgafRepeatSeq::nextVal("CH_torpedo"));
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     need_adjust_pos_flg_ = false;
 }

@@ -55,10 +55,7 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     }
 
     time_of_next_state_ = 0;
-
     is_working_ = false;
-    rr_ = 0.0f;
-    velo_rr_ = 0.0f;
 
     useProgress(MAGIC_STATE_ABANDONING);
     _pProg->set(MAGIC_STATE_NOTHING);
@@ -92,13 +89,6 @@ void Magic::load(stringstream& sts) {
             >> lvinfo_[lv].pno_;
     }
     effect(level_); //MAGIC_EFFECT_NOTHING‚¾‚©‚çOK‚ÆŽv‚¤
-}
-
-void Magic::rollOpen() {
-    velo_rr_ = 0.1;
-}
-void Magic::rollClose() {
-    velo_rr_ = -0.01;
 }
 
 int Magic::chkCastAble(int prm_new_level) {
@@ -274,15 +264,7 @@ void Magic::cancel() {
 }
 
 void Magic::processBehavior() {
-    rr_ += velo_rr_;
-    if (rr_ < 0.0f) {
-        rr_ = 0.0f;
-        velo_rr_ = 0.0f;
-    }
-    if (rr_ > 1.0f) {
-        rr_ = 1.0f;
-        velo_rr_ = 0.0f;
-    }
+
     if (is_working_) {
 
         switch (_pProg->get()) {

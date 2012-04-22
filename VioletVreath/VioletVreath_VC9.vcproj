@@ -690,6 +690,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor003.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterStatus.cpp"
 				>
 			</File>
@@ -1581,6 +1585,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor003.h"
 				>
 			</File>
 			<File

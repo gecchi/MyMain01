@@ -10,7 +10,7 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
             9,               //max_level
             1000    , 0.9,   //基本魔法コスト , 飛びレベル時の rate
             60*2    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
-            60*0.2  , 0.9,   //基本発動時間   , 飛びレベル時の rate
+            60*0.8  , 0.9,   //基本発動時間   , 飛びレベル時の rate
             60*60 *60   , 0.0,  //基本持続時間   , 各レベルの削減割合
             0.0     , 0.0    //基本維持コスト , 各レベル時の rate
         ) {
@@ -36,10 +36,10 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
     lvinfo_[3].pno_ = 53;
     lvinfo_[4].pno_ = 49;
     lvinfo_[5].pno_ = 45;
-    lvinfo_[6].pno_ = 49;
-    lvinfo_[7].pno_ = 45;
-    lvinfo_[8].pno_ = 41;
-    lvinfo_[9].pno_ = 37;
+    lvinfo_[6].pno_ = 41;
+    lvinfo_[7].pno_ = 37;
+    lvinfo_[8].pno_ = 33;
+    lvinfo_[9].pno_ = 29;
 
     papEffect_ = NEW GgafDxDrawableActor*[max_level_];
     for (int i = 0; i < max_level_; i++) {

@@ -145,10 +145,7 @@ public:
     magic_time time_of_next_state_;
     /** [r]レベルアップ中かどうか */
     bool is_working_;
-    /** [r]現在の各レベルのロールアップ表示状態(0.0:閉じている ～ 1.0:開いている) */
-    float rr_;
-    /** [r/w]ロールアップの速さ */
-    float velo_rr_;
+
 
 public:
 
@@ -205,17 +202,6 @@ public:
     void save(std::stringstream& sts);
 
     void load(std::stringstream& sts);
-
-    /**
-     * レベル表示ロールを開く .
-     */
-    void rollOpen();
-
-    /**
-     * レベル表示ロールを閉じる .
-     */
-    void rollClose();
-
 
     /**
      * 詠唱開始実行 .

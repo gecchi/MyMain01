@@ -28,6 +28,7 @@ Stage02::Stage02(const char* prm_name) : Stage(prm_name) {
 
 void Stage02::initialize() {
     Stage::initialize();
+    CmRandomNumberGenerator::getInstance()->changeSeed(P_MYSHIP->_Y);
 }
 
 void Stage02::processBehavior() {

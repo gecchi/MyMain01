@@ -186,7 +186,7 @@ Frame Plane03 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "MyWateringLaserChip001.png";
+     "MyOptionWateringLaserChip001.png";
     }
    }
   }

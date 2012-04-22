@@ -235,7 +235,6 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
             if (pExplo001) {
                 pExplo001->locatedBy(this);
-                pExplo001->activate();
             }
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
@@ -257,7 +256,6 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locatedBy(this);
-            pExplo001->activate();
         }
         sayonara();
     }

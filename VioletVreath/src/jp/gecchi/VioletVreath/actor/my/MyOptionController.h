@@ -8,8 +8,8 @@ namespace VioletVreath {
  * @since 2006/06/22
  * @author Masatoshi Tsuge
  */
-class MyOptionController : public GgafLib::DefaultMeshSetActor {
-//class MyOptionController : public GgafDxCore::GgafDxGeometricActor {
+//class MyOptionController : public GgafLib::DefaultMeshSetActor {
+class MyOptionController : public GgafDxCore::GgafDxGeometricActor {
 
 
     struct AngRzRy {

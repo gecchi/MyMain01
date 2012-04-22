@@ -41,10 +41,11 @@ void MagicMeterStatus::processDraw() {
 
         _X = pMagicMeter_->_X + PX_C(pMagicMeter_->width_px_)*(i+1); //i+1 は右隣に表示
         //各マジック要素
-        if (pMagic->rr_ > 0.1) {
+		float rr = pMagicMeter_->paFloat_rr_[i];
+        if (rr > 0.1) {
             for (int j = 1; j <= pMagic->level_; j++) {
-                setAlpha(pMagic->rr_);
-                _Y = pMagicMeter_->_Y - (PX_C(pMagicMeter_->height_px_)*(j+1)*pMagic->rr_); //j+1 の +1 は最下段が nothing の為
+                setAlpha(rr);
+                _Y = pMagicMeter_->_Y - (PX_C(pMagicMeter_->height_px_)*(j+1)*rr); //j+1 の +1 は最下段が nothing の為
                 sprintf(aBuf_, "%06d", (pMagic->lvinfo_[j].remainingtime_of_effect_)/60);
                 update(aBuf_);
                 StringBoardActor::processDraw();

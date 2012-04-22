@@ -68,32 +68,46 @@ void MyOptionTorpedoController::fire() {
     if (!in_firing_) {
         in_firing_ = true;
         int target_num = pOption_->pLockonCtrlr_->pRingTarget_->length();
-        firing_num_ = target_num == 0 ? 1 : target_num;
-                 // = MyOption::max_lockon_num_;
-                 // = target_num == 0 ? MyOption::max_lockon_num_ : target_num;
-        angle angBegin = D90ANG;
-        angle angRenge  = D360ANG / MyOptionController::now_option_num_;
-        angle angFireCenter = angBegin + (D360ANG*(pOption_->no_-1) / MyOptionController::now_option_num_);
-        angle out_rz,out_ry,out_dz,out_dy;
-        angle* paAng_way = NEW angle[ firing_num_+2];
-        GgafDxUtil::getWayAngle2D(angFireCenter, firing_num_+1, angRenge / firing_num_, paAng_way);
-        for (int i = 0; i < firing_num_; i++) { //—¼’[‚Ì•ûŒü‚Í•s—v
-            papTorpedo_[i]->locatedBy(P_MYSHIP);
+        firing_num_ = target_num < 4 ? 4 : target_num;
+        angle* paAng_way = NEW angle[firing_num_];
+        GgafDxUtil::getRadialAngle2D(D45ANG, firing_num_, paAng_way);
+        GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[firing_num_];
+        angle expanse_rz = (D180ANG - D_ANG(90))/2;   //”­ŽËÆŽËŠp“x90“x
+        coord r = PX_C(15);
+        D3DXMATRIX matWorldRot;
+        GgafDxUtil::setWorldMatrix_RzRy(GgafDxUtil::simplifyAng(pOption_->_RZ - D90ANG),
+                                        pOption_->_RY,
+                                        matWorldRot);
+        float vx, vy, vz;
+        coord X,Y,Z;
+        for (int i = 0; i < firing_num_; i++) {
+            GgafDxUtil::getNormalizeVectorZY(expanse_rz, paAng_way[i], vx, vy, vz);
+            X = vx * r;
+            Y = vy * r;
+            Z = vz * r;
+            paGeo[i]._X = X*matWorldRot._11 + Y*matWorldRot._21 + Z*matWorldRot._31;
+            paGeo[i]._Y = X*matWorldRot._12 + Y*matWorldRot._22 + Z*matWorldRot._32;
+            paGeo[i]._Z = X*matWorldRot._13 + Y*matWorldRot._23 + Z*matWorldRot._33;
+            GgafDxUtil::getRzRyAng(paGeo[i]._X , paGeo[i]._Y, paGeo[i]._Z,
+                                   paGeo[i]._RZ, paGeo[i]._RY);
+
+        }
+        for (int i = 0; i < firing_num_; i++) {
+            papTorpedo_[i]->locate(pOption_->_X + paGeo[i]._X,
+                                   pOption_->_Y + paGeo[i]._Y,
+                                   pOption_->_Z + paGeo[i]._Z);
             if (target_num == 0) {
                 papTorpedo_[i]->pTarget_ = NULL;
             } else {
                 papTorpedo_[i]->pTarget_ = pOption_->pLockonCtrlr_->pRingTarget_->getNext(i);
             }
-            papTorpedo_[i]->_pKurokoA->setRzRyMvAng(0, 0);
-            papTorpedo_[i]->_pKurokoA->getRzRyMvAngDistance(TURN_CLOSE_TO,
-                                                             paAng_way[i], D135ANG, //D135ANGŒã‚ëŽÎ‚ß‚S‚T“x
-                                                             out_dz, out_dy,
-                                                             out_rz, out_ry
-                                                            );
-            papTorpedo_[i]->_pKurokoA->setRzRyMvAng(out_rz, out_ry);
+            papTorpedo_[i]->_pKurokoA->setRzRyMvAng(paGeo[i]._RZ, paGeo[i]._RY);
             papTorpedo_[i]->activate();
         }
         DELETEARR_IMPOSSIBLE_NULL(paAng_way);
+        DELETEARR_IMPOSSIBLE_NULL(paGeo);
+        pOption_->_pSeTransmitter->play3D(2);
+
     }
 }
 

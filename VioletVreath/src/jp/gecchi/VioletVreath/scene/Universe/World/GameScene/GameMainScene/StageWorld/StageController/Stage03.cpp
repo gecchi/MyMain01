@@ -10,6 +10,7 @@ Stage03::Stage03(const char* prm_name) : Stage(prm_name) {
 }
 
 void Stage03::initialize() {
+    CmRandomNumberGenerator::getInstance()->changeSeed(P_MYSHIP->_Y);
 }
 
 void Stage03::processBehavior() {
