@@ -62,7 +62,7 @@ papOptionCtrlr_(NULL) {
     //z_ = 0.9999999f;
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter");
-    pMagicMeter_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f), 0.00000001f );
+    pMagicMeter_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f));
     getDirector()->addSubGroup(pMagicMeter_);
 
     zanki_ = 3;

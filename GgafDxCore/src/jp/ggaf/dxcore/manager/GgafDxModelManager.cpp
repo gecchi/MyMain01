@@ -1730,7 +1730,7 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreSpriteModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
+    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreSpriteModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
@@ -1901,7 +1901,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name) + ".sprx";
     }
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreSpriteSetModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
+    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreSpriteSetModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
@@ -2115,7 +2115,7 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreBoardModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
+    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreBoardModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
@@ -2256,7 +2256,7 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreBoardSetModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
+    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreBoardSetModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
@@ -2996,7 +2996,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
     hr = _pIDirectXFile_psprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restorePointSpriteModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
+    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restorePointSpriteModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};

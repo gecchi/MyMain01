@@ -402,8 +402,10 @@ class TestDepository;
 class MagicMeter;
 class MagicMeterStatus;
 class MagicMeterCursor001;
-class MagicMeterCursor002;
-class MagicMeterCursor003;
+class MagicLvCursor;
+class MagicLvCursor001;
+class MagicLvCursor002;
+class MagicLvCursor003;
 class EnagyBar;
 
 class Magic;
@@ -662,8 +664,10 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicMeterStatus.h"
 #include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicMeterCursor001.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicMeterCursor002.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicMeterCursor003.h"
+#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor.h"
+#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor001.h"
+#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor002.h"
+#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor003.h"
 #include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/EnagyBar.h"
 
 #include "jp/gecchi/VioletVreath/actor/system/magic/Magic.h"

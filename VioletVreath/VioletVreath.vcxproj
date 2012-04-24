@@ -260,9 +260,11 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedoTail.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnagyBar.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor003.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor001.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor002.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor003.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterStatus.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffecMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectSpeedMagic.cpp" />
@@ -485,9 +487,11 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\mytorpedotail.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\enagybar.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magiclvcursor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magiclvcursor001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magiclvcursor002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magiclvcursor003.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magicmetercursor001.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magicmetercursor002.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magicmetercursor003.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magicmeterstatus.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\effect\effectmagic001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\effect\effectspeedmagic.h" />

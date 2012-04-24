@@ -12,6 +12,7 @@ enum {
     SE_CURSOR_BAD_MOVE,
     SE_EXECUTE_LEVELUP_MAGIC   ,
     SE_EXECUTE_LEVELDOWN_MAGIC ,
+    SE_EXECUTE_BAD_LEVEL       ,
 };
 
 MagicMeter::MagicMeter(const char* prm_name)
@@ -24,7 +25,7 @@ MagicMeter::MagicMeter(const char* prm_name)
 
     _X = PX_C(100);
     _Y = PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - (height_px_*2));
-    _Z = 10;
+    _Z = 5;
 //    AmountGraph qu_;
 //    qu_.set(1.0);
 //    qu_.config(400.0, 1.0);
@@ -62,22 +63,36 @@ MagicMeter::MagicMeter(const char* prm_name)
     for (int i = 0; i < ringMagics_.length(); i++) {
         addSubGroup(ringMagics_.getNext(i));
     }
-    pMagicCursor_ = NEW MagicMeterCursor001("MagicCursor", this);
+
+    pMagicCursor_ = NEW MagicMeterCursor001("MagicCursor", this); //メータ主カーソル
+    pMagicCursor_->_Z = _Z - 3; //最も手前に表示したい
     addSubGroup(pMagicCursor_);
 
-    paLv_cursor_point_ = NEW int[ringMagics_.length()];
-    papLvTargetCursor_ = NEW MagicMeterCursor002*[ringMagics_.length()];
-    papLvHilightCursor_ = NEW MagicMeterCursor003*[ringMagics_.length()];
+    papLvTargetCursor_ = NEW MagicLvCursor001*[ringMagics_.length()];
+    papLvHilightCursor_ = NEW MagicLvCursor002*[ringMagics_.length()];
+    papLvCastMarkCursor_ = NEW MagicLvCursor003*[ringMagics_.length()];
     paFloat_rr_ = NEW float[ringMagics_.length()];
     paFloat_velo_rr_ = NEW float[ringMagics_.length()];
     Magic* pMagic;
     for (int i = 0; i < ringMagics_.length(); i++) {
         pMagic = ringMagics_.getFromFirst(i);
-        paLv_cursor_point_[i] = pMagic->level_;
-        papLvTargetCursor_[i] = NEW MagicMeterCursor002("LvTargetCursor", this, pMagic);
+//        paLv_cursor_point_[i] = pMagic->level_;
+
+        papLvTargetCursor_[i] = NEW MagicLvCursor001("LvTargetCursor", this, pMagic); //メータ副カーソル
+        papLvTargetCursor_[i]->_Z = _Z - 3;
+        papLvTargetCursor_[i]->setLv(pMagic->level_);
         addSubGroup(papLvTargetCursor_[i]);
 
-        papLvHilightCursor_[i] = NEW MagicMeterCursor003("LvHilightCursor", this, pMagic);
+        papLvHilightCursor_[i] = NEW MagicLvCursor002("LvHilightCursor", this, pMagic); //現レベル強調カーソル
+        papLvHilightCursor_[i]->_Z = _Z - 1;
+        papLvHilightCursor_[i]->setLv(pMagic->level_);
+        addSubGroup(papLvHilightCursor_[i]);
+
+        papLvCastMarkCursor_[i] = NEW MagicLvCursor003("LvCastMarkCursor_", this, pMagic); //詠唱レベル強調カーソル
+        papLvCastMarkCursor_[i]->_Z = _Z - 2;
+        papLvCastMarkCursor_[i]->setLv(0);
+        papLvCastMarkCursor_[i]->markOff();
+
         addSubGroup(papLvHilightCursor_[i]);
 
         paFloat_rr_[i] = 0.0f;
@@ -90,16 +105,17 @@ MagicMeter::MagicMeter(const char* prm_name)
 
     //エネルギーバー設置
     pEnagyBar_ = NEW EnagyBar("EnagyBar", &mp_);
-    pEnagyBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
+    pEnagyBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), _Z);
     addSubGroup(pEnagyBar_);
 
-    _pSeTransmitter->useSe(SE_EXECUTE_LEVELDOWN_MAGIC+1);
+    _pSeTransmitter->useSe(SE_EXECUTE_BAD_LEVEL+1);
     _pSeTransmitter->set(SE_CURSOR_MOVE_METER, "click07"); //メーター移動
     _pSeTransmitter->set(SE_CURSOR_MOVE_LEVEL, "G_EFC5");    //レベル移動
     _pSeTransmitter->set(SE_CURSOR_MOVE_LEVEL_CANCEL, "yume_ashi_022"); //レベル移動キャンセル
     _pSeTransmitter->set(SE_CURSOR_BAD_MOVE, "break_glass01"); //ダメな移動
     _pSeTransmitter->set(SE_EXECUTE_LEVELUP_MAGIC, "warp");      //レベルダウンアップ
     _pSeTransmitter->set(SE_EXECUTE_LEVELDOWN_MAGIC, "SwingA@11"); //レベルダウン実行
+    _pSeTransmitter->set(SE_EXECUTE_BAD_LEVEL , "yume_SUZU"); //ブブー
 }
 void MagicMeter::loadStatus(int prm_saveno) {
     st_[prm_saveno].seekg(stringstream::beg); //頭出し
@@ -150,14 +166,14 @@ void MagicMeter::processBehavior() {
         progress prg = pActiveMagic->_pProg->get();
         if (VB_PLAY->isAutoRepeat(VB_RIGHT)) {    //「→」押下時
             //レベル表示
-            if (paLv_cursor_point_[i] != pActiveMagic->level_) {
-                _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
-            }
+
             if (MAGIC_STATE_CASTING <= prg && prg <=  MAGIC_STATE_INVOKING) {
                 //詠唱～発動中は、アクティブレベルに戻さない
             } else {
-                paLv_cursor_point_[i] = pActiveMagic->level_; //実行されなかった為、アクティブレベルに戻す
-                papLvTargetCursor_[i]->moveToLv(paLv_cursor_point_[i]); //レベルカーソルもアクティブレベルに戻す
+                if (papLvTargetCursor_[i]->point_lv_ != pActiveMagic->level_) {
+                    _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                    papLvTargetCursor_[i]->moveTo(pActiveMagic->level_); //実行されなかった為、レベルカーソルもアクティブレベルに戻す
+                }
             }
             rollClose(i);
             //メータ表示
@@ -168,14 +184,14 @@ void MagicMeter::processBehavior() {
 
         } else if (VB_PLAY->isAutoRepeat(VB_LEFT)) { //「←」押下時
             //レベル表示
-            if (paLv_cursor_point_[i] != pActiveMagic->level_) {
-                _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
-            }
+
             if (MAGIC_STATE_CASTING <= prg && prg <=  MAGIC_STATE_INVOKING) {
                 //詠唱～発動中は、アクティブレベルに戻さない
             } else {
-                paLv_cursor_point_[i] = pActiveMagic->level_; //実行されなかった為、アクティブレベルに戻す
-                papLvTargetCursor_[i]->moveToLv(paLv_cursor_point_[i]); //レベルカーソルもアクティブレベルに戻す
+                if (papLvTargetCursor_[i]->point_lv_ != pActiveMagic->level_) {
+                    _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                    papLvTargetCursor_[i]->moveTo(pActiveMagic->level_); //実行されなかった為、レベルカーソルもアクティブレベルに戻す
+                }
             }
             rollClose(i);
             //メータ表示
@@ -185,50 +201,72 @@ void MagicMeter::processBehavior() {
             _pSeTransmitter->play(SE_CURSOR_MOVE_METER);
 
         } else if (VB_PLAY->isAutoRepeat(VB_UP) && prg != MAGIC_STATE_INVOKING) {  // 「↑」押下時
-            if (pActiveMagic->max_level_ > paLv_cursor_point_[i] ) {
+            if (pActiveMagic->max_level_ > papLvTargetCursor_[i]->point_lv_) {
                 _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL);
-                paLv_cursor_point_[i] ++;
-                papLvTargetCursor_[i]->moveToLv(paLv_cursor_point_[i]);
+                papLvTargetCursor_[i]->moveTo(papLvTargetCursor_[i]->point_lv_ + 1);
             }
 
         } else if (VB_PLAY->isAutoRepeat(VB_DOWN) && prg != MAGIC_STATE_INVOKING) {  //「↓」押下時
-            if (0 < paLv_cursor_point_[i]) {
+            if (0 < papLvTargetCursor_[i]->point_lv_) {
                 _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL);
-                paLv_cursor_point_[i] --;
-                papLvTargetCursor_[i]->moveToLv(paLv_cursor_point_[i]);
+                papLvTargetCursor_[i]->moveTo(papLvTargetCursor_[i]->point_lv_ - 1);
             }
         }
 
-    } else if (VB_PLAY->isReleasedUp(VB_POWERUP)) { //決定
 
-        Magic* pActiveMagic = ringMagics_.getCurrent();
-        progress prg = pActiveMagic->_pProg->get();
-        int i = ringMagics_.indexOf(pActiveMagic);
-        if (prg == MAGIC_STATE_INVOKING) {
-            _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
-            paLv_cursor_point_[i] = pActiveMagic->level_; //実行されなかった為、アクティブレベルに戻す
-            papLvTargetCursor_[i]->moveToLv(paLv_cursor_point_[i]); //レベルカーソルもアクティブレベルに戻す
+        if (VB_PLAY->isPushedDown(VB_SHOT1)) {
+//            Magic* pActiveMagic = ringMagics_.getCurrent();
+            progress prg = pActiveMagic->_pProg->get();
+            int i = ringMagics_.indexOf(pActiveMagic);
+            int r = pActiveMagic->cast(papLvTargetCursor_[i]->point_lv_);
 
-        } else {
-            if (pActiveMagic->level_ < paLv_cursor_point_[i]) {
-                _pSeTransmitter->play(SE_EXECUTE_LEVELUP_MAGIC);
-                pActiveMagic->cast(paLv_cursor_point_[i]); //レベルアップ魔法実行！
-                papLvTargetCursor_[i]->beginBlinking(); //ピカピカ！
-            } else if (pActiveMagic->level_ > paLv_cursor_point_[i]) {
-                _pSeTransmitter->play(SE_EXECUTE_LEVELDOWN_MAGIC);
-                pActiveMagic->cast(paLv_cursor_point_[i]);  //レベルダウン魔法実行！
-                papLvTargetCursor_[i]->beginBlinking(); //ピカピカ！
-            } else if (pActiveMagic->level_ == paLv_cursor_point_[i]) {
-                if (MAGIC_STATE_CASTING <= prg && prg < MAGIC_STATE_INVOKING) {
-                    //詠唱～発動前までの場合は、キャンセルを意味する。
-                } else {
-                    //同じレベル実行＝何もしない
+            switch (r) {
+                case MAGIC_CAST_NG_INVOKING_NOW: {
+                    _pSeTransmitter->play(SE_EXECUTE_BAD_LEVEL);
+                    break;
+                }
+                case MAGIC_CAST_NG_MP_IS_SHORT: {
+                    _pSeTransmitter->play(SE_EXECUTE_BAD_LEVEL);
+                    break;
+                }
+                case MAGIC_CAST_NOTHING: {
+                    break;
+                }
+                case MAGIC_CAST_CANCEL: {
+                    _pSeTransmitter->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                    papLvTargetCursor_[i]->beginBlinking(); //ピカピカ！
+                    break;
+                }
+                case MAGIC_CAST_OK_LEVELUP: {
+                    _pSeTransmitter->play(SE_EXECUTE_LEVELUP_MAGIC);
+                    papLvTargetCursor_[i]->beginBlinking(); //ピカピカ！
+                    break;
+                }
+                case MAGIC_CAST_OK_LEVELDOWN: {
+                    _pSeTransmitter->play(SE_EXECUTE_LEVELDOWN_MAGIC);
+                    papLvTargetCursor_[i]->beginBlinking(); //ピカピカ！
+                    break;
+                }
+                case MAGIC_CAST_OK_CANCEL_AND_LEVELUP: {
+                    _pSeTransmitter->play(SE_EXECUTE_LEVELUP_MAGIC);
+                    papLvTargetCursor_[i]->beginBlinking(); //ピカピカ！
+                    break;
+                }
+                case MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN: {
+                    _pSeTransmitter->play(SE_EXECUTE_LEVELDOWN_MAGIC);
+                    papLvTargetCursor_[i]->beginBlinking(); //ピカピカ！
+                    break;
                 }
             }
         }
-        rollClose(i);
+    } else  {
+        if (VB_PLAY->isReleasedUp(VB_POWERUP)) {
+            rollClose(ringMagics_.getCurrentIndex());
+        }
+
     }
 
+    //各魔法についての処理
     GgafProgress* pMagicProg = NULL;
     Magic* pMagic = NULL;
     for (int i = 0; i < ringMagics_.length(); i++) {
@@ -250,18 +288,27 @@ void MagicMeter::processBehavior() {
             papLvTargetCursor_[i]->disable();
             papLvHilightCursor_[i]->disable();
 
-//            papLvHilightCursor_[i]->moveToLv(pMagic->new_level_);
+            papLvTargetCursor_[i]->moveTo(pMagic->level_);
+            papLvHilightCursor_[i]->moveTo(pMagic->level_);
+//            papLvHilightCursor_[i]->moveTo(pMagic->new_level_);
 
         }
         if (pMagicProg->isJustChangedFrom(MAGIC_STATE_INVOKING)) {
             papLvTargetCursor_[i]->enable();
             papLvHilightCursor_[i]->enable();
-
         }
         if (pMagicProg->isJustChangedTo(MAGIC_STATE_EFFECT_BEGEIN)) {
-            //レベルアップ or レベルダウン成立
-            papLvTargetCursor_[i]->moveToLv(pMagic->level_);
-            papLvHilightCursor_[i]->moveToLv(pMagic->level_);
+            //レベルアップ or レベルダウン開始
+
+
+        }
+
+        if (pMagicProg->isJustChangedTo(MAGIC_STATE_CASTING)) {
+            papLvCastMarkCursor_[i]->markOn(pMagic->new_level_);
+
+        }
+        if (pMagicProg->isJustChangedFrom(MAGIC_STATE_CASTING)) {
+            papLvCastMarkCursor_[i]->markOff();
         }
 
     }
@@ -286,9 +333,6 @@ void MagicMeter::onInactive() {
 }
 
 void MagicMeter::processDraw() {
-
-
-
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     //GgafDxRectUV* pRectUV_Active;
     HRESULT hr;
@@ -311,7 +355,7 @@ void MagicMeter::processDraw() {
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[n], y) ;
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], 0.010f);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], z);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], _alpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
@@ -327,7 +371,7 @@ void MagicMeter::processDraw() {
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[n], y);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], 0.009f);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], z);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], _alpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
@@ -345,11 +389,19 @@ void MagicMeter::processDraw() {
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[n], y - (height_px_*(j+1)*paFloat_rr_[i]));
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], 0.015f+(0.001f*(j+1)));
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], z);
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], paFloat_rr_[i]); //アクティブなら濃いめ
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
-                _pUvFlipper->getUV(pMagic->lvinfo_[j].pno_, u, v);
+
+                if (pMagic->chkCastAble(j) <= MAGIC_CAST_NG_MP_IS_SHORT) {
+                    //MAGIC_CAST_NG_MP_IS_SHORT か MAGIC_CAST_NG_INVOKING_NOW
+                    //詠唱不可表示
+                    _pUvFlipper->getUV(pMagic->lvinfo_[j].pno_ + 1, u, v); //隣のパターンが DISABLE なパターン
+                } else {
+                    //詠唱可能表示
+                    _pUvFlipper->getUV(pMagic->lvinfo_[j].pno_, u, v);
+                }
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[n], u);
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetU_) に失敗しました。");
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[n], v);
@@ -357,21 +409,21 @@ void MagicMeter::processDraw() {
                 n++;
             }
 
-            //各マジックの現レベル強調表示
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[n], x + width_px_*i);
-            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[n], y - ((height_px_*(pMagic->level_+1))*paFloat_rr_[i]));
-            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], 0.012f);
-            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], paFloat_rr_[i]*2);
-            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
-            _pUvFlipper->getUV(1, u, v);
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[n], u);
-            checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetU_) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[n], v);
-            checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetV_) に失敗しました。");
-            n++;
+//            //各マジックの現レベル強調表示
+//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[n], x + width_px_*i);
+//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
+//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[n], y - ((height_px_*(pMagic->level_+1))*paFloat_rr_[i]));
+//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
+//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], z);
+//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
+//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], paFloat_rr_[i]*2);
+//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
+//            _pUvFlipper->getUV(1, u, v);
+//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[n], u);
+//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetU_) に失敗しました。");
+//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[n], v);
+//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetV_) に失敗しました。");
+//            n++;
         }
 
         _pBoardSetModel->draw(this, n);
@@ -388,7 +440,6 @@ void MagicMeter::rollClose(int prm_meter_index) {
 
 
 MagicMeter::~MagicMeter() {
-    DELETEARR_IMPOSSIBLE_NULL(paLv_cursor_point_);
     DELETEARR_IMPOSSIBLE_NULL(papLvTargetCursor_);
     DELETEARR_IMPOSSIBLE_NULL(papLvHilightCursor_);
     DELETEARR_IMPOSSIBLE_NULL(paFloat_rr_);

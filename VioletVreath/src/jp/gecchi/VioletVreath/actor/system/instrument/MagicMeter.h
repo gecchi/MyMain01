@@ -33,12 +33,11 @@ public:
     /** メータ主カーソル */
     MagicMeterCursor001* pMagicCursor_;
     /** 各魔法(配列)のレベルのカーソル */
-    MagicMeterCursor002** papLvTargetCursor_;
+    MagicLvCursor001** papLvTargetCursor_;
     /** 各魔法(配列)の現レベル強調表示用カーソル */
-    MagicMeterCursor003** papLvHilightCursor_;
-
-    /** 各魔法(配列)のレベルのカーソル(papLvTargetCursor_)が指しているレベル数 */
-    int* paLv_cursor_point_;
+    MagicLvCursor002** papLvHilightCursor_;
+    /** 各魔法(配列)の詠唱中レベル強調表示用カーソル */
+    MagicLvCursor003** papLvCastMarkCursor_;
 
     /** [r]現在の各魔法(配列)のロールアップ表示状態(0.0:閉じている ～ 1.0:開いている) */
     float* paFloat_rr_;

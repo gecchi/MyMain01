@@ -678,19 +678,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor003.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor001.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor002.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor003.cpp"
 				>
 			</File>
 			<File
@@ -1576,19 +1584,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor003.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter.h"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor001.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor002.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor003.h"
 				>
 			</File>
 			<File

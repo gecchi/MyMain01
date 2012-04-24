@@ -293,7 +293,14 @@ public:
     /**
      * そのレベルの魔法が詠唱実行できるか調べる
      * @param prm_new_level 詠唱するレベル
-     * @return
+     * @return MAGIC_CAST_NG_INVOKING_NOW          (-3)  現在発動中のた為、不可
+     *         MAGIC_CAST_NG_MP_IS_SHORT           (-2)  レベルアップ詠唱となるが、MPが足りないた為、不可
+     *         MAGIC_CAST_CANCEL                   (-1)  現在詠唱中で、引数のレベルは、現在のレベルと一致。つまり詠唱キャンセル指示になる。（可能・不可能で言えば可能）
+     *         MAGIC_CAST_NOTHING                  (0)   引数のレベルは、現在のレベルと一致。なにも指示してないことになる。（可能・不可能で言えば可能）
+     *         MAGIC_CAST_OK_LEVELUP               (1)   レベルアップ詠唱となる。MPが足りる為可能
+     *         MAGIC_CAST_OK_LEVELDOWN             (2)   レベルダウン詠唱となる。もちろん可能
+     *         MAGIC_CAST_OK_CANCEL_AND_LEVELUP    (3)   現在の詠唱をキャンセルしてのレベルアップ詠唱となる。MPが足りる為可能
+     *         MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN  (4)   現在の詠唱をキャンセルしてのレベルダウン詠唱となる。もちろん可能
      */
     int chkCastAble(int prm_new_level);
 
