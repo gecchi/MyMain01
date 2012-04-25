@@ -19,11 +19,17 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
                                    "MagicMeterに登録されていません。");
     }
     point_lv_ = 0;
-    setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
-    _Y = tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     tmp_Y_ = _Y;
 }
+
+void MagicLvCursor::initialize() {
+    setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    //MagicMeterの座標が定まってから行うこと
+    _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
+    _Y = tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+}
+
 void MagicLvCursor::processBehavior() {
     if (_pKurokoA->isMoveingSmooth() == false) {
         _X = tX_;
@@ -31,7 +37,7 @@ void MagicLvCursor::processBehavior() {
     }
     _pKurokoA->behave();
     _pUvFlipper->behave();
-    _pFader->behave();
+    //_pFader->behave();
 }
 void MagicLvCursor::processPreDraw() {
     setAlpha(pMagicMeter_->paFloat_rr_[magic_index_]);
@@ -46,7 +52,8 @@ void MagicLvCursor::processAfterDraw() {
 }
 void MagicLvCursor::setLv(int prm_lv) {
     point_lv_ = prm_lv;
-    _Y = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
+    tX_ = _X;
+    tY_ = _Y = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
 }
 void MagicLvCursor::moveTo(int prm_lv, int prm_target_frames, float prm_p1, float prm_p2) {
     //ロールのY座標を考慮せずにLVカーソル移動。processPreDraw()でロール分を補正する。

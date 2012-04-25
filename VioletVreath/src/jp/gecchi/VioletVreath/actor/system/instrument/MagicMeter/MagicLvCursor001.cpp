@@ -11,6 +11,7 @@ MagicLvCursor001::MagicLvCursor001(const char* prm_name, MagicMeter* prm_pMagicM
     _class_name = "MagicLvCursor001";
 }
 void MagicLvCursor001::initialize() {
+    MagicLvCursor::initialize();
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->forcePtnRange(0,2);
 }
@@ -35,7 +36,6 @@ void MagicLvCursor001::beginBlinking() {
 
 void MagicLvCursor001::stopBlinking() {
     _pFader->beat(8, 0, 4, 4, 1); //ピカピカ終了
-    setAlpha(pMagicMeter_->paFloat_rr_[magic_index_]);
 }
 
 MagicLvCursor001::~MagicLvCursor001() {

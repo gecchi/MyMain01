@@ -29,7 +29,7 @@ public:
     coord tmp_Y_;
 
     MagicLvCursor(const char* prm_name, const char* prm_model, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic);
-
+    virtual void initialize() override;
     virtual void processBehavior() override;
     virtual void processPreDraw() override;
     virtual void processAfterDraw() override;

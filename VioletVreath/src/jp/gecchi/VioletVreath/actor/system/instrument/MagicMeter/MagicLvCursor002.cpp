@@ -11,6 +11,7 @@ MagicLvCursor002::MagicLvCursor002(const char* prm_name, MagicMeter* prm_pMagicM
     _class_name = "MagicLvCursor002";
 }
 void MagicLvCursor002::initialize() {
+    MagicLvCursor::initialize();
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->forcePtnRange(0,2);
 }

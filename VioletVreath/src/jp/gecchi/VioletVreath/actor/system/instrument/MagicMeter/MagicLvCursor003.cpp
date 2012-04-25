@@ -7,7 +7,7 @@ using namespace VioletVreath;
 
 
 MagicLvCursor003::MagicLvCursor003(const char* prm_name, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic) :
-        MagicLvCursor(prm_name, "MagicLvCursor001", prm_pMagicMeter, prm_pMagic) {
+        MagicLvCursor(prm_name, "Cursor001", prm_pMagicMeter, prm_pMagic) {
     _class_name = "MagicLvCursor003";
     pMagicMeter_ = prm_pMagicMeter;
     pMagic_ = prm_pMagic;
@@ -19,6 +19,7 @@ MagicLvCursor003::MagicLvCursor003(const char* prm_name, MagicMeter* prm_pMagicM
 }
 
 void MagicLvCursor003::initialize() {
+    MagicLvCursor::initialize();
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->forcePtnRange(0,2);
 }

@@ -18,13 +18,13 @@ enum {
 MagicMeter::MagicMeter(const char* prm_name)
 : DefaultBoardSetActor(prm_name, "MagicMeter") {
     _class_name = "MagicMeter";
-    width_px_ = _pBoardSetModel->_fSize_BoardSetModelWidthPx + 1.0f;
-    height_px_ = _pBoardSetModel->_fSize_BoardSetModelHeightPx + 1.0f;
+    width_px_ = _pBoardSetModel->_fSize_BoardSetModelWidthPx;
+    height_px_ = _pBoardSetModel->_fSize_BoardSetModelHeightPx;
     width_ = PX_C(width_px_);
     height_ = PX_C(height_px_);
 
-    _X = PX_C(100);
-    _Y = PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - (height_px_*2));
+//    _X = PX_C(100);
+//    _Y = PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - (height_px_*2));
     _Z = 5;
 //    AmountGraph qu_;
 //    qu_.set(1.0);
@@ -93,7 +93,7 @@ MagicMeter::MagicMeter(const char* prm_name)
         papLvCastMarkCursor_[i]->setLv(0);
         papLvCastMarkCursor_[i]->markOff();
 
-        addSubGroup(papLvHilightCursor_[i]);
+        addSubGroup(papLvCastMarkCursor_[i]);
 
         paFloat_rr_[i] = 0.0f;
         paFloat_velo_rr_[i] = 0.0f;
