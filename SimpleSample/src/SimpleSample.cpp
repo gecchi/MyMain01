@@ -42,13 +42,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                         "SimpleSample[1]", "SimpleSample[2]", //タイトル文字列
                         hWnd1, hWnd2); //HWNDが代入されます(戻り値)
 
+    //ゲームループ
     MSG msg;
     try {
         //神の誕生
         SmpGod* pGod = new SmpGod(hInstance, hWnd1, hWnd2);
         pGod->init();
-        //ゲームループ
         timeBeginPeriod(1);
+        //ループ本体
         while (true) {
             if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
@@ -65,12 +66,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             } else {
-                //通常時は、次のようにひたすら be() メソッドをコールしてください。
+                //次のようにひたすら神の be() メソッドをコールしてください。
                 if (SmpGod::_can_be) {
                     pGod->be();
                 }
             }
         }
+
     } catch (std::exception& e2) {
         std::string what(e2.what());
         MessageBox(NULL, what.c_str(), "SimpleSample Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);

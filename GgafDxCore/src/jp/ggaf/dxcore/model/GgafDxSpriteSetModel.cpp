@@ -41,7 +41,11 @@ GgafDxSpriteSetModel::GgafDxSpriteSetModel(char* prm_model_name) : GgafDxModel(p
 //描画
 HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
     TRACE4("GgafDxSpriteSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-
+#ifdef MY_DEBUG
+    if (prm_draw_set_num > _set_num) {
+        _TRACE_("GgafDxSpriteSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
+    }
+#endif
     //対象Actor
     GgafDxSpriteSetActor* pTargetActor = (GgafDxSpriteSetActor*)prm_pActor_Target;
     //対象SpriteSetActorのエフェクトラッパ

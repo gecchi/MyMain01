@@ -30,7 +30,7 @@ void MagicLvCursor002::enable() {
     _pUvFlipper->setActivePtn(0);
 }
 void MagicLvCursor002::moveTo(int prm_lv) {
-    MagicLvCursor::moveTo(prm_lv, 60, 0.3f, 0.7f);
+    MagicLvCursor::moveTo(prm_lv, 90, 0.3f, 0.7f);
 }
 void MagicLvCursor002::beginBlinking() {
     //_pFader->beat(8, 0, 4, 4, -1); //ピカピカしっぱなし

@@ -6,7 +6,7 @@ using namespace GgafLib;
 
 string GgafLibProperties::DIR_SCENE_DATA = ".\\scene\\";
 string GgafLibProperties::DIR_SPLINE_DATA = ".\\spline\\";
-int GgafLibProperties::OCTREE_LEVEL = 5;
+int GgafLibProperties::OCTREE_LEVEL = 1;
 
 void GgafLibProperties::load(string prm_ini_filename) {
     GgafDxProperties::load(prm_ini_filename);

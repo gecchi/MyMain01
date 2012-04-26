@@ -7,7 +7,7 @@ using namespace VioletVreath;
 
 
 MagicMeterCursor001::MagicMeterCursor001(const char* prm_name, MagicMeter* prm_pMagicMeter) :
-        DefaultBoardActor(prm_name, "MagicMeter") {
+        DefaultBoardActor(prm_name, "Cursor001") {
     _class_name = "MagicMeterCursor001";
     pMagicMeter_ = prm_pMagicMeter;
 }

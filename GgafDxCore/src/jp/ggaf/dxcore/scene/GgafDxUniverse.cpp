@@ -257,12 +257,12 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
         _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] = prm_pActor;
         _apAlphaActorLastList_DrawDepthLevel[draw_depth_level] = prm_pActor;
     } else {
-        if (prm_pActor->_is2DActor) {
-            //前に追加
-            pActorTmp = _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level];
-            prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
-            _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] = prm_pActor;
-        } else {
+        //if (prm_pActor->_is2DActor) {
+        //    //前に追加
+        //    pActorTmp = _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level];
+        //    prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
+        //    _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] = prm_pActor;
+        //} else {
             //そのprm_draw_depth_levelで既にアクター登録済みだった場合
             //表示順が固定にならないように、お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
             //何故そんなことをするかというと、Zバッファ有りのテクスチャに透明があるオブジェクトや、半透明オブジェクトが交差した場合、
@@ -283,7 +283,7 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
                 prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
                 _apAlphaActorLastList_DrawDepthLevel[draw_depth_level] = prm_pActor;
             }
-        }
+        //}
     }
     return draw_depth_level;
 

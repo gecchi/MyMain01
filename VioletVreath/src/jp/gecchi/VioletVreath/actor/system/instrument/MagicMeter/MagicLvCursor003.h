@@ -25,8 +25,8 @@ public:
     void initialize() override;
 
     void markOff();
-    void markOn(int prm_lv);
-
+    void markOnLevelUp(int prm_lv);
+    void markOnLevelDown(int prm_lv);
     virtual ~MagicLvCursor003();
 };
 

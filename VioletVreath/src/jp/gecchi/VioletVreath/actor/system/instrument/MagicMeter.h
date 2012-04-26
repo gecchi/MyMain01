@@ -44,7 +44,6 @@ public:
     /** [r/w]各魔法(配列)のロールアップの速さ */
     float* paFloat_velo_rr_;
 
-
     /** 魔法メーター１つの横幅(px) */
     float width_px_;
     /** 魔法メーター１つの高さ(px) */

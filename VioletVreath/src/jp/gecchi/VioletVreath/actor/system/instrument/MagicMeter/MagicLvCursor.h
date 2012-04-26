@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * メーターカーソル基底 .
+ * メーターのレベルカーソル基底 .
  * @version 1.00
  * @since 2011/12/12
  * @author Masatoshi Tsuge

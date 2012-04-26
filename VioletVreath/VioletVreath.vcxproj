@@ -92,7 +92,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y $(MY_DEV_ROOT)\debug\VioletVreath.exe $(MY_DEV_ROOT)\VioletVreath</Command>
+      <Command>COPY /Y ..\debug\VioletVreath.exe ..\VioletVreath</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -104,19 +104,19 @@
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(MY_DEV_ROOT)\GgafLib\include;$(MY_DEV_ROOT)\GgafDxCore\include;$(MY_DEV_ROOT)\GgafCore\include;$(MY_DEV_ROOT)\CustomizeVorbis_static\include;$(MY_DEV_ROOT)\CustomizeOgg_static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Precise</FloatingPointModel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;CustomizeOgg_static.lib;CustomizeVorbis_static.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;d3dxof.lib;dxerr.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(MY_DEV_ROOT)\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -129,7 +129,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y $(MY_DEV_ROOT)\release\VioletVreath.exe $(MY_DEV_ROOT)\VioletVreath</Command>
+      <Command>COPY /Y ..\release\VioletVreath.exe ..\VioletVreath</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

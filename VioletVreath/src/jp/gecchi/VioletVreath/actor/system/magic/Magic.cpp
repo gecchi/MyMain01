@@ -154,7 +154,7 @@ int Magic::cast(int prm_new_level) {
         case MAGIC_CAST_OK_CANCEL_AND_LEVELUP: {
             is_working_ = true;
             new_level_ = prm_new_level;
-            _pProg->change(MAGIC_STATE_CASTING);
+            _pProg->change(MAGIC_STATE_CANCEL_CASTING);
             break;
         }
         case MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN: {
@@ -270,6 +270,13 @@ void Magic::processBehavior() {
         switch (_pProg->get()) {
             /////////////////////////////////////// ë“ã@
             case MAGIC_STATE_STAND_BY: {
+                break;
+            }
+
+            /////////////////////////////////////// çƒârè•
+            case MAGIC_STATE_CANCEL_CASTING: {
+                //MAGIC_STATE_CASTING ÇÃ _pProg->isJustChanged() ê¨óßÇÃÇΩÇﬂÇ…ë∂ç›ÅB
+                _pProg->change(MAGIC_STATE_CASTING);
                 break;
             }
             /////////////////////////////////////// ârè•
