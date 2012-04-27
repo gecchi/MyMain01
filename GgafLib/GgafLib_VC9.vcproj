@@ -52,7 +52,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="false"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(MY_DEV_ROOT)\PaulCoppensLib\include&quot;;&quot;$(MY_DEV_ROOT)\CustomizeOgg_static\include&quot;;&quot;$(MY_DEV_ROOT)\CustomizeVorbis_static\include&quot;;&quot;$(MY_DEV_ROOT)\GgafCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafDxCore\include&quot;"
+				AdditionalIncludeDirectories="&quot;..\PaulCoppensLib\include&quot;;&quot;..\CustomizeOgg_static\include&quot;;&quot;..\CustomizeVorbis_static\include&quot;;&quot;..\GgafCore\include&quot;;&quot;..\GgafDxCore\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -81,7 +81,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="&quot;$(MY_DEV_ROOT)\debug&quot;"
+				AdditionalLibraryDirectories="&quot;..\debug&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -131,7 +131,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="&quot;$(MY_DEV_ROOT)\PaulCoppensLib\include&quot;;&quot;$(MY_DEV_ROOT)\CustomizeOgg_static\include&quot;;&quot;$(MY_DEV_ROOT)\CustomizeVorbis_static\include&quot;;&quot;$(MY_DEV_ROOT)\GgafCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafDxCore\include&quot;"
+				AdditionalIncludeDirectories="&quot;..\PaulCoppensLib\include&quot;;&quot;..\CustomizeOgg_static\include&quot;;&quot;..\CustomizeVorbis_static\include&quot;;&quot;..\GgafCore\include&quot;;&quot;..\GgafDxCore\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
@@ -152,7 +152,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="$(MY_DEV_ROOT)\release"
+				AdditionalLibraryDirectories="..\release"
 			/>
 			<Tool
 				Name="VCALinkTool"

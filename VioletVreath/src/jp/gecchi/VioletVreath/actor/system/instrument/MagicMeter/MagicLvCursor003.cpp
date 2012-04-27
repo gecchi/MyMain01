@@ -33,7 +33,7 @@ void MagicLvCursor003::processPreDraw() {
     }
     //ここで、ロール分Y座標を補正（・・・ここはMagicLvCursor::processPreDraw()と同じ）
     tmp_Y_ = _Y; //退避
-    _Y += (pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
+    _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
     DefaultBoardSetActor::processPreDraw();
 }
 

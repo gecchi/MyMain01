@@ -53,7 +53,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="false"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="&quot;$(MY_DEV_ROOT)\CustomizeOgg_static\include&quot;;&quot;$(MY_DEV_ROOT)\CustomizeVorbis_static\include&quot;;&quot;$(MY_DEV_ROOT)\GgafCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafDxCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafLib\include&quot;"
+				AdditionalIncludeDirectories="&quot;..\CustomizeOgg_static\include&quot;;&quot;..\CustomizeVorbis_static\include&quot;;&quot;..\GgafCore\include&quot;;&quot;..\GgafDxCore\include&quot;;&quot;..\GgafLib\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -85,7 +85,7 @@
 				UseLibraryDependencyInputs="false"
 				AdditionalDependencies="GgafCore.lib GgafDxCore.lib GgafLib.lib CustomizeOgg_static.lib CustomizeVorbis_static.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(MY_DEV_ROOT)\debug"
+				AdditionalLibraryDirectories="..\debug"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				SubSystem="2"
@@ -116,7 +116,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="COPY /Y $(MY_DEV_ROOT)\debug\SimpleSample.exe $(MY_DEV_ROOT)\SimpleSample"
+				CommandLine="COPY /Y ..\debug\SimpleSample.exe ..\SimpleSample"
 			/>
 		</Configuration>
 		<Configuration
@@ -154,7 +154,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="&quot;$(MY_DEV_ROOT)\CustomizeOgg_static\include&quot;;&quot;$(MY_DEV_ROOT)\CustomizeVorbis_static\include&quot;;&quot;$(MY_DEV_ROOT)\GgafCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafDxCore\include&quot;;&quot;$(MY_DEV_ROOT)\GgafLib\include&quot;"
+				AdditionalIncludeDirectories="&quot;..\CustomizeOgg_static\include&quot;;&quot;..\CustomizeVorbis_static\include&quot;;&quot;..\GgafCore\include&quot;;&quot;..\GgafDxCore\include&quot;;&quot;..\GgafLib\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
@@ -177,7 +177,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="GgafCore.lib GgafDxCore.lib GgafLib.lib CustomizeOgg_static.lib CustomizeVorbis_static.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(MY_DEV_ROOT)\release"
+				AdditionalLibraryDirectories="..\release"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -209,7 +209,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="COPY /Y $(MY_DEV_ROOT)\release\SimpleSample.exe $(MY_DEV_ROOT)\SimpleSample"
+				CommandLine="COPY /Y ..\release\SimpleSample.exe ..\SimpleSample"
 			/>
 		</Configuration>
 	</Configurations>

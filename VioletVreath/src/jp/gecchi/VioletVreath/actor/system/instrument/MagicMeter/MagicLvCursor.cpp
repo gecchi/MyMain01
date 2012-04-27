@@ -50,9 +50,10 @@ void MagicLvCursor::processPreDraw() {
     }
     tmp_alpha_ = getAlpha();//退避
     setAlpha(alpha_r*tmp_alpha_);
+	    setAlpha(1);
     //ここで、ロール分Y座標を補正
     tmp_Y_ = _Y; //退避
-    _Y += (pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
+    _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
     DefaultBoardSetActor::processPreDraw();
 }
 
@@ -63,12 +64,15 @@ void MagicLvCursor::processAfterDraw() {
 }
 
 void MagicLvCursor::moveTo(int prm_lv) {
+    _pKurokoA->_smooth_mv_velo_seq_flg = false;
+    _pKurokoA->setMvVelo(0);
+    _pKurokoA->setMvAcce(0);
     point_lv_ = prm_lv;
     _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     _Y = tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
 }
 
-void MagicLvCursor::moveTo(int prm_lv, int prm_target_frames, float prm_p1, float prm_p2) {
+void MagicLvCursor::moveSmoothTo(int prm_lv, int prm_target_frames, float prm_p1, float prm_p2) {
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。
     point_lv_ = prm_lv;

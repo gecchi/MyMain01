@@ -24,7 +24,7 @@ public:
     void initialize() override;
 
 
-    void moveTo(int prm_lv);
+    void moveSmoothTo(int prm_lv);
 
     void dispDisable();
     void dispEnable();

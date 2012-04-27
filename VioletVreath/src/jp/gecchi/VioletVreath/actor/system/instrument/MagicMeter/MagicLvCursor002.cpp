@@ -16,22 +16,20 @@ void MagicLvCursor002::initialize() {
     _pUvFlipper->forcePtnRange(0,2);
 }
 
-
-
+void MagicLvCursor002::moveSmoothTo(int prm_lv) {
+    MagicLvCursor::moveSmoothTo(prm_lv, 10, 0.3f, 0.7f);
+}
 
 void MagicLvCursor002::dispDisable() {
     _pUvFlipper->forcePtnRange(3,3); //ロック表示
     _pUvFlipper->setActivePtn(3);
 }
 
-
 void MagicLvCursor002::dispEnable() {
     _pUvFlipper->forcePtnRange(0,2);
     _pUvFlipper->setActivePtn(0);
 }
-void MagicLvCursor002::moveTo(int prm_lv) {
-    MagicLvCursor::moveTo(prm_lv, 90, 0.3f, 0.7f);
-}
+
 void MagicLvCursor002::beginBlinking() {
     //_pFader->beat(8, 0, 4, 4, -1); //ピカピカしっぱなし
 }

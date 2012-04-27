@@ -16,14 +16,14 @@ void MagicLvCursor001::initialize() {
     _pUvFlipper->forcePtnRange(0,2);
 }
 
-void MagicLvCursor001::moveTo(int prm_lv) {
-    MagicLvCursor::moveTo(prm_lv, 10, 0.3f, 0.7f);
+void MagicLvCursor001::moveSmoothTo(int prm_lv) {
+    MagicLvCursor::moveSmoothTo(prm_lv, 10, 0.3f, 0.7f);
 }
+
 void MagicLvCursor001::dispDisable() {
     _pUvFlipper->forcePtnRange(3,3); //ƒƒbƒN•\Ž¦
     _pUvFlipper->setActivePtn(3);
 }
-
 
 void MagicLvCursor001::dispEnable() {
     _pUvFlipper->forcePtnRange(0,2);

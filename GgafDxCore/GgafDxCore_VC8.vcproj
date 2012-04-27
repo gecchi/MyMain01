@@ -48,7 +48,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="$(MY_DEV_ROOT)\CustomizeOgg_static\include;$(MY_DEV_ROOT)\CustomizeVorbis_static\include;$(MY_DEV_ROOT)\GgafCore\include"
+				AdditionalIncludeDirectories="..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
@@ -120,7 +120,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="$(MY_DEV_ROOT)\CustomizeOgg_static\include;$(MY_DEV_ROOT)\CustomizeVorbis_static\include;$(MY_DEV_ROOT)\GgafCore\include"
+				AdditionalIncludeDirectories="..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -142,7 +142,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="$(MY_DEV_ROOT)\release"
+				AdditionalLibraryDirectories="..\release"
 			/>
 			<Tool
 				Name="VCALinkTool"

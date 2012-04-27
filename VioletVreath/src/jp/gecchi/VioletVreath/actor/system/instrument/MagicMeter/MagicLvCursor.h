@@ -60,7 +60,7 @@ public:
      * @param prm_p1 トップスピードに達する時刻割合
      * @param prm_p2 減速を開始時刻となる時刻割合
      */
-    virtual void moveTo(int prm_lv, int prm_target_frames, float prm_p1, float prm_p2);
+    virtual void moveSmoothTo(int prm_lv, int prm_target_frames, float prm_p1, float prm_p2);
 
     virtual ~MagicLvCursor();
 };
