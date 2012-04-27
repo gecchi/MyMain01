@@ -122,7 +122,7 @@ void EnemyAstraea::processBehavior() {
                                                    TURN_COUNTERCLOCKWISE, false);
                 cnt_laserchip_ = 0;
             }
-            if (_pKurokoA->isTurningFaceAng()) {
+            if (_pKurokoA->isRunnigTurnFaceAngSequence()) {
                 //ƒ^[ƒ“’†
             } else {
                 //©‹@‚É‚ª‚¢‚½•ûŒü‚ÉU‚èŒü‚«‚ªŠ®—¹

@@ -110,7 +110,7 @@ void MyTorpedo::processBehavior() {
 
         //ムーブ１
         if (move_section_ == 1) {
-            if (_pKurokoA->isTurningMvAng()) {
+            if (_pKurokoA->isRunnigTurnMvAngSequence()) {
                 //TURN_ANTICLOSE_TOターゲット完了を待つ
             } else {
                 //TURN_ANTICLOSE_TOターゲット完了

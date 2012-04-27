@@ -26,11 +26,11 @@ public:
 
     void moveTo(int prm_lv);
 
-    void disable();
-    void enable();
+    void dispDisable();
+    void dispEnable();
 
     void beginBlinking();
-    void stopBlinking();
+    //void stopBlinking();
 
     virtual ~MagicLvCursor001();
 };

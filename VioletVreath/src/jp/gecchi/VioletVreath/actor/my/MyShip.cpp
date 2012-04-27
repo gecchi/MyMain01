@@ -528,7 +528,7 @@ void MyShip::processJudgement() {
 
     //ソフト連射
     //1プッシュで4F毎に最大3発
-    if (VB_PLAY->isPushedDown(VB_SHOT1)) {
+    if (VB_PLAY->isPushedDown(VB_SHOT1) && !VB_PLAY->isBeingPressed(VB_POWERUP)) {
         is_being_soft_rapidshot_ = true;
         if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL) {
             //SOFT_RAPIDSHOT_INTERVAL フレームより遅い場合

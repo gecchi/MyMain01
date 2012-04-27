@@ -94,6 +94,7 @@ void GgafDxUvFlipper::forcePtnRange(int prm_top, int prm_bottom) {
 void GgafDxUvFlipper::setFlipMethod(GgafDxUvFlippingMethod prm_method, int prm_interval) {
     _uvflip_method = prm_method;
     _uvflip_interval_frames = prm_interval;
+    _is_reverse_order_in_oscillate_animation_flg = false;
 }
 
 void GgafDxUvFlipper::behave() {
@@ -134,7 +135,6 @@ void GgafDxUvFlipper::behave() {
                 _uvflip_method = NOT_ANIMATED;
             }
         } else if (_uvflip_method == FLIP_OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
-            //TODO: 未検証（使う機会があればする）
             if (_is_reverse_order_in_oscillate_animation_flg) { //逆順序時
                 if (_pattno_uvflip_top < _pattno_uvflip_now) {
                     _pattno_uvflip_now--;

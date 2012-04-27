@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * 各魔法の詠唱中レベル強調表示カーソル .
+ * 各魔法の詠唱中発動中レベル強調表示カーソル .
  * @version 1.00
  * @since 2012/04/24
  * @author Masatoshi Tsuge
@@ -23,10 +23,12 @@ public:
     MagicLvCursor003(const char* prm_name, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic);
 
     void initialize() override;
+    void processPreDraw() override;
 
     void markOff();
-    void markOnLevelUp(int prm_lv);
-    void markOnLevelDown(int prm_lv);
+    void markOnLevelUpCast(int prm_lv);
+    void markOnLevelDownCast(int prm_lv);
+    void markOnInvoke(int prm_lv);
     virtual ~MagicLvCursor003();
 };
 

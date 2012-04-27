@@ -273,7 +273,7 @@ void Magic::processBehavior() {
                 break;
             }
 
-            /////////////////////////////////////// Ä‰r¥
+            /////////////////////////////////////// ‰r¥’†ƒLƒƒƒ“ƒZƒ‹Ä‰r¥
             case MAGIC_STATE_CANCEL_CASTING: {
                 //MAGIC_STATE_CASTING ‚Ì _pProg->isJustChanged() ¬—§‚Ì‚½‚ß‚É‘¶ÝB
                 _pProg->change(MAGIC_STATE_CASTING);

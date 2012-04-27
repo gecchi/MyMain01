@@ -262,6 +262,8 @@ void GgafDxKurokoA::behave() {
                 }
             }
         }
+    } else {
+        _smooth_mv_velo_seq_progress = -1;
     }
 
     if (_smooth_mv_velo_seq_flg) {
@@ -270,6 +272,8 @@ void GgafDxKurokoA::behave() {
         } else {
             _smooth_mv_velo_seq_frame_of_spent++;
         }
+    } else {
+
     }
 
     ///////////
@@ -861,8 +865,16 @@ void GgafDxKurokoA::execSmoothMvSequenceT(velo prm_top_velo, velo prm_end_velo,
 
 
 
-bool GgafDxKurokoA::isMoveingSmooth() {
+bool GgafDxKurokoA::isRunnigSmoothMvSequence() {
     return _smooth_mv_velo_seq_flg;
+}
+
+bool GgafDxKurokoA::isJustFinishSmoothMvSequence() {
+    if (_smooth_mv_velo_seq_flg == false && _smooth_mv_velo_seq_progress != -1) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 void GgafDxKurokoA::setRzMvAng(coord prm_tX, coord prm_tY) {
@@ -1410,9 +1422,11 @@ void GgafDxKurokoA::setMvAng(GgafDxGeometricActor* prm_pActor_Target) {
         prm_pActor_Target->_Z
     );
 }
+
 void GgafDxKurokoA::setMvAng(coord prm_tX, coord prm_tY) {
     setMvAng(prm_tX, prm_tY, _pActor->_Z);
 }
+
 void GgafDxKurokoA::setMvAng(coord prm_tX, coord prm_tY, coord prm_tZ) {
     GgafDxUtil::getRzRyAng(
                    prm_tX - _pActor->_X,

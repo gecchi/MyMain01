@@ -789,7 +789,7 @@ void MenuActor<T>::processBehavior() {
     //カーソルをメニューアイテムに追従
     if (_pCursor) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
-        if (_pCursor->_pKurokoA->isMoveingSmooth()) {
+        if (_pCursor->_pKurokoA->isRunnigSmoothMvSequence()) {
             _pCursor->_X += (pTargetItem->_X - _X_cursor_target_prev);
             _pCursor->_Y += (pTargetItem->_Y - _Y_cursor_target_prev);
             _pCursor->_Z += (pTargetItem->_Z - _Z_cursor_target_prev);

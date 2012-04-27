@@ -19,13 +19,13 @@ void MagicLvCursor002::initialize() {
 
 
 
-void MagicLvCursor002::disable() {
+void MagicLvCursor002::dispDisable() {
     _pUvFlipper->forcePtnRange(3,3); //ロック表示
     _pUvFlipper->setActivePtn(3);
 }
 
 
-void MagicLvCursor002::enable() {
+void MagicLvCursor002::dispEnable() {
     _pUvFlipper->forcePtnRange(0,2);
     _pUvFlipper->setActivePtn(0);
 }
@@ -36,10 +36,10 @@ void MagicLvCursor002::beginBlinking() {
     //_pFader->beat(8, 0, 4, 4, -1); //ピカピカしっぱなし
 }
 
-void MagicLvCursor002::stopBlinking() {
-    //_pFader->beat(8, 0, 4, 4, 1); //ピカピカ終了
-    setAlpha(pMagicMeter_->paFloat_rr_[magic_index_]);
-}
+//void MagicLvCursor002::stopBlinking() {
+//    //_pFader->beat(8, 0, 4, 4, 1); //ピカピカ終了
+//    setAlpha(pMagicMeter_->paFloat_rr_[magic_index_]);
+//}
 
 MagicLvCursor002::~MagicLvCursor002() {
 }

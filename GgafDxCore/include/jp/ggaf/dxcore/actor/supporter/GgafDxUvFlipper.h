@@ -240,9 +240,9 @@ public:
     void setActivePtnToTop();
 
     /**
-     * アニメーションパターンの範囲を制限する .
+     * 上限のアニメーションパターン、下限のアニメーションパターンを設定 .
      * @param prm_top 上限のアニメーションパターン番号(若い方の番号)
-     * @param prm_bottom 下限のアニメーションパターン番号(古い方の番号。若いの反対語ってないのか)
+     * @param prm_bottom 下限のアニメーションパターン番号(古い方の番号。若い番号の反対語って古い番号なのだろうか；)
      */
     void forcePtnRange(int prm_top, int prm_bottom);
 
@@ -258,6 +258,20 @@ public:
      * FLIP_REVERSE_NOLOOP : 5,4,3,2,1,0,0,0,0,0,0...
      * FLIP_OSCILLATE_LOOP : 0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
      * NOT_ANIMATED        : 3,3,3,3,3,3,3... （何もしない）
+     *
+     * ＜特殊な使い方＞
+     * 【例１】
+     * setActivePtn(0);
+     * forcePtnRange(3,5);
+     * setFlipMethod(FLIP_ORDER_LOOP); とした場合、
+     * パターン番号: 0,1,2,3,4,5,3,4,5,3,4,5,...
+     *
+     * 【例２】
+     * setActivePtn(5);
+     * forcePtnRange(0,3);
+     * setFlipMethod(FLIP_ORDER_LOOP); とした場合、
+     * パターン番号: 5,4,3,2,1,0,3,2,1,0,3,2,1,0,...
+     *
      * </pre>
      * @param prm_method アニメーション方法定数
      * @param prm_interval アニメーション間隔フレーム（default=1)

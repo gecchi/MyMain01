@@ -105,7 +105,7 @@ void MenuBoard::onRisen() {
 
 void MenuBoard::processBehavior() {
     DefaultBoardMenu::processBehavior();
-    if (_pKurokoA->isMoveingSmooth()) {
+    if (_pKurokoA->isRunnigSmoothMvSequence()) {
         //スライド中
     } else {
         //スライド終了時、目的の座標へ補正

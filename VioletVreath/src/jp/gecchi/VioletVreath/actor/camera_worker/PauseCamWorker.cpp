@@ -50,12 +50,12 @@ void PauseCamWorker::processBehavior() {
         } else {
             cd_ = cw;
         }
-        if (!pCam->_pKurokoA->isMoveingSmooth()) {
+        if (!pCam->_pKurokoA->isRunnigSmoothMvSequence()) {
             move_target_X_CAM_ = pCam->_X;
             move_target_Y_CAM_ = pCam->_Y;
             move_target_Z_CAM_ = pCam->_Z;
         }
-        if (!pVP->_pKurokoA->isMoveingSmooth()) {
+        if (!pVP->_pKurokoA->isRunnigSmoothMvSequence()) {
             //³Šm‚ÈVP‚ÉÄÝ’è
             pVP->_X = DX_C(pCam->_pVecCamLookatPoint->x);
             pVP->_Y = DX_C(pCam->_pVecCamLookatPoint->y);
@@ -211,12 +211,12 @@ void PauseCamWorker::processBehavior() {
         stop_renge_ = 60000;
         if (mdz_flg_ == false) {
             mdz_total_ = 0;
-            if (!pCam->_pKurokoA->isMoveingSmooth()) {
+            if (!pCam->_pKurokoA->isRunnigSmoothMvSequence()) {
                 move_target_X_CAM_ = pCam->_X;
                 move_target_Y_CAM_ = pCam->_Y;
                 move_target_Z_CAM_ = pCam->_Z;
             }
-            if (!pVP->_pKurokoA->isMoveingSmooth()) {
+            if (!pVP->_pKurokoA->isRunnigSmoothMvSequence()) {
                 pVP->_X = DX_C(pCam->_pVecCamLookatPoint->x);
                 pVP->_Y = DX_C(pCam->_pVecCamLookatPoint->y);
                 pVP->_Z = DX_C(pCam->_pVecCamLookatPoint->z);

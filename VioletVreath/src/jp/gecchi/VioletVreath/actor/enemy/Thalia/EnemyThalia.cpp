@@ -81,7 +81,7 @@ void EnemyThalia::processBehavior() {
 
     switch (_pProg->get()) {
         case THALIA_PROG_MOVE: {
-            if (!_pKurokoA->isMoveingSmooth()) {
+            if (!_pKurokoA->isRunnigSmoothMvSequence()) {
                 _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //ŠJ‚­ 0.0004 ŠJ‚­‘¬‚³
                 _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                  0, 100,

@@ -25,26 +25,44 @@ void MagicLvCursor003::initialize() {
     _pUvFlipper->setFlipMethod(NOT_ANIMATED);
 }
 
-void MagicLvCursor003::markOff() {
-    _pUvFlipper->forcePtnRange(0,3);
-    _pUvFlipper->setActivePtn(3);
-    _pUvFlipper->setFlipMethod(NOT_ANIMATED);
+void MagicLvCursor003::processPreDraw() {
+    //"CASTING" はロールが閉じても消さないようにする。
+    tmp_alpha_ = getAlpha();
+    if (_pUvFlipper->_uvflip_method == NOT_ANIMATED) {
+        setAlpha(0);
+    }
+    //ここで、ロール分Y座標を補正（・・・ここはMagicLvCursor::processPreDraw()と同じ）
+    tmp_Y_ = _Y; //退避
+    _Y += (pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
+    DefaultBoardSetActor::processPreDraw();
 }
 
-void MagicLvCursor003::markOnLevelUp(int prm_lv) {
-    setLv(prm_lv);
-    _pUvFlipper->forcePtnRange(0,2);
+void MagicLvCursor003::markOff() {
+    setAlpha(0);
+}
+
+void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
+    setAlpha(1);
+    moveTo(prm_lv);
+    _pUvFlipper->forcePtnRange(0,3);
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 3);
 }
-void MagicLvCursor003::markOnLevelDown(int prm_lv) {
-    setLv(prm_lv);
+
+void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
+    setAlpha(1);
+    moveTo(prm_lv);
     _pUvFlipper->forcePtnRange(0,3);
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 3);
 }
 
-
+void MagicLvCursor003::markOnInvoke(int prm_lv) {
+    moveTo(prm_lv);
+    _pUvFlipper->forcePtnRange(4,7);
+    _pUvFlipper->setActivePtn(4);
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 3);
+}
 
 MagicLvCursor003::~MagicLvCursor003() {
 }

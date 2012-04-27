@@ -18,6 +18,7 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
     }
     point_lv_ = 0;
     tmp_Y_ = _Y;
+    tmp_alpha_ = getAlpha();
 }
 
 void MagicLvCursor::initialize() {
@@ -29,44 +30,49 @@ void MagicLvCursor::initialize() {
 }
 
 void MagicLvCursor::processBehavior() {
-    if (_pKurokoA->isMoveingSmooth() == false) {
+
+    if (_pKurokoA->isJustFinishSmoothMvSequence()) {
+        //理想位置に補正
         _X = tX_;
         _Y = tY_;
     }
     _pKurokoA->behave();
     _pUvFlipper->behave();
-    //_pFader->behave();
+    _pFader->behave();
 }
 void MagicLvCursor::processPreDraw() {
     //カーソル関連は
     //少し早めに薄くなる（消える）ようにした
-    float alpha = pMagicMeter_->paFloat_rr_[magic_index_] * 2 - 1.0f;
-    if (alpha < 0.0f) {
-        setAlpha(0.0f);
-    } else {
-        setAlpha(alpha);
+    //基本は_pFader、描画時のみロール同期の半透明を考慮
+    float alpha_r = pMagicMeter_->paFloat_rr_[magic_index_] * 2 - 1.0f;
+    if (alpha_r < 0.0f) {
+        alpha_r = 0.0f;
     }
-    setAlpha(1);
-
+    tmp_alpha_ = getAlpha();//退避
+    setAlpha(alpha_r*tmp_alpha_);
     //ここで、ロール分Y座標を補正
     tmp_Y_ = _Y; //退避
     _Y += (pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
     DefaultBoardSetActor::processPreDraw();
 }
+
 void MagicLvCursor::processAfterDraw() {
     DefaultBoardSetActor::processAfterDraw();
     _Y = tmp_Y_; //復帰
+    setAlpha(tmp_alpha_); //復帰
 }
-void MagicLvCursor::setLv(int prm_lv) {
+
+void MagicLvCursor::moveTo(int prm_lv) {
     point_lv_ = prm_lv;
-    tX_ = _X;
-    tY_ = _Y = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
+    _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
+    _Y = tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
 }
+
 void MagicLvCursor::moveTo(int prm_lv, int prm_target_frames, float prm_p1, float prm_p2) {
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。
     point_lv_ = prm_lv;
-    tX_ = _X;
+    tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pKurokoA->setMvAng(tX_, tY_);
     _pKurokoA->execSmoothMvSequence(0, GgafDxUtil::getDistance(_X, _Y, tX_, tY_),

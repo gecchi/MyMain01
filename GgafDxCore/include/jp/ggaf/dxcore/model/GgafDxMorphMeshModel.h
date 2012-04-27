@@ -26,17 +26,17 @@ namespace GgafDxCore {
  * <tr>
  * <td>"M/2/ball"</td>
  * <td>ball_0.x</td>
- * <td>ball_1.x<BR>ball_2.x</td>
+ * <td>ball_1.x, ball_2.x</td>
  * </tr>
  * <tr>
  * <td>"M/3/ball"</td>
  * <td>ball_0.x</td>
- * <td>ball_1.x<BR>ball_2.x<BR>ball_3.x</td>
+ * <td>ball_1.x, ball_2.x, ball_3.x</td>
  * </tr>
  * <tr>
  * <td>"M/6/ball"</td>
  * <td>ball_0.x</td>
- * <td>ball_1.x<BR>ball_2.x<BR>ball_3.x<BR>・・・<BR>ball_6.x</td>
+ * <td>ball_1.x, ball_2.x, ball_3.x,・・・ball_6.x</td>
  * </tr>
  * </table>
  * @version 1.00

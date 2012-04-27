@@ -597,9 +597,9 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 目標座標点を座標指定で移動方角(RzRy)を設定。.
      * 方向ベクトル正規化も内部で行なう。
-     * @param prm_tX
-     * @param prm_tY
-     * @param prm_tZ
+     * @param prm_tX 目標X座標
+     * @param prm_tY 目標Y座標
+     * @param prm_tZ 目標Z座標
      */
     void setMvAng(coord prm_tX, coord prm_tY, coord prm_tZ);
 
@@ -611,11 +611,11 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
     void setMvAng(GgafDxGeometricActor* prm_pActor_Target);
 
     /**
-     * 目標座標点を座標指定で移動方角(Rz)を設定。.
+     * 目標座標点を座標指定で移動方角(RzRy)を設定。.
+     * 但し奥行き(Z座標は)無視して計算を行う。
      * 方向ベクトル正規化も内部で行なう。
-     * 但しZ座標は無視して計算を行う。
-     * @param prm_tX
-     * @param prm_tY
+     * @param prm_tX 目標X座標
+     * @param prm_tY 目標Y座標
      */
     void setMvAng(coord prm_tX, coord prm_tY);
 
@@ -875,7 +875,7 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      * 目標軸回転方角にターゲットするシークエンスが実行中か .
      * @return true:実行中/false:実行中でない
      */
-    bool isTurningFaceAng() {
+    bool isRunnigTurnFaceAngSequence() {
         if (_face_ang_targeting_flg[AXIS_X] ||
             _face_ang_targeting_flg[AXIS_Y] ||
             _face_ang_targeting_flg[AXIS_Z]) {
@@ -889,7 +889,7 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      * 目標移動方角にターゲットするシークエンスが実行中か .
      * @return true:実行中/false:実行中でない
      */
-    bool isTurningMvAng() {
+    bool isRunnigTurnMvAngSequence() {
         if (_mv_ang_rz_target_flg || _mv_ang_rz_target_flg) {
             return true;
         } else {
@@ -1035,8 +1035,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
 
 //    void execSmoothMvSequence4(velo prm_end_velo, coord prm_target_distance, int prm_target_frames,
 //                                   bool prm_endacc_flg = true);
-    bool isMoveingSmooth();
-
+    bool isRunnigSmoothMvSequence();
+    bool isJustFinishSmoothMvSequence();
 
     /**
      * 黒子Aの仕事を引継ぐ .
