@@ -280,6 +280,7 @@
     //#define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
     #define _TEXT_(X)
     #define _TRACEORE(X)
+    //#define _TRACEORE(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
 
     //ƒƒ‚ƒŠ‰ğ•ú—pƒ}ƒNƒ
     /** NULL‚©‚à‚µ‚ê‚È‚¢ delete */

@@ -195,10 +195,7 @@ void GgafGod::makeUniversalMaterialize() {
     _num_actor_drawing = 0;
     _pUniverse->preDraw();
     _pUniverse->draw();
-#ifdef MY_DEBUG
-    //afterDraw() はデバッグ時の当たり判定領域表示に使用されている。
     _pUniverse->afterDraw();
-#endif
 }
 
 void GgafGod::presentUniversalVisualize() {

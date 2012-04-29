@@ -50,7 +50,6 @@ void MagicLvCursor::processPreDraw() {
     }
     tmp_alpha_ = getAlpha();//‘Þ”ð
     setAlpha(alpha_r*tmp_alpha_);
-	    setAlpha(1);
     //‚±‚±‚ÅAƒ[ƒ‹•ªYÀ•W‚ð•â³
     tmp_Y_ = _Y; //‘Þ”ð
     _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
