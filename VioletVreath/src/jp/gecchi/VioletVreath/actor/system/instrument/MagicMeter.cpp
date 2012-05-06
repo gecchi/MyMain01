@@ -295,6 +295,7 @@ void MagicMeter::processBehavior() {
         }
 
 
+
         if (pMagicProg->isJustChangedTo(MAGIC_STATE_INVOKING)) {
             papLvTargetCursor_[i]->dispDisable();
             papLvHilightCursor_[i]->dispDisable();
@@ -306,13 +307,14 @@ void MagicMeter::processBehavior() {
             papLvHilightCursor_[i]->moveSmoothTo(pMagic->new_level_);
             papLvCastMarkCursor_[i]->markOnInvoke(pMagic->new_level_);
         }
+
         if (pMagicProg->isJustChangedFrom(MAGIC_STATE_INVOKING)) {
             papLvTargetCursor_[i]->dispEnable();
             papLvHilightCursor_[i]->dispEnable();
         }
 
 
-        if (pMagicProg->isJustChangedTo(MAGIC_STATE_EFFECT_BEGEIN)) {
+        if (pMagicProg->isJustChangedTo(MAGIC_STATE_EFFECTING)) {
             if (pMagic->last_level_ < pMagic->level_) {
                 //レベルアップEFFECT_BEGEINだったならば
                 papLvCastMarkCursor_[i]->markOff(); //マークオフ！
@@ -322,6 +324,22 @@ void MagicMeter::processBehavior() {
             }
         }
 
+
+        if (pMagic->prev_frame_level_ != pMagic->level_) {
+            if (papLvTargetCursor_[i]->point_lv_ == pMagic->prev_frame_level_) {
+                papLvTargetCursor_[i]->moveSmoothTo(pMagic->level_);
+            }
+            papLvHilightCursor_[i]->moveSmoothTo(pMagic->level_);
+        }
+//        if (pMagicProg->isJustChangedFrom(MAGIC_STATE_EFFECTING)) {
+//            if (papLvTargetCursor_[i]->point_lv_ == pMagic->last_level_) {
+//                //現レベルを指している場合
+//                //新しいレベルにこっそり動かしてあげる。
+//                papLvTargetCursor_[i]->moveSmoothTo(pMagic->level_);
+//            }
+//            papLvHilightCursor_[i]->moveSmoothTo(pMagic->level_);
+//            papLvCastMarkCursor_[i]->markOnInvoke(pMagic->level_);
+//        }
     }
 
 

@@ -48,7 +48,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include"
+				AdditionalIncludeDirectories=".;..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="false"
 				ExceptionHandling="2"
@@ -139,7 +139,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include"
+				AdditionalIncludeDirectories=".;..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -664,15 +664,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor003.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor001.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor002.cpp"
 				>
 			</File>
 			<File
@@ -841,6 +853,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Blue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Yellow.cpp"
 				>
 			</File>
 			<File
@@ -1040,8 +1060,26 @@
 				>
 			</File>
 			<File
-				RelativePath=".\VioletVreath.cpp"
+				RelativePath=".\src\VioletVreath.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.cpp"
@@ -1550,15 +1588,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor003.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter.h"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor001.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor002.h"
 				>
 			</File>
 			<File
@@ -1731,6 +1781,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Blue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Yellow.h"
 				>
 			</File>
 			<File

@@ -31,7 +31,6 @@ enum {
     MAGIC_STATE_CANCEL_CASTING,
     MAGIC_STATE_CASTING    ,
     MAGIC_STATE_INVOKING   ,
-    MAGIC_STATE_EFFECT_BEGEIN,
     MAGIC_STATE_EFFECTING  ,
     MAGIC_STATE_ABANDONING ,
 };
@@ -104,7 +103,8 @@ public:
     int new_level_;
     /** [r]前回のレベル */
     int last_level_;
-
+    /** [r]１フレーム前のレベル */
+    int prev_frame_level_;
 
     /** [r]マジックポイント数量バー */
     GgafLib::AmountGraph* pMP_;
