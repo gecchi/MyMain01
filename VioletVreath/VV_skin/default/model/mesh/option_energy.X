@@ -3069,7 +3069,7 @@ Frame GeoSphere04 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "option_enagy.png";
+     "option_energy.png";
     }
    }
   }

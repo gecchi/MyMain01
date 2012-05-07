@@ -1,0 +1,9 @@
+xof 0303txt 0032
+
+SpriteDef CostDispBar {
+   32.0;
+   32.0;
+   "CostDispBar.png";
+   2;
+   2;
+} 

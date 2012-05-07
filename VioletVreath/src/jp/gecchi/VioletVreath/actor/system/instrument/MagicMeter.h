@@ -23,10 +23,16 @@ public:
     D3DXHANDLE h_active_magic_;
     /** MP */
     GgafLib::AmountGraph mp_;
+
+    /** COST */
+    GgafLib::AmountGraph cost_disp_;
+
     /** 残魔法効果持続時間表示 */
     MagicMeterStatus* pMagicMeterStatus_;
     /** エネルギーバー */
-    EnagyBar* pEnagyBar_;
+    EnergyBar* pEnergyBar_;
+    /** コスト表示バー */
+    CostDispBar* pCostDispBar_;
     /** 魔法リスト */
     GgafCore::GgafLinkedListRing<Magic> ringMagics_;
 
@@ -37,7 +43,7 @@ public:
     /** 各魔法(配列)の現レベル強調表示用カーソル */
     MagicLvCursor002** papLvHilightCursor_;
     /** 各魔法(配列)の詠唱中レベル強調表示用カーソル */
-    MagicLvCursor003** papLvCastMarkCursor_;
+    MagicLvCursor003** papLvCastingMarkCursor_;
 
     /** [r]現在の各魔法(配列)のロールアップ表示状態(0.0:閉じている ～ 1.0:開いている) */
     float* paFloat_rr_;

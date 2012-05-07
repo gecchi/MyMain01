@@ -242,6 +242,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\CostDispBar.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.cpp"
 				>
 			</File>
@@ -386,10 +390,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnagyBar.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraea.cpp"
 				>
 			</File>
@@ -475,6 +475,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyWateringLaserChip001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnergyBar.cpp"
 				>
 			</File>
 			<File
@@ -1144,6 +1148,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\CostDispBar.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.h"
 				>
 			</File>
@@ -1288,10 +1296,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnagyBar.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraea.h"
 				>
 			</File>
@@ -1377,6 +1381,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyWateringLaserChip001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnergyBar.h"
 				>
 			</File>
 			<File

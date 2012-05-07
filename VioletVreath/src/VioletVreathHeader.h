@@ -406,7 +406,8 @@ class MagicLvCursor;
 class MagicLvCursor001;
 class MagicLvCursor002;
 class MagicLvCursor003;
-class EnagyBar;
+class EnergyBar;
+class CostDispBar;
 
 class Magic;
 class OptionMagic;
@@ -668,8 +669,8 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor001.h"
 #include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor002.h"
 #include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor003.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/EnagyBar.h"
-
+#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/EnergyBar.h"
+#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/CostDispBar.h"
 #include "jp/gecchi/VioletVreath/actor/system/magic/Magic.h"
 #include "jp/gecchi/VioletVreath/actor/system/magic/OptionMagic.h"
 #include "jp/gecchi/VioletVreath/actor/system/magic/LaserMagic.h"

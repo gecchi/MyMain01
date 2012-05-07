@@ -324,6 +324,17 @@ public:
      */
     virtual void cancel();
 
+    /**
+     * ダウンレベル実行時の還元MPを計算して返す .
+     * 基本コストの60%還元。
+     * 但し残効果持続の割合を乗ずる。
+     * 早くレベルダウンしたほうがお得にするため。
+     * @param prm_now_level 現在のレベル
+     * @param prm_target_down_level ダウンレベル
+     * @return
+     */
+    int calcReduceMp(int prm_now_level, int prm_target_down_level);
+
     virtual ~Magic();
 };
 

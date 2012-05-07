@@ -1,13 +1,13 @@
-#ifndef ENAGYBAR_H_
-#define ENAGYBAR_H_
+#ifndef COSTDISPBAR_H_
+#define COSTDISPBAR_H_
 namespace VioletVreath {
 
-class EnagyBar : public GgafLib::DefaultBoardActor {
+class CostDispBar : public GgafLib::DefaultBoardActor {
 
 public:
     /** 内容量 */
-    GgafLib::AmountGraph* pAmount_;
-
+    EnergyBar* pEnergyBar_;
+    GgafLib::AmountGraph* pCostDisp_;
     float _fSize_BoardModelWidthPx;
 
     /**
@@ -15,7 +15,7 @@ public:
      * @param prm_name
      * @param prm_pAmount config済みの AmountGraphオブジェクトの参照
      */
-    EnagyBar(const char* prm_name, GgafLib::AmountGraph* prm_pAmount);
+    CostDispBar(const char* prm_name, EnergyBar* prm_pEnergyBar, GgafLib::AmountGraph* prm_pCostDisp);
 
     void initialize() override;
 
@@ -32,9 +32,9 @@ public:
     void addVal(double prm_val);
 
 
-    virtual ~EnagyBar();
+    virtual ~CostDispBar();
 };
 
 }
-#endif /*ENAGYBAR_H_*/
+#endif /*ENERGYBAR_H_*/
 

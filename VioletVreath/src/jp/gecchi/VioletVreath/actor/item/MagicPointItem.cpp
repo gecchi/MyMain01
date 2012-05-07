@@ -129,7 +129,7 @@ void MagicPointItem::processBehavior() {
             _pProg->change(ITEM_PROG_NOTIONG);
             sayonara(); //I—¹
         }
-        P_MYSHIP_SCENE->pMagicMeter_->pEnagyBar_->pAmount_->inc(1);
+        P_MYSHIP_SCENE->pMagicMeter_->pEnergyBar_->pAmount_->inc(1);
     }
     _pKurokoA->behave();
     _pKurokoB->behave();

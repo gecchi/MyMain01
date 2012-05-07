@@ -259,7 +259,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedoBlast.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedoTail.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnagyBar.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\CostDispBar.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnergyBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor002.cpp" />
@@ -486,7 +487,8 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\mytorpedoblast.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\mytorpedotail.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\enagybar.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\CostDispBar.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnergyBar.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magiclvcursor.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magiclvcursor001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magiclvcursor002.h" />

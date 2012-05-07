@@ -265,7 +265,7 @@ void Magic::cancel() {
 }
 
 void Magic::processBehavior() {
-
+    prev_frame_level_ = level_;
     if (is_working_) {
 
         switch (_pProg->get()) {
@@ -336,19 +336,24 @@ void Magic::processBehavior() {
                         pMP_->dec(interest_cost_[level_-last_level_]); //MP消費
                     } else if (last_level_ > level_) {
                         //レベルダウンだった場合
+
+                        if (keep_cost_base_ == 0) { //維持コストがかからない魔法の場合は
+                            if (lvinfo_[last_level_].time_of_effect_ > 0) {
+                                //基本コストの60%還元。但し残効果持続の割合を乗ずる。早くレベルダウンしたほうがお得にするため。
+                                pMP_->inc(calcReduceMp(last_level_, level_));
+
+//                                pMP_->inc( cost_base_*(last_level_-level_)*0.6*
+//                                           (1.0*lvinfo_[last_level_].remainingtime_of_effect_ / lvinfo_[last_level_].time_of_effect_) );
+                            }
+                        }
+
                         //飛び越された間のレベルは停止して効果持続終了残り時間をリセットを設定
                         for (int lv = level_+1 ; lv <= last_level_-1; lv++) {
                             lvinfo_[lv].is_working_ = false; //停止し
                             lvinfo_[lv].remainingtime_of_effect_ = 0; //果持続終了残り時間を0
                         }
 
-                        if (keep_cost_base_ == 0) { //維持コストがかからない魔法の場合は
-                            if (lvinfo_[last_level_].time_of_effect_ > 0) {
-                                //基本コストの60%還元。但し残効果持続の割合を乗ずる。早くレベルダウンしたほうがお得にするため。
-                                pMP_->inc( cost_base_*(last_level_-level_)*0.6*
-                                           (1.0*lvinfo_[last_level_].remainingtime_of_effect_ / lvinfo_[last_level_].time_of_effect_) );
-                            }
-                        }
+
                     } else {
                         _TRACE_("last_level_＝＝level_①");
                     }
@@ -412,7 +417,16 @@ void Magic::processBehavior() {
                 break;
         }
     }
-    prev_frame_level_ = level_;
+
+}
+
+int Magic::calcReduceMp(int prm_now_level, int prm_target_down_level) {
+    //基本コストの60%還元。但し残効果持続の割合を乗ずる。早くレベルダウンしたほうがお得にするため。
+    int mp = 0;
+    for (int lv = prm_now_level; lv > prm_target_down_level; lv--) {
+        mp += cost_base_*0.6*(1.0*lvinfo_[lv].remainingtime_of_effect_ / lvinfo_[lv].time_of_effect_);
+    }
+    return mp;
 }
 Magic::~Magic() {
 }
