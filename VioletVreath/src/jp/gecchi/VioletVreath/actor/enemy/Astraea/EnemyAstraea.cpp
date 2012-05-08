@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -60,9 +59,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
 
     pEffect_Appearance_ = NULL;
 
-    _pSeTransmitter->useSe(2);
-    _pSeTransmitter->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
-    _pSeTransmitter->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTx->useSe(2);
+    _pSeTx->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
+    _pSeTx->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
     useProgress(ASTRAEA_PROG_FIRE);
     pCon_ShotDepo_ = connectDepositoryManager("DpCon_Shot004", NULL);
     pDepo_Shot_ = pCon_ShotDepo_->fetch();
@@ -151,7 +150,7 @@ void EnemyAstraea::processBehavior() {
                     }
                 }
                 if (can_fire) {
-                    _pSeTransmitter->play3D(0); //”­ŽË‰¹
+                    _pSeTx->play3D(0); //”­ŽË‰¹
                     changeEffectTechniqueInterim("Flush", 5); //ƒtƒ‰ƒbƒVƒ…
                 }
             }
@@ -199,7 +198,7 @@ void EnemyAstraea::processBehavior() {
             break;
         }
     }
-    _pSeTransmitter->behave();
+    _pSeTx->behave();
     _pKurokoA->behave();
 }
 
@@ -220,7 +219,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
         if (pExplo001) {
             pExplo001->locatedBy(this);
         }
-        _pSeTransmitter->play3D(1);
+        _pSeTx->play3D(1);
 //          StgUtil::shotWay002(this, pDepo_Shot_,
 //                              PX_C(20),
 //                              5, 5, D_ANG(6), D_ANG(6),

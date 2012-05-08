@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -12,9 +11,9 @@ EnemyMetis::EnemyMetis(const char* prm_name) :
     height_Z_ = 220*2*LEN_UNIT;
     depth_Y_ = 36*2*LEN_UNIT;
     iMovePatternNo_ = 0;
-    _pSeTransmitter->useSe(2);
-    _pSeTransmitter->set(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_MetisHit"));
-    _pSeTransmitter->set(1, "bom10", GgafRepeatSeq::nextVal("CH_MetisDestroy"));     //爆発
+    _pSeTx->useSe(2);
+    _pSeTx->set(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_MetisHit"));
+    _pSeTx->set(1, "bom10", GgafRepeatSeq::nextVal("CH_MetisDestroy"));     //爆発
 }
 
 void EnemyMetis::onCreateModel() {
@@ -56,7 +55,7 @@ void EnemyMetis::processBehavior() {
     //座標に反映
     _pKurokoA->behave();
     _pKurokoB->behave();
-    //_pSeTransmitter->behave();
+    //_pSeTx->behave();
 }
 
 void EnemyMetis::processJudgement() {
@@ -73,7 +72,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
 
     //ここにヒットエフェクト
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
-    _pSeTransmitter->play3D(0);
+    _pSeTx->play3D(0);
         //ここに消滅エフェクト
     if (pOther->getKind() & KIND_MY) {
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
@@ -88,7 +87,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         //ここに消滅エフェクト
 
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        _pSeTransmitter->play3D(1);
+        _pSeTx->play3D(1);
         if (pExplo001) {
             pExplo001->locatedBy((GgafDxGeometricActor*)prm_pOtherActor);
             pExplo001->activate();

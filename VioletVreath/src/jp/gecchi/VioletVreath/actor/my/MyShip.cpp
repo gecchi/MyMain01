@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -66,9 +65,9 @@ MyShip::MyShip(const char* prm_name) :
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     MyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
-        stringstream name;
+        std::stringstream name;
         name <<  "MyStraightLaserChip001_" << i;
-        string name2 = name.str();
+        std::string name2 = name.str();
         pChip = NEW MyStraightLaserChip001(name2.c_str());
         pChip->setPositionSource(this); //位置だけ同期
         pLaserChipDepo_->addSubLast(pChip);
@@ -161,11 +160,11 @@ MyShip::MyShip(const char* prm_name) :
     paFuncTurbo[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
-    _pSeTransmitter->useSe(4);
-    _pSeTransmitter->set(0, "se-020");
-    _pSeTransmitter->set(1,"laser001", 99);
-    _pSeTransmitter->set(2,"fire01", 99);
-    _pSeTransmitter->set(3,"bse5", 99);
+    _pSeTx->useSe(4);
+    _pSeTx->set(0, "se-020");
+    _pSeTx->set(1,"laser001", 99);
+    _pSeTx->set(2,"fire01", 99);
+    _pSeTx->set(3,"bse5", 99);
 
     iMvVelo_TurboTop_ = 30000;
     iMvVelo_TurboBottom_ = 10000;
@@ -425,7 +424,7 @@ void MyShip::processBehavior() {
     _pKurokoA->behave();
     _pKurokoB->behave();
     _pScaler->behave();
-    _pSeTransmitter->behave();
+    _pSeTx->behave();
 
     //吹っ飛び
     if (GgafUtil::abs(blown_veloX_) < 1000) {
@@ -520,7 +519,7 @@ void MyShip::processJudgement() {
             LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
                 if (pLaserChip->_pChip_front == NULL) {
-                    _pSeTransmitter->play3D(1);
+                    _pSeTx->play3D(1);
                 }
             }
         }
@@ -546,7 +545,7 @@ void MyShip::processJudgement() {
             just_shot_ = true;//たった今ショットしましたフラグ
             MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
             if (pShot) {
-                _pSeTransmitter->play3D(2);
+                _pSeTx->play3D(2);
                 pShot->locatedBy(this);
             }
             if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
@@ -575,7 +574,7 @@ void MyShip::processJudgement() {
 //        if (can_fire) {
 //            for (int i = 0; i < MyOptionController::now_option_num_; i++) {
 //                if (i == 0) {
-//                    _pSeTransmitter->play3D(3);
+//                    _pSeTx->play3D(3);
 //                }
 //                papOptCtrlr[i]->pOption_->pTorpedoCtrlr_->fire();
 //            }
@@ -608,7 +607,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
         if (pExplo001) {
             pExplo001->locatedBy(this);
         }
-        _pSeTransmitter->play3D(0);
+        _pSeTx->play3D(0);
     }
 
     if (pOther->getKind() & KIND_ITEM)  {

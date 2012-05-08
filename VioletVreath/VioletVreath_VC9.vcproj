@@ -382,6 +382,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectVreathMagic001.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole.cpp"
 				>
 			</File>
@@ -1082,6 +1086,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\VreathMagic.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.cpp"
 				>
 			</File>
@@ -1285,6 +1293,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectVreathMagic001.h"
 				>
 			</File>
 			<File
@@ -1977,6 +1989,10 @@
 			</File>
 			<File
 				RelativePath=".\src\VioletVreathHeader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\VreathMagic.h"
 				>
 			</File>
 			<File

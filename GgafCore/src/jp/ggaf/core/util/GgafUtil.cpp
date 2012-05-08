@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 
 using namespace GgafCore;
 
@@ -11,8 +10,8 @@ UINT32 GgafUtil::getSystemTime() {
     //return _timex++;
 }
 
-char* GgafUtil::getFileText(string prm_filename) {
-    ifstream ifs(prm_filename.c_str());
+char* GgafUtil::getFileText(std::string prm_filename) {
+    std::ifstream ifs(prm_filename.c_str());
     if (!ifs.is_open()) {
         return NULL;
     } else {
@@ -23,7 +22,7 @@ char* GgafUtil::getFileText(string prm_filename) {
             ++size;
         }
         ifs.clear();
-        ifs.seekg(0, ios_base::beg);
+        ifs.seekg(0, std::ios_base::beg);
         //サイズを指定して読込み
         char* pa_char = NEW char[size];
         ZeroMemory(pa_char, size);
@@ -32,7 +31,7 @@ char* GgafUtil::getFileText(string prm_filename) {
     }
 }
 
-void GgafUtil::readProperties(string filename, GgafStrMap* pMap)
+void GgafUtil::readProperties(std::string filename, GgafStrMap* pMap)
 {
     std::ifstream file(filename.c_str());
     if (!file)
@@ -200,7 +199,7 @@ void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap)
     for (; it != end; ++it)
         os << (*it).first << "=" << (*it).second << std::endl;
 }
-//int GgafUtil::read(string prm_properties_filename) {
+//int GgafUtil::read(std::string prm_properties_filename) {
 //    const char* pChar_Filename = prm_properties_filename.c_str();
 //    FILE* pFile = NULL;
 //    int r = 0;
@@ -243,8 +242,8 @@ void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap)
 //}
 //void GgafUtil::parse(char* p) {
 //    char* pChar_Token = NULL;
-//    string key;
-//    string value;
+//    std::string key;
+//    std::string value;
 //    bool _in_token = false;
 //    for (; *p != '\0'; p++) {
 //      _TRACE_("key p="<<(p[0]==0?'-':p[0])<<"/pChar_Token="<<(pChar_Token==0?"":pChar_Token)<<"/key="<<key<<"/value="<<value);
@@ -281,7 +280,7 @@ void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap)
 //}
 
 
-bool GgafUtil::isExistKey(string prm_key, GgafStrMap* p) {
+bool GgafUtil::isExistKey(std::string prm_key, GgafStrMap* p) {
     GgafStrMap::iterator itr = p->find(prm_key);
     if (itr != p->end()) {
         return true;
@@ -290,7 +289,7 @@ bool GgafUtil::isExistKey(string prm_key, GgafStrMap* p) {
     }
 }
 
-bool GgafUtil::cnvBool(string prm_str) {
+bool GgafUtil::cnvBool(std::string prm_str) {
     bool ret;
     if (strcmp(prm_str.c_str(), "true") == 0 ||
         strcmp(prm_str.c_str(), "on")   == 0 ||

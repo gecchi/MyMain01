@@ -1,12 +1,11 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 
-map<string, int> GgafRepeatSeq::mapNowval;
-map<string, int> GgafRepeatSeq::mapMaxval;
-map<string, int> GgafRepeatSeq::mapMinval;
+std::map<std::string, int> GgafRepeatSeq::mapNowval;
+std::map<std::string, int> GgafRepeatSeq::mapMaxval;
+std::map<std::string, int> GgafRepeatSeq::mapMinval;
 
-void GgafRepeatSeq::create(string ID, int min, int max) {
+void GgafRepeatSeq::create(std::string ID, int min, int max) {
 #ifdef MY_DEBUG
     if (isExist(ID)) {
         throwGgafCriticalException("GgafRepeatSeq::create() ID="<<ID<<"‚ÍŠù‚É‘¶Ý‚µ‚Ü‚·");
@@ -16,7 +15,7 @@ void GgafRepeatSeq::create(string ID, int min, int max) {
     mapMaxval[ID] = max;
     mapMinval[ID] = min;
 }
-void GgafRepeatSeq::set(string ID, int val) {
+void GgafRepeatSeq::set(std::string ID, int val) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
@@ -28,7 +27,7 @@ void GgafRepeatSeq::set(string ID, int val) {
 #endif
 }
 
-void GgafRepeatSeq::setMax(string ID) {
+void GgafRepeatSeq::setMax(std::string ID) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
@@ -40,7 +39,7 @@ void GgafRepeatSeq::setMax(string ID) {
 #endif
 }
 
-void GgafRepeatSeq::setMin(string ID) {
+void GgafRepeatSeq::setMin(std::string ID) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
@@ -52,8 +51,8 @@ void GgafRepeatSeq::setMin(string ID) {
 #endif
 }
 
-bool GgafRepeatSeq::isExist(string ID) {
-    map<string, int>::iterator i = mapNowval.find(ID);
+bool GgafRepeatSeq::isExist(std::string ID) {
+    std::map<std::string, int>::iterator i = mapNowval.find(ID);
     if(i != mapNowval.end()){
         return true;
     } else {
@@ -61,7 +60,7 @@ bool GgafRepeatSeq::isExist(string ID) {
     }
 }
 
-int GgafRepeatSeq::nextVal(string ID) {
+int GgafRepeatSeq::nextVal(std::string ID) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif

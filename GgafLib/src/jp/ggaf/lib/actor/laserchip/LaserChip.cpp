@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -7,7 +6,7 @@ using namespace GgafLib;
 
 LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
      GgafDxMeshSetActor(prm_name,
-                         string("11/" + string(prm_model)).c_str(),
+                         std::string("11/" + std::string(prm_model)).c_str(),
                          "LaserChipEffect",
                          "LaserChipTechnique",
                          prm_pStat,

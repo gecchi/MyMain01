@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 
 GgafActorDepository::GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat) : GgafDummyActor(prm_name, prm_pStat) {

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 
 using namespace GgafCore;
 
@@ -281,7 +280,7 @@ void GgafScene::dump() {
     }
 }
 
-void GgafScene::dump(string prm_parent) {
+void GgafScene::dump(std::string prm_parent) {
     _TRACE_(prm_parent+"Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
     if (_pDirector) {
         _pDirector->dump(prm_parent + "\t\t\t\t\t\t\t\t");

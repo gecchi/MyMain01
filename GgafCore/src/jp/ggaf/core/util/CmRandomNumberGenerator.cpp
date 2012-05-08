@@ -1,6 +1,5 @@
 //#include "CmRandomNumberGenerator.h"
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 
 //!< Period Parameter for Mersenne Twister

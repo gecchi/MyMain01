@@ -18,7 +18,18 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class MagicMeter : public GgafLib::DefaultBoardSetActor {
-
+    enum {
+        SE_CURSOR_MOVE_METER = 0   ,
+        SE_CURSOR_MOVE_LEVEL       ,
+        SE_CURSOR_MOVE_LEVEL_CANCEL,
+        SE_CURSOR_BAD_MOVE         ,
+        SE_EXECUTE_LEVELUP_MAGIC   ,
+        SE_EXECUTE_LEVELDOWN_MAGIC ,
+        SE_EXECUTE_CANCEL_LEVELUP_MAGIC   ,
+        SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC ,
+        SE_CANT_INVOKE_MAGIC       ,
+        SE_BAD_OPERATION   ,
+    };
 public:
     D3DXHANDLE h_active_magic_;
     /** MP */
@@ -61,6 +72,7 @@ public:
 
     std::stringstream st_[10];
 
+public:
     MagicMeter(const char* prm_name);
 
     void saveStatus(int prm_saveno);

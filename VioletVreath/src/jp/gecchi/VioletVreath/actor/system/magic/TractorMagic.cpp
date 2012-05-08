@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -41,15 +40,15 @@ void TractorMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 }
 void TractorMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
 }
-void TractorMagic::processCastFinish(int prm_now_level, int prm_new_level) {
+void TractorMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
 }
 
 
 void TractorMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 }
-void TractorMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level) {
+void TractorMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
 }
-void TractorMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
+void TractorMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
     P_MYSHIP->changeEffectTechniqueInterim("Flush", 6); //ƒtƒ‰ƒbƒVƒ…
 }
 

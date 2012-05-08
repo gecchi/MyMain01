@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -15,7 +14,7 @@ MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOpt
 
     papTorpedo_ = NEW MyTorpedo*[MyOption::max_lockon_num_];
     for (int i = 0; i < MyOption::max_lockon_num_; i++) {
-        stringstream name;
+        std::stringstream name;
         name <<  "MYOPTION"<<(prm_pOption->no_)<<"'s Torpedo["<<i<<"]";
         papTorpedo_[i] = NEW MyTorpedo(name.str().c_str(), this);
         papTorpedo_[i]->inactivateImmed();
@@ -106,7 +105,7 @@ void MyOptionTorpedoController::fire() {
         }
         DELETEARR_IMPOSSIBLE_NULL(paAng_way);
         DELETEARR_IMPOSSIBLE_NULL(paGeo);
-        pOption_->_pSeTransmitter->play3D(2);
+        pOption_->_pSeTx->play3D(2);
 
     }
 }

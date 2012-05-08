@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -577,7 +576,7 @@ HRESULT GgafDxGod::init() {
                     }
                     if (mode_num-1 == i) {
                         //要求した使える解像度が見つからない
-                        stringstream ss;
+                        std::stringstream ss;
                         if (GGAF_PROPERTY(DUAL_VIEW)) {
                             ss << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" フルスクリーンモードにする事ができません。\n"<<
                                    (disp_no+1)<<"画面目の解像度の設定を確認してください。";

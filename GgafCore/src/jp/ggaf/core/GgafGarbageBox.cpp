@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 
 #define GgafGarbage_MAX_WAIT 2000

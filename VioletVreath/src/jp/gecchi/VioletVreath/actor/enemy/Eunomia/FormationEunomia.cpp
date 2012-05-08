@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -16,7 +15,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     //スプライン定義ファイルを読み込む
     papSplManufCon_ = NEW SplineManufactureConnection*[7];
     for (int i = 0; i < 7; i++) {
-        stringstream spl_id;
+        std::stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
         papSplManufCon_[i] = connectSplineManufactureManager(spl_id.str().c_str());
     }

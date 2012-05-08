@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -7,7 +6,7 @@ using namespace GgafLib;
 
 SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
              GgafDxMeshSetActor(prm_name,
-                                 string("26/" + string(prm_model_id)).c_str(),
+                                 std::string("26/" + std::string(prm_model_id)).c_str(),
                                  "SingleLaserEffect",
                                  "SingleLaserTechnique",
                                  prm_pStat,

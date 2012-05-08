@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -50,9 +49,9 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     MyOptionWateringLaserChip001* pChip;
 //    MyOptionStraightLaserChip001* pChip;
     for (int i = 0; i < 80; i++) { //レーザーストック
-        stringstream name;
+        std::stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
-        string name2 = name.str();
+        std::string name2 = name.str();
         pChip = NEW MyOptionWateringLaserChip001(name2.c_str());
         //pChip = NEW MyOptionStraightLaserChip001(name2.c_str());
         //MyOptionStraightLaserChip001の場合以下が必要
@@ -84,10 +83,10 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     pTorpedoCtrlr_ = NEW MyOptionTorpedoController("TorpedoController", this);
     addSubGroup(pTorpedoCtrlr_);
 
-    _pSeTransmitter->useSe(3);
-    _pSeTransmitter->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
-    _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
-    _pSeTransmitter->set(2, "bse5", GgafRepeatSeq::nextVal("CH_torpedo"));
+    _pSeTx->useSe(3);
+    _pSeTx->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
+    _pSeTx->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
+    _pSeTx->set(2, "bse5", GgafRepeatSeq::nextVal("CH_torpedo"));
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     need_adjust_pos_flg_ = false;
 }
@@ -571,7 +570,7 @@ void MyOption::processBehavior() {
             pLaserChip->pOrg_ = this;
 
             if (pLaserChip->_pChip_front == NULL) {
-                _pSeTransmitter->play3D(0);
+                _pSeTx->play3D(0);
             }
         }
     } else {
@@ -580,7 +579,7 @@ void MyOption::processBehavior() {
     if (pMyShip->just_shot_) {
         MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
         if (pShot) {
-            _pSeTransmitter->play3D(1);
+            _pSeTx->play3D(1);
             pShot->locatedBy(this);
             pShot->_pKurokoA->_angFace[AXIS_X] = _RX;
             pShot->_pKurokoA->_angFace[AXIS_Z] = _RZ;
@@ -589,7 +588,7 @@ void MyOption::processBehavior() {
         }
     }
 
-    _pSeTransmitter->behave();
+    _pSeTx->behave();
 
 }
 

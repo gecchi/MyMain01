@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 
 using namespace GgafCore;
 
@@ -109,7 +108,7 @@ void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
 
 
     if (pOrder == NULL) {
-        string name_org;
+        std::string name_org;
         if ((prm_org->_obj_class & Obj_GgafScene) == Obj_GgafScene) {
             name_org = ((GgafScene*)prm_org)->getName();
         } else if (prm_org->_obj_class & Obj_GgafActor) {
@@ -131,13 +130,13 @@ void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
 #else
 
                     if (waittime > 1000*600) { //約10分
-                        string name_org;
+                        std::string name_org;
                         if ((prm_org->_obj_class & Obj_GgafScene) == Obj_GgafScene) {
                             name_org = ((GgafScene*)prm_org)->getName();
                         } else if (prm_org->_obj_class & Obj_GgafActor) {
                             name_org = ((GgafActor*)prm_org)->getName();
                         }
-                        string name_orderer;
+                        std::string name_orderer;
                         if ((pOrder->_pOrderer->_obj_class & Obj_GgafScene) == Obj_GgafScene) {
                             name_orderer = ((GgafScene*)pOrder->_pOrderer)->getName();
                         } else if (pOrder->_pOrderer->_obj_class & Obj_GgafActor) {
@@ -204,13 +203,13 @@ void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
             }
         } else {
             if (pOrder->_is_last_order_flg) {
-                string name_orderer;
+                std::string name_orderer;
                 if ((pOrder->_pOrderer->_obj_class  & Obj_GgafScene) == Obj_GgafScene) {
                     name_orderer = ((GgafScene*)pOrder->_pOrderer)->getName();
                 } else if (pOrder->_pOrderer->_obj_class & Obj_GgafActor) {
                     name_orderer = ((GgafActor*)pOrder->_pOrderer)->getName();
                 }
-                string name_org;
+                std::string name_org;
                 if ((prm_org->_obj_class  & Obj_GgafScene) == Obj_GgafScene) {
                     name_org = ((GgafScene*)prm_org)->getName();
                 } else if (prm_org->_obj_class & Obj_GgafActor) {
@@ -301,8 +300,8 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 //#ifdef MY_DEBUG
 //} catch (GgafCriticalException& e) {
 //    _TRACE_("＜工場例外＞ 製造中エラー；"<<e.getMsg());
-//    string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能性があります。\n誠に申し訳ございません。\n";
-//    string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+//    std::string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能性があります。\n誠に申し訳ございません。\n";
+//    std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
 //    MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
 //    _is_working_flg = false;
 //    _was_finished_flg = true;

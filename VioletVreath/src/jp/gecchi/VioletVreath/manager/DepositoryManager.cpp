@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -79,11 +78,11 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 27; nLaser++) {
-            stringstream name;
+            std::stringstream name;
             name <<  "LaserChipDepository["<<nLaser<<"]";
             pLaserChipDepo = NEW LaserChipDepository(name.str().c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
-                stringstream name;
+                std::stringstream name;
                 name <<  "EnemyAstraeaLaserChip001["<<nLaser<<"]["<<nChip<<"]";
                 pLaserChipDepo->addSubLast(NEW EnemyAstraeaLaserChip001(name.str().c_str()));
                 Sleep(1);
@@ -100,11 +99,11 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         LaserChipDepository* pLaserChipDepo;
         EnemyAstraeaLaserChip002* pChip;
         for (int nLaser = 0; nLaser < 27; nLaser++) {
-            stringstream name;
+            std::stringstream name;
             name <<  "LaserChipDepository["<<nLaser<<"]";
             pLaserChipDepo = NEW LaserChipDepository(name.str().c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
-                stringstream name;
+                std::stringstream name;
                 name <<  "EnemyAstraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
                 pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
                 pChip->config(30, 20, 8, (GgafActorDepository*)prm_p);
@@ -121,11 +120,11 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 50; nLaser++) {
-            stringstream name;
+            std::stringstream name;
             name <<  "LaserChipDepository["<<nLaser<<"]";
             pLaserChipDepo = NEW LaserChipDepository(name.str().c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
-                stringstream name;
+                std::stringstream name;
                 name <<  "EnemyAstraeaLaserChip003["<<nLaser<<"]["<<nChip<<"]";
                 pLaserChipDepo->addSubLast(NEW EnemyAstraeaLaserChip003(name.str().c_str()));
                 Sleep(1);
@@ -139,11 +138,11 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip004DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 50; nLaser++) {
-            stringstream name;
+            std::stringstream name;
             name <<  "LaserChipDepository["<<nLaser<<"]";
             pLaserChipDepo = NEW LaserChipDepository(name.str().c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
-                stringstream name;
+                std::stringstream name;
                 name <<  "EnemyAstraeaLaserChip004["<<nLaser<<"]["<<nChip<<"]";
                 pLaserChipDepo->addSubLast(NEW EnemyAstraeaLaserChip004(name.str().c_str()));
                 Sleep(1);
@@ -208,11 +207,11 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         LaserChipDepository* pLaserChipDepo;
         EnemyWateringLaserChip001* pChip;
         for (int set = 0; set < 20; set++) {
-            stringstream name;
+            std::stringstream name;
             name <<  "EneWateringLaser001Dp["<<set<<"]";
             pLaserChipDepo = NEW LaserChipDepository(name.str().c_str());
             for (int n = 0; n < 50; n++) {
-                stringstream name;
+                std::stringstream name;
                 name <<  "EneWateringLaser001["<<set<<"]["<<n<<"]";
                 pChip = NEW EnemyWateringLaserChip001(name.str().c_str());
                 pChip->inactivateImmed();

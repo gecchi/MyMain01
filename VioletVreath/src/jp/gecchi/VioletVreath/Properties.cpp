@@ -1,44 +1,43 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-string Properties::MY_KEY_SHOT1 = "";
-string Properties::MY_KEY_SHOT2 = "";
-string Properties::MY_KEY_OPTION = "";
-string Properties::MY_KEY_VIEW = "";
-string Properties::MY_KEY_TURBO = "";
-string Properties::MY_KEY_POWERUP = "";
-string Properties::MY_KEY_BUTTON7 = "";
-string Properties::MY_KEY_BUTTON8 = "";
-string Properties::MY_KEY_PAUSE = "";
-string Properties::MY_KEY_UP = "";
-string Properties::MY_KEY_DOWN = "";
-string Properties::MY_KEY_LEFT = "";
-string Properties::MY_KEY_RIGHT = "";
-string Properties::MY_KEY_UI_UP = "";
-string Properties::MY_KEY_UI_DOWN = "";
-string Properties::MY_KEY_UI_LEFT = "";
-string Properties::MY_KEY_UI_RIGHT = "";
-string Properties::MY_KEY_UI_EXECUTE = "";
-string Properties::MY_KEY_UI_CANCEL = "";
-string Properties::MY_KEY_UI_DEBUG = "";
-string Properties::MY_JOY_SHOT1 = "";
-string Properties::MY_JOY_SHOT2 = "";
-string Properties::MY_JOY_OPTION = "";
-string Properties::MY_JOY_VIEW = "";
-string Properties::MY_JOY_TURBO = "";
-string Properties::MY_JOY_POWERUP = "";
-string Properties::MY_JOY_BUTTON7 = "";
-string Properties::MY_JOY_BUTTON8 = "";
-string Properties::MY_JOY_PAUSE = "";
-string Properties::MY_JOY_UI_EXECUTE = "";
-string Properties::MY_JOY_UI_CANCEL = "";
+std::string Properties::MY_KEY_SHOT1 = "";
+std::string Properties::MY_KEY_SHOT2 = "";
+std::string Properties::MY_KEY_OPTION = "";
+std::string Properties::MY_KEY_VIEW = "";
+std::string Properties::MY_KEY_TURBO = "";
+std::string Properties::MY_KEY_POWERUP = "";
+std::string Properties::MY_KEY_BUTTON7 = "";
+std::string Properties::MY_KEY_BUTTON8 = "";
+std::string Properties::MY_KEY_PAUSE = "";
+std::string Properties::MY_KEY_UP = "";
+std::string Properties::MY_KEY_DOWN = "";
+std::string Properties::MY_KEY_LEFT = "";
+std::string Properties::MY_KEY_RIGHT = "";
+std::string Properties::MY_KEY_UI_UP = "";
+std::string Properties::MY_KEY_UI_DOWN = "";
+std::string Properties::MY_KEY_UI_LEFT = "";
+std::string Properties::MY_KEY_UI_RIGHT = "";
+std::string Properties::MY_KEY_UI_EXECUTE = "";
+std::string Properties::MY_KEY_UI_CANCEL = "";
+std::string Properties::MY_KEY_UI_DEBUG = "";
+std::string Properties::MY_JOY_SHOT1 = "";
+std::string Properties::MY_JOY_SHOT2 = "";
+std::string Properties::MY_JOY_OPTION = "";
+std::string Properties::MY_JOY_VIEW = "";
+std::string Properties::MY_JOY_TURBO = "";
+std::string Properties::MY_JOY_POWERUP = "";
+std::string Properties::MY_JOY_BUTTON7 = "";
+std::string Properties::MY_JOY_BUTTON8 = "";
+std::string Properties::MY_JOY_PAUSE = "";
+std::string Properties::MY_JOY_UI_EXECUTE = "";
+std::string Properties::MY_JOY_UI_CANCEL = "";
 
 
-void Properties::load(string prm_ini_filename) {
+void Properties::load(std::string prm_ini_filename) {
     GgafLibProperties::load(prm_ini_filename);
     Properties::MY_KEY_SHOT1      = getStr("MY_KEY_SHOT1");
     Properties::MY_KEY_SHOT2      = getStr("MY_KEY_SHOT2");

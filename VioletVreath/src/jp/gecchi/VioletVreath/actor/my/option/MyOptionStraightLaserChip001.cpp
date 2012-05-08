@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -89,7 +88,7 @@ void MyOptionStraightLaserChip001::processBehavior() {
 //        }
     }
     if (_pChip_front == NULL) {
-        _pSeTransmitter->behave();
+        _pSeTx->behave();
     }
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強敵に座標補正

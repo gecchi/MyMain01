@@ -52,7 +52,7 @@ public:
     /** [r]チェッカー */
     GgafDxChecker* _pChecker;
     /** [r]効果音発生管理オブジェクト */
-    GgafDxSeTransmitterForActor* _pSeTransmitter;
+    GgafDxSeTransmitterForActor* _pSeTx;
 
     /** [r]境界球の半径(DirectXの単位)。画面外判定に使用される */
     dxcoord _bounding_sphere_radius;

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -33,21 +32,21 @@ int GgafDxProperties::SINGLE_VIEW_DRAW_POSITION = 5;
 int GgafDxProperties::DUAL_VIEW_DRAW_POSITION1 = 6;
 int GgafDxProperties::DUAL_VIEW_DRAW_POSITION2 = 4;
 
-string GgafDxProperties::BORDER_COLOR = "#222222";
-string GgafDxProperties::BG_COLOR = "#000000";
+std::string GgafDxProperties::BORDER_COLOR = "#222222";
+std::string GgafDxProperties::BG_COLOR = "#000000";
 
 int GgafDxProperties::MASTER_VOLUME = 80;
 int GgafDxProperties::BGM_VOLUME = 80;
 int GgafDxProperties::SE_VOLUME = 80;
-string GgafDxProperties::DIR_MESH_MODEL = ".\\model\\mesh\\";
-string GgafDxProperties::DIR_SPRITE_MODEL = ".\\model\\sprite\\";
-string GgafDxProperties::DIR_TEXTURE = ".\\model\\texture\\";
-string GgafDxProperties::DIR_EFFECT = ".\\model\\effect\\";
-string GgafDxProperties::DIR_OGG = ".\\sound\\bgm\\";
-string GgafDxProperties::DIR_WAVE = ".\\sound\\se\\";
+std::string GgafDxProperties::DIR_MESH_MODEL = ".\\model\\mesh\\";
+std::string GgafDxProperties::DIR_SPRITE_MODEL = ".\\model\\sprite\\";
+std::string GgafDxProperties::DIR_TEXTURE = ".\\model\\texture\\";
+std::string GgafDxProperties::DIR_EFFECT = ".\\model\\effect\\";
+std::string GgafDxProperties::DIR_OGG = ".\\sound\\bgm\\";
+std::string GgafDxProperties::DIR_WAVE = ".\\sound\\se\\";
 bool GgafDxProperties::REALTIME_EFFECT_COMPILE = false;
 
-void GgafDxProperties::load(string prm_ini_filename) {
+void GgafDxProperties::load(std::string prm_ini_filename) {
     GgafProperties::load(prm_ini_filename);
 
     if (GgafProperties::isExistKey("FULL_SCREEN")) {

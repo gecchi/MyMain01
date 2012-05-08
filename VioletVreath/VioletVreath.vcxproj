@@ -269,6 +269,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterStatus.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffecMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectSpeedMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectVreathMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\LaserMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\LockonMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\Magic.cpp" />
@@ -276,6 +277,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\SpeedMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\TorpedoMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\TractorMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\system\magic\VreathMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.cpp" />
@@ -497,6 +499,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\instrument\magicmeter\magicmeterstatus.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\effect\effectmagic001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\effect\effectspeedmagic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\effect\effectvreathmagic001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\lasermagic.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\lockonmagic.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\magic.h" />
@@ -504,6 +507,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\speedmagic.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\torpedomagic.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\system\magic\tractormagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\system\magic\VreathMagic.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\title\cursor001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\title\titleboard.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\viewpointguide.h" />

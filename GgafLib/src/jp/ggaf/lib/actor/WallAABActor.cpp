@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -9,7 +8,7 @@ WallAABActor::WallAABActor(const char* prm_name,
                            GgafStatus* prm_pStat) :
 
                           WallPartsActor(prm_name,
-                                        string("19/" + string(prm_model)).c_str(),
+                                        std::string("19/" + std::string(prm_model)).c_str(),
                                         "WallAABEffect",
                                         "WallAABTechnique",
                                         prm_pStat) {

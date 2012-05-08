@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -14,7 +13,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pOption
     pTailEffectDepository_ = NEW LaserChipDepository("DP_TailEffect");
     pTailEffectDepository_->config(length_TailEffect_, 0, NULL);
     for (int i = 0; i < length_TailEffect_; i++) {
-        stringstream name;
+        std::stringstream name;
         name <<  "MYOPTION"<<(pOptionTorpedoCtrlr_->pOption_->no_)<<"'s Torpedo's TailEffect["<<i<<"]";
         MyTorpedoTail* pChip = NEW MyTorpedoTail(name.str().c_str(), this);
 

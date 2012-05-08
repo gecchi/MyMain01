@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -14,12 +13,12 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     target_X_ = _X;
     target_Y_ = _Y;
 
-    _pSeTransmitter->useSe(SE_MENU_CLOSE + 1);
-    _pSeTransmitter->set(SE_MENU_OPEN     , "click07"); //メーター移動
-    _pSeTransmitter->set(SE_MOVE_CURSOR   , "click07"); //メーター移動
-    _pSeTransmitter->set(SE_DECIDED_NOMAL , "click07"); //メーター移動
-    _pSeTransmitter->set(SE_DECIDED_CANCEL, "click07"); //メーター移動
-    _pSeTransmitter->set(SE_MENU_CLOSE    , "click07"); //メーター移動
+    _pSeTx->useSe(SE_MENU_CLOSE + 1);
+    _pSeTx->set(SE_MENU_OPEN     , "click07"); //メーター移動
+    _pSeTx->set(SE_MOVE_CURSOR   , "click07"); //メーター移動
+    _pSeTx->set(SE_DECIDED_NOMAL , "click07"); //メーター移動
+    _pSeTx->set(SE_DECIDED_CANCEL, "click07"); //メーター移動
+    _pSeTx->set(SE_MENU_CLOSE    , "click07"); //メーター移動
 }
 
 void MenuBoard::setTransition(frame prm_menu_fade_frames,
@@ -66,12 +65,12 @@ void MenuBoard::riseSub(MenuBoard* prm_pSubMenu,
 
 bool MenuBoard::condDecision() {
     if (VB->isPushedDown(VB_UI_EXECUTE)) {
-        _pSeTransmitter->play(SE_DECIDED_NOMAL);
+        _pSeTx->play(SE_DECIDED_NOMAL);
         return true;
     } else if (VB->isPushedDown(VB_UI_CANCEL) &&
                _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != NULL &&
                _lstItems.getCurrent() == _lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
-        _pSeTransmitter->play(SE_DECIDED_CANCEL);
+        _pSeTx->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -79,7 +78,7 @@ bool MenuBoard::condDecision() {
 }
 void MenuBoard::moveCursor() {
     DefaultBoardMenu::moveCursor();
-    _pSeTransmitter->play(SE_MOVE_CURSOR);
+    _pSeTx->play(SE_MOVE_CURSOR);
 }
 
 void MenuBoard::initialize() {
@@ -100,7 +99,7 @@ void MenuBoard::onRisen() {
                      ),
                      menu_fade_frames_, 0.1, 0.3
                );
-    _pSeTransmitter->play(SE_MENU_OPEN);
+    _pSeTx->play(SE_MENU_OPEN);
 }
 
 void MenuBoard::processBehavior() {
@@ -131,7 +130,7 @@ void MenuBoard::onSunk() {
                     ),
                     60, 0.2, 0.3
                );
-    _pSeTransmitter->play(SE_MENU_CLOSE);
+    _pSeTx->play(SE_MENU_CLOSE);
 }
 
 MenuBoard::~MenuBoard() {

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -52,7 +51,7 @@ void SpeedMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     pEffect_->locatedBy(P_MYSHIP);
     pEffect_->_pScaler->addScale(10);
 }
-void SpeedMagic::processCastFinish(int prm_now_level, int prm_new_level) {
+void SpeedMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
 }
 
 
@@ -60,10 +59,10 @@ void SpeedMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     pEffect_->_pScaler->setScale(1000);
     pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 3000);
 }
-void SpeedMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level) {
+void SpeedMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
     pEffect_->_pScaler->addScale(100);
 }
-void SpeedMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
+void SpeedMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
     pEffect_->inactivate();
 }
 

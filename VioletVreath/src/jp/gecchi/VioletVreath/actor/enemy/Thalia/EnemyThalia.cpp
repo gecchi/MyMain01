@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -28,7 +27,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     pLaserChipDepo_->config(60, 1, NULL); //Thaliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 65; i++) { //レーザーストック
-        stringstream name;
+        std::stringstream name;
         name <<  "EnemyStraightLaserChip001[" << i << "]";
         pChip = NEW EnemyStraightLaserChip001(name.str().c_str());
         pChip->setSource(this); //位置向き同期
@@ -37,9 +36,9 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     }
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTransmitter->useSe(2);
-    _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
-    _pSeTransmitter->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //爆発
+    _pSeTx->useSe(2);
+    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeTx->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //爆発
     useProgress(THALIA_PROG_CLOSE);
     //初期カメラZ位置
     dZ_camera_init_ = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
@@ -116,7 +115,7 @@ void EnemyThalia::processBehavior() {
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->_pChip_front == NULL) {
-                    _pSeTransmitter->play3D(1);
+                    _pSeTx->play3D(1);
                     _pKurokoA->setFaceAngVelo(AXIS_X, 5000);//発射中は速い回転
                 }
             } else {
@@ -141,7 +140,7 @@ void EnemyThalia::processBehavior() {
 
     _pKurokoA->behave();
     _pMorpher->behave();
-    _pSeTransmitter->behave();
+    _pSeTx->behave();
 }
 
 void EnemyThalia::processJudgement() {
@@ -159,7 +158,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
         if (pExplo001) {
             pExplo001->locatedBy(this);
         }
-        _pSeTransmitter->play3D(0);
+        _pSeTx->play3D(0);
 
 
         if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
@@ -167,7 +166,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
             if (pExplo001) {
                 pExplo001->locatedBy(this);
             }
-            _pSeTransmitter->play3D(0);
+            _pSeTx->play3D(0);
 
 
             //打ち返し弾

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -11,7 +10,7 @@ GgafDxSe::GgafDxSe(char* prm_wave_name) : GgafObject() {
 
     _wave_name = NEW char[128];
     strcpy(_wave_name, prm_wave_name);
-    string wave_filename = GGAF_PROPERTY(DIR_WAVE) + string(_wave_name) + ".wav";
+    std::string wave_filename = GGAF_PROPERTY(DIR_WAVE) + std::string(_wave_name) + ".wav";
 
     HRESULT hr;
     // Waveファイルを開く
@@ -130,7 +129,7 @@ void GgafDxSe::setFrequencyRate(float prm_frequency) {
 }
 
 int GgafDxSe::restore(void) {
-    string wave_filename = GGAF_PROPERTY(DIR_WAVE) + _wave_name + ".wav";
+    std::string wave_filename = GGAF_PROPERTY(DIR_WAVE) + _wave_name + ".wav";
     // Waveファイルを開く
     CWaveDecorder WaveFile;
     if (!WaveFile.Open((LPSTR)wave_filename.c_str())) {

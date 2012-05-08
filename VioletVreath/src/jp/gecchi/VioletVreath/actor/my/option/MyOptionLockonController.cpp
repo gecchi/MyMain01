@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -14,7 +13,7 @@ MyOptionLockonController::MyOptionLockonController(const char* prm_name) :
     pMainLockonEffect_->inactivateImmed();
     addSubLast(pMainLockonEffect_);
     for (int i = 1; i < MyOption::max_lockon_num_; i++) {
-        stringstream name;
+        std::stringstream name;
         name <<  "SUB["<<i<<"]";
         EffectLockon001_Sub* pSubLockon = NEW EffectLockon001_Sub(name.str().c_str());
         pSubLockon->inactivateImmed();

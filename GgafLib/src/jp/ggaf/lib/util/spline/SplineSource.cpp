@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -13,15 +12,15 @@ SplineSource::SplineSource(SplineLine* prm_pSp) : GgafObject() {
 }
 
 SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
-    _idstr = string(prm_idstr);
+    _idstr = std::string(prm_idstr);
     _accuracy = 1.0;
-    string data_filename = GGAF_PROPERTY(DIR_SPLINE_DATA) + _idstr;// + ".spls";
-    ifstream ifs(data_filename.c_str());
+    std::string data_filename = GGAF_PROPERTY(DIR_SPLINE_DATA) + _idstr;// + ".spls";
+    std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
         throwGgafCriticalException("SplineSource::SplineSource "<<data_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");
     }
     double p[MaxSplineSize][3];
-    string line;
+    std::string line;
     int n = 0;
     while( getline(ifs,line) ) {
         if (line.size() == 0 ) continue;
@@ -29,12 +28,12 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 
         LOOP_SPLFILE:
 
-        if (line.find("[BASEPOINT]") != string::npos) {
+        if (line.find("[BASEPOINT]") != std::string::npos) {
             while( getline(ifs,line) ) {
                 if (line.size() == 0 ) break;
                 if (line.c_str()[0] == '#') continue;
                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
-                istringstream iss(line);
+                std::istringstream iss(line);
                 iss >> p[n][0];
                 iss >> p[n][1];
                 iss >> p[n][2];
@@ -44,12 +43,12 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
                 }
             }
         }
-        if (line.find("[ACCURACY]") != string::npos) {
+        if (line.find("[ACCURACY]") != std::string::npos) {
             while( getline(ifs,line) ) {
                 if (line.size() == 0 ) break;
                 if (line.c_str()[0] == '#') continue;
                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
-                istringstream iss(line);
+                std::istringstream iss(line);
                 iss >> _accuracy;
             }
         }

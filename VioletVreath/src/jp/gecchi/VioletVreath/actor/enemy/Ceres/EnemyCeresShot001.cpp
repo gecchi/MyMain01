@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -26,8 +25,8 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) :
     angVelo_Turn_ = 7000;
     /** 方向転換を開始（frame_TurnBegin_）から再設定される加速度 */
     iMoveAcce_2nd_ = 100;
-    _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
+    _pSeTx->useSe(1);
+    _pSeTx->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
 void EnemyCeresShot001::initialize() {
@@ -73,7 +72,7 @@ void EnemyCeresShot001::processBehavior() {
     //behaveUvFlip();
     //座標に反映
     _pKurokoA->behave();
-    //_pSeTransmitter->behave();
+    //_pSeTx->behave();
 }
 
 void EnemyCeresShot001::processJudgement() {
@@ -87,7 +86,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
-        _pSeTransmitter->play3D(0);
+        _pSeTx->play3D(0);
         setHitAble(false);
 
         EffectExplosion001* pExplo001 =

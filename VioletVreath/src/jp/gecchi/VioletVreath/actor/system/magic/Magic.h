@@ -25,16 +25,6 @@ typedef frame magic_time;
 #define MAGIC_EFFECT_OK_LEVELUP     (1)
 #define MAGIC_EFFECT_OK_LEVELDOWN   (2)
 
-enum {
-    MAGIC_STATE_NOTHING = 1,
-    MAGIC_STATE_STAND_BY   ,
-    MAGIC_STATE_CANCEL_CASTING,
-    MAGIC_STATE_CASTING    ,
-    MAGIC_STATE_INVOKING   ,
-    MAGIC_STATE_EFFECTING  ,
-    MAGIC_STATE_ABANDONING ,
-};
-
 
 /**
  * 抽象魔法クラス .
@@ -69,9 +59,18 @@ enum {
  * @author Masatoshi Tsuge
  */
 class Magic : public GgafCore::GgafMainActor {
-
-
 public:
+    enum {
+        STATE_NOTHING = 1,
+        STATE_CAST_BEGIN,
+        STATE_CASTING    ,
+        STATE_INVOKE_BEGIN,
+        STATE_INVOKING   ,
+        STATE_EFFECT_BEGIN  ,
+        STATE_EFFECTING  ,
+        STATE_ABANDONING ,
+    };
+
     /**
      * 各レベルの情報 .
      */
@@ -95,6 +94,7 @@ public:
         }
     };
 
+public:
     /** [r]最高上限レベル */
     int max_level_;
     /** [r]現在のレベル */
@@ -229,7 +229,8 @@ public:
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 詠唱中完了した新しいレベル(1～ )
      */
-    virtual void processCastFinish(int prm_now_level, int prm_new_level) {};
+    virtual void processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {};
+
 
     /**
      * 発動開始実行 .
@@ -249,14 +250,14 @@ public:
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 発動させようとしている新しいレベル(1～ )
      */
-    virtual void processInvokeingBehavior(int prm_now_level, int prm_new_level) {};
+    virtual void processInvokingBehavior(int prm_now_level, int prm_new_level) {};
 
     /**
      * 魔法発動終了コールバック(１回だけコールバック) .
      * @param prm_now_level 発動中だった頃の、現在のレベル。(0～ )
      * @param prm_new_level 発動により、これから昇格する新しいレベル。(1～ )
      */
-    virtual void processInvokeFinish(int prm_now_level, int prm_new_level) {};
+    virtual void processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {};
 
     /**
      * 効果発揮実行 .

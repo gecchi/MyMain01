@@ -2,7 +2,6 @@
 #include "GgafLibEntory.h"
 #include "resource.h"
 
-using namespace std;
 
 #define MY_IDM_RESET_WINDOW_SIZE 10
 #define MY_IDM_ABOUT             11
@@ -60,7 +59,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     try {
         VioletVreath::Properties::load(".\\config.properties");
     } catch (GgafCore::GgafCriticalException& e) {
-        MessageBox(NULL, (string("config.properties のロードの失敗。\n理由：")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(NULL, (std::string("config.properties のロードの失敗。\n理由：")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         VioletVreath::Properties::clean();
         _TRACE_("[GgafCriticalException]:" << e.getMsg());
         return EXIT_FAILURE;
@@ -183,19 +182,19 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     } catch (GgafCore::GgafException& e) {
         //異常終了時
         _TRACE_("＜例外＞"<<e.getMsg());
-        string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
-        string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+        std::string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
+        std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_GgafException.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_GgafException.rep");
         _TRACE_("[GgafCriticalException]:"<<e.getMsg());
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
-    } catch (exception& e2) {
-        string what(e2.what());
+    } catch (std::exception& e2) {
+        std::string what(e2.what());
         _TRACE_("＜致命的な例外＞"<<what);
-        string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかった致命的エラーです。\n誠に申し訳ございません。\n";
-        string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+        std::string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかった致命的エラーです。\n誠に申し訳ございません。\n";
+        std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         _TRACE_("[exception]:"<<what);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_exception.rep");
@@ -208,8 +207,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     //以下のキャッチはDEBUG時であっても、メモリ違反をつぶす可能性があるため、DEBUG時は無効とする。
     catch( ... ) {
         _TRACE_("＜致命的な謎例外＞");
-        string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
-        string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+        std::string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
+        std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(NULL, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_UNKNOWN_ERROR.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_UNKNOWN_ERROR.rep");
@@ -225,14 +224,14 @@ void myUnexpectedHandler() {
     MessageBox(NULL, "UnexpectedHandler called.","ERROR", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Unexpected.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Unexpected.rep");
-    terminate();
+    std::unexpected();
 }
 
 void myTerminateHandler() {
     MessageBox(NULL, "TerminateHandler called.","ERROR", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Terminate.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Terminate.rep");
-    abort();
+    std::terminate();
 }
 
 

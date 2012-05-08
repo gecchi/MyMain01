@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -13,7 +12,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     WallAABActor* pWallAABActor;
     GgafActorDepository* pDepo_WallAAB = NEW GgafActorDepository("Dp_WallAAB");
     for (int i = 0; i < 1500; i++) {
-        stringstream name;
+        std::stringstream name;
         name <<  "Wall001_" << i;
         pWallAABActor = NEW Wall001(name.str().c_str());
         pWallAABActor->setScaleR(scale_r);
@@ -25,7 +24,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     WallAAPrismActor* pWallAAPrismActor;
     GgafActorDepository* pDepo_WallAAPrism = NEW GgafActorDepository("Dp_WallAAPrism");
     for (int i = 0; i < 500; i++) {
-        stringstream name;
+        std::stringstream name;
         name <<  "Wall001Prism_" << i;
         pWallAAPrismActor = NEW Wall001Prism(name.str().c_str());
         pWallAAPrismActor->setScaleR(scale_r);

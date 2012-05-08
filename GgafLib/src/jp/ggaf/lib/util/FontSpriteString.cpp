@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -14,7 +13,7 @@ FontSpriteString::FontSpriteString(char* prm_font_modelname, int prm_iStrLen) : 
 //	}
 }
 
-void FontSpriteString::draw(int prm_X, int prm_Y, int prm_Z, string prm_string) {
+void FontSpriteString::draw(int prm_X, int prm_Y, int prm_Z, std::string prm_string) {
 //	int iLen_ParamStr = (int)prm_string.size();
 //	int X = prm_X;
 //	int Y = prm_Y;

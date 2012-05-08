@@ -1,14 +1,13 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-string GgafLibProperties::DIR_SCENE_DATA = ".\\scene\\";
-string GgafLibProperties::DIR_SPLINE_DATA = ".\\spline\\";
+std::string GgafLibProperties::DIR_SCENE_DATA = ".\\scene\\";
+std::string GgafLibProperties::DIR_SPLINE_DATA = ".\\spline\\";
 int GgafLibProperties::OCTREE_LEVEL = 1;
 
-void GgafLibProperties::load(string prm_ini_filename) {
+void GgafLibProperties::load(std::string prm_ini_filename) {
     GgafDxProperties::load(prm_ini_filename);
     if (GgafProperties::isExistKey("DIR_SCENE_DATA")) {
         GgafLibProperties::DIR_SCENE_DATA   = getStr("DIR_SCENE_DATA");

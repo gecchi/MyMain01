@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -18,8 +17,8 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     setAlpha(9.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
     setHitAble(false); //当たり判定無し
-    _pSeTransmitter->useSe(1);                                                //使用効果音数宣言
-    _pSeTransmitter->set(0, "humei10", GgafRepeatSeq::nextVal("CH_humei10")); //効果音定義
+    _pSeTx->useSe(1);                                                //使用効果音数宣言
+    _pSeTx->set(0, "humei10", GgafRepeatSeq::nextVal("CH_humei10")); //効果音定義
     useProgress(LOCKON001_PROG_RELEASE);
 }
 
@@ -101,7 +100,7 @@ EffectLockon001::~EffectLockon001() {
 //}
 
 
-//void EffectLockon001::dump(string prm_parent) {
+//void EffectLockon001::dump(std::string prm_parent) {
 //    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==NULL?"NULL":pTarget_->getName())<<" "<<
 //                                                                         "@"<<frame_of_behaving_since_onActive_<<
 //                                                                         "/"<<

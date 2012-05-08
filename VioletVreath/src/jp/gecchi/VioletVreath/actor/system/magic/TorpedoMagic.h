@@ -22,7 +22,7 @@ public:
     virtual void processInvokeBegin(int prm_now_level, int prm_new_level) override {
     }
 
-    virtual void processInvokeingBehavior(int prm_now_level, int prm_new_level) override {
+    virtual void processInvokingBehavior(int prm_now_level, int prm_new_level) override {
     }
 
     virtual void processEffectBegin(int prm_last_level, int prm_now_level) override {

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -24,8 +23,8 @@ EnemyVesta::EnemyVesta(const char* prm_name) :
     pDepo_Fired_ = NULL;
     pDpcon_ = connectDepositoryManager("DpCon_Shot004", NULL);
 
-    _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
+    _pSeTx->useSe(1);
+    _pSeTx->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
 }
 
 void EnemyVesta::onCreateModel() {
@@ -220,7 +219,7 @@ void EnemyVesta::processBehavior() {
 
     _pScaler->behave();
     _pMorpher->behave();
-    //_pSeTransmitter->behave();
+    //_pSeTx->behave();
 
     //_pKurokoAの計算はローカルで行う
     changeGeoLocal();
@@ -254,7 +253,7 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        _pSeTransmitter->play3D(0);
+        _pSeTx->play3D(0);
         sayonara();
 
         //アイテム出現

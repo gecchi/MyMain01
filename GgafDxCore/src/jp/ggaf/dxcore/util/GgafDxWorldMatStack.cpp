@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -68,6 +67,6 @@ void GgafDxWorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame_world) {
 }
 
 // •`‰æƒŠƒXƒg‚ðŽæ“¾
-list<D3DXFRAME_WORLD*> *GgafDxWorldMatStack::GetDrawList() {
+std::list<D3DXFRAME_WORLD*> *GgafDxWorldMatStack::GetDrawList() {
     return &m_DrawFrameList;
 }

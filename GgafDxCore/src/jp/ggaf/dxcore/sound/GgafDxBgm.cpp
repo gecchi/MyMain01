@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace IkdLib;
@@ -9,8 +8,8 @@ using namespace IkdLib;
 //    if (GgafDxSound::_pIDirectSound8 == NULL) {
 //        throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_ogg_name<<") DirectSound が、まだ初期化されていません。");
 //    }
-//    _file_name = string(prm_ogg_name);
-//    string ogg_filename = GGAF_PROPERTY(DIR_OGG) + _file_name + ".ogg";
+//    _file_name = std::string(prm_ogg_name);
+//    std::string ogg_filename = GGAF_PROPERTY(DIR_OGG) + _file_name + ".ogg";
 //    _pOggResource = NEW OggVorbisFile( ogg_filename.c_str() );
 //    _pOggDecoder =  NEW OggDecoder( _pOggResource );
 //    _pPcmPlayer = NEW PCMPlayer(GgafDxSound::_pIDirectSound8 , _pOggDecoder);
@@ -20,12 +19,12 @@ GgafDxBgm::GgafDxBgm(char* prm_bgm_key) : GgafObject() {
     if (GgafDxSound::_pIDirectSound8 == NULL) {
         throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_bgm_key<<") DirectSound が、まだ初期化されていません。");
     }
-    string bgm_key = string(prm_bgm_key);
+    std::string bgm_key = std::string(prm_bgm_key);
     _ogg_file_name = (*GgafProperties::_pMapProperties)[bgm_key+"_OGG"];
     _bpm = atoi((*GgafProperties::_pMapProperties)[bgm_key+"_BPM"].c_str());
     _title = (*GgafProperties::_pMapProperties)[bgm_key+"_TITLE"];
     _TRACE_("GgafDxBgm::GgafDxBgm KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
-    string full_ogg_file_name = GGAF_PROPERTY(DIR_OGG) + string(_ogg_file_name);
+    std::string full_ogg_file_name = GGAF_PROPERTY(DIR_OGG) + std::string(_ogg_file_name);
     _pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );
     _pOggDecoder =  NEW OggDecoder( _pOggResource );
     _pPcmPlayer = NEW PCMPlayer(GgafDxSound::_pIDirectSound8 , _pOggDecoder);

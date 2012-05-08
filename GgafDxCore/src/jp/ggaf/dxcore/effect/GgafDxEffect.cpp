@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 D3DXMACRO GgafDxEffect::_aD3DXMacro_Defines[3] =
@@ -14,16 +13,16 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
     _effect_name = NEW char[51];
     strcpy(_effect_name, prm_effect_name);
 
-    string effect_file_name;
+    std::string effect_file_name;
     if (GGAF_PROPERTY(REALTIME_EFFECT_COMPILE)) {
         //fx ファイルからコンパイル
-        effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
+        effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + std::string(prm_effect_name) + ".fx";
     } else {
         //コンパイル済み fxo ファイルを読み込み
         if ( GgafDxGod::_ps_v >= D3DPS_VERSION(3, 0)) {
-            effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + "3_0_" + string(prm_effect_name) + ".fxo";
+            effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + "3_0_" + std::string(prm_effect_name) + ".fxo";
         } else {
-            effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + "2_0_" + string(prm_effect_name) + ".fxo";
+            effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + "2_0_" + std::string(prm_effect_name) + ".fxo";
         }
     }
 

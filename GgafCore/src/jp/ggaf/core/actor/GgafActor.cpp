@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 
 GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
@@ -164,7 +163,7 @@ void GgafActor::dump() {
     }
 }
 
-void GgafActor::dump(string prm_parent) {
+void GgafActor::dump(std::string prm_parent) {
     _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst) {

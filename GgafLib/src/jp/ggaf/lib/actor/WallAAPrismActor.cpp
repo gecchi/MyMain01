@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -13,7 +12,7 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
                                    GgafStatus* prm_pStat) :
 
                                       WallPartsActor(prm_name,
-                                                     string("11/" + string(prm_model)).c_str(),
+                                                     std::string("11/" + std::string(prm_model)).c_str(),
                                                      "WallAAPrismEffect",
                                                      "WallAAPrismTechnique",
                                                      prm_pStat) {

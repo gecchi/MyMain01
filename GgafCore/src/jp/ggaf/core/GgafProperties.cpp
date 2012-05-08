@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 
 using namespace GgafCore;
 
@@ -10,7 +9,7 @@ int GgafProperties::DRAWNUM_TO_SLOWDOWN1 = 350;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN2 = 500;
 float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 50.0f;
 
-void GgafProperties::load(string prm_properties_filename) {
+void GgafProperties::load(std::string prm_properties_filename) {
     if (_pMapProperties == NULL) {
         _pMapProperties = NEW GgafStrMap();
         GgafUtil::readProperties(prm_properties_filename, _pMapProperties);
@@ -43,17 +42,17 @@ void GgafProperties::clean() {
     DELETE_IMPOSSIBLE_NULL(_pMapProperties);
 }
 
-string GgafProperties::getStr(string prm_key) {
+std::string GgafProperties::getStr(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        string* r = NEW string((*_pMapProperties)[prm_key].c_str());
-        string val = *r;
+        std::string* r = NEW std::string((*_pMapProperties)[prm_key].c_str());
+        std::string val = *r;
         DELETE_IMPOSSIBLE_NULL(r);
         return val;
     } else {
         throwGgafCriticalException("GgafProperties::getStr() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
 }
-float GgafProperties::getFloat(string prm_key) {
+float GgafProperties::getFloat(std::string prm_key) {
     if (isExistKey(prm_key)) {
         float ret = (float)atof((*_pMapProperties)[prm_key].c_str());
         return ret;
@@ -62,7 +61,7 @@ float GgafProperties::getFloat(string prm_key) {
     }
 
 }
-int GgafProperties::getInt(string prm_key) {
+int GgafProperties::getInt(std::string prm_key) {
     if (isExistKey(prm_key)) {
         int ret = (int)(atoi((*_pMapProperties)[prm_key].c_str()));
         return ret;
@@ -71,7 +70,7 @@ int GgafProperties::getInt(string prm_key) {
     }
 }
 
-UINT32 GgafProperties::getUInt(string prm_key) {
+UINT32 GgafProperties::getUInt(std::string prm_key) {
     if (isExistKey(prm_key)) {
         UINT32 ret = (UINT32)(_atoi64((*_pMapProperties)[prm_key].c_str()));
         return ret;
@@ -80,7 +79,7 @@ UINT32 GgafProperties::getUInt(string prm_key) {
     }
 }
 
-bool GgafProperties::getBool(string prm_key) {
+bool GgafProperties::getBool(std::string prm_key) {
     if (isExistKey(prm_key)) {
         return GgafUtil::cnvBool((*_pMapProperties)[prm_key]);
     } else {
@@ -88,7 +87,7 @@ bool GgafProperties::getBool(string prm_key) {
     }
 }
 
-double GgafProperties::getDouble(string prm_key) {
+double GgafProperties::getDouble(std::string prm_key) {
     if (isExistKey(prm_key)) {
         double ret = atof((*_pMapProperties)[prm_key].c_str());
         return ret;
@@ -107,8 +106,8 @@ GgafRgb GgafProperties::getRGB(std::string prm_key) {
 }
 
 
-bool GgafProperties::isExistKey(string prm_key) {
-    //__map__<string, string>::iterator
+bool GgafProperties::isExistKey(std::string prm_key) {
+    //__map__<std::string, std::string>::iterator
     GgafStrMap::iterator itr;
     itr = _pMapProperties->find(prm_key);
     if (itr != _pMapProperties->end()) {

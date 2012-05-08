@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -18,8 +17,8 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pDepoCon_ = connectDepositoryManager("DpCon_Shot001", NULL);
     //pDepo_Shot_ = pDepoCon_->fetch();
 pDepo_Shot_ = NULL;
-    _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTx->useSe(1);
+    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
 void EnemyTamago01::onCreateModel() {
@@ -168,7 +167,7 @@ void EnemyTamago01::processBehavior() {
     _pKurokoA->behave();
     _pScaler->behave();
     _pUvFlipper->behave();
-    //_pSeTransmitter->behave();
+    //_pSeTx->behave();
 }
 
 void EnemyTamago01::processJudgement() {
@@ -180,7 +179,7 @@ void EnemyTamago01::processJudgement() {
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-    _pSeTransmitter->play3D(0);
+    _pSeTx->play3D(0);
     _TRACE_("HIT!!!");
     if (pExplo001) {
         pExplo001->locatedBy(this);

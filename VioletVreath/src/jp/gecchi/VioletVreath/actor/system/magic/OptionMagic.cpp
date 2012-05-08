@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -77,14 +76,17 @@ void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
     }
 }
 
-void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level) {
-
+void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
+    if (prm_result_invoke == MAGIC_INVOKE_NG_MP_IS_SHORT) {
+        //ârè•ÇµÇΩÇØÇ«ÅAMPÇ™ë´ÇËÇ»Ç©Ç¡ÇΩ
+        for (int i = 0; i < max_level_; i++) {
+            papEffect_[i]->inactivateImmed();
+        }
+    }
 }
 
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     r_effect_ = 1;
-
-
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
         MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrlr_[lv-1];
         papEffect_[lv-1]->_pKurokoA->setMvVelo(0);
@@ -95,13 +97,12 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
                p->_Z + p->pOption_->Zorg_,
                20000, 1000, 50000);
     }
-
 }
 
-void OptionMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level)  {
+void OptionMagic::processInvokingBehavior(int prm_now_level, int prm_new_level)  {
 }
 
-void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
+void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
 }
 int OptionMagic::effect(int prm_level) {
     int r = Magic::effect(prm_level);

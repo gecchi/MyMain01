@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -77,11 +76,11 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 //        LaserChipDepository* pLaserChipDepo;
 //        EnemyAstraeaLaserChip002* pChip;
 //        for (int nLaser = 0; nLaser < 27; nLaser++) {
-//            stringstream name;
+//            std::stringstream name;
 //            name <<  "LaserChipDepository["<<nLaser<<"]";
 //            pLaserChipDepo = NEW LaserChipDepository(name.str().c_str());
 //            for (int nChip = 0; nChip < 50; nChip++) {
-//                stringstream name;
+//                std::stringstream name;
 //                name <<  "EnemyAstraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
 //                pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
 //                pChip->inactivateImmed();

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -11,15 +10,15 @@ SplineManufactureManager::SplineManufactureManager(const char* prm_manager_name)
 SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_idstr, void* prm_p) {
     frame spent_frame = 0;
     angvelo angveloRzRyMv = 0;
-    string classname = "";
+    std::string classname = "";
     int turn_way = -1;
     bool turn_optimize = true;
     double rate_X = 1.0f;
     double rate_Y = 1.0f;
     double rate_Z = 1.0f;
 
-    string spl_data_file="";
-    string spl_filename = GGAF_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".spl";
+    std::string spl_data_file="";
+    std::string spl_filename = GGAF_PROPERTY(DIR_SPLINE_DATA) + std::string(prm_idstr) + ".spl";
 
 
     GgafStrMap mapSplPropperties;
@@ -94,7 +93,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     }
 
     SplineManufacture* pSplManuf = NULL;
-    if (classname.find("FixedFrameSpline") != string::npos) {
+    if (classname.find("FixedFrameSpline") != std::string::npos) {
         if (GgafUtil::isExistKey("SPENT_FRAME", &mapSplPropperties)) {
             spent_frame = (frame)atoi(mapSplPropperties["SPENT_FRAME"].c_str());
         } else {
@@ -110,7 +109,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
                                                     turn_optimize);
         pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
         pSplManuf->calculate();
-    } else if (classname.find("FixedVelocitySpline") != string::npos) {
+    } else if (classname.find("FixedVelocitySpline") != std::string::npos) {
         pSplManuf = NEW FixedVelocitySplineManufacture(spl_data_file.c_str(),
                                                        angveloRzRyMv,
                                                        turn_way,

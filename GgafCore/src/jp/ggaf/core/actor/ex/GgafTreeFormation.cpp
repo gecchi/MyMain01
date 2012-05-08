@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 
 GgafTreeFormation::GgafTreeFormation(const char* prm_name, frame prm_offset_frames_end) :

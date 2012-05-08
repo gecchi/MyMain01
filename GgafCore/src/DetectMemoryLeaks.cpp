@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 
 __map__<std::size_t, std::string> detectMemoryLeaksMemoryMap;

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -9,8 +8,8 @@ EnemyCirce::EnemyCirce(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ceres", STATUS(EnemyCirce)) { //8/‚ð‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
     _class_name = "EnemyCirce";
     iMovePatternNo_ = 0;
-    _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTx->useSe(1);
+    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
 void EnemyCirce::onCreateModel() {
@@ -40,7 +39,7 @@ void EnemyCirce::processBehavior() {
     _pKurokoA->execTurnMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO);
     _pKurokoA->behave();
     _pScaler->behave();
-    //_pSeTransmitter->behave();
+    //_pSeTx->behave();
 }
 
 
@@ -54,7 +53,7 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 =
             employFromCommon(EffectExplosion001);
-    _pSeTransmitter->play3D(0);
+    _pSeTx->play3D(0);
     if (pExplo001) {
         pExplo001->locatedBy(this);
         pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);

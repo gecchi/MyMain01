@@ -1,6 +1,5 @@
 #include "stdafx.h"
-//using namespace std;
-//using namespace GgafCore;
+////using namespace GgafCore;
 //using namespace GgafDxCore;
 //using namespace GgafLib;
 //using namespace VioletVreath;
@@ -134,7 +133,7 @@
 //        }
 //    }
 //    if (_pChip_front == NULL) {
-//        _pSeTransmitter->behave();
+//        _pSeTx->behave();
 //    }
 //    WateringLaserChip::processBehavior();//À•W‚ğˆÚ“®‚³‚¹‚Ä‚©‚çŒÄ‚Ño‚·‚±‚Æ
 //}

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 
 using namespace GgafCore;
 
@@ -9,9 +8,9 @@ GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafAc
 
     char aChar_strbit[33];
     GgafUtil::strbin(prm_kind, aChar_strbit);
-    stringstream ss;
+    std::stringstream ss;
     ss <<  "kind=" << aChar_strbit << "";
-    string name = ss.str();
+    std::string name = ss.str();
     strcpy(_name, name.c_str());
 
     _kind = prm_kind;

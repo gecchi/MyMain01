@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -41,7 +40,7 @@ void MagicMeterStatus::processDraw() {
 
         _X = pMagicMeter_->_X + PX_C(pMagicMeter_->width_px_)*(i+1); //i+1 は右隣に表示
         //各マジック要素
-		float rr = pMagicMeter_->paFloat_rr_[i];
+        float rr = pMagicMeter_->paFloat_rr_[i];
         if (rr > 0.1) {
             for (int j = 1; j <= pMagic->level_; j++) {
                 setAlpha(rr);
@@ -53,9 +52,8 @@ void MagicMeterStatus::processDraw() {
         }
         pElem = pElem->_pNext;
     }
-
-
 }
+
 MagicMeterStatus::~MagicMeterStatus() {
 }
 

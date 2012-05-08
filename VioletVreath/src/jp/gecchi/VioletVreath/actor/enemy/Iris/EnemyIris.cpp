@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -13,8 +12,8 @@ EnemyIris::EnemyIris(const char* prm_name)
     pSplSeq_ = NULL;
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
-    _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
+    _pSeTx->useSe(1);
+    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
 }
 
 void EnemyIris::onCreateModel() {
@@ -111,7 +110,7 @@ void EnemyIris::processBehavior() {
         pSplSeq_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ðU‚é•‘‚¢
     }
     _pKurokoA->behave();
-    //_pSeTransmitter->behave();
+    //_pSeTx->behave();
 }
 
 void EnemyIris::processJudgement() {
@@ -131,7 +130,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
         }
 
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        _pSeTransmitter->play3D(0);
+        _pSeTx->play3D(0);
         if (pExplo001) {
             pExplo001->locatedBy(this);
             pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);

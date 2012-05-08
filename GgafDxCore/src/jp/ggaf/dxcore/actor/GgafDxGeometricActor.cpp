@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -18,7 +17,7 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _pChecker = prm_pChecker;
     _pKurokoA = NEW GgafDxKurokoA(this);
     _pKurokoB = NEW GgafDxKurokoB(this);
-    _pSeTransmitter = NEW GgafDxSeTransmitterForActor(this);
+    _pSeTx = NEW GgafDxSeTransmitterForActor(this);
     _offscreen_kind = -1;
     _pFunc_calcRotMvWorldMatrix = NULL;
     _pActor_Base = NULL;
@@ -312,7 +311,7 @@ void GgafDxGeometricActor::onEnded() {
 GgafDxGeometricActor::~GgafDxGeometricActor() {
     DELETE_IMPOSSIBLE_NULL(_pKurokoA);
     DELETE_IMPOSSIBLE_NULL(_pKurokoB);
-    DELETE_IMPOSSIBLE_NULL(_pSeTransmitter);
+    DELETE_IMPOSSIBLE_NULL(_pSeTx);
 }
 
 
@@ -337,7 +336,7 @@ void GgafDxGeometricActor::dump() {
     }
 }
 
-void GgafDxGeometricActor::dump(string prm_parent) {
+void GgafDxGeometricActor::dump(std::string prm_parent) {
     _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")"<<DUMP_FLGS);
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst) {

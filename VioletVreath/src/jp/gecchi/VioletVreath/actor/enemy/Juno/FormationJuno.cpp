@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -22,7 +21,6 @@ FormationJuno::FormationJuno(
     _class_name = "FormationJuno";
     pDepoCon_ = connectDepositoryManager("DpCon_Shot004", NULL); //Juno‚Ì’e
 
-    pRndGen_ = CmRandomNumberGenerator::getInstance();
     X1_app_ = prm_X1_app;
     Y1_app_ = prm_Y1_app;
     Z1_app_ = prm_Z1_app;
@@ -64,9 +62,9 @@ void FormationJuno::processBehavior() {
     if (getActivePartFrame() % frame_app_interval_ == 0) {
         EnemyJuno* pEnemyJuno = (EnemyJuno*)pDepo_EnemyJuno_->dispatch();
         if (pEnemyJuno) {
-            pEnemyJuno->_X = (pRndGen_->genrand_int32() % (X2_app_-X1_app_)) + X1_app_ + _X;
-            pEnemyJuno->_Y = (pRndGen_->genrand_int32() % (Y2_app_-Y1_app_)) + Y1_app_ + _Y;
-            pEnemyJuno->_Z = (pRndGen_->genrand_int32() % (Z2_app_-Z1_app_)) + Z1_app_ + _Z;
+            pEnemyJuno->_X = RND(X1_app_, X2_app_) + _X;
+            pEnemyJuno->_Y = RND(Y1_app_, Y2_app_) + _Y;
+            pEnemyJuno->_Z = RND(Z1_app_, Z2_app_) + _Z;
         }
     }
     _pKurokoA->behave();

@@ -418,6 +418,7 @@ class TorpedoMagic;
 class TractorMagic;
 class EffectMagic001;
 class EffectSpeedMagic;
+class EffectVreathMagic001;
 
 class Item;
 class MagicPointItem;
@@ -678,8 +679,10 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/system/magic/LockonMagic.h"
 #include "jp/gecchi/VioletVreath/actor/system/magic/TorpedoMagic.h"
 #include "jp/gecchi/VioletVreath/actor/system/magic/TractorMagic.h"
+#include "jp/gecchi/VioletVreath/actor/system/magic/VreathMagic.h"
 #include "jp/gecchi/VioletVreath/actor/system/magic/effect/EffectMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/system/magic/effect/EffectSpeedMagic.h"
+#include "jp/gecchi/VioletVreath/actor/system/magic/effect/EffectVreathMagic001.h"
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"

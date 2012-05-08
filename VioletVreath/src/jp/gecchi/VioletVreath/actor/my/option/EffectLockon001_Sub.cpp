@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -24,7 +23,7 @@ void EffectLockon001_Sub::onActive() {
     setAlpha(0.01);
     _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //右回転
-    //_pSeTransmitter->play3D(0); //ロックオンSE
+    //_pSeTx->play3D(0); //ロックオンSE
     locatedBy(pTarget_);
 
     _pProg->change(LOCKON001_PROG_LOCK);

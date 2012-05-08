@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -30,8 +29,8 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     setHitAble(true, false); //画面外当たり判定は無効
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 400000);
-    _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "decide1");
+    _pSeTx->useSe(1);
+    _pSeTx->set(0, "decide1");
 }
 
 void MagicPointItem::initialize() {
@@ -51,7 +50,6 @@ void MagicPointItem::onActive() {
 
     //初期方向設定
     MyShip* pMyShip = P_MYSHIP;
-    GgafCore::CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
     //散らばり範囲正方形１辺の長さ
     int scattered_renge    = _pColliChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
     //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
@@ -66,9 +64,9 @@ void MagicPointItem::onActive() {
             vX, vY, vZ);
 
     _pKurokoA->setMvAng(
-            (int)(_X + (vX * scattered_distance) + (((int)pRndGen->genrand_int32() % scattered_renge) - (scattered_renge/2))),
-            (int)(_Y + (vY * scattered_distance) + (((int)pRndGen->genrand_int32() % scattered_renge) - (scattered_renge/2))),
-            (int)(_Z + (vZ * scattered_distance) + (((int)pRndGen->genrand_int32() % scattered_renge) - (scattered_renge/2)))
+            (int)(_X + (vX * scattered_distance) + RND(-scattered_renge/2, scattered_renge/2)),
+            (int)(_Y + (vY * scattered_distance) + RND(-scattered_renge/2, scattered_renge/2)),
+            (int)(_Z + (vZ * scattered_distance) + RND(-scattered_renge/2, scattered_renge/2))
     );
 }
 
@@ -125,7 +123,7 @@ void MagicPointItem::processBehavior() {
         _SY -= 100;
         _SZ -= 100;
         if (_SX < 5) {
-            _pSeTransmitter->play(0);
+            _pSeTx->play(0);
             _pProg->change(ITEM_PROG_NOTIONG);
             sayonara(); //終了
         }

@@ -9,7 +9,6 @@ namespace VioletVreath {
 class FormationJuno : public GgafLib::DefaultGeometricActor {
     /** ジュノーストック */
     GgafCore::GgafActorDepository* pDepo_EnemyJuno_;
-	GgafCore::CmRandomNumberGenerator* pRndGen_;
     DepositoryConnection* pDepoCon_;
 
 public:

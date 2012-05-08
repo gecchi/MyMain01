@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -9,8 +8,8 @@ Shot002::Shot002(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
     my_frame_ = 0;
-    _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
+    _pSeTx->useSe(1);
+    _pSeTx->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
 void Shot002::initialize() {
@@ -49,7 +48,7 @@ void Shot002::processBehavior() {
     //À•W‚É”½‰f
     _pKurokoA->behave();
     _pScaler->behave();
-    _pSeTransmitter->behave();
+    _pSeTx->behave();
     my_frame_++;
 }
 
@@ -65,7 +64,7 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //”j‰ó‚³‚ê‚½ê‡
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        _pSeTransmitter->play3D(0);
+        _pSeTx->play3D(0);
         if (pExplo001) {
             pExplo001->locatedBy(this);
         }

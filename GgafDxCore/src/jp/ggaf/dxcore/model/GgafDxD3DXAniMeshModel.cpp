@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -33,8 +32,8 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
         checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
     }
     pTargetActor->_pPuppeteer->work(); //アニメーション反映
-    list< D3DXFRAME_WORLD* > *pDrawList = _stackWorldMat.GetDrawList(); // 描画リストを取得
-    list<D3DXFRAME_WORLD*>::iterator it = pDrawList->begin();
+    std::list< D3DXFRAME_WORLD* > *pDrawList = _stackWorldMat.GetDrawList(); // 描画リストを取得
+    std::list<D3DXFRAME_WORLD*>::iterator it = pDrawList->begin();
 
     int n = 0;
     //マテリアル・テクスチャの一発目をセット、

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -7,8 +6,8 @@ using namespace VioletVreath;
 
 EnemyMassaliaFragment2::EnemyMassaliaFragment2(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Massalia", STATUS(EnemyMassaliaFragment2)) {
-    _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
+    _pSeTx->useSe(1);
+    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
 }
 
 void EnemyMassaliaFragment2::onCreateModel() {
@@ -45,7 +44,7 @@ void EnemyMassaliaFragment2::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        _pSeTransmitter->play3D(0);
+        _pSeTx->play3D(0);
         if (pExplo001) {
             pExplo001->locatedBy(this);
             pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);

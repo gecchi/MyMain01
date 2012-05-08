@@ -1,11 +1,10 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
 SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject() {
-    _source_file = string(prm_source_file);
+    _source_file = std::string(prm_source_file);
     _pSplSrcCon = (SplineSourceConnection*)((P_GOD)->_pSplSrcManager->connect(prm_source_file));
     _pSplSrc = _pSplSrcCon->fetch();
     _sp = _pSplSrc->_pSp;

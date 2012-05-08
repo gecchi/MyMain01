@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -25,7 +24,7 @@ void EffectLockon001_Main::onActive() {
     _pScaler->setScale(60000); //(6000%)
     _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
-    _pSeTransmitter->play3D(0); //ロックオンSE
+    _pSeTx->play3D(0); //ロックオンSE
     locatedBy(pTarget_);
     _pProg->change(LOCKON001_PROG_FIRST_LOCK);
 }
@@ -102,7 +101,7 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
         _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
         _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
         _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);   //回転
-        _pSeTransmitter->play3D(0); //ロックオンSE
+        _pSeTx->play3D(0); //ロックオンSE
         _pProg->change(LOCKON001_PROG_FIRST_LOCK);
     }
 

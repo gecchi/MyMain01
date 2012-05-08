@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -9,13 +8,13 @@ GgafDxAllocHierarchy::GgafDxAllocHierarchy() {
 // デストラクタ
 GgafDxAllocHierarchy::~GgafDxAllocHierarchy() {
     // 登録されたオブジェクトを全て削除する
-    list<DeleterBase*>::iterator it = m_DelList.begin();
+    std::list<DeleterBase*>::iterator it = m_DelList.begin();
     for (; it != m_DelList.end(); it++) {
         DeleterBase* p = (*it);
         delete p;
     }
 
-    list<IUnknown*>::iterator comit = m_ReleaseList.begin();
+    std::list<IUnknown*>::iterator comit = m_ReleaseList.begin();
     for (; comit != m_ReleaseList.end(); comit++) {
         if (*comit) {
             (*comit)->Release();

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -66,15 +65,15 @@ void VBReplayRecorder::write(vbsta prm_state) {
     }
 
     if (_write_realtime) {
-        _ofs_realtime << prm_state << " 1" << endl;
+        _ofs_realtime << prm_state << " 1" << std::endl;
     }
 }
 
 void VBReplayRecorder::outputFile(const char* prm_filename) {
-    ofstream ofs(prm_filename);
+    std::ofstream ofs(prm_filename);
     VBRecordNote* p = _pFirstVBNote;
     while (p != NULL) {
-        ofs << p->_state << " " << p->_frame_of_keeping << endl;
+        ofs << p->_state << " " << p->_frame_of_keeping << std::endl;
         p = p ->_pNext;
     }
     if (_write_realtime) {
@@ -83,7 +82,7 @@ void VBReplayRecorder::outputFile(const char* prm_filename) {
 }
 
 bool VBReplayRecorder::importFile(const char* prm_filename) {
-    ifstream ifs(prm_filename);
+    std::ifstream ifs(prm_filename);
     if (ifs.fail()) {
         _TRACE_("VBReplayRecorder::importFile "<<prm_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");
         return false;
