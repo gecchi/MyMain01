@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 
 MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic) :
-        DefaultBoardSetActor(prm_name, prm_model) {
+        DefaultBoardActor(prm_name, prm_model) {
     _class_name = "MagicLvCursor";
     pMagicMeter_ = prm_pMagicMeter;
     pMagic_ = prm_pMagic;
@@ -38,6 +38,7 @@ void MagicLvCursor::processBehavior() {
     _pKurokoA->behave();
     _pUvFlipper->behave();
     _pFader->behave();
+    _pScaler->behave();
 }
 void MagicLvCursor::processPreDraw() {
     //カーソル関連は
@@ -52,11 +53,11 @@ void MagicLvCursor::processPreDraw() {
     //ここで、ロール分Y座標を補正
     tmp_Y_ = _Y; //退避
     _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
-    DefaultBoardSetActor::processPreDraw();
+    DefaultBoardActor::processPreDraw();
 }
 
 void MagicLvCursor::processAfterDraw() {
-    DefaultBoardSetActor::processAfterDraw();
+    DefaultBoardActor::processAfterDraw();
     _Y = tmp_Y_; //復帰
     setAlpha(tmp_alpha_); //復帰
 }
@@ -70,7 +71,7 @@ void MagicLvCursor::moveTo(int prm_lv) {
     _Y = tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
 }
 
-void MagicLvCursor::moveSmoothTo(int prm_lv, int prm_target_frames, float prm_p1, float prm_p2) {
+void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_p1, float prm_p2) {
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。
     point_lv_ = prm_lv;
@@ -78,7 +79,11 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, int prm_target_frames, float prm_p1
     tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pKurokoA->setMvAng(tX_, tY_);
     _pKurokoA->execSmoothMvSequence(0, GgafDxUtil::getDistance(_X, _Y, tX_, tY_),
-                                    prm_target_frames, prm_p1, prm_p2); //ロールを考慮せずにとりあえず移動
+                                    (int)prm_target_frames, prm_p1, prm_p2); //ロールを考慮せずにとりあえず移動
+}
+
+void MagicLvCursor::beginBlinking() {
+    _pFader->beat(6, 0, 3, 3, 15); //ピカピカ
 }
 
 MagicLvCursor::~MagicLvCursor() {

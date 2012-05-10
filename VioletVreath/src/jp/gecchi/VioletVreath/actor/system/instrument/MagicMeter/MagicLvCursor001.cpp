@@ -29,13 +29,5 @@ void MagicLvCursor001::dispEnable() {
     _pUvFlipper->setActivePtn(0);
 }
 
-void MagicLvCursor001::beginBlinking() {
-    _pFader->beat(8, 0, 4, 4, 10); //ピカピカ
-}
-
-//void MagicLvCursor001::stopBlinking() {
-//    _pFader->beat(8, 0, 4, 4, 1); //ピカピカ終了
-//}
-
 MagicLvCursor001::~MagicLvCursor001() {
 }

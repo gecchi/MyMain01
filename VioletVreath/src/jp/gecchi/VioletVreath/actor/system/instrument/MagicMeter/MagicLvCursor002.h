@@ -22,12 +22,9 @@ public:
     MagicLvCursor002(const char* prm_name, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic);
 
     void initialize() override;
-    void moveSmoothTo(int prm_lv);
+    void moveSmoothTo(int prm_lv, frame prm_spent=10);
     void dispDisable();
     void dispEnable();
-
-    void beginBlinking();
-//    void stopBlinking();
 
     virtual ~MagicLvCursor002();
 };

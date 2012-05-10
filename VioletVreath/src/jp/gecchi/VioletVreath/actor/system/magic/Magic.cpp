@@ -336,10 +336,7 @@ void Magic::processBehavior() {
             /////////////////////////////////////// 持続開始
             case STATE_EFFECT_BEGIN: {
                 //MP消費計算
-                if (level_ == 0) {
-                    _pProg->change(STATE_NOTHING);
-                    break;
-                } else if (last_level_ < level_) {
+                if (last_level_ < level_) {
                     //レベルアップだった場合
                     //飛び越された間のレベルは停止して効果持続終了残り時間を満タンを設定
                     for (int lv = last_level_+1; lv <= level_-1; lv++) {
@@ -362,10 +359,7 @@ void Magic::processBehavior() {
                         lvinfo_[lv].is_working_ = false; //停止し
                         lvinfo_[lv].remainingtime_of_effect_ = 0; //果持続終了残り時間を0
                     }
-
-
                 } else {
-                    _TRACE_("last_level_＝＝level_①");
                 }
 
 
@@ -390,58 +384,60 @@ void Magic::processBehavior() {
                 _pProg->set(STATE_EFFECTING);
                 //↓ fall down ↓
             }
-            /////////////////////////////////////// 持続中
-            case STATE_EFFECTING: {
-                processEffectingBehavior(last_level_, level_); //コールバック
-                lvinfo_[level_].remainingtime_of_effect_ --; //効果持続残り時間減少
 
-                //維持コストがかかる場合の処理
-                if (keep_cost_base_ != 0) {
-                    pMP_->inc(-1*lvinfo_[level_].keep_cost_); //維持コスト減少
-                    //MP枯渇？
-                    if (pMP_->_val <= 0) {
-                        //MP枯渇による持続終了時
-                        pMP_->_val = 0;
-                        for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
-                             lvinfo_[lv].is_working_ = false;           //停止し
-                             lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
-                        }
-                        new_level_ = 0;
-                        last_level_ = level_;
-                        level_ = new_level_;
-                        processEffectFinish(last_level_); //コールバック MP枯渇による魔法終了
-                        _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
-                        break;
-                    }
-                }
-
-                //持続時間満期処理
-                if (lvinfo_[level_].remainingtime_of_effect_ == 0) {
-                    effect(level_-1); //レベルダウン(-1)を行う。
-                    if (level_ == 0) { //現レベルが１で、レベルダウン(-1)によりnothingになった場合
-                        processEffectFinish(last_level_); //コールバック
-                        _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
-                        break;
-                    }
-                }
-                break;
-            }
             default :
                 break;
+        }
+        /////////////////////////////////////// 持続中
+        //case STATE_EFFECTING:
+        if (level_ > 0) {
+            processEffectingBehavior(last_level_, level_); //コールバック
+            lvinfo_[level_].remainingtime_of_effect_ --; //効果持続残り時間減少
+
+
+            if (keep_cost_base_ != 0) {
+                //維持コストがかかる場合の処理
+                pMP_->inc(-1*lvinfo_[level_].keep_cost_); //維持コスト減少
+                //MP枯渇？
+                if (pMP_->_val <= 0) {
+                    //MP枯渇による持続終了時
+                    pMP_->_val = 0;
+                    for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
+                         lvinfo_[lv].is_working_ = false;           //停止し
+                         lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
+                    }
+                    new_level_ = 0;
+                    last_level_ = level_;
+                    level_ = new_level_;
+                    processEffectFinish(last_level_); //コールバック MP枯渇による魔法終了
+                    _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+                }
+            }
+        }
+
+        if (level_ > 0) {
+            //持続時間満期処理
+            if (lvinfo_[level_].remainingtime_of_effect_ == 0) {
+                effect(level_-1); //レベルダウン(-1)を行う。
+                if (level_ == 0) { //現レベルが１で、レベルダウン(-1)によりnothingになった場合
+                    processEffectFinish(last_level_); //コールバック
+                    _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+                }
+            }
         }
     }
 
 }
 
-int Magic::calcReduceMp(int prm_now_level, int prm_target_down_level) {
-    //基本コストのinterest_cost_[レベル差] 還元。
-    //但し、各レベルの残りの効果持続時間の割合を乗ずる。
-    //この計算式では、MAXレベルの飛びレベルアップ ＞ レベル0へレベルダウン
-    //を素早く行うと、ロスは殆ど無い。
-    //早くレベルダウンしたほうがお得にするため。
-    int mp = 0;
+magic_point Magic::calcReduceMp(int prm_now_level, int prm_target_down_level) {
+    //コスト還元。
+    //この計算式では、レベル0 > MAXレベルアップ ＞ レベル0へレベルダウン を素早く行うと、
+    //ロス無しという計算。
+    //各レベルの残りの効果持続時間の割合も考慮する。
+    magic_point mp = 0;
+    static magic_point rcost_pre_lv = interest_cost_[max_level_]/max_level_;
     for (int lv = prm_now_level; lv > prm_target_down_level; lv--) {
-        mp += cost_base_*(1.0-interest_cost_[prm_now_level-prm_target_down_level])*(1.0*lvinfo_[lv].remainingtime_of_effect_ / lvinfo_[lv].time_of_effect_);
+        mp += rcost_pre_lv*(1.0*lvinfo_[lv].remainingtime_of_effect_ / lvinfo_[lv].time_of_effect_);
     }
     return mp;
 }

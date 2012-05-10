@@ -73,11 +73,54 @@ void GgafDxBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) 
     _align = prm_align;
     _valign = prm_valign;
 }
+void GgafDxBoardActor::locatedBy(GgafDxGeometricActor* prm_pActor) {
+    _X = prm_pActor->_X;
+    _Y = prm_pActor->_Y;
+}
+
 void GgafDxBoardActor::locatedBy(GgafDxGeoElem* prm_pGeoElem) {
     _X = prm_pGeoElem->_X;
     _Y = prm_pGeoElem->_Y;
 }
+void GgafDxBoardActor::setScale(scale S) {
+    _SX = S;
+    _SY = S;
+    _width_px = _pBoardModel->_fSize_BoardModelWidthPx * SC_R(S);
+    _height_px = _pBoardModel->_fSize_BoardModelHeightPx * SC_R(S);
+}
+void GgafDxBoardActor::setScale(scale SX, scale SY) {
+    _SX = SX;
+    _SY = SY;
+    _width_px = _pBoardModel->_fSize_BoardModelWidthPx * SC_R(SX);
+    _height_px = _pBoardModel->_fSize_BoardModelHeightPx * SC_R(SY);
+}
+void GgafDxBoardActor::setScale(scale SX, scale SY, scale SZ) {
+    _SX = SX;
+    _SY = SY;
+    _SZ = SZ; //_SZは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
+    _width_px = _pBoardModel->_fSize_BoardModelWidthPx * SC_R(SX);
+    _height_px = _pBoardModel->_fSize_BoardModelHeightPx * SC_R(SY);
+}
 
+void GgafDxBoardActor::setScaleR(float prm_rate) {
+    _SX = R_SC(prm_rate);
+    _SY = R_SC(prm_rate);
+    _width_px = _pBoardModel->_fSize_BoardModelWidthPx * prm_rate;
+    _height_px = _pBoardModel->_fSize_BoardModelHeightPx * prm_rate;
+}
+void GgafDxBoardActor::setScaleR(float prm_x_rate, float prm_y_rate) {
+    _SX = R_SC(prm_x_rate);
+    _SY = R_SC(prm_y_rate);
+    _width_px = _pBoardModel->_fSize_BoardModelWidthPx * prm_x_rate;
+    _height_px = _pBoardModel->_fSize_BoardModelHeightPx * prm_y_rate;
+}
+void GgafDxBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) {
+    _SX = R_SC(prm_x_rate);
+    _SY = R_SC(prm_y_rate);
+    _SZ = R_SC(prm_z_rate); //_SZは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
+    _width_px = _pBoardModel->_fSize_BoardModelWidthPx * prm_x_rate;
+    _height_px = _pBoardModel->_fSize_BoardModelHeightPx * prm_y_rate;
+}
 GgafDxBoardActor::~GgafDxBoardActor() {
     DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
 }

@@ -6,7 +6,7 @@ namespace GgafDxCore {
  * 座標変換済みのスプライトアクター(大量表示時用) .
  * GgafDxTransformedActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
  * GgafDxBoardActorに、同一モデルは一括描画を行うように最適化したたアクター。<BR>
- * 回転機能なし、拡大機能なし。<BR>
+ * 回転機能なし、拡大縮小機能なし。<BR>
  * 単純表示のため高速。文字表示や、背景等に使用したい。<BR>
  * @version 1.00
  * @since 2009/07/21
@@ -79,6 +79,20 @@ private:
      */
     void rotateWith(GgafDxGeometricActor* prm_pActor) override {
     }
+    void setScale(scale S) override {
+    }
+    void setScale(scale SX, scale SY) override {
+    }
+    void setScale(scale SX, scale SY, scale SZ) override {
+    }
+    void setScaleR(float prm_rate) override {
+    }
+    void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override {
+    }
+    void setScaleR(float prm_x_rate, float prm_y_rate) override {
+    }
+    void addScale(scale dS) override {
+    }
 
 public:
     int _draw_set_num;
@@ -108,10 +122,7 @@ public:
 
     virtual ~GgafDxBoardSetActor(); //デストラクタ
 
-    virtual void locatedBy(GgafDxGeometricActor* prm_pActor) override {
-        _X = prm_pActor->_X;
-        _Y = prm_pActor->_Y;
-    }
+    virtual void locatedBy(GgafDxGeometricActor* prm_pActor) override;
 
     virtual void locatedBy(GgafDxGeoElem* prm_pGeoElem) override;
 

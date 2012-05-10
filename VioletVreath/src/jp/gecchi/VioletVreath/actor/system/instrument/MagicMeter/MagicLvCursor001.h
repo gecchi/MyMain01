@@ -29,9 +29,6 @@ public:
     void dispDisable();
     void dispEnable();
 
-    void beginBlinking();
-    //void stopBlinking();
-
     virtual ~MagicLvCursor001();
 };
 

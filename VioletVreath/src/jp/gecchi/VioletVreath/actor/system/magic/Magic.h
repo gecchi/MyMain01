@@ -334,7 +334,7 @@ public:
      * @param prm_target_down_level ƒ_ƒEƒ“ƒŒƒxƒ‹
      * @return
      */
-    int calcReduceMp(int prm_now_level, int prm_target_down_level);
+    magic_point calcReduceMp(int prm_now_level, int prm_target_down_level);
 
     virtual ~Magic();
 };

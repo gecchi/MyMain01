@@ -267,6 +267,12 @@ public:
         setBoundingSphereRadiusRate(SC_R(max3(_SX,_SY,_SZ)));
     }
 
+    virtual void setScale(scale SX, scale SY) {
+        _SX = SX;
+        _SY = SY;
+        setBoundingSphereRadiusRate(SC_R(max3(_SX,_SY,_SZ)));
+    }
+
     /**
      * スケールを割合で設定。
      * 1.0 で 1.0倍。
@@ -286,6 +292,11 @@ public:
         _SY = R_SC(prm_y_rate);
         _SZ = R_SC(prm_z_rate);
         setBoundingSphereRadiusRate(max3(prm_x_rate, prm_y_rate, prm_z_rate));
+    }
+    virtual void setScaleR(float prm_x_rate, float prm_y_rate) {
+        _SX = R_SC(prm_x_rate);
+        _SY = R_SC(prm_y_rate);
+        setBoundingSphereRadiusRate(max3(prm_x_rate, prm_y_rate, SC_R(_SZ)));
     }
 
     virtual void addScale(scale dS) {

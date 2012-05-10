@@ -13,6 +13,24 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
             60*60 *60   , 0.0,  //Šî–{‘±ŠÔ   , ŠeƒŒƒxƒ‹‚ÌíŒ¸Š„‡
             0.0     , 0.0    //Šî–{ˆÛƒRƒXƒg , ŠeƒŒƒxƒ‹‚Ì rate
         ) {
+    //                         Lockon‡Z    Lockon‡Z    Vreath‡Z    Vreath‡Z    Tractor‡Z    Tractor‡Z
+    //                         Lockon‡Y    Lockon‡Y    Vreath‡Y    Vreath‡Y    Tractor‡Y    Tractor‡Y
+    //                         Lockon‡X    Lockon‡X    Vreath‡X    Vreath‡X    Tractor‡X    Tractor‡X
+    //                         Lockon‡W    Lockon‡W    Vreath‡W    Vreath‡W    Tractor‡W    Tractor‡W
+    //                         Lockon‡V    Lockon‡V    Vreath‡V    Vreath‡V    Tractor‡V    Tractor‡V
+    // Option‡]    Option‡]    Lockon‡U    Lockon‡U    Vreath‡U    Vreath‡U    Tractor‡U    Tractor‡U
+    // Option‡\    Option‡\    Lockon‡T    Lockon‡T    Vreath‡T    Vreath‡T    Tractor‡T    Tractor‡T
+    // Option‡[    Option‡[    Empty       Empty       Empty       Empty       Empty        Empty
+    // Option‡Z    Option‡Z    Torpedo‡Z   Torpedo‡Z   Laser‡Z     Laser‡Z     Speed‡Z      Speed‡Z
+    // Option‡Y    Option‡Y    Torpedo‡Y   Torpedo‡Y   Laser‡Y     Laser‡Y     Speed‡Y      Speed‡Y
+    // Option‡X    Option‡X    Torpedo‡X   Torpedo‡X   Laser‡X     Laser‡X     Speed‡X      Speed‡X
+    // Option‡W    Option‡W    Torpedo‡W   Torpedo‡W   Laser‡W     Laser‡W     Speed‡W      Speed‡W
+    // Option‡V    Option‡V    Torpedo‡V   Torpedo‡V   Laser‡V     Laser‡V     Speed‡V      Speed‡V
+    // Option‡U    Option‡U    Torpedo‡U   Torpedo‡U   Laser‡U     Laser‡U     Speed‡U      Speed‡U
+    // Option‡T    Option‡T    Torpedo‡T   Torpedo‡T   Laser‡T     Laser‡T     Speed‡T      Speed‡T
+    // Empty       Empty       Empty       Empty       Empty       Empty       Empty        Empty
+    //
+
 //    |  0,   1,   2,   3 |
 //    |  4,   5,   6,   7 |
 //    |  8,   9,  10,  11 |

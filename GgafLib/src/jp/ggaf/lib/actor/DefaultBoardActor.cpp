@@ -7,8 +7,10 @@ DefaultBoardActor::DefaultBoardActor(const char* prm_name, const char* prm_model
     GgafDxBoardActor(prm_name, prm_model, "DefaultBoardEffect", "DefaultBoardTechnique")  //prm_pStat–³Ž‹
 {
     _class_name = "DefaultBoardActor";
+    _pScaler = NEW GgafDxScaler(this);
 }
 
 DefaultBoardActor::~DefaultBoardActor() {
+    DELETE_IMPOSSIBLE_NULL(_pScaler);
 }
 

@@ -13,6 +13,7 @@ namespace GgafLib {
  * <TR><TD>_pKrokoA</TD><TD>黒子A。移動回転支援</TD><TD>GgafDxCore::GgafDxKurokoA</TD></TR>
  * <TR><TD>_pKrokoB</TD><TD>黒子B。移動支援</TD><TD>GgafDxCore::GgafDxKurokoB</TD></TR>
  * <TR><TD>_pFader</TD><TD>フィードイン・アウト支援</TD><TD> GgafDxCore::GgafDxAlphaFader</TD></TR>
+ * <TR><TD>_pScaler</TD><TD>拡大縮小支援</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
  * <TR><TD>_pUvFlipper</TD><TD>パラパラアニメーション支援</TD><TD>GgafDxCore::GgafDxUvFlipper</TD></TR>
  * <TR><TD>_pSeTx</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * </TABLE>
@@ -22,6 +23,9 @@ namespace GgafLib {
  */
 class DefaultBoardActor : public GgafDxCore::GgafDxBoardActor {
 
+public:
+    /** 拡大縮小支援オブジェクト */
+    GgafDxCore::GgafDxScaler* _pScaler;
 public:
     DefaultBoardActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = NULL);
 

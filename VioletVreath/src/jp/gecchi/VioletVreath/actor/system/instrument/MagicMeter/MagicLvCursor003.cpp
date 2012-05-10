@@ -33,7 +33,7 @@ void MagicLvCursor003::processPreDraw() {
     //ここで、ロール分Y座標を補正（・・・ここはMagicLvCursor::processPreDraw()と同じ）
     tmp_Y_ = _Y; //退避
     _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
-    DefaultBoardSetActor::processPreDraw();
+    DefaultBoardActor::processPreDraw();
 }
 
 void MagicLvCursor003::markOff() {
@@ -46,6 +46,8 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     _pUvFlipper->forcePtnRange(0,3);
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 3);
+    _pScaler->setScale(10000);
+    _pScaler->intoTargetScaleLinerUntil(1000,60);
 }
 
 void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
