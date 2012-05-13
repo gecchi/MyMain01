@@ -4,6 +4,6 @@ SpriteDef MagicMeter {
    128.0;             # FLOAT  Width
    32.0;              # FLOAT  Height
    "MagicMeter.png";  # STRING TextureFile
-   16;                # DWORD  TextureSplitRows
-   4;                 # DWORD  TextureSplitCols
+   32;                # DWORD  TextureSplitRows
+   8;                 # DWORD  TextureSplitCols
 }

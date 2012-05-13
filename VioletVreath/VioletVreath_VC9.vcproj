@@ -242,7 +242,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\CostDispBar.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.cpp"
 				>
 			</File>
 			<File
@@ -326,7 +326,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffecMagic001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffecMagic001.cpp"
 				>
 			</File>
 			<File
@@ -370,7 +370,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectSpeedMagic.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.cpp"
 				>
 			</File>
 			<File
@@ -382,7 +382,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectVreathMagic001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectVreathMagic001.cpp"
 				>
 			</File>
 			<File
@@ -482,7 +482,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnergyBar.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\EnergyBar.cpp"
 				>
 			</File>
 			<File
@@ -618,6 +618,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\GraphBar.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.cpp"
 				>
 			</File>
@@ -674,43 +678,43 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\LaserMagic.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LaserMagic.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\LockonMagic.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\Magic.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\Magic.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor002.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor002.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor003.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor003.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterCursor001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterStatus.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.cpp"
 				>
 			</File>
 			<File
@@ -810,11 +814,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyVreath.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyWave001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\OptionMagic.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\OptionMagic.cpp"
 				>
 			</File>
 			<File
@@ -890,7 +898,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\SpeedMagic.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.cpp"
 				>
 			</File>
 			<File
@@ -1030,7 +1038,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\TorpedoMagic.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.cpp"
 				>
 			</File>
 			<File
@@ -1038,7 +1046,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\TractorMagic.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.cpp"
 				>
 			</File>
 			<File
@@ -1086,7 +1094,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\VreathMagic.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.cpp"
 				>
 			</File>
 			<File
@@ -1156,7 +1168,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\CostDispBar.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.h"
 				>
 			</File>
 			<File
@@ -1272,7 +1284,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectMagic001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectMagic001.h"
 				>
 			</File>
 			<File
@@ -1284,7 +1296,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectSpeedMagic.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.h"
 				>
 			</File>
 			<File
@@ -1296,7 +1308,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\effect\EffectVreathMagic001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectVreathMagic001.h"
 				>
 			</File>
 			<File
@@ -1396,7 +1408,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\EnergyBar.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\EnergyBar.h"
 				>
 			</File>
 			<File
@@ -1536,6 +1548,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\GraphBar.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.h"
 				>
 			</File>
@@ -1592,43 +1608,43 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\LaserMagic.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LaserMagic.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\LockonMagic.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\Magic.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\Magic.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor002.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor002.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicLvCursor003.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor003.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterCursor001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterCursor001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\instrument\MagicMeter\MagicMeterStatus.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.h"
 				>
 			</File>
 			<File
@@ -1728,11 +1744,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyVreath.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyWave001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\OptionMagic.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\OptionMagic.h"
 				>
 			</File>
 			<File
@@ -1780,10 +1800,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\resource.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot001.h"
 				>
 			</File>
@@ -1812,7 +1828,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\SpeedMagic.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.h"
 				>
 			</File>
 			<File
@@ -1936,7 +1952,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\TorpedoMagic.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.h"
 				>
 			</File>
 			<File
@@ -1944,7 +1960,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\TractorMagic.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.h"
 				>
 			</File>
 			<File
@@ -1992,7 +2008,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\system\magic\VreathMagic.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.h"
 				>
 			</File>
 			<File

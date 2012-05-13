@@ -2,13 +2,13 @@
 #define ENERGYBAR_H_
 namespace VioletVreath {
 
-class EnergyBar : public GgafLib::DefaultBoardActor {
+class EnergyBar : public GraphBar {
 
 public:
-    /** “à—e—Ê */
-    GgafLib::AmountGraph* pAmount_;
+//    /** “à—e—Ê */
+//    GgafLib::AmountGraph* pAmount_;
 
-    float _fSize_BoardModelWidthPx;
+//    float _fSize_BoardModelWidthPx;
 
     /**
      *

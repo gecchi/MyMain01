@@ -1,13 +1,19 @@
-#ifndef COSTDISPBAR_H_
-#define COSTDISPBAR_H_
+#ifndef VREATHBAR_H_
+#define VREATHBAR_H_
 namespace VioletVreath {
 
-class CostDispBar : public GgafLib::DefaultBoardActor {
+/**
+ * VreathBar .
+ * @version 1.00
+ * @since 2012/05/11
+ * @author Masatoshi Tsuge
+ */
+class VreathBar : public GgafLib::DefaultBoardActor {
 
 public:
     /** 内容量 */
-    EnergyBar* pEnergyBar_;
-    GgafLib::AmountGraph* pCostDisp_;
+    GgafLib::AmountGraph* pAmount_;
+
     float _fSize_BoardModelWidthPx;
 
     /**
@@ -15,7 +21,7 @@ public:
      * @param prm_name
      * @param prm_pAmount config済みの AmountGraphオブジェクトの参照
      */
-    CostDispBar(const char* prm_name, EnergyBar* prm_pEnergyBar, GgafLib::AmountGraph* prm_pCostDisp);
+    VreathBar(const char* prm_name, GgafLib::AmountGraph* prm_pAmount);
 
     void initialize() override;
 
@@ -32,9 +38,9 @@ public:
     void addVal(double prm_val);
 
 
-    virtual ~CostDispBar();
+    virtual ~VreathBar();
 };
 
 }
-#endif /*ENERGYBAR_H_*/
+#endif /*VREATHBAR_H_*/
 

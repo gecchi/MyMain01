@@ -4,10 +4,10 @@ namespace VioletVreath {
 
 #define MMETER_MAX_LEVEL 9
 
-#ifdef P_MYSHIP_SCENE
-    #define P_MAGICMETER (P_MYSHIP_SCENE->pMagicMeter_)
+#ifdef P_MYSHIP
+    #define P_MAGICMETER (P_MYSHIP->pMagicMeter_)
 #else
-    #error P_MYSHIP_SCENE isnt define
+    #error P_MAGICMETER isnt define
 #endif
 
 
@@ -32,11 +32,14 @@ class MagicMeter : public GgafLib::DefaultBoardSetActor {
     };
 public:
     D3DXHANDLE h_active_magic_;
-    /** MP */
-    GgafLib::AmountGraph mp_;
-
+    /** 自機のMP */
+    GgafLib::AmountGraph* pMP_MyShip_;
     /** COST */
     GgafLib::AmountGraph cost_disp_;
+//    /** 自機のVreath */
+//    GgafLib::AmountGraph* pMP_Vreath_;
+//    /** Vreath増分表示 */
+//    GgafLib::AmountGraph vreath_inc_disp_;
 
     /** 残魔法効果持続時間表示 */
     MagicMeterStatus* pMagicMeterStatus_;
@@ -44,6 +47,11 @@ public:
     EnergyBar* pEnergyBar_;
     /** コスト表示バー */
     CostDispBar* pCostDispBar_;
+//    /** エネルギーバー */
+//    VreathBar* pVreathBar_;
+//    /** コスト表示バー */
+//    CostDispBar* pCostDispBar2_;
+
     /** 魔法リスト */
     GgafCore::GgafLinkedListRing<Magic> ringMagics_;
 
@@ -73,7 +81,7 @@ public:
     std::stringstream st_[10];
 
 public:
-    MagicMeter(const char* prm_name);
+    MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShip, GgafLib::AmountGraph* prm_pVreath_MyShip);
 
     void saveStatus(int prm_saveno);
 

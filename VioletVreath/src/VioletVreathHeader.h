@@ -293,8 +293,31 @@ class MyTorpedo;
 class MyTorpedoBlast;
 class MyShot001;
 class MyWave001;
+class MyVreath;
 class EffectMyShipExplosion;
 
+class MagicMeter;
+class MagicMeterStatus;
+class MagicMeterCursor001;
+class MagicLvCursor;
+class MagicLvCursor001;
+class MagicLvCursor002;
+class MagicLvCursor003;
+class GraphBar;
+class EnergyBar;
+class CostDispBar;
+class VreathBar;
+
+class Magic;
+class OptionMagic;
+class LaserMagic;
+class SpeedMagic;
+class LockonMagic;
+class TorpedoMagic;
+class TractorMagic;
+class EffectMagic001;
+class EffectSpeedMagic;
+class EffectVreathMagic001;
 
 class EffectExplosion001;
 class EffectExplosion002;
@@ -399,26 +422,7 @@ class CameraWorkerConnection;
 
 
 class TestDepository;
-class MagicMeter;
-class MagicMeterStatus;
-class MagicMeterCursor001;
-class MagicLvCursor;
-class MagicLvCursor001;
-class MagicLvCursor002;
-class MagicLvCursor003;
-class EnergyBar;
-class CostDispBar;
 
-class Magic;
-class OptionMagic;
-class LaserMagic;
-class SpeedMagic;
-class LockonMagic;
-class TorpedoMagic;
-class TractorMagic;
-class EffectMagic001;
-class EffectSpeedMagic;
-class EffectVreathMagic001;
 
 class Item;
 class MagicPointItem;
@@ -547,6 +551,7 @@ class CursorTitleMenu;
 
 #include "jp/gecchi/VioletVreath/actor/my/MyShot001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyWave001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyVreath.h"
 
 #include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/EffectMyShipExplosion.h"
@@ -575,6 +580,29 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/my/option/EffectLockon001.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/EffectLockon001_Main.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/EffectLockon001_Sub.h"
+
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterStatus.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterCursor001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor002.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor003.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/EnergyBar.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/CostDispBar.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/VreathBar.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/OptionMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/SpeedMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LockonMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TorpedoMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/VreathMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectMagic001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSpeedMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectVreathMagic001.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Tamago/TamagoActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Tamago/EnemyTamago01.h"
@@ -663,26 +691,7 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus004.h"
 
 
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicMeterStatus.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicMeterCursor001.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor001.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor002.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/MagicLvCursor003.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/EnergyBar.h"
-#include "jp/gecchi/VioletVreath/actor/system/instrument/MagicMeter/CostDispBar.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/Magic.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/OptionMagic.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/LaserMagic.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/SpeedMagic.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/LockonMagic.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/TorpedoMagic.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/TractorMagic.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/VreathMagic.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/effect/EffectMagic001.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/effect/EffectSpeedMagic.h"
-#include "jp/gecchi/VioletVreath/actor/system/magic/effect/EffectVreathMagic001.h"
+
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"

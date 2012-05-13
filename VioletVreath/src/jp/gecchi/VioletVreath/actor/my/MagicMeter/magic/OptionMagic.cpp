@@ -13,50 +13,33 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
             60*60 *60   , 0.0,  //Šî–{‘±ŠÔ   , ŠeƒŒƒxƒ‹‚ÌíŒ¸Š„‡
             0.0     , 0.0    //Šî–{ˆÛƒRƒXƒg , ŠeƒŒƒxƒ‹‚Ì rate
         ) {
-    //                         Lockon‡Z    Lockon‡Z    Vreath‡Z    Vreath‡Z    Tractor‡Z    Tractor‡Z
-    //                         Lockon‡Y    Lockon‡Y    Vreath‡Y    Vreath‡Y    Tractor‡Y    Tractor‡Y
-    //                         Lockon‡X    Lockon‡X    Vreath‡X    Vreath‡X    Tractor‡X    Tractor‡X
-    //                         Lockon‡W    Lockon‡W    Vreath‡W    Vreath‡W    Tractor‡W    Tractor‡W
-    //                         Lockon‡V    Lockon‡V    Vreath‡V    Vreath‡V    Tractor‡V    Tractor‡V
-    // Option‡]    Option‡]    Lockon‡U    Lockon‡U    Vreath‡U    Vreath‡U    Tractor‡U    Tractor‡U
-    // Option‡\    Option‡\    Lockon‡T    Lockon‡T    Vreath‡T    Vreath‡T    Tractor‡T    Tractor‡T
-    // Option‡[    Option‡[    Empty       Empty       Empty       Empty       Empty        Empty
-    // Option‡Z    Option‡Z    Torpedo‡Z   Torpedo‡Z   Laser‡Z     Laser‡Z     Speed‡Z      Speed‡Z
-    // Option‡Y    Option‡Y    Torpedo‡Y   Torpedo‡Y   Laser‡Y     Laser‡Y     Speed‡Y      Speed‡Y
-    // Option‡X    Option‡X    Torpedo‡X   Torpedo‡X   Laser‡X     Laser‡X     Speed‡X      Speed‡X
-    // Option‡W    Option‡W    Torpedo‡W   Torpedo‡W   Laser‡W     Laser‡W     Speed‡W      Speed‡W
-    // Option‡V    Option‡V    Torpedo‡V   Torpedo‡V   Laser‡V     Laser‡V     Speed‡V      Speed‡V
-    // Option‡U    Option‡U    Torpedo‡U   Torpedo‡U   Laser‡U     Laser‡U     Speed‡U      Speed‡U
-    // Option‡T    Option‡T    Torpedo‡T   Torpedo‡T   Laser‡T     Laser‡T     Speed‡T      Speed‡T
-    // Empty       Empty       Empty       Empty       Empty       Empty       Empty        Empty
-    //
+//    | 0          |  1         |  2 Lockon‡Z |  3 Lockon‡Z |  4 Vreath‡Z|  5 Vreath‡Z|  6 Tractor‡Z|  7 Tractor‡Z|
+//    | 8          |  9         | 10 Lockon‡Y | 11 Lockon‡Y | 12 Vreath‡Y| 13 Vreath‡Y| 14 Tractor‡Y| 15 Tractor‡Y|
+//    | 16         | 17         | 18 Lockon‡X | 19 Lockon‡X | 20 Vreath‡X| 21 Vreath‡X| 22 Tractor‡X| 23 Tractor‡X|
+//    | 24         | 25         | 26 Lockon‡W | 27 Lockon‡W | 28 Vreath‡W| 29 Vreath‡W| 30 Tractor‡W| 31 Tractor‡W|
+//    | 32         | 33         | 34 Lockon‡V | 35 Lockon‡V | 36 Vreath‡V| 37 Vreath‡V| 38 Tractor‡V| 39 Tractor‡V|
+//    | 40 Option‡]| 41 Option‡]| 42 Lockon‡U | 43 Lockon‡U | 44 Vreath‡U| 45 Vreath‡U| 46 Tractor‡U| 47 Tractor‡U|
+//    | 48 Option‡\| 49 Option‡\| 50 Lockon‡T | 51 Lockon‡T | 52 Vreath‡T| 53 Vreath‡T| 54 Tractor‡T| 55 Tractor‡T|
+//    | 56 Option‡[| 57 Option‡[| 58 Empty    | 59 Empty    | 60 Empt  y | 61 Empty   | 62 Empty    | 63 Empty    |
+//    | 64 Option‡Z| 65 Option‡Z| 66 Torpedo‡Z| 67 Torpedo‡Z| 68 Laser‡Z | 69 Laser‡Z | 70 Speed‡Z  | 71 Speed‡Z  |
+//    | 72 Option‡Y| 73 Option‡Y| 74 Torpedo‡Y| 75 Torpedo‡Y| 76 Laser‡Y | 77 Laser‡Y | 78 Speed‡Y  | 79 Speed‡Y  |
+//    | 80 Option‡X| 81 Option‡X| 82 Torpedo‡X| 83 Torpedo‡X| 84 Laser‡X | 85 Laser‡X | 86 Speed‡X  | 87 Speed‡X  |
+//    | 88 Option‡W| 89 Option‡W| 90 Torpedo‡W| 91 Torpedo‡W| 92 Laser‡W | 93 Laser‡W | 94 Speed‡W  | 95 Speed‡W  |
+//    | 96 Option‡V| 97 Option‡V| 98 Torpedo‡V| 99 Torpedo‡V|100 Laser‡V |101 Laser‡V |102 Speed‡V  |103 Speed‡V  |
+//    |104 Option‡U|105 Option‡U|106 Torpedo‡U|107 Torpedo‡U|108 Laser‡U |109 Laser‡U |110 Speed‡U  |111 Speed‡U  |
+//    |112 Option‡T|113 Option‡T|114 Torpedo‡T|115 Torpedo‡T|116 Laser‡T |117 Laser‡T |118 Speed‡T  |119 Speed‡T  |
+//    |120 Empty   |121 Empty   |122 Empty    |123 Empty    |124 Empty   |125 Empty   |126 Empty    |127 Empty    |
 
-//    |  0,   1,   2,   3 |
-//    |  4,   5,   6,   7 |
-//    |  8,   9,  10,  11 |
-//    | 12,  13,  14,  15 |
-//    | 16,  17,  18,  19 |
-//    | 20,  21,  22,  23 |
-//    | 24,  25,  26,  27 |
-//    | 28,  29,  30,  31 |
-//    | 32,  33,  34,  35 |
-//    | 36,  37,  38,  39 |
-//    | 40,  41,  42,  43 |
-//    | 44,  45,  46,  47 |
-//    | 48,  49,  50,  51 |
-//    | 52,  53,  54,  55 |
-//    | 56,  57,  58,  59 |
-//    | 60,  61,  62,  63 |
-    lvinfo_[0].pno_ = 3;
-    lvinfo_[1].pno_ = 61;
-    lvinfo_[2].pno_ = 57;
-    lvinfo_[3].pno_ = 53;
-    lvinfo_[4].pno_ = 49;
-    lvinfo_[5].pno_ = 45;
-    lvinfo_[6].pno_ = 41;
-    lvinfo_[7].pno_ = 37;
-    lvinfo_[8].pno_ = 33;
-    lvinfo_[9].pno_ = 29;
+    lvinfo_[9].pno_ =  48;
+    lvinfo_[8].pno_ =  56;
+    lvinfo_[7].pno_ =  64;
+    lvinfo_[6].pno_ =  72;
+    lvinfo_[5].pno_ =  80;
+    lvinfo_[4].pno_ =  88;
+    lvinfo_[3].pno_ =  96;
+    lvinfo_[2].pno_ = 104;
+    lvinfo_[1].pno_ = 112;
+    lvinfo_[0].pno_ = 120;
 
     papEffect_ = NEW GgafDxDrawableActor*[max_level_];
     for (int i = 0; i < max_level_; i++) {

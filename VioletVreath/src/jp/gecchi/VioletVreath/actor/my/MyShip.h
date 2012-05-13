@@ -318,10 +318,14 @@ public:
     int blown_veloZ_;
     /** 吹っ飛びを抑える力 */
     int anti_blown_velo_;
+    /** MP */
+    GgafLib::AmountGraph mp_;
+    /** Vreath */
+    GgafLib::AmountGraph vreath_;
 
 
-
-
+    /** 魔法メーター */
+    MagicMeter* pMagicMeter_;
 
     MyShip(const char* prm_name);
 

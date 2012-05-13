@@ -59,10 +59,6 @@ papOptionCtrlr_(NULL) {
 //    pMyShip_DivingCamWorker = (MyShipDivingCamWorker*)pCon_MyShipDivingCamWorker_->fetch();
     //z_ = 0.99;//たぶん最背面 （0 <= z_ < 1.0）Z=(0～+1)
     //z_ = 0.9999999f;
-    //魔法メーター設置
-    pMagicMeter_ = NEW MagicMeter("MagicMeter");
-    pMagicMeter_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f));
-    getDirector()->addSubGroup(pMagicMeter_);
 
     zanki_ = 3;
     useProgress(10);

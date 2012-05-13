@@ -180,6 +180,17 @@ MyShip::MyShip(const char* prm_name) :
     prev_way_ = WAY_NONE;
     is_just_change_way_ = true;
 
+    mp_.config(600, 10000); //値 10000 で表示は600pxとする。
+    mp_.set(10000);         //初期値は10000
+
+    vreath_.config(600, 10000); //値 10000 で表示は600pxとする。
+    vreath_.set(10000);         //初期値は10000
+
+    //魔法メーター設置
+    pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &vreath_);
+    pMagicMeter_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f));
+    addSubGroup(pMagicMeter_);
+
 }
 void MyShip::onCreateModel() {
     _pModel->setSpecular(5.0, 1.0);

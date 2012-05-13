@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-MagicMeter::MagicMeter(const char* prm_name)
+MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShip, GgafLib::AmountGraph* prm_pVreath_MyShip)
       : DefaultBoardSetActor(prm_name, "MagicMeter") {
     _class_name = "MagicMeter";
     width_px_ = _pBoardSetModel->_fSize_BoardSetModelWidthPx;
@@ -41,19 +41,18 @@ MagicMeter::MagicMeter(const char* prm_name)
 //    [4][7]  [5][7]  [6][7]  [7][7]
 //
 
+    pMP_MyShip_ = prm_pMP_MyShip;
 
-    mp_.config(600, 10000); //値 10000 で表示は600pxとする。
-    mp_.set(10000);           //初期値は10000
-    cost_disp_.config(600, 10000); //値 10000 で表示は600pxとする。
+    cost_disp_.config(pMP_MyShip_->_max_val_px, pMP_MyShip_->_max_val); //値 10000 で表示は600pxとする。
     cost_disp_.set(0);
 
-    ringMagics_.addLast(NEW TractorMagic("TRACTOR", &mp_));
-    ringMagics_.addLast(NEW SpeedMagic("SPEED", &mp_));
-    ringMagics_.addLast(NEW LockonMagic("LOCKON", &mp_));
-    ringMagics_.addLast(NEW TorpedoMagic("TORPEDO", &mp_));
-    ringMagics_.addLast(NEW LaserMagic("LASER", &mp_));
-    ringMagics_.addLast(NEW OptionMagic("OPTION", &mp_));
-    ringMagics_.addLast(NEW VreathMagic("VREATH", &mp_));
+    ringMagics_.addLast(NEW TractorMagic("TRACTOR", pMP_MyShip_));
+    ringMagics_.addLast(NEW SpeedMagic("SPEED", pMP_MyShip_));
+    ringMagics_.addLast(NEW LockonMagic("LOCKON", pMP_MyShip_));
+    ringMagics_.addLast(NEW TorpedoMagic("TORPEDO", pMP_MyShip_));
+    ringMagics_.addLast(NEW LaserMagic("LASER", pMP_MyShip_));
+    ringMagics_.addLast(NEW OptionMagic("OPTION", pMP_MyShip_));
+    ringMagics_.addLast(NEW VreathMagic("VREATH", pMP_MyShip_));
     for (int i = 0; i < ringMagics_.length(); i++) {
         addSubGroup(ringMagics_.getNext(i));
     }
@@ -93,13 +92,18 @@ MagicMeter::MagicMeter(const char* prm_name)
     addSubGroup(pMagicMeterStatus_);
 
     //エネルギーバー設置
-    pEnergyBar_ = NEW EnergyBar("EnergyBar", &mp_);
+    pEnergyBar_ = NEW EnergyBar("EnergyBar", pMP_MyShip_);
     pEnergyBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), _Z);
     addSubGroup(pEnergyBar_);
     //コスト表示バー
     pCostDispBar_ = NEW CostDispBar("CostDispBar", pEnergyBar_, &cost_disp_);
     pCostDispBar_->locate(pEnergyBar_->_X, pEnergyBar_->_Y, _Z-1);
     addSubGroup(pCostDispBar_);
+
+
+
+
+
 
     _pSeTx->useSe(SE_BAD_OPERATION+1);
     _pSeTx->set(SE_CURSOR_MOVE_METER             , "click07"      );  //メーター移動
@@ -124,7 +128,7 @@ void MagicMeter::saveStatus(int prm_saveno) {
 }
 
 void MagicMeter::save(std::stringstream& sts) {
-    sts << mp_.get() << " ";
+    sts << pMP_MyShip_->get() << " ";
     Magic* pOrgMagic = ringMagics_.getCurrent();
     int len_magics = ringMagics_.length();
     for (int i = 0; i < len_magics; i++) {
@@ -136,7 +140,7 @@ void MagicMeter::save(std::stringstream& sts) {
 void MagicMeter::load(std::stringstream& sts) {
     int mp;
     sts >> mp;
-    mp_.set(mp);
+    pMP_MyShip_->set(mp);
 
     Magic* pOrgMagic = ringMagics_.getCurrent();
     int len_magics = ringMagics_.length();
@@ -205,23 +209,15 @@ void MagicMeter::processBehavior() {
             _pSeTx->play(SE_CURSOR_MOVE_METER);
 
         } else if (VB_PLAY->isAutoRepeat(VB_UP) ) {  // 「↑」押下時
-            if (active_prg == Magic::STATE_INVOKING || active_prg == Magic::STATE_INVOKE_BEGIN) {
-                _pSeTx->play(SE_BAD_OPERATION);
-            } else {
-                if (pActiveMagic->max_level_ > papLvTargetCursor_[active_idx]->point_lv_) {
-                    _pSeTx->play(SE_CURSOR_MOVE_LEVEL);
-                    papLvTargetCursor_[active_idx]->moveSmoothTo(papLvTargetCursor_[active_idx]->point_lv_ + 1);
-                }
+            if (pActiveMagic->max_level_ > papLvTargetCursor_[active_idx]->point_lv_) {
+                _pSeTx->play(SE_CURSOR_MOVE_LEVEL);
+                papLvTargetCursor_[active_idx]->moveSmoothTo(papLvTargetCursor_[active_idx]->point_lv_ + 1);
             }
 
         } else if (VB_PLAY->isAutoRepeat(VB_DOWN)) {  //「↓」押下時
-            if (active_prg == Magic::STATE_INVOKING || active_prg == Magic::STATE_INVOKE_BEGIN) {
-                _pSeTx->play(SE_BAD_OPERATION);
-            } else {
-                if (0 < papLvTargetCursor_[active_idx]->point_lv_) {
-                    _pSeTx->play(SE_CURSOR_MOVE_LEVEL);
-                    papLvTargetCursor_[active_idx]->moveSmoothTo(papLvTargetCursor_[active_idx]->point_lv_ - 1);
-                }
+            if (0 < papLvTargetCursor_[active_idx]->point_lv_) {
+                _pSeTx->play(SE_CURSOR_MOVE_LEVEL);
+                papLvTargetCursor_[active_idx]->moveSmoothTo(papLvTargetCursor_[active_idx]->point_lv_ - 1);
             }
         } else {
 
@@ -412,7 +408,7 @@ void MagicMeter::processDraw() {
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], _alpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
-        _pUvFlipper->getUV(2, u, v);
+        _pUvFlipper->getUV(0, u, v);
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[n], u);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetU_) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[n], v);

@@ -37,9 +37,6 @@ public:
     /** VAMSYSTEM カメラワーク */
     VamSysCamWorker* pVamSysCamWorker_;
 
-    /** 魔法メーター */
-    MagicMeter* pMagicMeter_;
-
     int zanki_;
 
     MyShipScene(const char* prm_name);
