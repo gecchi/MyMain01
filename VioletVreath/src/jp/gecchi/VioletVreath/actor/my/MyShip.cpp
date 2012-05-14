@@ -182,9 +182,8 @@ MyShip::MyShip(const char* prm_name) :
 
     mp_.config(600, 10000); //値 10000 で表示は600pxとする。
     mp_.set(10000);         //初期値は10000
-
-    vreath_.config(600, 10000); //値 10000 で表示は600pxとする。
-    vreath_.set(10000);         //初期値は10000
+    //vreath_ は mp_ のメーターの長さ(px)にあわす。実値を _pStatus の値を参照するように設定。
+    vreath_.config(mp_._max_val_px, _pStatus->get(STAT_Stamina), &(_pStatus->_paValue[STAT_Stamina]._int_val));
 
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &vreath_);
@@ -500,6 +499,9 @@ void MyShip::processBehavior() {
                                                       _Y - _Y_local ,
                                                       _Z - _Z_local);
     }
+
+
+//    _pStatus->get(STAT_Stamina);
 }
 
 void MyShip::processJudgement() {

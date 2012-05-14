@@ -34,13 +34,13 @@ public:
     /**
      * ステータスセットを作成 .
      * リセットメソッドを実行しステータス初期化を行います。
-     * @param n 最大ステータス要素数。
+     * @param prm_max_status_kind 最大ステータス要素数。
      * @param prm_pFunc_reset ステータスリセットメソッド
      */
-    GgafStatus(int n, GgafStatus* (*prm_pFunc_reset)(GgafStatus*) = NULL) {
-        _len = n;
-        _paValue = new VALUE[n];
-        for (int i = 0; i < n; i++) {
+    GgafStatus(int prm_max_status_kind, GgafStatus* (*prm_pFunc_reset)(GgafStatus*) = NULL) {
+        _len = prm_max_status_kind;
+        _paValue = new VALUE[prm_max_status_kind];
+        for (int i = 0; i < prm_max_status_kind; i++) {
             _paValue[i]._double_val = 0;
             _paValue[i]._int_val = 0;
             _paValue[i]._char_val = 0;
@@ -52,77 +52,76 @@ public:
         }
     }
 
-
-    void set(int n, char val) {
-        _paValue[n]._char_val = val;
+    void set(int prm_status_kind, char val) {
+        _paValue[prm_status_kind]._char_val = val;
     }
 
-    void set(int n, int val) {
-        _paValue[n]._int_val = val;
+    void set(int prm_status_kind, int val) {
+        _paValue[prm_status_kind]._int_val = val;
     }
 
-    void set(int n, double val) {
-        _paValue[n]._double_val = val;
+    void set(int prm_status_kind, double val) {
+        _paValue[prm_status_kind]._double_val = val;
     }
 
-    void set(int n, void* p) {
-        _paValue[n]._ptr = p;
+    void set(int prm_status_kind, void* p) {
+        _paValue[prm_status_kind]._ptr = p;
     }
 
-    char plus(int n, char val) {
-        return _paValue[n]._char_val += val;
+    char plus(int prm_status_kind, char val) {
+        return _paValue[prm_status_kind]._char_val += val;
     }
 
-    int plus(int n, int val) {
-        return _paValue[n]._int_val += val;
+    int plus(int prm_status_kind, int val) {
+        return _paValue[prm_status_kind]._int_val += val;
     }
 
-    double plus(int n, double val) {
-        return _paValue[n]._double_val += val;
+    double plus(int prm_status_kind, double val) {
+        return _paValue[prm_status_kind]._double_val += val;
     }
 
-    char minus(int n, char val) {
-        return _paValue[n]._char_val -= val;
+    char minus(int prm_status_kind, char val) {
+        return _paValue[prm_status_kind]._char_val -= val;
     }
 
-    int minus(int n, int val) {
-        return _paValue[n]._int_val -= val;
+    int minus(int prm_status_kind, int val) {
+        return _paValue[prm_status_kind]._int_val -= val;
     }
 
-    double minus(int n, double val) {
-        return _paValue[n]._double_val -= val;
+    double minus(int prm_status_kind, double val) {
+        return _paValue[prm_status_kind]._double_val -= val;
     }
 
-    char mul(int n, char val) {
-        return _paValue[n]._char_val *= val;
+    char mul(int prm_status_kind, char val) {
+        return _paValue[prm_status_kind]._char_val *= val;
     }
 
-    int mul(int n, int val) {
-        return _paValue[n]._int_val *= val;
+    int mul(int prm_status_kind, int val) {
+        return _paValue[prm_status_kind]._int_val *= val;
     }
 
-    double mul(int n, double val) {
-        return _paValue[n]._double_val *= val;
+    double mul(int prm_status_kind, double val) {
+        return _paValue[prm_status_kind]._double_val *= val;
     }
 
-    int get(int n) {
-        return _paValue[n]._int_val;
+    int get(int prm_status_kind) {
+        return _paValue[prm_status_kind]._int_val;
     }
 
-    int getChar(int n) {
-        return _paValue[n]._char_val;
+    int getChar(int prm_status_kind) {
+        return _paValue[prm_status_kind]._char_val;
     }
 
-    int getInt(int n) {
-        return _paValue[n]._int_val;
+    int getInt(int prm_status_kind) {
+        return _paValue[prm_status_kind]._int_val;
     }
 
-    double getDouble(int n) {
-        return _paValue[n]._double_val;
+    double getDouble(int prm_status_kind) {
+        return _paValue[prm_status_kind]._double_val;
     }
 
-    void* getPtr(int n) {
-        return _paValue[n]._ptr;
+    void* getPtr(int prm_status_kind) {
+        return _paValue[prm_status_kind]._ptr;
     }
 
     /**

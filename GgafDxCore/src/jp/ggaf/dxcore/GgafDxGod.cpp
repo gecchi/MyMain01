@@ -1035,21 +1035,21 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     if (GGAF_PROPERTY(DUAL_VIEW)) {
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[0],
-                _apBackBuffer[0],         &_aRect_ViewScreen[0],
+                _apBackBuffer[0]      , &_aRect_ViewScreen[0],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(1)\n"<<
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[0]="<<_apBackBuffer[0]);
 
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[1],
-                _apBackBuffer[1],         &_aRect_ViewScreen[1],
+                _apBackBuffer[1]      , &_aRect_ViewScreen[1],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(1)\n"<<
                                       "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[0]="<<_apBackBuffer[0]);
     } else {
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
-                _apBackBuffer[0], &_aRect_ViewScreen[0],
+                _apBackBuffer[0]      , &_aRect_ViewScreen[0],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(1)");
     }
@@ -1060,21 +1060,21 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
     if (GGAF_PROPERTY(DUAL_VIEW)) {
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[0],
-                _apBackBuffer[0],         &_aRect_ViewScreen[0],
+                _apBackBuffer[0]      , &_aRect_ViewScreen[0],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(2)\n"<<
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[0]="<<_apBackBuffer[0]);
 
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[1],
-                _apBackBuffer[1],         &_aRect_ViewScreen[1],
+                _apBackBuffer[1]      , &_aRect_ViewScreen[1],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(2)\n"<<
                                       "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[0]="<<_apBackBuffer[0]);
     } else {
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
-                _apBackBuffer[0], &_aRect_ViewScreen[0],
+                _apBackBuffer[0]      , &_aRect_ViewScreen[0],
                 D3DTEXF_NONE
                 );
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(2)");
@@ -1089,33 +1089,27 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
         _TRACE_("２画面目の座標("<<_secondary_screen_x<<","<<_secondary_screen_y<<")");
         ShowWindow(_pHWndSecondary, SW_SHOWNORMAL);
         UpdateWindow(_pHWndSecondary);
-        SetWindowPos(
-                _pHWndSecondary,
-                HWND_TOPMOST,
-                _secondary_screen_x, _secondary_screen_y, 0, 0,
-                SWP_SHOWWINDOW | SWP_NOSIZE
-        );
+        SetWindowPos(_pHWndSecondary,
+                     HWND_TOPMOST,
+                     _secondary_screen_x, _secondary_screen_y, 0, 0,
+                     SWP_SHOWWINDOW | SWP_NOSIZE );
         //↑これを行なっておかないと、初回起動時、２画面目の領域をクリックした際、
         //再びフルスクリーンが解除されてしまう。
         //１画面目はフルスクリーンになっても、Windowの左上が(0,0)のためズレないので、
         //SetWindowPosはたぶん不要。しかし念のために同様の処理を行う。
         ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
         UpdateWindow(_pHWndPrimary);
-        SetWindowPos(
-                _pHWndPrimary,
-                HWND_TOPMOST,
-                0, 0, 0, 0,
-                SWP_SHOWWINDOW | SWP_NOSIZE
-        );
+        SetWindowPos(_pHWndPrimary,
+                     HWND_TOPMOST,
+                     0, 0, 0, 0,
+                     SWP_SHOWWINDOW | SWP_NOSIZE);
     } else {
         ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
         UpdateWindow(_pHWndPrimary);
-        SetWindowPos(
-                _pHWndPrimary,
-                HWND_TOPMOST,
-                0, 0, 0, 0,
-                SWP_SHOWWINDOW | SWP_NOSIZE
-        );
+        SetWindowPos(_pHWndPrimary,
+                     HWND_TOPMOST,
+                     0, 0, 0, 0,
+                     SWP_SHOWWINDOW | SWP_NOSIZE);
     }
 
     return D3D_OK;
@@ -1209,13 +1203,13 @@ void GgafDxGod::presentUniversalVisualize() {
                 //画面０バックバッファを画面１バックバッファへコピーする
                 hr = GgafDxGod::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[0],
-                        _apBackBuffer[0],       &_aRect_Present[0],
+                        _apBackBuffer[0]      , &_aRect_Present[0],
                         D3DTEXF_LINEAR); //TODO:D3DTEXF_LINEARをオプション指定にするか？
                 checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[0]="<<_apBackBuffer[0]);
 
                 hr = GgafDxGod::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[1],
-                        _apBackBuffer[1],       &_aRect_Present[1],
+                        _apBackBuffer[1]      , &_aRect_Present[1],
                         D3DTEXF_LINEAR);
                 checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
 
@@ -1440,12 +1434,12 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
             LONG fix_width, fix_height;
             int pos1, pos2;
             if (GGAF_PROPERTY(DUAL_VIEW)) {
-                fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2;
+                fix_width  = GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2;
                 fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT);
                 pos1 = GGAF_PROPERTY(DUAL_VIEW_DRAW_POSITION1);
                 pos2 = GGAF_PROPERTY(DUAL_VIEW_DRAW_POSITION2);
             } else {
-                fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH);
+                fix_width  = GGAF_PROPERTY(GAME_BUFFER_WIDTH);
                 fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT);
                 pos1 = GGAF_PROPERTY(SINGLE_VIEW_DRAW_POSITION);
                 pos2 = GGAF_PROPERTY(DUAL_VIEW_DRAW_POSITION2); //とりあえず
@@ -1455,14 +1449,14 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
                 //より横長になってしまっている
                 double rate = 1.0 * height / fix_height; //縮小率=縦幅の比率
                 if (prm_pHWnd == _pHWndPrimary) {
-                    _aRect_Present[0].left = (width / 2.0) - (fix_width * rate / 2.0);
-                    _aRect_Present[0].top = 0;
+                    _aRect_Present[0].left   = (width / 2.0) - (fix_width * rate / 2.0);
+                    _aRect_Present[0].top    = 0;
                     _aRect_Present[0].right  = _aRect_Present[0].left + (fix_width * rate);
                     _aRect_Present[0].bottom = _aRect_Present[0].top  + (fix_height * rate);
                     positionPresentRect(pos1, _aRect_Present[0], width, height);
                 } else {
-                    _aRect_Present[1].left = (width / 2.0) - (fix_width * rate / 2.0);
-                    _aRect_Present[1].top = 0;
+                    _aRect_Present[1].left   = (width / 2.0) - (fix_width * rate / 2.0);
+                    _aRect_Present[1].top    = 0;
                     _aRect_Present[1].right  = _aRect_Present[1].left + (fix_width * rate);
                     _aRect_Present[1].bottom = _aRect_Present[1].top  + (fix_height * rate);
                     positionPresentRect(pos2, _aRect_Present[1], width, height);
@@ -1472,14 +1466,14 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
                 //より縦長になってしまっている
                 double rate = 1.0 * width / fix_width; //縮小率=横幅の比率
                 if (prm_pHWnd == _pHWndPrimary) {
-                    _aRect_Present[0].left = 0;
-                    _aRect_Present[0].top = (height / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[0].left   = 0;
+                    _aRect_Present[0].top    = (height / 2.0) - (fix_height * rate / 2.0);
                     _aRect_Present[0].right  = _aRect_Present[0].left + (fix_width * rate);
                     _aRect_Present[0].bottom = _aRect_Present[0].top  + (fix_height * rate);
                     positionPresentRect(pos1, _aRect_Present[0], width, height);
                 } else {
-                    _aRect_Present[1].left = 0;
-                    _aRect_Present[1].top = (height / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[1].left   = 0;
+                    _aRect_Present[1].top    = (height / 2.0) - (fix_height * rate / 2.0);
                     _aRect_Present[1].right  = _aRect_Present[1].left + (fix_width * rate);
                     _aRect_Present[1].bottom = _aRect_Present[1].top  + (fix_height * rate);
                     positionPresentRect(pos2, _aRect_Present[1], width, height);

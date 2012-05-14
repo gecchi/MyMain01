@@ -36,10 +36,10 @@ public:
     GgafLib::AmountGraph* pMP_MyShip_;
     /** COST */
     GgafLib::AmountGraph cost_disp_;
-//    /** 自機のVreath */
-//    GgafLib::AmountGraph* pMP_Vreath_;
-//    /** Vreath増分表示 */
-//    GgafLib::AmountGraph vreath_inc_disp_;
+    /** 自機のVreath */
+    GgafLib::AmountGraph* pVreath_MyShip_;
+    /** Vreath増分表示 */
+    GgafLib::AmountGraph vreath_inc_disp_;
 
     /** 残魔法効果持続時間表示 */
     MagicMeterStatus* pMagicMeterStatus_;
@@ -47,10 +47,10 @@ public:
     EnergyBar* pEnergyBar_;
     /** コスト表示バー */
     CostDispBar* pCostDispBar_;
-//    /** エネルギーバー */
-//    VreathBar* pVreathBar_;
-//    /** コスト表示バー */
-//    CostDispBar* pCostDispBar2_;
+    /** ヴレスギーバー */
+    VreathBar* pVreathBar_;
+    /** コスト表示バー */
+    CostDispBar* pCostDispBar2_;
 
     /** 魔法リスト */
     GgafCore::GgafLinkedListRing<Magic> ringMagics_;

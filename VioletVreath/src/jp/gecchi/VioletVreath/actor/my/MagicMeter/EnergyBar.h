@@ -5,10 +5,6 @@ namespace VioletVreath {
 class EnergyBar : public GraphBar {
 
 public:
-//    /** “à—e—Ê */
-//    GgafLib::AmountGraph* pAmount_;
-
-//    float _fSize_BoardModelWidthPx;
 
     /**
      *

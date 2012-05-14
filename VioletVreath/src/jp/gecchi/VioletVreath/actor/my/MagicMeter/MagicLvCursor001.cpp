@@ -16,7 +16,7 @@ void MagicLvCursor001::initialize() {
 }
 
 void MagicLvCursor001::moveSmoothTo(int prm_lv) {
-    MagicLvCursor::moveSmoothTo(prm_lv, 10, 0.3f, 0.7f);
+    MagicLvCursor::moveSmoothTo(prm_lv, 12, 0.3f, 0.7f);
 }
 
 void MagicLvCursor001::dispDisable() {

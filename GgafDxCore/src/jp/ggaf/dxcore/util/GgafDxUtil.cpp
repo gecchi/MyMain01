@@ -524,7 +524,7 @@ void GgafDxUtil::getRzRyAng(coord vx,
         rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY/100)][(int)(prj_rZX/100)];
         rotY_rev = D90ANG - PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100)][(int)(prj_rZX/100)];
     } else {
-        throwGgafCriticalException("GgafDxUtil::getRzRyAng îÕàÕÇ™îjè˘ÇµÇƒÇ‹Ç∑ÅBprj_rXZ="<<prj_rXZ);
+        throwGgafCriticalException("GgafDxUtil::getRzRyAng îÕàÕÇ™îjí]ÇµÇƒÇ‹Ç∑ÅBprj_rXZ="<<prj_rXZ);
     }
 #if MY_DEBUG
     if (0 <= prj_rXY && prj_rXY < D45ANG) {
@@ -532,7 +532,7 @@ void GgafDxUtil::getRzRyAng(coord vx,
     } else if (D45ANG <= prj_rXY && prj_rXY <= D90ANG) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDxUtil::getRzRyAng îÕàÕÇ™îjè˘ÇµÇƒÇ‹Ç∑ÅBprj_rXY="<<prj_rXY<<" à¯êî:"<<vx<<","<<vy<<","<<vz);
+        throwGgafCriticalException("GgafDxUtil::getRzRyAng îÕàÕÇ™îjí]ÇµÇƒÇ‹Ç∑ÅBprj_rXY="<<prj_rXY<<" à¯êî:"<<vx<<","<<vy<<","<<vz);
     }
 #endif
     //è€å¿Ç…ÇÊÇ¡ÇƒâÒì]äpÇï‚ê≥

@@ -12,39 +12,14 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     height_px_ = _pBoardSetModel->_fSize_BoardSetModelHeightPx;
     width_ = PX_C(width_px_);
     height_ = PX_C(height_px_);
-
-//    _X = PX_C(100);
-//    _Y = PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - (height_px_*2));
     _Z = 5;
-//    AmountGraph qu_;
-//    qu_.set(1.0);
-//    qu_.config(400.0, 1.0);
-//    float value_ = 1000;
-//    qu_.config(400.0f, value_);
-//    AmountGraph qu_();
-//    [0][0]  [1][0]  [2][0]  [3][0]
-//    [0][1]  [1][1]  [2][1]  [3][1]
-//    [0][2]  [1][2]  [2][2]  [3][2]
-//    [0][3]  [1][3]  [2][3]  [3][3]
-//    [0][4]  [1][4]  [2][4]  [3][4]
-//    [0][5]  [1][5]  [2][5]  [3][5]
-//    [0][6]  [1][6]  [2][6]  [3][6]
-//    [0][7]  [1][7]  [2][7]  [3][7]
-//
-//    [4][0]  [5][0]  [6][0]  [7][0]
-//    [4][1]  [5][1]  [6][1]  [7][1]
-//    [4][2]  [5][2]  [6][2]  [7][2]
-//    [4][3]  [5][3]  [6][3]  [7][3]
-//    [4][4]  [5][4]  [6][4]  [7][4]
-//    [4][5]  [5][5]  [6][5]  [7][5]
-//    [4][6]  [5][6]  [6][6]  [7][6]
-//    [4][7]  [5][7]  [6][7]  [7][7]
-//
 
     pMP_MyShip_ = prm_pMP_MyShip;
-
-    cost_disp_.config(pMP_MyShip_->_max_val_px, pMP_MyShip_->_max_val); //値 10000 で表示は600pxとする。
+    cost_disp_.config(pMP_MyShip_->_max_val_px, pMP_MyShip_->_max_val);
     cost_disp_.set(0);
+    pVreath_MyShip_ = prm_pVreath_MyShip;
+    vreath_inc_disp_.config(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
+    vreath_inc_disp_.set(0);
 
     ringMagics_.addLast(NEW TractorMagic("TRACTOR", pMP_MyShip_));
     ringMagics_.addLast(NEW SpeedMagic("SPEED", pMP_MyShip_));
@@ -93,17 +68,21 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
 
     //エネルギーバー設置
     pEnergyBar_ = NEW EnergyBar("EnergyBar", pMP_MyShip_);
-    pEnergyBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), _Z);
+    pEnergyBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 60.0f), _Z);
     addSubGroup(pEnergyBar_);
-    //コスト表示バー
+    //エネルギーバーのコスト表示バー
     pCostDispBar_ = NEW CostDispBar("CostDispBar", pEnergyBar_, &cost_disp_);
     pCostDispBar_->locate(pEnergyBar_->_X, pEnergyBar_->_Y, _Z-1);
     addSubGroup(pCostDispBar_);
 
-
-
-
-
+    //Vreathバー設置
+    pVreathBar_ = NEW VreathBar("VreathBar", pVreath_MyShip_);
+    pVreathBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 20.0f), _Z);
+    addSubGroup(pVreathBar_);
+    //Vreathバーコスト表示バー
+    pCostDispBar2_ = NEW CostDispBar("CostDispBar2", pVreathBar_, &vreath_inc_disp_);
+    pCostDispBar2_->locate(pVreathBar_->_X, pVreathBar_->_Y, _Z-1);
+    addSubGroup(pCostDispBar2_);
 
     _pSeTx->useSe(SE_BAD_OPERATION+1);
     _pSeTx->set(SE_CURSOR_MOVE_METER             , "click07"      );  //メーター移動
@@ -383,7 +362,6 @@ void MagicMeter::onInactive() {
 
 void MagicMeter::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
-    //GgafDxRectUV* pRectUV_Active;
     HRESULT hr;
     //パワーメーター
     //[====]が１つの大きさ [====][====][====]
@@ -434,6 +412,7 @@ void MagicMeter::processDraw() {
         if (paFloat_rr_[i] > 0.1) {
             //各マジック要素
             for (int j = 0; j < pMagic->max_level_+1; j++) {
+                //魔法名
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[n], x + width_px_*i);
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[n], y - (height_px_*(j+1)*paFloat_rr_[i]));

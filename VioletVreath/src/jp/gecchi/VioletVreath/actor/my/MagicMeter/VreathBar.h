@@ -8,13 +8,9 @@ namespace VioletVreath {
  * @since 2012/05/11
  * @author Masatoshi Tsuge
  */
-class VreathBar : public GgafLib::DefaultBoardActor {
+class VreathBar :  public GraphBar {
 
 public:
-    /** “à—e—Ê */
-    GgafLib::AmountGraph* pAmount_;
-
-    float _fSize_BoardModelWidthPx;
 
     /**
      *

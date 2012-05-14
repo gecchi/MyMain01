@@ -55,14 +55,23 @@
 //#define VB_VIEW_02  VB_BUTTON8
 
 //STAT_DEFAULT_ACTOR_KINDは0
+/** アクターステータス：加算スコア(int) */
 #define STAT_AddScorePoint          1
+/** アクターステータス：加算ランクポイント(double) */
 #define STAT_AddRankPoint           2
+/** アクターステータス：加算ランクポイントの、フレーム毎減少率(double) */
 #define STAT_AddRankPoint_Reduction 3
+/** アクターステータス：アクターの残り体力(int) */
 #define STAT_Stamina                4
+/** アクターステータス：アクターの攻撃力(int) */
 #define STAT_Attack                 5
+/** アクターステータス：アクターの基本防御能力(double) 。相手のSTAT_Attackに乗じる(1.0で0%防御,0.9で10%防御) */
 #define STAT_DefaultDefenceRate     6
+/** アクターステータス：アクターの優性属性時防御能力(double)  */
 #define STAT_DominantDefenceRate    7
+/** アクターステータス：アクターの劣性属性時防御能力(double)  */
 #define STAT_RecessiveDefenceRate   8
+/** アクターステータス：ロックオン可否(0:不可 1:可)  */
 #define STAT_LockonAble             9
 
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。

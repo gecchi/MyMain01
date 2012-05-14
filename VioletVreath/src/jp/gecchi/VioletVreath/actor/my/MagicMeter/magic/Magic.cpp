@@ -399,9 +399,9 @@ void Magic::processBehavior() {
                 //維持コストがかかる場合の処理
                 pMP_->inc(-1*lvinfo_[level_].keep_cost_); //維持コスト減少
                 //MP枯渇？
-                if (pMP_->_val <= 0) {
+                if (pMP_->get() <= 0) {
                     //MP枯渇による持続終了時
-                    pMP_->_val = 0;
+                    pMP_->set(0);
                     for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
                          lvinfo_[lv].is_working_ = false;           //停止し
                          lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
@@ -435,7 +435,7 @@ magic_point Magic::calcReduceMp(int prm_now_level, int prm_target_down_level) {
     //ロス無しという計算。
     //各レベルの残りの効果持続時間の割合も考慮する。
     magic_point mp = 0;
-    static magic_point rcost_pre_lv = interest_cost_[max_level_]/max_level_;
+    magic_point rcost_pre_lv = interest_cost_[max_level_]/max_level_;
     for (int lv = prm_now_level; lv > prm_target_down_level; lv--) {
         mp += rcost_pre_lv*(1.0*lvinfo_[lv].remainingtime_of_effect_ / lvinfo_[lv].time_of_effect_);
     }

@@ -157,9 +157,9 @@ public:
         }
     }
 
-    static inline INT32 abs(INT32 x) {
-        return (x ^ (x>>31)) - (x>>31);
-    }
+//    static inline INT32 abs(INT32 x) {
+//        return (x ^ (x>>31)) - (x>>31);
+//    }
 
     /**
      * •½•ûª‚Ì‹ßŽ—‚ð‹‚ß‚é .
