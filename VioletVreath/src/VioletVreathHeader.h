@@ -324,9 +324,12 @@ class SpeedMagic;
 class LockonMagic;
 class TorpedoMagic;
 class TractorMagic;
+class VreathMagic;
+class SmileMagic;
 class EffectMagic001;
 class EffectSpeedMagic;
 class EffectVreathMagic001;
+class EffectSmileMagic001;
 
 class EffectExplosion001;
 class EffectExplosion002;
@@ -609,9 +612,11 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TorpedoMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/VreathMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/SmileMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSpeedMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectVreathMagic001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSmileMagic001.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Tamago/TamagoActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Tamago/EnemyTamago01.h"

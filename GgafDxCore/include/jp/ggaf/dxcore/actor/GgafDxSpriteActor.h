@@ -23,6 +23,9 @@ public:
 
     float _far_rate;
 
+    GgafDxAlign _align;
+    GgafDxValign _valign;
+
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
@@ -67,6 +70,7 @@ public:
      * @param prm_alpha
      */
     void addAlpha(float prm_alpha) override;
+    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign = VALIGN_MIDDLE);
 };
 
 }

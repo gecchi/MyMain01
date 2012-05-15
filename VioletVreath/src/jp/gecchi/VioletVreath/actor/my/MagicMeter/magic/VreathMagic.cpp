@@ -7,11 +7,11 @@ using namespace VioletVreath;
 VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
     : Magic(prm_name, prm_pMP,
             5,          //max_level
-            100       , 0.9,   //基本魔法コスト , 飛びレベル時の rate
+            100       , 1.0,   //基本魔法コスト , 飛びレベル時の rate
             60*0.3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60*0.1    , 0.9,   //基本発動時間   , 飛びレベル時の rate
-            60*60*10  , 0.0,   //基本持続時間, 各レベルの削減割合
-            0.0     , 0.0    //基本維持コスト , 各レベル時の rate
+            60*30     , 0.4,   //基本持続時間   , ＋１レベル毎の持続時間の乗率
+            10        , 4.0    //基本維持コスト , ＋１レベル毎の維持コストの乗率
         ) {
     //    | 0          |  1         |  2 LockonⅦ |  3 LockonⅦ |  4 VreathⅦ|  5 VreathⅦ|  6 TractorⅦ|  7 TractorⅦ|
     //    | 8          |  9         | 10 LockonⅥ | 11 LockonⅥ | 12 VreathⅥ| 13 VreathⅥ| 14 TractorⅥ| 15 TractorⅥ|
@@ -43,6 +43,10 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
     pEffect_ = NEW EffectVreathMagic001("EffectVreathMagic001");
     pEffect_->inactivateImmed();
     addSubGroup(pEffect_);
+    r_vreath_mp_[0] = 0.0;
+    for (int i = 1; i <= max_level_; i++) {
+        r_vreath_mp_[i] = 100.5;
+    }
 }
 void VreathMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     pEffect_->locatedBy(P_MYSHIP);
@@ -72,18 +76,26 @@ void VreathMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int 
 
 int VreathMagic::effect(int prm_level) {
     int r = Magic::effect(prm_level);
-    //スピードを変更する。
-    P_MYSHIP->setMoveSpeedLv((prm_level+1)*4);
     return r;
 }
 
 void VreathMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
+
 }
 void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
+    P_MYSHIP->vreath_.inc(lvinfo_[prm_now_level].keep_cost_ * r_vreath_mp_[prm_now_level]);
 }
 
 void VreathMagic::processEffectFinish(int prm_justbefore_level) {
-    P_MYSHIP->setMoveSpeedLv((0+1)*4);
+//    P_MYSHIP->setMoveSpeedLv((0+1)*4);
+}
+
+int VreathMagic::calcTotalVreath(int prm_now_level, int prm_target_up_level) {
+    int sum = 0;
+    for (int i = prm_now_level+1; i <= prm_target_up_level; i++) {
+        sum += (lvinfo_[i].time_of_effect_ * lvinfo_[i].keep_cost_ * r_vreath_mp_[i]);
+    }
+    return sum;
 }
 
 VreathMagic::~VreathMagic() {

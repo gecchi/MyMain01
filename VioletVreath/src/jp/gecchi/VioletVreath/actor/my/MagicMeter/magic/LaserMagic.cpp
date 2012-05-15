@@ -10,8 +10,9 @@ LaserMagic::LaserMagic(const char* prm_name, AmountGraph* prm_pMP)
             1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
             60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60*2    , 0.9,   //基本発動時間   , 飛びレベル時の rate
-            60*60*10, 0.0,   //基本持続時間, 各レベルの削減割合
-            1.0     , 0.0 ) {    //基本維持コスト , 各レベル時の rate
+            60*60*10, 1.0,   //基本持続時間   , ＋１レベル毎の持続時間の乗率
+            1.0     , 1.0    //基本維持コスト , ＋１レベル毎の維持コストの乗率
+           ) {
 
     //    | 0          |  1         |  2 LockonⅦ |  3 LockonⅦ |  4 VreathⅦ|  5 VreathⅦ|  6 TractorⅦ|  7 TractorⅦ|
     //    | 8          |  9         | 10 LockonⅥ | 11 LockonⅥ | 12 VreathⅥ| 13 VreathⅥ| 14 TractorⅥ| 15 TractorⅥ|

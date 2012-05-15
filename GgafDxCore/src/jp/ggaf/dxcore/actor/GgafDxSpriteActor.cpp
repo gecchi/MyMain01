@@ -36,11 +36,30 @@ GgafDxSpriteActor::GgafDxSpriteActor(const char* prm_name,
 
     _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
     _far_rate = -1.0f;
+
+    _align = ALIGN_CENTER;
+    _valign = VALIGN_MIDDLE;
 }
 
 void GgafDxSpriteActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
     HRESULT hr;
+    if (_align == ALIGN_CENTER) {
+        //do nothing
+    } else if (_align == ALIGN_LEFT) {
+        _matWorld._41 += PX_C(_pSpriteModel->_fSize_SpriteModelWidthPx/2);
+    } else {
+        //ALIGN_RIGHT
+        _matWorld._41 -= PX_C(_pSpriteModel->_fSize_SpriteModelWidthPx/2);
+    }
+    if (_valign == VALIGN_MIDDLE) {
+        //do nothing
+    } else if (_valign == VALIGN_TOP) {
+        _matWorld._42 -= PX_C(_pSpriteModel->_fSize_SpriteModelHeightPx/2);
+    } else {
+        //VALIGN_BOTTOM
+        _matWorld._42 += PX_C(_pSpriteModel->_fSize_SpriteModelHeightPx/2);
+    }
 //    hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matView, &P_CAM->_matView );
 //    checkDxException(hr, D3D_OK, "GgafDxMeshActor::GgafDxMeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
@@ -67,7 +86,10 @@ void GgafDxSpriteActor::addAlpha(float prm_alpha) {
     _paMaterial[0].Diffuse.a = _alpha;
 }
 
-
+void GgafDxSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
+    _align = prm_align;
+    _valign = prm_valign;
+}
 GgafDxSpriteActor::~GgafDxSpriteActor() {
     DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
 }

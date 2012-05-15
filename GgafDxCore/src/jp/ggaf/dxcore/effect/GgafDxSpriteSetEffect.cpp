@@ -119,6 +119,56 @@ GgafDxSpriteSetEffect::GgafDxSpriteSetEffect(char* prm_effect_name) : GgafDxEffe
 //    _ah_alpha[22] = _pID3DXEffect->GetParameterByName( NULL, "g_alpha023" );
 //    _ah_alpha[23] = _pID3DXEffect->GetParameterByName( NULL, "g_alpha024" );
 
+    _ah_X[0] = _pID3DXEffect->GetParameterByName( NULL, "g_X001" );
+    _ah_X[1] = _pID3DXEffect->GetParameterByName( NULL, "g_X002" );
+    _ah_X[2] = _pID3DXEffect->GetParameterByName( NULL, "g_X003" );
+    _ah_X[3] = _pID3DXEffect->GetParameterByName( NULL, "g_X004" );
+    _ah_X[4] = _pID3DXEffect->GetParameterByName( NULL, "g_X005" );
+    _ah_X[5] = _pID3DXEffect->GetParameterByName( NULL, "g_X006" );
+    _ah_X[6] = _pID3DXEffect->GetParameterByName( NULL, "g_X007" );
+    _ah_X[7] = _pID3DXEffect->GetParameterByName( NULL, "g_X008" );
+    _ah_X[8] = _pID3DXEffect->GetParameterByName( NULL, "g_X009" );
+    _ah_X[9] = _pID3DXEffect->GetParameterByName( NULL, "g_X010" );
+    _ah_X[10] = _pID3DXEffect->GetParameterByName( NULL, "g_X011" );
+    _ah_X[11] = _pID3DXEffect->GetParameterByName( NULL, "g_X012" );
+    _ah_X[12] = _pID3DXEffect->GetParameterByName( NULL, "g_X013" );
+    _ah_X[13] = _pID3DXEffect->GetParameterByName( NULL, "g_X014" );
+    _ah_X[14] = _pID3DXEffect->GetParameterByName( NULL, "g_X015" );
+    _ah_X[15] = _pID3DXEffect->GetParameterByName( NULL, "g_X016" );
+    _ah_X[16] = _pID3DXEffect->GetParameterByName( NULL, "g_X017" );
+    _ah_X[17] = _pID3DXEffect->GetParameterByName( NULL, "g_X018" );
+//    _ah_X[18] = _pID3DXEffect->GetParameterByName( NULL, "g_X019" );
+//    _ah_X[19] = _pID3DXEffect->GetParameterByName( NULL, "g_X020" );
+//    _ah_X[20] = _pID3DXEffect->GetParameterByName( NULL, "g_X021" );
+//    _ah_X[21] = _pID3DXEffect->GetParameterByName( NULL, "g_X022" );
+//    _ah_X[22] = _pID3DXEffect->GetParameterByName( NULL, "g_X023" );
+//    _ah_X[23] = _pID3DXEffect->GetParameterByName( NULL, "g_X024" );
+
+    _ah_Y[0] = _pID3DXEffect->GetParameterByName( NULL, "g_Y001" );
+    _ah_Y[1] = _pID3DXEffect->GetParameterByName( NULL, "g_Y002" );
+    _ah_Y[2] = _pID3DXEffect->GetParameterByName( NULL, "g_Y003" );
+    _ah_Y[3] = _pID3DXEffect->GetParameterByName( NULL, "g_Y004" );
+    _ah_Y[4] = _pID3DXEffect->GetParameterByName( NULL, "g_Y005" );
+    _ah_Y[5] = _pID3DXEffect->GetParameterByName( NULL, "g_Y006" );
+    _ah_Y[6] = _pID3DXEffect->GetParameterByName( NULL, "g_Y007" );
+    _ah_Y[7] = _pID3DXEffect->GetParameterByName( NULL, "g_Y008" );
+    _ah_Y[8] = _pID3DXEffect->GetParameterByName( NULL, "g_Y009" );
+    _ah_Y[9] = _pID3DXEffect->GetParameterByName( NULL, "g_Y010" );
+    _ah_Y[10] = _pID3DXEffect->GetParameterByName( NULL, "g_Y011" );
+    _ah_Y[11] = _pID3DXEffect->GetParameterByName( NULL, "g_Y012" );
+    _ah_Y[12] = _pID3DXEffect->GetParameterByName( NULL, "g_Y013" );
+    _ah_Y[13] = _pID3DXEffect->GetParameterByName( NULL, "g_Y014" );
+    _ah_Y[14] = _pID3DXEffect->GetParameterByName( NULL, "g_Y015" );
+    _ah_Y[15] = _pID3DXEffect->GetParameterByName( NULL, "g_Y016" );
+    _ah_Y[16] = _pID3DXEffect->GetParameterByName( NULL, "g_Y017" );
+    _ah_Y[17] = _pID3DXEffect->GetParameterByName( NULL, "g_Y018" );
+//    _ah_Y[18] = _pID3DXEffect->GetParameterByName( NULL, "g_Y019" );
+//    _ah_Y[19] = _pID3DXEffect->GetParameterByName( NULL, "g_Y020" );
+//    _ah_Y[20] = _pID3DXEffect->GetParameterByName( NULL, "g_Y021" );
+//    _ah_Y[21] = _pID3DXEffect->GetParameterByName( NULL, "g_Y022" );
+//    _ah_Y[22] = _pID3DXEffect->GetParameterByName( NULL, "g_Y023" );
+//    _ah_Y[23] = _pID3DXEffect->GetParameterByName( NULL, "g_Y024" );
+
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
 }

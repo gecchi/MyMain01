@@ -124,21 +124,6 @@ public:
      */
     virtual void update(char* prm_str);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 描画文字を更新設定 .
      * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)

@@ -15,11 +15,11 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     _Z = 5;
 
     pMP_MyShip_ = prm_pMP_MyShip;
-    cost_disp_.config(pMP_MyShip_->_max_val_px, pMP_MyShip_->_max_val);
-    cost_disp_.set(0);
+    cost_disp_mp_.config(pMP_MyShip_->_max_val_px, pMP_MyShip_->_max_val);
+    cost_disp_mp_.set(0);
     pVreath_MyShip_ = prm_pVreath_MyShip;
-    vreath_inc_disp_.config(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
-    vreath_inc_disp_.set(0);
+    cost_disp_vreath.config(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
+    cost_disp_vreath.set(0);
 
     ringMagics_.addLast(NEW TractorMagic("TRACTOR", pMP_MyShip_));
     ringMagics_.addLast(NEW SpeedMagic("SPEED", pMP_MyShip_));
@@ -71,7 +71,7 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     pEnergyBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 60.0f), _Z);
     addSubGroup(pEnergyBar_);
     //エネルギーバーのコスト表示バー
-    pCostDispBar_ = NEW CostDispBar("CostDispBar", pEnergyBar_, &cost_disp_);
+    pCostDispBar_ = NEW CostDispBar("CostDispBar", pEnergyBar_, &cost_disp_mp_);
     pCostDispBar_->locate(pEnergyBar_->_X, pEnergyBar_->_Y, _Z-1);
     addSubGroup(pCostDispBar_);
 
@@ -80,11 +80,11 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     pVreathBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 20.0f), _Z);
     addSubGroup(pVreathBar_);
     //Vreathバーコスト表示バー
-    pCostDispBar2_ = NEW CostDispBar("CostDispBar2", pVreathBar_, &vreath_inc_disp_);
+    pCostDispBar2_ = NEW CostDispBar("CostDispBar2", pVreathBar_, &cost_disp_vreath);
     pCostDispBar2_->locate(pVreathBar_->_X, pVreathBar_->_Y, _Z-1);
     addSubGroup(pCostDispBar2_);
 
-    _pSeTx->useSe(SE_BAD_OPERATION+1);
+    _pSeTx->useSe(SE_BAD_OPERATION + 1);
     _pSeTx->set(SE_CURSOR_MOVE_METER             , "click07"      );  //メーター移動
     _pSeTx->set(SE_CURSOR_MOVE_LEVEL             , "G_EFC5"       );  //レベル移動
     _pSeTx->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "yume_ashi_022");  //レベル移動キャンセル
@@ -204,18 +204,42 @@ void MagicMeter::processBehavior() {
         //コストバー
         if (paFloat_rr_[active_idx] > 0.01f) {
             if (papLvTargetCursor_[active_idx]->point_lv_ == pActiveMagic->level_) {
-                cost_disp_.set(0);
+                //カーソルがより現在と同じレベルを指している場合
+                cost_disp_mp_.set(0);
             } else if (papLvTargetCursor_[active_idx]->point_lv_ > pActiveMagic->level_) {
-                cost_disp_.set(
+                //カーソルが現在より高いレベルを指している場合
+                cost_disp_mp_.set(
                   pActiveMagic->interest_cost_[papLvTargetCursor_[active_idx]->point_lv_ - pActiveMagic->level_]
                 );
             } else {
-                cost_disp_.set(
+                //カーソルが現在より低いレベルを指している場合
+                cost_disp_mp_.set(
                     -1*pActiveMagic->calcReduceMp(pActiveMagic->level_,  papLvTargetCursor_[active_idx]->point_lv_)
                 );
             }
         } else {
-            cost_disp_.set(0);
+            cost_disp_mp_.set(0);
+        }
+
+        //Vreathバー
+        if (active_idx == 6) {
+            VreathMagic* pVM = (VreathMagic*)pActiveMagic;
+            if (paFloat_rr_[active_idx] > 0.01f) {
+                if (papLvTargetCursor_[active_idx]->point_lv_ == pVM->level_) {
+                    //カーソルがより現在と同じレベルを指している場合
+                    cost_disp_vreath.set(0);
+                } else if (papLvTargetCursor_[active_idx]->point_lv_ > pVM->level_) {
+                    //カーソルが現在より高いレベルを指している場合
+                    cost_disp_vreath.set(
+                            (int)(-1 * pVM->calcTotalVreath(pActiveMagic->level_,  papLvTargetCursor_[active_idx]->point_lv_))
+                    );
+                } else {
+                    //カーソルが現在より低いレベルを指している場合
+                    cost_disp_vreath.set(0);
+                }
+            } else {
+                cost_disp_vreath.set(0);
+            }
         }
 
         //「決定」時
@@ -370,9 +394,9 @@ void MagicMeter::processDraw() {
     int len_magics = ringMagics_.length();
     int n = 0;
     float u,v;
-    float x = C_PX(_X);
-    float y = C_PX(_Y);
-    float z = C_PX(_Z);
+    float x = float(C_PX(_X));
+    float y = float(C_PX(_Y));
+    float z = float(C_PX(_Z));
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
         n = 0;

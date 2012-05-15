@@ -47,13 +47,13 @@ typedef frame magic_time;
  * ・「b) 詠唱」までならば破棄（停止）が可能です。<BR>
  *   「c) 発動」までステップが進むと、MPが消費され途中破棄は不可能になります。<BR>
  *   「d) 持続」になるまで、レベルアップ、レベルダウンの操作は出来ないこととします。<BR>
- * ・魔法には、維持コスト有り、維持コスト無し、の２種類があります。<BR>
- *   維持コスト有りは、「d) 持続」中にMPを消費します。<BR>
- *   その後、設定された効果持続時間を超えると自動でレベルダウンします。<BR>
- *   さらに、途中でMPが枯渇した場合は、強制的にレベル０になります。<BR>
- *   維持コスト無しは、「d) 持続」中にMPを消費しません。<BR>
- *   その後、設定された効果持続時間を超えると自動でレベルダウンしますが、<BR>
- *   MPが枯渇してもレベルダウンしません。<BR>
+ * ・魔法の種類には、即効性魔法、効果持続魔法 の２種類があります。
+ *   効果持続性魔法にはさらに、維持コスト有り、維持コスト無しの２種類があります。<BR>
+ *   1)「即効性魔法」は 「d) 持続」のプロセスが無い魔法であり、レベルアップ・ダウンという概念が存在しません。<BR>
+ *   2)「効果持続性魔法」は「d) 持続」中に設定された効果持続時間を超えると自動でレベルダウン(－１)します。<BR>
+ *      2-a)「維持コスト有」は さらに「d) 持続」中にMPを消費します。もし、途中でMPが0になってしまった場合、
+ *           強制的にレベル０にレベルダウンします。<BR>
+ *      2-b)「維持コスト無」は 「d) 持続」中にMPを消費しません。途中でMPが0でもレベルダウンは起こりません。
  * @version 1.00
  * @since 2009/05/19
  * @author Masatoshi Tsuge
@@ -113,12 +113,6 @@ public:
 
     /** [r]各レベルの情報 0～MMETER_MAX_LEVEL */
     LevelInfo lvinfo_[MMETER_MAX_LEVEL+1];
-    /** [r]飛びレベル差別魔法コスト情報 0差～MMETER_MAX_LEVEL差 */
-    magic_point interest_cost_[MMETER_MAX_LEVEL+1];
-    /** [r]飛びレベル差別詠唱時間情報 0差～MMETER_MAX_LEVEL差 */
-    magic_time  interest_time_of_casting_[MMETER_MAX_LEVEL+1];
-    /** [r]飛びレベル差別発動時間情報 0差～MMETER_MAX_LEVEL差 */
-    magic_time  interest_time_of_invoking_[MMETER_MAX_LEVEL+1];
 
     /** [r]本魔法発動に必要なコストの基本単位 */
     magic_point cost_base_;
@@ -127,26 +121,33 @@ public:
     /** [r]本魔法発動開始 ～ 魔法発動終了の基本単位時間 */
     magic_time time_of_invoking_base_;
     /** [r]本魔法効果持続開始 ～ 魔法効果持続終了の基本単位時間  */
-    magic_time time_of_effect_base;
+    magic_time time_of_effect_base_;
     /** [r]本魔法効果持続中コストの基本単位  */
     magic_point keep_cost_base_;
 
     /** [r]飛びレベル時の魔法コスト削減割合(0.0～1.0) */
-    float fRate_cost_;
+    double r_cost_;
     /** [r]飛びレベル時の詠唱時間削減割合(0.0～1.0) */
-    float fRate_time_of_casting_;
+    double r_time_of_casting_;
     /** [r]飛びレベル時の発動時間削減割合(0.0～1.0) */
-    float fRate_time_of_invoking_;
+    double r_time_of_invoking_;
     /** [r]各レベル毎の効果持続時間削減割合(0.0～1.0) */
-    float fRate_time_of_effecting_;
+    double r_each_lv_time_of_effecting_;
     /** [r]各レベル毎の維持コスト増加割合 (1.0～ )*/
-    float fRate_keep_cost_;
+    double r_keep_cost_;
 
     /** [r]次の進捗状態になる為に必要なフレーム数(を一時保持) */
     magic_time time_of_next_state_;
     /** [r]レベルアップ中かどうか */
     bool is_working_;
 
+
+    /** [r]飛びレベル差別魔法コスト情報 0差～MMETER_MAX_LEVEL差 */
+    magic_point interest_cost_[MMETER_MAX_LEVEL+1];
+    /** [r]飛びレベル差別詠唱時間情報 0差～MMETER_MAX_LEVEL差 */
+    magic_time  interest_time_of_casting_[MMETER_MAX_LEVEL+1];
+    /** [r]飛びレベル差別発動時間情報 0差～MMETER_MAX_LEVEL差 */
+    magic_time  interest_time_of_invoking_[MMETER_MAX_LEVEL+1];
 
 public:
 
@@ -156,35 +157,43 @@ public:
      * @param prm_name 魔法名
      * @param prm_pMP マジックポイントの数量バー
      * @param prm_max_level 本魔法の最高レベル 1～MMETER_MAX_LEVEL
-     * @param prm_cost_base 基本魔法コスト
-     * @param prm_fRate_cost 飛びレベル時の魔法コスト削減割合 0.0～1.0 (1.0:飛びレベルでも割引無し、0.8:レベル差２以上時、魔法コスト２割引)
-     * @param prm_time_of_casting_base 基本魔法詠唱時間
-     * @param prm_fRate_time_of_casting 飛びレベル時の詠唱時間削減割合0.0～1.0 (1.0:飛びレベルでも割引無し, 0.8:レベル差２以上時、詠唱時間２割引)
-     * @param prm_time_of_invoking_base 基本魔法発動時間
-     * @param prm_fRate_time_of_invoking 飛びレベル時の発動時間削減割合0.0～1.0 (1.0:飛びレベルでも割引無し, 0.8:レベル差２以上時、発動時間２割引)
-     * @param prm_time_of_effect_base 基本魔法効果持続時間
-     * @param prm_fRate_time_of_effecting 各レベル毎の効果持続時間削減割合  0.0～1.0
-     *                            (1.0:レベルによる効果持続時削減無し,
-     *                            (0.8:レベル1のとき prm_time_of_effect
+     * @param prm_cost_base              基本魔法コスト
+     * @param prm_r_cost                 飛びレベル時の魔法コスト削減割合 0.0～1.0
+     *                                   (【例】1.0:飛びレベルでも割引無し、
+     *                                          0.8:レベル差２以上時、コスト=prm_cost_base*レベル差*0.8)
+     * @param prm_time_of_casting_base   基本魔法詠唱時間
+     * @param prm_r_time_of_casting      飛びレベル時の詠唱時間削減割合0.0～1.0
+     *                                   (【例】1.0:飛びレベルでも割引無し,
+     *                                          0.8:レベル差２以上時、詠唱時間=prm_time_of_casting_base*レベル差*0.8)
+     * @param prm_time_of_invoking_base  基本魔法発動時間
+     * @param prm_r_time_of_invoking     飛びレベル時の発動時間削減割合0.0～1.0
+     *                                   (【例】1.0:飛びレベルでも割引無し,
+     *                                          0.8:レベル差２以上時、発動時間=prm_time_of_invoking_base*レベル差*0.8)
+     * @param prm_time_of_effect_base 基本魔法効果持続時間。
+     *                                0を指定すると、即効性魔法と解釈される。
+     *                                0より大きい値を設定すると、効果持続性魔法と解釈される。
+     * @param prm_r_each_lv_time_of_effecting 各レベル毎の効果持続時間削減割合  0.0～1.0
+     *                      (【例】1.0:レベルによる効果持続時削減無し,
+     *                             0.8:レベル1のとき prm_time_of_effect
      *                                 レベル2のとき prm_time_of_effect * 0.8
      *                                 レベル3のとき prm_time_of_effect * 0.8 * 0.8
      *                                 レベル4のとき prm_time_of_effect * 0.8 * 0.8 * 0.8  という持続時間が設定される)
-     * @param prm_keep_cost_base 基本魔法効果持続中維持コスト
-     * @param prm_fRate_keep_costbase 各レベル毎の維持コスト増加割合 1.0～
-     *                            (1.0:レベルによる維持コスト増加無し,
-     *                            (1.2:レベル1のとき prm_keep_cost_base
+     * @param prm_keep_cost_base 基本魔法効果持続中維持コスト。0より大きい値を設定すると、維持コスト有とあなる。
+     * @param prm_r_each_lv_keep_cost 各レベル毎の維持コスト増加割合 1.0～
+     *                      (【例】1.0:レベルによる維持コスト増加無し,
+     *                             1.2:レベル1のとき prm_keep_cost_base
      *                                 レベル2のとき prm_keep_cost_base * 1.2
      *                                 レベル3のとき prm_keep_cost_base * 1.2 * 1.2
      *                                 レベル4のとき prm_keep_cost_base * 1.2 * 1.2 * 1.2  という維持コストが設定される)
      * @return
      */
     Magic(const char* prm_name, GgafLib::AmountGraph* prm_pMP,
-          int   prm_max_level,
-          magic_point prm_cost_base, float prm_fRate_cost,
-          magic_time  prm_time_of_casting_base , float prm_fRate_time_of_casting,
-          magic_time  prm_time_of_invoking_base, float prm_fRate_time_of_invoking,
-          magic_time  prm_time_of_effect_base  , float prm_fRate_time_of_effecting,
-          magic_point prm_keep_cost_base       , float prm_fRate_keep_costbase);
+          int prm_max_level,
+          magic_point prm_cost_base            , double prm_r_cost,
+          magic_time  prm_time_of_casting_base , double prm_r_time_of_casting,
+          magic_time  prm_time_of_invoking_base, double prm_r_time_of_invoking,
+          magic_time  prm_time_of_effect_base  , double prm_r_each_lv_time_of_effecting,
+          magic_point prm_keep_cost_base       , double prm_r_each_lv_keep_cost);
 
     void initialize() override {}
 
@@ -336,8 +345,18 @@ public:
      */
     magic_point calcReduceMp(int prm_now_level, int prm_target_down_level);
 
+    /**
+     * 効果持続時間合計の試算 .
+     * @param prm_now_level 現在のレベル
+     * @param prm_target_up_level レベルアップのレベル
+     * @return 試算された効果持続時間合計
+     */
+    magic_time calcTotalEffecTime(int prm_now_level, int prm_target_up_level);
+
     virtual ~Magic();
 };
 
 }
+
+
 #endif /*MAGIC_H_*/

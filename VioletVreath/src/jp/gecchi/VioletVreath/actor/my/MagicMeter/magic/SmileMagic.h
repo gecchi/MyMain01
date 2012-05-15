@@ -1,23 +1,19 @@
-#ifndef VREATHMAGIC_H_
-#define VREATHMAGIC_H_
+#ifndef SMILEMAGIC_H_
+#define SMILEMAGIC_H_
 namespace VioletVreath {
 
 /**
- * 魔法「Vreath」 .
+ * 魔法「Smile」 .
  * @version 1.00
- * @since 2012/05/08
+ * @since 2012/05/15
  * @author Masatoshi Tsuge
  */
-class VreathMagic : public Magic {
+class SmileMagic : public Magic {
 
-    EffectVreathMagic001* pEffect_;
-
-public:
-    /** MP 1.0 に対する Vreath の率 */
-    double r_vreath_mp_[MMETER_MAX_LEVEL+1];
+    EffectSmileMagic001* pEffect_;
 
 public:
-    VreathMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
+    SmileMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
 
     virtual void processCastBegin(int prm_now_level, int prm_new_level) override;
     virtual void processCastingBehavior(int prm_now_level, int prm_new_level) override;
@@ -33,10 +29,8 @@ public:
     virtual void processEffectingBehavior(int prm_last_level, int prm_now_level) override;
     virtual void processEffectFinish(int prm_justbefore_level) override;
 
-    int calcTotalVreath(int prm_now_level, int prm_target_up_level);
-
-    virtual ~VreathMagic();
+    virtual ~SmileMagic();
 };
 
 }
-#endif /*VREATHMAGIC_H_*/
+#endif /*SMILEMAGIC_H_*/

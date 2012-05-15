@@ -7,12 +7,11 @@ using namespace VioletVreath;
 
 Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
              int          prm_max_level,
-             magic_point  prm_cost_base            , float prm_fRate_cost             ,
-             magic_time   prm_time_of_casting_base , float prm_fRate_time_of_casting  ,
-             magic_time   prm_time_of_invoking_base, float prm_fRate_time_of_invoking ,
-             magic_time   prm_time_of_effect_base  , float prm_fRate_time_of_effecting,
-             magic_point  prm_keep_cost_base       , float prm_fRate_keep_cost
-                ) : GgafMainActor(prm_name, NULL) {
+             magic_point  prm_cost_base            , double prm_r_cost             ,
+             magic_time   prm_time_of_casting_base , double prm_r_time_of_casting  ,
+             magic_time   prm_time_of_invoking_base, double prm_r_time_of_invoking ,
+             magic_time   prm_time_of_effect_base  , double prm_r_each_lv_time_of_effecting,
+             magic_point  prm_keep_cost_base       , double prm_r_each_lv_keep_cost) : GgafMainActor(prm_name, NULL) {
 //    GgafDxGeometricActor* prm_pCaster,
 //     GgafDxGeometricActor* prm_pReceiver) : GgafDxBoardSetActor(prm_name, "magic") {
     pMP_ = prm_pMP;
@@ -24,34 +23,31 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     cost_base_               = prm_cost_base;
     time_of_casting_base_    = prm_time_of_casting_base;
     time_of_invoking_base_   = prm_time_of_invoking_base;
-    time_of_effect_base      = prm_time_of_effect_base;
+    time_of_effect_base_     = prm_time_of_effect_base;
     keep_cost_base_          = prm_keep_cost_base;
-    fRate_cost_              = prm_fRate_cost;
-    fRate_time_of_casting_   = prm_fRate_time_of_casting;
-    fRate_time_of_invoking_  = prm_fRate_time_of_invoking;
-    fRate_time_of_effecting_ = prm_fRate_time_of_effecting;
-    fRate_keep_cost_         = prm_fRate_keep_cost;
 
-    //飛びレベル差別情報を設定
-    interest_cost_[0] = 0;
-    interest_time_of_casting_[0] = 0;
-    interest_time_of_invoking_[0] = 0;
-    for (int i = 1; i <= max_level_; i++) {
-        interest_cost_[i]             = (cost_base_ * i) * fRate_cost_;
-        interest_time_of_casting_[i]  = (time_of_casting_base_ * i) *  fRate_time_of_casting_;
-        interest_time_of_invoking_[i] = (time_of_invoking_base_ * i) *  fRate_time_of_invoking_;
-    }
+    r_cost_              = prm_r_cost;
+    r_time_of_casting_   = prm_r_time_of_casting;
+    r_time_of_invoking_  = prm_r_time_of_invoking;
+
+    r_each_lv_time_of_effecting_ = prm_r_each_lv_time_of_effecting;
+    r_keep_cost_         = prm_r_each_lv_keep_cost;
 
     //各レベル別持続時間及び、維持コストを予め設定
     lvinfo_[0].is_working_ = false;
     lvinfo_[0].remainingtime_of_effect_ = 0;
     lvinfo_[0].time_of_effect_ = 0;
     lvinfo_[0].keep_cost_ = 0;
-    for (int i = 1; i <= max_level_; i++) {
+    lvinfo_[1].is_working_ = false;
+    lvinfo_[1].remainingtime_of_effect_ = 0;
+    lvinfo_[1].time_of_effect_ = time_of_effect_base_;
+    lvinfo_[1].keep_cost_ = keep_cost_base_;
+
+    for (int i = 2; i <= max_level_; i++) {
         lvinfo_[i].is_working_ = false;
         lvinfo_[i].remainingtime_of_effect_ = 0;
-        lvinfo_[i].time_of_effect_ = time_of_effect_base + ((i-1) * time_of_effect_base * fRate_time_of_effecting_);
-        lvinfo_[i].keep_cost_      = keep_cost_base_     + ((i-1) * keep_cost_base_ * fRate_keep_cost_);
+        lvinfo_[i].time_of_effect_ = lvinfo_[i-1].time_of_effect_ * r_each_lv_time_of_effecting_;
+        lvinfo_[i].keep_cost_      = lvinfo_[i-1].keep_cost_      * r_keep_cost_;
     }
 
     time_of_next_state_ = 0;
@@ -59,6 +55,17 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
 
     useProgress(STATE_ABANDONING);
     _pProg->set(STATE_NOTHING);
+
+
+    //飛びレベル差別情報を設定
+    interest_cost_[0] = 0;
+    interest_time_of_casting_[0] = 0;
+    interest_time_of_invoking_[0] = 0;
+    for (int i = 1; i <= max_level_; i++) {
+        interest_cost_[i]             = (cost_base_ * i) * r_cost_;
+        interest_time_of_casting_[i]  = (time_of_casting_base_ * i) * r_time_of_casting_;
+        interest_time_of_invoking_[i] = (time_of_invoking_base_ * i) * r_time_of_invoking_;
+    }
 }
 
 void Magic::save(std::stringstream& sts) {
@@ -390,38 +397,52 @@ void Magic::processBehavior() {
         }
         /////////////////////////////////////// 持続中
         //case STATE_EFFECTING:
-        if (level_ > 0) {
-            processEffectingBehavior(last_level_, level_); //コールバック
-            lvinfo_[level_].remainingtime_of_effect_ --; //効果持続残り時間減少
+        if (time_of_effect_base_ == 0) {
+            //即効性魔法
+            for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
+                 lvinfo_[lv].is_working_ = false;          //停止し
+                 lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
+            }
+            new_level_ = 0;
+            last_level_ = level_;
+            level_ = new_level_;
+            processEffectFinish(last_level_); //コールバック MP枯渇による魔法終了
+            _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+        } else {
+            //効果持続魔法
+            if (level_ > 0) {
+                processEffectingBehavior(last_level_, level_); //コールバック
+                lvinfo_[level_].remainingtime_of_effect_ --; //効果持続残り時間減少
 
 
-            if (keep_cost_base_ != 0) {
-                //維持コストがかかる場合の処理
-                pMP_->inc(-1*lvinfo_[level_].keep_cost_); //維持コスト減少
-                //MP枯渇？
-                if (pMP_->get() <= 0) {
-                    //MP枯渇による持続終了時
-                    pMP_->set(0);
-                    for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
-                         lvinfo_[lv].is_working_ = false;           //停止し
-                         lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
+                if (keep_cost_base_ != 0) {
+                    //維持コストがかかる場合の処理
+                    pMP_->inc(-1*lvinfo_[level_].keep_cost_); //維持コスト減少
+                    //MP枯渇？
+                    if (pMP_->get() <= 0) {
+                        //MP枯渇による持続終了時
+                        pMP_->set(0);
+                        for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
+                             lvinfo_[lv].is_working_ = false;           //停止し
+                             lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
+                        }
+                        new_level_ = 0;
+                        last_level_ = level_;
+                        level_ = new_level_;
+                        processEffectFinish(last_level_); //コールバック MP枯渇による魔法終了
+                        _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
                     }
-                    new_level_ = 0;
-                    last_level_ = level_;
-                    level_ = new_level_;
-                    processEffectFinish(last_level_); //コールバック MP枯渇による魔法終了
-                    _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
                 }
             }
-        }
 
-        if (level_ > 0) {
-            //持続時間満期処理
-            if (lvinfo_[level_].remainingtime_of_effect_ == 0) {
-                effect(level_-1); //レベルダウン(-1)を行う。
-                if (level_ == 0) { //現レベルが１で、レベルダウン(-1)によりnothingになった場合
-                    processEffectFinish(last_level_); //コールバック
-                    _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+            if (level_ > 0) {
+                //持続時間満期処理
+                if (lvinfo_[level_].remainingtime_of_effect_ == 0) {
+                    effect(level_-1); //レベルダウン(-1)を行う。
+                    if (level_ == 0) { //現レベルが１で、レベルダウン(-1)によりnothingになった場合
+                        processEffectFinish(last_level_); //コールバック
+                        _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+                    }
                 }
             }
         }
@@ -440,6 +461,13 @@ magic_point Magic::calcReduceMp(int prm_now_level, int prm_target_down_level) {
         mp += rcost_pre_lv*(1.0*lvinfo_[lv].remainingtime_of_effect_ / lvinfo_[lv].time_of_effect_);
     }
     return mp;
+}
+magic_time Magic::calcTotalEffecTime(int prm_now_level, int prm_target_up_level) {
+    magic_time sum = 0;
+    for (int i = prm_now_level+1; i <= prm_target_up_level; i++) {
+        sum += lvinfo_[i].time_of_effect_;
+    }
+    return sum;
 }
 Magic::~Magic() {
 }

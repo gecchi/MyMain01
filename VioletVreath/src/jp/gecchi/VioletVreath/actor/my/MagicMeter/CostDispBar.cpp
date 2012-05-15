@@ -29,9 +29,11 @@ void CostDispBar::processBehavior() {
         _pUvFlipper->setActivePtn(0);
         pixcoord px = pSourceBar_->pAmount_->getPx() -  pCostValue_->getPx();
         if (px > 0) {
+            //正の値はコスト有りを表す。主メーターの削減値を赤で示すようにする。
             _X = pSourceBar_->_X +  PX_C(px);
             setScaleR(pCostValue_->getPx() / org_width_, 1.0); //横方向に倍率で伸ばす
         } else {
+            //負の値はコストがマイナス、つまり元の値が増える。主メーターの増分値を青で示すようにする。
             _X = pSourceBar_->_X;
             _SX = pSourceBar_->_SX;
         }

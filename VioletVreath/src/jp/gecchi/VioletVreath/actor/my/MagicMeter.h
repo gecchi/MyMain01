@@ -34,12 +34,12 @@ public:
     D3DXHANDLE h_active_magic_;
     /** 自機のMP */
     GgafLib::AmountGraph* pMP_MyShip_;
-    /** COST */
-    GgafLib::AmountGraph cost_disp_;
+    /** MPのCOST分表示用 */
+    GgafLib::AmountGraph cost_disp_mp_;
     /** 自機のVreath */
     GgafLib::AmountGraph* pVreath_MyShip_;
-    /** Vreath増分表示 */
-    GgafLib::AmountGraph vreath_inc_disp_;
+    /** VreathのCOST分表示用 */
+    GgafLib::AmountGraph cost_disp_vreath;
 
     /** 残魔法効果持続時間表示 */
     MagicMeterStatus* pMagicMeterStatus_;

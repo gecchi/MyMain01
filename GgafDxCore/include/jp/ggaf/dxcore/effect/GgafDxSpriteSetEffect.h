@@ -19,6 +19,8 @@ public:
     D3DXHANDLE _ah_offset_u[18];
     D3DXHANDLE _ah_offset_v[18];
     D3DXHANDLE _ah_alpha[18];
+    D3DXHANDLE _ah_X[18];
+    D3DXHANDLE _ah_Y[18];
 
 public:
     /**
