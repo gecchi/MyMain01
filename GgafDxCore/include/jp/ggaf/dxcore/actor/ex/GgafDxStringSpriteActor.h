@@ -9,7 +9,7 @@ class GgafDxStringSpriteActor : public GgafDxSpriteSetActor {
     /**
      * オーバーライド不可 .
      */
-    virtual void processSettlementBehavior() override;
+//    virtual void processSettlementBehavior() override;
 
 public:
     /** [r]描画文字列 */
@@ -32,7 +32,6 @@ public:
 
 
     pixcoord _width_len_px;
-    coord _X_offset_align;
 
     /**
      * コンストラクタ .
@@ -45,9 +44,6 @@ public:
     virtual void onCreateModel() override;
 
     virtual void processDraw() override;
-
-    virtual void processAfterDraw() override {
-    }
 
     virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) {
         return false;

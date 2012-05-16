@@ -44,9 +44,19 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
     pEffect_->inactivateImmed();
     addSubGroup(pEffect_);
     r_vreath_mp_[0] = 0.0;
+
     for (int i = 1; i <= max_level_; i++) {
         r_vreath_mp_[i] = 100.5;
     }
+    beat_[0] = 0.0;
+    beat_[1] = 120;
+    beat_[2] = beat_[1]/2;
+    beat_[3] = beat_[2]/2;
+    beat_[4] = beat_[3]/2;
+    beat_[5] = beat_[4]/2;
+    beat_[6] = beat_[5]/2;
+    beat_[7] = beat_[6]/2;
+
 }
 void VreathMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     pEffect_->locatedBy(P_MYSHIP);
@@ -83,7 +93,12 @@ void VreathMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 
 }
 void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-    P_MYSHIP->vreath_.inc(lvinfo_[prm_now_level].keep_cost_ * r_vreath_mp_[prm_now_level]);
+    int a = getActivePartFrame() / beat_[prm_now_level];
+    if (a % 2 == 0) {
+        P_MYSHIP->vreath_.inc(MY_SHIP_VREATH_COST*2);
+    }
+
+//    P_MYSHIP->vreath_.inc(lvinfo_[prm_now_level].keep_cost_ * r_vreath_mp_[prm_now_level]);
 }
 
 void VreathMagic::processEffectFinish(int prm_justbefore_level) {

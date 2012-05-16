@@ -14,14 +14,34 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
     getDirector()->addSubGroup(pLabel02_);
     pTitleBoard_ = NEW TitleBoard("TitleBoard");
     getDirector()->addSubGroup(pTitleBoard_);
+
+//    papSpriteLabel_ = NEW SpriteLabelTest*[9];
+//    for (int i = 0; i < 9; i++) {
+//        papSpriteLabel_[i] = NEW SpriteLabelTest("tst");
+//        getDirector()->addSubGroup(papSpriteLabel_[i]);
+//    }
 }
 void GamePreTitleScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
     pTitleBoard_->locate(PX_C(100), PX_C(600));
     pLabel01_->update("");
     pLabel02_->update("");
-//    fadeoutScene(0);
     _pProg->change(GamePreTitleScene::PROG_INIT);
+//    //TEST
+//    for (int i = 0; i < 9; i++) {
+//        papSpriteLabel_[i]->update("ABC");
+//        papSpriteLabel_[i]->locate(PX_C(((i % 3) * 100) - 100), PX_C(((i / 3) * 20) - 20));
+//    }
+//    papSpriteLabel_[0]->setAlign(ALIGN_LEFT, VALIGN_BOTTOM);
+//    papSpriteLabel_[1]->setAlign(ALIGN_CENTER, VALIGN_BOTTOM);
+//    papSpriteLabel_[2]->setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
+//    papSpriteLabel_[3]->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
+//    papSpriteLabel_[4]->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+//    papSpriteLabel_[5]->setAlign(ALIGN_RIGHT, VALIGN_MIDDLE);
+//    papSpriteLabel_[6]->setAlign(ALIGN_LEFT, VALIGN_TOP);
+//    papSpriteLabel_[7]->setAlign(ALIGN_CENTER, VALIGN_TOP);
+//    papSpriteLabel_[8]->setAlign(ALIGN_RIGHT, VALIGN_TOP);
+//    //TEST
 }
 
 void GamePreTitleScene::onActive() {
@@ -32,6 +52,18 @@ void GamePreTitleScene::initialize() {
 }
 
 void GamePreTitleScene::processBehavior() {
+//    //TEST
+//    if (GgafDxInput::isBeingPressedKey(DIK_Y)) {
+//        for (int i = 0; i < 9; i++) {
+//            papSpriteLabel_[i]->_Z -= PX_C(2);
+//        }
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_U)) {
+//        for (int i = 0; i < 9; i++) {
+//            papSpriteLabel_[i]->_Z += PX_C(2);
+//        }
+//    }
+//    //TEST
 
     switch (_pProg->get()) {
         case GamePreTitleScene::PROG_INIT: {
@@ -65,7 +97,6 @@ void GamePreTitleScene::processBehavior() {
         case GamePreTitleScene::PROG_FINISH: {
             if (_pProg->isJustChanged()) {
                 throwEventToUpperTree(EVENT_PREGAMETITLESCENE_FINISH);
-//                inactivate();
             }
             //Ç®ÇµÇ‹Ç¢ë“ÇøÇ⁄Ç§ÇØÉãÅ[Év
             break;

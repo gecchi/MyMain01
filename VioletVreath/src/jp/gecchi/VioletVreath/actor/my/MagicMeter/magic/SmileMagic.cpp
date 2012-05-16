@@ -8,18 +8,18 @@ SmileMagic::SmileMagic(const char* prm_name, AmountGraph* prm_pMP)
     : Magic(prm_name, prm_pMP,
             5,          //max_level
             100       , 1.0,   //Šî–{–‚–@ƒRƒXƒg , ”ò‚ÑƒŒƒxƒ‹Žž‚Ì rate
-            60*0.3    , 0.9,   //Šî–{‰r¥ŽžŠÔ   , ”ò‚ÑƒŒƒxƒ‹Žž‚Ì rate
-            60*0.1    , 0.9,   //Šî–{”­“®ŽžŠÔ   , ”ò‚ÑƒŒƒxƒ‹Žž‚Ì rate
+            12        , 0.9,   //Šî–{‰r¥ŽžŠÔ   , ”ò‚ÑƒŒƒxƒ‹Žž‚Ì rate
+            60        , 0.9,   //Šî–{”­“®ŽžŠÔ   , ”ò‚ÑƒŒƒxƒ‹Žž‚Ì rate
             0         , 0.0,   //Šî–{Ž‘±ŽžŠÔ   , {‚PƒŒƒxƒ‹–ˆ‚ÌŽ‘±ŽžŠÔ‚Ìæ—¦
             0         , 0.0    //Šî–{ˆÛŽƒRƒXƒg , {‚PƒŒƒxƒ‹–ˆ‚ÌˆÛŽƒRƒXƒg‚Ìæ—¦
         ) {
-    //    | 0          |  1         |  2 Lockon‡Z |  3 Lockon‡Z |  4 Smile‡Z|  5 Smile‡Z|  6 Tractor‡Z|  7 Tractor‡Z|
-    //    | 8          |  9         | 10 Lockon‡Y | 11 Lockon‡Y | 12 Smile‡Y| 13 Smile‡Y| 14 Tractor‡Y| 15 Tractor‡Y|
-    //    | 16         | 17         | 18 Lockon‡X | 19 Lockon‡X | 20 Smile‡X| 21 Smile‡X| 22 Tractor‡X| 23 Tractor‡X|
-    //    | 24         | 25         | 26 Lockon‡W | 27 Lockon‡W | 28 Smile‡W| 29 Smile‡W| 30 Tractor‡W| 31 Tractor‡W|
-    //    | 32         | 33         | 34 Lockon‡V | 35 Lockon‡V | 36 Smile‡V| 37 Smile‡V| 38 Tractor‡V| 39 Tractor‡V|
-    //    | 40 Option‡]| 41 Option‡]| 42 Lockon‡U | 43 Lockon‡U | 44 Smile‡U| 45 Smile‡U| 46 Tractor‡U| 47 Tractor‡U|
-    //    | 48 Option‡\| 49 Option‡\| 50 Lockon‡T | 51 Lockon‡T | 52 Smile‡T| 53 Smile‡T| 54 Tractor‡T| 55 Tractor‡T|
+    //    | 0          |  1         |  2 Lockon‡Z |  3 Lockon‡Z |  4 Vreath‡Z|  5 Vreath‡Z|  6 Tractor‡Z|  7 Tractor‡Z|
+    //    | 8          |  9         | 10 Lockon‡Y | 11 Lockon‡Y | 12 Vreath‡Y| 13 Vreath‡Y| 14 Tractor‡Y| 15 Tractor‡Y|
+    //    | 16         | 17         | 18 Lockon‡X | 19 Lockon‡X | 20 Vreath‡X| 21 Vreath‡X| 22 Tractor‡X| 23 Tractor‡X|
+    //    | 24         | 25         | 26 Lockon‡W | 27 Lockon‡W | 28 Vreath‡W| 29 Vreath‡W| 30 Tractor‡W| 31 Tractor‡W|
+    //    | 32         | 33         | 34 Lockon‡V | 35 Lockon‡V | 36 Vreath‡V| 37 Vreath‡V| 38 Tractor‡V| 39 Tractor‡V|
+    //    | 40 Option‡]| 41 Option‡]| 42 Lockon‡U | 43 Lockon‡U | 44 Vreath‡U| 45 Vreath‡U| 46 Tractor‡U| 47 Tractor‡U|
+    //    | 48 Option‡\| 49 Option‡\| 50 Lockon‡T | 51 Lockon‡T | 52 Vreath‡T| 53 Vreath‡T| 54 Tractor‡T| 55 Tractor‡T|
     //    | 56 Option‡[| 57 Option‡[| 58 Empty    | 59 Empty    | 60 Empt  y | 61 Empty   | 62 Empty    | 63 Empty    |
     //    | 64 Option‡Z| 65 Option‡Z| 66 Torpedo‡Z| 67 Torpedo‡Z| 68 Laser‡Z | 69 Laser‡Z | 70 Speed‡Z  | 71 Speed‡Z  |
     //    | 72 Option‡Y| 73 Option‡Y| 74 Torpedo‡Y| 75 Torpedo‡Y| 76 Laser‡Y | 77 Laser‡Y | 78 Speed‡Y  | 79 Speed‡Y  |
@@ -40,51 +40,50 @@ SmileMagic::SmileMagic(const char* prm_name, AmountGraph* prm_pMP)
     lvinfo_[0].pno_ = 60;
 
 
-    pEffect_ = NEW EffectSmileMagic001("EffectSmileMagic001");
-    pEffect_->inactivateImmed();
-    addSubGroup(pEffect_);
+    pMoji_ = NEW SpriteLabelTest("(^_^)");
+    pMoji_->update("SMILE(^_^)SMILE");
+    pMoji_->inactivateImmed();
+    addSubGroup(pMoji_);
 
 }
 void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    pEffect_->locatedBy(P_MYSHIP);
-    pEffect_->setAlpha(0.9);
-    pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
-    pEffect_->_pScaler->setScale(1000);
-    pEffect_->activate();
+    pMoji_->locatedBy(P_MYSHIP);
+    pMoji_->setAlpha(0.9);
+    pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
+    pMoji_->_pKurokoA->setFaceAngVelo(AXIS_X, 200);
+    pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Y, 300);
+    pMoji_->activate();
 }
 void SmileMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
-    pEffect_->locatedBy(P_MYSHIP);
-    pEffect_->_pScaler->addScale(10);
+    pMoji_->_X += 1000;
+    pMoji_->_Y += 1000;
 }
 void SmileMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
 }
 
 
 void SmileMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
-    pEffect_->_pScaler->setScale(1000);
-    pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 3000);
-}
-void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
-    pEffect_->_pScaler->addScale(100);
-}
-void SmileMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
-    pEffect_->inactivate();
+    pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Z, 3000);
 }
 
-int SmileMagic::effect(int prm_level) {
-    int r = Magic::effect(prm_level);
-    return r;
+void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
+}
+
+void SmileMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
 }
 
 void SmileMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
-
+    _TRACE_("SmileMagic::processEffectBegin (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
 }
+
 void SmileMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-   
+    //‘¦Œø«–‚–@‚Í processEffectingBehavior ‚ÍƒR[ƒ‹‚³‚ê‚È‚¢
+    _TRACE_("SmileMagic::processEffectingBehavior (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
 }
 
 void SmileMagic::processEffectFinish(int prm_justbefore_level) {
-//    P_MYSHIP->setMoveSpeedLv((0+1)*4);
+    pMoji_->inactivate();
+    _TRACE_("SmileMagic::processEffectFinish (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
 }
 
 SmileMagic::~SmileMagic() {

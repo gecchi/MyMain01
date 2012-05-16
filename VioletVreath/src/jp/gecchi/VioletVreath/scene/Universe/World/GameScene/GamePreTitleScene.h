@@ -21,6 +21,8 @@ public:
     LabelGecchi16Font* pLabel01_;
     LabelGecchi16Font* pLabel02_;
     TitleBoard* pTitleBoard_;
+
+//    SpriteLabelTest** papSpriteLabel_;
     GamePreTitleScene(const char* prm_name);
     void onReset() override;
     void initialize() override;

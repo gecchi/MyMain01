@@ -231,6 +231,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankFont.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp" />
@@ -250,12 +251,14 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterCursor001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffecMagic001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSmileMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectVreathMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LaserMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\Magic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\OptionMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SmileMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.cpp" />
@@ -463,6 +466,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelgecchi8font.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelrankfont.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelrankingfont.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\confirm\cursorconfirmmenu.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\confirm\menuboardconfirm.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\menuboard.h" />
@@ -482,12 +486,14 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterCursor001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectMagic001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\magic\effect\effectsmilemagic001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectVreathMagic001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LaserMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\Magic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\OptionMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SmileMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.h" />

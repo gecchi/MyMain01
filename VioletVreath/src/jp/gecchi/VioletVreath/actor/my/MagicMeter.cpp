@@ -20,6 +20,8 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     pVreath_MyShip_ = prm_pVreath_MyShip;
     cost_disp_vreath.config(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
     cost_disp_vreath.set(0);
+    VreathMagic* pVreathMagic = NEW VreathMagic("VREATH", pMP_MyShip_);
+    pVreathMagic->effect(1); //Violet Vreath
 
     ringMagics_.addLast(NEW TractorMagic("TRACTOR", pMP_MyShip_));
     ringMagics_.addLast(NEW SpeedMagic("SPEED", pMP_MyShip_));
@@ -27,7 +29,8 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     ringMagics_.addLast(NEW TorpedoMagic("TORPEDO", pMP_MyShip_));
     ringMagics_.addLast(NEW LaserMagic("LASER", pMP_MyShip_));
     ringMagics_.addLast(NEW OptionMagic("OPTION", pMP_MyShip_));
-    ringMagics_.addLast(NEW VreathMagic("VREATH", pMP_MyShip_));
+    ringMagics_.addLast(pVreathMagic);
+    ringMagics_.addLast(NEW SmileMagic("SMILE", pMP_MyShip_)); //即効魔法
     for (int i = 0; i < ringMagics_.length(); i++) {
         addSubGroup(ringMagics_.getNext(i));
     }
@@ -349,7 +352,8 @@ void MagicMeter::processBehavior() {
                 papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
             } else {
                 //レベルダウンEFFECT_BEGEINだったならば
-                //markOnLevelDownCast() した直後である。何もしない。
+                //markOnLevelDownCast() した直後である。
+                //「CASTING」１ループのアニメーションがある為、何もしない。
             }
         }
 
@@ -366,6 +370,22 @@ void MagicMeter::processBehavior() {
         if (pMagicProg->get() == Magic::STATE_NOTHING && pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {
             papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
             _pSeTx->play(SE_CANT_INVOKE_MAGIC);
+        }
+
+        //即効性魔法終了時
+        if (pMagic->time_of_effect_base_ == 0 &&
+            pMagicProg->get() == Magic::STATE_NOTHING &&
+            pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
+            //メモ
+            //STATE_INVOKING
+            //↓
+            //effect(new_level_)(chenge(STATE_EFFECT_BEGIN))
+            //↓
+            //chenge(STATE_NOTHING) と上書きされるので
+            // pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING) の判定となる
+            //このタイミングで
+            papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
+            papLvHilightCursor_[m]->moveSmoothTo(pMagic->level_);
         }
     }
 

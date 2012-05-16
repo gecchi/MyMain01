@@ -10,7 +10,7 @@ namespace VioletVreath {
  */
 class SmileMagic : public Magic {
 
-    EffectSmileMagic001* pEffect_;
+    SpriteLabelTest* pMoji_;
 
 public:
     SmileMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
@@ -22,8 +22,6 @@ public:
     virtual void processInvokeBegin(int prm_now_level, int prm_new_level) override;
     virtual void processInvokingBehavior(int prm_now_level, int prm_new_level) override;
     virtual void processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) override;
-
-    virtual int effect(int prm_level) override;
 
     virtual void processEffectBegin(int prm_last_level, int prm_now_level) override;
     virtual void processEffectingBehavior(int prm_last_level, int prm_now_level) override;

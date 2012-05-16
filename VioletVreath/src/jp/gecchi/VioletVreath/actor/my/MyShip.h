@@ -16,7 +16,7 @@ namespace VioletVreath {
 #define SOFT_RAPIDSHOT_NUM 3
 /** ソフト連射間隔 */
 #define SOFT_RAPIDSHOT_INTERVAL 4
-
+#define MY_SHIP_VREATH_COST (10000)
 
 /**
  * 自機クラス

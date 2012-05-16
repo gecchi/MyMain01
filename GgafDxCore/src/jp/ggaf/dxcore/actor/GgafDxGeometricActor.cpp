@@ -104,6 +104,13 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         _matWorld._44 = _matWorldRotMv._44;
     }
 
+    //デフォルトでは、_matWorldRotMv = 回転変換行列 × 平行移動変換行列
+    //                _matWorld      = スケール変換行列 × _matWorldRotMv となるようにしている。
+    //つまり _matWorld = 拡大縮小＞回転＞平行移動
+    //_matWorldRotMv は addSubFk() 実行時に使用されるために作成している。
+    //従って addSubFk() を使用しないならば、processSettlementBehavior() をオーバーライドし、
+    //変換行列作成をもっと単純化することで、少し最適化が可能。
+
     if (_pActor_Base) {
         //絶対座標に変換
         D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Base->_matWorldRotMv)); //合成

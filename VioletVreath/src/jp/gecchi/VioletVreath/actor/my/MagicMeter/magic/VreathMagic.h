@@ -16,6 +16,8 @@ public:
     /** MP 1.0 ‚É‘Î‚·‚é Vreath ‚Ì—¦ */
     double r_vreath_mp_[MMETER_MAX_LEVEL+1];
 
+    int beat_[MMETER_MAX_LEVEL+1];
+
 public:
     VreathMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
 

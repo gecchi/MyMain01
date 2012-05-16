@@ -500,6 +500,8 @@ void MyShip::processBehavior() {
                                                       _Z - _Z_local);
     }
 
+    //ŒÄ‹z
+    vreath_.dec(MY_SHIP_VREATH_COST);
 
 //    _pStatus->get(STAT_Stamina);
 }

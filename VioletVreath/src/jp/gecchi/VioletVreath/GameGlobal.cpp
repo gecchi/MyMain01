@@ -4,7 +4,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-
 bool GameGlobal::is_init_ = false;
 double GameGlobal::rank_ = 0.0;
 int GameGlobal::rank_up_level_ = 0;

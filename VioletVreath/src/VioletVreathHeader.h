@@ -361,6 +361,7 @@ class LabelGecchi8Font;
 class LabelGecchi16Font;
 class LabelRankFont;
 class LabelRankingFont;
+class SpriteLabelTest;
 
 class TamagoActor;
 class EnemyTamago01Actor;
@@ -642,7 +643,7 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankingFont.h"
-
+#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 
 
 

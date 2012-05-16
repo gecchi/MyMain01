@@ -5,12 +5,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-
-
-
-
-
-
 // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
 // コード変更は「ステータスCreater.xls」から行っていただきたい。
 // gen02 start
@@ -85,7 +79,7 @@ using namespace VioletVreath;
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
-		p->set(STAT_Stamina, 9999999 );  //体力
+		p->set(STAT_Stamina, 1000000 );  //体力
 		p->set(STAT_Attack, 2500 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
@@ -522,4 +516,3 @@ using namespace VioletVreath;
 		return p;
 	}
 // gen02 end
-

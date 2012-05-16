@@ -59,7 +59,6 @@ public:
 
 
     pixcoord _width_len_px;
-    coord _X_offset_align;
 
     /**
      * コンストラクタ .

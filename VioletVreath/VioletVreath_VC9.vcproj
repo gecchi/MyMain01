@@ -918,6 +918,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshSetTestActor.cpp"
 				>
 			</File>
@@ -1853,6 +1857,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.h"
 				>
 			</File>
 			<File

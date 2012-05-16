@@ -236,7 +236,7 @@ public:
     /**
      * 魔法詠唱終了コールバック(１回だけコールバック) .
      * @param prm_now_level 現在のレベル(0～ )
-     * @param prm_new_level 詠唱中完了した新しいレベル(1～ )
+     * @param prm_new_level 詠唱中完了し発動予定の新しいレベル(1～ )
      */
     virtual void processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {};
 
@@ -257,14 +257,14 @@ public:
     /**
      * 魔法発動中コールバック(毎フレームコールバック) .
      * @param prm_now_level 現在のレベル(0～ )
-     * @param prm_new_level 発動させようとしている新しいレベル(1～ )
+     * @param prm_new_level 現在発動中の新しいレベル(1～ )
      */
     virtual void processInvokingBehavior(int prm_now_level, int prm_new_level) {};
 
     /**
      * 魔法発動終了コールバック(１回だけコールバック) .
-     * @param prm_now_level 発動中だった頃の、現在のレベル。(0～ )
-     * @param prm_new_level 発動により、これから昇格する新しいレベル。(1～ )
+     * @param prm_now_level 魔法発動終了直前の、現在のレベル。(0～ )
+     * @param prm_new_level 魔法発動終了直後の、昇格すべき新しいレベル。(1～ )
      */
     virtual void processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {};
 
@@ -287,6 +287,7 @@ public:
 
     /**
      * 魔法効果持続中コールバック(毎フレームコールバック) .
+     * 【注意】即効性魔法(time_of_effect_base_==0)の魔法は、本コールバックは行われません。
      * @param prm_last_level  以前のレベル。
      * @param prm_now_level 現在(持続中)のレベル。
      */
@@ -336,8 +337,7 @@ public:
 
     /**
      * ダウンレベル実行時の還元MPを計算して返す .
-     * 基本コストの60%還元。
-     * 但し残効果持続の割合を乗ずる。
+     * 残効果持続の割合を乗ずる。
      * 早くレベルダウンしたほうがお得にするため。
      * @param prm_now_level 現在のレベル
      * @param prm_target_down_level ダウンレベル
@@ -352,6 +352,7 @@ public:
      * @return 試算された効果持続時間合計
      */
     magic_time calcTotalEffecTime(int prm_now_level, int prm_target_up_level);
+
 
     virtual ~Magic();
 };

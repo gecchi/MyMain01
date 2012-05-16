@@ -94,6 +94,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\lib\actor\StringSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\GgafLibProperties.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\AmountGraph.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAB.cpp" />
@@ -171,6 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GgafLibEntory.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\menu\StringBoardActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\StringSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\GgafLibProperties.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\AmountGraph.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAB.h" />

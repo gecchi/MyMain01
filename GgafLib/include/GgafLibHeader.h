@@ -56,14 +56,13 @@ class DefaultSpriteSetActor;
 class DefaultBoardActor;
 class DefaultBoardSetActor;
 class DefaultPointSpriteActor;
-class FontSpriteActor;
-//class FontSpriteString;
 class ColliAABActor;
 class ColliAAPrismActor;
 class ColliSphereActor;
 class SpriteMeshActor;
 class SpriteMeshSetActor;
 class StringBoardActor;
+class StringSpriteActor;
 class WallPartsActor;
 class WallAABctor;
 class WallAAPrismctor;
@@ -148,6 +147,7 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/actor/SpriteMeshSetActor.h"
 #include "jp/ggaf/lib/actor/SingleLaser.h"
 #include "jp/ggaf/lib/actor/StringBoardActor.h"
+#include "jp/ggaf/lib/actor/StringSpriteActor.h"
 #include "jp/ggaf/lib/actor/WallPartsActor.h"
 #include "jp/ggaf/lib/actor/WallAABActor.h"
 #include "jp/ggaf/lib/actor/WallAAPrismActor.h"
