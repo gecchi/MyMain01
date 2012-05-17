@@ -16,8 +16,9 @@ namespace VioletVreath {
 #define SOFT_RAPIDSHOT_NUM 3
 /** ソフト連射間隔 */
 #define SOFT_RAPIDSHOT_INTERVAL 4
-#define MY_SHIP_VREATH_COST (10000)
 
+#define MY_SHIP_VREATH_COST (500)
+//無呼吸時 1000000/500/60 = 約33.3秒で死ぬ
 /**
  * 自機クラス
  * @version 1.00

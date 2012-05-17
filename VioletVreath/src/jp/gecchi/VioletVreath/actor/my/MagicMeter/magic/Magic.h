@@ -195,9 +195,11 @@ public:
           magic_time  prm_time_of_effect_base  , double prm_r_each_lv_time_of_effecting,
           magic_point prm_keep_cost_base       , double prm_r_each_lv_keep_cost);
 
+    void init();
+
     void initialize() override {}
 
-    void onReset() override {}
+    void onReset() override;
 
     void processBehavior() override;
 

@@ -31,8 +31,28 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     r_time_of_invoking_  = prm_r_time_of_invoking;
 
     r_each_lv_time_of_effecting_ = prm_r_each_lv_time_of_effecting;
-    r_keep_cost_         = prm_r_each_lv_keep_cost;
+    r_keep_cost_                 = prm_r_each_lv_keep_cost;
 
+
+    //飛びレベル差別情報を設定
+    interest_cost_[0] = 0;
+    interest_time_of_casting_[0] = 0;
+    interest_time_of_invoking_[0] = 0;
+    for (int i = 1; i <= max_level_; i++) {
+        interest_cost_[i]             = (cost_base_ * i) * r_cost_;
+        interest_time_of_casting_[i]  = (time_of_casting_base_ * i) * r_time_of_casting_;
+        interest_time_of_invoking_[i] = (time_of_invoking_base_ * i) * r_time_of_invoking_;
+    }
+}
+
+void Magic::init() {
+
+}
+
+void Magic::onReset() {
+    new_level_  = 0;
+    last_level_ = 0;
+    level_      = 0;
     //各レベル別持続時間及び、維持コストを予め設定
     lvinfo_[0].is_working_ = false;
     lvinfo_[0].remainingtime_of_effect_ = 0;
@@ -49,23 +69,12 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
         lvinfo_[i].time_of_effect_ = lvinfo_[i-1].time_of_effect_ * r_each_lv_time_of_effecting_;
         lvinfo_[i].keep_cost_      = lvinfo_[i-1].keep_cost_      * r_keep_cost_;
     }
-
     time_of_next_state_ = 0;
     is_working_ = false;
 
     useProgress(STATE_ABANDONING);
     _pProg->set(STATE_NOTHING);
 
-
-    //飛びレベル差別情報を設定
-    interest_cost_[0] = 0;
-    interest_time_of_casting_[0] = 0;
-    interest_time_of_invoking_[0] = 0;
-    for (int i = 1; i <= max_level_; i++) {
-        interest_cost_[i]             = (cost_base_ * i) * r_cost_;
-        interest_time_of_casting_[i]  = (time_of_casting_base_ * i) * r_time_of_casting_;
-        interest_time_of_invoking_[i] = (time_of_invoking_base_ * i) * r_time_of_invoking_;
-    }
 }
 
 void Magic::save(std::stringstream& sts) {

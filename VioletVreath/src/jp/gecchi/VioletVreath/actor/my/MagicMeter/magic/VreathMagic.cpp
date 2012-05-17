@@ -10,8 +10,8 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
             100       , 1.0,   //Šî–{–‚–@ƒRƒXƒg , ”ò‚ÑƒŒƒxƒ‹Žž‚Ì rate
             60*0.3    , 0.9,   //Šî–{‰r¥ŽžŠÔ   , ”ò‚ÑƒŒƒxƒ‹Žž‚Ì rate
             60*0.1    , 0.9,   //Šî–{”­“®ŽžŠÔ   , ”ò‚ÑƒŒƒxƒ‹Žž‚Ì rate
-            60*30     , 0.4,   //Šî–{Ž‘±ŽžŠÔ   , {‚PƒŒƒxƒ‹–ˆ‚ÌŽ‘±ŽžŠÔ‚Ìæ—¦
-            10        , 4.0    //Šî–{ˆÛŽƒRƒXƒg , {‚PƒŒƒxƒ‹–ˆ‚ÌˆÛŽƒRƒXƒg‚Ìæ—¦
+            60*60*3   , 0.3,   //Šî–{Ž‘±ŽžŠÔ   , {‚PƒŒƒxƒ‹–ˆ‚ÌŽ‘±ŽžŠÔ‚Ìæ—¦
+            10        , 2.0    //Šî–{ˆÛŽƒRƒXƒg , {‚PƒŒƒxƒ‹–ˆ‚ÌˆÛŽƒRƒXƒg‚Ìæ—¦
         ) {
     //    | 0          |  1         |  2 Lockon‡Z |  3 Lockon‡Z |  4 Vreath‡Z|  5 Vreath‡Z|  6 Tractor‡Z|  7 Tractor‡Z|
     //    | 8          |  9         | 10 Lockon‡Y | 11 Lockon‡Y | 12 Vreath‡Y| 13 Vreath‡Y| 14 Tractor‡Y| 15 Tractor‡Y|
@@ -43,19 +43,26 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
     pEffect_ = NEW EffectVreathMagic001("EffectVreathMagic001");
     pEffect_->inactivateImmed();
     addSubGroup(pEffect_);
-    r_vreath_mp_[0] = 0.0;
 
-    for (int i = 1; i <= max_level_; i++) {
-        r_vreath_mp_[i] = 100.5;
+    beat_time_[0] = 0.0;
+    beat_time_[1] = 120;
+    beat_time_[2] = beat_time_[1]/2;
+    beat_time_[3] = beat_time_[2]/2;
+    beat_time_[4] = beat_time_[3]/2;
+    beat_time_[5] = beat_time_[4]/2;
+    beat_time_[6] = beat_time_[5]/2;
+    beat_time_[7] = beat_time_[6]/2;
+
+    for (int lv = 0; lv <= max_level_; lv++) {
+        apaInt_vreath_per_frame_[lv] = NEW int[beat_time_[lv]*2+1];
+        for (int f = 0; f <= beat_time_[lv]; f++) {
+            int t = f*3600.0/beat_time_[lv];
+            apaInt_vreath_per_frame_[lv][f] = MY_SHIP_VREATH_COST*2.0*GgafDxUtil::SMOOTH_DV[t];
+        }
+        for (int f = beat_time_[lv]+1; f < beat_time_[lv]*2+1; f++) {
+            apaInt_vreath_per_frame_[lv][f] = 0;
+        }
     }
-    beat_[0] = 0.0;
-    beat_[1] = 120;
-    beat_[2] = beat_[1]/2;
-    beat_[3] = beat_[2]/2;
-    beat_[4] = beat_[3]/2;
-    beat_[5] = beat_[4]/2;
-    beat_[6] = beat_[5]/2;
-    beat_[7] = beat_[6]/2;
 
 }
 void VreathMagic::processCastBegin(int prm_now_level, int prm_new_level) {
@@ -93,25 +100,23 @@ void VreathMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 
 }
 void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-    int a = getActivePartFrame() / beat_[prm_now_level];
-    if (a % 2 == 0) {
-        P_MYSHIP->vreath_.inc(MY_SHIP_VREATH_COST*2);
-    }
-
-//    P_MYSHIP->vreath_.inc(lvinfo_[prm_now_level].keep_cost_ * r_vreath_mp_[prm_now_level]);
+    int f = (int)(getActivePartFrame() % (beat_time_[prm_now_level]*2));
+    P_MYSHIP->vreath_.inc(apaInt_vreath_per_frame_[prm_now_level][f] * prm_now_level); //ƒŒƒxƒ‹‚P‚Å‚Í‚Â‚è‚ ‚Á‚Ä‚¢‚é
 }
 
 void VreathMagic::processEffectFinish(int prm_justbefore_level) {
-//    P_MYSHIP->setMoveSpeedLv((0+1)*4);
 }
 
 int VreathMagic::calcTotalVreath(int prm_now_level, int prm_target_up_level) {
     int sum = 0;
-    for (int i = prm_now_level+1; i <= prm_target_up_level; i++) {
-        sum += (lvinfo_[i].time_of_effect_ * lvinfo_[i].keep_cost_ * r_vreath_mp_[i]);
-    }
+//    for (int i = prm_now_level+1; i <= prm_target_up_level; i++) {
+//        sum += (lvinfo_[i].time_of_effect_ * lvinfo_[i].keep_cost_ * r_vreath_mp_[i]);
+//    }
     return sum;
 }
 
 VreathMagic::~VreathMagic() {
+    for (int lv = 0; lv <= max_level_; lv++) {
+        DELETEARR_IMPOSSIBLE_NULL(apaInt_vreath_per_frame_[lv]);
+    }
 }

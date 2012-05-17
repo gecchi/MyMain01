@@ -78,7 +78,7 @@ angle GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_Z[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_Y_REV[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_X_REV[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_Y[D90SANG+1][D90SANG+1];
-
+double GgafDxUtil::SMOOTH_DV[3600+1];
 
 UINT32 GgafDxUtil::BITNUM[33];
 GgafDxSphereRadiusVectors GgafDxUtil::_srv = GgafDxSphereRadiusVectors();
@@ -206,8 +206,7 @@ void GgafDxUtil::init() {
             nvy = t * vy;
             nvz = t * vz;
             //getRzRyAng((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
-//
-//            //単位ベクトルからRxRyを求める
+            //単位ベクトルからRxRyを求める
             _srv.getFaceAngClosely(
                     (UINT32)(nvx*1000000),
                     (UINT32)(nvy*1000000),
@@ -218,14 +217,10 @@ void GgafDxUtil::init() {
             );
             PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
             PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
-
-
-           //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz]<<")");
+            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz]<<")");
 
         }
     }
-
-
 
     vz = 1.0;
     for (s_ang prj_ang_zy = 0; prj_ang_zy <= D90SANG; prj_ang_zy++) {
@@ -242,8 +237,7 @@ void GgafDxUtil::init() {
             nvy = t * vy;
             nvz = t * vz;
             //getRzRyAng((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
-//
-//            //単位ベクトルからRxRyを求める
+            //単位ベクトルからRxRyを求める
             _srv.getFaceAngClosely(
                     (UINT32)(nvx*1000000),
                     (UINT32)(nvy*1000000),
@@ -261,15 +255,19 @@ void GgafDxUtil::init() {
             PROJANG_ZY_ZX_TO_ROTANG_X_REV[prj_ang_zy][prj_ang_zx] = rx_rev*SANG_RATE;
             PROJANG_ZY_ZX_TO_ROTANG_Y[prj_ang_zy][prj_ang_zx] = D90ANG - ry_rev*SANG_RATE;
             //_TRACE_("PROJANG_ZY_ZX_TO_ROTANG_Y["<<prj_ang_zy<<"]["<<prj_ang_zx<<"] = D90ANG - "<<ry_rev<<"*SANG_RATE = "<<PROJANG_ZY_ZX_TO_ROTANG_Y[prj_ang_zy][prj_ang_zx]);
-
-           //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz]<<")");
-
+            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz]<<")");
         }
     }
 
     //ROOT_1_MINUS_XXの設定
     for (int i = 0; i < 1000; i++) {
         ROOT_1_MINUS_XX[i] = sqrt(1.0 - ((double)i/1000.0) * ((double)i/1000.0));
+    }
+
+    for (int i = 0; i <= 3600; i++) {
+        double t = double(i / 3600.0);
+        //D = 1 - cos(2πt)
+        SMOOTH_DV[i] = 1.0 - cos(2.0*PI*t);
     }
 
     BITNUM[ 0] = 0;

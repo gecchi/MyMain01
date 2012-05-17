@@ -50,21 +50,24 @@ void SpeedMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     pEffect_->_pScaler->setScale(1000);
     pEffect_->activate();
 }
+
 void SpeedMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     pEffect_->locatedBy(P_MYSHIP);
     pEffect_->_pScaler->addScale(10);
 }
+
 void SpeedMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
 }
-
 
 void SpeedMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     pEffect_->_pScaler->setScale(1000);
     pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 3000);
 }
+
 void SpeedMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
     pEffect_->_pScaler->addScale(100);
 }
+
 void SpeedMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
     pEffect_->inactivate();
 }
@@ -78,6 +81,7 @@ int SpeedMagic::effect(int prm_level) {
 
 void SpeedMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 }
+
 void SpeedMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
 }
 

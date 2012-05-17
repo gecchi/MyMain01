@@ -20,17 +20,24 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     pVreath_MyShip_ = prm_pVreath_MyShip;
     cost_disp_vreath.config(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
     cost_disp_vreath.set(0);
-    VreathMagic* pVreathMagic = NEW VreathMagic("VREATH", pMP_MyShip_);
-    pVreathMagic->effect(1); //Violet Vreath
 
-    ringMagics_.addLast(NEW TractorMagic("TRACTOR", pMP_MyShip_));
-    ringMagics_.addLast(NEW SpeedMagic("SPEED", pMP_MyShip_));
-    ringMagics_.addLast(NEW LockonMagic("LOCKON", pMP_MyShip_));
-    ringMagics_.addLast(NEW TorpedoMagic("TORPEDO", pMP_MyShip_));
-    ringMagics_.addLast(NEW LaserMagic("LASER", pMP_MyShip_));
-    ringMagics_.addLast(NEW OptionMagic("OPTION", pMP_MyShip_));
-    ringMagics_.addLast(pVreathMagic);
-    ringMagics_.addLast(NEW SmileMagic("SMILE", pMP_MyShip_)); //‘¦Œø–‚–@
+    pTractorMagic_ = NEW TractorMagic("TRACTOR", pMP_MyShip_);
+    pSpeedMagic_   = NEW SpeedMagic("SPEED", pMP_MyShip_);
+    pLockonMagic_  = NEW LockonMagic("LOCKON", pMP_MyShip_);
+    pTorpedoMagic_ = NEW TorpedoMagic("TORPEDO", pMP_MyShip_);
+    pLaserMagic_   = NEW LaserMagic("LASER", pMP_MyShip_);
+    pOptionMagic_  = NEW OptionMagic("OPTION", pMP_MyShip_);
+    pVreathMagic_  = NEW VreathMagic("VREATH", pMP_MyShip_);
+    pSmileMagic_   = NEW SmileMagic("SMILE", pMP_MyShip_); //‘¦Œø–‚–@
+    ringMagics_.addLast(pTractorMagic_);
+    ringMagics_.addLast(pSpeedMagic_  );
+    ringMagics_.addLast(pLockonMagic_ );
+    ringMagics_.addLast(pTorpedoMagic_);
+    ringMagics_.addLast(pLaserMagic_  );
+    ringMagics_.addLast(pOptionMagic_ );
+    ringMagics_.addLast(pVreathMagic_ );
+    ringMagics_.addLast(pSmileMagic_  );
+
     for (int i = 0; i < ringMagics_.length(); i++) {
         addSubGroup(ringMagics_.getNext(i));
     }

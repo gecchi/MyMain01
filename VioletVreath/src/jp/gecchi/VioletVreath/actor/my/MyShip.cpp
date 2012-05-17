@@ -257,7 +257,9 @@ void MyShip::onActive() {
 
 
 void MyShip::processBehavior() {
-
+    if (getActivePartFrame() == 60) {
+        pMagicMeter_->pVreathMagic_->effect(1);
+    }
 //    ///////////////////////スペキュラテスト
 //    if (GgafDxInput::isBeingPressedKey(DIK_9)) {
 //        _pModel->_specular += 0.1;

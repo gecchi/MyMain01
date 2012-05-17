@@ -31,6 +31,19 @@ class MagicMeter : public GgafLib::DefaultBoardSetActor {
         SE_BAD_OPERATION   ,
     };
 public:
+
+
+
+    TractorMagic* pTractorMagic_;
+    SpeedMagic*   pSpeedMagic_;
+    LockonMagic*  pLockonMagic_;
+    TorpedoMagic* pTorpedoMagic_;
+    LaserMagic*   pLaserMagic_;
+    OptionMagic*  pOptionMagic_;
+    VreathMagic*  pVreathMagic_;
+    SmileMagic*   pSmileMagic_;
+
+
     D3DXHANDLE h_active_magic_;
     /** Ž©‹@‚ÌMP */
     GgafLib::AmountGraph* pMP_MyShip_;

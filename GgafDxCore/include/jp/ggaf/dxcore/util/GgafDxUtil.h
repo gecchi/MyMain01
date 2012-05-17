@@ -65,10 +65,16 @@ public:
      */
     static angle PROJANG_ZY_ZX_TO_ROTANG_Y[D90SANG+1][D90SANG+1];
 
-
-//    static MoveWay Against[2^(6+8)+];
-    //static AngleSet ROTY_ANGLE[D360SANG+1];
-
+    /**
+     * v = 1 - cos(2πt)
+     * の解テーブル
+     * 【説明】
+     * t:時間(フレーム)
+     * v:速度
+     * 面積＝移動距離
+     * t = 0.0→0.5→1.0 対してなめらかに v = 0.0～2.0～0.0 と変化し、距離1.0を移動
+     */
+    static double SMOOTH_DV[3600+1];
 
     /**
      * 半径 1000 の 1/4 円の解テーブル .
@@ -158,9 +164,9 @@ public:
      * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
      * @param prm_vx_Center     [in] 'N'way弾の全体として向いている方向の、方向ベクトルX要素
      * @param prm_vy_Center     [in] 'N'way弾の全体として向いている方向の、方向ベクトルY要素
-     * @param prm_nWay	        [in] 'N'way弾の N
-     * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
-     * @param out_paAngle	    [out] 得られる'N'way弾 のアングル値配列のポインタ
+     * @param prm_nWay          [in] 'N'way弾の N
+     * @param prm_angClearance  [in] 'N'way弾の弾と弾との成す角をアングル値で指定
+     * @param out_paAngle       [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
     static void getWayAngle2D(int prm_vx_Center,
                               int prm_vy_Center,
@@ -170,10 +176,10 @@ public:
 
     /**
      * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
-     * @param prm_angCenter	    [in] 'N'way弾の全体として向いている方向のアングル値
-     * @param prm_nWay	        [in] 'N'way弾の N
-     * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
-     * @param out_paAngle	    [out] 得られる'N'way弾 のアングル値配列のポインタ
+     * @param prm_angCenter     [in] 'N'way弾の全体として向いている方向のアングル値
+     * @param prm_nWay          [in] 'N'way弾の N
+     * @param prm_angClearance  [in] 'N'way弾の弾と弾との成す角をアングル値で指定
+     * @param out_paAngle       [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
     static void getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle);
 
