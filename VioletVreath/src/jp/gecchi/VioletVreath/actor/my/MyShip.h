@@ -87,11 +87,6 @@ public:
         float tu, tv; // テクスチャ座標
     };
 
-
-
-
-
-
     class MyShipWaySwitch {
     public :
         class SW {

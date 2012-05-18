@@ -57,9 +57,11 @@ public:
         _max_val_px = prm_max_val_px;
         _max_val = prm_max_val;
         _rate_val = 1.0* _max_val_px / _max_val;
-        DELETE_IMPOSSIBLE_NULL(_pInt_val);
+        if (_is_new) {
+            DELETE_IMPOSSIBLE_NULL(_pInt_val);
+            _is_new = false;
+        }
         _pInt_val = prm_pInt_target_value;
-        _is_new = false;
     }
 
     /**

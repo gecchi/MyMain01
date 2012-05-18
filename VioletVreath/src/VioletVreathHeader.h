@@ -316,6 +316,7 @@ class GraphBar;
 class EnergyBar;
 class CostDispBar;
 class VreathBar;
+class DamageDispBar;
 
 class Magic;
 class OptionMagic;
@@ -605,6 +606,8 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/EnergyBar.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/CostDispBar.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/VreathBar.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
+
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/OptionMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"

@@ -242,6 +242,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\EnergyBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\GraphBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor.cpp" />
@@ -477,6 +478,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\effectmyshipexplosion.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\EnergyBar.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\graphbar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor.h" />

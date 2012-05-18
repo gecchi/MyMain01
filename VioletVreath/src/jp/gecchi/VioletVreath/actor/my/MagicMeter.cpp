@@ -20,6 +20,8 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     pVreath_MyShip_ = prm_pVreath_MyShip;
     cost_disp_vreath.config(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
     cost_disp_vreath.set(0);
+    damage_disp_vreath.config(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
+    damage_disp_vreath.set(0);
 
     pTractorMagic_ = NEW TractorMagic("TRACTOR", pMP_MyShip_);
     pSpeedMagic_   = NEW SpeedMagic("SPEED", pMP_MyShip_);
@@ -93,6 +95,11 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     pCostDispBar2_ = NEW CostDispBar("CostDispBar2", pVreathBar_, &cost_disp_vreath);
     pCostDispBar2_->locate(pVreathBar_->_X, pVreathBar_->_Y, _Z-1);
     addSubGroup(pCostDispBar2_);
+    //Vreathバーダメージ表示バー
+    pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_, &damage_disp_vreath);
+    pDamageDispBar_->locate(pVreathBar_->_X, pVreathBar_->_Y, _Z-1);
+    addSubGroup(pDamageDispBar_);
+
 
     _pSeTx->useSe(SE_BAD_OPERATION + 1);
     _pSeTx->set(SE_CURSOR_MOVE_METER             , "click07"      );  //メーター移動
@@ -250,6 +257,8 @@ void MagicMeter::processBehavior() {
             } else {
                 cost_disp_vreath.set(0);
             }
+        } else {
+            cost_disp_vreath.set(0);
         }
 
         //「決定」時
@@ -314,6 +323,8 @@ void MagicMeter::processBehavior() {
         if (VB_PLAY->isReleasedUp(VB_POWERUP)) {
             rollClose(ringMagics_.getCurrentIndex());
         }
+        cost_disp_mp_.set(0);
+        cost_disp_vreath.set(0);
     }
 
     //毎フレームの各魔法表示についての処理

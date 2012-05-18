@@ -53,6 +53,8 @@ public:
     GgafLib::AmountGraph* pVreath_MyShip_;
     /** VreathのCOST分表示用 */
     GgafLib::AmountGraph cost_disp_vreath;
+    /** Vreathのダメージ分表示用 */
+    GgafLib::AmountGraph damage_disp_vreath;
 
     /** 残魔法効果持続時間表示 */
     MagicMeterStatus* pMagicMeterStatus_;
@@ -64,6 +66,8 @@ public:
     VreathBar* pVreathBar_;
     /** コスト表示バー */
     CostDispBar* pCostDispBar2_;
+    /** ダメージ表示バー */
+    DamageDispBar* pDamageDispBar_;
 
     /** 魔法リスト */
     GgafCore::GgafLinkedListRing<Magic> ringMagics_;

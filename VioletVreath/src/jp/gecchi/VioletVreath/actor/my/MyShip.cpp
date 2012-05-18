@@ -131,7 +131,6 @@ MyShip::MyShip(const char* prm_name) :
     paFuncMove[TN( 1, 1, 0)] = &MyShip::move_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
     paFuncMove[TN( 1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
-
     paFuncTurbo[TN(-1,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN_BEHIND;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BEHIND  = 0
     paFuncTurbo[TN(-1,-1, 0)] = &MyShip::turbo_WAY_DOWN_BEHIND;          //TN(-1,-1, 0) =  WAY_DOWN_BEHIND         = 1
     paFuncTurbo[TN(-1,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN_BEHIND;    //TN(-1,-1, 1) =  WAY_ZLEFT_DOWN_BEHIND   = 2
@@ -246,7 +245,7 @@ void MyShip::onReset() {
     prev_way_ = WAY_NONE;
     way_switch_.reset();
     _pStatus->reset();
-
+    mp_.set(100000);         //‰Šú’l‚Í100000
 }
 
 void MyShip::onActive() {
@@ -504,7 +503,6 @@ void MyShip::processBehavior() {
 
     //ŒÄ‹z
     vreath_.dec(MY_SHIP_VREATH_COST);
-
 //    _pStatus->get(STAT_Stamina);
 }
 
@@ -598,7 +596,9 @@ void MyShip::processJudgement() {
 //        }
     }
 
-
+    if (_pStatus->get(STAT_Stamina) < 0) {
+        _pStatus->set(STAT_Stamina, 0);
+    }
 
 }
 

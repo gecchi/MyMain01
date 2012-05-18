@@ -13,10 +13,14 @@ class VreathMagic : public Magic {
     EffectVreathMagic001* pEffect_;
 
 public:
-    /** [r]呼吸間隔 */
+    /** [r]レベル毎１呼吸の時間 */
     frame beat_time_[MMETER_MAX_LEVEL+1];
-    /** [r]フレーム毎にvreathに加算する値。beat_time_[レベル]*2 フレーム分保持 */
+    /** [r]各レベルでのフレーム毎にvreathに加算する値。beat_time_[レベル]*2 フレーム分保持 */
     int* apaInt_vreath_per_frame_[MMETER_MAX_LEVEL+1];
+    /** [r]各レベルでのフレーム毎に加算されるVreath乗率 */
+    double r_add_vreath_[MMETER_MAX_LEVEL+1];
+    /** [r]各レベルの最終的に増えるVreath値(増分表示用のため) */
+    int aInt_total_vreath_[MMETER_MAX_LEVEL+1];
 
 public:
     VreathMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);

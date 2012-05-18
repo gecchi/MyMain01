@@ -43,16 +43,7 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
         interest_time_of_casting_[i]  = (time_of_casting_base_ * i) * r_time_of_casting_;
         interest_time_of_invoking_[i] = (time_of_invoking_base_ * i) * r_time_of_invoking_;
     }
-}
 
-void Magic::init() {
-
-}
-
-void Magic::onReset() {
-    new_level_  = 0;
-    last_level_ = 0;
-    level_      = 0;
     //各レベル別持続時間及び、維持コストを予め設定
     lvinfo_[0].is_working_ = false;
     lvinfo_[0].remainingtime_of_effect_ = 0;
@@ -71,7 +62,27 @@ void Magic::onReset() {
     }
     time_of_next_state_ = 0;
     is_working_ = false;
+}
 
+void Magic::init() {
+
+}
+
+void Magic::onReset() {
+    new_level_  = 0;
+    last_level_ = 0;
+    level_      = 0;
+    //各レベル別持続時間及び、維持コストを予め設定
+    lvinfo_[0].is_working_ = false;
+    lvinfo_[0].remainingtime_of_effect_ = 0;
+    lvinfo_[1].is_working_ = false;
+    lvinfo_[1].remainingtime_of_effect_ = 0;
+    for (int i = 2; i <= max_level_; i++) {
+        lvinfo_[i].is_working_ = false;
+        lvinfo_[i].remainingtime_of_effect_ = 0;
+    }
+    time_of_next_state_ = 0;
+    is_working_ = false;
     useProgress(STATE_ABANDONING);
     _pProg->set(STATE_NOTHING);
 
@@ -346,7 +357,6 @@ void Magic::processBehavior() {
             /////////////////////////////////////// 発動中
             case STATE_INVOKING: {
                 processInvokingBehavior(level_, new_level_);  //コールバック
-                _TRACE_(getName()<<":_pProg->getFrameInProgress()="<<_pProg->getFrameInProgress()<<"  time_of_next_state_="<<time_of_next_state_);
                 if (_pProg->getFrameInProgress() >= time_of_next_state_) {
                     //発動終了
                     int now_lv = level_;
