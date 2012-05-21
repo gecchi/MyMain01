@@ -144,7 +144,7 @@ void GgafDxAlphaFader::intoTargetAlphaAcceStep(float prm_target_alpha, float prm
 void GgafDxAlphaFader::intoTargetAlphaLinerStep(float prm_target_alpha, float prm_velo_alpha) {
     _method = TARGET_ALPHAFADE_LINER;
     _target_alpha = prm_target_alpha;
-    _velo_alpha = sgn(prm_target_alpha - _alpha)*prm_velo_alpha;
+    _velo_alpha = SGN(prm_target_alpha - _alpha)*prm_velo_alpha;
 }
 
 

@@ -70,7 +70,7 @@ void GgafDxKurokoB::behave() {
             dZ = _gravitation_mv_seq_target_Z - _pActor->_Z;
         }
 
-        int dmax = max3(GgafUtil::abs(dX), GgafUtil::abs(dY), GgafUtil::abs(dZ));
+        int dmax = MAX3(ABS(dX), ABS(dY), ABS(dZ));
         if (dmax > _gravitation_mv_seq_max_velo) {
             double rr = 1.0*_gravitation_mv_seq_max_velo / dmax;
             dX *= rr;

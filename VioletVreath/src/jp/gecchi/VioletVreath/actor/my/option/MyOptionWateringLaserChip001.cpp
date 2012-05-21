@@ -130,9 +130,9 @@ void MyOptionWateringLaserChip001::moveChip(int tX,int tY, int tZ) {
     int vVMz = _pKurokoB->_veloVzMv*5;
 
     //|仮自|
-    int lVM = max3(GgafUtil::abs(vVMx), GgafUtil::abs(vVMy), GgafUtil::abs(vVMz)); //仮自ベクトル大きさ簡易版
+    int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //仮自ベクトル大きさ簡易版
     //|的|
-    int lT =  max3(GgafUtil::abs(vTx), GgafUtil::abs(vTy), GgafUtil::abs(vTz)); //的ベクトル大きさ簡易版
+    int lT =  MAX3(ABS(vTx), ABS(vTy), ABS(vTz)); //的ベクトル大きさ簡易版
     //|仮自|/|的|      vT の何倍が vVT 仮的 になるのかを求める。
     double r = (lVM*1.5) / lT;
     //* 2は 右上図のように一直線に並んだ際も、進行方向を維持するために、
@@ -145,13 +145,13 @@ void MyOptionWateringLaserChip001::moveChip(int tX,int tY, int tZ) {
 
     if (_pChip_front == NULL) {
         //先頭はやや速めに
-        _pKurokoB->setVxMvAcce(accX+sgn(accX)*5); //sgn(accX)*5 を加算するのは、加速度を0にしないため
-        _pKurokoB->setVyMvAcce(accY+sgn(accY)*5);
-        _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*5);
+        _pKurokoB->setVxMvAcce(accX+SGN(accX)*5); //SGN(accX)*5 を加算するのは、加速度を0にしないため
+        _pKurokoB->setVyMvAcce(accY+SGN(accY)*5);
+        _pKurokoB->setVzMvAcce(accZ+SGN(accZ)*5);
     } else {
-        _pKurokoB->setVxMvAcce(accX+sgn(accX)*3); //sgn(accX)*3 を加算するのは、加速度を0にしないため
-        _pKurokoB->setVyMvAcce(accY+sgn(accY)*3);
-        _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*3);
+        _pKurokoB->setVxMvAcce(accX+SGN(accX)*3); //SGN(accX)*3 を加算するのは、加速度を0にしないため
+        _pKurokoB->setVyMvAcce(accY+SGN(accY)*3);
+        _pKurokoB->setVzMvAcce(accZ+SGN(accZ)*3);
     }
     //ネジレ描画が汚くならないように回転を制限
     if (lVM > max_velo_renge_/2) {

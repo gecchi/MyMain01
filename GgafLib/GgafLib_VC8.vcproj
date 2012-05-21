@@ -448,6 +448,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\lib\actor\StringSpriteActor.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\lib\actor\TreeFormation.cpp"
 				>
 			</File>
@@ -750,7 +754,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\lib\actor\menu\StringBoardActor.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\lib\actor\StringBoardActor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\lib\actor\StringSpriteActor.h"
 				>
 			</File>
 			<File

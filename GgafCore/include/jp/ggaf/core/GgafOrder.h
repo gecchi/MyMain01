@@ -34,13 +34,13 @@ private:
     void* _pArg3;
 public:
     /** 注文識別ID */
-    unsigned long _id;
+    UINT32 _id;
     /** 進捗具合（0:未着手/1:製造中/2:製造済み） */
     int _progress;
     /** 商品へのポインタ */
     GgafObject* _pObject_Creation;
 
-    GgafOrder(unsigned long prm_id);
+    GgafOrder(UINT32 prm_id);
     virtual ~GgafOrder();
 };
 

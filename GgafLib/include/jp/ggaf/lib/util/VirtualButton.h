@@ -125,11 +125,17 @@ public:
     static keymap _mapDIK;
     static bool _is_init;
 
-    /** [r]リプレイモード再生時true */
+    /** [r]リプレイモード時:true／ユーザー入力（リプレイモード記入）モード:false */
     bool _is_replaying;
+    /** [r]初期状態:false／リプレイモード終了:true */
     bool _was_replay_done;
 
-
+    /**
+     * コンストラクタ .
+     * 引数のリプレイファイルが存在する場合→リプレイーモード。
+     * 引数のリプレイファイルが存在しない場合→ユーザー入力受付 ＆ リプレイファイル記入モード。
+     * @param prm_replay_file リプレイファイル
+     */
     VirtualButton(const char* prm_replay_file = "VirtualButton.rep");
 
     VBRecord* _pVBRecord_Active; //現在フレームの入力状態

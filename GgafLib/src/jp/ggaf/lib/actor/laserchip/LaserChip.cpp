@@ -89,9 +89,9 @@ void LaserChip::processSettlementBehavior() {
             int dX = _pChip_front->_X - _X;
             int dY = _pChip_front->_Y - _Y;
             int dZ = _pChip_front->_Z - _Z;
-            if (GgafUtil::abs(dX) >= _hitarea_edge_length*3 ||
-                GgafUtil::abs(dY) >= _hitarea_edge_length*3 ||
-                GgafUtil::abs(dZ) >= _hitarea_edge_length*3) {
+            if (ABS(dX) >= _hitarea_edge_length*3 ||
+                ABS(dY) >= _hitarea_edge_length*3 ||
+                ABS(dZ) >= _hitarea_edge_length*3) {
                 //自身と前方チップの中間に当たり判定を作り出す
                 int cX = dX / 2;
                 int cY = dY / 2;
@@ -110,7 +110,7 @@ void LaserChip::processSettlementBehavior() {
                 _pColliChecker->disable(1);
             }
 //            //伸びすぎたら切れる
-//            if (abs(dX) >= _hitarea_edge_length*5 || abs(dY) >= _hitarea_edge_length*5 || abs(dZ) >= _hitarea_edge_length*5) {
+//            if (ABS(dX) >= _hitarea_edge_length*5 || ABS(dY) >= _hitarea_edge_length*5 || ABS(dZ) >= _hitarea_edge_length*5) {
 //                sayonara();
 //            }
         } else {

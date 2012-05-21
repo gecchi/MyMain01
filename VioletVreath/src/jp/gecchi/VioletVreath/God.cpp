@@ -44,8 +44,6 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     }
 
 
-
-
     //仮想ボタンを本ゲーム用に上書きして再定義
     VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_SHOT1)      ];
     VirtualButton::_tagKeymap.BUTTON2    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_SHOT2)      ];

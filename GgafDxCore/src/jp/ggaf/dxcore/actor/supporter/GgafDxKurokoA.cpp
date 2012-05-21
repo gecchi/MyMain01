@@ -267,7 +267,7 @@ void GgafDxKurokoA::behave() {
 
     if (_smooth_mv_velo_seq_flg) {
         if (_smooth_mv_velo_seq_target_frames < 0) {
-            _smooth_mv_velo_seq_mv_distance+=abs(_veloMv);
+            _smooth_mv_velo_seq_mv_distance+=ABS(_veloMv);
         } else {
             _smooth_mv_velo_seq_frame_of_spent++;
         }
@@ -1264,7 +1264,7 @@ void GgafDxKurokoA::getRzRyMvAngDistance(int prm_way,
         angle d1_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO); //Rz‚Ì·
         angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO);
         //_TRACE_("1 d1_angRz="<<d1_angRz<<" d1_angRy="<<d1_angRy);
-        angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+        angle d1 = ABS(d1_angRz) > ABS(d1_angRy) ? ABS(d1_angRz) : ABS(d1_angRy);
         //_TRACE_("1  d1="<<((float)d1));
 
         GgafDxUtil::anotherRzRy(target_angRz, target_angRy);
@@ -1272,7 +1272,7 @@ void GgafDxKurokoA::getRzRyMvAngDistance(int prm_way,
         angle d2_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO);
         angle d2_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO);
         //_TRACE_("2 d2_angRz="<<d2_angRz<<" d2_angRy="<<d2_angRy);
-        angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+        angle d2 = ABS(d2_angRz) > ABS(d2_angRy) ? ABS(d2_angRz) : ABS(d2_angRy);
         //_TRACE_("2  d2="<<((float)d2));
         if (d1 <= d2) {
             //_TRACE_("d1 <= d2 d1‚ªÌ—p‚³‚ê‚Ü‚µ‚½");
@@ -1291,11 +1291,11 @@ void GgafDxKurokoA::getRzRyMvAngDistance(int prm_way,
     } else if (prm_way == TURN_ANTICLOSE_TO) { //‰“‚¢•û‚Ì‰ñ“]
         angle d1_angRz = getRzMvAngDistance(target_angRz, TURN_ANTICLOSE_TO);
         angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO);
-        angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+        angle d1 = ABS(d1_angRz) > ABS(d1_angRy) ? ABS(d1_angRz) : ABS(d1_angRy);
         GgafDxUtil::anotherRzRy(target_angRz, target_angRy);
         angle d2_angRz = getRzMvAngDistance(target_angRz, TURN_ANTICLOSE_TO);
         angle d2_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO);
-        angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+        angle d2 = ABS(d2_angRz) > ABS(d2_angRy) ? ABS(d2_angRz) : ABS(d2_angRy);
         if (d1 >= d2) {
             out_d_angRz = d1_angRz;
             out_d_angRy = d1_angRy;
@@ -1332,11 +1332,11 @@ void GgafDxKurokoA::getRzRyFaceAngDistance(int prm_way,
     if (prm_way == TURN_CLOSE_TO) { //‹ß‚¢‚Ù‚¤‰ñ“]
         angle d1_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_CLOSE_TO);
         angle d1_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO);
-        angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+        angle d1 = ABS(d1_angRz) > ABS(d1_angRy) ? ABS(d1_angRz) : ABS(d1_angRy);
         GgafDxUtil::anotherRzRy(target_angRz, target_angRy);
         angle d2_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_CLOSE_TO);
         angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDxUtil::COS[GgafDxUtil::simplifyAng(target_angRz*2)/SANG_RATE]/2.0) + 0.5);
-        angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+        angle d2 = ABS(d2_angRz) > ABS(d2_angRy) ? ABS(d2_angRz) : ABS(d2_angRy);
         if (d1 <= d2) {
             out_d_angRz = d1_angRz;
             out_d_angRy = d1_angRy;
@@ -1352,11 +1352,11 @@ void GgafDxKurokoA::getRzRyFaceAngDistance(int prm_way,
     } else if (prm_way == TURN_ANTICLOSE_TO) { //‰“‚¢•û‚Ì‰ñ“]
         angle d1_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_ANTICLOSE_TO);
         angle d1_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_ANTICLOSE_TO);
-        angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+        angle d1 = ABS(d1_angRz) > ABS(d1_angRy) ? ABS(d1_angRz) : ABS(d1_angRy);
         GgafDxUtil::anotherRzRy(target_angRz, target_angRy);
         angle d2_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_ANTICLOSE_TO);
         angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_ANTICLOSE_TO);
-        angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+        angle d2 = ABS(d2_angRz) > ABS(d2_angRy) ? ABS(d2_angRz) : ABS(d2_angRy);
         if (d1 >= d2) {
             out_d_angRz = d1_angRz;
             out_d_angRy = d1_angRy;

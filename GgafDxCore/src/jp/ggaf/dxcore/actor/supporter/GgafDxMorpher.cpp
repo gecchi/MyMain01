@@ -114,7 +114,7 @@ void GgafDxMorpher::intoTargetAcceStep(int prm_target_mesh_no, float prm_target_
 void GgafDxMorpher::intoTargetLinerStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight) {
     _method[prm_target_mesh_no] = TARGET_MORPH_LINER;
     _target_weight[prm_target_mesh_no] = prm_target_weight;
-    _velo_weight[prm_target_mesh_no] = sgn(prm_target_weight - _weight[prm_target_mesh_no])*prm_velo_weight;
+    _velo_weight[prm_target_mesh_no] = SGN(prm_target_weight - _weight[prm_target_mesh_no])*prm_velo_weight;
 }
 
 void GgafDxMorpher::loopLiner(int prm_target_mesh_no, frame prm_beat_target_frames, float prm_beat_num) {

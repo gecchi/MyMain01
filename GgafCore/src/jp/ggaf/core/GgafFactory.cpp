@@ -16,17 +16,17 @@ GgafGarbageBox* GgafFactory::_pGarbageBox = NULL;
 
 
 
-GgafMainActor* GgafFactory::obtainActor(unsigned long prm_id, GgafObject* prm_org) {
+GgafMainActor* GgafFactory::obtainActor(UINT32 prm_id, GgafObject* prm_org) {
     return (GgafMainActor*)obtain(prm_id, prm_org);
 }
 
-GgafMainScene* GgafFactory::obtainScene(unsigned long prm_id, GgafObject* prm_org) {
+GgafMainScene* GgafFactory::obtainScene(UINT32 prm_id, GgafObject* prm_org) {
     return (GgafMainScene*)obtain(prm_id, prm_org);
 }
 
 //注文
 //このメソッドはメインスレッドが実行する。
-void GgafFactory::order(unsigned long prm_id,
+void GgafFactory::order(UINT32 prm_id,
                         GgafObject* (*prm_pFunc)(void*, void*, void*),
                         GgafObject* prm_pOrderer,
                         void* prm_pArg1,
@@ -77,7 +77,7 @@ void GgafFactory::order(unsigned long prm_id,
     }
 }
 
-int GgafFactory::chkProgress(unsigned long prm_id) {
+int GgafFactory::chkProgress(UINT32 prm_id) {
     GgafOrder* pOrder;
     pOrder = ROOT_ORDER;
     if (pOrder == NULL) {
@@ -97,7 +97,7 @@ int GgafFactory::chkProgress(unsigned long prm_id) {
     return -2;
 }
 
-void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
+void* GgafFactory::obtain(UINT32 prm_id, GgafObject* prm_org) {
     TRACE("GgafFactory::obtain "<<prm_id<<"/");
     GgafOrder* pOrder;
     GgafOrder* pOrder_MyNext;

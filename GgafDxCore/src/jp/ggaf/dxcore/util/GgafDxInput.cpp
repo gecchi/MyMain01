@@ -334,15 +334,15 @@ void GgafDxInput::updateKeyboardState() {
 }
 
 bool GgafDxInput::isBeingPressedKey(int prm_DIK) {
+#ifdef MY_DEBUG
     if (prm_DIK < 0 || 255 < prm_DIK) {
-        _TRACE_("isBeingPressedKey:�͈͊O");
-        return false;
+        throwGgafCriticalException("iGgafDxInput::isBeingPressedKey:�͈͊O prm_DIK="<<prm_DIK);
+    }
+#endif
+    if (_caKeyboardState[_active_KeyboardState][prm_DIK] & 0x80) {
+        return true;
     } else {
-        if (_caKeyboardState[_active_KeyboardState][prm_DIK] & 0x80) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 }
 

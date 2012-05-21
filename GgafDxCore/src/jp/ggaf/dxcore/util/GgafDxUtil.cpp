@@ -509,10 +509,10 @@ void GgafDxUtil::getRzRyAng(coord vx,
     vy = (vy == 0 ? 1 : vy);
     vz = (vz == 0 ? 1 : vz);
 
-    angle prj_rXY = getAngle2D(abs(vx), abs(vy)); //Rz
-    angle prj_rXZ = getAngle2D(abs(vx), abs(vz));
-    angle prj_rZY = getAngle2D(abs(vz), abs(vy)); //Rz
-    angle prj_rZX = getAngle2D(abs(vz), abs(vx));
+    angle prj_rXY = getAngle2D(ABS(vx), ABS(vy)); //Rz
+    angle prj_rXZ = getAngle2D(ABS(vx), ABS(vz));
+    angle prj_rZY = getAngle2D(ABS(vz), ABS(vy)); //Rz
+    angle prj_rZX = getAngle2D(ABS(vz), ABS(vx));
 
     angle rotZ, rotY_rev;
     if (0 <= prj_rXZ && prj_rXZ <= D45ANG) {
@@ -522,7 +522,7 @@ void GgafDxUtil::getRzRyAng(coord vx,
         rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY/100)][(int)(prj_rZX/100)];
         rotY_rev = D90ANG - PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100)][(int)(prj_rZX/100)];
     } else {
-        throwGgafCriticalException("GgafDxUtil::getRzRyAng ”ÍˆÍ‚ª”j’]‚µ‚Ä‚Ü‚·Bprj_rXZ="<<prj_rXZ);
+        throwGgafCriticalException("GgafDxUtil::getRzRyAng ”ÍˆÍ‚ª”j’]‚µ‚Ä‚Ü‚·Bprj_rXZ="<<prj_rXZ<<" ˆø”:"<<vx<<","<<vy<<","<<vz);
     }
 #if MY_DEBUG
     if (0 <= prj_rXY && prj_rXY < D45ANG) {
@@ -1424,19 +1424,4 @@ void GgafDxUtil::setWorldMatrix_ScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRI
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
-//UINT32 GgafDxUtil::max3(UINT32 a, UINT32 b, UINT32 c) {
-//  if (a > b) {
-//      if (a > c) {
-//          return a;
-//      } else {
-//          return c;
-//      }
-//  } else {
-//      if (b > c) {
-//          return b;
-//      } else {
-//          return c;
-//      }
-//  }
-//}
 

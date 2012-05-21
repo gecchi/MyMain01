@@ -368,12 +368,13 @@
 
 //#define DECLARE_CONST(X)  const static UINT32 X=__LINE__*3+/*'"*/__TIME__"
 
-
+/** ハッシュ数値 */
 typedef UINT64 hashval;
+/** アクターの種類 */
 typedef UINT32 actorkind;
+/** フレーム(アプリケーション時間) */
 typedef UINT32 frame;
-
-
+/** 文字：文字 マップ */
 typedef std::map<std::string, std::string> GgafStrMap;
 
 

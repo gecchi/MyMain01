@@ -79,8 +79,8 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
 
     _paBool_is_3d[prm_id] = true;
     //ê^ÇÒíÜÇ©ÇÁÇÃãóó£
-   //                float dPlnLeft = abs(_dest_from_vppln_left);
-   //                float dPlnRight = abs(_dest_from_vppln_right);
+   //                float dPlnLeft = ABS(_dest_from_vppln_left);
+   //                float dPlnRight = ABS(_dest_from_vppln_right);
    //                if (dPlnLeft < dPlnRight) {
    //                    //sinÉ∆ = dPlnLeft/d;
    //                    //É∆ = asin(dPlnLeft/d)

@@ -49,7 +49,6 @@ public:
     int _len_pack_num;
     /** [r]最終のパックで表示しなければならない文字数。*/
     int _remainder_len;
-
     /** [r/w]ベースの１文字幅(px) */
     pixcoord _chr_width_px;
     /** [r/w]ベースの１文字高さ(px) */
@@ -57,9 +56,9 @@ public:
     /** [r/w]各文字間隔(px) */
     pixcoord _aWidthPx[256];
 
-
     pixcoord _width_len_px;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name

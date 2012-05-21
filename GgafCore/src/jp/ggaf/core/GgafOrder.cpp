@@ -2,7 +2,7 @@
 
 using namespace GgafCore;
 
-GgafOrder::GgafOrder(unsigned long prm_id) : GgafObject() {
+GgafOrder::GgafOrder(UINT32 prm_id) : GgafObject() {
     _id = prm_id;
     _pOrderer = NULL;
     _pOrder_Next = NULL;

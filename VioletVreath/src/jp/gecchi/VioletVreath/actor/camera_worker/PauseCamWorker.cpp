@@ -141,7 +141,7 @@ void PauseCamWorker::processBehavior() {
             angle rz2 = GgafDxUtil::getAngle2D(Q._x,Q._y);
 
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
-            if (GgafUtil::abs(mdy) > GgafUtil::abs(mdx)/2) { //上下ブレ補正
+            if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
                 move_target_XY_CAM_UP_ += GgafDxUtil::getAngDiff(rz1, rz2);
                 move_target_XY_CAM_UP_ = GgafDxUtil::simplifyAng(move_target_XY_CAM_UP_);
             }
@@ -164,7 +164,7 @@ void PauseCamWorker::processBehavior() {
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
             angle rz2 = GgafDxUtil::getAngle2D(Q._x,Q._y);
-            if (GgafUtil::abs(mdy) > GgafUtil::abs(mdx)/2) { //上下ブレ補正
+            if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
                 move_target_XY_CAM_UP_ += GgafDxUtil::getAngDiff(rz1, rz2);
                 move_target_XY_CAM_UP_ = GgafDxUtil::simplifyAng(move_target_XY_CAM_UP_);
             }
@@ -263,24 +263,24 @@ void PauseCamWorker::processBehavior() {
         mdz_flg_ = false;
     }
 
-    if (GgafUtil::abs(move_target_X_CAM_ - pCam->_X) < 10 && GgafUtil::abs(move_target_Y_CAM_ - pCam->_Y) < 10 && GgafUtil::abs(move_target_Z_CAM_ - pCam->_Z) < 10) {
+    if (ABS(move_target_X_CAM_ - pCam->_X) < 10 && ABS(move_target_Y_CAM_ - pCam->_Y) < 10 && ABS(move_target_Z_CAM_ - pCam->_Z) < 10) {
         //OK
     } else {
         pCam->_pKurokoA->setMvAng(move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
 
         int td1 = GgafDxUtil::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
                                            move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
-        if (MyStgUtil::abs(td1) > 10) {
+        if (ABS(td1) > 10) {
             pCam->_pKurokoA->execSmoothMvSequence(0, td1, 20, 0.4, 0.6);
         }
     }
-    if (GgafUtil::abs(move_target_X_VP_ - pVP->_X) < 10 && GgafUtil::abs(move_target_Y_VP_ - pVP->_Y) < 10 && GgafUtil::abs(move_target_Z_VP_ - pVP->_Z) < 10) {
+    if (ABS(move_target_X_VP_ - pVP->_X) < 10 && ABS(move_target_Y_VP_ - pVP->_Y) < 10 && ABS(move_target_Z_VP_ - pVP->_Z) < 10) {
         //OK
     } else {
         pVP->_pKurokoA->setMvAng(move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
         int td2 = GgafDxUtil::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
                                            move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
-        if (MyStgUtil::abs(td2) > 10) {
+        if (ABS(td2) > 10) {
             pVP->_pKurokoA->execSmoothMvSequence(0, td2, 20, 0.4, 0.6);
         }
     }
@@ -293,7 +293,7 @@ void PauseCamWorker::processBehavior() {
         if (-angvelo_cam_up < da && da < angvelo_cam_up) {
             angXY_nowCamUp_ = move_target_XY_CAM_UP_;
         } else {
-            angXY_nowCamUp_ += (angvelo_cam_up * sgn(da));
+            angXY_nowCamUp_ += (angvelo_cam_up * SGN(da));
         }
         angXY_nowCamUp_ = GgafDxUtil::simplifyAng(angXY_nowCamUp_);
         pCam->_pVecCamUp->x = GgafDxUtil::COS[angXY_nowCamUp_ / SANG_RATE];

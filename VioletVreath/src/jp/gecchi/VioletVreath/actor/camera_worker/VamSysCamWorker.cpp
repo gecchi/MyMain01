@@ -511,7 +511,7 @@ void VamSysCamWorker::processBehavior() {
         if (-angvelo_cam_up < da && da < angvelo_cam_up) {
             angXY_nowCamUp_ = move_target_XY_CAM_UP;
         } else {
-            angXY_nowCamUp_ += (angvelo_cam_up * sgn(da));
+            angXY_nowCamUp_ += (angvelo_cam_up * SGN(da));
         }
         angXY_nowCamUp_ = GgafDxUtil::simplifyAng(angXY_nowCamUp_);
         pCam->_pVecCamUp->x = GgafDxUtil::COS[angXY_nowCamUp_/SANG_RATE];

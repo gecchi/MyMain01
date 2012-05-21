@@ -421,8 +421,8 @@ void MyOption::processBehavior() {
                 angPosition_now = MyStgUtil::getAngle2D(-_Z, -_Y);
             }
             //現在の角距離
-            angle ang_diff = MyStgUtil::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, sgn(veloMv_));
-            if (GgafUtil::abs(ang_diff) > D_ANG(350)) {
+            angle ang_diff = MyStgUtil::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, SGN(veloMv_));
+            if (ABS(ang_diff) > D_ANG(350)) {
                 ang_diff = MyStgUtil::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, TURN_CLOSE_TO);
             }
             //残フレームと残移動角より必要な角速度

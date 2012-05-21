@@ -17,7 +17,7 @@ using namespace GgafCore;
  */
 CmRandomNumberGenerator* CmRandomNumberGenerator::s_pInstance = NULL;
 
-unsigned long CmRandomNumberGenerator::mt[__N__];
+UINT32 CmRandomNumberGenerator::mt[__N__];
 int CmRandomNumberGenerator::mti = __N__ + 1;
 
 /******************************************************************************
@@ -106,7 +106,7 @@ double CmRandomNumberGenerator::getDouble() {
  * @date	Nov. 2005
  *
  ******************************************************************************/
-void CmRandomNumberGenerator::changeSeed(unsigned long a_ulSeed) {
+void CmRandomNumberGenerator::changeSeed(UINT32 a_ulSeed) {
     init_genrand(a_ulSeed);
 }
 
@@ -115,7 +115,7 @@ void CmRandomNumberGenerator::changeSeed(unsigned long a_ulSeed) {
  ******************************************************************************/
 
 /* initializes mt[__N__] with a seed */
-void CmRandomNumberGenerator::init_genrand(unsigned long s) {
+void CmRandomNumberGenerator::init_genrand(UINT32 s) {
     mt[0] = s & 0xffffffffUL;
 
     for (mti = 1; mti < __N__; mti++) {
@@ -130,9 +130,9 @@ void CmRandomNumberGenerator::init_genrand(unsigned long s) {
 }
 
 /* generates a random number on [0,0xffffffff]-interval */
-unsigned long CmRandomNumberGenerator::genrand_int32(void) {
-    unsigned long y;
-    static unsigned long mag01[2] = {0x0UL, MATRIX_A};
+UINT32 CmRandomNumberGenerator::genrand_int32(void) {
+    UINT32 y;
+    static UINT32 mag01[2] = {0x0UL, MATRIX_A};
     /* mag01[x] = x * MATRIX_A  for x=0,1 */
 
     if (mti >= __N__) {
@@ -170,8 +170,8 @@ unsigned long CmRandomNumberGenerator::genrand_int32(void) {
 }
 
 /* generates a random number on [0,0x7fffffff]-interval */
-long CmRandomNumberGenerator::genrand_int31(void) {
-    return (long)(genrand_int32() >> 1);
+INT32 CmRandomNumberGenerator::genrand_int31(void) {
+    return (INT32)(genrand_int32() >> 1);
 }
 
 /* generates a random number on [0,1]-real-interval */

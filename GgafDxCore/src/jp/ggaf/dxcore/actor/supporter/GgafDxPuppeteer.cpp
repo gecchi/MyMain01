@@ -158,7 +158,7 @@ void GgafDxPuppeteer::play(GgafDxPuppeteerStick prm_handed,
         if (p->_local_time > 0) {
             p->_local_time = fmod(p->_local_time, p->_time_of_one_loop);
         } else if (p->_local_time < 0) {
-            p->_local_time = p->_time_of_one_loop - fmod(GgafUtil::abs(p->_local_time), p->_time_of_one_loop);
+            p->_local_time = p->_time_of_one_loop - fmod(ABS(p->_local_time), p->_time_of_one_loop);
         } else {
             p->_local_time = 0.0;
         }
@@ -166,7 +166,7 @@ void GgafDxPuppeteer::play(GgafDxPuppeteerStick prm_handed,
         if (p->_local_time > 0) {
             p->_local_time = fmod(p->_local_time, p->_time_of_one_loop) - p->_time_of_one_loop;
         } else if (p->_local_time < 0) {
-            p->_local_time = -fmod(GgafUtil::abs(p->_local_time), p->_time_of_one_loop);
+            p->_local_time = -fmod(ABS(p->_local_time), p->_time_of_one_loop);
         } else {
             p->_local_time = 0.0;
         }
@@ -214,7 +214,7 @@ void GgafDxPuppeteer::behave() {
             p->_local_time += (p->_speed / 60.0);
 
             //ループ完判定
-            if (p->_target_loop > 0 && p->_target_loop < abs(p->_local_time) / p->_time_of_one_loop) {
+            if (p->_target_loop > 0 && p->_target_loop < ABS(p->_local_time) / p->_time_of_one_loop) {
                 if (p->_local_time > 0) {
                     //理想値に補正
                     p->_local_time = p->_target_loop * p->_time_of_one_loop;

@@ -151,7 +151,7 @@ void GgafDxColorist::intoTargetColorLinerStep(int prm_target_color, int prm_velo
 void GgafDxColorist::intoTargetColorLinerStep(int prm_c, int prm_target_color, int prm_velo_color) {
     _method[prm_c] = TARGET_COLOR_LINER;
     _target_color[prm_c] = prm_target_color;
-    _velo_color[prm_c] = sgn(prm_target_color - _color[prm_c])*prm_velo_color;
+    _velo_color[prm_c] = SGN(prm_target_color - _color[prm_c])*prm_velo_color;
 }
 
 

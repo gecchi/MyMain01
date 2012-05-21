@@ -246,19 +246,19 @@ void MyShip::onReset() {
     way_switch_.reset();
     _pStatus->reset();
     mp_.set(100000);         //初期値は100000
+
 }
 
 void MyShip::onActive() {
-
 }
 
-
-
-
 void MyShip::processBehavior() {
-    if (getActivePartFrame() == 60) {
-        pMagicMeter_->pVreathMagic_->effect(1);
-    }
+	if (getActivePartFrame() == 10) {
+		int idx = pMagicMeter_->ringMagics_.indexOf(pMagicMeter_->pVreathMagic_);
+		pMagicMeter_->pVreathMagic_->effect(1);
+		pMagicMeter_->papLvTargetCursor_[idx]->moveSmoothTo(1);
+		pMagicMeter_->papLvHilightCursor_[idx]->moveSmoothTo(1);
+	}
 //    ///////////////////////スペキュラテスト
 //    if (GgafDxInput::isBeingPressedKey(DIK_9)) {
 //        _pModel->_specular += 0.1;
@@ -438,21 +438,21 @@ void MyShip::processBehavior() {
     _pSeTx->behave();
 
     //吹っ飛び
-    if (GgafUtil::abs(blown_veloX_) < 1000) {
+    if (ABS(blown_veloX_) < 1000) {
         blown_veloX_ = 0;
     } else if (blown_veloX_ > 0) {
         blown_veloX_ -= 1000;
     } else if (blown_veloX_ < 0) {
         blown_veloX_ += 1000;
     }
-    if (GgafUtil::abs(blown_veloY_) < 1000) {
+    if (ABS(blown_veloY_) < 1000) {
         blown_veloY_ = 0;
     } else if (blown_veloY_ > 0) {
         blown_veloY_ -= 1000;
     } else if (blown_veloY_ < 0) {
         blown_veloY_ += 1000;
     }
-    if (GgafUtil::abs(blown_veloZ_) < 1000) {
+    if (ABS(blown_veloZ_) < 1000) {
         blown_veloZ_ = 0;
     } else if (blown_veloZ_ > 0) {
         blown_veloZ_ -= 1000;
@@ -614,9 +614,9 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     //壁の場合特別な処理
     if (pOther->getKind() & KIND_CHIKEI) {
 
-        blown_veloX_ = (GgafUtil::sign(_pColliChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKurokoB->_veloVxMv)));
-        blown_veloY_ = (GgafUtil::sign(_pColliChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKurokoB->_veloVyMv)));
-        blown_veloZ_ = (GgafUtil::sign(_pColliChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKurokoB->_veloVzMv)));
+        blown_veloX_ = (SGN(_pColliChecker->_blown_sgn_vX)*(10000+ABS(_pKurokoB->_veloVxMv)));
+        blown_veloY_ = (SGN(_pColliChecker->_blown_sgn_vY)*(10000+ABS(_pKurokoB->_veloVyMv)));
+        blown_veloZ_ = (SGN(_pColliChecker->_blown_sgn_vZ)*(10000+ABS(_pKurokoB->_veloVzMv)));
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {

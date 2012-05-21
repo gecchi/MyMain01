@@ -39,7 +39,6 @@ SmileMagic::SmileMagic(const char* prm_name, AmountGraph* prm_pMP)
     lvinfo_[1].pno_ = 52;
     lvinfo_[0].pno_ = 60;
 
-
     pMoji_ = NEW SpriteLabelTest("(^_^)");
     pMoji_->update("SMILE(^_^)SMILE");
     pMoji_->inactivateImmed();

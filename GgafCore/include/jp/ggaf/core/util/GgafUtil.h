@@ -1,8 +1,10 @@
 #ifndef GGAFUTIL_H_
 #define GGAFUTIL_H_
 
-#define sgn(X) (GgafDxCore::GgafDxUtil::sign(X))
-#define max3(a,b,c) (GgafCore::GgafUtil::maximum3(a,b,c))
+#define ITOS(X) (GgafCore::GgafUtil::_itos_(X))
+#define ABS(X) (GgafCore::GgafUtil::_abs_(X))
+#define SGN(X) (GgafCore::GgafUtil::_sgn_(X))
+#define MAX3(a,b,c) (GgafCore::GgafUtil::_max3_(a,b,c))
 
 
 namespace GgafCore {
@@ -44,7 +46,7 @@ public:
         return r;
     }
 
-    static std::string itos(int prm_n) {
+    static std::string _itos_(int prm_n) {
         std::ostringstream oss;
         oss << prm_n;
         return oss.str();
@@ -129,7 +131,7 @@ public:
      * @return
      */
     template<typename T>
-    static T sign(T x) {
+    static int _sgn_(T x) {
         if (x < 0) {
             return -1;
         } else if (x > 0) {
@@ -137,9 +139,7 @@ public:
         } else {
             return 0;
         }
-
     }
-
 
     /**
      * â‘Î’l‚ğ‹‚ß‚é
@@ -147,19 +147,17 @@ public:
      * @return
      */
     template<typename T>
-    static T abs(T x) {
-        if (x < 0) {
-            return (T)(-1.0* x);
-        } else if (x > 0) {
-            return x;
-        } else {
-            return (T)0.0;
-        }
+    static T _abs_(T x) {
+        return x < 0 ? -x : x;
     }
 
-//    static inline INT32 abs(INT32 x) {
-//        return (x ^ (x>>31)) - (x>>31);
-//    }
+    static INT32 _abs_(INT32 x) {
+        if (x == INT_MIN) {
+            return INT_MAX;
+        } else {
+            return (x ^ (x>>31)) - (x>>31);
+        }
+    }
 
     /**
      * •½•ûª‚Ì‹ß—‚ğ‹‚ß‚é .
@@ -176,15 +174,13 @@ public:
         return ret;
     }
 
-    //static DWORD max3(DWORD a, DWORD b, DWORD c);
-
     template<typename T>
-    static T maximum2(T a, T b) {
+    static T _max2_(T a, T b) {
         return ( ((a) > (b) ? (a) : (b))   );
     }
 
     template<typename T>
-    static T maximum3(T a, T b, T c) {
+    static T _max3_(T a, T b, T c) {
         return ( (a)>(b) ? ((a)>(c)?(a):(c)) : ((b)>(c)?(b):(c)) );
     }
 

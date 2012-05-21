@@ -677,7 +677,7 @@ void VirtualButton::update() {
     GgafDxInput::updateKeyboardState();
     GgafDxInput::updateJoystickState();
 
-    if (_is_replaying) {
+    if (_is_replaying && _was_replay_done == false) {
         //リプレイモード時
         _pVBRecord_Active = _pVBRecord_Active->_next;
         _pVBRecord_Active->_state = _pRpy->read();

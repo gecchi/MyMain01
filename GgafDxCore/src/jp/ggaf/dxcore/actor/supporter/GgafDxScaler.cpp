@@ -162,7 +162,7 @@ void GgafDxScaler::intoTargetScaleLinerStep(int prm_target_scale, int prm_velo_s
 void GgafDxScaler::intoTargetScaleLinerStep(axis prm_axis, int prm_target_scale, int prm_velo_scale) {
     _method[prm_axis] = TARGET_SCALE_LINER;
     _target_scale[prm_axis] = prm_target_scale;
-    _velo_scale[prm_axis] = sgn(prm_target_scale - _scale[prm_axis])*prm_velo_scale;
+    _velo_scale[prm_axis] = SGN(prm_target_scale - _scale[prm_axis])*prm_velo_scale;
 }
 
 void GgafDxScaler::loopLiner(frame prm_beat_target_frames, float prm_beat_num) {

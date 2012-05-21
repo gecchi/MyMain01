@@ -260,6 +260,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardSetTestActor.cpp"
 				>
 			</File>
@@ -353,6 +357,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSmileMagic001.cpp"
 				>
 			</File>
 			<File
@@ -884,6 +892,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SmileMagic.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.cpp"
 				>
 			</File>
@@ -893,6 +905,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.cpp"
 				>
 			</File>
 			<File
@@ -1204,6 +1220,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardSetTestActor.h"
 				>
 			</File>
@@ -1297,6 +1317,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSmileMagic001.h"
 				>
 			</File>
 			<File
@@ -1832,6 +1856,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SmileMagic.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.h"
 				>
 			</File>
@@ -1841,6 +1869,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.h"
 				>
 			</File>
 			<File

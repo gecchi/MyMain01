@@ -79,7 +79,7 @@
 ////                int dx = pOrg_->pLockonTarget_->_X - _X;
 ////                int dy = pOrg_->pLockonTarget_->_Y - _Y;
 ////                int dz = pOrg_->pLockonTarget_->_Z - _Z;
-////                if (abs(dx)+abs(dy)+abs(dz) < 150*1000) {
+////                if (ABS(dx)+ABS(dy)+ABS(dz) < 150*1000) {
 ////                    _pKurokoA->setVxMvVelo(dx);
 ////                    _pKurokoA->setVyMvVelo(dy);
 ////                    _pKurokoA->setVzMvVelo(dz);
@@ -217,13 +217,13 @@
 ////            _pKurokoA->behave();
 //////        }
 //
-////        if (abs(_pKurokoA->_veloVxMv) >= abs(_pKurokoA->_veloVyMv) && abs(_pKurokoA->_veloVxMv) >= abs(_pKurokoA->_veloVzMv)) {
+////        if (ABS(_pKurokoA->_veloVxMv) >= ABS(_pKurokoA->_veloVyMv) && ABS(_pKurokoA->_veloVxMv) >= ABS(_pKurokoA->_veloVzMv)) {
 ////            _pKurokoA->setVxMvVelo(-(_pKurokoA->_veloVxMv));
 ////            _pKurokoA->setVxMvAcce(-(_pKurokoA->acceVxMv_));
-////        } else if (abs(_pKurokoA->_veloVyMv) >= abs(_pKurokoA->_veloVxMv) && abs(_pKurokoA->_veloVyMv) >= abs(_pKurokoA->_veloVzMv)) {
+////        } else if (ABS(_pKurokoA->_veloVyMv) >= ABS(_pKurokoA->_veloVxMv) && ABS(_pKurokoA->_veloVyMv) >= ABS(_pKurokoA->_veloVzMv)) {
 ////            _pKurokoA->setVyMvVelo(-(_pKurokoA->_veloVyMv));
 ////            _pKurokoA->setVyMvAcce(-(_pKurokoA->acceVyMv_));
-////        } else if (abs(_pKurokoA->_veloVzMv) >= abs(_pKurokoA->_veloVxMv) && abs(_pKurokoA->_veloVzMv) >= abs(_pKurokoA->_veloVyMv)) {
+////        } else if (ABS(_pKurokoA->_veloVzMv) >= ABS(_pKurokoA->_veloVxMv) && ABS(_pKurokoA->_veloVzMv) >= ABS(_pKurokoA->_veloVyMv)) {
 ////            _pKurokoA->setVzMvVelo(-(_pKurokoA->_veloVzMv));
 ////            _pKurokoA->setVzMvAcce(-(_pKurokoA->acceVzMv_));
 ////        }

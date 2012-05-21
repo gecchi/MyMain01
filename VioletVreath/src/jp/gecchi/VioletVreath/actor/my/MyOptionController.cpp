@@ -155,12 +155,12 @@ void MyOptionController::processBehavior() {
             _pKurokoB->setVxMvAcce(dx);
             _pKurokoB->setVyMvAcce(dy);
             _pKurokoB->setVzMvAcce(dz);
-            if (GgafUtil::abs(_X - TX) < 10000 &&
-                GgafUtil::abs(_Y - TY) < 10000 &&
-                GgafUtil::abs(_Z - TZ) < 10000 &&
-                GgafUtil::abs(_pKurokoB->_veloVxMv) < 20000 &&
-                GgafUtil::abs(_pKurokoB->_veloVyMv) < 20000 &&
-                GgafUtil::abs(_pKurokoB->_veloVzMv) < 20000    ) {
+            if (ABS(_X - TX) < 10000 &&
+                ABS(_Y - TY) < 10000 &&
+                ABS(_Z - TZ) < 10000 &&
+                ABS(_pKurokoB->_veloVxMv) < 20000 &&
+                ABS(_pKurokoB->_veloVyMv) < 20000 &&
+                ABS(_pKurokoB->_veloVzMv) < 20000    ) {
 
                 _TRACE_("‚à‚Ç‚Á‚½I");
                 _pKurokoB->setVxMvVelo(0);

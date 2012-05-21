@@ -139,7 +139,7 @@ void GgafDxTextureBlinker::intoTargetBlinkAcceStep(float prm_target_power_blink,
 void GgafDxTextureBlinker::intoTargetBlinkLinerStep(float prm_target_power_blink, float prm_velo_power_blink) {
     _method = TARGET_BLINK_LINER;
     _target_power_blink = prm_target_power_blink;
-    _velo_power_blink = sgn(prm_target_power_blink - _power_blink)*prm_velo_power_blink;
+    _velo_power_blink = SGN(prm_target_power_blink - _power_blink)*prm_velo_power_blink;
 }
 
 void GgafDxTextureBlinker::loopLiner(frame prm_beat_target_frames, float prm_beat_num) {

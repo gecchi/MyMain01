@@ -3,13 +3,36 @@
 namespace GgafDxCore {
 
 /**
- * 座標未変換文字表示クラス（現在作成中で、未使用！）
+ * 文字表示クラス .
+ * GgafDxSpriteSetActor を継承し、文字セットテクスチャーから
+ * 文字表示機能を追加したアクターです。<BR>
+ * 次のようなテクスチャであることが前提。（※実際の画像は罫線無しです）<BR>
+ * <code><pre>
+ * ┌─┬─┬─┬─┬─┬─┬─┬─┐
+ * │　│！│”│＃│＄│％│＆│’│
+ * ├─┼─┼─┼─┼─┼─┼─┼─┤
+ * │（│）│＊│＋│，│－│．│／│
+ * ├─┼─┼─┼─┼─┼─┼─┼─┤
+ * │０│１│２│３│４│５│６│７│
+ * ├─┼─┼─┼─┼─┼─┼─┼─┤
+ * │８│９│：│；│＜│＝│＞│？│
+ * ├─┼─┼─┼─┼─┼─┼─┼─┤
+ * │＠│Ａ│Ｂ│Ｃ│Ｄ│Ｅ│Ｆ│Ｇ│
+ * ├─┼─┼─┼─┼─┼─┼─┼─┤
+ * │Ｈ│Ｉ│Ｊ│Ｋ│Ｌ│Ｍ│Ｎ│Ｏ│
+ * ├─┼─┼─┼─┼─┼─┼─┼─┤
+ * │Ｐ│Ｑ│Ｒ│Ｓ│Ｔ│Ｕ│Ｖ│Ｗ│
+ * ├─┼─┼─┼─┼─┼─┼─┼─┤
+ * │Ｘ│Ｙ│Ｚ│［│＼│］│＾│＿│
+ * └─┴─┴─┴─┴─┴─┴─┴─┘
+ * </pre></code>
+ * 文字表示と言ってもUVを切り替えて連続表示るだけ。
+ * TODO:GgafDxStringBoardActorと共通化したい・・・
+ * @version 1.00
+ * @since 2009/04/09
+ * @author Masatoshi Tsuge
  */
 class GgafDxStringSpriteActor : public GgafDxSpriteSetActor {
-    /**
-     * オーバーライド不可 .
-     */
-//    virtual void processSettlementBehavior() override;
 
 public:
     /** [r]描画文字列 */
@@ -30,9 +53,9 @@ public:
     /** [r/w]各文字間隔(px) */
     pixcoord _aWidthPx[256];
 
-
     pixcoord _width_len_px;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name

@@ -190,7 +190,7 @@ public:
         int getIndex() {
             //3i”¨10i”•ÏŠ·
             //_TRACE_("way_.X, way_.Y, way_.Z="<<way_.X<<","<<way_.Y<<","<< way_.Z);
-            return (3*3*(sgn(way_.X)+1)) + (3*(sgn(way_.Y)+1)) + (sgn(way_.Z)+1);
+            return (3*3*(SGN(way_.X)+1)) + (3*(SGN(way_.Y)+1)) + (SGN(way_.Z)+1);
         }
     };
 public:
