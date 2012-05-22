@@ -16,13 +16,13 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
     std::string effect_file_name;
     if (GGAF_PROPERTY(REALTIME_EFFECT_COMPILE)) {
         //fx ファイルからコンパイル
-        effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + std::string(prm_effect_name) + ".fx";
+        effect_file_name = getEffectFileName(std::string(prm_effect_name) + ".fx");
     } else {
         //コンパイル済み fxo ファイルを読み込み
         if ( GgafDxGod::_ps_v >= D3DPS_VERSION(3, 0)) {
-            effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + "3_0_" + std::string(prm_effect_name) + ".fxo";
+            effect_file_name = getEffectFileName("3_0_" + std::string(prm_effect_name) + ".fxo");
         } else {
-            effect_file_name = GGAF_PROPERTY(DIR_EFFECT) + "2_0_" + std::string(prm_effect_name) + ".fxo";
+            effect_file_name = getEffectFileName("2_0_" + std::string(prm_effect_name) + ".fxo");
         }
     }
 
@@ -65,6 +65,22 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
     checkDxException(hr, D3D_OK, "GgafDxEffect::GgafDxEffect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
     _TRACE_(" GgafDxEffect::GgafDxEffect "<<prm_effect_name<<" のエフェクトを生成しました。ADD:"<<this);
     _h_alpha_master = _pID3DXEffect->GetParameterByName( NULL, "g_alpha_master" ); //マスターα
+}
+
+std::string GgafDxEffect::getEffectFileName(std::string prm_file) {
+    std::string effect_file = GGAF_PROPERTY(DIR_EFFECT[1]) + "/" + prm_file;
+    GgafUtil::strReplace(effect_file, "//", "/");
+    if (PathFileExists(effect_file.c_str()) ) {
+        return effect_file; //ユーザースキンに存在すればそれを優先
+    } else {
+        effect_file = GGAF_PROPERTY(DIR_EFFECT[0]) + "/" + prm_file;
+        GgafUtil::strReplace(effect_file, "//", "/");
+        if (PathFileExists(effect_file.c_str()) ) {
+            return effect_file;
+        } else {
+            throwGgafCriticalException("GgafDxEffect::getEffectFileName エフェクトファイルが見つかりません。effect_file="<<effect_file);
+        }
+    }
 }
 
 GgafDxEffect::~GgafDxEffect() {

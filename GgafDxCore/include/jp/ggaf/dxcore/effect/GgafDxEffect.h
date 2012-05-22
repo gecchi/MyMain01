@@ -12,6 +12,9 @@ namespace GgafDxCore {
 class GgafDxEffect : public GgafCore::GgafObject {
     friend class GgafDxEffectManager;
 
+
+    static std::string getEffectFileName(std::string prm_file);
+
 protected:
     static D3DXMACRO _aD3DXMacro_Defines[3];
 

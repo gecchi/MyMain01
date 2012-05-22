@@ -41,7 +41,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     hr = _pIDirectXFile_sprx->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
 #ifdef MY_DEBUG
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
+        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL[0])<<"ggaf_spritemodel_define.x\"を確認して下さい。");
     }
 #endif
 
@@ -80,7 +80,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     hr = _pIDirectXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
 #ifdef MY_DEBUG
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
+        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL[0])<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
     }
 #endif
 }
@@ -253,6 +253,52 @@ GgafDxPointSpriteModel* GgafDxModelManager::createPointSpriteModel(char* prm_mod
     restorePointSpriteModel(pPointSpriteModel_New);
     return pPointSpriteModel_New;
 }
+std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {
+    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[1]) + "/" + prm_model_name + ".x"; //モデル名＋".x"でXファイル名になる
+    GgafUtil::strReplace(xfile_name, "//", "/");
+    if (PathFileExists(xfile_name.c_str()) ) {
+        return xfile_name; //ユーザースキンに存在すればそれを優先
+    } else {
+        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + "/" + prm_model_name+ ".x";
+        GgafUtil::strReplace(xfile_name, "//", "/");
+        if (PathFileExists(xfile_name.c_str()) ) {
+            return xfile_name;
+        } else {
+            throwGgafCriticalException("GgafDxModelManager::getMeshFileName メッシュファイル(*.x)が見つかりません。xfile_name="<<xfile_name);
+        }
+    }
+}
+std::string GgafDxModelManager::getSpriteFileName(std::string prm_model_name) {
+    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) + "/" + prm_model_name + ".sprx";
+    GgafUtil::strReplace(xfile_name, "//", "/");
+    if (PathFileExists(xfile_name.c_str()) ) {
+        return xfile_name; //ユーザースキンに存在すればそれを優先
+    } else {
+        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + "/" +  prm_model_name + ".sprx";
+        GgafUtil::strReplace(xfile_name, "//", "/");
+        if (PathFileExists(xfile_name.c_str()) ) {
+            return xfile_name;
+        } else {
+            throwGgafCriticalException("GgafDxModelManager::getSpriteFileName スプライトファイル(*.sprx)が見つかりません。xfile_name="<<xfile_name);
+        }
+    }
+}
+
+std::string GgafDxModelManager::getPointSpriteFileName(std::string prm_model_name) {
+    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) + "/" + prm_model_name + ".psprx";
+    GgafUtil::strReplace(xfile_name, "//", "/");
+    if (PathFileExists(xfile_name.c_str()) ) {
+        return xfile_name; //ユーザースキンに存在すればそれを優先
+    } else {
+        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + "/" +  prm_model_name + ".psprx";
+        GgafUtil::strReplace(xfile_name, "//", "/");
+        if (PathFileExists(xfile_name.c_str()) ) {
+            return xfile_name;
+        } else {
+            throwGgafCriticalException("GgafDxModelManager::getSpriteFileName ポイントスプライトファイル(*.psprx)が見つかりません。xfile_name="<<xfile_name);
+        }
+    }
+}
 
 void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     TRACE3("GgafDxModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ")");
@@ -267,7 +313,8 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
 
 
-    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + std::string(prm_pMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+//    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+    std::string xfile_name = getMeshFileName(prm_pMeshModel->_model_name);
     HRESULT hr;
 
     //流し込む頂点バッファデータ作成
@@ -823,7 +870,8 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
 
     for(int i = 0; i < morph_target_num+1; i++) {
         char* xfilename_base = prm_pMorphMeshModel->_model_name + 2; //２文字目以降  "2/ceres" → "ceres"
-        paXfileName[i] = GGAF_PROPERTY(DIR_MESH_MODEL) + std::string(xfilename_base) + "_" + (char)('0'+i) + ".x"; //"ceres_0.x"となる
+//        paXfileName[i] = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(xfilename_base) + "_" + (char)('0'+i) + ".x"; //"ceres_0.x"となる
+        paXfileName[i] = getMeshFileName(std::string(xfilename_base) + "_" + (char)('0'+i));
     }
     HRESULT hr;
     //流し込む頂点バッファデータ作成
@@ -1488,7 +1536,9 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     D3DMATERIAL9* model_paMaterial; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDxTextureConnection** model_papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD _num_materials;
-    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + std::string(prm_pD3DXMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+//    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pD3DXMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+    std::string xfile_name = getMeshFileName(prm_pD3DXMeshModel->_model_name);
+
 
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
@@ -1588,8 +1638,8 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     D3DMATERIAL9* model_paMaterial = NULL; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDxTextureConnection** model_papTextureCon = NULL; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD _num_materials;
-    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + std::string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
-
+//    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+    std::string xfile_name = getMeshFileName(prm_pD3DXAniMeshModel->_model_name);
 
     //AnimTicksPerSecondの値を独自に取り出す
     std::ifstream ifs(xfile_name.c_str());
@@ -1723,7 +1773,9 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
 
 
     HRESULT hr;
-    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + std::string(prm_pSpriteModel->_model_name) + ".sprx";
+//    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pSpriteModel->_model_name) + ".sprx";
+    std::string xfile_name = getSpriteFileName(prm_pSpriteModel->_model_name);
+
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
@@ -1765,7 +1817,7 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     }
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
     //テクスチャ取得しモデルに保持させる
-    //std::string texture_filename = GGAF_PROPERTY(DIR_TEXTURE_MODEL) + std::string(*ppaChar_TextureFile);
+    //std::string texture_filename = GGAF_PROPERTY(DIR_TEXTURE[0]_MODEL) + std::string(*ppaChar_TextureFile);
     GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pSpriteModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
@@ -1893,11 +1945,14 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
     std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
     //"12/Bomb" or "8/Bomb" or "Bomb" から "Bomb" だけ取とりだしてフルパス名取得
     if (*(prm_pSpriteSetModel->_model_name + 1) == '/') {
-        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + std::string(prm_pSpriteSetModel->_model_name + 2) + ".sprx";
+        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pSpriteSetModel->_model_name + 2) + ".sprx";
+        xfile_name = getSpriteFileName(std::string(prm_pSpriteSetModel->_model_name + 2));
     } else if (*(prm_pSpriteSetModel->_model_name + 2) == '/') {
-        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + std::string(prm_pSpriteSetModel->_model_name + 3) + ".sprx";
+        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pSpriteSetModel->_model_name + 3) + ".sprx";
+        xfile_name = getSpriteFileName(std::string(prm_pSpriteSetModel->_model_name + 3));
     } else {
-        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + std::string(prm_pSpriteSetModel->_model_name) + ".sprx";
+        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pSpriteSetModel->_model_name) + ".sprx";
+        xfile_name = getSpriteFileName(std::string(prm_pSpriteSetModel->_model_name));
     }
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
     checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreSpriteSetModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
@@ -2108,7 +2163,9 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
 
     prm_pBoardModel->_papTextureCon = NULL;
     HRESULT hr;
-    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + std::string(prm_pBoardModel->_model_name) + ".sprx";
+//    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pBoardModel->_model_name) + ".sprx";
+    std::string xfile_name = getSpriteFileName(prm_pBoardModel->_model_name);
+
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
@@ -2244,11 +2301,14 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
     //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
     //TODO:数値3桁("123/Moji"とか)が来たら困る。
     if (*(prm_pBoardSetModel->_model_name + 1) == '/') {
-        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + std::string(prm_pBoardSetModel->_model_name + 2) + ".sprx";
+        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pBoardSetModel->_model_name + 2) + ".sprx";
+        xfile_name = getSpriteFileName(std::string(prm_pBoardSetModel->_model_name + 2));
     } else if (*(prm_pBoardSetModel->_model_name + 2) == '/') {
-        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + std::string(prm_pBoardSetModel->_model_name + 3) + ".sprx";
+        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pBoardSetModel->_model_name + 3) + ".sprx";
+        xfile_name = getSpriteFileName(std::string(prm_pBoardSetModel->_model_name + 3));
     } else {
-        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + std::string(prm_pBoardSetModel->_model_name) + ".sprx";
+        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pBoardSetModel->_model_name) + ".sprx";
+        xfile_name = getSpriteFileName(std::string(prm_pBoardSetModel->_model_name));
     }
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
 
@@ -2453,11 +2513,14 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     //"12/Ceres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
     //TODO:数値３桁以上の時はだめ
     if (*(prm_pMeshSetModel->_model_name + 1) == '/') {
-        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + std::string(prm_pMeshSetModel->_model_name + 2) + ".x";
+//        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pMeshSetModel->_model_name + 2) + ".x";
+        xfile_name = getMeshFileName(std::string(prm_pMeshSetModel->_model_name + 2));
     } else if (*(prm_pMeshSetModel->_model_name + 2) == '/') {
-        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + std::string(prm_pMeshSetModel->_model_name + 3) + ".x";
+//        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pMeshSetModel->_model_name + 3) + ".x";
+        xfile_name = getMeshFileName(std::string(prm_pMeshSetModel->_model_name + 3));
     } else {
-        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL) + std::string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+//        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+        xfile_name = getMeshFileName(std::string(prm_pMeshSetModel->_model_name));
     }
 
     HRESULT hr;
@@ -2989,8 +3052,8 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
 
     prm_pPointSpriteModel->_papTextureCon = NULL;
     HRESULT hr;
-    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL) + std::string(prm_pPointSpriteModel->_model_name) + ".psprx";
-
+//    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pPointSpriteModel->_model_name) + ".psprx";
+    std::string xfile_name = getPointSpriteFileName(prm_pPointSpriteModel->_model_name);
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;

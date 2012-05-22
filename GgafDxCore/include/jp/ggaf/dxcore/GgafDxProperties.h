@@ -72,22 +72,37 @@ public:
     static int BGM_VOLUME;
     /** [r/w] SoundEffect ボリューム(0～100) */
     static int SE_VOLUME;
-    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ */
-    static std::string DIR_MESH_MODEL;
-    /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ */
-    static std::string DIR_SPRITE_MODEL;
-    /** [r] テクスチャファイルの格納ディレクトリ */
-    static std::string DIR_TEXTURE;
-    /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ */
-    static std::string DIR_EFFECT;
-    /** [r] BGMファイル(oggファイル)の格納ディレクトリ */
-    static std::string DIR_OGG;
-    /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ */
-    static std::string DIR_WAVE;
+
+    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ名 */
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_MESH;
+    /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ名 */
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_SPRITE;
+    /** [r] テクスチャファイルの格納ディレクトリ名 */
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_TEXTURE;
+    /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ名 */
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_EFFECT;
+    /** [r] BGMファイル(oggファイル)の格納ディレクトリ名 */
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_OGG;
+    /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ名 */
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_WAVE;
+
+    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ(0:default/1:ユーザー) */
+    static std::string DIR_MESH_MODEL[2];
+    /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ(0:default/1:ユーザー) */
+    static std::string DIR_SPRITE_MODEL[2];
+    /** [r] テクスチャファイルの格納ディレクトリ(0:default/1:ユーザー) */
+    static std::string DIR_TEXTURE[2];
+    /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ(0:default/1:ユーザー) */
+    static std::string DIR_EFFECT[2];
+    /** [r] BGMファイル(oggファイル)の格納ディレクトリ(0:default/1:ユーザー) */
+    static std::string DIR_OGG[2];
+    /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ(0:default/1:ユーザー) */
+    static std::string DIR_WAVE[2];
+
     /** [r] エフェクトファイル(fxファイル)を実行時にコンパイルするかどうか */
     static bool REALTIME_EFFECT_COMPILE;
 
-    static void load(std::string prm_ini_filename); //shadows
+    static void load(std::string prm_properties_filename); //shadows
     static void clean();                            //shadows
 };
 

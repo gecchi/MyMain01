@@ -3,7 +3,7 @@
 
 /**
  * 神が保持する SplineManufactureConnection に接続し、コネクションを取得。
- * @param X：スプライン定義識別文字列。プロパティ DIR_SPLINE_DATA 配下の「X + ".spl"」というファイル名を使用する
+ * @param X：スプライン定義識別文字列。プロパティ DIR_SPLINE 配下の「X + ".spl"」というファイル名を使用する
  */
 #define connectSplineManufactureManager(X) ((GgafLib::SplineManufactureConnection*)((P_GOD)->_pSplManufManager->connect(X)))
 

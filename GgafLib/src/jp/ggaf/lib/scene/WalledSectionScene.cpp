@@ -18,7 +18,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     _loop_num = 1;
     _cnt_loop = 0;
     _is_loop_end = false;
-    std::string data_filename = GGAF_PROPERTY(DIR_SCENE_DATA) + std::string(prm_data_filename);
+    std::string data_filename = GGAF_PROPERTY(DIR_WALL) + std::string(prm_data_filename);
     std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
         throwGgafCriticalException("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");

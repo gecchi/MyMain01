@@ -34,8 +34,9 @@ char* GgafUtil::getFileText(std::string prm_filename) {
 void GgafUtil::readProperties(std::string filename, GgafStrMap* pMap)
 {
     std::ifstream file(filename.c_str());
-    if (!file)
-        throwGgafCriticalException("unable to open properties file");
+    if (!file) {
+        throwGgafCriticalException("GgafUtil::readProperties() ファイルが見つかりません。 filename="<<filename);
+    }
     readProperties(file, pMap);
     file.close();
 }

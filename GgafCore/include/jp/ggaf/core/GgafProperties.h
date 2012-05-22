@@ -26,6 +26,20 @@ public:
     static int DRAWNUM_TO_SLOWDOWN2;
     /** [r/w] ゴミ箱を掃除(インスタンス解放)を行うことが出来るFPS */
     static float FPS_TO_CLEAN_GARBAGE_BOX;
+    /** [r] アプリケーションのリソースディレクトリ */
+    static std::string DIR_RESOURCE;
+    /** [r] アプリケーションのスキンフォルダ名(リソースディレクトリ配下) */
+    static std::string DIRNAME_RESOURCE_SKIN;
+    /** [r] アプリケーションのスキンフォルダのデフォルトスキン名(リソースディレクトリのスキンフォルダ配下) */
+    static std::string DIRNAME_RESOURCE_SKIN_DEFAULT;
+    /** [r] アプリケーションのスキンフォルダのユーザースキン名(リソースディレクトリのスキンフォルダ配下) */
+    static std::string DIRNAME_RESOURCE_SKIN_USER;
+
+    /** [r] アプリケーションのスキンディレクトリ */
+    static std::string DIR_SKIN;
+    /** [r] アプリケーションのデフォルトスキンディレクトリ(0:default/1:ユーザー) */
+    static std::string DIR_SKIN_KIND[2];
+
     /** [r] 保持プロパティMAP */
     static GgafStrMap* _pMapProperties;
 

@@ -6,6 +6,8 @@ namespace GgafDxCore {
  * Bgm(Oggフォーマット)クラス .
  */
 class GgafDxBgm : public GgafCore::GgafObject {
+    static std::string getOggFileName(std::string prm_file);
+
 public:
     /** [r]BGM の BMP */
     int _bpm;
@@ -25,7 +27,7 @@ public:
      * ② prm_bgm_key+"_BPM"      ・・・ 値：現在未使用
      * ③ prm_bgm_key+"_TITLE"    ・・・ 値：現在未使用
      * 次に、①のの値をのBGMとなる oggファイルを プロパティファイルの
-     * DIR_OGG の設定値配下から探してオープンし、再生準備を行います。
+     * DIR_OGG[0] の設定値配下から探してオープンし、再生準備を行います。
      * @param prm_bgm_key プロパティファイルのkey
      *                    _OGG, _BPM, _TITLE のプレフィックスを指定
      * @return

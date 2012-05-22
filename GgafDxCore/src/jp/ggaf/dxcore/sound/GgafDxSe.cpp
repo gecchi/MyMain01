@@ -10,7 +10,7 @@ GgafDxSe::GgafDxSe(char* prm_wave_name) : GgafObject() {
 
     _wave_name = NEW char[128];
     strcpy(_wave_name, prm_wave_name);
-    std::string wave_filename = GGAF_PROPERTY(DIR_WAVE) + std::string(_wave_name) + ".wav";
+    std::string wave_filename = getWaveFileName(std::string(_wave_name) + ".wav");
 
     HRESULT hr;
     // Waveファイルを開く
@@ -41,10 +41,25 @@ GgafDxSe::GgafDxSe(char* prm_wave_name) : GgafObject() {
     hr = _pIDirectSoundBuffer->GetFrequency(&_default_frequency);
     checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_name<<") GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
-	_TRACE_("GgafDxSe::GgafDxSe() _wave_name="<<_wave_name<<" this="<<this<<" _id="<<_id);
+    _TRACE_("GgafDxSe::GgafDxSe() _wave_name="<<_wave_name<<" this="<<this<<" _id="<<_id);
 }
 
 
+std::string GgafDxSe::getWaveFileName(std::string prm_file) {
+    std::string wave_file = GGAF_PROPERTY(DIR_WAVE[1]) + "/" + prm_file;
+    GgafUtil::strReplace(wave_file, "//", "/");
+    if (PathFileExists(wave_file.c_str()) ) {
+        return wave_file; //ユーザースキンに存在すればそれを優先
+    } else {
+        wave_file = GGAF_PROPERTY(DIR_WAVE[0]) + "/" + prm_file;
+        GgafUtil::strReplace(wave_file, "//", "/");
+        if (PathFileExists(wave_file.c_str()) ) {
+            return wave_file;
+        } else {
+            throwGgafCriticalException("GgafDxSe::getWaveFileName waveファイルが見つかりません。wave_file="<<wave_file);
+        }
+    }
+}
 
 int GgafDxSe::writeBuffer(CWaveDecorder& WaveFile) {
     // セカンダリ・バッファにWaveデータを書き込む
@@ -129,7 +144,7 @@ void GgafDxSe::setFrequencyRate(float prm_frequency) {
 }
 
 int GgafDxSe::restore(void) {
-    std::string wave_filename = GGAF_PROPERTY(DIR_WAVE) + _wave_name + ".wav";
+    std::string wave_filename = getWaveFileName( std::string(_wave_name) + ".wav");
     // Waveファイルを開く
     CWaveDecorder WaveFile;
     if (!WaveFile.Open((LPSTR)wave_filename.c_str())) {

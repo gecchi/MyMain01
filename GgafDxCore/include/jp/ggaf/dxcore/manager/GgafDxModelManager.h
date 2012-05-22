@@ -45,6 +45,10 @@ private:
      * @return ¬‚·Šp(ƒ‰ƒfƒBƒAƒ“)
      */
     float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
+
+    static std::string getMeshFileName(std::string prm_model_name);
+    static std::string getSpriteFileName(std::string prm_model_name);
+    static std::string getPointSpriteFileName(std::string prm_model_name);
 public:
     GgafDxTextureManager* _pModelTextureManager;
 

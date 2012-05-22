@@ -61,6 +61,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.debug.483834317" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.debug">
 								<option id="gnu.cpp.link.option.libs.811181230" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="GgafLib"/>
+									<listOptionValue builtIn="false" value="Shlwapi"/>
 									<listOptionValue builtIn="false" value="GgafDxCore"/>
 									<listOptionValue builtIn="false" value="dxerr"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
@@ -166,6 +167,7 @@
 								</option>
 								<option id="gnu.cpp.link.option.libs.608657203" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="GgafLib"/>
+									<listOptionValue builtIn="false" value="Shlwapi"/>
 									<listOptionValue builtIn="false" value="GgafDxCore"/>
 									<listOptionValue builtIn="false" value="dxerr"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>

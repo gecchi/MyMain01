@@ -191,7 +191,19 @@ public:
         return val;
     }
 
-
+    /**
+     * 文字列中から文字列を検索して別の文字列に置換する
+     * @param str  : 置換対象の文字列。上書かれます。
+     * @param from : 検索文字列
+     * @param to   : 置換後の文字列
+     */
+    static void strReplace(std::string& str, const std::string& from, const std::string& to) {
+        std::string::size_type pos = 0;
+        while(pos = str.find(from, pos), pos != std::string::npos) {
+            str.replace(pos, from.length(), to);
+            pos += to.length();
+        }
+    }
     static void readProperties(std::string filename, GgafStrMap* pMap);
     static void readProperties(std::istream &is, GgafStrMap* pMap);
     static void writeProperties(const char *filename, GgafStrMap* pMap, const char *header = NULL);

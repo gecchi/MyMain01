@@ -66,8 +66,7 @@
 #include <stack>
 #include <sstream>
 #include <cstddef>
-
-
+#include "Shlwapi.h"
 
 #ifdef _MSC_VER
 #define __map__ std::map

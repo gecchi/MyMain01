@@ -6,6 +6,9 @@ namespace GgafDxCore {
  * Sound Effect(Wave) クラス .
  */
 class GgafDxSe : public GgafCore::GgafObject {
+
+    static std::string getWaveFileName(std::string prm_file);
+
 public:
     /** サウンドバッファ */
     LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;

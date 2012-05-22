@@ -8,6 +8,17 @@ UINT32 GgafProperties::MAX_SKIP_FRAME = 12;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN1 = 350;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN2 = 500;
 float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 50.0f;
+std::string GgafProperties::DIR_RESOURCE = "./";
+std::string GgafProperties::DIRNAME_RESOURCE_SKIN = ".";
+std::string GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT = ".";
+std::string GgafProperties::DIRNAME_RESOURCE_SKIN_USER = "";
+std::string GgafProperties::DIR_SKIN = GgafProperties::DIR_RESOURCE + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN + "/";
+std::string GgafProperties::DIR_SKIN_KIND[] = {
+                GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT + "/",
+                ""
+            };
+
+
 
 void GgafProperties::load(std::string prm_properties_filename) {
     if (_pMapProperties == NULL) {
@@ -30,10 +41,54 @@ void GgafProperties::load(std::string prm_properties_filename) {
     if (GgafProperties::isExistKey("FPS_TO_CLEAN_GARBAGE_BOX")) {
         GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = getFloat("FPS_TO_CLEAN_GARBAGE_BOX");
     }
+    if (GgafProperties::isExistKey("DIR_RESOURCE")) {
+        GgafProperties::DIR_RESOURCE = getStr("DIR_RESOURCE");
+    }
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN")) {
+        GgafProperties::DIRNAME_RESOURCE_SKIN = getStr("DIRNAME_RESOURCE_SKIN");
+    }
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_DEFAULT")) {
+        GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT = getStr("DIRNAME_RESOURCE_SKIN_DEFAULT");
+    }
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_USER")) {
+        GgafProperties::DIRNAME_RESOURCE_SKIN_USER = getStr("DIRNAME_RESOURCE_SKIN_USER");
+    }
+
+    GgafProperties::DIR_SKIN = GgafProperties::DIR_RESOURCE + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN  + "/";
+    GgafUtil::strReplace(GgafProperties::DIR_SKIN, "//", "/");
+
+    GgafProperties::DIR_SKIN_KIND[0] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT + "/";
+    GgafUtil::strReplace(GgafProperties::DIR_SKIN_KIND[0], "//", "/");
+    if (GgafProperties::DIRNAME_RESOURCE_SKIN_USER == "") {
+        GgafProperties::DIR_SKIN_KIND[1] = GgafProperties::DIR_SKIN_KIND[0] + "/";
+    } else {
+        GgafProperties::DIR_SKIN_KIND[1] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_USER + "/";
+    }
+    GgafUtil::strReplace(GgafProperties::DIR_SKIN_KIND[1], "//", "/");
+
+    //DIR存在チェック
+    if (!PathFileExists(GgafProperties::DIR_SKIN.c_str()) ) {
+        throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_SKIN("<<GgafProperties::DIR_SKIN<<") のディレクトリが見つかりません。");
+    }
+
+    if (GgafProperties::DIRNAME_RESOURCE_SKIN_USER == "") {
+
+    } else {
+        if (!PathFileExists(GgafProperties::DIR_SKIN_KIND[1].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIRNAME_RESOURCE_SKIN_USERを指定しましたが、\n("<<GgafProperties::DIR_SKIN_KIND[1]<<") のディレクトリが見つかりません。");
+        }
+    }
+
     _TRACE_("GgafProperties::MAX_SKIP_FRAME="<<GgafProperties::MAX_SKIP_FRAME);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN1="<<GgafProperties::DRAWNUM_TO_SLOWDOWN1);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::DRAWNUM_TO_SLOWDOWN2);
     _TRACE_("GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX="<<GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX);
+    _TRACE_("GgafProperties::DIR_RESOURCE="<<GgafProperties::DIR_RESOURCE);
+    _TRACE_("GgafProperties::DIRNAME_RESOURCE_SKIN="<<GgafProperties::DIRNAME_RESOURCE_SKIN);
+    _TRACE_("GgafProperties::DIR_SKIN="<<GgafProperties::DIR_SKIN);
+    _TRACE_("GgafProperties::DIR_SKIN_KIND[0]="<<GgafProperties::DIR_SKIN_KIND[0]);
+    _TRACE_("GgafProperties::DIR_SKIN_KIND[1]="<<GgafProperties::DIR_SKIN_KIND[1]);
+
     GgafUtil::writeProperties("back.properties", _pMapProperties);
 }
 

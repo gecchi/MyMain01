@@ -12,6 +12,7 @@ namespace GgafDxCore {
 class GgafDxTexture : public GgafCore::GgafObject {
     friend class GgafDxTextureManager;
 
+    static std::string getTextureFileName(std::string prm_file);
 protected:
 public:
 

@@ -9,7 +9,7 @@ using namespace IkdLib;
 //        throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_ogg_name<<") DirectSound が、まだ初期化されていません。");
 //    }
 //    _file_name = std::string(prm_ogg_name);
-//    std::string ogg_filename = GGAF_PROPERTY(DIR_OGG) + _file_name + ".ogg";
+//    std::string ogg_filename = GGAF_PROPERTY(DIR_OGG[0]) + _file_name + ".ogg";
 //    _pOggResource = NEW OggVorbisFile( ogg_filename.c_str() );
 //    _pOggDecoder =  NEW OggDecoder( _pOggResource );
 //    _pPcmPlayer = NEW PCMPlayer(GgafDxSound::_pIDirectSound8 , _pOggDecoder);
@@ -24,10 +24,26 @@ GgafDxBgm::GgafDxBgm(char* prm_bgm_key) : GgafObject() {
     _bpm = atoi((*GgafProperties::_pMapProperties)[bgm_key+"_BPM"].c_str());
     _title = (*GgafProperties::_pMapProperties)[bgm_key+"_TITLE"];
     _TRACE_("GgafDxBgm::GgafDxBgm KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
-    std::string full_ogg_file_name = GGAF_PROPERTY(DIR_OGG) + std::string(_ogg_file_name);
+    std::string full_ogg_file_name = getOggFileName(_ogg_file_name);
     _pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );
     _pOggDecoder =  NEW OggDecoder( _pOggResource );
     _pPcmPlayer = NEW PCMPlayer(GgafDxSound::_pIDirectSound8 , _pOggDecoder);
+}
+
+std::string GgafDxBgm::getOggFileName(std::string prm_file) {
+    std::string ogg_file = GGAF_PROPERTY(DIR_OGG[1]) + "/" + prm_file;
+    GgafUtil::strReplace(ogg_file, "//", "/");
+    if (PathFileExists(ogg_file.c_str()) ) {
+        return ogg_file; //ユーザースキンに存在すればそれを優先
+    } else {
+        ogg_file = GGAF_PROPERTY(DIR_OGG[0]) + "/" + prm_file;
+        GgafUtil::strReplace(ogg_file, "//", "/");
+        if (PathFileExists(ogg_file.c_str()) ) {
+            return ogg_file;
+        } else {
+            throwGgafCriticalException("GgafDxBgm::getOggFileName oggファイルが見つかりません。ogg_file="<<ogg_file);
+        }
+    }
 }
 
 void GgafDxBgm::play(int prm_volume, float prm_pan, bool prm_is_looping) {
