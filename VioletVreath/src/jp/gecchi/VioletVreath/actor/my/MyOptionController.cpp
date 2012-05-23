@@ -20,13 +20,8 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
 
     renge_ = 80000;
 
-    _pKurokoB->forceVxMvVeloRange(-renge_, renge_);
-    _pKurokoB->forceVyMvVeloRange(-renge_, renge_);
-    _pKurokoB->forceVzMvVeloRange(-renge_, renge_);
-
-    _pKurokoB->forceVxMvAcceRange(-renge_ / 30, renge_ / 30);
-    _pKurokoB->forceVyMvAcceRange(-renge_ / 30, renge_ / 30);
-    _pKurokoB->forceVzMvAcceRange(-renge_ / 30, renge_ / 30);
+    _pKurokoB->forceVxyzMvVeloRange(-renge_, renge_);
+    _pKurokoB->forceVxyzMvAcceRange(-renge_ / 30, renge_ / 30);
 
     pOption_ = NEW MyOption("MY_OPTION01", no_, this);
     addSubGroup(pOption_);
@@ -46,10 +41,8 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     }
 }
 
-
 void MyOptionController::initialize() {
 }
-
 
 void MyOptionController::onReset() {
     _pKurokoA->setMvVelo(0);
@@ -62,13 +55,10 @@ void MyOptionController::onReset() {
 }
 
 void MyOptionController::onActive() {
-    reset();
+//    reset();
 }
 
 void MyOptionController::processBehavior() {
-//    if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-//        dump();
-//    }
     MyShip* pMyShip = P_MYSHIP;
 
     if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
@@ -86,10 +76,11 @@ void MyOptionController::processBehavior() {
         MyOptionController::adjustDefaltAngPosition(60);
         pOption_->return_to_base_radiusPosition_seq_ = true;
         pOption_->return_to_base_angExpanse_seq_= true;
-        EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
-        if (pTurbo002) {
-            pTurbo002->locatedBy(pOption_);
-            pTurbo002->activate();
+        if (pOption_->isActive()) {
+            EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
+            if (pTurbo002) {
+                pTurbo002->locatedBy(pOption_);
+            }
         }
     } else if (VB_PLAY->isBeingPressed(VB_OPTION) && !VB_PLAY->isBeingPressed(VB_TURBO)) {
         //オプション向き操作
@@ -105,27 +96,20 @@ void MyOptionController::processBehavior() {
         if (VB_PLAY->isBeingPressed(VB_LEFT)) {
             _pKurokoA->addRyMvAng(-angVelo_Turn_);
         }
-
     }
 
     if (VB_PLAY->isRoundPushDown(VB_OPTION)) {
-        if (pOption_) {
-            is_free_from_myship_mode_ = true;
-            is_handle_move_mode_ = true;
-            _pKurokoB->setVxMvAcce(0);
-            _pKurokoB->setVyMvAcce(0);
-            _pKurokoB->setVzMvAcce(0);
-            _pKurokoB->setVxMvVelo(0);
-            _pKurokoB->setVyMvVelo(0);
-            _pKurokoB->setVzMvVelo(0);
+        is_free_from_myship_mode_ = true;
+        is_handle_move_mode_ = true;
+        _pKurokoB->setZeroVxyzMvVelo();
+        _pKurokoB->setZeroVxyzMvAcce();
+        if (pOption_->isActive()) {
             EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
             if (pTurbo002) {
                 pTurbo002->locatedBy(pOption_);
-                pTurbo002->activate();
             }
         }
     }
-
 
     if (is_free_from_myship_mode_) {
         if (VB_PLAY->isBeingPressed(VB_OPTION) && is_handle_move_mode_) {
@@ -139,10 +123,6 @@ void MyOptionController::processBehavior() {
             _pKurokoA->setMvVelo(0);
         }
     } else {
-        //GgafDxGeoElem* pGeoMyShipTrace = pMyShip->pRing_OptCtrlGeoHistory_->getPrev(4); //自機にすこしおくれて追従
-
-
-
         GgafDxGeoElem* pGeoMyShipTrace = pMyShip->pRing_MyShipGeoHistory4OptCtrlr_->getPrev(MyOptionController::o2o_*(no_+1));
         coord TX = pMyShip->_X_local + pGeoMyShipTrace->_X;
         coord TY = pMyShip->_Y_local + pGeoMyShipTrace->_Y;
@@ -163,12 +143,8 @@ void MyOptionController::processBehavior() {
                 ABS(_pKurokoB->_veloVzMv) < 20000    ) {
 
                 _TRACE_("もどった！");
-                _pKurokoB->setVxMvVelo(0);
-                _pKurokoB->setVyMvVelo(0);
-                _pKurokoB->setVzMvVelo(0);
-                _pKurokoB->setVxMvAcce(0);
-                _pKurokoB->setVyMvAcce(0);
-                _pKurokoB->setVzMvAcce(0);
+                _pKurokoB->setZeroVxyzMvVelo();
+                _pKurokoB->setZeroVxyzMvAcce();
                 locate(TX, TY, TZ);
                 return_to_default_position_seq_ = false;
             }

@@ -14,12 +14,10 @@ public:
     static std::string DIRNAME_RESOURCE_WALL;
     /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_SPLINE;
-
     /** [r] シーン地形データファイル(datファイル)格納ディレクトリ(0:default/1:ユーザー) */
     static std::string DIR_WALL;
     /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ(0:default/1:ユーザー) */
     static std::string DIR_SPLINE;
-
     /** [r] ８分木空間レベル数 */
     static int OCTREE_LEVEL;
 

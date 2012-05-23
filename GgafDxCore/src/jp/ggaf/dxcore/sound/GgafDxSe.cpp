@@ -128,13 +128,13 @@ void GgafDxSe::play(int prm_volume, float prm_pan, float prm_frequency) {
 }
 
 void GgafDxSe::setVolume(int prm_volume) {
-    int db = GgafDxSound::aDbVolume[(LONG)(prm_volume * GgafDxSound::_master_volume_rate * GgafDxSound::_se_volume_rate)];
+    LONG db = GgafDxSound::aDbVolume[(int)(prm_volume * GgafDxSound::_master_volume_rate * GgafDxSound::_se_volume_rate)];
     HRESULT hr = _pIDirectSoundBuffer->SetVolume(db);
     checkDxException(hr, DS_OK, "GgafDxSe::setVolume() SetVolume("<<prm_volume<<") ‚ªŽ¸”s‚µ‚Ü‚µ‚½B");
 }
 
 void GgafDxSe::setPan(float prm_pan) {
-    HRESULT hr = _pIDirectSoundBuffer->SetPan(prm_pan*DSBPAN_RIGHT);
+    HRESULT hr = _pIDirectSoundBuffer->SetPan((LONG)(prm_pan*DSBPAN_RIGHT));
     checkDxException(hr, DS_OK, "GgafDxSe::setPan() SetPan("<<prm_pan<<") ‚ªŽ¸”s‚µ‚Ü‚µ‚½B");
 }
 

@@ -55,8 +55,8 @@ void EnemyJuno::processBehavior() {
     if (do_Shot_) {
         if (getActivePartFrame() == frame_when_shot_) {
             _pKurokoA->setMvVelo(PX_C(3)); //Œ¸‘¬
-            _pKurokoA->execTurnRxSpinAngSequence(D180ANG, 8000, 0, TURN_CLOCKWISE);
-        } else if (getActivePartFrame() == frame_when_shot_ + 20) {
+            _pKurokoA->execTurnRxSpinAngSequence(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE);
+        } else if (getActivePartFrame() == frame_when_shot_ + 60) {
             MyShip* pM = P_MYSHIP;
             if (pDepo_Shot_) {
                 GgafDxGeometricActor* pFirst =
@@ -64,7 +64,7 @@ void EnemyJuno::processBehavior() {
                                       pM->_X, pM->_Y, pM->_Z,
                                       pDepo_Shot_,
                                       PX_C(10),
-                                      10000, 200,
+                                      10000, 100,
                                       3, 5, 0.9,
                                       EnemyJuno::callbackDispatched);
                 if (pFirst) {

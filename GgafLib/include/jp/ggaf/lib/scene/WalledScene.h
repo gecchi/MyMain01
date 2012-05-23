@@ -17,6 +17,7 @@ public:
     GgafCore::GgafActorDepository* _pDepo_WallAAB;
     GgafCore::GgafActorDepository* _pDepo_WallAAPrism;
 
+    frame _loop_active_frames;
     /**
      * コンストラクタ
      * @param prm_name

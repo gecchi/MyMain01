@@ -8,10 +8,11 @@ WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _pDepo_WallAAB = NULL;
     _pDepo_WallAAPrism = NULL;
     _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
+    _loop_active_frames = 0;
 }
 
 void WalledScene::buildWalledScene(
-        int prm_wall_dep, int prm_wall_width, int prm_wall_height,
+        coord prm_wall_dep, int prm_wall_width, int prm_wall_height,
         WalledSectionScene** prm_papSection, int prm_section_num,
         GgafActorDepository* prm_pDepo_WallAAB,
         GgafActorDepository* prm_pDepo_WallAAPrism) {
@@ -83,13 +84,14 @@ void WalledScene::initialize() {
     //配下シーンに再設定する。
     getDirector()->addSubGroup(_pDepo_WallAAB->extract());
     if (_pDepo_WallAAPrism) {
-		getDirector()->addSubGroup(_pDepo_WallAAPrism->extract());
+        getDirector()->addSubGroup(_pDepo_WallAAPrism->extract());
     }
 }
 
 void WalledScene::onActive() {
     WalledSectionScene* pCurrentSection = _pRingSection->getCurrent();
     pCurrentSection->activate();
+    _loop_active_frames = 120 + (GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed();
 }
 
 void WalledScene::processBehavior() {
@@ -99,16 +101,14 @@ void WalledScene::processBehavior() {
             WalledSectionScene* pNewSection = _pRingSection->next();
             pNewSection->activate();
             pNewSection->_pWallPartsLast = pCurrentSection->getLastWallParts();
-            pCurrentSection->end(
-                    120 + (GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed()
-                 );
+            pCurrentSection->end(_loop_active_frames);
         }
     } else {
         if (pCurrentSection->_is_loop_end) {
-            end(120 + (GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed());
+            end(_loop_active_frames);
         }
     }
-	ScrolledScene::processBehavior();
+    ScrolledScene::processBehavior();
 }
 
 void WalledScene::processFinal() {

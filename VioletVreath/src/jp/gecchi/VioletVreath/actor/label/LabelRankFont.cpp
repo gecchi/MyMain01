@@ -173,7 +173,7 @@ void LabelRankFont::processBehavior() {
 
         case RANKFONT_PROG_RANKUP: {
             if (_pProg->isJustChanged()) {
-                _pModel->_pTextureBlinker->beat(10, 10, 1, 3);
+                _pModel->_pTextureBlinker->beat(30, 15, 1, 3);
             }
             if (_pModel->_pTextureBlinker->_method == NOBLINK) {
                 _pProg->change(RANKFONT_PROG_NOMALDISP);

@@ -33,7 +33,7 @@ void StageWorld::processBehavior() {
             _RANK_UP_LEVEL_ = _RANK_UP_LEVEL_ + 1;
             pRankUpStageCtrlr_->execute();
             _TRACE_("P_STAGE_CTRLER をスロー");
-            P_STAGE_CTRLER->addRunFrameOnce(1); //スロー開始
+            pStageCtrlr_->addRunFrameOnce(1); //スロー開始
         } else {
             //スルー
         }
@@ -46,13 +46,15 @@ void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
         _TRACE_("StageWorld::onCatchEvent EVENT_RANKUP_WAS_END");
         //スロー回復
         _TRACE_("P_STAGE_CTRLER をスロー回復");
-        P_STAGE_CTRLER->addRunFrameOnce(-1); //スロー開始
+        pStageCtrlr_->addRunFrameOnce(-1); //スロー開始
     }
 }
 
 StageWorld::~StageWorld() {
-    if (P_STAGE_CTRLER->pStageMainCannel_) {
-        P_STAGE_CTRLER->pStageMainCannel_->end();
-        P_STAGE_CTRLER->pStageMainCannel_ = NULL;
+    //_TRACE_("StageWorld::~StageWorld() pStageCtrlr_="<<pStageCtrlr_<<" ");
+    //_TRACE_("StageWorld::~StageWorld() pStageCtrlr_->pStageMainCannel_="<<pStageCtrlr_->pStageMainCannel_<<"");
+    if (pStageCtrlr_->pStageMainCannel_) {
+        pStageCtrlr_->pStageMainCannel_->end();
+        pStageCtrlr_->pStageMainCannel_ = NULL;
     }
 }

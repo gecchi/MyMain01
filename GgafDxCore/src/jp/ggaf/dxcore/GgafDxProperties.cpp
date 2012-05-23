@@ -224,25 +224,37 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     GgafUtil::strReplace(GgafDxProperties::DIR_OGG[1]           , "//", "/");
     GgafUtil::strReplace(GgafDxProperties::DIR_WAVE[1]          , "//", "/");
 
-
-//    if (!PathFileExists(GgafDxProperties::DIR_MESH_MODEL[0].c_str()) ) {
-//        throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_MESH_MODEL[0]("<<GgafDxProperties::DIR_MESH_MODEL[0]<<") のディレクトリが見つかりません。");
-//    }
-//    if (!PathFileExists(GgafDxProperties::DIR_SPRITE_MODEL[0].c_str()) ) {
-//        throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_SPRITE_MODEL[0]("<<GgafDxProperties::DIR_SPRITE_MODEL[0]<<") のディレクトリが見つかりません。");
-//    }
-//    if (!PathFileExists(GgafDxProperties::DIR_TEXTURE[0].c_str()) ) {
-//        throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_TEXTURE[0]("<<GgafDxProperties::DIR_TEXTURE[0]<<") のディレクトリが見つかりません。");
-//    }
-//    if (!PathFileExists(GgafDxProperties::DIR_EFFECT[0].c_str()) ) {
-//        throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_EFFECT[0]("<<GgafDxProperties::DIR_EFFECT[0]<<") のディレクトリが見つかりません。");
-//    }
-//    if (!PathFileExists(GgafDxProperties::DIR_OGG[0].c_str()) ) {
-//        throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_OGG[0]("<<GgafDxProperties::DIR_OGG[0]<<") のディレクトリが見つかりません。");
-//    }
-//    if (!PathFileExists(GgafDxProperties::DIR_WAVE[0].c_str()) ) {
-//        throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_WAVE[0]("<<GgafDxProperties::DIR_WAVE[0]<<") のディレクトリが見つかりません。");
-//    }
+    //指定があるのならば、ディレクトリ存在チェック
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MESH")) {
+        if (!PathFileExists(GgafDxProperties::DIR_MESH_MODEL[0].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_MESH_MODEL[0]("<<GgafDxProperties::DIR_MESH_MODEL[0]<<") のディレクトリが見つかりません。");
+        }
+    }
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_SPRITE")) {
+        if (!PathFileExists(GgafDxProperties::DIR_SPRITE_MODEL[0].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_SPRITE_MODEL[0]("<<GgafDxProperties::DIR_SPRITE_MODEL[0]<<") のディレクトリが見つかりません。");
+        }
+    }
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_TEXTURE")) {
+        if (!PathFileExists(GgafDxProperties::DIR_TEXTURE[0].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_TEXTURE[0]("<<GgafDxProperties::DIR_TEXTURE[0]<<") のディレクトリが見つかりません。");
+        }
+    }
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_EFFECT")) {
+        if (!PathFileExists(GgafDxProperties::DIR_EFFECT[0].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_EFFECT[0]("<<GgafDxProperties::DIR_EFFECT[0]<<") のディレクトリが見つかりません。");
+        }
+    }
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_OGG")) {
+        if (!PathFileExists(GgafDxProperties::DIR_OGG[0].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_OGG[0]("<<GgafDxProperties::DIR_OGG[0]<<") のディレクトリが見つかりません。");
+        }
+    }
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_WAVE")) {
+        if (!PathFileExists(GgafDxProperties::DIR_WAVE[0].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_WAVE[0]("<<GgafDxProperties::DIR_WAVE[0]<<") のディレクトリが見つかりません。");
+        }
+    }
 
     _TRACE_("GgafDxProperties::FULL_SCREEN=" << GgafDxProperties::FULL_SCREEN);
     _TRACE_("GgafDxProperties::DUAL_VIEW=" << GgafDxProperties::DUAL_VIEW);

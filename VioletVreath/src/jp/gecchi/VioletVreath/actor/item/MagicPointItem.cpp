@@ -37,37 +37,41 @@ void MagicPointItem::initialize() {
 }
 
 void MagicPointItem::onActive() {
+    // _X, _Y, _Z は発生元座標に設定済み
     setHitAble(true, false);
-    _pKurokoA->setMvVelo(2000);
-    _pKurokoA->setMvAcce(100);
-    _pKurokoA->forceMvVeloRange(0, 20000);
+
     _pKurokoB->forceVxyzMvVeloRange(-30000, 30000);
     _pKurokoB->setZeroVxyzMvVelo();
     _pKurokoB->setZeroVxyzMvAcce();
     _pKurokoB->stopGravitationMvSequence();
-    _pProg->set(ITEM_PROG_DRIFT);
-    _SX = _SY = _SZ = 1000;
 
     //初期方向設定
     MyShip* pMyShip = P_MYSHIP;
-    //散らばり範囲正方形１辺の長さ
-    int scattered_renge    = _pColliChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
-    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
-    int scattered_distance = scattered_renge/2 + 400000;
-    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
+//    //散らばり範囲正方形１辺の長さ
+//    int scattered_renge    = _pColliChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
+//    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
+////    int scattered_distance = scattered_renge/2 + 400000;
+//    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
 
+    _pKurokoA->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     GgafDxUtil::getNormalizeVector(
             pMyShip->_X - _X,
             pMyShip->_Y - _Y,
             pMyShip->_Z - _Z,
             vX, vY, vZ);
-
+    int d = PX_C(200);
+    int r = PX_C(75);
     _pKurokoA->setMvAng(
-            (int)(_X + (vX * scattered_distance) + RND(-scattered_renge/2, scattered_renge/2)),
-            (int)(_Y + (vY * scattered_distance) + RND(-scattered_renge/2, scattered_renge/2)),
-            (int)(_Z + (vZ * scattered_distance) + RND(-scattered_renge/2, scattered_renge/2))
+            (coord)(_X + (vX * d) + RND(-r, +r)),
+            (coord)(_Y + (vY * d) + RND(-r, +r)),
+            (coord)(_Z + (vZ * d) + RND(-r, +r))
     );
+    _pKurokoA->setMvVelo(2000);
+    _pKurokoA->setMvAcce(100);
+
+    _pProg->set(ITEM_PROG_DRIFT);
+    _SX = _SY = _SZ = 1000;
 }
 
 void MagicPointItem::processBehavior() {

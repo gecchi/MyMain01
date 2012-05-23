@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 
-GgafDxSeTransmitter::GgafDxSeTransmitter() :  GgafObject() {
+GgafDxSeTransmitter::GgafDxSeTransmitter() : GgafObject() {
     _se_num = 0;
     _papSeCon = NULL;
 }

@@ -5,8 +5,8 @@ using namespace GgafLib;
 
 std::string GgafLibProperties::DIRNAME_RESOURCE_WALL = "wall";
 std::string GgafLibProperties::DIRNAME_RESOURCE_SPLINE = "spline";
-std::string GgafLibProperties::DIR_WALL  = GgafProperties::DIR_RESOURCE + "/" + GgafLibProperties::DIRNAME_RESOURCE_WALL;
-std::string GgafLibProperties::DIR_SPLINE = GgafProperties::DIR_RESOURCE + "/" + GgafLibProperties::DIRNAME_RESOURCE_SPLINE;
+std::string GgafLibProperties::DIR_WALL  = GgafProperties::DIR_RESOURCE + "/" + GgafLibProperties::DIRNAME_RESOURCE_WALL + "/" ;
+std::string GgafLibProperties::DIR_SPLINE = GgafProperties::DIR_RESOURCE + "/" + GgafLibProperties::DIRNAME_RESOURCE_SPLINE + "/" ;
 
 int GgafLibProperties::OCTREE_LEVEL = 1;
 
@@ -29,13 +29,17 @@ void GgafLibProperties::load(std::string prm_properties_filename) {
     GgafUtil::strReplace(GgafLibProperties::DIR_WALL, "//", "/");
     GgafUtil::strReplace(GgafLibProperties::DIR_SPLINE , "//", "/");
 
-    //DIR存在チェック
-//    if (!PathFileExists(GgafLibProperties::DIR_WALL.c_str()) ) {
-//        throwGgafCriticalException("GgafLibProperties::load("<<prm_properties_filename<<") DIR_WALL("<<GgafLibProperties::DIR_WALL<<") のディレクトリが見つかりません。");
-//    }
-//    if (!PathFileExists(GgafLibProperties::DIR_SPLINE.c_str()) ) {
-//        throwGgafCriticalException("GgafLibProperties::load("<<prm_properties_filename<<") DIR_WALL("<<GgafLibProperties::DIR_SPLINE<<") のディレクトリが見つかりません。");
-//    }
+    //指定があるのならば、ディレクトリ存在チェック
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_WALL")) {
+        if (!PathFileExists(GgafLibProperties::DIR_WALL.c_str()) ) {
+            throwGgafCriticalException("GgafLibProperties::load("<<prm_properties_filename<<") DIR_WALL("<<GgafLibProperties::DIR_WALL<<") のディレクトリが見つかりません。");
+        }
+    }
+    if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SPLINE")) {
+        if (!PathFileExists(GgafLibProperties::DIR_SPLINE.c_str()) ) {
+            throwGgafCriticalException("GgafLibProperties::load("<<prm_properties_filename<<") DIR_WALL("<<GgafLibProperties::DIR_SPLINE<<") のディレクトリが見つかりません。");
+        }
+    }
 
     _TRACE_("GgafLibProperties::DIRNAME_RESOURCE_WALL=" << GgafLibProperties::DIRNAME_RESOURCE_WALL);
     _TRACE_("GgafLibProperties::DIRNAME_RESOURCE_SPLINE=" << GgafLibProperties::DIRNAME_RESOURCE_SPLINE);

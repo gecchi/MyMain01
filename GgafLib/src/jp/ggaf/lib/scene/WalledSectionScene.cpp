@@ -91,7 +91,7 @@ void WalledSectionScene::onActive() {
     _cnt_area_len = 0;
     _cnt_loop = 0;
     _is_loop_end = false;
-    _wall_start_X = GgafDxUniverse::_X_goneRight - _wall_dep;
+    _wall_start_X = GgafDxUniverse::_X_goneRight + _wall_dep;
 }
 
 void WalledSectionScene::processBehavior() {

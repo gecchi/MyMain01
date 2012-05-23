@@ -90,7 +90,11 @@ void StageController::processBehavior() {
                 _TRACE_("StageController::processBehavior() Prog(=StageController::PROG_PLAY_STAGE) is Just Changed. main_stage_="<<main_stage_);
                 readyStage(main_stage_); //念のために呼ぶ。通常はもう準備できているハズ。
                 //ステージシーン追加
+                if (pStageMainCannel_) {
+                    _TRACE_("いいのか！ StageController::PROG_PLAY_STAGE: 旧 pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
+                }
                 pStageMainCannel_ = (Stage*)obtainSceneFromFactory(ORDER_ID_STAGE+main_stage_);
+                _TRACE_("StageController::PROG_PLAY_STAGE: 新 pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
                 pStageMainCannel_->fadeoutScene(0);
                 addSubLast(pStageMainCannel_);
                 pStageMainCannel_->fadeinSceneTree(180);

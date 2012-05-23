@@ -13,8 +13,8 @@ FormationJuno001::FormationJuno001(const char* prm_name) :
                    D0ANG, D180ANG,
                    30000,
                    D0ANG, D90ANG,
-                   150,
-                   10) {
+                   500,
+                   6) {
     _class_name = "FormationJuno001";
 }
 

@@ -46,7 +46,7 @@ public:
         return r;
     }
 
-    static std::string _itos_(int prm_n) {
+    static inline std::string _itos_(int prm_n) {
         std::ostringstream oss;
         oss << prm_n;
         return oss.str();
@@ -58,7 +58,7 @@ public:
      * @param s2
      * @return s1 > s2 で正の値、s1 < s2 で負の値、s1 = s2で 0 を返す。
      */
-    static int strcmp_ascii(const char* s1, const char* s2) {
+    static inline int strcmp_ascii(const char* s1, const char* s2) {
         while (*s1 == *s2++)
             if (*s1++ == 0) return (0);
         return (*s1 - *(s2 - 1));
@@ -69,7 +69,7 @@ public:
      * @param s2
      * @return s1 > s2 で正の値、s1 < s2 で負の値、s1 = s2で 0 を返す。
      */
-    static int strcmp_ascii(char* s1, const char* s2) {
+    static inline int strcmp_ascii(char* s1, const char* s2) {
         while (*s1 == *s2++)
             if (*s1++ == 0) return (0);
         return (*s1 - *(s2 - 1));
@@ -116,7 +116,7 @@ public:
      * @param str 文字列
      * @return ハッシュ値
      */
-    static const hashval easy_hash(const char* str) {
+    static inline const hashval easy_hash(const char* str) {
         hashval hash = 5381;
         char c;
         while ((c = *str++) > 0) { //strの\0までループ （演算子 "==" と間違えていません）
@@ -131,14 +131,8 @@ public:
      * @return
      */
     template<typename T>
-    static int _sgn_(T x) {
-        if (x < 0) {
-            return -1;
-        } else if (x > 0) {
-            return 1;
-        } else {
-            return 0;
-        }
+    static inline T _sgn_(T x) {
+        return x<0 ? -1 : x>0;
     }
 
     /**
@@ -147,7 +141,7 @@ public:
      * @return
      */
     template<typename T>
-    static T _abs_(T x) {
+    static inline T _abs_(T x) {
         return x < 0 ? -x : x;
     }
 
@@ -166,7 +160,7 @@ public:
      * @param s 精度（計算ループ回数。回数が多いほど正確。省略時19）
      * @return 引数aの平方根近似値
      */
-    static double sqrt_fast(double a, int s = 19) {
+    static inline double sqrt_fast(double a, int s = 19) {
         double ret = 1;
         for (int i = 1; i <= s; i++) {
             ret = 0.5 * (ret + a / ret);
@@ -175,16 +169,16 @@ public:
     }
 
     template<typename T>
-    static T _max2_(T a, T b) {
+    static inline T _max2_(T a, T b) {
         return ( ((a) > (b) ? (a) : (b))   );
     }
 
     template<typename T>
-    static T _max3_(T a, T b, T c) {
+    static inline T _max3_(T a, T b, T c) {
         return ( (a)>(b) ? ((a)>(c)?(a):(c)) : ((b)>(c)?(b):(c)) );
     }
 
-    static size_t hex2dec(const std::string &prm_hex) {
+    static inline size_t hex2dec(const std::string &prm_hex) {
         std::istringstream iss(prm_hex);
         size_t val;
         iss >> std::hex >> val;

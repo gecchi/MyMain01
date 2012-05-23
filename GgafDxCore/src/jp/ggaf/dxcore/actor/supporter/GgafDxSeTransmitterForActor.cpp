@@ -105,6 +105,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     float rate_frequency;
     bool calc_flg = true;
     GgafDxCamera* pCam = P_CAM;
+
     for (int i = 0; i < _se_num; i++) {
         if (_paBool_is_3d[i]) {
             if (_papSeCon[i]->fetch()->isPlaying()) {

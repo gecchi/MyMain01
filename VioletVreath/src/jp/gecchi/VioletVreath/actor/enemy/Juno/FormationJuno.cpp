@@ -41,7 +41,8 @@ FormationJuno::FormationJuno(
 
     pDepo_EnemyJuno_ = NEW GgafActorDepository("RotEnemyJuno");
     for (int i = 0; i < prm_nJunoStock; i++) {
-        EnemyJuno* pEnemyJuno = NEW EnemyJuno("Juno01");
+        std::string name = "Juno"+ITOS(i);
+        EnemyJuno* pEnemyJuno = NEW EnemyJuno(name.c_str());
         pEnemyJuno->setDepository_Shot(pDepoCon_->fetch()); //’eÝ’è
         pEnemyJuno->_pKurokoA->relateFaceAngWithMvAng(true);
         pEnemyJuno->_pKurokoA->setMvVelo(prm_veloMv_Juno);

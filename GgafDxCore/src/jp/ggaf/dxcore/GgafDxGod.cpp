@@ -477,7 +477,7 @@ HRESULT GgafDxGod::init() {
 
     if(GGAF_PROPERTY(DUAL_VIEW)) {
         //マルチサンプルの数
-        _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE; D3DMULTISAMPLE_2_SAMPLES
         //マルチサンプルの品質レベル
         _paPresetPrm[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
         //マルチサンプルの数
@@ -908,14 +908,14 @@ HRESULT GgafDxGod::initDx9Device() {
     // アンチエイリアスの指定
     //GgafDxGod::_pID3DDevice9->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
     //GgafDxGod::_pID3DDevice9->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
-    //	TypeにD3DSAMP_MINFILTER/D3DSAMP_MAGFILTER（拡大/縮小時） ??D3DTSS_MAGFILTER
-    //	ValueにD3DTEXTUREFILTERTYPE列挙型を指定する
-    //	D3DTEXF_POINT　　　　：フィルタをかけない。高速描画できる
-    //	D3DTEXF_LINEAR　　　：リニアフィルタ（線形補完）
-    //	D3DTEXF_ANISOTROPIC　：異方性フィルタ。地表面などの、拡大縮小率が手前と奥で異なる場合に使う
-    //	D3DTEXF_PYRAMIDALQUAD：テントフィルタ。リニアフィルタとあまり変わんないらしい
-    //	D3DTEXF_GAUSSIANQUAD ：ガウシアンフィルタ。またの名をぼかしフィルタ
-    //	を指定する。
+    //  TypeにD3DSAMP_MINFILTER/D3DSAMP_MAGFILTER（拡大/縮小時） ??D3DTSS_MAGFILTER
+    //  ValueにD3DTEXTUREFILTERTYPE列挙型を指定する
+    //  D3DTEXF_POINT　　　　：フィルタをかけない。高速描画できる
+    //  D3DTEXF_LINEAR　　　：リニアフィルタ（線形補完）
+    //  D3DTEXF_ANISOTROPIC　：異方性フィルタ。地表面などの、拡大縮小率が手前と奥で異なる場合に使う
+    //  D3DTEXF_PYRAMIDALQUAD：テントフィルタ。リニアフィルタとあまり変わんないらしい
+    //  D3DTEXF_GAUSSIANQUAD ：ガウシアンフィルタ。またの名をぼかしフィルタ
+    //  を指定する。
 
     //2009/3/4 SetSamplerStateの意味を今ごろ理解する。
     //SetSamplerStateはテクスチャからどうサンプリング（読み取るか）するかの設定。
@@ -976,6 +976,25 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
                                         D3DPOOL_DEFAULT,
                                         &_pRenderTexture,
                                         NULL);
+
+//    LPDIRECT3DTEXTURE9 pIDirect3DTexture9;
+//    HRESULT hr = D3DXCreateTextureFromFileEx(
+//                     GgafDxGod::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice,
+//                     texture_file_name.c_str(), // [in] LPCTSTR pSrcFile,
+//                     D3DX_DEFAULT,              // [in] UINT Widths,
+//                     D3DX_DEFAULT,              // [in] UINT Height,
+//                     D3DX_DEFAULT,              // [in] UINT MipLevels,  //D3DX_DEFAULT,
+//                     0,                         // [in] DWORD Usage,
+//                     D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
+//                     D3DPOOL_DEFAULT,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
+//                     D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ. D3DX_FILTER_LINEAR
+//                     D3DX_DEFAULT,              // [in] DWORD MipFilter,
+//                     0,                         // [in] D3DCOLOR ColorKey,
+//                     _pD3DXIMAGE_INFO,          // [out] D3DXIMAGE_INFO *pSrcInfo,
+//                     NULL,                      // [in] PALETTEENTRY *pPalette,
+//                     &pIDirect3DTexture9        // [out] LPDIRECT3DTEXTURE9* ppTexture
+//                );
+
     //TODO:アンチエイリアスの実験のため
     //     テクスチャーの代わりにサーフェイスを試す事。
     //    HRESULT CreateRenderTarget(
@@ -1215,6 +1234,7 @@ void GgafDxGod::presentUniversalVisualize() {
 
                 hr = GgafDxGod::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
             } else {
+                //１画面使用・フルスクリーン
                 hr = GgafDxGod::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,
                         &_rectRenderTargetBuffer,
