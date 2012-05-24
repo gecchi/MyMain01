@@ -34,7 +34,7 @@ public:
         fin.close();
     }
 
-    uchar _Type;
+    UINT8 _Type;
 protected:
     char* Buffer;
     float TextToNum(char* pText) {
@@ -92,7 +92,7 @@ protected:
     }
     void Remove(char pDelimiter, char* pText) {
         char result[255];
-        uint32 i, j = 0;
+        UINT32 i, j = 0;
         for (i = 0; i < strlen(pText); i++)
             if (pText[i] != pDelimiter)
                 result[j++] = pText[i];

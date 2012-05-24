@@ -39,7 +39,7 @@ public:
     /** [r/w]サウンドエフェクト全般のボリューム割合 0.0～1.0 */
     static float _se_volume_rate;
     /** [r/w]要素番号にボリューム値を入れると、対応デシベルが取得できる配列 */
-    static LONG aDbVolume[GGAF_MAX_VOLUME+1];
+    static int aDbVolume[GGAF_MAX_VOLUME+1];
 
     /**
      * 初期設定 .

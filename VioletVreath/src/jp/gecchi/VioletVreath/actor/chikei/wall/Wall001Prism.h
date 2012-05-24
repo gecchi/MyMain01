@@ -17,7 +17,7 @@ public:
 
     void processBehavior() override;
 
-    bool isOutOfUniverse() override;
+//    bool isOutOfUniverse() override;
 
     virtual ~Wall001Prism() {}
 };

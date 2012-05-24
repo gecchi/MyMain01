@@ -26,6 +26,8 @@ WallPartsActor::WallPartsActor(const char* prm_name,
     _wall_dep = 0;
     _wall_width = 0;
     _wall_height = 0;
+    setHitAble(true);
+
 }
 
 void WallPartsActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -44,7 +46,7 @@ void WallPartsActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 
 void WallPartsActor::initialize() {
-    setHitAble(true);
+
 }
 
 void WallPartsActor::onActive() {

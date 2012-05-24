@@ -39,7 +39,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
     int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;
     double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
-    LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT*0.6))) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
+    int vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT*0.6))) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
                                                                                            //値を減らすと、遠くてもおとがより大きくなる。
     if (VOLUME_MAX_3D < vol) {
         vol = VOLUME_MAX_3D;
@@ -101,7 +101,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     static const int VOLUME_MIN_3D = GGAF_MIN_VOLUME;
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
     float pan;
-    LONG vol;
+    int vol;
     float rate_frequency;
     bool calc_flg = true;
     GgafDxCamera* pCam = P_CAM;

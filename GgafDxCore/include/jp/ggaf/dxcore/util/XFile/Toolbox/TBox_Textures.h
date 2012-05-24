@@ -19,10 +19,10 @@ namespace ToolBox {
 class ConvText {
     public:
        ConvText(void): _tColor(0) {};
-      void SetTranspColor(uchar pr, uchar pg, uchar pb){_tColor = (pr<<16)+(pg<<8)+pb;};
-      void Convert(TEXTURE* pText, uchar pType);
+      void SetTranspColor(UINT8 pr, UINT8 pg, UINT8 pb){_tColor = (pr<<16)+(pg<<8)+pb;};
+      void Convert(TEXTURE* pText, UINT8 pType);
    private:
-      uint32 _tColor; //32 bit color
+      UINT32 _tColor; //32 bit color
       //Conversion functions
       void RGB2RGBA(TEXTURE* pText);
       void RGB2A(TEXTURE* pText);

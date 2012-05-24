@@ -8,33 +8,33 @@
 #define _XFILESTRUCTS_H
 
 #define XOFFILE_FORMAT_MAGIC \
-    ((long)'x' + ((long)'o' << 8) + ((long)'f' << 16) + ((long)' ' << 24))
+    ((INT32)'x' + ((INT32)'o' << 8) + ((INT32)'f' << 16) + ((INT32)' ' << 24))
 
 #define XOFFILE_FORMAT_VERSION03 \
-    ((long)'0' + ((long)'3' << 8))
+    ((INT32)'0' + ((INT32)'3' << 8))
 
 //tsuge alter
 #define XOFFILE_FORMAT_VERSION02 \
-    ((long)'0' + ((long)'2' << 8))
+    ((INT32)'0' + ((INT32)'2' << 8))
 
 #define XOFFILE_FORMAT_BINARY \
-    ((long)'b' + ((long)'i' << 8) + ((long)'n' << 16) + ((long)' ' << 24))
+    ((INT32)'b' + ((INT32)'i' << 8) + ((INT32)'n' << 16) + ((INT32)' ' << 24))
 
 #define XOFFILE_FORMAT_TEXT   \
-    ((long)'t' + ((long)'x' << 8) + ((long)'t' << 16) + ((long)' ' << 24))
+    ((INT32)'t' + ((INT32)'x' << 8) + ((INT32)'t' << 16) + ((INT32)' ' << 24))
 
 #define XOFFILE_FORMAT_COMPRESSED \
-    ((long)'c' + ((long)'m' << 8) + ((long)'p' << 16) + ((long)' ' << 24))
+    ((INT32)'c' + ((INT32)'m' << 8) + ((INT32)'p' << 16) + ((INT32)' ' << 24))
 
 #define XOFFILE_FORMAT_FLOAT_BITS_32 \
-    ((long)'0' + ((long)'0' << 8) + ((long)'3' << 16) + ((long)'2' << 24))
+    ((INT32)'0' + ((INT32)'0' << 8) + ((INT32)'3' << 16) + ((INT32)'2' << 24))
 
 #define XOFFILE_FORMAT_FLOAT_BITS_64 \
-    ((long)'0' + ((long)'0' << 8) + ((long)'6' << 16) + ((long)'4' << 24))
+    ((INT32)'0' + ((INT32)'0' << 8) + ((INT32)'6' << 16) + ((INT32)'4' << 24))
 
 
 struct XFileHeader {
-    unsigned long Magic;
+   unsigned long Magic;
    unsigned short Major_Version;
    unsigned short Minor_Version;
    unsigned long Format;

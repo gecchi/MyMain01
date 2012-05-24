@@ -43,26 +43,26 @@ private:
     Frm::Model3D* _Object;
     std::string active_load_filename;
     //Utilities
-    int16 ProcessBlock(void);
-    int16 BlockID(std::string &pText);
+    INT16 ProcessBlock(void);
+    INT16 BlockID(std::string &pText);
     void AvoidTemplate(void);
-    void Find(uchar pChar);
+    void Find(UINT8 pChar);
     //Unique X struct ID in case no name are found
     //Uses the Windows function GetTickCount
     char* SetUID(char pType);
     //structure used by the previous function to quickly
     //convert a 32 bit number to a non-significant text.
     union {
-        uint32 Integer[2]; //mod tsuge
+        UINT32 Integer[2]; //mod tsuge
         //char Text[5];
         char Text[8+2]; //mod tsuge
     } _X_UID;
 
     /** Xファイル読み込み時の次のトークン予約 */
-    uchar token_next; //add tsuge
+    UINT8 token_next; //add tsuge
 
     //X File struct processing
-    uint32 _MaxKey; //Max animation key for a loaded animation set
+    UINT32 _MaxKey; //Max animation key for a loaded animation set
     void ProcessFrameTransformMatrix(Frm::Bone* &pB);
     void ProcessBone(Frm::Bone* pBone);
     void ProcessMesh(void);

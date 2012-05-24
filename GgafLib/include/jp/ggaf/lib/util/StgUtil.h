@@ -93,15 +93,15 @@ public:
     static inline bool isHit(CollisionChecker* pCChecker01, GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAB*    pAAB01,
                              CollisionChecker* pCChecker02, GgafDxCore::GgafDxGeometricActor* pActor02, ColliSphere* pSphere02) {
         //ƒAAB ‚Æ ‹…„
-        int o_scx = pActor02->_X+pSphere02->_cx;
-        int o_scy = pActor02->_Y+pSphere02->_cy;
-        int o_scz = pActor02->_Z+pSphere02->_cz;
-        int bx1 = pActor01->_X+pAAB01->_x1;
-        int bx2 = pActor01->_X+pAAB01->_x2;
-        int by1 = pActor01->_Y+pAAB01->_y1;
-        int by2 = pActor01->_Y+pAAB01->_y2;
-        int bz1 = pActor01->_Z+pAAB01->_z1;
-        int bz2 = pActor01->_Z+pAAB01->_z2;
+        int o_scx = pActor02->_X + pSphere02->_cx;
+        int o_scy = pActor02->_Y + pSphere02->_cy;
+        int o_scz = pActor02->_Z + pSphere02->_cz;
+        int bx1 = pActor01->_X + pAAB01->_x1;
+        int bx2 = pActor01->_X + pAAB01->_x2;
+        int by1 = pActor01->_Y + pAAB01->_y1;
+        int by2 = pActor01->_Y + pAAB01->_y2;
+        int bz1 = pActor01->_Z + pAAB01->_z1;
+        int bz2 = pActor01->_Z + pAAB01->_z2;
         double square_length = 0; //‹…‚Ì’†S‚ÆAAB‚ÌÅ’Z‹——£‚ğ“ñæ‚µ‚½’l
         if(o_scx < bx1) {
             square_length += (double)(o_scx - bx1) * (o_scx - bx1);

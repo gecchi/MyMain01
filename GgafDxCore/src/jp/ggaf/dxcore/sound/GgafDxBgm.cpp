@@ -65,7 +65,7 @@ void GgafDxBgm::stop() {
 
 void GgafDxBgm::setVolume(int prm_volume) {
     //ボリューム→デシベル
-    int db = GgafDxSound::aDbVolume[(LONG)(prm_volume * GgafDxSound::_master_volume_rate * GgafDxSound::_bgm_volume_rate)];
+    int db = GgafDxSound::aDbVolume[(int)(prm_volume * GgafDxSound::_master_volume_rate * GgafDxSound::_bgm_volume_rate)];
     _pPcmPlayer->setVolume(db);
 }
 

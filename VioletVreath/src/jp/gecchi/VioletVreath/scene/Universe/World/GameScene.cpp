@@ -105,6 +105,7 @@ void GameScene::processBehavior() {
                 _pProg->changeWithSceneCrossfading(GameScene::PROG_PRE_TITLE);
                 P_WORLD->pPreDrawScene_->inactivateTreeImmed();
                 P_WORLD->pPreDrawScene_->pauseTreeImmed();
+
             }
             break;
         }

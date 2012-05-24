@@ -325,8 +325,8 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
 
     GgafDxMeshModel::INDEXPARAM* model_paIndexParam = NULL;
     GgafDxMeshModel::VERTEX*     model_paVtxBuffer_org = NULL;
-    WORD*                         model_paIdxBuffer_org = NULL;
-    D3DMATERIAL9*                 model_paMaterial = NULL;
+    WORD*                        model_paIdxBuffer_org = NULL;
+    D3DMATERIAL9*                model_paMaterial = NULL;
     GgafDxTextureConnection**    model_papTextureCon = NULL;
     int nVertices = 0;
     int nFaces = 0;
@@ -341,7 +341,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
         }
         //メッシュを結合する前に、情報を確保しておく
         int nMesh = (int)model_pModel3D->_Meshes.size();
-        uint16* paNumVertices = NEW uint16[nMesh];
+        UINT16* paNumVertices = NEW UINT16[nMesh];
         int index_Mesh = 0;
         for (std::list<Frm::Mesh*>::iterator iteMeshes = model_pModel3D->_Meshes.begin();
                 iteMeshes != model_pModel3D->_Meshes.end(); iteMeshes++) {
@@ -556,8 +556,8 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
                         nVertices_end += paNumVertices[n];
                     }
 
-                    static D3DXVECTOR3 vecVertex;
-                    static D3DXVECTOR3 vecNormal;
+                    D3DXVECTOR3 vecVertex;
+                    D3DXVECTOR3 vecNormal;
                     for (int i = nVertices_begin; i < nVertices_end; i++) {
                         vecVertex.x = model_paVtxBuffer_org[i].x;
                         vecVertex.y = model_paVtxBuffer_org[i].y;
@@ -582,12 +582,12 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
         DELETE_IMPOSSIBLE_NULL(paNumVertices);
 
         //最後に法線正規化して設定
-        static D3DXVECTOR3 vec;
+        D3DXVECTOR3 vec;
         for (int i = 0; i < nVertices; i++) {
             vec.x = model_paVtxBuffer_org[i].nx;
             vec.y = model_paVtxBuffer_org[i].ny;
             vec.z = model_paVtxBuffer_org[i].nz;
-            if (vec.x == 0 && vec.y == 0 && vec.z == 0) {
+            if (vec.x == 0.0f && vec.y == 0.0f && vec.z == 0.0f) {
                 model_paVtxBuffer_org[i].nx = 0;
                 model_paVtxBuffer_org[i].ny = 0;
                 model_paVtxBuffer_org[i].nz = 0;
@@ -905,7 +905,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
             }
             //メッシュを結合する前に、情報を確保しておく
             int nMesh = (int)model_papModel3D[pattern]->_Meshes.size();
-            uint16* paNumVertices = NEW uint16[nMesh];
+            UINT16* paNumVertices = NEW UINT16[nMesh];
             int index_Mesh = 0;
             for (std::list<Frm::Mesh*>::iterator iteMeshes = model_papModel3D[pattern]->_Meshes.begin();
                     iteMeshes != model_papModel3D[pattern]->_Meshes.end(); iteMeshes++) {
@@ -1213,7 +1213,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
                     vec.x = model_paVtxBuffer_org_primary[i].nx;
                     vec.y = model_paVtxBuffer_org_primary[i].ny;
                     vec.z = model_paVtxBuffer_org_primary[i].nz;
-                    if (vec.x == 0 && vec.y == 0 && vec.z == 0) {
+                    if (vec.x == 0.0f && vec.y == 0.0f && vec.z == 0.0f) {
                         model_paVtxBuffer_org_primary[i].nx = 0;
                         model_paVtxBuffer_org_primary[i].ny = 0;
                         model_paVtxBuffer_org_primary[i].nz = 0;
@@ -2553,7 +2553,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
 
         //メッシュを結合する前に、情報を確保しておく
         int nMesh = (int)model_pModel3D->_Meshes.size();
-        uint16* paNumVertices = NEW uint16[nMesh];
+        UINT16* paNumVertices = NEW UINT16[nMesh];
         int index_Mesh = 0;
         for (std::list<Frm::Mesh*>::iterator iteMeshes = model_pModel3D->_Meshes.begin();
                 iteMeshes != model_pModel3D->_Meshes.end(); iteMeshes++) {
@@ -2842,7 +2842,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
         DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer_org);
 
         //マテリアルリストをセット数分繰り返しコピーで作成
-        uint16* paFaceMaterials = NEW uint16[nFaces * prm_pMeshSetModel->_set_num];
+        UINT16* paFaceMaterials = NEW UINT16[nFaces * prm_pMeshSetModel->_set_num];
         for (int i = 0; i < prm_pMeshSetModel->_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
                 paFaceMaterials[(i*nFaces) + j] = model_pMeshesFront->_FaceMaterials[j];

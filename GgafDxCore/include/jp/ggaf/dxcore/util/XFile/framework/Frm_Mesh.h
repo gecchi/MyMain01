@@ -33,11 +33,11 @@ public:
     }
     ~Bone(void);
     Bone* IsName(std::string &BoneName);
-    void UpdateIndices(uint16 pIndex);
+    void UpdateIndices(UINT16 pIndex);
 
     Matrix _MatrixPos, _SkinOffset;
-    uint32 _nVertices;
-    uint16* _Vertices;
+    UINT32 _nVertices;
+    UINT16* _Vertices;
     float* _Weights;
     std::string _MeshName;
     std::string _Name;
@@ -45,7 +45,7 @@ public:
 };
 
 struct Subset {
-    uint16 Size;
+    UINT16 Size;
     Face* Faces;
 };
 
@@ -68,46 +68,46 @@ public:
     void UpdateIndices(void);
     void CreateSubsets(void);
     //Vertices
-    uint16 _nVertices, _FirstVertex;
+    UINT16 _nVertices, _FirstVertex;
     Vertex* _Vertices;
     //Texture Coords for each vertex
-    uint16 _nTextureCoords, _FirstTextureCoord;
+    UINT16 _nTextureCoords, _FirstTextureCoord;
     TCoord* _TextureCoords;
     //Faces
-    uint32 _nFaces, _FirstFace;
+    UINT32 _nFaces, _FirstFace;
     Face* _Faces;
     //Subset of a mesh: there is one subset for each material used
     std::list<Subset*> _Subsets;
     //Normals
-    uint16 _nNormals, _FirstNormal;
+    UINT16 _nNormals, _FirstNormal;
     vector<float>* _Normals;
-    uint16 _nFaceNormals;
+    UINT16 _nFaceNormals;
     Face* _FaceNormals;   //add tsuge
     //Material index for each face
-    uint16 _nMaterials, _FirstMaterial;
-    uint16* _FaceMaterials;
+    UINT16 _nMaterials, _FirstMaterial;
+    UINT16* _FaceMaterials;
     //list of Materials for that Mesh
     std::list<Material*> _Materials;
     std::string _Name;
 };
 
 typedef struct {
-    uint32 Time;
+    UINT32 Time;
     Frm::Quaternion Rotation;
 } RotateKey;
 
 typedef struct {
-    uint32 Time;
+    UINT32 Time;
     Frm::Vertex Translation;
 } PositionKey;
 
 typedef struct {
-    uint32 Time;
+    UINT32 Time;
     Frm::Vector Scale;
 } ScaleKey;
 
 typedef struct {
-    uint32 Time;
+    UINT32 Time;
     Frm::Matrix Matrix;
 } MatrixKey;
 
@@ -141,7 +141,7 @@ public:
     Animation* FindAnimation(std::string &pText);
     std::string _Name;
     std::list<Animation*> _Animations;
-    uint32 _MaxKey; //Maximum time key for the full animation set
+    UINT32 _MaxKey; //Maximum time key for the full animation set
 };
 
 class Model3D {

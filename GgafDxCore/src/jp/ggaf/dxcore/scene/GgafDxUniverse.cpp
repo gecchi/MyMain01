@@ -22,7 +22,7 @@ GgafDxUniverse::SeArray::SeArray() {
     }
 }
 
-void GgafDxUniverse::SeArray::add(GgafDxSe* prm_pSe, LONG prm_volume, float prm_pan, float prm_rate_frequency) {
+void GgafDxUniverse::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency) {
     if (_p < MAX_SE_AT_ONCE) {
         _apSe[_p] = prm_pSe;
         _rate_frequency[_p] = prm_rate_frequency;
@@ -70,7 +70,7 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
 //    _pCubeMapTextureManager = NEW GgafDxTextureManager("CMTexManager");
 }
 
-void GgafDxUniverse::registSe(GgafDxSe* prm_pSe, LONG prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay ) {
+void GgafDxUniverse::registSe(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay ) {
     int bpm = GgafDxBgmPerformer::_active_bgm_bpm;
     //ズレフレーム数計算
     //1分間は60*60=3600フレーム

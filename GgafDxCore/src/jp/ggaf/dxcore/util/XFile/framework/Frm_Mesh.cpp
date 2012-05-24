@@ -33,8 +33,8 @@ Bone* Bone::IsName(std::string &BoneName) {
     return 0;
 }
 
-void Bone::UpdateIndices(uint16 pIndex) {
-    for (uint32 i = 0; i < _nVertices; i++)
+void Bone::UpdateIndices(UINT16 pIndex) {
+    for (UINT32 i = 0; i < _nVertices; i++)
         _Vertices[i] += pIndex;
 }
 
@@ -66,7 +66,7 @@ Mesh::~Mesh(void) {
 }
 
 void Mesh::UpdateIndices(void) {
-    for (uint32 i = 0; i < _nFaces; i++) {
+    for (UINT32 i = 0; i < _nFaces; i++) {
         _Faces[i].data[0] += _FirstVertex;
         _Faces[i].data[1] += _FirstVertex;
         _Faces[i].data[2] += _FirstVertex;
@@ -75,7 +75,7 @@ void Mesh::UpdateIndices(void) {
     }
 
     if (_nNormals != 0)
-        for (uint32 i = 0; i < _nFaces; i++) {
+        for (UINT32 i = 0; i < _nFaces; i++) {
             _FaceNormals[i].data[0] += _FirstNormal;
             _FaceNormals[i].data[1] += _FirstNormal;
             _FaceNormals[i].data[2] += _FirstNormal;
@@ -83,14 +83,14 @@ void Mesh::UpdateIndices(void) {
 }
 
 void Mesh::CreateSubsets(void) {
-    uint32 FaceCount;
+    UINT32 FaceCount;
     Subset* MeshSubset;
 
     //For each material
-    for (uint32 i = 0; i < _Materials.size(); i++) {
+    for (UINT32 i = 0; i < _Materials.size(); i++) {
         //We count the number of faces using this material
         FaceCount = 0;
-        for (uint32 j = 0; j < _nFaces; j++)
+        for (UINT32 j = 0; j < _nFaces; j++)
             if (_FaceMaterials[j] == i)
                 ++FaceCount;
         //We initialise the mesh subset
@@ -99,7 +99,7 @@ void Mesh::CreateSubsets(void) {
         MeshSubset->Faces = NEW Face[FaceCount];
         int k = 0;
         //We fill in the Mesh subset
-        for (uint32 j = 0; j < _nFaces; j++)
+        for (UINT32 j = 0; j < _nFaces; j++)
             if (_FaceMaterials[j] == i)
                 MeshSubset->Faces[k++] = _Faces[j];
         //And we add that subset to the list
@@ -226,8 +226,8 @@ void Model3D::ConcatenateMeshes(void) {
             * sizeof(Frm::Vertex));
     ConcatMesh->_Faces = NEW Frm::Face[ConcatMesh->_nFaces];
     memset(ConcatMesh->_Faces, 0, ConcatMesh->_nFaces * sizeof(Frm::Face));
-    ConcatMesh->_FaceMaterials = NEW uint16[ConcatMesh->_nFaces];
-    memset(ConcatMesh->_FaceMaterials, 0, ConcatMesh->_nFaces * sizeof(uint16));
+    ConcatMesh->_FaceMaterials = NEW UINT16[ConcatMesh->_nFaces];
+    memset(ConcatMesh->_FaceMaterials, 0, ConcatMesh->_nFaces * sizeof(UINT16));
     if (ConcatMesh->_nTextureCoords != 0) {
         ConcatMesh->_TextureCoords
                 = NEW Frm::TCoord[ConcatMesh->_nTextureCoords];
@@ -251,7 +251,7 @@ void Model3D::ConcatenateMeshes(void) {
         memcpy(&(ConcatMesh->_Faces[(*i)->_FirstFace]), (*i)->_Faces,
                 (*i)->_nFaces * sizeof(Frm::Face));
         memcpy(&(ConcatMesh->_FaceMaterials[(*i)->_FirstFace]),
-                (*i)->_FaceMaterials, (*i)->_nFaces * sizeof(uint16));
+                (*i)->_FaceMaterials, (*i)->_nFaces * sizeof(UINT16));
         if ((*i)->_nTextureCoords != 0)
             memcpy(&(ConcatMesh->_TextureCoords[(*i)->_FirstTextureCoord]),
                     (*i)->_TextureCoords, (*i)->_nTextureCoords

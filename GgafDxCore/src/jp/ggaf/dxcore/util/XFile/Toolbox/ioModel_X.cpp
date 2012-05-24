@@ -19,7 +19,7 @@ using namespace std; //add tsuge
 
 struct XOF_TEMPLATEID {
     const char* TxtID;
-    uint16 TemplateID;
+    UINT16 TemplateID;
 };
 
 XOF_TEMPLATEID Templates[MAX_TEMPLATES] = { { "template", X_TEMPLATE },
@@ -80,7 +80,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     _Object = pT;
 
     while (!fin.eof()) {
-        int16 blockid = ProcessBlock();
+        INT16 blockid = ProcessBlock();
         //_TRACE_("blockid="<<blockid);
         switch (blockid) {
         case X_ERROR:
@@ -126,7 +126,7 @@ bool ToolBox::IO_Model_X::Save(std::string pFilename, Frm::Model3D* &pT) {
 //
 //////////////////////////////////////////////////////////
 
-int16 ToolBox::IO_Model_X::ProcessBlock(void) {
+INT16 ToolBox::IO_Model_X::ProcessBlock(void) {
     std::string Text;
     char Token;
     if (token_next == 0) {
@@ -175,7 +175,7 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
     };
 }
 
-int16 ToolBox::IO_Model_X::BlockID(std::string &pText) {
+INT16 ToolBox::IO_Model_X::BlockID(std::string &pText) {
     long Pos;
 
     if (fin.eof())
@@ -229,7 +229,7 @@ void ToolBox::IO_Model_X::AvoidTemplate(void) {
     }
 }
 
-void ToolBox::IO_Model_X::Find(uchar pChar) {
+void ToolBox::IO_Model_X::Find(UINT8 pChar) {
     if (token_next == 0) {
         fin.ignore(TEXT_BUFFER, pChar);
     } else {
@@ -246,7 +246,7 @@ void ToolBox::IO_Model_X::Find(uchar pChar) {
 char* ToolBox::IO_Model_X::SetUID(char pType) {
     //This is a quick hack to derive a Unique ID for blocks with
     //no identifier names like in the tiny_4anim.x example.
-    static uint32 seq = GetTickCount(); //tsuge add
+    static UINT32 seq = GetTickCount(); //tsuge add
     _X_UID.Integer[0] = (seq++);        //tsuge add
     _X_UID.Integer[1] = GetTickCount(); //This function return a 4 byte wide number
 
@@ -309,7 +309,7 @@ void ToolBox::IO_Model_X::ProcessFrameTransformMatrix(Frm::Bone* &pB) {
 
 void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
     Frm::Bone* cBone;
-    int16 Token;
+    INT16 Token;
     char Data[TEXT_BUFFER];
 
     cBone = NEW Frm::Bone();
@@ -384,7 +384,7 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
 
 void ToolBox::IO_Model_X::ProcessMesh(void) {
     std::string Text;
-    int16 Token;
+    INT16 Token;
     char Data[TEXT_BUFFER];
 
     _LoadMesh = NEW Frm::Mesh;
@@ -435,7 +435,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
     _TRACE_("Mesh:「" << _LoadMesh->_Name<<"」");
 
     fin.getline(Data, TEXT_BUFFER, ';');
-    _LoadMesh->_nVertices = (uint16) TextToNum(Data);
+    _LoadMesh->_nVertices = (UINT16) TextToNum(Data);
     _TRACE_("Number of vertices:" << _LoadMesh->_nVertices);
     _LoadMesh->_Vertices = NEW Frm::Vertex[_LoadMesh->_nVertices];
     //   _LoadMesh->_SkinnedVertices = NEW Frm::Vertex[_LoadMesh->_nVertices];
@@ -452,17 +452,17 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
 //delete tsuge
 //
 //    fin.getline(Data, TEXT_BUFFER, ';');
-//    _LoadMesh->_nFaces = (uint16) TextToNum(Data);
+//    _LoadMesh->_nFaces = (UINT16) TextToNum(Data);
 //    _TRACE_("Number of Faces:" << _LoadMesh->_nFaces);
 //    _LoadMesh->_Faces = NEW Frm::Face[_LoadMesh->_nFaces];
 //    for (int i = 0; i < _LoadMesh->_nFaces; i++) {
 //        Find(';');
 //        fin.getline(Data, TEXT_BUFFER, ',');
-//        _LoadMesh->_Faces[i].data[0] = (uint16) TextToNum(Data);
+//        _LoadMesh->_Faces[i].data[0] = (UINT16) TextToNum(Data);
 //        fin.getline(Data, TEXT_BUFFER, ',');
-//        _LoadMesh->_Faces[i].data[1] = (uint16) TextToNum(Data);
+//        _LoadMesh->_Faces[i].data[1] = (UINT16) TextToNum(Data);
 //        fin.getline(Data, TEXT_BUFFER, ';');
-//        _LoadMesh->_Faces[i].data[2] = (uint16) TextToNum(Data);
+//        _LoadMesh->_Faces[i].data[2] = (UINT16) TextToNum(Data);
 //        fin.get(); //eats either the comma or the semicolon at the end of each face description
 //        //_TRACE_("Face:" << i, ":" << _LoadMesh->_Faces[i].data[0],_LoadMesh->_Faces[i].data[1],_LoadMesh->_Faces[i].data[2]);
 //    }
@@ -472,7 +472,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
 //4;0,1,2,3;
 //の場合は、0,1,2 と 0,2,3 に分割
     fin.getline(Data, TEXT_BUFFER, ';');
-    _LoadMesh->_nFaces = (uint16) TextToNum(Data);
+    _LoadMesh->_nFaces = (UINT16) TextToNum(Data);
     _TRACE_("Before Number of Faces:" << _LoadMesh->_nFaces);
     _LoadMesh->_Faces = NEW Frm::Face[(_LoadMesh->_nFaces)*2];
     int face_vtx_num;
@@ -483,26 +483,26 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         face_vtx_num = (int) TextToNum(Data);
         if (face_vtx_num == 3) {
             fin.getline(Data, TEXT_BUFFER, ',');
-            _LoadMesh->_Faces[n].data[0] = (uint16) TextToNum(Data);
+            _LoadMesh->_Faces[n].data[0] = (UINT16) TextToNum(Data);
             fin.getline(Data, TEXT_BUFFER, ',');
-            _LoadMesh->_Faces[n].data[1] = (uint16) TextToNum(Data);
+            _LoadMesh->_Faces[n].data[1] = (UINT16) TextToNum(Data);
             fin.getline(Data, TEXT_BUFFER, ';');
-            _LoadMesh->_Faces[n].data[2] = (uint16) TextToNum(Data);
+            _LoadMesh->_Faces[n].data[2] = (UINT16) TextToNum(Data);
             fin.get(); //eats either the comma or the semicolon at the end of each face description
             _LoadMesh->_Faces[n].data[3] = FACE3;
         } else if (face_vtx_num == 4) { //add tsuge begin
             fin.getline(Data, TEXT_BUFFER, ',');
-            _LoadMesh->_Faces[n].data[0] = (uint16) TextToNum(Data);
+            _LoadMesh->_Faces[n].data[0] = (UINT16) TextToNum(Data);
             fin.getline(Data, TEXT_BUFFER, ',');
-            _LoadMesh->_Faces[n].data[1] = (uint16) TextToNum(Data);
+            _LoadMesh->_Faces[n].data[1] = (UINT16) TextToNum(Data);
             fin.getline(Data, TEXT_BUFFER, ',');
-            _LoadMesh->_Faces[n].data[2] = (uint16) TextToNum(Data);
+            _LoadMesh->_Faces[n].data[2] = (UINT16) TextToNum(Data);
             _LoadMesh->_Faces[n].data[3] = FACE4;
 
             _LoadMesh->_Faces[n+1].data[0] = _LoadMesh->_Faces[n].data[0];
             _LoadMesh->_Faces[n+1].data[1] = _LoadMesh->_Faces[n].data[2];
             fin.getline(Data, TEXT_BUFFER, ';');
-            _LoadMesh->_Faces[n+1].data[2] = (uint16) TextToNum(Data);
+            _LoadMesh->_Faces[n+1].data[2] = (UINT16) TextToNum(Data);
             fin.get();
             _LoadMesh->_Faces[n+1].data[3] = FACE3;
             n++;
@@ -559,7 +559,7 @@ void ToolBox::IO_Model_X::ProcessMeshTextureCoords(void) {
     Find('{');
 
     fin.getline(Data, TEXT_BUFFER, ';');
-    _LoadMesh->_nTextureCoords = (uint16) TextToNum(Data);
+    _LoadMesh->_nTextureCoords = (UINT16) TextToNum(Data);
     _TRACE_("Number of Texture Coords:" << _LoadMesh->_nTextureCoords);
     _LoadMesh->_TextureCoords = NEW Frm::TCoord[_LoadMesh->_nTextureCoords];
     for (int i = 0; i < _LoadMesh->_nTextureCoords; i++) {
@@ -585,7 +585,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 
 //delete tsuge
 //    fin.getline(Data, TEXT_BUFFER, ';');
-//    _LoadMesh->_nNormals = (uint16) TextToNum(Data);
+//    _LoadMesh->_nNormals = (UINT16) TextToNum(Data);
 //    _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
 //    _LoadMesh->_Normals = NEW Frm::vector<float>[_LoadMesh->_nNormals];
 //    for (int i = 0; i < _LoadMesh->_nNormals; i++) {
@@ -604,11 +604,11 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 //    for (int i = 0; i < _LoadMesh->_nFaces; i++) {
 //        Find(';');
 //        fin.getline(Data, TEXT_BUFFER, ',');
-//        _LoadMesh->_FaceNormals[i].data[0] = (uint16) TextToNum(Data);
+//        _LoadMesh->_FaceNormals[i].data[0] = (UINT16) TextToNum(Data);
 //        fin.getline(Data, TEXT_BUFFER, ',');
-//        _LoadMesh->_FaceNormals[i].data[1] = (uint16) TextToNum(Data);
+//        _LoadMesh->_FaceNormals[i].data[1] = (UINT16) TextToNum(Data);
 //        fin.getline(Data, TEXT_BUFFER, ';');
-//        _LoadMesh->_FaceNormals[i].data[2] = (uint16) TextToNum(Data);
+//        _LoadMesh->_FaceNormals[i].data[2] = (UINT16) TextToNum(Data);
 //        fin.get(); //eats either the comma or the semicolon at the end of each face description
 //        //      _TRACE_("Face Normal indexes:" << i, ":" << _LoadMesh->_FaceNormals[i].data[0],_LoadMesh->_FaceNormals[i].data[1],_LoadMesh->_FaceNormals[i].data[2]);
 //    }
@@ -616,7 +616,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
     //add tsuge
     //4頂点による法線インデックスに対応
     fin.getline(Data, TEXT_BUFFER, ';');
-    _LoadMesh->_nNormals = (uint16) TextToNum(Data);
+    _LoadMesh->_nNormals = (UINT16) TextToNum(Data);
     _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
     _LoadMesh->_Normals = NEW Frm::vector<float>[_LoadMesh->_nNormals];
     for (int i = 0; i < _LoadMesh->_nNormals; i++) {
@@ -640,23 +640,23 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
         face_vtx_num = (int) TextToNum(Data);
         if (face_vtx_num == 3) {
             fin.getline(Data, TEXT_BUFFER, ',');
-            _LoadMesh->_FaceNormals[n].data[0] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceNormals[n].data[0] = (UINT16) TextToNum(Data);
             fin.getline(Data, TEXT_BUFFER, ',');
-            _LoadMesh->_FaceNormals[n].data[1] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceNormals[n].data[1] = (UINT16) TextToNum(Data);
             fin.getline(Data, TEXT_BUFFER, ';');
-            _LoadMesh->_FaceNormals[n].data[2] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceNormals[n].data[2] = (UINT16) TextToNum(Data);
             fin.get(); //eats either the comma or the semicolon at the end of each face description
         } else if (face_vtx_num == 4) {  //add tsuge
             fin.getline(Data, TEXT_BUFFER, ',');
-            _LoadMesh->_FaceNormals[n].data[0] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceNormals[n].data[0] = (UINT16) TextToNum(Data);
             fin.getline(Data, TEXT_BUFFER, ',');
-            _LoadMesh->_FaceNormals[n].data[1] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceNormals[n].data[1] = (UINT16) TextToNum(Data);
             fin.getline(Data, TEXT_BUFFER, ',');
-            _LoadMesh->_FaceNormals[n].data[2] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceNormals[n].data[2] = (UINT16) TextToNum(Data);
             _LoadMesh->_FaceNormals[n+1].data[0] = _LoadMesh->_FaceNormals[n].data[0];
             _LoadMesh->_FaceNormals[n+1].data[1] = _LoadMesh->_FaceNormals[n].data[2];
             fin.getline(Data, TEXT_BUFFER, ';');
-            _LoadMesh->_FaceNormals[n+1].data[2] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceNormals[n+1].data[2] = (UINT16) TextToNum(Data);
             fin.get(); //eats either the comma or the semicolon at the end of each face description
             n++;
         } else {
@@ -681,57 +681,57 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 
 void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
     std::string Text;
-    int16 Token;
+    INT16 Token;
     char Data[TEXT_BUFFER];
 
     Find('{');
 
 // delete tsuge
 //    fin.getline(Data, TEXT_BUFFER, ';');
-//    _LoadMesh->_nMaterials = (uint16) TextToNum(Data);
-//    _TRACE_("Number of Materials:" << (uint16)TextToNum(Data));
+//    _LoadMesh->_nMaterials = (UINT16) TextToNum(Data);
+//    _TRACE_("Number of Materials:" << (UINT16)TextToNum(Data));
 //
 //    fin.getline(Data, TEXT_BUFFER, ';');
-//    _LoadMesh->_FaceMaterials = NEW uint16[(uint16) TextToNum(Data)];
+//    _LoadMesh->_FaceMaterials = NEW UINT16[(UINT16) TextToNum(Data)];
 //    for (int i = 0; i < _LoadMesh->_nFaces - 1; i++) {
 //        fin.getline(Data, TEXT_BUFFER, ',');
-//        _LoadMesh->_FaceMaterials[i] = (uint16) TextToNum(Data);
+//        _LoadMesh->_FaceMaterials[i] = (UINT16) TextToNum(Data);
 //    }
 //    fin.getline(Data, TEXT_BUFFER, ';');
 //    _LoadMesh->_FaceMaterials[_LoadMesh->_nFaces - 1]
-//            = (uint16) TextToNum(Data);
+//            = (UINT16) TextToNum(Data);
 //    fin.get(); //eats the last semicolon
 
 //add tsuge
 //4頂点インデックスのFace指定対応による、マテリアルグループリストのずれを補正
     fin.getline(Data, TEXT_BUFFER, ';');
-    _LoadMesh->_nMaterials = (uint16) TextToNum(Data);
+    _LoadMesh->_nMaterials = (UINT16) TextToNum(Data);
 
 
     fin.getline(Data, TEXT_BUFFER, ';');
-    _LoadMesh->_FaceMaterials = NEW uint16[((uint16)TextToNum(Data))*2];
-    _TRACE_("Before Number of Materials:" << (uint16)TextToNum(Data));
+    _LoadMesh->_FaceMaterials = NEW UINT16[((UINT16)TextToNum(Data))*2];
+    _TRACE_("Before Number of Materials:" << (UINT16)TextToNum(Data));
 
-    int file_nFaceMaterials = (uint16) TextToNum(Data);
+    int file_nFaceMaterials = (UINT16) TextToNum(Data);
     int n = 0;
     for (int i = 0; i < file_nFaceMaterials - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         if (_LoadMesh->_Faces[n].data[3] == FACE3) {
-            _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceMaterials[n] = (UINT16) TextToNum(Data);
         } else if (_LoadMesh->_Faces[n].data[3] == FACE4) {
-            _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
-            _LoadMesh->_FaceMaterials[n+1] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceMaterials[n] = (UINT16) TextToNum(Data);
+            _LoadMesh->_FaceMaterials[n+1] = (UINT16) TextToNum(Data);
             n++;
         }
         n++;
     }
     fin.getline(Data, TEXT_BUFFER, ';');
     if (_LoadMesh->_Faces[n].data[3] == FACE3) {
-        _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
+        _LoadMesh->_FaceMaterials[n] = (UINT16) TextToNum(Data);
 
     } else if (_LoadMesh->_Faces[n].data[3] == FACE4) { //add tsuge
-        _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
-        _LoadMesh->_FaceMaterials[n+1] = (uint16) TextToNum(Data);
+        _LoadMesh->_FaceMaterials[n] = (UINT16) TextToNum(Data);
+        _LoadMesh->_FaceMaterials[n+1] = (UINT16) TextToNum(Data);
         n++;
     }
     n++;
@@ -766,7 +766,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
 
 void ToolBox::IO_Model_X::ProcessMaterial(void) {
     std::string Text;
-    int16 Token;
+    INT16 Token;
     char Data[TEXT_BUFFER];
 
     //Frm::Material* NewMaterial = NEW Frm::Material;
@@ -847,19 +847,19 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
     Find(';');
 
     fin.getline(Data, TEXT_BUFFER, ';');
-    cBone->_nVertices = (uint16) TextToNum(Data);
-    cBone->_Vertices = NEW uint16[(cBone->_nVertices)];
-    for (uint32 i = 0; i < cBone->_nVertices - 1; i++) {
+    cBone->_nVertices = (UINT16) TextToNum(Data);
+    cBone->_Vertices = NEW UINT16[(cBone->_nVertices)];
+    for (UINT32 i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
-        cBone->_Vertices[i] = (uint16) TextToNum(Data);
+        cBone->_Vertices[i] = (UINT16) TextToNum(Data);
         _TRACE_("Vertex:" << atoi(Data));
     }
     fin.getline(Data, TEXT_BUFFER, ';');
-    cBone->_Vertices[cBone->_nVertices - 1] = (uint16) TextToNum(Data);
+    cBone->_Vertices[cBone->_nVertices - 1] = (UINT16) TextToNum(Data);
     _TRACE_("Vertex:" << atoi(Data));
 
     cBone->_Weights = NEW float[cBone->_nVertices];
-    for (uint32 i = 0; i < cBone->_nVertices - 1; i++) {
+    for (UINT32 i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Weights[i] = TextToNum(Data);
         _TRACE_("Weight:" << atof(Data));
@@ -887,7 +887,7 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
 //////////////////////////////////////////////////////////
 void ToolBox::IO_Model_X::ProcessAnimationSets(void) {
     //   std::string Text;
-    int16 Token;
+    INT16 Token;
     //   char Data[TEXT_BUFFER];
 
     _MaxKey = 0;
@@ -934,7 +934,7 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void) {
 //
 //////////////////////////////////////////////////////////
 void ToolBox::IO_Model_X::ProcessAnimations(Frm::AnimationSet* &pAS) {
-    int16 Token;
+    INT16 Token;
     char Data[TEXT_BUFFER];
     Frm::Animation* TempAnimation = NEW Frm::Animation;
 
@@ -983,9 +983,9 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
 
     Find('{');
     fin.getline(Data, TEXT_BUFFER, ';');
-    Type = (uint16) atoi(Data);
+    Type = (UINT16) atoi(Data);
     fin.getline(Data, TEXT_BUFFER, ';');
-    Size = (uint16) atoi(Data);
+    Size = (UINT16) atoi(Data);
 
     switch (Type) {
     case 0:
@@ -994,7 +994,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         while (Size--) {
             TempRot = NEW Frm::RotateKey;
             fin.getline(Data, TEXT_BUFFER, ';');
-            TempRot->Time = (uint16) TextToNum(Data);
+            TempRot->Time = (UINT16) TextToNum(Data);
             if (TempRot->Time > _MaxKey)
                 _MaxKey = TempRot->Time;
             Find(';');
@@ -1017,7 +1017,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         while (Size--) {
             TempScale = NEW Frm::ScaleKey;
             fin.getline(Data, TEXT_BUFFER, ';');
-            TempScale->Time = (uint16) TextToNum(Data);
+            TempScale->Time = (UINT16) TextToNum(Data);
             if (TempScale->Time > _MaxKey)
                 _MaxKey = TempScale->Time;
             Find(';');
@@ -1038,7 +1038,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         while (Size--) {
             TempPos = NEW Frm::PositionKey;
             fin.getline(Data, TEXT_BUFFER, ';');
-            TempPos->Time = (uint16) TextToNum(Data);
+            TempPos->Time = (UINT16) TextToNum(Data);
             if (TempPos->Time > _MaxKey)
                 _MaxKey = TempPos->Time;
             Find(';');
@@ -1059,7 +1059,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         while (Size--) {
             TempMatrix = NEW Frm::MatrixKey;
             fin.getline(Data, TEXT_BUFFER, ';');
-            TempMatrix->Time = (uint16) TextToNum(Data);
+            TempMatrix->Time = (UINT16) TextToNum(Data);
             if (TempMatrix->Time > _MaxKey)
                 _MaxKey = TempMatrix->Time;
             Find(';');

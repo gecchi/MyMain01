@@ -33,13 +33,13 @@ public:
     public:
         int _p;
         GgafDxSe* _apSe[MAX_SE_AT_ONCE];
-        LONG _volume[MAX_SE_AT_ONCE];
+        int _volume[MAX_SE_AT_ONCE];
         float _pan[MAX_SE_AT_ONCE];
         float _rate_frequency[MAX_SE_AT_ONCE];
 
         SeArray();
 
-        void add(GgafDxSe* prm_pSe, LONG prm_volume, float prm_pan, float prm_rate_frequency);
+        void add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency);
 
         void play(int index);
     };
@@ -85,7 +85,7 @@ public:
     static int setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableActor* prm_pActor);
 
 
-    void registSe(GgafDxSe* prm_pSe, LONG prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay );
+    void registSe(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay );
 
 //    /**
 //     * •`‰æƒŒƒxƒ‹i‡˜j‚ğÅ‰“‚Å“o˜^.

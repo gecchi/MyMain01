@@ -75,23 +75,6 @@ void WallAABActor::processDraw() {
     }
     GgafDxUniverse::_pActor_DrawActive = pWallPartsActor; //描画セットの最後アクターをセット
     _pMeshSetModel->draw(this, _draw_set_num);
-
-
-
-//    WallPartsActor* pDrawActor;
-//    pDrawActor = this;
-//    for (int i = 0; i < _draw_set_num; i++) {
-//        pDrawActor->_matWorld._14 = pDrawActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
-//        //pDrawActor->_matWorld._24 = pDrawActor->_pos_prism;  //プリズム位置情報ををワールド変換行列のmatWorld._24 に埋め込む
-//        hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[i], &(pDrawActor->_matWorld));
-//        checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-//        pDrawActor = (WallPartsActor*)(pDrawActor -> _pNext_TheSameDrawDepthLevel);
-//        if (i > 0) {
-//            //アクティブを進める
-//            GgafDxUniverse::_pActor_DrawActive = GgafDxUniverse::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
-//        }
-//    }
-//    _pMeshSetModel->draw(this, _draw_set_num);
 }
 
 

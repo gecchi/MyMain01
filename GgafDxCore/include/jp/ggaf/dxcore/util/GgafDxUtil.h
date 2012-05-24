@@ -204,10 +204,12 @@ public:
 
 
     /**
-     *
-     * @param prm_angNow
-     * @param prm_angOffset
-     * @return
+     * アングル値の加算 .
+     * D360ANG を超えた場合、或いは 0 を下回った場合でも、
+     * 0～D360ANG に標準化される。
+     * @param prm_angNow アングル値１
+     * @param prm_angOffset アングル値２
+     * @return 標準化された アングル値１ + アングル値２ のアングル値
      */
     static angle addAng(angle prm_angNow, angle prm_angOffset);
 
@@ -222,7 +224,7 @@ public:
     static void rotXY(coord prm_X, coord prm_Y, angle prm_ang, coord& out_X, coord& out_Y);
 
     /**
-     *
+     * 距離計算(2D) .
      * @param x1
      * @param y1
      * @param x2
@@ -232,7 +234,7 @@ public:
     static int getDistance(coord x1, coord y1, coord x2, coord y2);
 
     /**
-     * 距離計算 .
+     * 距離計算(3D) .
      * @param x1
      * @param y1
      * @param z1

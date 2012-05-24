@@ -6,7 +6,7 @@ IDirectSound8* GgafDxSound::_pIDirectSound8 = NULL;
 
 GgafDxBgmManager* GgafDxSound::_pBgmManager = NULL;
 GgafDxSeManager* GgafDxSound::_pSeManager = NULL;
-LONG GgafDxSound::aDbVolume[101];
+int GgafDxSound::aDbVolume[101];
 
 DSCAPS GgafDxSound::_dsCaps;
 

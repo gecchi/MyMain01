@@ -17,9 +17,9 @@ public:
     //derive the function static Timer* GetInstance(void);
     ~Timer(void) {
     }
-    virtual void InitTimer(uint16 index = 0) {
+    virtual void InitTimer(UINT16 index = 0) {
     }
-    virtual uint32 GetTime(uint16 index = 0) {
+    virtual UINT32 GetTime(UINT16 index = 0) {
         return 0;
     }
 
@@ -30,7 +30,7 @@ protected:
             _new[i] = 0;
         }
     }
-    uint32 _old[MAX_TIMERS], _new[MAX_TIMERS];
+    UINT32 _old[MAX_TIMERS], _new[MAX_TIMERS];
     static Timer* _Instance;
 };
 
