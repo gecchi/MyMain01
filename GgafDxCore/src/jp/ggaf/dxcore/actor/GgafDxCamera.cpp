@@ -83,6 +83,10 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_d
     _Y_buffer_top    = PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / 2;
     _Y_buffer_bottom = PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / -2;
     GgafDxGod::_pID3DDevice9->GetViewport(&_viewport);
+
+    _X_prev = 0;
+    _Y_prev = 0;
+    _Z_prev = 0;
 }
 
 void GgafDxCamera::initialize() {
@@ -90,130 +94,124 @@ void GgafDxCamera::initialize() {
 }
 
 void GgafDxCamera::processBehavior() {
-    //if (_frame_of_behaving % 2 == 0) { //10フレームに１回だけ計算
-    //スクリーン全体のクライアント領域を保持。
+    //if (isMove() || _pViewPoint->isMove()) {
+        //if (_frame_of_behaving % 2 == 0) { //10フレームに１回だけ計算
+        //スクリーン全体のクライアント領域を保持。
 
-    // _viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
-    dxcoord x1 = dxcoord(_viewport.X);
-    dxcoord y1 = dxcoord(_viewport.Y);
-    dxcoord x2 = dxcoord(_viewport.X + _viewport.Width);
-    dxcoord y2 = dxcoord(_viewport.Y + _viewport.Height);
+        // _viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
+        dxcoord x1 = dxcoord(_viewport.X);
+        dxcoord y1 = dxcoord(_viewport.Y);
+        dxcoord x2 = dxcoord(_viewport.X + _viewport.Width);
+        dxcoord y2 = dxcoord(_viewport.Y + _viewport.Height);
 
-    // 視錐台の８点が格納されるインスタンス
-    _vecNear[0] = D3DXVECTOR3( x1, y1, _viewport.MinZ ); // 左下 (変換後)
-    _vecNear[1] = D3DXVECTOR3( x2, y1, _viewport.MinZ ); // 右下 (変換後)
-    _vecNear[2] = D3DXVECTOR3( x1, y2, _viewport.MinZ ); // 左上 (変換後)
-    _vecNear[3] = D3DXVECTOR3( x2, y2, _viewport.MinZ ); // 右上 (変換後)
+        // 視錐台の８点が格納されるインスタンス
+        _vecNear[0] = D3DXVECTOR3( x1, y1, _viewport.MinZ ); // 左下 (変換後)
+        _vecNear[1] = D3DXVECTOR3( x2, y1, _viewport.MinZ ); // 右下 (変換後)
+        _vecNear[2] = D3DXVECTOR3( x1, y2, _viewport.MinZ ); // 左上 (変換後)
+        _vecNear[3] = D3DXVECTOR3( x2, y2, _viewport.MinZ ); // 右上 (変換後)
 
-    _vecFar[0]  = D3DXVECTOR3( x1, y1, _viewport.MaxZ ); // 左下 (変換後)
-    _vecFar[1]  = D3DXVECTOR3( x2, y1, _viewport.MaxZ ); // 右下 (変換後)
-    _vecFar[2]  = D3DXVECTOR3( x1, y2, _viewport.MaxZ ); // 左上 (変換後)
-    _vecFar[3]  = D3DXVECTOR3( x2, y2, _viewport.MaxZ ); // 右上 (変換後)
+        _vecFar[0]  = D3DXVECTOR3( x1, y1, _viewport.MaxZ ); // 左下 (変換後)
+        _vecFar[1]  = D3DXVECTOR3( x2, y1, _viewport.MaxZ ); // 右下 (変換後)
+        _vecFar[2]  = D3DXVECTOR3( x1, y2, _viewport.MaxZ ); // 左上 (変換後)
+        _vecFar[3]  = D3DXVECTOR3( x2, y2, _viewport.MaxZ ); // 右上 (変換後)
 
-    // 視錐台の８点の計算
-    static D3DXMATRIX mat_world;
-    D3DXMatrixIdentity( &mat_world );
-    // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
-    for( int i = 0; i < 4; ++i ) {
-        D3DXVec3Unproject(
-            &_vecNear[i], //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
-            &_vecNear[i], //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。
-            &_viewport,   //CONST D3DVIEWPORT9 *pViewport,  [in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
-            &_matProj,    //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
-            &_matView,    //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
-            &mat_world    //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
+        // 視錐台の８点の計算
+        static D3DXMATRIX mat_world;
+        D3DXMatrixIdentity( &mat_world );
+        // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
+        for( int i = 0; i < 4; ++i ) {
+            D3DXVec3Unproject(
+                &_vecNear[i], //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
+                &_vecNear[i], //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。
+                &_viewport,   //CONST D3DVIEWPORT9 *pViewport,  [in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
+                &_matProj,    //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
+                &_matView,    //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
+                &mat_world    //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
+            );
+            D3DXVec3Unproject(
+                &_vecFar[i],
+                &_vecFar[i],
+                &_viewport,
+                &_matProj,
+                &_matView,
+                &mat_world
+            );
+        }
+
+        // 視錐台の面
+        //-------------------------------------------------
+        //  平面方程式：ax+by+cz+d
+        //  平面の法線ベクトル：n = (a, b, c)
+        //  平面上の1点を、p = (x0, y0, z0) とすると、
+        //  平面の法線ベクトルと平面状の1点の内積：d = n*p
+        //
+        //  表裏判定をするときは、点 p = (x0, y0, z0)を、
+        //  p = (x0, y0, z0, 1) とみなし、
+        //  平面との内積：a*x0 + b*y0 + c*z0 + d*1 = ans
+        //  ans > 0 なら表、ans < 0 なら裏、ans == 0 なら面上、となる。
+        //  DXPlaneDotCoord() は、この処理を行っている
+        //
+        //  また、p = (x0, y0, z0, 0) とみなして内積の計算を行うと、
+        //  角度の関係を調べることができる。
+        //  → D3DXPlaneDotNormal()
+        //-------------------------------------------------
+
+
+         // 上 ( F左上、N左上、N右上 )
+        D3DXPlaneNormalize(
+            &_plnTop,
+            D3DXPlaneFromPoints(&_plnTop, &(_vecFar[2]), &(_vecNear[2]), &(_vecNear[3]))
         );
-        D3DXVec3Unproject(
-            &_vecFar[i],
-            &_vecFar[i],
-            &_viewport,
-            &_matProj,
-            &_matView,
-            &mat_world
+        // 下 ( F左下、N右下、N左下 )
+        D3DXPlaneNormalize(
+            &_plnBottom,
+            D3DXPlaneFromPoints(&_plnBottom, &(_vecFar[0]), &(_vecNear[1]), &(_vecNear[0]))
         );
-    }
+        // 左 ( F左下、N左下、N左上 )
+        D3DXPlaneNormalize(
+            &_plnLeft,
+            D3DXPlaneFromPoints(&_plnLeft, &(_vecFar[0]), &(_vecNear[0]), &(_vecNear[2]))
+        );
+        // 右 ( F右下、N右上、N右下 )
+        D3DXPlaneNormalize(
+            &_plnRight,
+            D3DXPlaneFromPoints(&_plnRight, &(_vecFar[1]), &(_vecNear[3]), &(_vecNear[1]))
+        );
+        // 手前 ( N左上、N左下、N右上)
+        D3DXPlaneNormalize(
+            &_plnFront,
+            D3DXPlaneFromPoints(&_plnFront, &(_vecNear[2]), &(_vecNear[0]), &(_vecNear[3]))
+        );
+        // 奥 ( F右上、F左下、F左上)
+        D3DXPlaneNormalize(
+            &_plnBack,
+            D3DXPlaneFromPoints(&_plnBack, &(_vecFar[3]), &(_vecFar[0]), &(_vecFar[2]))
+        );
 
-    // 視錐台の面
-    //-------------------------------------------------
-    //  平面方程式：ax+by+cz+d
-    //  平面の法線ベクトル：n = (a, b, c)
-    //  平面上の1点を、p = (x0, y0, z0) とすると、
-    //  平面の法線ベクトルと平面状の1点の内積：d = n*p
-    //
-    //  表裏判定をするときは、点 p = (x0, y0, z0)を、
-    //  p = (x0, y0, z0, 1) とみなし、
-    //  平面との内積：a*x0 + b*y0 + c*z0 + d*1 = ans
-    //  ans > 0 なら表、ans < 0 なら裏、ans == 0 なら面上、となる。
-    //  DXPlaneDotCoord() は、この処理を行っている
-    //
-    //  また、p = (x0, y0, z0, 0) とみなして内積の計算を行うと、
-    //  角度の関係を調べることができる。
-    //  → D3DXPlaneDotNormal()
-    //-------------------------------------------------
-
-
-     // 上 ( F左上、N左上、N右上 )
-    D3DXPlaneNormalize(
-        &_plnTop,
-        D3DXPlaneFromPoints(&_plnTop, &(_vecFar[2]), &(_vecNear[2]), &(_vecNear[3]))
-    );
-    // 下 ( F左下、N右下、N左下 )
-    D3DXPlaneNormalize(
-        &_plnBottom,
-        D3DXPlaneFromPoints(&_plnBottom, &(_vecFar[0]), &(_vecNear[1]), &(_vecNear[0]))
-    );
-    // 左 ( F左下、N左下、N左上 )
-    D3DXPlaneNormalize(
-        &_plnLeft,
-        D3DXPlaneFromPoints(&_plnLeft, &(_vecFar[0]), &(_vecNear[0]), &(_vecNear[2]))
-    );
-    // 右 ( F右下、N右上、N右下 )
-    D3DXPlaneNormalize(
-        &_plnRight,
-        D3DXPlaneFromPoints(&_plnRight, &(_vecFar[1]), &(_vecNear[3]), &(_vecNear[1]))
-    );
-    // 手前 ( N左上、N左下、N右上)
-    D3DXPlaneNormalize(
-        &_plnFront,
-        D3DXPlaneFromPoints(&_plnFront, &(_vecNear[2]), &(_vecNear[0]), &(_vecNear[3]))
-    );
-    // 奥 ( F右上、F左下、F左上)
-    D3DXPlaneNormalize(
-        &_plnBack,
-        D3DXPlaneFromPoints(&_plnBack, &(_vecFar[3]), &(_vecFar[0]), &(_vecFar[2]))
-    );
-
-    // 中心垂直面 （ボリュームパンで使用）
-    _vecVerticalCenter[0] = D3DXVECTOR3( (_vecFar[1].x + _vecFar[0].x)/2.0f,
-                                         (_vecFar[1].y + _vecFar[0].y)/2.0f,
-                                         (_vecFar[1].z + _vecFar[0].z)/2.0f
-                                       );
-    _vecVerticalCenter[1] = D3DXVECTOR3( (_vecNear[3].x + _vecNear[2].x)/2.0f,
-                                         (_vecNear[3].y + _vecNear[2].y)/2.0f,
-                                         (_vecNear[3].z + _vecNear[2].z)/2.0f
-                                       );
-    _vecVerticalCenter[2] = D3DXVECTOR3( (_vecNear[1].x + _vecNear[0].x)/2.0f,
-                                         (_vecNear[1].y + _vecNear[0].y)/2.0f,
-                                         (_vecNear[1].z + _vecNear[0].z)/2.0f
-                                       );
-    D3DXPlaneNormalize(
-        &_plnVerticalCenter,
-        D3DXPlaneFromPoints(&_plnVerticalCenter, &(_vecVerticalCenter[0]),
-                                                 &(_vecVerticalCenter[1]),
-                                                 &(_vecVerticalCenter[2])
-                            )
-    );
-
+        // 中心垂直面 （ボリュームパンで使用）
+        _vecVerticalCenter[0] = D3DXVECTOR3( (_vecFar[1].x + _vecFar[0].x)/2.0f,
+                                             (_vecFar[1].y + _vecFar[0].y)/2.0f,
+                                             (_vecFar[1].z + _vecFar[0].z)/2.0f
+                                           );
+        _vecVerticalCenter[1] = D3DXVECTOR3( (_vecNear[3].x + _vecNear[2].x)/2.0f,
+                                             (_vecNear[3].y + _vecNear[2].y)/2.0f,
+                                             (_vecNear[3].z + _vecNear[2].z)/2.0f
+                                           );
+        _vecVerticalCenter[2] = D3DXVECTOR3( (_vecNear[1].x + _vecNear[0].x)/2.0f,
+                                             (_vecNear[1].y + _vecNear[0].y)/2.0f,
+                                             (_vecNear[1].z + _vecNear[0].z)/2.0f
+                                           );
+        D3DXPlaneNormalize(
+            &_plnVerticalCenter,
+            D3DXPlaneFromPoints(&_plnVerticalCenter, &(_vecVerticalCenter[0]),
+                                                     &(_vecVerticalCenter[1]),
+                                                     &(_vecVerticalCenter[2])
+                                )
+        );
     //}
-
-//    xaxis.x           yaxis.x           zaxis.x          0
-//    xaxis.y           yaxis.y           zaxis.y          0
-//    xaxis.z           yaxis.z           zaxis.z          0
-//   -dot(xaxis, eye)  -dot(yaxis, eye)  -dot(zaxis, eye)  1
-
-
-    //_TRACE_(_matView._14<<","<<_matView._24<<","<<_matView._34);
-
+    _X_prev = _X;
+    _Y_prev = _Y;
+    _Z_prev = _Z;
 }
 
 
@@ -248,6 +246,13 @@ void GgafDxCamera::setDefaultPosition() {
     _pVecCamUp->x = 0.0f;
     _pVecCamUp->y = 1.0f;
     _pVecCamUp->z = 0.0f;
+}
+bool GgafDxCamera::isMove() {
+    if (_X_prev == _X && _X_prev == _Y && _Z_prev == _Z) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 GgafDxCamera::~GgafDxCamera() {

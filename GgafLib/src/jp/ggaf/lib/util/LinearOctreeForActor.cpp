@@ -5,14 +5,13 @@ using namespace GgafLib;
 
 
 LinearOctreeForActor::LinearOctreeForActor(int prm_level) : GgafLinearOctree(prm_level) {
+    _num_space_minus_one = _num_space-1;
 }
 
 void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_groupB) {
     _kind_groupA = prm_groupA;
     _kind_groupB = prm_groupB;
-    TRACE5("_kind_groupA="<<_kind_groupA);
-    TRACE5("_kind_groupB="<<_kind_groupB);
-    if (((_paSpace[0]._kindinfobit & _kind_groupA) > 0) && ((_paSpace[0]._kindinfobit & _kind_groupB) > 0)) {
+    if ( (_paSpace[0]._kindinfobit & _kind_groupA) && (_paSpace[0]._kindinfobit & _kind_groupB) ) {
         //では八分木を巡る旅へ行ってらっしゃい
         executeHitChk(0); //いってきます
         //はいお帰りなさい。
@@ -24,19 +23,17 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
 void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
     LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElemFirst));
     if (pElem) {
-        GgafActor* pActor_ElemValue = pElem->_pActor;
         while(true) {
             if (pElem->_kindbit & _kind_groupA) {
-                _stackCurrentSpaceActor_GroupA.push(pActor_ElemValue);
+                _stackCurrentSpaceActor_GroupA.push(pElem->_pActor);
             }
             if (pElem->_kindbit & _kind_groupB) {
-                _stackCurrentSpaceActor_GroupB.push(pActor_ElemValue);
+                _stackCurrentSpaceActor_GroupB.push(pElem->_pActor);
             }
             if (pElem == _paSpace[prm_index]._pElemLast) {
                 break;
             }
             pElem = (LinearOctreeActorElem*)(pElem -> _pNext);
-            pActor_ElemValue = pElem->_pActor;
         }
         //現在の空間のグループAとグループB総当り
         executeHitChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackCurrentSpaceActor_GroupB);
@@ -47,7 +44,7 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
     }
 
     UINT32 next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
-    if ( next_level_index > _num_space-1) {
+    if ( next_level_index > _num_space_minus_one) {
         //要素数オーバー、つまりリーフ
         _stackCurrentSpaceActor_GroupA.clear();
         _stackCurrentSpaceActor_GroupB.clear();
@@ -78,7 +75,7 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
 
         //子空間へもぐるが良い
         for(UINT32 i = next_level_index; i < next_level_index+8; i++) {
-            if (((_paSpace[i]._kindinfobit & _kind_groupA) > 0) || ((_paSpace[i]._kindinfobit & _kind_groupB) > 0)) {
+            if ((_paSpace[i]._kindinfobit & _kind_groupA) || (_paSpace[i]._kindinfobit & _kind_groupB) ) {
                 executeHitChk(i);
             }
         }

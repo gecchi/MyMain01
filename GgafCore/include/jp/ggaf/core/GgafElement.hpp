@@ -998,23 +998,25 @@ void GgafElement<T>::nextFrame() {
     }
 
     //配下のnextFrame()実行
-    if (GgafNode<T>::_pSubFirst) {
-        T* pElementTemp = GgafNode<T>::_pSubFirst;
-        while(true) {
+    if (_is_active_flg) { //自身がactiveならサブノードまでは無条件でnextFrame()実行する。TODO:ちゃんと検証
+        if (GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafNode<T>::_pSubFirst;
+            while(true) {
 
-            if (pElementTemp->_is_last_flg) {
-                pElementTemp->nextFrame();
-                if (pElementTemp->_can_live_flg == false) {
-                    pElementTemp->onEnded();
-                    GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
-                }
-                break;
-            } else {
-                pElementTemp = pElementTemp->_pNext;
-                pElementTemp->_pPrev->nextFrame();
-                if (pElementTemp->_pPrev->_can_live_flg == false) {
-                    ((T*)(pElementTemp->_pPrev))->onEnded();
-                    GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
+                if (pElementTemp->_is_last_flg) {
+                    pElementTemp->nextFrame();
+                    if (pElementTemp->_can_live_flg == false) {
+                        pElementTemp->onEnded();
+                        GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
+                    }
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->_pNext;
+                    pElementTemp->_pPrev->nextFrame();
+                    if (pElementTemp->_pPrev->_can_live_flg == false) {
+                        ((T*)(pElementTemp->_pPrev))->onEnded();
+                        GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
+                    }
                 }
             }
         }

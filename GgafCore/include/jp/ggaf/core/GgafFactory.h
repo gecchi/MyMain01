@@ -135,13 +135,13 @@ public:
 
     template<class X>
     static X* makeObject(X* (*prm_pFunc)(void*, void*, void*),
-                           GgafObject* prm_pOrderer,
-                           void* prm_pArg1,
-                           void* prm_pArg2,
-                           void* prm_pArg3,
-                           GgafObject* prm_org) {
+                         GgafObject* prm_pOrderer,
+                         void* prm_pArg1,
+                         void* prm_pArg2,
+                         void* prm_pArg3,
+                         GgafObject* prm_org) {
         order(UINT_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
-        return (X*)(obtainActor(UINT_MAX, prm_org));
+        return (X*)(obtain(UINT_MAX, prm_org));
     }
 
 
@@ -205,36 +205,18 @@ public:
 
 
     template<class X>
-    static X* createActor(void* p1, void* p2, void* p3) {
+    static X* create(void* p1, void* p2, void* p3) {
         //p1 : 名称
         X* p = NEW X((char*)p1);
         return p;
     }
 
-//    template<class X>
-//    static X* createActorWithModel(void* p1, void* p2, void* p3) {
-//        //p1 : 識別名称
-//        //p2 : モデル識別文字列
-//        X* p = NEW X((char*)p1, (char*)p2);
-//        return p;
-//    }
-//
-//    template<class X>
-//    static X* createActorWithDp(void* p1, void* p2, void* p3) {
-//        //p1 : 識別名称
-//        //p2 : アクター発送者
-//        X* p = NEW X((char*)p1, (GgafCore::GgafActorDepository*)p2);
-//        return p;
-//    }
-//
-//    template<class X>
-//    static X* createActorWithModelDp(void* p1, void* p2, void* p3) {
-//        //p1 : 識別名称
-//        //p2 : モデル識別文字列
-//        //p3 : アクター発送者
-//        X* p = NEW X((char*)p1, (char*)p2, (GgafCore::GgafActorDepository*)p3);
-//        return p;
-//    }
+    template<class X>
+    static X* createActor(void* p1, void* p2, void* p3) {
+        //p1 : 名称
+        X* p = NEW X((char*)p1);
+        return p;
+    }
 
     template<class X>
     static X* createScene(void* p1, void* p2, void* p3) {
@@ -248,12 +230,8 @@ public:
 };
 #define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene, this, (void*)(NAME),(void*)(NULL),(void*)(NULL)))
 #define orderActorToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor, this, (void*)(NAME),(void*)(NULL),(void*)(NULL)))
-//#define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModel,this,(void*)(NAME),(void*)(MODEL),(void*)(NULL)))
-//#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModelDp,this,(void*)(NAME),(void*)(MODEL),(void*)(DEPOSITORY)))
-//#define orderActorWithDpToFactory(ID, CLASS, NAME, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithDp,this,(void*)(NAME),(void*)(DEPOSITORY), (void*)(NULL)))
-
 #define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID),this))
 #define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID),this))
-#define createInFactory(CLASS, NAME) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::createActor, this, (void*)(NAME),(void*)(NULL),(void*)(NULL),this))
+#define createInFactory(CLASS, NAME) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create, this, (void*)(NAME),(void*)(NULL),(void*)(NULL),this))
 }
 #endif /*GGAFGACTORY_H_*/

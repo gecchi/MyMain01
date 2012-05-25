@@ -31,6 +31,7 @@ private:
     bool _is_regist_hitarea;
     /** registHitAreaCube() ƒƒ\ƒbƒh‚É‚æ‚è“o˜^‚Ì“–‚½‚è”»’è—§•û‘Ì‚Ì‚P•Ó‚Ì’·‚³ */
     int _hitarea_edge_length;
+    int _hitarea_edge_length_3;
     /** registHitAreaCube() ƒƒ\ƒbƒh‚É‚æ‚è“o˜^‚Ì“–‚½‚è”»’è—§•û‘Ì‚Ì‚P•Ó‚Ì’·‚³‚Ì”¼•ª */
     int _harf_hitarea_edge_length;
 

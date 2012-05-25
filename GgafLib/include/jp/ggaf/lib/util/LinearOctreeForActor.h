@@ -11,6 +11,8 @@ namespace GgafLib {
  */
 class LinearOctreeForActor : public GgafCore::GgafLinearOctree {
 
+    UINT32 _num_space_minus_one;
+
 public:
     /**
      * 当たり判定アクターを保持するスタック .

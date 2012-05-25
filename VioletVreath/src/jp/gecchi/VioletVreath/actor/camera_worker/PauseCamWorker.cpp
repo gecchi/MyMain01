@@ -10,9 +10,9 @@ PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     mdz_flg_ = false;
     pVPGuide_ = NULL;
     mdz_vx_ = mdz_vy_ = mdz_vz_ = mdz_t_ = 0.0;
-    orderActorToFactory(GgafUtil::easy_hash("VPGuide"), ViewPointGuide, "VPGuide");
-    pVPGuide_ = (ViewPointGuide*)(obtainActorFromFactory(GgafUtil::easy_hash("VPGuide")));
-
+//    orderActorToFactory(GgafUtil::easy_hash("VPGuide"), ViewPointGuide, "VPGuide");
+//    pVPGuide_ = (ViewPointGuide*)(obtainActorFromFactory(GgafUtil::easy_hash("VPGuide")));
+    pVPGuide_ = createInFactory(ViewPointGuide, "VPGuide");
 }
 
 void PauseCamWorker::initialize() {

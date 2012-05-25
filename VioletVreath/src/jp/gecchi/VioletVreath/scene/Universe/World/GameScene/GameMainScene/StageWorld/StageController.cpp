@@ -156,7 +156,8 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
 
     if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
         _TRACE_("StageController::onCatchEvent(EVENT_PREPARE_NEXT_STAGE)");
-        readyStage(pTransitStage_->next_main_stage_);//次のステージ準備
+        int next_stage = *((int*)(prm_pSource));
+        readyStage(next_stage);//次のステージ準備
 //            _TRACE_("最終面クリア");
 //            _pProg->change(StageController::PROG_END);
             //TODO:エデニング？

@@ -11,7 +11,7 @@ namespace GgafDxCore {
 class GgafDxCameraViewPoint : public GgafDxGeometricActor {
 
 public:
-
+    coord _X_prev, _Y_prev, _Z_prev;
     frame _offset_frames;
 
     GgafDxCameraViewPoint();
@@ -40,6 +40,8 @@ public:
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
+
+    bool isMove();
 
     virtual ~GgafDxCameraViewPoint();
 };

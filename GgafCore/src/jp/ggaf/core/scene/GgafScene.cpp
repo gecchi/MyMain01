@@ -231,8 +231,8 @@ void GgafScene::resetTree() {
 
 
 void GgafScene::end(frame prm_offset_frames) {
-    _pDirector->end(prm_offset_frames);
-    GgafElement<GgafScene>::end(prm_offset_frames);
+    _pDirector->end(prm_offset_frames+180);
+    GgafElement<GgafScene>::end(prm_offset_frames+180);
     //この順番は重要。逆にするとゴミ箱の解放時に不正ポインタになりうるため。
 }
 

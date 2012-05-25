@@ -72,7 +72,7 @@ void TransitStage::processBehavior() {
         case Stage::PROG_END: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) is Just Changed. STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
-                throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)next_main_stage_); //次ステージ準備へ
+                throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)(&next_main_stage_)); //次ステージ準備へ
             }
 
             if (_pProg->getFrameInProgress() == 120) {

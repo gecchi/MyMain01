@@ -89,9 +89,9 @@ void LaserChip::processSettlementBehavior() {
             int dX = _pChip_front->_X - _X;
             int dY = _pChip_front->_Y - _Y;
             int dZ = _pChip_front->_Z - _Z;
-            if (ABS(dX) >= _hitarea_edge_length*3 ||
-                ABS(dY) >= _hitarea_edge_length*3 ||
-                ABS(dZ) >= _hitarea_edge_length*3) {
+            if (ABS(dX) >= _hitarea_edge_length_3 ||
+                ABS(dY) >= _hitarea_edge_length_3 ||
+                ABS(dZ) >= _hitarea_edge_length_3) {
                 //自身と前方チップの中間に当たり判定を作り出す
                 int cX = dX / 2;
                 int cY = dY / 2;
@@ -256,6 +256,7 @@ void LaserChip::registHitAreaCube(int prm_edge_length) {
     //下位レーザーチップでオーバーライトされている可能性あり
     _is_regist_hitarea = true;
     _hitarea_edge_length = prm_edge_length;
+    _hitarea_edge_length_3 = _hitarea_edge_length*3;
     _harf_hitarea_edge_length = _hitarea_edge_length / 2;
     _pColliChecker->makeCollision(2);
     _pColliChecker->setColliAAB_Cube(0, prm_edge_length);

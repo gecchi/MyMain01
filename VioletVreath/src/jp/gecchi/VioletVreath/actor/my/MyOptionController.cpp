@@ -36,7 +36,7 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
 
     //トレース用履歴
     pRing_OptCtrlGeoHistory_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
-    for (DWORD i = 0; i < max_option_num_*o2o_; i++) {
+    for (int i = 0; i < max_option_num_*o2o_; i++) {
         pRing_OptCtrlGeoHistory_->addLast(NEW GgafDxGeoElem(this));
     }
 }

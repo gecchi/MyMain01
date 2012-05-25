@@ -140,8 +140,9 @@ void GgafDxGeometricActor::processSettlementBehavior() {
             _pChecker->updateHitArea();
         }
     }
+    //Ž‹‘äXV
     GgafDxCamera* pCam = P_CAM;
-    //Ž‹‘ä
+
     _dest_from_vppln_top    = pCam->_plnTop.a*_fX +
                               pCam->_plnTop.b*_fY +
                               pCam->_plnTop.c*_fZ +
@@ -172,7 +173,6 @@ void GgafDxGeometricActor::processSettlementBehavior() {
                               pCam->_plnBack.c*_fZ +
                               pCam->_plnBack.d;
     _offscreen_kind = -1;
-
 }
 
 

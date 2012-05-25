@@ -5,6 +5,9 @@ using namespace GgafDxCore;
 GgafDxCameraViewPoint::GgafDxCameraViewPoint() :
         GgafDxGeometricActor("ViewPoint", NULL, NULL) {
     _class_name = "GgafDxCameraViewPoint";
+    _X_prev = 0;
+    _Y_prev = 0;
+    _Z_prev = 0;
 }
 
 void GgafDxCameraViewPoint::initialize() {
@@ -12,9 +15,18 @@ void GgafDxCameraViewPoint::initialize() {
 }
 
 void GgafDxCameraViewPoint::processBehavior() {
-//    _pKurokoA->behave();
+    _X_prev = _X;
+    _Y_prev = _Y;
+    _Z_prev = _Z;
 }
 
+bool GgafDxCameraViewPoint::isMove() {
+    if (_X_prev == _X && _X_prev == _Y && _Z_prev == _Z) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 GgafDxCameraViewPoint::~GgafDxCameraViewPoint() {
 }

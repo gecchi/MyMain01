@@ -93,6 +93,7 @@ public:
     /** [r/w]注視点 **/
     GgafDxCameraViewPoint* _pViewPoint;
 
+    coord _X_prev, _Y_prev, _Z_prev;
 
     coord _X_buffer_left;
     coord _X_buffer_right;
@@ -164,6 +165,8 @@ public:
      * @param prm_pActor 注視するアクター
      */
     virtual void setViewPoint(GgafDxGeometricActor* prm_pActor);
+
+    bool isMove();
 
     virtual ~GgafDxCamera(); //デストラクタ
 };

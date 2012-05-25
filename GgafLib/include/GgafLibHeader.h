@@ -74,8 +74,6 @@ class ColliAAPrism;
 class LinearOctreeForActor;
 class LinearOctreeActorElem;
 class CollisionChecker;
-class CollisionCheckerLaserChip;
-
 
 class SplineLine;
 class SplineSequence;
@@ -100,7 +98,6 @@ class LaserChipDepositoryStore;
 
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/CollisionCheckerLaserChip.h"
 #include "jp/ggaf/lib/util/ColliAAB.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
@@ -139,7 +136,6 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 #include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
-#include "jp/ggaf/lib/actor/FontSpriteActor.h"
 #include "jp/ggaf/lib/actor/ColliAABActor.h"
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
 #include "jp/ggaf/lib/actor/ColliSphereActor.h"
@@ -154,7 +150,6 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/actor/SpriteMeshWorldBoundActor.h"
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 
-#include "jp/ggaf/lib/util/FontSpriteString.h"
 #include "jp/ggaf/lib/util/LinearOctreeForActor.h"
 #include "jp/ggaf/lib/util/LinearOctreeActorElem.h"
 
