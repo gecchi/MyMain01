@@ -17,7 +17,7 @@ Universe::Universe(const char* prm_name, Camera* prm_pCamera) : DefaultUniverse(
     getDirector()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
 
     //【めも】
-    //ここでActorやSceneのNEWをはしてはならない。
+    //ここでActorやSceneのNEWをあんまししてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。
 }
 

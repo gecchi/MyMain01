@@ -76,8 +76,6 @@ public:
      */
     class LevelInfo {
     public:
-        /** [r]該当レベルで魔法が適用中であるかどうか(発動開始～効果終了までtrue) */
-        bool is_working_;
         /** [r]魔法効果持続終了残り時間 */
         magic_time remainingtime_of_effect_;
         /** [r/w]魔法効果持続時間 */
@@ -87,8 +85,7 @@ public:
         /** [r/w]アニメパターン番号 */
         int pno_;
 
-        LevelInfo() : is_working_(false),
-                      remainingtime_of_effect_(0),
+        LevelInfo() : remainingtime_of_effect_(0),
                       keep_cost_(0),
                       pno_(0) {
         }

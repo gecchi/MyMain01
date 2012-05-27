@@ -45,17 +45,14 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     }
 
     //各レベル別持続時間及び、維持コストを予め設定
-    lvinfo_[0].is_working_ = false;
     lvinfo_[0].remainingtime_of_effect_ = 0;
     lvinfo_[0].time_of_effect_ = 0;
     lvinfo_[0].keep_cost_ = 0;
-    lvinfo_[1].is_working_ = false;
     lvinfo_[1].remainingtime_of_effect_ = 0;
     lvinfo_[1].time_of_effect_ = time_of_effect_base_;
     lvinfo_[1].keep_cost_ = keep_cost_base_;
 
     for (int i = 2; i <= max_level_; i++) {
-        lvinfo_[i].is_working_ = false;
         lvinfo_[i].remainingtime_of_effect_ = 0;
         lvinfo_[i].time_of_effect_ = lvinfo_[i-1].time_of_effect_ * r_each_lv_time_of_effecting_;
         lvinfo_[i].keep_cost_      = lvinfo_[i-1].keep_cost_      * r_keep_cost_;
@@ -73,12 +70,9 @@ void Magic::onReset() {
     last_level_ = 0;
     level_      = 0;
     //各レベル別持続時間及び、維持コストを予め設定
-    lvinfo_[0].is_working_ = false;
     lvinfo_[0].remainingtime_of_effect_ = 0;
-    lvinfo_[1].is_working_ = false;
     lvinfo_[1].remainingtime_of_effect_ = 0;
     for (int i = 2; i <= max_level_; i++) {
-        lvinfo_[i].is_working_ = false;
         lvinfo_[i].remainingtime_of_effect_ = 0;
     }
     time_of_next_state_ = 0;
@@ -94,8 +88,7 @@ void Magic::save(std::stringstream& sts) {
            new_level_  << " " <<
            last_level_ << " ";
     for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
-        sts <<  lvinfo_[lv].is_working_               << " " <<
-                lvinfo_[lv].remainingtime_of_effect_ << " " <<
+        sts <<  lvinfo_[lv].remainingtime_of_effect_ << " " <<
                 lvinfo_[lv].time_of_effect_           << " " <<
                 lvinfo_[lv].keep_cost_                << " " <<
                 lvinfo_[lv].pno_                      << " ";
@@ -109,8 +102,7 @@ void Magic::load(std::stringstream& sts) {
         >> last_level_;
 
     for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
-        sts >> lvinfo_[lv].is_working_
-            >> lvinfo_[lv].remainingtime_of_effect_
+        sts >> lvinfo_[lv].remainingtime_of_effect_
             >> lvinfo_[lv].time_of_effect_
             >> lvinfo_[lv].keep_cost_
             >> lvinfo_[lv].pno_;
@@ -283,9 +275,6 @@ int Magic::effect(int prm_level) {
         }
         case MAGIC_EFFECT_OK_LEVELUP: {
             is_working_ = true;
-
-            //現在魔法レベルは停止して
-            lvinfo_[level_].is_working_ = false;
             //レベル更新
             last_level_ = level_;
             level_ = prm_level;
@@ -294,9 +283,6 @@ int Magic::effect(int prm_level) {
         }
         case MAGIC_EFFECT_OK_LEVELDOWN: {
             is_working_ = true;
-
-            //現在魔法レベルは停止して
-            lvinfo_[level_].is_working_ = false;
             //レベル更新
             last_level_ = level_;
             level_ = prm_level;
@@ -373,7 +359,6 @@ void Magic::processBehavior() {
                     //レベルアップだった場合
                     //飛び越された間のレベルは停止して効果持続終了残り時間を満タンを設定
                     for (int lv = last_level_+1; lv <= level_-1; lv++) {
-                        lvinfo_[lv].is_working_ = false; //停止し
                         lvinfo_[lv].remainingtime_of_effect_ = lvinfo_[lv].time_of_effect_; //持続時間を満タン
                     }
                     pMP_->dec(interest_cost_[level_-last_level_]); //MP消費
@@ -389,7 +374,6 @@ void Magic::processBehavior() {
 
                     //飛び越された間のレベルは停止して効果持続終了残り時間をリセットを設定
                     for (int lv = level_+1 ; lv <= last_level_-1; lv++) {
-                        lvinfo_[lv].is_working_ = false; //停止し
                         lvinfo_[lv].remainingtime_of_effect_ = 0; //果持続終了残り時間を0
                     }
                 } else {
@@ -402,7 +386,6 @@ void Magic::processBehavior() {
                 }
 
                 //今回の新たなレベルを設定
-                lvinfo_[level_].is_working_ = true;
                 if (last_level_ < level_) {
                     //レベルアップだった場合
                     lvinfo_[level_].remainingtime_of_effect_ = lvinfo_[level_].time_of_effect_; //今回持続時間を満タン
@@ -429,7 +412,6 @@ void Magic::processBehavior() {
                 //即効性魔法
                 if (level_ > 0) {
                     for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
-                         lvinfo_[lv].is_working_ = false;          //停止し
                          lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
                     }
                     new_level_ = 0;
@@ -453,7 +435,6 @@ void Magic::processBehavior() {
                             //MP枯渇による持続終了時
                             pMP_->set(0);
                             for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
-                                 lvinfo_[lv].is_working_ = false;           //停止し
                                  lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
                             }
                             new_level_ = 0;
