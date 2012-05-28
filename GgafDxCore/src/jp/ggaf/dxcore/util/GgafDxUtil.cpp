@@ -79,7 +79,7 @@ angle GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_Y_REV[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_X_REV[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_Y[D90SANG+1][D90SANG+1];
 double GgafDxUtil::SMOOTH_DV[3600+1];
-
+angle GgafDxUtil::GOLDEN_ANG[1000];
 UINT32 GgafDxUtil::BITNUM[33];
 GgafDxSphereRadiusVectors GgafDxUtil::_srv = GgafDxSphereRadiusVectors();
 
@@ -269,6 +269,29 @@ void GgafDxUtil::init() {
         //D = 1 - cos(2ƒÎt)
         SMOOTH_DV[i] = 1.0 - cos(2.0*PI*t);
     }
+
+    //‰©‹àŠp”z—ñ
+    for (int n = 0; n < 1000; n++) {
+        // ƒÆ‚Í‰©‹àŠp
+        // 1 : (1+ã5) / 2 = 2ƒÎ-ƒÆ : ƒÆ
+        // 2ƒÎ-ƒÆ = { (1+ã5) / 2 } ƒÆ
+        // (2ƒÎ-ƒÆ) / ƒÆ = (1+ã5) / 2
+        // (2ƒÎ/ƒÆ) - 1 = (1+ã5) / 2
+        // 2ƒÎ/ƒÆ = 1 + {(1+ã5) / 2}
+        // 2ƒÎ =  ( 1 + {(1+ã5) / 2} ) ƒÆ
+        // ƒÆ = 2ƒÎ/ ( 1 + {(1+ã5) / 2} )
+        double n_theta = n * ( PI2 / ( 1.0 + ((1.0+sqrt(5.0))/2.0) ) );
+        //•W€‰»
+        while (n_theta >= PI2) {
+            n_theta -= PI2;
+        }
+        while (n_theta < 0) {
+            n_theta += PI2;
+        }
+        GOLDEN_ANG[n] = (angle)(D360ANG*n_theta / PI2);
+        //_TRACE_("GOLDEN_ANG["<<n<<"]="<<GOLDEN_ANG[n]);
+    }
+
 
     BITNUM[ 0] = 0;
     BITNUM[ 1] = (0x1);            //0b 00000000 00000000 00000000 00000001

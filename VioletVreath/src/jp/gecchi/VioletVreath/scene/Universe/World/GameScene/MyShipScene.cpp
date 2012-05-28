@@ -107,7 +107,15 @@ void MyShipScene::processBehavior() {
         case MyShipScene::PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
                 fadeinScene(0);
-                pMyShip_->reset();
+                pMyShip_->resetTree();
+
+                //VreathMagicをデフォルトでレベル１に設定
+                MagicMeter* pMM = pMyShip_->pMagicMeter_;
+                int idx = pMM->ringMagics_.indexOf(pMyShip_->pMagicMeter_->pVreathMagic_);
+                pMM->pVreathMagic_->effect(1);
+                pMM->papLvTargetCursor_[idx]->moveSmoothTo(1); //カーソル
+                pMM->papLvHilightCursor_[idx]->moveSmoothTo(1); //カーソル
+
                 pMyShip_->_X = Universe::_X_goneLeft + 1000;
                 pMyShip_->can_control_ = true;
                 pMyShip_->is_diving_ = true;

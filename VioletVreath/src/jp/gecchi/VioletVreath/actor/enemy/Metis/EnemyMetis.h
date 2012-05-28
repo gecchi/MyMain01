@@ -12,6 +12,10 @@ namespace VioletVreath {
 class EnemyMetis : public GgafLib::DefaultMeshSetActor {
 
 public:
+
+    DepositoryConnection* pCon_ShotDepo_;
+    GgafCore::GgafActorDepository* pDepo_Shot_;
+
     int iMovePatternNo_;
 
     int width_X_;

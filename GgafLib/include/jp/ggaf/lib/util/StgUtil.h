@@ -904,7 +904,7 @@ public:
      * @param prm_RY              発射方向Ry
      * @param prm_pDepo_Shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
-     * @param prm_radial_way_num  放射Way数
+     * @param prm_radial_way_num  １セット放射Way数
      * @param prm_expanse_angle   放射弾の照射角(0 ～ D180ANG。懐中電灯の光の広がり角のようなイメージ。小さいと弾の間隔が狭い)
      * @param prm_velo_first      初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
      * @param prm_acce            各セットのショット初期加速度
@@ -929,7 +929,7 @@ public:
      * @param prm_pFrom           発射元
      * @param prm_pDepo_Shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
-     * @param prm_radial_way_num  放射Way数
+     * @param prm_radial_way_num  １セット放射Way数
      * @param prm_expanse_angle   放射弾の照射角(0 ～ D180ANG。懐中電灯の光の広がり角のようなイメージ。小さいと弾の間隔が狭い)
      * @param prm_velo_first      初弾セットのショット初期速度
      * @param prm_acce            初弾セットのショット初期加速度
@@ -944,6 +944,65 @@ public:
                            velo prm_velo_first, acce prm_acce,
                            int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                            void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = NULL);
+
+    /**
+     * 黄金角拡散放射弾を複数セット同時に撃つ .
+     * 発射するショットに、次の項目が設定されます。<BR>
+     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
+     * @param prm_X               発射元X座標
+     * @param prm_Y               発射元Y座標
+     * @param prm_Z               発射元Z座標
+     * @param prm_RZ              発射方向Rz
+     * @param prm_RY              発射方向Ry
+     * @param prm_pDepo_Shot      発射するショットのデポジトリ
+     * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
+     * @param prm_way_num         １セット発射数(1～999)
+     * @param prm_first_expanse_angle   発射弾の初期照射角(0 ～ D180ANG。懐中電灯の光の広がり角のようなイメージ。小さいと弾の間隔が狭い)
+     * @param prm_inc_expanse_angle     1弾毎に加算する照射角差分(0 ～ D180ANG)
+     * @param prm_velo_first      初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
+     * @param prm_acce            各セットのショット初期加速度
+     * @param prm_set_num         撃つ放射WAY弾の合計セット数
+     * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(< 1.0)、或いは増幅率(>1.0)
+     */
+    static void shotWayGoldenAng(coord prm_X, coord prm_Y, coord prm_Z,
+                                 angle prm_RZ, angle prm_RY,
+                                 GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                 coord prm_r,
+                                 int prm_way_num,
+                                 angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                                 velo prm_velo_first, acce prm_acce,
+                                 int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                 void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = NULL);
+
+    /**
+     * 発射元の向いている方向（_RZ > _RY）に向かって黄金角拡散放射弾を複数セット同時に撃つ .
+     * 発射するショットに、次の項目が設定されます。<BR>
+     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
+     * @param prm_pFrom           発射元
+     * @param prm_pDepo_Shot      発射するショットのデポジトリ
+     * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
+     * @param prm_way_num         １セット発射数(1～999)
+     * @param prm_first_expanse_angle   発射弾の初期照射角(0 ～ D180ANG。懐中電灯の光の広がり角のようなイメージ。小さいと弾の間隔が狭い)
+     * @param prm_inc_expanse_angle     1弾毎に加算する照射角差分(0 ～ D180ANG)
+     * @param prm_velo_first      初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
+     * @param prm_acce            各セットのショット初期加速度
+     * @param prm_set_num         撃つ放射WAY弾の合計セット数
+     * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
+     * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(< 1.0)、或いは増幅率(>1.0)
+
+     */
+    static void shotWayGoldenAng(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+                                 GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                 coord prm_r,
+                                 int prm_way_num,
+                                 angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                                 velo prm_velo_first, acce prm_acce,
+                                 int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                 void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = NULL);
+
 
 };
 

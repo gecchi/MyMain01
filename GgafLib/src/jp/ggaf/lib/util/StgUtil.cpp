@@ -395,3 +395,77 @@ void StgUtil::shotWay004(GgafDxGeometricActor* prm_pFrom,
                prm_set_num, prm_interval_frames, prm_attenuated,
                pFunc_CallBackDispatched);
 }
+
+void StgUtil::shotWayGoldenAng(coord prm_X, coord prm_Y, coord prm_Z,
+                               angle prm_RZ, angle prm_RY,
+                               GgafActorDepository* prm_pDepo_Shot,
+                               coord prm_r,
+                               int prm_way_num,
+                               angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                               velo prm_velo_first, acce prm_acce,
+                               int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                               void (*pFunc_CallBackDispatched)(GgafDxGeometricActor*, int, int, int)) {
+    GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_way_num];
+    angle expanse_rz = (D180ANG - prm_first_expanse_angle)/2;
+
+    D3DXMATRIX matWorldRot;
+    GgafDxUtil::setWorldMatrix_RzRy(GgafDxUtil::simplifyAng(prm_RZ-D90ANG),prm_RY, matWorldRot);
+
+    float vx, vy, vz;
+    coord X,Y,Z;
+    for (int i = 0; i < prm_way_num; i++) {
+        GgafDxUtil::getNormalizeVectorZY(expanse_rz, GOLDEN_ANG[i], vx, vy, vz);
+        X = vx * prm_r;
+        Y = vy * prm_r;
+        Z = vz * prm_r;
+        paGeo[i]._X = X*matWorldRot._11 + Y*matWorldRot._21 + Z*matWorldRot._31;
+        paGeo[i]._Y = X*matWorldRot._12 + Y*matWorldRot._22 + Z*matWorldRot._32;
+        paGeo[i]._Z = X*matWorldRot._13 + Y*matWorldRot._23 + Z*matWorldRot._33;
+        GgafDxUtil::getRzRyAng(paGeo[i]._X , paGeo[i]._Y, paGeo[i]._Z,
+                               paGeo[i]._RZ, paGeo[i]._RY);
+        expanse_rz -= (prm_inc_expanse_angle/2);
+    }
+    GgafDxGeometricActor* pActor_Shot;
+    velo now_velo = prm_velo_first;
+    acce now_acce = prm_acce;
+    int dispatch_num = 0;
+    for (int n = 0; n < prm_set_num; n++) {
+        for (int i = 0; i < prm_way_num; i++) {
+            pActor_Shot = (GgafDxGeometricActor*)prm_pDepo_Shot->dispatch(n*prm_interval_frames+1);
+            if (pActor_Shot) {
+                dispatch_num++;
+                pActor_Shot->locate(prm_X + paGeo[i]._X,
+                                    prm_Y + paGeo[i]._Y,
+                                    prm_Z + paGeo[i]._Z);
+                pActor_Shot->_pKurokoA->setRzRyMvAng(paGeo[i]._RZ, paGeo[i]._RY);
+                pActor_Shot->_pKurokoA->setMvVelo(now_velo);
+                pActor_Shot->_pKurokoA->setMvAcce(now_acce);
+//                pActor_Shot->_pKurokoA->_angFace[AXIS_Z] = Rz;
+//                pActor_Shot->_pKurokoA->_angFace[AXIS_Y] = Ry;
+                if (pFunc_CallBackDispatched) {
+                    pFunc_CallBackDispatched(pActor_Shot, dispatch_num, n, i);
+                }
+            }
+        }
+        now_velo *= prm_attenuated;
+    }
+    DELETEARR_IMPOSSIBLE_NULL(paGeo);
+}
+void StgUtil::shotWayGoldenAng(GgafDxGeometricActor* prm_pFrom,
+                               GgafActorDepository* prm_pDepo_Shot,
+                               coord prm_r,
+                               int prm_way_num,
+                               angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                               velo prm_velo_first, acce prm_acce,
+                               int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                               void (*pFunc_CallBackDispatched)(GgafDxGeometricActor*, int, int, int)) {
+    shotWayGoldenAng(prm_pFrom->_X, prm_pFrom->_Y, prm_pFrom->_Z,
+                     prm_pFrom->_RZ, prm_pFrom->_RY,
+                     prm_pDepo_Shot,
+                     prm_r,
+                     prm_way_num,
+                     prm_first_expanse_angle, prm_inc_expanse_angle,
+                     prm_velo_first, prm_acce,
+                     prm_set_num, prm_interval_frames, prm_attenuated,
+                     pFunc_CallBackDispatched);
+}

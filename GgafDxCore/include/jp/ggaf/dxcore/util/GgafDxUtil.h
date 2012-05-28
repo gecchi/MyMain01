@@ -78,11 +78,19 @@ public:
 
     /**
      * 半径 1000 の 1/4 円の解テーブル .
+     * <pre><code>
      *      ______________
      * y = √(1000^2-x^2)
+     * </code></pre>
      * の 要素[x] に対する y
      */
     static float ROOT_1_MINUS_XX[1000];
+
+    /**
+     * 黄金角 .
+     * 要素[x](0～999) は x 番目の黄金角。
+     */
+    static angle GOLDEN_ANG[1000];
 
     static UINT32 BITNUM[];
 

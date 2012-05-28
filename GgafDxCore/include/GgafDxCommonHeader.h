@@ -79,6 +79,7 @@
 //原点付近の画面上の１px相当に対してのPG内での座標単位の比率（PG内での座標単位を LEN_UNITで割ると3D空間のpxになる）
 #define LEN_UNIT (1000)
 #define PI (3.14159265358979)
+#define PI2 (PI*2.0)
 //#define MAX_DRAW_DEPTH_LEVEL 1000
 #define MAX_DRAW_DEPTH_LEVEL 500
 #define DRAW_DEPTH_LEVEL_WORLDBOUND (MAX_DRAW_DEPTH_LEVEL)

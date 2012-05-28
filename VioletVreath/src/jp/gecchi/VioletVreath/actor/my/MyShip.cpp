@@ -195,6 +195,7 @@ void MyShip::onCreateModel() {
 }
 
 void MyShip::initialize() {
+    _TRACE_("MyShip::initialize()");
 
     //種別に振り分け
 //    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
@@ -235,6 +236,7 @@ void MyShip::initialize() {
 
 
 void MyShip::onReset() {
+    _TRACE_("MyShip::onReset()");
     frame_soft_rapidshot_ = 0;
     is_being_soft_rapidshot_ = false;
     just_shot_ = false;
@@ -246,19 +248,13 @@ void MyShip::onReset() {
     way_switch_.reset();
     _pStatus->reset();
     mp_.set(100000);         //初期値は100000
-
 }
 
 void MyShip::onActive() {
+    _TRACE_("MyShip::onActive()");
 }
 
 void MyShip::processBehavior() {
-	if (getActivePartFrame() == 10) {
-		int idx = pMagicMeter_->ringMagics_.indexOf(pMagicMeter_->pVreathMagic_);
-		pMagicMeter_->pVreathMagic_->effect(1);
-		pMagicMeter_->papLvTargetCursor_[idx]->moveSmoothTo(1);
-		pMagicMeter_->papLvHilightCursor_[idx]->moveSmoothTo(1);
-	}
 //    ///////////////////////スペキュラテスト
 //    if (GgafDxInput::isBeingPressedKey(DIK_9)) {
 //        _pModel->_specular += 0.1;

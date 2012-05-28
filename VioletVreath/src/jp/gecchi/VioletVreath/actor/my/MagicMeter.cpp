@@ -156,7 +156,16 @@ void MagicMeter::initialize() {
         papLvCastingMarkCursor_[i]->moveTo(0);
     }
 }
-
+void MagicMeter::onReset() {
+    Magic* pMagic;
+    for (int i = 0; i < ringMagics_.length(); i++) {
+        pMagic = ringMagics_.getFromFirst(i);
+        pMagic->resetTree(); //先にMagicをリセットさせる。
+        papLvTargetCursor_[i]->moveTo(pMagic->level_);
+        papLvHilightCursor_[i]->moveTo(pMagic->level_);
+        papLvCastingMarkCursor_[i]->moveTo(0);
+    }
+}
 void MagicMeter::onActive() {
 }
 

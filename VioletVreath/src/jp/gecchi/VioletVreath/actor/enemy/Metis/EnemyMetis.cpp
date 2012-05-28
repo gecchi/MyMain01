@@ -14,6 +14,9 @@ EnemyMetis::EnemyMetis(const char* prm_name) :
     _pSeTx->useSe(2);
     _pSeTx->set(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_MetisHit"));
     _pSeTx->set(1, "bom10", GgafRepeatSeq::nextVal("CH_MetisDestroy"));     //”š”­
+
+    pCon_ShotDepo_ = connectDepositoryManager("DpCon_Shot004", NULL);
+    pDepo_Shot_ = pCon_ShotDepo_->fetch();
 }
 
 void EnemyMetis::onCreateModel() {
@@ -99,6 +102,25 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         if (pItem) {
             pItem->locatedBy(this);
         }
+
+        //‘Å‚¿•Ô‚µ’e
+        if (pDepo_Shot_) {
+            MyShip* pM = P_MYSHIP;
+            angle rz,ry;
+            GgafDxUtil::getRzRyAng(pM->_X - _X,
+                                   pM->_Y - _Y,
+                                   pM->_Z - _Z,
+                                   rz, ry);
+            StgUtil::shotWayGoldenAng(_X, _Y, _Z,
+                                      rz, ry,
+                                      pDepo_Shot_,
+                                      PX_C(20),
+                                      300,
+                                      D_ANG(1), 100,
+                                      2000, 200,
+                                      2, 4, 0.9);
+
+        }
     }
 }
 
@@ -106,4 +128,5 @@ void EnemyMetis::onInactive() {
     sayonara();
 }
 EnemyMetis::~EnemyMetis() {
+    pCon_ShotDepo_->close();
 }

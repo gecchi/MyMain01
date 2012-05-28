@@ -7,7 +7,7 @@ using namespace VioletVreath;
 Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     _class_name = "Stage01";
 
-    pScene_Stage01PartCtrlr_ = NEW Stage01PartController("Stage01Ctrl");
+    pScene_Stage01PartCtrlr_ = NEW Stage01PartController("Stage01PartController");
     pScene_Stage01PartCtrlr_->inactivate();
     addSubLast(pScene_Stage01PartCtrlr_);
     Sleep(2);

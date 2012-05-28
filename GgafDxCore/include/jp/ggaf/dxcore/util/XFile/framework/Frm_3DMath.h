@@ -192,24 +192,24 @@ public:
     }
     //add tsugecchi 2009/08/31
     bool isIdentity() {
-        T val0 =  (T)0;
-        T val1 =  (T)1;
-        if( data[0] == val1 &&
-            data[1] == val0 &&
-            data[2] == val0 &&
-            data[3] == val0 &&
-            data[4] == val0 &&
-            data[5] == val1 &&
-            data[6] == val0 &&
-            data[7] == val0 &&
-            data[8] == val0 &&
-            data[9] == val0 &&
-            data[10] == val1 &&
-            data[11] == val0 &&
-            data[12] == val0 &&
-            data[13] == val0 &&
-            data[14] == val0 &&
-            data[15] == val1 )
+        int val0 =  0;
+        int val1 =  1000;
+        if( (int)(1000.0* data[0] ) == val1 &&
+            (int)(1000.0* data[1] ) == val0 &&
+            (int)(1000.0* data[2] ) == val0 &&
+            (int)(1000.0* data[3] ) == val0 &&
+            (int)(1000.0* data[4] ) == val0 &&
+            (int)(1000.0* data[5] ) == val1 &&
+            (int)(1000.0* data[6] ) == val0 &&
+            (int)(1000.0* data[7] ) == val0 &&
+            (int)(1000.0* data[8] ) == val0 &&
+            (int)(1000.0* data[9] ) == val0 &&
+            (int)(1000.0* data[10]) == val1 &&
+            (int)(1000.0* data[11]) == val0 &&
+            (int)(1000.0* data[12]) == val0 &&
+            (int)(1000.0* data[13]) == val0 &&
+            (int)(1000.0* data[14]) == val0 &&
+            (int)(1000.0* data[15]) == val1 )
         {
             return true;
         } else {

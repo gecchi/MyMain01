@@ -110,6 +110,8 @@ public:
 
     void initialize() override;
 
+    void onReset() override;
+
     void onActive() override;
 
     void processBehavior() override;
