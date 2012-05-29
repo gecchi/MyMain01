@@ -86,6 +86,8 @@ public:
     /** [r/w]各魔法(配列)のロールアップの速さ */
     float* paFloat_velo_rr_;
 
+    float alpha_velo_;
+
     /** 魔法メーター１つの横幅(px) */
     float width_px_;
     /** 魔法メーター１つの高さ(px) */
@@ -126,6 +128,8 @@ public:
 
     void rollClose(int prm_meter_index);
 
+
+    void setMeterAlpha(float a);
     virtual ~MagicMeter();
 };
 

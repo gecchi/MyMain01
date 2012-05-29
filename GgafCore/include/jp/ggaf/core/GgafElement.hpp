@@ -998,30 +998,27 @@ void GgafElement<T>::nextFrame() {
     }
 
     //配下のnextFrame()実行
-    if (_is_active_flg) { //自身がactiveならサブノードまでは無条件でnextFrame()実行する。TODO:ちゃんと検証
-        if (GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafNode<T>::_pSubFirst;
-            while(true) {
+    if (GgafNode<T>::_pSubFirst) {
+        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        while(true) {
 
-                if (pElementTemp->_is_last_flg) {
-                    pElementTemp->nextFrame();
-                    if (pElementTemp->_can_live_flg == false) {
-                        pElementTemp->onEnded();
-                        GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
-                    }
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->_pNext;
-                    pElementTemp->_pPrev->nextFrame();
-                    if (pElementTemp->_pPrev->_can_live_flg == false) {
-                        ((T*)(pElementTemp->_pPrev))->onEnded();
-                        GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
-                    }
+            if (pElementTemp->_is_last_flg) {
+                pElementTemp->nextFrame();
+                if (pElementTemp->_can_live_flg == false) {
+                    pElementTemp->onEnded();
+                    GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
+                }
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+                pElementTemp->_pPrev->nextFrame();
+                if (pElementTemp->_pPrev->_can_live_flg == false) {
+                    ((T*)(pElementTemp->_pPrev))->onEnded();
+                    GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
                 }
             }
         }
     }
-
 
     if (_will_mv_first_in_next_frame_flg) {
         _will_mv_first_in_next_frame_flg = false;
@@ -1373,8 +1370,8 @@ void GgafElement<T>::end(frame prm_offset_frames) {
     if (GgafNode<T>::_pSubFirst) {
         T* pElementTemp = GgafNode<T>::_pSubFirst;
         while(true) {
-            if (prm_offset_frames > 2) {
-                pElementTemp->end(prm_offset_frames-1); //出来るだけ末端からendする
+            if (prm_offset_frames > 3) {
+                pElementTemp->end(prm_offset_frames-2); //出来るだけ末端からendする
             } else {
                 pElementTemp->end(prm_offset_frames);
             }

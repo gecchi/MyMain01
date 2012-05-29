@@ -35,7 +35,10 @@ public:
     }
     void processFinal() override {
     }
-    virtual void updateActiveInTheTree() override {}
+    virtual void updateActiveInTheTree() override {
+        _is_active_in_the_tree_flg = false;
+        _is_active_flg = false;
+    }
 
     virtual ~GgafDisusedScene() {
     }

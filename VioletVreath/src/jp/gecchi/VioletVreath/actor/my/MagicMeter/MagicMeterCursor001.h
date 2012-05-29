@@ -17,7 +17,8 @@ public:
     coord tX_;
     /** ˆÚ“®–Ú•WYÀ•W */
     coord tY_;
-
+    /** ‘Ş”ğ—p */
+    float tmp_alpha_;
     MagicMeter* pMagicMeter_;
 
     MagicMeterCursor001(const char* prm_name, MagicMeter* prm_pMagicMeter);
@@ -29,7 +30,6 @@ public:
     void processBehavior() override;
 
     void processJudgement() override;
-
     void moveTo(int prm_magic_mater_index);
 
     virtual ~MagicMeterCursor001();

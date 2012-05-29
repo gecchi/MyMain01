@@ -124,7 +124,7 @@ void GgafDxTextureBlinker::intoTargetBlinkLinerUntil(float prm_target_power_blin
     _method = TARGET_BLINK_LINER;
     _target_power_blink = prm_target_power_blink;
     _velo_power_blink = (prm_target_power_blink - _power_blink) / (int)prm_spend_frame;
-    if (_velo_power_blink == 0.0f) { //TODO:‚±‚±‰½‚Æ‚©‚·‚é
+    if (ABS(_velo_power_blink) <= 0.0001f) {
         _method = NOBLINK;
     }
 }
@@ -148,7 +148,7 @@ void GgafDxTextureBlinker::loopLiner(frame prm_beat_target_frames, float prm_bea
     _stop_one_way_num = (int)(prm_beat_num*2.0f);
     _beat_target_frames = prm_beat_target_frames;
     _velo_power_blink = (_top_power_blink - _power_blink) / ((int)prm_beat_target_frames / 2);
-    if (_velo_power_blink == 0.0f) {
+    if (ABS(_velo_power_blink) <= 0.0001f) {
         _velo_power_blink = 0.1f; //0‚Í¢‚é
     }
 }

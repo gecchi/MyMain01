@@ -9,6 +9,7 @@ MagicMeterCursor001::MagicMeterCursor001(const char* prm_name, MagicMeter* prm_p
         DefaultBoardActor(prm_name, "Cursor001") {
     _class_name = "MagicMeterCursor001";
     pMagicMeter_ = prm_pMagicMeter;
+    tmp_alpha_ = _alpha;
 }
 void MagicMeterCursor001::initialize() {
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
@@ -27,10 +28,9 @@ void MagicMeterCursor001::processBehavior() {
         _X = tX_;
         _Y = tY_;
     }
-
+    setAlpha(pMagicMeter_->getAlpha());
     _pKurokoA->behave();
     _pUvFlipper->behave();
-
 }
 
 void MagicMeterCursor001::processJudgement() {

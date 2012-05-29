@@ -26,6 +26,7 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
     }
     GgafGarbageBox::_wait = true;
     prm_pActor->_can_live_flg = false;
+    prm_pActor->inactivateTreeImmed();
     _pDisusedActor->addSubLast(prm_pActor->extract());
     _TRACE_("ÉSÉ~î†(Actor) GgafGarbageBox::add("<<prm_pActor->getName()<<")");
     GgafGarbageBox::_wait = false;
@@ -46,6 +47,7 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
     GgafGarbageBox::_wait = true;
     prm_pScene->_can_live_flg = false;
     _pDisusedScene->addSubLast(prm_pScene->extract());
+    prm_pScene->inactivateTreeImmed();
     _TRACE_("ÉSÉ~î†(Scene) GgafGarbageBox::add("<<prm_pScene->getName()<<")");
     GgafGarbageBox::_wait = false;
 }

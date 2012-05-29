@@ -30,7 +30,7 @@ void MagicMeterStatus::processDraw() {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
         //各メーター下段表示
         if (pMagic->level_ > 0) {
-            setAlpha(1.0);
+            setAlpha(pMagicMeter_->getAlpha());
             _X = pMagicMeter_->_X + PX_C(pMagicMeter_->width_px_)*i;
             _Y = pMagicMeter_->_Y + PX_C(pMagicMeter_->height_px_);
             sprintf(aBuf_, "%06d", (pMagic->lvinfo_[pMagic->level_].remainingtime_of_effect_)/60);

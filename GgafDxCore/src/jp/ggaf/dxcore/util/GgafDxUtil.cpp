@@ -150,7 +150,7 @@ void GgafDxUtil::init() {
         rad = (PI * 2.0 * ang) / 360000;
         vx = cos(rad);
         vy = sin(rad);
-        if (vx == 0) {
+        if (FZERO_EQ(vx)) {
             slant = 0.0f;
         } else {
             slant = (float)(vy / vx);

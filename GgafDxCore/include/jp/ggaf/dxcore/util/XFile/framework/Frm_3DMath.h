@@ -192,24 +192,22 @@ public:
     }
     //add tsugecchi 2009/08/31
     bool isIdentity() {
-        int val0 =  0;
-        int val1 =  1000;
-        if( (int)(1000.0* data[0] ) == val1 &&
-            (int)(1000.0* data[1] ) == val0 &&
-            (int)(1000.0* data[2] ) == val0 &&
-            (int)(1000.0* data[3] ) == val0 &&
-            (int)(1000.0* data[4] ) == val0 &&
-            (int)(1000.0* data[5] ) == val1 &&
-            (int)(1000.0* data[6] ) == val0 &&
-            (int)(1000.0* data[7] ) == val0 &&
-            (int)(1000.0* data[8] ) == val0 &&
-            (int)(1000.0* data[9] ) == val0 &&
-            (int)(1000.0* data[10]) == val1 &&
-            (int)(1000.0* data[11]) == val0 &&
-            (int)(1000.0* data[12]) == val0 &&
-            (int)(1000.0* data[13]) == val0 &&
-            (int)(1000.0* data[14]) == val0 &&
-            (int)(1000.0* data[15]) == val1 )
+        if(  FONE_EQ(data[0] ) &&
+            FZERO_EQ(data[1] ) &&
+            FZERO_EQ(data[2] ) &&
+            FZERO_EQ(data[3] ) &&
+            FZERO_EQ(data[4] ) &&
+             FONE_EQ(data[5] ) &&
+            FZERO_EQ(data[6] ) &&
+            FZERO_EQ(data[7] ) &&
+            FZERO_EQ(data[8] ) &&
+            FZERO_EQ(data[9] ) &&
+             FONE_EQ(data[10]) &&
+            FZERO_EQ(data[11]) &&
+            FZERO_EQ(data[12]) &&
+            FZERO_EQ(data[13]) &&
+            FZERO_EQ(data[14]) &&
+             FONE_EQ(data[15]) )
         {
             return true;
         } else {

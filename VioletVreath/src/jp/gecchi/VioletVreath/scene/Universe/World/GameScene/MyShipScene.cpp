@@ -76,7 +76,7 @@ void MyShipScene::onReset() {
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
         papOptionCtrlr_[i]->resetTree();
     }
-    fadeinScene(0);
+    fadeoutScene(0);
     _pProg->set(MyShipScene::PROG_INIT);
 }
 
@@ -106,7 +106,7 @@ void MyShipScene::processBehavior() {
 
         case MyShipScene::PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
-                fadeinScene(0);
+                fadeinScene(120);
                 pMyShip_->resetTree();
 
                 //VreathMagicをデフォルトでレベル１に設定
@@ -145,8 +145,7 @@ void MyShipScene::processBehavior() {
 
         case MyShipScene::PROG_DESTROY: {
             if (_pProg->isJustChanged()) {
-                pEffectMyShipExplosion_->activate();
-                pMyShip_->inactivateDelay(60);
+                pEffectMyShipExplosion_->activate(); //爆発
                 pMyShip_->can_control_ = false;
                 for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
                     papOptionCtrlr_[i]->is_free_from_myship_mode_ = true;
@@ -154,6 +153,10 @@ void MyShipScene::processBehavior() {
                 zanki_ -= 1;
             }
             if (_pProg->getFrameInProgress() == 120) {
+                fadeoutScene(120);
+                pMyShip_->inactivateDelay(120);
+            }
+            if (_pProg->getFrameInProgress() == 240) {
                 if (zanki_ == 0) {
                    throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                    P_UNIVERSE->undoCameraWork(); //VamSysCamWorker解除

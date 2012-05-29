@@ -6,6 +6,8 @@
 #define SGN(X) (GgafCore::GgafUtil::_sgn_(X))
 #define MAX3(a,b,c) (GgafCore::GgafUtil::_max3_(a,b,c))
 
+#define FZERO_EQ(X) (GgafCore::GgafUtil::_zerof_eq_(X))
+#define FONE_EQ(X) (GgafCore::GgafUtil::_zerof_eq_((X)-1.0f))
 
 namespace GgafCore {
 
@@ -45,6 +47,21 @@ public:
         }
         return r;
     }
+    static inline bool _zerof_eq_(float val, float epsilon = 1e-5f ) {
+        return (-epsilon < val && val < epsilon);
+        //0x7FFFFFFF = 01111111 11111111 11111111 11111111
+    }
+    static inline bool _float_is_eq_( float val1, float val2, const float& epsilon = 1e-5f ) {
+        return _zerof_eq_( val1 - val2, epsilon );
+    }
+
+//    static inline bool _fzero_equals_(float x) {
+//        return (ABS(x) < 0.000001f);
+//    }
+//
+//    static inline bool _fone_equals_(float x) {
+//        return (ABS(x-1.0f) < 0.000001f);
+//    }
 
     static inline std::string _itos_(int prm_n) {
         std::ostringstream oss;

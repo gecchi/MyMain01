@@ -50,7 +50,7 @@ void MyOptionLockonController::processBehavior() {
     GgafMainActor* pLockonEffect_Active = getSubFirst();         //ロックオンエフェクトカーソル
     int n = pRingTarget_->length();
     for (int i = 0; i < n; i++) {
-        if (pTarget->isActiveInTheTree() && pTarget->_pStatus->get(STAT_Stamina) > 0) {
+        if (pTarget->isActive() && pTarget->isActiveInTheTree() && pTarget->_pStatus->get(STAT_Stamina) > 0) {
             //ターゲットが存命ならば
             //エフェクトアクターのターゲット更新、エフェクトをズルっとします
             ((EffectLockon001*)pLockonEffect_Active)->lockon(pTarget);

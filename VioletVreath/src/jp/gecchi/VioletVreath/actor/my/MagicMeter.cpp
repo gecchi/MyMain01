@@ -112,7 +112,10 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     _pSeTx->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "SwingA@11"    );  //レベルダウン実行
     _pSeTx->set(SE_CANT_INVOKE_MAGIC             , "yume_organ_01");  //詠唱完了時、MPが足りないため発動できない場合
     _pSeTx->set(SE_BAD_OPERATION                 , "yume_SUZU"    );  //ブブー
+
+    alpha_velo_ = -0.01f;
 }
+
 
 void MagicMeter::loadStatus(int prm_saveno) {
     st_[prm_saveno].seekg(std::stringstream::beg); //頭出し
@@ -171,6 +174,7 @@ void MagicMeter::onActive() {
 
 void MagicMeter::processBehavior() {
     if (VB_PLAY->isBeingPressed(VB_POWERUP)) {
+        alpha_velo_ = 0.05f;
 
         Magic* pActiveMagic = ringMagics_.getCurrent();     //アクティブな魔法
         int active_idx = ringMagics_.getCurrentIndex();     //アクティブな魔法のインデックス
@@ -329,6 +333,7 @@ void MagicMeter::processBehavior() {
             }
         }
     } else  {
+        alpha_velo_ = -0.02f;
         if (VB_PLAY->isReleasedUp(VB_POWERUP)) {
             rollClose(ringMagics_.getCurrentIndex());
         }
@@ -336,6 +341,12 @@ void MagicMeter::processBehavior() {
         cost_disp_vreath.set(0);
     }
 
+    addAlpha(alpha_velo_);
+    if (getAlpha() < 0.2f) {
+        setAlpha(0.2f);
+    } else if (getAlpha() > 1.0f) {
+        setAlpha(1.0f);
+    }
     //毎フレームの各魔法表示についての処理
     GgafProgress* pMagicProg = NULL;
     Magic* pMagic = NULL;
@@ -455,7 +466,7 @@ void MagicMeter::processDraw() {
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], z);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], _alpha);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], getAlpha());
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
         _pUvFlipper->getUV(0, u, v);
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[n], u);
@@ -471,7 +482,7 @@ void MagicMeter::processDraw() {
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], z);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], _alpha);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], getAlpha());
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
         _pUvFlipper->getUV(pMagic->lvinfo_[pMagic->level_].pno_, u, v);
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[n], u);
@@ -490,7 +501,7 @@ void MagicMeter::processDraw() {
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], z);
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], paFloat_rr_[i]); //アクティブなら濃いめ
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], getAlpha()*paFloat_rr_[i]); //アクティブなら濃いめ
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
 
                 if (pMagic->chkCastAble(j) <= MAGIC_CAST_NG_MP_IS_SHORT) {

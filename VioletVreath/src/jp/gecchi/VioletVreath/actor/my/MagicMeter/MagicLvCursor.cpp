@@ -17,7 +17,7 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
     }
     point_lv_ = 0;
     tmp_Y_ = _Y;
-    tmp_alpha_ = getAlpha();
+    tmp_alpha_ = _alpha;
 }
 
 void MagicLvCursor::initialize() {
@@ -49,7 +49,7 @@ void MagicLvCursor::processPreDraw() {
         alpha_r = 0.0f;
     }
     tmp_alpha_ = getAlpha();//‘Þ”ð
-    setAlpha(alpha_r*tmp_alpha_);
+    setAlpha(alpha_r*tmp_alpha_*pMagicMeter_->getAlpha());
     //‚±‚±‚ÅAƒ[ƒ‹•ªYÀ•W‚ð•â³
     tmp_Y_ = _Y; //‘Þ”ð
     _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));

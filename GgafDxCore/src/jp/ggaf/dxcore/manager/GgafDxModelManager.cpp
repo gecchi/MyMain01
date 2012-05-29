@@ -587,7 +587,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
             vec.x = model_paVtxBuffer_org[i].nx;
             vec.y = model_paVtxBuffer_org[i].ny;
             vec.z = model_paVtxBuffer_org[i].nz;
-            if (vec.x == 0.0f && vec.y == 0.0f && vec.z == 0.0f) {
+            if (FZERO_EQ(vec.x) && FZERO_EQ(vec.y) && FZERO_EQ(vec.z)) {
                 model_paVtxBuffer_org[i].nx = 0;
                 model_paVtxBuffer_org[i].ny = 0;
                 model_paVtxBuffer_org[i].nz = 0;
@@ -1213,7 +1213,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
                     vec.x = model_paVtxBuffer_org_primary[i].nx;
                     vec.y = model_paVtxBuffer_org_primary[i].ny;
                     vec.z = model_paVtxBuffer_org_primary[i].nz;
-                    if (vec.x == 0.0f && vec.y == 0.0f && vec.z == 0.0f) {
+                    if (FZERO_EQ(vec.x) && FZERO_EQ(vec.y) && FZERO_EQ(vec.z)) {
                         model_paVtxBuffer_org_primary[i].nx = 0;
                         model_paVtxBuffer_org_primary[i].ny = 0;
                         model_paVtxBuffer_org_primary[i].nz = 0;
@@ -1227,7 +1227,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
                     vec.x = model_papaVtxBuffer_org_morph[pattern-1][i].nx;
                     vec.y = model_papaVtxBuffer_org_morph[pattern-1][i].ny;
                     vec.z = model_papaVtxBuffer_org_morph[pattern-1][i].nz;
-                    if (vec.x == 0 && vec.y == 0 && vec.z == 0) {
+                    if (FZERO_EQ(vec.x) && FZERO_EQ(vec.y) && FZERO_EQ(vec.z)) {
                         model_papaVtxBuffer_org_morph[pattern-1][i].nx = 0;
                         model_papaVtxBuffer_org_morph[pattern-1][i].ny = 0;
                         model_papaVtxBuffer_org_morph[pattern-1][i].nz = 0;
@@ -2667,7 +2667,6 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
                 } else {
                     //–@ü‚ª–³‚¢ê‡
                     indexNormals_per_Face[j] = (unsigned short)0;
-
                 }
             }
             if (nFaceNormals > i) {
@@ -2800,7 +2799,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
             vec.x = unit_paVtxBuffer_org[i].nx;
             vec.y = unit_paVtxBuffer_org[i].ny;
             vec.z = unit_paVtxBuffer_org[i].nz;
-            if (vec.x == 0 && vec.y == 0 && vec.z == 0) {
+            if (FZERO_EQ(vec.x) && FZERO_EQ(vec.y) && FZERO_EQ(vec.z)) {
                 unit_paVtxBuffer_org[i].nx = 0;
                 unit_paVtxBuffer_org[i].ny = 0;
                 unit_paVtxBuffer_org[i].nz = 0;

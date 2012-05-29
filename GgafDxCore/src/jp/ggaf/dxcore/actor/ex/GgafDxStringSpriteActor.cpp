@@ -75,6 +75,11 @@ void GgafDxStringSpriteActor::update(const char* prm_str) {
     if (_align == ALIGN_CENTER) {
         _width_len_px = 0;
         for (int i = 0; i < _len; i++) {
+#ifdef MY_DEBUG
+            if (_draw_string[i] < 0) {
+                throwGgafCriticalException("GgafDxStringSpriteActor::update() ”ÍˆÍŠO‚Å‚·_draw_string["<<i<<"]="<<(int)(_draw_string[i]));
+            }
+#endif
             _width_len_px += _aWidthPx[_draw_string[i]];
         }
     } else {
