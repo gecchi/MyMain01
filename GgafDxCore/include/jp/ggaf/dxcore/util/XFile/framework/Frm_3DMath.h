@@ -192,22 +192,22 @@ public:
     }
     //add tsugecchi 2009/08/31
     bool isIdentity() {
-        if(  FONE_EQ(data[0] ) &&
-            FZERO_EQ(data[1] ) &&
-            FZERO_EQ(data[2] ) &&
-            FZERO_EQ(data[3] ) &&
-            FZERO_EQ(data[4] ) &&
-             FONE_EQ(data[5] ) &&
-            FZERO_EQ(data[6] ) &&
-            FZERO_EQ(data[7] ) &&
-            FZERO_EQ(data[8] ) &&
-            FZERO_EQ(data[9] ) &&
-             FONE_EQ(data[10]) &&
-            FZERO_EQ(data[11]) &&
-            FZERO_EQ(data[12]) &&
-            FZERO_EQ(data[13]) &&
-            FZERO_EQ(data[14]) &&
-             FONE_EQ(data[15]) )
+        if(  ONEf_EQ(data[0] ) &&
+            ZEROf_EQ(data[1] ) &&
+            ZEROf_EQ(data[2] ) &&
+            ZEROf_EQ(data[3] ) &&
+            ZEROf_EQ(data[4] ) &&
+             ONEf_EQ(data[5] ) &&
+            ZEROf_EQ(data[6] ) &&
+            ZEROf_EQ(data[7] ) &&
+            ZEROf_EQ(data[8] ) &&
+            ZEROf_EQ(data[9] ) &&
+             ONEf_EQ(data[10]) &&
+            ZEROf_EQ(data[11]) &&
+            ZEROf_EQ(data[12]) &&
+            ZEROf_EQ(data[13]) &&
+            ZEROf_EQ(data[14]) &&
+             ONEf_EQ(data[15]) )
         {
             return true;
         } else {

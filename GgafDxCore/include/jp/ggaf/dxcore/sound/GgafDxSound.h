@@ -32,6 +32,12 @@ public:
     static GgafDxSeManager* _pSeManager;
     /** [r]GgafDxBgm 管理クラス */
     static GgafDxBgmManager* _pBgmManager;
+    /** [r/w]マスターボリューム0～100 */
+    static int _master_volume;
+    /** [r/w]BGM全般のボリューム0～100 */
+    static int _bgm_volume;
+    /** [r/w]サウンドエフェクト全般のボリューム0～100 */
+    static int _se_volume;
     /** [r/w]マスターボリューム割合 0.0～1.0 */
     static float _master_volume_rate;
     /** [r/w]BGM全般のボリューム割合 0.0～1.0 */
@@ -55,26 +61,48 @@ public:
 
     /**
      * マスタボリューム設定の率設定 .
-     * @param prm_master_volume_rate 0.0(無音) ～ 1.0(サンプリング本来の音量)
+     * @param prm_master_volume 0(無音) ～ 100
      */
-    static void setMasterVolume(float prm_master_volume_rate) {
-        GgafDxSound::_master_volume_rate = prm_master_volume_rate;
+    static void setMasterVolume(int prm_master_volume) {
+        _master_volume = prm_master_volume;
+        if (_master_volume > GGAF_MAX_VOLUME) {
+            _master_volume = GGAF_MAX_VOLUME;
+        } else if (_master_volume < GGAF_MIN_VOLUME) {
+            _master_volume = GGAF_MIN_VOLUME;
+        }
+        _master_volume_rate = 1.0f * _master_volume / GGAF_MAX_VOLUME;
+    }
+
+    static void addMasterVolume(int prm_master_volume_offset) {
+        setMasterVolume(_master_volume+prm_master_volume_offset);
     }
 
     /**
-     * 全体的なBGMボリュームの率設定 .
-     * @param prm_bgm_volume_rate  0.0(無音) ～ 1.0(サンプリング本来の音量)
+     * 全BGMボリュームの率設定 .
+     * @param prm_bgm_volume  0(無音) ～ 100(サンプリング本来の音量)
      */
-    static void setBgmVolume(float prm_bgm_volume_rate) {
-        GgafDxSound::_bgm_volume_rate = prm_bgm_volume_rate;
+    static void setBgmVolume(float prm_bgm_volume) {
+        _bgm_volume = prm_bgm_volume;
+        if (_bgm_volume > GGAF_MAX_VOLUME) {
+            _bgm_volume = GGAF_MAX_VOLUME;
+        } else if (_bgm_volume < GGAF_MIN_VOLUME) {
+            _bgm_volume = GGAF_MIN_VOLUME;
+        }
+        _bgm_volume_rate = 1.0f * _bgm_volume / GGAF_MAX_VOLUME;
     }
 
     /**
-     * 全体的なSEボリュームの率設定 .
-     * @param prm_se_volume_rate  0.0(無音) ～ 1.0(サンプリング本来の音量)
+     * 全SEボリュームの率設定 .
+     * @param prm_se_volume  0(無音) ～ 100(サンプリング本来の音量)
      */
-    static void setSeVolume(float prm_se_volume_rate) {
-        GgafDxSound::_se_volume_rate = prm_se_volume_rate;
+    static void setSeVolume(float prm_se_volume) {
+        _se_volume = prm_se_volume;
+        if (_se_volume > GGAF_MAX_VOLUME) {
+            _se_volume = GGAF_MAX_VOLUME;
+        } else if (_se_volume < GGAF_MIN_VOLUME) {
+            _se_volume = GGAF_MIN_VOLUME;
+        }
+        _se_volume_rate = 1.0f * _se_volume / GGAF_MAX_VOLUME;
     }
 
 };

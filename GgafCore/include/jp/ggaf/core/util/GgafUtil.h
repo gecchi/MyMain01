@@ -6,8 +6,8 @@
 #define SGN(X) (GgafCore::GgafUtil::_sgn_(X))
 #define MAX3(a,b,c) (GgafCore::GgafUtil::_max3_(a,b,c))
 
-#define FZERO_EQ(X) (GgafCore::GgafUtil::_zerof_eq_(X))
-#define FONE_EQ(X) (GgafCore::GgafUtil::_zerof_eq_((X)-1.0f))
+#define ZEROf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_(X))
+#define ONEf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_((X)-1.0f))
 
 namespace GgafCore {
 
@@ -33,7 +33,7 @@ public:
      */
     static char* getFileText(std::string prm_filename);
 
-    static std::vector<std::string> split(std::string str, std::string delim) {
+    static inline std::vector<std::string> split(std::string str, std::string delim) {
         std::vector<std::string> r;
         int cutAt;
         while ((cutAt = str.find_first_of(delim)) != str.npos) {
@@ -49,19 +49,7 @@ public:
     }
     static inline bool _zerof_eq_(float val, float epsilon = 1e-5f ) {
         return (-epsilon < val && val < epsilon);
-        //0x7FFFFFFF = 01111111 11111111 11111111 11111111
     }
-    static inline bool _float_is_eq_( float val1, float val2, const float& epsilon = 1e-5f ) {
-        return _zerof_eq_( val1 - val2, epsilon );
-    }
-
-//    static inline bool _fzero_equals_(float x) {
-//        return (ABS(x) < 0.000001f);
-//    }
-//
-//    static inline bool _fone_equals_(float x) {
-//        return (ABS(x-1.0f) < 0.000001f);
-//    }
 
     static inline std::string _itos_(int prm_n) {
         std::ostringstream oss;
@@ -98,7 +86,7 @@ public:
      * @param out_binstr 2進数文字列化  char[33]  [out]
      * @param bitnum 所望の２進数ビット数
      */
-    static void strbin(UINT32 prm_decimal, char* out_binstr, int bitnum = 32){
+    static inline void strbin(UINT32 prm_decimal, char* out_binstr, int bitnum = 32){
         /* 10進数-->2進数変換 */
         int i, k;
         for (i = 0, k = bitnum - 1; k >= 0; i++, k--) {
@@ -113,18 +101,6 @@ public:
 //            else break;
 //        }
     }
-
-//    static unsigned int easy_hash(const char* prm_key) {
-//        unsigned int n = 0;
-//        for (unsigned int i = 1; (*prm_key) != '\0'; i++) {
-//            n = n * 33  + ((*prm_key)-32);
-//            prm_key++;
-//        }
-//        return n;
-//        //n = n * 33  + ((*prm_key)-32); とした理由メモ
-//        //-32 は ' '(ASCII:32番) 以降の文字しか扱わないため
-//        //33を乗ずると、なんか衝突が少ないらしい
-//    }
 
     /**
      * 簡易ハッシュ .
@@ -162,7 +138,7 @@ public:
         return x < 0 ? -x : x;
     }
 
-    static INT32 _abs_(INT32 x) {
+    static inline INT32 _abs_(INT32 x) {
         if (x == INT_MIN) {
             return INT_MAX;
         } else {

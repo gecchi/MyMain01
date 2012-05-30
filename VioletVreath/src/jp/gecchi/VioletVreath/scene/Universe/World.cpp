@@ -67,7 +67,8 @@ void World::processBehavior() {
             if (_pProg->getFrameInProgress() >= 60 &&
                 GgafFactory::chkProgress(2) == 2 &&
                 pPreDrawScene_->_pProg->get() == PreDrawScene::PROG_WAIT &&
-                P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
+                P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX))
+            {
                 pLabel_Title_->end();
                 pLabel_Wait_->end();
                 _pProg->changeNext();
@@ -100,17 +101,27 @@ void World::processBehavior() {
             }
             //GameScene作成完了
             VB->update(); //入力情報更新
+
+            //F5キーが音量下げ
+            if (GgafDxInput::isBeingPressedKey(DIK_F5)) {
+                GgafDxSound::addMasterVolume(-1);
+            }
+            //F6キーが音量上げ
+            if (GgafDxInput::isBeingPressedKey(DIK_F6)) {
+                GgafDxSound::addMasterVolume(1);
+            }
+
             break;
         }
     }
 
 #ifdef MY_DEBUG
-    sprintf(aBufDebug_, "%05uDRAW / %06uCHK / %07uF / %03.1fFPS / NEW=%d",
+    sprintf(aBufDebug_, "%05uDRAW / %06uCHK / %07uF / %03.1fFPS / V%03d",
                             GgafGod::_num_actor_drawing,
                             CollisionChecker::_num_check,
                             (unsigned int)askGod()->_frame_of_God,
                             askGod()->_fps,
-                            ((GgafFactory::CREATING_ORDER->_progress==1) ? GgafFactory::CREATING_ORDER->_id : 0)
+                            (GgafDxSound::_master_volume)
                             );
     pLabel_Debug_->update(aBufDebug_);
     if (getActivePartFrame() % 60 == 0) {
