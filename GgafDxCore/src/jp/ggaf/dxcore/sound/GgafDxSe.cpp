@@ -126,7 +126,9 @@ void GgafDxSe::play(int prm_volume, float prm_pan, float prm_frequency) {
     hr = _pIDirectSoundBuffer->Play(0, 0, 0x00000000);
     checkDxException(hr, DS_OK, "GgafDxSe::play() Play(0, 0, 0x00000000) ‚ªŽ¸”s‚µ‚Ü‚µ‚½B");
 }
-
+void GgafDxSe::play() {
+    play(GgafDxSound::_se_volume, 0.0f);
+}
 void GgafDxSe::setVolume(int prm_volume) {
     int db = GgafDxSound::aDbVolume[(int)(prm_volume * GgafDxSound::_master_volume_rate * GgafDxSound::_se_volume_rate)];
     HRESULT hr = _pIDirectSoundBuffer->SetVolume(db);

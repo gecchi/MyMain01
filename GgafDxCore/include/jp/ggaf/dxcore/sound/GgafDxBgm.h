@@ -45,9 +45,7 @@ public:
      * BGMÄ¶ .
      * @param prm_is_looping true:ƒ‹[ƒvÄ¶
      */
-    void play(bool prm_is_looping) {
-        play(GGAF_MAX_VOLUME, 0.0f, prm_is_looping);
-    }
+    void play(bool prm_is_looping);
     void pause();
     void unpause();
     void stop();
@@ -61,6 +59,7 @@ public:
      * @param pan ¶ -1.0 ` 0 ` 1.0 ‰E
      */
     void setPan(float pan);
+
     void clear();
     bool isActive();
 

@@ -57,9 +57,7 @@ public:
     /**
      * SE‚ğ1‰ñÄ¶ .
      */
-    virtual void play() {
-        play(GGAF_MAX_VOLUME, 0.0f);
-    }
+    virtual void play();
 
     /**
      * SE‚ªÄ¶’†‚©’²‚×‚é .

@@ -51,7 +51,9 @@ void GgafDxBgm::play(int prm_volume, float prm_pan, bool prm_is_looping) {
     setPan(prm_pan);
     _pPcmPlayer->play(prm_is_looping);
 }
-
+void GgafDxBgm::play(bool prm_is_looping) {
+    play(GgafDxSound::_bgm_volume, 0.0f, prm_is_looping);
+}
 void GgafDxBgm::pause() {
     _pPcmPlayer->pause();
 }
@@ -70,9 +72,10 @@ void GgafDxBgm::setVolume(int prm_volume) {
 }
 
 void GgafDxBgm::setPan(float prm_pan) {
-
     _pPcmPlayer->setPan(prm_pan*DSBPAN_RIGHT);
 }
+
+
 
 void GgafDxBgm::clear() {
     _pPcmPlayer->clear();

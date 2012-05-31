@@ -132,8 +132,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
         StringBoardActor(prm_name, "RankFont")
 {
     _class_name = "LabelRankFont";
-    _align = ALIGN_RIGHT;
-    _valign = VALIGN_BOTTOM;
+    setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
     useProgress(RANKFONT_PROG_RANKUP);
 }
 
@@ -145,19 +144,19 @@ void LabelRankFont::onCreateModel() {
 void LabelRankFont::initialize() {
     tmp_rank_ = _RANK_DISP_;
     _pProg->set(RANKFONT_PROG_NOMALDISP);
-    _draw_string = _buf;
 }
 
 void LabelRankFont::processBehavior() {
+#ifdef MY_DEBUG
     if (GgafDxInput::isPushedDownKey(DIK_R)) {
         _RANK_+=0.0001;
     }
+#endif
     int rank_level = _RANK_DISP_;
     if (rank_level != tmp_rank_) {
-        cnvRankStr(rank_level, _draw_string);
-        _len = strlen(_draw_string);
-        _len_pack_num = _len/_pBoardSetModel->_set_num;
-        _remainder_len = _len%_pBoardSetModel->_set_num;
+        char c[65];
+        cnvRankStr(rank_level, c);
+        update(c);
         _pProg->set(RANKFONT_PROG_RANKUP);
         tmp_rank_ = rank_level;
     }
@@ -182,55 +181,6 @@ void LabelRankFont::processBehavior() {
         }
         default:
             break;
-    }
-}
-
-void LabelRankFont::processDraw() {
-    //右詰め固定表示
-    if (_len == 0) {
-        return;
-    }
-    ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
-    HRESULT hr;
-
-
-    if (_valign == VALIGN_BOTTOM) {
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], float(C_PX(_Y)-_height_px));
-    } else if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], float(C_PX(_Y)-_height_px/2));
-    } else {
-        //VALIGN_TOP
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], float(C_PX(_Y)));
-    }
-    checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ah_transformed_Y) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[0], float(C_PX(_Z)));
-    checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[0], _alpha);
-    checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ah_alpha) に失敗しました。");
-    int strindex, pattno;
-    pixcoord x = C_PX(_X) - (_chr_width_px * _len); //右詰にするため _chr_width_px*_len をマイナス
-    float u,v;
-    for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
-        _draw_set_num = pack < _len_pack_num ? _pBoardSetModel->_set_num : _remainder_len;
-        for (int i = 0; i < _draw_set_num; i++) {
-            strindex = pack * _pBoardSetModel->_set_num + i;
-            if (_draw_string[strindex] == '\0') {
-                break;
-            } else if (_draw_string[strindex] - ' ' < 0) {
-                pattno = '?' - ' '; //範囲外は"?"を表示
-            } else {
-                pattno = _draw_string[strindex] - ' '; //通常文字列
-            }
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[i], float(x));
-            checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
-            _pUvFlipper->getUV(pattno, u, v);
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[i], u);
-            checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(hOffsetU_) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[i], v);
-            checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(hOffsetV_) に失敗しました。");
-            x += _chr_width_px;
-        }
-        _pBoardSetModel->draw(this, _draw_set_num);
     }
 }
 

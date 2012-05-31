@@ -23,6 +23,11 @@ public:
 
     GgafCore::GgafResourceConnection<GgafDxBgm>* processCreateConnection(char* prm_idstr, GgafDxBgm* prm_pResource) override;
 
+    /**
+     * 現在演奏中のBGMのボリュームを更新 .
+     */
+    void GgafDxBgmManager::updateVolume();
+
     virtual ~GgafDxBgmManager() {
     }
 };

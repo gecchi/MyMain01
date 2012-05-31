@@ -63,47 +63,23 @@ public:
      * マスタボリューム設定の率設定 .
      * @param prm_master_volume 0(無音) ～ 100
      */
-    static void setMasterVolume(int prm_master_volume) {
-        _master_volume = prm_master_volume;
-        if (_master_volume > GGAF_MAX_VOLUME) {
-            _master_volume = GGAF_MAX_VOLUME;
-        } else if (_master_volume < GGAF_MIN_VOLUME) {
-            _master_volume = GGAF_MIN_VOLUME;
-        }
-        _master_volume_rate = 1.0f * _master_volume / GGAF_MAX_VOLUME;
-    }
+    static void setMasterVolume(int prm_master_volume);
 
-    static void addMasterVolume(int prm_master_volume_offset) {
-        setMasterVolume(_master_volume+prm_master_volume_offset);
-    }
+    static void addMasterVolume(int prm_master_volume_offset);
 
     /**
      * 全BGMボリュームの率設定 .
      * @param prm_bgm_volume  0(無音) ～ 100(サンプリング本来の音量)
      */
-    static void setBgmVolume(float prm_bgm_volume) {
-        _bgm_volume = prm_bgm_volume;
-        if (_bgm_volume > GGAF_MAX_VOLUME) {
-            _bgm_volume = GGAF_MAX_VOLUME;
-        } else if (_bgm_volume < GGAF_MIN_VOLUME) {
-            _bgm_volume = GGAF_MIN_VOLUME;
-        }
-        _bgm_volume_rate = 1.0f * _bgm_volume / GGAF_MAX_VOLUME;
-    }
+    static void setBgmVolume(float prm_bgm_volume);
 
     /**
      * 全SEボリュームの率設定 .
      * @param prm_se_volume  0(無音) ～ 100(サンプリング本来の音量)
      */
-    static void setSeVolume(float prm_se_volume) {
-        _se_volume = prm_se_volume;
-        if (_se_volume > GGAF_MAX_VOLUME) {
-            _se_volume = GGAF_MAX_VOLUME;
-        } else if (_se_volume < GGAF_MIN_VOLUME) {
-            _se_volume = GGAF_MIN_VOLUME;
-        }
-        _se_volume_rate = 1.0f * _se_volume / GGAF_MAX_VOLUME;
-    }
+    static void setSeVolume(float prm_se_volume);
+
+    static void updateBgmVolume();
 
 };
 

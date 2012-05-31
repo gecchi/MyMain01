@@ -23,7 +23,7 @@ public:
 
     GgafDxSe* processCreateResource(char* prm_idstr, void* prm_p) override;
 
-
+    void updateVolume();
 
     virtual ~GgafDxSeManager() {
     }

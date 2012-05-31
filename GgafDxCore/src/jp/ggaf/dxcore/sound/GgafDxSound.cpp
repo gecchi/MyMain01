@@ -59,6 +59,44 @@ void GgafDxSound::init() {
     aDbVolume[GGAF_MAX_VOLUME] = DSBVOLUME_MAX;
 }
 
+void GgafDxSound::setMasterVolume(int prm_master_volume) {
+    _master_volume = prm_master_volume;
+    if (_master_volume > GGAF_MAX_VOLUME) {
+        _master_volume = GGAF_MAX_VOLUME;
+    } else if (_master_volume < GGAF_MIN_VOLUME) {
+        _master_volume = GGAF_MIN_VOLUME;
+    }
+    _master_volume_rate = 1.0f * _master_volume / GGAF_MAX_VOLUME;
+    GgafDxSound::_pBgmManager->updateVolume(); //音量を更新
+    GgafDxSound::_pSeManager->updateVolume(); //音量を更新
+}
+
+void GgafDxSound::addMasterVolume(int prm_master_volume_offset) {
+    setMasterVolume(_master_volume+prm_master_volume_offset);
+}
+
+void GgafDxSound::setBgmVolume(float prm_bgm_volume) {
+    _bgm_volume = prm_bgm_volume;
+    if (_bgm_volume > GGAF_MAX_VOLUME) {
+        _bgm_volume = GGAF_MAX_VOLUME;
+    } else if (_bgm_volume < GGAF_MIN_VOLUME) {
+        _bgm_volume = GGAF_MIN_VOLUME;
+    }
+    _bgm_volume_rate = 1.0f * _bgm_volume / GGAF_MAX_VOLUME;
+    GgafDxSound::_pBgmManager->updateVolume(); //音量を更新
+}
+
+void GgafDxSound::setSeVolume(float prm_se_volume) {
+    _se_volume = prm_se_volume;
+    if (_se_volume > GGAF_MAX_VOLUME) {
+        _se_volume = GGAF_MAX_VOLUME;
+    } else if (_se_volume < GGAF_MIN_VOLUME) {
+        _se_volume = GGAF_MIN_VOLUME;
+    }
+    _se_volume_rate = 1.0f * _se_volume / GGAF_MAX_VOLUME;
+    GgafDxSound::_pSeManager->updateVolume(); //音量を更新
+}
+
 void GgafDxSound::release() {
     _TRACE_("GgafDxSound::release() begin");
     _TRACE_("DELETE_IMPOSSIBLE_NULL(_pBgmManager);");

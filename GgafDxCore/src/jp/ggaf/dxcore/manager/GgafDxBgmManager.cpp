@@ -11,6 +11,20 @@ GgafDxBgm* GgafDxBgmManager::processCreateResource(char* prm_idstr, void* prm_p)
     return pResourceBgm;
 }
 
+void GgafDxBgmManager::updateVolume() {
+    while(_is_connecting_resource) {
+        Sleep(1);
+    }
+    GgafDxBgmConnection* pConnection = (GgafDxBgmConnection*)_pFirstConnection;
+    while (pConnection) {
+        pConnection->fetch()->setVolume(GgafDxSound::_bgm_volume);
+        while(_is_connecting_resource) { //ŠÈˆÕ”r‘¼
+            Sleep(1);
+        }
+        pConnection = (GgafDxBgmConnection*)(pConnection->getNext());
+    }
+}
+
 GgafResourceConnection<GgafDxBgm>* GgafDxBgmManager::processCreateConnection(char* prm_idstr, GgafDxBgm* prm_pResource) {
     TRACE3(" GgafDxBgmManager::processCreateConnection "<<prm_idstr<<" ‚ð¶¬ŠJŽnB");
     GgafDxBgmConnection* pConnection = NEW GgafDxBgmConnection(prm_idstr, prm_pResource);

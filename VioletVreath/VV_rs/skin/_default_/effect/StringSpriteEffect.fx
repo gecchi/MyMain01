@@ -90,6 +90,23 @@ float g_X017;
 float g_X018;
 
 float g_Y001;
+float g_Y002;
+float g_Y003;
+float g_Y004;
+float g_Y005;
+float g_Y006;
+float g_Y007;
+float g_Y008;
+float g_Y009;
+float g_Y010;
+float g_Y011;
+float g_Y012;
+float g_Y013;
+float g_Y014;
+float g_Y015;
+float g_Y016;
+float g_Y017;
+float g_Y018;
 
 float g_alpha001;
 //float g_alpha002;
@@ -143,79 +160,96 @@ OUT_VS GgafDxVS_StringSprite(
 
     if (index == 0) {
         X = g_X001;
+        Y = g_Y001;
         offsetU  = g_offset_u001;
         offsetV  = g_offset_v001;
     } else if (index == 1) {
         X = g_X002;
+        Y = g_Y002;
         offsetU  = g_offset_u002;
         offsetV  = g_offset_v002;
     } else if (index == 2) {
         X = g_X003;
+        Y = g_Y003;
         offsetU  = g_offset_u003;
         offsetV  = g_offset_v003;
     } else if (index == 3) {
         X = g_X004;
+        Y = g_Y004;
         offsetU  = g_offset_u004;
         offsetV  = g_offset_v004;
     } else if (index == 4) {
         X = g_X005;
+        Y = g_Y005;
         offsetU  = g_offset_u005;
         offsetV  = g_offset_v005;
     } else if (index == 5) {
         X = g_X006;
+        Y = g_Y006;
         offsetU  = g_offset_u006;
         offsetV  = g_offset_v006;
     } else if (index == 6) {
         X = g_X007;
+        Y = g_Y007;
         offsetU  = g_offset_u007;
         offsetV  = g_offset_v007;
     } else if (index == 7) {
         X = g_X008;
+        Y = g_Y008;
         offsetU  = g_offset_u008;
         offsetV  = g_offset_v008;
     } else if (index == 8) {
         X = g_X009;
+        Y = g_Y009;
         offsetU  = g_offset_u009;
         offsetV  = g_offset_v009;
     } else if (index == 9) {
         X = g_X010;
+        Y = g_Y010;
         offsetU  = g_offset_u010;
         offsetV  = g_offset_v010;
     } else if (index == 10) {
         X = g_X011;
+        Y = g_Y011;
         offsetU  = g_offset_u011;
         offsetV  = g_offset_v011;
     } else if (index == 11) {
         X = g_X012;
+        Y = g_Y012;
         offsetU  = g_offset_u012;
         offsetV  = g_offset_v012;
     } else if (index == 12) {
         X = g_X013;
+        Y = g_Y013;
         offsetU  = g_offset_u013;
         offsetV  = g_offset_v013;
     } else if (index == 13) {
         X = g_X014;
+        Y = g_Y014;
         offsetU  = g_offset_u014;
         offsetV  = g_offset_v014;
     } else if (index == 14) {
         X = g_X015;
+        Y = g_Y015;
         offsetU  = g_offset_u015;
         offsetV  = g_offset_v015;
     } else if (index == 15) {
         X = g_X016;
+        Y = g_Y016;
         offsetU  = g_offset_u016;
         offsetV  = g_offset_v016;
     } else if (index == 16) {
         X = g_X017;
+        Y = g_Y017;
         offsetU  = g_offset_u017;
         offsetV  = g_offset_v017;
     } else {
         X = g_X018;
+        Y = g_Y018;
         offsetU  = g_offset_u018;
         offsetV  = g_offset_v018;
     }
     alpha   = g_alpha001;
-    Y = g_Y001;
     matWorld = g_matWorld001;
     prm_pos.x += X;
     prm_pos.y += Y;

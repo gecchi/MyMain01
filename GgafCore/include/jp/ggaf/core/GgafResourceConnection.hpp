@@ -207,9 +207,9 @@ int GgafResourceConnection<T>::close() {
                 TRACE3("GgafResourceConnection::close()[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum << "Connection] まだ残ってます");
                 _num_connection--;
             } else if (rnum < 0) {
-                //通常ココは通らない
+                //ココは通らない・・・
                 _TRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum
-                        << "Connection] 解放しすぎ！。おかしい。どないやねん。アホー(>_<)。とりあえずスルー。");
+                        << "Connection] 解放しすぎ！、どないやねん。アホー(>_<)。とりあえずスルー。");
                 _num_connection = 0; //とりあえず解放
             }
             break;
@@ -220,7 +220,6 @@ int GgafResourceConnection<T>::close() {
         }
     }
 
-
     if (_num_connection == 0) {
         T* r = pCurrent->fetch();
         if (r) {
@@ -228,7 +227,6 @@ int GgafResourceConnection<T>::close() {
             pCurrent->processReleaseResource(r); //本当の解放
             _TRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "." << _idstr << "] //本当の解放End   processReleaseResource[" << _idstr << "←" << _num_connection <<"]");
         }
-
 
         if (GgafResourceManager<T>::_is_waiting_to_connect) {
             //別スレッドで既にconnet()待ち状態に入っていれば開放しない。

@@ -22,11 +22,6 @@ class GgafResourceManager : public GgafObject {
     friend class GgafResourceConnection<T>;
 
 private:
-    /** connect中はtrueの排他フラグ */
-    static volatile bool _is_connecting_resource;
-    /** connectするために待っているフラグ */
-    static volatile bool _is_waiting_to_connect;
-
     /**
      * GgafResourceConnectionオブジェクトをリストに追加。<BR>
      * @param prm_pNew 追加するGgafResourceConnectionオブジェクトのポインタ
@@ -52,23 +47,22 @@ private:
     /**
      * 資源接続オブジェクトを生成.
      * @param prm_idstr 識別名
-     */
-
-    /**
-     * 資源接続オブジェクトを生成.
-     * @param prm_idstr 識別名
      * @param prm_pResource 資源接続オブジェクトのValue。つまり資源インスタンス。
      * @return 資源接続オブジェクト
      */
     GgafResourceConnection<T>* createResourceConnection(char* prm_idstr, T* prm_pResource);
 
 protected:
+    /** connect中はtrueの排他フラグ */
+    static volatile bool _is_connecting_resource;
+    /** connectするために待っているフラグ */
+    static volatile bool _is_waiting_to_connect;
     /** [r]マネージャ名称 */
     const char* _manager_name;
     /** [r]GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はNULL */
     GgafResourceConnection<T>* _pFirstConnection;
 
-
+protected:
     /**
      * 資源接続オブジェクトの生成を下位で実装します。.
      * このメソッドは createResourceConnection から呼び出され、本テンプレート利用者が実装する必要があります。<BR>

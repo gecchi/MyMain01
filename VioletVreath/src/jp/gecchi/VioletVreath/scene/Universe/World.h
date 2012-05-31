@@ -34,6 +34,11 @@ public:
     PreDrawScene* pPreDrawScene_;
     GameScene* pGameScene_;
 
+    /////////////////////////////////
+    LabelGecchi16Font** papTest_;
+
+    /////////////////////////////////
+
     World(const char* prm_name);
 
     /**

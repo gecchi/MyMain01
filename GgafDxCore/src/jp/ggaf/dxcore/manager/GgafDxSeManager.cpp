@@ -26,6 +26,20 @@ GgafDxSe* GgafDxSeManager::processCreateResource(char* prm_idstr, void* prm_p) {
     return pResource;
 }
 
+void GgafDxSeManager::updateVolume() {
+    while(_is_connecting_resource) {
+        Sleep(1);
+    }
+    GgafDxSeConnection* pConnection = (GgafDxSeConnection*)_pFirstConnection;
+    while (pConnection) {
+        pConnection->fetch()->setVolume(GgafDxSound::_se_volume);
+        while(_is_connecting_resource) { //ŠÈˆÕ”r‘¼
+            Sleep(1);
+        }
+        pConnection = (GgafDxSeConnection*)(pConnection->getNext());
+    }
+}
+
 GgafResourceConnection<GgafDxSe>* GgafDxSeManager::processCreateConnection(char* prm_idstr, GgafDxSe* prm_pResource) {
     TRACE3(" GgafDxSeManager::processCreateConnection "<<prm_idstr<<" ‚ð¶¬ŠJŽnB");
     GgafDxSeConnection* pConnection = NEW GgafDxSeConnection(prm_idstr, prm_pResource);

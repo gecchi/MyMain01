@@ -8,36 +8,16 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
     _class_name = "GgafDxStringBoardActor";
     _draw_string = NULL;
     _len = 0;
-    _len_pack_num = 0;
-    _remainder_len = 0;
-
     _buf = NEW char[1024];
     _buf[0] = '\0';
     //デフォルトの１文字の幅(px)設定
     for (int i = 0; i < 256; i++) {
         _aWidthPx[i] = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx);
+        _aWidth_line_px[i] = 0;
     }
     _chr_width_px = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //１文字の幅(px)
     _chr_height_px = (int)(_pBoardSetModel->_fSize_BoardSetModelHeightPx); //１文字の高さ(px)
-    _width_len_px = 0;
-
-    //デフォルトで名前(prm_name)が表示文字列になる
-    /*
-     if (prm_name != NULL) {
-     _draw_string = (char*)prm_name;
-     _len = strlen(prm_name);
-     _len_pack_num = _len/_pBoardSetModel->_set_num;
-     _remainder_len = _len%_pBoardSetModel->_set_num;
-     if (_align == ALIGN_CENTER) {
-     _width_len_px = 0;
-     for (int i = 0; i < _len; i++) {
-     _width_len_px += _aWidthPx[_draw_string[i]];
-     }
-     } else {
-     _width_len_px = 0;
-     }
-     }
-     */
+    _nn = 0;
 }
 
 void GgafDxStringBoardActor::onCreateModel() {
@@ -68,48 +48,51 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
     if (prm_str == _draw_string) {
         return;
     }
-    _draw_string = (char*)prm_str;
     _len = strlen(prm_str);
-    _len_pack_num = _len / _pBoardSetModel->_set_num;
-    _remainder_len = _len % _pBoardSetModel->_set_num;
-    if (_align == ALIGN_CENTER) {
-        _width_len_px = 0;
-        for (int i = 0; i < _len; i++) {
 #ifdef MY_DEBUG
-            if (_draw_string[i] < 0) {
-                throwGgafCriticalException("GgafDxStringBoardActor::update() 範囲外です_draw_string["<<i<<"]="<<(int)(_draw_string[i]));
-            }
+    if (_len+1 > 1024 - 1) {
+        throwGgafCriticalException("GgafDxStringBoardActor::update 引数文字列数が範囲外です。name="<<getName());
+    }
 #endif
-            _width_len_px += _aWidthPx[_draw_string[i]];
+    _draw_string = _buf;
+    _aWidth_line_px[0] = 0;
+    _nn = 0;
+    for (int i = 0; i < _len+1; i++) {
+        _draw_string[i] = prm_str[i]; //保持
+        if (prm_str[i] == '\n') {
+            _nn++;
+            continue;
         }
-    } else {
-        _width_len_px = 0;
+        if (prm_str[i] == '\0') {
+            _nn++;
+            break;
+        }
+#ifdef MY_DEBUG
+        if (_nn > 256) {
+            throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName());
+        }
+#endif
+        _aWidth_line_px[_nn] += _aWidthPx[_draw_string[i]];
     }
 }
 
 void GgafDxStringBoardActor::update(char* prm_str) {
     _len = strlen(prm_str);
 #ifdef MY_DEBUG
-    if (_len > 1024 - 1) {
+    if (_len+1 > 1024 - 1) {
         throwGgafCriticalException("GgafDxStringBoardActor::update 引数文字列数が範囲外です。name="<<getName());
     }
 #endif
     _draw_string = _buf;
-    strcpy(_draw_string, prm_str);
-    _len_pack_num = _len / _pBoardSetModel->_set_num;
-    _remainder_len = _len % _pBoardSetModel->_set_num;
-    if (_align == ALIGN_CENTER) {
-        _width_len_px = 0;
-        for (int i = 0; i < _len; i++) {
-#ifdef MY_DEBUG
-            if (_draw_string[i] < 0) {
-                throwGgafCriticalException("GgafDxStringBoardActor::update() 範囲外です_draw_string["<<i<<"]="<<(int)(_draw_string[i]));
-            }
-#endif
-            _width_len_px += _aWidthPx[_draw_string[i]];
+    _aWidth_line_px[0] = 0;
+    _nn = 0;
+    for (int i = 0; i < _len+1; i++) {
+        _draw_string[i] = prm_str[i]; //保持
+        if (prm_str[i] == '\n') {
+            _nn++;
+            continue;
         }
-    } else {
-        _width_len_px = 0;
+        _aWidth_line_px[_nn] += _aWidthPx[_draw_string[i]];
     }
 }
 
@@ -146,23 +129,7 @@ void GgafDxStringBoardActor::update(char* prm_str, GgafDxAlign prm_align, GgafDx
     setAlign(prm_align, prm_valign);
 }
 
-void GgafDxStringBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-    if (_align == ALIGN_CENTER) {
-        _width_len_px = 0;
-        for (int i = 0; i < _len; i++) {
-#ifdef MY_DEBUG
-            if (_draw_string[i] < 0) {
-                throwGgafCriticalException("GgafDxStringBoardActor::update() 範囲外です_draw_string["<<i<<"]="<<(int)(_draw_string[i]));
-            }
-#endif
-            _width_len_px += _aWidthPx[_draw_string[i]];
-        }
-    } else {
-        _width_len_px = 0;
-    }
-}
+
 
 void GgafDxStringBoardActor::processSettlementBehavior() {
 }
@@ -174,12 +141,24 @@ void GgafDxStringBoardActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
     pixcoord y = C_PX(_Y);
-    if (_valign == VALIGN_BOTTOM) {
-        y = y - _chr_height_px;
-    } else if (_valign == VALIGN_MIDDLE) {
-        y = y - (_chr_height_px / 2);
+    if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
+        if (_valign == VALIGN_BOTTOM) {
+            y = y - (_chr_height_px*_nn);
+        } else if (_valign == VALIGN_MIDDLE) {
+            y = y - (_chr_height_px*_nn/2);
+        } else {
+            //VALIGN_TOP
+        }
     } else {
-        //VALIGN_TOP
+        //ALIGN_RIGHT
+        if (_valign == VALIGN_BOTTOM) {
+            y = y + 0 - _chr_height_px;
+        } else if (_valign == VALIGN_MIDDLE) {
+            y = y + ((_chr_height_px*_nn/2) - _chr_height_px);
+        } else {
+            //VALIGN_TOP
+            y = y + ((_chr_height_px*_nn) - _chr_height_px);
+        }
     }
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], y);
     checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_Y) に失敗しました。");
@@ -189,80 +168,108 @@ void GgafDxStringBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_alpha) に失敗しました。");
 
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
-        int strindex, pattno;
-        pixcoord x = C_PX(_X) - (_width_len_px / 2);
+        int nnn = 0; // num of \n now
+        pixcoord x = C_PX(_X) - (_align == ALIGN_CENTER ? _aWidth_line_px[nnn]/2 : 0);
         pixcoord x_tmp = x;
         float u, v;
-        for (int pack = 0; pack < _len_pack_num + (_remainder_len == 0 ? 0 : 1); pack++) {
-            _draw_set_num = pack < _len_pack_num ? _pBoardSetModel->_set_num : _remainder_len;
-            for (int i = 0; i < _draw_set_num; i++) {
-                strindex = pack * _pBoardSetModel->_set_num + i;
-                if (_draw_string[strindex] == '\0') {
-                    break;
-//                } if (_draw_string[strindex] == '\n') {
-//                    x = C_PX(_X) - (_width_len_px/2);
-//                    x_tmp = x;
-//                    y += _chr_height_px;
-//                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[i], y);
-//                    checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_Y) に失敗しました。");
-//                    continue;
-                } else if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
-                    pattno = '?' - ' '; //範囲外は"?"を表示
-                } else {
-                    pattno = _draw_string[strindex] - ' '; //通常文字列
+        int strindex = 0;
+        int pattno = 0;
+        int draw_set_cnt = 0;
+        while (true) {
+            if (_draw_string[strindex] == '\0') {
+                if (draw_set_cnt > 0) {
+                    _pBoardSetModel->draw(this, draw_set_cnt);
                 }
-                //プロポーショナルな幅計算
-                int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
-                x = x_tmp - w;
-                x_tmp = x + _chr_width_px - w;
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[i], float(x));
-                checkDxException(hr, D3D_OK,
-                                 "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_X) に失敗しました。");
-                _pUvFlipper->getUV(pattno, u, v);
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[i], u);
-                checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_u) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[i], v);
-                checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_v) に失敗しました。");
+                break; //おしまい
+            } else if (_draw_string[strindex] == '\n') {
+                if (draw_set_cnt > 0) {
+                    _pBoardSetModel->draw(this, draw_set_cnt);//改行はそこまで一度描画(Y座標を配列保持してないため)
+                }
+                draw_set_cnt = 0;
+
+                nnn++;
+                x = C_PX(_X) - (_align == ALIGN_CENTER ? _aWidth_line_px[nnn]/2 : 0);
+                x_tmp = x;
+                y += _chr_height_px;
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], y);
+                checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_Y) に失敗しました。");
+
+                strindex++;
+                continue;
             }
-            _pBoardSetModel->draw(this, _draw_set_num);
+
+            if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
+                pattno = '?' - ' '; //範囲外は"?"を表示
+            } else {
+                pattno = _draw_string[strindex] - ' '; //通常文字列
+            }
+            //プロポーショナルな幅計算
+            int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
+            x = x_tmp - w;
+            x_tmp = x + _chr_width_px - w;
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[draw_set_cnt], float(x));
+            checkDxException(hr, D3D_OK,
+                             "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_X) に失敗しました。");
+            _pUvFlipper->getUV(pattno, u, v);
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[draw_set_cnt], u);
+            checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_u) に失敗しました。");
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[draw_set_cnt], v);
+            checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_v) に失敗しました。");
+            draw_set_cnt++;
+            if (draw_set_cnt == _pBoardSetModel->_set_num) {
+                _pBoardSetModel->draw(this, draw_set_cnt);
+                draw_set_cnt = 0;
+            }
+            strindex++;
         }
     } else if (_align == ALIGN_RIGHT) {
-        int strindex, pattno;
-        pixcoord x = C_PX(_X); //-_aWidthPx[_len-1];
+        pixcoord x = C_PX(_X);
         pixcoord x_tmp = x;
         float u, v;
-        for (int pack = 0; pack < _len_pack_num + (_remainder_len == 0 ? 0 : 1); pack++) {
-            _draw_set_num = pack < _len_pack_num ? _pBoardSetModel->_set_num : _remainder_len;
-            for (int i = 0; i < _draw_set_num; i++) {
-                strindex = _len - (pack * _pBoardSetModel->_set_num + i) - 1;
-                if (_draw_string[strindex] == '\0') {
-                    break;
-//                } if (_draw_string[strindex] == '\n') {
-//                    x = C_PX(_X);
-//                    x_tmp = x;
-//                    y -= _chr_height_px;
-//                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[i], y);
-//                    checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_Y) に失敗しました。");
-//                    continue;
-                } else if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
-                    pattno = '?' - ' '; //範囲外は"?"を表示
-                } else {
-                    pattno = _draw_string[strindex] - ' '; //通常文字列
+        int strindex = _len-1;
+        int pattno = 0;
+        int draw_set_cnt = 0;
+        while (true) {
+            if (strindex == -1) {
+                if (draw_set_cnt > 0) {
+                    _pBoardSetModel->draw(this, draw_set_cnt);
                 }
-                //プロポーショナルな幅計算
-                int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
-                x = x_tmp - (w + _aWidthPx[(unsigned char)(_draw_string[strindex])]);
-                x_tmp = x + w;
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[i], float(x));
-                checkDxException(hr, D3D_OK,
-                                 "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_X) に失敗しました。");
-                _pUvFlipper->getUV(pattno, u, v);
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[i], u);
-                checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_u) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[i], v);
-                checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_v) に失敗しました。");
+                break;
+            } else if (_draw_string[strindex] == '\n') {
+                _pBoardSetModel->draw(this, draw_set_cnt); //改行はそこまで一度描画(Y座標を配列保持してないため)
+                draw_set_cnt = 0;
+
+                x = C_PX(_X);
+                x_tmp = x;
+                y -= _chr_height_px;
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[0], y);
+                checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_Y) に失敗しました。");
+
+                strindex--;
+                continue;
+            } else if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
+                pattno = '?' - ' '; //範囲外は"?"を表示
+            } else {
+                pattno = _draw_string[strindex] - ' '; //通常文字列
             }
-            _pBoardSetModel->draw(this, _draw_set_num);
+            //プロポーショナルな幅計算
+            int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
+            x = x_tmp - (w + _aWidthPx[(unsigned char)(_draw_string[strindex])]);
+            x_tmp = x + w;
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[draw_set_cnt], float(x));
+            checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_X) に失敗しました。");
+            _pUvFlipper->getUV(pattno, u, v);
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[draw_set_cnt], u);
+            checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_u) に失敗しました。");
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[draw_set_cnt], v);
+            checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_v) に失敗しました。");
+            draw_set_cnt++;
+            if (draw_set_cnt == _pBoardSetModel->_set_num) {
+                _pBoardSetModel->draw(this, draw_set_cnt);
+                draw_set_cnt = 0;
+            }
+
+            strindex--;
         }
     }
 }
