@@ -30,14 +30,8 @@ public:
     LabelGecchi16Font* pLabel_Aster_;
     LabelGecchi16Font* pLabel_Title_;
     LabelGecchi16Font* pLabel_Debug_;
-    LabelGecchi16Font* pLabel_Wait_;
     PreDrawScene* pPreDrawScene_;
     GameScene* pGameScene_;
-
-    /////////////////////////////////
-    LabelGecchi16Font** papTest_;
-
-    /////////////////////////////////
 
     World(const char* prm_name);
 

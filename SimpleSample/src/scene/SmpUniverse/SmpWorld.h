@@ -18,7 +18,7 @@ public:
     GgafLib::VirtualButton vb_;
     /** テストキャラ */
     SmpActor* pActor_;
-
+    SmpLabel** papTest_;
     /**
      * コンストラクタ .
      * @param prm_name 名称
@@ -28,7 +28,7 @@ public:
     /**
      * 世界シーンの初期処理 .
      */
-    void initialize() override {}
+    void initialize() override;
 
     /**
      * 世界シーンの振る舞い処理 .

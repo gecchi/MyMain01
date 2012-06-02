@@ -12,6 +12,7 @@ class SmpUniverse;
 class SmpWorld;
 class SmpCamera;
 class SmpActor;
+class SmpLabel;
 }
 
 #include "SmpGod.h"
@@ -19,5 +20,6 @@ class SmpActor;
 #include "scene/SmpUniverse/SmpWorld.h"
 #include "actor/SmpCamera.h"
 #include "actor/SmpActor.h"
+#include "actor/SmpLabel.h"
 
 #endif /*SIMPLESAMPLE_H_*/

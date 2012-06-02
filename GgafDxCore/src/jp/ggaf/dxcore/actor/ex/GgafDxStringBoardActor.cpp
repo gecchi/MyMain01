@@ -92,6 +92,15 @@ void GgafDxStringBoardActor::update(char* prm_str) {
             _nn++;
             continue;
         }
+        if (prm_str[i] == '\0') {
+            _nn++;
+            break;
+        }
+#ifdef MY_DEBUG
+        if (_nn > 256) {
+            throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName());
+        }
+#endif
         _aWidth_line_px[_nn] += _aWidthPx[_draw_string[i]];
     }
 }
@@ -128,8 +137,6 @@ void GgafDxStringBoardActor::update(char* prm_str, GgafDxAlign prm_align, GgafDx
     update(prm_str);
     setAlign(prm_align, prm_valign);
 }
-
-
 
 void GgafDxStringBoardActor::processSettlementBehavior() {
 }
@@ -236,7 +243,9 @@ void GgafDxStringBoardActor::processDraw() {
                 }
                 break;
             } else if (_draw_string[strindex] == '\n') {
-                _pBoardSetModel->draw(this, draw_set_cnt); //改行はそこまで一度描画(Y座標を配列保持してないため)
+                if (draw_set_cnt > 0) {
+                    _pBoardSetModel->draw(this, draw_set_cnt); //改行はそこまで一度描画(Y座標を配列保持してないため)
+                }
                 draw_set_cnt = 0;
 
                 x = C_PX(_X);

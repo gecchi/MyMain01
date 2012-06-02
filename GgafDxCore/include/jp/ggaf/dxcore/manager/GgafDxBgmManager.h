@@ -26,7 +26,7 @@ public:
     /**
      * 現在演奏中のBGMのボリュームを更新 .
      */
-    void GgafDxBgmManager::updateVolume();
+    void updateVolume();
 
     virtual ~GgafDxBgmManager() {
     }

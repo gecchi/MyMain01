@@ -8,127 +8,144 @@ GgafDxStringSpriteActor::GgafDxStringSpriteActor(const char* prm_name, const cha
     _class_name = "GgafDxStringSpriteActor";
     _draw_string = NULL;
     _len = 0;
-    _len_pack_num = 0;
-    _remainder_len = 0;
-
     _buf = NEW char[1024];
     _buf[0] = '\0';
     //デフォルトの１文字の幅(px)設定
     for (int i = 0; i < 256; i++) {
         _aWidthPx[i] = (int)(_pSpriteSetModel->_fSize_SpriteSetModelWidthPx);
+        _aWidth_line_px[i] = 0;
     }
     _chr_width_px = (int)(_pSpriteSetModel->_fSize_SpriteSetModelWidthPx); //１文字の幅(px)
     _chr_height_px = (int)(_pSpriteSetModel->_fSize_SpriteSetModelHeightPx); //１文字の高さ(px)
-    _width_len_px = 0;
-
-    //デフォルトで名前(prm_name)が表示文字列になる
-    /*
-     if (prm_name != NULL) {
-     _draw_string = (char*)prm_name;
-     _len = strlen(prm_name);
-     _len_pack_num = _len/_pSpriteSetModel->_set_num;
-     _remainder_len = _len%_pSpriteSetModel->_set_num;
-     if (_align == ALIGN_CENTER) {
-     _width_len_px = 0;
-     for (int i = 0; i < _len; i++) {
-     _width_len_px += _aWidthPx[_draw_string[i]];
-     }
-     } else {
-     _width_len_px = 0;
-     }
-     }
-     */
+    _nn = 0;
 }
 
 void GgafDxStringSpriteActor::onCreateModel() {
 
 }
 
-void GgafDxStringSpriteActor::update(coord X, coord Y, const char* prm_str) {
+void GgafDxStringSpriteActor::update(coord dx, coord dy, const char* prm_str) {
     update(prm_str);
-    locate(X, Y);
+    locate(dx, dy);
 }
 
-void GgafDxStringSpriteActor::update(coord X, coord Y, char* prm_str) {
+void GgafDxStringSpriteActor::update(coord dx, coord dy, char* prm_str) {
     update(prm_str);
-    locate(X, Y);
+    locate(dx, dy);
 }
 
-void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, const char* prm_str) {
+void GgafDxStringSpriteActor::update(coord dx, coord dy, coord Z, const char* prm_str) {
     update(prm_str);
-    locate(X, Y, Z);
+    locate(dx, dy, Z);
 }
 
-void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, char* prm_str) {
+void GgafDxStringSpriteActor::update(coord dx, coord dy, coord Z, char* prm_str) {
     update(prm_str);
-    locate(X, Y, Z);
+    locate(dx, dy, Z);
 }
 
 void GgafDxStringSpriteActor::update(const char* prm_str) {
     if (prm_str == _draw_string) {
         return;
     }
-    _draw_string = (char*)prm_str;
     _len = strlen(prm_str);
-    _len_pack_num = _len / _pSpriteSetModel->_set_num;
-    _remainder_len = _len % _pSpriteSetModel->_set_num;
-    if (_align == ALIGN_CENTER) {
-        _width_len_px = 0;
-        for (int i = 0; i < _len; i++) {
 #ifdef MY_DEBUG
-            if (_draw_string[i] < 0) {
-                throwGgafCriticalException("GgafDxStringSpriteActor::update() 範囲外です_draw_string["<<i<<"]="<<(int)(_draw_string[i]));
-            }
+    if (_len+1 > 1024 - 1) {
+        throwGgafCriticalException("GgafDxStringSpriteActor::update 引数文字列数が範囲外です。name="<<getName());
+    }
 #endif
-            _width_len_px += _aWidthPx[_draw_string[i]];
+    _draw_string = _buf;
+    _aWidth_line_px[0] = 0;
+    _nn = 0;
+    pixcoord max_len_px = 0;
+    for (int i = 0; i < _len+1; i++) {
+        _draw_string[i] = prm_str[i]; //保持
+        if (prm_str[i] == '\n') {
+            if (max_len_px < _aWidth_line_px[_nn]) {
+                max_len_px = _aWidth_line_px[_nn];
+            }
+            _nn++;
+            continue;
         }
-    } else {
-        _width_len_px = 0;
+        if (prm_str[i] == '\0') {
+            if (max_len_px < _aWidth_line_px[_nn]) {
+                max_len_px = _aWidth_line_px[_nn];
+            }
+            _nn++;
+            break;
+        }
+#ifdef MY_DEBUG
+        if (_nn > 256) {
+            throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName());
+        }
+#endif
+        _aWidth_line_px[_nn] += _aWidthPx[_draw_string[i]];
+    }
+    if (max_len_px > _chr_width_px) {
+        setBoundingSphereRadiusRate(2*max_len_px/_chr_width_px);
     }
 }
 
 void GgafDxStringSpriteActor::update(char* prm_str) {
     _len = strlen(prm_str);
 #ifdef MY_DEBUG
-    if (_len > 1024 - 1) {
+    if (_len+1 > 1024 - 1) {
         throwGgafCriticalException("GgafDxStringSpriteActor::update 引数文字列数が範囲外です。name="<<getName());
     }
 #endif
     _draw_string = _buf;
-    strcpy(_draw_string, prm_str);
-    _len_pack_num = _len / _pSpriteSetModel->_set_num;
-    _remainder_len = _len % _pSpriteSetModel->_set_num;
-    if (_align == ALIGN_CENTER) {
-        _width_len_px = 0;
-        for (int i = 0; i < _len; i++) {
-            _width_len_px += _aWidthPx[_draw_string[i]];
+    _aWidth_line_px[0] = 0;
+    _nn = 0;
+    pixcoord max_len_px = 0;
+    for (int i = 0; i < _len+1; i++) {
+        _draw_string[i] = prm_str[i]; //保持
+        if (prm_str[i] == '\n') {
+            if (max_len_px < _aWidth_line_px[_nn]) {
+                max_len_px = _aWidth_line_px[_nn];
+            }
+            _nn++;
+            continue;
         }
-    } else {
-        _width_len_px = 0;
+        if (prm_str[i] == '\0') {
+            if (max_len_px < _aWidth_line_px[_nn]) {
+                max_len_px = _aWidth_line_px[_nn];
+            }
+            _nn++;
+            break;
+        }
+#ifdef MY_DEBUG
+        if (_nn > 256) {
+            throwGgafCriticalException("GgafDxStringSpriteActor::update 文字列の改行数が256個を超えました。name="<<getName());
+        }
+#endif
+        _aWidth_line_px[_nn] += _aWidthPx[_draw_string[i]];
+    }
+    if (max_len_px > _chr_width_px) {
+        setBoundingSphereRadiusRate(2*max_len_px/_chr_width_px);
     }
 }
 
-void GgafDxStringSpriteActor::update(coord X, coord Y, const char* prm_str, GgafDxAlign prm_align,
+void GgafDxStringSpriteActor::update(coord dx, coord dy, const char* prm_str, GgafDxAlign prm_align,
                                      GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(X, Y);
+    locate(dx, dy);
 }
 
-void GgafDxStringSpriteActor::update(coord X, coord Y, char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
+void GgafDxStringSpriteActor::update(coord dx, coord dy, char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(X, Y);
+    locate(dx, dy);
 }
 
-void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, const char* prm_str, GgafDxAlign prm_align,
+void GgafDxStringSpriteActor::update(coord dx, coord dy, coord Z, const char* prm_str, GgafDxAlign prm_align,
                                      GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(X, Y, Z);
+    locate(dx, dy, Z);
 }
 
-void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, char* prm_str, GgafDxAlign prm_align,
+void GgafDxStringSpriteActor::update(coord dx, coord dy, coord Z, char* prm_str, GgafDxAlign prm_align,
                                      GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(X, Y, Z);
+    locate(dx, dy, Z);
 }
 
 void GgafDxStringSpriteActor::update(const char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
@@ -141,121 +158,138 @@ void GgafDxStringSpriteActor::update(char* prm_str, GgafDxAlign prm_align, GgafD
     setAlign(prm_align, prm_valign);
 }
 
-void GgafDxStringSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-    if (_align == ALIGN_CENTER) {
-        _width_len_px = 0;
-        for (int i = 0; i < _len; i++) {
-            _width_len_px += _aWidthPx[_draw_string[i]];
-        }
-    } else {
-        _width_len_px = 0;
-    }
-}
-
-//void GgafDxStringSpriteActor::processSettlementBehavior() {
-//}
-
 void GgafDxStringSpriteActor::processDraw() {
     if (_len == 0) {
         return;
     }
     ID3DXEffect* pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
-    pixcoord y = 0;
-    if (_valign == VALIGN_MIDDLE) {
-        //OK
-    } else if (_valign == VALIGN_TOP) {
-        y = y - (_chr_height_px / 2);
-    } else {
-        //VALIGN_BOTTOM
-        y = y + (_chr_height_px / 2);
+    pixcoord dy = 0;
+    if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
+        if (_valign == VALIGN_BOTTOM) {
+            dy = dy + (_chr_height_px*_nn) - (_chr_height_px/2);
+        } else if (_valign == VALIGN_MIDDLE) {
+            dy = dy + (_chr_height_px*_nn/2) - (_chr_height_px/2);
+        } else { //VALIGN_TOP
+            dy = dy - (_chr_height_px/2);
+        }
+    } else { //ALIGN_RIGHT
+        if (_valign == VALIGN_BOTTOM) {
+            dy = dy + (_chr_height_px/2);
+        } else if (_valign == VALIGN_MIDDLE) {
+            dy = dy - (_chr_height_px*_nn/2) + (_chr_height_px/2);
+        } else { //VALIGN_TOP
+            dy = dy - (_chr_height_px*_nn) + (_chr_height_px/2);
+        }
     }
-    hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_Y[0], PX_DX(y));
-    checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_Y) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_alpha[0], _alpha); //注意：アルファは文字ごとは不可
     checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_alpha) に失敗しました。");
     hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ah_matWorld[0], &_matWorld);
     checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetMatrix(_ah_matWorld) に失敗しました。");
 
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
-        int strindex, pattno;
-        pixcoord x = -_width_len_px / 2;
-        pixcoord x_tmp = x;
+        int nnn = 0; // num of \n now
+        int strindex = 0;
+        pixcoord dx = (_align == ALIGN_CENTER ? -_aWidth_line_px[nnn] / 2 : 0) + (_aWidthPx[_draw_string[strindex]] / 2);
+        pixcoord dx_tmp = dx;
         float u, v;
-        pixcoord first_str_half = _aWidthPx[(unsigned char)(_draw_string[0])] / 2;
-        for (int pack = 0; pack < _len_pack_num + (_remainder_len == 0 ? 0 : 1); pack++) {
-            _draw_set_num = pack < _len_pack_num ? _pSpriteSetModel->_set_num : _remainder_len;
-            for (int i = 0; i < _draw_set_num; i++) {
-                strindex = pack * _pSpriteSetModel->_set_num + i;
-                if (_draw_string[strindex] == '\0') {
-                    break;
-//                } if (_draw_string[strindex] == '\n') {
-//                    x = C_PX(_X) - (_width_len_px/2);
-//                    x_tmp = x;
-//                    y += _chr_height_px;
-//                    hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_transformed_Y[i], y);
-//                    checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_transformed_Y) に失敗しました。");
-//                    continue;
-                } else if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
-                    pattno = '?' - ' '; //範囲外は"?"を表示
-                } else {
-                    pattno = _draw_string[strindex] - ' '; //通常文字列
+        int pattno = 0;
+        int draw_set_cnt = 0;
+        while (true) {
+            if (_draw_string[strindex] == '\0') {
+                if (draw_set_cnt > 0) {
+                    _pSpriteSetModel->draw(this, draw_set_cnt);
                 }
-                //プロポーショナルな幅計算
-                int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
-                x = x_tmp - w;
-                x_tmp = x + _chr_width_px - w;
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_X[i], PX_DX(x+first_str_half));
-                checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_X) に失敗しました。");
-                _pUvFlipper->getUV(pattno, u, v);
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_u[i], u);
-                checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_u) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_v[i], v);
-                checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_v) に失敗しました。");
+                break; //おしまい
+            } else if (_draw_string[strindex] == '\n') {
+                nnn++;
+                strindex++;
+
+                dx = (_align == ALIGN_CENTER ? -_aWidth_line_px[nnn] / 2 : 0) + (_aWidthPx[_draw_string[strindex]] / 2);
+                dx_tmp = dx;
+                dy -= _chr_height_px;
+
+
+                continue;
             }
-            _pSpriteSetModel->draw(this, _draw_set_num);
+
+            if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
+                pattno = '?' - ' '; //範囲外は"?"を表示
+            } else {
+                pattno = _draw_string[strindex] - ' '; //通常文字列
+            }
+            //プロポーショナルな幅計算
+            int w = ((_chr_width_px - _aWidthPx[_draw_string[strindex]]) / 2);
+            dx = dx_tmp - w;
+            dx_tmp = dx + _chr_width_px - w;
+
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_X[draw_set_cnt], PX_DX(dx));
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_X) に失敗しました。");
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_Y[draw_set_cnt], PX_DX(dy));
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_Y) に失敗しました。");
+            _pUvFlipper->getUV(pattno, u, v);
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_u[draw_set_cnt], u);
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_u) に失敗しました。");
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_v[draw_set_cnt], v);
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_v) に失敗しました。");
+
+            draw_set_cnt++;
+            if (draw_set_cnt == _pSpriteSetModel->_set_num) {
+                _pSpriteSetModel->draw(this, draw_set_cnt);
+                draw_set_cnt = 0;
+            }
+            strindex++;
         }
     } else if (_align == ALIGN_RIGHT) {
-        int strindex, pattno;
-        pixcoord x = 0; //-_aWidthPx[_len-1];
-        pixcoord x_tmp = x;
+        int strindex = _len-1;
+        pixcoord dx = -1*(_aWidthPx[_draw_string[strindex]] / 2);
+        pixcoord dx_tmp = dx;
         float u, v;
-        pixcoord first_str_half = _aWidthPx[(unsigned char)(_draw_string[0])] / 2;
-        for (int pack = 0; pack < _len_pack_num + (_remainder_len == 0 ? 0 : 1); pack++) {
-            _draw_set_num = pack < _len_pack_num ? _pSpriteSetModel->_set_num : _remainder_len;
-            for (int i = 0; i < _draw_set_num; i++) {
-                strindex = _len - (pack * _pSpriteSetModel->_set_num + i) - 1;
-                if (_draw_string[strindex] == '\0') {
-                    break;
-//                } if (_draw_string[strindex] == '\n') {
-//                    x = C_PX(_X);
-//                    x_tmp = x;
-//                    y -= _chr_height_px;
-//                    hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_transformed_Y[i], y);
-//                    checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_transformed_Y) に失敗しました。");
-//                    continue;
-                } else if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
-                    pattno = '?' - ' '; //範囲外は"?"を表示
-                } else {
-                    pattno = _draw_string[strindex] - ' '; //通常文字列
+        int pattno = 0;
+        int draw_set_cnt = 0;
+        while (true) {
+            if (strindex == -1) {
+                if (draw_set_cnt > 0) {
+                    _pSpriteSetModel->draw(this, draw_set_cnt);
                 }
-                //プロポーショナルな幅計算
-                int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
-                x = x_tmp - (w + _aWidthPx[(unsigned char)(_draw_string[strindex])]);
-                x_tmp = x + w;
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_X[i], PX_DX(x+first_str_half));
-                checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_X) に失敗しました。");
-                _pUvFlipper->getUV(pattno, u, v);
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_u[i], u);
-                checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_u) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_v[i], v);
-                checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_v) に失敗しました。");
+                break;
+            } else if (_draw_string[strindex] == '\n') {
+                strindex--;
+
+                dx = -1*(_aWidthPx[_draw_string[strindex]] / 2);
+                dx_tmp = dx;
+                dy += _chr_height_px;
+
+                continue;
+            } else if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
+                pattno = '?' - ' '; //範囲外は"?"を表示
+            } else {
+                pattno = _draw_string[strindex] - ' '; //通常文字列
             }
-            _pSpriteSetModel->draw(this, _draw_set_num);
+            //プロポーショナルな幅計算
+            int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
+            dx = dx_tmp - (w + _aWidthPx[(unsigned char)(_draw_string[strindex])]);
+            dx_tmp = dx + w;
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_X[draw_set_cnt], PX_DX(dx));
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_X) に失敗しました。");
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_Y[draw_set_cnt], PX_DX(dy));
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_Y) に失敗しました。");
+            _pUvFlipper->getUV(pattno, u, v);
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_u[draw_set_cnt], u);
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_u) に失敗しました。");
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_v[draw_set_cnt], v);
+            checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_v) に失敗しました。");
+
+            draw_set_cnt++;
+            if (draw_set_cnt == _pSpriteSetModel->_set_num) {
+                _pSpriteSetModel->draw(this, draw_set_cnt);
+                draw_set_cnt = 0;
+            }
+
+            strindex--;
         }
     }
+
 }
 
 GgafDxStringSpriteActor::~GgafDxStringSpriteActor() {

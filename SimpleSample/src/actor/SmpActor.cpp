@@ -14,6 +14,7 @@ void SmpActor::initialize() {
 
 void SmpActor::processBehavior() {
     _pKurokoA->behave(); //•qA‚ğŠˆ“®‚³‚¹‚éiZ²‰ñ“]‚·‚éj
+    _TRACE_("X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
 }
 
 SmpActor::~SmpActor() {

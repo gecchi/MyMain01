@@ -250,6 +250,7 @@
   <ItemGroup>
     <ClInclude Include="src\actor\SmpActor.h" />
     <ClInclude Include="src\actor\SmpCamera.h" />
+    <ClInclude Include="src\actor\SmpLabel.h" />
     <ClInclude Include="src\scene\SmpUniverse.h" />
     <ClInclude Include="src\scene\SmpUniverse\SmpWorld.h" />
     <ClInclude Include="src\SimpleSample.h" />
@@ -290,6 +291,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\actor\SmpLabel.cpp" />
     <ClCompile Include="src\scene\SmpUniverse.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
