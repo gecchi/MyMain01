@@ -2,31 +2,34 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_dep) :
+GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm_dep) :
         GgafDxGeometricActor(prm_name, NULL, NULL) {
     _class_name = "GgafDxCamera";
+
+    static double rev = 1.00018; //Spriteをドットパーピクセルで表示するための補正値
+                                 //何度も手動で補正したため根拠は無い
 
     //全ての基準はfovXから考える
     _rad_fovX = prm_rad_fovX;
     //半分を保持
-    _rad_half_fovX = _rad_fovX / 2.0f;
+    _rad_half_fovX = _rad_fovX / 2.0;
     //画面アスペクト比(w/h)
-    _screen_aspect = (FLOAT)(1.0f * GGAF_PROPERTY(GAME_BUFFER_WIDTH) / GGAF_PROPERTY(GAME_BUFFER_HEIGHT));
+    _screen_aspect = 1.0 * (GGAF_PROPERTY(GAME_BUFFER_WIDTH)*rev) / (GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*rev);
     //fovXとアスペクト比からfovYを計算して求める
-    float xzRatio = tan( _rad_fovX/2 );
-    float yRatio = xzRatio / _screen_aspect;
-    _rad_fovY = atan( yRatio )*2.0f;
+    double xzRatio = tan(_rad_fovX/2.0);
+    double yRatio = xzRatio / _screen_aspect;
+    _rad_fovY = atan( yRatio )*2.0;
     _TRACE_("GgafDxCamera::GgafDxCamera 画面アスペクト："<<_screen_aspect);
     _TRACE_("GgafDxCamera::GgafDxCamera FovX="<<prm_rad_fovX<<" FovY="<<_rad_fovY);
 
     //半分を保持
-    _rad_half_fovY = _rad_fovY / 2.0f;
+    _rad_half_fovY = _rad_fovY / 2.0;
     //tan値も保持
     _tan_half_fovY = tan(_rad_fovY/2.0);
     _tan_half_fovX = tan(_rad_fovX/2.0);
     //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
-    _cameraZ = -1.0f * ((GGAF_PROPERTY(GAME_BUFFER_HEIGHT) / PX_UNIT) / 2.0f) / _tan_half_fovY;
+    _cameraZ = -1.0 * ((1.0 * (GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*rev) / PX_UNIT) / 2.0) / _tan_half_fovY;
     _cameraZ_org = _cameraZ;
     _TRACE_("GgafDxCamera::GgafDxCamera カメラの位置(0,0,"<<_cameraZ<<")");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
@@ -41,31 +44,38 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_d
         _pVecCamUp            // pUp  [in] カレント ワールドの上方、一般には [0, 1, 0] を定義する D3DXVECTOR3 構造体へのポインタ。
     );
 
-    // 射影変換行列作成（３Ｄ→平面）
+    // 射影変換行列作成
     _dep = prm_dep;
     _zn = 0.1f;
-    _zf = -_cameraZ_org*(_dep+1.0f);
+    _zf = -_cameraZ_org*(_dep+1.0);
     _TRACE_("GgafDxCamera::GgafDxCamera 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
-    D3DXMatrixPerspectiveFovLH(
+    if (GGAF_PROPERTY(PRJ_2D_MODE)) {
+        //2Dモード正射影
+        D3DXMatrixOrthoLH(
             &_matProj,
-            _rad_fovY,       //y方向視野角ラディアン(0～π)
-            _screen_aspect,  //アスペクト比  640×480 の場合  640/480
-            _zn,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
-            _zf              //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
-            //(FLOAT)(-1.0f*dCam*4)
-            //(-1.0f*fCam)-30,
-            //(-1.0f*fCam)+30
-    );
-    /*
-     //左手座標系正射影
-     D3DXMatrixOrthoLH(
-     &_matProj,
-     GGAF_PROPERTY(GAME_BUFFER_WIDTH),
-     GGAF_PROPERTY(GAME_BUFFER_HEIGHT),
-     1.0f,
-     GGAF_PROPERTY(GAME_BUFFER_HEIGHT)
-     );
-     */
+            PX_DX(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*rev),
+            PX_DX(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*rev),
+            _zn,
+            _zf
+        );
+    } else {
+        //3Dモード通常射影
+        D3DXMatrixPerspectiveFovLH(
+                &_matProj,
+                _rad_fovY,       //y方向視野角ラディアン(0～π)
+                _screen_aspect,  //アスペクト比  640×480 の場合  640/480
+                _zn,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
+                _zf              //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
+        );
+
+    }
+
+
+
+
+
+
+
     locate(0, 0, DX_C(_cameraZ));
     _pKurokoA->setMvAng(0,0,0);
     _pKurokoA->setMvVelo(0);

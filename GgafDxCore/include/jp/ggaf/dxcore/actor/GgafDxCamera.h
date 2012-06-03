@@ -67,29 +67,29 @@ public:
     /** [r]VIEW変換行列(フレーム毎更新) */
     D3DXMATRIX _matView;
     /** [r]視野角Xラジアン */
-    float _rad_fovX;
+    double _rad_fovX;
     /** [r]視野角Xラジアンの半分 */
-    float _rad_half_fovX;
+    double _rad_half_fovX;
     /** [r]視野角Yラジアン */
-    float _rad_fovY;
+    double _rad_fovY;
     /** [r]視野角Yラジアンの半分 */
-    float _rad_half_fovY;
+    double _rad_half_fovY;
     /** [r]カメラのZ座標 */
     dxcoord _cameraZ;
     /** [r]カメラのZ座標初期位置 */
     dxcoord _cameraZ_org;
     /** [r]アスペクト比 */
-    float _screen_aspect;
+    double _screen_aspect;
     /** [r]視野角Yタンジェントの半分 */
-    float _tan_half_fovY;
+    double _tan_half_fovY;
     /** [r]視野角Xタンジェントの半分 */
-    float _tan_half_fovX;
+    double _tan_half_fovX;
     /** [r]カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
     dxcoord _zn;
     /** [r]カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
     dxcoord _zf;
     /** [r]深さ（_cameraZ_orgの何倍か)  */
-    float _dep;
+    double _dep;
     /** [r/w]注視点 **/
     GgafDxCameraViewPoint* _pViewPoint;
 
@@ -122,7 +122,7 @@ public:
      * @param prm_dep 深さ（_cameraZ_orgの何倍か)
      * @return
      */
-    GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_dep);
+    GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm_dep);
 
     virtual void initialize() override;
 

@@ -1831,48 +1831,50 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
     //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
     //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
+    double dU = 0.00001;
+    double dV = 0.00001;
 
     //左上
-    paVertex[0].x = *pFloat_Size_SpriteModelWidth / -2 / PX_UNIT;
-    paVertex[0].y = *pFloat_Size_SpriteModelHeight / 2 / PX_UNIT;
+    paVertex[0].x = *pFloat_Size_SpriteModelWidth / -2.0 / PX_UNIT;
+    paVertex[0].y = *pFloat_Size_SpriteModelHeight / 2.0 / PX_UNIT;
     paVertex[0].z = 0.0f;
     paVertex[0].nx = 0.0f;
     paVertex[0].ny = 0.0f;
     paVertex[0].nz = -1.0f;
     paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[0].tu = 0.0f;
-    paVertex[0].tv = 0.0f;
+    paVertex[0].tu = dU;
+    paVertex[0].tv = dV;
     //右上
-    paVertex[1].x = *pFloat_Size_SpriteModelWidth / 2 / PX_UNIT;
-    paVertex[1].y = *pFloat_Size_SpriteModelHeight / 2 / PX_UNIT;
+    paVertex[1].x = *pFloat_Size_SpriteModelWidth / 2.0 / PX_UNIT;
+    paVertex[1].y = *pFloat_Size_SpriteModelHeight / 2.0 / PX_UNIT;
     paVertex[1].z = 0.0f;
     paVertex[1].nx = 0.0f;
     paVertex[1].ny = 0.0f;
     paVertex[1].nz = -1.0f;
     paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
-    paVertex[1].tv = 0.0f;
+    paVertex[1].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
+    paVertex[1].tv = dV;
     //左下
-    paVertex[2].x = *pFloat_Size_SpriteModelWidth / -2 / PX_UNIT;
-    paVertex[2].y = *pFloat_Size_SpriteModelHeight / -2 / PX_UNIT;
+    paVertex[2].x = *pFloat_Size_SpriteModelWidth / -2.0 / PX_UNIT;
+    paVertex[2].y = *pFloat_Size_SpriteModelHeight / -2.0 / PX_UNIT;
     paVertex[2].z = 0.0f;
     paVertex[2].nx = 0.0f;
     paVertex[2].ny = 0.0f;
     paVertex[2].nz = -1.0f;
     paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[2].tu = 0.0f;
-    paVertex[2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
+    paVertex[2].tu = dU;
+    paVertex[2].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
+
     //右下
-    paVertex[3].x = *pFloat_Size_SpriteModelWidth / 2 / PX_UNIT;
-    paVertex[3].y = *pFloat_Size_SpriteModelHeight / -2 / PX_UNIT;
+    paVertex[3].x = *pFloat_Size_SpriteModelWidth / 2.0 / PX_UNIT;
+    paVertex[3].y = *pFloat_Size_SpriteModelHeight / -2.0 / PX_UNIT;
     paVertex[3].z = 0.0f;
     paVertex[3].nx = 0.0f;
     paVertex[3].ny = 0.0f;
     paVertex[3].nz = -1.0f;
     paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
-    paVertex[3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
-
+    paVertex[3].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
+    paVertex[3].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
 
     //距離
     FLOAT model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(paVertex[0].x * paVertex[0].x +
@@ -2001,50 +2003,54 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         prm_pSpriteSetModel->_size_vertex_unit = sizeof(GgafDxSpriteSetModel::VERTEX);
 
         GgafDxSpriteSetModel::VERTEX* paVertex = NEW GgafDxSpriteSetModel::VERTEX[4 * prm_pSpriteSetModel->_set_num];
+
+        double dU = 0.00001;
+        double dV = 0.00001;
+
         //頂点配列情報をモデルに保持させる
         //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
         //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
         //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
         for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
-
-            paVertex[i*4 + 0].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
-            paVertex[i*4 + 0].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
+            //左上
+            paVertex[i*4 + 0].x = *pFloat_Size_SpriteSetModelWidth / -2.0 / PX_UNIT;
+            paVertex[i*4 + 0].y = *pFloat_Size_SpriteSetModelHeight / 2.0 / PX_UNIT;
             paVertex[i*4 + 0].z = 0.0f;
             paVertex[i*4 + 0].nx = 0.0f;
             paVertex[i*4 + 0].ny = 0.0f;
             paVertex[i*4 + 0].nz = -1.0f;
-            paVertex[i*4 + 0].tu = 0.0f;
-            paVertex[i*4 + 0].tv = 0.0f;
+            paVertex[i*4 + 0].tu = dU;
+            paVertex[i*4 + 0].tv = dV;
             paVertex[i*4 + 0].index = (float)i;
             //右上
-            paVertex[i*4 + 1].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
-            paVertex[i*4 + 1].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
+            paVertex[i*4 + 1].x = *pFloat_Size_SpriteSetModelWidth / 2.0 / PX_UNIT;
+            paVertex[i*4 + 1].y = *pFloat_Size_SpriteSetModelHeight / 2.0 / PX_UNIT;
             paVertex[i*4 + 1].z = 0.0f;
             paVertex[i*4 + 1].nx = 0.0f;
             paVertex[i*4 + 1].ny = 0.0f;
             paVertex[i*4 + 1].nz = -1.0f;
-            paVertex[i*4 + 1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
-            paVertex[i*4 + 1].tv = 0.0f;
+            paVertex[i*4 + 1].tu = (1.0/(*pInt_ColNum_TextureSplit)) - dU;
+            paVertex[i*4 + 1].tv = dV;
             paVertex[i*4 + 1].index = (float)i;
             //左下
-            paVertex[i*4 + 2].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
-            paVertex[i*4 + 2].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
+            paVertex[i*4 + 2].x = *pFloat_Size_SpriteSetModelWidth / -2.0 / PX_UNIT;
+            paVertex[i*4 + 2].y = *pFloat_Size_SpriteSetModelHeight / -2.0 / PX_UNIT;
             paVertex[i*4 + 2].z = 0.0f;
             paVertex[i*4 + 2].nx = 0.0f;
             paVertex[i*4 + 2].ny = 0.0f;
             paVertex[i*4 + 2].nz = -1.0f;
-            paVertex[i*4 + 2].tu = 0.0f;
-            paVertex[i*4 + 2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
+            paVertex[i*4 + 2].tu = dU;
+            paVertex[i*4 + 2].tv = (1.0/(*pInt_RowNum_TextureSplit)) - dV;
             paVertex[i*4 + 2].index = (float)i;
             //右下
-            paVertex[i*4 + 3].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
-            paVertex[i*4 + 3].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
+            paVertex[i*4 + 3].x = *pFloat_Size_SpriteSetModelWidth / 2.0 / PX_UNIT;
+            paVertex[i*4 + 3].y = *pFloat_Size_SpriteSetModelHeight / -2.0 / PX_UNIT;
             paVertex[i*4 + 3].z = 0.0f;
             paVertex[i*4 + 3].nx = 0.0f;
             paVertex[i*4 + 3].ny = 0.0f;
             paVertex[i*4 + 3].nz = -1.0f;
-            paVertex[i*4 + 3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
-            paVertex[i*4 + 3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
+            paVertex[i*4 + 3].tu = (1.0/(*pInt_ColNum_TextureSplit)) - dU;
+            paVertex[i*4 + 3].tv = (1.0/(*pInt_RowNum_TextureSplit)) - dV;
             paVertex[i*4 + 3].index = (float)i;
 
         }

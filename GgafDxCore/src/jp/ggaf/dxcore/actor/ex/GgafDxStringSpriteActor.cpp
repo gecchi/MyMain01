@@ -242,7 +242,7 @@ void GgafDxStringSpriteActor::processDraw() {
         }
     } else if (_align == ALIGN_RIGHT) {
         int strindex = _len-1;
-        pixcoord dx = -1*(_aWidthPx[_draw_string[strindex]] / 2);
+        pixcoord dx = +1*(_aWidthPx[_draw_string[strindex]] / 2);
         pixcoord dx_tmp = dx;
         float u, v;
         int pattno = 0;
@@ -256,7 +256,7 @@ void GgafDxStringSpriteActor::processDraw() {
             } else if (_draw_string[strindex] == '\n') {
                 strindex--;
 
-                dx = -1*(_aWidthPx[_draw_string[strindex]] / 2);
+                dx = +1*(_aWidthPx[_draw_string[strindex]] / 2);
                 dx_tmp = dx;
                 dy += _chr_height_px;
 

@@ -184,15 +184,15 @@ typedef GgafDxAxis axis;
 
 
 /** アプリの座標 → DirectX座標 変換 */
-#define C_DX(X) ((dxcoord)(1.0f * (X) / LEN_UNIT / PX_UNIT))
+#define C_DX(X) ((dxcoord)(1.0 * (X) / (LEN_UNIT * PX_UNIT)))
 /** DirectX座標 → アプリの座標 変換 */
 #define DX_C(X) ((coord)((X) * LEN_UNIT * PX_UNIT))
 /** DirectX座標 → ピクセル座標(初期カメラ位置の時) 変換 */
 #define DX_PX(X) ((pixcoord)((X) * PX_UNIT))
 /** ピクセル座標(初期カメラ位置の時) →DirectX座標 変換 */
-#define PX_DX(X) ((dxcoord)(1.0f * (X) / PX_UNIT))
+#define PX_DX(X) ((dxcoord)(1.0 * (X) / PX_UNIT))
 /** アプリの座標 → ピクセル座標(初期カメラ位置の時) 変換 */
-#define C_PX(X) ((pixcoord)(1.0f * (X) / LEN_UNIT))
+#define C_PX(X) ((pixcoord)(1.0 * (X) / LEN_UNIT))
 /** ピクセル座標(初期カメラ位置の時) → アプリの座標 変換 */
 #define PX_C(X) ((coord)((X) * LEN_UNIT))
 

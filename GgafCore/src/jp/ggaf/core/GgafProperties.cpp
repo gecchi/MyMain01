@@ -107,6 +107,7 @@ std::string GgafProperties::getStr(std::string prm_key) {
         throwGgafCriticalException("GgafProperties::getStr() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
 }
+
 float GgafProperties::getFloat(std::string prm_key) {
     if (isExistKey(prm_key)) {
         float ret = (float)atof((*_pMapProperties)[prm_key].c_str());

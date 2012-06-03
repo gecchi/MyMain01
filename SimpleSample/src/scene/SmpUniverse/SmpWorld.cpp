@@ -15,7 +15,7 @@ void SmpWorld::initialize() {
         getDirector()->addSubGroup(papTest_[i]);
     }
     for (int i = 0; i < 9; i++) {
-        papTest_[i]->update("ABCDEFGH\nIJKLMN\nOPQRS\nTUVWXY\nZ");
+        papTest_[i]->update("ABCDEFGHIJKLMNO\nIIIMIIIIIIIII\nABCDEFGHIJKLMNO\nMMMMMIMMMLMNO\nABCDEFGHIJKLMNO\nABCDEFGHIJKLMNO\nABCDEFGHIJKLMNO");
     }
     //papTest_[0]->setAlign(ALIGN_LEFT, VALIGN_TOP);
     //papTest_[0]->locate(0 , 0);

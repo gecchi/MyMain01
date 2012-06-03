@@ -19,7 +19,9 @@ public:
     /** [r] ゲーム空間領域高さ基準値 */
     static pixcoord GAME_BUFFER_HEIGHT;
     /** [r] ゲーム空間領域深さ割合の基準値 */
-    static float GAME_SPACE_DEPTH;
+    static double GAME_SPACE_DEPTH;
+    /** [r] 射影変換を正射影で行う場合はtrue。デフォルトはfalse */
+    static bool PRJ_2D_MODE;
     /** [r] 描画先サーフェイス幅のピクセルサイズ */
     static pixcoord RENDER_TARGET_BUFFER_WIDTH;
     /** [r] 描画先サーフェイス高さのピクセルサイズ */
