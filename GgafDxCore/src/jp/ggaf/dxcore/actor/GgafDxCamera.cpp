@@ -6,8 +6,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
         GgafDxGeometricActor(prm_name, NULL, NULL) {
     _class_name = "GgafDxCamera";
 
-    static double rev = 1.00018; //Spriteをドットパーピクセルで表示するための補正値
-                                 //何度も手動で補正したため根拠は無い
+    static double rev = 1.000; //Spriteをドットパーピクセルで表示するための補正値
 
     //全ての基準はfovXから考える
     _rad_fovX = prm_rad_fovX;

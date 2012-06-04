@@ -34,7 +34,7 @@ public:
     FLOAT _blink_threshold;
     //_blink_threshold = 1.0 と指定した場合、PSでtex2D()のサンプリングカラーの
     //r,g,b 何れか >= 1.0 の の場合、_power_blink倍数の色(rgb)を加算
-    //ゼビウスの地上物破壊後の赤い点滅のようなことをしたかった。
+    //ゼビウスのキャラの赤い点滅のようなことをしたかったため作成。
 
     /** [r]テクスチャ資源コネクション配列 */
     GgafDxTextureConnection** _papTextureCon;

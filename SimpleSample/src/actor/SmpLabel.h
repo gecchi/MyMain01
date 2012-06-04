@@ -8,7 +8,7 @@ namespace SimpleSample {
  * @since 2012/05/16
  * @author Masatoshi Tsuge
  */
-class SmpLabel : public GgafLib::StringSpriteActor {
+class SmpLabel : public GgafLib::StringBoardActor {
 
 public:
     SmpLabel(const char* prm_name);

@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace SimpleSample;
 
 SmpLabel::SmpLabel(const char* prm_name) :
-        StringSpriteActor(prm_name, "SimpleFont")
+        StringBoardActor(prm_name, "SimpleFont")
 {
     _class_name = "SmpLabel";
     _aWidthPx['!'] = 10;

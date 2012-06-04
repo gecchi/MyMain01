@@ -384,9 +384,9 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
             }
 
             //距離
-            model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
-                                                 model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
-                                                 model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
+            model_bounding_sphere_radius = (FLOAT)(sqrt(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
+                                                        model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
+                                                        model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
             if (prm_pMeshModel->_bounding_sphere_radius < model_bounding_sphere_radius) {
                 prm_pMeshModel->_bounding_sphere_radius = model_bounding_sphere_radius;
             }
@@ -946,9 +946,9 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
                     }
 
                     //距離
-                    model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
-                                                         model_paVtxBuffer_org_primary[i].y * model_paVtxBuffer_org_primary[i].y +
-                                                         model_paVtxBuffer_org_primary[i].z * model_paVtxBuffer_org_primary[i].z));
+                    model_bounding_sphere_radius = (FLOAT)(sqrt(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
+                                                                model_paVtxBuffer_org_primary[i].y * model_paVtxBuffer_org_primary[i].y +
+                                                                model_paVtxBuffer_org_primary[i].z * model_paVtxBuffer_org_primary[i].z));
                     if (prm_pMorphMeshModel->_bounding_sphere_radius < model_bounding_sphere_radius) {
                         prm_pMorphMeshModel->_bounding_sphere_radius = model_bounding_sphere_radius;
                     }
@@ -1831,12 +1831,14 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
     //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
     //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
-    double dU = 0.00001;
-    double dV = 0.00001;
-
+    float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+    double dU = 1.0 / texWidth  / 10000.0; //テクスチャの幅1pxの10000分の1px
+    double dV = 1.0 / texHeight / 10000.0; //テクスチャの高さ1pxの10000分の1px
+    double rev = 0.99609308; //99609309で割れ
     //左上
-    paVertex[0].x = *pFloat_Size_SpriteModelWidth / -2.0 / PX_UNIT;
-    paVertex[0].y = *pFloat_Size_SpriteModelHeight / 2.0 / PX_UNIT;
+    paVertex[0].x = (*pFloat_Size_SpriteModelWidth / -2.0 / PX_UNIT)*rev;
+    paVertex[0].y = (*pFloat_Size_SpriteModelHeight / 2.0 / PX_UNIT)*rev;
     paVertex[0].z = 0.0f;
     paVertex[0].nx = 0.0f;
     paVertex[0].ny = 0.0f;
@@ -1845,8 +1847,8 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     paVertex[0].tu = dU;
     paVertex[0].tv = dV;
     //右上
-    paVertex[1].x = *pFloat_Size_SpriteModelWidth / 2.0 / PX_UNIT;
-    paVertex[1].y = *pFloat_Size_SpriteModelHeight / 2.0 / PX_UNIT;
+    paVertex[1].x = (*pFloat_Size_SpriteModelWidth / 2.0 / PX_UNIT)*rev;
+    paVertex[1].y = (*pFloat_Size_SpriteModelHeight / 2.0 / PX_UNIT)*rev;
     paVertex[1].z = 0.0f;
     paVertex[1].nx = 0.0f;
     paVertex[1].ny = 0.0f;
@@ -1855,8 +1857,8 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     paVertex[1].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
     paVertex[1].tv = dV;
     //左下
-    paVertex[2].x = *pFloat_Size_SpriteModelWidth / -2.0 / PX_UNIT;
-    paVertex[2].y = *pFloat_Size_SpriteModelHeight / -2.0 / PX_UNIT;
+    paVertex[2].x = (*pFloat_Size_SpriteModelWidth / -2.0 / PX_UNIT)*rev;
+    paVertex[2].y = (*pFloat_Size_SpriteModelHeight / -2.0 / PX_UNIT)*rev;
     paVertex[2].z = 0.0f;
     paVertex[2].nx = 0.0f;
     paVertex[2].ny = 0.0f;
@@ -1866,8 +1868,8 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     paVertex[2].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
 
     //右下
-    paVertex[3].x = *pFloat_Size_SpriteModelWidth / 2.0 / PX_UNIT;
-    paVertex[3].y = *pFloat_Size_SpriteModelHeight / -2.0 / PX_UNIT;
+    paVertex[3].x = (*pFloat_Size_SpriteModelWidth / 2.0 / PX_UNIT)*rev;
+    paVertex[3].y = (*pFloat_Size_SpriteModelHeight / -2.0 / PX_UNIT)*rev;
     paVertex[3].z = 0.0f;
     paVertex[3].nx = 0.0f;
     paVertex[3].ny = 0.0f;
@@ -1877,9 +1879,9 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     paVertex[3].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
 
     //距離
-    FLOAT model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(paVertex[0].x * paVertex[0].x +
-                                               paVertex[0].y * paVertex[0].y +
-                                               paVertex[0].z * paVertex[0].z));
+    FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +
+                                                      paVertex[0].y * paVertex[0].y +
+                                                      paVertex[0].z * paVertex[0].z));
     prm_pSpriteModel->_bounding_sphere_radius = model_bounding_sphere_radius;
 
 
@@ -2004,17 +2006,19 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
 
         GgafDxSpriteSetModel::VERTEX* paVertex = NEW GgafDxSpriteSetModel::VERTEX[4 * prm_pSpriteSetModel->_set_num];
 
-        double dU = 0.00001;
-        double dV = 0.00001;
-
+        float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+        float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+        double dU = 1.0 / texWidth  / 10000.0; //テクスチャの幅1pxの10000分の1px
+        double dV = 1.0 / texHeight / 10000.0; //テクスチャの高さ1pxの10000分の1px
+        double rev = 0.99609308; //99609309で割れ
         //頂点配列情報をモデルに保持させる
         //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
         //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
         //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
         for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
             //左上
-            paVertex[i*4 + 0].x = *pFloat_Size_SpriteSetModelWidth / -2.0 / PX_UNIT;
-            paVertex[i*4 + 0].y = *pFloat_Size_SpriteSetModelHeight / 2.0 / PX_UNIT;
+            paVertex[i*4 + 0].x = (*pFloat_Size_SpriteSetModelWidth / -2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 0].y = (*pFloat_Size_SpriteSetModelHeight / 2.0 / PX_UNIT)*rev;
             paVertex[i*4 + 0].z = 0.0f;
             paVertex[i*4 + 0].nx = 0.0f;
             paVertex[i*4 + 0].ny = 0.0f;
@@ -2023,8 +2027,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
             paVertex[i*4 + 0].tv = dV;
             paVertex[i*4 + 0].index = (float)i;
             //右上
-            paVertex[i*4 + 1].x = *pFloat_Size_SpriteSetModelWidth / 2.0 / PX_UNIT;
-            paVertex[i*4 + 1].y = *pFloat_Size_SpriteSetModelHeight / 2.0 / PX_UNIT;
+            paVertex[i*4 + 1].x = (*pFloat_Size_SpriteSetModelWidth / 2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 1].y = (*pFloat_Size_SpriteSetModelHeight / 2.0 / PX_UNIT)*rev;
             paVertex[i*4 + 1].z = 0.0f;
             paVertex[i*4 + 1].nx = 0.0f;
             paVertex[i*4 + 1].ny = 0.0f;
@@ -2033,8 +2037,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
             paVertex[i*4 + 1].tv = dV;
             paVertex[i*4 + 1].index = (float)i;
             //左下
-            paVertex[i*4 + 2].x = *pFloat_Size_SpriteSetModelWidth / -2.0 / PX_UNIT;
-            paVertex[i*4 + 2].y = *pFloat_Size_SpriteSetModelHeight / -2.0 / PX_UNIT;
+            paVertex[i*4 + 2].x = (*pFloat_Size_SpriteSetModelWidth / -2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 2].y = (*pFloat_Size_SpriteSetModelHeight / -2.0 / PX_UNIT)*rev;
             paVertex[i*4 + 2].z = 0.0f;
             paVertex[i*4 + 2].nx = 0.0f;
             paVertex[i*4 + 2].ny = 0.0f;
@@ -2043,8 +2047,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
             paVertex[i*4 + 2].tv = (1.0/(*pInt_RowNum_TextureSplit)) - dV;
             paVertex[i*4 + 2].index = (float)i;
             //右下
-            paVertex[i*4 + 3].x = *pFloat_Size_SpriteSetModelWidth / 2.0 / PX_UNIT;
-            paVertex[i*4 + 3].y = *pFloat_Size_SpriteSetModelHeight / -2.0 / PX_UNIT;
+            paVertex[i*4 + 3].x = (*pFloat_Size_SpriteSetModelWidth / 2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 3].y = (*pFloat_Size_SpriteSetModelHeight / -2.0 / PX_UNIT)*rev;
             paVertex[i*4 + 3].z = 0.0f;
             paVertex[i*4 + 3].nx = 0.0f;
             paVertex[i*4 + 3].ny = 0.0f;
@@ -2056,9 +2060,9 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         }
 
         //距離
-        FLOAT model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(paVertex[0].x * paVertex[0].x +
-                                                   paVertex[0].y * paVertex[0].y +
-                                                   paVertex[0].z * paVertex[0].z));
+        FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +
+                                                          paVertex[0].y * paVertex[0].y +
+                                                          paVertex[0].z * paVertex[0].z));
         prm_pSpriteSetModel->_bounding_sphere_radius = model_bounding_sphere_radius;
 
 
@@ -2225,33 +2229,33 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     //1pxあたりのuvの大きさを求める
     float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
     float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-     float pxU = 1.0f / texWidth; //テクスチャの幅(px)で割る
-     float pxV = 1.0f / texHeight; //テクスチャの高さ(px)で割る
+    double dU = 1.0 / texWidth  / 10000.0; //テクスチャの幅1pxの10000分の1px
+    double dV = 1.0 / texHeight / 10000.0; //テクスチャの高さ1pxの10000分の1px
 
     //左上
     paVertex[0].x = 0.0f;
     paVertex[0].y = 0.0f;
     paVertex[0].z = 0.0f;
-    paVertex[0].tu = (pxU/100);
-    paVertex[0].tv = (pxV/100);
+    paVertex[0].tu = dU;
+    paVertex[0].tv = dV;
     //右上
     paVertex[1].x = *pFloat_Size_BoardModelWidth;
     paVertex[1].y = 0.0f;
     paVertex[1].z = 0.0f;
-    paVertex[1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100); //僅かに小さく取る
-    paVertex[1].tv = (pxV/100);
+    paVertex[1].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
+    paVertex[1].tv = dV;
     //左下
     paVertex[2].x = 0.0f;
     paVertex[2].y = *pFloat_Size_BoardModelHeight;
     paVertex[2].z = 0.0f;
-    paVertex[2].tu = (pxU/100);
-    paVertex[2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100); //僅かに小さく取る
+    paVertex[2].tu = dU;
+    paVertex[2].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
     //右下
     paVertex[3].x = *pFloat_Size_BoardModelWidth;
     paVertex[3].y = *pFloat_Size_BoardModelHeight;
     paVertex[3].z = 0.0f;
-    paVertex[3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100);
-    paVertex[3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100);
+    paVertex[3].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
+    paVertex[3].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
 
     //バッファ作成
     if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == NULL) {
@@ -2371,37 +2375,36 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
         //1pxあたりのuvの大きさを求める
         float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
         float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-        float pxU = 1.0f / texWidth; //テクスチャの幅(px)で割る
-        float pxV = 1.0f / texHeight; //テクスチャの高さ(px)で割る
-
+        double dU = 1.0 / texWidth  / 10000.0; //テクスチャの幅1pxの10000分の1px
+        double dV = 1.0 / texHeight / 10000.0; //テクスチャの高さ1pxの10000分の1px
         for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
             //左上
             paVertex[i*4 + 0].x = 0.0f;
             paVertex[i*4 + 0].y = 0.0f;
             paVertex[i*4 + 0].z = 0.0f;
-            paVertex[i*4 + 0].tu = (pxU/100);
-            paVertex[i*4 + 0].tv = (pxV/100);
+            paVertex[i*4 + 0].tu = dU;
+            paVertex[i*4 + 0].tv = dV;
             paVertex[i*4 + 0].index = (float)i;
             //右上
             paVertex[i*4 + 1].x = *pFloat_Size_BoardSetModelWidth;
             paVertex[i*4 + 1].y = 0.0f;
             paVertex[i*4 + 1].z = 0.0f;
-            paVertex[i*4 + 1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100);
-            paVertex[i*4 + 1].tv = (pxV/100);
+            paVertex[i*4 + 1].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
+            paVertex[i*4 + 1].tv = dV;
             paVertex[i*4 + 1].index = (float)i;
             //左下
             paVertex[i*4 + 2].x = 0.0f;
             paVertex[i*4 + 2].y = *pFloat_Size_BoardSetModelHeight;
             paVertex[i*4 + 2].z = 0.0f;
-            paVertex[i*4 + 2].tu = (pxU/100);
-            paVertex[i*4 + 2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100);
+            paVertex[i*4 + 2].tu = dU;
+            paVertex[i*4 + 2].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
             paVertex[i*4 + 2].index = (float)i;
             //右下
             paVertex[i*4 + 3].x = *pFloat_Size_BoardSetModelWidth;
             paVertex[i*4 + 3].y = *pFloat_Size_BoardSetModelHeight;
             paVertex[i*4 + 3].z = 0.0f;
-            paVertex[i*4 + 3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100);
-            paVertex[i*4 + 3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100);
+            paVertex[i*4 + 3].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
+            paVertex[i*4 + 3].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
             paVertex[i*4 + 3].index = (float)i;
          }
 
@@ -2604,9 +2607,9 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
             unit_paVtxBuffer_org[i].index = 0; //頂点番号（むりやり埋め込み）
 
             //距離
-            model_bounding_sphere_radius = (FLOAT)(GgafDxUtil::sqrt_fast(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
-                                                 unit_paVtxBuffer_org[i].y * unit_paVtxBuffer_org[i].y +
-                                                 unit_paVtxBuffer_org[i].z * unit_paVtxBuffer_org[i].z));
+            model_bounding_sphere_radius = (FLOAT)(sqrt(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
+                                                        unit_paVtxBuffer_org[i].y * unit_paVtxBuffer_org[i].y +
+                                                        unit_paVtxBuffer_org[i].z * unit_paVtxBuffer_org[i].z));
             if (prm_pMeshSetModel->_bounding_sphere_radius < model_bounding_sphere_radius) {
                 prm_pMeshSetModel->_bounding_sphere_radius = model_bounding_sphere_radius;
             }
@@ -3135,9 +3138,9 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
         model_paVtxBuffer_org[i].tu = (float)(paInt_InitUvPtnNo[i]);
         model_paVtxBuffer_org[i].tv = 0;
 
-        dis = (FLOAT)(GgafDxUtil::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
-                                             model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
-                                             model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z  )
+        dis = (FLOAT)(sqrt(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
+                           model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
+                           model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z  )
                        + (((model_fSquareSize/PX_UNIT) * 1.41421356 ) / 2.0)
                      );
 
