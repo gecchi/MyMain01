@@ -838,6 +838,15 @@ MenuActor<T>::~MenuActor() {
 typedef GgafLib::MenuActor<GgafLib::DefaultBoardActor> DefaultBoardMenu;
 /** メニューの母体を GgafLib::DefaultBoardSetActor とするメニュー */
 typedef GgafLib::MenuActor<GgafLib::DefaultBoardSetActor> DefaultBoardSetMenu;
+/** メニューの母体を GgafLib::DefaultSpriteActor とするメニュー */
+typedef GgafLib::MenuActor<GgafLib::DefaultSpriteActor> DefaultSpriteMenu;
+/** メニューの母体を GgafLib::DefaultSpriteSetActor とするメニュー */
+typedef GgafLib::MenuActor<GgafLib::DefaultSpriteSetActor> DefaultSpriteSetMenu;
+/** メニューの母体を GgafLib::StringBoardActor とするメニュー */
+typedef GgafLib::MenuActor<GgafLib::StringBoardActor> StringBoardMenu;
+/** メニューの母体を GgafLib::StringSpriteActor とするメニュー */
+typedef GgafLib::MenuActor<GgafLib::StringSpriteActor> StringSpriteMenu;
+
 
 }
 #endif /*MENUACTOR_H_*/

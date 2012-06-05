@@ -333,7 +333,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GgafLibEntory.h" />
-    <ClInclude Include="include\jp\ggaf\lib\actor\menu\StringBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\StringSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\GgafLibProperties.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\AmountGraph.h" />

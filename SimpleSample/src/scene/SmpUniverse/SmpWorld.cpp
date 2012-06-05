@@ -3,7 +3,7 @@ using namespace SimpleSample;
 
 SmpWorld::SmpWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pActor_ = new SmpActor("TEST");      //キャラ作成＆保持
-    //getDirector()->addSubGroup(pActor_); //キャラをシーン監督の配下に所属（表示される）
+    getDirector()->addSubGroup(pActor_); //キャラをシーン監督の配下に所属（表示される）
     GgafLib::VirtualButton::_tagKeymap.BUTTON1 = DIK_SPACE; //ボタン１=スペースキー とする。
 }
 void SmpWorld::initialize() {

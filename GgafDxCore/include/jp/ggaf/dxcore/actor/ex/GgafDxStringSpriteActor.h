@@ -35,6 +35,8 @@ namespace GgafDxCore {
 class GgafDxStringSpriteActor : public GgafDxSpriteSetActor {
 
 public:
+    /** [r/w]パターン番号0とする文字 */
+    char _chr_ptn_zero;
     /** [r]描画文字列 */
     char* _draw_string;
     /** [r]文字バッファ(1024固定) */

@@ -730,10 +730,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\actor\menu\StringBoardActor.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\lib\actor\StringSpriteActor.h"
 				>
 			</File>

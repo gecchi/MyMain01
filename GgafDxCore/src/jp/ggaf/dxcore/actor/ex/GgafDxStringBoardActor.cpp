@@ -6,6 +6,7 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
         GgafDxBoardSetActor(prm_name, prm_model, "StringBoardEffect", "StringBoardTechnique") {
 
     _class_name = "GgafDxStringBoardActor";
+    _chr_ptn_zero = ' ';
     _draw_string = NULL;
     _len = 0;
     _buf = NEW char[1024];
@@ -203,20 +204,15 @@ void GgafDxStringBoardActor::processDraw() {
 
                 strindex++;
                 continue;
-            }
-
-            if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
-                pattno = '?' - ' '; //範囲外は"?"を表示
             } else {
-                pattno = _draw_string[strindex] - ' '; //通常文字列
+                pattno = _draw_string[strindex] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
             int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
             x = x_tmp - w;
             x_tmp = x + _chr_width_px - w;
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[draw_set_cnt], float(x));
-            checkDxException(hr, D3D_OK,
-                             "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_X) に失敗しました。");
+            checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_X) に失敗しました。");
             _pUvFlipper->getUV(pattno, u, v);
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[draw_set_cnt], u);
             checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_u) に失敗しました。");
@@ -256,10 +252,8 @@ void GgafDxStringBoardActor::processDraw() {
 
                 strindex--;
                 continue;
-            } else if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
-                pattno = '?' - ' '; //範囲外は"?"を表示
             } else {
-                pattno = _draw_string[strindex] - ' '; //通常文字列
+                pattno = _draw_string[strindex] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
             int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);

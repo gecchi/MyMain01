@@ -6,6 +6,7 @@ GgafDxStringSpriteActor::GgafDxStringSpriteActor(const char* prm_name, const cha
         GgafDxSpriteSetActor(prm_name, prm_model, "StringSpriteEffect", "StringSpriteTechnique", prm_pStat, NULL) {
 
     _class_name = "GgafDxStringSpriteActor";
+    _chr_ptn_zero = ' ';
     _draw_string = NULL;
     _len = 0;
     _buf = NEW char[1024];
@@ -24,24 +25,24 @@ void GgafDxStringSpriteActor::onCreateModel() {
 
 }
 
-void GgafDxStringSpriteActor::update(coord dx, coord dy, const char* prm_str) {
+void GgafDxStringSpriteActor::update(coord X, coord Y, const char* prm_str) {
     update(prm_str);
-    locate(dx, dy);
+    locate(X, Y);
 }
 
-void GgafDxStringSpriteActor::update(coord dx, coord dy, char* prm_str) {
+void GgafDxStringSpriteActor::update(coord X, coord Y, char* prm_str) {
     update(prm_str);
-    locate(dx, dy);
+    locate(X, Y);
 }
 
-void GgafDxStringSpriteActor::update(coord dx, coord dy, coord Z, const char* prm_str) {
+void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, const char* prm_str) {
     update(prm_str);
-    locate(dx, dy, Z);
+    locate(X, Y, Z);
 }
 
-void GgafDxStringSpriteActor::update(coord dx, coord dy, coord Z, char* prm_str) {
+void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, char* prm_str) {
     update(prm_str);
-    locate(dx, dy, Z);
+    locate(X, Y, Z);
 }
 
 void GgafDxStringSpriteActor::update(const char* prm_str) {
@@ -125,27 +126,27 @@ void GgafDxStringSpriteActor::update(char* prm_str) {
     }
 }
 
-void GgafDxStringSpriteActor::update(coord dx, coord dy, const char* prm_str, GgafDxAlign prm_align,
+void GgafDxStringSpriteActor::update(coord X, coord Y, const char* prm_str, GgafDxAlign prm_align,
                                      GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(dx, dy);
+    locate(X, Y);
 }
 
-void GgafDxStringSpriteActor::update(coord dx, coord dy, char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
+void GgafDxStringSpriteActor::update(coord X, coord Y, char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(dx, dy);
+    locate(X, Y);
 }
 
-void GgafDxStringSpriteActor::update(coord dx, coord dy, coord Z, const char* prm_str, GgafDxAlign prm_align,
+void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, const char* prm_str, GgafDxAlign prm_align,
                                      GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(dx, dy, Z);
+    locate(X, Y, Z);
 }
 
-void GgafDxStringSpriteActor::update(coord dx, coord dy, coord Z, char* prm_str, GgafDxAlign prm_align,
+void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, char* prm_str, GgafDxAlign prm_align,
                                      GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(dx, dy, Z);
+    locate(X, Y, Z);
 }
 
 void GgafDxStringSpriteActor::update(const char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
@@ -209,14 +210,9 @@ void GgafDxStringSpriteActor::processDraw() {
                 dx_tmp = dx;
                 dy -= _chr_height_px;
 
-
                 continue;
-            }
-
-            if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
-                pattno = '?' - ' '; //範囲外は"?"を表示
             } else {
-                pattno = _draw_string[strindex] - ' '; //通常文字列
+                pattno = _draw_string[strindex] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
             int w = ((_chr_width_px - _aWidthPx[_draw_string[strindex]]) / 2);
@@ -261,10 +257,8 @@ void GgafDxStringSpriteActor::processDraw() {
                 dy += _chr_height_px;
 
                 continue;
-            } else if (_draw_string[strindex] - ' ' > '_' || _draw_string[strindex] - ' ' < 0) {
-                pattno = '?' - ' '; //範囲外は"?"を表示
             } else {
-                pattno = _draw_string[strindex] - ' '; //通常文字列
+                pattno = _draw_string[strindex] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
             int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);

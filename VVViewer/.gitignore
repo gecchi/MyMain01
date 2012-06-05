@@ -1,0 +1,11 @@
+/Release*
+/GprofCdt
+/Debug*
+/log
+/*settings
+VVViewer.exe
+/*user
+/.checkstyle
+/VVViewer.aps
+*.rep
+back.properties
