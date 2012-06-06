@@ -88,11 +88,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     //必要があれば、メッセージ処理をココに追加記述
     switch (message) {
         case WM_DROPFILES: {/* ファイルがドロップされた時の処理 */
-            char szFileName[256];
             HDROP  hDrop = (HDROP)wParam;
             UINT  uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, NULL, 0);
             for(int i = 0; i < (int)uFileNo; i++) {
                 DragQueryFile(hDrop, i, VvvGod::dropfiles_, sizeof(VvvGod::dropfiles_));
+                _TRACE_("VvvGod::dropfiles_="<<VvvGod::dropfiles_);
 //                if(ShellExecute(hWnd, NULL, VvvGod::dropfiles_, NULL, NULL, SW_SHOWNORMAL) <= (HINSTANCE)32)
 //                    MessageBox(hWnd, "ファイルを開けませんでした", "失敗", MB_OK);
             }

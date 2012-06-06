@@ -49,14 +49,12 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     DirectXFileCreate( &_pIDirectXFile_psprx );
     char* paChar_PointSpriteModelineTemplate =
             "xof 0303txt 0032\n" \
-            "\n" \
             "template Vector {\n" \
             "  <3d82ab5e-62da-11cf-ab39-0020af71e433>\n" \
             "  FLOAT x;\n" \
             "  FLOAT y;\n" \
             "  FLOAT z;\n" \
             "}\n" \
-            "\n" \
             "template ColorRGBA {\n" \
             "  <35ff44e0-6c7c-11cf-8f52-0040333594a3>\n" \
             "  FLOAT red;\n" \
@@ -64,7 +62,6 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
             "  FLOAT blue;\n" \
             "  FLOAT alpha;\n" \
             "}\n" \
-            "\n" \
             "template PointSpriteDef {\n" \
             "  <E4EECE4C-E106-11DC-9B62-346D55D89593>\n" \
             "  FLOAT  SquareSize;\n" \
@@ -75,7 +72,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
             "  array  ColorRGBA VertexColors[VerticesNum];\n" \
             "  array  DWORD     InitUvPtnNo[VerticesNum];\n" \
             "  array  FLOAT     InitScale[VerticesNum];\n" \
-            "}\n" \
+            "}\n";
             "\n";
     hr = _pIDirectXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
 #ifdef MY_DEBUG

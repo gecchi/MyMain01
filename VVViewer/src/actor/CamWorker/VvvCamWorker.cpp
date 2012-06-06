@@ -31,6 +31,20 @@ void VvvCamWorker::initialize() {
 
 
 void VvvCamWorker::processBehavior() {
+
+    if (GgafDxInput::isPushedDownKey(DIK_1)) {
+        GgafDxCamera* pCam = P_CAM;
+        move_target_X_CAM_ = 0;
+        move_target_Y_CAM_ = 0;
+        move_target_Z_CAM_ = DX_C(pCam->_cameraZ_org);
+        move_target_X_VP_ =  0;
+        move_target_Y_VP_ =  0;
+        move_target_Z_VP_ =  0;
+        move_target_XY_CAM_UP_ = D90ANG;
+        return;
+    }
+
+
     GgafDxCamera* pCam = P_CAM;
     GgafDxGeometricActor* pVP = P_CAM->_pViewPoint;
     GgafDxInput::updateMouseState();
@@ -251,7 +265,7 @@ void VvvCamWorker::processBehavior() {
 //        move_target_Z_VP_  = vp_Z_ + mdz_vz_*r;
         double r = 0.0;
         if (mdz != 0) {
-            r = (mdz*PX_UNIT*LEN_UNIT/10.0);
+            r = (mdz*PX_UNIT*LEN_UNIT/20.0); //20.0 を大きくすると、ホイールで進む距離が減る。
         } else if ((GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1))) {
             r = ((1.0*mdy/cd_) * GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2)*LEN_UNIT;
         }

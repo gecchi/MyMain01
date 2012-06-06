@@ -21,10 +21,15 @@ public:
     virtual void onCreateModel() override {
     }
 
-    virtual void initialize() override {
+    virtual void initialize() override;
+
+    virtual void processSettlementBehavior() override;
+
+    virtual void processBehavior() override {
     }
 
-   virtual void processSettlementBehavior() override;
+    virtual void processJudgement() override {
+    }
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
@@ -32,12 +37,12 @@ public:
     virtual void drawHitArea() override {
     }
 
-    int isOutOfView() override {
+    virtual int isOutOfView() override {
         //画面外判定無し
         return 0;
     }
 
-    bool isOutOfUniverse() override {;
+    virtual bool isOutOfUniverse() override {;
         //ゲーム座標範囲外判定無し
         return false;
     }

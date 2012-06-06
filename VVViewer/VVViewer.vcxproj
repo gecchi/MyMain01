@@ -249,6 +249,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\CamWorker\VvvCamWorker.h" />
+    <ClInclude Include="src\actor\DefaultPointSpriteTestActor.h" />
     <ClInclude Include="src\actor\VvvActor.h" />
     <ClInclude Include="src\actor\VvvCamera.h" />
     <ClInclude Include="src\scene\VvvUniverse.h" />
@@ -276,6 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\actor\CamWorker\VvvCamWorker.cpp" />
+    <ClCompile Include="src\actor\DefaultPointSpriteTestActor.cpp" />
     <ClCompile Include="src\actor\VvvActor.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>

@@ -210,6 +210,12 @@ public:
         X* p = NEW X((char*)p1);
         return p;
     }
+    template<class X>
+    static X* create2(void* p1, void* p2, void* p3) {
+        //p1 : ñºèÃ
+        X* p = NEW X((char*)p1, (char*)p2);
+        return p;
+    }
 
     template<class X>
     static X* createActor(void* p1, void* p2, void* p3) {
@@ -233,5 +239,7 @@ public:
 #define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID),this))
 #define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID),this))
 #define createInFactory(CLASS, NAME) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create, this, (void*)(NAME),(void*)(NULL),(void*)(NULL),this))
+#define createInFactory2(CLASS, NAME, MODEL) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create2, this, (void*)(NAME),(void*)(MODEL),(void*)(NULL),this))
+
 }
 #endif /*GGAFGACTORY_H_*/

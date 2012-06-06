@@ -1,5 +1,7 @@
 #ifndef SMPWORLD_H_
 #define SMPWORLD_H_
+
+#include <algorithm>
 namespace VVViewer {
 
 
@@ -19,6 +21,8 @@ namespace VVViewer {
 class VvvWorld : public GgafLib::DefaultScene {
 
 public:
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _list;
+
     /** 入力受付 */
     GgafLib::VirtualButton* vb_;
     /** テストキャラ */
