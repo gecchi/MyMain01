@@ -85,7 +85,6 @@ void SmpWorld::initialize() {
 //    papTest_[8]->locate( PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2) , PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)/2),0);
 
 
-
 }
 
 void SmpWorld::processBehavior() {

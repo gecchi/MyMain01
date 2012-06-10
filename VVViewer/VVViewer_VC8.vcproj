@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="VVViewer"
-	ProjectGUID="{89FBE92F-55E8-45B9-8E33-E398F3BC1ED9}"
+	ProjectGUID="{566E30F1-CD36-4B9E-92DE-B9DD87F84F66}"
 	RootNamespace="VVViewer"
 	Keyword="Win32Proj"
 	>
@@ -208,27 +208,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\VVViewer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvActor.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvCamera.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\VvvGod.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\scene\VvvUniverse.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\scene\VvvUniverse\VvvWorld.cpp"
+				RelativePath=".\src\actor\DefaultPointSpriteTestActor.cpp"
 				>
 			</File>
 			<File
@@ -251,6 +231,34 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\src\actor\VvvActor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\actor\VvvCamera.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\actor\CamWorker\VvvCamWorker.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\VvvGod.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\VVViewer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\scene\VvvUniverse.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\scene\VvvUniverse\VvvWorld.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="ヘッダー ファイル"
@@ -258,7 +266,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\src\VVViewer.h"
+				RelativePath=".\src\actor\DefaultPointSpriteTestActor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\stdafx.h"
 				>
 			</File>
 			<File
@@ -270,7 +282,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\actor\CamWorker\VvvCamWorker.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\VvvGod.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\VVViewer.h"
 				>
 			</File>
 			<File
@@ -279,10 +299,6 @@
 			</File>
 			<File
 				RelativePath=".\src\scene\VvvUniverse\VvvWorld.h"
-				>
-			</File>
-			<File
-				RelativePath=".\stdafx.h"
 				>
 			</File>
 		</Filter>
