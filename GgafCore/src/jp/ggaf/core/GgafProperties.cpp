@@ -128,7 +128,7 @@ int GgafProperties::getInt(std::string prm_key) {
 
 UINT32 GgafProperties::getUInt(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        UINT32 ret = (UINT32)(_atoi64((*_pMapProperties)[prm_key].c_str()));
+        UINT32 ret = (UINT32)(atof((*_pMapProperties)[prm_key].c_str()));
         return ret;
     } else {
         throwGgafCriticalException("GgafProperties::getUInt() Error! プロパティに、キー("<<prm_key<<")が存在しません。");

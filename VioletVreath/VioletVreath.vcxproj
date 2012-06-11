@@ -172,7 +172,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y ..\debug\VioletVreath.exe ..\VioletVreath</Command>
+      <Command>COPY /Y ..\debug\VioletVreath.exe .</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -329,7 +329,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>COPY /Y ..\release\VioletVreath.exe ..\VioletVreath</Command>
+      <Command>COPY /Y ..\release\VioletVreath.exe .</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

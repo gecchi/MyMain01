@@ -80,7 +80,6 @@ void HoshiBoshi::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(h_fZ_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(h_far_rate_, far_rate_);
     checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(h_far_rate_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
     GgafDxPointSpriteActor::processDraw();
 }
 

@@ -78,8 +78,8 @@
 #define PX_UNIT (10)
 //原点付近の画面上の１px相当に対してのPG内での座標単位の比率（PG内での座標単位を LEN_UNITで割ると3D空間のpxになる）
 #define LEN_UNIT (1000)
-#define PI (3.14159265358979)
-#define PI2 (PI*2.0)
+#define PI  (3.14159265358979323846)
+#define PI2 (6.28318530717958647692)
 //#define MAX_DRAW_DEPTH_LEVEL 1000
 #define MAX_DRAW_DEPTH_LEVEL 500
 #define DRAW_DEPTH_LEVEL_WORLDBOUND (MAX_DRAW_DEPTH_LEVEL)
@@ -130,15 +130,13 @@ class OggDecoder;
 class OggVorbisFile;
 class OggVorbisMemory;
 }
+
 #include "jp/ggaf/dxcore/sound/IkdLib/PCMPlayer.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisResource.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/PCMDecoder.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggDecoder.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisFile.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisMemory.h"
-
-
-
 
 
 

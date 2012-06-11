@@ -4,13 +4,9 @@ using namespace std;
 
 VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     getDirector()->addSubGroup(NEW VvvCamWorker("VvvCamWorker"));
-    DefaultPointSpriteTestActor* p = new DefaultPointSpriteTestActor("hoehoe");
-
-    getDirector()->addSubGroup(p);
 
     vb_ = NEW GgafLib::VirtualButton();
     GgafLib::VirtualButton::_tagKeymap.BUTTON1 = DIK_SPACE; //ボタン１=スペースキー とする。
-
 }
 
 void VvvWorld::initialize() {
@@ -42,8 +38,8 @@ void VvvWorld::processBehavior() {
         GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) = string(drive) + string(folder);
         GGAF_PROPERTY(DIR_TEXTURE[0])      = string(drive) + string(folder);
         GGAF_PROPERTY(DIR_TEXTURE[1])      = string(drive) + string(folder) + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
-        ::transform(model_type.begin(), model_type.end(), model_type.begin(), toupper);
-        ::transform(model_id.begin(), model_id.end(), model_id.begin(), toupper);
+        transform(model_type.begin(), model_type.end(), model_type.begin(), toupper);
+        transform(model_id.begin(), model_id.end(), model_id.begin(), toupper);
         GgafDxCore::GgafDxDrawableActor* pActor = NULL;
         if (model_type == ".X") {
 //            if (model_id.find("WORLDBOUND") == std::string::npos) {

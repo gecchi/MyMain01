@@ -584,7 +584,7 @@ float quaternion<T>::qACos(float pValue)
         return 0.0f;
     }
     else
-    return M_PI;
+    return PI;
 }
 
 template<typename T>

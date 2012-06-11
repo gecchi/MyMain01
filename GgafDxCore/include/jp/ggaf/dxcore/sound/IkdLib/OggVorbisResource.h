@@ -1,6 +1,7 @@
 #ifndef IKD_DIX_OGGVORBISRESOURCE_H
 #define IKD_DIX_OGGVORBISRESOURCE_H
 
+#define OV_EXCLUDE_STATIC_CALLBACKS
 #include "vorbis/vorbisfile.h"
 
 namespace IkdLib {

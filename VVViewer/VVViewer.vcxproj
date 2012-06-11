@@ -143,6 +143,9 @@
       <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;CustomizeOgg_static.lib;CustomizeVorbis_static.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;d3dxof.lib;dxerr.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>COPY /Y ..\debug\VVViewer.exe .</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -220,6 +223,9 @@
       <AdditionalLibraryDirectories>..\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;CustomizeOgg_static.lib;CustomizeVorbis_static.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;d3dxof.lib;dxerr.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>COPY /Y ..\release\VVViewer.exe .</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -249,7 +255,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\CamWorker\VvvCamWorker.h" />
-    <ClInclude Include="src\actor\DefaultPointSpriteTestActor.h" />
     <ClInclude Include="src\actor\VvvActor.h" />
     <ClInclude Include="src\actor\VvvCamera.h" />
     <ClInclude Include="src\scene\VvvUniverse.h" />
@@ -277,7 +282,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\actor\CamWorker\VvvCamWorker.cpp" />
-    <ClCompile Include="src\actor\DefaultPointSpriteTestActor.cpp" />
     <ClCompile Include="src\actor\VvvActor.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>

@@ -29,7 +29,8 @@
         #define override
     #endif
 #else
-   #define override
+    //GCC4.7.0‚É‚È‚Á‚½‚½‚ß
+    //#define override
 #endif
 
 #define _HAS_ITERATOR_DEBUGGING 0
@@ -40,6 +41,7 @@
 #include <stdarg.h>
 
 #include <stdlib.h>
+
 #ifdef _MSC_VER
     #ifdef _DEBUG
         #include <crtdbg.h>
@@ -67,6 +69,7 @@
 #include <sstream>
 #include <cstddef>
 #include "Shlwapi.h"
+#include <algorithm>
 
 #ifdef _MSC_VER
 #define __map__ std::map

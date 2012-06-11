@@ -1,10 +1,7 @@
 #ifndef SMPWORLD_H_
 #define SMPWORLD_H_
 
-#include <algorithm>
 namespace VVViewer {
-
-
 
 #ifdef P_UNIVERSE
     #define P_WORLD ((VVViewer::VvvWorld*)(P_UNIVERSE->pWorld_))

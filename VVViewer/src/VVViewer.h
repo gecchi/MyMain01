@@ -15,8 +15,6 @@ class VvvWorld;
 class VvvCamera;
 class VvvActor;
 class VvvCamWorker;
-class DefaultPointSpriteTestActor;
-
 }
 
 #include "VvvGod.h"
@@ -25,5 +23,5 @@ class DefaultPointSpriteTestActor;
 #include "actor/VvvCamera.h"
 #include "actor/VvvActor.h"
 #include "actor/CamWorker/VvvCamWorker.h"
-#include "actor/DefaultPointSpriteTestActor.h"
+
 #endif /*VVVIEWER_H_*/

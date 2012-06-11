@@ -82,7 +82,7 @@ OUT_VS GgafDxVS_DefaultPointSprite(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-
+    out_vs.pos = mul(prm_pos    , g_matWorld);  //World
 	out_vs.pos = mul(out_vs.pos , g_matView);  //View
 	float dep = out_vs.pos.z + 1.0; //+1.0ÇÃà”ñ°ÇÕ
                                     //VIEWïœä∑ÇÕ(0.0, 0.0, -1.0) Ç©ÇÁ (0.0, 0.0, 0.0) Çå©ÇƒÇ¢ÇÈÇΩÇﬂÅA

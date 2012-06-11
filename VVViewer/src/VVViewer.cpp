@@ -69,7 +69,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                 }
             }
         }
-
     } catch (std::exception& e2) {
         std::string what(e2.what());
         MessageBox(NULL, what.c_str(), "VVViewer Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
@@ -93,8 +92,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             for(int i = 0; i < (int)uFileNo; i++) {
                 DragQueryFile(hDrop, i, VvvGod::dropfiles_, sizeof(VvvGod::dropfiles_));
                 _TRACE_("VvvGod::dropfiles_="<<VvvGod::dropfiles_);
-//                if(ShellExecute(hWnd, NULL, VvvGod::dropfiles_, NULL, NULL, SW_SHOWNORMAL) <= (HINSTANCE)32)
-//                    MessageBox(hWnd, "ファイルを開けませんでした", "失敗", MB_OK);
             }
             DragFinish(hDrop);
             VvvGod::is_wm_dropfiles_ = true;
