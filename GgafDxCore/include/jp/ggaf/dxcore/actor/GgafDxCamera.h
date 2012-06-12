@@ -159,6 +159,7 @@ public:
      */
     virtual void setViewPoint(coord prm_tX, coord prm_tY, coord prm_tZ);
 
+    virtual GgafDxCameraViewPoint* getViewPoint();
     /**
      * カメラの注視点を設定 .
      * 引数のアクターのXYZ座標(_X, _Y, _Z)がsetViewPointされるだけです。

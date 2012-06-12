@@ -32,19 +32,6 @@ void VvvCamWorker::initialize() {
 
 void VvvCamWorker::processBehavior() {
 
-    if (GgafDxInput::isPushedDownKey(DIK_1)) {
-        GgafDxCamera* pCam = P_CAM;
-        move_target_X_CAM_ = 0;
-        move_target_Y_CAM_ = 0;
-        move_target_Z_CAM_ = DX_C(pCam->_cameraZ_org);
-        move_target_X_VP_ =  0;
-        move_target_Y_VP_ =  0;
-        move_target_Z_VP_ =  0;
-        move_target_XY_CAM_UP_ = D90ANG;
-        return;
-    }
-
-
     GgafDxCamera* pCam = P_CAM;
     GgafDxGeometricActor* pVP = P_CAM->_pViewPoint;
     GgafDxInput::updateMouseState();

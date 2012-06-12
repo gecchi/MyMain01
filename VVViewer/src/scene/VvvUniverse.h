@@ -1,5 +1,5 @@
-#ifndef SMPUNIVERSE_H_
-#define SMPUNIVERSE_H_
+#ifndef VVVUNIVERSE_H_
+#define VVVUNIVERSE_H_
 
 #ifdef P_UNIVERSE
     #ifdef P_CAM
@@ -44,4 +44,4 @@ public:
 };
 
 }
-#endif /*SMPUNIVERSE_H_*/
+#endif /*VVVUNIVERSE_H_*/

@@ -48,7 +48,7 @@ void EnemyMassalia::processJudgement() {
 
 void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
+    effectFlush(2); //フラッシュ
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTx->play3D(0);

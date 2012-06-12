@@ -1,5 +1,5 @@
-#ifndef SMPGOD_H_
-#define SMPGOD_H_
+#ifndef VVVGOD_H_
+#define VVVGOD_H_
 namespace VVViewer {
 
 /**
@@ -34,4 +34,4 @@ public:
 };
 
 }
-#endif /*SMPGOD_H_*/
+#endif /*VVVGOD_H_*/

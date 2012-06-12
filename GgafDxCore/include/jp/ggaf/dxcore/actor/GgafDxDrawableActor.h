@@ -148,6 +148,14 @@ public:
     }
 
     /**
+     * ピカっと光る。
+     * @param prm_frame 光る時間
+     */
+    virtual void effectFlush(frame prm_frame) {
+        changeEffectTechniqueInterim("Flush", prm_frame); //フラッシュ
+    }
+
+    /**
      * 特別な描画深度を強制する。 .
      * 0以上指定場合、描画深度指定にこの値が使用される。
      * 負の数の指定場合、自動設定に戻る（_specal_drawdepthのデフォルトは-1)

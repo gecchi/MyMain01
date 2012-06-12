@@ -55,7 +55,7 @@ void TractorMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 void TractorMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
 }
 void TractorMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
-    P_MYSHIP->changeEffectTechniqueInterim("Flush", 6); //フラッシュ
+    P_MYSHIP->effectFlush(6); //フラッシュ
 }
 
 int TractorMagic::effect(int prm_level) {

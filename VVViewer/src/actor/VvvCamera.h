@@ -1,5 +1,5 @@
-#ifndef SMPCAMERA_H_
-#define SMPCAMERA_H_
+#ifndef VVVCAMERA_H_
+#define VVVCAMERAH_
 namespace VVViewer {
 
 /**
@@ -17,4 +17,4 @@ public:
 };
 
 }
-#endif /*SMPCAMERA_H_*/
+#endif /*VVVCAMERAH_*/

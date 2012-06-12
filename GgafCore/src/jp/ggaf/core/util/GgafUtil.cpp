@@ -308,3 +308,74 @@ bool GgafUtil::cnvBool(std::string prm_str) {
     }
     return ret;
 }
+
+std::string GgafUtil::getFileBaseNameWithoutExt(const char* prm_filepath) {
+    std::string basename = getFileBaseName(prm_filepath);
+    int p = (int)basename.find_first_of('.');
+    if (p == 0) {
+        //ドット始まりのファイル名
+        return "";
+    } else if (p < 0) {
+        //ピリオドなしのファイル名
+        return basename;
+    } else {
+        return basename.substr(0, p);
+    }
+}
+
+
+std::string GgafUtil::getFileBaseName(const char* prm_filepath) {
+    int p = (int)strlen(prm_filepath) - 1;
+    if (p < 0) {
+        return "";
+    }
+    if (prm_filepath[p] == '/' || prm_filepath[p] == '\\') {
+        p--;
+    }
+    std::string res;
+    while (!(prm_filepath[p] == '/' || prm_filepath[p] == '\\')) {
+        res += prm_filepath[p--];
+    }
+    reverseStr((char*)res.c_str());
+    return res;
+}
+
+std::string GgafUtil::getFileDirName(const char* prm_filepath) {
+    int p = (int)strlen(prm_filepath) - 1;
+    if (p < 0) {
+        return "";
+    }
+    if (prm_filepath[p] == '/' || prm_filepath[p] == '\\') {
+        p--;
+    }
+    std::string res;
+    while (!(prm_filepath[p] == '/' || prm_filepath[p] == '\\')) {
+        p--;
+    }
+    res.assign(prm_filepath, p);
+    return res;
+}
+
+std::string GgafUtil::getFileExt(const char* prm_filepath) {
+    std::string basename = getFileBaseName(prm_filepath);
+    int epos = (int)basename.find_last_of('.');
+    if (epos < 0) {
+        return "";
+    }
+    return basename.substr(epos + 1, basename.length() - epos);
+}
+
+char* GgafUtil::reverseStr(char* str) {
+    std::string tmp = str;
+    char* p = (char*)tmp.c_str();
+    for (int i = (int)strlen(str) - 1, j = 0; i >= 0; i--, j++)
+        str[i] = p[j];
+    return (&str[0]);
+}
+void GgafUtil::strReplace(std::string& str, const std::string& from, const std::string& to) {
+    std::string::size_type pos = 0;
+    while(pos = str.find(from, pos), pos != std::string::npos) {
+        str.replace(pos, from.length(), to);
+        pos += to.length();
+    }
+}

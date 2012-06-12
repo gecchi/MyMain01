@@ -1,5 +1,5 @@
-#ifndef SMPWORLD_H_
-#define SMPWORLD_H_
+#ifndef VVVWORLD_H_
+#define VVVWORLD_H_
 
 namespace VVViewer {
 
@@ -18,12 +18,15 @@ namespace VVViewer {
 class VvvWorld : public GgafLib::DefaultScene {
 
 public:
+    /** 表示中モデルのリスト */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _list;
-
     /** 入力受付 */
     GgafLib::VirtualButton* vb_;
-    /** テストキャラ */
-    VvvActor* pActor_;
+    /** カーソル */
+    VvvCursor* pCursor_;
+    /** カメラマン */
+    VvvCamWorker* pCamWorker_;
+
     /**
      * コンストラクタ .
      * @param prm_name 名称
@@ -44,4 +47,4 @@ public:
 };
 
 }
-#endif /*SMPWORLD_H_*/
+#endif /*VVVWORLD_H_*/

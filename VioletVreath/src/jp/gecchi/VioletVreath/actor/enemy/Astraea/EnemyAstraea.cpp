@@ -151,7 +151,7 @@ void EnemyAstraea::processBehavior() {
                 }
                 if (can_fire) {
                     _pSeTx->play3D(0); //発射音
-                    changeEffectTechniqueInterim("Flush", 5); //フラッシュ
+                    effectFlush(5); //フラッシュ
                 }
             }
             if (cnt_laserchip_ < laser_length_) {
@@ -210,7 +210,7 @@ void EnemyAstraea::processJudgement() {
 
 void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
+    effectFlush(2); //フラッシュ
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合

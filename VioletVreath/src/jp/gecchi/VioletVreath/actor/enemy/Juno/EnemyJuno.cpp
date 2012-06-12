@@ -70,7 +70,7 @@ void EnemyJuno::processBehavior() {
                 if (pFirst) {
                     shot_num_++;
                     do_Shot_ = false;
-                    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
+                    effectFlush(2); //フラッシュ
                     _pSeTx->play3D(1);
                 }
 //                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
@@ -81,7 +81,7 @@ void EnemyJuno::processBehavior() {
 //                    pShot->_pKurokoA->setMvAng(P_MYSHIP);
 //                    pShot->reset();
 //                    do_Shot_ = false;
-//                    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
+//                    effectFlush(2); //フラッシュ
 //                    _pSeTx->play3D(1);
 //                }
 

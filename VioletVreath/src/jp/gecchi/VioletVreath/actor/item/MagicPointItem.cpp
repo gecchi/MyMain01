@@ -79,7 +79,7 @@ void MagicPointItem::processBehavior() {
     if (_pProg->get() == ITEM_PROG_DRIFT) {
         //TractorMagic発動中はITEM_PROG_ATTACHへ移行
         if (getTractorMagic()->is_tracting_) {
-            changeEffectTechniqueInterim("Flush", 6); //フラッシュ
+            effectFlush(6); //フラッシュ
             setHitAble(false);
             _pProg->change(ITEM_PROG_ATTACH);
         }

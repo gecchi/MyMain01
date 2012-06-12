@@ -74,7 +74,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     //ここにヒットエフェクト
-    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
+    effectFlush(2); //フラッシュ
     _pSeTx->play3D(0);
         //ここに消滅エフェクト
     if (pOther->getKind() & KIND_MY) {

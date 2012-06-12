@@ -243,7 +243,7 @@ void EnemyVesta::processJudgement() {
 }
 
 void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
-    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
+    effectFlush(2); //フラッシュ
 
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
