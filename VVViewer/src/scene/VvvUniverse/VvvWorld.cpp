@@ -12,7 +12,6 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     getDirector()->addSubGroup(pCursor_);
 
     vb_ = NEW VirtualButton();
-    VirtualButton::_tagKeymap.BUTTON1 = DIK_SPACE; //ボタン１=スペースキー とする。
 }
 
 void VvvWorld::initialize() {

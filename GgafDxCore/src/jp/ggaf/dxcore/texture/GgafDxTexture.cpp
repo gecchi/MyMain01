@@ -21,7 +21,8 @@ std::string GgafDxTexture::getTextureFileName(std::string prm_file) {
         if (PathFileExists(texture_file.c_str()) ) {
             return texture_file;
         } else {
-            throwGgafCriticalException("GgafDxTexture::getTextureFileName テクスチャファイルが見つかりません。texture_file="<<texture_file);
+            _TRACE_("＜警告＞GgafDxTexture::getTextureFileName テクスチャファイルが見つかりません。texture_file="<<texture_file);
+            return texture_file;
         }
     }
 }
@@ -58,8 +59,8 @@ void GgafDxTexture::restore() {
                     );
         if (hr != D3D_OK) {
             _TRACE_("GgafDxTextureManager::restore() D3DXCreateTextureFromFileEx失敗。対象="<<texture_file_name);
-            //失敗用テクスチャ"GgafDxIlligalTexture.png"を設定
-            std::string texture_file_name2 = getTextureFileName("GgafDxIlligalTexture.png");
+            //失敗用テクスチャ"GgafDxIlligalTexture.dds"を設定
+            std::string texture_file_name2 = getTextureFileName("GgafDxIlligalTexture.dds");
             HRESULT hr2 = D3DXCreateTextureFromFileEx(
                              GgafDxGod::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
                              texture_file_name2.c_str(), // [in] LPCTSTR pSrcFile,
