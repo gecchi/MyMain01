@@ -120,7 +120,8 @@ DECLARE_CONST(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
 #include <d3dx9.h>
 #include <dinput.h>
 #include <dsound.h>
-#include <dxfile.h>
+//#include <dxfile.h>
+#include <d3dx9xof.h>
 //#pragma GCC diagnostic pop
 namespace IkdLib {
 class PCMPlayer;

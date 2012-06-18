@@ -16,9 +16,17 @@ namespace GgafDxCore {
 class GgafDxModelManager : public GgafCore::GgafResourceManager<GgafDxModel> {
 
 private:
-    /** カスタムテンプレートXファイル読み込み用の IDirectXFile のポインタ */
-    IDirectXFile* _pIDirectXFile_sprx;
-    IDirectXFile* _pIDirectXFile_psprx;
+    /** カスタムテンプレートXファイル読み込み用の ID3DXFile のポインタ */
+    ID3DXFile* _pID3DXFile_sprx;
+    ID3DXFile* _pID3DXFile_psprx;
+    struct XFILE_SPRITE_FMT {
+        float width;
+        float height;
+        char texture_file[256];
+        int row_texture_split;
+        int col_texture_split;
+    };
+
 
 
     GgafDxD3DXMeshModel*         createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
@@ -153,6 +161,9 @@ public:
     GgafDxModelConnection* getFirstConnection() {
         return (GgafDxModelConnection*)_pFirstConnection;
     }
+
+
+    char* obtainSpriteFmtX(XFILE_SPRITE_FMT* pSpriteFmt_out, char* pLockedData);
 
     virtual ~GgafDxModelManager();
 

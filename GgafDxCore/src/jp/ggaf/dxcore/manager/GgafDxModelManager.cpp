@@ -26,7 +26,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     _pModelTextureManager = NEW GgafDxTextureManager("GgafDxTextureManager");
     //板ポリゴンモデル定義ファイル(拡張子sprx)のフォーマット定義
     HRESULT hr;
-    DirectXFileCreate( &_pIDirectXFile_sprx );
+    D3DXFileCreate( &_pID3DXFile_sprx );
     char* paChar_SpriteModelineTemplate =
     "xof 0303txt 0032\n" \
     "template SpriteDef {" \
@@ -38,15 +38,15 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     "   DWORD  TextureSplitCols;" \
     "}";
 
-    hr = _pIDirectXFile_sprx->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
+    hr = _pID3DXFile_sprx->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
 #ifdef MY_DEBUG
-    if(hr != DXFILE_OK) {
+    if(hr != S_OK) {
         throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL[0])<<"ggaf_spritemodel_define.x\"を確認して下さい。");
     }
 #endif
 
     //ポイントスプライト定義ファイル(拡張子psprx)のフォーマット定義
-    DirectXFileCreate( &_pIDirectXFile_psprx );
+    D3DXFileCreate( &_pID3DXFile_psprx );
     char* paChar_PointSpriteModelineTemplate =
             "xof 0303txt 0032\n" \
             "template Vector {\n" \
@@ -74,9 +74,9 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
             "  array  FLOAT     InitScale[VerticesNum];\n" \
             "}\n";
             "\n";
-    hr = _pIDirectXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
+    hr = _pID3DXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
 #ifdef MY_DEBUG
-    if(hr != DXFILE_OK) {
+    if(hr != S_OK) {
         throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL[0])<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
     }
 #endif
@@ -310,7 +310,6 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
 
 
-//    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     std::string xfile_name = getMeshFileName(prm_pMeshModel->_model_name);
     HRESULT hr;
 
@@ -1543,7 +1542,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     hr = D3DXLoadMeshFromX(
            xfile_name.c_str(),         //[in]  LPCTSTR pFilename
            prm_pD3DXMeshModel->_dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
-           GgafDxGod::_pID3DDevice9,  //[in]  LPDIRECT3DDEVICE9 pDevice
+           GgafDxGod::_pID3DDevice9,   //[in]  LPDIRECT3DDEVICE9 pDevice
            NULL,                       //[out] LPD3DXBUFFER* ppAdjacency
            &pID3DXBuffer,              //[out] LPD3DXBUFFER* ppMaterials
            NULL,                       //[out] LPD3DXBUFFER* ppEffectInstances
@@ -1635,7 +1634,6 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     D3DMATERIAL9* model_paMaterial = NULL; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDxTextureConnection** model_papTextureCon = NULL; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD _num_materials;
-//    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     std::string xfile_name = getMeshFileName(prm_pD3DXAniMeshModel->_model_name);
 
     //AnimTicksPerSecondの値を独自に取り出す
@@ -1764,58 +1762,44 @@ void GgafDxModelManager::getDrawFrameList(std::list<D3DXFRAME_WORLD*>* pList, D3
 
 void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel) {
     TRACE3("GgafDxModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");
-
     prm_pSpriteModel->_papTextureCon = NULL;
-    //prm_pSpriteModel->_paRectUV = NULL;
-
-
     HRESULT hr;
-//    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pSpriteModel->_model_name) + ".sprx";
     std::string xfile_name = getSpriteFileName(prm_pSpriteModel->_model_name);
-
-
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
-    IDirectXFileEnumObject* pIDirectXFileEnumObject;
-    IDirectXFileData* pIDirectXFileData;
-    hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreSpriteModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
+    ID3DXFileEnumObject* pID3DXFileEnumObject;
+    ID3DXFileData* pID3DXFileData;
+    hr = _pID3DXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
+    checkDxException(hr, S_OK, "[GgafDxModelManager::restoreSpriteModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
 
-    char** ppaChar_TextureFile;
-    float* pFloat_Size_SpriteModelWidth;
-    float* pFloat_Size_SpriteModelHeight;
-    int* pInt_RowNum_TextureSplit;
-    int* pInt_ColNum_TextureSplit;
+    SIZE_T nChildren;
+    pID3DXFileEnumObject->GetChildren(&nChildren);
+    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
+        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
+    }
 
-    // 1セットだけ読込み
-    hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
-    if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::restoreSpriteModel] "<<xfile_name<<" の読込みに失敗しました。項目名を見直して");
+    SIZE_T xsize = 0;
+    char* pXData = NULL;
+    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
+    if (pXData == NULL) {
+        throwGgafCriticalException("[GgafDxModelManager::restoreSpriteModel] "<<xfile_name<<" のフォーマットエラー。");
     }
-    const GUID *pGuid;
-    pIDirectXFileData->GetType( &pGuid );
-    //if( *pGuid == PersonID_GUID ) {
-    if(true) {
-        DWORD Size;
-        // PersonIDテンプレートデータを取得
-        pIDirectXFileData->GetData("TextureFile"     , &Size, (void**)&ppaChar_TextureFile);
-        pIDirectXFileData->GetData("Width"           , &Size, (void**)&pFloat_Size_SpriteModelWidth);
-        pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_SpriteModelHeight);
-        pIDirectXFileData->GetData("TextureSplitRows", &Size, (void**)&pInt_RowNum_TextureSplit);
-        pIDirectXFileData->GetData("TextureSplitCols", &Size, (void**)&pInt_ColNum_TextureSplit);
-        prm_pSpriteModel->_fSize_SpriteModelWidthPx = *pFloat_Size_SpriteModelWidth;
-        prm_pSpriteModel->_fSize_SpriteModelHeightPx = *pFloat_Size_SpriteModelHeight;
-        prm_pSpriteModel->_row_texture_split = *pInt_RowNum_TextureSplit;
-        prm_pSpriteModel->_col_texture_split = *pInt_ColNum_TextureSplit;
-    } else {
-        throwGgafCriticalException("[GgafDxModelManager::restoreSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
-    }
-    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
+//    GUID* pGuid;
+//    pID3DXFileData->GetType( pGuid );
+
+    XFILE_SPRITE_FMT xdata;
+    pXData = obtainSpriteFmtX(&xdata, pXData);
+
+    prm_pSpriteModel->_fSize_SpriteModelWidthPx = xdata.width;
+    prm_pSpriteModel->_fSize_SpriteModelHeightPx =  xdata.height;
+    prm_pSpriteModel->_row_texture_split = xdata.row_texture_split;
+    prm_pSpriteModel->_col_texture_split = xdata.col_texture_split;
+
     //テクスチャ取得しモデルに保持させる
-    //std::string texture_filename = GGAF_PROPERTY(DIR_TEXTURE[0]_MODEL) + std::string(*ppaChar_TextureFile);
-    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
+    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
+
     //テクスチャの参照を保持させる。
     prm_pSpriteModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
     prm_pSpriteModel->_papTextureCon[0] = model_pTextureCon;
@@ -1834,8 +1818,8 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     double dV = 1.0 / texHeight / 10000.0; //テクスチャの高さ1pxの10000分の1px
     double rev = 0.99609308; //99609309で割れ
     //左上
-    paVertex[0].x = (*pFloat_Size_SpriteModelWidth / -2.0 / PX_UNIT)*rev;
-    paVertex[0].y = (*pFloat_Size_SpriteModelHeight / 2.0 / PX_UNIT)*rev;
+    paVertex[0].x = (xdata.width / -2.0 / PX_UNIT)*rev;
+    paVertex[0].y = (xdata.height / 2.0 / PX_UNIT)*rev;
     paVertex[0].z = 0.0f;
     paVertex[0].nx = 0.0f;
     paVertex[0].ny = 0.0f;
@@ -1844,36 +1828,36 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     paVertex[0].tu = dU;
     paVertex[0].tv = dV;
     //右上
-    paVertex[1].x = (*pFloat_Size_SpriteModelWidth / 2.0 / PX_UNIT)*rev;
-    paVertex[1].y = (*pFloat_Size_SpriteModelHeight / 2.0 / PX_UNIT)*rev;
+    paVertex[1].x = (xdata.width / 2.0 / PX_UNIT)*rev;
+    paVertex[1].y = (xdata.height / 2.0 / PX_UNIT)*rev;
     paVertex[1].z = 0.0f;
     paVertex[1].nx = 0.0f;
     paVertex[1].ny = 0.0f;
     paVertex[1].nz = -1.0f;
     paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[1].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
+    paVertex[1].tu = (1.0 / xdata.col_texture_split) - dU;
     paVertex[1].tv = dV;
     //左下
-    paVertex[2].x = (*pFloat_Size_SpriteModelWidth / -2.0 / PX_UNIT)*rev;
-    paVertex[2].y = (*pFloat_Size_SpriteModelHeight / -2.0 / PX_UNIT)*rev;
+    paVertex[2].x = (xdata.width / -2.0 / PX_UNIT)*rev;
+    paVertex[2].y = (xdata.height / -2.0 / PX_UNIT)*rev;
     paVertex[2].z = 0.0f;
     paVertex[2].nx = 0.0f;
     paVertex[2].ny = 0.0f;
     paVertex[2].nz = -1.0f;
     paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
     paVertex[2].tu = dU;
-    paVertex[2].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
+    paVertex[2].tv = (1.0 / xdata.row_texture_split) - dV;
 
     //右下
-    paVertex[3].x = (*pFloat_Size_SpriteModelWidth / 2.0 / PX_UNIT)*rev;
-    paVertex[3].y = (*pFloat_Size_SpriteModelHeight / -2.0 / PX_UNIT)*rev;
+    paVertex[3].x = (xdata.width / 2.0 / PX_UNIT)*rev;
+    paVertex[3].y = (xdata.height / -2.0 / PX_UNIT)*rev;
     paVertex[3].z = 0.0f;
     paVertex[3].nx = 0.0f;
     paVertex[3].ny = 0.0f;
     paVertex[3].nz = -1.0f;
     paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[3].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
-    paVertex[3].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
+    paVertex[3].tu = (1.0 / xdata.col_texture_split) - dU;
+    paVertex[3].tv = (1.0 / xdata.row_texture_split) - dV;
 
     //距離
     FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +
@@ -1919,9 +1903,10 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     }
     prm_pSpriteModel->_paMaterial_default = model_paMaterial;
     //後始末
+    pID3DXFileData->Unlock();
     DELETEARR_IMPOSSIBLE_NULL(paVertex);
-    RELEASE_SAFETY(pIDirectXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
+    RELEASE_SAFETY(pID3DXFileData);
+    RELEASE_IMPOSSIBLE_NULL(pID3DXFileEnumObject);
 }
 
 void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSpriteSetModel) {
@@ -1930,69 +1915,55 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
     if (4*prm_pSpriteSetModel->_set_num > 65535) {
         throwGgafCriticalException("X[GgafDxModelManager::restoreSpriteSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pSpriteSetModel->getName()<<"  nVertices:4  セット数:"<<(prm_pSpriteSetModel->_set_num));
     }
-
     if ( 2 * 3 * prm_pSpriteSetModel->_set_num > 65535) {
         throwGgafCriticalException("[GgafDxModelManager::restoreSpriteSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pSpriteSetModel->getName()<<"  nFaces:2(*3)  セット数:"<<(prm_pSpriteSetModel->_set_num));
     }
 
     prm_pSpriteSetModel->_papTextureCon = NULL;
-//    prm_pSpriteSetModel->_paRectUV = NULL;
-
 
     HRESULT hr;
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
-    IDirectXFileEnumObject* pIDirectXFileEnumObject;
-    IDirectXFileData* pIDirectXFileData;
+    ID3DXFileEnumObject* pID3DXFileEnumObject;
+    ID3DXFileData* pID3DXFileData;
     std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
     //"12/Bomb" or "8/Bomb" or "Bomb" から "Bomb" だけ取とりだしてフルパス名取得
     if (*(prm_pSpriteSetModel->_model_name + 1) == '/') {
-        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pSpriteSetModel->_model_name + 2) + ".sprx";
         xfile_name = getSpriteFileName(std::string(prm_pSpriteSetModel->_model_name + 2));
     } else if (*(prm_pSpriteSetModel->_model_name + 2) == '/') {
-        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pSpriteSetModel->_model_name + 3) + ".sprx";
         xfile_name = getSpriteFileName(std::string(prm_pSpriteSetModel->_model_name + 3));
     } else {
-        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pSpriteSetModel->_model_name) + ".sprx";
         xfile_name = getSpriteFileName(std::string(prm_pSpriteSetModel->_model_name));
     }
-    hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreSpriteSetModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
+    hr = _pID3DXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
+    checkDxException(hr, S_OK, "[GgafDxModelManager::restoreSpriteSetModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
 
-    char** ppaChar_TextureFile;
-    float* pFloat_Size_SpriteSetModelWidth;
-    float* pFloat_Size_SpriteSetModelHeight;
-    int* pInt_RowNum_TextureSplit;
-    int* pInt_ColNum_TextureSplit;
+    SIZE_T nChildren;
+    pID3DXFileEnumObject->GetChildren(&nChildren);
+    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
+        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
+    }
 
-    // 1セットだけ読込み
-    hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
-    if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::restoreSpriteSetModel] "<<xfile_name<<" の読込みに失敗しました。項目名を見直して");
+    SIZE_T xsize = 0;
+    char* pXData = NULL;
+    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
+    if (pXData == NULL) {
+        throwGgafCriticalException("[GgafDxModelManager::restoreSpriteSetModel] "<<xfile_name<<" のフォーマットエラー。");
     }
-    const GUID *pGuid;
-    pIDirectXFileData->GetType( &pGuid );
-    //if( *pGuid == PersonID_GUID ) {
-    if(true) {
-        DWORD Size;
-        // PersonIDテンプレートデータを取得
-        pIDirectXFileData->GetData("TextureFile"     , &Size, (void**)&ppaChar_TextureFile);
-        pIDirectXFileData->GetData("Width"           , &Size, (void**)&pFloat_Size_SpriteSetModelWidth);
-        pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_SpriteSetModelHeight);
-        pIDirectXFileData->GetData("TextureSplitRows", &Size, (void**)&pInt_RowNum_TextureSplit);
-        pIDirectXFileData->GetData("TextureSplitCols", &Size, (void**)&pInt_ColNum_TextureSplit);
-        prm_pSpriteSetModel->_fSize_SpriteSetModelWidthPx = *pFloat_Size_SpriteSetModelWidth;
-        prm_pSpriteSetModel->_fSize_SpriteSetModelHeightPx = *pFloat_Size_SpriteSetModelHeight;
-        prm_pSpriteSetModel->_row_texture_split = *pInt_RowNum_TextureSplit;
-        prm_pSpriteSetModel->_col_texture_split = *pInt_ColNum_TextureSplit;
-    } else {
-        throwGgafCriticalException("[GgafDxModelManager::restoreSpriteSetModel] "<<xfile_name<<" のGUIDが一致しません。");
-    }
-    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
+//    GUID* pGuid;
+//    pID3DXFileData->GetType(pGuid);
+
+    XFILE_SPRITE_FMT xdata;
+    pXData = obtainSpriteFmtX(&xdata, pXData);
+    prm_pSpriteSetModel->_fSize_SpriteSetModelWidthPx  = xdata.width;
+    prm_pSpriteSetModel->_fSize_SpriteSetModelHeightPx = xdata.height;
+    prm_pSpriteSetModel->_row_texture_split = xdata.row_texture_split;
+    prm_pSpriteSetModel->_col_texture_split = xdata.col_texture_split;
+
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
+    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
     //テクスチャの参照を保持させる。
     prm_pSpriteSetModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
     prm_pSpriteSetModel->_papTextureCon[0] = model_pTextureCon;
@@ -2014,8 +1985,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
         for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
             //左上
-            paVertex[i*4 + 0].x = (*pFloat_Size_SpriteSetModelWidth / -2.0 / PX_UNIT)*rev;
-            paVertex[i*4 + 0].y = (*pFloat_Size_SpriteSetModelHeight / 2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 0].x = (xdata.width / -2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 0].y = (xdata.height / 2.0 / PX_UNIT)*rev;
             paVertex[i*4 + 0].z = 0.0f;
             paVertex[i*4 + 0].nx = 0.0f;
             paVertex[i*4 + 0].ny = 0.0f;
@@ -2024,34 +1995,34 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
             paVertex[i*4 + 0].tv = dV;
             paVertex[i*4 + 0].index = (float)i;
             //右上
-            paVertex[i*4 + 1].x = (*pFloat_Size_SpriteSetModelWidth / 2.0 / PX_UNIT)*rev;
-            paVertex[i*4 + 1].y = (*pFloat_Size_SpriteSetModelHeight / 2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 1].x = (xdata.width / 2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 1].y = (xdata.height / 2.0 / PX_UNIT)*rev;
             paVertex[i*4 + 1].z = 0.0f;
             paVertex[i*4 + 1].nx = 0.0f;
             paVertex[i*4 + 1].ny = 0.0f;
             paVertex[i*4 + 1].nz = -1.0f;
-            paVertex[i*4 + 1].tu = (1.0/(*pInt_ColNum_TextureSplit)) - dU;
+            paVertex[i*4 + 1].tu = (1.0/xdata.col_texture_split) - dU;
             paVertex[i*4 + 1].tv = dV;
             paVertex[i*4 + 1].index = (float)i;
             //左下
-            paVertex[i*4 + 2].x = (*pFloat_Size_SpriteSetModelWidth / -2.0 / PX_UNIT)*rev;
-            paVertex[i*4 + 2].y = (*pFloat_Size_SpriteSetModelHeight / -2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 2].x = (xdata.width / -2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 2].y = (xdata.height / -2.0 / PX_UNIT)*rev;
             paVertex[i*4 + 2].z = 0.0f;
             paVertex[i*4 + 2].nx = 0.0f;
             paVertex[i*4 + 2].ny = 0.0f;
             paVertex[i*4 + 2].nz = -1.0f;
             paVertex[i*4 + 2].tu = dU;
-            paVertex[i*4 + 2].tv = (1.0/(*pInt_RowNum_TextureSplit)) - dV;
+            paVertex[i*4 + 2].tv = (1.0/xdata.row_texture_split) - dV;
             paVertex[i*4 + 2].index = (float)i;
             //右下
-            paVertex[i*4 + 3].x = (*pFloat_Size_SpriteSetModelWidth / 2.0 / PX_UNIT)*rev;
-            paVertex[i*4 + 3].y = (*pFloat_Size_SpriteSetModelHeight / -2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 3].x = (xdata.width / 2.0 / PX_UNIT)*rev;
+            paVertex[i*4 + 3].y = (xdata.height / -2.0 / PX_UNIT)*rev;
             paVertex[i*4 + 3].z = 0.0f;
             paVertex[i*4 + 3].nx = 0.0f;
             paVertex[i*4 + 3].ny = 0.0f;
             paVertex[i*4 + 3].nz = -1.0f;
-            paVertex[i*4 + 3].tu = (1.0/(*pInt_ColNum_TextureSplit)) - dU;
-            paVertex[i*4 + 3].tv = (1.0/(*pInt_RowNum_TextureSplit)) - dV;
+            paVertex[i*4 + 3].tu = (1.0/xdata.col_texture_split) - dU;
+            paVertex[i*4 + 3].tv = (1.0/xdata.row_texture_split) - dV;
             paVertex[i*4 + 3].index = (float)i;
 
         }
@@ -2161,8 +2132,9 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
     }
     prm_pSpriteSetModel->_paMaterial_default = model_paMaterial;
     //後始末
-    RELEASE_SAFETY(pIDirectXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
+    pID3DXFileData->Unlock();
+    RELEASE_SAFETY(pID3DXFileData);
+    RELEASE_IMPOSSIBLE_NULL(pID3DXFileEnumObject);
 }
 
 void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
@@ -2170,51 +2142,39 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
 
     prm_pBoardModel->_papTextureCon = NULL;
     HRESULT hr;
-//    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pBoardModel->_model_name) + ".sprx";
     std::string xfile_name = getSpriteFileName(prm_pBoardModel->_model_name);
 
-
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
-    IDirectXFileEnumObject* pIDirectXFileEnumObject;
-    IDirectXFileData* pIDirectXFileData;
-    hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreBoardModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
+    ID3DXFileEnumObject* pID3DXFileEnumObject;
+    ID3DXFileData* pID3DXFileData;
+    hr = _pID3DXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
+    checkDxException(hr, S_OK, "[GgafDxModelManager::restoreBoardModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
-
-    char** ppaChar_TextureFile;
-    float* pFloat_Size_BoardModelWidth;
-    float* pFloat_Size_BoardModelHeight;
-    int* pInt_RowNum_TextureSplit;
-    int* pInt_ColNum_TextureSplit;
-
-    // 1セットだけ読込み
-    hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
-    if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::restoreBoardModel] "<<xfile_name<<" の読込みに失敗しました。項目名を見直して");
+    SIZE_T nChildren;
+    pID3DXFileEnumObject->GetChildren(&nChildren);
+    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
+        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     }
-    const GUID *pGuid;
-    pIDirectXFileData->GetType( &pGuid );
-    //if( *pGuid == PersonID_GUID ) {
-    if(true) {
-        DWORD Size;
-        pIDirectXFileData->GetData("TextureFile"     , &Size, (void**)&ppaChar_TextureFile);
-        pIDirectXFileData->GetData("Width"           , &Size, (void**)&pFloat_Size_BoardModelWidth);
-        pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_BoardModelHeight);
-        pIDirectXFileData->GetData("TextureSplitRows", &Size, (void**)&pInt_RowNum_TextureSplit);
-        pIDirectXFileData->GetData("TextureSplitCols", &Size, (void**)&pInt_ColNum_TextureSplit);
 
-        prm_pBoardModel->_fSize_BoardModelWidthPx = *pFloat_Size_BoardModelWidth;
-        prm_pBoardModel->_fSize_BoardModelHeightPx = *pFloat_Size_BoardModelHeight;
-        prm_pBoardModel->_row_texture_split = *pInt_RowNum_TextureSplit;
-        prm_pBoardModel->_col_texture_split = *pInt_ColNum_TextureSplit;
-    } else {
-        throwGgafCriticalException("[GgafDxModelManager::restoreBoardModel] "<<xfile_name<<" のGUIDが一致しません。");
+    SIZE_T xsize = 0;
+    char* pXData = NULL;
+    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
+    if (pXData == NULL) {
+        throwGgafCriticalException("[GgafDxModelManager::restoreBoardModel] "<<xfile_name<<" のフォーマットエラー。");
     }
+    //    GUID* pGuid;
+    //    pID3DXFileData->GetType(pGuid);
+    XFILE_SPRITE_FMT xdata;
+    pXData = obtainSpriteFmtX(&xdata, pXData);
+    prm_pBoardModel->_fSize_BoardModelWidthPx  = xdata.width;
+    prm_pBoardModel->_fSize_BoardModelHeightPx = xdata.height;
+    prm_pBoardModel->_row_texture_split = xdata.row_texture_split;
+    prm_pBoardModel->_col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
+    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
     //テクスチャの参照を保持させる。
     prm_pBoardModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
     prm_pBoardModel->_papTextureCon[0] = model_pTextureCon;
@@ -2236,23 +2196,23 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     paVertex[0].tu = dU;
     paVertex[0].tv = dV;
     //右上
-    paVertex[1].x = *pFloat_Size_BoardModelWidth;
+    paVertex[1].x = xdata.width;
     paVertex[1].y = 0.0f;
     paVertex[1].z = 0.0f;
-    paVertex[1].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
+    paVertex[1].tu = (1.0 / xdata.col_texture_split) - dU;
     paVertex[1].tv = dV;
     //左下
     paVertex[2].x = 0.0f;
-    paVertex[2].y = *pFloat_Size_BoardModelHeight;
+    paVertex[2].y = xdata.height;
     paVertex[2].z = 0.0f;
     paVertex[2].tu = dU;
-    paVertex[2].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
+    paVertex[2].tv = (1.0 / xdata.row_texture_split) - dV;
     //右下
-    paVertex[3].x = *pFloat_Size_BoardModelWidth;
-    paVertex[3].y = *pFloat_Size_BoardModelHeight;
+    paVertex[3].x = xdata.width;
+    paVertex[3].y = xdata.height;
     paVertex[3].z = 0.0f;
-    paVertex[3].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
-    paVertex[3].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
+    paVertex[3].tu = (1.0 / xdata.col_texture_split) - dU;
+    paVertex[3].tv = (1.0 / xdata.row_texture_split) - dV;
 
     //バッファ作成
     if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == NULL) {
@@ -2290,9 +2250,10 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     prm_pBoardModel->_paMaterial_default = model_paMaterial;
 
     //後始末
+    pID3DXFileData->Unlock();
     DELETEARR_IMPOSSIBLE_NULL(paVertex);
-    RELEASE_SAFETY(pIDirectXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
+    RELEASE_SAFETY(pID3DXFileData);
+    RELEASE_IMPOSSIBLE_NULL(pID3DXFileEnumObject);
 }
 
 void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSetModel) {
@@ -2308,57 +2269,44 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
     //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
     //TODO:数値3桁("123/Moji"とか)が来たら困る。
     if (*(prm_pBoardSetModel->_model_name + 1) == '/') {
-        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pBoardSetModel->_model_name + 2) + ".sprx";
         xfile_name = getSpriteFileName(std::string(prm_pBoardSetModel->_model_name + 2));
     } else if (*(prm_pBoardSetModel->_model_name + 2) == '/') {
-        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pBoardSetModel->_model_name + 3) + ".sprx";
         xfile_name = getSpriteFileName(std::string(prm_pBoardSetModel->_model_name + 3));
     } else {
-        //xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pBoardSetModel->_model_name) + ".sprx";
         xfile_name = getSpriteFileName(std::string(prm_pBoardSetModel->_model_name));
     }
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
 
-    IDirectXFileEnumObject* pIDirectXFileEnumObject;
-    IDirectXFileData* pIDirectXFileData;
-    hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restoreBoardSetModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
+    ID3DXFileEnumObject* pID3DXFileEnumObject;
+    ID3DXFileData* pID3DXFileData;
+    hr = _pID3DXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
+    checkDxException(hr, S_OK, "[GgafDxModelManager::restoreBoardSetModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
-
-    char** ppaChar_TextureFile;
-    float* pFloat_Size_BoardSetModelWidth;
-    float* pFloat_Size_BoardSetModelHeight;
-    int* pInt_RowNum_TextureSplit;
-    int* pInt_ColNum_TextureSplit;
-
-    // 1セットだけ読込み
-    hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
-    if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::restoreBoardSetModel] "<<xfile_name<<" の読込みに失敗しました。項目名を見直して");
+    SIZE_T nChildren;
+    pID3DXFileEnumObject->GetChildren(&nChildren);
+    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
+        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     }
-    const GUID *pGuid;
-    pIDirectXFileData->GetType( &pGuid );
-    //if( *pGuid == PersonID_GUID ) {
-    if(true) {
-        DWORD Size;
-        pIDirectXFileData->GetData("TextureFile"     , &Size, (void**)&ppaChar_TextureFile);
-        pIDirectXFileData->GetData("Width"           , &Size, (void**)&pFloat_Size_BoardSetModelWidth);
-        pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_BoardSetModelHeight);
-        pIDirectXFileData->GetData("TextureSplitRows", &Size, (void**)&pInt_RowNum_TextureSplit);
-        pIDirectXFileData->GetData("TextureSplitCols", &Size, (void**)&pInt_ColNum_TextureSplit);
 
-        prm_pBoardSetModel->_fSize_BoardSetModelWidthPx = *pFloat_Size_BoardSetModelWidth;
-        prm_pBoardSetModel->_fSize_BoardSetModelHeightPx = *pFloat_Size_BoardSetModelHeight;
-        prm_pBoardSetModel->_row_texture_split = *pInt_RowNum_TextureSplit;
-        prm_pBoardSetModel->_col_texture_split = *pInt_ColNum_TextureSplit;
-    } else {
-        throwGgafCriticalException("[GgafDxModelManager::restoreBoardSetModel] "<<xfile_name<<" のGUIDが一致しません。");
+    SIZE_T xsize = 0;
+    char* pXData = NULL;
+    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
+    if (pXData == NULL) {
+        throwGgafCriticalException("[GgafDxModelManager::restoreBoardSetModel] "<<xfile_name<<" のフォーマットエラー。");
     }
+    //    GUID* pGuid;
+    //    pID3DXFileData->GetType(pGuid);
+    XFILE_SPRITE_FMT xdata;
+    pXData = obtainSpriteFmtX(&xdata, pXData);
+    prm_pBoardSetModel->_fSize_BoardSetModelWidthPx  = xdata.width;
+    prm_pBoardSetModel->_fSize_BoardSetModelHeightPx = xdata.height;
+    prm_pBoardSetModel->_row_texture_split = xdata.row_texture_split;
+    prm_pBoardSetModel->_col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
+    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
     //テクスチャの参照を保持させる。
     prm_pBoardSetModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
     prm_pBoardSetModel->_papTextureCon[0] = model_pTextureCon;
@@ -2383,25 +2331,25 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
             paVertex[i*4 + 0].tv = dV;
             paVertex[i*4 + 0].index = (float)i;
             //右上
-            paVertex[i*4 + 1].x = *pFloat_Size_BoardSetModelWidth;
+            paVertex[i*4 + 1].x = xdata.width;
             paVertex[i*4 + 1].y = 0.0f;
             paVertex[i*4 + 1].z = 0.0f;
-            paVertex[i*4 + 1].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
+            paVertex[i*4 + 1].tu = (1.0 / xdata.col_texture_split) - dU;
             paVertex[i*4 + 1].tv = dV;
             paVertex[i*4 + 1].index = (float)i;
             //左下
             paVertex[i*4 + 2].x = 0.0f;
-            paVertex[i*4 + 2].y = *pFloat_Size_BoardSetModelHeight;
+            paVertex[i*4 + 2].y = xdata.height;
             paVertex[i*4 + 2].z = 0.0f;
             paVertex[i*4 + 2].tu = dU;
-            paVertex[i*4 + 2].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
+            paVertex[i*4 + 2].tv = (1.0 / xdata.row_texture_split) - dV;
             paVertex[i*4 + 2].index = (float)i;
             //右下
-            paVertex[i*4 + 3].x = *pFloat_Size_BoardSetModelWidth;
-            paVertex[i*4 + 3].y = *pFloat_Size_BoardSetModelHeight;
+            paVertex[i*4 + 3].x = xdata.width;
+            paVertex[i*4 + 3].y = xdata.height;
             paVertex[i*4 + 3].z = 0.0f;
-            paVertex[i*4 + 3].tu = (1.0 / (*pInt_ColNum_TextureSplit)) - dU;
-            paVertex[i*4 + 3].tv = (1.0 / (*pInt_RowNum_TextureSplit)) - dV;
+            paVertex[i*4 + 3].tu = (1.0 / xdata.col_texture_split) - dU;
+            paVertex[i*4 + 3].tv = (1.0 / xdata.row_texture_split) - dV;
             paVertex[i*4 + 3].index = (float)i;
          }
 
@@ -2508,9 +2456,9 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
     prm_pBoardSetModel->_paMaterial_default = model_paMaterial;
 
     //後始末
-
-    RELEASE_SAFETY(pIDirectXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
+    pID3DXFileData->Unlock();
+    RELEASE_SAFETY(pID3DXFileData);
+    RELEASE_IMPOSSIBLE_NULL(pID3DXFileEnumObject);
 }
 
 void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetModel) {
@@ -2519,13 +2467,10 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     //"12/Ceres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
     //TODO:数値３桁以上の時はだめ
     if (*(prm_pMeshSetModel->_model_name + 1) == '/') {
-//        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pMeshSetModel->_model_name + 2) + ".x";
         xfile_name = getMeshFileName(std::string(prm_pMeshSetModel->_model_name + 2));
     } else if (*(prm_pMeshSetModel->_model_name + 2) == '/') {
-//        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pMeshSetModel->_model_name + 3) + ".x";
         xfile_name = getMeshFileName(std::string(prm_pMeshSetModel->_model_name + 3));
     } else {
-//        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
         xfile_name = getMeshFileName(std::string(prm_pMeshSetModel->_model_name));
     }
 
@@ -3060,51 +3005,95 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
 //    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pPointSpriteModel->_model_name) + ".psprx";
     std::string xfile_name = getPointSpriteFileName(prm_pPointSpriteModel->_model_name);
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
-    IDirectXFileEnumObject* pIDirectXFileEnumObject;
-    IDirectXFileData* pIDirectXFileData;
-    hr = _pIDirectXFile_psprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDxModelManager::restorePointSpriteModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
+    ID3DXFileEnumObject* pID3DXFileEnumObject;
+    ID3DXFileData* pID3DXFileData;
+    hr = _pID3DXFile_psprx->CreateEnumObject((void*)xfile_name.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
+    checkDxException(hr, S_OK, "[GgafDxModelManager::restorePointSpriteModel] '"<<xfile_name<<"' のCreateEnumObjectに失敗しました。ファイルの存在を確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
-
-    char** ppaChar_TextureFile;
-    float* pFloat_SquareSize;
-    int* pInt_TextureSplitRowCol;
-    int* pInt_VerticesNum;
-    D3DVECTOR* paD3DVECTOR_Vertices;
-    D3DCOLORVALUE* paD3DVECTOR_VertexColors;
-    int* paInt_InitUvPtnNo;
-    float* paFLOAT_InitScale;
-
-    // 1セットだけ読込み
-    hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
-    if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::restorePointSpriteModel] "<<xfile_name<<" の読込みに失敗しました。項目名を見直して");
+    SIZE_T nChildren;
+    pID3DXFileEnumObject->GetChildren(&nChildren);
+    for(SIZE_T childCount = 0; childCount < nChildren; ++childCount) {
+        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     }
-    const GUID *pGuid;
-    pIDirectXFileData->GetType( &pGuid );
-    //if( *pGuid == PersonID_GUID ) {
-    if(true) {
-        DWORD Size;
-        // PersonIDテンプレートデータを取得
-        pIDirectXFileData->GetData("SquareSize"     , &Size, (void**)&pFloat_SquareSize);
-        pIDirectXFileData->GetData("TextureFile"    , &Size, (void**)&ppaChar_TextureFile);
-        pIDirectXFileData->GetData("TextureSplitRowCol", &Size, (void**)&pInt_TextureSplitRowCol);
-        pIDirectXFileData->GetData("VerticesNum"    , &Size, (void**)&pInt_VerticesNum);
-        pIDirectXFileData->GetData("Vertices"       , &Size, (void**)&paD3DVECTOR_Vertices);
-        pIDirectXFileData->GetData("VertexColors"   , &Size, (void**)&paD3DVECTOR_VertexColors);
-        pIDirectXFileData->GetData("InitUvPtnNo"    , &Size, (void**)&paInt_InitUvPtnNo);
-        pIDirectXFileData->GetData("InitScale"      , &Size, (void**)&paFLOAT_InitScale);
 
-    } else {
-        throwGgafCriticalException("[GgafDxModelManager::restorePointSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
+//    "template PointSpriteDef {\n" \
+//    "  <E4EECE4C-E106-11DC-9B62-346D55D89593>\n" \
+//    "  FLOAT  SquareSize;\n" \
+//    "  STRING TextureFile;\n" \
+//    "  DWORD  TextureSplitRowCol;\n" \
+//    "  DWORD  VerticesNum;\n" \
+//    "  array  Vector    Vertices[VerticesNum];\n" \
+//    "  array  ColorRGBA VertexColors[VerticesNum];\n" \
+//    "  array  DWORD     InitUvPtnNo[VerticesNum];\n" \
+//    "  array  FLOAT     InitScale[VerticesNum];\n" \
+//    "}\n";
+    struct XFILE_FMT_HD {
+        float SquareSize;
+        char TextureFile[256];
+        int TextureSplitRowCol;
+        int VerticesNum;
+    };
+    SIZE_T xsize = 0;
+    char* pXData = NULL;
+    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
+    if (pXData == NULL) {
+        throwGgafCriticalException("[GgafDxModelManager::restorePointSpriteModel] "<<xfile_name<<" のフォーマットエラー。");
     }
-    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
+    //    GUID* pGuid;
+    //    pID3DXFileData->GetType(pGuid);
+    XFILE_FMT_HD xDataHd;
+    //"  FLOAT  SquareSize;\n"
+    memcpy(&(xDataHd.SquareSize), pXData, sizeof(float));
+    pXData += sizeof(float);
+    //"  STRING TextureFile;\n"
+    strcpy(xDataHd.TextureFile, pXData);
+    pXData += (sizeof(char) * (strlen(xDataHd.TextureFile)+1));
+    //"  DWORD  TextureSplitRowCol;\n"
+    memcpy(&(xDataHd.TextureSplitRowCol), pXData, sizeof(int));
+    pXData += sizeof(int);
+    //"  DWORD  VerticesNum;\n"
+    memcpy(&(xDataHd.VerticesNum), pXData, sizeof(int));
+    pXData += sizeof(int);
+    //"  array  Vector    Vertices[VerticesNum];\n"
+    D3DVECTOR* paD3DVECTOR_Vertices = NEW D3DVECTOR[xDataHd.VerticesNum];
+    memcpy(paD3DVECTOR_Vertices, pXData, sizeof(D3DVECTOR)*xDataHd.VerticesNum);
+    pXData += sizeof(D3DVECTOR)*xDataHd.VerticesNum;
+    //"  array  ColorRGBA VertexColors[VerticesNum];\n"
+    D3DCOLORVALUE* paD3DVECTOR_VertexColors = NEW D3DCOLORVALUE[xDataHd.VerticesNum];
+    memcpy(paD3DVECTOR_VertexColors, pXData, sizeof(D3DCOLORVALUE)*xDataHd.VerticesNum);
+    pXData += sizeof(D3DCOLORVALUE)*xDataHd.VerticesNum;
+    //"  array  DWORD     InitUvPtnNo[VerticesNum];\n"
+    int* paInt_InitUvPtnNo = NEW int[xDataHd.VerticesNum];
+    memcpy(paInt_InitUvPtnNo, pXData, sizeof(int)*xDataHd.VerticesNum);
+    pXData += sizeof(int)*xDataHd.VerticesNum;
+    //"  array  FLOAT     InitScale[VerticesNum];\n"
+    float* paFLOAT_InitScale = NEW float[xDataHd.VerticesNum];
+    memcpy(paFLOAT_InitScale, pXData, sizeof(float)*xDataHd.VerticesNum);
+    pXData += sizeof(float)*xDataHd.VerticesNum;
+
+
+//    if(true) {
+//        DWORD Size;
+//        // PersonIDテンプレートデータを取得
+//        pID3DXFileData->GetData("SquareSize"     , &Size, (void**)&pFloat_SquareSize);
+//        pID3DXFileData->GetData("TextureFile"    , &Size, (void**)&ppaChar_TextureFile);
+//        pID3DXFileData->GetData("TextureSplitRowCol", &Size, (void**)&pInt_TextureSplitRowCol);
+//        pID3DXFileData->GetData("VerticesNum"    , &Size, (void**)&pInt_VerticesNum);
+//        pID3DXFileData->GetData("Vertices"       , &Size, (void**)&paD3DVECTOR_Vertices);
+//        pID3DXFileData->GetData("VertexColors"   , &Size, (void**)&paD3DVECTOR_VertexColors);
+//        pID3DXFileData->GetData("InitUvPtnNo"    , &Size, (void**)&paInt_InitUvPtnNo);
+//        pID3DXFileData->GetData("InitScale"      , &Size, (void**)&paFLOAT_InitScale);
+//
+//    } else {
+//        throwGgafCriticalException("[GgafDxModelManager::restorePointSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
+//    }
+//    RELEASE_IMPOSSIBLE_NULL(pID3DXFileData);
     //退避
-    float model_fSquareSize = *pFloat_SquareSize;
-    int model_texture_split_rowcol = *pInt_TextureSplitRowCol;
-    int model_vertices_num = *pInt_VerticesNum;
+    float model_fSquareSize = xDataHd.SquareSize;
+    int model_texture_split_rowcol = xDataHd.TextureSplitRowCol;
+    int model_vertices_num = xDataHd.VerticesNum;
     TRACE3("GgafDxModelManager::restorePointSpriteModel model_vertices_num="<<model_vertices_num);
     UINT model_size_vertices = sizeof(GgafDxPointSpriteModel::VERTEX)*model_vertices_num;
     UINT model_size_vertex_unit = sizeof(GgafDxPointSpriteModel::VERTEX);
@@ -3112,7 +3101,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     //テクスチャ取得しモデルに保持させる
     GgafDxTextureConnection** model_papTextureCon = NULL;
     model_papTextureCon = NEW GgafDxTextureConnection*[1];
-    model_papTextureCon[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
+    model_papTextureCon[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect(xDataHd.TextureFile );
 
     float texWidth  = (float)(model_papTextureCon[0]->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
     float texHeight = (float)(model_papTextureCon[0]->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
@@ -3185,8 +3174,14 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     prm_pPointSpriteModel->_size_vertex_unit = model_size_vertex_unit;
     prm_pPointSpriteModel->_paVtxBuffer_org = model_paVtxBuffer_org;
     prm_pPointSpriteModel->_bounding_sphere_radius = model_bounding_sphere_radius;
-    RELEASE_SAFETY(pIDirectXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
+    pID3DXFileData->Unlock();
+    DELETEARR_IMPOSSIBLE_NULL(paD3DVECTOR_Vertices);
+    DELETEARR_IMPOSSIBLE_NULL(paD3DVECTOR_VertexColors);
+    DELETEARR_IMPOSSIBLE_NULL(paInt_InitUvPtnNo);
+    DELETEARR_IMPOSSIBLE_NULL(paFLOAT_InitScale);
+
+    RELEASE_SAFETY(pID3DXFileData);
+    RELEASE_IMPOSSIBLE_NULL(pID3DXFileEnumObject);
 }
 
 
@@ -3199,8 +3194,8 @@ GgafResourceConnection<GgafDxModel>* GgafDxModelManager::processCreateConnection
 
 GgafDxModelManager::~GgafDxModelManager() {
     TRACE3("GgafDxModelManager::~GgafDxModelManager() start-->");
-    RELEASE_IMPOSSIBLE_NULL(_pIDirectXFile_sprx);
-    RELEASE_IMPOSSIBLE_NULL(_pIDirectXFile_psprx);
+    RELEASE_IMPOSSIBLE_NULL(_pID3DXFile_sprx);
+    RELEASE_IMPOSSIBLE_NULL(_pID3DXFile_psprx);
     DELETE_IMPOSSIBLE_NULL(_pModelTextureManager);
     TRACE3("GgafDxModelManager::releaseAll() するけども、ここでは既に何も解放するものがないはずです");
     releaseAll();
@@ -3273,7 +3268,14 @@ float GgafDxModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm:
 
 }
 
-
+char* GgafDxModelManager::obtainSpriteFmtX(XFILE_SPRITE_FMT* pSpriteFmt_out, char* pLockedData) {
+   memcpy(&(pSpriteFmt_out->width), pLockedData, sizeof(float));           pLockedData += sizeof(float);
+   memcpy(&(pSpriteFmt_out->height), pLockedData, sizeof(float));          pLockedData += sizeof(float);
+   strcpy(pSpriteFmt_out->texture_file, pLockedData);                      pLockedData += (sizeof(char) * (strlen(pSpriteFmt_out->texture_file)+1));
+   memcpy(&(pSpriteFmt_out->row_texture_split), pLockedData, sizeof(int)); pLockedData += sizeof(int);
+   memcpy(&(pSpriteFmt_out->col_texture_split), pLockedData, sizeof(int)); pLockedData += sizeof(int);
+   return pLockedData;
+}
 
 
 //「経緯メモ（グチ） 2009/07/05」

@@ -85,7 +85,6 @@
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
-									<listOptionValue builtIn="false" value="d3dxof"/>
 									<listOptionValue builtIn="false" value="d3d9"/>
 									<listOptionValue builtIn="false" value="d3dx9"/>
 									<listOptionValue builtIn="false" value="uuid"/>
@@ -209,7 +208,6 @@
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
-									<listOptionValue builtIn="false" value="d3dxof"/>
 									<listOptionValue builtIn="false" value="d3d9"/>
 									<listOptionValue builtIn="false" value="d3dx9"/>
 									<listOptionValue builtIn="false" value="uuid"/>
@@ -332,7 +330,6 @@
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
-									<listOptionValue builtIn="false" value="d3dxof"/>
 									<listOptionValue builtIn="false" value="d3d9"/>
 									<listOptionValue builtIn="false" value="d3dx9"/>
 									<listOptionValue builtIn="false" value="uuid"/>
