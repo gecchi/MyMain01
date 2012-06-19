@@ -39,9 +39,8 @@ public:
         UINT PrimitiveCount;
     };
 
-    struct VERTEX {
-        float x, y, z;    // 頂点座標
-        float nx, ny, nz; // 法線
+    class VERTEX : public GgafDxModel::VERTEX_3D_BASE {
+    public:
         float index;      // psizeではなくてはなくて頂点番号として使用。シェーダー側で何セット目かを判断するために使用。
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標

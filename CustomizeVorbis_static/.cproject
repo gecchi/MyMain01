@@ -89,7 +89,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.release.913731097.632052173." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.lib.release.229599014" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.release">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.release.536571223" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.release"/>
-							<builder buildPath="${workspace_loc:/CustomizeVorbis_static/DebugCdt}" id="org.eclipse.cdt.build.core.internal.builder.1361345006" keepEnvironmentInBuildfile="false" name="CDT 内部ビルダー" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder buildPath="${workspace_loc:/CustomizeVorbis_static/ReleaseCdt}" id="org.eclipse.cdt.build.core.internal.builder.41964326" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release.1044383638" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1252228167" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>

@@ -52,9 +52,8 @@ public:
         UINT PrimitiveCount;
     };
 
-    struct VERTEX {
-        float x, y, z; // 頂点座標
-        float nx, ny, nz; // 法線
+    class VERTEX : public GgafDxModel::VERTEX_3D_BASE {
+    public:
         DWORD color; // 頂点の色（現在未使用）
         float tu, tv; // テクスチャ座標
     };

@@ -344,8 +344,8 @@ BOOL CustmizeSysMenu(HWND hWnd)
     HMENU hMenu = GetSystemMenu(hWnd, FALSE);
     InsertMenu(hMenu, 5, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
     InsertMenu(hMenu, 6, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE    , "Reset window size.");
-    InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT)menu_aspect, "Game view aspect.");
-    InsertMenu(hMenu, 8, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT)menu_vp    , "Game view position.");
+    InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect.");
+    InsertMenu(hMenu, 8, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position.");
     InsertMenu(hMenu, 9, MF_BYPOSITION | MF_STRING, MY_IDM_ABOUT, "About");
 
     //システムメニューを作成

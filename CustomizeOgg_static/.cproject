@@ -89,7 +89,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.release.1756257423.1694006970." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.lib.release.80481888" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.release">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.release.1534640907" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.release"/>
-							<builder buildPath="${workspace_loc:/CustomizeOgg_static/DebugCdt}" id="org.eclipse.cdt.build.core.internal.builder.1644212594" keepEnvironmentInBuildfile="false" name="CDT 内部ビルダー" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder buildPath="${workspace_loc:/CustomizeOgg_static/ReleaseCdt}" id="org.eclipse.cdt.build.core.internal.builder.879113282" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release.1456621994" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.649956402" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>

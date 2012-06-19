@@ -387,213 +387,11 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
                 prm_pMeshModel->_bounding_sphere_radius = model_bounding_sphere_radius;
             }
         }
-
-        //法線設定。
-        //共有頂点の法線は平均化を試みる！
-        //【2009/03/04の脳みそによるアイディア】
-        //共有頂点に、面が同じような方面に集中した場合、単純に加算して面数で割る平均化をすると法線は偏ってしまう。
-        //そこで、共有頂点法線への影響度割合（率）を、その面法線が所属する面の頂点角の大きさで決めるようにした。
-        //法線の影響度割合 ＝ その法線が所属する頂点の成す角 ／ その頂点にぶら下がる全faceの成す角合計
-        //とした。最後に正規化する。
-
-        float* paRad = NEW float[nFaces*3];
-        float* paRadSum_Vtx = NEW float[nVertices];
-        for (int i = 0; i < nVertices; i++) {
-            paRadSum_Vtx[i] = 0;
-        }
-        std::fill_n(paRadSum_Vtx, nVertices, 0);
-        static unsigned short indexVertices_per_Face[3];
-        static unsigned short indexNormals_per_Face[3];
-        for (int i = 0; i < nFaces; i++) {
-            for (int j = 0; j < 3; j++) {
-                //面に対する頂点インデックス３つ(A,B,Cとする)
-                indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];
-                //面に対する法線インデックス３つ
-                if (nFaceNormals > i) {
-                    indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
-                } else {
-                    //法線が無い場合
-                    indexNormals_per_Face[j] = (unsigned short)0;
-                }
-            }
-
-            //頂点インデックス A の角(∠CAB)を求めて、配列に保持
-            paRad[i*3+0] = getRadv1_v0v1v2(
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[2]],
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[1]]
-                           );
-            //A の頂点インデックス番号に紐つけて、角を加算
-            paRadSum_Vtx[indexVertices_per_Face[0]] += paRad[i*3+0];
-
-            //頂点インデックス B の角(∠ABC)を求めて、配列に保持
-            paRad[i*3+1] = getRadv1_v0v1v2(
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[1]],
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[2]]
-                           );
-            //B の頂点インデックス番号に紐つけて、角を加算
-            paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
-
-            //頂点インデックス C の角(∠ACB)を求めて、配列に保持
-            paRad[i*3+2] = (float)(2*PI - (paRad[i*3+0] + paRad[i*3+1]));
-            //C の頂点インデックス番号に紐つけて、角を加算
-            paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
-        }
-
-        static float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
-        for (int i = 0; i < nFaces; i++) {
-            for (int j = 0; j < 3; j++) {
-                indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
-                if (nFaceNormals > i) {
-                    indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
-                } else {
-                    //法線が無い場合
-                    indexNormals_per_Face[j] = (unsigned short)0;
-                }
-            }
-            if (nFaceNormals > i) {
-                rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-                model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].z * rate);
-                rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-                model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].x * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].y * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].z * rate);
-                rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-                model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].x * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
-            } else {
-                //法線が無い場合、法線を計算して作りだす。
-
-                //面に対する頂点インデックス３つ
-                int indexVertices1 = model_pMeshesFront->_Faces[i].data[0];
-                int indexVertices2 = model_pMeshesFront->_Faces[i].data[1];
-                int indexVertices3 = model_pMeshesFront->_Faces[i].data[2];
-                //面の頂点３つ
-                D3DXVECTOR3 v1 = D3DXVECTOR3(
-                    model_pMeshesFront->_Vertices[indexVertices1].data[0],
-                    model_pMeshesFront->_Vertices[indexVertices1].data[1],
-                    model_pMeshesFront->_Vertices[indexVertices1].data[2]
-                );
-                D3DXVECTOR3 v2 = D3DXVECTOR3(
-                    model_pMeshesFront->_Vertices[indexVertices2].data[0],
-                    model_pMeshesFront->_Vertices[indexVertices2].data[1],
-                    model_pMeshesFront->_Vertices[indexVertices2].data[2]
-                );
-                D3DXVECTOR3 v3 = D3DXVECTOR3(
-                    model_pMeshesFront->_Vertices[indexVertices3].data[0],
-                    model_pMeshesFront->_Vertices[indexVertices3].data[1],
-                    model_pMeshesFront->_Vertices[indexVertices3].data[2]
-                );
-
-                D3DXPLANE Plane;
-                // 3 つの点から平面を作成
-                D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
-                //正規化した平面(法線)を算出
-                D3DXPlaneNormalize(&Plane, &Plane);
-
-                rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-                model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (Plane.a * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (Plane.b * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (Plane.c * rate);
-                rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-                model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (Plane.a * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (Plane.b * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (Plane.c * rate);
-                rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-                model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (Plane.a * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (Plane.b * rate);
-                model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (Plane.c * rate);
-            }
-        }
-
-        int n = 0;
-        int nVertices_begin = 0;
-        int nVertices_end = 0;
-        for (std::list<Frm::Bone*>::iterator iteBone = model_pModel3D->_toplevel_Skelettons.begin() ;
-                iteBone != model_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
-
-            _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
-
-            //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
-            if ((*iteBone)) {
-                Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
-                if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
-                    //FrameTransformMatrix は単位行列
-                    _TRACE_("FrameTransformMatrix is Identity");
-                } else {
-                    _TRACE_("Execute FrameTransform!");
-                    static D3DXMATRIX FrameTransformMatrix;
-                    FrameTransformMatrix._11 = pMatPos->data[0];
-                    FrameTransformMatrix._12 = pMatPos->data[1];
-                    FrameTransformMatrix._13 = pMatPos->data[2];
-                    FrameTransformMatrix._14 = pMatPos->data[3];
-                    FrameTransformMatrix._21 = pMatPos->data[4];
-                    FrameTransformMatrix._22 = pMatPos->data[5];
-                    FrameTransformMatrix._23 = pMatPos->data[6];
-                    FrameTransformMatrix._24 = pMatPos->data[7];
-                    FrameTransformMatrix._31 = pMatPos->data[8];
-                    FrameTransformMatrix._32 = pMatPos->data[9];
-                    FrameTransformMatrix._33 = pMatPos->data[10];
-                    FrameTransformMatrix._34 = pMatPos->data[11];
-                    FrameTransformMatrix._41 = pMatPos->data[12];
-                    FrameTransformMatrix._42 = pMatPos->data[13];
-                    FrameTransformMatrix._43 = pMatPos->data[14];
-                    FrameTransformMatrix._44 = pMatPos->data[15];
-
-                    if (n == 0) {
-                        nVertices_begin = 0;
-                        nVertices_end = paNumVertices[n];
-                    } else {
-                        nVertices_begin += paNumVertices[n-1];
-                        nVertices_end += paNumVertices[n];
-                    }
-
-                    D3DXVECTOR3 vecVertex;
-                    D3DXVECTOR3 vecNormal;
-                    for (int i = nVertices_begin; i < nVertices_end; i++) {
-                        vecVertex.x = model_paVtxBuffer_org[i].x;
-                        vecVertex.y = model_paVtxBuffer_org[i].y;
-                        vecVertex.z = model_paVtxBuffer_org[i].z;
-                        D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-                        vecNormal.x = model_paVtxBuffer_org[i].nx;
-                        vecNormal.y = model_paVtxBuffer_org[i].ny;
-                        vecNormal.z = model_paVtxBuffer_org[i].nz;
-                        D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
-
-                        model_paVtxBuffer_org[i].x = vecVertex.x;
-                        model_paVtxBuffer_org[i].y = vecVertex.y;
-                        model_paVtxBuffer_org[i].z = vecVertex.z;
-                        model_paVtxBuffer_org[i].nx = vecNormal.x;
-                        model_paVtxBuffer_org[i].ny = vecNormal.y;
-                        model_paVtxBuffer_org[i].nz = vecNormal.z;
-                    }
-                }
-            }
-            n++;
-        }
+        //法線設定とFrameTransformMatrix適用
+        prepareVtx((void*)model_paVtxBuffer_org, prm_pMeshModel->_size_vertex_unit,
+                    model_pModel3D, paNumVertices,
+                    model_pMeshesFront, nVertices, nFaces, nFaceNormals);
         DELETE_IMPOSSIBLE_NULL(paNumVertices);
-
-        //最後に法線正規化して設定
-        D3DXVECTOR3 vec;
-        for (int i = 0; i < nVertices; i++) {
-            vec.x = model_paVtxBuffer_org[i].nx;
-            vec.y = model_paVtxBuffer_org[i].ny;
-            vec.z = model_paVtxBuffer_org[i].nz;
-            if (ZEROf_EQ(vec.x) && ZEROf_EQ(vec.y) && ZEROf_EQ(vec.z)) {
-                model_paVtxBuffer_org[i].nx = 0;
-                model_paVtxBuffer_org[i].ny = 0;
-                model_paVtxBuffer_org[i].nz = 0;
-            } else {
-                D3DXVec3Normalize( &vec, &vec);
-                model_paVtxBuffer_org[i].nx = vec.x;
-                model_paVtxBuffer_org[i].ny = vec.y;
-                model_paVtxBuffer_org[i].nz = vec.z;
-            }
-        }
 
         //インデックスバッファ登録
         model_paIdxBuffer_org = NEW WORD[nFaces*3];
@@ -676,8 +474,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
             model_paIndexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
         }
         prm_pMeshModel->_nMaterialListGrp = paramno;
-        delete[] paRad;
-        delete[] paRadSum_Vtx;
+
         delete[] paParam;
     }
 
@@ -847,6 +644,228 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
 
 }
 
+
+void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, Frm::Model3D* model_pModel3D, UINT16* paNumVertices, Frm::Mesh* model_pMeshesFront, int nVertices, int nFaces, int nFaceNormals) {
+    //法線設定。
+    //共有頂点の法線は平均化を試みる！
+    //【2009/03/04の脳みそによるアイディア】
+    //共有頂点に、面が同じような方面に集中した場合、単純に加算して面数で割る平均化をすると法線は偏ってしまう。
+    //そこで、共有頂点法線への影響度割合（率）を、その面法線が所属する面の頂点角の大きさで決めるようにした。
+    //法線の影響度割合 ＝ その法線が所属する頂点の成す角 ／ その頂点にぶら下がる全faceの成す角合計
+    //とした。最後に正規化する。
+    byte* paVtxBuffer = (byte*)prm_paVtxBuffer;
+    float* paRad = NEW float[nFaces*3];
+    float* paRadSum_Vtx = NEW float[nVertices];
+    for (int i = 0; i < nVertices; i++) {
+        paRadSum_Vtx[i] = 0;
+    }
+    std::fill_n(paRadSum_Vtx, nVertices, 0);
+    unsigned short indexVertices_per_Face[3];
+    unsigned short indexNormals_per_Face[3];
+    for (int i = 0; i < nFaces; i++) {
+        for (int j = 0; j < 3; j++) {
+            //面に対する頂点インデックス３つ(A,B,Cとする)
+            indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];
+            //面に対する法線インデックス３つ
+            if (nFaceNormals > i) {
+                indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
+            } else {
+                //法線が無い場合
+                indexNormals_per_Face[j] = (unsigned short)0;
+            }
+        }
+
+        //頂点インデックス A の角(∠CAB)を求めて、配列に保持
+        paRad[i*3+0] = getRadv1_v0v1v2(
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[2]],
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[1]]
+                       );
+        //A の頂点インデックス番号に紐つけて、角を加算
+        paRadSum_Vtx[indexVertices_per_Face[0]] += paRad[i*3+0];
+
+        //頂点インデックス B の角(∠ABC)を求めて、配列に保持
+        paRad[i*3+1] = getRadv1_v0v1v2(
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[1]],
+                         model_pMeshesFront->_Vertices[indexVertices_per_Face[2]]
+                       );
+        //B の頂点インデックス番号に紐つけて、角を加算
+        paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
+
+        //頂点インデックス C の角(∠ACB)を求めて、配列に保持
+        paRad[i*3+2] = (float)(2*PI - (paRad[i*3+0] + paRad[i*3+1]));
+        //C の頂点インデックス番号に紐つけて、角を加算
+        paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
+    }
+
+    float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
+    GgafDxModel::VERTEX_3D_BASE* pVtx;
+    for (int i = 0; i < nFaces; i++) {
+        for (int j = 0; j < 3; j++) {
+            indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
+            if (nFaceNormals > i) {
+                indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
+            } else {
+                //法線が無い場合
+                indexNormals_per_Face[j] = (unsigned short)0;
+            }
+        }
+        if (nFaceNormals > i) {
+            rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
+            pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[0]));
+            pVtx->nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
+            pVtx->ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
+            pVtx->nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].z * rate);
+            rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
+            pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[1]));
+            pVtx->nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].x * rate);
+            pVtx->ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].y * rate);
+            pVtx->nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].z * rate);
+            rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
+            pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[2]));
+            pVtx->nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].x * rate);
+            pVtx->ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
+            pVtx->nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
+        } else {
+            //法線が無い場合、法線を計算して作りだす。
+
+            //面に対する頂点インデックス３つ
+            int indexVertices1 = model_pMeshesFront->_Faces[i].data[0];
+            int indexVertices2 = model_pMeshesFront->_Faces[i].data[1];
+            int indexVertices3 = model_pMeshesFront->_Faces[i].data[2];
+            //面の頂点３つ
+            D3DXVECTOR3 v1 = D3DXVECTOR3(
+                model_pMeshesFront->_Vertices[indexVertices1].data[0],
+                model_pMeshesFront->_Vertices[indexVertices1].data[1],
+                model_pMeshesFront->_Vertices[indexVertices1].data[2]
+            );
+            D3DXVECTOR3 v2 = D3DXVECTOR3(
+                model_pMeshesFront->_Vertices[indexVertices2].data[0],
+                model_pMeshesFront->_Vertices[indexVertices2].data[1],
+                model_pMeshesFront->_Vertices[indexVertices2].data[2]
+            );
+            D3DXVECTOR3 v3 = D3DXVECTOR3(
+                model_pMeshesFront->_Vertices[indexVertices3].data[0],
+                model_pMeshesFront->_Vertices[indexVertices3].data[1],
+                model_pMeshesFront->_Vertices[indexVertices3].data[2]
+            );
+
+            D3DXPLANE Plane;
+            // 3 つの点から平面を作成
+            D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
+            //正規化した平面(法線)を算出
+            D3DXPlaneNormalize(&Plane, &Plane);
+
+            rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
+            pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[0]));
+            pVtx->nx += (Plane.a * rate);
+            pVtx->ny += (Plane.b * rate);
+            pVtx->nz += (Plane.c * rate);
+            rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
+            pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[1]));
+            pVtx->nx += (Plane.a * rate);
+            pVtx->ny += (Plane.b * rate);
+            pVtx->nz += (Plane.c * rate);
+            rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
+            pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[2]));
+            pVtx->nx += (Plane.a * rate);
+            pVtx->ny += (Plane.b * rate);
+            pVtx->nz += (Plane.c * rate);
+        }
+    }
+
+    //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
+    int n = 0;
+    int nVertices_begin = 0;
+    int nVertices_end = 0;
+    for (std::list<Frm::Bone*>::iterator iteBone = model_pModel3D->_toplevel_Skelettons.begin() ;
+            iteBone != model_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
+
+        _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
+
+        if ((*iteBone)) {
+            Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
+            if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
+                //FrameTransformMatrix は単位行列
+                _TRACE_("FrameTransformMatrix is Identity");
+            } else {
+                _TRACE_("Execute FrameTransform!");
+                D3DXMATRIX FrameTransformMatrix;
+                FrameTransformMatrix._11 = pMatPos->data[0];
+                FrameTransformMatrix._12 = pMatPos->data[1];
+                FrameTransformMatrix._13 = pMatPos->data[2];
+                FrameTransformMatrix._14 = pMatPos->data[3];
+                FrameTransformMatrix._21 = pMatPos->data[4];
+                FrameTransformMatrix._22 = pMatPos->data[5];
+                FrameTransformMatrix._23 = pMatPos->data[6];
+                FrameTransformMatrix._24 = pMatPos->data[7];
+                FrameTransformMatrix._31 = pMatPos->data[8];
+                FrameTransformMatrix._32 = pMatPos->data[9];
+                FrameTransformMatrix._33 = pMatPos->data[10];
+                FrameTransformMatrix._34 = pMatPos->data[11];
+                FrameTransformMatrix._41 = pMatPos->data[12];
+                FrameTransformMatrix._42 = pMatPos->data[13];
+                FrameTransformMatrix._43 = pMatPos->data[14];
+                FrameTransformMatrix._44 = pMatPos->data[15];
+
+                if (n == 0) {
+                    nVertices_begin = 0;
+                    nVertices_end = paNumVertices[n];
+                } else {
+                    nVertices_begin += paNumVertices[n-1];
+                    nVertices_end += paNumVertices[n];
+                }
+
+                D3DXVECTOR3 vecVertex;
+                D3DXVECTOR3 vecNormal;
+                GgafDxModel::VERTEX_3D_BASE* pVtx;
+                for (int i = nVertices_begin; i < nVertices_end; i++) {
+                    pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
+                    vecVertex.x = pVtx->x;
+                    vecVertex.y = pVtx->y;
+                    vecVertex.z = pVtx->z;
+                    D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
+                    vecNormal.x = pVtx->nx;
+                    vecNormal.y = pVtx->ny;
+                    vecNormal.z = pVtx->nz;
+                    D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+
+                    pVtx->x = vecVertex.x;
+                    pVtx->y = vecVertex.y;
+                    pVtx->z = vecVertex.z;
+                    pVtx->nx = vecNormal.x;
+                    pVtx->ny = vecNormal.y;
+                    pVtx->nz = vecNormal.z;
+                }
+            }
+        }
+        n++;
+    }
+    //最後に法線正規化して設定
+    D3DXVECTOR3 vec;
+    for (int i = 0; i < nVertices; i++) {
+        pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
+
+        vec.x = pVtx->nx;
+        vec.y = pVtx->ny;
+        vec.z = pVtx->nz;
+        if (ZEROf_EQ(vec.x) && ZEROf_EQ(vec.y) && ZEROf_EQ(vec.z)) {
+            pVtx->nx = 0;
+            pVtx->ny = 0;
+            pVtx->nz = 0;
+        } else {
+            D3DXVec3Normalize( &vec, &vec);
+            pVtx->nx = vec.x;
+            pVtx->ny = vec.y;
+            pVtx->nz = vec.z;
+        }
+    }
+    delete[] paRad;
+    delete[] paRadSum_Vtx;
+}
+
+
 void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphMeshModel) {
     TRACE3("GgafDxModelManager::restoreMorphMeshModel(" << prm_pMorphMeshModel->_model_name << ")");
     //【GgafDxMorphMeshModel再構築（＝初期化）処理概要】
@@ -866,7 +885,6 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
 
     for(int i = 0; i < morph_target_num+1; i++) {
         char* xfilename_base = prm_pMorphMeshModel->_model_name + 2; //２文字目以降  "2/ceres" → "ceres"
-//        paXfileName[i] = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(xfilename_base) + "_" + (char)('0'+i) + ".x"; //"ceres_0.x"となる
         paXfileName[i] = getMeshFileName(std::string(xfilename_base) + "_" + (char)('0'+i));
     }
     HRESULT hr;
@@ -966,279 +984,25 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
             }
 
             if (nVertices < nTextureCoords) {
-                TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-                TRACE3("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<paXfileName[pattern]);
+                _TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
+                _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<paXfileName[pattern]);
             }
 
-            //法線設定。
-            //restoreMeshModelの説明と同様
-            float* paRad = NEW float[nFaces*3];
-            float* paRadSum_Vtx = NEW float[nVertices];
+            //法線設定とFrameTransformMatrix適用
             for (int i = 0; i < nVertices; i++) {
-                paRadSum_Vtx[i] = 0;
-            }
-            std::fill_n(paRadSum_Vtx, nVertices, 0);
-            static unsigned short indexVertices_per_Face[3];
-            static unsigned short indexNormals_per_Face[3];
-            for (int i = 0; i < nFaces; i++) {
-                for (int j = 0; j < 3; j++) {
-                    //面に対する頂点インデックス３つ(A,B,Cとする)
-                    indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];
-                    //面に対する法線インデックス３つ
-                    if (nFaceNormals > i) {
-                        indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];
-                    } else {
-                        //法線が無い場合
-                        indexNormals_per_Face[j] = (unsigned short)0;
-                    }
+                if (pattern == 0) { //プライマリメッシュ
+                    prepareVtx((void*)model_paVtxBuffer_org_primary, prm_pMorphMeshModel->_size_vertex_unit_primary,
+                               model_papModel3D[pattern], paNumVertices,
+                               model_papMeshesFront[pattern], nVertices, nFaces, nFaceNormals);
+                } else {            //ターゲットメッシュ
+                    prepareVtx((void*)(model_papaVtxBuffer_org_morph[pattern-1]), prm_pMorphMeshModel->_size_vertex_unit_morph,
+                               model_papModel3D[pattern], paNumVertices,
+                               model_papMeshesFront[pattern], nVertices, nFaces, nFaceNormals);
                 }
-
-                //頂点インデックス A の角(∠CAB)を求めて、配列に保持
-                paRad[i*3+0] = getRadv1_v0v1v2(
-                                 model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[2]],
-                                 model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[0]],
-                                 model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[1]]
-                               );
-                //A の頂点インデックス番号に紐つけて、角を加算
-                paRadSum_Vtx[indexVertices_per_Face[0]] += paRad[i*3+0];
-
-                //頂点インデックス B の角(∠ABC)を求めて、配列に保持
-                paRad[i*3+1] = getRadv1_v0v1v2(
-                                 model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[0]],
-                                 model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[1]],
-                                 model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[2]]
-                               );
-                //B の頂点インデックス番号に紐つけて、角を加算
-                paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
-
-                //頂点インデックス C の角(∠ACB)を求めて、配列に保持
-                paRad[i*3+2] = (float)(2*PI - (paRad[i*3+0] + paRad[i*3+1]));
-                //C の頂点インデックス番号に紐つけて、角を加算
-                paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
-            }
-
-            float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
-            for (int i = 0; i < nFaces; i++) {
-                for (int j = 0; j < 3; j++) {
-                    indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];       //面に対する頂点インデックス３つ
-                    if (nFaceNormals > i) {
-                        indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
-                    } else {
-                        //法線が無い場合
-                        indexNormals_per_Face[j] = (unsigned short)0;
-                    }
-                }
-                if (nFaceNormals > i) {
-                    rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-                    if (pattern == 0) { //プライマリメッシュ
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].x * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].y * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].z * rate);
-                    } else {            //モーフターゲットメッシュ
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].x * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].y * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].z * rate);
-                    }
-                    rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-                    if (pattern == 0) { //プライマリメッシュ
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].x * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].y * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].z * rate);
-                    } else {            //モーフターゲットメッシュ
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].x * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].y * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].z * rate);
-                    }
-                    rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-                    if (pattern == 0) { //プライマリメッシュ
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].x * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].y * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].z * rate);
-                    } else {            //モーフターゲットメッシュ
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].x * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].y * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].z * rate);
-                    }
-                } else {
-                    //法線が無い場合
-                    int indexVertices1 = model_papMeshesFront[pattern]->_Faces[i].data[0];
-                    int indexVertices2 = model_papMeshesFront[pattern]->_Faces[i].data[1];
-                    int indexVertices3 = model_papMeshesFront[pattern]->_Faces[i].data[2];
-                    D3DXVECTOR3 v1 = D3DXVECTOR3(
-                        model_papMeshesFront[pattern]->_Vertices[indexVertices1].data[0],
-                        model_papMeshesFront[pattern]->_Vertices[indexVertices1].data[1],
-                        model_papMeshesFront[pattern]->_Vertices[indexVertices1].data[2]
-                    );
-                    D3DXVECTOR3 v2 = D3DXVECTOR3(
-                        model_papMeshesFront[pattern]->_Vertices[indexVertices2].data[0],
-                        model_papMeshesFront[pattern]->_Vertices[indexVertices2].data[1],
-                        model_papMeshesFront[pattern]->_Vertices[indexVertices2].data[2]
-                    );
-                    D3DXVECTOR3 v3 = D3DXVECTOR3(
-                        model_papMeshesFront[pattern]->_Vertices[indexVertices3].data[0],
-                        model_papMeshesFront[pattern]->_Vertices[indexVertices3].data[1],
-                        model_papMeshesFront[pattern]->_Vertices[indexVertices3].data[2]
-                    );
-
-                    D3DXPLANE Plane;
-                    // 3 つの点から平面を作成
-                    D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
-                    //正規化した平面(法線)を算出
-                    D3DXPlaneNormalize(&Plane, &Plane);
-
-                    if (pattern == 0) { //プライマリメッシュ
-                        rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nx += (Plane.a * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].ny += (Plane.b * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nz += (Plane.c * rate);
-                        rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nx += (Plane.a * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].ny += (Plane.b * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nz += (Plane.c * rate);
-                        rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nx += (Plane.a * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].ny += (Plane.b * rate);
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nz += (Plane.c * rate);
-                    } else {
-                        rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nx += (Plane.a * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].ny += (Plane.b * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nz += (Plane.c * rate);
-                        rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nx += (Plane.a * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].ny += (Plane.b * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nz += (Plane.c * rate);
-                        rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nx += (Plane.a * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].ny += (Plane.b * rate);
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nz += (Plane.c * rate);
-                    }
-                }
-            }
-            //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
-            int n = 0;
-            int nVertices_begin = 0;
-            int nVertices_end = 0;
-            D3DXMATRIX FrameTransformMatrix;
-
-            for (std::list<Frm::Bone*>::iterator iteBone = model_papModel3D[pattern]->_toplevel_Skelettons.begin() ;
-                    iteBone != model_papModel3D[pattern]->_toplevel_Skelettons.end(); iteBone++) {
-                _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
-
-                if ((*iteBone)) {
-                    Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
-                    if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
-                        //FrameTransformMatrix は単位行列
-                        _TRACE_("pattern=["<<pattern<<"] FrameTransformMatrix is Identity");
-                    } else {
-                        _TRACE_("pattern=["<<pattern<<"] Execute FrameTransform!");
-                        FrameTransformMatrix._11 = pMatPos->data[0];
-                        FrameTransformMatrix._12 = pMatPos->data[1];
-                        FrameTransformMatrix._13 = pMatPos->data[2];
-                        FrameTransformMatrix._14 = pMatPos->data[3];
-                        FrameTransformMatrix._21 = pMatPos->data[4];
-                        FrameTransformMatrix._22 = pMatPos->data[5];
-                        FrameTransformMatrix._23 = pMatPos->data[6];
-                        FrameTransformMatrix._24 = pMatPos->data[7];
-                        FrameTransformMatrix._31 = pMatPos->data[8];
-                        FrameTransformMatrix._32 = pMatPos->data[9];
-                        FrameTransformMatrix._33 = pMatPos->data[10];
-                        FrameTransformMatrix._34 = pMatPos->data[11];
-                        FrameTransformMatrix._41 = pMatPos->data[12];
-                        FrameTransformMatrix._42 = pMatPos->data[13];
-                        FrameTransformMatrix._43 = pMatPos->data[14];
-                        FrameTransformMatrix._44 = pMatPos->data[15];
-
-                        if (n == 0) {
-                            nVertices_begin = 0;
-                            nVertices_end = paNumVertices[n];
-                        } else {
-                            nVertices_begin += paNumVertices[n-1];
-                            nVertices_end += paNumVertices[n];
-                        }
-
-                        D3DXVECTOR3 vecVertex;
-                        D3DXVECTOR3 vecNormal;
-                        if (pattern == 0) {
-                            for (int i = nVertices_begin; i < nVertices_end; i++) {
-                                vecVertex.x = model_paVtxBuffer_org_primary[i].x;
-                                vecVertex.y = model_paVtxBuffer_org_primary[i].y;
-                                vecVertex.z = model_paVtxBuffer_org_primary[i].z;
-                                D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-                                vecNormal.x = model_paVtxBuffer_org_primary[i].nx;
-                                vecNormal.y = model_paVtxBuffer_org_primary[i].ny;
-                                vecNormal.z = model_paVtxBuffer_org_primary[i].nz;
-                                D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
-
-                                model_paVtxBuffer_org_primary[i].x = vecVertex.x;
-                                model_paVtxBuffer_org_primary[i].y = vecVertex.y;
-                                model_paVtxBuffer_org_primary[i].z = vecVertex.z;
-                                model_paVtxBuffer_org_primary[i].nx = vecNormal.x;
-                                model_paVtxBuffer_org_primary[i].ny = vecNormal.y;
-                                model_paVtxBuffer_org_primary[i].nz = vecNormal.z;
-                            }
-                        } else {
-                            for (int i = nVertices_begin; i < nVertices_end; i++) {
-                                vecVertex.x = model_papaVtxBuffer_org_morph[pattern-1][i].x;
-                                vecVertex.y = model_papaVtxBuffer_org_morph[pattern-1][i].y;
-                                vecVertex.z = model_papaVtxBuffer_org_morph[pattern-1][i].z;
-                                D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-                                vecNormal.x = model_papaVtxBuffer_org_morph[pattern-1][i].nx;
-                                vecNormal.y = model_papaVtxBuffer_org_morph[pattern-1][i].ny;
-                                vecNormal.z = model_papaVtxBuffer_org_morph[pattern-1][i].nz;
-                                D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
-
-                                model_papaVtxBuffer_org_morph[pattern-1][i].x = vecVertex.x;
-                                model_papaVtxBuffer_org_morph[pattern-1][i].y = vecVertex.y;
-                                model_papaVtxBuffer_org_morph[pattern-1][i].z = vecVertex.z;
-                                model_papaVtxBuffer_org_morph[pattern-1][i].nx = vecNormal.x;
-                                model_papaVtxBuffer_org_morph[pattern-1][i].ny = vecNormal.y;
-                                model_papaVtxBuffer_org_morph[pattern-1][i].nz = vecNormal.z;
-                            }
-                        }
-                    }
-                }
-                n++;
             }
             DELETE_IMPOSSIBLE_NULL(paNumVertices);
 
-            //最後に法線正規化して設定
-            D3DXVECTOR3 vec;
-            for (int i = 0; i < nVertices; i++) {
-                if (pattern == 0) { //プライマリメッシュ
-                    vec.x = model_paVtxBuffer_org_primary[i].nx;
-                    vec.y = model_paVtxBuffer_org_primary[i].ny;
-                    vec.z = model_paVtxBuffer_org_primary[i].nz;
-                    if (ZEROf_EQ(vec.x) && ZEROf_EQ(vec.y) && ZEROf_EQ(vec.z)) {
-                        model_paVtxBuffer_org_primary[i].nx = 0;
-                        model_paVtxBuffer_org_primary[i].ny = 0;
-                        model_paVtxBuffer_org_primary[i].nz = 0;
-                    } else {
-                        D3DXVec3Normalize( &vec, &vec);
-                        model_paVtxBuffer_org_primary[i].nx = vec.x;
-                        model_paVtxBuffer_org_primary[i].ny = vec.y;
-                        model_paVtxBuffer_org_primary[i].nz = vec.z;
-                    }
-                } else {           //モーフターゲットメッシュ
-                    vec.x = model_papaVtxBuffer_org_morph[pattern-1][i].nx;
-                    vec.y = model_papaVtxBuffer_org_morph[pattern-1][i].ny;
-                    vec.z = model_papaVtxBuffer_org_morph[pattern-1][i].nz;
-                    if (ZEROf_EQ(vec.x) && ZEROf_EQ(vec.y) && ZEROf_EQ(vec.z)) {
-                        model_papaVtxBuffer_org_morph[pattern-1][i].nx = 0;
-                        model_papaVtxBuffer_org_morph[pattern-1][i].ny = 0;
-                        model_papaVtxBuffer_org_morph[pattern-1][i].nz = 0;
-                    } else {
-                        D3DXVec3Normalize( &vec, &vec);
-                        model_papaVtxBuffer_org_morph[pattern-1][i].nx = vec.x;
-                        model_papaVtxBuffer_org_morph[pattern-1][i].ny = vec.y;
-                        model_papaVtxBuffer_org_morph[pattern-1][i].nz = vec.z;
-                    }
-                }
-            }
-            delete[] paRad;
-            delete[] paRadSum_Vtx;
-        } //for (int pattern = 0; pattern < 2; pattern++)
-
+        }
 
         //インデックスバッファ取得
         model_paIdxBuffer_org = NEW WORD[nFaces*3];
@@ -1604,7 +1368,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
         hr = pID3DXMesh->CloneMeshFVF(
                            pID3DXMesh->GetOptions(),             // [in]  DWORD Options,
                            D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1, // [in]  DWORD FVF,
-                           GgafDxGod::_pID3DDevice9,            // [in]  LPDIRECT3DDEVICE9 pDevice,
+                           GgafDxGod::_pID3DDevice9,             // [in]  LPDIRECT3DDEVICE9 pDevice,
                            &pID3DXMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
                          );
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel]  pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name);
@@ -2558,209 +2322,14 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
         }
 
         if (nVertices < nTextureCoords) {
-            TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-            TRACE3("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
+            _TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
+            _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
         }
-
-        //法線設定。
-        //処理方法は restoreMeshModel と同じ。要参照。
-        float* paRad = NEW float[nFaces*3];
-        float* paRadSum_Vtx = NEW float[nVertices];
-        for (int i = 0; i < nVertices; i++) {
-            paRadSum_Vtx[i] = 0;
-        }
-        std::fill_n(paRadSum_Vtx, nVertices, 0);
-        unsigned short indexVertices_per_Face[3];
-        unsigned short indexNormals_per_Face[3];
-        for (int i = 0; i < nFaces; i++) {
-            for (int j = 0; j < 3; j++) {
-                //面に対する頂点インデックス３つ(A,B,Cとする)
-                indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];
-                //面に対する法線インデックス３つ
-                if (nFaceNormals > i) {
-                    indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
-                } else {
-                    //法線が無い場合
-                    indexNormals_per_Face[j] = (unsigned short)0;
-                }
-            }
-
-            //頂点インデックス A の角(∠CAB)を求めて、配列に保持
-            paRad[i*3+0] = getRadv1_v0v1v2(
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[2]],
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[1]]
-                           );
-            //A の頂点インデックス番号に紐つけて、角を加算
-            paRadSum_Vtx[indexVertices_per_Face[0]] += paRad[i*3+0];
-
-            //頂点インデックス B の角(∠ABC)を求めて、配列に保持
-            paRad[i*3+1] = getRadv1_v0v1v2(
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[1]],
-                             model_pMeshesFront->_Vertices[indexVertices_per_Face[2]]
-                           );
-            //B の頂点インデックス番号に紐つけて、角を加算
-            paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
-
-            //頂点インデックス C の角(∠ACB)を求めて、配列に保持
-            paRad[i*3+2] = (float)(2*PI - (paRad[i*3+0] + paRad[i*3+1]));
-            //C の頂点インデックス番号に紐つけて、角を加算
-            paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
-        }
-
-        float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
-        for (int i = 0; i < nFaces; i++) {
-            for (int j = 0; j < 3; j++) {
-                indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
-                if (nFaceNormals > i) {
-                    indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
-                } else {
-                    //法線が無い場合
-                    indexNormals_per_Face[j] = (unsigned short)0;
-                }
-            }
-            if (nFaceNormals > i) {
-                rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-                unit_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].z * rate);
-                rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-                unit_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].x * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].y * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].z * rate);
-                rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-                unit_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].x * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
-            } else {
-                //法線が無い場合、法線を計算して作りだす。
-
-                //面に対する頂点インデックス３つ
-                int indexVertices1 = model_pMeshesFront->_Faces[i].data[0];
-                int indexVertices2 = model_pMeshesFront->_Faces[i].data[1];
-                int indexVertices3 = model_pMeshesFront->_Faces[i].data[2];
-                //面の頂点３つ
-                D3DXVECTOR3 v1 = D3DXVECTOR3(
-                    model_pMeshesFront->_Vertices[indexVertices1].data[0],
-                    model_pMeshesFront->_Vertices[indexVertices1].data[1],
-                    model_pMeshesFront->_Vertices[indexVertices1].data[2]
-                );
-                D3DXVECTOR3 v2 = D3DXVECTOR3(
-                    model_pMeshesFront->_Vertices[indexVertices2].data[0],
-                    model_pMeshesFront->_Vertices[indexVertices2].data[1],
-                    model_pMeshesFront->_Vertices[indexVertices2].data[2]
-                );
-                D3DXVECTOR3 v3 = D3DXVECTOR3(
-                    model_pMeshesFront->_Vertices[indexVertices3].data[0],
-                    model_pMeshesFront->_Vertices[indexVertices3].data[1],
-                    model_pMeshesFront->_Vertices[indexVertices3].data[2]
-                );
-
-                D3DXPLANE Plane;
-                // 3 つの点から平面を作成
-                D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
-                //正規化した平面(法線)を算出
-                D3DXPlaneNormalize(&Plane, &Plane);
-
-                rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-                unit_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (Plane.a * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (Plane.b * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (Plane.c * rate);
-                rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-                unit_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (Plane.a * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (Plane.b * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (Plane.c * rate);
-                rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-                unit_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (Plane.a * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (Plane.b * rate);
-                unit_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (Plane.c * rate);
-
-            }
-        }
-        int n = 0;
-        int nVertices_begin = 0;
-        int nVertices_end = 0;
-        for (std::list<Frm::Bone*>::iterator iteBone = model_pModel3D->_toplevel_Skelettons.begin() ;
-                iteBone != model_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
-
-            _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
-            //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
-            if ((*iteBone)) {
-                Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
-                if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
-                    //FrameTransformMatrix は単位行列
-                    _TRACE_("FrameTransformMatrix is Identity");
-                } else {
-                    _TRACE_("Execute FrameTransform!");
-                    D3DXMATRIX FrameTransformMatrix;
-                    FrameTransformMatrix._11 = pMatPos->data[0];
-                    FrameTransformMatrix._12 = pMatPos->data[1];
-                    FrameTransformMatrix._13 = pMatPos->data[2];
-                    FrameTransformMatrix._14 = pMatPos->data[3];
-                    FrameTransformMatrix._21 = pMatPos->data[4];
-                    FrameTransformMatrix._22 = pMatPos->data[5];
-                    FrameTransformMatrix._23 = pMatPos->data[6];
-                    FrameTransformMatrix._24 = pMatPos->data[7];
-                    FrameTransformMatrix._31 = pMatPos->data[8];
-                    FrameTransformMatrix._32 = pMatPos->data[9];
-                    FrameTransformMatrix._33 = pMatPos->data[10];
-                    FrameTransformMatrix._34 = pMatPos->data[11];
-                    FrameTransformMatrix._41 = pMatPos->data[12];
-                    FrameTransformMatrix._42 = pMatPos->data[13];
-                    FrameTransformMatrix._43 = pMatPos->data[14];
-                    FrameTransformMatrix._44 = pMatPos->data[15];
-
-                    if (n == 0) {
-                        nVertices_begin = 0;
-                        nVertices_end = paNumVertices[n];
-                    } else {
-                        nVertices_begin += paNumVertices[n-1];
-                        nVertices_end += paNumVertices[n];
-                    }
-
-                    D3DXVECTOR3 vecVertex;
-                    D3DXVECTOR3 vecNormal;
-                    for (int i = nVertices_begin; i < nVertices_end; i++) {
-                        vecVertex.x = unit_paVtxBuffer_org[i].x;
-                        vecVertex.y = unit_paVtxBuffer_org[i].y;
-                        vecVertex.z = unit_paVtxBuffer_org[i].z;
-                        D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-                        vecNormal.x = unit_paVtxBuffer_org[i].nx;
-                        vecNormal.y = unit_paVtxBuffer_org[i].ny;
-                        vecNormal.z = unit_paVtxBuffer_org[i].nz;
-                        D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
-
-                        unit_paVtxBuffer_org[i].x = vecVertex.x;
-                        unit_paVtxBuffer_org[i].y = vecVertex.y;
-                        unit_paVtxBuffer_org[i].z = vecVertex.z;
-                        unit_paVtxBuffer_org[i].nx = vecNormal.x;
-                        unit_paVtxBuffer_org[i].ny = vecNormal.y;
-                        unit_paVtxBuffer_org[i].nz = vecNormal.z;
-                    }
-                }
-            }
-            n++;
-        }
+        //法線設定とFrameTransformMatrix適用
+        prepareVtx((void*)unit_paVtxBuffer_org, prm_pMeshSetModel->_size_vertex_unit,
+                   model_pModel3D, paNumVertices,
+                   model_pMeshesFront, nVertices, nFaces, nFaceNormals);
         DELETE_IMPOSSIBLE_NULL(paNumVertices);
-
-        //最後に法線正規化して設定
-        D3DXVECTOR3 vec;
-        for (int i = 0; i < nVertices; i++) {
-            vec.x = unit_paVtxBuffer_org[i].nx;
-            vec.y = unit_paVtxBuffer_org[i].ny;
-            vec.z = unit_paVtxBuffer_org[i].nz;
-            if (ZEROf_EQ(vec.x) && ZEROf_EQ(vec.y) && ZEROf_EQ(vec.z)) {
-                unit_paVtxBuffer_org[i].nx = 0;
-                unit_paVtxBuffer_org[i].ny = 0;
-                unit_paVtxBuffer_org[i].nz = 0;
-            } else {
-                D3DXVec3Normalize( &vec, &vec);
-                unit_paVtxBuffer_org[i].nx = vec.x;
-                unit_paVtxBuffer_org[i].ny = vec.y;
-                unit_paVtxBuffer_org[i].nz = vec.z;
-            }
-        }
 
         //インデックスバッファ登録
         unit_paIdxBuffer_org = NEW WORD[nFaces*3];
@@ -2879,8 +2448,6 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
         }
 
         DELETEARR_IMPOSSIBLE_NULL(paFaceMaterials);
-        delete[] paRad;
-        delete[] paRadSum_Vtx;
     }
 
     if (prm_pMeshSetModel->_pIDirect3DVertexBuffer9 == NULL) {

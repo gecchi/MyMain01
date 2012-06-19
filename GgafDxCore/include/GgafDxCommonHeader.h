@@ -115,7 +115,7 @@ DECLARE_CONST(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
 //#pragma GCC diagnostic push
 //#pragma GCC diagnostic ignored "-Wall"
 //#pragma GCC diagnostic warning "-w"
-#include <dxerr.h>
+//#include <dxerr.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>

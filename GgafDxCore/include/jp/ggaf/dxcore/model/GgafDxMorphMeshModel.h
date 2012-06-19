@@ -58,17 +58,16 @@ public:
     };
 
     /** プライマリメッシュの頂点フォーマット定義 */
-    struct VERTEX_PRIMARY {
-        float x, y, z;    // 頂点座標
-        float nx, ny, nz; // 法線
+    class VERTEX_PRIMARY : public GgafDxModel::VERTEX_3D_BASE {
+    public:
         DWORD color;      // 頂点の色（現在未使用）
         float tu, tv;     // テクスチャ座標
     };
 
     /** モーフターゲットメッシュの頂点フォーマット定義 */
-    struct VERTEX_MORPH {
-        float x, y, z;    // 頂点座標
-        float nx, ny, nz; // 法線
+    class VERTEX_MORPH : public GgafDxModel::VERTEX_3D_BASE {
+    public:
+
     };
 
     /** モーフターゲット数 */

@@ -54,12 +54,36 @@ private:
      */
     float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
 
+    /**
+     * 3D頂点バッファにFrameTransformMatrix変換と法線を設定。
+     * @param prm_paVtxBuffer
+     * @param prm_size_of_vtx_unit
+     * @param model_pModel3D
+     * @param paNumVertices
+     * @param model_pMeshesFront
+     * @param nVertices
+     * @param nFaces
+     * @param nFaceNormals
+     */
+    void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, Frm::Model3D* model_pModel3D, UINT16* paNumVertices, Frm::Mesh* model_pMeshesFront, int nVertices, int nFaces, int nFaceNormals);
+
+    /**
+     * ID3DXFileDataのデータポインタから、（Xファイルフォーマット通りに）スプライト情報を取り出す。
+     * @param pSpriteFmt_out
+     * @param pLockedData ID3DXFileData->lock() のデータポインタ
+     * @return
+     */
+    char* obtainSpriteFmtX(XFILE_SPRITE_FMT* pSpriteFmt_out, char* pLockedData);
+
     static std::string getMeshFileName(std::string prm_model_name);
     static std::string getSpriteFileName(std::string prm_model_name);
     static std::string getPointSpriteFileName(std::string prm_model_name);
+
 public:
     GgafDxTextureManager* _pModelTextureManager;
 
+
+public:
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称(リテラル必須)
@@ -162,18 +186,7 @@ public:
         return (GgafDxModelConnection*)_pFirstConnection;
     }
 
-
-    char* obtainSpriteFmtX(XFILE_SPRITE_FMT* pSpriteFmt_out, char* pLockedData);
-
     virtual ~GgafDxModelManager();
-
-
-    //
-    //	/**
-    //	 * GgafDxModelオブジェクトのリストをすべて delete を行う。<BR>
-    //	 */
-    //	static void release();
-    //
 };
 
 }

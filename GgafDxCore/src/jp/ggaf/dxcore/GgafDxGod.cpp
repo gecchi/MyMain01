@@ -1275,7 +1275,8 @@ void GgafDxGod::presentUniversalVisualize() {
 
         if (hr != D3D_OK) { //hr は Present の戻り値
              //出刃異素露巣斗？
-            _TRACE_("＜警告＞デバイス異常発生!!" <<DXGetErrorString(hr) << " "<< DXGetErrorDescription(hr));
+//            _TRACE_("＜警告＞デバイス異常発生!!" <<DXGetErrorString(hr) << " "<< DXGetErrorDescription(hr));
+            _TRACE_("＜警告＞デバイス異常発生!! HRESULT="<<hr);
             if (hr == D3DERR_DEVICELOST) {
                 _TRACE_("通常の正常デバイスロスト！");
             }

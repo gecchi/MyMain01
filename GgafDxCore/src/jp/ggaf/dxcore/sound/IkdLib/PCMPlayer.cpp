@@ -196,7 +196,8 @@ bool PCMPlayer::initializeBuffer() {
             //ƒƒbƒN¸”s
             if (i < 10) {
                 _TRACE_("PCMPlayer::initializeBuffer() Lock‚É¸”s i=" << i << " ");
-                _TRACE_("hr=" << hr << " " << DXGetErrorString(hr) << " " << DXGetErrorDescription(hr));
+//                _TRACE_("hr=" << hr << " " << DXGetErrorString(hr) << " " << DXGetErrorDescription(hr));
+                _TRACE_("HRESULT="<<hr);
                 hr = _pDSBuffer->Unlock(AP1, AB1, AP2, AB2);
                 Sleep(5);
                 continue; //‚à‚¤ˆê‰ñŠæ’£‚é

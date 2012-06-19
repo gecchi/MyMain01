@@ -234,7 +234,7 @@ public:
         return data[index];
     }
 
-    T _fastcall Index(int pRow, int pCol) const {
+    T Index(int pRow, int pCol) const {
         return data[(pRow << 2) + pCol];
     }
     T operator()(int pRow, int pCol) const {
@@ -342,7 +342,7 @@ public:
         xe = pxe;
         ye = pye;
     }
-    bool _fastcall InRect(const T &px, const T &py) {
+    bool InRect(const T &px, const T &py) {
         if (px < xs)
             return false;
         if (px > xe)
@@ -353,7 +353,7 @@ public:
             return false;
         return true;
     }
-    bool _fastcall InRect(const vector<T> &pv) {
+    bool InRect(const vector<T> &pv) {
         if (pv.x < xs)
             return false;
         if (pv.x > xe)
@@ -365,20 +365,20 @@ public:
         return true;
     }
     /**/
-    /*   	bool _fastcall InRect( vector<T> &pv)
+    /*   	bool InRect( vector<T> &pv)
      { if (pv[VX] < xs) return false;
      if (pv[VX] > xe) return false;
      if (pv[VY] < ys) return false;
      if (pv[VY] > ye) return false;
      return true;};
     */
-    bool _fastcall InRect(const trect<T> &prect) {
+    bool InRect(const trect<T> &prect) {
         if ((prect.xe <= xe) && (prect.ye <= ye) && (prect.xs >= xs)
                 && (prect.ys >= ys))
             return true;
         return false;
     }
-    bool _fastcall Intersect(const trect<T> &prect) {
+    bool Intersect(const trect<T> &prect) {
         if (prect.xe < xs)
             return false;
         if (prect.xs > xe)
@@ -389,7 +389,7 @@ public:
             return false;
         return true;
     }
-    bool _fastcall Union(const trect<T> &prect) {
+    bool Union(const trect<T> &prect) {
         if (!Intersect(prect))
             return false;
         if (xs < prect.xs)

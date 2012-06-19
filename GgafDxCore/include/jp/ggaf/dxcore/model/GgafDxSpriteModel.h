@@ -15,9 +15,8 @@ protected:
 public:
 
     /** 頂点構造体 */
-    struct VERTEX {
-        float x, y, z;    // 頂点座標
-        float nx, ny, nz; // 頂点の法線
+    class VERTEX : public VERTEX_3D_BASE {
+    public:
         DWORD color;      // 頂点色（現在未使用）
         float tu, tv;     // 頂点のテクスチャ座標
     };

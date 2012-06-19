@@ -149,8 +149,6 @@ void VvvWorld::processBehavior() {
         }
     }
 
-
-
     if (VvvGod::is_wm_dropfiles_) {
         string dropfile_dir = GgafCore::GgafUtil::getFileDirName(VvvGod::dropfiles_) + "/";
         string model_id = GgafCore::GgafUtil::getFileBaseNameWithoutExt(VvvGod::dropfiles_);

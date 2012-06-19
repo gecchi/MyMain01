@@ -63,7 +63,6 @@
 									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="Shlwapi"/>
 									<listOptionValue builtIn="false" value="GgafDxCore"/>
-									<listOptionValue builtIn="false" value="dxerr"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
@@ -84,7 +83,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/DebugCdt}&quot;"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.986609506" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/GgafLib/vclib/x86/chkstk.o}&quot; -Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=c++11 -static-libgcc -static-libstdc++ " valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.986609506" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=c++11 -static-libgcc -static-libstdc++ " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1999760981" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -168,7 +167,6 @@
 									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="Shlwapi"/>
 									<listOptionValue builtIn="false" value="GgafDxCore"/>
-									<listOptionValue builtIn="false" value="dxerr"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
@@ -181,7 +179,7 @@
 									<listOptionValue builtIn="false" value="dsound"/>
 									<listOptionValue builtIn="false" value="winmm"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.1918374225" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/GgafLib/vclib/x86/chkstk.o}&quot; -Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=c++11 -static-libgcc -static-libstdc++ " valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.1918374225" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=c++11 -static-libgcc -static-libstdc++ " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1612207107" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

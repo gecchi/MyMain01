@@ -14,6 +14,13 @@ class GgafDxModel : public GgafCore::GgafObject {
 
 protected:
 public:
+    class VERTEX_3D_BASE {
+    public:
+        float x, y, z;    // 頂点座標
+        float nx, ny, nz; // 法線
+    };
+
+
     /** [r]ID */
     int _id;
     /** [r]最大可能同時描画セット数（キャラクタ数）*/
