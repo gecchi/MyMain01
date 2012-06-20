@@ -91,6 +91,16 @@ public:
     }
 
     /**
+     * モーフターゲットの重みを加算(負で減算) .
+     * 上限下限は保証される。
+     * @param prm_target_mesh_no
+     * @param prm_weight
+     */
+    void addWeight(int prm_target_mesh_no, float prm_weight_offset) {
+        setWeight(prm_target_mesh_no, _weight[prm_target_mesh_no] + prm_weight_offset);
+    }
+
+    /**
      * モーフターゲットの重みを下限値に設定 .
      * @param prm_target_mesh_no モーフターゲットメッシュNO
      */
@@ -131,7 +141,7 @@ public:
     /**
      * モーフターゲットへ加速指定でモーフィングする（重み速度、重み加速度差指定） .
      * 重み加速度を0に指定すると intoTargetLinerStep とほぼ同じ意味になる。
-     * intoTargetLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * intoTargetLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（加速度だからできない）。
      * @param prm_target_mesh_no モーフターゲットメッシュNO
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_velo_weight 初期重み速度

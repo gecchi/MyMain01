@@ -20,7 +20,7 @@ void VvvWorld::initialize() {
 void VvvWorld::processBehavior() {
     vb_->update(); //入力状況更新
 
-    if (GgafDxInput::isPushedDownKey(DIK_1)) {
+    if (GgafDxInput::isPushedDownKey(DIK_F1)) {
         VvvCamera* pCam = P_CAM;
         pCamWorker_->move_target_X_CAM_ = 0;
         pCamWorker_->move_target_Y_CAM_ = 0;
@@ -29,7 +29,7 @@ void VvvWorld::processBehavior() {
         pCamWorker_->move_target_Y_VP_ =  0;
         pCamWorker_->move_target_Z_VP_ =  0;
         pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
-    } else if (GgafDxInput::isPushedDownKey(DIK_2)) {
+    } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
         if (_list.length() > 0) {
             if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
                 pCursor_->moveTo(_list.getCurrent());
@@ -38,7 +38,15 @@ void VvvWorld::processBehavior() {
             }
             _list.getCurrent()->effectFlush(30);
         }
-    } else if (GgafDxInput::isPushedDownKey(DIK_3)) {
+    } else if (GgafDxInput::isPushedDownKey(DIK_RETURN)) {
+        if (_list.length() > 0) {
+            if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
+                pCursor_->moveTo(_list.getCurrent());
+            } else {
+                pCursor_->moveTo(_list.next());
+            }
+            _list.getCurrent()->effectFlush(30);
+        }
         GgafDxDrawableActor* pT = _list.getCurrent();
         pCamWorker_->move_target_X_VP_ =  pT->_X;
         pCamWorker_->move_target_Y_VP_ =  pT->_Y;
@@ -51,100 +59,156 @@ void VvvWorld::processBehavior() {
         if (_list.length() > 0) {
             pCursor_->moveTo(_list.getCurrent());
         }
-    } else {
-        if (_list.length() > 0) {
-            GgafDxDrawableActor* pActor =  _list.getCurrent();
-            int d = 1;
-            if (GgafDxInput::isBeingPressedKey(DIK_SPACE)) {
-                d = 5;
-            } else {
-                d = 1;
-            }
+    } else if (GgafDxInput::isPushedDownKey(DIK_W)) {
+        //ワイヤフレーム表示切替
+        if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
+            GgafDxGod::_d3dfillmode = D3DFILL_SOLID;
+        } else {
+            GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
+        }
+    }
 
-            if (GgafDxInput::isBeingPressedKey(DIK_A)) {
-                //α
-                if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                    if (pActor->getAlpha() > 1.00) {
-                        pActor->setAlpha(1.00);
+
+    if (_list.length() > 0) {
+        GgafDxDrawableActor* pActor =  _list.getCurrent();
+        int d = 1;
+        if (GgafDxInput::isBeingPressedKey(DIK_SPACE) || GgafDxInput::isBeingPressedKey(DIK_LCONTROL) || GgafDxInput::isBeingPressedKey(DIK_RCONTROL)) {
+            d = 10;
+        } else {
+            d = 1;
+        }
+
+        if (GgafDxInput::isBeingPressedKey(DIK_A)) {
+            //α
+            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                if (pActor->getAlpha() > 1.00) {
+                    pActor->setAlpha(1.00);
+                } else {
+                    pActor->addAlpha(0.01);
+                }
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                if (pActor->getAlpha() < 0.00) {
+                    pActor->setAlpha(0.00);
+                } else {
+                    pActor->addAlpha(-0.01);
+                }
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                if (pActor->getAlpha() > 1.00) {
+                    pActor->setAlpha(1.00);
+                } else {
+                    pActor->addAlpha(0.01);
+                }
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                if (pActor->getAlpha() < 0.00) {
+                    pActor->setAlpha(0.00);
+                } else {
+                    pActor->addAlpha(-0.01);
+                }
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                pActor->addAlpha(1.00);
+            }
+        } else if (GgafDxInput::isBeingPressedKey(DIK_P)) {
+            //スペキュラー
+            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                pActor->_pModel->_specular += 0.05*d;
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                pActor->_pModel->_specular -= 0.05*d;
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                pActor->_pModel->_specular_power += 0.01*d;
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                pActor->_pModel->_specular_power -= 0.01*d;
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                pActor->_pModel->_specular = 0.00f;
+                pActor->_pModel->_specular_power = 0.00f;
+            }
+        } else if (GgafDxInput::isBeingPressedKey(DIK_S)) {
+            //拡大縮小
+            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                pActor->addScale(d*10);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                pActor->addScale(-d*10);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                pActor->addScale(d*10);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                pActor->addScale(-d*10);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                pActor->setScaleR(1.0);
+            }
+        } else if (GgafDxInput::isBeingPressedKey(DIK_R)) {
+            //軸回転
+            if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
+                pActor->_RX += D_ANG(d);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
+                pActor->_RX -= D_ANG(d);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                pActor->_RZ += D_ANG(d);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                pActor->_RZ -= D_ANG(d);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                pActor->_RY += D_ANG(d);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                pActor->_RY -= D_ANG(d);
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                pActor->_RX = 0;
+                pActor->_RY = 0;
+                pActor->_RZ = 0;
+            }
+        } else {
+            //平行移動
+            if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
+                pActor->_Z += PX_C(d); //奥
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
+                pActor->_Z -= PX_C(d); //手前
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                pActor->_X += PX_C(d); //右
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                pActor->_X -= PX_C(d); //左
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                pActor->_Y += PX_C(d); //上
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                pActor->_Y -= PX_C(d); //下
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                pActor->_X = 0;
+                pActor->_Y = 0;
+                pActor->_Z = 0;
+            }
+        }
+
+        if ( Obj_GgafDxMorphMeshActor & pActor->_obj_class) {
+            DefaultMorphMeshActor* pMorphMeshActor = dynamic_cast<DefaultMorphMeshActor*>(pActor);
+            if (pMorphMeshActor) {
+                for (int i = 1; i <= pMorphMeshActor->_pMorphMeshModel->_morph_target_num; i++) {
+                    if (GgafDxInput::isBeingPressedKey(DIK_1 + (i-1))) {
+                        pMorphMeshActor->_pMorpher->addWeight(i, 0.01);
                     } else {
-                        pActor->addAlpha(0.01);
+                        pMorphMeshActor->_pMorpher->addWeight(i, -0.01);
                     }
                 }
-                if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                    if (pActor->getAlpha() < 0.00) {
-                        pActor->setAlpha(0.00);
-                    } else {
-                        pActor->addAlpha(-0.01);
-                    }
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                    if (pActor->getAlpha() > 1.00) {
-                        pActor->setAlpha(1.00);
-                    } else {
-                        pActor->addAlpha(0.01);
-                    }
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                    if (pActor->getAlpha() < 0.00) {
-                        pActor->setAlpha(0.00);
-                    } else {
-                        pActor->addAlpha(-0.01);
-                    }
-                }
-            } else if (GgafDxInput::isBeingPressedKey(DIK_S)) {
-                //拡大縮小
-                if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                    pActor->addScale(d*10);
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                    pActor->addScale(-d*10);
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                    pActor->addScale(d*10);
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                    pActor->addScale(-d*10);
-                }
-            } else if (GgafDxInput::isBeingPressedKey(DIK_R)) {
-                //軸回転
-                if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
-                    pActor->_RX += D_ANG(d);
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
-                    pActor->_RX -= D_ANG(d);
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                    pActor->_RZ += D_ANG(d);
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                    pActor->_RZ -= D_ANG(d);
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                    pActor->_RY += D_ANG(d);
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                    pActor->_RY -= D_ANG(d);
-                }
-            } else {
-                //平行移動
-                if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
-                    pActor->_Z += PX_C(d); //奥
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
-                    pActor->_Z -= PX_C(d); //手前
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                    pActor->_X += PX_C(d); //右
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                    pActor->_X -= PX_C(d); //左
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                    pActor->_Y += PX_C(d); //上
-                }
-                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                    pActor->_Y -= PX_C(d); //下
-                }
+                pMorphMeshActor->_pMorpher->behave();
             }
         }
     }
@@ -175,11 +239,32 @@ void VvvWorld::processBehavior() {
 
         GgafDxDrawableActor* pActor = NULL;
         if (model_type == "X") {
+            if (model_id.length() > 2 && model_id.substr(model_id.length()-2) == "_0") {
+                //model_id = "donatu_0"
+                string model_part = model_id.substr(0,model_id.length()-2);
+                //model_part = "donatu"
+                int targetnum = 0;
+                while (true) {
+                    string model_filenm = model_part + "_" + ITOS(targetnum+1) + ".x";
+                    //model_filenm = "donatu_1.x"
+                    string model_path = dropfile_dir + "/" + model_filenm;
+                    if (PathFileExists(model_path.c_str())) {
+                        targetnum++;
+                    } else {
+                        break;
+                    }
+                }
+                pActor = createInFactory2(GgafLib::DefaultMorphMeshActor, "actor",
+                                          string(ITOS(targetnum) + "/" +model_part).c_str());
+                //モーフ
+            } else {
+
 //            if (model_id.find("WORLDBOUND") == string::npos) {
 //                pActor = createInFactory2(GgafLib::WorldBoundActor, "actor", filename);
 //            } else {
                 pActor = createInFactory2(GgafLib::DefaultMeshActor, "actor", model_id.c_str());
 //            }
+            }
         } else if (model_type == "SPRX") {
             pActor = createInFactory2(GgafLib::DefaultSpriteActor, "actor", model_id.c_str());
         } else if (model_type == "PSPRX") {

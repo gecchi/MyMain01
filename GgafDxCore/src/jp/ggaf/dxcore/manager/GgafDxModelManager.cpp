@@ -989,16 +989,14 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
             }
 
             //法線設定とFrameTransformMatrix適用
-            for (int i = 0; i < nVertices; i++) {
-                if (pattern == 0) { //プライマリメッシュ
-                    prepareVtx((void*)model_paVtxBuffer_org_primary, prm_pMorphMeshModel->_size_vertex_unit_primary,
-                               model_papModel3D[pattern], paNumVertices,
-                               model_papMeshesFront[pattern], nVertices, nFaces, nFaceNormals);
-                } else {            //ターゲットメッシュ
-                    prepareVtx((void*)(model_papaVtxBuffer_org_morph[pattern-1]), prm_pMorphMeshModel->_size_vertex_unit_morph,
-                               model_papModel3D[pattern], paNumVertices,
-                               model_papMeshesFront[pattern], nVertices, nFaces, nFaceNormals);
-                }
+            if (pattern == 0) { //プライマリメッシュ
+                prepareVtx((void*)model_paVtxBuffer_org_primary, prm_pMorphMeshModel->_size_vertex_unit_primary,
+                           model_papModel3D[pattern], paNumVertices,
+                           model_papMeshesFront[pattern], nVertices, nFaces, nFaceNormals);
+            } else {            //ターゲットメッシュ
+                prepareVtx((void*)(model_papaVtxBuffer_org_morph[pattern-1]), prm_pMorphMeshModel->_size_vertex_unit_morph,
+                           model_papModel3D[pattern], paNumVertices,
+                           model_papMeshesFront[pattern], nVertices, nFaces, nFaceNormals);
             }
             DELETE_IMPOSSIBLE_NULL(paNumVertices);
 

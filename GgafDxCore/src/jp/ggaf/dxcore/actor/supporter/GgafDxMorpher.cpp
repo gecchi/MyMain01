@@ -112,6 +112,11 @@ void GgafDxMorpher::intoTargetAcceStep(int prm_target_mesh_no, float prm_target_
 
 
 void GgafDxMorpher::intoTargetLinerStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight) {
+#ifdef MY_DEBUG
+    if (prm_velo_weight < 0) {
+        throwGgafCriticalException("GgafDxMorpher::intoTargetLinerStep() prm_velo_weight‚Í³‚Ì’l‚ðÝ’è‚µ‚Ä‰º‚³‚¢Bà–¾“Ç‚ñ‚ÅB");
+    }
+#endif
     _method[prm_target_mesh_no] = TARGET_MORPH_LINER;
     _target_weight[prm_target_mesh_no] = prm_target_weight;
     _velo_weight[prm_target_mesh_no] = SGN(prm_target_weight - _weight[prm_target_mesh_no])*prm_velo_weight;
