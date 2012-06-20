@@ -37,7 +37,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                         "VVViewer[1]", "VVViewer[2]", //タイトル文字列
                         hWnd1, hWnd2); //HWNDが代入されます(戻り値)
 
-
     DragAcceptFiles(hWnd1,TRUE);
 
     //ゲームループ
