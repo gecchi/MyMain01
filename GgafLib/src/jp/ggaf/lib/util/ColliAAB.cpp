@@ -75,27 +75,27 @@ void ColliAAB::rotateRxRzRy(angle rX, angle rY, angle rZ) {
     wk_cz = _base_cz;
 
     if (_rotX) {
-        _cy = (wk_cy * GgafDxUtil::COS[s_RX]) - (wk_cz * GgafDxUtil::SIN[s_RX]);
-        _cz = (wk_cy * GgafDxUtil::SIN[s_RX]) + (wk_cz * GgafDxUtil::COS[s_RX]);
+        _cy = (wk_cy * UTIL::COS[s_RX]) - (wk_cz * UTIL::SIN[s_RX]);
+        _cz = (wk_cy * UTIL::SIN[s_RX]) + (wk_cz * UTIL::COS[s_RX]);
         wk_cy = _cy;
         wk_cz = _cz;
     }
 
     //
     if (_rotZ) {
-        _cx = (wk_cx * GgafDxUtil::COS[s_RZ]) - (wk_cy * GgafDxUtil::SIN[s_RZ]);
-        _cy = (wk_cx * GgafDxUtil::SIN[s_RZ]) + (wk_cy * GgafDxUtil::COS[s_RZ]);
+        _cx = (wk_cx * UTIL::COS[s_RZ]) - (wk_cy * UTIL::SIN[s_RZ]);
+        _cy = (wk_cx * UTIL::SIN[s_RZ]) + (wk_cy * UTIL::COS[s_RZ]);
         wk_cx = _cx;
         wk_cy = _cy;
     }
 
     if (_rotY) {
-//            _cz = (wk_cz * GgafDxUtil::COS[s_RY]) - (wk_cx * GgafDxUtil::SIN[s_RY]);
-//            _cx = (wk_cz * GgafDxUtil::SIN[s_RY]) + (wk_cx * GgafDxUtil::COS[s_RY]);
+//            _cz = (wk_cz * UTIL::COS[s_RY]) - (wk_cx * UTIL::SIN[s_RY]);
+//            _cx = (wk_cz * UTIL::SIN[s_RY]) + (wk_cx * UTIL::COS[s_RY]);
         //↑普通はこう考えるけど
         //RYは、(1,0,0)を０度として、Y軸の方向を向いて反時計回りなのでこうなる
-        _cx = (wk_cx * GgafDxUtil::COS[D360SANG-s_RY]) - (wk_cz * GgafDxUtil::SIN[D360SANG-s_RY]);
-        _cz = (wk_cx * GgafDxUtil::SIN[D360SANG-s_RY]) + (wk_cz * GgafDxUtil::COS[D360SANG-s_RY]);
+        _cx = (wk_cx * UTIL::COS[D360SANG-s_RY]) - (wk_cz * UTIL::SIN[D360SANG-s_RY]);
+        _cz = (wk_cx * UTIL::SIN[D360SANG-s_RY]) + (wk_cz * UTIL::COS[D360SANG-s_RY]);
         wk_cz = _cz;
         wk_cx = _cx;
     }

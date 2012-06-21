@@ -380,7 +380,7 @@ void MyShip::processBehavior() {
         //ターボ開始時
         EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
          if (pTurbo002) {
-             pTurbo002->locatedBy(this);
+             pTurbo002->locateWith(this);
              pTurbo002->activate();
          }
         (this->*paFuncTurbo[way_])();
@@ -557,7 +557,7 @@ void MyShip::processJudgement() {
             MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
             if (pShot) {
                 _pSeTx->play3D(2);
-                pShot->locatedBy(this);
+                pShot->locateWith(this);
             }
             if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
                 //SOFT_RAPIDSHOT_NUM 発打ち終えたらソフト連射終了
@@ -603,7 +603,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
 
 
-    if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
     }
 
@@ -618,7 +618,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     } else {
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
         }
         _pSeTx->play3D(0);
     }

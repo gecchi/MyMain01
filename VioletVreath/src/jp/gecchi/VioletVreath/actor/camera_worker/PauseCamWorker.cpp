@@ -10,8 +10,8 @@ PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     mdz_flg_ = false;
     pVPGuide_ = NULL;
     mdz_vx_ = mdz_vy_ = mdz_vz_ = mdz_t_ = 0.0;
-//    orderActorToFactory(GgafUtil::easy_hash("VPGuide"), ViewPointGuide, "VPGuide");
-//    pVPGuide_ = (ViewPointGuide*)(obtainActorFromFactory(GgafUtil::easy_hash("VPGuide")));
+//    orderActorToFactory(UTIL::easy_hash("VPGuide"), ViewPointGuide, "VPGuide");
+//    pVPGuide_ = (ViewPointGuide*)(obtainActorFromFactory(UTIL::easy_hash("VPGuide")));
     pVPGuide_ = createInFactory(ViewPointGuide, "VPGuide");
 }
 
@@ -128,7 +128,7 @@ void PauseCamWorker::processBehavior() {
             double y = move_target_Y_CAM_ - move_target_Y_VP_;
             double z = move_target_Z_CAM_ - move_target_Z_VP_;
 
-            angle rz1 = GgafDxUtil::getAngle2D(x, y);
+            angle rz1 = UTIL::getAngle2D(x, y);
 
             //回転させたい角度
             double ang = (PI) * (d/cd_);
@@ -138,12 +138,12 @@ void PauseCamWorker::processBehavior() {
             GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            angle rz2 = GgafDxUtil::getAngle2D(Q._x,Q._y);
+            angle rz2 = UTIL::getAngle2D(Q._x,Q._y);
 
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
             if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
-                move_target_XY_CAM_UP_ += GgafDxUtil::getAngDiff(rz1, rz2);
-                move_target_XY_CAM_UP_ = GgafDxUtil::simplifyAng(move_target_XY_CAM_UP_);
+                move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
+                move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
             }
             move_target_X_CAM_ = Q._x + move_target_X_VP_;
             move_target_Y_CAM_ = Q._y + move_target_Y_VP_;
@@ -155,7 +155,7 @@ void PauseCamWorker::processBehavior() {
             double x = move_target_X_VP_ - move_target_X_CAM_;
             double y = move_target_Y_VP_ - move_target_Y_CAM_;
             double z = move_target_Z_VP_ - move_target_Z_CAM_;
-            angle rz1 = GgafDxUtil::getAngle2D(x, y);
+            angle rz1 = UTIL::getAngle2D(x, y);
             //回転させたい角度
             double ang = (PI) * (d/cd_);
             double sinHalf = sin(ang/2);
@@ -163,10 +163,10 @@ void PauseCamWorker::processBehavior() {
             GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            angle rz2 = GgafDxUtil::getAngle2D(Q._x,Q._y);
+            angle rz2 = UTIL::getAngle2D(Q._x,Q._y);
             if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
-                move_target_XY_CAM_UP_ += GgafDxUtil::getAngDiff(rz1, rz2);
-                move_target_XY_CAM_UP_ = GgafDxUtil::simplifyAng(move_target_XY_CAM_UP_);
+                move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
+                move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
             }
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
             move_target_X_VP_ = Q._x + move_target_X_CAM_;
@@ -268,7 +268,7 @@ void PauseCamWorker::processBehavior() {
     } else {
         pCam->_pKurokoA->setMvAng(move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
 
-        int td1 = GgafDxUtil::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
+        int td1 = UTIL::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
                                            move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
         if (ABS(td1) > 10) {
             pCam->_pKurokoA->execSmoothMvSequence(0, td1, 20, 0.4, 0.6);
@@ -278,7 +278,7 @@ void PauseCamWorker::processBehavior() {
         //OK
     } else {
         pVP->_pKurokoA->setMvAng(move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
-        int td2 = GgafDxUtil::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
+        int td2 = UTIL::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
                                            move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
         if (ABS(td2) > 10) {
             pVP->_pKurokoA->execSmoothMvSequence(0, td2, 20, 0.4, 0.6);
@@ -289,15 +289,15 @@ void PauseCamWorker::processBehavior() {
     //カメラのUPを計算
     angvelo angvelo_cam_up = 30000 / 20;
     if (angXY_nowCamUp_ != move_target_XY_CAM_UP_) {
-        angle da = GgafDxUtil::getAngDiff(angXY_nowCamUp_, move_target_XY_CAM_UP_);
+        angle da = UTIL::getAngDiff(angXY_nowCamUp_, move_target_XY_CAM_UP_);
         if (-angvelo_cam_up < da && da < angvelo_cam_up) {
             angXY_nowCamUp_ = move_target_XY_CAM_UP_;
         } else {
             angXY_nowCamUp_ += (angvelo_cam_up * SGN(da));
         }
-        angXY_nowCamUp_ = GgafDxUtil::simplifyAng(angXY_nowCamUp_);
-        pCam->_pVecCamUp->x = GgafDxUtil::COS[angXY_nowCamUp_ / SANG_RATE];
-        pCam->_pVecCamUp->y = GgafDxUtil::SIN[angXY_nowCamUp_ / SANG_RATE];
+        angXY_nowCamUp_ = UTIL::simplifyAng(angXY_nowCamUp_);
+        pCam->_pVecCamUp->x = UTIL::COS[angXY_nowCamUp_ / SANG_RATE];
+        pCam->_pVecCamUp->y = UTIL::SIN[angXY_nowCamUp_ / SANG_RATE];
         pCam->_pVecCamUp->z = 0.0f;
     }
 

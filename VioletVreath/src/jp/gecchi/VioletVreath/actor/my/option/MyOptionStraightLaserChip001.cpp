@@ -10,7 +10,7 @@ MyOptionStraightLaserChip001::MyOptionStraightLaserChip001(const char* prm_name)
     _class_name = "MyOptionStraightLaserChip001";
     default_stamina_ = _pStatus->get(STAT_Stamina);
     _veloMv = 100000;
-    
+
     pOrg_ = NULL;
     lockon_st_ = 0;
     is_lockon_ = false;
@@ -94,7 +94,7 @@ void MyOptionStraightLaserChip001::processBehavior() {
     //根元からレーザー表示のため強敵に座標補正
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
-        locatedBy(pOrg_);
+        locateWith(pOrg_);
 //        _tmpX = _X;
 //        _tmpY = _Y;
 //        _tmpZ = _Z;
@@ -141,14 +141,14 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //オプション非ロックオン中に命中した場合
         }
 
-        int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+        int stamina = UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
             EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
             if (pExplo001) {
-                pExplo001->locatedBy(this);
+                pExplo001->locateWith(this);
             }
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
@@ -169,7 +169,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         //破壊されたエフェクト
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
         }
         sayonara();
     }
@@ -177,14 +177,14 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //
 //
 //    if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-//        int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+//        int stamina = UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
 //        if (stamina <= 0) {
 //            //一撃でチップ消滅の攻撃力
 //
 //            //破壊されたエフェクト
 //            EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
 //            if (pExplo001) {
-//                pExplo001->locatedBy(this);
+//                pExplo001->locateWith(this);
 //                pExplo001->activate();
 //            }
 //            sayonara();
@@ -197,7 +197,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //        //破壊されたエフェクト
 //        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
 //        if (pExplo001) {
-//            pExplo001->locatedBy(this);
+//            pExplo001->locateWith(this);
 //        }
 //        sayonara();
 //    }

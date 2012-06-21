@@ -79,7 +79,7 @@ void MyOptionController::processBehavior() {
         if (pOption_->isActive()) {
             EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
             if (pTurbo002) {
-                pTurbo002->locatedBy(pOption_);
+                pTurbo002->locateWith(pOption_);
             }
         }
     } else if (VB_PLAY->isBeingPressed(VB_OPTION) && !VB_PLAY->isBeingPressed(VB_TURBO)) {
@@ -106,7 +106,7 @@ void MyOptionController::processBehavior() {
         if (pOption_->isActive()) {
             EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
             if (pTurbo002) {
-                pTurbo002->locatedBy(pOption_);
+                pTurbo002->locateWith(pOption_);
             }
         }
     }
@@ -115,8 +115,8 @@ void MyOptionController::processBehavior() {
         if (VB_PLAY->isBeingPressed(VB_OPTION) && is_handle_move_mode_) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちのオプション移動速度のみを設定。
-//            _pKurokoA->setMvVelo(GgafDxUtil::COS[papOption_[0]->angExpanse_/ SANG_RATE] * veloOptionsMv_);
-            _pKurokoA->setMvVelo(GgafDxUtil::COS[pOption_->angExpanse_/ SANG_RATE] * veloOptionsMv_);
+//            _pKurokoA->setMvVelo(UTIL::COS[papOption_[0]->angExpanse_/ SANG_RATE] * veloOptionsMv_);
+            _pKurokoA->setMvVelo(UTIL::COS[pOption_->angExpanse_/ SANG_RATE] * veloOptionsMv_);
             //旋回半径増加速度の処理はMyOptionクラスで行う。
         } else {
             is_handle_move_mode_ = false;
@@ -157,7 +157,7 @@ void MyOptionController::processBehavior() {
 
 
 //    //ギズモ
-//    pDirectionVector_->locatedBy(this);
+//    pDirectionVector_->locateWith(this);
 //    pDirectionVector_->_pKurokoA->setRzRyMvAng(_pKurokoA->_angRzMv, _pKurokoA->_angRyMv);
 
     _pKurokoA->behave();

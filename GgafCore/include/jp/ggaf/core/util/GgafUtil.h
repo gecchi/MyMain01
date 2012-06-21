@@ -9,6 +9,11 @@
 #define ZEROf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_(X))
 #define ONEf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_((X)-1.0f))
 
+#ifdef UTIL
+    #undef UTIL
+#endif
+#define UTIL GgafCore::GgafUtil
+
 namespace GgafCore {
 
 /**

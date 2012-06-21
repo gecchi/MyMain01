@@ -12,12 +12,12 @@ GgafDxTexture::GgafDxTexture(char* prm_texture_name) : GgafObject() {
 
 std::string GgafDxTexture::getTextureFileName(std::string prm_file) {
     std::string texture_file = GGAF_PROPERTY(DIR_TEXTURE[1]) + "/" + prm_file;
-    GgafUtil::strReplace(texture_file, "//", "/");
+    UTIL::strReplace(texture_file, "//", "/");
     if (PathFileExists(texture_file.c_str()) ) {
         return texture_file; //ユーザースキンに存在すればそれを優先
     } else {
         texture_file = GGAF_PROPERTY(DIR_TEXTURE[0]) + "/" + prm_file;
-        GgafUtil::strReplace(texture_file, "//", "/");
+        UTIL::strReplace(texture_file, "//", "/");
         if (PathFileExists(texture_file.c_str()) ) {
             return texture_file;
         } else {

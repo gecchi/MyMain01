@@ -1,7 +1,7 @@
 /.settings
-/ReleaseCdt
-/DebugCdt
+/ReleaseCdt*
+/DebugCdt*
 /Debug
-/GprofCdt
+/GprofCdt*
 /Release
 /*.user

@@ -47,12 +47,12 @@ GgafDxSe::GgafDxSe(char* prm_wave_name) : GgafObject() {
 
 std::string GgafDxSe::getWaveFileName(std::string prm_file) {
     std::string wave_file = GGAF_PROPERTY(DIR_WAVE[1]) + "/" + prm_file;
-    GgafUtil::strReplace(wave_file, "//", "/");
+    UTIL::strReplace(wave_file, "//", "/");
     if (PathFileExists(wave_file.c_str()) ) {
         return wave_file; //ユーザースキンに存在すればそれを優先
     } else {
         wave_file = GGAF_PROPERTY(DIR_WAVE[0]) + "/" + prm_file;
-        GgafUtil::strReplace(wave_file, "//", "/");
+        UTIL::strReplace(wave_file, "//", "/");
         if (PathFileExists(wave_file.c_str()) ) {
             return wave_file;
         } else {

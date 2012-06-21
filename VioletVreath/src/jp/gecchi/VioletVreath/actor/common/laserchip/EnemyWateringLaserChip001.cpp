@@ -7,7 +7,7 @@
 //EnemyWateringLaserChip001::EnemyWateringLaserChip001(const char* prm_name) :
 //        WateringLaserChip(prm_name, "EnemyWateringLaserChip001") {
 //    _class_name = "EnemyWateringLaserChip001";
-//    MyStgUtil::resetEnemyWateringLaserChip001Status(_pStatus);
+//    UTIL::resetEnemyWateringLaserChip001Status(_pStatus);
 //    pOrg_ = NULL;
 //    lockon_st_ = 0;
 //
@@ -24,7 +24,7 @@
 //}
 //
 //void EnemyWateringLaserChip001::onActive() {
-//    MyStgUtil::resetEnemyWateringLaserChip001Status(_pStatus);
+//    UTIL::resetEnemyWateringLaserChip001Status(_pStatus);
 //    WateringLaserChip::onActive();
 //    _pKurokoA->setMvVelo(0);
 //    _pKurokoA->setVxMvAcce(0);
@@ -182,7 +182,7 @@
 //
 //        }
 //        int default_stamina = _pStatus->get(STAT_Stamina);
-//        int stamina = MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+//        int stamina = UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
 //        if (stamina <= 0) {
 //            //ˆêŒ‚‚Åƒ`ƒbƒvÁ–Å‚ÌUŒ‚—Í
 //            sayonara();

@@ -14,7 +14,7 @@ SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
     _class_name = "SpriteMeshWorldBoundActor";
     _pScaler = NEW GgafDxScaler(this);
     changeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
-    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_ScMv); //拡大×平行移動のみ
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_ScMv); //拡大×平行移動のみ
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);
 }
 
@@ -25,7 +25,7 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
     //・８分木登録
     //・視錐台からの距離計算
     //GgafDxGeometricActor::processSettlementBehavior() と同期を取る事！
-    locatedBy(P_CAM);
+    locateWith(P_CAM);
     _fX = C_DX(_X);
     _fY = C_DX(_Y);
     _fZ = C_DX(_Z);

@@ -10,11 +10,11 @@ GgafDxAAPrismActor::GgafDxAAPrismActor(const char* prm_name, GgafStatus* prm_pSt
                                    GgafDxChecker* prm_pChecker) :
 
                                    GgafDxMeshActor(prm_name,
-                                                    "prism",
-                                                    "DefaultMeshEffect",
-                                                    "DefaultMeshTechnique",
-                                                    prm_pStat,
-                                                    prm_pChecker) {
+                                                   "GgafDxAAPrism",
+                                                   "DefaultMeshEffect",
+                                                   "DefaultMeshTechnique",
+                                                   prm_pStat,
+                                                   prm_pChecker) {
     //_obj_class |= Obj_GgafDxAAPrismActor;
     _class_name = "GgafDxAAPrismActor";
     if (init == false) {
@@ -77,8 +77,8 @@ void GgafDxAAPrismActor::drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
     _fY = C_DX(_Y);
     _fZ = C_DX(_Z);
 
-    //GgafDxUtil::setWorldMatrix_ScRzMv(this, _matWorld);
-    GgafDxUtil::setWorldMatrix_RxRzRyScMv(this, _matWorld); //回転後にスケールがポイント
+    //UTIL::setWorldMatrix_ScRzMv(this, _matWorld);
+    UTIL::setWorldMatrix_RxRzRyScMv(this, _matWorld); //回転後にスケールがポイント
     processDraw();
 }
 

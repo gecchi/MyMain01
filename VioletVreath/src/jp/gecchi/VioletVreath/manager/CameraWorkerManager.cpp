@@ -11,23 +11,23 @@ CameraWorkerManager::CameraWorkerManager(const char* prm_manager_name) :
 CameraWorker* CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_p) {
     CameraWorker* pResource = NULL;
 
-    if (GgafUtil::strcmp_ascii("DefaultCamWorker", prm_idstr) == 0) {
+    if (UTIL::strcmp_ascii("DefaultCamWorker", prm_idstr) == 0) {
         pResource = NEW DefaultCamWorker("DefaultCamWorker");
     }
 
-    if (GgafUtil::strcmp_ascii("VamSysCamWorker", prm_idstr) == 0) {
+    if (UTIL::strcmp_ascii("VamSysCamWorker", prm_idstr) == 0) {
         pResource = NEW VamSysCamWorker("VamSysCamWorker");
     }
 
-    if (GgafUtil::strcmp_ascii("PauseCamWorker", prm_idstr) == 0) {
+    if (UTIL::strcmp_ascii("PauseCamWorker", prm_idstr) == 0) {
         pResource = NEW PauseCamWorker("PauseCamWorker");
     }
 
-    if (GgafUtil::strcmp_ascii("TestCamWorker", prm_idstr) == 0) {
+    if (UTIL::strcmp_ascii("TestCamWorker", prm_idstr) == 0) {
         pResource = NEW TestCamWorker("TestCamWorker");
     }
 
-    if (GgafUtil::strcmp_ascii("MyShipDivingCamWorker", prm_idstr) == 0) {
+    if (UTIL::strcmp_ascii("MyShipDivingCamWorker", prm_idstr) == 0) {
         pResource = NEW MyShipDivingCamWorker("MyShipDivingCamWorker");
     }
 

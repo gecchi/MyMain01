@@ -21,7 +21,7 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
     _class_name = "GgafDxMeshSetActor";
     _pMeshSetModel = (GgafDxMeshSetModel*)_pModel;
     _pMeshSetEffect = (GgafDxMeshSetEffect*)_pEffect;
-    _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
+    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
 }
 
 GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
@@ -45,7 +45,7 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
     _class_name = "GgafDxMeshSetActor";
     _pMeshSetModel = (GgafDxMeshSetModel*)_pModel;
     _pMeshSetEffect = (GgafDxMeshSetEffect*)_pEffect;
-    _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
+    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
 }
 
 void GgafDxMeshSetActor::setAlpha(float prm_alpha) {

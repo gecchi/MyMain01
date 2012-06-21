@@ -26,8 +26,8 @@ void GgafLibProperties::load(std::string prm_properties_filename) {
     GgafLibProperties::DIR_WALL  = GgafProperties::DIR_RESOURCE + "/" + GgafLibProperties::DIRNAME_RESOURCE_WALL+ "/";
     GgafLibProperties::DIR_SPLINE = GgafProperties::DIR_RESOURCE + "/" + GgafLibProperties::DIRNAME_RESOURCE_SPLINE + "/";
 
-    GgafUtil::strReplace(GgafLibProperties::DIR_WALL, "//", "/");
-    GgafUtil::strReplace(GgafLibProperties::DIR_SPLINE , "//", "/");
+    UTIL::strReplace(GgafLibProperties::DIR_WALL, "//", "/");
+    UTIL::strReplace(GgafLibProperties::DIR_SPLINE , "//", "/");
 
     //指定があるのならば、ディレクトリ存在チェック
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_WALL")) {

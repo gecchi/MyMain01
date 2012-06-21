@@ -252,27 +252,27 @@ GgafDxPointSpriteModel* GgafDxModelManager::createPointSpriteModel(char* prm_mod
 }
 std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {
     std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[1]) + "/" + prm_model_name + ".x"; //モデル名＋".x"でXファイル名になる
-    GgafUtil::strReplace(xfile_name, "//", "/");
+    UTIL::strReplace(xfile_name, "//", "/");
     if (PathFileExists(xfile_name.c_str()) ) {
         return xfile_name; //ユーザースキンに存在すればそれを優先
     } else {
         xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + "/" + prm_model_name+ ".x";
-        GgafUtil::strReplace(xfile_name, "//", "/");
+        UTIL::strReplace(xfile_name, "//", "/");
         if (PathFileExists(xfile_name.c_str()) ) {
             return xfile_name;
         } else {
-            throwGgafCriticalException("GgafDxModelManager::getMeshFileName メッシュファイル(*.x)が見つかりません。xfile_name="<<xfile_name);
+            return "";
         }
     }
 }
 std::string GgafDxModelManager::getSpriteFileName(std::string prm_model_name) {
     std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) + "/" + prm_model_name + ".sprx";
-    GgafUtil::strReplace(xfile_name, "//", "/");
+    UTIL::strReplace(xfile_name, "//", "/");
     if (PathFileExists(xfile_name.c_str()) ) {
         return xfile_name; //ユーザースキンに存在すればそれを優先
     } else {
         xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + "/" +  prm_model_name + ".sprx";
-        GgafUtil::strReplace(xfile_name, "//", "/");
+        UTIL::strReplace(xfile_name, "//", "/");
         if (PathFileExists(xfile_name.c_str()) ) {
             return xfile_name;
         } else {
@@ -283,12 +283,12 @@ std::string GgafDxModelManager::getSpriteFileName(std::string prm_model_name) {
 
 std::string GgafDxModelManager::getPointSpriteFileName(std::string prm_model_name) {
     std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) + "/" + prm_model_name + ".psprx";
-    GgafUtil::strReplace(xfile_name, "//", "/");
+    UTIL::strReplace(xfile_name, "//", "/");
     if (PathFileExists(xfile_name.c_str()) ) {
         return xfile_name; //ユーザースキンに存在すればそれを優先
     } else {
         xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + "/" +  prm_model_name + ".psprx";
-        GgafUtil::strReplace(xfile_name, "//", "/");
+        UTIL::strReplace(xfile_name, "//", "/");
         if (PathFileExists(xfile_name.c_str()) ) {
             return xfile_name;
         } else {
@@ -311,6 +311,9 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
 
 
     std::string xfile_name = getMeshFileName(prm_pMeshModel->_model_name);
+    if (xfile_name == "") {
+        throwGgafCriticalException("GgafDxModelManager::restoreMeshModel メッシュファイル(*.x)が見つかりません。_model_name="<<prm_pMeshModel->_model_name);
+    }
     HRESULT hr;
 
     //流し込む頂点バッファデータ作成
@@ -886,6 +889,9 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     for(int i = 0; i < morph_target_num+1; i++) {
         char* xfilename_base = prm_pMorphMeshModel->_model_name + 2; //２文字目以降  "2/ceres" → "ceres"
         paXfileName[i] = getMeshFileName(std::string(xfilename_base) + "_" + (char)('0'+i));
+        if (paXfileName[i] == "") {
+             throwGgafCriticalException("GgafDxModelManager::restoreMorphMeshModel メッシュファイル(*.x)が見つかりません。model_name="<<(std::string(xfilename_base) + "_" + (char)('0'+i)));
+        }
     }
     HRESULT hr;
     //流し込む頂点バッファデータ作成
@@ -1294,9 +1300,10 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     D3DMATERIAL9* model_paMaterial; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDxTextureConnection** model_papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD _num_materials;
-//    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + std::string(prm_pD3DXMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     std::string xfile_name = getMeshFileName(prm_pD3DXMeshModel->_model_name);
-
+    if (xfile_name == "") {
+         throwGgafCriticalException("GgafDxModelManager::restoreD3DXMeshModel メッシュファイル(*.x)が見つかりません。model_name="<<(prm_pD3DXMeshModel->_model_name));
+    }
 
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
@@ -1397,7 +1404,9 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     GgafDxTextureConnection** model_papTextureCon = NULL; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD _num_materials;
     std::string xfile_name = getMeshFileName(prm_pD3DXAniMeshModel->_model_name);
-
+    if (xfile_name == "") {
+         throwGgafCriticalException("GgafDxModelManager::restoreD3DXAniMeshModel メッシュファイル(*.x)が見つかりません。model_name="<<(prm_pD3DXAniMeshModel->_model_name));
+    }
     //AnimTicksPerSecondの値を独自に取り出す
     std::ifstream ifs(xfile_name.c_str());
     if (ifs.fail()) {
@@ -2234,6 +2243,9 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
         xfile_name = getMeshFileName(std::string(prm_pMeshSetModel->_model_name + 3));
     } else {
         xfile_name = getMeshFileName(std::string(prm_pMeshSetModel->_model_name));
+    }
+    if (xfile_name == "") {
+         throwGgafCriticalException("GgafDxModelManager::restoreMeshSetModel メッシュファイル(*.x)が見つかりません。model_name="<<(prm_pMeshSetModel->_model_name));
     }
 
     HRESULT hr;

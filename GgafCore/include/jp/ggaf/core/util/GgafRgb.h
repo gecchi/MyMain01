@@ -65,9 +65,9 @@ public:
         }
         _is_valid = isValid();
         if (_is_valid) {
-            _R = GgafUtil::hex2dec(_hex.substr(0, 2));
-            _G = GgafUtil::hex2dec(_hex.substr(2, 2));
-            _B = GgafUtil::hex2dec(_hex.substr(4, 2));
+            _R = UTIL::hex2dec(_hex.substr(0, 2));
+            _G = UTIL::hex2dec(_hex.substr(2, 2));
+            _B = UTIL::hex2dec(_hex.substr(4, 2));
         } else {
             throwGgafCriticalException("GgafRgb::set HEXílÇ©ÇÁRGBÇ…ïœä∑èoóàÇ‹ÇπÇÒÅBprm_hex="<<prm_hex);
         }

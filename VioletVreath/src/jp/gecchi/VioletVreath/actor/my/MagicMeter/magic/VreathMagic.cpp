@@ -78,7 +78,7 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
             //‘O”¼
             for (frame f = 0; f <= beat_time_[lv]/2; f++) {
                 int t = f*3600.0/beat_time_[lv];
-                apaInt_vreath_per_frame_[lv][f] = MY_SHIP_VREATH_COST*2.0*GgafDxUtil::SMOOTH_DV[t];
+                apaInt_vreath_per_frame_[lv][f] = MY_SHIP_VREATH_COST*2.0*UTIL::SMOOTH_DV[t];
             }
             //Œã”¼
             for (frame f = beat_time_[lv]/2 + 1; f < beat_time_[lv]; f++) {
@@ -105,7 +105,7 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
 }
 
 void VreathMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    pEffect_->locatedBy(P_MYSHIP);
+    pEffect_->locateWith(P_MYSHIP);
     pEffect_->setAlpha(0.9);
     pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
     pEffect_->_pScaler->setScale(1000);
@@ -113,7 +113,7 @@ void VreathMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 }
 
 void VreathMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
-    pEffect_->locatedBy(P_MYSHIP);
+    pEffect_->locateWith(P_MYSHIP);
     pEffect_->_pScaler->addScale(10);
 }
 

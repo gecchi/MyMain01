@@ -69,25 +69,25 @@ void MyOptionTorpedoController::fire() {
         int target_num = pOption_->pLockonCtrlr_->pRingTarget_->length();
         firing_num_ = target_num < 4 ? 4 : target_num;
         angle* paAng_way = NEW angle[firing_num_];
-        GgafDxUtil::getRadialAngle2D(D45ANG, firing_num_, paAng_way);
+        UTIL::getRadialAngle2D(D45ANG, firing_num_, paAng_way);
         GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[firing_num_];
         angle expanse_rz = (D180ANG - D_ANG(90))/2;   //”­ŽËÆŽËŠp“x90“x
         coord r = PX_C(15);
         D3DXMATRIX matWorldRot;
-        GgafDxUtil::setWorldMatrix_RzRy(GgafDxUtil::simplifyAng(pOption_->_RZ - D90ANG),
+        UTIL::setWorldMatrix_RzRy(UTIL::simplifyAng(pOption_->_RZ - D90ANG),
                                         pOption_->_RY,
                                         matWorldRot);
         float vx, vy, vz;
         coord X,Y,Z;
         for (int i = 0; i < firing_num_; i++) {
-            GgafDxUtil::getNormalizeVectorZY(expanse_rz, paAng_way[i], vx, vy, vz);
+            UTIL::getNormalizeVectorZY(expanse_rz, paAng_way[i], vx, vy, vz);
             X = vx * r;
             Y = vy * r;
             Z = vz * r;
             paGeo[i]._X = X*matWorldRot._11 + Y*matWorldRot._21 + Z*matWorldRot._31;
             paGeo[i]._Y = X*matWorldRot._12 + Y*matWorldRot._22 + Z*matWorldRot._32;
             paGeo[i]._Z = X*matWorldRot._13 + Y*matWorldRot._23 + Z*matWorldRot._33;
-            GgafDxUtil::getRzRyAng(paGeo[i]._X , paGeo[i]._Y, paGeo[i]._Z,
+            UTIL::getRzRyAng(paGeo[i]._X , paGeo[i]._Y, paGeo[i]._Z,
                                    paGeo[i]._RZ, paGeo[i]._RY);
 
         }

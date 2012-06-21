@@ -310,7 +310,7 @@ public:
      * 未変換座標をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void locatedBy(GgafDxGeometricActor* prm_pActor) {
+    virtual void locateWith(GgafDxGeometricActor* prm_pActor) {
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;
@@ -320,14 +320,15 @@ public:
      * 未変換座標をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
-    virtual void locatedBy(GgafDxGeoElem* prm_pGeoElem);
+    virtual void locateWith(GgafDxGeoElem* prm_pGeoElem);
 
     /**
      * 回転角度(_RX, _RY, _RZ)をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
     virtual void rotateWith(GgafDxGeometricActor* prm_pActor);
-
+    virtual void rotateWith(GgafDxGeoElem* prm_pGeoElem);
+    virtual void scaleWith(GgafDxGeometricActor* prm_pActor);
     /**
      * 自身の内部ワールド変換(_matWorldRotMv) の逆行列を未計算なら計算し、計算済みならそのまま返す .
      * @return _matInvWorldRotMv

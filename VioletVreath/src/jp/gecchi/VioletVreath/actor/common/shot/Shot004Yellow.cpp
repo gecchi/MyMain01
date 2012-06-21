@@ -59,12 +59,12 @@ void Shot004Yellow::processJudgement() {
 void Shot004Yellow::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 //    //・・・ココにヒットされたエフェクト
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
         }
         sayonara();
     }

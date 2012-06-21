@@ -24,7 +24,7 @@ GgafDxDynaD3DXMeshActor::GgafDxDynaD3DXMeshActor(const char* prm_name,
 
     _pD3DXMeshModel = (GgafDxD3DXMeshModel*)_pModel;
     _pMeshEffect = (GgafDxMeshEffect*)_pEffect;
-    _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
+    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
 }
 
 void GgafDxDynaD3DXMeshActor::processDraw() {

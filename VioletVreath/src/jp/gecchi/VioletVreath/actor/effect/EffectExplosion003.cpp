@@ -10,7 +10,7 @@ EffectExplosion003::EffectExplosion003(const char* prm_name) :
     //加算合成Technique指定
     changeEffectTechnique("DestBlendOne");
     //ワールド変換行列はビルボード指定
-    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
 }
 
 void EffectExplosion003::initialize() {

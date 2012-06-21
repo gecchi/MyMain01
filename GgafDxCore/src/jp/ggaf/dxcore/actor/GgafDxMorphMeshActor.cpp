@@ -21,7 +21,7 @@ GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
     _class_name = "GgafDxMorphMeshActor";
     _pMorphMeshModel = (GgafDxMorphMeshModel*)_pModel;
     _pMorphMeshEffect = (GgafDxMorphMeshEffect*)_pEffect;
-    _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
+    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
     //èdÇ›èâä˙âª
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         _weight[i] = 0.0f;
@@ -50,7 +50,7 @@ GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
     _class_name = "GgafDxMorphMeshActor";
     _pMorphMeshModel = (GgafDxMorphMeshModel*)_pModel;
     _pMorphMeshEffect = (GgafDxMorphMeshEffect*)_pEffect;
-    _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
+    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
     //èdÇ›èâä˙âª
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         _weight[i] = 0.0f;

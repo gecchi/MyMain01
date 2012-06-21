@@ -46,7 +46,7 @@ void FormationPallas001::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
     //•Ò‘àÁ–ÅŽž‚ÌŽÀŒ±
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->pDepo_EffectTurbo002_->dispatchForce();
     if (pTurbo002) {
-		pTurbo002->locatedBy((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
+		pTurbo002->locateWith((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
         pTurbo002->activate();
     }
 }

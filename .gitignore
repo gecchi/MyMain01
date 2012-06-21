@@ -1,5 +1,8 @@
-/Debug
+/ReleaseCdt*
+/GprofCdt*
+/DebugCdt*
 /Release
+/Debug
 /.project
 *.stackdump
 /_cppTest_

@@ -89,7 +89,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
-        locatedBy(pOrg_);
+        locateWith(pOrg_);
         _tmpX = _X;
         _tmpY = _Y;
         _tmpZ = _Z;
@@ -157,10 +157,10 @@ void MyOptionWateringLaserChip001::moveChip(int tX,int tY, int tZ) {
     if (lVM > max_velo_renge_/2) {
         angle RZ_temp = _RZ;
         angle RY_temp = _RY;
-        GgafDxUtil::getRzRyAng(vVMx, vVMy, vVMz,
+        UTIL::getRzRyAng(vVMx, vVMy, vVMz,
                                 RZ_temp, RY_temp);
-        angle angDRZ = GgafDxUtil::getAngDiff(RZ_temp, _RZ);
-        angle angDRY = GgafDxUtil::getAngDiff(RY_temp, _RY);
+        angle angDRZ = UTIL::getAngDiff(RZ_temp, _RZ);
+        angle angDRY = UTIL::getAngDiff(RY_temp, _RY);
         if (-4000 <= angDRZ) {
             _RZ -= 4000;
         } else if (angDRZ <= 4000) {
@@ -226,14 +226,14 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //オプション非ロックオン中に命中した場合
         }
 
-        int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+        int stamina = UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
             EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
             if (pExplo001) {
-                pExplo001->locatedBy(this);
+                pExplo001->locateWith(this);
             }
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
@@ -254,7 +254,7 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         //破壊されたエフェクト
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
         }
         sayonara();
     }

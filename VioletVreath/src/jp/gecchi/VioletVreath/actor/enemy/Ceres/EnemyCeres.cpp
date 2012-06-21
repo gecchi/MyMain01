@@ -67,8 +67,8 @@ void EnemyCeres::processBehavior() {
     if (iMovePatternNo_ == 0 && _X > 400000) {
 
         angle way[32];
-        //GgafDxUtil::getWayAngle2D(180000, 8, 10000, way);
-        GgafDxUtil::getRadialAngle2D(0, 32, way);
+        //UTIL::getWayAngle2D(180000, 8, 10000, way);
+        UTIL::getRadialAngle2D(0, 32, way);
         GgafDxDrawableActor* pTama;
         for (int i = 0; i < 16; i++) {
             pTama = (GgafDxDrawableActor*)pDepo_EnemyCeresShots001_->dispatch();
@@ -103,13 +103,13 @@ void EnemyCeres::processJudgement() {
 void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //・・・ココにヒットされたエフェクト
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         setHitAble(false);
         _pSeTx->play3D(0);
         GgafDxDrawableActor* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
         }
         sayonara();
     }

@@ -96,7 +96,7 @@ void FixedVelocitySplineManufacture::calculate() {
         x_to = _sp->_X_compute[t]*_rate_X;
         y_to = _sp->_Y_compute[t]*_rate_Y;
         z_to = _sp->_Z_compute[t]*_rate_Z;
-        _paDistace_to[t] = GgafDxUtil::getDistance(
+        _paDistace_to[t] = UTIL::getDistance(
                                     x_from,
                                     y_from,
                                     z_from,

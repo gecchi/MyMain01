@@ -91,13 +91,13 @@ void MenuBoard::onRisen() {
     _pKurokoA->setMvAng(target_X_, target_Y_);
     _pKurokoA->execSmoothMvSequence(
                     0,
-                    GgafDxCore::GgafDxUtil::getDistance(
+                    UTIL::getDistance(
                         _X,
                         _Y,
                         target_X_,
                         target_Y_
-                     ),
-                     menu_fade_frames_, 0.1, 0.3
+                    ),
+                    menu_fade_frames_, 0.1, 0.3
                );
     _pSeTx->play(SE_MENU_OPEN);
 }
@@ -122,7 +122,7 @@ void MenuBoard::onSunk() {
                         target_Y_ + slide_from_offset_Y_);
     _pKurokoA->execSmoothMvSequence(
                     0,
-                    GgafDxCore::GgafDxUtil::getDistance(
+                    UTIL::getDistance(
                         _X,
                         _Y,
                         target_X_ + slide_from_offset_X_,

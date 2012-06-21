@@ -297,7 +297,7 @@ bool GgafDxGeometricActor::isOutOfUniverse() {
     return true;
 }
 
-void GgafDxGeometricActor::locatedBy(GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxGeometricActor::locateWith(GgafDxGeoElem* prm_pGeoElem) {
     _X = prm_pGeoElem->_X;
     _Y = prm_pGeoElem->_Y;
     _Z = prm_pGeoElem->_Z;
@@ -308,8 +308,17 @@ void GgafDxGeometricActor::rotateWith(GgafDxGeometricActor* prm_pActor) {
     _RY = prm_pActor->_RY;
     _RZ = prm_pActor->_RZ;
 }
+void GgafDxGeometricActor::rotateWith(GgafDxGeoElem* prm_pGeoElem) {
+    _RX = prm_pGeoElem->_RX;
+    _RY = prm_pGeoElem->_RY;
+    _RZ = prm_pGeoElem->_RZ;
+}
 
-
+void GgafDxGeometricActor::scaleWith(GgafDxGeometricActor* prm_pActor) {
+    _SX = prm_pActor->_SX;
+    _SY = prm_pActor->_SY;
+    _SZ = prm_pActor->_SZ;
+}
 void GgafDxGeometricActor::onEnded() {
     GgafDxBaseActor::onEnded();
     _pFormation = NULL;

@@ -55,7 +55,7 @@ void VamSysCamWorker::initialize() {
     pVP->_pKurokoB->forceVzMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
 
     stop_renge_ = 60000;
-    angXY_nowCamUp_ = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    angXY_nowCamUp_ = UTIL::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
     stop_dZ_ = 0;
     stop_dY_ = 0;
     _TRACE_("VamSysCamWorker::initialize() this="<<this);
@@ -123,7 +123,7 @@ void VamSysCamWorker::processBehavior() {
         move_target_X_VP = pOptCtrlr->_X + pOptCtrlr->_pKurokoA->_vX*d;
         move_target_Y_VP = pOptCtrlr->_Y + pOptCtrlr->_pKurokoA->_vY*d;
         move_target_Z_VP = pOptCtrlr->_Z + pOptCtrlr->_pKurokoA->_vZ*d;
-        move_target_XY_CAM_UP = GgafDxUtil::simplifyAng(pOptCtrlr->_pKurokoA->_angRzMv+D90ANG);
+        move_target_XY_CAM_UP = UTIL::simplifyAng(pOptCtrlr->_pKurokoA->_angRzMv+D90ANG);
 
     } else {//í èÌéûVAM
         if (pos_camera_ < VAM_POS_TO_BEHIND) {
@@ -507,15 +507,15 @@ void VamSysCamWorker::processBehavior() {
     //ÉJÉÅÉâÇÃUPÇåvéZ
     angvelo angvelo_cam_up = cam_velo_renge/20; //cam_velo_rengeÇÕVB_VIEWâüÇµÇ¡ÇœÇ≈í¥í·ë¨Ç…Ç»ÇÈï˚ÇÃë¨ìx
     if (angXY_nowCamUp_ != move_target_XY_CAM_UP) {
-        angle da = GgafDxUtil::getAngDiff(angXY_nowCamUp_, move_target_XY_CAM_UP);
+        angle da = UTIL::getAngDiff(angXY_nowCamUp_, move_target_XY_CAM_UP);
         if (-angvelo_cam_up < da && da < angvelo_cam_up) {
             angXY_nowCamUp_ = move_target_XY_CAM_UP;
         } else {
             angXY_nowCamUp_ += (angvelo_cam_up * SGN(da));
         }
-        angXY_nowCamUp_ = GgafDxUtil::simplifyAng(angXY_nowCamUp_);
-        pCam->_pVecCamUp->x = GgafDxUtil::COS[angXY_nowCamUp_/SANG_RATE];
-        pCam->_pVecCamUp->y = GgafDxUtil::SIN[angXY_nowCamUp_/SANG_RATE];
+        angXY_nowCamUp_ = UTIL::simplifyAng(angXY_nowCamUp_);
+        pCam->_pVecCamUp->x = UTIL::COS[angXY_nowCamUp_/SANG_RATE];
+        pCam->_pVecCamUp->y = UTIL::SIN[angXY_nowCamUp_/SANG_RATE];
         pCam->_pVecCamUp->z = 0.0f;
     }
 

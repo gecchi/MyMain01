@@ -20,7 +20,7 @@ using namespace GgafLib;
 //    for (int i = 0; i < prm_way; i++) {
 //        pActor_Shot = (GgafDxGeometricActor*)prm_pDepo_Shot->dispatch();
 //        if (pActor_Shot) {
-//            pActor_Shot->locatedBy(prm_pFrom);
+//            pActor_Shot->locateWith(prm_pFrom);
 //            pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAng_way[i], ry);
 //            pActor_Shot->_pKurokoA->setMvVelo(prm_velo);
 //            pActor_Shot->_pKurokoA->setMvAcce(prm_acce);
@@ -49,7 +49,7 @@ using namespace GgafLib;
 //        for (int i = 0; i < prm_way; i++) {
 //            pActor_Shot = (GgafDxGeometricActor*)prm_pDepo_Shot->dispatch();
 //            if (pActor_Shot) {
-//                pActor_Shot->locatedBy(prm_pFrom);
+//                pActor_Shot->locateWith(prm_pFrom);
 //                pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAng_way[i], ry);
 //                pActor_Shot->_pKurokoA->setMvVelo(now_velo);
 //                pActor_Shot->_pKurokoA->setMvAcce(now_acce);
@@ -77,7 +77,7 @@ using namespace GgafLib;
 //    for (int i = 0; i < prm_way; i++) {
 //        pActor_Shot = (GgafDxGeometricActor*)prm_pDepo_Shot->dispatch();
 //        if (pActor_Shot) {
-//            pActor_Shot->locatedBy(prm_pFrom);
+//            pActor_Shot->locateWith(prm_pFrom);
 //            pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAng_way[i], ry+D90ANG);
 //            pActor_Shot->_pKurokoA->setMvVelo(prm_velo);
 //            pActor_Shot->_pKurokoA->setMvAcce(prm_acce);
@@ -105,7 +105,7 @@ using namespace GgafLib;
 //        for (int i = 0; i < prm_way; i++) {
 //            pActor_Shot = (GgafDxGeometricActor*)prm_pDepo_Shot->dispatch();
 //            if (pActor_Shot) {
-//                pActor_Shot->locatedBy(prm_pFrom);
+//                pActor_Shot->locateWith(prm_pFrom);
 //                pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAng_way[i], ry+D90ANG);
 //                pActor_Shot->_pKurokoA->setMvVelo(now_velo);
 //                pActor_Shot->_pKurokoA->setMvAcce(now_acce);

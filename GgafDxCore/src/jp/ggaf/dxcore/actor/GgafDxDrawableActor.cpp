@@ -13,7 +13,7 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker) {
     _obj_class |= Obj_GgafDxDrawableActor;
     _class_name = "GgafDxDrawableActor";
-    _hash_technique = GgafUtil::easy_hash(prm_technique);
+    _hash_technique = UTIL::easy_hash(prm_technique);
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
     _temp_technique = NEW char[51];
@@ -53,7 +53,7 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker) {
 
     _class_name = "GgafDxDrawableActor";
-    _hash_technique = GgafUtil::easy_hash(prm_technique);
+    _hash_technique = UTIL::easy_hash(prm_technique);
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
     _temp_technique = NEW char[51];

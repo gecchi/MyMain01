@@ -1,7 +1,12 @@
 #ifndef GGAFDXUTIL_H_
 #define GGAFDXUTIL_H_
-namespace GgafDxCore {
 
+#ifdef UTIL
+    #undef UTIL
+#endif
+#define UTIL GgafDxCore::GgafDxUtil
+
+namespace GgafDxCore {
 
 /**
  * ユーティリティクラス .
@@ -10,7 +15,7 @@ namespace GgafDxCore {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class GgafDxUtil: public GgafCore::GgafUtil {
+class GgafDxUtil : public GgafCore::GgafUtil {
 
     struct AngleSet {
         angle RZ[D360SANG+1];

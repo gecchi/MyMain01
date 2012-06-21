@@ -84,7 +84,7 @@ void EnemyCeresShot001::processJudgement() {
 void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
         _pSeTx->play3D(0);
         setHitAble(false);
@@ -92,7 +92,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001 =
                 employFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
         }
 
         sayonara();

@@ -75,7 +75,7 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     }
 
     pMagicMeterStatus_ = NEW MagicMeterStatus("MagicMeterStatus", this);
-    pMagicMeterStatus_->locatedBy(this);
+    pMagicMeterStatus_->locateWith(this);
     addSubGroup(pMagicMeterStatus_);
 
     //エネルギーバー設置

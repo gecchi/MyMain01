@@ -50,13 +50,13 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
 }
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
-    GgafDxUtil::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
+    UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
     int n = 0;
     for (int i = 0; i < max_level_; i++) {
         papEffect_[i]->inactivateImmed();
     }
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-        papEffect_[lv-1]->locatedBy(P_MYSHIP);
+        papEffect_[lv-1]->locateWith(P_MYSHIP);
         papEffect_[lv-1]->_pKurokoA->setRzRyMvAng(paAng_way[n], D90ANG);
         papEffect_[lv-1]->_pKurokoA->setMvVelo(2000);
         papEffect_[lv-1]->_pKurokoA->setMvAcce(-5);
@@ -130,7 +130,7 @@ void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
         MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrlr_[lv-1];
         papEffect_[lv-1]->setAlpha(r_effect_);
 //        papEffect_[lv-1]->setScaleR(3.0f+(1.0f-r_effect_)*4.0);
-        papEffect_[lv-1]->locatedBy(p->pOption_);
+        papEffect_[lv-1]->locateWith(p->pOption_);
         p->pOption_->setAlpha(1.0f-r_effect_);
     }
     if (r_effect_ < 0) {

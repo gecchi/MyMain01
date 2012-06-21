@@ -60,7 +60,7 @@ void EnemyJuno::processBehavior() {
             MyShip* pM = P_MYSHIP;
             if (pDepo_Shot_) {
                 GgafDxGeometricActor* pFirst =
-                  StgUtil::shotWay001(_X, _Y, _Z,
+                  UTIL::shotWay001(_X, _Y, _Z,
                                       pM->_X, pM->_Y, pM->_Z,
                                       pDepo_Shot_,
                                       PX_C(10),
@@ -76,7 +76,7 @@ void EnemyJuno::processBehavior() {
 //                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                if (pShot) {
 //                    shot_num_++;
-//                    pShot->locatedBy(this);
+//                    pShot->locateWith(this);
 //                    pShot->_pKurokoA->relateFaceAngWithMvAng(true);
 //                    pShot->_pKurokoA->setMvAng(P_MYSHIP);
 //                    pShot->reset();
@@ -118,11 +118,11 @@ void EnemyJuno::onInactive() {
 
 void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         _pSeTx->play3D(0);
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
             pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
         sayonara();

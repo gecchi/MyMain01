@@ -23,7 +23,7 @@ void EnemyMassaliaFragment2::initialize() {
 
 void EnemyMassaliaFragment2::onActive() {
     //ステータスリセット
-    MyStgUtil::resetEnemyMassaliaFragment2Status(_pStatus);
+    UTIL::resetEnemyMassaliaFragment2Status(_pStatus);
     setHitAble(true);
 }
 
@@ -42,11 +42,11 @@ void EnemyMassaliaFragment2::processJudgement() {
 void EnemyMassaliaFragment2::onHit(GgafActor* prm_pOtherActor) {
     effectFlush(2); //フラッシュ
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTx->play3D(0);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
             pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
@@ -57,7 +57,7 @@ void EnemyMassaliaFragment2::onHit(GgafActor* prm_pOtherActor) {
         for (int i = 0; i < R_EnemyMassalia_ShotWay; i++) {
             EnemyMassaliaFragment3* p = (EnemyMassaliaFragment3*)(pDepo->dispatch());
             if (p) {
-                p->locatedBy(this);
+                p->locateWith(this);
                 p->_pKurokoA->takeoverMvFrom(this->_pKurokoA);
                 p->_pKurokoA->setMvVelo(p->_pKurokoA->_veloMv/2); //半分のスピードへ
                 p->_pKurokoA->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));

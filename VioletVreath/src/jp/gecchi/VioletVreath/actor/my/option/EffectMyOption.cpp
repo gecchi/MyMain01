@@ -45,7 +45,7 @@ void EffectMyOption::processBehavior() {
 //        _pScaler->beat(30,8,2,-1);
 //        _pProg->change(2);
 //    }
-    locatedBy(pOption_);
+    locateWith(pOption_);
     _pKurokoA->behave();
     _pScaler->behave();
 }

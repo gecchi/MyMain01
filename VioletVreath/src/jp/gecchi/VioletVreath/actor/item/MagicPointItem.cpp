@@ -55,7 +55,7 @@ void MagicPointItem::onActive() {
 
     _pKurokoA->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
-    GgafDxUtil::getNormalizeVector(
+    UTIL::getNormalizeVector(
             pMyShip->_X - _X,
             pMyShip->_Y - _Y,
             pMyShip->_Z - _Z,

@@ -140,7 +140,7 @@ void Universe::resetCameraWork() {
     pActiveCamWorker_ = stack_CamWorkerCon_.getLast()->fetch();
     pActiveCamWorker_->setMoveTargetCamBy(P_CAM);
     pActiveCamWorker_->setMoveTargetCamVpBy(P_CAM->_pViewPoint);
-    pActiveCamWorker_->angXY_nowCamUp_ = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    pActiveCamWorker_->angXY_nowCamUp_ = UTIL::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
     pActiveCamWorker_->move_target_XY_CAM_UP_ = pActiveCamWorker_->angXY_nowCamUp_;
     pActiveCamWorker_->activate();
 //    _TRACE_("resetCameraWork end---");

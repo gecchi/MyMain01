@@ -54,7 +54,7 @@ void CameraWorker::unlockCamVp() {
 void CameraWorker::onSwitchCameraWork() {
     setMoveTargetCamBy(P_CAM);
     setMoveTargetCamVpBy(P_CAM->_pViewPoint);
-    angXY_nowCamUp_ = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    angXY_nowCamUp_ = UTIL::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
     move_target_XY_CAM_UP_ = angXY_nowCamUp_;
 }
 
@@ -65,7 +65,7 @@ void CameraWorker::onSwitchToOherCameraWork() {
 }
 
 void CameraWorker::onCameBackFromOtherCameraWork() {
-    angXY_nowCamUp_ = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    angXY_nowCamUp_ = UTIL::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
 }
 
 void CameraWorker::processBehavior() {
@@ -178,15 +178,15 @@ void CameraWorker::processBehavior() {
     angvelo angvelo_cam_up = cam_velo_renge/20;
 
     if (angXY_nowCamUp_ != move_target_XY_CAM_UP_) {
-        angle da = GgafDxUtil::getAngDiff(angXY_nowCamUp_, move_target_XY_CAM_UP_);
+        angle da = UTIL::getAngDiff(angXY_nowCamUp_, move_target_XY_CAM_UP_);
         if (-angvelo_cam_up < da && da < angvelo_cam_up) {
             angXY_nowCamUp_ = move_target_XY_CAM_UP_;
         } else {
             angXY_nowCamUp_ += (angvelo_cam_up * SGN(da));
         }
-        angXY_nowCamUp_ = GgafDxUtil::simplifyAng(angXY_nowCamUp_);
-        pCam->_pVecCamUp->x = GgafDxUtil::COS[angXY_nowCamUp_/SANG_RATE];
-        pCam->_pVecCamUp->y = GgafDxUtil::SIN[angXY_nowCamUp_/SANG_RATE];
+        angXY_nowCamUp_ = UTIL::simplifyAng(angXY_nowCamUp_);
+        pCam->_pVecCamUp->x = UTIL::COS[angXY_nowCamUp_/SANG_RATE];
+        pCam->_pVecCamUp->y = UTIL::SIN[angXY_nowCamUp_/SANG_RATE];
         pCam->_pVecCamUp->z = 0.0f;
     }
 

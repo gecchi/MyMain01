@@ -1,5 +1,11 @@
 #ifndef STGUTIL_H_
 #define STGUTIL_H_
+
+#ifdef UTIL
+    #undef UTIL
+#endif
+#define UTIL GgafLib::StgUtil
+
 namespace GgafLib {
 
 class StgUtil: public GgafDxCore::GgafDxUtil {
@@ -468,11 +474,11 @@ public:
                         //                 _
                         //        „¡„Ÿ„Ÿ„Ÿ„¢ `„Ÿ
                         // z- ©  „       „   ¨ z+
-                        int r = pSphere02->_r * GgafDxUtil::ROOT_1_MINUS_XX[(int)((1.0*(bZc - aZ2) / pSphere02->_r)*1000)];
+                        int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bZc - aZ2) / pSphere02->_r)*1000)];
                         oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_x * r;
                         oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_y * r;
                     } else if (aZ1 >= bZc) {
-                        int r = pSphere02->_r * GgafDxUtil::ROOT_1_MINUS_XX[(int)((1.0*(aZ1 - bZc) / pSphere02->_r)*1000)];
+                        int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aZ1 - bZc) / pSphere02->_r)*1000)];
                         oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_x * r;
                         oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_y * r;
                     }
@@ -563,11 +569,11 @@ public:
                     oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_y * pSphere02->_r;
                 } else {
                     if (bXc >= aX2) {
-                        int r = pSphere02->_r * GgafDxUtil::ROOT_1_MINUS_XX[(int)((1.0*(bXc - aX2) / pSphere02->_r)*1000)];
+                        int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bXc - aX2) / pSphere02->_r)*1000)];
                         oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_x * r;
                         oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_y * r;
                     } else if (aX1 >= bXc) {
-                        int r = pSphere02->_r * GgafDxUtil::ROOT_1_MINUS_XX[(int)((1.0*(aX1 - bXc) / pSphere02->_r)*1000)];
+                        int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aX1 - bXc) / pSphere02->_r)*1000)];
                         oppY = (pActor02->_Y + pSphere02->_y) + pAAPrism01->_vIH_x * r;
                         oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_y * r;
                     }
@@ -655,11 +661,11 @@ public:
                     oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_y * pSphere02->_r;
                 } else {
                     if (bYc >= aY2) {
-                        int r = pSphere02->_r * GgafDxUtil::ROOT_1_MINUS_XX[(int)((1.0*(bYc - aY2) / pSphere02->_r)*1000)];
+                        int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bYc - aY2) / pSphere02->_r)*1000)];
                         oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_x * r;
                         oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_y * r;
                     } else if (aY1 >= bYc) {
-                        int r = pSphere02->_r * GgafDxUtil::ROOT_1_MINUS_XX[(int)((1.0*(aY1 - bYc) / pSphere02->_r)*1000)];
+                        int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aY1 - bYc) / pSphere02->_r)*1000)];
                         oppZ = (pActor02->_Z + pSphere02->_z) + pAAPrism01->_vIH_x * r;
                         oppX = (pActor02->_X + pSphere02->_x) + pAAPrism01->_vIH_y * r;
                     }

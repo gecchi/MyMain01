@@ -10,7 +10,7 @@ EffectSmileMagic001::EffectSmileMagic001(const char* prm_name) :
     changeEffectTechnique("DestBlendOne"); //加算合成Technique
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(false); //Zバッファは書き込み無し
-    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv); //変換行列をビルボードに
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //変換行列をビルボードに
     setHitAble(false);
 }
 

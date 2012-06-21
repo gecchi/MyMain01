@@ -30,34 +30,35 @@ void VvvWorld::processBehavior() {
         pCamWorker_->move_target_Z_VP_ =  0;
         pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
-        if (_list.length() > 0) {
+        if (_listActorInfo.length() > 0) {
             if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
-                pCursor_->moveTo(_list.getCurrent());
+                pCursor_->moveTo(_listActorInfo.getCurrent()->pActor_);
             } else {
-                pCursor_->moveTo(_list.next());
+                pCursor_->moveTo(_listActorInfo.next()->pActor_);
             }
-            _list.getCurrent()->effectFlush(30);
+            _listActorInfo.getCurrent()->pActor_->effectFlush(30);
         }
     } else if (GgafDxInput::isPushedDownKey(DIK_RETURN)) {
-        if (_list.length() > 0) {
+        if (_listActorInfo.length() > 0) {
             if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
-                pCursor_->moveTo(_list.getCurrent());
+                pCursor_->moveTo(_listActorInfo.getCurrent()->pActor_);
             } else {
-                pCursor_->moveTo(_list.next());
+                pCursor_->moveTo(_listActorInfo.next()->pActor_);
             }
-            _list.getCurrent()->effectFlush(30);
+            _listActorInfo.getCurrent()->pActor_->effectFlush(30);
         }
-        GgafDxDrawableActor* pT = _list.getCurrent();
+        GgafDxDrawableActor* pT = _listActorInfo.getCurrent()->pActor_;
         pCamWorker_->move_target_X_VP_ =  pT->_X;
         pCamWorker_->move_target_Y_VP_ =  pT->_Y;
         pCamWorker_->move_target_Z_VP_ =  pT->_Z;
         pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
-    } else if (GgafDxInput::isPushedDownKey(DIK_Q)) {
-        if (_list.length() > 0) {
-            _list.remove()->end();
+    } else if (GgafDxInput::isPushedDownKey(DIK_DELETE)) {
+        if (_listActorInfo.length() > 0) {
+            _listActorInfo.getCurrent()->pActor_->end();
+            _listActorInfo.remove();
         }
-        if (_list.length() > 0) {
-            pCursor_->moveTo(_list.getCurrent());
+        if (_listActorInfo.length() > 0) {
+            pCursor_->moveTo(_listActorInfo.getCurrent()->pActor_);
         }
     } else if (GgafDxInput::isPushedDownKey(DIK_W)) {
         //ワイヤフレーム表示切替
@@ -66,11 +67,11 @@ void VvvWorld::processBehavior() {
         } else {
             GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
         }
+        GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDxGod::_d3dfillmode);
     }
 
-
-    if (_list.length() > 0) {
-        GgafDxDrawableActor* pActor =  _list.getCurrent();
+    if (_listActorInfo.length() > 0) {
+        GgafDxDrawableActor* pActor =  _listActorInfo.getCurrent()->pActor_;
         int d = 1;
         if (GgafDxInput::isBeingPressedKey(DIK_SPACE) || GgafDxInput::isBeingPressedKey(DIK_LCONTROL) || GgafDxInput::isBeingPressedKey(DIK_RCONTROL)) {
             d = 10;
@@ -149,28 +150,30 @@ void VvvWorld::processBehavior() {
         } else if (GgafDxInput::isBeingPressedKey(DIK_R)) {
             //軸回転
             if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
-                pActor->_RX += D_ANG(d);
+                pActor->_RX = UTIL::simplifyAng(pActor->_RX + D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_PGDN)) {
-                pActor->_RX -= D_ANG(d);
+                pActor->_RX = UTIL::simplifyAng(pActor->_RX - D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                pActor->_RZ += D_ANG(d);
+                pActor->_RZ = UTIL::simplifyAng(pActor->_RZ + D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                pActor->_RZ -= D_ANG(d);
+                pActor->_RZ = UTIL::simplifyAng(pActor->_RZ - D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                pActor->_RY += D_ANG(d);
+                pActor->_RY = UTIL::simplifyAng(pActor->_RY + D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                pActor->_RY -= D_ANG(d);
+                pActor->_RY = UTIL::simplifyAng(pActor->_RY - D_ANG(d));
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
                 pActor->_RX = 0;
                 pActor->_RY = 0;
                 pActor->_RZ = 0;
             }
+        } else if (GgafDxInput::isBeingPressedKey(DIK_C)) {
+
         } else {
             //平行移動
             if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
@@ -198,8 +201,8 @@ void VvvWorld::processBehavior() {
             }
         }
 
-        if ( Obj_GgafDxMorphMeshActor & pActor->_obj_class) {
-            DefaultMorphMeshActor* pMorphMeshActor = dynamic_cast<DefaultMorphMeshActor*>(pActor);
+        if ( Obj_GgafDxCubeMapMorphMeshActor & pActor->_obj_class) {
+            CubeMapMorphMeshActor* pMorphMeshActor = dynamic_cast<CubeMapMorphMeshActor*>(pActor);
             if (pMorphMeshActor) {
                 for (int i = 1; i <= pMorphMeshActor->_pMorphMeshModel->_morph_target_num; i++) {
                     if (GgafDxInput::isBeingPressedKey(DIK_1 + (i-1))) {
@@ -214,9 +217,10 @@ void VvvWorld::processBehavior() {
     }
 
     if (VvvGod::is_wm_dropfiles_) {
-        string dropfile_dir = GgafCore::GgafUtil::getFileDirName(VvvGod::dropfiles_) + "/";
-        string model_id = GgafCore::GgafUtil::getFileBaseNameWithoutExt(VvvGod::dropfiles_);
-        string model_type = GgafCore::GgafUtil::getFileExt(VvvGod::dropfiles_);
+        string dropfile_dir = UTIL::getFileDirName(VvvGod::dropfiles_) + "/";
+        string file_name = UTIL::getFileBaseName(VvvGod::dropfiles_);
+        string model_id = UTIL::getFileBaseNameWithoutExt(VvvGod::dropfiles_);
+        string model_type = UTIL::getFileExt(VvvGod::dropfiles_);
         _TRACE_("dropfile_dir="<<dropfile_dir);
         _TRACE_("model_id="<<model_id);
         _TRACE_("model_type="<<model_type);
@@ -238,6 +242,7 @@ void VvvWorld::processBehavior() {
         transform(model_type.begin(), model_type.end(), model_type.begin(), static_cast<int (*)(int)>(toupper));
 
         GgafDxDrawableActor* pActor = NULL;
+        std::string modelfile = "";
         if (model_type == "X") {
             if (model_id.length() > 2 && model_id.substr(model_id.length()-2) == "_0") {
                 //model_id = "donatu_0"
@@ -254,7 +259,7 @@ void VvvWorld::processBehavior() {
                         break;
                     }
                 }
-                pActor = createInFactory2(GgafLib::DefaultMorphMeshActor, "actor",
+                pActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor",
                                           string(ITOS(targetnum) + "/" +model_part).c_str());
                 //モーフ
             } else {
@@ -262,23 +267,57 @@ void VvvWorld::processBehavior() {
 //            if (model_id.find("WORLDBOUND") == string::npos) {
 //                pActor = createInFactory2(GgafLib::WorldBoundActor, "actor", filename);
 //            } else {
-                pActor = createInFactory2(GgafLib::DefaultMeshActor, "actor", model_id.c_str());
+                pActor = createInFactory2(GgafLib::CubeMapMeshActor, "actor", model_id.c_str());
 //            }
             }
         } else if (model_type == "SPRX") {
             pActor = createInFactory2(GgafLib::DefaultSpriteActor, "actor", model_id.c_str());
         } else if (model_type == "PSPRX") {
             pActor = createInFactory2(GgafLib::DefaultPointSpriteActor, "actor", model_id.c_str());
+        } else if (model_type == "DDS") {
+            if (_listActorInfo.getCurrent()) {
+                GgafDxDrawableActor* pCurrentActor = _listActorInfo.getCurrent()->pActor_;
+//                if ( Obj_GgafDxMeshActor & pCurrentActor->_obj_class) {
+//                    CubeMapMeshActor* pNewActor = createInFactory2(GgafLib::CubeMapMeshActor, "actor",
+//                                                                   pCurrentActor->_pModel->_model_name);
+//                    pNewActor->locateWith(pCurrentActor);
+//                    pNewActor->rotateWith(pCurrentActor);
+//                    pNewActor->scaleWith(pCurrentActor);
+//                    _listActorInfo.getCurrent()->pActor_->end();
+//                    _listActorInfo.getCurrent()->pActor_= pNewActor;
+//                    pNewActor->effectFlush(30);
+//                } else if ( Obj_GgafDxMorphMeshActor & pCurrentActor->_obj_class) {
+//                    CubeMapMorphMeshActor* pNewActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor",
+//                                                                        pCurrentActor->_pModel->_model_name);
+//                    pNewActor->locateWith(pCurrentActor);
+//                    pNewActor->rotateWith(pCurrentActor);
+//                    pNewActor->scaleWith(pCurrentActor);
+//                    _listActorInfo.getCurrent()->pActor_->end();
+//                    _listActorInfo.getCurrent()->pActor_= pNewActor;
+//                    pNewActor->effectFlush(30);
+//                }
+
+
+                if (Obj_GgafDxCubeMapMeshActor & pCurrentActor->_obj_class) {
+                    GgafDxCubeMapMeshActor* pCubeMapActor = (GgafDxCubeMapMeshActor*)pCurrentActor;
+                    pCubeMapActor->setCubeMap(file_name.c_str(), 0.5);
+                } else if( Obj_GgafDxCubeMapMorphMeshActor & pCurrentActor->_obj_class) {
+                    GgafDxCubeMapMorphMeshActor* pCubeMapMorphActor = (GgafDxCubeMapMorphMeshActor*)pCurrentActor;
+                    pCubeMapMorphActor->setCubeMap(file_name.c_str(), 0.5);
+                }
+            }
         } else {
 
         }
         if (pActor) {
             getDirector()->addSubGroup(pActor);
-            _list.addLast(pActor, false);
+            ActorInfo* pActorInfo = NEW ActorInfo(pActor, string(VvvGod::dropfiles_));
+            _listActorInfo.addLast(pActorInfo);
+            _listActorInfo.last(); //カレントをlastへ
             VvvCamera* pCam = P_CAM;
-            GgafDxGeometricActor* p = pCam->getViewPoint();
 
-            pActor->locatedBy(p);
+            GgafDxGeometricActor* p = pCam->getViewPoint();
+            pActor->locateWith(p);
         }
 
         //プロパティ復帰

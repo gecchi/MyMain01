@@ -3,9 +3,15 @@
 
 #define STATUS(X) (NEW GgafCore::GgafStatus(12, VioletVreath::MyStgUtil::reset##X##Status))
 
+
+#ifdef UTIL
+    #undef UTIL
+#endif
+#define UTIL VioletVreath::MyStgUtil
+
 namespace VioletVreath {
 
-class MyStgUtil: public GgafLib::StgUtil {
+class MyStgUtil : public GgafLib::StgUtil {
 public:
 
 

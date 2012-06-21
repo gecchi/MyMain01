@@ -9,7 +9,7 @@ EffectTurbo001::EffectTurbo001(const char* prm_name) :
     _class_name = "EffectTurbo001";
     inactivateImmed();
     changeEffectTechnique("DestBlendOne"); //加算合成
-    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し
 }
 

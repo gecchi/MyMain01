@@ -7,7 +7,7 @@ GgafDxSphereActor::GgafDxSphereActor(const char* prm_name,
                                      GgafDxChecker* prm_pChecker) :
 
                                      GgafDxMeshActor(prm_name,
-                                                     "sphere",
+                                                     "GgafDxSphere",
                                                      "DefaultMeshEffect",
                                                      "DefaultMeshTechnique",
                                                      prm_pStat,
@@ -33,7 +33,7 @@ void GgafDxSphereActor::drawSphere(coord prm_x, coord prm_y, coord prm_z, coord 
     _fX = C_DX(_X);
     _fY = C_DX(_Y);
     _fZ = C_DX(_Z);
-    GgafDxUtil::setWorldMatrix_ScRzMv(this, _matWorld);
+    UTIL::setWorldMatrix_ScRzMv(this, _matWorld);
     processDraw();
 }
 

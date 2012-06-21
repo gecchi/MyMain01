@@ -7,7 +7,7 @@ GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafAc
     _class_name = "GgafGroupHead";
 
     char aChar_strbit[33];
-    GgafUtil::strbin(prm_kind, aChar_strbit);
+    UTIL::strbin(prm_kind, aChar_strbit);
     std::stringstream ss;
     ss <<  "kind=" << aChar_strbit << "";
     std::string name = ss.str();

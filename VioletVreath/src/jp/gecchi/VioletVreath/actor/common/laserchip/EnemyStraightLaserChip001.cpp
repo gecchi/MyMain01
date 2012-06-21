@@ -42,7 +42,7 @@ void EnemyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //・・・ココにヒットされたエフェクト
     //playSe3D1();
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
         sayonara();

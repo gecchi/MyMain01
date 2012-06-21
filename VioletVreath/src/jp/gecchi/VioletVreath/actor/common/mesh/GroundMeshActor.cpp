@@ -38,7 +38,7 @@ void GroundMeshActor::processDraw() {
     HRESULT hr;
 //    hr = pID3DXEffect->SetMatrix(pMeshEffect_->h_matView_, &P_CAM->matView_ );
 //    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    GgafDxUtil::setWorldMatrix_RxRzRyMv(this, _matWorld);
+    UTIL::setWorldMatrix_RxRzRyMv(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 

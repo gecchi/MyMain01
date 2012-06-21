@@ -75,7 +75,7 @@ void HomingLaserChip::onInactive() {
         //後方チップが新たな先頭チップとなるレーザー構造のグループを _pKurokoA->behave() で動作を継続させるために、
         //新たな先頭チップへ現在の移動方向と移動速度の情報を伝達する必要がある。
         if (_pChip_behind) {
-            int D = (int)(GgafUtil::sqrt_fast(
+            int D = (int)(UTIL::sqrt_fast(
                               (
                                 ((double)(_pChip_behind->_X - _X)) * ((double)(_pChip_behind->_X - _X))
                               ) + (

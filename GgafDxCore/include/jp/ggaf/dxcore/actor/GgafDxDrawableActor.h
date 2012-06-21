@@ -118,7 +118,7 @@ public:
      * @param prm_technique テクニック名
      */
     void changeEffectTechnique(const char* prm_technique) {
-        _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
+        _hash_technique = UTIL::easy_hash(prm_technique);
         strcpy(_technique, prm_technique);
     }
 
@@ -141,7 +141,7 @@ public:
             strcpy(_temp_technique, _technique);
             //テクニック変更
             _frame_of_behaving_temp_technique_end = _frame_of_behaving + prm_frame; //変更満期フレーム
-            _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
+            _hash_technique = UTIL::easy_hash(prm_technique);
             strcpy(_technique, prm_technique);
             _is_temp_technique = true;
         }

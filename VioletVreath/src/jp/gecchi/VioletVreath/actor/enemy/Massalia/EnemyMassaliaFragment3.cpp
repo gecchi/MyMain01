@@ -23,7 +23,7 @@ void EnemyMassaliaFragment3::initialize() {
 
 void EnemyMassaliaFragment3::onActive() {
     //ステータスリセット
-    MyStgUtil::resetEnemyMassaliaFragment3Status(_pStatus);
+    UTIL::resetEnemyMassaliaFragment3Status(_pStatus);
     setHitAble(true);
 }
 
@@ -42,11 +42,11 @@ void EnemyMassaliaFragment3::processJudgement() {
 void EnemyMassaliaFragment3::onHit(GgafActor* prm_pOtherActor) {
     effectFlush(2); //フラッシュ
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTx->play3D(0);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
             pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
@@ -54,7 +54,7 @@ void EnemyMassaliaFragment3::onHit(GgafActor* prm_pOtherActor) {
         //アイテム出現
         Item* pItem = employFromCommon(MagicPointItem001);
         if (pItem) {
-            pItem->locatedBy(this);
+            pItem->locateWith(this);
         }
     }
 }

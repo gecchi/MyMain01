@@ -27,7 +27,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildLocation</key>
-					<value>${workspace_loc:/CustomizeOgg_static/ReleaseCdt}</value>
+					<value>${workspace_loc:/CustomizeOgg_static/DebugCdt}</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.contents</key>

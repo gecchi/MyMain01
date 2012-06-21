@@ -219,12 +219,12 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
     //斜辺ベクトル(x2_e-x1_s, y2_e-y1_s)に90度加えると
     //斜辺面の法線ベクトルとなるようにしてある。
     //ここで保持しておきたいのは-90度(+270度)のベクトルである
-    angle angIH = GgafDxUtil::simplifyAng(
-        GgafDxUtil::getAngle2D(x2_e-x1_s, y2_e-y1_s)
+    angle angIH = UTIL::simplifyAng(
+        UTIL::getAngle2D(x2_e-x1_s, y2_e-y1_s)
         + D270ANG
         );
-    _vIH_x = GgafDxUtil::COS[angIH/SANG_RATE];
-    _vIH_y = GgafDxUtil::SIN[angIH/SANG_RATE];
+    _vIH_x = UTIL::COS[angIH/SANG_RATE];
+    _vIH_y = UTIL::SIN[angIH/SANG_RATE];
 
 }
 

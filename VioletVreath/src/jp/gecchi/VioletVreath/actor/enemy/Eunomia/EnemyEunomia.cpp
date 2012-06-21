@@ -96,12 +96,12 @@ void EnemyEunomia::processBehavior() {
                 //放射状ショット
                 int way = R_EnemyEunomia_ShotWay; //ショットWAY数
                 angle* paAng_way = NEW angle[way];
-                GgafDxUtil::getRadialAngle2D(0, way, paAng_way);
+                UTIL::getRadialAngle2D(0, way, paAng_way);
                 GgafDxDrawableActor* pActor_Shot;
                 for (int i = 0; i < way; i++) {
                     pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
-                        pActor_Shot->locatedBy(this);
+                        pActor_Shot->locateWith(this);
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
                     }
                 }
@@ -110,7 +110,7 @@ void EnemyEunomia::processBehavior() {
                 if (pDepo_ShotEffect_) {
                     GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
                     if (pTestActor_Shot) {
-                        pTestActor_Shot->locatedBy(this);
+                        pTestActor_Shot->locateWith(this);
                     }
                 }
             }
@@ -145,11 +145,11 @@ void EnemyEunomia::processJudgement() {
 void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTx->play3D(0);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
             pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
 
@@ -160,7 +160,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
             //アイテム出現
             Item* pItem = employFromCommon(MagicPointItem001);
             if (pItem) {
-                pItem->locatedBy(this);
+                pItem->locateWith(this);
             }
         }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）

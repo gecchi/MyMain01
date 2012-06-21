@@ -45,10 +45,10 @@ void FixedVelocitySplineSequence::exec(SplinTraceOption prm_option) {
             _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pFixedVeloSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
             _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pFixedVeloSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
             GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
-            _SIN_RzMv_begin = GgafDxUtil::SIN[pKurokoA_target->_angRzMv/SANG_RATE];
-            _COS_RzMv_begin = GgafDxUtil::COS[pKurokoA_target->_angRzMv/SANG_RATE];
-            _SIN_RyMv_begin = GgafDxUtil::SIN[pKurokoA_target->_angRyMv/SANG_RATE];
-            _COS_RyMv_begin = GgafDxUtil::COS[pKurokoA_target->_angRyMv/SANG_RATE];
+            _SIN_RzMv_begin = UTIL::SIN[pKurokoA_target->_angRzMv/SANG_RATE];
+            _COS_RzMv_begin = UTIL::COS[pKurokoA_target->_angRzMv/SANG_RATE];
+            _SIN_RyMv_begin = UTIL::SIN[pKurokoA_target->_angRyMv/SANG_RATE];
+            _COS_RyMv_begin = UTIL::COS[pKurokoA_target->_angRyMv/SANG_RATE];
         } else if (_option == RELATIVE_COORD) {
             _X_begin = (_flip_X * pSpl->_X_compute[0] * _pFixedVeloSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
             _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pFixedVeloSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
@@ -84,7 +84,7 @@ void FixedVelocitySplineSequence::behave() {
                     //    | sinRy                                  , 0                    , cosRy                                   , 0 |
                     //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
 
-                    distace_to = GgafDxUtil::getDistance(
+                    distace_to = UTIL::getDistance(
                                             (double)_pActor_target->_X,
                                             (double)_pActor_target->_Y,
                                             (double)_pActor_target->_Z,
@@ -94,7 +94,7 @@ void FixedVelocitySplineSequence::behave() {
                                          );
                 } else if (_option == RELATIVE_COORD) {
                     //相対座標ターゲット
-                    distace_to = GgafDxUtil::getDistance(
+                    distace_to = UTIL::getDistance(
                                             (double)_pActor_target->_X,
                                             (double)_pActor_target->_Y,
                                             (double)_pActor_target->_Z,
@@ -104,7 +104,7 @@ void FixedVelocitySplineSequence::behave() {
                                          );
                 } else { //ABSOLUTE_COORD
                     //絶対座標ターゲット
-                    distace_to = GgafDxUtil::getDistance(
+                    distace_to = UTIL::getDistance(
                                             (double)_pActor_target->_X,
                                             (double)_pActor_target->_Y,
                                             (double)_pActor_target->_Z,

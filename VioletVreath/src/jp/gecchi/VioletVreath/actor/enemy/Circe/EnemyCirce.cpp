@@ -55,11 +55,11 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
             employFromCommon(EffectExplosion001);
     _pSeTx->play3D(0);
     if (pExplo001) {
-        pExplo001->locatedBy(this);
+        pExplo001->locateWith(this);
         pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
     }
 
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         sayonara();
     }
 }

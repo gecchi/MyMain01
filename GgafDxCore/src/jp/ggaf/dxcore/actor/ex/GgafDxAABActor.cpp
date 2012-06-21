@@ -6,11 +6,11 @@ GgafDxAABActor::GgafDxAABActor(const char* prm_name, GgafStatus* prm_pStat,
                                    GgafDxChecker* prm_pChecker) :
 
                                    GgafDxMeshActor(prm_name,
-                                                    "cube",
-                                                    "DefaultMeshEffect",
-                                                    "DefaultMeshTechnique",
-                                                    prm_pStat,
-                                                    prm_pChecker) {
+                                                   "GgafDxAAB",
+                                                   "DefaultMeshEffect",
+                                                   "DefaultMeshTechnique",
+                                                   prm_pStat,
+                                                   prm_pChecker) {
     //_obj_class |= Obj_GgafDxAABActor;
     _class_name = "GgafDxAABActor";
 }
@@ -32,7 +32,7 @@ void GgafDxAABActor::drawBox(coord prm_x1, coord prm_y1, coord prm_z1, coord prm
     _fX = C_DX(_X);
     _fY = C_DX(_Y);
     _fZ = C_DX(_Z);
-    GgafDxUtil::setWorldMatrix_ScRzMv(this, _matWorld);
+    UTIL::setWorldMatrix_ScRzMv(this, _matWorld);
     processDraw();
 }
 

@@ -4,11 +4,11 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) : 
+EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "EffectExplosion001", NULL) {
     _class_name = "EffectMyShipExplosion";
     changeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬Techniquew’è
-    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
 }
 
 void EffectMyShipExplosion::initialize() {
@@ -19,7 +19,7 @@ void EffectMyShipExplosion::initialize() {
 void EffectMyShipExplosion::onActive() {
     _pUvFlipper->setActivePtnToTop();
     _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 20);
-    locatedBy(P_MYSHIP);
+    locateWith(P_MYSHIP);
     _alpha = 0.99;
     _pScaler->setScale(8000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, 2000);
@@ -27,7 +27,7 @@ void EffectMyShipExplosion::onActive() {
 
 void EffectMyShipExplosion::processBehavior() {
     _alpha -= 0.01;
-    locatedBy(P_MYSHIP);
+    locateWith(P_MYSHIP);
     _pUvFlipper->behave();
     _pKurokoA->behave();
     _pScaler->behave();

@@ -78,7 +78,7 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
     tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pKurokoA->setMvAng(tX_, tY_);
-    _pKurokoA->execSmoothMvSequence(0, GgafDxUtil::getDistance(_X, _Y, tX_, tY_),
+    _pKurokoA->execSmoothMvSequence(0, UTIL::getDistance(_X, _Y, tX_, tY_),
                                     (int)prm_target_frames, prm_p1, prm_p2); //ƒ[ƒ‹‚ğl—¶‚¹‚¸‚É‚Æ‚è‚ ‚¦‚¸ˆÚ“®
 }
 

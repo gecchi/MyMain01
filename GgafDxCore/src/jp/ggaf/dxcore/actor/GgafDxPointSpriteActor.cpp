@@ -22,7 +22,7 @@ GgafDxPointSpriteActor::GgafDxPointSpriteActor(const char* prm_name,
     _class_name = "GgafDxPointSpriteActor";
     _pPointSpriteModel = (GgafDxPointSpriteModel*)_pModel;
     _pPointSpriteEffect = (GgafDxPointSpriteEffect*)_pEffect;
-    _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
+    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
 
     GgafDxTexture* pTexture = _pPointSpriteModel->_papTextureCon[0]->fetch();
     _pUvFlipper = NEW GgafDxUvFlipper(pTexture);

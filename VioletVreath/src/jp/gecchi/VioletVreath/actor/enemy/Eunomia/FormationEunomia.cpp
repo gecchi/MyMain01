@@ -42,12 +42,12 @@ void FormationEunomia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
     //編隊消滅時の実験
     EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
     if (pTurbo002) {
-        pTurbo002->locatedBy((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
+        pTurbo002->locateWith((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
     }
     //編隊全滅アイテム出現
     Item* pItem = employFromCommon(MagicPointItem002);
     if (pItem) {
-        pItem->locatedBy((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
+        pItem->locateWith((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
     }
 }
 
@@ -77,7 +77,7 @@ void FormationEunomia::processBehavior() {
             pEunomia = (EnemyEunomia*)pFllower;
             pShot = (GgafDxGeometricActor*)pDepo_Shot_->dispatch();
             if (pShot) {
-                pShot->locatedBy(pEunomia);
+                pShot->locateWith(pEunomia);
                 pShot->_pKurokoA->setMvAng(pMy);
                 pShot->_pKurokoA->setMvVelo(PX_C(10));
                 pShot->_pKurokoA->setMvAcce(0);

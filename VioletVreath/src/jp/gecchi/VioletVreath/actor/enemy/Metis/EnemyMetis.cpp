@@ -80,19 +80,19 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     if (pOther->getKind() & KIND_MY) {
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locatedBy((GgafDxGeometricActor*)prm_pOtherActor);
+            pExplo001->locateWith((GgafDxGeometricActor*)prm_pOtherActor);
             pExplo001->activate();
         }
     } else {
         //地形だったらエフェクトなし（地形の真ん中に表示されてしまうため);
     }
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
 
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTx->play3D(1);
         if (pExplo001) {
-            pExplo001->locatedBy((GgafDxGeometricActor*)prm_pOtherActor);
+            pExplo001->locateWith((GgafDxGeometricActor*)prm_pOtherActor);
             pExplo001->activate();
         }
         sayonara();
@@ -100,25 +100,25 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         //アイテム出現
         Item* pItem = employFromCommon(MagicPointItem001);
         if (pItem) {
-            pItem->locatedBy(this);
+            pItem->locateWith(this);
         }
 
         //打ち返し弾
         if (pDepo_Shot_) {
             MyShip* pM = P_MYSHIP;
             angle rz,ry;
-            GgafDxUtil::getRzRyAng(pM->_X - _X,
-                                   pM->_Y - _Y,
-                                   pM->_Z - _Z,
-                                   rz, ry);
-            StgUtil::shotWayGoldenAng(_X, _Y, _Z,
-                                      rz, ry,
-                                      pDepo_Shot_,
-                                      PX_C(20),
-                                      300,
-                                      D_ANG(1), 100,
-                                      2000, 200,
-                                      2, 4, 0.9);
+            UTIL::getRzRyAng(pM->_X - _X,
+                             pM->_Y - _Y,
+                             pM->_Z - _Z,
+                             rz, ry);
+            UTIL::shotWayGoldenAng(_X, _Y, _Z,
+                                   rz, ry,
+                                   pDepo_Shot_,
+                                   PX_C(20),
+                                   300,
+                                   D_ANG(1), 100,
+                                   2000, 200,
+                                   2, 4, 0.9);
 
         }
     }

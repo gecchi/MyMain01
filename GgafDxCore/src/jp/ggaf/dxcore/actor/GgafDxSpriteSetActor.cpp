@@ -30,7 +30,7 @@ GgafDxSpriteSetActor::GgafDxSpriteSetActor(const char* prm_name,
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
 
-    _pFunc_calcRotMvWorldMatrix = GgafDxUtil::setWorldMatrix_RxRzRyMv;
+    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
 
     _align = ALIGN_CENTER;
     _valign = VALIGN_MIDDLE;

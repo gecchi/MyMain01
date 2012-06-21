@@ -25,7 +25,7 @@ void MyStraightLaserChip001::processBehavior() {
     StraightLaserChip::processBehavior();
     //根元からレーザー表示のため強敵に座標補正
     if (onChangeToActive()) {
-        locatedBy(P_MYSHIP);
+        locateWith(P_MYSHIP);
     }
 }
 
@@ -55,14 +55,14 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-        int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+        int stamina = UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
             EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
             if (pExplo001) {
-                pExplo001->locatedBy(this);
+                pExplo001->locateWith(this);
             }
             sayonara();
         } else {
@@ -74,7 +74,7 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         //破壊されたエフェクト
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
         }
         sayonara();
     }

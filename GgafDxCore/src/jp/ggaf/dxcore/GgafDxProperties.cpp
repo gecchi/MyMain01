@@ -215,18 +215,18 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     GgafDxProperties::DIR_WAVE[1] = GgafProperties::DIR_SKIN_KIND[1] + "/"
             + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_WAVE + "/";
 
-    GgafUtil::strReplace(GgafDxProperties::DIR_MESH_MODEL[0]    , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_SPRITE_MODEL[0]  , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_TEXTURE[0]       , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_EFFECT[0]        , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_OGG[0]           , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_WAVE[0]          , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_MESH_MODEL[1]    , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_SPRITE_MODEL[1]  , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_TEXTURE[1]       , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_EFFECT[1]        , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_OGG[1]           , "//", "/");
-    GgafUtil::strReplace(GgafDxProperties::DIR_WAVE[1]          , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_MESH_MODEL[0]    , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_SPRITE_MODEL[0]  , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_TEXTURE[0]       , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_EFFECT[0]        , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_OGG[0]           , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_WAVE[0]          , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_MESH_MODEL[1]    , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_SPRITE_MODEL[1]  , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_TEXTURE[1]       , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_EFFECT[1]        , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_OGG[1]           , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_WAVE[1]          , "//", "/");
 
     //指定があるのならば、ディレクトリ存在チェック
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MESH")) {

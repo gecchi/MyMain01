@@ -49,7 +49,7 @@ void MyWave001::processBehavior() {
         _pScaler->intoTargetScaleLinerStep(100000,100);
         _pScaler->behave();
         setHitAble(true);
-        locatedBy(P_MYSHIP);
+        locateWith(P_MYSHIP);
         _pKurokoA->setFaceAng(AXIS_Z, P_MYSHIP->_pKurokoA->_angFace[AXIS_Z]);
         _pKurokoA->setFaceAng(AXIS_Y, P_MYSHIP->_pKurokoA->_angFace[AXIS_Y]);
         _pKurokoA->setRzRyMvAng(P_MYSHIP->_pKurokoA->_angFace[AXIS_Z],

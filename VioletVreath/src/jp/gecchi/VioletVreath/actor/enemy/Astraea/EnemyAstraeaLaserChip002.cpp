@@ -53,7 +53,7 @@ void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
         angle out_angRy_Target;
         angle out_d_angRz;
         angle out_d_angRy;
-        GgafDxUtil::getRzRyAng(P_MYSHIP->_X - _X,
+        UTIL::getRzRyAng(P_MYSHIP->_X - _X,
                                 P_MYSHIP->_Y - _Y,
                                 P_MYSHIP->_Z - _Z,
                                 out_angRz_Target,
@@ -76,7 +76,7 @@ void EnemyAstraeaLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 //    //ƒqƒbƒg
 //
 //    //‘Ì—ÍŒvZ
-//    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+//    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 //        //ƒqƒbƒg‚µ‚ÄÁ–Å
 //        sayonara();
 //    } else {

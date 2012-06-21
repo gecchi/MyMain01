@@ -594,7 +594,7 @@ MenuActor<T>* MenuActor<T>::getSubMenu() {
 template<class T>
 void MenuActor<T>::moveCursorNext() {
     if (_pCursor) {
-        _pCursor->locatedBy(_lstItems.getCurrent());
+        _pCursor->locateWith(_lstItems.getCurrent());
     }
     _lstItems.next();
     moveCursor();
@@ -603,7 +603,7 @@ void MenuActor<T>::moveCursorNext() {
 template<class T>
 void MenuActor<T>::moveCursorPrev() {
     if (_pCursor) {
-        _pCursor->locatedBy(_lstItems.getCurrent());
+        _pCursor->locateWith(_lstItems.getCurrent());
     }
     _lstItems.prev();
     moveCursor();
@@ -613,7 +613,7 @@ template<class T>
 void MenuActor<T>::moveCursorExNext() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
         if (_pCursor) {
-            _pCursor->locatedBy(_lstItems.getCurrent());
+            _pCursor->locateWith(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_EX_NEXT);
         moveCursor();
@@ -626,7 +626,7 @@ template<class T>
 void MenuActor<T>::moveCursorExPrev() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
         if (_pCursor) {
-            _pCursor->locatedBy(_lstItems.getCurrent());
+            _pCursor->locateWith(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_EX_PREV);
         moveCursor();
@@ -639,7 +639,7 @@ template<class T>
 void MenuActor<T>::moveCursorCancel() {
     if (_lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         if (_pCursor) {
-            _pCursor->locatedBy(_lstItems.getCurrent());
+            _pCursor->locateWith(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_TO_CANCEL);
         moveCursor();
@@ -661,7 +661,7 @@ void MenuActor<T>::moveCursor() {
         _pCursor->_pKurokoA->setMvAcce(0);
         _pCursor->_pKurokoA->execSmoothMvSequence(
                                  0,
-                                 GgafDxCore::GgafDxUtil::getDistance(
+                                 UTIL::getDistance(
                                          _pCursor->_X,
                                          _pCursor->_Y,
                                          _pCursor->_Z,

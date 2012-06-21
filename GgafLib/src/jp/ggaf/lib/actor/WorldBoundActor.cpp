@@ -33,11 +33,11 @@ void WorldBoundActor::processSettlementBehavior() {
     //・８分木登録
     //・視錐台からの距離計算
     //GgafDxGeometricActor::processSettlementBehavior() と同期を取る事！
-    locatedBy(P_CAM);
+    locateWith(P_CAM);
     _fX = C_DX(_X);
     _fY = C_DX(_Y);
     _fZ = C_DX(_Z);
-    GgafDxUtil::setWorldMatrix_ScRxRzRyMv(this, _matWorld); //ワールド変換
+    UTIL::setWorldMatrix_ScRxRzRyMv(this, _matWorld); //ワールド変換
 }
 //void WorldBoundActor::processPreDraw() {
 //    //画面外判定無しに伴ない処理簡略化

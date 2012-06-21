@@ -223,7 +223,7 @@ void MyTorpedo::onInactive() {
 void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ƒqƒbƒg’ÊŠÑ‚Í‚µ‚Ü‚¹‚ñ
-    int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+    int sta = UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
     setHitAble(false);
     _pProg->change(MyTorpedo_RELEASE);
     GgafMainActor* pTailEffect = pTailEffectDepository_->getSubFirst();
@@ -238,7 +238,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //”š•—”­¶
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)pOptionTorpedoCtrlr_->pDepo_TorpedoBlast_->dispatch();
     if (pBlast) {
-        pBlast->locatedBy(this);
+        pBlast->locateWith(this);
         pBlast->reset();
     }
 

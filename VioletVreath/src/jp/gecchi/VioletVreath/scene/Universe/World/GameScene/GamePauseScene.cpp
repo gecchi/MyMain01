@@ -96,13 +96,13 @@ void GamePauseScene::processBehavior() {
                     papMenuItemLabel_[i]->_pKurokoA->setMvAng(tX, tY);
                     papMenuItemLabel_[i]->_pKurokoA->execSmoothMvSequence(
                                                         0,
-                                                        GgafDxUtil::getDistance(papMenuItemLabel_[i]->_X, papMenuItemLabel_[i]->_Y, tX, tY),
+                                                        UTIL::getDistance(papMenuItemLabel_[i]->_X, papMenuItemLabel_[i]->_Y, tX, tY),
                                                         30,
                                                         0.3, 0.7);
                 }
 
                 //カーソル
-                pCursor001_->locatedBy(papMenuItemLabel_[active_item_]);
+                pCursor001_->locateWith(papMenuItemLabel_[active_item_]);
                 pCursor001_->activate();
             }
             //メインループ

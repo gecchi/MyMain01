@@ -7,7 +7,7 @@ using namespace VioletVreath;
 Torus::Torus(const char* prm_name, const char* prm_model, coord prm_r1, coord prm_r2) :
         CubeMapMeshActor(prm_name, prm_model, STATUS(Torus)) {
     _class_name = "Torus";
-    setCubeMapTexture("BkSky_cubemap.dds");
+    setCubeMap("BkSky_cubemap.dds", 0.4);
     r1_ = prm_r1;
     r2_ = prm_r2;
 }
@@ -24,9 +24,9 @@ void Torus::addSubFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_ang
     //    | SIN[angPos2]    ,  COS[angPos2]*-SIN[angPos1]             ,  COS[angPos2]*COS[angPos]              , 0 |
     //    | r2_*COS[angPos2], (r2_*-SIN[angPos2] + -r1_)*-SIN[angPos1], (r2_*-SIN[angPos2] + -r1_)*COS[angPos1], 1 |
     //より
-    double X = r2_*GgafDxUtil::COS[angPos2];
-    double Y = (r2_*-GgafDxUtil::SIN[angPos2] - r1_) * -GgafDxUtil::SIN[angPos1];
-    double Z = (r2_*-GgafDxUtil::SIN[angPos2] - r1_) *  GgafDxUtil::COS[angPos1];
+    double X = r2_*UTIL::COS[angPos2];
+    double Y = (r2_*-UTIL::SIN[angPos2] - r1_) * -UTIL::SIN[angPos1];
+    double Z = (r2_*-UTIL::SIN[angPos2] - r1_) *  UTIL::COS[angPos1];
 
     //向きを求める
     //平行移動( +0, +0, -r1_) > angPos1のX軸回転 変換行列の dx, dy, dz を使用
@@ -36,22 +36,22 @@ void Torus::addSubFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_ang
     //    | 0, -r1_*-SIN[angPos1], -r1_*COS[angPos1], 1 |
     //より
     double CX = 0;
-    double CY = -r1_*-GgafDxUtil::SIN[angPos1];
-    double CZ = -r1_*GgafDxUtil::COS[angPos1];
+    double CY = -r1_*-UTIL::SIN[angPos1];
+    double CZ = -r1_*UTIL::COS[angPos1];
     angle angRz, angRy;
-    GgafDxUtil::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
+    UTIL::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
     //ボーンとして追加
     this->addSubFk(prm_pGeoActor, X, Y, Z, D0ANG, angRz, angRy);
 }
 
 void Torus::makeCollisionArea(int prm_nSphere){
     angle* paAngRadial = NEW angle[prm_nSphere];
-    GgafDxUtil::getRadialAngle2D(0, prm_nSphere, paAngRadial);
+    UTIL::getRadialAngle2D(0, prm_nSphere, paAngRadial);
     _pColliChecker->makeCollision(prm_nSphere);
     for (int i = 0; i < prm_nSphere; i++) {
         _pColliChecker->setColliSphere(
                 i,
-                0 , GgafDxUtil::SIN[paAngRadial[i]/SANG_RATE] * r1_, GgafDxUtil::COS[paAngRadial[i]/SANG_RATE] * r1_,
+                0 , UTIL::SIN[paAngRadial[i]/SANG_RATE] * r1_, UTIL::COS[paAngRadial[i]/SANG_RATE] * r1_,
                 r2_,
                 false, true, true
                 );

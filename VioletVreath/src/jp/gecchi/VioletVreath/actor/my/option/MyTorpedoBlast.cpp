@@ -54,7 +54,7 @@ void MyTorpedoBlast::onInactive() {
 void MyTorpedoBlast::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ƒqƒbƒg‚µ‚Ä‚àÁ–Å‚µ‚Ü‚¹‚ñ
-    int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+    int sta = UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
 }
 
 MyTorpedoBlast::~MyTorpedoBlast() {

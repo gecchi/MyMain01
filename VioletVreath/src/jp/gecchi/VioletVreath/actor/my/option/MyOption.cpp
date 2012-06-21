@@ -109,8 +109,8 @@ void MyOption::onReset() {
     _pKurokoA->setRyMvAng(-D90ANG);
     _pKurokoA->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
     _pKurokoA->setRyMvAngVelo(0);//∵半径Ｒ＝速度Ｖ／角速度ω
-    _Z = GgafDxUtil::COS[angPosition_/SANG_RATE]*radiusPosition_; //X軸中心回転なのでXYではなくてZY
-    _Y = GgafDxUtil::SIN[angPosition_/SANG_RATE]*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
+    _Z = UTIL::COS[angPosition_/SANG_RATE]*radiusPosition_; //X軸中心回転なのでXYではなくてZY
+    _Y = UTIL::SIN[angPosition_/SANG_RATE]*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                                                                     //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
     _X = 0;
     _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
@@ -193,13 +193,13 @@ void MyOption::setRadiusPosition(int prm_radius) {
 
     angle angZY_ROTANG_X;
     if (radiusPosition_ > 0) {
-        angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
-        _Z = radiusPosition_ * GgafDxUtil::COS[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
-        _Y = radiusPosition_ * GgafDxUtil::SIN[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
+        angZY_ROTANG_X = UTIL::getAngle2D(_Z, _Y); //自分の位置
+        _Z = radiusPosition_ * UTIL::COS[UTIL::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
+        _Y = radiusPosition_ * UTIL::SIN[UTIL::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
     } else {
-        angZY_ROTANG_X = MyStgUtil::getAngle2D(-_Z, -_Y); //自分の位置
-        _Z = radiusPosition_ * GgafDxUtil::COS[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
-        _Y = radiusPosition_ * GgafDxUtil::SIN[GgafDxUtil::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
+        angZY_ROTANG_X = UTIL::getAngle2D(-_Z, -_Y); //自分の位置
+        _Z = radiusPosition_ * UTIL::COS[UTIL::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
+        _Y = radiusPosition_ * UTIL::SIN[UTIL::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
     }
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
@@ -212,7 +212,7 @@ void MyOption::setRadiusPosition(int prm_radius) {
 
 void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent_frame) {
     adjust_angPos_seq_progress_ = 1;
-    adjust_angPos_seq_new_angPosition_base_ = MyStgUtil::simplifyAng(prm_new_angPosition_base);
+    adjust_angPos_seq_new_angPosition_base_ = UTIL::simplifyAng(prm_new_angPosition_base);
     adjust_angPos_seq_spent_frame_ = prm_spent_frame + 1;
 }
 
@@ -243,7 +243,7 @@ void MyOption::processBehavior() {
         if (VB_PLAY->isBeingPressed(VB_OPTION) && pOptionCtrlr_->is_handle_move_mode_) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちの旋回半径増加速度のみを設定。
-            addRadiusPosition(GgafDxUtil::SIN[angExpanse_/ SANG_RATE] * pOptionCtrlr_->veloOptionsMv_);
+            addRadiusPosition(UTIL::SIN[angExpanse_/ SANG_RATE] * pOptionCtrlr_->veloOptionsMv_);
             //オプション移動速度の処理はMyOptionクラスで行う。
         }
     }
@@ -261,7 +261,7 @@ void MyOption::processBehavior() {
             angExpanse_ = angExpanse_default_;
             return_to_base_angExpanse_seq_ = false;
         }
-        angExpanse_ = GgafDxUtil::simplifyAng(angExpanse_);
+        angExpanse_ = UTIL::simplifyAng(angExpanse_);
     } else {
         //オプション広がりと向き制御
         if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isBeingPressed(VB_TURBO)) {
@@ -352,7 +352,7 @@ void MyOption::processBehavior() {
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
             }
-            angExpanse_ = GgafDxUtil::simplifyAng(angExpanse_);
+            angExpanse_ = UTIL::simplifyAng(angExpanse_);
         } else {
             if (pOptionCtrlr_->is_free_from_myship_mode_) {
                 //
@@ -416,14 +416,14 @@ void MyOption::processBehavior() {
             angle angPosition_now;
             //自分の角度位置取得
             if (radiusPosition_ > 0) {
-                angPosition_now = MyStgUtil::getAngle2D(_Z, _Y);
+                angPosition_now = UTIL::getAngle2D(_Z, _Y);
             } else {
-                angPosition_now = MyStgUtil::getAngle2D(-_Z, -_Y);
+                angPosition_now = UTIL::getAngle2D(-_Z, -_Y);
             }
             //現在の角距離
-            angle ang_diff = MyStgUtil::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, SGN(veloMv_));
+            angle ang_diff = UTIL::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, SGN(veloMv_));
             if (ABS(ang_diff) > D_ANG(350)) {
-                ang_diff = MyStgUtil::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, TURN_CLOSE_TO);
+                ang_diff = UTIL::getAngDiff(angPosition_now, adjust_angPos_seq_new_angPosition_base_, TURN_CLOSE_TO);
             }
             //残フレームと残移動角より必要な角速度
             angvelo angvelo_need = ang_diff / (angvelo)adjust_angPos_seq_spent_frame_;
@@ -441,10 +441,10 @@ void MyOption::processBehavior() {
                 //誤差修正のため理想位置に再設定
                 angveloMove_ = ((1.0*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
                 _pKurokoA->setMvVelo(veloMv_);
-                _pKurokoA->setRzMvAng(GgafDxUtil::simplifyAng(angPosition_base_ + D90ANG));
+                _pKurokoA->setRzMvAng(UTIL::simplifyAng(angPosition_base_ + D90ANG));
                 _pKurokoA->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
-                _Z = GgafDxUtil::COS[angPosition_base_/SANG_RATE]*radiusPosition_; //X軸中心回転なのでXYではなくてZY
-                _Y = GgafDxUtil::SIN[angPosition_base_/SANG_RATE]*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
+                _Z = UTIL::COS[angPosition_base_/SANG_RATE]*radiusPosition_; //X軸中心回転なのでXYではなくてZY
+                _Y = UTIL::SIN[angPosition_base_/SANG_RATE]*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                 _X = 0;
                 adjust_angPos_seq_progress_ = 0;
             }
@@ -453,7 +453,7 @@ void MyOption::processBehavior() {
          //通常時
         _pKurokoA->setMvVelo(veloMv_);
     }
-    angPosition_ = GgafDxUtil::simplifyAng(angPosition_+angveloMove_);
+    angPosition_ = UTIL::simplifyAng(angPosition_+angveloMove_);
 
     _pKurokoA->behave();
     //_pKurokoB->behave();
@@ -485,10 +485,10 @@ void MyOption::processBehavior() {
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
 
-    float sinRZ = GgafDxUtil::SIN[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Z] / SANG_RATE];
-    float cosRZ = GgafDxUtil::COS[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Z] / SANG_RATE];
-    float sinRY = GgafDxUtil::SIN[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Y] / SANG_RATE];
-    float cosRY = GgafDxUtil::COS[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Y] / SANG_RATE];
+    float sinRZ = UTIL::SIN[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Z] / SANG_RATE];
+    float cosRZ = UTIL::COS[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Z] / SANG_RATE];
+    float sinRY = UTIL::SIN[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Y] / SANG_RATE];
+    float cosRY = UTIL::COS[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Y] / SANG_RATE];
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
     _X = cosRY*cosRZ*Xorg_ + cosRY*-sinRZ*Yorg_ + sinRY*Zorg_;
     _Y = sinRZ*Xorg_ + cosRZ*Yorg_;
@@ -499,8 +499,8 @@ void MyOption::processBehavior() {
     float vX_axis = cosRY*cosRZ*_pKurokoA->_vX + cosRY*-sinRZ*_pKurokoA->_vY + sinRY*_pKurokoA->_vZ;
     float vY_axis = sinRZ*_pKurokoA->_vX + cosRZ*_pKurokoA->_vY;
     float vZ_axis = -sinRY*cosRZ*_pKurokoA->_vX + -sinRY*-sinRZ*_pKurokoA->_vY + cosRY*_pKurokoA->_vZ;
-    float sinHalf = GgafDxUtil::SIN[angExpanse_/SANG_RATE/2]; //angExpanse_=回転させたい角度
-    float cosHalf = GgafDxUtil::COS[angExpanse_/SANG_RATE/2];
+    float sinHalf = UTIL::SIN[angExpanse_/SANG_RATE/2]; //angExpanse_=回転させたい角度
+    float cosHalf = UTIL::COS[angExpanse_/SANG_RATE/2];
 
     //計算
     //ある座標(x, y, z)において、回転の軸が(α, β, γ)で、θ回す回転
@@ -519,7 +519,7 @@ void MyOption::processBehavior() {
     Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
-    GgafDxUtil::getRzRyAng(Q._x, Q._y, Q._z,
+    UTIL::getRzRyAng(Q._x, Q._y, Q._z,
                            _RZ, _RY);
 
 
@@ -536,7 +536,7 @@ void MyOption::processBehavior() {
 
         if (pLaserChip) {
             if (pLaserChipDepo_->_pEffectActor_Irradiate) {
-                pLaserChipDepo_->_pEffectActor_Irradiate->locatedBy(this);
+                pLaserChipDepo_->_pEffectActor_Irradiate->locateWith(this);
             }
             //ストレート用
 //            pLaserChip->_pKurokoA->behave();
@@ -580,7 +580,7 @@ void MyOption::processBehavior() {
         MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
         if (pShot) {
             _pSeTx->play3D(1);
-            pShot->locatedBy(this);
+            pShot->locateWith(this);
             pShot->_pKurokoA->_angFace[AXIS_X] = _RX;
             pShot->_pKurokoA->_angFace[AXIS_Z] = _RZ;
             pShot->_pKurokoA->_angFace[AXIS_Y] = _RY;

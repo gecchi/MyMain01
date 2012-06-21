@@ -23,33 +23,33 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 
     GgafStrMap mapSplPropperties;
 
-    GgafUtil::readProperties(spl_filename, &mapSplPropperties);
+    UTIL::readProperties(spl_filename, &mapSplPropperties);
 
-    if (GgafUtil::isExistKey("SPLINE", &mapSplPropperties)) {
+    if (UTIL::isExistKey("SPLINE", &mapSplPropperties)) {
         spl_data_file = mapSplPropperties["SPLINE"];
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。");
     }
 
-    if (GgafUtil::isExistKey("MAG_X", &mapSplPropperties)) {
+    if (UTIL::isExistKey("MAG_X", &mapSplPropperties)) {
         rate_X = atof(mapSplPropperties["MAG_X"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_X] が指定されてません。");
     }
 
-    if (GgafUtil::isExistKey("MAG_Y", &mapSplPropperties)) {
+    if (UTIL::isExistKey("MAG_Y", &mapSplPropperties)) {
         rate_Y = atof(mapSplPropperties["MAG_Y"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_Y] が指定されてません。");
     }
 
-    if (GgafUtil::isExistKey("MAG_Z", &mapSplPropperties)) {
+    if (UTIL::isExistKey("MAG_Z", &mapSplPropperties)) {
         rate_Z = atof(mapSplPropperties["MAG_Z"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_Z] が指定されてません。");
     }
 
-    if (GgafUtil::isExistKey("CLASS", &mapSplPropperties)) {
+    if (UTIL::isExistKey("CLASS", &mapSplPropperties)) {
         classname = mapSplPropperties["CLASS"];
         if (classname.length() == 0) {
             throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が指定されてません。");
@@ -58,13 +58,13 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が指定されてません。");
     }
 
-    if (GgafUtil::isExistKey("ANGLE_VELOCITY", &mapSplPropperties)) {
+    if (UTIL::isExistKey("ANGLE_VELOCITY", &mapSplPropperties)) {
         angveloRzRyMv = (angvelo)atoi(mapSplPropperties["ANGLE_VELOCITY"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が指定されてません。");
     }
 
-    if (GgafUtil::isExistKey("TURN_WAY", &mapSplPropperties)) {
+    if (UTIL::isExistKey("TURN_WAY", &mapSplPropperties)) {
         if (mapSplPropperties["TURN_WAY"] == "TURN_CLOSE_TO") {
             turn_way = TURN_CLOSE_TO;
         } else if (mapSplPropperties["TURN_WAY"] == "TURN_ANTICLOSE_TO") {
@@ -81,8 +81,8 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [TURN_WAY] が指定されてません。");
     }
 
-    if (GgafUtil::isExistKey("TURN_OPTIMIZE", &mapSplPropperties)) {
-        turn_optimize = GgafUtil::cnvBool(mapSplPropperties["TURN_OPTIMIZE"]);
+    if (UTIL::isExistKey("TURN_OPTIMIZE", &mapSplPropperties)) {
+        turn_optimize = UTIL::cnvBool(mapSplPropperties["TURN_OPTIMIZE"]);
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [TURN_OPTIMIZE] が指定されてません。");
     }
@@ -94,7 +94,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 
     SplineManufacture* pSplManuf = NULL;
     if (classname.find("FixedFrameSpline") != std::string::npos) {
-        if (GgafUtil::isExistKey("SPENT_FRAME", &mapSplPropperties)) {
+        if (UTIL::isExistKey("SPENT_FRAME", &mapSplPropperties)) {
             spent_frame = (frame)atoi(mapSplPropperties["SPENT_FRAME"].c_str());
         } else {
             throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が FixedFrameSplineの場合は、SPENT_FRAME が必要です。");

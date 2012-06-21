@@ -464,7 +464,7 @@ T* GgafNode<T>::getParent(char* prm_parent_name) {
             //_TRACE_("[GgafNode<" << _class_name << ">::getParent("<<prm_parent_name<<")] ƒŒx„ eƒm[ƒh‚ð‘k‚Á‚ÄŒŸõ‚µ‚Ü‚µ‚½‚ª‚ ‚è‚Ü‚¹‚ñBNULL‚ð•Ô‚µ‚Ü‚·B");
 #endif
             return NULL;
-        } else if (GgafUtil::strcmp_ascii(_pNodeTemp->_name, prm_parent_name) == 0) {
+        } else if (UTIL::strcmp_ascii(_pNodeTemp->_name, prm_parent_name) == 0) {
             break;
         }
     }
@@ -480,7 +480,7 @@ T* GgafNode<T>::getSubByName(const char* prm_sub_name) {
 #endif
     _pNodeTemp = _pSubFirst;
     do {
-        if (GgafUtil::strcmp_ascii(_pNodeTemp->getName(), prm_sub_name) == 0) {
+        if (UTIL::strcmp_ascii(_pNodeTemp->getName(), prm_sub_name) == 0) {
             break;
         }
 #ifdef MY_DEBUG
@@ -527,7 +527,7 @@ bool GgafNode<T>::hasSub(char* prm_sub_actor_name) {
     } else {
         _pNodeTemp = _pSubFirst;
         do {
-            if (GgafUtil::strcmp_ascii(_pNodeTemp->getName(), prm_sub_actor_name) == 0) {
+            if (UTIL::strcmp_ascii(_pNodeTemp->getName(), prm_sub_actor_name) == 0) {
                 return true;
             }
             if (_pNodeTemp->_is_last_flg) {

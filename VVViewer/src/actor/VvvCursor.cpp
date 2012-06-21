@@ -6,7 +6,7 @@ using namespace VVViewer;
 
 VvvCursor::VvvCursor(const char* prm_name) :
         GgafLib::DefaultSpriteSetActor(prm_name, "Cursor") { //Guruguru.x が参照される。
-    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     changeEffectTechnique("DestBlendOne"); //エフェクトテクニックは加算合成に強制
     setZEnable(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //Zバッファは書き込み無しに強制
@@ -68,7 +68,7 @@ void VvvCursor::moveTo(coord X, coord Y, coord Z) {
     tY_ = Y;
     tZ_ = Z;
     _pKurokoA->setMvAng(tX_, tY_, tZ_);
-    _pKurokoA->execSmoothMvSequence(0, GgafDxUtil::getDistance(_X, _Y, _Z, tX_, tY_, tZ_),
+    _pKurokoA->execSmoothMvSequence(0, UTIL::getDistance(_X, _Y, _Z, tX_, tY_, tZ_),
                                     20, 0.3f, 0.7f);
     _pProg->change(CUR_ON_MOVE);
 }

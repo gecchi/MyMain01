@@ -156,59 +156,59 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
         effectFlush(2); //ƒtƒ‰ƒbƒVƒ…
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locatedBy(this);
+            pExplo001->locateWith(this);
         }
         _pSeTx->play3D(0);
 
 
-        if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
             EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
             if (pExplo001) {
-                pExplo001->locatedBy(this);
+                pExplo001->locateWith(this);
             }
             _pSeTx->play3D(0);
 
 
             //‘Å‚¿•Ô‚µ’e
             if (pDepo_Shot_) {
-//                MyStgUtil::shotWay001(this,
+//                UTIL::shotWay001(this,
 //                                       pDepo_Shot_,
 //                                       P_MYSHIP,
 //                                       10+_RANK_*10, 10000,
 //                                       2000, 200);
-//                MyStgUtil::shotWay001v2(this,
+//                UTIL::shotWay001v2(this,
 //                                       pDepo_Shot_,
 //                                       P_MYSHIP,
 //                                       10+_RANK_*10, 10000,
 //                                       3000, 200,
 //                                       5, 0.8);
-//                MyStgUtil::shotWay002(this,
+//                UTIL::shotWay002(this,
 //                                       pDepo_Shot_,
 //                                       P_MYSHIP,
 //                                       20+_RANK_*10, 0,
 //                                       2000, 200);
-//                  StgUtil::shotWay002v2(this,
+//                  UTIL::shotWay002v2(this,
 //                                       pDepo_Shot_,
 //                                       P_MYSHIP,
 //                                       R_EnemyThalia_ShotWay, 0,
 //                                       2000, 200,
 //                                       5, 0.8);
-//                  StgUtil::shotWay002(this, pDepo_Shot_,
+//                  UTIL::shotWay002(this, pDepo_Shot_,
 //                                      PX_C(20),
 //                                      5, 5, D_ANG(10), D_ANG(10),
 //                                      2000, 200);
 
-//                  StgUtil::shotWay002(this, pDepo_Shot_,
+//                  UTIL::shotWay002(this, pDepo_Shot_,
 //                                      PX_C(20),
 //                                      6, 6, D_ANG(8), D_ANG(8),
 //                                      2000, 200,
 //                                      20, 60, 0.9);
 
-                  StgUtil::shotWay004(this, pDepo_Shot_,
-                                      PX_C(20),
-                                      8, D_ANG(10),
-                                      2000, 200,
-                                      12, 3, 0.9);
+                UTIL::shotWay004(this, pDepo_Shot_,
+                                 PX_C(20),
+                                 8, D_ANG(10),
+                                 2000, 200,
+                                 12, 3, 0.9);
 
             }
             sayonara();

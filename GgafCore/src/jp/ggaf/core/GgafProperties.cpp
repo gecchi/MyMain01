@@ -23,7 +23,7 @@ std::string GgafProperties::DIR_SKIN_KIND[] = {
 void GgafProperties::load(std::string prm_properties_filename) {
     if (_pMapProperties == NULL) {
         _pMapProperties = NEW GgafStrMap();
-        GgafUtil::readProperties(prm_properties_filename, _pMapProperties);
+        UTIL::readProperties(prm_properties_filename, _pMapProperties);
 //        if (ret != 0) {
 //            throwGgafCriticalException("GgafProperties::load() Error! "<<prm_properties_filename<<"のread()に失敗。ステート→"<<ret);
 //        }
@@ -55,16 +55,16 @@ void GgafProperties::load(std::string prm_properties_filename) {
     }
 
     GgafProperties::DIR_SKIN = GgafProperties::DIR_RESOURCE + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN  + "/";
-    GgafUtil::strReplace(GgafProperties::DIR_SKIN, "//", "/");
+    UTIL::strReplace(GgafProperties::DIR_SKIN, "//", "/");
 
     GgafProperties::DIR_SKIN_KIND[0] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT + "/";
-    GgafUtil::strReplace(GgafProperties::DIR_SKIN_KIND[0], "//", "/");
+    UTIL::strReplace(GgafProperties::DIR_SKIN_KIND[0], "//", "/");
     if (GgafProperties::DIRNAME_RESOURCE_SKIN_USER == "") {
         GgafProperties::DIR_SKIN_KIND[1] = GgafProperties::DIR_SKIN_KIND[0] + "/";
     } else {
         GgafProperties::DIR_SKIN_KIND[1] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_USER + "/";
     }
-    GgafUtil::strReplace(GgafProperties::DIR_SKIN_KIND[1], "//", "/");
+    UTIL::strReplace(GgafProperties::DIR_SKIN_KIND[1], "//", "/");
 
     //DIR存在チェック
     if (!PathFileExists(GgafProperties::DIR_SKIN.c_str()) ) {
@@ -89,7 +89,7 @@ void GgafProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafProperties::DIR_SKIN_KIND[0]="<<GgafProperties::DIR_SKIN_KIND[0]);
     _TRACE_("GgafProperties::DIR_SKIN_KIND[1]="<<GgafProperties::DIR_SKIN_KIND[1]);
 
-    GgafUtil::writeProperties("back.properties", _pMapProperties);
+    UTIL::writeProperties("back.properties", _pMapProperties);
 }
 
 void GgafProperties::clean() {
@@ -137,7 +137,7 @@ UINT32 GgafProperties::getUInt(std::string prm_key) {
 
 bool GgafProperties::getBool(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        return GgafUtil::cnvBool((*_pMapProperties)[prm_key]);
+        return UTIL::cnvBool((*_pMapProperties)[prm_key]);
     } else {
         throwGgafCriticalException("GgafProperties::getBool() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }

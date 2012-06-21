@@ -1,6 +1,8 @@
-/Release*
-/GprofCdt
-/Debug*
+/ReleaseCdt*
+/GprofCdt*
+/DebugCdt*
+/Release
+/Debug
 /log
 /*settings
 VVViewer.exe

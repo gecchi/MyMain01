@@ -19,7 +19,18 @@ class VvvWorld : public GgafLib::DefaultScene {
 
 public:
     /** 表示中モデルのリスト */
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _list;
+    class ActorInfo {
+    public:
+        GgafDxCore::GgafDxDrawableActor* pActor_;
+        std::string modelfile_;
+        ActorInfo(GgafDxCore::GgafDxDrawableActor* pActor, std::string modelfile) {
+            pActor_ = pActor;
+            modelfile_ = modelfile;
+        }
+    };
+
+
+    GgafCore::GgafLinkedListRing<ActorInfo> _listActorInfo;
     /** 入力受付 */
     GgafLib::VirtualButton* vb_;
     /** カーソル */

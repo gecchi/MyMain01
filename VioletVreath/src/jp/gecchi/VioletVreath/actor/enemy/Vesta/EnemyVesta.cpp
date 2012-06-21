@@ -143,7 +143,7 @@ void EnemyVesta::processBehavior() {
             if (pDepo_Fired_) {
                 GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
                 if (pActor) {
-                    pActor->locatedBy(this);
+                    pActor->locateWith(this);
                     pActor->_pKurokoA->relateFaceAngWithMvAng(true);
                     //＜現在の最終的な向きを、RzRyで取得する＞
                     //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
@@ -168,7 +168,7 @@ void EnemyVesta::processBehavior() {
                     //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
                     //最終的な方向ベクトルは（Xorg_*mat_11, Xorg_*mat_12, Xorg_*mat_13) である。
                     angle Rz, Ry;
-                    GgafDxUtil::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
+                    UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                             Rz, Ry); //現在の最終的な向きを、RzRyで取得！
                     pActor->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
                     pActor->reset();
@@ -210,7 +210,7 @@ void EnemyVesta::processBehavior() {
         int TvZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
         //自動方向向きシークエンス開始
         angle angRz_Target, angRy_Target;
-        GgafDxUtil::getRzRyAng(TvX, TvY, TvZ,
+        UTIL::getRzRyAng(TvX, TvY, TvZ,
                                 angRz_Target, angRy_Target);
         _pKurokoA->execTurnMvAngSequence(angRz_Target, angRy_Target,
                                            1000, 0,
@@ -249,17 +249,17 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
 
     if (pExplo001) {
-        pExplo001->locatedBy(this);
+        pExplo001->locateWith(this);
     }
 
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         _pSeTx->play3D(0);
         sayonara();
 
         //アイテム出現
         Item* pItem = employFromCommon(MagicPointItem001);
         if (pItem) {
-            pItem->locatedBy(this);
+            pItem->locateWith(this);
         }
     }
 }
