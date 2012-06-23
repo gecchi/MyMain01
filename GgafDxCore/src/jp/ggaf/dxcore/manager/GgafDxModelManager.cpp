@@ -41,7 +41,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     hr = _pID3DXFile_sprx->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
 #ifdef MY_DEBUG
     if(hr != S_OK) {
-        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。\""<<GGAF_PROPERTY(DIR_SPRITE_MODEL[0])<<"ggaf_spritemodel_define.x\"を確認して下さい。");
+        throwGgafCriticalException("[GgafDxModelManager::GgafDxModelManager] RegisterTemplatesに失敗しました。paChar_SpriteModelineTemplate を確認して下さい。");
     }
 #endif
 
@@ -251,49 +251,69 @@ GgafDxPointSpriteModel* GgafDxModelManager::createPointSpriteModel(char* prm_mod
     return pPointSpriteModel_New;
 }
 std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {
-    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[1]) + "/" + prm_model_name + ".x"; //モデル名＋".x"でXファイル名になる
+    std::string xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + "/" + prm_model_name + ".x"; //モデル名＋".x"でXファイル名になる
     UTIL::strReplace(xfile_name, "//", "/");
+    _TRACE_("1 xfile_name.c_str()="<<xfile_name.c_str());
     if (PathFileExists(xfile_name.c_str()) ) {
-        return xfile_name; //ユーザースキンに存在すればそれを優先
+        return xfile_name; //カレントに存在すればそれを優先
     } else {
-        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[0]) + "/" + prm_model_name+ ".x";
+        xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[2]) + "/" + prm_model_name+ ".x";
         UTIL::strReplace(xfile_name, "//", "/");
+        _TRACE_("2 xfile_name.c_str()="<<xfile_name.c_str());
         if (PathFileExists(xfile_name.c_str()) ) {
-            return xfile_name;
+            return xfile_name; //ユーザースキンに存在すればそれを優先
         } else {
-            return "";
+            xfile_name = GGAF_PROPERTY(DIR_MESH_MODEL[1]) + "/" + prm_model_name+ ".x";
+            UTIL::strReplace(xfile_name, "//", "/");
+            _TRACE_("3 xfile_name.c_str()="<<xfile_name.c_str());
+            if (PathFileExists(xfile_name.c_str()) ) {
+                return xfile_name;
+            } else {
+                return "";
+            }
         }
     }
 }
 std::string GgafDxModelManager::getSpriteFileName(std::string prm_model_name) {
-    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) + "/" + prm_model_name + ".sprx";
+    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + "/" + prm_model_name + ".sprx";
     UTIL::strReplace(xfile_name, "//", "/");
     if (PathFileExists(xfile_name.c_str()) ) {
-        return xfile_name; //ユーザースキンに存在すればそれを優先
+        return xfile_name;
     } else {
-        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + "/" +  prm_model_name + ".sprx";
+        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[2]) + "/" +  prm_model_name + ".sprx";
         UTIL::strReplace(xfile_name, "//", "/");
         if (PathFileExists(xfile_name.c_str()) ) {
-            return xfile_name;
+            return xfile_name; //ユーザースキンに存在すればそれを優先
         } else {
-            throwGgafCriticalException("GgafDxModelManager::getSpriteFileName スプライトファイル(*.sprx)が見つかりません。xfile_name="<<xfile_name);
+            xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) + "/" +  prm_model_name + ".sprx";
+            UTIL::strReplace(xfile_name, "//", "/");
+            if (PathFileExists(xfile_name.c_str()) ) {
+                return xfile_name;
+            } else {
+                throwGgafCriticalException("GgafDxModelManager::getSpriteFileName スプライトファイル(*.sprx)が見つかりません。xfile_name="<<xfile_name);
+            }
         }
     }
 }
 
 std::string GgafDxModelManager::getPointSpriteFileName(std::string prm_model_name) {
-    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) + "/" + prm_model_name + ".psprx";
+    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + "/" + prm_model_name + ".psprx";
     UTIL::strReplace(xfile_name, "//", "/");
     if (PathFileExists(xfile_name.c_str()) ) {
-        return xfile_name; //ユーザースキンに存在すればそれを優先
+        return xfile_name;
     } else {
-        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + "/" +  prm_model_name + ".psprx";
+        xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[2]) + "/" +  prm_model_name + ".psprx";
         UTIL::strReplace(xfile_name, "//", "/");
         if (PathFileExists(xfile_name.c_str()) ) {
-            return xfile_name;
+            return xfile_name;  //ユーザースキンに存在すればそれを優先
         } else {
-            throwGgafCriticalException("GgafDxModelManager::getSpriteFileName ポイントスプライトファイル(*.psprx)が見つかりません。xfile_name="<<xfile_name);
-        }
+            xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) + "/" +  prm_model_name + ".psprx";
+            UTIL::strReplace(xfile_name, "//", "/");
+            if (PathFileExists(xfile_name.c_str()) ) {
+                return xfile_name;
+            } else {
+                throwGgafCriticalException("GgafDxModelManager::getSpriteFileName ポイントスプライトファイル(*.psprx)が見つかりません。xfile_name="<<xfile_name);
+            }        }
     }
 }
 
@@ -558,7 +578,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
             model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
         } else {
             //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.png");
+            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
         }
         n++;
     }
@@ -1265,7 +1285,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
             model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
         } else {
             //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.png");
+            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
         }
         n++;
     }
@@ -1362,7 +1382,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
             model_papTextureCon[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
         } else {
             //テクスチャ無し
-            model_papTextureCon[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.png");
+            model_papTextureCon[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
         }
     }
     RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
@@ -1489,7 +1509,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
                     model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
                 } else {
                     //テクスチャ無し時は真っ白なテクスチャに置き換え
-                    model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.png");
+                    model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
                 }
                 n ++;
             }
@@ -2552,7 +2572,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
             model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
         } else {
             //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.png");
+            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
         }
         n++;
     }

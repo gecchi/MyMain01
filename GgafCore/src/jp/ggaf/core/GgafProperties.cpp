@@ -14,6 +14,7 @@ std::string GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT = ".";
 std::string GgafProperties::DIRNAME_RESOURCE_SKIN_USER = "";
 std::string GgafProperties::DIR_SKIN = GgafProperties::DIR_RESOURCE + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN + "/";
 std::string GgafProperties::DIR_SKIN_KIND[] = {
+                "./",
                 GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT + "/",
                 ""
             };
@@ -57,12 +58,13 @@ void GgafProperties::load(std::string prm_properties_filename) {
     GgafProperties::DIR_SKIN = GgafProperties::DIR_RESOURCE + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN  + "/";
     UTIL::strReplace(GgafProperties::DIR_SKIN, "//", "/");
 
-    GgafProperties::DIR_SKIN_KIND[0] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT + "/";
-    UTIL::strReplace(GgafProperties::DIR_SKIN_KIND[0], "//", "/");
+    GgafProperties::DIR_SKIN_KIND[0] = "./";
+    GgafProperties::DIR_SKIN_KIND[1] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT + "/";
+    UTIL::strReplace(GgafProperties::DIR_SKIN_KIND[1], "//", "/");
     if (GgafProperties::DIRNAME_RESOURCE_SKIN_USER == "") {
-        GgafProperties::DIR_SKIN_KIND[1] = GgafProperties::DIR_SKIN_KIND[0] + "/";
+        GgafProperties::DIR_SKIN_KIND[2] = GgafProperties::DIR_SKIN_KIND[0] + "/";
     } else {
-        GgafProperties::DIR_SKIN_KIND[1] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_USER + "/";
+        GgafProperties::DIR_SKIN_KIND[2] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_USER + "/";
     }
     UTIL::strReplace(GgafProperties::DIR_SKIN_KIND[1], "//", "/");
 

@@ -37,8 +37,8 @@ public:
 
     /** [r] アプリケーションのスキンディレクトリ */
     static std::string DIR_SKIN;
-    /** [r] アプリケーションのデフォルトスキンディレクトリ(0:default/1:ユーザー) */
-    static std::string DIR_SKIN_KIND[2];
+    /** [r] アプリケーションのデフォルトスキンディレクトリ(0:無し/1:default/1:ユーザー) */
+    static std::string DIR_SKIN_KIND[3];
 
     /** [r] 保持プロパティMAP */
     static GgafStrMap* _pMapProperties;

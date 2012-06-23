@@ -78,39 +78,46 @@ void VvvWorld::processBehavior() {
         } else {
             d = 1;
         }
-
         if (GgafDxInput::isBeingPressedKey(DIK_A)) {
             //α
             if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-                if (pActor->getAlpha() > 1.00) {
-                    pActor->setAlpha(1.00);
-                } else {
-                    pActor->addAlpha(0.01);
-                }
+                pActor->addAlpha(0.01);
             }
             if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-                if (pActor->getAlpha() < 0.00) {
-                    pActor->setAlpha(0.00);
-                } else {
-                    pActor->addAlpha(-0.01);
-                }
+                pActor->addAlpha(-0.01);
             }
             if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-                if (pActor->getAlpha() > 1.00) {
-                    pActor->setAlpha(1.00);
-                } else {
-                    pActor->addAlpha(0.01);
-                }
+                pActor->addAlpha(0.01);
             }
             if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-                if (pActor->getAlpha() < 0.00) {
-                    pActor->setAlpha(0.00);
-                } else {
-                    pActor->addAlpha(-0.01);
-                }
+                pActor->addAlpha(-0.01);
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
                 pActor->addAlpha(1.00);
+            }
+            if (pActor->getAlpha() < 0.00) {
+                pActor->setAlpha(0.00);
+            }
+            if (pActor->getAlpha() > 1.00) {
+                pActor->setAlpha(1.00);
+            }
+        } else if (GgafDxInput::isBeingPressedKey(DIK_P)) {
+            //スペキュラー
+            if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                pActor->_pModel->_specular += 0.05*d;
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                pActor->_pModel->_specular -= 0.05*d;
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                pActor->_pModel->_specular_power += 0.01*d;
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                pActor->_pModel->_specular_power -= 0.01*d;
+            }
+            if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                pActor->_pModel->_specular = 0.00f;
+                pActor->_pModel->_specular_power = 0.00f;
             }
         } else if (GgafDxInput::isBeingPressedKey(DIK_P)) {
             //スペキュラー
@@ -174,6 +181,51 @@ void VvvWorld::processBehavior() {
             }
         } else if (GgafDxInput::isBeingPressedKey(DIK_C)) {
 
+            if ( (Obj_GgafDxCubeMapMeshActor & pActor->_obj_class) ) {
+                CubeMapMeshActor* pCubeMapActor = (CubeMapMeshActor*)pActor;
+                if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                    pCubeMapActor->_reflectance += 0.01*d;
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                    pCubeMapActor->_reflectance -= 0.01*d;
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                    pCubeMapActor->_reflectance += 0.01*d;
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                    pCubeMapActor->_reflectance -= 0.01*d;
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                    pCubeMapActor->_reflectance = 0.00;
+                }
+                if (pCubeMapActor->_reflectance < 0.0) {
+                    pCubeMapActor->_reflectance = 0.0;
+                }
+            }
+            if ( (Obj_GgafDxCubeMapMorphMeshActor & pActor->_obj_class) ) {
+                CubeMapMorphMeshActor* pCubeMapActor = (CubeMapMorphMeshActor*)pActor;
+                if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+                    pCubeMapActor->_reflectance += 0.01*d;
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+                    pCubeMapActor->_reflectance -= 0.01*d;
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+                    pCubeMapActor->_reflectance += 0.01*d;
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+                    pCubeMapActor->_reflectance -= 0.01*d;
+                }
+                if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
+                    pCubeMapActor->_reflectance = 0.00;
+                }
+                if (pCubeMapActor->_reflectance < 0.0) {
+                    pCubeMapActor->_reflectance = 0.0;
+                }
+                if (pCubeMapActor->_reflectance > 1.0) {
+                    pCubeMapActor->_reflectance = 1.0;
+                }
+            }
         } else {
             //平行移動
             if (GgafDxInput::isBeingPressedKey(DIK_PGUP)) {
@@ -200,19 +252,27 @@ void VvvWorld::processBehavior() {
                 pActor->_Z = 0;
             }
         }
-
+        GgafDxMorpher* pMorpher = NULL;
         if ( Obj_GgafDxCubeMapMorphMeshActor & pActor->_obj_class) {
-            CubeMapMorphMeshActor* pMorphMeshActor = dynamic_cast<CubeMapMorphMeshActor*>(pActor);
-            if (pMorphMeshActor) {
-                for (int i = 1; i <= pMorphMeshActor->_pMorphMeshModel->_morph_target_num; i++) {
-                    if (GgafDxInput::isBeingPressedKey(DIK_1 + (i-1))) {
-                        pMorphMeshActor->_pMorpher->addWeight(i, 0.01);
-                    } else {
-                        pMorphMeshActor->_pMorpher->addWeight(i, -0.01);
-                    }
-                }
-                pMorphMeshActor->_pMorpher->behave();
+            CubeMapMorphMeshActor* pCubeMapMorphMeshActor = dynamic_cast<CubeMapMorphMeshActor*>(pActor);
+            if (pCubeMapMorphMeshActor) {
+                pMorpher = pCubeMapMorphMeshActor->_pMorpher;
             }
+        } else if ( Obj_GgafDxMorphMeshActor & pActor->_obj_class) {
+            DefaultMorphMeshActor* pMorphMeshActor = dynamic_cast<DefaultMorphMeshActor*>(pActor);
+            if (pMorphMeshActor) {
+                pMorpher = pMorphMeshActor->_pMorpher;
+            }
+        } 
+        if (pMorpher) {
+            for (int i = 1; i <= pMorpher->_pActor->_pMorphMeshModel->_morph_target_num; i++) {
+                if (GgafDxInput::isBeingPressedKey(DIK_1 + (i-1))) {
+                    pMorpher->addWeight(i, 0.01);
+                } else {
+                    pMorpher->addWeight(i, -0.01);
+                }
+            }
+            pMorpher->behave();
         }
     }
 
@@ -228,22 +288,30 @@ void VvvWorld::processBehavior() {
         //プロパティ一時退避
         string dir_mesh_model0 = GGAF_PROPERTY(DIR_MESH_MODEL[0]);
         string dir_mesh_model1 = GGAF_PROPERTY(DIR_MESH_MODEL[1]);
+        string dir_mesh_model2 = GGAF_PROPERTY(DIR_MESH_MODEL[2]);
         string dir_sprite_model0 = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]);
         string dir_sprite_model1 = GGAF_PROPERTY(DIR_SPRITE_MODEL[1]);
+        string dir_sprite_model2 = GGAF_PROPERTY(DIR_SPRITE_MODEL[2]);
         string dir_texture0 = GGAF_PROPERTY(DIR_TEXTURE[0]);
         string dir_texture1 = GGAF_PROPERTY(DIR_TEXTURE[1]);
+        string dir_texture2 = GGAF_PROPERTY(DIR_TEXTURE[2]);
         //プロパティ書き換え
         GGAF_PROPERTY(DIR_MESH_MODEL[0])   = dropfile_dir;
         GGAF_PROPERTY(DIR_MESH_MODEL[1])   = dropfile_dir;
+        GGAF_PROPERTY(DIR_MESH_MODEL[2])   = dropfile_dir;
         GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) = dropfile_dir;
         GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) = dropfile_dir;
+        GGAF_PROPERTY(DIR_SPRITE_MODEL[2]) = dropfile_dir;
         GGAF_PROPERTY(DIR_TEXTURE[0])      = dropfile_dir;
-        GGAF_PROPERTY(DIR_TEXTURE[1])      = dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
+        GGAF_PROPERTY(DIR_TEXTURE[1])      = dir_texture1; //dir_texture1はデフォルトスキンディレクトリ
+        GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
         transform(model_type.begin(), model_type.end(), model_type.begin(), static_cast<int (*)(int)>(toupper));
 
         GgafDxDrawableActor* pActor = NULL;
         std::string modelfile = "";
         if (model_type == "X") {
+
+
             if (model_id.length() > 2 && model_id.substr(model_id.length()-2) == "_0") {
                 //model_id = "donatu_0"
                 string model_part = model_id.substr(0,model_id.length()-2);
@@ -259,7 +327,9 @@ void VvvWorld::processBehavior() {
                         break;
                     }
                 }
-                pActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor",
+//                pActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor",
+//                                          string(ITOS(targetnum) + "/" +model_part).c_str());
+                pActor = createInFactory2(GgafLib::DefaultMorphMeshActor, "actor",
                                           string(ITOS(targetnum) + "/" +model_part).c_str());
                 //モーフ
             } else {
@@ -267,7 +337,8 @@ void VvvWorld::processBehavior() {
 //            if (model_id.find("WORLDBOUND") == string::npos) {
 //                pActor = createInFactory2(GgafLib::WorldBoundActor, "actor", filename);
 //            } else {
-                pActor = createInFactory2(GgafLib::CubeMapMeshActor, "actor", model_id.c_str());
+//                pActor = createInFactory2(GgafLib::CubeMapMeshActor, "actor", model_id.c_str());
+                pActor = createInFactory2(GgafLib::DefaultMeshActor, "actor", model_id.c_str());
 //            }
             }
         } else if (model_type == "SPRX") {
@@ -277,34 +348,75 @@ void VvvWorld::processBehavior() {
         } else if (model_type == "DDS") {
             if (_listActorInfo.getCurrent()) {
                 GgafDxDrawableActor* pCurrentActor = _listActorInfo.getCurrent()->pActor_;
-//                if ( Obj_GgafDxMeshActor & pCurrentActor->_obj_class) {
-//                    CubeMapMeshActor* pNewActor = createInFactory2(GgafLib::CubeMapMeshActor, "actor",
-//                                                                   pCurrentActor->_pModel->_model_name);
-//                    pNewActor->locateWith(pCurrentActor);
-//                    pNewActor->rotateWith(pCurrentActor);
-//                    pNewActor->scaleWith(pCurrentActor);
-//                    _listActorInfo.getCurrent()->pActor_->end();
-//                    _listActorInfo.getCurrent()->pActor_= pNewActor;
-//                    pNewActor->effectFlush(30);
-//                } else if ( Obj_GgafDxMorphMeshActor & pCurrentActor->_obj_class) {
-//                    CubeMapMorphMeshActor* pNewActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor",
-//                                                                        pCurrentActor->_pModel->_model_name);
-//                    pNewActor->locateWith(pCurrentActor);
-//                    pNewActor->rotateWith(pCurrentActor);
-//                    pNewActor->scaleWith(pCurrentActor);
-//                    _listActorInfo.getCurrent()->pActor_->end();
-//                    _listActorInfo.getCurrent()->pActor_= pNewActor;
-//                    pNewActor->effectFlush(30);
-//                }
+                if (Obj_GgafDxMeshActor & pCurrentActor->_obj_class) {
+                    string was_dropfile_dir = UTIL::getFileDirName(_listActorInfo.getCurrent()->modelfile_.c_str()) + "/";
+                    GGAF_PROPERTY(DIR_MESH_MODEL[0])   = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_MESH_MODEL[1])   = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_MESH_MODEL[2])   = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_SPRITE_MODEL[2]) = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_TEXTURE[0])      = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_TEXTURE[1])      = dir_texture1; //dir_texture1はデフォルトスキンディレクトリ
+                    GGAF_PROPERTY(DIR_TEXTURE[2])      = was_dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
+                    string was_model_id = UTIL::getFileBaseNameWithoutExt(_listActorInfo.getCurrent()->modelfile_.c_str());
+                    CubeMapMeshActor* pNewActor = createInFactory2(GgafLib::CubeMapMeshActor, "actor", was_model_id.c_str());
+
+                    GGAF_PROPERTY(DIR_TEXTURE[0])      = dropfile_dir;
+                    GGAF_PROPERTY(DIR_TEXTURE[1])      = dir_texture1; //dir_texture1はデフォルトスキンディレクトリ
+                    GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
+                    pNewActor->setCubeMap(file_name.c_str(), 0.5);
 
 
-                if (Obj_GgafDxCubeMapMeshActor & pCurrentActor->_obj_class) {
-                    GgafDxCubeMapMeshActor* pCubeMapActor = (GgafDxCubeMapMeshActor*)pCurrentActor;
-                    pCubeMapActor->setCubeMap(file_name.c_str(), 0.5);
-                } else if( Obj_GgafDxCubeMapMorphMeshActor & pCurrentActor->_obj_class) {
-                    GgafDxCubeMapMorphMeshActor* pCubeMapMorphActor = (GgafDxCubeMapMorphMeshActor*)pCurrentActor;
-                    pCubeMapMorphActor->setCubeMap(file_name.c_str(), 0.5);
+                    getDirector()->addSubGroup(pNewActor);
+                    ActorInfo* pActorInfo = NEW ActorInfo(pNewActor, _listActorInfo.getCurrent()->modelfile_);
+                    _listActorInfo.set(pActorInfo);
+                    pCurrentActor->end();
+                } else if (Obj_GgafDxMorphMeshActor & pCurrentActor->_obj_class) {
+
+                    string was_dropfile_dir = UTIL::getFileDirName(_listActorInfo.getCurrent()->modelfile_.c_str()) + "/";
+                    GGAF_PROPERTY(DIR_MESH_MODEL[0])   = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_MESH_MODEL[1])   = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_MESH_MODEL[2])   = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_SPRITE_MODEL[2]) = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_TEXTURE[0])      = was_dropfile_dir;
+                    GGAF_PROPERTY(DIR_TEXTURE[1])      = dir_texture1; //dir_texture1はデフォルトスキンディレクトリ
+                    GGAF_PROPERTY(DIR_TEXTURE[2])      = was_dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
+                    //string was_model_id = UTIL::getFileBaseNameWithoutExt(_listActorInfo.getCurrent()->modelfile_.c_str());
+                    CubeMapMorphMeshActor* pNewActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->_pModel->getName());
+
+                    GGAF_PROPERTY(DIR_TEXTURE[0])      = dropfile_dir;
+                    GGAF_PROPERTY(DIR_TEXTURE[1])      = dir_texture1; //dir_texture1はデフォルトスキンディレクトリ
+                    GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
+                    pNewActor->setCubeMap(file_name.c_str(), 0.5);
+
+
+                    getDirector()->addSubGroup(pNewActor);
+                    ActorInfo* pActorInfo = NEW ActorInfo(pNewActor, _listActorInfo.getCurrent()->modelfile_);
+                    _listActorInfo.set(pActorInfo);
+                    pCurrentActor->end();
+
+
+
+
+
+
+
+
+
+
+
                 }
+//                GgafDxDrawableActor* pCurrentActor = _listActorInfo.getCurrent()->pActor_;
+//                if (Obj_GgafDxCubeMapMeshActor & pCurrentActor->_obj_class) {
+//                    GgafDxCubeMapMeshActor* pCubeMapActor = (GgafDxCubeMapMeshActor*)pCurrentActor;
+//                    pCubeMapActor->setCubeMap(file_name.c_str(), 0.5);
+//                } else if( Obj_GgafDxCubeMapMorphMeshActor & pCurrentActor->_obj_class) {
+//                    GgafDxCubeMapMorphMeshActor* pCubeMapMorphActor = (GgafDxCubeMapMorphMeshActor*)pCurrentActor;
+//                    pCubeMapMorphActor->setCubeMap(file_name.c_str(), 0.5);
+//                }
             }
         } else {
 
@@ -323,11 +435,13 @@ void VvvWorld::processBehavior() {
         //プロパティ復帰
         GGAF_PROPERTY(DIR_MESH_MODEL[0])   = dir_mesh_model0;
         GGAF_PROPERTY(DIR_MESH_MODEL[1])   = dir_mesh_model1;
+        GGAF_PROPERTY(DIR_MESH_MODEL[2])   = dir_mesh_model2;
         GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) = dir_sprite_model0;
         GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) = dir_sprite_model1;
+        GGAF_PROPERTY(DIR_SPRITE_MODEL[2]) = dir_sprite_model2;
         GGAF_PROPERTY(DIR_TEXTURE[0])      = dir_texture0;
         GGAF_PROPERTY(DIR_TEXTURE[1])      = dir_texture1;
-
+        GGAF_PROPERTY(DIR_TEXTURE[2])      = dir_texture2;
         VvvGod::is_wm_dropfiles_ = false;
     }
 }

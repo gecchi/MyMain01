@@ -68,17 +68,23 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
 }
 
 std::string GgafDxEffect::getEffectFileName(std::string prm_file) {
-    std::string effect_file = GGAF_PROPERTY(DIR_EFFECT[1]) + "/" + prm_file;
+    std::string effect_file = GGAF_PROPERTY(DIR_EFFECT[0]) + "/" + prm_file;
     UTIL::strReplace(effect_file, "//", "/");
     if (PathFileExists(effect_file.c_str()) ) {
-        return effect_file; //ユーザースキンに存在すればそれを優先
+        return effect_file;
     } else {
-        effect_file = GGAF_PROPERTY(DIR_EFFECT[0]) + "/" + prm_file;
+        effect_file = GGAF_PROPERTY(DIR_EFFECT[2]) + "/" + prm_file;
         UTIL::strReplace(effect_file, "//", "/");
         if (PathFileExists(effect_file.c_str()) ) {
-            return effect_file;
+            return effect_file; //ユーザースキンに存在すればそれを優先
         } else {
-            throwGgafCriticalException("GgafDxEffect::getEffectFileName エフェクトファイルが見つかりません。effect_file="<<effect_file);
+            effect_file = GGAF_PROPERTY(DIR_EFFECT[1]) + "/" + prm_file;
+            UTIL::strReplace(effect_file, "//", "/");
+            if (PathFileExists(effect_file.c_str()) ) {
+                return effect_file;
+            } else {
+                throwGgafCriticalException("GgafDxEffect::getEffectFileName エフェクトファイルが見つかりません。effect_file="<<effect_file);
+            }
         }
     }
 }

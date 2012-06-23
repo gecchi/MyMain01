@@ -88,18 +88,18 @@ public:
     /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_SKIN_XXX_WAVE;
 
-    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ(0:default/1:ユーザー) */
-    static std::string DIR_MESH_MODEL[2];
-    /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ(0:default/1:ユーザー) */
-    static std::string DIR_SPRITE_MODEL[2];
-    /** [r] テクスチャファイルの格納ディレクトリ(0:default/1:ユーザー) */
-    static std::string DIR_TEXTURE[2];
-    /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ(0:default/1:ユーザー) */
-    static std::string DIR_EFFECT[2];
-    /** [r] BGMファイル(oggファイル)の格納ディレクトリ(0:default/1:ユーザー) */
-    static std::string DIR_OGG[2];
-    /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ(0:default/1:ユーザー) */
-    static std::string DIR_WAVE[2];
+    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ(0:カレント/1:default/2:ユーザー) */
+    static std::string DIR_MESH_MODEL[3];
+    /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ(0:カレント/1:default/2:ユーザー) */
+    static std::string DIR_SPRITE_MODEL[3];
+    /** [r] テクスチャファイルの格納ディレクトリ(0:カレント/1:default/2:ユーザー) */
+    static std::string DIR_TEXTURE[3];
+    /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ(0:カレント/1:default/2:ユーザー) */
+    static std::string DIR_EFFECT[3];
+    /** [r] BGMファイル(oggファイル)の格納ディレクトリ(0:カレント/1:default/2:ユーザー) */
+    static std::string DIR_OGG[3];
+    /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ(0:カレント/1:default/2:ユーザー) */
+    static std::string DIR_WAVE[3];
 
     /** [r] エフェクトファイル(fxファイル)を実行時にコンパイルするかどうか */
     static bool REALTIME_EFFECT_COMPILE;

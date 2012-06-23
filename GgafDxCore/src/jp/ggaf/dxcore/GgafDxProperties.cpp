@@ -47,28 +47,34 @@ std::string GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_OGG = "ogg";
 std::string GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_WAVE = "wave";
 
 std::string GgafDxProperties::DIR_MESH_MODEL[] = {
-                GgafProperties::DIR_SKIN_KIND[0] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH,
-                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH
+                GgafProperties::DIR_SKIN_KIND[0] + "/" ,
+                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH,
+                GgafProperties::DIR_SKIN_KIND[2] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH
             };
 std::string GgafDxProperties::DIR_SPRITE_MODEL[] = {
-                GgafProperties::DIR_SKIN_KIND[0] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/",
-                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/"
+                GgafProperties::DIR_SKIN_KIND[0] + "/",
+                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/",
+                GgafProperties::DIR_SKIN_KIND[2] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/"
             };
 std::string GgafDxProperties::DIR_TEXTURE[] = {
-                GgafProperties::DIR_SKIN_KIND[0] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/",
-                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/"
+                GgafProperties::DIR_SKIN_KIND[0] ,
+                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/",
+                GgafProperties::DIR_SKIN_KIND[2] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/"
             };
 std::string GgafDxProperties::DIR_EFFECT[] = {
-                GgafProperties::DIR_SKIN_KIND[0] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_EFFECT + "/",
-                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_EFFECT + "/"
+                GgafProperties::DIR_SKIN_KIND[0],
+                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_EFFECT + "/",
+                GgafProperties::DIR_SKIN_KIND[2] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_EFFECT + "/"
             };
 std::string GgafDxProperties::DIR_OGG[] = {
-                GgafProperties::DIR_SKIN_KIND[0] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_OGG + "/",
-                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_OGG + "/"
+                GgafProperties::DIR_SKIN_KIND[0],
+                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_OGG + "/",
+                GgafProperties::DIR_SKIN_KIND[2] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_OGG + "/"
             };
 std::string GgafDxProperties::DIR_WAVE[] = {
-                GgafProperties::DIR_SKIN_KIND[0] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_WAVE + "/",
-                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_WAVE + "/"
+                GgafProperties::DIR_SKIN_KIND[0],
+                GgafProperties::DIR_SKIN_KIND[1] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_WAVE + "/",
+                GgafProperties::DIR_SKIN_KIND[2] + "/" + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_WAVE + "/"
             };
 
 bool GgafDxProperties::REALTIME_EFFECT_COMPILE = false;
@@ -190,18 +196,13 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
         GgafDxProperties::REALTIME_EFFECT_COMPILE = getBool("REALTIME_EFFECT_COMPILE");
     }
 
-    GgafDxProperties::DIR_MESH_MODEL[0] = GgafProperties::DIR_SKIN_KIND[0] + "/"
-            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
-    GgafDxProperties::DIR_SPRITE_MODEL[0] = GgafProperties::DIR_SKIN_KIND[0] + "/"
-            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/";
-    GgafDxProperties::DIR_TEXTURE[0] = GgafProperties::DIR_SKIN_KIND[0] + "/"
-            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-    GgafDxProperties::DIR_EFFECT[0] = GgafProperties::DIR_SKIN_KIND[0] + "/"
-            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_EFFECT + "/";
-    GgafDxProperties::DIR_OGG[0] = GgafProperties::DIR_SKIN_KIND[0] + "/"
-            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_OGG + "/";
-    GgafDxProperties::DIR_WAVE[0] = GgafProperties::DIR_SKIN_KIND[0] + "/"
-            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_WAVE + "/";
+    GgafDxProperties::DIR_MESH_MODEL[0] = GgafProperties::DIR_SKIN_KIND[0] + "/";
+    GgafDxProperties::DIR_SPRITE_MODEL[0] = GgafProperties::DIR_SKIN_KIND[0] + "/";
+    GgafDxProperties::DIR_TEXTURE[0] = GgafProperties::DIR_SKIN_KIND[0] + "/";
+    GgafDxProperties::DIR_EFFECT[0] = GgafProperties::DIR_SKIN_KIND[0] + "/";
+    GgafDxProperties::DIR_OGG[0] = GgafProperties::DIR_SKIN_KIND[0] + "/";
+    GgafDxProperties::DIR_WAVE[0] = GgafProperties::DIR_SKIN_KIND[0] + "/";
+
     GgafDxProperties::DIR_MESH_MODEL[1] = GgafProperties::DIR_SKIN_KIND[1] + "/"
             + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
     GgafDxProperties::DIR_SPRITE_MODEL[1] = GgafProperties::DIR_SKIN_KIND[1] + "/"
@@ -213,6 +214,19 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     GgafDxProperties::DIR_OGG[1] = GgafProperties::DIR_SKIN_KIND[1] + "/"
             + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_OGG + "/";
     GgafDxProperties::DIR_WAVE[1] = GgafProperties::DIR_SKIN_KIND[1] + "/"
+            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_WAVE + "/";
+
+    GgafDxProperties::DIR_MESH_MODEL[2] = GgafProperties::DIR_SKIN_KIND[2] + "/"
+            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
+    GgafDxProperties::DIR_SPRITE_MODEL[2] = GgafProperties::DIR_SKIN_KIND[2] + "/"
+            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/";
+    GgafDxProperties::DIR_TEXTURE[2] = GgafProperties::DIR_SKIN_KIND[2] + "/"
+            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+    GgafDxProperties::DIR_EFFECT[2] = GgafProperties::DIR_SKIN_KIND[2] + "/"
+            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_EFFECT + "/";
+    GgafDxProperties::DIR_OGG[2] = GgafProperties::DIR_SKIN_KIND[2] + "/"
+            + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_OGG + "/";
+    GgafDxProperties::DIR_WAVE[2] = GgafProperties::DIR_SKIN_KIND[2] + "/"
             + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_WAVE + "/";
 
     UTIL::strReplace(GgafDxProperties::DIR_MESH_MODEL[0]    , "//", "/");
@@ -227,36 +241,42 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     UTIL::strReplace(GgafDxProperties::DIR_EFFECT[1]        , "//", "/");
     UTIL::strReplace(GgafDxProperties::DIR_OGG[1]           , "//", "/");
     UTIL::strReplace(GgafDxProperties::DIR_WAVE[1]          , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_MESH_MODEL[2]    , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_SPRITE_MODEL[2]  , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_TEXTURE[2]       , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_EFFECT[2]        , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_OGG[2]           , "//", "/");
+    UTIL::strReplace(GgafDxProperties::DIR_WAVE[2]          , "//", "/");
 
-    //指定があるのならば、ディレクトリ存在チェック
+    //スキンディレクトリフォルダ名指定があるのならば、デフォルトのスキンディレクトリ存在チェック
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MESH")) {
-        if (!PathFileExists(GgafDxProperties::DIR_MESH_MODEL[0].c_str()) ) {
-            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_MESH_MODEL[0]("<<GgafDxProperties::DIR_MESH_MODEL[0]<<") のディレクトリが見つかりません。");
+        if (!PathFileExists(GgafDxProperties::DIR_MESH_MODEL[1].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_MESH_MODEL[1]("<<GgafDxProperties::DIR_MESH_MODEL[1]<<") のディレクトリが見つかりません。");
         }
     }
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_SPRITE")) {
-        if (!PathFileExists(GgafDxProperties::DIR_SPRITE_MODEL[0].c_str()) ) {
-            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_SPRITE_MODEL[0]("<<GgafDxProperties::DIR_SPRITE_MODEL[0]<<") のディレクトリが見つかりません。");
+        if (!PathFileExists(GgafDxProperties::DIR_SPRITE_MODEL[1].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_SPRITE_MODEL[1]("<<GgafDxProperties::DIR_SPRITE_MODEL[1]<<") のディレクトリが見つかりません。");
         }
     }
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_TEXTURE")) {
-        if (!PathFileExists(GgafDxProperties::DIR_TEXTURE[0].c_str()) ) {
-            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_TEXTURE[0]("<<GgafDxProperties::DIR_TEXTURE[0]<<") のディレクトリが見つかりません。");
+        if (!PathFileExists(GgafDxProperties::DIR_TEXTURE[1].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_TEXTURE[1]("<<GgafDxProperties::DIR_TEXTURE[1]<<") のディレクトリが見つかりません。");
         }
     }
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_EFFECT")) {
-        if (!PathFileExists(GgafDxProperties::DIR_EFFECT[0].c_str()) ) {
-            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_EFFECT[0]("<<GgafDxProperties::DIR_EFFECT[0]<<") のディレクトリが見つかりません。");
+        if (!PathFileExists(GgafDxProperties::DIR_EFFECT[1].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_EFFECT[1]("<<GgafDxProperties::DIR_EFFECT[1]<<") のディレクトリが見つかりません。");
         }
     }
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_OGG")) {
-        if (!PathFileExists(GgafDxProperties::DIR_OGG[0].c_str()) ) {
-            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_OGG[0]("<<GgafDxProperties::DIR_OGG[0]<<") のディレクトリが見つかりません。");
+        if (!PathFileExists(GgafDxProperties::DIR_OGG[1].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_OGG[1]("<<GgafDxProperties::DIR_OGG[1]<<") のディレクトリが見つかりません。");
         }
     }
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_WAVE")) {
-        if (!PathFileExists(GgafDxProperties::DIR_WAVE[0].c_str()) ) {
-            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_WAVE[0]("<<GgafDxProperties::DIR_WAVE[0]<<") のディレクトリが見つかりません。");
+        if (!PathFileExists(GgafDxProperties::DIR_WAVE[1].c_str()) ) {
+            throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIR_WAVE[1]("<<GgafDxProperties::DIR_WAVE[1]<<") のディレクトリが見つかりません。");
         }
     }
 
@@ -301,6 +321,7 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafDxProperties::DIR_EFFECT[0]=" << GgafDxProperties::DIR_EFFECT[0]);
     _TRACE_("GgafDxProperties::DIR_OGG[0]=" << GgafDxProperties::DIR_OGG[0]);
     _TRACE_("GgafDxProperties::DIR_WAVE[0]=" << GgafDxProperties::DIR_WAVE[0]);
+
     _TRACE_("GgafDxProperties::DIR_MESH_MODEL[1]=" << GgafDxProperties::DIR_MESH_MODEL[1]);
     _TRACE_("GgafDxProperties::DIR_SPRITE_MODEL[1]=" << GgafDxProperties::DIR_SPRITE_MODEL[1]);
     _TRACE_("GgafDxProperties::DIR_TEXTURE[1]=" << GgafDxProperties::DIR_TEXTURE[1]);
@@ -308,6 +329,12 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafDxProperties::DIR_OGG[1]=" << GgafDxProperties::DIR_OGG[1]);
     _TRACE_("GgafDxProperties::DIR_WAVE[1]=" << GgafDxProperties::DIR_WAVE[1]);
 
+    _TRACE_("GgafDxProperties::DIR_MESH_MODEL[2]=" << GgafDxProperties::DIR_MESH_MODEL[2]);
+    _TRACE_("GgafDxProperties::DIR_SPRITE_MODEL[2]=" << GgafDxProperties::DIR_SPRITE_MODEL[2]);
+    _TRACE_("GgafDxProperties::DIR_TEXTURE[2]=" << GgafDxProperties::DIR_TEXTURE[2]);
+    _TRACE_("GgafDxProperties::DIR_EFFECT[2]=" << GgafDxProperties::DIR_EFFECT[2]);
+    _TRACE_("GgafDxProperties::DIR_OGG[2]=" << GgafDxProperties::DIR_OGG[2]);
+    _TRACE_("GgafDxProperties::DIR_WAVE[2]=" << GgafDxProperties::DIR_WAVE[2]);
     _TRACE_("GgafDxProperties::REALTIME_EFFECT_COMPILE="<<GgafDxProperties::REALTIME_EFFECT_COMPILE);
 
 }
