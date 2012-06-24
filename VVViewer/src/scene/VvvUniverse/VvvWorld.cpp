@@ -46,12 +46,13 @@ void VvvWorld::processBehavior() {
                 pCursor_->moveTo(_listActorInfo.next()->pActor_);
             }
             _listActorInfo.getCurrent()->pActor_->effectFlush(30);
+            GgafDxDrawableActor* pT = _listActorInfo.getCurrent()->pActor_;
+            pCamWorker_->move_target_X_VP_ =  pT->_X;
+            pCamWorker_->move_target_Y_VP_ =  pT->_Y;
+            pCamWorker_->move_target_Z_VP_ =  pT->_Z;
+            pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
         }
-        GgafDxDrawableActor* pT = _listActorInfo.getCurrent()->pActor_;
-        pCamWorker_->move_target_X_VP_ =  pT->_X;
-        pCamWorker_->move_target_Y_VP_ =  pT->_Y;
-        pCamWorker_->move_target_Z_VP_ =  pT->_Z;
-        pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
+
     } else if (GgafDxInput::isPushedDownKey(DIK_DELETE)) {
         if (_listActorInfo.length() > 0) {
             _listActorInfo.getCurrent()->pActor_->end();
