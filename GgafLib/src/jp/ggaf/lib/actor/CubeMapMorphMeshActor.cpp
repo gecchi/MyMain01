@@ -13,9 +13,7 @@ CubeMapMorphMeshActor::CubeMapMorphMeshActor(const char* prm_name, const char* p
 
     _class_name = "CubeMapMorphMeshActor";
     _pColliChecker = (CollisionChecker*)_pChecker;
-
     _pScaler = NEW GgafDxScaler(this);
-    _pMorpher = NEW GgafDxMorpher(this);
 }
 
 void CubeMapMorphMeshActor::drawHitArea() {

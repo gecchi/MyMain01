@@ -27,8 +27,6 @@ class CubeMapMorphMeshActor : public GgafDxCore::GgafDxCubeMapMorphMeshActor {
 public:
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* _pScaler;
-    /** モーフィング支援オブジェクト */
-    GgafDxCore::GgafDxMorpher* _pMorpher;
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 

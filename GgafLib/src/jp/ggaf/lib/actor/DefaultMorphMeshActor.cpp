@@ -14,7 +14,6 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
     _class_name = "DefaultMorphMeshActor";
     _pColliChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
-    _pMorpher = NEW GgafDxMorpher(this);
 }
 
 void DefaultMorphMeshActor::drawHitArea() {

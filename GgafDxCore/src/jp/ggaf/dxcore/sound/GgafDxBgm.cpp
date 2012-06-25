@@ -31,17 +31,17 @@ GgafDxBgm::GgafDxBgm(char* prm_bgm_key) : GgafObject() {
 }
 
 std::string GgafDxBgm::getOggFileName(std::string prm_file) {
-    std::string ogg_file = GGAF_PROPERTY(DIR_OGG[0]) + "/" + prm_file;
+    std::string ogg_file = GGAF_PROPERTY(DIR_OGG[2]) + "/" + prm_file;
     UTIL::strReplace(ogg_file, "//", "/");
     if (PathFileExists(ogg_file.c_str()) ) {
         return ogg_file;
     } else {
-        ogg_file = GGAF_PROPERTY(DIR_OGG[2]) + "/" + prm_file;
+        ogg_file = GGAF_PROPERTY(DIR_OGG[1]) + "/" + prm_file;
         UTIL::strReplace(ogg_file, "//", "/");
         if (PathFileExists(ogg_file.c_str()) ) {
             return ogg_file; //ユーザースキンに存在すればそれを優先
         } else {
-            ogg_file = GGAF_PROPERTY(DIR_OGG[1]) + "/" + prm_file;
+            ogg_file = GGAF_PROPERTY(DIR_OGG[0]) + "/" + prm_file;
             UTIL::strReplace(ogg_file, "//", "/");
             if (PathFileExists(ogg_file.c_str()) ) {
                 return ogg_file;

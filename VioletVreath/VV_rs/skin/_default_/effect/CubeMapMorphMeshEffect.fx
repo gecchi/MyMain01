@@ -310,7 +310,7 @@ float4 GgafDxPS_CubeMapMorphMesh(
 	if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
 		out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
 	} 
-    out_color.a = prm_color.a * g_alpha_master; 
+    out_color.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master; 
 	return out_color;
 }
 

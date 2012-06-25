@@ -232,7 +232,7 @@ float4 GgafDxPS_CubeMapMeshSet(
 		out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
 	} 
 
-    out_color.a = prm_color.a * g_alpha_master; 
+    out_color.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master; 
 	return out_color;
 
 

@@ -14,9 +14,9 @@ std::string GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT = ".";
 std::string GgafProperties::DIRNAME_RESOURCE_SKIN_USER = "";
 std::string GgafProperties::DIR_SKIN = GgafProperties::DIR_RESOURCE + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN + "/";
 std::string GgafProperties::DIR_SKIN_KIND[] = {
-                "./",
                 GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT + "/",
-                ""
+                "",
+                "./"
             };
 
 
@@ -58,15 +58,20 @@ void GgafProperties::load(std::string prm_properties_filename) {
     GgafProperties::DIR_SKIN = GgafProperties::DIR_RESOURCE + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN  + "/";
     UTIL::strReplace(GgafProperties::DIR_SKIN, "//", "/");
 
-    GgafProperties::DIR_SKIN_KIND[0] = "./";
-    GgafProperties::DIR_SKIN_KIND[1] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT + "/";
-    UTIL::strReplace(GgafProperties::DIR_SKIN_KIND[1], "//", "/");
+    GgafProperties::DIR_SKIN_KIND[0] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT + "/";
+    UTIL::strReplace(GgafProperties::DIR_SKIN_KIND[0], "//", "/");
+
     if (GgafProperties::DIRNAME_RESOURCE_SKIN_USER == "") {
-        GgafProperties::DIR_SKIN_KIND[2] = GgafProperties::DIR_SKIN_KIND[0] + "/";
+        //ユーザースキンディレクトリー名指定無しの場合
+        GgafProperties::DIR_SKIN_KIND[1] = GgafProperties::DIR_SKIN_KIND[0];
     } else {
-        GgafProperties::DIR_SKIN_KIND[2] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_USER + "/";
+        //ユーザースキンディレクトリー名指定有りの場合
+        GgafProperties::DIR_SKIN_KIND[1] = GgafProperties::DIR_SKIN + "/" + GgafProperties::DIRNAME_RESOURCE_SKIN_USER + "/";
     }
     UTIL::strReplace(GgafProperties::DIR_SKIN_KIND[1], "//", "/");
+
+    GgafProperties::DIR_SKIN_KIND[2] = "./";
+    UTIL::strReplace(GgafProperties::DIR_SKIN_KIND[2], "//", "/");
 
     //DIR存在チェック
     if (!PathFileExists(GgafProperties::DIR_SKIN.c_str()) ) {
@@ -76,7 +81,8 @@ void GgafProperties::load(std::string prm_properties_filename) {
     if (GgafProperties::DIRNAME_RESOURCE_SKIN_USER == "") {
 
     } else {
-        if (!PathFileExists(GgafProperties::DIR_SKIN_KIND[1].c_str()) ) {
+        //ユーザースキンディレクトリー名指定有りの場合、デフォルトスキンの存在チェック
+        if (!PathFileExists(GgafProperties::DIR_SKIN_KIND[0].c_str()) ) {
             throwGgafCriticalException("GgafProperties::load("<<prm_properties_filename<<") DIRNAME_RESOURCE_SKIN_USERを指定しましたが、\n("<<GgafProperties::DIR_SKIN_KIND[1]<<") のディレクトリが見つかりません。");
         }
     }

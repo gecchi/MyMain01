@@ -1,7 +1,7 @@
 #include "GgafEffectConst.fxh" 
 /**
- * GgafDxMeshModel用シェーダー .
- * 静的モデル１つを描画する標準的シェーダー。
+ * GgafLib::DefaultMeshActor 用シェーダー .
+ * 静的モデル１つを描画する標準的なシェーダー。
  * 頂点バッファフォーマットは
  * FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)
  * を、前提とする。
@@ -29,7 +29,6 @@ float4 g_colMaterialDiffuse;
 float g_specular;
 /** スペキュラーの強度 */
 float g_specular_power;
-
 /** モデルのテクスチャ色点滅機能(GgafDxTextureBlinker参照)の点滅強度 */
 float g_tex_blink_power;   
 /** モデルのテクスチャ色点滅機能(GgafDxTextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
@@ -38,39 +37,29 @@ float g_tex_blink_threshold;
 float g_alpha_master;
 /** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
 float g_zf;
-
+/** -1.0 or 0.999 。遠くでも表示を強制したい場合に0.999 が代入される。*/ 
 float g_far_rate;
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
     
-
-
-//float  g_specular = 5.0f;       //スペキュラーの範囲
-//float  g_specular_power = 1.0f;  //スペキュラーの強度
-
-
-
-
 /** 頂点シェーダー、出力構造体 */
 struct OUT_VS {
-    float4 pos : POSITION;
-    float2 uv  : TEXCOORD0;
-    float4 color : COLOR0;
-    float3 normal   : TEXCOORD1;   //オブジェクトの法線ベクトル
-    float3 cam  : TEXCOORD2;   //頂点 -> 視点 ベクトル
-
+    float4 pos    : POSITION;    //座標
+    float2 uv     : TEXCOORD0;   //テクスチャUV
+    float4 color  : COLOR0;      //頂点カラー
+    float3 normal : TEXCOORD1;   //オブジェクトの法線ベクトル
+    float3 cam    : TEXCOORD2;   //頂点 -> 視点 ベクトル
 };
 
 /**
- * 標準的な頂点シェーダー .
- * 頂点バッファには、
- * 頂点を World > View > 射影 変換し、頂点カラーの設定を行っている。
- * モデルのマテリアル色付、つまり
- * 拡散光色、拡散光反射色、環境光色、マスターアルファ、フォグ、は
- * 速度重視のためピクセルシェーダーで行わず、頂点カラーで実現している。
- * @param prm_pos    モデル頂点のローカル座標
- * @param prm_normal モデル頂点の法線
- * @param prm_normal モデル頂点のUV座標
+ * GgafLib::DefaultMeshActor 用の標準頂点シェーダー .
+ * 頂点を World > View > 射影 変換した後、
+ * モデルのマテリアル色付を頂点カラーの設定で行う。
+ * マテリアル色付とは具体位的に
+ * 拡散光色、拡散光反射色、環境光色、マスターアルファ、フォグ、の事。
+ * @param prm_pos    頂点のローカル座標
+ * @param prm_normal 頂点の法線
+ * @param prm_uv     頂点のUV座標
  */
 OUT_VS GgafDxVS_DefaultMesh(
       float4 prm_pos    : POSITION, 
@@ -80,8 +69,7 @@ OUT_VS GgafDxVS_DefaultMesh(
     OUT_VS out_vs = (OUT_VS)0;
 
     //頂点計算
-    float4 posWorld = mul(prm_pos, g_matWorld);
-
+    float4 posWorld = mul(prm_pos, g_matWorld); //World変換
     out_vs.pos = mul( mul( posWorld, g_matView), g_matProj);  //World*View*射影
 
     //UV計算
@@ -94,14 +82,15 @@ OUT_VS GgafDxVS_DefaultMesh(
     float power = max(dot(out_vs.normal, -g_vecLightDirection ), 0);      
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
     out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
-    //「頂点→カメラ視点」方向ベクトル                                                        
+    //「頂点→カメラ視点」方向ベクトル（スペキュラで使用）                                                        
     out_vs.cam = normalize(g_posCam.xyz - posWorld.xyz);
     //αはマテリアルαを最優先とする（上書きする）
     out_vs.color.a = g_colMaterialDiffuse.a;
 
+    //遠方時の表示方法。
     if (g_far_rate > 0.0) {
         if (out_vs.pos.z > g_zf*g_far_rate) {   
-            out_vs.pos.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+            out_vs.pos.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
         }
     } else {
         //αフォグ
@@ -111,18 +100,20 @@ OUT_VS GgafDxVS_DefaultMesh(
     }
     //マスターα
     out_vs.color.a *= g_alpha_master;
-//    if (out_vs.pos.z > g_zf*0.98) {   
-//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
-//    }
+
     return out_vs;
 }
 
 /**
- * 通常ピクセルシェーダー
+ * GgafLib::DefaultMeshActor 用の標準ピクセルシェーダー .
+ * @param prm_uv     ピクセルでのUV座標
+ * @param prm_color  ピクセルでの色（頂点カラーによる）
+ * @param prm_normal ピクセルでの法線
+ * @param prm_cam    ピクセルでの座標 -> 視点 ベクトル
  */
 float4 GgafDxPS_DefaultMesh(
     float2 prm_uv     : TEXCOORD0,
-    float4 prm_color    : COLOR0,
+    float4 prm_color  : COLOR0,
     float3 prm_normal : TEXCOORD1,
     float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
@@ -136,36 +127,36 @@ float4 GgafDxPS_DefaultMesh(
     float4 tex_color = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に        
     float4 out_color = tex_color * prm_color + s;
-
     //Blinkerを考慮
     if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
         out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
     } 
     //マスターα
     out_color.a *= g_alpha_master;
-
     return out_color;
 }
 
+/**
+ * GgafLib::DefaultMeshActor 用の閃光ピクセルシェーダー .
+ * テクスチャ原色を FLUSH_COLOR 倍して設定。
+ * @param prm_uv     ピクセルでのUV座標
+ * @param prm_color  ピクセルでの色（頂点カラーによる）
+ */
 float4 PS_Flush( 
     float2 prm_uv  : TEXCOORD0,
     float4 prm_color : COLOR0
 ) : COLOR  {                         
-    //テクスチャをサンプリングして色取得（原色を取得）
     float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
     float4 out_color = tex_color * prm_color * FLUSH_COLOR;
     out_color.a *= g_alpha_master;
     return out_color;
 }
 
-
 /**
- * 通常テクニック
+ * 通常テクニック .
  */
 technique DefaultMeshTechnique
 {
-    //pass P0「メッシュ標準シェーダー」
-    //メッシュを描画する
     pass P0 {
         AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
@@ -179,6 +170,9 @@ technique DefaultMeshTechnique
     }
 }
 
+/**
+ * 加算合成テクニック .
+ */
 technique DestBlendOne
 {
     pass P0 {
@@ -194,6 +188,9 @@ technique DestBlendOne
     }
 }
 
+/**
+ * 閃光テクニック .
+ */
 technique Flush
 {
     pass P0 {
