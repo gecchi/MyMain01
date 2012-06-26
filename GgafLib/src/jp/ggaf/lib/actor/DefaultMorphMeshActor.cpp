@@ -24,5 +24,4 @@ void DefaultMorphMeshActor::drawHitArea() {
 DefaultMorphMeshActor::~DefaultMorphMeshActor() {
     DELETE_IMPOSSIBLE_NULL(_pColliChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
-    DELETE_IMPOSSIBLE_NULL(_pMorpher);
 }

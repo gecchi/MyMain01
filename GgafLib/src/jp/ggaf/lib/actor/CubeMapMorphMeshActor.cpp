@@ -24,5 +24,4 @@ void CubeMapMorphMeshActor::drawHitArea() {
 CubeMapMorphMeshActor::~CubeMapMorphMeshActor() {
     DELETE_IMPOSSIBLE_NULL(_pColliChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
-    DELETE_IMPOSSIBLE_NULL(_pMorpher);
 }

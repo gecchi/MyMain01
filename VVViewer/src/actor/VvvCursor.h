@@ -8,7 +8,7 @@ namespace VVViewer {
  * @since 2012/06/05
  * @author Masatoshi Tsuge
  */
-class VvvCursor : public GgafLib::DefaultSpriteSetActor {
+class VvvCursor : public GgafLib::DefaultSpriteActor {
 
 public:
     enum {

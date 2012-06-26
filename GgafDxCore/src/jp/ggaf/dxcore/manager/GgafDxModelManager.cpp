@@ -540,48 +540,10 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
         prm_pMeshModel->_pIDirect3DIndexBuffer9->Unlock();
     }
 
-    //マテリアル数カウント
+    //マテリアル設定
     int model_nMaterials = 0;
-    for (std::list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-        model_nMaterials++;
-    }
-
-    model_paMaterial = NEW D3DMATERIAL9[model_nMaterials];
-    model_papTextureCon = NEW GgafDxTextureConnection*[model_nMaterials];
-
-    char* texture_filename;
-    int n = 0;
-    for (std::list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-        model_paMaterial[n].Diffuse.r = (*material)->_FaceColor.data[0];
-        model_paMaterial[n].Diffuse.g = (*material)->_FaceColor.data[1];
-        model_paMaterial[n].Diffuse.b = (*material)->_FaceColor.data[2];
-        model_paMaterial[n].Diffuse.a = (*material)->_FaceColor.data[3];
-
-        model_paMaterial[n].Ambient.r = (*material)->_FaceColor.data[0];
-        model_paMaterial[n].Ambient.g = (*material)->_FaceColor.data[1];
-        model_paMaterial[n].Ambient.b = (*material)->_FaceColor.data[2];
-        model_paMaterial[n].Ambient.a = (*material)->_FaceColor.data[3];
-
-        model_paMaterial[n].Specular.r = (*material)->_SpecularColor.data[0];
-        model_paMaterial[n].Specular.g = (*material)->_SpecularColor.data[1];
-        model_paMaterial[n].Specular.b = (*material)->_SpecularColor.data[2];
-        model_paMaterial[n].Specular.a = 1.000000f;
-        model_paMaterial[n].Power =  (*material)->_power;
-
-        model_paMaterial[n].Emissive.r = (*material)->_EmissiveColor.data[0];
-        model_paMaterial[n].Emissive.g = (*material)->_EmissiveColor.data[1];
-        model_paMaterial[n].Emissive.b = (*material)->_EmissiveColor.data[2];
-        model_paMaterial[n].Emissive.a = 1.000000f;
-
-        texture_filename = (char*)((*material)->_TextureName.c_str());
-        if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
-        } else {
-            //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
-        }
-        n++;
-    }
+    setMaterial(model_pMeshesFront,
+                &model_nMaterials, &model_paMaterial, &model_papTextureCon);
 
     //モデルに保持させる
     prm_pMeshModel->_pModel3D = model_pModel3D;
@@ -666,7 +628,86 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
 //    }
 
 }
+void GgafDxModelManager::setMaterial(Frm::Mesh* in_pMeshesFront,
+                                     int* pOut_material_num,
+                                     D3DMATERIAL9**                pOut_paMaterial,
+                                     GgafDxTextureConnection***    pOut_papTextureCon) {
 
+    for (std::list<Frm::Material*>::iterator material = in_pMeshesFront->_Materials.begin();
+            material != in_pMeshesFront->_Materials.end(); material++) {
+        (*pOut_material_num)++;
+    }
+
+    if ((*pOut_material_num) > 0) {
+        (*pOut_paMaterial) = NEW D3DMATERIAL9[(*pOut_material_num)];
+        (*pOut_papTextureCon) = NEW GgafDxTextureConnection*[(*pOut_material_num)];
+
+        char* texture_filename;
+        int n = 0;
+        for (std::list<Frm::Material*>::iterator material = in_pMeshesFront->_Materials.begin();
+                material != in_pMeshesFront->_Materials.end(); material++) {
+            (*pOut_paMaterial)[n].Diffuse.r = (*material)->_FaceColor.data[0];
+            (*pOut_paMaterial)[n].Diffuse.g = (*material)->_FaceColor.data[1];
+            (*pOut_paMaterial)[n].Diffuse.b = (*material)->_FaceColor.data[2];
+            (*pOut_paMaterial)[n].Diffuse.a = (*material)->_FaceColor.data[3];
+
+            (*pOut_paMaterial)[n].Ambient.r = (*material)->_FaceColor.data[0];
+            (*pOut_paMaterial)[n].Ambient.g = (*material)->_FaceColor.data[1];
+            (*pOut_paMaterial)[n].Ambient.b = (*material)->_FaceColor.data[2];
+            (*pOut_paMaterial)[n].Ambient.a = (*material)->_FaceColor.data[3];
+
+            (*pOut_paMaterial)[n].Specular.r = (*material)->_SpecularColor.data[0];
+            (*pOut_paMaterial)[n].Specular.g = (*material)->_SpecularColor.data[1];
+            (*pOut_paMaterial)[n].Specular.b = (*material)->_SpecularColor.data[2];
+            (*pOut_paMaterial)[n].Specular.a = 1.000000f;
+            (*pOut_paMaterial)[n].Power =  (*material)->_power;
+
+            (*pOut_paMaterial)[n].Emissive.r = (*material)->_EmissiveColor.data[0];
+            (*pOut_paMaterial)[n].Emissive.g = (*material)->_EmissiveColor.data[1];
+            (*pOut_paMaterial)[n].Emissive.b = (*material)->_EmissiveColor.data[2];
+            (*pOut_paMaterial)[n].Emissive.a = 1.000000f;
+
+            texture_filename = (char*)((*material)->_TextureName.c_str());
+            if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
+                (*pOut_papTextureCon)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
+            } else {
+                //テクスチャ無し時は真っ白なテクスチャに置き換え
+                (*pOut_papTextureCon)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
+            }
+            n++;
+        }
+    } else {
+        //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
+        (*pOut_paMaterial)  = NEW D3DMATERIAL9[1];
+        (*pOut_papTextureCon) = NEW GgafDxTextureConnection*[1];
+        setDefaultMaterial(&((*pOut_paMaterial)[0]));
+        (*pOut_papTextureCon)[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
+        (*pOut_material_num) = 1;
+    }
+}
+
+void GgafDxModelManager::setDefaultMaterial(D3DMATERIAL9* out_pD3DMATERIAL9) {
+    out_pD3DMATERIAL9->Diffuse.r = 0.4f;
+    out_pD3DMATERIAL9->Diffuse.g = 0.4f;
+    out_pD3DMATERIAL9->Diffuse.b = 0.4f;
+    out_pD3DMATERIAL9->Diffuse.a = 1.000000f;
+
+    out_pD3DMATERIAL9->Ambient.r = 0.4f;
+    out_pD3DMATERIAL9->Ambient.g = 0.4f;
+    out_pD3DMATERIAL9->Ambient.b = 0.4f;
+    out_pD3DMATERIAL9->Ambient.a = 1.000000f;
+
+    out_pD3DMATERIAL9->Ambient.r = 0.4f;
+    out_pD3DMATERIAL9->Ambient.g = 0.4f;
+    out_pD3DMATERIAL9->Ambient.b = 0.4f;
+    out_pD3DMATERIAL9->Ambient.a = 1.000000f;
+    out_pD3DMATERIAL9->Power = 0.0f;
+
+    out_pD3DMATERIAL9->Ambient.r = 0.4f;
+    out_pD3DMATERIAL9->Ambient.g = 0.4f;
+    out_pD3DMATERIAL9->Ambient.b = 0.4f;
+    out_pD3DMATERIAL9->Emissive.a = 1.000000f;
+}
 
 void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, Frm::Model3D* model_pModel3D, UINT16* paNumVertices, Frm::Mesh* model_pMeshesFront, int nVertices, int nFaces, int nFaceNormals) {
     //法線設定。
@@ -1242,57 +1283,16 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
         prm_pMorphMeshModel->_pIDirect3DIndexBuffer9->Unlock();
     }
 
-    //マテリアル
+
+
+    //マテリアル設定
     //マテリアルはプライマリメッシュのマテリアル情報を、
     //プライマリ及び全モーフターゲットのマテリアルとする。
     //よってmodel_papMeshesFront[0]だけ使う、残りは使わない。
-    //TODO:将来的にはモーフターゲット別にマテリアル設定できれば表現が増す。いつかしようか。
+    //TODO:将来的にはモーフターゲット別にマテリアル設定できれば表現が増す。いつかしようか、多分だいぶ先。
     int model_nMaterials = 0;
-    for (std::list<Frm::Material*>::iterator material =  model_papMeshesFront[0]->_Materials.begin();
-            material !=  model_papMeshesFront[0]->_Materials.end(); material++) {
-        model_nMaterials++;
-    }
-
-    model_paMaterial = NEW D3DMATERIAL9[model_nMaterials];
-    model_papTextureCon = NEW GgafDxTextureConnection*[model_nMaterials];
-
-    char* texture_filename;
-    int n = 0;
-    for (std::list<Frm::Material*>::iterator material = model_papMeshesFront[0]->_Materials.begin(); material != model_papMeshesFront[0]->_Materials.end(); material++) {
-        model_paMaterial[n].Diffuse.r = (*material)->_FaceColor.data[0];
-        model_paMaterial[n].Diffuse.g = (*material)->_FaceColor.data[1];
-        model_paMaterial[n].Diffuse.b = (*material)->_FaceColor.data[2];
-        model_paMaterial[n].Diffuse.a = (*material)->_FaceColor.data[3];
-
-        model_paMaterial[n].Ambient.r = (*material)->_FaceColor.data[0];
-        model_paMaterial[n].Ambient.g = (*material)->_FaceColor.data[1];
-        model_paMaterial[n].Ambient.b = (*material)->_FaceColor.data[2];
-        model_paMaterial[n].Ambient.a = (*material)->_FaceColor.data[3];
-
-        model_paMaterial[n].Specular.r = (*material)->_SpecularColor.data[0];
-        model_paMaterial[n].Specular.g = (*material)->_SpecularColor.data[1];
-        model_paMaterial[n].Specular.b = (*material)->_SpecularColor.data[2];
-        model_paMaterial[n].Specular.a = 1.000000f;
-        model_paMaterial[n].Power =  (*material)->_power;
-
-        model_paMaterial[n].Emissive.r = (*material)->_EmissiveColor.data[0];
-        model_paMaterial[n].Emissive.g = (*material)->_EmissiveColor.data[1];
-        model_paMaterial[n].Emissive.b = (*material)->_EmissiveColor.data[2];
-        model_paMaterial[n].Emissive.a = 1.000000f;
-
-        texture_filename = (char*)((*material)->_TextureName.c_str());
-        if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
-        } else {
-            //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
-        }
-        n++;
-    }
-
-    if (model_nMaterials != n) {
-        TRACE3("GgafDxModelManager::restoreMorphMeshModel(" << prm_pMorphMeshModel->_model_name << ") ちなみにマテリアル数がおかしいです。model_nMaterials="<<model_nMaterials<<"/n="<<n);
-    }
+    setMaterial(model_papMeshesFront[0],
+                &model_nMaterials, &model_paMaterial, &model_papTextureCon);
 
     DELETEARR_IMPOSSIBLE_NULL(paIOX);
     DELETEARR_IMPOSSIBLE_NULL(paXfileName);
@@ -1605,9 +1605,9 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
     float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
     float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-    double dU = 1.0 / texWidth  / 10000.0; //テクスチャの幅1pxの10000分の1px
-    double dV = 1.0 / texHeight / 10000.0; //テクスチャの高さ1pxの10000分の1px
-    double rev = 0.99609308; //99609309で割れ
+    double dU = 1.0 / texWidth  / 100000.0; //テクスチャの幅1pxの10000分の1px
+    double dV = 1.0 / texHeight / 100000.0; //テクスチャの高さ1pxの10000分の1px
+    double rev = 1.0;//0.99609308; //99609309で割れ
     //左上
     paVertex[0].x = (xdata.width / -2.0 / PX_UNIT)*rev;
     paVertex[0].y = (xdata.height / 2.0 / PX_UNIT)*rev;
@@ -1767,9 +1767,9 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
 
         float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
         float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-        double dU = 1.0 / texWidth  / 10000.0; //テクスチャの幅1pxの10000分の1px
-        double dV = 1.0 / texHeight / 10000.0; //テクスチャの高さ1pxの10000分の1px
-        double rev = 0.99609308; //99609309で割れ
+        double dU = 1.0 / texWidth  / 100000.0; //テクスチャの幅1pxの100000分の1px
+        double dV = 1.0 / texHeight / 100000.0; //テクスチャの高さ1pxの100000分の1px
+        double rev = 1.0;//0.99609308; //99609309で割れ
         //頂点配列情報をモデルに保持させる
         //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
         //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
@@ -1977,8 +1977,8 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     //1pxあたりのuvの大きさを求める
     float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
     float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-    double dU = 1.0 / texWidth  / 10000.0; //テクスチャの幅1pxの10000分の1px
-    double dV = 1.0 / texHeight / 10000.0; //テクスチャの高さ1pxの10000分の1px
+    double dU = 0.0;//1.0 / texWidth  / 100000.0; //テクスチャの幅1pxの10000分の1px
+    double dV = 0.0;//1.0 / texHeight / 100000.0; //テクスチャの高さ1pxの10000分の1px
 
     //左上
     paVertex[0].x = 0.0f;
@@ -2111,8 +2111,8 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
         //1pxあたりのuvの大きさを求める
         float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
         float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-        double dU = 1.0 / texWidth  / 10000.0; //テクスチャの幅1pxの10000分の1px
-        double dV = 1.0 / texHeight / 10000.0; //テクスチャの高さ1pxの10000分の1px
+        double dU = 0.0; //1.0 / texWidth  / 100000.0; //テクスチャの幅1pxの10000分の1px
+        double dV = 0.0; //1.0 / texHeight / 100000.0; //テクスチャの高さ1pxの10000分の1px
         for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
             //左上
             paVertex[i*4 + 0].x = 0.0f;
@@ -2533,53 +2533,11 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
         prm_pMeshSetModel->_pIDirect3DIndexBuffer9->Unlock();
     }
 
-    //マテリアル数カウント
+
+    //マテリアル設定
     int model_nMaterials = 0;
-    for (std::list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-        model_nMaterials++;
-    }
-
-    //マテリアル
-    model_paMaterial = NEW D3DMATERIAL9[model_nMaterials];
-    model_papTextureCon = NEW GgafDxTextureConnection*[model_nMaterials];
-
-    char* texture_filename;
-    int n = 0;
-    for (std::list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-        model_paMaterial[n].Diffuse.r = (*material)->_FaceColor.data[0];
-        model_paMaterial[n].Diffuse.g = (*material)->_FaceColor.data[1];
-        model_paMaterial[n].Diffuse.b = (*material)->_FaceColor.data[2];
-        model_paMaterial[n].Diffuse.a = (*material)->_FaceColor.data[3];
-
-        model_paMaterial[n].Ambient.r = (*material)->_FaceColor.data[0];
-        model_paMaterial[n].Ambient.g = (*material)->_FaceColor.data[1];
-        model_paMaterial[n].Ambient.b = (*material)->_FaceColor.data[2];
-        model_paMaterial[n].Ambient.a = (*material)->_FaceColor.data[3];
-
-        model_paMaterial[n].Specular.r = (*material)->_SpecularColor.data[0];
-        model_paMaterial[n].Specular.g = (*material)->_SpecularColor.data[1];
-        model_paMaterial[n].Specular.b = (*material)->_SpecularColor.data[2];
-        model_paMaterial[n].Specular.a = 1.000000f;
-        model_paMaterial[n].Power =  (*material)->_power;
-
-        model_paMaterial[n].Emissive.r = (*material)->_EmissiveColor.data[0];
-        model_paMaterial[n].Emissive.g = (*material)->_EmissiveColor.data[1];
-        model_paMaterial[n].Emissive.b = (*material)->_EmissiveColor.data[2];
-        model_paMaterial[n].Emissive.a = 1.000000f;
-
-        texture_filename = (char*)((*material)->_TextureName.c_str());
-        if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
-        } else {
-            //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
-        }
-        n++;
-    }
-
-    if (model_nMaterials != n) {
-        TRACE3("GgafDxModelManager::restoreMeshSetModel(" << prm_pMeshSetModel->_model_name << ") ちなみにマテリアル数がおかしいです。model_nMaterials="<<model_nMaterials<<"/n="<<n);
-    }
+    setMaterial(model_pMeshesFront,
+                &model_nMaterials, &model_paMaterial, &model_papTextureCon);
 
     //モデルに保持させる
     prm_pMeshSetModel->_pModel3D = model_pModel3D;

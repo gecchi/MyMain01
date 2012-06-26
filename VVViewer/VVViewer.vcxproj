@@ -201,6 +201,7 @@
     <ClInclude Include="src\actor\CamWorker\VvvCamWorker.h" />
     <ClInclude Include="src\actor\VvvCamera.h" />
     <ClInclude Include="src\actor\VvvCursor.h" />
+    <ClInclude Include="src\actor\VvvGrid.h" />
     <ClInclude Include="src\scene\VvvUniverse.h" />
     <ClInclude Include="src\scene\VvvUniverse\VvvWorld.h" />
     <ClInclude Include="src\VVViewer.h" />
@@ -233,6 +234,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\actor\VvvCursor.cpp" />
+    <ClCompile Include="src\actor\VvvGrid.cpp" />
     <ClCompile Include="src\scene\VvvUniverse.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>

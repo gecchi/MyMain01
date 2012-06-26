@@ -44,6 +44,11 @@ private:
     GgafDxCubeMapMorphMeshModel* createCubeMapMorphMeshModel(char* prm_model_name);
     GgafDxWorldBoundModel*       createWorldBoundModel(char* prm_model_name);
     GgafDxPointSpriteModel*      createPointSpriteModel(char* prm_model_name);
+    void setMaterial(Frm::Mesh* in_pMeshesFront,
+                     int* pOut_material_num,
+                     D3DMATERIAL9**                pOut_paMaterial,
+                     GgafDxTextureConnection***    pOut_papTextureCon);
+    void setDefaultMaterial(D3DMATERIAL9* out_pD3DMATERIAL9);
 
     /**
      * ãÛä‘ÇÃ3ì_v0 v1 v2 ÇÊÇËÅAíºê¸ v0v1 Ç∆ v1v2 ÇÃê¨Ç∑äp(äpv1)ÇãÅÇﬂÇÈ

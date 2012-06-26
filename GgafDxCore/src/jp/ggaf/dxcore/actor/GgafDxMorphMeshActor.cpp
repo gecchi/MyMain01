@@ -98,4 +98,5 @@ int GgafDxMorphMeshActor::getMorphTergetNum() {
 }
 
 GgafDxMorphMeshActor::~GgafDxMorphMeshActor() {
+    DELETE_IMPOSSIBLE_NULL(_pMorpher);
 }

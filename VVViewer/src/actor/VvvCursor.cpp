@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VVViewer;
 
 VvvCursor::VvvCursor(const char* prm_name) :
-        GgafLib::DefaultSpriteSetActor(prm_name, "Cursor") { //Guruguru.x が参照される。
+        GgafLib::DefaultSpriteActor(prm_name, "Cursor") {
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     changeEffectTechnique("DestBlendOne"); //エフェクトテクニックは加算合成に強制
     setZEnable(false);      //Zバッファは考慮無しに強制

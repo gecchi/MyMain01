@@ -10,6 +10,8 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     getDirector()->addSubGroup(pCamWorker_);
     pCursor_ = NEW VvvCursor("Cursor");
     getDirector()->addSubGroup(pCursor_);
+    pGrid_ = NEW VvvGrid("GRID");
+    getDirector()->addSubGroup(pGrid_);
 
     vb_ = NEW VirtualButton();
 }
@@ -69,6 +71,12 @@ void VvvWorld::processBehavior() {
             GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
         }
         GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDxGod::_d3dfillmode);
+    } else if (GgafDxInput::isPushedDownKey(DIK_G)) {
+        if (pGrid_->isActive()) {
+            pGrid_->inactivate();
+        } else {
+            pGrid_->activate();
+        }
     }
 
     if (_listActorInfo.length() > 0) {
@@ -376,7 +384,6 @@ void VvvWorld::processBehavior() {
                 pCurrentActor->end();
             }
         }
-
 
         //プロパティ復帰
         GGAF_PROPERTY(DIR_MESH_MODEL[0])   = dir_mesh_model_default;

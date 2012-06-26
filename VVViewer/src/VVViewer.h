@@ -21,6 +21,7 @@ class VvvUniverse;
 class VvvWorld;
 class VvvCamera;
 class VvvCursor;
+class VvvGrid;
 class VvvCamWorker;
 }
 
@@ -29,6 +30,7 @@ class VvvCamWorker;
 #include "scene/VvvUniverse/VvvWorld.h"
 #include "actor/VvvCamera.h"
 #include "actor/VvvCursor.h"
+#include "actor/VvvGrid.h"
 #include "actor/CamWorker/VvvCamWorker.h"
 
 #endif /*VVVIEWER_H_*/

@@ -15,6 +15,9 @@ GgafDxMeshModel::GgafDxMeshModel(char* prm_model_name) : GgafDxModel(prm_model_n
     _paVtxBuffer_org = NULL;
     _paIdxBuffer_org = NULL;
     _paIndexParam = NULL;
+    _pModel3D = NULL;
+    _pMeshesFront = NULL;
+
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel*)
     //で行うようにした。要参照。

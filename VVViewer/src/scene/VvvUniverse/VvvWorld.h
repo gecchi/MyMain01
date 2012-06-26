@@ -35,6 +35,8 @@ public:
     GgafLib::VirtualButton* vb_;
     /** カーソル */
     VvvCursor* pCursor_;
+    /** グリッド */
+    VvvGrid* pGrid_;
     /** カメラマン */
     VvvCamWorker* pCamWorker_;
 
