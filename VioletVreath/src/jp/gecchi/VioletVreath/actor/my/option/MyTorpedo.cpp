@@ -21,7 +21,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pOption
         pTailEffectDepository_->addSubLast(pChip);
     }
     addSubGroup(pTailEffectDepository_);
-    changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
+    effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
     pTarget_ = NULL;

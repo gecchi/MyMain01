@@ -177,11 +177,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
-    <ClCompile Include="src\DetectMemoryLeaks.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GgafActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafActorDepository.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafActorDepositoryStore.cpp" />
     <ClCompile Include="src\jp\ggaf\core\exception\GgafCriticalException.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafCurtain.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafDepositoryFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GgafDirector.cpp" />
@@ -216,13 +216,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\jp\ggaf\core\DetectMemoryLeaks.h" />
     <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafActorDepository.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafActorDepositoryStore.h" />
     <ClInclude Include="include\GgafCommonHeader.h" />
     <ClInclude Include="include\jp\ggaf\core\exception\GgafCriticalException.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafCurtain.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafDepositoryFormation.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafDirector.h" />
@@ -236,10 +236,11 @@
     <ClInclude Include="include\jp\ggaf\core\GgafGarbageBox.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafGod.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafGroupHead.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\ggafdynamicvariable.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctree.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeElem.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeSpace.h" />
-    <ClInclude Include="include\jp\ggaf\core\GgafLinkedListRing.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\ggaflinkedlistring.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLogger.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafMainActor.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\GgafMainScene.h" />
@@ -249,8 +250,8 @@
     <ClInclude Include="include\jp\ggaf\core\GgafProgress.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafProperties.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafRepeatSeq.h" />
-    <ClInclude Include="include\jp\ggaf\core\GgafResourceConnection.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\GgafResourceManager.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\ggafresourceconnection.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\ggafresourcemanager.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafRgb.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\GgafScene.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafStatus.h" />

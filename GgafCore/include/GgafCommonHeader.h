@@ -303,8 +303,6 @@
 #endif
 
 
-#define MAX_FRAME MAXDWORD
-
 #define DUMP_FLGS   "@"<< \
                     _frame_of_behaving_since_onActive<< \
                     "/"<< \
@@ -376,6 +374,7 @@ typedef UINT64 hashval;
 typedef UINT32 actorkind;
 /** フレーム(アプリケーション時間) */
 typedef UINT32 frame;
+#define MAX_FRAME (UINT_MAX)
 /** 文字：文字 マップ */
 typedef std::map<std::string, std::string> GgafStrMap;
 
@@ -469,15 +468,15 @@ class GgafCurtain;
 #include "jp/ggaf/core/GgafProperties.h"
 #include "jp/ggaf/core/GgafGod.h"
 
-#include "jp/ggaf/core/GgafResourceConnection.hpp"
-#include "jp/ggaf/core/GgafResourceManager.hpp"
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+#include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/GgafGarbageBox.h"
 #include "jp/ggaf/core/GgafProgress.h"
 #include "jp/ggaf/core/GgafNode.hpp"
 #include "jp/ggaf/core/GgafElement.hpp"
-#include "jp/ggaf/core/GgafLinkedListRing.hpp"
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/scene/GgafScene.h"
 #include "jp/ggaf/core/scene/GgafDisusedScene.h"
 #include "jp/ggaf/core/scene/GgafMainScene.h"
@@ -499,6 +498,6 @@ class GgafCurtain;
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 #include "jp/ggaf/core/util/GgafCurtain.h"
-
+#include "jp/ggaf/core/util/GgafDynamicVariable.hpp"
 
 #endif /*GGAFCOMMONHEADER_H_*/

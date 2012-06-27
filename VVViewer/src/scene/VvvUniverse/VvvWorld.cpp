@@ -23,6 +23,7 @@ void VvvWorld::processBehavior() {
     vb_->update(); //入力状況更新
 
     if (GgafDxInput::isPushedDownKey(DIK_F1)) {
+        //カメラを初期位置へ
         VvvCamera* pCam = P_CAM;
         pCamWorker_->move_target_X_CAM_ = 0;
         pCamWorker_->move_target_Y_CAM_ = 0;
@@ -32,6 +33,7 @@ void VvvWorld::processBehavior() {
         pCamWorker_->move_target_Z_VP_ =  0;
         pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
+        //ターゲット変更のみ
         if (_listActorInfo.length() > 0) {
             if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
                 pCursor_->moveTo(_listActorInfo.getCurrent()->pActor_);
@@ -41,6 +43,7 @@ void VvvWorld::processBehavior() {
             _listActorInfo.getCurrent()->pActor_->effectFlush(30);
         }
     } else if (GgafDxInput::isPushedDownKey(DIK_RETURN)) {
+        //ターゲット変更＋カメラ向く
         if (_listActorInfo.length() > 0) {
             if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
                 pCursor_->moveTo(_listActorInfo.getCurrent()->pActor_);
@@ -56,6 +59,7 @@ void VvvWorld::processBehavior() {
         }
 
     } else if (GgafDxInput::isPushedDownKey(DIK_DELETE)) {
+        //選択を削除
         if (_listActorInfo.length() > 0) {
             _listActorInfo.getCurrent()->pActor_->end();
             _listActorInfo.remove();
@@ -72,10 +76,31 @@ void VvvWorld::processBehavior() {
         }
         GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDxGod::_d3dfillmode);
     } else if (GgafDxInput::isPushedDownKey(DIK_G)) {
+        //グリッド表示非表示
         if (pGrid_->isActive()) {
             pGrid_->inactivate();
         } else {
             pGrid_->activate();
+        }
+    } else if (GgafDxInput::isPushedDownKey(DIK_O)) {
+        //加算合成有り無し
+        if (_listActorInfo.length() > 0) {
+            GgafDxDrawableActor* pA = _listActorInfo.getCurrent()->pActor_;
+            if (pA->_is_temp_technique) {
+                pA->effectDefault();
+            } else {
+                pA->effectBlendOne();
+            }
+        }
+    } else if (GgafDxInput::isPushedDownKey(DIK_Z)) {
+        //Zバッファは書き込み有り無し
+        if (_listActorInfo.length() > 0) {
+            GgafDxDrawableActor* pA = _listActorInfo.getCurrent()->pActor_;
+            if (pA->_zwriteenable) {
+                pA->setZWriteEnable(false); //Zバッファは書き込み無し
+            } else {
+                pA->setZWriteEnable(true);  //Zバッファは書き込み有り
+            }
         }
     }
 
@@ -88,7 +113,7 @@ void VvvWorld::processBehavior() {
             d = 1;
         }
         if (GgafDxInput::isBeingPressedKey(DIK_A)) {
-            //α
+            //α増減
             if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
                 pActor->addAlpha(0.01);
             }
@@ -102,7 +127,7 @@ void VvvWorld::processBehavior() {
                 pActor->addAlpha(-0.01);
             }
             if (GgafDxInput::isBeingPressedKey(DIK_ESCAPE)) {
-                pActor->addAlpha(1.00);
+                pActor->addAlpha(1.00); //αリセット
             }
             if (pActor->getAlpha() < 0.00) {
                 pActor->setAlpha(0.00);
@@ -378,6 +403,9 @@ void VvvWorld::processBehavior() {
                     GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir;
                     ((CubeMapMorphMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
                 }
+                pNewActor->locateWith(pCurrentActor);
+                pNewActor->rotateWith(pCurrentActor);
+                pNewActor->scaleWith(pCurrentActor);
                 getDirector()->addSubGroup(pNewActor);
                 ActorInfo* pActorInfo = NEW ActorInfo(pNewActor, _listActorInfo.getCurrent()->modelfile_);
                 _listActorInfo.set(pActorInfo);

@@ -13,7 +13,7 @@ void Shot003::initialize() {
     setHitAble(false);
     _SX = _SY = _SZ = R_SC(50);
     setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
-    changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
+    effectBlendOne(); //‰ÁŽZ‡¬
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
 }

@@ -18,8 +18,7 @@ private:
     hashval _hash_temp_technique;
     /** [r]一時テクニック終了フレーム */
     frame _frame_of_behaving_temp_technique_end;
-    /** [r]一時テクニック適用中の場合 true */
-    bool _is_temp_technique;
+
     /** [r]モデル資源接続 */
     GgafDxModelConnection* _pModelCon;
     /** [r]エフェクト資源接続 */
@@ -63,6 +62,8 @@ public:
     int _specal_drawdepth;
     /** [r]フィードインフェードアウト支援 */
     GgafDxAlphaFader* _pFader;
+    /** [r]一時テクニック適用中の場合 true */
+    bool _is_temp_technique;
 
     /**
      * コンストラクタ .
@@ -113,14 +114,11 @@ public:
     }
 
     /**
-     * シェーダーのテクニックを変更する .
+     * シェーダーのテクニックを恒久的に変更する .
      * 随時可能。
      * @param prm_technique テクニック名
      */
-    void changeEffectTechnique(const char* prm_technique) {
-        _hash_technique = UTIL::easy_hash(prm_technique);
-        strcpy(_technique, prm_technique);
-    }
+    void changeEffectTechnique(const char* prm_technique);
 
     /**
      * シェーダーのテクニックを一時的に変更する .
@@ -134,26 +132,24 @@ public:
      * @param prm_technique テクニック名
      * @param prm_frame 変更テクニックの継続フレーム数
      */
-    void changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame) {
-        if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
-            //元々のテクニックを退避
-            _hash_temp_technique = _hash_technique;
-            strcpy(_temp_technique, _technique);
-            //テクニック変更
-            _frame_of_behaving_temp_technique_end = _frame_of_behaving + prm_frame; //変更満期フレーム
-            _hash_technique = UTIL::easy_hash(prm_technique);
-            strcpy(_technique, prm_technique);
-            _is_temp_technique = true;
-        }
-    }
+    void changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame);
 
     /**
      * ピカっと光る。
      * @param prm_frame 光る時間
      */
-    virtual void effectFlush(frame prm_frame) {
-        changeEffectTechniqueInterim("Flush", prm_frame); //フラッシュ
-    }
+    virtual void effectFlush(frame prm_frame = MAX_FRAME);
+
+    /**
+     * 加算合成エフェクト .
+     * @param prm_frame
+     */
+    virtual void effectBlendOne(frame prm_frame = MAX_FRAME);
+
+    /**
+     * 標準エフェクトに戻す .
+     */
+    virtual void effectDefault();
 
     /**
      * 特別な描画深度を強制する。 .
@@ -161,13 +157,7 @@ public:
      * 負の数の指定場合、自動設定に戻る（_specal_drawdepthのデフォルトは-1)
      * @param prm_drawdepth
      */
-    void setSpecialDrawDepth(int prm_drawdepth) {
-        if (prm_drawdepth > MAX_DRAW_DEPTH_LEVEL) {
-            _specal_drawdepth = MAX_DRAW_DEPTH_LEVEL;
-        } else {
-            _specal_drawdepth = prm_drawdepth;
-        }
-    }
+    void setSpecialDrawDepth(int prm_drawdepth);
 
     /**
      * 共通の描画事前処理 .

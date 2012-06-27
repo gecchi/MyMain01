@@ -8,7 +8,7 @@ EffectTurbo002::EffectTurbo002(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Turbo002", NULL) {
     _class_name = "EffectTurbo002";
     inactivateImmed();
-    changeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬
+    effectBlendOne(); //‰ÁZ‡¬
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
 }
 

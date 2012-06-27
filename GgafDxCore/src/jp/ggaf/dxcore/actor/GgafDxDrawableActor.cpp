@@ -13,7 +13,7 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker) {
     _obj_class |= Obj_GgafDxDrawableActor;
     _class_name = "GgafDxDrawableActor";
-    _hash_technique = UTIL::easy_hash(prm_technique);
+
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
     _temp_technique = NEW char[51];
@@ -40,6 +40,7 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     _specal_drawdepth = -1;
     _zenable = true;
     _zwriteenable = true;
+    _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
 }
 
 GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
@@ -53,7 +54,7 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker) {
 
     _class_name = "GgafDxDrawableActor";
-    _hash_technique = UTIL::easy_hash(prm_technique);
+
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
     _temp_technique = NEW char[51];
@@ -107,6 +108,7 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     _specal_drawdepth = -1;
     _zenable = true;
     _zwriteenable = true;
+    _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
 }
 
 
@@ -266,6 +268,51 @@ void GgafDxDrawableActor::resetMaterialColor() {
     }
 }
 
+void GgafDxDrawableActor::setSpecialDrawDepth(int prm_drawdepth) {
+    if (prm_drawdepth > MAX_DRAW_DEPTH_LEVEL) {
+        _specal_drawdepth = MAX_DRAW_DEPTH_LEVEL;
+    } else {
+        _specal_drawdepth = prm_drawdepth;
+    }
+}
+
+void GgafDxDrawableActor::changeEffectTechnique(const char* prm_technique) {
+    _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
+    strcpy(_technique, prm_technique);
+}
+void GgafDxDrawableActor::changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame) {
+    if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
+        //元々のテクニックを退避
+        _hash_temp_technique = _hash_technique;
+        strcpy(_temp_technique, _technique);
+        //テクニック変更
+        if (prm_frame == MAX_FRAME) {
+            _frame_of_behaving_temp_technique_end = MAX_FRAME;
+        } else {
+            _frame_of_behaving_temp_technique_end = _frame_of_behaving + prm_frame; //変更満期フレーム
+        }
+        _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
+        strcpy(_technique, prm_technique);
+        _is_temp_technique = true;
+    }
+}
+
+void GgafDxDrawableActor::effectFlush(frame prm_frame) {
+    changeEffectTechniqueInterim("Flush", prm_frame); //フラッシュ
+}
+
+void GgafDxDrawableActor::effectBlendOne(frame prm_frame) {
+    changeEffectTechniqueInterim("DestBlendOne", prm_frame);
+}
+
+void GgafDxDrawableActor::effectDefault() {
+    if (_is_temp_technique) {
+        _hash_technique = _hash_temp_technique;
+        strcpy(_technique, _temp_technique);
+        _is_temp_technique = false;
+        _hash_temp_technique = 0;
+    }
+}
 
 GgafDxDrawableActor::~GgafDxDrawableActor() {
     DELETE_IMPOSSIBLE_NULL(_pFader);

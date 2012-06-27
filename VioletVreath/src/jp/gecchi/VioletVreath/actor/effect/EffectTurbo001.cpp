@@ -8,7 +8,7 @@ EffectTurbo001::EffectTurbo001(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Turbo001", NULL) {
     _class_name = "EffectTurbo001";
     inactivateImmed();
-    changeEffectTechnique("DestBlendOne"); //加算合成
+    effectBlendOne(); //加算合成
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し
 }

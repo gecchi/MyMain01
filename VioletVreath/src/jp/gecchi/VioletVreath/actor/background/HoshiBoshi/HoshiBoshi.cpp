@@ -18,7 +18,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     h_fY_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fY_MyShip" );
     h_fZ_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fZ_MyShip" );
     h_far_rate_   = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_far_rate" );
-    changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
+    effectBlendOne(); //‰ÁŽZ‡¬
     setHitAble(false);
     CAM_ZF_ = ABS(DX_C(P_CAM->_zf));
     _TRACE_("HoshiBoshi::HoshiBoshi CAM_ZF_="<<CAM_ZF_);

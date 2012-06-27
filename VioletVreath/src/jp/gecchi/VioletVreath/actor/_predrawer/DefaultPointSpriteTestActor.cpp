@@ -6,7 +6,7 @@ using namespace VioletVreath;
 DefaultPointSpriteTestActor::DefaultPointSpriteTestActor(const char* prm_name) :
         DefaultPointSpriteActor(prm_name, "_chk_DefaultPointSpriteTestModel", NULL) {
     _class_name = "DefaultPointSpriteTestActor";
-    changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
+    effectBlendOne(); //‰ÁŽZ‡¬
     setHitAble(false);
     CAM_ZF_ = ABS(P_CAM->_zf * PX_UNIT * LEN_UNIT);
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-1);

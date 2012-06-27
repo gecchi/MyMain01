@@ -7,7 +7,7 @@ using namespace VioletVreath;
 EffectExplosion002::EffectExplosion002(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "EffectExplosion002", NULL) {
     _class_name = "EffectExplosion002";
-    changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨Ç∑ÇÈTechniqueéwíË
+    effectBlendOne(); //â¡éZçáê¨Ç∑ÇÈTechniqueéwíË
 }
 
 void EffectExplosion002::initialize() {

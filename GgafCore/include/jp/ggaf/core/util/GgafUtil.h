@@ -123,6 +123,15 @@ public:
         return hash;
     }
 
+    static inline const hashval easy_hash(char* str) {
+        hashval hash = 5381;
+        char c;
+        while ((c = *str++) > 0) { //strの\0までループ （演算子 "==" と間違えていません）
+            hash = ((hash << 5) + hash) + c; // hash * 33 + c  33倍してます
+        }
+        return hash;
+    }
+
     /**
      * 符号判定.
      * @param x

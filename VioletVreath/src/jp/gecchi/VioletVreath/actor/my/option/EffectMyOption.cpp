@@ -7,7 +7,7 @@ using namespace VioletVreath;
 
 EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pOption) :
         DefaultMeshSetActor(prm_name, "8/option_energy", NULL) {
-    changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
+    effectBlendOne(); //加算合成するTechnique指定
     pOption_ = prm_pOption;
     setZEnable(true);        //Zバッファは考慮して描画
     setZWriteEnable(false);  //Zバッファは書き込み無し

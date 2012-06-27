@@ -7,7 +7,7 @@ using namespace VioletVreath;
 EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "EffectExplosion001", NULL) {
     _class_name = "EffectMyShipExplosion";
-    changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨TechniqueéwíË
+    effectBlendOne(); //â¡éZçáê¨TechniqueéwíË
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
 }
 

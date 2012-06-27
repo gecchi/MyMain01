@@ -7,7 +7,7 @@ using namespace VVViewer;
 VvvCursor::VvvCursor(const char* prm_name) :
         GgafLib::DefaultSpriteActor(prm_name, "Cursor") {
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
-    changeEffectTechnique("DestBlendOne"); //エフェクトテクニックは加算合成に強制
+    effectBlendOne(); //エフェクトテクニックは加算合成に強制
     setZEnable(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //Zバッファは書き込み無しに強制
     setSpecialDrawDepth(1); //描画順序を最前面描画に強制。ロックオンエフェクトが隠れないようにするため。
@@ -28,16 +28,16 @@ void VvvCursor::initialize() {
 void VvvCursor::processBehavior() {
     switch (_pProg->get()) {
         case CUR_SINK: {
-            setAlpha(0);
             break;
         }
         case CUR_ON_MOVE: {
-            setAlpha(0.9);
+            _pFader->setAlpha(0.9);
             _pProg->change(CUR_STAY);
             break;
         }
         case CUR_STAY: {
-            if (_pProg->getFrameInProgress() > 3*60) {
+            if (_pProg->getFrameInProgress() > 60) {
+                _pFader->intoTargetAlphaLinerUntil(0.0, 120);
                 _pProg->change(CUR_SINK);
             }
             break;
@@ -55,6 +55,7 @@ void VvvCursor::processBehavior() {
     _pUvFlipper->behave();
     _pKurokoA->behave();
     _pScaler->behave();
+    _pFader->behave();
 }
 void VvvCursor::sink() {
     _pProg->change(CUR_SINK);

@@ -7,7 +7,7 @@ using namespace VioletVreath;
 MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "MyTorpedoBlast",STATUS(MyTorpedoBlast)) {
     _class_name = "MyTorpedoBlast";
-    changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
+    effectBlendOne(); //加算合成するTechnique指定
     setAlpha(0.3);
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し

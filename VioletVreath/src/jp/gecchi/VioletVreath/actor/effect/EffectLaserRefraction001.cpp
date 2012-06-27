@@ -7,7 +7,7 @@ using namespace VioletVreath;
 EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", NULL) {
     _class_name = "EffectLaserRefraction001";
-    changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
+    effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
 }

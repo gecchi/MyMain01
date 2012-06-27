@@ -7,7 +7,7 @@ using namespace VioletVreath;
 HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
         DefaultPointSpriteActor(prm_name, "hoshitest", NULL) {
     _class_name = "HoshiBoshi002";
-    changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
+    effectBlendOne(); //‰ÁŽZ‡¬
     setHitAble(false);
     CAM_ZF_ = ABS(DX_C(P_CAM->_zf));
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_HOSHIBOSHI);

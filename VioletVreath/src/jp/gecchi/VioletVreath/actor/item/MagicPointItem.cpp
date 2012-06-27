@@ -15,7 +15,7 @@ enum {
 MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat)
                : Item(prm_name, prm_model, prm_pStat) {
     _class_name = "MagicPointItem";
-    changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
+    effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.9);

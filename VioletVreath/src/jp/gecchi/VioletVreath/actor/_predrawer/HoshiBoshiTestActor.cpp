@@ -18,7 +18,7 @@ HoshiBoshiTestActor::HoshiBoshiTestActor(const char* prm_name) :
     h_fY_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fY_MyShip" );
     h_fZ_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fZ_MyShip" );
 
-    changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
+    effectBlendOne(); //‰ÁŽZ‡¬
     setHitAble(false);
     CAM_ZF_ = ABS(P_CAM->_zf * PX_UNIT * LEN_UNIT);
     _TRACE_("HoshiBoshiTestActor::HoshiBoshiTestActor CAM_ZF_="<<CAM_ZF_);

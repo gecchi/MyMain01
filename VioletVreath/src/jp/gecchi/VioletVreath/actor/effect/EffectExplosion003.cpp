@@ -8,7 +8,7 @@ EffectExplosion003::EffectExplosion003(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "EffectExplosion003", NULL) {
     _class_name = "EffectExplosion003";
     //加算合成Technique指定
-    changeEffectTechnique("DestBlendOne");
+    effectBlendOne();
     //ワールド変換行列はビルボード指定
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
 }

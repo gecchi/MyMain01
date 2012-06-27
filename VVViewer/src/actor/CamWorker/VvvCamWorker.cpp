@@ -18,6 +18,15 @@ VvvCamWorker::VvvCamWorker(const char* prm_name) : DefaultGeometricActor(prm_nam
     move_target_X_VP_ =  0;
     move_target_Y_VP_ =  0;
     move_target_Z_VP_ =  0;
+
+    X_CAM_clicked_ = 0;
+    Y_CAM_clicked_ = 0;
+    Z_CAM_clicked_ = 0;
+    X_VP_clicked_ = 0;
+    Y_VP_clicked_ = 0;
+    Z_VP_clicked_ = 0;
+    XY_CAM_UP_clicked_ = D90ANG;
+    mx_clicked_ = my_clicked_ = mz_clicked_ = 0;
 }
 
 void VvvCamWorker::initialize() {
@@ -28,7 +37,6 @@ void VvvCamWorker::initialize() {
     GgafDxInput::updateMouseState();
     GgafDxInput::updateMouseState();
 }
-
 
 void VvvCamWorker::processBehavior() {
 
@@ -67,12 +75,24 @@ void VvvCamWorker::processBehavior() {
             move_target_Y_VP_ = pVP->_Y;
             move_target_Z_VP_ = pVP->_Z;
         }
+
+        mx_clicked_ = mx;
+        my_clicked_ = my;
+        mz_clicked_ = mz;
+        X_CAM_clicked_ = pCam->_X;
+        Y_CAM_clicked_ = pCam->_Y;
+        Z_CAM_clicked_ = pCam->_Z;
+        X_VP_clicked_ = pVP->_X;
+        Y_VP_clicked_ = pVP->_Y;
+        Z_VP_clicked_ = pVP->_Z;
+        XY_CAM_UP_clicked_ = angXY_nowCamUp_;
+        D3DXMatrixInverse( &InvView_clicked_, NULL, &pCam->_matView);
     }
 
-    if ( !(GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1)) &&
+    if ( (mdy != 0 || mdx != 0) &&
+         !(GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1)) &&
          (GgafDxInput::isBeingPressedMouseButton(0) || GgafDxInput::isBeingPressedMouseButton(1) || GgafDxInput::isBeingPressedMouseButton(2))
     ) {
-
 
         //視点を中心にカメラが回転移動
         //カメラを中心に視点が回転移動
@@ -83,20 +103,23 @@ void VvvCamWorker::processBehavior() {
 
         //平面回転軸(vx,vy)を求める
         //double a = asin(1.0*dx/dy); //a XY平面のなす角 90度回転 x→y y→-x
-        double vx = mdy;
-        double vy = -mdx;
+        _TRACE_("移動量("<<mdx<<","<<mdy<<")");
+        double vx = (my - my_clicked_);
+        double vy = -(mx - mx_clicked_);
         double vz = 0;
         double d = sqrt(vx * vx + vy * vy); //ポインタ移動ピクセル距離
-
+        _TRACE_("移動距離d="<<d<<"");
         double t = 1.0 / d;
-        vx = t * vx;
-        vy = t * vy;
+        vx = ABS(t * vx);
+        vy = ABS(t * vy);
         vz = 0;
+        _TRACE_("平面回転軸("<<vx<<","<<vy<<")");
+
         //平面回転軸(vx,vy)をVPのワールド空間軸に変換
         //VP→CAMのワールド空間方向ベクトルを法線とする平面上に回転軸ベクトルは存在する
 
-        D3DXMATRIX InvView;
-        D3DXMatrixInverse( &InvView, NULL, &pCam->_matView);
+//        D3DXMATRIX InvView;
+//        D3DXMatrixInverse( &InvView, NULL, &pCam->_matView);
         //(vx,vy,vz) * InvView
         // 11_, 12_, 13_, 14_
         // 21_, 22_, 23_, 24_
@@ -105,15 +128,16 @@ void VvvCamWorker::processBehavior() {
         //方向ベクトル(0,0,0)->(vx,vy,vz) を逆ビュー変換
         //変換後方向ベクトル = (vx,vy,vz)変換後座標 - (0,0,0)変換後座標
         //               <------------  (vx,vy,vz)変換後座標-------------------------->    <-- (0,0,0)変換後座標 -->
-        double vX_axis = vx*InvView._11 + vy*InvView._21 + vz*InvView._31 + InvView._41  -    InvView._41;
-        double vY_axis = vx*InvView._12 + vy*InvView._22 + vz*InvView._32 + InvView._42  -    InvView._42;
-        double vZ_axis = vx*InvView._13 + vy*InvView._23 + vz*InvView._33 + InvView._43  -    InvView._43;
+        double vX_axis = vx*InvView_clicked_._11 + vy*InvView_clicked_._21 + vz*InvView_clicked_._31 + InvView_clicked_._41  -    InvView_clicked_._41;
+        double vY_axis = vx*InvView_clicked_._12 + vy*InvView_clicked_._22 + vz*InvView_clicked_._32 + InvView_clicked_._42  -    InvView_clicked_._42;
+        double vZ_axis = vx*InvView_clicked_._13 + vy*InvView_clicked_._23 + vz*InvView_clicked_._33 + InvView_clicked_._43  -    InvView_clicked_._43;
         //正規化
         double d2 = sqrt(vX_axis * vX_axis + vY_axis * vY_axis + vZ_axis * vZ_axis);
         double t2 = 1.0 / d2;
         vX_axis = t2 * vX_axis;
         vY_axis = t2 * vY_axis;
         vZ_axis = t2 * vZ_axis;
+        _TRACE_("回転軸("<<vX_axis<<","<<vY_axis<<","<<vZ_axis<<")");
         //<==========  ワールド回転軸方向ベクトル、(vX_axis, vY_axis, vZ_axis) を計算 end
 
 
@@ -127,10 +151,10 @@ void VvvCamWorker::processBehavior() {
 
         //視点を中心にカメラが回転移動
         if (GgafDxInput::isBeingPressedMouseButton(0) && (mdx != 0 || mdy != 0)) {
-            //視点→カメラ の方向ベクトル(x,y,z)
-            double x = move_target_X_CAM_ - move_target_X_VP_;
-            double y = move_target_Y_CAM_ - move_target_Y_VP_;
-            double z = move_target_Z_CAM_ - move_target_Z_VP_;
+            //クリック時視点→カメラ の方向ベクトル(x,y,z)
+            double x = X_CAM_clicked_ - X_VP_clicked_;
+            double y = Y_CAM_clicked_ - Y_VP_clicked_;
+            double z = Z_CAM_clicked_ - Z_VP_clicked_;
 
             angle rz1 = UTIL::getAngle2D(x, y);
 
@@ -146,19 +170,19 @@ void VvvCamWorker::processBehavior() {
 
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
             if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
-                move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
+                move_target_XY_CAM_UP_ = XY_CAM_UP_clicked_ + UTIL::getAngDiff(rz1, rz2);
                 move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
             }
-            move_target_X_CAM_ = Q._x + move_target_X_VP_;
-            move_target_Y_CAM_ = Q._y + move_target_Y_VP_;
-            move_target_Z_CAM_ = Q._z + move_target_Z_VP_;
+            move_target_X_CAM_ = Q._x + X_VP_clicked_;
+            move_target_Y_CAM_ = Q._y + Y_VP_clicked_;
+            move_target_Z_CAM_ = Q._z + Z_VP_clicked_;
         }
         //カメラを中心に視点が回転移動
         if (GgafDxInput::isBeingPressedMouseButton(1) && (mdx != 0 || mdy != 0)) {
             //カメラ→視点 の方向ベクトル(x,y,z)
-            double x = move_target_X_VP_ - move_target_X_CAM_;
-            double y = move_target_Y_VP_ - move_target_Y_CAM_;
-            double z = move_target_Z_VP_ - move_target_Z_CAM_;
+            double x = X_VP_clicked_ - X_CAM_clicked_;
+            double y = Y_VP_clicked_ - Y_CAM_clicked_;
+            double z = Z_VP_clicked_ - Z_CAM_clicked_;
             angle rz1 = UTIL::getAngle2D(x, y);
             //回転させたい角度
             double ang = (PI) * (d/cd_);
@@ -169,13 +193,13 @@ void VvvCamWorker::processBehavior() {
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
             angle rz2 = UTIL::getAngle2D(Q._x,Q._y);
             if (ABS(mdy) > ABS(mdx)/2) { //上下ブレ補正
-                move_target_XY_CAM_UP_ += UTIL::getAngDiff(rz1, rz2);
+                move_target_XY_CAM_UP_ = XY_CAM_UP_clicked_ + UTIL::getAngDiff(rz1, rz2);
                 move_target_XY_CAM_UP_ = UTIL::simplifyAng(move_target_XY_CAM_UP_);
             }
             //Q.x_, Q.y_, Q.z_ が回転後の座標となる
-            move_target_X_VP_ = Q._x + move_target_X_CAM_;
-            move_target_Y_VP_ = Q._y + move_target_Y_CAM_;
-            move_target_Z_VP_ = Q._z + move_target_Z_CAM_;
+            move_target_X_VP_ = Q._x + X_CAM_clicked_;
+            move_target_Y_VP_ = Q._y + Y_CAM_clicked_;
+            move_target_Z_VP_ = Q._z + Z_CAM_clicked_;
         }
         //カメラをと視点が平行移動
         if (GgafDxInput::isBeingPressedMouseButton(2) && (mdx != 0 || mdy != 0)) {

@@ -20,7 +20,7 @@ MyShip::MyShip(const char* prm_name) :
 //CubeMapMeshActor(prm_name, "wakka", STATUS(MyShip)) {
 //DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton", STATUS(MyShip)) {
     _class_name = "MyShip";
-    //changeEffectTechnique("DestBlendOne"); //加算合成Technique指定
+    //effectBlendOne(); //加算合成Technique指定
 
     //画面の大きさに伴って、移動範囲を決定
     //このあたりはFovXに依存するので微調整。

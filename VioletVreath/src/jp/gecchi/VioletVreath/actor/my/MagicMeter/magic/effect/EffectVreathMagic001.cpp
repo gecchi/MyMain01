@@ -7,7 +7,7 @@ using namespace VioletVreath;
 EffectVreathMagic001::EffectVreathMagic001(const char* prm_name) :
         DefaultSpriteActor(prm_name, "EffectSpeedMagic", NULL) {
     _class_name = "EffectVreathMagic001";
-    changeEffectTechnique("DestBlendOne"); //加算合成Technique
+    effectBlendOne(); //加算合成Technique
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(false); //Zバッファは書き込み無し
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //変換行列をビルボードに

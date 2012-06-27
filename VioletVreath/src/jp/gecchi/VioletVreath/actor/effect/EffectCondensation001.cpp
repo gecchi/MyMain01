@@ -8,7 +8,7 @@ EffectCondensation001::EffectCondensation001(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "8/Lockon001", NULL) {
     _class_name = "EffectCondensation001";
     inactivateImmed();
-    changeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬
+    effectBlendOne(); //‰ÁZ‡¬
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ƒrƒ‹ƒ{[ƒhRz‰ñ“]
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
 }
