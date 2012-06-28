@@ -132,6 +132,11 @@
 #define R_FormationMassalia_LaunchInterval  (10  + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
 #define R_FormationMassalia_MvVelo  (8000+_RANK_*8000)  //移動速度
 #define R_FormationMassalia_DurationFrames  (60*20)  //持続時間
+// FormationHebe のランク式
+#define R_FormationHebe_Num  (12+_RANK_*8)  //隊数
+#define R_FormationHebe_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
+#define R_FormationHebe_MvVelo  (10000 + _RANK_*10000)  //移動速度
+#define R_FormationHebe_ShotWay  (4+_RANK_*4)  //発射WAY数
 // gen02 end
 
 //1/√2
@@ -671,6 +676,10 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002a.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002b.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/EnemyHebe.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe001.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Juno/EnemyJuno.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Juno/FormationJuno.h"
