@@ -180,7 +180,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\DetectMemoryLeaks.cpp"
+				RelativePath=".\src\jp\ggaf\core\util\DetectMemoryLeaks.cpp"
 				>
 			</File>
 			<File
@@ -334,7 +334,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\DetectMemoryLeaks.h"
+				RelativePath=".\include\jp\ggaf\core\util\DetectMemoryLeaks.h"
 				>
 			</File>
 			<File
@@ -382,6 +382,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafDynamicVariable.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\core\GgafElement.hpp"
 				>
 			</File>
@@ -422,7 +426,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\GgafLinkedListRing.hpp"
+				RelativePath=".\include\jp\ggaf\core\util\GgafLinkedListRing.hpp"
 				>
 			</File>
 			<File
@@ -462,11 +466,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\GgafResourceConnection.hpp"
+				RelativePath=".\include\jp\ggaf\core\util\GgafResourceConnection.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\GgafResourceManager.hpp"
+				RelativePath=".\include\jp\ggaf\core\util\GgafResourceManager.hpp"
 				>
 			</File>
 			<File

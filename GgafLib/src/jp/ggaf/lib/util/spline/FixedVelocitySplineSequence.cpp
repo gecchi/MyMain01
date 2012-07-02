@@ -33,7 +33,6 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDxKurokoA* prmpKuro
 
 void FixedVelocitySplineSequence::exec(SplinTraceOption prm_option) {
     if (_pFixedVeloSplManuf) {
-
         _is_executing = true;
         _option = prm_option;
         _exec_fFrames = 0.0f;
@@ -67,9 +66,7 @@ void FixedVelocitySplineSequence::behave() {
     if (_is_executing) {
         GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
         //変わり目
-//        printf("%s _point_index=%d _exec_fFrames=%f _fFrame_of_next=%f\n",_pActor_target->getName(), _point_index,_exec_fFrames, _fFrame_of_next);
         if (_exec_fFrames >= _fFrame_of_next) {
-//            printf("%s _point_index=%d _exec_fFrames >= _fFrame_of_next HIT\n",_pActor_target->getName(), _point_index);
             SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
             if (_point_index == 0) {
                 //始点へ行く！
@@ -116,8 +113,6 @@ void FixedVelocitySplineSequence::behave() {
 
 
                 //始点までに必要なフレーム数取得
-//                _paFrame_need_at[0] =  (float)(1.0*distace_to / _veloMvUnit);
-//                _fFrame_of_next = _paFrame_need_at[0];
                 _fFrame_of_next = (float)(1.0*distace_to / _pFixedVeloSplManuf->_veloMvUnit);
             } else {
                 //始点以外の場合
@@ -170,7 +165,6 @@ void FixedVelocitySplineSequence::behave() {
             }
         } else {
 
-//            printf("%s XX _point_index=%d _exec_fFrames >= _fFrame_of_next NO HIT\n",_pActor_target->getName(),_point_index);
         }
 
         //キャラの速度が1000ならば、_exec_fFrames ++;
@@ -181,9 +175,4 @@ void FixedVelocitySplineSequence::behave() {
 
 }
 FixedVelocitySplineSequence::~FixedVelocitySplineSequence() {
-//    if (_is_created_pManufacture) {
-//        SplineSource* pSplSrc = _pFixedVeloSplManuf->_pSplSrc;
-//        DELETE_IMPOSSIBLE_NULL(pSplSrc);
-//        DELETE_IMPOSSIBLE_NULL(_pFixedVeloSplManuf);
-//    }
 }

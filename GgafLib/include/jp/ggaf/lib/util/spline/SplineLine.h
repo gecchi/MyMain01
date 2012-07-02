@@ -1,7 +1,7 @@
 #ifndef SPLINELINE_H_
 #define SPLINELINE_H_
 
-#define MaxSplineSize 300
+#define MaxSplineSize 1001
 
 namespace GgafLib {
 

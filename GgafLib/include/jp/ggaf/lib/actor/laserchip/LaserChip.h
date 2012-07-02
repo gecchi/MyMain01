@@ -4,6 +4,11 @@ namespace GgafLib {
 
 /**
  * ポリラインレーザーのチップの基底クラス .
+ * ＜注意＞
+ * processSettlementBehavior()内の処理により、
+ * setHitAble(false); は意味をなしません。
+ * 当たり判定を行いたくない場合、
+ * registHitAreaCube() 等の当たり判定自体を作成しないで下さい。
  * @version 1.00
  * @since 2008/11/24
  * @author Masatoshi Tsuge
@@ -56,7 +61,14 @@ public:
     virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
 
     virtual void onActive() override;
-
+    /**
+     * 様々な事前処理 .
+     * ＜注意＞
+     * setHitAble(true);
+     * を内部で実行していますので、
+     * setHitAble(false);
+     * は無意味です。
+     */
     virtual void processSettlementBehavior() override;
 
     virtual void processPreDraw() override;

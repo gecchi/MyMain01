@@ -25,6 +25,15 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     pPlanet_ = NEW Planet001("Planet001");
     getDirector()->addSubGroup(KIND_EFFECT, pPlanet_);
 
+
+
+
+    EnemyThisbe* pTest = NEW EnemyThisbe("tst");
+    pTest->locate(PX_C(140),PX_C(-200), PX_C(-200));
+    pTest->_pKurokoA->setFaceAng(PX_C(140), PX_C(-200), PX_C(200));
+    pTest->_pKurokoA->behave();
+    getDirector()->addSubGroup(pTest);
+
     fadeoutScene(0); //Å‰‚Í”ñ•\¦
     useProgress(10);
 }

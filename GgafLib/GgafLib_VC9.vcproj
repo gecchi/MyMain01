@@ -416,6 +416,14 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\lib\util\spline\SteppedCoordSplineSequence.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\lib\util\StgUtil.cpp"
 				>
 			</File>
@@ -715,6 +723,14 @@
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\lib\util\spline\SteppedCoordSplineSequence.h"
 				>
 			</File>
 			<File

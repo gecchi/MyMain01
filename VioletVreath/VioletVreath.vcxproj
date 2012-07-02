@@ -316,6 +316,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002a.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002b.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hebe\EnemyHebe.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hebe\FormationHebe.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hebe\FormationHebe001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Iris\EnemyIris.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Iris\FormationIris001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Iris\FormationIris002.cpp" />
@@ -340,6 +343,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\TamagoActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thalia\EnemyThalia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thalia\FormationThalia.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Vesta\EnemyVesta.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\Item.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem.cpp" />
@@ -554,6 +560,9 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\formationeunomia002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\formationeunomia002a.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\eunomia\formationeunomia002b.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\hebe\enemyhebe.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\hebe\formationhebe.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\hebe\formationhebe001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\iris\enemyiris.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\iris\formationiris001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\iris\formationiris002.h" />
@@ -578,6 +587,9 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\tamago\tamagoactor.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thalia\enemythalia.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thalia\formationthalia.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thisbe\enemythisbe.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thisbe\enemythisbelaserchip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\vesta\enemyvesta.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\item.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\magicpointitem.h" />

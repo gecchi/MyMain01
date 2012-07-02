@@ -30,7 +30,9 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 
         if (line.find("[BASEPOINT]") != std::string::npos) {
             while( getline(ifs,line) ) {
-                if (line.size() == 0 ) break;
+                if (UTIL::trim(line).size() == 0 ) {
+                    break;
+                }
                 if (line.c_str()[0] == '#') continue;
                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
                 std::istringstream iss(line);
@@ -60,23 +62,23 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [BASEPOINT] ‚ÉÀ•W‚ª‚ ‚è‚Ü‚¹‚ñB");
     }
     for (int i = 0; i < n; i++) {
-        if (p[i][0] > GgafDxUniverse::_X_goneRight*0.9) {
-            p[i][0] = GgafDxUniverse::_X_goneRight*0.9;
+        if (p[i][0] > GgafDxUniverse::_X_goneRight*0.9999) {
+            p[i][0] = GgafDxUniverse::_X_goneRight*0.9999;
         }
-        if (p[i][0] < GgafDxUniverse::_X_goneLeft*0.9) {
-            p[i][0] = GgafDxUniverse::_X_goneLeft*0.9;
+        if (p[i][0] < GgafDxUniverse::_X_goneLeft*0.9999) {
+            p[i][0] = GgafDxUniverse::_X_goneLeft*0.9999;
         }
-        if (p[i][1] > GgafDxUniverse::_Y_goneTop*0.9) {
-            p[i][1] = GgafDxUniverse::_Y_goneTop*0.9;
+        if (p[i][1] > GgafDxUniverse::_Y_goneTop*0.9999) {
+            p[i][1] = GgafDxUniverse::_Y_goneTop*0.9999;
         }
-        if (p[i][1] < GgafDxUniverse::_Y_goneBottom*0.9) {
-            p[i][1] = GgafDxUniverse::_Y_goneBottom*0.9;
+        if (p[i][1] < GgafDxUniverse::_Y_goneBottom*0.9999) {
+            p[i][1] = GgafDxUniverse::_Y_goneBottom*0.9999;
         }
-        if (p[i][2] > GgafDxUniverse::_Z_goneFar*0.9) {
-            p[i][2] = GgafDxUniverse::_Z_goneFar*0.9;
+        if (p[i][2] > GgafDxUniverse::_Z_goneFar*0.9999) {
+            p[i][2] = GgafDxUniverse::_Z_goneFar*0.9999;
         }
-        if (p[i][2] < GgafDxUniverse::_Z_goneNear*0.9) {
-            p[i][2] = GgafDxUniverse::_Z_goneNear*0.9;
+        if (p[i][2] < GgafDxUniverse::_Z_goneNear*0.9999) {
+            p[i][2] = GgafDxUniverse::_Z_goneNear*0.9999;
         }
     }
     _pSp = NEW SplineLine(p, n, _accuracy);

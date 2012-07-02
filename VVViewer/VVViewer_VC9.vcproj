@@ -258,6 +258,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\actor\VvvGrid.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\VVViewer.cpp"
 				>
 			</File>
@@ -293,6 +297,10 @@
 			</File>
 			<File
 				RelativePath=".\src\VvvGod.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\actor\VvvGrid.h"
 				>
 			</File>
 			<File

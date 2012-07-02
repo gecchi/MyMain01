@@ -44,6 +44,8 @@ public:
     double _rate_Y;
     /** Z軸方向補正割合 */
     double _rate_Z;
+    /** [r]次の補完点までの距離のテーブル */
+    coord* _paDistace_to;
 
     /**
      * コンストラクタ .
@@ -77,11 +79,12 @@ public:
      * 一度実行する必要があります。
      * 下位で実装して下さい。
      */
-    virtual void calculate() = 0;
+    virtual void calculate();
 
     /**
      * SplineSequence オブジェクトの生成 .
-     * @param prm_pKurokoA 対象のアクター
+     * 設定した黒子Aを、操作しますので注意して下さい。
+     * @param prm_pKurokoA 対象のアクターの黒子A
      * @return
      */
     virtual SplineSequence* createSplineSequence(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) = 0;

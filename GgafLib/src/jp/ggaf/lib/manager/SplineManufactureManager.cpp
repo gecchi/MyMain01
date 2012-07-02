@@ -116,6 +116,13 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
                                                        turn_optimize);
         pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
         pSplManuf->calculate();
+    } else if (classname.find("SteppedCoordSpline") != std::string::npos) {
+        pSplManuf = NEW SteppedCoordSplineManufacture(spl_data_file.c_str(),
+                                                      // angveloRzRyMv,
+                                                       turn_way,
+                                                       turn_optimize);
+        pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
+        pSplManuf->calculate();
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource _classname="<<classname<< "‚Í•s–¾‚ÈƒNƒ‰ƒX‚Å‚·");
     }

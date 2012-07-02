@@ -245,6 +245,10 @@ public:
 	static GgafCore::GgafStatus* resetMagicPointItem002Status(GgafCore::GgafStatus* p);
 	//ヘーベ
 	static GgafCore::GgafStatus* resetEnemyHebeStatus(GgafCore::GgafStatus* p);
+	//シズビー
+	static GgafCore::GgafStatus* resetEnemyThisbeStatus(GgafCore::GgafStatus* p);
+	//シズビーレーザー
+	static GgafCore::GgafStatus* resetEnemyThisbeLaserChip001Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

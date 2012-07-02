@@ -428,6 +428,14 @@ class EnemyMassaliaFragment2;
 class EnemyMassaliaFragment3;
 class FormationMassalia;
 
+class EnemyHebe;
+class FormationHebe;
+class FormationHebe001;
+
+class EnemyThisbe;
+class EnemyThisbeLaserChip001;
+class EnemyThisbeLaserChip002;
+
 class DepositoryConnection;
 class DepositoryManager;
 
@@ -677,10 +685,6 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002a.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002b.h"
 
-#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/EnemyHebe.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe001.h"
-
 #include "jp/gecchi/VioletVreath/actor/enemy/Juno/EnemyJuno.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Juno/FormationJuno.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Juno/FormationJuno001.h"
@@ -710,6 +714,14 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaFragment2.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaFragment3.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Massalia/FormationMassalia.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/EnemyHebe.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe001.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbe.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip002.h"
 
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/Torus.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus001.h"

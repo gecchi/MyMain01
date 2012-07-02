@@ -80,11 +80,8 @@ void SplineSequence::behave() {
         _pActor_target->_X = (coord)(_flip_X*pSpl->_X_compute[point_index]*_pManufacture->_rate_X + _offset_X);
         _pActor_target->_Y = (coord)(_flip_Y*pSpl->_Y_compute[point_index]*_pManufacture->_rate_Y + _offset_Y);
         _pActor_target->_Z = (coord)(_flip_Z*pSpl->_Z_compute[point_index]*_pManufacture->_rate_Z + _offset_Z);
-
         _execute_frames++;
-
     }
-
 }
 
 SplineSequence::~SplineSequence() {
@@ -93,15 +90,4 @@ SplineSequence::~SplineSequence() {
         DELETE_IMPOSSIBLE_NULL(pSplSrc);
         DELETE_IMPOSSIBLE_NULL(_pManufacture);
     }
-//    if (_pManufacture->_pSplSrcCon) {
-//
-//    } else {
-//        SplineSource* pSplSrc = _pManufacture->_pSplSrc;
-//        DELETE_IMPOSSIBLE_NULL(pSplSrc);
-//        DELETE_IMPOSSIBLE_NULL(_pManufacture);
-//    }
-
-//    if (_is_create_pManufacture) {
-//        DELETE_IMPOSSIBLE_NULL(_pManufacture);
-//    }
 }

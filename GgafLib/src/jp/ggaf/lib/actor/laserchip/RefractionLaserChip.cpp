@@ -21,6 +21,23 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _prev_pRefractionEffect = NULL;
 }
 
+void RefractionLaserChip::config(int prm_num_refraction,
+                                frame prm_frame_between_refraction,
+                                frame prm_frame_standstill_refraction,
+                                GgafActorDepository* prm_pDispatche_RefractionEffect) {
+#ifdef MY_DEBUG
+    if (prm_frame_between_refraction == 0) {
+        throwGgafCriticalException("RefractionLaserChip::config 直進間隔フレーム数が0は設定不可です。name="<<getName());
+    }
+    if (prm_frame_standstill_refraction == 0) {
+        throwGgafCriticalException("RefractionLaserChip::config 屈折溜フレーム数が0は設定不可です。name="<<getName());
+    }
+#endif
+    _num_refraction = prm_num_refraction;
+    _frame_between_refraction = prm_frame_between_refraction;
+    _frame_standstill_refraction = prm_frame_standstill_refraction;
+    _pDispatche_RefractionEffect = prm_pDispatche_RefractionEffect;
+}
 
 void RefractionLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
@@ -141,7 +158,7 @@ void RefractionLaserChip::processBehavior() {
                 if (getBehaveingFrame() >= _frame_refraction_enter) {
                     if (_cnt_refraction < _num_refraction) {
                         _cnt_refraction++;
-                        onRefractionBegin(_cnt_refraction);
+                        onRefractionBegin(_cnt_refraction); //コールバック
                         _frame_refraction_out = getBehaveingFrame()  + _frame_standstill_refraction;
                         _is_refracting = true;
 
@@ -160,7 +177,7 @@ void RefractionLaserChip::processBehavior() {
 
             if (_is_refracting) {
                 if (getBehaveingFrame() >= _frame_refraction_out) {
-                    onRefractionFinish(_cnt_refraction);
+                    onRefractionFinish(_cnt_refraction); //コールバック
                     _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
                     //座標を変えず方向だけ転換
                     int X, Y, Z;

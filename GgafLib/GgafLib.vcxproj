@@ -235,6 +235,8 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshWorldBoundActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\SteppedCoordSplineSequence.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -315,6 +317,8 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshWorldBoundActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\SteppedCoordSplineSequence.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\StgUtil.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\StraightLaserChip.h" />

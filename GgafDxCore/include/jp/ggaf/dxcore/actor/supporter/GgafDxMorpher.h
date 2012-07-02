@@ -60,6 +60,11 @@ public:
     GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor);
 
     /**
+     * リセット
+     */
+    void reset();
+
+    /**
      * モーフターゲットの重みの上限と下限を設定し重みの値を制限する .
      * @param prm_target_mesh_no モーフターゲットメッシュNO
      * @param prm_weight1 重み１(上限 or 下限)
@@ -117,10 +122,17 @@ public:
     }
 
     /**
-     * モーフィングを停止する
+     * モーフィングを停止する .
      * @param prm_target_mesh_no モーフィング中のモーフターゲットメッシュNO
      */
     void stopImmed(int prm_target_mesh_no);
+
+    /**
+     * モーフしているか調べる .
+     * 各モーフターゲットへの重みが、1つでも0より大きければ true
+     * @return true:モーフしている/false:モーフしない
+     */
+    bool isMorph();
 
     /**
      * モーフターゲットへ一定速度でモーフィングする（フレーム数指定） .

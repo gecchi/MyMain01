@@ -5,6 +5,10 @@ using namespace GgafDxCore;
 GgafDxMorpher::GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor) :
     GgafObject() {
     _pActor = prm_pActor;
+    reset();
+}
+
+void GgafDxMorpher::reset() {
     for (int i = 0; i <= MAX_MORPH_TARGET; i++) {
         //i=0は実質未使用。
         _weight[i] = 0.0f;
@@ -31,6 +35,9 @@ void GgafDxMorpher::behave() {
                 _weight[i] = _target_weight[i];
                 _method[i] = NOMORPH;
             } else if (_velo_weight[i] < 0 && _target_weight[i] > _weight[i]) {
+                _weight[i] = _target_weight[i];
+                _method[i] = NOMORPH;
+            } else if (ZEROf_EQ(_velo_weight[i])) {
                 _weight[i] = _target_weight[i];
                 _method[i] = NOMORPH;
             }
@@ -98,9 +105,14 @@ void GgafDxMorpher::behave() {
 }
 
 void GgafDxMorpher::intoTargetLinerUntil(int prm_target_mesh_no, float prm_target_weight, frame prm_spend_frame) {
-    _method[prm_target_mesh_no] = TARGET_MORPH_LINER;
-    _target_weight[prm_target_mesh_no] = prm_target_weight;
-    _velo_weight[prm_target_mesh_no] = (prm_target_weight - _weight[prm_target_mesh_no]) / (int)(prm_spend_frame);
+    if (ZEROf_EQ(prm_target_weight - _weight[prm_target_mesh_no])) {
+        //既にターゲットと同じ重み
+        return;
+    } else {
+        _method[prm_target_mesh_no] = TARGET_MORPH_LINER;
+        _target_weight[prm_target_mesh_no] = prm_target_weight;
+        _velo_weight[prm_target_mesh_no] = (prm_target_weight - _weight[prm_target_mesh_no]) / (int)(prm_spend_frame);
+    }
 }
 
 void GgafDxMorpher::intoTargetAcceStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight, float prm_acce_weight) {
@@ -117,9 +129,14 @@ void GgafDxMorpher::intoTargetLinerStep(int prm_target_mesh_no, float prm_target
         throwGgafCriticalException("GgafDxMorpher::intoTargetLinerStep() prm_velo_weightは正の値を設定して下さい。説明読んで。");
     }
 #endif
-    _method[prm_target_mesh_no] = TARGET_MORPH_LINER;
-    _target_weight[prm_target_mesh_no] = prm_target_weight;
-    _velo_weight[prm_target_mesh_no] = SGN(prm_target_weight - _weight[prm_target_mesh_no])*prm_velo_weight;
+    if (ZEROf_EQ(prm_target_weight - _weight[prm_target_mesh_no])) {
+        //既にターゲットと同じ重み
+        return;
+    } else {
+        _method[prm_target_mesh_no] = TARGET_MORPH_LINER;
+        _target_weight[prm_target_mesh_no] = prm_target_weight;
+        _velo_weight[prm_target_mesh_no] = SGN(prm_target_weight - _weight[prm_target_mesh_no])*prm_velo_weight;
+    }
 }
 
 void GgafDxMorpher::loopLiner(int prm_target_mesh_no, frame prm_beat_target_frames, float prm_beat_num) {
@@ -152,8 +169,18 @@ void GgafDxMorpher::beat(int prm_target_mesh_no, frame prm_beat_target_frames, f
         _beat_progres[prm_target_mesh_no] = 1;
     }
 }
+
 void GgafDxMorpher::stopImmed(int prm_target_mesh_no) {
     _method[prm_target_mesh_no] = NOMORPH;
+}
+
+bool GgafDxMorpher::isMorph() {
+    for (int i = 1; i <= _pActor->_pMorphMeshModel->_morph_target_num; i++) {
+        if (_method[i] != NOMORPH) {
+            return true;
+        }
+    }
+    return false;
 }
 
 GgafDxMorpher::~GgafDxMorpher() {

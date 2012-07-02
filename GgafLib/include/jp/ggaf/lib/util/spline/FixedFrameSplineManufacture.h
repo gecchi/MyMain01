@@ -13,8 +13,6 @@ class FixedFrameSplineManufacture : public SplineManufacture {
 public:
     /** [r]１区間の使用可能フレーム */
     frame _frame_of_segment;
-    /** [r]次の補完点までの距離のテーブル */
-    coord* _paDistace_to;
     /** [r]次の補完点到達に必要な移動速度のテーブル */
     velo* _paSPMvVeloTo;
     /** [rw]1フレームあたり旋回可能な回転角角速度 */

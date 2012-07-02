@@ -193,6 +193,13 @@ public:
     }
 
 
+    static inline std::string trim(std::string& str) {
+        str.erase(0, str.find_first_not_of(' '));       //prefixing spaces
+        str.erase(str.find_last_not_of(' ')+1);         //surfixing spaces
+        return str;
+    }
+
+
     static void readProperties(std::string filename, GgafStrMap* pMap);
     static void readProperties(std::istream &is, GgafStrMap* pMap);
     static void writeProperties(const char *filename, GgafStrMap* pMap, const char *header = NULL);

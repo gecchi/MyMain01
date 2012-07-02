@@ -54,19 +54,14 @@ public:
     /**
      * リフレクションレーザーを定義 .
      * @param prm_num_refraction 何回屈折するか
-     * @param prm_frame_between_refraction 直進開始(屈折終了)～直進～直進終了(屈折開始)、のフレーム数
-     * @param prm_frame_standstill_refraction 屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数
+     * @param prm_frame_between_refraction 直進開始(屈折終了)～直進～直進終了(屈折開始)、のフレーム数(>= 1)
+     * @param prm_frame_standstill_refraction 屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数(>= 1)
      * @param prm_pDispatche_RefractionEffect 屈折時のエフェクトアクターのデポジトリ(無しの場合はNULL)
      */
     virtual void config(int prm_num_refraction,
-                       frame prm_frame_between_refraction,
-                       frame prm_frame_standstill_refraction,
-                       GgafCore::GgafActorDepository* prm_pDispatche_RefractionEffect) {
-        _num_refraction = prm_num_refraction;
-        _frame_between_refraction = prm_frame_between_refraction;
-        _frame_standstill_refraction = prm_frame_standstill_refraction;
-        _pDispatche_RefractionEffect = prm_pDispatche_RefractionEffect;
-    }
+                        frame prm_frame_between_refraction,
+                        frame prm_frame_standstill_refraction,
+                        GgafCore::GgafActorDepository* prm_pDispatche_RefractionEffect);
 
     virtual void onCreateModel() override {}
 

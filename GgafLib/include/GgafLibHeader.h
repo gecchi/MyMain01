@@ -79,10 +79,12 @@ class SplineLine;
 class SplineSequence;
 class FixedFrameSplineSequence;
 class FixedVelocitySplineSequence;
+class SteppedCoordSplineSequence;
 class SplineManufacture;
 class SplineSource;
 class FixedFrameSplineManufacture;
 class FixedVelocitySplineManufacture;
+class SteppedCoordSplineManufacture;
 class SplineSourceManager;
 class SplineSourceConnection;
 class SplineManufactureManager;
@@ -159,9 +161,10 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineSequence.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineSequence.h"
+#include "jp/ggaf/lib/util/spline/SteppedCoordSplineSequence.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
-
+#include "jp/ggaf/lib/util/spline/SteppedCoordSplineManufacture.h"
 
 #include "jp/ggaf/lib/manager/SplineSourceManager.h"
 #include "jp/ggaf/lib/manager/SplineSourceConnection.h"

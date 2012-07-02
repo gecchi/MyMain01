@@ -19,7 +19,6 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_
     if (_frame_of_segment < 1) {
         _frame_of_segment = 1;
     }
-    _paDistace_to = NEW coord[_sp->_rnum];
     _paSPMvVeloTo = NEW velo[_sp->_rnum];
 }
 
@@ -39,7 +38,6 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSplS
     if (_frame_of_segment < 1) {
         _frame_of_segment = 1;
     }
-    _paDistace_to = NEW coord[_sp->_rnum];
     _paSPMvVeloTo = NEW velo[_sp->_rnum];
 }
 
@@ -86,29 +84,8 @@ void FixedFrameSplineManufacture::calculate() {
     //                                 120Frame費やして移動(=prm_spent_frame)
     //                  <-->
     //                  _spent_frame = １区間は 120/8 Frame = prm_spent_frame / (sp._rnum-1);
-
-    coord x_from, y_from, z_from;
-    coord x_to, y_to, z_to;
-
-    x_to = _sp->_X_compute[0]*_rate_X;
-    y_to = _sp->_Y_compute[0]*_rate_Y;
-    z_to = _sp->_Z_compute[0]*_rate_Z;
+    SplineManufacture::calculate();
     for (int t = 1; t < _sp->_rnum; t ++) {
-        x_from = x_to;
-        y_from = y_to;
-        z_from = z_to;
-        x_to = _sp->_X_compute[t]*_rate_X;
-        y_to = _sp->_Y_compute[t]*_rate_Y;
-        z_to = _sp->_Z_compute[t]*_rate_Z;
-        _paDistace_to[t] = UTIL::getDistance(
-                                    x_from,
-                                    y_from,
-                                    z_from,
-                                    x_to,
-                                    y_to,
-                                    z_to
-                                 );
-
         //距離 paDistaceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
         //速さ＝距離÷時間
         _paSPMvVeloTo[t] = (velo)(_paDistace_to[t] / _frame_of_segment);
