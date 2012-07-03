@@ -20,6 +20,7 @@ SplineSequence::SplineSequence(SplineManufacture* prm_pManufacture, GgafDxKuroko
     } else {
         _is_created_pManufacture = true;
     }
+    _distace_to_begin = 0;
 }
 
 void SplineSequence::setManufacture(SplineManufacture* prm_pManufacture) {

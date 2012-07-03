@@ -1606,10 +1606,10 @@ void GgafDxKurokoA::execTurnMvAngSequence(coord prm_tX, coord prm_tY, coord prm_
     angle out_angRz_Target;
     angle out_angRy_Target;
     UTIL::getRzRyAng(prm_tX - _pActor->_X,
-                           prm_tY - _pActor->_Y,
-                           prm_tZ - _pActor->_Z,
-                           out_angRz_Target,
-                           out_angRy_Target);
+                     prm_tY - _pActor->_Y,
+                     prm_tZ - _pActor->_Z,
+                     out_angRz_Target,
+                     out_angRy_Target);
     execTurnMvAngSequence(out_angRz_Target, out_angRy_Target,
                           prm_angVelo, prm_angAcce,
                           prm_way, prm_optimize_ang);

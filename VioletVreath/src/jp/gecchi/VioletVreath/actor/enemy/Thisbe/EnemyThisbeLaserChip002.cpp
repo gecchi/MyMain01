@@ -10,6 +10,7 @@ EnemyThisbeLaserChip002::EnemyThisbeLaserChip002(const char* prm_name) :
     _class_name = "EnemyThisbeLaserChip002";
     pSplManufCon_ = connectSplineManufactureManager("Hilbert"); //ヒルベルト曲線
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
+    rnum_ = pSplSeq_->_pManufacture->_sp->_rnum;
 }
 
 void EnemyThisbeLaserChip002::initialize() {
@@ -48,22 +49,36 @@ void EnemyThisbeLaserChip002::onRefractionBegin(int prm_num_refraction)  {
 }
 
 void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
-    //TRACE_("rnum="<<(pSplSeq_->_pManufacture->_sp->_rnum)<<"prm_num_refraction="<<prm_num_refraction);
+    _TRACE_("f:["<<getActivePartFrame() <<"] rnum="<<(pSplSeq_->_pManufacture->_sp->_rnum)<<"prm_num_refraction="<<prm_num_refraction);
+    _TRACE_("f:["<<getActivePartFrame() <<"] befor xyz="<<_X<<","<<_Y<<","<<_Z);
     if (prm_num_refraction == 0) {
+        return;
+    }
+    if (getActivePartFrame() == 3) {
 
-    } else {
-        if (getActivePartFrame() == 3) {
-            pSplSeq_->exec(RELATIVE_DIRECTION); //向いた方向にワールド変換
-        }
+        pSplSeq_->exec(RELATIVE_DIRECTION); //向いた方向にワールド変換
+    }
+    if (getActivePartFrame() >= 3) {
+        if (rnum_ > prm_num_refraction) {
 
-        pSplSeq_->behave();
-        if (pSplSeq_->_pManufacture->_sp->_rnum <= prm_num_refraction) {
-            _pKurokoA->setMvVelo(pSplSeq_->_pManufacture->_paDistace_to[pSplSeq_->_pManufacture->_sp->_rnum -1]);
+
+            SplineLine* sp = pSplSeq_->_pManufacture->_sp;
+            _TRACE_("f:["<<getActivePartFrame() <<"] sp="<<sp->_X_compute[prm_num_refraction-1]<<","<<sp->_Y_compute[prm_num_refraction-1]<<","<<sp->_Z_compute[prm_num_refraction-1]);
+            _TRACE_("f:["<<getActivePartFrame() <<"] _paDistace_to["<<prm_num_refraction-1<<"]="<<(pSplSeq_->_pManufacture->_paDistace_to[prm_num_refraction-1]));
+
+            _pKurokoA->setMvVelo(pSplSeq_->_pManufacture->_paDistace_to[prm_num_refraction-1]);
         } else {
-            _pKurokoA->setMvVelo(pSplSeq_->_pManufacture->_paDistace_to[prm_num_refraction]);
-        }
-        _pKurokoA->behave();
+            SplineLine* sp = pSplSeq_->_pManufacture->_sp;
+            _TRACE_("LAST!");
+            _TRACE_("f:["<<getActivePartFrame() <<"] sp="<<sp->_X_compute[rnum_ -1]<<","<<sp->_Y_compute[rnum_ -1]<<","<<sp->_Z_compute[rnum_ -1]);
+            _TRACE_("f:["<<getActivePartFrame() <<"] _paDistace_to["<<rnum_ -1<<"]="<<(pSplSeq_->_pManufacture->_paDistace_to[rnum_ -1]));
 
+            _pKurokoA->setMvVelo(pSplSeq_->_pManufacture->_paDistace_to[rnum_ -1]);
+        }
+        pSplSeq_->behave();
+        _pKurokoA->behave();
+    }
+    _TRACE_("f:["<<getActivePartFrame() <<"] after xyz="<<_X<<","<<_Y<<","<<_Z);
 
 //        SplineManufacture* pSpManuf = pSplManufCon_->fetch();
 //        SplineSource* pSpSource = pSpManuf->_pSplSrc;
@@ -87,7 +102,6 @@ void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
 ////                        TURN_CLOSE_TO, false);
 //
 ////        _pKurokoA->setMvAng(P_MYSHIP);
-    }
 }
 
 void EnemyThisbeLaserChip002::onHit(GgafActor* prm_pOtherActor) {

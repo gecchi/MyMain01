@@ -50,7 +50,7 @@ public:
     int _flip_X;
     int _flip_Y;
     int _flip_Z;
-
+    int _distace_to_begin;
     /**
      *
      * @param prm_pManufacture
@@ -94,7 +94,7 @@ public:
     /**
      * 対象アクター(_pActor_target)の座標を、スプラインの一番最初の制御点座標で設定する .
      * exec(ABSOLUTE_COORD) の場合、つまり「絶対座標移動スプライン」の場合、有効な設定となりうるでしょう。<BR>
-     * 「絶対座標移動スプライン」あまり意味がありません。<BR>
+     * 「絶対座標移動スプライン」以外あまり意味がありません。<BR>
      */
     void setAbsoluteBeginCoordinate();
 

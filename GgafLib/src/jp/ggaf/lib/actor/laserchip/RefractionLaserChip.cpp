@@ -59,7 +59,7 @@ void RefractionLaserChip::onActive() {
         _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
         _frame_refraction_out = _frame_refraction_enter + _frame_standstill_refraction;
         //onRefractionBegin(_cnt_refraction);
-        onRefractionFinish(_cnt_refraction);  //0回目の屈折終了からスタートする
+        onRefractionFinish(_cnt_refraction);  //コールバック 0回目の屈折終了からスタートする
     } else {
         _is_leader = false;
         _begining_X = pChip_front->_begining_X;

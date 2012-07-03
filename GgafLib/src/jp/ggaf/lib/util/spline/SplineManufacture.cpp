@@ -53,6 +53,7 @@ void SplineManufacture::calculate() {
                                  );
 
     }
+    _paDistace_to[0] = 0;
 }
 
 SplineManufacture::~SplineManufacture () {

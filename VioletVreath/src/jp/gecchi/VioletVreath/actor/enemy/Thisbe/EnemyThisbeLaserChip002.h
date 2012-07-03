@@ -11,6 +11,7 @@ public:
 
     GgafLib::SplineManufactureConnection* pSplManufCon_;
     GgafLib::SplineSequence* pSplSeq_;
+    int rnum_;
 
     EnemyThisbeLaserChip002(const char* prm_name);
 

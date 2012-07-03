@@ -67,10 +67,10 @@ void FixedVelocitySplineSequence::behave() {
         GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
         //変わり目
         if (_exec_fFrames >= _fFrame_of_next) {
+            _TRACE_("！！！変わり目_exec_fFrames="<<_exec_fFrames<<" _fFrame_of_next="<<_fFrame_of_next<<" _point_index="<<_point_index<<" pKurokoA_target->_veloMv="<<pKurokoA_target->_veloMv);
             SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
             if (_point_index == 0) {
                 //始点へ行く！
-                int distace_to;
                 double dx = _flip_X*pSpl->_X_compute[0]*_pFixedVeloSplManuf->_rate_X + _offset_X;
                 double dy = _flip_Y*pSpl->_Y_compute[0]*_pFixedVeloSplManuf->_rate_Y + _offset_Y;
                 double dz = _flip_Z*pSpl->_Z_compute[0]*_pFixedVeloSplManuf->_rate_Z + _offset_Z;
@@ -80,18 +80,30 @@ void FixedVelocitySplineSequence::behave() {
                     //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
                     //    | sinRy                                  , 0                    , cosRy                                   , 0 |
                     //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-
-                    distace_to = UTIL::getDistance(
+                    double tx = ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * _COS_RyMv_begin + dz * _SIN_RyMv_begin);
+                    double ty = (dx * _SIN_RzMv_begin + dy * _COS_RzMv_begin);
+                    double tz = ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz * _COS_RyMv_begin);
+                    _distace_to_begin = UTIL::getDistance(
                                             (double)_pActor_target->_X,
                                             (double)_pActor_target->_Y,
                                             (double)_pActor_target->_Z,
-                                            ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * _COS_RyMv_begin + dz * _SIN_RyMv_begin) - _X_begin,
-                                            (dx * _SIN_RzMv_begin + dy * _COS_RzMv_begin) - _Y_begin,
-                                            ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz * _COS_RyMv_begin) - _Z_begin
+                                            tx - _X_begin,
+                                            ty - _Y_begin,
+                                            tz - _Z_begin
                                          );
+
+                    pKurokoA_target->execTurnMvAngSequence(
+                                    tx - _X_begin,
+                                    ty - _Y_begin,
+                                    tz - _Z_begin,
+                                    _pFixedVeloSplManuf->_angveloRzRyMv, 0,
+                                    _pFixedVeloSplManuf->_turn_way,
+                                    _pFixedVeloSplManuf->_turn_optimize);
+
+
                 } else if (_option == RELATIVE_COORD) {
                     //相対座標ターゲット
-                    distace_to = UTIL::getDistance(
+                    _distace_to_begin = UTIL::getDistance(
                                             (double)_pActor_target->_X,
                                             (double)_pActor_target->_Y,
                                             (double)_pActor_target->_Z,
@@ -99,9 +111,14 @@ void FixedVelocitySplineSequence::behave() {
                                             dy - _Y_begin,
                                             dz - _Z_begin
                                          );
+                    pKurokoA_target->execTurnMvAngSequence(
+                                    dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
+                                    _pFixedVeloSplManuf->_angveloRzRyMv, 0,
+                                    _pFixedVeloSplManuf->_turn_way,
+                                    _pFixedVeloSplManuf->_turn_optimize);
                 } else { //ABSOLUTE_COORD
                     //絶対座標ターゲット
-                    distace_to = UTIL::getDistance(
+                    _distace_to_begin = UTIL::getDistance(
                                             (double)_pActor_target->_X,
                                             (double)_pActor_target->_Y,
                                             (double)_pActor_target->_Z,
@@ -109,27 +126,37 @@ void FixedVelocitySplineSequence::behave() {
                                             dy,
                                             dz
                                          );
+                    pKurokoA_target->execTurnMvAngSequence(
+                                    dx, dy, dz,
+                                    _pFixedVeloSplManuf->_angveloRzRyMv, 0,
+                                    _pFixedVeloSplManuf->_turn_way,
+                                    _pFixedVeloSplManuf->_turn_optimize);
                 }
 
 
                 //始点までに必要なフレーム数取得
-                _fFrame_of_next = (float)(1.0*distace_to / _pFixedVeloSplManuf->_veloMvUnit);
+                _fFrame_of_next = (float)(1.0*_distace_to_begin / _pFixedVeloSplManuf->_veloMvUnit);
             } else {
                 //始点以外の場合
                 //次の補間点（or制御点)に移動方角を向ける
                 double dx = _flip_X*pSpl->_X_compute[_point_index]*_pFixedVeloSplManuf->_rate_X + _offset_X;
                 double dy = _flip_Y*pSpl->_Y_compute[_point_index]*_pFixedVeloSplManuf->_rate_Y + _offset_Y;
                 double dz = _flip_Z*pSpl->_Z_compute[_point_index]*_pFixedVeloSplManuf->_rate_Z + _offset_Z;
+                _TRACE_("p["<<_point_index<<"] dx,dy,dz="<<((float)dx)<<","<<((float)dy)<<","<<((float)dz));
                 if (_option == RELATIVE_DIRECTION) {
                     //    並行移動 ＞ Z軸回転 ＞ Y軸回転
                     //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
                     //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
                     //    | sinRy                                  , 0                    , cosRy                                   , 0 |
                     //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
+                    double tx = ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * _COS_RyMv_begin + dz * _SIN_RyMv_begin);
+                    double ty = (dx * _SIN_RzMv_begin + dy * _COS_RzMv_begin);
+                    double tz = ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz * _COS_RyMv_begin);
+                    _TRACE_("p["<<_point_index<<"] tx,ty,tz="<<((float)tx)<<","<<((float)ty)<<","<<((float)tz));
                     pKurokoA_target->execTurnMvAngSequence(
-                                    ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * _COS_RyMv_begin + dz*_SIN_RyMv_begin) - _X_begin,
-                                    (dx*_SIN_RzMv_begin + dy*_COS_RzMv_begin) - _Y_begin,
-                                    ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) - _Z_begin,
+                                    tx - _X_begin,
+                                    ty - _Y_begin,
+                                    tz - _Z_begin,
                                     _pFixedVeloSplManuf->_angveloRzRyMv, 0,
                                     _pFixedVeloSplManuf->_turn_way,
                                     _pFixedVeloSplManuf->_turn_optimize);
@@ -164,6 +191,7 @@ void FixedVelocitySplineSequence::behave() {
                 return;
             }
         } else {
+            _TRACE_("変わり目でない_exec_fFrames="<<_exec_fFrames<<" _fFrame_of_next="<<_fFrame_of_next<<" _point_index="<<_point_index<<" pKurokoA_target->_veloMv="<<pKurokoA_target->_veloMv);
 
         }
 

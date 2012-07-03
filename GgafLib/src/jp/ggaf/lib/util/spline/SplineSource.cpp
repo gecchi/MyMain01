@@ -23,7 +23,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     std::string line;
     int n = 0;
     while( getline(ifs,line) ) {
-        if (line.size() == 0 ) continue;
+        if (UTIL::trim(line).size() == 0 ) continue;
         if (line.c_str()[0] == '#') continue;
 
         LOOP_SPLFILE:
@@ -47,7 +47,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         }
         if (line.find("[ACCURACY]") != std::string::npos) {
             while( getline(ifs,line) ) {
-                if (line.size() == 0 ) break;
+                if (UTIL::trim(line).size() == 0 ) break;
                 if (line.c_str()[0] == '#') continue;
                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
                 std::istringstream iss(line);
