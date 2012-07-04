@@ -180,8 +180,7 @@ void RefractionLaserChip::processBehavior() {
                     onRefractionFinish(_cnt_refraction); //コールバック
                     _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
                     //座標を変えず方向だけ転換
-                    int X, Y, Z;
-                    X = _X; Y = _Y; Z = _Z;
+                    int X = _X; int Y = _Y; int Z = _Z;
                     _pKurokoA->behave(); //
                     _X = X; _Y = Y; _Z = Z;
                     _is_refracting = false;

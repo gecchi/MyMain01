@@ -21,7 +21,7 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
     pDepo_ShotEffect_ = NULL;
 
     pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
-    pLaserChipDepo_->config(63, 1, NULL); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
+    pLaserChipDepo_->config(100, 1, NULL); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
 
 //    EnemyThisbeLaserChip001* pChip;
 //    for (int i = 0; i < 65; i++) { //レーザーストック
@@ -35,7 +35,7 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
     pCon_RefractionEffectDepository_ = connectDepositoryManager("DpCon_EffRefraction001", NULL);
 
     EnemyThisbeLaserChip002* pChip;
-    for (int i = 0; i < 65; i++) { //レーザーストック
+    for (int i = 0; i < 100; i++) { //レーザーストック
         std::stringstream name;
         name <<  "EnemyThisbeLaserChip002[" << i << "]";
         pChip = NEW EnemyThisbeLaserChip002(name.str().c_str());
@@ -74,9 +74,9 @@ void EnemyThisbe::processBehavior() {
 
     switch (_pProg->get()) {
         case THISBE_PROG_WAIT: {
-            //if (_X - P_MYSHIP->_X < PX_C(100) && !_pMorpher->isMorph()) {
+            if (_pProg->getFrameInProgress() > 120) {
                 _pProg->changeNext();
-            //}
+            }
 
             break;
         }
@@ -85,6 +85,7 @@ void EnemyThisbe::processBehavior() {
                 _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
             }
             if (_pProg->getFrameInProgress() > 120) {
+                //開いたら
                 _pProg->changeNext();
             }
             break;

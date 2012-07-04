@@ -29,10 +29,11 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
 
 
     EnemyThisbe* pTest = NEW EnemyThisbe("tst");
-    pTest->locate(PX_C(0),PX_C(0), PX_C(0));
-    pTest->_pKurokoA->setFaceAng(PX_C(-100), PX_C(0), PX_C(0));
+    pTest->locate(PX_C(0),PX_C(0), PX_C(100));
+    pTest->_pKurokoA->setFaceAng(PX_C(100), PX_C(100), PX_C(100));
     pTest->_pKurokoA->behave();
     getDirector()->addSubGroup(pTest);
+
 
     fadeoutScene(0); //Å‰‚Í”ñ•\¦
     useProgress(10);

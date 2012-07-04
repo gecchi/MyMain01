@@ -50,7 +50,11 @@ public:
     int _flip_X;
     int _flip_Y;
     int _flip_Z;
+    /** [r]始点までの距離 */
     int _distace_to_begin;
+
+    /** [r]現在処理中の補完点(基準点も含む)の数 */
+    int _point_index;
     /**
      *
      * @param prm_pManufacture

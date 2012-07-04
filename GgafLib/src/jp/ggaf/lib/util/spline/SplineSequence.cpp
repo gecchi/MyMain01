@@ -21,6 +21,7 @@ SplineSequence::SplineSequence(SplineManufacture* prm_pManufacture, GgafDxKuroko
         _is_created_pManufacture = true;
     }
     _distace_to_begin = 0;
+    _point_index = 0;
 }
 
 void SplineSequence::setManufacture(SplineManufacture* prm_pManufacture) {
@@ -51,6 +52,14 @@ void SplineSequence::exec(SplinTraceOption prm_option) {
         _X_begin = _flip_X*pSpl->_X_compute[0]*_pManufacture->_rate_X + _offset_X;
         _Y_begin = _flip_Y*pSpl->_Y_compute[0]*_pManufacture->_rate_Y + _offset_Y;
         _Z_begin = _flip_Z*pSpl->_Z_compute[0]*_pManufacture->_rate_Z + _offset_Z;
+        _distace_to_begin = UTIL::getDistance(
+                                _pActor_target->_X,
+                                _pActor_target->_Y,
+                                _pActor_target->_Z,
+                                _X_begin,
+                                _Y_begin,
+                                _Z_begin
+                             );
     } else {
         throwGgafCriticalException("SplineSequence::exec ManufactureÇ™Ç†ÇËÇ‹ÇπÇÒÅB_pActor_target="<<_pActor_target->getName());
     }

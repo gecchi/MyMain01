@@ -37,24 +37,42 @@ void FixedFrameSplineSequence::exec(SplinTraceOption prm_option) {
         _option = prm_option;
         _execute_frames = 0;
         SplineLine* pSpl = _pFixedFrameSplManuf->_sp;
+        double baseX = (_flip_X * pSpl->_X_compute[0] * _pFixedFrameSplManuf->_rate_X) + _offset_X;
+        double baseY = (_flip_Y * pSpl->_Y_compute[0] * _pFixedFrameSplManuf->_rate_Y) + _offset_Y;
+        double baseZ = (_flip_Z * pSpl->_Z_compute[0] * _pFixedFrameSplManuf->_rate_Z) + _offset_Z;
         if (_option == RELATIVE_DIRECTION) {
-            _X_begin = (_flip_X * pSpl->_X_compute[0] * _pFixedFrameSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
-            _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pFixedFrameSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
-            _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pFixedFrameSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
+            _X_begin = baseX - _pActor_target->_X;
+            _Y_begin = baseY - _pActor_target->_Y;
+            _Z_begin = baseZ - _pActor_target->_Z;
             GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
             _SIN_RzMv_begin = UTIL::SIN[pKurokoA_target->_angRzMv/SANG_RATE];
             _COS_RzMv_begin = UTIL::COS[pKurokoA_target->_angRzMv/SANG_RATE];
             _SIN_RyMv_begin = UTIL::SIN[pKurokoA_target->_angRyMv/SANG_RATE];
             _COS_RyMv_begin = UTIL::COS[pKurokoA_target->_angRyMv/SANG_RATE];
+            _distace_to_begin = UTIL::getDistance(
+                                           0.0  , 0.0  , 0.0  ,
+                                           baseX, baseY, baseZ
+                                      );
         } else if (_option == RELATIVE_COORD) {
-            _X_begin = (_flip_X * pSpl->_X_compute[0] * _pFixedFrameSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
-            _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pFixedFrameSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
-            _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pFixedFrameSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
+            _X_begin = baseX - _pActor_target->_X;
+            _Y_begin = baseY - _pActor_target->_Y;
+            _Z_begin = baseZ - _pActor_target->_Z;
+            _distace_to_begin = UTIL::getDistance(
+                                           0.0  , 0.0  , 0.0  ,
+                                           baseX, baseY, baseZ
+                                      );
         } else { //ABSOLUTE_COORD
-            _X_begin = (_flip_X * pSpl->_X_compute[0] * _pFixedFrameSplManuf->_rate_X) + _offset_X;
-            _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pFixedFrameSplManuf->_rate_Y) + _offset_Y;
-            _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pFixedFrameSplManuf->_rate_Z) + _offset_Z;
-
+            _X_begin = baseX;
+            _Y_begin = baseY;
+            _Z_begin = baseZ;
+            _distace_to_begin = UTIL::getDistance(
+                                    _pActor_target->_X,
+                                    _pActor_target->_Y,
+                                    _pActor_target->_Z,
+                                    _X_begin,
+                                    _Y_begin,
+                                    _Z_begin
+                                 );
         }
     }
 }
@@ -66,8 +84,8 @@ void FixedFrameSplineSequence::behave() {
         GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
 
         //現在の点INDEX
-        int point_index = _execute_frames/_pFixedFrameSplManuf->_frame_of_segment;
-        if ( point_index == pSpl->_rnum) {
+        _point_index = _execute_frames/_pFixedFrameSplManuf->_frame_of_segment;
+        if ( _point_index == pSpl->_rnum) {
             //終了
             _is_executing = false;
             return;
@@ -75,9 +93,9 @@ void FixedFrameSplineSequence::behave() {
 
         //変わり目
         if (_execute_frames % _pFixedFrameSplManuf->_frame_of_segment == 0) {
-            double dx = _flip_X*pSpl->_X_compute[point_index]*_pFixedFrameSplManuf->_rate_X + _offset_X;
-            double dy = _flip_Y*pSpl->_Y_compute[point_index]*_pFixedFrameSplManuf->_rate_Y + _offset_Y;
-            double dz = _flip_Z*pSpl->_Z_compute[point_index]*_pFixedFrameSplManuf->_rate_Z + _offset_Z;
+            double dx = _flip_X*pSpl->_X_compute[_point_index]*_pFixedFrameSplManuf->_rate_X + _offset_X;
+            double dy = _flip_Y*pSpl->_Y_compute[_point_index]*_pFixedFrameSplManuf->_rate_Y + _offset_Y;
+            double dz = _flip_Z*pSpl->_Z_compute[_point_index]*_pFixedFrameSplManuf->_rate_Z + _offset_Z;
 
             //次の補間点（or制御点)に移動方角を向ける
             if (_option == RELATIVE_DIRECTION) {
@@ -109,15 +127,17 @@ void FixedFrameSplineSequence::behave() {
             }
 
             //移動速度設定
-            if (point_index == 0) {
+            if (_point_index == 0) {
                 //_paSPMvVeloTo[0] は未定義なので、特別処理
                 if (pKurokoA_target->_veloMv <= 0) {
+                    //もし、現在速度が0の場合、始点に到達するために無理やり速度を 1000 にする。
+                    _TRACE_("[警告]  FixedFrameSplineSequence::behave() "<<pKurokoA_target->_pActor->getName()<<" の速度を無理やり速度を 1000 にしました。意図してますか？");
                     pKurokoA_target->setMvVelo(1000);
                 } else {
                     //なにもせん
                 }
             } else {
-                pKurokoA_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[point_index]);
+                pKurokoA_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index]);
             }
         }
         _execute_frames++;
