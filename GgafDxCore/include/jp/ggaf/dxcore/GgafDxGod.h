@@ -88,8 +88,10 @@ public:
     static GgafDxModelManager* _pModelManager;
     /** エフェクト(GgafDxEffect)資源管理者 */
     static GgafDxEffectManager* _pEffectManager;
-    /** テクスチャー(GgafDxTexture)資源管理者、ここでは環境マップのみ。（※通常のテクスチャはGgafDxModelの内部管理） */
+    /** 環境マップ用テクスチャー(GgafDxTexture)資源管理者。（※通常のテクスチャはGgafDxModelの内部管理） */
     static GgafDxTextureManager* _pCubeMapTextureManager;
+    /** バンプマップ用テクスチャー(GgafDxTexture)資源管理者。（※通常のテクスチャはGgafDxModelの内部管理） */
+    static GgafDxTextureManager* _pBumpMapTextureManager;
     /** [r] 1画面目のウィンドウハンドル  */
     static HWND _pHWndPrimary;
     /** [r] 2画面目のウィンドウハンドル  */

@@ -35,6 +35,8 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_m
     _paVtxBuffer_org = NULL;
     _paIdxBuffer_org = NULL;
     _papaIndexParam = NULL;
+    _obj_model |= Obj_GgafDxMeshSetModel;
+
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は
     //void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel*)
     //で行うようにした。要参照。

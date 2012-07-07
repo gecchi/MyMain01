@@ -30,7 +30,7 @@ GgafDxSpriteSetModel::GgafDxSpriteSetModel(char* prm_model_name) : GgafDxModel(p
             _TRACE_("GgafDxSpriteSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の18セットですがそれ以上のセット数です。意図していますか？ _set_num="<<_set_num<<"。");
         }
     }
-
+    _obj_model |= Obj_GgafDxSpriteSetModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel*)

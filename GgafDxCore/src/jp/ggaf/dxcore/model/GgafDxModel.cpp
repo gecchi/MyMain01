@@ -21,6 +21,7 @@ GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject() {
     _specular = 0.0f;
     _specular_power = 0.0f;
     _numPass = 1;
+    _obj_model = 0;
     TRACE3("GgafDxModel::GgafDxModel(" << prm_model_name << ") _id="<<_id);
 }
 

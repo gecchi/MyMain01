@@ -1,6 +1,21 @@
 #ifndef GGAFDXMODELMANAGER_H_
 #define GGAFDXMODELMANAGER_H_
 
+//#define Obj_GgafDxDynaD3DXMeshModel      (0x1)            //0b 00000000 00000000 00000000 00000001
+#define Obj_GgafDxD3DXAniMeshModel       (0x2)            //0b 00000000 00000000 00000000 00000010
+#define Obj_GgafDxD3DXMeshModel          (0x4)            //0b 00000000 00000000 00000000 00000100
+#define Obj_GgafDxSpriteModel            (0x8)            //0b 00000000 00000000 00000000 00001000
+#define Obj_GgafDxSpriteSetModel         (0x10)           //0b 00000000 00000000 00000000 00010000
+#define Obj_GgafDxBoardModel             (0x20)           //0b 00000000 00000000 00000000 00100000
+#define Obj_GgafDxBoardSetModel          (0x40)           //0b 00000000 00000000 00000000 01000000
+#define Obj_GgafDxMeshModel              (0x80)           //0b 00000000 00000000 00000000 10000000
+#define Obj_GgafDxMeshSetModel           (0x100)          //0b 00000000 00000000 00000001 00000000
+#define Obj_GgafDxCubeMapMeshModel       (0x200)          //0b 00000000 00000000 00000010 00000000
+#define Obj_GgafDxCubeMapMeshSetModel    (0x400)          //0b 00000000 00000000 00000100 00000000
+#define Obj_GgafDxMorphMeshModel         (0x800)          //0b 00000000 00000000 00001000 00000000
+#define Obj_GgafDxCubeMapMorphMeshModel  (0x1000)         //0b 00000000 00000000 00010000 00000000
+#define Obj_GgafDxWorldBoundModel        (0x2000)         //0b 00000000 00000000 00100000 00000000
+#define Obj_GgafDxPointSpriteModel       (0x4000)         //0b 00000000 00000000 01000000 00000000
 
 namespace GgafDxCore {
 
@@ -64,13 +79,13 @@ private:
      * @param prm_paVtxBuffer
      * @param prm_size_of_vtx_unit
      * @param model_pModel3D
-     * @param paNumVertices
-     * @param model_pMeshesFront
-     * @param nVertices
-     * @param nFaces
-     * @param nFaceNormals
+     * @param paNumVertices 頂点連結前の頂点サブセット数の配列
+     *        （モデルがサブセット単位で個別基準（位置、回転、拡大）を保持してる場合）
      */
-    void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, Frm::Model3D* model_pModel3D, UINT16* paNumVertices, Frm::Mesh* model_pMeshesFront, int nVertices, int nFaces, int nFaceNormals);
+    void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
+                    Frm::Model3D* model_pModel3D,
+                    UINT16* paNumVertices,
+                    GgafDxModel* prm_pModel = NULL);
 
     /**
      * ID3DXFileDataのデータポインタから、（Xファイルフォーマット通りに）スプライト情報を取り出す。
@@ -84,6 +99,11 @@ private:
     static std::string getSpriteFileName(std::string prm_model_name);
     static std::string getPointSpriteFileName(std::string prm_model_name);
 
+    static void calcTangentAndBinormal(
+            D3DXVECTOR3* p0, D3DXVECTOR2* uv0,
+            D3DXVECTOR3* p1, D3DXVECTOR2* uv1,
+            D3DXVECTOR3* p2, D3DXVECTOR2* uv2,
+            D3DXVECTOR3* outTangent, D3DXVECTOR3* outBinormal);
 public:
     GgafDxTextureManager* _pModelTextureManager;
 

@@ -21,10 +21,6 @@ GgafDxCubeMapMeshSetActor::GgafDxCubeMapMeshSetActor(const char* prm_name,
     _class_name = "GgafDxCubeMapMeshSetActor";
     _pCubeMapMeshSetModel = (GgafDxCubeMapMeshSetModel*)_pModel;
     _pCubeMapMeshSetEffect = (GgafDxCubeMapMeshSetEffect*)_pEffect;
-//    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
-//    _pCubeMapTextureCon = (GgafDxTextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->connect("uffizi_cross_cubemap.dds"));
-//    _pCubeMapTexture = _pCubeMapTextureCon->fetch()->_pIDirect3DBaseTexture9;
-//    _reflectance = 0.3f;
 }
 
 void GgafDxCubeMapMeshSetActor::processDraw() {

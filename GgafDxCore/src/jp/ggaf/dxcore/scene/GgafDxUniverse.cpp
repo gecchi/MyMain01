@@ -66,8 +66,6 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
     GgafRepeatSeq::create("_SE_D_", 0, 8); //ƒYƒŒSEÄ¶ƒtƒŒ[ƒ€
-
-//    _pCubeMapTextureManager = NEW GgafDxTextureManager("CMTexManager");
 }
 
 void GgafDxUniverse::registSe(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay ) {
@@ -290,6 +288,5 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
 
 
 GgafDxUniverse::~GgafDxUniverse() {
-//DELETE_IMPOSSIBLE_NULL(_pCubeMapTextureManager);
     DELETE_IMPOSSIBLE_NULL(_pRing_pSeArray);
 }

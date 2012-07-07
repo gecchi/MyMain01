@@ -12,6 +12,7 @@ GgafDxSpriteModel::GgafDxSpriteModel(char* prm_model_name) : GgafDxModel(prm_mod
     _row_texture_split = 1;
     _col_texture_split = 1;
     _pIDirect3DVertexBuffer9 = NULL;
+    _obj_model |= Obj_GgafDxSpriteModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel*)

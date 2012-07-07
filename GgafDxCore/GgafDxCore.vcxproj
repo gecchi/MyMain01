@@ -181,6 +181,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitterForActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformerForScene.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\CWaveDecorder.cpp" />
@@ -302,6 +303,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\Toolbox\TBox_Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxsetransmitterforactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\ggafdxbgmperformerforscene.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\CWaveDecorder.h" />

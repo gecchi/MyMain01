@@ -13,6 +13,7 @@ GgafDxBoardSetModel::GgafDxBoardSetModel(char* prm_model_name) : GgafDxModel(prm
     _col_texture_split = 1;
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
+    _obj_model |= Obj_GgafDxBoardSetModel;
 
     char nm[51];
     strcpy(nm, prm_model_name);

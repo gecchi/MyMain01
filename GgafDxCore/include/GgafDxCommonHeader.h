@@ -395,6 +395,7 @@ class GgafDxAllocHierarchyWorldFrame;
 class GgafDxWorldMatStack;
 
 class GgafDxICubeMapActor;
+class GgafDxIBumpMapActor;
 
 class GgafDxBaseActor;
 class GgafDxGeometricActor;
@@ -521,6 +522,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/util/GgafDxWorldMatStack.h"
 
 #include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
+#include "jp/ggaf/dxcore/actor/interface/GgafDxIBumpMapActor.h"
+
 #include "jp/ggaf/dxcore/actor/GgafDxBaseActor.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"

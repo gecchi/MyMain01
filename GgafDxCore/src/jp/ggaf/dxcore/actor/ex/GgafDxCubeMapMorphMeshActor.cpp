@@ -22,9 +22,6 @@ GgafDxCubeMapMorphMeshActor::GgafDxCubeMapMorphMeshActor(const char* prm_name,
     _class_name = "GgafDxCubeMapMorphMeshActor";
     _pCubeMapMorphMeshModel = (GgafDxCubeMapMorphMeshModel*)_pModel;
     _pCubeMapMorphMeshEffect = (GgafDxCubeMapMorphMeshEffect*)_pEffect;
-//    _pCubeMapTextureCon = (GgafDxTextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->connect("uffizi_cross_cubemap.dds"));
-//    _pCubeMapTexture = _pCubeMapTextureCon->fetch()->_pIDirect3DBaseTexture9;
-//    _reflectance = 0.3f;
 }
 
 void GgafDxCubeMapMorphMeshActor::processDraw() {

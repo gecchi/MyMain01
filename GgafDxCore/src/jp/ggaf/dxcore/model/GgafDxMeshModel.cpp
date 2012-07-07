@@ -3,8 +3,12 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-DWORD GgafDxMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-
+//DWORD GgafDxMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+DWORD GgafDxMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX3 |
+                                    D3DFVF_TEXCOORDSIZE2(0) | // real texture coord
+                                    D3DFVF_TEXCOORDSIZE3(1) | // tangent
+                                    D3DFVF_TEXCOORDSIZE3(2)   // binormal
+                                    );
 GgafDxMeshModel::GgafDxMeshModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     TRACE3("GgafDxMeshModel::GgafDxMeshModel(" << _model_name << ")");
     _pModel3D = NULL;
@@ -17,6 +21,7 @@ GgafDxMeshModel::GgafDxMeshModel(char* prm_model_name) : GgafDxModel(prm_model_n
     _paIndexParam = NULL;
     _pModel3D = NULL;
     _pMeshesFront = NULL;
+    _obj_model |= Obj_GgafDxMeshModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel*)

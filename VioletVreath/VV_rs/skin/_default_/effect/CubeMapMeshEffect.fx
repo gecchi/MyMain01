@@ -36,6 +36,8 @@ float g_zf;
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
 sampler CubeMapTextureSampler : register(s1);
+sampler BumpMapTextureSampler : register(s2);  
+
 /** 頂点シェーダー、出力構造体 */
 struct OUT_VS {
     float4 pos    : POSITION;

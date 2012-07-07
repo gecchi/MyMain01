@@ -6,6 +6,7 @@ using namespace GgafDxCore;
 
 GgafDxWorldBoundModel::GgafDxWorldBoundModel(char* prm_model_name) : GgafDxMorphMeshModel(prm_model_name) {
     TRACE3("GgafDxWorldBoundModel::GgafDxWorldBoundModel(" << _model_name << ")");
+    _obj_model |= Obj_GgafDxWorldBoundModel;
 }
 
 

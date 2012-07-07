@@ -7,6 +7,7 @@ GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptio
     _pID3DXMesh = NULL;
     _num_materials = 0L;
     _dwOptions = prm_dwOptions;
+    _obj_model |= Obj_GgafDxD3DXMeshModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel*)

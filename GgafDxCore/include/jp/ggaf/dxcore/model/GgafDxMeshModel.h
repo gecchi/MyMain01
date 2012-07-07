@@ -56,6 +56,8 @@ public:
     public:
         DWORD color; // 頂点の色（現在未使用）
         float tu, tv; // テクスチャ座標
+        float tan_x, tan_y, tan_z; //
+        float bin_x, bin_y, bin_z;
     };
 
     /** 頂点のFVF */

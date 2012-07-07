@@ -356,6 +356,8 @@ void VvvWorld::processBehavior() {
 //            } else {
                 pActor = createInFactory2(GgafLib::DefaultMeshActor, "actor", model_id.c_str());
 //            }
+                DefaultMeshActor* pDefaultMeshActor = (DefaultMeshActor*)pActor;
+                pDefaultMeshActor->setBumpMapTexture("normal.bmp");
             }
         } else if (model_type == "SPRX") {
             pActor = createInFactory2(GgafLib::DefaultSpriteActor, "actor", model_id.c_str());

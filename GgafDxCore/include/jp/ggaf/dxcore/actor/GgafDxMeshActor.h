@@ -10,7 +10,7 @@ namespace GgafDxCore {
  * @since 2009/02/26
  * @author Masatoshi Tsuge
  */
-class GgafDxMeshActor : public GgafDxDrawableActor {
+class GgafDxMeshActor : public GgafDxDrawableActor, public GgafDxIBumpMapActor {
 
 public:
 

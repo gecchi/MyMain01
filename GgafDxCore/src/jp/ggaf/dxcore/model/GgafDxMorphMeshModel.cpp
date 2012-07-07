@@ -40,6 +40,8 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(p
     _papaVtxBuffer_org_morph = NULL;
     _paIdxBuffer_org = NULL;
     _paIndexParam = NULL;
+    _obj_model |= Obj_GgafDxMorphMeshModel;
+
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel*)
     //で行うようにした。要参照。

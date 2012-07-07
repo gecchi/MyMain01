@@ -27,7 +27,8 @@ public:
     int _set_num;
     /** [r]モデル定義の識別名。(50文字まで) */
     char* _model_name;
-
+    /** [r]モデルインスタンス種類 */
+    UINT32 _obj_model;
     /** [r]マテリアル配列 */
     D3DMATERIAL9* _paMaterial_default;
     /** [r]マテリアル数 */

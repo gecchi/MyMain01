@@ -65,8 +65,6 @@ public:
     static coord _Z_goneFar;
     static coord _Z_goneNear;
 
-//    GgafDxTextureManager* _pCubeMapTextureManager;
-
 
     GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera);
 

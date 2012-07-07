@@ -9,10 +9,16 @@ GgafDxD3DXAniMeshModel::GgafDxD3DXAniMeshModel(char* prm_model_name) : GgafDxMod
     _pAcBase = NULL;
     _num_materials = 0L;
     _anim_ticks_per_second = 4800; //restoreD3DXAniMeshModel で上書きされる場合がある。
+
+    _obj_model |= Obj_GgafDxD3DXAniMeshModel;
+
+
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel*)
     //で行うようにした。要参照。
     _Ang = 0.0f;
+
+
 }
 
 HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {

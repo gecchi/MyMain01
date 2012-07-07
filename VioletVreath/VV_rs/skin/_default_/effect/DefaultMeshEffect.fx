@@ -41,14 +41,16 @@ float g_zf;
 float g_far_rate;
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
-    
+sampler BumpMapTextureSampler : register(s2);  
+
 /** 頂点シェーダー、出力構造体 */
 struct OUT_VS {
     float4 pos    : POSITION;    //座標
     float2 uv     : TEXCOORD0;   //テクスチャUV
     float4 color  : COLOR0;      //頂点カラー
     float3 normal : TEXCOORD1;   //オブジェクトの法線ベクトル
-    float3 cam    : TEXCOORD2;   //頂点 -> 視点 ベクトル
+    float3 eye    : TEXCOORD2;   //頂点 -> 視点 ベクトル
+    float3 light  : TEXCOORD3;   
 };
 
 /**
@@ -64,7 +66,9 @@ struct OUT_VS {
 OUT_VS GgafDxVS_DefaultMesh(
       float4 prm_pos    : POSITION, 
       float3 prm_normal : NORMAL,   
-      float2 prm_uv     : TEXCOORD0 
+      float2 prm_uv     : TEXCOORD0,
+      float3 prm_tangent  : TANGENT,
+      float3 prm_binormal : BINORMAL 
 ) {
     OUT_VS out_vs = (OUT_VS)0;
 
@@ -77,13 +81,25 @@ OUT_VS GgafDxVS_DefaultMesh(
 
     //頂点カラー計算
     //法線を World 変換して正規化
-    out_vs.normal = normalize(mul(prm_normal, g_matWorld));     
-    //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
-    float power = max(dot(out_vs.normal, -g_vecLightDirection ), 0);      
+    out_vs.normal = normalize(mul(prm_normal, g_matWorld));  
+
+    float3 L = -g_vecLightDirection;
+	out_vs.light.x = dot(L,prm_tangent);
+	out_vs.light.y = dot(L,prm_binormal);
+	out_vs.light.z = dot(L,prm_normal);
+    out_vs.light =  normalize(out_vs.light);
+   
+
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
+    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse)) * g_colMaterialDiffuse;
     //「頂点→カメラ視点」方向ベクトル（スペキュラで使用）                                                        
-    out_vs.cam = normalize(g_posCam.xyz - posWorld.xyz);
+    //out_vs.eye = normalize(g_posCam.xyz - posWorld.xyz);
+    float3 E = g_posCam.xyz - posWorld.xyz;
+    out_vs.eye.x = dot(E, prm_tangent);
+	out_vs.eye.y = dot(E, prm_binormal);
+	out_vs.eye.z = dot(E, prm_normal);
+    out_vs.eye =  normalize(out_vs.eye);
+
     //αはマテリアルαを最優先とする（上書きする）
     out_vs.color.a = g_colMaterialDiffuse.a;
 
@@ -109,24 +125,32 @@ OUT_VS GgafDxVS_DefaultMesh(
  * @param prm_uv     ピクセルでのUV座標
  * @param prm_color  ピクセルでの色（頂点カラーによる）
  * @param prm_normal ピクセルでの法線
- * @param prm_cam    ピクセルでの座標 -> 視点 ベクトル
+ * @param prm_eye    ピクセルでの座標 -> 視点 ベクトル
  */
 float4 GgafDxPS_DefaultMesh(
     float2 prm_uv     : TEXCOORD0,
     float4 prm_color  : COLOR0,
     float3 prm_normal : TEXCOORD1,
-    float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
+    float3 prm_eye    : TEXCOORD2,   //頂点 -> 視点 ベクトル
+    float3 prm_light    : TEXCOORD3   
 ) : COLOR  {
+
+    float3 new_normal = 2.0f * tex2D( BumpMapTextureSampler, prm_uv).xyz-1.0;// 法線マップからの法線
+
+    //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
+    float power = max(dot(new_normal, -prm_light ), 0);      
+
+
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0) {
         //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
-        float3 vecHarf = normalize(prm_cam + (-g_vecLightDirection));
+        float3 vecHarf = normalize(prm_eye + (-prm_light));
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算
-        s = pow( max(0.0f, dot(prm_normal, vecHarf)), g_specular ) * g_specular_power;
+        s = pow( max(0.0f, dot(new_normal, vecHarf)), g_specular ) * g_specular_power;
     }
     float4 tex_color = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に        
-    float4 out_color = tex_color * prm_color + s;
+    float4 out_color = tex_color * prm_color * power + s;
     //Blinkerを考慮
     if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
         out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。

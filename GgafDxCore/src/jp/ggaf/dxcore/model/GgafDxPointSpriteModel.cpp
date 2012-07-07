@@ -14,6 +14,7 @@ GgafDxPointSpriteModel::GgafDxPointSpriteModel(char* prm_model_name) : GgafDxMod
     _fSquareSize = 0.0f;
     _fTexSize = 0.0f;
     _texture_split_rowcol = 1;
+    _obj_model |= Obj_GgafDxPointSpriteModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel*)
