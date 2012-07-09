@@ -43,7 +43,9 @@ GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
                                                        prm_effect_type,
                                                        prm_technique,
                                                        prm_pStat,
-                                                       prm_pChecker) {
+                                                       prm_pChecker) ,
+                                                   GgafDxIBumpMapActor() {
+
     _obj_class |= Obj_GgafDxMeshActor;
     _class_name = "GgafDxMeshActor";
     _pMeshModel = (GgafDxMeshModel*)_pModel;
@@ -81,6 +83,11 @@ void GgafDxMeshActor::processDraw() {
     hr = GgafDxGod::_pID3DDevice9->SetTexture(2, getBumpMapTexture());
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetTexture() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pMeshModel->draw(this);
+}
+
+void GgafDxMeshActor::effectBumpMapping(const char* prm_cubemap_tex, frame prm_frame) {
+    setBumpMapTexture(prm_cubemap_tex);
+    changeEffectTechniqueInterim("BumpMapping", prm_frame);
 }
 
 GgafDxMeshActor::~GgafDxMeshActor() {

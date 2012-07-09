@@ -356,8 +356,8 @@ void VvvWorld::processBehavior() {
 //            } else {
                 pActor = createInFactory2(GgafLib::DefaultMeshActor, "actor", model_id.c_str());
 //            }
-                DefaultMeshActor* pDefaultMeshActor = (DefaultMeshActor*)pActor;
-                pDefaultMeshActor->setBumpMapTexture("normal.bmp");
+//                DefaultMeshActor* pDefaultMeshActor = (DefaultMeshActor*)pActor;
+//                pDefaultMeshActor->setBumpMapTexture("normal.bmp");
             }
         } else if (model_type == "SPRX") {
             pActor = createInFactory2(GgafLib::DefaultSpriteActor, "actor", model_id.c_str());
@@ -376,7 +376,11 @@ void VvvWorld::processBehavior() {
             pActor->locateWith(p);
         }
 
-        if (model_type == "DDS") {
+
+        if (!(file_name.find("cubemap") == std::string::npos &&
+              file_name.find("CubeMap") == std::string::npos &&
+              file_name.find("Cubemap") == std::string::npos)
+        ) {
             if (_listActorInfo.getCurrent()) {
                 GgafDxDrawableActor* pCurrentActor = _listActorInfo.getCurrent()->pActor_;
                 GgafDxDrawableActor* pNewActor = NULL;
@@ -412,6 +416,21 @@ void VvvWorld::processBehavior() {
                 ActorInfo* pActorInfo = NEW ActorInfo(pNewActor, _listActorInfo.getCurrent()->modelfile_);
                 _listActorInfo.set(pActorInfo);
                 pCurrentActor->end();
+            }
+        } else if (!(file_name.find("Nmap") == std::string::npos &&
+            file_name.find("NMap") == std::string::npos &&
+            file_name.find("nmap") == std::string::npos &&
+            file_name.find("normalmap") == std::string::npos &&
+            file_name.find("NormalMap") == std::string::npos &&
+            file_name.find("Normalmap") == std::string::npos)
+        ) {
+            GgafDxDrawableActor* pCurrentActor = _listActorInfo.getCurrent()->pActor_;
+            GGAF_PROPERTY(DIR_TEXTURE[0])      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+            GGAF_PROPERTY(DIR_TEXTURE[1])      = dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
+            GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir;
+
+            if (Obj_GgafDxMeshActor & pCurrentActor->_obj_class) {
+                ((GgafDxMeshActor*)pCurrentActor)->effectBumpMapping(file_name.c_str());
             }
         }
 

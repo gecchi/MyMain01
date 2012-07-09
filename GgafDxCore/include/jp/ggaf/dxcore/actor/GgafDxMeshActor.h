@@ -84,6 +84,7 @@ public:
      */
     void addAlpha(float prm_alpha) override;
 
+    void effectBumpMapping(const char* prm_cubemap_tex, frame prm_frame = MAX_FRAME);
 
     virtual ~GgafDxMeshActor(); //デストラクタ
 };

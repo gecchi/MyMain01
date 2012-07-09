@@ -565,6 +565,38 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     prm_pMeshModel->_papTextureCon = model_papTextureCon;
     prm_pMeshModel->_num_materials = model_nMaterials;
 
+
+        //デバッグ
+        _TRACE_("#頂点バッファ nVertices="<<nVertices);
+        float x,y,z,nx,ny,nz,tu,tv,tan_x,tan_y,tan_z,bin_x,bin_y,bin_z;
+        for (int i = 0; i < nVertices; i++) {
+            x = model_paVtxBuffer_org[i].x;
+            y = model_paVtxBuffer_org[i].y;
+            z = model_paVtxBuffer_org[i].z;
+            nx = model_paVtxBuffer_org[i].nx;
+            ny = model_paVtxBuffer_org[i].ny;
+            nz = model_paVtxBuffer_org[i].nz;
+            tu = model_paVtxBuffer_org[i].tu;
+            tv = model_paVtxBuffer_org[i].tv;
+            tan_x = model_paVtxBuffer_org[i].tan_x;
+            tan_y = model_paVtxBuffer_org[i].tan_y;
+            tan_z = model_paVtxBuffer_org[i].tan_z;
+            bin_x = model_paVtxBuffer_org[i].bin_x;
+            bin_y = model_paVtxBuffer_org[i].bin_y;
+            bin_z = model_paVtxBuffer_org[i].bin_z;
+
+            _TRACE_("頂点["<<i<<"] pos("<<x<<","<<y<<","<<z<<")\tuv("<<tu<<","<<tv<<")\tn("<<nx<<","<<ny<<","<<nz<<")\tt("<<tan_x<<","<<tan_y<<","<<tan_z<<")\tb("<<bin_x<<","<<bin_y<<","<<bin_z<<")");
+        }
+
+
+
+
+
+
+
+
+
+
 //    {
 //        //デバッグ
 //        _TRACE_("#頂点バッファ nVertices="<<nVertices);
@@ -661,6 +693,7 @@ void GgafDxModelManager::calcTangentAndBinormal(
 
     // 平面パラメータからUV軸座標算出
     float U[3], V[3];
+    static double lim = FLT_MAX/100.0;
     for (int i = 0; i < 3; ++i) {
         D3DXVECTOR3 V1 = CP1[i] - CP0[i];
         D3DXVECTOR3 V2 = CP2[i] - CP1[i];
@@ -674,8 +707,8 @@ void GgafDxModelManager::calcTangentAndBinormal(
             //memset(outTangent, 0, sizeof(D3DXVECTOR3));
             //memset(outBinormal, 0, sizeof(D3DXVECTOR3));
             _TRACE_("＜警告＞ GgafDxModelManager::calcTangentAndBinormal ポリゴンかUV上のポリゴンが縮退してます！");
-            U[i] = -SGN(ABC.y) * FLT_MAX;
-            V[i] = -SGN(ABC.z) * FLT_MAX;
+            U[i] = -SGN(ABC.y) * lim;
+            V[i] = -SGN(ABC.z) * lim;
         } else {
             U[i] = -ABC.y / ABC.x;
             V[i] = -ABC.z / ABC.x;
@@ -930,12 +963,12 @@ void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_
                     //GgafDxMeshModelの場合
                     GgafDxMeshModel::VERTEX* pVtx_MeshModel = (GgafDxMeshModel::VERTEX*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
                     rate = (paRad[face_index*3+v] / paRadSum_Vtx[indexVertices_per_Face[v]]);
-                    pVtx_MeshModel->tan_x += outTangent.x * rate;
-                    pVtx_MeshModel->tan_y += outTangent.y * rate;
-                    pVtx_MeshModel->tan_z += outTangent.z * rate;
-                    pVtx_MeshModel->bin_x += outBinormal.x * rate;
-                    pVtx_MeshModel->bin_y += outBinormal.y * rate;
-                    pVtx_MeshModel->bin_z += outBinormal.z * rate;
+                    pVtx_MeshModel->tan_x += (outTangent.x  * rate);
+                    pVtx_MeshModel->tan_y += (outTangent.y  * rate);
+                    pVtx_MeshModel->tan_z += (outTangent.z  * rate);
+                    pVtx_MeshModel->bin_x += (outBinormal.x * rate);
+                    pVtx_MeshModel->bin_y += (outBinormal.y * rate);
+                    pVtx_MeshModel->bin_z += (outBinormal.z * rate);
                 } else {
                     throwGgafCriticalException("バンプマップ未だ作ってないよ prm_pModel="<<prm_pModel->getName()<<" _obj_model="<<prm_pModel->_obj_model);
                 }
@@ -1026,9 +1059,10 @@ void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_
                             pVtx_MeshModel->tan_x = vecTangent.x;
                             pVtx_MeshModel->tan_y = vecTangent.y;
                             pVtx_MeshModel->tan_z = vecTangent.z;
-                            pVtx_MeshModel->bin_x = vecNormal.x;
-                            pVtx_MeshModel->bin_y = vecNormal.y;
-                            pVtx_MeshModel->bin_z = vecNormal.z;
+                            pVtx_MeshModel->bin_x = vecBinormal.x;
+                            pVtx_MeshModel->bin_y = vecBinormal.y;
+                            pVtx_MeshModel->bin_z = vecBinormal.z;
+
                         } else {
                             throwGgafCriticalException("バンプマップ未だ作ってないよ prm_pModel="<<prm_pModel->getName()<<" _obj_model="<<prm_pModel->_obj_model);
                         }
@@ -1042,7 +1076,6 @@ void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_
     D3DXVECTOR3 vec;
     for (int i = 0; i < nVertices; i++) {
         pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
-
         vec.x = pVtx->nx;
         vec.y = pVtx->ny;
         vec.z = pVtx->nz;
