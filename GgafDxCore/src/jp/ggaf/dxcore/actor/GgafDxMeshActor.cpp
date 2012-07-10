@@ -77,11 +77,17 @@ void GgafDxMeshActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_far_rate, _far_rate );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = GgafDxGod::_pID3DDevice9->SetTexture(2, getBumpMapTexture());
-    checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetTexture() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    if (_pBumpMapTextureCon) {
+        hr = GgafDxGod::_pID3DDevice9->SetTexture(2, getBumpMapTexture());
+        checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetTexture() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matInvWorld, getInvMatWorldRotMv() );
+        checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_matInvWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        //TODO:–ˆ‰ñ‹ts—ñ‚ð‚±‚±‚ÅŒvŽZ‚·‚ê‚Î—Ç‚¢A‚ªA­‚µ‚Å‚à‚Í‚â‚­‚·‚é‚½‚ß‚ÉgetInvMatWorldRotMv()‚Å‘ã—pB
+        //getInvMatWorldRotMv() ‚È‚Ì‚ÅAŠg‘åk¬‚ªl—¶‚³‚ê‚Ä‚È‚¢BŽ²‚²‚Æ‚ÉŠg‘å—¦‚ªˆá‚¤ê‡Aƒoƒ“ƒvƒ}ƒbƒv‚Í‚¿‚å‚Á‚Æ‚¨‚©‚µ‚­‚È‚éB
+    }
     _pMeshModel->draw(this);
 }
 

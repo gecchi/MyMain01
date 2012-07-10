@@ -68,7 +68,7 @@
   }
 */
 //エラー回避のためにとりあえず追加後でちゃんとする
-float3 g_posCam;
+float3 g_posCam_World;
 float g_specular;
 float g_specular_power;
 
@@ -118,7 +118,7 @@ float4x4 g_matWorld_front011;
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 
-float3 g_vecLightDirection; // ライトの方向
+float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
@@ -130,7 +130,7 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
 	float2 uv     : TEXCOORD0;
 	float4 color    : COLOR0;
 };
@@ -140,9 +140,9 @@ struct OUT_VS
 
 //レーザーチップ頂点シェーダー
 OUT_VS GgafDxVS_LaserChip(
-      float4 prm_pos    : POSITION,      // モデルの頂点
+      float4 prm_posModel_Local    : POSITION,      // モデルの頂点
       float  prm_index  : PSIZE ,    // PSIZEではなくてなんとモデルの頂点番号
-      float3 prm_normal : NORMAL,        
+      float3 prm_vecNormal_Local : NORMAL,        
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
 
@@ -200,8 +200,8 @@ OUT_VS GgafDxVS_LaserChip(
 		matWorld_front = g_matWorld_front011;
 		kind = g_kind011;
 	} 
-	float4 posWorld;
-	if (prm_pos.x > 0.0) {    
+	float4 posModel_World;
+	if (prm_posModel_Local.x > 0.0) {    
 //TODO:20090806アイディア
 //現在先頭のチップは何も表示されないので
 //２倍して90度回転して、先頭専用テクスチャをを張れば、先を丸く見せれるのではないか
@@ -216,28 +216,28 @@ OUT_VS GgafDxVS_LaserChip(
 //		}
 		//頂点計算
 //		if (kind == 4) {  //3ではないよ
-//			float tmpy = prm_pos.y;
-//			prm_pos.y = -8.0 * prm_pos.z;
-//			prm_pos.z = 8.0 * tmpy;
+//			float tmpy = prm_posModel_Local.y;
+//			prm_posModel_Local.y = -8.0 * prm_posModel_Local.z;
+//			prm_posModel_Local.z = 8.0 * tmpy;
 //		}
 
-		prm_pos.x = 0;		
+		prm_posModel_Local.x = 0;		
 		if (kind == 4) {  //3ではないよ
-			prm_pos.y = 0;
-			prm_pos.z = 0;
+			prm_posModel_Local.y = 0;
+			prm_posModel_Local.z = 0;
 		} 
 		// 一つ前方のチップ座標へくっつける
-		posWorld = mul( prm_pos, matWorld_front );      // World変換
+		posModel_World = mul( prm_posModel_Local, matWorld_front );      // World変換
 	} else {
 //		if (kind == 1) {  
-//			prm_pos.x = 0;
-//			prm_pos.y = 0;
-//			prm_pos.z = 0;
+//			prm_posModel_Local.x = 0;
+//			prm_posModel_Local.y = 0;
+//			prm_posModel_Local.z = 0;
 //		} 
 		//頂点計算
-		posWorld = mul( prm_pos, matWorld );        // World変換
+		posModel_World = mul( prm_posModel_Local, matWorld );        // World変換
 	}
-	out_vs.pos = mul(mul(posWorld, g_matView), g_matProj);  // View変換射影変換
+	out_vs.posModel_Proj = mul(mul(posModel_World, g_matView), g_matProj);  // View変換射影変換
 
 	//UV設定
     //レーザーチップ種別 について。
@@ -277,23 +277,23 @@ OUT_VS GgafDxVS_LaserChip(
 		out_vs.uv.y = 1;
 	}
 	//αフォグ
-    float c = 1.25-(((out_vs.pos.z)/g_zf)*2);
+    float c = 1.25-(((out_vs.posModel_Proj.z)/g_zf)*2);
 	out_vs.color = (c < 0.3  ? 0.3 : c);
     out_vs.color.a = out_vs.color.a*g_alpha_master;
-//	out_vs.color = c < 0.2  ? 2.0 : c;//1.0-((out_vs.pos.z/g_zf)*2) ;//float4((out_vs.pos.z/g_zf), (out_vs.pos.z/g_zf), (out_vs.pos.z/g_zf), 1.0-(out_vs.pos.z/g_zf));
-//    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-//        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+//	out_vs.color = c < 0.2  ? 2.0 : c;//1.0-((out_vs.posModel_Proj.z/g_zf)*2) ;//float4((out_vs.posModel_Proj.z/g_zf), (out_vs.posModel_Proj.z/g_zf), (out_vs.posModel_Proj.z/g_zf), 1.0-(out_vs.posModel_Proj.z/g_zf));
+//    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+//        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
 //    }
 
-//	if (out_vs.pos.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
-//    	out_vs.color.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
+//	if (out_vs.posModel_Proj.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
+//    	out_vs.color.a *= (-1.0/(g_zf*0.25)*out_vs.posModel_Proj.z + 4.0);
 //	}
 
 	//簡易フォグ
-//	out_vs.color.a = 1.0/((g_zf*0.9)*0.5))*out_vs.pos.z - 1.0; // 1/2 より奥の場合徐々に透明に
-	//out_vs.color.a = 1.0/(g_zf - (g_zf*0.75))*out_vs.pos.z - 3.0;  // 3/4 より奥の場合徐々に透明に
-//    if (out_vs.pos.z > g_zf*0.98) {   
-//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+//	out_vs.color.a = 1.0/((g_zf*0.9)*0.5))*out_vs.posModel_Proj.z - 1.0; // 1/2 より奥の場合徐々に透明に
+	//out_vs.color.a = 1.0/(g_zf - (g_zf*0.75))*out_vs.posModel_Proj.z - 3.0;  // 3/4 より奥の場合徐々に透明に
+//    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
+//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
 //    }
 	return out_vs;
 }

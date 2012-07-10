@@ -28,7 +28,7 @@ float g_offset_u;        //テクスチャU座標増分
 float g_offset_v;         //テクスチャV座標増分
 int g_UvFlipPtnNo;
 
-float3 g_vecLightDirection; // ライトの方向
+float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
@@ -47,7 +47,7 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
 	float  psize  : PSIZE;
 	float4 color    : COLOR0;
 	float4 uv_ps  : COLOR1;  //スペキュラを潰して表示したいUV座標左上の情報をPSに渡す
@@ -78,7 +78,7 @@ struct OUT_VS
 
 //メッシュ標準頂点シェーダー
 OUT_VS VS_HoshiBoshi(
-      float4 prm_pos         : POSITION,  //ポイントスプライトのポイント群
+      float4 prm_posModel_Local         : POSITION,  //ポイントスプライトのポイント群
       float  prm_psize_rate  : PSIZE,     //PSIZEはポイントサイズでは無く、スケールの率(0.0～N (1.0=等倍)) が入ってくる
       float2 prm_ptn_no      : TEXCOORD0, //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
       float4 prm_color         : COLOR0     //オブジェクトのカラー
@@ -87,27 +87,29 @@ OUT_VS VS_HoshiBoshi(
 	OUT_VS out_vs = (OUT_VS)0;
 
 	out_vs.color = prm_color;
-	out_vs.pos = mul(prm_pos, g_matWorld);  //World
-float w_zf = g_zf * g_far_rate;
+	//out_vs.posModel_Proj = mul(prm_posModel_Local, g_matWorld);  //World
+    float4 posModel_World = mul(prm_posModel_Local, g_matWorld);  //
+
+    float w_zf = g_zf * g_far_rate;
 	//カメラの最大視野範囲(-_zf ～ _zf, -_zf ～ _zf, -_zf ～ _zf)
 	//を超えている場合、ループする。
-	if (out_vs.pos.x > w_zf) {
-		out_vs.pos.x = out_vs.pos.x - (w_zf*2);
+	if (posModel_World.x > w_zf) {
+		posModel_World.x = posModel_World.x - (w_zf*2);
 	}
-	if (out_vs.pos.x < -w_zf) {
-		out_vs.pos.x = out_vs.pos.x + (w_zf*2);
+	if (posModel_World.x < -w_zf) {
+		posModel_World.x = posModel_World.x + (w_zf*2);
 	}
-	if (out_vs.pos.y > w_zf) {
-		out_vs.pos.y = out_vs.pos.y - (w_zf*2);
+	if (posModel_World.y > w_zf) {
+		posModel_World.y = posModel_World.y - (w_zf*2);
 	}
-	if (out_vs.pos.y < -w_zf) {
-		out_vs.pos.y = out_vs.pos.y + (w_zf*2);
+	if (posModel_World.y < -w_zf) {
+		posModel_World.y = posModel_World.y + (w_zf*2);
 	}
-	if (out_vs.pos.z > w_zf) {
-		out_vs.pos.z = out_vs.pos.z - (w_zf*2);
+	if (posModel_World.z > w_zf) {
+		posModel_World.z = posModel_World.z - (w_zf*2);
 	}
-	if (out_vs.pos.z < -w_zf) {
-		out_vs.pos.z = out_vs.pos.z + (w_zf*2);
+	if (posModel_World.z < -w_zf) {
+		posModel_World.z = posModel_World.z + (w_zf*2);
 	}
 
 // 自機の周りにある星々を滑らかに透明にしたい。
@@ -144,7 +146,7 @@ float w_zf = g_zf * g_far_rate;
 //     |                     ＼v／                        ＿＝￣                  ＿＝￣
 // ￣＝＿                     Cam (dCamZ,0)           ＿＝￣                  ＿＝￣         
 //     ￣＝＿                  ^                  ＿＝￣この領域(B領域)   ＿＝￣             
-//     |   ￣＝＿              |              ＿＝￣     星が薄まる   ＿＝￣  ●(out_vs.pos.x, out_vs.pos.y, out_vs.pos.z)
+//     |   ￣＝＿              |              ＿＝￣     星が薄まる   ＿＝￣  ●(posModel_World.x, posModel_World.y, posModel_World.z)
 //     |       ￣＝＿          |          ＿＝￣                  ＿＝￣      星
 //     |           ￣＝＿      |      ＿＝￣                  ＿＝￣
 //     |               ￣＝＿  v  ＿＝￣                  ＿＝￣
@@ -159,9 +161,9 @@ float w_zf = g_zf * g_far_rate;
 //
 // ここで (x,y,z) に星の座標を代入して、③→②へ移動中にアルファを減らそうとした。
 
-	float r2 = ( abs(out_vs.pos.x-g_fX_MyShip)/15.0 + 
-               abs(out_vs.pos.y-g_fY_MyShip)/2.0 + 
-               abs(out_vs.pos.z-g_fZ_MyShip)/2.0  ) / g_dist_CamZ_default;
+	float r2 = ( abs(posModel_World.x-g_fX_MyShip)/15.0 + 
+                 abs(posModel_World.y-g_fY_MyShip)/2.0 + 
+                 abs(posModel_World.z-g_fZ_MyShip)/2.0  ) / g_dist_CamZ_default;
 	// r2 < 1.0         がA領域
 	// 1.0 < r2 < 2.0   がB領域  となる
 
@@ -172,20 +174,19 @@ float w_zf = g_zf * g_far_rate;
 		//A領域外側の場合、星を距離に応じて半透明
         out_vs.color.a = r2 - 1.0;
 	}
-	out_vs.pos = mul(out_vs.pos , g_matView);  //View
+    float4 posModel_View = mul(posModel_World , g_matView);
 
-
-	float dep = out_vs.pos.z  + 1.0; //+1.0の意味は
+	float dep = posModel_View.z  + 1.0; //+1.0の意味は
                                           //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
                                           //距離に加える。
 //    if (dep > g_zf) {
 //        dep = g_zf;
 //    }
 
-	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
+	out_vs.posModel_Proj = mul(posModel_View, g_matProj);  //射影変換
 
-    if (out_vs.pos.z > g_zf*0.98) {   
-        out_vs.pos.z = g_zf*0.98; //本来視野外のZ座標でも、描画を強制するため0.9以内に上書き、
+    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
+        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZ座標でも、描画を強制するため0.9以内に上書き、
     }
 
 	//奥ほど小さく表示するために縮小率計算

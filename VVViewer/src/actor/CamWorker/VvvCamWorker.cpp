@@ -313,7 +313,6 @@ void VvvCamWorker::processBehavior() {
         }
     }
 
-
     //ƒJƒƒ‰‚ÌUP‚ğŒvZ
     angvelo angvelo_cam_up = 30000 / 20;
     if (angXY_nowCamUp_ != move_target_XY_CAM_UP_) {
@@ -328,7 +327,6 @@ void VvvCamWorker::processBehavior() {
         pCam->_pVecCamUp->y = UTIL::SIN[angXY_nowCamUp_ / SANG_RATE];
         pCam->_pVecCamUp->z = 0.0f;
     }
-
 
     pCam->_pKurokoA->behave();
     pVP->_pKurokoA->behave();

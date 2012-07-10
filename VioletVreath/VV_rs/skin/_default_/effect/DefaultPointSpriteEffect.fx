@@ -23,7 +23,7 @@ float g_offset_u;        //テクスチャU座標増分
 float g_offset_v;         //テクスチャV座標増分
 float g_UvFlipPtnNo;
 
-float3 g_vecLightDirection; // ライトの方向
+float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
@@ -43,7 +43,7 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
 	float  psize  : PSIZE;
 	float4 color    : COLOR0;
 	float4 uv_ps  : COLOR1;  //スペキュラを潰して表示したいUV座標左上の情報をPSに渡す
@@ -74,7 +74,7 @@ struct OUT_VS
 
 //メッシュ標準頂点シェーダー
 OUT_VS GgafDxVS_DefaultPointSprite(
-      float4 prm_pos         : POSITION,  //ポイントスプライトのポイント群
+      float4 prm_posModel_Local         : POSITION,  //ポイントスプライトのポイント群
       float  prm_psize_rate  : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
       float4 prm_color         : COLOR0,     //オブジェクトのカラー
       float2 prm_ptn_no      : TEXCOORD0 //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
@@ -82,12 +82,11 @@ OUT_VS GgafDxVS_DefaultPointSprite(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-    out_vs.pos = mul(prm_pos    , g_matWorld);  //World
-	out_vs.pos = mul(out_vs.pos , g_matView);  //View
-	float dep = out_vs.pos.z + 1.0; //+1.0の意味は
+	out_vs.posModel_Proj = mul(mul(prm_posModel_Local, g_matWorld), g_matView); 
+	float dep = out_vs.posModel_Proj.z + 1.0; //+1.0の意味は
                                     //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
                                     //距離に加える。
-	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
+	out_vs.posModel_Proj = mul(out_vs.posModel_Proj , g_matProj);  //射影変換
 	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;
     //psizeは画面上のポイント スプライトの幅 (ピクセル単位) 
 
@@ -105,8 +104,8 @@ OUT_VS GgafDxVS_DefaultPointSprite(
 //	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 
 	out_vs.color = prm_color;
-    if (out_vs.pos.z > g_zf*0.98) {   
-        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
+        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
     }
 	return out_vs;
 }

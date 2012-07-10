@@ -428,7 +428,6 @@ void VvvWorld::processBehavior() {
             GGAF_PROPERTY(DIR_TEXTURE[0])      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
             GGAF_PROPERTY(DIR_TEXTURE[1])      = dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
             GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir;
-
             if (Obj_GgafDxMeshActor & pCurrentActor->_obj_class) {
                 ((GgafDxMeshActor*)pCurrentActor)->effectBumpMapping(file_name.c_str());
             }

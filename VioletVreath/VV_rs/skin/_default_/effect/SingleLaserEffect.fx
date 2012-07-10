@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 //エラー回避のためにとりあえず追加後でちゃんとする
-float3 g_posCam;
+float3 g_posCam_World;
 float g_specular;
 float g_specular_power;
 
@@ -22,7 +22,7 @@ float g_tex_blink_power;
 float g_tex_blink_threshold;
 float g_alpha_master;
 // ライトの方向
-float3 g_vecLightDirection;
+float3 g_vecLightFrom_World;
 // Ambienライト色（入射色）
 float4 g_colLightAmbient;
 // Diffuseライト色（入射色）  
@@ -68,7 +68,7 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
 	float2 uv     : TEXCOORD0;
 	float4 color    : COLOR0;
 };
@@ -78,7 +78,7 @@ struct OUT_VS
 
 //頂点シェーダー
 OUT_VS GgafDxVS_SingleLaser(
-      float4 prm_pos    : POSITION,      // モデルの頂点
+      float4 prm_posModel_Local    : POSITION,      // モデルの頂点
       float  prm_index  : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
       float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
 
@@ -147,21 +147,21 @@ OUT_VS GgafDxVS_SingleLaser(
 
 
 	//World*View*射影変換
-	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
+	out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);
 	//UVはそのまま
 	out_vs.uv = prm_uv;
 	//αフォグ
-    float c = 1.3-((out_vs.pos.z)/g_zf);
+    float c = 1.3-((out_vs.posModel_Proj.z)/g_zf);
 	out_vs.color = (c < 0.5  ? 0.5 : c);
 	//out_vs.color = (c < 0.5  ? 0.5 : c);
 
 //	out_vs.color = float4(1.0, 1.0, 1.0, 1.0);
-//    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-//        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+//    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+//        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
 //    }
 	out_vs.color.a *= g_alpha_master;
-//    if (out_vs.pos.z > g_zf*0.98) {   
-//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+//    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
+//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
 //    }
 	return out_vs;
 }

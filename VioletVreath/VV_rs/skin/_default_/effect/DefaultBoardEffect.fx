@@ -25,7 +25,7 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
 	float2 uv     : TEXCOORD0;
 };
 
@@ -34,16 +34,16 @@ struct OUT_VS
 
 //GgafDxBoardModel標準頂点シェーダー
 OUT_VS GgafDxVS_DefaultBoard(
-      float4 prm_pos    : POSITION,     // モデルの頂点
+      float4 prm_posModel_Local    : POSITION,     // モデルの頂点
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-	out_vs.pos.x = - 1 + ((2*prm_pos.x*g_sx + 2*g_transformed_X - 1) / g_game_buffer_width);
-	out_vs.pos.y =   1 - ((2*prm_pos.y*g_sy + 2*g_transformed_Y - 1) / g_game_buffer_height);
-	out_vs.pos.z = g_depth_Z;
-	out_vs.pos.w = 1.0;
+	out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x*g_sx + 2*g_transformed_X - 1) / g_game_buffer_width);
+	out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y*g_sy + 2*g_transformed_Y - 1) / g_game_buffer_height);
+	out_vs.posModel_Proj.z = g_depth_Z;
+	out_vs.posModel_Proj.w = 1.0;
 	//UVのオフセットを加算
 	out_vs.uv.x = prm_uv.x + g_offset_u;
 	out_vs.uv.y = prm_uv.y + g_offset_v;

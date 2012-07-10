@@ -198,7 +198,7 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
 	float4 color    : COLOR0;
 	float2 uv     : TEXCOORD0;
 };
@@ -208,7 +208,7 @@ struct OUT_VS
 
 //GgafDxBoardSetModel標準頂点シェーダー
 OUT_VS GgafDxVS_DefaultBoardSet(
-      float4 prm_pos    : POSITION,     // モデルの頂点
+      float4 prm_posModel_Local    : POSITION,     // モデルの頂点
 	  float  prm_index  : PSIZE ,    // モデル番号
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 
@@ -422,10 +422,10 @@ OUT_VS GgafDxVS_DefaultBoardSet(
 	} 
 
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-	out_vs.pos.x = - 1 + ((2*prm_pos.x + 2*transformedX - 1) / g_game_buffer_width);
-	out_vs.pos.y =   1 - ((2*prm_pos.y + 2*transformedY - 1) / g_game_buffer_height);
-	out_vs.pos.z = depthZ;
-	out_vs.pos.w = 1.0;
+	out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*transformedX - 1) / g_game_buffer_width);
+	out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*transformedY - 1) / g_game_buffer_height);
+	out_vs.posModel_Proj.z = depthZ;
+	out_vs.posModel_Proj.w = 1.0;
 	//UVのオフセットを加算
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;

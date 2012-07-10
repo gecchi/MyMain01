@@ -11,8 +11,8 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(char* prm_effect_name) : GgafDxEffe
     hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_matProj );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::GgafDxMorphMeshEffect SetMatrix() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //ƒ‰ƒCƒg•ûŒü
-    hr = _pID3DXEffect->SetValue("g_vecLightDirection", &(GgafDxGod::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
-    checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxMorphMeshEffect SetValue(g_vecLightDirection) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = _pID3DXEffect->SetValue("g_vecLightFrom_World", &(GgafDxGod::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
+    checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxMorphMeshEffect SetValue(g_vecLightFrom_World) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //Diffuse”½ŽË
     hr = _pID3DXEffect->SetValue("g_colLightDiffuse", &(GgafDxGod::_d3dlight9_default.Diffuse), sizeof(D3DCOLORVALUE));
     checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxMorphMeshEffect SetValue(g_colLightDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -44,7 +44,7 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(char* prm_effect_name) : GgafDxEffe
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
     _h_specular = _pID3DXEffect->GetParameterByName( NULL, "g_specular" );
     _h_specular_power = _pID3DXEffect->GetParameterByName( NULL, "g_specular_power" );
-    _h_posCam = _pID3DXEffect->GetParameterByName( NULL, "g_posCam" );
+    _h_posCam = _pID3DXEffect->GetParameterByName( NULL, "g_posCam_World" );
 }
 
 void GgafDxMorphMeshEffect::setParamPerFrame() {

@@ -133,7 +133,7 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
     float4 color  : COLOR0;
     float2 uv     : TEXCOORD0;
 };
@@ -143,8 +143,8 @@ struct OUT_VS
 
 //スプライト標準頂点シェーダー
 OUT_VS GgafDxVS_StringSprite(
-      float4 prm_pos    : POSITION,     // モデルの頂点
-      float3 prm_normal : NORMAL,        // モデルの頂点の法
+      float4 prm_posModel_Local    : POSITION,     // モデルの頂点
+      float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法
       float  prm_index  : PSIZE ,    // モデル番号
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
@@ -251,16 +251,16 @@ OUT_VS GgafDxVS_StringSprite(
     }
     alpha   = g_alpha001;
     matWorld = g_matWorld001;
-    prm_pos.x += X;
-    prm_pos.y += Y;
+    prm_posModel_Local.x += X;
+    prm_posModel_Local.y += Y;
     //World*View*射影変換
-    out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);  // 出力に設定
+    out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);  // 出力に設定
     //UVのオフセット(パターン番号による増分)加算
     out_vs.uv.x = prm_uv.x + offsetU;
     out_vs.uv.y = prm_uv.y + offsetV;
     out_vs.color.a  = alpha;
-//    if (out_vs.pos.z > g_zf*0.98) {
-//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+//    if (out_vs.posModel_Proj.z > g_zf*0.98) {
+//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
 //    }
     return out_vs;
 }

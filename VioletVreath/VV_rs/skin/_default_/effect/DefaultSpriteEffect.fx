@@ -24,7 +24,7 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
 	float2 uv     : TEXCOORD0;
 };
 
@@ -33,27 +33,27 @@ struct OUT_VS
 
 //スプライト標準頂点シェーダー
 OUT_VS GgafDxVS_DefaultSprite(
-      float4 prm_pos    : POSITION,     // モデルの頂点
+      float4 prm_posModel_Local    : POSITION,     // モデルの頂点
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点計算
-	float4 posWorld = mul( prm_pos, g_matWorld );               // World変換
-	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+	float4 posModel_World = mul( prm_posModel_Local, g_matWorld );               // World変換
+	float4 posWorldView = mul(posModel_World, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-	out_vs.pos = posWorldViewProj;                              // 出力に設定
+	out_vs.posModel_Proj = posWorldViewProj;                              // 出力に設定
     if (g_far_rate > 0.0) {
-        if (out_vs.pos.z > g_zf*g_far_rate) {   
-            out_vs.pos.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {   
+            out_vs.posModel_Proj.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
         }
     } 
 
 	//UVのオフセット(パターン番号による増分)加算
 	out_vs.uv.x = prm_uv.x + g_offset_u;
 	out_vs.uv.y = prm_uv.y + g_offset_v;
-//    if (out_vs.pos.z > g_zf*0.98) {   
-//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+//    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
+//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
 //    }
 	return out_vs;
 }

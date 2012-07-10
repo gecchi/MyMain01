@@ -32,6 +32,14 @@ void GgafDxCubeMapMeshActor::processDraw() {
     hr = pID3DXEffect->SetFloat(_pCubeMapMeshEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "GgafDxCubeMapMeshActor::processDraw() SetFloat(_h_reflectances) に失敗しました。");
     GgafDxGod::_pID3DDevice9->SetTexture(1, getCubeMapTexture());
+    if (_pBumpMapTextureCon) {
+        hr = GgafDxGod::_pID3DDevice9->SetTexture(2, getBumpMapTexture());
+        checkDxException(hr, D3D_OK, "GgafDxCubeMapMeshActor::processDraw() SetTexture() に失敗しました。");
+        hr = pID3DXEffect->SetMatrix(_pCubeMapMeshEffect->_h_matInvWorld, getInvMatWorldRotMv() );
+        checkDxException(hr, D3D_OK, "GgafDxCubeMapMeshActor::processDraw() SetMatrix(_h_matInvWorld) に失敗しました。");
+        //TODO:毎回逆行列をここで計算すれば良い、が、少しでもはやくするためにgetInvMatWorldRotMv()で代用。
+        //getInvMatWorldRotMv() なので、拡大縮小が考慮されてない。軸ごとに拡大率が違う場合、バンプマップはちょっとおかしくなる。
+    }
     _pCubeMapMeshModel->draw(this);
 }
 

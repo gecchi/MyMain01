@@ -3,7 +3,7 @@ float4x4 g_matWorld;
 float4x4 g_matView;   
 float4x4 g_matProj;   
 
-float3 g_vecLightDirection; 
+float3 g_vecLightFrom_World; 
 float4 g_colLightAmbient;   
 float4 g_colLightDiffuse;   
 
@@ -19,36 +19,36 @@ sampler MyTextureSampler : register(s0);
 
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
 	float2 uv     : TEXCOORD0;
 	float4 color    : COLOR0;
 };
 
 
 OUT_VS GgafDxVS_GroundMesh(
-      float4 prm_pos    : POSITION,      // モデルの頂点
-      float3 prm_normal : NORMAL,        // モデルの頂点の法線
+      float4 prm_posModel_Local    : POSITION,      // モデルの頂点
+      float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点計算
-	out_vs.pos = mul( mul( mul(prm_pos, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
+	out_vs.posModel_Proj = mul( mul( mul(prm_posModel_Local, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
 	//UVはそのまま
 	out_vs.uv = prm_uv;
 
     //頂点カラー計算
 
 	//法線を World 変換して正規化
-    float3 normal = normalize(mul(prm_normal, g_matWorld)); 	
+    float3 vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld)); 	
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(normal, -g_vecLightDirection ), 0);      
+	float power = max(dot(vecNormal_World, -g_vecLightFrom_World ), 0);      
 	//Ambientライト色、Diffuseライト色、Diffuseライト方向、マテリアル色 を考慮したカラー作成。      
 	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
 	//αフォグ
 	out_vs.color.a = g_colMaterialDiffuse.a;
-    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
     }
 
  //カメラの位置(0,0,-57.1259)
@@ -60,9 +60,9 @@ OUT_VS GgafDxVS_GroundMesh(
 //上の例のように視錐状にカメラの視線方向に広がっている頂点を同じXY座標に投影するためです。
 
 
-	if ( out_vs.pos.z < 60) {
-		out_vs.color.a = (out_vs.pos.z + 1.0)  / (57.1259*2);
-//1 - (out_vs.pos.z / 57.1259);
+	if ( out_vs.posModel_Proj.z < 60) {
+		out_vs.color.a = (out_vs.posModel_Proj.z + 1.0)  / (57.1259*2);
+//1 - (out_vs.posModel_Proj.z / 57.1259);
 	}
 	return out_vs;
 }

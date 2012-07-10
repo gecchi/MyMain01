@@ -11,7 +11,7 @@
 // date:2011/01/10
 ////////////////////////////////////////////////////////////////////////////////
 //エラー回避のためにとりあえず追加後でちゃんとする
-float3 g_posCam;
+float3 g_posCam_World;
 float g_specular;
 float g_specular_power;
 
@@ -27,7 +27,7 @@ float g_tex_blink_power;
 float g_tex_blink_threshold;
 float g_alpha_master;
 // ライトの方向
-float3 g_vecLightDirection;
+float3 g_vecLightFrom_World;
 // Ambienライト色（入射色）
 float4 g_colLightAmbient;
 // Diffuseライト色（入射色）  
@@ -73,7 +73,7 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
 	float2 uv     : TEXCOORD0;
 	float4 color    : COLOR0;
 };
@@ -83,9 +83,9 @@ struct OUT_VS
 
 //頂点シェーダー
 OUT_VS GgafDxVS_WallAAPrism(
-      float4 prm_pos    : POSITION,      // モデルの頂点
+      float4 prm_posModel_Local    : POSITION,      // モデルの頂点
       float  prm_object_index  : PSIZE , // モデルのインデックス（何個目のオブジェクトか）
-      float3 prm_normal : NORMAL,        // モデルの頂点の法線
+      float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
 
 ) {
@@ -253,13 +253,13 @@ OUT_VS GgafDxVS_WallAAPrism(
 		//ah = g_wall_height / g_wall_dep / 2.0; //傾き y/x
 		fh = g_wall_dep/2.0;
 		if (pos_prism == POS_PRISM_pp) {
-			prm_pos.z = (prm_pos.z * ((prm_pos.x+fh)/g_wall_dep))       - ((prm_pos.x-fh)*ah);
+			prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+fh)/g_wall_dep))       - ((prm_posModel_Local.x-fh)*ah);
 		} else if (pos_prism == POS_PRISM_pn) {
-			prm_pos.z = (prm_pos.z * (1.0-((prm_pos.x+fh)/g_wall_dep))) + ((prm_pos.x+fh)*ah);
+			prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) + ((prm_posModel_Local.x+fh)*ah);
 		} else if (pos_prism == POS_PRISM_np) { 
-			prm_pos.z = (prm_pos.z * ((prm_pos.x+fh)/g_wall_dep))       + ((prm_pos.x-fh)*ah);
+			prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+fh)/g_wall_dep))       + ((prm_posModel_Local.x-fh)*ah);
 		} else { //if (pos_prism == POS_PRISM_nn) {
-			prm_pos.z = (prm_pos.z * (1.0-((prm_pos.x+fh)/g_wall_dep))) - ((prm_pos.x+fh)*ah);
+			prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) - ((prm_posModel_Local.x+fh)*ah);
 		}
 	} else if (pos_prism >= POS_PRISM_YZ) {   
 		//＋Z -Z の面がプリズムの斜め面にならないようにする
@@ -267,13 +267,13 @@ OUT_VS GgafDxVS_WallAAPrism(
 		ah = g_wall_height / g_wall_width / 2.0; //傾き y/z
 		fh = g_wall_width/2.0;                   //傾く軸
 		if (pos_prism == POS_PRISM_pp) {
-			prm_pos.y = (prm_pos.y * ((prm_pos.z+fh)/g_wall_width))       - ((prm_pos.z-fh)*ah);
+			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+fh)/g_wall_width))       - ((prm_posModel_Local.z-fh)*ah);
 		} else if (pos_prism == POS_PRISM_pn) {
-			prm_pos.y = (prm_pos.y * (1.0-((prm_pos.z+fh)/g_wall_width))) + ((prm_pos.z+fh)*ah);
+			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+fh)/g_wall_width))) + ((prm_posModel_Local.z+fh)*ah);
 		} else if (pos_prism == POS_PRISM_np) { 
-			prm_pos.y = (prm_pos.y * ((prm_pos.z+fh)/g_wall_width))       + ((prm_pos.z-fh)*ah);
+			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+fh)/g_wall_width))       + ((prm_posModel_Local.z-fh)*ah);
 		} else { //if (pos_prism == POS_PRISM_nn) {
-			prm_pos.y = (prm_pos.y * (1.0-((prm_pos.z+fh)/g_wall_width))) - ((prm_pos.z+fh)*ah);
+			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+fh)/g_wall_width))) - ((prm_posModel_Local.z+fh)*ah);
 		}
 	} else { //if (pos_prism >= POS_PRISM_XY) {   
 		//＋X -X の面がプリズムの斜め面にならないようにする
@@ -281,21 +281,21 @@ OUT_VS GgafDxVS_WallAAPrism(
 		ah = g_wall_height / g_wall_dep / 2.0; //傾き y/x
 		fh = g_wall_dep/2.0;                   //傾く軸
 		if (pos_prism == POS_PRISM_pp) {
-			prm_pos.y = (prm_pos.y * ((prm_pos.x+fh)/g_wall_dep))       - ((prm_pos.x-fh)*ah);
+			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+fh)/g_wall_dep))       - ((prm_posModel_Local.x-fh)*ah);
 		} else if (pos_prism == POS_PRISM_pn) {
-			prm_pos.y = (prm_pos.y * ((prm_pos.x+fh)/g_wall_dep))       + ((prm_pos.x-fh)*ah);
+			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+fh)/g_wall_dep))       + ((prm_posModel_Local.x-fh)*ah);
 		} else if (pos_prism == POS_PRISM_np) { 
-			prm_pos.y = (prm_pos.y * (1.0-((prm_pos.x+fh)/g_wall_dep))) + ((prm_pos.x+fh)*ah);
+			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) + ((prm_posModel_Local.x+fh)*ah);
 		} else { //if (pos_prism == POS_PRISM_nn) {
-			prm_pos.y = (prm_pos.y * (1.0-((prm_pos.x+fh)/g_wall_dep))) - ((prm_pos.x+fh)*ah);
+			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) - ((prm_posModel_Local.x+fh)*ah);
 		}
 	}
 	//メモ
-	//(prm_pos.y * ((prm_pos.x+fh)/g_wall_dep))   ・・・ 先端をキュッとまとめる計算
-	//+ ((prm_pos.x-fh)*ah);                      ・・・ 先端を水平にする計算
+	//(prm_posModel_Local.y * ((prm_posModel_Local.x+fh)/g_wall_dep))   ・・・ 先端をキュッとまとめる計算
+	//+ ((prm_posModel_Local.x-fh)*ah);                      ・・・ 先端を水平にする計算
 
 	//World*View*射影変換
-	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
+	out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);
 
 	//UVはそのまま
 	out_vs.uv = prm_uv;
@@ -303,24 +303,24 @@ OUT_VS GgafDxVS_WallAAPrism(
     //頂点カラー計算
 
 	//法線を World 変換して正規化
-    float3 normal = normalize(mul(prm_normal, matWorld)); 	
-    normal.x+=0.5; //値0.5は壁面にも無理やり光を当てるため
+    float3 vecNormal_World = normalize(mul(prm_vecNormal_Local, matWorld)); 	
+    vecNormal_World.x+=0.5; //値0.5は壁面にも無理やり光を当てるため
                    //ライトベクトルは XYZ=0.819232,-0.573462,0
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(normal, float3(-0.819232,0.573462,0)), 0);      
+	float power = max(dot(vecNormal_World, float3(-0.819232,0.573462,0)), 0);      
 	//Ambientライト色、Diffuseライト色、Diffuseライト方向 を考慮したカラー作成。      
 	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power));// * マテリアル色無しcolMaterialDiffuse;
 	//αフォグ
 	//out_vs.color.a = colMaterialDiffuse.a;
-    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
     }
     //自機より手前はα
-	if ( out_vs.pos.z < g_distance_AlphaTarget) {
-		out_vs.color.a = (out_vs.pos.z + 1.0)  / (g_distance_AlphaTarget*2);
+	if ( out_vs.posModel_Proj.z < g_distance_AlphaTarget) {
+		out_vs.color.a = (out_vs.posModel_Proj.z + 1.0)  / (g_distance_AlphaTarget*2);
 	}
-//    if (out_vs.pos.z > g_zf*0.98) {   
-//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+//    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
+//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
 //    }
 	return out_vs;
 }

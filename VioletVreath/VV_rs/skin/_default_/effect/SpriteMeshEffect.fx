@@ -6,7 +6,7 @@
 // date:2009/03/06 
 ////////////////////////////////////////////////////////////////////////////////
 //エラー回避のためにとりあえず追加後でちゃんとする
-float3 g_posCam;
+float3 g_posCam_World;
 float g_specular;
 float g_specular_power;
 
@@ -15,7 +15,7 @@ float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 
-float3 g_vecLightDirection; // ライトの方向
+float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
@@ -39,7 +39,7 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 pos    : POSITION;
+    float4 posModel_Proj    : POSITION;
 	float2 uv     : TEXCOORD0;
 	float4 color    : COLOR0;
 };
@@ -49,45 +49,45 @@ struct OUT_VS
 
 //メッシュ標準頂点シェーダー
 OUT_VS GgafDxVS_SpriteMesh(
-      float4 prm_pos    : POSITION,      // モデルの頂点
-      float3 prm_normal : NORMAL,        // モデルの頂点の法線
+      float4 prm_posModel_Local    : POSITION,      // モデルの頂点
+      float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点計算
-	out_vs.pos = mul( mul( mul(prm_pos, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
+	out_vs.posModel_Proj = mul( mul( mul(prm_posModel_Local, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
     //UV
 	out_vs.uv.x = prm_uv.x + g_offset_u;
 	out_vs.uv.y = prm_uv.y + g_offset_v;
 
 	//法線を World 変換して正規化
-    float3 normal = normalize(mul(prm_normal, g_matWorld)); 	
+    float3 vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld)); 	
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(normal, -g_vecLightDirection ), 0);      
+	float power = max(dot(vecNormal_World, -g_vecLightFrom_World ), 0);      
 	//Ambientライト色、Diffuseライト色、Diffuseライト方向、マテリアル色 を考慮したカラー作成。      
 	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
 	//αフォグ
 	out_vs.color.a = g_colMaterialDiffuse.a;
-    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
     }
-//    if (out_vs.pos.z > g_zf*0.98) {   
-//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+//    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
+//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
 //    }
 	return out_vs;
 }
 
 OUT_VS VS_NoLight(
-      float4 prm_pos    : POSITION,      // モデルの頂点
-      float3 prm_normal : NORMAL,        // モデルの頂点の法線
+      float4 prm_posModel_Local    : POSITION,      // モデルの頂点
+      float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//頂点計算
-	out_vs.pos = mul( mul( mul(prm_pos, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
+	out_vs.posModel_Proj = mul( mul( mul(prm_posModel_Local, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
     //UV
 	out_vs.uv.x = prm_uv.x + g_offset_u;
 	out_vs.uv.y = prm_uv.y + g_offset_v;
@@ -162,7 +162,7 @@ technique SpriteMeshTechnique
 	// float4x4 g_matWorld		:	World変換行列
 	// float4x4 g_matView		:	View変換行列
 	// float4x4 g_matProj		:	射影変換行列   
-	// float3 g_vecLightDirection	:	ライトの方向
+	// float3 g_vecLightFrom_World	:	ライトの方向
 	// float4 g_colLightAmbient	:	Ambienライト色（入射色）
 	// float4 g_colLightDiffuse	:	Diffuseライト色（入射色）
 	// float4 g_colMaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）

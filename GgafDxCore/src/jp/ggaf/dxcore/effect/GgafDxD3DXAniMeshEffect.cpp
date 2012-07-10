@@ -11,8 +11,8 @@ GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect(char* prm_effect_name) : GgafDx
     hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_matProj );
     checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshActor::GgafDxD3DXAniMeshEffect SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //ÉâÉCÉgï˚å¸
-    hr = _pID3DXEffect->SetValue("g_vecLightDirection", &(GgafDxGod::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
-    checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect SetValue(g_vecLightDirection) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = _pID3DXEffect->SetValue("g_vecLightFrom_World", &(GgafDxGod::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
+    checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect SetValue(g_vecLightFrom_World) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //DiffuseîΩéÀ
     hr = _pID3DXEffect->SetValue("g_colLightDiffuse", &(GgafDxGod::_d3dlight9_default.Diffuse), sizeof(D3DCOLORVALUE));
     checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect SetValue(g_colLightDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
