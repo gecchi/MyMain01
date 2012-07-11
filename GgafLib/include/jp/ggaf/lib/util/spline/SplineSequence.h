@@ -2,11 +2,7 @@
 #define SPLINESEQUENCE_H_
 namespace GgafLib {
 
-enum SplinTraceOption {
-    ABSOLUTE_COORD,     //絶対座標移動
-    RELATIVE_COORD,     //始点を現座標とし、スプライン座標群は相対移動で計算
-    RELATIVE_DIRECTION, //始点を現座標とし、さらに現在の向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
-};
+
 
 /**
  * スプライン曲線移動を実行するためのオブジェクト .
@@ -18,6 +14,12 @@ enum SplinTraceOption {
 class SplineSequence : public GgafCore::GgafObject {
 
 public:
+    enum SplinTraceOption {
+        ABSOLUTE_COORD,     //絶対座標移動
+        RELATIVE_COORD,     //始点を現座標とし、スプライン座標群は相対移動で計算
+        RELATIVE_DIRECTION, //始点を現座標とし、さらに現在の向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+    };
+
     /** スプライン情報セット */
     SplineManufacture* _pManufacture;
     /** exec()からの経過フレーム数 */
@@ -97,7 +99,7 @@ public:
 
     /**
      * 対象アクター(_pActor_target)の座標を、スプラインの一番最初の制御点座標で設定する .
-     * exec(ABSOLUTE_COORD) の場合、つまり「絶対座標移動スプライン」の場合、有効な設定となりうるでしょう。<BR>
+     * exec(SplineSequence::ABSOLUTE_COORD) の場合、つまり「絶対座標移動スプライン」の場合、有効な設定となりうるでしょう。<BR>
      * 「絶対座標移動スプライン」以外あまり意味がありません。<BR>
      */
     void setAbsoluteBeginCoordinate();

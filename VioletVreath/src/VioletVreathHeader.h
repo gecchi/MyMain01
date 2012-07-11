@@ -349,7 +349,7 @@ class EffectCondensation001;
 class EffectLaserRefraction001;
 class EffectWormhole;
 class EffectWormhole001;
-
+class EffectEntrance001;
 
 class HoshiBoshiTransit;
 class HoshiBoshiRankUp;
@@ -592,7 +592,7 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole001.h"
-
+#include "jp/gecchi/VioletVreath/actor/effect/EffectEntrance001.h"
 
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/EffectMyOption.h"

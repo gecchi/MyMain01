@@ -72,16 +72,16 @@ float4 GgafDxPS_DefaultD3DXAniMesh(
     float4 prm_color    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_color;
+	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	float4 colOut = colTex * prm_color;
 
     //Blinkerを考慮
-	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
+	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+		colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
 	} 
 	//マスターα
-	out_color.a *= g_alpha_master;
-	return out_color;
+	colOut.a *= g_alpha_master;
+	return colOut;
 }
 
 float4 GgafDxPS_DefaultD3DXAniMesh2(
@@ -89,16 +89,16 @@ float4 GgafDxPS_DefaultD3DXAniMesh2(
     float4 prm_color    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_color;
+	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	float4 colOut = colTex * prm_color;
 
     //Blinkerを考慮
-	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
+	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+		colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
 	} 
 	//マスターα
-	out_color.a *= g_alpha_master;
-	return out_color;
+	colOut.a *= g_alpha_master;
+	return colOut;
 }
 
 

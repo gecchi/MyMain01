@@ -3,8 +3,20 @@
  * GgafLib::DefaultMeshActor 用シェーダー .
  * 静的モデル１つを描画する標準的なシェーダー。
  * 頂点バッファフォーマットは
- * FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)
- * を、前提とする。
+ * {
+ *     float x, y, z;             // 座標(ローカル座標系)
+ *     float nx, ny, nz;          // 法線ベクトル(ローカル座標系)
+ *     DWORD color;               // 頂点カラー（現在未使用）
+ *     float tu, tv;              // テクスチャ座標
+ *     float tan_x, tan_y, tan_z; // 接ベクトル(u方向単位ベクトル) (ローカル座標系)
+ *     float bin_x, bin_y, bin_z; // 従法線ベクトル(v方向単位ベクトル) (ローカル座標系)
+ * };
+ *
+ * FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX3 |
+ *                                                        D3DFVF_TEXCOORDSIZE2(0) |     // テクスチャ座標
+ *                                                        D3DFVF_TEXCOORDSIZE3(1) |     // 接ベクトル
+ *                                                        D3DFVF_TEXCOORDSIZE3(2)   )   // 従法線ベクトル
+ * を、前提としています。
  * @author Masatoshi Tsuge
  * @since 2009/03/06
  */
@@ -121,16 +133,16 @@ OUT_VS GgafDxVS_DefaultMesh(
 
 /**
  * GgafLib::DefaultMeshActor 用の標準ピクセルシェーダー .
- * @param prm_uv              ピクセルのUV座標
- * @param prm_color           ピクセルの色（頂点カラーによる）
- * @param prm_vecNormal_World ピクセルの法線ベクトル(ワールド座標系)
- * @param prm_vecEye_World    ピクセルの視線(座標 -> 視点)ベクトル(ワールド座標系)
+ * @param prm_uv              UV座標
+ * @param prm_color           色（頂点カラーによる）
+ * @param prm_vecNormal_World 法線ベクトル(ワールド座標系)
+ * @param prm_vecEye_World    視線(頂点 -> 視点)ベクトル(ワールド座標系)
  */
 float4 GgafDxPS_DefaultMesh(
     float2 prm_uv              : TEXCOORD0,
     float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
-    float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
+    float3 prm_vecEye_World    : TEXCOORD2
 ) : COLOR  {
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0) {
@@ -139,16 +151,16 @@ float4 GgafDxPS_DefaultMesh(
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算
         s = pow( max(0.0f, dot(prm_vecNormal_World, vecHarf)), g_specular ) * g_specular_power;
     }
-    float4 tex_color = tex2D( MyTextureSampler, prm_uv);
+    float4 colTex = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に
-    float4 out_color = tex_color * prm_color + s;
+    float4 colOut = colTex * prm_color + s;
     //Blinkerを考慮
-    if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-        out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
+    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
     }
     //マスターα
-    out_color.a *= g_alpha_master;
-    return out_color;
+    colOut.a *= g_alpha_master;
+    return colOut;
 }
 
 
@@ -179,7 +191,7 @@ float4x4 getInvTangentMatrix(
 
 
 /**
- * GgafLib::DefaultMeshActor 用の標準頂点シェーダー .
+ * GgafLib::DefaultMeshActor バンプマッピング用の頂点シェーダー .
  * 頂点を World > View > 射影 変換した後、
  * モデルのマテリアル色付を頂点カラーの設定で行う。
  * マテリアル色付とは具体位的に
@@ -246,18 +258,20 @@ OUT_VS_BM GgafDxVS_BumpMapping(
 }
 
 /**
- * GgafLib::DefaultMeshActor 用の標準ピクセルシェーダー .
- * @param prm_uv     ピクセルでのUV座標
- * @param prm_color  ピクセルでの色（頂点カラーによる）
- * @param prm_vecNormal_World ピクセルでの法線
- * @param prm_vecEye_World    ピクセルでの座標 -> 視点 ベクトル
+ * GgafLib::DefaultMeshActor バンプマッピング用のピクセルシェーダー .
+ * @param prm_uv              UV座標
+ * @param prm_color           色（頂点カラーによる）
+ * @param prm_vecNormal_World 法線ベクトル(World座標系)
+ * @param prm_vecEye_World    視線(頂点->視点)ベクトル(World座標系)
+ * @param vecLight_Tangent    拡散光方向ベクトル(接空間座標系)
+ * @param vecHarf_Tangent     ハーフベクトル(接空間座標系)
  */
 float4 GgafDxPS_BumpMapping(
-    float2 prm_uv     : TEXCOORD0,
-    float4 prm_color  : COLOR0,
+    float2 prm_uv              : TEXCOORD0,
+    float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
-    float3 prm_vecEye_World    : TEXCOORD2,   //頂点 -> 視点 ベクトル
-    float3 vecLight_Tangent    : TEXCOORD3,  //接空間座標系に変換された拡散光方向ベクトル
+    float3 prm_vecEye_World    : TEXCOORD2,
+    float3 vecLight_Tangent    : TEXCOORD3,
     float3 vecHarf_Tangent     : TEXCOORD4
 ) : COLOR  {
     float a = prm_color.a; //α保持
@@ -278,17 +292,17 @@ float4 GgafDxPS_BumpMapping(
     }
 
     //環境光色、テクスチャ色、頂点カラー、減衰率、スペキュラ を考慮した色作成
-    float4 tex_color = tex2D( MyTextureSampler, prm_uv);
-    //tex_color * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * g_colMaterialDiffuse ) + s;
+    float4 colTex = tex2D( MyTextureSampler, prm_uv);
+    //colTex * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * g_colMaterialDiffuse ) + s;
     //tex・mate・(amb + (light・p))  + s
-    float4 out_color = tex_color * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * prm_color ) + s; //prm_color = g_colMaterialDiffuse
+    float4 colOut = colTex * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * prm_color ) + s; //prm_color = g_colMaterialDiffuse
     //Blinkerを考慮
-    if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-        out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
+    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
     }
     //マスターα
-    out_color.a = a * g_alpha_master;
-    return out_color;
+    colOut.a = a * g_alpha_master;
+    return colOut;
 }
 
 /**
@@ -301,10 +315,10 @@ float4 PS_Flush(
     float2 prm_uv  : TEXCOORD0,
     float4 prm_color : COLOR0
 ) : COLOR  {
-    float4 tex_color = tex2D( MyTextureSampler, prm_uv);
-    float4 out_color = tex_color * prm_color * FLUSH_COLOR;
-    out_color.a *= g_alpha_master;
-    return out_color;
+    float4 colTex = tex2D( MyTextureSampler, prm_uv);
+    float4 colOut = colTex * prm_color * FLUSH_COLOR;
+    colOut.a *= g_alpha_master;
+    return colOut;
 }
 
 /**

@@ -127,14 +127,14 @@ float4 GgafDxPS_CubeMapMesh(
         s = pow( max(0.0f, dot(prm_vecNormal_World, vecHarf)), g_specular ) * g_specular_power;
     }
 
-    float4 out_color = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
+    float4 colOut = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
     //Blinkerを考慮
     if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
-        out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
+        colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
     }
 
-    out_color.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master;
-    return out_color;
+    colOut.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master;
+    return colOut;
 }
 
 /**
@@ -238,16 +238,16 @@ float4 GgafDxPS_BumpMapping(
     }
 
     //色計算
-    float4 out_color = colTex2D * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * prm_color ) + (colTexCube*g_reflectance) +s; //prm_color == g_colMaterialDiffuse
+    float4 colOut = colTex2D * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * prm_color ) + (colTexCube*g_reflectance) +s; //prm_color == g_colMaterialDiffuse
     //TODO:↑色計算もうちょっと頂点シェーダで処理できないものか・・・
-    //float4 out_color = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
+    //float4 colOut = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
     //Blinkerを考慮
     if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
-        out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
+        colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
     }
 
-    out_color.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master;
-    return out_color;
+    colOut.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master;
+    return colOut;
 }
 
 
@@ -258,10 +258,10 @@ float4 PS_Flush(
 ) : COLOR  {
     //テクスチャをサンプリングして色取得（原色を取得）
     float3 vReflect = reflect( prm_viewVecW, prm_vecNormal_World );
-    float4 tex_color = texCUBE(MyTextureSampler, vReflect);
-    float4 out_color = tex_color * prm_color * FLUSH_COLOR;
-    out_color.a *= g_alpha_master;
-    return out_color;
+    float4 colTex = texCUBE(MyTextureSampler, vReflect);
+    float4 colOut = colTex * prm_color * FLUSH_COLOR;
+    colOut.a *= g_alpha_master;
+    return colOut;
 }
 
 

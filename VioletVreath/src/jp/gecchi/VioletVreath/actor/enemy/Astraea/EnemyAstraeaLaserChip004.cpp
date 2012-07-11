@@ -43,7 +43,7 @@ void EnemyAstraeaLaserChip004::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void EnemyAstraeaLaserChip004::processBehaviorHeadChip() {
     if (getActivePartFrame() == 2) {
-        pSplSeq_->exec(RELATIVE_DIRECTION); //向いた方向にワールド変換
+        pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
     pSplSeq_->behave(); //←途中でちょんぎれたらだめじゃん
     _pKurokoA->behave();

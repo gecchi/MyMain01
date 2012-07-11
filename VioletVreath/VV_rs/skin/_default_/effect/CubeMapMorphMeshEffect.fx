@@ -53,10 +53,9 @@ struct OUT_VS {
 
 //モーフターゲットなし
 OUT_VS GgafDxVS_CubeMapMorphMesh0(
-      float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
-      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
-      float2 prm_uv0     : TEXCOORD0       // モデルの頂点のUV
-
+     float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
+     float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
+     float2 prm_uv0                    : TEXCOORD0       // モデルの頂点のUV
 ) {
     OUT_VS out_vs = (OUT_VS)0;
 
@@ -88,209 +87,207 @@ OUT_VS GgafDxVS_CubeMapMorphMesh0(
 
 //モーフターゲット１つ
 OUT_VS GgafDxVS_CubeMapMorphMesh1(
-      float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
-      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
-      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
-      float4 prm_posMorphTarget1_Local    : POSITION1,      // モデルのモーフターゲット1頂点
-      float3 prm_vecNormal1_Local : NORMAL1         // モデルのモーフターゲット1頂点の法線
-
+     float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
+     float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
+     float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
+     float4 prm_posMorphTarget1_Local  : POSITION1,      // モデルのモーフターゲット1頂点
+     float3 prm_vecNormal1_Local       : NORMAL1         // モデルのモーフターゲット1頂点の法線
 ) {
     //頂点＆法線ブレンド
-    float4 posModel_Proj = prm_posPrimary_Local;
-    float3 vecNormal_World = prm_vecNormalPrimary_Local;
+    float4 posModel_Local = prm_posPrimary_Local;
+    float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal1_Local, g_weight1);
+        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Proj, vecNormal_World,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 
 //モーフターゲット２つ
 OUT_VS GgafDxVS_CubeMapMorphMesh2(
-      float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
-      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
-      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
-      float4 prm_posMorphTarget1_Local    : POSITION1,      // モデルのモーフターゲット1頂点
-      float3 prm_vecNormal1_Local : NORMAL1,        // モデルのモーフターゲット1頂点の法線
-      float4 prm_posMorphTarget2_Local    : POSITION2,      // モデルのモーフターゲット2頂点
-      float3 prm_vecNormal2_Local : NORMAL2         // モデルのモーフターゲット2頂点の法線
+     float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
+     float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
+     float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
+     float4 prm_posMorphTarget1_Local  : POSITION1,      // モデルのモーフターゲット1頂点
+     float3 prm_vecNormal1_Local       : NORMAL1,        // モデルのモーフターゲット1頂点の法線
+     float4 prm_posMorphTarget2_Local  : POSITION2,      // モデルのモーフターゲット2頂点
+     float3 prm_vecNormal2_Local       : NORMAL2         // モデルのモーフターゲット2頂点の法線
 ) {
     //頂点＆法線ブレンド
-    float4 posModel_Proj = prm_posPrimary_Local;
-    float3 vecNormal_World = prm_vecNormalPrimary_Local;
+    float4 posModel_Local = prm_posPrimary_Local;
+    float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal1_Local, g_weight1);
+        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
     }
     if (g_weight2 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal2_Local, g_weight2);
+        posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Proj, vecNormal_World,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット３つ
 OUT_VS GgafDxVS_CubeMapMorphMesh3(
-      float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
-      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
-      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
-      float4 prm_posMorphTarget1_Local    : POSITION1,      // モデルのモーフターゲット1頂点
-      float3 prm_vecNormal1_Local : NORMAL1,        // モデルのモーフターゲット1頂点の法線
-      float4 prm_posMorphTarget2_Local    : POSITION2,      // モデルのモーフターゲット2頂点
-      float3 prm_vecNormal2_Local : NORMAL2,        // モデルのモーフターゲット2頂点の法線
-      float4 prm_posMorphTarget3_Local    : POSITION3,      // モデルのモーフターゲット3頂点
-      float3 prm_vecNormal3_Local : NORMAL3         // モデルのモーフターゲット3頂点の法線
+     float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
+     float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
+     float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
+     float4 prm_posMorphTarget1_Local  : POSITION1,      // モデルのモーフターゲット1頂点
+     float3 prm_vecNormal1_Local       : NORMAL1,        // モデルのモーフターゲット1頂点の法線
+     float4 prm_posMorphTarget2_Local  : POSITION2,      // モデルのモーフターゲット2頂点
+     float3 prm_vecNormal2_Local       : NORMAL2,        // モデルのモーフターゲット2頂点の法線
+     float4 prm_posMorphTarget3_Local  : POSITION3,      // モデルのモーフターゲット3頂点
+     float3 prm_vecNormal3_Local       : NORMAL3         // モデルのモーフターゲット3頂点の法線
 ) {
     //頂点＆法線ブレンド
-    float4 posModel_Proj = prm_posPrimary_Local;
-    float3 vecNormal_World = prm_vecNormalPrimary_Local;
+    float4 posModel_Local = prm_posPrimary_Local;
+    float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal1_Local, g_weight1);
+        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
     }
     if (g_weight2 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal2_Local, g_weight2);
+        posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
     }
     if (g_weight3 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal3_Local, g_weight3);
+        posModel_Local += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local, g_weight3);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Proj, vecNormal_World,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット４つ
 OUT_VS GgafDxVS_CubeMapMorphMesh4(
-      float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
-      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
-      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
-      float4 prm_posMorphTarget1_Local    : POSITION1,      // モデルのモーフターゲット1頂点
-      float3 prm_vecNormal1_Local : NORMAL1,        // モデルのモーフターゲット1頂点の法線
-      float4 prm_posMorphTarget2_Local    : POSITION2,      // モデルのモーフターゲット2頂点
-      float3 prm_vecNormal2_Local : NORMAL2,        // モデルのモーフターゲット2頂点の法線
-      float4 prm_posMorphTarget3_Local    : POSITION3,      // モデルのモーフターゲット3頂点
-      float3 prm_vecNormal3_Local : NORMAL3,        // モデルのモーフターゲット3頂点の法線
-      float4 prm_posMorphTarget4_Local    : POSITION4,      // モデルのモーフターゲット4頂点
-      float3 prm_vecvecNormal4_Local : NORMAL4         // モデルのモーフターゲット4頂点の法線
+     float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
+     float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
+     float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
+     float4 prm_posMorphTarget1_Local  : POSITION1,      // モデルのモーフターゲット1頂点
+     float3 prm_vecNormal1_Local       : NORMAL1,        // モデルのモーフターゲット1頂点の法線
+     float4 prm_posMorphTarget2_Local  : POSITION2,      // モデルのモーフターゲット2頂点
+     float3 prm_vecNormal2_Local       : NORMAL2,        // モデルのモーフターゲット2頂点の法線
+     float4 prm_posMorphTarget3_Local  : POSITION3,      // モデルのモーフターゲット3頂点
+     float3 prm_vecNormal3_Local       : NORMAL3,        // モデルのモーフターゲット3頂点の法線
+     float4 prm_posMorphTarget4_Local  : POSITION4,      // モデルのモーフターゲット4頂点
+     float3 prm_vecvecNormal4_Local    : NORMAL4         // モデルのモーフターゲット4頂点の法線
 ) {
     //頂点＆法線ブレンド
-    float4 posModel_Proj = prm_posPrimary_Local;
-    float3 vecNormal_World = prm_vecNormalPrimary_Local;
+    float4 posModel_Local = prm_posPrimary_Local;
+    float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal1_Local, g_weight1);
+        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
     }
     if (g_weight2 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal2_Local, g_weight2);
+        posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
     }
     if (g_weight3 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal3_Local, g_weight3);
+        posModel_Local += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local, g_weight3);
     }
     if (g_weight4 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
-        vecNormal_World = lerp(vecNormal_World, prm_vecvecNormal4_Local, g_weight4);
+        posModel_Local += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecvecNormal4_Local, g_weight4);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Proj, vecNormal_World,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット５つ
 OUT_VS GgafDxVS_CubeMapMorphMesh5(
-      float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
-      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
-      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
-      float4 prm_posMorphTarget1_Local    : POSITION1,      // モデルのモーフターゲット1頂点
-      float3 prm_vecNormal1_Local : NORMAL1,        // モデルのモーフターゲット1頂点の法線
-      float4 prm_posMorphTarget2_Local    : POSITION2,      // モデルのモーフターゲット2頂点
-      float3 prm_vecNormal2_Local : NORMAL2,        // モデルのモーフターゲット2頂点の法線
-      float4 prm_posMorphTarget3_Local    : POSITION3,      // モデルのモーフターゲット3頂点
-      float3 prm_vecNormal3_Local : NORMAL3,        // モデルのモーフターゲット3頂点の法線
-      float4 prm_posMorphTarget4_Local    : POSITION4,      // モデルのモーフターゲット4頂点
-      float3 prm_vecvecNormal4_Local : NORMAL4,        // モデルのモーフターゲット4頂点の法線
-      float4 prm_posMorphTarget5_Local    : POSITION5,      // モデルのモーフターゲット5頂点
-      float3 prm_vecNormal5_Local : NORMAL5         // モデルのモーフターゲット5頂点の法線
+     float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
+     float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
+     float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
+     float4 prm_posMorphTarget1_Local  : POSITION1,      // モデルのモーフターゲット1頂点
+     float3 prm_vecNormal1_Local       : NORMAL1,        // モデルのモーフターゲット1頂点の法線
+     float4 prm_posMorphTarget2_Local  : POSITION2,      // モデルのモーフターゲット2頂点
+     float3 prm_vecNormal2_Local       : NORMAL2,        // モデルのモーフターゲット2頂点の法線
+     float4 prm_posMorphTarget3_Local  : POSITION3,      // モデルのモーフターゲット3頂点
+     float3 prm_vecNormal3_Local       : NORMAL3,        // モデルのモーフターゲット3頂点の法線
+     float4 prm_posMorphTarget4_Local  : POSITION4,      // モデルのモーフターゲット4頂点
+     float3 prm_vecvecNormal4_Local    : NORMAL4,        // モデルのモーフターゲット4頂点の法線
+     float4 prm_posMorphTarget5_Local  : POSITION5,      // モデルのモーフターゲット5頂点
+     float3 prm_vecNormal5_Local       : NORMAL5         // モデルのモーフターゲット5頂点の法線
 ) {
     //頂点＆法線ブレンド
-    float4 posModel_Proj = prm_posPrimary_Local;
-    float3 vecNormal_World = prm_vecNormalPrimary_Local;
+    float4 posModel_Local = prm_posPrimary_Local;
+    float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal1_Local, g_weight1);
+        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
     }
     if (g_weight2 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal2_Local, g_weight2);
+        posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
     }
     if (g_weight3 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal3_Local, g_weight3);
+        posModel_Local += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local, g_weight3);
     }
     if (g_weight4 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
-        vecNormal_World = lerp(vecNormal_World, prm_vecvecNormal4_Local, g_weight4);
+        posModel_Local += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecvecNormal4_Local, g_weight4);
     }
     if (g_weight5 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget5_Local - prm_posPrimary_Local) * g_weight5);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal5_Local, g_weight5);
+        posModel_Local += ((prm_posMorphTarget5_Local - prm_posPrimary_Local) * g_weight5);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal5_Local, g_weight5);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Proj, vecNormal_World,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット６つ
 OUT_VS GgafDxVS_CubeMapMorphMesh6(
-      float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
-      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
-      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
-      float4 prm_posMorphTarget1_Local    : POSITION1,      // モデルのモーフターゲット1頂点
-      float3 prm_vecNormal1_Local : NORMAL1,        // モデルのモーフターゲット1頂点の法線
-      float4 prm_posMorphTarget2_Local    : POSITION2,      // モデルのモーフターゲット2頂点
-      float3 prm_vecNormal2_Local : NORMAL2,        // モデルのモーフターゲット2頂点の法線
-      float4 prm_posMorphTarget3_Local    : POSITION3,      // モデルのモーフターゲット3頂点
-      float3 prm_vecNormal3_Local : NORMAL3,        // モデルのモーフターゲット3頂点の法線
-      float4 prm_posMorphTarget4_Local    : POSITION4,      // モデルのモーフターゲット4頂点
-      float3 prm_vecvecNormal4_Local : NORMAL4,        // モデルのモーフターゲット4頂点の法線
-      float4 prm_posMorphTarget5_Local    : POSITION5,      // モデルのモーフターゲット5頂点
-      float3 prm_vecNormal5_Local : NORMAL5,        // モデルのモーフターゲット5頂点の法線
-      float4 prm_posMorphTarget6_Local    : POSITION6,      // モデルのモーフターゲット6頂点
-      float3 prm_vecNormal6_Local : NORMAL6         // モデルのモーフターゲット6頂点の法線
-
+     float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
+     float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
+     float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
+     float4 prm_posMorphTarget1_Local  : POSITION1,      // モデルのモーフターゲット1頂点
+     float3 prm_vecNormal1_Local       : NORMAL1,        // モデルのモーフターゲット1頂点の法線
+     float4 prm_posMorphTarget2_Local  : POSITION2,      // モデルのモーフターゲット2頂点
+     float3 prm_vecNormal2_Local       : NORMAL2,        // モデルのモーフターゲット2頂点の法線
+     float4 prm_posMorphTarget3_Local  : POSITION3,      // モデルのモーフターゲット3頂点
+     float3 prm_vecNormal3_Local       : NORMAL3,        // モデルのモーフターゲット3頂点の法線
+     float4 prm_posMorphTarget4_Local  : POSITION4,      // モデルのモーフターゲット4頂点
+     float3 prm_vecvecNormal4_Local    : NORMAL4,        // モデルのモーフターゲット4頂点の法線
+     float4 prm_posMorphTarget5_Local  : POSITION5,      // モデルのモーフターゲット5頂点
+     float3 prm_vecNormal5_Local       : NORMAL5,        // モデルのモーフターゲット5頂点の法線
+     float4 prm_posMorphTarget6_Local  : POSITION6,      // モデルのモーフターゲット6頂点
+     float3 prm_vecNormal6_Local       : NORMAL6         // モデルのモーフターゲット6頂点の法線
 ) {
     //頂点＆法線ブレンド
-    float4 posModel_Proj = prm_posPrimary_Local;
-    float3 vecNormal_World = prm_vecNormalPrimary_Local;
+    float4 posModel_Local = prm_posPrimary_Local;
+    float3 vecNormal_Local = prm_vecNormalPrimary_Local;
     if (g_weight1 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal1_Local, g_weight1);
+        posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
     }
     if (g_weight2 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal2_Local, g_weight2);
+        posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
     }
     if (g_weight3 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal3_Local, g_weight3);
+        posModel_Local += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local, g_weight3);
     }
     if (g_weight4 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
-        vecNormal_World = lerp(vecNormal_World, prm_vecvecNormal4_Local, g_weight4);
+        posModel_Local += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecvecNormal4_Local, g_weight4);
     }
     if (g_weight5 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget5_Local - prm_posPrimary_Local) * g_weight5);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal5_Local, g_weight5);
+        posModel_Local += ((prm_posMorphTarget5_Local - prm_posPrimary_Local) * g_weight5);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal5_Local, g_weight5);
     }
     if (g_weight6 != 0 ) {
-        posModel_Proj += ((prm_posMorphTarget6_Local - prm_posPrimary_Local) * g_weight6);
-        vecNormal_World = lerp(vecNormal_World, prm_vecNormal6_Local, g_weight6);
+        posModel_Local += ((prm_posMorphTarget6_Local - prm_posPrimary_Local) * g_weight6);
+        vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal6_Local, g_weight6);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Proj, vecNormal_World,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 
 float4 GgafDxPS_CubeMapMorphMesh(       
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0,
+	float2 prm_uv	           : TEXCOORD0,
+	float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
     float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
@@ -305,13 +302,13 @@ float4 GgafDxPS_CubeMapMorphMesh(
         s = pow( max(0.0f, dot(prm_vecNormal_World, vecHarf)), g_specular ) * g_specular_power;
     }
 
-    float4 out_color = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
+    float4 colOut = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
     //Blinkerを考慮
 	if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
-		out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
+		colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
 	} 
-    out_color.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master; 
-	return out_color;
+    colOut.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master; 
+	return colOut;
 }
 
 
@@ -320,9 +317,9 @@ float4 PS_Flush(
 	float4 prm_color  : COLOR0
 ) : COLOR  {
     float4 colTex2D  = tex2D( MyTextureSampler, prm_uv);
-    float4 out_color = colTex2D * prm_color * FLUSH_COLOR;
-    out_color.a *= g_alpha_master;
-	return 	out_color;
+    float4 colOut = colTex2D * prm_color * FLUSH_COLOR;
+    colOut.a *= g_alpha_master;
+	return 	colOut;
 }
 
 technique CubeMapMorphMeshTechnique

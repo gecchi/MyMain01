@@ -8,7 +8,7 @@ using namespace VioletVreath;
 EnemyThisbeLaserChip002::EnemyThisbeLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "ThisbeLaserChip001", STATUS(EnemyThisbeLaserChip001)) {
     _class_name = "EnemyThisbeLaserChip002";
-    pSplManufCon_ = connectSplineManufactureManager("Hilbert"); //ヒルベルト曲線
+    pSplManufCon_ = connectSplineManufactureManager("EnemyThisbeLaserChip002"); //ヒルベルト曲線
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
 }
 
@@ -49,7 +49,7 @@ void EnemyThisbeLaserChip002::onRefractionBegin(int prm_num_refraction)  {
 
 void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
-        pSplSeq_->exec(RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
+        pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
         _pKurokoA->setMvVelo(pSplSeq_->_distace_to_begin);
     } else if (prm_num_refraction > 0) {
         _pKurokoA->setMvVelo(pSplSeq_->_pManufacture->_paDistace_to[pSplSeq_->_point_index]);

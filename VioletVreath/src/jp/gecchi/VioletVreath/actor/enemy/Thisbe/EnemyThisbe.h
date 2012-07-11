@@ -9,9 +9,9 @@ namespace VioletVreath {
  * @since 2012/06/29
  * @author Masatoshi Tsuge
  */
-class EnemyThisbe :
-  public GgafLib::DefaultMorphMeshActor {
+class EnemyThisbe :  public GgafLib::DefaultMorphMeshActor {
 //class EnemyThisbe : public GgafLib::CubeMapMorphMeshActor {
+
     /** 移動スプラインプログラム */
     GgafLib::SplineSequence* pSplSeq_;
     /** 弾ストック */
@@ -20,6 +20,13 @@ class EnemyThisbe :
     GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 
 public:
+    enum {
+        THISBE_PROG_WAIT = 1  ,
+        THISBE_PROG_OPEN ,
+        THISBE_PROG_FIRE   ,
+        THISBE_PROG_CLOSE     ,
+    };
+
 
     /** 反射時エフェクトデポジトリへの接続 */
     DepositoryConnection* pCon_RefractionEffectDepository_;

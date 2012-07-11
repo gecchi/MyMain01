@@ -132,10 +132,9 @@ struct OUT_VS
 
 //GgafDxBoardSetModel標準頂点シェーダー
 OUT_VS GgafDxVS_StringBoard(
-      float4 prm_posModel_Local    : POSITION,     // モデルの頂点
-	  float  prm_index  : PSIZE ,    // モデル番号
-      float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
-
+    float4 prm_posModel_Local : POSITION,     // モデルの頂点
+	float  prm_index          : PSIZE ,    // モデル番号
+    float2 prm_uv             : TEXCOORD0     // モデルの頂点のUV
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	int index = (int)prm_index;
@@ -271,18 +270,18 @@ OUT_VS GgafDxVS_StringBoard(
 
 //GgafDxBoardSetModel標準ピクセルシェーダー
 float4 GgafDxPS_StringBoard(
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0 
+	float2 prm_uv	 : TEXCOORD0,
+	float4 prm_color : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv); 
+	float4 colTex = tex2D( MyTextureSampler, prm_uv); 
 	//求める色
-	float4 out_color = tex_color; 
-	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
+	float4 colOut = colTex; 
+	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	}        
-	out_color.a = out_color.a * prm_color.a * g_alpha_master; 
-	return out_color;
+	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
+	return colOut;
 }
 
 float4 PS_Flush(
@@ -290,10 +289,10 @@ float4 PS_Flush(
 	float4 prm_color    : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;                
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;                
 	//α考慮
-	out_color.a = out_color.a * prm_color.a * g_alpha_master; 
-	return out_color;
+	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
+	return colOut;
 }
 
 
@@ -310,16 +309,6 @@ float4 PS_Flush(
 //・オブジェクトのテクスチャ
 //・半透明α
 //
-//【設定グローバル】
-// float g_alpha			:	α値
-// float g_transformed_X		: 	変換済みX座標(px)
-// float g_transformed_Y		:	変換済みY座標(px)
-// float g_depth_Z			:	深度Z (0 ～ +1)
-// float g_game_buffer_width		:	画面幅(px)
-// float g_game_buffer_height		:	画面高さ(px)
-// float g_offset_u			:	テクスチャU座標増分
-// float g_offset_v			:	テクスチャV座標増分
-// s0レジスタ				:	2Dテクスチャ
 technique StringBoardTechnique
 {
 	pass P0 {

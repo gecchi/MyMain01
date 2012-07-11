@@ -5,8 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationHebe001::FormationHebe001(const char* prm_name) :
-                                        FormationHebe(prm_name,
-                                                         "FormationHebe001") {
+        FormationHebe(prm_name,"FormationHebe001") {
     _class_name = "FormationHebe001";
 }
 void FormationHebe001::processOnActiveHebe(EnemyHebe* pEnemyHebe) {

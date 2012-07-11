@@ -55,7 +55,7 @@ void EnemyCeres::onActive() {
     _pKurokoA->setFaceAngVelo(AXIS_X, 6000);
     _pKurokoA->setFaceAngVelo(AXIS_X, 6000);
     _pKurokoA->setMvVelo(8000);
-    pProgram_CeresMove_->exec(ABSOLUTE_COORD); //スプライン移動を開始
+    pProgram_CeresMove_->exec(SplineSequence::ABSOLUTE_COORD); //スプライン移動を開始
     frame_Active_ = 0;
 }
 

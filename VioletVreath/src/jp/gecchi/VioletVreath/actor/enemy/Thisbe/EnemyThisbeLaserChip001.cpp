@@ -41,7 +41,7 @@ void EnemyThisbeLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void EnemyThisbeLaserChip001::processBehaviorHeadChip() {
     if (getActivePartFrame() == 2) {
-        pSplSeq_->exec(RELATIVE_DIRECTION); //向いた方向にワールド変換
+        pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
     pSplSeq_->behave();
     _pKurokoA->behave();

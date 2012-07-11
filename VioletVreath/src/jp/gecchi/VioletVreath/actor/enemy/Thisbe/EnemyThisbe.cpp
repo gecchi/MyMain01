@@ -4,12 +4,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-enum {
-    THISBE_PROG_WAIT = 1  ,
-    THISBE_PROG_OPEN ,
-    THISBE_PROG_FIRE   ,
-    THISBE_PROG_CLOSE     ,
-};
 
 EnemyThisbe::EnemyThisbe(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Thisbe", STATUS(EnemyThisbe)) {

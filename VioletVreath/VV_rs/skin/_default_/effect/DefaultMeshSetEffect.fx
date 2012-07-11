@@ -76,14 +76,11 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 posModel_Proj    : POSITION;
-	float2 uv     : TEXCOORD0;
-	float4 color    : COLOR0;
-
-    float3 vecNormal_World   : TEXCOORD1;   //オブジェクトの法線ベクトル
-    float3 vecEye_World  : TEXCOORD2;   //頂点 -> 視点 ベクトル
-
-
+    float4 posModel_Proj   : POSITION;
+	float2 uv              : TEXCOORD0;
+	float4 color           : COLOR0;
+    float3 vecNormal_World : TEXCOORD1;   //オブジェクトの法線ベクトル
+    float3 vecEye_World    : TEXCOORD2;   //頂点 -> 視点 ベクトル
 };
 
 
@@ -151,7 +148,6 @@ OUT_VS GgafDxVS_DefaultMeshSet(
 		colMaterialDiffuse = g_colMaterialDiffuse015;
 	}
 
-
     //頂点計算
     float4 posModel_World = mul(prm_posModel_Local, matWorld);
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
@@ -181,8 +177,8 @@ OUT_VS GgafDxVS_DefaultMeshSet(
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDxPS_DefaultMeshSet(
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0,
+	float2 prm_uv              : TEXCOORD0,
+	float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
     float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
@@ -193,29 +189,29 @@ float4 GgafDxPS_DefaultMeshSet(
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算
         s = pow( max(0.0f, dot(prm_vecNormal_World, vecHarf)), g_specular ) * g_specular_power;
     }
-    float4 tex_color = tex2D( MyTextureSampler, prm_uv);
+    float4 colTex = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に        
-    float4 out_color = tex_color * prm_color + s;
+    float4 colOut = colTex * prm_color + s;
 
     //Blinkerを考慮
-	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
+	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	} 
     //マスターα
-    out_color.a *= g_alpha_master;
-	return out_color; 
+    colOut.a *= g_alpha_master;
+	return colOut; 
 }
 
 
 float4 PS_Flush( 
-	float2 prm_uv	  : TEXCOORD0,
-    float4 prm_color    : COLOR0
+	float2 prm_uv	 : TEXCOORD0,
+    float4 prm_color : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_color * FLUSH_COLOR;
-    out_color.a *= g_alpha_master;
-	return out_color;
+	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	float4 colOut = colTex * prm_color * FLUSH_COLOR;
+    colOut.a *= g_alpha_master;
+	return colOut;
 }
 
 technique DefaultMeshSetTechnique

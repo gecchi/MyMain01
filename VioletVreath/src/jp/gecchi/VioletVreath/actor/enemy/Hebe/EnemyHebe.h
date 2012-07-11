@@ -8,19 +8,22 @@ namespace VioletVreath {
  * @since 2011/06/28
  * @author Masatoshi Tsuge
  */
-class EnemyHebe :
-  public GgafLib::DefaultMeshSetActor {
+class EnemyHebe : public GgafLib::DefaultMeshSetActor {
 
 public:
+
+    enum {
+        HEBE_PROG_MOVE01_1 = 1  ,
+        HEBE_PROG_SPLINE_MOVE   ,
+        HEBE_PROG_MOVE02_1      ,
+        HEBE_PROG_MOVE02_2      ,
+    };
     /** 移動スプラインのシークエンスプログラム */
     GgafLib::SplineSequence* pSplSeq_;
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDepository* pDepo_ShotEffect_;
-
-    /** 行動パターン番号 */
-    int iMovePatternNo_;
 
     /**
      * コンストラクタ
@@ -36,10 +39,6 @@ public:
      */
     void initialize() override;
 
-    /**
-     * ヘーベの状態リセット処理 .
-     */
-    void onReset() override;
 
     /**
      * ヘーベのがアクティブになった瞬間の処理 .

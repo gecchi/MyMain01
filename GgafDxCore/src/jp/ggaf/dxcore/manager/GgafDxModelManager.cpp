@@ -584,17 +584,9 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
             bin_x = model_paVtxBuffer_org[i].bin_x;
             bin_y = model_paVtxBuffer_org[i].bin_y;
             bin_z = model_paVtxBuffer_org[i].bin_z;
-
-            _TRACE_("頂点["<<i<<"] pos("<<x<<","<<y<<","<<z<<")\tuv("<<tu<<","<<tv<<")\tn("<<nx<<","<<ny<<","<<nz<<")\tt("<<tan_x<<","<<tan_y<<","<<tan_z<<")\tb("<<bin_x<<","<<bin_y<<","<<bin_z<<")");
+            //デバッグ
+            //_TRACE_("頂点["<<i<<"] pos("<<x<<","<<y<<","<<z<<")\tuv("<<tu<<","<<tv<<")\tn("<<nx<<","<<ny<<","<<nz<<")\tt("<<tan_x<<","<<tan_y<<","<<tan_z<<")\tb("<<bin_x<<","<<bin_y<<","<<bin_z<<")");
         }
-
-
-
-
-
-
-
-
 
 
 //    {

@@ -1,15 +1,6 @@
 #include "GgafEffectConst.fxh" 
-////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMeshSetModel用シェーダー
-// 【概要】
-// 頂点バッファに、同じモデルキャラの頂点情報が、複数個分繰り返し詰め込んである。
-// ステートやレジスタの更新を行わず、１回の DrawIndexedPrimitiveで、最大
-// １２オブジェクトまで描画。高速化を狙う。
-// 大量の同じ敵や弾には、このシェーダーで描画することとする。
-// 但し、１オブジェクトにつきマテリアル設定は１つだけという制限がある。
 // author : Masatoshi Tsuge
 // date:2009/03/06 
-////////////////////////////////////////////////////////////////////////////////
 
 //エラー回避のためにとりあえず追加後でちゃんとする
 float3 g_posCam_World;
@@ -117,11 +108,10 @@ struct OUT_VS
 
 //頂点シェーダー
 OUT_VS GgafDxVS_SpriteMeshSet(
-      float4 prm_posModel_Local    : POSITION,      // モデルの頂点
-      float  prm_index  : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
-      float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
-      float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
-
+    float4 prm_posModel_Local  : POSITION,  // モデルの頂点
+    float  prm_index           : PSIZE ,    // モデルのインデックス（何個目のオブジェクトか？）
+    float3 prm_vecNormal_Local : NORMAL,    // モデルの頂点の法線
+    float2 prm_uv              : TEXCOORD0  // モデルの頂点のUV
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	int index = (int)prm_index;
@@ -242,58 +232,34 @@ OUT_VS GgafDxVS_SpriteMeshSet(
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDxPS_SpriteMeshSet(
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0
+	float2 prm_uv	 : TEXCOORD0,
+	float4 prm_color : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_color;
+	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	float4 colOut = colTex * prm_color;
 
     //Blinkerを考慮
-	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
+	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	} 
 	//マスターα
-	out_color.a *= g_alpha_master;
-	return out_color;
+	colOut.a *= g_alpha_master;
+	return colOut;
 }
 
 float4 PS_Flush( 
-	float2 prm_uv	  : TEXCOORD0,
-    float4 prm_color    : COLOR0
+	float2 prm_uv	 : TEXCOORD0,
+    float4 prm_color : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_color * FLUSH_COLOR;
-	return out_color;
+	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
+	float4 colOut = colTex * prm_color * FLUSH_COLOR;
+	return colOut;
 }
 
 technique SpriteMeshSetTechnique
 {
-	//pass P0「メッシュ標準シェーダー」
-	//メッシュを描画する
-	//【考慮される要素】
-	//--- VS ---
-	//・頂点を World、View、射影 変換
-	//・法線を World変換
-	//--- PS ---
-	//・Diffuseライト色
-	//・Ambientライト色
-	//・ライト方向
-	//・オブジェクトのマテリアルのDiffuse反射（色はAmbient反射と共通）
-	//・オブジェクトのテクスチャ
-	//・半透明α（Diffuse反射αとテクスチャαの乗算）
-	//【使用条件】
-	//・テクスチャが存在しs0レジスタにバインドされていること。
-	//【設定パラメータ】
-	// float4x4 g_matWorld		:	World変換行列
-	// float4x4 g_matView		:	View変換行列
-	// float4x4 g_matProj		:	射影変換行列   
-	// float3 g_vecLightFrom_World	:	ライトの方向
-	// float4 g_colLightAmbient	:	Ambienライト色（入射色）
-	// float4 g_colLightDiffuse	:	Diffuseライト色（入射色）
-	// float4 g_colMaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
-	// s0レジスタ				:	2Dテクスチャ
 	pass P0 {
 		AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;

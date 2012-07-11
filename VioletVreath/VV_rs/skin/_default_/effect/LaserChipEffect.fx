@@ -130,9 +130,9 @@ sampler MyTextureSampler : register(s0);
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
-    float4 posModel_Proj    : POSITION;
-	float2 uv     : TEXCOORD0;
-	float4 color    : COLOR0;
+    float4 posModel_Proj : POSITION;
+	float2 uv            : TEXCOORD0;
+	float4 color         : COLOR0;
 };
 
 
@@ -140,12 +140,11 @@ struct OUT_VS
 
 //レーザーチップ頂点シェーダー
 OUT_VS GgafDxVS_LaserChip(
-      float4 prm_posModel_Local    : POSITION,      // モデルの頂点
-      float  prm_index  : PSIZE ,    // PSIZEではなくてなんとモデルの頂点番号
+      float4 prm_posModel_Local  : POSITION,  // モデルの頂点
+      float  prm_index           : PSIZE ,    // PSIZEではなくてなんとモデルの頂点番号
       float3 prm_vecNormal_Local : NORMAL,        
-      float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
+      float2 prm_uv              : TEXCOORD0  // モデルの頂点のUV
 ) {
-
 	OUT_VS out_vs = (OUT_VS)0;
 
 	int index = (int)prm_index;
@@ -302,8 +301,8 @@ float4 GgafDxPS_LaserChip_ZERO(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0
 ) : COLOR  {
-	float4 out_color = float4(1,1,1,1);
-	return out_color;
+	float4 colOut = float4(1,1,1,1);
+	return colOut;
 }
 
 //float4 GgafDxPS_LaserChip_SHADOW( 
@@ -311,16 +310,16 @@ float4 GgafDxPS_LaserChip_ZERO(
 //	float4 prm_color    : COLOR0
 //) : COLOR  {
 //    //レーザーの影
-//	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
-////out_color.r = 1-out_color.r;
-////out_color.g = 1-out_color.g;
-////out_color.b = 1-out_color.b;
-////out_color.a = 1-out_color.a;
+//	float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
+////colOut.r = 1-colOut.r;
+////colOut.g = 1-colOut.g;
+////colOut.b = 1-colOut.b;
+////colOut.a = 1-colOut.a;
 //
-////    out_color.rgb = 1;
-//    out_color.a = 1-out_color.a;
-//    //out_color.a = 1-out_color.a;
-//	return out_color;
+////    colOut.rgb = 1;
+//    colOut.a = 1-colOut.a;
+//    //colOut.a = 1-colOut.a;
+//	return colOut;
 //}
 
 float4 GgafDxPS_LaserChip( 
@@ -328,8 +327,8 @@ float4 GgafDxPS_LaserChip(
 	float4 prm_color    : COLOR0
 ) : COLOR  {
 
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
-	return out_color;
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
+	return colOut;
 }
 
 

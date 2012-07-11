@@ -60,7 +60,7 @@ void EnemyTamago01::initialize() {
 void EnemyTamago01::onActive() {
     _pStatus->reset();
     if (pProgram_Tamago01Move_) {
-        pProgram_Tamago01Move_->exec(ABSOLUTE_COORD); //スプライン移動をプログラムしておく
+        pProgram_Tamago01Move_->exec(SplineSequence::ABSOLUTE_COORD); //スプライン移動をプログラムしておく
     }
 
 //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);

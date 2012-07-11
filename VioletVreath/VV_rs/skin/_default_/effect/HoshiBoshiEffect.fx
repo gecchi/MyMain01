@@ -78,11 +78,10 @@ struct OUT_VS
 
 //メッシュ標準頂点シェーダー
 OUT_VS VS_HoshiBoshi(
-      float4 prm_posModel_Local         : POSITION,  //ポイントスプライトのポイント群
-      float  prm_psize_rate  : PSIZE,     //PSIZEはポイントサイズでは無く、スケールの率(0.0～N (1.0=等倍)) が入ってくる
-      float2 prm_ptn_no      : TEXCOORD0, //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
-      float4 prm_color         : COLOR0     //オブジェクトのカラー
-
+      float4 prm_posModel_Local : POSITION,  //ポイントスプライトのポイント群
+      float  prm_psize_rate     : PSIZE,     //PSIZEはポイントサイズでは無く、スケールの率(0.0～N (1.0=等倍)) が入ってくる
+      float2 prm_ptn_no         : TEXCOORD0, //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
+      float4 prm_color          : COLOR0     //オブジェクトのカラー
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
@@ -174,7 +173,7 @@ OUT_VS VS_HoshiBoshi(
 		//A領域外側の場合、星を距離に応じて半透明
         out_vs.color.a = r2 - 1.0;
 	}
-    float4 posModel_View = mul(posModel_World , g_matView);
+    float4 posModel_View = mul(posModel_World, g_matView);
 
 	float dep = posModel_View.z  + 1.0; //+1.0の意味は
                                           //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
@@ -217,18 +216,18 @@ OUT_VS VS_HoshiBoshi(
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 PS_HoshiBoshi(
-	float2 prm_uv_pointsprite	  : TEXCOORD0,     
-	float4 prm_color                : COLOR0,
-	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
+	float2 prm_uv_pointsprite : TEXCOORD0,     
+	float4 prm_color          : COLOR0,
+	float4 prm_uv_ps          : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
 ) : COLOR  {
 	float2 uv = (float2)0;
     float4 color = prm_color;
     color.a = 1.0;
 	uv.x = prm_uv_pointsprite.x / g_TextureSplitRowcol + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y / g_TextureSplitRowcol + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * color * g_colMaterialDiffuse;
-	out_color.a *= g_alpha_master; 
-	return out_color;
+	float4 colOut = tex2D( MyTextureSampler, uv) * color * g_colMaterialDiffuse;
+	colOut.a *= g_alpha_master; 
+	return colOut;
 }
 
 
@@ -240,9 +239,9 @@ float4 PS_Flush(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_color * FLUSH_COLOR * g_colMaterialDiffuse;
-	out_color.a *= g_alpha_master; 
-	return out_color;
+	float4 colOut = tex2D( MyTextureSampler, uv) * prm_color * FLUSH_COLOR * g_colMaterialDiffuse;
+	colOut.a *= g_alpha_master; 
+	return colOut;
 }
 
 technique HoshiBoshiTechnique

@@ -56,15 +56,15 @@ float4 GgafDxPS_DefaultBoard(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv); 
+	float4 colTex = tex2D( MyTextureSampler, prm_uv); 
 	//求める色
-	float4 out_color = tex_color; 
-	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
+	float4 colOut = colTex; 
+	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+		colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
 	}    
 	//α考慮
-	out_color.a = out_color.a * g_alpha * g_alpha_master; 
-	return out_color;
+	colOut.a = colOut.a * g_alpha * g_alpha_master; 
+	return colOut;
 }
 
 
@@ -73,10 +73,10 @@ float4 PS_Flush(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;                
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;                
 	//α考慮
-	out_color.a = out_color.a * g_alpha * g_alpha_master; 
-	return out_color;
+	colOut.a = colOut.a * g_alpha * g_alpha_master; 
+	return colOut;
 }
 
 

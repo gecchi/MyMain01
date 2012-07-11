@@ -229,14 +229,14 @@ float4 GgafDxPS_DefaultSpriteSet(
 ) : COLOR  {
 
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv); 
+	float4 colTex = tex2D( MyTextureSampler, prm_uv); 
 	//求める色
-	float4 out_color = tex_color; 
-	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
+	float4 colOut = colTex; 
+	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	}           
-	out_color.a = out_color.a * prm_color.a * g_alpha_master; 
-	return out_color;
+	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
+	return colOut;
 }
 
 float4 PS_Flush(
@@ -244,10 +244,10 @@ float4 PS_Flush(
 	float4 prm_color    : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;
 	//α計算、テクスチャαとオブジェクトαの合算
-	out_color.a = out_color.a * prm_color.a * g_alpha_master; 
-	return out_color;
+	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
+	return colOut;
 }
 
 //＜テクニック：DefaultSpriteSetTechnique＞
@@ -255,23 +255,6 @@ float4 PS_Flush(
 //GgafDxSpriteSetModel用標準シェーダー
 //【概要】
 //板ポリ（擬似スプライト）を描画する。ライトなどの陰影は無し。
-//【考慮される要素】
-//--- VS ---
-//・頂点を World、View、射影 変換
-//・UVをパターン番号の位置へ
-//--- PS ---
-//・オブジェクトのテクスチャ
-//・半透明α（αパラメータとテクスチャαの乗算）
-//【使用条件】
-//・テクスチャが存在しs0レジスタにバインドされていること。
-//【設定パラメータ】
-// float4x4 g_matWorld		:	World変換行列
-// float4x4 g_matView		:	View変換行列
-// float4x4 g_matProj		:	射影変換行列   
-// float g_alpha			:	α値
-// float g_offset_u			:	テクスチャU座標増分
-// float g_offset_v			:	テクスチャV座標増分
-// s0レジスタ				:	2Dテクスチャ
 technique DefaultSpriteSetTechnique
 {
 	pass P0 {

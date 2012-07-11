@@ -324,16 +324,16 @@ float4 GgafDx9PS_WorldBound(
 //        s = pow( max(0.0f, dot(prm_vecNormal_World, vecHarf)), g_specular ) * g_specular_power;
 //    }
 
-    float4 out_color = (colTexCube * prm_color);// colTexCube; //(colTex2D * prm_color) + (colTexCube*0.2); // + s;
+    float4 colOut = (colTexCube * prm_color);// colTexCube; //(colTex2D * prm_color) + (colTexCube*0.2); // + s;
 //    //Blinkerを考慮
 	if (colTexCube.r >= g_tex_blink_threshold || colTexCube.g >= g_tex_blink_threshold || colTexCube.b >= g_tex_blink_threshold) {
-		out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
+		colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
 	} 
 //
-//    out_color.a = prm_color.a; 
+//    colOut.a = prm_color.a; 
     //マスターα
-    out_color.a *= g_alpha_master;
-	return out_color;
+    colOut.a *= g_alpha_master;
+	return colOut;
 }
 float4 PS_Flush(       
 
@@ -349,9 +349,9 @@ float4 PS_Flush(
 
 //	float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, -prm_vecNormal_Local));
 	float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_vecNormal_Local);
-    float4 out_color = colTexCube * prm_color * FLUSH_COLOR;
-    out_color.a *= g_alpha_master;
-	return 	out_color;
+    float4 colOut = colTexCube * prm_color * FLUSH_COLOR;
+    colOut.a *= g_alpha_master;
+	return 	colOut;
 }
 
 technique WorldBoundTechnique

@@ -26,7 +26,7 @@ void Shot001::onActive() {
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setMvVelo(R_Shot001_MvVelo);    //ˆÚ“®‘¬“x
     _pKurokoA->setFaceAngVelo(AXIS_X, R_Shot001_AngVelo); //‚«‚è‚à‚İ‹ï‡
-    pSplSeq_->exec(RELATIVE_DIRECTION);
+    pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION);
     _pScaler->beat(30,5,2,-1);
 }
 
