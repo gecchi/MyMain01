@@ -11,7 +11,7 @@ EnemyHebe::EnemyHebe(const char* prm_name) :
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
     _pSeTx->useSe(1);
-    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     useProgress(10);
 }
 
@@ -47,7 +47,8 @@ void EnemyHebe::onActive() {
     _pStatus->reset();
     setHitAble(true);
     _pKurokoA->setFaceAng(AXIS_X, 0);
-    _pProg->set(HEBE_PROG_MOVE01_1);
+    _pKurokoA->setMvAcce(0);
+    _pProg->set(PROG_MOVE01_1);
 }
 
 void EnemyHebe::processBehavior() {
@@ -56,14 +57,14 @@ void EnemyHebe::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
 
     switch (_pProg->get()) {
-        case HEBE_PROG_MOVE01_1: {
+        case PROG_MOVE01_1: {
             if (_pProg->getFrameInProgress() > (PX_C(300) / ABS(_pKurokoA->_veloMv))) {
                 _pProg->changeNext();
             }
             break;
         }
 
-        case HEBE_PROG_SPLINE_MOVE: {
+        case PROG_SPLINE_MOVE: {
             if (_pProg->isJustChanged()) {
                 pSplSeq_->exec(SplineSequence::RELATIVE_COORD);
             }
@@ -73,16 +74,15 @@ void EnemyHebe::processBehavior() {
             break;
         }
 
-        case HEBE_PROG_MOVE02_1: {
+        case PROG_MOVE02_1: {
             if (_pProg->isJustChanged()) {
-                pSplSeq_->exec(SplineSequence::RELATIVE_COORD);
+                _pKurokoA->execTurnMvAngSequence(_X - PX_C(300), _Y, _Z,
+                                                 D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
-            if (!pSplSeq_->isExecuting()) {
-                _pProg->changeNext();
-            }
+
             break;
         }
-	}
+    }
 
 
 
@@ -177,24 +177,25 @@ void EnemyHebe::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        _pSeTx->play3D(0);
-        if (pExplo001) {
-            pExplo001->locateWith(this);
-            pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
+        setHitAble(false);
+        //爆発エフェクト
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        if (pExplo) {
+            pExplo->locateWith(this);
+            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
             //フォーメーションに自身が撃たれた事を伝える。
             notifyFormationAboutDestroyed();
             //アイテム出現
-            Item* pItem = employFromCommon(MagicPointItem001);
+            Item* pItem = UTIL::activateItem(_pStatus);
             if (pItem) {
                 pItem->locateWith(this);
             }
         }
-        setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
         sayonara();
     }
 }

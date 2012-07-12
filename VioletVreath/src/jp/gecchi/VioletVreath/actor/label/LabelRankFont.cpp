@@ -74,10 +74,6 @@ char LabelRankFont::RANK_10000thDeg[10][46] = {
 
 char LabelRankFont::RANK_INF[] = "UVWXYZ";
 
-enum {
-    RANKFONT_PROG_NOMALDISP = 1,
-    RANKFONT_PROG_RANKUP       ,
-};
 
 void LabelRankFont::cnvRankStr(int prm_rank, char* out) {
     out[0] = '\0';
@@ -133,7 +129,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
 {
     _class_name = "LabelRankFont";
     setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
-    useProgress(RANKFONT_PROG_RANKUP);
+    useProgress(PROG_RANKUP);
 }
 
 void LabelRankFont::onCreateModel() {
@@ -143,7 +139,7 @@ void LabelRankFont::onCreateModel() {
 
 void LabelRankFont::initialize() {
     tmp_rank_ = _RANK_DISP_;
-    _pProg->set(RANKFONT_PROG_NOMALDISP);
+    _pProg->set(PROG_NOMALDISP);
 }
 
 void LabelRankFont::processBehavior() {
@@ -157,25 +153,25 @@ void LabelRankFont::processBehavior() {
         char c[65];
         cnvRankStr(rank_level, c);
         update(c);
-        _pProg->set(RANKFONT_PROG_RANKUP);
+        _pProg->set(PROG_RANKUP);
         tmp_rank_ = rank_level;
     }
 
 
     switch (_pProg->get()) {
-        case RANKFONT_PROG_NOMALDISP: {
+        case PROG_NOMALDISP: {
             if (_pProg->isJustChanged()) {
                 _pModel->_pTextureBlinker->intoTargetBlinkLinerUntil(1.0, 5);
             }
             break;
         }
 
-        case RANKFONT_PROG_RANKUP: {
+        case PROG_RANKUP: {
             if (_pProg->isJustChanged()) {
                 _pModel->_pTextureBlinker->beat(30, 15, 1, 3);
             }
             if (_pModel->_pTextureBlinker->_method == NOBLINK) {
-                _pProg->change(RANKFONT_PROG_NOMALDISP);
+                _pProg->change(PROG_NOMALDISP);
             }
             break;
         }

@@ -11,6 +11,10 @@ namespace VioletVreath {
 class EnemyCirce : public GgafLib::DefaultMeshSetActor {
 
 public:
+    enum {
+        SE_EXPLOSION = 0,
+    };
+
     /** 行動パターン番号 */
     int iMovePatternNo_;
 

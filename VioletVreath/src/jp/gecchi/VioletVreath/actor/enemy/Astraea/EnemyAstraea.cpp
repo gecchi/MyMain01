@@ -4,11 +4,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-enum {
-    ASTRAEA_PROG_MOVE = 1,
-    ASTRAEA_PROG_TURN    ,
-    ASTRAEA_PROG_FIRE    ,
-};
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) :
         DefaultMeshActor(prm_name, "Astraea", STATUS(EnemyAstraea)) {
@@ -60,9 +55,10 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     pEffect_Appearance_ = NULL;
 
     _pSeTx->useSe(2);
-    _pSeTx->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
-    _pSeTx->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
-    useProgress(ASTRAEA_PROG_FIRE);
+    _pSeTx->set(SE_EXPLOSION, "bomb1"     , GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTx->set(SE_FIRE     , "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
+
+    useProgress(PROG_FIRE);
     pCon_ShotDepo_ = connectDepositoryManager("DpCon_Shot004", NULL);
     pDepo_Shot_ = pCon_ShotDepo_->fetch();
     pCon_ShotDepo2_ = connectDepositoryManager("DpCon_Shot004Yellow", NULL);
@@ -92,7 +88,7 @@ void EnemyAstraea::onActive() {
     if (pEffect_Appearance_) {
         pEffect_Appearance_->activate();
     }
-    _pProg->set(ASTRAEA_PROG_MOVE);
+    _pProg->set(PROG_MOVE);
     _X = GgafDxCore::GgafDxUniverse::_X_goneRight - 10000;
 }
 
@@ -100,7 +96,7 @@ void EnemyAstraea::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
-        case ASTRAEA_PROG_MOVE: {
+        case PROG_MOVE: {
             if (_pProg->isJustChanged()) {
                 _pKurokoA->setFaceAngVelo(AXIS_X, 0);
                 _pKurokoA->setFaceAngVelo(AXIS_Z, angveloTurn_*0.3);
@@ -109,12 +105,12 @@ void EnemyAstraea::processBehavior() {
                 //_pKurokoA->setMvVelo(0);
             }
             if (getActivePartFrame() % laser_interval_ == 0) {
-                _pProg->change(ASTRAEA_PROG_TURN);
+                _pProg->change(PROG_TURN);
             }
             break;
         }
 
-        case ASTRAEA_PROG_TURN: {
+        case PROG_TURN: {
             if (_pProg->isJustChanged()) {
                 //ターン開始
                 _pKurokoA->execTurnFaceAngSequence(P_MYSHIP, angveloTurn_*20, 0,
@@ -129,12 +125,12 @@ void EnemyAstraea::processBehavior() {
                 _pKurokoA->setFaceAngVelo(AXIS_Z, 0);
                 _pKurokoA->setFaceAngVelo(AXIS_Y, 0);
                 _pKurokoA->setMvVelo(0);
-                _pProg->change(ASTRAEA_PROG_FIRE);
+                _pProg->change(PROG_FIRE);
             }
             break;
         }
 
-        case ASTRAEA_PROG_FIRE: {
+        case PROG_FIRE: {
             if (_pProg->isJustChanged()) {
                 //レーザーセット、借入
                 GgafActorDepositoryStore* pLaserChipDepoStore =
@@ -150,7 +146,7 @@ void EnemyAstraea::processBehavior() {
                     }
                 }
                 if (can_fire) {
-                    _pSeTx->play3D(0); //発射音
+                    _pSeTx->play3D(SE_FIRE); //発射音
                     effectFlush(5); //フラッシュ
                 }
             }
@@ -193,7 +189,7 @@ void EnemyAstraea::processBehavior() {
                     }
                 }
             } else {
-                _pProg->change(ASTRAEA_PROG_MOVE);
+                _pProg->change(PROG_MOVE);
             }
             break;
         }
@@ -213,13 +209,14 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     effectFlush(2); //フラッシュ
     //・・・ココにヒットされたエフェクト
     if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //破壊された場合
-        //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        if (pExplo001) {
-            pExplo001->locateWith(this);
+        setHitAble(false);
+        //爆発エフェクト
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        if (pExplo) {
+            pExplo->locateWith(this);
+            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
-        _pSeTx->play3D(1);
+        _pSeTx->play3D(SE_EXPLOSION);
 //          UTIL::shotWay002(this, pDepo_Shot_,
 //                              PX_C(20),
 //                              5, 5, D_ANG(6), D_ANG(6),

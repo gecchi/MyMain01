@@ -12,8 +12,8 @@ EnemyMetis::EnemyMetis(const char* prm_name) :
     depth_Y_ = 36*2*LEN_UNIT;
     iMovePatternNo_ = 0;
     _pSeTx->useSe(2);
-    _pSeTx->set(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_MetisHit"));
-    _pSeTx->set(1, "bom10", GgafRepeatSeq::nextVal("CH_MetisDestroy"));     //爆発
+    _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    _pSeTx->set(SE_EXPLOSION, "bom10"        , GgafRepeatSeq::nextVal("CH_bom10"));
 
     pCon_ShotDepo_ = connectDepositoryManager("DpCon_Shot004", NULL);
     pDepo_Shot_ = pCon_ShotDepo_->fetch();
@@ -58,7 +58,7 @@ void EnemyMetis::processBehavior() {
     //座標に反映
     _pKurokoA->behave();
     _pKurokoB->behave();
-    //_pSeTx->behave();
+    _pSeTx->behave();
 }
 
 void EnemyMetis::processJudgement() {
@@ -68,40 +68,19 @@ void EnemyMetis::processJudgement() {
 }
 
 void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
-    if (_pStatus->get(STAT_Stamina) < 0) {
-        return;
-    }
+
+
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    //ここにヒットエフェクト
-    effectFlush(2); //フラッシュ
-    _pSeTx->play3D(0);
-        //ここに消滅エフェクト
-    if (pOther->getKind() & KIND_MY) {
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        if (pExplo001) {
-            pExplo001->locateWith((GgafDxGeometricActor*)prm_pOtherActor);
-            pExplo001->activate();
-        }
-    } else {
-        //地形だったらエフェクトなし（地形の真ん中に表示されてしまうため);
-    }
     if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //ここに消滅エフェクト
-
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        _pSeTx->play3D(1);
-        if (pExplo001) {
-            pExplo001->locateWith((GgafDxGeometricActor*)prm_pOtherActor);
-            pExplo001->activate();
+        setHitAble(false);
+        //爆発エフェクト
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        if (pExplo) {
+            pExplo->locateWith(this);
+            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
-        sayonara();
-
-        //アイテム出現
-        Item* pItem = employFromCommon(MagicPointItem001);
-        if (pItem) {
-            pItem->locateWith(this);
-        }
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //打ち返し弾
         if (pDepo_Shot_) {
@@ -121,7 +100,25 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
                                    2, 4, 0.9);
 
         }
+
+
+        //自機側に撃たれて消滅の場合、
+        if (pOther->getKind() & KIND_MY) {
+            //フォーメーションに自身が撃たれた事を伝える。
+            notifyFormationAboutDestroyed();
+            //アイテム出現
+            Item* pItem = UTIL::activateItem(_pStatus);
+            if (pItem) {
+                pItem->locateWith(this);
+            }
+        }
+        sayonara();
+    } else {
+        //非破壊時
+        effectFlush(2); //フラッシュ
+        _pSeTx->play3D(SE_DAMAGED);
     }
+
 }
 
 void EnemyMetis::onInactive() {

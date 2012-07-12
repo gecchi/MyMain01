@@ -128,15 +128,12 @@ GgafActor* GgafActor::extract() {
 }
 
 void GgafActor::notifyFormationAboutDestroyed() {
-#ifdef MY_DEBUG
     if (_pFormation) {
-        //OK
+        _pFormation->destroyedFollower(this);
     } else {
-        throwGgafCriticalException("GgafActor::notifyFormationAboutDestroyed() _pFormation Ç™ NULLÇ≈Ç∑ÅB"<<
-                                   "ëŒâûÇ∑ÇÈ Formation Ç©ÇÁ addSubLast() àΩÇ¢ÇÕ callUpUntil() Ç…ÇÊÇËÅA_pFormation ÇÕìoò^Ç≥ÇÍÇ‹Ç∑ÅBthis="<<this);
+        _TRACE_("ÅÉåxçêÅÑGgafActor::notifyFormationAboutDestroyed() _pFormation Ç™ NULLÇ≈Ç∑ÅB"<<
+                                   "ëŒâûÇ∑ÇÈ Formation Ç©ÇÁ addSubLast() àΩÇ¢ÇÕ callUpUntil() Ç…ÇÊÇËÅA_pFormation ÇÕìoò^Ç≥ÇÍÇ‹Ç∑ÅBthis="<<this<<" name="<<getName());
     }
-#endif
-    _pFormation->destroyedFollower(this);
 }
 GgafFormation* GgafActor::getFormation() {
     return _pFormation;

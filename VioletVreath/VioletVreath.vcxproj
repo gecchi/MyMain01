@@ -327,6 +327,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Juno\FormationJuno.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Juno\FormationJuno001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassalia.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaBase.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment2.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment3.cpp" />
@@ -572,6 +573,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\juno\formationjuno.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\juno\formationjuno001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\massalia\enemymassalia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaBase.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\massalia\enemymassaliafragment.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\massalia\enemymassaliafragment2.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\massalia\enemymassaliafragment3.h" />

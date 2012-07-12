@@ -9,7 +9,9 @@ namespace VioletVreath {
  * @since 2012/01/12
  * @author Masatoshi Tsuge
  */
-class EnemyMassaliaFragment : public GgafLib::DefaultMeshSetActor {
+class EnemyMassaliaFragment : public EnemyMassaliaBase {
+protected:
+    void processStaminaEnd(GgafDxCore::GgafDxGeometricActor* prm_pOther) override;
 
 public:
     EnemyMassaliaFragment(const char* prm_name);
@@ -19,15 +21,6 @@ public:
     void initialize() override;
 
     void onActive() override;
-
-    void processBehavior() override;
-
-    void processJudgement() override;
-
-    void onCatchEvent(hashval prm_no, void* prm_pSource) override {
-    }
-
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     void onInactive() override;
 

@@ -15,6 +15,10 @@ class EnemyCeres : public GgafLib::DefaultMeshSetActor {
 private:
 
 public:
+    enum {
+        SE_EXPLOSION = 0,
+    };
+
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_EnemyCeresShots001_;
     /** スプラインプログラム */

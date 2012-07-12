@@ -5,9 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyMassaliaFragment3::EnemyMassaliaFragment3(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Massalia", STATUS(EnemyMassaliaFragment3)) {
-    _pSeTx->useSe(1);
-    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+        EnemyMassaliaBase(prm_name, "Massalia", STATUS(EnemyMassaliaFragment3)) {
 }
 
 void EnemyMassaliaFragment3::onCreateModel() {
@@ -27,43 +25,20 @@ void EnemyMassaliaFragment3::onActive() {
     setHitAble(true);
 }
 
-void EnemyMassaliaFragment3::processBehavior() {
-    //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKurokoA->behave();
-}
 
-void EnemyMassaliaFragment3::processJudgement() {
-    if (isOutOfUniverse()) {
-        sayonara();
-    }
+void EnemyMassaliaFragment3::onInactive() {
+    sayonara();
 }
-
-void EnemyMassaliaFragment3::onHit(GgafActor* prm_pOtherActor) {
-    effectFlush(2); //フラッシュ
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        _pSeTx->play3D(0);
-        if (pExplo001) {
-            pExplo001->locateWith(this);
-            pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
-        }
-        setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
-        sayonara();
+void EnemyMassaliaFragment3::processStaminaEnd(GgafDxGeometricActor* prm_pOther) {
+    //自機側に撃たれて消滅の場合、
+    if (prm_pOther->getKind() & KIND_MY) {
         //アイテム出現
-        Item* pItem = employFromCommon(MagicPointItem001);
+        Item* pItem = UTIL::activateItem(_pStatus);
         if (pItem) {
             pItem->locateWith(this);
         }
     }
 }
-
-
-void EnemyMassaliaFragment3::onInactive() {
-    sayonara();
-}
-
 
 EnemyMassaliaFragment3::~EnemyMassaliaFragment3() {
 }

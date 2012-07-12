@@ -9,7 +9,7 @@ EnemyCirce::EnemyCirce(const char* prm_name) :
     _class_name = "EnemyCirce";
     iMovePatternNo_ = 0;
     _pSeTx->useSe(1);
-    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
 void EnemyCirce::onCreateModel() {
@@ -51,15 +51,16 @@ void EnemyCirce::processJudgement() {
 
 void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 =
-            employFromCommon(EffectExplosion001);
-    _pSeTx->play3D(0);
-    if (pExplo001) {
-        pExplo001->locateWith(this);
-        pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
-    }
 
     if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        setHitAble(false);
+        //爆発エフェクト
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        if (pExplo) {
+            pExplo->locateWith(this);
+            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+        }
+        _pSeTx->play3D(SE_EXPLOSION);
         sayonara();
     }
 }

@@ -4,14 +4,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-enum {
-    THALIA_PROG_MOVE = 1  ,
-    THALIA_PROG_TURN_OPEN ,
-    THALIA_PROG_FIRE_BEGIN,
-    THALIA_PROG_IN_FIRE   ,
-    THALIA_PROG_CLOSE     ,
-};
-
 EnemyThalia::EnemyThalia(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Thalia", STATUS(EnemyThalia)) {
         //CubeMapMorphMeshActor(prm_name, "1/ThaliaCM", STATUS(EnemyThalia)) {
@@ -36,10 +28,11 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     }
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTx->useSe(2);
-    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
-    _pSeTx->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //爆発
-    useProgress(THALIA_PROG_CLOSE);
+    _pSeTx->useSe(3);
+    _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    _pSeTx->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTx->set(SE_FIRE     , "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
+    useProgress(PROG_CLOSE);
     //初期カメラZ位置
     dZ_camera_init_ = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 }
@@ -67,7 +60,7 @@ void EnemyThalia::onActive() {
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
     _pKurokoA->execSmoothMvSequenceD(veloTopMv_, 1000,
                                      MyShip::lim_front_-_X, 0.4, 0.6);
-    _pProg->set(THALIA_PROG_MOVE);
+    _pProg->set(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
 
 }
@@ -79,7 +72,7 @@ void EnemyThalia::processBehavior() {
 
 
     switch (_pProg->get()) {
-        case THALIA_PROG_MOVE: {
+        case PROG_MOVE: {
             if (!_pKurokoA->isRunnigSmoothMvSequence()) {
                 _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
                 _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
@@ -90,23 +83,23 @@ void EnemyThalia::processBehavior() {
             }
             break;
         }
-        case THALIA_PROG_TURN_OPEN: {
+        case PROG_TURN_OPEN: {
             if (_pProg->getFrameInProgress() > 120) {
                 _pProg->changeNext();
             }
             break;
         }
 
-        case THALIA_PROG_FIRE_BEGIN: {
+        case PROG_FIRE_BEGIN: {
             if ( _X - P_MYSHIP->_X > -dZ_camera_init_) {
-                _pProg->change(THALIA_PROG_IN_FIRE);
+                _pProg->change(PROG_IN_FIRE);
             } else {
                 //背後からは撃たない。
-                _pProg->change(THALIA_PROG_CLOSE);
+                _pProg->change(PROG_CLOSE);
             }
             break;
         }
-        case THALIA_PROG_IN_FIRE: {
+        case PROG_IN_FIRE: {
             if (getActivePartFrame() % 10 == 0) {
                 _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                  10, 0,
@@ -115,21 +108,21 @@ void EnemyThalia::processBehavior() {
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->_pChip_front == NULL) {
-                    _pSeTx->play3D(1);
+                    _pSeTx->play3D(SE_FIRE);
                     _pKurokoA->setFaceAngVelo(AXIS_X, 5000);//発射中は速い回転
                 }
             } else {
-                _pProg->change(THALIA_PROG_CLOSE);
+                _pProg->change(PROG_CLOSE);
             }
             break;
         }
-        case THALIA_PROG_CLOSE: {
+        case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60); //閉じる
             _pKurokoA->execSmoothMvSequenceD(veloTopMv_, 1000, 1500000, 0.4, 0.6);
 //            _pKurokoA->execSmoothMvSequence(200, 1000000, 180);
             _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
-            _pProg->change(THALIA_PROG_MOVE);
+            _pProg->change(PROG_MOVE);
             break;
         }
 
@@ -152,25 +145,18 @@ void EnemyThalia::processJudgement() {
 void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (_pProg->get() != THALIA_PROG_MOVE && (pOther->getKind() & KIND_MY) ) {
-        effectFlush(2); //フラッシュ
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        if (pExplo001) {
-            pExplo001->locateWith(this);
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        setHitAble(false);
+        //爆発エフェクト
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        if (pExplo) {
+            pExplo->locateWith(this);
+            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
-        _pSeTx->play3D(0);
+        _pSeTx->play3D(SE_EXPLOSION);
 
-
-        if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-            EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-            if (pExplo001) {
-                pExplo001->locateWith(this);
-            }
-            _pSeTx->play3D(0);
-
-
-            //打ち返し弾
-            if (pDepo_Shot_) {
+        //打ち返し弾
+        if (pDepo_Shot_) {
 //                UTIL::shotWay001(this,
 //                                       pDepo_Shot_,
 //                                       P_MYSHIP,
@@ -204,20 +190,30 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 //                                      2000, 200,
 //                                      20, 60, 0.9);
 
-                UTIL::shotWay004(this, pDepo_Shot_,
-                                 PX_C(20),
-                                 8, D_ANG(10),
-                                 2000, 200,
-                                 12, 3, 0.9);
+            UTIL::shotWay004(this, pDepo_Shot_,
+                             PX_C(20),
+                             8, D_ANG(10),
+                             2000, 200,
+                             12, 3, 0.9);
 
-            }
-            sayonara();
         }
 
+        //自機側に撃たれて消滅の場合、
+        if (pOther->getKind() & KIND_MY) {
+            //フォーメーションに自身が撃たれた事を伝える。
+            notifyFormationAboutDestroyed();
+            //アイテム出現
+            Item* pItem = UTIL::activateItem(_pStatus);
+            if (pItem) {
+                pItem->locateWith(this);
+            }
+        }
+        sayonara();
     } else {
-
+        //非破壊時
+        effectFlush(2); //フラッシュ
+        _pSeTx->play3D(SE_DAMAGED);
     }
-
 }
 
 void EnemyThalia::onInactive() {

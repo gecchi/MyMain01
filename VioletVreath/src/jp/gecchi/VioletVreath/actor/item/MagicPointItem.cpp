@@ -4,14 +4,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-enum {
-    ITEM_PROG_NOTIONG = 1, //‰½‚à‚µ‚Ä‚¢‚È‚¢ó‘Ô
-    ITEM_PROG_DRIFT      , //’ÊíˆÚ“®ó‘Ô
-    ITEM_PROG_ATTACH     , //‹z’…’†(–¢‹z’…)ó‘Ô
-    ITEM_PROG_ABSORB     , //‹z’…’†(‹z’…Ï)ó‘Ô
-};
-
-
 MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat)
                : Item(prm_name, prm_model, prm_pStat) {
     _class_name = "MagicPointItem";
@@ -70,24 +62,24 @@ void MagicPointItem::onActive() {
     _pKurokoA->setMvVelo(2000);
     _pKurokoA->setMvAcce(100);
 
-    _pProg->set(ITEM_PROG_DRIFT);
+    _pProg->set(PROG_DRIFT);
     _SX = _SY = _SZ = 1000;
 }
 
 void MagicPointItem::processBehavior() {
     //’ÊíˆÚ“®
-    if (_pProg->get() == ITEM_PROG_DRIFT) {
-        //TractorMagic”­“®’†‚ÍITEM_PROG_ATTACH‚ÖˆÚs
+    if (_pProg->get() == PROG_DRIFT) {
+        //TractorMagic”­“®’†‚ÍPROG_ATTACH‚ÖˆÚs
         if (getTractorMagic()->is_tracting_) {
             effectFlush(6); //ƒtƒ‰ƒbƒVƒ…
             setHitAble(false);
-            _pProg->change(ITEM_PROG_ATTACH);
+            _pProg->change(PROG_ATTACH);
         }
-        //‚ ‚é‚¢‚Í onHit() ‚Å ITEM_PROG_ATTACH ó‘Ô•Ï‰»‚·‚é‚Ì‚ð‘Ò‚Â
+        //‚ ‚é‚¢‚Í onHit() ‚Å PROG_ATTACH ó‘Ô•Ï‰»‚·‚é‚Ì‚ð‘Ò‚Â
     }
 
     //Ž©‹@‚Æ“–‚½‚è”»’è‚ªƒqƒbƒg‚µAŽ©‹@‚ÉŒü‚©‚¤“®‚«
-    if (_pProg->get() == ITEM_PROG_ATTACH) {
+    if (_pProg->get() == PROG_ATTACH) {
         MyShip* pMyShip = P_MYSHIP;
         if (_pProg->isJustChanged()) {
             //Ž©‹@‚Éˆø—Í‚Åˆø‚«Šñ‚¹‚ç‚ê‚é‚æ‚¤‚È“®‚«Ý’è
@@ -107,13 +99,13 @@ void MagicPointItem::processBehavior() {
             kDX_ = pMyShip->_X - _X;
             kDY_ = pMyShip->_Y - _Y;
             kDZ_ = pMyShip->_Z - _Z;
-            _pProg->change(ITEM_PROG_ABSORB); //‹z’…‹zŽû‚Ö
+            _pProg->change(PROG_ABSORB); //‹z’…‹zŽû‚Ö
         }
 
     }
 
     //Ž©‹@‹ß•Ó‚É“ž’B‚µA‹z’…A‹zŽû’†‚Ì“®‚«
-    if (_pProg->get() == ITEM_PROG_ABSORB) {
+    if (_pProg->get() == PROG_ABSORB) {
         MyShip* pMyShip = P_MYSHIP;
         if (_pProg->isJustChanged()) {
             _pKurokoB->setZeroVxyzMvVelo();
@@ -128,7 +120,7 @@ void MagicPointItem::processBehavior() {
         _SZ -= 100;
         if (_SX < 5) {
             _pSeTx->play(0);
-            _pProg->change(ITEM_PROG_NOTIONG);
+            _pProg->change(PROG_NOTIONG);
             sayonara(); //I—¹
         }
         pMyShip->mp_.inc(1);
@@ -142,17 +134,17 @@ void MagicPointItem::processJudgement() {
         sayonara();
     }
 //    //’ÊíˆÚ“®
-//    if (_pProg->get() == ITEM_PROG_DRIFT) {
+//    if (_pProg->get() == PROG_DRIFT) {
 //        //onHit() ‚Åó‘Ô•Ï‰»‚·‚é‚Ì‚ð‘Ò‚Â
 //    }
 //
 //    //Ž©‹@‚Æ“–‚½‚è”»’è‚ªƒqƒbƒgŽž
-//    if (_pProg->get() == ITEM_PROG_ATTACH) {
+//    if (_pProg->get() == PROG_ATTACH) {
 //
 //    }
 //
 //    //Ž©‹@‚É‹z’…‚µA‹zŽû’†‚Ì“®‚«
-//    if (_pProg->get() == ITEM_PROG_ABSORB) {
+//    if (_pProg->get() == PROG_ABSORB) {
 //    }
 }
 
@@ -164,9 +156,9 @@ void MagicPointItem::onHit(GgafActor* prm_pOtherActor) {
     //‚±‚±‚ÉƒqƒbƒgƒGƒtƒFƒNƒg
 
 
-    if (_pProg->get() == ITEM_PROG_DRIFT && (pOther->getKind() & KIND_MY_BODY))  {
+    if (_pProg->get() == PROG_DRIFT && (pOther->getKind() & KIND_MY_BODY))  {
         setHitAble(false);
-        _pProg->change(ITEM_PROG_ATTACH);
+        _pProg->change(PROG_ATTACH);
     }
 
 }

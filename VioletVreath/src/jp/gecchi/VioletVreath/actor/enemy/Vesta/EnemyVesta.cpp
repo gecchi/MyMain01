@@ -23,8 +23,9 @@ EnemyVesta::EnemyVesta(const char* prm_name) :
     pDepo_Fired_ = NULL;
     pDpcon_ = connectDepositoryManager("DpCon_Shot004", NULL);
 
-    _pSeTx->useSe(1);
-    _pSeTx->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
+    _pSeTx->useSe(2);
+    _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    _pSeTx->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
 void EnemyVesta::onCreateModel() {
@@ -243,24 +244,31 @@ void EnemyVesta::processJudgement() {
 }
 
 void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
-    effectFlush(2); //フラッシュ
-
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-
-    if (pExplo001) {
-        pExplo001->locateWith(this);
-    }
 
     if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        _pSeTx->play3D(0);
-        sayonara();
-
-        //アイテム出現
-        Item* pItem = employFromCommon(MagicPointItem001);
-        if (pItem) {
-            pItem->locateWith(this);
+        setHitAble(false);
+        //爆発エフェクト
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        if (pExplo) {
+            pExplo->locateWith(this);
+            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
+        _pSeTx->play3D(SE_EXPLOSION);
+
+        //自機側に撃たれて消滅の場合、
+        if (pOther->getKind() & KIND_MY) {
+            //アイテム出現
+            Item* pItem = UTIL::activateItem(_pStatus);
+            if (pItem) {
+                pItem->locateWith(this);
+            }
+        }
+        sayonara();
+    } else {
+        //非破壊時
+        effectFlush(2); //フラッシュ
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

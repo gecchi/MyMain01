@@ -23,6 +23,19 @@ class EnemyThalia :
     /** 原点から初期カメラZ位置の距離 */
     int dZ_camera_init_;
 public:
+    enum {
+        PROG_MOVE = 1  ,
+        PROG_TURN_OPEN ,
+        PROG_FIRE_BEGIN,
+        PROG_IN_FIRE   ,
+        PROG_CLOSE     ,
+    };
+
+    enum {
+        SE_DAMAGED   = 0,
+        SE_EXPLOSION,
+        SE_FIRE,
+    };
     /** 行動パターン番号 */
     int iMovePatternNo_;
 

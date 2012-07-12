@@ -55,6 +55,11 @@ private:
     static char RANK_INF[7];
 
 public:
+    enum {
+        PROG_NOMALDISP = 1,
+        PROG_RANKUP       ,
+    };
+
     /** [r]‘OƒtƒŒ[ƒ€‚Ì_RANK_DISP_ */
     int tmp_rank_;
 

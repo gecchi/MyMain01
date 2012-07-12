@@ -13,7 +13,7 @@ EnemyIris::EnemyIris(const char* prm_name)
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
     _pSeTx->useSe(1);
-    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
 }
 
 void EnemyIris::onCreateModel() {
@@ -122,20 +122,25 @@ void EnemyIris::processJudgement() {
 void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        setHitAble(false);
+        //爆発エフェクト
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        if (pExplo) {
+            pExplo->locateWith(this);
+            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+        }
+        _pSeTx->play3D(SE_EXPLOSION);
 
-        //自機側に撃たれて消滅、かつフォメーション所属の場合、
-        //フォーメーションに自身が撃たれた事を伝える。
+        //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
+            //フォーメーションに自身が撃たれた事を伝える。
             notifyFormationAboutDestroyed();
+            //アイテム出現
+            Item* pItem = UTIL::activateItem(_pStatus);
+            if (pItem) {
+                pItem->locateWith(this);
+            }
         }
-
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        _pSeTx->play3D(0);
-        if (pExplo001) {
-            pExplo001->locateWith(this);
-            pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
-        }
-        setHitAble(false); //同一フレーム内で複数回ヒットさせないため重要
         sayonara();
     }
 }

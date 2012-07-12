@@ -12,6 +12,17 @@ private:
     int cnt_laserchip_;
 
 public:
+    enum {
+        PROG_MOVE = 1,
+        PROG_TURN    ,
+        PROG_FIRE    ,
+    };
+
+    enum {
+        SE_EXPLOSION = 0,
+        SE_FIRE,
+    };
+
     /** レーザ発射間隔(frame) */
     int laser_interval_;
     /** 発射レーザーチップの数（レーザー長さ） */

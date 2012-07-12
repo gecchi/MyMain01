@@ -13,6 +13,10 @@ class EnemyPallas :
     public GgafLib::DefaultMeshSetActor {
 
 public:
+    enum {
+        SE_EXPLOSION = 0,
+    };
+
     /** 移動スプラインプログラム */
     GgafLib::SplineSequence* pSplSeq_;
     /** 弾ストック */

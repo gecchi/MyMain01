@@ -13,11 +13,16 @@ class EnemyHebe : public GgafLib::DefaultMeshSetActor {
 public:
 
     enum {
-        HEBE_PROG_MOVE01_1 = 1  ,
-        HEBE_PROG_SPLINE_MOVE   ,
-        HEBE_PROG_MOVE02_1      ,
-        HEBE_PROG_MOVE02_2      ,
+        PROG_MOVE01_1 = 1  ,
+        PROG_SPLINE_MOVE   ,
+        PROG_MOVE02_1      ,
+        PROG_MOVE02_2      ,
     };
+
+    enum {
+        SE_EXPLOSION = 0,
+    };
+
     /** 移動スプラインのシークエンスプログラム */
     GgafLib::SplineSequence* pSplSeq_;
     /** 弾ストック */

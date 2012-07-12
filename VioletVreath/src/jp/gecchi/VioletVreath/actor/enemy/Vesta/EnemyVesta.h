@@ -15,6 +15,11 @@ private:
     /** [r]次回ハッチが閉じるフレーム */
     frame frame_of_moment_nextclose_;
 public:
+    enum {
+        SE_DAMAGED   = 0,
+        SE_EXPLOSION,
+    };
+
     /** [r]行動パターン番号 */
     int iMovePatternNo_;
     /** [r]状況 */

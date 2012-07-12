@@ -20,6 +20,11 @@ class EnemyIris :
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 public:
+
+    enum {
+        SE_EXPLOSION = 0,
+    };
+
     /** 行動パターン番号 */
     int iMovePatternNo_;
 

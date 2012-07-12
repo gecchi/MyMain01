@@ -12,7 +12,10 @@ namespace VioletVreath {
 class EnemyMetis : public GgafLib::DefaultMeshSetActor {
 
 public:
-
+    enum {
+        SE_DAMAGED   = 0,
+        SE_EXPLOSION ,
+    };
     DepositoryConnection* pCon_ShotDepo_;
     GgafCore::GgafActorDepository* pDepo_Shot_;
 

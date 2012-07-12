@@ -6,6 +6,11 @@ namespace VioletVreath {
 class EnemyJuno : public GgafLib::DefaultMeshSetActor {
 
 public:
+    enum {
+        SE_EXPLOSION = 0,
+        SE_FIRE
+    };
+
     int iMovePatternNo_;
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_Shot_;

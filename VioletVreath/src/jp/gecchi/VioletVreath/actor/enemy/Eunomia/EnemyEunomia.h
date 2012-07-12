@@ -12,6 +12,11 @@ class EnemyEunomia :
   public GgafLib::DefaultMeshSetActor {
 
 public:
+
+      enum {
+          SE_EXPLOSION = 0,
+      };
+
     /** 移動スプラインのシークエンスプログラム */
     GgafLib::SplineSequence* pSplSeq_;
     /** 弾ストック */

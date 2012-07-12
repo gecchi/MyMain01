@@ -21,12 +21,16 @@ class EnemyThisbe :  public GgafLib::DefaultMorphMeshActor {
 
 public:
     enum {
-        THISBE_PROG_WAIT = 1  ,
-        THISBE_PROG_OPEN ,
-        THISBE_PROG_FIRE   ,
-        THISBE_PROG_CLOSE     ,
+        PROG_WAIT = 1  ,
+        PROG_OPEN ,
+        PROG_FIRE   ,
+        PROG_CLOSE     ,
     };
-
+    enum {
+        SE_DAMAGED   = 0,
+        SE_EXPLOSION,
+        SE_FIRE,
+    };
 
     /** 反射時エフェクトデポジトリへの接続 */
     DepositoryConnection* pCon_RefractionEffectDepository_;

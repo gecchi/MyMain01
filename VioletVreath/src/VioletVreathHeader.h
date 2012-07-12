@@ -56,23 +56,28 @@
 
 //STAT_DEFAULT_ACTOR_KINDは0
 /** アクターステータス：加算スコア(int) */
-#define STAT_AddScorePoint          1
+#define STAT_AddScorePoint          (1)
 /** アクターステータス：加算ランクポイント(double) */
-#define STAT_AddRankPoint           2
+#define STAT_AddRankPoint           (2)
 /** アクターステータス：加算ランクポイントの、フレーム毎減少率(double) */
-#define STAT_AddRankPoint_Reduction 3
+#define STAT_AddRankPoint_Reduction (3)
 /** アクターステータス：アクターの残り体力(int) */
-#define STAT_Stamina                4
+#define STAT_Stamina                (4)
 /** アクターステータス：アクターの攻撃力(int) */
-#define STAT_Attack                 5
+#define STAT_Attack                 (5)
 /** アクターステータス：アクターの基本防御能力(double) 。相手のSTAT_Attackに乗じる(1.0で0%防御,0.9で10%防御) */
-#define STAT_DefaultDefenceRate     6
+#define STAT_DefaultDefenceRate     (6)
 /** アクターステータス：アクターの優性属性時防御能力(double)  */
-#define STAT_DominantDefenceRate    7
+#define STAT_DominantDefenceRate    (7)
 /** アクターステータス：アクターの劣性属性時防御能力(double)  */
-#define STAT_RecessiveDefenceRate   8
+#define STAT_RecessiveDefenceRate   (8)
 /** アクターステータス：ロックオン可否(0:不可 1:可)  */
-#define STAT_LockonAble             9
+#define STAT_LockonAble             (9)
+/** アクターステータス：爆発エフェクト種類(int)  */
+#define STAT_ExplosionEffectKind    (10)
+/** アクターステータス：保持アイテム種類(int)  */
+#define STAT_ItemKind               (11)
+
 
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
 // コード変更は「RankAdjuster.xls」から行っていただきたい。
@@ -422,6 +427,7 @@ class EnemyCirce;
 class EnemyThalia;
 class FormationThalia;
 
+class EnemyMassaliaBase;
 class EnemyMassalia;
 class EnemyMassaliaFragment;
 class EnemyMassaliaFragment2;
@@ -709,6 +715,7 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Thalia/EnemyThalia.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thalia/FormationThalia.h"
 
+#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaBase.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassalia.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaFragment.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaFragment2.h"

@@ -14,16 +14,33 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //汎用爆発エフェクト EffectExplosion001
     {
         pDepo_EffectExplosion001_ = NEW GgafActorDepository("DpExplo001");
-        for (int i = 0; i < 700; i++) {
+        for (int i = 0; i < 300; i++) {
             pDepo_EffectExplosion001_->addSubLast(NEW EffectExplosion001("EffectExplosion001"));
         }
         getDirector()->addSubGroup(pDepo_EffectExplosion001_);
     }
 
+    //汎用爆発エフェクト EffectExplosion002
+    {
+        pDepo_EffectExplosion002_ = NEW GgafActorDepository("DpExplo002");
+        for (int i = 0; i < 100; i++) {
+            pDepo_EffectExplosion001_->addSubLast(NEW EffectExplosion002("EffectExplosion002"));
+        }
+        getDirector()->addSubGroup(pDepo_EffectExplosion002_);
+    }
+    //汎用爆発エフェクト EffectExplosion003
+    {
+        pDepo_EffectExplosion003_ = NEW GgafActorDepository("DpExplo003");
+        for (int i = 0; i < 100; i++) {
+            pDepo_EffectExplosion003_->addSubLast(NEW EffectExplosion003("EffectExplosion003"));
+        }
+        getDirector()->addSubGroup(pDepo_EffectExplosion003_);
+    }
+
     //アイテム小
     { //pDepo_MagicPointItem001_
         pDepo_MagicPointItem001_ = NEW GgafActorDepository("DpMpItem001");
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 300; i++) {
             pDepo_MagicPointItem001_->addSubLast(NEW MagicPointItem001("MP001"));
         }
         getDirector()->addSubGroup(pDepo_MagicPointItem001_);

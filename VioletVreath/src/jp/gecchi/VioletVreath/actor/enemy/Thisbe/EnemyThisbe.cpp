@@ -40,10 +40,12 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTx->useSe(2);
-    _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
-    _pSeTx->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
-    useProgress(THISBE_PROG_CLOSE);
+    _pSeTx->useSe(3);
+    _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    _pSeTx->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTx->set(SE_FIRE     , "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
+
+    useProgress(PROG_CLOSE);
 }
 
 void EnemyThisbe::onCreateModel() {
@@ -59,7 +61,7 @@ void EnemyThisbe::initialize() {
 void EnemyThisbe::onActive() {
     _pStatus->reset();
     _pMorpher->reset();
-    _pProg->set(THISBE_PROG_WAIT);
+    _pProg->set(PROG_WAIT);
 }
 
 void EnemyThisbe::processBehavior() {
@@ -67,14 +69,14 @@ void EnemyThisbe::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     switch (_pProg->get()) {
-        case THISBE_PROG_WAIT: {
+        case PROG_WAIT: {
             if (_pProg->getFrameInProgress() > 120) {
                 _pProg->changeNext();
             }
 
             break;
         }
-        case THISBE_PROG_OPEN: {
+        case PROG_OPEN: {
             if (_pProg->isJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
             }
@@ -85,24 +87,24 @@ void EnemyThisbe::processBehavior() {
             break;
         }
 
-        case THISBE_PROG_FIRE: {
+        case PROG_FIRE: {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 pLaser->locateWith(this);
                 pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]); //レーザーのスプラインがRELATIVE_DIRECTIONのため
                                                    //MvAngの設定が必要。
                 if (pLaser->_pChip_front == NULL) {
-                    _pSeTx->play3D(1);
+                    _pSeTx->play3D(SE_FIRE);
                 }
             } else {
-                _pProg->change(THISBE_PROG_CLOSE);
+                _pProg->change(PROG_CLOSE);
             }
             break;
         }
-        case THISBE_PROG_CLOSE: {
+        case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 120); //閉じる
-            _pProg->change(THISBE_PROG_WAIT);
+            _pProg->change(PROG_WAIT);
             break;
         }
 
@@ -125,40 +127,32 @@ void EnemyThisbe::processJudgement() {
 void EnemyThisbe::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-//    if (_pProg->get() != THISBE_PROG_WAIT && (pOther->getKind() & KIND_MY) ) {
-//        effectFlush(2); //フラッシュ
-//        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-//        if (pExplo001) {
-//            pExplo001->locateWith(this);
-//        }
-//        _pSeTx->play3D(0);
-//
-//
-//        if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-//            EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-//            if (pExplo001) {
-//                pExplo001->locateWith(this);
-//            }
-//            _pSeTx->play3D(0);
-//
-//
-//            //打ち返し弾
-//            if (pDepo_Shot_) {
-//
-//                UTIL::shotWay004(this, pDepo_Shot_,
-//                                 PX_C(20),
-//                                 8, D_ANG(10),
-//                                 2000, 200,
-//                                 12, 3, 0.9);
-//
-//            }
-//            sayonara();
-//        }
-//
-//    } else {
-//
-//    }
+    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        setHitAble(false);
+        //爆発エフェクト
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        if (pExplo) {
+            pExplo->locateWith(this);
+            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+        }
+        _pSeTx->play3D(SE_EXPLOSION);
 
+        //自機側に撃たれて消滅の場合、
+        if (pOther->getKind() & KIND_MY) {
+            //フォーメーションに自身が撃たれた事を伝える。
+            notifyFormationAboutDestroyed();
+            //アイテム出現
+            Item* pItem = UTIL::activateItem(_pStatus);
+            if (pItem) {
+                pItem->locateWith(this);
+            }
+        }
+        sayonara();
+    } else {
+        //非破壊時
+        effectFlush(2); //フラッシュ
+        _pSeTx->play3D(SE_DAMAGED);
+    }
 }
 
 void EnemyThisbe::onInactive() {
