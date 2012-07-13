@@ -127,14 +127,12 @@ GgafActor* GgafActor::extract() {
     return pActor;
 }
 
-void GgafActor::notifyFormationAboutDestroyed() {
+void GgafActor::notifyDestroyedToFormation() {
     if (_pFormation) {
         _pFormation->destroyedFollower(this);
-    } else {
-        _TRACE_("ƒŒx„GgafActor::notifyFormationAboutDestroyed() _pFormation ‚ª NULL‚Å‚·B"<<
-                                   "‘Î‰‚·‚é Formation ‚©‚ç addSubLast() ˆ½‚¢‚Í callUpUntil() ‚É‚æ‚èA_pFormation ‚Í“o˜^‚³‚ê‚Ü‚·Bthis="<<this<<" name="<<getName());
     }
 }
+
 GgafFormation* GgafActor::getFormation() {
     return _pFormation;
 }

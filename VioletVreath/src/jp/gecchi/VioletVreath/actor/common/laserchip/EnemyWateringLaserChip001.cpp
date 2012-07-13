@@ -182,7 +182,7 @@
 //
 //        }
 //        int default_stamina = _pStatus->get(STAT_Stamina);
-//        int stamina = UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+//        int stamina = UTIL::calcEnemyStamina(this, pOther);
 //        if (stamina <= 0) {
 //            //ˆêŒ‚‚Åƒ`ƒbƒvÁ–Å‚ÌUŒ‚—Í
 //            sayonara();

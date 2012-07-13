@@ -14,12 +14,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,120,8200,10000,13200,15000,28200,30000,38200,40000};
-	_paFrame_NextEvent = new frame[11];
+	frame f[] = {1,100,8200,10000,13200,15000,28200,30000,38200,40000};
+	_paFrame_NextEvent = new frame[10];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 11;
+	_event_num = 10;
 	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
-	orderActorToFactory(10000005, EnemyAstraea, "Astraea_1");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -41,12 +40,6 @@ void Stage01PartController::processBehavior() {
 				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
 				addSubLast(pScene);
 				_pProg->change(Stage01PartController::PROG_STG01_01_BEGIN);
-				break;
-			}
-			case 120: {
-				EnemyAstraea* pAstraea1 = (EnemyAstraea*)obtainActorFromFactory(10000005);
-				getDirector()->addSubGroup(pAstraea1);
-				pAstraea1->locate(3000000,0,0);
 				break;
 			}
 			case 8200: {
@@ -91,7 +84,7 @@ void Stage01PartController::processBehavior() {
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 11-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 10-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

@@ -13,7 +13,6 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     target_X_ = _X;
     target_Y_ = _Y;
 
-    _pSeTx->useSe(SE_MENU_CLOSE + 1);
     _pSeTx->set(SE_MENU_OPEN     , "click07"); //メーター移動
     _pSeTx->set(SE_MOVE_CURSOR   , "click07"); //メーター移動
     _pSeTx->set(SE_DECIDED_NOMAL , "click07"); //メーター移動

@@ -16,7 +16,7 @@
  * X：識別文字列（CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_idstr に渡る)
  * また、CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_p には NULL がセットされている。
  */
-#define connectCameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_UNIVERSE->pCamWorkerManager_->connect(X))
+#define connectToCameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_UNIVERSE->pCamWorkerManager_->connect(X))
 
 
 namespace VioletVreath {

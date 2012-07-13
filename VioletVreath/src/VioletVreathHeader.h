@@ -83,65 +83,65 @@
 // コード変更は「RankAdjuster.xls」から行っていただきたい。
 // gen01 start
 // EnemyEunomia のランク式
-#define R_EnemyEunomia_ShotWay  (10+_RANK_*10)  //発射WAY数
+#define RR_EnemyEunomia_ShotWay(X)  (10+(X)*10)  //発射WAY数
 // FormationEunomia001 のランク式
-#define R_FormationEunomia001_Col  (5 + (_RANK_>1.0?1.0:_RANK_)*2)  //列数
-#define R_FormationEunomia001_Num  (20 + _RANK_*10)  //隊数
-#define R_FormationEunomia001_LaunchInterval  (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔
-#define R_FormationEunomia001_MvVelo  (10000 + _RANK_*10000)  //移動速度
+#define RR_FormationEunomia001_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
+#define RR_FormationEunomia001_Num(X)  (20 + (X)*10)  //隊数
+#define RR_FormationEunomia001_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
+#define RR_FormationEunomia001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // FormationEunomia002 のランク式
-#define R_FormationEunomia002_Col  (5 + (_RANK_>1.0?1.0:_RANK_)*2)  //列数
-#define R_FormationEunomia002_Num  (20 + _RANK_*10)  //隊数
-#define R_FormationEunomia002_LaunchInterval  (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔
-#define R_FormationEunomia002_MvVelo  (10000 + _RANK_*10000)  //移動速度
+#define RR_FormationEunomia002_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
+#define RR_FormationEunomia002_Num(X)  (20 + (X)*10)  //隊数
+#define RR_FormationEunomia002_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
+#define RR_FormationEunomia002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // EnemyIris のランク式
-#define R_EnemyIris_ShotWay  (10+_RANK_*10)  //発射WAY数
+#define RR_EnemyIris_ShotWay(X)  (10+(X)*10)  //発射WAY数
 // FormationIris001 のランク式
-#define R_FormationIris001_Num  (7 + _RANK_*7)  //隊数
-#define R_FormationIris001_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
-#define R_FormationIris001_MvVelo  (16000+_RANK_*1600)  //移動速度
+#define RR_FormationIris001_Num(X)  (7 + (X)*7)  //隊数
+#define RR_FormationIris001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RR_FormationIris001_MvVelo(X)  (16000+(X)*1600)  //移動速度
 // FormationIris002 のランク式
-#define R_FormationIris002_Num  (7 + _RANK_*7)  //隊数
-#define R_FormationIris002_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
-#define R_FormationIris002_MvVelo  (16000+_RANK_*1600)  //移動速度
+#define RR_FormationIris002_Num(X)  (7 + (X)*7)  //隊数
+#define RR_FormationIris002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RR_FormationIris002_MvVelo(X)  (16000+(X)*1600)  //移動速度
 // EnemyPallas のランク式
-#define R_EnemyPallas_ShotWay  (10+_RANK_*10)  //発射WAY数
+#define RR_EnemyPallas_ShotWay(X)  (10+(X)*10)  //発射WAY数
 // FormationPallas001 のランク式
-#define R_FormationPallas001_Num  (12+_RANK_*8)  //隊数
-#define R_FormationPallas001_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
-#define R_FormationPallas001_MvVelo  (10000 + _RANK_*10000)  //移動速度
+#define RR_FormationPallas001_Num(X)  (12+(X)*8)  //隊数
+#define RR_FormationPallas001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RR_FormationPallas001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // FormationPallas002 のランク式
-#define R_FormationPallas002_Num  (12+_RANK_*8)  //隊数
-#define R_FormationPallas002_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
-#define R_FormationPallas002_MvVelo  (10000 + _RANK_*10000)  //移動速度
+#define RR_FormationPallas002_Num(X)  (12+(X)*8)  //隊数
+#define RR_FormationPallas002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RR_FormationPallas002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // EnemyThalia のランク式
-#define R_EnemyThalia_ShotWay  (20+_RANK_*10)  //発射WAY数
+#define RR_EnemyThalia_ShotWay(X)  (20+(X)*10)  //発射WAY数
 // FormationThalia のランク式
-#define R_FormationThalia_Num  (7+_RANK_*4)  //隊数
-#define R_FormationThalia_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_) *20))  //出現間隔
-#define R_FormationThalia_MvVelo  (14000+_RANK_*10000)  //移動速度
+#define RR_FormationThalia_Num(X)  (7+(X)*4)  //隊数
+#define RR_FormationThalia_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X)) *20))  //出現間隔
+#define RR_FormationThalia_MvVelo(X)  (14000+(X)*10000)  //移動速度
 // EnemyVesta のランク式
-#define R_EnemyVesta_ShotInterval  (2 + (25 - (_RANK_>1.0?1.0:_RANK_) * 25))  //発射間隔
+#define RR_EnemyVesta_ShotInterval(X)  (2 + (25 - ((X)>1.0?1.0:(X)) * 25))  //発射間隔
 // Shot001 のランク式
-#define R_Shot001_MvVelo  (5000+_RANK_*5000)  //移動速度
-#define R_Shot001_AngVelo  (6000+_RANK_*6000)  //角速度
+#define RR_Shot001_MvVelo(X)  (5000+(X)*5000)  //移動速度
+#define RR_Shot001_AngVelo(X)  (6000+(X)*6000)  //角速度
 // Shot002 のランク式
-#define R_Shot002_MvVelo  (8000+_RANK_*8000)  //移動速度
-#define R_Shot002_AngVelo  (1000+_RANK_*1000)  //角速度
+#define RR_Shot002_MvVelo(X)  (8000+(X)*8000)  //移動速度
+#define RR_Shot002_AngVelo(X)  (1000+(X)*1000)  //角速度
 // EnemyMassalia のランク式
-#define R_EnemyMassalia_ShotWay  (4+_RANK_*4)  //発射WAY数
+#define RR_EnemyMassalia_ShotWay(X)  (4+(X)*4)  //発射WAY数
 // EnemyMassaliaFragment のランク式
 // EnemyMassaliaFragment2 のランク式
 // EnemyMassaliaFragment3 のランク式
 // FormationMassalia のランク式
-#define R_FormationMassalia_LaunchInterval  (10  + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
-#define R_FormationMassalia_MvVelo  (8000+_RANK_*8000)  //移動速度
-#define R_FormationMassalia_DurationFrames  (60*20)  //持続時間
+#define RR_FormationMassalia_LaunchInterval(X)  (10  + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RR_FormationMassalia_MvVelo(X)  (8000+(X)*8000)  //移動速度
+#define RR_FormationMassalia_DurationFrames(X)  (60*20)  //持続時間
 // FormationHebe のランク式
-#define R_FormationHebe_Num  (12+_RANK_*8)  //隊数
-#define R_FormationHebe_LaunchInterval  (5 + (20 - (_RANK_>1.0?1.0:_RANK_)*20))  //出現間隔
-#define R_FormationHebe_MvVelo  (10000 + _RANK_*10000)  //移動速度
-#define R_FormationHebe_ShotWay  (4+_RANK_*4)  //発射WAY数
+#define RR_FormationHebe_Num(X)  (12+(X)*8)  //隊数
+#define RR_FormationHebe_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RR_FormationHebe_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RR_FormationHebe_ShotWay(X)  (4+(X)*4)  //発射WAY数
 // gen02 end
 
 //1/√2

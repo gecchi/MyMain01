@@ -35,7 +35,7 @@ public:
      * 本オブジェクトの機能を利用するには、必須。
      * @param prm_se_num SE数（種類数）
      */
-    void useSe(int prm_se_num) override;
+    void declareSeNum(int prm_se_num) override;
 
     /**
      * 即座にSEを再生する(擬似３D無し)。

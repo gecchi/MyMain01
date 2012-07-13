@@ -40,7 +40,7 @@ GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
     pCursor001_->inactivateImmed();
     getDirector()->addSubGroup(pCursor001_);
 
-    pSeCon_exec_ = connectSeManager("click07");
+    pSeCon_exec_ = connectToSeManager("click07");
     active_item_ = 0;
 
 }

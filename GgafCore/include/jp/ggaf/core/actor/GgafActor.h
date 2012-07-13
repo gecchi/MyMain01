@@ -184,7 +184,7 @@ public:
      *        //Hitの相手のチェック
      *        if (pOther->getKind() & KIND_MY) {
      *            //Hitの相手は自機関連（自機、自機ユニット、自機発射弾)
-     *            notifyFormationAboutDestroyed(); //編隊全滅判定に有効な破壊を通知する
+     *            notifyDestroyedToFormation(); //編隊全滅判定に有効な破壊を通知する
      *        }
      *    }
      * }
@@ -192,7 +192,7 @@ public:
      * </pre></code>
      * 自身がフォーメーションに所属していない(_pFormation == NULL)場合、本メソッドは何も起こりません。
      */
-    virtual void notifyFormationAboutDestroyed();
+    virtual void notifyDestroyedToFormation();
 
     /**
      * 自身がの所属のフォーメーションを返す .

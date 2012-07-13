@@ -25,7 +25,6 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) :
     angVelo_Turn_ = 7000;
     /** 方向転換を開始（frame_TurnBegin_）から再設定される加速度 */
     iMoveAcce_2nd_ = 100;
-    _pSeTx->useSe(1);
     _pSeTx->set(CERESSHOT001_SE_EXPLOSION, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
@@ -84,13 +83,13 @@ void EnemyCeresShot001::processJudgement() {
 void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+            pExplo->_pKurokoA->followFrom(_pKurokoA);
         }
         _pSeTx->play3D(CERESSHOT001_SE_EXPLOSION);
 

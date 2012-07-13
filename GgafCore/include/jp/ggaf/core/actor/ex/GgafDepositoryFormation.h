@@ -6,6 +6,9 @@ namespace GgafCore {
 /**
  * デポジトリ管理のフォーメーション管理ークラス .
  * 編隊メンバーは使い回すフォーメーション。
+ * 使用する場合は、本クラスを継承し、
+ * setFormationAbleActorDepository(GgafActorDepository*) により
+ * 編隊メンバー所属のデポジトリオブジェクトを登録してください。
  * processJudgement()を実装済み
  * @version 1.00
  * @since 2008/08/08
@@ -22,7 +25,7 @@ public:
     bool _is_called_up;
     /** これ以上 callUpUntil() 不可の場合 true */
     bool _is_all_called_up;
-    /** 全滅時 true (GgafActor::notifyFormationAboutDestroyed() が設定) */
+    /** 全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
 
     /** 構成メンバーのストッカー（NULLの場合構成メンバーは配下アクターのはず） */

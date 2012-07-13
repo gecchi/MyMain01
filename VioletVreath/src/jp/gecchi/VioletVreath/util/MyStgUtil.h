@@ -1,7 +1,7 @@
 #ifndef MYSTGUTIL_H_
 #define MYSTGUTIL_H_
 
-#define STATUS(X) (NEW GgafCore::GgafStatus(12, VioletVreath::MyStgUtil::reset##X##Status))
+#define STATUS(X) (NEW GgafCore::GgafStatus(15, VioletVreath::MyStgUtil::reset##X##Status))
 
 
 #ifdef UTIL
@@ -91,16 +91,16 @@ public:
 
     /**
      * 自分(自機)の体力計算 .
-     * @param pStatMy  自分(自機)のステータス
-     * @param kind_my  自分(自機)の種別
-     * @param pStatOpp 相手(敵機)のステータス
-     * @param kind_opp 相手(敵機)の種別
-     * @return
+     * @param prm_pMy  自分(自機)
+     * @param prm_pOpp 相手(自機以外)
+     * @return 自分(自機)の体力
      */
-    static int calcMyStatus(GgafCore::GgafStatus* pStatMy,
-                            actorkind kind_my,
-                            GgafCore::GgafStatus* pStatOpp,
-                            actorkind kind_opp) {
+    static int calcMyStamina(GgafCore::GgafMainActor* prm_pMy, GgafCore::GgafMainActor* prm_pOpp) {
+        GgafCore::GgafStatus* pStatMy = prm_pMy->_pStatus;
+        actorkind kind_my = prm_pMy->getKind();
+        GgafCore::GgafStatus* pStatOpp = prm_pOpp->_pStatus;
+        actorkind kind_opp = prm_pOpp->getKind();
+
         //優性劣性判定
         int my_domi = MyStgUtil::judgeMyDominant(kind_my, kind_opp);
         //相手(敵)攻撃力
@@ -121,10 +121,20 @@ public:
         }
     }
 
-    static int calcEnemyStatus(GgafCore::GgafStatus* pStatEnemy,
-                               actorkind kind_enemy,
-                               GgafCore::GgafStatus* pStatOpp,
-                               actorkind kind_opp) {
+    /**
+     * 自分(敵機)の体力計算 .
+     * 体力が0になった場合、相手が自機関連だった場合
+     * ゲームスコア、ゲームランク、自分(敵機)の所属フォーメーションへの破壊されました通知、の
+     * 処理も行ってしまう。
+     * @param prm_pMy  自分(敵機)
+     * @param prm_pOpp 相手(敵機以外)
+     * @return 自分(敵機)の体力
+     */
+    static int calcEnemyStamina(GgafCore::GgafMainActor* prm_pEnemy, GgafCore::GgafMainActor* prm_pOpp) {
+        GgafCore::GgafStatus* pStatEnemy = prm_pEnemy->_pStatus;
+        actorkind kind_enemy = prm_pEnemy->getKind();
+        GgafCore::GgafStatus* pStatOpp = prm_pOpp->_pStatus;
+        actorkind kind_opp = prm_pOpp->getKind();
         //優性劣性判定
         int enemy_domi = MyStgUtil::judgeEnemyDominant(kind_enemy, kind_opp);
         //相手(自機)攻撃力
@@ -146,9 +156,10 @@ public:
                                               (int)(opp_attack * pStatEnemy->getDouble(STAT_DefaultDefenceRate)));
         }
         if (enemy_stamina <= 0 && (kind_opp & KIND_MY)) {
-            //相手(自機)の種別が MY*** （自機関連） ならば得点&ランク加算
-            _SCORE_ += pStatEnemy->get(STAT_AddScorePoint);
-            _RANK_  += pStatEnemy->getDouble(STAT_AddRankPoint);
+            //相手(自機)の種別が MY*** （自機関連） ならば
+            _SCORE_ += pStatEnemy->get(STAT_AddScorePoint);      //得点
+            _RANK_  += pStatEnemy->getDouble(STAT_AddRankPoint); //ランク加算
+            prm_pEnemy->notifyDestroyedToFormation(); //編隊全滅判定に有効な破壊のされ方でしたよ通知
         }
 
         return enemy_stamina;
@@ -158,9 +169,9 @@ public:
 
 
 
-    static GgafDxCore::GgafDxDrawableActor* activateExplosionEffect(GgafCore::GgafStatus* pStatEnemy) {
+    static GgafDxCore::GgafDxDrawableActor* activateExplosionEffectOf(GgafCore::GgafMainActor* prm_pActor) {
         GgafDxCore::GgafDxDrawableActor* pE = NULL;
-        switch (pStatEnemy->get(STAT_ExplosionEffectKind)) {
+        switch (prm_pActor->_pStatus->get(STAT_ExplosionEffectKind)) {
             case 1: {
                 pE = employFromCommon(EffectExplosion001);
                 break;
@@ -181,9 +192,9 @@ public:
         return pE;
     }
 
-    static Item* activateItem(GgafCore::GgafStatus* pStatEnemy) {
+    static Item* activateItemOf(GgafCore::GgafMainActor* prm_pActor) {
         Item* pI = NULL;
-        switch (pStatEnemy->get(STAT_ItemKind)) {
+        switch (prm_pActor->_pStatus->get(STAT_ItemKind)) {
             case 1: {
                 pI = employFromCommon(MagicPointItem001);
                 break;

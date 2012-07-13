@@ -8,7 +8,7 @@ using namespace VioletVreath;
 EnemyThisbeLaserChip002::EnemyThisbeLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "ThisbeLaserChip001", STATUS(EnemyThisbeLaserChip001)) {
     _class_name = "EnemyThisbeLaserChip002";
-    pSplManufCon_ = connectSplineManufactureManager("EnemyThisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
+    pSplManufCon_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
 }
 
@@ -63,7 +63,7 @@ void EnemyThisbeLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 //    //ƒqƒbƒg
 //
 //    //‘Ì—ÍŒvZ
-//    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+//    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
 //        //ƒqƒbƒg‚µ‚ÄÁ–Å
 //        sayonara();
 //    } else {

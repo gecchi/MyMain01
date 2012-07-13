@@ -9,7 +9,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationEunomia";
 
     //エウノミア編隊用デポジトリ
-    pDepoCon_Eunomia_ = connectDepositoryManager("DpCon_EnemyEunomia4Formation", this);
+    pDepoCon_Eunomia_ = connectToDepositoryManager("DpCon_EnemyEunomia4Formation", this);
     setFormationAbleActorDepository(pDepoCon_Eunomia_->fetch());
 
     //スプライン定義ファイルを読み込む
@@ -17,18 +17,18 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     for (int i = 0; i < 7; i++) {
         std::stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
-        papSplManufCon_[i] = connectSplineManufactureManager(spl_id.str().c_str());
+        papSplManufCon_[i] = connectToSplineManufactureManager(spl_id.str().c_str());
     }
-    pCon_ShotDepo_ = connectDepositoryManager("DpCon_Shot004", NULL); //Eunomiaの弾;
+    pCon_ShotDepo_ = connectToDepositoryManager("DpCon_Shot004", NULL); //Eunomiaの弾;
     pDepo_Shot_ = pCon_ShotDepo_->fetch();
     updateRankParameter();
 }
 
 void FormationEunomia::updateRankParameter() {
-    R_num_formation_col_ = R_FormationEunomia001_Col;            //編隊列数
-    R_num_formation_row_ = R_FormationEunomia001_Num;            //１列の編隊数
-    R_interval_frames_   = R_FormationEunomia001_LaunchInterval; //エウノミアの間隔(frame)
-    R_mv_velo_           = R_FormationEunomia001_MvVelo;         //速度
+    R_num_formation_col_ = RR_FormationEunomia001_Col(_RANK_);            //編隊列数
+    R_num_formation_row_ = RR_FormationEunomia001_Num(_RANK_);            //１列の編隊数
+    R_interval_frames_   = RR_FormationEunomia001_LaunchInterval(_RANK_); //エウノミアの間隔(frame)
+    R_mv_velo_           = RR_FormationEunomia001_MvVelo(_RANK_);         //速度
 }
 
 void FormationEunomia::initialize() {
@@ -60,7 +60,8 @@ void FormationEunomia::processBehavior() {
                 SplineSequence* pSplSeq = papSplManufCon_[i]->fetch()->
                                               createSplineSequence(pEunomia->_pKurokoA);
                 pEunomia->config(pSplSeq, NULL, NULL);
-                pEunomia->_pKurokoA->setMvVelo(R_mv_velo_);
+               // pEunomia->_pKurokoA->setMvVelo(R_mv_velo_);
+                pEunomia->_pKurokoA->setMvVelo(2000);
                 processOnActiveEunomia(pEunomia, i); //フォーメーション個別実装の処理
             }
         }

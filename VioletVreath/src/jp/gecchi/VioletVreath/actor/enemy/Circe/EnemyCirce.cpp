@@ -8,7 +8,6 @@ EnemyCirce::EnemyCirce(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ceres", STATUS(EnemyCirce)) { //8/をいれとかないとユニークにならない
     _class_name = "EnemyCirce";
     iMovePatternNo_ = 0;
-    _pSeTx->useSe(1);
     _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
@@ -52,13 +51,13 @@ void EnemyCirce::processJudgement() {
 void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+            pExplo->_pKurokoA->followFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
         sayonara();

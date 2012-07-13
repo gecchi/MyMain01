@@ -21,7 +21,6 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³Œø
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 400000);
-    _pSeTx->useSe(1);
     _pSeTx->set(0, "decide1");
 }
 

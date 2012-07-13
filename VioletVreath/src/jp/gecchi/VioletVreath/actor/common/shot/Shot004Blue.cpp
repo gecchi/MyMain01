@@ -59,7 +59,7 @@ void Shot004Blue::processJudgement() {
 void Shot004Blue::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 //    //・・・ココにヒットされたエフェクト
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);

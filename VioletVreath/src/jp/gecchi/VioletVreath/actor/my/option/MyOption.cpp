@@ -83,7 +83,6 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     pTorpedoCtrlr_ = NEW MyOptionTorpedoController("TorpedoController", this);
     addSubGroup(pTorpedoCtrlr_);
 
-    _pSeTx->useSe(3);
     _pSeTx->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
     _pSeTx->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
     _pSeTx->set(2, "bse5", GgafRepeatSeq::nextVal("CH_torpedo"));

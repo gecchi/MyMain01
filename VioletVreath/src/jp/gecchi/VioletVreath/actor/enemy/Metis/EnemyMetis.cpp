@@ -11,11 +11,10 @@ EnemyMetis::EnemyMetis(const char* prm_name) :
     height_Z_ = 220*2*LEN_UNIT;
     depth_Y_ = 36*2*LEN_UNIT;
     iMovePatternNo_ = 0;
-    _pSeTx->useSe(2);
     _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTx->set(SE_EXPLOSION, "bom10"        , GgafRepeatSeq::nextVal("CH_bom10"));
 
-    pCon_ShotDepo_ = connectDepositoryManager("DpCon_Shot004", NULL);
+    pCon_ShotDepo_ = connectToDepositoryManager("DpCon_Shot004", NULL);
     pDepo_Shot_ = pCon_ShotDepo_->fetch();
 }
 
@@ -72,13 +71,13 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
 
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+            pExplo->_pKurokoA->followFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
 
@@ -104,10 +103,8 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
-            //フォーメーションに自身が撃たれた事を伝える。
-            notifyFormationAboutDestroyed();
             //アイテム出現
-            Item* pItem = UTIL::activateItem(_pStatus);
+            Item* pItem = UTIL::activateItemOf(this);
             if (pItem) {
                 pItem->locateWith(this);
             }

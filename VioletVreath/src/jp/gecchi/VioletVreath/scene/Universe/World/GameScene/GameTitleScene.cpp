@@ -28,7 +28,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     pHoshiBoshi_ = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
     getDirector()->addSubGroup(pHoshiBoshi_);
 
-    pSeCon_exec_ = connectSeManager("yume_Sbend");
+    pSeCon_exec_ = connectToSeManager("yume_Sbend");
 
     _pBgmPerformer->useBgm(1);
     _pBgmPerformer->set(0, "BGM_DEMO");

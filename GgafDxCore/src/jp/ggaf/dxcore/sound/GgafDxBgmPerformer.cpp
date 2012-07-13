@@ -30,7 +30,7 @@ void GgafDxBgmPerformer::set(int prm_id, const char* prm_bgm_name) {
         _TRACE_("【警告】GgafDxBgmPerformer::set() IDが使用済みです、上書きしますが意図してますか？？。prm_id="<<prm_id<<" prm_bgm_name="<<prm_bgm_name);
         _papBgmCon[prm_id]->close();
     }
-    _papBgmCon[prm_id] = connectBgmManager(prm_bgm_name);
+    _papBgmCon[prm_id] = connectToBgmManager(prm_bgm_name);
 }
 
 void GgafDxBgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {

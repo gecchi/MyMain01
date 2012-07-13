@@ -26,7 +26,7 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 //    }
 
 
-    pCon_RefractionEffectDepository_ = connectDepositoryManager("DpCon_EffRefraction001", NULL);
+    pCon_RefractionEffectDepository_ = connectToDepositoryManager("DpCon_EffRefraction001", NULL);
 
     EnemyThisbeLaserChip002* pChip;
     for (int i = 0; i < 100; i++) { //レーザーストック
@@ -40,7 +40,6 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTx->useSe(3);
     _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTx->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
     _pSeTx->set(SE_FIRE     , "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
@@ -52,10 +51,9 @@ void EnemyThisbe::onCreateModel() {
 }
 
 void EnemyThisbe::initialize() {
-    setHitAble(false);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliSphere(0, 90000);
+    _pColliChecker->setColliSphere(0, 40000);
 }
 
 void EnemyThisbe::onActive() {
@@ -70,18 +68,17 @@ void EnemyThisbe::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_WAIT: {
-            if (_pProg->getFrameInProgress() > 120) {
+            if (pLaserChipDepo_->_num_chip_active == 0) {
                 _pProg->changeNext();
             }
-
             break;
         }
         case PROG_OPEN: {
             if (_pProg->isJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
             }
-            if (_pProg->getFrameInProgress() > 120) {
-                //開いたら
+            if (!_pMorpher->isMorph()) {
+                //完全に開いたら
                 _pProg->changeNext();
             }
             break;
@@ -91,8 +88,8 @@ void EnemyThisbe::processBehavior() {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 pLaser->locateWith(this);
-                pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]); //レーザーのスプラインがRELATIVE_DIRECTIONのため
-                                                   //MvAngの設定が必要。
+                pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]);
+                                   //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->_pChip_front == NULL) {
                     _pSeTx->play3D(SE_FIRE);
                 }
@@ -104,14 +101,16 @@ void EnemyThisbe::processBehavior() {
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 120); //閉じる
-            _pProg->change(PROG_WAIT);
+            if (!_pMorpher->isMorph()) {
+                //完全に閉じたら
+                _pProg->change(PROG_WAIT);
+            }
             break;
         }
 
         default:
             break;
     }
-
 
     _pKurokoA->behave();
     _pMorpher->behave();
@@ -127,22 +126,20 @@ void EnemyThisbe::processJudgement() {
 void EnemyThisbe::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+            pExplo->_pKurokoA->followFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
-            //フォーメーションに自身が撃たれた事を伝える。
-            notifyFormationAboutDestroyed();
             //アイテム出現
-            Item* pItem = UTIL::activateItem(_pStatus);
+            Item* pItem = UTIL::activateItemOf(this);
             if (pItem) {
                 pItem->locateWith(this);
             }

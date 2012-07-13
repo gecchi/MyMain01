@@ -54,8 +54,8 @@ papOptionCtrlr_(NULL) {
     pEffectMyShipExplosion_->inactivateImmed();
     getDirector()->addSubGroup(pEffectMyShipExplosion_);
     pVamSysCamWorker_ = NULL;
-//    pCon_VamSysCamWorker_ = connectCameraWorkerManager("VamSysCamWorker");
-//    pCon_MyShipDivingCamWorker_ = connectCameraWorkerManager("MyShipDivingCamWorker");
+//    pCon_VamSysCamWorker_ = connectToCameraWorkerManager("VamSysCamWorker");
+//    pCon_MyShipDivingCamWorker_ = connectToCameraWorkerManager("MyShipDivingCamWorker");
 //    pMyShip_DivingCamWorker = (MyShipDivingCamWorker*)pCon_MyShipDivingCamWorker_->fetch();
     //z_ = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     //z_ = 0.9999999f;

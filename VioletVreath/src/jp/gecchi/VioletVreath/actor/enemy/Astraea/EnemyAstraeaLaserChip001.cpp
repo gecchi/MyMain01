@@ -69,7 +69,7 @@ void EnemyAstraeaLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ƒqƒbƒgŽž
     //‘Ì—ÍŒvŽZ
-    int sta = UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+    int sta = UTIL::calcEnemyStamina(this, pOther);
     if (sta <= 0) {
         //ƒqƒbƒg‚µ‚ÄÁ–ÅŽž
         sayonara();

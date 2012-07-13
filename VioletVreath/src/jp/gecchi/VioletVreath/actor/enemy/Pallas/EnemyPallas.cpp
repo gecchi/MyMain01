@@ -11,7 +11,6 @@ EnemyPallas::EnemyPallas(const char* prm_name) :
     pSplSeq_ = NULL;
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
-    _pSeTx->useSe(1);
     _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     useProgress(10);
 }
@@ -79,7 +78,7 @@ void EnemyPallas::processBehavior() {
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
             if (pDepo_Shot_) {
                 //放射状ショット
-                int way = R_EnemyPallas_ShotWay; //ショットWAY数
+                int way = RR_EnemyPallas_ShotWay(_RANK_); //ショットWAY数
                 angle* paAng_way = NEW angle[way];
                 UTIL::getRadialAngle2D(0, way, paAng_way);
                 GgafDxDrawableActor* pActor_Shot;
@@ -131,22 +130,20 @@ void EnemyPallas::processJudgement() {
 void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+            pExplo->_pKurokoA->followFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
-            //フォーメーションに自身が撃たれた事を伝える。
-            notifyFormationAboutDestroyed();
             //アイテム出現
-            Item* pItem = UTIL::activateItem(_pStatus);
+            Item* pItem = UTIL::activateItemOf(this);
             if (pItem) {
                 pItem->locateWith(this);
             }

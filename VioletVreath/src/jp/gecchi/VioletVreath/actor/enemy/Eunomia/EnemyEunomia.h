@@ -8,8 +8,7 @@ namespace VioletVreath {
  * @since 2011/02/14
  * @author Masatoshi Tsuge
  */
-class EnemyEunomia :
-  public GgafLib::DefaultMeshSetActor {
+class EnemyEunomia : public GgafLib::DefaultMeshSetActor {
 
 public:
 

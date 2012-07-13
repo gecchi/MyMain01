@@ -141,7 +141,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //オプション非ロックオン中に命中した場合
         }
 
-        int stamina = UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+        int stamina = UTIL::calcMyStamina(this, pOther);
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
 
@@ -177,7 +177,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //
 //
 //    if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-//        int stamina = UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+//        int stamina = UTIL::calcMyStamina(this, pOther);
 //        if (stamina <= 0) {
 //            //一撃でチップ消滅の攻撃力
 //

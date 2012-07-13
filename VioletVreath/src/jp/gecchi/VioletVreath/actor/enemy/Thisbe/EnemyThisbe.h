@@ -21,10 +21,10 @@ class EnemyThisbe :  public GgafLib::DefaultMorphMeshActor {
 
 public:
     enum {
-        PROG_WAIT = 1  ,
-        PROG_OPEN ,
-        PROG_FIRE   ,
-        PROG_CLOSE     ,
+        PROG_WAIT = 1,
+        PROG_OPEN,
+        PROG_FIRE,
+        PROG_CLOSE,
     };
     enum {
         SE_DAMAGED   = 0,

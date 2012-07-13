@@ -14,10 +14,9 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
 
-    pDepoCon_ = connectDepositoryManager("DpCon_Shot001", NULL);
+    pDepoCon_ = connectToDepositoryManager("DpCon_Shot001", NULL);
     //pDepo_Shot_ = pDepoCon_->fetch();
 pDepo_Shot_ = NULL;
-    _pSeTx->useSe(1);
     _pSeTx->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
@@ -185,7 +184,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
         pExplo001->locateWith(this);
     }
 
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         sayonara();
     }
 }

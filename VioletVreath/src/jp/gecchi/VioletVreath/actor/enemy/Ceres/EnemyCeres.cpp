@@ -33,11 +33,10 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
         createGgafActorDepository_ = false;
     }
 
-    pSplLineCon_ = connectSplineLineManager("SpCon_001");
+    pSplLineCon_ = connectToSplineLineManager("SpCon_001");
     pProgram_CeresMove_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->fetch(), 5000); //移動速度固定
 
 //    pProgram_CeresMove_ = NEW FixedFrameSplineSequence(_pKurokoA, pSplLineCon_->fetch(), 600, 5000); //移動フレーム数固定
-    _pSeTx->useSe(1);
     _pSeTx->set(SE_EXPLOSION, "a_shot", GgafRepeatSeq::nextVal("CH_a_shot"));
 }
 
@@ -103,14 +102,14 @@ void EnemyCeres::processJudgement() {
 void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //・・・ココにヒットされたエフェクト
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         //破壊された場合
         setHitAble(false);
         //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+            pExplo->_pKurokoA->followFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
         sayonara();

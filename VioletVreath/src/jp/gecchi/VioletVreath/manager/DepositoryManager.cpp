@@ -200,6 +200,18 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         }
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
+
+
+
+    if (UTIL::strcmp_ascii("DpCon_EnemyHebe4Formation", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_Hebe");
+        for (int i = 0; i < RR_FormationHebe_Num(2.0); i++) {
+            pResource->addSubLast(NEW EnemyHebe("EnemyMassalia"));
+            Sleep(1);
+        }
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+    }
+
     //敵カーブレーザー01未使用。こぴぺのために残す
     /*
     if (UTIL::strcmp_ascii("DpCon_EneWateringLaser001Dp", prm_idstr) == 0) {

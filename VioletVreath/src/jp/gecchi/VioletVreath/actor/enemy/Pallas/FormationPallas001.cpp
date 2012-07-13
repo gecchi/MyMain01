@@ -7,11 +7,11 @@ using namespace VioletVreath;
 FormationPallas001::FormationPallas001(const char* prm_name) :
         TreeFormation(prm_name, 30*60) {
     _class_name = "FormationPallas001";
-    num_Pallas_      = R_FormationPallas001_Num;    //編隊数
-    interval_frames_ = R_FormationPallas001_LaunchInterval;  //パラスの間隔(frame)
-    velo_mv_         = R_FormationPallas001_MvVelo; //速度
+    num_Pallas_      = RR_FormationPallas001_Num(_RANK_);    //編隊数
+    interval_frames_ = RR_FormationPallas001_LaunchInterval(_RANK_);  //パラスの間隔(frame)
+    velo_mv_         = RR_FormationPallas001_MvVelo(_RANK_); //速度
     //パラス編隊作成
-    pSplManufCon_ = connectSplineManufactureManager("Pallas01");
+    pSplManufCon_ = connectToSplineManufactureManager("Pallas01");
     pDepoCon_ = NULL;
     papPallas_ = NEW EnemyPallas*[num_Pallas_];
     SplineSequence* pSplSeq;
@@ -46,7 +46,7 @@ void FormationPallas001::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
     //編隊消滅時の実験
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->pDepo_EffectTurbo002_->dispatchForce();
     if (pTurbo002) {
-		pTurbo002->locateWith((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
+        pTurbo002->locateWith((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
         pTurbo002->activate();
     }
 }

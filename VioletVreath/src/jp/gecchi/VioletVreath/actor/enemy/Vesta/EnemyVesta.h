@@ -3,7 +3,7 @@
 namespace VioletVreath {
 
 /**
- * ヴェスタ .
+ * 敵機ヴェスタ .
  * @version 1.00
  * @since 2009/01/22
  * @author Masatoshi Tsuge

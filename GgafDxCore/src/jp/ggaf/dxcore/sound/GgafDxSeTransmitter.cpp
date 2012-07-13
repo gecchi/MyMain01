@@ -8,7 +8,7 @@ GgafDxSeTransmitter::GgafDxSeTransmitter() : GgafObject() {
     _papSeCon = NULL;
 }
 
-void GgafDxSeTransmitter::useSe(int prm_se_num) {
+void GgafDxSeTransmitter::declareSeNum(int prm_se_num) {
     _se_num = prm_se_num;
     _papSeCon = NEW GgafDxSeConnection*[_se_num];
     for (int i = 0; i < _se_num; i++) {
@@ -17,6 +17,10 @@ void GgafDxSeTransmitter::useSe(int prm_se_num) {
 }
 
 void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_name, int prm_cannel) {
+    if (_papSeCon == NULL) {
+        declareSeNum(10); //declareSeNumしない場合は10個まで
+    }
+
 #ifdef MY_DEBUG
     if (_se_num <= 0) {
         throwGgafCriticalException("GgafDxSeTransmitter::set() useSeで使用するSe数を事前に宣言してください。prm_id="<<prm_id);
@@ -27,7 +31,7 @@ void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_name, int prm_canne
 #endif
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
-    _papSeCon[prm_id] = connectSeManager(idstr);
+    _papSeCon[prm_id] = connectToSeManager(idstr);
 }
 
 void GgafDxSeTransmitter::play(int prm_id) {

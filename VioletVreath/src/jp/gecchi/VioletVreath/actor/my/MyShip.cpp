@@ -159,7 +159,6 @@ MyShip::MyShip(const char* prm_name) :
     paFuncTurbo[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
-    _pSeTx->useSe(4);
     _pSeTx->set(0, "se-020");
     _pSeTx->set(1,"laser001", 99);
     _pSeTx->set(2,"fire01", 99);
@@ -603,7 +602,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
 
 
-    if (UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcMyStamina(this, pOther) <= 0) {
         //ここに消滅エフェクト
     }
 

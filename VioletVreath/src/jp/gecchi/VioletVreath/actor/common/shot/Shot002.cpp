@@ -8,7 +8,6 @@ Shot002::Shot002(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
     my_frame_ = 0;
-    _pSeTx->useSe(1);
     _pSeTx->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
@@ -22,8 +21,8 @@ void Shot002::onActive() {
     setHitAble(true);
     _pScaler->setScale(2000);
     _pKurokoA->relateFaceAngWithMvAng(true);
-    _pKurokoA->setMvVelo(R_Shot002_MvVelo);
-    _pKurokoA->setFaceAngVelo(AXIS_X, R_Shot002_AngVelo);
+    _pKurokoA->setMvVelo(RR_Shot002_MvVelo(_RANK_));
+    _pKurokoA->setFaceAngVelo(AXIS_X, RR_Shot002_AngVelo(_RANK_));
     my_frame_ = 0;
 }
 
@@ -61,7 +60,7 @@ void Shot002::processJudgement() {
 void Shot002::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //・・・ココにヒットされたエフェクト
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         //破壊された場合
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTx->play3D(0);

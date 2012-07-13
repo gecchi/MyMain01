@@ -101,7 +101,6 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     addSubGroup(pDamageDispBar_);
 
 
-    _pSeTx->useSe(SE_BAD_OPERATION + 1);
     _pSeTx->set(SE_CURSOR_MOVE_METER             , "click07"      );  //メーター移動
     _pSeTx->set(SE_CURSOR_MOVE_LEVEL             , "G_EFC5"       );  //レベル移動
     _pSeTx->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "yume_ashi_022");  //レベル移動キャンセル

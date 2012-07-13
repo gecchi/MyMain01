@@ -223,7 +223,7 @@ void MyTorpedo::onInactive() {
 void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ƒqƒbƒgŽž’ÊŠÑ‚Í‚µ‚Ü‚¹‚ñ
-    int sta = UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+    int sta = UTIL::calcMyStamina(this, pOther);
     setHitAble(false);
     _pProg->change(MyTorpedo_RELEASE);
     GgafMainActor* pTailEffect = pTailEffectDepository_->getSubFirst();

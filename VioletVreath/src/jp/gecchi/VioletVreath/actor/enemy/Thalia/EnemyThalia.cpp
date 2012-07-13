@@ -28,7 +28,6 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     }
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTx->useSe(3);
     _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTx->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
     _pSeTx->set(SE_FIRE     , "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
@@ -145,13 +144,13 @@ void EnemyThalia::processJudgement() {
 void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+            pExplo->_pKurokoA->followFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
 
@@ -176,7 +175,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 //                  UTIL::shotWay002v2(this,
 //                                       pDepo_Shot_,
 //                                       P_MYSHIP,
-//                                       R_EnemyThalia_ShotWay, 0,
+//                                       RR_EnemyThalia_ShotWay(_RANK_), 0,
 //                                       2000, 200,
 //                                       5, 0.8);
 //                  UTIL::shotWay002(this, pDepo_Shot_,
@@ -200,10 +199,8 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
-            //フォーメーションに自身が撃たれた事を伝える。
-            notifyFormationAboutDestroyed();
             //アイテム出現
-            Item* pItem = UTIL::activateItem(_pStatus);
+            Item* pItem = UTIL::activateItemOf(this);
             if (pItem) {
                 pItem->locateWith(this);
             }

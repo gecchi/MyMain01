@@ -10,7 +10,6 @@ EnemyHebe::EnemyHebe(const char* prm_name) :
     pSplSeq_ = NULL;
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
-    _pSeTx->useSe(1);
     _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     useProgress(10);
 }
@@ -21,14 +20,11 @@ void EnemyHebe::onCreateModel() {
 
 void EnemyHebe::initialize() {
     _pKurokoA->relateFaceAngWithMvAng(true);
-    _pKurokoA->setFaceAngVelo(AXIS_X, -4000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
 
-
 void EnemyHebe::config(
-//        GgafLib::TreeFormation* prm_pFormation,
         GgafLib::SplineSequence* prm_pSplSeq,
         GgafCore::GgafActorDepository* prm_pDepo_Shot,
         GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
@@ -176,22 +172,20 @@ void EnemyHebe::processJudgement() {
 void EnemyHebe::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+            pExplo->_pKurokoA->followFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
-            //フォーメーションに自身が撃たれた事を伝える。
-            notifyFormationAboutDestroyed();
             //アイテム出現
-            Item* pItem = UTIL::activateItem(_pStatus);
+            Item* pItem = UTIL::activateItemOf(this);
             if (pItem) {
                 pItem->locateWith(this);
             }

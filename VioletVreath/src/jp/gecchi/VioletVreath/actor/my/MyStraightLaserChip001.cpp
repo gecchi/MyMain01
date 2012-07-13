@@ -55,7 +55,7 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-        int stamina = UTIL::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+        int stamina = UTIL::calcMyStamina(this, pOther);
         if (stamina <= 0) {
             //ˆêŒ‚‚Åƒ`ƒbƒvÁ–Å‚ÌUŒ‚—Í
 

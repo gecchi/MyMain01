@@ -21,9 +21,8 @@ EnemyVesta::EnemyVesta(const char* prm_name) :
     frame_of_morph_interval_   = 60;
 
     pDepo_Fired_ = NULL;
-    pDpcon_ = connectDepositoryManager("DpCon_Shot004", NULL);
+    pDpcon_ = connectToDepositoryManager("DpCon_Shot004", NULL);
 
-    _pSeTx->useSe(2);
     _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTx->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
 }
@@ -140,7 +139,7 @@ void EnemyVesta::processBehavior() {
     if (iMovePatternNo_ == VESTA_HATCH_OPENED) {
         int openningFrame = getActivePartFrame() - frame_of_moment_nextopen_; //開いてからのフレーム数。
         //frame_of_moment_nextopen_は、ここの処理の時点では直近でオープンしたフレームとなる。
-        if (openningFrame % (int)(R_EnemyVesta_ShotInterval) == 0) {
+        if (openningFrame % (int)(RR_EnemyVesta_ShotInterval(_RANK_)) == 0) {
             if (pDepo_Fired_) {
                 GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
                 if (pActor) {
@@ -246,20 +245,20 @@ void EnemyVesta::processJudgement() {
 void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+            pExplo->_pKurokoA->followFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
             //アイテム出現
-            Item* pItem = UTIL::activateItem(_pStatus);
+            Item* pItem = UTIL::activateItemOf(this);
             if (pItem) {
                 pItem->locateWith(this);
             }

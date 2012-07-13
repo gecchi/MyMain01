@@ -6,7 +6,6 @@ using namespace VioletVreath;
 
 EnemyMassaliaBase::EnemyMassaliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
-    _pSeTx->useSe(2);
     _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTx->set(SE_EXPLOSION, "bomb1"        , GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
 }
@@ -29,14 +28,14 @@ void EnemyMassaliaBase::processJudgement() {
 void EnemyMassaliaBase::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (UTIL::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         //破壊時
         setHitAble(false);
         //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffect(_pStatus);
+        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->takeoverMvFrom(_pKurokoA);
+            pExplo->_pKurokoA->followFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
         sayonara();
@@ -53,13 +52,13 @@ void EnemyMassaliaBase::onHit(GgafActor* prm_pOtherActor) {
 
 void EnemyMassaliaBase::appearFragment(const char* prm_dp_name) {
     //断片出現
-    DepositoryConnection* pCon = connectDepositoryManager(prm_dp_name, this);
+    DepositoryConnection* pCon = connectToDepositoryManager(prm_dp_name, this);
     GgafActorDepository* pDepo = pCon->fetch();
-    for (int i =0; i < R_EnemyMassalia_ShotWay; i++) {
+    for (int i = 0; i < RR_EnemyMassalia_ShotWay(_RANK_); i++) {
         EnemyMassaliaBase* pFragment = (EnemyMassaliaBase*)(pDepo->dispatch());
         if (pFragment) {
             pFragment->locateWith(this);
-            pFragment->_pKurokoA->takeoverMvFrom(this->_pKurokoA);
+            pFragment->_pKurokoA->followFrom(this->_pKurokoA);
             pFragment->_pKurokoA->setMvVelo(pFragment->_pKurokoA->_veloMv/2); //半分のスピードへ
             pFragment->_pKurokoA->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));
             pFragment->_pKurokoA->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));

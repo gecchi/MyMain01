@@ -30,7 +30,7 @@ public:
      * 本オブジェクトの機能を利用するには、必須。
      * @param prm_se_num SE数（種類数）
      */
-    virtual void useSe(int prm_se_num);
+    virtual void declareSeNum(int prm_se_num);
 
     /**
      * SEの設定を行う .

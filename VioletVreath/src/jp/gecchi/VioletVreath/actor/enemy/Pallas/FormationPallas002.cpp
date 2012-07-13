@@ -7,13 +7,13 @@ using namespace VioletVreath;
 FormationPallas002::FormationPallas002(const char* prm_name) :
         TreeFormation(prm_name, 30*60) {
     _class_name = "FormationPallas002";
-    num_Pallas_      = R_FormationPallas002_Num;  //編隊数
-    interval_frames_ = R_FormationPallas002_LaunchInterval;  //パラスの間隔(frame)
-    velo_mv_         = R_FormationPallas002_MvVelo; //速度
+    num_Pallas_      = RR_FormationPallas002_Num(_RANK_);  //編隊数
+    interval_frames_ = RR_FormationPallas002_LaunchInterval(_RANK_);  //パラスの間隔(frame)
+    velo_mv_         = RR_FormationPallas002_MvVelo(_RANK_); //速度
     //パラス編隊作成
-    pSplManufCon_ = connectSplineManufactureManager("Pallas02");
-//    pSplLineCon_     = connectSplineLineManager("SpCon_Pallas01"); //スプライン定義
-    //pDepoCon_ = connectDepositoryManager("DpCon_Shot002", NULL);
+    pSplManufCon_ = connectToSplineManufactureManager("Pallas02");
+//    pSplLineCon_     = connectToSplineLineManager("SpCon_Pallas01"); //スプライン定義
+    //pDepoCon_ = connectToDepositoryManager("DpCon_Shot002", NULL);
     pDepoCon_ = NULL;
     papPallas_ = NEW EnemyPallas*[num_Pallas_];
     for (int i = 0; i < num_Pallas_; i++) {

@@ -6,6 +6,8 @@ namespace GgafCore {
 /**
  * 配下ツリー管理のフォーメーション管理クラス .
  * 編隊メンバーは使い捨てのフォーメーション。
+ * 使用する場合は、本クラスを継承し、addSubLast(GgafActor*) により
+ * 編隊メンバーを追加していってください。
  * processJudgement()を実装済み。
  * @version 1.00
  * @since 2008/08/08
@@ -18,7 +20,7 @@ private:
 
 
 public:
-    /** 全滅時 true (GgafActor::notifyFormationAboutDestroyed() が設定) */
+    /** 全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
 
     /**
