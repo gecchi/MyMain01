@@ -330,7 +330,6 @@ void VvvCamWorker::processBehavior() {
 
     pCam->_pKurokoA->behave();
     pVP->_pKurokoA->behave();
-
 }
 
 VvvCamWorker::~VvvCamWorker() {
