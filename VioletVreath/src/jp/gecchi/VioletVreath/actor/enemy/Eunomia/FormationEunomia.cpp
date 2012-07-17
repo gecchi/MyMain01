@@ -25,10 +25,10 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
 }
 
 void FormationEunomia::updateRankParameter() {
-    R_num_formation_col_ = RR_FormationEunomia001_Col(_RANK_);            //編隊列数
-    R_num_formation_row_ = RR_FormationEunomia001_Num(_RANK_);            //１列の編隊数
-    R_interval_frames_   = RR_FormationEunomia001_LaunchInterval(_RANK_); //エウノミアの間隔(frame)
-    R_mv_velo_           = RR_FormationEunomia001_MvVelo(_RANK_);         //速度
+    RR_num_formation_col_ = RR_FormationEunomia001_Col(_RANK_);            //編隊列数
+    RR_num_formation_row_ = RR_FormationEunomia001_Num(_RANK_);            //１列の編隊数
+    RR_interval_frames_   = RR_FormationEunomia001_LaunchInterval(_RANK_); //エウノミアの間隔(frame)
+    RR_mv_velo_           = RR_FormationEunomia001_MvVelo(_RANK_);         //速度
 }
 
 void FormationEunomia::initialize() {
@@ -53,15 +53,14 @@ void FormationEunomia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
 
 
 void FormationEunomia::processBehavior() {
-    if (! isAllCalledUp() && (getActivePartFrame() % R_interval_frames_ == 0)) {
-        for (int i = 0; i < R_num_formation_col_; i++) {
-            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpUntil(R_num_formation_col_*R_num_formation_row_);
+    if (! isAllCalledUp() && (getActivePartFrame() % RR_interval_frames_ == 0)) {
+        for (int i = 0; i < RR_num_formation_col_; i++) {
+            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpUntil(RR_num_formation_col_*RR_num_formation_row_);
             if (pEunomia) {
                 SplineSequence* pSplSeq = papSplManufCon_[i]->fetch()->
                                               createSplineSequence(pEunomia->_pKurokoA);
                 pEunomia->config(pSplSeq, NULL, NULL);
-               // pEunomia->_pKurokoA->setMvVelo(R_mv_velo_);
-                pEunomia->_pKurokoA->setMvVelo(2000);
+                pEunomia->_pKurokoA->setMvVelo(RR_mv_velo_);
                 processOnActiveEunomia(pEunomia, i); //フォーメーション個別実装の処理
             }
         }

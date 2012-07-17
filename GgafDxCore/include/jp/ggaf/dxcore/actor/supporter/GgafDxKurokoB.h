@@ -279,7 +279,7 @@ public:
      * 他の GgafDxKurokoB オブジェクトを状態を自身に引継ぐ .
      * @param prm_pKurokoB 引継元
      */
-    void followFrom(GgafDxKurokoB* prm_pKurokoB);
+    void followMvFrom(GgafDxKurokoB* prm_pKurokoB);
 
 
     void resetMv();

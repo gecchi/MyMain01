@@ -21,7 +21,7 @@ private:
 
 public:
     /** [r/w]各SE（配列）は、擬似３D再生かどうかを保持 */
-    bool* _paBool_is_3d;
+    bool* _paBool_is_playing_3d;
     /** [r]SE発生元アクター */
     GgafDxGeometricActor* _pActor;
 
@@ -36,6 +36,14 @@ public:
      * @param prm_se_num SE数（種類数）
      */
     void declareSeNum(int prm_se_num) override;
+    /**
+     * SEの設定を行う .
+     * 但し、SEの再生時間は GGAF_SAYONARA_DELAY+(最大距離遅延) フレーム以内でなければいけない。
+     * @param prm_id SEのID ( 0 ～ SE数-1 )
+     * @param prm_se_name SE定義名 prm_se_name+".wave"
+     * @param prm_cannel 再生チャンネル番号
+     */
+    void set(int prm_id, const char* prm_se_name, int prm_cannel = 1) override;
 
     /**
      * 即座にSEを再生する(擬似３D無し)。

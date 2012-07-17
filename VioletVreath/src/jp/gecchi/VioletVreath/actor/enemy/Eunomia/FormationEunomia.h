@@ -21,13 +21,13 @@ public:
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection** papSplManufCon_;
     /** 編隊列数(RANK変動) */
-    int R_num_formation_col_;
+    int RR_num_formation_col_;
     /** １列の編隊数(RANK変動) */
-    int R_num_formation_row_;
+    int RR_num_formation_row_;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
-    frame R_interval_frames_;
+    frame RR_interval_frames_;
     /** 編隊メンバーの移動速度(RANK変動) */
-    velo R_mv_velo_;
+    velo RR_mv_velo_;
 
     /**
      * コンストラクタ .

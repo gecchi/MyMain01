@@ -10,7 +10,8 @@ EnemyHebe::EnemyHebe(const char* prm_name) :
     pSplSeq_ = NULL;
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
-    _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    _pSeTx->set(SE_EXPLOSION, "bomb1"        , GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     useProgress(10);
 }
 
@@ -80,85 +81,7 @@ void EnemyHebe::processBehavior() {
         }
     }
 
-
-
-//
-//
-//    }
-//    //【パターン1：スプライン移動】
-//    if (_pProg->isJustChangedTo(1)) {
-//        pSplSeq_->exec(SplineSequence::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
-//    }
-//    if (_pProg->get() == 1) {
-//        //スプライン移動終了待ち
-//        if (pSplSeq_->isExecuting()) {
-//            //待ちぼうけ
-//        } else {
-//            _pProg->changeNext(); //次のパターンへ
-//        }
-//    }
-//
-//    switch (iMovePatternNo_) {
-//        case 0:  //【パターン０：スプライン移動開始】
-//            if (pSplSeq_) {
-//                pSplSeq_->exec(SplineSequence::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
-//            }
-//            iMovePatternNo_++; //次の行動パターンへ
-//            break;
-//
-//        case 1:  //【パターン１：スプライン移動終了待ち】
-//            if (pSplSeq_) {
-//                //スプライン移動有り
-//                if (!(pSplSeq_->isExecuting())) {
-//                    iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
-//                }
-//            } else {
-//                //スプライン移動無し
-//                iMovePatternNo_++; //すぐに次の行動パターンへ
-//            }
-//            break;
-//
-//        case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
-//            if (pDepo_Shot_) {
-//                //放射状ショット
-//                int way = 3;//R_EnemyHebe_ShotWay; //ショットWAY数
-//                //R_FormationHebe_ShotWay
-//                angle* paAng_way = NEW angle[way];
-//                UTIL::getRadialAngle2D(0, way, paAng_way);
-//                GgafDxDrawableActor* pActor_Shot;
-//                for (int i = 0; i < way; i++) {
-//                    pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
-//                    if (pActor_Shot) {
-//                        pActor_Shot->locateWith(this);
-//                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
-//                    }
-//                }
-//                DELETEARR_IMPOSSIBLE_NULL(paAng_way);
-//                //ショット発射エフェクト
-//                if (pDepo_ShotEffect_) {
-//                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
-//                    if (pTestActor_Shot) {
-//                        pTestActor_Shot->locateWith(this);
-//                    }
-//                }
-//            }
-////            //自機へ方向転換
-//            _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
-//                                                2000, 0,
-//                                                TURN_CLOSE_TO);
-//            iMovePatternNo_++; //次の行動パターンへ
-//            break;
-//
-//        case 3:  //【行動パターン３】
-//
-//            break;
-//        default:
-//            break;
-//    }
-
-    if (pSplSeq_) {
-        pSplSeq_->behave(); //スプライン移動を振る舞い
-    }
+    pSplSeq_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
     //_pSeTx->behave();
 }
@@ -173,12 +96,13 @@ void EnemyHebe::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
+        //破壊時
         setHitAble(false);
         //爆発エフェクト
         GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->followFrom(_pKurokoA);
+            pExplo->_pKurokoA->followMvFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
 
@@ -191,6 +115,9 @@ void EnemyHebe::onHit(GgafActor* prm_pOtherActor) {
             }
         }
         sayonara();
+    } else {
+        //非破壊時
+        effectFlush(2); //フラッシュ
     }
 }
 

@@ -109,7 +109,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
         GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->followFrom(_pKurokoA);
+            pExplo->_pKurokoA->followMvFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
         sayonara();

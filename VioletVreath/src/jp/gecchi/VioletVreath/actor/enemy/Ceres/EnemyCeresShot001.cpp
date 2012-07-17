@@ -89,7 +89,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
         GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->followFrom(_pKurokoA);
+            pExplo->_pKurokoA->followMvFrom(_pKurokoA);
         }
         _pSeTx->play3D(CERESSHOT001_SE_EXPLOSION);
 

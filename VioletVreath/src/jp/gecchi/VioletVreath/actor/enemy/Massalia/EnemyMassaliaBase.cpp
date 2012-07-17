@@ -35,7 +35,7 @@ void EnemyMassaliaBase::onHit(GgafActor* prm_pOtherActor) {
         GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
         if (pExplo) {
             pExplo->locateWith(this);
-            pExplo->_pKurokoA->followFrom(_pKurokoA);
+            pExplo->_pKurokoA->followMvFrom(_pKurokoA);
         }
         _pSeTx->play3D(SE_EXPLOSION);
         sayonara();
@@ -58,7 +58,7 @@ void EnemyMassaliaBase::appearFragment(const char* prm_dp_name) {
         EnemyMassaliaBase* pFragment = (EnemyMassaliaBase*)(pDepo->dispatch());
         if (pFragment) {
             pFragment->locateWith(this);
-            pFragment->_pKurokoA->followFrom(this->_pKurokoA);
+            pFragment->_pKurokoA->followMvFrom(this->_pKurokoA);
             pFragment->_pKurokoA->setMvVelo(pFragment->_pKurokoA->_veloMv/2); //半分のスピードへ
             pFragment->_pKurokoA->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));
             pFragment->_pKurokoA->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));

@@ -6,20 +6,29 @@ using namespace GgafDxCore;
 GgafDxSeTransmitterForActor::GgafDxSeTransmitterForActor(GgafDxGeometricActor* prm_pActor) :
         GgafDxSeTransmitter() {
     _pActor = prm_pActor;
-    _paBool_is_3d = NULL;
+    _paBool_is_playing_3d = NULL;
 }
 
 void GgafDxSeTransmitterForActor::declareSeNum(int prm_se_num) {
     GgafDxSeTransmitter::declareSeNum(prm_se_num);
-    _paBool_is_3d = NEW bool[_se_num];
+    _paBool_is_playing_3d = NEW bool[_se_num];
     for (int i = 0; i < _se_num; i++) {
-        _paBool_is_3d[i] = false;
+        _paBool_is_playing_3d[i] = false;
     }
 }
 
+void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_name, int prm_cannel) {
+    if (prm_id < 0) {
+        throwGgafCriticalException("GgafDxSeTransmitter::set() IDが範囲外です。正の数でお願いします。 prm_id="<<prm_id);
+    } else if (prm_id >= _se_num) {
+        DELETEARR_POSSIBLE_NULL(_paBool_is_playing_3d);
+        //declareSeNum が再呼び出しされるため、_paBool_is_playing_3d は再確保される。
+    }
+    GgafDxSeTransmitter::set(prm_id, prm_se_name, prm_cannel);
+}
 void GgafDxSeTransmitterForActor::play(int prm_id) {
     GgafDxSeTransmitter::play(prm_id);
-    _paBool_is_3d[prm_id] = false;
+    _paBool_is_playing_3d[prm_id] = false;
 }
 
 void GgafDxSeTransmitterForActor::play3D(int prm_id) {
@@ -35,26 +44,26 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     //距離計算
     //遅延なし、音量100％の場所をP_CAMの場所とする
     //自身とP_CAMの距離
-    int DX = (pCam->_X - _pActor->_X) / LEN_UNIT;
-    int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
-    int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;
-    double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
-    int vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT*0.6))) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
-                                                                                           //値を減らすと、遠くてもおとがより大きくなる。
+    double DX = C_PX(pCam->_X - _pActor->_X);
+    double DY = C_PX(pCam->_Y - _pActor->_Y);
+    double DZ = C_PX(pCam->_Z - _pActor->_Z);
+    double d = GgafUtil::sqrt_fast(DX*DX + DY*DY + DZ*DZ); //dはピクセル
+    int vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->_zf)*0.6) )) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
+                                                                                          // 値を減らすと、遠くても音量がより大きくなる。
     if (VOLUME_MAX_3D < vol) {
         vol = VOLUME_MAX_3D;
     } else if (VOLUME_MIN_3D > vol) {
         vol = VOLUME_MIN_3D;
     }
 
-    float fDist_VpVerticalCenter  =
+    dxcoord fDist_VpVerticalCenter  =
             pCam->_plnVerticalCenter.a*_pActor->_fX +
             pCam->_plnVerticalCenter.b*_pActor->_fY +
             pCam->_plnVerticalCenter.c*_pActor->_fZ +
             pCam->_plnVerticalCenter.d;
 
     angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
-    float pan = UTIL::COS[ang/SANG_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
+    float pan = UTIL::COS[ang/SANG_RATE] * 0.8; //0.8は完全に右のみ或いは左のみから聞こえるのを避けるため
 
     int delay = (d / (pCam->_zf*PX_UNIT))*MAX_SE_DELAY-10; //10フレーム底上げ
     if (delay < 0) {
@@ -77,7 +86,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
 
     P_UNIVERSE->registSe(_papSeCon[prm_id]->fetch(), vol, pan, rate_frequency, delay); // + (GgafDxSe::VOLUME_RANGE / 6) は音量底上げ
 
-    _paBool_is_3d[prm_id] = true;
+    _paBool_is_playing_3d[prm_id] = true;
     //真ん中からの距離
    //                float dPlnLeft = ABS(_dest_from_vppln_left);
    //                float dPlnRight = ABS(_dest_from_vppln_right);
@@ -107,7 +116,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     int vol;
     float rate_frequency = 1.0;
     for (int i = 0; i < _se_num; i++) {
-        if (_papSeCon[i] && _paBool_is_3d[i]) {
+        if (_papSeCon[i] && _paBool_is_playing_3d[i]) {
             if (_papSeCon[i]->fetch()->isPlaying()) {
                 if (calc_flg) {
                     calc_flg = false;
@@ -115,19 +124,18 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                     //距離計算
                     //遅延なし、音量100％の場所をP_CAMの場所とする
                     //自身とP_CAMの距離
-                    dxcoord DX = C_DX(pCam->_X - _pActor->_X) / LEN_UNIT;
-                    dxcoord DY = C_DX(pCam->_Y - _pActor->_Y) / LEN_UNIT;
-                    dxcoord DZ = C_DX(pCam->_Z - _pActor->_Z) / LEN_UNIT;
+                    double DX = C_PX(pCam->_X - _pActor->_X);
+                    double DY = C_PX(pCam->_Y - _pActor->_Y);
+                    double DZ = C_PX(pCam->_Z - _pActor->_Z);
 
                     //備忘録
                     //例えば消滅時の爆発だった場合、_pActor->_X みたいに、消滅後も値を参照したい。
                     //そこで GGAF_SAYONARA_DELAY が重要になっている
 
                     //リアルタイムの音量を計算
-                    dxcoord d = GgafUtil::sqrt_fast(DX*DX + DY*DY + DZ*DZ);
-                    vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT*0.6))) * VOLUME_RANGE_3D); //0.6 は調整補正
+                    double d = GgafUtil::sqrt_fast(DX*DX + DY*DY + DZ*DZ); //dはピクセル
+                    vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->_zf)*0.6) )) * VOLUME_RANGE_3D); //0.6 は調整補正
 
-                    vol =  VOLUME_MIN_3D + ( (1.0 - (d / pCam->_zf)) *VOLUME_RANGE_3D); //0.6 は調整補正
 
                     if (VOLUME_MAX_3D < vol) {
                         vol = VOLUME_MAX_3D;
@@ -136,14 +144,14 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                     }
 
                     //リアルタイムのパンを計算
-                    float fDist_VpVerticalCenter  =
+                    dxcoord fDist_VpVerticalCenter  =
                             pCam->_plnVerticalCenter.a*_pActor->_fX +
                             pCam->_plnVerticalCenter.b*_pActor->_fY +
                             pCam->_plnVerticalCenter.c*_pActor->_fZ +
                             pCam->_plnVerticalCenter.d;
                     angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
-                    pan = UTIL::COS[ang/SANG_RATE] * 0.7; //0.7意味は、完全に右のみ或いは左のみから聞こえるのを避けるため
-                                                          //最高で 0.3 : 0.7 の割合に留めるため。
+                    pan = UTIL::COS[ang/SANG_RATE] * 0.8; //0.8意味は、完全に右のみ或いは左のみから聞こえるのを避けるため
+                                                          //最高で 0.2 : 0.8 の割合に留めるため。
                     //リアルタイムのパンを計算
                     if (_pActor->_dest_from_vppln_front > 0) { //背後の場合周波数を下げ、音を少しぐぐもらせる。
                         if (_pActor->_dest_from_vppln_front > PX_DX(800)) {
@@ -160,7 +168,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                 _papSeCon[i]->fetch()->setVolume(vol);
                 _papSeCon[i]->fetch()->setFrequencyRate(rate_frequency);
             } else {
-                _paBool_is_3d[i] = false;
+                _paBool_is_playing_3d[i] = false;
             }
         }
     }
@@ -174,6 +182,6 @@ void GgafDxSeTransmitterForActor::behave() {
 }
 
 GgafDxSeTransmitterForActor::~GgafDxSeTransmitterForActor() {
-    DELETEARR_POSSIBLE_NULL(_paBool_is_3d);
+    DELETEARR_POSSIBLE_NULL(_paBool_is_playing_3d);
 }
 

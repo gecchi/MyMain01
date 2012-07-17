@@ -17,18 +17,30 @@ void GgafDxSeTransmitter::declareSeNum(int prm_se_num) {
 }
 
 void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_name, int prm_cannel) {
+
+//    if (_se_num <= 0) {
+//        throwGgafCriticalException("GgafDxSeTransmitter::set() useSeで使用するSe数を事前に宣言してください。prm_id="<<prm_id);
+//    }
     if (_papSeCon == NULL) {
-        declareSeNum(10); //declareSeNumしない場合は10個まで
+        declareSeNum(5); //declareSeNumしない場合は５個まで
+    }
+    if (prm_id < 0) {
+        throwGgafCriticalException("GgafDxSeTransmitter::set() IDが範囲外です。正の数でお願いします。 prm_id="<<prm_id);
+    } else if (prm_id >= _se_num) {
+        //_papSeCon[] を拡張する。
+        GgafDxSeConnection** papSeCon = NEW GgafDxSeConnection*[_se_num];
+        for (int i = 0; i < _se_num; i++) {
+            papSeCon[i] = _papSeCon[i];
+        }
+        DELETEARR_POSSIBLE_NULL(_papSeCon);
+        int wk_se_num = _se_num;
+        declareSeNum(_se_num+3); //3個拡張
+        for (int i = 0; i < wk_se_num; i++) {
+            _papSeCon[i] = papSeCon[i];
+        }
+        DELETEARR_POSSIBLE_NULL(papSeCon);
     }
 
-#ifdef MY_DEBUG
-    if (_se_num <= 0) {
-        throwGgafCriticalException("GgafDxSeTransmitter::set() useSeで使用するSe数を事前に宣言してください。prm_id="<<prm_id);
-    }
-    if (prm_id < 0 || prm_id >= _se_num) {
-        throwGgafCriticalException("GgafDxSeTransmitter::set() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。 prm_id="<<prm_id);
-    }
-#endif
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
     _papSeCon[prm_id] = connectToSeManager(idstr);

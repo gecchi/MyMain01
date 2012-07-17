@@ -1043,7 +1043,7 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      * 他の GgafDxKurokoA オブジェクトを状態を自身に引継ぐ .
      * @param prm_pKurokoA 引継元
      */
-    void followFrom(GgafDxKurokoA* prm_pKurokoA);
+    void followMvFrom(GgafDxKurokoA* prm_pKurokoA);
 
     void resetMv();
 

@@ -327,7 +327,6 @@ void VvvCamWorker::processBehavior() {
         pCam->_pVecCamUp->y = UTIL::SIN[angXY_nowCamUp_ / SANG_RATE];
         pCam->_pVecCamUp->z = 0.0f;
     }
-
     pCam->_pKurokoA->behave();
     pVP->_pKurokoA->behave();
 }
