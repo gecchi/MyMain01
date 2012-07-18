@@ -3,15 +3,15 @@
 namespace VioletVreath {
 
 /**
- * 登場エフェクト、その１ .
+ * 登場エフェクト、その1 .
  * @version 1.00
  * @since 2012/06/11
  * @author Masatoshi Tsuge
  */
-class EffectEntrance001 : public GgafLib::DefaultSpriteSetActor {
+class EffectEntry001 : public GgafLib::DefaultSpriteSetActor {
 
 public:
-    EffectEntrance001(const char* prm_name);
+    EffectEntry001(const char* prm_name);
 
     void initialize() override;
 
@@ -23,7 +23,7 @@ public:
 
     void processJudgement() override;
 
-    virtual ~EffectEntrance001();
+    virtual ~EffectEntry001();
 };
 
 }

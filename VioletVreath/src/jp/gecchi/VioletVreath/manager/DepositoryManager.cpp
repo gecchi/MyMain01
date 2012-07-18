@@ -12,8 +12,8 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     GgafActorDepository* pResource = NULL;
 
     if (UTIL::strcmp_ascii("DpCon_Shot001", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_Shot001Stock");
-        for (int i = 0; i < 100; i++) { //ストック100個
+        pResource = NEW GgafActorDepository("MgrDepo_Shot001Stock");
+        for (int i = 0; i < 100; i++) {
             pResource->addSubLast(NEW Shot001("Shot001"));
             Sleep(1);
         }
@@ -21,7 +21,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
     if (UTIL::strcmp_ascii("DpCon_Shot002", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_Shot002Stock");
+        pResource = NEW GgafActorDepository("MgrDepo_Shot002Stock");
         for (int i = 0; i < 100; i++) { //ストック100個
             pResource->addSubLast(NEW Shot002("Shot002"));
             Sleep(1);
@@ -30,7 +30,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
     if (UTIL::strcmp_ascii("DpCon_Shot003", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_Shot003Stock");
+        pResource = NEW GgafActorDepository("MgrDepo_Shot003Stock");
         for (int i = 0; i < 100; i++) {
             pResource->addSubLast(NEW Shot003("Shot003"));
             Sleep(1);
@@ -39,7 +39,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
     if (UTIL::strcmp_ascii("DpCon_Shot004", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_Shot004Stock");
+        pResource = NEW GgafActorDepository("MgrDepo_Shot004Stock");
         for (int i = 0; i < 1600; i++) {
             pResource->addSubLast(NEW Shot004("Shot004"));
             Sleep(1);
@@ -48,7 +48,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
     if (UTIL::strcmp_ascii("DpCon_Shot004Blue", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_Shot004BlueStock");
+        pResource = NEW GgafActorDepository("MgrDepo_Shot004BlueStock");
         for (int i = 0; i < 300; i++) {
             pResource->addSubLast(NEW Shot004Blue("Shot004Blue"));
             Sleep(1);
@@ -57,7 +57,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
     if (UTIL::strcmp_ascii("DpCon_Shot004Yellow", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_Shot004YellowStock");
+        pResource = NEW GgafActorDepository("MgrDepo_Shot004YellowStock");
         for (int i = 0; i < 300; i++) {
             pResource->addSubLast(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
@@ -66,7 +66,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
     if (UTIL::strcmp_ascii("DpCon_EffRefraction001", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("DP_EffRefraction001");
+        pResource = NEW GgafActorDepository("MgrDepo_EffRefraction001");
         for (int i = 0; i < 100; i++) {
             pResource->addSubLast(NEW EffectLaserRefraction001("EffRefraction001"));
             Sleep(1);

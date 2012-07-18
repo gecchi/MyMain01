@@ -290,7 +290,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Yellow.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\TestDepository.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectCondensation001.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectEntrance001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectEntry001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectEntry002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectEntry003.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion003.cpp" />
@@ -536,7 +538,9 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\template\formation001.hpp" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\testdepository.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectcondensation001.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectEntrance001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectentry001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectentry002.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectentry003.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectexplosion001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectexplosion002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectexplosion003.h" />

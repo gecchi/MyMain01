@@ -23,18 +23,26 @@ namespace VioletVreath {
 class CommonScene : public GgafLib::DefaultScene {
 
 public:
-    /** 汎用爆発エフェクトその１用デポジトリ */
+    /** 汎用爆発エフェクトその１用、常備デポジトリ */
     GgafCore::GgafActorDepository* pDepo_EffectExplosion001_;
-    /** 汎用爆発エフェクトその２用デポジトリ */
+    /** 汎用爆発エフェクトその２用、常備デポジトリ */
     GgafCore::GgafActorDepository* pDepo_EffectExplosion002_;
-    /** 汎用爆発エフェクトその３用デポジトリ */
+    /** 汎用爆発エフェクトその３用、常備デポジトリ */
     GgafCore::GgafActorDepository* pDepo_EffectExplosion003_;
-    /** ターボエフェクト用デポジトリ */
+    /** ターボエフェクト用、常備デポジトリ */
     GgafCore::GgafActorDepository* pDepo_EffectTurbo002_;
-    /** アイテムオブジェクトその１用デポジトリ */
+    /** アイテムオブジェクトその１用、常備デポジトリ */
     GgafCore::GgafActorDepository* pDepo_MagicPointItem001_;
-    /** アイテムオブジェクトその１用デポジトリ */
+    /** アイテムオブジェクトその１用、常備デポジトリ */
     GgafCore::GgafActorDepository* pDepo_MagicPointItem002_;
+
+    /** 汎用出現エフェクトその１用、常備デポジトリ */
+    GgafCore::GgafActorDepository* pDepo_EffectEntry001_;
+    /** 汎用出現エフェクトその２用、常備デポジトリ */
+    GgafCore::GgafActorDepository* pDepo_EffectEntry002_;
+    /** 汎用出現エフェクトその３用、常備デポジトリ */
+    GgafCore::GgafActorDepository* pDepo_EffectEntry003_;
+
 
     CommonScene(const char* prm_name);
     /**

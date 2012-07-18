@@ -132,21 +132,14 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
 
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
-        //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
-        if (pExplo) {
-            pExplo->locateWith(this);
-            pExplo->_pKurokoA->followMvFrom(_pKurokoA);
-        }
+        //爆発効果
+        UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
             //アイテム出現
-            Item* pItem = UTIL::activateItemOf(this);
-            if (pItem) {
-                pItem->locateWith(this);
-            }
+            UTIL::activateItemOf(this);
         }
         sayonara();
     }

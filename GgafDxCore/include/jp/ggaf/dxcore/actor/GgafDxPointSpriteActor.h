@@ -152,13 +152,13 @@ public:
      * α設定.
      * @param prm_alpha
      */
-    void setAlpha(float prm_alpha) override;
+    virtual void setAlpha(float prm_alpha) override;
 
     /**
      * α加算 .
      * @param prm_alpha
      */
-    void addAlpha(float prm_alpha) override;
+    virtual void addAlpha(float prm_alpha) override;
 
 
     virtual ~GgafDxPointSpriteActor(); //デストラクタ

@@ -85,12 +85,8 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
-        //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
-        if (pExplo) {
-            pExplo->locateWith(this);
-            pExplo->_pKurokoA->followMvFrom(_pKurokoA);
-        }
+        //爆発効果
+        UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(CERESSHOT001_SE_EXPLOSION);
 
         sayonara();

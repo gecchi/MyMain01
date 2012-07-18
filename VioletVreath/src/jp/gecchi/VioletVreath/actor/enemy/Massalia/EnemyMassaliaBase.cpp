@@ -31,15 +31,9 @@ void EnemyMassaliaBase::onHit(GgafActor* prm_pOtherActor) {
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         //破壊時
         setHitAble(false);
-        //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
-        if (pExplo) {
-            pExplo->locateWith(this);
-            pExplo->_pKurokoA->followMvFrom(_pKurokoA);
-        }
+        UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(SE_EXPLOSION);
         sayonara();
-
         //下位クラスの個々の処理
         processStaminaEnd(pOther);
     } else {

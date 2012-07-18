@@ -13,54 +13,90 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //汎用爆発エフェクト EffectExplosion001
     {
-        pDepo_EffectExplosion001_ = NEW GgafActorDepository("DpExplo001");
+        pDepo_EffectExplosion001_ = NEW GgafActorDepository("CommonDepo_Explo001");
         for (int i = 0; i < 300; i++) {
-            pDepo_EffectExplosion001_->addSubLast(NEW EffectExplosion001("EffectExplosion001"));
+            std::string name = "EffectExplosion001("+ITOS(i)+")";
+            pDepo_EffectExplosion001_->addSubLast(NEW EffectExplosion001(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectExplosion001_);
     }
 
     //汎用爆発エフェクト EffectExplosion002
     {
-        pDepo_EffectExplosion002_ = NEW GgafActorDepository("DpExplo002");
+        pDepo_EffectExplosion002_ = NEW GgafActorDepository("CommonDepo_Explo002");
         for (int i = 0; i < 100; i++) {
-            pDepo_EffectExplosion001_->addSubLast(NEW EffectExplosion002("EffectExplosion002"));
+            std::string name = "EffectExplosion002("+ITOS(i)+")";
+            pDepo_EffectExplosion002_->addSubLast(NEW EffectExplosion002(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectExplosion002_);
     }
     //汎用爆発エフェクト EffectExplosion003
     {
-        pDepo_EffectExplosion003_ = NEW GgafActorDepository("DpExplo003");
+        pDepo_EffectExplosion003_ = NEW GgafActorDepository("CommonDepo_Explo003");
         for (int i = 0; i < 100; i++) {
-            pDepo_EffectExplosion003_->addSubLast(NEW EffectExplosion003("EffectExplosion003"));
+            std::string name = "EffectExplosion003("+ITOS(i)+")";
+            pDepo_EffectExplosion003_->addSubLast(NEW EffectExplosion003(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectExplosion003_);
     }
 
     //アイテム小
     { //pDepo_MagicPointItem001_
-        pDepo_MagicPointItem001_ = NEW GgafActorDepository("DpMpItem001");
+        pDepo_MagicPointItem001_ = NEW GgafActorDepository("CommonDepo_MpItem001");
         for (int i = 0; i < 300; i++) {
-            pDepo_MagicPointItem001_->addSubLast(NEW MagicPointItem001("MP001"));
+            std::string name = "MagicPointItem001("+ITOS(i)+")";
+            pDepo_MagicPointItem001_->addSubLast(NEW MagicPointItem001(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_MagicPointItem001_);
     }
 
     //アイテム中
     { //pDepo_MagicPointItem002_
-        pDepo_MagicPointItem002_ = NEW GgafActorDepository("DpMpItem002");
+        pDepo_MagicPointItem002_ = NEW GgafActorDepository("CommonDepo_MpItem002");
         for (int i = 0; i < 10; i++) {
-            pDepo_MagicPointItem002_->addSubLast(NEW MagicPointItem002("MP002"));
+            std::string name = "MagicPointItem002("+ITOS(i)+")";
+            pDepo_MagicPointItem002_->addSubLast(NEW MagicPointItem002(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_MagicPointItem002_);
     }
 
     { //Effect EffectTurbo002 ターボ噴射
         pDepo_EffectTurbo002_ = NEW GgafActorDepository("RotExplo002");
-        for (int i = 0; i < 10; i++) { //ストック100個
-            pDepo_EffectTurbo002_->addSubLast(NEW EffectTurbo002("EffectTurbo002"));
+        for (int i = 0; i < 10; i++) {
+            std::string name = "EffectTurbo002("+ITOS(i)+")";
+            pDepo_EffectTurbo002_->addSubLast(NEW EffectTurbo002(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectTurbo002_);
+    }
+
+
+    //汎用出現エフェクト EffectEntry001
+    {
+        pDepo_EffectEntry001_ = NEW GgafActorDepository("CommonDepo_Explo001");
+        for (int i = 0; i < 100; i++) {
+            std::string name = "EffectEntry001("+ITOS(i)+")";
+            pDepo_EffectEntry001_->addSubLast(NEW EffectEntry001(name.c_str()));
+        }
+        getDirector()->addSubGroup(pDepo_EffectEntry001_);
+    }
+
+    //汎用出現エフェクト EffectEntry002
+    {
+        pDepo_EffectEntry002_ = NEW GgafActorDepository("CommonDepo_Explo002");
+        for (int i = 0; i < 30; i++) {
+            std::string name = "EffectEntry002("+ITOS(i)+")";
+            pDepo_EffectEntry002_->addSubLast(NEW EffectEntry002(name.c_str()));
+        }
+        getDirector()->addSubGroup(pDepo_EffectEntry002_);
+    }
+    //汎用出現エフェクト EffectEntry003
+    {
+        pDepo_EffectEntry003_ = NEW GgafActorDepository("CommonDepo_Explo003");
+        for (int i = 0; i < 30; i++) {
+            std::string name = "EffectEntry003("+ITOS(i)+")";
+            pDepo_EffectEntry003_->addSubLast(NEW EffectEntry003(name.c_str()));
+        }
+        getDirector()->addSubGroup(pDepo_EffectEntry003_);
     }
 
     //    { //EnemyShot001

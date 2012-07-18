@@ -168,8 +168,13 @@ public:
 
 
 
-
-    static GgafDxCore::GgafDxDrawableActor* activateExplosionEffectOf(GgafCore::GgafMainActor* prm_pActor) {
+    /**
+     * 対象アクターに紐ついた爆発エフェクトを、取得できれば有効にし、それを返す .
+     * ステータス(_pStatus)の STAT_ExplosionEffectKind の値によって種類が振り分けられる。
+     * @param prm_pActor 対象アクター
+     * @return 対象アクターの爆発エフェクト。又は、取得できない場合 NULL。
+     */
+    static GgafDxCore::GgafDxDrawableActor* activateExplosionEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
         GgafDxCore::GgafDxDrawableActor* pE = NULL;
         switch (prm_pActor->_pStatus->get(STAT_ExplosionEffectKind)) {
             case 1: {
@@ -189,10 +194,22 @@ public:
                 break;
             }
         }
+
+        if (pE) {
+            //出現座標を設定
+            pE->locateWith(prm_pActor);
+            pE->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+        }
         return pE;
     }
 
-    static Item* activateItemOf(GgafCore::GgafMainActor* prm_pActor) {
+    /**
+     * 対象アクターに紐ついた保持アイテムを、取得できれば有効にし、それを返す .
+     * ステータス(_pStatus)の STAT_ItemKind の値によってアイテム種類が振り分けられる。
+     * @param prm_pActor 対象アクター
+     * @return 対象アクターの保持アイテム。又は、取得できない場合 NULL。
+     */
+    static Item* activateItemOf(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
         Item* pI = NULL;
         switch (prm_pActor->_pStatus->get(STAT_ItemKind)) {
             case 1: {
@@ -208,10 +225,40 @@ public:
                 break;
             }
         }
+        if (pI) {
+            //出現座標を設定
+            pI->locateWith(prm_pActor);
+        }
         return pI;
     }
 
+    static GgafDxCore::GgafDxDrawableActor* activateEntryEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
+        GgafDxCore::GgafDxDrawableActor* pE = NULL;
+        switch (prm_pActor->_pStatus->get(STAT_EntryEffectKind)) {
+            case 1: {
+                pE = employFromCommon(EffectEntry001);
+                break;
+            }
+            case 2: {
+                pE = employFromCommon(EffectEntry002);
+                break;
+            }
+            case 3: {
+                pE = employFromCommon(EffectEntry003);
+                break;
+            }
+            default: {
+                pE = NULL;
+                break;
+            }
+        }
 
+        if (pE) {
+            //出現座標を設定
+            pE->locateWith(prm_pActor);
+        }
+        return pE;
+    }
 
 
 

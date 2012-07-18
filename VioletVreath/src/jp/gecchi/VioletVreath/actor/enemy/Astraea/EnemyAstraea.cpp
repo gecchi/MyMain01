@@ -15,7 +15,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     _Z = 0;
     laser_length_ = 30;
     laser_interval_ = 300;
-    angveloTurn_ = 100;
+    angveloTurn_ = 5000;
     angClearance_ = 30000;//開き具合
     papapLaserChipDepo_ = NEW LaserChipDepository**[laser_way_];
     for (int i = 0; i < laser_way_; i++) {
@@ -52,8 +52,6 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     }
     DELETEARR_IMPOSSIBLE_NULL(paAng_way);
 
-    pEffect_Appearance_ = NULL;
-
     _pSeTx->set(SE_EXPLOSION, "bomb1"     , GgafRepeatSeq::nextVal("CH_bomb1"));
     _pSeTx->set(SE_FIRE     , "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
 
@@ -70,8 +68,6 @@ void EnemyAstraea::onCreateModel() {
 }
 
 void EnemyAstraea::initialize() {
-    setHitAble(true);
-    setAlpha(0.99);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, PX_C(200));
     _pKurokoA->setRzRyMvAng(0, D180ANG);
@@ -79,29 +75,41 @@ void EnemyAstraea::initialize() {
 }
 
 void EnemyAstraea::onActive() {
-    //ステータスリセット
     _pStatus->reset();
-    if (pEffect_Appearance_) {
-        pEffect_Appearance_->activate();
-    }
-    _pProg->set(PROG_MOVE);
-    _X = GgafDxCore::GgafDxUniverse::_X_goneRight - 10000;
+    setHitAble(false);
+    _X = GgafDxCore::GgafDxUniverse::_X_goneRight / 2;
+    _pProg->set(PROG_ENTRY);
 }
 
 void EnemyAstraea::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
+        case PROG_ENTRY: {
+            if (_pProg->isJustChanged()) {
+                UTIL::activateEntryEffectOf(this);
+                _pFader->setAlpha(0);
+                _pFader->intoTargetAlphaLinerUntil(0.98, 20);
+                _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
+            }
+            if (_pFader->isWorking()) {
+                _pFader->behave();
+            } else {
+                _pProg->changeNext();
+            }
+            break;
+        }
         case PROG_MOVE: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setFaceAngVelo(AXIS_X, 0);
-                _pKurokoA->setFaceAngVelo(AXIS_Z, angveloTurn_*0.3);
-                _pKurokoA->setFaceAngVelo(AXIS_Y, angveloTurn_*0.5);
-                _pKurokoA->setMvVelo(5000);
+                angle v = angveloTurn_ / 50;
+                _pKurokoA->setFaceAngVelo(AXIS_X, RND(-v, v));
+                _pKurokoA->setFaceAngVelo(AXIS_Z, RND(-v, v));
+                _pKurokoA->setFaceAngVelo(AXIS_Y, RND(-v, v));
+                _pKurokoA->setMvVelo(2000);
                 //_pKurokoA->setMvVelo(0);
             }
             if (getActivePartFrame() % laser_interval_ == 0) {
-                _pProg->change(PROG_TURN);
+                _pProg->changeNext();
             }
             break;
         }
@@ -109,19 +117,19 @@ void EnemyAstraea::processBehavior() {
         case PROG_TURN: {
             if (_pProg->isJustChanged()) {
                 //ターン開始
-                _pKurokoA->execTurnFaceAngSequence(P_MYSHIP, angveloTurn_*20, 0,
-                                                   TURN_COUNTERCLOCKWISE, false);
+                _pKurokoA->execTurnFaceAngSequence(P_MYSHIP, angveloTurn_, 0,
+                                                   TURN_ANTICLOSE_TO, false);
                 cnt_laserchip_ = 0;
             }
             if (_pKurokoA->isRunnigTurnFaceAngSequence()) {
                 //ターン中
             } else {
                 //自機にがいた方向に振り向きが完了時
-                _pKurokoA->setFaceAngVelo(AXIS_X, angveloTurn_*40);
+                _pKurokoA->setFaceAngVelo(AXIS_X, angveloTurn_*2);
                 _pKurokoA->setFaceAngVelo(AXIS_Z, 0);
                 _pKurokoA->setFaceAngVelo(AXIS_Y, 0);
                 _pKurokoA->setMvVelo(0);
-                _pProg->change(PROG_FIRE);
+                _pProg->changeNext();
             }
             break;
         }
@@ -143,7 +151,7 @@ void EnemyAstraea::processBehavior() {
                 }
                 if (can_fire) {
                     _pSeTx->play3D(SE_FIRE); //発射音
-                    effectFlush(5); //フラッシュ
+                    effectFlush(2); //フラッシュ
                 }
             }
             if (cnt_laserchip_ < laser_length_) {
@@ -274,12 +282,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
-        //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
-        if (pExplo) {
-            pExplo->locateWith(this);
-            pExplo->_pKurokoA->followMvFrom(_pKurokoA);
-        }
+        UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(SE_EXPLOSION);
 //          UTIL::shotWay002(this, pDepo_Shot_,
 //                              PX_C(20),
@@ -298,7 +301,6 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
                          5000, 100,
                          2, 1, 0.9);
         sayonara();
-        //消滅エフェクト
     } else {
         effectFlush(2); //フラッシュ
     }

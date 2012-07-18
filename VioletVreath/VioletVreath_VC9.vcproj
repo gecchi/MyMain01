@@ -338,7 +338,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntrance001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry003.cpp"
 				>
 			</File>
 			<File
@@ -1308,7 +1316,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntrance001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry003.h"
 				>
 			</File>
 			<File

@@ -1,5 +1,5 @@
-#ifndef GGAFLIBENTORY_H_
-#define GGAFLIBENTORY_H_
+#ifndef GGAFLIBENTRY_H_
+#define GGAFLIBENTRY_H_
 #include "GgafDxCommonHeader.h"
 
 #ifdef  __cplusplus
@@ -407,5 +407,5 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
 
 
 
-#endif /*GGAFLIBENTORY_H_*/
+#endif /*GGAFLIBENTRY_H_*/
 

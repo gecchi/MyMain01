@@ -19,8 +19,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionWateringLaserChip001Status(GgafStatus* p) {
@@ -34,8 +36,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionStraightLaserChip001Status(GgafStatus* p) {
@@ -49,8 +53,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyTorpedoStatus(GgafStatus* p) {
@@ -64,8 +70,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyTorpedoBlastStatus(GgafStatus* p) {
@@ -79,8 +87,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyShipStatus(GgafStatus* p) {
@@ -94,8 +104,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyStraightLaserChip001Status(GgafStatus* p) {
@@ -109,8 +121,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCurveLaserChip001Status(GgafStatus* p) {
@@ -124,8 +138,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCeresStatus(GgafStatus* p) {
@@ -139,8 +155,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCeresShot001Status(GgafStatus* p) {
@@ -154,8 +172,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaStatus(GgafStatus* p) {
@@ -169,8 +189,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafStatus* p) {
@@ -184,8 +206,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip002Status(GgafStatus* p) {
@@ -199,8 +223,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip003Status(GgafStatus* p) {
@@ -214,8 +240,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip004Status(GgafStatus* p) {
@@ -229,8 +257,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyVestaStatus(GgafStatus* p) {
@@ -244,8 +274,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMetisStatus(GgafStatus* p) {
@@ -259,8 +291,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
@@ -274,8 +308,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyJunoStatus(GgafStatus* p) {
@@ -289,8 +325,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThaliaStatus(GgafStatus* p) {
@@ -304,8 +342,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot001Status(GgafStatus* p) {
@@ -319,8 +359,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot002Status(GgafStatus* p) {
@@ -334,8 +376,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyTamago01Status(GgafStatus* p) {
@@ -349,8 +393,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCirceStatus(GgafStatus* p) {
@@ -364,8 +410,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot003Status(GgafStatus* p) {
@@ -379,8 +427,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot004Status(GgafStatus* p) {
@@ -394,8 +444,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTorusStatus(GgafStatus* p) {
@@ -409,8 +461,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 9999999 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetWall001Status(GgafStatus* p) {
@@ -424,8 +478,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 9999999 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetWall001PrismStatus(GgafStatus* p) {
@@ -439,8 +495,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 9999999 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyPallasStatus(GgafStatus* p) {
@@ -454,8 +512,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyEunomiaStatus(GgafStatus* p) {
@@ -469,8 +529,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyShot001Status(GgafStatus* p) {
@@ -484,8 +546,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaStatus(GgafStatus* p) {
@@ -499,8 +563,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragmentStatus(GgafStatus* p) {
@@ -514,8 +580,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment2Status(GgafStatus* p) {
@@ -529,8 +597,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment3Status(GgafStatus* p) {
@@ -544,8 +614,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionStatus(GgafStatus* p) {
@@ -559,8 +631,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMagicPointItem001Status(GgafStatus* p) {
@@ -574,8 +648,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMagicPointItem002Status(GgafStatus* p) {
@@ -589,8 +665,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHebeStatus(GgafStatus* p) {
@@ -604,8 +682,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbeStatus(GgafStatus* p) {
@@ -619,8 +699,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip001Status(GgafStatus* p) {
@@ -634,8 +716,10 @@ using namespace VioletVreath;
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト
-		p->set(STAT_ItemKind, 1 );  //保持アイテム（通常）
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
 		return p;
 	}
 // gen02 end

@@ -73,10 +73,14 @@
 #define STAT_RecessiveDefenceRate   (8)
 /** アクターステータス：ロックオン可否(0:不可 1:可)  */
 #define STAT_LockonAble             (9)
+/** アクターステータス：登場エフェクト種類(int)  */
+#define STAT_EntryEffectKind        (10)
+/** アクターステータス：退出エフェクト種類(int)  */
+#define STAT_LeaveEffectKind        (11)
 /** アクターステータス：爆発エフェクト種類(int)  */
-#define STAT_ExplosionEffectKind    (10)
+#define STAT_ExplosionEffectKind    (12)
 /** アクターステータス：保持アイテム種類(int)  */
-#define STAT_ItemKind               (11)
+#define STAT_ItemKind               (13)
 
 
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
@@ -354,7 +358,9 @@ class EffectCondensation001;
 class EffectLaserRefraction001;
 class EffectWormhole;
 class EffectWormhole001;
-class EffectEntrance001;
+class EffectEntry001;
+class EffectEntry002;
+class EffectEntry003;
 
 class HoshiBoshiTransit;
 class HoshiBoshiRankUp;
@@ -598,7 +604,9 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectEntrance001.h"
+#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry001.h"
+#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry002.h"
+#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry003.h"
 
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/EffectMyOption.h"

@@ -11,10 +11,17 @@ namespace VioletVreath {
 class EnemyEunomia : public GgafLib::DefaultMeshSetActor {
 
 public:
+    enum {
+        PROG_ENTRY = 1  ,
+        PROG_SPLINE_MOVE   ,
+        PROG_MOVE01_1      ,
+        PROG_MOVE01_2      ,
+        PROG_LEAVE,
+    };
 
-      enum {
-          SE_EXPLOSION = 0,
-      };
+    enum {
+        SE_EXPLOSION = 0,
+    };
 
     /** 移動スプラインのシークエンスプログラム */
     GgafLib::SplineSequence* pSplSeq_;
@@ -76,7 +83,6 @@ public:
      * @param prm_pDepo_ShotEffect
      */
     virtual void config(
-//            GgafLib::TreeFormation* prm_pFormation,
             GgafLib::SplineSequence* prm_pSplSeq,
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect

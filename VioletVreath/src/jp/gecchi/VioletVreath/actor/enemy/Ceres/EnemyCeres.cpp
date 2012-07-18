@@ -101,16 +101,10 @@ void EnemyCeres::processJudgement() {
 
 void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    //・・・ココにヒットされたエフェクト
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         //破壊された場合
         setHitAble(false);
-        //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
-        if (pExplo) {
-            pExplo->locateWith(this);
-            pExplo->_pKurokoA->followMvFrom(_pKurokoA);
-        }
+        UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(SE_EXPLOSION);
         sayonara();
     }

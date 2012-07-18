@@ -2,7 +2,7 @@
  * 「Gecchi Game App Framework ライブラリ」使用サンプル
  */
 #include "stdafx.h"
-#include "GgafLibEntory.h" //"GgafLibEntory.h" をインクルードし、
+#include "GgafLibEntry.h" //"GgafLibEntry.h" をインクルードし、
                            //main関数 WinMain関数 ウィンドウプロシージャは
                            //１つのファイルに記述します。
 using namespace SimpleSample;

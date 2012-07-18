@@ -33,10 +33,7 @@ void EnemyMassaliaFragment3::processStaminaEnd(GgafDxGeometricActor* prm_pOther)
     //自機側に撃たれて消滅の場合、
     if (prm_pOther->getKind() & KIND_MY) {
         //アイテム出現
-        Item* pItem = UTIL::activateItemOf(this);
-        if (pItem) {
-            pItem->locateWith(this);
-        }
+        UTIL::activateItemOf(this);
     }
 }
 

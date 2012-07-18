@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "GgafLibEntory.h"
+#include "GgafLibEntry.h"
 using namespace VVViewer;
 
 

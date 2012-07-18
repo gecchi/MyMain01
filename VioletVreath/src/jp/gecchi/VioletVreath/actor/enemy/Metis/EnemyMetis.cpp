@@ -28,11 +28,11 @@ void EnemyMetis::initialize() {
         nArea++;
     }
     _pColliChecker->makeCollision(nArea);
-    for (int i = 0, n = 0; i < (width_X_ - depth_Y_)  ; i+= depth_Y_, n++) {
-        _pColliChecker->setColliAAB(n, i - ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0), -((depth_Y_/2.0)/1.5), -(height_Z_/2.0),
-                                           i + ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0),  ((depth_Y_/2.0)/1.5),  (height_Z_/2.0),
-                                           false, false, true
-                                       );
+    for (int i = 0, n = 0; i < width_X_-depth_Y_; i += depth_Y_, n++) {
+        _pColliChecker->setColliAAB(n,
+                                    i - ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0), -((depth_Y_/2.0)/1.5), -(height_Z_/2.0),
+                                    i + ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0),  ((depth_Y_/2.0)/1.5),  (height_Z_/2.0),
+                                    false, false, true );
     }
 }
 
@@ -67,18 +67,12 @@ void EnemyMetis::processJudgement() {
 }
 
 void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
-
-
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
-        //爆発エフェクト
-        GgafDxDrawableActor* pExplo = UTIL::activateExplosionEffectOf(this);
-        if (pExplo) {
-            pExplo->locateWith(this);
-            pExplo->_pKurokoA->followMvFrom(_pKurokoA);
-        }
+        //爆発効果
+        UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(SE_EXPLOSION);
 
         //打ち返し弾
@@ -97,17 +91,11 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
                                    D_ANG(1), 100,
                                    2000, 200,
                                    2, 4, 0.9);
-
         }
-
-
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
             //アイテム出現
-            Item* pItem = UTIL::activateItemOf(this);
-            if (pItem) {
-                pItem->locateWith(this);
-            }
+            UTIL::activateItemOf(this);
         }
         sayonara();
     } else {
@@ -115,12 +103,13 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         effectFlush(2); //フラッシュ
         _pSeTx->play3D(SE_DAMAGED);
     }
-
 }
 
 void EnemyMetis::onInactive() {
     sayonara();
 }
+
 EnemyMetis::~EnemyMetis() {
     pCon_ShotDepo_->close();
 }
+

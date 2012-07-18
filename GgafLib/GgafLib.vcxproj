@@ -258,7 +258,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\WorldBoundActor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\GgafLibEntory.h" />
+    <ClInclude Include="include\ggaflibentry.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\StringSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\GgafLibProperties.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\AmountGraph.h" />

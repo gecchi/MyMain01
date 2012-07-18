@@ -69,13 +69,13 @@ public:
      * ƒ¿İ’è.
      * @param prm_alpha
      */
-    void setAlpha(float prm_alpha) override;
+    virtual void setAlpha(float prm_alpha) override;
 
     /**
      * ƒ¿‰ÁZ .
      * @param prm_alpha
      */
-    void addAlpha(float prm_alpha) override;
+    virtual void addAlpha(float prm_alpha) override;
 
 
 //    int chkSequenceOfTheSameDrawDepth() {

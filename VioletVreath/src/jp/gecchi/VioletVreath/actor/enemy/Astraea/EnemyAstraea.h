@@ -13,9 +13,10 @@ private:
 
 public:
     enum {
-        PROG_MOVE = 1,
-        PROG_TURN    ,
-        PROG_FIRE    ,
+        PROG_ENTRY = 1,
+        PROG_MOVE,
+        PROG_TURN,
+        PROG_FIRE,
     };
 
     enum {
@@ -51,8 +52,6 @@ public:
 
     GgafLib::LaserChipDepository*** papapLaserChipDepo_;
 
-    /** 出現エフェクト */
-    GgafDxCore::GgafDxDrawableActor* pEffect_Appearance_;
     DepositoryConnection* pCon_ShotDepo_;
     DepositoryConnection* pCon_ShotDepo2_;
     DepositoryConnection* pCon_ShotDepo3_;
