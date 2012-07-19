@@ -176,4 +176,4 @@ public:
 };
 
 }
-#endif /*GGAFCURTAIN_H_*/
+#endif /*GGAFPROGRESS_H_*/

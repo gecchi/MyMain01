@@ -15,7 +15,7 @@ class GgafStatus {
      * ステータス値を表す .
      * 型は char, int, doubleのいずれか。
      */
-    struct VALUE {
+    union VALUE {
       char _char_val;
       int _int_val;
       double _double_val;
@@ -39,8 +39,8 @@ public:
      */
     GgafStatus(int prm_max_status_kind, GgafStatus* (*prm_pFunc_reset)(GgafStatus*) = NULL) {
         _len = prm_max_status_kind;
-        _paValue = new VALUE[prm_max_status_kind];
-        for (int i = 0; i < prm_max_status_kind; i++) {
+        _paValue = new VALUE[_len];
+        for (int i = 0; i < _len; i++) {
             _paValue[i]._double_val = 0;
             _paValue[i]._int_val = 0;
             _paValue[i]._char_val = 0;
@@ -53,18 +53,38 @@ public:
     }
 
     void set(int prm_status_kind, char val) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
         _paValue[prm_status_kind]._char_val = val;
     }
 
     void set(int prm_status_kind, int val) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
         _paValue[prm_status_kind]._int_val = val;
     }
 
     void set(int prm_status_kind, double val) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
         _paValue[prm_status_kind]._double_val = val;
     }
 
     void set(int prm_status_kind, void* p) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
         _paValue[prm_status_kind]._ptr = p;
     }
 

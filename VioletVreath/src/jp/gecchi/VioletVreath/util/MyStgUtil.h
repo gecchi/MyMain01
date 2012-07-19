@@ -1,13 +1,15 @@
 #ifndef MYSTGUTIL_H_
 #define MYSTGUTIL_H_
 
-#define STATUS(X) (NEW GgafCore::GgafStatus(15, VioletVreath::MyStgUtil::reset##X##Status))
+
 
 
 #ifdef UTIL
     #undef UTIL
 #endif
 #define UTIL VioletVreath::MyStgUtil
+
+#define STATUS(X) (NEW GgafCore::GgafStatus(STAT_Sentry+1, VioletVreath::MyStgUtil::reset##X##Status))
 
 namespace VioletVreath {
 
@@ -177,6 +179,10 @@ public:
     static GgafDxCore::GgafDxDrawableActor* activateExplosionEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
         GgafDxCore::GgafDxDrawableActor* pE = NULL;
         switch (prm_pActor->_pStatus->get(STAT_ExplosionEffectKind)) {
+            case 0: {
+                pE = NULL; //爆発エフェクト無し
+                break;
+            }
             case 1: {
                 pE = employFromCommon(EffectExplosion001);
                 break;
@@ -190,6 +196,7 @@ public:
                 break;
             }
             default: {
+                _TRACE_("＜警告＞ 対応 ExplosionEffect が定義されてない。prm_pActor="<<prm_pActor->getName());
                 pE = NULL;
                 break;
             }
@@ -212,6 +219,10 @@ public:
     static Item* activateItemOf(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
         Item* pI = NULL;
         switch (prm_pActor->_pStatus->get(STAT_ItemKind)) {
+            case 0: {
+                pI = NULL; //アイテム無し
+                break;
+            }
             case 1: {
                 pI = employFromCommon(MagicPointItem001);
                 break;
@@ -221,6 +232,7 @@ public:
                 break;
             }
             default: {
+                _TRACE_("＜警告＞ 対応 ExplosionEffect が定義されてない。prm_pActor="<<prm_pActor->getName());
                 pI = NULL;
                 break;
             }
@@ -232,9 +244,19 @@ public:
         return pI;
     }
 
+    /**
+     * 対象アクターに紐ついた入場エフェクトを、取得できれば有効にし、それを返す .
+     * ステータス(_pStatus)の STAT_EntryEffectKind の値によって種類が振り分けられる。
+     * @param prm_pActor 対象アクター
+     * @return 対象アクターの入場エフェクト。又は、取得できない場合 NULL。
+     */
     static GgafDxCore::GgafDxDrawableActor* activateEntryEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
         GgafDxCore::GgafDxDrawableActor* pE = NULL;
         switch (prm_pActor->_pStatus->get(STAT_EntryEffectKind)) {
+            case 0: {
+                pE = NULL; //入場エフェクト無し
+                break;
+            }
             case 1: {
                 pE = employFromCommon(EffectEntry001);
                 break;
@@ -252,7 +274,6 @@ public:
                 break;
             }
         }
-
         if (pE) {
             //出現座標を設定
             pE->locateWith(prm_pActor);
@@ -272,7 +293,7 @@ public:
 
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
-    // コード変更は「ステータスCreater.xls」から行っていただきたい。
+    // コード変更は「ステータスCreater.xls」から行うこと。
     // gen01 start
     //自機レーザー
     static GgafCore::GgafStatus* resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);

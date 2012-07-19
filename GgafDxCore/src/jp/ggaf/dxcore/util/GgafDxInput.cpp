@@ -59,14 +59,14 @@ HRESULT GgafDxInput::init() {
 //        }
 //    }
     // マウス軸モードを設定
-    DIPROPDWORD dipropword;
-    dipropword.diph.dwSize = sizeof(dipropword);
-    dipropword.diph.dwHeaderSize = sizeof(dipropword.diph);
-    dipropword.diph.dwObj = 0;
-    dipropword.diph.dwHow = DIPH_DEVICE;
-    dipropword.dwData = DIPROPAXISMODE_ABS; // 絶対値モード
+    DIPROPDWORD dipropword_m;
+    dipropword_m.diph.dwSize = sizeof(dipropword_m);
+    dipropword_m.diph.dwHeaderSize = sizeof(dipropword_m.diph);
+    dipropword_m.diph.dwObj = 0;
+    dipropword_m.diph.dwHow = DIPH_DEVICE;
+    dipropword_m.dwData = DIPROPAXISMODE_ABS; // 絶対値モード
     //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
-    hr = _pIDirectInputDevice8_Mouse->SetProperty(DIPROP_AXISMODE, &dipropword.diph);
+    hr = _pIDirectInputDevice8_Mouse->SetProperty(DIPROP_AXISMODE, &dipropword_m.diph);
     if (hr != D3D_OK) {
         _TRACE_( "軸モードの設定に失敗");
         return FALSE;
@@ -153,14 +153,14 @@ HRESULT GgafDxInput::init() {
         }
 
         // 軸モードを設定
-        DIPROPDWORD dipropword;
-        dipropword.diph.dwSize = sizeof(dipropword);
-        dipropword.diph.dwHeaderSize = sizeof(dipropword.diph);
-        dipropword.diph.dwObj = 0;
-        dipropword.diph.dwHow = DIPH_DEVICE;
-        dipropword.dwData = DIPROPAXISMODE_ABS; // 絶対値モード
+        DIPROPDWORD dipropword_j;
+        dipropword_j.diph.dwSize = sizeof(dipropword_j);
+        dipropword_j.diph.dwHeaderSize = sizeof(dipropword_j.diph);
+        dipropword_j.diph.dwObj = 0;
+        dipropword_j.diph.dwHow = DIPH_DEVICE;
+        dipropword_j.dwData = DIPROPAXISMODE_ABS; // 絶対値モード
         //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
-        hr = _pIDirectInputDevice8_Joystick->SetProperty(DIPROP_AXISMODE, &dipropword.diph);
+        hr = _pIDirectInputDevice8_Joystick->SetProperty(DIPROP_AXISMODE, &dipropword_j.diph);
         if (hr != D3D_OK) {
             _TRACE_( "軸モードの設定に失敗");
             return FALSE;

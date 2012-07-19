@@ -475,6 +475,7 @@ magic_point Magic::calcReduceMp(int prm_now_level, int prm_target_down_level) {
     }
     return mp;
 }
+
 magic_time Magic::calcTotalEffecTime(int prm_now_level, int prm_target_up_level) {
     magic_time sum = 0;
     for (int i = prm_now_level+1; i <= prm_target_up_level; i++) {
@@ -482,5 +483,6 @@ magic_time Magic::calcTotalEffecTime(int prm_now_level, int prm_target_up_level)
     }
     return sum;
 }
+
 Magic::~Magic() {
 }

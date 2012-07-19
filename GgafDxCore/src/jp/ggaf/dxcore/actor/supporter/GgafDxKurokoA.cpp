@@ -123,14 +123,13 @@ GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) :
 void GgafDxKurokoA::behave() {
 
     //正面方角処理
-    angle angDistance;
     for (int i = 0; i < 3; i++) {
         if (_face_ang_targeting_flg[i]) { //ターゲット方向がある場合
             _angveloFace[i] += _angacceFace[i];
             setFaceAngVelo((axis)i, _angveloFace[i]);
 
             if (_angveloFace[i] > 0) { //反時計回りの場合
-                angDistance = getFaceAngDistance((axis)i, _angTargetFace[i], TURN_COUNTERCLOCKWISE);
+                angle angDistance = getFaceAngDistance((axis)i, _angTargetFace[i], TURN_COUNTERCLOCKWISE);
                 if (_angveloFace[i] > angDistance && _face_ang_target_allow_way[i] != TURN_CLOCKWISE
                         && _face_ang_target_allow_velo[i] >= _angveloFace[i]) {
 
@@ -144,7 +143,7 @@ void GgafDxKurokoA::behave() {
                     addFaceAng((axis)i, _angveloFace[i]);
                 }
             } else if (_angveloFace[i] < 0) { //時計回りの場合
-                angDistance = getFaceAngDistance((axis)i, _angTargetFace[i], TURN_CLOCKWISE);
+                angle angDistance = getFaceAngDistance((axis)i, _angTargetFace[i], TURN_CLOCKWISE);
                 if (_angveloFace[i] < angDistance && _face_ang_target_allow_way[i] != TURN_COUNTERCLOCKWISE
                         && -1 * _face_ang_target_allow_velo[i] <= _angveloFace[i]) { //目標を行き過ぎてしまいそう・・・な日
                     addFaceAng((axis)i, angDistance);

@@ -84,6 +84,10 @@ public:
      */
     GgafActor* callUpUntil(int prm_formation_sub_num = INT_MAX);
 
+    /**
+     * ‚±‚êˆÈã callUpUntil() •s‰Â‚Ìê‡ true
+     * @return
+     */
     bool isAllCalledUp();
 
     /**

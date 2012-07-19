@@ -65,10 +65,8 @@ MyShip::MyShip(const char* prm_name) :
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     MyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
-        std::stringstream name;
-        name <<  "MyStraightLaserChip001_" << i;
-        std::string name2 = name.str();
-        pChip = NEW MyStraightLaserChip001(name2.c_str());
+        std::string name = "MyStraightLaserChip001("+ITOS(i)+")";
+        pChip = NEW MyStraightLaserChip001(name.c_str());
         pChip->setPositionSource(this); //位置だけ同期
         pLaserChipDepo_->addSubLast(pChip);
     }
@@ -615,10 +613,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        if (pExplo001) {
-            pExplo001->locateWith(this);
-        }
+        UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(0);
     }
 

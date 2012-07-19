@@ -84,7 +84,7 @@ public:
      * メーター値をピクセル値で取得 .
      */
     pixcoord getPx() {
-        return (pixcoord)(*_pInt_val * _rate_val);;
+        return (pixcoord)(*_pInt_val * _rate_val);
     }
 
     /**

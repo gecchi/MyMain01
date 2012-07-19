@@ -72,7 +72,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
             "  array  ColorRGBA VertexColors[VerticesNum];\n" \
             "  array  DWORD     InitUvPtnNo[VerticesNum];\n" \
             "  array  FLOAT     InitScale[VerticesNum];\n" \
-            "}\n";
+            "}\n" \
             "\n";
     hr = _pID3DXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
 #ifdef MY_DEBUG
@@ -533,8 +533,6 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
 
     //インデックスバッファデータ作成
     if (prm_pMeshModel->_pIDirect3DIndexBuffer9 == NULL) {
-        int nFaces = model_pMeshesFront->_nFaces;
-
         hr = GgafDxGod::_pID3DDevice9->CreateIndexBuffer(
                                sizeof(WORD) * nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
@@ -689,21 +687,21 @@ void GgafDxModelManager::calcTangentAndBinormal(
     for (int i = 0; i < 3; ++i) {
         D3DXVECTOR3 V1 = CP1[i] - CP0[i];
         D3DXVECTOR3 V2 = CP2[i] - CP1[i];
-        D3DXVECTOR3 ABC;
-        D3DXVec3Cross(&ABC, &V1, &V2);
+        D3DXVECTOR3 VABC;
+        D3DXVec3Cross(&VABC, &V1, &V2);
 
-        if (ABC.x == 0.0f) {
+        if (VABC.x == 0.0f) {
             // やばいす！
             // ポリゴンかUV上のポリゴンが縮退してます！
 //            _ASSERT(0);
             //memset(outTangent, 0, sizeof(D3DXVECTOR3));
             //memset(outBinormal, 0, sizeof(D3DXVECTOR3));
             _TRACE_("＜警告＞ GgafDxModelManager::calcTangentAndBinormal ポリゴンかUV上のポリゴンが縮退してます！");
-            U[i] = -SGN(ABC.y) * lim;
-            V[i] = -SGN(ABC.z) * lim;
+            U[i] = -SGN(VABC.y) * lim;
+            V[i] = -SGN(VABC.z) * lim;
         } else {
-            U[i] = -ABC.y / ABC.x;
-            V[i] = -ABC.z / ABC.x;
+            U[i] = -VABC.y / VABC.x;
+            V[i] = -VABC.z / VABC.x;
         }
     }
 
@@ -866,8 +864,6 @@ void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_
     D3DXVECTOR2 uv[3];
     D3DXVECTOR3 outTangent;
     D3DXVECTOR3 outBinormal;
-    D3DXVECTOR3 tangent[3];
-    D3DXVECTOR3 binormal[3];
     for (int face_index = 0; face_index < nFaces; face_index++) { //全ポリゴン数ループ
         //ポリゴン（三角面）の頂点インデックスを３つ格納
         for (int v = 0; v < 3; v++) {
@@ -1016,7 +1012,6 @@ void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_
                 D3DXVECTOR3 vecNormal;
                 D3DXVECTOR3 vecTangent;
                 D3DXVECTOR3 vecBinormal;
-                GgafDxModel::VERTEX_3D_BASE* pVtx;
                 for (int i = nVertices_begin; i < nVertices_end; i++) {
                     pVtx = (GgafDxModel::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
                     vecVertex.x = pVtx->x;

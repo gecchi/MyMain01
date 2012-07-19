@@ -69,7 +69,7 @@ void EnemyVesta::processBehavior() {
     //  ①座標計算は主にローカル座標系の計算である。GgafDxKurokoA でローカル座標系の操作を行うこととする。
     //    しかし、８分木登録や、当たり判定や、ターゲット座標など、他のオブジェクトからワールド座標を参照する等、
     //    基本状態は最終（絶対）座標系。
-    //    processBehavior()開始時は 最終（絶対）座標系(changeGeoFinal())の状態とする。
+    //    processBehavior()開始時は 最終（絶対）座標系(changeGeoFinal())の状態となっている。
     //  ②processBehavior()内で必要に応じて changeGeoLocal() でメンバー _X, _Y, _Z, _RX, _RY, _RZ をローカル座標系に
     //    切り替えることが可能。移動等の座標計算を行う。
     //  ③但し processBehavior() を抜ける際には必ず最終座標(changeGeoFinal())の状態に戻しておく事。

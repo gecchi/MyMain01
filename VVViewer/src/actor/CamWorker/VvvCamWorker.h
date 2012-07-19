@@ -20,11 +20,11 @@ public:
     bool mdz_flg_;
     double mdz_vx_, mdz_vy_, mdz_vz_, mdz_t_;
     int mdz_total_;
-    long mx_clicked_,my_clicked_,mz_clicked_;
-    coord X_CAM_clicked_,Y_CAM_clicked_,Z_CAM_clicked_;
-    coord X_VP_clicked_,Y_VP_clicked_,Z_VP_clicked_;
-    angle XY_CAM_UP_clicked_;
-    D3DXMATRIX InvView_clicked_;
+//    long mx_clicked_,my_clicked_,mz_clicked_;
+//    coord X_CAM_clicked_,Y_CAM_clicked_,Z_CAM_clicked_;
+//    coord X_VP_clicked_,Y_VP_clicked_,Z_VP_clicked_;
+//    angle XY_CAM_UP_clicked_;
+//    D3DXMATRIX InvView_clicked_;
     /** 原点から初期カメラZ位置の距離 */
     coord dZ_camera_init_;
     //カメラの移動目標座標

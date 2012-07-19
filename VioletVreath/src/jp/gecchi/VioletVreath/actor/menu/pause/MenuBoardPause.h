@@ -17,14 +17,16 @@ public:
         ITEM_CONFIG,
         ITEM_BACK_TO_TITLE,
         ITEM_QUIT_GAME,
+
         ITEM_DUMMY1,
         ITEM_DUMMY2,
         ITEM_DUMMY3,
         ITEM_DUMMY4,
+
         ITEM_DUMMY5,
         ITEM_DUMMY6,
         ITEM_DUMMY7,
-        ITEM_CANCEL
+        ITEM_HOGEHOGE
     };
 
     MenuBoardConfirm* pConfirmMenu_;

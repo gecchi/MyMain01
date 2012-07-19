@@ -518,21 +518,6 @@ void MagicMeter::processDraw() {
                 n++;
             }
 
-//            //Šeƒ}ƒWƒbƒN‚ÌŒ»ƒŒƒxƒ‹‹­’²•\Ž¦
-//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[n], x + width_px_*i);
-//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[n], y - ((height_px_*(pMagic->level_+1))*paFloat_rr_[i]));
-//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_Y) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[n], z);
-//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[n], paFloat_rr_[i]*2);
-//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-//            _pUvFlipper->getUV(1, u, v);
-//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[n], u);
-//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetU_) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-//            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[n], v);
-//            checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetV_) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-//            n++;
         }
 
         _pBoardSetModel->draw(this, n);

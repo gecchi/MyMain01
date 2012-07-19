@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
-// コード変更は「ステータスCreater.xls」から行っていただきたい。
+// コード変更は「ステータスCreater.xls」から行うこと。
 // gen02 start
 	GgafStatus* MyStgUtil::resetMyStraightLaserChip001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //種別(デフォルト)

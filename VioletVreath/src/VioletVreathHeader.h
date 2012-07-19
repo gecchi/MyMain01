@@ -67,24 +67,26 @@
 #define STAT_Attack                 (5)
 /** アクターステータス：アクターの基本防御能力(double) 。相手のSTAT_Attackに乗じる(1.0で0%防御,0.9で10%防御) */
 #define STAT_DefaultDefenceRate     (6)
-/** アクターステータス：アクターの優性属性時防御能力(double)  */
+/** アクターステータス：アクターの優性属性時防御能力(double) */
 #define STAT_DominantDefenceRate    (7)
-/** アクターステータス：アクターの劣性属性時防御能力(double)  */
+/** アクターステータス：アクターの劣性属性時防御能力(double) */
 #define STAT_RecessiveDefenceRate   (8)
-/** アクターステータス：ロックオン可否(0:不可 1:可)  */
+/** アクターステータス：ロックオン可否(0:不可 1:可) */
 #define STAT_LockonAble             (9)
-/** アクターステータス：登場エフェクト種類(int)  */
+/** アクターステータス：登場エフェクト種類(int) */
 #define STAT_EntryEffectKind        (10)
-/** アクターステータス：退出エフェクト種類(int)  */
+/** アクターステータス：退出エフェクト種類(int) */
 #define STAT_LeaveEffectKind        (11)
-/** アクターステータス：爆発エフェクト種類(int)  */
+/** アクターステータス：爆発エフェクト種類(int) */
 #define STAT_ExplosionEffectKind    (12)
-/** アクターステータス：保持アイテム種類(int)  */
+/** アクターステータス：保持アイテム種類(int) */
 #define STAT_ItemKind               (13)
+/** アクターステータス：番兵（配列要素数に使用される、STAT_Sentry は一番最後の数値を持ってくること）*/
+#define STAT_Sentry                 (14)
 
 
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
-// コード変更は「RankAdjuster.xls」から行っていただきたい。
+// コード変更は「RankAdjuster.xls」から行うこと。
 // gen01 start
 // EnemyEunomia のランク式
 #define RR_EnemyEunomia_ShotWay(X)  (10+(X)*10)  //発射WAY数

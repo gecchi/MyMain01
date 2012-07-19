@@ -33,21 +33,21 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     pMsg->update("PAUSE MENU !!!", ALIGN_CENTER, VALIGN_MIDDLE);
     addDispActor(pMsg, PX_C(100), PX_C(20));
 
-    relationItemExNext(0, 4);
-    relationItemExNext(4, 8);
-    relationItemExNext(8, 1);
+    relationItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1       );
+    relationItemExNext(ITEM_DUMMY1       , ITEM_DUMMY5       );
+    relationItemExNext(ITEM_DUMMY5       , ITEM_CONFIG       );
 
-    relationItemExNext(1, 5);
-    relationItemExNext(5, 9);
-    relationItemExNext(9, 2);
+    relationItemExNext(ITEM_CONFIG       , ITEM_DUMMY2       );
+    relationItemExNext(ITEM_DUMMY2       , ITEM_DUMMY6       );
+    relationItemExNext(ITEM_DUMMY6       , ITEM_BACK_TO_TITLE);
 
-    relationItemExNext(2, 6);
-    relationItemExNext(6, 10);
-    relationItemExNext(10, 3);
+    relationItemExNext(ITEM_BACK_TO_TITLE, ITEM_DUMMY3       );
+    relationItemExNext(ITEM_DUMMY3       , ITEM_DUMMY7       );
+    relationItemExNext(ITEM_DUMMY7       , ITEM_QUIT_GAME    );
 
-    relationItemExNext(3, 7);
-    relationItemExNext(7, 11);
-    relationItemExNext(11, 0);
+    relationItemExNext(ITEM_QUIT_GAME    , ITEM_DUMMY4       );
+    relationItemExNext(ITEM_DUMMY4       , ITEM_HOGEHOGE     );
+    relationItemExNext(ITEM_HOGEHOGE     , ITEM_BACK_TO_GAME );
 
     relationItemCancel(ITEM_BACK_TO_GAME);
 
@@ -81,7 +81,7 @@ void MenuBoardPause::processBehavior() {
         if (pSub->isJustDecided()) {
             if (pSub->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
 
-                if (getSelectedIndex() == MenuBoardPause::ITEM_QUIT_GAME) {
+                if (getSelectedIndex() == ITEM_QUIT_GAME) {
                     PostQuitMessage(0);
                 }
 
@@ -96,9 +96,9 @@ void MenuBoardPause::processBehavior() {
 }
 
 void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
-    if (prm_item_index == MenuBoardPause::ITEM_BACK_TO_GAME) {
+    if (prm_item_index == ITEM_BACK_TO_GAME) {
         sink();
-    } else if (prm_item_index == MenuBoardPause::ITEM_QUIT_GAME) {
+    } else if (prm_item_index == ITEM_QUIT_GAME) {
         riseSub(pConfirmMenu_, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //サブメニュー起動
     }
 }
