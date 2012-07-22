@@ -259,20 +259,20 @@ OUT_VS_BM GgafDxVS_BumpMapping(
 
 /**
  * GgafLib::DefaultMeshActor バンプマッピング用のピクセルシェーダー .
- * @param prm_uv              UV座標
- * @param prm_color           色（頂点カラーによる）
- * @param prm_vecNormal_World 法線ベクトル(World座標系)
- * @param prm_vecEye_World    視線(頂点->視点)ベクトル(World座標系)
- * @param vecLight_Tangent    拡散光方向ベクトル(接空間座標系)
- * @param vecHarf_Tangent     ハーフベクトル(接空間座標系)
+ * @param prm_uv               UV座標
+ * @param prm_color            色（頂点カラーによる）
+ * @param prm_vecNormal_World  法線ベクトル(World座標系)
+ * @param prm_vecEye_World     視線(頂点->視点)ベクトル(World座標系)
+ * @param prm_vecLight_Tangent 拡散光方向ベクトル(接空間座標系)
+ * @param prm_vecHarf_Tangent  ハーフベクトル(接空間座標系)
  */
 float4 GgafDxPS_BumpMapping(
-    float2 prm_uv              : TEXCOORD0,
-    float4 prm_color           : COLOR0,
-    float3 prm_vecNormal_World : TEXCOORD1,
-    float3 prm_vecEye_World    : TEXCOORD2,
-    float3 vecLight_Tangent    : TEXCOORD3,
-    float3 vecHarf_Tangent     : TEXCOORD4
+    float2 prm_uv               : TEXCOORD0,
+    float4 prm_color            : COLOR0,
+    float3 prm_vecNormal_World  : TEXCOORD1,
+    float3 prm_vecEye_World     : TEXCOORD2,
+    float3 prm_vecLight_Tangent : TEXCOORD3,
+    float3 prm_vecHarf_Tangent  : TEXCOORD4
 ) : COLOR  {
     float a = prm_color.a; //α保持
 
@@ -282,19 +282,18 @@ float4 GgafDxPS_BumpMapping(
     //法線(法線マップの法線、つまり接空間座標系の法線になる）と、
     //拡散光方向ベクトル(頂点シェーダーで接空間座標系に予め変換済み) の内積から
     //ライト入射角を求め、面に対する拡散光の減衰率(power)を求める
-    float power = max(dot(vecNormal_Tangent, normalize(vecLight_Tangent) ), 0);
+    float power = max(dot(vecNormal_Tangent, normalize(prm_vecLight_Tangent) ), 0);
 
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0) {
         //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトルで
         //接空間座標系に予め変換済み）と法線(法線マップの法線、つまり接空間座標系の法線)の内積よりスペキュラ具合を計算
-        s = pow( max(0.0f, dot(vecNormal_Tangent, vecHarf_Tangent)), g_specular ) * g_specular_power;
+        s = pow( max(0.0f, dot(vecNormal_Tangent, prm_vecHarf_Tangent)), g_specular ) * g_specular_power; //法線マップの凸凹を考慮。
     }
 
+    float4 colTex = tex2D( MyTextureSampler, prm_uv); //単純にUVから色取得、つまり法線マップの凸凹は未考慮。
     //環境光色、テクスチャ色、頂点カラー、減衰率、スペキュラ を考慮した色作成
-    float4 colTex = tex2D( MyTextureSampler, prm_uv);
-    //colTex * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * g_colMaterialDiffuse ) + s;
-    //tex・mate・(amb + (light・p))  + s
+    //tex・mate・(amb + (light・pow)) + spow
     float4 colOut = colTex * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * prm_color ) + s; //prm_color = g_colMaterialDiffuse
     //Blinkerを考慮
     if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {

@@ -11,7 +11,9 @@ VvvCursor::VvvCursor(const char* prm_name) :
     setZEnable(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //Zバッファは書き込み無しに強制
     setSpecialDrawDepth(1); //描画順序を最前面描画に強制。ロックオンエフェクトが隠れないようにするため。
-
+    tX_ = _X;
+    tY_ = _Y;
+    tZ_ = _Z;
     useProgress(10);
     _pProg->set(CUR_SINK);
 }

@@ -58,7 +58,8 @@ struct OUT_VS_BM {
     float2 uv               : TEXCOORD0;   //頂点テクスチャUV
     float4 color            : COLOR0;      //頂点カラー
     float3 vecNormal_World  : TEXCOORD1;   //頂点の法線ベクトル(ワールド座標系)
-    float3 vecEye_Tangent   : TEXCOORD2;   //頂点の視線(頂点->視点)ベクトル(ワールド座標系)
+    float3 vecEye_World    : TEXCOORD2;   //頂点の視線(頂点->視点)ベクトル(ワールド座標系)    
+    //float3 vecEye_Tangent   : TEXCOORD2;   //頂点の視線(頂点->視点)ベクトル(ローカルの接空間座標系)
     float4 vecLight_Tangent : TEXCOORD3;   //頂点のライトベクトル(ローカルの接空間座標系)
     float4 vecHarf_Tangent  : TEXCOORD4;   //頂点のハーフベクトル(ローカルの接空間座標系)
 };
@@ -176,7 +177,8 @@ OUT_VS_BM GgafDxVS_BumpMapping(
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
     //UV計算
     out_vs.uv = prm_uv;  //そのまま
-
+    //法線を World 変換して正規化
+    out_vs.vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld));
     // 接空間行列の逆行列を算出
     float4x4 matTangent = getInvTangentMatrix(prm_vecTangent_Local, prm_vecBinormal_Local, prm_vecNormal_Local );
 
@@ -185,13 +187,11 @@ OUT_VS_BM GgafDxVS_BumpMapping(
     out_vs.vecLight_Tangent = mul(vecLight_Local, matTangent);         //接空間座標系へ
 
     //ワールド視点「頂点→カメラ視点」方向ベクトルを接空間に移す（スペキュラで使用）
-    float3 vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
-    float3 vecEye_Local = mul(vecEye_World, g_matInvWorld);  //ローカルに戻して
-    out_vs.vecEye_Tangent  = mul(vecEye_Local, matTangent);  //接空間座標系へ
+    out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
 
     if (g_specular_power != 0) {
         //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
-        float3 vecHarf_World = normalize(vecEye_World + (-g_vecLightFrom_World));
+        float3 vecHarf_World = normalize(out_vs.vecEye_World + (-g_vecLightFrom_World));
         //Worldハーフベクトルを接空間に移す
         float3 vecHarf_Local = mul(vecHarf_World, g_matInvWorld); //ローカルに戻して
         out_vs.vecHarf_Tangent = mul(vecHarf_Local, matTangent ); //接空間座標系へ
@@ -211,13 +211,22 @@ OUT_VS_BM GgafDxVS_BumpMapping(
 }
 
 
+/**
+ * GgafLib::DefaultMeshActor バンプマッピング用のピクセルシェーダー .
+ * @param prm_uv               UV座標
+ * @param prm_color            色（頂点カラーによる）
+ * @param prm_vecNormal_World  法線ベクトル(World座標系)
+ * @param prm_vecEye_World     視線(頂点->視点)ベクトル(World座標系)
+ * @param prm_vecLight_Tangent 拡散光方向ベクトル(接空間座標系)
+ * @param prm_vecHarf_Tangent  ハーフベクトル(接空間座標系)
+ */
 float4 GgafDxPS_BumpMapping(
     float2 prm_uv     : TEXCOORD0,
     float4 prm_color  : COLOR0,
-    float3 prm_vecNormal_World : TEXCOORD1,
-    float3 vecEye_Tangent   : TEXCOORD2,  //接空間座標系に変換された頂点 -> 視点 ベクトル
-    float3 vecLight_Tangent : TEXCOORD3,  //接空間座標系に変換された拡散光方向ベクトル
-    float3 vecHarf_Tangent  : TEXCOORD4   //接空間座標系に変換されたハーフベクトル
+    float3 prm_vecNormal_World  : TEXCOORD1,
+    float3 prm_vecEye_World     : TEXCOORD2,   //頂点 -> 視点 ベクトル
+    float3 prm_vecLight_Tangent : TEXCOORD3,  //接空間座標系に変換された拡散光方向ベクトル
+    float3 prm_vecHarf_Tangent  : TEXCOORD4   //接空間座標系に変換されたハーフベクトル
 ) : COLOR  {
     float a = prm_color.a; //α保持
     //法線マップからの法線
@@ -225,22 +234,23 @@ float4 GgafDxPS_BumpMapping(
     //法線(法線マップの法線、つまり接空間座標系の法線になる）と、
     //拡散光方向ベクトル(頂点シェーダーで接空間座標系に予め変換済み) の内積から
     //ライト入射角を求め、面に対する拡散光の減衰率(power)を求める
-    float power = max(dot(vecNormal_Tangent, normalize(vecLight_Tangent) ), 0);
+    float power = max(dot(vecNormal_Tangent, normalize(prm_vecLight_Tangent) ), 0);
 
-    float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-vecEye_Tangent, vecNormal_Tangent));
-    float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);
+    float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, prm_vecNormal_World)); //法線マップの凸凹は未考慮。   
+    float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);  //法線マップの凸凹は未考慮。
 
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0) {
         //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトルで
         //接空間座標系に予め変換済み）と法線(法線マップの法線、つまり接空間座標系の法線)の内積よりスペキュラ具合を計算
-        s = pow( max(0.0f, dot(vecNormal_Tangent, vecHarf_Tangent)), g_specular ) * g_specular_power;
+        s = pow( max(0.0f, dot(vecNormal_Tangent, prm_vecHarf_Tangent)), g_specular ) * g_specular_power; //法線マップの凸凹を考慮。
     }
 
     //色計算
     float4 colOut = colTex2D * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * prm_color ) + (colTexCube*g_reflectance) +s; //prm_color == g_colMaterialDiffuse
     //TODO:↑色計算もうちょっと頂点シェーダで処理できないものか・・・
     //float4 colOut = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
+
     //Blinkerを考慮
     if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
         colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
@@ -250,20 +260,18 @@ float4 GgafDxPS_BumpMapping(
     return colOut;
 }
 
-
 float4 PS_Flush(
-     float3 prm_vecNormal_World: TEXCOORD0,
-    float3 prm_viewVecW: TEXCOORD1,
-     float4 prm_color    : COLOR0
+    float2 prm_uv     : TEXCOORD0,
+    float4 prm_color    : COLOR0,
+    float3 prm_vecNormal_World : TEXCOORD1,
+    float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
-    //テクスチャをサンプリングして色取得（原色を取得）
-    float3 vReflect = reflect( prm_viewVecW, prm_vecNormal_World );
-    float4 colTex = texCUBE(MyTextureSampler, vReflect);
-    float4 colOut = colTex * prm_color * FLUSH_COLOR;
-    colOut.a *= g_alpha_master;
+    float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, prm_vecNormal_World));
+    float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);
+    float4 colOut = ((colTex2D * prm_color) + (colTexCube*g_reflectance))  * FLUSH_COLOR;
+    colOut.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master;
     return colOut;
 }
-
 
 /**
  * 通常テクニック

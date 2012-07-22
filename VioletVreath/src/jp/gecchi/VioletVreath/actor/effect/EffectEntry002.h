@@ -8,7 +8,7 @@ namespace VioletVreath {
  * @since 2012/07/18
  * @author Masatoshi Tsuge
  */
-class EffectEntry002 : public GgafLib::DefaultSpriteSetActor {
+class EffectEntry002 : public GgafLib::DefaultMeshSetActor {
 
 public:
     EffectEntry002(const char* prm_name);

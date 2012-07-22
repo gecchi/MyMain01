@@ -3,6 +3,8 @@
 	<name>GgafCore</name>
 	<comment></comment>
 	<projects>
+		<project>CustomizeOgg_static</project>
+		<project>CustomizeVorbis_static</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
