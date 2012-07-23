@@ -29,24 +29,24 @@ public:
 //                                if (pCChecker01->_is_blown || pCChecker02->_is_blown) {
                                     //ヒットしている場合、
                                     //吹っ飛び方向を設定
-                                    if (pActor01->_Z + pAAB01->_z1 < pActor02->_Z + pAAB02->_z1) {
-                                        pCChecker01->_blown_sgn_vZ -= 1;
-                                    }
-                                    if (pActor01->_Z + pAAB01->_z2 > pActor02->_Z + pAAB02->_z2) {
-                                        pCChecker01->_blown_sgn_vZ += 1;
-                                    }
-                                    if (pActor01->_Y + pAAB01->_y1 < pActor02->_Y + pAAB02->_y1) {
-                                        pCChecker01->_blown_sgn_vY -= 1;
-                                    }
-                                    if (pActor01->_Y + pAAB01->_y2 > pActor02->_Y + pAAB02->_y2) {
-                                        pCChecker01->_blown_sgn_vY += 1;
-                                    }
-                                    if (pActor01->_X + pAAB01->_x1 < pActor02->_X + pAAB02->_x1) {
-                                        pCChecker01->_blown_sgn_vX -= 1;
-                                    }
-                                    if (pActor01->_X + pAAB01->_x2 > pActor02->_X + pAAB02->_x2) {
-                                        pCChecker01->_blown_sgn_vX += 1;
-                                    }
+//                                    if (pActor01->_Z + pAAB01->_z1 < pActor02->_Z + pAAB02->_z1) {
+//                                        pCChecker01->_blown_sgn_vZ -= 1;
+//                                    }
+//                                    if (pActor01->_Z + pAAB01->_z2 > pActor02->_Z + pAAB02->_z2) {
+//                                        pCChecker01->_blown_sgn_vZ += 1;
+//                                    }
+//                                    if (pActor01->_Y + pAAB01->_y1 < pActor02->_Y + pAAB02->_y1) {
+//                                        pCChecker01->_blown_sgn_vY -= 1;
+//                                    }
+//                                    if (pActor01->_Y + pAAB01->_y2 > pActor02->_Y + pAAB02->_y2) {
+//                                        pCChecker01->_blown_sgn_vY += 1;
+//                                    }
+//                                    if (pActor01->_X + pAAB01->_x1 < pActor02->_X + pAAB02->_x1) {
+//                                        pCChecker01->_blown_sgn_vX -= 1;
+//                                    }
+//                                    if (pActor01->_X + pAAB01->_x2 > pActor02->_X + pAAB02->_x2) {
+//                                        pCChecker01->_blown_sgn_vX += 1;
+//                                    }
 //                                }
                                 return true;
                             }
@@ -69,27 +69,27 @@ public:
                     (double)((pActor02->_Z+pSphere02->_z) - (pActor01->_Z+pSphere01->_z)) * ((pActor02->_Z+pSphere02->_z) - (pActor01->_Z+pSphere01->_z));
         if (d2 <= (double)(pSphere02->_r + pSphere01->_r) * (pSphere02->_r + pSphere01->_r)
         ) {
-            //ヒット
-            //todo:「球対球吹っ飛び簡易計算アイディア」
-            //内接正８角形を考え互いの直径の平均をとり、その平均直径に真横面の割合を計算し掛ける範囲が垂直吹っ飛び
-            if (pActor01->_Z + pSphere01->_aab_z1 < pActor02->_Z + pSphere02->_aab_z1) {
-                pCChecker01->_blown_sgn_vZ -= 1;
-            }
-            if (pActor01->_Z + pSphere01->_aab_z2 > pActor02->_Z + pSphere02->_aab_z2) {
-                pCChecker01->_blown_sgn_vZ += 1;
-            }
-            if (pActor01->_Y + pSphere01->_aab_y1 < pActor02->_Y + pSphere02->_aab_y1) {
-                pCChecker01->_blown_sgn_vY -= 1;
-            }
-            if (pActor01->_Y + pSphere01->_aab_y2 > pActor02->_Y + pSphere02->_aab_y2) {
-                pCChecker01->_blown_sgn_vY += 1;
-            }
-            if (pActor01->_X + pSphere01->_aab_x1 < pActor02->_X + pSphere02->_aab_x1) {
-                pCChecker01->_blown_sgn_vX -= 1;
-            }
-            if (pActor01->_X + pSphere01->_aab_x2 > pActor02->_X + pSphere02->_aab_x2) {
-                pCChecker01->_blown_sgn_vX += 1;
-            }
+//            //ヒット
+//            //todo:「球対球吹っ飛び簡易計算アイディア」
+//            //内接正８角形を考え互いの直径の平均をとり、その平均直径に真横面の割合を計算し掛ける範囲が垂直吹っ飛び
+//            if (pActor01->_Z + pSphere01->_aab_z1 < pActor02->_Z + pSphere02->_aab_z1) {
+//                pCChecker01->_blown_sgn_vZ -= 1;
+//            }
+//            if (pActor01->_Z + pSphere01->_aab_z2 > pActor02->_Z + pSphere02->_aab_z2) {
+//                pCChecker01->_blown_sgn_vZ += 1;
+//            }
+//            if (pActor01->_Y + pSphere01->_aab_y1 < pActor02->_Y + pSphere02->_aab_y1) {
+//                pCChecker01->_blown_sgn_vY -= 1;
+//            }
+//            if (pActor01->_Y + pSphere01->_aab_y2 > pActor02->_Y + pSphere02->_aab_y2) {
+//                pCChecker01->_blown_sgn_vY += 1;
+//            }
+//            if (pActor01->_X + pSphere01->_aab_x1 < pActor02->_X + pSphere02->_aab_x1) {
+//                pCChecker01->_blown_sgn_vX -= 1;
+//            }
+//            if (pActor01->_X + pSphere01->_aab_x2 > pActor02->_X + pSphere02->_aab_x2) {
+//                pCChecker01->_blown_sgn_vX += 1;
+//            }
             return true;
         } else {
             return false;
@@ -131,6 +131,7 @@ public:
         if (square_length <= pSphere02->_rr) {
             //ヒット
             //吹っ飛方向を考慮
+            /*
             if (pActor01->_Z + pAAB01->_aab_z1 < pActor02->_Z + pSphere02->_aab_z1) {
                 pCChecker01->_blown_sgn_vZ -= 1;
             }
@@ -149,6 +150,7 @@ public:
             if (pActor01->_X + pAAB01->_aab_x2 > pActor02->_X + pSphere02->_aab_x2) {
                 pCChecker01->_blown_sgn_vX += 1;
             }
+            */
             return true;
         } else {
             return false;
@@ -196,8 +198,8 @@ public:
                     //○の座標(bX2, bY2)、との位置関係を考える
                     //y > ax + b であればヒット
                     if (bY2 > a * bX2 +  b) {
-                        pCChecker01->_blown_sgn_vY += 1;
-                        pCChecker01->_blown_sgn_vX += 1;
+//                        pCChecker01->_blown_sgn_vY += 1;
+//                        pCChecker01->_blown_sgn_vX += 1;
                         return true;
                     }
 
@@ -216,8 +218,8 @@ public:
                     //○の座標(bX1, bY2)、との位置関係を考える
                     //y > ax + b であればヒット
                     if (bY2 > a * bX1 +  b) {
-                        pCChecker01->_blown_sgn_vX -= 1;
-                        pCChecker01->_blown_sgn_vY += 1;
+//                        pCChecker01->_blown_sgn_vX -= 1;
+//                        pCChecker01->_blown_sgn_vY += 1;
                         return true;
                     }
 
@@ -236,8 +238,8 @@ public:
                     //○の座標(bX2, bY1)、との位置関係を考える
                     //y < ax + b であればヒット
                     if (bY1 < a * bX2 +  b) {
-                        pCChecker01->_blown_sgn_vX += 1;
-                        pCChecker01->_blown_sgn_vY -= 1;
+//                        pCChecker01->_blown_sgn_vX += 1;
+//                        pCChecker01->_blown_sgn_vY -= 1;
                         return true;
                     }
 
@@ -256,8 +258,8 @@ public:
                     //○の座標(bX1, bY1)、との位置関係を考える
                     //y < ax + b であればヒット
                     if (bY1 < a * bX1 +  b) {
-                        pCChecker01->_blown_sgn_vX -= 1;
-                        pCChecker01->_blown_sgn_vY -= 1;
+//                        pCChecker01->_blown_sgn_vX -= 1;
+//                        pCChecker01->_blown_sgn_vY -= 1;
                         return true;
                     }
 
@@ -281,8 +283,8 @@ public:
                     //○の座標(bY2, bZ2)、との位置関係を考える
                     //z > ay + b であればヒット
                     if (bZ2 > a * bY2 +  b) {
-                        pCChecker01->_blown_sgn_vY += 1;
-                        pCChecker01->_blown_sgn_vZ += 1;
+//                        pCChecker01->_blown_sgn_vY += 1;
+//                        pCChecker01->_blown_sgn_vZ += 1;
                         return true;
                     }
 
@@ -301,8 +303,8 @@ public:
                     //○の座標(bY1, bZ2)、との位置関係を考える
                     //z > ay + b であればヒット
                     if (bZ2 > a * bY1 +  b) {
-                        pCChecker01->_blown_sgn_vY -= 1;
-                        pCChecker01->_blown_sgn_vZ += 1;
+//                        pCChecker01->_blown_sgn_vY -= 1;
+//                        pCChecker01->_blown_sgn_vZ += 1;
                         return true;
                     }
 
@@ -321,8 +323,8 @@ public:
                     //○の座標(bY2, bZ1)、との位置関係を考える
                     //z < ay + b であればヒット
                     if (bZ1 < a * bY2 +  b) {
-                        pCChecker01->_blown_sgn_vY += 1;
-                        pCChecker01->_blown_sgn_vZ -= 1;
+//                        pCChecker01->_blown_sgn_vY += 1;
+//                        pCChecker01->_blown_sgn_vZ -= 1;
                         return true;
                     }
 
@@ -341,8 +343,8 @@ public:
                     //○の座標(bY1, bZ1)、との位置関係を考える
                     //z < ay + b であればヒット
                     if (bZ1 < a * bY1 +  b) {
-                        pCChecker01->_blown_sgn_vY -= 1;
-                        pCChecker01->_blown_sgn_vZ -= 1;
+//                        pCChecker01->_blown_sgn_vY -= 1;
+//                        pCChecker01->_blown_sgn_vZ -= 1;
                         return true;
                     }
                 }
@@ -365,8 +367,8 @@ public:
                     //○の座標(bZ2, bX2)、との位置関係を考える
                     //x > az + b であればヒット
                     if (bX2 > a * bZ2 +  b) {
-                        pCChecker01->_blown_sgn_vX += 1;
-                        pCChecker01->_blown_sgn_vZ += 1;
+//                        pCChecker01->_blown_sgn_vX += 1;
+//                        pCChecker01->_blown_sgn_vZ += 1;
                         return true;
                     }
 
@@ -385,8 +387,8 @@ public:
                     //○の座標(bZ1, bX2)、との位置関係を考える
                     //x > az + b であればヒット
                     if (bX2 > a * bZ1 +  b) {
-                        pCChecker01->_blown_sgn_vX += 1;
-                        pCChecker01->_blown_sgn_vZ -= 1;
+//                        pCChecker01->_blown_sgn_vX += 1;
+//                        pCChecker01->_blown_sgn_vZ -= 1;
                         return true;
                     }
 
@@ -405,8 +407,8 @@ public:
                     //○の座標(bZ2, bX1)、との位置関係を考える
                     //x < az + b であればヒット
                     if (bX1 < a * bZ2 +  b) {
-                        pCChecker01->_blown_sgn_vX -= 1;
-                        pCChecker01->_blown_sgn_vZ += 1;
+//                        pCChecker01->_blown_sgn_vX -= 1;
+//                        pCChecker01->_blown_sgn_vZ += 1;
                         return true;
                     }
 
@@ -425,8 +427,8 @@ public:
                     //○の座標(bZ1, bX1)、との位置関係を考える
                     //x < az + b であればヒット
                     if (bX1 < a * bZ1 +  b) {
-                        pCChecker01->_blown_sgn_vX -= 1;
-                        pCChecker01->_blown_sgn_vZ -= 1;
+//                        pCChecker01->_blown_sgn_vX -= 1;
+//                        pCChecker01->_blown_sgn_vZ -= 1;
                         return true;
                     }
                 }

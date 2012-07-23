@@ -68,7 +68,7 @@ public:
      * @param prm_target_Y 表示完了Y座標
      */
     virtual void riseSub(MenuBoard* prm_pSubMenu,
-                         coord prm_target_X, coord prm_target_Y);
+                         coord prm_target_X, coord prm_target_Y); //意図的に 上位の riseSub を hide してます。
 
     virtual void onRisen() override;
 

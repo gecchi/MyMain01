@@ -24,7 +24,7 @@ public:
     void initialize() override;
 
 
-    void moveSmoothTo(int prm_lv);
+    void moveSmoothTo(int prm_lv); //ˆÓ}“I‚É ãˆÊ‚Ì moveSmoothTo ‚ğ hide ‚µ‚Ä‚Ü‚·B
 
     void dispDisable();
     void dispEnable();

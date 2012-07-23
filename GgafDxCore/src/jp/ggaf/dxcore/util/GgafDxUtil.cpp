@@ -634,6 +634,17 @@ void GgafDxUtil::getNormalizeVector(coord x,
     out_nvy = t * vy;
     out_nvz = t * vz;
 }
+void GgafDxUtil::getNormalizeVector(dxcoord x,
+                                    dxcoord y,
+                                    dxcoord z,
+                                    float& out_nvx,
+                                    float& out_nvy,
+                                    float& out_nvz) {
+    double t = 1.0 / sqrt_fast(x * x + y * y + z * z);
+    out_nvx = t * x;
+    out_nvy = t * y;
+    out_nvz = t * z;
+}
 
 
 

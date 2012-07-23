@@ -67,24 +67,11 @@ public:
         WAY_ZLEFT_UP_FRONT            //26   TN( 1, 1, 1)
     };
 
-    class State {
-    public:
-        int eq_option;
-        int eq_speed;
-        int mp;
-        State() {
-            eq_option = 0;
-            eq_speed = 1;
-            mp = 10000;
-        }
-
-    };
-
-    struct VERTEX {
-        float x, y, z; // 頂点座標
-        float nx, ny, nz; // 法線
-        DWORD color; // 頂点の色
-        float tu, tv; // テクスチャ座標
+    enum {
+        SE_DAMAGED = 0,
+        SE_FIRE_LASER,
+        SE_FIRE_SHOT,
+        SE_FIRE_TORPEDO,
     };
 
     class MyShipWaySwitch {
@@ -99,9 +86,6 @@ public:
 
         /** 現在の方向 */
         SW way_;
-
-
-
         MyShipWaySwitch() {
             way_.X = way_.Y = way_.Z = SW_NOP;
             sw_UP_ = sw_LEFT_ = sw_RIGHT_ = sw_DOWN_ = false;
@@ -211,13 +195,6 @@ public:
     void (MyShip::*paFuncMove[3*3*3])();
     void (MyShip::*paFuncTurbo[3*3*3])();
 
-//    void (MyShip::*fpaFunc[])() =  {
-//          move_WAY_UP,
-//          move_WAY_UP_FRONT
-//    };
-
-
-
 
     /** 方向入力値 */
     int stc_;
@@ -277,8 +254,6 @@ public:
 
 
 
-    State state_;
-
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory4OptCtrlr_;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
 //    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoOffsetHistory_;
@@ -312,13 +287,17 @@ public:
     int blown_veloY_;
     /** 吹っ飛びZ成分 */
     int blown_veloZ_;
-    /** 吹っ飛びを抑える力 */
-    int anti_blown_velo_;
+
+    /** 吹っ飛び減衰率 */
+    double r_blown_velo_attenuate_;
+
     /** MP */
     GgafLib::AmountGraph mp_;
     /** Vreath */
     GgafLib::AmountGraph vreath_;
 
+
+    int invincible_frames_;
 
     /** 魔法メーター */
     MagicMeter* pMagicMeter_;
@@ -821,6 +800,19 @@ public:
     }
 
     void onCatchEvent(hashval prm_no, void* prm_pSource) override;
+    /**
+     * 自機吹っ飛び .
+     * @param prm_blown_veloX X方向吹っ飛び速度
+     * @param prm_blown_veloY Y方向吹っ飛び速度
+     * @param prm_blown_veloZ Z方向吹っ飛び速度
+     * @param prm_r_blown_velo_attenuate 吹っ飛び減衰率
+     */
+    void setBlownVelo(velo prm_blown_veloX, velo prm_blown_veloY, velo prm_blown_veloZ, double prm_r_blown_velo_attenuate);
+    /**
+     * 自機無敵設定 .
+     * @param prm_frames 無敵時間(フレーム)
+     */
+    void setInvincibleFrames(int prm_frames);
 
     virtual ~MyShip();
 

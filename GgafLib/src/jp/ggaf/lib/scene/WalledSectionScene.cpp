@@ -95,9 +95,8 @@ void WalledSectionScene::onActive() {
 }
 
 void WalledSectionScene::processBehavior() {
-    if (!_is_loop_end) {
-
-        velo parent_scroll_speed =_pScrolledScene->getScrollSpeed();
+	velo parent_scroll_speed =_pScrolledScene->getScrollSpeed();
+    if (!_is_loop_end && parent_scroll_speed != 0) {
         if (_pWallPartsLast == NULL || (_wall_start_X - _pWallPartsLast->_X) >= _wall_dep) {
             if (_cnt_area_len >= _area_len && _cnt_loop+1 >= _loop_num) {
                 //I—¹

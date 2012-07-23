@@ -83,9 +83,9 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     pTorpedoCtrlr_ = NEW MyOptionTorpedoController("TorpedoController", this);
     addSubGroup(pTorpedoCtrlr_);
 
-    _pSeTx->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
-    _pSeTx->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
-    _pSeTx->set(2, "bse5", GgafRepeatSeq::nextVal("CH_torpedo"));
+    _pSeTx->set(SE_FIRE_LASER, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
+    _pSeTx->set(SE_FIRE_SHOT, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
+    _pSeTx->set(SE_FIRE_TORPEDO, "bse5", GgafRepeatSeq::nextVal("CH_torpedo"));
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     need_adjust_pos_flg_ = false;
 }
@@ -569,7 +569,7 @@ void MyOption::processBehavior() {
             pLaserChip->pOrg_ = this;
 
             if (pLaserChip->_pChip_front == NULL) {
-                _pSeTx->play3D(0);
+                _pSeTx->play3D(SE_FIRE_LASER);
             }
         }
     } else {
@@ -578,7 +578,7 @@ void MyOption::processBehavior() {
     if (pMyShip->just_shot_) {
         MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
         if (pShot) {
-            _pSeTx->play3D(1);
+            _pSeTx->play3D(SE_FIRE_SHOT);
             pShot->locateWith(this);
             pShot->_pKurokoA->_angFace[AXIS_X] = _RX;
             pShot->_pKurokoA->_angFace[AXIS_Z] = _RZ;

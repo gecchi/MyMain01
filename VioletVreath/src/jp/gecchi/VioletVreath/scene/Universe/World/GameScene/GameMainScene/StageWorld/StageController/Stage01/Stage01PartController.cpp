@@ -14,11 +14,12 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,8200,10000,13200,15000,28200,30000,38200,40000};
-	_paFrame_NextEvent = new frame[10];
+	frame f[] = {1,100,1000,8200,10000,13200,15000,18200,20000};
+	_paFrame_NextEvent = new frame[9];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 10;
+	_event_num = 9;
 	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
+	orderSceneToFactory(10000003, Stage01WalledScene, "GroStage01WalledScene");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -42,6 +43,11 @@ void Stage01PartController::processBehavior() {
 				_pProg->change(Stage01PartController::PROG_STG01_01_BEGIN);
 				break;
 			}
+			case 1000: {
+				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000003);
+				addSubLast(pScene);
+				break;
+			}
 			case 8200: {
 				orderSceneToFactory(10000001, Stage01_02, "Stage01_02");
 				break;
@@ -62,20 +68,11 @@ void Stage01PartController::processBehavior() {
 				_pProg->change(Stage01PartController::PROG_STG01_03_BEGIN);
 				break;
 			}
-			case 28200: {
-				orderSceneToFactory(10000003, Stage01WalledScene, "GroStage01WalledScene");
-				break;
-			}
-			case 30000: {
-				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000003);
-				addSubLast(pScene);
-				break;
-			}
-			case 38200: {
+			case 18200: {
 				orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
 				break;
 			}
-			case 40000: {
+			case 20000: {
 				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
 				addSubLast(pScene);
 				_pProg->change(Stage01PartController::PROG_STG01_CLIMAX_BEGIN);
@@ -84,7 +81,7 @@ void Stage01PartController::processBehavior() {
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 10-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 9-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

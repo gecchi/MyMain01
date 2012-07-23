@@ -45,7 +45,7 @@ void MyStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 void MyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
     _pKurokoA->setMvVelo(80000);
-    _pKurokoA->setMvAcce(300);
+    _pKurokoA->setMvAcce(1000);
     _pStatus->reset();
     default_stamina_ = _pStatus->get(STAT_Stamina);
 }

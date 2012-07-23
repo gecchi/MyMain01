@@ -18,7 +18,7 @@ public:
     GgafLib::VirtualButton vb_;
     /** テストキャラ */
     SmpActor* pActor_;
-    SmpLabel** papTest_;
+
     /**
      * コンストラクタ .
      * @param prm_name 名称

@@ -368,6 +368,12 @@ public:
                                      float& out_nvx,
                                      float& out_nvy,
                                      float& out_nvz);
+    static void getNormalizeVector(dxcoord x,
+                                   dxcoord y,
+                                   dxcoord z,
+                                   float& out_nvx,
+                                   float& out_nvy,
+                                   float& out_nvz);
 
     static void getNormalizeVector(coord x,
                                    coord y,

@@ -157,10 +157,10 @@ MyShip::MyShip(const char* prm_name) :
     paFuncTurbo[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
-    _pSeTx->set(0, "se-020");
-    _pSeTx->set(1,"laser001", 99);
-    _pSeTx->set(2,"fire01", 99);
-    _pSeTx->set(3,"bse5", 99);
+    _pSeTx->set(SE_DAMAGED, "se-020");
+    _pSeTx->set(SE_FIRE_LASER,"laser001", 99);
+    _pSeTx->set(SE_FIRE_SHOT,"fire01", 99);
+    _pSeTx->set(SE_FIRE_TORPEDO,"bse5", 99);
 
     iMvVelo_TurboTop_ = 30000;
     iMvVelo_TurboBottom_ = 10000;
@@ -171,7 +171,6 @@ MyShip::MyShip(const char* prm_name) :
     blown_veloX_ = 0;
     blown_veloY_ = 0;
     blown_veloZ_ = 0;
-    anti_blown_velo_ = 100;
     way_ = WAY_NONE;
     prev_way_ = WAY_NONE;
     is_just_change_way_ = true;
@@ -186,6 +185,9 @@ MyShip::MyShip(const char* prm_name) :
     pMagicMeter_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f));
     addSubGroup(pMagicMeter_);
 
+    r_blown_velo_attenuate_ = 0.8;
+
+    invincible_frames_ = 60 * 10;
 }
 void MyShip::onCreateModel() {
     _pModel->setSpecular(5.0, 1.0);
@@ -252,20 +254,6 @@ void MyShip::onActive() {
 }
 
 void MyShip::processBehavior() {
-//    ///////////////////////スペキュラテスト
-//    if (GgafDxInput::isBeingPressedKey(DIK_9)) {
-//        _pModel->_specular += 0.1;
-//    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
-//        _pModel->_specular -= 0.1;
-//    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_O)) {
-//        _pModel->specular_power_ += 0.1;
-//    }
-//    if (GgafDxInput::isBeingPressedKey(DIK_P)) {
-//        _pModel->specular_power_ -= 0.1;
-//    }
-//    /////////////////////////////////////
 
     if (!can_control_) {
         return;
@@ -385,9 +373,9 @@ void MyShip::processBehavior() {
         //Notターボ開始時
         if (VB_PLAY->isBeingPressed(VB_TURBO)) {
             //ターボを押し続けることで、移動距離を伸ばす
-            _pKurokoB->_veloVxMv *= 0.95;
-            _pKurokoB->_veloVyMv *= 0.95;
-            _pKurokoB->_veloVzMv *= 0.95;
+            _pKurokoB->_veloVxMv *= 0.99;
+            _pKurokoB->_veloVyMv *= 0.99;
+            _pKurokoB->_veloVzMv *= 0.99;
         } else {
             _pKurokoB->_veloVxMv *= 0.9;
             _pKurokoB->_veloVyMv *= 0.9;
@@ -430,52 +418,57 @@ void MyShip::processBehavior() {
     _pScaler->behave();
     _pSeTx->behave();
 
-    //吹っ飛び
-    if (ABS(blown_veloX_) < 1000) {
-        blown_veloX_ = 0;
-    } else if (blown_veloX_ > 0) {
-        blown_veloX_ -= 1000;
-    } else if (blown_veloX_ < 0) {
-        blown_veloX_ += 1000;
-    }
-    if (ABS(blown_veloY_) < 1000) {
-        blown_veloY_ = 0;
-    } else if (blown_veloY_ > 0) {
-        blown_veloY_ -= 1000;
-    } else if (blown_veloY_ < 0) {
-        blown_veloY_ += 1000;
-    }
-    if (ABS(blown_veloZ_) < 1000) {
-        blown_veloZ_ = 0;
-    } else if (blown_veloZ_ > 0) {
-        blown_veloZ_ -= 1000;
-    } else if (blown_veloZ_ < 0) {
-        blown_veloZ_ += 1000;
-    }
-    _X += blown_veloX_;
-    _Y += blown_veloY_;
-    _Z += blown_veloZ_;
+    if (invincible_frames_ > 0) {
+        setHitAble(false);
+        invincible_frames_ --;
+        if (getActivePartFrame() % 3 == 0) {
+            setAlpha(0.6);
+        } else {
+            setAlpha(0);
+        }
+        if (invincible_frames_ == 0) {
+            setHitAble(true);
+            setAlpha(1.0);
+        }
+    } else {
 
+    }
+    //吹っ飛び
+    if (ABS(blown_veloX_) < PX_C(1)) {
+        blown_veloX_ = 0;
+    } else {
+        _X += blown_veloX_;
+        blown_veloX_ *= r_blown_velo_attenuate_;
+    }
+    if (ABS(blown_veloY_) < PX_C(1)) {
+        blown_veloY_ = 0;
+    } else {
+        _Y += blown_veloY_;
+        blown_veloY_ *= r_blown_velo_attenuate_;
+    }
+    if (ABS(blown_veloZ_) < PX_C(1)) {
+        blown_veloZ_ = 0;
+    } else {
+        _Z += blown_veloZ_;
+        blown_veloZ_ *= r_blown_velo_attenuate_;
+    }
 
     if (!is_diving_) {
         if (_Y > MyShip::lim_top_) {
             _Y = MyShip::lim_top_;
-        }
-        if (_Y < MyShip::lim_bottom_ ) {
+        } else if (_Y < MyShip::lim_bottom_ ) {
             _Y = MyShip::lim_bottom_;
         }
 
         if (_X > MyShip::lim_front_) {
             _X = MyShip::lim_front_;
-        }
-        if (_X < MyShip::lim_behaind_) {
+        } else if (_X < MyShip::lim_behaind_) {
             _X = MyShip::lim_behaind_;
         }
 
         if (_Z > MyShip::lim_zleft_) {
             _Z = MyShip::lim_zleft_;
-        }
-        if (_Z < MyShip::lim_zright_) {
+        } else if (_Z < MyShip::lim_zright_) {
             _Z = MyShip::lim_zright_;
         }
     }
@@ -527,7 +520,7 @@ void MyShip::processJudgement() {
             LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
                 if (pLaserChip->_pChip_front == NULL) {
-                    _pSeTx->play3D(1);
+                    _pSeTx->play3D(SE_FIRE_LASER);
                 }
             }
         }
@@ -553,7 +546,7 @@ void MyShip::processJudgement() {
             just_shot_ = true;//たった今ショットしましたフラグ
             MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
             if (pShot) {
-                _pSeTx->play3D(2);
+                _pSeTx->play3D(SE_FIRE_SHOT);
                 pShot->locateWith(this);
             }
             if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
@@ -606,15 +599,41 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
 
     //壁の場合特別な処理
     if (pOther->getKind() & KIND_CHIKEI) {
+        //吹っ飛び方向を考える。
+        //現在の移動の逆方向（吹っ飛び威力は２倍に）
+        GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory2_->getPrev();
+        float vx1,vy1,vz1;
+        coord dX1 = -(_X - pGeoMyShipPrev->_X);
+        coord dY1 = -(_Y - pGeoMyShipPrev->_Y);
+        coord dZ1 = -(_Z - pGeoMyShipPrev->_Z);
+        if (dX1 == 0 && dY1 == 0 && dZ1 == 0) {
+            vx1 = vy1 = vz1 = 0;
+        } else {
+            UTIL::getNormalizeVector(dX1, dY1, dZ1,
+                                     vx1, vy1, vz1 );
+        }
+        float vx2, vy2, vz2;
+        coord dX2 = -(_X - pOther->_X);
+        coord dY2 = -(_Y - pOther->_Y);
+        coord dZ2 = -(_Z - pOther->_Z);
+        if (dX2 == 0 && dY2 == 0 && dZ2 == 0) {
+            vx2 = vy2 = vz2 = 0;
+        } else {
+            UTIL::getNormalizeVector(dX2, dY2, dZ2,
+                                     vx2, vy2, vz2 );
+        }
 
-        blown_veloX_ = (SGN(_pColliChecker->_blown_sgn_vX)*(10000+ABS(_pKurokoB->_veloVxMv)));
-        blown_veloY_ = (SGN(_pColliChecker->_blown_sgn_vY)*(10000+ABS(_pKurokoB->_veloVyMv)));
-        blown_veloZ_ = (SGN(_pColliChecker->_blown_sgn_vZ)*(10000+ABS(_pKurokoB->_veloVzMv)));
+        float vx3, vy3, vz3;
+        UTIL::getNormalizeVector(
+                    vx1+vx2, vy1+vy2, vz1+vz2,
+                    vx3, vy3, vz3);
+        //setBlownVelo(vx3*PX_C(40), vy3*PX_C(40), vz3*PX_C(40), 0.8);
+        //setInvincibleFrames(60*3);
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {
         UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(0);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 
     if (pOther->getKind() & KIND_ITEM)  {
@@ -639,7 +658,16 @@ void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {
 
     }
 }
-
+void MyShip::setBlownVelo(velo prm_blown_veloX, velo prm_blown_veloY, velo prm_blown_veloZ, double prm_r_blown_velo_attenuate) {
+    blown_veloX_ += prm_blown_veloX;
+    blown_veloY_ += prm_blown_veloY;
+    blown_veloZ_ += prm_blown_veloZ;
+    r_blown_velo_attenuate_ = prm_r_blown_velo_attenuate;
+}
+void MyShip::setInvincibleFrames(int prm_frames) {
+    setHitAble(false);
+    invincible_frames_ = prm_frames;
+}
 MyShip::~MyShip() {
     DELETE_IMPOSSIBLE_NULL(pRing_MyShipGeoHistory4OptCtrlr_);
     DELETE_IMPOSSIBLE_NULL(pRing_MyShipGeoHistory2_);

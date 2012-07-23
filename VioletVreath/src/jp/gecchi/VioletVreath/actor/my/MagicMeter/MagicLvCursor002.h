@@ -22,7 +22,8 @@ public:
     MagicLvCursor002(const char* prm_name, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic);
 
     void initialize() override;
-    void moveSmoothTo(int prm_lv, frame prm_spent=10);
+    void moveSmoothTo(int prm_lv, frame prm_spent=10); //à”ê}ìIÇ… è„à ÇÃ moveSmoothTo Ç hide ÇµÇƒÇ‹Ç∑ÅB
+
     void dispDisable();
     void dispEnable();
 

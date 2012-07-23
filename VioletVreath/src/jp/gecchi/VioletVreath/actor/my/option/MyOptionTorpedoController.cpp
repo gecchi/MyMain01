@@ -105,7 +105,7 @@ void MyOptionTorpedoController::fire() {
         }
         DELETEARR_IMPOSSIBLE_NULL(paAng_way);
         DELETEARR_IMPOSSIBLE_NULL(paGeo);
-        pOption_->_pSeTx->play3D(2);
+        pOption_->_pSeTx->play3D(MyOption::SE_FIRE_TORPEDO);
 
     }
 }

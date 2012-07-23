@@ -15,7 +15,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     is_lockon_ = false;
     max_acce_renge_ = 0;
     max_velo_renge_ = 160000; //この値を大きくすると、最高速度が早くなる。
-    r_max_acce_ = 18; //この値を大きくすると、カーブが緩くなる
+    r_max_acce_ = 20; //この値を大きくすると、カーブが緩くなる
 }
 
 void MyOptionWateringLaserChip001::initialize() {

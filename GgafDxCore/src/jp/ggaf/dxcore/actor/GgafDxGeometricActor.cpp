@@ -131,9 +131,9 @@ void GgafDxGeometricActor::processSettlementBehavior() {
 
     //‚W•ª–Ø“o˜^
     if (_pChecker) {
-        _pChecker->_blown_sgn_vX = 0;
-        _pChecker->_blown_sgn_vY = 0;
-        _pChecker->_blown_sgn_vZ = 0;
+        //_pChecker->_blown_sgn_vX = 0;
+        //_pChecker->_blown_sgn_vY = 0;
+        //_pChecker->_blown_sgn_vZ = 0;
         if (_can_hit_out_of_view == false && isOutOfView()) {
             //‹–ìŠO“–‚½‚è”»’è–³Œø‚Ìê‡‚Í“o˜^‚µ‚È‚¢
         } else if (_can_hit_flg) {

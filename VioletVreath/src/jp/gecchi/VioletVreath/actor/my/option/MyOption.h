@@ -24,6 +24,12 @@ private:
 
 
 public:
+    enum {
+        SE_FIRE_LASER = 0,
+        SE_FIRE_SHOT,
+        SE_FIRE_TORPEDO,
+    };
+
     //ˆê•Ï”’B
     int Xorg_,Yorg_,Zorg_;
 

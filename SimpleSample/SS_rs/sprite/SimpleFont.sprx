@@ -1,9 +1,0 @@
-xof 0303txt 0032
-
-SpriteDef SimpleFont {
-   16.0;
-   16.0;
-   "SimpleFont.png";
-   8;
-   8;
-} 
