@@ -48,9 +48,9 @@ public:
      * 当たり判定領域を作成する（＝当たり判定領域要素の配列を作成する） .
      * 内部で領域の配列を生成します。
      * 最初に必ず実行してください。
-     * @param prm_nColliPart 当たり判定領域の当たり判定領域要素数(1～n)
+     * @param prm_colli_part_num 当たり判定領域の当たり判定領域要素数(1～n)
      */
-    void makeCollision(int prm_nColliPart);
+    void makeCollision(int prm_colli_part_num);
 
     /**
      * 当たり判定領域要素を球として定義 .

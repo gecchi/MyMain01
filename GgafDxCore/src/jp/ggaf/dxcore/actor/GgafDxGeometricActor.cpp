@@ -225,20 +225,7 @@ bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
         }
     }
     return false;
-
-//        GgafDxGeometricActor* pOtherActor = dynamic_cast<GgafDxGeometricActor*> (prm_pOtherActor);
-//        if (pOtherActor != NULL && pOtherActor->_pChecker) {
-//            return _pChecker->isHit(pOtherActor->_pChecker);
-//        } else {
-//            _TRACE_("GgafDxGeometricActor::processHitChkLogic prm_pOtherActor("<<(prm_pOtherActor->getName())<<") is not GgafDxGeometricActor")
-//            return false;
-//        }
-        //本来は↑のようにdynamic_castするのが汎用的かつ安全。しかし、速度UPのため（dynamic_castを省きたいがため）に、
-        //GgafDxGeometricActorに決め打ちキャストしています。危険です。
-        //座標を持たないアクターの_can_hit_flg を忘れずにfalseにすることによって、ここの引数にGgafDxGeometricActorに
-        //キャストできないポインタは来ないハズである。
 }
-
 
 int GgafDxGeometricActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);

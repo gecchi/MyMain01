@@ -802,6 +802,4 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/menu/title/CursorTitleMenu.h"
 
 
-
-
 #endif /*VIOLETVREATHHEADER_H_*/

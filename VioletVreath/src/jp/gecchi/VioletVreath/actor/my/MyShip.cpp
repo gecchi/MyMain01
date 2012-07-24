@@ -592,7 +592,6 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //‚±‚±‚ÉƒqƒbƒgƒGƒtƒFƒNƒg
 
-
     if (UTIL::calcMyStamina(this, pOther) <= 0) {
         //‚±‚±‚ÉÁ–ÅƒGƒtƒFƒNƒg
     }
@@ -613,9 +612,201 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
                                      vx1, vy1, vz1 );
         }
         float vx2, vy2, vz2;
-        coord dX2 = -(_X - pOther->_X);
-        coord dY2 = -(_Y - pOther->_Y);
-        coord dZ2 = -(_Z - pOther->_Z);
+        coord dX2,dY2,dZ2;
+        if ( pOther->_obj_class & Obj_WallPartsActor) {
+            if ((pOther->_pChecker->_pCollisionArea->_papColliPart[0]->_shape_kind) & COLLI_AAPRISM) {
+                //ƒvƒŠƒYƒ€•Ç
+                ColliAAPrism* pPrism = (ColliAAPrism*)(pOther->_pChecker->_pCollisionArea->_papColliPart[0]);
+                int pos_prism = pPrism->_pos_prism;
+                if (pos_prism & POS_PRISM_XY) {
+                    if (pos_prism & POS_PRISM_pp) {
+                        //            ª y+
+                        // (_x1,_y2)      (_x2,_y2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „ _‚±‚¿„ 
+                        // x- ©  „   _‚ç„   ¨ x+
+                        //        „     _„ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_x1,_y1)      (_x2,_y1)
+                        //            « y-
+                        dX2 = (_X - (pOther->_X + pPrism->_hdx));
+                        dY2 = (_Y - (pOther->_Y + pPrism->_hdy));
+                        dZ2 = (_Z - (pOther->_Z               ));
+                    } else if (pos_prism & POS_PRISM_np) {
+                        //            ª y+
+                        // (_x1,_y2)      (_x2,_y2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „ ‚±‚¿^„ 
+                        // x- ©  „ ‚ç^  „   ¨ x+
+                        //        „ ^    „ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_x1,_y1)      (_x2,_y1)
+                        //            « y-
+                        dX2 = (_X - (pOther->_X - pPrism->_hdx));
+                        dY2 = (_Y - (pOther->_Y + pPrism->_hdy));
+                        dZ2 = (_Z - (pOther->_Z               ));
+                    } else if (pos_prism & POS_PRISM_pn) {
+                        //            ª y+
+                        // (_x1,_y2)      (_x2,_y2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „     ^„ 
+                        // x- ©  „   ^‚±„   ¨ x+
+                        //        „ ^‚¿‚ç„ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_x1,_y1)      (_x2,_y1)
+                        //            « y-
+                        dX2 = (_X - (pOther->_X + pPrism->_hdx));
+                        dY2 = (_Y - (pOther->_Y - pPrism->_hdy));
+                        dZ2 = (_Z - (pOther->_Z               ));
+                    } else { // ‚Ì‚±‚è‚Í POS_PRISM_nn
+                        //            ª y+
+                        // (_x1,_y2)      (_x2,_y2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „ _    „ 
+                        // x- ©  „ ‚±_  „   ¨ x+
+                        //        „ ‚¿‚ç_„ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_x1,_y1)      (_x2,_y1)
+                        //            « y-
+                        dX2 = (_X - (pOther->_X - pPrism->_hdx));
+                        dY2 = (_Y - (pOther->_Y - pPrism->_hdy));
+                        dZ2 = (_Z - (pOther->_Z               ));
+                    }
+
+
+                } else if (pos_prism & POS_PRISM_YZ) {
+
+                    if (pos_prism & POS_PRISM_pp) {
+                        //            ª z+
+                        // (_y1,_z2)      (_y2,_z2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „ _‚±‚¿„ 
+                        // y- ©  „   _‚ç„   ¨ y+
+                        //        „     _„ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_y1,_z1)      (_y2,_z1)
+                        //            « z-
+                        dX2 = (_X - (pOther->_X               ));
+                        dY2 = (_Y - (pOther->_Y + pPrism->_hdy));
+                        dZ2 = (_Z - (pOther->_Z + pPrism->_hdz));
+                    } else if (pos_prism & POS_PRISM_np) {
+                        //            ª z+
+                        // (_y1,_z2)      (_y2,_z2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „ ‚±‚¿^„ 
+                        // y- ©  „ ‚ç^  „   ¨ y+
+                        //        „ ^    „ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_y1,_z1)      (_y2,_z1)
+                        //            « z-
+                        dX2 = (_X - (pOther->_X               ));
+                        dY2 = (_Y - (pOther->_Y - pPrism->_hdy));
+                        dZ2 = (_Z - (pOther->_Z + pPrism->_hdz));
+                    } else if (pos_prism & POS_PRISM_pn) {
+                        //            ª z+
+                        // (_y1,_z2)      (_y2,_z2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „     ^„ 
+                        // y- ©  „   ^‚±„   ¨ y+
+                        //        „ ^‚¿‚ç„ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_y1,_z1)      (_y2,_z1)
+                        //            « z-
+                        dX2 = (_X - (pOther->_X               ));
+                        dY2 = (_Y - (pOther->_Y + pPrism->_hdy));
+                        dZ2 = (_Z - (pOther->_Z - pPrism->_hdz));
+                    } else { // ‚Ì‚±‚è‚Í POS_PRISM_nn
+                        //            ª z+
+                        // (_y1,_z2)      (_y2,_z2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „ _    „ 
+                        // y- ©  „ ‚±_  „   ¨ y+
+                        //        „ ‚¿‚ç_„ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_y1,_z1)      (_y2,_z1)
+                        //            « z-
+                        dX2 = (_X - (pOther->_X               ));
+                        dY2 = (_Y - (pOther->_Y - pPrism->_hdy));
+                        dZ2 = (_Z - (pOther->_Z - pPrism->_hdz));
+                    }
+
+                } else if (pos_prism & POS_PRISM_ZX) {
+                    if (pos_prism & POS_PRISM_pp) {
+                        //            ª x+
+                        // (_z1,_x2)      (_z2,_x2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „ _‚±‚¿„ 
+                        // z- ©  „   _‚ç„   ¨ z+
+                        //        „     _„ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_z1,_x1)      (_z2,_x1)
+                        //            « x-
+                        dX2 = (_X - (pOther->_X + pPrism->_hdx));
+                        dY2 = (_Y - (pOther->_Y               ));
+                        dZ2 = (_Z - (pOther->_Z + pPrism->_hdz));
+                    } else if (pos_prism & POS_PRISM_np) {
+                        //            ª x+
+                        // (_z1,_x2)      (_z2,_x2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „ ‚±‚¿^„ 
+                        // z- ©  „ ‚ç^  „   ¨ z+
+                        //        „ ^    „ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_z1,_x1)      (_z2,_x1)
+                        //            « x-
+                        dX2 = (_X - (pOther->_X + pPrism->_hdx));
+                        dY2 = (_Y - (pOther->_Y               ));
+                        dZ2 = (_Z - (pOther->_Z - pPrism->_hdz));
+                    } else if (pos_prism & POS_PRISM_pn) {
+                        //            ª x+
+                        // (_z1,_x2)      (_z2,_x2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „     ^„ 
+                        // z- ©  „   ^‚±„   ¨ z+
+                        //        „ ^‚¿‚ç„ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_z1,_x1)      (_z2,_x1)
+                        //            « x-
+                        dX2 = (_X - (pOther->_X - pPrism->_hdx));
+                        dY2 = (_Y - (pOther->_Y               ));
+                        dZ2 = (_Z - (pOther->_Z + pPrism->_hdz));
+                    } else { // ‚Ì‚±‚è‚Í POS_PRISM_nn
+                        //            ª x+
+                        // (_z1,_x2)      (_z2,_x2)
+                        //        „¡„Ÿ„Ÿ„Ÿ„¢
+                        //        „ _    „ 
+                        // z- ©  „ ‚±_  „   ¨ z+
+                        //        „ ‚¿‚ç_„ 
+                        //        „¤„Ÿ„Ÿ„Ÿ„£
+                        // (_z1,_x1)      (_z2,_x1)
+                        //            « x-
+                        dX2 = (_X - (pOther->_X - pPrism->_hdx));
+                        dY2 = (_Y - (pOther->_Y                ));
+                        dZ2 = (_Z - (pOther->_Z - pPrism->_hdz));
+                    }
+                } else {
+
+                }
+            } else {
+                //ƒvƒŠƒYƒ€ˆÈŠO‚Ì•Ç
+                dX2 = (_X - pOther->_X);
+                dY2 = (_Y - pOther->_Y);
+                dZ2 = (_Z - pOther->_Z);
+            }
+        } else {
+            GgafDxCollisionArea* pCollisionArea = pOther->_pChecker->_pCollisionArea;
+            if (pCollisionArea->_hit_colli_part_index >= 0) {
+                GgafDxCollisionPart* pPart = pCollisionArea->_papColliPart[pCollisionArea->_hit_colli_part_index];
+                dX2 = (_X - (pOther->_X + pPart->_cx));
+                dY2 = (_Y - (pOther->_Y + pPart->_cy));
+                dZ2 = (_Z - (pOther->_Z + pPart->_cz));
+            } else {
+                dX2 = (_X - pOther->_X);
+                dY2 = (_Y - pOther->_Y);
+                dZ2 = (_Z - pOther->_Z);
+            }
+        }
+
         if (dX2 == 0 && dY2 == 0 && dZ2 == 0) {
             vx2 = vy2 = vz2 = 0;
         } else {
@@ -627,8 +818,8 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
         UTIL::getNormalizeVector(
                     vx1+vx2, vy1+vy2, vz1+vz2,
                     vx3, vy3, vz3);
-        //setBlownVelo(vx3*PX_C(40), vy3*PX_C(40), vz3*PX_C(40), 0.8);
-        //setInvincibleFrames(60*3);
+        setBlownVelo(vx3*PX_C(40), vy3*PX_C(40), vz3*PX_C(40), 0.8);
+        setInvincibleFrames(2);
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {
@@ -641,11 +832,10 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     }
 }
 
-
-
 void MyShip::doNotingMoveInput() {
 
 }
+
 void MyShip::setMoveSpeedLv(int lv) {
         //lv_MoveSpeed_ = lv;
         iMoveSpeed_ = PX_C(lv);
@@ -658,12 +848,14 @@ void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {
 
     }
 }
+
 void MyShip::setBlownVelo(velo prm_blown_veloX, velo prm_blown_veloY, velo prm_blown_veloZ, double prm_r_blown_velo_attenuate) {
     blown_veloX_ += prm_blown_veloX;
     blown_veloY_ += prm_blown_veloY;
     blown_veloZ_ += prm_blown_veloZ;
     r_blown_velo_attenuate_ = prm_r_blown_velo_attenuate;
 }
+
 void MyShip::setInvincibleFrames(int prm_frames) {
     setHitAble(false);
     invincible_frames_ = prm_frames;

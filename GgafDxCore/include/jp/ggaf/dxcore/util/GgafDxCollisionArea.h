@@ -22,14 +22,15 @@ public:
     /** 当たり判定領域要素の配列 */
     GgafDxCollisionPart** _papColliPart;
     /** 当たり判定領域要素数 */
-    int _nColliPart;
+    int _colli_part_num;
 
+    int _hit_colli_part_index;
     /**
      * コンストラクタ .
-     * @param prm_nColliPart 当たり判定領域要素数
+     * @param prm_colli_part_num 当たり判定領域要素数
      * @return
      */
-    GgafDxCollisionArea(int prm_nColliPart);
+    GgafDxCollisionArea(int prm_colli_part_num);
 
     /**
      * 全当たり判定要素含む最外域の軸並行境界直方体を再計算 .

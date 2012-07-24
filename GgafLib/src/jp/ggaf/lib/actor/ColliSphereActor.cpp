@@ -30,7 +30,7 @@ void ColliSphereActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
         GgafDxGeometricActor* pActor = prm_pColliChecker->getTargetActor();
         GgafDxCollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
 
-        int iAreaNum = pCollisionArea->_nColliPart;
+        int iAreaNum = pCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
             for (int i = 0; i < iAreaNum; i++) {
                 if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_SPHERE) {

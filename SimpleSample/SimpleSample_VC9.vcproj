@@ -238,10 +238,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\actor\SmpLabel.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\scene\SmpUniverse.cpp"
 				>
 			</File>
@@ -289,10 +285,6 @@
 			</File>
 			<File
 				RelativePath=".\src\SmpGod.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\SmpLabel.h"
 				>
 			</File>
 			<File

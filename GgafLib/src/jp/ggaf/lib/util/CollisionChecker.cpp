@@ -13,9 +13,9 @@ CollisionChecker::CollisionChecker(GgafDxGeometricActor* prm_pActor) : GgafDxChe
     _need_update_aabb = true;
 }
 
-void CollisionChecker::makeCollision(int prm_nColliPart) {
+void CollisionChecker::makeCollision(int prm_colli_part_num) {
     if (_pCollisionArea == NULL) {
-        _pCollisionArea = NEW GgafDxCollisionArea(prm_nColliPart);
+        _pCollisionArea = NEW GgafDxCollisionArea(prm_colli_part_num);
     } else {
         throwGgafCriticalException("CollisionChecker::makeCollision 既に makeCollision されています。");
     }
@@ -26,7 +26,7 @@ void CollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, 
     if (_pCollisionArea == NULL) {
         throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
     }
-    if (prm_index > _pCollisionArea->_nColliPart) {
+    if (prm_index > _pCollisionArea->_colli_part_num) {
         throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"は範囲外。");
     }
 #endif
@@ -60,7 +60,7 @@ void CollisionChecker::setColliAAB(int prm_index,
     if (_pCollisionArea == NULL) {
         throwGgafCriticalException("CollisionChecker::setColliAAB()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
     }
-    if (prm_index > _pCollisionArea->_nColliPart) {
+    if (prm_index > _pCollisionArea->_colli_part_num) {
         throwGgafCriticalException("CollisionChecker::setColliAAB()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"は範囲外。");
     }
 #endif
@@ -88,7 +88,7 @@ void CollisionChecker::setColliAAPrism(int prm_index,
     if (_pCollisionArea == NULL) {
         throwGgafCriticalException("CollisionChecker::setColliAAPrism()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
     }
-    if (prm_index > _pCollisionArea->_nColliPart) {
+    if (prm_index > _pCollisionArea->_colli_part_num) {
         throwGgafCriticalException("CollisionChecker::setColliAAPrism()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"は範囲外。");
     }
 #endif
@@ -118,7 +118,7 @@ void CollisionChecker::updateHitArea() {
     //if (pActor->_can_hit_flg && pActor->isActiveInTheTree() ) {
     if (pActor->isActiveInTheTree() ) {
         GgafDxCollisionPart* pColliPart;
-        for (int i = 0; i < pCollisionArea->_nColliPart; i++) {
+        for (int i = 0; i < pCollisionArea->_colli_part_num; i++) {
 #ifdef MY_DEBUG
             if (_pCollisionArea->_papColliPart[i] == NULL) {
                 throwGgafCriticalException("CollisionChecker::updateHitArea()["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]がNULLです。");
@@ -179,11 +179,11 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
     GgafDxCollisionPart* pColliPart;
     GgafDxCollisionPart* pOppColliPart;
     int shape_kind, opp_shape_kind;
-    for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
+    for (int i = 0; i < _pCollisionArea->_colli_part_num; i++) {
         pColliPart = _pCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }
         shape_kind = pColliPart->_shape_kind;
-        for (int j = 0; j < pOppCollisionArea->_nColliPart; j++) {
+        for (int j = 0; j < pOppCollisionArea->_colli_part_num; j++) {
             pOppColliPart = pOppCollisionArea->_papColliPart[j];
             if (!pOppColliPart->_is_valid_flg) { continue; }
             opp_shape_kind = pOppColliPart->_shape_kind;
@@ -192,29 +192,25 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                 if (opp_shape_kind & COLLI_AAB) {
                     //＜AAB と AAB＞
                     if (UTIL::isHit(this        , _pActor  , (ColliAAB*)pColliPart,
-                                       pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
-//                        //自身の吹っ飛び結果の逆ベクトルを相手に伝搬
-//                        pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
-//                        pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
-//                        pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
+                                    pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
+                        _pCollisionArea->_hit_colli_part_index = i;
+                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                  } else if (opp_shape_kind & COLLI_SPHERE) {
                      //＜AAB と 球＞
                      if (UTIL::isHit(this        , _pActor  , (ColliAAB*)pColliPart,
                                         pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
-//                         pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
-//                         pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
-//                         pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
+                         _pCollisionArea->_hit_colli_part_index = i;
+                         pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                          return true;
                      }
                  } else if (opp_shape_kind & COLLI_AAPRISM) {
                      //＜AAB と AAPrism＞
                      if (UTIL::isHit(pOppCChecker, pOppActor, (ColliAAPrism*)pOppColliPart,
                                         this        , _pActor  , (ColliAAB*)pColliPart)) {
-//                         this->_blown_sgn_vX += -(pOppCChecker->_blown_sgn_vX);
-//                         this->_blown_sgn_vY += -(pOppCChecker->_blown_sgn_vY);
-//                         this->_blown_sgn_vZ += -(pOppCChecker->_blown_sgn_vZ);
+                         _pCollisionArea->_hit_colli_part_index = i;
+                         pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                          return true;
                      }
                  }
@@ -224,27 +220,24 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                     //＜球 と AAB＞
                     if (UTIL::isHit(pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart,
                                        this        , _pActor  , (ColliSphere*)pColliPart)) {
-//                        this->_blown_sgn_vX += -(pOppCChecker->_blown_sgn_vX);
-//                        this->_blown_sgn_vY += -(pOppCChecker->_blown_sgn_vY);
-//                        this->_blown_sgn_vZ += -(pOppCChecker->_blown_sgn_vZ);
+                        _pCollisionArea->_hit_colli_part_index = i;
+                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind & COLLI_SPHERE) {
                     //＜球 と 球＞
                     if (UTIL::isHit(this        , _pActor  , (ColliSphere*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
-//                        pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
-//                        pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
-//                        pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
+                        _pCollisionArea->_hit_colli_part_index = i;
+                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind & COLLI_AAPRISM) {
                     //＜球 と AAPrism＞
                     if (UTIL::isHit(pOppCChecker, pOppActor, (ColliAAPrism*)pOppColliPart,
                                        this        , _pActor  , (ColliSphere*)pColliPart)) {
-//                        this->_blown_sgn_vX += -(pOppCChecker->_blown_sgn_vX);
-//                        this->_blown_sgn_vY += -(pOppCChecker->_blown_sgn_vY);
-//                        this->_blown_sgn_vZ += -(pOppCChecker->_blown_sgn_vZ);
+                        _pCollisionArea->_hit_colli_part_index = i;
+                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 }
@@ -254,18 +247,16 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                     //＜AAPrism と AAB＞
                     if (UTIL::isHit(this        , _pActor  , (ColliAAPrism*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
-//                        pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
-//                        pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
-//                        pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
+                        _pCollisionArea->_hit_colli_part_index = i;
+                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind & COLLI_SPHERE) {
                     //＜AAPrism と 球＞
                     if (UTIL::isHit(this        , _pActor  , (ColliAAPrism*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
-//                        pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
-//                        pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
-//                        pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
+                        _pCollisionArea->_hit_colli_part_index = i;
+                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 }  else if (opp_shape_kind & COLLI_AAPRISM) {

@@ -102,6 +102,7 @@ void WallAAPrismActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     if (_pWalledSectionScene->_pTarget_FrontAlpha) {
+		_pTarget_FrontAlphaÇ™0xfeeefeee
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pTarget_FrontAlpha->_dest_from_vppln_front));
         checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(_h_distance_AlphaTarget) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     } else {
