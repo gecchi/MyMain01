@@ -63,7 +63,7 @@ public:
     GgafCore::GgafActorDepository* _pDepo_WallAAPrism;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
     GgafDxCore::GgafDxGeometricActor* _pTarget_FrontAlpha;
-
+    /** セクションシーン繰り返しフラグ */
     bool _is_loop_end;
     WallPartsActor* _pWallPartsLast;
 

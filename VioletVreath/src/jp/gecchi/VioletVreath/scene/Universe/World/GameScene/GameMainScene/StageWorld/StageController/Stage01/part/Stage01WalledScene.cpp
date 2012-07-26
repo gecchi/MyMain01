@@ -8,7 +8,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     _class_name = "Stage01WalledScene";
 
     //壁ブロックデポジトリ生成
-    float scale_r = 4.0f; //壁ブロックの元モデルからの拡大率
+    float scale_r = 2.0f; //壁ブロックの元モデルからの拡大率
     WallAABActor* pWallAABActor;
     GgafActorDepository* pDepo_WallAAB = NEW GgafActorDepository("Dp_WallAAB");
     for (int i = 0; i < 1500; i++) {
@@ -34,10 +34,10 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 
     //シーンセクション生成
     WalledSectionScene* apSection[] = {
-      NEW Stage01WalledSection001("gbs", this, "scene5_wall_0.dat"),
-      NEW Stage01WalledSection001("gbs", this, "scene5_wall_1.dat"),
-      NEW Stage01WalledSection001("gbs", this, "scene5_wall_2.dat"),
-      NEW Stage01WalledSection001("gbs", this, "scene5_wall_3.dat"),
+      NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_0", this, "scene5_wall_0.dat"),
+      NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_1", this, "scene5_wall_1.dat"),
+      NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_2", this, "scene5_wall_2.dat"),
+      NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_3", this, "scene5_wall_3.dat"),
     };
 
     //構築

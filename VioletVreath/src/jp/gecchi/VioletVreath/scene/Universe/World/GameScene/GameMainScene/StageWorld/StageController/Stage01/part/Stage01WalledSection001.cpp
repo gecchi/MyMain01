@@ -15,8 +15,13 @@ Stage01WalledSection001::Stage01WalledSection001(const char* prm_name, ScrolledS
 
 void Stage01WalledSection001::processBehavior() {
     WalledSectionScene::processBehavior();
-    if (bound_alpha_ - (-(P_MYSHIP->_dest_from_vppln_front)) < 0) {
-        enableFrontAlpha(P_MYSHIP);
+    MyShip* pMyShip = P_MYSHIP;
+    if (pMyShip && pMyShip->isActiveInTheTree()) {
+        if (bound_alpha_ - (-(pMyShip->_dest_from_vppln_front)) < 0) {
+            enableFrontAlpha(pMyShip);
+        } else {
+            enableFrontAlpha(NULL); //背面カメラの近さならアルファ無し
+        }
     } else {
         enableFrontAlpha(NULL); //背面カメラの近さならアルファ無し
     }

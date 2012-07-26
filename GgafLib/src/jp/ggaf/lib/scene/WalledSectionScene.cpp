@@ -95,9 +95,13 @@ void WalledSectionScene::onActive() {
 }
 
 void WalledSectionScene::processBehavior() {
-	velo parent_scroll_speed =_pScrolledScene->getScrollSpeed();
-    if (!_is_loop_end && parent_scroll_speed != 0) {
+    velo parent_scroll_speed =_pScrolledScene->getScrollSpeed();
+    if (!_is_loop_end) {
+
         if (_pWallPartsLast == NULL || (_wall_start_X - _pWallPartsLast->_X) >= _wall_dep) {
+            //_pWallPartsLast は、本セクションシーン内での最終表示壁AABB。
+            //初めての時はNULL
+
             if (_cnt_area_len >= _area_len && _cnt_loop+1 >= _loop_num) {
                 //終了
                 _is_loop_end = true;
@@ -151,6 +155,7 @@ WallPartsActor* WalledSectionScene::getLastWallParts() {
 }
 
 WalledSectionScene::~WalledSectionScene() {
+    _TRACE_("ですとらくた WalledSectionScene::~WalledSectionScene()="<<this);
     for (int i = 0; i < _area_len; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaWallInfo[i]);
     }

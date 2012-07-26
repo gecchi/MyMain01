@@ -9,6 +9,7 @@ WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _pDepo_WallAAPrism = NULL;
     _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
     _loop_active_frames = 0;
+    _is_all_active_section_scenes = false;
 }
 
 void WalledScene::buildWalledScene(
@@ -71,6 +72,7 @@ void WalledScene::buildWalledScene(
 
     }
     _pRingSection->first();
+    _is_all_active_section_scenes = false;
     _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] done");
 }
 
@@ -91,24 +93,50 @@ void WalledScene::initialize() {
 void WalledScene::onActive() {
     WalledSectionScene* pCurrentSection = _pRingSection->getCurrent();
     pCurrentSection->activate();
-    _loop_active_frames = 120 + (GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed();
+    //_loop_active_frames = 120 + (GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed();
 }
 
 void WalledScene::processBehavior() {
-    WalledSectionScene* pCurrentSection = _pRingSection->getCurrent();
-    if (!pCurrentSection->isLast()) {
-        if (pCurrentSection->_is_loop_end) {
-            WalledSectionScene* pNewSection = _pRingSection->next();
-            pNewSection->activate();
-            pNewSection->_pWallPartsLast = pCurrentSection->getLastWallParts();
-            pCurrentSection->end(_loop_active_frames);
-        }
-    } else {
-        if (pCurrentSection->_is_loop_end) {
-            end(_loop_active_frames);
+	if (!_is_all_active_section_scenes) {
+
+		WalledSectionScene* pCurrentSection = _pRingSection->getCurrent();
+		if (!pCurrentSection->isLast()) {
+			if (pCurrentSection->_is_loop_end) {
+				WalledSectionScene* pNewSection = _pRingSection->next();
+				pNewSection->activate();
+				pNewSection->_pWallPartsLast = pCurrentSection->getLastWallParts();
+				//_loop_active_frames = 120 + ((GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed())*4;
+				//endを行なってから、スクロールが遅くなると、どうしよう～って感じ。
+
+	//            pCurrentSection->end(_loop_active_frames); //前のセクションシーンをどう終わらせる・・・
+				_ringLoopEndSection.addLast(pCurrentSection, false);
+				//_TRACE_("(1)WalledScene::processBehavior() pCurrentSection="<<pCurrentSection->getName()<<"を end("<<_loop_active_frames<<")");
+			}
+		} else {
+			if (pCurrentSection->_is_loop_end) {
+				//_loop_active_frames = 120 + ((GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed())*4;
+				//endを行なってから、スクロールが遅くなると、どうしよう～って感じ。
+				//end(_loop_active_frames);
+				_ringLoopEndSection.addLast(pCurrentSection, false);
+				_is_all_active_section_scenes = true;
+				//_TRACE_("(2)WalledScene::processBehavior() this="<<this->getName()<<"を end("<<_loop_active_frames<<")");
+			}
+		}
+	}
+    ScrolledScene::processBehavior();
+
+    //_ringLoopEndSectionチェック
+    for (int i = 0; i < _ringLoopEndSection.length(); i++) {
+        WalledSectionScene* pSection =_ringLoopEndSection.next();
+        if (pSection->_pWallPartsLast->_pWalledSectionScene != pSection || //_pWallPartsLast つまり最終壁の紐付くセクションは自分でない
+                !pSection->_pWallPartsLast->isActive() ) {
+            pSection->end(120);
+            _TRACE_("(1)WalledScene::processBehavior() pSection="<<pSection<<" name="<<pSection->getName()<<"を end()!!!!!!!");
+			_ringLoopEndSection.remove();
+
         }
     }
-    ScrolledScene::processBehavior();
+
 }
 
 void WalledScene::processFinal() {
