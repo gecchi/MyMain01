@@ -18,11 +18,11 @@ void Wall001Prism::onCreateModel() {
 
 void Wall001Prism::processBehavior() {
     WallAAPrismActor::processBehavior();
-    if (P_MYSHIP->isOutOfView()) {
-        setHitAble(true, true); //自機が視野外の場合、視野外壁も当たり判定有り
-    } else {
-        setHitAble(true, false);//自機が視野内の場合、視野外壁は当たり判定無し
-    }
+//    if (P_MYSHIP->isOutOfView()) {
+//        setHitAble(true, true); //自機が視野外の場合、視野外壁も当たり判定有り
+//    } else {
+//        setHitAble(true, false);//自機が視野内の場合、視野外壁は当たり判定無し
+//    }
 //    _TRACE_(getName()<<":"<<_X<<","<<_Y<<","<<_Z);
 }
 //bool Wall001Prism::isOutOfUniverse() {

@@ -34,10 +34,14 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 
     //シーンセクション生成
     WalledSectionScene* apSection[] = {
-      NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_0", this, "scene5_wall_0.dat"),
-      NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_1", this, "scene5_wall_1.dat"),
-      NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_2", this, "scene5_wall_2.dat"),
-      NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_3", this, "scene5_wall_3.dat"),
+        NEW Stage01WalledSection001("Stage01WalledSection001_scene4_wall_0", this, "scene4_wall_0.dat"),
+        NEW Stage01WalledSection001("Stage01WalledSection001_scene4_wall_1", this, "scene4_wall_1.dat"),
+        NEW Stage01WalledSection001("Stage01WalledSection001_scene4_wall_2", this, "scene4_wall_2.dat"),
+        NEW Stage01WalledSection001("Stage01WalledSection001_scene4_wall_3", this, "scene4_wall_3.dat"),
+//        NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_0", this, "scene5_wall_0.dat"),
+//        NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_1", this, "scene5_wall_1.dat"),
+//        NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_2", this, "scene5_wall_2.dat"),
+//        NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_3", this, "scene5_wall_3.dat")
     };
 
     //構築
@@ -68,10 +72,10 @@ void Stage01WalledScene::processBehavior() {
     WalledScene::processBehavior();
 
     if (GgafDxInput::isPushedDownKey(DIK_O)) {
-    	setScrollSpeed(0);
+        setScrollSpeed(0);
     }
     if (GgafDxInput::isPushedDownKey(DIK_P)) {
-    	setScrollSpeed(10000);
+        setScrollSpeed(10000);
     }
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。

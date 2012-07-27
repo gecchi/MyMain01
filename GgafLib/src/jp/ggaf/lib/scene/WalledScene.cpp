@@ -7,8 +7,7 @@ WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _class_name = "WalledScene";
     _pDepo_WallAAB = NULL;
     _pDepo_WallAAPrism = NULL;
-    _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
-    _loop_active_frames = 0;
+    _pLastSectionScene = NULL;
     _is_all_active_section_scenes = false;
 }
 
@@ -33,10 +32,10 @@ void WalledScene::buildWalledScene(
         }
     }
     for (int i = 0; i < prm_section_num; i++) {
-        addSubLast(prm_papSection[i]);
+        addSubLast(prm_papSection[i]); //配下シーンに所属
         prm_papSection[i]->config(_pDepo_WallAAB, _pDepo_WallAAPrism, prm_wall_dep, prm_wall_width, prm_wall_height);
         prm_papSection[i]->inactivateImmed();
-        _pRingSection->addLast(prm_papSection[i], false);
+        _ringHoldSection.addLast(prm_papSection[i], false);
     }
     // 0b 00abcdef
     //
@@ -71,8 +70,9 @@ void WalledScene::buildWalledScene(
         }
 
     }
-    _pRingSection->first();
+    _ringHoldSection.first();
     _is_all_active_section_scenes = false;
+    _pLastSectionScene = prm_papSection[prm_section_num-1];
     _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] done");
 }
 
@@ -91,49 +91,49 @@ void WalledScene::initialize() {
 }
 
 void WalledScene::onActive() {
-    WalledSectionScene* pCurrentSection = _pRingSection->getCurrent();
+    WalledSectionScene* pCurrentSection = _ringHoldSection.getCurrent();
     pCurrentSection->activate();
-    //_loop_active_frames = 120 + (GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed();
 }
 
 void WalledScene::processBehavior() {
-	if (!_is_all_active_section_scenes) {
+    if (!_is_all_active_section_scenes) {
 
-		WalledSectionScene* pCurrentSection = _pRingSection->getCurrent();
-		if (!pCurrentSection->isLast()) {
-			if (pCurrentSection->_is_loop_end) {
-				WalledSectionScene* pNewSection = _pRingSection->next();
-				pNewSection->activate();
-				pNewSection->_pWallPartsLast = pCurrentSection->getLastWallParts();
-				//_loop_active_frames = 120 + ((GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed())*4;
-				//endを行なってから、スクロールが遅くなると、どうしよう～って感じ。
-
-	//            pCurrentSection->end(_loop_active_frames); //前のセクションシーンをどう終わらせる・・・
-				_ringLoopEndSection.addLast(pCurrentSection, false);
-				//_TRACE_("(1)WalledScene::processBehavior() pCurrentSection="<<pCurrentSection->getName()<<"を end("<<_loop_active_frames<<")");
-			}
-		} else {
-			if (pCurrentSection->_is_loop_end) {
-				//_loop_active_frames = 120 + ((GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed())*4;
-				//endを行なってから、スクロールが遅くなると、どうしよう～って感じ。
-				//end(_loop_active_frames);
-				_ringLoopEndSection.addLast(pCurrentSection, false);
-				_is_all_active_section_scenes = true;
-				//_TRACE_("(2)WalledScene::processBehavior() this="<<this->getName()<<"を end("<<_loop_active_frames<<")");
-			}
-		}
-	}
+        WalledSectionScene* pCurrentSection = _ringHoldSection.getCurrent();
+        if (!pCurrentSection->isLast()) {
+            if (pCurrentSection->_is_loop_end) {
+                WalledSectionScene* pNewSection = _ringHoldSection.next();
+                pNewSection->activate();
+                pNewSection->_pWallPartsLast = pCurrentSection->getLastWallParts();
+                _ringLoopEndSection.addLast(pCurrentSection, false);
+            }
+        } else {
+            if (pCurrentSection->_is_loop_end) {
+                _ringLoopEndSection.addLast(pCurrentSection, false);
+                _is_all_active_section_scenes = true;
+            }
+        }
+    }
     ScrolledScene::processBehavior();
 
     //_ringLoopEndSectionチェック
+    //WallPartsActor::_pWalledSectionScene が不正ポインタにならないための考慮である。
     for (int i = 0; i < _ringLoopEndSection.length(); i++) {
         WalledSectionScene* pSection =_ringLoopEndSection.next();
-        if (pSection->_pWallPartsLast->_pWalledSectionScene != pSection || //_pWallPartsLast つまり最終壁の紐付くセクションは自分でない
-                !pSection->_pWallPartsLast->isActive() ) {
-            pSection->end(120);
-            _TRACE_("(1)WalledScene::processBehavior() pSection="<<pSection<<" name="<<pSection->getName()<<"を end()!!!!!!!");
-			_ringLoopEndSection.remove();
-
+        if (pSection->_pWallPartsLast->_pWalledSectionScene != pSection || !pSection->_pWallPartsLast->isActive() ) {
+            //＜メモ＞
+            //pSection->_pWallPartsLast->_pWalledSectionScene != pSection は、
+            //pSection->_pWallPartsLast つまり最終壁の紐付くセクションはが自分でない、
+            //つまり、他のセクションシーンに dispatchForce() されたからOK、と考えた。
+            //また、!pSection->_pWallPartsLast->isActive() は
+            //他のセクションシーンに dispatchForce() されずに、活動範囲外に消えたからOK、と考えた。
+            pSection->end(60*10); //解放！
+            _TRACE_("WalledScene::processBehavior() ["<<getName()<<"]シーンのセクション["<<pSection->getName()<<"]をend!!");
+            _ringLoopEndSection.remove();
+            if (pSection == _pLastSectionScene) {
+                //最終セクションならば自身のシーンも解放
+                end(60*20);
+                _TRACE_("WalledScene::processBehavior() 最終セクションシーンだったため。["<<getName()<<"]シーン自身もend!!");
+            }
         }
     }
 
@@ -143,5 +143,4 @@ void WalledScene::processFinal() {
 }
 
 WalledScene::~WalledScene() {
-    DELETE_IMPOSSIBLE_NULL(_pRingSection);
 }

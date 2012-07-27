@@ -11,14 +11,14 @@ namespace GgafLib {
 class WalledScene : public GgafLib::ScrolledScene {
 
 public:
-    /** セクションシーンのリスト */
-    GgafCore::GgafLinkedListRing<GgafLib::WalledSectionScene>* _pRingSection;
+    /** セクションシーンの保持リスト */
+    GgafCore::GgafLinkedListRing<GgafLib::WalledSectionScene> _ringHoldSection;
+    /** 完了したセクションシーンの保持リスト */
     GgafCore::GgafLinkedListRing<GgafLib::WalledSectionScene> _ringLoopEndSection;
     /** 壁ブロックを供給するデポジトリ(buildWalledScene()で設定される) */
     GgafCore::GgafActorDepository* _pDepo_WallAAB;
     GgafCore::GgafActorDepository* _pDepo_WallAAPrism;
-
-    frame _loop_active_frames;
+    WalledSectionScene* _pLastSectionScene;
     bool _is_all_active_section_scenes;
     /**
      * コンストラクタ
