@@ -60,7 +60,6 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
                 throwGgafCriticalException("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" フォーマットエラーその３ i="<<i<<"/j="<<j<<"/_area_len="<<_area_len<<"/_paWallInfoLen[i]="<<_paWallInfoLen[i]);
             }
         }
-
     }
     ifs.close();
     _pWallPartsLast = NULL;;
@@ -69,6 +68,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     _pDepo_WallAAPrism = NULL;
     _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" done");
 }
+
 void WalledSectionScene::config(
         GgafActorDepository* prm_pDepo_WallAAB,
         GgafActorDepository* prm_pDepo_WallAAPrism,

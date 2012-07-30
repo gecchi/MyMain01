@@ -5,9 +5,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-MyOptionLockonController::MyOptionLockonController(const char* prm_name) :
+MyLockonController::MyLockonController(const char* prm_name) :
         GgafDummyActor(prm_name, NULL) {
-    _class_name = "MyOptionLockonController";
+    _class_name = "MyLockonController";
     pRingTarget_ = NEW GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>();
     pMainLockonEffect_ = NEW EffectLockon001_Main("MAIN");
     pMainLockonEffect_->inactivateImmed();
@@ -21,9 +21,9 @@ MyOptionLockonController::MyOptionLockonController(const char* prm_name) :
     }
 }
 
-void MyOptionLockonController::initialize() {
+void MyLockonController::initialize() {
 }
-void MyOptionLockonController::onReset() {
+void MyLockonController::onReset() {
     //ロックオンターゲットのリストを空にする
     int n = pRingTarget_->length();
     for (int i = 0; i < n; i++) {
@@ -38,12 +38,12 @@ void MyOptionLockonController::onReset() {
     }
 }
 
-void MyOptionLockonController::onActive() {
+void MyLockonController::onActive() {
     onReset();
 }
 
 
-void MyOptionLockonController::processBehavior() {
+void MyLockonController::processBehavior() {
     //ロックオンターゲット生存確認
     GgafDxGeometricActor* pMainLockonTarget = pRingTarget_->getCurrent(); //メインロックオンのターゲット
     GgafDxGeometricActor* pTarget = pRingTarget_->getCurrent(); //ターゲットカーソル
@@ -92,13 +92,13 @@ void MyOptionLockonController::processBehavior() {
     }
 }
 
-void MyOptionLockonController::processJudgement() {
+void MyLockonController::processJudgement() {
 }
-void MyOptionLockonController::onInactive() {
+void MyLockonController::onInactive() {
     onReset();
 }
 
-void MyOptionLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
+void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
     if (pRingTarget_->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ
 
         if (pRingTarget_->length() >= MyOption::lockon_num_) {
@@ -155,7 +155,7 @@ void MyOptionLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
     }
 }
 
-void MyOptionLockonController::releaseAllLockon() {
+void MyLockonController::releaseAllLockon() {
     while (pRingTarget_->length() > 0) {
         pRingTarget_->remove();
     }
@@ -172,12 +172,12 @@ void MyOptionLockonController::releaseAllLockon() {
 }
 
 
-MyOptionLockonController::~MyOptionLockonController() {
+MyLockonController::~MyLockonController() {
     DELETE_IMPOSSIBLE_NULL(pRingTarget_);
 }
 
 
-void MyOptionLockonController::dumpTarget(GgafDxGeometricActor* pMain) {
+void MyLockonController::dumpTarget(GgafDxGeometricActor* pMain) {
 
     if (pRingTarget_->getFromFirst(0) == NULL) {
         _TEXT_("NULL\n");

@@ -64,10 +64,10 @@ void MyOptionTorpedoController::onInactive() {
     pDepo_TorpedoBlast_->reset();
 }
 void MyOptionTorpedoController::fire() {
-    if (!in_firing_) {
+    if (!in_firing_ && MyOption::torpedo_num_ > 0) {
         in_firing_ = true;
         int target_num = pOption_->pLockonCtrlr_->pRingTarget_->length();
-        firing_num_ = target_num < 4 ? 4 : target_num;
+        firing_num_ = MyOption::torpedo_num_; //target_num < 4 ? 4 : target_num;
         angle* paAng_way = NEW angle[firing_num_];
         UTIL::getRadialAngle2D(D45ANG, firing_num_, paAng_way);
         GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[firing_num_];

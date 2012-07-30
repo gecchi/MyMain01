@@ -9,7 +9,7 @@ namespace VioletVreath {
  * @since 2010/09/08
  * @author Masatoshi Tsuge
  */
-class MyOptionLockonController : public GgafCore::GgafDummyActor {
+class MyLockonController : public GgafCore::GgafDummyActor {
 
 public:
     /** メインロックオンエフェクト */
@@ -17,7 +17,7 @@ public:
     /** ロックオンターゲットリストリング */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* pRingTarget_;
 
-    MyOptionLockonController(const char* prm_name);
+    MyLockonController(const char* prm_name);
 
     void initialize() override;
 
@@ -35,7 +35,7 @@ public:
 
     void lockon(GgafDxCore::GgafDxGeometricActor* prm_pTarget);
 
-    virtual ~MyOptionLockonController();
+    virtual ~MyLockonController();
     /**
      * pRingTarget_内容表示(デバッグ用) .
      * @param pMain

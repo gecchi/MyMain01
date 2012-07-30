@@ -380,8 +380,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterCursor001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffecMagic001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLockonMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSmileMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectVreathMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LaserMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.cpp" />
@@ -393,6 +395,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerDirectionVector.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionControllerGizmo.cpp" />
@@ -406,7 +409,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\EffectLockon001_Sub.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\EffectMyOption.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOption.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionLockonController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionTorpedoController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionWateringLaserChip001.cpp" />
@@ -627,9 +629,11 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor003.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterCursor001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLockonMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectMagic001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\magic\effect\effectsmilemagic001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectVreathMagic001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LaserMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.h" />
@@ -641,6 +645,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\myoptioncontroller.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\myoptioncontrollerdirectionvector.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\myoptioncontrollergizmo.h" />
@@ -654,7 +659,6 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\effectlockon001_sub.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\effectmyoption.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoption.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoptionlockoncontroller.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoptionstraightlaserchip001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoptiontorpedocontroller.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoptionwateringlaserchip001.h" />

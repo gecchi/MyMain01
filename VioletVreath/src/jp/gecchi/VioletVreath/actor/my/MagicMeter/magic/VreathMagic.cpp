@@ -13,6 +13,8 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
             60*60*3   , 0.3,   //Šî–{‘±ŠÔ   , {‚PƒŒƒxƒ‹–ˆ‚Ì‘±ŠÔ‚Ìæ—¦
             4         , 2.0    //Šî–{ˆÛƒRƒXƒg , {‚PƒŒƒxƒ‹–ˆ‚ÌˆÛƒRƒXƒg‚Ìæ—¦
         ) {
+
+
     //    | 0          |  1         |  2 Lockon‡Z |  3 Lockon‡Z |  4 Vreath‡Z|  5 Vreath‡Z|  6 Tractor‡Z|  7 Tractor‡Z|
     //    | 8          |  9         | 10 Lockon‡Y | 11 Lockon‡Y | 12 Vreath‡Y| 13 Vreath‡Y| 14 Tractor‡Y| 15 Tractor‡Y|
     //    | 16         | 17         | 18 Lockon‡X | 19 Lockon‡X | 20 Vreath‡X| 21 Vreath‡X| 22 Tractor‡X| 23 Tractor‡X|

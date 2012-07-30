@@ -72,6 +72,10 @@ MyShip::MyShip(const char* prm_name) :
     }
     addSubGroup(pLaserChipDepo_);
 
+    //ロックオンコントローラー
+    pLockonCtrlr_ = NEW MyLockonController("MySHipLockonController");
+    addSubGroup(pLockonCtrlr_);
+
 
     pEffectTurbo001_ = NEW EffectTurbo001("EffectTurbo001");
     addSubGroup(pEffectTurbo001_);

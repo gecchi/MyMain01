@@ -306,12 +306,12 @@ class MyOptionWateringLaserChip001;
 class MyOptionStraightLaserChip001;
 class MyStraightLaserChip001;
 class MyShip;
+class MyLockonController;
 class MyOptionController;
 class MyOptionControllerGizmo;
 class MyOptionControllerDirectionVector;
 class MyOption;
 class EffectMyOption;
-class MyOptionLockonController;
 class MyOptionTorpedoController;
 class MyTorpedoTail;
 class MyTorpedo;
@@ -345,6 +345,8 @@ class VreathMagic;
 class SmileMagic;
 class EffectMagic001;
 class EffectSpeedMagic;
+class EffectTorpedoMagic;
+class EffectLockonMagic;
 class EffectVreathMagic001;
 class EffectSmileMagic001;
 
@@ -586,6 +588,7 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/camera_worker/PauseCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/camera_worker/MyShipDivingCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerGizmo.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerDirectionVector.h"
@@ -612,7 +615,6 @@ class CursorTitleMenu;
 
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/EffectMyOption.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionLockonController.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOptionTorpedoController.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyTorpedo.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyTorpedoTail.h"
@@ -648,6 +650,8 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/SmileMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSpeedMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectTorpedoMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectLockonMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectVreathMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSmileMagic001.h"
 

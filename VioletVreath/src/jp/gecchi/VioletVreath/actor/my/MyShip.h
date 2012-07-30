@@ -195,7 +195,8 @@ public:
     void (MyShip::*paFuncMove[3*3*3])();
     void (MyShip::*paFuncTurbo[3*3*3])();
 
-
+    /** [r]ロックオンコントローラー */
+    MyLockonController* pLockonCtrlr_;
     /** 方向入力値 */
     int stc_;
 
