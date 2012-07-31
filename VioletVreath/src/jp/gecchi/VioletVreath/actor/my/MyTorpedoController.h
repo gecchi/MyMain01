@@ -1,5 +1,5 @@
-#ifndef MYOPTIONTORPEDOCONTROLLER_H_
-#define MYOPTIONTORPEDOCONTROLLER_H_
+#ifndef MYTORPEDOCONTROLLER_H_
+#define MYTORPEDOCONTROLLER_H_
 namespace VioletVreath {
 
 /**
@@ -10,11 +10,12 @@ namespace VioletVreath {
  * @since 2010/09/15
  * @author Masatoshi Tsuge
  */
-class MyOptionTorpedoController : public GgafCore::GgafDummyActor {
+class MyTorpedoController : public GgafCore::GgafDummyActor {
 
 public:
     /** [r]親アクターとなるオプション */
-    MyOption* pOption_;
+    GgafDxCore::GgafDxGeometricActor* pOrg_;
+    MyLockonController* pLockonCtrlr_;
     /** [r]保持する魚雷配列（要素数は MyOption::max_lockon_num_ 個） */
     MyTorpedo** papTorpedo_;
     /** [r]保持する魚雷爆風デポジトリ */
@@ -27,10 +28,10 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_pOption 親となるオプション
+     * @param prm_pOrg 親となるオプション
      * @return
      */
-    MyOptionTorpedoController(const char* prm_name, MyOption* prm_pOption);
+    MyTorpedoController(const char* prm_name, GgafDxCore::GgafDxGeometricActor* prm_pOrg, MyLockonController* prm_pLockonCtrlr);
 
     void initialize() override;
 
@@ -47,13 +48,13 @@ public:
      * 但し、いづれかの魚雷が活動中の場合は、何もしない。
      * 全ての魚雷が非活動状態で、本メソッドを実行すると魚雷を一斉発射する。
      */
-    void fire();
+    bool fire();
 
-    virtual ~MyOptionTorpedoController();
+    virtual ~MyTorpedoController();
 
 
 };
 
 }
-#endif /*MYOPTIONTORPEDOCONTROLLER_H_*/
+#endif /*MYTORPEDOCONTROLLER_H_*/
 

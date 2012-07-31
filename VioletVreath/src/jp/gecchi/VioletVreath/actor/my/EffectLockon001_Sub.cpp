@@ -7,7 +7,6 @@ using namespace VioletVreath;
 EffectLockon001_Sub::EffectLockon001_Sub(const char* prm_name) :
         EffectLockon001(prm_name, "8/Lockon001_Sub") {
     _class_name = "EffectLockon001_Sub";
-    _pProg->change(LOCKON001_PROG_LOCK);
 }
 
 void EffectLockon001_Sub::initialize() {
@@ -18,15 +17,24 @@ void EffectLockon001_Sub::initialize() {
 
 void EffectLockon001_Sub::onActive() {
     EffectLockon001::onActive();
+    _TRACE_(getActivePartFrame()<<",EffectLockon001_Sub::onActive()、this="<<getName()<<"("<<this<<") pTarget_="<<pTarget_);
     pEffectLockon001_Main_ = (EffectLockon001_Main*)getParent()->getSubFirst();
     _pUvFlipper->setActivePtnToTop();
     setAlpha(0.01);
     _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //右回転
     //_pSeTx->play3D(0); //ロックオンSE
-    locateWith(pTarget_);
-
-    _pProg->change(LOCKON001_PROG_LOCK);
+    if (pTarget_ == NULL) {
+        _TRACE_(getActivePartFrame()<<",こここ、this="<<getName()<<"("<<this<<") pTarget_="<<pTarget_);
+        _TRACE_(getActivePartFrame()<<",なんでー");
+    }
+    if (pTarget_) {
+        locateWith(pTarget_);
+        _pProg->set(LOCKON001_PROG_LOCK);
+    } else {
+        setAlpha(0.00);
+        _pProg->set(LOCKON001_PROG_RELEASE);
+    }
 }
 
 void EffectLockon001_Sub::processBehavior() {
@@ -69,7 +77,7 @@ void EffectLockon001_Sub::processBehavior() {
         addAlpha(-0.05);
         _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
         _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
-        if (getAlpha() <= 0.0) {
+        if (ZEROf_EQ(getAlpha())) {
             inactivate();
         }
     }
@@ -87,6 +95,7 @@ void EffectLockon001_Sub::onInactive() {
 }
 
 void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
+
     if (prm_pTarget == NULL || pTarget_ == prm_pTarget) {
         return;
     }
@@ -100,6 +109,7 @@ void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
 
 }
 void EffectLockon001_Sub::releaseLockon() {
+
     if (isActiveInTheTree()) {
         if (_pProg->get() == LOCKON001_PROG_LOCK) {
             _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_angveloFace[AXIS_Z]*-3); //速く逆回転

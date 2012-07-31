@@ -46,7 +46,7 @@ public:
     /** [r]ロックオンコントローラー */
     MyLockonController* pLockonCtrlr_;
     /** [r]魚雷コントローラー */
-    MyOptionTorpedoController* pTorpedoCtrlr_;
+    MyTorpedoController* pTorpedoCtrlr_;
     /** [r]発射するレーザーチップのデポジトリ */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /** [r]発射するショットのデポジトリ */

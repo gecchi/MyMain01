@@ -197,6 +197,8 @@ public:
 
     /** [r]ロックオンコントローラー */
     MyLockonController* pLockonCtrlr_;
+    /** [r]魚雷コントローラー */
+    MyTorpedoController* pTorpedoCtrlr_;
     /** 方向入力値 */
     int stc_;
 
@@ -312,7 +314,7 @@ public:
     void onReset() override;
 
     void onActive() override;
-
+    void onInactive() override;
     void processBehavior() override;
 
     void processJudgement() override;

@@ -81,7 +81,7 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     addSubGroup(pLockonCtrlr_);
 
     //フォトンコントローラー
-    pTorpedoCtrlr_ = NEW MyOptionTorpedoController("TorpedoController", this);
+    pTorpedoCtrlr_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrlr_);
     addSubGroup(pTorpedoCtrlr_);
 
     _pSeTx->set(SE_FIRE_LASER, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
@@ -574,7 +574,7 @@ void MyOption::processBehavior() {
             }
         }
     } else {
-        pLockonCtrlr_->releaseAllLockon();
+        pLockonCtrlr_->releaseAllLockon(); //ロックオン解除
     }
     if (pMyShip->just_shot_) {
         MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
@@ -601,7 +601,6 @@ void MyOption::onInactive() {
     pLockonCtrlr_->onInactive();
     pTorpedoCtrlr_->onInactive();
     pLaserChipDepo_->reset();
-
 }
 
 void MyOption::onHit(GgafActor* prm_pOtherActor) {

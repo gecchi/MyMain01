@@ -76,6 +76,9 @@ MyShip::MyShip(const char* prm_name) :
     pLockonCtrlr_ = NEW MyLockonController("MySHipLockonController");
     addSubGroup(pLockonCtrlr_);
 
+    //フォトンコントローラー
+    pTorpedoCtrlr_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrlr_);
+    addSubGroup(pTorpedoCtrlr_);
 
     pEffectTurbo001_ = NEW EffectTurbo001("EffectTurbo001");
     addSubGroup(pEffectTurbo001_);
@@ -255,8 +258,18 @@ void MyShip::onReset() {
 
 void MyShip::onActive() {
     _TRACE_("MyShip::onActive()");
+    //レーザーやロックンターゲットや魚雷がサブにいるため
+    //個別に呼び出す
+    pLockonCtrlr_->onActive();
+    pTorpedoCtrlr_->onActive();
 }
-
+void MyShip::onInactive() {
+    //レーザーやロックンターゲットや魚雷がサブにいるため
+    //個別に呼び出す
+    pLockonCtrlr_->onInactive();
+    pTorpedoCtrlr_->onInactive();
+//    pLaserChipDepo_->reset();
+}
 void MyShip::processBehavior() {
 
     if (!can_control_) {
@@ -516,6 +529,7 @@ void MyShip::processJudgement() {
         }
     } else {
         frame_shot_pressed_ = 0;
+        pLockonCtrlr_->releaseAllLockon(); //ロックオン解除
     }
 
     //レーザー発射
@@ -527,6 +541,8 @@ void MyShip::processJudgement() {
                     _pSeTx->play3D(SE_FIRE_LASER);
                 }
             }
+        } else {
+
         }
     }
 
@@ -562,11 +578,17 @@ void MyShip::processJudgement() {
     if (is_being_soft_rapidshot_) {
         frame_soft_rapidshot_++;
     }
-    MyOptionController** papOptCtrlr = P_MYSHIP_SCENE->papOptionCtrlr_;
+
     //光子魚雷発射
     if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
+        if (this->pTorpedoCtrlr_->fire()) {
+            _pSeTx->play3D(MyShip::SE_FIRE_TORPEDO);
+        }
+        MyOptionController** papOptCtrlr = P_MYSHIP_SCENE->papOptionCtrlr_;
         for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-            papOptCtrlr[i]->pOption_->pTorpedoCtrlr_->fire();
+            if (papOptCtrlr[i]->pOption_->pTorpedoCtrlr_->fire()) {
+                papOptCtrlr[i]->pOption_->_pSeTx->play3D(MyOption::SE_FIRE_TORPEDO);
+            }
         }
 
 //        bool can_fire = true;

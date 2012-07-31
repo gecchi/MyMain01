@@ -685,6 +685,11 @@ public:
     virtual T* remove();
 
     /**
+     * 全ての要素を抜き取る .
+     */
+    virtual int removeAll();
+
+    /**
      * 引数が先頭から何番目かを返す。
      * 内部保持している要素の値はポインタのため、値の比較ではなくポインタ(アドレス)が一致した
      * インデックスを返します。インデックスは0からの数値です。
@@ -1131,6 +1136,25 @@ T* GgafLinkedListRing<T>::remove() {
     }
 }
 
+template<class T>
+int GgafLinkedListRing<T>::removeAll() {
+    Elem* pElem = _pElemFirst;
+	int n = 0;
+    while (pElem) {
+        if (pElem->_is_last_flg) {
+            DELETE_IMPOSSIBLE_NULL(pElem);
+            break;
+        } else {
+            Elem* pTmp = pElem -> _pNext;
+            DELETE_IMPOSSIBLE_NULL(pElem);
+            pElem = pTmp;
+        }
+    }
+    _num_elem = 0;
+    _pElemActive = NULL;
+    _pElemFirst = NULL;
+	return n;
+}
 
 template<class T>
 int GgafLinkedListRing<T>::indexOf(T* prm_pVal) {
@@ -1153,7 +1177,6 @@ int GgafLinkedListRing<T>::indexOf(T* prm_pVal) {
     }
     return -1;
 }
-
 
 
 template<class T>

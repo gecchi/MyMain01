@@ -100,7 +100,7 @@ void MyLockonController::onInactive() {
 
 void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
     if (pRingTarget_->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ
-
+lockon_num_が0の場合の考慮
         if (pRingTarget_->length() >= MyOption::lockon_num_) {
             //ターゲットのリストが既に満員の場合
             //ロックオンターゲットローテート
@@ -120,6 +120,7 @@ void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
                 GgafMainActor* pLockonEffect = getSubFirst(); //メインロックオエフェクト
                 pLockonEffect->activate();
                 ((EffectLockon001*)pLockonEffect)->lockon(prm_pTarget);
+
                 //最初のロックオンターゲット以外の追加時（サブロックオンターゲット追加時）
             } else if (pRingTarget_->length() > 1) {
                 //Subロックオン追加時
@@ -144,6 +145,7 @@ void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
                     pLockonEffect->activate(); //サブロックオン有効に
                     //サブロックオンエフェクトロックオン！
                     ((EffectLockon001*)pLockonEffect)->lockon(pRingTarget_->getNext());
+
                 } else {
                     //２個目のターゲット追加時（最初のサブロックオンターゲット追加時）
                     GgafMainActor* pLockonEffect = getSubFirst()->getPrev(); //２つなので結局Nextの位置
@@ -156,6 +158,9 @@ void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
 }
 
 void MyLockonController::releaseAllLockon() {
+    if (pRingTarget_->length() == 0) {
+        return;
+    }
     while (pRingTarget_->length() > 0) {
         pRingTarget_->remove();
     }

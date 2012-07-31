@@ -4,7 +4,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pOptionTorpedoController)
+MyTorpedo::MyTorpedo(const char* prm_name,MyTorpedoController* prm_pOptionTorpedoController)
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
     pOptionTorpedoCtrlr_ = prm_pOptionTorpedoController;
@@ -14,7 +14,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pOption
     pTailEffectDepository_->config(length_TailEffect_, 0, NULL);
     for (int i = 0; i < length_TailEffect_; i++) {
         std::stringstream name;
-        name <<  "MYOPTION"<<(pOptionTorpedoCtrlr_->pOption_->no_)<<"'s Torpedo's TailEffect["<<i<<"]";
+        name << ""<<(pOptionTorpedoCtrlr_->pOrg_->getName())<<"'s Torpedo's TailEffect["<<i<<"]";
         MyTorpedoTail* pChip = NEW MyTorpedoTail(name.str().c_str(), this);
 
         pChip->inactivateImmed();
@@ -93,8 +93,8 @@ void MyTorpedo::processBehavior() {
                                 TURN_ANTICLOSE_TO, false);
                 } else {
                     _pKurokoA->execTurnMvAngSequence(
-                                pOptionTorpedoCtrlr_->pOption_->_RZ,
-                                pOptionTorpedoCtrlr_->pOption_->_RY,
+                                pOptionTorpedoCtrlr_->pOrg_->_RZ,
+                                pOptionTorpedoCtrlr_->pOrg_->_RY,
                                 1000, 100,
                                 TURN_CLOSE_TO, false);
 
@@ -135,8 +135,8 @@ void MyTorpedo::processBehavior() {
                         }
                     } else {
                         _pKurokoA->execTurnMvAngSequence(
-                                    pOptionTorpedoCtrlr_->pOption_->_RZ,
-                                    pOptionTorpedoCtrlr_->pOption_->_RY,
+                                    pOptionTorpedoCtrlr_->pOrg_->_RZ,
+                                    pOptionTorpedoCtrlr_->pOrg_->_RY,
                                     1000, 200,
                                     TURN_CLOSE_TO, false);
 //                            _pKurokoA->execTurnMvAngSequence(
@@ -170,8 +170,8 @@ void MyTorpedo::processBehavior() {
                         }
                     } else {
                         _pKurokoA->execTurnMvAngSequence(
-                                    pOptionTorpedoCtrlr_->pOption_->_RZ,
-                                    pOptionTorpedoCtrlr_->pOption_->_RY,
+                                    pOptionTorpedoCtrlr_->pOrg_->_RZ,
+                                    pOptionTorpedoCtrlr_->pOrg_->_RY,
                                     300, 0,
                                     TURN_CLOSE_TO, false);
 

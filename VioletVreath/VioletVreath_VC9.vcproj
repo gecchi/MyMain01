@@ -366,15 +366,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\EffectLockon001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\EffectLockon001_Main.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Main.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\EffectLockon001_Sub.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Sub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLockonMagic.cpp"
 				>
 			</File>
 			<File
@@ -391,6 +395,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.cpp"
 				>
 			</File>
 			<File
@@ -794,6 +802,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyLockonController.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOption.cpp"
 				>
 			</File>
@@ -810,15 +822,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOptionLockonController.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOptionTorpedoController.cpp"
 				>
 			</File>
 			<File
@@ -850,15 +854,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedo.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyTorpedo.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedoBlast.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyTorpedoBlast.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedoTail.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyTorpedoController.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyTorpedoTail.cpp"
 				>
 			</File>
 			<File
@@ -1344,15 +1352,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\EffectLockon001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\EffectLockon001_Main.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Main.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\EffectLockon001_Sub.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Sub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLockonMagic.h"
 				>
 			</File>
 			<File
@@ -1373,6 +1385,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.h"
 				>
 			</File>
 			<File
@@ -1780,6 +1796,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOption.h"
 				>
 			</File>
@@ -1796,15 +1816,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOptionLockonController.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyOptionTorpedoController.h"
 				>
 			</File>
 			<File
@@ -1836,15 +1848,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedo.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyTorpedo.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedoBlast.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyTorpedoBlast.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\option\MyTorpedoTail.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyTorpedoController.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyTorpedoTail.h"
 				>
 			</File>
 			<File

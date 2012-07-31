@@ -312,7 +312,7 @@ class MyOptionControllerGizmo;
 class MyOptionControllerDirectionVector;
 class MyOption;
 class EffectMyOption;
-class MyOptionTorpedoController;
+class MyTorpedoController;
 class MyTorpedoTail;
 class MyTorpedo;
 class MyTorpedoBlast;
@@ -592,6 +592,9 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerGizmo.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerDirectionVector.h"
+#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001.h"
+#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001_Main.h"
+#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001_Sub.h"
 
 #include "jp/gecchi/VioletVreath/actor/my/MyShot001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyWave001.h"
@@ -599,6 +602,11 @@ class CursorTitleMenu;
 
 #include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/EffectMyShipExplosion.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyTorpedo.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoTail.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoBlast.h"
+
 
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion002.h"
@@ -615,16 +623,10 @@ class CursorTitleMenu;
 
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/EffectMyOption.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionTorpedoController.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyTorpedo.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyTorpedoTail.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyTorpedoBlast.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOptionWateringLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOptionStraightLaserChip001.h"
 
-#include "jp/gecchi/VioletVreath/actor/my/option/EffectLockon001.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/EffectLockon001_Main.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/EffectLockon001_Sub.h"
+
 
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterStatus.h"

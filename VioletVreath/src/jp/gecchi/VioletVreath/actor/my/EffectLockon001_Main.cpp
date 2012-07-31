@@ -18,6 +18,10 @@ void EffectLockon001_Main::initialize() {
 
 void EffectLockon001_Main::onActive() {
     EffectLockon001::onActive();
+    if (pTarget_ == NULL) {
+        inactivateImmed();
+        return;
+    }
     _pUvFlipper->setActivePtnToTop();
     setAlpha(0.01);
     _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
@@ -25,14 +29,19 @@ void EffectLockon001_Main::onActive() {
     _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeTx->play3D(0); //ロックオンSE
-    locateWith(pTarget_);
-    _pProg->change(LOCKON001_PROG_FIRST_LOCK);
+
+
+    if (pTarget_) {
+        locateWith(pTarget_);
+        _pProg->set(LOCKON001_PROG_FIRST_LOCK);
+    } else {
+        setAlpha(0.00);
+        _pProg->set(LOCKON001_PROG_RELEASE);
+    }
 }
 
 void EffectLockon001_Main::processBehavior() {
     EffectLockon001::processBehavior();
-
-
 
     if (_pProg->get() == LOCKON001_PROG_LOCK || _pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
         if (getAlpha() < 1.0) {
@@ -68,7 +77,7 @@ void EffectLockon001_Main::processBehavior() {
     if (_pProg->get() == LOCKON001_PROG_RELEASE) {
         pTarget_ = NULL;
         addAlpha(-0.05);
-        if (_pScaler->_method[0] == NOSCALE || getAlpha() <= 0.0) {
+        if (_pScaler->_method[0] == NOSCALE || ZEROf_EQ(getAlpha())) {
             _pScaler->setScale(2000);
             inactivate();
         }

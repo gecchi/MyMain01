@@ -23,7 +23,7 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     _pKurokoB->forceVxyzMvVeloRange(-renge_, renge_);
     _pKurokoB->forceVxyzMvAcceRange(-renge_ / 30, renge_ / 30);
 
-    pOption_ = NEW MyOption("MY_OPTION01", no_, this);
+    pOption_ = NEW MyOption("OPTION", no_, this);
     addSubGroup(pOption_);
     pOption_->inactivateImmed();
 

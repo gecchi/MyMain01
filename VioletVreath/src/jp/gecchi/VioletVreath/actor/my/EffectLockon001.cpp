@@ -30,6 +30,10 @@ void EffectLockon001::onReset() {
 }
 
 void EffectLockon001::onActive() {
+    if (pTarget_ == NULL) {
+        inactivateImmed();
+        return;
+    }
 }
 
 void EffectLockon001::processBehavior() {

@@ -5,17 +5,19 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOption* prm_pOption) :
+MyTorpedoController::MyTorpedoController(const char* prm_name,
+                                                     GgafDxCore::GgafDxGeometricActor* prm_pOrg,
+                                                     MyLockonController* prm_pLockonCtrlr) :
         GgafDummyActor(prm_name, NULL) {
-    _class_name = "MyOptionTorpedoController";
+    _class_name = "MyTorpedoController";
     firing_num_ = 0;
     in_firing_ = false;
-    pOption_ = prm_pOption;
-
+    pOrg_ = prm_pOrg;
+    pLockonCtrlr_ = prm_pLockonCtrlr;
     papTorpedo_ = NEW MyTorpedo*[MyOption::max_lockon_num_];
     for (int i = 0; i < MyOption::max_lockon_num_; i++) {
         std::stringstream name;
-        name <<  "MYOPTION"<<(prm_pOption->no_)<<"'s Torpedo["<<i<<"]";
+        name << ""<<(prm_pOrg->getName())<<"'s Torpedo["<<i<<"]";
         papTorpedo_[i] = NEW MyTorpedo(name.str().c_str(), this);
         papTorpedo_[i]->inactivateImmed();
         addSubGroup(papTorpedo_[i]);
@@ -31,9 +33,9 @@ MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOpt
 
 }
 
-void MyOptionTorpedoController::initialize() {
+void MyTorpedoController::initialize() {
 }
-void MyOptionTorpedoController::onActive() {
+void MyTorpedoController::onActive() {
     in_firing_ = false;
     for (int i = 0; i < MyOption::max_lockon_num_; i++) {
         papTorpedo_[i]->pTarget_ = NULL;
@@ -41,7 +43,7 @@ void MyOptionTorpedoController::onActive() {
     }
     pDepo_TorpedoBlast_->reset();
 }
-void MyOptionTorpedoController::processBehavior() {
+void MyTorpedoController::processBehavior() {
     if (in_firing_) {
         in_firing_ = false;
         for (int i = 0; i < firing_num_; i++) {
@@ -53,9 +55,9 @@ void MyOptionTorpedoController::processBehavior() {
     }
 }
 
-void MyOptionTorpedoController::processJudgement() {
+void MyTorpedoController::processJudgement() {
 }
-void MyOptionTorpedoController::onInactive() {
+void MyTorpedoController::onInactive() {
     in_firing_ = false;
     for (int i = 0; i < MyOption::max_lockon_num_; i++) {
         papTorpedo_[i]->pTarget_ = NULL;
@@ -63,10 +65,10 @@ void MyOptionTorpedoController::onInactive() {
     }
     pDepo_TorpedoBlast_->reset();
 }
-void MyOptionTorpedoController::fire() {
+bool MyTorpedoController::fire() {
     if (!in_firing_ && MyOption::torpedo_num_ > 0) {
         in_firing_ = true;
-        int target_num = pOption_->pLockonCtrlr_->pRingTarget_->length();
+        int target_num = pLockonCtrlr_->pRingTarget_->length();
         firing_num_ = MyOption::torpedo_num_; //target_num < 4 ? 4 : target_num;
         angle* paAng_way = NEW angle[firing_num_];
         UTIL::getRadialAngle2D(D45ANG, firing_num_, paAng_way);
@@ -74,8 +76,8 @@ void MyOptionTorpedoController::fire() {
         angle expanse_rz = (D180ANG - D_ANG(90))/2;   //”­ŽËÆŽËŠp“x90“x
         coord r = PX_C(15);
         D3DXMATRIX matWorldRot;
-        UTIL::setWorldMatrix_RzRy(UTIL::simplifyAng(pOption_->_RZ - D90ANG),
-                                        pOption_->_RY,
+        UTIL::setWorldMatrix_RzRy(UTIL::simplifyAng(pOrg_->_RZ - D90ANG),
+                                        pOrg_->_RY,
                                         matWorldRot);
         float vx, vy, vz;
         coord X,Y,Z;
@@ -92,25 +94,27 @@ void MyOptionTorpedoController::fire() {
 
         }
         for (int i = 0; i < firing_num_; i++) {
-            papTorpedo_[i]->locate(pOption_->_X + paGeo[i]._X,
-                                   pOption_->_Y + paGeo[i]._Y,
-                                   pOption_->_Z + paGeo[i]._Z);
+            papTorpedo_[i]->locate(pOrg_->_X + paGeo[i]._X,
+                                   pOrg_->_Y + paGeo[i]._Y,
+                                   pOrg_->_Z + paGeo[i]._Z);
             if (target_num == 0) {
                 papTorpedo_[i]->pTarget_ = NULL;
             } else {
-                papTorpedo_[i]->pTarget_ = pOption_->pLockonCtrlr_->pRingTarget_->getNext(i);
+                papTorpedo_[i]->pTarget_ = pLockonCtrlr_->pRingTarget_->getNext(i);
             }
             papTorpedo_[i]->_pKurokoA->setRzRyMvAng(paGeo[i]._RZ, paGeo[i]._RY);
             papTorpedo_[i]->activate();
         }
         DELETEARR_IMPOSSIBLE_NULL(paAng_way);
         DELETEARR_IMPOSSIBLE_NULL(paGeo);
-        pOption_->_pSeTx->play3D(MyOption::SE_FIRE_TORPEDO);
-
+        //pOrg_->_pSeTx->play3D(MyOption::SE_FIRE_TORPEDO);
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-MyOptionTorpedoController::~MyOptionTorpedoController() {
+MyTorpedoController::~MyTorpedoController() {
     DELETEARR_IMPOSSIBLE_NULL(papTorpedo_);
 }
