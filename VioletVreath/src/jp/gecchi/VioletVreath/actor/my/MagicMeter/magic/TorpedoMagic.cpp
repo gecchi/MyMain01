@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 TorpedoMagic::TorpedoMagic(const char* prm_name, AmountGraph* prm_pMP)
     : Magic(prm_name, prm_pMP,
-            8,               //max_level、但し MyOption::max_lockon_num_ を超えないこと。
+            8,               //max_level
             1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
             60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60*2    , 0.9,   //基本発動時間   , 飛びレベル時の rate
@@ -62,7 +62,7 @@ void TorpedoMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int
 int TorpedoMagic::effect(int prm_level) {
     int r = Magic::effect(prm_level);
     //光子魚雷発射可能数を変更。
-    MyOption::torpedo_num_ = prm_level;
+    MyTorpedoController::torpedo_num_ = prm_level;
     return r;
 }
 
@@ -73,7 +73,7 @@ void TorpedoMagic::processEffectingBehavior(int prm_last_level, int prm_now_leve
 }
 
 void TorpedoMagic::processEffectFinish(int prm_justbefore_level) {
-    MyOption::torpedo_num_ = 0;
+    MyTorpedoController::torpedo_num_ = 0;
 }
 
 TorpedoMagic::~TorpedoMagic() {

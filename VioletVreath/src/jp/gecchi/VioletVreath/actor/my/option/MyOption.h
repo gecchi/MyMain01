@@ -37,12 +37,7 @@ public:
     MyOptionController* pOptionCtrlr_;
     /** [r]自身のオプション番号(０～・・・) */
     int no_;
-    /** [r]１オプション当たりの最大可能ロックオン数（＝最大光子魚雷数） */
-    static int max_lockon_num_;
-    /** [r]１オプション当たりの現在可能ロックオン数 */
-    static int lockon_num_;
-    /** [r]１オプション当たりの現在魚雷発射可能数 */
-    static int torpedo_num_;
+
     /** [r]ロックオンコントローラー */
     MyLockonController* pLockonCtrlr_;
     /** [r]魚雷コントローラー */

@@ -12,6 +12,11 @@ namespace VioletVreath {
 class MyLockonController : public GgafCore::GgafDummyActor {
 
 public:
+    /** [r]１オプション当たりの最大可能ロックオン数 */
+    static int max_lockon_num_;
+    /** [r]１オプション当たりの現在可能ロックオン数 */
+    static int lockon_num_;
+
     /** メインロックオンエフェクト */
     EffectLockon001_Main* pMainLockonEffect_;
     /** ロックオンターゲットリストリング */

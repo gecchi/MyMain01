@@ -3,7 +3,8 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
+int MyTorpedoController::max_torpedo_num_ = 8;
+int MyTorpedoController::torpedo_num_ = 0;
 
 MyTorpedoController::MyTorpedoController(const char* prm_name,
                                                      GgafDxCore::GgafDxGeometricActor* prm_pOrg,
@@ -14,8 +15,8 @@ MyTorpedoController::MyTorpedoController(const char* prm_name,
     in_firing_ = false;
     pOrg_ = prm_pOrg;
     pLockonCtrlr_ = prm_pLockonCtrlr;
-    papTorpedo_ = NEW MyTorpedo*[MyOption::max_lockon_num_];
-    for (int i = 0; i < MyOption::max_lockon_num_; i++) {
+    papTorpedo_ = NEW MyTorpedo*[max_torpedo_num_];
+    for (int i = 0; i < max_torpedo_num_; i++) {
         std::stringstream name;
         name << ""<<(prm_pOrg->getName())<<"'s Torpedo["<<i<<"]";
         papTorpedo_[i] = NEW MyTorpedo(name.str().c_str(), this);
@@ -24,7 +25,7 @@ MyTorpedoController::MyTorpedoController(const char* prm_name,
     }
 
     pDepo_TorpedoBlast_ = NEW GgafActorDepository("DP_TorpedoBlast");
-    for (int i = 0; i < MyOption::max_lockon_num_*2; i++) {
+    for (int i = 0; i < max_torpedo_num_*2; i++) {
         MyTorpedoBlast* pTorpedoBlast = NEW MyTorpedoBlast("TorpedoBlast");
         pTorpedoBlast->inactivateImmed();
         pDepo_TorpedoBlast_->addSubLast(pTorpedoBlast);
@@ -37,7 +38,7 @@ void MyTorpedoController::initialize() {
 }
 void MyTorpedoController::onActive() {
     in_firing_ = false;
-    for (int i = 0; i < MyOption::max_lockon_num_; i++) {
+    for (int i = 0; i < max_torpedo_num_; i++) {
         papTorpedo_[i]->pTarget_ = NULL;
         papTorpedo_[i]->inactivateImmed();
     }
@@ -59,17 +60,17 @@ void MyTorpedoController::processJudgement() {
 }
 void MyTorpedoController::onInactive() {
     in_firing_ = false;
-    for (int i = 0; i < MyOption::max_lockon_num_; i++) {
+    for (int i = 0; i < max_torpedo_num_; i++) {
         papTorpedo_[i]->pTarget_ = NULL;
         papTorpedo_[i]->inactivateImmed();
     }
     pDepo_TorpedoBlast_->reset();
 }
 bool MyTorpedoController::fire() {
-    if (!in_firing_ && MyOption::torpedo_num_ > 0) {
+    if (!in_firing_ && MyTorpedoController::torpedo_num_ > 0) {
         in_firing_ = true;
         int target_num = pLockonCtrlr_->pRingTarget_->length();
-        firing_num_ = MyOption::torpedo_num_; //target_num < 4 ? 4 : target_num;
+        firing_num_ = MyTorpedoController::torpedo_num_; //target_num < 4 ? 4 : target_num;
         angle* paAng_way = NEW angle[firing_num_];
         UTIL::getRadialAngle2D(D45ANG, firing_num_, paAng_way);
         GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[firing_num_];

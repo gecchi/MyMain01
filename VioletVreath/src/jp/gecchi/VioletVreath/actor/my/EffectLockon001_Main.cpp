@@ -98,7 +98,7 @@ void EffectLockon001_Main::onInactive() {
 }
 
 void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
-    if (prm_pTarget == NULL || pTarget_ == prm_pTarget) {
+    if (prm_pTarget == NULL || pTarget_ == prm_pTarget || MyLockonController::lockon_num_ == 0) {
         return;
     }
     pTarget_ = prm_pTarget;

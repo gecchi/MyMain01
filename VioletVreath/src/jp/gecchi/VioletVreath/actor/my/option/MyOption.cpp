@@ -5,10 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-/** １オプション当たりの最大可能ロックオン数 */
-int MyOption::max_lockon_num_ = 9;
-int MyOption::lockon_num_ = 4;
-int MyOption::torpedo_num_ = 4;
+
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrlr) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrlr) : CubeMapMeshSetActor(prm_name, "4/Core4cm_") {
 MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrlr) :

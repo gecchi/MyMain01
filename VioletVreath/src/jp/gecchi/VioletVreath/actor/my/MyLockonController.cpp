@@ -4,6 +4,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+/** １オプション当たりの最大可能ロックオン数 */
+int MyLockonController::max_lockon_num_ = 8;
+int MyLockonController::lockon_num_ = 0;
+
 
 MyLockonController::MyLockonController(const char* prm_name) :
         GgafDummyActor(prm_name, NULL) {
@@ -12,7 +16,7 @@ MyLockonController::MyLockonController(const char* prm_name) :
     pMainLockonEffect_ = NEW EffectLockon001_Main("MAIN");
     pMainLockonEffect_->inactivateImmed();
     addSubLast(pMainLockonEffect_);
-    for (int i = 1; i < MyOption::max_lockon_num_; i++) {
+    for (int i = 1; i < MyLockonController::max_lockon_num_; i++) {
         std::stringstream name;
         name <<  "SUB["<<i<<"]";
         EffectLockon001_Sub* pSubLockon = NEW EffectLockon001_Sub(name.str().c_str());
@@ -31,7 +35,7 @@ void MyLockonController::onReset() {
     }
     //ロックオンアクターのリセット
     EffectLockon001* pEffectLockon001;
-    for (int i = 0; i < MyOption::max_lockon_num_; i++) {
+    for (int i = 0; i < MyLockonController::max_lockon_num_; i++) {
         pEffectLockon001 = (EffectLockon001*)(getSub(i));
         pEffectLockon001->releaseLockon();
         pEffectLockon001->inactivate();
@@ -99,9 +103,11 @@ void MyLockonController::onInactive() {
 }
 
 void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
+    if (MyLockonController::lockon_num_ == 0) {
+        return;
+    }
     if (pRingTarget_->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ
-lockon_num_が0の場合の考慮
-        if (pRingTarget_->length() >= MyOption::lockon_num_) {
+        if (pRingTarget_->length() >= MyLockonController::lockon_num_) {
             //ターゲットのリストが既に満員の場合
             //ロックオンターゲットローテート
             pRingTarget_->prev();
@@ -161,9 +167,7 @@ void MyLockonController::releaseAllLockon() {
     if (pRingTarget_->length() == 0) {
         return;
     }
-    while (pRingTarget_->length() > 0) {
-        pRingTarget_->remove();
-    }
+    pRingTarget_->removeAll();
     //ロックオンエフェクトをインアクティブにする
     GgafMainActor* pLockonEffect = getSubFirst();
     while (true) {
