@@ -44,8 +44,10 @@ void TractorMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int
 }
 
 int TractorMagic::effect(int prm_level) {
+    _TRACE_("TractorMagic::effect ‘O is_tracting_="<<is_tracting_<<" level_="<<level_<<" prm_level="<<prm_level);
     is_tracting_ = true; //
     int r = Magic::effect(prm_level);
+    _TRACE_("TractorMagic::effect Œã is_tracting_="<<is_tracting_<<" level_="<<level_<<" prm_level="<<prm_level);
     return r;
 }
 
@@ -54,7 +56,9 @@ void TractorMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 void TractorMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
 }
 void TractorMagic::processEffectFinish(int prm_justbefore_level) {
+    _TRACE_("TractorMagic::effect ‘O is_tracting_="<<is_tracting_<<" level_="<<level_<<" prm_justbefore_level="<<prm_justbefore_level);
     is_tracting_ = false;
+    _TRACE_("TractorMagic::effect Œã is_tracting_="<<is_tracting_<<" level_="<<level_<<" prm_justbefore_level="<<prm_justbefore_level);
 }
 
 TractorMagic::~TractorMagic() {

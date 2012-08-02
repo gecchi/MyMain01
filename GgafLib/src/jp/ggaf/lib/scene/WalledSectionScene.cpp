@@ -112,7 +112,6 @@ void WalledSectionScene::processBehavior() {
                     _cnt_loop++;
                 }
             }
-
             WallPartsActor* pWallParts = NULL;
             for (int n = 0; n < _paWallInfoLen[_cnt_area_len]; n++) {
                 if (_papaWallInfo[_cnt_area_len][n]._pos_prism == 0) {

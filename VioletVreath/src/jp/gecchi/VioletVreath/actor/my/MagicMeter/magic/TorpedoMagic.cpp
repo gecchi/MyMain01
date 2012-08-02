@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 TorpedoMagic::TorpedoMagic(const char* prm_name, AmountGraph* prm_pMP)
     : Magic(prm_name, prm_pMP,
-            8,               //max_level
+            MyTorpedoController::max_torpedo_num_,   //max_level
             1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
             60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60*2    , 0.9,   //基本発動時間   , 飛びレベル時の rate
@@ -27,7 +27,6 @@ TorpedoMagic::TorpedoMagic(const char* prm_name, AmountGraph* prm_pMP)
     pEffect_ = NEW EffectTorpedoMagic("EffectTorpedoMagic");
     pEffect_->inactivateImmed();
     addSubGroup(pEffect_);
-
 }
 
 void TorpedoMagic::processCastBegin(int prm_now_level, int prm_new_level) {
