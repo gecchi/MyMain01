@@ -104,19 +104,19 @@ void MyLockonController::onInactive() {
 
 void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
     if (MyLockonController::lockon_num_ == 0) {
-        return;
+        return; //現在のロックオン可能数が0
     }
-    if (pRingTarget_->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ
-        if (pRingTarget_->length() >= MyLockonController::lockon_num_) {
-            //ターゲットのリストが既に満員の場合
+
+    if (pRingTarget_->indexOf(prm_pTarget) == -1) {
+        //ロックオン済みに無いので、ロックオンする
+        if (pRingTarget_->length() >= MyLockonController::lockon_num_) { //ターゲットリストが既に満員の場合
             //ロックオンターゲットローテート
-            pRingTarget_->prev();
-            pRingTarget_->set(prm_pTarget);
+            pRingTarget_->prev();           //カレントを最終要素へ
+            pRingTarget_->set(prm_pTarget); //最終要素だったところにメインターゲット上書き
             //ロックオンエフェクトアクターはそのまま
             //これにより、processBehavior() のターゲット存命時のしょりにより
             //ズルッとずれる。
-        } else {
-            //ターゲットのリストが既に満員では無い（追加可能な場合）
+        } else {   //まだターゲットリストに何もない、或いは余裕がある（追加可能な場合）
             //ターゲットローテート
             pRingTarget_->addPrev(prm_pTarget, false);
             pRingTarget_->prev();
@@ -151,7 +151,6 @@ void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
                     pLockonEffect->activate(); //サブロックオン有効に
                     //サブロックオンエフェクトロックオン！
                     ((EffectLockon001*)pLockonEffect)->lockon(pRingTarget_->getNext());
-
                 } else {
                     //２個目のターゲット追加時（最初のサブロックオンターゲット追加時）
                     GgafMainActor* pLockonEffect = getSubFirst()->getPrev(); //２つなので結局Nextの位置
@@ -160,6 +159,8 @@ void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
                 }
             }
         }
+    } else {
+        //prm_pTarget は既にロックオン済み
     }
 }
 
@@ -180,14 +181,11 @@ void MyLockonController::releaseAllLockon() {
     }
 }
 
-
 MyLockonController::~MyLockonController() {
     DELETE_IMPOSSIBLE_NULL(pRingTarget_);
 }
 
-
 void MyLockonController::dumpTarget(GgafDxGeometricActor* pMain) {
-
     if (pRingTarget_->getFromFirst(0) == NULL) {
         _TEXT_("NULL\n");
         return;

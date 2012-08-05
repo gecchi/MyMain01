@@ -171,8 +171,26 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\DetectMemoryLeaks.cpp"
+				RelativePath=".\src\jp\ggaf\core\util\DetectMemoryLeaks.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\core\actor\GgafActor.cpp"
@@ -325,7 +343,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\DetectMemoryLeaks.h"
+				RelativePath=".\include\jp\ggaf\core\util\DetectMemoryLeaks.h"
 				>
 			</File>
 			<File
@@ -373,6 +391,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafDynamicVariable.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\core\GgafElement.hpp"
 				>
 			</File>
@@ -410,6 +432,10 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\core\util\GgafLinearOctreeSpace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafLinkedListRing.hpp"
 				>
 			</File>
 			<File
@@ -453,11 +479,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafResourceConnection.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\core\GgafResourceConnection.hpp"
 				>
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\core\GgafResourceManager.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafResourceManager.hpp"
 				>
 			</File>
 			<File

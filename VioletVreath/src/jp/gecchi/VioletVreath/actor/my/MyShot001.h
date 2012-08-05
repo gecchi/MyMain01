@@ -25,7 +25,7 @@ public:
     }
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    void drawHitArea() override;
+//    void drawHitArea() override;
 
     virtual ~MyShot001();
 };

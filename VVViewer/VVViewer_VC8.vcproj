@@ -208,10 +208,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\actor\DefaultPointSpriteTestActor.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -232,10 +228,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\src\actor\VvvActor.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\actor\VvvCamera.cpp"
 				>
 			</File>
@@ -244,7 +236,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\actor\VvvCursor.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\VvvGod.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\actor\VvvGrid.cpp"
 				>
 			</File>
 			<File
@@ -266,15 +266,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\src\actor\DefaultPointSpriteTestActor.h"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\actor\VvvActor.h"
 				>
 			</File>
 			<File
@@ -286,7 +278,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\actor\VvvCursor.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\VvvGod.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\actor\VvvGrid.h"
 				>
 			</File>
 			<File

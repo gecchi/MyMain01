@@ -388,6 +388,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\dxcore\actor\interface\GgafDxICubeMapActor.cpp"
 				>
 			</File>
@@ -921,6 +925,10 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\dxcore\GgafDxGod.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.h"
 				>
 			</File>
 			<File

@@ -14,7 +14,7 @@ void MyShot001::initialize() {
     _SX = R_SC(45);
     _SY = _SZ = R_SC(35);
     setBoundingSphereRadiusRate(45.0f);
-    setAlpha(0.99); //半透明にすることで両面レンダリング
+    setAlpha(0.99);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -PX_C(50), -PX_C(50), -PX_C(50),
                                     PX_C(50),  PX_C(50),  PX_C(50));
@@ -22,22 +22,14 @@ void MyShot001::initialize() {
 }
 
 void MyShot001::onActive() {
+    _pStatus->reset();
     setHitAble(true);
-    _pKurokoA->setMvVelo(PX_C(70));             //移動速度
+    _pKurokoA->setMvVelo(PX_C(70));
     _pKurokoA->setMvAcce(100);
 }
 
 void MyShot001::processBehavior() {
-    //加算ランクポイントを減少
-    //_pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    //弾なので不要
-
-    //座標に反映
-    //if (onChangeToActive()) {
-
-    //} else {
-        _pKurokoA->behave();
-    //}
+    _pKurokoA->behave();
 }
 
 void MyShot001::processJudgement() {
@@ -48,18 +40,14 @@ void MyShot001::processJudgement() {
 
 void MyShot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    //if (UTIL::calcMyStamina(this, pOther) <= 0) {
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        if (pExplo001) {
-            pExplo001->locateWith(this);
-        }
-        sayonara();
-    //}
+    setHitAble(false);
+    UTIL::activateExplosionEffectOf(this);
+    sayonara();
 }
 
 
-void MyShot001::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
-}
+//void MyShot001::drawHitArea() {
+//    ColliAABActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+//}
 MyShot001::~MyShot001() {
 }
