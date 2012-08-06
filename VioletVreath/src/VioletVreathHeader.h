@@ -32,6 +32,7 @@
 #define KIND_OTHER                   (0x1000000) //0b 00000001000000000000000000000000
 #define KIND_ITEM                    (0x2000000) //0b 00000010000000000000000000000000
 
+
 #define KIND_MY     (KIND_MY_SHOT_NOMAL|KIND_MY_SHOT_GU|KIND_MY_SHOT_CHOKI|KIND_MY_SHOT_PA|KIND_MY_BODY_NOMAL|KIND_MY_BODY_GU|KIND_MY_BODY_CHOKI|KIND_MY_BODY_PA)
 #define KIND_ENEMY  (KIND_ENEMY_SHOT_NOMAL|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_ENEMY_BODY_NOMAL|KIND_ENEMY_BODY_GU|KIND_ENEMY_BODY_CHOKI|KIND_ENEMY_BODY_PA|KIND_ENEMY_BODY_CHIKEI_NOMAL|KIND_ENEMY_BODY_CHIKEI_GU|KIND_ENEMY_BODY_CHIKEI_CHOKI|KIND_ENEMY_BODY_CHIKEI_PA)
 #define KIND_MY_SHOT     (KIND_MY_SHOT_NOMAL|KIND_MY_SHOT_GU|KIND_MY_SHOT_CHOKI|KIND_MY_SHOT_PA)
@@ -419,6 +420,8 @@ class FormationJuno001;
 
 class EnemyMetis;
 class FormationMetis001;
+class EnemyAdrastea;
+class FormationAdrastea001;
 
 class EnemyAstraea;
 class EnemyAstraeaLaserChip001;
@@ -713,6 +716,8 @@ class CursorTitleMenu;
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Metis/EnemyMetis.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Metis/FormationMetis001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Adrastea/EnemyAdrastea.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Adrastea/FormationAdrastea001.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraea.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraeaLaserChip001.h"

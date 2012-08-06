@@ -8,6 +8,19 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, Gg
             LaserChip(prm_name, prm_model, prm_pStat) {
     _class_name = "HomingLaserChip";
     _is_leader = false;
+
+    _begining_X = _X;
+    _begining_Y = _Y;
+    _begining_Z = _Z;
+    _begining_RX = _RX;
+    _begining_RY = _RY;
+    _begining_RZ = _RZ;
+    _prev_X = _X;
+    _prev_Y = _Y;
+    _prev_Z = _Z;
+    _prev_RX = _RX;
+    _prev_RY = _RY;
+    _prev_RZ = _RZ;
 }
 
 void HomingLaserChip::onActive() {

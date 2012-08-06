@@ -48,7 +48,6 @@ void MyStraightLaserChip001::onActive() {
             lockon_st_ = ((MyStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     }
-
 }
 
 void MyStraightLaserChip001::processBehavior() {
@@ -130,6 +129,7 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     }
 
 }
+
 void MyStraightLaserChip001::onInactive() {
     StraightLaserChip::onInactive();
     lockon_st_ = 0;

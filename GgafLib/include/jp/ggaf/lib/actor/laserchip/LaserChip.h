@@ -24,7 +24,7 @@ class LaserChip : public GgafDxCore::GgafDxMeshSetActor {
 private:
     D3DXHANDLE _ah_kind[11];
     D3DXHANDLE _ah_matWorld_front[11];
-    D3DXHANDLE _h_cnt_vertec;
+    //D3DXHANDLE _h_cnt_vertec;
 
 
     /** onAcive() でリセットされる振る舞い時フレーム数 */

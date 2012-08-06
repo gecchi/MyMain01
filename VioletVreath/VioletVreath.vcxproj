@@ -301,6 +301,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\EnemyAdrastea.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\FormationAdrastea001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraea.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip002.cpp" />
@@ -551,6 +553,8 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectturbo002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectwormhole.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectwormhole001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\adrastea\enemyadrastea.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\adrastea\formationadrastea001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraea.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraealaserchip001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraealaserchip002.h" />
