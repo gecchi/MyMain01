@@ -6,6 +6,8 @@ using namespace GgafLib;
 
 LinearOctreeForActor::LinearOctreeForActor(int prm_level) : GgafLinearOctree(prm_level) {
     _num_space_minus_one = _num_space-1;
+    _kind_groupA = 0;
+    _kind_groupB = 0;
 }
 
 void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_groupB) {

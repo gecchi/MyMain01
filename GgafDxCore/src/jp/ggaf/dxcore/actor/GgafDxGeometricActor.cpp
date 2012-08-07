@@ -12,6 +12,9 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
     _SX = _SY = _SZ = LEN_UNIT;
+    _fX = C_DX(_X);
+    _fY = C_DX(_Y);
+    _fZ = C_DX(_Z);
     _bounding_sphere_radius = 0;
     _rate_of_bounding_sphere_radius = 1.0f;
     _pChecker = prm_pChecker;
@@ -21,19 +24,24 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _offscreen_kind = -1;
     _pFunc_calcRotMvWorldMatrix = NULL;
     _pActor_Base = NULL;
-
-    _X_local  = 0;
-    _Y_local  = 0;
-    _Z_local  = 0;
-    _RX_local = 0;
-    _RY_local = 0;
-    _RZ_local = 0;
-    _X_final  = 0;
-    _Y_final  = 0;
-    _Z_final  = 0;
-    _RX_final = 0;
-    _RY_final = 0;
-    _RZ_final = 0;
+    _dest_from_vppln_top = 0;
+    _dest_from_vppln_bottom = 0;
+    _dest_from_vppln_left = 0;
+    _dest_from_vppln_right = 0;
+    _dest_from_vppln_front = 0;
+    _dest_from_vppln_back = 0;
+    _X_local  = _X;
+    _Y_local  = _Y;
+    _Z_local  = _Z;
+    _RX_local = _RX;
+    _RY_local = _RY;
+    _RZ_local = _RZ;
+    _X_final  = _X;
+    _Y_final  = _Y;
+    _Z_final  = _Z;
+    _RX_final = _RX;
+    _RY_final = _RY;
+    _RZ_final = _RZ;
     _pFormation = NULL;
 
     _is_local = false;

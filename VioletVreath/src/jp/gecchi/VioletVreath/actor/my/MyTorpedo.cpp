@@ -9,6 +9,9 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyTorpedoController* prm_pOptionTorped
     _class_name = "MyTorpedo";
     pOptionTorpedoCtrlr_ = prm_pOptionTorpedoController;
     length_TailEffect_ = 4;
+    begin_X_ = _X;
+    begin_Y_ = _Y;
+    begin_Z_ = _Z;
 
     pTailEffectDepository_ = NEW LaserChipDepository("DP_TailEffect");
     pTailEffectDepository_->config(length_TailEffect_, 0, NULL);
@@ -20,6 +23,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyTorpedoController* prm_pOptionTorped
         pChip->inactivateImmed();
         pTailEffectDepository_->addSubLast(pChip);
     }
+    move_section_ = 0;
     addSubGroup(pTailEffectDepository_);
     effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り

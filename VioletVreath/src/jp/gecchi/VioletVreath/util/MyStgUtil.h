@@ -28,7 +28,7 @@ public:
      * <tr><td>kind_enemy‚Ì•û‚ª—D«</td><td>“¯Ši</td><td>kind_enemy‚Ì•û‚ª—ò«</td></tr>
      * </table>
      */
-    static int judgeMyDominant(actorkind kind_my, actorkind kind_enemy) {
+    static int judgeMyDomination(actorkind kind_my, actorkind kind_enemy) {
         int ret = 0;
         if (kind_my & KIND_GU) {
             if (kind_enemy & KIND_CHOKI) {
@@ -60,7 +60,7 @@ public:
     }
 
 
-    static int judgeEnemyDominant(actorkind kind_enemy, actorkind kind_my) {
+    static int judgeEnemyDomination(actorkind kind_enemy, actorkind kind_my) {
         int ret = 0;
         if (kind_enemy & KIND_GU) {
             if (kind_my & KIND_CHOKI) {
@@ -104,7 +104,7 @@ public:
         actorkind kind_opp = prm_pOpp->getKind();
 
         //—D«—ò«”»’è
-        int my_domi = MyStgUtil::judgeMyDominant(kind_my, kind_opp);
+        int my_domi = MyStgUtil::judgeMyDomination(kind_my, kind_opp);
         //‘Šè(“G)UŒ‚—Í
         int opp_attack = pStatOpp->get(STAT_Attack);
         //—D«—ò«‚É‰‚¶‚Ä–hŒä—¦‚ğæ‚¸‚é
@@ -138,7 +138,7 @@ public:
         GgafCore::GgafStatus* pStatOpp = prm_pOpp->_pStatus;
         actorkind kind_opp = prm_pOpp->getKind();
         //—D«—ò«”»’è
-        int enemy_domi = MyStgUtil::judgeEnemyDominant(kind_enemy, kind_opp);
+        int enemy_domi = MyStgUtil::judgeEnemyDomination(kind_enemy, kind_opp);
         //‘Šè(©‹@)UŒ‚—Í
         int opp_attack = pStatOpp->get(STAT_Attack);
         //—D«—ò«‚É‰‚¶‚Ä–hŒä—¦‚ğæ‚¸‚é

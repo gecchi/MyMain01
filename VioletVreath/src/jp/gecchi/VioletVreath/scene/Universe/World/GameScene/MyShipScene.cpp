@@ -49,7 +49,7 @@ papOptionCtrlr_(NULL) {
 
 
 
-    getDirector()->addSubGroup(KIND_MY_BODY_NOMAL, pMyShip_);
+    getDirector()->addSubGroup(pMyShip_);
 
     pEffectMyShipExplosion_ = NEW EffectMyShipExplosion("EffectMyShipExplosion");
     pEffectMyShipExplosion_->inactivateImmed();

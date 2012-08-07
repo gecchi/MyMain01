@@ -422,6 +422,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\EnemyAdrastea.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraea.cpp"
 				>
 			</File>
@@ -531,6 +535,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\EnergyBar.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\FormationAdrastea001.cpp"
 				>
 			</File>
 			<File
@@ -1412,6 +1420,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\EnemyAdrastea.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraea.h"
 				>
 			</File>
@@ -1525,6 +1537,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\template\Formation001.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\FormationAdrastea001.h"
 				>
 			</File>
 			<File

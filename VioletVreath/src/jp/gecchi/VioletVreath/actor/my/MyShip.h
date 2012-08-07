@@ -230,7 +230,7 @@ public:
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** Turbo移動が終了と判断される移動速度 */
-    velo iMvVelo_FMT_; //Rotation axisX angle Velo when I Finish Moveing with Turbo
+//    velo iMvVelo_FMT_; //Rotation axisX angle Velo when I Finish Moveing with Turbo
     //但し 値 < 0 であること。
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 

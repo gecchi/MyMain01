@@ -8,6 +8,7 @@ GgafDxAlphaFader::GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor) :
 
     _alpha = _pActor->getAlpha();
     _velo_alpha = 0.0f;
+    _acce_alpha = 0.0f;
     _target_alpha = 1.0f;
     _top_alpha = 1.0f;
     _bottom_alpha = 0.0f;

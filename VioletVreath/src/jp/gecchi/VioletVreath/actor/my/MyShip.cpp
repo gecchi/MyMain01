@@ -172,6 +172,12 @@ MyShip::MyShip(const char* prm_name) :
     iMvVelo_TurboTop_ = 30000;
     iMvVelo_TurboBottom_ = 10000;
 
+    frame_soft_rapidshot_ = 0;
+    is_being_soft_rapidshot_ = false;
+    just_shot_ = false;
+    is_shooting_laser_ = false;
+    frame_shot_pressed_ = 0;
+
     can_control_ = true;
     is_diving_ = false;
 
@@ -180,6 +186,7 @@ MyShip::MyShip(const char* prm_name) :
     blown_veloZ_ = 0;
     way_ = WAY_NONE;
     prev_way_ = WAY_NONE;
+    stc_ = VB_NEUTRAL_STC;
     is_just_change_way_ = true;
 
     mp_.config(600, 100000); //íl 100000 Ç≈ï\é¶ÇÕ600pxÇ∆Ç∑ÇÈÅB

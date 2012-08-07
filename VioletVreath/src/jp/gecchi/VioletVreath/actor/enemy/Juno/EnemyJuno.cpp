@@ -15,6 +15,7 @@ EnemyJuno::EnemyJuno(const char* prm_name) :
     can_Shot_ = false;
     do_Shot_ = false;
     velo_mv_begin_ = 0;
+    frame_when_shot_ = 0;
     _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
     _pSeTx->set(SE_FIRE     , "cm-22", GgafRepeatSeq::nextVal("CH_cm-22"));     //”­ŽË
 }

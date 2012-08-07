@@ -10,6 +10,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
 
     //ƒŒ[ƒU[
     laser_way_ = 3;
+    cnt_laserchip_ = 0;
     _X = 0;
     _Y = 0;
     _Z = 0;

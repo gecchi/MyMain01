@@ -4,6 +4,12 @@ using namespace GgafCore;
 
 GgafLinearOctree::GgafLinearOctree(int prm_level) {
     _top_space_level = prm_level;
+    _root_X1 = 0;
+    _root_Y1 = 0;
+    _root_Z1 = 0;
+    _root_X2 = 0;
+    _root_Y2 = 0;
+    _root_Z2 = 0;
     //‚×‚«æì¬
     _paUint32_pow = NEW UINT32[(prm_level+1)+1];
     _paUint32_pow[0] = 1;

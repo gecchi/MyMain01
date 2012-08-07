@@ -22,6 +22,10 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     veloMv_ = 5000;     //旋廻移動速度（上書き初期設定可）
     angExpanse_ = 0;      //オプションの広がり角の回転角（上書き初期設定可）
 
+    adjust_angPos_seq_progress_ = 0;
+    adjust_angPos_seq_new_angPosition_base_ = angPosition_;
+    adjust_angPos_seq_spent_frame_ = 0;
+
     angPosition_base_ = angPosition_;
     radiusPosition_base_ = radiusPosition_;
     radiusPosition_stopping_ = radiusPosition_;
@@ -34,6 +38,10 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
 
     angveloExpanseNomal_ = 3000;
     angveloExpanseSlow_ = 1000;
+
+    Xorg_ = _X;
+    Yorg_ = _Y;
+    Zorg_ = _Z;
 
     pEffect_ = NEW EffectMyOption("EffectMyOption", this);
     addSubGroup(pEffect_);

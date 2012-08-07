@@ -22,7 +22,6 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxKurokoA : public GgafCore::GgafObject {
-    float _dummy1, _dummy2, _dummy3;
 
 public:
     /** [r]対象アクター */

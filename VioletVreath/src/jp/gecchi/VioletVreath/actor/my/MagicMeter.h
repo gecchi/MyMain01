@@ -43,8 +43,6 @@ public:
     VreathMagic*  pVreathMagic_;
     SmileMagic*   pSmileMagic_;
 
-
-    D3DXHANDLE h_active_magic_;
     /** Ž©‹@‚ÌMP */
     GgafLib::AmountGraph* pMP_MyShip_;
     /** MP‚ÌCOST•ª•\Ž¦—p */

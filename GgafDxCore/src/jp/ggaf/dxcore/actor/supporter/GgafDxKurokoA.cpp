@@ -1455,14 +1455,15 @@ void GgafDxKurokoA::setStopTarget_RzRyMvAng(GgafDxGeometricActor* prm_pActor_Tar
 void GgafDxKurokoA::setStopTarget_RzRyMvAng(coord prm_tX, coord prm_tY, coord prm_tZ) {
     angle angRz_Target;
     angle angRy_Target;
+    float dummy1, dummy2, dummy3;
 
     UTIL::getRzRyAng(
                    prm_tX - _pActor->_X,
                    prm_tY - _pActor->_Y,
                    prm_tZ - _pActor->_Z,
-                   _dummy1,
-                   _dummy2,
-                   _dummy3,
+                   dummy1,
+                   dummy2,
+                   dummy3,
                    angRz_Target,
                    angRy_Target
                  );

@@ -86,6 +86,7 @@ public:
         int pno_;
 
         LevelInfo() : remainingtime_of_effect_(0),
+                      time_of_effect_(0),
                       keep_cost_(0),
                       pno_(0) {
         }
