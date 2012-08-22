@@ -9,7 +9,8 @@ using namespace VioletVreath;
 // コード変更は「ステータスCreater.xls」から行うこと。
 // gen02 start
 	GgafStatus* MyStgUtil::resetMyStraightLaserChip001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -26,7 +27,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionWateringLaserChip001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -43,7 +45,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionStraightLaserChip001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -60,7 +63,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyTorpedoStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -77,7 +81,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyTorpedoBlastStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -94,7 +99,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyShipStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -111,7 +117,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyStraightLaserChip001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -128,7 +135,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCurveLaserChip001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -145,7 +153,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCeresStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -162,7 +171,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCeresShot001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 10 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -179,7 +189,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 300 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -196,7 +207,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -213,7 +225,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip002Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -230,7 +243,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip003Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -247,7 +261,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip004Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -264,7 +279,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyVestaStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT| KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -281,7 +297,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMetisStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 30000 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -298,7 +315,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 20 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -315,7 +333,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyJunoStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 20 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -332,7 +351,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThaliaStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 300 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -349,7 +369,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 2 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.01000 );  //加算ランク
@@ -366,7 +387,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot002Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 3 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.01000 );  //加算ランク
@@ -383,7 +405,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyTamago01Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -400,7 +423,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCirceStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -417,7 +441,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot003Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -434,7 +459,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot004Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -451,7 +477,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTorusStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -468,7 +495,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetWall001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -485,7 +513,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetWall001PrismStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -502,7 +531,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyPallasStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -519,7 +549,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyEunomiaStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -536,7 +567,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyShot001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -553,7 +585,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 1000 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -570,7 +603,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragmentStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 300 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -587,7 +621,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment2Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -604,7 +639,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment3Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -622,6 +658,7 @@ using namespace VioletVreath;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_EFFECT);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -638,7 +675,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMagicPointItem001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 500 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -655,7 +693,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMagicPointItem002Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 500 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -672,7 +711,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHebeStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -689,7 +729,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbeStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
@@ -706,7 +747,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
@@ -723,7 +765,8 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAdrasteaStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU | KIND_NOMAL);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 30000 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク

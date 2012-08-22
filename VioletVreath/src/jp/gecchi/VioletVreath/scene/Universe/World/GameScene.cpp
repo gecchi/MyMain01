@@ -324,6 +324,7 @@ void GameScene::processJudgement() {
         //本シーンの所属シーンの所属アクター全てについて当たり判定チェックを行う。
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
+
         //八分木アルゴリズムでヒットチェック
         CollisionChecker::_pLinearOctree->executeAllHitChk(
         KIND_CHIKEI,
@@ -341,6 +342,7 @@ void GameScene::processJudgement() {
         KIND_ENEMY_SHOT,
         KIND_MY_BODY
         );
+
 
     }
 }

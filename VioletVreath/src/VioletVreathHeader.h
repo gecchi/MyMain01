@@ -42,33 +42,10 @@
 
 #define KIND_CHIKEI (KIND_CHIKEI_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_THRU)
 
-
-
-
-#define KIND_NOMAL       (0x0)    //000
-#define KIND_GU          (0x1)    //001
-#define KIND_CHOKI       (0x2)    //010
-#define KIND_PA          (0x4)    //100
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#define ATTRIBUTE_NOMAL       (0x0)    //000
+#define ATTRIBUTE_GU          (0x1)    //001
+#define ATTRIBUTE_CHOKI       (0x2)    //010
+#define ATTRIBUTE_PA          (0x4)    //100
 
 
 
@@ -108,10 +85,10 @@
 //#define KIND_ENEMY_SHOT  (KIND_ENEMY_SHOT_NOMAL|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA)
 //#define KIND_ENEMY_BODY  (KIND_ENEMY_BODY_NOMAL|KIND_ENEMY_BODY_GU|KIND_ENEMY_BODY_CHOKI|KIND_ENEMY_BODY_PA|KIND_ENEMY_BODY_CHIKEI_NOMAL|KIND_ENEMY_BODY_CHIKEI_GU|KIND_ENEMY_BODY_CHIKEI_CHOKI|KIND_ENEMY_BODY_CHIKEI_PA)
 //
-//#define KIND_NOMAL       (0x0)    //000
-//#define KIND_GU          (0x1)    //001
-//#define KIND_CHOKI       (0x2)    //010
-//#define KIND_PA          (0x4)    //100
+//#define ATTRIBUTE_NOMAL       (0x0)    //000
+//#define ATTRIBUTE_GU          (0x1)    //001
+//#define ATTRIBUTE_CHOKI       (0x2)    //010
+//#define ATTRIBUTE_PA          (0x4)    //100
 
 //VirtualButton.h の define の別名を定義
 #define VB_SHOT1    VB_BUTTON1
@@ -124,35 +101,38 @@
 //#define VB_VIEW_02  VB_BUTTON8
 
 //STAT_DEFAULT_ACTOR_KINDは0
-/** アクターステータス：加算スコア(int) */
-#define STAT_AddScorePoint          (1)
-/** アクターステータス：加算ランクポイント(double) */
-#define STAT_AddRankPoint           (2)
-/** アクターステータス：加算ランクポイントの、フレーム毎減少率(double) */
-#define STAT_AddRankPoint_Reduction (3)
-/** アクターステータス：アクターの残り体力(int) */
-#define STAT_Stamina                (4)
-/** アクターステータス：アクターの攻撃力(int) */
-#define STAT_Attack                 (5)
-/** アクターステータス：アクターの基本防御能力(double) 。相手のSTAT_Attackに乗じる(1.0で0%防御,0.9で10%防御) */
-#define STAT_DefaultDefenceRate     (6)
-/** アクターステータス：アクターの優性属性時防御能力(double) */
-#define STAT_DominantDefenceRate    (7)
-/** アクターステータス：アクターの劣性属性時防御能力(double) */
-#define STAT_RecessiveDefenceRate   (8)
-/** アクターステータス：ロックオン可否(0:不可 1:可) */
-#define STAT_LockonAble             (9)
-/** アクターステータス：登場エフェクト種類(int) */
-#define STAT_EntryEffectKind        (10)
-/** アクターステータス：退出エフェクト種類(int) */
-#define STAT_LeaveEffectKind        (11)
-/** アクターステータス：爆発エフェクト種類(int) */
-#define STAT_ExplosionEffectKind    (12)
-/** アクターステータス：保持アイテム種類(int) */
-#define STAT_ItemKind               (13)
-/** アクターステータス：番兵（配列要素数に使用される、STAT_Sentry は一番最後の数値を持ってくること）*/
-#define STAT_Sentry                 (14)
 
+
+/** アクターステータス：属性(ATTRIBUTE_NOMAL/ATTRIBUTE_GU/ATTRIBUTE_CHOKI/ATTRIBUTE_PA) */
+#define STAT_Attribute              (1)
+/** アクターステータス：加算スコア(int) */
+#define STAT_AddScorePoint          (2)
+/** アクターステータス：加算ランクポイント(double) */
+#define STAT_AddRankPoint           (3)
+/** アクターステータス：加算ランクポイントの、フレーム毎減少率(double) */
+#define STAT_AddRankPoint_Reduction (4)
+/** アクターステータス：アクターの残り体力(int) */
+#define STAT_Stamina                (5)
+/** アクターステータス：アクターの攻撃力(int) */
+#define STAT_Attack                 (6)
+/** アクターステータス：アクターの基本防御能力(double) 。相手のSTAT_Attackに乗じる(1.0で0%防御,0.9で10%防御) */
+#define STAT_DefaultDefenceRate     (7)
+/** アクターステータス：アクターの優性属性時防御能力(double) */
+#define STAT_DominantDefenceRate    (8)
+/** アクターステータス：アクターの劣性属性時防御能力(double) */
+#define STAT_RecessiveDefenceRate   (9)
+/** アクターステータス：ロックオン可否(0:不可 1:可) */
+#define STAT_LockonAble             (10)
+/** アクターステータス：登場エフェクト種類(int) */
+#define STAT_EntryEffectKind        (11)
+/** アクターステータス：退出エフェクト種類(int) */
+#define STAT_LeaveEffectKind        (12)
+/** アクターステータス：爆発エフェクト種類(int) */
+#define STAT_ExplosionEffectKind    (13)
+/** アクターステータス：保持アイテム種類(int) */
+#define STAT_ItemKind               (14)
+/** アクターステータス：番兵（配列要素数に使用される、STAT_Sentry は一番最後の数値を持ってくること）*/
+#define STAT_Sentry                 (15)
 
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
 // コード変更は「RankAdjuster.xls」から行うこと。

@@ -14,11 +14,13 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,8200,9200,10000,11000,13200,15000,18200,20000};
-	_paFrame_NextEvent = new frame[10];
+	frame f[] = {1,500,600,700};
+	_paFrame_NextEvent = new frame[4];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 10;
-	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
+	_event_num = 4;
+	orderActorToFactory(10000000, EnemyAdrastea, "Adrastea_1");
+	orderActorToFactory(10000001, EnemyAdrastea, "Adrastea_2");
+	orderActorToFactory(10000002, EnemyAdrastea, "Adrastea_3");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -36,55 +38,25 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 100: {
-				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
-				addSubLast(pScene);
-				_pProg->change(Stage01PartController::PROG_STG01_01_BEGIN);
+			case 500: {
+				EnemyAdrastea* p = (EnemyAdrastea*)obtainActorFromFactory(10000000);
+				getDirector()->addSubGroup(p);
 				break;
 			}
-			case 8200: {
-				orderSceneToFactory(10000001, Stage01_02, "Stage01_02");
+			case 600: {
+				EnemyAdrastea* p = (EnemyAdrastea*)obtainActorFromFactory(10000001);
+				getDirector()->addSubGroup(p);
 				break;
 			}
-			case 9200: {
-				orderSceneToFactory(10000003, Stage01WalledScene, "GroStage01WalledScene");
-				break;
-			}
-			case 10000: {
-				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
-				addSubLast(pScene);
-				_pProg->change(Stage01PartController::PROG_STG01_02_BEGIN);
-				break;
-			}
-			case 11000: {
-				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000003);
-				addSubLast(pScene);
-				break;
-			}
-			case 13200: {
-				orderSceneToFactory(10000002, Stage01_03, "Stage01_03");
-				break;
-			}
-			case 15000: {
-				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000002);
-				addSubLast(pScene);
-				_pProg->change(Stage01PartController::PROG_STG01_03_BEGIN);
-				break;
-			}
-			case 18200: {
-				orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
-				break;
-			}
-			case 20000: {
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
-				addSubLast(pScene);
-				_pProg->change(Stage01PartController::PROG_STG01_CLIMAX_BEGIN);
+			case 700: {
+				EnemyAdrastea* p = (EnemyAdrastea*)obtainActorFromFactory(10000002);
+				getDirector()->addSubGroup(p);
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 10-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 4-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

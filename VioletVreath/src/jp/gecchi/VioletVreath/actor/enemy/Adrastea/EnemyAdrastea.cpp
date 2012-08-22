@@ -43,7 +43,7 @@ void EnemyAdrastea::initialize() {
 //    effectBlendOne();
     setCubeMap("BkSky_cubemap.dds",0.3);
     config(PX_C(30),PX_C(30),PX_C(30),
-           10, 2, 15);
+           6, 1, 6);
     int colli_areas = box_num_X_ * box_num_Y_ * box_num_Z_;
     _pColliChecker->makeCollision(colli_areas);
     int n = 0;

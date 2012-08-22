@@ -90,7 +90,6 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrlr_->pRingTarget_->getCurrent();
     //ヒットエフェクト
     //無し
-
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
         if (pMainLockOnTarget) { //既にオプションはロックオン中
             if (pOther == pMainLockOnTarget) {

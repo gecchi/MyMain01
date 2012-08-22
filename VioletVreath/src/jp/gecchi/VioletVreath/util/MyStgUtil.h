@@ -24,35 +24,35 @@ public:
      * @return ˆÈ‰º‚Ì•\QÆB
      * <table>
      * <tr><th>0‚æ‚è¬‚³‚¢         </th><th>0   </th><th>0‚æ‚è‘å‚«‚¢         </th></tr>
-     * <tr><td>kind_my‚Ì•û‚ª—ò«   </td><td>“¯Ši</td><td>kind_my‚Ì•û‚ª—D«   </td></tr>
-     * <tr><td>kind_enemy‚Ì•û‚ª—D«</td><td>“¯Ši</td><td>kind_enemy‚Ì•û‚ª—ò«</td></tr>
+     * <tr><td>attribute_my‚Ì•û‚ª—ò«   </td><td>“¯Ši</td><td>kind_my‚Ì•û‚ª—D«   </td></tr>
+     * <tr><td>attribute_enemy‚Ì•û‚ª—D«</td><td>“¯Ši</td><td>kind_enemy‚Ì•û‚ª—ò«</td></tr>
      * </table>
      */
-    static int judgeMyDomination(actorkind kind_my, actorkind kind_enemy) {
+    static int judgeMyDomination(actorkind attribute_my, actorkind attribute_enemy) {
         int ret = 0;
-        if (kind_my & KIND_GU) {
-            if (kind_enemy & KIND_CHOKI) {
+        if (attribute_my & ATTRIBUTE_GU) {
+            if (attribute_enemy & ATTRIBUTE_CHOKI) {
                 ret++;
             }
-            if (kind_enemy & KIND_PA) {
+            if (attribute_enemy & ATTRIBUTE_PA) {
                 ret--;
             }
         }
 
-        if (kind_my & KIND_CHOKI) {
-            if (kind_enemy & KIND_PA) {
+        if (attribute_my & ATTRIBUTE_CHOKI) {
+            if (attribute_enemy & ATTRIBUTE_PA) {
                 ret++;
             }
-            if (kind_enemy & KIND_GU) {
+            if (attribute_enemy & ATTRIBUTE_GU) {
                 ret--;
             }
         }
 
-        if (kind_my & KIND_PA) {
-            if (kind_enemy & KIND_GU) {
+        if (attribute_my & ATTRIBUTE_PA) {
+            if (attribute_enemy & ATTRIBUTE_GU) {
                 ret++;
             }
-            if (kind_enemy & KIND_CHOKI) {
+            if (attribute_enemy & ATTRIBUTE_CHOKI) {
                 ret--;
             }
         }
@@ -60,31 +60,31 @@ public:
     }
 
 
-    static int judgeEnemyDomination(actorkind kind_enemy, actorkind kind_my) {
+    static int judgeEnemyDomination(actorkind kattribute_enemy, actorkind attribute_my) {
         int ret = 0;
-        if (kind_enemy & KIND_GU) {
-            if (kind_my & KIND_CHOKI) {
+        if (kattribute_enemy & ATTRIBUTE_GU) {
+            if (attribute_my & ATTRIBUTE_CHOKI) {
                 ret++;
             }
-            if (kind_my & KIND_PA) {
+            if (attribute_my & ATTRIBUTE_PA) {
                 ret--;
             }
         }
 
-        if (kind_enemy & KIND_CHOKI) {
-            if (kind_my & KIND_PA) {
+        if (kattribute_enemy & ATTRIBUTE_CHOKI) {
+            if (attribute_my & ATTRIBUTE_PA) {
                 ret++;
             }
-            if (kind_my & KIND_GU) {
+            if (attribute_my & ATTRIBUTE_GU) {
                 ret--;
             }
         }
 
-        if (kind_enemy & KIND_PA) {
-            if (kind_my & KIND_GU) {
+        if (kattribute_enemy & ATTRIBUTE_PA) {
+            if (attribute_my & ATTRIBUTE_GU) {
                 ret++;
             }
-            if (kind_my & KIND_CHOKI) {
+            if (attribute_my & ATTRIBUTE_CHOKI) {
                 ret--;
             }
         }
@@ -99,12 +99,10 @@ public:
      */
     static int calcMyStamina(GgafCore::GgafMainActor* prm_pMy, GgafCore::GgafMainActor* prm_pOpp) {
         GgafCore::GgafStatus* pStatMy = prm_pMy->_pStatus;
-        actorkind kind_my = prm_pMy->getKind();
         GgafCore::GgafStatus* pStatOpp = prm_pOpp->_pStatus;
-        actorkind kind_opp = prm_pOpp->getKind();
 
         //—D«—ò«”»’è
-        int my_domi = MyStgUtil::judgeMyDomination(kind_my, kind_opp);
+        int my_domi = MyStgUtil::judgeMyDomination(pStatMy->get(STAT_Attribute), pStatOpp->get(STAT_Attribute));
         //‘Šè(“G)UŒ‚—Í
         int opp_attack = pStatOpp->get(STAT_Attack);
         //—D«—ò«‚É‰‚¶‚Ä–hŒä—¦‚ğæ‚¸‚é
@@ -134,11 +132,9 @@ public:
      */
     static int calcEnemyStamina(GgafCore::GgafMainActor* prm_pEnemy, GgafCore::GgafMainActor* prm_pOpp) {
         GgafCore::GgafStatus* pStatEnemy = prm_pEnemy->_pStatus;
-        actorkind kind_enemy = prm_pEnemy->getKind();
         GgafCore::GgafStatus* pStatOpp = prm_pOpp->_pStatus;
-        actorkind kind_opp = prm_pOpp->getKind();
         //—D«—ò«”»’è
-        int enemy_domi = MyStgUtil::judgeEnemyDomination(kind_enemy, kind_opp);
+        int enemy_domi = MyStgUtil::judgeEnemyDomination(pStatEnemy->get(STAT_Attribute), pStatOpp->get(STAT_Attribute));
         //‘Šè(©‹@)UŒ‚—Í
         int opp_attack = pStatOpp->get(STAT_Attack);
         //—D«—ò«‚É‰‚¶‚Ä–hŒä—¦‚ğæ‚¸‚é
@@ -157,7 +153,7 @@ public:
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
                                               (int)(opp_attack * pStatEnemy->getDouble(STAT_DefaultDefenceRate)));
         }
-        if (enemy_stamina <= 0 && (kind_opp & KIND_MY)) {
+        if (enemy_stamina <= 0 && (prm_pOpp->getKind() & KIND_MY)) {
             //‘Šè(©‹@)‚Ìí•Ê‚ª MY*** i©‹@ŠÖ˜Aj ‚È‚ç‚Î
             _SCORE_ += pStatEnemy->get(STAT_AddScorePoint);      //“¾“_
             _RANK_  += pStatEnemy->getDouble(STAT_AddRankPoint); //ƒ‰ƒ“ƒN‰ÁZ
