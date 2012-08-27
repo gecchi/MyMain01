@@ -53,6 +53,30 @@ MyShip::MyShip(const char* prm_name) :
 //    pOptionCtrlr_ = NEW MyOptionController("MY_OPTION_PARENT");
 //    addSubLast(pOptionCtrlr_);
 
+    //debug ---->
+    pDepo_TestGuShot_ = NEW GgafActorDepository("Depo_TestGuShot");
+    for (int i = 0; i < 25; i++) { //テストグー弾ストック
+        pDepo_TestGuShot_->addSubLast(NEW TestGuShot("TestGuShot"));
+    }
+    addSubGroup(pDepo_TestGuShot_);
+    pDepo_TestChokiShot_ = NEW GgafActorDepository("Depo_TestChokiShot");
+    for (int i = 0; i < 25; i++) { //テストチョキ弾ストック
+        pDepo_TestChokiShot_->addSubLast(NEW TestChokiShot("TestChokiShot"));
+    }
+    addSubGroup(pDepo_TestChokiShot_);
+    pDepo_TestPaShot_ = NEW GgafActorDepository("Depo_TestPaShot");
+    for (int i = 0; i < 25; i++) { //テストパー弾ストック
+        pDepo_TestPaShot_->addSubLast(NEW TestPaShot("TestPaShot"));
+    }
+    addSubGroup(pDepo_TestPaShot_);
+    pDepo_TestNomalShot_ = NEW GgafActorDepository("Depo_TestNomalShot");
+    for (int i = 0; i < 25; i++) { //テストノーマル弾ストック
+        pDepo_TestNomalShot_->addSubLast(NEW TestNomalShot("TestNomalShot"));
+    }
+    addSubGroup(pDepo_TestNomalShot_);
+    //<---- debug
+
+
     pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
@@ -520,6 +544,42 @@ void MyShip::processJudgement() {
     if (!can_control_) {
         return;
     }
+
+
+
+
+    //debug ---->
+    if (GgafDxInput::isPushedDownKey(DIK_W)) {
+        TestGuShot* pShot = (TestGuShot*)pDepo_TestGuShot_->dispatch();
+        if (pShot) {
+            pShot->locateWith(this);
+        }
+    }
+    if (GgafDxInput::isPushedDownKey(DIK_E)) {
+        TestChokiShot* pShot = (TestChokiShot*)pDepo_TestChokiShot_->dispatch();
+        if (pShot) {
+            pShot->locateWith(this);
+        }
+    }
+    if (GgafDxInput::isPushedDownKey(DIK_R)) {
+        TestPaShot* pShot = (TestPaShot*)pDepo_TestPaShot_->dispatch();
+        if (pShot) {
+            pShot->locateWith(this);
+        }
+    }
+    if (GgafDxInput::isPushedDownKey(DIK_T)) {
+        TestNomalShot* pShot = (TestNomalShot*)pDepo_TestNomalShot_->dispatch();
+        if (pShot) {
+            pShot->locateWith(this);
+        }
+    }
+    //<---- debug
+
+
+
+
+
+
     //自機消滅テスト
     if (VB_PLAY->isBeingPressed(VB_BUTTON8)) {
         _TRACE_("自機消滅テスト");

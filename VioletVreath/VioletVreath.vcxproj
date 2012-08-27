@@ -353,6 +353,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Vesta\EnemyVesta.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestNomal.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestPa.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\Item.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem001.cpp" />
@@ -605,6 +609,10 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thisbe\enemythisbelaserchip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\vesta\enemyvesta.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestNomal.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestPa.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\item.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\magicpointitem.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\magicpointitem001.h" />

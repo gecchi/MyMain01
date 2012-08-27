@@ -21,7 +21,6 @@ TractorMagic* Item::getTractorMagic() {
 }
 
 void Item::initialize() {
-
 }
 
 void Item::onReset() {

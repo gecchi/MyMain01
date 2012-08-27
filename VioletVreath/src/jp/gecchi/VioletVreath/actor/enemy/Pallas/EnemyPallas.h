@@ -37,7 +37,7 @@ public:
     void onCreateModel() override;
 
     /**
-     * パラスのが初期処理（インスタンス生成後保証）
+     * パラスの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 

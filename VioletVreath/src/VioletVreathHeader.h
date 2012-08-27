@@ -370,6 +370,11 @@ class MyWave001;
 class MyVreath;
 class EffectMyShipExplosion;
 
+class TestGuShot;
+class TestChokiShot;
+class TestPaShot;
+class TestNomalShot;
+
 class MagicMeter;
 class MagicMeterStatus;
 class MagicMeterCursor001;
@@ -434,6 +439,11 @@ class LabelRankingFont;
 class SpriteLabelTest;
 
 class TamagoActor;
+class TestGu;
+class TestChoki;
+class TestPa;
+class TestNomal;
+
 class EnemyTamago01Actor;
 class MyUtil;
 class GameGlobal;
@@ -658,6 +668,10 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoTail.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoBlast.h"
 
+#include "jp/gecchi/VioletVreath/actor/my/_Test/TestGuShot.h"
+#include "jp/gecchi/VioletVreath/actor/my/_Test/TestChokiShot.h"
+#include "jp/gecchi/VioletVreath/actor/my/_Test/TestPaShot.h"
+#include "jp/gecchi/VioletVreath/actor/my/_Test/TestNomalShot.h"
 
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion002.h"
@@ -707,6 +721,11 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectLockonMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectVreathMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSmileMagic001.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestGu.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestChoki.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestPa.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestNomal.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Tamago/TamagoActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Tamago/EnemyTamago01.h"

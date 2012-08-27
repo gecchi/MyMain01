@@ -38,7 +38,7 @@ public:
     void onCreateModel() override;
 
     /**
-     * イリスのが初期処理（インスタンス生成後保証）
+     * イリスの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 

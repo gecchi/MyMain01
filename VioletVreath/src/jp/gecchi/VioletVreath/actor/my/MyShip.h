@@ -267,6 +267,13 @@ public:
 //    MyOptionController* pOptionCtrlr_;
     EffectTurbo001* pEffectTurbo001_;
 
+    //debug ---->
+    GgafCore::GgafActorDepository* pDepo_TestGuShot_;
+    GgafCore::GgafActorDepository* pDepo_TestChokiShot_;
+    GgafCore::GgafActorDepository* pDepo_TestPaShot_;
+    GgafCore::GgafActorDepository* pDepo_TestNomalShot_;
+    //<---- debug
+
     /** ソフト連射開始からの経過フレーム数 */
     frame frame_soft_rapidshot_;
     /** ソフト連射中であるか否か */

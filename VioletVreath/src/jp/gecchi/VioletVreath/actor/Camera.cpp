@@ -6,8 +6,7 @@ using namespace VioletVreath;
 
 Camera::Camera(const char* prm_name) :
         DefaultCamera(prm_name,
-                      PI * 90.0f / 180.0f,
-                      GGAF_PROPERTY(GAME_SPACE_DEPTH)) {
+                      PI * 90.0f / 180.0f) {
     _class_name = "Camera";
 }
 

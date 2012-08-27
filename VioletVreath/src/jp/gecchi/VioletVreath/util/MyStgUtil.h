@@ -377,6 +377,22 @@ public:
 	static GgafCore::GgafStatus* resetEnemyThisbeLaserChip001Status(GgafCore::GgafStatus* p);
 	//アドラステア
 	static GgafCore::GgafStatus* resetEnemyAdrasteaStatus(GgafCore::GgafStatus* p);
+	//グーテスト
+	static GgafCore::GgafStatus* resetTestGuStatus(GgafCore::GgafStatus* p);
+	//チョキーテスト
+	static GgafCore::GgafStatus* resetTestChokiStatus(GgafCore::GgafStatus* p);
+	//パーテスト
+	static GgafCore::GgafStatus* resetTestPaStatus(GgafCore::GgafStatus* p);
+	//ノーマルーテスト
+	static GgafCore::GgafStatus* resetTestNomalStatus(GgafCore::GgafStatus* p);
+	//グーショット
+	static GgafCore::GgafStatus* resetTestGuShotStatus(GgafCore::GgafStatus* p);
+	//チョキーショット
+	static GgafCore::GgafStatus* resetTestChokiShotStatus(GgafCore::GgafStatus* p);
+	//パーショット
+	static GgafCore::GgafStatus* resetTestPaShotStatus(GgafCore::GgafStatus* p);
+	//ノーマルーショット
+	static GgafCore::GgafStatus* resetTestNomalShotStatus(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

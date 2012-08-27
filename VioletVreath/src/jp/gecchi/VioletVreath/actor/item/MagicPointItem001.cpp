@@ -12,6 +12,6 @@ MagicPointItem001::MagicPointItem001(const char* prm_name)
 void MagicPointItem001::initialize() {
 }
 
-
 MagicPointItem001::~MagicPointItem001() {
 }
+
