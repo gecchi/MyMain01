@@ -421,6 +421,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOption.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionStraightLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\option\MyOptionWateringLaserChip001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestGuShot.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestNomalShot.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestPaShot.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.cpp" />
@@ -677,6 +681,10 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoption.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoptionstraightlaserchip001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\option\myoptionwateringlaserchip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestGuShot.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestNomalShot.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestPaShot.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\title\cursor001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\title\titleboard.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\viewpointguide.h" />
