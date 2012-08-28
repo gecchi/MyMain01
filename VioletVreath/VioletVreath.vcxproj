@@ -354,6 +354,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Vesta\EnemyVesta.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestNomal.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestPa.cpp" />
@@ -614,6 +615,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\vesta\enemyvesta.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestNomal.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestPa.h" />

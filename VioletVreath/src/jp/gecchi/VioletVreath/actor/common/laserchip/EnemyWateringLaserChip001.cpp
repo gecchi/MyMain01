@@ -133,7 +133,7 @@
 //        }
 //    }
 //    if (_pChip_front == NULL) {
-//        _pSeTx->behave();
+//        _pSeTxer->behave();
 //    }
 //    WateringLaserChip::processBehavior();//À•W‚ğˆÚ“®‚³‚¹‚Ä‚©‚çŒÄ‚Ño‚·‚±‚Æ
 //}

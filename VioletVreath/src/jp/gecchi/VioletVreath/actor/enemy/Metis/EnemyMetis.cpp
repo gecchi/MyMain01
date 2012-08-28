@@ -11,8 +11,8 @@ EnemyMetis::EnemyMetis(const char* prm_name) :
     height_Z_ = 220*2*LEN_UNIT;
     depth_Y_ = 36*2*LEN_UNIT;
     iMovePatternNo_ = 0;
-    _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTx->set(SE_EXPLOSION, "bom10"        , GgafRepeatSeq::nextVal("CH_bom10"));
+    _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    _pSeTxer->set(SE_EXPLOSION, "bom10"        , GgafRepeatSeq::nextVal("CH_bom10"));
 
     pCon_ShotDepo_ = connectToDepositoryManager("DpCon_Shot004", NULL);
     pDepo_Shot_ = pCon_ShotDepo_->fetch();
@@ -57,7 +57,7 @@ void EnemyMetis::processBehavior() {
     //À•W‚É”½‰f
     _pKurokoA->behave();
     _pKurokoB->behave();
-    _pSeTx->behave();
+    _pSeTxer->behave();
 }
 
 void EnemyMetis::processJudgement() {
@@ -73,7 +73,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //”š”­Œø‰Ê
         UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(SE_EXPLOSION);
+        _pSeTxer->play3D(SE_EXPLOSION);
 
         //‘Å‚¿•Ô‚µ’e
         if (pDepo_Shot_) {
@@ -101,7 +101,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     } else {
         //”ñ”j‰óŽž
         effectFlush(2); //ƒtƒ‰ƒbƒVƒ…
-        _pSeTx->play3D(SE_DAMAGED);
+        _pSeTxer->play3D(SE_DAMAGED);
     }
 }
 

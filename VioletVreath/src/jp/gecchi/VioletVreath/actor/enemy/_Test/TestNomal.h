@@ -8,8 +8,7 @@ namespace VioletVreath {
  * @since 2012/08/27
  * @author Masatoshi Tsuge
  */
-class TestNomal :
-  public GgafLib::DefaultMeshActor {
+class TestNomal : public TestEnemy {
 
 public:
 

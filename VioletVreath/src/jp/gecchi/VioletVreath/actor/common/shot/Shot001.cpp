@@ -7,7 +7,7 @@ using namespace VioletVreath;
 Shot001::Shot001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot001)) {
     _class_name = "Shot001";
-    _pSeTx->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
+    _pSeTxer->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
     pSplLineCon_ = (SplineLineConnection*)(P_GOD->pSpl3DManager_->connect("SpCon_HAN")); //スプライン定義
     pSplSeq_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->fetch(), 10000); //移動速度固定
 }
@@ -51,7 +51,7 @@ void Shot001::onHit(GgafActor* prm_pOtherActor) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        _pSeTx->play3D(0);
+        _pSeTxer->play3D(0);
         if (pExplo001) {
             pExplo001->locateWith(this);
         }
@@ -59,7 +59,7 @@ void Shot001::onHit(GgafActor* prm_pOtherActor) {
         sayonara();
     }
 
-    //_pSeTx->behave();
+    //_pSeTxer->behave();
 }
 
 

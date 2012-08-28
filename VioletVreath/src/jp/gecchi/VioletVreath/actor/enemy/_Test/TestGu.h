@@ -9,7 +9,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class TestGu :
-  public GgafLib::DefaultMeshActor {
+  public TestEnemy {
 
 public:
 

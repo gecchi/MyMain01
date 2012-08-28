@@ -12,7 +12,7 @@ EnemyIris::EnemyIris(const char* prm_name)
     pSplSeq_ = NULL;
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
-    _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeTxer->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
 }
 
 void EnemyIris::onCreateModel() {
@@ -109,7 +109,7 @@ void EnemyIris::processBehavior() {
         pSplSeq_->behave(); //スプライン移動を振る舞い
     }
     _pKurokoA->behave();
-    //_pSeTx->behave();
+    //_pSeTxer->behave();
 }
 
 void EnemyIris::processJudgement() {
@@ -124,7 +124,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(SE_EXPLOSION);
+        _pSeTxer->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {

@@ -37,7 +37,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
     pProgram_CeresMove_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->fetch(), 5000); //移動速度固定
 
 //    pProgram_CeresMove_ = NEW FixedFrameSplineSequence(_pKurokoA, pSplLineCon_->fetch(), 600, 5000); //移動フレーム数固定
-    _pSeTx->set(SE_EXPLOSION, "a_shot", GgafRepeatSeq::nextVal("CH_a_shot"));
+    _pSeTxer->set(SE_EXPLOSION, "a_shot", GgafRepeatSeq::nextVal("CH_a_shot"));
 }
 
 void EnemyCeres::initialize() {
@@ -88,7 +88,7 @@ void EnemyCeres::processBehavior() {
     }
     pProgram_CeresMove_->behave(); //スプライン移動を進める
     _pKurokoA->behave(); //次の座標へ移動
-    //_pSeTx->behave();
+    //_pSeTxer->behave();
     frame_Active_++;
 }
 
@@ -105,7 +105,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
         //破壊された場合
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(SE_EXPLOSION);
+        _pSeTxer->play3D(SE_EXPLOSION);
         sayonara();
     }
 }

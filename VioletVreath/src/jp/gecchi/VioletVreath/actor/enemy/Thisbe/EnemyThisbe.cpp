@@ -40,9 +40,9 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTx->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
-    _pSeTx->set(SE_FIRE     , "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
+    _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTxer->set(SE_FIRE     , "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
 
     useProgress(PROG_CLOSE);
 }
@@ -91,7 +91,7 @@ void EnemyThisbe::processBehavior() {
                 pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]);
                                    //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->_pChip_front == NULL) {
-                    _pSeTx->play3D(SE_FIRE);
+                    _pSeTxer->play3D(SE_FIRE);
                 }
             } else {
                 _pProg->change(PROG_CLOSE);
@@ -114,7 +114,7 @@ void EnemyThisbe::processBehavior() {
 
     _pKurokoA->behave();
     _pMorpher->behave();
-    _pSeTx->behave();
+    _pSeTxer->behave();
 }
 
 void EnemyThisbe::processJudgement() {
@@ -130,7 +130,7 @@ void EnemyThisbe::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(SE_EXPLOSION);
+        _pSeTxer->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
@@ -141,7 +141,7 @@ void EnemyThisbe::onHit(GgafActor* prm_pOtherActor) {
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTx->play3D(SE_DAMAGED);
+        _pSeTxer->play3D(SE_DAMAGED);
     }
 }
 

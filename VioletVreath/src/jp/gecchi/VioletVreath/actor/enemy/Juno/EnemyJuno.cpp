@@ -16,8 +16,8 @@ EnemyJuno::EnemyJuno(const char* prm_name) :
     do_Shot_ = false;
     velo_mv_begin_ = 0;
     frame_when_shot_ = 0;
-    _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
-    _pSeTx->set(SE_FIRE     , "cm-22", GgafRepeatSeq::nextVal("CH_cm-22"));     //発射
+    _pSeTxer->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeTxer->set(SE_FIRE     , "cm-22", GgafRepeatSeq::nextVal("CH_cm-22"));     //発射
 }
 
 void EnemyJuno::onCreateModel() {
@@ -71,7 +71,7 @@ void EnemyJuno::processBehavior() {
                     shot_num_++;
                     do_Shot_ = false;
                     effectFlush(2); //フラッシュ
-                    _pSeTx->play3D(SE_FIRE);
+                    _pSeTxer->play3D(SE_FIRE);
                 }
 //                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                if (pShot) {
@@ -82,7 +82,7 @@ void EnemyJuno::processBehavior() {
 //                    pShot->reset();
 //                    do_Shot_ = false;
 //                    effectFlush(2); //フラッシュ
-//                    _pSeTx->play3D(1);
+//                    _pSeTxer->play3D(1);
 //                }
 
                 //ショット発射エフェクト
@@ -122,7 +122,7 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(SE_EXPLOSION);
+        _pSeTxer->play3D(SE_EXPLOSION);
 
         sayonara();
     }

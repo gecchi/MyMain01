@@ -64,7 +64,7 @@ void MyStraightLaserChip001::processBehavior() {
         }
     }
     if (_pChip_front == NULL) {
-        _pSeTx->behave();
+        _pSeTxer->behave();
     }
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正

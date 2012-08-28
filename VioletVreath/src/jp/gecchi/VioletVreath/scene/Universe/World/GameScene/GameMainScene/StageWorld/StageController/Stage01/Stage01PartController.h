@@ -10,7 +10,7 @@ namespace VioletVreath {
  */
 class Stage01PartController : public StagePartController {
 
-    GgafDxCore::GgafDxBgm* bgm_st1_;
+    //GgafDxCore::GgafDxBgm* bgm_st1_;
 
 public:
     enum {

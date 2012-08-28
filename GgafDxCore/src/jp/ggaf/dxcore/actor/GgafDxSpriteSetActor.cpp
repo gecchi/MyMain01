@@ -19,7 +19,7 @@ GgafDxSpriteSetActor::GgafDxSpriteSetActor(const char* prm_name,
                                                                    prm_pChecker) {
     _obj_class |= Obj_GgafDxSpriteSetActor;
     _class_name = "GgafDxSpriteSetActor";
-
+    _draw_set_num = 0;
     //ƒ‚ƒfƒ‹Žæ“¾
     _pSpriteSetModel = (GgafDxSpriteSetModel*)_pModel;
     _pSpriteSetEffect = (GgafDxSpriteSetEffect*)_pEffect;

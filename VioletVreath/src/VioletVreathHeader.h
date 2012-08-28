@@ -439,6 +439,7 @@ class LabelRankingFont;
 class SpriteLabelTest;
 
 class TamagoActor;
+class TestEnemy;
 class TestGu;
 class TestChoki;
 class TestPa;
@@ -722,6 +723,7 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectVreathMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSmileMagic001.h"
 
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestGu.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestChoki.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestPa.h"

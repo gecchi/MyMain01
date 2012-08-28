@@ -6,8 +6,8 @@ using namespace VioletVreath;
 
 EnemyMassaliaBase::EnemyMassaliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
-    _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTx->set(SE_EXPLOSION, "bomb1"        , GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    _pSeTxer->set(SE_EXPLOSION, "bomb1"        , GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
 }
 
 void EnemyMassaliaBase::onCreateModel() {
@@ -32,14 +32,14 @@ void EnemyMassaliaBase::onHit(GgafActor* prm_pOtherActor) {
         //破壊時
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(SE_EXPLOSION);
+        _pSeTxer->play3D(SE_EXPLOSION);
         sayonara();
         //下位クラスの個々の処理
         processStaminaEnd(pOther);
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTx->play3D(SE_DAMAGED);
+        _pSeTxer->play3D(SE_DAMAGED);
     }
 
 }

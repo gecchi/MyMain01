@@ -23,7 +23,7 @@ void EffectLockon001_Sub::onActive() {
     setAlpha(0.01);
     _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //右回転
-    //_pSeTx->play3D(0); //ロックオンSE
+    //_pSeTxer->play3D(0); //ロックオンSE
     if (pTarget_ == NULL) {
         _TRACE_(getActivePartFrame()<<",こここ、this="<<getName()<<"("<<this<<") pTarget_="<<pTarget_);
         _TRACE_(getActivePartFrame()<<",なんでー");

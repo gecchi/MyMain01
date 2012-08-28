@@ -53,8 +53,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     }
     DELETEARR_IMPOSSIBLE_NULL(paAng_way);
 
-    _pSeTx->set(SE_EXPLOSION, "bomb1"     , GgafRepeatSeq::nextVal("CH_bomb1"));
-    _pSeTx->set(SE_FIRE     , "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
+    _pSeTxer->set(SE_EXPLOSION, "bomb1"     , GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTxer->set(SE_FIRE     , "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
 
     useProgress(PROG_FIRE);
     pCon_ShotDepo_  = connectToDepositoryManager("DpCon_Shot004", NULL);
@@ -151,7 +151,7 @@ void EnemyAstraea::processBehavior() {
                     }
                 }
                 if (can_fire) {
-                    _pSeTx->play3D(SE_FIRE); //”­ŽË‰¹
+                    _pSeTxer->play3D(SE_FIRE); //”­ŽË‰¹
                     effectFlush(2); //ƒtƒ‰ƒbƒVƒ…
                 }
             }
@@ -199,7 +199,7 @@ void EnemyAstraea::processBehavior() {
             break;
         }
     }
-    _pSeTx->behave();
+    _pSeTxer->behave();
     _pKurokoA->behave();
 }
 
@@ -284,7 +284,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(SE_EXPLOSION);
+        _pSeTxer->play3D(SE_EXPLOSION);
 //          UTIL::shotWay002(this, pDepo_Shot_,
 //                              PX_C(20),
 //                              5, 5, D_ANG(6), D_ANG(6),

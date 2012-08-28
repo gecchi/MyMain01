@@ -11,7 +11,7 @@ EnemyEunomia::EnemyEunomia(const char* prm_name) :
     pSplSeq_ = NULL;
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
-    _pSeTx->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeTxer->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     useProgress(10);
 }
 
@@ -184,7 +184,7 @@ void EnemyEunomia::processBehavior() {
 
     pSplSeq_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
-    //_pSeTx->behave();
+    //_pSeTxer->behave();
 }
 
 void EnemyEunomia::processJudgement() {
@@ -200,7 +200,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
         //破壊された場合
         setHitAble(false); //以降同一フレーム内でヒットさせない。
         UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
-        _pSeTx->play3D(SE_EXPLOSION);          //爆発音再生
+        _pSeTxer->play3D(SE_EXPLOSION);          //爆発音再生
         if (pOther->getKind() & KIND_MY) { //自機側に撃たれて消滅の場合は
             UTIL::activateItemOf(this); //アイテム出現
         }

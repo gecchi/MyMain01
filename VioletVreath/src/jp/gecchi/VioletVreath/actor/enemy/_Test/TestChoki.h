@@ -9,7 +9,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class TestChoki :
-  public GgafLib::DefaultMeshActor {
+  public TestEnemy {
 
 public:
 

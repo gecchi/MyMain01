@@ -146,7 +146,7 @@ public:
         } else if (enemy_domi < 0) {
             //Ž©•ªi“Gj‚ª—ò«Žž
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
-                                              (int)(opp_attack * pStatEnemy->get(STAT_RecessiveDefenceRate)));
+                                              (int)(opp_attack * pStatEnemy->getDouble(STAT_RecessiveDefenceRate)));
 
         } else {
             //‘ŠŽè(Ž©‹@)‚Æ“¯ŠiŽž

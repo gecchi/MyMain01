@@ -4,6 +4,9 @@ using namespace GgafCore;
 
 GgafLinearOctree::GgafLinearOctree(int prm_level) {
     _top_space_level = prm_level;
+    _top_level_dX = 0;
+    _top_level_dY = 0;
+    _top_level_dZ = 0;
     _root_X1 = 0;
     _root_Y1 = 0;
     _root_Z1 = 0;

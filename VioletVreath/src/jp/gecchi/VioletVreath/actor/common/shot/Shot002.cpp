@@ -8,7 +8,7 @@ Shot002::Shot002(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
     my_frame_ = 0;
-    _pSeTx->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
+    _pSeTxer->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
 void Shot002::initialize() {
@@ -47,7 +47,7 @@ void Shot002::processBehavior() {
     //À•W‚É”½‰f
     _pKurokoA->behave();
     _pScaler->behave();
-    _pSeTx->behave();
+    _pSeTxer->behave();
     my_frame_++;
 }
 
@@ -63,7 +63,7 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         //”j‰ó‚³‚ê‚½ê‡
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        _pSeTx->play3D(0);
+        _pSeTxer->play3D(0);
         if (pExplo001) {
             pExplo001->locateWith(this);
         }

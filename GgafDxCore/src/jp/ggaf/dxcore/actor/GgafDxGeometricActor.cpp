@@ -20,7 +20,7 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _pChecker = prm_pChecker;
     _pKurokoA = NEW GgafDxKurokoA(this);
     _pKurokoB = NEW GgafDxKurokoB(this);
-    _pSeTx = NEW GgafDxSeTransmitterForActor(this);
+    _pSeTxer = NEW GgafDxSeTransmitterForActor(this);
     _offscreen_kind = -1;
     _pFunc_calcRotMvWorldMatrix = NULL;
     _pActor_Base = NULL;
@@ -319,7 +319,7 @@ void GgafDxGeometricActor::onEnded() {
 GgafDxGeometricActor::~GgafDxGeometricActor() {
     DELETE_IMPOSSIBLE_NULL(_pKurokoA);
     DELETE_IMPOSSIBLE_NULL(_pKurokoB);
-    DELETE_IMPOSSIBLE_NULL(_pSeTx);
+    DELETE_IMPOSSIBLE_NULL(_pSeTxer);
 }
 
 

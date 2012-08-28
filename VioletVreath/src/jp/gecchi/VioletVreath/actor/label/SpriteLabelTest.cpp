@@ -85,31 +85,34 @@ void SpriteLabelTest::processBehavior() {
 //    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(1));
 //    _pKurokoA->behave();
 
-
-    //入力で移動
-    if (GgafDxInput::isBeingPressedKey(DIK_SPACE)) {
-        //ボタン１（スペースキー）を押しながらの場合
-        if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-            _Z += PX_C(2); //奥
-        }
-        if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-            _Z -= PX_C(2); //手前
-        }
-    } else {
-        //ボタン１（スペースキー）を離している場合
-        if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
-            _X += PX_C(2); //右
-        }
-        if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
-            _X -= PX_C(2); //左
-        }
-        if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
-            _Y += PX_C(2); //上
-        }
-        if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
-            _Y -= PX_C(2); //下
-        }
+    if (GgafDxInput::isBeingPressedKey(DIK_P)) {
+        addScale(100);
     }
+
+//    //入力で移動
+//    if (GgafDxInput::isBeingPressedKey(DIK_SPACE)) {
+//        //ボタン１（スペースキー）を押しながらの場合
+//        if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+//            _Z += PX_C(2); //奥
+//        }
+//        if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+//            _Z -= PX_C(2); //手前
+//        }
+//    } else {
+//        //ボタン１（スペースキー）を離している場合
+//        if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
+//            _X += PX_C(2); //右
+//        }
+//        if (GgafDxInput::isBeingPressedKey(DIK_LEFT)) {
+//            _X -= PX_C(2); //左
+//        }
+//        if (GgafDxInput::isBeingPressedKey(DIK_UP)) {
+//            _Y += PX_C(2); //上
+//        }
+//        if (GgafDxInput::isBeingPressedKey(DIK_DOWN)) {
+//            _Y -= PX_C(2); //下
+//        }
+//    }
 }
 
 SpriteLabelTest::~SpriteLabelTest() {

@@ -6,10 +6,10 @@ using namespace VioletVreath;
 
 
 TestGu::TestGu(const char* prm_name)
-      : DefaultMeshActor(prm_name, "TestGu", STATUS(TestGu)) {
+      : TestEnemy(prm_name, "TestGu", STATUS(TestGu)) {
     _class_name = "TestGu";
-    _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTx->set(SE_EXPLOSION, "bom10"        , GgafRepeatSeq::nextVal("CH_bom10"));
+    _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    _pSeTxer->set(SE_EXPLOSION, "bom10"        , GgafRepeatSeq::nextVal("CH_bom10"));
 }
 
 void TestGu::initialize() {
@@ -26,7 +26,8 @@ void TestGu::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     _pKurokoA->behave();
-    //_pSeTx->behave();
+    //_pSeTxer->behave();
+    dispStamina();
 }
 
 void TestGu::processJudgement() {
@@ -41,12 +42,12 @@ void TestGu::onHit(GgafActor* prm_pOtherActor) {
         //破壊時
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this); //爆発効果
-        _pSeTx->play3D(SE_EXPLOSION);
+        _pSeTxer->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTx->play3D(SE_DAMAGED);
+        _pSeTxer->play3D(SE_DAMAGED);
     }
 }
 

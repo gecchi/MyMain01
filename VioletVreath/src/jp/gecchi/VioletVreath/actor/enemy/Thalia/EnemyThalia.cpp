@@ -28,9 +28,9 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     }
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTx->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTx->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
-    _pSeTx->set(SE_FIRE     , "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
+    _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTxer->set(SE_FIRE     , "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
     useProgress(PROG_CLOSE);
     //‰ŠúƒJƒƒ‰ZˆÊ’u
     dZ_camera_init_ = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
@@ -107,7 +107,7 @@ void EnemyThalia::processBehavior() {
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->_pChip_front == NULL) {
-                    _pSeTx->play3D(SE_FIRE);
+                    _pSeTxer->play3D(SE_FIRE);
                     _pKurokoA->setFaceAngVelo(AXIS_X, 5000);//”­ŽË’†‚Í‘¬‚¢‰ñ“]
                 }
             } else {
@@ -132,7 +132,7 @@ void EnemyThalia::processBehavior() {
 
     _pKurokoA->behave();
     _pMorpher->behave();
-    _pSeTx->behave();
+    _pSeTxer->behave();
 }
 
 void EnemyThalia::processJudgement() {
@@ -148,7 +148,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //”š”­Œø‰Ê
         UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(SE_EXPLOSION);
+        _pSeTxer->play3D(SE_EXPLOSION);
 
         //‘Å‚¿•Ô‚µ’e
         if (pDepo_Shot_) {
@@ -202,7 +202,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     } else {
         //”ñ”j‰óŽž
         effectFlush(2); //ƒtƒ‰ƒbƒVƒ…
-        _pSeTx->play3D(SE_DAMAGED);
+        _pSeTxer->play3D(SE_DAMAGED);
     }
 }
 
