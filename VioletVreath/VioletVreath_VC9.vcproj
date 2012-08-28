@@ -1114,6 +1114,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.cpp"
 				>
 			</File>
@@ -2129,6 +2133,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\TestDepository.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.h"
 				>
 			</File>
 			<File

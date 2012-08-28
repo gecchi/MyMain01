@@ -143,11 +143,11 @@ void LabelRankFont::initialize() {
 }
 
 void LabelRankFont::processBehavior() {
-#ifdef MY_DEBUG
-    if (GgafDxInput::isPushedDownKey(DIK_R)) {
-        _RANK_+=0.0001;
-    }
-#endif
+//    //debug---->
+//    if (GgafDxInput::isPushedDownKey(DIK_R)) {
+//        _RANK_+=0.0001;
+//    }
+//    //<---- debug
     int rank_level = _RANK_DISP_;
     if (rank_level != tmp_rank_) {
         char c[65];
