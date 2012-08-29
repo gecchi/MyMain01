@@ -22,7 +22,7 @@ void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_name, int prm_canne
 //        throwGgafCriticalException("GgafDxSeTransmitter::set() useSeで使用するSe数を事前に宣言してください。prm_id="<<prm_id);
 //    }
     if (_papSeCon == NULL) {
-        declareSeNum(5); //declareSeNumしない場合は５個まで
+        declareSeNum(3); //declareSeNumしない場合は3個まで
     }
     if (prm_id < 0) {
         throwGgafCriticalException("GgafDxSeTransmitter::set() IDが範囲外です。正の数でお願いします。 prm_id="<<prm_id);
@@ -34,7 +34,7 @@ void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_name, int prm_canne
         }
         DELETEARR_POSSIBLE_NULL(_papSeCon);
         int wk_se_num = _se_num;
-        declareSeNum(_se_num+3); //3個拡張
+        declareSeNum(_se_num+2); //2個拡張
         for (int i = 0; i < wk_se_num; i++) {
             _papSeCon[i] = papSeCon[i];
         }
@@ -42,7 +42,8 @@ void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_name, int prm_canne
     }
 
     char idstr[129];
-    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
+    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name); //資源コネクションの識別ID名を 「チャンネル番号 + "/" + wave識別名」
+                                                      //とすることにより、チャンネル番号が同じならば new されない。
     _papSeCon[prm_id] = connectToSeManager(idstr);
 }
 

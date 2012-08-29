@@ -5,7 +5,7 @@ namespace VioletVreath {
 
 /**
  * 敵機タリア .
- * スペハリのトモスもどき
+ * スペハリのトモスもどき？
  * @version 1.00
  * @since 2010/08/03
  * @author Masatoshi Tsuge

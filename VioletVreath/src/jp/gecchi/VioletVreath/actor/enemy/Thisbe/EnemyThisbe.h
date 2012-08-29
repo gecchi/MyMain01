@@ -5,6 +5,7 @@ namespace VioletVreath {
 
 /**
  * 敵機シズビー .
+ * ヒルベルトレーザーを撃ちます。
  * @version 1.00
  * @since 2012/06/29
  * @author Masatoshi Tsuge

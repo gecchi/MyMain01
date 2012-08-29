@@ -1,0 +1,84 @@
+
+#include "stdafx.h"
+using namespace GgafCore;
+using namespace GgafDxCore;
+using namespace GgafLib;
+using namespace VioletVreath;
+
+
+EnemyHesperiaLaserChip001::EnemyHesperiaLaserChip001(const char* prm_name) :
+        HomingLaserChip(prm_name, "HesperiaLaserChip001", STATUS(EnemyHesperiaLaserChip001)) {
+    _class_name = "EnemyHesperiaLaserChip001";
+}
+
+void EnemyHesperiaLaserChip001::initialize() {
+    registHitAreaCube(20000);
+    setHitAble(true, false);
+    setScaleR(5.0);
+    setAlpha(0.9);
+}
+
+void EnemyHesperiaLaserChip001::onActive() {
+    HomingLaserChip::onActive();
+    //ステータスリセット
+    _pStatus->reset();
+
+    _pKurokoA->setMvVelo(10000);
+    _pKurokoA->setMvAcce(400);
+    _pKurokoA->relateFaceAngWithMvAng(true);
+}
+
+void EnemyHesperiaLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
+    if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
+        if (_chip_kind != 2 || _can_chikei_hit) {
+            GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+        } else {
+            return;
+        }
+    } else {
+        GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+    }
+}
+
+void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
+    if (getActivePartFrame() == 40) {
+        _pKurokoA->execTurnMvAngSequence(
+                    P_MYSHIP,
+                    7000, 0,
+                    TURN_ANTICLOSE_TO, false);
+    }
+
+
+    if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
+        _pKurokoA->execTurnMvAngSequence(
+                    P_MYSHIP,
+                    100, 0,
+                    TURN_CLOSE_TO, false);
+    }
+//
+//    if (frame_of_behaving_from_onActive_ == 35) {
+//        _pKurokoA->execTurnMvAngSequence(
+//                    P_MYSHIP,
+//                    20000, TURN_ANTICLOSE_TO);
+//    }
+
+    _pKurokoA->behave();
+}
+
+void EnemyHesperiaLaserChip001::onHit(GgafActor* prm_pOtherActor) {
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+    //ヒット時
+    //体力計算
+    int sta = UTIL::calcEnemyStamina(this, pOther);
+    if (sta <= 0) {
+        //ヒットして消滅時
+        sayonara();
+    } else {
+        //ヒットして生存時
+    }
+}
+
+EnemyHesperiaLaserChip001::~EnemyHesperiaLaserChip001() {
+
+}
+

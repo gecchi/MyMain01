@@ -4,6 +4,7 @@ namespace VioletVreath {
 
 /**
  * 敵機エウノミア .
+ * n * m の編隊。
  * @version 1.00
  * @since 2011/02/14
  * @author Masatoshi Tsuge

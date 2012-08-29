@@ -119,7 +119,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (UTIL::strcmp_ascii("DpCon_EnemyAstraeaLaserChip003DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        for (int nLaser = 0; nLaser < 50; nLaser++) {
+        for (int nLaser = 0; nLaser < 30; nLaser++) {
             std::stringstream name;
             name <<  "LaserChipDepository["<<nLaser<<"]";
             pLaserChipDepo = NEW LaserChipDepository(name.str().c_str());
@@ -137,7 +137,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (UTIL::strcmp_ascii("DpCon_EnemyAstraeaLaserChip004DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip004DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        for (int nLaser = 0; nLaser < 50; nLaser++) {
+        for (int nLaser = 0; nLaser < 30; nLaser++) {
             std::stringstream name;
             name <<  "LaserChipDepository["<<nLaser<<"]";
             pLaserChipDepo = NEW LaserChipDepository(name.str().c_str());
@@ -211,6 +211,24 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         }
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
+
+
+    if (UTIL::strcmp_ascii("DpCon_EnemyHesperiaLaserChip001DepoStore", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepositoryStore("EnemyHesperiaLaserChip0014DepoStore");
+        LaserChipDepository* pLaserChipDepo;
+        for (int nLaser = 0; nLaser < 20; nLaser++) {
+            std::string name = "LaserChipDepo["+ITOS(nLaser)+"]";
+            pLaserChipDepo = NEW LaserChipDepository(name.c_str());
+            for (int nChip = 0; nChip < 50; nChip++) {
+                std::string name = "EnemyHesperiaLaserChip001["+ITOS(nLaser)+"]["+ITOS(nChip)+"]";
+                pLaserChipDepo->addSubLast(NEW EnemyHesperiaLaserChip001(name.c_str()));
+                Sleep(1);
+            }
+            pResource->addSubLast(pLaserChipDepo);
+        }
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+    }
+
 
     //敵カーブレーザー01未使用。こぴぺのために残す
     /*

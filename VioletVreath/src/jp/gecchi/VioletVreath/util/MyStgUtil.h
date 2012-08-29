@@ -393,6 +393,10 @@ public:
 	static GgafCore::GgafStatus* resetTestPaShotStatus(GgafCore::GgafStatus* p);
 	//ノーマルーショット
 	static GgafCore::GgafStatus* resetTestNomalShotStatus(GgafCore::GgafStatus* p);
+	//アストラエア
+	static GgafCore::GgafStatus* resetEnemyHesperiaStatus(GgafCore::GgafStatus* p);
+	//アストラエアレーザー
+	static GgafCore::GgafStatus* resetEnemyHesperiaLaserChip001Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

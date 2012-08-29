@@ -96,6 +96,7 @@ void EnemyAstraea::processBehavior() {
             if (_pFader->isWorking()) {
                 _pFader->behave();
             } else {
+                setHitAble(true);
                 _pProg->changeNext();
             }
             break;

@@ -197,6 +197,9 @@
 #define RR_FormationHebe_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
 #define RR_FormationHebe_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 #define RR_FormationHebe_ShotWay(X)  (4+(X)*4)  //発射WAY数
+// EnemyHesperia のランク式
+#define RR_EnemyHesperia_ShotWay(X)  (4 + (4 - ((X)>1.0?1.0:(X)) * 4))  //発射WAY数
+#define RR_EnemyHesperia_Density(X)  (50000 + (50000 - ((X)>1.0?1.0:(X)) * 50000))  //密度
 // gen02 end
 
 //1/√2
@@ -514,6 +517,9 @@ class EnemyThisbe;
 class EnemyThisbeLaserChip001;
 class EnemyThisbeLaserChip002;
 
+class EnemyHesperia;
+class EnemyHesperiaLaserChip001;
+
 class DepositoryConnection;
 class DepositoryManager;
 
@@ -819,6 +825,9 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbe.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip002.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperia.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperiaLaserChip001.h"
 
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/Torus.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus001.h"
