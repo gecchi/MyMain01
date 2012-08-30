@@ -22,7 +22,6 @@ public:
         PROG_HATCH_OPEN,
         PROG_FIRE,
         PROG_NOTHING,
-
     };
 
     enum {
@@ -31,29 +30,20 @@ public:
         SE_FIRE,
     };
 
-    /** レーザ発射間隔(frame) */
-    int laser_interval_;
     /** 発射レーザーチップの数（レーザー長さ） */
     int laser_length_;
     /** レーザーWay数(n×n)の一辺の本数 */
     int max_laser_way_;
-    int laser_way_;
     /** レーザーとレーザーの間隔開き角度 */
     angle angClearance_;
     /** 方向転換角速度 */
     angvelo angveloTurn_;
 
-
-    struct PosLaser {
-        int X;
-        int Y;
-        int Z;
-    };
     /** レーザー発射ローカル座標 */
-    PosLaser* paPosLaser_;
-
+    GgafDxCore::GgafDxGeoElem* paLocalPos_Laser_;
+    GgafDxCore::GgafDxGeoElem* paPos_Target_;
     DepositoryConnection* pCon_LaserChipDepoStore_;
-
+    GgafCore::GgafActorDepositoryStore* pLaserChipDepoStore_;
     GgafLib::LaserChipDepository** papLaserChipDepo_;
 
     EnemyHesperia(const char* prm_name);

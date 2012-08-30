@@ -279,6 +279,7 @@ OUT_VS GgafDxVS_LaserChip(
     float c = 1.25-(((out_vs.posModel_Proj.z)/g_zf)*2);
 	out_vs.color = (c < 0.3  ? 0.3 : c);
     out_vs.color.a = out_vs.color.a*g_alpha_master;
+
 //	out_vs.color = c < 0.2  ? 2.0 : c;//1.0-((out_vs.posModel_Proj.z/g_zf)*2) ;//float4((out_vs.posModel_Proj.z/g_zf), (out_vs.posModel_Proj.z/g_zf), (out_vs.posModel_Proj.z/g_zf), 1.0-(out_vs.posModel_Proj.z/g_zf));
 //    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
 //        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
@@ -294,6 +295,16 @@ OUT_VS GgafDxVS_LaserChip(
 //    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
 //        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
 //    }
+
+//射影変換とは
+//右面がX軸+1.0、左面がX軸-1.0
+//上面がY軸+1.0、下面がY軸-1.0
+//前面（手前の面）がZ軸0.0、背面（奥の面）がZ軸+1.0
+//g_zf:現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
+//    _zn = 0.1f;
+//    _zf = -_cameraZ_org*(_dep+1.0);
+//今 w =  _zf だから
+//
 	return out_vs;
 }
 
