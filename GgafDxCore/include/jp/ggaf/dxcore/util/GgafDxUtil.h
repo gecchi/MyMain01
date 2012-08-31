@@ -37,6 +37,7 @@ public:
      * angle値 r の sin は、SIN[r/SANG_RATE]
      */
     static float SIN[];
+
     /**
      * 弧度法変換テーブル .
      * 要素番号範囲：0 ~ D360SANG

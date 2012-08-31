@@ -8,12 +8,16 @@ class EnemyHesperiaLaserChip001 : public GgafLib::HomingLaserChip {
 public:
     enum {
         PROG_MOVE_UP = 1,
-        PROG_TURN,
+        PROG_TURN1,
+        PROG_TURN2,
         PROG_INTO_MYSHIP,
         PROG_NOTHING,
     };
-
-
+    /** ”­Ë‚ÌYÀ•W */
+    coord begin_Y_;
+    /** ‹üÜ‚Ü‚Å‚Ì‹——£ */
+    coord turn_dY_;
+    /** –Ú•WÀ•W */
     coord tX_, tY_, tZ_;
 
     EnemyHesperiaLaserChip001(const char* prm_name);

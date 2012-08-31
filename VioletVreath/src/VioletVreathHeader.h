@@ -198,8 +198,8 @@
 #define RR_FormationHebe_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 #define RR_FormationHebe_ShotWay(X)  (4+(X)*4)  //発射WAY数
 // EnemyHesperia のランク式
-#define RR_EnemyHesperia_ShotWay(X)  (6 + (((X)>1.0?1.0:(X)) * 4))  //発射WAY数
-#define RR_EnemyHesperia_Density(X)  (100000 - (((X)>1.0?1.0:(X)) * 50000))  //密度
+#define RR_EnemyHesperia_ShotWay(X)  (7 + (((X)>1.0?1.0:(X)) * 4))  //発射WAY数
+#define RR_EnemyHesperia_Density(X)  (90000 - (((X)>1.0?1.0:(X)) * 50000))  //密度
 // gen02 end
 
 //1/√2

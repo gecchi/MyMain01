@@ -21,29 +21,33 @@ public:
         PROG_MOVE,
         PROG_HATCH_OPEN,
         PROG_FIRE,
+        PROG_HATCH_CLOSE,
         PROG_NOTHING,
     };
 
     enum {
         SE_EXPLOSION = 0,
         SE_DAMAGED,
+        SE_HATCH_OPEN,
         SE_FIRE,
+        SE_HATCH_CLOSE,
     };
+
+    /** ヘスペリア１艦が発車する際の最大レーザーWay数 */
+    static int max_laser_way_;
 
     /** 発射レーザーチップの数（レーザー長さ） */
     int laser_length_;
-    /** レーザーWay数(n×n)の一辺の本数 */
-    int max_laser_way_;
-    /** レーザーとレーザーの間隔開き角度 */
-    angle angClearance_;
-    /** 方向転換角速度 */
-    angvelo angveloTurn_;
-
-    /** レーザー発射ローカル座標 */
+    coord dX_,dZ_;
+    /** レーザー発射位置の座標（ヘスペリアのローカル座標） */
     GgafDxCore::GgafDxGeoElem* paLocalPos_Laser_;
+    /** レーザー発射時、目標すだれ位置の差分座標（自機からの相対座標） */
     GgafDxCore::GgafDxGeoElem* paPos_Target_;
-    DepositoryConnection* pCon_LaserChipDepoStore_;
+    /** レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
     GgafCore::GgafActorDepositoryStore* pLaserChipDepoStore_;
+    /** デポジトリマネージャーへの接続 */
+    DepositoryConnection* pCon_LaserChipDepoStore_;
+    /** レーザーセット(レーザーチップのデポジトリ) */
     GgafLib::LaserChipDepository** papLaserChipDepo_;
 
     EnemyHesperia(const char* prm_name);
@@ -64,6 +68,34 @@ public:
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     void onInactive() override;
+
+    /**
+     * レーザーを振り下ろすための上昇（Y軸）距離を求める .
+     * <pre>
+     *                         ^ Y
+     *                         |
+     *                         |…………
+     *                       ／|     ^
+     *                     ／  |     |
+     *                   ／    |     | DY（返す値）
+     *                 ／      |     |
+     *               ／        |     v
+     *             ／         敵…………
+     *           ／θ=30°     |
+     *     ---自機-------------+--------->
+     *       ／:               |
+     *     ／  :               |
+     *   ／    :<------------->|
+     *         :     DT(引数)  |
+     * </pre>
+     * @param pThis
+     * @param pMyShip
+     * @param DT
+     * @return 上昇Y軸距離（DY）
+     */
+    static coord getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
+                           GgafDxCore::GgafDxGeometricActor* pMyShip,
+                           coord DT);
 
     virtual ~EnemyHesperia();
 };

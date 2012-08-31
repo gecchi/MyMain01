@@ -79,7 +79,6 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     VirtualButton::_tagJoymap.UI_CANCEL  = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_UI_CANCEL)  ];
 
 
-
     GgafRepeatSeq::create("CH_bomb1", 0, 20);
     GgafRepeatSeq::create("CH_yume_Sbend", 0, 8);
     GgafRepeatSeq::create("CH_yume_shototsu", 0, 20);
@@ -92,6 +91,8 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     GgafRepeatSeq::create("CH_humei10", 0, 1); //Lockon
     GgafRepeatSeq::create("CH_fire01", 0, 16); //自機ショット
     GgafRepeatSeq::create("CH_torpedo", 0, 5); //ミサイル
+    GgafRepeatSeq::create("CH_warp", 0, 4); //ハッチオープン
+    GgafRepeatSeq::create("CH_yume_organ_01", 0, 4); //ハッチクローズ
 
 }
 

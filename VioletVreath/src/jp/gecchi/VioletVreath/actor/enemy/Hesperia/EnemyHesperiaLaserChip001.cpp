@@ -17,6 +17,7 @@ void EnemyHesperiaLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
+    _pKurokoA->relateFaceAngWithMvAng(true);
     useProgress(PROG_NOTHING);
 }
 
@@ -24,11 +25,28 @@ void EnemyHesperiaLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    _pKurokoA->relateFaceAngWithMvAng(true);
+
+    begin_Y_ = _Y;
+    MyShip* pMyShip = P_MYSHIP;
+    coord dX = ABS(_X - pMyShip->_X);
+    coord dZ = ABS(_Z - pMyShip->_Z);
+    turn_dY_ = EnemyHesperia::getTurnDY(this, pMyShip, (dX > dZ ? dX : dZ) );
+    //↑turn_dY_ の式は  EnemyHesperia::processBehavior() の turn_dY と同期を取る事
+
+    //[メモ]発射元のEnemyHesperiaにより、以下の設定が既に施されている
+    //    //発射元座標
+    //    pLaserChip->locate(_X+p->_X, _Y+p->_Y, _Z+p->_Z);
+    //    //折り返す地点へ向ける
+    //    pLaserChip->_pKurokoA->setMvAng(_X + paPos_Target_->_X,
+    //                                    _Y + paPos_Target_->_Y + turn_dY,
+    //                                    _Z + paPos_Target_->_Z);
+    //    pLaserChip->_pKurokoA->setMvVelo(40000);
+    //    pLaserChip->_pKurokoA->setMvAcce(100+(max_laser_way_-i)*100);
+    //    //最終目標地点を設定
+    //    pLaserChip->tX_ = pMyShip->_X + paPos_Target_[i]._X;
+    //    pLaserChip->tY_ = pMyShip->_Y + paPos_Target_[i]._Y;
+    //    pLaserChip->tZ_ = pMyShip->_Z + paPos_Target_[i]._Z;
     _pProg->set(PROG_MOVE_UP);
-    _pKurokoA->setMvVelo(20000);
-    _pKurokoA->setMvAcce(0);
-    //[メモ] tX_ , tY_ , tZ_  は EnemyHesperia により設定されている。
 }
 
 void EnemyHesperiaLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -47,32 +65,33 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
     MyShip* pMyShip = P_MYSHIP;
     switch (_pProg->get()) {
         case PROG_MOVE_UP: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("PROG_MOVE_UP _pProg->isJustChanged()");
-            }
-            //frame f = _pProg->getFrameInProgress();
-            //if ((f > 3 && pMyShip->_Y < _Y) || f > 10) {
-            if (_pProg->getFrameInProgress() > 120) {
+            if (_Y > begin_Y_+turn_dY_ || _pProg->getFrameInProgress() > 300) {
                 _pProg->changeNext();
             }
             break;
         }
 
-        case PROG_TURN: {
-//            if (_pProg->isJustChanged()) {
-//                _pKurokoA->execTurnMvAngSequence(
-//                            tX_ , tY_ , tZ_,
-//                            D_ANG(20), 0,
-//                            TURN_CLOSE_TO, true);
-//            }
-//            if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
-//                _pProg->changeNext();
-//            }
-            _pKurokoA->execTurnMvAngSequence(
-                        tX_ , tY_ , tZ_,
-                        D_ANG(20), 0,
-                        TURN_CLOSE_TO, true);
-            if (_pProg->getFrameInProgress() > 120 || !_pKurokoA->isRunnigTurnMvAngSequence()) {
+        case PROG_TURN1: {
+            if (_pProg->isJustChanged()) {
+                _pKurokoA->execTurnMvAngSequence(
+                             tX_, tY_, tZ_,
+                             D_ANG(20), 0,
+                             TURN_CLOSE_TO, true);
+            }
+            if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
+                _pProg->changeNext();
+            }
+            break;
+        }
+
+        case PROG_TURN2: { //もう一回execTurnMvAngSequenceを実行して、精度を高める
+            if (_pProg->isJustChanged()) {
+                _pKurokoA->execTurnMvAngSequence(
+                             tX_, tY_, tZ_,
+                             D_ANG(20), 0,
+                             TURN_CLOSE_TO, true);
+            }
+            if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
                 _pProg->changeNext();
             }
             break;
@@ -80,15 +99,13 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
 
         case PROG_INTO_MYSHIP: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setMvVelo(70000);
-                _pKurokoA->setMvAcce(100);
             }
 
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
                 _pKurokoA->execTurnMvAngSequence(
-                            tX_ , tY_ , tZ_,
-                            100, 0,
-                            TURN_CLOSE_TO, false);
+                             tX_, tY_, tZ_,
+                             100, 0,
+                             TURN_CLOSE_TO, true);
             }
             break;
         }
@@ -96,14 +113,6 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
             break;
         }
     }
-
-//
-//    if (frame_of_behaving_from_onActive_ == 35) {
-//        _pKurokoA->execTurnMvAngSequence(
-//                    P_MYSHIP,
-//                    20000, TURN_ANTICLOSE_TO);
-//    }
-
     _pKurokoA->behave();
 }
 
