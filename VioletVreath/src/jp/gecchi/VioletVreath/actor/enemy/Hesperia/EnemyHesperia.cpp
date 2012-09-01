@@ -56,7 +56,13 @@ void EnemyHesperia::onActive() {
     _pKurokoA->setRzRyMvAng(0, D180ANG);
     _pKurokoA->setMvVelo(1000);
     dX_= dZ_ = 0;
-    //_X = PX_C(800); //GgafDxCore::GgafDxUniverse::_X_goneRight - 100;
+    //出現位置
+    static coord appearances_renge_Z = (MyShip::lim_zleft_ - MyShip::lim_zright_) * 3;
+    static coord appearances_renge_Y = (MyShip::lim_top_ - MyShip::lim_bottom_) * 3;
+    _X = GgafDxUniverse::_X_goneRight - 1000;
+    _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
+    _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
+
     _pProg->set(PROG_ENTRY);
 }
 
@@ -224,11 +230,11 @@ void EnemyHesperia::processBehavior() {
                             //発射元座標
                             pLaserChip->locate(_X+p->_X, _Y+p->_Y, _Z+p->_Z);
                             //折り返す地点へ向ける
-                            pLaserChip->_pKurokoA->setMvAng(_X + paPos_Target_->_X,
-                                                            _Y + paPos_Target_->_Y + turn_dY,
-                                                            _Z + paPos_Target_->_Z);
-                            pLaserChip->_pKurokoA->setMvVelo(40000);
-                            pLaserChip->_pKurokoA->setMvAcce(100+(max_laser_way_-i)*120);
+                            pLaserChip->_pKurokoA->setMvAng(_X + paPos_Target_[i]._X - PX_C(10),
+                                                            _Y + paPos_Target_[i]._Y + turn_dY,
+                                                            _Z + paPos_Target_[i]._Z);
+                            pLaserChip->_pKurokoA->setMvVelo(20000);
+                            pLaserChip->_pKurokoA->setMvAcce(100+(max_laser_way_-i)*130);
                             //最終目標地点を設定
                             pLaserChip->tX_ = pMyShip->_X + paPos_Target_[i]._X;
                             pLaserChip->tY_ = pMyShip->_Y + paPos_Target_[i]._Y;
@@ -316,7 +322,7 @@ coord EnemyHesperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
     //        :     DT(引数)  |
     //
     //DY = DT・tan(30°) - (敵_Y - 自機_Y)
-    static double tan33 = tan(PI/12);
+    static double tan33 = tan(5.0*(PI/180.0));
     coord dY = pThis->_Y - pMyShip->_Y;
     coord TurnDY = DT*tan33 - dY;
     if (TurnDY < 0) {

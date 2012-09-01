@@ -216,7 +216,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (UTIL::strcmp_ascii("DpCon_EnemyHesperiaLaserChip001DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyHesperiaLaserChip0014DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        for (int nLaser = 0; nLaser < RR_EnemyHesperia_ShotWay(1.0)*2; nLaser++) {
+        for (int nLaser = 0; nLaser < RR_EnemyHesperia_ShotWay(1.0)*8; nLaser++) {
             std::string name = "LaserChipDepo["+ITOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name.c_str());
             for (int nChip = 0; nChip < 45; nChip++) {
