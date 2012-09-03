@@ -23,6 +23,7 @@ class LaserChip : public GgafDxCore::GgafDxMeshSetActor {
 
 private:
     D3DXHANDLE _ah_kind[11];
+    D3DXHANDLE _ah_alpha[11];
     D3DXHANDLE _ah_matWorld_front[11];
     //D3DXHANDLE _h_cnt_vertec;
 
@@ -80,6 +81,19 @@ public:
     virtual void drawHitArea() override;
 
     virtual void registHitAreaCube(int prm_edge_length);
+
+
+    /**
+     * Éøê›íË.
+     * @param prm_alpha
+     */
+    virtual void setAlpha(float prm_alpha) override;
+
+    /**
+     * Éøâ¡éZ .
+     * @param prm_alpha
+     */
+    virtual void addAlpha(float prm_alpha) override;
 
     virtual ~LaserChip();
 

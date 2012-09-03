@@ -21,8 +21,6 @@ EnemyHesperia::EnemyHesperia(const char* prm_name) :
     pCon_LaserChipDepoStore_ = connectToDepositoryManager("DpCon_EnemyHesperiaLaserChip001DepoStore", NULL);
     pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pCon_LaserChipDepoStore_->fetch());
 
-
-
     paLocalPos_Laser_ = NEW GgafDxGeoElem[max_laser_way_];
     paPos_Target_ = NEW GgafDxGeoElem[max_laser_way_];
     coord dX = PX_C(10); //レーザー発射口の間隔
@@ -149,7 +147,7 @@ void EnemyHesperia::processBehavior() {
                     //                    |
                     //                    |
                     //                    |
-                    //                    |
+                    //               (e)  |    (f)
                     //                    |
                     //                    |
                     //
@@ -185,7 +183,7 @@ void EnemyHesperia::processBehavior() {
                     //       [0]     [1]      [2]    [3]  ・・・ (b)
                     //       [3]     [2]      [1]    [0]  ・・・ (c)
                     //  とする
-                    coord total_laser_effect = laser_density*laser_way+1; //すだれレーザーのすだれ距離（範囲）
+                    coord total_laser_effect = laser_density*(laser_way-1)+1; //すだれレーザーのすだれ距離（範囲）
 
                     dX_ = ABS(_X - pMyShip->_X);
                     dZ_ = ABS(_Z - pMyShip->_Z);
@@ -195,16 +193,30 @@ void EnemyHesperia::processBehavior() {
                             paPos_Target_[i].set(tX, 0, 0);
                         }
                     } else {
-                        //(b)(c)  の場合、Z方向距離よりX方向距離が遠い
-                        if (pMyShip->_Z < _Z) {
-                            //(b)自機が手前、ヘスペリアが奥
-                            for (int i = 0, tZ = total_laser_effect/2; i < laser_way; i++, tZ-=laser_density) {
-                                paPos_Target_[i].set(0, 0, tZ);
+                        if (pMyShip->_X < _X) { //自機より前
+                            //(b)(c)の場合、Z方向距離よりX方向距離が遠い
+                            if (pMyShip->_Z < _Z) {
+                                //(b)自機が手前、ヘスペリアが奥
+                                for (int i = 0, tZ = total_laser_effect/2; i < laser_way; i++, tZ-=laser_density) {
+                                    paPos_Target_[i].set(0, 0, tZ);
+                                }
+                            } else {
+                                //(c)自機が奥、ヘスペリアが手前
+                                for (int i = 0, tZ = -total_laser_effect/2; i < laser_way; i++, tZ+=laser_density) {
+                                    paPos_Target_[i].set(0, 0, tZ);
+                                }
                             }
-                        } else {
-                            //(c)自機が奥、ヘスペリアが手前
-                            for (int i = 0, tZ = -total_laser_effect/2; i < laser_way; i++, tZ+=laser_density) {
-                                paPos_Target_[i].set(0, 0, tZ);
+                        } else { //自機より後ろ (e)(f)
+                            if (pMyShip->_Z < _Z) {
+                                //(e)自機が手前、ヘスペリアが奥
+                                for (int i = 0, tZ = -total_laser_effect/2; i < laser_way; i++, tZ+=laser_density) {
+                                    paPos_Target_[i].set(0, 0, tZ);
+                                }
+                            } else {
+                                //(f)自機が奥、ヘスペリアが手前
+                                for (int i = 0, tZ = total_laser_effect/2; i < laser_way; i++, tZ-=laser_density) {
+                                    paPos_Target_[i].set(0, 0, tZ);
+                                }
                             }
                         }
                     }
@@ -221,25 +233,44 @@ void EnemyHesperia::processBehavior() {
                 EnemyHesperiaLaserChip001* pLaserChip;
                 GgafDxGeoElem* p;
                 coord turn_dY = getTurnDY(this, pMyShip, (dX_ > dZ_ ? dX_ : dZ_) );
-                //↑turn_dY の 式は EnemyHesperiaLaserChip001::turn_dY_と同期を取る事
+                //↑turn_dY の 引数は EnemyHesperiaLaserChip001::turn_dY_と同期を取る事
                 for (int i = 0; i < max_laser_way_; i++) {
                     if (papLaserChipDepo_[i]) {
                         pLaserChip = (EnemyHesperiaLaserChip001*)papLaserChipDepo_[i]->dispatch();
                         if (pLaserChip) {
                             p = &(paLocalPos_Laser_[i]);
-                            //発射元座標
+                            //発射元座標に設定
                             pLaserChip->locate(_X+p->_X, _Y+p->_Y, _Z+p->_Z);
-                            //折り返す地点へ向ける
-                            pLaserChip->_pKurokoA->setMvAng(_X + paPos_Target_[i]._X - PX_C(10),
-                                                            _Y + paPos_Target_[i]._Y + turn_dY,
-                                                            _Z + paPos_Target_[i]._Z);
-                            pLaserChip->_pKurokoA->setMvVelo(20000);
-                            pLaserChip->_pKurokoA->setMvAcce(100+(max_laser_way_-i)*130);
-                            //最終目標地点を設定
-                            pLaserChip->tX_ = pMyShip->_X + paPos_Target_[i]._X;
-                            pLaserChip->tY_ = pMyShip->_Y + paPos_Target_[i]._Y;
-                            pLaserChip->tZ_ = pMyShip->_Z + paPos_Target_[i]._Z;
+                            //最初の目標地点(折り返す地点)を設定
+                            //シンバルロック付近を避けるためすこしズラス
+                            if (dX_ < dZ_)  {
+                                //X方向距離よりZ方向距離が遠い
+                                if (pMyShip->_Z < _Z) {
+                                    //自機が手前、ヘスペリアが奥
+                                    pLaserChip->tX1_ = _X + paPos_Target_[i]._X;
+                                    pLaserChip->tY1_ = _Y + paPos_Target_[i]._Y + turn_dY;
+                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z + PX_C(200);
+                                } else {
+                                    //自機が奥、ヘスペリアが手前
+                                    pLaserChip->tX1_ = _X + paPos_Target_[i]._X;
+                                    pLaserChip->tY1_ = _Y + paPos_Target_[i]._Y + turn_dY;
+                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z - PX_C(200);
+                                }
+                            } else {
+                                //シンバルロック付近を避けるためX-200
+                                pLaserChip->tX1_ = _X + paPos_Target_[i]._X - PX_C(200);
+                                pLaserChip->tY1_ = _Y + paPos_Target_[i]._Y + turn_dY;
+                                pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z;
+                            }
 
+                            pLaserChip->turn_dY_ = turn_dY;
+                            //最終目標地点を設定
+                            pLaserChip->tX2_ = pMyShip->_X + paPos_Target_[i]._X;
+                            pLaserChip->tY2_ = pMyShip->_Y + paPos_Target_[i]._Y;
+                            pLaserChip->tZ2_ = pMyShip->_Z + paPos_Target_[i]._Z;
+                            //速さと加速度
+                            pLaserChip->_pKurokoA->setMvVelo(10000); //初期速度
+                            pLaserChip->_pKurokoA->setMvAcce(200+(max_laser_way_-i)*150); //少しバラけるように
                         }
                     }
                 }
@@ -270,6 +301,7 @@ void EnemyHesperia::processBehavior() {
     }
     _pSeTxer->behave();
     _pKurokoA->behave();
+    _pMorpher->behave();
 }
 
 void EnemyHesperia::processJudgement() {
@@ -314,19 +346,19 @@ coord EnemyHesperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
     //                ／      |     |
     //              ／        |     v
     //            ／         敵…………
-    //          ／θ=33°     |
+    //          ／θ=5°      |
     //    ---自機-------------+--------->
     //      ／:               |
     //    ／  :               |
     //  ／    :<------------->|
     //        :     DT(引数)  |
     //
-    //DY = DT・tan(30°) - (敵_Y - 自機_Y)
-    static double tan33 = tan(5.0*(PI/180.0));
+    //DY = DT・tan(5°) - (敵_Y - 自機_Y)
+    static double tan33 = tan(5.0*(PI/180.0)); //５度上から打ち下ろす
     coord dY = pThis->_Y - pMyShip->_Y;
     coord TurnDY = DT*tan33 - dY;
     if (TurnDY < 0) {
-        return PX_C(100);
+        return PX_C(200);
     } else {
         return TurnDY;
     }

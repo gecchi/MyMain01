@@ -34,11 +34,18 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _ah_kind[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind009" );
     _ah_kind[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind010" );
     _ah_kind[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind011" );
-//    _ah_kind[11] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind012" );
-//    _ah_kind[12] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind013" );
-//    _ah_kind[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind014" );
-//    _ah_kind[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind015" );
-//    _ah_kind[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind016" );
+
+    _ah_alpha[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha001" );
+    _ah_alpha[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha002" );
+    _ah_alpha[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha003" );
+    _ah_alpha[3]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha004" );
+    _ah_alpha[4]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha005" );
+    _ah_alpha[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha006" );
+    _ah_alpha[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha007" );
+    _ah_alpha[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha008" );
+    _ah_alpha[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha009" );
+    _ah_alpha[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha010" );
+    _ah_alpha[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha011" );
 
     _ah_matWorld_front[0]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front001" );
     _ah_matWorld_front[1]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front002" );
@@ -51,11 +58,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _ah_matWorld_front[8]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front009" );
     _ah_matWorld_front[9]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front010" );
     _ah_matWorld_front[10]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front011" );
-//    _ah_matWorld_front[11]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front012" );
-//    _ah_matWorld_front[12]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front013" );
-//    _ah_matWorld_front[13]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front014" );
-//    _ah_matWorld_front[14]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front015" );
-//    _ah_matWorld_front[15]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front016" );
 
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -207,6 +209,9 @@ void LaserChip::processDraw() {
                     //チップ種別
                     hr = pID3DXEffect->SetInt(this->_ah_kind[_draw_set_num], pLaserChip->_chip_kind);
                     checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
+
+                    hr = pID3DXEffect->SetFloat(this->_ah_alpha[_draw_set_num], pLaserChip->getAlpha());
+                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetFloat(_ah_alpha) に失敗しました。2");
                 } else {
                     //先端チップは描画不要
                     pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
@@ -263,6 +268,16 @@ void LaserChip::registHitAreaCube(int prm_edge_length) {
     _pColliChecker->setColliAAB_Cube(1, prm_edge_length);
     _pColliChecker->disable(1);
     setHitAble(true);
+}
+
+void LaserChip::setAlpha(float prm_alpha) {
+    _alpha = prm_alpha;
+    //α設定、レーザーチップは、現在_paMaterialは使用しない
+}
+
+void LaserChip::addAlpha(float prm_alpha) {
+    _alpha += prm_alpha;
+    //α設定、レーザーチップは、現在_paMaterialは使用しない
 }
 
 LaserChip::~LaserChip() {

@@ -10,15 +10,18 @@ public:
         PROG_MOVE_UP = 1,
         PROG_TURN1,
         PROG_TURN2,
+        PROG_TURN3,
         PROG_INTO_MYSHIP,
         PROG_NOTHING,
     };
     /** 発射時のY座標 */
     coord begin_Y_;
-    /** 屈折までの距離 */
+    /** 屈折までのY軸方向距離 */
     coord turn_dY_;
-    /** 目標座標 */
-    coord tX_, tY_, tZ_;
+    /** 目標座標1(屈折ポイント) */
+    coord tX1_, tY1_, tZ1_;
+    /** 目標座標2(自機周りの到達ポイント) */
+    coord tX2_, tY2_, tZ2_;
 
     EnemyHesperiaLaserChip001(const char* prm_name);
 
@@ -27,6 +30,8 @@ public:
     void onActive() override;
 
     void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
+
+    void processBehavior() override;
 
     /**
      * 先頭チップの動きを定義

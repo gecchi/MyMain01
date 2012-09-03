@@ -33,21 +33,23 @@ public:
         SE_HATCH_CLOSE,
     };
 
-    /** ヘスペリア１艦が発車する際の最大レーザーWay数 */
+    /** [r]ヘスペリア１艦が発車する際の最大レーザーWay数 */
     static int max_laser_way_;
-
-    /** 発射レーザーチップの数（レーザー長さ） */
+    /** [r]発射レーザーチップの数（レーザー長さ） */
     int laser_length_;
-    coord dX_,dZ_;
-    /** レーザー発射位置の座標（ヘスペリアのローカル座標） */
+    /** [r]レーザー発射時のX軸方向の自機との距離 */
+    coord dX_;
+    /** [r]レーザー発射時のZ軸方向の自機との距離 */
+    coord dZ_;
+    /** [r]レーザー発射位置の座標（ヘスペリアのローカル座標） */
     GgafDxCore::GgafDxGeoElem* paLocalPos_Laser_;
-    /** レーザー発射時、目標すだれ位置の差分座標（自機からの相対座標） */
+    /** [r]レーザー発射時、目標すだれ位置の差分座標（自機からの相対座標） */
     GgafDxCore::GgafDxGeoElem* paPos_Target_;
-    /** レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
+    /** [r]レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
     GgafCore::GgafActorDepositoryStore* pLaserChipDepoStore_;
-    /** デポジトリマネージャーへの接続 */
+    /** [r]デポジトリマネージャーへの接続 */
     DepositoryConnection* pCon_LaserChipDepoStore_;
-    /** レーザーセット(レーザーチップのデポジトリ) */
+    /** [r]レーザーセット(レーザーチップのデポジトリ) */
     GgafLib::LaserChipDepository** papLaserChipDepo_;
 
     EnemyHesperia(const char* prm_name);
@@ -81,7 +83,7 @@ public:
      *                 ／      |     |
      *               ／        |     v
      *             ／         敵…………
-     *           ／θ=30°     |
+     *           ／θ=５°     |
      *     ---自機-------------+--------->
      *       ／:               |
      *     ／  :               |

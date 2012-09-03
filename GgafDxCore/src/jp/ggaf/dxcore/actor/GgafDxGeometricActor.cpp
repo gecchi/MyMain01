@@ -235,7 +235,7 @@ bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 int GgafDxGeometricActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
     if (_offscreen_kind == -1) {
-        dxcoord bound = _bounding_sphere_radius * _rate_of_bounding_sphere_radius*1.5;//1.2‚Í‚â‚â‹«ŠE‹…‚ð‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ð—}‚¦‚é
+        dxcoord bound = _bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//Š|‚¯‚é2‚Í‹«ŠE‹…‚ð‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ð—}‚¦‚é
         if (_dest_from_vppln_top < bound) {
             if (_dest_from_vppln_bottom < bound) {
                 if (_dest_from_vppln_left < bound) {
