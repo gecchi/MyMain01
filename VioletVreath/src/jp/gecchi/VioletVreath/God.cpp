@@ -80,7 +80,7 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
 
 
     GgafRepeatSeq::create("CH_bomb1", 0, 20);
-    GgafRepeatSeq::create("CH_yume_Sbend", 0, 8);
+    GgafRepeatSeq::create("CH_yume_Sbend", 0, 18);
     GgafRepeatSeq::create("CH_yume_shototsu", 0, 20);
     GgafRepeatSeq::create("CH_break_glass01", 0, 20);
     GgafRepeatSeq::create("CH_a_shot", 0, 5);

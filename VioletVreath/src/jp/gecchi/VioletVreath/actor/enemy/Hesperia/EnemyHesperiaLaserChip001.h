@@ -9,10 +9,11 @@ public:
     enum {
         PROG_MOVE_UP = 1,
         PROG_TURN1,
-        PROG_TURN2,
-        PROG_TURN3,
         PROG_INTO_MYSHIP,
         PROG_NOTHING,
+    };
+    enum {
+        SE_FIRE = 0,
     };
     /** 発射時のY座標 */
     coord begin_Y_;
@@ -30,8 +31,6 @@ public:
     void onActive() override;
 
     void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
-
-    void processBehavior() override;
 
     /**
      * 先頭チップの動きを定義

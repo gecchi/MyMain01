@@ -14,13 +14,12 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,400,1000,1600,2200,2800,3400,4000,4600,5200,5800,6400,7000,7600,8200,8800,9400,10000};
-	_paFrame_NextEvent = new frame[18];
+	frame f[] = {1,100,300,1100,1300,2100,2300,3100,3200,3300,4100,4300,5000,5100,5300,6100,6200,6300,7100,7300,8000,8100,9100};
+	_paFrame_NextEvent = new frame[23];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 18;
-	orderActorToFactory(10000000, EnemyHesperia, "EnemyHesperia_1");
-	orderActorToFactory(10000001, EnemyHesperia, "EnemyHesperia_2");
-	orderActorToFactory(10000002, EnemyHesperia, "EnemyHesperia_3");
+	_event_num = 23;
+	orderActorToFactory(10000002, EnemyAstraea, "Astraea_1");
+	orderActorToFactory(10000003, EnemyAstraea, "Astraea_2");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -38,109 +37,130 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 400: {
+			case 100: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000002);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1800000;
+				pAstraea2->_Y = -100000;
+				break;
+			}
+			case 300: {
+				orderActorToFactory(10000004, EnemyAstraea, "Astraea_3");
+				break;
+			}
+			case 1100: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000003);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1800000;
+				pAstraea2->_Y = -100000;
+				break;
+			}
+			case 1300: {
+				orderActorToFactory(10000005, EnemyAstraea, "Astraea_4");
+				break;
+			}
+			case 2100: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000004);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1800000;
+				pAstraea2->_Y = -100000;
+				break;
+			}
+			case 2300: {
+				orderActorToFactory(10000006, EnemyAstraea, "Astraea_5");
+				break;
+			}
+			case 3100: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000005);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1800000;
+				pAstraea2->_Y = -100000;
+				break;
+			}
+			case 3200: {
+				orderActorToFactory(10000000, EnemyHesperia, "EnemyHesperia_6");
+				break;
+			}
+			case 3300: {
+				orderActorToFactory(10000007, EnemyAstraea, "Astraea_7");
+				break;
+			}
+			case 4100: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000006);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1800000;
+				pAstraea2->_Y = -100000;
+				break;
+			}
+			case 4300: {
+				orderActorToFactory(10000008, EnemyAstraea, "Astraea_8");
+				break;
+			}
+			case 5000: {
 				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000000);
 				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000003, EnemyHesperia, "EnemyHesperia_4");
 				break;
 			}
-			case 1000: {
+			case 5100: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000007);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1800000;
+				pAstraea2->_Y = -100000;
+				break;
+			}
+			case 5300: {
+				orderActorToFactory(10000009, EnemyAstraea, "Astraea_9");
+				break;
+			}
+			case 6100: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000008);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1800000;
+				pAstraea2->_Y = -100000;
+				break;
+			}
+			case 6200: {
+				orderActorToFactory(10000001, EnemyHesperia, "EnemyHesperia_10");
+				break;
+			}
+			case 6300: {
+				orderActorToFactory(10000010, EnemyAstraea, "Astraea_11");
+				break;
+			}
+			case 7100: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000009);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1800000;
+				pAstraea2->_Y = -100000;
+				break;
+			}
+			case 7300: {
+				orderActorToFactory(10000011, EnemyAstraea, "Astraea_12");
+				break;
+			}
+			case 8000: {
 				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000001);
 				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000004, EnemyHesperia, "EnemyHesperia_5");
 				break;
 			}
-			case 1600: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000002);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000005, EnemyHesperia, "EnemyHesperia_6");
+			case 8100: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000010);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1800000;
+				pAstraea2->_Y = -100000;
 				break;
 			}
-			case 2200: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000003);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000006, EnemyHesperia, "EnemyHesperia_7");
-				break;
-			}
-			case 2800: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000004);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000007, EnemyHesperia, "EnemyHesperia_8");
-				break;
-			}
-			case 3400: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000005);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000008, EnemyHesperia, "EnemyHesperia_9");
-				break;
-			}
-			case 4000: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000006);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000009, EnemyHesperia, "EnemyHesperia_10");
-				break;
-			}
-			case 4600: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000007);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000010, EnemyHesperia, "EnemyHesperia_11");
-				break;
-			}
-			case 5200: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000008);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000011, EnemyHesperia, "EnemyHesperia_12");
-				break;
-			}
-			case 5800: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000009);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000012, EnemyHesperia, "EnemyHesperia_13");
-				break;
-			}
-			case 6400: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000010);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000013, EnemyHesperia, "EnemyHesperia_14");
-				break;
-			}
-			case 7000: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000011);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000014, EnemyHesperia, "EnemyHesperia_15");
-				break;
-			}
-			case 7600: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000012);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000015, EnemyHesperia, "EnemyHesperia_16");
-				break;
-			}
-			case 8200: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000013);
-				getDirector()->addSubGroup(p);
-				orderActorToFactory(10000016, EnemyHesperia, "EnemyHesperia_17");
-				break;
-			}
-			case 8800: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000014);
-				getDirector()->addSubGroup(p);
-				break;
-			}
-			case 9400: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000015);
-				getDirector()->addSubGroup(p);
-				break;
-			}
-			case 10000: {
-				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(10000016);
-				getDirector()->addSubGroup(p);
+			case 9100: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000011);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1800000;
+				pAstraea2->_Y = -100000;
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 18-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 23-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

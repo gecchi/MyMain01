@@ -81,6 +81,7 @@ void LaserChip::onActive() {
     if (_pDepo) {
         _pDepo->_num_chip_active++;
     }
+    _alpha = 0.99; //最初は奥でもハッキリ映る。
 }
 
 void LaserChip::processSettlementBehavior() {
@@ -172,6 +173,9 @@ void LaserChip::processSettlementBehavior() {
         sayonara();
     }
 
+    if (getActivePartFrame() > 180 && _alpha > 0) {
+        _alpha -= 0.01; //最初は奥でもハッキリ映る。
+    }
     GgafDxMeshSetActor::processSettlementBehavior(); //８分木登録
     //TODO:８分木登録だけならprocessSettlementBehavior()を呼び出すのは少し効率が悪かもしれない。
     //当たり判定領域を更新してからprocessSettlementBehaviorで８分木登録すること。
