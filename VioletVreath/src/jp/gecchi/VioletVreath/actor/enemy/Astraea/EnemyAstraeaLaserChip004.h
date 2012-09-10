@@ -8,9 +8,12 @@ public:
 
     GgafLib::SplineManufactureConnection* pSplManufCon_;
     GgafLib::SplineSequence* pSplSeq_;
+//    static GgafDxCore::GgafDxTextureConnection* pTexCon1_;
+//    static GgafDxCore::GgafDxTextureConnection* pTexCon2_;
     EnemyAstraeaLaserChip004(const char* prm_name);
 
     void initialize() override;
+    void onCreateModel() override;
 
     void onActive() override;
     void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;

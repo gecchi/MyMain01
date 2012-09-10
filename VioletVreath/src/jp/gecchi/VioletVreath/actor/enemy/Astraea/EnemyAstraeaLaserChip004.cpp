@@ -4,12 +4,21 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+//GgafDxCore::GgafDxTextureConnection* EnemyAstraeaLaserChip004::pTexCon1_ = NULL;
+//GgafDxCore::GgafDxTextureConnection* EnemyAstraeaLaserChip004::pTexCon2_ = NULL;
 
 EnemyAstraeaLaserChip004::EnemyAstraeaLaserChip004(const char* prm_name) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001", STATUS(EnemyAstraeaLaserChip004)) {
     _class_name = "EnemyAstraeaLaserChip004";
     pSplManufCon_ = connectToSplineManufactureManager("GURUGURU");
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
+//    if (pTexCon1_ == NULL) {
+//        pTexCon1_ = connectToModelTextureManager("AstraeaLaserChip001.png");
+//        pTexCon2_ = connectToModelTextureManager("HesperiaLaserChip001.png");
+//        _pModel->setMaterialTexture(0, pTexCon1_);
+//
+//    }
+
 }
 
 void EnemyAstraeaLaserChip004::initialize() {
@@ -18,6 +27,11 @@ void EnemyAstraeaLaserChip004::initialize() {
     setScaleR(5.0);
     setAlpha(0.9);
 }
+
+void EnemyAstraeaLaserChip004::onCreateModel() {
+
+}
+
 void EnemyAstraeaLaserChip004::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
@@ -42,6 +56,18 @@ void EnemyAstraeaLaserChip004::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyAstraeaLaserChip004::processBehaviorHeadChip() {
+//    //--->debug
+//    if (GgafDxInput::isBeingPressedKey(DIK_N)) {
+//        GgafDxTextureConnection* a = _pModel->_papTextureCon[0];
+//        GgafDxTextureConnection* b = _pModel->_papTextureCon[1];
+//        _pModel->_papTextureCon[0] = b;
+//        _pModel->_papTextureCon[1] = a;
+//    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_M)) {
+//        _pModel->setMaterialTexture(0, pTexCon2_);
+//    }
+//    //<--debug
+
     if (getActivePartFrame() == 2) {
         pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
@@ -65,5 +91,13 @@ void EnemyAstraeaLaserChip004::onHit(GgafActor* prm_pOtherActor) {
 EnemyAstraeaLaserChip004::~EnemyAstraeaLaserChip004() {
     DELETE_IMPOSSIBLE_NULL(pSplSeq_);
     pSplManufCon_->close();
+    //if (pTexCon1_) {
+    //    pTexCon1_->close();
+    //    pTexCon1_ = NULL;
+    //}
+    //if (pTexCon2_) {
+    //    pTexCon2_->close();
+    //    pTexCon2_ = NULL;
+    //}
 }
 

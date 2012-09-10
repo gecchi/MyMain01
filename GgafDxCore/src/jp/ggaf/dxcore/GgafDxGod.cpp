@@ -381,7 +381,13 @@ HRESULT GgafDxGod::init() {
     FreeLibrary(hD3D);
 
     //デバイスパラメータ作成
-    _paPresetPrm = NEW D3DPRESENT_PARAMETERS[2];
+    D3DCAPS9 caps;
+    GgafDxGod::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
+                                       D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
+                                       &caps);             // [out] デバイスの能力が格納される
+
+    _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
+    _paPresetPrm = NEW D3DPRESENT_PARAMETERS[_num_adapter > 2 ? _num_adapter : 2];
     ZeroMemory(&_paPresetPrm[0], sizeof(D3DPRESENT_PARAMETERS));
 
     //ウィンドウ時・フルスクリーン時共通
@@ -534,7 +540,7 @@ HRESULT GgafDxGod::init() {
         }
     }
 
-    _paDisplayMode = NEW D3DDISPLAYMODEEX[2];
+    _paDisplayMode = NEW D3DDISPLAYMODEEX[_num_adapter > 2 ? _num_adapter : 2];
     _paDisplayMode[0].Size = sizeof(_paDisplayMode[0]);
     _paDisplayMode[0].Width = _paPresetPrm[0].BackBufferWidth;
     _paDisplayMode[0].Height = _paPresetPrm[0].BackBufferHeight;
@@ -549,32 +555,43 @@ HRESULT GgafDxGod::init() {
     _paDisplayMode[1].RefreshRate = _paPresetPrm[1].FullScreen_RefreshRateInHz;
     _paDisplayMode[1].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
 
-    //フルスクリーンに出来るか調べる
-    D3DCAPS9 caps;
-    GgafDxGod::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
-                                       D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
-                                       &caps);             // [out] デバイスの能力が格納される
+    //３画面目以降のパラメータをコピーで作成
+    for (int i = 2; i < _num_adapter; i++) {
+        _paPresetPrm[i] = _paPresetPrm[1];
+        _paDisplayMode[i] = _paDisplayMode[1];
+    }
 
-    _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
+    //フルスクリーンに出来るか調べる
     _TRACE_("_num_adapter = "<< _num_adapter);
     if (GGAF_PROPERTY(FULL_SCREEN)) {
-        for (int disp_no = 0; disp_no <= (GGAF_PROPERTY(DUAL_VIEW) ? 1 : 0); disp_no++) {
+        for (int disp_no = 0; disp_no <= (GGAF_PROPERTY(DUAL_VIEW) ? (_num_adapter-1) : 0); disp_no++) {
             int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(disp_no,
                                                                     _paPresetPrm[0].BackBufferFormat);
             if (mode_num) {
                 D3DDISPLAYMODE adp;
-                for (int i = 0; i < mode_num; i++) {
+                for (int i = mode_num-1; i >= 0; i--) {
                     GgafDxGod::_pID3D9->EnumAdapterModes(disp_no,
                                                           _paPresetPrm[0].BackBufferFormat, i, &adp);
-                    _TRACE_("["<<disp_no<<"]"<<adp.Width<<"x"<<adp.Height);
-                    if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat &&
-                        adp.Width  == _paPresetPrm[disp_no].BackBufferWidth  &&
-                        adp.Height == _paPresetPrm[disp_no].BackBufferHeight ) {
-                        //OK
-                        _TRACE_("BINGO!");
-                        break;
+                    _TRACE_("disp_no["<<disp_no<<"].mode["<<i<<"]:"<<adp.Width<<"x"<<adp.Height);
+                    if (disp_no > 1) {
+                        //３画面目以降は無難な解像度を探してそれに設定。
+                        if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat) {
+                            _TRACE_("...USE!");
+                            _paPresetPrm[disp_no].BackBufferWidth  = adp.Width;
+                            _paPresetPrm[disp_no].BackBufferHeight = adp.Height;
+                            break;
+                        }
+                    } else {
+                        //１画面目・２画面目は、プロパティ要求の解像度を探す
+                        if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat &&
+                            adp.Width  == _paPresetPrm[disp_no].BackBufferWidth  &&
+                            adp.Height == _paPresetPrm[disp_no].BackBufferHeight ) {
+                            //OK
+                            _TRACE_("...BINGO!");
+                            break;
+                        }
                     }
-                    if (mode_num-1 == i) {
+                    if (i == 0) {
                         //要求した使える解像度が見つからない
                         std::stringstream ss;
                         if (GGAF_PROPERTY(DUAL_VIEW)) {

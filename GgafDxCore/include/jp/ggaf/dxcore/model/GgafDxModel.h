@@ -92,6 +92,19 @@ public:
      */
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) = 0;
 
+
+    /**
+     * マテリアルのテクスチャを小生的に上書き設定 .
+     * 該当マテリアル番号の既存のテクスチャは close() される。
+     * @param prm_material_no マテリアル番号
+     * @param prm_texture テクスチャ
+     */
+//    virtual void setMaterialTexture(int prm_material_no, const char* prm_texture);
+
+//    virtual GgafDxTextureConnection* setMaterialTextureCon(int prm_material_no, GgafDxTextureConnection* prm_pTexCon);
+
+    virtual void swapTopTextureOrder(const char* prm_texture0);
+
     /**
      * モデルを再構築します.
      */

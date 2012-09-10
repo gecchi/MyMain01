@@ -24,15 +24,15 @@ MyShip::MyShip(const char* prm_name) :
 
     //画面の大きさに伴って、移動範囲を決定
     //このあたりはFovXに依存するので微調整。
-    int harf_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2;
-    int harf_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2;
+    coord harf_width  = PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH))/2;
+    coord harf_height = PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT))/2;
 
-    lim_top_     =  harf_height + GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*4*LEN_UNIT; //上は、高さ4画面分
-    lim_bottom_  = -harf_height - GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*4*LEN_UNIT; //下は、高さ4画面分
-    lim_front_   =  harf_width + GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //前は、幅の2画面分
-    lim_behaind_ = -harf_width - GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //後ろは、幅の2画面分
-    lim_zleft_   =  harf_width + GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //手前は、幅の2画面分
-    lim_zright_  = -harf_width - GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //奥は、幅の2画面分
+    lim_top_     =  harf_height + PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*4);  //上は、高さ4画面分
+    lim_bottom_  = -harf_height - PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*4);  //下は、高さ4画面分
+    lim_front_   =  harf_width  + PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2);   //前は、幅の2画面分
+    lim_behaind_ = -harf_width  - PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2);   //後ろは、幅の2画面分
+    lim_zleft_   =  harf_width  + PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2);   //手前は、幅の2画面分
+    lim_zright_  = -harf_width  - PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2);   //奥は、幅の2画面分
     _TRACE_("MyShip::MyShip 範囲 X("<<lim_behaind_<<" ~ "<<lim_front_<<") Y("<<lim_bottom_<<" ~ "<<lim_top_<<") Z("<<lim_zright_<<" ~ "<<lim_zleft_<<")");
 
     /** 移動スピードレベルに相応する移動スピード */
@@ -53,28 +53,28 @@ MyShip::MyShip(const char* prm_name) :
 //    pOptionCtrlr_ = NEW MyOptionController("MY_OPTION_PARENT");
 //    addSubLast(pOptionCtrlr_);
 
-    //debug ---->
-    pDepo_TestGuShot_ = NEW GgafActorDepository("Depo_TestGuShot");
-    for (int i = 0; i < 25; i++) { //テストグー弾ストック
-        pDepo_TestGuShot_->addSubLast(NEW TestGuShot("TestGuShot"));
-    }
-    addSubGroup(pDepo_TestGuShot_);
-    pDepo_TestChokiShot_ = NEW GgafActorDepository("Depo_TestChokiShot");
-    for (int i = 0; i < 25; i++) { //テストチョキ弾ストック
-        pDepo_TestChokiShot_->addSubLast(NEW TestChokiShot("TestChokiShot"));
-    }
-    addSubGroup(pDepo_TestChokiShot_);
-    pDepo_TestPaShot_ = NEW GgafActorDepository("Depo_TestPaShot");
-    for (int i = 0; i < 25; i++) { //テストパー弾ストック
-        pDepo_TestPaShot_->addSubLast(NEW TestPaShot("TestPaShot"));
-    }
-    addSubGroup(pDepo_TestPaShot_);
-    pDepo_TestNomalShot_ = NEW GgafActorDepository("Depo_TestNomalShot");
-    for (int i = 0; i < 25; i++) { //テストノーマル弾ストック
-        pDepo_TestNomalShot_->addSubLast(NEW TestNomalShot("TestNomalShot"));
-    }
-    addSubGroup(pDepo_TestNomalShot_);
-    //<---- debug
+//    //debug ---->
+//    pDepo_TestGuShot_ = NEW GgafActorDepository("Depo_TestGuShot");
+//    for (int i = 0; i < 25; i++) { //テストグー弾ストック
+//        pDepo_TestGuShot_->addSubLast(NEW TestGuShot("TestGuShot"));
+//    }
+//    addSubGroup(pDepo_TestGuShot_);
+//    pDepo_TestChokiShot_ = NEW GgafActorDepository("Depo_TestChokiShot");
+//    for (int i = 0; i < 25; i++) { //テストチョキ弾ストック
+//        pDepo_TestChokiShot_->addSubLast(NEW TestChokiShot("TestChokiShot"));
+//    }
+//    addSubGroup(pDepo_TestChokiShot_);
+//    pDepo_TestPaShot_ = NEW GgafActorDepository("Depo_TestPaShot");
+//    for (int i = 0; i < 25; i++) { //テストパー弾ストック
+//        pDepo_TestPaShot_->addSubLast(NEW TestPaShot("TestPaShot"));
+//    }
+//    addSubGroup(pDepo_TestPaShot_);
+//    pDepo_TestNomalShot_ = NEW GgafActorDepository("Depo_TestNomalShot");
+//    for (int i = 0; i < 25; i++) { //テストノーマル弾ストック
+//        pDepo_TestNomalShot_->addSubLast(NEW TestNomalShot("TestNomalShot"));
+//    }
+//    addSubGroup(pDepo_TestNomalShot_);
+//    //<---- debug
 
 
     pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
@@ -549,35 +549,44 @@ void MyShip::processJudgement() {
 
 
     //debug ---->
-    if (GgafDxInput::isPushedDownKey(DIK_W)) {
-        TestGuShot* pShot = (TestGuShot*)pDepo_TestGuShot_->dispatch();
-        if (pShot) {
-            pShot->locateWith(this);
-        }
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_E)) {
-        TestChokiShot* pShot = (TestChokiShot*)pDepo_TestChokiShot_->dispatch();
-        if (pShot) {
-            pShot->locateWith(this);
-        }
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_R)) {
-        TestPaShot* pShot = (TestPaShot*)pDepo_TestPaShot_->dispatch();
-        if (pShot) {
-            pShot->locateWith(this);
-        }
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_T)) {
-        TestNomalShot* pShot = (TestNomalShot*)pDepo_TestNomalShot_->dispatch();
-        if (pShot) {
-            pShot->locateWith(this);
-        }
-    }
+//    if (GgafDxInput::isPushedDownKey(DIK_W)) {
+//        TestGuShot* pShot = (TestGuShot*)pDepo_TestGuShot_->dispatch();
+//        if (pShot) {
+//            pShot->locateWith(this);
+//        }
+//    }
+//    if (GgafDxInput::isPushedDownKey(DIK_E)) {
+//        TestChokiShot* pShot = (TestChokiShot*)pDepo_TestChokiShot_->dispatch();
+//        if (pShot) {
+//            pShot->locateWith(this);
+//        }
+//    }
+//    if (GgafDxInput::isPushedDownKey(DIK_R)) {
+//        TestPaShot* pShot = (TestPaShot*)pDepo_TestPaShot_->dispatch();
+//        if (pShot) {
+//            pShot->locateWith(this);
+//        }
+//    }
+//    if (GgafDxInput::isPushedDownKey(DIK_T)) {
+//        TestNomalShot* pShot = (TestNomalShot*)pDepo_TestNomalShot_->dispatch();
+//        if (pShot) {
+//            pShot->locateWith(this);
+//        }
+//    }
     //<---- debug
 
 
-
-
+    //debug ---->
+    if (GgafDxInput::isPushedDownKey(DIK_W)) {
+        MyStraightLaserChip001::tex_no_ = 0;
+    }
+    if (GgafDxInput::isPushedDownKey(DIK_E)) {
+        MyStraightLaserChip001::tex_no_ = 1;
+    }
+    if (GgafDxInput::isPushedDownKey(DIK_R)) {
+        MyStraightLaserChip001::tex_no_ = 2;
+    }
+    //<---- debug
 
 
     //自機消滅テスト

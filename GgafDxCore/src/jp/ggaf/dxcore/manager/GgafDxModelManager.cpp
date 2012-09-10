@@ -564,27 +564,27 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     prm_pMeshModel->_num_materials = model_nMaterials;
 
 
-        //デバッグ
-        _TRACE_("#頂点バッファ nVertices="<<nVertices);
-        float x,y,z,nx,ny,nz,tu,tv,tan_x,tan_y,tan_z,bin_x,bin_y,bin_z;
-        for (int i = 0; i < nVertices; i++) {
-            x = model_paVtxBuffer_org[i].x;
-            y = model_paVtxBuffer_org[i].y;
-            z = model_paVtxBuffer_org[i].z;
-            nx = model_paVtxBuffer_org[i].nx;
-            ny = model_paVtxBuffer_org[i].ny;
-            nz = model_paVtxBuffer_org[i].nz;
-            tu = model_paVtxBuffer_org[i].tu;
-            tv = model_paVtxBuffer_org[i].tv;
-            tan_x = model_paVtxBuffer_org[i].tan_x;
-            tan_y = model_paVtxBuffer_org[i].tan_y;
-            tan_z = model_paVtxBuffer_org[i].tan_z;
-            bin_x = model_paVtxBuffer_org[i].bin_x;
-            bin_y = model_paVtxBuffer_org[i].bin_y;
-            bin_z = model_paVtxBuffer_org[i].bin_z;
-            //デバッグ
-            //_TRACE_("頂点["<<i<<"] pos("<<x<<","<<y<<","<<z<<")\tuv("<<tu<<","<<tv<<")\tn("<<nx<<","<<ny<<","<<nz<<")\tt("<<tan_x<<","<<tan_y<<","<<tan_z<<")\tb("<<bin_x<<","<<bin_y<<","<<bin_z<<")");
-        }
+//        //デバッグ
+//        _TRACE_("#頂点バッファ nVertices="<<nVertices);
+//        float x,y,z,nx,ny,nz,tu,tv,tan_x,tan_y,tan_z,bin_x,bin_y,bin_z;
+//        for (int i = 0; i < nVertices; i++) {
+//            x = model_paVtxBuffer_org[i].x;
+//            y = model_paVtxBuffer_org[i].y;
+//            z = model_paVtxBuffer_org[i].z;
+//            nx = model_paVtxBuffer_org[i].nx;
+//            ny = model_paVtxBuffer_org[i].ny;
+//            nz = model_paVtxBuffer_org[i].nz;
+//            tu = model_paVtxBuffer_org[i].tu;
+//            tv = model_paVtxBuffer_org[i].tv;
+//            tan_x = model_paVtxBuffer_org[i].tan_x;
+//            tan_y = model_paVtxBuffer_org[i].tan_y;
+//            tan_z = model_paVtxBuffer_org[i].tan_z;
+//            bin_x = model_paVtxBuffer_org[i].bin_x;
+//            bin_y = model_paVtxBuffer_org[i].bin_y;
+//            bin_z = model_paVtxBuffer_org[i].bin_z;
+//            //デバッグ
+//            //_TRACE_("頂点["<<i<<"] pos("<<x<<","<<y<<","<<z<<")\tuv("<<tu<<","<<tv<<")\tn("<<nx<<","<<ny<<","<<nz<<")\tt("<<tan_x<<","<<tan_y<<","<<tan_z<<")\tb("<<bin_x<<","<<bin_y<<","<<bin_z<<")");
+//        }
 
 
 //    {

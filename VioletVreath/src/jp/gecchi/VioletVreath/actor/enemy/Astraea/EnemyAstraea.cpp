@@ -83,6 +83,7 @@ void EnemyAstraea::onActive() {
 }
 
 void EnemyAstraea::processBehavior() {
+
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {

@@ -25,6 +25,46 @@ GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject() {
     TRACE3("GgafDxModel::GgafDxModel(" << prm_model_name << ") _id="<<_id);
 }
 
+//void GgafDxModel::setMaterialTexture(int prm_material_no, const char* prm_texture) {
+//    GgafDxTextureManager* pModelTextureManager = P_GOD->_pModelManager->_pModelTextureManager;
+//    GgafDxTextureConnection* pTexCon = (GgafDxTextureConnection*)pModelTextureManager->connect(prm_texture);
+//    _papTextureCon[prm_material_no]->close();
+//    _papTextureCon[prm_material_no] = pTexCon;
+//}
+
+//GgafDxTextureConnection* GgafDxModel::setMaterialTexture(int prm_material_no, GgafDxTextureConnection* prm_pTexCon) {
+//    if (prm_material_no > _num_materials) {
+//        throwGgafCriticalException("GgafDxModel::setMaterialTexture マテリアルINDEXが範囲外です。_model_name="<<_model_name<<" _num_materials="<<_num_materials<<" prm_material_no="<<prm_material_no)
+//    } else {
+//        GgafDxTextureConnection* r = _papTextureCon[prm_material_no];
+//        _papTextureCon[prm_material_no] = prm_pTexCon;
+//        return r;
+//    }
+//}
+void GgafDxModel::swapTopTextureOrder(const char* prm_texture0) {
+    int idx = -1;
+    for (int i = 0; i < _num_materials; i++) {
+        if (UTIL::strcmp_ascii(_papTextureCon[i]->fetch()->getName(), prm_texture0) == 0) {
+            if (i == 0) {
+                return;
+            } else {
+                idx = i;
+                break;
+            }
+        }
+    }
+    if (idx < 0) {
+        throwGgafCriticalException("GgafDxModel::swapTextureOrder 指定テクスチャは見つかりません。prm_texture0="<<prm_texture0);
+    }
+    GgafDxTextureConnection* top = _papTextureCon[idx];
+    for (int i = _num_materials-1; i >= 1; i--) {
+        if (i <= idx) {
+            _papTextureCon[i] = _papTextureCon[i-1];
+        }
+    }
+    _papTextureCon[0] = top;
+}
+
 GgafDxModel::~GgafDxModel() {
     _TRACE_("GgafDxModel::~GgafDxModel() " << _model_name << " ");
     DELETEARR_POSSIBLE_NULL(_model_name);

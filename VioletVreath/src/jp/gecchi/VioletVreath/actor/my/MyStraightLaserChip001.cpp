@@ -4,6 +4,12 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+
+GgafDxCore::GgafDxModel* MyStraightLaserChip001::pModel_  = NULL;
+char MyStraightLaserChip001::aaTextureName[3][51];
+int MyStraightLaserChip001::tex_no_ = 0;
+
+
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "MyStraightLaserChip001", STATUS(MyStraightLaserChip001)) {
     _class_name = "MyStraightLaserChip001";
@@ -23,6 +29,17 @@ void MyStraightLaserChip001::initialize() {
     _bounding_sphere_radius = 20.0;
 }
 
+void MyStraightLaserChip001::onCreateModel() {
+    if (_pModel->_num_materials != 3) {
+        throwGgafCriticalException("MyStraightLaserChip001::onCreateModel() MyStraightLaserChip001モデルは、マテリアが３つ必要です。");
+    }
+    pModel_ = _pModel;
+    for (int i = 0; i < _pModel->_num_materials; i ++) {
+        strcpy(aaTextureName[i], _pModel->_papTextureCon[i]->fetch()->getName());
+    }
+}
+
+
 void MyStraightLaserChip001::onActive() {
     _pStatus->reset();
     default_stamina_ = _pStatus->get(STAT_Stamina);
@@ -35,6 +52,7 @@ void MyStraightLaserChip001::onActive() {
         if (_pChip_front == NULL) {
             //先端チップ
             lockon_st_ = 1;
+            updateTex();
         } else {
             //先端以外
             lockon_st_ = ((MyStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
@@ -43,6 +61,7 @@ void MyStraightLaserChip001::onActive() {
         if (_pChip_front == NULL) {
             //先端チップ
             lockon_st_ = 0;
+            updateTex();
         } else {
             //先端以外
             lockon_st_ = ((MyStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
@@ -132,6 +151,12 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 void MyStraightLaserChip001::onInactive() {
     StraightLaserChip::onInactive();
     lockon_st_ = 0;
+}
+
+void MyStraightLaserChip001::updateTex() {
+    if (pModel_) {
+        pModel_->swapTopTextureOrder(aaTextureName[tex_no_]);
+    }
 }
 
 MyStraightLaserChip001::~MyStraightLaserChip001() {

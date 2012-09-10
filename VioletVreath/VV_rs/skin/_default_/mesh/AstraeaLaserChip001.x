@@ -188,7 +188,20 @@ Frame Plane03 {
     TextureFilename {
      "AstraeaLaserChip001.png";
     }
+
    }
+   Material {
+    0.588235;0.588235;0.588235;1.000000;;
+    0.100000;
+    0.900000;0.900000;0.900000;;
+    0.000000;0.000000;0.000000;;
+
+    TextureFilename {
+     "HesperiaLaserChip001.png";
+    }
+
+   }
+
   }
  }
 }
