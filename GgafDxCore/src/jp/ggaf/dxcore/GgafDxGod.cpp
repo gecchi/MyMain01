@@ -39,11 +39,6 @@ UINT32 GgafDxGod::_vs_v = 0;
 UINT32 GgafDxGod::_ps_v = 0;
 
 
-#define IFC(x) { hr = (x); if (FAILED(hr)) goto Cleanup; }
-#define IFCOOM(x) { if ((x) == NULL) { hr = E_OUTOFMEMORY; IFC(hr); } }
-#define SAFE_RELEASE(x) { if (x) { x->Release(); x = NULL; } }
-
-
 GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
     GgafGod(prm_hInstance) {
     TRACE("GgafDxGod::GgafDxGod() ");
@@ -574,12 +569,20 @@ HRESULT GgafDxGod::init() {
                                                           _paPresetPrm[0].BackBufferFormat, i, &adp);
                     _TRACE_("disp_no["<<disp_no<<"].mode["<<i<<"]:"<<adp.Width<<"x"<<adp.Height);
                     if (disp_no > 1) {
-                        //３画面目以降は無難な解像度を探してそれに設定。
+                        //３画面目以降１画面目・２画面目の解像度以外の無難な解像度を探してそれに設定。
                         if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat) {
-                            _TRACE_("...USE!");
-                            _paPresetPrm[disp_no].BackBufferWidth  = adp.Width;
-                            _paPresetPrm[disp_no].BackBufferHeight = adp.Height;
-                            break;
+                            if ((adp.Width  == _paPresetPrm[0].BackBufferWidth && adp.Height == _paPresetPrm[0].BackBufferHeight) ||
+                                (adp.Width  == _paPresetPrm[1].BackBufferWidth && adp.Height == _paPresetPrm[1].BackBufferHeight)
+                            ) {
+                                //ダメ
+                            } else {
+                                _TRACE_("...USE!");
+                                _paPresetPrm[disp_no].BackBufferWidth  = adp.Width;
+                                _paPresetPrm[disp_no].BackBufferHeight = adp.Height;
+                                _paDisplayMode[disp_no].Width  = _paPresetPrm[disp_no].BackBufferWidth;
+                                _paDisplayMode[disp_no].Height = _paPresetPrm[disp_no].BackBufferHeight;
+                                break;
+                            }
                         }
                     } else {
                         //１画面目・２画面目は、プロパティ要求の解像度を探す
@@ -763,21 +766,33 @@ HRESULT GgafDxGod::init() {
     return D3D_OK;
 }
 
+
+//２画面目の左上座標を調べる
 BOOL CALLBACK GgafDxGod::getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
                                                              HDC hdcMonitor,
                                                              LPRECT lprcMonitor,
                                                              LPARAM dwData) {
+    //３画面目以降の解像度は、１画面目・２画面目の解像度以外の無難な解像度に設定されていることが前提
     GgafDxGod* pGod = (GgafDxGod*)dwData;
     MONITORINFOEX moniter_info;
     moniter_info.cbSize = sizeof(MONITORINFOEX);
     GetMonitorInfo(hMonitor, &moniter_info);
     if (moniter_info.dwFlags != MONITORINFOF_PRIMARY) {
-        //プライマリモニタでは無い、よってセカンダリと見なす(安直；)・・・
-        //２画面目の左上座標を保存
-        pGod->_secondary_screen_x = moniter_info.rcMonitor.left;
-        pGod->_secondary_screen_y = moniter_info.rcMonitor.top;
+        //プライマリモニタでは無い
+        if (moniter_info.rcMonitor.right - moniter_info.rcMonitor.left == GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN2_WIDTH) &&
+           moniter_info.rcMonitor.bottom - moniter_info.rcMonitor.top == GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT)
+        ) {
+            //プライマリモニタでは無い、かつ２画面目の解像度に一致。
+            //よって２画面目と見なす(正攻法でないなぁ・・・)
+
+            //２画面目の左上座標を上書き保存
+            pGod->_secondary_screen_x = moniter_info.rcMonitor.left;
+            pGod->_secondary_screen_y = moniter_info.rcMonitor.top;
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
-    return TRUE;
 }
 
 HRESULT GgafDxGod::createDx9Device(UINT Adapter,
@@ -1309,8 +1324,8 @@ void GgafDxGod::presentUniversalVisualize() {
          ___EndSynchronized1; // <----- 排他終了
             for (int i = 0; GgafFactory::isResting() == false; i++) {
                 Sleep(10); //工場が落ち着くまで待つ
-                if (i > 5*60*100) {
-                    _TRACE_("【デバイスロスト処理/工場停止】 5分待機しましたが、工場から反応がありません。強制breakします。要調査");
+                if (i > 10*60*100) {
+                    _TRACE_("【デバイスロスト処理/工場停止】 10分待機しましたが、工場から反応がありません。強制breakします。要調査");
                     break;
                 }
             }
@@ -1540,7 +1555,7 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
 void GgafDxGod::positionPresentRect(int prm_pos, RECT& out_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height) {
     // ７　８　９
     // 　＼｜／
-    // ４ー５ー６
+    // ４―５―６
     // 　／｜＼
     // １　２　３
     //1:左下、2:下、3:右下、4:左、5:真ん中、6:右、7:左上、8:上、9:右上

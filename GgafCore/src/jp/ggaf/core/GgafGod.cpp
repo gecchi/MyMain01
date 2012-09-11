@@ -215,9 +215,9 @@ void GgafGod::clean() {
             GgafFactory::_is_working_flg = false;
             _TRACE_("GgafGod::~GgafGod() 工場が落ち着くまで待つ・・・");
             for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
-                Sleep(60); //工場が落ち着くまで待つ
-                if (i > 3000) {
-                    _TRACE_("GgafGod::~GgafGod() ３分待機しましたが、工場から反応がありません。強制breakします。要調査");
+                Sleep(10); //工場が落ち着くまで待つ
+                if (i > 10*100*60) {
+                    _TRACE_("GgafGod::~GgafGod() 10分待機しましたが、工場から反応がありません。強制breakします。要調査");
                     break;
                 }
             }

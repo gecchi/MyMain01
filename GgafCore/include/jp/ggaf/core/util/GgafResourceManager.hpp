@@ -212,10 +212,10 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     }
     for(int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
         Sleep(10);
-        if (i > 100*60) {
-            //１分以上無応答時
-            _TRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を１分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
+        if (i > 10*100*60) {
+            //10分以上無応答時
+            _TRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を10分待機・・・");
+            throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を10分待機。排他処理が崩壊しているか、処理が遅すぎます。");
         }
     }
     _is_waiting_to_connect = false;
@@ -226,20 +226,20 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     for(int i = 0; GgafResourceConnection<T>::_is_closing_resource; i++) {
         _is_waiting_to_connect = true;
         Sleep(10);
-        if (i > 100*60) {
+        if (i > 10*100*60) {
             //１分以上無応答時
-            _TRACE_("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のクローズ処理を１分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が  connect()しようとして、既存のクローズ処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
+            _TRACE_("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のクローズ処理を10分待機・・・");
+            throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が  connect()しようとして、既存のクローズ処理を10分待機。排他処理が崩壊しているか、処理が遅すぎます。");
         }
     }
-    //TODO:
+    //TODO:メモ
     //close()中に、別スレッドでconnect()すると。
-    //シビアなタイミングでメモリを破壊する恐れが残っている！９９％大丈夫と思うのだけども。
-    //int (プリミティブ) のアトミック性を利用する排他は、スレッドセーフ完全対応しようとすると、
-    //かなりめんどくさい処理になりそうだ。簡単だと思ったのに・・・。
+    //シビアなタイミングでメモリを破壊する恐れが残っている、９９％大丈夫と思うのだけども！。
+    //int (プリミティブ) のアトミック性を利用して排他できると安易に考えてたが、
+    //スレッドセーフ完全対応しようとすると、かなりめんどくさいことが分かった。勉強になった。
     //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義するべきだった。
     //templateにしたのは失敗だったのか；（void*にすべきだったか）。
-    //時間のあるときにちゃんと勉強してやろう。後回し。
+    //次回組む時は気をつけよう、ココは時間のあるときにちゃんやろう。そのうち；；；
     //_TRACE_(" connect to " << _manager_name<<" for "<<prm_idstr<<"...");
     pObj = find(prm_idstr);
     if (pObj == NULL) {

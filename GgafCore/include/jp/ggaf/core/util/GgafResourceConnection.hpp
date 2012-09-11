@@ -237,9 +237,9 @@ int GgafResourceConnection<T>::close() {
         } else {
             //別スレッドでconnet()待ち状態では無いので安心して開放するとしよう。
             _is_closing_resource = false; //thisポインタを使用していないので代入可能
-            _TRACE_("delete this!");
+            _TRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "." << _idstr << "] delete this いきます！");
             delete[] _idstr;
-            delete this;
+            delete this; //こんなことが出来るんですね～。
 //            if (GgafResourceManager<T>::_is_waiting_to_connect) {
 //                //ここに来て、connet()待ちに変わっていたら、もう諦める。
 //                //現在の排他が完全ではないと考えるのは、このあたりの処理も含む
