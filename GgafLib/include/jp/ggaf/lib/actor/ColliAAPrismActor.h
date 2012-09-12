@@ -3,7 +3,7 @@
 namespace GgafLib {
 
 /**
- * 当たり判定表示用AAプリズムクラス
+ * 当たり判定表示用AAプリズム(直方三角柱)クラス
  * GgafDxAAPrismActor を継承し、当たり判定領域表示機能を追加したアクターです。
  * @version 1.00
  * @since 2010/12/29

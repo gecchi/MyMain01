@@ -5,10 +5,14 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
-        MenuBoard(prm_name, "Menuback001") {
+        MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardPause";
     //メニューウィンドウ設定
-    setScaleR(160, 90, 1);
+    update("%&&&&&&&&&&&&&&&&&&&'\n"
+           ")*******************+\n"
+           "-.................../");
+    _Z = 5;
+
     //メニューアイテム設定
     char* apItemStr[] = {
           "GAME START",   //0
@@ -19,7 +23,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     for (int i = 0; i <= ITEM_QUIT; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addSelectItem(pLabel, PX_C(80), PX_C(5+(i*20)));
+        addSelectItem(pLabel, PX_C(80), PX_C(5+(i*20)), -1);
     }
     //キャンセル押下時移動先アイテム
     relationItemCancel(ITEM_QUIT);

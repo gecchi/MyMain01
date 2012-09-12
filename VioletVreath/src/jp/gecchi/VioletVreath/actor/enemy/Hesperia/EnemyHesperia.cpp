@@ -346,7 +346,7 @@ coord EnemyHesperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
     //                ^      |     |
     //              ^        |     v
     //            ^         “Gcccc
-    //          ^ƒÆ=5‹      |
+    //          ^ƒÆ=15‹     |
     //    ---Ž©‹@-------------+--------->
     //      ^:               |
     //    ^  :               |
@@ -354,7 +354,7 @@ coord EnemyHesperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
     //        :     DT(ˆø”)  |
     //
     //DY = DTEtan(5‹) - (“G_Y - Ž©‹@_Y)
-    static double tan33 = tan(5.0*(PI/180.0)); //‚T“xã‚©‚ç‘Å‚¿‰º‚ë‚·
+    static double tan33 = tan(15*(PI/180.0)); //‚T“xã‚©‚ç‘Å‚¿‰º‚ë‚·
     coord dY = pThis->_Y - pMyShip->_Y;
     coord TurnDY = DT*tan33 - dY;
     if (TurnDY < 0) {

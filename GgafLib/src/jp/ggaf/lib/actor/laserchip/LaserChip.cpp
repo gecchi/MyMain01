@@ -173,8 +173,10 @@ void LaserChip::processSettlementBehavior() {
         sayonara();
     }
 
-    if (getActivePartFrame() > 180 && _alpha > 0) {
-        _alpha -= 0.01; //最初は奥でもハッキリ映る。
+    //最初は奥でもハッキリ映る。が
+    //1秒後は距離に寄って薄まる仕様
+    if (getActivePartFrame() > 60 && _alpha > 0) {
+        _alpha -= 0.01;
     }
     GgafDxMeshSetActor::processSettlementBehavior(); //８分木登録
     //TODO:８分木登録だけならprocessSettlementBehavior()を呼び出すのは少し効率が悪かもしれない。

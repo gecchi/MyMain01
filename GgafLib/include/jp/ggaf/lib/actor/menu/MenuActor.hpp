@@ -2,12 +2,6 @@
 #define MENUACTOR_H_
 namespace GgafLib {
 
-enum MenuItemWay {
-    ITEM_RELATION_EX_NEXT = 0,
-    ITEM_RELATION_EX_PREV,
-    ITEM_RELATION_TO_CANCEL,
-};
-
 /**
  * メニューGUIテンプレート .
  * @version 1.00
@@ -18,6 +12,13 @@ template<class T>
 class MenuActor : public T {
 
 protected:
+
+    enum MenuItemWay {
+        ITEM_RELATION_EX_NEXT = 0,
+        ITEM_RELATION_EX_PREV,
+        ITEM_RELATION_TO_CANCEL,
+    };
+
     /** カーソルの補正X座標 */
     coord _X_cursor_adjust;
     /** カーソルの補正Y座標 */
@@ -119,14 +120,16 @@ public:
     /**
      * メニューアイテム(選択可能)を追加する .
      * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
-     * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。
+     * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。<BR>
+     * 【注意】Z座標は、オフセット0が設定される。つまりアイテムの絶対Z座標は、現在のメニューのZ座標と一致する。
+     * メニューアイテムの表示プライオリティに考慮が必要な場合は、オフセットを-1等に明示設定したほうが良い。
      * @param prm_pItem メニューアイテム
      * @param prm_X_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      */
     virtual void addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                                coord prm_X_local, coord prm_Y_local) {
-        addSelectItem(prm_pItem, prm_X_local, prm_Y_local, T::_Z);
+        addSelectItem(prm_pItem, prm_X_local, prm_Y_local, 0);
     }
 
     /**
@@ -140,13 +143,15 @@ public:
                               coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
     /**
      * 表示用アクター(選択不可)を追加する .
+     * 【注意】Z座標は、オフセット0が設定される。つまり表示用アクターの絶対Z座標は、現在のメニューのZ座標と一致する。
+     * メニューアイテムの表示プライオリティに考慮が必要な場合は、オフセットを-1等に明示設定したほうが良い。
      * @param prm_pItem 表示用アイテム
      * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      */
     virtual void addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                               coord prm_X_local, coord prm_Y_local) {
-        addDispActor(prm_pItem, prm_X_local, prm_Y_local, T::_Z);
+        addDispActor(prm_pItem, prm_X_local, prm_Y_local, 0);
     }
 
     /**

@@ -9,7 +9,7 @@ namespace VioletVreath {
  * @since 2011/12/26
  * @author Masatoshi Tsuge
  */
-class MenuBoard : public GgafLib::DefaultBoardMenu {
+class MenuBoard : public GgafLib::StringBoardMenu {
 
 public:
     enum {

@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
-        DefaultBoardMenu(prm_name, prm_model) {
+        StringBoardMenu(prm_name, prm_model) {
     _class_name = "MenuBoard";
     menu_fade_frames_ = 0;
     slide_from_offset_X_ = 0;
@@ -47,19 +47,19 @@ bool MenuBoard::condMoveCursorCancel() {
 void MenuBoard::rise() {
     target_X_ = _X;
     target_Y_ = _Y;
-    DefaultBoardMenu::rise();
+    StringBoardMenu::rise();
 }
 
 void MenuBoard::rise(coord prm_target_X, coord prm_target_Y) {
     target_X_ = prm_target_X;
     target_Y_ = prm_target_Y;
-    DefaultBoardMenu::rise();
+    StringBoardMenu::rise();
 }
 
 void MenuBoard::riseSub(MenuBoard* prm_pSubMenu,
                         coord prm_target_X, coord prm_target_Y) {
     prm_pSubMenu->locate(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::rise() に来た時にターゲット設定される
-    DefaultBoardMenu::riseSub(prm_pSubMenu);
+    StringBoardMenu::riseSub(prm_pSubMenu);
 }
 
 bool MenuBoard::condDecision() {
@@ -76,7 +76,7 @@ bool MenuBoard::condDecision() {
     }
 }
 void MenuBoard::moveCursor() {
-    DefaultBoardMenu::moveCursor();
+    StringBoardMenu::moveCursor();
     _pSeTxer->play(SE_MOVE_CURSOR);
 }
 
@@ -102,7 +102,7 @@ void MenuBoard::onRisen() {
 }
 
 void MenuBoard::processBehavior() {
-    DefaultBoardMenu::processBehavior();
+    StringBoardMenu::processBehavior();
     if (_pKurokoA->isRunnigSmoothMvSequence()) {
         //スライド中
     } else {

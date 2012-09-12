@@ -96,7 +96,7 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
                 _pKurokoA->execTurnMvAngSequence(
                              tX2_, tY2_, tZ2_,
-                             D_ANG(1), 0,
+                             100, 0,
                              TURN_CLOSE_TO, false);
             }
             if (_pProg->getFrameInProgress() > 90) {

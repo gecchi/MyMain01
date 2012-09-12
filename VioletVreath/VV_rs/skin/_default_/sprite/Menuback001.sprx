@@ -1,9 +1,0 @@
-xof 0303txt 0032
-
-SpriteDef Menuback001 {
-   1.0;                # FLOAT  Width
-   1.0;                # FLOAT  Height
-   "menuback001.png";  # STRING TextureFile
-   1;                  # DWORD  TextureSplitRows
-   1;                  # DWORD  TextureSplitCols
-}
