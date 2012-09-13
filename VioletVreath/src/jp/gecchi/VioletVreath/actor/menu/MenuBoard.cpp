@@ -102,7 +102,6 @@ void MenuBoard::onRisen() {
 }
 
 void MenuBoard::processBehavior() {
-    StringBoardMenu::processBehavior();
     if (_pKurokoA->isRunnigSmoothMvSequence()) {
         //スライド中
     } else {
@@ -110,6 +109,10 @@ void MenuBoard::processBehavior() {
         locate(target_X_, target_Y_);
     }
     _pKurokoA->behave();
+    StringBoardMenu::processBehavior();
+    //メニュー選択アイテム、表示アイテム、カーソルは、
+    //ボード座標を基にしているため、自身の座標確定後に
+    //上位 processBehavior() をコールしたほうが良い。
 }
 
 void MenuBoard::processJudgement() {

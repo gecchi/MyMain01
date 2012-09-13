@@ -91,7 +91,7 @@ void RefractionLaserChip::onInactive() {
     //これは、レーザーがちぎれた場合、以下のパラメーターのみ引き継がせ、移動を継続させるため。
     //加速度や、移動予約など引き継がれないものが多数あるので、複雑な移動をする際は、ココに注意を払うこと！
     //レーザーがゲーム領域外にたっしたときも、先頭チップから順に連続で引継ぎが発生することになる。
-    //ちょっと無駄っぽいけど、さもなば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
+    //ちょっと無駄っぽいけど、さもなくば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
     if (_pChip_behind) {
         RefractionLaserChip* pChip_behind = (RefractionLaserChip*)_pChip_behind;
         pChip_behind->_pKurokoA->_vX = _pKurokoA->_vX;

@@ -513,6 +513,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\board\turbometer.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshi.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshi001.h" />

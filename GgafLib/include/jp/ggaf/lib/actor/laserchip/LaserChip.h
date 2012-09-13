@@ -23,7 +23,7 @@ class LaserChip : public GgafDxCore::GgafDxMeshSetActor {
 
 private:
     D3DXHANDLE _ah_kind[11];
-    D3DXHANDLE _ah_alpha[11];
+    D3DXHANDLE _ah_force_alpha[11];
     D3DXHANDLE _ah_matWorld_front[11];
     //D3DXHANDLE _h_cnt_vertec;
 
@@ -56,6 +56,8 @@ public:
     bool _can_chikei_hit;
     /** [r]自身が所属する先端チップ */
     LaserChip* _pLeader;
+
+    float _force_alpha;
 
     LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
 

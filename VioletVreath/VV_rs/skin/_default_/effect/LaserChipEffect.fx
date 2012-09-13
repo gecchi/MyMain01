@@ -93,17 +93,17 @@ int g_kind009;
 int g_kind010;
 int g_kind011;
 
-float g_alpha001;
-float g_alpha002;
-float g_alpha003;
-float g_alpha004;
-float g_alpha005;
-float g_alpha006;
-float g_alpha007;
-float g_alpha008;
-float g_alpha009;
-float g_alpha010;
-float g_alpha011;
+float g_force_alpha001;
+float g_force_alpha002;
+float g_force_alpha003;
+float g_force_alpha004;
+float g_force_alpha005;
+float g_force_alpha006;
+float g_force_alpha007;
+float g_force_alpha008;
+float g_force_alpha009;
+float g_force_alpha010;
+float g_force_alpha011;
 
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;
@@ -166,62 +166,62 @@ OUT_VS GgafDxVS_LaserChip(
 	float4x4 matWorld;
 	float4x4 matWorld_front;
 	int kind;
-    float alpha;
+    float force_alpha;
 	if (index == 0) {
 		matWorld = g_matWorld001;
 		matWorld_front = g_matWorld_front001;
 		kind = g_kind001;
-        alpha = g_alpha001;
+        force_alpha = g_force_alpha001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
 		matWorld_front = g_matWorld_front002;
 		kind = g_kind002;
-        alpha = g_alpha002;
+        force_alpha = g_force_alpha002;
 	} else if (index == 2) {
 		matWorld = g_matWorld003;
 		matWorld_front = g_matWorld_front003;
 		kind = g_kind003;
-        alpha = g_alpha003;
+        force_alpha = g_force_alpha003;
 	} else if (index == 3) {
 		matWorld = g_matWorld004;
 		matWorld_front = g_matWorld_front004;
 		kind = g_kind004;
-        alpha = g_alpha004;
+        force_alpha = g_force_alpha004;
 	} else if (index == 4) {
 		matWorld = g_matWorld005;
 		matWorld_front = g_matWorld_front005;
 		kind = g_kind005;
-        alpha = g_alpha005;
+        force_alpha = g_force_alpha005;
 	} else if (index == 5) {
 		matWorld = g_matWorld006;
 		matWorld_front = g_matWorld_front006;
 		kind = g_kind006;
-        alpha = g_alpha006;
+        force_alpha = g_force_alpha006;
 	} else if (index == 6) {
 		matWorld = g_matWorld007;
 		matWorld_front = g_matWorld_front007;
 		kind = g_kind007;
-        alpha = g_alpha007;
+        force_alpha = g_force_alpha007;
 	} else if (index == 7) {
 		matWorld = g_matWorld008;
 		matWorld_front = g_matWorld_front008;
 		kind = g_kind008;
-        alpha = g_alpha008;
+        force_alpha = g_force_alpha008;
 	} else if (index == 8) {
 		matWorld = g_matWorld009;
 		matWorld_front = g_matWorld_front009;
 		kind = g_kind009;
-        alpha = g_alpha009;
+        force_alpha = g_force_alpha009;
 	} else if (index == 9) {
 		matWorld = g_matWorld010;
 		matWorld_front = g_matWorld_front010;
 		kind = g_kind010;
-        alpha = g_alpha010;
+        force_alpha = g_force_alpha010;
 	} else {
 		matWorld = g_matWorld011;
 		matWorld_front = g_matWorld_front011;
 		kind = g_kind011;
-        alpha = g_alpha011;
+        force_alpha = g_force_alpha011;
 	} 
 	float4 posModel_World;
 	if (prm_posModel_Local.x > 0.0) {    
@@ -302,8 +302,8 @@ OUT_VS GgafDxVS_LaserChip(
 	//ƒ¿ƒtƒHƒO
     float c = 1.25-(((out_vs.posModel_Proj.z)/g_zf)*2);
 	out_vs.color = (c < 0.3  ? 0.3 : c);
-    if (alpha > out_vs.color.a) {
-        out_vs.color.a = alpha*g_alpha_master;
+    if (force_alpha > out_vs.color.a) {
+        out_vs.color.a = force_alpha*g_alpha_master;
     } else {
         out_vs.color.a = out_vs.color.a*g_alpha_master;
     }

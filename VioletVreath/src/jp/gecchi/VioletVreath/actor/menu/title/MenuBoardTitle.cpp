@@ -8,9 +8,12 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardPause";
     //メニューウィンドウ設定
-    update("%&&&&&&&&&&&&&&&&&&&'\n"
-           ")*******************+\n"
-           "-.................../");
+    update("%&&&&&&&'\n"
+           ")*******+\n"
+           ")*******+\n"
+           ")*******+\n"
+           ")*******+\n"
+           "-......./");
     _Z = 5;
 
     //メニューアイテム設定
@@ -20,17 +23,17 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
           "DEBUG",        //2
           "QUIT",         //3
     };
-    for (int i = 0; i <= ITEM_QUIT; i++) {
+    for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addSelectItem(pLabel, PX_C(80), PX_C(5+(i*20)), -1);
+        addSelectItem(pLabel, PX_C(100), PX_C((16+8)+(i*32)), -1);
     }
     //キャンセル押下時移動先アイテム
     relationItemCancel(ITEM_QUIT);
     //カーソル設定
     CursorTitleMenu* pCursor = NEW CursorTitleMenu("CursorTitleMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    setCursor(pCursor, 0, 0, 0, 8, 0.2, 0.7);
+    setCursor(pCursor);
     //スライド表示の設定
     setTransition(10, PX_C(0), +PX_C(100));
     //初期選択

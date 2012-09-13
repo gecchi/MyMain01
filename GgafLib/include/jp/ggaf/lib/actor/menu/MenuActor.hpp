@@ -97,11 +97,17 @@ public:
 
     /**
      * コンストラクタ .
+     * 【注意】生成直後非活動状態をデフォルトとしています。<BR>
+     * 具体的には T::inactivateImmed(); をコールしています。
      * @param prm_name
      * @param prm_model モデル識別名
      */
     MenuActor(const char* prm_name, const char* prm_model);
 
+    /**
+     * メニューフェイドイン・アウト時のアルファ速度を設定 .
+     * @param prm_menu_fade_frames フェードフレーム時間
+     */
     virtual void setFadeFrames(frame prm_menu_fade_frames) {
         _velo_alpha_fade = 1.0 / prm_menu_fade_frames;
     }
@@ -122,7 +128,7 @@ public:
      * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
      * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。<BR>
      * 【注意】Z座標は、オフセット0が設定される。つまりアイテムの絶対Z座標は、現在のメニューのZ座標と一致する。
-     * メニューアイテムの表示プライオリティに考慮が必要な場合は、オフセットを-1等に明示設定したほうが良い。
+     * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定したほうが良い。
      * @param prm_pItem メニューアイテム
      * @param prm_X_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
@@ -144,7 +150,7 @@ public:
     /**
      * 表示用アクター(選択不可)を追加する .
      * 【注意】Z座標は、オフセット0が設定される。つまり表示用アクターの絶対Z座標は、現在のメニューのZ座標と一致する。
-     * メニューアイテムの表示プライオリティに考慮が必要な場合は、オフセットを-1等に明示設定したほうが良い。
+     * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定したほうが良い。
      * @param prm_pItem 表示用アイテム
      * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
@@ -232,6 +238,10 @@ public:
 
     /**
      * 「決定」が行われた時に、決定されたアイテムのインデックスを返します .
+     * ＜メニューの選択項目が決定された場合の処理記述コードの場所について＞<BR>
+     * getDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
+     * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
+     * どちらでも良いし、併用も可能。<BR>
      * @return 決定された時：そのアイテムのインデックス(>=0)／何も決定されていない場合：常に -1
      */
     virtual int getDecidedIndex();
@@ -289,6 +299,10 @@ public:
     /**
      * メニューアイテムを選択し「決定」された場合に呼び出されるコールバック。
      * 動作をオーバーライドして実装してください。<BR>
+     * ＜メニューの選択項目が決定された場合の処理記述コードの場所について＞<BR>
+     * getDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
+     * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
+     * どちらでも良いし、併用も可能。
      * @param prm_pItem 決定されたのアイテム
      * @param prm_item_index 決定されたのアイテムのインデックス
      */
@@ -425,7 +439,7 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _can_controll = false;
     _will_be_able_to_controll = false;
     _pActiveSubMenu = NULL;
-    T::inactivateImmed();
+    T::inactivateImmed(); //メニューなので、初期状態は非活動状態をデフォルトとする
 }
 template<class T>
 void MenuActor<T>::riseSub(MenuActor<T>* prm_pSubMenu) {
@@ -552,7 +566,6 @@ void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
                              int prm_cursor_move_frames,
                              float prm_cursor_move_p1,
                              float prm_cursor_move_p2) {
-
     _pCursor = prm_pCursor;
     if (_pCursor) {
         _pCursor->_alpha = T::_alpha;
@@ -720,7 +733,6 @@ void MenuActor<T>::rise() {
     if (_pCursor) {
         _pCursor->activate();
     }
-
 }
 
 template<class T>
@@ -735,9 +747,6 @@ void MenuActor<T>::processRising() {
         _with_rising = false;
     }
 }
-
-
-
 
 
 template<class T>
@@ -851,7 +860,6 @@ typedef GgafLib::MenuActor<GgafLib::DefaultSpriteSetActor> DefaultSpriteSetMenu;
 typedef GgafLib::MenuActor<GgafLib::StringBoardActor> StringBoardMenu;
 /** メニューの母体を GgafLib::StringSpriteActor とするメニュー */
 typedef GgafLib::MenuActor<GgafLib::StringSpriteActor> StringSpriteMenu;
-
 
 }
 #endif /*MENUACTOR_H_*/

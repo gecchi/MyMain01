@@ -38,42 +38,35 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
           "DUMMY7",         //10
           "HOGEHOGE"        //11
     };
-    for (int i = 0; i < 12; i++) {
+    for (int i = ITEM_BACK_TO_GAME; i <= ITEM_HOGEHOGE; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addSelectItem(pLabel, PX_C(10+((i/4)*300)), PX_C(100+((i%4)*40)), -1);
+        addSelectItem(pLabel, PX_C(100+((i/4)*200)), PX_C(100+((i%4)*30)), -1);
     }
-
     //メニューアイテム（選択不可）設定
     LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("message");
-    pMsg->update("PAUSE MENU !!!", ALIGN_CENTER, VALIGN_MIDDLE);
+    pMsg->update("[PAUSE MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
     addDispActor(pMsg, PX_C(100), PX_C(20), -1);
-
     //特別なメニューカーソルオーダーを構築
     relationItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1       );
     relationItemExNext(ITEM_DUMMY1       , ITEM_DUMMY5       );
     relationItemExNext(ITEM_DUMMY5       , ITEM_CONFIG       );
-
     relationItemExNext(ITEM_CONFIG       , ITEM_DUMMY2       );
     relationItemExNext(ITEM_DUMMY2       , ITEM_DUMMY6       );
     relationItemExNext(ITEM_DUMMY6       , ITEM_BACK_TO_TITLE);
-
     relationItemExNext(ITEM_BACK_TO_TITLE, ITEM_DUMMY3       );
     relationItemExNext(ITEM_DUMMY3       , ITEM_DUMMY7       );
     relationItemExNext(ITEM_DUMMY7       , ITEM_QUIT_GAME    );
-
     relationItemExNext(ITEM_QUIT_GAME    , ITEM_DUMMY4       );
     relationItemExNext(ITEM_DUMMY4       , ITEM_HOGEHOGE     );
     relationItemExNext(ITEM_HOGEHOGE     , ITEM_BACK_TO_GAME );
-
     relationItemCancel(ITEM_BACK_TO_GAME);
 
     //メニューカーソルを設定
     CursorPauseMenu* pCursor = NEW CursorPauseMenu("CursorPauseMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    setCursor(pCursor, 8, 0.2, 0.7);
+    setCursor(pCursor);
 
-    //
     setSelectedItemIndex(0); //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
                                             //上から下へ少しスライドさせる

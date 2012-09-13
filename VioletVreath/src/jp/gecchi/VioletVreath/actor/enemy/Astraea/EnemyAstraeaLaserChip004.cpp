@@ -41,6 +41,7 @@ void EnemyAstraeaLaserChip004::onActive() {
     _pKurokoA->setMvAcce(400);
     _pKurokoA->relateFaceAngWithMvAng(true);
     pSplSeq_->stop();
+    _force_alpha = 1.50; //Å‰‚Í‚¿‚å‚Á‚Æ–¾‚é‚ß
 }
 
 void EnemyAstraeaLaserChip004::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {

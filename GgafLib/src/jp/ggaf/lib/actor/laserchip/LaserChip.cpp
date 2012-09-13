@@ -35,17 +35,17 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _ah_kind[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind010" );
     _ah_kind[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind011" );
 
-    _ah_alpha[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha001" );
-    _ah_alpha[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha002" );
-    _ah_alpha[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha003" );
-    _ah_alpha[3]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha004" );
-    _ah_alpha[4]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha005" );
-    _ah_alpha[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha006" );
-    _ah_alpha[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha007" );
-    _ah_alpha[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha008" );
-    _ah_alpha[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha009" );
-    _ah_alpha[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha010" );
-    _ah_alpha[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_alpha011" );
+    _ah_force_alpha[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha001" );
+    _ah_force_alpha[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha002" );
+    _ah_force_alpha[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha003" );
+    _ah_force_alpha[3]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha004" );
+    _ah_force_alpha[4]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha005" );
+    _ah_force_alpha[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha006" );
+    _ah_force_alpha[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha007" );
+    _ah_force_alpha[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha008" );
+    _ah_force_alpha[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha009" );
+    _ah_force_alpha[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha010" );
+    _ah_force_alpha[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha011" );
 
     _ah_matWorld_front[0]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front001" );
     _ah_matWorld_front[1]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front002" );
@@ -61,6 +61,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
 
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
+    setAlpha(0.99);
 }
 
 void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -81,7 +82,7 @@ void LaserChip::onActive() {
     if (_pDepo) {
         _pDepo->_num_chip_active++;
     }
-    _alpha = 0.99; //最初は奥でもハッキリ映る。
+    _force_alpha = 1.00; //最初は奥でもハッキリ映る。
 }
 
 void LaserChip::processSettlementBehavior() {
@@ -175,8 +176,8 @@ void LaserChip::processSettlementBehavior() {
 
     //最初は奥でもハッキリ映る。が
     //1秒後は距離に寄って薄まる仕様
-    if (getActivePartFrame() > 60 && _alpha > 0) {
-        _alpha -= 0.01;
+    if (getActivePartFrame() > 60 && _force_alpha > 0) {
+        _force_alpha -= 0.01;
     }
     GgafDxMeshSetActor::processSettlementBehavior(); //８分木登録
     //TODO:８分木登録だけならprocessSettlementBehavior()を呼び出すのは少し効率が悪かもしれない。
@@ -216,8 +217,8 @@ void LaserChip::processDraw() {
                     hr = pID3DXEffect->SetInt(this->_ah_kind[_draw_set_num], pLaserChip->_chip_kind);
                     checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
 
-                    hr = pID3DXEffect->SetFloat(this->_ah_alpha[_draw_set_num], pLaserChip->getAlpha());
-                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetFloat(_ah_alpha) に失敗しました。2");
+                    hr = pID3DXEffect->SetFloat(this->_ah_force_alpha[_draw_set_num], pLaserChip->_force_alpha);
+                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetFloat(_ah_force_alpha) に失敗しました。2");
                 } else {
                     //先端チップは描画不要
                     pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
