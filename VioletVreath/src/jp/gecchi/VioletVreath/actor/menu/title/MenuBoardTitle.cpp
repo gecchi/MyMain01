@@ -26,7 +26,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addSelectItem(pLabel, PX_C(100), PX_C((16+8)+(i*32)), -1);
+        addSelectItem(pLabel, PX_C(100), PX_C(30+(i*18)), -1);
     }
     //キャンセル押下時移動先アイテム
     relationItemCancel(ITEM_QUIT);
