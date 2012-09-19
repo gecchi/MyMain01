@@ -43,7 +43,6 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
         _TRACE_("リプレイ登録モードです。");
     }
 
-
     //仮想ボタンを本ゲーム用に上書きして再定義
     VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_SHOT1)      ];
     VirtualButton::_tagKeymap.BUTTON2    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_SHOT2)      ];
@@ -78,7 +77,6 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     VirtualButton::_tagJoymap.UI_EXECUTE = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_UI_EXECUTE) ];
     VirtualButton::_tagJoymap.UI_CANCEL  = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_UI_CANCEL)  ];
 
-
     GgafRepeatSeq::create("CH_bomb1", 0, 20);
     GgafRepeatSeq::create("CH_yume_Sbend", 0, 18);
     GgafRepeatSeq::create("CH_yume_shototsu", 0, 20);
@@ -93,19 +91,16 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     GgafRepeatSeq::create("CH_torpedo", 0, 5); //ミサイル
     GgafRepeatSeq::create("CH_warp", 0, 4); //ハッチオープン
     GgafRepeatSeq::create("CH_yume_organ_01", 0, 4); //ハッチクローズ
-
 }
 
 GgafUniverse* God::createUniverse() {
     Camera* pCamera = NEW Camera("CAMERA");    //FovX視野角80度、深さ×GAME_SPACE_DEPTH
-
     Universe* pUniverse = NEW Universe("MYUNIVERSE", pCamera);
     return (GgafUniverse*)pUniverse;
 }
 
 void God::clean() {
     if (!_was_cleaned) {
-
         if (VB_PLAY->_is_replaying) {
             //VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_REPADD.rep");
         } else {
@@ -138,7 +133,7 @@ God::~God() {
     if (P_WORLD) {
         P_WORLD->throwEventToLowerTree(EVENT_GOD_WILL_DIE); //全シーンに通知
     }
-
     clean();
     _was_cleaned = true;
 }
+
