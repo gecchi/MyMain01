@@ -1,8 +1,6 @@
 #ifndef CAMERAWORKER_H_
 #define CAMERAWORKER_H_
 
-
-
 namespace VioletVreath {
 
 /**
@@ -78,4 +76,4 @@ public:
 };
 
 }
-#endif /*CAMERA_H_*/
+#endif /*CAMERAWORKER_H_*/

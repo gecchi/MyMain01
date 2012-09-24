@@ -24,7 +24,7 @@ class GgafDxUtil : public GgafCore::GgafUtil {
 
 public:
 
-    static float PARABORA[];
+    //static float PARABORA[];
     /**
      * cosテーブル .
      * 要素番号範囲：0 ~ D360SANG
@@ -38,12 +38,12 @@ public:
      */
     static float SIN[];
 
-    /**
-     * 弧度法変換テーブル .
-     * 要素番号範囲：0 ~ D360SANG
-     * angle値 r のラディアンは、RAD[r/SANG_RATE]
-     */
-    static float RAD[];
+    ///**
+    // * 弧度法変換テーブル .
+    // * 要素番号範囲：0 ~ D360SANG
+    // * angle値 r のラディアンは、RAD[r/SANG_RATE]
+    // */
+    //static float RAD[];
     /**
      * [傾き] → angle値変換テーブル
      * 要素番号範囲：直線 y = ax 傾き a の 10000 倍の整数精度が要素番号となる。

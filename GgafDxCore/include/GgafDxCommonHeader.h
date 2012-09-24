@@ -199,8 +199,8 @@ typedef GgafDxAxis axis;
 #define ANG_D(X) ((X) / 1000)
 /** 度数法角度→アプリのアングル値 変換 */
 #define D_ANG(X) ((angle)((X) * 1000))
-/** アプリのアングル値→ラジアン 変換 */
-#define ANG_RAD(X) (GgafDxCore::GgafDxUtil::RAD[(X) / SANG_RATE])
+///** アプリのアングル値→ラジアン 変換 */
+//#define ANG_RAD(X) (GgafDxCore::GgafDxUtil::RAD[(X) / SANG_RATE])
 /** アプリのアングル値→正弦 変換 */
 #define ANG_SIN(X) (GgafDxCore::GgafDxUtil::SIN[(X) / SANG_RATE])
 /** アプリのアングル値→余弦 変換 */

@@ -60,10 +60,10 @@ using namespace GgafDxCore;
 
 bool GgafDxUtil::_was_inited_flg = false;
 
-float GgafDxUtil::PARABORA[D360SANG+1];
+//float GgafDxUtil::PARABORA[D360SANG+1];
 float GgafDxUtil::COS[D360SANG+1];
 float GgafDxUtil::SIN[D360SANG+1];
-float GgafDxUtil::RAD[D360SANG+1];
+//float GgafDxUtil::RAD[D360SANG+1];
 
 float GgafDxUtil::ROOT_1_MINUS_XX[1000];
 
@@ -93,9 +93,9 @@ void GgafDxUtil::init() {
 
         COS[ang] = (float)(cos(rad));
         SIN[ang] = (float)(sin(rad));
-        RAD[ang] = (float)rad;
-        PARABORA[ang] = (float)((double)((ang-(D360SANG/2))*(ang-(D360SANG/2))) /  (double)(-1.0*(D360SANG/2)*(D360SANG/2)) + 1.0);
-        //PARABORA[0] = 0 , PARABORA[D180SANG] = 1,  PARABORA[D360SANG-1] = 0 Ç≈ y = -x^2  ï˙ï®ê¸ÇÃílÇÇ∆ÇÈ
+        //RAD[ang] = (float)rad;
+        //PARABORA[ang] = (float)((double)((ang-(D360SANG/2))*(ang-(D360SANG/2))) /  (double)(-1.0*(D360SANG/2)*(D360SANG/2)) + 1.0);
+        ////PARABORA[0] = 0 , PARABORA[D180SANG] = 1,  PARABORA[D360SANG-1] = 0 Ç≈ y = -x^2  ï˙ï®ê¸ÇÃílÇÇ∆ÇÈ
     }
 
     COS[D0SANG]   =  1;

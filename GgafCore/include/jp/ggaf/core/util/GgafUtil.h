@@ -8,6 +8,7 @@
 
 #define ZEROf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_(X))
 #define ONEf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_((X)-1.0f))
+#define RND(__FROM__,__TO__) (GgafCore::GgafUtil::_rnd_int32_(__FROM__,__TO__))
 
 #ifdef UTIL
     #undef UTIL
@@ -199,6 +200,21 @@ public:
         return str;
     }
 
+    /**
+     * INT32ƒ‰ƒ“ƒ_ƒ€ŠÖ” .
+     * prm_from ‚Æ prm_to ‚ª‹t“]‚µ‚Ä‚Í‚¢‚¯‚È‚¢(•‰‚Ì%‰‰ŽZ‚ÍAVC++‚Å‚Ì“®ì‚Í•s’è‚Ì‚½‚ß)
+     * @param prm_from
+     * @param prm_to
+     * @return
+     */
+    static inline INT32 _rnd_int32_(INT32 prm_from, INT32 prm_to) {
+#ifdef MY_DEBUG
+        if (prm_from > prm_to) {
+			MessageBox(NULL, "GgafUtil::_rnd_int32_() from to‚Ì‘å¬‚ª‚¨‚©‚µ‚¢", "•s–{ˆÓ‚ÈŽ–‘Ô", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND);
+        }
+#endif
+        return ((INT32)(GgafCore::CmRandomNumberGenerator::getInstance()->genrand_int32() % (prm_to - prm_from) ) + prm_from );
+    }
 
     static void readProperties(std::string filename, GgafStrMap* pMap);
     static void readProperties(std::istream &is, GgafStrMap* pMap);
