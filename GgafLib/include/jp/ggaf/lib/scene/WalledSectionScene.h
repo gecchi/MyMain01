@@ -39,13 +39,13 @@ public:
     /** [r]外壁シーンの幅（Z座標軸の壁ブロック数） */
     int _area_width;
     /** [r]壁ブロックの長さ（１つのWallPartsActorオブジェクトのX座標軸長さ）*/
-    int _wall_dep;
+    coord _wall_dep;
     /** [r]壁ブロックの高さ（１つのWallPartsActorオブジェクトのY座標軸長さ）*/
-    int _wall_height;
+    coord _wall_height;
     /** [r]壁ブロックの幅（１つのWallPartsActorオブジェクトのZ座標軸長さ）*/
-    int _wall_width;
+    coord _wall_width;
     /** [r]外壁表示X座標位置 */
-    int _wall_start_X;
+    coord _wall_start_X;
     /** [r]繰り返し回数 */
     int _loop_num;
     /** [r]繰り返しカウンタ */
@@ -83,6 +83,7 @@ public:
      * new した後、initialize() が実行されるまでに config して下さい。
      * @param prm_pDepo_WallAAB 壁ブロック（WallAABActorオブジェクト）が登録されているデポジトリ
      * @param prm_pDepo_WallAAPrism 壁プリズムブロック（WallAAPrismActorオブジェクト）が登録されているデポジトリ
+     * @param prm_wall_start_X 外壁表示X座標位置
      * @param prm_wall_dep 壁ブロックの長さ（１つのWallPartsActorオブジェクトのX座標軸長さ）
      * @param prm_wall_width 壁ブロックの高さ（１つのWallPartsActorオブジェクトのY座標軸長さ）
      * @param prm_wall_height 壁ブロックの高さ（１つのWallPartsActorオブジェクトのZ座標軸長さ）
@@ -90,7 +91,8 @@ public:
     virtual void config(
             GgafCore::GgafActorDepository* prm_pDepo_WallAAB,
             GgafCore::GgafActorDepository* prm_pDepo_WallAAPrism,
-            int prm_wall_dep, int prm_wall_width, int prm_wall_height);
+            coord prm_wall_start_X,
+            coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height);
     /**
      * 初期処理 .
      * デポジトリ(_pDepo_Wall)のチェックを行っているのみ .

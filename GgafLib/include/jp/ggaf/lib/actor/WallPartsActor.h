@@ -76,6 +76,8 @@ public:
 
     virtual bool isOutOfUniverse() override;
 
+    virtual int isOutOfView() override;
+
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 

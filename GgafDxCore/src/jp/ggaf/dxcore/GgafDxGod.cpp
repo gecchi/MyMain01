@@ -831,18 +831,6 @@ HRESULT GgafDxGod::createDx9Device(UINT Adapter,
  }
 
 HRESULT GgafDxGod::initDx9Device() {
-    // デフォルトのライト
-    /*
-     ZeroMemory(&_d3dlight9_default, sizeof(D3DLIGHT9) );
-     GgafDxGod::_d3dlight9_default.Type = D3DLIGHT_DIRECTIONAL; //平行光、色と方向だけでよい
-     GgafDxGod::_d3dlight9_default.Direction = D3DXVECTOR3(-1.0f, -1.0f, 1.0f);
-     GgafDxGod::_d3dlight9_default.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
-     GgafDxGod::_d3dlight9_default.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
-     //下は平行光では関係ない
-     //GgafDxGod::_d3dlight9_default.Position = D3DXVECTOR3(-1*GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2, -1*GGAF_PROPERTY(GAME_BUFFER_HEIGHT)/2, -1*GGAF_PROPERTY(GAME_BUFFER_HEIGHT)/2);
-     //GgafDxGod::_d3dlight9_default.Range = 1000;
-     */
-
     //ライト構造体は、シェーダーのパラメータになる時があるため必要。
     D3DXVECTOR3 vecDirection(-1.0f, -1.0f, 1.0f);
     D3DXVec3Normalize(&vecDirection, &vecDirection); //正規化

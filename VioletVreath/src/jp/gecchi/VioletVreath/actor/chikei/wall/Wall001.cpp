@@ -8,6 +8,7 @@ using namespace VioletVreath;
 Wall001::Wall001(const char* prm_name) :
         WallAABActor(prm_name, "g_box001", STATUS(Wall001)) {
     _class_name = "Wall001";
+    //viewAlsoForcesFar(true);//‰“‚­‚Ä‚à•\Ž¦
 }
 
 void Wall001::onCreateModel() {

@@ -8,6 +8,7 @@ using namespace VioletVreath;
 Wall001Prism::Wall001Prism(const char* prm_name) :
         WallAAPrismActor(prm_name, "g_box001Prism", STATUS(Wall001Prism)) {
     _class_name = "Wall001Prism";
+    //viewAlsoForcesFar(true);//‰“‚­‚Ä‚à•\Ž¦
 }
 
 void Wall001Prism::onCreateModel() {

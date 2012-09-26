@@ -21,12 +21,12 @@ private:
     void processFinal() override {
     }
 
-    /** 画面外種別。isOutOfView()が内部で使用。未計算時は -1 */
-    int _offscreen_kind;
-
 public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
     bool _is2DActor;
+    /** [r] 画面外種別。isOutOfView()が内部で使用。未計算時は -1 */
+    int _offscreen_kind;
+
     /** [r/w]ワールドX座標( _X : DirectXのX座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
     coord _X;
     /** [r/w]ワールドY座標( _Y : DirectXのY座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */

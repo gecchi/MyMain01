@@ -7,26 +7,31 @@ using namespace VioletVreath;
 Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_name) {
     _class_name = "Stage01WalledScene";
 
-    //壁ブロックデポジトリ生成
-    float scale_r = 2.0f; //壁ブロックの元モデルからの拡大率
+    //********* 壁情報 ***********
+    coord wall_dep    = 400000;  //壁ブロックモデル１個のX軸方向の幅
+    coord wall_width  = 100000;  //壁ブロックモデル１個のZ軸方向の幅
+    coord wall_height = 100000;  //壁ブロックモデル１個のY軸方向の幅
+    float scale_r = 50.0f;       //壁ブロックモデルの元の大きさからの拡大率
+    //****************************
+
+    //壁ブロック(直方体)デポジトリ生成
     WallAABActor* pWallAABActor;
     GgafActorDepository* pDepo_WallAAB = NEW GgafActorDepository("Dp_WallAAB");
     for (int i = 0; i < 1500; i++) {
-        std::stringstream name;
-        name <<  "Wall001_" << i;
-        pWallAABActor = NEW Wall001(name.str().c_str());
+        std::string name = "Wall001_"+ITOS(i);
+        pWallAABActor = NEW Wall001(name.c_str());
         pWallAABActor->setScaleR(scale_r);
         pDepo_WallAAB->addSubLast(pWallAABActor);
     }
     P_COMMON_SCENE->getDirector()->addSubGroup(pDepo_WallAAB);
     //getDirector()->addSubGroup(pDepo_WallAAB); は P_UNIVERSE 配下になってしまう
 
+    //壁ブロック(プリズム)デポジトリ生成
     WallAAPrismActor* pWallAAPrismActor;
     GgafActorDepository* pDepo_WallAAPrism = NEW GgafActorDepository("Dp_WallAAPrism");
     for (int i = 0; i < 500; i++) {
-        std::stringstream name;
-        name <<  "Wall001Prism_" << i;
-        pWallAAPrismActor = NEW Wall001Prism(name.str().c_str());
+        std::string name = "Wall001Prism_"+ITOS(i);
+        pWallAAPrismActor = NEW Wall001Prism(name.c_str());
         pWallAAPrismActor->setScaleR(scale_r);
         pDepo_WallAAPrism->addSubLast(pWallAAPrismActor);
     }
@@ -34,19 +39,16 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 
     //シーンセクション生成
     WalledSectionScene* apSection[] = {
-        NEW Stage01WalledSection001("Stage01WalledSection001_scene4_wall_0", this, "scene4_wall_0.dat"),
-        NEW Stage01WalledSection001("Stage01WalledSection001_scene4_wall_1", this, "scene4_wall_1.dat"),
-        NEW Stage01WalledSection001("Stage01WalledSection001_scene4_wall_2", this, "scene4_wall_2.dat"),
-        NEW Stage01WalledSection001("Stage01WalledSection001_scene4_wall_3", this, "scene4_wall_3.dat"),
-//        NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_0", this, "scene5_wall_0.dat"),
-//        NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_1", this, "scene5_wall_1.dat"),
-//        NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_2", this, "scene5_wall_2.dat"),
-//        NEW Stage01WalledSection001("Stage01WalledSection001_scene5_wall_3", this, "scene5_wall_3.dat")
+        NEW Stage01WalledSection001("Stage01-001-0", this, "scene4_wall_0.dat"),
+        NEW Stage01WalledSection001("Stage01-001-1", this, "scene4_wall_1.dat"),
+        NEW Stage01WalledSection001("Stage01-001-2", this, "scene4_wall_2.dat"),
+        NEW Stage01WalledSection001("Stage01-001-3", this, "scene4_wall_3.dat"),
     };
 
     //構築
     buildWalledScene(
-        400000*scale_r, 100000*scale_r, 100000*scale_r,
+        wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
+        GgafDxUniverse::_X_goneRight*20,
         (WalledSectionScene**)&apSection, 4,
         pDepo_WallAAB ,pDepo_WallAAPrism
     );

@@ -72,12 +72,14 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
 void WalledSectionScene::config(
         GgafActorDepository* prm_pDepo_WallAAB,
         GgafActorDepository* prm_pDepo_WallAAPrism,
-        int prm_wall_dep, int prm_wall_width, int prm_wall_height) {
+        coord prm_wall_start_X,
+        coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height) {
     _pDepo_WallAAB = prm_pDepo_WallAAB;
     _pDepo_WallAAPrism = prm_pDepo_WallAAPrism;
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
+    _wall_start_X = prm_wall_start_X + _wall_dep;
 }
 
 void WalledSectionScene::initialize() {
@@ -91,7 +93,7 @@ void WalledSectionScene::onActive() {
     _cnt_area_len = 0;
     _cnt_loop = 0;
     _is_loop_end = false;
-    _wall_start_X = GgafDxUniverse::_X_goneRight + _wall_dep;
+    //_wall_start_X = GgafDxUniverse::_X_goneRight + _wall_dep;
 }
 
 void WalledSectionScene::processBehavior() {

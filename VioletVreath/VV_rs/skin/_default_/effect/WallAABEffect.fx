@@ -243,8 +243,12 @@ OUT_VS GgafDxVS_WallAAB(
 	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power));// * マテリアル色無しcolMaterialDiffuse;
 	//αフォグ
 	//out_vs.color.a = colMaterialDiffuse.a;
-    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
+//    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+//        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
+//    }
+
+    if (out_vs.posModel_Proj.z > out_vs.posModel_Proj.w) {
+        out_vs.posModel_Proj.z = out_vs.posModel_Proj.w; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
     }
     //自機より手前はα
 	if ( out_vs.posModel_Proj.z < g_distance_AlphaTarget) {

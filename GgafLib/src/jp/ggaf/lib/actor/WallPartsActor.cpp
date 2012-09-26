@@ -77,6 +77,50 @@ bool WallPartsActor::isOutOfUniverse() {
     }
 }
 
+int WallPartsActor::isOutOfView() {
+    //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
+    if (_offscreen_kind == -1) {
+        dxcoord bound = _bounding_sphere_radius * _rate_of_bounding_sphere_radius*2;//掛ける2は境界球を大きくして、画面境界のチラツキを抑える
+        if (_dest_from_vppln_top < bound) {
+            if (_dest_from_vppln_bottom < bound) {
+                if (_dest_from_vppln_left < bound) {
+                    if (_dest_from_vppln_right < bound) {
+                        if (_dest_from_vppln_front < bound) {
+                            //if (_dest_from_vppln_back < bound) {
+                            //    //Viewport範囲内
+                            //    _offscreen_kind = 0;
+                            //} else {
+                            //    //奥平面より奥で範囲外
+                            //    _offscreen_kind = 6;
+                            //}
+
+                            //奥平面判定は無し
+                            _offscreen_kind = 0;
+                        } else {
+                            //手前平面より手前で範囲外
+                            _offscreen_kind = 5;
+                        }
+                    } else {
+                        //右平面より右で範囲外
+                        _offscreen_kind = 4;
+                    }
+                } else {
+                    //左平面より左で範囲外
+                    _offscreen_kind = 3;
+                }
+            } else {
+                //下平面より下で範囲外
+                _offscreen_kind = 2;
+            }
+        } else {
+            //上平面より上で範囲外
+            _offscreen_kind = 1;
+        }
+    }
+    return _offscreen_kind;
+}
+
+
 void WallPartsActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     _pWalledSectionScene =prm_pWalledSectionScene;
     _wall_dep = _pWalledSectionScene->_wall_dep;

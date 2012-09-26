@@ -12,7 +12,8 @@ WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
 }
 
 void WalledScene::buildWalledScene(
-        coord prm_wall_dep, int prm_wall_width, int prm_wall_height,
+        coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height,
+        coord prm_wall_start_X,
         WalledSectionScene** prm_papSection, int prm_section_num,
         GgafActorDepository* prm_pDepo_WallAAB,
         GgafActorDepository* prm_pDepo_WallAAPrism) {
@@ -33,7 +34,9 @@ void WalledScene::buildWalledScene(
     }
     for (int i = 0; i < prm_section_num; i++) {
         addSubLast(prm_papSection[i]); //”z‰ºƒV[ƒ“‚ÉŠ‘®
-        prm_papSection[i]->config(_pDepo_WallAAB, _pDepo_WallAAPrism, prm_wall_dep, prm_wall_width, prm_wall_height);
+        prm_papSection[i]->config(_pDepo_WallAAB, _pDepo_WallAAPrism,
+                                  prm_wall_start_X,
+                                  prm_wall_dep, prm_wall_width, prm_wall_height);
         prm_papSection[i]->inactivateImmed();
         _ringHoldSection.addLast(prm_papSection[i], false);
     }
