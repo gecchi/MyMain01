@@ -64,6 +64,15 @@ public:
     static int DUAL_VIEW_DRAW_POSITION1;
     /** [r/w] ２画面モード時かつゲーム表示領域アスペクト比を固定時、２画面目の表示領域場所を指定(場所＝テンキーの数値) */
     static int DUAL_VIEW_DRAW_POSITION2;
+    /** [r/w] アスペクト比固定の場合、ゲーム表示領域の横幅調整乗率（１画面目） */
+    static double VIEW1_WIDTH_RATIO;
+    /** [r/w] アスペクト比固定の場合、ゲーム表示領域の高さ調整乗率（１画面目） */
+    static double VIEW1_HEIGHT_RATIO;
+    /** [r/w] アスペクト比固定の場合、ゲーム表示領域の横幅調整乗率（２画面目） */
+    static double VIEW2_WIDTH_RATIO;
+    /** [r/w] アスペクト比固定の場合、ゲーム表示領域の高さ調整乗率（２画面目） */
+    static double VIEW2_HEIGHT_RATIO;
+
     /** [r/w] ゲーム表示領域アスペクト比を固定時、ゲーム表示領域外の背景色 */
     static std::string BORDER_COLOR;
     /** [r/w] ゲーム表示領域内の背景色 */

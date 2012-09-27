@@ -125,8 +125,8 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
 
             //フルスクリーンモード・２画面使用
             if (GGAF_PROPERTY(FIXED_GAME_VIEW_ASPECT)) {
-                LONG fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2;
-                LONG fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT);
+                LONG fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*GGAF_PROPERTY(VIEW1_WIDTH_RATIO)/2;
+                LONG fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*GGAF_PROPERTY(VIEW1_HEIGHT_RATIO);
                 //「フルスクリーンモード・２画面使用・縦横比FIX」の１画面目フロントバッファ描画領域
                 if (1.0f * GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN1_WIDTH) / GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN1_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
@@ -144,6 +144,8 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
                     _aRect_Present[0].bottom = _aRect_Present[0].top  + (fix_height * rate);
                 }
 
+                fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*GGAF_PROPERTY(VIEW2_WIDTH_RATIO)/2;
+                fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*GGAF_PROPERTY(VIEW2_HEIGHT_RATIO);
                 //「フルスクリーンモード・２画面使用・縦横比FIX」の２画面目フロントバッファ描画領域
                 if (1.0f * GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN2_WIDTH) / GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
@@ -185,8 +187,8 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
             _aRect_ViewScreen[1] = _aRect_ViewScreen[0];
 
             if (GGAF_PROPERTY(FIXED_GAME_VIEW_ASPECT)) {
-                LONG fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH);
-                LONG fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT);
+                LONG fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*GGAF_PROPERTY(VIEW1_WIDTH_RATIO);
+                LONG fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*GGAF_PROPERTY(VIEW1_HEIGHT_RATIO);
                 //「フルスクリーンモード・１画面使用・縦横比FIX」のフロントバッファ描画領域
                 if (1.0f * GGAF_PROPERTY(SINGLE_VIEW_FULL_SCREEN_WIDTH) / GGAF_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
@@ -223,8 +225,8 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
         if (GGAF_PROPERTY(DUAL_VIEW)) {
             //ウィンドウモード・２窓使用
             if (GGAF_PROPERTY(FIXED_GAME_VIEW_ASPECT)) {
-                LONG fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2;
-                LONG fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT);
+                LONG fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*GGAF_PROPERTY(VIEW1_WIDTH_RATIO)/2;
+                LONG fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*GGAF_PROPERTY(VIEW1_HEIGHT_RATIO);
                 //「ウィンドウモード・２窓使用・縦横比FIX」の１窓目フロントバッファ描画領域
                 if (1.0f * GGAF_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH) / GGAF_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
@@ -242,6 +244,8 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
                     _aRect_Present[0].bottom = _aRect_Present[0].top  + (fix_height * rate);
                 }
 
+                fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*GGAF_PROPERTY(VIEW2_WIDTH_RATIO)/2;
+                fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*GGAF_PROPERTY(VIEW2_HEIGHT_RATIO);
                 //「ウィンドウモード・２窓使用・縦横比FIX」の２窓目フロントバッファ描画領域
                 if (1.0f * GGAF_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH) / GGAF_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
@@ -278,8 +282,8 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
         } else {
             //ウィンドウモード・１窓使用
             if (GGAF_PROPERTY(FIXED_GAME_VIEW_ASPECT)) {
-                LONG fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH);
-                LONG fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT);
+                LONG fix_width = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*GGAF_PROPERTY(VIEW2_WIDTH_RATIO);
+                LONG fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*GGAF_PROPERTY(VIEW2_HEIGHT_RATIO);
                 //「ウィンドウモード・１窓使用・縦横比FIX」のフロントバッファ描画領域
                 if (1.0f * GGAF_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH) / GGAF_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
@@ -569,14 +573,16 @@ HRESULT GgafDxGod::init() {
                                                           _paPresetPrm[0].BackBufferFormat, i, &adp);
                     _TRACE_("disp_no["<<disp_no<<"].mode["<<i<<"]:"<<adp.Width<<"x"<<adp.Height);
                     if (disp_no > 1) {
-                        //３画面目以降１画面目・２画面目の解像度以外の無難な解像度を探してそれに設定。
+                        //メモ：３画面目以降１画面目・２画面目の解像度以外の無難な解像度を探してそれに設定。
+                        //これは３画面目以降であることを判定するために解像度で判定している箇所があるため。
+                        //TODO:スクリーン番号を正確に取得する方法が、色々調べて悩んだけどわからなかった。ので苦肉の策・・・。
                         if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat) {
-                            if ((adp.Width  == _paPresetPrm[0].BackBufferWidth && adp.Height == _paPresetPrm[0].BackBufferHeight) ||
-                                (adp.Width  == _paPresetPrm[1].BackBufferWidth && adp.Height == _paPresetPrm[1].BackBufferHeight)
+                            if ((adp.Width == _paPresetPrm[0].BackBufferWidth && adp.Height == _paPresetPrm[0].BackBufferHeight) ||
+                                (adp.Width == _paPresetPrm[1].BackBufferWidth && adp.Height == _paPresetPrm[1].BackBufferHeight)
                             ) {
                                 //ダメ
                             } else {
-                                _TRACE_("...USE!");
+                                _TRACE_("...無難か");
                                 _paPresetPrm[disp_no].BackBufferWidth  = adp.Width;
                                 _paPresetPrm[disp_no].BackBufferHeight = adp.Height;
                                 _paDisplayMode[disp_no].Width  = _paPresetPrm[disp_no].BackBufferWidth;
@@ -848,7 +854,6 @@ HRESULT GgafDxGod::initDx9Device() {
     GgafDxGod::_d3dlight9_default.Ambient.b = 0.3f;
 
     //GgafDxGod::_d3dlight9_default.Range = 1000.0f;
-
 
     //ライトをセット
     //    GgafDxGod::_pID3DDevice9->SetLight(0, &GgafDxGod::_d3dlight9_default);
@@ -1479,13 +1484,19 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
             LONG fix_width, fix_height;
             int pos1, pos2;
             if (GGAF_PROPERTY(DUAL_VIEW)) {
-                fix_width  = GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2;
-                fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT);
+                if (prm_pHWnd == _pHWndPrimary) {
+                    fix_width  = GGAF_PROPERTY(GAME_BUFFER_WIDTH) * GGAF_PROPERTY(VIEW1_WIDTH_RATIO) / 2.0;
+                    fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT) * GGAF_PROPERTY(VIEW1_HEIGHT_RATIO);
+                } else {
+                    fix_width  = GGAF_PROPERTY(GAME_BUFFER_WIDTH) * GGAF_PROPERTY(VIEW2_WIDTH_RATIO) / 2.0;
+                    fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT) * GGAF_PROPERTY(VIEW2_HEIGHT_RATIO);
+                }
+
                 pos1 = GGAF_PROPERTY(DUAL_VIEW_DRAW_POSITION1);
                 pos2 = GGAF_PROPERTY(DUAL_VIEW_DRAW_POSITION2);
             } else {
-                fix_width  = GGAF_PROPERTY(GAME_BUFFER_WIDTH);
-                fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT);
+                fix_width  = GGAF_PROPERTY(GAME_BUFFER_WIDTH)*GGAF_PROPERTY(VIEW1_WIDTH_RATIO);
+                fix_height = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*GGAF_PROPERTY(VIEW1_HEIGHT_RATIO);
                 pos1 = GGAF_PROPERTY(SINGLE_VIEW_DRAW_POSITION);
                 pos2 = GGAF_PROPERTY(DUAL_VIEW_DRAW_POSITION2); //とりあえず
             }

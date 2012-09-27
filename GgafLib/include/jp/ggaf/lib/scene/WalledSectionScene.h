@@ -7,9 +7,11 @@
 namespace GgafLib {
 
 /**
- * 外壁セクションシーン .
- * 「外壁シーン」を構成するシーンであり、
- * 外壁セクションシーンが連って一つの「外壁シーン」を構成します。
+ * 壁ブロックセクションシーン .
+ * WalledScene を構成するシーンの１つであり、
+ * WalledSectionScene が連って一つの WalledScene を構成します。<BR>
+ * WalledSectionScene は壁ブロック情報ファイルから壁情報を読み込み、
+ * タイミング（スクロールスピード）を計りながら、自動で壁を出現させます。<BR>
  * @version 1.00
  * @since 2010/10/18
  * @author Masatoshi Tsuge
@@ -83,7 +85,7 @@ public:
      * new した後、initialize() が実行されるまでに config して下さい。
      * @param prm_pDepo_WallAAB 壁ブロック（WallAABActorオブジェクト）が登録されているデポジトリ
      * @param prm_pDepo_WallAAPrism 壁プリズムブロック（WallAAPrismActorオブジェクト）が登録されているデポジトリ
-     * @param prm_wall_start_X 外壁表示X座標位置
+     * @param prm_wall_start_X 外壁出現X座標位置
      * @param prm_wall_dep 壁ブロックの長さ（１つのWallPartsActorオブジェクトのX座標軸長さ）
      * @param prm_wall_width 壁ブロックの高さ（１つのWallPartsActorオブジェクトのY座標軸長さ）
      * @param prm_wall_height 壁ブロックの高さ（１つのWallPartsActorオブジェクトのZ座標軸長さ）

@@ -79,7 +79,7 @@ void WalledSectionScene::config(
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
-    _wall_start_X = prm_wall_start_X + _wall_dep;
+    _wall_start_X = prm_wall_start_X + (_wall_dep/2);
 }
 
 void WalledSectionScene::initialize() {

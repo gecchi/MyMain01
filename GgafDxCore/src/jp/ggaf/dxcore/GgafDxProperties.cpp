@@ -33,6 +33,11 @@ int GgafDxProperties::SINGLE_VIEW_DRAW_POSITION = 5;
 int GgafDxProperties::DUAL_VIEW_DRAW_POSITION1 = 6;
 int GgafDxProperties::DUAL_VIEW_DRAW_POSITION2 = 4;
 
+double GgafDxProperties::VIEW1_WIDTH_RATIO = 1.0;
+double GgafDxProperties::VIEW1_HEIGHT_RATIO = 1.0;
+double GgafDxProperties::VIEW2_WIDTH_RATIO = 1.0;
+double GgafDxProperties::VIEW2_HEIGHT_RATIO = 1.0;
+
 std::string GgafDxProperties::BORDER_COLOR = "#222222";
 std::string GgafDxProperties::BG_COLOR = "#000000";
 
@@ -159,6 +164,20 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     if (GgafProperties::isExistKey("DUAL_VIEW_DRAW_POSITION2")) {
         GgafDxProperties::DUAL_VIEW_DRAW_POSITION2 = getInt("DUAL_VIEW_DRAW_POSITION2");
     }
+
+    if (GgafProperties::isExistKey("VIEW1_WIDTH_RATIO")) {
+        GgafDxProperties::VIEW1_WIDTH_RATIO = getDouble("VIEW1_WIDTH_RATIO");
+    }
+    if (GgafProperties::isExistKey("VIEW1_HEIGHT_RATIO")) {
+        GgafDxProperties::VIEW1_HEIGHT_RATIO = getDouble("VIEW1_HEIGHT_RATIO");
+    }
+    if (GgafProperties::isExistKey("VIEW2_WIDTH_RATIO")) {
+        GgafDxProperties::VIEW2_WIDTH_RATIO = getDouble("VIEW2_WIDTH_RATIO");
+    }
+    if (GgafProperties::isExistKey("VIEW1_HEIGHT_RATIO")) {
+        GgafDxProperties::VIEW2_HEIGHT_RATIO = getDouble("VIEW2_HEIGHT_RATIO");
+    }
+
     if (GgafProperties::isExistKey("BORDER_COLOR")) {
         GgafDxProperties::BORDER_COLOR = getStr("BORDER_COLOR");
     }
@@ -307,6 +326,10 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafDxProperties::SINGLE_VIEW_DRAW_POSITION=" << GgafDxProperties::SINGLE_VIEW_DRAW_POSITION);
     _TRACE_("GgafDxProperties::DUAL_VIEW_DRAW_POSITION1=" << GgafDxProperties::DUAL_VIEW_DRAW_POSITION1);
     _TRACE_("GgafDxProperties::DUAL_VIEW_DRAW_POSITION2=" << GgafDxProperties::DUAL_VIEW_DRAW_POSITION2);
+    _TRACE_("GgafDxProperties::VIEW1_WIDTH_RATIO=" << GgafDxProperties::VIEW1_WIDTH_RATIO);
+    _TRACE_("GgafDxProperties::VIEW1_HEIGHT_RATIO=" << GgafDxProperties::VIEW1_HEIGHT_RATIO);
+    _TRACE_("GgafDxProperties::VIEW2_WIDTH_RATIO=" << GgafDxProperties::VIEW2_WIDTH_RATIO);
+    _TRACE_("GgafDxProperties::VIEW2_HEIGHT_RATIO=" << GgafDxProperties::VIEW2_HEIGHT_RATIO);
     _TRACE_("GgafDxProperties::BORDER_COLOR=" << GgafDxProperties::BORDER_COLOR);
     _TRACE_("GgafDxProperties::BG_COLOR=" << GgafDxProperties::BG_COLOR);
     _TRACE_("GgafDxProperties::MASTER_VOLUME=" << GgafDxProperties::MASTER_VOLUME);
