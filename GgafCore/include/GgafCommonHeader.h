@@ -454,6 +454,7 @@ class GgafLinearOctreeSpace;
 class GgafLinearOctreeElem;
 
 class GgafCurtain;
+class GgafQuery;
 }
 
 #include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
@@ -499,5 +500,6 @@ class GgafCurtain;
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 #include "jp/ggaf/core/util/GgafCurtain.h"
 #include "jp/ggaf/core/util/GgafDynamicVariable.hpp"
+#include "jp/ggaf/core/util/GgafQuery.h"
 
 #endif /*GGAFCOMMONHEADER_H_*/

@@ -58,14 +58,16 @@ void GgafGroupHead::setSceneDirector(GgafDirector* prm_pDirector) {
 }
 
 void GgafGroupHead::updateActiveInTheTree() {
+#ifdef MY_DEBUG
     if (getParent()) {
-        if (_pParent->_is_active_in_the_tree_flg) {
-            _is_active_in_the_tree_flg = _is_active_flg;
-        } else {
-            _is_active_in_the_tree_flg = false;
-        }
     } else {
         throwGgafCriticalException("GgafGroupHead::updateActiveInTheTree() _is_active_in_the_tree_flg XV‚Å‚«‚Ü‚¹‚ñB name="<<getName()<<" this="<<this);
+    }
+#endif
+    if (_pParent->_is_active_in_the_tree_flg) {
+        _is_active_in_the_tree_flg = _is_active_flg;
+    } else {
+        _is_active_in_the_tree_flg = false;
     }
 }
 
