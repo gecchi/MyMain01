@@ -2,12 +2,13 @@
 #define GGAFQUERY_H_
 
 /** GgafQueryの１レコードの型 */
-typedef std::map<const char*, std::string> GgafRecord;
+typedef std::map<std::string, std::string> GgafRecord;
+#define GGAFQUERY_SEPA "\t"
 
 namespace GgafCore {
 
 /**
- * SQLのSELECTの結果（クエリ）を格納し、オブジェクトとして扱うことを目的としたクラス.  <BR>
+ * SELECTクエリを模したオブジェクトを扱うクラス.  <BR>
  * @version 1.00
  * @since 2012/10/02
  * @author Masatoshi Tsuge
@@ -24,7 +25,7 @@ private:
      * @param prm_end_index 終了INDEX
      * @param prm_blank_is_max true:空文字("")を最大値とします／false:空文字("")を最小値とします。
      */
-    void sortBy(const char* prm_col[], int prm_col_num, int prm_begin_index, int prm_end_index,
+    void sortBy(std::string prm_col[], int prm_col_num, int prm_begin_index, int prm_end_index,
                 bool prm_blank_is_max);
 
     /**
@@ -36,19 +37,34 @@ private:
      * @param prm_end_index 終了INDEX
      * @param prm_blank_is_max true:空文字("")を最大値とします／false:空文字("")を最小値とします。
      */
-    void sortDescBy(const char* prm_col[], int prm_col_num, int prm_begin_index, int prm_end_index,
+    void sortDescBy(std::string prm_col[], int prm_col_num, int prm_begin_index, int prm_end_index,
                     bool prm_blank_is_max);
 public:
     /** クエリの列番号と値のペアをもったMapのListです */
     std::vector<GgafRecord*> _lstTtable;
 
+    /**
+     * 内容が空のクエリを作成 .
+     */
     GgafQuery();
 
+    /**
+     * TSVでファイルを読み込んで、クエリを作成 .
+     * @param prm_file_name
+     */
+    void importFromFile(std::string prm_file_name);
+
+    /**
+     * TSVでファイルに保存 .
+     * ヘッダーは１行目(index=0)のレコードが信用されます。
+     * @param prm_file_name 保存ファイル名
+     */
+    void exportToFile(std::string prm_file_name);
     size_t getCount();
 
     bool hasRecord();
 
-    std::string get(const char* prm_col, int prm_index);
+    std::string getVal(std::string prm_col, int prm_index);
 
     GgafRecord* getRecord(int prm_index);
     /**
@@ -67,22 +83,47 @@ public:
      */
     void swapIndex(int prm_index_A, int prm_index_B);
 
+    void sortBy(std::string prm_col[], int prm_col_num, bool prm_blank_is_max);
+    void sortBy(const char*, bool prm_blank_is_max);
+    void sortBy(const char* prm_col1, const char* prm_col2, bool prm_blank_is_max);
+    void sortBy(const char* prm_col1, const char* prm_col2, const char* prm_col3, bool prm_blank_is_max);
 
+    void sortDescBy(std::string prm_col[], int prm_col_num, bool prm_blank_is_max);
+    void sortDescBy(const char* prm_col, bool prm_blank_is_max);
+    void sortDescBy(const char* prm_col1, const char* prm_col2, bool prm_blank_is_max);
+    void sortDescBy(const char* prm_col1, const char* prm_col2, const char* prm_col3, bool prm_blank_is_max);
 
-    void sortBy(const char* prm_col[], int prm_col_num, bool prm_blank_is_max);
-
-    void sortBy(const char* prm_col, bool prm_blank_is_max = false);
-
-    void sortBy(const char* prm_col1, const char* prm_col2, bool prm_blank_is_max = false);
-
-    void sortBy(const char* prm_col1, const char* prm_col2, const char* prm_col3, bool prm_blank_is_max = false);
-
-
-    void sortDescBy(const char* prm_col[], int prm_col_num, bool prm_blank_is_max);
-
-    void sortDescBy(const char* prm_col, bool prm_blank_is_max = false);
-    void sortDescBy(const char* prm_col1, const char* prm_col2, bool prm_blank_is_max = false);
-    void sortDescBy(const char* prm_col1, const char* prm_col2, const char* prm_col3, bool prm_blank_is_max = false);
+    /**
+     * TABで分割 .
+     * 空文字要素は飛ばされない。
+     * <pre>
+     * 【例】
+     * std::vector<std::string> data = split("\taaa\tbbb\t\t\tcccc\tddd\teeee\t\t", "\t");
+     * ＜結果＞
+     * data[0] = (空文字)
+     * data[1] = aaa
+     * data[2] = bbb
+     * data[3] = (空文字)
+     * data[4] = (空文字)
+     * data[5] = cccc
+     * data[6] = ddd
+     * data[7] = eeee
+     * data[8] = (空文字)
+     * data[9] = (空文字)
+     * </pre>
+     * @param str
+     * @return
+     */
+    static inline std::vector<std::string> split(std::string str) {
+        std::vector<std::string> r;
+        int cutAt;
+        while ((cutAt = str.find_first_of(GGAFQUERY_SEPA)) != str.npos) {
+            r.push_back(str.substr(0, cutAt));
+            str = str.substr(cutAt + 1);
+        }
+        r.push_back(str);
+        return r;
+    }
 
     void dump();
     virtual ~GgafQuery();

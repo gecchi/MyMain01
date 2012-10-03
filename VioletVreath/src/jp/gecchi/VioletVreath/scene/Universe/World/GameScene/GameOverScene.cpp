@@ -46,6 +46,13 @@ void GameOverScene::processBehavior() {
                 fadeinScene(FADE_FRAMES);
             }
             if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 420) {
+
+                //TODO:ランキング更新！
+                GameGlobal::qryScoreRanking_.sortDescBy("SCORE",false);
+                GameGlobal::qryScoreRanking_.exportToFile("SCORE_RANKING.qry");
+
+
+
                 throwEventToUpperTree(EVENT_GAME_OVER_FINISH);
                 _pProg->change(GameOverScene::PROG_FINISH);
             }

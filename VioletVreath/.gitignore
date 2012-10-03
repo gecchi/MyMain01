@@ -17,5 +17,6 @@
 /gprofp_result.txt
 /gprofdot_result.png
 *.rep
+*.qry
 /back.properties
 

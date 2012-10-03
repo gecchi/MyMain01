@@ -39,6 +39,22 @@ public:
      */
     static char* getFileText(std::string prm_filename);
 
+    /**
+     * デミリタで分割 .
+     * 空文字要素は飛ばされる。
+     * <pre>
+     * 【例】
+     * std::vector<std::string> data = split("\taaa\tbbb\t\t\tcccc\tddd\teeee\t\t", "\t");
+     * ＜結果＞
+     * data[0] = aaa
+     * data[1] = bbb
+     * data[2] = cccc
+     * data[3] = ddd
+     * data[4] = eeee
+     * </pre>
+     * @param str
+     * @return
+     */
     static inline std::vector<std::string> split(std::string str, std::string delim) {
         std::vector<std::string> r;
         int cutAt;
@@ -210,7 +226,7 @@ public:
     static inline INT32 _rnd_int32_(INT32 prm_from, INT32 prm_to) {
 #ifdef MY_DEBUG
         if (prm_from > prm_to) {
-			MessageBox(NULL, "GgafUtil::_rnd_int32_() from toの大小がおかしい", "不本意な事態", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND);
+            MessageBox(NULL, "GgafUtil::_rnd_int32_() from toの大小がおかしい", "不本意な事態", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND);
         }
 #endif
         return ((INT32)(GgafCore::CmRandomNumberGenerator::getInstance()->genrand_int32() % (prm_to - prm_from) ) + prm_from );

@@ -19,6 +19,7 @@ public:
     /** ランク（0.0 ～ 1.0。 1.0がMAXランクとする) */
     static double rank_;
     static int rank_up_level_;
+    static GgafCore::GgafQuery qryScoreRanking_;
     static void init();
 };
 
