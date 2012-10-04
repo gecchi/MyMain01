@@ -9,6 +9,7 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     getDirector()->addSubGroup(pLabel01_);
     useProgress(10);
+    need_name_entry_ = false;
 }
 
 void GameOverScene::onReset() {
@@ -44,20 +45,36 @@ void GameOverScene::processBehavior() {
             if (_pProg->isJustChanged()) {
                 pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
+                int last_score = STOI(GameGlobal::qryScoreRanking_.getVal("SCORE",GameGlobal::qryScoreRanking_.getCount()-1)); //現在のハイスコアの最低スコア
+                if (GameGlobal::score_ > last_score) {
+                    //ランクインのため、ネームエントリーシーン準備
+                    orderSceneToFactory(ORDER_ID_NAMEENTRYSCENE, NameEntryScene, "NameEntryScene");
+                    need_name_entry_ = true;
+                } else {
+                    need_name_entry_ = false;
+                }
             }
             if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 420) {
-
-                //TODO:ランキング更新！
-                GameGlobal::qryScoreRanking_.sortDescBy("SCORE",false);
-                GameGlobal::qryScoreRanking_.exportToFile("SCORE_RANKING.qry");
-
-
-
-                throwEventToUpperTree(EVENT_GAME_OVER_FINISH);
-                _pProg->change(GameOverScene::PROG_FINISH);
+                if (need_name_entry_) {
+                    _pProg->change(GameOverScene::PROG_NAMEENTRY);
+                } else {
+                    throwEventToUpperTree(EVENT_GAMEOVERSCENE_FINISH);
+                    _pProg->change(GameOverScene::PROG_FINISH);
+                }
             }
             break;
         }
+
+        case GameOverScene::PROG_NAMEENTRY: {
+             if (_pProg->isJustChanged()) {
+                 NameEntryScene* pScene = (NameEntryScene*)obtainSceneFromFactory(ORDER_ID_NAMEENTRYSCENE);
+                 addSubLast(pScene);
+                 pScene->fadeoutScene(0);
+                 pScene->fadeinSceneTree(120);
+             }
+             //イベント待ち
+             break;
+         }
 
         case GameOverScene::PROG_FINISH: {
             if (_pProg->isJustChanged()) {

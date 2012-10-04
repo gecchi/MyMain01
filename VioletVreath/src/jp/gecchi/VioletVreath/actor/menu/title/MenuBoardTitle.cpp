@@ -57,7 +57,8 @@ bool MenuBoardTitle::condMoveCursorExPrev() {
 
 void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
 }
-
+void MenuBoardTitle::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+}
 void MenuBoardTitle::riseConfirm() {
     riseSub(pConfirmMenu_, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
 }

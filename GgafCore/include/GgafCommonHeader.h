@@ -69,6 +69,7 @@
 #include <sstream>
 #include <cstddef>
 #include "Shlwapi.h"
+#include <time.h>
 #include <algorithm>
 
 #ifdef _MSC_VER

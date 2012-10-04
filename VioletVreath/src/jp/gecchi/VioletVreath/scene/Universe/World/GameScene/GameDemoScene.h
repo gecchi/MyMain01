@@ -25,14 +25,11 @@ public:
         std::string date;
     };
 
-    std::vector<ScoreInfo> ranking;
     LabelRankingFont** papLabel_Ranking_;
 
     LabelGecchi16Font* pLabel01_;
     LabelGecchi16Font* pLabel02_;
     int demo_stage_;
-
-    int ranking_num_;
 
     GameDemoScene(const char* prm_name);
     void onReset() override;

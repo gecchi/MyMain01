@@ -41,7 +41,7 @@ bool MenuBoard::condMoveCursorExPrev() {
     return VB->isAutoRepeat(VB_UI_LEFT);
 }
 bool MenuBoard::condMoveCursorCancel() {
-    return VB->isPushedDown(VB_UI_CANCEL);
+    return isJustCancelled();
 }
 
 void MenuBoard::rise() {
@@ -75,6 +75,16 @@ bool MenuBoard::condDecision() {
         return false;
     }
 }
+
+bool MenuBoard::condCancel() {
+    if (VB->isPushedDown(VB_UI_CANCEL)) {
+        _pSeTxer->play(SE_DECIDED_CANCEL);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void MenuBoard::moveCursor() {
     StringBoardMenu::moveCursor();
     _pSeTxer->play(SE_MOVE_CURSOR);

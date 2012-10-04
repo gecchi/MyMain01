@@ -52,5 +52,7 @@ void MenuBoardConfirm::onRisen() {
 }
 void MenuBoardConfirm::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
 }
+void MenuBoardConfirm::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+}
 MenuBoardConfirm::~MenuBoardConfirm() {
 }

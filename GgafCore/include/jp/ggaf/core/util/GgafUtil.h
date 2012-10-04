@@ -2,6 +2,7 @@
 #define GGAFUTIL_H_
 
 #define ITOS(X) (GgafCore::GgafUtil::_itos_(X))
+#define STOI(X) (GgafCore::GgafUtil::_stoi_(X))
 #define ABS(X) (GgafCore::GgafUtil::_abs_(X))
 #define SGN(X) (GgafCore::GgafUtil::_sgn_(X))
 #define MAX3(a,b,c) (GgafCore::GgafUtil::_max3_(a,b,c))
@@ -79,6 +80,12 @@ public:
         return oss.str();
     }
 
+    static inline int _stoi_(std::string& prm_s) {
+        int n;
+        std::istringstream istr(prm_s);
+        istr >> n;
+        return n;
+    }
     /**
      * ASCII限定文字列比較 .
      * @param s1
@@ -251,6 +258,18 @@ public:
     static std::string getFileExt(const char* prm_filepath);
     static char* reverseStr(char* str);
     static void strReplace(std::string& str, const std::string& from, const std::string& to);
+
+    /**
+     * 数値を左ゼロ埋め文字列に変換 .
+     * 数値の桁が既に prm_total_keta より多い場合は、
+     * prm_data_num の文字列が返る。
+     * @param prm_data_num    数値
+     * @param prm_total_keta  全体の文字桁数
+     * @return 左ゼロ埋めされた文字列
+     */
+    static std::string padZeroStr(int prm_data_num, int prm_total_keta);
+
+    static std::string getSystemDateTimeStr();
 };
 
 }

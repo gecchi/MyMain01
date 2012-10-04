@@ -372,6 +372,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\MenuBoardPause.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.cpp" />
@@ -496,6 +498,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage\StagePartController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\TransitStage.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene\NameEntryScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePauseScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePreTitleScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameTitleScene.cpp" />
@@ -636,6 +639,8 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\confirm\cursorconfirmmenu.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\confirm\menuboardconfirm.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\menuboard.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\name_entry\cursornameentrymenu.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\name_entry\menuboardnameentry.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\pause\cursorpausemenu.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\pause\menuboardpause.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\title\cursortitlemenu.h" />
@@ -760,6 +765,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage\stagepartcontroller.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\transitstage.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gameoverscene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene\NameEntryScene.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamepausescene.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamepretitlescene.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gametitlescene.h" />

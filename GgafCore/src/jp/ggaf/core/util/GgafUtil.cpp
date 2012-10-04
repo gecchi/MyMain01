@@ -379,3 +379,26 @@ void GgafUtil::strReplace(std::string& str, const std::string& from, const std::
         pos += to.length();
     }
 }
+
+std::string GgafUtil::padZeroStr(int prm_data_num, int prm_total_keta) {
+    std::ostringstream oss;
+    oss.setf(std::ios::right);
+    oss.fill('0');
+    oss.width(prm_total_keta);
+    oss << prm_data_num;
+    return oss.str();
+}
+
+std::string GgafUtil::getSystemDateTimeStr() {
+      struct tm *date;
+      time_t now;
+      time(&now);
+      date = localtime(&now);
+      char buf[20];
+      sprintf(buf, "%04d/%02d/%02d %02d:%02d:%02d\n",
+              date->tm_year + 1900, date->tm_mon + 1,  date->tm_mday,
+              date->tm_hour, date->tm_min, date->tm_sec);
+      std::string str(buf);
+      return str;
+}
+

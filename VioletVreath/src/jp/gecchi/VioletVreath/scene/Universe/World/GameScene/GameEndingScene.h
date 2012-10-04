@@ -2,6 +2,12 @@
 #define GAMEENDINGSCENE_H_
 namespace VioletVreath {
 
+/**
+ * エンディングシーンクラス .
+ * @version 1.00
+ * @since 2007/11/16
+ * @author Masatoshi Tsuge
+ */
 class GameEndingScene : public GgafLib::DefaultScene {
 
 public:

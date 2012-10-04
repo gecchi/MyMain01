@@ -15,7 +15,7 @@ class GameGlobal {
 public:
     static bool is_init_;
     /** スコア */
-    static UINT32 score_;
+    static int score_;
     /** ランク（0.0 ～ 1.0。 1.0がMAXランクとする) */
     static double rank_;
     static int rank_up_level_;

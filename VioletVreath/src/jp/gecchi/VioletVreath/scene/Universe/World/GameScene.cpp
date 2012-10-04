@@ -305,8 +305,8 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
         _pProg->changeWithSceneCrossfading(GameScene::PROG_GAME_OVER); //ゲームオーバーへ
-    } else if (prm_no == EVENT_GAME_OVER_FINISH) {
-        _TRACE_("GameScene::onCatchEvent(EVENT_GAME_OVER_FINISH)");
+    } else if (prm_no == EVENT_GAMEOVERSCENE_FINISH) {
+        _TRACE_("GameScene::onCatchEvent(EVENT_GAMEOVERSCENE_FINISH)");
         _pProg->change(GameScene::PROG_FINISH);
     }
 }

@@ -1,30 +1,23 @@
-#ifndef MENUBOARDTITLE_H_
-#define MENUBOARDTITLE_H_
-
-
+#ifndef MENUBOARDNAMEENTRY_H_
+#define MENUBOARDNAMEENTRY_H_
 
 namespace VioletVreath {
 
 /**
- * タイトルメニュー .
+ * ネームエントリーの文字選択ボード .
  * @version 1.00
- * @since 2011/12/27
+ * @since 2012/10/04
  * @author Masatoshi Tsuge
  */
-class MenuBoardTitle : public MenuBoard {
+class MenuBoardNameEntry : public MenuBoard {
 
 public:
+    int ITEM_OK;
+    int ITEM_BS;
 
-    enum {
-        ITEM_GAME_START = 0 ,
-        ITEM_CONFIG,
-        ITEM_DEBUG,
-        ITEM_QUIT,
-    };
     MenuBoardConfirm* pConfirmMenu_;
 
-
-    MenuBoardTitle(const char* prm_name);
+    MenuBoardNameEntry(const char* prm_name);
 
     bool condMoveCursorNext() override;
     bool condMoveCursorPrev() override;
@@ -32,12 +25,11 @@ public:
     bool condMoveCursorExPrev() override;
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
-    void riseConfirm();
-    void sinkConfirm();
+    void processBehavior() override;
 
-    virtual ~MenuBoardTitle();
+    virtual ~MenuBoardNameEntry();
 };
 
 }
-#endif /*MENUBOARDTITLE_H_*/
+#endif /*MENUBOARDNAMEENTRY_H_*/
 

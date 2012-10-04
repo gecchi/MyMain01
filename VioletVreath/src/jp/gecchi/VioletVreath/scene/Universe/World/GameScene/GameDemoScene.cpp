@@ -17,29 +17,16 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _pBgmPerformer->set(0, "BGM_DEMO");
 
     demo_stage_ = 1;
-    ranking_num_ = 10;
 
-    int  rank[] = {1, 2, 3, 4, 5, 6,7,8,9,10};
-    std::string name[] = {"AAAXXX", "BBBXXX", "CCCXXX", "DDDXXX", "EEEXXX", "FFFXXX", "GGGXXX", "HHHXXX", "IIIXXX","JJJXXX"};
-    int  score[] = {1000000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000};
-    std::string date[] = {"2011/08/01", "2011/08/02", "2011/08/03", "2011/08/04", "2011/08/05", "2011/08/06", "2011/08/07", "2011/08/08", "2011/08/09", "2011/08/10"};
-    for (int i = 0; i < ranking_num_; i++) {
-        ScoreInfo r = {
-            rank[i],
-            name[i],
-            score[i],
-            date[i]
-        };
-        ranking.push_back(r);
-    }
     char buf[80];
     papLabel_Ranking_ = NEW LabelRankingFont*[10];
-    for (int i = 0; i < ranking_num_; i++) {
+    for (int i = 0; i < GameGlobal::qryScoreRanking_.getCount(); i++) {
         papLabel_Ranking_[i] = NEW LabelRankingFont("RANK_INFO");
-        sprintf(buf, "NO.%02d...%8s...%010d...%10s", ranking[i].rank,
-                                                     ranking[i].name.c_str(),
-                                                     ranking[i].score,
-                                                     ranking[i].date.c_str());
+        sprintf(buf, "NO.%02d   %12s   %10s   %20s",
+                i+1,
+                GameGlobal::qryScoreRanking_.getVal("NAME"   , i).c_str(),
+                GameGlobal::qryScoreRanking_.getVal("SCORE"  , i).c_str(),
+                GameGlobal::qryScoreRanking_.getVal("REGDATE", i).c_str());
         papLabel_Ranking_[i]->update(buf);
         papLabel_Ranking_[i]->inactivateImmed();
         getDirector()->addSubGroup(papLabel_Ranking_[i]);

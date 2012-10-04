@@ -43,6 +43,8 @@ public:
     virtual bool condMoveCursorExPrev() override;
     virtual bool condMoveCursorCancel() override;
     virtual bool condDecision() override;
+    virtual bool condCancel() override;
+
     virtual void moveCursor() override;
 
     virtual void initialize() override;

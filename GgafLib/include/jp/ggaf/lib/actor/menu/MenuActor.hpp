@@ -42,12 +42,16 @@ protected:
     bool _is_just_sunk;
     /** 決定した瞬間のフレームだけ true */
     bool _is_just_decided;
+    /** キャンセルした瞬間のフレームだけ true */
+    bool _is_just_cancelled;
 
     bool _will_be_rising_next_frame;
 
     bool _will_be_sinking_next_frame;
 
     bool _will_be_just_decide_next_frame;
+
+    bool _will_be_just_cancel_next_frame;
 
     bool _can_controll;
 
@@ -239,12 +243,22 @@ public:
     /**
      * 「決定」が行われた時に、決定されたアイテムのインデックスを返します .
      * ＜メニューの選択項目が決定された場合の処理記述コードの場所について＞<BR>
-     * getDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
+     * processBehavior() で getDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
      * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
      * どちらでも良いし、併用も可能。<BR>
      * @return 決定された時：そのアイテムのインデックス(>=0)／何も決定されていない場合：常に -1
      */
     virtual int getDecidedIndex();
+
+    /**
+     * 「キャンセル」が行われた時に、決定されたアイテムのインデックスを返します .
+     * ＜メニューの選択項目がキャンセルされた場合の処理記述コードの場所について＞<BR>
+     * processBehavior() で getCancelledIndex() の戻り値を毎フレーム調べることで、キャンセル時の処理を記述することが可能。<BR>
+     * もちろん onCancel() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
+     * どちらでも良いし、併用も可能。<BR>
+     * @return キャンセルされた時：そのアイテムのインデックス(>=0)／何もキャンセルされていない場合：常に -1
+     */
+    virtual int getCancelledIndex();
 
     /**
      * 現在カーソルが選択中のアイテムのオブジェクトを取得 .
@@ -297,16 +311,36 @@ public:
     virtual bool condDecision() = 0;
 
     /**
+     * カーソル選択中のアイテムでキャンセルであるという条件を実装する .
+     * 下位クラスでオーバーライドして、条件を実装してください。
+     * @return
+     */
+    virtual bool condCancel() = 0;
+
+
+    /**
      * メニューアイテムを選択し「決定」された場合に呼び出されるコールバック。
      * 動作をオーバーライドして実装してください。<BR>
      * ＜メニューの選択項目が決定された場合の処理記述コードの場所について＞<BR>
-     * getDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
+     * processBehavior() で、getDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
      * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
      * どちらでも良いし、併用も可能。
      * @param prm_pItem 決定されたのアイテム
      * @param prm_item_index 決定されたのアイテムのインデックス
      */
     virtual void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) = 0;
+
+    /**
+     * メニューアイテムを選択し「キャンセル」された場合に呼び出されるコールバック。
+     * 動作をオーバーライドして実装してください。<BR>
+     * ＜メニューの選択項目がキャンセルされた場合の処理記述コードの場所について＞<BR>
+     * processBehavior() で、getCancelIndex() の戻り値を毎フレーム調べることで、キャンセル時の処理を記述することが可能。<BR>
+     * もちろん onCancel() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
+     * どちらでも良いし、併用も可能。
+     * @param prm_pItem
+     * @param prm_item_index
+     */
+    virtual void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) = 0;
 
     /**
      * カーソルを _lstItems のアクティブ要素へ移動させる .
@@ -389,6 +423,11 @@ public:
         return _is_just_decided;
     }
 
+    virtual bool isJustCancelled() {
+        return _is_just_cancelled;
+    }
+
+
     /**
      * メニューを消去開始時の処理 .
      * sink() 実行時直後、１回だけコールバックされます。<BR>
@@ -433,9 +472,11 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _is_just_risen = false;
     _is_just_sunk = false;
     _is_just_decided = false;
+    _is_just_cancelled = false;
     _will_be_rising_next_frame = false;
     _will_be_sinking_next_frame = false;
     _will_be_just_decide_next_frame = false;
+    _will_be_just_cancel_next_frame = false;
     _can_controll = false;
     _will_be_able_to_controll = false;
     _pActiveSubMenu = NULL;
@@ -479,6 +520,15 @@ void MenuActor<T>::nextFrame() {
         _is_just_decided = true;
         _will_be_just_decide_next_frame = false;
     }
+
+    _is_just_cancelled = false;
+    if (_will_be_just_cancel_next_frame) {
+        onDecision(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
+        _is_just_cancelled = true;
+        _will_be_just_cancel_next_frame = false;
+    }
+
+
     _can_controll = _will_be_able_to_controll;
 }
 
@@ -593,6 +643,14 @@ int MenuActor<T>::getSelectedIndex() {
 template<class T>
 int MenuActor<T>::getDecidedIndex() {
     if (_is_just_decided) {
+        return _lstItems.getCurrentIndex();
+    } else {
+        return -1;
+    }
+}
+template<class T>
+int MenuActor<T>::getCancelledIndex() {
+    if (_is_just_cancelled) {
         return _lstItems.getCurrentIndex();
     } else {
         return -1;
@@ -762,6 +820,8 @@ void MenuActor<T>::processBehavior() {
     if (_can_controll && T::getActivePartFrame() > 2) {
         if (condDecision()) {
             _will_be_just_decide_next_frame = true;
+        } else if (condCancel()) {
+            _will_be_just_cancel_next_frame = true;
         } else if (condMoveCursorNext()) {
             moveCursorNext();
         } else if (condMoveCursorPrev()) {

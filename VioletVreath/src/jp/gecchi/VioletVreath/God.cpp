@@ -47,19 +47,21 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     if (PathFileExists("SCORE_RANKING.qry") ) {
         GameGlobal::qryScoreRanking_.importFromFile("SCORE_RANKING.qry");
     } else {
-        std::string name[] = { "AAAXXX", "BBBXXX", "CCCXXX", "DDDXXX", "EEEXXX", "FFFXXX", "GGGXXX", "HHHXXX", "IIIXXX",
-                               "JJJXXX" };
-        int score[] = { 1000000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000 };
-        std::string date[] = { "2011/08/01", "2011/08/02", "2011/08/03", "2011/08/04", "2011/08/05", "2011/08/06",
-                               "2011/08/07", "2011/08/08", "2011/08/09", "2011/08/10" };
+        std::string date = UTIL::getSystemDateTimeStr();
         for (int i = 0; i < 10; i++) {
             GgafRecord* r = NEW GgafRecord();
-            (*r)["NAME"]  = name[i];
-            (*r)["SCORE"]   = ITOS(score[i]);
-            (*r)["DATAE"] = date[i];
+            (*r)["NAME"]  = "..........";
+            (*r)["SCORE"] = UTIL::padZeroStr((i+1)*1000, 10);
+            (*r)["REGDATE"] = date;
             GameGlobal::qryScoreRanking_.addRow(r);
         }
+        GameGlobal::qryScoreRanking_.sortDescBy("SCORE",false);
     }
+    //10位(index=9)まで残して、11位(index=10)以降を削除
+    if (GameGlobal::qryScoreRanking_.getCount() > 10) {
+        GameGlobal::qryScoreRanking_.removeRows(10);
+    }
+
 
     //仮想ボタンを本ゲーム用に上書きして再定義
     VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_SHOT1)      ];
@@ -154,4 +156,6 @@ God::~God() {
     clean();
     _was_cleaned = true;
 }
+
+
 

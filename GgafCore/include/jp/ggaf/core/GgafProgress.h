@@ -54,6 +54,8 @@ public:
      * 初期化などではこの set(int) を使用し、<BR>
      * 状態変化時は change(int) を使用する。<BR>
      * という設計。<BR>
+     * 【注意】<BR>
+     * isJustChanged() は成立しません。<BR>
      * @param prm_progress 進捗番号(1～)
      */
     virtual void set(progress prm_progress);

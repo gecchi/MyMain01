@@ -8,6 +8,7 @@ LabelGecchi16Font::LabelGecchi16Font(const char* prm_name) :
         StringBoardActor(prm_name, "Gecchi_16Font")
 {
     _class_name = "LabelGecchi16Font";
+    _aWidthPx[' '] = 8;
     _aWidthPx['!'] = 10;
     _aWidthPx['"'] = 10;
     _aWidthPx['#'] = 14;
@@ -39,7 +40,7 @@ LabelGecchi16Font::LabelGecchi16Font(const char* prm_name) :
     _aWidthPx['='] = 14;
     _aWidthPx['>'] = 14;
     _aWidthPx['?'] = 14;
-    _aWidthPx[' '] = 8;
+    _aWidthPx['@'] = 15;
     _aWidthPx['A'] = 15;
     _aWidthPx['B'] = 14;
     _aWidthPx['C'] = 15;

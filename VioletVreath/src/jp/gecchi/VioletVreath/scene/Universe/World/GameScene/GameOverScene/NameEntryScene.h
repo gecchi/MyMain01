@@ -1,31 +1,29 @@
-#ifndef GAMEOVERSCENE_H_
-#define GAMEOVERSCENE_H_
+#ifndef NAMEENTRYSCENE_H_
+#define NAMEENTRYSCENE_H_
 namespace VioletVreath {
 
-#define ORDER_ID_NAMEENTRYSCENE 99
 /**
- * 自機が全滅～のシーン
+ * ネームエントリー .
  * @version 1.00
- * @since 2010/11/15
+ * @since 2012/10/04
  * @author Masatoshi Tsuge
  */
-class GameOverScene : public GgafLib::DefaultScene {
+class NameEntryScene : public GgafLib::DefaultScene {
 
 public:
     enum {
         PROG_INIT = 1,
         PROG_DISP    ,
-        PROG_NAMEENTRY,
+        PROG_INPUT   ,
         PROG_FINISH  ,
     };
 
     LabelGecchi16Font* pLabel01_;
-    bool need_name_entry_;
-    GameOverScene(const char* prm_name);
+    NameEntryScene(const char* prm_name);
     void onReset() override;
     virtual void initialize() override;
     virtual void processBehavior() override;
-    virtual ~GameOverScene();
+    virtual ~NameEntryScene();
 };
 
 }

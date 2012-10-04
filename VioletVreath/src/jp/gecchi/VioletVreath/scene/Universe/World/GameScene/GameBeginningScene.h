@@ -6,6 +6,9 @@ namespace VioletVreath {
 /**
  * ゲーム開始シーンクラス .
  * ゲームが行なわれている場面と言っても、ゲーム開始中の場面もありました。
+ * @version 1.00
+ * @since 2010/11/15
+ * @author Masatoshi Tsuge
  */
 class GameBeginningScene : public GgafLib::DefaultScene {
 

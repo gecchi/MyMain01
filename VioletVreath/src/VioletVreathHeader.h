@@ -192,7 +192,6 @@ DECLARE_CONST(EVENT_STG02_WAS_END);
 DECLARE_CONST(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
 DECLARE_CONST(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
 DECLARE_CONST(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
-DECLARE_CONST(EVENT_GAME_OVER_FINISH);
 
 DECLARE_CONST(EVENT_PREGAMETITLESCENE_FINISH);
 DECLARE_CONST(EVENT_GAMETITLESCENE_FINISH);
@@ -200,7 +199,7 @@ DECLARE_CONST(EVENT_GAMEDEMOSCENE_FINISH);
 DECLARE_CONST(EVENT_GAMESTART);
 DECLARE_CONST(EVENT_GOTO_GAMETITLE);
 DECLARE_CONST(EVENT_GAMEMODE_DECIDE);
-
+DECLARE_CONST(EVENT_GAMEOVERSCENE_FINISH);
 
 namespace VioletVreath {
 
@@ -229,6 +228,7 @@ class GameBeginningScene;
 class GameMainScene;
 class GameEndingScene;
 class GameOverScene;
+class NameEntryScene;
 class GamePauseScene;
 
 
@@ -530,7 +530,8 @@ class MenuBoardPause;
 class CursorPauseMenu;
 class MenuBoardTitle;
 class CursorTitleMenu;
-
+class MenuBoardNameEntry;
+class CursorNameEntryMenu;
 }
 
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -552,6 +553,7 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameEndingScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene/NameEntryScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GamePauseScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/TamagoScene.h"
 
@@ -837,6 +839,7 @@ class CursorTitleMenu;
 #include "jp/gecchi/VioletVreath/actor/menu/pause/CursorPauseMenu.h"
 #include "jp/gecchi/VioletVreath/actor/menu/title/MenuBoardTitle.h"
 #include "jp/gecchi/VioletVreath/actor/menu/title/CursorTitleMenu.h"
-
+#include "jp/gecchi/VioletVreath/actor/menu/name_entry/MenuBoardNameEntry.h"
+#include "jp/gecchi/VioletVreath/actor/menu/name_entry/CursorNameEntryMenu.h"
 
 #endif /*VIOLETVREATHHEADER_H_*/

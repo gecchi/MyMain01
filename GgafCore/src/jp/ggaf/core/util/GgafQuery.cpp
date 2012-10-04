@@ -92,13 +92,38 @@ bool GgafQuery::hasRecord() {
     }
 }
 
-std::string GgafQuery::getVal(std::string prm_col, int prm_index) {
+std::string GgafQuery::getVal(std::string& prm_col, int prm_index) {
     GgafRecord* r = _lstTtable[prm_index];
     if (0 < r->count(prm_col)) {
         return ((*r)[prm_col]);
     } else {
         return "";
     }
+}
+std::string GgafQuery::getVal(const char* prm_col, int prm_index) {
+    GgafRecord* r = _lstTtable[prm_index];
+    if (0 < r->count(prm_col)) {
+        return ((*r)[prm_col]);
+    } else {
+        return "";
+    }
+}
+
+void GgafQuery::setVal(std::string& prm_col, int prm_index, std::string& prm_val) {
+    GgafRecord* r = _lstTtable[prm_index];
+    (*r)[prm_col] = prm_val;
+}
+void GgafQuery::setVal(const char* prm_col, int prm_index, std::string& prm_val) {
+    GgafRecord* r = _lstTtable[prm_index];
+    (*r)[prm_col] = prm_val;
+}
+void GgafQuery::setVal(std::string& prm_col, int prm_index, const char* prm_val) {
+    GgafRecord* r = _lstTtable[prm_index];
+    (*r)[prm_col] = prm_val;
+}
+void GgafQuery::setVal(const char* prm_col, int prm_index, const char* prm_val) {
+    GgafRecord* r = _lstTtable[prm_index];
+    (*r)[prm_col] = prm_val;
 }
 
 GgafRecord* GgafQuery::getRecord(int prm_index) {
@@ -117,7 +142,9 @@ void GgafQuery::removeRow(int prm_index) {
     DELETE_IMPOSSIBLE_NULL(r);
     _lstTtable.erase(_lstTtable.begin() + prm_index);
 }
-
+void GgafQuery::removeRows(int prm_start_index) {
+    removeRows(prm_start_index, getCount()-1);
+}
 void GgafQuery::removeRows(int prm_start_index, int prm_end_index) {
 #ifdef MY_DEBUG
     if (_lstTtable.size() < prm_start_index) {
