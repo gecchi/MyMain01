@@ -8,11 +8,14 @@ NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "NameEntryScene";
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     getDirector()->addSubGroup(pLabel01_);
+
+    pMenu_ = NEW MenuBoardNameEntry("pMenu_");
+    getDirector()->addSubGroup(pMenu_);
+
     useProgress(10);
 }
 
 void NameEntryScene::onReset() {
-    fadeoutScene(0);
     pLabel01_->update("");
     _pProg->set(NameEntryScene::PROG_INIT);
 }
@@ -22,18 +25,6 @@ void NameEntryScene::initialize() {
 
 void NameEntryScene::processBehavior() {
 
-    switch (_pProg->getPrev_WhenJustChanged()) {
-        case NameEntryScene::PROG_DISP: {
-            fadeoutScene(FADE_FRAMES);
-            inactivateDelay(FADE_FRAMES);
-            break;
-        }
-
-        default:
-            break;
-    }
-
-
     switch (_pProg->get()) {
         case NameEntryScene::PROG_INIT: {
             _pProg->change(NameEntryScene::PROG_DISP);
@@ -42,8 +33,9 @@ void NameEntryScene::processBehavior() {
 
         case NameEntryScene::PROG_DISP: {
             if (_pProg->isJustChanged()) {
-                pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
-                fadeinScene(FADE_FRAMES);
+                _TRACE_("pMenu_->rise(PX_C(50), PX_C(10));");
+                pLabel01_->update(PX_C(32), PX_C(32), "ENTRY!!!!");
+                pMenu_->rise(PX_C(50), PX_C(10));
             }
             break;
         }

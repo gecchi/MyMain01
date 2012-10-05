@@ -4,7 +4,7 @@
 namespace VioletVreath {
 
 /**
- * 本アプリの標準メニューボード .
+ * 本アプリのメニューボード標準実装 .
  * @version 1.00
  * @since 2011/12/26
  * @author Masatoshi Tsuge

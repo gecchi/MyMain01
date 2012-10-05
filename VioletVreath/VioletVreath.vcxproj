@@ -365,6 +365,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi16Font.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi32Font.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankFont.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.cpp" />
@@ -632,6 +633,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\magicpointitem001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\item\magicpointitem002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelgecchi16font.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelgecchi32font.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelgecchi8font.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelrankfont.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelrankingfont.h" />

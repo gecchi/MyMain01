@@ -280,6 +280,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\core\util\GgafQuery.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\core\util\GgafRepeatSeq.cpp"
 				>
 			</File>
@@ -459,6 +463,10 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\core\GgafProperties.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\core\util\GgafQuery.h"
 				>
 			</File>
 			<File

@@ -385,6 +385,7 @@ class WorldBoundTitle;
 class TurboMeter;
 class LabelGecchi8Font;
 class LabelGecchi16Font;
+class LabelGecchi32Font;
 class LabelRankFont;
 class LabelRankingFont;
 class SpriteLabelTest;
@@ -707,6 +708,7 @@ class CursorNameEntryMenu;
 
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi32Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankingFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"

@@ -19,6 +19,7 @@ public:
     };
 
     LabelGecchi16Font* pLabel01_;
+    MenuBoardNameEntry* pMenu_;
     NameEntryScene(const char* prm_name);
     void onReset() override;
     virtual void initialize() override;

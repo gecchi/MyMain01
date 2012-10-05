@@ -16,6 +16,7 @@ public:
     int ITEM_BS;
 
     MenuBoardConfirm* pConfirmMenu_;
+    LabelGecchi32Font* pLabelInputedName_;
 
     MenuBoardNameEntry(const char* prm_name);
 

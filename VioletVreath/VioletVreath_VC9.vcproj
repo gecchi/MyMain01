@@ -266,6 +266,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp"
 				>
 			</File>
@@ -734,6 +738,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi32Font.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.cpp"
 				>
 			</File>
@@ -807,6 +815,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.cpp"
 				>
 			</File>
 			<File
@@ -891,6 +903,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyWave001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene\NameEntryScene.cpp"
 				>
 			</File>
 			<File
@@ -1305,6 +1321,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.h"
 				>
 			</File>
 			<File
@@ -1780,6 +1800,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi32Font.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.h"
 				>
 			</File>
@@ -1853,6 +1877,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.h"
 				>
 			</File>
 			<File
@@ -1937,6 +1965,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MyWave001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene\NameEntryScene.h"
 				>
 			</File>
 			<File

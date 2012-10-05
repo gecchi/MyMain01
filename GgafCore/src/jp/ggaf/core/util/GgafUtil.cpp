@@ -390,15 +390,15 @@ std::string GgafUtil::padZeroStr(int prm_data_num, int prm_total_keta) {
 }
 
 std::string GgafUtil::getSystemDateTimeStr() {
-      struct tm *date;
-      time_t now;
-      time(&now);
-      date = localtime(&now);
-      char buf[20];
-      sprintf(buf, "%04d/%02d/%02d %02d:%02d:%02d\n",
-              date->tm_year + 1900, date->tm_mon + 1,  date->tm_mday,
-              date->tm_hour, date->tm_min, date->tm_sec);
-      std::string str(buf);
-      return str;
+    struct tm *date;
+    time_t now;
+    time(&now);
+    date = localtime(&now);
+    char buf[20];
+    sprintf(buf, "%04d/%02d/%02d %02d:%02d:%02d",
+            date->tm_year + 1900, date->tm_mon + 1, date->tm_mday,
+            date->tm_hour, date->tm_min, date->tm_sec);
+    std::string str(buf);
+    return str;
 }
 

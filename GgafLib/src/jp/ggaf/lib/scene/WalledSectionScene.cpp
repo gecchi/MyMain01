@@ -156,7 +156,6 @@ WallPartsActor* WalledSectionScene::getLastWallParts() {
 }
 
 WalledSectionScene::~WalledSectionScene() {
-    _TRACE_("‚Å‚·‚Æ‚ç‚­‚½ WalledSectionScene::~WalledSectionScene()="<<this);
     for (int i = 0; i < _area_len; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaWallInfo[i]);
     }

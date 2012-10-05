@@ -23,16 +23,16 @@ void GameOverScene::initialize() {
 
 void GameOverScene::processBehavior() {
 
-    switch (_pProg->getPrev_WhenJustChanged()) {
-        case GameOverScene::PROG_DISP: {
-            fadeoutScene(FADE_FRAMES);
-            inactivateDelay(FADE_FRAMES);
-            break;
-        }
-
-        default:
-            break;
-    }
+//    switch (_pProg->getPrev_WhenJustChanged()) {
+//        case GameOverScene::PROG_DISP: {
+//            fadeoutScene(FADE_FRAMES);
+//            inactivateDelay(FADE_FRAMES);
+//            break;
+//        }
+//
+//        default:
+//            break;
+//    }
 
 
     switch (_pProg->get()) {
@@ -46,7 +46,9 @@ void GameOverScene::processBehavior() {
                 pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
                 int last_score = STOI(GameGlobal::qryScoreRanking_.getVal("SCORE",GameGlobal::qryScoreRanking_.getCount()-1)); //現在のハイスコアの最低スコア
+                _TRACE_("GameGlobal::score_="<<GameGlobal::score_<<" ? last_score="<<last_score);
                 if (GameGlobal::score_ > last_score) {
+                    _TRACE_("HIGHSCORE!!!!");
                     //ランクインのため、ネームエントリーシーン準備
                     orderSceneToFactory(ORDER_ID_NAMEENTRYSCENE, NameEntryScene, "NameEntryScene");
                     need_name_entry_ = true;
@@ -56,6 +58,7 @@ void GameOverScene::processBehavior() {
             }
             if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 420) {
                 if (need_name_entry_) {
+                    _TRACE_("_pProg->change(GameOverScene::PROG_NAMEENTRY);");
                     _pProg->change(GameOverScene::PROG_NAMEENTRY);
                 } else {
                     throwEventToUpperTree(EVENT_GAMEOVERSCENE_FINISH);
@@ -69,8 +72,6 @@ void GameOverScene::processBehavior() {
              if (_pProg->isJustChanged()) {
                  NameEntryScene* pScene = (NameEntryScene*)obtainSceneFromFactory(ORDER_ID_NAMEENTRYSCENE);
                  addSubLast(pScene);
-                 pScene->fadeoutScene(0);
-                 pScene->fadeinSceneTree(120);
              }
              //イベント待ち
              break;
