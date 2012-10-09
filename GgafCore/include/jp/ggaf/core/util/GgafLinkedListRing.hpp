@@ -4,7 +4,7 @@ namespace GgafCore {
 
 /**
  * 環状双方向連結リスト(イテレータ付き)を構築。.
- * <[B]>【解説】</[B]><BR>
+ * <B>【解説】</B><BR>
  * 例えば、次のようなコードを書くと
  * <pre><code>
  * Object* A = new Object();

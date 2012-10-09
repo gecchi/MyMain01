@@ -46,7 +46,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     //メニューアイテム（選択不可）設定
     LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("message");
     pMsg->update("[PAUSE MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispActor(pMsg, PX_C(100), PX_C(20), -1);
+    addDispItem(pMsg, PX_C(100), PX_C(20), -1);
     //特別なメニューカーソルオーダーを構築
     relationItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1       );
     relationItemExNext(ITEM_DUMMY1       , ITEM_DUMMY5       );
@@ -60,7 +60,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     relationItemExNext(ITEM_QUIT_GAME    , ITEM_DUMMY4       );
     relationItemExNext(ITEM_DUMMY4       , ITEM_HOGEHOGE     );
     relationItemExNext(ITEM_HOGEHOGE     , ITEM_BACK_TO_GAME );
-    relationItemCancel(ITEM_BACK_TO_GAME);
+    relationAllItemCancel(ITEM_BACK_TO_GAME);
 
     //メニューカーソルを設定
     CursorPauseMenu* pCursor = NEW CursorPauseMenu("CursorPauseMenu");

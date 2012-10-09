@@ -61,7 +61,7 @@ papOptionCtrlr_(NULL) {
     //z_ = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     //z_ = 0.9999999f;
 
-    zanki_ = 3;
+    zanki_ = 0;
     useProgress(10);
 
 }
@@ -72,7 +72,7 @@ void MyShipScene::initialize() {
 
 void MyShipScene::onReset() {
     _TRACE_("MyShipScene onReset()");
-    zanki_ = 3;
+    zanki_ = 1;
     pMyShip_->resetTree();
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
         papOptionCtrlr_[i]->resetTree();

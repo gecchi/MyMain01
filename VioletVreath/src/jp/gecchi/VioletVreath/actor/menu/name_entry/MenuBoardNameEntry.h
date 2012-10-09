@@ -14,9 +14,9 @@ class MenuBoardNameEntry : public MenuBoard {
 public:
     int ITEM_OK;
     int ITEM_BS;
-
     MenuBoardConfirm* pConfirmMenu_;
     LabelGecchi32Font* pLabelInputedName_;
+    LabelGecchi32Font* pLabelSelectedChar_;
 
     MenuBoardNameEntry(const char* prm_name);
 
@@ -24,6 +24,9 @@ public:
     bool condMoveCursorPrev() override;
     bool condMoveCursorExNext() override;
     bool condMoveCursorExPrev() override;
+    bool condDecision() override;
+    bool condCancel() override;
+
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void processBehavior() override;

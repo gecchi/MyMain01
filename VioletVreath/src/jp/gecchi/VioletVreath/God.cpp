@@ -157,5 +157,3 @@ God::~God() {
     _was_cleaned = true;
 }
 
-
-

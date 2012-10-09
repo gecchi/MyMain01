@@ -45,7 +45,8 @@ void GameOverScene::processBehavior() {
             if (_pProg->isJustChanged()) {
                 pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
-                int last_score = STOI(GameGlobal::qryScoreRanking_.getVal("SCORE",GameGlobal::qryScoreRanking_.getCount()-1)); //現在のハイスコアの最低スコア
+                std::string str_last_score = GameGlobal::qryScoreRanking_.getVal("SCORE", GameGlobal::qryScoreRanking_.getCount()-1);  //現在のハイスコアの最低スコア
+                int last_score = STOI(str_last_score);
                 _TRACE_("GameGlobal::score_="<<GameGlobal::score_<<" ? last_score="<<last_score);
                 if (GameGlobal::score_ > last_score) {
                     _TRACE_("HIGHSCORE!!!!");

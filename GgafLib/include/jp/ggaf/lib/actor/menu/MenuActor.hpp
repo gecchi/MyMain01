@@ -3,7 +3,19 @@
 namespace GgafLib {
 
 /**
- * メニューGUIテンプレート .
+ * メニュー .
+ * GUI簡易メニューを簡単に実装するためのテンプレートです。<BR>
+ * <b>【まぎらわしい用語の区別】</b><BR>
+ * ・キャンセル（メニューアイテム）… 「キャンセル」の動作が期待されるGUI部品の事を指す。（例： [Cancel] や [取り消し] のボタン自体）<BR>
+ * ・決定（振る舞い）              … ユーザー操作で、「決定」の意思を表す操作を指す。（例： [ENTER]キーや、[○]ボタンを押す事）<BR>
+ * ・キャンセル（振る舞い）        … ユーザー操作で、「キャンセル」の意思を表す操作を指す。（例： [ESC]キーや、[×]ボタンを押す事）<BR>
+ * 俗に「キャンセルした」と言われる事について、本稿での説明では、<BR>
+ * 『「キャンセル（メニューアイテム）」で、「決定（振る舞い） 」した。』<BR>
+ * というめんどくさい表現になっています。<BR>
+ * <BR>
+ * ＜注意＞<BR>
+ * 本クラスは「キャンセル（メニューアイテム）」「決定（振る舞い）」「キャンセル（振る舞い）」を特別扱いし、
+ * 様々な機能をサポートしますが、[OK]ボタン等の「決定（メニューアイテム）」についての機能は今のところありません。<BR>
  * @version 1.00
  * @since 2011/12/20
  * @author Masatoshi Tsuge
@@ -40,18 +52,18 @@ protected:
     bool _is_just_risen;
     /** フェードアウトが開始した瞬間のフレームだけ true */
     bool _is_just_sunk;
-    /** 決定した瞬間のフレームだけ true */
+    /** 「決定（振る舞い）」した瞬間のフレームだけ true */
     bool _is_just_decided;
-    /** キャンセルした瞬間のフレームだけ true */
+    /** 「キャンセル（振る舞い）」した瞬間のフレームだけ true */
     bool _is_just_cancelled;
 
     bool _will_be_rising_next_frame;
 
     bool _will_be_sinking_next_frame;
 
-    bool _will_be_just_decide_next_frame;
+    bool _will_be_just_decided_next_frame;
 
-    bool _will_be_just_cancel_next_frame;
+    bool _will_be_just_cancelled_next_frame;
 
     bool _can_controll;
 
@@ -117,7 +129,7 @@ public:
     }
 
     /**
-     * メニューアイテム(選択可能)を追加する .
+     * 選択可能メニューアイテムを追加する .
      * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
      * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。
      * @param prm_pItem メニューアイテム
@@ -128,7 +140,7 @@ public:
     virtual void addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                                coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
     /**
-     * メニューアイテム(選択可能)を追加する .
+     * 選択可能メニューアイテム追加する .
      * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
      * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。<BR>
      * 【注意】Z座標は、オフセット0が設定される。つまりアイテムの絶対Z座標は、現在のメニューのZ座標と一致する。
@@ -143,25 +155,25 @@ public:
     }
 
     /**
-     * 表示用アクター(選択不可)を追加する .
+     * 選択不可の表示用メニューアイテムを追加する .
      * @param prm_pItem 表示用アイテム
      * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      * @param prm_Z_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Z座標
      */
-    virtual void addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+    virtual void addDispItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                               coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
     /**
-     * 表示用アクター(選択不可)を追加する .
+     * 選択不可の表示用メニューアイテムを追加する .
      * 【注意】Z座標は、オフセット0が設定される。つまり表示用アクターの絶対Z座標は、現在のメニューのZ座標と一致する。
      * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定したほうが良い。
      * @param prm_pItem 表示用アイテム
      * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      */
-    virtual void addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+    virtual void addDispItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                               coord prm_X_local, coord prm_Y_local) {
-        addDispActor(prm_pItem, prm_X_local, prm_Y_local, 0);
+        addDispItem(prm_pItem, prm_X_local, prm_Y_local, 0);
     }
 
     /**
@@ -216,18 +228,20 @@ public:
     virtual void relationItemExPrev(int prm_index_of_fromitem, int prm_index_of_toitem);
 
     /**
-     * キャンセルのメニューアイテムを設定する。
-     * @param prm_index_of_cancel_item キャンセルアイテムのインデックス
+     * 既存アイテム全てに対し、「キャンセル（メニューアイテム）」へのオーダー連結を拡張設定する .
+     * @param prm_index_of_cancel_item キャンセルアイテムへのアイテムインデックス
      */
-    virtual void relationItemCancel(int prm_index_of_cancel_item);
+    virtual void relationAllItemCancel(int prm_index_of_cancel_item);
 
     /**
-     * カーソルを取得 .
-     * @return
+     * メニューに設定されているカーソルを取得 .
+     * @return カーソルオブジェクト
      */
     virtual GgafDxCore::GgafDxDrawableActor* getCursor();
+
     /**
-     * 指定のインデックスのメニューアイテムに、カーソルが移動 .
+     * 指定のインデックスのメニューアイテムへ、カーソルをセット .
+     * 内部で moveCursor() がコールバックされ、カーソルが移動することになる。
      * 既に指定のインデックス選択中の場合はカーソルは何も移動無し。
      * @param prm_index ターゲットのアイテムインデックス
      * @return アイテムインデックスのアイテムオブジェクト
@@ -241,7 +255,7 @@ public:
     virtual int getSelectedIndex();
 
     /**
-     * 「決定（振る舞い）」が行われた時に、決定されたアイテムのインデックスを返します .
+     * 「決定（振る舞い）」が行われた時に、決定されたメニューアイテムのインデックスを返します .
      * ＜メニューの選択項目が決定された場合の処理記述コードの場所について＞<BR>
      * processBehavior() で getDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
      * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
@@ -251,7 +265,7 @@ public:
     virtual int getDecidedIndex();
 
     /**
-     * 「キャンセル（振る舞い）」が行われた時に、決定されたアイテムのインデックスを返します .
+     * 「キャンセル（振る舞い）」が行われた時に、決定されたメニューアイテムのインデックスを返します .
      * ＜メニューの選択項目がキャンセルされた場合の処理記述コードの場所について＞<BR>
      * processBehavior() で getCancelledIndex() の戻り値を毎フレーム調べることで、キャンセル時の処理を記述することが可能。<BR>
      * もちろん onCancel() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
@@ -268,6 +282,24 @@ public:
 
 
     virtual MenuActor<T>* getSubMenu();
+
+    /**
+     * 「決定（振る舞い）」した、という事の成立条件を実装する .
+     * 下位クラスでオーバーライドして、条件を実装してください。 <BR>
+     * 同一フレームで condDecision() と condCancel() の条件成立はどちらか一方が成立し、
+     * 判定優先順位は、condDecision() の方が先です。<BR>
+     * @return 「決定（振る舞い）」の条件成立 / false:不成立
+     */
+    virtual bool condDecision() = 0;
+
+    /**
+     * 「キャンセル（振る舞い）」した、という事の成立条件を実装する .
+     * 下位クラスでオーバーライドして、条件を実装してください。<BR>
+     * 同一フレームで condDecision() と condCancel() の条件成立はどちらか一方が成立し、
+     * 判定優先順位は、condDecision() の方が先です。<BR>
+     * @return 「キャンセル（振る舞い）」の条件成立 / false:不成立
+     */
+    virtual bool condCancel() = 0;
     /**
      * カーソルが「次のメニューアイテム」へ移動する条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
@@ -303,23 +335,9 @@ public:
      */
     virtual bool condMoveCursorCancel() = 0;
 
-    /**
-     * カーソル選択中のメニューアイテムを「決定（振る舞い）」した、という事の成立条件を実装する .
-     * 下位クラスでオーバーライドして、条件を実装してください。
-     * @return 「決定」の条件成立 / false:不成立
-     */
-    virtual bool condDecision() = 0;
 
     /**
-     * カーソル選択中のメニューアイテムを「キャンセル（振る舞い）」した、という事の成立条件を実装する .
-     * 下位クラスでオーバーライドして、条件を実装してください。
-     * @return
-     */
-    virtual bool condCancel() = 0;
-
-
-    /**
-     * メニューアイテムを選択し「決定（振る舞い）」された場合に呼び出されるコールバック。
+     * 「決定（振る舞い）」された場合に呼び出されるコールバック。
      * 動作をオーバーライドして実装してください。<BR>
      * ＜メニューの選択項目が決定された場合の処理記述コードの場所について＞<BR>
      * processBehavior() で、getDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
@@ -331,7 +349,7 @@ public:
     virtual void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) = 0;
 
     /**
-     * メニューアイテムを選択し「キャンセル（振る舞い）」された場合に呼び出されるコールバック。
+     * 「キャンセル（振る舞い）」された場合に呼び出されるコールバック。
      * 動作をオーバーライドして実装してください。<BR>
      * ＜メニューの選択項目がキャンセルされた場合の処理記述コードの場所について＞<BR>
      * processBehavior() で、getCancelIndex() の戻り値を毎フレーム調べることで、キャンセル時の処理を記述することが可能。<BR>
@@ -475,8 +493,8 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _is_just_cancelled = false;
     _will_be_rising_next_frame = false;
     _will_be_sinking_next_frame = false;
-    _will_be_just_decide_next_frame = false;
-    _will_be_just_cancel_next_frame = false;
+    _will_be_just_decided_next_frame = false;
+    _will_be_just_cancelled_next_frame = false;
     _can_controll = false;
     _will_be_able_to_controll = false;
     _pActiveSubMenu = NULL;
@@ -515,17 +533,17 @@ void MenuActor<T>::nextFrame() {
     }
 
     _is_just_decided = false;
-    if (_will_be_just_decide_next_frame) {
+    if (_will_be_just_decided_next_frame) {
         onDecision(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
         _is_just_decided = true;
-        _will_be_just_decide_next_frame = false;
+        _will_be_just_decided_next_frame = false;
     }
 
     _is_just_cancelled = false;
-    if (_will_be_just_cancel_next_frame) {
+    if (_will_be_just_cancelled_next_frame) {
         onDecision(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
         _is_just_cancelled = true;
-        _will_be_just_cancel_next_frame = false;
+        _will_be_just_cancelled_next_frame = false;
     }
 
 
@@ -545,7 +563,7 @@ void MenuActor<T>::addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
 }
 
 template<class T>
-void MenuActor<T>::addDispActor(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+void MenuActor<T>::addDispItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                                 coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
     prm_pItem->_X_local = prm_X_local;
     prm_pItem->_Y_local = prm_Y_local;
@@ -585,7 +603,7 @@ void MenuActor<T>::relationItemExPrev(int prm_index_of_fromitem, int prm_index_o
 }
 
 template<class T>
-void MenuActor<T>::relationItemCancel(int prm_index_of_cancel_item) {
+void MenuActor<T>::relationAllItemCancel(int prm_index_of_cancel_item) {
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pCancelElem =
             _lstItems.getElemFromFirst(prm_index_of_cancel_item);
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem =
@@ -602,6 +620,11 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::setSelectedItemIndex(int prm_inde
     if (n == prm_index) {
         return _lstItems.getCurrent();
     } else {
+#ifdef MY_DEBUG
+        if (_lstItems.length() <= prm_index) {
+            throwGgafCriticalException("MenuActor<T>::setSelectedItemIndex() メニューアイテム要素数オーバー name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
+        }
+#endif
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.current(prm_index);
         moveCursor();
         return pTargetItem;
@@ -819,9 +842,9 @@ void MenuActor<T>::processBehavior() {
 
     if (_can_controll && T::getActivePartFrame() > 2) {
         if (condDecision()) {
-            _will_be_just_decide_next_frame = true;
+            _will_be_just_decided_next_frame = true;
         } else if (condCancel()) {
-            _will_be_just_cancel_next_frame = true;
+            _will_be_just_cancelled_next_frame = true;
         } else if (condMoveCursorNext()) {
             moveCursorNext();
         } else if (condMoveCursorPrev()) {

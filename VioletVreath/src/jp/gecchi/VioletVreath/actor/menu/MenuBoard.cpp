@@ -28,6 +28,35 @@ void MenuBoard::setTransition(frame prm_menu_fade_frames,
     slide_from_offset_Y_ = prm_slide_from_offset_Y;
 }
 
+bool MenuBoard::condDecision() {
+    if (VB->isPushedDown(VB_UI_EXECUTE)) {
+        //「メニューアイテム：任意」で、VB_UI_EXECUTE ボタンの場合は
+        //そのアイテムを「決定」した事とする。(当たり前だが)
+        _pSeTxer->play(SE_DECIDED_NOMAL);
+        return true;
+    } else if (VB->isPushedDown(VB_UI_CANCEL) &&
+               _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != NULL &&
+               _lstItems.getCurrent() == _lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
+        //特別に「メニューアイテム：キャンセル」にカーソルがある場合でかつ、VB_UI_CANCEL ボタンの場合は、
+        //「メニューアイテム：キャンセル」を「決定」したことにする。
+        //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの定義は、
+        //relationAllItemCancel() で定義されたアイテムのインデックスかどうかで判断。
+        _pSeTxer->play(SE_DECIDED_CANCEL);
+        return true;
+    } else {
+        return false;
+    }
+}
+bool MenuBoard::condCancel() {
+    if (VB->isPushedDown(VB_UI_CANCEL)) {
+        //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
+        //そのアイテムを「キャンセル」した事とする。(当たり前だが)
+        _pSeTxer->play(SE_DECIDED_CANCEL);
+        return true;
+    } else {
+        return false;
+    }
+}
 bool MenuBoard::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
@@ -60,37 +89,6 @@ void MenuBoard::riseSub(MenuBoard* prm_pSubMenu,
                         coord prm_target_X, coord prm_target_Y) {
     prm_pSubMenu->locate(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::rise() に来た時にターゲット設定される
     StringBoardMenu::riseSub(prm_pSubMenu);
-}
-
-bool MenuBoard::condDecision() {
-    if (VB->isPushedDown(VB_UI_EXECUTE)) {
-        //「メニューアイテム：任意」で、VB_UI_EXECUTE ボタンの場合は
-        //そのアイテムを「決定」した事とする。(当たり前だが)
-        _pSeTxer->play(SE_DECIDED_NOMAL);
-        return true;
-    } else if (VB->isPushedDown(VB_UI_CANCEL) &&
-               _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != NULL &&
-               _lstItems.getCurrent() == _lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
-        //特別に「メニューアイテム：キャンセル」にカーソルがある場合でかつ、VB_UI_CANCEL ボタンの場合は、
-        //「メニューアイテム：キャンセル」を「決定」したことにする。
-        //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの定義は、
-        //relationItemCancel() で定義されたアイテムのインデックスかどうかで判断。
-        _pSeTxer->play(SE_DECIDED_CANCEL);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool MenuBoard::condCancel() {
-    if (VB->isPushedDown(VB_UI_CANCEL)) {
-        //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
-        //そのアイテムを「キャンセル」した事とする。(当たり前だが)
-        _pSeTxer->play(SE_DECIDED_CANCEL);
-        return true;
-    } else {
-        return false;
-    }
 }
 
 void MenuBoard::moveCursor() {

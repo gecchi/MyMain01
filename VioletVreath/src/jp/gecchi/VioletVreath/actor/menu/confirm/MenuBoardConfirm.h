@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * 確認メニュー .
+ * 初期選択[OK]の確認メニュー .
  * @version 1.00
  * @since 2011/12/27
  * @author Masatoshi Tsuge

@@ -29,7 +29,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
         addSelectItem(pLabel, PX_C(100), PX_C(30+(i*18)), -1);
     }
     //キャンセル押下時移動先アイテム
-    relationItemCancel(ITEM_QUIT);
+    relationAllItemCancel(ITEM_QUIT);
     //カーソル設定
     CursorTitleMenu* pCursor = NEW CursorTitleMenu("CursorTitleMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);

@@ -36,14 +36,13 @@ public:
     void setTransition(frame prm_menu_fade_frames,
                        coord prm_slide_from_offset_X, coord prm_slide_from_offset_Y);
 
-
+    virtual bool condDecision() override;
+    virtual bool condCancel() override;
     virtual bool condMoveCursorNext() override;
     virtual bool condMoveCursorPrev() override;
     virtual bool condMoveCursorExNext() override;
     virtual bool condMoveCursorExPrev() override;
     virtual bool condMoveCursorCancel() override;
-    virtual bool condDecision() override;
-    virtual bool condCancel() override;
 
     virtual void moveCursor() override;
 
