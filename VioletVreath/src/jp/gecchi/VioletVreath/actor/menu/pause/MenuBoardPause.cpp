@@ -48,19 +48,11 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     pMsg->update("[PAUSE MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
     addDispItem(pMsg, PX_C(100), PX_C(20), -1);
     //特別なメニューカーソルオーダーを構築
-    relationItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1       );
-    relationItemExNext(ITEM_DUMMY1       , ITEM_DUMMY5       );
-    relationItemExNext(ITEM_DUMMY5       , ITEM_CONFIG       );
-    relationItemExNext(ITEM_CONFIG       , ITEM_DUMMY2       );
-    relationItemExNext(ITEM_DUMMY2       , ITEM_DUMMY6       );
-    relationItemExNext(ITEM_DUMMY6       , ITEM_BACK_TO_TITLE);
-    relationItemExNext(ITEM_BACK_TO_TITLE, ITEM_DUMMY3       );
-    relationItemExNext(ITEM_DUMMY3       , ITEM_DUMMY7       );
-    relationItemExNext(ITEM_DUMMY7       , ITEM_QUIT_GAME    );
-    relationItemExNext(ITEM_QUIT_GAME    , ITEM_DUMMY4       );
-    relationItemExNext(ITEM_DUMMY4       , ITEM_HOGEHOGE     );
-    relationItemExNext(ITEM_HOGEHOGE     , ITEM_BACK_TO_GAME );
-    relationAllItemCancel(ITEM_BACK_TO_GAME);
+    relateItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1, ITEM_DUMMY5  , ITEM_CONFIG       );
+    relateItemExNext(ITEM_CONFIG       , ITEM_DUMMY2, ITEM_DUMMY6  , ITEM_BACK_TO_TITLE);
+    relateItemExNext(ITEM_BACK_TO_TITLE, ITEM_DUMMY3, ITEM_DUMMY7  , ITEM_QUIT_GAME    );
+    relateItemExNext(ITEM_QUIT_GAME    , ITEM_DUMMY4, ITEM_HOGEHOGE, ITEM_BACK_TO_GAME );
+    relateAllItemCancel(ITEM_BACK_TO_GAME);
 
     //メニューカーソルを設定
     CursorPauseMenu* pCursor = NEW CursorPauseMenu("CursorPauseMenu");

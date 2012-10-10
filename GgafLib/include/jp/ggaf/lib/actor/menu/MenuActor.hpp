@@ -101,6 +101,8 @@ public:
     GgafDxCore::GgafDxDrawableActor* _pCursor;
     /** [r]その他表示アイテムのリスト */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _lstDispActors;
+    /** [r]メニューアイテムインデックスのヒストリー */
+    GgafCore::GgafLinkedListRing<int> _lstMoveHistory;
     /** [r/w]メニューフェイドイン・アウト時のアルファ速度 */
     float _velo_alpha_fade;
     /** [r]カーソルが、メニューアイテム間を移動する際に費やすスフレーム数 */
@@ -211,8 +213,44 @@ public:
      * @param prm_index_of_toitem 連結元のメニューアイテムのインデックスから
      *                            「次」に対応する連結先のメニューアイテムのインデックス
      */
-    virtual void relationItemExNext(int prm_index_of_fromitem, int prm_index_of_toitem);
-//    virtual void relationItemExNext(int prm_index_of_fromitem, ...);
+    virtual void relateItemExNext(int prm_index_of_fromitem, int prm_index_of_toitem);
+
+    /**
+     * メニューアイテム間のオーダー連結を拡張設定(From ⇔ To) .
+     * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
+     * @param prm_index_of_item2 拡張連結するメニューアイテムのインデックス2
+     * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
+     */
+    virtual void relateItemExNext(int prm_index_of_item1,
+                                    int prm_index_of_item2,
+                                    int prm_index_of_item3);
+    /**
+     * メニューアイテム間のオーダー連結を拡張設定(From ⇔ To) .
+     * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
+     * @param prm_index_of_item2 拡張連結するメニューアイテムのインデックス2
+     * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
+     * @param prm_index_of_item4 拡張連結するメニューアイテムのインデックス4
+     */
+    virtual void relateItemExNext(int prm_index_of_item1,
+                                    int prm_index_of_item2,
+                                    int prm_index_of_item3,
+                                    int prm_index_of_item4);
+    /**
+     * メニューアイテム間のオーダー連結を拡張設定(From ⇔ To) .
+     * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
+     * @param prm_index_of_item2 拡張連結するメニューアイテムのインデックス2
+     * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
+     * @param prm_index_of_item4 拡張連結するメニューアイテムのインデックス4
+     * @param prm_index_of_item5 拡張連結するメニューアイテムのインデックス5
+     */
+    virtual void relateItemExNext(int prm_index_of_item1,
+                                    int prm_index_of_item2,
+                                    int prm_index_of_item3,
+                                    int prm_index_of_item4,
+                                    int prm_index_of_item5);
+
+
+//    virtual void relateItemExNext(int prm_index_of_fromitem, ...);
 
     /**
      * メニューアイテム間のオーダー連結を拡張設定(From ⇔ 自身がTo) .
@@ -225,13 +263,13 @@ public:
      * @param prm_index_of_toitem 連結元のメニューアイテムのインデックスから
      *                            「前」に対応する連結先のメニューアイテムのインデックス
      */
-    virtual void relationItemExPrev(int prm_index_of_fromitem, int prm_index_of_toitem);
+    virtual void relateItemExPrev(int prm_index_of_fromitem, int prm_index_of_toitem);
 
     /**
      * 既存アイテム全てに対し、「キャンセル（メニューアイテム）」へのオーダー連結を拡張設定する .
      * @param prm_index_of_cancel_item キャンセルアイテムへのアイテムインデックス
      */
-    virtual void relationAllItemCancel(int prm_index_of_cancel_item);
+    virtual void relateAllItemCancel(int prm_index_of_cancel_item);
 
     /**
      * メニューに設定されているカーソルを取得 .
@@ -250,9 +288,17 @@ public:
 
     /**
      * 現在カーソルが選択中のアイテムのインデックスを取得 .
-     * @return 選択中のアイテムオブジェクト
+     * @return 選択中のアイテムオブジェクトのインデックス
      */
     virtual int getSelectedIndex();
+
+    /**
+     * 過去にカーソルが選択中だったアイテムのインデックスを取得 .
+     * getSelectedPrevIndex(0) は getSelectedIndex() と同じです。
+     * @param prm_n 幾つ過去のカーソル位置か(0 ～)
+     * @return 選択中だったのアイテムオブジェクトのインデックス
+     */
+    virtual int getSelectedPrevIndex(int prm_n);
 
     /**
      * 「決定（振る舞い）」が行われた時に、決定されたメニューアイテムのインデックスを返します .
@@ -498,6 +544,9 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _can_controll = false;
     _will_be_able_to_controll = false;
     _pActiveSubMenu = NULL;
+    for (int i = 0; i < 10; i++) {
+        _lstMoveHistory.addLast(new int(0), true);
+    }
     T::inactivateImmed(); //メニューなので、初期状態は非活動状態をデフォルトとする
 }
 template<class T>
@@ -541,11 +590,10 @@ void MenuActor<T>::nextFrame() {
 
     _is_just_cancelled = false;
     if (_will_be_just_cancelled_next_frame) {
-        onDecision(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
+        onCancel(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
         _is_just_cancelled = true;
         _will_be_just_cancelled_next_frame = false;
     }
-
 
     _can_controll = _will_be_able_to_controll;
 }
@@ -575,15 +623,43 @@ void MenuActor<T>::addDispItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
 }
 
 template<class T>
-void MenuActor<T>::relationItemExNext(int prm_index_of_fromitem, int prm_index_of_toitem) {
+void MenuActor<T>::relateItemExNext(int prm_index_of_fromitem, int prm_index_of_toitem) {
     _lstItems.getElemFromFirst(prm_index_of_fromitem)->connect(
             ITEM_RELATION_EX_NEXT, _lstItems.getElemFromFirst(prm_index_of_toitem));
     _lstItems.getElemFromFirst(prm_index_of_toitem)->connect(
             ITEM_RELATION_EX_PREV, _lstItems.getElemFromFirst(prm_index_of_fromitem));
 }
 
+template<class T>
+void MenuActor<T>::relateItemExNext(int prm_index_of_item1,
+                                      int prm_index_of_item2,
+                                      int prm_index_of_item3 ) {
+    relateItemExNext(prm_index_of_item1, prm_index_of_item2);
+    relateItemExNext(prm_index_of_item2, prm_index_of_item3);
+}
+
+template<class T>
+void MenuActor<T>::relateItemExNext(int prm_index_of_item1,
+                                      int prm_index_of_item2,
+                                      int prm_index_of_item3,
+                                      int prm_index_of_item4 ) {
+    relateItemExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3);
+    relateItemExNext(prm_index_of_item3, prm_index_of_item4);
+}
+
+template<class T>
+void MenuActor<T>::relateItemExNext(int prm_index_of_item1,
+                                      int prm_index_of_item2,
+                                      int prm_index_of_item3,
+                                      int prm_index_of_item4,
+                                      int prm_index_of_item5 ) {
+    relateItemExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3, prm_index_of_item4);
+    relateItemExNext(prm_index_of_item4, prm_index_of_item5);
+}
+
+
 //template<class T>
-//void MenuActor<T>::relationItemExNext(int prm_index_of_fromitem, ...) {
+//void MenuActor<T>::relateItemExNext(int prm_index_of_fromitem, ...) {
 //    va_list pArg;
 //    va_start(pArg, prm_index_of_fromitem);         //可変長引数操作開始
 //        va_arg( argptr, int );
@@ -595,7 +671,7 @@ void MenuActor<T>::relationItemExNext(int prm_index_of_fromitem, int prm_index_o
 
 
 template<class T>
-void MenuActor<T>::relationItemExPrev(int prm_index_of_fromitem, int prm_index_of_toitem) {
+void MenuActor<T>::relateItemExPrev(int prm_index_of_fromitem, int prm_index_of_toitem) {
     _lstItems.getElemFromFirst(prm_index_of_fromitem)->connect(
             ITEM_RELATION_EX_PREV, _lstItems.getElemFromFirst(prm_index_of_toitem));
     _lstItems.getElemFromFirst(prm_index_of_toitem)->connect(
@@ -603,7 +679,7 @@ void MenuActor<T>::relationItemExPrev(int prm_index_of_fromitem, int prm_index_o
 }
 
 template<class T>
-void MenuActor<T>::relationAllItemCancel(int prm_index_of_cancel_item) {
+void MenuActor<T>::relateAllItemCancel(int prm_index_of_cancel_item) {
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pCancelElem =
             _lstItems.getElemFromFirst(prm_index_of_cancel_item);
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem =
@@ -651,6 +727,7 @@ void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
     _cursor_move_frames = prm_cursor_move_frames;
     _cursor_move_p1 = prm_cursor_move_p1;
     _cursor_move_p2 = prm_cursor_move_p2;
+    *(_lstMoveHistory.current(0)) = _lstItems.getCurrentIndex();
 }
 
 template<class T>
@@ -661,6 +738,11 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getCursor() {
 template<class T>
 int MenuActor<T>::getSelectedIndex() {
     return _lstItems.getCurrentIndex();
+}
+
+template<class T>
+int MenuActor<T>::getSelectedPrevIndex(int prm_n) {
+    return (*(_lstMoveHistory.getPrev(prm_n)));
 }
 
 template<class T>
@@ -773,6 +855,8 @@ void MenuActor<T>::moveCursor() {
         _X_cursor_target_prev = pTargetItem->_X;
         _Y_cursor_target_prev = pTargetItem->_Y;
         _Z_cursor_target_prev = pTargetItem->_Z;
+
+        *(_lstMoveHistory.next()) = _lstItems.getCurrentIndex();
     }
 }
 

@@ -40,7 +40,7 @@ bool MenuBoard::condDecision() {
         //特別に「メニューアイテム：キャンセル」にカーソルがある場合でかつ、VB_UI_CANCEL ボタンの場合は、
         //「メニューアイテム：キャンセル」を「決定」したことにする。
         //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの定義は、
-        //relationAllItemCancel() で定義されたアイテムのインデックスかどうかで判断。
+        //relateAllItemCancel() で定義されたアイテムのインデックスかどうかで判断。
         _pSeTxer->play(SE_DECIDED_CANCEL);
         return true;
     } else {

@@ -432,7 +432,7 @@ public:
     virtual T* last();
 
     /**
-     * カレント要素を指定インデックスに移動させ、その要素の値を得る .
+     * カレント要素を指定の先頭要素からの絶対インデックスに移動させ、その要素の値を得る .
      * <pre>
      * ---「実行前」--------------------------
      * ([E])⇔[A]⇔[B]⇔[C]!⇔[D]⇔[E]⇔([A])
@@ -443,6 +443,7 @@ public:
      *         0    1     2    3    4
      * ---------------------------------------
      * </pre>
+     * @param n 先頭要素からの絶対インデックス
      * @return カレント要素が移動した後の、その要素の値
      */
     virtual T* current(int n);
@@ -647,11 +648,17 @@ public:
      * ---「実行後」--------------------------
      * ([E])⇔[A]⇔[B]⇔[X]!⇔[D]⇔[E]⇔([A])
      * ---------------------------------------
+     *
+     * ※但し、上書き前の元の要素設定時に、自動 delete フラグをセットにしていた場合、
+     * 本メソッド実行時に内部で delete され、戻り値には NULLが返ります。
      * </pre>
-     * 元の要素の値の解放は呼び元で行って下さい。
-     * @return 上書きされる前の要素の値(解放に利用する事を想定)
+     * 戻り値が NULL。
+     * @param prm_pVal 新しい要素の値
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の要素値についてもdeleteを発行する。
+     *                            false : リストのdelete時に、引数の要素値について何も行わない。
+     * @return 自動 delete の場合 NULL ／ 自動 delete ではない場合、上書きされる前の要素(解放に利用される事を想定。)
      */
-    virtual T* set(T* prm_pVal);
+    virtual T* set(T* prm_pVal, bool prm_is_delete_value = true);
 
     /**
      * カレント要素を抜き取る .
@@ -1098,10 +1105,17 @@ bool GgafLinkedListRing<T>::isFirst() {
 }
 
 template<class T>
-T* GgafLinkedListRing<T>::set(T* prm_pVal) {
-    T* ret = _pElemActive->_pValue;
+T* GgafLinkedListRing<T>::set(T* prm_pVal, bool prm_is_delete_value) {
+    T* pValue = _pElemActive->_pValue;
+    bool is_delete_value = _pElemActive->_is_delete_value;
     _pElemActive->_pValue = prm_pVal;
-    return ret;
+    _pElemActive->_is_delete_value = prm_is_delete_value;
+    if (is_delete_value) {
+        DELETE_IMPOSSIBLE_NULL(pValue);
+        return NULL;
+    } else {
+        return pValue;
+    }
 }
 
 template<class T>
@@ -1139,7 +1153,7 @@ T* GgafLinkedListRing<T>::remove() {
 template<class T>
 int GgafLinkedListRing<T>::removeAll() {
     Elem* pElem = _pElemFirst;
-	int n = 0;
+    int n = 0;
     while (pElem) {
         if (pElem->_is_last_flg) {
             DELETE_IMPOSSIBLE_NULL(pElem);
@@ -1153,7 +1167,7 @@ int GgafLinkedListRing<T>::removeAll() {
     _num_elem = 0;
     _pElemActive = NULL;
     _pElemFirst = NULL;
-	return n;
+    return n;
 }
 
 template<class T>

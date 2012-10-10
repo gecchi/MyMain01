@@ -27,7 +27,7 @@ MenuBoardConfirm::MenuBoardConfirm(const char* prm_name) :
     LabelGecchi16Font* pLabel_msg = NEW LabelGecchi16Font("message");
     pLabel_msg->update("ARE YOU SURE ?", ALIGN_CENTER, VALIGN_MIDDLE);
     addDispItem(pLabel_msg, PX_C(150), PX_C(20), -1);
-    relationAllItemCancel(ITEM_CANCEL);
+    relateAllItemCancel(ITEM_CANCEL);
     CursorConfirmMenu* pCursor = NEW CursorConfirmMenu("CursorConfirmMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);

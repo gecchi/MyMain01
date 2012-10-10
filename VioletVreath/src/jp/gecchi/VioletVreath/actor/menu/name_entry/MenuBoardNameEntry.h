@@ -12,8 +12,8 @@ namespace VioletVreath {
 class MenuBoardNameEntry : public MenuBoard {
 
 public:
-    int ITEM_OK;
-    int ITEM_BS;
+    int ITEM_NO_OK_;
+    int ITEM_NO_BS_;
     MenuBoardConfirm* pConfirmMenu_;
     LabelGecchi32Font* pLabelInputedName_;
     LabelGecchi32Font* pLabelSelectedChar_;
@@ -26,6 +26,11 @@ public:
     bool condMoveCursorExPrev() override;
     bool condDecision() override;
     bool condCancel() override;
+
+    void moveCursorNext() override;
+    void moveCursorPrev() override;
+    void moveCursorExNext() override;
+    void moveCursorExPrev() override;
 
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;

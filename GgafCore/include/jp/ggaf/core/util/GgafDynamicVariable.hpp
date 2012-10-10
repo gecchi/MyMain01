@@ -13,8 +13,6 @@ public:
 
     /**
      * コンストラクタ .
-     * 拡張関連要素数とは、next prev 以外にリレーションを行う枝数です。
-     * @param prm_extend_relation_num 拡張関連要素数
      */
     GgafDynamicVariable(T* prm_variable, T prm_max_velo, T prm_max_acce);
 

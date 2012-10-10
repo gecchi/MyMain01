@@ -25,41 +25,31 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
          "@", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
          "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "[", "\\","]", "^", "_"
     };
-
-
     int item_index = 0;
     for (int i = ' '-' '; i <= '_'-' '; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addSelectItem(pLabel, PX_C(10 + ((i%16)*(pLabel->_chr_width_px * 2))),
-                              PX_C(200 + ((i/16)*(pLabel->_chr_height_px * 2))),
+        addSelectItem(pLabel, PX_C(10  + ((i%16)*(pLabel->_chr_width_px)*2)  ),
+                              PX_C(100 + ((i/16)*(pLabel->_chr_height_px)*2) ),
                               -1);
         item_index++;
     }
-    ITEM_BS = item_index; item_index++;
-    ITEM_OK = item_index; item_index++;
+    ITEM_NO_BS_ = item_index; item_index++;
+    ITEM_NO_OK_ = item_index; item_index++;
 
     LabelGecchi16Font* pBS = NEW LabelGecchi16Font("[BS]"); //バックスペース(キャンセル扱い)
     pBS->update("[BS]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addSelectItem(pBS, PX_C(700), PX_C(100), -1);
+    addSelectItem(pBS, PX_C(650), PX_C(100 + (pBS->_chr_height_px * 3 * 2)), -1);
 
     LabelGecchi16Font* pOK = NEW LabelGecchi16Font("[OK]"); //OK
     pOK->update("[OK]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addSelectItem(pOK, PX_C(100), PX_C(300), -1);
+    addSelectItem(pOK, PX_C(300), PX_C(300), -1);
 
     //上下オーダーを追加
     for (int i = 0; i < 16; i++) {
-        relationItemExNext(i   , i+16);
-        relationItemExNext(i+16, i+32);
-        relationItemExNext(i+32, i+48);
+        relateItemExNext(i, i+16, i+32, i+48, ITEM_NO_OK_); //最下段は↓でOKへ行く
     }
-
-    for (int i = 48; i < 48+16; i++) {
-        //最下段で↓の場合OKへ行く
-        relationItemExNext(i, ITEM_OK);
-    }
-    relationItemExNext(48+8, ITEM_OK); //OKで↑押した場合の戻り先
-
+    relateItemExNext(ITEM_NO_BS_, ITEM_NO_OK_); //[BS]から↓もOKへ行く
 
     //プレイヤー入力のネーム表示
     pLabelInputedName_ = NEW LabelGecchi32Font("InputedName");
@@ -69,15 +59,14 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     pLabelSelectedChar_->_pFader->beat(60, 30, 0, 0, -1); //チカチカ点滅
     addDispItem(pLabelSelectedChar_, PX_C(800), PX_C(300), -1);
 
-
     //メニューカーソルを設定
     CursorNameEntryMenu* pCursor = NEW CursorNameEntryMenu("CursorNameEntryMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
 
-    setSelectedItemIndex('A'-' '); //カーソルの初期選択アイテムを設定
+    setSelectedItemIndex('A'-' ');          //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジションを上から下へ少しスライド
-    relationAllItemCancel(ITEM_BS); //キャンセル押下時は、[BS]へ移動
+    relateAllItemCancel(ITEM_NO_BS_);       //キャンセル押下時は、[BS]へ移動
     pConfirmMenu_ = NEW MenuBoardConfirm("confirm"); //Yes No 問い合わせメニューを生成
     addSubLast(pConfirmMenu_);                       //サブに追加
 }
@@ -87,7 +76,7 @@ bool MenuBoardNameEntry::condDecision() {
         _pSeTxer->play(SE_DECIDED_NOMAL);
         return true;
     } else if (VB->isPushedDown(VB_UI_CANCEL) &&
-               getSelectedIndex() == ITEM_BS) {
+               getSelectedIndex() == ITEM_NO_BS_) {
         //特別に[BS]でキャンセルボタン押した場合は。[BS]を「決定（振る舞い）」したことにする
         _TRACE_("condDecision() [BS]でキャンセルなので決定にしました！");
         _pSeTxer->play(SE_DECIDED_CANCEL);
@@ -109,27 +98,93 @@ bool MenuBoardNameEntry::condCancel() {
 }
 
 bool MenuBoardNameEntry::condMoveCursorNext() {
-    return VB->isAutoRepeat(VB_UI_RIGHT);
+    if (getSelectedIndex() == ITEM_NO_BS_   ) {  //BSから先へ進めなくする
+        return false;
+    } else {
+        return VB->isAutoRepeat(VB_UI_RIGHT);
+    }
 }
 bool MenuBoardNameEntry::condMoveCursorPrev() {
-    return VB->isAutoRepeat(VB_UI_LEFT);
+    if (getSelectedIndex() == 0             ) { //先頭文字からさらに戻れなくする
+        return false;
+    } else {
+        return VB->isAutoRepeat(VB_UI_LEFT);
+    }
 }
 bool MenuBoardNameEntry::condMoveCursorExNext() {
-    return VB->isAutoRepeat(VB_UI_DOWN);
+    if (getSelectedIndex() == ITEM_NO_OK_) {
+        return false;
+    } else {
+        return VB->isAutoRepeat(VB_UI_DOWN);
+    }
 }
 bool MenuBoardNameEntry::condMoveCursorExPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
 
+
+void MenuBoardNameEntry::moveCursorNext() {
+    if (_pCursor) {
+        _pCursor->locateWith(_lstItems.getCurrent());
+    }
+    if (getSelectedIndex() == ITEM_NO_OK_) {
+        //[OK]から右で進む場合、最下段(4段目)の一番右のアイテム("_")に進む
+        _lstItems.current((16*3 + 16)-1);
+    } else {
+        _lstItems.next();
+    }
+    moveCursor();
+}
+void MenuBoardNameEntry::moveCursorPrev() {
+    if (_pCursor) {
+        _pCursor->locateWith(_lstItems.getCurrent());
+    }
+    if (getSelectedIndex() == ITEM_NO_BS_) {
+        //[BS]から左で戻る場合、元の選択アイテムに戻す
+        _lstItems.current(getSelectedPrevIndex(1));
+    } else if (getSelectedIndex() == ITEM_NO_OK_) {
+        //[OK]から左で戻る場合、最下段(4段目)の一番左のアイテム("P")に戻す
+        _lstItems.current((16*3 + 1)-1);
+    } else {
+        _lstItems.prev();
+    }
+    moveCursor();
+}
+void MenuBoardNameEntry::moveCursorExNext() {
+    if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
+        if (_pCursor) {
+            _pCursor->locateWith(_lstItems.getCurrent());
+        }
+        _lstItems.gotoRelation(ITEM_RELATION_EX_NEXT);
+        moveCursor();
+    } else {
+
+    }
+}
+void MenuBoardNameEntry::moveCursorExPrev() {
+    if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
+        if (_pCursor) {
+            _pCursor->locateWith(_lstItems.getCurrent());
+        }
+        if (getSelectedIndex() == ITEM_NO_OK_) {
+            //OKから上で戻る場合、元の選択アイテムに戻す
+            _lstItems.current(getSelectedPrevIndex(1));
+        } else {
+            _lstItems.gotoRelation(ITEM_RELATION_EX_PREV);
+        }
+        moveCursor();
+    } else {
+    }
+}
+
 void MenuBoardNameEntry::processBehavior() {
     MenuBoard::processBehavior();
-
     //サブメニュー判定
     StringBoardMenu* pSub = getSubMenu();
     if (pSub) {
         if (pSub->isJustDecided()) {
             if (pSub->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
-                if (getSelectedIndex() == ITEM_OK) {
+                if (getSelectedIndex() == ITEM_NO_OK_) {
                     //ネームエントリー完了OK
                     _TRACE_("ネームエントリー完了OK!!!");
                     std::string s = std::string(pLabelInputedName_->_draw_string);
@@ -140,10 +195,8 @@ void MenuBoardNameEntry::processBehavior() {
             } else {
             }
         } else {
-
         }
     }
-
     //カーソル文字表示
     int item_no = getSelectedIndex();
     int len = strlen(pLabelInputedName_->_draw_string);
@@ -159,10 +212,10 @@ void MenuBoardNameEntry::processBehavior() {
             a[1] = '\0';
             pLabelSelectedChar_->update(a);
         }
-    } else if (item_no == ITEM_BS) {
+    } else if (item_no == ITEM_NO_BS_) {
         //[BS]時の表示
         pLabelSelectedChar_->update("<<BS");
-    } else if (item_no == ITEM_OK) {
+    } else if (item_no == ITEM_NO_OK_) {
         //[OK]時の表示
         pLabelSelectedChar_->update(" ");
     }
@@ -175,7 +228,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
     //決定（振る舞い）の処理
     int item_no = getSelectedIndex();
     int len = strlen(pLabelInputedName_->_draw_string);
-    if (prm_item_index == ITEM_BS) {
+    if (prm_item_index == ITEM_NO_BS_) {
         //[BS]で決定（振る舞い）の処理
         if (len > 0) {
             //１文字除去する。
@@ -184,7 +237,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
         } else {
             //除去する文字はもう無い
         }
-    } else if (prm_item_index == ITEM_OK) {
+    } else if (prm_item_index == ITEM_NO_OK_) {
         //[OK]で決定（振る舞い）の処理終了
         //確認サブメニュー起動
         riseSub(pConfirmMenu_, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50));
@@ -200,7 +253,6 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
             pLabelInputedName_->update(s.c_str());
         }
     }
-
 }
 
 void MenuBoardNameEntry::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
