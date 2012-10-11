@@ -68,6 +68,7 @@ protected:
     bool _can_controll;
 
     bool _will_be_able_to_controll;
+
     /**
      * _lstItems のアクティブ要素を next() へ移動させ、カーソルを移動 .
      */
@@ -111,6 +112,7 @@ public:
     float _cursor_move_p1;
     /** [r]カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合 */
     float _cursor_move_p2;
+    /** [r]サブメニュー */
     MenuActor<T>* _pActiveSubMenu;
 
     /**
@@ -121,6 +123,15 @@ public:
      * @param prm_model モデル識別名
      */
     MenuActor(const char* prm_name, const char* prm_model);
+
+    /**
+     * 現在入力が受け付けられている状態かを返す .
+     * サブメニューが表示されている間等は、操作不可になり、本メソッドはfalseを返します。
+     * @return true:コントロール可能状態/false:コントロール不可能状態
+     */
+    virtual bool canControll() {
+        return _can_controll;
+    }
 
     /**
      * メニューフェイドイン・アウト時のアルファ速度を設定 .
@@ -139,8 +150,8 @@ public:
      * @param prm_Y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      * @param prm_Z_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Z座標
      */
-    virtual void addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
-                               coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
+    virtual void addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+                         coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
     /**
      * 選択可能メニューアイテム追加する .
      * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
@@ -151,31 +162,32 @@ public:
      * @param prm_X_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      */
-    virtual void addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
-                               coord prm_X_local, coord prm_Y_local) {
-        addSelectItem(prm_pItem, prm_X_local, prm_Y_local, 0);
+    virtual void addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+                         coord prm_X_local, coord prm_Y_local) {
+        addItem(prm_pItem, prm_X_local, prm_Y_local, 0);
     }
 
     /**
-     * 選択不可の表示用メニューアイテムを追加する .
-     * @param prm_pItem 表示用アイテム
+     * 選択不可の表示用メニューラベルを追加する .
+     * @param prm_pItem 表示用ラベルのアクター
      * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      * @param prm_Z_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Z座標
      */
-    virtual void addDispItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+    virtual void addDispLabel(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                               coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
+
     /**
-     * 選択不可の表示用メニューアイテムを追加する .
+     * 選択不可の表示用メニューラベルを追加する .
      * 【注意】Z座標は、オフセット0が設定される。つまり表示用アクターの絶対Z座標は、現在のメニューのZ座標と一致する。
      * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定したほうが良い。
-     * @param prm_pItem 表示用アイテム
+     * @param prm_pItem 表示用ラベルのアクター
      * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      */
-    virtual void addDispItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+    virtual void addDispLabel(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                               coord prm_X_local, coord prm_Y_local) {
-        addDispItem(prm_pItem, prm_X_local, prm_Y_local, 0);
+        addDispLabel(prm_pItem, prm_X_local, prm_Y_local, 0);
     }
 
     /**
@@ -201,10 +213,9 @@ public:
                            int prm_cursor_move_frames = 8,
                            float prm_cursor_move_p1 = 0.2,
                            float prm_cursor_move_p2 = 0.7);
-
     /**
      * メニューアイテム間のオーダー連結を拡張設定(自身がFrom ⇔ To) .
-     * addSelectItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
+     * addItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
      * 次、前、の線形オーダーが構築されている。<BR>
      * このメソッドはそれとは別にアイテム間の「次」、「前」、の関係を追加設定する。<BR>
      * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作にした場合に
@@ -222,8 +233,8 @@ public:
      * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
      */
     virtual void relateItemExNext(int prm_index_of_item1,
-                                    int prm_index_of_item2,
-                                    int prm_index_of_item3);
+                                  int prm_index_of_item2,
+                                  int prm_index_of_item3);
     /**
      * メニューアイテム間のオーダー連結を拡張設定(From ⇔ To) .
      * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
@@ -232,9 +243,9 @@ public:
      * @param prm_index_of_item4 拡張連結するメニューアイテムのインデックス4
      */
     virtual void relateItemExNext(int prm_index_of_item1,
-                                    int prm_index_of_item2,
-                                    int prm_index_of_item3,
-                                    int prm_index_of_item4);
+                                  int prm_index_of_item2,
+                                  int prm_index_of_item3,
+                                  int prm_index_of_item4);
     /**
      * メニューアイテム間のオーダー連結を拡張設定(From ⇔ To) .
      * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
@@ -244,17 +255,17 @@ public:
      * @param prm_index_of_item5 拡張連結するメニューアイテムのインデックス5
      */
     virtual void relateItemExNext(int prm_index_of_item1,
-                                    int prm_index_of_item2,
-                                    int prm_index_of_item3,
-                                    int prm_index_of_item4,
-                                    int prm_index_of_item5);
+                                  int prm_index_of_item2,
+                                  int prm_index_of_item3,
+                                  int prm_index_of_item4,
+                                  int prm_index_of_item5);
 
 
 //    virtual void relateItemExNext(int prm_index_of_fromitem, ...);
 
     /**
      * メニューアイテム間のオーダー連結を拡張設定(From ⇔ 自身がTo) .
-     * addSelectItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
+     * addItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
      * 次、前、の線形オーダーが構築されている。<BR>
      * このメソッドはそれとは別にアイテム間の「前」、「次」、の関係を追加設定する。<BR>
      * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作にした場合に
@@ -279,12 +290,13 @@ public:
 
     /**
      * 指定のインデックスのメニューアイテムへ、カーソルをセット .
-     * 内部で moveCursor() がコールバックされ、カーソルが移動することになる。
-     * 既に指定のインデックス選択中の場合はカーソルは何も移動無し。
+     * 内部で moveCursor() がコールバックされ、カーソルが移動することになる。<BR>
+     * 既に指定のインデックス選択中の場合はカーソルは何も移動無し。<BR>
+     * ついでに、引数インデックスのアイテムオブジェクトもゲット出来る。<BR>
      * @param prm_index ターゲットのアイテムインデックス
-     * @return アイテムインデックスのアイテムオブジェクト
+     * @return prm_indexのアイテムオブジェクト
      */
-    virtual GgafDxCore::GgafDxDrawableActor* setSelectedItemIndex(int prm_index);
+    virtual GgafDxCore::GgafDxDrawableActor* setSelectedIndex(int prm_index);
 
     /**
      * 現在カーソルが選択中のアイテムのインデックスを取得 .
@@ -294,11 +306,11 @@ public:
 
     /**
      * 過去にカーソルが選択中だったアイテムのインデックスを取得 .
-     * getSelectedPrevIndex(0) は getSelectedIndex() と同じです。
+     * getSelectedHistoryIndex(0) は getSelectedIndex() と同じです。
      * @param prm_n 幾つ過去のカーソル位置か(0 ～)
      * @return 選択中だったのアイテムオブジェクトのインデックス
      */
-    virtual int getSelectedPrevIndex(int prm_n);
+    virtual int getSelectedHistoryIndex(int prm_n);
 
     /**
      * 「決定（振る舞い）」が行われた時に、決定されたメニューアイテムのインデックスを返します .
@@ -325,9 +337,6 @@ public:
      * @return 選択中のアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxDrawableActor* getSelectedItem();
-
-
-    virtual MenuActor<T>* getSubMenu();
 
     /**
      * 「決定（振る舞い）」した、という事の成立条件を実装する .
@@ -381,7 +390,6 @@ public:
      */
     virtual bool condMoveCursorCancel() = 0;
 
-
     /**
      * 「決定（振る舞い）」された場合に呼び出されるコールバック。
      * 動作をオーバーライドして実装してください。<BR>
@@ -420,14 +428,6 @@ public:
     virtual void rise();
 
     /**
-     * サブメニューを表示する .
-     * サブメニューを表示すると、サブメニューを閉じる(sinkSub()) まで、
-     * 呼び出し元メニューは操作不可能になります。
-     * @param prm_pSubMenu
-     */
-    virtual void riseSub(MenuActor<T>* prm_pSubMenu);
-
-    /**
      * メニューを表示開始時の処理 .
      * rise() 実行時直後、１回だけコールバックされます。<BR>
      * 必要に応じてオーバーライドしてください。<BR>
@@ -461,36 +461,41 @@ public:
     virtual void processBehavior() override;
 
     /**
-     * メニューを消去開始 .
-     * 本オブジェクトを生成、タスクに追加後、表示させたいタイミングで実行してください。<BR>
+     * メニューを閉じて終了させる . .
      */
     virtual void sink();
 
-    virtual void sinkSub();
     /**
-     * rise()が実行された直後か否か .
-     * @return
+     * rise()が実行された直後か否かを返す .
+     * @return true:今丁度 rise()が 実行された直後である/false:そうではない
      */
     virtual bool isJustRise() {
         return _is_just_risen;
     }
 
     /**
-     * sink()が実行された直後か否か .
-     * @return
+     * sink() が実行された直後か否かを返す .
+     * @return true:今丁度 sink() が実行された直後である/false:そうではない
      */
     virtual bool isJustSink() {
         return _is_just_sunk;
     }
 
+    /**
+     * 「決定（振る舞い）」が行われた直後か否かを返す .
+     * @return rue:今丁度 「決定（振る舞い）」 が実行された直後である/false:そうではない
+     */
     virtual bool isJustDecided() {
         return _is_just_decided;
     }
 
+    /**
+     * 「キャンセル（振る舞い）」が行われた直後か否かを返す .
+     * @return rue:今丁度 「キャンセル（振る舞い）」 が実行された直後である/false:そうではない
+     */
     virtual bool isJustCancelled() {
         return _is_just_cancelled;
     }
-
 
     /**
      * メニューを消去開始時の処理 .
@@ -511,6 +516,33 @@ public:
      */
     virtual void processSinking();
 
+    /**
+     * サブメニューを追加する。
+     * @param prm_pSubMenu サブメニュー
+     */
+    virtual void setSubMenu(MenuActor<T>* prm_pSubMenu);
+
+    /**
+     * サブメニューを取得 .
+     * 事前に setSubMenu() でサブメニューを設定する必要があります。<BR>
+     * @return 設定済みサブメニュー
+     */
+    virtual MenuActor<T>* getSubMenu();
+
+    /**
+     * サブメニューを表示して開始する .
+     * 事前に setSubMenu() でサブメニューを設定する必要があります。<BR>
+     * サブメニューを表示すると、サブメニューを閉じる(sinkSubMenu()) まで、
+     * 呼び出し元メニューは操作不可能になります。
+     * @param prm_pSubMenu
+     */
+    virtual void riseSubMenu();
+
+    /**
+     * サブメニューを閉じて終了させる .
+     * 事前に setSubMenu() でサブメニューを設定する必要があります。<BR>
+     */
+    virtual void sinkSubMenu();
 
     virtual ~MenuActor();
 };
@@ -548,18 +580,6 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
         _lstMoveHistory.addLast(new int(0), true);
     }
     T::inactivateImmed(); //メニューなので、初期状態は非活動状態をデフォルトとする
-}
-template<class T>
-void MenuActor<T>::riseSub(MenuActor<T>* prm_pSubMenu) {
-    _pActiveSubMenu = prm_pSubMenu;
-    _pActiveSubMenu->rise();
-    _will_be_able_to_controll = false;
-}
-template<class T>
-void MenuActor<T>::sinkSub() {
-    _pActiveSubMenu->sink();
-    _pActiveSubMenu = NULL;
-    _will_be_able_to_controll = true;
 }
 
 template<class T>
@@ -599,8 +619,8 @@ void MenuActor<T>::nextFrame() {
 }
 
 template<class T>
-void MenuActor<T>::addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
-                                 coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
+void MenuActor<T>::addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+                           coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
     prm_pItem->_X_local = prm_X_local;
     prm_pItem->_Y_local = prm_Y_local;
     prm_pItem->_Z_local = prm_Z_local;
@@ -611,7 +631,7 @@ void MenuActor<T>::addSelectItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
 }
 
 template<class T>
-void MenuActor<T>::addDispItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
+void MenuActor<T>::addDispLabel(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                                 coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
     prm_pItem->_X_local = prm_X_local;
     prm_pItem->_Y_local = prm_Y_local;
@@ -691,14 +711,14 @@ void MenuActor<T>::relateAllItemCancel(int prm_index_of_cancel_item) {
 }
 
 template<class T>
-GgafDxCore::GgafDxDrawableActor* MenuActor<T>::setSelectedItemIndex(int prm_index) {
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::setSelectedIndex(int prm_index) {
     int n = getSelectedIndex();
     if (n == prm_index) {
         return _lstItems.getCurrent();
     } else {
 #ifdef MY_DEBUG
         if (_lstItems.length() <= prm_index) {
-            throwGgafCriticalException("MenuActor<T>::setSelectedItemIndex() メニューアイテム要素数オーバー name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
+            throwGgafCriticalException("MenuActor<T>::setSelectedIndex() メニューアイテム要素数オーバー name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
         }
 #endif
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.current(prm_index);
@@ -741,7 +761,7 @@ int MenuActor<T>::getSelectedIndex() {
 }
 
 template<class T>
-int MenuActor<T>::getSelectedPrevIndex(int prm_n) {
+int MenuActor<T>::getSelectedHistoryIndex(int prm_n) {
     return (*(_lstMoveHistory.getPrev(prm_n)));
 }
 
@@ -765,11 +785,6 @@ int MenuActor<T>::getCancelledIndex() {
 template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getSelectedItem() {
     return _lstItems.getCurrent();
-}
-
-template<class T>
-MenuActor<T>* MenuActor<T>::getSubMenu() {
-    return _pActiveSubMenu;
 }
 
 template<class T>
@@ -855,7 +870,6 @@ void MenuActor<T>::moveCursor() {
         _X_cursor_target_prev = pTargetItem->_X;
         _Y_cursor_target_prev = pTargetItem->_Y;
         _Z_cursor_target_prev = pTargetItem->_Z;
-
         *(_lstMoveHistory.next()) = _lstItems.getCurrentIndex();
     }
 }
@@ -913,17 +927,14 @@ void MenuActor<T>::processRising() {
     }
 }
 
-
 template<class T>
 void MenuActor<T>::processBehavior() {
-
     if (_with_sinking) {
         processSinking();
     }
     if (_with_rising) {
         processRising();
     }
-
     if (_can_controll && T::getActivePartFrame() > 2) {
         if (condDecision()) {
             _will_be_just_decided_next_frame = true;
@@ -944,7 +955,6 @@ void MenuActor<T>::processBehavior() {
     if (_pCursor) {
         _pCursor->_pKurokoA->behave();
     }
-
     //メニューアイテムをメニューに追従
     GgafDxCore::GgafDxDrawableActor* p;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
@@ -1009,6 +1019,36 @@ void MenuActor<T>::processSinking() {
         _with_sinking = false;
         T::inactivateTree();
     }
+}
+
+template<class T>
+void MenuActor<T>::setSubMenu(MenuActor<T>* prm_pSubMenu) {
+    if (_pActiveSubMenu) {
+        throwGgafCriticalException("setSubMenu() 既にサブメニューは設定済みです。this="<<T::getName()<<"/prm_pSubMenu="<<(prm_pSubMenu->getName())<<"/既存_pActiveSubMenu="<<_pActiveSubMenu->getName());
+    }
+    _pActiveSubMenu = prm_pSubMenu;
+    T::addSubLast(_pActiveSubMenu); //サブに追加
+}
+
+template<class T>
+MenuActor<T>* MenuActor<T>::getSubMenu() {
+    return _pActiveSubMenu;
+}
+
+template<class T>
+void MenuActor<T>::riseSubMenu() {
+    if (_pActiveSubMenu) {
+        _pActiveSubMenu->rise();
+        _will_be_able_to_controll = false;
+    } else {
+        throwGgafCriticalException("riseSubMenu() サブメニューがセットされてません。this="<<T::getName()<<"");
+    }
+}
+
+template<class T>
+void MenuActor<T>::sinkSubMenu() {
+    _pActiveSubMenu->sink();
+    _will_be_able_to_controll = true;
 }
 
 template<class T>

@@ -94,7 +94,7 @@ void GameTitleScene::processBehavior() {
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             }
 
-            if (pMenu_->getSubMenu()) {
+            if (pMenu_->getSubMenu()->canControll()) {
                 int d = pMenu_->getSubMenu()->getDecidedIndex();
                 if (d >= 0) {
                     if (pMenu_->getSelectedIndex() == MenuBoardTitle::ITEM_QUIT) {
@@ -105,7 +105,8 @@ void GameTitleScene::processBehavior() {
                         }
                     }
                 }
-            } else {
+            } 
+            if (pMenu_->canControll()) {
                 int d = pMenu_->getDecidedIndex();
                 if (d >= 0) {
                     if (d == MenuBoardTitle::ITEM_GAME_START) {

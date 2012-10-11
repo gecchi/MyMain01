@@ -41,12 +41,12 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     for (int i = ITEM_BACK_TO_GAME; i <= ITEM_HOGEHOGE; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addSelectItem(pLabel, PX_C(100+((i/4)*200)), PX_C(100+((i%4)*30)), -1);
+        addItem(pLabel, PX_C(100+((i/4)*200)), PX_C(100+((i%4)*30)), -1);
     }
     //メニューアイテム（選択不可）設定
     LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("message");
     pMsg->update("[PAUSE MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispItem(pMsg, PX_C(100), PX_C(20), -1);
+    addDispLabel(pMsg, PX_C(100), PX_C(20), -1);
     //特別なメニューカーソルオーダーを構築
     relateItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1, ITEM_DUMMY5  , ITEM_CONFIG       );
     relateItemExNext(ITEM_CONFIG       , ITEM_DUMMY2, ITEM_DUMMY6  , ITEM_BACK_TO_TITLE);
@@ -59,11 +59,10 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
 
-    setSelectedItemIndex(0); //カーソルの初期選択アイテムを設定
+    setSelectedIndex(0); //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
                                             //上から下へ少しスライドさせる
-    pConfirmMenu_ = NEW MenuBoardConfirm("confirm"); //Yes No 問い合わせメニューを生成
-    addSubLast(pConfirmMenu_);                       //サブに追加
+    setSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
 }
 bool MenuBoardPause::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -92,7 +91,7 @@ void MenuBoardPause::processBehavior() {
                 }
 
             } else if (pSub->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
-                sinkSub();
+                sinkSubMenu();
             } else {
             }
         } else {
@@ -105,7 +104,7 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
     if (prm_item_index == ITEM_BACK_TO_GAME) {
         sink();
     } else if (prm_item_index == ITEM_QUIT_GAME) {
-        riseSub(pConfirmMenu_, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //サブメニュー起動
+        riseSubMenu(getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //サブメニュー起動
     }
 }
 void MenuBoardPause::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {

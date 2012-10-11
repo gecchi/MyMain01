@@ -21,9 +21,6 @@ public:
         ITEM_DEBUG,
         ITEM_QUIT,
     };
-    MenuBoardConfirm* pConfirmMenu_;
-
-
     MenuBoardTitle(const char* prm_name);
 
     bool condMoveCursorNext() override;

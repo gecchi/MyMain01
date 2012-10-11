@@ -12,13 +12,17 @@ namespace VioletVreath {
 class MenuBoardNameEntry : public MenuBoard {
 
 public:
-    int ITEM_NO_OK_;
-    int ITEM_NO_BS_;
-    MenuBoardConfirm* pConfirmMenu_;
-    LabelGecchi32Font* pLabelInputedName_;
-    LabelGecchi32Font* pLabelSelectedChar_;
+    static char* apInputItemStr_[];
+    static int input_item_num_;
+    int ITEM_INDEX_OK_;
+    int ITEM_INDEX_BS_;
+    GgafLib::StringBoardActor* pLabelInputedName_;
+    GgafLib::StringBoardActor* pLabelSelectedChar_;
 
     MenuBoardNameEntry(const char* prm_name);
+
+    void setNameStringBoard(GgafLib::StringBoardActor* prm_pInputedName,
+                            GgafLib::StringBoardActor* prm_pSelectedChar);
 
     bool condMoveCursorNext() override;
     bool condMoveCursorPrev() override;

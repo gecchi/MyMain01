@@ -26,7 +26,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addSelectItem(pLabel, PX_C(100), PX_C(30+(i*18)), -1);
+        addItem(pLabel, PX_C(100), PX_C(30+(i*18)), -1);
     }
     //キャンセル押下時移動先アイテム
     relateAllItemCancel(ITEM_QUIT);
@@ -37,10 +37,9 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     //スライド表示の設定
     setTransition(10, PX_C(0), +PX_C(100));
     //初期選択
-    setSelectedItemIndex(ITEM_GAME_START);
+    setSelectedIndex(ITEM_GAME_START);
     //確認サブメニュー
-    pConfirmMenu_ = NEW MenuBoardConfirm("confirm");
-    addSubLast(pConfirmMenu_);
+    setSubMenu(NEW MenuBoardConfirm("confirm"));
 }
 bool MenuBoardTitle::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -60,10 +59,10 @@ void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
 void MenuBoardTitle::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
 }
 void MenuBoardTitle::riseConfirm() {
-    riseSub(pConfirmMenu_, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
+    riseSubMenu(getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
 }
 void MenuBoardTitle::sinkConfirm() {
-    sinkSub();
+    sinkSubMenu();
 }
 
 MenuBoardTitle::~MenuBoardTitle() {

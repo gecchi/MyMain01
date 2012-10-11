@@ -28,9 +28,6 @@ public:
         ITEM_DUMMY7,
         ITEM_HOGEHOGE
     };
-
-    MenuBoardConfirm* pConfirmMenu_;
-
     MenuBoardPause(const char* prm_name);
 
     bool condMoveCursorNext() override;

@@ -85,10 +85,13 @@ void MenuBoard::rise(coord prm_target_X, coord prm_target_Y) {
     StringBoardMenu::rise();
 }
 
-void MenuBoard::riseSub(MenuBoard* prm_pSubMenu,
-                        coord prm_target_X, coord prm_target_Y) {
-    prm_pSubMenu->locate(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::rise() に来た時にターゲット設定される
-    StringBoardMenu::riseSub(prm_pSubMenu);
+void MenuBoard::riseSubMenu(coord prm_target_X, coord prm_target_Y) {
+    if (_pActiveSubMenu) {
+        _pActiveSubMenu->locate(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::rise() に来た時にターゲット設定される
+        StringBoardMenu::riseSubMenu();
+    } else {
+        throwGgafCriticalException("MenuBoard::riseSubMenu() サブメニューがセットされてません。this="<<getName()<<"");
+    }
 }
 
 void MenuBoard::moveCursor() {
