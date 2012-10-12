@@ -364,7 +364,7 @@ void MagicMeter::processBehavior() {
         }
 
         //レベルアップINVOKING時
-        if (pMagicProg->isJustChangedTo(Magic::STATE_INVOKE_BEGIN)) {
+        if (pMagicProg->hasJustChangedTo(Magic::STATE_INVOKE_BEGIN)) {
             papLvTargetCursor_[m]->dispDisable();
             papLvHilightCursor_[m]->dispDisable();
             if (papLvTargetCursor_[m]->point_lv_ == pMagic->level_) {
@@ -376,14 +376,14 @@ void MagicMeter::processBehavior() {
             papLvCastingMarkCursor_[m]->markOnInvoke(pMagic->new_level_);
         }
         //レベルアップINVOKING完了時
-        if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
+        if (pMagicProg->hasJustChangedFrom(Magic::STATE_INVOKING)) {
             papLvTargetCursor_[m]->dispEnable();
             papLvHilightCursor_[m]->dispEnable();
             papLvHilightCursor_[m]->beginBlinking();
         }
 
         //効果開始時
-        if (pMagicProg->isJustChangedTo(Magic::STATE_EFFECT_BEGIN)) {
+        if (pMagicProg->hasJustChangedTo(Magic::STATE_EFFECT_BEGIN)) {
             if (pMagic->last_level_ < pMagic->level_) {
                 //レベルアップEFFECT_BEGEINだったならば
                 papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
@@ -404,7 +404,7 @@ void MagicMeter::processBehavior() {
         }
 
         //空詠唱（詠唱したが、詠唱完了時、MPが足りなかった）
-        if (pMagicProg->get() == Magic::STATE_NOTHING && pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {
+        if (pMagicProg->get() == Magic::STATE_NOTHING && pMagicProg->hasJustChangedFrom(Magic::STATE_CASTING)) {
             papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
             _pSeTxer->play(SE_CANT_INVOKE_MAGIC);
         }
@@ -412,14 +412,14 @@ void MagicMeter::processBehavior() {
         //即効性魔法終了時
         if (pMagic->time_of_effect_base_ == 0 &&
             pMagicProg->get() == Magic::STATE_NOTHING &&
-            pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
+            pMagicProg->hasJustChangedFrom(Magic::STATE_INVOKING)) {
             //メモ
             //STATE_INVOKING
             //↓
             //effect(new_level_)(chenge(STATE_EFFECT_BEGIN))
             //↓
             //chenge(STATE_NOTHING) と上書きされるので
-            // pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING) の判定となる
+            // pMagicProg->hasJustChangedFrom(Magic::STATE_INVOKING) の判定となる
             //このタイミングで
             papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
             papLvHilightCursor_[m]->moveSmoothTo(pMagic->level_);

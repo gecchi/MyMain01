@@ -366,13 +366,13 @@ void RankUpStageController::processBehavior() {
 //
 //
 //        case RankUpStageController::PROG_PLAY: {
-//            if (_pProg->isJustChanged()) {
+//            if (_pProg->hasJustChanged()) {
 //            }
 //            break;
 //        }
 //
 //        case RankUpStageController::PROG_FINISH: {
-//            if (_pProg->isJustChanged()) {
+//            if (_pProg->hasJustChanged()) {
 //            }
 //            break;
 //        }
@@ -387,7 +387,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
         _TRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
         RankUpStage* pScene = (RankUpStage*)prm_pSource; //I—¹éŒ¾‚µ‚½RankUpStage
         pScene->fadeoutScene(240);
-        pScene->end(240);
+        pScene->sayonara(240);
     }
 
     if (prm_no == EVENT_RANKUP_ON_GARBAGED) {

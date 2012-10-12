@@ -72,7 +72,7 @@ void GgafProgress::changeNext() {
 }
 
 
-bool GgafProgress::isJustChangedTo(progress prm_progress) {
+bool GgafProgress::hasJustChangedTo(progress prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress) {
         throwGgafCriticalException("GgafProgress::isJustChangedTo 進捗番号が範囲外です。\nisJustChangedTo 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
@@ -88,7 +88,7 @@ bool GgafProgress::isJustChangedTo(progress prm_progress) {
         return false;
     }
 }
-bool GgafProgress::isJustChanged() {
+bool GgafProgress::hasJustChanged() {
     if (_progress != _progress_prev) {
         return true;
     } else {
@@ -96,7 +96,7 @@ bool GgafProgress::isJustChanged() {
     }
 }
 
-bool GgafProgress::isJustChangedFrom(progress prm_progress) {
+bool GgafProgress::hasJustChangedFrom(progress prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress) {
         throwGgafCriticalException("GgafProgress::isJustChangedFrom 進捗番号が範囲外です。\nisJustChangedFrom 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
@@ -113,7 +113,7 @@ bool GgafProgress::isJustChangedFrom(progress prm_progress) {
     }
 }
 
-progress GgafProgress::get_WhenJustChanged() {
+progress GgafProgress::getProgOnChange() {
     if (_progress != _progress_prev) {
         return _progress;
     } else {
@@ -121,7 +121,7 @@ progress GgafProgress::get_WhenJustChanged() {
     }
 }
 
-progress GgafProgress::getPrev_WhenJustChanged() {
+progress GgafProgress::getFromProgOnChange() {
     if (_progress != _progress_prev) {
         return _progress_prev;
     } else {
@@ -129,7 +129,7 @@ progress GgafProgress::getPrev_WhenJustChanged() {
     }
 }
 
-progress GgafProgress::get_WhenWillChange() {
+progress GgafProgress::getProgWhenWillChange() {
     if (_progress != _progress_next) {
         return _progress;
     } else {
@@ -137,7 +137,7 @@ progress GgafProgress::get_WhenWillChange() {
     }
 }
 
-progress GgafProgress::getNext_WhenWillChange() {
+progress GgafProgress::getToProgWhenWillChange() {
     if (_progress != _progress_next) {
         return _progress_next;
     } else {

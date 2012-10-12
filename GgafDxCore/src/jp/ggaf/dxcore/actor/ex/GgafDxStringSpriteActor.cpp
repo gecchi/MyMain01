@@ -7,10 +7,10 @@ GgafDxStringSpriteActor::GgafDxStringSpriteActor(const char* prm_name, const cha
 
     _class_name = "GgafDxStringSpriteActor";
     _chr_ptn_zero = ' ';
-    _draw_string = NULL;
     _len = 0;
     _buf = NEW char[1024];
     _buf[0] = '\0';
+    _draw_string = _buf;
     //デフォルトの１文字の幅(px)設定
     for (int i = 0; i < 256; i++) {
         _aWidthPx[i] = (int)(_pSpriteSetModel->_fSize_SpriteSetModelWidthPx);

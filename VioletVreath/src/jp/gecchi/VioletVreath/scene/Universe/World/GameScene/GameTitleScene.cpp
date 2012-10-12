@@ -60,7 +60,7 @@ void GameTitleScene::initialize() {
 
 void GameTitleScene::processBehavior() {
 
-    switch (_pProg->getPrev_WhenJustChanged()) {
+    switch (_pProg->getFromProgOnChange()) {
         default: {
             break;
         }
@@ -73,7 +73,7 @@ void GameTitleScene::processBehavior() {
         }
 
         case GameTitleScene::PROG_TITLE: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 pLabel02_->update(PX_C(400), PX_C(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
@@ -89,7 +89,7 @@ void GameTitleScene::processBehavior() {
         }
 
         case GameTitleScene::PROG_SELECT: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 pMenu_->rise(PX_C(50), PX_C(350));
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             }
@@ -136,7 +136,7 @@ void GameTitleScene::processBehavior() {
         }
 
         case GameTitleScene::PROG_GAMESTART: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
             }
             if (_pProg->getFrameInProgress() == 90) {
                 throwEventToUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
@@ -152,7 +152,7 @@ void GameTitleScene::processBehavior() {
         }
 
         case GameTitleScene::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 pMenu_->sink();
 //                fadeoutSceneTree(FADE_FRAMES);
 //                inactivateDelay(FADE_FRAMES);

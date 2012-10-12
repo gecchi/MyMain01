@@ -72,7 +72,7 @@ void GamePreTitleScene::processBehavior() {
         }
 
         case GamePreTitleScene::PROG_EXEC: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
 //                fadeinScene(FADE_FRAMES);
             }
             if (_pProg->getFrameInProgress() == 1) {
@@ -95,7 +95,7 @@ void GamePreTitleScene::processBehavior() {
         }
 
         case GamePreTitleScene::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 throwEventToUpperTree(EVENT_PREGAMETITLESCENE_FINISH);
             }
             //‚¨‚µ‚Ü‚¢‘Ò‚¿‚Ú‚¤‚¯ƒ‹[ƒv

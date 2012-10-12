@@ -165,10 +165,18 @@ public:
     virtual void executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
 
     /**
-     * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
+     * 自ツリーシーンをnフレーム後にゴミ箱へ移動します .
      * @param prm_offset_frames ゴミ箱へ移動タイミング残りフレーム数(デフォルト=1)
      */
     virtual void end(frame prm_offset_frames = 1) override;
+
+    /**
+     * さよならします .
+     * 所属するアクターには、sayonara() を実行し、自身(シーン)には end() を実行します。<BR>
+     * シーンを解放させたい場合はこのメソッドを実行すること。
+     * @param prm_offset_frames 猶予フレーム(1～)
+     */
+    virtual void sayonara(frame prm_offset_frames = 60);
 
     /**
      * 自ツリーを末端から開放する。 .

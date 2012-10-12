@@ -70,7 +70,7 @@ void GameMainScene::processBehavior() {
 
     switch (_pProg->get()) {
         case GameMainScene::PROG_INIT: {
-            _TRACE_("GameMainScene::processBehavior() Prog(=GameMainScene::PROG_INIT)");
+            _TRACE_("GameMainScene::processBehavior() Prog is GameMainScene::PROG_INIT");
             addSubLast(P_STAGE_WORLD->extract());
             P_STAGE_WORLD->resetTree();
             P_STAGE_WORLD->activateImmed();
@@ -79,23 +79,23 @@ void GameMainScene::processBehavior() {
         }
 
         case GameMainScene::PROG_BEGIN: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog(=GameMainScene::PROG_BEGIN) is Just Changed");
+            if (_pProg->hasJustChanged()) {
+                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_BEGIN)");
                 _pProg->change(GameMainScene::PROG_PLAY);
             }
             break;
         }
 
         case GameMainScene::PROG_PLAY: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog(=GameMainScene::PROG_PLAY) is Just Changed");
+            if (_pProg->hasJustChanged()) {
+                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_PLAY)");
             }
             break;
         }
 
         case GameMainScene::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("GameMainScene::processBehavior() Prog(=GameMainScene::PROG_FINISH) is Just Changed");
+            if (_pProg->hasJustChanged()) {
+                _TRACE_("GameMainScene::processBehavior() Prog has Just Changed (to GameMainScene::PROG_FINISH)");
             }
             break;
         }
@@ -108,7 +108,7 @@ void GameMainScene::processBehavior() {
 
 void GameMainScene::onInactive() {
     if (P_STAGE_CTRLER->pStageMainCannel_) {
-        P_STAGE_CTRLER->pStageMainCannel_->end();
+        P_STAGE_CTRLER->pStageMainCannel_->sayonara();
         P_STAGE_CTRLER->pStageMainCannel_ = NULL;
     }
 }

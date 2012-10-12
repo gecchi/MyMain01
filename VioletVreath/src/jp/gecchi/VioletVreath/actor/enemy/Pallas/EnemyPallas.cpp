@@ -42,7 +42,7 @@ void EnemyPallas::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     //【パターン1：スプライン移動】
-    if (_pProg->isJustChangedTo(1)) {
+    if (_pProg->hasJustChangedTo(1)) {
         pSplSeq_->exec(SplineSequence::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
     }
     if (_pProg->get() == 1) {

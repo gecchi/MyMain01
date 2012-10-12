@@ -74,7 +74,7 @@ void EnemyThisbe::processBehavior() {
             break;
         }
         case PROG_OPEN: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
             }
             if (!_pMorpher->isMorph()) {

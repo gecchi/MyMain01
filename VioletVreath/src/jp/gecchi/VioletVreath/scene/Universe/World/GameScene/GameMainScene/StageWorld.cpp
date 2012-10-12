@@ -54,7 +54,7 @@ StageWorld::~StageWorld() {
     //_TRACE_("StageWorld::~StageWorld() pStageCtrlr_="<<pStageCtrlr_<<" ");
     //_TRACE_("StageWorld::~StageWorld() pStageCtrlr_->pStageMainCannel_="<<pStageCtrlr_->pStageMainCannel_<<"");
     if (pStageCtrlr_->pStageMainCannel_) {
-        pStageCtrlr_->pStageMainCannel_->end();
+        pStageCtrlr_->pStageMainCannel_->sayonara();
         pStageCtrlr_->pStageMainCannel_ = NULL;
     }
 }

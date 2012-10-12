@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationIris002::FormationIris002(const char* prm_name) :
-        TreeFormation(prm_name, 30*60) { //30*60後にend()する。早く開放しすぎると Depository の接続が切れるため。
+        TreeFormation(prm_name, 30*60) { //30*60後にsayonara()する。早く開放しすぎると Depository の接続が切れるため。
     _class_name = "FormationIris002";
     num_Iris_        = RR_FormationIris002_Num(_RANK_);    //編隊数
     interval_frames_ = RR_FormationIris002_LaunchInterval(_RANK_);   //イリスの間隔(frame)

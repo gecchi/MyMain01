@@ -65,7 +65,7 @@ void World::processBehavior() {
                 pPreDrawScene_->_pProg->get() == PreDrawScene::PROG_WAIT &&
                 P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX))
             {
-                pLabel_Title_->end();
+                pLabel_Title_->sayonara();
                 _pProg->changeNext();
             }
             pLabel_Aster_->_pFader->behave(); //右上＊チカチカ
@@ -82,7 +82,7 @@ void World::processBehavior() {
         }
 
         case World::PROG_MAINLOOP: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 addSubLast(pGameScene_);
             }
             if (_pProg->getFrameInProgress() <= 120) {
@@ -91,7 +91,7 @@ void World::processBehavior() {
                     pLabel_Aster_->update("!");
                 }
                 if (_pProg->getFrameInProgress() == 120) {
-                    pLabel_Aster_->end();
+                    pLabel_Aster_->sayonara();
                 }
             }
             //GameScene作成完了

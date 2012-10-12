@@ -190,7 +190,6 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyTamago01::onInactive() {
-    //end();
 }
 
 EnemyTamago01::~EnemyTamago01() {

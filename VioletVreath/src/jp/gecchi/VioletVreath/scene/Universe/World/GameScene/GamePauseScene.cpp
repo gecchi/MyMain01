@@ -68,7 +68,7 @@ void GamePauseScene::initialize() {
 
 void GamePauseScene::processBehavior() {
 
-    switch (_pProg->getPrev_WhenJustChanged()) {
+    switch (_pProg->getFromProgOnChange()) {
         default: {
             break;
         }
@@ -82,7 +82,7 @@ void GamePauseScene::processBehavior() {
         }
 
         case GamePauseScene::PROG_SELECT: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
 
 
                 //ƒAƒCƒeƒ€
@@ -147,7 +147,7 @@ void GamePauseScene::processBehavior() {
         }
 
         case GamePauseScene::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
 //                fadeoutSceneTree(FADE_FRAMES);
 //                inactivateDelay(FADE_FRAMES);
             }

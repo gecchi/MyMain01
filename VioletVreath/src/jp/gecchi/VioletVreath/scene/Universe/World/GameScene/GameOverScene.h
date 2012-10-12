@@ -18,6 +18,7 @@ public:
         PROG_NAMEENTRY,
         PROG_FINISH  ,
     };
+    NameEntryScene* pNameEntryScene_;
 
     LabelGecchi16Font* pLabel01_;
     bool need_name_entry_;
@@ -25,6 +26,7 @@ public:
     void onReset() override;
     virtual void initialize() override;
     virtual void processBehavior() override;
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
     virtual ~GameOverScene();
 };
 

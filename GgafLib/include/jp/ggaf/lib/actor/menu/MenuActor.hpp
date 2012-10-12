@@ -638,7 +638,7 @@ void MenuActor<T>::addDispLabel(GgafDxCore::GgafDxDrawableActor* prm_pItem,
     prm_pItem->_Z_local = prm_Z_local;
     prm_pItem->_alpha = T::_alpha; //”¼“§–¾ƒ¿‚ð‹¤—L‚³‚¹‚éB
     prm_pItem->inactivateImmed();
-    _lstDispActors.addLast(prm_pItem);
+    _lstDispActors.addLast(prm_pItem, false);
     T::addSubLast(prm_pItem);
 }
 
@@ -652,27 +652,27 @@ void MenuActor<T>::relateItemExNext(int prm_index_of_fromitem, int prm_index_of_
 
 template<class T>
 void MenuActor<T>::relateItemExNext(int prm_index_of_item1,
-                                      int prm_index_of_item2,
-                                      int prm_index_of_item3 ) {
+                                    int prm_index_of_item2,
+                                    int prm_index_of_item3 ) {
     relateItemExNext(prm_index_of_item1, prm_index_of_item2);
     relateItemExNext(prm_index_of_item2, prm_index_of_item3);
 }
 
 template<class T>
 void MenuActor<T>::relateItemExNext(int prm_index_of_item1,
-                                      int prm_index_of_item2,
-                                      int prm_index_of_item3,
-                                      int prm_index_of_item4 ) {
+                                    int prm_index_of_item2,
+                                    int prm_index_of_item3,
+                                    int prm_index_of_item4 ) {
     relateItemExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3);
     relateItemExNext(prm_index_of_item3, prm_index_of_item4);
 }
 
 template<class T>
 void MenuActor<T>::relateItemExNext(int prm_index_of_item1,
-                                      int prm_index_of_item2,
-                                      int prm_index_of_item3,
-                                      int prm_index_of_item4,
-                                      int prm_index_of_item5 ) {
+                                    int prm_index_of_item2,
+                                    int prm_index_of_item3,
+                                    int prm_index_of_item4,
+                                    int prm_index_of_item5 ) {
     relateItemExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3, prm_index_of_item4);
     relateItemExNext(prm_index_of_item4, prm_index_of_item5);
 }

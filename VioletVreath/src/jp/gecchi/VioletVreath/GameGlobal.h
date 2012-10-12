@@ -9,6 +9,9 @@
 #define _RANK_UP_LEVEL_ (VioletVreath::GameGlobal::rank_up_level_)
 #define _SCORE_ (VioletVreath::GameGlobal::score_)
 
+#define SCORERANKING_NAME_LEN 10
+#define SCORERANKING_RECORD_NUM 10
+#define SCORERANKING_FILE "SCORE_RANKING.qry"
 namespace VioletVreath {
 
 class GameGlobal {

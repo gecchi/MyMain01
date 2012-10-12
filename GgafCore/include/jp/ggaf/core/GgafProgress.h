@@ -55,7 +55,7 @@ public:
      * 状態変化時は change(int) を使用する。<BR>
      * という設計。<BR>
      * 【注意】<BR>
-     * isJustChanged() は成立しません。<BR>
+     * hasJustChanged() は成立しません。<BR>
      * @param prm_progress 進捗番号(1～)
      */
     virtual void set(progress prm_progress);
@@ -75,7 +75,7 @@ public:
 
     /**
      * 現在の進捗番号内で何フレームなのかを取得(1～) .
-     * isJustChanged() 成立時は 1 が返る。（リセットされる）
+     * hasJustChanged() 成立時は 1 が返る。（リセットされる）
      * その後、加算されていく。
      * @return 進捗内経過時間
      */
@@ -110,25 +110,25 @@ public:
      * change(progress) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @return true:進捗に切り替わった直後である／false:それ以外
      */
-    virtual bool isJustChanged();
+    virtual bool hasJustChanged();
 
     /**
      * 引数の進捗番号に切り替わった直後なのかどうか調べる。.
-     * isJustChanged() に現在の進捗番号の条件を付加します。
+     * hasJustChanged() に現在の進捗番号の条件を付加します。
      * change(progress) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @param prm_progress 現在の進捗番号条件
      * @return true:引数の進捗番号に切り替わった／false:そうではない
      */
-    virtual bool isJustChangedTo(progress prm_progress);
+    virtual bool hasJustChangedTo(progress prm_progress);
 
     /**
      * 引数の進捗番号から切り替わった直後なのかどうかを調べる。.
-     * isJustChanged() に前回の進捗番号の条件を付加します。
+     * hasJustChanged() に前回の進捗番号の条件を付加します。
      * change(progress) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @param prm_progress 前回（切り替わる前）の進捗番号
      * @return true:切り替わった際、前回の進捗番号は引数の進捗番号だった／false:そうではない
      */
-    virtual bool isJustChangedFrom(progress prm_progress);
+    virtual bool hasJustChangedFrom(progress prm_progress);
 
     /**
      * 進捗番号が変化したか（前回と同じかどうか）調べる .
@@ -138,7 +138,7 @@ public:
      *         0(false)：進捗番号が変化していない
      *         0以外   ：進捗番号が変化した直後であるので、その新しい進捗番号を返す
      */
-    virtual progress get_WhenJustChanged();
+    virtual progress getProgOnChange();
 
     /**
      * 進捗番号が何から変化したか調べる .
@@ -148,7 +148,7 @@ public:
      *         0(false)：進捗番号が変化していない
      *         0以外   ：進捗番号が変化がした直後であるので、変化前の元の進捗番号返す
      */
-    virtual progress getPrev_WhenJustChanged();
+    virtual progress getFromProgOnChange();
 
     /**
      * 進捗番号が次フレームに変更される予定ならば、現在の進捗番号を取得する .
@@ -157,7 +157,7 @@ public:
      *         0(false)：次フレームに進捗番号が変更される予定ではない。
      *         0以外   ：次フレームに進捗番号が変更される予定であるので、現在の進捗番号を返す。
      */
-    virtual progress get_WhenWillChange();
+    virtual progress getProgWhenWillChange();
 
     /**
      * 進捗番号が次フレームに変更される予定ならば、その変更される進捗番号を取得する .
@@ -166,7 +166,7 @@ public:
      *         0(false)：次フレームに進捗番号が変更される予定ではない。
      *         0以外   ：次フレームに進捗番号が変更される予定であるので、その新しい進捗番号を返す。
      */
-    virtual progress getNext_WhenWillChange();
+    virtual progress getToProgWhenWillChange();
 
     /**
      * 時間に伴って進捗を更新 .

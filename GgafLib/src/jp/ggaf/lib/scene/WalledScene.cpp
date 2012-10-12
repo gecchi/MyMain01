@@ -129,12 +129,12 @@ void WalledScene::processBehavior() {
             //つまり、他のセクションシーンに dispatchForce() されたからOK、と考えた。
             //また、!pSection->_pWallPartsLast->isActive() は
             //他のセクションシーンに dispatchForce() されずに、活動範囲外に消えたからOK、と考えた。
-            pSection->end(60*10); //解放！
+            pSection->sayonara(60*10); //解放！
             _TRACE_("WalledScene::processBehavior() ["<<getName()<<"]シーンのセクション["<<pSection->getName()<<"]をend!!");
             _ringLoopEndSection.remove();
             if (pSection == _pLastSectionScene) {
                 //最終セクションならば自身のシーンも解放
-                end(60*20);
+                sayonara(60*20);
                 _TRACE_("WalledScene::processBehavior() 最終セクションシーンだったため。["<<getName()<<"]シーン自身もend!!");
             }
         }

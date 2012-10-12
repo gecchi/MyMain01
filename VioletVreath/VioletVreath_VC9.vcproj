@@ -1002,6 +1002,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.cpp"
 				>
 			</File>
@@ -2061,6 +2065,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.h"
 				>
 			</File>
 			<File

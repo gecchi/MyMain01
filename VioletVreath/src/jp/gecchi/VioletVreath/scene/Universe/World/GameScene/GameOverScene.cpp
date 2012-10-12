@@ -6,6 +6,7 @@ using namespace VioletVreath;
 
 GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameOverScene";
+    pNameEntryScene_ = NULL;
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     getDirector()->addSubGroup(pLabel01_);
     useProgress(10);
@@ -15,7 +16,8 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
 void GameOverScene::onReset() {
     fadeoutScene(0);
     pLabel01_->update("");
-    _pProg->change(GameOverScene::PROG_INIT);
+    pNameEntryScene_ = NULL;
+    _pProg->set(GameOverScene::PROG_INIT);
 }
 void GameOverScene::initialize() {
     _TRACE_("GameOverScene::initialize()");
@@ -23,7 +25,7 @@ void GameOverScene::initialize() {
 
 void GameOverScene::processBehavior() {
 
-//    switch (_pProg->getPrev_WhenJustChanged()) {
+//    switch (_pProg->getFromProgOnChange()) {
 //        case GameOverScene::PROG_DISP: {
 //            fadeoutScene(FADE_FRAMES);
 //            inactivateDelay(FADE_FRAMES);
@@ -42,7 +44,7 @@ void GameOverScene::processBehavior() {
         }
 
         case GameOverScene::PROG_DISP: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
                 std::string str_last_score = GameGlobal::qryScoreRanking_.getVal("SCORE", GameGlobal::qryScoreRanking_.getCount()-1);  //現在のハイスコアの最低スコア
@@ -62,7 +64,6 @@ void GameOverScene::processBehavior() {
                     _TRACE_("_pProg->change(GameOverScene::PROG_NAMEENTRY);");
                     _pProg->change(GameOverScene::PROG_NAMEENTRY);
                 } else {
-                    throwEventToUpperTree(EVENT_GAMEOVERSCENE_FINISH);
                     _pProg->change(GameOverScene::PROG_FINISH);
                 }
             }
@@ -70,16 +71,20 @@ void GameOverScene::processBehavior() {
         }
 
         case GameOverScene::PROG_NAMEENTRY: {
-             if (_pProg->isJustChanged()) {
-                 NameEntryScene* pScene = (NameEntryScene*)obtainSceneFromFactory(ORDER_ID_NAMEENTRYSCENE);
-                 addSubLast(pScene);
+             if (_pProg->hasJustChanged()) {
+                 pNameEntryScene_ = (NameEntryScene*)obtainSceneFromFactory(ORDER_ID_NAMEENTRYSCENE);
+                 addSubLast(pNameEntryScene_);
              }
-             //イベント待ち
+             //EVENT_NAMEENTRYSCENE_FINISH イベント待ち
              break;
          }
 
         case GameOverScene::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
+                if (pNameEntryScene_) {
+                    pNameEntryScene_->sayonara();
+                }
+                throwEventToUpperTree(EVENT_GAMEOVERSCENE_FINISH);
             }
             break;
         }
@@ -88,6 +93,12 @@ void GameOverScene::processBehavior() {
             break;
      }
 }
-
+void GameOverScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
+    if (prm_no == EVENT_NAMEENTRYSCENE_FINISH) {
+        //ネームエントリーシーン終了時
+        _TRACE_("GameOverScene::onCatchEvent(EVENT_NAMEENTRYSCENE_FINISH)");
+        _pProg->change(PROG_FINISH);
+    }
+}
 GameOverScene::~GameOverScene() {
 }

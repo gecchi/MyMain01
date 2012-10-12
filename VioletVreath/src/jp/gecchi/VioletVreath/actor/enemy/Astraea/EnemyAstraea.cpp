@@ -88,7 +88,7 @@ void EnemyAstraea::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
         case PROG_ENTRY: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
                 _pFader->setAlpha(0);
                 _pFader->intoTargetAlphaLinerUntil(0.98, 20);
@@ -103,7 +103,7 @@ void EnemyAstraea::processBehavior() {
             break;
         }
         case PROG_MOVE: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 angle v = angveloTurn_ / 50;
                 _pKurokoA->setFaceAngVelo(AXIS_X, RND(-v, v));
                 _pKurokoA->setFaceAngVelo(AXIS_Z, RND(-v, v));
@@ -118,7 +118,7 @@ void EnemyAstraea::processBehavior() {
         }
 
         case PROG_TURN: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 //ターン開始
                 _pKurokoA->execTurnFaceAngSequence(P_MYSHIP, angveloTurn_, 0,
                                                    TURN_ANTICLOSE_TO, false);
@@ -138,7 +138,7 @@ void EnemyAstraea::processBehavior() {
         }
 
         case PROG_FIRE: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 //レーザーセット、借入
                 GgafActorDepositoryStore* pLaserChipDepoStore =
                         (GgafActorDepositoryStore*)(pCon_LaserChipDepoStore_->fetch());

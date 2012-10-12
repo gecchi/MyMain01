@@ -40,7 +40,7 @@ public:
 
     virtual void processFinal() override {
         if (getSubFirst() == NULL) {
-            end(1); //1フレーム後
+            sayonara(1); //1フレーム後
         }
     }
 

@@ -237,7 +237,7 @@ void RankUp002::processBehavior() {
 
     switch (_pProg->get()) {
         case RankUpStage::PROG_PLAYING: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 _TRACE_("RankUp002::processBehavior() RankUpStage::PROG_PLAYING Ç…Ç»ÇËÇ‹Ç∑ÇΩÅI");
             }
 

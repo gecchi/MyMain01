@@ -70,14 +70,16 @@ void StageController::processBehavior() {
     //SCORE表示
     switch (_pProg->get()) {
         case StageController::PROG_INIT: {
+            _TRACE_("StageController::processBehavior() Prog is StageController::PROG_INIT");
             readyStage(main_stage_);
             _pProg->change(StageController::PROG_BEGIN);
             break;
         }
 
         case StageController::PROG_BEGIN: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("StageController::processBehavior() Prog(=StageController::PROG_BEGIN) is Just Changed");
+            if (_pProg->hasJustChanged()) {
+                _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_BEGIN)");
+                _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
             }
             if (_pProg->getFrameInProgress() == 120) { //２秒遊ぶ
                 _pProg->change(StageController::PROG_PLAY_STAGE);
@@ -86,8 +88,9 @@ void StageController::processBehavior() {
         }
 
         case StageController::PROG_PLAY_STAGE: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("StageController::processBehavior() Prog(=StageController::PROG_PLAY_STAGE) is Just Changed. main_stage_="<<main_stage_);
+            if (_pProg->hasJustChanged()) {
+                _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_PLAY_STAGE)");
+                _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 readyStage(main_stage_); //念のために呼ぶ。通常はもう準備できているハズ。
                 //ステージシーン追加
                 if (pStageMainCannel_) {
@@ -103,8 +106,9 @@ void StageController::processBehavior() {
         }
 
         case StageController::PROG_PLAY_TRANSIT: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("StageController::processBehavior() Prog(=StageController::PROG_PLAY_TRANSIT) is Just Changed. main_stage_="<<main_stage_);
+            if (_pProg->hasJustChanged()) {
+                _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_PLAY_TRANSIT)");
+                _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 pTransitStage_->fadeoutSceneTree(0);
                 _TRACE_("StageController::processBehavior() pTransitStage_->setStage("<<main_stage_<<")");
                 pTransitStage_->setStage(main_stage_);
@@ -117,9 +121,12 @@ void StageController::processBehavior() {
         }
 
         case StageController::PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("StageController::processBehavior() Prog(=StageController::PROG_FINISH) is Just Changed pTransitStage_->next_main_stage_="<<pTransitStage_->next_main_stage_);
+            if (_pProg->hasJustChanged()) {
+                _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_FINISH)");
+                _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 main_stage_ = pTransitStage_->next_main_stage_; //次のステージ
+                _TRACE_("StageController::processBehavior() main_stage_ = pTransitStage_->next_main_stage_;");
+                _TRACE_("StageController::processBehavior() 更新された main_stage_="<<main_stage_);
                 _pProg->change(StageController::PROG_BEGIN); //ループ
             }
             break;
@@ -166,13 +173,13 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
 
     if (prm_no == EVENT_STG01_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_STG01_WAS_END)");
-        pStageMainCannel_->end(180);
+        pStageMainCannel_->sayonara(180);
         pStageMainCannel_->fadeoutSceneTree(180);
         _pProg->change(StageController::PROG_PLAY_TRANSIT);
     }
     if (prm_no == EVENT_STG02_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_STG02_WAS_END)");
-        pStageMainCannel_->end(180);
+        pStageMainCannel_->sayonara(180);
         pStageMainCannel_->fadeoutSceneTree(180);
         _pProg->change(StageController::PROG_PLAY_TRANSIT);
     }

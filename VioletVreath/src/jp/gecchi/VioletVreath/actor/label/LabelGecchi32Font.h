@@ -5,7 +5,7 @@ namespace VioletVreath {
 /**
  * オリジナル32x32ドットフォントのラベル .
  * @version 1.00
- * @since 2012/10/05
+ * @since 2012/10/12
  * @author Masatoshi Tsuge
  */
 class LabelGecchi32Font : public GgafLib::StringBoardActor {

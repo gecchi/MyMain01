@@ -21,8 +21,8 @@ public:
 
     LabelGecchi16Font* pLabel01_;
 
-    LabelGecchi32Font* pLabelInputedName_;
-    LabelGecchi32Font* pLabelSelectedChar_;
+    SpriteLabelGecchi32Font* pLabelInputedName_;
+    SpriteLabelGecchi32Font* pLabelSelectedChar_;
 
     MenuBoardNameEntry* pNameEntryBoard_;
     std::string inputed_name_;

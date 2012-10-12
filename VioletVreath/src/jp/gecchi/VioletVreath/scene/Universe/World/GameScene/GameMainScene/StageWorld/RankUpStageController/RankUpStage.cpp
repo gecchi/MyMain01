@@ -32,7 +32,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case RankUpStage::PROG_BEGIN: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
                 pMessage_->update(PX_C(500), PX_C(200), "RANKUPSTAGE::PROG_BEGIN");
                 _pBgmPerformer->play_fadein(0);
@@ -44,7 +44,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case RankUpStage::PROG_PLAYING: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 pMessage_->update("RANKUPSTAGE::PROG_PLAYING");
                 pMessage_->_pFader->beat(120,30,30,30,-1);
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
@@ -53,7 +53,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case RankUpStage::PROG_RESULT: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 pMessage_->_pFader->reset();
                 pMessage_->update("RANKUPSTAGE::PROG_RESULT");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_RESULT !");
@@ -71,7 +71,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case RankUpStage::PROG_END: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_END‚É‚È‚è‚Ü‚·‚½I");
                 pMessage_->update("RANKUPSTAGE::PROG_END");
                 throwEventToUpperTree(EVENT_RANKUP_WAS_END, this);

@@ -11,19 +11,23 @@ char* MenuBoardNameEntry::apInputItemStr_[] = {
      "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "[", "\\","]", "^", "_"
 };
 int MenuBoardNameEntry::input_item_num_ = 16*4;
-#define MAX_NAME_LEN 10
+
 MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardNameEntry";
     //メニューウィンドウ設定
-    update("%&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'\n"
-           ")******************************+\n"
-           ")******************************+\n"
-           ")******************************+\n"
-           ")******************************+\n"
-           ")******************************+\n"
-           ")******************************+\n"
-           "-............................../");
+//    update("%&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'\n"
+//           ")******************************+\n"
+//           ")******************************+\n"
+//           ")******************************+\n"
+//           ")******************************+\n"
+//           ")******************************+\n"
+//           ")******************************+\n"
+//           "-............................../");
+        update("%&'\n"
+               ")*+\n"
+               "-./");
+
     _Z = 5; //プライオリティ
 
     //メニューアイテム（入力文字盤）設定
@@ -66,21 +70,19 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     setSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューを生成
 }
 
-void MenuBoardNameEntry::setNameStringBoard(StringBoardActor* prm_pInputedName,
-                                            StringBoardActor* prm_pSelectedChar) {
+void MenuBoardNameEntry::setNameStringBoard(StringSpriteActor* prm_pInputedName,
+                                            StringSpriteActor* prm_pSelectedChar) {
     pLabelInputedName_ = prm_pInputedName;
     pLabelSelectedChar_ = prm_pSelectedChar;
 }
 
 bool MenuBoardNameEntry::condDecision() {
     if (VB->isPushedDown(VB_UI_EXECUTE)) {
-        _TRACE_("condDecision() 通常の決定にしました！");
         _pSeTxer->play(SE_DECIDED_NOMAL);
         return true;
     } else if (VB->isPushedDown(VB_UI_CANCEL) &&
                getSelectedIndex() == ITEM_INDEX_BS_) {
         //特別に[BS]でキャンセルボタン押した場合は。[BS]を「決定（振る舞い）」したことにする
-        _TRACE_("condDecision() [BS]でキャンセルなので決定にしました！");
         _pSeTxer->play(SE_DECIDED_CANCEL);
         return true;
     } else {
@@ -191,7 +193,8 @@ void MenuBoardNameEntry::processBehavior() {
         if (pMenuConfirm->isJustDecided()) { //サブメニューで「決定（振る舞い）」の時
             if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
                 //ネームエントリー完了OK
-                throwEventToUpperTree(EVENT_NAME_ENTRY_DONE);
+                throwEventToUpperTree(EVENT_MENU_NAMEENTRY_DONE);
+                _TRACE_("MenuBoardNameEntry::processBehavior() おしまい。イベントを投げた throwEventToUpperTree(EVENT_MENU_NAMEENTRY_DONE);");
                 sinkSubMenu();
             } else if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
                 sinkSubMenu();
@@ -205,21 +208,24 @@ void MenuBoardNameEntry::processBehavior() {
     int item_index = getSelectedIndex();
     int len = strlen(pLabelInputedName_->_draw_string);
     if (0 <= item_index && item_index <= (input_item_num_-1)) {
-        if (len >= MAX_NAME_LEN) {
+        if (len >= SCORERANKING_NAME_LEN) {
             //10文字以上の場合カーソル文字表示無し
             pLabelSelectedChar_->update("");
         } else {
             //10文字未満の場合カーソル文字表示として、選択文字を表示
-            pLabelSelectedChar_->update(apInputItemStr_[item_index]);
+            std::string s = " " + std::string(len, ' ') + std::string(apInputItemStr_[item_index]);
+            pLabelSelectedChar_->update(s.c_str());
         }
     } else if (item_index == ITEM_INDEX_BS_) {
         //[BS]時の表示
-        pLabelSelectedChar_->update("<<[BS]");
+        std::string s = "      " + std::string(len, ' ') + "<<[BS]";
+        pLabelSelectedChar_->update(s.c_str());
     } else if (item_index == ITEM_INDEX_OK_) {
         //[OK]時の表示
-        pLabelSelectedChar_->update("  [OK]?");
+        std::string s = "      " + std::string(len, ' ') + " [OK]?";
+        pLabelSelectedChar_->update(s.c_str());
     }
-    pLabelSelectedChar_->_X = pLabelInputedName_->_X + PX_C(pLabelInputedName_->_chr_width_px * len);
+    //pLabelSelectedChar_->_X = pLabelInputedName_->_X + PX_C(pLabelInputedName_->_chr_width_px * len);
 }
 
 void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
@@ -242,7 +248,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
     } else {
         //その他アイテム（入力文字）で決定（振る舞い）の処理
         //文字入力する
-        if (len >= MAX_NAME_LEN) {
+        if (len >= SCORERANKING_NAME_LEN) {
             //10文字以上の場合
             //何もしない
         } else {

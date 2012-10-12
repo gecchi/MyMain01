@@ -240,6 +240,28 @@ void GgafScene::end(frame prm_offset_frames) {
     //この順番は重要。逆にするとゴミ箱の解放時に不正ポインタになりうるため。
 }
 
+void GgafScene::sayonara(frame prm_offset_frames) {
+    if (prm_offset_frames > 3) {
+        _pDirector->sayonara(prm_offset_frames-2);
+    } else {
+        _pDirector->sayonara(prm_offset_frames);
+    }
+    GgafElement<GgafScene>::end(prm_offset_frames);
+
+    GgafScene* pScene;
+    if (_pSubFirst) {
+        pScene = _pSubFirst;
+        while (true) {
+            pScene->sayonara(prm_offset_frames);
+            if (pScene->_is_last_flg) {
+                break;
+            } else {
+                pScene = pScene->_pNext;
+            }
+        }
+    }
+}
+
 void GgafScene::clean(int prm_num_cleaning) {
     if (_pDirector) {
         _pDirector->clean(prm_num_cleaning);

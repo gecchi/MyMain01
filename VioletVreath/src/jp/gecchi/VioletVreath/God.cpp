@@ -44,13 +44,13 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     }
 
     //ランキング情報読み込み
-    if (PathFileExists("SCORE_RANKING.qry") ) {
-        GameGlobal::qryScoreRanking_.importFromFile("SCORE_RANKING.qry");
+    if (PathFileExists(SCORERANKING_FILE) ) {
+        GameGlobal::qryScoreRanking_.importFromFile(SCORERANKING_FILE);
     } else {
         std::string date = UTIL::getSystemDateTimeStr();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < SCORERANKING_RECORD_NUM; i++) {
             GgafRecord* r = NEW GgafRecord();
-            (*r)["NAME"]  = "..........";
+            (*r)["NAME"]  = std::string(SCORERANKING_NAME_LEN, '.');
             (*r)["SCORE"] = UTIL::padZeroStr((i+1)*1000, 10);
             (*r)["REGDATE"] = date;
             GameGlobal::qryScoreRanking_.addRow(r);
@@ -58,8 +58,8 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
         GameGlobal::qryScoreRanking_.sortDescBy("SCORE",false);
     }
     //10位(index=9)まで残して、11位(index=10)以降を削除
-    if (GameGlobal::qryScoreRanking_.getCount() > 10) {
-        GameGlobal::qryScoreRanking_.removeRows(10);
+    if (GameGlobal::qryScoreRanking_.getCount() > SCORERANKING_RECORD_NUM) {
+        GameGlobal::qryScoreRanking_.removeRows(SCORERANKING_RECORD_NUM);
     }
 
 

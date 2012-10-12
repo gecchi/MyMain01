@@ -1177,7 +1177,7 @@ template<class T>
 void GgafElement<T>::activateDelay(frame prm_offset_frames) {
 #ifdef MY_DEBUG
     if (prm_offset_frames == 0) {
-        _TRACE_("＜警告＞activateDelay(0) は無意味である。意図してますか？");
+        _TRACE_("＜警告＞activateDelay(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name);
     }
 #endif
     if (_can_live_flg) {

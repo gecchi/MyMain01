@@ -86,7 +86,7 @@ void MyShipScene::onActive() {
 
 void MyShipScene::processBehavior() {
 
-    switch (_pProg->getPrev_WhenJustChanged()) {
+    switch (_pProg->getFromProgOnChange()) {
         case MyShipScene::PROG_BEGIN: {
             P_UNIVERSE->undoCameraWork(); //MyShipDivingCamWorker‰ðœ
             break;
@@ -106,7 +106,7 @@ void MyShipScene::processBehavior() {
         }
 
         case MyShipScene::PROG_BEGIN: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 fadeinScene(120);
                 pMyShip_->resetTree();
 
@@ -137,7 +137,7 @@ void MyShipScene::processBehavior() {
         }
 
         case MyShipScene::PROG_PLAY: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
 //                pMyShip_->can_control_ = true;
             }
             //ƒCƒxƒ“ƒg EVENT_MY_SHIP_WAS_DESTROYED_BEGIN ‘Ò‚¿
@@ -145,7 +145,7 @@ void MyShipScene::processBehavior() {
         }
 
         case MyShipScene::PROG_DESTROY: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 pEffectMyShipExplosion_->activate(); //”š”­
                 pMyShip_->can_control_ = false;
                 for (int i = 0; i < MyOptionController::max_option_num_; i ++) {

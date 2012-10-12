@@ -76,7 +76,7 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
         }
 
         case PROG_TURN1: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 _pKurokoA->setMvVelo(_pKurokoA->_veloMv/4);
                 _pKurokoA->execTurnMvAngSequence(
                              tX2_, tY2_, tZ2_,
@@ -90,7 +90,7 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
         }
 
         case PROG_INTO_MYSHIP: {
-            if (_pProg->isJustChanged()) {
+            if (_pProg->hasJustChanged()) {
                 _pKurokoA->setMvVelo(_pKurokoA->_veloMv*3);
             }
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {

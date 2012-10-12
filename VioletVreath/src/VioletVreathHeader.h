@@ -200,8 +200,8 @@ DECLARE_CONST(EVENT_GAMESTART);
 DECLARE_CONST(EVENT_GOTO_GAMETITLE);
 DECLARE_CONST(EVENT_GAMEMODE_DECIDE);
 DECLARE_CONST(EVENT_GAMEOVERSCENE_FINISH);
-
-DECLARE_CONST(EVENT_NAME_ENTRY_DONE);
+DECLARE_CONST(EVENT_NAMEENTRYSCENE_FINISH);
+DECLARE_CONST(EVENT_MENU_NAMEENTRY_DONE);
 
 namespace VioletVreath {
 
@@ -391,6 +391,7 @@ class LabelGecchi32Font;
 class LabelRankFont;
 class LabelRankingFont;
 class SpriteLabelTest;
+class SpriteLabelGecchi32Font;
 
 class TamagoActor;
 class TestEnemy;
@@ -714,8 +715,7 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankingFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
-
-
+#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeres.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeresShot001.h"

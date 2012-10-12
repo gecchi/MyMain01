@@ -98,7 +98,7 @@ void PreDrawScene::processBehavior() {
     }
 
     if (_pProg->get() == 2) {
-        if (_pProg->isJustChanged()) {
+        if (_pProg->hasJustChanged()) {
             fadeoutSceneTree(120);
             //end(120);
         }
