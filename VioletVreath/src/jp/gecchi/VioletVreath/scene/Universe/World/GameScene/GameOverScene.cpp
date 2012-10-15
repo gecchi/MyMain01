@@ -47,19 +47,19 @@ void GameOverScene::processBehavior() {
             if (_pProg->hasJustChanged()) {
                 pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
-                std::string str_last_score = GameGlobal::qryScoreRanking_.getVal("SCORE", GameGlobal::qryScoreRanking_.getCount()-1);  //現在のハイスコアの最低スコア
-                int last_score = STOI(str_last_score);
-                _TRACE_("GameGlobal::score_="<<GameGlobal::score_<<" ? last_score="<<last_score);
-                if (GameGlobal::score_ > last_score) {
-                    _TRACE_("HIGHSCORE!!!!");
+
+                if (GameGlobal::qryRanking_.isRankIn(_SCORE_)) {
+                    _TRACE_("ランクイン!!!!");
                     //ランクインのため、ネームエントリーシーン準備
                     orderSceneToFactory(ORDER_ID_NAMEENTRYSCENE, NameEntryScene, "NameEntryScene");
                     need_name_entry_ = true;
                 } else {
+                    _TRACE_("ランクインではない!!!!");
                     need_name_entry_ = false;
                 }
             }
-            if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 420) {
+            if (_pProg->getFrameInProgress() == 420) {
+                P_UNIVERSE->resetCamWorker();
                 if (need_name_entry_) {
                     _TRACE_("_pProg->change(GameOverScene::PROG_NAMEENTRY);");
                     _pProg->change(GameOverScene::PROG_NAMEENTRY);

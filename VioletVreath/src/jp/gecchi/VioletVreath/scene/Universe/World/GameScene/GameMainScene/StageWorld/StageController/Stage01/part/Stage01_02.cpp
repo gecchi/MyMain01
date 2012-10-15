@@ -9,10 +9,10 @@ Stage01_02::Stage01_02(const char* prm_name) : DefaultScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,20,100,160,220,260,280,340,400,460,500,700,860,1100,1200,1340,1580,1820,2060,2200,2300,2500,2700,3000,3200,4000,4200,5000,5200,6000,6200,7000,7200,8000,9000,9200};
-	_paFrame_NextEvent = new frame[36];
+	frame f[] = {1,40,100,160,220,280,340,400,460,520,580,640,700,760,820,880,940,1000,1060,1120,1180,1240,1300,1360,1420,1480,1540,1600,1660,1720,1780,1840,1900,1960,2020,2080,2140,2200,2260,2320,2380,2440,2500,2560,2620,2680,2740,2800,2860,2920,2980,3040,3100,3160,3220,3280,3340,3400,3460,3520,3580,3640,3700,3760,3820,3880,3940,4000,4060,4120,4180,4240,4300,4360,4420,4480,4540,4600,4660,4720,4780,4840,4900,4960,10000};
+	_paFrame_NextEvent = new frame[85];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 36;
+	_event_num = 85;
 	orderActorToFactory(40000000, EnemyMetis, "Metis_1");
 	orderActorToFactory(40000001, EnemyMetis, "Metis_2");
 	orderActorToFactory(40000002, EnemyMetis, "Metis_3");
@@ -20,24 +20,13 @@ Stage01_02::Stage01_02(const char* prm_name) : DefaultScene(prm_name) {
 	orderActorToFactory(40000004, EnemyMetis, "Metis_5");
 	orderActorToFactory(40000005, EnemyMetis, "Metis_6");
 	orderActorToFactory(40000006, EnemyMetis, "Metis_7");
-	orderActorToFactory(40000007, FormationEunomia001a, "F001a_Eunomia_8");
-	orderActorToFactory(40000008, FormationEunomia001b, "F001b_Eunomia_9");
-	orderActorToFactory(40000009, FormationEunomia001a, "F001a_Eunomia_10");
-	orderActorToFactory(40000010, FormationEunomia001b, "F001b_Eunomia_11");
-	orderActorToFactory(40000011, FormationEunomia001a, "F001a_Eunomia_12");
-	
-	orderActorToFactory(40000018, FormationPallas001a, "F001a_Pallas_13");
-	orderActorToFactory(40000019, FormationPallas001b, "F001b_Pallas_14");
-	orderActorToFactory(40000020, FormationPallas001c, "F001c_Pallas_15");
-	orderActorToFactory(40000021, FormationPallas001d, "F001d_Pallas_16");
-	orderActorToFactory(40000022, FormationPallas001a, "F001a_Pallas_17");
-	orderActorToFactory(40000023, FormationPallas001d, "F001d_Pallas_18");
-	orderActorToFactory(40000024, FormationPallas001b, "F001b_Pallas_19");
-	orderActorToFactory(40000025, FormationPallas001c, "F001c_Pallas_20");
-	orderActorToFactory(40000026, FormationPallas001a, "F001a_Pallas_21");
-	orderActorToFactory(40000027, FormationPallas001d, "F001d_Pallas_22");
-	orderActorToFactory(40000028, FormationPallas001b, "F001b_Pallas_23");
-	orderActorToFactory(40000029, FormationPallas001c, "F001c_Pallas_24");
+	orderActorToFactory(40000007, EnemyMetis, "Metis_8");
+	orderActorToFactory(40000008, EnemyMetis, "Metis_9");
+	orderActorToFactory(40000009, EnemyMetis, "Metis_10");
+	orderActorToFactory(40000010, EnemyMetis, "Metis_11");
+	orderActorToFactory(40000011, EnemyMetis, "Metis_12");
+	orderActorToFactory(40000012, EnemyMetis, "Metis_13");
+	orderActorToFactory(40000013, EnemyMetis, "Metis_14");
     // gen01 end
 }
 
@@ -54,212 +43,498 @@ void Stage01_02::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 20: {
-				orderActorToFactory(40000012, FormationEunomia001b, "F001b_Eunomia_25");
+			case 40: {
+				orderActorToFactory(40000014, EnemyMetis, "Metis_15");
 				break;
 			}
 			case 100: {
 				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000000);
 				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000015, EnemyMetis, "Metis_16");
+				orderActorToFactory(40000082, VarietyTorus001, "VarietyTorus001_17");
 				break;
 			}
 			case 160: {
 				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000001);
 				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000016, EnemyMetis, "Metis_18");
 				break;
 			}
 			case 220: {
 				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000002);
 				getDirector()->addSubGroup(pMetis);
-				break;
-			}
-			case 260: {
-				orderActorToFactory(40000013, FormationEunomia001a, "F001a_Eunomia_26");
+				orderActorToFactory(40000017, EnemyMetis, "Metis_19");
 				break;
 			}
 			case 280: {
 				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000003);
 				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000018, EnemyMetis, "Metis_20");
 				break;
 			}
 			case 340: {
 				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000004);
 				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000019, EnemyMetis, "Metis_21");
 				break;
 			}
 			case 400: {
 				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000005);
 				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000020, EnemyMetis, "Metis_22");
 				break;
 			}
 			case 460: {
 				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000006);
 				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000021, EnemyMetis, "Metis_23");
 				break;
 			}
-			case 500: {
-				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(40000007);
-				getDirector()->addSubGroup(pFormationEunomia);
-				orderActorToFactory(40000014, FormationEunomia001b, "F001b_Eunomia_27");
-				orderActorToFactory(40000015, EnemyAstraea, "Astraea_28");
+			case 520: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000007);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000022, EnemyMetis, "Metis_24");
+				break;
+			}
+			case 580: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000008);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000023, EnemyMetis, "Metis_25");
+				break;
+			}
+			case 640: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000009);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000024, EnemyMetis, "Metis_26");
 				break;
 			}
 			case 700: {
-				orderActorToFactory(40000016, FormationMassalia, "FormationMassalia_29");
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000010);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000025, EnemyMetis, "Metis_27");
 				break;
 			}
-			case 860: {
-				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(40000008);
-				getDirector()->addSubGroup(pFormationEunomia);
+			case 760: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000011);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000026, EnemyMetis, "Metis_28");
 				break;
 			}
-			case 1100: {
-				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(40000009);
-				getDirector()->addSubGroup(pFormationEunomia);
+			case 820: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000012);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000027, EnemyMetis, "Metis_29");
 				break;
 			}
-			case 1200: {
-				orderActorToFactory(40000030, FormationJuno001, "F002_Juno_30");
+			case 880: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000013);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000028, EnemyMetis, "Metis_30");
 				break;
 			}
-			case 1340: {
-				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(40000010);
-				getDirector()->addSubGroup(pFormationEunomia);
+			case 940: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000014);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000029, EnemyMetis, "Metis_31");
 				break;
 			}
-			case 1580: {
-				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(40000011);
-				getDirector()->addSubGroup(pFormationEunomia);
+			case 1000: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000015);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000030, EnemyMetis, "Metis_32");
+				VarietyTorus001* pTorus = (VarietyTorus001*)obtainActorFromFactory(40000082);
+				getDirector()->addSubGroup(pTorus);
 				break;
 			}
-			case 1820: {
-				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(40000012);
-				getDirector()->addSubGroup(pFormationEunomia);
+			case 1060: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000016);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000031, EnemyMetis, "Metis_33");
 				break;
 			}
-			case 2060: {
-				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(40000013);
-				getDirector()->addSubGroup(pFormationEunomia);
+			case 1120: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000017);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000032, EnemyMetis, "Metis_34");
+				break;
+			}
+			case 1180: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000018);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000033, EnemyMetis, "Metis_35");
+				break;
+			}
+			case 1240: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000019);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000034, EnemyMetis, "Metis_36");
+				break;
+			}
+			case 1300: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000020);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000035, EnemyMetis, "Metis_37");
+				break;
+			}
+			case 1360: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000021);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000036, EnemyMetis, "Metis_38");
+				break;
+			}
+			case 1420: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000022);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000037, EnemyMetis, "Metis_39");
+				break;
+			}
+			case 1480: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000023);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000038, EnemyMetis, "Metis_40");
+				break;
+			}
+			case 1540: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000024);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000039, EnemyMetis, "Metis_41");
+				break;
+			}
+			case 1600: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000025);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000040, EnemyMetis, "Metis_42");
+				break;
+			}
+			case 1660: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000026);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000041, EnemyMetis, "Metis_43");
+				break;
+			}
+			case 1720: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000027);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000042, EnemyMetis, "Metis_44");
+				break;
+			}
+			case 1780: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000028);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000043, EnemyMetis, "Metis_45");
+				break;
+			}
+			case 1840: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000029);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000044, EnemyMetis, "Metis_46");
+				break;
+			}
+			case 1900: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000030);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000045, EnemyMetis, "Metis_47");
+				break;
+			}
+			case 1960: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000031);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000046, EnemyMetis, "Metis_48");
+				break;
+			}
+			case 2020: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000032);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000047, EnemyMetis, "Metis_49");
+				break;
+			}
+			case 2080: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000033);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000048, EnemyMetis, "Metis_50");
+				break;
+			}
+			case 2140: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000034);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000049, EnemyMetis, "Metis_51");
 				break;
 			}
 			case 2200: {
-				orderActorToFactory(40000031, VarietyTorus001, "VarietyTorus001_31");
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000035);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000050, EnemyMetis, "Metis_52");
 				break;
 			}
-			case 2300: {
-				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(40000014);
-				getDirector()->addSubGroup(pFormationEunomia);
-				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(40000015);
-				getDirector()->addSubGroup(pAstraea2);
-				pAstraea2->_Z = 1800000;
-				pAstraea2->_Y = -100000;
+			case 2260: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000036);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000051, EnemyMetis, "Metis_53");
+				break;
+			}
+			case 2320: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000037);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000052, EnemyMetis, "Metis_54");
+				break;
+			}
+			case 2380: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000038);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000053, EnemyMetis, "Metis_55");
+				break;
+			}
+			case 2440: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000039);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000054, EnemyMetis, "Metis_56");
 				break;
 			}
 			case 2500: {
-				FormationMassalia* pFormationMassalia = (FormationMassalia*)obtainActorFromFactory(40000016);
-				getDirector()->addSubGroup(pFormationMassalia);
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000040);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000055, EnemyMetis, "Metis_57");
 				break;
 			}
-			case 2700: {
-				{
-				FormationTableScene* ta = NEW FormationTableScene("FormationTable_40000017");
-				ta->setMaxPerformFrame(2500);
-				addSubLast(ta);
-				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(40000018)), 400);
-				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(40000019)), 400);
-				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(40000020)), 400);
-				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(40000021)), 400);
-				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(40000022)), 1);
-				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(40000023)), 400);
-				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(40000024)), 1);
-				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(40000025)), 400);
-				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(40000026)), 1);
-				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(40000027)), 1);
-				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(40000028)), 1);
-				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(40000029)), 400);
-				}
+			case 2560: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000041);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000056, EnemyMetis, "Metis_58");
 				break;
 			}
-			case 3000: {
-				FormationJuno001* pF = (FormationJuno001*)obtainActorFromFactory(40000030);
-				getDirector()->addSubGroup(pF);
+			case 2620: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000042);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000057, EnemyMetis, "Metis_59");
 				break;
 			}
-			case 3200: {
-				orderActorToFactory(40000032, VarietyTorus002, "VarietyTorus002_32");
+			case 2680: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000043);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000058, EnemyMetis, "Metis_60");
+				break;
+			}
+			case 2740: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000044);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000059, EnemyMetis, "Metis_61");
+				break;
+			}
+			case 2800: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000045);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000060, EnemyMetis, "Metis_62");
+				break;
+			}
+			case 2860: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000046);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000061, EnemyMetis, "Metis_63");
+				break;
+			}
+			case 2920: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000047);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000062, EnemyMetis, "Metis_64");
+				break;
+			}
+			case 2980: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000048);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000063, EnemyMetis, "Metis_65");
+				break;
+			}
+			case 3040: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000049);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000064, EnemyMetis, "Metis_66");
+				break;
+			}
+			case 3100: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000050);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000065, EnemyMetis, "Metis_67");
+				break;
+			}
+			case 3160: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000051);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000066, EnemyMetis, "Metis_68");
+				break;
+			}
+			case 3220: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000052);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000067, EnemyMetis, "Metis_69");
+				break;
+			}
+			case 3280: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000053);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000068, EnemyMetis, "Metis_70");
+				break;
+			}
+			case 3340: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000054);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000069, EnemyMetis, "Metis_71");
+				break;
+			}
+			case 3400: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000055);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000070, EnemyMetis, "Metis_72");
+				break;
+			}
+			case 3460: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000056);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000071, EnemyMetis, "Metis_73");
+				break;
+			}
+			case 3520: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000057);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000072, EnemyMetis, "Metis_74");
+				break;
+			}
+			case 3580: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000058);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000073, EnemyMetis, "Metis_75");
+				break;
+			}
+			case 3640: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000059);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000074, EnemyMetis, "Metis_76");
+				break;
+			}
+			case 3700: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000060);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000075, EnemyMetis, "Metis_77");
+				break;
+			}
+			case 3760: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000061);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000076, EnemyMetis, "Metis_78");
+				break;
+			}
+			case 3820: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000062);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000077, EnemyMetis, "Metis_79");
+				break;
+			}
+			case 3880: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000063);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000078, EnemyMetis, "Metis_80");
+				break;
+			}
+			case 3940: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000064);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000079, EnemyMetis, "Metis_81");
 				break;
 			}
 			case 4000: {
-				VarietyTorus001* pTorus = (VarietyTorus001*)obtainActorFromFactory(40000031);
-				getDirector()->addSubGroup(pTorus);
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000065);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000080, EnemyMetis, "Metis_82");
 				break;
 			}
-			case 4200: {
-				orderActorToFactory(40000033, VarietyTorus003, "VarietyTorus003_33");
+			case 4060: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000066);
+				getDirector()->addSubGroup(pMetis);
+				orderActorToFactory(40000081, EnemyMetis, "Metis_83");
 				break;
 			}
-			case 5000: {
-				VarietyTorus002* pTorusA = (VarietyTorus002*)obtainActorFromFactory(40000032);
-				getDirector()->addSubGroup(pTorusA);
+			case 4120: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000067);
+				getDirector()->addSubGroup(pMetis);
 				break;
 			}
-			case 5200: {
-				orderActorToFactory(40000034, VarietyTorus004, "VarietyTorus004_34");
+			case 4180: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000068);
+				getDirector()->addSubGroup(pMetis);
 				break;
 			}
-			case 6000: {
-				VarietyTorus003* pTorusB = (VarietyTorus003*)obtainActorFromFactory(40000033);
-				getDirector()->addSubGroup(pTorusB);
+			case 4240: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000069);
+				getDirector()->addSubGroup(pMetis);
 				break;
 			}
-			case 6200: {
-				orderActorToFactory(40000035, VarietyTorus004, "VarietyTorus004_35");
-				orderActorToFactory(40000038, FormationIris002, "F002_Iris_36");
-				orderActorToFactory(40000039, FormationIris001, "F001_Iris_37");
-				orderActorToFactory(40000040, FormationIris001, "F001_Iris_38");
-				orderActorToFactory(40000041, FormationIris002, "F002_Iris_39");
-				orderActorToFactory(40000042, FormationIris001, "F001_Iris_40");
-				orderActorToFactory(40000043, FormationIris002, "F002_Iris_41");
+			case 4300: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000070);
+				getDirector()->addSubGroup(pMetis);
 				break;
 			}
-			case 7000: {
-				VarietyTorus004* pTorus = (VarietyTorus004*)obtainActorFromFactory(40000034);
-				getDirector()->addSubGroup(pTorus);
+			case 4360: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000071);
+				getDirector()->addSubGroup(pMetis);
 				break;
 			}
-			case 7200: {
-				orderActorToFactory(40000036, FormationThalia, "FormationThalia_42");
+			case 4420: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000072);
+				getDirector()->addSubGroup(pMetis);
 				break;
 			}
-			case 8000: {
+			case 4480: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000073);
+				getDirector()->addSubGroup(pMetis);
+				break;
+			}
+			case 4540: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000074);
+				getDirector()->addSubGroup(pMetis);
+				break;
+			}
+			case 4600: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000075);
+				getDirector()->addSubGroup(pMetis);
+				break;
+			}
+			case 4660: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000076);
+				getDirector()->addSubGroup(pMetis);
+				break;
+			}
+			case 4720: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000077);
+				getDirector()->addSubGroup(pMetis);
+				break;
+			}
+			case 4780: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000078);
+				getDirector()->addSubGroup(pMetis);
+				break;
+			}
+			case 4840: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000079);
+				getDirector()->addSubGroup(pMetis);
+				break;
+			}
+			case 4900: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000080);
+				getDirector()->addSubGroup(pMetis);
+				break;
+			}
+			case 4960: {
+				EnemyMetis* pMetis = (EnemyMetis*)obtainActorFromFactory(40000081);
+				getDirector()->addSubGroup(pMetis);
+				break;
+			}
+			case 10000: {
 				throwEventToUpperTree(EVENT_STG01_02_WAS_BROKEN,this);
-				VarietyTorus004* pTorus = (VarietyTorus004*)obtainActorFromFactory(40000035);
-				getDirector()->addSubGroup(pTorus);
-				break;
-			}
-			case 9000: {
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000036);
-				getDirector()->addSubGroup(pF);
-				break;
-			}
-			case 9200: {
-				{
-				FormationTableScene* ta = NEW FormationTableScene("FormationTable_40000037");
-				ta->setMaxPerformFrame(2000);
-				addSubLast(ta);
-				ta->addToTable(((FormationIris002*)obtainActorFromFactory(40000038)), 400);
-				ta->addToTable(((FormationIris001*)obtainActorFromFactory(40000039)), 400);
-				ta->addToTable(((FormationIris001*)obtainActorFromFactory(40000040)), 400);
-				ta->addToTable(((FormationIris002*)obtainActorFromFactory(40000041)), 400);
-				ta->addToTable(((FormationIris001*)obtainActorFromFactory(40000042)), 400);
-				ta->addToTable(((FormationIris002*)obtainActorFromFactory(40000043)), 400);
-				}
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 36-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 85-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 }

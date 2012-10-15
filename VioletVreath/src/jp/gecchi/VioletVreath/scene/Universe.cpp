@@ -124,9 +124,9 @@ CameraWorker* Universe::undoCameraWork() {
     }
 }
 
-void Universe::resetCameraWork() {
+void Universe::resetCamWorker() {
     //DefaultCamWorker‚Ü‚ÅƒLƒŒƒC‚É‚·‚é
-//    _TRACE_("resetCameraWork begin---");
+//    _TRACE_("resetCamWorker begin---");
 //    stack_CamWorkerCon_.dump();
     for (int i = 0; i < 30; i++) {
         if (stack_CamWorkerCon_.p_ == 1) {
@@ -143,7 +143,7 @@ void Universe::resetCameraWork() {
     pActiveCamWorker_->angXY_nowCamUp_ = UTIL::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
     pActiveCamWorker_->move_target_XY_CAM_UP_ = pActiveCamWorker_->angXY_nowCamUp_;
     pActiveCamWorker_->activate();
-//    _TRACE_("resetCameraWork end---");
+//    _TRACE_("resetCamWorker end---");
 //    stack_CamWorkerCon_.dump();
 }
 

@@ -383,6 +383,7 @@ class WorldBoundSpace001;
 class WorldBoundSpace002;
 class WorldBoundSpaceRankUp;
 class WorldBoundTitle;
+class WorldBoundNameEntry;
 
 class TurboMeter;
 class LabelGecchi8Font;
@@ -401,7 +402,6 @@ class TestPa;
 class TestNomal;
 
 class EnemyTamago01Actor;
-class MyUtil;
 class GameGlobal;
 
 
@@ -493,6 +493,7 @@ class MagicPointItem001;
 class MagicPointItem002;
 
 class Properties;
+class QueryRanking;
 class MyStgUtil;
 
 template<class T>
@@ -542,7 +543,7 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerManager.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
-#include "jp/gecchi/VioletVreath/actor/common/CameraWorker.h"
+
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/PreDrawScene.h"
@@ -592,10 +593,8 @@ class CursorNameEntryMenu;
 
 #include "jp/gecchi/VioletVreath/actor/Camera.h"
 #include "jp/gecchi/VioletVreath/actor/ViewPointGuide.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/TestCamWorker.h"
 
 
-#include "jp/gecchi/VioletVreath/actor/common/DefaultCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/common/mesh/GroundMeshActor.h"
 #include "jp/gecchi/VioletVreath/actor/common/shot/Shot001.h"
 #include "jp/gecchi/VioletVreath/actor/common/shot/Shot002.h"
@@ -606,9 +605,13 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyWateringLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
 
+#include "jp/gecchi/VioletVreath/actor/camera_worker/CameraWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera_worker/DefaultCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/camera_worker/VamSysCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/camera_worker/PauseCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/camera_worker/MyShipDivingCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera_worker/TestCamWorker.h"
+
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
@@ -708,6 +711,7 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpace002.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpaceRankUp.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundTitle.h"
+#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundNameEntry.h"
 
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
@@ -798,6 +802,7 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem002.h"
 
 #include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/util/QueryRanking.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/util/VamSysCamPosition.h"
 

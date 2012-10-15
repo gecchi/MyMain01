@@ -16,17 +16,17 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardNameEntry";
     //メニューウィンドウ設定
-//    update("%&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'\n"
-//           ")******************************+\n"
-//           ")******************************+\n"
-//           ")******************************+\n"
-//           ")******************************+\n"
-//           ")******************************+\n"
-//           ")******************************+\n"
-//           "-............................../");
-        update("%&'\n"
-               ")*+\n"
-               "-./");
+    update("%&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'\n"
+           ")******************************+\n"
+           ")******************************+\n"
+           ")******************************+\n"
+           ")******************************+\n"
+           ")******************************+\n"
+           ")******************************+\n"
+           "-............................../");
+//        update("%&'\n"
+//               ")*+\n"
+//               "-./");
 
     _Z = 5; //プライオリティ
 
@@ -208,7 +208,7 @@ void MenuBoardNameEntry::processBehavior() {
     int item_index = getSelectedIndex();
     int len = strlen(pLabelInputedName_->_draw_string);
     if (0 <= item_index && item_index <= (input_item_num_-1)) {
-        if (len >= SCORERANKING_NAME_LEN) {
+        if (len >= QUERYRANKING_NAME_LEN) {
             //10文字以上の場合カーソル文字表示無し
             pLabelSelectedChar_->update("");
         } else {
@@ -248,7 +248,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
     } else {
         //その他アイテム（入力文字）で決定（振る舞い）の処理
         //文字入力する
-        if (len >= SCORERANKING_NAME_LEN) {
+        if (len >= QUERYRANKING_NAME_LEN) {
             //10文字以上の場合
             //何もしない
         } else {

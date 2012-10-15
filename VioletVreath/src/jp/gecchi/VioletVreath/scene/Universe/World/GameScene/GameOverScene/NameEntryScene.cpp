@@ -9,7 +9,8 @@ NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     getDirector()->addSubGroup(pLabel01_);
 
-//    SpriteLabelGecchi32Font* pLabelTest = NEW SpriteLabelGecchi32Font("InputedName");
+    pWorldBound_ = NEW WorldBoundNameEntry("NAMEENTRY_WB");
+    getDirector()->addSubGroup(pWorldBound_);
 
     pLabelInputedName_ = NEW SpriteLabelGecchi32Font("InputedName");
     pLabelInputedName_->locate(PX_C(100), PX_C(0), -2);
@@ -32,6 +33,7 @@ void NameEntryScene::onReset() {
     pLabel01_->update("");
     pLabelInputedName_->update("");
     pNameEntryBoard_->update("");
+    pWorldBound_->inactivateImmed();
     _pProg->set(NameEntryScene::PROG_INIT);
 }
 void NameEntryScene::initialize() {
@@ -50,6 +52,7 @@ void NameEntryScene::processBehavior() {
             //##########  事前画面表示  ##########
             if (_pProg->hasJustChanged()) {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_PRE_DISP)");
+                pWorldBound_->fadein();
             }
 
             if(_pProg->getFrameInProgress() >= 120) {
@@ -81,26 +84,18 @@ void NameEntryScene::processBehavior() {
             //##########  ネームエントリー完了後の画面表示  ##########
             if (_pProg->hasJustChanged()) {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_DONE_DISP)");
-                inputed_name_ = std::string(pLabelInputedName_->_draw_string); //入力文字
                 pNameEntryBoard_->sink(); //ネームエントリー板消去
                 pLabelSelectedChar_->inactivate(); //選択表示文字消去
                 pLabelInputedName_->_pFader->beat(10, 5, 0, 0, -1); //入力ネーム点滅
-                //ここでハイスコア更新処理
-                std::string date = UTIL::getSystemDateTimeStr();
-                GgafRecord* r = NEW GgafRecord();
-                (*r)["NAME"]  = inputed_name_;
-                (*r)["SCORE"] = UTIL::padZeroStr(_SCORE_, 10);
-                (*r)["REGDATE"] = date;
-                GameGlobal::qryScoreRanking_.addRow(r);
-                GameGlobal::qryScoreRanking_.sortDescBy("SCORE",false);
-                //10位(index=9)まで残して、11位(index=10)以降を削除
-                if (GameGlobal::qryScoreRanking_.getCount() > SCORERANKING_RECORD_NUM) {
-                    GameGlobal::qryScoreRanking_.removeRows(SCORERANKING_RECORD_NUM);
-                }
-                GameGlobal::qryScoreRanking_.exportToFile(SCORERANKING_FILE);
-                //急いで正常姿勢へ
-                pLabelInputedName_->_pKurokoA->execTurnFaceAngSequence(0, 0, 8000, 0, TURN_COUNTERCLOCKWISE);
+                pLabelInputedName_->_pKurokoA->execTurnFaceAngSequence(0, 0, 8000, 0, TURN_COUNTERCLOCKWISE);//急いで正常姿勢へ
                 pLabelInputedName_->_pKurokoA->execTurnRxSpinAngSequence(0, 8000, 0, TURN_COUNTERCLOCKWISE);
+                //ここでハイスコア更新処理
+                inputed_name_ = std::string(pLabelInputedName_->_draw_string); //入力文字
+                GameGlobal::qryRanking_.addRow(inputed_name_, _SCORE_);
+                GameGlobal::qryRanking_.sort();
+                GameGlobal::qryRanking_.save();
+
+                pWorldBound_->fadeout();
             }
             if(_pProg->getFrameInProgress() >= 180) {
                 _pProg->change(NameEntryScene::PROG_FINISH);

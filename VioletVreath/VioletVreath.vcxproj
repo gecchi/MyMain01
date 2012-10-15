@@ -258,12 +258,15 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiRankUp.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTitle.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTransit.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundNameEntry.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpace001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpace002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpaceRunkUp.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpaceTransit.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\Camera.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\CameraWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\DefaultCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\MyShipDivingCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\PauseCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\TestCamWorker.cpp" />
@@ -277,8 +280,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus004.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001Prism.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\CameraWorker.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\DefaultCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyWateringLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.cpp" />
@@ -508,6 +509,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\TamagoScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\PreDrawScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\util\QueryRanking.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.cpp" />
     <ClCompile Include="src\VioletVreath.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -526,12 +528,15 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshirankup.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshititle.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\hoshiboshi\hoshiboshitransit.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundNameEntry.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\worldbound\worldboundspace001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\worldbound\worldboundspace002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\worldbound\worldboundspacerankup.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\worldbound\worldboundspacetransit.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\background\worldbound\worldboundtitle.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\cameraworker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\defaultcamworker.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\myshipdivingcamworker.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\pausecamworker.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\testcamworker.h" />
@@ -545,8 +550,6 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\varietytorus004.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\wall\wall001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\wall\wall001prism.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\cameraworker.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\defaultcamworker.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\laserchip\enemystraightlaserchip001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\laserchip\enemywateringlaserchip001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\common\mesh\groundmeshactor.h" />
@@ -777,6 +780,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\tamagoscene.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\predrawscene.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\util\mystgutil.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\util\queryranking.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\util\vamsyscamposition.h" />
     <ClInclude Include="VioletVreath.h" />
     <ClInclude Include="src\VioletVreathHeader.h" />

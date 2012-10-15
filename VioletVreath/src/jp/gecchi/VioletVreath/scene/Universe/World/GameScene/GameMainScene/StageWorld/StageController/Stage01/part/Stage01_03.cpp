@@ -10,7 +10,7 @@ Stage01_03::Stage01_03(const char* prm_name) : DefaultScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {8000};
+	frame f[] = {3000};
 	_paFrame_NextEvent = new frame[1];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 1;
@@ -27,7 +27,7 @@ void Stage01_03::processBehavior() {
     // gen02 start
 	if (getActivePartFrame() == _paFrame_NextEvent[_cnt_event]) {
 		switch (getActivePartFrame()) {
-			case 8000: {
+			case 3000: {
 				throwEventToUpperTree(EVENT_STG01_03_WAS_BROKEN,this);
 				break;
 			}

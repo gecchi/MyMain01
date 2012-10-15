@@ -44,24 +44,7 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     }
 
     //ランキング情報読み込み
-    if (PathFileExists(SCORERANKING_FILE) ) {
-        GameGlobal::qryScoreRanking_.importFromFile(SCORERANKING_FILE);
-    } else {
-        std::string date = UTIL::getSystemDateTimeStr();
-        for (int i = 0; i < SCORERANKING_RECORD_NUM; i++) {
-            GgafRecord* r = NEW GgafRecord();
-            (*r)["NAME"]  = std::string(SCORERANKING_NAME_LEN, '.');
-            (*r)["SCORE"] = UTIL::padZeroStr((i+1)*1000, 10);
-            (*r)["REGDATE"] = date;
-            GameGlobal::qryScoreRanking_.addRow(r);
-        }
-        GameGlobal::qryScoreRanking_.sortDescBy("SCORE",false);
-    }
-    //10位(index=9)まで残して、11位(index=10)以降を削除
-    if (GameGlobal::qryScoreRanking_.getCount() > SCORERANKING_RECORD_NUM) {
-        GameGlobal::qryScoreRanking_.removeRows(SCORERANKING_RECORD_NUM);
-    }
-
+    GameGlobal::qryRanking_.init();
 
     //仮想ボタンを本ゲーム用に上書きして再定義
     VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_SHOT1)      ];

@@ -55,9 +55,6 @@ papOptionCtrlr_(NULL) {
     pEffectMyShipExplosion_->inactivateImmed();
     getDirector()->addSubGroup(pEffectMyShipExplosion_);
     pVamSysCamWorker_ = NULL;
-//    pCon_VamSysCamWorker_ = connectToCameraWorkerManager("VamSysCamWorker");
-//    pCon_MyShipDivingCamWorker_ = connectToCameraWorkerManager("MyShipDivingCamWorker");
-//    pMyShip_DivingCamWorker = (MyShipDivingCamWorker*)pCon_MyShipDivingCamWorker_->fetch();
     //z_ = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     //z_ = 0.9999999f;
 
@@ -98,7 +95,7 @@ void MyShipScene::processBehavior() {
     switch (_pProg->get()) {
         case MyShipScene::PROG_INIT: {
             _pProg->change(MyShipScene::PROG_BEGIN);
-            if (P_UNIVERSE->pActiveCamWorker_ != pVamSysCamWorker_) {
+            if (P_UNIVERSE->getActiveCamWorker() != pVamSysCamWorker_) {
                 pVamSysCamWorker_ = (VamSysCamWorker*)P_UNIVERSE->switchCameraWork("VamSysCamWorker");
                 pVamSysCamWorker_->pMyShip_ = pMyShip_;
             }

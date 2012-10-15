@@ -279,7 +279,7 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyVestaStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
@@ -585,7 +585,7 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 1000 );  //加算得点
@@ -603,7 +603,7 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragmentStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 300 );  //加算得点
@@ -621,7 +621,7 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment2Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
@@ -639,7 +639,7 @@ using namespace VioletVreath;
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment3Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点

@@ -19,6 +19,8 @@ public:
         PROG_FINISH   ,
     };
 
+    WorldBoundNameEntry* pWorldBound_;
+
     LabelGecchi16Font* pLabel01_;
 
     SpriteLabelGecchi32Font* pLabelInputedName_;

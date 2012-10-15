@@ -63,7 +63,7 @@ void GameScene::onReset() {
             pSubScene->inactivateImmed();
         }
     }
-    P_UNIVERSE->resetCameraWork();
+    P_UNIVERSE->resetCamWorker();
     GameGlobal::init();
     _pProg->set(GameScene::PROG_INIT);
 }
