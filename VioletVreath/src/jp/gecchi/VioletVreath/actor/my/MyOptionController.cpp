@@ -115,8 +115,7 @@ void MyOptionController::processBehavior() {
         if (VB_PLAY->isBeingPressed(VB_OPTION) && is_handle_move_mode_) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちのオプション移動速度のみを設定。
-//            _pKurokoA->setMvVelo(UTIL::COS[papOption_[0]->angExpanse_/ SANG_RATE] * veloOptionsMv_);
-            _pKurokoA->setMvVelo(UTIL::COS[pOption_->angExpanse_/ SANG_RATE] * veloOptionsMv_);
+            _pKurokoA->setMvVelo(ANG_COS(pOption_->angExpanse_) * veloOptionsMv_);
             //旋回半径増加速度の処理はMyOptionクラスで行う。
         } else {
             is_handle_move_mode_ = false;

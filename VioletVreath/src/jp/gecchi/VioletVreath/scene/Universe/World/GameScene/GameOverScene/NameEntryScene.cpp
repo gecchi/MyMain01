@@ -32,7 +32,6 @@ NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
 void NameEntryScene::onReset() {
     pLabel01_->update("");
     pLabelInputedName_->update("");
-    pNameEntryBoard_->update("");
     pWorldBound_->inactivateImmed();
     _pProg->set(NameEntryScene::PROG_INIT);
 }
@@ -110,7 +109,7 @@ void NameEntryScene::processBehavior() {
         case NameEntryScene::PROG_FINISH: {
             if (_pProg->hasJustChanged()) {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_FINISH)");
-                _TRACE_("Ç®ÇÌÇËÇ∂Ç·ÇÊ");
+                _TRACE_("Ç®ÇÌÇËÇ∂Ç·ÇÊÅI");
                 throwEventToUpperTree(EVENT_NAMEENTRYSCENE_FINISH);
             }
             break;

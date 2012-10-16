@@ -114,8 +114,8 @@ void MyOption::onReset() {
     _pKurokoA->setRyMvAng(-D90ANG);
     _pKurokoA->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
     _pKurokoA->setRyMvAngVelo(0);//∵半径Ｒ＝速度Ｖ／角速度ω
-    _Z = UTIL::COS[angPosition_/SANG_RATE]*radiusPosition_; //X軸中心回転なのでXYではなくてZY
-    _Y = UTIL::SIN[angPosition_/SANG_RATE]*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
+    _Z = ANG_COS(angPosition_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
+    _Y = ANG_SIN(angPosition_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                                                                     //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
     _X = 0;
     _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
@@ -199,12 +199,12 @@ void MyOption::setRadiusPosition(int prm_radius) {
     angle angZY_ROTANG_X;
     if (radiusPosition_ > 0) {
         angZY_ROTANG_X = UTIL::getAngle2D(_Z, _Y); //自分の位置
-        _Z = radiusPosition_ * UTIL::COS[UTIL::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
-        _Y = radiusPosition_ * UTIL::SIN[UTIL::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
+        _Z = radiusPosition_ * ANG_COS(UTIL::simplifyAng(angZY_ROTANG_X));
+        _Y = radiusPosition_ * ANG_SIN(UTIL::simplifyAng(angZY_ROTANG_X));
     } else {
         angZY_ROTANG_X = UTIL::getAngle2D(-_Z, -_Y); //自分の位置
-        _Z = radiusPosition_ * UTIL::COS[UTIL::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
-        _Y = radiusPosition_ * UTIL::SIN[UTIL::simplifyAng(angZY_ROTANG_X)/SANG_RATE];
+        _Z = radiusPosition_ * ANG_COS(UTIL::simplifyAng(angZY_ROTANG_X));
+        _Y = radiusPosition_ * ANG_SIN(UTIL::simplifyAng(angZY_ROTANG_X));
     }
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
@@ -248,7 +248,7 @@ void MyOption::processBehavior() {
         if (VB_PLAY->isBeingPressed(VB_OPTION) && pOptionCtrlr_->is_handle_move_mode_) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちの旋回半径増加速度のみを設定。
-            addRadiusPosition(UTIL::SIN[angExpanse_/ SANG_RATE] * pOptionCtrlr_->veloOptionsMv_);
+            addRadiusPosition(ANG_SIN(angExpanse_) * pOptionCtrlr_->veloOptionsMv_);
             //オプション移動速度の処理はMyOptionクラスで行う。
         }
     }
@@ -448,8 +448,8 @@ void MyOption::processBehavior() {
                 _pKurokoA->setMvVelo(veloMv_);
                 _pKurokoA->setRzMvAng(UTIL::simplifyAng(angPosition_base_ + D90ANG));
                 _pKurokoA->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
-                _Z = UTIL::COS[angPosition_base_/SANG_RATE]*radiusPosition_; //X軸中心回転なのでXYではなくてZY
-                _Y = UTIL::SIN[angPosition_base_/SANG_RATE]*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
+                _Z = ANG_COS(angPosition_base_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
+                _Y = ANG_SIN(angPosition_base_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                 _X = 0;
                 adjust_angPos_seq_progress_ = 0;
             }
@@ -490,10 +490,10 @@ void MyOption::processBehavior() {
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
 
-    float sinRZ = UTIL::SIN[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Z] / SANG_RATE];
-    float cosRZ = UTIL::COS[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Z] / SANG_RATE];
-    float sinRY = UTIL::SIN[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Y] / SANG_RATE];
-    float cosRY = UTIL::COS[pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Y] / SANG_RATE];
+    float sinRZ = ANG_SIN(pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Z]);
+    float cosRZ = ANG_COS(pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Z]);
+    float sinRY = ANG_SIN(pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Y]);
+    float cosRY = ANG_COS(pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Y]);
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
     _X = cosRY*cosRZ*Xorg_ + cosRY*-sinRZ*Yorg_ + sinRY*Zorg_;
     _Y = sinRZ*Xorg_ + cosRZ*Yorg_;
@@ -504,8 +504,8 @@ void MyOption::processBehavior() {
     float vX_axis = cosRY*cosRZ*_pKurokoA->_vX + cosRY*-sinRZ*_pKurokoA->_vY + sinRY*_pKurokoA->_vZ;
     float vY_axis = sinRZ*_pKurokoA->_vX + cosRZ*_pKurokoA->_vY;
     float vZ_axis = -sinRY*cosRZ*_pKurokoA->_vX + -sinRY*-sinRZ*_pKurokoA->_vY + cosRY*_pKurokoA->_vZ;
-    float sinHalf = UTIL::SIN[angExpanse_/SANG_RATE/2]; //angExpanse_=回転させたい角度
-    float cosHalf = UTIL::COS[angExpanse_/SANG_RATE/2];
+    float sinHalf = ANG_SIN(angExpanse_/2); //angExpanse_=回転させたい角度
+    float cosHalf = ANG_COS(angExpanse_/2);
 
     //計算
     //ある座標(x, y, z)において、回転の軸が(α, β, γ)で、θ回す回転

@@ -21,7 +21,7 @@ EnemyVesta::EnemyVesta(const char* prm_name) :
     frame_of_morph_interval_   = 60;
 
     pDepo_Fired_ = NULL;
-    pDpcon_ = connectToDepositoryManager("DpCon_Shot004", NULL);
+    pDpcon_ = connectToDepositoryManager("DpCon_Atalante", NULL);
 
     _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));

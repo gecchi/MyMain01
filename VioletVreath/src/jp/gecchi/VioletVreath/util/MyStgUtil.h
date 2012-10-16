@@ -326,7 +326,7 @@ public:
 	static GgafCore::GgafStatus* resetEnemyIrisStatus(GgafCore::GgafStatus* p);
 	//ジュノー
 	static GgafCore::GgafStatus* resetEnemyJunoStatus(GgafCore::GgafStatus* p);
-	//タエラ
+	//タリラ
 	static GgafCore::GgafStatus* resetEnemyThaliaStatus(GgafCore::GgafStatus* p);
 	//汎用ショット001
 	static GgafCore::GgafStatus* resetShot001Status(GgafCore::GgafStatus* p);
@@ -374,6 +374,12 @@ public:
 	static GgafCore::GgafStatus* resetEnemyThisbeLaserChip001Status(GgafCore::GgafStatus* p);
 	//アドラステア
 	static GgafCore::GgafStatus* resetEnemyAdrasteaStatus(GgafCore::GgafStatus* p);
+	//アタランテ
+	static GgafCore::GgafStatus* resetEnemyAtalanteStatus(GgafCore::GgafStatus* p);
+	//アストラエア
+	static GgafCore::GgafStatus* resetEnemyHesperiaStatus(GgafCore::GgafStatus* p);
+	//アストラエアレーザー
+	static GgafCore::GgafStatus* resetEnemyHesperiaLaserChip001Status(GgafCore::GgafStatus* p);
 	//グーテスト
 	static GgafCore::GgafStatus* resetTestGuStatus(GgafCore::GgafStatus* p);
 	//チョキーテスト
@@ -390,10 +396,10 @@ public:
 	static GgafCore::GgafStatus* resetTestPaShotStatus(GgafCore::GgafStatus* p);
 	//ノーマルーショット
 	static GgafCore::GgafStatus* resetTestNomalShotStatus(GgafCore::GgafStatus* p);
-	//アストラエア
-	static GgafCore::GgafStatus* resetEnemyHesperiaStatus(GgafCore::GgafStatus* p);
-	//アストラエアレーザー
-	static GgafCore::GgafStatus* resetEnemyHesperiaLaserChip001Status(GgafCore::GgafStatus* p);
+	//トーラスアイ
+	static GgafCore::GgafStatus* resetEnemyTorusEyeStatus(GgafCore::GgafStatus* p);
+	//トーラスアイ用ストレートレーザー001
+	static GgafCore::GgafStatus* resetEnemyTorusEyeStraightLaserChip001Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

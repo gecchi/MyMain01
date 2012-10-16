@@ -4,6 +4,7 @@ namespace VioletVreath {
 
 /**
  * 敵機ヴェスタ .
+ * スクランブルハッチ。
  * @version 1.00
  * @since 2009/01/22
  * @author Masatoshi Tsuge

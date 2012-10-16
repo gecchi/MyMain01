@@ -40,7 +40,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
     if (UTIL::strcmp_ascii("DpCon_Shot004", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_Shot004Stock");
-        for (int i = 0; i < 1600; i++) {
+        for (int i = 0; i < 1000; i++) {
             pResource->addSubLast(NEW Shot004("Shot004"));
             Sleep(1);
         }
@@ -225,6 +225,16 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
                 Sleep(1);
             }
             pResource->addSubLast(pLaserChipDepo);
+        }
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+    }
+
+    if (UTIL::strcmp_ascii("DpCon_Atalante", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Depo_AtalanteStock");
+        for (int i = 0; i < 2000; i++) {
+            std::string name = "EnemyAtalante("+ITOS(i)+")";
+            pResource->addSubLast(NEW EnemyAtalante(name.c_str()));
+            Sleep(1);
         }
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }

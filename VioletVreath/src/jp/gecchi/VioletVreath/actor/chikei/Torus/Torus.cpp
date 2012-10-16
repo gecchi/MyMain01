@@ -7,6 +7,9 @@ using namespace VioletVreath;
 Torus::Torus(const char* prm_name, const char* prm_model, coord prm_r1, coord prm_r2) :
         CubeMapMeshActor(prm_name, prm_model, STATUS(Torus)) {
     _class_name = "Torus";
+    pEnemyTorusEye_ = NEW EnemyTorusEye("EnemyTorusEye", this);
+    addSubGroup(pEnemyTorusEye_);
+
     setCubeMap("BkSky_cubemap.dds", 0.4);
     r1_ = prm_r1;
     r2_ = prm_r2;
@@ -14,8 +17,6 @@ Torus::Torus(const char* prm_name, const char* prm_model, coord prm_r1, coord pr
 
 void Torus::addSubFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
     //トーラスはZY平面に円
-    s_ang angPos1 = prm_angPos1 /SANG_RATE;
-    s_ang angPos2 = prm_angPos2 /SANG_RATE;
     //位置を求める
     //平行移動( +r2_, +0, +0) > angPos2のY軸回転 > 平行移動( +0, +0, -r1_) > angPos1のX軸回転 変換行列の dx, dy, dz が欲しい
     //
@@ -24,9 +25,9 @@ void Torus::addSubFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_ang
     //    | SIN[angPos2]    ,  COS[angPos2]*-SIN[angPos1]             ,  COS[angPos2]*COS[angPos]              , 0 |
     //    | r2_*COS[angPos2], (r2_*-SIN[angPos2] + -r1_)*-SIN[angPos1], (r2_*-SIN[angPos2] + -r1_)*COS[angPos1], 1 |
     //より
-    double X = r2_*UTIL::COS[angPos2];
-    double Y = (r2_*-UTIL::SIN[angPos2] - r1_) * -UTIL::SIN[angPos1];
-    double Z = (r2_*-UTIL::SIN[angPos2] - r1_) *  UTIL::COS[angPos1];
+    double X = r2_*ANG_COS(prm_angPos2);
+    double Y = (r2_*-ANG_SIN(prm_angPos2) - r1_) * -ANG_SIN(prm_angPos1);
+    double Z = (r2_*-ANG_SIN(prm_angPos2) - r1_) *  ANG_COS(prm_angPos1);
 
     //向きを求める
     //平行移動( +0, +0, -r1_) > angPos1のX軸回転 変換行列の dx, dy, dz を使用
@@ -36,8 +37,8 @@ void Torus::addSubFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_ang
     //    | 0, -r1_*-SIN[angPos1], -r1_*COS[angPos1], 1 |
     //より
     double CX = 0;
-    double CY = -r1_*-UTIL::SIN[angPos1];
-    double CZ = -r1_*UTIL::COS[angPos1];
+    double CY = -r1_*-ANG_SIN(prm_angPos1);
+    double CZ = -r1_*ANG_COS(prm_angPos1);
     angle angRz, angRy;
     UTIL::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
     //ボーンとして追加
@@ -51,7 +52,7 @@ void Torus::makeCollisionArea(int prm_nSphere){
     for (int i = 0; i < prm_nSphere; i++) {
         _pColliChecker->setColliSphere(
                 i,
-                0 , UTIL::SIN[paAngRadial[i]/SANG_RATE] * r1_, UTIL::COS[paAngRadial[i]/SANG_RATE] * r1_,
+                0 , ANG_SIN(paAngRadial[i]) * r1_, ANG_COS(paAngRadial[i]) * r1_,
                 r2_,
                 false, true, true
                 );
@@ -72,7 +73,35 @@ void Torus::onActive() {
 
 void Torus::processJudgement() {
     if (wasDeclaredEnd() == false && isOutOfUniverse()) {
+        pEnemyTorusEye_ = NULL;
         sayonara(2000);
+    }
+
+    if (pEnemyTorusEye_) {
+        if (pEnemyTorusEye_->is_wake_) {
+
+        } else {
+            if (_pSubFirst) {
+                if (_pSubFirst->_pSubFirst) { //←GgafGroupHead
+                    if (_pSubFirst->_pSubFirst->getPrev() == pEnemyTorusEye_) {
+                        //配下に EnemyTorusEye のみになった場合
+                        pEnemyTorusEye_->wake(); //ぎょろりん！
+                    }
+                }
+            }
+        }
+    } else {
+        //爆発
+        setHitAble(false);
+        for (int i = 0; i < 40; i++) {
+            GgafDxDrawableActor* pE = employFromCommon(EffectExplosion001);
+            if (pE) {
+                pE->locate(this->_X + RND(-300000, +300000),
+                           this->_Y + RND(-300000, +300000),
+                           this->_Z + RND(-300000, +300000));
+            }
+        }
+        sayonara();
     }
 }
 

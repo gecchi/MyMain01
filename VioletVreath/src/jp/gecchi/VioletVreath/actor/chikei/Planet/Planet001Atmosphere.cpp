@@ -20,7 +20,7 @@ void Planet001Atmosphere::onCreateModel() {
 
 void Planet001Atmosphere::initialize() {
     setAlpha(0.9);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 100);
+    _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void Planet001Atmosphere::processBehavior() {

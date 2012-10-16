@@ -127,7 +127,7 @@
 #define RR_FormationThalia_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X)) *20))  //oŒ»ŠÔŠu
 #define RR_FormationThalia_MvVelo(X)  (14000+(X)*10000)  //ˆÚ“®‘¬“x
 // EnemyVesta ‚Ìƒ‰ƒ“ƒNŽ®
-#define RR_EnemyVesta_ShotInterval(X)  (2 + (25 - ((X)>1.0?1.0:(X)) * 25))  //”­ŽËŠÔŠu
+#define RR_EnemyVesta_ShotInterval(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //”­ŽËŠÔŠu
 // Shot001 ‚Ìƒ‰ƒ“ƒNŽ®
 #define RR_Shot001_MvVelo(X)  (5000+(X)*5000)  //ˆÚ“®‘¬“x
 #define RR_Shot001_AngVelo(X)  (6000+(X)*6000)  //Šp‘¬“x
@@ -289,7 +289,8 @@ class VarietyTorus001;
 class VarietyTorus002;
 class VarietyTorus003;
 class VarietyTorus004;
-
+class EnemyTorusEye;
+class EnemyTorusEyeStraightLaserChip001;
 
 class SingleLaser;
 class Shot001;
@@ -471,6 +472,8 @@ class EnemyThisbeLaserChip002;
 
 class EnemyHesperia;
 class EnemyHesperiaLaserChip001;
+
+class EnemyAtalante;
 
 class DepositoryConnection;
 class DepositoryManager;
@@ -787,13 +790,15 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperia.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperiaLaserChip001.h"
 
+#include "jp/gecchi/VioletVreath/actor/enemy/Atalante/EnemyAtalante.h"
+
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/Torus.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus001.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus002.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus003.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus004.h"
-
-
+#include "jp/gecchi/VioletVreath/actor/chikei/Torus/EnemyTorusEye.h"
+#include "jp/gecchi/VioletVreath/actor/chikei/Torus/EnemyTorusEyeStraightLaserChip001.h"
 
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"

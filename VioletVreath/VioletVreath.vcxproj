@@ -273,6 +273,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\VamSysCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEye.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEyeStraightLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\Torus.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus002.cpp" />
@@ -309,6 +311,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip003.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip004.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Atalante\EnemyAtalante.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeres.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeresShot001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ceres\FormationCeres001.cpp" />
@@ -543,6 +546,8 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\vamsyscamworker.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\planet\planet001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEye.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEyeStraightLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\torus.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\varietytorus001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\varietytorus002.h" />
@@ -580,6 +585,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraealaserchip002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraealaserchip003.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\astraea\enemyastraealaserchip004.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\atalante\enemyatalante.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\ceres\enemyceres.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\ceres\enemyceresshot001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\ceres\formationceres001.h" />

@@ -33,7 +33,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //汎用爆発エフェクト EffectExplosion003
     {
         pDepo_EffectExplosion003_ = NEW GgafActorDepository("CommonDepo_Explo003");
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             std::string name = "EffectExplosion003("+ITOS(i)+")";
             pDepo_EffectExplosion003_->addSubLast(NEW EffectExplosion003(name.c_str()));
         }

@@ -4,6 +4,7 @@ namespace VioletVreath {
 
 /**
  * 敵機イリス .
+ * フローラを弾として出す。
  * @version 1.00
  * @since 2009/12/22
  * @author Masatoshi Tsuge

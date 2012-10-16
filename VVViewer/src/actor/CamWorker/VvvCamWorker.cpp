@@ -300,8 +300,8 @@ void VvvCamWorker::processBehavior() {
             angXY_nowCamUp_ += (angvelo_cam_up * SGN(da));
         }
         angXY_nowCamUp_ = UTIL::simplifyAng(angXY_nowCamUp_);
-        pCam->_pVecCamUp->x = UTIL::COS[angXY_nowCamUp_ / SANG_RATE];
-        pCam->_pVecCamUp->y = UTIL::SIN[angXY_nowCamUp_ / SANG_RATE];
+        pCam->_pVecCamUp->x = ANG_COS(angXY_nowCamUp_);
+        pCam->_pVecCamUp->y = ANG_SIN(angXY_nowCamUp_);
         pCam->_pVecCamUp->z = 0.0f;
     }
 

@@ -45,10 +45,10 @@ void FixedFrameSplineSequence::exec(SplinTraceOption prm_option) {
             _Y_begin = baseY - _pActor_target->_Y;
             _Z_begin = baseZ - _pActor_target->_Z;
             GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
-            _SIN_RzMv_begin = UTIL::SIN[pKurokoA_target->_angRzMv/SANG_RATE];
-            _COS_RzMv_begin = UTIL::COS[pKurokoA_target->_angRzMv/SANG_RATE];
-            _SIN_RyMv_begin = UTIL::SIN[pKurokoA_target->_angRyMv/SANG_RATE];
-            _COS_RyMv_begin = UTIL::COS[pKurokoA_target->_angRyMv/SANG_RATE];
+            _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
+            _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
+            _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
+            _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
             _distace_to_begin = UTIL::getDistance(
                                            0.0  , 0.0  , 0.0  ,
                                            baseX, baseY, baseZ

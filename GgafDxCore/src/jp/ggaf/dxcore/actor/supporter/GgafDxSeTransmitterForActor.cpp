@@ -63,7 +63,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
             pCam->_plnVerticalCenter.d;
 
     angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
-    float pan = UTIL::COS[ang/SANG_RATE] * 0.8; //0.8は完全に右のみ或いは左のみから聞こえるのを避けるため
+    float pan = ANG_COS(ang) * 0.8; //0.8は完全に右のみ或いは左のみから聞こえるのを避けるため
 
     int delay = (d / (pCam->_zf*PX_UNIT))*MAX_SE_DELAY-10; //10フレーム底上げ
     if (delay < 0) {
@@ -150,7 +150,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                             pCam->_plnVerticalCenter.c*_pActor->_fZ +
                             pCam->_plnVerticalCenter.d;
                     angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_front );
-                    pan = UTIL::COS[ang/SANG_RATE] * 0.8; //0.8意味は、完全に右のみ或いは左のみから聞こえるのを避けるため
+                    pan = ANG_COS(ang) * 0.8; //0.8意味は、完全に右のみ或いは左のみから聞こえるのを避けるため
                                                           //最高で 0.2 : 0.8 の割合に留めるため。
                     //リアルタイムのパンを計算
                     if (_pActor->_dest_from_vppln_front > 0) { //背後の場合周波数を下げ、音を少しぐぐもらせる。

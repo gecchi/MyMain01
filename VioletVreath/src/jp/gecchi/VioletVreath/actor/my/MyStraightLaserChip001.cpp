@@ -162,3 +162,4 @@ void MyStraightLaserChip001::updateTex() {
 MyStraightLaserChip001::~MyStraightLaserChip001() {
 }
 
+

@@ -29,7 +29,6 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
 //               "-./");
 
     _Z = 5; //プライオリティ
-
     //メニューアイテム（入力文字盤）設定
     for (int i = 0; i < input_item_num_; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");

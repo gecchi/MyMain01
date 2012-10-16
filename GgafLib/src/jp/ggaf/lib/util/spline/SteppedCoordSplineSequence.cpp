@@ -44,10 +44,10 @@ void SteppedCoordSplineSequence::exec(SplinTraceOption prm_option) {
             _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pFixedVeloSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
             _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pFixedVeloSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
             GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
-            _SIN_RzMv_begin = UTIL::SIN[pKurokoA_target->_angRzMv/SANG_RATE];
-            _COS_RzMv_begin = UTIL::COS[pKurokoA_target->_angRzMv/SANG_RATE];
-            _SIN_RyMv_begin = UTIL::SIN[pKurokoA_target->_angRyMv/SANG_RATE];
-            _COS_RyMv_begin = UTIL::COS[pKurokoA_target->_angRyMv/SANG_RATE];
+            _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
+            _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
+            _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
+            _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
         } else if (_option == RELATIVE_COORD) {
             _X_begin = (_flip_X * pSpl->_X_compute[0] * _pFixedVeloSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
             _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pFixedVeloSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
