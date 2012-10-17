@@ -4,6 +4,7 @@
 /Release
 /Debug
 /.project
+.pydevproject
 *.stackdump
 /_cppTest_
 *.opensdf

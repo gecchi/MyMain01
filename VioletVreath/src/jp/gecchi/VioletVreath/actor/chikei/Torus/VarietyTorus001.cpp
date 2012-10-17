@@ -32,6 +32,16 @@ void VarietyTorus001::initialize() {
 
 void VarietyTorus001::processBehavior() {
     _pKurokoA->behave();
+
+    if (pEnemyTorusEye_) {
+        if (pEnemyTorusEye_->is_wake_) {
+
+        } else {
+            if (_X - P_MYSHIP->_X < PX_C(2000)) {
+                pEnemyTorusEye_->wake(); //Ç¨ÇÂÇÎÇËÇÒÅI
+            }
+        }
+    }
 }
 
 VarietyTorus001::~VarietyTorus001() {

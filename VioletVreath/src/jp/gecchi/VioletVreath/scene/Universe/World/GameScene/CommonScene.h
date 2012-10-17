@@ -13,6 +13,7 @@
  * EffectExplosion001, EffectTurbo002, MagicPointItem001, MagicPointItem002 �̂݉\
  */
 #define employFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch())
+#define employDelayFromCommon(X, F) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch((F)))
 
 namespace VioletVreath {
 

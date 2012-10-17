@@ -59,6 +59,19 @@ void EnemyVesta::onActive() {
 }
 
 void EnemyVesta::processBehavior() {
+    if (GgafDxInput::isPushedDownKey(DIK_O)) {
+        _pColliChecker->setColliAAB_Cube(0, 10000000);
+    }
+
+
+
+
+
+
+
+
+
+
     //ボーンにあたるアクターのメモ
     //_X, _Y, _Z, _RX, _RY, _RZ について２つの座標系セットを切り替えが必要な仕様です。
     //それぞれローカル座標、最終（絶対）座標と呼ぶことにします。

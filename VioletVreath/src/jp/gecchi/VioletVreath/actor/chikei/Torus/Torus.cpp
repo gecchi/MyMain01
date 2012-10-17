@@ -74,27 +74,15 @@ void Torus::onActive() {
 void Torus::processJudgement() {
     if (wasDeclaredEnd() == false && isOutOfUniverse()) {
         pEnemyTorusEye_ = NULL;
-        sayonara(2000);
+        sayonara();
     }
 
     if (pEnemyTorusEye_) {
-        if (pEnemyTorusEye_->is_wake_) {
-
-        } else {
-            if (_pSubFirst) {
-                if (_pSubFirst->_pSubFirst) { //Å©GgafGroupHead
-                    if (_pSubFirst->_pSubFirst->getPrev() == pEnemyTorusEye_) {
-                        //îzâ∫Ç… EnemyTorusEye ÇÃÇ›Ç…Ç»Ç¡ÇΩèÍçá
-                        pEnemyTorusEye_->wake(); //Ç¨ÇÂÇÎÇËÇÒÅI
-                    }
-                }
-            }
-        }
     } else {
         //îöî≠
         setHitAble(false);
         for (int i = 0; i < 40; i++) {
-            GgafDxDrawableActor* pE = employFromCommon(EffectExplosion001);
+            GgafDxDrawableActor* pE = employDelayFromCommon(EffectExplosion002, (i+1)*2);
             if (pE) {
                 pE->locate(this->_X + RND(-300000, +300000),
                            this->_Y + RND(-300000, +300000),

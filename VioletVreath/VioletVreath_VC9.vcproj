@@ -226,7 +226,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\CameraWorker.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera_worker\CameraWorker.cpp"
 				>
 			</File>
 			<File
@@ -290,7 +290,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\DefaultCamWorker.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera_worker\DefaultCamWorker.cpp"
 				>
 			</File>
 			<File
@@ -450,6 +450,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Atalante\EnemyAtalante.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeres.cpp"
 				>
 			</File>
@@ -535,6 +539,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEye.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEyeStraightLaserChip001.cpp"
 				>
 			</File>
 			<File
@@ -934,6 +946,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\util\QueryRanking.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp001.cpp"
 				>
 			</File>
@@ -1258,6 +1274,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundNameEntry.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpace001.cpp"
 				>
 			</File>
@@ -1288,7 +1308,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\CameraWorker.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera_worker\CameraWorker.h"
 				>
 			</File>
 			<File
@@ -1352,7 +1372,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\DefaultCamWorker.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera_worker\DefaultCamWorker.h"
 				>
 			</File>
 			<File
@@ -1512,6 +1532,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Atalante\EnemyAtalante.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeres.h"
 				>
 			</File>
@@ -1597,6 +1621,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEye.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEyeStraightLaserChip001.h"
 				>
 			</File>
 			<File
@@ -2000,6 +2032,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\util\QueryRanking.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp001.h"
 				>
 			</File>
@@ -2305,6 +2341,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundNameEntry.h"
 				>
 			</File>
 			<File

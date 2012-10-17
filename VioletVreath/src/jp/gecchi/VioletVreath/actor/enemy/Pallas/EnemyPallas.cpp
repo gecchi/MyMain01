@@ -129,7 +129,7 @@ void EnemyPallas::processJudgement() {
 
 void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-
+    
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //”š”­Œø‰Ê

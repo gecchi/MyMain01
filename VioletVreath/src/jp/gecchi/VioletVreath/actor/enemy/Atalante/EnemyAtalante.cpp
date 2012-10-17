@@ -148,6 +148,10 @@ void EnemyAtalante::processJudgement() {
 
 void EnemyAtalante::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+    if (getActivePartFrame() < 50 && (pOther->getKind() & KIND_CHIKEI)) {
+        //出現50フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
+        return;
+    }
 
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         //破壊時
