@@ -11,7 +11,7 @@ namespace GgafCore {
  *
  * <B>【解説】</B><BR>
  * <PRE STYLE="font-size:12px">
- *   ・・⇔Ｐ⇔・・・
+ * ・・⇔Ｐ⇔・・・
  *       ↓
  * (Ｅ)⇔Ａ⇔Ｂ⇔Ｃ⇔Ｄ⇔Ｅ⇔(Ａ)
  *           │  └────────────┐
@@ -237,7 +237,7 @@ public:
     virtual T* getParent(char* prm_parent_name);
 
     /**
-     * 引数ノードを子ノードとして追加する .
+     * 引数ノードを子ノードの最後に追加する .
      * 追加される場所は以下の図のようになります。<BR>
      *<PRE>
      * ----------------「実行前」
@@ -257,6 +257,29 @@ public:
      * @param   prm_pSub    インスタンス生成済みノードのポインタ
      */
     virtual void addSubLast(T* prm_pSub);
+
+
+    /**
+     * 引数ノードを子ノードの先頭に追加する .
+     * 追加される場所は以下の図のようになります。<BR>
+     *<PRE>
+     * ----------------「実行前」
+     *       Ｃ
+     *       ↓
+     * (Ｋ)⇔Ｉ⇔Ｊ⇔Ｋ⇔(Ｉ)
+     * -----------------------
+     *         ↓ 上図で自分が「Ｃ」とした場合、ここにノード「Ｘ」addSubFirst すると
+     *         ↓ 次のような状態になる
+     * ----------------「実行後」
+     *       Ｃ
+     *       ↓
+     * (Ｋ)⇔Ｘ⇔Ｉ⇔Ｊ⇔Ｋ⇔(Ｘ)
+     * -----------------------
+     * </PRE>
+     *
+     * @param   prm_pSub    インスタンス生成済みノードのポインタ
+     */
+    virtual void addSubFirst(T* prm_pSub);
 
     /**
      * 子ノードをノード名称を指定して取得する .
@@ -379,8 +402,8 @@ T* GgafNode<T>::extract() {
     } else {
         //TODO:ココに処理が来る場合は、extract()する必要なし。
         //_pParentが居ない＝何所にも所属してない＝extract()する必要なし。
-        //と、解釈されているが、これは、要素を追加するためのメソッドが現在 addSubLast() のみであることに関連する。
-        //addSubLast()のみで作られる自ツリー構造は、親の頂点は常に唯一となるからだ。
+        //と、解釈されているが、これは、要素を追加するためのメソッドが現在 addSubLast() addSubFirst() のみであることが前提となる。
+        //addSubLast() addSubFirst() のみで作られるツリー構造は、親の頂点は常に唯一となるからだ。
         //しかし将来、addNext() のように隣に要素を追加するメソッドを作らなければいけなくなった場合、
         //親の頂点が横並び手をつなぎ、台形のような構造を採れるようにした場合は、
         //ここの場所に横連結からのみ切り離す処理を追加する必要がある事を忘れずに。
@@ -549,22 +572,18 @@ template<class T>
 void GgafNode<T>::addSubLast(T* prm_pSub) {
 #ifdef MY_DEBUG
     if (prm_pSub->_pParent) {
-        throwGgafCriticalException("[GgafNode<" << _class_name << ">::addSubLast()] Error! ノードは既に所属("
+        throwGgafCriticalException("[GgafNode<" << _class_name << ">::addSubLast()] Error! 引数ノードは既に所属("
                 << prm_pSub->_pParent->_name << "に所属)しています(this=" << _name << "/prm_pSub=" << prm_pSub->getName() << ")");
     }
 #endif
-
-    _sub_num++;
     prm_pSub->_pParent = (T*)this;
     prm_pSub->_is_last_flg = true;
-    //prm_pSub->_pScene_Platform = _pScene_Platform;
-
-    if (_pSubFirst == NULL) {
+    if (_pSubFirst == NULL) { //最初のサブ
         prm_pSub->_is_first_flg = true;
         _pSubFirst = prm_pSub;
         _pSubFirst->_pNext = prm_pSub;
         _pSubFirst->_pPrev = prm_pSub;
-    } else {
+    } else {  //２つ目以降のサブ
         prm_pSub->_is_first_flg = false;
         T* pSubLast = _pSubFirst->_pPrev;
         pSubLast->_is_last_flg = false;
@@ -573,7 +592,35 @@ void GgafNode<T>::addSubLast(T* prm_pSub) {
         prm_pSub->_pNext = _pSubFirst;
         _pSubFirst->_pPrev = prm_pSub;
     }
+    _sub_num++;
+}
 
+template<class T>
+void GgafNode<T>::addSubFirst(T* prm_pSub) {
+#ifdef MY_DEBUG
+    if (prm_pSub->_pParent) {
+        throwGgafCriticalException("[GgafNode<" << _class_name << ">::addSubFirst()] Error! 引数ノードは既に所属("
+                << prm_pSub->_pParent->_name << "に所属)しています(this=" << _name << "/prm_pSub=" << prm_pSub->getName() << ")");
+    }
+#endif
+    prm_pSub->_pParent = (T*)this;
+    prm_pSub->_is_first_flg = true;
+    if (_pSubFirst == NULL) { //最初のサブ
+        prm_pSub->_is_last_flg = true;
+        prm_pSub->_pNext = prm_pSub;
+        prm_pSub->_pPrev = prm_pSub;
+    } else {
+        prm_pSub->_is_last_flg = false;
+        T* pSubLast = _pSubFirst->_pPrev;
+        pSubLast->_pNext = prm_pSub;
+        prm_pSub->_pPrev = pSubLast;
+        prm_pSub->_pNext = _pSubFirst;
+        _pSubFirst->_pPrev = prm_pSub;
+        _pSubFirst->_is_first_flg = false;
+    }
+    _pSubFirst = prm_pSub;
+
+    _sub_num++;
 }
 
 /*

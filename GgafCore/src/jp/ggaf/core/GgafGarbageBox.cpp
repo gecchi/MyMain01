@@ -17,18 +17,17 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
             if (i == GgafGarbage_MAX_WAIT-1) {
-                _TRACE_("ÅÉåxçêÅÑ GgafGarbageBox::add("<<prm_pActor->getName()<<") ã≠êßadd");
+                _TRACE_("ÅÉåxçêÅÑ GgafGarbageBox::add("<<this<<"["<<prm_pActor->getName()<<"]) ã≠êßadd");
             }
         } else {
-
             break;
         }
     }
     GgafGarbageBox::_wait = true;
     prm_pActor->_can_live_flg = false;
     prm_pActor->inactivateTreeImmed();
-    _pDisusedActor->addSubLast(prm_pActor->extract());
-    _TRACE_("ÉSÉ~î†(Actor) GgafGarbageBox::add("<<prm_pActor->getName()<<")");
+    _pDisusedActor->addSubFirst(prm_pActor->extract()); //addSubFirstÇ≈Ç∑ÅIaddSubLastÇ…îÒÇ∏
+    _TRACE_("ÉSÉ~î†(Actor) GgafGarbageBox::add("<<this<<"["<<prm_pActor->getName()<<"])");
     GgafGarbageBox::_wait = false;
 }
 
@@ -38,7 +37,7 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
             if (i == GgafGarbage_MAX_WAIT-1) {
-                _TRACE_("ÅÉåxçêÅÑ GgafGarbageBox::add("<<prm_pScene->getName()<<") ã≠êßadd");
+                _TRACE_("ÅÉåxçêÅÑ GgafGarbageBox::add("<<this<<"["<<prm_pScene->getName()<<"]) ã≠êßadd");
             }
         } else {
             break;
@@ -46,9 +45,9 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
     }
     GgafGarbageBox::_wait = true;
     prm_pScene->_can_live_flg = false;
-    _pDisusedScene->addSubLast(prm_pScene->extract());
     prm_pScene->inactivateTreeImmed();
-    _TRACE_("ÉSÉ~î†(Scene) GgafGarbageBox::add("<<prm_pScene->getName()<<")");
+    _pDisusedScene->addSubFirst(prm_pScene->extract()); //addSubFirstÇ≈Ç∑ÅIaddSubLastÇ…îÒÇ∏
+    _TRACE_("ÉSÉ~î†(Scene) GgafGarbageBox::add("<<this<<"["<<prm_pScene->getName()<<"])");
     GgafGarbageBox::_wait = false;
 }
 

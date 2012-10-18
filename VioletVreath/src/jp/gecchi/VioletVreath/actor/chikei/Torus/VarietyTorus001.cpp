@@ -13,7 +13,7 @@ VarietyTorus001::VarietyTorus001(const char* prm_name) :
             EnemyVesta* p = NEW EnemyVesta("pEV1");
             addSubFkOnSurface(p, angPos1, angPos2);
             p->inactivateImmed();
-            p->activateDelay((120.0*angPos1/D360ANG));
+            p->activateDelay(1+(120.0*angPos1/D360ANG));
             Sleep(1);
         }
     }

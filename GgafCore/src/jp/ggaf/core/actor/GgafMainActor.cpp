@@ -109,7 +109,7 @@ GgafDirector* GgafMainActor::getSceneDirector() {
     if (_pDirector == NULL) {
         if (_pParent == NULL) {
             _pDirector = GgafGod::_pGod->_pUniverse->getDirector(); //この世の監督アクターに仮所属
-            _TRACE_("【警告】GgafMainActor::getDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで勝手にこの世(Universe)のDirectorを返しました");
+            _TRACE_("【警告】GgafMainActor::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで仮所属でこの世(Universe)のDirectorを返しました。最終的に、親アクターがシーンに所属すれば、その時に更新されてご破算です。確認して下さい。");
         } else {
             if (_pParent->_obj_class & Obj_GgafMainActor) {
                 _pDirector = ((GgafMainActor*)(_pParent))->getSceneDirector();
@@ -121,7 +121,7 @@ GgafDirector* GgafMainActor::getSceneDirector() {
                 _pDirector = NULL;
             }
            _pDirector = GgafGod::_pGod->_pUniverse->getDirector(); //この世の監督アクターに仮所属
-            _TRACE_("【警告】GgafMainActor::getDirector このツリーにはDirectorがいません！("<<getName()<<")。そこで勝手にこの世(Universe)のDirectorを返しました");
+            _TRACE_("【警告】GgafMainActor::getSceneDirector このツリーにはDirectorがいません！("<<getName()<<")。そこで仮所属でこの世(Universe)のDirectorを返しました。最終的に、親アクターがシーンに所属すれば、その時に更新されてご破算です。確認して下さい。");
         }
     }
     return _pDirector;

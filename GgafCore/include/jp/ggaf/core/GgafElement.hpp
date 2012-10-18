@@ -1177,7 +1177,10 @@ template<class T>
 void GgafElement<T>::activateDelay(frame prm_offset_frames) {
 #ifdef MY_DEBUG
     if (prm_offset_frames == 0) {
-        _TRACE_("＜警告＞activateDelay(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name);
+        _TRACE_("＜警告＞activateDelay(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+    }
+    if (prm_offset_frames >= 60*60*60) { //１時間後
+        _TRACE_("＜警告＞activateDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {
@@ -1196,7 +1199,10 @@ template<class T>
 void GgafElement<T>::activateWhile(frame prm_frames) {
 #ifdef MY_DEBUG
     if (prm_frames == 0) {
-        _TRACE_("＜警告＞activateWhile(0) は無意味である。意図してますか？");
+        _TRACE_("＜警告＞activateWhile(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+    }
+    if (prm_frames >= 60*60*60) { //１時間後
+        _TRACE_("＜警告＞activateWhile("<<prm_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {
@@ -1211,7 +1217,10 @@ template<class T>
 void GgafElement<T>::activateTreeDelay(frame prm_offset_frames) {
 #ifdef MY_DEBUG
     if (prm_offset_frames == 0) {
-        _TRACE_("＜警告＞activateTreeDelay(0) は無意味である。意図してますか？");
+        _TRACE_("＜警告＞activateTreeDelay(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+    }
+    if (prm_offset_frames >= 60*60*60) { //１時間後
+        _TRACE_("＜警告＞activateTreeDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {
@@ -1239,7 +1248,10 @@ template<class T>
 void GgafElement<T>::inactivateDelay(frame prm_offset_frames) {
 #ifdef MY_DEBUG
     if (prm_offset_frames == 0) {
-        _TRACE_("＜警告＞inactivateDelay(0) は無意味である。意図してますか？");
+        _TRACE_("＜警告＞inactivateDelay(0) は無意味である。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+    }
+    if (prm_offset_frames >= 60*60*60) { //１時間後
+        _TRACE_("＜警告＞inactivateDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {
@@ -1266,7 +1278,10 @@ template<class T>
 void GgafElement<T>::inactivateTreeDelay(frame prm_offset_frames) {
 #ifdef MY_DEBUG
     if (prm_offset_frames == 0) {
-        _TRACE_("＜警告＞inactivateTreeDelay(0) は無意味である。意図してますか？");
+        _TRACE_("＜警告＞inactivateTreeDelay(0) は無意味である。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+    }
+    if (prm_offset_frames >= 60*60*60) { //１時間後
+        _TRACE_("＜警告＞inactivateTreeDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {
