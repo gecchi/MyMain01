@@ -7,8 +7,8 @@ int MyTorpedoController::max_torpedo_num_ = 8;
 int MyTorpedoController::torpedo_num_ = 0;
 
 MyTorpedoController::MyTorpedoController(const char* prm_name,
-                                                     GgafDxCore::GgafDxGeometricActor* prm_pOrg,
-                                                     MyLockonController* prm_pLockonCtrlr) :
+                                         GgafDxCore::GgafDxGeometricActor* prm_pOrg,
+                                         MyLockonController* prm_pLockonCtrlr) :
         GgafDummyActor(prm_name, NULL) {
     _class_name = "MyTorpedoController";
     firing_num_ = 0;
@@ -17,16 +17,16 @@ MyTorpedoController::MyTorpedoController(const char* prm_name,
     pLockonCtrlr_ = prm_pLockonCtrlr;
     papTorpedo_ = NEW MyTorpedo*[max_torpedo_num_];
     for (int i = 0; i < max_torpedo_num_; i++) {
-        std::stringstream name;
-        name << ""<<(prm_pOrg->getName())<<"'s Torpedo["<<i<<"]";
-        papTorpedo_[i] = NEW MyTorpedo(name.str().c_str(), this);
+        std::string name = std::string(prm_pOrg->getName())+"'s Torpedo("+ITOS(i)+")";
+        papTorpedo_[i] = NEW MyTorpedo(name.c_str(), this);
         papTorpedo_[i]->inactivateImmed();
         addSubGroup(papTorpedo_[i]);
     }
 
     pDepo_TorpedoBlast_ = NEW GgafActorDepository("DP_TorpedoBlast");
     for (int i = 0; i < max_torpedo_num_*2; i++) {
-        MyTorpedoBlast* pTorpedoBlast = NEW MyTorpedoBlast("TorpedoBlast");
+        std::string name = std::string(prm_pOrg->getName())+"'s TorpedoBlast("+ITOS(i)+")";
+        MyTorpedoBlast* pTorpedoBlast = NEW MyTorpedoBlast(name.c_str());
         pTorpedoBlast->inactivateImmed();
         pDepo_TorpedoBlast_->addSubLast(pTorpedoBlast);
     }

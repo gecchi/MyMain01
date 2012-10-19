@@ -17,13 +17,11 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     return_to_default_position_seq_ = false;
     angVelo_Turn_ = 3000;
     veloOptionsMv_ = 20000;
-
     renge_ = 80000;
-
     _pKurokoB->forceVxyzMvVeloRange(-renge_, renge_);
     _pKurokoB->forceVxyzMvAcceRange(-renge_ / 30, renge_ / 30);
-
-    pOption_ = NEW MyOption("OPTION", no_, this);
+    std::string name = "OPTION("+ITOS(no_)+")";
+    pOption_ = NEW MyOption(name.c_str(), no_, this);
     addSubGroup(pOption_);
     pOption_->inactivateImmed();
 

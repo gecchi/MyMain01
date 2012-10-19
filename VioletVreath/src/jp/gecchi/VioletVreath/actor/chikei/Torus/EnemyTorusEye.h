@@ -11,8 +11,8 @@ namespace VioletVreath {
  */
 class EnemyTorusEye :
   public GgafLib::DefaultMorphMeshActor {
-    /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
+    /** 弾発射前溜め効果エフェクト */
+    EffectTorusEye001* pEffect_;
 
 public:
     enum {
@@ -70,16 +70,6 @@ public:
 
 
     void onInactive() override;
-
-
-    /**
-     * ショット発射効果エフェクト設定 .
-     * @param prm_pDepo
-     */
-    void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
-        pDepo_ShotEffect_ = prm_pDepo;
-    }
-
 
     void wake();
 

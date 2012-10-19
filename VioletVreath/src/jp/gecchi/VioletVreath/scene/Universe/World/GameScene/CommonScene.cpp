@@ -40,6 +40,16 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         getDirector()->addSubGroup(pDepo_EffectExplosion003_);
     }
 
+    //汎用爆発エフェクト大 EffectExplosion004
+    {
+        pDepo_EffectExplosion004_ = NEW GgafActorDepository("CommonDepo_Explo004");
+        for (int i = 0; i < 100; i++) {
+            std::string name = "EffectExplosion004("+ITOS(i)+")";
+            pDepo_EffectExplosion004_->addSubLast(NEW EffectExplosion004(name.c_str()));
+        }
+        getDirector()->addSubGroup(pDepo_EffectExplosion004_);
+    }
+
     //アイテム小
     { //pDepo_MagicPointItem001_
         pDepo_MagicPointItem001_ = NEW GgafActorDepository("CommonDepo_MpItem001");

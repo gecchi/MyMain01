@@ -14,6 +14,8 @@
  */
 #define employFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch())
 #define employDelayFromCommon(X, F) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch((F)))
+#define employForceFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatchForce())
+#define employForceDelayFromCommon(X, F) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatchForce((F)))
 
 namespace VioletVreath {
 
@@ -30,6 +32,8 @@ public:
     GgafCore::GgafActorDepository* pDepo_EffectExplosion002_;
     /** 汎用爆発エフェクトその３用、常備デポジトリ */
     GgafCore::GgafActorDepository* pDepo_EffectExplosion003_;
+    /** 汎用爆発エフェクトその４用、常備デポジトリ */
+    GgafCore::GgafActorDepository* pDepo_EffectExplosion004_;
     /** ターボエフェクト用、常備デポジトリ */
     GgafCore::GgafActorDepository* pDepo_EffectTurbo002_;
     /** アイテムオブジェクトその１用、常備デポジトリ */

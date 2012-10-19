@@ -56,7 +56,7 @@ void EnemyAtalante::processBehavior() {
             //ちょっとそのまま真っ直ぐ進む
             if (_pProg->hasJustChanged()) {
             }
-            if (_pProg->getFrameInProgress() > 120) {
+            if (_pProg->getFrameInProgress() > 60) {
                 _pProg->changeNext(); //次の動きへ
             }
             break;
@@ -66,7 +66,7 @@ void EnemyAtalante::processBehavior() {
             if (_pProg->hasJustChanged()) {
             }
             MyShip* pMyShip = P_MYSHIP;
-            if (Z_ok_ == false && pMyShip->_Z - PX_C(20) <= _Z && _Z <= pMyShip->_Z + PX_C(20)) {
+            if (Z_ok_ == false && pMyShip->_Z - PX_C(10) <= _Z && _Z <= pMyShip->_Z + PX_C(10)) {
                 //Z座標揃った
                 Z_ok_ = true;
                 _pKurokoA->addMvVelo(2000);
@@ -81,7 +81,7 @@ void EnemyAtalante::processBehavior() {
                 }
             }
 
-            if (Y_ok_ == false && pMyShip->_Y - PX_C(20) <= _Y && _Y <= pMyShip->_Y + PX_C(20)) {
+            if (Y_ok_ == false && pMyShip->_Y - PX_C(10) <= _Y && _Y <= pMyShip->_Y + PX_C(10)) {
                 //Y座標揃った
                 Y_ok_ = true;
                 _pKurokoA->addMvVelo(2000);

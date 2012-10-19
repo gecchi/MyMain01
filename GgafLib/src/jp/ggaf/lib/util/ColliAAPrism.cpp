@@ -6,6 +6,10 @@ using namespace GgafLib;
 ColliAAPrism::ColliAAPrism() : ColliAAB() {
     _pos_prism = 0;
     _shape_kind = COLLI_AAPRISM;
+    _a = 0;
+    _b = 0;
+    _vIH_x = 0;
+    _vIH_y = 0;
 }
 
 void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism, bool rotX, bool rotY, bool rotZ) {

@@ -273,6 +273,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\VamSysCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\EffectTorusEye001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEye.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEyeStraightLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\Torus.cpp" />
@@ -299,6 +300,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion003.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion004.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo002.cpp" />
@@ -546,6 +548,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera_worker\vamsyscamworker.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\planet\planet001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\effecttoruseye001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEye.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEyeStraightLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\torus\torus.h" />
@@ -573,6 +576,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectexplosion001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectexplosion002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectexplosion003.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectexplosion004.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectlaserrefraction001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectturbo001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectturbo002.h" />

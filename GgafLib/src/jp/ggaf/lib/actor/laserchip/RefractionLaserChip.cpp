@@ -19,6 +19,13 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _pDispatche_RefractionEffect = NULL;
     _pRefractionEffect = NULL;
     _prev_pRefractionEffect = NULL;
+
+    _begining_X = _X;
+    _begining_Y = _Y;
+    _begining_Z = _Z;
+    _begining_RX = _RX;
+    _begining_RY = _RY;
+    _begining_RZ = _RZ;
 }
 
 void RefractionLaserChip::config(int prm_num_refraction,

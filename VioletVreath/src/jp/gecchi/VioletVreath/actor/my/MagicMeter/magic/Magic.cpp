@@ -398,7 +398,7 @@ void Magic::processBehavior() {
                 processEffectBegin(last_level_, level_); //コールバック
 
                 _pProg->set(STATE_EFFECTING);
-                //↓ fall down ↓
+                break;
             }
 
             default :

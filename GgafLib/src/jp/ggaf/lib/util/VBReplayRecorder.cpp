@@ -8,6 +8,7 @@ VBReplayRecorder::VBReplayRecorder() : GgafObject() {
     _pRecNote = NULL;
     _pRecNote_RreadPrev = NULL;
     _write_realtime = false;
+    _frame_of_the_same_vbsta_reading = 0;
 }
 
 bool VBReplayRecorder::setRealtimeOutputFile(const char* prm_filename) {

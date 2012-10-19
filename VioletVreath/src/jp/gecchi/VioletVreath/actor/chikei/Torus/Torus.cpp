@@ -62,9 +62,9 @@ void Torus::makeCollisionArea(int prm_nSphere){
 }
 
 void Torus::onCreateModel() {
-    _pModel->_pTextureBlinker->forceBlinkRange(0.7, 0.2, 3.0);
-    _pModel->_pTextureBlinker->setBlink(0.5);
-    _pModel->_pTextureBlinker->beat(60*20, 60*9, 60*3, -1);
+//    _pModel->_pTextureBlinker->forceBlinkRange(0.7, 0.2, 3.0);
+//    _pModel->_pTextureBlinker->setBlink(0.5);
+//    _pModel->_pTextureBlinker->beat(60*20, 60*9, 60*3, -1);
 }
 
 void Torus::onActive() {
@@ -74,22 +74,30 @@ void Torus::onActive() {
 void Torus::processJudgement() {
     if (wasDeclaredEnd() == false && isOutOfUniverse()) {
         pEnemyTorusEye_ = NULL;
-        sayonara();
+        sayonara(600);
     }
 
     if (pEnemyTorusEye_) {
     } else {
         //爆発
         setHitAble(false);
-        for (int i = 0; i < 40; i++) {
-            GgafDxDrawableActor* pE = employDelayFromCommon(EffectExplosion002, (i+1)*2);
-            if (pE) {
-                pE->locate(this->_X + RND(-300000, +300000),
-                           this->_Y + RND(-300000, +300000),
-                           this->_Z + RND(-300000, +300000));
+        //当たり判定球付近に爆発エフェクトを散乱させる
+        GgafDxCollisionArea* pColliArea = _pColliChecker->_pCollisionArea;
+        int colli_part_num = pColliArea->_colli_part_num;
+        GgafDxCollisionPart* pPart;
+        GgafDxDrawableActor* pE;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < colli_part_num; j++) {
+                pPart = pColliArea->_papColliPart[j];
+                pE = employDelayFromCommon(EffectExplosion004, (i+1)*7);
+                if (pE) {
+                    pE->locate(_X + pPart->_cx + RND(-r2_, +r2_),
+                               _Y + pPart->_cy + RND(-r2_, +r2_),
+                               _Z + pPart->_cz + RND(-r2_, +r2_));
+                }
             }
         }
-        sayonara();
+        sayonara(60);
     }
 }
 
@@ -101,5 +109,6 @@ int Torus::isOutOfView() {
     //視野外判定無し
     return 0;
 }
+
 Torus::~Torus() {
 }

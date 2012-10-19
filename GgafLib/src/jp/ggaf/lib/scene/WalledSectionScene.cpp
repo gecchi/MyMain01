@@ -10,13 +10,17 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" begin");
     _class_name = "WalledSectionScene";
     _pTarget_FrontAlpha = NULL;
-    _pTarget_FrontAlpha = NULL;
     _pScrolledScene = prm_pScrolledScene;
+    _area_len = 0;
+    _area_height = 0;
+    _area_width= 0;
     _wall_dep = 0;
     _wall_width = 0;
     _wall_height = 0;
     _loop_num = 1;
     _cnt_loop = 0;
+    _frame_of_launch_next = 0;
+    _cnt_area_len = 0;
     _is_loop_end = false;
     std::string data_filename = GGAF_PROPERTY(DIR_WALL) + std::string(prm_data_filename);
     std::ifstream ifs(data_filename.c_str());
@@ -161,5 +165,4 @@ WalledSectionScene::~WalledSectionScene() {
     }
     DELETEARR_IMPOSSIBLE_NULL(_papaWallInfo);
     DELETEARR_IMPOSSIBLE_NULL(_paWallInfoLen);
-
 }

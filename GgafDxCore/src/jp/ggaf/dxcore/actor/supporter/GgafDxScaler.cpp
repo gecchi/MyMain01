@@ -99,7 +99,11 @@ void GgafDxScaler::behave() {
                     if (_one_way_cnt[ax] == _stop_one_way_num[ax]) {
                         _method[ax] = NOSCALE;
                     }
-                    _velo_scale[ax] = (_top_scale[ax] - _scale[ax]) / int(_beat_attack_frames[ax]);
+                    if (_beat_attack_frames[ax] == 0) {
+                        _velo_scale[ax] = 1073741824; //MAXLONGの半分にした（適当）
+                    } else {
+                        _velo_scale[ax] = (_top_scale[ax] - _scale[ax]) / int(_beat_attack_frames[ax]);
+                    }
                     _beat_frame_count[ax] = 0; //カウンタリセット
                     _beat_progres[ax] = 0;//次へ(元に戻る)
                 }

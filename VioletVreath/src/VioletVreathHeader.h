@@ -291,6 +291,7 @@ class VarietyTorus003;
 class VarietyTorus004;
 class EnemyTorusEye;
 class EnemyTorusEyeStraightLaserChip001;
+class EffectTorusEye001;
 
 class SingleLaser;
 class Shot001;
@@ -361,6 +362,7 @@ class EffectSmileMagic001;
 class EffectExplosion001;
 class EffectExplosion002;
 class EffectExplosion003;
+class EffectExplosion004;
 class EffectLockon001;
 class EffectLockon001_Main;
 class EffectLockon001_Sub;
@@ -643,6 +645,7 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion002.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion003.h"
+#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion004.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectCondensation001.h"
@@ -799,7 +802,7 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus004.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/EnemyTorusEye.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Torus/EnemyTorusEyeStraightLaserChip001.h"
-
+#include "jp/gecchi/VioletVreath/actor/chikei/Torus/EffectTorusEye001.h"
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"
