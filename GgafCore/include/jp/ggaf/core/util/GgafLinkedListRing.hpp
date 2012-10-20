@@ -652,11 +652,10 @@ public:
      * ※但し、上書き前の元の要素設定時に、自動 delete フラグをセットにしていた場合、
      * 本メソッド実行時に内部で delete され、戻り値には NULLが返ります。
      * </pre>
-     * 戻り値が NULL。
      * @param prm_pVal 新しい要素の値
      * @param prm_is_delete_value true  : リストのdelete時に、引数の要素値についてもdeleteを発行する。
      *                            false : リストのdelete時に、引数の要素値について何も行わない。
-     * @return 自動 delete の場合 NULL ／ 自動 delete ではない場合、上書きされる前の要素(解放に利用される事を想定。)
+     * @return 元の設定要素が自動 delete の場合 NULL ／ 元の設定要素が自動 delete ではない場合、上書きされる前の要素(解放に利用される事を想定。)
      */
     virtual T* set(T* prm_pVal, bool prm_is_delete_value = true);
 

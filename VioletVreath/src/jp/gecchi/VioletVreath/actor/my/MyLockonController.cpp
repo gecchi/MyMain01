@@ -112,7 +112,7 @@ void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
         if (pRingTarget_->length() >= MyLockonController::lockon_num_) { //ターゲットリストが既に満員の場合
             //ロックオンターゲットローテート
             pRingTarget_->prev();           //カレントを最終要素へ
-            pRingTarget_->set(prm_pTarget); //最終要素だったところにメインターゲット上書き
+            pRingTarget_->set(prm_pTarget, false); //最終要素だったところにメインターゲット上書き
             //ロックオンエフェクトアクターはそのまま
             //これにより、processBehavior() のターゲット存命時のしょりにより
             //ズルッとずれる。

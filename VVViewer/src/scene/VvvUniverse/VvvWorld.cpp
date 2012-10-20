@@ -413,8 +413,9 @@ void VvvWorld::processBehavior() {
                 pNewActor->rotateWith(pCurrentActor);
                 pNewActor->scaleWith(pCurrentActor);
                 getDirector()->addSubGroup(pNewActor);
-                ActorInfo* pActorInfo = NEW ActorInfo(pNewActor, _listActorInfo.getCurrent()->modelfile_);
-                _listActorInfo.set(pActorInfo);
+                ActorInfo* pActorInfoNew = NEW ActorInfo(pNewActor, _listActorInfo.getCurrent()->modelfile_);
+                ActorInfo* pActorInfoPrev = _listActorInfo.set(pActorInfoNew);
+				delete pActorInfoPrev;
                 pCurrentActor->end();
             }
         } else if (!(file_name.find("Nmap") == std::string::npos &&
