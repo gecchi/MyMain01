@@ -366,6 +366,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion004.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.cpp"
 				>
 			</File>
@@ -403,6 +407,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EffectTorusEye001.cpp"
 				>
 			</File>
 			<File
@@ -1444,6 +1452,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion004.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.h"
 				>
 			</File>
@@ -1485,6 +1497,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EffectTorusEye001.h"
 				>
 			</File>
 			<File
