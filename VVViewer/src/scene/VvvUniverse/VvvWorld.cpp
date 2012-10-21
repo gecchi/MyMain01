@@ -376,7 +376,6 @@ void VvvWorld::processBehavior() {
             pActor->locateWith(p);
         }
 
-
         if (!(file_name.find("cubemap") == std::string::npos &&
               file_name.find("CubeMap") == std::string::npos &&
               file_name.find("Cubemap") == std::string::npos)
@@ -414,8 +413,7 @@ void VvvWorld::processBehavior() {
                 pNewActor->scaleWith(pCurrentActor);
                 getDirector()->addSubGroup(pNewActor);
                 ActorInfo* pActorInfoNew = NEW ActorInfo(pNewActor, _listActorInfo.getCurrent()->modelfile_);
-                ActorInfo* pActorInfoPrev = _listActorInfo.set(pActorInfoNew);
-				delete pActorInfoPrev;
+                _listActorInfo.set(pActorInfoNew);
                 pCurrentActor->end();
             }
         } else if (!(file_name.find("Nmap") == std::string::npos &&
