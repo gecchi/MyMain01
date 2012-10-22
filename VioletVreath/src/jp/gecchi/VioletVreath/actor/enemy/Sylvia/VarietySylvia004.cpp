@@ -4,21 +4,19 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-VarietyTorus004::VarietyTorus004(const char* prm_name) : Torus(prm_name, "Torus", PX_C(2000), PX_C(800)) {
-    _class_name = "VarietyTorus004";
+VarietySylvia004::VarietySylvia004(const char* prm_name) : EnemySylvia(prm_name, "Sylvia", PX_C(2000), PX_C(800)) {
+    _class_name = "VarietySylvia004";
     for (angle angPos1 = D0ANG; angPos1 < D360ANG;  angPos1 += D_ANG(20)) {
         for (angle angPos2 = D0ANG; angPos2 < D360ANG;  angPos2 += D_ANG(20)) {
-            EnemyVesta* p = NEW EnemyVesta("pEV1");
+            EnemyRomulus* p = NEW EnemyRomulus("pEV1");
             addSubFkOnSurface(p, angPos1, angPos2);
             Sleep(1);
         }
     }
 }
 
-void VarietyTorus004::initialize() {
-    makeCollisionArea(16);
-    setHitAble(true);
-    setAlpha(1.00);
+void VarietySylvia004::initialize() {
+    EnemySylvia::initialize();
     _X = GgafDxCore::GgafDxUniverse::_X_goneRight+r1_+r2_;
     _Y = MyShip::lim_bottom_;
     _Z = 0;
@@ -28,10 +26,9 @@ void VarietyTorus004::initialize() {
     _pKurokoA->setFaceAngVelo(AXIS_Y, 10);
 }
 
-void VarietyTorus004::processBehavior() {
-    //À•W‚É”½‰f
-    _pKurokoA->behave();
+void VarietySylvia004::processBehavior() {
+    EnemySylvia::processBehavior();
 }
 
-VarietyTorus004::~VarietyTorus004() {
+VarietySylvia004::~VarietySylvia004() {
 }

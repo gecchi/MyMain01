@@ -19,7 +19,7 @@ void EnemyAtalante::onCreateModel() {
 }
 
 void EnemyAtalante::initialize() {
-    _pKurokoA->relateFaceAngWithMvAng(false); //falseです！
+    _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 5000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
@@ -98,10 +98,11 @@ void EnemyAtalante::processBehavior() {
 
             if (_pKurokoA->isRunnigTurnMvAngSequence() == false) {
                 if (Y_ok_ && Z_ok_) {
-                    _pProg->changeNext(); //次の動きへ
-                }
-                if (_pProg->getFrameInProgress() >= 480) {
-                    _pProg->changeNext(); //次の動きへ
+                    //Z座標Y座標揃ったら次の動きへ
+                    _pProg->changeNext();
+                } else if (_pProg->getFrameInProgress() >= 360) {
+                    //Z座標Y座標揃わずとも一定時間で次の動きへ
+                    _pProg->changeNext();
                 }
             }
             break;
@@ -148,8 +149,8 @@ void EnemyAtalante::processJudgement() {
 
 void EnemyAtalante::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (getActivePartFrame() < 50 && (pOther->getKind() & KIND_CHIKEI)) {
-        //出現50フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
+    if (getActivePartFrame() < 30 && (pOther->getKind() & KIND_CHIKEI)) {
+        //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
     }
 

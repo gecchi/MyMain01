@@ -349,8 +349,7 @@
 //
 //#define PP_ADD(m, n) PP_ADD_I(m, n)
 //#define PP_ADD_I(m, n) PP_ADD_ ## m ## _ ## n
-
-#define DECLARE_CONST(X) const static hashval X = GgafCore::GgafUtil::easy_hash(#X)
+#define HASHVAL(X) const static hashval X = GgafCore::GgafUtil::easy_hash(#X)
 
 /** 共通遅延解放フレーム数 */
 #define GGAF_SAYONARA_DELAY (60*15)
@@ -367,7 +366,7 @@
 //例えば爆発SEが１分かかるような物が一つでも使用したい場合は、最大の1分(60*60)を設定しなければならない。
 
 
-//#define DECLARE_CONST(X)  const static UINT32 X=__LINE__*3+/*'"*/__TIME__"
+//#define HASHVAL(X)  const static UINT32 X=__LINE__*3+/*'"*/__TIME__"
 
 /** ハッシュ数値 */
 typedef UINT64 hashval;

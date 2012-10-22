@@ -1,5 +1,5 @@
-#ifndef VARIETYTORUS004_H_
-#define VARIETYTORUS004_H_
+#ifndef VARIETYSYLVIA004_H_
+#define VARIETYSYLVIA004_H_
 namespace VioletVreath {
 
 /**
@@ -8,19 +8,19 @@ namespace VioletVreath {
  * @since 2010/05/26
  * @author Masatoshi Tsuge
  */
-class VarietyTorus004 : public Torus {
+class VarietySylvia004 : public EnemySylvia {
 
 public:
 
-    VarietyTorus004(const char* prm_name);
+    VarietySylvia004(const char* prm_name);
 
     void initialize() override;
 
     void processBehavior() override;
 
-    virtual ~VarietyTorus004();
+    virtual ~VarietySylvia004();
 };
 
 }
-#endif /*VARIETYTORUS004_H_*/
+#endif /*VARIETYSYLVIA004_H_*/
 

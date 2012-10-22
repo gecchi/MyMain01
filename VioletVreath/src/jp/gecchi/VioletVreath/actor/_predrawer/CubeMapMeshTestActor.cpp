@@ -8,7 +8,7 @@ using namespace VioletVreath;
 CubeMapMeshTestActor::CubeMapMeshTestActor(const char* prm_name) :
         CubeMapMeshActor(prm_name, "_chk_CubeMapMeshTestModel", NULL) {
     _class_name = "CubeMapMeshTestActor";
-    setCubeMap("Torus_cubemap.dds", 0.1);
+    setCubeMap("Sylvia_cubemap.dds", 0.1);
     setHitAble(false);
 }
 

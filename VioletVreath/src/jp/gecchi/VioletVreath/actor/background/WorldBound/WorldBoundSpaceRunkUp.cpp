@@ -7,7 +7,7 @@ using namespace VioletVreath;
 WorldBoundSpaceRankUp::WorldBoundSpaceRankUp(const char* prm_name) :
         WorldBoundActor(prm_name, "0/WorldBoundSpaceRankUp") {
     _class_name = "WorldBoundSpaceRankUp";
-    setCubeMapTexture("Torus_cubemap.dds");
+    setCubeMapTexture("Sylvia_cubemap.dds");
 }
 
 void WorldBoundSpaceRankUp::onCreateModel() {

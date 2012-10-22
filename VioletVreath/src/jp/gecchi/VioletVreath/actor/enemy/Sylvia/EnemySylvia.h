@@ -1,42 +1,57 @@
-#ifndef TORUS_H_
-#define TORUS_H_
+#ifndef ENEMYSYLVIA_H_
+#define ENEMYSYLVIA_H_
 namespace VioletVreath {
 
+
+HASHVAL(SYLVIA_EXPLOSION);
+
 /**
- * 地形トーラス .
- * 最初に作った地形
+ * シルヴィア .
+ * 最初に作った地形シルヴィア
  * @version 1.00
  * @since 2010/05/08
  * @author Masatoshi Tsuge
  */
-//class Torus : public GroundMeshActor {
-class Torus : public GgafLib::CubeMapMeshActor {
+//class EnemySylvia : public GroundMeshActor {
+class EnemySylvia : public GgafLib::CubeMapMeshActor {
 public:
 
-    EnemyTorusEye* pEnemyTorusEye_;
+    enum {
+        PROG_INIT = 1  ,
+        PROG_FLOAT_MOVE   ,
+        PROG_EXPLOSION    ,
+        PROG_NOTHING    ,
+    };
 
-    /** トーラス半径1(輪) */
+    /** トーラスの半径1(輪の半径) */
     coord r1_;
-    /** トーラス半径2(太さ) */
+    /** トーラスの半径2(太さの半径) */
     coord r2_;
-
+    int colli_part_num_;
+    GgafDxCore::GgafDxCollisionArea* pColliArea_;
     /**
      * コンストラクタ .
      * @param prm_name
      * @param prm_model
-     * @param prm_r1 トーラス半径1(輪)
-     * @param prm_r2 トーラス半径2(輪の太さ)
+     * @param prm_r1 トーラスの半径1(輪の半径)
+     * @param prm_r2 トーラスの半径2(太さの半径)
      * @return
      */
-    Torus(const char* prm_name, const char* prm_model, coord prm_r1, coord prm_r2);
+    EnemySylvia(const char* prm_name, const char* prm_model, coord prm_r1, coord prm_r2);
 
     virtual void onCreateModel() override;
 
+    virtual void initialize() override;
+
     virtual void onActive() override;
+
+    virtual void processBehavior() override;
 
     virtual void processJudgement() override;
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+
+    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
 
     virtual int isOutOfView() override;
 
@@ -47,17 +62,17 @@ public:
             return true;
         }
     }
-    virtual ~Torus();
+    virtual ~EnemySylvia();
 
 protected:
     /**
-     * トーラスの当たり判定領域を作成し設定する .
+     * シルヴィアの当たり判定領域を作成し設定する .
      * @param prm_nSphere 当たり判定球の数
      */
     void makeCollisionArea(int prm_nSphere);
 
     /**
-     * トーラスの表面にサブボーンを追加
+     * シルヴィアの表面にサブボーンを追加
      * @param prm_pGeoActor 追加するアクター
      * @param prm_angPos1 輪の角度位置
      * @param prm_angPos2 輪周りの角度位置
@@ -67,5 +82,5 @@ protected:
 };
 
 }
-#endif /*TORUS_H_*/
+#endif /*ENEMYSYLVIA_H_*/
 

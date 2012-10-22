@@ -318,8 +318,12 @@ public:
 	static GgafCore::GgafStatus* resetEnemyAstraeaLaserChip003Status(GgafCore::GgafStatus* p);
 	//アストラエアレーザー
 	static GgafCore::GgafStatus* resetEnemyAstraeaLaserChip004Status(GgafCore::GgafStatus* p);
-	//ヴェスタ
-	static GgafCore::GgafStatus* resetEnemyVestaStatus(GgafCore::GgafStatus* p);
+	//ロムルス（シルヴィアのハッチ）
+	static GgafCore::GgafStatus* resetEnemyRomulusStatus(GgafCore::GgafStatus* p);
+	//レムス（シルヴィアのハッチ）
+	static GgafCore::GgafStatus* resetEnemyRemusStatus(GgafCore::GgafStatus* p);
+	//レムスのレーザー
+	static GgafCore::GgafStatus* resetEnemyRemusLaserChip001Status(GgafCore::GgafStatus* p);
 	//メティス
 	static GgafCore::GgafStatus* resetEnemyMetisStatus(GgafCore::GgafStatus* p);
 	//イリス
@@ -340,8 +344,8 @@ public:
 	static GgafCore::GgafStatus* resetShot003Status(GgafCore::GgafStatus* p);
 	//ミニレーザーショット
 	static GgafCore::GgafStatus* resetShot004Status(GgafCore::GgafStatus* p);
-	//地形トーラス
-	static GgafCore::GgafStatus* resetTorusStatus(GgafCore::GgafStatus* p);
+	//シルヴィア（トーラス）
+	static GgafCore::GgafStatus* resetEnemySylviaStatus(GgafCore::GgafStatus* p);
 	//地形ボックス001
 	static GgafCore::GgafStatus* resetWall001Status(GgafCore::GgafStatus* p);
 	//地形プリズム001
@@ -396,10 +400,10 @@ public:
 	static GgafCore::GgafStatus* resetTestPaShotStatus(GgafCore::GgafStatus* p);
 	//ノーマルーショット
 	static GgafCore::GgafStatus* resetTestNomalShotStatus(GgafCore::GgafStatus* p);
-	//トーラスアイ
-	static GgafCore::GgafStatus* resetEnemyTorusEyeStatus(GgafCore::GgafStatus* p);
-	//トーラスアイ用ストレートレーザー001
-	static GgafCore::GgafStatus* resetEnemyTorusEyeStraightLaserChip001Status(GgafCore::GgafStatus* p);
+	//シルヴィアアイ
+	static GgafCore::GgafStatus* resetEnemySylviaEyeStatus(GgafCore::GgafStatus* p);
+	//シルヴィアアイ用ストレートレーザー001
+	static GgafCore::GgafStatus* resetEnemySylviaEyeStraightLaserChip001Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

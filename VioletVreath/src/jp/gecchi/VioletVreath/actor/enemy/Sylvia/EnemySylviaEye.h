@@ -1,5 +1,5 @@
-#ifndef ENEMYTORUSEYE_H_
-#define ENEMYTORUSEYE_H_
+#ifndef ENEMYSYLVIAEYE_H_
+#define ENEMYSYLVIAEYE_H_
 namespace VioletVreath {
 
 
@@ -9,10 +9,10 @@ namespace VioletVreath {
  * @since 2012/10/16
  * @author Masatoshi Tsuge
  */
-class EnemyTorusEye :
+class EnemySylviaEye :
   public GgafLib::DefaultMorphMeshActor {
     /** 弾発射前溜め効果エフェクト */
-    EffectTorusEye001* pEffect_;
+    EffectSylviaEye001* pEffect_;
 
 public:
     enum {
@@ -31,14 +31,14 @@ public:
         SE_FIRE,
     };
     bool is_wake_;
-    Torus* pTorus_;
+    EnemySylvia* pSylvia_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /**
      * コンストラクタ
      * @param prm_name
      * @return
      */
-    EnemyTorusEye(const char* prm_name, Torus* prm_pTorus);
+    EnemySylviaEye(const char* prm_name, EnemySylvia* prm_pSylvia);
 
     void onCreateModel() override;
 
@@ -73,9 +73,9 @@ public:
 
     void wake();
 
-    virtual ~EnemyTorusEye();
+    virtual ~EnemySylviaEye();
 };
 
 }
-#endif /*ENEMYTORUSEYE_H_*/
+#endif /*ENEMYSYLVIAEYE_H_*/
 

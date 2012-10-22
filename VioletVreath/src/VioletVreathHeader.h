@@ -126,8 +126,8 @@
 #define RR_FormationThalia_Num(X)  (7+(X)*4)  //隊数
 #define RR_FormationThalia_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X)) *20))  //出現間隔
 #define RR_FormationThalia_MvVelo(X)  (14000+(X)*10000)  //移動速度
-// EnemyVesta のランク式
-#define RR_EnemyVesta_ShotInterval(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射間隔
+// EnemyRomulus のランク式
+#define RR_EnemyRomulus_ShotInterval(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射間隔
 // Shot001 のランク式
 #define RR_Shot001_MvVelo(X)  (5000+(X)*5000)  //移動速度
 #define RR_Shot001_AngVelo(X)  (6000+(X)*6000)  //角速度
@@ -166,42 +166,42 @@
 #define DRAW_DEPTH_LEVEL_HOSHIBOSHI (MAX_DRAW_DEPTH_LEVEL-1)
 #define DRAW_DEPTH_LEVEL_BIGOBJ     (MAX_DRAW_DEPTH_LEVEL-2)
 
-//イベント用 UINT32 数値宣言
-DECLARE_CONST(EVENT_GOD_WILL_DIE);
-DECLARE_CONST(EVENT_PREPARE_TRANSIT_STAGE);
-DECLARE_CONST(EVENT_PREPARE_NEXT_STAGE);
-DECLARE_CONST(EVENT_JUST_GAME_OVER);
-DECLARE_CONST(EVENT_STG01_01_WAS_BROKEN);
-DECLARE_CONST(EVENT_STG01_02_WAS_BROKEN);
-DECLARE_CONST(EVENT_STG01_03_WAS_BROKEN);
-DECLARE_CONST(EVENT_STG01_CLIMAX_WAS_BROKEN);
-DECLARE_CONST(EVENT_STG01_CTRLER_WAS_END);
-DECLARE_CONST(EVENT_STG01_WAS_END);
+//イベント用 hashval 数値宣言
+HASHVAL(EVENT_GOD_WILL_DIE);
+HASHVAL(EVENT_PREPARE_TRANSIT_STAGE);
+HASHVAL(EVENT_PREPARE_NEXT_STAGE);
+HASHVAL(EVENT_JUST_GAME_OVER);
+HASHVAL(EVENT_STG01_01_WAS_BROKEN);
+HASHVAL(EVENT_STG01_02_WAS_BROKEN);
+HASHVAL(EVENT_STG01_03_WAS_BROKEN);
+HASHVAL(EVENT_STG01_CLIMAX_WAS_BROKEN);
+HASHVAL(EVENT_STG01_CTRLER_WAS_END);
+HASHVAL(EVENT_STG01_WAS_END);
 
-DECLARE_CONST(EVENT_TRANSIT_WAS_END);
-DECLARE_CONST(EVENT_RANKUP_WAS_END);
-DECLARE_CONST(EVENT_RANKUP_ON_GARBAGED);
+HASHVAL(EVENT_TRANSIT_WAS_END);
+HASHVAL(EVENT_RANKUP_WAS_END);
+HASHVAL(EVENT_RANKUP_ON_GARBAGED);
 
-DECLARE_CONST(EVENT_STG02_01_WAS_BROKEN);
-DECLARE_CONST(EVENT_STG02_02_WAS_BROKEN);
-DECLARE_CONST(EVENT_STG02_03_WAS_BROKEN);
-DECLARE_CONST(EVENT_STG02_CLIMAX_WAS_BROKEN);
-DECLARE_CONST(EVENT_STG02_CTRLER_WAS_END);
-DECLARE_CONST(EVENT_STG02_WAS_END);
+HASHVAL(EVENT_STG02_01_WAS_BROKEN);
+HASHVAL(EVENT_STG02_02_WAS_BROKEN);
+HASHVAL(EVENT_STG02_03_WAS_BROKEN);
+HASHVAL(EVENT_STG02_CLIMAX_WAS_BROKEN);
+HASHVAL(EVENT_STG02_CTRLER_WAS_END);
+HASHVAL(EVENT_STG02_WAS_END);
 
-DECLARE_CONST(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
-DECLARE_CONST(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
-DECLARE_CONST(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
+HASHVAL(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
+HASHVAL(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
+HASHVAL(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
 
-DECLARE_CONST(EVENT_PREGAMETITLESCENE_FINISH);
-DECLARE_CONST(EVENT_GAMETITLESCENE_FINISH);
-DECLARE_CONST(EVENT_GAMEDEMOSCENE_FINISH);
-DECLARE_CONST(EVENT_GAMESTART);
-DECLARE_CONST(EVENT_GOTO_GAMETITLE);
-DECLARE_CONST(EVENT_GAMEMODE_DECIDE);
-DECLARE_CONST(EVENT_GAMEOVERSCENE_FINISH);
-DECLARE_CONST(EVENT_NAMEENTRYSCENE_FINISH);
-DECLARE_CONST(EVENT_MENU_NAMEENTRY_DONE);
+HASHVAL(EVENT_PREGAMETITLESCENE_FINISH);
+HASHVAL(EVENT_GAMETITLESCENE_FINISH);
+HASHVAL(EVENT_GAMEDEMOSCENE_FINISH);
+HASHVAL(EVENT_GAMESTART);
+HASHVAL(EVENT_GOTO_GAMETITLE);
+HASHVAL(EVENT_GAMEMODE_DECIDE);
+HASHVAL(EVENT_GAMEOVERSCENE_FINISH);
+HASHVAL(EVENT_NAMEENTRYSCENE_FINISH);
+HASHVAL(EVENT_MENU_NAMEENTRY_DONE);
 
 namespace VioletVreath {
 
@@ -284,14 +284,14 @@ class DefaultCamWorker;
 class TestCamWorker;
 
 class GroundMeshActor;
-class Torus;
-class VarietyTorus001;
-class VarietyTorus002;
-class VarietyTorus003;
-class VarietyTorus004;
-class EnemyTorusEye;
-class EnemyTorusEyeStraightLaserChip001;
-class EffectTorusEye001;
+class Sylvia;
+class VarietySylvia001;
+class VarietySylvia002;
+class VarietySylvia003;
+class VarietySylvia004;
+class EnemySylviaEye;
+class EnemySylviaEyeStraightLaserChip001;
+class EffectSylviaEye001;
 
 class SingleLaser;
 class Shot001;
@@ -450,7 +450,9 @@ class EnemyIris;
 class FormationIris001;
 class FormationIris002;
 
-class EnemyVesta;
+class EnemyRomulus;
+class EnemyRemus;
+class EnemyRemusLaserChip001;
 
 class EnemyCirce;
 
@@ -768,7 +770,9 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Iris/FormationIris001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Iris/FormationIris002.h"
 
-#include "jp/gecchi/VioletVreath/actor/enemy/Vesta/EnemyVesta.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Romulus/EnemyRomulus.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Remus/EnemyRemus.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Remus/EnemyRemusLaserChip001.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Circe/EnemyCirce.h"
 
@@ -795,14 +799,14 @@ class CursorNameEntryMenu;
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Atalante/EnemyAtalante.h"
 
-#include "jp/gecchi/VioletVreath/actor/chikei/Torus/Torus.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus001.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus002.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus003.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/Torus/VarietyTorus004.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/Torus/EnemyTorusEye.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/Torus/EnemyTorusEyeStraightLaserChip001.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/Torus/EffectTorusEye001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylvia.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia002.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia003.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia004.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylviaEye.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylviaEyeStraightLaserChip001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EffectSylviaEye001.h"
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"

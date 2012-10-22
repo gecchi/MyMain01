@@ -28,16 +28,16 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
 //    pTurboMeter001_->locate(16 , GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 64);
 //    getDirector()->addSubGroup(pTurboMeter001_);
 //
-//    orderActorToFactory(100000001, EnemyVesta, "EnemyVesta1");
-//    orderActorToFactory(100000002, EnemyVesta, "EnemyVesta2");
-//    orderActorToFactory(100000003, EnemyVesta, "EnemyVesta3");
-//    orderActorToFactory(100000004, EnemyVesta, "EnemyVesta4");
-//    orderActorToFactory(100000005, EnemyVesta, "EnemyVesta5");
-//    orderActorToFactory(100000006, EnemyVesta, "EnemyVesta6");
+//    orderActorToFactory(100000001, EnemyRomulus, "EnemyRomulus1");
+//    orderActorToFactory(100000002, EnemyRomulus, "EnemyRomulus2");
+//    orderActorToFactory(100000003, EnemyRomulus, "EnemyRomulus3");
+//    orderActorToFactory(100000004, EnemyRomulus, "EnemyRomulus4");
+//    orderActorToFactory(100000005, EnemyRomulus, "EnemyRomulus5");
+//    orderActorToFactory(100000006, EnemyRomulus, "EnemyRomulus6");
 //    orderActorToFactory(100000009, EnemyCirce, "EnemyCirce");
 
 //    orderActorToFactory(100000001, FormationJuno001, "FormationJuno001");
-//    orderActorToFactory(900000001, VarietyTorus001, "Torus001");
+//    orderActorToFactory(900000001, VarietySylvia001, "EnemySylvia001");
 }
 
 void TamagoScene::onReset() {
@@ -50,7 +50,7 @@ void TamagoScene::initialize() {
 
 void TamagoScene::processBehavior() {
 //    if (getActivePartFrame() == 60) {
-//        VarietyTorus001* p = (VarietyTorus001*)obtainActorFromFactory(900000001);
+//        VarietySylvia001* p = (VarietySylvia001*)obtainActorFromFactory(900000001);
 //        getDirector()->addSubGroup(p);
 //    }
 
@@ -60,12 +60,12 @@ void TamagoScene::processBehavior() {
 //    }
 //    if (getActivePartFrame() == 120) {
 //
-//        EnemyVesta* p1 = (EnemyVesta*)obtainActorFromFactory(100000001);
-//        EnemyVesta* p2 = (EnemyVesta*)obtainActorFromFactory(100000002);
-//        EnemyVesta* p3 = (EnemyVesta*)obtainActorFromFactory(100000003);
-//        EnemyVesta* p4 = (EnemyVesta*)obtainActorFromFactory(100000004);
-//        EnemyVesta* p5 = (EnemyVesta*)obtainActorFromFactory(100000005);
-//        EnemyVesta* p6 = (EnemyVesta*)obtainActorFromFactory(100000006);
+//        EnemyRomulus* p1 = (EnemyRomulus*)obtainActorFromFactory(100000001);
+//        EnemyRomulus* p2 = (EnemyRomulus*)obtainActorFromFactory(100000002);
+//        EnemyRomulus* p3 = (EnemyRomulus*)obtainActorFromFactory(100000003);
+//        EnemyRomulus* p4 = (EnemyRomulus*)obtainActorFromFactory(100000004);
+//        EnemyRomulus* p5 = (EnemyRomulus*)obtainActorFromFactory(100000005);
+//        EnemyRomulus* p6 = (EnemyRomulus*)obtainActorFromFactory(100000006);
 //
 //        EnemyCirce* p9 = (EnemyCirce*)obtainActorFromFactory(100000009);
 //        p9->locate(80000,50000,50000);

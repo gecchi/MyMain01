@@ -4,43 +4,39 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-#define MORPHTARGET_VESTA_HATCH_OPENED 1
-#define VESTA_HATCH_CLOSED      0
-#define VESTA_HATCH_OPENED      1
+#define MORPHTARGET_HATCH_OPEN 1
 
-EnemyVesta::EnemyVesta(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Vesta", STATUS(EnemyVesta)) {
-    _class_name = "EnemyVesta";
+EnemyRomulus::EnemyRomulus(const char* prm_name) :
+        DefaultMorphMeshActor(prm_name, "1/Romulus", STATUS(EnemyRomulus)) {
+    _class_name = "EnemyRomulus";
     _pActor_Base = NULL;
-    iMovePatternNo_ = 0;
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
-    frame_of_close_interval_ = 4*60;
-    frame_of_moment_nextopen_ = 0;
-    frame_of_moment_nextclose_ = 0;
-    frame_of_morph_interval_   = 60;
+    frame_of_close_interval_ = 20*60;
+    frame_of_morph_interval_   = 120;
 
     pDepo_Fired_ = NULL;
     pDpcon_ = connectToDepositoryManager("DpCon_Atalante", NULL);
 
     _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
+    useProgress(PROG_HATCH_OPEN);
 }
 
-void EnemyVesta::onCreateModel() {
+void EnemyRomulus::onCreateModel() {
     _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
     _pModel->_pTextureBlinker->setBlink(0.1);
     _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
     _pModel->setSpecular(5.0, 1.0);
 }
 
-void EnemyVesta::initialize() {
+void EnemyRomulus::initialize() {
     setHitAble(true);
     //_pKurokoA->setRzMvAngVelo(1000);
     //_pKurokoA->setRyMvAngVelo(500);
     _pKurokoA->relateFaceAngWithMvAng(true);
-    _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
-    _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
+    _pMorpher->forceWeightRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
+    _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
     _pScaler->setScale(1000);
@@ -49,15 +45,15 @@ void EnemyVesta::initialize() {
     pDepo_Fired_ = pDpcon_->fetch();
 }
 
-void EnemyVesta::onActive() {
+void EnemyRomulus::onActive() {
     _pStatus->reset();
-    _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
+    _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
-    iMovePatternNo_ = VESTA_HATCH_CLOSED;
-    frame_of_moment_nextopen_ = 60;
+//    frame_of_moment_nextopen_ = frame_of_close_interval_;
+    _pProg->set(PROG_HATCH_CLOSE);
 }
 
-void EnemyVesta::processBehavior() {
+void EnemyRomulus::processBehavior() {
     //ボーンにあたるアクターのメモ
     //_X, _Y, _Z, _RX, _RY, _RZ について２つの座標系セットを切り替えが必要な仕様です。
     //それぞれローカル座標、最終（絶対）座標と呼ぶことにします。
@@ -105,76 +101,79 @@ void EnemyVesta::processBehavior() {
     //    changeGeoFinal();
     //TODO:混在感をもっとなくす。
 
-    switch (iMovePatternNo_) {
-        case VESTA_HATCH_CLOSED:
-            if (getActivePartFrame() == frame_of_moment_nextopen_-(frame_of_morph_interval_/2)) {
-                _pMorpher->intoTargetLinerUntil(MORPHTARGET_VESTA_HATCH_OPENED,
-                                                1.0f, frame_of_morph_interval_);
+    switch (_pProg->get()) {
+        case PROG_INIT: {
+            _pProg->change(PROG_HATCH_CLOSE);
+            break;
+        }
+        case PROG_HATCH_CLOSE: {
+            if (_pProg->hasJustChanged()) {
+                _pMorpher->intoTargetLinerUntil(MORPHTARGET_HATCH_OPEN,
+                                                0.0f, frame_of_morph_interval_);
                 _pKurokoA->setFaceAngVelo(AXIS_X, -3000);
             }
-            if (getActivePartFrame() == frame_of_moment_nextopen_) {
-                frame_of_moment_nextclose_ = getActivePartFrame() + frame_of_close_interval_;
-                iMovePatternNo_ = VESTA_HATCH_OPENED;
+
+            //次へ
+            if (_pProg->getFrameInProgress() >= frame_of_close_interval_ + frame_of_morph_interval_) {
+                _pProg->change(PROG_HATCH_OPEN);
             }
             break;
-        case VESTA_HATCH_OPENED:
-            if (getActivePartFrame() == frame_of_moment_nextclose_ - (frame_of_morph_interval_/2)) {
-                _pMorpher->intoTargetLinerUntil(MORPHTARGET_VESTA_HATCH_OPENED,
-                                                0.0f, frame_of_morph_interval_);
+        }
+        case PROG_HATCH_OPEN: {
+            if (_pProg->hasJustChanged()) {
+                _pMorpher->intoTargetLinerUntil(MORPHTARGET_HATCH_OPEN,
+                                                1.0f, frame_of_morph_interval_);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 0);
             }
-            if (getActivePartFrame() == frame_of_moment_nextclose_) {
-                frame_of_moment_nextopen_ = getActivePartFrame() + frame_of_open_interval_;
-                iMovePatternNo_ = VESTA_HATCH_CLOSED;
+
+            //オープン時敵出現処理
+            if (_pMorpher->_weight[MORPHTARGET_HATCH_OPEN] > 0.5) { //モーションが半分以上まで到達したなら
+                if (_pProg->getFrameInProgress() % (frame)(RR_EnemyRomulus_ShotInterval(_RANK_)) == 0) { //出現間隔
+                    if (pDepo_Fired_) {
+                        GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
+                        if (pActor) {
+                            //＜現在の最終的な向きを、RzRyで取得する＞
+                            //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
+                            //元の方向ベクトルを(Xorg_,Yorg_,Zorg_)、
+                            //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
+                            //最終的な方向ベクトルを(vX, vY, vZ) とすると
+                            //
+                            //                      | mat_11 mat_12 mat_13 |
+                            //| Xorg_ Yorg_ Zorg_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
+                            //                      | mat_31 mat_32 mat_33 |
+                            //
+                            //vX = Xorg_*mat_11 + Yorg_*mat_21 + Zorg_*mat_31
+                            //vY = Xorg_*mat_12 + Yorg_*mat_22 + Zorg_*mat_32
+                            //vZ = Xorg_*mat_13 + Yorg_*mat_23 + Zorg_*mat_33
+                            //
+                            //さてここで、元々が前方の単位方向ベクトル(1,0,0)の場合はどうなるか考えると
+                            //
+                            //vX = Xorg_*mat_11
+                            //vY = Xorg_*mat_12
+                            //vZ = Xorg_*mat_13
+                            //
+                            //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
+                            //最終的な方向ベクトルは（Xorg_*mat_11, Xorg_*mat_12, Xorg_*mat_13) である。
+                            angle Rz, Ry;
+                            UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
+                                             Rz, Ry); //現在の最終的な向きを、RzRyで取得！
+                            pActor->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                            pActor->locateWith(this);
+                            pActor->reset();
+                        }
+                    }
+                }
+            }
+            if (_pProg->getFrameInProgress() >= frame_of_open_interval_+ frame_of_morph_interval_) {
+                _pProg->change(PROG_HATCH_CLOSE);
             }
             break;
+        }
         default :
             break;
     }
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
-    //オープン時敵出現
-    if (iMovePatternNo_ == VESTA_HATCH_OPENED) {
-        int openningFrame = getActivePartFrame() - frame_of_moment_nextopen_; //開いてからのフレーム数。
-        //frame_of_moment_nextopen_は、ここの処理の時点では直近でオープンしたフレームとなる。
-        if (openningFrame % (int)(RR_EnemyVesta_ShotInterval(_RANK_)) == 0) {
-            if (pDepo_Fired_) {
-                GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
-                if (pActor) {
-                    pActor->locateWith(this);
-                    pActor->_pKurokoA->relateFaceAngWithMvAng(true);
-                    //＜現在の最終的な向きを、RzRyで取得する＞
-                    //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
-                    //元の方向ベクトルを(Xorg_,Yorg_,Zorg_)、
-                    //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
-                    //最終的な方向ベクトルを(vX, vY, vZ) とすると
-                    //
-                    //                      | mat_11 mat_12 mat_13 |
-                    //| Xorg_ Yorg_ Zorg_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
-                    //                      | mat_31 mat_32 mat_33 |
-                    //
-                    //vX = Xorg_*mat_11 + Yorg_*mat_21 + Zorg_*mat_31
-                    //vY = Xorg_*mat_12 + Yorg_*mat_22 + Zorg_*mat_32
-                    //vZ = Xorg_*mat_13 + Yorg_*mat_23 + Zorg_*mat_33
-                    //
-                    //さてここで、元々が前方の単位方向ベクトル(1,0,0)の場合はどうなるか考えると
-                    //
-                    //vX = Xorg_*mat_11
-                    //vY = Xorg_*mat_12
-                    //vZ = Xorg_*mat_13
-                    //
-                    //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
-                    //最終的な方向ベクトルは（Xorg_*mat_11, Xorg_*mat_12, Xorg_*mat_13) である。
-                    angle Rz, Ry;
-                    UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
-                                            Rz, Ry); //現在の最終的な向きを、RzRyで取得！
-                    pActor->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
-                    pActor->reset();
-                }
-            }
-        }
-    }
 
     if (getActivePartFrame() % 10 == 0                   && 1 == 2) {
         //自機へ方向を向ける
@@ -210,15 +209,14 @@ void EnemyVesta::processBehavior() {
         //自動方向向きシークエンス開始
         angle angRz_Target, angRy_Target;
         UTIL::getRzRyAng(TvX, TvY, TvZ,
-                                angRz_Target, angRy_Target);
+                         angRz_Target, angRy_Target);
         _pKurokoA->execTurnMvAngSequence(angRz_Target, angRy_Target,
-                                           1000, 0,
-                                           TURN_CLOSE_TO);
+                                         1000, 0,
+                                         TURN_CLOSE_TO);
     }
 
     _pScaler->behave();
     _pMorpher->behave();
-    //_pSeTxer->behave();
 
     //_pKurokoAの計算はローカルで行う
     changeGeoLocal();
@@ -227,7 +225,7 @@ void EnemyVesta::processBehavior() {
 
 }
 
-void EnemyVesta::processJudgement() {
+void EnemyRomulus::processJudgement() {
     if (_pActor_Base != NULL && _pActor_Base->isActiveInTheTree()) {
 //        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);
     } else {
@@ -241,7 +239,7 @@ void EnemyVesta::processJudgement() {
 //    }
 }
 
-void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
+void EnemyRomulus::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
@@ -263,10 +261,10 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     }
 }
 
-void EnemyVesta::onInactive() {
+void EnemyRomulus::onInactive() {
     sayonara();
 }
 
-EnemyVesta::~EnemyVesta() {
+EnemyRomulus::~EnemyRomulus() {
     pDpcon_->close();
 }

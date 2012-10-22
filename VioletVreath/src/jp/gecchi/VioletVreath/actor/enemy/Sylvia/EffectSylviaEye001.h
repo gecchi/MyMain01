@@ -1,5 +1,5 @@
-#ifndef EFFECTTORUSEYE001_H_
-#define EFFECTTORUSEYE001_H_
+#ifndef EFFECTSYLVIAEYE001_H_
+#define EFFECTSYLVIAEYE001_H_
 namespace VioletVreath {
 
 /**
@@ -8,12 +8,12 @@ namespace VioletVreath {
  * @since 2012/10/19
  * @author Masatoshi Tsuge
  */
-class EffectTorusEye001 : public GgafLib::DefaultSpriteActor {
+class EffectSylviaEye001 : public GgafLib::DefaultSpriteActor {
 
 public:
     int cnt_;
 
-    EffectTorusEye001(const char* prm_name);
+    EffectSylviaEye001(const char* prm_name);
 
     void initialize() override;
 
@@ -25,9 +25,9 @@ public:
 
     void processJudgement() override;
 
-    virtual ~EffectTorusEye001();
+    virtual ~EffectSylviaEye001();
 };
 
 }
-#endif /*EFFECTTORUSEYE001_H_*/
+#endif /*EFFECTSYLVIAEYE001_H_*/
 

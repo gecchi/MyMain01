@@ -4,27 +4,27 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EnemyTorusEye::EnemyTorusEye(const char* prm_name, Torus* prm_pTorus) :
-        DefaultMorphMeshActor(prm_name, "1/TorusEye", STATUS(EnemyTorusEye)) {
-        //CubeMapMorphMeshActor(prm_name, "1/ThaliaCM", STATUS(EnemyTorusEye)) {
+EnemySylviaEye::EnemySylviaEye(const char* prm_name, EnemySylvia* prm_pSylvia) :
+        DefaultMorphMeshActor(prm_name, "1/SylviaEye", STATUS(EnemySylviaEye)) {
+        //CubeMapMorphMeshActor(prm_name, "1/ThaliaCM", STATUS(EnemySylviaEye)) {
 
-    _class_name = "EnemyTorusEye";
+    _class_name = "EnemySylviaEye";
     setScaleR(0.3*10);
-    pTorus_ = prm_pTorus;
-    locateWith(pTorus_);
+    pSylvia_ = prm_pSylvia;
+    locateWith(pSylvia_);
 
     pLaserChipDepo_ = NEW LaserChipDepository("DepoLaserChip");
     pLaserChipDepo_->config(60, 1, NULL); //Thaliaは弾切れフレームを1にしないとパクパクしちゃいます。
-    EnemyTorusEyeStraightLaserChip001* pChip;
-    for (int i = 0; i < 65; i++) { //レーザーストック
-        std::string name = "EnemyTorusEyeStraightLaserChip001("+ ITOS(i) + ")";
-        pChip = NEW EnemyTorusEyeStraightLaserChip001(name.c_str());
+    EnemySylviaEyeStraightLaserChip001* pChip;
+    for (int i = 0; i < 60; i++) { //レーザーストック
+        std::string name = "LaserChip("+ ITOS(i) + ")";
+        pChip = NEW EnemySylviaEyeStraightLaserChip001(name.c_str());
         pChip->setSource(this); //位置向き同期
         pLaserChipDepo_->addSubLast(pChip);
     }
     addSubGroup(pLaserChipDepo_);
 
-    pEffect_ = NEW EffectTorusEye001("EffectTorusEye001");
+    pEffect_ = NEW EffectSylviaEye001("EffectSylviaEye001");
     pEffect_->inactivateImmed();
     addSubGroup(pEffect_);
 
@@ -36,36 +36,36 @@ EnemyTorusEye::EnemyTorusEye(const char* prm_name, Torus* prm_pTorus) :
     is_wake_ = false;
 }
 
-void EnemyTorusEye::onCreateModel() {
+void EnemySylviaEye::onCreateModel() {
     _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
     _pModel->_pTextureBlinker->setBlink(0.1);
     _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
     _pModel->setSpecular(5.0, 1.0);
 }
 
-void EnemyTorusEye::initialize() {
+void EnemySylviaEye::initialize() {
     setHitAble(true);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 200000);
 }
 
-void EnemyTorusEye::onActive() {
+void EnemySylviaEye::onActive() {
     _pStatus->reset();
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pProg->set(PROG_MOVE);
-    locateWith(pTorus_);
-    rotateWith(pTorus_);
-    _pKurokoA->setRzMvAngVelo(pTorus_->_pKurokoA->_angveloFace[AXIS_Z]);
-    _pKurokoA->setRyMvAngVelo(pTorus_->_pKurokoA->_angveloFace[AXIS_Y]);
+    locateWith(pSylvia_);
+    rotateWith(pSylvia_);
+    _pKurokoA->setRzMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z]);
+    _pKurokoA->setRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
 }
 
-void EnemyTorusEye::processBehavior() {
+void EnemySylviaEye::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    locateWith(pTorus_);
+    locateWith(pSylvia_);
     switch (_pProg->get()) {
         case PROG_MOVE: {
             break;
@@ -77,9 +77,9 @@ void EnemyTorusEye::processBehavior() {
             if (_pProg->getFrameInProgress() > 240) {
                 _pProg->changeNext();
             }
-            _pKurokoA->followMvFrom(pTorus_->_pKurokoA);
-			_pKurokoA->setRzMvAngVelo(pTorus_->_pKurokoA->_angveloFace[AXIS_Z]);
-			_pKurokoA->setRyMvAngVelo(pTorus_->_pKurokoA->_angveloFace[AXIS_Y]);
+            _pKurokoA->followMvFrom(pSylvia_->_pKurokoA);
+            _pKurokoA->setRzMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z]);
+            _pKurokoA->setRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
             break;
         }
 
@@ -98,7 +98,7 @@ void EnemyTorusEye::processBehavior() {
                 //_pKurokoA->execTurnMvAngSequence(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
-			pEffect_->locateWith(this);
+            pEffect_->locateWith(this);
             if (pEffect_->onChangeToInactive()) {
                 _pProg->changeNext();
             }
@@ -121,8 +121,8 @@ void EnemyTorusEye::processBehavior() {
         case PROG_FIRE_END: {
             if (_pProg->hasJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(1, 0.0, 180); //閉じる
-                _pKurokoA->setRzMvAngVelo(pTorus_->_pKurokoA->_angveloFace[AXIS_Z]);
-                _pKurokoA->setRyMvAngVelo(pTorus_->_pKurokoA->_angveloFace[AXIS_Y]);
+                _pKurokoA->setRzMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z]);
+                _pKurokoA->setRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
             }
             //硬直
             if (_pProg->getFrameInProgress() >= 300) {
@@ -141,13 +141,13 @@ void EnemyTorusEye::processBehavior() {
     _pSeTxer->behave();
 }
 
-void EnemyTorusEye::processJudgement() {
+void EnemySylviaEye::processJudgement() {
 //    if (isOutOfUniverse()) {
 //        sayonara();
 //    }
 }
 
-void EnemyTorusEye::onHit(GgafActor* prm_pOtherActor) {
+void EnemySylviaEye::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
@@ -171,23 +171,25 @@ void EnemyTorusEye::onHit(GgafActor* prm_pOtherActor) {
             //アイテム出現
             UTIL::activateItemOf(this);
         }
-        pTorus_->pEnemyTorusEye_ = NULL;
+        _TRACE_("EnemySylviaEye::onHit() 上位になげるっす throwEventToUpperTree(SYLVIA_EXPLOSION)");
+        throwEventToUpperTree(SYLVIA_EXPLOSION); //親のEnemySylviaを破壊するイベントを投げる
         sayonara();
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
+        pSylvia_->effectFlush(2);
         _pSeTxer->play3D(SE_DAMAGED);
     }
 }
 
-void EnemyTorusEye::onInactive() {
+void EnemySylviaEye::onInactive() {
     //sayonara();
 }
 
-void EnemyTorusEye::wake() {
+void EnemySylviaEye::wake() {
     is_wake_ = true;
     _pProg->change(PROG_OPEN);
 }
 
-EnemyTorusEye::~EnemyTorusEye() {
+EnemySylviaEye::~EnemySylviaEye() {
 }

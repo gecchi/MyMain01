@@ -856,7 +856,10 @@ public:
         if (_pProg == NULL) {
             _pProg = NEW GgafProgress(&_frame_of_behaving, prm_num);
         } else {
-            _TRACE_("["<<GgafNode<T>::getName()<<"] は既に useProgress している。prm_num="<<prm_num);
+            _TRACE_("＜警告＞useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。以前の進捗の場合の数="<<_pProg->_num_progress<<"。今回引数 prm_num="<<prm_num);
+            if (_pProg->_num_progress != prm_num) {
+                throwGgafCriticalException("useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。ダメじゃないのか？！。\n以前の進捗の場合の数="<<_pProg->_num_progress<<"。今回引数 prm_num="<<prm_num);
+            }
         }
     }
 
