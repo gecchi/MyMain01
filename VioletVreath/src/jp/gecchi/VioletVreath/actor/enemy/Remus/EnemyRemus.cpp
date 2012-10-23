@@ -12,7 +12,7 @@ EnemyRemus::EnemyRemus(const char* prm_name) :
     _pActor_Base = NULL;
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
-    frame_of_close_interval_ = 20*60;
+    frame_of_close_interval_ = 5*60;
     frame_of_morph_interval_   = 120;
 
     pCon_LaserChipDepoStore_ = connectToDepositoryManager(
@@ -22,8 +22,8 @@ EnemyRemus::EnemyRemus(const char* prm_name) :
     pLaserChipDepo_ = NULL;
     _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
-    wait_until_close_ = false;
-    useProgress(PROG_HATCH_OPEN);
+    is_firing_ = false;
+    useProgress(PROG_NOTHING);
 }
 
 void EnemyRemus::onCreateModel() {
@@ -51,7 +51,6 @@ void EnemyRemus::onActive() {
     _pStatus->reset();
     _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
-//    frame_of_moment_nextopen_ = frame_of_close_interval_;
     _pProg->set(PROG_HATCH_CLOSE);
 }
 
@@ -66,7 +65,7 @@ void EnemyRemus::processBehavior() {
             if (_pProg->hasJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 0.0f, frame_of_morph_interval_);
-                _pKurokoA->setFaceAngVelo(AXIS_X, -3000);
+                _pKurokoA->setFaceAngVelo(AXIS_X, 0);
             }
 
             //次へ
@@ -79,33 +78,39 @@ void EnemyRemus::processBehavior() {
             if (_pProg->hasJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 1.0f, frame_of_morph_interval_);
-                _pKurokoA->setFaceAngVelo(AXIS_X, 0);
+                _pKurokoA->setFaceAngVelo(AXIS_X, 3000);
+            }
+            if (_pProg->getFrameInProgress() == (frame_of_morph_interval_/2)) {
+                //開くモーションが半分以上まで到達したなら
+                _pProg->change(PROG_FIRE);
+            }
+            break;
+        }
+        case PROG_FIRE: {
+            if (_pProg->hasJustChanged()) {
                 pLaserChipDepo_ = (LaserChipDepository*)(pLaserChipDepoStore_->dispatch()); //レーザーセット一本借り入れを試みる
                 if(pLaserChipDepo_) {
-                    wait_until_close_ = false;
+                    is_firing_ = true; //レーザーセットの借り入れ出来た
                 } else {
-                    wait_until_close_ = true;
+                    is_firing_ = false; //レーザーセットが借りれなかった
+                }
+            }
+            //オープン時レーザー
+            if (is_firing_) {
+                LaserChip* pChip = (LaserChip*)pLaserChipDepo_->dispatch();
+                if (pChip) {
+                    angle Rz, Ry;  //現在の最終的な向きを、RzRyで取得する
+                    UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
+                                     Rz, Ry); //現在の最終的な向きを、RzRyで取得！
+                    pChip->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                    pChip->locateWith(this);
+                } else {
+                    is_firing_ = false;
                 }
             }
 
-            //オープン時敵出現処理
-            if (wait_until_close_ == false &&  _pMorpher->_weight[MORPHTARGET_HATCH_OPEN] > 0.5) { //モーションが半分以上まで到達したなら
-                if (pLaserChipDepo_) { //レーザーセットが借り入れできてる場合
-                    LaserChip* pChip = (LaserChip*)pLaserChipDepo_->dispatch();
-                    if (pChip) {
-                        //現在の最終的な向きを、RzRyで取得する
-                        angle Rz, Ry;
-                        UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
-                                         Rz, Ry); //現在の最終的な向きを、RzRyで取得！
-                        pChip->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
-                        pChip->locateWith(this);
-                    } else {
-                        wait_until_close_ = true;
-                    }
-                }
-            }
-
-            if (_pProg->getFrameInProgress() >= frame_of_open_interval_+ frame_of_morph_interval_) {
+            if (_pProg->getFrameInProgress() >= (frame_of_morph_interval_/2) + frame_of_open_interval_) {
+                is_firing_ = false;
                 _pProg->change(PROG_HATCH_CLOSE);
             }
             break;

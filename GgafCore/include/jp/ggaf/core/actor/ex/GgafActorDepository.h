@@ -82,7 +82,13 @@ public:
     virtual GgafCore::GgafMainActor* dispatch(int prm_offset_frames = 1) {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
-            throwGgafCriticalException("GgafActorDepository::dispatch() "<<getName()<<" の子がありません");
+            throwGgafCriticalException("GgafActorDepository::dispatch() this="<<getName()<<"("<<this<<") の子がありません");
+        }
+        if (_is_active_flg == true || (_will_activate_after_flg == true && _frame_of_life+1 == _frame_of_life_when_activation)) {
+            //活動フラグが立っている あるいは、次フレームで活動フラグが立つ予定ならばOK
+        } else {
+            throwGgafCriticalException("GgafActorDepository::dispatch() this="<<getName()<<"("<<this<<") が非活動な雰囲気です。おかしいのではないか？！ \n"<<
+                                       "親の GgafActorDepositoryStore::dispatch() で得たデポジ取りを、直ぐに使用せずほっといた可能性大。");
         }
 #endif
         frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);

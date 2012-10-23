@@ -15,7 +15,7 @@ void EnemyRemusLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
-    _pKurokoA->setMvVelo(100000);
+    _pKurokoA->setMvVelo(300000);
     _pKurokoA->relateFaceAngWithMvAng(true);
 }
 
@@ -26,8 +26,6 @@ void EnemyRemusLaserChip001::onActive() {
 }
 
 void EnemyRemusLaserChip001::processBehavior() {
-    _TRACE_("_will_inactivate_after_flg="<<_will_inactivate_after_flg);
-    _TRACE_("&_will_inactivate_after_flg="<<(&_will_inactivate_after_flg));
     _pKurokoA->behave();
     WateringLaserChip::processBehavior();
 }

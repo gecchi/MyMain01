@@ -9,13 +9,12 @@ VarietySylvia001::VarietySylvia001(const char* prm_name) :
     _class_name = "VarietySylvia001";
     for (angle angPos1 = 0; angPos1 < D360ANG;  angPos1 += (D_ANG(60))) {
         for (angle angPos2 = 0; angPos2 < D360ANG;  angPos2 += (D_ANG(60))) {
-            EnemyRomulus* p = NEW EnemyRomulus("pEV1");
-            addSubFkOnSurface(p, angPos1, angPos2);
-            p->inactivateImmed();
-            p->activateDelay(1+(120.0*angPos1/D360ANG));
+            std::string name = "Romulus(" + ITOS(angPos1) + "," + ITOS(angPos2) + ")";
+            addSubFkOnSurface(NEW EnemyRomulus(name.c_str()), angPos1, angPos2);
             Sleep(1);
         }
     }
+
     pEnemySylviaEye_ = NEW EnemySylviaEye("EnemySylviaEye", this);
     addSubGroup(pEnemySylviaEye_);
 }

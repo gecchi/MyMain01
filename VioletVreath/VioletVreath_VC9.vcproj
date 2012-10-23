@@ -406,11 +406,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EffectSylviaEye001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EffectTorusEye001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.cpp"
 				>
 			</File>
 			<File
@@ -526,7 +526,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemus.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemusLaserChip001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Romulus\EnemyRomulus.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylvia.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEye.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEyeStraightLaserChip001.cpp"
 				>
 			</File>
 			<File
@@ -547,18 +571,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEye.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEyeStraightLaserChip001.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Vesta\EnemyVesta.cpp"
 				>
 			</File>
 			<File
@@ -1202,10 +1214,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\Torus.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.cpp"
 				>
 			</File>
@@ -1230,19 +1238,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus002.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia002.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus003.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia003.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus004.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia004.cpp"
 				>
 			</File>
 			<File
@@ -1496,11 +1504,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EffectSylviaEye001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EffectTorusEye001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.h"
 				>
 			</File>
 			<File
@@ -1616,7 +1624,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemus.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemusLaserChip001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Romulus\EnemyRomulus.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylvia.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEye.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEyeStraightLaserChip001.h"
 				>
 			</File>
 			<File
@@ -1637,18 +1669,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEye.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\EnemyTorusEyeStraightLaserChip001.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Vesta\EnemyVesta.h"
 				>
 			</File>
 			<File
@@ -2280,10 +2300,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\Torus.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.h"
 				>
 			</File>
@@ -2308,19 +2324,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus002.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia002.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus003.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia003.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus004.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia004.h"
 				>
 			</File>
 			<File

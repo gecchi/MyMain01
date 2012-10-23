@@ -243,10 +243,10 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (UTIL::strcmp_ascii("DpCon_EnemyRemusLaserChip001DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyRemusLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        for (int nLaser = 0; nLaser < 36; nLaser++) { //‚Q‚O–{
+        for (int nLaser = 0; nLaser < 300; nLaser++) { //‚Q‚O–{
             std::string name = "LaserChipDepo["+ITOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name.c_str());
-            for (int nChip = 0; nChip < 60; nChip++) {
+            for (int nChip = 0; nChip < 300; nChip++) {
                 std::string name = "EnemyRemusLaserChip001["+ITOS(nLaser)+"]["+ITOS(nChip)+"]";
                 pLaserChipDepo->addSubLast(NEW EnemyRemusLaserChip001(name.c_str()));
                 Sleep(1);

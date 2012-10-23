@@ -16,6 +16,8 @@ public:
         PROG_INIT         = 1,
         PROG_HATCH_CLOSE,
         PROG_HATCH_OPEN,
+        PROG_FIRE,
+        PROG_NOTHING,
     };
 
     enum {
@@ -41,7 +43,7 @@ public:
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
-    bool wait_until_close_;
+    bool is_firing_;
     /**
      * コンストラクタ
      * @param prm_name
