@@ -16,7 +16,7 @@ public:
         SE_DAMAGED   = 0,
         SE_EXPLOSION ,
     };
-    DepositoryConnection* pCon_ShotDepo_;
+    DepositoryConnection* pConn_ShotDepo_;
     GgafCore::GgafActorDepository* pDepo_Shot_;
 
     int iMovePatternNo_;

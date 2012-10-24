@@ -48,7 +48,7 @@ public:
     /** [r]レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
     GgafCore::GgafActorDepositoryStore* pLaserChipDepoStore_;
     /** [r]デポジトリマネージャーへの接続 */
-    DepositoryConnection* pCon_LaserChipDepoStore_;
+    DepositoryConnection* pConn_LaserChipDepoStore_;
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
     GgafLib::LaserChipDepository** papLaserChipDepo_;
 

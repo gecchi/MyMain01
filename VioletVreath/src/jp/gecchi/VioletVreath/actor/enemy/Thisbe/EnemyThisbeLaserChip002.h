@@ -7,7 +7,7 @@ class EnemyThisbeLaserChip002 : public GgafLib::RefractionLaserChip {
 
 public:
     /** 反射時エフェクトデポジトリへの接続 */
-    DepositoryConnection* pCon_RefractionEffectDepository_;
+    DepositoryConnection* pConn_RefractionEffectDepository_;
 
     GgafLib::SplineManufactureConnection* pSplManufCon_;
     GgafLib::SplineSequence* pSplSeq_;

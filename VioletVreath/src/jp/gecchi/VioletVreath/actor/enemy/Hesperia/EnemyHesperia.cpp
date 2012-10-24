@@ -18,8 +18,8 @@ EnemyHesperia::EnemyHesperia(const char* prm_name) :
         papLaserChipDepo_[i] = NULL;
     }
 
-    pCon_LaserChipDepoStore_ = connectToDepositoryManager("DpCon_EnemyHesperiaLaserChip001DepoStore", NULL);
-    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pCon_LaserChipDepoStore_->fetch());
+    pConn_LaserChipDepoStore_ = connectToDepositoryManager("Conn_EnemyHesperiaLaserChip001DepoStore", NULL);
+    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->fetch());
 
     paLocalPos_Laser_ = NEW GgafDxGeoElem[max_laser_way_];
     paPos_Target_ = NEW GgafDxGeoElem[max_laser_way_];
@@ -365,7 +365,7 @@ coord EnemyHesperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
 }
 
 EnemyHesperia::~EnemyHesperia() {
-    pCon_LaserChipDepoStore_->close();
+    pConn_LaserChipDepoStore_->close();
     DELETEARR_IMPOSSIBLE_NULL(paLocalPos_Laser_);
     DELETEARR_IMPOSSIBLE_NULL(paPos_Target_);
     DELETEARR_IMPOSSIBLE_NULL(papLaserChipDepo_);

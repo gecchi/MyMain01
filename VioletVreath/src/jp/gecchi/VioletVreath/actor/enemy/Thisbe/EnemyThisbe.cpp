@@ -26,7 +26,7 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 //    }
 
 
-    pCon_RefractionEffectDepository_ = connectToDepositoryManager("DpCon_EffRefraction001", NULL);
+    pConn_RefractionEffectDepository_ = connectToDepositoryManager("Conn_EffRefraction001", NULL);
 
     EnemyThisbeLaserChip002* pChip;
     for (int i = 0; i < 100; i++) { //レーザーストック
@@ -34,7 +34,7 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
         name <<  "EnemyThisbeLaserChip002[" << i << "]";
         pChip = NEW EnemyThisbeLaserChip002(name.str().c_str());
         int num_refraction = pChip->pSplManufCon_->fetch()->_pSplSrc->_pSp->_rnum;
-        pChip->config(num_refraction, 1, 1, pCon_RefractionEffectDepository_->fetch());
+        pChip->config(num_refraction, 1, 1, pConn_RefractionEffectDepository_->fetch());
         pLaserChipDepo_->addSubLast(pChip);
     }
 
@@ -151,5 +151,5 @@ void EnemyThisbe::onInactive() {
 
 EnemyThisbe::~EnemyThisbe() {
     DELETE_POSSIBLE_NULL(pSplSeq_);
-    pCon_RefractionEffectDepository_->close();
+    pConn_RefractionEffectDepository_->close();
 }

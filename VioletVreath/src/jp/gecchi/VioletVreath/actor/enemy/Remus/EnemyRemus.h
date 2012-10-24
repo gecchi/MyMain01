@@ -4,7 +4,7 @@ namespace VioletVreath {
 
 /**
  * 敵機レムス .
- * スクランブルハッチ。
+ * レーザーハッチ。
  * @version 1.00
  * @since 2012/10/22
  * @author Masatoshi Tsuge
@@ -34,12 +34,10 @@ public:
     /** [r/w]ハッチ開＞閉 及び、閉＞開 のモーフアニメーションフレーム数 */
     frame frame_of_morph_interval_;
 
-    /** [r/w]ハッチから発射されるアクターをメンバーに持つデポジトリ */
-
     /** [r]レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
     GgafCore::GgafActorDepositoryStore* pLaserChipDepoStore_;
     /** [r]デポジトリマネージャーへの接続 */
-    DepositoryConnection* pCon_LaserChipDepoStore_;
+    DepositoryConnection* pConn_LaserChipDepoStore_;
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 

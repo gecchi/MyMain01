@@ -34,7 +34,7 @@ public:
     };
 
     /** 反射時エフェクトデポジトリへの接続 */
-    DepositoryConnection* pCon_RefractionEffectDepository_;
+    DepositoryConnection* pConn_RefractionEffectDepository_;
 
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /**

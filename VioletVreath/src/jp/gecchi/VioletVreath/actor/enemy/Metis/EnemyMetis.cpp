@@ -14,8 +14,8 @@ EnemyMetis::EnemyMetis(const char* prm_name) :
     _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTxer->set(SE_EXPLOSION, "bom10"        , GgafRepeatSeq::nextVal("CH_bom10"));
 
-    pCon_ShotDepo_ = connectToDepositoryManager("DpCon_Shot004", NULL);
-    pDepo_Shot_ = pCon_ShotDepo_->fetch();
+    pConn_ShotDepo_ = connectToDepositoryManager("Conn_Shot004", NULL);
+    pDepo_Shot_ = pConn_ShotDepo_->fetch();
 }
 
 void EnemyMetis::onCreateModel() {
@@ -110,6 +110,6 @@ void EnemyMetis::onInactive() {
 }
 
 EnemyMetis::~EnemyMetis() {
-    pCon_ShotDepo_->close();
+    pConn_ShotDepo_->close();
 }
 

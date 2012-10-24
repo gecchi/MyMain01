@@ -12,8 +12,8 @@ FormationPallas002::FormationPallas002(const char* prm_name) :
     velo_mv_         = RR_FormationPallas002_MvVelo(_RANK_); //速度
     //パラス編隊作成
     pSplManufCon_ = connectToSplineManufactureManager("Pallas02");
-//    pSplLineCon_     = connectToSplineLineManager("SpCon_Pallas01"); //スプライン定義
-    //pDepoCon_ = connectToDepositoryManager("DpCon_Shot002", NULL);
+//    pSplLineCon_     = connectToSplineLineManager("SpConn_Pallas01"); //スプライン定義
+    //pDepoCon_ = connectToDepositoryManager("Conn_Shot002", NULL);
     pDepoCon_ = NULL;
     papPallas_ = NEW EnemyPallas*[num_Pallas_];
     for (int i = 0; i < num_Pallas_; i++) {

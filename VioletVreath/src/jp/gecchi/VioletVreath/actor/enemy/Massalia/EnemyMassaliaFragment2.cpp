@@ -30,7 +30,7 @@ void EnemyMassaliaFragment2::onInactive() {
 }
 
 void EnemyMassaliaFragment2::processStaminaEnd(GgafDxGeometricActor* prm_pOther) {
-    appearFragment("DpCon_MassaliaFragment3");
+    appearFragment("Conn_MassaliaFragment3");
 }
 
 EnemyMassaliaFragment2::~EnemyMassaliaFragment2() {

@@ -80,8 +80,6 @@ public:
     frame _frame_of_behaving_since_onActive;
 
 //    frame _last_frame_of_god;
-    /** [r]相対フレーム計算用 */
-    frame _frameEnd;
     /** [r]ノード活動フラグ */
     bool _is_active_flg;
     /** [r]ノード活動フラグ(自ツリーも考慮あり) */
@@ -879,7 +877,6 @@ _was_initialize_flg(false),
 _frame_of_life(0),
 _frame_of_behaving(0),
 _frame_of_behaving_since_onActive(0),
-_frameEnd(0),
 _is_active_flg(true),
 _is_active_in_the_tree_flg(true),
 _was_paused_flg(false),
@@ -918,14 +915,15 @@ void GgafElement<T>::nextFrame() {
     _was_paused_flg  = _was_paused_flg_in_next_frame;
     if (!_was_paused_flg) {
 
-        //終了の時か
-        if (_will_end_after_flg && _frame_of_life_when_end == _frame_of_life+1) { //まだ _frame_of_life が進んで無いため+1
+        _frame_of_life++;
+        if (_will_end_after_flg && _frame_of_life_when_end == _frame_of_life) {
+            //終了の時だ
             _can_live_flg = false;
         }
 
         _on_change_to_active_flg = false;
         _on_change_to_inactive_flg = false;
-        _frame_of_life++;
+
         if (_can_live_flg) {
             if(_was_initialize_flg == false) {
                 initialize();       //初期化
@@ -1036,14 +1034,11 @@ void GgafElement<T>::nextFrame() {
 
 template<class T>
 void GgafElement<T>::behave() {
-
     if (_is_active_in_the_tree_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frameEnd = 0;
             processBehavior();    //ユーザー実装用
         }
         callRecursive(&GgafElement<T>::behave); //再帰
-    } else {
     }
 }
 
@@ -1051,7 +1046,6 @@ template<class T>
 void GgafElement<T>::settleBehavior() {
     if (_is_active_in_the_tree_flg && _can_live_flg) { //_was_paused_flg は忘れていません
         if (_was_initialize_flg) {
-            _frameEnd = 0;
             processSettlementBehavior(); //フレームワーク用
         }
         callRecursive(&GgafElement<T>::settleBehavior); //再帰
@@ -1062,7 +1056,6 @@ template<class T>
 void GgafElement<T>::judge() {
     if (_is_active_in_the_tree_flg && !_was_paused_flg &&  _can_live_flg) {
         if (_was_initialize_flg) {
-            _frameEnd = 0;
             processJudgement();    //ユーザー実装用
         }
         callRecursive(&GgafElement<T>::judge); //再帰
@@ -1073,7 +1066,6 @@ template<class T>
 void GgafElement<T>::preDraw() {
     if (_is_active_in_the_tree_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frameEnd = 0;
             processPreDraw();
         }
         callRecursive(&GgafElement<T>::preDraw); //再帰
@@ -1084,7 +1076,6 @@ template<class T>
 void GgafElement<T>::draw() {
     if (_is_active_in_the_tree_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frameEnd = 0;
             processDraw();
         }
         callRecursive(&GgafElement<T>::draw); //再帰
@@ -1095,7 +1086,6 @@ template<class T>
 void GgafElement<T>::afterDraw() {
     if (_is_active_in_the_tree_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frameEnd = 0;
             processAfterDraw();
         }
         callRecursive(&GgafElement<T>::afterDraw); //再帰
@@ -1106,7 +1096,6 @@ template<class T>
 void GgafElement<T>::doFinally() {
     if (_is_active_in_the_tree_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frameEnd = 0;
             processFinal();
         }
         callRecursive(&GgafElement<T>::doFinally); //再帰
@@ -1312,7 +1301,6 @@ template<class T>
 void GgafElement<T>::pauseTree() {
     if (_can_live_flg) {
         _was_paused_flg_in_next_frame = true;
-        //_is_active_flg = false;
         callRecursive(&GgafElement<T>::pauseTree); //再帰
     }
 }
@@ -1525,7 +1513,7 @@ UINT32 GgafElement<T>::getActivePartFrame() {
 
 template<class T>
 void GgafElement<T>::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
-    if (_can_live_flg) {
+    if (_can_live_flg) {   //TODO:activeフラグも、入れても良いかな・・・
         if (_was_initialize_flg) {
             pFunc(this, prm1, prm2);
         }
@@ -1546,7 +1534,6 @@ void GgafElement<T>::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, vo
 template<class T>
 void GgafElement<T>::throwEventToLowerTree(hashval prm_no, void* prm_pSource) {
     if (_can_live_flg) {
-        _frameEnd = 0;
         onCatchEvent(prm_no, prm_pSource);
         if (GgafNode<T>::_pSubFirst) {
             T* pElementTemp = GgafNode<T>::_pSubFirst;
@@ -1566,7 +1553,6 @@ template<class T>
 void GgafElement<T>::throwEventToUpperTree(hashval prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
-            _frameEnd = 0;
             onCatchEvent(prm_no, prm_pSource);
         }
         if (GgafNode<T>::_pParent) {

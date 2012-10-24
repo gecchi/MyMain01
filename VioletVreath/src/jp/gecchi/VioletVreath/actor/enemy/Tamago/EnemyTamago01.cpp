@@ -14,7 +14,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
 
-    pDepoCon_ = connectToDepositoryManager("DpCon_Shot001", NULL);
+    pDepoCon_ = connectToDepositoryManager("Conn_Shot001", NULL);
     //pDepo_Shot_ = pDepoCon_->fetch();
 pDepo_Shot_ = NULL;
     _pSeTxer->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));

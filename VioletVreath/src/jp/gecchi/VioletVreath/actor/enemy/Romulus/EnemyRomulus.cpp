@@ -16,7 +16,7 @@ EnemyRomulus::EnemyRomulus(const char* prm_name) :
     frame_of_morph_interval_   = 120;
 
     pDepo_Fired_ = NULL;
-    pDpcon_ = connectToDepositoryManager("DpCon_Atalante", NULL);
+    pDpcon_ = connectToDepositoryManager("Conn_Atalante", NULL);
 
     _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));

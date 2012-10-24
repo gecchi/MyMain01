@@ -185,6 +185,6 @@ MyShipScene::~MyShipScene() {
     DELETEARR_IMPOSSIBLE_NULL(papOptionCtrlr_);
 
     //P_UNIVERSE->undoCameraWork();
-//    pCon_VamSysCamWorker_->close();
-//    pCon_MyShipDivingCamWorker_->close();
+//    pConn_VamSysCamWorker_->close();
+//    pConn_MyShipDivingCamWorker_->close();
 }

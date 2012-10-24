@@ -50,19 +50,25 @@ public:
     /** カメラ */
     GgafDxCamera* _pCamera;
 
-    /** アクター順序レンダリングのための遠さ別のグループ */
+    /** レンダリング順序配列に登録されている各アクターリストの先頭のアクターの配列 */
     static GgafDxDrawableActor* _apAlphaActorFirstList_DrawDepthLevel[];
+    /** レンダリング順序配列に登録されている各アクターリストの末尾のアクターの配列 */
     static GgafDxDrawableActor* _apAlphaActorLastList_DrawDepthLevel[];
-    /** アクター順序レンダリング最遠グループ(一番最初にレンダリング) */
-    static GgafDxDrawableActor* _pActors_DrawMaxDrawDepth;
+
+    /** 描画アクターのカーソル */
     static GgafDxDrawableActor* _pActor_DrawActive;
 
-
+    /** [r]アプリケーション領域、X座標の最小値 */
     static coord _X_goneLeft;
+    /** [r]アプリケーション領域、X座標の最大値 */
     static coord _X_goneRight;
+    /** [r]アプリケーション領域、Y座標の最大値 */
     static coord _Y_goneTop;
+    /** [r]アプリケーション領域、Y座標の最小値 */
     static coord _Y_goneBottom;
+    /** [r]アプリケーション領域、Z座標の最大値 */
     static coord _Z_goneFar;
+    /** [r]アプリケーション領域、Z座標の最小値 */
     static coord _Z_goneNear;
 
 
@@ -73,7 +79,6 @@ public:
     virtual ~GgafDxUniverse();
 
 
-
     /**
      * 描画レベル（順序）を登録 .
      * αなど半透明はこちらに登録した方が、ある程度前後関係が正しく表示される。
@@ -82,15 +87,8 @@ public:
      */
     static int setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableActor* prm_pActor);
 
-
     void registSe(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay );
 
-//    /**
-//     * 描画レベル（順序）を最遠で登録.
-//     * 不透明なオブジェクトは極力こちらで登録する
-//     * @param prm_pActor アクター
-//     */
-//    static void setDrawDepthMaxLevel(GgafDxDrawableActor* prm_pActor);
 };
 
 }

@@ -15,10 +15,10 @@ EnemyRemus::EnemyRemus(const char* prm_name) :
     frame_of_close_interval_ = 5*60;
     frame_of_morph_interval_   = 120;
 
-    pCon_LaserChipDepoStore_ = connectToDepositoryManager(
-             "DpCon_EnemyRemusLaserChip001DepoStore", NULL
+    pConn_LaserChipDepoStore_ = connectToDepositoryManager(
+             "Conn_EnemyRemusLaserChip001DepoStore", NULL
          );
-    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pCon_LaserChipDepoStore_->fetch());
+    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->fetch());
     pLaserChipDepo_ = NULL;
     _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
@@ -97,13 +97,13 @@ void EnemyRemus::processBehavior() {
             }
             //オープン時レーザー
             if (is_firing_) {
-                LaserChip* pChip = (LaserChip*)pLaserChipDepo_->dispatch();
+                LaserChip* pChip = pLaserChipDepo_->dispatch();
                 if (pChip) {
+                    pChip->locateWith(this);
                     angle Rz, Ry;  //現在の最終的な向きを、RzRyで取得する
                     UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                      Rz, Ry); //現在の最終的な向きを、RzRyで取得！
                     pChip->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
-                    pChip->locateWith(this);
                 } else {
                     is_firing_ = false;
                 }
@@ -170,5 +170,5 @@ void EnemyRemus::onInactive() {
 }
 
 EnemyRemus::~EnemyRemus() {
-    pCon_LaserChipDepoStore_->close();
+    pConn_LaserChipDepoStore_->close();
 }

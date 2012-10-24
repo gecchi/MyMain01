@@ -90,7 +90,7 @@ CameraWorker* Universe::undoCameraWork() {
     //    +------+                       +------+
 
     //ƒXƒ^ƒbƒN‚‹‚çŽæ‚èo‚µ
-    CameraWorkerConnection* pCon_now = stack_CamWorkerCon_.pop(); //pCon_now‚Íã}‚ÌConC‚ª•Ô‚é
+    CameraWorkerConnection* pConn_now = stack_CamWorkerCon_.pop(); //pConn_now‚Íã}‚ÌConC‚ª•Ô‚é
     CameraWorkerConnection* pCon = stack_CamWorkerCon_.getLast(); //pCon‚Íã}‚ÅŒ¾‚¤‚ÆConB‚ª•Ô‚é
     if (pCon) {
         CameraWorker* pCamWorker = pCon->fetch();
@@ -107,7 +107,7 @@ CameraWorker* Universe::undoCameraWork() {
                 stack_CamWorkerCon_.dump();
                 throwGgafCriticalException("Universe::undoCameraWork()  stack_CameraWorker_ ‚©‚ç pop() ‚µ‚·‚¬B");
             }
-            pCon_now->close();
+            pConn_now->close();
 //            _TRACE_("undoCameraWork end---");
 //            stack_CamWorkerCon_.dump();
             return pActiveCamWorker_;

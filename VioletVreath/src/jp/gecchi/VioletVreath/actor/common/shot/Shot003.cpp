@@ -20,7 +20,7 @@ void Shot003::initialize() {
 
 void Shot003::onActive() {
     setHitAble(true);
-    _pKurokoA->setMvVelo(20000);             //ˆÚ“®‘¬“x
+    _pKurokoA->setMvVelo(20000);
 
 }
 

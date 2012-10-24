@@ -8,7 +8,7 @@ Shot001::Shot001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot001)) {
     _class_name = "Shot001";
     _pSeTxer->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
-    pSplLineCon_ = (SplineLineConnection*)(P_GOD->pSpl3DManager_->connect("SpCon_HAN")); //スプライン定義
+    pSplLineCon_ = (SplineLineConnection*)(P_GOD->pSpl3DManager_->connect("SpConn_HAN")); //スプライン定義
     pSplSeq_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->fetch(), 10000); //移動速度固定
 }
 

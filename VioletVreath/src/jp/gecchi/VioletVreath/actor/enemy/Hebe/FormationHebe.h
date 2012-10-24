@@ -12,9 +12,9 @@ class FormationHebe : public GgafLib::DepositoryFormation {
 
 public:
     /** ヘーベ借り入れ元Depository資源への接続 */
-    DepositoryConnection* pCon_HebeDepo_;
+    DepositoryConnection* pConn_HebeDepo_;
     /** ヘーベの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pCon_ShotDepo_;
+    DepositoryConnection* pConn_ShotDepo_;
 
 
     /** スプライン定義資源への接続 */

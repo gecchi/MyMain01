@@ -4,7 +4,7 @@ using namespace GgafDxCore;
 
 GgafDxDrawableActor* GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL+1];
 GgafDxDrawableActor* GgafDxUniverse::_apAlphaActorLastList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL+1];
-GgafDxDrawableActor* GgafDxUniverse::_pActors_DrawMaxDrawDepth = NULL;
+//GgafDxDrawableActor* GgafDxUniverse::_pActors_DrawMaxDrawDepth = NULL;
 GgafDxDrawableActor* GgafDxUniverse::_pActor_DrawActive = NULL;
 
 coord GgafDxUniverse::_X_goneLeft   = 0;
@@ -114,41 +114,8 @@ void GgafDxUniverse::draw() {
     //ここでEffectManagerで回してVew変換をいっかい設定するようにする
     GgafDxGod::_pEffectManager->setParamPerFrameAll();
 
-    //段階レンダリング不要（最深部等、背景）の描画。
-    //※TODO:本来は手前から描画のほうが効率良い。が、その内最適化
-    _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
+    //段階レンダリング描画
     GgafDxScene* pScene;
-    while (_pActor_DrawActive) {
-        //マスターαを設定する。
-#ifdef MY_DEBUG
-            if (_pActor_DrawActive->getPlatformScene()->_obj_class & Obj_GgafDxScene) {
-                //OK
-            } else {
-                throwGgafCriticalException("GgafDxUniverse::draw() err1. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName());
-            }
-#endif
-        pScene = (GgafDxScene*)(_pActor_DrawActive->getPlatformScene());
-        _pActor_DrawActive->_pEffect->_pID3DXEffect->SetFloat(
-                _pActor_DrawActive->_pEffect->_h_alpha_master, pScene->_master_alpha
-        );
-        if (_pActor_DrawActive->_alpha < 1.0f) {
-            GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
-            //但し、段階レンダリング不要であるにもかかわらず、半透明表示は、前後がうまく表示されないので避けるべき。
-        }
-
-        //描画
-        _pActor_DrawActive->processDraw();
-
-        if (_pActor_DrawActive->_alpha < 1.0f) {
-            GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //カリング有りに戻す
-        }
-        _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
-    }
-    _pActors_DrawMaxDrawDepth = NULL; //次回のためにリセット
-
-    //段階レンダリングが必要なオブジェクトを描画
-    //float tmpAlpah;
-    //int alphapoint = MAX_DRAW_DEPTH_LEVEL/4*3;
     for (int i = MAX_DRAW_DEPTH_LEVEL; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorFirstList_DrawDepthLevel[i];
         while (_pActor_DrawActive) {
@@ -177,7 +144,7 @@ void GgafDxUniverse::draw() {
                 GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
             }
 
-            _pActor_DrawActive->processDraw();
+            _pActor_DrawActive->processDraw(); //描画！！！
 
             //カリング有りに戻す
             if (_pActor_DrawActive->_alpha < 1.0f) {
@@ -221,21 +188,6 @@ void GgafDxUniverse::draw() {
 
 }
 
-//void GgafDxUniverse::setDrawDepthMaxLevel(GgafDxDrawableActor* prm_pActor) {
-//    static GgafDxDrawableActor* pActorTmp;
-//    if (_pActors_DrawMaxDrawDepth == NULL) {
-//        //最初のアクターの場合
-//        prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
-//        _pActors_DrawMaxDrawDepth = prm_pActor;
-//        return;
-//    } else {
-//        //既にアクター登録済みだった場合
-//        pActorTmp = _pActors_DrawMaxDrawDepth;
-//        prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
-//        _pActors_DrawMaxDrawDepth = prm_pActor;
-//        return;
-//    }
-//}
 int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableActor* prm_pActor) {
     int draw_depth_level;
     GgafDxDrawableActor* pActorTmp;

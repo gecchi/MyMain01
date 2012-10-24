@@ -212,7 +212,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\CameraWorker.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera_worker\CameraWorker.cpp"
 				>
 			</File>
 			<File
@@ -252,6 +252,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp"
 				>
 			</File>
@@ -272,7 +276,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\DefaultCamWorker.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera_worker\DefaultCamWorker.cpp"
 				>
 			</File>
 			<File
@@ -348,6 +352,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion004.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.cpp"
 				>
 			</File>
@@ -384,6 +392,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EffectSylviaEye001.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.cpp"
 				>
 			</File>
@@ -408,6 +420,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\EnemyAdrastea.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraea.cpp"
 				>
 			</File>
@@ -428,6 +444,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Atalante\EnemyAtalante.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeres.cpp"
 				>
 			</File>
@@ -445,6 +465,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hebe\EnemyHebe.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperia.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperiaLaserChip001.cpp"
 				>
 			</File>
 			<File
@@ -484,7 +512,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemus.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemusLaserChip001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Romulus\EnemyRomulus.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylvia.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEye.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEyeStraightLaserChip001.cpp"
 				>
 			</File>
 			<File
@@ -508,15 +560,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Vesta\EnemyVesta.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyWateringLaserChip001.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\EnergyBar.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\FormationAdrastea001.cpp"
 				>
 			</File>
 			<File
@@ -704,6 +756,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi32Font.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.cpp"
 				>
 			</File>
@@ -777,6 +833,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.cpp"
 				>
 			</File>
 			<File
@@ -864,6 +924,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene\NameEntryScene.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\OptionMagic.cpp"
 				>
 			</File>
@@ -885,6 +949,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\Properties.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\util\QueryRanking.cpp"
 				>
 			</File>
 			<File
@@ -953,6 +1021,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.cpp"
 				>
 			</File>
 			<File
@@ -1080,7 +1152,43 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\TestDepository.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\_Test\TestGuShot.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestNomal.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\_Test\TestNomalShot.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestPa.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\_Test\TestPaShot.cpp"
 				>
 			</File>
 			<File
@@ -1089,10 +1197,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\Torus.cpp"
 				>
 			</File>
 			<File
@@ -1120,19 +1224,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus002.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia002.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus003.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia003.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus004.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia004.cpp"
 				>
 			</File>
 			<File
@@ -1190,6 +1294,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundNameEntry.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpace001.cpp"
 				>
 			</File>
@@ -1220,7 +1328,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\CameraWorker.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera_worker\CameraWorker.h"
 				>
 			</File>
 			<File
@@ -1260,6 +1368,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.h"
 				>
 			</File>
@@ -1280,7 +1392,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\DefaultCamWorker.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera_worker\DefaultCamWorker.h"
 				>
 			</File>
 			<File
@@ -1352,6 +1464,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion004.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.h"
 				>
 			</File>
@@ -1392,6 +1508,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EffectSylviaEye001.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.h"
 				>
 			</File>
@@ -1416,6 +1536,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\EnemyAdrastea.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraea.h"
 				>
 			</File>
@@ -1436,6 +1560,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Atalante\EnemyAtalante.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeres.h"
 				>
 			</File>
@@ -1453,6 +1581,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hebe\EnemyHebe.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperia.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperiaLaserChip001.h"
 				>
 			</File>
 			<File
@@ -1492,7 +1628,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemus.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemusLaserChip001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Romulus\EnemyRomulus.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylvia.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEye.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEyeStraightLaserChip001.h"
 				>
 			</File>
 			<File
@@ -1516,10 +1676,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Vesta\EnemyVesta.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyWateringLaserChip001.h"
 				>
 			</File>
@@ -1529,6 +1685,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\template\Formation001.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\FormationAdrastea001.h"
 				>
 			</File>
 			<File
@@ -1716,6 +1876,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi32Font.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.h"
 				>
 			</File>
@@ -1789,6 +1953,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.h"
 				>
 			</File>
 			<File
@@ -1876,6 +2044,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene\NameEntryScene.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\OptionMagic.h"
 				>
 			</File>
@@ -1897,6 +2069,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\Properties.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\util\QueryRanking.h"
 				>
 			</File>
 			<File
@@ -1965,6 +2141,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.h"
 				>
 			</File>
 			<File
@@ -2076,7 +2256,43 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\TestDepository.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\_Test\TestGuShot.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestNomal.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\_Test\TestNomalShot.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestPa.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\_Test\TestPaShot.h"
 				>
 			</File>
 			<File
@@ -2085,10 +2301,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\Torus.h"
 				>
 			</File>
 			<File
@@ -2116,19 +2328,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus002.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia002.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus003.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia003.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Torus\VarietyTorus004.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia004.h"
 				>
 			</File>
 			<File
@@ -2165,6 +2377,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundNameEntry.h"
 				>
 			</File>
 			<File
