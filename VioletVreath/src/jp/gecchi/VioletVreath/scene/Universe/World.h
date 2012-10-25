@@ -21,6 +21,7 @@ public:
         PROG_INIT = 1 ,
         PROG_CALM1 ,
         PROG_CALM2 ,
+        PROG_CALM3 ,
         PROG_MAINLOOP ,
     };
 

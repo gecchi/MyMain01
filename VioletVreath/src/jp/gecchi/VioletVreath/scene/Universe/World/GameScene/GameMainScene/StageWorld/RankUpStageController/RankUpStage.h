@@ -10,6 +10,7 @@ class RankUpStage : public GgafLib::DefaultScene {
 public:
     static bool pause_;
 
+
     enum {
         PROG_INIT = 1,
         PROG_BEGIN   ,
@@ -17,10 +18,15 @@ public:
         PROG_RESULT  ,
         PROG_END     ,
     };
+
+    int hit_enemy_num_;
+    int all_hit_num_;
+
+    char buff[80];
     WorldBoundSpaceRankUp* pWorldBoundSpace_;
     HoshiBoshiRankUp* pHoshiBoshi_;
-    LabelGecchi16Font* pMessage_;
-
+    LabelGecchi16Font* pMessage1_;
+    LabelGecchi16Font* pMessage2_;
     RankUpStage(const char* prm_name);
 
     virtual void initialize() override;

@@ -30,7 +30,7 @@ GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect(char* prm_effect_name) : GgafDx
 }
 
 void GgafDxD3DXAniMeshEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_matView );
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &(P_CAM->_matView) );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 }
 

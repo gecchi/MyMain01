@@ -83,6 +83,13 @@ void GgafDxBgmPerformer::unpause() {
     }
 }
 
+void GgafDxBgmPerformer::stop() {
+    for (int id = 0; id < _bgm_num; id++) {
+        stop(id);
+    }
+}
+
+
 void GgafDxBgmPerformer::setVolume(int prm_id, int prm_volume) {
     _paDouble_volume[prm_id] = (double)prm_volume;
     _papBgmCon[prm_id]->fetch()->setVolume(prm_volume);

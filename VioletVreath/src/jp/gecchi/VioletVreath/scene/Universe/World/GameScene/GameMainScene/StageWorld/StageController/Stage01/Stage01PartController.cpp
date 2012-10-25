@@ -92,7 +92,7 @@ void Stage01PartController::processBehavior() {
         //Stage01_01
         case Stage01PartController::PROG_STG01_01_BEGIN: {
             //BGM１番フェードイン
-            _pBgmPerformer->play_fadein(0, 420);
+            _pBgmPerformer->play_fadein(0);
             _pProg->changeNext();
             break;
         }

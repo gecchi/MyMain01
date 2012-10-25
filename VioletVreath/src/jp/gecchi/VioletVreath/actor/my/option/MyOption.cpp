@@ -55,10 +55,8 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     MyOptionWateringLaserChip001* pChip;
 //    MyOptionStraightLaserChip001* pChip;
     for (int i = 0; i < 80; i++) { //レーザーストック
-        std::stringstream name;
-        name <<  getName() << "'s MYS_LaserChip" << i;
-        std::string name2 = name.str();
-        pChip = NEW MyOptionWateringLaserChip001(name2.c_str());
+        std::string name = std::string(getName()) + "'s LaserChip(" + ITOS(i) + ")";
+        pChip = NEW MyOptionWateringLaserChip001(name.c_str());
         //pChip = NEW MyOptionStraightLaserChip001(name2.c_str());
         //MyOptionStraightLaserChip001の場合以下が必要
         //ストレート用
@@ -75,7 +73,8 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
-        pShot = NEW MyShot001("MY_MyShot001");
+        std::string name = std::string(getName()) + "'s Shot001(" + ITOS(i) + ")";
+        pShot = NEW MyShot001(name.c_str());
         pShot->inactivateImmed();
         pDepo_MyShots001_->addSubLast(pShot);
     }

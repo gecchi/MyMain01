@@ -30,18 +30,18 @@ void GgafDxBgmPerformerForScene::fade(int prm_id, frame prm_frame, int prm_targe
     _paDouble_target_volume[prm_id] = (double)prm_target_volume;
     _paDouble_inc_volume[prm_id] = (prm_target_volume - _paDouble_volume[prm_id]) / (double)prm_frame;
 }
-void GgafDxBgmPerformerForScene::fadein(int prm_id, frame prm_frame) {
+void GgafDxBgmPerformerForScene::fadein_f(int prm_id, frame prm_frame) {
     fade(prm_id, prm_frame, GGAF_MAX_VOLUME);
 }
-void GgafDxBgmPerformerForScene::play_fadein(int prm_id, frame prm_frame) {
+void GgafDxBgmPerformerForScene::play_fadein_f(int prm_id, frame prm_frame) {
     play(prm_id, GGAF_MIN_VOLUME, true);
-    fadein(prm_id, prm_frame);
+    fadein_f(prm_id, prm_frame);
 }
-void GgafDxBgmPerformerForScene::fadeout(int prm_id, frame prm_frame) {
+void GgafDxBgmPerformerForScene::fadeout_f(int prm_id, frame prm_frame) {
     fade(prm_id, prm_frame, GGAF_MIN_VOLUME);
     _paBool_is_fadeout_stop[prm_id] = false;
 }
-void GgafDxBgmPerformerForScene::fadeout_stop(int prm_id, frame prm_frame) {
+void GgafDxBgmPerformerForScene::fadeout_stop_f(int prm_id, frame prm_frame) {
     fade(prm_id, prm_frame, GGAF_MIN_VOLUME);
     _paBool_is_fadeout_stop[prm_id] = true;
 }
@@ -52,16 +52,16 @@ void GgafDxBgmPerformerForScene::play(int prm_id, int prm_volume, bool prm_is_lo
 }
 
 void GgafDxBgmPerformerForScene::fadein(int prm_id) {
-    fadein(prm_id, _default_fade);
+    fadein_f(prm_id, _default_fade);
 }
 void GgafDxBgmPerformerForScene::play_fadein(int prm_id) {
-    play_fadein(prm_id, _default_fade);
+    play_fadein_f(prm_id, _default_fade);
 }
 void GgafDxBgmPerformerForScene::fadeout(int prm_id) {
-    fadeout(prm_id, _default_fade);
+    fadeout_f(prm_id, _default_fade);
 }
 void GgafDxBgmPerformerForScene::fadeout_stop(int prm_id) {
-    fadeout_stop(prm_id, _default_fade);
+    fadeout_stop_f(prm_id, _default_fade);
 }
 
 void GgafDxBgmPerformerForScene::behave() {
@@ -82,6 +82,12 @@ void GgafDxBgmPerformerForScene::behave() {
                 }
             }
         }
+    }
+}
+
+void GgafDxBgmPerformerForScene::fadeout_stop() {
+    for (int id = 0; id < _bgm_num; id++) {
+        fadeout_stop(id);
     }
 }
 

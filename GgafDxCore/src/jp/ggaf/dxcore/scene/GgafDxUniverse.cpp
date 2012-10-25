@@ -120,7 +120,7 @@ void GgafDxUniverse::draw() {
         _pActor_DrawActive = _apAlphaActorFirstList_DrawDepthLevel[i];
         while (_pActor_DrawActive) {
 #ifdef MY_DEBUG
-            if (_pActor_DrawActive->getPlatformScene()->_obj_class & Obj_GgafDxScene) {
+            if (_pActor_DrawActive->getPlatformScene()->_obj_class & Obj_GgafDxScene == Obj_GgafDxScene) {
                 //OK
             } else {
                 throwGgafCriticalException("GgafDxUniverse::draw() err2. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName());
@@ -129,7 +129,7 @@ void GgafDxUniverse::draw() {
             //各所属シーンのαカーテンを設定する。
             pScene = (GgafDxScene*)_pActor_DrawActive->getPlatformScene();
             _pActor_DrawActive->_pEffect->_pID3DXEffect->SetFloat(
-                    _pActor_DrawActive->_pEffect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha);
+                    _pActor_DrawActive->_pEffect->_h_alpha_master, pScene->_master_alpha);
 
             //半透明要素ありの場合カリングを一時OFF
             if (_pActor_DrawActive->_alpha < 1.0f) {

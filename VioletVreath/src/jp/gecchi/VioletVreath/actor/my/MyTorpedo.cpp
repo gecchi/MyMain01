@@ -4,7 +4,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-MyTorpedo::MyTorpedo(const char* prm_name,MyTorpedoController* prm_pOptionTorpedoController)
+MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpedoController)
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
     pOptionTorpedoCtrlr_ = prm_pOptionTorpedoController;
@@ -16,7 +16,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyTorpedoController* prm_pOptionTorped
     pTailEffectDepository_ = NEW LaserChipDepository("DP_TailEffect");
     pTailEffectDepository_->config(length_TailEffect_, 0, NULL);
     for (int i = 0; i < length_TailEffect_; i++) {
-        std::string name = std::string(pOptionTorpedoCtrlr_->pOrg_->getName())+"'s TorpedoTail("+ITOS(i)+")";
+        std::string name = std::string(pOptionTorpedoCtrlr_->getName())+"'s Tail("+ITOS(i)+")";
         MyTorpedoTail* pChip = NEW MyTorpedoTail(name.c_str(), this);
 
         pChip->inactivateImmed();

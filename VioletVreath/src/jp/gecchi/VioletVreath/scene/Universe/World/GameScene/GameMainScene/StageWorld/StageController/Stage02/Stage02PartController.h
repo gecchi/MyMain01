@@ -8,7 +8,7 @@ namespace VioletVreath {
  * @since 2010/08/18
  * @author Masatoshi Tsuge
  */
-class Stage02PartController : public GgafLib::DefaultScene {
+class Stage02PartController : public StagePartController {
 
     GgafDxCore::GgafDxBgm* bgm_st1_;
 

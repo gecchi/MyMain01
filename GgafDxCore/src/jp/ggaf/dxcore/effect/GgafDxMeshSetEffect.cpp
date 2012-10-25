@@ -122,7 +122,7 @@ GgafDxMeshSetEffect::GgafDxMeshSetEffect(char* prm_effect_name) : GgafDxEffect(p
 }
 
 void GgafDxMeshSetEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_matView );
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &(P_CAM->_matView) );
     checkDxException(hr, D3D_OK, "GgafDxMeshSetEffect::setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB_effect_name="<<_effect_name);
     hr = _pID3DXEffect->SetValue(_h_posCam, P_CAM->_pVecCamFromPoint, sizeof(D3DXVECTOR3) );
     checkDxException(hr, D3D_OK, "GgafDxMeshSetEffect::setParamPerFrame SetValue(_h_posCam) Ç…é∏îsÇµÇ‹ÇµÇΩÅB_effect_name="<<_effect_name);

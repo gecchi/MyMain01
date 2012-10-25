@@ -8,6 +8,7 @@ bool Stage::pause_ = false;
 
 Stage::Stage(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage";
+    pScene_StagePartCtrlr_ = NULL;
     useProgress(Stage::PROG_END);
 }
 

@@ -19,16 +19,33 @@ public:
     GgafDxBgmConnection** _papBgmCon;
 
     GgafDxBgmPerformer();
-    virtual void useBgm(int prm_bgm_num);
+
     /**
-     *
-     * @param prm_id 番号ID
+     * BGM数を宣言 .
+     * @param prm_bgm_num 演奏するBGM数
+     */
+    virtual void useBgm(int prm_bgm_num);
+
+    /**
+     * BGMを設定する。
+     * @param prm_id BGMチャンネル番号(0 ～ useBgm(n) の引数 n - 1)
      * @param prm_bgm_name プロパティファイルの_OGG, _BPM, _TITLE のプレフィックスとなっているkey文字列
-     *
      */
     virtual void set(int prm_id, const char* prm_bgm_name);
+
+    /**
+     * ボリュームを設定する。
+     * @param prm_id     BGMチャンネル番号(0 ～ )
+     * @param prm_volume ボリューム値(0 ～ 100)
+     */
     virtual void setVolume(int prm_id, int prm_volume);
 
+    /**
+     * BGMを再生する。
+     * @param prm_id       BGMチャンネル番号(0 ～ )
+     * @param prm_volume   ボリューム値(0 ～ 100)
+     * @param prm_is_loop  ループするかどうか（true:ループ再生する／false:ループ再生しない）
+     */
     virtual void play(int prm_id, int prm_volume, bool prm_is_loop);
     virtual void play(int prm_id, int prm_volume) {
         play(prm_id, prm_volume, true);
@@ -41,6 +58,10 @@ public:
     virtual void pause(int prm_id);
     virtual void unpause(int prm_id);
 
+    /**
+     * 全BGMチャンネル番号の再生を停止 .
+     */
+    virtual void stop();
     virtual void pause();
     virtual void unpause();
 

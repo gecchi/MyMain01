@@ -326,7 +326,6 @@ GgafDxGeometricActor::~GgafDxGeometricActor() {
 
 void GgafDxGeometricActor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")"<<DUMP_FLGS);
-
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst) {
         while (true) {

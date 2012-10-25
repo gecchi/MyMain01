@@ -4,7 +4,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-Stage02PartController::Stage02PartController(const char* prm_name) : DefaultScene(prm_name) {
+Stage02PartController::Stage02PartController(const char* prm_name) : StagePartController(prm_name) {
     _class_name = "Stage02PartController";
 
     _pBgmPerformer->useBgm(3);
@@ -24,7 +24,7 @@ Stage02PartController::Stage02PartController(const char* prm_name) : DefaultScen
 }
 
 void Stage02PartController::initialize() {
-    _pBgmPerformer->play_fadein(0, 420);
+    _pBgmPerformer->play_fadein(0);
     _pProg->change(Stage02PartController::PROG_INIT);
 }
 

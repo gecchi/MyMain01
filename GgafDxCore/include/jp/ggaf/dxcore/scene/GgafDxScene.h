@@ -37,7 +37,7 @@ public :
     GgafDxAlphaCurtain* _pAlphaCurtain;
     /** [r]BGM演奏者 */
     GgafDxBgmPerformerForScene* _pBgmPerformer;
-
+    /** [r]シーンのα */
     float _master_alpha;
     /**
      * コンストラクタ .

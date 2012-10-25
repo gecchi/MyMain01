@@ -17,6 +17,8 @@ public:
 
     static bool pause_;
 
+    StagePartController* pScene_StagePartCtrlr_;
+
     Stage(const char* prm_name);
 
     virtual void initialize() override;

@@ -74,157 +74,188 @@ void RankUp002::processBehavior() {
 			case 200: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000000);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				orderActorToFactory(90000030, EnemyTamago01, "EnemyTamago01_31");
 				break;
 			}
 			case 260: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000001);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 320: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000002);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 380: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000003);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 440: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000004);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 500: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000005);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 560: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000006);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 620: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000007);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 680: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000008);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 740: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000009);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 800: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000010);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 860: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000011);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 920: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000012);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 980: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000013);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1040: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000014);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1100: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000015);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1160: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000016);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1220: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000017);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1280: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000018);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1340: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000019);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1400: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000020);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1460: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000021);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1520: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000022);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1580: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000023);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1640: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000024);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1700: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000025);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1760: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000026);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1820: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000027);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1880: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000028);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 1940: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000029);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			case 2000: {
 				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(90000030);
 				getDirector()->addSubGroup(pActor);
+				all_hit_num_ ++;
 				break;
 			}
 			default :
@@ -241,7 +272,7 @@ void RankUp002::processBehavior() {
                 _TRACE_("RankUp002::processBehavior() RankUpStage::PROG_PLAYING ‚É‚È‚è‚Ü‚·‚½I");
             }
 
-            if (_pProg->getFrameInProgress() == 2500) {
+            if (_pProg->getFrameInProgress() == _paFrame_NextEvent[_event_num-1]+600) {
                 _TRACE_("RankUp002::processBehavior() RankUpStage::PROG_PLAYING ‚¨‚í‚Á‚½");
                 _pProg->change(RankUpStage::PROG_RESULT); //RankUpStage‚Ì‹¤’Êˆ—‚Ö
             }

@@ -81,10 +81,7 @@ void World::processBehavior() {
             break;
         }
 
-        case World::PROG_MAINLOOP: {
-            if (_pProg->hasJustChanged()) {
-                addSubLast(pGameScene_);
-            }
+        case World::PROG_CALM3: {
             if (_pProg->getFrameInProgress() <= 120) {
                 pLabel_Aster_->_pFader->behave(); //右上＊チカチカ
                 if (_pProg->getFrameInProgress() == 70) {
@@ -92,8 +89,17 @@ void World::processBehavior() {
                 }
                 if (_pProg->getFrameInProgress() == 120) {
                     pLabel_Aster_->sayonara();
+                    _pProg->changeNext(); //メインへ！
                 }
             }
+            break;
+        }
+
+        case World::PROG_MAINLOOP: {
+            if (_pProg->hasJustChanged()) {
+                addSubLast(pGameScene_);
+            }
+
             //GameScene作成完了
             VB->update(); //入力情報更新
 

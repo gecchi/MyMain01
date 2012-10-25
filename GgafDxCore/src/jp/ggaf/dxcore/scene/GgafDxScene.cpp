@@ -12,7 +12,7 @@ GgafDxScene::GgafDxScene(const char* prm_name) : GgafMainScene(prm_name) {
 
 void GgafDxScene::processSettlementBehavior() {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
-        _pAlphaCurtain->behave();
+        _pAlphaCurtain->behave(); //_master_alphaが更新される
     }
     _pBgmPerformer->behave();
     if (_was_paused_flg_in_next_frame == true) {
@@ -30,7 +30,7 @@ void GgafDxScene::fadeinSceneTree(int prm_frame_fade) {
     }
     if (getSubFirst()) {
 #ifdef MY_DEBUG
-        if (getSubFirst()->_obj_class & Obj_GgafDxScene) {
+        if (getSubFirst()->_obj_class & Obj_GgafDxScene == Obj_GgafDxScene) {
             //OK
         } else {
             throwGgafCriticalException("GgafDxScene::fadeinSceneTree() サブシーンが、GgafDxScene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName()) );
@@ -43,7 +43,7 @@ void GgafDxScene::fadeinSceneTree(int prm_frame_fade) {
                 break;
             } else {
 #ifdef MY_DEBUG
-                if (pScene->getNext()->_obj_class & Obj_GgafDxScene) {
+                if (pScene->getNext()->_obj_class & Obj_GgafDxScene == Obj_GgafDxScene) {
                     //OK
                 } else {
                     throwGgafCriticalException("GgafDxScene::fadeinSceneTree() pScene["<<(pScene->getName())<<"->getNext()["<<(pScene->getNext()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName());
@@ -72,7 +72,7 @@ void GgafDxScene::fadeoutSceneTree(int prm_frame_fade) {
     }
     if (getSubFirst()) {
 #ifdef MY_DEBUG
-        if (getSubFirst()->_obj_class & Obj_GgafDxScene) {
+        if (getSubFirst()->_obj_class & Obj_GgafDxScene == Obj_GgafDxScene) {
             //OK
         } else {
             _TRACE_("GgafDxScene::fadeoutSceneTree() サブシーンが、GgafDxScene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName())<<" class="<<(getSubFirst()->_obj_class));
@@ -86,7 +86,7 @@ void GgafDxScene::fadeoutSceneTree(int prm_frame_fade) {
                 break;
             } else {
 #ifdef MY_DEBUG
-                if (pScene->getNext()->_obj_class & Obj_GgafDxScene) {
+                if (pScene->getNext()->_obj_class & Obj_GgafDxScene == Obj_GgafDxScene) {
                     //OK
                 } else {
                     throwGgafCriticalException("GgafDxScene::fadeinSceneTree() pScene["<<(pScene->getName())<<"->getNext()["<<(pScene->getNext()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName());
