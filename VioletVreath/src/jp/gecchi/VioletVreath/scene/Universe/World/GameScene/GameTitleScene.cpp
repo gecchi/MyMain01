@@ -105,7 +105,7 @@ void GameTitleScene::processBehavior() {
                         }
                     }
                 }
-            } 
+            }
             if (pMenu_->canControll()) {
                 int d = pMenu_->getDecidedIndex();
                 if (d >= 0) {
@@ -154,7 +154,7 @@ void GameTitleScene::processBehavior() {
         case GameTitleScene::PROG_FINISH: {
             if (_pProg->hasJustChanged()) {
                 pMenu_->sink();
-//                fadeoutSceneTree(FADE_FRAMES);
+//                fadeoutSceneWithBgmTree(FADE_FRAMES);
 //                inactivateDelay(FADE_FRAMES);
             }
             //‚¨‚µ‚Ü‚¢‘Ò‚¿‚Ú‚¤‚¯ƒ‹[ƒv

@@ -81,6 +81,21 @@ public :
      */
     void fadeoutScene(int prm_frame_fade);
 
+    /**
+     * 自シーンのアクターをフェードアウトさせると同時に、BGMもフェードアウトさせる .
+     * BGMは、シーンメンバーの _pBgmPerformer(GgafDxBgmPerformerForSceneオブジェクト) で
+     * 演奏されていることが前提。
+     * @param prm_frame_fade フェードアウトフレーム数
+     */
+    void fadeoutSceneWithBgm(int prm_frame_fade);
+
+    /**
+     * 自ツリーシーンのアクターをフェードアウトさせると同時に、BGMもフェードアウトさせる .
+     * BGMは、シーンメンバーの _pBgmPerformer(GgafDxBgmPerformerForSceneオブジェクト) で
+     * 演奏されていることが前提。
+     * @param prm_frame_fade フェードアウトフレーム数
+     */
+    void fadeoutSceneWithBgmTree(int prm_frame_fade);
 
     virtual ~GgafDxScene();
 };

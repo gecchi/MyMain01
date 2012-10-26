@@ -36,7 +36,7 @@ void RankUpStageController::execute() {
         }
     }
     addSubLast(pNowRankUpStage_);
-    pNowRankUpStage_->fadeoutScene(0);
+    pNowRankUpStage_->fadeoutSceneWithBgm(0);
     pNowRankUpStage_->fadeinSceneTree(240);
     apRankUpStage_[_RANK_UP_LEVEL_-1] = pNowRankUpStage_;
     //スローダウン
@@ -386,7 +386,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_RANKUP_WAS_END) {
         _TRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
         RankUpStage* pScene = (RankUpStage*)prm_pSource; //終了宣言したRankUpStage
-        pScene->fadeoutScene(240);
+        pScene->fadeoutSceneWithBgm(240);
         pScene->sayonara(240);
     }
 

@@ -20,7 +20,7 @@ RankUp100::RankUp100(const char* prm_name) : RankUpStage(prm_name) {
     getDirector()->addSubGroup(KIND_EFFECT, pMessage_);
     pMessage_->inactivate();
 
-    fadeoutScene(0); //Å‰‚Í”ñ•\Ž¦
+    fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\Ž¦
     useProgress(10);
 }
 
@@ -64,7 +64,7 @@ void RankUp100::processBehavior() {
                 pMessage_->activateImmed();
                 pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 CLEAR!!");
                 pMessage_->inactivateDelay(120);
-                fadeoutScene(300);
+                fadeoutSceneWithBgm(300);
             }
             if (_pProg->getFrameInProgress() == 300) {
                 throwEventToUpperTree(EVENT_STG01_WAS_END);

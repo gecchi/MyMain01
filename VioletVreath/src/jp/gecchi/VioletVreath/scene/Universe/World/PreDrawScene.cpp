@@ -82,7 +82,7 @@ void PreDrawScene::processBehavior() {
         }
         case PreDrawScene::PROG_CALM: {
             if (_pProg->getFrameInProgress() >= 60 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
-                fadeoutSceneTree(120);
+                fadeoutSceneWithBgmTree(120);
                 _pProg->changeNext();
             }
             break;
@@ -99,7 +99,7 @@ void PreDrawScene::processBehavior() {
 
     if (_pProg->get() == 2) {
         if (_pProg->hasJustChanged()) {
-            fadeoutSceneTree(120);
+            fadeoutSceneWithBgmTree(120);
             //end(120);
         }
     }

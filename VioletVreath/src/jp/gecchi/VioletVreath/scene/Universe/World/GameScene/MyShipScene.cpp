@@ -47,8 +47,6 @@ papOptionCtrlr_(NULL) {
     papOptionCtrlr_[8]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
     papOptionCtrlr_[8]->pOption_->setAlpha(0.7);
 
-
-
     getDirector()->addSubGroup(pMyShip_);
 
     pEffectMyShipExplosion_ = NEW EffectMyShipExplosion("EffectMyShipExplosion");
@@ -74,7 +72,7 @@ void MyShipScene::onReset() {
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
         papOptionCtrlr_[i]->resetTree();
     }
-    fadeoutScene(0);
+    fadeoutSceneWithBgm(0);
     _pProg->set(MyShipScene::PROG_INIT);
 }
 
@@ -127,7 +125,6 @@ void MyShipScene::processBehavior() {
             if (pMyShip_->_X > 0) {
                 pMyShip_->_X = 0;
                 pMyShip_->is_diving_ = false;
-                //P_UNIVERSE->undoCameraWork();
                 _pProg->change(MyShipScene::PROG_PLAY);
             }
             break;
@@ -135,7 +132,6 @@ void MyShipScene::processBehavior() {
 
         case MyShipScene::PROG_PLAY: {
             if (_pProg->hasJustChanged()) {
-//                pMyShip_->can_control_ = true;
             }
             //ƒCƒxƒ“ƒg EVENT_MY_SHIP_WAS_DESTROYED_BEGIN ‘Ò‚¿
             break;
@@ -151,7 +147,7 @@ void MyShipScene::processBehavior() {
                 zanki_ -= 1;
             }
             if (_pProg->getFrameInProgress() == 120) {
-                fadeoutScene(120);
+                fadeoutSceneWithBgm(120);
                 pMyShip_->inactivateDelay(120);
             }
             if (_pProg->getFrameInProgress() == 240) {
@@ -167,7 +163,6 @@ void MyShipScene::processBehavior() {
             }
             break;
         }
-
         default:
             break;
     }
@@ -183,8 +178,4 @@ void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 
 MyShipScene::~MyShipScene() {
     DELETEARR_IMPOSSIBLE_NULL(papOptionCtrlr_);
-
-    //P_UNIVERSE->undoCameraWork();
-//    pConn_VamSysCamWorker_->close();
-//    pConn_MyShipDivingCamWorker_->close();
 }

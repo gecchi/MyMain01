@@ -11,6 +11,7 @@ EnemySylvia::EnemySylvia(const char* prm_name, const char* prm_model, coord prm_
     r1_ = prm_r1;
     r2_ = prm_r2;
     colli_part_num_ = 16; //“–‚½‚è”»’è‹…‚Ì”
+    useProgress(PROG_NOTHING);
 }
 
 void EnemySylvia::addSubFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
@@ -41,7 +42,6 @@ void EnemySylvia::addSubFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle p
     UTIL::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
     //ƒ{[ƒ“‚Æ‚µ‚Ä’Ç‰Á
     this->addSubFk(prm_pGeoActor, X, Y, Z, D0ANG, angRz, angRy);
-    useProgress(PROG_NOTHING);
 }
 
 void EnemySylvia::makeCollisionArea(int prm_nSphere){

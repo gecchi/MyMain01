@@ -509,7 +509,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\TransitStage.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene\NameEntryScene.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePauseScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePreTitleScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameTitleScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\MyShipScene.cpp" />
@@ -787,7 +786,6 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\transitstage.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gameoverscene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameOverScene\NameEntryScene.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamepausescene.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamepretitlescene.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gametitlescene.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\myshipscene.h" />

@@ -57,7 +57,7 @@ void SceneProgress::changeWithSceneFlipping(progress prm_progress) {
 
 void SceneProgress::changeWithSceneCrossfading(progress prm_progress, frame prm_fade_frames) {
     if (_mapProg2Scene[get()]) {
-        _mapProg2Scene[get()]->fadeoutSceneTree(prm_fade_frames);
+        _mapProg2Scene[get()]->fadeoutSceneWithBgmTree(prm_fade_frames);
         _mapProg2Scene[get()]->inactivateDelay(prm_fade_frames);
     } else {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
@@ -65,7 +65,7 @@ void SceneProgress::changeWithSceneCrossfading(progress prm_progress, frame prm_
     if (_mapProg2Scene[prm_progress]) {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
-        _mapProg2Scene[prm_progress]->fadeoutSceneTree(0);
+        _mapProg2Scene[prm_progress]->fadeoutSceneWithBgmTree(0);
         _mapProg2Scene[prm_progress]->fadeinSceneTree(prm_fade_frames);
     } else {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);

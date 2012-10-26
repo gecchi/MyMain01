@@ -31,6 +31,7 @@ void GgafDxBgmPerformer::set(int prm_id, const char* prm_bgm_name) {
         _papBgmCon[prm_id]->close();
     }
     _papBgmCon[prm_id] = connectToBgmManager(prm_bgm_name);
+    _papBgmCon[prm_id]->fetch()->stop(); //どこかのシーンで演奏中だったかももしれないので頭出しする・・・
 }
 
 void GgafDxBgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {

@@ -59,6 +59,7 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     }
     time_of_next_state_ = 0;
     is_working_ = false;
+    useProgress(STATE_ABANDONING);
 }
 
 void Magic::init() {
@@ -77,9 +78,7 @@ void Magic::onReset() {
     }
     time_of_next_state_ = 0;
     is_working_ = false;
-    useProgress(STATE_ABANDONING);
     _pProg->set(STATE_NOTHING);
-
 }
 
 void Magic::save(std::stringstream& sts) {

@@ -26,6 +26,9 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
 
     _pBgmPerformer->useBgm(1);
     _pBgmPerformer->set(0, "RANKUP_THEMA");
+
+    pSeCon_all_hit_ = connectToSeManager("break_glass01"); //全滅の最後の一機破壊時SE
+
     all_hit_num_ = 0;
     hit_enemy_num_ = 0;
 }
@@ -63,8 +66,8 @@ void RankUpStage::processBehavior() {
             if (_pProg->getFrameInProgress() >= _paFrame_NextEvent[_event_num-1]) {
                 if (all_hit_num_ == hit_enemy_num_) { //全滅させた！
                     _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] 全滅させた！");
-                    pMessage2_->update("ALL HIT!!!");
                     _pProg->change(RankUpStage::PROG_RESULT); //即効結果画面へ
+                    pSeCon_all_hit_->fetch()->play(); //全滅時SE!
                 }
             }
 
@@ -120,4 +123,5 @@ void RankUpStage::onEnded() {
 }
 
 RankUpStage::~RankUpStage() {
+    pSeCon_all_hit_->close();
 }

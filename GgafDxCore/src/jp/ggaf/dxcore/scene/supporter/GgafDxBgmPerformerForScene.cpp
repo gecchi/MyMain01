@@ -4,7 +4,7 @@ using namespace GgafDxCore;
 
 
 GgafDxBgmPerformerForScene::GgafDxBgmPerformerForScene(GgafDxScene* prm_pDxScene) : GgafDxBgmPerformer() {
-    _pDxScene = prm_pDxScene; //TODO:アルファフェードと連携しようとして保持したが、使ってない
+    _pDxScene = prm_pDxScene;
     _paBool_is_fade = NULL;
     _paDouble_target_volume = NULL;
     _paDouble_inc_volume = NULL;

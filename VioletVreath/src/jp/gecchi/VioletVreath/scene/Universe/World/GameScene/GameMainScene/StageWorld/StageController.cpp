@@ -98,7 +98,7 @@ void StageController::processBehavior() {
                 }
                 pStageMainCannel_ = (Stage*)obtainSceneFromFactory(ORDER_ID_STAGE+main_stage_);
                 _TRACE_("StageController::PROG_PLAY_STAGE: êV pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
-                pStageMainCannel_->fadeoutScene(0);
+                pStageMainCannel_->fadeoutSceneWithBgm(0);
                 addSubLast(pStageMainCannel_);
                 pStageMainCannel_->fadeinSceneTree(180);
             }
@@ -109,7 +109,7 @@ void StageController::processBehavior() {
             if (_pProg->hasJustChanged()) {
                 _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_PLAY_TRANSIT)");
                 _TRACE_("StageController::processBehavior() íºå„ main_stage_="<<main_stage_);
-                pTransitStage_->fadeoutSceneTree(0);
+                pTransitStage_->fadeoutSceneWithBgmTree(0);
                 _TRACE_("StageController::processBehavior() pTransitStage_->setStage("<<main_stage_<<")");
                 pTransitStage_->setStage(main_stage_);
                 pTransitStage_->reset();
@@ -174,19 +174,19 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_STG01_WAS_END)");
         pStageMainCannel_->sayonara(180);
-        pStageMainCannel_->fadeoutSceneTree(180);
+        pStageMainCannel_->fadeoutSceneWithBgmTree(180);
         _pProg->change(StageController::PROG_PLAY_TRANSIT);
     }
     if (prm_no == EVENT_STG02_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_STG02_WAS_END)");
         pStageMainCannel_->sayonara(180);
-        pStageMainCannel_->fadeoutSceneTree(180);
+        pStageMainCannel_->fadeoutSceneWithBgmTree(180);
         _pProg->change(StageController::PROG_PLAY_TRANSIT);
     }
     if (prm_no == EVENT_TRANSIT_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_TRANSIT_WAS_END)");
         pTransitStage_->inactivateDelay(180);
-        pTransitStage_->fadeoutSceneTree(180);
+        pTransitStage_->fadeoutSceneWithBgmTree(180);
         _pProg->change(StageController::PROG_FINISH);
     }
 

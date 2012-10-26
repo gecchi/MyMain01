@@ -22,9 +22,6 @@ pStageWorld_(NULL) {
     pStageWorld_->inactivateImmed();
     addSubLast(pStageWorld_);
 
-//    pGamePauseScene_ = new GamePauseScene("GamePauseScene");
-//    pGamePauseScene_->inactivateImmed();
-//    addSubLast(pGamePauseScene_);
     pMenuBoardPause_ = NEW MenuBoardPause("MenuBoardPause");
     getDirector()->addSubGroup(pMenuBoardPause_);
 
@@ -235,7 +232,7 @@ void GameScene::processBehavior() {
                 for (ProgSceneMap::const_iterator it = _pProg->_mapProg2Scene.begin(); it != _pProg->_mapProg2Scene.end(); it++) {
                     pSubScene = it->second;
                     if (pSubScene) {
-                        pSubScene->fadeoutSceneTree(FADE_FRAMES);
+                        pSubScene->fadeoutSceneWithBgmTree(FADE_FRAMES);
                     }
                 }
             }

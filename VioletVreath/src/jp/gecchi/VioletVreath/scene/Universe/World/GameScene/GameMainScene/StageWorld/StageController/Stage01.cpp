@@ -35,7 +35,7 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
 //    getDirector()->addSubGroup(pTest);
     //<-----debug
 
-    fadeoutScene(0); //Å‰‚Í”ñ•\Ž¦
+    fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\Ž¦
     useProgress(10);
 }
 
@@ -84,7 +84,7 @@ void Stage01::processBehavior() {
                 pMessage_->activateImmed();
                 pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 CLEAR!!");
                 pMessage_->inactivateDelay(120);
-                fadeoutScene(300);
+                fadeoutSceneWithBgm(300);
             }
             if (_pProg->getFrameInProgress() == 300) {
                 throwEventToUpperTree(EVENT_STG01_WAS_END);

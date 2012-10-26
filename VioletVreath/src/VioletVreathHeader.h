@@ -235,8 +235,6 @@ class GameMainScene;
 class GameEndingScene;
 class GameOverScene;
 class NameEntryScene;
-class GamePauseScene;
-
 
 class RankUpStage;
 class RankUp001;
@@ -570,7 +568,6 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameEndingScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene/NameEntryScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GamePauseScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/TamagoScene.h"
 
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld.h"

@@ -6,7 +6,6 @@ using namespace VioletVreath;
 
 Stage02PartController::Stage02PartController(const char* prm_name) : StagePartController(prm_name) {
     _class_name = "Stage02PartController";
-
     _pBgmPerformer->useBgm(3);
     _pBgmPerformer->set(0, "BGM_01_01");
     _pBgmPerformer->set(1, "BGM_01_02");
@@ -94,7 +93,7 @@ void Stage02PartController::processBehavior() {
         frame_prog_fainal_++;
 
         if (frame_prog_fainal_ == 420) { //BGMフェードアウトを待つ。
-            fadeoutScene(300);
+            fadeoutSceneWithBgm(300);
             throwEventToUpperTree(EVENT_STG02_CTRLER_WAS_END, this); //ステージエンドを上位に伝える
         }
     }

@@ -14,7 +14,7 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameOverScene::onReset() {
-    fadeoutScene(0);
+    fadeoutSceneWithBgm(0);
     pLabel01_->update("");
     pNameEntryScene_ = NULL;
     _pProg->set(GameOverScene::PROG_INIT);
@@ -27,7 +27,7 @@ void GameOverScene::processBehavior() {
 
 //    switch (_pProg->getFromProgOnChange()) {
 //        case GameOverScene::PROG_DISP: {
-//            fadeoutScene(FADE_FRAMES);
+//            fadeoutSceneWithBgm(FADE_FRAMES);
 //            inactivateDelay(FADE_FRAMES);
 //            break;
 //        }

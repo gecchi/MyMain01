@@ -40,12 +40,12 @@ public:
      * @param prm_pan 左 -1.0 ～ 0 ～ 1.0 右
      * @param prm_is_looping true:ループ再生
      */
-    void play(int prm_volume, float prm_pan, bool prm_is_looping);
+    virtual void play(int prm_volume, float prm_pan, bool prm_is_looping);
     /**
      * BGM再生 .
      * @param prm_is_looping true:ループ再生
      */
-    void play(bool prm_is_looping);
+    virtual void play(bool prm_is_looping);
     /**
      * 一時停止する .
      * 再生中に pause() すると、サウンドバッファが停止されるが、
@@ -53,7 +53,7 @@ public:
      * 一時停止中に pause() しても何も処理されない。<BR>
      * 停止中に pause() しても何も処理されない。<BR>
      */
-    void pause();
+    virtual void pause();
     /**
      * 一時停止を解除する .
      * 一時停止中に unpause() すると、サウンドバッファが再生される。
@@ -61,25 +61,33 @@ public:
      * 再生中に unpause() しても何も処理されない。<BR>
      * 停止中に unpause() しても何も処理されない。<BR>
      */
-    void unpause();
+    virtual void unpause();
     /**
      * BGMの停止 .
      * どの様な状態でも、サウンドバッファが停止し、サウンドバッファの頭出しが行われる。
      */
-    void stop();
+    virtual void stop();
     /**
      * BGMのボリューム設定 .
      * @param volume 0～100
      */
-    void setVolume(int volume);
+    virtual void setVolume(int volume);
     /**
      * BGMのパン設定 .
      * @param pan 左 -1.0 ～ 0 ～ 1.0 右
      */
-    void setPan(float pan);
+    virtual void setPan(float pan);
 
-    void clear();
-    bool isActive();
+    /**
+     * 再生スレッドを停止させ、サウンドバッファを解放する .
+     */
+    virtual void clear();
+
+    /**
+     * 再生中かどうかを返す
+     * @return
+     */
+    virtual bool isPlaying();
 
     virtual ~GgafDxBgm();
 };
