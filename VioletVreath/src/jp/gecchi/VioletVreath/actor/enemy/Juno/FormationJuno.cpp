@@ -50,10 +50,13 @@ FormationJuno::FormationJuno(
         pEnemyJuno->_pKurokoB->setVxMvVelo(vX_AppBox*prm_veloMv_App);
         pEnemyJuno->_pKurokoB->setVyMvVelo(vY_AppBox*prm_veloMv_App);
         pEnemyJuno->_pKurokoB->setVzMvVelo(vZ_AppBox*prm_veloMv_App);
-        pEnemyJuno->inactivateTreeImmed();
         pDepo_EnemyJuno_->addSubLast(pEnemyJuno);
     }
     addSubGroup(pDepo_EnemyJuno_);
+    _TRACE_("&_will_inactivate_after_flg="<<(&_will_inactivate_after_flg));
+    _TRACE_("_will_inactivate_after_flg="<<_will_inactivate_after_flg);
+    _TRACE_("&_is_active_flg="<<(&_is_active_flg));
+    _TRACE_("_is_active_flg="<<_is_active_flg);
 }
 
 void FormationJuno::initialize() {

@@ -31,7 +31,7 @@ WallPartsActor::WallPartsActor(const char* prm_name,
 }
 
 void WallPartsActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
-    if (prm_pOtherActor->_obj_class & Obj_LaserChip) {
+    if (prm_pOtherActor->instanceOf(Obj_LaserChip)) {
         LaserChip* pLaserChip = (LaserChip*)prm_pOtherActor;
         if (pLaserChip->_chip_kind != 2 || pLaserChip->_can_chikei_hit) {
             GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);

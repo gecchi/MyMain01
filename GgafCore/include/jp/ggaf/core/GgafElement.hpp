@@ -822,11 +822,11 @@ public:
      *     int _velo;
      *
      *     static void addX(GgafObject* pThat, void* p1, void* p2) { //p1‚É_velo‚ª“n‚é
-     *         if (pThat->_obj_class >= Obj_GgafScene) {
+     *         if (pThat->instanceOf(Obj_GgafScene)) {
      *             return; //ƒV[ƒ“‚È‚ç‚Î–³Ž‹
      *         }
      *         GgafActor* pActor = (GgafActor*)pThat;
-     *         if (pActor->_obj_class & Obj_GgafDxGeometricActor) {
+     *         if (pActor->instanceOf(Obj_GgafDxGeometricActor)) {
      *             //GgafDxGeometricActor‚È‚ç‚Î _X ‚ð‰ÁŽZ
      *             ((GgafDxGeometricActor*)pActor)->_X += (*((int*)p1));
      *         }
@@ -1376,11 +1376,7 @@ void GgafElement<T>::end(frame prm_offset_frames) {
     if (GgafNode<T>::_pSubFirst) {
         T* pElementTemp = GgafNode<T>::_pSubFirst;
         while(true) {
-            if (prm_offset_frames > 3) {
-                pElementTemp->end(prm_offset_frames-2); //o—ˆ‚é‚¾‚¯––’[‚©‚çend‚·‚é
-            } else {
-                pElementTemp->end(prm_offset_frames);
-            }
+            pElementTemp->end(prm_offset_frames);
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {

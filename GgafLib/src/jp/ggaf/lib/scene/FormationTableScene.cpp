@@ -11,7 +11,7 @@ FormationTableScene::FormationTableScene(const char* prm_name) : GgafDxScene(prm
 
 
 GgafGroupHead* FormationTableScene::addToTable(GgafFormation* prm_pFormationActor, frame prm_max_delay_offset) {
-    if (prm_pFormationActor->_obj_class | Obj_GgafFormation) {
+    if (prm_pFormationActor->instanceOf(Obj_GgafFormation)) {
         //OK
     } else {
         throwGgafCriticalException("FormationTableScene::addToTable() TreeFormation ˆÈŠO‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B");

@@ -49,7 +49,7 @@ GgafGroupHead* GgafDirector::searchSubGroupHead(actorkind prm_kind) {
         GgafActor* pSubActor = _pSubFirst;
         GgafGroupHead* pSubGroupHead_ret = NULL;
         do {
-            if (pSubActor->_obj_class & Obj_GgafGroupHead) {
+            if (pSubActor->instanceOf(Obj_GgafGroupHead)) {
                 pSubGroupHead_ret = (GgafGroupHead*)pSubActor;
                 if (pSubGroupHead_ret->_kind == prm_kind && pSubGroupHead_ret->_will_end_after_flg == false) {
                     return pSubGroupHead_ret;

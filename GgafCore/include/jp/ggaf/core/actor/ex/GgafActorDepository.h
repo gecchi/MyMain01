@@ -85,10 +85,14 @@ public:
             throwGgafCriticalException("GgafActorDepository::dispatch() this="<<getName()<<"("<<this<<") の子がありません");
         }
         if (_is_active_flg == true || (_will_activate_after_flg == true && _frame_of_life+1 == _frame_of_life_when_activation)) {
-            //活動フラグが立っている あるいは、次フレームで活動フラグが立つ予定ならばOK
+            //活動フラグが立っている→問題無し
+            //あるいは、次フレームで活動フラグが立つ予定→デポジトリを作った直後の同一フレーム内処理のため許可
         } else {
-            throwGgafCriticalException("GgafActorDepository::dispatch() this="<<getName()<<"("<<this<<") が非活動な雰囲気です。おかしいのではないか？！ \n"<<
-                                       "親の GgafActorDepositoryStore::dispatch() で得たデポジ取りを、直ぐに使用せずほっといた可能性大。");
+            //＜ココに来る場合で、想定内パターンは次のような場合＞
+            //① レーザーチップのセット借り入れで、GgafActorDepositoryStore::dispatch() を行い、チップのセットのデポジトリを得たが、直ぐに使用せず１フレーム以上ほっといた後、
+            //   得たデポジトリから、チップdispatch()しようとした場合。
+            //     → この場合、以下の警告メッセージが連続で表示されることになるので修正しなければならない。
+            throwGgafCriticalException("GgafActorDepository::dispatch() this="<<getName()<<"("<<this<<") が非活動な雰囲気です。");
         }
 #endif
         frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);
@@ -97,6 +101,7 @@ public:
             if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
                 pActor->moveLast(); //次フレームお尻に回す
                 pActor->activateDelay(offset_frames); //activate自動実行。
+
                 break;//取得！
             } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
                 if (pActor->isLast()) {

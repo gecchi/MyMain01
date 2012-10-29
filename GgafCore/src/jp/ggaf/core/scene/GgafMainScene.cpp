@@ -15,7 +15,7 @@ void GgafMainScene::updateActiveInTheTree() {
             _is_active_in_the_tree_flg = false;
         }
     } else {
-        if ((_obj_class & Obj_GgafUniverse) == Obj_GgafUniverse) {
+        if (instanceOf(Obj_GgafUniverse)) {
             _is_active_in_the_tree_flg = _is_active_flg;
         } else {
             //©g‚ª GgafUniverseˆÈŠO‚Å‚©‚Â _pParent=NULL ‚ÅA

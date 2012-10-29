@@ -65,7 +65,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
 }
 
 void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
-    if (prm_pOtherActor->_obj_class & Obj_WallPartsActor) {
+    if (prm_pOtherActor->instanceOf(Obj_WallPartsActor)) {
         if (_chip_kind != 2 || _can_chikei_hit) {
             GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
         } else {

@@ -159,7 +159,7 @@ public:
             _RANK_  += pStatEnemy->getDouble(STAT_AddRankPoint); //ランク加算
             prm_pEnemy->notifyDestroyedToFormation(); //編隊全滅判定に有効な破壊のされ方でしたよ通知
 
-            if (prm_pEnemy->getPlatformScene()->_obj_class & Obj_RankUpStage == Obj_RankUpStage) {
+            if (prm_pEnemy->getPlatformScene()->instanceOf(Obj_RankUpStage)) {
                 //ランクアップステージの敵ならば、
                 RankUpStage* pRankUpStage = (RankUpStage*)(prm_pEnemy->getPlatformScene());
                 pRankUpStage->hit_enemy_num_ ++; //ランクアップステージの敵倒したよ！カウントアップ

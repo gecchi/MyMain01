@@ -25,6 +25,16 @@ public:
 //    virtual char* getName();
 
     virtual char* toString();
+
+
+    virtual bool instanceOf(UINT32 prm_Obj_xxxx) {
+        if ((_obj_class & prm_Obj_xxxx) == prm_Obj_xxxx) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     virtual ~GgafObject();
 };
 

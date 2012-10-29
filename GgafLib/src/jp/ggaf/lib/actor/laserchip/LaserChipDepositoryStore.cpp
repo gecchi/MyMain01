@@ -19,7 +19,7 @@ LaserChipDepository* LaserChipDepositoryStore::dispatch(int prm_offset_frames) {
 #endif
         GgafMainActor* p = GgafActorDepository::dispatch(prm_offset_frames);
 #ifdef MY_DEBUG
-        if (p->_obj_class & Obj_GgafActorDepository) {
+        if (p->instanceOf(Obj_GgafActorDepository)) {
             //OK
         } else {
             throwGgafCriticalException("LaserChipDepositoryStore::dispatch() DepositoryÇ≈ÇÕÇ†ÇËÇ‹ÇπÇÒÅB");

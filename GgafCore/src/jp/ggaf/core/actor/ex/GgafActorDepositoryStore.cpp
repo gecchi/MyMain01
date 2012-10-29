@@ -9,7 +9,7 @@ GgafActorDepositoryStore::GgafActorDepositoryStore(const char* prm_name, GgafSta
 
 void GgafActorDepositoryStore::addSubLast(GgafActor* prm_pSub) {
 #ifdef MY_DEBUG
-    if (prm_pSub->_obj_class & Obj_GgafActorDepository) {
+    if (prm_pSub->instanceOf(Obj_GgafActorDepository)) {
         //OK
     } else {
         throwGgafCriticalException("GgafActorDepositoryStore::addSubLast this="<<getName()<<" 引数 prm_pSub("<<prm_pSub->getName()<<") は デポジトリでなければいけません");

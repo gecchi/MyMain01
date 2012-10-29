@@ -7,7 +7,7 @@ using namespace VioletVreath;
 WorldBoundSpaceTransit::WorldBoundSpaceTransit(const char* prm_name) :
         WorldBoundActor(prm_name, "0/WorldBoundSpaceTransit") {
     _class_name = "WorldBoundSpaceTransit";
-    setCubeMapTexture("Sylvia_cubemap.dds");
+    setCubeMapTexture("Default_reflection_cubemap.dds");
 }
 
 void WorldBoundSpaceTransit::onCreateModel() {

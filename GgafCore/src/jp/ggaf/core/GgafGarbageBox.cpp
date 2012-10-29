@@ -17,7 +17,7 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
             if (i == GgafGarbage_MAX_WAIT-1) {
-                _TRACE_("ƒŒx„ GgafGarbageBox::add("<<this<<"["<<prm_pActor->getName()<<"]) ‹­§add");
+                _TRACE_("ƒŒx„ GgafGarbageBox::add("<<prm_pActor<<"["<<prm_pActor->getName()<<"]) ‹­§add");
             }
         } else {
             break;
@@ -27,7 +27,7 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
     prm_pActor->_can_live_flg = false;
     prm_pActor->inactivateTreeImmed();
     _pDisusedActor->addSubFirst(prm_pActor->extract()); //addSubFirst‚Å‚·IaddSubLast‚É”ñ‚¸
-    _TRACE_("ƒSƒ~” (Actor) GgafGarbageBox::add("<<this<<"["<<prm_pActor->getName()<<"])");
+    _TRACE_("ƒSƒ~” (Actor) GgafGarbageBox::add("<<prm_pActor<<"["<<prm_pActor->getName()<<"])");
     GgafGarbageBox::_wait = false;
 }
 
@@ -37,7 +37,7 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
         if (GgafGarbageBox::_wait) {
             Sleep(1);
             if (i == GgafGarbage_MAX_WAIT-1) {
-                _TRACE_("ƒŒx„ GgafGarbageBox::add("<<this<<"["<<prm_pScene->getName()<<"]) ‹­§add");
+                _TRACE_("ƒŒx„ GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"]) ‹­§add");
             }
         } else {
             break;
@@ -47,7 +47,7 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
     prm_pScene->_can_live_flg = false;
     prm_pScene->inactivateTreeImmed();
     _pDisusedScene->addSubFirst(prm_pScene->extract()); //addSubFirst‚Å‚·IaddSubLast‚É”ñ‚¸
-    _TRACE_("ƒSƒ~” (Scene) GgafGarbageBox::add("<<this<<"["<<prm_pScene->getName()<<"])");
+    _TRACE_("ƒSƒ~” (Scene) GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"])");
     GgafGarbageBox::_wait = false;
 }
 
@@ -65,7 +65,7 @@ void GgafGarbageBox::clean(int prm_num_cleaning) {
     }
     GgafGarbageBox::_wait = true;
     _pDisusedActor->clean(prm_num_cleaning);
-    _pDisusedScene->clean(1); //ƒV[ƒ“‚Í1ŒÂ‚¾‚¯
+    _pDisusedScene->clean(prm_num_cleaning);
     GgafGarbageBox::_wait = false;
 }
 

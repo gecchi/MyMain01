@@ -11,11 +11,11 @@ ScrolledScene::ScrolledScene(const char* prm_name) : DefaultScene(prm_name) {
 
 
 void ScrolledScene::scroll_X(GgafObject* pThat, void* p1, void* p2) {
-    if ((pThat->_obj_class & Obj_GgafScene) == Obj_GgafScene) {
+    if (pThat->instanceOf(Obj_GgafScene)) {
         return; //ƒV[ƒ“‚È‚ç‚Î–³‹
     }
     GgafActor* pActor = (GgafActor*)pThat;
-    if (pActor->_obj_class & Obj_GgafDxGeometricActor) {
+    if (pActor->instanceOf(Obj_GgafDxGeometricActor)) {
         if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
             ((GgafDxGeometricActor*)pActor)->_X -= (*((int*)p1));
         }

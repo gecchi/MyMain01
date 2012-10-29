@@ -45,7 +45,7 @@ void GgafDxSpriteMeshSetActor::processDraw() {
                 hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pSpriteMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                 checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 #ifdef MY_DEBUG
-                if (pDrawActor->_obj_class & Obj_GgafDxSpriteMeshSetActor) {
+                if (pDrawActor->instanceOf(Obj_GgafDxSpriteMeshSetActor)) {
                     //OK
                 } else {
                     throwGgafCriticalException("GgafDxSpriteMeshSetActor::processDraw() pDrawActor["<<pDrawActor->getName()<<"] ‚ÍGgafDxSpriteMeshSetActor‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");

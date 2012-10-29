@@ -6,7 +6,7 @@ using namespace GgafCore;
 GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     TRACE("GgafScene::GgafScene() " << prm_name);
     _class_name = "GgafScene";
-    _obj_class = Obj_GgafScene;
+    _obj_class |= Obj_GgafScene;
 
     _pDirector = NEW GgafDirector(this);
     _once_in_n_time = 1;
@@ -231,22 +231,22 @@ void GgafScene::resetTree() {
 
 
 void GgafScene::end(frame prm_offset_frames) {
+    _pDirector->end(prm_offset_frames);
     if (prm_offset_frames > 3) {
-        _pDirector->end(prm_offset_frames-2);
+        GgafElement<GgafScene>::end(prm_offset_frames-2);
     } else {
-        _pDirector->end(prm_offset_frames);
+        GgafElement<GgafScene>::end(prm_offset_frames);
     }
-    GgafElement<GgafScene>::end(prm_offset_frames);
     //この順番は重要。逆にするとゴミ箱の解放時に不正ポインタになりうるため。
 }
 
 void GgafScene::sayonara(frame prm_offset_frames) {
+    _pDirector->sayonara(prm_offset_frames);
     if (prm_offset_frames > 3) {
-        _pDirector->sayonara(prm_offset_frames-2);
+        GgafElement<GgafScene>::end(prm_offset_frames-2);
     } else {
-        _pDirector->sayonara(prm_offset_frames);
+        GgafElement<GgafScene>::end(prm_offset_frames);
     }
-    GgafElement<GgafScene>::end(prm_offset_frames);
 
     GgafScene* pScene;
     if (_pSubFirst) {
@@ -263,6 +263,9 @@ void GgafScene::sayonara(frame prm_offset_frames) {
 }
 
 void GgafScene::clean(int prm_num_cleaning) {
+    if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
+        return;
+    }
     if (_pDirector) {
         _pDirector->clean(prm_num_cleaning);
         if (_pDirector->_pSubFirst == NULL) {

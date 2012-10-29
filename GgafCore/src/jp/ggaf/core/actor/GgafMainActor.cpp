@@ -37,9 +37,9 @@ void GgafMainActor::setSceneDirector(GgafDirector* prm_pDirector) {
     if (_pSubFirst) {
         GgafActor* pActor = getSubFirst();
         while (true) {
-            if (pActor->_obj_class & Obj_GgafMainActor) {
+            if (pActor->instanceOf(Obj_GgafMainActor)) {
                 ((GgafMainActor*)(pActor))->setSceneDirector(prm_pDirector);
-            } else if (pActor->_obj_class & Obj_GgafGroupHead) {
+            } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
                 ((GgafGroupHead*)(pActor))->setSceneDirector(prm_pDirector);
             }
             if (pActor->_is_last_flg) {
@@ -56,9 +56,9 @@ void GgafMainActor::setGroupHead(GgafGroupHead* prm_pGroupHead) {
     if (_pSubFirst) {
         GgafActor* pActor = getSubFirst();
         while (true) {
-            if (pActor->_obj_class & Obj_GgafMainActor) {
+            if (pActor->instanceOf(Obj_GgafMainActor)) {
                 ((GgafMainActor*)(pActor))->setGroupHead(prm_pGroupHead);
-            } else if (pActor->_obj_class & Obj_GgafGroupHead) {
+            } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
                 //スルーする
                 //下位ツリーにGgafGroupHeadがあれば、そのツリーには影響させないこととする
             }
@@ -95,9 +95,9 @@ GgafGroupHead* GgafMainActor::getMyGroupHead() {
             throwGgafCriticalException("GgafMainActor::getGroupActor 所属していないため、GroupActorがとれません！("<<getName()<<")");
         }
 #endif
-        if (_pParent->_obj_class & Obj_GgafMainActor) {
+        if (_pParent->instanceOf(Obj_GgafMainActor)) {
             _pGroupHead = ((GgafMainActor*)(_pParent))->getMyGroupHead();
-        } else if (_pParent->_obj_class & Obj_GgafGroupHead) {
+        } else if (_pParent->instanceOf(Obj_GgafGroupHead)) {
             return (GgafGroupHead*)_pParent;
         }
     }
@@ -111,11 +111,11 @@ GgafDirector* GgafMainActor::getSceneDirector() {
             _pDirector = GgafGod::_pGod->_pUniverse->getDirector(); //この世の監督アクターに仮所属
             _TRACE_("【警告】GgafMainActor::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで仮所属でこの世(Universe)のDirectorを返しました。最終的に、親アクターがシーンに所属すれば、その時に更新されてご破算です。確認して下さい。");
         } else {
-            if (_pParent->_obj_class & Obj_GgafMainActor) {
+            if (_pParent->instanceOf(Obj_GgafMainActor)) {
                 _pDirector = ((GgafMainActor*)(_pParent))->getSceneDirector();
-            } else if (_pParent->_obj_class & Obj_GgafGroupHead) {
+            } else if (_pParent->instanceOf(Obj_GgafGroupHead)) {
                 _pDirector = ((GgafGroupHead*)(_pParent))->getSceneDirector();
-            } else if (_pParent->_obj_class & Obj_GgafDirector) { //ありえんかな
+            } else if (_pParent->instanceOf(Obj_GgafDirector)) { //ありえんかな
                 return (GgafDirector*)_pParent;
             } else {
                 _pDirector = NULL;
@@ -162,7 +162,7 @@ GgafGroupHead* GgafMainActor::searchSubGroupHead(actorkind prm_kind) {
         GgafActor* pSubActor = _pSubFirst;
         GgafGroupHead* pSubGroupHead_ret = NULL;
         do {
-            if (pSubActor->_obj_class & Obj_GgafGroupHead) {
+            if (pSubActor->instanceOf(Obj_GgafGroupHead)) {
                 pSubGroupHead_ret = (GgafGroupHead*)pSubActor;
                 if (pSubGroupHead_ret->_kind == prm_kind && pSubGroupHead_ret->_will_end_after_flg == false) {
                     return pSubGroupHead_ret;

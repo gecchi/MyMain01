@@ -9,7 +9,7 @@ GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafAc
     char aChar_strbit[33];
     UTIL::strbin(prm_kind, aChar_strbit);
     std::stringstream ss;
-    ss <<  "kind=" << aChar_strbit << "";
+    ss << "kind=" << aChar_strbit << "";
     std::string name = ss.str();
     strcpy(_name, name.c_str());
 
@@ -24,11 +24,11 @@ GgafDirector* GgafGroupHead::getSceneDirector() {
             _TRACE_("【警告】GgafGroupHead::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
             _pDirector = GgafGod::_pGod->_pUniverse->getDirector();
         } else {
-            if (_pParent->_obj_class & Obj_GgafMainActor) {
+            if (_pParent->instanceOf(Obj_GgafMainActor)) {
                 _pDirector = ((GgafMainActor*)(_pParent))->getSceneDirector();
-            } else if (_pParent->_obj_class & Obj_GgafGroupHead) {
+            } else if (_pParent->instanceOf(Obj_GgafGroupHead)) {
                 _pDirector = ((GgafGroupHead*)(_pParent))->getSceneDirector();
-            } else if (_pParent->_obj_class & Obj_GgafDirector) {
+            } else if (_pParent->instanceOf(Obj_GgafDirector)) {
                 return (GgafDirector*)_pParent; //Actorツリー頂点
             }
             _TRACE_("【警告】GgafGroupHead::getSceneDirector このツリーにはDirectorがいません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
@@ -43,9 +43,9 @@ void GgafGroupHead::setSceneDirector(GgafDirector* prm_pDirector) {
     if (_pSubFirst) {
         GgafActor* pActor = getSubFirst();
         while (true) {
-            if (pActor->_obj_class & Obj_GgafMainActor) {
+            if (pActor->instanceOf(Obj_GgafMainActor)) {
                 ((GgafMainActor*)(pActor))->setSceneDirector(prm_pDirector);
-            } else if (pActor->_obj_class & Obj_GgafGroupHead) {
+            } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
                 ((GgafGroupHead*)(pActor))->setSceneDirector(prm_pDirector);
             }
             if (pActor->_is_last_flg) {

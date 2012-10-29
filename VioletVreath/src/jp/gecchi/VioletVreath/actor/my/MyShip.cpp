@@ -715,7 +715,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
         }
         float vx2, vy2, vz2;
         coord dX2,dY2,dZ2;
-        if ( pOther->_obj_class & Obj_WallPartsActor) {
+        if ( pOther->instanceOf(Obj_WallPartsActor)) {
             if ((pOther->_pChecker->_pCollisionArea->_papColliPart[0]->_shape_kind) & COLLI_AAPRISM) {
                 //ƒvƒŠƒYƒ€•Ç
                 ColliAAPrism* pPrism = (ColliAAPrism*)(pOther->_pChecker->_pCollisionArea->_papColliPart[0]);

@@ -120,7 +120,7 @@ void GgafDxUniverse::draw() {
         _pActor_DrawActive = _apAlphaActorFirstList_DrawDepthLevel[i];
         while (_pActor_DrawActive) {
 #ifdef MY_DEBUG
-            if (_pActor_DrawActive->getPlatformScene()->_obj_class & Obj_GgafDxScene == Obj_GgafDxScene) {
+            if (_pActor_DrawActive->getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
                 //OK
             } else {
                 throwGgafCriticalException("GgafDxUniverse::draw() err2. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]‚ªAGgafDxScene ‚É•ÏŠ·•s‰Â‚Å‚·Bthis="<<getName());

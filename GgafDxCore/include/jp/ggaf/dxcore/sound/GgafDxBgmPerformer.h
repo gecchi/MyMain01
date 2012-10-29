@@ -12,10 +12,11 @@ class GgafDxBgmPerformer : public GgafCore::GgafObject {
 
 public:
     static int _active_bgm_bpm;
+    /** [r]BGMチャンネル数 */
     int _bgm_num;
-
+    /** [r]BGMのボリューム配列(添字はBGMチャンネル番号) */
     double* _paDouble_volume;
-    /** Bgm資源接続 */
+    /** [r]Bgm資源接続 */
     GgafDxBgmConnection** _papBgmCon;
 
     GgafDxBgmPerformer();

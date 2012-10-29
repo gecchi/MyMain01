@@ -224,7 +224,7 @@ GgafGroupHead* GgafDxGeometricActor::addSubFk(GgafDxGeometricActor* prm_pGeoActo
 }
 
 bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
-    if (_obj_class & Obj_GgafDxGeometricActor) {
+    if (instanceOf(Obj_GgafDxGeometricActor)) {
         if (_pChecker) {
             return _pChecker->isHit(((GgafDxGeometricActor*)prm_pOtherActor)->_pChecker);
         }
