@@ -298,13 +298,27 @@ public:
      */
     virtual T* getSub(T* prm_pSub);
     virtual T* getSub(int prm_index);
+
     /**
      * 子ノードのグループの先頭ノードを取得する .
-     * 子ノードが存在しない場合はエラー。
+     * 子ノードが存在しない場合はNULL。
      * @return	T*	子ノードの先頭ノード
      */
     virtual T* getSubFirst() {
         return _pSubFirst;
+    }
+
+    /**
+     * 子ノードのグループの末尾ノードを取得する .
+     * 子ノードが存在しない場合はNULL。
+     * @return T*   子ノードの末尾ノード
+     */
+    virtual T* getSubLast() {
+        if (_pSubFirst) {
+            return _pSubFirst->_pPrev;
+        } else {
+            return NULL;
+        }
     }
 
     /**

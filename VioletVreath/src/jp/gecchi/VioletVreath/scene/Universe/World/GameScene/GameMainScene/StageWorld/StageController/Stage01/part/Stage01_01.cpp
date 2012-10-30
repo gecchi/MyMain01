@@ -10,10 +10,10 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,500,1000,1600,2100,2500,3000,10000};
-	_paFrame_NextEvent = new frame[9];
+	frame f[] = {1,500,1600,2100,2500,3000};
+	_paFrame_NextEvent = new frame[6];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 9;
+	_event_num = 6;
 	
 	orderActorToFactory(30000001, FormationPallas001a, "F001a_Pallas_1");
 	orderActorToFactory(30000002, FormationPallas001b, "F001b_Pallas_2");
@@ -43,10 +43,6 @@ void Stage01_01::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 100: {
-				orderActorToFactory(30000015, VarietySylvia002, "VarietySylvia002_13");
-				break;
-			}
 			case 500: {
 				{
 				FormationTableScene* ta = NEW FormationTableScene("FormationTable_30000000");
@@ -67,17 +63,12 @@ void Stage01_01::processBehavior() {
 				}
 				break;
 			}
-			case 1000: {
-				VarietySylvia002* pSylvia = (VarietySylvia002*)obtainActorFromFactory(30000015);
-				getDirector()->addSubGroup(pSylvia);
-				break;
-			}
 			case 1600: {
-				orderActorToFactory(30000013, FormationEunomia001a, "F001a_Eunomia_14");
+				orderActorToFactory(30000013, FormationEunomia001a, "F001a_Eunomia_13");
 				break;
 			}
 			case 2100: {
-				orderActorToFactory(30000014, FormationEunomia001b, "F001b_Eunomia_15");
+				orderActorToFactory(30000014, FormationEunomia001b, "F001b_Eunomia_14");
 				break;
 			}
 			case 2500: {
@@ -90,17 +81,17 @@ void Stage01_01::processBehavior() {
 				getDirector()->addSubGroup(pFormationEunomia);
 				break;
 			}
-			case 10000: {
-				throwEventToUpperTree(EVENT_STG01_01_WAS_BROKEN,this);
-				break;
-			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 9-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 6-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 
+    //シーン終了のイベントを通知
+    if (getActivePartFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
+        throwEventToUpperTree(EVENT_STG01_01_WAS_BROKEN, this);
+    }
 }
 
 Stage01_01::~Stage01_01() {

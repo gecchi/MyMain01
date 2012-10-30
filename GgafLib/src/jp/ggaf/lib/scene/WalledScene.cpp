@@ -9,6 +9,7 @@ WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _pDepo_WallAAPrism = NULL;
     _pLastSectionScene = NULL;
     _is_all_active_section_scenes = false;
+    _is_finished = false;
 }
 
 void WalledScene::buildWalledScene(
@@ -99,45 +100,51 @@ void WalledScene::onActive() {
 }
 
 void WalledScene::processBehavior() {
-    if (!_is_all_active_section_scenes) {
+    if (!_is_finished) {
+        if (!_is_all_active_section_scenes) {
 
-        WalledSectionScene* pCurrentSection = _ringHoldSection.getCurrent();
-        if (!pCurrentSection->isLast()) {
-            if (pCurrentSection->_is_loop_end) {
-                WalledSectionScene* pNewSection = _ringHoldSection.next();
-                pNewSection->activate();
-                pNewSection->_pWallPartsLast = pCurrentSection->getLastWallParts();
-                _ringLoopEndSection.addLast(pCurrentSection, false);
-            }
-        } else {
-            if (pCurrentSection->_is_loop_end) {
-                _ringLoopEndSection.addLast(pCurrentSection, false);
-                _is_all_active_section_scenes = true;
+            WalledSectionScene* pCurrentSection = _ringHoldSection.getCurrent();
+            if (!pCurrentSection->isLast()) {
+                if (pCurrentSection->_is_loop_end) {
+                    WalledSectionScene* pNewSection = _ringHoldSection.next();
+                    pNewSection->activate();
+                    pNewSection->_pWallPartsLast = pCurrentSection->getLastWallParts();
+                    _ringLoopEndSection.addLast(pCurrentSection, false);
+                }
+            } else {
+                if (pCurrentSection->_is_loop_end) {
+                    _ringLoopEndSection.addLast(pCurrentSection, false);
+                    _is_all_active_section_scenes = true;
+                }
             }
         }
-    }
-    ScrolledScene::processBehavior();
+        ScrolledScene::processBehavior();
 
-    //_ringLoopEndSectionチェック
-    //WallPartsActor::_pWalledSectionScene が不正ポインタにならないための考慮である。
-    for (int i = 0; i < _ringLoopEndSection.length(); i++) {
-        WalledSectionScene* pSection =_ringLoopEndSection.next();
-        if (pSection->_pWallPartsLast->_pWalledSectionScene != pSection || !pSection->_pWallPartsLast->isActive() ) {
-            //＜メモ＞
-            //pSection->_pWallPartsLast->_pWalledSectionScene != pSection は、
-            //pSection->_pWallPartsLast つまり最終壁の紐付くセクションはが自分でない、
-            //つまり、他のセクションシーンに dispatchForce() されたからOK、と考えた。
-            //また、!pSection->_pWallPartsLast->isActive() は
-            //他のセクションシーンに dispatchForce() されずに、活動範囲外に消えたからOK、と考えた。
-            pSection->sayonara(60*10); //解放！
-            _TRACE_("WalledScene::processBehavior() ["<<getName()<<"]シーンのセクション["<<pSection->getName()<<"]をend!!");
-            _ringLoopEndSection.remove();
-            if (pSection == _pLastSectionScene) {
-                //最終セクションならば自身のシーンも解放
-                sayonara(60*20);
-                _TRACE_("WalledScene::processBehavior() 最終セクションシーンだったため。["<<getName()<<"]シーン自身もend!!");
+        //_ringLoopEndSectionチェック
+        //WallPartsActor::_pWalledSectionScene が不正ポインタにならないための考慮である。
+        for (int i = 0; i < _ringLoopEndSection.length(); i++) {
+            WalledSectionScene* pSection =_ringLoopEndSection.next();
+            if (pSection->_pWallPartsLast->_pWalledSectionScene != pSection || !pSection->_pWallPartsLast->isActive() ) {
+                //＜メモ＞
+                //pSection->_pWallPartsLast->_pWalledSectionScene != pSection は、
+                //pSection->_pWallPartsLast つまり最終壁の紐付くセクションはが自分でない、
+                //つまり、他のセクションシーンに dispatchForce() されたからOK、と考えた。
+                //また、!pSection->_pWallPartsLast->isActive() は
+                //他のセクションシーンに dispatchForce() されずに、活動範囲外に消えたからOK、と考えた。
+                pSection->sayonara(60*60); //解放！
+                _TRACE_("WalledScene::processBehavior() ["<<getName()<<"]シーンのセクション["<<pSection->getName()<<"]をend!!");
+                _ringLoopEndSection.remove();
+                if (pSection == _pLastSectionScene) {
+                    //最終セクションならば一度コールバックを行い、処理を任せる。
+                    //（以前はここでsayonara()をしていた）
+                    _is_finished = true;
+                    onFinishedSection(); //コールバック
+                    _TRACE_("WalledScene::processBehavior() 最終セクションシーンだったためコールバック");
+                }
             }
         }
+    } else {
+        ScrolledScene::processBehavior();
     }
 
 }

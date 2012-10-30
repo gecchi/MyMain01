@@ -112,8 +112,8 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
 
     bool calc_flg = true;
     GgafDxCamera* pCam = P_CAM;
-    float pan;
-    int vol;
+    float pan = 0.0f;
+    int vol = 0;
     float rate_frequency = 1.0;
     for (int i = 0; i < _se_num; i++) {
         if (_papSeCon[i] && _paBool_is_playing_3d[i]) {
@@ -135,7 +135,6 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                     //リアルタイムの音量を計算
                     double d = GgafUtil::sqrt_fast(DX*DX + DY*DY + DZ*DZ); //dはピクセル
                     vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->_zf)*0.6) )) * VOLUME_RANGE_3D); //0.6 は調整補正
-
 
                     if (VOLUME_MAX_3D < vol) {
                         vol = VOLUME_MAX_3D;

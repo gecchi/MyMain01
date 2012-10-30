@@ -37,6 +37,8 @@ public:
     /** 通過ステージシーン */
     TransitStage* pTransitStage_;
 
+    LabelSceneSymbol* _pSceneSymbol;
+
     int loop_;
     int main_stage_;
 

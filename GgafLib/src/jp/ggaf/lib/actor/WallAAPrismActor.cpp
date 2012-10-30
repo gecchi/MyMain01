@@ -101,7 +101,7 @@ void WallAAPrismActor::processDraw() {
                        //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
-    if (_pWalledSectionScene->_pTarget_FrontAlpha) {
+    if (_pWalledSectionScene->_pTarget_FrontAlpha) { //ここに来るときに、すでに_pWalledSectionSceneが開放されている可能性がある。直せ！
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pTarget_FrontAlpha->_dest_from_vppln_front));
         checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     } else {

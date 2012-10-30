@@ -693,9 +693,6 @@ void GgafDxModelManager::calcTangentAndBinormal(
         if (VABC.x == 0.0f) {
             // やばいす！
             // ポリゴンかUV上のポリゴンが縮退してます！
-//            _ASSERT(0);
-            //memset(outTangent, 0, sizeof(D3DXVECTOR3));
-            //memset(outBinormal, 0, sizeof(D3DXVECTOR3));
             _TRACE_("＜警告＞ GgafDxModelManager::calcTangentAndBinormal ポリゴンかUV上のポリゴンが縮退してます！");
             U[i] = -SGN(VABC.y) * lim;
             V[i] = -SGN(VABC.z) * lim;

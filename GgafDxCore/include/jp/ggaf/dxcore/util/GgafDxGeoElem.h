@@ -3,7 +3,7 @@
 namespace GgafDxCore {
 
 /**
- * 座標コンテナ
+ * 座標情報構造体 .
  * @version 1.00
  * @since 2008/12/19
  * @author Masatoshi Tsuge

@@ -11,7 +11,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     coord wall_dep    = 400000;  //壁ブロックモデル１個のX軸方向の幅
     coord wall_width  = 100000;  //壁ブロックモデル１個のZ軸方向の幅
     coord wall_height = 100000;  //壁ブロックモデル１個のY軸方向の幅
-    float scale_r = 50.0f;       //壁ブロックモデルの元の大きさからの拡大率
+    float scale_r = 10.0f;       //壁ブロックモデルの元の大きさからの拡大率
     //****************************
 
     //壁ブロック(直方体)デポジトリ生成
@@ -59,10 +59,11 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {30000};
-	_paFrame_NextEvent = new frame[1];
+	frame f[] = {1,200,1000,2000,3200,5000,6200,8000,30000};
+	_paFrame_NextEvent = new frame[9];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 1;
+	_event_num = 9;
+	orderActorToFactory(20000002, VarietySylvia002, "VarietySylvia002_1");
     // gen01 end
 }
 
@@ -87,6 +88,41 @@ void Stage01WalledScene::processBehavior() {
     // gen02 start
 	if (getActivePartFrame() == _paFrame_NextEvent[_cnt_event]) {
 		switch (getActivePartFrame()) {
+			case 1: {
+				break;
+			}
+			case 200: {
+				orderActorToFactory(20000003, VarietySylvia003, "VarietySylvia003_2");
+				break;
+			}
+			case 1000: {
+				VarietySylvia002* pSylviaA = (VarietySylvia002*)obtainActorFromFactory(20000002);
+				getDirector()->addSubGroup(pSylviaA);
+				break;
+			}
+			case 2000: {
+				VarietySylvia003* pSylviaB = (VarietySylvia003*)obtainActorFromFactory(20000003);
+				getDirector()->addSubGroup(pSylviaB);
+				break;
+			}
+			case 3200: {
+				orderActorToFactory(20000000, EnemyHesperia, "EnemyHesperia_3");
+				break;
+			}
+			case 5000: {
+				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(20000000);
+				getDirector()->addSubGroup(p);
+				break;
+			}
+			case 6200: {
+				orderActorToFactory(20000001, EnemyHesperia, "EnemyHesperia_4");
+				break;
+			}
+			case 8000: {
+				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(20000001);
+				getDirector()->addSubGroup(p);
+				break;
+			}
 			case 30000: {
 				// WalledScene は終わったよイベント通知不要
 				break;
@@ -94,9 +130,13 @@ void Stage01WalledScene::processBehavior() {
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 1-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 9-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
+}
+
+void Stage01WalledScene::onFinishedSection() {
+    throwEventToUpperTree(EVENT_STG01_WALLED_WAS_BROKEN, this);
 }
 
 Stage01WalledScene::~Stage01WalledScene() {

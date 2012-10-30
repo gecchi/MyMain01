@@ -52,9 +52,10 @@ void CameraWorker::unlockCamVp() {
 
 
 void CameraWorker::onSwitchCameraWork() {
-    setMoveTargetCamBy(P_CAM);
-    setMoveTargetCamVpBy(P_CAM->_pViewPoint);
-    angXY_nowCamUp_ = UTIL::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    Camera* pCam = P_CAM;
+    setMoveTargetCamBy(pCam);
+    setMoveTargetCamVpBy(pCam->_pViewPoint);
+    angXY_nowCamUp_ = UTIL::getAngle2D(pCam->_pVecCamUp->x, pCam->_pVecCamUp->y);
     move_target_XY_CAM_UP_ = angXY_nowCamUp_;
 }
 
@@ -74,8 +75,8 @@ void CameraWorker::processBehavior() {
 
     //初期カメラ移動範囲制限
 //    float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
-    GgafDxCamera* pCam = P_CAM;
-    GgafDxGeometricActor* pVP = pCam->_pViewPoint;
+    Camera* pCam = P_CAM;
+    GgafDxCameraViewPoint* pVP = pCam->_pViewPoint;
 
     int cam_velo_renge = cam_velo_renge_;  //カメラの移動速度の最大、最小敷居値
     //カメラの移動速度の最大、最小制限を設定

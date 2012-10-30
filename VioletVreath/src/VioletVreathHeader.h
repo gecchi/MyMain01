@@ -175,12 +175,6 @@ HASHVAL(EVENT_GOD_WILL_DIE);
 HASHVAL(EVENT_PREPARE_TRANSIT_STAGE);
 HASHVAL(EVENT_PREPARE_NEXT_STAGE);
 HASHVAL(EVENT_JUST_GAME_OVER);
-HASHVAL(EVENT_STG01_01_WAS_BROKEN);
-HASHVAL(EVENT_STG01_02_WAS_BROKEN);
-HASHVAL(EVENT_STG01_03_WAS_BROKEN);
-HASHVAL(EVENT_STG01_CLIMAX_WAS_BROKEN);
-HASHVAL(EVENT_STG01_CTRLER_WAS_END);
-HASHVAL(EVENT_STG01_WAS_END);
 
 HASHVAL(EVENT_TRANSIT_WAS_END);
 HASHVAL(EVENT_RANKUP_WAS_END);
@@ -398,6 +392,7 @@ class LabelRankFont;
 class LabelRankingFont;
 class SpriteLabelTest;
 class SpriteLabelGecchi32Font;
+class LabelSceneSymbol;
 
 class TamagoActor;
 class TestEnemy;
@@ -729,6 +724,7 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankingFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelSceneSymbol.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeres.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeresShot001.h"

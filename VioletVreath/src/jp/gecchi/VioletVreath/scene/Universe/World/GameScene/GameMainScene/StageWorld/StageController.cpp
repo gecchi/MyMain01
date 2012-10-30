@@ -20,6 +20,10 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
     pTransitStage_->inactivateImmed();
     addSubLast(pTransitStage_);
 
+    _pSceneSymbol = NEW LabelSceneSymbol("LabelSceneSymbol");
+    getDirector()->addSubGroup(_pSceneSymbol);
+
+
     useProgress(StageController::PROG_FINISH);
 }
 

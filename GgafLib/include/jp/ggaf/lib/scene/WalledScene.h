@@ -21,6 +21,7 @@ public:
     GgafCore::GgafActorDepository* _pDepo_WallAAPrism;
     WalledSectionScene* _pLastSectionScene;
     bool _is_all_active_section_scenes;
+    bool _is_finished;
     /**
      * コンストラクタ
      * @param prm_name
@@ -61,6 +62,13 @@ public:
      * 処理実装済み。下位でオーバーライドする場合は、上位onActive()を呼び出して下さい。
      */
     virtual void onActive() override;
+
+    /**
+     * 最後のセクションシーンの最後の壁ブロックが非活動に鳴った場合、
+     * コールバックされる。
+     * sayonara() などを実装して下さい。
+     */
+    virtual void onFinishedSection() = 0;
 
     /**
      * 処理実装済み。下位でオーバーライドする場合は、上位processBehavior()を呼び出して下さい。
