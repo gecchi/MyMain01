@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-bool WallAAPrismActor::init = false;
+bool WallAAPrismActor::_init = false;
 
 __map__<int, UINT> WallAAPrismActor::_delface;
 
@@ -31,8 +31,7 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
     _h_wall_dep    = pID3DXEffect->GetParameterByName( NULL, "g_wall_dep" );
     _h_wall_height = pID3DXEffect->GetParameterByName( NULL, "g_wall_height" );
     _h_wall_width  = pID3DXEffect->GetParameterByName( NULL, "g_wall_width" );
-    //_h_pos_prism = pID3DXEffect->GetParameterByName( NULL, "g_pos_prism" );
-    if (init == false) {
+    if (_init == false) {
         //プリズム壁であるならば、形状により無条件で描画不要面がある、
         //    c
         // a b d f
@@ -63,7 +62,7 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
         _delface[POS_PRISM_ZX_np] = ~FACE_B_BIT;
         _delface[POS_PRISM_ZX_pn] = ~FACE_F_BIT;
         _delface[POS_PRISM_ZX_pp] = ~FACE_B_BIT;
-        init = true;
+        _init = true;
     }
 }
 
@@ -101,7 +100,7 @@ void WallAAPrismActor::processDraw() {
                        //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
-    if (_pWalledSectionScene->_pTarget_FrontAlpha) { //ここに来るときに、すでに_pWalledSectionSceneが開放されている可能性がある。直せ！
+    if (_pWalledSectionScene->_pTarget_FrontAlpha) {
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pTarget_FrontAlpha->_dest_from_vppln_front));
         checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     } else {

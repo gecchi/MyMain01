@@ -246,7 +246,7 @@ public:
     static void printProperties(std::ostream &os, GgafStrMap* pMap);
     static inline char m_hex(int nibble) {
         static const char *digits = "0123456789ABCDEF";
-        return digits[nibble & 0xf];
+        return digits[(nibble & 0xf)];
     }
     static bool isExistKey(std::string prm_key, GgafStrMap* p);
     static bool cnvBool(std::string prm_str);

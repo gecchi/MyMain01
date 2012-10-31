@@ -39,7 +39,7 @@ void Stage02PartController::processBehavior() {
             case 3: {
                 Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
                 addSubLast(pScene);
-                _pProg->change(Stage02PartController::PROG_STG02_01_BEGIN);
+                _pBgmPerformer->play_fadein(0);
                 break;
             }
             case 1200: {
@@ -49,7 +49,8 @@ void Stage02PartController::processBehavior() {
             case 3000: {
                 Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
                 addSubLast(pScene);
-                _pProg->change(Stage02PartController::PROG_STG02_CLIMAX_BEGIN);
+                _pBgmPerformer->fadeout_stop(0);
+                _pBgmPerformer->play_fadein(1);
                 break;
             }
             default :
@@ -59,47 +60,21 @@ void Stage02PartController::processBehavior() {
     }
     // gen02 end
 
-    if (_pProg->hasJustChangedTo(Stage02PartController::PROG_INIT)) {
-        _TRACE_("Stage02PartController::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
 
-    }
-
-    if (_pProg->hasJustChangedTo(Stage02PartController::PROG_STG02_01_BEGIN)) {
-        //STG0201_開始処理
-
-        _pProg->change(Stage02PartController::PROG_STG02_01_PLAYING);
-    } else if (_pProg->get() == Stage02PartController::PROG_STG02_01_PLAYING) {
-        //STG0201_最中の処理
-
-    }
-
-    if (_pProg->hasJustChangedTo(Stage02PartController::PROG_STG02_CLIMAX_BEGIN)) {
-        //STG02Climax_開始処理
-        _pBgmPerformer->fadeout_stop(1);  //BGM１番フェードアウト
-        _pBgmPerformer->play_fadein(2);
-        _pProg->change(Stage02PartController::PROG_STG02_CLIMAX_PLAYING);
-    } else if (_pProg->get() == Stage02PartController::PROG_STG02_CLIMAX_PLAYING) {
-        //STG02Climax_最中の処理
-
-    }
-
-    if (_pProg->hasJustChangedTo(Stage02PartController::PROG_FAINAL)) {
-        //STG02Climax_終焉の処理
-        _TRACE_("STG02Climax_終焉のStage02PartController::PROG_FAINALきた");
-        _pBgmPerformer->fadeout_stop(2); //BGM１番フェードアウト
-        frame_prog_fainal_ = 0;
-    } else if (_pProg->get() == Stage02PartController::PROG_FAINAL) {
-        //STG02Climax_終焉最中の処理
-        frame_prog_fainal_++;
-
-        if (frame_prog_fainal_ == 420) { //BGMフェードアウトを待つ。
-            fadeoutSceneWithBgm(300);
-            throwEventToUpperTree(EVENT_STG02_CTRLER_WAS_END, this); //ステージエンドを上位に伝える
+    switch (_pProg->get()) {
+        case PROG_FAINAL: {
+            if (_pProg->hasJustChanged()) {
+                //STG01Climax_終焉の処理
+                _TRACE_("Stage02PartController::PROG_FAINALきた");
+            }
+            if (_pProg->getFrameInProgress() == 60) {
+                fadeoutSceneWithBgm(300);
+                throwEventToUpperTree(EVENT_STG02_CTRLER_WAS_END, this); //ステージエンドを上位に伝える
+            }
+            break;
         }
-    }
-
-    if (getBehaveingFrame() == 2) {
-
+        default :
+            break;
     }
 
 }
@@ -108,11 +83,11 @@ void Stage02PartController::processBehavior() {
 void Stage02PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG02_01_WAS_BROKEN) {
         _TRACE_("Stage02PartController::onCatchEvent() EVENT_STG02_01_WAS_BROKEN");
-        ((Stage02_01*)prm_pSource)->sayonara(30*60);
+        ((Stage02_01*)prm_pSource)->sayonara(60*60);
     } else if (prm_no == EVENT_STG02_CLIMAX_WAS_BROKEN) {
         _TRACE_("Stage02PartController::onCatchEvent() EVENT_STG02_CLIMAX_WAS_BROKENキャッチした。STAGE02PARTCONTROLLER_ENDINGを投げる");
-        ((Stage02_Climax*)prm_pSource)->sayonara(30*60);
-        _pProg->change(Stage02PartController::PROG_FAINAL); //進捗をStage02PartController::PROG_FAINALに切り替える
+        ((Stage02_Climax*)prm_pSource)->sayonara(60*60);
+        _pProg->change(PROG_FAINAL); //進捗をStage02PartController::PROG_FAINALに切り替える
     } else {
 
     }

@@ -264,11 +264,11 @@ VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
 }
 
 vbsta VirtualButton::isBeingPressed(vbsta prm_VB) {
-    return _pVBRecord_Active->_state & prm_VB;
+    return (_pVBRecord_Active->_state & prm_VB);
 }
 
 vbsta VirtualButton::isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat, frame prm_while_repeat) {
-    vbsta sta = _pVBRecord_Active->_state & prm_VB;
+    vbsta sta = (_pVBRecord_Active->_state & prm_VB);
     if (sta) {
         _is_auto_repeat = true;
         if (sta == (_pVBRecord_Active->_prev->_state & prm_VB)) {
@@ -297,7 +297,7 @@ vbsta VirtualButton::isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat, frame pr
 
 vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
     VBRecord* pVBRecord_Temp = getPastVBRecord(prm_frame_ago);
-    return pVBRecord_Temp->_state & prm_VB;
+    return (pVBRecord_Temp->_state & prm_VB);
 }
 
 vbsta VirtualButton::isNotBeingPressed(vbsta prm_VB) {
@@ -502,7 +502,7 @@ vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, frame prm_frame_ago) {
 
 vbsta VirtualButton::getBeingPressedStick() {
 
-    return _pVBRecord_Active->_state & VB_STC_MASK;
+    return (_pVBRecord_Active->_state & VB_STC_MASK);
 
 //    for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
 //        if (isBeingPressed(i)) {
@@ -514,7 +514,7 @@ vbsta VirtualButton::getBeingPressedStick() {
 
 vbsta VirtualButton::getPushedDownStick() {
     if ((_pVBRecord_Active->_prev->_state & VB_STC_MASK) == VB_NEUTRAL_STC) {
-        return _pVBRecord_Active->_state & VB_STC_MASK;
+        return (_pVBRecord_Active->_state & VB_STC_MASK);
     } else {
         return 0;
     }

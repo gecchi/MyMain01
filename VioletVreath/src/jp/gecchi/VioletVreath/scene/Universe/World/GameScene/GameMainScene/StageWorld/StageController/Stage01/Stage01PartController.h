@@ -18,12 +18,10 @@ HASHVAL(EVENT_STG01_WAS_END);
  */
 class Stage01PartController : public StagePartController {
 
-    //GgafDxCore::GgafDxBgm* bgm_st1_;
-
 public:
     enum {
-        PROG_INIT = 1            ,
-        PROG_FAINAL              ,
+        PROG_INIT = 1,
+        PROG_FAINAL  ,
     };
 
 

@@ -11,17 +11,18 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     coord wall_dep    = 400000;  //壁ブロックモデル１個のX軸方向の幅
     coord wall_width  = 100000;  //壁ブロックモデル１個のZ軸方向の幅
     coord wall_height = 100000;  //壁ブロックモデル１個のY軸方向の幅
-    float scale_r = 10.0f;       //壁ブロックモデルの元の大きさからの拡大率
+    float scale_r = 12.0f;       //壁ブロックモデルの元の大きさからの拡大率
     //****************************
 
     //壁ブロック(直方体)デポジトリ生成
     WallAABActor* pWallAABActor;
     GgafActorDepository* pDepo_WallAAB = NEW GgafActorDepository("Dp_WallAAB");
-    for (int i = 0; i < 1500; i++) {
+    for (int i = 0; i < 1000; i++) {
         std::string name = "Wall001_"+ITOS(i);
         pWallAABActor = NEW Wall001(name.c_str());
         pWallAABActor->setScaleR(scale_r);
         pDepo_WallAAB->addSubLast(pWallAABActor);
+        Sleep(1);
     }
     P_COMMON_SCENE->getDirector()->addSubGroup(pDepo_WallAAB);
     //getDirector()->addSubGroup(pDepo_WallAAB); は P_UNIVERSE 配下になってしまう
@@ -29,11 +30,12 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     //壁ブロック(プリズム)デポジトリ生成
     WallAAPrismActor* pWallAAPrismActor;
     GgafActorDepository* pDepo_WallAAPrism = NEW GgafActorDepository("Dp_WallAAPrism");
-    for (int i = 0; i < 500; i++) {
+    for (int i = 0; i < 100; i++) {
         std::string name = "Wall001Prism_"+ITOS(i);
         pWallAAPrismActor = NEW Wall001Prism(name.c_str());
         pWallAAPrismActor->setScaleR(scale_r);
         pDepo_WallAAPrism->addSubLast(pWallAAPrismActor);
+        Sleep(1);
     }
     P_COMMON_SCENE->getDirector()->addSubGroup(pDepo_WallAAPrism);
 
@@ -48,21 +50,21 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     //構築
     buildWalledScene(
         wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
-        GgafDxUniverse::_X_goneRight*20,
+        GgafDxUniverse::_X_goneRight*2,
         (WalledSectionScene**)&apSection, 4,
         pDepo_WallAAB ,pDepo_WallAAPrism
     );
 
     //初期スクロールスピード
-    setScrollSpeed(40000);
+    setScrollSpeed(50000);
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,200,1000,2000,3200,5000,6200,8000,30000};
-	_paFrame_NextEvent = new frame[9];
+	frame f[] = {1,200,1000,2000,3200,4200,5000,6000,6200,8000,30000};
+	_paFrame_NextEvent = new frame[11];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 9;
+	_event_num = 11;
 	orderActorToFactory(20000002, VarietySylvia002, "VarietySylvia002_1");
     // gen01 end
 }
@@ -92,7 +94,7 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 200: {
-				orderActorToFactory(20000003, VarietySylvia003, "VarietySylvia003_2");
+				orderActorToFactory(20000004, FormationEunomia001a, "F001a_Eunomia_2");
 				break;
 			}
 			case 1000: {
@@ -101,21 +103,33 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 2000: {
-				VarietySylvia003* pSylviaB = (VarietySylvia003*)obtainActorFromFactory(20000003);
-				getDirector()->addSubGroup(pSylviaB);
+				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(20000004);
+				getDirector()->addSubGroup(pFormationEunomia);
 				break;
 			}
 			case 3200: {
 				orderActorToFactory(20000000, EnemyHesperia, "EnemyHesperia_3");
+				orderActorToFactory(20000003, VarietySylvia003, "VarietySylvia003_4");
+				break;
+			}
+			case 4200: {
+				orderActorToFactory(20000005, FormationEunomia001b, "F001b_Eunomia_5");
 				break;
 			}
 			case 5000: {
 				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(20000000);
 				getDirector()->addSubGroup(p);
+				VarietySylvia003* pSylviaB = (VarietySylvia003*)obtainActorFromFactory(20000003);
+				getDirector()->addSubGroup(pSylviaB);
+				break;
+			}
+			case 6000: {
+				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(20000005);
+				getDirector()->addSubGroup(pFormationEunomia);
 				break;
 			}
 			case 6200: {
-				orderActorToFactory(20000001, EnemyHesperia, "EnemyHesperia_4");
+				orderActorToFactory(20000001, EnemyHesperia, "EnemyHesperia_6");
 				break;
 			}
 			case 8000: {
@@ -130,7 +144,7 @@ void Stage01WalledScene::processBehavior() {
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 9-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 11-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 }

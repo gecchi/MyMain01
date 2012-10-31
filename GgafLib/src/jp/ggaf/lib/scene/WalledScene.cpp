@@ -72,7 +72,6 @@ void WalledScene::buildWalledScene(
                 pSection->_papaWallInfo[0][j]._wall_draw_face &= 47; //FACE_Bを潰す 0b111110
             }
         }
-
     }
     _ringHoldSection.first();
     _is_all_active_section_scenes = false;
@@ -131,15 +130,15 @@ void WalledScene::processBehavior() {
                 //つまり、他のセクションシーンに dispatchForce() されたからOK、と考えた。
                 //また、!pSection->_pWallPartsLast->isActive() は
                 //他のセクションシーンに dispatchForce() されずに、活動範囲外に消えたからOK、と考えた。
-                pSection->sayonara(60*60); //解放！
-                _TRACE_("WalledScene::processBehavior() ["<<getName()<<"]シーンのセクション["<<pSection->getName()<<"]をend!!");
+                _TRACE_("WalledScene::processBehavior() ["<<getName()<<"] シーンのセクション["<<pSection->getName()<<"]inactivate!!");
+                pSection->inactivateDelay(60*60);
                 _ringLoopEndSection.remove();
                 if (pSection == _pLastSectionScene) {
                     //最終セクションならば一度コールバックを行い、処理を任せる。
                     //（以前はここでsayonara()をしていた）
+                    _TRACE_("WalledScene::processBehavior() ["<<getName()<<"] 最終セクションシーンだったためonFinishedSection() コールバック");
                     _is_finished = true;
                     onFinishedSection(); //コールバック
-                    _TRACE_("WalledScene::processBehavior() 最終セクションシーンだったためコールバック");
                 }
             }
         }

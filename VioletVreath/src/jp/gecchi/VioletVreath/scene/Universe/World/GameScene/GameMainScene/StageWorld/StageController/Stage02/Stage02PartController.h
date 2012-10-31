@@ -2,6 +2,13 @@
 #define STAGE02PARTCONTROLLER_H_
 namespace VioletVreath {
 
+HASHVAL(EVENT_STG02_01_WAS_BROKEN);
+HASHVAL(EVENT_STG02_02_WAS_BROKEN);
+HASHVAL(EVENT_STG02_03_WAS_BROKEN);
+HASHVAL(EVENT_STG02_CLIMAX_WAS_BROKEN);
+HASHVAL(EVENT_STG02_CTRLER_WAS_END);
+HASHVAL(EVENT_STG02_WAS_END);
+
 /**
  * ステージ１コントローラー .
  * @version 1.00
@@ -15,14 +22,6 @@ class Stage02PartController : public StagePartController {
 public:
     enum {
         PROG_INIT = 1            ,
-        PROG_STG02_01_BEGIN      ,
-        PROG_STG02_01_PLAYING    ,
-        PROG_STG02_02_BEGIN      ,
-        PROG_STG02_02_PLAYING    ,
-        PROG_STG02_03_BEGIN      ,
-        PROG_STG02_03_PLAYING    ,
-        PROG_STG02_CLIMAX_BEGIN  ,
-        PROG_STG02_CLIMAX_PLAYING,
         PROG_FAINAL              ,
     };
     frame frame_prog_fainal_;

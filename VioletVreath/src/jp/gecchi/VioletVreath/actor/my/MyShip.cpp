@@ -214,7 +214,7 @@ MyShip::MyShip(const char* prm_name) :
     is_just_change_way_ = true;
 
     mp_.config(600, 100000); //値 100000 で表示は600pxとする。
-    mp_.set(100000);         //初期値は100000
+    mp_.set(10000000);         //初期値は100000
     //vreath_ は mp_ のメーターの長さ(px)にあわす。実値を _pStatus の値を参照するように設定。
     vreath_.config(mp_._max_val_px, _pStatus->get(STAT_Stamina), &(_pStatus->_paValue[STAT_Stamina]._int_val));
 
@@ -284,7 +284,7 @@ void MyShip::onReset() {
     prev_way_ = WAY_NONE;
     way_switch_.reset();
     _pStatus->reset();
-    mp_.set(100000);         //初期値は100000
+    mp_.set(10000000);         //初期値は100000
 }
 
 void MyShip::onActive() {
