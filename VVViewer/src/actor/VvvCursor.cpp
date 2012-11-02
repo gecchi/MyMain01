@@ -48,7 +48,7 @@ void VvvCursor::processBehavior() {
             break;
         }
     }
-    if (_pKurokoA->isJustFinishSmoothMvSequence()) {
+    if (_pKurokoA->isJustFinishSmoothMvVeloSequence()) {
         //—‘zˆÊ’u‚É•â³
         _X = tX_;
         _Y = tY_;
@@ -71,7 +71,7 @@ void VvvCursor::moveTo(coord X, coord Y, coord Z) {
     tY_ = Y;
     tZ_ = Z;
     _pKurokoA->setMvAng(tX_, tY_, tZ_);
-    _pKurokoA->execSmoothMvSequence(0, UTIL::getDistance(_X, _Y, _Z, tX_, tY_, tZ_),
+    _pKurokoA->execSmoothMvVeloSequence(0, UTIL::getDistance(_X, _Y, _Z, tX_, tY_, tZ_),
                                     20, 0.3f, 0.7f);
     _pProg->change(CUR_ON_MOVE);
 }

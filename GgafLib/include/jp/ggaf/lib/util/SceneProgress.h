@@ -5,7 +5,9 @@ namespace GgafLib {
 typedef std::map<progress, GgafLib::DefaultScene*> ProgSceneMap;
 
 /**
- * 進捗管理(シーン用)クラス .
+ * 状態遷移進捗管理(シーン用)クラス .
+ * 基底のGgafProgressクラスに、シーンにまつわる便利な機能を追加した
+ * シーン専用の状態遷移進捗管理クラスです。
  * @version 1.00
  * @since 2011/07/15
  * @author Masatoshi Tsuge

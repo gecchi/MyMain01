@@ -109,6 +109,16 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         getDirector()->addSubGroup(pDepo_EffectEntry003_);
     }
 
+    //ボーナスポイント表示エフェクト
+    {
+        pDepo_SpriteLabelBonus001_ = NEW GgafActorDepository("CommonDepo_FormationDestroyedEffect001");
+        for (int i = 0; i < 10; i++) {
+            std::string name = "SpriteLabelBonus001("+ITOS(i)+")";
+            pDepo_SpriteLabelBonus001_->addSubLast(NEW SpriteLabelBonus001(name.c_str()));
+        }
+        getDirector()->addSubGroup(pDepo_SpriteLabelBonus001_);
+    }
+
     //    { //EnemyShot001
     //        pDepo_EnemyShots001_ = NEW GgafActorDepository("TAMAS001");
     //        EnemyCeresShot001* pEnemyShot;

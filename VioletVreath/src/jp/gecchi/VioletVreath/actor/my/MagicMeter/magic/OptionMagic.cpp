@@ -52,7 +52,6 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     }
     DELETEARR_IMPOSSIBLE_NULL(paAng_way);
     r_effect_ = 1;
-
 }
 
 void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
@@ -78,10 +77,11 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
         papEffect_[lv-1]->_pKurokoA->setMvVelo(0);
         papEffect_[lv-1]->_pKurokoA->setMvAcce(0);
         papEffect_[lv-1]->_pKurokoB->execGravitationMvSequence(
-               p->_X + p->pOption_->Xorg_,
-               p->_Y + p->pOption_->Yorg_,
-               p->_Z + p->pOption_->Zorg_,
-               20000, 1000, 50000);
+                                         p->_X + p->pOption_->Xorg_,
+                                         p->_Y + p->pOption_->Yorg_,
+                                         p->_Z + p->pOption_->Zorg_,
+                                         20000, 1000, 50000
+                                     );
     }
 }
 
@@ -90,6 +90,7 @@ void OptionMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) 
 
 void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
 }
+
 int OptionMagic::effect(int prm_level) {
     int r = Magic::effect(prm_level);
     //オプション有効にする。

@@ -2,6 +2,12 @@
 #define STAGE04_H_
 namespace VioletVreath {
 
+/**
+ * ステージ04 .
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
+ */
 class Stage04 : public Stage {
 
 public:

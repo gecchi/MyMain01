@@ -82,8 +82,17 @@
 #define STAT_ExplosionEffectKind    (13)
 /** アクターステータス：保持アイテム種類(int) */
 #define STAT_ItemKind               (14)
+/** アクターステータス：編隊全滅時加算得点(int) */
+#define STAT_FormationDestroyedAddScorePoint (15)
+/** アクターステータス：編隊全滅時エフェクト(int) */
+#define STAT_FormationDestroyedEffectKind (16)
+/** アクターステータス：編隊全滅時アイテム種別(int) */
+#define STAT_FormationDestroyedItemKind      (17)
 /** アクターステータス：番兵（配列要素数に使用される、STAT_Sentry は一番最後の数値を持ってくること）*/
-#define STAT_Sentry                 (15)
+#define STAT_Sentry                 (18)
+
+
+
 
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
 // コード変更は「ランク定義Creater.xls」から行うこと。
@@ -385,6 +394,7 @@ class LabelRankFont;
 class LabelRankingFont;
 class SpriteLabelTest;
 class SpriteLabelGecchi32Font;
+class SpriteLabelBonus001;
 class LabelSceneSymbol;
 
 class TamagoActor;
@@ -717,6 +727,7 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankingFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
+#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelBonus001.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelSceneSymbol.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeres.h"

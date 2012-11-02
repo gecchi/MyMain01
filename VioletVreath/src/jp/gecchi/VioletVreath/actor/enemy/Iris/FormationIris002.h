@@ -28,8 +28,8 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override {
-    }
+    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override;
+
     virtual ~FormationIris002();
 };
 

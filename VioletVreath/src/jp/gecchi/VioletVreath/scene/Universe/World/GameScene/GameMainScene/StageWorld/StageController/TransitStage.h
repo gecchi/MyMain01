@@ -1,6 +1,5 @@
 #ifndef TRANSITSTAGE_H_
 #define TRANSITSTAGE_H_
-
 namespace VioletVreath {
 
 /**

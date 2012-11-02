@@ -43,12 +43,11 @@ void FormationPallas001::onActive() {
 }
 
 void FormationPallas001::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
-    //編隊消滅時の実験
-    EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->pDepo_EffectTurbo002_->dispatchForce();
-    if (pTurbo002) {
-        pTurbo002->locateWith((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
-        pTurbo002->activate();
-    }
+    GgafDxGeometricActor* pActor_LastDestroyed = (GgafDxGeometricActor*)prm_pActor_LastDestroyed;
+    //編隊全滅時エフェクト出現（スコア加算も行われる）
+    UTIL::activateFormationDestroyedEffectOf(pActor_LastDestroyed);
+    //編隊全滅アイテム出現
+    UTIL::activateFormationDestroyedItemOf(pActor_LastDestroyed);
 }
 
 void FormationPallas001::processBehavior() {

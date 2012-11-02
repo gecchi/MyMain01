@@ -16,20 +16,23 @@ namespace GgafCore {
  */
 class GgafDepositoryFormation : public GgafFormation {
 private:
-
+    /**
+     * 使用不可 .
+     * @param prm_pSub
+     */
     virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override {
     }
+
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
     GgafCore::GgafLinkedListRing<GgafActor> _listFllower;
-    bool _is_called_up;
-    /** これ以上 callUpUntil() 不可の場合 true */
+    /** [r]これ以上 callUpUntil() 不可の場合 true */
     bool _is_all_called_up;
-    /** 全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
+    /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
-
-    /** 構成メンバーのストッカー（NULLの場合構成メンバーは配下アクターのはず） */
+    /** [r]構成メンバーのストッカー（NULLの場合構成メンバーは配下アクターのはず） */
     GgafCore::GgafActorDepository* _pDepo;
+
     /**
      * コンストラクタ .
      * @param prm_name

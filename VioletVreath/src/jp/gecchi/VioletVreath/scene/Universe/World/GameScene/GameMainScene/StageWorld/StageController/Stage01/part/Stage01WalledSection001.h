@@ -1,12 +1,9 @@
 #ifndef STAGE01WALLEDSECTION001_H_
 #define STAGE01WALLEDSECTION001_H_
-
-
 namespace VioletVreath {
 
-
 /**
- * GROUNDBOX .
+ * ステージ01の壁セクション(種別001) .
  * @version 1.00
  * @since 2010/08/18
  * @author Masatoshi Tsuge

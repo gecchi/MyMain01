@@ -15,7 +15,7 @@ Stage02_01::Stage02_01(const char* prm_name) : DefaultScene(prm_name) {
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 3;
 	orderActorToFactory(70000000, FormationJuno001, "F002_Juno_1");
-	
+
 	orderActorToFactory(70000002, FormationIris001, "F001_Iris_2");
 	orderActorToFactory(70000003, FormationIris002, "F002_Iris_3");
 	orderActorToFactory(70000004, FormationIris001, "F001_Iris_4");
@@ -66,7 +66,7 @@ void Stage02_01::processBehavior() {
 
     //シーン終了のイベントを通知
     if (getActivePartFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
-        throwEventToUpperTree(EVENT_STG02_01_WAS_BROKEN, this);
+        throwEventToUpperTree(EVENT_STG02_01_WAS_BROKEN);
     }
 
 }

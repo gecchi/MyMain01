@@ -1,8 +1,13 @@
 #ifndef STAGE02_H_
 #define STAGE02_H_
-
 namespace VioletVreath {
 
+/**
+ * ステージ02 .
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
+ */
 class Stage02 : public Stage {
 
 public:

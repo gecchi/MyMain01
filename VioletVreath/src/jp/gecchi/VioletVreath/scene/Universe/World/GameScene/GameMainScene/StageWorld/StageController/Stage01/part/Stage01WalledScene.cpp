@@ -61,11 +61,11 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,200,1000,2000,3200,4200,5000,6000,6200,8000,30000};
-	_paFrame_NextEvent = new frame[11];
+	frame f[] = {1,200,1000,2000,2200,3200,4000,4200,5000,5200,6000,6200,7000,8000,30000};
+	_paFrame_NextEvent = new frame[15];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 11;
-	orderActorToFactory(20000002, VarietySylvia002, "VarietySylvia002_1");
+	_event_num = 15;
+	orderActorToFactory(20000006, FormationThalia, "FormationThalia_1");
     // gen01 end
 }
 
@@ -98,8 +98,8 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 1000: {
-				VarietySylvia002* pSylviaA = (VarietySylvia002*)obtainActorFromFactory(20000002);
-				getDirector()->addSubGroup(pSylviaA);
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(20000006);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 2000: {
@@ -107,13 +107,22 @@ void Stage01WalledScene::processBehavior() {
 				getDirector()->addSubGroup(pFormationEunomia);
 				break;
 			}
+			case 2200: {
+				orderActorToFactory(20000007, FormationThalia, "FormationThalia_3");
+				break;
+			}
 			case 3200: {
-				orderActorToFactory(20000000, EnemyHesperia, "EnemyHesperia_3");
-				orderActorToFactory(20000003, VarietySylvia003, "VarietySylvia003_4");
+				orderActorToFactory(20000000, EnemyHesperia, "EnemyHesperia_4");
+				orderActorToFactory(20000003, VarietySylvia003, "VarietySylvia003_5");
+				break;
+			}
+			case 4000: {
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(20000007);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 4200: {
-				orderActorToFactory(20000005, FormationEunomia001b, "F001b_Eunomia_5");
+				orderActorToFactory(20000005, FormationEunomia001b, "F001b_Eunomia_6");
 				break;
 			}
 			case 5000: {
@@ -123,18 +132,30 @@ void Stage01WalledScene::processBehavior() {
 				getDirector()->addSubGroup(pSylviaB);
 				break;
 			}
+			case 5200: {
+				orderActorToFactory(20000008, FormationThalia, "FormationThalia_7");
+				break;
+			}
 			case 6000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(20000005);
 				getDirector()->addSubGroup(pFormationEunomia);
 				break;
 			}
 			case 6200: {
-				orderActorToFactory(20000001, EnemyHesperia, "EnemyHesperia_6");
+				orderActorToFactory(20000001, EnemyHesperia, "EnemyHesperia_8");
+				orderActorToFactory(20000002, VarietySylvia002, "VarietySylvia002_9");
+				break;
+			}
+			case 7000: {
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(20000008);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 8000: {
 				EnemyHesperia* p = (EnemyHesperia*)obtainActorFromFactory(20000001);
 				getDirector()->addSubGroup(p);
+				VarietySylvia002* pSylviaA = (VarietySylvia002*)obtainActorFromFactory(20000002);
+				getDirector()->addSubGroup(pSylviaA);
 				break;
 			}
 			case 30000: {
@@ -144,13 +165,13 @@ void Stage01WalledScene::processBehavior() {
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 11-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 15-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 }
 
 void Stage01WalledScene::onFinishedSection() {
-    throwEventToUpperTree(EVENT_STG01_WALLED_WAS_BROKEN, this);
+    throwEventToUpperTree(EVENT_STG01_WALLED_WAS_BROKEN);
 }
 
 Stage01WalledScene::~Stage01WalledScene() {

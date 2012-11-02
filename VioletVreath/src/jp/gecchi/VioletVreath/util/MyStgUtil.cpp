@@ -23,7 +23,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionWateringLaserChip001Status(GgafStatus* p) {
@@ -41,7 +44,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionStraightLaserChip001Status(GgafStatus* p) {
@@ -59,7 +65,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyTorpedoStatus(GgafStatus* p) {
@@ -77,7 +86,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyTorpedoBlastStatus(GgafStatus* p) {
@@ -95,7 +107,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyShipStatus(GgafStatus* p) {
@@ -113,7 +128,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyStraightLaserChip001Status(GgafStatus* p) {
@@ -131,7 +149,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCurveLaserChip001Status(GgafStatus* p) {
@@ -149,7 +170,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCeresStatus(GgafStatus* p) {
@@ -167,7 +191,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 2 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCeresShot001Status(GgafStatus* p) {
@@ -185,7 +212,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaStatus(GgafStatus* p) {
@@ -203,7 +233,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafStatus* p) {
@@ -221,7 +254,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip002Status(GgafStatus* p) {
@@ -239,7 +275,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip003Status(GgafStatus* p) {
@@ -257,7 +296,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip004Status(GgafStatus* p) {
@@ -275,7 +317,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyRomulusStatus(GgafStatus* p) {
@@ -293,7 +338,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyRemusStatus(GgafStatus* p) {
@@ -311,7 +359,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyRemusLaserChip001Status(GgafStatus* p) {
@@ -329,7 +380,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMetisStatus(GgafStatus* p) {
@@ -347,7 +401,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
@@ -365,7 +422,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 200 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 2 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyJunoStatus(GgafStatus* p) {
@@ -383,7 +443,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThaliaStatus(GgafStatus* p) {
@@ -401,7 +464,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot001Status(GgafStatus* p) {
@@ -419,7 +485,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot002Status(GgafStatus* p) {
@@ -437,7 +506,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyTamago01Status(GgafStatus* p) {
@@ -455,7 +527,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCirceStatus(GgafStatus* p) {
@@ -473,7 +548,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot003Status(GgafStatus* p) {
@@ -491,7 +569,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot004Status(GgafStatus* p) {
@@ -509,7 +590,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemySylviaStatus(GgafStatus* p) {
@@ -527,7 +611,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetWall001Status(GgafStatus* p) {
@@ -545,7 +632,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetWall001PrismStatus(GgafStatus* p) {
@@ -563,7 +653,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyPallasStatus(GgafStatus* p) {
@@ -581,7 +674,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 2 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyEunomiaStatus(GgafStatus* p) {
@@ -599,7 +695,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 2 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyShot001Status(GgafStatus* p) {
@@ -617,7 +716,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaStatus(GgafStatus* p) {
@@ -635,7 +737,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragmentStatus(GgafStatus* p) {
@@ -653,7 +758,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment2Status(GgafStatus* p) {
@@ -671,7 +779,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment3Status(GgafStatus* p) {
@@ -689,7 +800,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionStatus(GgafStatus* p) {
@@ -707,7 +821,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMagicPointItem001Status(GgafStatus* p) {
@@ -725,7 +842,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMagicPointItem002Status(GgafStatus* p) {
@@ -743,7 +863,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHebeStatus(GgafStatus* p) {
@@ -761,7 +884,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 2 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbeStatus(GgafStatus* p) {
@@ -779,7 +905,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip001Status(GgafStatus* p) {
@@ -797,7 +926,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAdrasteaStatus(GgafStatus* p) {
@@ -815,7 +947,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAtalanteStatus(GgafStatus* p) {
@@ -833,7 +968,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHesperiaStatus(GgafStatus* p) {
@@ -851,7 +989,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 2 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHesperiaLaserChip001Status(GgafStatus* p) {
@@ -869,7 +1010,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestGuStatus(GgafStatus* p) {
@@ -887,7 +1031,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestChokiStatus(GgafStatus* p) {
@@ -905,7 +1052,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestPaStatus(GgafStatus* p) {
@@ -923,7 +1073,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestNomalStatus(GgafStatus* p) {
@@ -941,7 +1094,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestGuShotStatus(GgafStatus* p) {
@@ -959,7 +1115,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestChokiShotStatus(GgafStatus* p) {
@@ -977,7 +1136,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestPaShotStatus(GgafStatus* p) {
@@ -995,7 +1157,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestNomalShotStatus(GgafStatus* p) {
@@ -1013,7 +1178,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemySylviaEyeStatus(GgafStatus* p) {
@@ -1031,7 +1199,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemySylviaEyeStraightLaserChip001Status(GgafStatus* p) {
@@ -1049,7 +1220,10 @@ using namespace VioletVreath;
 		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_ItemKind, 1 );  //保持アイテム種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
 // gen02 end

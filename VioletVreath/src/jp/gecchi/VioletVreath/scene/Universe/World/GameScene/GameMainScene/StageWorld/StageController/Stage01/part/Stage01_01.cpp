@@ -10,10 +10,10 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,500,1600,2100,2500,3000};
-	_paFrame_NextEvent = new frame[6];
+	frame f[] = {1,500,1600,2100,2500,2600,3000,3100,3500,3600,4000,4100,4500,4600,5000,5100,5500,5600,6000,6100,6500,6600,7000,7100,7500,7600,8000,8100,8500,8600,9000,9100,9500,10000};
+	_paFrame_NextEvent = new frame[34];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 6;
+	_event_num = 34;
 	
 	orderActorToFactory(30000001, FormationPallas001a, "F001a_Pallas_1");
 	orderActorToFactory(30000002, FormationPallas001b, "F001b_Pallas_2");
@@ -68,7 +68,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 2100: {
-				orderActorToFactory(30000014, FormationEunomia001b, "F001b_Eunomia_14");
+				orderActorToFactory(30000021, FormationEunomia001b, "F001b_Eunomia_14");
 				break;
 			}
 			case 2500: {
@@ -76,21 +76,147 @@ void Stage01_01::processBehavior() {
 				getDirector()->addSubGroup(pFormationEunomia);
 				break;
 			}
+			case 2600: {
+				orderActorToFactory(30000014, FormationEunomia001a, "F001a_Eunomia_15");
+				break;
+			}
 			case 3000: {
-				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000014);
+				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000021);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 3100: {
+				orderActorToFactory(30000022, FormationEunomia001b, "F001b_Eunomia_16");
+				break;
+			}
+			case 3500: {
+				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000014);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 3600: {
+				orderActorToFactory(30000015, FormationEunomia001a, "F001a_Eunomia_17");
+				break;
+			}
+			case 4000: {
+				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000022);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 4100: {
+				orderActorToFactory(30000023, FormationEunomia001b, "F001b_Eunomia_18");
+				break;
+			}
+			case 4500: {
+				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000015);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 4600: {
+				orderActorToFactory(30000016, FormationEunomia001a, "F001a_Eunomia_19");
+				break;
+			}
+			case 5000: {
+				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000023);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 5100: {
+				orderActorToFactory(30000024, FormationEunomia001b, "F001b_Eunomia_20");
+				break;
+			}
+			case 5500: {
+				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000016);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 5600: {
+				orderActorToFactory(30000017, FormationEunomia001a, "F001a_Eunomia_21");
+				break;
+			}
+			case 6000: {
+				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000024);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 6100: {
+				orderActorToFactory(30000025, FormationEunomia001b, "F001b_Eunomia_22");
+				break;
+			}
+			case 6500: {
+				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000017);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 6600: {
+				orderActorToFactory(30000018, FormationEunomia001a, "F001a_Eunomia_23");
+				break;
+			}
+			case 7000: {
+				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000025);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 7100: {
+				orderActorToFactory(30000026, FormationEunomia001b, "F001b_Eunomia_24");
+				break;
+			}
+			case 7500: {
+				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000018);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 7600: {
+				orderActorToFactory(30000019, FormationEunomia001a, "F001a_Eunomia_25");
+				break;
+			}
+			case 8000: {
+				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000026);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 8100: {
+				orderActorToFactory(30000027, FormationEunomia001b, "F001b_Eunomia_26");
+				break;
+			}
+			case 8500: {
+				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000019);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 8600: {
+				orderActorToFactory(30000020, FormationEunomia001a, "F001a_Eunomia_27");
+				break;
+			}
+			case 9000: {
+				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000027);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 9100: {
+				orderActorToFactory(30000028, FormationEunomia001b, "F001b_Eunomia_28");
+				break;
+			}
+			case 9500: {
+				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000020);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 10000: {
+				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000028);
 				getDirector()->addSubGroup(pFormationEunomia);
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 6-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 34-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 
     //シーン終了のイベントを通知
     if (getActivePartFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
-        throwEventToUpperTree(EVENT_STG01_01_WAS_BROKEN, this);
+        throwEventToUpperTree(EVENT_STG01_01_WAS_BROKEN);
     }
 }
 

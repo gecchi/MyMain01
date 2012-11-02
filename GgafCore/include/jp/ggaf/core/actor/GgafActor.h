@@ -64,7 +64,7 @@ public:
     bool _can_hit_flg;
     /** [r]true:視界外でもヒットチェックを行う/false:視界外はヒットチェックを行なわない */
     bool _can_hit_out_of_view;
-    /** [r]自由ステータス */
+    /** [r/w]自由ステータス */
     GgafStatus* _pStatus;
 
     /**

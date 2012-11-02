@@ -15,12 +15,10 @@ namespace GgafCore {
  */
 class GgafTreeFormation : public GgafFormation {
 private:
-
     void sayonaraFollwer();
 
-
 public:
-    /** 全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
+    /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
 
     /**
@@ -30,7 +28,6 @@ public:
      * @return
      */
     GgafTreeFormation(const char* prm_name, frame prm_offset_frames_end);
-
 
     /**
      * サブが無ければ本オブジェクト解放という処理 .

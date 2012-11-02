@@ -25,18 +25,18 @@ public:
 
     MagicPointItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
-    void onCreateModel() override {
+    virtual void onCreateModel() override {
     }
 
-    void initialize() override;
+    virtual void initialize() override;
 
-    void onActive() override;
+    virtual void onActive() override;
 
-    void processBehavior() override;
+    virtual void processBehavior() override;
 
-    void processJudgement() override;
+    virtual void processJudgement() override;
 
-    void onInactive() override;
+    virtual void onInactive() override;
 
 //    int isOutOfView() override {
 //        //画面外判定無し
@@ -47,7 +47,7 @@ public:
 //        //ゲーム座標範囲外判定無し
 //        return false;
 //    }
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~MagicPointItem();
 };

@@ -53,12 +53,12 @@ void VvvCamWorker::processBehavior() {
         } else {
             cd_ = cw;
         }
-        if (!pCam->_pKurokoA->isRunnigSmoothMvSequence()) {
+        if (!pCam->_pKurokoA->isRunnigSmoothMvVeloSequence()) {
             move_target_X_CAM_ = pCam->_X;
             move_target_Y_CAM_ = pCam->_Y;
             move_target_Z_CAM_ = pCam->_Z;
         }
-        if (!pVP->_pKurokoA->isRunnigSmoothMvSequence()) {
+        if (!pVP->_pKurokoA->isRunnigSmoothMvVeloSequence()) {
             //³Šm‚ÈVP‚ÉÄÝ’è
             pVP->_X = DX_C(pCam->_pVecCamLookatPoint->x);
             pVP->_Y = DX_C(pCam->_pVecCamLookatPoint->y);
@@ -214,12 +214,12 @@ void VvvCamWorker::processBehavior() {
         stop_renge_ = 60000;
         if (mdz_flg_ == false) {
             mdz_total_ = 0;
-            if (!pCam->_pKurokoA->isRunnigSmoothMvSequence()) {
+            if (!pCam->_pKurokoA->isRunnigSmoothMvVeloSequence()) {
                 move_target_X_CAM_ = pCam->_X;
                 move_target_Y_CAM_ = pCam->_Y;
                 move_target_Z_CAM_ = pCam->_Z;
             }
-            if (!pVP->_pKurokoA->isRunnigSmoothMvSequence()) {
+            if (!pVP->_pKurokoA->isRunnigSmoothMvVeloSequence()) {
                 pVP->_X = DX_C(pCam->_pVecCamLookatPoint->x);
                 pVP->_Y = DX_C(pCam->_pVecCamLookatPoint->y);
                 pVP->_Z = DX_C(pCam->_pVecCamLookatPoint->z);
@@ -275,7 +275,7 @@ void VvvCamWorker::processBehavior() {
         int td1 = UTIL::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
                                            move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
         if (ABS(td1) > 10) {
-            pCam->_pKurokoA->execSmoothMvSequence(0, td1, 20, 0.4, 0.6);
+            pCam->_pKurokoA->execSmoothMvVeloSequence(0, td1, 20, 0.4, 0.6);
         }
     }
     if (ABS(move_target_X_VP_ - pVP->_X) < 10 && ABS(move_target_Y_VP_ - pVP->_Y) < 10 && ABS(move_target_Z_VP_ - pVP->_Z) < 10) {
@@ -285,7 +285,7 @@ void VvvCamWorker::processBehavior() {
         int td2 = UTIL::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
                                            move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
         if (ABS(td2) > 10) {
-            pVP->_pKurokoA->execSmoothMvSequence(0, td2, 20, 0.4, 0.6);
+            pVP->_pKurokoA->execSmoothMvVeloSequence(0, td2, 20, 0.4, 0.6);
         }
     }
 

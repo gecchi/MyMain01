@@ -18,8 +18,11 @@ namespace GgafCore {
  */
 class GgafActorDepository : public GgafDummyActor {
 public:
-//    GgafCore::GgafLinkedListRing<GgafActor> _listDispatched;
-
+    /**
+     * コンストラクタ .
+     * @param prm_name
+     * @param prm_pStat
+     */
     GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat = NULL);
 
     /**
@@ -32,7 +35,6 @@ public:
      * @param prm_pSub 貸出メンバーアクター
      */
     virtual void addSubLast(GgafActor* prm_pSub) override;
-
 
     /**
      * activate系は子アクターへは影響させないようにする .

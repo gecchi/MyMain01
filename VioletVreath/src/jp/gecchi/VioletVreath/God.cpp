@@ -9,33 +9,36 @@ VirtualButton* God::pVbtn_UI_ = NULL;
 VirtualButton* God::pVbtn_Active_ = NULL;
 VirtualButton* God::pVbtn_Active_next_frame_ = NULL;
 
+
 God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
       DefaultGod(prm_hInstance, prm_pHWndPrimary, prm_pHWndSecondary) {
     pDepoManager_ = NEW DepositoryManager("DepositoryManager");
     pSpl3DManager_ = NEW SplineLineManager("SplineLineManager");
-    God::pVbtn_PLAY_ = NEW VirtualButton("VB_PLAY.rep");
-    God::pVbtn_UI_   = NEW VirtualButton("VB_UI.rep");
+    God::pVbtn_PLAY_ = NEW VirtualButton(FILE_INPUT_PLAY_REPLAY);
+    God::pVbtn_UI_   = NEW VirtualButton(FILE_INPUT_UI_REPLAY);
 #ifdef MY_DEBUG
-    pVbtn_PLAY_->_pRpy->setRealtimeOutputFile("VB_PLAY_LAST_REALTIME.rep");
-    pVbtn_UI_->_pRpy->setRealtimeOutputFile("VB_UI_LAST_REALTIME.rep");
+    pVbtn_PLAY_->_pRpy->setRealtimeOutputFile(FILE_REALTIME_OUTPUT_PLAY_REPLAY);
+    pVbtn_UI_->_pRpy->setRealtimeOutputFile(FILE_REALTIME_OUTPUT_UI_REPLAY);
+    _TRACE_("デバッグリアルタイムリプレイ記録モード○");
 #endif
     God::pVbtn_Active_ = God::pVbtn_UI_;
     God::pVbtn_Active_next_frame_ = God::pVbtn_UI_;
 
     if (pVbtn_PLAY_->_is_replaying && pVbtn_UI_->_is_replaying) {
         _TRACE_("プレイリプレイ情報○、UIリプレイ情報○");
-        _TRACE_("リプレイ再生モードです。");
+        _TRACE_("→リプレイ再生モードです。");
     } else if (!pVbtn_PLAY_->_is_replaying && pVbtn_UI_->_is_replaying) {
         _TRACE_("プレイリプレイ情報×、UIリプレイ情報○");
+        _TRACE_("→UIのみ再生モードです。っていうか意味あるのん？");
     } else if (pVbtn_PLAY_->_is_replaying && !pVbtn_UI_->_is_replaying) {
         _TRACE_("プレイリプレイ情報○、UIリプレイ情報×");
-        _TRACE_("リプレイ再生モードです。");
-        _TRACE_("但し、プレイリプレイから PAUSE情報を切り取ります。");
+        _TRACE_("→リプレイ再生モードです。但し、プレイリプレイから PAUSE情報を切り取ります。");
         //プレイリプレイあり、かつUIリプレイ無しの場合のみ、プレイリプレイのPAUSE情報を除去する
         VBReplayRecorder* pRepPlay = pVbtn_PLAY_->_pRpy;
         VBReplayRecorder::VBRecordNote* pRecNote = pRepPlay->_pFirstVBNote;
+        vbsta vb_pause_not_mask = ~((vbsta)VB_PAUSE);
         while (pRecNote) {
-            pRecNote->_state = pRecNote->_state & ~((vbsta)VB_PAUSE);
+            pRecNote->_state = (pRecNote->_state & vb_pause_not_mask);
             pRecNote = pRecNote->_pNext;
         }
     } else {
@@ -107,14 +110,12 @@ void God::clean() {
         if (VB_PLAY->_is_replaying) {
             //VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_REPADD.rep");
         } else {
-            _TRACE_("write VB_PLAY_LAST.rep");
-            VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST.rep");
+            VB_PLAY->_pRpy->outputFile(FILE_OUTPUT_PLAY_REPLAY);
         }
         if (VB_UI->_is_replaying) {
             //VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_REPADD.rep");
         } else {
-            _TRACE_("write VB_UI_LAST.rep");
-            VB_UI->_pRpy->outputFile("VB_UI_LAST.rep");
+            VB_UI->_pRpy->outputFile(FILE_OUTPUT_UI_REPLAY);
         }
         _TRACE_("God::clean() begin");
         DefaultGod::clean();

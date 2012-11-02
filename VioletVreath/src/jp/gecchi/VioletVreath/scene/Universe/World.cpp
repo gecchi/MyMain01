@@ -103,6 +103,9 @@ void World::processBehavior() {
             //GameScene作成完了
             VB->update(); //入力情報更新
 
+            //_TRACE_("VB="<<(VB)<<" VB->_pVBRecord_Active->_state="<<VB->_pVBRecord_Active->_state);
+
+
             //F5キーが音量下げ
             if (GgafDxInput::isBeingPressedKey(DIK_F5)) {
                 GgafDxSound::addMasterVolume(-1);

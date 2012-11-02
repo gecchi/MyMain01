@@ -12,14 +12,14 @@ namespace GgafLib {
 class DefaultScene : public GgafDxCore::GgafDxScene {
 public:
 
-    /** シーンイベント用のフレーム値の配列(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
+    /** [r]シーンイベント用のフレーム値の配列(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     UINT32* _paFrame_NextEvent;
-    /** シーンのイベント数（_paFrame_NextEventの要素数）(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
+    /** [r]シーンのイベント数（_paFrame_NextEventの要素数）(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _event_num;
     /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _cnt_event;
-    /** シーン進捗管理(GgafElement<GgafScene>::GgafProgress* _pProg; をシャドー) */
-    SceneProgress* _pProg;
+    /** [r]シーン進捗管理(GgafElement<GgafScene>::GgafProgress* _pProg; をシャドー) */
+    SceneProgress* _pProg; //GgafElement<GgafScene>::GgafProgress* _pProg; をシャドー
 
     DefaultScene(const char* prm_name);
 

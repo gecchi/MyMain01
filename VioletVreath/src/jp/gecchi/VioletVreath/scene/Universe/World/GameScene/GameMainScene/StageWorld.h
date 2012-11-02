@@ -1,6 +1,6 @@
 #ifndef STAGEWORLD_H_
 #define STAGEWORLD_H_
-
+namespace VioletVreath {
 
 #ifdef P_GAME_SCENE
     #define P_STAGE_WORLD (P_GAME_SCENE->pStageWorld_)
@@ -8,9 +8,13 @@
     #error P_GAME_SCENE isnt define
 #endif
 
-
-namespace VioletVreath {
-
+/**
+ * ステージ世界シーン .
+ * ゲームの面に当たる「ステージ」の頂点に位置するシーンクラスです。
+ * @version 1.00
+ * @since 2011/10/24
+ * @author Masatoshi Tsuge
+ */
 class StageWorld : public GgafLib::DefaultScene {
 
 public:

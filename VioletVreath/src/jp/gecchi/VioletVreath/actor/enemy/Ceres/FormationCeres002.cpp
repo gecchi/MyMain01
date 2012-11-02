@@ -35,5 +35,13 @@ void FormationCeres002::initialize() {
     }
 }
 
+void FormationCeres002::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
+    GgafDxGeometricActor* pActor_LastDestroyed = (GgafDxGeometricActor*)prm_pActor_LastDestroyed;
+    //編隊全滅時エフェクト出現（スコア加算も行われる）
+    UTIL::activateFormationDestroyedEffectOf(pActor_LastDestroyed);
+    //編隊全滅アイテム出現
+    UTIL::activateFormationDestroyedItemOf(pActor_LastDestroyed);
+}
+
 FormationCeres002::~FormationCeres002() {
 }

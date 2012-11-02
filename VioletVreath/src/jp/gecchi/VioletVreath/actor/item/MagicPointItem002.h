@@ -17,6 +17,8 @@ class MagicPointItem002 : public MagicPointItem {
 public:
     MagicPointItem002(const char* prm_name);
 
+    void onActive() override;
+
     void initialize() override;
 
     virtual ~MagicPointItem002();

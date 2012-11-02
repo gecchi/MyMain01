@@ -101,16 +101,16 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     addSubGroup(pDamageDispBar_);
 
 
-    _pSeTxer->set(SE_CURSOR_MOVE_METER             , "click07"      );  //メーター移動
-    _pSeTxer->set(SE_CURSOR_MOVE_LEVEL             , "G_EFC5"       );  //レベル移動
-    _pSeTxer->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "yume_ashi_022");  //レベル移動キャンセル
-    _pSeTxer->set(SE_CURSOR_BAD_MOVE               , "break_glass01");  //ダメな移動
-    _pSeTxer->set(SE_EXECUTE_LEVELUP_MAGIC         , "warp"         );  //レベルダウンアップ
-    _pSeTxer->set(SE_EXECUTE_LEVELDOWN_MAGIC       , "SwingA@11"    );  //レベルダウン実行
-    _pSeTxer->set(SE_EXECUTE_CANCEL_LEVELUP_MAGIC  , "warp"         );  //レベルダウンアップ
-    _pSeTxer->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "SwingA@11"    );  //レベルダウン実行
+    _pSeTxer->set(SE_CURSOR_MOVE_METER             , "click07"      );  //主メーターカーソル移動時
+    _pSeTxer->set(SE_CURSOR_MOVE_LEVEL             , "G_EFC5"       );  //上下レベル移動時
+    _pSeTxer->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "yume_ashi_022");  //上下レベル移動キャンセル（）
+    _pSeTxer->set(SE_CURSOR_BAD_MOVE               , "break_glass01");  //ダメなカーソル移動（鳴るとうるさいので現在未使用）
+    _pSeTxer->set(SE_EXECUTE_LEVELUP_MAGIC         , "warp"         );  //レベルアップ実行時
+    _pSeTxer->set(SE_EXECUTE_LEVELDOWN_MAGIC       , "SwingA@11"    );  //レベルダウン実行時
+    _pSeTxer->set(SE_EXECUTE_CANCEL_LEVELUP_MAGIC  , "warp"         );  //（詠唱キャンセルして）レベルアップ実行時
+    _pSeTxer->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "SwingA@11"    );  //（詠唱キャンセルして）レベルダウン実行時
     _pSeTxer->set(SE_CANT_INVOKE_MAGIC             , "yume_organ_01");  //詠唱完了時、MPが足りないため発動できない場合
-    _pSeTxer->set(SE_BAD_OPERATION                 , "yume_SUZU"    );  //ブブー
+    _pSeTxer->set(SE_BAD_OPERATION                 , "yume_SUZU"    );  //操作ミス。出来ない入力、ブブー
 
     alpha_velo_ = -0.01f;
 }
@@ -174,7 +174,6 @@ void MagicMeter::onActive() {
 void MagicMeter::processBehavior() {
     if (VB_PLAY->isBeingPressed(VB_POWERUP)) {
         alpha_velo_ = 0.05f;
-
         Magic* pActiveMagic = ringMagics_.getCurrent();     //アクティブな魔法
         int active_idx = ringMagics_.getCurrentIndex();     //アクティブな魔法のインデックス
         progress active_prg = pActiveMagic->_pProg->get();  //アクティブな魔法の進捗

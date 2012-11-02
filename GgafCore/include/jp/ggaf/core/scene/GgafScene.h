@@ -130,8 +130,10 @@ public:
     virtual void draw() override;
     virtual void afterDraw() override;
     virtual void doFinally() override;
-    virtual void throwEventToLowerTree(hashval prm_no, void* prm_pSource = NULL) override;
-    virtual void throwEventToUpperTree(hashval prm_no, void* prm_pSource = NULL) override;
+    virtual void throwEventToLowerTree(hashval prm_no, void* prm_pSource) override;
+    virtual void throwEventToLowerTree(hashval prm_no) override;
+    virtual void throwEventToUpperTree(hashval prm_no, void* prm_pSource) override;
+    virtual void throwEventToUpperTree(hashval prm_no) override;
     virtual void activateTree() override;
     virtual void activateDelay(frame prm_offset_frames = 1) override;
     virtual void activate() override;

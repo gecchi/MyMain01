@@ -28,8 +28,8 @@ SmileMagic::SmileMagic(const char* prm_name, AmountGraph* prm_pMP)
     pMoji_->update("SMILE(^_^)SMILE");
     pMoji_->inactivateImmed();
     addSubGroup(pMoji_);
-
 }
+
 void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     pMoji_->locateWith(P_MYSHIP);
     pMoji_->setAlpha(0.9);
@@ -56,13 +56,27 @@ void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
 void SmileMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
 }
 
+
+int SmileMagic::effect(int prm_level) {
+    int r = Magic::effect(prm_level);
+    //ニコニコビーム発射
+    _TRACE_("速攻魔法テスト、LEVEL"<<prm_level<<"のニコニコビーム発射！");
+    std::string s = "";
+    for (int i = 0; i < prm_level; i++) {
+        s += "(^_^)SMILE!\n";
+    }
+    pMoji_->update(s.c_str());
+    return r;
+}
+
 void SmileMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
     _TRACE_("SmileMagic::processEffectBegin (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
 }
 
 void SmileMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
-    //即効性魔法は processEffectingBehavior はコールされない
-    _TRACE_("SmileMagic::processEffectingBehavior (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
+    //即効性魔法は processEffectingBehavior はコールされないはず
+    throwGgafCriticalException("SmileMagic::processEffectingBehavior 即効性魔法は processEffectingBehavior はコールされないはず");
+//    _TRACE_("SmileMagic::processEffectingBehavior (^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE(^_^)SMILE");
 }
 
 void SmileMagic::processEffectFinish(int prm_justbefore_level) {

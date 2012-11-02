@@ -112,11 +112,18 @@ void GgafScene::throwEventToLowerTree(hashval prm_no, void* prm_pSource) {
     _pDirector->throwEventToLowerTree(prm_no, prm_pSource);
 }
 
+void GgafScene::throwEventToLowerTree(hashval prm_no) {
+    GgafElement<GgafScene>::throwEventToLowerTree(prm_no);
+    _pDirector->throwEventToLowerTree(prm_no);
+}
+
 void GgafScene::throwEventToUpperTree(hashval prm_no, void* prm_pSource) {
     GgafElement<GgafScene>::throwEventToUpperTree(prm_no, prm_pSource);
 }
 
-
+void GgafScene::throwEventToUpperTree(hashval prm_no) {
+    GgafElement<GgafScene>::throwEventToUpperTree(prm_no);
+}
 void GgafScene::doFinally() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::doFinally();

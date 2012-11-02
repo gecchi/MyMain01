@@ -944,11 +944,6 @@ void MyShip::setMoveSpeedLv(int lv) {
     }
 
 void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
-
-    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
-
-    }
 }
 
 void MyShip::setBlownVelo(velo prm_blown_veloX, velo prm_blown_veloY, velo prm_blown_veloZ, double prm_r_blown_velo_attenuate) {

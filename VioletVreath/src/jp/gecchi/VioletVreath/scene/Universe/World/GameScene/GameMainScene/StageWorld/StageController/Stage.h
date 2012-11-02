@@ -1,10 +1,13 @@
 #ifndef STAGE_H_
 #define STAGE_H_
-
 namespace VioletVreath {
 
-
-
+/**
+ * ステージ基底 .
+ * @version 1.00
+ * @since 2009/02/05
+ * @author Masatoshi Tsuge
+ */
 class Stage : public GgafLib::DefaultScene {
 
 public:

@@ -30,7 +30,7 @@ void MagicLvCursor::initialize() {
 
 void MagicLvCursor::processBehavior() {
 
-    if (_pKurokoA->isJustFinishSmoothMvSequence()) {
+    if (_pKurokoA->isJustFinishSmoothMvVeloSequence()) {
         //理想位置に補正
         _X = tX_;
         _Y = tY_;
@@ -72,14 +72,16 @@ void MagicLvCursor::moveTo(int prm_lv) {
 }
 
 void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_p1, float prm_p2) {
+    _pKurokoA->setMvVelo(0);
+    _pKurokoA->setMvAcce(0);
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。
     point_lv_ = prm_lv;
     tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pKurokoA->setMvAng(tX_, tY_);
-    _pKurokoA->execSmoothMvSequence(0, UTIL::getDistance(_X, _Y, tX_, tY_),
-                                    (int)prm_target_frames, prm_p1, prm_p2); //ロールを考慮せずにとりあえず移動
+    _pKurokoA->execSmoothMvVeloSequence(0, UTIL::getDistance(_X, _Y, tX_, tY_),
+                                        (int)prm_target_frames, prm_p1, prm_p2); //ロールを考慮せずにとりあえず移動
 }
 
 void MagicLvCursor::beginBlinking() {

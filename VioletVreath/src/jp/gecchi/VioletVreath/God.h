@@ -10,6 +10,18 @@ namespace VioletVreath {
 /** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
 #define VB VioletVreath::God::pVbtn_Active_
 
+/** ゲームプレイのリプレイ再生用読み込みファイル */
+#define FILE_INPUT_PLAY_REPLAY    "VB_PLAY.rep"
+/** UI操作のリプレイ再生用読み込みファイル */
+#define FILE_INPUT_UI_REPLAY      "VB_UI.rep"
+/** ゲームプレイのリプレイ書き出しファイル */
+#define FILE_OUTPUT_PLAY_REPLAY   "VB_PLAY_LAST.rep"
+/** UI操作のリプレイ書き出しファイル */
+#define FILE_OUTPUT_UI_REPLAY     "VB_UI_LAST.rep"
+/** ゲームプレイのリプレイ書き出しファイル（デバッグ用逐次書き出し） */
+#define FILE_REALTIME_OUTPUT_PLAY_REPLAY   "VB_PLAY_LAST_REALTIME.rep"
+/** UI操作のリプレイ書き出しファイル（デバッグ用逐次書き出し） */
+#define FILE_REALTIME_OUTPUT_UI_REPLAY     "VB_UI_LAST_REALTIME.rep"
 
 /**
  * 神が保持する DepositoryManager に接続し、コネクションを取得。

@@ -57,7 +57,7 @@ void RankUp100::processBehavior() {
         case Stage::PROG_END: {
             if (_pProg->hasJustChanged()) {
                 _TRACE_("RankUp100::processBehavior()  Stage::PROG_ENDになりますた！");
-                throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, this); //次ステージ準備へ
+                throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE); //次ステージ準備へ
             }
 
             if (_pProg->getFrameInProgress() == 60) {

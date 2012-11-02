@@ -18,6 +18,7 @@ bool VBReplayRecorder::setRealtimeOutputFile(const char* prm_filename) {
         _TRACE_("VBReplayRecorder::setRealtimeOutputFile "<<prm_filename<<" が開けません");
         return false;
     } else {
+        _ofs_realtime << std::unitbuf; //逐次バッファフラッシュ
         return true;
     }
 }
@@ -43,6 +44,10 @@ vbsta VBReplayRecorder::read() {
 }
 
 void VBReplayRecorder::write(vbsta prm_state) {
+    if (_write_realtime) {
+        _ofs_realtime << prm_state << " 1" << std::endl;
+    }
+
     if (_pFirstVBNote == NULL) {
         //新規
         _pFirstVBNote = NEW VBRecordNote(prm_state, 1);
@@ -65,9 +70,6 @@ void VBReplayRecorder::write(vbsta prm_state) {
         }
     }
 
-    if (_write_realtime) {
-        _ofs_realtime << prm_state << " 1" << std::endl;
-    }
 }
 
 void VBReplayRecorder::outputFile(const char* prm_filename) {

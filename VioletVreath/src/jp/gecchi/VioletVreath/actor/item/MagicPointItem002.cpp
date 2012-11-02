@@ -11,6 +11,10 @@ MagicPointItem002::MagicPointItem002(const char* prm_name)
 
 void MagicPointItem002::initialize() {
 }
+void MagicPointItem002::onActive() {
+    MagicPointItem::onActive();
+    _SX = _SY = _SZ = 5000; //BIG!
+}
 
 MagicPointItem002::~MagicPointItem002() {
 }

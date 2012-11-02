@@ -26,6 +26,11 @@ private :
 
 
 public:
+    /**
+     * コンストラクタ .
+     * @param prm_name
+     * @param prm_pStat
+     */
     GgafActorDepositoryStore(const char* prm_name, GgafStatus* prm_pStat = NULL);
 
     /**

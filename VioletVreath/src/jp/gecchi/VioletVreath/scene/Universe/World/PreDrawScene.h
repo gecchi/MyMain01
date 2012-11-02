@@ -1,8 +1,15 @@
 #ifndef PREDRAWSCENE_H_
 #define PREDRAWSCENE_H_
-
 namespace VioletVreath {
 
+/**
+ * 事前表示シーン .
+ * ゲームの前に各モデルのキャラを１キャラずつ出力し、
+ * モデルクラスをプリロードしておく。
+ * @version 1.00
+ * @since 2010/04/20
+ * @author Masatoshi Tsuge
+ */
 class PreDrawScene : public GgafLib::DefaultScene {
 
 public:

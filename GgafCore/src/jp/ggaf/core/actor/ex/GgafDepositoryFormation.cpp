@@ -6,7 +6,6 @@ GgafDepositoryFormation::GgafDepositoryFormation(const char* prm_name, frame prm
 {
     _class_name = "GgafDepositoryFormation";
     _pDepo = NULL;
-    _is_called_up = false;
     _is_all_called_up = false;
 }
 void GgafDepositoryFormation::setFormationAbleActorDepository(GgafActorDepository* prm_pDepo) {
@@ -74,7 +73,6 @@ GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
                                    "this="<<getName()<<" _num_sub="<<_num_sub);
     }
 #endif
-    _is_called_up = true;
     if (prm_formation_sub_num <= _num_sub) {
         _is_all_called_up = true;
         return NULL; //‚à‚¤‚±‚êˆÈãcallUpUntil•s‰Â

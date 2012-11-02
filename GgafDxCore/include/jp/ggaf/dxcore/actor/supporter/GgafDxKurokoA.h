@@ -896,7 +896,6 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
         }
     }
 
-
     /**
      * 移動方角に伴って軸回転方角を更新 .
      * true を設定すると、自動的に移動方角の方に向きが変わる。<BR>
@@ -944,9 +943,9 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvSequence(velo prm_end_velo, coord prm_target_distance,
-                              int prm_target_frames, float prm_p1, float prm_p2,
-                              bool prm_endacc_flg = true);
+    void execSmoothMvVeloSequence(velo prm_end_velo, coord prm_target_distance,
+                                  int prm_target_frames, float prm_p1, float prm_p2,
+                                  bool prm_endacc_flg = true);
 
 
     /**
@@ -984,9 +983,9 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_p2 減速を開始距離となるような、距離(D)に対する割合
      * @param prm_endacc_flg
      */
-    void execSmoothMvSequenceD(velo prm_top_velo, velo prm_end_velo,
-                               coord prm_target_distance, float prm_p1, float prm_p2,
-                               bool prm_endacc_flg = true);
+    void execSmoothMvVeloSequenceD(velo prm_top_velo, velo prm_end_velo,
+                                   coord prm_target_distance, float prm_p1, float prm_p2,
+                                   bool prm_endacc_flg = true);
 
 
     /**
@@ -1025,17 +1024,36 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(0.0～1.0)
      * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvSequenceT(velo prm_top_velo, velo prm_end_velo,
-                               int prm_target_frames, float prm_p1, float prm_p2,
-                               bool prm_endacc_flg = true);
+    void execSmoothMvVeloSequenceT(velo prm_top_velo, velo prm_end_velo,
+                                   int prm_target_frames, float prm_p1, float prm_p2,
+                                   bool prm_endacc_flg = true);
 
 
-
-
-//    void execSmoothMvSequence4(velo prm_end_velo, coord prm_target_distance, int prm_target_frames,
+//    void execSmoothMvVeloSequence4(velo prm_end_velo, coord prm_target_distance, int prm_target_frames,
 //                                   bool prm_endacc_flg = true);
-    bool isRunnigSmoothMvSequence();
-    bool isJustFinishSmoothMvSequence();
+
+
+    /**
+     * 現在「なめらかな移動速度シークエンス」が実行中か否か .
+     * 「なめらかな移動速度シークエンス」とは、<BR>
+     * execSmoothMvVeloSequence()<BR>
+     * execSmoothMvVeloSequenceD()<BR>
+     * execSmoothMvVeloSequenceT()<BR>
+     * の事。<BR>
+     * @return true:現在実行中 / false:そうではない
+     */
+    bool isRunnigSmoothMvVeloSequence();
+
+    /**
+     * 現フレームで「なめらかな移動速度シークエンス」が完了したか否か .
+     * 「なめらかな移動速度シークエンス」とは、<BR>
+     * execSmoothMvVeloSequence()<BR>
+     * execSmoothMvVeloSequenceD()<BR>
+     * execSmoothMvVeloSequenceT()<BR>
+     * の事。<BR>
+     * @return true:完了した / false:そうではない
+     */
+    bool isJustFinishSmoothMvVeloSequence();
 
     /**
      * 黒子Aの仕事を引継ぐ .

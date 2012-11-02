@@ -21,7 +21,10 @@ namespace VioletVreath {
 
 /**
  * 共通シーンクラス .
- * 2008/9/8
+ * 主な仕事は次のステージを決定することです。
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
  */
 class CommonScene : public GgafLib::DefaultScene {
 
@@ -48,6 +51,7 @@ public:
     /** 汎用出現エフェクトその３用、常備デポジトリ */
     GgafCore::GgafActorDepository* pDepo_EffectEntry003_;
 
+    GgafCore::GgafActorDepository* pDepo_SpriteLabelBonus001_;
 
     CommonScene(const char* prm_name);
     /**

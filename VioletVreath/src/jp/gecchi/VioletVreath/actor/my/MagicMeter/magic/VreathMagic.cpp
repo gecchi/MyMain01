@@ -14,7 +14,7 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
             4         , 2.0    //Šî–{ˆÛƒRƒXƒg , {‚PƒŒƒxƒ‹–ˆ‚ÌˆÛƒRƒXƒg‚Ìæ—¦
         ) {
 
-
+    //¶—ñ‘I‘ğ‰Â”\ó‘ÔA‰E—ñ‘I‘ğ•s‰Âó‘Ô
     //    | 0          |  1         |  2 Lockon‡Z |  3 Lockon‡Z |  4 Vreath‡Z|  5 Vreath‡Z|  6 Tractor‡Z|  7 Tractor‡Z|
     //    | 8          |  9         | 10 Lockon‡Y | 11 Lockon‡Y | 12 Vreath‡Y| 13 Vreath‡Y| 14 Tractor‡Y| 15 Tractor‡Y|
     //    | 16         | 17         | 18 Lockon‡X | 19 Lockon‡X | 20 Vreath‡X| 21 Vreath‡X| 22 Tractor‡X| 23 Tractor‡X|
@@ -22,7 +22,7 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
     //    | 32         | 33         | 34 Lockon‡V | 35 Lockon‡V | 36 Vreath‡V| 37 Vreath‡V| 38 Tractor‡V| 39 Tractor‡V|
     //    | 40 Option‡]| 41 Option‡]| 42 Lockon‡U | 43 Lockon‡U | 44 Vreath‡U| 45 Vreath‡U| 46 Tractor‡U| 47 Tractor‡U|
     //    | 48 Option‡\| 49 Option‡\| 50 Lockon‡T | 51 Lockon‡T | 52 Vreath‡T| 53 Vreath‡T| 54 Tractor‡T| 55 Tractor‡T|
-    //    | 56 Option‡[| 57 Option‡[| 58 Empty    | 59 Empty    | 60 Empt  y | 61 Empty   | 62 Empty    | 63 Empty    |
+    //    | 56 Option‡[| 57 Option‡[| 58 Empty    | 59 Empty    | 60 Empty   | 61 Empty   | 62 Empty    | 63 Empty    |
     //    | 64 Option‡Z| 65 Option‡Z| 66 Torpedo‡Z| 67 Torpedo‡Z| 68 Laser‡Z | 69 Laser‡Z | 70 Speed‡Z  | 71 Speed‡Z  |
     //    | 72 Option‡Y| 73 Option‡Y| 74 Torpedo‡Y| 75 Torpedo‡Y| 76 Laser‡Y | 77 Laser‡Y | 78 Speed‡Y  | 79 Speed‡Y  |
     //    | 80 Option‡X| 81 Option‡X| 82 Torpedo‡X| 83 Torpedo‡X| 84 Laser‡X | 85 Laser‡X | 86 Speed‡X  | 87 Speed‡X  |
@@ -61,7 +61,7 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
 //    beat_time_[6] = beat_time_[5]/2;
 //    beat_time_[7] = beat_time_[6]/2;
 
-    //–ˆƒtƒŒ[ƒ€‰ÁZ‚³‚ê‚éVreathæ—¦A–‘OŒvZ
+    //–ˆƒtƒŒ[ƒ€‰ÁZ‚³‚ê‚éVreathæ—¦ƒe[ƒuƒ‹
     for (int lv = 0; lv <= max_level_; lv++) {
         //r_add_vreath_ = - sqrt((max_lv-1)^2 - (lv-1)^2) + max_lv
         //max_level=7 ‚Ìê‡
@@ -137,6 +137,7 @@ void VreathMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int 
 
 int VreathMagic::effect(int prm_level) {
     int r = Magic::effect(prm_level);
+    //ƒŒƒxƒ‹‚Ì’l‚É‰‚¶‚ÄAprocessEffectingBehavior()‚É‚ÄŒÄ‹z‚ğ‚¨‚±‚È‚¤‚Ì‚ÅA‚±‚±‚Å‚Ìİ’è‚Í“Á‚É–³‚¢B
     return r;
 }
 

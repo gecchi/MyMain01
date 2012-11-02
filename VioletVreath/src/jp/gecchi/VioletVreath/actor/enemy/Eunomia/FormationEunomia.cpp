@@ -39,18 +39,12 @@ void FormationEunomia::onActive() {
 }
 
 void FormationEunomia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
-    //編隊消滅時の実験
-    EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
-    if (pTurbo002) {
-        pTurbo002->locateWith((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
-    }
+    GgafDxGeometricActor* pActor_LastDestroyed = (GgafDxGeometricActor*)prm_pActor_LastDestroyed;
+    //編隊全滅時エフェクト出現（スコア加算も行われる）
+    UTIL::activateFormationDestroyedEffectOf(pActor_LastDestroyed);
     //編隊全滅アイテム出現
-    Item* pItem = employFromCommon(MagicPointItem002);
-    if (pItem) {
-        pItem->locateWith((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
-    }
+    UTIL::activateFormationDestroyedItemOf(pActor_LastDestroyed);
 }
-
 
 void FormationEunomia::processBehavior() {
     if (! isAllCalledUp() && (getActivePartFrame() % RR_interval_frames_ == 0)) {
@@ -65,7 +59,6 @@ void FormationEunomia::processBehavior() {
             }
         }
     }
-
 
     if (getActivePartFrame() == 60 * 20) {
         MyShip* pMy = P_MYSHIP;

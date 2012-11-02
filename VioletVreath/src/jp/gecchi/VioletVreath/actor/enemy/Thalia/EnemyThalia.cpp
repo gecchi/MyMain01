@@ -57,8 +57,8 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
-    _pKurokoA->execSmoothMvSequenceD(veloTopMv_, 1000,
-                                     MyShip::lim_front_-_X, 0.4, 0.6);
+    _pKurokoA->execSmoothMvVeloSequenceD(veloTopMv_, 1000,
+                                         MyShip::lim_front_-_X, 0.4, 0.6);
     _pProg->set(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
 
@@ -72,7 +72,7 @@ void EnemyThalia::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_MOVE: {
-            if (!_pKurokoA->isRunnigSmoothMvSequence()) {
+            if (!_pKurokoA->isRunnigSmoothMvVeloSequence()) {
                 _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
                 _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                  0, 100,
@@ -118,8 +118,8 @@ void EnemyThalia::processBehavior() {
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60); //閉じる
-            _pKurokoA->execSmoothMvSequenceD(veloTopMv_, 1000, 1500000, 0.4, 0.6);
-//            _pKurokoA->execSmoothMvSequence(200, 1000000, 180);
+            _pKurokoA->execSmoothMvVeloSequenceD(veloTopMv_, 1000, 1500000, 0.4, 0.6);
+//            _pKurokoA->execSmoothMvVeloSequence(200, 1000000, 180);
             _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(PROG_MOVE);
             break;

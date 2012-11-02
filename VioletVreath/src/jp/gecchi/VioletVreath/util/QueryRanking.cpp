@@ -8,8 +8,8 @@ using namespace VioletVreath;
 QueryRanking::QueryRanking() : GgafQuery() {
 }
 void QueryRanking::init() {
-    if (PathFileExists(QUERYRANKING_FILE) ) {
-        importFromFile(QUERYRANKING_FILE);
+    if (PathFileExists(QUERYRANKING_DATA_FILE) ) {
+        importFromFile(QUERYRANKING_DATA_FILE);
     } else {
         std::string default_name = std::string(QUERYRANKING_NAME_LEN, '.');
         for (int i = 0; i < QUERYRANKING_RECORD_NUM; i++) {
@@ -28,7 +28,7 @@ void QueryRanking::addRow(std::string& prm_name, int prm_score) {
 }
 
 void QueryRanking::sort() {
-    sortDescBy("SCORE","DATE",false);
+    sortDescBy("SCORE","REGDATE",false);
     if (getCount() > QUERYRANKING_RECORD_NUM) {
         removeRows(QUERYRANKING_RECORD_NUM);
     }
@@ -45,7 +45,7 @@ bool QueryRanking::isRankIn(int prm_score) {
 }
 
 void QueryRanking::save() {
-    exportToFile(QUERYRANKING_FILE);
+    exportToFile(QUERYRANKING_DATA_FILE);
 }
 
 QueryRanking::~QueryRanking() {

@@ -355,7 +355,10 @@ public:
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void throwEventToLowerTree(hashval prm_no, void* prm_pSource = NULL);
+    virtual void throwEventToLowerTree(hashval prm_no, void* prm_pSource);
+    virtual void throwEventToLowerTree(hashval prm_no) {
+        throwEventToLowerTree(prm_no, this);
+    }
 
     /**
      * 配下ノード全てにイベントメッセージを通知します(実行対象：所属の親全て) .
@@ -363,8 +366,10 @@ public:
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void throwEventToUpperTree(hashval prm_no, void* prm_pSource = NULL);
-
+    virtual void throwEventToUpperTree(hashval prm_no, void* prm_pSource);
+    virtual void throwEventToUpperTree(hashval prm_no) {
+        throwEventToUpperTree(prm_no, this);
+    }
 
     /**
      * イベント発生時のコールバック .

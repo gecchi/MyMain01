@@ -107,7 +107,7 @@ void MenuBoard::onRisen() {
     locate(target_X_ + slide_from_offset_X_,
            target_Y_ + slide_from_offset_Y_);
     _pKurokoA->setMvAng(target_X_, target_Y_);
-    _pKurokoA->execSmoothMvSequence(
+    _pKurokoA->execSmoothMvVeloSequence(
                     0,
                     UTIL::getDistance(
                         _X,
@@ -121,7 +121,7 @@ void MenuBoard::onRisen() {
 }
 
 void MenuBoard::processBehavior() {
-    if (_pKurokoA->isRunnigSmoothMvSequence()) {
+    if (_pKurokoA->isRunnigSmoothMvVeloSequence()) {
         //スライド中
     } else {
         //スライド終了時、目的の座標へ補正
@@ -141,7 +141,7 @@ void MenuBoard::onSunk() {
     //スライドアウトトランジション
     _pKurokoA->setMvAng(target_X_ + slide_from_offset_X_,
                         target_Y_ + slide_from_offset_Y_);
-    _pKurokoA->execSmoothMvSequence(
+    _pKurokoA->execSmoothMvVeloSequence(
                     0,
                     UTIL::getDistance(
                         _X,

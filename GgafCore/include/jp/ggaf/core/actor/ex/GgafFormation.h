@@ -18,9 +18,9 @@ public:
     int _num_sub;
     /** [r]破壊による消滅したアクター数 (所属アクターの informDestroyedFollower() により増加)*/
     int _num_destory;
-    /** フォーメーション要員が全滅した際に自身を解放する猶予フレーム */
+    /** [r]フォーメーション要員が全滅した際に自身を解放する猶予フレーム。下位クラスで、sayonaraの引数になる。 */
     frame _offset_frames_end;
-    /** 全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
+    /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
 
     /**

@@ -3,6 +3,7 @@
 namespace VioletVreath {
 
 /**
+ * ステージ01の壁 .
  * @version 1.00
  * @since 2010/08/23
  * @author Masatoshi Tsuge

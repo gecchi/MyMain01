@@ -1339,7 +1339,7 @@ void GgafDxGod::presentUniversalVisualize() {
             //モデル解放
             GgafDxGod::_pModelManager->onDeviceLostAll();
             //全ノードに解放しなさいイベント発令
-            getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
+            getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST);
             _TRACE_("【デバイスロスト処理】リソース解放 <-------- END");
             _is_device_lost_flg = true;
         }
@@ -1415,7 +1415,7 @@ void GgafDxGod::presentUniversalVisualize() {
         //モデル再設定
         GgafDxGod::_pModelManager->restoreAll();
         //全ノードに再設定しなさいイベント発令
-        getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY, this);
+        getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
         //前回描画モデル情報を無効にする
         GgafDxModelManager::_pModelLastDraw = NULL;
         _is_device_lost_flg = false;

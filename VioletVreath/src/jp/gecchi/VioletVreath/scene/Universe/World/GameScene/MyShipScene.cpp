@@ -147,7 +147,7 @@ void MyShipScene::processBehavior() {
                 zanki_ -= 1;
             }
             if (_pProg->getFrameInProgress() == 120) {
-                fadeoutSceneWithBgm(120);
+                fadeoutScene(120);
                 pMyShip_->inactivateDelay(120);
             }
             if (_pProg->getFrameInProgress() == 240) {
