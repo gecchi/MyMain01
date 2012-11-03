@@ -22,14 +22,13 @@ void SpriteLabelBonus001::initialize() {
 }
 
 void SpriteLabelBonus001::onActive() {
-    _pKurokoA->setMvAng(P_CAM);
-    _pKurokoA->setMvVelo(2000);
+    _pKurokoA->execTurnMvAngSequence(P_CAM, D_ANG(10), 0, TURN_CLOSE_TO, true);
     _pKurokoA->setMvAcce(300);
 }
 
 void SpriteLabelBonus001::processBehavior() {
     _pKurokoA->behave();
-    if (getActivePartFrame() == 60*5) {
+    if (getActivePartFrame() == 60*10) {
         sayonara();
     }
 }

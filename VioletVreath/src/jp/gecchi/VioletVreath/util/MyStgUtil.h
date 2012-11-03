@@ -297,7 +297,10 @@ public:
             case 1: {
                 //1は通常のフォーメーションボーナススコア表示エフェクト
                 SpriteLabelBonus001* pLabel = employForceFromCommon(SpriteLabelBonus001);
+                pLabel->locateWith(prm_pActor);
+                pLabel->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
                 pLabel->executeEffectBonus(addscore);
+                pE = pLabel;
                 break;
             }
 //            case 2: {
@@ -315,11 +318,11 @@ public:
             }
         }
 
-        if (pE) {
-            //出現座標を設定
-            pE->locateWith(prm_pActor);
-            pE->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
-        }
+//        if (pE) {
+//            //出現座標を設定
+//            pE->locateWith(prm_pActor);
+//            pE->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+//        }
         return pE;
     }
 
