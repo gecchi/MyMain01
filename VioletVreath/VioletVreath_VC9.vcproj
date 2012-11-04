@@ -706,10 +706,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePauseScene.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePreTitleScene.cpp"
 				>
 			</File>
@@ -783,6 +779,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelSceneSymbol.cpp"
 				>
 			</File>
 			<File
@@ -1035,6 +1035,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.cpp"
 				>
 			</File>
 			<File
@@ -1808,10 +1812,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePauseScene.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePreTitleScene.h"
 				>
 			</File>
@@ -1885,6 +1885,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelSceneSymbol.h"
 				>
 			</File>
 			<File
@@ -2137,6 +2141,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.h"
 				>
 			</File>
 			<File
