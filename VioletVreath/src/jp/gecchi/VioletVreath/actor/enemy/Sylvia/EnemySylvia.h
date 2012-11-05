@@ -77,7 +77,7 @@ protected:
      * @param prm_angPos1 —Ö‚ÌŠp“xˆÊ’u
      * @param prm_angPos2 —ÖŽü‚è‚ÌŠp“xˆÊ’u
      */
-    void addSubFkOnSurface(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2);
+    void addSubGroupAsFkOnSurface(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2);
 
 };
 

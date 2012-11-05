@@ -21,8 +21,6 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void executeEffectBonus(int bonus_point);
-
     virtual ~SpriteLabelBonus001();
 
 };

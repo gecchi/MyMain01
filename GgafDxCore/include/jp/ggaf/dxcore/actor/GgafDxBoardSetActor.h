@@ -34,14 +34,14 @@ private:
      * 使用不可のため、privateでoverride
      * @return
      */
-    GgafCore::GgafGroupHead* addSubFk(actorkind prm_kind,
-                                        GgafDxGeometricActor* prm_pGeoActor,
-                                        int prm_X_init_local,
-                                        int prm_Y_init_local,
-                                        int prm_Z_init_local,
-                                        int prm_RX_init_local,
-                                        int prm_RZ_init_local,
-                                        int prm_RY_init_local) override {
+    GgafCore::GgafGroupHead* addSubGroupAsFk(actorkind prm_kind,
+                                             GgafDxGeometricActor* prm_pGeoActor,
+                                             int prm_X_init_local,
+                                             int prm_Y_init_local,
+                                             int prm_Z_init_local,
+                                             int prm_RX_init_local,
+                                             int prm_RY_init_local,
+                                             int prm_RZ_init_local) override {
         return NULL;
     }
 
@@ -49,13 +49,13 @@ private:
      * 使用不可のため、privateでoverride
      * @return
      */
-    GgafCore::GgafGroupHead* addSubFk(GgafDxGeometricActor* prm_pGeoActor,
-                                        int prm_X_init_local,
-                                        int prm_Y_init_local,
-                                        int prm_Z_init_local,
-                                        int prm_RX_init_local,
-                                        int prm_RZ_init_local,
-                                        int prm_RY_init_local) override {
+    GgafCore::GgafGroupHead* addSubGroupAsFk(GgafDxGeometricActor* prm_pGeoActor,
+                                             int prm_X_init_local,
+                                             int prm_Y_init_local,
+                                             int prm_Z_init_local,
+                                             int prm_RX_init_local,
+                                             int prm_RY_init_local,
+                                             int prm_RZ_init_local) override {
         return NULL;
     }
 

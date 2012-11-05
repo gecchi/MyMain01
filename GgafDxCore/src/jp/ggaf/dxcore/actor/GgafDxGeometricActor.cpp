@@ -115,8 +115,8 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     //デフォルトでは、_matWorldRotMv = 回転変換行列 × 平行移動変換行列
     //                _matWorld      = スケール変換行列 × _matWorldRotMv となるようにしている。
     //つまり _matWorld = 拡大縮小＞回転＞平行移動
-    //_matWorldRotMv は addSubFk() 実行時に使用されるために作成している。
-    //従って addSubFk() を使用しないならば、processSettlementBehavior() をオーバーライドし、
+    //_matWorldRotMv は addSubGroupAsFk() 実行時に使用されるために作成している。
+    //従って addSubGroupAsFk() を使用しないならば、processSettlementBehavior() をオーバーライドし、
     //変換行列作成をもっと単純化することで、少し最適化が可能。
 
     if (_pActor_Base) {
@@ -181,14 +181,14 @@ void GgafDxGeometricActor::processSettlementBehavior() {
 }
 
 
-GgafGroupHead* GgafDxGeometricActor::addSubFk(actorkind prm_kind,
-                                              GgafDxGeometricActor* prm_pGeoActor,
-                                              coord prm_X_init_local,
-                                              coord prm_Y_init_local,
-                                              coord prm_Z_init_local,
-                                              coord prm_RX_init_local,
-                                              coord prm_RZ_init_local,
-                                              coord prm_RY_init_local) {
+GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
+                                                     GgafDxGeometricActor* prm_pGeoActor,
+                                                     coord prm_X_init_local,
+                                                     coord prm_Y_init_local,
+                                                     coord prm_Z_init_local,
+                                                     coord prm_RX_init_local,
+                                                     coord prm_RY_init_local,
+                                                     coord prm_RZ_init_local) {
     GgafGroupHead* pGroupHead = addSubGroup(prm_kind, prm_pGeoActor);
     prm_pGeoActor->_pActor_Base = this;
     prm_pGeoActor->changeGeoLocal();
@@ -196,31 +196,31 @@ GgafGroupHead* GgafDxGeometricActor::addSubFk(actorkind prm_kind,
     prm_pGeoActor->_Y = prm_Y_init_local;
     prm_pGeoActor->_Z = prm_Z_init_local;
     prm_pGeoActor->_pKurokoA->_angFace[AXIS_X]  = prm_RX_init_local;
-    prm_pGeoActor->_pKurokoA->_angFace[AXIS_Z]  = prm_RZ_init_local;
     prm_pGeoActor->_pKurokoA->_angFace[AXIS_Y]  = prm_RY_init_local;
+    prm_pGeoActor->_pKurokoA->_angFace[AXIS_Z]  = prm_RZ_init_local;
     prm_pGeoActor->_pKurokoA->_angRzMv = prm_RZ_init_local;
     prm_pGeoActor->_pKurokoA->_angRyMv = prm_RY_init_local;
     prm_pGeoActor->_RX = prm_RX_init_local;
-    prm_pGeoActor->_RZ = prm_RZ_init_local;
     prm_pGeoActor->_RY = prm_RY_init_local;
+    prm_pGeoActor->_RZ = prm_RZ_init_local;
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;
 }
-GgafGroupHead* GgafDxGeometricActor::addSubFk(GgafDxGeometricActor* prm_pGeoActor,
-                                              coord prm_X_init_local,
-                                              coord prm_Y_init_local,
-                                              coord prm_Z_init_local,
-                                              coord prm_RX_init_local,
-                                              coord prm_RZ_init_local,
-                                              coord prm_RY_init_local) {
-    return addSubFk(prm_pGeoActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND),
-                    prm_pGeoActor,
-                    prm_X_init_local,
-                    prm_Y_init_local,
-                    prm_Z_init_local,
-                    prm_RX_init_local,
-                    prm_RZ_init_local,
-                    prm_RY_init_local);
+GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(GgafDxGeometricActor* prm_pGeoActor,
+                                                     coord prm_X_init_local,
+                                                     coord prm_Y_init_local,
+                                                     coord prm_Z_init_local,
+                                                     coord prm_RX_init_local,
+                                                     coord prm_RY_init_local,
+                                                     coord prm_RZ_init_local) {
+    return addSubGroupAsFk(prm_pGeoActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND),
+                           prm_pGeoActor,
+                           prm_X_init_local,
+                           prm_Y_init_local,
+                           prm_Z_init_local,
+                           prm_RX_init_local,
+                           prm_RY_init_local,
+                           prm_RZ_init_local);
 }
 
 bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {

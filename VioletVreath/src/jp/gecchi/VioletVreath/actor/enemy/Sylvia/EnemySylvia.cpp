@@ -14,7 +14,7 @@ EnemySylvia::EnemySylvia(const char* prm_name, const char* prm_model, coord prm_
     useProgress(PROG_NOTHING);
 }
 
-void EnemySylvia::addSubFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
+void EnemySylvia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
     //トーラスモデルはZY平面に円
     //位置を求める
     //平行移動( +r2_, +0, +0) > angPos2のY軸回転 > 平行移動( +0, +0, -r1_) > angPos1のX軸回転 変換行列の dx, dy, dz が欲しい
@@ -41,7 +41,7 @@ void EnemySylvia::addSubFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle p
     angle angRz, angRy;
     UTIL::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
     //ボーンとして追加
-    this->addSubFk(prm_pGeoActor, X, Y, Z, D0ANG, angRz, angRy);
+    this->addSubGroupAsFk(prm_pGeoActor, X, Y, Z, D0ANG, angRy, angRz);
 }
 
 void EnemySylvia::makeCollisionArea(int prm_nSphere){

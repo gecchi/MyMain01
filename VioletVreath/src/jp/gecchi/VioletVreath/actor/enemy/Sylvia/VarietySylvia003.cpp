@@ -9,7 +9,7 @@ VarietySylvia003::VarietySylvia003(const char* prm_name) : EnemySylvia(prm_name,
     for (angle angPos1 = D0ANG; angPos1 < D360ANG;  angPos1 += D_ANG(60)) {
         for (angle angPos2 = D0ANG; angPos2 < D360ANG;  angPos2 += D_ANG(20)) {
             EnemyRomulus* p = NEW EnemyRomulus("pEV1");
-            addSubFkOnSurface(p, angPos1, angPos2);
+            addSubGroupAsFkOnSurface(p, angPos1, angPos2);
             Sleep(1);
         }
     }

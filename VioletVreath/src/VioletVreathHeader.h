@@ -479,6 +479,11 @@ class EnemyHesperiaLaserChip001;
 
 class EnemyAtalante;
 
+class EnemyHermione;
+class EnemyHermioneArm;
+class EnemyHermioneArmBody;
+class EnemyHermioneArmHead;
+
 class DepositoryConnection;
 class DepositoryManager;
 
@@ -799,6 +804,10 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperiaLaserChip001.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Atalante/EnemyAtalante.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermione.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmBody.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmHead.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylvia.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia001.h"

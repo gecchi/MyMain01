@@ -248,9 +248,9 @@ public:
     }
 
     /**
-     * スケールを値で設定。
+     * X軸Y軸Z軸各軸スケール(_SX, _SY, _SZ)を同じ値で設定。
      * 【注意】
-     * _pScaler->behave(); が存在すると無意味になります。
+     * _pScaler->behave(); が存在すると上書きされますよ。
      * @param S スケール値(1000 で 1.0倍)
      */
     virtual void setScale(scale S) {
@@ -260,6 +260,14 @@ public:
         setBoundingSphereRadiusRate(SC_R(S));
     }
 
+    /**
+     * X軸Y軸Z軸スケール(_SX, _SY, _SZ)をそれぞれ値で設定。
+     * 【注意】
+     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * @param SX X軸スケール値(1000 で 1.0倍)
+     * @param SY Y軸スケール値(1000 で 1.0倍)
+     * @param SZ Z軸スケール値(1000 で 1.0倍)
+     */
     virtual void setScale(scale SX, scale SY, scale SZ) {
         _SX = SX;
         _SY = SY;
@@ -267,6 +275,13 @@ public:
         setBoundingSphereRadiusRate(SC_R(MAX3(_SX,_SY,_SZ)));
     }
 
+    /**
+     * X軸Y軸スケール(_SX, _SY)のみを値で設定。
+     * 【注意】
+     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * @param SX X軸スケール値(1000 で 1.0倍)
+     * @param SY Y軸スケール値(1000 で 1.0倍)
+     */
     virtual void setScale(scale SX, scale SY) {
         _SX = SX;
         _SY = SY;
@@ -274,10 +289,10 @@ public:
     }
 
     /**
-     * スケールを割合で設定。
-     * 1.0 で 1.0倍。
+     * X軸Y軸Z軸全ての軸スケールを割合で設定。
+     * 1.0 で 元のモデルの大きさから1.0倍。
      * 【注意】
-     * _pScaler->behave(); が存在すると無意味になります。
+     * _pScaler->behave(); が存在すると上書きされますよ！。
      * @param prm_rate 倍率
      */
     virtual void setScaleR(float prm_rate) {
@@ -287,18 +302,42 @@ public:
         setBoundingSphereRadiusRate(prm_rate);
     }
 
+    /**
+     * X軸Y軸Z軸各軸スケールを割合で設定。
+     * 1.0 で 元のモデルの大きさから1.0倍。
+     * 【注意】
+     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * @param prm_x_rate X軸倍率
+     * @param prm_y_rate Y軸倍率
+     * @param prm_z_rate Z軸倍率
+     */
     virtual void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) {
         _SX = R_SC(prm_x_rate);
         _SY = R_SC(prm_y_rate);
         _SZ = R_SC(prm_z_rate);
         setBoundingSphereRadiusRate(MAX3(prm_x_rate, prm_y_rate, prm_z_rate));
     }
+
+    /**
+     * X軸Y軸のみスケールを割合で設定。
+     * 1.0 で 元のモデルの大きさから1.0倍。
+     * 【注意】
+     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * @param prm_x_rate X軸倍率
+     * @param prm_y_rate Y軸倍率
+     */
     virtual void setScaleR(float prm_x_rate, float prm_y_rate) {
         _SX = R_SC(prm_x_rate);
         _SY = R_SC(prm_y_rate);
         setBoundingSphereRadiusRate(MAX3(prm_x_rate, prm_y_rate, SC_R(_SZ)));
     }
 
+    /**
+     * X軸Y軸Z軸各軸スケール(_SX, _SY, _SZ)を同じ値で加算。
+     * 【注意】
+     * _pScaler->behave(); が存在すると上書きされますよ！。
+     * @param dS 加算するスケール値
+     */
     virtual void addScale(scale dS) {
         _SX += dS;
         _SY += dS;
@@ -307,7 +346,7 @@ public:
     }
 
     /**
-     * 未変換座標をコピーして設定 .
+     * 座標(_X, _Y, _Z)をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
     virtual void locateWith(GgafDxGeometricActor* prm_pActor) {
@@ -317,7 +356,7 @@ public:
     }
 
     /**
-     * 未変換座標をコピーして設定 .
+     * 座標(_X, _Y, _Z)をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
     virtual void locateWith(GgafDxGeoElem* prm_pGeoElem);
@@ -327,8 +366,19 @@ public:
      * @param prm_pActor コピー元アクター
      */
     virtual void rotateWith(GgafDxGeometricActor* prm_pActor);
+
+    /**
+     * 回転角度(_RX, _RY, _RZ)をコピーして設定 .
+     * @param prm_pGeoElem 座標オブジェクト
+     */
     virtual void rotateWith(GgafDxGeoElem* prm_pGeoElem);
+
+    /**
+     * X軸Y軸Z軸スケール(_SX, _SY, _SZ)をコピーして設定 .
+     * @param prm_pActor コピー元アクター
+     */
     virtual void scaleWith(GgafDxGeometricActor* prm_pActor);
+
     /**
      * 自身の内部ワールド変換(_matWorldRotMv) の逆行列を未計算なら計算し、計算済みならそのまま返す .
      * @return _matInvWorldRotMv
@@ -343,26 +393,60 @@ public:
         }
     }
 
-
-    virtual GgafCore::GgafGroupHead* addSubFk(actorkind prm_kind,
-                                              GgafDxGeometricActor* prm_pGeoActor,
-                                              int prm_X_init_local,
-                                              int prm_Y_init_local,
-                                              int prm_Z_init_local,
-                                              int prm_RX_init_local,
-                                              int prm_RZ_init_local,
-                                              int prm_RY_init_local);
-
-    virtual GgafCore::GgafGroupHead* addSubFk(GgafDxGeometricActor* prm_pGeoActor,
-                                              int prm_X_init_local,
-                                              int prm_Y_init_local,
-                                              int prm_Z_init_local,
-                                              int prm_RX_init_local,
-                                              int prm_RZ_init_local,
-                                              int prm_RY_init_local);
+    /**
+     * 引数のアクターを、自身のサブアクターとして追加し、姿勢をフォワードキネマティクスで設定する。
+     * 引数の従属アクターは、次の２つのメソッドの使用が可能となります。 <BR>
+     * _X,_Y,_Z,_RX,_RY,_RZ をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
+     * _X,_Y,_Z,_RX,_RY,_RZ 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
+     * 【注意】<BR>
+     * 黒子A(_pKurokoA) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
+     * @param prm_kind     種別
+     * @param prm_pGeoActor 従属させるアクター
+     * @param prm_X_init_local  従属アクターのローカル(this)位置からのX座標位置
+     * @param prm_Y_init_local  従属アクターのローカル(this)位置からのY座標位置
+     * @param prm_Z_init_local  従属アクターのローカル(this)位置からのZ座標位置
+     * @param prm_RX_init_local 従属アクターのローカル(this)回転からのX軸回転値
+     * @param prm_RY_init_local 従属アクターのローカル(this)回転からのY軸回転値
+     * @param prm_RZ_init_local 従属アクターのローカル(this)回転からのZ軸回転値
+     * @return 種別トップの団長
+     */
+    virtual GgafCore::GgafGroupHead* addSubGroupAsFk(actorkind prm_kind,
+                                                     GgafDxGeometricActor* prm_pGeoActor,
+                                                     int prm_X_init_local,
+                                                     int prm_Y_init_local,
+                                                     int prm_Z_init_local,
+                                                     int prm_RX_init_local,
+                                                     int prm_RY_init_local,
+                                                     int prm_RZ_init_local);
 
     /**
-     * 座標系をローカル(土台からの相対座標)に変換 .
+     * 引数のアクターを、自身のサブアクターとして追加し、姿勢をフォワードキネマティクスで設定する。
+     * 引数の従属アクターは、次の２つのメソッドの使用が可能となります。 <BR>
+     * _X,_Y,_Z,_RX,_RY,_RZ をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
+     * _X,_Y,_Z,_RX,_RY,_RZ 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
+     * 【注意】<BR>
+     * 黒子A(_pKurokoA) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
+     * @param prm_pGeoActor 従属させるアクター
+     * @param prm_X_init_local  従属アクターのローカル(this)位置からのX座標位置
+     * @param prm_Y_init_local  従属アクターのローカル(this)位置からのY座標位置
+     * @param prm_Z_init_local  従属アクターのローカル(this)位置からのZ座標位置
+     * @param prm_RX_init_local 従属アクターのローカル(this)回転からのX軸回転値
+     * @param prm_RY_init_local 従属アクターのローカル(this)回転からのY軸回転値
+     * @param prm_RZ_init_local 従属アクターのローカル(this)回転からのZ軸回転値
+     * @return 種別トップの団長
+     */
+    virtual GgafCore::GgafGroupHead* addSubGroupAsFk(GgafDxGeometricActor* prm_pGeoActor,
+                                                     int prm_X_init_local,
+                                                     int prm_Y_init_local,
+                                                     int prm_Z_init_local,
+                                                     int prm_RX_init_local,
+                                                     int prm_RY_init_local,
+                                                     int prm_RZ_init_local);
+
+    /**
+     * 座標系(_X,_Y,_Z,_RX,_RY,_RZ )をローカル(土台からの相対座標)に変換 .
      */
     virtual void changeGeoLocal() {
         if (_is_local) {
@@ -385,7 +469,7 @@ public:
     }
 
     /**
-     * 座標系を絶対座標に変換 .
+     * 座標系(_X,_Y,_Z,_RX,_RY,_RZ)を絶対座標に変換 .
      */
     virtual void changeGeoFinal() {
         if (_is_local) {

@@ -1226,4 +1226,67 @@ using namespace VioletVreath;
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
+	GgafStatus* MyStgUtil::resetEnemyHermioneStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 300 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 3000 );  //体力
+		p->set(STAT_Attack, 100 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
+		return p;
+	}
+	GgafStatus* MyStgUtil::resetEnemyHermioneArmHeadStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 300 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 3000 );  //体力
+		p->set(STAT_Attack, 100 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
+		return p;
+	}
+	GgafStatus* MyStgUtil::resetEnemyHermioneArmBodyStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 0 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 3000 );  //体力
+		p->set(STAT_Attack, 100 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
+		return p;
+	}
 // gen02 end
