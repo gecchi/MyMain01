@@ -27,8 +27,9 @@ public:
     angle aim_movable_limit_ang_;
 
     /** [r/w]ハッチから発射されるアクターをメンバーに持つデポジトリ */
-    GgafCore::GgafActorDepository* pDepo_Fired_;
     DepositoryConnection* pDpcon_;
+    GgafCore::GgafActorDepository* pDepo_Fired_;
+
 
     /**
      * コンストラクタ

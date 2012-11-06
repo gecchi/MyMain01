@@ -15,11 +15,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,4100,5000,9100,10000,19100,20000,29100,30000};
-	_paFrame_NextEvent = new frame[10];
+	frame f[] = {1,200};
+	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 10;
-	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
+	_event_num = 2;
+	orderActorToFactory(10000000, EnemyHermione, "EnemyHermione-1");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -37,58 +37,18 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 100: {
-				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
-				addSubLast(pScene);
-				_pBgmPerformer->play_fadein(0);
-				break;
-			}
-			case 4100: {
-				orderSceneToFactory(10000002, Stage01WalledScene, "GroStage01WalledScene");
-				break;
-			}
-			case 5000: {
-				Stage01WalledScene* pWScene = (Stage01WalledScene*)obtainSceneFromFactory(10000002);
-				addSubLast(pWScene);
-				break;
-			}
-			case 9100: {
-				orderSceneToFactory(10000001, Stage01_02, "Stage01_02");
-				break;
-			}
-			case 10000: {
-				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
-				addSubLast(pScene);
-				_pBgmPerformer->fadeout_stop(0);
-				_pBgmPerformer->play_fadein(1);
-				break;
-			}
-			case 19100: {
-				orderSceneToFactory(10000003, Stage01_03, "Stage01_03");
-				break;
-			}
-			case 20000: {
-				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000003);
-				addSubLast(pScene);
-				_pBgmPerformer->fadeout_stop(1);
-				_pBgmPerformer->play_fadein(2);
-				break;
-			}
-			case 29100: {
-				orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
-				break;
-			}
-			case 30000: {
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
-				addSubLast(pScene);
-				_pBgmPerformer->fadeout_stop(2);
-				_pBgmPerformer->play_fadein(3);
+			case 200: {
+				EnemyHermione* p = (EnemyHermione*)obtainActorFromFactory(10000000);
+				getDirector()->addSubGroup(p);
+				p->_X = 500000;
+				p->_Y = 300000;
+				p->_Z = 100000;
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 10-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

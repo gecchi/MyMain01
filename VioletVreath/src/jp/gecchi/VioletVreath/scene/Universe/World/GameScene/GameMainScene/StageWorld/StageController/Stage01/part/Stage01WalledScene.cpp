@@ -65,7 +65,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 	_paFrame_NextEvent = new frame[15];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 15;
-	orderActorToFactory(20000006, FormationThalia, "FormationThalia_1");
+	orderActorToFactory(20000006, FormationThalia, "FormationThalia-1");
     // gen01 end
 }
 
@@ -94,7 +94,7 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 200: {
-				orderActorToFactory(20000004, FormationEunomia001a, "F001a_Eunomia_2");
+				orderActorToFactory(20000004, FormationEunomia001a, "FormationEunomia001a-2");
 				break;
 			}
 			case 1000: {
@@ -108,12 +108,12 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 2200: {
-				orderActorToFactory(20000007, FormationThalia, "FormationThalia_3");
+				orderActorToFactory(20000007, FormationThalia, "FormationThalia-3");
 				break;
 			}
 			case 3200: {
-				orderActorToFactory(20000000, EnemyHesperia, "EnemyHesperia_4");
-				orderActorToFactory(20000003, VarietySylvia003, "VarietySylvia003_5");
+				orderActorToFactory(20000000, EnemyHesperia, "EnemyHesperia-4");
+				orderActorToFactory(20000003, VarietySylvia003, "VarietySylvia003-5");
 				break;
 			}
 			case 4000: {
@@ -122,7 +122,7 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 4200: {
-				orderActorToFactory(20000005, FormationEunomia001b, "F001b_Eunomia_6");
+				orderActorToFactory(20000005, FormationEunomia001b, "FormationEunomia001b-6");
 				break;
 			}
 			case 5000: {
@@ -133,7 +133,7 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 5200: {
-				orderActorToFactory(20000008, FormationThalia, "FormationThalia_7");
+				orderActorToFactory(20000008, FormationThalia, "FormationThalia-7");
 				break;
 			}
 			case 6000: {
@@ -142,8 +142,8 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 6200: {
-				orderActorToFactory(20000001, EnemyHesperia, "EnemyHesperia_8");
-				orderActorToFactory(20000002, VarietySylvia002, "VarietySylvia002_9");
+				orderActorToFactory(20000001, EnemyHesperia, "EnemyHesperia-8");
+				orderActorToFactory(20000002, VarietySylvia002, "VarietySylvia002-9");
 				break;
 			}
 			case 7000: {

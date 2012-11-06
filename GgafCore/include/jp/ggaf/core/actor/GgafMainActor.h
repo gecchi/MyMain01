@@ -71,34 +71,34 @@ public:
 
     /**
      * シーン監督取得。 .
-     * @return 監督
+     * @return 監督 ／ いない場合 NULL
      */
     virtual GgafDirector* getSceneDirector();
 
     /**
      * シーン団長を取得する。 .
-     * @return 団長
+     * @return 団長 ／ いない場合 NULL
      */
     virtual GgafGroupHead* getMyGroupHead();
 
     /**
      * 新たに種別を設定し、アクターを配下に追加する。
-     * 種別はアクターが保持する種別を無視し、引数の種別を優先する。
-     * 配下に団長(GgafGroupHead)を挟んでその配下に引数のアクターを追加します。
-     * GgafDirector::addSubGroup(actorkind, GgafMainActor) の説明を参照して下さい。
+     * 種別はアクターが保持する種別を無視し、引数の種別を優先する。<BR>
+     * 自身と種別が異なる場合はサブに団長(GgafGroupHead)を挟んでそのまたサブに引数のアクターを追加します。<BR>
+     * 自身と種別が同じ場合は、単にサブに引数のアクターを追加します。<BR>
      * @param prm_kind 種別
      * @param prm_pMainActor 種別と共に追加したいアクター
-     * @return 挟み込まれている配下の団長(GgafGroupHead)
+     * @return 引数アクターの団長(GgafGroupHead)
      */
     GgafGroupHead* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
      * 新たに種別を設定し、アクターを配下に追加する。 .
-     * ただし、種別はアクターが保持する種別を採用する。
-     * 配下に団長(GgafGroupHead)を挟んでその配下に引数のアクターを追加します。
-     * GgafDirector::addSubGroup(actorkind, GgafMainActor) の説明を参照して下さい。
+     * ただし、種別はアクターが保持する種別を採用する。<BR>
+     * 自身と種別が異なる場合はサブに団長(GgafGroupHead)を挟んでそのまたサブに引数のアクターを追加します。<BR>
+     * 自身と種別が同じ場合は、単にサブに引数のアクターを追加します。<BR>
      * @param prm_pMainActor 種別と共に追加したいアクター
-     * @return 挟み込まれている配下の団長(GgafGroupHead)
+     * @return 引数アクターの団長(GgafGroupHead)
      */
     GgafGroupHead* addSubGroup(GgafMainActor* prm_pMainActor);
 

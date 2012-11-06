@@ -14,33 +14,33 @@ RankUp001::RankUp001(const char* prm_name) : RankUpStage(prm_name) {
 	_paFrame_NextEvent = new frame[35];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 35;
-	orderActorToFactory(80000000, EnemyCirce, "EnemyCirce_1");
-	orderActorToFactory(80000001, EnemyCirce, "EnemyCirce_2");
-	orderActorToFactory(80000002, EnemyCirce, "EnemyCirce_3");
-	orderActorToFactory(80000003, EnemyCirce, "EnemyCirce_4");
-	orderActorToFactory(80000004, EnemyCirce, "EnemyCirce_5");
-	orderActorToFactory(80000005, EnemyCirce, "EnemyCirce_6");
-	orderActorToFactory(80000006, EnemyCirce, "EnemyCirce_7");
-	orderActorToFactory(80000007, EnemyCirce, "EnemyCirce_8");
-	orderActorToFactory(80000008, EnemyCirce, "EnemyCirce_9");
-	orderActorToFactory(80000009, EnemyCirce, "EnemyCirce_10");
-	orderActorToFactory(80000010, EnemyCirce, "EnemyCirce_11");
-	orderActorToFactory(80000011, EnemyCirce, "EnemyCirce_12");
-	orderActorToFactory(80000012, EnemyCirce, "EnemyCirce_13");
-	orderActorToFactory(80000013, EnemyCirce, "EnemyCirce_14");
-	orderActorToFactory(80000014, EnemyCirce, "EnemyCirce_15");
-	orderActorToFactory(80000015, EnemyCirce, "EnemyCirce_16");
-	orderActorToFactory(80000016, EnemyCirce, "EnemyCirce_17");
-	orderActorToFactory(80000017, EnemyCirce, "EnemyCirce_18");
-	orderActorToFactory(80000018, EnemyCirce, "EnemyCirce_19");
-	orderActorToFactory(80000019, EnemyCirce, "EnemyCirce_20");
-	orderActorToFactory(80000020, EnemyCirce, "EnemyCirce_21");
-	orderActorToFactory(80000021, EnemyCirce, "EnemyCirce_22");
-	orderActorToFactory(80000022, EnemyCirce, "EnemyCirce_23");
-	orderActorToFactory(80000023, EnemyCirce, "EnemyCirce_24");
-	orderActorToFactory(80000024, EnemyCirce, "EnemyCirce_25");
-	orderActorToFactory(80000025, EnemyCirce, "EnemyCirce_26");
-	orderActorToFactory(80000026, EnemyCirce, "EnemyCirce_27");
+	orderActorToFactory(80000000, EnemyCirce, "EnemyCirce-1");
+	orderActorToFactory(80000001, EnemyCirce, "EnemyCirce-2");
+	orderActorToFactory(80000002, EnemyCirce, "EnemyCirce-3");
+	orderActorToFactory(80000003, EnemyCirce, "EnemyCirce-4");
+	orderActorToFactory(80000004, EnemyCirce, "EnemyCirce-5");
+	orderActorToFactory(80000005, EnemyCirce, "EnemyCirce-6");
+	orderActorToFactory(80000006, EnemyCirce, "EnemyCirce-7");
+	orderActorToFactory(80000007, EnemyCirce, "EnemyCirce-8");
+	orderActorToFactory(80000008, EnemyCirce, "EnemyCirce-9");
+	orderActorToFactory(80000009, EnemyCirce, "EnemyCirce-10");
+	orderActorToFactory(80000010, EnemyCirce, "EnemyCirce-11");
+	orderActorToFactory(80000011, EnemyCirce, "EnemyCirce-12");
+	orderActorToFactory(80000012, EnemyCirce, "EnemyCirce-13");
+	orderActorToFactory(80000013, EnemyCirce, "EnemyCirce-14");
+	orderActorToFactory(80000014, EnemyCirce, "EnemyCirce-15");
+	orderActorToFactory(80000015, EnemyCirce, "EnemyCirce-16");
+	orderActorToFactory(80000016, EnemyCirce, "EnemyCirce-17");
+	orderActorToFactory(80000017, EnemyCirce, "EnemyCirce-18");
+	orderActorToFactory(80000018, EnemyCirce, "EnemyCirce-19");
+	orderActorToFactory(80000019, EnemyCirce, "EnemyCirce-20");
+	orderActorToFactory(80000020, EnemyCirce, "EnemyCirce-21");
+	orderActorToFactory(80000021, EnemyCirce, "EnemyCirce-22");
+	orderActorToFactory(80000022, EnemyCirce, "EnemyCirce-23");
+	orderActorToFactory(80000023, EnemyCirce, "EnemyCirce-24");
+	orderActorToFactory(80000024, EnemyCirce, "EnemyCirce-25");
+	orderActorToFactory(80000025, EnemyCirce, "EnemyCirce-26");
+	orderActorToFactory(80000026, EnemyCirce, "EnemyCirce-27");
     // gen01 end
 }
 
@@ -60,22 +60,22 @@ void RankUp001::processBehavior() {
 				break;
 			}
 			case 20: {
-				orderActorToFactory(80000027, EnemyCirce, "EnemyCirce_28");
+				orderActorToFactory(80000027, EnemyCirce, "EnemyCirce-28");
 				break;
 			}
 			case 80: {
-				orderActorToFactory(80000028, EnemyCirce, "EnemyCirce_29");
+				orderActorToFactory(80000028, EnemyCirce, "EnemyCirce-29");
 				break;
 			}
 			case 140: {
-				orderActorToFactory(80000029, EnemyCirce, "EnemyCirce_30");
+				orderActorToFactory(80000029, EnemyCirce, "EnemyCirce-30");
 				break;
 			}
 			case 200: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000000);
 				getDirector()->addSubGroup(p);
 				all_hit_num_ ++;
-				orderActorToFactory(80000030, EnemyCirce, "EnemyCirce_31");
+				orderActorToFactory(80000030, EnemyCirce, "EnemyCirce-31");
 				break;
 			}
 			case 260: {

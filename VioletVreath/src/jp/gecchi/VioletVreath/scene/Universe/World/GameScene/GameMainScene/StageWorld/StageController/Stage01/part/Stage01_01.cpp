@@ -15,18 +15,18 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 34;
 	
-	orderActorToFactory(30000001, FormationPallas001a, "F001a_Pallas_1");
-	orderActorToFactory(30000002, FormationPallas001b, "F001b_Pallas_2");
-	orderActorToFactory(30000003, FormationPallas001c, "F001c_Pallas_3");
-	orderActorToFactory(30000004, FormationPallas001d, "F001d_Pallas_4");
-	orderActorToFactory(30000005, FormationPallas001a, "F001a_Pallas_5");
-	orderActorToFactory(30000006, FormationPallas001d, "F001d_Pallas_6");
-	orderActorToFactory(30000007, FormationPallas001b, "F001b_Pallas_7");
-	orderActorToFactory(30000008, FormationPallas001c, "F001c_Pallas_8");
-	orderActorToFactory(30000009, FormationPallas001a, "F001a_Pallas_9");
-	orderActorToFactory(30000010, FormationPallas001d, "F001d_Pallas_10");
-	orderActorToFactory(30000011, FormationPallas001b, "F001b_Pallas_11");
-	orderActorToFactory(30000012, FormationPallas001c, "F001c_Pallas_12");
+	orderActorToFactory(30000001, FormationPallas001a, "FormationPallas001a-1");
+	orderActorToFactory(30000002, FormationPallas001b, "FormationPallas001b-2");
+	orderActorToFactory(30000003, FormationPallas001c, "FormationPallas001c-3");
+	orderActorToFactory(30000004, FormationPallas001d, "FormationPallas001d-4");
+	orderActorToFactory(30000005, FormationPallas001a, "FormationPallas001a-5");
+	orderActorToFactory(30000006, FormationPallas001d, "FormationPallas001d-6");
+	orderActorToFactory(30000007, FormationPallas001b, "FormationPallas001b-7");
+	orderActorToFactory(30000008, FormationPallas001c, "FormationPallas001c-8");
+	orderActorToFactory(30000009, FormationPallas001a, "FormationPallas001a-9");
+	orderActorToFactory(30000010, FormationPallas001d, "FormationPallas001d-10");
+	orderActorToFactory(30000011, FormationPallas001b, "FormationPallas001b-11");
+	orderActorToFactory(30000012, FormationPallas001c, "FormationPallas001c-12");
     // gen01 end
 }
 
@@ -45,7 +45,7 @@ void Stage01_01::processBehavior() {
 			}
 			case 500: {
 				{
-				FormationTableScene* ta = NEW FormationTableScene("FormationTable_30000000");
+				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-13");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
 				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(30000001)), 400);
@@ -64,11 +64,11 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 1600: {
-				orderActorToFactory(30000013, FormationEunomia001a, "F001a_Eunomia_13");
+				orderActorToFactory(30000013, FormationEunomia001a, "FormationEunomia001a-14");
 				break;
 			}
 			case 2100: {
-				orderActorToFactory(30000021, FormationEunomia001b, "F001b_Eunomia_14");
+				orderActorToFactory(30000021, FormationEunomia001b, "FormationEunomia001b-15");
 				break;
 			}
 			case 2500: {
@@ -77,7 +77,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 2600: {
-				orderActorToFactory(30000014, FormationEunomia001a, "F001a_Eunomia_15");
+				orderActorToFactory(30000014, FormationEunomia001a, "FormationEunomia001a-16");
 				break;
 			}
 			case 3000: {
@@ -86,7 +86,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 3100: {
-				orderActorToFactory(30000022, FormationEunomia001b, "F001b_Eunomia_16");
+				orderActorToFactory(30000022, FormationEunomia001b, "FormationEunomia001b-17");
 				break;
 			}
 			case 3500: {
@@ -95,7 +95,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 3600: {
-				orderActorToFactory(30000015, FormationEunomia001a, "F001a_Eunomia_17");
+				orderActorToFactory(30000015, FormationEunomia001a, "FormationEunomia001a-18");
 				break;
 			}
 			case 4000: {
@@ -104,7 +104,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 4100: {
-				orderActorToFactory(30000023, FormationEunomia001b, "F001b_Eunomia_18");
+				orderActorToFactory(30000023, FormationEunomia001b, "FormationEunomia001b-19");
 				break;
 			}
 			case 4500: {
@@ -113,7 +113,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 4600: {
-				orderActorToFactory(30000016, FormationEunomia001a, "F001a_Eunomia_19");
+				orderActorToFactory(30000016, FormationEunomia001a, "FormationEunomia001a-20");
 				break;
 			}
 			case 5000: {
@@ -122,7 +122,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 5100: {
-				orderActorToFactory(30000024, FormationEunomia001b, "F001b_Eunomia_20");
+				orderActorToFactory(30000024, FormationEunomia001b, "FormationEunomia001b-21");
 				break;
 			}
 			case 5500: {
@@ -131,7 +131,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 5600: {
-				orderActorToFactory(30000017, FormationEunomia001a, "F001a_Eunomia_21");
+				orderActorToFactory(30000017, FormationEunomia001a, "FormationEunomia001a-22");
 				break;
 			}
 			case 6000: {
@@ -140,7 +140,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 6100: {
-				orderActorToFactory(30000025, FormationEunomia001b, "F001b_Eunomia_22");
+				orderActorToFactory(30000025, FormationEunomia001b, "FormationEunomia001b-23");
 				break;
 			}
 			case 6500: {
@@ -149,7 +149,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 6600: {
-				orderActorToFactory(30000018, FormationEunomia001a, "F001a_Eunomia_23");
+				orderActorToFactory(30000018, FormationEunomia001a, "FormationEunomia001a-24");
 				break;
 			}
 			case 7000: {
@@ -158,7 +158,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 7100: {
-				orderActorToFactory(30000026, FormationEunomia001b, "F001b_Eunomia_24");
+				orderActorToFactory(30000026, FormationEunomia001b, "FormationEunomia001b-25");
 				break;
 			}
 			case 7500: {
@@ -167,7 +167,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 7600: {
-				orderActorToFactory(30000019, FormationEunomia001a, "F001a_Eunomia_25");
+				orderActorToFactory(30000019, FormationEunomia001a, "FormationEunomia001a-26");
 				break;
 			}
 			case 8000: {
@@ -176,7 +176,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 8100: {
-				orderActorToFactory(30000027, FormationEunomia001b, "F001b_Eunomia_26");
+				orderActorToFactory(30000027, FormationEunomia001b, "FormationEunomia001b-27");
 				break;
 			}
 			case 8500: {
@@ -185,7 +185,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 8600: {
-				orderActorToFactory(30000020, FormationEunomia001a, "F001a_Eunomia_27");
+				orderActorToFactory(30000020, FormationEunomia001a, "FormationEunomia001a-28");
 				break;
 			}
 			case 9000: {
@@ -194,7 +194,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 9100: {
-				orderActorToFactory(30000028, FormationEunomia001b, "F001b_Eunomia_28");
+				orderActorToFactory(30000028, FormationEunomia001b, "FormationEunomia001b-29");
 				break;
 			}
 			case 9500: {

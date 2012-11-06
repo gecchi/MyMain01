@@ -70,38 +70,23 @@ void GgafMainActor::setGroupHead(GgafGroupHead* prm_pGroupHead) {
         }
     }
 }
-//＜setGroupHead最適化案メモ＞
-//以下のような構造の場合、GgafGroupHeadは統合できるはず。
-//TODO:うまくして、GgafGroupHead(088C6D48)の排除はできないか
-//
-//   ｜GgafGroupHead(088C6EA0)[kind=00000000000000000100000000000000]@13883,0,101,101,0(0)
-//   ｜｜EnemyCirce(088C5E50)[EnemyCirce](-66856,-154236,26350)@13883,1,101,101,0(0)
-//   ｜｜｜GgafGroupHead(088C6D48)[kind=00000000000000000100000000000000]@13883,0,101,101,0(0)
-//   ｜｜｜｜EnemyRomulus(08826070)[EnemyRomulus1](-197896,-154236,296217)@13883,1,101,101,0(0)
-//   ｜｜｜｜EnemyRomulus(088C2610)[EnemyRomulus2](203010,-154759,157390)@13883,1,101,101,0(0)
-//   ｜｜｜｜EnemyRomulus(088C3150)[EnemyRomulus3](64184,-154236,-243517)@13883,1,101,101,0(0)
-//   ｜｜｜｜EnemyRomulus(088C3C90)[EnemyRomulus4](-336722,-153712,-104690)@13883,1,101,101,0(0)
-//   ｜｜｜｜EnemyRomulus(088C47D0)[EnemyRomulus5](-66384,145763,26578)@13883,1,101,101,0(0)
-//   ｜｜｜｜EnemyRomulus(088C5310)[EnemyRomulus6](-67327,-454235,26121)@13883,1,101,101,0(0)
-//   ｜｜｜└─
-//   ｜｜└─
-//   ｜└─
 
 
 GgafGroupHead* GgafMainActor::getMyGroupHead() {
     if (_pGroupHead == NULL) {
-#ifdef MY_DEBUG
         if (_pParent == NULL) {
-            throwGgafCriticalException("GgafMainActor::getGroupActor 所属していないため、GroupActorがとれません！("<<getName()<<")");
-        }
-#endif
-        if (_pParent->instanceOf(Obj_GgafMainActor)) {
+            return NULL;
+        } else if (_pParent->instanceOf(Obj_GgafMainActor)) {
             _pGroupHead = ((GgafMainActor*)(_pParent))->getMyGroupHead();
+            return _pGroupHead;
         } else if (_pParent->instanceOf(Obj_GgafGroupHead)) {
             return (GgafGroupHead*)_pParent;
+        } else {
+            return NULL;
         }
+    } else {
+        return _pGroupHead;
     }
-    return _pGroupHead;
 }
 
 
@@ -128,24 +113,35 @@ GgafDirector* GgafMainActor::getSceneDirector() {
 }
 
 
-
 GgafGroupHead* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pDirector) {
         //_TRACE_("【警告】GgafDirector::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pDirector->_pScene_Platform->getName()<<"シーンの監督に所属しています。が、"<<_pScene_Platform->getName()<<"シーンの監督に乗り換えます");
         prm_pMainActor->extract();
     }
-    GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind);
-    if (pSubGroupActor == NULL) {
-        pSubGroupActor = NEW GgafGroupHead(prm_kind);
-        addSubLast(pSubGroupActor);
+    GgafGroupHead* pMyGroupHead = getMyGroupHead();
+    if (pMyGroupHead != NULL && pMyGroupHead->_kind == prm_kind) {
+        //自身の団長種別と引数種別が同じ場合、
+        addSubLast(prm_pMainActor); //単純にサブに追加でOK
+        prm_pMainActor->setGroupHead(pMyGroupHead);
+        prm_pMainActor->setSceneDirector(getSceneDirector()); //監督アクターリセット
+        prm_pMainActor->setPlatformScene(getPlatformScene()); //所属シーンリセット
+        return pMyGroupHead;
     } else {
-       //OK
+        //自身の種別と違う場合
+        GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind); //サブに同じ種別団長が居るか探す
+        if (pSubGroupActor == NULL) {
+            //サブに同じ種別団長がいない場合、団長を新たに作成
+            pSubGroupActor = NEW GgafGroupHead(prm_kind);
+            addSubLast(pSubGroupActor);
+        } else {
+            //サブに同じ種別団長がいた場合、その団長のサブへ
+        }
+        pSubGroupActor->addSubLast(prm_pMainActor); //団長のサブに追加
+        prm_pMainActor->setGroupHead(pSubGroupActor);
+        prm_pMainActor->setSceneDirector(getSceneDirector()); //監督アクターリセット
+        prm_pMainActor->setPlatformScene(getPlatformScene()); //所属シーンリセット
+        return pSubGroupActor;
     }
-    pSubGroupActor->addSubLast(prm_pMainActor);
-    prm_pMainActor->setGroupHead(pSubGroupActor);
-    prm_pMainActor->setSceneDirector(getSceneDirector()); //監督アクターリセット
-    prm_pMainActor->setPlatformScene(getPlatformScene()); //所属シーンリセット
-    return pSubGroupActor;
 }
 
 GgafGroupHead* GgafMainActor::addSubGroup(GgafMainActor* prm_pMainActor) {
@@ -153,7 +149,6 @@ GgafGroupHead* GgafMainActor::addSubGroup(GgafMainActor* prm_pMainActor) {
     //したがって actorkind へキャストしても問題ない。
     return addSubGroup((actorkind)(prm_pMainActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)), prm_pMainActor);
 }
-
 
 GgafGroupHead* GgafMainActor::searchSubGroupHead(actorkind prm_kind) {
     if (_pSubFirst == NULL) {
@@ -176,7 +171,6 @@ GgafGroupHead* GgafMainActor::searchSubGroupHead(actorkind prm_kind) {
         } while (true);
     }
 }
-
 
 GgafGod* GgafMainActor::askGod() {
     if (_pGod == NULL) {

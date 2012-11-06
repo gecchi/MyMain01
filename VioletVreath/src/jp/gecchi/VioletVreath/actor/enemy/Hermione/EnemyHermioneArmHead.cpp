@@ -7,11 +7,11 @@ using namespace VioletVreath;
 #define MORPHTARGET_HATCH_OPEN 1
 
 EnemyHermioneArmHead::EnemyHermioneArmHead(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "HermioneArmBody", STATUS(EnemyHermioneArmHead)) {
+        DefaultMeshSetActor(prm_name, "HermioneArmHead", STATUS(EnemyHermioneArmHead)) {
     _class_name = "EnemyHermioneArmHead";
     _pActor_Base = NULL;
-    pDpcon_ = connectToDepositoryManager("Conn_Shot004", NULL); //Junoの弾
-
+    pDpcon_ = connectToDepositoryManager("Conn_Shot004", NULL); //弾
+    pDepo_Fired_ = pDpcon_->fetch();
     aim_ang_velo_ = 0;
     aim_movable_limit_ang_ = 0;
 
@@ -132,7 +132,7 @@ void EnemyHermioneArmHead::processBehavior() {
     changeGeoFinal();
 
 
-    if (_pProg->getFrameInProgress() % 10 == 0) { //出現間隔
+    if (_pProg->getFrameInProgress() % 20 == 0) { //出現間隔
         GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
         if (pActor) {
             //＜現在の最終的な向きを、RzRyで取得する＞

@@ -8,7 +8,7 @@ namespace VioletVreath {
 #define QUERYRANKING_DATA_FILE "SCORE_RANKING.qry"
 
 /**
- * ハイスコアランキング用クエリー .
+ * ハイスコアランキング用クエリ .
  * @version 1.00
  * @since 2012/10/15
  * @author Masatoshi Tsuge

@@ -29,16 +29,17 @@ public:
     class Arm {
     public:
 
-        angle pos_Rz;
-        angle pos_Ry;
-        EnemyHermioneArmBody** papArmBody;
-        EnemyHermioneArmHead* pArmHead;
-        Arm() : pos_Rz(0),pos_Ry(0),papArmBody(NULL),pArmHead(NULL) {}
-        virtual ~Arm() {
-            DELETEARR_IMPOSSIBLE_NULL(papArmBody);
+        angle pos_Rz_;
+        angle pos_Ry_;
+        EnemyHermioneArmBody** papArmBody_;
+        EnemyHermioneArmHead* pArmHead_;
+        Arm() : pos_Rz_(0),pos_Ry_(0),papArmBody_(NULL),pArmHead_(NULL) {}
+        ~Arm() {
+            DELETEARR_IMPOSSIBLE_NULL(papArmBody_);
         }
     };
-
+    int num_arm_; //òrÇÃêî
+    int num_arm_body_;  //ArmBodyÇÃå¬êîÅiÇPà»è„Åj
     Arm* paArm_;
 
     /**

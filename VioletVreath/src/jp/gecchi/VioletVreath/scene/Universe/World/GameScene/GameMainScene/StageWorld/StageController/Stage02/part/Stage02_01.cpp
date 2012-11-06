@@ -14,14 +14,14 @@ Stage02_01::Stage02_01(const char* prm_name) : DefaultScene(prm_name) {
 	_paFrame_NextEvent = new frame[3];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 3;
-	orderActorToFactory(70000000, FormationJuno001, "F002_Juno_1");
-
-	orderActorToFactory(70000002, FormationIris001, "F001_Iris_2");
-	orderActorToFactory(70000003, FormationIris002, "F002_Iris_3");
-	orderActorToFactory(70000004, FormationIris001, "F001_Iris_4");
-	orderActorToFactory(70000005, FormationIris002, "F002_Iris_5");
-	orderActorToFactory(70000006, FormationIris001, "F001_Iris_6");
-	orderActorToFactory(70000007, FormationIris002, "F002_Iris_7");
+	orderActorToFactory(70000000, FormationJuno001, "FormationJuno001-1");
+	
+	orderActorToFactory(70000002, FormationIris001, "FormationIris001-2");
+	orderActorToFactory(70000003, FormationIris002, "FormationIris002-3");
+	orderActorToFactory(70000004, FormationIris001, "FormationIris001-4");
+	orderActorToFactory(70000005, FormationIris002, "FormationIris002-5");
+	orderActorToFactory(70000006, FormationIris001, "FormationIris001-6");
+	orderActorToFactory(70000007, FormationIris002, "FormationIris002-7");
     // gen01 end
 }
 
@@ -45,7 +45,7 @@ void Stage02_01::processBehavior() {
 			}
 			case 1000: {
 				{
-				FormationTableScene* ta = NEW FormationTableScene("FormationTable_8");
+				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-8");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
 				ta->addToTable(((FormationIris001*)obtainActorFromFactory(70000002)), 400);
