@@ -112,17 +112,29 @@ HASHVAL(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
 
 //シェーダー2.0の限界のモーフターゲットは6個だった
 #define MAX_MORPH_TARGET 6
+
 //#pragma GCC diagnostic push
 //#pragma GCC diagnostic ignored "-Wall"
 //#pragma GCC diagnostic warning "-w"
-//#include <dxerr.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>
+#ifdef __GNUG__
+    //dsound.h 内で、__null 定数を使用したコードあるため
+    #define __null
+#endif
 #include <dsound.h>
-//#include <dxfile.h>
+#ifdef __GNUG__
+    #undef __null
+    //GCCでは『#define NULL __null』と定義されており、『#undef __null』と定義をundefすると、
+    // NULL が空になりそうに見えるが、そうはならない。
+    //なぜなら __null は埋め込み定数だからだ、今のところはネ！。（苦肉の策）
+#endif
 #include <d3dx9xof.h>
 //#pragma GCC diagnostic pop
+
+//「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html
+// の主、Ikd さん作のoggファイル再生ライブラリ
 namespace IkdLib {
 class PCMPlayer;
 class OggVorbisResource;
@@ -131,7 +143,6 @@ class OggDecoder;
 class OggVorbisFile;
 class OggVorbisMemory;
 }
-
 #include "jp/ggaf/dxcore/sound/IkdLib/PCMPlayer.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisResource.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/PCMDecoder.h"
@@ -140,9 +151,6 @@ class OggVorbisMemory;
 #include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisMemory.h"
 
 
-
-
-//class CmRandomNumberGenerator;
 /** アプリケーション座標単位 (目安： 1 coord  =  0.001 pixcoord  =  0.00001 dxcoord  ) */
 typedef int coord;
 /** アプリケーション座標単位系の速度 */

@@ -17,7 +17,7 @@ EnemyHermione::EnemyHermione(const char* prm_name) :
     static coord arm_R = PX_C(40);  //‰Â“®•”‚Ì˜r‚ÌŠÖß‚PŒÂ‚Ì”¼Œa
 
 
-    EnemyHermione::Arm* paArm_ = NEW EnemyHermione::Arm[num_arm];
+    paArm_ = NEW EnemyHermione::Arm[num_arm_];
     float vx,vy,vz;
     EnemyHermioneArmBody* pArmBody;
 
