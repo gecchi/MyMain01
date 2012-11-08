@@ -4,7 +4,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-#define MORPHTARGET_HATCH_OPEN 1
 
 EnemyHermioneArmBody::EnemyHermioneArmBody(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "HermioneArmBody", STATUS(EnemyHermioneArmBody)) {
@@ -19,9 +18,6 @@ EnemyHermioneArmBody::EnemyHermioneArmBody(const char* prm_name) :
 }
 
 void EnemyHermioneArmBody::onCreateModel() {
-    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
-    _pModel->_pTextureBlinker->setBlink(0.1);
-    _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
 }
 
 void EnemyHermioneArmBody::initialize() {
@@ -51,7 +47,8 @@ void EnemyHermioneArmBody::processBehavior() {
                 //自機へ方向を向ける
                 //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
                 //
-                //自機への向くための変換前状態でのターゲット位置を(TvX, TvY, TvZ) とおき、
+                //自機への向くための変換前状態で、
+                //ローカル座標で「向いておけばいいのではないか」の方向のベクトルを(TvX, TvY, TvZ) とおき、
                 //「土台まで」の行列の積（_pActor_Base->_matWorldRotMv) を b_mat_xx とする。
                 //現在の最終座標から自機への向きのベクトルを、(MvX, MvY, MvZ) とすると、
                 //
@@ -59,9 +56,7 @@ void EnemyHermioneArmBody::processBehavior() {
                 //| TvX TvY TvZ | | b_mat_21 b_mat_22 b_mat_23 | = | MvX MvY MvZ |
                 //                | b_mat_31 b_mat_32 b_mat_33 |
                 //
-                //となる。ローカル座標で(TvX, TvY, TvZ) の方向を向けると、
-                //最終的に自機に向くことになる。
-                //逆行列を掛けて(TvX, TvY, TvZ) を求めれば良い
+                //となるはずだ。(TvX, TvY, TvZ)について解く。逆行列を掛けて求めれば良い。
                 //
                 //                                   | b_mat_11 b_mat_12 b_mat_13 | -1
                 // | TvX TvY TvZ | = | MvX MvY MvZ | | b_mat_21 b_mat_22 b_mat_23 |
@@ -69,10 +64,20 @@ void EnemyHermioneArmBody::processBehavior() {
                 //
 
                 //MvX MvY MvZ を求める
-                MyShip* pMyShip = P_MYSHIP;
-                int MvX = pMyShip->_X - _X; //ここでの _X, _Y, _Z は絶対座標であることがポイント
-                int MvY = pMyShip->_Y - _Y;
-                int MvZ = pMyShip->_Z - _Z;
+                int MvX,MvY,MvZ;
+                if (RND(1, 30) != 1) {
+                    //通常の自機を狙う方向ベクトル
+                    GgafDxGeometricActor* pTargetActor = P_MYSHIP;
+                    MvX = pTargetActor->_X - _X; //ここでの _X, _Y, _Z は絶対座標であることがポイント
+                    MvY = pTargetActor->_Y - _Y;
+                    MvZ = pTargetActor->_Z - _Z;
+                } else {
+                    //たま～に逆方向を目標にして、触手に動きを強要する
+                    GgafDxGeometricActor* pTargetActor = P_MYSHIP;
+                    MvX = _X - pTargetActor->_X;
+                    MvY = _Y - pTargetActor->_Y;
+                    MvZ = _Z - pTargetActor->_Z;
+                }
                 //逆行列取得
                 D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
                 //ローカル座標でのターゲットとなる方向ベクトル計算
@@ -96,10 +101,10 @@ void EnemyHermioneArmBody::processBehavior() {
                 } else if (D180ANG <= angRy_Target && angRy_Target <= D360ANG - aim_movable_limit_ang_) {
                     angRy_Target = D360ANG - aim_movable_limit_ang_;
                 }
-                _pKurokoA->execTurnMvAngSequence(angRz_Target, angRy_Target,
-                                                 aim_ang_velo_, 0,
-                                                 TURN_CLOSE_TO);
 
+                _pKurokoA->execTurnMvAngSequence(angRz_Target, angRy_Target,
+                                                 aim_ang_velo_, aim_ang_velo_*0.05,
+                                                 TURN_CLOSE_TO);
             }
             if (_pKurokoA->isRunnigTurnMvAngSequence()) {
                 // 待機
@@ -109,7 +114,9 @@ void EnemyHermioneArmBody::processBehavior() {
             break;
         }
         case PROG_NOTHING: {
-            _pProg->change(PROG_AIMING);
+            if (_pProg->getFrameInProgress() == 10) {
+                _pProg->change(PROG_AIMING);
+            }
             break;
         }
         default :
@@ -166,5 +173,5 @@ void EnemyHermioneArmBody::onInactive() {
 }
 
 EnemyHermioneArmBody::~EnemyHermioneArmBody() {
-    
+
 }

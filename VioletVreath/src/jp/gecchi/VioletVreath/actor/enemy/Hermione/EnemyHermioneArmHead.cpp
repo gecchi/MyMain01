@@ -4,7 +4,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-#define MORPHTARGET_HATCH_OPEN 1
 
 EnemyHermioneArmHead::EnemyHermioneArmHead(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "HermioneArmHead", STATUS(EnemyHermioneArmHead)) {
@@ -21,9 +20,6 @@ EnemyHermioneArmHead::EnemyHermioneArmHead(const char* prm_name) :
 }
 
 void EnemyHermioneArmHead::onCreateModel() {
-    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
-    _pModel->_pTextureBlinker->setBlink(0.1);
-    _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
 }
 
 void EnemyHermioneArmHead::initialize() {
@@ -71,10 +67,10 @@ void EnemyHermioneArmHead::processBehavior() {
                 //
 
                 //MvX MvY MvZ を求める
-                MyShip* pMyShip = P_MYSHIP;
-                int MvX = pMyShip->_X - _X; //ここでの _X, _Y, _Z は絶対座標であることがポイント
-                int MvY = pMyShip->_Y - _Y;
-                int MvZ = pMyShip->_Z - _Z;
+                MyShip* pTargetActor = P_MYSHIP;
+                int MvX = pTargetActor->_X - _X; //ここでの _X, _Y, _Z は絶対座標であることがポイント
+                int MvY = pTargetActor->_Y - _Y;
+                int MvZ = pTargetActor->_Z - _Z;
                 //逆行列取得
                 D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
                 //ローカル座標でのターゲットとなる方向ベクトル計算
@@ -99,7 +95,7 @@ void EnemyHermioneArmHead::processBehavior() {
                     angRy_Target = D360ANG - aim_movable_limit_ang_;
                 }
                 _pKurokoA->execTurnMvAngSequence(angRz_Target, angRy_Target,
-                                                 aim_ang_velo_, 0,
+                                                 aim_ang_velo_, aim_ang_velo_*0.05,
                                                  TURN_CLOSE_TO);
 
             }
@@ -111,7 +107,9 @@ void EnemyHermioneArmHead::processBehavior() {
             break;
         }
         case PROG_NOTHING: {
-            _pProg->change(PROG_AIMING);
+            if (_pProg->getFrameInProgress() == 10) {
+                _pProg->change(PROG_AIMING);
+            }
             break;
         }
         default :
@@ -132,7 +130,7 @@ void EnemyHermioneArmHead::processBehavior() {
     changeGeoFinal();
 
 
-    if (_pProg->getFrameInProgress() % 20 == 0) { //出現間隔
+    if (getActivePartFrame() % 10 == 0) { //出現間隔
         GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
         if (pActor) {
             //＜現在の最終的な向きを、RzRyで取得する＞
@@ -178,24 +176,23 @@ void EnemyHermioneArmHead::processJudgement() {
 
 void EnemyHermioneArmHead::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-//
-//    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-//        setHitAble(false);
-//        //爆発効果
-//        UTIL::activateExplosionEffectOf(this);
-//        _pSeTxer->play3D(SE_EXPLOSION);
-//
-//        //自機側に撃たれて消滅の場合、
-//        if (pOther->getKind() & KIND_MY) {
-//            //アイテム出現
-//            UTIL::activateItemOf(this);
-//        }
-//        sayonara();
-//    } else {
-//        //非破壊時
-//        effectFlush(2); //フラッシュ
-//        _pSeTxer->play3D(SE_DAMAGED);
-//    }
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
+        setHitAble(false);
+        //爆発効果
+        UTIL::activateExplosionEffectOf(this);
+        _pSeTxer->play3D(SE_EXPLOSION);
+
+        //自機側に撃たれて消滅の場合、
+        if (pOther->getKind() & KIND_MY) {
+            //アイテム出現
+            UTIL::activateItemOf(this);
+        }
+        sayonara();
+    } else {
+        //非破壊時
+        effectFlush(2); //フラッシュ
+        _pSeTxer->play3D(SE_DAMAGED);
+    }
 }
 
 void EnemyHermioneArmHead::onInactive() {

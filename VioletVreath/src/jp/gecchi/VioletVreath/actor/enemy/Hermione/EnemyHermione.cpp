@@ -8,13 +8,12 @@ EnemyHermione::EnemyHermione(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Hermione", STATUS(EnemyHermione)) {
     _class_name = "EnemyHermione";
 
-
-    num_arm_ = 3; //˜r‚Ì”
-    num_arm_body_ = 5;  //ArmBody‚ÌŒÂ”i‚PˆÈãj
-    angle pos_rz[] = {D_ANG(0),   D_ANG(45),   D_ANG(90)  }; //¶‚â‚·êŠ
-    angle pos_ry[] = {D_ANG(0),   D_ANG(0),    D_ANG(0)   };
-    static coord R = PX_C(500);     //–{‘ÌHermione‚Ì”¼Œa
-    static coord arm_R = PX_C(40);  //‰Â“®•”‚Ì˜r‚ÌŠÖß‚PŒÂ‚Ì”¼Œa
+    num_arm_ = 6; //˜r‚Ì”
+    num_arm_body_ = 7;  //ArmBody‚ÌŒÂ”i‚PˆÈãj
+    angle pos_rz[] = {D_ANG(0),   D_ANG(90),   D_ANG(180),  D_ANG(270), D_ANG(0) , D_ANG(0)  }; //¶‚â‚·êŠ
+    angle pos_ry[] = {D_ANG(0),   D_ANG(0),    D_ANG(0)  ,  D_ANG(0)  , D_ANG(90), D_ANG(270) };
+    static coord R = PX_C(100);     //–{‘ÌHermione‚Ì”¼Œa
+    static coord arm_R = PX_C(45);  //‰Â“®•”‚Ì˜r‚ÌŠÖß‚PŒÂ‚Ì”¼Œa
 
 
     paArm_ = NEW EnemyHermione::Arm[num_arm_];
@@ -54,22 +53,24 @@ EnemyHermione::EnemyHermione(const char* prm_name) :
                         paArm_[arm].papArmBody_[i],
                         vx*R, vy*R, vz*R,
                         D0ANG, paArm_[arm].pos_Ry_, paArm_[arm].pos_Rz_);
+                paArm_[arm].papArmBody_[i]->config(0, 0); //ª–{‚ÍŠÖßŒÅ’è‚³‚¹‚é
             } else {
                 //ArmBodyŽc‚èB^‚Á’¼‚®’¼ü‚Å‚Â‚È‚°‚é
                 paArm_[arm].papArmBody_[i-1]->addSubGroupAsFk(
                                                paArm_[arm].papArmBody_[i],
                                                arm_R, 0, 0,
                                                D0ANG, D0ANG, D0ANG);
+                paArm_[arm].papArmBody_[i]->config(D_ANG(25+(i*2.5)), 20+(i*60)); //æ‚És‚­‚Ù‚Ç‰Â“®”ÍˆÍ‚ªL‚¢
             }
+
         }
         //ArmHeadAÅŒã‚Éƒwƒbƒh‚ð‚Â‚¯‚é
         paArm_[arm].pArmHead_ = NEW EnemyHermioneArmHead("HD");
         paArm_[arm].papArmBody_[num_arm_body_-1]->addSubGroupAsFk(paArm_[arm].pArmHead_,
                                                                  arm_R, 0, 0,
                                                                  D0ANG, D0ANG, D0ANG);
+        paArm_[arm].pArmHead_->config(D_ANG(25+(num_arm_body_*2.5)), 20+(num_arm_body_*60));
     }
-_TRACE_("EŽíIIIIII");
-dump();
 
     _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
     _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
@@ -77,25 +78,25 @@ dump();
 }
 
 void EnemyHermione::onCreateModel() {
-    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
-    _pModel->_pTextureBlinker->setBlink(0.1);
-    _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
-    _pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyHermione::initialize() {
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 90000);
-    setScaleR(0.3);
 }
 
 void EnemyHermione::onActive() {
     _pStatus->reset();
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
+    _pKurokoA->setRzRyMvAng(0, D180ANG);
+    _pKurokoA->setMvVelo(10);
+    _pKurokoA->setFaceAngVelo(AXIS_X, 20);
+    _pKurokoA->setFaceAngVelo(AXIS_Y, 67);
+    _pKurokoA->setFaceAngVelo(AXIS_Z, 99);
     _pProg->set(PROG_MOVE);
+    setAlpha(0.2);
 }
 
 void EnemyHermione::processBehavior() {

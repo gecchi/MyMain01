@@ -132,8 +132,43 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         _fY = _matWorld._42;
         _fZ = _matWorld._43;
 
-        //TODO:絶対座標の_RX, _RY, _RZ に変換は保留
-
+        //TODO:絶対座標系の_RX, _RY, _RZ に変換は保留
+        //     現在の最終的な向きを、RzRyで取得求める方法は以下の通り、
+        //     フレームワークでは _RX, _RY, _RZ はどうでもよく変換行列があれば良い。
+        //     したがって計算をスキップできる。
+        //     UTIL::getRzRyAng() の計算負荷が無視できないと考えたため、ここで計算しない。
+        //     計算で求めるんならば以下の方法で行える
+        //
+        //＜コード＞
+        //UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
+        //_RX はそのまま
+        //＜説明＞
+        //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
+        //大元の方向ベクトルを(Xorg_,Yorg_,Zorg_)、
+        //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
+        //最終的な方向ベクトルを(vX, vY, vZ) とすると
+        //
+        //                      | mat_11 mat_12 mat_13 |
+        //| Xorg_ Yorg_ Zorg_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
+        //                      | mat_31 mat_32 mat_33 |
+        //となる。
+        //
+        //vX = Xorg_*mat_11 + Yorg_*mat_21 + Zorg_*mat_31
+        //vY = Xorg_*mat_12 + Yorg_*mat_22 + Zorg_*mat_32
+        //vZ = Xorg_*mat_13 + Yorg_*mat_23 + Zorg_*mat_33
+        //
+        //さてここで、大元が前方の単位方向ベクトル(1,0,0)の場合はどうなるか？を考えると
+        //
+        //vX = Xorg_*mat_11
+        //vY = Xorg_*mat_12
+        //vZ = Xorg_*mat_13
+        //
+        //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
+        //最終的な方向ベクトルは（Xorg_*mat_11, Xorg_*mat_12, Xorg_*mat_13) となる。
+        //この方向ベクトルを _RZ _RY 表現すれば良い。
+        //計算しやすいようにXorg_を1と置いて
+        //
+        //UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
     }
 
 

@@ -78,9 +78,9 @@ public:
     dxcoord _dest_from_vppln_back;
     /** [r/w]WORLD変換(回転×移動)行列計算関数 */
     void (*_pFunc_calcRotMvWorldMatrix)(GgafDxGeometricActor*, D3DXMATRIX&);
-    /** [r]自身の現在のWorld変換行列(通常は「拡大縮小×回転×移動」) */
+    /** [r]自身の現在のWorld変換行列(通常は「拡大縮小×回転×移動」)。土台がある場合は、その土台と行列の積になっている。 */
     D3DXMATRIX _matWorld;
-    /** [r]自身の現在のWorld変換行列の「回転×移動」のみ */
+    /** [r]自身の現在のWorld変換行列の「回転×移動」のみ。土台がある場合は、その土台と行列の積になっている。 */
     D3DXMATRIX _matWorldRotMv;
     /** [r]自身の現在のWorld変換行列の「回転×移動」の逆行列(回転×移動のインバース) */
     D3DXMATRIX _matInvWorldRotMv;
