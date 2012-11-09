@@ -63,7 +63,7 @@ void GameBeginningScene::processBehavior() {
 //                fadeoutScene(FADE_FRAMES);
             }
             if (_pProg->getFrameInProgress() == 20) {
-                throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
+                throwEventUpperTree(EVENT_GAMEMODE_DECIDE);
             }
 
 //

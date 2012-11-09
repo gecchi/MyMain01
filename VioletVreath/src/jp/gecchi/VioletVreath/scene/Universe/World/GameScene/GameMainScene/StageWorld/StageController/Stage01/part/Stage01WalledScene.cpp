@@ -171,7 +171,7 @@ void Stage01WalledScene::processBehavior() {
 }
 
 void Stage01WalledScene::onFinishedSection() {
-    throwEventToUpperTree(EVENT_STG01_WALLED_WAS_BROKEN);
+    throwEventUpperTree(EVENT_STG01_WALLED_WAS_BROKEN);
 }
 
 Stage01WalledScene::~Stage01WalledScene() {

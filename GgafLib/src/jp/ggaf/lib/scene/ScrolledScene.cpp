@@ -11,13 +11,10 @@ ScrolledScene::ScrolledScene(const char* prm_name) : DefaultScene(prm_name) {
 
 
 void ScrolledScene::scroll_X(GgafObject* pThat, void* p1, void* p2) {
-    if (pThat->instanceOf(Obj_GgafScene)) {
-        return; //シーンならば無視
-    }
-    GgafActor* pActor = (GgafActor*)pThat;
-    if (pActor->instanceOf(Obj_GgafDxGeometricActor)) {
+    if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
+        GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
         if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
-            ((GgafDxGeometricActor*)pActor)->_X -= (*((int*)p1));
+            pActor->_X -= (*((coord*)p1));
         }
     }
 }
@@ -25,7 +22,13 @@ void ScrolledScene::scroll_X(GgafObject* pThat, void* p1, void* p2) {
 void ScrolledScene::processBehavior() {
     DefaultScene::processBehavior();
     if (_pFuncScrolling && _is_active_flg && !_was_paused_flg && _can_live_flg) {
-        executeFuncToLowerTree(_pFuncScrolling, &_scroll_speed, NULL);
+        executeFuncLowerTree(_pFuncScrolling, &_scroll_speed, NULL);
+        //ここの executeFuncLowerTree の第２第３引数は、
+        //直ぐ上に記述してScrolledScene::scroll_X の受取り引数 p1 ,p2 と対応する
+        //  this           → GgafObject* pThat
+        //  &_scroll_speed → void* p1
+        //  NULL           → void* p2
+
     }
 }
 

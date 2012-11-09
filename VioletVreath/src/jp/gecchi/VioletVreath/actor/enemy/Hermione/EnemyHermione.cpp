@@ -9,67 +9,71 @@ EnemyHermione::EnemyHermione(const char* prm_name) :
     _class_name = "EnemyHermione";
 
     num_arm_ = 6; //腕の数
-    num_arm_body_ = 7;  //ArmBodyの個数（１以上）
+    num_arm_part_ = 7;  //腕の節数（3以上）
     angle pos_rz[] = {D_ANG(0),   D_ANG(90),   D_ANG(180),  D_ANG(270), D_ANG(0) , D_ANG(0)  }; //生やす場所
     angle pos_ry[] = {D_ANG(0),   D_ANG(0),    D_ANG(0)  ,  D_ANG(0)  , D_ANG(90), D_ANG(270) };
     static coord R = PX_C(100);     //本体Hermioneの半径
     static coord arm_R = PX_C(45);  //可動部の腕の関節１個の半径
 
 
-    paArm_ = NEW EnemyHermione::Arm[num_arm_];
-    float vx,vy,vz;
-    EnemyHermioneArmBody* pArmBody;
-
     //次のようなツリー構造を作る(腕が３本の場合)
     //Hermione
     // ↓
     //GroupHead()
     // ↓
-    //ArmBody(根本)  ⇔   ArmBody(根本)   ⇔  ArmBody(根本)
+    //ArmPart(根本)  ⇔   ArmPart(根本)   ⇔  ArmPart(根本)
     // ↓                   ↓                  ↓
-    //ArmBody              ArmBody             ArmBody
+    //ArmPart              ArmPart             ArmPart
     // ↓                   ↓                  ↓
-    //ArmBody              ArmBody             ArmBody
+    //ArmPart(弱点)        ArmPart(弱点)       ArmPart(弱点)
     // ↓                   ↓                  ↓
-    //ArmBody              ArmBody             ArmBody
+    //ArmPart              ArmPart             ArmPart
     // ↓                   ↓                  ↓
-    //ArmBody              ArmBody             ArmBody
+    //ArmPart              ArmPart             ArmPart
     // ↓                   ↓                  ↓
-    //GroupHead()          GroupHead()         GroupHead()
-    // ↓                   ↓                  ↓
-    //ArmHead              ArmHead             ArmHead
+    //ArmPart(頭)          ArmPart(頭)          ArmPart(頭)
+
+    paArm_ = NEW EnemyHermione::Arm[num_arm_];
+    float vx,vy,vz;
+    EnemyHermioneArm* pArmPart;
     for (int arm = 0; arm < num_arm_; arm++) { //腕の本数でループ
         paArm_[arm].pos_Rz_ = pos_rz[arm];
         paArm_[arm].pos_Ry_ = pos_ry[arm];
         UTIL::getNormalizeVectorZY(paArm_[arm].pos_Rz_, paArm_[arm].pos_Ry_,
-                                   vx, vy, vz);
-        paArm_[arm].papArmBody_ = NEW EnemyHermioneArmBody*[num_arm_body_];
+                                   vx, vy, vz); //腕をつける方向のベクトル
+        paArm_[arm].papArmPart_ = NEW EnemyHermioneArm*[num_arm_part_];
 
-        for (int i = 0; i < num_arm_body_; i++) { //腕の胴体(関節)
-            paArm_[arm].papArmBody_[i] = NEW EnemyHermioneArmBody("BD");
+        for (int i = 0; i < num_arm_part_; i++) { //腕の胴体(関節)
+            if (i == (num_arm_part_-1)/2) {
+                //腕の節の弱点部分
+                paArm_[arm].papArmPart_[i] = NEW EnemyHermioneArmWeak("ArmWeak");
+            } else if (i == num_arm_part_-1) {
+                //腕の節の先頭部分
+                paArm_[arm].papArmPart_[i] = NEW EnemyHermioneArmHead("ArmHead");
+            } else {
+                //普通の腕の節
+                paArm_[arm].papArmPart_[i] = NEW EnemyHermioneArmBody("ArmBody");
+            }
             if (i == 0) {
-                //ArmBody根本
+                //節が根本の場合
+                //関節固定させる
+                paArm_[arm].papArmPart_[i]->config(0, 0);
+                //自身を土台とするFK設定
                 this->addSubGroupAsFk(
-                        paArm_[arm].papArmBody_[i],
+                        paArm_[arm].papArmPart_[i],
                         vx*R, vy*R, vz*R,
                         D0ANG, paArm_[arm].pos_Ry_, paArm_[arm].pos_Rz_);
-                paArm_[arm].papArmBody_[i]->config(0, 0); //根本は関節固定させる
             } else {
-                //ArmBody残り。真っ直ぐ直線でつなげる
-                paArm_[arm].papArmBody_[i-1]->addSubGroupAsFk(
-                                               paArm_[arm].papArmBody_[i],
+                //節が根本以外場合
+                //先に行くほど可動範囲と回転スピードが大きくする（これで、FKなのにIKっぽくも見える！）
+                paArm_[arm].papArmPart_[i]->config(D_ANG(25+(i*2.5)), 20+(i*60));
+                //一つ前の腕の節を土台とするFK設定
+                paArm_[arm].papArmPart_[i-1]->addSubGroupAsFk(
+                                               paArm_[arm].papArmPart_[i],
                                                arm_R, 0, 0,
                                                D0ANG, D0ANG, D0ANG);
-                paArm_[arm].papArmBody_[i]->config(D_ANG(25+(i*2.5)), 20+(i*60)); //先に行くほど可動範囲が広い
             }
-
         }
-        //ArmHead、最後にヘッドをつける
-        paArm_[arm].pArmHead_ = NEW EnemyHermioneArmHead("HD");
-        paArm_[arm].papArmBody_[num_arm_body_-1]->addSubGroupAsFk(paArm_[arm].pArmHead_,
-                                                                 arm_R, 0, 0,
-                                                                 D0ANG, D0ANG, D0ANG);
-        paArm_[arm].pArmHead_->config(D_ANG(25+(num_arm_body_*2.5)), 20+(num_arm_body_*60));
     }
 
     _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
@@ -87,6 +91,7 @@ void EnemyHermione::initialize() {
 }
 
 void EnemyHermione::onActive() {
+    setHitAble(true);
     _pStatus->reset();
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
@@ -136,6 +141,9 @@ void EnemyHermione::onHit(GgafActor* prm_pOtherActor) {
             //アイテム出現
             UTIL::activateItemOf(this);
         }
+
+        throwEventLowerTree(EVENT_HERMIONE_SAYONARA);
+
         sayonara();
     } else {
         //非破壊時

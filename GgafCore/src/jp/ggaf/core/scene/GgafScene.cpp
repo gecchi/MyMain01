@@ -107,22 +107,22 @@ void GgafScene::afterDraw() {
     _pDirector->afterDraw();
 }
 
-void GgafScene::throwEventToLowerTree(hashval prm_no, void* prm_pSource) {
-    GgafElement<GgafScene>::throwEventToLowerTree(prm_no, prm_pSource);
-    _pDirector->throwEventToLowerTree(prm_no, prm_pSource);
+void GgafScene::throwEventLowerTree(hashval prm_no, void* prm_pSource) {
+    GgafElement<GgafScene>::throwEventLowerTree(prm_no, prm_pSource);
+    _pDirector->throwEventLowerTree(prm_no, prm_pSource);
 }
 
-void GgafScene::throwEventToLowerTree(hashval prm_no) {
-    GgafElement<GgafScene>::throwEventToLowerTree(prm_no);
-    _pDirector->throwEventToLowerTree(prm_no);
+void GgafScene::throwEventLowerTree(hashval prm_no) {
+    GgafElement<GgafScene>::throwEventLowerTree(prm_no);
+    _pDirector->throwEventLowerTree(prm_no);
 }
 
-void GgafScene::throwEventToUpperTree(hashval prm_no, void* prm_pSource) {
-    GgafElement<GgafScene>::throwEventToUpperTree(prm_no, prm_pSource);
+void GgafScene::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
+    GgafElement<GgafScene>::throwEventUpperTree(prm_no, prm_pSource);
 }
 
-void GgafScene::throwEventToUpperTree(hashval prm_no) {
-    GgafElement<GgafScene>::throwEventToUpperTree(prm_no);
+void GgafScene::throwEventUpperTree(hashval prm_no) {
+    GgafElement<GgafScene>::throwEventUpperTree(prm_no);
 }
 void GgafScene::doFinally() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
@@ -221,9 +221,9 @@ void GgafScene::unpauseImmed() {
     _pDirector->unpauseImmed();
 }
 
-void GgafScene::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
-    GgafElement<GgafScene>::executeFuncToLowerTree(pFunc, prm1, prm2);
-    _pDirector->executeFuncToLowerTree(pFunc, prm1, prm2);
+void GgafScene::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
+    GgafElement<GgafScene>::executeFuncLowerTree(pFunc, prm1, prm2);
+    _pDirector->executeFuncLowerTree(pFunc, prm1, prm2);
 }
 
 void GgafScene::reset() {

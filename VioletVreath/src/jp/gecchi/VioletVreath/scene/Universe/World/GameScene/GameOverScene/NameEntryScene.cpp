@@ -110,7 +110,7 @@ void NameEntryScene::processBehavior() {
             if (_pProg->hasJustChanged()) {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_FINISH)");
                 _TRACE_("Ç®ÇÌÇËÇ∂Ç·ÇÊÅI");
-                throwEventToUpperTree(EVENT_NAMEENTRYSCENE_FINISH);
+                throwEventUpperTree(EVENT_NAMEENTRYSCENE_FINISH);
             }
             break;
         }

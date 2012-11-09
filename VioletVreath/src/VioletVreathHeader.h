@@ -1,7 +1,7 @@
 #ifndef VIOLETVREATHHEADER_H_
 #define VIOLETVREATHHEADER_H_
 
-//「DirectX9ライブラリ」を利用する場合（利用者は俺）
+//「DirectX9ライブラリ」を利用する（利用者は俺！）場合
 //次の"GgafLibHeader.h"ヘッダをインクルードします。
 
 #include "GgafLibHeader.h"
@@ -483,6 +483,7 @@ class EnemyHermione;
 class EnemyHermioneArm;
 class EnemyHermioneArmBody;
 class EnemyHermioneArmHead;
+class EnemyHermioneArmWeak;
 
 class DepositoryConnection;
 class DepositoryManager;
@@ -806,8 +807,10 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Atalante/EnemyAtalante.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermione.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArm.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmBody.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmHead.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmWeak.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylvia.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia001.h"

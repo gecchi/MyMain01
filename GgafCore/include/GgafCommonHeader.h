@@ -381,6 +381,7 @@ typedef UINT32 frame;
 /** 文字：文字 マップ */
 typedef std::map<std::string, std::string> GgafStrMap;
 
+#define Obj_SceneBit             (0x80000000)       //0b 10000000 00000000 00000000 00000000
 
 #define Obj_GgafScene             (0x80000001)       //0b 10000000 00000000 00000000 00000001
 #define Obj_GgafMainScene         (0x80000002)       //0b 10000000 00000000 00000000 00000010

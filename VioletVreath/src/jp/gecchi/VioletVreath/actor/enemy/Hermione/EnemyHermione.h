@@ -2,6 +2,7 @@
 #define ENEMYHERMIONE_H_
 namespace VioletVreath {
 
+HASHVAL(EVENT_HERMIONE_SAYONARA);
 
 /**
  * 敵機ヘルミオネ  .
@@ -28,18 +29,16 @@ public:
 
     class Arm {
     public:
-
         angle pos_Rz_;
         angle pos_Ry_;
-        EnemyHermioneArmBody** papArmBody_;
-        EnemyHermioneArmHead* pArmHead_;
-        Arm() : pos_Rz_(0),pos_Ry_(0),papArmBody_(NULL),pArmHead_(NULL) {}
+        EnemyHermioneArm** papArmPart_;
+        Arm() : pos_Rz_(0),pos_Ry_(0),papArmPart_(NULL) {}
         ~Arm() {
-            DELETEARR_IMPOSSIBLE_NULL(papArmBody_);
+            DELETEARR_IMPOSSIBLE_NULL(papArmPart_);
         }
     };
     int num_arm_; //腕の数
-    int num_arm_body_;  //ArmBodyの個数（１以上）
+    int num_arm_part_;  //腕の節数（3以上）
     Arm* paArm_;
 
     /**

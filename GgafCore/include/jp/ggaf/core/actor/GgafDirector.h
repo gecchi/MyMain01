@@ -64,10 +64,10 @@ public:
     void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    void throwEventToUpperTree(hashval prm_no, void* prm_pSource) override {
+    void throwEventUpperTree(hashval prm_no, void* prm_pSource) override {
         GgafScene* s = getPlatformScene();
         if (s) {
-            s->throwEventToUpperTree(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる
+            s->throwEventUpperTree(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる
         }
     }
 

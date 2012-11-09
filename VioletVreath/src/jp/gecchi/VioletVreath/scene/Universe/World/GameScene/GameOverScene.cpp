@@ -84,7 +84,7 @@ void GameOverScene::processBehavior() {
                 if (pNameEntryScene_) {
                     pNameEntryScene_->sayonara();
                 }
-                throwEventToUpperTree(EVENT_GAMEOVERSCENE_FINISH);
+                throwEventUpperTree(EVENT_GAMEOVERSCENE_FINISH);
             }
             break;
         }

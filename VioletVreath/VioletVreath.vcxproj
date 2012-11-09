@@ -323,8 +323,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hebe\FormationHebe.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hebe\FormationHebe001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermione.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArm.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmBody.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmHead.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmWeak.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperiaLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Iris\EnemyIris.cpp" />
@@ -605,8 +607,10 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\hebe\formationhebe.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\hebe\formationhebe001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermione.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArm.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmBody.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmHead.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmWeak.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperiaLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\iris\enemyiris.h" />

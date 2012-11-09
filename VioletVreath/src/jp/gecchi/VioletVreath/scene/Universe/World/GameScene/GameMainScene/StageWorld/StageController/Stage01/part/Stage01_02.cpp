@@ -794,7 +794,7 @@ void Stage01_02::processBehavior() {
 
     //シーン終了のイベントを通知
     if (getActivePartFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
-        throwEventToUpperTree(EVENT_STG01_02_WAS_BROKEN);
+        throwEventUpperTree(EVENT_STG01_02_WAS_BROKEN);
     }
 }
 

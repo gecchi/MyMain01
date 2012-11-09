@@ -119,8 +119,8 @@ void GameDemoScene::processBehavior() {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_FINISH)");
             }
             if (_pProg->getFrameInProgress() == 600) {
-                _TRACE_("GameDemoScene::processBehavior() throwEventToUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");
-                throwEventToUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動
+                _TRACE_("GameDemoScene::processBehavior() throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");
+                throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動
             }
 
             break;

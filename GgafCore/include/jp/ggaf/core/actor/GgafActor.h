@@ -216,6 +216,15 @@ public:
      */
     virtual GgafActor* extract() override;
 
+    virtual bool instanceOf(UINT32 prm_Obj_xxxx) override {
+        if ((Obj_SceneBit & prm_Obj_xxxx) == Obj_SceneBit) {
+            //シーンを示すビットが立っていたら
+            return false;
+        } else {
+            return GgafElement<GgafActor>::instanceOf(prm_Obj_xxxx);
+        }
+    }
+
     /**
      * デバッグ用：ツリー構造を表示<BR>
      */

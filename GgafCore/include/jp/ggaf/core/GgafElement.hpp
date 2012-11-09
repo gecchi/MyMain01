@@ -350,29 +350,33 @@ public:
     virtual void processFinal() {};
 
     /**
-     * 自ノードよりも親にあたるノード全てにイベントメッセージを通知(通知対象：ツリー全て) .
-     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要である。
+     * 自ノードと自ノードよりも親にあたるノード全てにイベントメッセージを通知(通知対象：ツリー全て) .
+     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要です。<BR>
+     * 自身の onCatchEvent(hashval, void) にも通知されるので注意して下さい。<BR>
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void throwEventToLowerTree(hashval prm_no, void* prm_pSource);
-    virtual void throwEventToLowerTree(hashval prm_no) {
-        throwEventToLowerTree(prm_no, this);
+    virtual void throwEventUpperTree(hashval prm_no, void* prm_pSource);
+    virtual void throwEventUpperTree(hashval prm_no) {
+        throwEventUpperTree(prm_no, this);
     }
 
+
     /**
-     * 配下ノード全てにイベントメッセージを通知します(実行対象：所属の親全て) .
-     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要である。
+     * 自ノードとその配下ノード全てにイベントメッセージを通知します(通知対象：所属の親全て) .
+     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要である。<BR>
+     * 自身の onCatchEvent(hashval, void) にも通知されるので注意して下さい。<BR>
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void throwEventToUpperTree(hashval prm_no, void* prm_pSource);
-    virtual void throwEventToUpperTree(hashval prm_no) {
-        throwEventToUpperTree(prm_no, this);
+    virtual void throwEventLowerTree(hashval prm_no, void* prm_pSource);
+    virtual void throwEventLowerTree(hashval prm_no) {
+        throwEventLowerTree(prm_no, this);
     }
 
     /**
      * イベント発生時のコールバック .
+     * throwEventUpperTree() throwEventLowerTree() で発した場合コールバックされます。<BR>
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
@@ -809,12 +813,12 @@ public:
     virtual UINT32 getActivePartFrame();
 
     /**
-     * 配下全てのオブジェクトに対して指定の関数を実行させる .
+     * 自身と配下全てのオブジェクトに対して指定の関数を実行させる .
      * 配下オブジェクト（アクターかシーン）のポインタが、引数関数ポインタの pFuncの第１引数に渡ってくる。<BR>
-     * 引数関数ポインタの pFunc の第２引数には、executeFuncToLowerTree 呼び出し時の prm1(引数１)のポインタが渡ってくる。<BR>
-     * 引数関数ポインタの pFunc の第３引数には、executeFuncToLowerTree 呼び出し時の prm2(引数２)のポインタが渡ってくる。<BR>
+     * 引数関数ポインタの pFunc の第２引数には、executeFuncLowerTree 呼び出し時の prm1(引数１)のポインタが渡ってくる。<BR>
+     * 引数関数ポインタの pFunc の第３引数には、executeFuncLowerTree 呼び出し時の prm2(引数２)のポインタが渡ってくる。<BR>
      * 配下のオブジェクトが何であるのか判っている上で使用しないと危険である。<BR>
-     * あと、早くラムダ式を使わせてください。<BR>
+     * あと、ラムダ式とキャプチャーを使わせてください。<BR>
      *
      * ＜使用例＞<BR>
      * XXXXScene 配下のオブジェクト全てのアクター(但しGgafDxGeometricActor)のメンバ変数 _X に、
@@ -823,32 +827,30 @@ public:
      * <code><pre>
      *
      * class XXXXScene : public GgafScene {
+     * public :
+     *     int velo_;
      *
-     *     int _velo;
-     *
-     *     static void addX(GgafObject* pThat, void* p1, void* p2) { //p1に_veloが渡る
-     *         if (pThat->instanceOf(Obj_GgafScene)) {
-     *             return; //シーンならば無視
-     *         }
-     *         GgafActor* pActor = (GgafActor*)pThat;
-     *         if (pActor->instanceOf(Obj_GgafDxGeometricActor)) {
+     *     static void addX(GgafObject* pThat, void* p1, void* p2) {
+     *         if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
      *             //GgafDxGeometricActorならば _X を加算
-     *             ((GgafDxGeometricActor*)pActor)->_X += (*((int*)p1));
+     *              GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
+     *              pActor->_X += (*((int*)p1));  //p1 に velo_ へのポインタが渡ってくる
      *         }
      *     }
      *
      *     void processBehavior() {
      *         //配下アクター全てにaddX実行
-     *         executeFuncToLowerTree(XXXXScene::addX, _velo, NULL);
+     *         velo_ = 1000;
+     *         executeFuncLowerTree(XXXXScene::addX, &velo_, NULL);
      *     }
      * }
      *
      * </pre></code>
-     * @param pFunc オブジェクトに実行させたい関数
+     * @param pFunc オブジェクトに実行させたい関数。パラメータは(GgafObject*, void*, void*) 固定。
      * @param prm1 渡したい引数その１
      * @param prm2 渡したい引数その２
      */
-    virtual void executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
+    virtual void executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
 
     /**
      * 進捗管理オブジェクト(GgafProgress) が管理する進捗の場合数を設定する。
@@ -917,7 +919,7 @@ void GgafElement<T>::nextFrame() {
         //即returnする事は重要。nextFrame() 処理の２重実行をさけるため。
         //このノードは、末尾に回されているため、必ずもう一度 nextFrame() の機会が訪れる。
     }
-    _was_paused_flg  = _was_paused_flg_in_next_frame;
+    _was_paused_flg = _was_paused_flg_in_next_frame;
     if (!_was_paused_flg) {
 
         _frame_of_life++;
@@ -1007,7 +1009,6 @@ void GgafElement<T>::nextFrame() {
     if (GgafNode<T>::_pSubFirst) {
         T* pElementTemp = GgafNode<T>::_pSubFirst;
         while(true) {
-
             if (pElementTemp->_is_last_flg) {
                 pElementTemp->nextFrame();
                 if (pElementTemp->_can_live_flg == false) {
@@ -1032,7 +1033,6 @@ void GgafElement<T>::nextFrame() {
         //moveFirstを一番最後にすることは重要。
         //これは nextFrame() の２重実行を避けるため。
     }
-
 
     TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafObject::_name<<" class="<<GgafNode<T>::_class_name);
 }
@@ -1513,7 +1513,7 @@ UINT32 GgafElement<T>::getActivePartFrame() {
 }
 
 template<class T>
-void GgafElement<T>::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
+void GgafElement<T>::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
     if (_can_live_flg) {   //TODO:activeフラグも、入れても良いかな・・・
         if (_was_initialize_flg) {
             pFunc(this, prm1, prm2);
@@ -1521,7 +1521,7 @@ void GgafElement<T>::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, vo
         if (GgafNode<T>::_pSubFirst) {
             T* pElementTemp = GgafNode<T>::_pSubFirst;
             while(true) {
-                pElementTemp->executeFuncToLowerTree(pFunc, prm1, prm2);
+                pElementTemp->executeFuncLowerTree(pFunc, prm1, prm2);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1533,13 +1533,13 @@ void GgafElement<T>::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, vo
 }
 
 template<class T>
-void GgafElement<T>::throwEventToLowerTree(hashval prm_no, void* prm_pSource) {
+void GgafElement<T>::throwEventLowerTree(hashval prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         onCatchEvent(prm_no, prm_pSource);
         if (GgafNode<T>::_pSubFirst) {
             T* pElementTemp = GgafNode<T>::_pSubFirst;
             while(true) {
-                pElementTemp->throwEventToLowerTree(prm_no, prm_pSource);
+                pElementTemp->throwEventLowerTree(prm_no, prm_pSource);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1551,14 +1551,14 @@ void GgafElement<T>::throwEventToLowerTree(hashval prm_no, void* prm_pSource) {
 }
 
 template<class T>
-void GgafElement<T>::throwEventToUpperTree(hashval prm_no, void* prm_pSource) {
+void GgafElement<T>::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
             onCatchEvent(prm_no, prm_pSource);
         }
         if (GgafNode<T>::_pParent) {
             T* pElementTemp = GgafNode<T>::_pParent;
-            pElementTemp->throwEventToUpperTree(prm_no, prm_pSource);
+            pElementTemp->throwEventUpperTree(prm_no, prm_pSource);
         } else {
             //てっぺん
         }

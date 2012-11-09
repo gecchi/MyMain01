@@ -97,7 +97,7 @@ void RankUpStage::processBehavior() {
             if (_pProg->hasJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_END‚É‚È‚è‚Ü‚·‚½I");
                 pMessage1_->update("RANKUPSTAGE::PROG_END");
-                throwEventToUpperTree(EVENT_RANKUP_WAS_END);
+                throwEventUpperTree(EVENT_RANKUP_WAS_END);
             }
 
             if (_pProg->getFrameInProgress() == 280) {
@@ -117,8 +117,8 @@ void RankUpStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 void RankUpStage::onEnded() {
-    _TRACE_("RankUpStage::onEnded() ["<<getName()<<"] throwEventToUpperTree EVENT_RANKUP_ON_GARBAGEDI");
-    throwEventToUpperTree(EVENT_RANKUP_ON_GARBAGED);
+    _TRACE_("RankUpStage::onEnded() ["<<getName()<<"] throwEventUpperTree EVENT_RANKUP_ON_GARBAGEDI");
+    throwEventUpperTree(EVENT_RANKUP_ON_GARBAGED);
 
 }
 

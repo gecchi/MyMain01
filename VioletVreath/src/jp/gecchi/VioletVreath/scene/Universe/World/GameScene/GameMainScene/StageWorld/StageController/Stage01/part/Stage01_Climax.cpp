@@ -31,7 +31,7 @@ void Stage01_Climax::processBehavior() {
         if (pBoss_->isDisappear()) {
             //isDisappear()‚É‚È‚è‚Á•ú‚µ‚ð‚È‚ñ‚Æ‚©‚·‚é
             _TRACE_("Stage01_Climax::processBehavior() EVENT_STG01_CLIMAX_WAS_BROKEN!!!!");
-            throwEventToUpperTree(EVENT_STG01_CLIMAX_WAS_BROKEN);
+            throwEventUpperTree(EVENT_STG01_CLIMAX_WAS_BROKEN);
             waiting_ = true;
         }
     }

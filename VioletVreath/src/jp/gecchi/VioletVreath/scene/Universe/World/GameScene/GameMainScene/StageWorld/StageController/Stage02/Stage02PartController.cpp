@@ -69,7 +69,7 @@ void Stage02PartController::processBehavior() {
             }
             if (_pProg->getFrameInProgress() == 60) {
                 fadeoutSceneWithBgm(300);
-                throwEventToUpperTree(EVENT_STG02_CTRLER_WAS_END); //ステージエンドを上位に伝える
+                throwEventUpperTree(EVENT_STG02_CTRLER_WAS_END); //ステージエンドを上位に伝える
             }
             break;
         }

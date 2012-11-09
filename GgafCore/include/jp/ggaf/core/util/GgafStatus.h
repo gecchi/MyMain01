@@ -48,7 +48,7 @@ public:
         }
         _pFunc_reset = prm_pFunc_reset;
         if (_pFunc_reset) {
-            (*_pFunc_reset)(this);
+            (*_pFunc_reset)(this); //リセットメソッドを実行して初期化
         }
     }
 

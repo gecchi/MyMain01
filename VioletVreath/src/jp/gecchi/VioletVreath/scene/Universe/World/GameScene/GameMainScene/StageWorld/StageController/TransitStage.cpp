@@ -75,7 +75,7 @@ void TransitStage::processBehavior() {
             if (_pProg->hasJustChanged()) {
                 _TRACE_("TransitStage::processBehavior() Prog has Just Changed (to Stage::PROG_END)");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
-                throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)(&next_main_stage_)); //次ステージ準備へ
+                throwEventUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)(&next_main_stage_)); //次ステージ準備へ
             }
 
             if (_pProg->getFrameInProgress() == 120) {
@@ -83,9 +83,9 @@ void TransitStage::processBehavior() {
             }
 
             if (_pProg->getFrameInProgress() == 300) {
-                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) and throwEventToUpperTree(EVENT_TRANSIT_WAS_END).");
+                _TRACE_("TransitStage::processBehavior() Prog(=Stage::PROG_END) and throwEventUpperTree(EVENT_TRANSIT_WAS_END).");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
-                throwEventToUpperTree(EVENT_TRANSIT_WAS_END);
+                throwEventUpperTree(EVENT_TRANSIT_WAS_END);
             }
 
             break;

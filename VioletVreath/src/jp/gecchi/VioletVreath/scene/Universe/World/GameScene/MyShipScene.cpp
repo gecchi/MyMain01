@@ -152,12 +152,12 @@ void MyShipScene::processBehavior() {
             }
             if (_pProg->getFrameInProgress() == 240) {
                 if (zanki_ == 0) {
-                   throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
+                   throwEventUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                    P_UNIVERSE->undoCameraWork(); //VamSysCamWorker‰ðœ
                    _pProg->changeNothing();
                    inactivate();
                 } else {
-                   throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
+                   throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
                    _pProg->change(MyShipScene::PROG_BEGIN);
                 }
             }

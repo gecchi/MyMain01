@@ -81,8 +81,8 @@ void GameTitleScene::processBehavior() {
                 _pProg->change(GameTitleScene::PROG_SELECT);
             } else if (_pProg->getFrameInProgress() == GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
-                _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH)");
-                throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
+                _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
+                throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
                 _pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }
             break;
@@ -128,8 +128,8 @@ void GameTitleScene::processBehavior() {
 
             if (_pProg->getFrameInProgress() >= frame_of_noinput_ + GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
-                _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH)");
-                throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
+                _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
+                throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
                 _pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }
             break;
@@ -139,7 +139,7 @@ void GameTitleScene::processBehavior() {
             if (_pProg->hasJustChanged()) {
             }
             if (_pProg->getFrameInProgress() == 90) {
-                throwEventToUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
+                throwEventUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
                 _pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }
             //点滅

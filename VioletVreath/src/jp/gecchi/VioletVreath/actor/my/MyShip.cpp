@@ -592,7 +592,7 @@ void MyShip::processJudgement() {
     //自機消滅テスト
     if (VB_PLAY->isBeingPressed(VB_BUTTON8)) {
         _TRACE_("自機消滅テスト");
-        throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
+        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
 
 

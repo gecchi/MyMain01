@@ -193,8 +193,8 @@ void MenuBoardNameEntry::processBehavior() {
         if (pMenuConfirm->isJustDecided()) { //サブメニューで「決定（振る舞い）」の時
             if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
                 //ネームエントリー完了OK
-                throwEventToUpperTree(EVENT_MENU_NAMEENTRY_DONE);
-                _TRACE_("MenuBoardNameEntry::processBehavior() おしまい。イベントを投げた throwEventToUpperTree(EVENT_MENU_NAMEENTRY_DONE);");
+                throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);
+                _TRACE_("MenuBoardNameEntry::processBehavior() おしまい。イベントを投げた throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);");
                 sinkSubMenu();
             } else if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
                 sinkSubMenu();

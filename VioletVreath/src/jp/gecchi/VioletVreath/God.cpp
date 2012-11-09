@@ -135,7 +135,7 @@ void God::oops() {
 
 God::~God() {
     if (P_WORLD) {
-        P_WORLD->throwEventToLowerTree(EVENT_GOD_WILL_DIE); //全シーンに通知
+        P_WORLD->throwEventLowerTree(EVENT_GOD_WILL_DIE); //全シーンに通知
     }
     clean();
     _was_cleaned = true;

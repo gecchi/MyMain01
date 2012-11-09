@@ -171,8 +171,8 @@ void EnemySylviaEye::onHit(GgafActor* prm_pOtherActor) {
             //アイテム出現
             UTIL::activateItemOf(this);
         }
-        _TRACE_("EnemySylviaEye::onHit() 上位になげるっす throwEventToUpperTree(SYLVIA_EXPLOSION)");
-        throwEventToUpperTree(SYLVIA_EXPLOSION); //親のEnemySylviaを破壊するイベントを投げる
+        _TRACE_("EnemySylviaEye::onHit() 上位になげるっす throwEventUpperTree(SYLVIA_EXPLOSION)");
+        throwEventUpperTree(SYLVIA_EXPLOSION); //親のEnemySylviaを破壊するイベントを投げる
         sayonara();
     } else {
         //非破壊時

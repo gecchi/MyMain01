@@ -7,6 +7,7 @@ using namespace VioletVreath;
 
 QueryRanking::QueryRanking() : GgafQuery() {
 }
+
 void QueryRanking::init() {
     if (PathFileExists(QUERYRANKING_DATA_FILE) ) {
         importFromFile(QUERYRANKING_DATA_FILE);
