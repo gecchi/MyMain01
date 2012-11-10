@@ -486,11 +486,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArm.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmBody.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmHead.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmWeak.cpp"
 				>
 			</File>
 			<File
@@ -1600,11 +1608,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArm.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmBody.h"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmHead.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmWeak.h"
 				>
 			</File>
 			<File
