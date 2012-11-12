@@ -152,17 +152,14 @@ void HomingLaserChip::processBehavior() {
             _prev_RX = _RX;
             _prev_RY = _RY;
             _prev_RZ = _RZ;
-
             processBehaviorHeadChip(); //æ“ªƒ`ƒbƒv‚Ì‚İˆÚ“®À‘•
         } else {
-
             _prev_X  = _X;
             _prev_Y  = _Y;
             _prev_Z  = _Z;
             _prev_RX = _RX;
             _prev_RY = _RY;
             _prev_RZ = _RZ;
-
             _X  = pChip_front->_prev_X;
             _Y  = pChip_front->_prev_Y;
             _Z  = pChip_front->_prev_Z;

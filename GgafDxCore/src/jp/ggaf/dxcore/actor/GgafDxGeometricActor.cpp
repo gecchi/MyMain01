@@ -131,6 +131,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         _fX = _matWorld._41;
         _fY = _matWorld._42;
         _fZ = _matWorld._43;
+        //UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
 
         //TODO:絶対座標系の_RX, _RY, _RZ に変換は保留
         //     現在の最終的な向きを、RzRyで取得求める方法は以下の通り、
@@ -139,9 +140,6 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //     UTIL::getRzRyAng() の計算負荷が無視できないと考えたため、ここで計算しない。
         //     計算で求めるんならば以下の方法で行える
         //
-        //＜コード＞
-        //UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
-        //_RX はそのまま
         //＜説明＞
         //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
         //大元の方向ベクトルを(Xorg_,Yorg_,Zorg_)、
@@ -169,6 +167,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //計算しやすいようにXorg_を1と置いて
         //
         //UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
+        //となる
     }
 
 
@@ -259,7 +258,10 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(GgafDxGeometricActor* prm_p
 }
 
 bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
-    if (instanceOf(Obj_GgafDxGeometricActor)) {
+    if (_can_hit_flg && prm_pOtherActor->_can_hit_flg) {
+        //&& prm_pOtherActor->instanceOf(Obj_GgafDxGeometricActor)) { 当たり判定があるのでGgafDxGeometricActor以上と判断
+        //_can_hit_flg && prm_pOtherActor->_can_hit_flg のチェックはここでももう一度チェックが必要。（８分木登録前にもチェックしてる）
+        //なぜならば、２重ヒットしないため、onHit(GgafActor*) 処理中で setHitAble(false) を行う場合がある為。
         if (_pChecker) {
             return _pChecker->isHit(((GgafDxGeometricActor*)prm_pOtherActor)->_pChecker);
         }

@@ -80,18 +80,18 @@
 #define STAT_LeaveEffectKind        (12)
 /** アクターステータス：爆発エフェクト種類(int) */
 #define STAT_ExplosionEffectKind    (13)
+/** アクターステータス：やられたエフェクト(スコア表示等) (int) */
+#define STAT_DestroyedEffectKind    (14)
 /** アクターステータス：保持アイテム種類(int) */
-#define STAT_ItemKind               (14)
+#define STAT_ItemKind               (15)
 /** アクターステータス：編隊全滅時加算得点(int) */
-#define STAT_FormationDestroyedAddScorePoint (15)
-/** アクターステータス：編隊全滅時エフェクト(int) */
-#define STAT_FormationDestroyedEffectKind (16)
+#define STAT_FormationDestroyedAddScorePoint (16)
+/** アクターステータス：編隊全滅時エフェクト(ボーナス表示等)  (int) */
+#define STAT_FormationDestroyedEffectKind (17)
 /** アクターステータス：編隊全滅時アイテム種別(int) */
-#define STAT_FormationDestroyedItemKind      (17)
+#define STAT_FormationDestroyedItemKind      (18)
 /** アクターステータス：番兵（配列要素数に使用される、STAT_Sentry は一番最後の数値を持ってくること）*/
-#define STAT_Sentry                 (18)
-
-
+#define STAT_Sentry                 (19)
 
 
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。

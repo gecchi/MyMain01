@@ -179,8 +179,7 @@ public:
     void sortDescBy(std::string prm_col[], int prm_col_num, bool prm_blank_is_max);
 
     /**
-     * TAB‚Å•ªŠ„ .
-     * ‹ó•¶š—v‘f‚Í”ò‚Î‚³‚ê‚È‚¢B
+     * ‹ó•¶š‚ğl—¶‚µ‚ÄTAB•¶š‚Å•ªŠ„ .
      * <pre>
      * y—áz
      * std::vector<std::string> data = split("\taaa\tbbb\t\t\tcccc\tddd\teeee\t\t", "\t");

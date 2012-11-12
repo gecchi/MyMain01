@@ -23,7 +23,7 @@ void EnemyHermioneArm::initialize() {
 
 void EnemyHermioneArm::onActive() {
     setHitAble(true);
-    //_pKurokoA->relateFaceAngWithMvAng(true);
+    _pStatus->reset();
     _pProg->set(PROG_INIT);
 }
 
@@ -56,11 +56,11 @@ void EnemyHermioneArm::processBehavior() {
 
                 //MvX MvY MvZ を求める
                 int MvX,MvY,MvZ;
-                if (RND(1, 40) != 1) {
+                if (RND(1, 60) != 1) {
                     //通常の自機を狙う方向ベクトル
                     GgafDxGeometricActor* pTargetActor = P_MYSHIP;
                     MvX = pTargetActor->_X - _X; //ここでの _X, _Y, _Z は絶対座標であることがポイント
-                    MvY = pTargetActor->_Y - _Y;
+                    MvY = (pTargetActor->_Y + PX_C(50)) - _Y; //自機のやや上を狙う
                     MvZ = pTargetActor->_Z - _Z;
                 } else {
                     //たま～に逆方向を目標にして、触手に動きを強要する
@@ -96,9 +96,6 @@ void EnemyHermioneArm::processBehavior() {
                                 angRz_Target, angRy_Target,
                                 aiming_ang_velo_, aiming_ang_velo_*0.05,
                                 TURN_CLOSE_TO);
-//                _pKurokoA->execTurnMvAngSequence(angRz_Target, angRy_Target,
-//                                                 aiming_ang_velo_, aiming_ang_velo_*0.05,
-//                                                 TURN_CLOSE_TO);
             }
             if (_pKurokoA->isRunnigTurnMvAngSequence()) {
                 // 待機

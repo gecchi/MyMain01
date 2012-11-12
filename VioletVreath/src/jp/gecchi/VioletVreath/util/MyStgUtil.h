@@ -1,9 +1,6 @@
 #ifndef MYSTGUTIL_H_
 #define MYSTGUTIL_H_
 
-
-
-
 #ifdef UTIL
     #undef UTIL
 #endif
@@ -66,6 +63,16 @@ public:
      * @return 対象アクターの保持アイテム（活動済み）。又は、取得できない場合 NULL。
      */
     static GgafDxCore::GgafDxDrawableActor* activateItemOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+
+    /**
+     * 対象アクターに紐ついた消滅エフェクトを、取得できれば有効にし、それを返す .
+     * 中型機の場合のスコア表示等に使用される。<BR>
+     * ステータス(_pStatus)の STAT_DestroyedEffectKind の値によって種類が振り分けられる。
+     * @param prm_pActor 対象アクタ
+     * @return 対象アクターの消滅エフェクト（活動済み）。又は、取得できない場合 NULL。
+     */
+    static GgafDxCore::GgafDxDrawableActor* activateDestroyedEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+
     /**
      * 対象アクターに紐ついた入場エフェクトを、取得できれば有効にし、それを返す .
      * ステータス(_pStatus)の STAT_EntryEffectKind の値によって種類が振り分けられる。
@@ -73,6 +80,14 @@ public:
      * @return 対象アクターの入場エフェクト（活動済み）。又は、取得できない場合 NULL。
      */
     static GgafDxCore::GgafDxDrawableActor* activateEntryEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+
+    /**
+     * 対象アクターに紐ついた退場エフェクトを、取得できれば有効にし、それを返す .
+     * ステータス(_pStatus)の STAT_LeaveEffectKind の値によって種類が振り分けられる。
+     * @param prm_pActor 対象アクター
+     * @return 対象アクターの退場エフェクト（活動済み）。又は、取得できない場合 NULL。
+     */
+    static GgafDxCore::GgafDxDrawableActor* activateLeaveEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 対象アクターの紐ついた、フォーメーション全滅エフェクトとスコア加算処理 .

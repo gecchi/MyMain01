@@ -381,7 +381,7 @@ typedef UINT32 frame;
 /** 文字：文字 マップ */
 typedef std::map<std::string, std::string> GgafStrMap;
 
-#define Obj_SceneBit             (0x80000000)       //0b 10000000 00000000 00000000 00000000
+#define Obj_SceneBit              (0x80000000)       //0b 10000000 00000000 00000000 00000000
 
 #define Obj_GgafScene             (0x80000001)       //0b 10000000 00000000 00000000 00000001
 #define Obj_GgafMainScene         (0x80000002)       //0b 10000000 00000000 00000000 00000010
@@ -425,7 +425,6 @@ class GgafElement;
 
 template<class T>
 class GgafLinkedListRing;
-
 
 class GgafFactory;
 class GgafGarbageBox;
@@ -489,10 +488,10 @@ class GgafQuery;
 
 #include "jp/ggaf/core/actor/GgafDisusedActor.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
-#include "jp/ggaf/core/actor/GgafDummyActor.h"
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 #include "jp/ggaf/core/actor/GgafDirector.h"
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
+#include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"
 #include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
 #include "jp/ggaf/core/actor/ex/GgafDepositoryFormation.h"

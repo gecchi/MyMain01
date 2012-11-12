@@ -140,6 +140,8 @@ void EnemyHermione::onHit(GgafActor* prm_pOtherActor) {
         if (pOther->getKind() & KIND_MY) {
             //アイテム出現
             UTIL::activateItemOf(this);
+            //消滅エフェクト
+            UTIL::activateDestroyedEffectOf(this);
         }
 
         throwEventLowerTree(EVENT_HERMIONE_SAYONARA);

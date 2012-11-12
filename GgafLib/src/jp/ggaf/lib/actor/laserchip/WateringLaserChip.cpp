@@ -10,6 +10,7 @@ WateringLaserChip::WateringLaserChip(const char* prm_name, const char* prm_model
     _tmpX = 0;
     _tmpY = 0;
     _tmpZ = 0;
+    _middle_colli_able = true; //’†ŠÔ‚ ‚½‚è”»’èŽ©“®¶¬—L
 }
 
 void WateringLaserChip::onActive() {
@@ -61,7 +62,7 @@ void WateringLaserChip::processSettlementBehavior() {
             WateringLaserChip* pF = (WateringLaserChip*)_pChip_front;
             WateringLaserChip* pB = (WateringLaserChip*)_pChip_behind;
             //’†ŠÔÀ•W‚ÉÄÝ’è
-            _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
+            _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3; //int‚ÌŠ„‚èŽZ‚¾‚µ‚Ü‚Ÿ‚¢‚¢‚©
             _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
             _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
         }

@@ -3,7 +3,7 @@
 namespace VioletVreath {
 
 /**
- * 魔法「オプション」 .
+ * 魔法「レーザー」 .
  * @version 1.00
  * @since 2011/01/11
  * @author Masatoshi Tsuge

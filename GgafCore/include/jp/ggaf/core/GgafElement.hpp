@@ -79,7 +79,6 @@ public:
     /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計(但し、_was_paused_flg==true 又は _is_active_flg==false 時は加算され無い) */
     frame _frame_of_behaving_since_onActive;
 
-//    frame _last_frame_of_god;
     /** [r]ノード活動フラグ */
     bool _is_active_flg;
     /** [r]ノード活動フラグ(自ツリーも考慮あり) */
@@ -357,6 +356,14 @@ public:
      * @param prm_pSource  イベント用汎用ポインタ
      */
     virtual void throwEventUpperTree(hashval prm_no, void* prm_pSource);
+
+    /**
+     * 自ノードと自ノードよりも親にあたるノード全てにイベントメッセージを通知(通知対象：ツリー全て) .
+     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要です。<BR>
+     * 自身の onCatchEvent(hashval, void) にも通知されるので注意して下さい。<BR>
+     * 汎用引数 void* には、this が設定されます。<BR>
+     * @param prm_no イベントメッセージ番号
+     */
     virtual void throwEventUpperTree(hashval prm_no) {
         throwEventUpperTree(prm_no, this);
     }
@@ -370,6 +377,14 @@ public:
      * @param prm_pSource  イベント用汎用ポインタ
      */
     virtual void throwEventLowerTree(hashval prm_no, void* prm_pSource);
+
+    /**
+     * 自ノードとその配下ノード全てにイベントメッセージを通知します(通知対象：所属の親全て) .
+     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要である。<BR>
+     * 自身の onCatchEvent(hashval, void) にも通知されるので注意して下さい。<BR>
+     * 汎用引数 void* には、this が設定されます。<BR>
+     * @param prm_no イベントメッセージ番号
+     */
     virtual void throwEventLowerTree(hashval prm_no) {
         throwEventLowerTree(prm_no, this);
     }
@@ -596,7 +611,8 @@ public:
     // ＜メモ initialize(), onReset(), onActive() の使い分けについて＞
     // 状態をリセット処理は、どこに実装するべきか？
     // initialize() ・・・ 生成後、最初の１回だけ事前にコールバックされる。初期化処理等に使用することを想定。
-    // onReset()    ・・・ 生成後、initialize() の後、１回だけ無条件でコールされる。その後、reset() 実行でコールバックされる。
+    // onReset()    ・・・ 生成後、initialize() の後、１回だけ無条件でコールされる。
+    //                     その後、任意のタイミングの reset() 実行でコールバックされる。
     // onActive()   ・・・ 生成後、initialize() の後の活動状態時 １フレーム目の behave() 直前にコールされる。
     //                     その後 非活動→活動状態になった時、自動的にコールバックされる。
     // ノード(アクターやシーン)の処理サイクルによって使い分ける。
@@ -821,27 +837,26 @@ public:
      * あと、ラムダ式とキャプチャーを使わせてください。<BR>
      *
      * ＜使用例＞<BR>
-     * XXXXScene 配下のオブジェクト全てのアクター(但しGgafDxGeometricActor)のメンバ変数 _X に、
-     * XXXXSceneメンバ変数 _velo の値を加算させる。<BR>
-     * XXXXScene クラスの実装サンプルを以下に記す<BR>
+     * XXXXActor 配下のオブジェクト全てのアクター(但しGgafDxGeometricActor)のメンバ変数 _X に、
+     * XXXXActorメンバ変数 _velo の値を加算させる。<BR>
+     * XXXXActor クラスの実装サンプルを以下に記す<BR>
      * <code><pre>
      *
-     * class XXXXScene : public GgafScene {
+     * class XXXXActor : public GgafDxGeometricActor {
      * public :
      *     int velo_;
      *
      *     static void addX(GgafObject* pThat, void* p1, void* p2) {
-     *         if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
-     *             //GgafDxGeometricActorならば _X を加算
-     *              GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
-     *              pActor->_X += (*((int*)p1));  //p1 に velo_ へのポインタが渡ってくる
+     *         if (pThat->instanceOf(Obj_GgafDxGeometricActor)) { //GgafDxGeometricActorならば
+     *             GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
+     *             pActor->_X += (*((int*)p1));  //_X 加算。p1 には velo_ へのポインタが渡ってくる
      *         }
      *     }
      *
      *     void processBehavior() {
      *         //配下アクター全てにaddX実行
      *         velo_ = 1000;
-     *         executeFuncLowerTree(XXXXScene::addX, &velo_, NULL);
+     *         executeFuncLowerTree(XXXXActor::addX, &velo_, NULL);
      *     }
      * }
      *
@@ -1174,10 +1189,10 @@ template<class T>
 void GgafElement<T>::activateDelay(frame prm_offset_frames) {
 #ifdef MY_DEBUG
     if (prm_offset_frames == 0) {
-        _TRACE_("＜警告＞activateDelay(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("activateDelay(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
     if (prm_offset_frames >= 60*60*60) { //１時間後
-        _TRACE_("＜警告＞activateDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("activateDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！！！。負の数になったのとちがう？。 name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {
@@ -1196,10 +1211,10 @@ template<class T>
 void GgafElement<T>::activateWhile(frame prm_frames) {
 #ifdef MY_DEBUG
     if (prm_frames == 0) {
-        _TRACE_("＜警告＞activateWhile(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("activateWhile(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
     if (prm_frames >= 60*60*60) { //１時間後
-        _TRACE_("＜警告＞activateWhile("<<prm_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("activateWhile("<<prm_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！負の数になったのとちがう？。 name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {
@@ -1214,10 +1229,10 @@ template<class T>
 void GgafElement<T>::activateTreeDelay(frame prm_offset_frames) {
 #ifdef MY_DEBUG
     if (prm_offset_frames == 0) {
-        _TRACE_("＜警告＞activateTreeDelay(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("activateTreeDelay(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
     if (prm_offset_frames >= 60*60*60) { //１時間後
-        _TRACE_("＜警告＞activateTreeDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("activateTreeDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！負の数になったのとちがう？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {
@@ -1245,10 +1260,10 @@ template<class T>
 void GgafElement<T>::inactivateDelay(frame prm_offset_frames) {
 #ifdef MY_DEBUG
     if (prm_offset_frames == 0) {
-        _TRACE_("＜警告＞inactivateDelay(0) は無意味である。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("inactivateDelay(0) は無意味である。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
     if (prm_offset_frames >= 60*60*60) { //１時間後
-        _TRACE_("＜警告＞inactivateDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("inactivateDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも inactivate() されませんよ！負の数になったのとちがう？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {
@@ -1275,10 +1290,10 @@ template<class T>
 void GgafElement<T>::inactivateTreeDelay(frame prm_offset_frames) {
 #ifdef MY_DEBUG
     if (prm_offset_frames == 0) {
-        _TRACE_("＜警告＞inactivateTreeDelay(0) は無意味である。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("inactivateTreeDelay(0) は無意味である。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
     if (prm_offset_frames >= 60*60*60) { //１時間後
-        _TRACE_("＜警告＞inactivateTreeDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        throwGgafCriticalException("inactivateTreeDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも inactivate() されませんよ！負の数になったのとちがう？ name="<<GgafNode<T>::_name<<" this="<<this);
     }
 #endif
     if (_can_live_flg) {

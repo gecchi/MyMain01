@@ -176,9 +176,9 @@ void GgafGod::be() {
                 if (d_visualize_frames == 0) {
                     _fps = 0;
                 } else {
-                    _fps = (float)(d_visualize_frames) * (1000.0f / 200);
+                    _fps = (float)(d_visualize_frames) * (1000.0f / 100);
                 }
-                _time_calc_fps_next += 200;
+                _time_calc_fps_next += 100;
                 _prev_visualize_frames = _visualize_frames;
             }
 

@@ -10,6 +10,7 @@ EnemyThisbeLaserChip002::EnemyThisbeLaserChip002(const char* prm_name) :
     _class_name = "EnemyThisbeLaserChip002";
     pSplManufCon_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ヒルベルト曲線
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
+    setMiddleColliAble(true); //チップ間当たり判定自動発生
 }
 
 void EnemyThisbeLaserChip002::initialize() {

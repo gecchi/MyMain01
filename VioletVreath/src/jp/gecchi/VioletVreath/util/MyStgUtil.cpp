@@ -148,7 +148,7 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
             break;
         }
         default: {
-            _TRACE_("＜警告＞ 対応 ExplosionEffect が定義されてない。prm_pActor="<<prm_pActor->getName());
+            throwGgafCriticalException("対応 ExplosionEffect が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
             pE = NULL;
             break;
         }
@@ -178,7 +178,7 @@ GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor)
             break;
         }
         default: {
-            _TRACE_("＜警告＞ 対応 ExplosionEffect が定義されてない。prm_pActor="<<prm_pActor->getName());
+            throwGgafCriticalException("対応 ExplosionEffect が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
             pI = NULL;
             break;
         }
@@ -188,6 +188,38 @@ GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor)
         pI->locateWith(prm_pActor);
     }
     return pI;
+}
+
+GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxDrawableActor* pE = NULL;
+    switch (prm_pActor->_pStatus->get(STAT_DestroyedEffectKind)) {
+        case 0: {
+            pE = NULL; //爆発エフェクト無し
+            break;
+        }
+        case 1: {
+            //スコアが表示される消滅エフェクト
+            SpriteLabelBonus001* pLabel = employForceFromCommon(SpriteLabelBonus001);
+            pLabel->locateWith(prm_pActor);
+            pLabel->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+            std::string s = ITOS(prm_pActor->_pStatus->get(STAT_AddScorePoint));
+            pLabel->update(s.c_str());
+            pE = pLabel;
+            break;
+        }
+        default: {
+            throwGgafCriticalException("対応 DestroyedEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
+            pE = NULL;
+            break;
+        }
+    }
+
+    if (pE) {
+        //出現座標を設定
+        pE->locateWith(prm_pActor);
+        pE->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+    }
+    return pE;
 }
 
 GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_pActor) {
@@ -210,6 +242,31 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
             break;
         }
         default: {
+            throwGgafCriticalException("対応 STAT_EntryEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
+            pE = NULL;
+            break;
+        }
+    }
+    if (pE) {
+        //出現座標を設定
+        pE->locateWith(prm_pActor);
+    }
+    return pE;
+}
+
+GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxDrawableActor* pE = NULL;
+    switch (prm_pActor->_pStatus->get(STAT_LeaveEffectKind)) {
+        case 0: {
+            pE = NULL; //退場エフェクト無し
+            break;
+        }
+        case 1: {
+            pE = employFromCommon(EffectEntry001);
+            break;
+        }
+        default: {
+            throwGgafCriticalException("対応 STAT_LeaveEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
             pE = NULL;
             break;
         }
@@ -249,7 +306,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
 //                break;
 //            }
         default: {
-            _TRACE_("＜警告＞ 対応 STAT_FormationDestroyedEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName());
+            throwGgafCriticalException("対応 STAT_FormationDestroyedEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
             pE = NULL;
             break;
         }
@@ -279,7 +336,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
             break;
         }
         default: {
-            _TRACE_("＜警告＞ 対応 STAT_FormationDestroyedItemKind が定義されてない。prm_pActor="<<prm_pActor->getName());
+            throwGgafCriticalException("対応 STAT_FormationDestroyedItemKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
             pI = NULL;
             break;
         }
@@ -290,18 +347,6 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
     }
     return pI;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -324,6 +369,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -345,6 +391,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -366,6 +413,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -387,6 +435,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -408,6 +457,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -429,6 +479,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -450,6 +501,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -471,6 +523,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -492,6 +545,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
@@ -513,6 +567,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -534,6 +589,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -555,6 +611,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -576,6 +633,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -597,6 +655,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -618,6 +677,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -639,6 +699,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -660,6 +721,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -681,6 +743,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -702,6 +765,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -723,6 +787,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 200 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
@@ -744,6 +809,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -765,6 +831,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -786,6 +853,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -807,6 +875,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -828,6 +897,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -849,6 +919,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -870,6 +941,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -891,6 +963,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -912,6 +985,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -933,6 +1007,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -954,6 +1029,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -975,6 +1051,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
@@ -996,6 +1073,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
@@ -1017,6 +1095,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1038,6 +1117,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1059,6 +1139,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1080,6 +1161,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1101,6 +1183,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1122,6 +1205,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1143,6 +1227,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1164,6 +1249,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1185,6 +1271,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
@@ -1206,6 +1293,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1227,6 +1315,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1248,6 +1337,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1269,6 +1359,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1290,6 +1381,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 2 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1311,6 +1403,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1332,6 +1425,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1353,6 +1447,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1374,6 +1469,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1395,6 +1491,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1416,6 +1513,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1437,6 +1535,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1458,6 +1557,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1479,6 +1579,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1500,6 +1601,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 1 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1521,6 +1623,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1542,6 +1645,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 1 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1563,6 +1667,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1584,6 +1689,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
@@ -1605,6 +1711,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+        p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
         p->set(STAT_ItemKind, 1 );  //やられアイテム種別
         p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
         p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト

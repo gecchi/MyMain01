@@ -19,7 +19,6 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
     _pSource_vY = &_pKurokoA->_vY;
     _pSource_vZ = &_pKurokoA->_vZ;
     _veloMv = 100000;
-
 }
 
 void StraightLaserChip::processBehavior() {

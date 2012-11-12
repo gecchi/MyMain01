@@ -149,27 +149,17 @@ void EnemySylviaEye::processJudgement() {
 
 void EnemySylviaEye::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
         _pSeTxer->play3D(SE_EXPLOSION);
-
-        //打ち返し弾
-//        if (pDepo_Shot_) {
-//            UTIL::shotWay004(this, pDepo_Shot_,
-//                             PX_C(20),
-//                             8, D_ANG(10),
-//                             2000, 200,
-//                             12, 3, 0.9);
-//
-//        }
-
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
             //アイテム出現
             UTIL::activateItemOf(this);
+            //消滅エフェクト
+            UTIL::activateDestroyedEffectOf(this);
         }
         _TRACE_("EnemySylviaEye::onHit() 上位になげるっす throwEventUpperTree(SYLVIA_EXPLOSION)");
         throwEventUpperTree(SYLVIA_EXPLOSION); //親のEnemySylviaを破壊するイベントを投げる

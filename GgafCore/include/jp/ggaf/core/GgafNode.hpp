@@ -133,7 +133,7 @@ public:
      * ノード名取得 .
      * @return ノード名称
      */
-    virtual char* getName(){
+    virtual char* getName() {
         return _name;
     }
 

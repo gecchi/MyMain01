@@ -56,8 +56,10 @@ public:
     bool _can_chikei_hit;
     /** [r]自身が所属する先端チップ */
     LaserChip* _pLeader;
-
+    /** [r]強制上書きアルファ値。（出現時は遠方であっても表示させるため) */
     float _force_alpha;
+    /** [r]前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効にするかどうか */
+    float _middle_colli_able;
 
     LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
 
@@ -96,6 +98,10 @@ public:
      * @param prm_alpha
      */
     virtual void addAlpha(float prm_alpha) override;
+
+    void setMiddleColliAble(bool prm_middle_colli_able) {
+        _middle_colli_able = prm_middle_colli_able;
+    }
 
     virtual ~LaserChip();
 

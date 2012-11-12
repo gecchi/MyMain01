@@ -251,11 +251,11 @@ public:
     static bool isExistKey(std::string prm_key, GgafStrMap* p);
     static bool cnvBool(std::string prm_str);
 
-
     static std::string getFileBaseNameWithoutExt(const char* prm_filepath);
     static std::string getFileBaseName(const char* prm_filepath);
     static std::string getFileDirName(const char* prm_filepath);
     static std::string getFileExt(const char* prm_filepath);
+
     static char* reverseStr(char* str);
     static void strReplace(std::string& str, const std::string& from, const std::string& to);
 
@@ -274,3 +274,52 @@ public:
 
 }
 #endif /*GGAFUTIL_H_*/
+
+//printf("01  [%s]\n", UTIL::getFileBaseNameWithoutExt("c:\\cview_gamen_all.pdf").c_str());
+//printf("02  [%s]\n", UTIL::getFileBaseNameWithoutExt("c:\\cview_gamen.all.pdf").c_str());
+//printf("03  [%s]\n", UTIL::getFileBaseNameWithoutExt("c:\\c.all.pdf").c_str());
+//printf("04  [%s]\n", UTIL::getFileBaseNameWithoutExt("c:\\.cproj").c_str());
+//printf("05  [%s]\n", UTIL::getFileBaseNameWithoutExt("c:\\cview_gamen_all\\").c_str());
+//printf("06  [%s]\n", UTIL::getFileBaseNameWithoutExt("/www/htdocs/index.html").c_str());
+//printf("07  [%s]\n", UTIL::getFileBaseNameWithoutExt("/www/htdocs/app").c_str());
+//printf("08  [%s]\n", UTIL::getFileBaseNameWithoutExt("/www/htdocs/app/").c_str());
+//printf("09  [%s]\n", UTIL::getFileBaseNameWithoutExt("").c_str());
+//printf("10  [%s]\n", UTIL::getFileBaseName("c:\\cview_gamen_all.pdf").c_str());
+//printf("11  [%s]\n", UTIL::getFileBaseName("c:\\cview_gamen_all\\").c_str());
+//printf("12  [%s]\n", UTIL::getFileBaseName("/www/htdocs/index.html").c_str());
+//printf("13  [%s]\n", UTIL::getFileBaseName("/www/htdocs/app").c_str());
+//printf("14  [%s]\n", UTIL::getFileBaseName("/www/htdocs/app/").c_str());
+//printf("15  [%s]\n", UTIL::getFileBaseName("").c_str());
+//printf("16  [%s]\n", UTIL::getFileDirName("c:\\www\\htdocs\\index.html").c_str());
+//printf("17  [%s]\n", UTIL::getFileDirName("/www/htdocs/app").c_str());
+//printf("18  [%s]\n", UTIL::getFileDirName("/www/htdocs/app/").c_str());
+//printf("19  [%s]\n", UTIL::getFileDirName("").c_str());
+//printf("20  [%s]\n", UTIL::getFileExt("/www/htdocs/index.html").c_str());
+//printf("21  [%s]\n", UTIL::getFileExt("/www/htdocs/index.php").c_str());
+//printf("22  [%s]\n", UTIL::getFileExt("/www/htdocs/lamda").c_str());
+//printf("23  [%s]\n", UTIL::getFileExt("").c_str());
+//ÅÉé¿çsåãâ ÅÑ
+//01  [cview_gamen_all]
+//02  [cview_gamen]
+//03  [c]
+//04  []
+//05  [cview_gamen_all]
+//06  [index]
+//07  [app]
+//08  [app]
+//09  []
+//10  [cview_gamen_all.pdf]
+//11  [cview_gamen_all]
+//12  [index.html]
+//13  [app]
+//14  [app]
+//15  []
+//16  [c:\www\htdocs]
+//17  [/www/htdocs]
+//18  [/www/htdocs]
+//19  []
+//20  [html]
+//21  [php]
+//22  []
+//23  []
+

@@ -62,6 +62,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.99);
+    _middle_colli_able = false;
 }
 
 void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -88,7 +89,7 @@ void LaserChip::onActive() {
 void LaserChip::processSettlementBehavior() {
     //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
     //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
-    if (_is_regist_hitarea) { //registHitAreaCubeメソッドによって登録された場合。
+    if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
         if (_pChip_front != NULL) {
             int dX = _pChip_front->_X - _X;
             int dY = _pChip_front->_Y - _Y;
