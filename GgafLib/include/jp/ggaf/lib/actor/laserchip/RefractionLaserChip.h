@@ -18,9 +18,13 @@ class RefractionLaserChip : public LaserChip {
     friend class LaserChipDepository;
 
 private:
+    /** [r](次回の)屈折開始フレーム */
     frame _frame_refraction_enter;
+    /** [r]屈折終了フレーム */
     frame _frame_refraction_out;
+    /** [r]今まさに屈折中（移動していない）の場合true */
     bool _is_refracting;
+    /** [r]現在の屈折回数 */
     int _cnt_refraction;
 
     /** 先導チップ（本当の先頭チップ）フラグ */
@@ -40,15 +44,19 @@ private:
 
     bool _prev_is_refracting;
     GgafDxCore::GgafDxDrawableActor* _prev_pRefractionEffect;
-    int _num_refraction;
-    frame _frame_between_refraction;
-    frame _frame_standstill_refraction;
 
     /** 屈折エフェクトアクターのデポジトリ（シーン所属済みであること） */
     GgafCore::GgafActorDepository* _pDispatche_RefractionEffect;
     GgafDxCore::GgafDxDrawableActor* _pRefractionEffect;
 
 public:
+    /** [r]最終的な屈折回数 */
+    int _num_refraction;
+    /** [r]直進開始(屈折終了)～直進～直進終了(屈折開始)、のフレーム数(>= 1) */
+    frame _frame_between_refraction;
+    /** [r]屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数(>= 1) */
+    frame _frame_standstill_refraction;
+
     RefractionLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
 
     /**

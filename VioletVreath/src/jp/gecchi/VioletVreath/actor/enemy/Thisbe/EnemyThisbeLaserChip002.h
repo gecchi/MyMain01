@@ -6,6 +6,8 @@ class EnemyThisbeLaserChip002 : public GgafLib::RefractionLaserChip {
 
 
 public:
+
+    frame end_active_frame_;
     /** 反射時エフェクトデポジトリへの接続 */
     DepositoryConnection* pConn_RefractionEffectDepository_;
 
@@ -23,6 +25,8 @@ public:
     void onRefractionBegin(int prm_num_refraction) override;
 
     void onRefractionFinish(int prm_num_refraction) override;
+
+    void processBehavior() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

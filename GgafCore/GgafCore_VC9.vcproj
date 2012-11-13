@@ -212,7 +212,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\core\actor\GgafDummyActor.cpp"
+				RelativePath=".\src\jp\ggaf\core\actor\ex\GgafDummyActor.cpp"
 				>
 			</File>
 			<File
@@ -382,7 +382,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\actor\GgafDummyActor.h"
+				RelativePath=".\include\jp\ggaf\core\actor\ex\GgafDummyActor.h"
 				>
 			</File>
 			<File
