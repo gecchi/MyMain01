@@ -4,6 +4,7 @@ namespace VioletVreath {
 
 /**
  * 敵機ヘーベ .
+ * フェルマー螺旋。
  * @version 1.00
  * @since 2011/06/28
  * @author Masatoshi Tsuge

@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 
 EnemyThisbeLaserChip002::EnemyThisbeLaserChip002(const char* prm_name) :
-        RefractionLaserChip(prm_name, "ThisbeLaserChip001", STATUS(EnemyThisbeLaserChip001)) {
+        RefractionLaserChip(prm_name, "ThisbeLaserChip001", STATUS(EnemyThisbeLaserChip002)) {
     _class_name = "EnemyThisbeLaserChip002";
     pSplManufCon_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
