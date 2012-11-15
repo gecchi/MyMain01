@@ -70,7 +70,7 @@ void SteppedCoordSplineSequence::behave() {
 //            SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
 //            if (_point_index == 0) {
 //                //始点へ行く！
-//                int distace_to;
+//                int distance_to;
 //                double dx = _flip_X*pSpl->_X_compute[0]*_pFixedVeloSplManuf->_rate_X + _offset_X;
 //                double dy = _flip_Y*pSpl->_Y_compute[0]*_pFixedVeloSplManuf->_rate_Y + _offset_Y;
 //                double dz = _flip_Z*pSpl->_Z_compute[0]*_pFixedVeloSplManuf->_rate_Z + _offset_Z;
@@ -81,7 +81,7 @@ void SteppedCoordSplineSequence::behave() {
 //                    //    | sinRy                                  , 0                    , cosRy                                   , 0 |
 //                    //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
 //
-//                    distace_to = UTIL::getDistance(
+//                    distance_to = UTIL::getDistance(
 //                                            (double)_pActor_target->_X,
 //                                            (double)_pActor_target->_Y,
 //                                            (double)_pActor_target->_Z,
@@ -91,7 +91,7 @@ void SteppedCoordSplineSequence::behave() {
 //                                         );
 //                } else if (_option == RELATIVE_COORD) {
 //                    //相対座標ターゲット
-//                    distace_to = UTIL::getDistance(
+//                    distance_to = UTIL::getDistance(
 //                                            (double)_pActor_target->_X,
 //                                            (double)_pActor_target->_Y,
 //                                            (double)_pActor_target->_Z,
@@ -101,7 +101,7 @@ void SteppedCoordSplineSequence::behave() {
 //                                         );
 //                } else { //ABSOLUTE_COORD
 //                    //絶対座標ターゲット
-//                    distace_to = UTIL::getDistance(
+//                    distance_to = UTIL::getDistance(
 //                                            (double)_pActor_target->_X,
 //                                            (double)_pActor_target->_Y,
 //                                            (double)_pActor_target->_Z,
@@ -113,7 +113,7 @@ void SteppedCoordSplineSequence::behave() {
 //
 //
 //                //始点までに必要なフレーム数取得
-//                _fFrame_of_next = (float)(1.0*distace_to / _pFixedVeloSplManuf->_veloMvUnit);
+//                _fFrame_of_next = (float)(1.0*distance_to / _pFixedVeloSplManuf->_veloMvUnit);
 //            } else {
 //                //始点以外の場合
 //                //次の補間点（or制御点)に移動方角を向ける

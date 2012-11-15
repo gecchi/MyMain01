@@ -8,7 +8,7 @@ SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject()
     _pSplSrcCon = (SplineSourceConnection*)((P_GOD)->_pSplSrcManager->connect(prm_source_file));
     _pSplSrc = _pSplSrcCon->fetch();
     _sp = _pSplSrc->_pSp;
-    _paDistace_to = NEW coord[_sp->_rnum];
+    _paDistance_to = NEW coord[_sp->_rnum];
     _rate_X = 1.0;
     _rate_Y = 1.0;
     _rate_Z = 1.0;
@@ -18,7 +18,7 @@ SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
     _pSplSrcCon = NULL;
     _pSplSrc = prm_pSplSrc;
     _sp = _pSplSrc->_pSp;
-    _paDistace_to = NEW coord[_sp->_rnum];
+    _paDistance_to = NEW coord[_sp->_rnum];
     _rate_X = 1.0;
     _rate_Y = 1.0;
     _rate_Z = 1.0;
@@ -43,7 +43,7 @@ void SplineManufacture::calculate() {
         x_to = _sp->_X_compute[t]*_rate_X;
         y_to = _sp->_Y_compute[t]*_rate_Y;
         z_to = _sp->_Z_compute[t]*_rate_Z;
-        _paDistace_to[t] = UTIL::getDistance(
+        _paDistance_to[t] = UTIL::getDistance(
                                     x_from,
                                     y_from,
                                     z_from,
@@ -51,9 +51,11 @@ void SplineManufacture::calculate() {
                                     y_to,
                                     z_to
                                  );
-
     }
-    _paDistace_to[0] = 0;
+    _paDistance_to[0] = 0; //_paDistance_to[0] は最初の補完点までの距離となるべきだが、
+                          //SplineSequence::exec() を行うまで距離が確定しない。ので使用不可。
+                          //最初の補完点までの距離は、SplineSequence メンバーの _distance_to_begin で
+                          //取得可能。
 }
 
 SplineManufacture::~SplineManufacture () {

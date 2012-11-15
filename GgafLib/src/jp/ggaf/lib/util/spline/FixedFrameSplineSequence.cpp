@@ -37,35 +37,29 @@ void FixedFrameSplineSequence::exec(SplinTraceOption prm_option) {
         _option = prm_option;
         _execute_frames = 0;
         SplineLine* pSpl = _pFixedFrameSplManuf->_sp;
-        double baseX = (_flip_X * pSpl->_X_compute[0] * _pFixedFrameSplManuf->_rate_X) + _offset_X;
-        double baseY = (_flip_Y * pSpl->_Y_compute[0] * _pFixedFrameSplManuf->_rate_Y) + _offset_Y;
-        double baseZ = (_flip_Z * pSpl->_Z_compute[0] * _pFixedFrameSplManuf->_rate_Z) + _offset_Z;
+        double P0X = (_flip_X * pSpl->_X_compute[0] * _pFixedFrameSplManuf->_rate_X) + _offset_X;
+        double P0Y = (_flip_Y * pSpl->_Y_compute[0] * _pFixedFrameSplManuf->_rate_Y) + _offset_Y;
+        double P0Z = (_flip_Z * pSpl->_Z_compute[0] * _pFixedFrameSplManuf->_rate_Z) + _offset_Z;
+        _X_begin = _pActor_target->_X;
+        _Y_begin = _pActor_target->_Y;
+        _Z_begin = _pActor_target->_Z;
         if (_option == RELATIVE_DIRECTION) {
-            _X_begin = baseX - _pActor_target->_X;
-            _Y_begin = baseY - _pActor_target->_Y;
-            _Z_begin = baseZ - _pActor_target->_Z;
             GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
             _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
             _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
             _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
             _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
-            _distace_to_begin = UTIL::getDistance(
+            _distance_to_begin = UTIL::getDistance(
                                            0.0  , 0.0  , 0.0  ,
-                                           baseX, baseY, baseZ
+                                           P0X, P0Y, P0Z
                                       );
         } else if (_option == RELATIVE_COORD) {
-            _X_begin = baseX - _pActor_target->_X;
-            _Y_begin = baseY - _pActor_target->_Y;
-            _Z_begin = baseZ - _pActor_target->_Z;
-            _distace_to_begin = UTIL::getDistance(
+            _distance_to_begin = UTIL::getDistance(
                                            0.0  , 0.0  , 0.0  ,
-                                           baseX, baseY, baseZ
+                                           P0X, P0Y, P0Z
                                       );
         } else { //ABSOLUTE_COORD
-            _X_begin = baseX;
-            _Y_begin = baseY;
-            _Z_begin = baseZ;
-            _distace_to_begin = UTIL::getDistance(
+            _distance_to_begin = UTIL::getDistance(
                                     _pActor_target->_X,
                                     _pActor_target->_Y,
                                     _pActor_target->_Z,
@@ -105,25 +99,27 @@ void FixedFrameSplineSequence::behave() {
                 //    | sinRy                                  , 0                    , cosRy                                   , 0 |
                 //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
                 pKurokoA_target->execTurnMvAngSequence(
-                                ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * _COS_RyMv_begin  + dz*_SIN_RyMv_begin) - _X_begin,
-                                 (dx*_SIN_RzMv_begin + dy* _COS_RzMv_begin) - _Y_begin,
-                                ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) - _Z_begin,
-                                _pFixedFrameSplManuf->_angveloRzRyMv, 0,
-                                _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
+                                    ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) *  _COS_RyMv_begin + dz*_SIN_RyMv_begin) + _X_begin,
+                                     (dx*_SIN_RzMv_begin + dy* _COS_RzMv_begin)                                          + _Y_begin,
+                                    ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) + _Z_begin,
+                                    _pFixedFrameSplManuf->_angveloRzRyMv, 0,
+                                    _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
 
             } else if (_option == RELATIVE_COORD) {
                 //相対座標ターゲット
                 pKurokoA_target->execTurnMvAngSequence(
-                                dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
-                                _pFixedFrameSplManuf->_angveloRzRyMv, 0,
-                                _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
+                                    dx + _X_begin,
+                                    dy + _Y_begin,
+                                    dz + _Z_begin,
+                                    _pFixedFrameSplManuf->_angveloRzRyMv, 0,
+                                    _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
 
             } else { //RELATIVE_DIRECTION
                 //絶対座標ターゲット
                 pKurokoA_target->execTurnMvAngSequence(
-                                dx, dy, dz,
-                                _pFixedFrameSplManuf->_angveloRzRyMv, 0,
-                                _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
+                                    dx, dy, dz,
+                                    _pFixedFrameSplManuf->_angveloRzRyMv, 0,
+                                    _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
             }
 
             //移動速度設定

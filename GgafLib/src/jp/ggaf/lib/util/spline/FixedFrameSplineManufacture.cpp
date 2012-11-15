@@ -44,7 +44,7 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSplS
 
 void FixedFrameSplineManufacture::calculate() {
     //次の２つのテーブルを再計算し更新します。
-    // _paDistace_to[] : 次の補完点までの距離
+    // _paDistance_to[] : 次の補完点までの距離
     // _paSPMvVeloTo[] : 次の補完点到達に必要な速度
 
     //各点の時点の、距離と速度を予め全部求めておく
@@ -57,7 +57,7 @@ void FixedFrameSplineManufacture::calculate() {
     // X:制御点
     // o:制御点間の補完点（スプライン曲線通過点）
     // X--o: 移動予定の座標線
-    // _paDistace_to[] : 次の補完点までの距離
+    // _paDistance_to[] : 次の補完点までの距離
     // _paSPMvVeloTo[] : 次の補完点到達に必要な速度
     //
     // sp._rnum は合計の点の数を返す。したがって sp._rnum = 9 になる。
@@ -65,7 +65,7 @@ void FixedFrameSplineManufacture::calculate() {
     // 下図は綺麗に重なった場合の図である。
     //
     //           v = _paSPMvVeloTo[1]                           v = _paSPMvVeloTo[8]
-    //               _paDistace_to[1]     _paDistace_to[5]          _paDistace_to[8]
+    //               _paDistance_to[1]     _paDistance_to[5]          _paDistance_to[8]
     //                    ||                     ||                         ||
     //                   <-->                 <------>                    <----->
     //                  X----o----o----o-----X--------o---------o--------o-------X
@@ -86,9 +86,9 @@ void FixedFrameSplineManufacture::calculate() {
     //                  _spent_frame = １区間は 120/8 Frame = prm_spent_frame / (sp._rnum-1);
     SplineManufacture::calculate();
     for (int t = 1; t < _sp->_rnum; t ++) {
-        //距離 paDistaceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
+        //距離 paDistanceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
         //速さ＝距離÷時間
-        _paSPMvVeloTo[t] = (velo)(_paDistace_to[t] / _frame_of_segment);
+        _paSPMvVeloTo[t] = (velo)(_paDistance_to[t] / _frame_of_segment);
     }
     _paSPMvVeloTo[0] = 1000;
 }
@@ -99,7 +99,7 @@ SplineSequence* FixedFrameSplineManufacture::createSplineSequence(GgafDxCore::Gg
 
 FixedFrameSplineManufacture::~FixedFrameSplineManufacture() {
     //イニシャライズされる前に解放されるかもしれない
-    DELETEARR_POSSIBLE_NULL(_paDistace_to);
+    DELETEARR_POSSIBLE_NULL(_paDistance_to);
     //イニシャライズされる前に解放されるかもしれない
     DELETEARR_POSSIBLE_NULL(_paSPMvVeloTo);
 }

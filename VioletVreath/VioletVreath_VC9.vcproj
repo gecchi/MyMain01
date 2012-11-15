@@ -586,11 +586,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe002.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip001.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip003.cpp"
 				>
 			</File>
 			<File
@@ -1708,11 +1716,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe002.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip001.h"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip003.h"
 				>
 			</File>
 			<File

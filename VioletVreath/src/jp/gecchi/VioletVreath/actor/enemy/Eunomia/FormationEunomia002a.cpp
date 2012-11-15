@@ -13,7 +13,7 @@ void FormationEunomia002a::processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, i
 //                                        MyShip::lim_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_zleft_  //Z•ûŒü”{—¦
 //                                    );
-//    pEnemyEunomia->pSplSeq_->adjustCoodOffset(0, col*50*1000, col*50*1000);
+//    pEnemyEunomia->pSplSeq_->adjustCoordOffset(0, col*50*1000, col*50*1000);
 //    pEnemyEunomia->locate(papSplLineCon_[col]->fetch()->pSp_->_Xbasepoint_[0], 0, 0);
 }
 

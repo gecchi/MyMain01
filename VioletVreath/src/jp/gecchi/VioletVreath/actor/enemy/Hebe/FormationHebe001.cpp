@@ -14,7 +14,7 @@ void FormationHebe001::processOnActiveHebe(EnemyHebe* pEnemyHebe) {
 //                                       -1.0 * MyShip::lim_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_zleft_  //Z•ûŒü”{—¦
 //                                    );
-//    pEnemyHebe->pSplSeq_->adjustCoodOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
+//    pEnemyHebe->pSplSeq_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
 //    pEnemyHebe->pSplSeq_->adjustAxisYFlip();
 //    pEnemyHebe->pSplSeq_->setAbsoluteBeginCoordinate();
     pEnemyHebe->locate(PX_C(300), PX_C(-300), PX_C(0));

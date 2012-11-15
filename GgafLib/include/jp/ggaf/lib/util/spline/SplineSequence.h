@@ -16,8 +16,8 @@ class SplineSequence : public GgafCore::GgafObject {
 public:
     enum SplinTraceOption {
         ABSOLUTE_COORD,     //絶対座標移動
-        RELATIVE_COORD,     //始点を現座標とし、スプライン座標群は相対移動で計算
-        RELATIVE_DIRECTION, //始点を現座標とし、さらに現在の向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+        RELATIVE_COORD,     //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標で計算
+        RELATIVE_DIRECTION, //スプライン座標の(0,0,0)を、アクターの現座標とし相対座標とし、アクターの現在向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
     };
 
     /** スプライン情報セット */
@@ -52,8 +52,8 @@ public:
     int _flip_X;
     int _flip_Y;
     int _flip_Z;
-    /** [r]始点までの距離 */
-    int _distace_to_begin;
+    /** [r]アクターの現在位置からスプライン始点までの距離。exec()時点で更新される。 */
+    int _distance_to_begin;
 
     /** [r]現在処理中の補完点(基準点も含む)の数 */
     int _point_index;
@@ -66,15 +66,16 @@ public:
 
     /**
      * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに加算(平行移動)し、補正します .
-     * デフォルトは adjustCoodOffset(0, 0, 0) となります。<BR>
+     * デフォルトは adjustCoordOffset(0, 0, 0) となります。<BR>
      * <b>[注意]</b><BR>
-     * 内部で、adjustAxisXFlip() adjustAxisYFlip() adjustAxisZFlip() が考慮され後に
-     * adjustCoodOffset()  が考慮されますます。<BR>
+     * 内部で、adjustAxisXFlip() adjustAxisYFlip() adjustAxisZFlip() が考慮され、
+     * さらに Manufacture のXYZ方向の補正割合が乗じられた後、一番最後に
+     * adjustCoordOffset()  が考慮され差分加算されます。<BR>
      * @param prm_offset_X X軸方向補正増加分
      * @param prm_offset_Y Y軸方向補正増加分
      * @param prm_offset_Z Z軸方向補正増加分
      */
-    virtual void adjustCoodOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z);
+    virtual void adjustCoordOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z);
 
     /**
      * スプラインの各座標点を、X軸反転します。
@@ -132,6 +133,52 @@ public:
     bool isExecuting() {
         return _is_executing;
     }
+    /**
+     * スプラインの補完点と補完点の間の距離を取得する。
+     * SplineManufacture::adjustAxisRate(double,double,double);<BR>
+     * による補正済みの補完点間距離が取得される。<BR>
+     * 引数インデックス=0 はexec() を実行後に取得出来るようになる。<BR>
+     * <pre>
+     *
+     *   X:制御点
+     *   o:制御点間の補完点（スプライン曲線通過点）
+     *
+     *        getSegmentDistance(0)
+     *            ||
+     *            ||    getSegmentDistance(1)   getSegmentDistance(5)   getSegmentDistance(8)
+     *            ||         ||                     ||                         ||
+     *        <-----------> <--->                <------->                  <------->
+     *    自機・・・・・・ X----o----o----o-----X--------o---------o--------o-------X
+     *                    始点
+     *                    [0]  [1]  [2]  [3]   [4]      [5]       [6]      [7]     [8]
+     *
+     *  </pre>
+     * @param prm_index インデックス（0=アクター現座標→始点間の距離。1=始点→始点+1の補完点間距離・・・）
+     * @return
+     */
+    coord getSegmentDistance(int prm_index);
+
+    /**
+     * スプラインの補完点(基準点も含む)の数を返す。
+     * <pre>
+     *
+     *   X:制御点
+     *   o:制御点間の補完点（スプライン曲線通過点）
+     *
+     *        getSegmentDistance(0)
+     *            ||
+     *            ||    getSegmentDistance(1)   getSegmentDistance(5)   getSegmentDistance(8)
+     *            ||         ||                     ||                         ||
+     *        <-----------> <--->                <------->                  <------->
+     *    自機・・・・・・ X----o----o----o-----X--------o---------o--------o-------X
+     *                    始点
+     *                    [0]  [1]  [2]  [3]   [4]      [5]       [6]      [7]     [8]
+     *
+     * </pre>
+     *  上図の場合 補完点インデックスが０～８の９個なので、戻り値は9となる。
+     * @return 補完点(基準点も含む)の数
+     */
+    int getPointNum();
 
     virtual ~SplineSequence();
 };

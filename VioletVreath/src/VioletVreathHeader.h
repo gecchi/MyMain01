@@ -471,8 +471,10 @@ class FormationHebe;
 class FormationHebe001;
 
 class EnemyThisbe;
+class EnemyThisbe002;
 class EnemyThisbeLaserChip001;
 class EnemyThisbeLaserChip002;
+class EnemyThisbeLaserChip003;
 
 class EnemyHesperia;
 class EnemyHesperiaLaserChip001;
@@ -798,8 +800,10 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe001.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbe.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbe002.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip002.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip003.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperia.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperiaLaserChip001.h"

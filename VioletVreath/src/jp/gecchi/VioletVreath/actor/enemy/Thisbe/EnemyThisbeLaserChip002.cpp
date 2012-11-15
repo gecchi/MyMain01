@@ -6,10 +6,11 @@ using namespace VioletVreath;
 
 
 EnemyThisbeLaserChip002::EnemyThisbeLaserChip002(const char* prm_name) :
-        RefractionLaserChip(prm_name, "ThisbeLaserChip001", STATUS(EnemyThisbeLaserChip002)) {
+        RefractionLaserChip(prm_name, "ThisbeLaserChip002", STATUS(EnemyThisbeLaserChip002)) {
     _class_name = "EnemyThisbeLaserChip002";
     pSplManufCon_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ヒルベルト曲線
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
+    pSplSeq_->adjustCoordOffset(PX_C(100), 0, 0);
     setMiddleColliAble(true); //チップ間当たり判定自動発生
     end_active_frame_ = 0;
 }
@@ -50,15 +51,11 @@ void EnemyThisbeLaserChip002::onRefractionBegin(int prm_num_refraction)  {
 
 void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
-        pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
+        pSplSeq_->exec(SplineSequence::RELATIVE_COORD); //向てる方向にスプライン座標をワールド変換
         //prm_num_refraction = 0 は、発射口→pSplSeq_->_point_index = 0 の点への移動直前処理
     }
     if (pSplSeq_->isExecuting()) {
-        if (prm_num_refraction == 0) {
-            _pKurokoA->setMvVelo(pSplSeq_->_distace_to_begin);
-        } else {
-            _pKurokoA->setMvVelo(pSplSeq_->_pManufacture->_paDistace_to[prm_num_refraction]);
-        }
+        _pKurokoA->setMvVelo(pSplSeq_->getSegmentDistance(prm_num_refraction));
     } else {
         //最後のリフレクションだった場合
         _pKurokoA->setMvVelo(0); //ちょっと sayonara() まで待機

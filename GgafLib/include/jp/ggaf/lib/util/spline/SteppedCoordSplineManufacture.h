@@ -12,7 +12,7 @@ class SteppedCoordSplineManufacture : public SplineManufacture {
 
 public:
     /** [r]現在の補完点(基準点も含む)から、次の補完点(or基準点)までの距離のテーブル */
-    coord* _paDistace_to;
+    coord* _paDistance_to;
     /** [r]始点からn番目の補完点(基準点も含む)到達に必要なフレーム数のテーブル */
     float* _paFrame_need_at;
     /** [r]基準速度 */

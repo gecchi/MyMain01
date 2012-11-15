@@ -194,10 +194,14 @@ public:
 	static GgafCore::GgafStatus* resetEnemyHebeStatus(GgafCore::GgafStatus* p);
 	//シズビー
 	static GgafCore::GgafStatus* resetEnemyThisbeStatus(GgafCore::GgafStatus* p);
+	//シズビー2
+	static GgafCore::GgafStatus* resetEnemyThisbe002Status(GgafCore::GgafStatus* p);
 	//シズビーレーザー
 	static GgafCore::GgafStatus* resetEnemyThisbeLaserChip001Status(GgafCore::GgafStatus* p);
 	//シズビーレーザー
 	static GgafCore::GgafStatus* resetEnemyThisbeLaserChip002Status(GgafCore::GgafStatus* p);
+	//シズビーレーザー
+	static GgafCore::GgafStatus* resetEnemyThisbeLaserChip003Status(GgafCore::GgafStatus* p);
 	//アドラステア
 	static GgafCore::GgafStatus* resetEnemyAdrasteaStatus(GgafCore::GgafStatus* p);
 	//アタランテ

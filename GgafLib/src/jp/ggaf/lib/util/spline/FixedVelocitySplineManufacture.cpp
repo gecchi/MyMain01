@@ -31,7 +31,7 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm
 
 void FixedVelocitySplineManufacture::calculate() {
     //次の２つのテーブルを再計算し更新します。
-    // _paDistace_to[] : 現在の補完点から、次の補完点までの距離
+    // _paDistance_to[] : 現在の補完点から、次の補完点までの距離
     // _paFrame_need_at[] : 始点から補完点到達に必要なフレーム数の配列
 
     //各点の時点の、距離と必要なフレーム数を予め全部求めておく
@@ -44,7 +44,7 @@ void FixedVelocitySplineManufacture::calculate() {
     // X:制御点
     // o:制御点間の補完点（スプライン曲線通過点）
     // X--o: 移動予定の座標線
-    // _paDistace_to[] : 現在の補完点から、次の補完点までの距離
+    // _paDistance_to[] : 現在の補完点から、次の補完点までの距離
     // _paFrame_need_at[] : 始点から補完点到達に必要なフレーム数の配列
     //
     // sp._rnum は合計の点の数を返す。したがって sp._rnum = 9 になる。
@@ -59,7 +59,7 @@ void FixedVelocitySplineManufacture::calculate() {
     //                   <----------------------------->                      ||
     //                   <------------------------------------------------------->
     //
-    //              _paDistace_to[1]      _paDistace_to[5]         _paDistace_to[8]
+    //              _paDistance_to[1]      _paDistance_to[5]         _paDistance_to[8]
     //                    ||                     ||                         ||
     //                   <--->                <------->                  <------->
     //                  X----o----o----o-----X--------o---------o--------o-------X
@@ -83,9 +83,9 @@ void FixedVelocitySplineManufacture::calculate() {
 
     for (int t = 1; t < _sp->_rnum; t ++) {
 
-        //距離 paDistaceTo[t] を、速度 _veloMvUnit(=1000) で移動するのに必要なフレーム数を求める。
+        //距離 paDistanceTo[t] を、速度 _veloMvUnit(=1000) で移動するのに必要なフレーム数を求める。
         //時間＝距離÷速さ
-        _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistace_to[t] / _veloMvUnit);
+        _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistance_to[t] / _veloMvUnit);
     }
 }
 
@@ -94,6 +94,6 @@ SplineSequence* FixedVelocitySplineManufacture::createSplineSequence(GgafDxCore:
 }
 
 FixedVelocitySplineManufacture::~FixedVelocitySplineManufacture() {
-    DELETEARR_POSSIBLE_NULL(_paDistace_to);
+    DELETEARR_POSSIBLE_NULL(_paDistance_to);
     DELETEARR_POSSIBLE_NULL(_paFrame_need_at);
 }

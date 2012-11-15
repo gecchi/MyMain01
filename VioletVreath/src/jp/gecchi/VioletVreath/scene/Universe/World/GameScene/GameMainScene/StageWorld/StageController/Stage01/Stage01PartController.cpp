@@ -15,11 +15,15 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,300};
-	_paFrame_NextEvent = new frame[2];
+	frame f[] = {1,300,500,600};
+	_paFrame_NextEvent = new frame[4];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 2;
-	orderActorToFactory(10000000, EnemyThisbe, "EnemyThisbe-1");
+	_event_num = 4;
+	orderActorToFactory(10000000, FormationHebe001, "FormationHebe001-1");
+	orderActorToFactory(10000001, FormationEunomia001a, "FormationEunomia001a-2");
+	orderActorToFactory(10000002, FormationEunomia001b, "FormationEunomia001b-3");
+	orderActorToFactory(10000003, EnemyAstraea, "EnemyAstraea-4");
+	orderActorToFactory(10000004, EnemyThisbe002, "EnemyThisbe002-5");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -38,17 +42,33 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 300: {
-				EnemyThisbe* p = (EnemyThisbe*)obtainActorFromFactory(10000000);
+				FormationHebe001* pF6 = (FormationHebe001*)obtainActorFromFactory(10000000);
+				getDirector()->addSubGroup(pF6);
+				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(10000001);
+				getDirector()->addSubGroup(pFormationEunomia);
+				EnemyThisbe002* p = (EnemyThisbe002*)obtainActorFromFactory(10000004);
 				getDirector()->addSubGroup(p);
 				p->_X = 0;
 				p->_Y = 0;
 				p->_Z = 2000000;
 				break;
 			}
+			case 500: {
+				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(10000002);
+				getDirector()->addSubGroup(pFormationEunomia);
+				break;
+			}
+			case 600: {
+				EnemyAstraea* pAstraea2 = (EnemyAstraea*)obtainActorFromFactory(10000003);
+				getDirector()->addSubGroup(pAstraea2);
+				pAstraea2->_Z = 1000000;
+				pAstraea2->_Y = 10000;
+				break;
+			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 4-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

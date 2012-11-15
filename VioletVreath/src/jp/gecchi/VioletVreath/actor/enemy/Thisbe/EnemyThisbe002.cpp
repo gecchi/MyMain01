@@ -5,39 +5,24 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-EnemyThisbe::EnemyThisbe(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Thisbe", STATUS(EnemyThisbe)) {
-        //CubeMapMorphMeshActor(prm_name, "1/ThisbeCM", STATUS(EnemyThisbe)) {
+EnemyThisbe002::EnemyThisbe002(const char* prm_name) :
+        DefaultMorphMeshActor(prm_name, "1/Thisbe002", STATUS(EnemyThisbe002)) {
+        //CubeMapMorphMeshActor(prm_name, "1/ThisbeCM", STATUS(EnemyThisbe002)) {
 
-    _class_name = "EnemyThisbe";
+    _class_name = "EnemyThisbe002";
     pSplSeq_ = NULL;
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
 
     pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
-    pLaserChipDepo_->config(100, 1, NULL); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
-
-//    EnemyThisbeLaserChip001* pChip;
-//    for (int i = 0; i < 65; i++) { //レーザーストック
-//        std::stringstream name;
-//        name <<  "EnemyThisbeLaserChip001[" << i << "]";
-//        pChip = NEW EnemyThisbeLaserChip001(name.str().c_str());
-//        pLaserChipDepo_->addSubLast(pChip);
-//    }
-
-
-    pConn_RefractionEffectDepository_ = connectToDepositoryManager("Conn_EffRefraction001", NULL);
-
-    EnemyThisbeLaserChip002* pChip;
-    for (int i = 0; i < 100; i++) { //レーザーストック
+    EnemyThisbeLaserChip003* pChip;
+    for (int i = 0; i < 240; i++) { //レーザーストック
         std::stringstream name;
-        name <<  "EnemyThisbeLaserChip002[" << i << "]";
-        pChip = NEW EnemyThisbeLaserChip002(name.str().c_str());
-        int num_refraction = pChip->pSplSeq_->getPointNum();
-        pChip->config(num_refraction, 1, 1, pConn_RefractionEffectDepository_->fetch());
+        name <<  "EnemyThisbeLaserChip003[" << i << "]";
+        pChip = NEW EnemyThisbeLaserChip003(name.str().c_str());
         pLaserChipDepo_->addSubLast(pChip);
     }
-
+    pLaserChipDepo_->config(240, 1, NULL); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
     addSubGroup(pLaserChipDepo_);
 
     _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
@@ -47,22 +32,23 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
     useProgress(PROG_CLOSE);
 }
 
-void EnemyThisbe::onCreateModel() {
+void EnemyThisbe002::onCreateModel() {
 }
 
-void EnemyThisbe::initialize() {
+void EnemyThisbe002::initialize() {
+    _pKurokoA->setFaceAngVelo(AXIS_Z,500);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
 }
 
-void EnemyThisbe::onActive() {
+void EnemyThisbe002::onActive() {
     _pStatus->reset();
     _pMorpher->reset();
     _pProg->set(PROG_WAIT);
 }
 
-void EnemyThisbe::processBehavior() {
+void EnemyThisbe002::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
@@ -117,13 +103,13 @@ void EnemyThisbe::processBehavior() {
     _pSeTxer->behave();
 }
 
-void EnemyThisbe::processJudgement() {
+void EnemyThisbe002::processJudgement() {
     if (isOutOfUniverse()) {
         sayonara();
     }
 }
 
-void EnemyThisbe::onHit(GgafActor* prm_pOtherActor) {
+void EnemyThisbe002::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
@@ -145,11 +131,10 @@ void EnemyThisbe::onHit(GgafActor* prm_pOtherActor) {
     }
 }
 
-void EnemyThisbe::onInactive() {
+void EnemyThisbe002::onInactive() {
     //sayonara();
 }
 
-EnemyThisbe::~EnemyThisbe() {
+EnemyThisbe002::~EnemyThisbe002() {
     DELETE_POSSIBLE_NULL(pSplSeq_);
-    pConn_RefractionEffectDepository_->close();
 }

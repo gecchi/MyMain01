@@ -45,7 +45,7 @@ public:
     /** Z軸方向補正割合 */
     double _rate_Z;
     /** [r]次の補完点までの距離のテーブル */
-    coord* _paDistace_to;
+    coord* _paDistance_to;
 
     /**
      * コンストラクタ .

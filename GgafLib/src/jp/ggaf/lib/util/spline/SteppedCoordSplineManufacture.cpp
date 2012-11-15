@@ -13,7 +13,7 @@ SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(const char* prm_sou
     _turn_optimize = prm_turn_optimaize;
 
 //    _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
-    _paDistace_to = NEW coord[_sp->_rnum];
+    _paDistance_to = NEW coord[_sp->_rnum];
     _paFrame_need_at = NEW float[_sp->_rnum];
 }
 
@@ -27,13 +27,13 @@ SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(SplineSource* prm_p
     _turn_optimize = prm_turn_optimaize;
 
 //    _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
-    _paDistace_to = NEW coord[_sp->_rnum];
+    _paDistance_to = NEW coord[_sp->_rnum];
     _paFrame_need_at = NEW float[_sp->_rnum];
 }
 
 void SteppedCoordSplineManufacture::calculate() {
 //    //次の２つのテーブルを再計算し更新します。
-//    // _paDistace_to[] : 現在の補完点から、次の補完点までの距離
+//    // _paDistance_to[] : 現在の補完点から、次の補完点までの距離
 //    // _paFrame_need_at[] : 始点から補完点到達に必要なフレーム数の配列
 //
 //    //各点の時点の、距離と必要なフレーム数を予め全部求めておく
@@ -46,7 +46,7 @@ void SteppedCoordSplineManufacture::calculate() {
 //    // X:制御点
 //    // o:制御点間の補完点（スプライン曲線通過点）
 //    // X--o: 移動予定の座標線
-//    // _paDistace_to[] : 現在の補完点から、次の補完点までの距離
+//    // _paDistance_to[] : 現在の補完点から、次の補完点までの距離
 //    // _paFrame_need_at[] : 始点から補完点到達に必要なフレーム数の配列
 //    //
 //    // sp._rnum は合計の点の数を返す。したがって sp._rnum = 9 になる。
@@ -61,7 +61,7 @@ void SteppedCoordSplineManufacture::calculate() {
 //    //                   <----------------------------->                      ||
 //    //                   <------------------------------------------------------->
 //    //
-//    //              _paDistace_to[1]      _paDistace_to[5]         _paDistace_to[8]
+//    //              _paDistance_to[1]      _paDistance_to[5]         _paDistance_to[8]
 //    //                    ||                     ||                         ||
 //    //                   <--->                <------->                  <------->
 //    //                  X----o----o----o-----X--------o---------o--------o-------X
@@ -96,7 +96,7 @@ void SteppedCoordSplineManufacture::calculate() {
 //        x_to = _sp->_X_compute[t]*_rate_X;
 //        y_to = _sp->_Y_compute[t]*_rate_Y;
 //        z_to = _sp->_Z_compute[t]*_rate_Z;
-//        _paDistace_to[t] = UTIL::getDistance(
+//        _paDistance_to[t] = UTIL::getDistance(
 //                                    x_from,
 //                                    y_from,
 //                                    z_from,
@@ -105,9 +105,9 @@ void SteppedCoordSplineManufacture::calculate() {
 //                                    z_to
 //                                 );
 //
-//        //距離 paDistaceTo[t] を、速度 _veloMvUnit(=1000) で移動するのに必要なフレーム数を求める。
+//        //距離 paDistanceTo[t] を、速度 _veloMvUnit(=1000) で移動するのに必要なフレーム数を求める。
 //        //時間＝距離÷速さ
-//        _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistace_to[t] / _veloMvUnit);
+//        _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistance_to[t] / _veloMvUnit);
 //    }
 }
 
@@ -116,6 +116,6 @@ SplineSequence* SteppedCoordSplineManufacture::createSplineSequence(GgafDxCore::
 }
 
 SteppedCoordSplineManufacture::~SteppedCoordSplineManufacture() {
-    DELETEARR_POSSIBLE_NULL(_paDistace_to);
+    DELETEARR_POSSIBLE_NULL(_paDistance_to);
     DELETEARR_POSSIBLE_NULL(_paFrame_need_at);
 }

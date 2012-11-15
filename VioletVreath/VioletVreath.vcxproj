@@ -366,8 +366,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thalia\EnemyThalia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thalia\FormationThalia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip003.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.cpp" />
@@ -650,8 +652,10 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thalia\enemythalia.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thalia\formationthalia.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thisbe\enemythisbe.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thisbe\enemythisbelaserchip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip003.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.h" />
