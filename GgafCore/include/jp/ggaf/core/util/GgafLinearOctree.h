@@ -106,6 +106,7 @@ namespace GgafCore {
  */
 class GgafLinearOctree {
 
+
 public:
 
     /** [r]八分木の空間を一直線に並べた線形配列 */
@@ -173,7 +174,10 @@ public:
                             int tX2 ,int tY2 ,int tZ2);
 
     /**
-     * 八分木空間に登録されている要素を消去 .
+     * 八分木空間に登録されている全要素を消去する（未所属状態にする）.
+     * 本メソッドクリアしたならば、<BR>
+     * registElem() <BR>
+     * により八分木へ再度要素登録が可能となる。
      */
     virtual void clearElem();
 

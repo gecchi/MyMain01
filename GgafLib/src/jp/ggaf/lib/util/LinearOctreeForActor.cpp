@@ -23,7 +23,7 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
 }
 
 void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
-    LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElemFirst));
+    LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElem_first));
     if (pElem) {
         while(true) {
             if (pElem->_kindbit & _kind_groupA) {
@@ -32,7 +32,7 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
             if (pElem->_kindbit & _kind_groupB) {
                 _stackCurrentSpaceActor_GroupB.push(pElem->_pActor);
             }
-            if (pElem == _paSpace[prm_index]._pElemLast) {
+            if (pElem == _paSpace[prm_index]._pElem_last) {
                 break;
             }
             pElem = (LinearOctreeActorElem*)(pElem -> _pNext);

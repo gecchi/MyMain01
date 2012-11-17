@@ -29,7 +29,7 @@ void FormationMassalia::onActive() {
     updateRankParameter();
 }
 
-void FormationMassalia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
+void FormationMassalia::onDestroyedAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 void FormationMassalia::processBehavior() {

@@ -14,7 +14,7 @@ public:
 
     virtual void initialize() override;
 
-    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override;
+    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual ~FormationCeres001();
 };

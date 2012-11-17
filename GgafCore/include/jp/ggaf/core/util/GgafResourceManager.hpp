@@ -60,7 +60,7 @@ protected:
     /** [r]マネージャ名称 */
     const char* _manager_name;
     /** [r]GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はNULL */
-    GgafResourceConnection<T>* _pFirstConnection;
+    GgafResourceConnection<T>* _pConnection_first;
 
 protected:
     /**
@@ -168,14 +168,14 @@ template<class T>
 GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject(),
       _manager_name(prm_manager_name) {
     TRACE3("GgafResourceManager<T>::GgafResourceManager(" << prm_manager_name << ")");
-    _pFirstConnection = NULL;
+    _pConnection_first = NULL;
     _is_connecting_resource = false;
     _is_waiting_to_connect = false;
 }
 
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
-    GgafResourceConnection<T>* pCurrent = _pFirstConnection;
+    GgafResourceConnection<T>* pCurrent = _pConnection_first;
 
     while (pCurrent) {
         //_TRACE_("pCurrent->_idstr -> "<<(pCurrent->_idstr)<<" prm_idstr="<<prm_idstr);
@@ -188,16 +188,16 @@ GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
 }
 
 template<class T>
-void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
-    if (_pFirstConnection == NULL) {
-        _pFirstConnection = prm_pResource_New;
+void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_new) {
+    if (_pConnection_first == NULL) {
+        _pConnection_first = prm_pResource_new;
         return;
     } else {
-        GgafResourceConnection<T>* pCurrent = _pFirstConnection;
+        GgafResourceConnection<T>* pCurrent = _pConnection_first;
         while (pCurrent->_pNext) {
             pCurrent = pCurrent->_pNext;
         }
-        pCurrent->_pNext = prm_pResource_New;
+        pCurrent->_pNext = prm_pResource_new;
         return;
     }
 }
@@ -279,19 +279,19 @@ GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(char
 
 template<class T>
 void GgafResourceManager<T>::dump() {
-    GgafResourceConnection<T>* pCurrent = _pFirstConnection;
-    if (_pFirstConnection == NULL) {
+    GgafResourceConnection<T>* pCurrent = _pConnection_first;
+    if (_pConnection_first == NULL) {
         _TRACE_("GgafResourceManager::dump[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
-        GgafResourceConnection<T>* pCurrent_Next;
+        GgafResourceConnection<T>* pCurrent_next;
         while (pCurrent) {
             _TRACE_("GgafResourceManager::dump[" << _manager_name << "] [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
-            pCurrent_Next = pCurrent->_pNext;
-            if (pCurrent_Next == NULL) {
+            pCurrent_next = pCurrent->_pNext;
+            if (pCurrent_next == NULL) {
                 pCurrent = NULL;
                 break;
             } else {
-                pCurrent = pCurrent_Next;
+                pCurrent = pCurrent_next;
             }
         }
     }
@@ -299,7 +299,7 @@ void GgafResourceManager<T>::dump() {
 
 //template<class T>
 //int* GgafResourceManager<T>::getConnectionNum() {
-//    GgafResourceConnection<T>* pCurrent = _pFirstConnection;
+//    GgafResourceConnection<T>* pCurrent = _pConnection_first;
 //    int n = 0;
 //    while (pCurrent) {
 //        n++;
@@ -317,28 +317,28 @@ GgafResourceManager<T>::~GgafResourceManager() {
     _TRACE_("＜解放前Dumping＞");
     dump();
 #endif
-    GgafResourceConnection<T>* pCurrent = _pFirstConnection;
-    if (_pFirstConnection == NULL) {
+    GgafResourceConnection<T>* pCurrent = _pConnection_first;
+    if (_pConnection_first == NULL) {
         TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
-        GgafResourceConnection<T>* pCurrent_Next;
+        GgafResourceConnection<T>* pCurrent_next;
         while (pCurrent) {
             int rnum = pCurrent->_num_connection;
             _TRACE_("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストに[" << pCurrent->_idstr << "←" << rnum
                     << "Connection]が残ってます。強制削除しますが、本来あってはいけません。特別に" << rnum << "回 close()を発行します");
 //            T* r = pCurrent->fetch();
-            pCurrent_Next = pCurrent->_pNext;
+            pCurrent_next = pCurrent->_pNext;
 //            if (r) {
 //                pCurrent->processReleaseResource(r); //リソースの解放
 //            }
             for (int i = 0; i < rnum; i++) {
                 pCurrent->close(); //自殺するまで解放
             }
-            if (pCurrent_Next == NULL) {
+            if (pCurrent_next == NULL) {
                 //最後の一つ
                 break;
             } else {
-                pCurrent = pCurrent_Next;
+                pCurrent = pCurrent_next;
             }
         }
     }

@@ -17,9 +17,9 @@ private:
     /** 発注者 */
     GgafObject* _pOrderer;
     /** 一つ次の注文 */
-    GgafOrder* _pOrder_Next;
+    GgafOrder* _pOrder_next;
     /** 一つ前の注文 */
-    GgafOrder* _pOrder_Prev;
+    GgafOrder* _pOrder_prev;
     /** 先頭の注文フラグ */
     bool _is_first_order_flg;
     /** 最後の注文フラグ */
@@ -38,7 +38,7 @@ public:
     /** 進捗具合（0:未着手/1:製造中/2:製造済み） */
     int _progress;
     /** 商品へのポインタ */
-    GgafObject* _pObject_Creation;
+    GgafObject* _pObject_creation;
 
     GgafOrder(UINT32 prm_id);
     virtual ~GgafOrder();

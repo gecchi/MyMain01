@@ -12,7 +12,7 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
         _pStatus = NEW GgafStatus(12);
         _pStatus->set(0, 0);
     }
-    _pScene_Platform = NULL;
+    _pScene_platform = NULL;
     _pGod = NULL;
     _can_hit_flg = false;
     _can_hit_out_of_view = true;
@@ -28,13 +28,13 @@ GgafActor::~GgafActor() {
     //OutputDebugStringA("*");
 }
 
-void GgafActor::setPlatformScene(GgafScene* prm_pScene_Platform) {
-    _pScene_Platform = prm_pScene_Platform;
+void GgafActor::setPlatformScene(GgafScene* prm_pScene_platform) {
+    _pScene_platform = prm_pScene_platform;
     GgafActor* pActor_tmp;
     if (_pSubFirst) {
         pActor_tmp = _pSubFirst;
         while (true) {
-            pActor_tmp->setPlatformScene(prm_pScene_Platform);
+            pActor_tmp->setPlatformScene(prm_pScene_platform);
             if (pActor_tmp->_is_last_flg) {
                 break;
             } else {
@@ -91,14 +91,14 @@ void GgafActor::setHitAbleTree(bool prm_can_hit_flg) {
 
 
 GgafScene* GgafActor::getPlatformScene() {
-    if (_pScene_Platform == NULL) {
+    if (_pScene_platform == NULL) {
         if (getParent()) {
-            _pScene_Platform = getParent()->getPlatformScene();
+            _pScene_platform = getParent()->getPlatformScene();
         } else {
-            _pScene_Platform = NULL;
+            _pScene_platform = NULL;
         }
     }
-    return _pScene_Platform;
+    return _pScene_platform;
 }
 
 void GgafActor::sayonara(frame prm_offset_frames) {

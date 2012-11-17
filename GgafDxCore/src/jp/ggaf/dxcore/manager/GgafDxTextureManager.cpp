@@ -15,7 +15,7 @@ GgafDxTexture* GgafDxTextureManager::processCreateResource(char* prm_idstr, void
 
 void GgafDxTextureManager::releaseAll() {
     _TRACE_("GgafDxTextureManager::releaseAll() start-->");
-    GgafResourceConnection<GgafDxTexture>* pCurrent = _pFirstConnection;
+    GgafResourceConnection<GgafDxTexture>* pCurrent = _pConnection_first;
     while (pCurrent) {
         pCurrent->fetch()->release();
         pCurrent = pCurrent->getNext();
@@ -25,7 +25,7 @@ void GgafDxTextureManager::releaseAll() {
 
 void GgafDxTextureManager::restoreAll() {
     _TRACE_("GgafDxTextureManager::restoreAll() start-->");
-    GgafResourceConnection<GgafDxTexture>* pCurrent = _pFirstConnection;
+    GgafResourceConnection<GgafDxTexture>* pCurrent = _pConnection_first;
     while (pCurrent) {
         pCurrent->fetch()->restore();
         pCurrent = pCurrent->getNext();

@@ -62,7 +62,7 @@ void CameraWorker::onSwitchCameraWork() {
 void CameraWorker::onUndoCameraWork() {
 }
 
-void CameraWorker::onSwitchToOherCameraWork() {
+void CameraWorker::onSwitchToOtherCameraWork() {
 }
 
 void CameraWorker::onCameBackFromOtherCameraWork() {

@@ -43,9 +43,9 @@ public:
 
     /**
      * 編隊が全て自機側の攻撃で殲滅させられた場合の処理実装 .
-     * @param prm_pActor_LastDestroyed  最後に破壊されたアクター
+     * @param prm_pActor_last_destroyed  最後に破壊されたアクター
      */
-    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override;
+    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
 

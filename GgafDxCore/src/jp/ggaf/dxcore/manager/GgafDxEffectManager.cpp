@@ -68,7 +68,7 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(char* prm_idstr, void* 
 
 void GgafDxEffectManager::onDeviceLostAll() {
     TRACE3("GgafDxEffectManager::onDeviceLostAll() start-->");
-    GgafResourceConnection<GgafDxEffect>* pCurrent = _pFirstConnection;
+    GgafResourceConnection<GgafDxEffect>* pCurrent = _pConnection_first;
     HRESULT hr;
     while (pCurrent) {
         hr = pCurrent->fetch()->_pID3DXEffect->OnLostDevice();
@@ -81,7 +81,7 @@ void GgafDxEffectManager::onDeviceLostAll() {
 
 void GgafDxEffectManager::restoreAll() {
     TRACE3("GgafDxEffectManager::restoreAll() start-->");
-    GgafResourceConnection<GgafDxEffect>* pCurrent = _pFirstConnection;
+    GgafResourceConnection<GgafDxEffect>* pCurrent = _pConnection_first;
     HRESULT hr;
     while (pCurrent) {
         hr = pCurrent->fetch()->_pID3DXEffect->OnResetDevice();
@@ -92,7 +92,7 @@ void GgafDxEffectManager::restoreAll() {
     TRACE3("GgafDxEffectManager::restoreAll() end<--");
 }
 void GgafDxEffectManager::setParamPerFrameAll() {
-    GgafResourceConnection<GgafDxEffect>* pCurrent = _pFirstConnection;
+    GgafResourceConnection<GgafDxEffect>* pCurrent = _pConnection_first;
     while (pCurrent) {
         pCurrent->fetch()->setParamPerFrame();
         pCurrent = pCurrent->getNext();

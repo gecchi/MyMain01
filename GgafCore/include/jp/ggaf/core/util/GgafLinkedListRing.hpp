@@ -145,7 +145,7 @@ public:
     };
 
     /** [r]êÊì™óvëf */
-    Elem* _pElemFirst;
+    Elem* _pElem_first;
     /** [r]ÉJÉåÉìÉgóvëf */
     Elem* _pElemActive;
     /** [r]óvëfêî */
@@ -747,7 +747,7 @@ public:
      * @return
      */
     Elem* getElemFirst() {
-        return _pElemFirst;
+        return _pElem_first;
     }
 
     /**
@@ -778,10 +778,10 @@ public:
      * @return
      */
     Elem* getElemFromFirst(int n) {
-        if (_pElemFirst == NULL) {
+        if (_pElem_first == NULL) {
             return NULL;
         }
-        Elem* pElem_return = _pElemFirst;
+        Elem* pElem_return = _pElem_first;
         for (int i = 0; i < n; i++) {
             pElem_return = pElem_return->_pNext;
         }
@@ -800,17 +800,17 @@ GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
     GgafObject() {
     _num_elem = 0;
     _pElemActive = NULL;
-    _pElemFirst = NULL;
+    _pElem_first = NULL;
     _relation_num = prm_extend_relation_num;
 }
 
 
 //template<class T>
 //T* GgafLinkedListRing<T>::getFromFirst(int n) {
-//    if (_pElemFirst == NULL) {
+//    if (_pElem_first == NULL) {
 //        return NULL;
 //    }
-//    Elem* pElem_return = _pElemFirst;
+//    Elem* pElem_return = _pElem_first;
 //    for (int i = 0; i < n; i++) {
 //        pElem_return = pElem_return->_pNext;
 //    }
@@ -827,14 +827,14 @@ void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
-    if (_pElemFirst == NULL) {
+    if (_pElem_first == NULL) {
         //ç≈èâÇÃÇPÇ¬
         pElem->_is_last_flg = true;
         pElem->_is_first_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
         _pElemActive = pElem;
-        _pElemFirst = pElem;
+        _pElem_first = pElem;
     } else {
         Elem* pMy = _pElemActive;
         if (pMy->_is_last_flg) {
@@ -859,21 +859,21 @@ void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
-    if (_pElemFirst == NULL) {
+    if (_pElem_first == NULL) {
         //ç≈èâÇÃÇPÇ¬
         pElem->_is_last_flg = true;
         pElem->_is_first_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
         _pElemActive = pElem;
-        _pElemFirst = pElem;
+        _pElem_first = pElem;
     } else {
         Elem* pMy = _pElemActive;
         if (pMy->_is_first_flg) {
             pMy->_is_first_flg = false;
             pElem->_is_first_flg = true;
             pElem->_is_last_flg = false;
-            _pElemFirst = pElem;
+            _pElem_first = pElem;
         }
         Elem* pMyPrev = _pElemActive->_pPrev;
         pMyPrev->_pNext = pElem;
@@ -893,24 +893,24 @@ void GgafLinkedListRing<T>::addLast(T* prm_pNew, bool prm_is_delete_value) {
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
 
-    if (_pElemFirst == NULL) {
+    if (_pElem_first == NULL) {
         //ç≈èâÇÃÇPÇ¬
         pElem->_is_first_flg = true;
         pElem->_is_last_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
         _pElemActive = pElem;
-        _pElemFirst = pElem;
+        _pElem_first = pElem;
     } else {
         //ÇQÇ¬ñ⁄à»ç~
         pElem->_is_first_flg = false;
         pElem->_is_last_flg = true;
-        Elem* pLastElem = _pElemFirst->_pPrev;
+        Elem* pLastElem = _pElem_first->_pPrev;
         pLastElem->_is_last_flg = false;
         pLastElem->_pNext = pElem;
         pElem->_pPrev = pLastElem;
-        pElem->_pNext = _pElemFirst;
-        _pElemFirst->_pPrev = pElem;
+        pElem->_pNext = _pElem_first;
+        _pElem_first->_pPrev = pElem;
     }
     _num_elem++;
 }
@@ -924,17 +924,17 @@ void GgafLinkedListRing<T>::addFirst(T* prm_pNew, bool prm_is_delete_value) {
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
-    if (_pElemFirst == NULL) {
+    if (_pElem_first == NULL) {
         //ç≈èâÇÃÇPÇ¬
         pElem->_is_first_flg = true;
         pElem->_is_last_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
         _pElemActive = pElem;
-        _pElemFirst = pElem;
+        _pElem_first = pElem;
     } else {
-        Elem* pFirstElem = _pElemFirst;
-        Elem* pLastElem = _pElemFirst->_pPrev;
+        Elem* pFirstElem = _pElem_first;
+        Elem* pLastElem = _pElem_first->_pPrev;
         pLastElem->_pNext = pElem;
         pElem->_pPrev = pLastElem;
         pElem->_pNext = pFirstElem;
@@ -943,7 +943,7 @@ void GgafLinkedListRing<T>::addFirst(T* prm_pNew, bool prm_is_delete_value) {
 
         pElem->_is_first_flg = true;
         pElem->_is_last_flg = false;
-        _pElemFirst = pElem;
+        _pElem_first = pElem;
     }
     _num_elem++;
 }
@@ -962,19 +962,19 @@ T* GgafLinkedListRing<T>::prev() {
 
 template<class T>
 T* GgafLinkedListRing<T>::first() {
-    _pElemActive = _pElemFirst;
+    _pElemActive = _pElem_first;
     return _pElemActive->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::last() {
-    _pElemActive = _pElemFirst->_pPrev; //ä¬èÛÇ»ÇÃÇ≈ÅAêÊì™ÇÃàÍÇ¬ëOÇÕññîˆ
+    _pElemActive = _pElem_first->_pPrev; //ä¬èÛÇ»ÇÃÇ≈ÅAêÊì™ÇÃàÍÇ¬ëOÇÕññîˆ
     return _pElemActive->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::current(int n) {
-    Elem* pElem = _pElemFirst;
+    Elem* pElem = _pElem_first;
     for (int i = 0; i < n; i++) {
         pElem = pElem->_pNext;
     }
@@ -1014,10 +1014,10 @@ T* GgafLinkedListRing<T>::getNext(int n) {
 
 template<class T>
 T* GgafLinkedListRing<T>::getFromFirst(int n) {
-    if (_pElemFirst == NULL) {
+    if (_pElem_first == NULL) {
         return NULL;
     }
-    Elem* pElem_return = _pElemFirst;
+    Elem* pElem_return = _pElem_first;
     for (int i = 0; i < n; i++) {
         pElem_return = pElem_return->_pNext;
     }
@@ -1041,12 +1041,12 @@ T* GgafLinkedListRing<T>::getPrev(int n) {
 
 template<class T>
 T* GgafLinkedListRing<T>::getFirst() {
-    return _pElemFirst->_pValue;
+    return _pElem_first->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::getLast() {
-    return _pElemFirst->_pPrev->_pValue; //ä¬èÛÇ»ÇÃÇ≈ÅAêÊì™ÇÃàÍÇ¬ëOÇÕññîˆ
+    return _pElem_first->_pPrev->_pValue; //ä¬èÛÇ»ÇÃÇ≈ÅAêÊì™ÇÃàÍÇ¬ëOÇÕññîˆ
 }
 
 
@@ -1080,7 +1080,7 @@ int GgafLinkedListRing<T>::getCurrentIndex() {
     if (_pElemActive == NULL) {
         return -1;
     } else {
-        Elem* pElem = _pElemFirst;
+        Elem* pElem = _pElem_first;
         for (int i = 0; i < _num_elem; i++) {
             if (pElem == _pElemActive) {
                 return i;
@@ -1124,7 +1124,7 @@ T* GgafLinkedListRing<T>::remove() {
     if (pMy->_is_first_flg && pMy->_is_last_flg) {
         //óvëfÇ™ÇPÇ¬ÇÃèÍçá
         _pElemActive = NULL;
-        _pElemFirst = NULL;
+        _pElem_first = NULL;
         T* r = pMy->_pValue;
         DELETE_IMPOSSIBLE_NULL(pMy);
         return r;
@@ -1139,7 +1139,7 @@ T* GgafLinkedListRing<T>::remove() {
             pMyPrev->_is_last_flg = true; //àÍÇ¬ëOÇÃóvëfÇ™êVÇµÇ¢ññîˆÇ…Ç»ÇÈ
         }
         if (pMy->_is_first_flg) { //î≤Ç´éÊÇÁÇÍÇÈóvëfÇ™êÊì™ÇæÇ¡ÇΩÇ»ÇÁ
-            _pElemFirst = pMyNext;
+            _pElem_first = pMyNext;
             pMyNext->_is_first_flg = true; //éüÇÃóvëfÇ™êVÇµÇ¢êÊì™Ç…Ç»ÇÈ
         }
         _pElemActive = pMyNext; //ÉJÉåÉìÉgóvëfÇÕ next Ç…çXêVÅB
@@ -1151,7 +1151,7 @@ T* GgafLinkedListRing<T>::remove() {
 
 template<class T>
 int GgafLinkedListRing<T>::removeAll() {
-    Elem* pElem = _pElemFirst;
+    Elem* pElem = _pElem_first;
     int n = 0;
     while (pElem) {
         if (pElem->_is_last_flg) {
@@ -1165,17 +1165,17 @@ int GgafLinkedListRing<T>::removeAll() {
     }
     _num_elem = 0;
     _pElemActive = NULL;
-    _pElemFirst = NULL;
+    _pElem_first = NULL;
     return n;
 }
 
 template<class T>
 int GgafLinkedListRing<T>::indexOf(T* prm_pVal) {
-    if (_pElemFirst == NULL) {
+    if (_pElem_first == NULL) {
         return -1;
     }
     int r = 0;
-    Elem* pElem = _pElemFirst;
+    Elem* pElem = _pElem_first;
     while (true) {
         if (pElem->_pValue == prm_pVal) {
             return r;
@@ -1201,24 +1201,24 @@ template<class T>
 GgafLinkedListRing<T>::~GgafLinkedListRing() {
     _TRACE_("GgafLinkedListRing<T>::~GgafLinkedListRing() BEGIN _num_elem="<<_num_elem);
     //é©ï™Ç…éqÇ™Ç†ÇÈèÍçá
-    if (_pElemFirst) {
+    if (_pElem_first) {
         //Ç‹Ç∏éqÇdelete
         if (_num_elem == 1) {
             //éqóvëfÇÕÇPÇ¬ÇÃèÍçá
-            DELETE_IMPOSSIBLE_NULL(_pElemFirst);
-            _pElemFirst = NULL;
+            DELETE_IMPOSSIBLE_NULL(_pElem_first);
+            _pElem_first = NULL;
             _pElemActive = NULL;
             _num_elem = 0;
 
         } else {
             //éqóvëfÇÕÇQÇ¬à»è„ÇÃèÍçá
-            Elem* pLast = _pElemFirst->_pPrev;
+            Elem* pLast = _pElem_first->_pPrev;
             Elem* pLastPrev = pLast->_pPrev;
             while (true) {
                 DELETE_IMPOSSIBLE_NULL(pLast); //ññîˆÇ©ÇÁdelete
                 if (pLastPrev->_is_first_flg) {
-                    DELETE_IMPOSSIBLE_NULL(_pElemFirst); //pSubLastPrev == _pSubFirst Ç≈Ç†ÇÈ
-                    _pElemFirst = NULL;
+                    DELETE_IMPOSSIBLE_NULL(_pElem_first); //pSubLastPrev == _pSubFirst Ç≈Ç†ÇÈ
+                    _pElem_first = NULL;
                     _pElemActive = NULL;
                     _num_elem = 0;
                     break;

@@ -28,7 +28,7 @@ public:
     /** [r]各進捗番号の進捗変更時の時間の保存 */
     frame* _paFrame_progress_changed;
     /** [r]時間カウンター(時間経過に伴い増加する何らかの変数)の参照 */
-    frame* _pFrame_count;
+    frame* _pFrame_counter;
     /** 管理される進捗番号の個数 */
     int _num_progress;
 
@@ -38,10 +38,10 @@ public:
      * 初期化時の進捗番号は 0 に設定されている。<BR>
      * これは、どの進捗状態でも無い事を意味で設定している。<BR>
      * 通常の進捗状態は 1～ とする。<BR>
-     * @param prm_pFrame_count 時間カウンターの参照(何らか経過に伴いインクリメント(+1)されていく変数の参照)
+     * @param prm_pFrame_counter 時間カウンターの参照(何らか経過に伴いインクリメント(+1)されていく変数の参照)
      * @param prm_num_progress 最大進捗番号数(10を設定すると 0番～10番の11個の進捗状態が使用可能となる)
      */
-    GgafProgress(frame* prm_pFrame_count, int prm_num_progress);
+    GgafProgress(frame* prm_pFrame_counter, int prm_num_progress);
 
     /**
      * 現在の進捗番号取得 .

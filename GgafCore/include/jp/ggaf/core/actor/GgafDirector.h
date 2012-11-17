@@ -30,7 +30,7 @@ private:
     }
 
 public:
-    GgafDirector(GgafScene* prm_pScene_Platform);
+    GgafDirector(GgafScene* prm_pScene_platform);
 
     /**
      * 初期処理<BR>
@@ -122,7 +122,7 @@ public:
      *         +- pActor01 -- pActor03              + pActor02
      * </pre>
      * 補足：引数の prm_pMainActor 以下全てのアクターに関して、
-     *       ・所属シーンメンバ (_pScene_Platform)
+     *       ・所属シーンメンバ (_pScene_platform)
      *       ・監督アクターメンバ(_pDirector)
      *       ・団長アクターメンバ(_pGroupHead) ※但し下位に他の団長がいた場合はそこまで
      *       の更新を行います。

@@ -6,8 +6,8 @@ using namespace VioletVreath;
 
 VirtualButton* God::pVbtn_PLAY_ = NULL;
 VirtualButton* God::pVbtn_UI_ = NULL;
-VirtualButton* God::pVbtn_Active_ = NULL;
-VirtualButton* God::pVbtn_Active_next_frame_ = NULL;
+VirtualButton* God::pVbtn_active_ = NULL;
+VirtualButton* God::pVbtn_active_next_frame_ = NULL;
 
 
 God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
@@ -21,8 +21,8 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     pVbtn_UI_->_pRpy->setRealtimeOutputFile(FILE_REALTIME_OUTPUT_UI_REPLAY);
     _TRACE_("デバッグリアルタイムリプレイ記録モード○");
 #endif
-    God::pVbtn_Active_ = God::pVbtn_UI_;
-    God::pVbtn_Active_next_frame_ = God::pVbtn_UI_;
+    God::pVbtn_active_ = God::pVbtn_UI_;
+    God::pVbtn_active_next_frame_ = God::pVbtn_UI_;
 
     if (pVbtn_PLAY_->_is_replaying && pVbtn_UI_->_is_replaying) {
         _TRACE_("プレイリプレイ情報○、UIリプレイ情報○");

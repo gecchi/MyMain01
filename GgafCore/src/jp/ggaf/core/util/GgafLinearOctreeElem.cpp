@@ -3,7 +3,7 @@ using namespace GgafCore;
 
 
 GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit) {
-    _pSpace_Current = NULL;
+    _pSpace_current = NULL;
     _pNext = NULL;
     _pPrev = NULL;
     _pObject = prm_pObject;
@@ -12,22 +12,21 @@ GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_k
     _pRegLinkNext = NULL;
 }
 
-void GgafLinearOctreeElem::extract() {
-    if(_pSpace_Current == NULL) {
+void GgafLinearOctreeElem::clear() {
+    if(_pSpace_current == NULL) {
         //_TRACE_("GgafLinearOctreeElem::extract() できません。意図してますか？");
         return;
     }
     //情報リセット
-    UINT32 index = _pSpace_Current->_my_index;
+    UINT32 index = _pSpace_current->_my_index;
+    GgafLinearOctreeSpace* paSpace = _pLinearOctree->_paSpace;
     while(true) {
-        //一つでもextract()すると情報は崩れることを注意、アプリケーションロジックからextract() は使用しないこと。
-        //基本ツリーは、登録と、クリアのみ行うという設計
-        if (_pLinearOctree->_paSpace[index]._kindinfobit == 0 ) {
+        if (paSpace[index]._kindinfobit == 0 ) {
             break;
         } else {
-            _pLinearOctree->_paSpace[index]._kindinfobit = 0;
-            _pLinearOctree->_paSpace[index]._pElemFirst = NULL;
-            _pLinearOctree->_paSpace[index]._pElemLast = NULL;
+            paSpace[index]._kindinfobit = 0;
+            paSpace[index]._pElem_first = NULL;
+            paSpace[index]._pElem_last = NULL;
         }
 
         if (index == 0) {
@@ -38,61 +37,44 @@ void GgafLinearOctreeElem::extract() {
     }
     _pNext = NULL;
     _pPrev = NULL;
-    _pSpace_Current = NULL;
+    _pSpace_current = NULL;
 
-//    if (this == _pSpace_Current->_pElemFirst && this == _pSpace_Current->_pElemLast) {
-//        //先頭かつ末尾の場合
-//        _pSpace_Current->_pElemFirst = NULL;
-//        _pSpace_Current->_pElemLast = NULL;
-//        _pSpace_Current = NULL;
-//    } else if (this == _pSpace_Current->_pElemFirst) {
-//        //先頭だった場合
-//        _pSpace_Current->_pElemFirst = _pNext;
-//        _pSpace_Current->_pElemFirst->_pPrev = NULL;
-//        _pNext = NULL;
-//        _pSpace_Current = NULL;
-//    } else if (this == _pSpace_Current->_pElemLast) {
-//        //末尾だった場合
-//        _pSpace_Current->_pElemLast = _pPrev;
-//        _pSpace_Current->_pElemLast->_pNext = NULL;
-//        _pPrev = NULL;
-//        _pSpace_Current = NULL;
-//    } else {
-//        //中間だった場合
-//        _pPrev->_pNext = _pNext;
-//        _pNext->_pPrev = _pPrev;
-//        _pNext = NULL;
-//        _pPrev = NULL;
-//        _pSpace_Current = NULL;
-//    }
+//要素は各空間にリストにぶら下がっているため、clear() の機能を本当に綺麗に実装するならば、
+//所属空間の _kindinfobit も XOR などしてビットをアンセットし、
+//_pElem_first、_pElem_last のポインタの鎖（リスト）から一つだけ切り離す処理をするべきである。
+//しかし、どうせ clear() を使用するのは、全空間全要素クリアするときだけであるので、
+//_kindinfobit は、何も考えず 0 を設定。鎖の _pElem_first も _pElem_last もいきなりNULLでクリア。
+//１つだけ clear() とかすると、空間情報は崩れることを注意、アプリケーションロジックから clear() は使用しないこと。
+//基本ツリーは、登録と、クリアのみ行うという設計
 }
 
-void GgafLinearOctreeElem::addElem(GgafLinearOctreeSpace* prm_pSpace_target) {
-    if (_pSpace_Current == prm_pSpace_target) {
-        //_TRACE_("addElemせんでいい");
+void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* prm_pSpace_target) {
+    if (_pSpace_current == prm_pSpace_target) {
+        //_TRACE_("belongToせんでいい");
         return;
     } else {
-        if (prm_pSpace_target->_pElemFirst == NULL) {
+        if (prm_pSpace_target->_pElem_first == NULL) {
             //１番目に追加の場合
-            prm_pSpace_target->_pElemFirst = this;
-            prm_pSpace_target->_pElemLast = this;
+            prm_pSpace_target->_pElem_first = this;
+            prm_pSpace_target->_pElem_last = this;
             _pNext = NULL;
             _pPrev = NULL;
-            _pSpace_Current = prm_pSpace_target;
+            _pSpace_current = prm_pSpace_target;
         } else {
             //末尾に追加の場合
-            prm_pSpace_target->_pElemLast->_pNext = this;
-            _pPrev = prm_pSpace_target->_pElemLast;
+            prm_pSpace_target->_pElem_last->_pNext = this;
+            _pPrev = prm_pSpace_target->_pElem_last;
             _pNext = NULL;
-            prm_pSpace_target->_pElemLast = this;
-            _pSpace_Current = prm_pSpace_target;
+            prm_pSpace_target->_pElem_last = this;
+            _pSpace_current = prm_pSpace_target;
         }
     }
     //引数の要素番号
     UINT32 index = prm_pSpace_target->_my_index;
+    GgafLinearOctreeSpace* paSpace = _pLinearOctree->_paSpace;
     //親空間すべてに要素種別情報を流す
     while(true) {
-        _pLinearOctree->_paSpace[index]._kindinfobit |= this->_kindbit;
+        paSpace[index]._kindinfobit |= this->_kindbit;
         if (index == 0) {
             break;
         }
@@ -100,18 +82,6 @@ void GgafLinearOctreeElem::addElem(GgafLinearOctreeSpace* prm_pSpace_target) {
         index = (index-1)>>3;
     }
 }
-
-//void GgafLinearOctreeElem::moveToSpace(GgafLinearOctreeSpace* prm_pSpace_target) {
-//    if (prm_pSpace_target == _pSpace_Current) {
-//        return; //移動せんでいい
-//    } else {
-//        if(_pSpace_Current) {
-//            extract(); //抜けますよ
-//        }
-//        addElem(prm_pSpace_target); //入りますよ
-//        return;
-//    }
-//}
 
 void GgafLinearOctreeElem::dump() {
     _TEXT_("o");

@@ -52,7 +52,7 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
     CameraWorker* pCamWorker = pCon->fetch();
     if (pCamWorker != pActiveCamWorker_) {
         //現在の CameraWork を非活動へ
-        pActiveCamWorker_->onSwitchToOherCameraWork(); //コールバック
+        pActiveCamWorker_->onSwitchToOtherCameraWork(); //コールバック
         pActiveCamWorker_->inactivate();
         //パラメータの CameraWork を活動へ
         pCamWorker->activate();

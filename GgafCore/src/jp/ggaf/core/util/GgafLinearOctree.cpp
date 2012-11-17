@@ -199,9 +199,8 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
     }
 #endif
 
-    //要素を線形８分木空間に登録
-    if (prm_pElem->_pSpace_Current == NULL) {
-        //登録Elemリストに追加
+    //登録Elemリストに追加（後でクリアしたいが為）
+    if (prm_pElem->_pSpace_current == NULL) {
         if (_pRegElemFirst == NULL) {
             prm_pElem->_pRegLinkNext = NULL;
             _pRegElemFirst = prm_pElem;
@@ -209,11 +208,16 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
             prm_pElem->_pRegLinkNext = _pRegElemFirst;
             _pRegElemFirst = prm_pElem;
         }
+    } else {
+#ifdef MY_DEBUG
+        throwGgafCriticalException("GgafLinearOctree::registElem() 登録しようとした引数要素は、他の空間に所属状態です。"<<
+                                   "クリアがなされていないか、２重登録しています。現所属空間インデックス="<<(prm_pElem->_pSpace_current->_my_index)<<"  要素対象オブジェクト="<<(prm_pElem->_pObject));
+#endif
     }
 
-    //空間座標インデックス
     prm_pElem->_pLinearOctree = this;
-    prm_pElem->addElem(&(_paSpace[index]));
+    //要素を線形８分木空間に登録(所属させる)
+    prm_pElem->belongTo(&(_paSpace[index]));
 }
 
 void GgafLinearOctree::clearElem() {
@@ -222,7 +226,7 @@ void GgafLinearOctree::clearElem() {
     }
     GgafLinearOctreeElem* pElem = _pRegElemFirst;
     while(true) {
-        pElem->extract();
+        pElem->clear();
         pElem = pElem -> _pRegLinkNext;
         if (pElem == NULL) {
             break;

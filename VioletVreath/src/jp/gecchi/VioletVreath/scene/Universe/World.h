@@ -28,9 +28,9 @@ public:
 
     bool is_create_GameScene_;
     char aBufDebug_[80];
-    LabelGecchi16Font* pLabel_Aster_;
-    LabelGecchi16Font* pLabel_Title_;
-    LabelGecchi16Font* pLabel_Debug_;
+    LabelGecchi16Font* pLabel_aster_;
+    LabelGecchi16Font* pLabel_title_;
+    LabelGecchi16Font* pLabel_debug_;
     PreDrawScene* pPreDrawScene_;
     GameScene* pGameScene_;
 

@@ -45,12 +45,12 @@ class GgafActor : public GgafElement<GgafActor> {
 
 private:
     /** 現在の所属シーン */
-    GgafScene* _pScene_Platform;
+    GgafScene* _pScene_platform;
 
     /**
      * 所属シーンを設定する。 .
      */
-    void setPlatformScene(GgafScene* prm_pScene_Platform);
+    void setPlatformScene(GgafScene* prm_pScene_platform);
 
 public:
     /** [r]所属デポジトリ(NULLは未所属) */

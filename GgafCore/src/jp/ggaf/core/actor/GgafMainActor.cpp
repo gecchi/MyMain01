@@ -115,7 +115,7 @@ GgafDirector* GgafMainActor::getSceneDirector() {
 
 GgafGroupHead* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pDirector) {
-        //_TRACE_("【警告】GgafDirector::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pDirector->_pScene_Platform->getName()<<"シーンの監督に所属しています。が、"<<_pScene_Platform->getName()<<"シーンの監督に乗り換えます");
+        //_TRACE_("【警告】GgafDirector::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pDirector->_pScene_platform->getName()<<"シーンの監督に所属しています。が、"<<_pScene_platform->getName()<<"シーンの監督に乗り換えます");
         prm_pMainActor->extract();
     }
     GgafGroupHead* pMyGroupHead = getMyGroupHead();

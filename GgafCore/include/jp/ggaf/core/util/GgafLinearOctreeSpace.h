@@ -15,17 +15,17 @@ public:
     /** [r]所属してる要素の種別情報 */
     UINT32 _kindinfobit;
     /** [r]ぶら下がる要素の先頭 */
-    GgafLinearOctreeElem* _pElemFirst;
+    GgafLinearOctreeElem* _pElem_first;
     /** [r]ぶら下がる要素の末尾 */
-    GgafLinearOctreeElem* _pElemLast;
+    GgafLinearOctreeElem* _pElem_last;
 
     /**
      * コンストラクタ
      * @return
      */
     GgafLinearOctreeSpace() {
-        _pElemFirst = NULL;
-        _pElemLast = NULL;
+        _pElem_first = NULL;
+        _pElem_last = NULL;
         _kindinfobit = 0;
         _my_index = 0xffffffff; //ありえない0xffffffffを入れておく
     }

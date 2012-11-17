@@ -15,7 +15,7 @@ void GgafDxBgmManager::updateVolume() {
     while(_is_connecting_resource) {
         Sleep(1);
     }
-    GgafDxBgmConnection* pConnection = (GgafDxBgmConnection*)_pFirstConnection;
+    GgafDxBgmConnection* pConnection = (GgafDxBgmConnection*)_pConnection_first;
     while (pConnection) {
         pConnection->fetch()->setVolume(GgafDxSound::_bgm_volume);
         while(_is_connecting_resource) { //ŠÈˆÕ”r‘¼

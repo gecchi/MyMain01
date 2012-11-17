@@ -30,7 +30,7 @@ void GgafDxSeManager::updateVolume() {
     while(_is_connecting_resource) {
         Sleep(1);
     }
-    GgafDxSeConnection* pConnection = (GgafDxSeConnection*)_pFirstConnection;
+    GgafDxSeConnection* pConnection = (GgafDxSeConnection*)_pConnection_first;
     while (pConnection) {
         pConnection->fetch()->setVolume(GgafDxSound::_se_volume);
         while(_is_connecting_resource) { //ŠÈˆÕ”r‘¼

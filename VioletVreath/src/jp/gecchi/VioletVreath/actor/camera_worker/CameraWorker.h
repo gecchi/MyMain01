@@ -45,7 +45,7 @@ public:
 
     virtual void onUndoCameraWork();
 
-    virtual void onSwitchToOherCameraWork();
+    virtual void onSwitchToOtherCameraWork();
 
     virtual void onCameBackFromOtherCameraWork();
 

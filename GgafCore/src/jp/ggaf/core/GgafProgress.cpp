@@ -1,16 +1,16 @@
 #include "stdafx.h"
 using namespace GgafCore;
 
-GgafProgress::GgafProgress(frame* prm_pFrame_count, int prm_num_progress) : GgafObject() ,
+GgafProgress::GgafProgress(frame* prm_pFrame_counter, int prm_num_progress) : GgafObject() ,
 _progress(PROGRESS_NOTHING),       //ここと
 _progress_prev(-1),
 _progress_next(PROGRESS_NOTHING),  //ここは、合わせること。合わせないと、初回update時に配列インデックス範囲外になるため。
-_pFrame_count(prm_pFrame_count)
+_pFrame_counter(prm_pFrame_counter)
 {
     _num_progress = prm_num_progress;
     _paFrame_progress_changed = NEW frame[_num_progress+1];
     for (int i = 0; i < _num_progress+1; i++) {
-        _paFrame_progress_changed[i] = (*_pFrame_count);
+        _paFrame_progress_changed[i] = (*_pFrame_counter);
     }
 }
 
@@ -26,14 +26,14 @@ void GgafProgress::set(progress prm_progress) {
     _progress_prev = _progress;
     _progress = prm_progress;
     _progress_next = prm_progress;
-    _paFrame_progress_changed[prm_progress] = (*_pFrame_count);
+    _paFrame_progress_changed[prm_progress] = (*_pFrame_counter);
 }
 
 void GgafProgress::setNothing() {
     _progress_prev = _progress;
     _progress = PROGRESS_NOTHING;
     _progress_next = PROGRESS_NOTHING;
-    _paFrame_progress_changed[PROGRESS_NOTHING] = (*_pFrame_count);
+    _paFrame_progress_changed[PROGRESS_NOTHING] = (*_pFrame_counter);
 }
 
 frame GgafProgress::getFrameWhenChanged(progress prm_progress) {
@@ -46,7 +46,7 @@ frame GgafProgress::getFrameWhenChanged(progress prm_progress) {
 }
 
 frame GgafProgress::getFrameInProgress() {
-    return ((*_pFrame_count) - _paFrame_progress_changed[_progress]);
+    return ((*_pFrame_counter) - _paFrame_progress_changed[_progress]);
 }
 
 
@@ -149,7 +149,7 @@ progress GgafProgress::getToProgWhenWillChange() {
 void GgafProgress::update() {
     //進捗を反映する
     if (_progress != _progress_next) {
-        _paFrame_progress_changed[_progress_next] = (*_pFrame_count) - 1;
+        _paFrame_progress_changed[_progress_next] = (*_pFrame_counter) - 1;
     }
     _progress_prev = _progress;
     _progress = _progress_next;

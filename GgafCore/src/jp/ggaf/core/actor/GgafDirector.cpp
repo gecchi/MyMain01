@@ -2,11 +2,11 @@
 
 using namespace GgafCore;
 
-GgafDirector::GgafDirector(GgafScene* prm_pScene_Platform) : GgafActor(prm_pScene_Platform->getName(), NULL) {
+GgafDirector::GgafDirector(GgafScene* prm_pScene_platform) : GgafActor(prm_pScene_platform->getName(), NULL) {
     _obj_class |= Obj_GgafDirector;
     _class_name = "GgafDirector";
 
-    _pScene_Platform = prm_pScene_Platform;
+    _pScene_platform = prm_pScene_platform;
     setHitAble(false);
 }
 
@@ -16,7 +16,7 @@ void GgafDirector::remove() {
 
 GgafGroupHead* GgafDirector::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pDirector) {
-        //_TRACE_("【警告】GgafDirector::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pDirector->_pScene_Platform->getName()<<"シーンの監督に所属しています。が、"<<_pScene_Platform->getName()<<"シーンの監督に乗り換えます");
+        //_TRACE_("【警告】GgafDirector::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pDirector->_pScene_platform->getName()<<"シーンの監督に所属しています。が、"<<_pScene_platform->getName()<<"シーンの監督に乗り換えます");
         prm_pMainActor->extract();
     }
     GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind);
@@ -29,7 +29,7 @@ GgafGroupHead* GgafDirector::addSubGroup(actorkind prm_kind, GgafMainActor* prm_
     pSubGroupActor->addSubLast(prm_pMainActor);
     prm_pMainActor->setGroupHead(pSubGroupActor);
     prm_pMainActor->setSceneDirector(this);
-    prm_pMainActor->setPlatformScene(_pScene_Platform);
+    prm_pMainActor->setPlatformScene(_pScene_platform);
     return pSubGroupActor;
 }
 
@@ -68,7 +68,7 @@ GgafGroupHead* GgafDirector::searchSubGroupHead(actorkind prm_kind) {
 
 void GgafDirector::updateActiveInTheTree() {
     if (getPlatformScene()) {
-        if (_pScene_Platform->_is_active_in_the_tree_flg) {
+        if (_pScene_platform->_is_active_in_the_tree_flg) {
             _is_active_in_the_tree_flg = _is_active_flg;
         } else {
             _is_active_in_the_tree_flg = false;

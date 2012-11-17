@@ -35,9 +35,9 @@ public:
      * 編隊構成要員が破壊された時の処理 .
      * pActor->notifyDestroyedToFormation() 時に自動的に実行される。
      * 通常フレームワーク実装者は本メソッドを使用することはない。
-     * @param prm_pActor_Destroyed
+     * @param prm_pActor_destroyed
      */
-    void destroyedFollower(GgafActor* prm_pActor_Destroyed);
+    void destroyedFollower(GgafActor* prm_pActor_destroyed);
 
     /**
      * 編隊に所属したアクターが破壊(画面外ではない)により全滅した場合にコールバックされるメソッド（とする) .
@@ -47,9 +47,9 @@ public:
      * GgafActor::notifyDestroyedToFormation() の説明を参照して下さい。 <BR>
      * 編隊全滅時の処理が特にない場合は、pActor->notifyDestroyedToFormation()を通知する必要はありません。 <BR>
      * その場合は、本メソッドは空実装しておいて下さい 。 <BR>
-     * @param prm_pActor_LastDestroyed 最後にやられたアクター
+     * @param prm_pActor_last_destroyed 最後にやられたアクター
      */
-    virtual void onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) = 0;
+    virtual void onDestroyedAll(GgafActor* prm_pActor_last_destroyed) = 0;
 
     /**
      * メンバーが残っていれば解放する処理を実装済み .

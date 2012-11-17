@@ -35,7 +35,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override;
+    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual ~FormationPallas001();
 };

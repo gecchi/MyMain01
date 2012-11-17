@@ -8,7 +8,7 @@ namespace VioletVreath {
 /** UI操作時のVirtualButton */
 #define VB_UI VioletVreath::God::pVbtn_UI_
 /** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
-#define VB VioletVreath::God::pVbtn_Active_
+#define VB VioletVreath::God::pVbtn_active_
 
 /** ゲームプレイのリプレイ再生用読み込みファイル */
 #define FILE_INPUT_PLAY_REPLAY    "VB_PLAY.rep"
@@ -51,8 +51,8 @@ public:
 
     static GgafLib::VirtualButton* pVbtn_PLAY_;
     static GgafLib::VirtualButton* pVbtn_UI_;
-    static GgafLib::VirtualButton* pVbtn_Active_;
-    static GgafLib::VirtualButton* pVbtn_Active_next_frame_;
+    static GgafLib::VirtualButton* pVbtn_active_;
+    static GgafLib::VirtualButton* pVbtn_active_next_frame_;
 
     /**
      * コンストラクタ .
@@ -67,10 +67,10 @@ public:
      * @param prm_pVB
      */
     void setVB(GgafLib::VirtualButton* prm_pVB) {
-        if (pVbtn_Active_ != prm_pVB) {
+        if (pVbtn_active_ != prm_pVB) {
             //VBのセットが切り替わる
         }
-        pVbtn_Active_next_frame_ = prm_pVB;
+        pVbtn_active_next_frame_ = prm_pVB;
     }
 
     /**
@@ -78,7 +78,7 @@ public:
      */
     virtual void presentUniversalMoment() override {
         //VBを反映
-        pVbtn_Active_ = pVbtn_Active_next_frame_;
+        pVbtn_active_ = pVbtn_active_next_frame_;
         //上位呼び出し
         GgafLib::DefaultGod::presentUniversalMoment();
     }

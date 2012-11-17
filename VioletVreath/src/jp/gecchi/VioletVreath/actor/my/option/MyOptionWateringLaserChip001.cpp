@@ -207,7 +207,7 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrlr_->pRingTarget_->getCurrent();
     //ヒットエフェクト
-    //無し
+    UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
         if (pMainLockOnTarget) { //既にオプションはロックオン中
@@ -229,12 +229,6 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         int stamina = UTIL::calcMyStamina(this, pOther);
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
-
-            //破壊されたエフェクト
-            EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-            if (pExplo001) {
-                pExplo001->locateWith(this);
-            }
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
                 pOrg_->pLockonCtrlr_->lockon(pOther);
@@ -250,12 +244,6 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら
-
-        //破壊されたエフェクト
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-        if (pExplo001) {
-            pExplo001->locateWith(this);
-        }
         sayonara();
     }
 }

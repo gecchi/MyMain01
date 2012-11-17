@@ -198,12 +198,12 @@ void MyOption::setRadiusPosition(int prm_radius) {
     angle angZY_ROTANG_X;
     if (radiusPosition_ > 0) {
         angZY_ROTANG_X = UTIL::getAngle2D(_Z, _Y); //自分の位置
-        _Z = radiusPosition_ * ANG_COS(UTIL::simplifyAng(angZY_ROTANG_X));
-        _Y = radiusPosition_ * ANG_SIN(UTIL::simplifyAng(angZY_ROTANG_X));
+        _Z = radiusPosition_ * ANG_COS(angZY_ROTANG_X);
+        _Y = radiusPosition_ * ANG_SIN(angZY_ROTANG_X);
     } else {
         angZY_ROTANG_X = UTIL::getAngle2D(-_Z, -_Y); //自分の位置
-        _Z = radiusPosition_ * ANG_COS(UTIL::simplifyAng(angZY_ROTANG_X));
-        _Y = radiusPosition_ * ANG_SIN(UTIL::simplifyAng(angZY_ROTANG_X));
+        _Z = radiusPosition_ * ANG_COS(angZY_ROTANG_X);
+        _Y = radiusPosition_ * ANG_SIN(angZY_ROTANG_X);
     }
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
@@ -488,11 +488,11 @@ void MyOption::processBehavior() {
     //しかしまだ色々と回転したいため。あとは普通に計算（力技）で、座標回転、向き回転を行なう。
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
-
-    float sinRZ = ANG_SIN(pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Z]);
-    float cosRZ = ANG_COS(pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Z]);
-    float sinRY = ANG_SIN(pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Y]);
-    float cosRY = ANG_COS(pOptionCtrlr_->_pKurokoA->_angFace[AXIS_Y]);
+    GgafDxKurokoA* pOptionCtrlrKurokoA = pOptionCtrlr_->_pKurokoA;
+    float sinRZ = ANG_SIN(pOptionCtrlrKurokoA->_angFace[AXIS_Z]);
+    float cosRZ = ANG_COS(pOptionCtrlrKurokoA->_angFace[AXIS_Z]);
+    float sinRY = ANG_SIN(pOptionCtrlrKurokoA->_angFace[AXIS_Y]);
+    float cosRY = ANG_COS(pOptionCtrlrKurokoA->_angFace[AXIS_Y]);
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
     _X = cosRY*cosRZ*Xorg_ + cosRY*-sinRZ*Yorg_ + sinRY*Zorg_;
     _Y = sinRZ*Xorg_ + cosRZ*Yorg_;
@@ -517,14 +517,13 @@ void MyOption::processBehavior() {
     //回転軸 は(vX_axis, vY_axis, vZ_axis) 回転角は angExpanse_
     GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf); //R
 //    Q.set(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-    Q.mul(0, pOptionCtrlr_->_pKurokoA->_vX,
-             pOptionCtrlr_->_pKurokoA->_vY,
-             pOptionCtrlr_->_pKurokoA->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
+    Q.mul(0, pOptionCtrlrKurokoA->_vX,
+             pOptionCtrlrKurokoA->_vY,
+             pOptionCtrlrKurokoA->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
     Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
-    UTIL::getRzRyAng(Q._x, Q._y, Q._z,
-                           _RZ, _RY);
+    UTIL::getRzRyAng(Q._x, Q._y, Q._z, _RZ, _RY);
 
 
     _X += pOptionCtrlr_->_X;

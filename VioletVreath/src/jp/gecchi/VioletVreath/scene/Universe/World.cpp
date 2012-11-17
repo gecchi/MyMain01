@@ -8,14 +8,14 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "World";
     _TRACE_("World::World");
 
-    pLabel_Aster_ = NEW LabelGecchi16Font("ASTER");
-    getDirector()->addSubGroup(pLabel_Aster_);
-    pLabel_Aster_->update(PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
-    pLabel_Aster_->_pFader->beat(60, 30, 0, 0, -1); //チカチカ点滅
+    pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
+    getDirector()->addSubGroup(pLabel_aster_);
+    pLabel_aster_->update(PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
+    pLabel_aster_->_pFader->beat(60, 30, 0, 0, -1); //チカチカ点滅
 
     is_create_GameScene_ = false;
-    pLabel_Debug_ = NULL;
-    pLabel_Title_ = NULL;
+    pLabel_debug_ = NULL;
+    pLabel_title_ = NULL;
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。
@@ -26,9 +26,9 @@ void World::initialize() {
     pixcoord cx = GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2;
     pixcoord cy = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)/2;
 
-    pLabel_Title_ = createInFactory(LabelGecchi16Font, "STR01");
-    getDirector()->addSubGroup(pLabel_Title_);
-    pLabel_Title_->update(PX_C(cx), PX_C(cy),
+    pLabel_title_ = createInFactory(LabelGecchi16Font, "STR01");
+    getDirector()->addSubGroup(pLabel_title_);
+    pLabel_title_->update(PX_C(cx), PX_C(cy),
                           "[ VIOLET VREATH ]\nVERSION 0.0.1\nPLEASE WAIT A MOMENT ...",
                           ALIGN_CENTER, VALIGN_MIDDLE);
 
@@ -37,9 +37,9 @@ void World::initialize() {
     ColliAAPrismActor::get(); //当たり判定領域表示用プリズム、プリロード
     ColliSphereActor::get();  //当たり判定領域表示用球、プリロード
 #endif
-    pLabel_Debug_ = createInFactory(LabelGecchi16Font, "DebugStr");
-    pLabel_Debug_->update(PX_C(1), PX_C(1), "");
-    getDirector()->addSubGroup(pLabel_Debug_);
+    pLabel_debug_ = createInFactory(LabelGecchi16Font, "DebugStr");
+    pLabel_debug_->update(PX_C(1), PX_C(1), "");
+    getDirector()->addSubGroup(pLabel_debug_);
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
     orderSceneToFactory(2, GameScene, "Game");
@@ -55,7 +55,7 @@ void World::processBehavior() {
                 addSubLast(pPreDrawScene_);
                 _pProg->changeNext();
             }
-            pLabel_Aster_->_pFader->behave(); //右上＊チカチカ
+            pLabel_aster_->_pFader->behave(); //右上＊チカチカ
             break;
         }
 
@@ -65,10 +65,10 @@ void World::processBehavior() {
                 pPreDrawScene_->_pProg->get() == PreDrawScene::PROG_WAIT &&
                 P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX))
             {
-                pLabel_Title_->sayonara();
+                pLabel_title_->sayonara();
                 _pProg->changeNext();
             }
-            pLabel_Aster_->_pFader->behave(); //右上＊チカチカ
+            pLabel_aster_->_pFader->behave(); //右上＊チカチカ
             break;
         }
 
@@ -77,18 +77,18 @@ void World::processBehavior() {
                 pGameScene_ = (GameScene*)obtainSceneFromFactory(2);
                 _pProg->changeNext();
             }
-            pLabel_Aster_->_pFader->behave(); //右上＊チカチカ
+            pLabel_aster_->_pFader->behave(); //右上＊チカチカ
             break;
         }
 
         case World::PROG_CALM3: {
             if (_pProg->getFrameInProgress() <= 120) {
-                pLabel_Aster_->_pFader->behave(); //右上＊チカチカ
+                pLabel_aster_->_pFader->behave(); //右上＊チカチカ
                 if (_pProg->getFrameInProgress() == 70) {
-                    pLabel_Aster_->update("!");
+                    pLabel_aster_->update("!");
                 }
                 if (_pProg->getFrameInProgress() == 120) {
-                    pLabel_Aster_->sayonara();
+                    pLabel_aster_->sayonara();
                     _pProg->changeNext(); //メインへ！
                 }
             }
@@ -127,7 +127,7 @@ void World::processBehavior() {
                             askGod()->_fps,
                             (GgafDxSound::_master_volume)
                             );
-    pLabel_Debug_->update(aBufDebug_);
+    pLabel_debug_->update(aBufDebug_);
     if (getActivePartFrame() % 60 == 0) {
         _TRACE_("aBufDebug_="<<aBufDebug_);
     }
@@ -136,7 +136,7 @@ void World::processBehavior() {
     }
 #else
     sprintf(aBufDebug_, "%03.1fFPS", askGod()->_fps);
-    pLabel_Debug_->update(aBufDebug_);
+    pLabel_debug_->update(aBufDebug_);
 #endif
 
 }

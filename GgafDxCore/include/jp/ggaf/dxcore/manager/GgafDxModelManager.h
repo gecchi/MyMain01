@@ -211,7 +211,7 @@ public:
      * @return æ“ª‚Ìƒ‚ƒfƒ‹
      */
     GgafDxModelConnection* getFirstConnection() {
-        return (GgafDxModelConnection*)_pFirstConnection;
+        return (GgafDxModelConnection*)_pConnection_first;
     }
 
     virtual ~GgafDxModelManager();

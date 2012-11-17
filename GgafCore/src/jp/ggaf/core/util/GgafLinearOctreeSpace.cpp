@@ -4,14 +4,14 @@ using namespace GgafCore;
 
 
 void GgafLinearOctreeSpace::dump() {
-    if (_pElemFirst == NULL) {
+    if (_pElem_first == NULL) {
         _TEXT_("x");
     } else {
-        GgafLinearOctreeElem* pElem = _pElemFirst;
+        GgafLinearOctreeElem* pElem = _pElem_first;
         while (true) {
             pElem->dump();
 
-            if (pElem == _pElemLast) {
+            if (pElem == _pElem_last) {
                 break;
             }
             pElem = pElem -> _pNext;

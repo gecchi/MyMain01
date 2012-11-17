@@ -10,11 +10,28 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafLinearOctreeElem {
+
+    friend class GgafLinearOctree;
+
+private:
+    /**
+     * 自身が自ら空間から離脱、所属空間の情報もいきなり削除 .
+     */
+    void clear();
+    /**
+     * 自身が自ら空間の末尾にぶら下がり追加される .
+     * 一度 belongTo() を実行し所属したならば、
+     * GgafLinearOctree::clearElem();
+     * にて、八分木全要素クリアされるまで、再度 belongTo() は出来ない。
+     * @param prm_pSpace_target 所属する空間
+     */
+    void belongTo(GgafLinearOctreeSpace* prm_pSpace_target);
+
 public:
     /** [r]所属ツリー */
     GgafLinearOctree* _pLinearOctree;
     /** [r]所属空間 */
-    GgafLinearOctreeSpace* _pSpace_Current;
+    GgafLinearOctreeSpace* _pSpace_current;
     /** [r]次要素 */
     GgafLinearOctreeElem* _pNext;
     /** [r]前要素 */
@@ -33,23 +50,6 @@ public:
      * @return
      */
     GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit);
-
-    /**
-     * 自身が自ら離脱
-     */
-    void extract();
-
-    /**
-     * 自身が自ら空間の末尾に追加
-     */
-    void addElem(GgafLinearOctreeSpace* prm_pSpace_target);
-
-//    /*
-//     * 自身が自ら他空間へ移動
-//     * extract()してaddElem()します.
-//     * @param prm_pSpace_target
-//     */
-//void moveToSpace(GgafLinearOctreeSpace* prm_pSpace_target);
 
     void dump();
 
