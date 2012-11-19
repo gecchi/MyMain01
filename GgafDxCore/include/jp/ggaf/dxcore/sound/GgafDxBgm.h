@@ -9,11 +9,11 @@ class GgafDxBgm : public GgafCore::GgafObject {
     static std::string getOggFileName(std::string prm_file);
 
 public:
-    /** [r]BGM の BMP */
-    int _bpm;
-    /** [r]BGM の タイトル */
-    std::string _title;
-    /** [r]BGM の oggファイル名 */
+//    /** [r]BGM の BMP */
+//    int _bpm;
+//    /** [r]BGM の タイトル */
+//    std::string _title;
+    /** [r]BGM の oggファイル名(パス無し) */
     std::string _ogg_file_name;
     /** [r]PCMPlayer */
     IkdLib::PCMPlayer* _pPcmPlayer;

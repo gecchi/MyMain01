@@ -18,8 +18,8 @@ EnemyRomulus::EnemyRomulus(const char* prm_name) :
     pDepo_Fired_ = NULL;
     pDpcon_ = connectToDepositoryManager("Conn_Atalante", NULL);
 
-    _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_HATCH_OPEN);
 }
 

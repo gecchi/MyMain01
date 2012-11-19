@@ -12,7 +12,7 @@ EnemyIris::EnemyIris(const char* prm_name)
     pSplSeq_ = NULL;
     pDepo_Shot_ = NULL;
     pDepo_ShotEffect_ = NULL;
-    _pSeTxer->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
+    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
 }
 
 void EnemyIris::onCreateModel() {

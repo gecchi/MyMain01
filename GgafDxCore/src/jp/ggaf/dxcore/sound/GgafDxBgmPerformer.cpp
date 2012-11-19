@@ -2,7 +2,7 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-int GgafDxBgmPerformer::_active_bgm_bpm = 120;
+//int GgafDxBgmPerformer::_active_bgm_bpm = 120;
 
 
 GgafDxBgmPerformer::GgafDxBgmPerformer() : GgafObject() {
@@ -42,7 +42,7 @@ void GgafDxBgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
 #endif
     _paDouble_volume[prm_id] = (double)prm_volume;
     _papBgmCon[prm_id]->fetch()->play(prm_volume, 0.0f, prm_is_loop);
-    GgafDxBgmPerformer::_active_bgm_bpm = _papBgmCon[prm_id]->fetch()->_bpm; //最新のBGMのBPMリズム
+//    GgafDxBgmPerformer::_active_bgm_bpm = _papBgmCon[prm_id]->fetch()->_bpm; //最新のBGMのBPMリズム
 }
 
 void GgafDxBgmPerformer::stop(int prm_id) {

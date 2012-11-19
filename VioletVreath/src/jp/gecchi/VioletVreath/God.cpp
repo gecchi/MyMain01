@@ -83,20 +83,6 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     VirtualButton::_tagJoymap.UI_EXECUTE = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_UI_EXECUTE) ];
     VirtualButton::_tagJoymap.UI_CANCEL  = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_UI_CANCEL)  ];
 
-    GgafRepeatSeq::create("CH_bomb1", 0, 20);
-    GgafRepeatSeq::create("CH_yume_Sbend", 0, 18);
-    GgafRepeatSeq::create("CH_yume_shototsu", 0, 20);
-    GgafRepeatSeq::create("CH_break_glass01", 0, 20);
-    GgafRepeatSeq::create("CH_a_shot", 0, 5);
-    GgafRepeatSeq::create("CH_laser001", 0, 8); //オプションレーザー
-    GgafRepeatSeq::create("CH_cm-22", 0, 8); //Juno発射音
-    GgafRepeatSeq::create("CH_bom10", 0, 20); //Metis爆発
-    GgafRepeatSeq::create("CH_explos3", 0, 3); //Romulus爆発
-    GgafRepeatSeq::create("CH_humei10", 0, 1); //Lockon
-    GgafRepeatSeq::create("CH_fire01", 0, 16); //自機ショット
-    GgafRepeatSeq::create("CH_torpedo", 0, 5); //ミサイル
-    GgafRepeatSeq::create("CH_warp", 0, 4); //ハッチオープン
-    GgafRepeatSeq::create("CH_yume_organ_01", 0, 4); //ハッチクローズ
 }
 
 GgafUniverse* God::createUniverse() {

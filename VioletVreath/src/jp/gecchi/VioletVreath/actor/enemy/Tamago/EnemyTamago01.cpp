@@ -17,7 +17,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pDepoCon_ = connectToDepositoryManager("Conn_Shot001", NULL);
     //pDepo_Shot_ = pDepoCon_->fetch();
 pDepo_Shot_ = NULL;
-    _pSeTxer->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTxer->set(0, "WAVE_EXPLOSION_001");
 }
 
 void EnemyTamago01::onCreateModel() {

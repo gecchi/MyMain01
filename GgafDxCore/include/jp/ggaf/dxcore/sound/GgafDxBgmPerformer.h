@@ -11,7 +11,7 @@ namespace GgafDxCore {
 class GgafDxBgmPerformer : public GgafCore::GgafObject {
 
 public:
-    static int _active_bgm_bpm;
+//    static int _active_bgm_bpm;
     /** [r]BGMチャンネル数 */
     int _bgm_num;
     /** [r]BGMのボリューム配列(添字はBGMチャンネル番号) */

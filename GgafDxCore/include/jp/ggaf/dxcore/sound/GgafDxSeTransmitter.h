@@ -35,11 +35,13 @@ public:
     /**
      * SEの設定を行う .
      * 但し、SEの再生時間は GGAF_SAYONARA_DELAY+(最大距離遅延) フレーム以内でなければいけない。
+     * 上書き再設定可能。
      * @param prm_id SEのID ( 0 ～ SE数-1 )
-     * @param prm_se_name SE定義名 prm_se_name+".wave"
+     * @param prm_se_key SE定義名(プロパティファイルのキー)
      * @param prm_cannel 再生チャンネル番号
      */
-    virtual void set(int prm_id, const char* prm_se_name, int prm_cannel = 1);
+    virtual void set(int prm_id, const char* prm_se_key, int prm_cannel);
+
 
     /**
      * 再生 .

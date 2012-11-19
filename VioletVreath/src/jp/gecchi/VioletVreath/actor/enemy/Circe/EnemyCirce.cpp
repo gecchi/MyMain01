@@ -8,7 +8,7 @@ EnemyCirce::EnemyCirce(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ceres", STATUS(EnemyCirce)) { //8/‚ð‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
     _class_name = "EnemyCirce";
     iMovePatternNo_ = 0;
-    _pSeTxer->set(SE_EXPLOSION, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
 void EnemyCirce::onCreateModel() {

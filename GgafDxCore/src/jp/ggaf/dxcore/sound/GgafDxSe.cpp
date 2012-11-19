@@ -3,20 +3,21 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 
-GgafDxSe::GgafDxSe(char* prm_wave_name) : GgafObject() {
+GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
     if (GgafDxSound::_pIDirectSound8 == NULL) {
-        throwGgafCriticalException("GgafDxSe::GgafDxSe("<<prm_wave_name<<") DirectSound が、まだ初期化されていません。");
+        throwGgafCriticalException("GgafDxSe::GgafDxSe("<<prm_wave_key<<") DirectSound が、まだ初期化されていません。");
     }
 
-    _wave_name = NEW char[128];
-    strcpy(_wave_name, prm_wave_name);
-    std::string wave_filename = getWaveFileName(std::string(_wave_name) + ".wav");
+//    _wave_name = NEW char[128];
+//    strcpy(_wave_name, prm_wave_key);
+    _wave_file_name = (*GgafProperties::_pMapProperties)[prm_wave_key];
+    std::string full_wave_file_name = getWaveFileName(_wave_file_name);
 
     HRESULT hr;
     // Waveファイルを開く
     CWaveDecorder WaveFile;
-    if (!WaveFile.Open((LPSTR)wave_filename.c_str())) {
-        throwGgafCriticalException("GgafDxSe::GgafDxSe("<<prm_wave_name<<") ファイル "<<wave_filename<<" が開けませんでした。");
+    if (!WaveFile.Open((LPSTR)full_wave_file_name.c_str())) {
+        throwGgafCriticalException("GgafDxSe::GgafDxSe("<<prm_wave_key<<") ファイル "<<full_wave_file_name<<" が開けませんでした。");
         //return false;
     }
 
@@ -33,15 +34,15 @@ GgafDxSe::GgafDxSe(char* prm_wave_name) : GgafObject() {
 
     // バッファ作成
     hr = GgafDxSound::_pIDirectSound8->CreateSoundBuffer(&dsbdesc, &_pIDirectSoundBuffer, NULL);
-    checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_name<<") CreateSoundBufferに失敗しました。サウンドカードは有効ですか？");
+    checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_key<<") CreateSoundBufferに失敗しました。サウンドカードは有効ですか？");
 
     if (!writeBuffer(WaveFile)) {
-        _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_name<<") ＜警告＞GgafDxSe::writeBuffer()が失敗しています。");
+        _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") ＜警告＞GgafDxSe::writeBuffer()が失敗しています。");
     }
     hr = _pIDirectSoundBuffer->GetFrequency(&_default_frequency);
-    checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_name<<") GetFrequency に失敗しました。サウンドカードは有効ですか？");
+    checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_key<<") GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
-    _TRACE_("GgafDxSe::GgafDxSe() _wave_name="<<_wave_name<<" this="<<this<<" _id="<<_id);
+    _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<_id);
 }
 
 
@@ -152,10 +153,10 @@ void GgafDxSe::setFrequencyRate(float prm_frequency) {
 }
 
 int GgafDxSe::restore(void) {
-    std::string wave_filename = getWaveFileName( std::string(_wave_name) + ".wav");
+    std::string full_wave_file_name = getWaveFileName(_wave_file_name);
     // Waveファイルを開く
     CWaveDecorder WaveFile;
-    if (!WaveFile.Open((LPSTR)wave_filename.c_str())) {
+    if (!WaveFile.Open((LPSTR)full_wave_file_name.c_str())) {
         return false;
     }
 
@@ -180,7 +181,7 @@ bool GgafDxSe::isPlaying() {
 
 
 GgafDxSe::~GgafDxSe() {
-    _TRACE_("GgafDxSe::~GgafDxSe() _wave_name="<<_wave_name<<" this="<<this<<" _id="<<_id);
-    DELETEARR_IMPOSSIBLE_NULL(_wave_name);
+    _TRACE_("GgafDxSe::~GgafDxSe() _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<_id);
+//    DELETEARR_IMPOSSIBLE_NULL(_wave_name);
     RELEASE_IMPOSSIBLE_NULL(_pIDirectSoundBuffer);
 }

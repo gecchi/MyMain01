@@ -8,7 +8,7 @@ Shot002::Shot002(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
     my_frame_ = 0;
-    _pSeTxer->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
+    _pSeTxer->set(0, "WAVE_EXPLOSION_002");
 }
 
 void Shot002::initialize() {

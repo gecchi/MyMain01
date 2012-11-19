@@ -25,7 +25,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) :
     angVelo_Turn_ = 7000;
     /** 方向転換を開始（frame_TurnBegin_）から再設定される加速度 */
     iMoveAcce_2nd_ = 100;
-    _pSeTxer->set(CERESSHOT001_SE_EXPLOSION, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
+    _pSeTxer->set(CERESSHOT001_SE_EXPLOSION, "WAVE_EXPLOSION_002");
 }
 
 void EnemyCeresShot001::initialize() {

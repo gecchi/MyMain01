@@ -13,16 +13,17 @@ public:
     /** サウンドバッファ */
     LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;
     /** waveファイル名 */
-    char* _wave_name;
+    std::string _wave_file_name;
+//    char* _wave_name;
     /** 元の周波数 */
     DWORD _default_frequency;
 
     /**
      * コンストラクタ
-     * @param prm_wave_name 識別ID (識別ID + ".wav"で読み込むファイル名になる)
+     * @param prm_wave_name 識別ID (プロパティファイルのキー)
      * @return
      */
-    GgafDxSe(char* prm_wave_name);
+    GgafDxSe(char* prm_wave_key);
 
     /**
      * バッファへWaveデータを転送 .

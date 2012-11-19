@@ -13,7 +13,7 @@ EnemyHesperiaLaserChip001::EnemyHesperiaLaserChip001(const char* prm_name) :
     tX2_ = tY2_ = tZ2_ = 0;
     begin_Y_ = 0;
     turn_dY_ = 0;
-    _pSeTxer->set(SE_FIRE , "yume_Sbend"  , GgafRepeatSeq::nextVal("CH_yume_Sbend"));
+    _pSeTxer->set(SE_FIRE , "WAVE_ENEMY_FIRE_LASER_001");
 }
 
 void EnemyHesperiaLaserChip001::initialize() {

@@ -88,9 +88,9 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     pTorpedoCtrlr_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrlr_);
     addSubGroup(pTorpedoCtrlr_);
 
-    _pSeTxer->set(SE_FIRE_LASER, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
-    _pSeTxer->set(SE_FIRE_SHOT, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
-    _pSeTxer->set(SE_FIRE_TORPEDO, "bse5", GgafRepeatSeq::nextVal("CH_torpedo"));
+    _pSeTxer->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
+    _pSeTxer->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
+    _pSeTxer->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     need_adjust_pos_flg_ = false;
 }

@@ -25,9 +25,9 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
     useProgress(RankUpStage::PROG_END);
 
     _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "RANKUP_THEMA");
+    _pBgmPerformer->set(0, "OGG_RANKUP_THEMA");
 
-    pSeCon_all_hit_ = connectToSeManager("break_glass01"); //全滅の最後の一機破壊時SE
+    pSeCon_all_hit_ = connectToSeManager("WAVE_EXPLOSION_002"); //全滅の最後の一機破壊時SE
 
     all_hit_num_ = 0;
     hit_enemy_num_ = 0;

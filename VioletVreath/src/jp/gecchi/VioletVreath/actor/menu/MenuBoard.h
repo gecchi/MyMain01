@@ -13,11 +13,11 @@ class MenuBoard : public GgafLib::StringBoardMenu {
 
 public:
     enum {
-        SE_MENU_OPEN = 0,
+        SE_ON_RISEN = 0,
         SE_MOVE_CURSOR,
         SE_DECIDED_NOMAL,
         SE_DECIDED_CANCEL,
-        SE_MENU_CLOSE,
+        SE_ON_SINK,
     };
     coord menu_fade_frames_;
     coord slide_from_offset_X_;

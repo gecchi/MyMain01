@@ -6,6 +6,7 @@ GgafDxDrawableActor* GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[MAX_D
 GgafDxDrawableActor* GgafDxUniverse::_apAlphaActorLastList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL+1];
 //GgafDxDrawableActor* GgafDxUniverse::_pActors_DrawMaxDrawDepth = NULL;
 GgafDxDrawableActor* GgafDxUniverse::_pActor_DrawActive = NULL;
+std::string GgafDxUniverse::_seqkey_se_delay = "_SE_D_";
 
 coord GgafDxUniverse::_X_goneLeft   = 0;
 coord GgafDxUniverse::_X_goneRight  = 0;
@@ -65,11 +66,11 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
     for (int i = 0; i < MAX_SE_DELAY; i++) { //GGAF_SAYONARA_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
-    GgafRepeatSeq::create("_SE_D_", 0, 8); //ズレSE再生フレーム
+    GgafRepeatSeq::create(_seqkey_se_delay, 0, 8); //ズレSE再生フレーム
 }
 
 void GgafDxUniverse::registSe(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay ) {
-    int bpm = GgafDxBgmPerformer::_active_bgm_bpm;
+//    int bpm = GgafDxBgmPerformer::_active_bgm_bpm;
     //ズレフレーム数計算
     //1分間は60*60=3600フレーム
     //4分音符タイミングは 3600/_bpm
@@ -85,7 +86,8 @@ void GgafDxUniverse::registSe(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, 
 
 
     //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
-    _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal("_SE_D_")))->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
+
+    _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal(_seqkey_se_delay)))->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
     //_pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
 }
 
@@ -101,7 +103,7 @@ void GgafDxUniverse::processSettlementBehavior() {
         pSeArray->_p = 0; //リセット
     }
 
-    GgafRepeatSeq::setMax("_SE_D_"); //次のnextValで0を返す為
+    GgafRepeatSeq::setMax(_seqkey_se_delay); //次のnextValで0を返す為
 }
 
 void GgafDxUniverse::draw() {

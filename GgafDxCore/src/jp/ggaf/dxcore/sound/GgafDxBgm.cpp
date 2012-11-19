@@ -20,10 +20,13 @@ GgafDxBgm::GgafDxBgm(char* prm_bgm_key) : GgafObject() {
         throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_bgm_key<<") DirectSound が、まだ初期化されていません。");
     }
     std::string bgm_key = std::string(prm_bgm_key);
-    _ogg_file_name = (*GgafProperties::_pMapProperties)[bgm_key+"_OGG"];
-    _bpm = atoi((*GgafProperties::_pMapProperties)[bgm_key+"_BPM"].c_str());
-    _title = (*GgafProperties::_pMapProperties)[bgm_key+"_TITLE"];
-    _TRACE_("GgafDxBgm::GgafDxBgm KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
+    _ogg_file_name = (*GgafProperties::_pMapProperties)[bgm_key];
+    if (_ogg_file_name == "") {
+        throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_bgm_key<<") プロパティファイルにキーがありません");
+    }
+//    _bpm = atoi((*GgafProperties::_pMapProperties)[bgm_key+"_BPM"].c_str());
+//    _title = (*GgafProperties::_pMapProperties)[bgm_key+"_TITLE"];
+//    _TRACE_("GgafDxBgm::GgafDxBgm KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
     std::string full_ogg_file_name = getOggFileName(_ogg_file_name);
     _pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );
     _pOggDecoder =  NEW OggDecoder( _pOggResource );

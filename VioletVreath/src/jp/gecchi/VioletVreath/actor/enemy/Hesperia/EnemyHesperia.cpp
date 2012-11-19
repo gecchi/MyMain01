@@ -28,11 +28,11 @@ EnemyHesperia::EnemyHesperia(const char* prm_name) :
         paLocalPos_Laser_[i].set(PX_C(-40) + (i*dX),  PX_C(10), 0); //レーザー発射元のローカル座標
     }
 
-    _pSeTxer->set(SE_EXPLOSION  , "bomb1"        , GgafRepeatSeq::nextVal("CH_bomb1"));
-    _pSeTxer->set(SE_DAMAGED    , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTxer->set(SE_HATCH_OPEN , "warp"         , GgafRepeatSeq::nextVal("CH_warp"));
-    _pSeTxer->set(SE_FIRE       , "yume_Sbend"   , GgafRepeatSeq::nextVal("CH_yume_Sbend"));
-    _pSeTxer->set(SE_HATCH_CLOSE, "yume_organ_01", GgafRepeatSeq::nextVal("CH_yume_organ_01"));
+    _pSeTxer->set(SE_EXPLOSION  , "WAVE_EXPLOSION_MIDDLE_001");
+    _pSeTxer->set(SE_DAMAGED    , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTxer->set(SE_HATCH_OPEN , "WAVE_HATCH_OPEN_001");
+    _pSeTxer->set(SE_FIRE       , "WAVE_ENEMY_FIRE_LASER_001");
+    _pSeTxer->set(SE_HATCH_CLOSE, "WAVE_HATCH_CLOSE_001");
     dX_= dZ_ = 0;
     useProgress(PROG_NOTHING);
 }

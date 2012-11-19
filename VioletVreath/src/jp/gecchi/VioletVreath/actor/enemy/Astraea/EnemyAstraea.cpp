@@ -53,8 +53,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     }
     DELETEARR_IMPOSSIBLE_NULL(paAng_way);
 
-    _pSeTxer->set(SE_EXPLOSION, "bomb1"     , GgafRepeatSeq::nextVal("CH_bomb1"));
-    _pSeTxer->set(SE_FIRE     , "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
+    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    _pSeTxer->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_FIRE);
     pConn_ShotDepo_  = connectToDepositoryManager("Conn_Shot004", NULL);

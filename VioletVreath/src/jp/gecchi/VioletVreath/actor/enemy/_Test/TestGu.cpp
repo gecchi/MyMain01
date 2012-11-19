@@ -8,8 +8,8 @@ using namespace VioletVreath;
 TestGu::TestGu(const char* prm_name)
       : TestEnemy(prm_name, "TestGu", STATUS(TestGu)) {
     _class_name = "TestGu";
-    _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTxer->set(SE_EXPLOSION, "bom10"        , GgafRepeatSeq::nextVal("CH_bom10"));
+    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
 
 void TestGu::initialize() {

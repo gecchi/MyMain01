@@ -11,8 +11,8 @@ EnemyMetis::EnemyMetis(const char* prm_name) :
     height_Z_ = 220*2*LEN_UNIT;
     depth_Y_ = 36*2*LEN_UNIT;
     iMovePatternNo_ = 0;
-    _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTxer->set(SE_EXPLOSION, "bom10"        , GgafRepeatSeq::nextVal("CH_bom10"));
+    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 
     pConn_ShotDepo_ = connectToDepositoryManager("Conn_Shot004", NULL);
     pDepo_Shot_ = pConn_ShotDepo_->fetch();

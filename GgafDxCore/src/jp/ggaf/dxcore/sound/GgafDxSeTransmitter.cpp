@@ -16,7 +16,7 @@ void GgafDxSeTransmitter::declareSeNum(int prm_se_num) {
     }
 }
 
-void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_name, int prm_cannel) {
+void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_key, int prm_cannel) {
 
 //    if (_se_num <= 0) {
 //        throwGgafCriticalException("GgafDxSeTransmitter::set() useSeで使用するSe数を事前に宣言してください。prm_id="<<prm_id);
@@ -40,19 +40,19 @@ void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_name, int prm_canne
         }
         DELETEARR_POSSIBLE_NULL(papSeCon);
     }
-    if (strlen(prm_se_name) > 128) {
-        throwGgafCriticalException("GgafDxSeTransmitter::play() SE識別IDが長過ぎます。128文字に抑えて下さい。prm_se_name="<<prm_se_name);
+    if (strlen(prm_se_key) > 128) {
+        throwGgafCriticalException("GgafDxSeTransmitter::play() SE識別IDが長過ぎます。128文字に抑えて下さい。prm_se_key="<<prm_se_key);
     }
     char idstr[140];
-    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name); //資源コネクションの識別ID名を 「チャンネル番号 + "/" + wave識別名」
+    sprintf(idstr, "%d/%s", prm_cannel, prm_se_key); //資源コネクションの識別ID名を 「チャンネル番号 + "/" + wave識別名」
                                                       //とすることにより、チャンネル番号が同じならば new されない。
-
     if (_papSeCon[prm_id]) {
         _TRACE_("GgafDxSeTransmitter::set() ＜警告＞ 既にID="<<prm_id<<" にはSE("<<(_papSeCon[prm_id]->getIdStr())<<")が設定済みでした。資源接続を close 後、新しいSE("<<idstr<<")を上書きします。意図してますか？");
         _papSeCon[prm_id]->close();
     }
     _papSeCon[prm_id] = connectToSeManager(idstr);
 }
+
 
 void GgafDxSeTransmitter::play(int prm_id) {
 #ifdef MY_DEBUG

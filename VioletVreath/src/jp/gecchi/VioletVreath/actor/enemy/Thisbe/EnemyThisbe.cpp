@@ -40,9 +40,9 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1"));
-    _pSeTxer->set(SE_FIRE     , "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
+    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    _pSeTxer->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_CLOSE);
 }

@@ -70,7 +70,7 @@ public:
     static coord _Z_goneFar;
     /** [r]アプリケーション領域、Z座標の最小値 */
     static coord _Z_goneNear;
-
+    static std::string _seqkey_se_delay;
 
     GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera);
 

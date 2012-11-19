@@ -17,14 +17,29 @@ void GgafDxSeTransmitterForActor::declareSeNum(int prm_se_num) {
     }
 }
 
-void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_name, int prm_cannel) {
+void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_key, int prm_cannel) {
     if (prm_id < 0) {
         throwGgafCriticalException("GgafDxSeTransmitter::set() IDが範囲外です。正の数でお願いします。 prm_id="<<prm_id);
     } else if (prm_id >= _se_num) {
         DELETEARR_POSSIBLE_NULL(_paBool_is_playing_3d);
         //declareSeNum が再呼び出しされるため、_paBool_is_playing_3d は再確保される。
     }
-    GgafDxSeTransmitter::set(prm_id, prm_se_name, prm_cannel);
+    GgafDxSeTransmitter::set(prm_id, prm_se_key, prm_cannel);
+}
+
+void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_key) {
+    std::string ch_key = std::string(prm_se_key) + "_CH";
+    if (GgafRepeatSeq::isExist(ch_key)) {
+        set(prm_id, prm_se_key, GgafRepeatSeq::nextVal(ch_key));
+    } else {
+        if (GgafProperties::isExistKey(ch_key)) {
+            int max_ch_num = GgafProperties::getInt(ch_key);
+            GgafRepeatSeq::create(ch_key, 1, max_ch_num);
+            set(prm_id, prm_se_key, GgafRepeatSeq::nextVal(ch_key));
+        } else {
+            set(prm_id, prm_se_key, 0);
+        }
+    }
 }
 void GgafDxSeTransmitterForActor::play(int prm_id) {
     GgafDxSeTransmitter::play(prm_id);

@@ -23,17 +23,19 @@ public:
      */
     static void create(std::string ID, int min, int max);
 
-    static void set(std::string ID, int val);
-    static void setMax(std::string ID);
-    static void setMin(std::string ID);
-
+    static void set(std::string& ID, int val);
+    static void set(const char* ID, int val);
+    static void setMax(std::string& ID);
+    static void setMax(const char* ID);
+    static void setMin(std::string& ID);
+    static void setMin(const char* ID);
     /**
      * IDの順序オブジェクトが作成済みか調べる .
      * @param ID 順序オブジェクトID
      * @return true:生成済み／false:未生成
      */
-    static bool isExist(std::string ID);
-
+    static bool isExist(std::string& ID);
+    static bool isExist(const char* ID);
     /**
      * 順序オブジェクトから次の値を採番する .
      * @param ID 作成時の順序オブジェクトID
@@ -41,7 +43,8 @@ public:
      *         但し、生成直後は最小値を返す。
      *         また、最大値の次を採番すると最小値を返す（戻る）。
      */
-    static int nextVal(std::string ID);
+    static int nextVal(std::string& ID);
+    static int nextVal(const char* ID);
 };
 
 }

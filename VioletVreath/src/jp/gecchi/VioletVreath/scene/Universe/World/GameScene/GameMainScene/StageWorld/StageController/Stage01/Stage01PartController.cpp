@@ -8,10 +8,10 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     _class_name = "Stage01PartController";
 
     _pBgmPerformer->useBgm(4);
-    _pBgmPerformer->set(0, "BGM_01_01");
-    _pBgmPerformer->set(1, "BGM_01_02");
-    _pBgmPerformer->set(2, "BGM_01_03");
-    _pBgmPerformer->set(3, "BGM_01_CLIMAX");
+    _pBgmPerformer->set(0, "OGG_BGM_01_01");
+    _pBgmPerformer->set(1, "OGG_BGM_01_02");
+    _pBgmPerformer->set(2, "OGG_BGM_01_03");
+    _pBgmPerformer->set(3, "OGG_BGM_01_CLIMAX");
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start

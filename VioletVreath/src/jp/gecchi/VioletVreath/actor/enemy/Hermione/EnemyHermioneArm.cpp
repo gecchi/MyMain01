@@ -12,8 +12,8 @@ EnemyHermioneArm::EnemyHermioneArm(const char* prm_name, const char* prm_model, 
     aiming_ang_velo_ = 0;
     aiming_movable_limit_ang_ = 0;
 
-    _pSeTxer->set(SE_DAMAGED  , "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTxer->set(SE_EXPLOSION, "bomb1"   , GgafRepeatSeq::nextVal("CH_bomb1")); //˜r”j‰ó
+    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //˜r”j‰ó
     useProgress(10);
 }
 

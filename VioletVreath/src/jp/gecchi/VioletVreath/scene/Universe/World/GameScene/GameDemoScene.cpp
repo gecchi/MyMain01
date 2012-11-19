@@ -14,7 +14,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     pLabel02_ = NEW LabelGecchi16Font("STR02");
     getDirector()->addSubGroup(pLabel02_);
     _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "BGM_DEMO");
+    _pBgmPerformer->set(0, "OGG_BGM_DEMO");
 
     demo_stage_ = 1;
 
