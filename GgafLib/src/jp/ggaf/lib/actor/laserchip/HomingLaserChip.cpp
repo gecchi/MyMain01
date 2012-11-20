@@ -30,8 +30,8 @@ void HomingLaserChip::onActive() {
     HomingLaserChip* pChip_front =  (HomingLaserChip*)_pChip_front;
 
     //レーザーチップ出現時処理
-    if (pChip_front == NULL) {
-        //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front == NULL");
+    if (pChip_front == nullptr) {
+        //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front == nullptr");
         _is_leader = true;
         //自身が先頭の場合
         _begining_X = _X;
@@ -144,7 +144,7 @@ void HomingLaserChip::processBehavior() {
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
         //数珠繋ぎになる。
-        if (pChip_front == NULL) {
+        if (pChip_front == nullptr) {
             //本当の先頭チップか、或いはにわか先頭チップの場合の共通処理
             _prev_X  = _X;
             _prev_Y  = _Y;

@@ -11,7 +11,7 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
              magic_time   prm_time_of_casting_base , double prm_r_time_of_casting  ,
              magic_time   prm_time_of_invoking_base, double prm_r_time_of_invoking ,
              magic_time   prm_time_of_effect_base  , double prm_r_each_lv_time_of_effecting,
-             magic_point  prm_keep_cost_base       , double prm_r_each_lv_keep_cost) : GgafMainActor(prm_name, NULL) {
+             magic_point  prm_keep_cost_base       , double prm_r_each_lv_keep_cost) : GgafMainActor(prm_name, nullptr) {
 //    GgafDxGeometricActor* prm_pCaster,
 //     GgafDxGeometricActor* prm_pReceiver) : GgafDxBoardSetActor(prm_name, "magic") {
     pMP_ = prm_pMP;

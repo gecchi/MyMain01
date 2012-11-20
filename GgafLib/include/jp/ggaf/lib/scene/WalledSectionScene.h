@@ -118,7 +118,7 @@ public:
 
     /**
      * 手前ブロックの透過機能を有効にする。
-     * 無効にしたい場合は NULL を設定する
+     * 無効にしたい場合は nullptr を設定する
      * @param prm_pTarget_FrontAlpha 手前の基準になるアクター
      */
     void enableFrontAlpha(GgafDxCore::GgafDxGeometricActor* prm_pTarget_FrontAlpha) {

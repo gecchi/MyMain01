@@ -22,7 +22,7 @@ public:
         static GgafDxGeoElem* pTemp;
         _pFirst = NEW GgafDxGeoElem(prm_pActor);
         pWork = _pFirst;
-        pTemp = NULL;
+        pTemp = nullptr;
         for (int i = 0; i < prm_num - 1; i++) {
             pTemp = NEW GgafDxGeoElem(prm_pActor);
             pWork->_next = pTemp;
@@ -43,7 +43,7 @@ public:
 
     virtual ~GgafDxGeoChain() {
         GgafDxGeoElem* pWork = _pGeoChainRingActive;
-        GgafDxGeoElem* pWorkNext = NULL;
+        GgafDxGeoElem* pWorkNext = nullptr;
         for (DWORD i = 0; i < 50 - 1 + 1; i++) {
             pWorkNext = pWork->_next;
             DELETE_IMPOSSIBLE_NULL(pWork);

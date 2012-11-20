@@ -9,17 +9,17 @@ using namespace VioletVreath;
 EnemyRomulus::EnemyRomulus(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Romulus", STATUS(EnemyRomulus)) {
     _class_name = "EnemyRomulus";
-    _pActor_Base = NULL;
+    _pActor_Base = nullptr;
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
     frame_of_close_interval_ = 20*60;
     frame_of_morph_interval_   = 120;
 
-    pDepo_Fired_ = NULL;
-    pDpcon_ = connectToDepositoryManager("Conn_Atalante", NULL);
+    pDepo_Fired_ = nullptr;
+    pDpcon_ = connectToDepositoryManager("Conn_Atalante", nullptr);
 
-    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_HATCH_OPEN);
 }
 
@@ -226,7 +226,7 @@ void EnemyRomulus::processBehavior() {
 }
 
 void EnemyRomulus::processJudgement() {
-    if (_pActor_Base != NULL && _pActor_Base->isActiveInTheTree()) {
+    if (_pActor_Base != nullptr && _pActor_Base->isActiveInTheTree()) {
 //        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);
     } else {
         //土台がなければ自分も死ぬ
@@ -246,7 +246,7 @@ void EnemyRomulus::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
@@ -257,7 +257,7 @@ void EnemyRomulus::onHit(GgafActor* prm_pOtherActor) {
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTxer->play3D(SE_DAMAGED);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

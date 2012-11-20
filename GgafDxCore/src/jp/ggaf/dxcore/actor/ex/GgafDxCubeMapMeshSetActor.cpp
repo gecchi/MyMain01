@@ -35,7 +35,7 @@ void GgafDxCubeMapMeshSetActor::processDraw() {
 
     //Šî–{ƒ‚ƒfƒ‹’¸“_”
     GgafDxDrawableActor* pDrawActor = this;
-    GgafDxCubeMapMeshSetActor* pCubeMapMeshSetActor = NULL;
+    GgafDxCubeMapMeshSetActor* pCubeMapMeshSetActor = nullptr;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {

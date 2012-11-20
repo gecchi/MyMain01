@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 MyShipDivingCamWorker::MyShipDivingCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     _class_name = "MyShipDivingCamWorker";
-//    pMyShip_ = NULL; //MyShipScene‚Éİ’è‚µ‚Ä‚à‚ç‚¤
+//    pMyShip_ = nullptr; //MyShipScene‚Éİ’è‚µ‚Ä‚à‚ç‚¤
 }
 void MyShipDivingCamWorker::initialize() {
 }

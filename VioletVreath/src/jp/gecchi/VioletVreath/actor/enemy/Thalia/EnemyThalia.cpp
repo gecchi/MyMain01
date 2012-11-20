@@ -11,12 +11,12 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     _class_name = "EnemyThalia";
     veloTopMv_ = 20000;
     iMovePatternNo_ = 0;
-    pSplSeq_ = NULL;
-    pDepo_Shot_ = NULL;
-    pDepo_ShotEffect_ = NULL;
+    pSplSeq_ = nullptr;
+    pDepo_Shot_ = nullptr;
+    pDepo_ShotEffect_ = nullptr;
 
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
-    pLaserChipDepo_->config(60, 1, NULL); //Thaliaは弾切れフレームを1にしないとパクパクしちゃいます。
+    pLaserChipDepo_->config(60, 1, nullptr); //Thaliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 65; i++) { //レーザーストック
         std::stringstream name;
@@ -28,16 +28,15 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     }
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    _pSeTxer->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
     useProgress(PROG_CLOSE);
     //初期カメラZ位置
     dZ_camera_init_ = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 }
 
 void EnemyThalia::onCreateModel() {
-
     _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
     _pModel->_pTextureBlinker->setBlink(0.1);
     _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
@@ -61,15 +60,11 @@ void EnemyThalia::onActive() {
                                          MyShip::lim_front_-_X, 0.4, 0.6);
     _pProg->set(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
-
 }
 
 void EnemyThalia::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
-
-
     switch (_pProg->get()) {
         case PROG_MOVE: {
             if (!_pKurokoA->isRunnigSmoothMvVeloSequence()) {
@@ -88,7 +83,6 @@ void EnemyThalia::processBehavior() {
             }
             break;
         }
-
         case PROG_FIRE_BEGIN: {
             if ( _X - P_MYSHIP->_X > -dZ_camera_init_) {
                 _pProg->change(PROG_IN_FIRE);
@@ -106,8 +100,8 @@ void EnemyThalia::processBehavior() {
             }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
-                if (pLaser->_pChip_front == NULL) {
-                    _pSeTxer->play3D(SE_FIRE);
+                if (pLaser->_pChip_front == nullptr) {
+                    _pSeTx->play3D(SE_FIRE);
                     _pKurokoA->setFaceAngVelo(AXIS_X, 5000);//発射中は速い回転
                 }
             } else {
@@ -129,10 +123,9 @@ void EnemyThalia::processBehavior() {
             break;
     }
 
-
     _pKurokoA->behave();
     _pMorpher->behave();
-    _pSeTxer->behave();
+    _pSeTx->behave();
 }
 
 void EnemyThalia::processJudgement() {
@@ -148,7 +141,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //打ち返し弾
         if (pDepo_Shot_) {
@@ -202,7 +195,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTxer->play3D(SE_DAMAGED);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

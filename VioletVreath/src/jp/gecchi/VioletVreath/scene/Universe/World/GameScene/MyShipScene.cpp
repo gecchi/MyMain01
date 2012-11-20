@@ -6,8 +6,8 @@ using namespace VioletVreath;
 
 
 MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) ,
-pMyShip_(NULL),
-papOptionCtrlr_(NULL) {
+pMyShip_(nullptr),
+papOptionCtrlr_(nullptr) {
     _class_name = "MyShipScene";
     pMyShip_ = NEW MyShip("MYSHIP");
     pMyShip_->inactivateImmed(); //îzâ∫Ç…âºìoò^ÇÃÉAÉNÉ^Å[î≠ëóé“Ç∆Ç©Ç†ÇÈÇµ
@@ -52,7 +52,7 @@ papOptionCtrlr_(NULL) {
     pEffectMyShipExplosion_ = NEW EffectMyShipExplosion("EffectMyShipExplosion");
     pEffectMyShipExplosion_->inactivateImmed();
     getDirector()->addSubGroup(pEffectMyShipExplosion_);
-    pVamSysCamWorker_ = NULL;
+    pVamSysCamWorker_ = nullptr;
     //z_ = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     //z_ = 0.9999999f;
 

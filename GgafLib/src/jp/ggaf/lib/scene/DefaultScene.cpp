@@ -5,13 +5,13 @@ using namespace GgafLib;
 
 DefaultScene::DefaultScene(const char* prm_name) : GgafDxScene(prm_name) {
     _class_name = "DefaultScene";
-    _paFrame_NextEvent = NULL;
+    _paFrame_NextEvent = nullptr;
     _cnt_event = 0;
     _event_num = 0;
 }
 
 void DefaultScene::useProgress(int prm_num) {
-    if (GgafScene::_pProg == NULL) {
+    if (GgafScene::_pProg == nullptr) {
         GgafScene::_pProg = NEW SceneProgress(this, prm_num);
         DefaultScene::_pProg = (SceneProgress*)(GgafScene::_pProg);
     } else {

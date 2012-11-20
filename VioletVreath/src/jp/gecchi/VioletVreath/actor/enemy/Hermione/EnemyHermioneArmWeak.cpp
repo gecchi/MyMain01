@@ -25,7 +25,7 @@ void EnemyHermioneArmWeak::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
@@ -45,7 +45,7 @@ void EnemyHermioneArmWeak::onHit(GgafActor* prm_pOtherActor) {
         //非破壊時
         effectFlush(2); //フラッシュ
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_DAMAGED);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

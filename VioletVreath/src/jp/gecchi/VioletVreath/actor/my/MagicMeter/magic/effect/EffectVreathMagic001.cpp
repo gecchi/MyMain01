@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectVreathMagic001::EffectVreathMagic001(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "EffectSpeedMagic", NULL) {
+        DefaultSpriteActor(prm_name, "EffectSpeedMagic", nullptr) {
     _class_name = "EffectVreathMagic001";
     effectBlendOne(); //加算合成Technique
     setZEnable(true);       //Zバッファは考慮有り

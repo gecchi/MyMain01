@@ -48,7 +48,7 @@ GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) :
     _gravitation_mv_seq_target_X = 0;
     _gravitation_mv_seq_target_Y = 0;
     _gravitation_mv_seq_target_Z = 0;
-    _gravitation_mv_seq_pActor_target = NULL;
+    _gravitation_mv_seq_pActor_target = nullptr;
     _gravitation_mv_seq_max_velo = 1000;
     _gravitation_mv_seq_acce = 1000;
     _gravitation_mv_seq_stop_renge = 1000;
@@ -321,7 +321,7 @@ void GgafDxKurokoB::execGravitationMvSequence(coord prm_tX, coord prm_tY, coord 
     _gravitation_mv_seq_target_X = prm_tX;
     _gravitation_mv_seq_target_Y = prm_tY;
     _gravitation_mv_seq_target_Z = prm_tZ;
-    _gravitation_mv_seq_pActor_target = NULL;
+    _gravitation_mv_seq_pActor_target = nullptr;
     _gravitation_mv_seq_max_velo = prm_max_velo;
     _gravitation_mv_seq_acce = prm_acce;
     _gravitation_mv_seq_stop_renge = prm_stop_renge;

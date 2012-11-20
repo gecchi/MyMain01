@@ -3,28 +3,28 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-ColliAABActor* ColliAABActor::_pObj = NULL;
+ColliAABActor* ColliAABActor::_pObj = nullptr;
 
-ColliAABActor::ColliAABActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDxAABActor(prm_name, prm_pStat, NULL) {
+ColliAABActor::ColliAABActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDxAABActor(prm_name, prm_pStat, nullptr) {
     _class_name = "ColliAABActor";
     setAlpha(0.8);
 }
 
 ColliAABActor* ColliAABActor::get() {
-    if (ColliAABActor::_pObj == NULL) {
-        ColliAABActor::_pObj = NEW ColliAABActor("HITAREA", NULL);
+    if (ColliAABActor::_pObj == nullptr) {
+        ColliAABActor::_pObj = NEW ColliAABActor("HITAREA", nullptr);
     }
     return (ColliAABActor::_pObj);
 }
 
 void ColliAABActor::release() {
-    //あたり判定を持つオブジェクトが一度も使用されないとNULLかもしれない
+    //あたり判定を持つオブジェクトが一度も使用されないとnullptrかもしれない
     DELETE_POSSIBLE_NULL(ColliAABActor::_pObj);
 }
 
 void ColliAABActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
-    if (prm_pColliChecker != NULL &&
-        prm_pColliChecker->_pCollisionArea != NULL &&
+    if (prm_pColliChecker != nullptr &&
+        prm_pColliChecker->_pCollisionArea != nullptr &&
         prm_pColliChecker->getTargetActor()->canHit() &&
         prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
 

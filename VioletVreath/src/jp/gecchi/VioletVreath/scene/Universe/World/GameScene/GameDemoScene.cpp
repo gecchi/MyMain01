@@ -139,7 +139,7 @@ void GameDemoScene::onInactive() {
         _TRACE_("GameDemoScene::onInactive() P_STAGE_CTRLER->pStageMainCanne_("<<
                 P_STAGE_CTRLER->pStageMainCannel_->getName()<<") sayonara()");
         P_STAGE_CTRLER->pStageMainCannel_->sayonara();
-        P_STAGE_CTRLER->pStageMainCannel_ = NULL;
+        P_STAGE_CTRLER->pStageMainCannel_ = nullptr;
     } else {
         //throwGgafCriticalException("GameDemoScene::onInactive() デモシーンのシーンが無い。あり得ないよ");
     }

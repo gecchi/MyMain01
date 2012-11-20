@@ -11,7 +11,7 @@ GgafDxBoardModel::GgafDxBoardModel(char* prm_model_name) :
     _fSize_BoardModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pIDirect3DVertexBuffer9 = NULL;
+    _pIDirect3DVertexBuffer9 = nullptr;
     _obj_model |= Obj_GgafDxBoardModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
@@ -57,7 +57,7 @@ HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_d
 
 #ifdef MY_DEBUG
             if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 GgafDxEffectManager::_pEffect_Active->_begin = false;
             }
@@ -77,7 +77,7 @@ HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_d
 
 #ifdef MY_DEBUG
         if (pBoardEffect->_begin == true) {
-            throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+            throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
         } else {
             pBoardEffect->_begin = true;
         }

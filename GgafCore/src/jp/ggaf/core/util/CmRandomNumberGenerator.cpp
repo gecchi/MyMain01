@@ -15,7 +15,7 @@ using namespace GgafCore;
  * @since	Nov. 2005
  *
  */
-CmRandomNumberGenerator* CmRandomNumberGenerator::s_pInstance = NULL;
+CmRandomNumberGenerator* CmRandomNumberGenerator::s_pInstance = nullptr;
 
 UINT32 CmRandomNumberGenerator::mt[__N__];
 int CmRandomNumberGenerator::mti = __N__ + 1;
@@ -52,7 +52,7 @@ CmRandomNumberGenerator::~CmRandomNumberGenerator() {
  *
  ******************************************************************************/
 CmRandomNumberGenerator* CmRandomNumberGenerator::getInstance() {
-    if (NULL == s_pInstance) {
+    if (nullptr == s_pInstance) {
         s_pInstance = NEW CmRandomNumberGenerator();
     }
 

@@ -28,7 +28,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC;
     wcex1.lpfnWndProc = (WNDPROC)WndProc;
     wcex1.hInstance = hInstance;
-    wcex1.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex1.lpszClassName = "primary";
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
@@ -48,7 +48,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         timeBeginPeriod(1);
         //ループ本体
         while (true) {
-            if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+            if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
                     //終了メッセージの場合アプリを終了
                     if (VvvGod::_can_be) {
@@ -70,7 +70,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         }
     } catch (std::exception& e2) {
         std::string what(e2.what());
-        MessageBox(NULL, what.c_str(), "VVViewer Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
+        MessageBox(nullptr, what.c_str(), "VVViewer Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
         _TRACE_("[エラー]:"<<what); //_TRACE_() はデバッグモード時のみ標準出力に出力されます。
         timeEndPeriod(1);
         return EXIT_FAILURE; //異常終了
@@ -87,7 +87,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     switch (message) {
         case WM_DROPFILES: {/* ファイルがドロップされた時の処理 */
             HDROP  hDrop = (HDROP)wParam;
-            UINT  uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, NULL, 0);
+            UINT  uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, nullptr, 0);
             for(int i = 0; i < (int)uFileNo; i++) {
                 DragQueryFile(hDrop, i, VvvGod::dropfiles_, sizeof(VvvGod::dropfiles_));
                 _TRACE_("VvvGod::dropfiles_="<<VvvGod::dropfiles_);

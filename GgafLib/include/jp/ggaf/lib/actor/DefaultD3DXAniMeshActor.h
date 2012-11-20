@@ -15,7 +15,7 @@ namespace GgafLib {
  * <TR><TD>_pFader</TD><TD>フィードイン・アウト支援</TD><TD> GgafDxCore::GgafDxAlphaFader</TD></TR>
  * <TR><TD>_pPuppeteer</TD><TD>フレームアニメーション支援</TD><TD>GgafDxCore::GgafDxPuppeteer</TD></TR>
  * <TR><TD>_pScaler</TD><TD>拡大縮小支援</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
- * <TR><TD>_pSeTxer</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
+ * <TR><TD>_pSeTx</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * <TR><TD>_pColliChecker</TD><TD>衝突判定支援</TD><TD>GgafLib::CollisionChecker</TD></TR>
  * </TABLE>
  * @version 1.00
@@ -31,7 +31,7 @@ public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
-    DefaultD3DXAniMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
+    DefaultD3DXAniMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }

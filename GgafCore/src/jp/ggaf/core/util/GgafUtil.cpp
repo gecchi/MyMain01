@@ -13,7 +13,7 @@ UINT32 GgafUtil::getSystemTime() {
 char* GgafUtil::getFileText(std::string prm_filename) {
     std::ifstream ifs(prm_filename.c_str());
     if (!ifs.is_open()) {
-        return NULL;
+        return nullptr;
     } else {
         UINT32 size = 0;
         // ƒTƒCƒY‚ðŽæ“¾
@@ -154,7 +154,7 @@ void GgafUtil::writeProperties(const char *filename, GgafStrMap* pMap, const cha
 
 void GgafUtil::writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header)
 {
-    if (header != NULL)
+    if (header != nullptr)
         os << '#' << header << std::endl;
 
     os << '#';
@@ -202,7 +202,7 @@ void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap)
 }
 //int GgafUtil::read(std::string prm_properties_filename) {
 //    const char* pChar_Filename = prm_properties_filename.c_str();
-//    FILE* pFile = NULL;
+//    FILE* pFile = nullptr;
 //    int r = 0;
 //    try {
 //        if (!pChar_Filename) {
@@ -242,7 +242,7 @@ void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap)
 //    return r;
 //}
 //void GgafUtil::parse(char* p) {
-//    char* pChar_Token = NULL;
+//    char* pChar_Token = nullptr;
 //    std::string key;
 //    std::string value;
 //    bool _in_token = false;
@@ -252,7 +252,7 @@ void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap)
 //            while (*p++ != '\n') {
 //            } //‹ó“Ç‚Ý
 //            p--;
-//            pChar_Token = NULL;
+//            pChar_Token = nullptr;
 //        } else if (*p == ' ' || *p == '\t') {
 //            *p = '\0';
 //        } else if (*p == '\n' || *p == '\r') {
@@ -271,7 +271,7 @@ void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap)
 //            *p = '\0';
 //            value = pChar_Token;
 //            _pMapProperties->insert(GgafStrMap::value_type(key, value));
-//            pChar_Token = NULL;
+//            pChar_Token = nullptr;
 //        } else {
 //            if (!pChar_Token) {
 //                pChar_Token = p;

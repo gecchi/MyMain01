@@ -25,7 +25,7 @@ public:
         _RX = 0;
         _RY = 0;
         _RZ = 0;
-        _next = NULL;
+        _next = nullptr;
     }
 
     GgafDxGeoElem(coord prm_X, coord prm_Y, coord prm_Z) {
@@ -35,7 +35,7 @@ public:
         _RX = 0;
         _RY = 0;
         _RZ = 0;
-        _next = NULL;
+        _next = nullptr;
     }
 
     GgafDxGeoElem(coord prm_X, coord prm_Y, coord prm_Z, angle prm_RX, angle prm_RY, angle prm_RZ) {
@@ -45,7 +45,7 @@ public:
         _RX = prm_RX;
         _RY = prm_RY;
         _RZ = prm_RZ;
-        _next = NULL;
+        _next = nullptr;
     }
 
     GgafDxGeoElem(GgafDxGeometricActor* prm_pActor) {
@@ -55,7 +55,7 @@ public:
         _RX = prm_pActor->_RX;
         _RY = prm_pActor->_RY;
         _RZ = prm_pActor->_RZ;
-        _next = NULL;
+        _next = nullptr;
     }
 
     void set(coord prm_X, coord prm_Y, coord prm_Z, coord prm_RX, coord prm_RY, coord prm_RZ) {
@@ -92,7 +92,7 @@ public:
 
     }
     virtual ~GgafDxGeoElem() {
-        _next = NULL;
+        _next = nullptr;
     }
 };
 

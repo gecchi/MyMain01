@@ -4,7 +4,7 @@ using namespace GgafDxCore;
 
 GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions) : GgafDxModel(prm_model_name) {
     TRACE("GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(" << prm_model_name << ")");
-    _pID3DXMesh = NULL;
+    _pID3DXMesh = nullptr;
     _num_materials = 0L;
     _dwOptions = prm_dwOptions;
     _obj_model |= Obj_GgafDxD3DXMeshModel;
@@ -35,7 +35,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
             } else {
                 _TRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
-                GgafDxGod::_pID3DDevice9->SetTexture(0, NULL);
+                GgafDxGod::_pID3DDevice9->SetTexture(0, nullptr);
             }
             //マテリアルのセット
             hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[i].Diffuse), sizeof(D3DCOLORVALUE) );
@@ -62,7 +62,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
                 checkDxException(hr, D3D_OK, "GgafDxD3DXMeshModel::draw() End() に失敗しました。");
 #ifdef MY_DEBUG
                 if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
                 } else {
                     GgafDxEffectManager::_pEffect_Active->_begin = false;
                 }
@@ -81,7 +81,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
 
 #ifdef MY_DEBUG
             if (pMeshEffect->_begin == true) {
-                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pMeshEffect->_begin = true;
             }
@@ -132,7 +132,7 @@ void GgafDxD3DXMeshModel::onDeviceLost() {
 
 void GgafDxD3DXMeshModel::release() {
     TRACE3("GgafDxD3DXMeshModel::release() " << _model_name << " start");
-    if (_pID3DXMesh == NULL) {
+    if (_pID3DXMesh == nullptr) {
         _TRACE_("＜警告＞ [GgafDxD3DXMeshModel::release()]  "<<_model_name<<" の _pID3DXMeshが オブジェクトになっていないため release できません！");
     }
     //テクスチャを解放

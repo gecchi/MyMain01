@@ -33,7 +33,7 @@ namespace VioletVreath {
 /**
  * 神が保持する SplineLineManager に接続し、コネクションを取得。
  * X：識別文字列（SplineLineManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_idstr に渡る)
- * また、SplineLineManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_p には NULL がセットされている。
+ * また、SplineLineManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_p には nullptr がセットされている。
  */
 #define connectToSplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(P_GOD->pSpl3DManager_->connect(X)))
 

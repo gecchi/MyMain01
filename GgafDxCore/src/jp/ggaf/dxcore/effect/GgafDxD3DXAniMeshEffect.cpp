@@ -22,11 +22,11 @@ GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect(char* prm_effect_name) : GgafDx
     hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf);
     checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshEffect::GgafDxSpriteEffect SetFloat(g_zf) に失敗しました。");
     //シェーダーハンドル
-    _h_matView = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
-    _h_matWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
-    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( NULL, "g_colMaterialDiffuse" );
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
+    _h_matView = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
+    _h_matWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld" );
+    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
+    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
+    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
 }
 
 void GgafDxD3DXAniMeshEffect::setParamPerFrame() {

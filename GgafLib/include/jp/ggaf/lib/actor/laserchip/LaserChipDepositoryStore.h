@@ -12,15 +12,15 @@ namespace GgafLib {
 class LaserChipDepositoryStore : public GgafCore::GgafActorDepository {
     friend class LaserChip;
 public:
-    LaserChipDepositoryStore(const char* prm_name, GgafCore::GgafStatus* prm_pStat = NULL);
+    LaserChipDepositoryStore(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
 
     virtual void processBehavior() override;
 
     /**
      * レーザーチップディパッチャーの借り入れを試みる .
-     * ストック切れの場合は NULL が返る。必ずチェックすること。
+     * ストック切れの場合は nullptr が返る。必ずチェックすること。
      * 使い終われば sayonara() か、inactivate() を実行してください。自動的にストックに戻ります。
-     * @return 借り入れしたレーザーチップディパッチャー。借り入れできない場合はNULL
+     * @return 借り入れしたレーザーチップディパッチャー。借り入れできない場合はnullptr
      */
     virtual LaserChipDepository* dispatch(int prm_offset_frames = 1) override;
 

@@ -101,16 +101,16 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     addSubGroup(pDamageDispBar_);
 
 
-    _pSeTxer->set(SE_CURSOR_MOVE_METER             , "WAVE_MM_CURSOR_MOVE_METER");  //主メーターカーソル移動時
-    _pSeTxer->set(SE_CURSOR_MOVE_LEVEL             , "WAVE_MM_CURSOR_MOVE_LEVEL");  //上下レベル移動時
-    _pSeTxer->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "WAVE_MM_CURSOR_MOVE_LEVEL_CANCEL");  //上下レベル移動キャンセル（）
-    _pSeTxer->set(SE_CURSOR_BAD_MOVE               , "WAVE_MM_CURSOR_BAD_MOVE");  //ダメなカーソル移動（鳴るとうるさいので現在未使用）
-    _pSeTxer->set(SE_EXECUTE_LEVELUP_MAGIC         , "WAVE_MM_EXECUTE_LEVELUP_MAGIC");  //レベルアップ実行時
-    _pSeTxer->set(SE_EXECUTE_LEVELDOWN_MAGIC       , "WAVE_MM_EXECUTE_LEVELDOWN_MAGIC");  //レベルダウン実行時
-    _pSeTxer->set(SE_EXECUTE_CANCEL_LEVELUP_MAGIC  , "WAVE_MM_EXECUTE_CANCEL_LEVELUP_MAGIC");  //（詠唱キャンセルして）レベルアップ実行時
-    _pSeTxer->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "WAVE_MM_EXECUTE_CANCEL_LEVELDOWN_MAGIC");  //（詠唱キャンセルして）レベルダウン実行時
-    _pSeTxer->set(SE_CANT_INVOKE_MAGIC             , "WAVE_MM_CANT_INVOKE_MAGIC");  //詠唱完了時、MPが足りないため発動できない場合
-    _pSeTxer->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
+    _pSeTx->set(SE_CURSOR_MOVE_METER             , "WAVE_MM_CURSOR_MOVE_METER");  //主メーターカーソル移動時
+    _pSeTx->set(SE_CURSOR_MOVE_LEVEL             , "WAVE_MM_CURSOR_MOVE_LEVEL");  //上下レベル移動時
+    _pSeTx->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "WAVE_MM_CURSOR_MOVE_LEVEL_CANCEL");  //上下レベル移動キャンセル（）
+    _pSeTx->set(SE_CURSOR_BAD_MOVE               , "WAVE_MM_CURSOR_BAD_MOVE");  //ダメなカーソル移動（鳴るとうるさいので現在未使用）
+    _pSeTx->set(SE_EXECUTE_LEVELUP_MAGIC         , "WAVE_MM_EXECUTE_LEVELUP_MAGIC");  //レベルアップ実行時
+    _pSeTx->set(SE_EXECUTE_LEVELDOWN_MAGIC       , "WAVE_MM_EXECUTE_LEVELDOWN_MAGIC");  //レベルダウン実行時
+    _pSeTx->set(SE_EXECUTE_CANCEL_LEVELUP_MAGIC  , "WAVE_MM_EXECUTE_CANCEL_LEVELUP_MAGIC");  //（詠唱キャンセルして）レベルアップ実行時
+    _pSeTx->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "WAVE_MM_EXECUTE_CANCEL_LEVELDOWN_MAGIC");  //（詠唱キャンセルして）レベルダウン実行時
+    _pSeTx->set(SE_CANT_INVOKE_MAGIC             , "WAVE_MM_CANT_INVOKE_MAGIC");  //詠唱完了時、MPが足りないため発動できない場合
+    _pSeTx->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
 
     alpha_velo_ = -0.01f;
 }
@@ -184,7 +184,7 @@ void MagicMeter::processBehavior() {
         if (VB_PLAY->isAutoRepeat(VB_RIGHT)) {    //「→」押下時
             //レベル表示
             if (papLvTargetCursor_[active_idx]->point_lv_ != pActiveMagic->level_) {
-                _pSeTxer->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
                 papLvTargetCursor_[active_idx]->moveSmoothTo(pActiveMagic->level_); //実行されなかった為、レベルカーソルもアクティブレベルに戻す
             }
             rollClose(active_idx); //現在ロールクローズ
@@ -196,12 +196,12 @@ void MagicMeter::processBehavior() {
 
             rollOpen(active_idx);  //進めた先をロールオープン
             pMagicCursor_->moveTo(active_idx); //メーターカーソルも１つ進める
-            _pSeTxer->play(SE_CURSOR_MOVE_METER);
+            _pSeTx->play(SE_CURSOR_MOVE_METER);
 
         } else if (VB_PLAY->isAutoRepeat(VB_LEFT)) { //「←」押下時
             //レベル表示
             if (papLvTargetCursor_[active_idx]->point_lv_ != pActiveMagic->level_) {
-                _pSeTxer->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
                 papLvTargetCursor_[active_idx]->moveSmoothTo(pActiveMagic->level_); //実行されなかった為、レベルカーソルもアクティブレベルに戻す
             }
             rollClose(active_idx); //現在ロールクローズ
@@ -213,17 +213,17 @@ void MagicMeter::processBehavior() {
 
             rollOpen(active_idx); //戻した先をロールオープン
             pMagicCursor_->moveTo(active_idx); //メーターカーソルも１つ戻す
-            _pSeTxer->play(SE_CURSOR_MOVE_METER);
+            _pSeTx->play(SE_CURSOR_MOVE_METER);
 
         } else if (VB_PLAY->isAutoRepeat(VB_UP) ) {  // 「↑」押下時
             if (pActiveMagic->max_level_ > papLvTargetCursor_[active_idx]->point_lv_) {
-                _pSeTxer->play(SE_CURSOR_MOVE_LEVEL);
+                _pSeTx->play(SE_CURSOR_MOVE_LEVEL);
                 papLvTargetCursor_[active_idx]->moveSmoothTo(papLvTargetCursor_[active_idx]->point_lv_ + 1);
             }
 
         } else if (VB_PLAY->isAutoRepeat(VB_DOWN)) {  //「↓」押下時
             if (0 < papLvTargetCursor_[active_idx]->point_lv_) {
-                _pSeTxer->play(SE_CURSOR_MOVE_LEVEL);
+                _pSeTx->play(SE_CURSOR_MOVE_LEVEL);
                 papLvTargetCursor_[active_idx]->moveSmoothTo(papLvTargetCursor_[active_idx]->point_lv_ - 1);
             }
         } else {
@@ -278,11 +278,11 @@ void MagicMeter::processBehavior() {
 
             switch (r) {
                 case MAGIC_CAST_NG_INVOKING_NOW: {
-                    _pSeTxer->play(SE_BAD_OPERATION);
+                    _pSeTx->play(SE_BAD_OPERATION);
                     break;
                 }
                 case MAGIC_CAST_NG_MP_IS_SHORT: {
-                    _pSeTxer->play(SE_BAD_OPERATION);
+                    _pSeTx->play(SE_BAD_OPERATION);
                     break;
                 }
                 case MAGIC_CAST_NOTHING: {
@@ -290,21 +290,21 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 case MAGIC_CAST_CANCEL: {
-                    _pSeTxer->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                    _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
                     papLvTargetCursor_[active_idx]->beginBlinking(); //ピカピカ！
                     papLvCastingMarkCursor_[active_idx]->markOnLevelDownCast(pActiveMagic->level_);
                     papLvHilightCursor_[active_idx]->moveSmoothTo(pActiveMagic->level_);
                     break;
                 }
                 case MAGIC_CAST_OK_LEVELUP: {
-                    _pSeTxer->play(SE_EXECUTE_LEVELUP_MAGIC);
+                    _pSeTx->play(SE_EXECUTE_LEVELUP_MAGIC);
                     papLvTargetCursor_[active_idx]->beginBlinking(); //ピカピカ！
                     //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
                     papLvCastingMarkCursor_[active_idx]->markOnLevelUpCast(pActiveMagic->new_level_);
                     break;
                 }
                 case MAGIC_CAST_OK_LEVELDOWN: {
-                    _pSeTxer->play(SE_EXECUTE_LEVELDOWN_MAGIC);
+                    _pSeTx->play(SE_EXECUTE_LEVELDOWN_MAGIC);
                     papLvTargetCursor_[active_idx]->beginBlinking(); //ピカピカ！
                     //LEVELDOWN 時は既に effect(new_lv) 実行済みのため、現レベル pActiveMagic->level_ となる
                     papLvCastingMarkCursor_[active_idx]->markOnLevelDownCast(pActiveMagic->level_);
@@ -313,14 +313,14 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 case MAGIC_CAST_OK_CANCEL_AND_LEVELUP: {
-                    _pSeTxer->play(SE_EXECUTE_CANCEL_LEVELUP_MAGIC);
+                    _pSeTx->play(SE_EXECUTE_CANCEL_LEVELUP_MAGIC);
                     papLvTargetCursor_[active_idx]->beginBlinking(); //ピカピカ！
                     //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
                     papLvCastingMarkCursor_[active_idx]->markOnLevelUpCast(pActiveMagic->new_level_);
                     break;
                 }
                 case MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN: {
-                    _pSeTxer->play(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC);
+                    _pSeTx->play(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC);
                     papLvTargetCursor_[active_idx]->beginBlinking(); //ピカピカ！
                     //LEVELDOWN 時は既に effect(new_lv) 実行済みのため、現レベル pActiveMagic->level_ となる
                     papLvCastingMarkCursor_[active_idx]->markOnLevelDownCast(pActiveMagic->level_);
@@ -346,8 +346,8 @@ void MagicMeter::processBehavior() {
         setAlpha(1.0f);
     }
     //毎フレームの各魔法表示についての処理
-    GgafProgress* pMagicProg = NULL;
-    Magic* pMagic = NULL;
+    GgafProgress* pMagicProg = nullptr;
+    Magic* pMagic = nullptr;
     for (int m = 0; m < ringMagics_.length(); m++) {
         pMagic = ringMagics_.getFromFirst(m);
         pMagicProg = pMagic->_pProg;
@@ -405,7 +405,7 @@ void MagicMeter::processBehavior() {
         //空詠唱（詠唱したが、詠唱完了時、MPが足りなかった）
         if (pMagicProg->get() == Magic::STATE_NOTHING && pMagicProg->hasJustChangedFrom(Magic::STATE_CASTING)) {
             papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
-            _pSeTxer->play(SE_CANT_INVOKE_MAGIC);
+            _pSeTx->play(SE_CANT_INVOKE_MAGIC);
         }
 
         //即効性魔法終了時

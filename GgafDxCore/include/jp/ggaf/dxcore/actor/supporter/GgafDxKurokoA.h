@@ -785,7 +785,7 @@ public: //_X, _Y, _Z ëÄçÏä÷òA //////////////////////////////////////////////
                                     prm_angVelo,  prm_angAcce,
                                     prm_way, prm_optimize_ang );
         _taget_mv_ang_alltime_flg = true;
-        _taget_mv_ang_alltime_pActor = NULL;
+        _taget_mv_ang_alltime_pActor = nullptr;
         _taget_mv_ang_alltime_tX = prm_tX;
         _taget_mv_ang_alltime_tY = prm_tY;
         _taget_mv_ang_alltime_tZ = prm_tZ;
@@ -866,7 +866,7 @@ public: //_X, _Y, _Z ëÄçÏä÷òA //////////////////////////////////////////////
         _mv_ang_rz_target_stop_flg = false;
         _mv_ang_ry_target_flg = false;
         _mv_ang_rz_target_stop_flg = false;
-        _taget_mv_ang_alltime_pActor = NULL;
+        _taget_mv_ang_alltime_pActor = nullptr;
         _taget_mv_ang_alltime_flg = false;
     }
 

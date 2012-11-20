@@ -8,9 +8,9 @@ GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject() {
     _id = GgafDxModelManager::getNextId();
     _model_name = NEW char[51];
     strcpy(_model_name, prm_model_name);
-    _paMaterial_default = NULL;
+    _paMaterial_default = nullptr;
     _num_materials = 0;
-    _papTextureCon = NULL;
+    _papTextureCon = nullptr;
     _bounding_sphere_radius = 0;
     _power_blink = -1.0f;
     _blink_threshold = 1.1f;

@@ -25,7 +25,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) :
     angVelo_Turn_ = 7000;
     /** 方向転換を開始（frame_TurnBegin_）から再設定される加速度 */
     iMoveAcce_2nd_ = 100;
-    _pSeTxer->set(CERESSHOT001_SE_EXPLOSION, "WAVE_EXPLOSION_002");
+    _pSeTx->set(CERESSHOT001_SE_EXPLOSION, "WAVE_EXPLOSION_002");
 }
 
 void EnemyCeresShot001::initialize() {
@@ -71,7 +71,7 @@ void EnemyCeresShot001::processBehavior() {
     //behaveUvFlip();
     //座標に反映
     _pKurokoA->behave();
-    //_pSeTxer->behave();
+    //_pSeTx->behave();
 }
 
 void EnemyCeresShot001::processJudgement() {
@@ -87,7 +87,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(CERESSHOT001_SE_EXPLOSION);
+        _pSeTx->play3D(CERESSHOT001_SE_EXPLOSION);
 
         sayonara();
     }

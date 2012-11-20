@@ -12,12 +12,12 @@ GgafDxSe* GgafDxSeManager::processCreateResource(char* prm_idstr, void* prm_p) {
     // これは、同一waveを複数チャンネルで鳴らしたい場合等、最初の数値を変化されば、資源が複数
     // 確保されると事を意味する。
 
-    GgafDxSe* pResource = NULL;
+    GgafDxSe* pResource = nullptr;
     char idstr[129];
     strcpy(idstr, prm_idstr);
     char* pT = strtok(idstr, "/" );
-    pT = strtok(NULL, "/");
-    if (pT == NULL) {
+    pT = strtok(nullptr, "/");
+    if (pT == nullptr) {
         pResource = NEW GgafDxSe(prm_idstr);
     } else {
         pResource = NEW GgafDxSe(pT);

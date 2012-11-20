@@ -11,7 +11,7 @@
  */
 
 
-extern __map__<std::size_t, std::string> detectMemoryLeaksMemoryMap;
+extern std::map<std::size_t, std::string> detectMemoryLeaksMemoryMap;
 
 extern bool detectMemoryLeaksFlag;
 

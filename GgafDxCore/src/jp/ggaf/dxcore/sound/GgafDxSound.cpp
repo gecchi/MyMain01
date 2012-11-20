@@ -2,10 +2,10 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-IDirectSound8* GgafDxSound::_pIDirectSound8 = NULL;
+IDirectSound8* GgafDxSound::_pIDirectSound8 = nullptr;
 
-GgafDxBgmManager* GgafDxSound::_pBgmManager = NULL;
-GgafDxSeManager* GgafDxSound::_pSeManager = NULL;
+GgafDxBgmManager* GgafDxSound::_pBgmManager = nullptr;
+GgafDxSeManager* GgafDxSound::_pSeManager = nullptr;
 int GgafDxSound::aDbVolume[101];
 
 DSCAPS GgafDxSound::_dsCaps;
@@ -19,7 +19,7 @@ float GgafDxSound::_se_volume_rate = 1.0;
 
 void GgafDxSound::init() {
     HRESULT hr;
-    hr = DirectSoundCreate8(NULL, &_pIDirectSound8, NULL);
+    hr = DirectSoundCreate8(nullptr, &_pIDirectSound8, nullptr);
     if (hr != D3D_OK) {
         throwGgafCriticalException("GgafDxSound::init() GgafDxSoundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
     }

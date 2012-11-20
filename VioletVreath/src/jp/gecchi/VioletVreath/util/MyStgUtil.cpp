@@ -129,10 +129,10 @@ int MyStgUtil::calcEnemyStamina(GgafMainActor* prm_pEnemy, GgafMainActor* prm_pO
 }
 
 GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pE = NULL;
+    GgafDxDrawableActor* pE = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_ExplosionEffectKind)) {
         case 0: {
-            pE = NULL; //爆発エフェクト無し
+            pE = nullptr; //爆発エフェクト無し
             break;
         }
         case 1: {
@@ -149,7 +149,7 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
         }
         default: {
             throwGgafCriticalException("対応 ExplosionEffect が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-            pE = NULL;
+            pE = nullptr;
             break;
         }
     }
@@ -163,10 +163,10 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
 }
 
 GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pI = NULL;
+    GgafDxDrawableActor* pI = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_ItemKind)) {
         case 0: {
-            pI = NULL; //アイテム無し
+            pI = nullptr; //アイテム無し
             break;
         }
         case 1: {
@@ -179,7 +179,7 @@ GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor)
         }
         default: {
             throwGgafCriticalException("対応 ExplosionEffect が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-            pI = NULL;
+            pI = nullptr;
             break;
         }
     }
@@ -191,10 +191,10 @@ GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor)
 }
 
 GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pE = NULL;
+    GgafDxDrawableActor* pE = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_DestroyedEffectKind)) {
         case 0: {
-            pE = NULL; //爆発エフェクト無し
+            pE = nullptr; //爆発エフェクト無し
             break;
         }
         case 1: {
@@ -209,7 +209,7 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
         }
         default: {
             throwGgafCriticalException("対応 DestroyedEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-            pE = NULL;
+            pE = nullptr;
             break;
         }
     }
@@ -223,10 +223,10 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
 }
 
 GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pE = NULL;
+    GgafDxDrawableActor* pE = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_EntryEffectKind)) {
         case 0: {
-            pE = NULL; //入場エフェクト無し
+            pE = nullptr; //入場エフェクト無し
             break;
         }
         case 1: {
@@ -243,7 +243,7 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
         }
         default: {
             throwGgafCriticalException("対応 STAT_EntryEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-            pE = NULL;
+            pE = nullptr;
             break;
         }
     }
@@ -255,10 +255,10 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
 }
 
 GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pE = NULL;
+    GgafDxDrawableActor* pE = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_LeaveEffectKind)) {
         case 0: {
-            pE = NULL; //退場エフェクト無し
+            pE = nullptr; //退場エフェクト無し
             break;
         }
         case 1: {
@@ -267,7 +267,7 @@ GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_
         }
         default: {
             throwGgafCriticalException("対応 STAT_LeaveEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-            pE = NULL;
+            pE = nullptr;
             break;
         }
     }
@@ -281,10 +281,10 @@ GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_
 GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
     int addscore = prm_pActor->_pStatus->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点加算
     _SCORE_ += addscore;
-    GgafDxDrawableActor* pE = NULL;
+    GgafDxDrawableActor* pE = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_FormationDestroyedEffectKind)) {
         case 0: {
-            pE = NULL; //エフェクト無し
+            pE = nullptr; //エフェクト無し
             break;
         }
         case 1: {
@@ -307,7 +307,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
 //            }
         default: {
             throwGgafCriticalException("対応 STAT_FormationDestroyedEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-            pE = NULL;
+            pE = nullptr;
             break;
         }
     }
@@ -321,10 +321,10 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
 }
 
 GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pI = NULL;
+    GgafDxDrawableActor* pI = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_FormationDestroyedItemKind)) {
         case 0: {
-            pI = NULL; //アイテム無し
+            pI = nullptr; //アイテム無し
             break;
         }
         case 1: {
@@ -337,7 +337,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
         }
         default: {
             throwGgafCriticalException("対応 STAT_FormationDestroyedItemKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-            pI = NULL;
+            pI = nullptr;
             break;
         }
     }

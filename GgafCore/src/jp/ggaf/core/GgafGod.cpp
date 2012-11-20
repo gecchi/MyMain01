@@ -2,13 +2,13 @@
 
 using namespace GgafCore;
 
-GgafCriticalException* GgafGod::_pException_Factory = NULL;
-HINSTANCE GgafGod::_hInstance = NULL;
+GgafCriticalException* GgafGod::_pException_Factory = nullptr;
+HINSTANCE GgafGod::_hInstance = nullptr;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 
 int GgafGod::_num_actor_drawing = 0;
-GgafGod* GgafGod::_pGod = NULL;
+GgafGod* GgafGod::_pGod = nullptr;
 DWORD GgafGod::_aaTime_offset_of_next_view[3][60] = {
         {17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16},
         {25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25},
@@ -17,13 +17,13 @@ DWORD GgafGod::_aaTime_offset_of_next_view[3][60] = {
 volatile bool GgafGod::_can_be = false;
 
 GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
-  _pUniverse(NULL),
+  _pUniverse(nullptr),
   _fps(0) {
     TRACE("GgafGod::GgafGod");
     GgafGod::_hInstance = prm_hInstance;
 
     _frame_of_God = 0;
-    _handleFactory01 = (HANDLE)::_beginthreadex(NULL, 0, GgafFactory::work, NULL, CREATE_SUSPENDED, &_thID01);
+    _handleFactory01 = (HANDLE)::_beginthreadex(nullptr, 0, GgafFactory::work, nullptr, CREATE_SUSPENDED, &_thID01);
 
     if (_handleFactory01 == 0) {
         throwGgafCriticalException("GgafGod::GgafGod() Error! スレッド作成失敗！");
@@ -99,11 +99,11 @@ void GgafGod::be() {
 
     if (_can_be) {
         _is_being = true;
-        if (_pUniverse == NULL) {
+        if (_pUniverse == nullptr) {
             //この世がまだ無い場合は、先ずこの世を作成。
             _pUniverse = createUniverse();
 #ifdef MY_DEBUG
-            if (_pUniverse == NULL) {
+            if (_pUniverse == nullptr) {
                 throwGgafCriticalException("GgafGod::be() Error! この世を実装して下さい！");
             }
 #endif
@@ -227,7 +227,7 @@ void GgafGod::clean() {
     if (!_was_cleaned) {
         _TRACE_("GgafGod::clean() start");
         if (_pUniverse) {
-            _TRACE_("_pUniverse != NULL");
+            _TRACE_("_pUniverse != nullptr");
             //工場を止める
             Sleep(10);
             GgafFactory::_is_working_flg = false;
@@ -250,7 +250,7 @@ void GgafGod::clean() {
             CloseHandle(_handleFactory01);
             _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS1)); .....");
             DeleteCriticalSection(&(GgafGod::CS1));
-            _handleFactory01 = NULL;
+            _handleFactory01 = nullptr;
             _TRACE_("GgafGod::~GgafGod() 無事に工場スレッドを終了。クリティカルセクション解除");
 
     #ifdef MY_DEBUG

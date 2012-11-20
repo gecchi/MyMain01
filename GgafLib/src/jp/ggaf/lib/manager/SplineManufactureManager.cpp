@@ -92,7 +92,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] ‚ªŽw’è‚³‚ê‚Ä‚Ü‚¹‚ñB");
     }
 
-    SplineManufacture* pSplManuf = NULL;
+    SplineManufacture* pSplManuf = nullptr;
     if (classname.find("FixedFrameSpline") != std::string::npos) {
         if (UTIL::isExistKey("SPENT_FRAME", &mapSplPropperties)) {
             spent_frame = (frame)atoi(mapSplPropperties["SPENT_FRAME"].c_str());

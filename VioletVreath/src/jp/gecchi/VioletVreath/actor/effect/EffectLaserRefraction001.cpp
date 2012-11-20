@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
-               : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", NULL) {
+               : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", nullptr) {
     _class_name = "EffectLaserRefraction001";
     effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り

@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxStringSpriteActor::GgafDxStringSpriteActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-        GgafDxSpriteSetActor(prm_name, prm_model, "StringSpriteEffect", "StringSpriteTechnique", prm_pStat, NULL) {
+        GgafDxSpriteSetActor(prm_name, prm_model, "StringSpriteEffect", "StringSpriteTechnique", prm_pStat, nullptr) {
 
     _class_name = "GgafDxStringSpriteActor";
     _chr_ptn_zero = ' ';

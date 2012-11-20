@@ -13,8 +13,8 @@ FormationHebe::FormationHebe(const char* prm_name, const char* prm_spl_id)
 
     //スプライン定義ファイルを読み込む
     pSplManufCon_ = connectToSplineManufactureManager("FormationHebe001");
-    //pConn_ShotDepo_ = connectToDepositoryManager("Conn_Shot004", NULL); //Hebeの弾;
-    pConn_ShotDepo_ = NULL;
+    //pConn_ShotDepo_ = connectToDepositoryManager("Conn_Shot004", nullptr); //Hebeの弾;
+    pConn_ShotDepo_ = nullptr;
     updateRankParameter();
 }
 
@@ -37,8 +37,8 @@ void FormationHebe::processBehavior() {
         if (pHebe) {
             SplineSequence* pSplSeq = pSplManufCon_->fetch()->
                                           createSplineSequence(pHebe->_pKurokoA);
-            GgafActorDepository* pDepo_Shot = pConn_ShotDepo_ ? pConn_ShotDepo_->fetch() : NULL;
-            pHebe->config(pSplSeq, pDepo_Shot, NULL);
+            GgafActorDepository* pDepo_Shot = pConn_ShotDepo_ ? pConn_ShotDepo_->fetch() : nullptr;
+            pHebe->config(pSplSeq, pDepo_Shot, nullptr);
             pHebe->_pKurokoA->setMvVelo(rr_mv_velo_);
             processOnActiveHebe(pHebe); //下位フォーメーションクラス個別実装の処理
         }

@@ -5,9 +5,9 @@ using namespace GgafLib;
 
 WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _class_name = "WalledScene";
-    _pDepo_WallAAB = NULL;
-    _pDepo_WallAAPrism = NULL;
-    _pLastSectionScene = NULL;
+    _pDepo_WallAAB = nullptr;
+    _pDepo_WallAAPrism = nullptr;
+    _pLastSectionScene = nullptr;
     _is_all_active_section_scenes = false;
     _is_finished = false;
 }
@@ -80,7 +80,7 @@ void WalledScene::buildWalledScene(
 }
 
 void WalledScene::initialize() {
-    if (_pDepo_WallAAB == NULL) {
+    if (_pDepo_WallAAB == nullptr) {
         throwGgafCriticalException("WalledScene["<<getName()<<"] オブジェクトが未完成です。buildWalledScene()を実行し構築してください。");
     }
     //buildWalledScene が継承クラスのコンストラクタで実行された場合、getDirector() は世界シーンを返すため

@@ -15,10 +15,10 @@ EnemyHesperia::EnemyHesperia(const char* prm_name) :
     //借り入れレーザーセットのデポジトリ保持用
     papLaserChipDepo_ = NEW LaserChipDepository*[max_laser_way_];
     for (int i = 0; i < max_laser_way_; i++) {
-        papLaserChipDepo_[i] = NULL;
+        papLaserChipDepo_[i] = nullptr;
     }
 
-    pConn_LaserChipDepoStore_ = connectToDepositoryManager("Conn_EnemyHesperiaLaserChip001DepoStore", NULL);
+    pConn_LaserChipDepoStore_ = connectToDepositoryManager("Conn_EnemyHesperiaLaserChip001DepoStore", nullptr);
     pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->fetch());
 
     paLocalPos_Laser_ = NEW GgafDxGeoElem[max_laser_way_];
@@ -28,11 +28,11 @@ EnemyHesperia::EnemyHesperia(const char* prm_name) :
         paLocalPos_Laser_[i].set(PX_C(-40) + (i*dX),  PX_C(10), 0); //レーザー発射元のローカル座標
     }
 
-    _pSeTxer->set(SE_EXPLOSION  , "WAVE_EXPLOSION_MIDDLE_001");
-    _pSeTxer->set(SE_DAMAGED    , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_HATCH_OPEN , "WAVE_HATCH_OPEN_001");
-    _pSeTxer->set(SE_FIRE       , "WAVE_ENEMY_FIRE_LASER_001");
-    _pSeTxer->set(SE_HATCH_CLOSE, "WAVE_HATCH_CLOSE_001");
+    _pSeTx->set(SE_EXPLOSION  , "WAVE_EXPLOSION_MIDDLE_001");
+    _pSeTx->set(SE_DAMAGED    , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_HATCH_OPEN , "WAVE_HATCH_OPEN_001");
+    _pSeTx->set(SE_FIRE       , "WAVE_ENEMY_FIRE_LASER_001");
+    _pSeTx->set(SE_HATCH_CLOSE, "WAVE_HATCH_CLOSE_001");
     dX_= dZ_ = 0;
     useProgress(PROG_NOTHING);
 }
@@ -95,7 +95,7 @@ void EnemyHesperia::processBehavior() {
 
         case PROG_HATCH_OPEN: {
             if (_pProg->hasJustChanged()) {
-                _pSeTxer->play3D(SE_HATCH_OPEN);
+                _pSeTx->play3D(SE_HATCH_OPEN);
                 _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
             }
             if (_pProg->getFrameInProgress() == 120) {
@@ -122,10 +122,10 @@ void EnemyHesperia::processBehavior() {
                             can_fire = true;
                         } else {
                             //レーザーセット（レーザーチップのデポジトリ）が借り入れ出来なかった。
-                            papLaserChipDepo_[i] = NULL;
+                            papLaserChipDepo_[i] = nullptr;
                         }
                     } else {
-                        papLaserChipDepo_[i] = NULL;
+                        papLaserChipDepo_[i] = nullptr;
                     }
                 }
 
@@ -221,7 +221,7 @@ void EnemyHesperia::processBehavior() {
                         }
                     }
 
-                    _pSeTxer->play3D(SE_FIRE); //発射音
+                    _pSeTx->play3D(SE_FIRE); //発射音
                     effectFlush(2); //フラッシュ
                     cnt_laserchip_ = 0;
                 }
@@ -283,7 +283,7 @@ void EnemyHesperia::processBehavior() {
 
         case PROG_HATCH_CLOSE: {
             if (_pProg->hasJustChanged()) {
-                _pSeTxer->play3D(SE_HATCH_CLOSE);
+                _pSeTx->play3D(SE_HATCH_CLOSE);
                 _pMorpher->intoTargetLinerUntil(1, 0.0, 120);
             }
             if (_pProg->getFrameInProgress() == 120) {
@@ -299,7 +299,7 @@ void EnemyHesperia::processBehavior() {
             break;
         }
     }
-    _pSeTxer->behave();
+    _pSeTx->behave();
     _pKurokoA->behave();
     _pMorpher->behave();
 }
@@ -315,12 +315,12 @@ void EnemyHesperia::onHit(GgafActor* prm_pOtherActor) {
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTxer->play3D(SE_DAMAGED);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

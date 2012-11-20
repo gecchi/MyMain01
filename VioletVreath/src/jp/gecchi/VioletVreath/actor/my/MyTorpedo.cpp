@@ -14,7 +14,7 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpe
     begin_Z_ = _Z;
 
     pTailEffectDepository_ = NEW LaserChipDepository("DP_TailEffect");
-    pTailEffectDepository_->config(length_TailEffect_, 0, NULL);
+    pTailEffectDepository_->config(length_TailEffect_, 0, nullptr);
     for (int i = 0; i < length_TailEffect_; i++) {
         std::string name = std::string(pOptionTorpedoCtrlr_->getName())+"'s Tail("+ITOS(i)+")";
         MyTorpedoTail* pChip = NEW MyTorpedoTail(name.c_str(), this);
@@ -27,7 +27,7 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpe
     effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
-    pTarget_ = NULL;
+    pTarget_ = nullptr;
     useProgress(10);
 }
 
@@ -37,7 +37,7 @@ void MyTorpedo::initialize() {
 }
 
 void MyTorpedo::onReset() {
-    pTarget_ = NULL;
+    pTarget_ = nullptr;
 }
 
 void MyTorpedo::onActive() {

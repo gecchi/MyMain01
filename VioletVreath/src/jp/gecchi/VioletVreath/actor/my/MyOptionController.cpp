@@ -10,7 +10,7 @@ int MyOptionController::now_option_num_ = 0;
 //        DefaultMeshSetActor(prm_name, "8/momomo") {
 
 MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
-  GgafDxGeometricActor(prm_name, NULL, NULL) {
+  GgafDxGeometricActor(prm_name, nullptr, nullptr) {
     no_ = prm_no;
     is_handle_move_mode_ = false;
     is_free_from_myship_mode_ = false;

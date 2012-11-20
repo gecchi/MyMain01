@@ -27,7 +27,7 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
     for (UINT32 i = 0; i < _num_space; i++) {
         _paSpace[i]._my_index = i;
     }
-    _pRegElemFirst = NULL;
+    _pRegElemFirst = nullptr;
 }
 
 void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int Z2) {
@@ -200,9 +200,9 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
 #endif
 
     //登録Elemリストに追加（後でクリアしたいが為）
-    if (prm_pElem->_pSpace_current == NULL) {
-        if (_pRegElemFirst == NULL) {
-            prm_pElem->_pRegLinkNext = NULL;
+    if (prm_pElem->_pSpace_current == nullptr) {
+        if (_pRegElemFirst == nullptr) {
+            prm_pElem->_pRegLinkNext = nullptr;
             _pRegElemFirst = prm_pElem;
         } else {
             prm_pElem->_pRegLinkNext = _pRegElemFirst;
@@ -221,18 +221,18 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
 }
 
 void GgafLinearOctree::clearElem() {
-    if (_pRegElemFirst == NULL) {
+    if (_pRegElemFirst == nullptr) {
         return;
     }
     GgafLinearOctreeElem* pElem = _pRegElemFirst;
     while(true) {
         pElem->clear();
         pElem = pElem -> _pRegLinkNext;
-        if (pElem == NULL) {
+        if (pElem == nullptr) {
             break;
         }
     }
-    _pRegElemFirst = NULL;
+    _pRegElemFirst = nullptr;
 }
 
 GgafLinearOctree::~GgafLinearOctree() {

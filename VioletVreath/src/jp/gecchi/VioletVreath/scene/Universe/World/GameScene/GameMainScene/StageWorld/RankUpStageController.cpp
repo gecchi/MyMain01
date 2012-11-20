@@ -12,7 +12,7 @@ RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScen
     _TRACE_("RankUpStageController::RankUpStageController("<<prm_name<<")");
 
     for (int i = 0; i < MAX_RANKUP_SCENE; i ++) {
-        apRankUpStage_[i] = NULL;
+        apRankUpStage_[i] = nullptr;
     }
     useProgress(RankUpStageController::PROG_FINISH);
     ready(_RANK_UP_LEVEL_ + 1);
@@ -407,7 +407,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
                 }
             }
         } else {
-            throwGgafCriticalException("RankUpStageController::onCatchEvent EVENT_RANKUP_WAS_END サブがNULL"<<
+            throwGgafCriticalException("RankUpStageController::onCatchEvent EVENT_RANKUP_WAS_END サブがnullptr"<<
                                        "this="<<this<<"["<<getName()<<"] prm_pSource="<<prm_pSource);
         }
     }

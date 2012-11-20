@@ -52,7 +52,7 @@ public:
      * 対象アクターに紐ついた爆発エフェクトを、取得できれば有効にし、それを返す .
      * ステータス(_pStatus)の STAT_ExplosionEffectKind の値によって種類が振り分けられる。
      * @param prm_pActor 対象アクター
-     * @return 対象アクターの爆発エフェクト（活動済み）。又は、取得できない場合 NULL。
+     * @return 対象アクターの爆発エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
     static GgafDxCore::GgafDxDrawableActor* activateExplosionEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
@@ -60,7 +60,7 @@ public:
      * 対象アクターに紐ついた保持アイテムを、取得できれば有効にし、それを返す .
      * ステータス(_pStatus)の STAT_ItemKind の値によってアイテム種類が振り分けられる。
      * @param prm_pActor 対象アクター
-     * @return 対象アクターの保持アイテム（活動済み）。又は、取得できない場合 NULL。
+     * @return 対象アクターの保持アイテム（活動済み）。又は、取得できない場合 nullptr。
      */
     static GgafDxCore::GgafDxDrawableActor* activateItemOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
@@ -69,7 +69,7 @@ public:
      * 中型機の場合のスコア表示等に使用される。<BR>
      * ステータス(_pStatus)の STAT_DestroyedEffectKind の値によって種類が振り分けられる。
      * @param prm_pActor 対象アクタ
-     * @return 対象アクターの消滅エフェクト（活動済み）。又は、取得できない場合 NULL。
+     * @return 対象アクターの消滅エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
     static GgafDxCore::GgafDxDrawableActor* activateDestroyedEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
@@ -77,7 +77,7 @@ public:
      * 対象アクターに紐ついた入場エフェクトを、取得できれば有効にし、それを返す .
      * ステータス(_pStatus)の STAT_EntryEffectKind の値によって種類が振り分けられる。
      * @param prm_pActor 対象アクター
-     * @return 対象アクターの入場エフェクト（活動済み）。又は、取得できない場合 NULL。
+     * @return 対象アクターの入場エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
     static GgafDxCore::GgafDxDrawableActor* activateEntryEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
@@ -85,7 +85,7 @@ public:
      * 対象アクターに紐ついた退場エフェクトを、取得できれば有効にし、それを返す .
      * ステータス(_pStatus)の STAT_LeaveEffectKind の値によって種類が振り分けられる。
      * @param prm_pActor 対象アクター
-     * @return 対象アクターの退場エフェクト（活動済み）。又は、取得できない場合 NULL。
+     * @return 対象アクターの退場エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
     static GgafDxCore::GgafDxDrawableActor* activateLeaveEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
@@ -93,14 +93,14 @@ public:
      * 対象アクターの紐ついた、フォーメーション全滅エフェクトとスコア加算処理 .
      * ステータス(_pStatus)の STAT_FormationDestroyedEffectKind の値によって種類が振り分けられる。
      * @param prm_pActor 対象アクター
-     * @return 対象アクターのフォーメーション全滅エフェクト（活動済み）。又は、取得できない場合 NULL。
+     * @return 対象アクターのフォーメーション全滅エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
     static GgafDxCore::GgafDxDrawableActor* activateFormationDestroyedEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
     /**
      * 対象アクターのに紐ついたフォーメーション全滅アイテムを、取得できれば有効にし、それを返す .
      * ステータス(_pStatus)の STAT_FormationDestroyedItemKind の値によってアイテム種類が振り分けられる。
      * @param prm_pActor 対象アクター
-     * @return 対象アクターのフォーメーション全滅アイテム（活動済み）。又は、取得できない場合 NULL。
+     * @return 対象アクターのフォーメーション全滅アイテム（活動済み）。又は、取得できない場合 nullptr。
      */
     static GgafDxCore::GgafDxDrawableActor* activateFormationDestroyedItemOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 

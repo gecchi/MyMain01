@@ -41,7 +41,7 @@ public:
 
     GgafDxGeometricActor* _pSourceActor;
 
-    StraightLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
+    StraightLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {}
 

@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 #define ORDER_ID_STAGE 11
 
-//GameMainScene* GameMainScene::pGameMainScene_ = NULL;
+//GameMainScene* GameMainScene::pGameMainScene_ = nullptr;
 
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameMainScene";
@@ -109,7 +109,7 @@ void GameMainScene::processBehavior() {
 void GameMainScene::onInactive() {
     if (P_STAGE_CTRLER->pStageMainCannel_) {
         P_STAGE_CTRLER->pStageMainCannel_->sayonara();
-        P_STAGE_CTRLER->pStageMainCannel_ = NULL;
+        P_STAGE_CTRLER->pStageMainCannel_ = nullptr;
     }
 }
 

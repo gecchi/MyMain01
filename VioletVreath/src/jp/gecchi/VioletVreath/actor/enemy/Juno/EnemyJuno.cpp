@@ -7,8 +7,8 @@ using namespace VioletVreath;
 EnemyJuno::EnemyJuno(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Pallas", STATUS(EnemyJuno)) {
     _class_name = "EnemyJuno";
-    pDepo_ShotEffect_ = NULL;
-    pDepo_Shot_ = NULL;
+    pDepo_ShotEffect_ = nullptr;
+    pDepo_Shot_ = nullptr;
     iMovePatternNo_ = 0;
     max_shots_ = 1;
     shot_num_ = 0;
@@ -16,8 +16,8 @@ EnemyJuno::EnemyJuno(const char* prm_name) :
     do_Shot_ = false;
     velo_mv_begin_ = 0;
     frame_when_shot_ = 0;
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
-    _pSeTxer->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //発射
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //発射
 }
 
 void EnemyJuno::onCreateModel() {
@@ -71,7 +71,7 @@ void EnemyJuno::processBehavior() {
                     shot_num_++;
                     do_Shot_ = false;
                     effectFlush(2); //フラッシュ
-                    _pSeTxer->play3D(SE_FIRE);
+                    _pSeTx->play3D(SE_FIRE);
                 }
 //                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                if (pShot) {
@@ -82,7 +82,7 @@ void EnemyJuno::processBehavior() {
 //                    pShot->reset();
 //                    do_Shot_ = false;
 //                    effectFlush(2); //フラッシュ
-//                    _pSeTxer->play3D(1);
+//                    _pSeTx->play3D(1);
 //                }
 
                 //ショット発射エフェクト
@@ -122,7 +122,7 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
         sayonara();
     }

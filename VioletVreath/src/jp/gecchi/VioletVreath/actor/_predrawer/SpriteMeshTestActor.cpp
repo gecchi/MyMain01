@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 
 SpriteMeshTestActor::SpriteMeshTestActor(const char* prm_name) :
-        SpriteMeshActor(prm_name, "_chk_SpriteMeshTestModel", NULL) {
+        SpriteMeshActor(prm_name, "_chk_SpriteMeshTestModel", nullptr) {
     _class_name = "SpriteMeshTestActor";
     setHitAble(false);
 }

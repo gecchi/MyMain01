@@ -5,13 +5,13 @@ using namespace GgafLib;
 
 
 SplineLine::SplineLine() {
-    _X_basepoint = NULL;
-    _Y_basepoint = NULL;
-    _Z_basepoint = NULL;
+    _X_basepoint = nullptr;
+    _Y_basepoint = nullptr;
+    _Z_basepoint = nullptr;
     _num_basepoint = 0;
-    _X_compute = NULL;
-    _Y_compute = NULL;
-    _Z_compute = NULL;
+    _X_compute = nullptr;
+    _Y_compute = nullptr;
+    _Z_compute = nullptr;
     _rnum = 0;
     _accuracy = 1.0;
 }
@@ -36,9 +36,9 @@ void SplineLine::init(double prm_paaEstablish[][3], int prm_num, double prm_accu
     _xs.init(_X_basepoint, prm_num);
     _ys.init(_Y_basepoint, prm_num);
     _zs.init(_Z_basepoint, prm_num);
-    _X_compute = NULL;
-    _Y_compute = NULL;
-    _Z_compute = NULL;
+    _X_compute = nullptr;
+    _Y_compute = nullptr;
+    _Z_compute = nullptr;
     compute(prm_accuracy);
 }
 

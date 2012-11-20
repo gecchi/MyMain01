@@ -13,7 +13,7 @@ void LaserChipDepositoryStore::processBehavior() {
 
 LaserChipDepository* LaserChipDepositoryStore::dispatch(int prm_offset_frames) {
 #ifdef MY_DEBUG
-        if (_pSubFirst == NULL) {
+        if (_pSubFirst == nullptr) {
             throwGgafCriticalException("LaserChipDepositoryStore::dispatch() Žq‚ª‚ ‚è‚Ü‚¹‚ñ");
         }
 #endif

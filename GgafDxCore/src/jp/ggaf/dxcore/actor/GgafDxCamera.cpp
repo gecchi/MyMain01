@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm_dep) :
-        GgafDxGeometricActor(prm_name, NULL, NULL) {
+        GgafDxGeometricActor(prm_name, nullptr, nullptr) {
     _class_name = "GgafDxCamera";
 
     static double rev = 1.000; //Spriteをドットパーピクセルで表示するための補正値

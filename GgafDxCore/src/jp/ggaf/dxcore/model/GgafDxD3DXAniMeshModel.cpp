@@ -4,9 +4,9 @@ using namespace GgafDxCore;
 
 GgafDxD3DXAniMeshModel::GgafDxD3DXAniMeshModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     TRACE("GgafDxD3DXAniMeshModel::GgafDxD3DXAniMeshModel(" << prm_model_name << ")");
-    _pAH = NULL;
-    _pFR = NULL;
-    _pAcBase = NULL;
+    _pAH = nullptr;
+    _pFR = nullptr;
+    _pAcBase = nullptr;
     _num_materials = 0L;
     _anim_ticks_per_second = 4800; //restoreD3DXAniMeshModel で上書きされる場合がある。
 
@@ -43,14 +43,14 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
 
     int n = 0;
     //マテリアル・テクスチャの一発目をセット、
-    LPDIRECT3DBASETEXTURE9 pTex = NULL;
-    LPDIRECT3DBASETEXTURE9 pLastTex = NULL;
+    LPDIRECT3DBASETEXTURE9 pTex = nullptr;
+    LPDIRECT3DBASETEXTURE9 pLastTex = nullptr;
     if (_papTextureCon[n]) {
         pLastTex = _papTextureCon[n]->fetch()->_pIDirect3DBaseTexture9;
         GgafDxGod::_pID3DDevice9->SetTexture(0, pLastTex);
     } else {
         //無ければテクスチャ無し
-        GgafDxGod::_pID3DDevice9->SetTexture(0, NULL);
+        GgafDxGod::_pID3DDevice9->SetTexture(0, nullptr);
     }
     hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[n].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "GgafDxD3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
@@ -67,7 +67,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
 
 #ifdef MY_DEBUG
                 if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
                 } else {
                     GgafDxEffectManager::_pEffect_Active->_begin = false;
                 }
@@ -86,7 +86,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
 
 #ifdef MY_DEBUG
             if (pD3DXAniMeshEffect->_begin == true) {
-                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pD3DXAniMeshEffect->_begin = true;
             }
@@ -95,7 +95,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
         }
         hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_h_matWorld, &((*it)->WorldTransMatrix));
         checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-        if ((*it)->pMeshContainer == NULL) {
+        if ((*it)->pMeshContainer == nullptr) {
             TRACE4("["<<i<<"]×SetMatrix FrameName="<<((*it)->Name)<<" 飛ばし！");
             continue;
         } else {
@@ -142,7 +142,7 @@ void GgafDxD3DXAniMeshModel::onDeviceLost() {
 
 void GgafDxD3DXAniMeshModel::release() {
     TRACE3("GgafDxD3DXAniMeshModel::release() " << _model_name << " start");
-//    if (_pID3DXAniMesh == NULL) {
+//    if (_pID3DXAniMesh == nullptr) {
 //        throwGgafCriticalException("[GgafDxD3DXAniMeshModel::release] Error! _pID3DXAniMeshが オブジェクトになっていないため release できません！");
 //    }
     if (_papTextureCon) {

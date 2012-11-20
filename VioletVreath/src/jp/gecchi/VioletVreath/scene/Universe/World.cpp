@@ -14,8 +14,8 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_aster_->_pFader->beat(60, 30, 0, 0, -1); //チカチカ点滅
 
     is_create_GameScene_ = false;
-    pLabel_debug_ = NULL;
-    pLabel_title_ = NULL;
+    pLabel_debug_ = nullptr;
+    pLabel_title_ = nullptr;
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。

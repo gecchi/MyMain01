@@ -8,8 +8,8 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
                                prm_model,
                                "WorldBoundEffect",
                                "WorldBoundTechnique",
-                               NULL,
-                               NULL) {
+                               nullptr,
+                               nullptr) {
 
     _class_name = "WorldBoundActor";
     _offset_frames = 0;

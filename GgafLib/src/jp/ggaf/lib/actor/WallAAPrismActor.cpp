@@ -5,7 +5,7 @@ using namespace GgafLib;
 
 bool WallAAPrismActor::_init = false;
 
-__map__<int, UINT> WallAAPrismActor::_delface;
+std::map<int, UINT> WallAAPrismActor::_delface;
 
 WallAAPrismActor::WallAAPrismActor(const char* prm_name,
                                    const char* prm_model,
@@ -27,10 +27,10 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
     setZWriteEnable(true);  //Zバッファは書き込み有り
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
-    _h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( NULL, "g_distance_AlphaTarget" );
-    _h_wall_dep    = pID3DXEffect->GetParameterByName( NULL, "g_wall_dep" );
-    _h_wall_height = pID3DXEffect->GetParameterByName( NULL, "g_wall_height" );
-    _h_wall_width  = pID3DXEffect->GetParameterByName( NULL, "g_wall_width" );
+    _h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
+    _h_wall_dep    = pID3DXEffect->GetParameterByName( nullptr, "g_wall_dep" );
+    _h_wall_height = pID3DXEffect->GetParameterByName( nullptr, "g_wall_height" );
+    _h_wall_width  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_width" );
     if (_init == false) {
         //プリズム壁であるならば、形状により無条件で描画不要面がある、
         //    c
@@ -108,7 +108,7 @@ void WallAAPrismActor::processDraw() {
         checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     }
     GgafDxDrawableActor* pDrawActor = this;
-    WallPartsActor* pWallPartsActor = NULL;
+    WallPartsActor* pWallPartsActor = nullptr;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {

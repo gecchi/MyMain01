@@ -41,7 +41,7 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
                                              int prm_RX_init_local,
                                              int prm_RY_init_local,
                                              int prm_RZ_init_local) override {
-        return NULL;
+        return nullptr;
     }
 
     /**
@@ -55,7 +55,7 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
                                              int prm_RX_init_local,
                                              int prm_RY_init_local,
                                              int prm_RZ_init_local) override {
-        return NULL;
+        return nullptr;
     }
 
     /**

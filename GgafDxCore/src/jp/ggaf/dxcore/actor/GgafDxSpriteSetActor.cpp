@@ -43,7 +43,7 @@ void GgafDxSpriteSetActor::processDraw() {
     HRESULT hr;
 
     GgafDxDrawableActor* pDrawActor = this;
-    GgafDxSpriteSetActor* pSpriteSetActor = NULL;
+    GgafDxSpriteSetActor* pSpriteSetActor = nullptr;
     float u,v;
     while (true) {
         if (pDrawActor)  {

@@ -30,7 +30,7 @@ public:
     bool _is_all_called_up;
     /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
-    /** [r]構成メンバーのストッカー（NULLの場合構成メンバーは配下アクターのはず） */
+    /** [r]構成メンバーのストッカー（nullptrの場合構成メンバーは配下アクターのはず） */
     GgafCore::GgafActorDepository* _pDepo;
 
     /**
@@ -72,9 +72,9 @@ public:
      * デポジトリからメンバー呼び出しする。 .
      * デポジトリモード時呼び出し可能。setFormationAbleActorDepository() の事前実行が必要。
      * 本メソッドを呼び出すと、デポジトリに管理されたメンバーが一つ dispatch() されます。(同時に activate() もされる)
-     * デポジトリのメンバーが枯渇した場合 NULL が返ります。
-     * また、引数の prm_formation_sub_num は最大編隊構成要員数で、この数以上の呼び出しでも NULL が返ります。
-     * 一度でも NULL が返されると、内部フラグ isAllCalledUp() が true になり、以降本フォーメーションオブジェクトは
+     * デポジトリのメンバーが枯渇した場合 nullptr が返ります。
+     * また、引数の prm_formation_sub_num は最大編隊構成要員数で、この数以上の呼び出しでも nullptr が返ります。
+     * 一度でも nullptr が返されると、内部フラグ isAllCalledUp() が true になり、以降本フォーメーションオブジェクトは
      * メンバー呼び出しできないようになります。と同時に、 processJudgement() で自動的に sayonara() がコールされ
      * フォーメーションオブジェクトは解放されます。
      * 注意。初っ端に呼び出してもメンバーが確保できない場合も、
@@ -83,7 +83,7 @@ public:
      * @param prm_formation_sub_num 本フォーメーションの最大編隊構成要員数
      * @return 編隊構成要員のアクター。
      *         最大編隊構成要員数をオーバーして呼び出した場合、或いは
-     *         デポジトリに構成要員がもういない場合は NULL
+     *         デポジトリに構成要員がもういない場合は nullptr
      */
     GgafActor* callUpUntil(int prm_formation_sub_num = INT_MAX);
 

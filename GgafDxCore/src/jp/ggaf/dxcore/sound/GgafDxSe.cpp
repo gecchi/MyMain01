@@ -4,7 +4,7 @@ using namespace GgafDxCore;
 
 
 GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
-    if (GgafDxSound::_pIDirectSound8 == NULL) {
+    if (GgafDxSound::_pIDirectSound8 == nullptr) {
         throwGgafCriticalException("GgafDxSe::GgafDxSe("<<prm_wave_key<<") DirectSound が、まだ初期化されていません。");
     }
 
@@ -33,7 +33,7 @@ GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
     dsbdesc.lpwfxFormat = WaveFile.GetWaveFormat();
 
     // バッファ作成
-    hr = GgafDxSound::_pIDirectSound8->CreateSoundBuffer(&dsbdesc, &_pIDirectSoundBuffer, NULL);
+    hr = GgafDxSound::_pIDirectSound8->CreateSoundBuffer(&dsbdesc, &_pIDirectSoundBuffer, nullptr);
     checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_key<<") CreateSoundBufferに失敗しました。サウンドカードは有効ですか？");
 
     if (!writeBuffer(WaveFile)) {
@@ -109,8 +109,8 @@ int GgafDxSe::writeBuffer(CWaveDecorder& WaveFile) {
 }
 
 void GgafDxSe::play(int prm_volume, float prm_pan, float prm_frequency) {
-    if (_pIDirectSoundBuffer == NULL) {
-        _TRACE_("_pIDirectSoundBuffer==NULL;!");
+    if (_pIDirectSoundBuffer == nullptr) {
+        _TRACE_("_pIDirectSoundBuffer==nullptr;!");
     }
     DWORD dwStatus;
     if (FAILED(_pIDirectSoundBuffer->GetStatus(&dwStatus))) {

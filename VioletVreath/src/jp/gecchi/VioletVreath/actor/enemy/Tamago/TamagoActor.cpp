@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 TamagoActor::TamagoActor(const char* prm_name, GgafStatus* prm_pStat) :
-        DefaultD3DXAniMeshActor(prm_name, "anibox", NULL) {
+        DefaultD3DXAniMeshActor(prm_name, "anibox", nullptr) {
     _class_name = "TamagoActor";
 }
 

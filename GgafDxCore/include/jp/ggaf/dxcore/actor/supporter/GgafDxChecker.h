@@ -36,8 +36,8 @@ public:
     virtual void updateHitArea() = 0;
 
     GgafDxGeometricActor* getTargetActor() {
-        if (_pActor == NULL) {
-            _TRACE_("GgafDxChecker::getTargetActor NULLÇ≈Ç†ÇÈÇ™ÇÊÇ¢ÇÃÇ©ÅI");
+        if (_pActor == nullptr) {
+            _TRACE_("GgafDxChecker::getTargetActor nullptrÇ≈Ç†ÇÈÇ™ÇÊÇ¢ÇÃÇ©ÅI");
         }
         return _pActor;
     }

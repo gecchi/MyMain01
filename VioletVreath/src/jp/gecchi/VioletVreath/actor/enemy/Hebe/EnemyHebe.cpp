@@ -7,11 +7,11 @@ using namespace VioletVreath;
 EnemyHebe::EnemyHebe(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Hebe", STATUS(EnemyHebe)) {
     _class_name = "EnemyHebe";
-    pSplSeq_ = NULL;
-    pDepo_Shot_ = NULL;
-    pDepo_ShotEffect_ = NULL;
-    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    pSplSeq_ = nullptr;
+    pDepo_Shot_ = nullptr;
+    pDepo_ShotEffect_ = nullptr;
+    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     useProgress(10);
 }
 
@@ -38,7 +38,7 @@ void EnemyHebe::config(
 
 
 void EnemyHebe::onActive() {
-    if (pSplSeq_ == NULL) {
+    if (pSplSeq_ == nullptr) {
         throwGgafCriticalException("EnemyHebeはスプライン必須ですconfigして下さい");
     }
     _pStatus->reset();
@@ -83,7 +83,6 @@ void EnemyHebe::processBehavior() {
 
     pSplSeq_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
-    //_pSeTxer->behave();
 }
 
 void EnemyHebe::processJudgement() {
@@ -100,7 +99,7 @@ void EnemyHebe::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {

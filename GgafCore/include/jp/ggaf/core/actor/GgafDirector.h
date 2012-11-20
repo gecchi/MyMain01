@@ -26,7 +26,7 @@ private:
      */
     GgafDirector* extract() override {
         throwGgafCriticalException("GgafDirector に extract() は実行できません。name="<<getName());
-        return (GgafDirector*)NULL;
+        return (GgafDirector*)nullptr;
     }
 
 public:
@@ -141,7 +141,7 @@ public:
     GgafGroupHead* addSubGroup(GgafMainActor* prm_pMainActor);
 
     /**
-     * サブの団長アクターを取得、無ければNULLを帰す
+     * サブの団長アクターを取得、無ければnullptrを帰す
      * @param prm_kind
      * @return
      */

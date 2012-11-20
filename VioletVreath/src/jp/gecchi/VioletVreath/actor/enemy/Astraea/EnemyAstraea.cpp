@@ -22,11 +22,11 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     for (int i = 0; i < laser_way_; i++) {
         papapLaserChipDepo_[i] = NEW LaserChipDepository*[laser_way_];
         for (int j = 0; j < laser_way_; j++) {
-            papapLaserChipDepo_[i][j] = NULL;
+            papapLaserChipDepo_[i][j] = nullptr;
         }
     }
 
-    pConn_RefractionEffectDepository_ = connectToDepositoryManager("Conn_EffRefraction001", NULL);
+    pConn_RefractionEffectDepository_ = connectToDepositoryManager("Conn_EffRefraction001", nullptr);
     pConn_LaserChipDepoStore_ = connectToDepositoryManager(
             "Conn_EnemyAstraeaLaserChip004DepoStore",
          //"Conn_EnemyAstraeaLaserChip003DepoStore",
@@ -53,13 +53,13 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     }
     DELETEARR_IMPOSSIBLE_NULL(paAng_way);
 
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
-    _pSeTxer->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_FIRE);
-    pConn_ShotDepo_  = connectToDepositoryManager("Conn_Shot004", NULL);
-    pConn_ShotDepo2_ = connectToDepositoryManager("Conn_Shot004Yellow", NULL);
-    pConn_ShotDepo3_ = connectToDepositoryManager("Conn_Shot004Blue", NULL);
+    pConn_ShotDepo_  = connectToDepositoryManager("Conn_Shot004", nullptr);
+    pConn_ShotDepo2_ = connectToDepositoryManager("Conn_Shot004Yellow", nullptr);
+    pConn_ShotDepo3_ = connectToDepositoryManager("Conn_Shot004Blue", nullptr);
 }
 
 void EnemyAstraea::onCreateModel() {
@@ -153,7 +153,7 @@ void EnemyAstraea::processBehavior() {
                     }
                 }
                 if (can_fire) {
-                    _pSeTxer->play3D(SE_FIRE); //”­ŽË‰¹
+                    _pSeTx->play3D(SE_FIRE); //”­ŽË‰¹
                     effectFlush(2); //ƒtƒ‰ƒbƒVƒ…
                 }
             }
@@ -201,7 +201,7 @@ void EnemyAstraea::processBehavior() {
             break;
         }
     }
-    _pSeTxer->behave();
+    _pSeTx->behave();
     _pKurokoA->behave();
 }
 
@@ -286,7 +286,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 //          UTIL::shotWay002(this, pDepo_Shot_,
 //                              PX_C(20),
 //                              5, 5, D_ANG(6), D_ANG(6),

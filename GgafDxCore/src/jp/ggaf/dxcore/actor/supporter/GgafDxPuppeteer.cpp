@@ -6,15 +6,15 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
     _pPuppet = prm_pPuppet;
     _pModel = (GgafDxD3DXAniMeshModel*)_pPuppet->_pModel;
     _num_perform = 0;
-    _paPerformances = NULL;
-    _pAc = NULL;
+    _paPerformances = nullptr;
+    _pAc = nullptr;
     //操り棒情報初期化
     //左手の操り棒
     _aStick[GgafDxPuppeteerStick::LEFT_HAND]._no = 0;
-    _aStick[GgafDxPuppeteerStick::LEFT_HAND]._pPerformance = NULL;
+    _aStick[GgafDxPuppeteerStick::LEFT_HAND]._pPerformance = nullptr;
     //右手の操り棒
     _aStick[GgafDxPuppeteerStick::RIGHT_HAND]._no = 1;
-    _aStick[GgafDxPuppeteerStick::RIGHT_HAND]._pPerformance = NULL;
+    _aStick[GgafDxPuppeteerStick::RIGHT_HAND]._pPerformance = nullptr;
 #ifdef MY_DEBUG
     if (!_pModel->_pAcBase) {
         throwGgafCriticalException("GgafDxPuppeteer::GgafDxPuppeteer アニメーションコントローラーが存在しません");
@@ -31,7 +31,7 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
 #ifdef MY_DEBUG
     if (_pAc->GetMaxNumTracks() < 2) {
         throwGgafCriticalException("GgafDxPuppeteer::GgafDxPuppeteer()  アニメーショントラックが少なくとも2つ必要です。ご使用のビデオカードではトラック機能がありません。");
-        _paPerformances = NULL;
+        _paPerformances = nullptr;
         return;
     }
 #endif
@@ -85,7 +85,7 @@ GgafDxPuppeteer::GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet) : GgafObje
     checkDxException(hr, D3D_OK, "失敗しました。");
 
     //0秒進める（ことによって反映させる）。
-    hr = _pAc->AdvanceTime(0,NULL);
+    hr = _pAc->AdvanceTime(0,nullptr);
     checkDxException(hr, D3D_OK, "失敗しました。");
 }
 
@@ -228,7 +228,7 @@ void GgafDxPuppeteer::behave() {
                 p->_inc_weight         = 0;
                 p->_is_shifting_weight = false;
 
-                _aStick[i]._pPerformance = NULL;
+                _aStick[i]._pPerformance = nullptr;
             }
         }
     }
@@ -268,7 +268,7 @@ void GgafDxPuppeteer::pause(GgafDxPuppeteerStick prm_handed) {
     if (_aStick[prm_handed]._pPerformance) {
         HRESULT hr = _pAc->SetTrackEnable(_aStick[prm_handed]._no, FALSE);
         checkDxException(hr, D3D_OK, "失敗しました。");
-        _aStick[prm_handed]._pPerformance = NULL;
+        _aStick[prm_handed]._pPerformance = nullptr;
     }
 }
 
@@ -295,7 +295,7 @@ void GgafDxPuppeteer::stop() {
     hr = _pAc->SetTrackWeight(tno, 1.00);
     checkDxException(hr, D3D_OK, "失敗しました。");
     //0秒進める（ことによって反映させる）。
-    hr = _pAc->AdvanceTime(0,NULL);
+    hr = _pAc->AdvanceTime(0,nullptr);
     checkDxException(hr, D3D_OK, "失敗しました。");
 }
 
@@ -310,7 +310,7 @@ void GgafDxPuppeteer::work() {
         }
     }
 
-    HRESULT hr = _pAc->AdvanceTime(0, NULL );
+    HRESULT hr = _pAc->AdvanceTime(0, nullptr );
     checkDxException(hr, D3D_OK, "失敗しました。");
 //    _advance_time_per_draw = 0; //リセット
     //モデルのワールド変換行列更新

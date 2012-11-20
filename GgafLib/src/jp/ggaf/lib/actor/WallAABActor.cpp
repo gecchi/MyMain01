@@ -15,7 +15,7 @@ WallAABActor::WallAABActor(const char* prm_name,
 
     _class_name = "WallAABActor";
     _pMeshSetModel->_set_num = 19; //WallPartsActor最大セット数は20。
-    _h_distance_AlphaTarget = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_distance_AlphaTarget" );
+    _h_distance_AlphaTarget = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
     _pColliChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
     _pColliChecker->setColliAAB(0, 0,0,0, 0,0,0);
     setZEnable(true);       //Zバッファは考慮有り
@@ -53,7 +53,7 @@ void WallAABActor::processDraw() {
         checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     }
     GgafDxDrawableActor* pDrawActor = this;
-    WallPartsActor* pWallPartsActor = NULL;
+    WallPartsActor* pWallPartsActor = nullptr;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {

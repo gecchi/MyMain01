@@ -774,7 +774,7 @@ public:
                                                        coord prm_r,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = NULL);
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
 
     /**
      * ”­ËŒ³‚ÌŒü‚¢‚Ä‚¢‚é•ûŒüi_RZ > _RYj‚ÉŒü‚©‚Á‚Ä ’e‚ğ•¡”ŒÂŒ‚‚Â .
@@ -801,7 +801,7 @@ public:
                                                        coord prm_r,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = NULL);
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
 
     /**
      * ”­ËŒ³‚ÌŒü‚¢‚Ä‚¢‚é•ûŒüi_RZ > _RYj‚ÉŒü‚©‚Á‚Ä ’e‚ğ•¡”ŒÂŒ‚‚Â .
@@ -822,7 +822,7 @@ public:
                                                        coord prm_r,
                                                        velo prm_velo_first, acce prm_acce,
                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = NULL);
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
 
     /**
      * N*M-Way’e‚ğ•¡”ƒZƒbƒgŒ‚‚Â .
@@ -862,7 +862,7 @@ public:
                            angle prm_angClearance_N, angle prm_angClearance_M,
                            velo prm_velo_first, acce prm_acce,
                            int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int, int, int) = NULL);
+                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int, int, int) = nullptr);
 
 
     /**
@@ -897,7 +897,7 @@ public:
                            angle prm_angClearance_N, angle prm_angClearance_M,
                            velo prm_velo_first, acce prm_acce,
                            int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int, int, int) = NULL);
+                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int, int, int) = nullptr);
 
 
     /**
@@ -927,7 +927,7 @@ public:
                            int prm_radial_way_num, angle prm_expanse_angle,
                            velo prm_velo_first, acce prm_acce,
                            int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = NULL);
+                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = nullptr);
 
     /**
      * ”­ËŒ³‚ÌŒü‚¢‚Ä‚¢‚é•ûŒüi_RZ > _RYj‚ÉŒü‚©‚Á‚ÄŠgU•úË’e‚ğ•¡”ƒZƒbƒg“¯‚ÉŒ‚‚Â .
@@ -951,7 +951,7 @@ public:
                            int prm_radial_way_num, angle prm_expanse_angle,
                            velo prm_velo_first, acce prm_acce,
                            int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = NULL);
+                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = nullptr);
 
     /**
      * ‰©‹àŠpŠgU•úË’e‚ğ•¡”ƒZƒbƒg“¯‚ÉŒ‚‚Â .
@@ -982,7 +982,7 @@ public:
                                  angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
                                  velo prm_velo_first, acce prm_acce,
                                  int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                 void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = NULL);
+                                 void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = nullptr);
 
     /**
      * ”­ËŒ³‚ÌŒü‚¢‚Ä‚¢‚é•ûŒüi_RZ > _RYj‚ÉŒü‚©‚Á‚Ä‰©‹àŠpŠgU•úË’e‚ğ•¡”ƒZƒbƒg“¯‚ÉŒ‚‚Â .
@@ -1009,7 +1009,7 @@ public:
                                  angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
                                  velo prm_velo_first, acce prm_acce,
                                  int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                 void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = NULL);
+                                 void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = nullptr);
 
 
 };

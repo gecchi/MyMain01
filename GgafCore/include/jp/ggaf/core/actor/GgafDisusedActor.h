@@ -15,7 +15,7 @@ namespace GgafCore {
 class GgafDisusedActor : public GgafActor {
 public:
     GgafDisusedActor() :
-        GgafActor("DisusedActor", NULL) {
+        GgafActor("DisusedActor", nullptr) {
     }
     void initialize() override {
     }
@@ -39,7 +39,7 @@ public:
     void onHit(GgafActor* prm_pOtherActor) override {
     }
     GgafGod* askGod() {
-        return NULL;
+        return nullptr;
     }
 
     virtual void updateActiveInTheTree() override {

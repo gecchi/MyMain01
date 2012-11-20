@@ -13,9 +13,9 @@ int CWaveDecorder::readMMIO(void) {
     MMCKINFO ckIn; // chunk info. for general use.
     PCMWAVEFORMAT pcmWaveFormat; // Temp PCM structure to load in.
 
-    m_pwfx = NULL;
+    m_pwfx = nullptr;
 
-    if ((0 != mmioDescend(m_hmmioIn, &m_ckInRiff, NULL, 0))) {
+    if ((0 != mmioDescend(m_hmmioIn, &m_ckInRiff, nullptr, 0))) {
         return false;
     }
 
@@ -67,7 +67,7 @@ int CWaveDecorder::readMMIO(void) {
                      cbExtraBytes
                     ) != cbExtraBytes) {
             DELETE_IMPOSSIBLE_NULL(m_pwfx);
-            m_pwfx = NULL;
+            m_pwfx = nullptr;
             return false;
         }
     }
@@ -75,7 +75,7 @@ int CWaveDecorder::readMMIO(void) {
     // Ascend the input file out of the 'fmt ' chunk.
     if (0 != mmioAscend(m_hmmioIn, &ckIn, 0)) {
         DELETE_IMPOSSIBLE_NULL(m_pwfx);
-        m_pwfx = NULL;
+        m_pwfx = nullptr;
         return false;
     }
 
@@ -87,14 +87,14 @@ CWaveDecorder::~CWaveDecorder(void) {
 }
 
 CWaveDecorder::CWaveDecorder(void) :
-    m_pwfx(NULL), m_hmmioIn(NULL) {
+    m_pwfx(nullptr), m_hmmioIn(nullptr) {
 }
 
 /**
  @brief		Waveファイルを開く
  */
 int CWaveDecorder::Open(LPSTR lpszFilename) {
-    if (NULL == (m_hmmioIn = mmioOpen(lpszFilename, NULL, MMIO_ALLOCBUF | MMIO_READ))) {
+    if (nullptr == (m_hmmioIn = mmioOpen(lpszFilename, nullptr, MMIO_ALLOCBUF | MMIO_READ))) {
         return false;
     }
 

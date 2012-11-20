@@ -8,10 +8,10 @@ EnemyPallas::EnemyPallas(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Pallas", STATUS(EnemyPallas)) {
     _class_name = "EnemyPallas";
     iMovePatternNo_ = 0;
-    pSplSeq_ = NULL;
-    pDepo_Shot_ = NULL;
-    pDepo_ShotEffect_ = NULL;
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    pSplSeq_ = nullptr;
+    pDepo_Shot_ = nullptr;
+    pDepo_ShotEffect_ = nullptr;
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     useProgress(10);
 }
 
@@ -28,7 +28,7 @@ void EnemyPallas::initialize() {
 }
 
 void EnemyPallas::onActive() {
-    if (pSplSeq_ == NULL) {
+    if (pSplSeq_ == nullptr) {
         throwGgafCriticalException("EnemyPallasはスプライン必須ですconfigして下さい");
     }
 
@@ -118,7 +118,7 @@ void EnemyPallas::processBehavior() {
         pSplSeq_->behave(); //スプライン移動を振る舞い
     }
     _pKurokoA->behave();
-    //_pSeTxer->behave();
+    //_pSeTx->behave();
 }
 
 void EnemyPallas::processJudgement() {
@@ -134,7 +134,7 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {

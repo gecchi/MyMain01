@@ -10,7 +10,7 @@ int MyLockonController::lockon_num_ = 0;
 
 
 MyLockonController::MyLockonController(const char* prm_name) :
-        GgafDummyActor(prm_name, NULL) {
+        GgafDummyActor(prm_name, nullptr) {
     _class_name = "MyLockonController";
     pRingTarget_ = NEW GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>();
     pMainLockonEffect_ = NEW EffectLockon001_Main("MAIN");
@@ -70,7 +70,7 @@ void MyLockonController::processBehavior() {
                     //死亡ターゲットがメインロックオンのターゲットでリングの最後の一つの場合
                     pRingTarget_->remove();                                    //ターゲット抜き出し
                     ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンエフェクトをリリース実行
-                    pTarget = NULL;
+                    pTarget = nullptr;
                     break;
                 } else {
                     //死亡ターゲットがメインロックオンのターゲットでリングの最後の一つでは無い場合
@@ -185,8 +185,8 @@ MyLockonController::~MyLockonController() {
 }
 
 void MyLockonController::dumpTarget(GgafDxGeometricActor* pMain) {
-    if (pRingTarget_->getFromFirst(0) == NULL) {
-        _TEXT_("NULL\n");
+    if (pRingTarget_->getFromFirst(0) == nullptr) {
+        _TEXT_("nullptr\n");
         return;
     } else {
         _TEXT_("⇔");

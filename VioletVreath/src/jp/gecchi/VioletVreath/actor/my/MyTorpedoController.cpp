@@ -9,7 +9,7 @@ int MyTorpedoController::torpedo_num_ = 0;
 MyTorpedoController::MyTorpedoController(const char* prm_name,
                                          GgafDxCore::GgafDxGeometricActor* prm_pOrg,
                                          MyLockonController* prm_pLockonCtrlr) :
-        GgafDummyActor(prm_name, NULL) {
+        GgafDummyActor(prm_name, nullptr) {
     _class_name = "MyTorpedoController";
     firing_num_ = 0;
     in_firing_ = false;
@@ -39,7 +39,7 @@ void MyTorpedoController::initialize() {
 void MyTorpedoController::onActive() {
     in_firing_ = false;
     for (int i = 0; i < max_torpedo_num_; i++) {
-        papTorpedo_[i]->pTarget_ = NULL;
+        papTorpedo_[i]->pTarget_ = nullptr;
         papTorpedo_[i]->inactivateImmed();
     }
     pDepo_TorpedoBlast_->reset();
@@ -61,7 +61,7 @@ void MyTorpedoController::processJudgement() {
 void MyTorpedoController::onInactive() {
     in_firing_ = false;
     for (int i = 0; i < max_torpedo_num_; i++) {
-        papTorpedo_[i]->pTarget_ = NULL;
+        papTorpedo_[i]->pTarget_ = nullptr;
         papTorpedo_[i]->inactivateImmed();
     }
     pDepo_TorpedoBlast_->reset();
@@ -99,7 +99,7 @@ bool MyTorpedoController::fire() {
                                    pOrg_->_Y + paGeo[i]._Y,
                                    pOrg_->_Z + paGeo[i]._Z);
             if (target_num == 0) {
-                papTorpedo_[i]->pTarget_ = NULL;
+                papTorpedo_[i]->pTarget_ = nullptr;
             } else {
                 papTorpedo_[i]->pTarget_ = pLockonCtrlr_->pRingTarget_->getNext(i);
             }
@@ -108,7 +108,7 @@ bool MyTorpedoController::fire() {
         }
         DELETEARR_IMPOSSIBLE_NULL(paAng_way);
         DELETEARR_IMPOSSIBLE_NULL(paGeo);
-        //pOrg_->_pSeTxer->play3D(MyOption::SE_FIRE_TORPEDO);
+        //pOrg_->_pSeTx->play3D(MyOption::SE_FIRE_TORPEDO);
         return true;
     } else {
         return false;

@@ -4,9 +4,9 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxCubeMapMeshSetEffect::GgafDxCubeMapMeshSetEffect(char* prm_effect_name) : GgafDxMeshSetEffect(prm_effect_name) {
-//    _h_pos_camera = _pID3DXEffect->GetParameterByName( NULL, "pos_camera" );
+//    _h_pos_camera = _pID3DXEffect->GetParameterByName( nullptr, "pos_camera" );
 
-    _h_reflectance = _pID3DXEffect->GetParameterByName(NULL, "g_reflectance");
+    _h_reflectance = _pID3DXEffect->GetParameterByName(nullptr, "g_reflectance");
 }
 
 //void GgafDxCubeMapMeshSetEffect::setParamPerFrame() {

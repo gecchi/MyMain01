@@ -6,8 +6,8 @@ DWORD GgafDxPointSpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE 
 
 GgafDxPointSpriteModel::GgafDxPointSpriteModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     TRACE3("GgafDxPointSpriteModel::GgafDxPointSpriteModel(" << _model_name << ")");
-    _pIDirect3DVertexBuffer9 = NULL;
-    _paVtxBuffer_org = NULL;
+    _pIDirect3DVertexBuffer9 = nullptr;
+    _paVtxBuffer_org = nullptr;
     _vertices_num = 0;
     _size_vertices = 0;
     _size_vertex_unit = 0;
@@ -59,7 +59,7 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
             checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::draw() End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 #ifdef MY_DEBUG
             if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 GgafDxEffectManager::_pEffect_Active->_begin = false;
             }
@@ -78,7 +78,7 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
 
 #ifdef MY_DEBUG
         if (pPointSpriteEffect->_begin == true) {
-            throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+            throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
         } else {
             pPointSpriteEffect->_begin = true;
         }

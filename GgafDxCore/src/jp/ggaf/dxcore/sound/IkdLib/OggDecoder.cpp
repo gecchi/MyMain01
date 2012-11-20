@@ -10,11 +10,11 @@ const unsigned int requestSize_g = 4096; // 読み込み単位
 
 //! コンストラクタ
 OggDecoder::OggDecoder() {
-    _pOggVorbisResource = NULL;
+    _pOggVorbisResource = nullptr;
 }
 
 OggDecoder::OggDecoder(OggVorbisResource* prm_pOggVorbisResource) {
-    _pOggVorbisResource = NULL;
+    _pOggVorbisResource = nullptr;
     setResource(prm_pOggVorbisResource);
 }
 
@@ -103,25 +103,22 @@ void OggDecoder::setHead() {
 }
 
 PCMDecoder* OggDecoder::createClone() {
-    OggDecoder * spObj = NEW
-    OggDecoder;
+    OggDecoder * spObj = NEW OggDecoder;
     if (_pOggVorbisResource->isReady() == false) {
         return spObj; // 空を返す
     }
-
     spObj->setResource(_pOggVorbisResource);
-
     return spObj;
 }
 
 bool OggDecoder::setResource(OggVorbisResource* prm_pOggVorbisResource) {
     clear();
-    if (prm_pOggVorbisResource == NULL || prm_pOggVorbisResource->isReady() == false) {
+    if (prm_pOggVorbisResource == nullptr || prm_pOggVorbisResource->isReady() == false) {
         return false;
     }
 
     _pOggVorbisResource = prm_pOggVorbisResource->createClone();
-    if (_pOggVorbisResource == NULL) {
+    if (_pOggVorbisResource == nullptr) {
         // クローン作成失敗
         return false;
     }

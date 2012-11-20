@@ -20,7 +20,7 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     _hash_technique = 0;
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
-    _pNext_TheSameDrawDepthLevel = NULL;
+    _pNext_TheSameDrawDepthLevel = nullptr;
     //モデル取得connectModelManager
     _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model);
     _pModel = (GgafDxModel*)_pModelCon->fetch();
@@ -84,7 +84,7 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     // effelct_name     = "X/DefaultMeshEffect"
     // という文字列を作成。
 
-    _pNext_TheSameDrawDepthLevel = NULL;
+    _pNext_TheSameDrawDepthLevel = nullptr;
     //モデル取得
     _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(model_name);
     _pModel = (GgafDxModel*)_pModelCon->fetch();
@@ -119,7 +119,7 @@ void GgafDxDrawableActor::processPreDraw() {
         _pModel->_is_init_model = true;
     }
 
-    _pNext_TheSameDrawDepthLevel = NULL;
+    _pNext_TheSameDrawDepthLevel = nullptr;
     //TODO:要検証
     if (isActiveInTheTree()) { //isActiveInTheTree() で判定すると、
         if (_is2DActor) {
@@ -202,9 +202,9 @@ void GgafDxDrawableActor::processPreDraw() {
                     }
                 } else {
                     //特別な描画深度指定有り
-                    if (GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] == NULL) {
+                    if (GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] == nullptr) {
                         //そのprm_draw_depth_levelで最初のアクターの場合
-                        this->_pNext_TheSameDrawDepthLevel = NULL;
+                        this->_pNext_TheSameDrawDepthLevel = nullptr;
                         GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[_specal_drawdepth] = this;
                         GgafDxUniverse::_apAlphaActorLastList_DrawDepthLevel[_specal_drawdepth] = this;
                     } else {

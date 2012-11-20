@@ -22,12 +22,12 @@ void ScrolledScene::scroll_X(GgafObject* pThat, void* p1, void* p2) {
 void ScrolledScene::processBehavior() {
     DefaultScene::processBehavior();
     if (_pFuncScrolling && _is_active_flg && !_was_paused_flg && _can_live_flg) {
-        executeFuncLowerTree(_pFuncScrolling, &_scroll_speed, NULL);
+        executeFuncLowerTree(_pFuncScrolling, &_scroll_speed, nullptr);
         //‚±‚±‚Ì executeFuncLowerTree ‚Ì‘æ‚Q‘æ‚Rˆø”‚ÍA
         //’¼‚®ã‚É‹Lq‚µ‚ÄScrolledScene::scroll_X ‚Ìóæ‚èˆø” p1 ,p2 ‚Æ‘Î‰‚·‚é
         //  this           ¨ GgafObject* pThat
         //  &_scroll_speed ¨ void* p1
-        //  NULL           ¨ void* p2
+        //  nullptr           ¨ void* p2
 
     }
 }

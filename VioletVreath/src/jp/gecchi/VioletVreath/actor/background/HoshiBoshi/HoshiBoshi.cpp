@@ -11,13 +11,13 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
                                prm_model_id,
                                "HoshiBoshiEffect",
                                "HoshiBoshiTechnique",
-                               NULL,
-                               NULL ) {
+                               nullptr,
+                               nullptr ) {
     _class_name = "HoshiBoshi";
-    h_fX_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fX_MyShip" );
-    h_fY_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fY_MyShip" );
-    h_fZ_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fZ_MyShip" );
-    h_far_rate_   = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_far_rate" );
+    h_fX_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_fX_MyShip" );
+    h_fY_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_fY_MyShip" );
+    h_fZ_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_fZ_MyShip" );
+    h_far_rate_   = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
     effectBlendOne(); //‰ÁZ‡¬
     setHitAble(false);
     CAM_ZF_ = ABS(DX_C(P_CAM->_zf));

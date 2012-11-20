@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectSylviaEye001::EffectSylviaEye001(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "EffectSylviaEye001", NULL) {
+        DefaultSpriteActor(prm_name, "EffectSylviaEye001", nullptr) {
     _class_name = "EffectSylviaEye001";
     inactivateImmed();
     effectBlendOne(); //â¡éZçáê¨

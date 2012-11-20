@@ -3,28 +3,28 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-ColliAAPrismActor* ColliAAPrismActor::_pObj = NULL;
+ColliAAPrismActor* ColliAAPrismActor::_pObj = nullptr;
 
-ColliAAPrismActor::ColliAAPrismActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDxAAPrismActor(prm_name, prm_pStat, NULL) {
+ColliAAPrismActor::ColliAAPrismActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDxAAPrismActor(prm_name, prm_pStat, nullptr) {
     _class_name = "ColliAAPrismActor";
     setAlpha(0.8);
 }
 
 ColliAAPrismActor* ColliAAPrismActor::get() {
-    if (ColliAAPrismActor::_pObj == NULL) {
-        ColliAAPrismActor::_pObj = NEW ColliAAPrismActor("HITAREA", NULL);
+    if (ColliAAPrismActor::_pObj == nullptr) {
+        ColliAAPrismActor::_pObj = NEW ColliAAPrismActor("HITAREA", nullptr);
     }
     return ColliAAPrismActor::_pObj;
 }
 
 void ColliAAPrismActor::release() {
-    //あたり判定を持つオブジェクトが一度も使用されないとNULLかもしれない
+    //あたり判定を持つオブジェクトが一度も使用されないとnullptrかもしれない
     DELETE_POSSIBLE_NULL(ColliAAPrismActor::_pObj);
 }
 
 void ColliAAPrismActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
-    if (prm_pColliChecker != NULL &&
-        prm_pColliChecker->_pCollisionArea != NULL &&
+    if (prm_pColliChecker != nullptr &&
+        prm_pColliChecker->_pCollisionArea != nullptr &&
         prm_pColliChecker->getTargetActor()->canHit() &&
         prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
 

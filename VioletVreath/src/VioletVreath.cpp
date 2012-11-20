@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
     return GgafLibMain(argc, argv);
 }
 
-static VioletVreath::God* pGod = NULL;
+static VioletVreath::God* pGod = nullptr;
 
 /**
  * VCならばエントリポイント
@@ -59,7 +59,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     try {
         VioletVreath::Properties::load(".\\config.properties");
     } catch (GgafCore::GgafCriticalException& e) {
-        MessageBox(NULL, (std::string("config.properties のロードの失敗。\n理由：")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(nullptr, (std::string("config.properties のロードの失敗。\n理由：")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         VioletVreath::Properties::clean();
         _TRACE_("[GgafCriticalException]:" << e.getMsg());
         return EXIT_FAILURE;
@@ -79,9 +79,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     wcex1.cbWndExtra = 0;
     wcex1.hInstance = hInstance;
     wcex1.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_VIOLETVREATH));
-    wcex1.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex1.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
-    wcex1.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_VIOLETVREATH);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
+    wcex1.lpszMenuName = nullptr;//MAKEINTRESOURCE(IDC_VIOLETVREATH);//nullptr; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
     wcex1.lpszClassName = szWindowClass;
     wcex1.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -125,7 +125,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
             // ループ・ザ・ループ
             ::timeBeginPeriod(1);
             while (true) {
-                if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+                if (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                     if (msg.message == WM_QUIT) {
                         if (VioletVreath::God::_can_be) {
                             VioletVreath::God::_can_be = false;
@@ -134,7 +134,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                                 _TRACE_("Wait! 神 is being yet..");
                             }
                             delete pGod; //神の最期
-                            pGod = NULL;
+                            pGod = nullptr;
                             VioletVreath::Properties::clean();
                         }
 
@@ -157,7 +157,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         #ifdef _DEBUG
                         //ダンプ
                         //_CrtDumpMemoryLeaks();
-                        _CrtMemDumpAllObjectsSince( NULL );
+                        _CrtMemDumpAllObjectsSince( nullptr );
 
         #else
                         //特に何も無し
@@ -184,7 +184,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         _TRACE_("＜例外＞"<<e.getMsg());
         std::string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(nullptr, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_GgafException.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_GgafException.rep");
         _TRACE_("[GgafCriticalException]:"<<e.getMsg());
@@ -195,7 +195,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         _TRACE_("＜致命的な例外＞"<<what);
         std::string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかった致命的エラーです。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         _TRACE_("[exception]:"<<what);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_exception.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_exception.rep");
@@ -209,7 +209,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         _TRACE_("＜致命的な謎例外＞");
         std::string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(NULL, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+        MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_UNKNOWN_ERROR.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_UNKNOWN_ERROR.rep");
         ::timeEndPeriod(1);
@@ -221,14 +221,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 }
 
 void myUnexpectedHandler() {
-    MessageBox(NULL, "UnexpectedHandler called.","ERROR", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+    MessageBox(nullptr, "UnexpectedHandler called.","ERROR", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Unexpected.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Unexpected.rep");
     std::unexpected();
 }
 
 void myTerminateHandler() {
-    MessageBox(NULL, "TerminateHandler called.","ERROR", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+    MessageBox(nullptr, "TerminateHandler called.","ERROR", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Terminate.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Terminate.rep");
     std::terminate();
@@ -322,19 +322,19 @@ BOOL CustmizeSysMenu(HWND hWnd)
 
     HMENU menu_vp = CreateMenu();
     InsertMenu(menu_vp,  0, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_7, "7");
-    InsertMenu(menu_vp,  1, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp,  1, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
     InsertMenu(menu_vp,  2, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_4, "4");
-    InsertMenu(menu_vp,  3, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp,  3, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
     InsertMenu(menu_vp,  4, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_1, "1");
     InsertMenu(menu_vp,  5, MF_STRING | MF_BYPOSITION | MF_MENUBARBREAK, MY_IDM_VPOS_8, "8");
-    InsertMenu(menu_vp,  6, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp,  6, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
     InsertMenu(menu_vp,  7, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_5, "5");
-    InsertMenu(menu_vp,  8, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp,  8, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
     InsertMenu(menu_vp,  9, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_2, "2");
     InsertMenu(menu_vp, 10, MF_STRING | MF_BYPOSITION | MF_MENUBARBREAK, MY_IDM_VPOS_9, "9");
-    InsertMenu(menu_vp, 11, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp, 11, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
     InsertMenu(menu_vp, 12, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_6, "6");
-    InsertMenu(menu_vp, 13, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(menu_vp, 13, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
     InsertMenu(menu_vp, 14, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_3, "3");
 
     HMENU menu_aspect = CreateMenu();
@@ -342,7 +342,7 @@ BOOL CustmizeSysMenu(HWND hWnd)
     InsertMenu(menu_aspect, 1, MF_STRING | MF_BYPOSITION, MY_IDM_ASPECT_STRETCH, "Stretch");
 
     HMENU hMenu = GetSystemMenu(hWnd, FALSE);
-    InsertMenu(hMenu, 5, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(hMenu, 5, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
     InsertMenu(hMenu, 6, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE    , "Reset window size.");
     InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect.");
     InsertMenu(hMenu, 8, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position.");

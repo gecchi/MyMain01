@@ -330,7 +330,7 @@ void VvvWorld::processBehavior() {
         GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir;
         transform(model_type.begin(), model_type.end(), model_type.begin(), static_cast<int (*)(int)>(toupper));
 
-        GgafDxDrawableActor* pActor = NULL;
+        GgafDxDrawableActor* pActor = nullptr;
         std::string modelfile = "";
         if (model_type == "X") {
             if (model_id.length() > 2 && model_id.substr(model_id.length()-2) == "_0") {
@@ -382,7 +382,7 @@ void VvvWorld::processBehavior() {
         ) {
             if (_listActorInfo.getCurrent()) {
                 GgafDxDrawableActor* pCurrentActor = _listActorInfo.getCurrent()->pActor_;
-                GgafDxDrawableActor* pNewActor = NULL;
+                GgafDxDrawableActor* pNewActor = nullptr;
                 if (pCurrentActor->instanceOf(Obj_GgafDxMeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(_listActorInfo.getCurrent()->modelfile_.c_str()) + "/";
                     GGAF_PROPERTY(DIR_MESH_MODEL[2])   = was_dropfile_dir;

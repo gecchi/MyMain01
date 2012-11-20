@@ -20,9 +20,9 @@ public:
 //    D3DXHANDLE _h_pos_prism;
     static bool _init;
     /** プリズム無条件追加描画不要面テーブル */
-    static __map__<int, UINT> _delface;
+    static std::map<int, UINT> _delface;
 
-    WallAAPrismActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
+    WallAAPrismActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void processDraw() override;
 

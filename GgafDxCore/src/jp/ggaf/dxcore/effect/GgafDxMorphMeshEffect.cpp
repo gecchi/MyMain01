@@ -25,26 +25,26 @@ GgafDxMorphMeshEffect::GgafDxMorphMeshEffect(char* prm_effect_name) : GgafDxEffe
 
 
     //シェーダーハンドル
-    _h_morph_target_num = _pID3DXEffect->GetParameterByName(NULL, "g_morph_target_num");
-    _ah_weight[1] = _pID3DXEffect->GetParameterByName(NULL, "g_weight1");
-    _ah_weight[2] = _pID3DXEffect->GetParameterByName(NULL, "g_weight2");
-    _ah_weight[3] = _pID3DXEffect->GetParameterByName(NULL, "g_weight3");
-    _ah_weight[4] = _pID3DXEffect->GetParameterByName(NULL, "g_weight4");
-    _ah_weight[5] = _pID3DXEffect->GetParameterByName(NULL, "g_weight5");
-    _ah_weight[6] = _pID3DXEffect->GetParameterByName(NULL, "g_weight6");
+    _h_morph_target_num = _pID3DXEffect->GetParameterByName(nullptr, "g_morph_target_num");
+    _ah_weight[1] = _pID3DXEffect->GetParameterByName(nullptr, "g_weight1");
+    _ah_weight[2] = _pID3DXEffect->GetParameterByName(nullptr, "g_weight2");
+    _ah_weight[3] = _pID3DXEffect->GetParameterByName(nullptr, "g_weight3");
+    _ah_weight[4] = _pID3DXEffect->GetParameterByName(nullptr, "g_weight4");
+    _ah_weight[5] = _pID3DXEffect->GetParameterByName(nullptr, "g_weight5");
+    _ah_weight[6] = _pID3DXEffect->GetParameterByName(nullptr, "g_weight6");
 
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         hr = _pID3DXEffect->SetFloat(_ah_weight[i], 0.0f);
         checkDxException(hr, D3D_OK, "GgafDxMorphMeshEffect::GgafDxMorphMeshEffect() SetFloat(_ah_weight["<<i<<"]) に失敗しました。");
     }
-    _h_matView = _pID3DXEffect->GetParameterByName(NULL, "g_matView");
-    _h_matWorld = _pID3DXEffect->GetParameterByName(NULL, "g_matWorld");
-    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName(NULL, "g_colMaterialDiffuse");
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
-    _h_specular = _pID3DXEffect->GetParameterByName( NULL, "g_specular" );
-    _h_specular_power = _pID3DXEffect->GetParameterByName( NULL, "g_specular_power" );
-    _h_posCam = _pID3DXEffect->GetParameterByName( NULL, "g_posCam_World" );
+    _h_matView = _pID3DXEffect->GetParameterByName(nullptr, "g_matView");
+    _h_matWorld = _pID3DXEffect->GetParameterByName(nullptr, "g_matWorld");
+    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName(nullptr, "g_colMaterialDiffuse");
+    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
+    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
+    _h_specular = _pID3DXEffect->GetParameterByName( nullptr, "g_specular" );
+    _h_specular_power = _pID3DXEffect->GetParameterByName( nullptr, "g_specular_power" );
+    _h_posCam = _pID3DXEffect->GetParameterByName( nullptr, "g_posCam_World" );
 }
 
 void GgafDxMorphMeshEffect::setParamPerFrame() {

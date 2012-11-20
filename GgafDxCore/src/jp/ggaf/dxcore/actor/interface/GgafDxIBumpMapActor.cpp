@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxIBumpMapActor::GgafDxIBumpMapActor()  {
-    _pBumpMapTextureCon = NULL;
+    _pBumpMapTextureCon = nullptr;
     _cubemap_tex = "alpha_zero_cubemap.dds";
 }
 

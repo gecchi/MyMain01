@@ -11,7 +11,7 @@ GgafDxSpriteModel::GgafDxSpriteModel(char* prm_model_name) : GgafDxModel(prm_mod
     _fSize_SpriteModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pIDirect3DVertexBuffer9 = NULL;
+    _pIDirect3DVertexBuffer9 = nullptr;
     _obj_model |= Obj_GgafDxSpriteModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
@@ -58,7 +58,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_
             checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() End() に失敗しました。");
 #ifdef MY_DEBUG
             if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 GgafDxEffectManager::_pEffect_Active->_begin = false;
             }
@@ -76,7 +76,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_
 
 #ifdef MY_DEBUG
         if (pSpriteEffect->_begin == true) {
-            throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+            throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
         } else {
             pSpriteEffect->_begin = true;
         }

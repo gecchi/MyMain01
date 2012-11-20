@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 ViewPointGuide::ViewPointGuide(const char* prm_name)
-               : DefaultD3DXMeshActor(prm_name, "Gizmo", NULL) {
+               : DefaultD3DXMeshActor(prm_name, "Gizmo", nullptr) {
     _class_name = "ViewPointGuide";
     setHitAble(false);
 }

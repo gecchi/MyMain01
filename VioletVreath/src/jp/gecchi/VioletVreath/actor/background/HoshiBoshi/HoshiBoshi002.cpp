@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 //åªç›ñ¢égóp
 HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
-        DefaultPointSpriteActor(prm_name, "hoshitest", NULL) {
+        DefaultPointSpriteActor(prm_name, "hoshitest", nullptr) {
     _class_name = "HoshiBoshi002";
     effectBlendOne(); //â¡éZçáê¨
     setHitAble(false);

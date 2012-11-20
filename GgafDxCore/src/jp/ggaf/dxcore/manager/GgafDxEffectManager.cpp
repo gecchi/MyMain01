@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 
-GgafDxEffect* GgafDxEffectManager::_pEffect_Active = NULL;
+GgafDxEffect* GgafDxEffectManager::_pEffect_Active = nullptr;
 
 GgafDxEffectManager::GgafDxEffectManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxEffect> (prm_manager_name) {
@@ -59,7 +59,7 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(char* prm_idstr, void* 
         default:
             TRACE("GgafDxEffectManager::processCreateResource("<<prm_idstr<<") そんな種別はありません");
             throwGgafCriticalException("GgafDxEffectManager::processCreateResource("<<prm_idstr<<") そんなエッフェクト種別は知りません");
-            pResourceEffect = NULL;
+            pResourceEffect = nullptr;
             break;
     }
     TRACE3("GgafDxEffectManager::processCreateResource("<<prm_idstr<<")");

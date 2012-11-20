@@ -17,7 +17,7 @@ public:
 
     SpriteMeshWorldBoundActor(const char* prm_name,
                               const char* prm_model,
-                              GgafCore::GgafStatus* prm_pStat=NULL);
+                              GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }

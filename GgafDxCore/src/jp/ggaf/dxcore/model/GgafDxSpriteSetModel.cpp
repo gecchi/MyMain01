@@ -12,16 +12,16 @@ GgafDxSpriteSetModel::GgafDxSpriteSetModel(char* prm_model_name) : GgafDxModel(p
     _row_texture_split = 1;
     _col_texture_split = 1;
 //    _pattno_uvflip_Max = 0;
-    _pIDirect3DVertexBuffer9 = NULL;
-    _pIDirect3DIndexBuffer9 = NULL;
-//    _paRectUV = NULL;
+    _pIDirect3DVertexBuffer9 = nullptr;
+    _pIDirect3DIndexBuffer9 = nullptr;
+//    _paRectUV = nullptr;
 
     char nm[51];
     strcpy(nm, prm_model_name);
     const char* pT = strtok(nm, "/" );
-    int num = (int)strtol(pT, NULL, 10);
-    pT = strtok(NULL, "/");
-    if (pT == NULL) {
+    int num = (int)strtol(pT, nullptr, 10);
+    pT = strtok(nullptr, "/");
+    if (pT == nullptr) {
         _TRACE_("GgafDxSpriteSetModel("<<prm_model_name<<") の同時描画セット数省略。最大の18セットが設定されます。");
         _set_num = 18;
     } else {
@@ -76,7 +76,7 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
 
 #ifdef MY_DEBUG
             if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 GgafDxEffectManager::_pEffect_Active->_begin = false;
             }
@@ -95,7 +95,7 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
 
 #ifdef MY_DEBUG
         if (pSpriteSetEffect->_begin == true) {
-            throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+            throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
         } else {
             pSpriteSetEffect->_begin = true;
         }

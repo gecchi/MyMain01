@@ -12,7 +12,7 @@ namespace VioletVreath {
 class EnemyIris :
   public GgafLib::DefaultMeshSetActor {
 
-//    /** フォーメーション(非フォーメーション時はNULL) */
+//    /** フォーメーション(非フォーメーション時はnullptr) */
 //    GgafLib::TreeFormation* pFormation_;
     /** 移動スプラインプログラム */
     GgafLib::SplineSequence* pSplSeq_;

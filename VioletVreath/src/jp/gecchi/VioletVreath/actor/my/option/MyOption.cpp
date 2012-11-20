@@ -50,7 +50,7 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
 //    pEffect_LaserIrradiate_ = NEW EffectLockon001_Main("OP_Eff_Ref");
 //    pEffect_LaserIrradiate_->inactivateImmed();
 //    addSubGroup(pEffect_LaserIrradiate_);
-    pEffect_LaserIrradiate_ = NULL;
+    pEffect_LaserIrradiate_ = nullptr;
     pLaserChipDepo_ = NEW LaserChipDepository("ROTLaser");
     MyOptionWateringLaserChip001* pChip;
 //    MyOptionStraightLaserChip001* pChip;
@@ -88,9 +88,9 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
     pTorpedoCtrlr_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrlr_);
     addSubGroup(pTorpedoCtrlr_);
 
-    _pSeTxer->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
-    _pSeTxer->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
-    _pSeTxer->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
+    _pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
+    _pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
+    _pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     need_adjust_pos_flg_ = false;
 }
@@ -572,8 +572,8 @@ void MyOption::processBehavior() {
             pLaserChip->_RY = _RY;
             pLaserChip->pOrg_ = this;
 
-            if (pLaserChip->_pChip_front == NULL) {
-                _pSeTxer->play3D(SE_FIRE_LASER);
+            if (pLaserChip->_pChip_front == nullptr) {
+                _pSeTx->play3D(SE_FIRE_LASER);
             }
         }
     } else {
@@ -582,7 +582,7 @@ void MyOption::processBehavior() {
     if (pMyShip->just_shot_) {
         MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
         if (pShot) {
-            _pSeTxer->play3D(SE_FIRE_SHOT);
+            _pSeTx->play3D(SE_FIRE_SHOT);
             pShot->locateWith(this);
             pShot->_pKurokoA->_angFace[AXIS_X] = _RX;
             pShot->_pKurokoA->_angFace[AXIS_Z] = _RZ;
@@ -591,7 +591,7 @@ void MyOption::processBehavior() {
         }
     }
 
-    _pSeTxer->behave();
+    _pSeTx->behave();
 
 }
 

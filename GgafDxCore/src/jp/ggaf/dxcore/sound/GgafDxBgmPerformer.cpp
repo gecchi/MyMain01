@@ -7,8 +7,8 @@ using namespace GgafDxCore;
 
 GgafDxBgmPerformer::GgafDxBgmPerformer() : GgafObject() {
     _bgm_num = 0;
-    _paDouble_volume = NULL;
-    _papBgmCon = NULL;
+    _paDouble_volume = nullptr;
+    _papBgmCon = nullptr;
 }
 
 void GgafDxBgmPerformer::useBgm(int prm_bgm_num) {
@@ -16,7 +16,7 @@ void GgafDxBgmPerformer::useBgm(int prm_bgm_num) {
     _papBgmCon = NEW GgafDxBgmConnection*[_bgm_num];
     _paDouble_volume = NEW double[_bgm_num];
     for (int i = 0; i < _bgm_num; i++) {
-        _papBgmCon[i] = NULL;
+        _papBgmCon[i] = nullptr;
         _paDouble_volume[i] = GGAF_MAX_VOLUME;
     }
 }

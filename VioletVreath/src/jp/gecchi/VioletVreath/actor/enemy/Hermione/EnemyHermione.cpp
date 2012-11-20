@@ -76,8 +76,8 @@ EnemyHermione::EnemyHermione(const char* prm_name) :
         }
     }
 
-    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(5);
 }
 
@@ -97,9 +97,7 @@ void EnemyHermione::onActive() {
     _pMorpher->setWeight(1, 0.0);
     _pKurokoA->setRzRyMvAng(0, D180ANG);
     _pKurokoA->setMvVelo(10);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 20);
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 67);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 99);
+    _pKurokoA->setFaceAngVelo(20, 67, 99);
     _pProg->set(PROG_MOVE);
     setAlpha(0.2);
 }
@@ -119,6 +117,7 @@ void EnemyHermione::processBehavior() {
 
     _pKurokoA->behave();
     _pMorpher->behave();
+    _pSeTx->behave();
 }
 
 void EnemyHermione::processJudgement() {
@@ -134,7 +133,7 @@ void EnemyHermione::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
@@ -150,7 +149,7 @@ void EnemyHermione::onHit(GgafActor* prm_pOtherActor) {
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTxer->play3D(SE_DAMAGED);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

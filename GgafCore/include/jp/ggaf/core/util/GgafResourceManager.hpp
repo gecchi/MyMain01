@@ -31,7 +31,7 @@ private:
     /**
      * GgafResourceConnectionオブジェクトをリストから検索。<BR>
      * @param prm_idstr 識別名
-     * @return  所望のGgafResourceConnectionオブジェクトのポインタ。リストに存在しなかった場合 NULL
+     * @return  所望のGgafResourceConnectionオブジェクトのポインタ。リストに存在しなかった場合 nullptr
      */
     virtual GgafResourceConnection<T>* find(char* prm_idstr);
 
@@ -59,7 +59,7 @@ protected:
     static volatile bool _is_waiting_to_connect;
     /** [r]マネージャ名称 */
     const char* _manager_name;
-    /** [r]GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はNULL */
+    /** [r]GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はnullptr */
     GgafResourceConnection<T>* _pConnection_first;
 
 protected:
@@ -121,7 +121,7 @@ public:
      * @return 識別名に紐付く資源接続(GgafResourceConnection)
      */
     virtual GgafResourceConnection<T>* connect(char* prm_idstr) {
-        return this->connect(prm_idstr, NULL);
+        return this->connect(prm_idstr, nullptr);
     }
 
     /**
@@ -133,7 +133,7 @@ public:
      * @return 識別名に紐付く資源接続(GgafResourceConnection)
      */
     virtual GgafResourceConnection<T>* connect(const char* prm_idstr) {
-        return this->connect((char*)prm_idstr, NULL);
+        return this->connect((char*)prm_idstr, nullptr);
     }
 
     /**
@@ -168,7 +168,7 @@ template<class T>
 GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject(),
       _manager_name(prm_manager_name) {
     TRACE3("GgafResourceManager<T>::GgafResourceManager(" << prm_manager_name << ")");
-    _pConnection_first = NULL;
+    _pConnection_first = nullptr;
     _is_connecting_resource = false;
     _is_waiting_to_connect = false;
 }
@@ -184,12 +184,12 @@ GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
         }
         pCurrent = pCurrent->_pNext;
     }
-    return NULL;
+    return nullptr;
 }
 
 template<class T>
 void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_new) {
-    if (_pConnection_first == NULL) {
+    if (_pConnection_first == nullptr) {
         _pConnection_first = prm_pResource_new;
         return;
     } else {
@@ -204,8 +204,8 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_new) {
 
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void* prm_p) {
-    if (prm_idstr == NULL) {
-        TRACE3("警告 GgafResourceManager<T>::connect(NULL) [" << _manager_name << "]");
+    if (prm_idstr == nullptr) {
+        TRACE3("警告 GgafResourceManager<T>::connect(nullptr) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect || _is_connecting_resource) {
         _TRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中です。待機が発生しました・・ 待機中("<<prm_idstr<<")");
@@ -222,7 +222,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     _is_connecting_resource = true;
 
     //TODO:簡易的な排他。ほぼ完璧だが完全ではない。
-    GgafResourceConnection<T>* pObj = NULL;
+    GgafResourceConnection<T>* pObj = nullptr;
     for(int i = 0; GgafResourceConnection<T>::_is_closing_resource; i++) {
         _is_waiting_to_connect = true;
         Sleep(10);
@@ -242,7 +242,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     //次回組む時は気をつけよう、ココは時間のあるときにちゃんやろう。そのうち；；；
     //_TRACE_(" connect to " << _manager_name<<" for "<<prm_idstr<<"...");
     pObj = find(prm_idstr);
-    if (pObj == NULL) {
+    if (pObj == nullptr) {
         //未生成ならば生成。接続カウンタを１
         T* pResource = createResource(prm_idstr, prm_p);
         pObj = createResourceConnection(prm_idstr, pResource);
@@ -280,15 +280,15 @@ GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(char
 template<class T>
 void GgafResourceManager<T>::dump() {
     GgafResourceConnection<T>* pCurrent = _pConnection_first;
-    if (_pConnection_first == NULL) {
+    if (_pConnection_first == nullptr) {
         _TRACE_("GgafResourceManager::dump[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_next;
         while (pCurrent) {
             _TRACE_("GgafResourceManager::dump[" << _manager_name << "] [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
             pCurrent_next = pCurrent->_pNext;
-            if (pCurrent_next == NULL) {
-                pCurrent = NULL;
+            if (pCurrent_next == nullptr) {
+                pCurrent = nullptr;
                 break;
             } else {
                 pCurrent = pCurrent_next;
@@ -318,7 +318,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
     dump();
 #endif
     GgafResourceConnection<T>* pCurrent = _pConnection_first;
-    if (_pConnection_first == NULL) {
+    if (_pConnection_first == nullptr) {
         TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_next;
@@ -334,7 +334,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
             for (int i = 0; i < rnum; i++) {
                 pCurrent->close(); //自殺するまで解放
             }
-            if (pCurrent_next == NULL) {
+            if (pCurrent_next == nullptr) {
                 //最後の一つ
                 break;
             } else {

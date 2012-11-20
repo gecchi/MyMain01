@@ -10,7 +10,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
         WateringLaserChip(prm_name, "MyOptionWateringLaserChip001", STATUS(MyOptionWateringLaserChip001)) {
     _class_name = "MyOptionWateringLaserChip001";
     default_stamina_ = _pStatus->get(STAT_Stamina);
-    pOrg_ = NULL;
+    pOrg_ = nullptr;
     lockon_st_ = 0;
     is_lockon_ = false;
     max_acce_renge_ = 0;
@@ -32,7 +32,7 @@ void MyOptionWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrlr_->pRingTarget_->getCurrent();
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
-        if (_pChip_front == NULL) {
+        if (_pChip_front == nullptr) {
             //先端チップ
             lockon_st_ = 1;
         } else {
@@ -41,7 +41,7 @@ void MyOptionWateringLaserChip001::onActive() {
             lockon_st_ = pF->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
-        if (_pChip_front == NULL) {
+        if (_pChip_front == nullptr) {
             //先端チップ
             lockon_st_ = 0;
         } else {
@@ -143,7 +143,7 @@ void MyOptionWateringLaserChip001::moveChip(int tX,int tY, int tZ) {
     double accY = ((vTy * r) - vVMy) / r_max_acce_;
     double accZ = ((vTz * r) - vVMz) / r_max_acce_;
 
-    if (_pChip_front == NULL) {
+    if (_pChip_front == nullptr) {
         //先頭はやや速めに
         _pKurokoB->setVxMvAcce(accX+SGN(accX)*5); //SGN(accX)*5 を加算するのは、加速度を0にしないため
         _pKurokoB->setVyMvAcce(accY+SGN(accY)*5);
@@ -215,7 +215,7 @@ void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                 //オプションのロックオンに見事命中した場合
 
                 lockon_st_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
-                if (_pChip_front && _pChip_front->_pChip_front == NULL) {
+                if (_pChip_front && _pChip_front->_pChip_front == nullptr) {
                     //中間先頭チップがヒットした場合、先端にも伝える(先端は当たり判定ないため中間先頭と同値にする)
                     ((MyOptionWateringLaserChip001*)_pChip_front)->lockon_st_ = 2;
                 }

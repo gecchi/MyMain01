@@ -28,10 +28,11 @@
     #if _MSC_VER < 1500
         #define override
     #endif
-#else
-    //GCC4.7.0になったため
-    //#define override
+    #if _MSC_VER < 1600
+        #define nullptr NULL
+    #endif
 #endif
+
 
 #define _HAS_ITERATOR_DEBUGGING 0
 
@@ -71,31 +72,6 @@
 #include "Shlwapi.h"
 #include <time.h>
 #include <algorithm>
-
-#ifdef _MSC_VER
-#define __map__ std::map
-#else
-#define __map__ std::map
-//#include <unordered_map>
-//#define __map__ unordered_map
-#endif
-
-#ifndef _MSC_VER
-
-#endif
-//#ifndef _MSC_VER
-//    //GCCの場合、sal.hを別途インクルード
-//    #include "sal.h"
-//    // GCCの場合sal.hで何故かNULL が __null で 未定義のため強制的に再定義(ﾅﾝﾉｺｯﾁｬ)
-//    // /GgafCore/MSVC_include/sal.h コード内の忘備録メモを参照
-//    #undef NULL
-//    #ifdef __cplusplus
-//        #define NULL 0
-//    #else
-//        #define NULL ((void*)0)
-//    #endif
-//#endif
-
 
 #ifdef MY_DEBUG
 //自分用デバッグビルドの場合
@@ -148,52 +124,52 @@
     //#define _TEXT_(X)
 
     //メモリ解放用マクロ
-    /** NULLかどうか不明なdelete */
+    /** nullptrかどうか不明なdelete */
     #define DELETE_POSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             delete (POINTER); \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } else { \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } \
     } while(0)
-    /** NULLかどうか不明なdelete[] */
+    /** nullptrかどうか不明なdelete[] */
     #define DELETEARR_POSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             delete[] (POINTER); \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } else { \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } \
     } while(0)
 
-    /** NULLはありえないdelete */
+    /** nullptrはありえないdelete */
     #define DELETE_IMPOSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             delete (POINTER); \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } else { \
             std::stringstream ss; \
-            ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
-                  #POINTER << " の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしいのでは？。調査せよ。"; \
+            ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
+                  #POINTER << " の解放をやむなく無視しました。本来は、ここでnullptrになってこと自体おかしいのでは？。調査せよ。"; \
             GgafCore::GgafLogger::writeln(ss); \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } \
     } while(0)
-    /** NULLはありえないdelete[] */
+    /** nullptrはありえないdelete[] */
     #define DELETEARR_IMPOSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             delete[] (POINTER); \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } else { \
             std::stringstream ss; \
-            ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
-                  #POINTER << "の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしいのでは？。調査せよ。"; \
+            ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
+                  #POINTER << "の解放をやむなく無視しました。本来は、ここでnullptrになってこと自体おかしいのでは？。調査せよ。"; \
             GgafCore::GgafLogger::writeln(ss); \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } \
     } while(0)
-    /** NULLかどうか不明なRelease() */
+    /** nullptrかどうか不明なRelease() */
     #define RELEASE_POSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             int rc = (POINTER)->AddRef(); \
@@ -212,12 +188,12 @@
                     GgafCore::GgafLogger::writeln(ss); \
                 } \
             } \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } else { \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } \
     } while(0)
-    /** NULLはありえないRelease() */
+    /** nullptrはありえないRelease() */
     #define RELEASE_IMPOSSIBLE_NULL(POINTER) do { \
         if (POINTER) { \
             int rc = (POINTER)->AddRef(); \
@@ -236,27 +212,27 @@
                     GgafCore::GgafLogger::writeln(ss); \
                 } \
             } \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } else { \
             std::stringstream ss; \
-            ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
-                  #POINTER << "のリリースをやむなく無視しました。本来は、ここでNULLになってこと自体おかしいのでは？。調査せよ。"; \
+            ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
+                  #POINTER << "のリリースをやむなく無視しました。本来は、ここでnullptrになってこと自体おかしいのでは？。調査せよ。"; \
             GgafCore::GgafLogger::writeln(ss); \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } \
     } while(0)
     /** 自明で検査不要の何も言わないRelease() */
     #define RELEASE_SAFETY(POINTER) do { \
         if (POINTER) { \
             (POINTER)->Release(); \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } else { \
-            (POINTER) = NULL; \
+            (POINTER) = nullptr; \
         } \
     } while(0)
-//#define RELEASE_POSSIBLE_NULL(POINTER) {(POINTER) = NULL;}
-//#define RELEASE_IMPOSSIBLE_NULL(POINTER) {(POINTER) = NULL;}
-//#define RELEASE_SAFETY(POINTER) {(POINTER) = NULL;}
+//#define RELEASE_POSSIBLE_NULL(POINTER) {(POINTER) = nullptr;}
+//#define RELEASE_IMPOSSIBLE_NULL(POINTER) {(POINTER) = nullptr;}
+//#define RELEASE_SAFETY(POINTER) {(POINTER) = nullptr;}
 
 #else
 //自分用リリースビルド時
@@ -289,20 +265,20 @@
     //#define _TRACEORE(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
 
     //メモリ解放用マクロ
-    /** NULLかもしれない delete */
-    #define DELETE_POSSIBLE_NULL(POINTER)       do { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
-    /** NULLかもしれない delete[] */
-    #define DELETEARR_POSSIBLE_NULL(POINTER)    do { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
-    /** NULLかもしれない Release() */
-    #define RELEASE_POSSIBLE_NULL(POINTER)      do { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
-    /** NULLはありえない delete */
-    #define DELETE_IMPOSSIBLE_NULL(POINTER)     do { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
-    /** NULLはありえない delete[] */
-    #define DELETEARR_IMPOSSIBLE_NULL(POINTER)  do { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
-    /** NULLはありえない Release() */
-    #define RELEASE_IMPOSSIBLE_NULL(POINTER)    do { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
+    /** nullptrかもしれない delete */
+    #define DELETE_POSSIBLE_NULL(POINTER)       do { if(POINTER) { delete (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    /** nullptrかもしれない delete[] */
+    #define DELETEARR_POSSIBLE_NULL(POINTER)    do { if(POINTER) { delete[] (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    /** nullptrかもしれない Release() */
+    #define RELEASE_POSSIBLE_NULL(POINTER)      do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    /** nullptrはありえない delete */
+    #define DELETE_IMPOSSIBLE_NULL(POINTER)     do { if(POINTER) { delete (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    /** nullptrはありえない delete[] */
+    #define DELETEARR_IMPOSSIBLE_NULL(POINTER)  do { if(POINTER) { delete[] (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    /** nullptrはありえない Release() */
+    #define RELEASE_IMPOSSIBLE_NULL(POINTER)    do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** 自明で検査不要の何も言わないRelease() */
-    #define RELEASE_SAFETY(POINTER)       do { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } } while(0)
+    #define RELEASE_SAFETY(POINTER)       do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
 
 #endif
 

@@ -2,7 +2,7 @@
 
 using namespace GgafCore;
 
-GgafDirector::GgafDirector(GgafScene* prm_pScene_platform) : GgafActor(prm_pScene_platform->getName(), NULL) {
+GgafDirector::GgafDirector(GgafScene* prm_pScene_platform) : GgafActor(prm_pScene_platform->getName(), nullptr) {
     _obj_class |= Obj_GgafDirector;
     _class_name = "GgafDirector";
 
@@ -20,7 +20,7 @@ GgafGroupHead* GgafDirector::addSubGroup(actorkind prm_kind, GgafMainActor* prm_
         prm_pMainActor->extract();
     }
     GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind);
-    if (pSubGroupActor == NULL) {
+    if (pSubGroupActor == nullptr) {
         pSubGroupActor = NEW GgafGroupHead(prm_kind);
         addSubLast(pSubGroupActor);
     } else {
@@ -43,11 +43,11 @@ GgafGroupHead* GgafDirector::addSubGroup(GgafMainActor* prm_pMainActor) {
 
 
 GgafGroupHead* GgafDirector::searchSubGroupHead(actorkind prm_kind) {
-    if (_pSubFirst == NULL) {
-        return NULL;
+    if (_pSubFirst == nullptr) {
+        return nullptr;
     } else {
         GgafActor* pSubActor = _pSubFirst;
-        GgafGroupHead* pSubGroupHead_ret = NULL;
+        GgafGroupHead* pSubGroupHead_ret = nullptr;
         do {
             if (pSubActor->instanceOf(Obj_GgafGroupHead)) {
                 pSubGroupHead_ret = (GgafGroupHead*)pSubActor;
@@ -62,7 +62,7 @@ GgafGroupHead* GgafDirector::searchSubGroupHead(actorkind prm_kind) {
             }
         } while (true);
 
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -79,9 +79,9 @@ void GgafDirector::updateActiveInTheTree() {
 }
 
 GgafGod* GgafDirector::askGod() {
-    if (_pGod == NULL) {
+    if (_pGod == nullptr) {
 #ifdef MY_DEBUG
-        if (getPlatformScene() == NULL) {
+        if (getPlatformScene() == nullptr) {
             throwGgafCriticalException("GgafDirector::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         }
 #endif

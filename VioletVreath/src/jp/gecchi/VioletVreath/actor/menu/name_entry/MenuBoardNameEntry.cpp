@@ -56,8 +56,8 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     relateItemExNext(ITEM_INDEX_BS_, ITEM_INDEX_OK_); //[BS]から↓もOKへ行く
 
     //setNameStringBoard()してください
-    pLabelInputedName_ = NULL;
-    pLabelSelectedChar_ = NULL;
+    pLabelInputedName_ = nullptr;
+    pLabelSelectedChar_ = nullptr;
 
     //メニューカーソルを設定
     CursorNameEntryMenu* pCursor = NEW CursorNameEntryMenu("CursorNameEntryMenu");
@@ -78,12 +78,12 @@ void MenuBoardNameEntry::setNameStringBoard(StringSpriteActor* prm_pInputedName,
 
 bool MenuBoardNameEntry::condDecision() {
     if (VB->isPushedDown(VB_UI_EXECUTE)) {
-        _pSeTxer->play(SE_DECIDED_NOMAL);
+        _pSeTx->play(SE_DECIDED_NOMAL);
         return true;
     } else if (VB->isPushedDown(VB_UI_CANCEL) &&
                getSelectedIndex() == ITEM_INDEX_BS_) {
         //特別に[BS]でキャンセルボタン押した場合は。[BS]を「決定（振る舞い）」したことにする
-        _pSeTxer->play(SE_DECIDED_CANCEL);
+        _pSeTx->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -94,7 +94,7 @@ bool MenuBoardNameEntry::condCancel() {
     if (VB->isPushedDown(VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
-        _pSeTxer->play(SE_DECIDED_CANCEL);
+        _pSeTx->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -182,7 +182,7 @@ void MenuBoardNameEntry::moveCursorExPrev() { //上の時
 
 void MenuBoardNameEntry::processBehavior() {
 #ifdef MY_DEBUG
-    if (pLabelInputedName_ == NULL || pLabelSelectedChar_ == NULL) {
+    if (pLabelInputedName_ == nullptr || pLabelSelectedChar_ == nullptr) {
         throwGgafCriticalException("MenuBoardNameEntry::processBehavior() 事前に setNameStringBoard() してください。");
     }
 

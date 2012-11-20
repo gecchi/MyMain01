@@ -550,9 +550,9 @@ public:
 
 template<class T>
 MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
-  T(prm_name, prm_model, NULL),_lstItems(3) { //全アイテム枝を３つ追加：「その他次」「その他前」「キャンセル」の３つ
+  T(prm_name, prm_model, nullptr),_lstItems(3) { //全アイテム枝を３つ追加：「その他次」「その他前」「キャンセル」の３つ
     T::_class_name = "MenuActor";
-    _pCursor = NULL;
+    _pCursor = nullptr;
     _X_cursor_adjust = 0;
     _Y_cursor_adjust = 0;
     _Z_cursor_adjust = 0;
@@ -575,7 +575,7 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _will_be_just_cancelled_next_frame = false;
     _can_controll = false;
     _will_be_able_to_controll = false;
-    _pActiveSubMenu = NULL;
+    _pActiveSubMenu = nullptr;
     for (int i = 0; i < 10; i++) {
         _lstMoveHistory.addLast(new int(0), true);
     }

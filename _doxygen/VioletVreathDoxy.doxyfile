@@ -32,7 +32,7 @@ PROJECT_NAME           = "Violet Vreath"
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = 0.0.015
+PROJECT_NUMBER         = 0.0.016
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description 
 # for a project that appears at the top of each page and should give viewer 
@@ -1529,7 +1529,7 @@ EXPAND_AS_DEFINED      =
 # that are alone on a line, have an all uppercase name, and do not end with a 
 # semicolon, because these will confuse the parser if not removed.
 
-SKIP_FUNCTION_MACROS   = YES
+SKIP_FUNCTION_MACROS   = NO
 
 #---------------------------------------------------------------------------
 # Configuration::additions related to external references
@@ -1676,7 +1676,7 @@ TEMPLATE_RELATIONS     = YES
 # file showing the direct and indirect include dependencies of the file with 
 # other documented files.
 
-INCLUDE_GRAPH          = NO
+INCLUDE_GRAPH          = YES
 
 # If the ENABLE_PREPROCESSING, SEARCH_INCLUDES, INCLUDED_BY_GRAPH, and 
 # HAVE_DOT tags are set to YES then doxygen will generate a graph for each 

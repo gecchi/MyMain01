@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MyOptionControllerDirectionVector::MyOptionControllerDirectionVector(const char* prm_name) :
-        DefaultMeshActor(prm_name, "Nothing", NULL) {
+        DefaultMeshActor(prm_name, "Nothing", nullptr) {
     _class_name = "MyOptionControllerDirectionVector";
 
     ptn_no_ = 0;

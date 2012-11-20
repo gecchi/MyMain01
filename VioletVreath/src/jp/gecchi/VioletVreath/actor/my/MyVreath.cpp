@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MyVreath::MyVreath(const char* prm_name) :
-        DefaultMeshActor(prm_name, "wave", NULL) {
+        DefaultMeshActor(prm_name, "wave", nullptr) {
     _class_name = "MyVreath";
 }
 

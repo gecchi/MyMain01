@@ -109,7 +109,7 @@ GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) :
 
 
     _taget_mv_ang_alltime_flg = false;
-    _taget_mv_ang_alltime_pActor = NULL;
+    _taget_mv_ang_alltime_pActor = nullptr;
     _taget_mv_ang_alltime_tX = 0;
     _taget_mv_ang_alltime_tY = 0;
     _taget_mv_ang_alltime_tZ = 0;

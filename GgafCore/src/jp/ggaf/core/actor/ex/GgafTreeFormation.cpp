@@ -15,7 +15,7 @@ void GgafTreeFormation::addSubLast(GgafActor* prm_pSub) {
     }
 #endif
     _num_sub++;
-    if (_pSubFirst == NULL) {
+    if (_pSubFirst == nullptr) {
         //団長に種別を正しく伝えるために種別を引き継ぐ
         _pStatus->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
     } else {
@@ -37,7 +37,7 @@ void GgafTreeFormation::processFinal() {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
     } else {
-        if (getSubFirst() == NULL) {          //配下がない場合、フォーメーションはなかったことになり、自身を終了
+        if (getSubFirst() == nullptr) {          //配下がない場合、フォーメーションはなかったことになり、自身を終了
             sayonara(_offset_frames_end);
         }
     }

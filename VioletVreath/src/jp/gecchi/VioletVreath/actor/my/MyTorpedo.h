@@ -23,7 +23,7 @@ public:
     GgafLib::LaserChipDepository* pTailEffectDepository_;
     /** [r]魚雷発射時の座標 */
     int begin_X_,begin_Y_,begin_Z_;
-    /** [r]到達目標のアクター。NULLの場合は自機前方のゲーム領域境界点を目標とする仕組み */
+    /** [r]到達目標のアクター。nullptrの場合は自機前方のゲーム領域境界点を目標とする仕組み */
     GgafDxCore::GgafDxGeometricActor* pTarget_;
 
     int move_section_;

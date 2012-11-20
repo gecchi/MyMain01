@@ -12,17 +12,17 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
         _pStatus = NEW GgafStatus(12);
         _pStatus->set(0, 0);
     }
-    _pScene_platform = NULL;
-    _pGod = NULL;
+    _pScene_platform = nullptr;
+    _pGod = nullptr;
     _can_hit_flg = false;
     _can_hit_out_of_view = true;
-    _pDependenceDepository = NULL;
-    _pFormation = NULL;
+    _pDependenceDepository = nullptr;
+    _pFormation = nullptr;
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
 }
 
 GgafActor::~GgafActor() {
-    _pFormation = NULL;
+    _pFormation = nullptr;
     DELETE_IMPOSSIBLE_NULL(_pStatus);
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
     //OutputDebugStringA("*");
@@ -91,11 +91,11 @@ void GgafActor::setHitAbleTree(bool prm_can_hit_flg) {
 
 
 GgafScene* GgafActor::getPlatformScene() {
-    if (_pScene_platform == NULL) {
+    if (_pScene_platform == nullptr) {
         if (getParent()) {
             _pScene_platform = getParent()->getPlatformScene();
         } else {
-            _pScene_platform = NULL;
+            _pScene_platform = nullptr;
         }
     }
     return _pScene_platform;
@@ -123,7 +123,7 @@ void GgafActor::sayonara(frame prm_offset_frames) {
 
 GgafActor* GgafActor::extract() {
     GgafActor* pActor = GgafElement<GgafActor>::extract();
-    pActor->setPlatformScene(NULL); //èäëÆÉVÅ[ÉìÉäÉZÉbÉg
+    pActor->setPlatformScene(nullptr); //èäëÆÉVÅ[ÉìÉäÉZÉbÉg
     return pActor;
 }
 
@@ -147,7 +147,7 @@ void GgafActor::dump() {
             if (pActor_tmp->_pNext) {
                 pActor_tmp = pActor_tmp->_pNext;
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
             if (pActor_tmp->_is_first_flg) {
@@ -167,7 +167,7 @@ void GgafActor::dump(std::string prm_parent) {
             if (pActor_tmp->_pNext) {
                 pActor_tmp = pActor_tmp->_pNext;
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
             if (pActor_tmp->_is_first_flg) {

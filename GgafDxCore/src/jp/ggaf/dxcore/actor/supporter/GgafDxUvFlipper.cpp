@@ -16,12 +16,12 @@ GgafDxUvFlipper::GgafDxUvFlipper(GgafDxTexture* prm_pTexture) : GgafObject() {
     _one_ptn_tex_height = 1.0f;
     _ptn_col_num = 1;
     _ptn_row_num = 1;
-    _paInt_PtnOffset_Customized = NULL;
+    _paInt_PtnOffset_Customized = nullptr;
     _nPtn_Customized = 0;
     _cnt_Customized = 0;
     _base_u = 0.0f;
     _base_v = 0.0f;
-    _paUV = NULL;
+    _paUV = nullptr;
 }
 
 void GgafDxUvFlipper::setRotation(float prm_base_u, float prm_base_v,
@@ -99,7 +99,7 @@ void GgafDxUvFlipper::setFlipMethod(GgafDxUvFlippingMethod prm_method, int prm_i
 void GgafDxUvFlipper::behave() {
 //    _TRACE_(getName()<<":_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_pattno_uvflip_bottom="<<_pattno_uvflip_bottom<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
 #ifdef MY_DEBUG
-    if (_paUV == NULL) {
+    if (_paUV == nullptr) {
         throwGgafCriticalException("GgafDxUvFlipper::behave 事前にsetRotation()でパターンしてください。_pTexture="<<_pTexture->getName());
     }
 #endif

@@ -4,7 +4,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 DefaultPointSpriteTestActor::DefaultPointSpriteTestActor(const char* prm_name) :
-        DefaultPointSpriteActor(prm_name, "_chk_DefaultPointSpriteTestModel", NULL) {
+        DefaultPointSpriteActor(prm_name, "_chk_DefaultPointSpriteTestModel", nullptr) {
     _class_name = "DefaultPointSpriteTestActor";
     effectBlendOne(); //â¡éZçáê¨
     setHitAble(false);

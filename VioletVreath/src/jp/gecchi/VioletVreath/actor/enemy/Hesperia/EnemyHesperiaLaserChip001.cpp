@@ -13,7 +13,7 @@ EnemyHesperiaLaserChip001::EnemyHesperiaLaserChip001(const char* prm_name) :
     tX2_ = tY2_ = tZ2_ = 0;
     begin_Y_ = 0;
     turn_dY_ = 0;
-    _pSeTxer->set(SE_FIRE , "WAVE_ENEMY_FIRE_LASER_001");
+    _pSeTx->set(SE_FIRE , "WAVE_ENEMY_FIRE_LASER_001");
 }
 
 void EnemyHesperiaLaserChip001::initialize() {
@@ -32,10 +32,10 @@ void EnemyHesperiaLaserChip001::onActive() {
     _pKurokoA->stopTurnMvAngSequence();
     _pKurokoA->setRzMvAngVelo(0);
     _pKurokoA->setRyMvAngVelo(0);
-    if (_pChip_front == NULL) {
+    if (_pChip_front == nullptr) {
         _pKurokoA->setMvAng(tX1_, tY1_, tZ1_);
         _pProg->set(PROG_MOVE_UP);
-        _pSeTxer->play3D(SE_FIRE);
+        _pSeTx->play3D(SE_FIRE);
     } else {
         _pProg->set(PROG_NOTHING);
     }
@@ -112,7 +112,7 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
         }
     }
     _pKurokoA->behave();
-    _pSeTxer->behave();
+    _pSeTx->behave();
 }
 
 void EnemyHesperiaLaserChip001::onHit(GgafActor* prm_pOtherActor) {

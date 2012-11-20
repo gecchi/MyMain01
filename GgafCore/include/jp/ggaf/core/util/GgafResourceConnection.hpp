@@ -40,7 +40,7 @@ private:
 protected:
     /** [r]資源マネジャー */
     GgafResourceManager<T>* _pManager;
-    /** [r]次のGgafResourceConnectionへのポインタ。終端はNULL */
+    /** [r]次のGgafResourceConnectionへのポインタ。終端はnullptr */
     GgafResourceConnection<T>* _pNext;
 
     /**
@@ -75,8 +75,8 @@ public:
 
     /**
      * リスト連結されている次の資源接続オブジェクトを返す .
-     * 終端であった場合は NULL が返る。
-     * @return 次の資源接続オブジェクト 又は、NULL
+     * 終端であった場合は nullptr が返る。
+     * @return 次の資源接続オブジェクト 又は、nullptr
      */
     GgafResourceConnection<T>* getNext();
 
@@ -126,8 +126,8 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
     TRACE3("GgafResourceConnection::GgafResourceConnection(prm_idstr = " <<  prm_idstr << ")");
     _is_closing_resource = false;
     _pResource = prm_pResource;
-    _pNext = NULL;
-    _pManager = NULL;
+    _pNext = nullptr;
+    _pManager = nullptr;
     _num_connection = 0;
     _is_new = false;
     _idstr = NEW char[51];
@@ -174,7 +174,7 @@ int GgafResourceConnection<T>::close() {
     GgafResourceConnection<T>* pCurrent;
     GgafResourceConnection<T>* pPrev;
     pCurrent = _pManager->_pConnection_first;
-    pPrev = NULL;
+    pPrev = nullptr;
     while (pCurrent) {
         if (pCurrent == this) {
             //発見した場合
@@ -182,18 +182,18 @@ int GgafResourceConnection<T>::close() {
             TRACE3("GgafResourceConnection::close[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum << "Connection] 発見したので開始");
             if (rnum == 1) {//最後の接続だった場合
                 //死に行く宿めであるので、保持リストから離脱を行なう
-                if (pCurrent->_pNext == NULL) {
+                if (pCurrent->_pNext == nullptr) {
                     //末尾だった
-                    if (pPrev == NULL) {
+                    if (pPrev == nullptr) {
                         //末尾で先頭だった（＝最後の一つ）
-                        _pManager->_pConnection_first = NULL;
+                        _pManager->_pConnection_first = nullptr;
                     } else {
                         //末尾で先頭でなかった
-                        pPrev->_pNext = NULL;
+                        pPrev->_pNext = nullptr;
                     }
                 } else {
                     //末尾でない
-                    if (pPrev == NULL) {
+                    if (pPrev == nullptr) {
                         //先頭だった
                         _pManager->_pConnection_first = pCurrent->_pNext; //先頭を次にずらす
                     } else {

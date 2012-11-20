@@ -47,7 +47,7 @@ void VarietySylvia001::processBehavior() {
 void VarietySylvia001::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == SYLVIA_EXPLOSION) {
         _TRACE_("VarietySylvia001::onCatchEvent SYLVIA_EXPLOSION キャッチわりこみ！");
-        pEnemySylviaEye_ == NULL;
+        pEnemySylviaEye_ == nullptr;
     }
     EnemySylvia::onCatchEvent(prm_no, prm_pSource);
 }

@@ -14,7 +14,7 @@ EnemySylviaEye::EnemySylviaEye(const char* prm_name, EnemySylvia* prm_pSylvia) :
     locateWith(pSylvia_);
 
     pLaserChipDepo_ = NEW LaserChipDepository("DepoLaserChip");
-    pLaserChipDepo_->config(60, 1, NULL); //Thaliaは弾切れフレームを1にしないとパクパクしちゃいます。
+    pLaserChipDepo_->config(60, 1, nullptr); //Thaliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemySylviaEyeStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         std::string name = "LaserChip("+ ITOS(i) + ")";
@@ -28,9 +28,9 @@ EnemySylviaEye::EnemySylviaEye(const char* prm_name, EnemySylvia* prm_pSylvia) :
     pEffect_->inactivateImmed();
     addSubGroup(pEffect_);
 
-    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
-    _pSeTxer->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
     useProgress(PROG_CLOSE);
 
     is_wake_ = false;
@@ -110,8 +110,8 @@ void EnemySylviaEye::processBehavior() {
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();
             if (pChip) {
-                if (pChip->_pChip_front == NULL) {
-                    _pSeTxer->play3D(SE_FIRE);
+                if (pChip->_pChip_front == nullptr) {
+                    _pSeTx->play3D(SE_FIRE);
                 }
             } else {
                 _pProg->changeNext();
@@ -138,7 +138,7 @@ void EnemySylviaEye::processBehavior() {
 
     _pKurokoA->behave();
     _pMorpher->behave();
-    _pSeTxer->behave();
+    _pSeTx->behave();
 }
 
 void EnemySylviaEye::processJudgement() {
@@ -153,7 +153,7 @@ void EnemySylviaEye::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
             //アイテム出現
@@ -168,7 +168,7 @@ void EnemySylviaEye::onHit(GgafActor* prm_pOtherActor) {
         //非破壊時
         effectFlush(2); //フラッシュ
         pSylvia_->effectFlush(2);
-        _pSeTxer->play3D(SE_DAMAGED);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

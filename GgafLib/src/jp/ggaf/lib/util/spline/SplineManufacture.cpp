@@ -15,7 +15,7 @@ SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject()
 }
 SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
     _source_file = "Nothing";
-    _pSplSrcCon = NULL;
+    _pSplSrcCon = nullptr;
     _pSplSrc = prm_pSplSrc;
     _sp = _pSplSrc->_pSp;
     _paDistance_to = NEW coord[_sp->_rnum];

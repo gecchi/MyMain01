@@ -35,7 +35,7 @@ std::string GgafDxTexture::getTextureFileName(std::string prm_file) {
 
 void GgafDxTexture::restore() {
     TRACE("GgafDxTexture::restore()");
-    _pIDirect3DBaseTexture9 = NULL;
+    _pIDirect3DBaseTexture9 = nullptr;
     _pD3DXIMAGE_INFO = NEW D3DXIMAGE_INFO();
     std::string texture_name = std::string(_texture_name);
     std::string texture_file_name = getTextureFileName(texture_name);
@@ -60,7 +60,7 @@ void GgafDxTexture::restore() {
                          D3DX_DEFAULT,              // [in] DWORD MipFilter,
                          0,                         // [in] D3DCOLOR ColorKey,
                          _pD3DXIMAGE_INFO,          // [out] D3DXIMAGE_INFO *pSrcInfo,
-                         NULL,                      // [in] PALETTEENTRY *pPalette,
+                         nullptr,                      // [in] PALETTEENTRY *pPalette,
                          &pIDirect3DTexture9        // [out] LPDIRECT3DTEXTURE9* ppTexture
                     );
         if (hr != D3D_OK) {
@@ -80,7 +80,7 @@ void GgafDxTexture::restore() {
                              D3DX_DEFAULT,               // [in] DWORD MipFilter,
                              0,                          // [in] D3DCOLOR ColorKey,
                              _pD3DXIMAGE_INFO,           // [out] D3DXIMAGE_INFO *pSrcInfo,
-                             NULL,                       // [in] PALETTEENTRY *pPalette,
+                             nullptr,                       // [in] PALETTEENTRY *pPalette,
                              &pIDirect3DTexture9         // [out] GgafDxTextureConnection* *ppTextureCon
                           );
             checkDxException(hr2, D3D_OK, "ÅÉåxçêÅÑGgafDxTextureManager::restore() D3DXCreateTextureFromFileExé∏îsÅBëŒè€="<<texture_file_name2);
@@ -106,7 +106,7 @@ void GgafDxTexture::restore() {
                             D3DX_DEFAULT,              // [in ] DWORD MipFilter,
                             0,                         // [in ] D3DCOLOR ColorKey,
                             _pD3DXIMAGE_INFO,          // [out] D3DXIMAGE_INFO * pSrcInfo,
-                            NULL,                      // [out] PALETTEENTRY * pPalette,
+                            nullptr,                      // [out] PALETTEENTRY * pPalette,
                             &pIDirect3DCubeTexture9    // [out] LPDIRECT3DCUBETEXTURE9 * ppCubeTexture
                     );
         if (hr != D3D_OK) {
@@ -125,7 +125,7 @@ void GgafDxTexture::restore() {
                                     D3DX_DEFAULT,               // [in ] DWORD MipFilter,
                                     0,                          // [in ] D3DCOLOR ColorKey,
                                     _pD3DXIMAGE_INFO,           // [out] D3DXIMAGE_INFO * pSrcInfo,
-                                    NULL,                       // [out] PALETTEENTRY * pPalette,
+                                    nullptr,                       // [out] PALETTEENTRY * pPalette,
                                     &pIDirect3DCubeTexture9     // [out] LPDIRECT3DCUBETEXTURE9 * ppCubeTexture
                             );
             checkDxException(hr2, D3D_OK, "GgafDxTextureManager::restore() D3DXCreateTextureFromFileExé∏îsÅBëŒè€="<<texture_name);

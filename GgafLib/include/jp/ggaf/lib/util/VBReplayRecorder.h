@@ -28,7 +28,7 @@ public:
         /**
          * コンストラクタ .
          */
-        VBRecordNote() : _pNext(NULL),_state(0),_frame_of_keeping(0) {
+        VBRecordNote() : _pNext(nullptr),_state(0),_frame_of_keeping(0) {
         }
 
         /**
@@ -36,7 +36,7 @@ public:
          * @param state 仮想ボタンステータス
          * @param frame_of_keeping ステータス継続フレーム数
          */
-        VBRecordNote(vbsta state, frame frame_of_keeping) : _pNext(NULL),_state(state),_frame_of_keeping(frame_of_keeping) {
+        VBRecordNote(vbsta state, frame frame_of_keeping) : _pNext(nullptr),_state(state),_frame_of_keeping(frame_of_keeping) {
         }
 
         virtual ~VBRecordNote() {

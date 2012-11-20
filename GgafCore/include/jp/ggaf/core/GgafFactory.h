@@ -53,7 +53,7 @@ public:
     /** 現在製造中の注文 */
     static GgafOrder* CREATING_ORDER;
     //CREATING_ORDER は、全て製造済みの場合、最終注文を指しつづける
-    //全て製造済みかつ、製品が全て取得されてしまった場合は NULL になる。
+    //全て製造済みかつ、製品が全て取得されてしまった場合は nullptr になる。
     //_is_last_order_flg == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
     //製造を行って次に進める。 _is_last_order_flg == false になるまで製造しつづける
 
@@ -234,12 +234,12 @@ public:
 
 
 };
-#define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene, this, (void*)(NAME),(void*)(NULL),(void*)(NULL)))
-#define orderActorToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor, this, (void*)(NAME),(void*)(NULL),(void*)(NULL)))
+#define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+#define orderActorToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
 #define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID),this))
 #define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID),this))
-#define createInFactory(CLASS, NAME) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create, this, (void*)(NAME),(void*)(NULL),(void*)(NULL),this))
-#define createInFactory2(CLASS, NAME, MODEL) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create2, this, (void*)(NAME),(void*)(MODEL),(void*)(NULL),this))
+#define createInFactory(CLASS, NAME) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
+#define createInFactory2(CLASS, NAME, MODEL) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create2, this, (void*)(NAME),(void*)(MODEL),(void*)(nullptr),this))
 
 }
 #endif /*GGAFGACTORY_H_*/

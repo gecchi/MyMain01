@@ -20,7 +20,7 @@ public:
         SE_EXPLOSION ,
     };
 
-    EnemyMassaliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
+    EnemyMassaliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void onCreateModel() override;
 

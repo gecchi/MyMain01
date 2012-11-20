@@ -10,9 +10,9 @@ EnemyThisbe002::EnemyThisbe002(const char* prm_name) :
         //CubeMapMorphMeshActor(prm_name, "1/ThisbeCM", STATUS(EnemyThisbe002)) {
 
     _class_name = "EnemyThisbe002";
-    pSplSeq_ = NULL;
-    pDepo_Shot_ = NULL;
-    pDepo_ShotEffect_ = NULL;
+    pSplSeq_ = nullptr;
+    pDepo_Shot_ = nullptr;
+    pDepo_ShotEffect_ = nullptr;
 
     pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
     EnemyThisbeLaserChip003* pChip;
@@ -22,12 +22,12 @@ EnemyThisbe002::EnemyThisbe002(const char* prm_name) :
         pChip = NEW EnemyThisbeLaserChip003(name.str().c_str());
         pLaserChipDepo_->addSubLast(pChip);
     }
-    pLaserChipDepo_->config(240, 1, NULL); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
+    pLaserChipDepo_->config(240, 1, nullptr); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    _pSeTxer->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_CLOSE);
 }
@@ -76,8 +76,8 @@ void EnemyThisbe002::processBehavior() {
                 pLaser->locateWith(this);
                 pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]);
                                    //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
-                if (pLaser->_pChip_front == NULL) {
-                    _pSeTxer->play3D(SE_FIRE);
+                if (pLaser->_pChip_front == nullptr) {
+                    _pSeTx->play3D(SE_FIRE);
                 }
             } else {
                 _pProg->change(PROG_CLOSE);
@@ -100,7 +100,7 @@ void EnemyThisbe002::processBehavior() {
 
     _pKurokoA->behave();
     _pMorpher->behave();
-    _pSeTxer->behave();
+    _pSeTx->behave();
 }
 
 void EnemyThisbe002::processJudgement() {
@@ -116,7 +116,7 @@ void EnemyThisbe002::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
@@ -127,7 +127,7 @@ void EnemyThisbe002::onHit(GgafActor* prm_pOtherActor) {
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTxer->play3D(SE_DAMAGED);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

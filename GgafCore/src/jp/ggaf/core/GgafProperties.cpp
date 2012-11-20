@@ -2,7 +2,7 @@
 
 using namespace GgafCore;
 
-GgafStrMap* GgafProperties::_pMapProperties = NULL;
+GgafStrMap* GgafProperties::_pMapProperties = nullptr;
 
 UINT32 GgafProperties::MAX_SKIP_FRAME = 12;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN1 = 350;
@@ -22,7 +22,7 @@ std::string GgafProperties::DIR_SKIN_KIND[] = {
 
 
 void GgafProperties::load(std::string prm_properties_filename) {
-    if (_pMapProperties == NULL) {
+    if (_pMapProperties == nullptr) {
         _pMapProperties = NEW GgafStrMap();
         UTIL::readProperties(prm_properties_filename, _pMapProperties);
 //        if (ret != 0) {
@@ -171,7 +171,7 @@ GgafRgb GgafProperties::getRGB(std::string prm_key) {
 
 
 bool GgafProperties::isExistKey(std::string prm_key) {
-    //__map__<std::string, std::string>::iterator
+    //std::map<std::string, std::string>::iterator
     GgafStrMap::iterator itr;
     itr = _pMapProperties->find(prm_key);
     if (itr != _pMapProperties->end()) {

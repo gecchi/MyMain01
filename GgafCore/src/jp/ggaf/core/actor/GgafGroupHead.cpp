@@ -15,12 +15,12 @@ GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafAc
 
     _kind = prm_kind;
     setHitAble(false);
-    _pDirector = NULL;
+    _pDirector = nullptr;
 }
 
 GgafDirector* GgafGroupHead::getSceneDirector() {
-    if (_pDirector == NULL) {
-        if (_pParent == NULL) {
+    if (_pDirector == nullptr) {
+        if (_pParent == nullptr) {
             _TRACE_("【警告】GgafGroupHead::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
             _pDirector = GgafGod::_pGod->_pUniverse->getDirector();
         } else {
@@ -72,9 +72,9 @@ void GgafGroupHead::updateActiveInTheTree() {
 }
 
 GgafGod* GgafGroupHead::askGod() {
-    if (_pGod == NULL) {
+    if (_pGod == nullptr) {
 #ifdef MY_DEBUG
-        if (getParent() == NULL) {
+        if (getParent() == nullptr) {
             throwGgafCriticalException("GgafGroupHead::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         }
 #endif

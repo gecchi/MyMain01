@@ -74,7 +74,7 @@ void GgafDxMeshSetActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     GgafDxDrawableActor* pDrawActor = this;
-    GgafDxMeshSetActor* pMeshSetActor = NULL;
+    GgafDxMeshSetActor* pMeshSetActor = nullptr;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {

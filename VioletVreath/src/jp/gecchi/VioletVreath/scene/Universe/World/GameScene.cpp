@@ -6,9 +6,9 @@ using namespace VioletVreath;
 
 
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
-pCommonScene_(NULL),
-pMyShip_Scene(NULL),
-pStageWorld_(NULL) {
+pCommonScene_(nullptr),
+pMyShip_Scene(nullptr),
+pStageWorld_(nullptr) {
 
     _class_name = "GameScene";
     useProgress(GameScene::PROG_FINISH);

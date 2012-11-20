@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 
 DefaultMorphMeshTestActor::DefaultMorphMeshTestActor(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "0/_chk_DefaultMorphMeshTestModel", NULL) {
+        DefaultMorphMeshActor(prm_name, "0/_chk_DefaultMorphMeshTestModel", nullptr) {
     _class_name = "DefaultMorphMeshTestActor";
     setHitAble(false);
 }

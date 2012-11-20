@@ -12,14 +12,14 @@ FormationPallas001::FormationPallas001(const char* prm_name) :
     velo_mv_         = RR_FormationPallas001_MvVelo(_RANK_); //速度
     //パラス編隊作成
     pSplManufCon_ = connectToSplineManufactureManager("Pallas01");
-    pDepoCon_ = NULL;
+    pDepoCon_ = nullptr;
     papPallas_ = NEW EnemyPallas*[num_Pallas_];
     SplineSequence* pSplSeq;
     for (int i = 0; i < num_Pallas_; i++) {
         papPallas_[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
         pSplSeq = pSplManufCon_->fetch()->createSplineSequence(papPallas_[i]->_pKurokoA);
-        papPallas_[i]->config(pSplSeq, NULL, NULL);
+        papPallas_[i]->config(pSplSeq, nullptr, nullptr);
         //papPallas_[i]->setDepository_Shot(pDepoCon_->fetch()); //弾設定
         papPallas_[i]->inactivateImmed();
         addSubLast(papPallas_[i]);
@@ -30,7 +30,7 @@ void FormationPallas001::initialize() {
 
 void FormationPallas001::onActive() {
     GgafActor* pActor = getSubFirst();
-    EnemyPallas* pPallas = NULL;
+    EnemyPallas* pPallas = nullptr;
     int t = 0;
     do {
         pPallas = (EnemyPallas*)pActor;

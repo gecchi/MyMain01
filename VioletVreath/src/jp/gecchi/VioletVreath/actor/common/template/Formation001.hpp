@@ -12,7 +12,7 @@ class Formation001 : public GgafLib::TreeFormation {
     GgafCore::GgafActorDepository* pDepo_;
     bool was_create_dispatcher_;
 public:
-    Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo = NULL);
+    Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo = nullptr);
 
     virtual void initialize() override;
 
@@ -23,7 +23,7 @@ public:
 template<class T>
 Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo) : GgafLib::TreeFormation(prm_name) {
     _class_name = "Formation001";
-    if (prm_pDepo == NULL) {
+    if (prm_pDepo == nullptr) {
         was_create_dispatcher_ = true;
         pDepo_ = NEW GgafCore::GgafActorDepository("Depository_Formation001");
         T* pActor;

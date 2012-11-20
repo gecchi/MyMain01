@@ -3,8 +3,8 @@
  */
 #include "stdafx.h"
 #include "GgafLibEntry.h" //"GgafLibEntry.h" をインクルードし、
-                           //main関数 WinMain関数 ウィンドウプロシージャは
-                           //１つのファイルに記述します。
+                          //main関数 WinMain関数 ウィンドウプロシージャは
+                          //１つのファイルに記述します。
 using namespace SimpleSample;
 
 
@@ -33,7 +33,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC;
     wcex1.lpfnWndProc = (WNDPROC)WndProc;
     wcex1.hInstance = hInstance;
-    wcex1.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex1.lpszClassName = "primary";
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
@@ -51,7 +51,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         timeBeginPeriod(1);
         //ループ本体
         while (true) {
-            if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+            if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
                     //終了メッセージの場合アプリを終了
                     if (SmpGod::_can_be) {
@@ -75,7 +75,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
     } catch (std::exception& e2) {
         std::string what(e2.what());
-        MessageBox(NULL, what.c_str(), "SimpleSample Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
+        MessageBox(nullptr, what.c_str(), "SimpleSample Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
         _TRACE_("[エラー]:"<<what); //_TRACE_() はデバッグモード時のみ標準出力に出力されます。
         timeEndPeriod(1);
         return EXIT_FAILURE; //異常終了

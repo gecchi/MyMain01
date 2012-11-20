@@ -21,7 +21,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     setHitAble(true, false); //âÊñ äOìñÇΩÇËîªíËÇÕñ≥å¯
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 400000);
-    _pSeTxer->set(0, "WAVE_GET_ITEM_001");
+    _pSeTx->set(0, "WAVE_GET_ITEM_001");
 }
 
 void MagicPointItem::initialize() {
@@ -118,7 +118,7 @@ void MagicPointItem::processBehavior() {
         _SY -= 100;
         _SZ -= 100;
         if (_SX < 5) {
-            _pSeTxer->play(0);
+            _pSeTx->play(0);
             _pProg->change(PROG_NOTIONG);
             sayonara(); //èIóπ
         }

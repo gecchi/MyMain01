@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameOverScene";
-    pNameEntryScene_ = NULL;
+    pNameEntryScene_ = nullptr;
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     getDirector()->addSubGroup(pLabel01_);
     useProgress(10);
@@ -16,7 +16,7 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
 void GameOverScene::onReset() {
     fadeoutSceneWithBgm(0);
     pLabel01_->update("");
-    pNameEntryScene_ = NULL;
+    pNameEntryScene_ = nullptr;
     _pProg->set(GameOverScene::PROG_INIT);
 }
 void GameOverScene::initialize() {

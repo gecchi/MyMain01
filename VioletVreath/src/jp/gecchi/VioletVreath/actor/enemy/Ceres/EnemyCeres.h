@@ -41,7 +41,7 @@ public:
      * @param prm_pDepo_EnemyCeresShots001 発射弾ストックのアクター発送者
      * @return
      */
-    EnemyCeres(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo_EnemyCeresShots001 = NULL);
+    EnemyCeres(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo_EnemyCeresShots001 = nullptr);
 
     void initialize() override;
 

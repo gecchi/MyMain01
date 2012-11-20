@@ -4,9 +4,9 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 int CollisionChecker::_num_check = 0;
-LinearOctreeForActor* CollisionChecker::_pLinearOctree = NULL;
+LinearOctreeForActor* CollisionChecker::_pLinearOctree = nullptr;
 CollisionChecker::CollisionChecker(GgafDxGeometricActor* prm_pActor) : GgafDxChecker(prm_pActor) {
-    if (CollisionChecker::_pLinearOctree == NULL) {
+    if (CollisionChecker::_pLinearOctree == nullptr) {
         CollisionChecker::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
     }
     _pElem = NEW LinearOctreeActorElem(prm_pActor, 0);
@@ -14,7 +14,7 @@ CollisionChecker::CollisionChecker(GgafDxGeometricActor* prm_pActor) : GgafDxChe
 }
 
 void CollisionChecker::makeCollision(int prm_colli_part_num) {
-    if (_pCollisionArea == NULL) {
+    if (_pCollisionArea == nullptr) {
         _pCollisionArea = NEW GgafDxCollisionArea(prm_colli_part_num);
     } else {
         throwGgafCriticalException("CollisionChecker::makeCollision 既に makeCollision されています。");
@@ -23,14 +23,14 @@ void CollisionChecker::makeCollision(int prm_colli_part_num) {
 
 void CollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rotX, bool rotY, bool rotZ) {
 #ifdef MY_DEBUG
-    if (_pCollisionArea == NULL) {
+    if (_pCollisionArea == nullptr) {
         throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
     }
     if (prm_index > _pCollisionArea->_colli_part_num) {
         throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"は範囲外。");
     }
 #endif
-    if (_pCollisionArea->_papColliPart[prm_index] == NULL) {
+    if (_pCollisionArea->_papColliPart[prm_index] == nullptr) {
         _pCollisionArea->_papColliPart[prm_index] = NEW ColliSphere();
     }
 #ifdef MY_DEBUG
@@ -57,14 +57,14 @@ void CollisionChecker::setColliAAB(int prm_index,
                                    bool rotY,
                                    bool rotZ) {
 #ifdef MY_DEBUG
-    if (_pCollisionArea == NULL) {
+    if (_pCollisionArea == nullptr) {
         throwGgafCriticalException("CollisionChecker::setColliAAB()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
     }
     if (prm_index > _pCollisionArea->_colli_part_num) {
         throwGgafCriticalException("CollisionChecker::setColliAAB()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"は範囲外。");
     }
 #endif
-    if (_pCollisionArea->_papColliPart[prm_index] == NULL) {
+    if (_pCollisionArea->_papColliPart[prm_index] == nullptr) {
         _pCollisionArea->_papColliPart[prm_index] = NEW ColliAAB();
     }
 #ifdef MY_DEBUG
@@ -85,14 +85,14 @@ void CollisionChecker::setColliAAPrism(int prm_index,
                                        int pos_prism,
                                        bool rotX, bool rotY, bool rotZ) {
 #ifdef MY_DEBUG
-    if (_pCollisionArea == NULL) {
+    if (_pCollisionArea == nullptr) {
         throwGgafCriticalException("CollisionChecker::setColliAAPrism()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
     }
     if (prm_index > _pCollisionArea->_colli_part_num) {
         throwGgafCriticalException("CollisionChecker::setColliAAPrism()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"は範囲外。");
     }
 #endif
-    if (_pCollisionArea->_papColliPart[prm_index] == NULL) {
+    if (_pCollisionArea->_papColliPart[prm_index] == nullptr) {
         _pCollisionArea->_papColliPart[prm_index] = NEW ColliAAPrism();
     }
 #ifdef MY_DEBUG
@@ -111,7 +111,7 @@ void CollisionChecker::setColliAAPrism(int prm_index,
 void CollisionChecker::updateHitArea() {
     GgafDxGeometricActor* pActor = _pActor;
     GgafDxCollisionArea* pCollisionArea = _pCollisionArea;
-    if (pActor == NULL || pCollisionArea == NULL) {
+    if (pActor == nullptr || pCollisionArea == nullptr) {
         return;
     }
     //if (_pActor->_can_hit_flg && _pActor->isActiveInTheTree() && _pActor->isOutOfView() == 0 ) {  //視野外は登録しない
@@ -120,8 +120,8 @@ void CollisionChecker::updateHitArea() {
         GgafDxCollisionPart* pColliPart;
         for (int i = 0; i < pCollisionArea->_colli_part_num; i++) {
 #ifdef MY_DEBUG
-            if (_pCollisionArea->_papColliPart[i] == NULL) {
-                throwGgafCriticalException("CollisionChecker::updateHitArea()["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]がNULLです。");
+            if (_pCollisionArea->_papColliPart[i] == nullptr) {
+                throwGgafCriticalException("CollisionChecker::updateHitArea()["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]がnullptrです。");
             }
 #endif
             pColliPart = pCollisionArea->_papColliPart[i];
@@ -164,13 +164,13 @@ void CollisionChecker::updateHitArea() {
 
 
 bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
-    if (_pCollisionArea == NULL) {
+    if (_pCollisionArea == nullptr) {
         return false;
     }
     CollisionChecker* pOppCChecker = (CollisionChecker*)prm_pOppChecker;
     //相手の当たり判定領域
     GgafDxCollisionArea* pOppCollisionArea = pOppCChecker->_pCollisionArea;
-    if (pOppCollisionArea == NULL) {
+    if (pOppCollisionArea == nullptr) {
         return false;
     }
     //当たり判定を行う相手のアクター

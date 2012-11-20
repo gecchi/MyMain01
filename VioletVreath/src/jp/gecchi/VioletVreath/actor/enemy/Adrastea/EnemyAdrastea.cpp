@@ -13,8 +13,8 @@ EnemyAdrastea::EnemyAdrastea(const char* prm_name) :
     box_num_X_ = 1;
     box_num_Y_ = 1;
     box_num_Z_ = 1;
-    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 
 }
 
@@ -88,7 +88,7 @@ void EnemyAdrastea::processBehavior() {
     //座標に反映
     _pKurokoA->behave();
     _pKurokoB->behave();
-    _pSeTxer->behave();
+    _pSeTx->behave();
 }
 
 void EnemyAdrastea::processJudgement() {
@@ -104,7 +104,7 @@ void EnemyAdrastea::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
             //アイテム出現
@@ -114,7 +114,7 @@ void EnemyAdrastea::onHit(GgafActor* prm_pOtherActor) {
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTxer->play3D(SE_DAMAGED);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

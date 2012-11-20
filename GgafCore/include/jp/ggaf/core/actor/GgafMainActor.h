@@ -71,13 +71,13 @@ public:
 
     /**
      * ƒV[ƒ“ŠÄ“Âæ“¾B .
-     * @return ŠÄ“Â ^ ‚¢‚È‚¢ê‡ NULL
+     * @return ŠÄ“Â ^ ‚¢‚È‚¢ê‡ nullptr
      */
     virtual GgafDirector* getSceneDirector();
 
     /**
      * ƒV[ƒ“’c’·‚ğæ“¾‚·‚éB .
-     * @return ’c’· ^ ‚¢‚È‚¢ê‡ NULL
+     * @return ’c’· ^ ‚¢‚È‚¢ê‡ nullptr
      */
     virtual GgafGroupHead* getMyGroupHead();
 
@@ -105,7 +105,7 @@ public:
     /**
      * ”z‰º‚Ì¶‘¶‰Â”\‚È’c’·‚ğ’T‚·B
      * @param prm_kind ’T‚µ‚½‚¢’c’·‚Ìí•Ê
-     * @return ’c’·Aˆ½‚¢‚Í‘¶İ‚µ‚È‚¯‚ê‚Î NULL
+     * @return ’c’·Aˆ½‚¢‚Í‘¶İ‚µ‚È‚¯‚ê‚Î nullptr
      */
     GgafGroupHead* searchSubGroupHead(actorkind prm_kind);
 

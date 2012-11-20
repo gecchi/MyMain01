@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 
 CubeMapMeshSetTestActor::CubeMapMeshSetTestActor(const char* prm_name) :
-        CubeMapMeshSetActor(prm_name, "_chk_CubeMapMeshSetTestModel", NULL) {
+        CubeMapMeshSetActor(prm_name, "_chk_CubeMapMeshSetTestModel", nullptr) {
     _class_name = "CubeMapMeshSetTestActor";
     setCubeMap("Sylvia_cubemap.dds", 0.2);
     setHitAble(false);

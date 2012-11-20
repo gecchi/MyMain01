@@ -39,25 +39,25 @@ void WateringLaserChip::processSettlementBehavior() {
     if (_was_paused_flg) {
         GgafDxGeometricActor::processSettlementBehavior();
     } else {
-        if (_pChip_front == NULL) {
+        if (_pChip_front == nullptr) {
 //            //先端
-//            if (_pChip_behind != NULL && _pChip_behind->isActiveInTheTree()) {
+//            if (_pChip_behind != nullptr && _pChip_behind->isActiveInTheTree()) {
 //                //普通の先端
 //            } else {
 //                //先端で末端
 //                //どこへでもいきなはれ
 //            }
-        } else if (_pChip_behind == NULL) {
+        } else if (_pChip_behind == nullptr) {
 //            //末端
-//            if (_pChip_front != NULL && _pChip_front->isActiveInTheTree()) {
+//            if (_pChip_front != nullptr && _pChip_front->isActiveInTheTree()) {
 //                //普通の末端
 //            } else {
 //                //末端で先端
 //                //どこへでもいきなはれ
 //            }
         } else if (_pChip_front->_is_active_flg && _pChip_behind->_is_active_flg) {
-            //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
-            //なぜなら dispatch の瞬間に_pChip_behind != NULL となるが、active()により有効になるのは次フレームだから
+            //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
+            //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
             //_X,_Y,_Z にはまだ変な値が入っている。
             WateringLaserChip* pF = (WateringLaserChip*)_pChip_front;
             WateringLaserChip* pB = (WateringLaserChip*)_pChip_behind;

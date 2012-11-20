@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectEntry002::EffectEntry002(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "EffectEntry002", NULL) {
+        DefaultMeshSetActor(prm_name, "EffectEntry002", nullptr) {
     _class_name = "EffectEntry002";
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
 }

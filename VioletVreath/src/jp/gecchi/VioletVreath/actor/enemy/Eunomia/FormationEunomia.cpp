@@ -19,7 +19,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
         papSplManufCon_[i] = connectToSplineManufactureManager(spl_id.str().c_str());
     }
-    pConn_ShotDepo_ = connectToDepositoryManager("Conn_Shot004", NULL); //Eunomiaの弾;
+    pConn_ShotDepo_ = connectToDepositoryManager("Conn_Shot004", nullptr); //Eunomiaの弾;
     pDepo_Shot_ = pConn_ShotDepo_->fetch();
     updateRankParameter();
 }
@@ -53,7 +53,7 @@ void FormationEunomia::processBehavior() {
             if (pEunomia) {
                 SplineSequence* pSplSeq = papSplManufCon_[i]->fetch()->
                                               createSplineSequence(pEunomia->_pKurokoA);
-                pEunomia->config(pSplSeq, NULL, NULL);
+                pEunomia->config(pSplSeq, nullptr, nullptr);
                 pEunomia->_pKurokoA->setMvVelo(RR_mv_velo_);
                 processOnActiveEunomia(pEunomia, i); //フォーメーション個別実装の処理
             }

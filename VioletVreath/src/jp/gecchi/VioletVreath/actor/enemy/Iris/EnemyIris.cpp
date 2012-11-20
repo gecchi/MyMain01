@@ -9,10 +9,10 @@ EnemyIris::EnemyIris(const char* prm_name)
       : DefaultMeshSetActor(prm_name, "Iris", STATUS(EnemyIris)) {
     _class_name = "EnemyIris";
     iMovePatternNo_ = 0;
-    pSplSeq_ = NULL;
-    pDepo_Shot_ = NULL;
-    pDepo_ShotEffect_ = NULL;
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    pSplSeq_ = nullptr;
+    pDepo_Shot_ = nullptr;
+    pDepo_ShotEffect_ = nullptr;
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
 }
 
 void EnemyIris::onCreateModel() {
@@ -109,7 +109,7 @@ void EnemyIris::processBehavior() {
         pSplSeq_->behave(); //スプライン移動を振る舞い
     }
     _pKurokoA->behave();
-    //_pSeTxer->behave();
+    //_pSeTx->behave();
 }
 
 void EnemyIris::processJudgement() {
@@ -124,7 +124,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {

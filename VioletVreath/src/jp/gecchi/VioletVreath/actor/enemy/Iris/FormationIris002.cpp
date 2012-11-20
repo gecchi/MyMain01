@@ -12,14 +12,14 @@ FormationIris002::FormationIris002(const char* prm_name) :
     velo_mv_         = RR_FormationIris002_MvVelo(_RANK_); //速度
     //スプライン移動の定義
     pSplLineCon_ = connectToSplineLineManager("SpConn_00202_");
-    pDepoCon_ = connectToDepositoryManager("Conn_Shot002", NULL);
+    pDepoCon_ = connectToDepositoryManager("Conn_Shot002", nullptr);
     //イリス編隊作成
     papIris_ = NEW EnemyIris*[num_Iris_];
     for (int i = 0; i < num_Iris_; i++) {
         papIris_[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
         SplineSequence* pProgram = NEW FixedVelocitySplineSequence(papIris_[i]->_pKurokoA, pSplLineCon_->fetch(), 10000); //移動速度固定
-        papIris_[i]->config(pProgram, pDepoCon_->fetch(), NULL);
+        papIris_[i]->config(pProgram, pDepoCon_->fetch(), nullptr);
         papIris_[i]->inactivateImmed();
         addSubLast(papIris_[i]);
     }

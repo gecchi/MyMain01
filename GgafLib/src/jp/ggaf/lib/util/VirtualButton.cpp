@@ -670,7 +670,7 @@ vbsta VirtualButton::getState() {
 
 void VirtualButton::update() {
 #ifdef MY_DEBUG
-    if (_pVBRecord_Active == NULL) {
+    if (_pVBRecord_Active == nullptr) {
         throwGgafCriticalException("VirtualButton::update() 利用前に一度 init() を呼び出して下さい。");
     }
 #endif

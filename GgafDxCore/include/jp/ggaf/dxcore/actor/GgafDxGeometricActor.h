@@ -52,7 +52,7 @@ public:
     /** [r]チェッカー */
     GgafDxChecker* _pChecker;
     /** [r]効果音発生管理オブジェクト */
-    GgafDxSeTransmitterForActor* _pSeTxer;
+    GgafDxSeTransmitterForActor* _pSeTx;
 
     /** [r]境界球の半径(DirectXの単位)。画面外判定に使用される */
     dxcoord _bounding_sphere_radius;
@@ -87,7 +87,7 @@ public:
     /** [r]カレントフレームで自身の現在のWorld変換行列の逆行列(_matInvWorldRotMv)を計算して求めたかどうかのフラグ。 */
     bool _wasCalc_matInvWorldRotMv;
 
-    /** [r]土台となるアクター、土台が無い場合はNULL（IK用） */
+    /** [r]土台となるアクター、土台が無い場合はnullptr（IK用） */
     GgafDxCore::GgafDxGeometricActor* _pActor_Base;
     /** [r]土台アクター上でのワールドX座標 */
     coord _X_local;
@@ -141,8 +141,8 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名
-     * @param prm_pStat ステータス(使用しない時 NULL)
-     * @param prm_pChecker チェッカー(使用しない時 NULL)
+     * @param prm_pStat ステータス(使用しない時 nullptr)
+     * @param prm_pChecker チェッカー(使用しない時 nullptr)
      * @return
      */
     GgafDxGeometricActor(const char* prm_name,
@@ -387,7 +387,7 @@ public:
         if (_wasCalc_matInvWorldRotMv) {
             return &_matInvWorldRotMv;
         } else {
-            D3DXMatrixInverse(&_matInvWorldRotMv, NULL, &_matWorldRotMv);
+            D3DXMatrixInverse(&_matInvWorldRotMv, nullptr, &_matWorldRotMv);
             _wasCalc_matInvWorldRotMv = true;
             return &_matInvWorldRotMv;
         }

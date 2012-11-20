@@ -53,9 +53,9 @@ private:
     void setPlatformScene(GgafScene* prm_pScene_platform);
 
 public:
-    /** [r]所属デポジトリ(NULLは未所属) */
+    /** [r]所属デポジトリ(nullptrは未所属) */
     GgafActorDepository* _pDependenceDepository;
-    /** [r]所属フォーメーション(NULLは未所属) */
+    /** [r]所属フォーメーション(nullptrは未所属) */
     GgafFormation* _pFormation;
 
     /** [r]アクター開始システム時刻 */
@@ -70,7 +70,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name アクターの名前
-     * @param prm_pStat アクターのステータス（NULLの場合は自動生成される）
+     * @param prm_pStat アクターのステータス（nullptrの場合は自動生成される）
      */
     GgafActor(const char* prm_name, GgafStatus* prm_pStat);
 
@@ -156,7 +156,7 @@ public:
 
     /**
      * Depositoryに所属している場合、それを返す。
-     * 未所属の場合NULL
+     * 未所属の場合nullptr
      * @return 所属Depository
      */
     GgafActorDepository* getDependenceDepository() {
@@ -165,7 +165,7 @@ public:
 
     /**
      * 自身が編隊全滅判定に有効な破壊のされ方で消滅した事を、所属のフォーメーションに通知するメソッド .
-     * 自身がフォーメーションに所属している(_pFormation != NULL)場合、
+     * 自身がフォーメーションに所属している(_pFormation != nullptr)場合、
      * フォーメーションの編隊全滅判定を行うために、自身が編隊全滅に有効な消滅、つまり
      * 画面外、自滅、では無く、自機に破壊された場合、本メソッドを実行して、管理フォーメーションに通知して下さい。<BR>
      * 通知を行うことにより、管理されている Formation オブジェクトから、
@@ -190,13 +190,13 @@ public:
      * }
      *
      * </pre></code>
-     * 自身がフォーメーションに所属していない(_pFormation == NULL)場合、本メソッドは何も起こりません。
+     * 自身がフォーメーションに所属していない(_pFormation == nullptr)場合、本メソッドは何も起こりません。
      */
     virtual void notifyDestroyedToFormation();
 
     /**
      * 自身がの所属のフォーメーションを返す .
-     * @return フォーメーション。或いは、所属してない場合はNULL
+     * @return フォーメーション。或いは、所属してない場合はnullptr
      */
     virtual GgafFormation* getFormation();
 

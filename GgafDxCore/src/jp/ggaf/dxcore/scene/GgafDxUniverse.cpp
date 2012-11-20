@@ -4,8 +4,8 @@ using namespace GgafDxCore;
 
 GgafDxDrawableActor* GgafDxUniverse::_apAlphaActorFirstList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL+1];
 GgafDxDrawableActor* GgafDxUniverse::_apAlphaActorLastList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL+1];
-//GgafDxDrawableActor* GgafDxUniverse::_pActors_DrawMaxDrawDepth = NULL;
-GgafDxDrawableActor* GgafDxUniverse::_pActor_DrawActive = NULL;
+//GgafDxDrawableActor* GgafDxUniverse::_pActors_DrawMaxDrawDepth = nullptr;
+GgafDxDrawableActor* GgafDxUniverse::_pActor_DrawActive = nullptr;
 std::string GgafDxUniverse::_seqkey_se_delay = "_SE_D_";
 
 coord GgafDxUniverse::_X_goneLeft   = 0;
@@ -19,7 +19,7 @@ coord GgafDxUniverse::_Z_goneNear  = 0;
 GgafDxUniverse::SeArray::SeArray() {
     _p = 0;
     for (int i = 0; i < MAX_SE_AT_ONCE; i++) {
-        _apSe[i] = NULL;
+        _apSe[i] = nullptr;
     }
 }
 
@@ -35,22 +35,22 @@ void GgafDxUniverse::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_p
 
 void GgafDxUniverse::SeArray::play(int index) {
     _apSe[index]->play(_volume[index], _pan[index], _rate_frequency[index]);
-    _apSe[index] = NULL;
+    _apSe[index] = nullptr;
 }
 
 GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) : GgafUniverse(prm_name) {
     _obj_class |= Obj_GgafDxUniverse;
     _class_name = "GgafDxUniverse";
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL+1; i++) {
-        _apAlphaActorFirstList_DrawDepthLevel[i] = NULL;
-        _apAlphaActorLastList_DrawDepthLevel[i] = NULL;
+        _apAlphaActorFirstList_DrawDepthLevel[i] = nullptr;
+        _apAlphaActorLastList_DrawDepthLevel[i] = nullptr;
     }
     //先にカメラはNEWしておかないといけない。
     _pCamera = prm_pCamera;
 
 
     getDirector()->addSubGroup(_pCamera);
-    _pActor_DrawActive = NULL;
+    _pActor_DrawActive = nullptr;
 
     //カメラの写す範囲。
     coord F = DX_C(_pCamera->_zf);
@@ -163,8 +163,8 @@ void GgafDxUniverse::draw() {
 
             _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
-        _apAlphaActorFirstList_DrawDepthLevel[i] = NULL; //次回のためにリセット
-        _apAlphaActorLastList_DrawDepthLevel[i] = NULL;
+        _apAlphaActorFirstList_DrawDepthLevel[i] = nullptr; //次回のためにリセット
+        _apAlphaActorLastList_DrawDepthLevel[i] = nullptr;
     }
 
     //最後のEndPass
@@ -178,13 +178,13 @@ void GgafDxUniverse::draw() {
         checkDxException(hr, D3D_OK, "GgafDxUniverse::processDraw() End() に失敗しました。");
 #ifdef MY_DEBUG
         if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-            throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+            throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
         } else {
             GgafDxEffectManager::_pEffect_Active->_begin = false;
         }
 #endif
-        GgafDxEffectManager::_pEffect_Active = NULL;
-        GgafDxModelManager::_pModelLastDraw = NULL;
+        GgafDxEffectManager::_pEffect_Active = nullptr;
+        GgafDxModelManager::_pModelLastDraw = nullptr;
         GgafDxDrawableActor::_hash_technique_last_draw = 0;
     }
 
@@ -202,9 +202,9 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
         draw_depth_level = prm_draw_depth_level;
     }
 
-    if (_apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] == NULL) {
+    if (_apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] == nullptr) {
         //そのprm_draw_depth_levelで最初のアクターの場合
-        prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
+        prm_pActor->_pNext_TheSameDrawDepthLevel = nullptr;
         _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] = prm_pActor;
         _apAlphaActorLastList_DrawDepthLevel[draw_depth_level] = prm_pActor;
     } else {
@@ -231,7 +231,7 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
                 //お尻に追加
                 pActorTmp = _apAlphaActorLastList_DrawDepthLevel[draw_depth_level];
                 pActorTmp->_pNext_TheSameDrawDepthLevel = prm_pActor;
-                prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
+                prm_pActor->_pNext_TheSameDrawDepthLevel = nullptr;
                 _apAlphaActorLastList_DrawDepthLevel[draw_depth_level] = prm_pActor;
             }
         }

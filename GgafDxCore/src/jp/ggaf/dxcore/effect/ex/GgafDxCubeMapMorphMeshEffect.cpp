@@ -4,8 +4,8 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxCubeMapMorphMeshEffect::GgafDxCubeMapMorphMeshEffect(char* prm_effect_name) : GgafDxMorphMeshEffect(prm_effect_name) {
-    //_h_pos_camera = _pID3DXEffect->GetParameterByName( NULL, "pos_camera" );
-    _h_reflectance = _pID3DXEffect->GetParameterByName(NULL, "g_reflectance");
+    //_h_pos_camera = _pID3DXEffect->GetParameterByName( nullptr, "pos_camera" );
+    _h_reflectance = _pID3DXEffect->GetParameterByName(nullptr, "g_reflectance");
 
 }
 

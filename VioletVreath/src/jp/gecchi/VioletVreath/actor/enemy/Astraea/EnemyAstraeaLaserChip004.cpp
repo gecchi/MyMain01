@@ -4,15 +4,15 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-//GgafDxCore::GgafDxTextureConnection* EnemyAstraeaLaserChip004::pTexCon1_ = NULL;
-//GgafDxCore::GgafDxTextureConnection* EnemyAstraeaLaserChip004::pTexCon2_ = NULL;
+//GgafDxCore::GgafDxTextureConnection* EnemyAstraeaLaserChip004::pTexCon1_ = nullptr;
+//GgafDxCore::GgafDxTextureConnection* EnemyAstraeaLaserChip004::pTexCon2_ = nullptr;
 
 EnemyAstraeaLaserChip004::EnemyAstraeaLaserChip004(const char* prm_name) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001", STATUS(EnemyAstraeaLaserChip004)) {
     _class_name = "EnemyAstraeaLaserChip004";
     pSplManufCon_ = connectToSplineManufactureManager("GURUGURU");
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
-//    if (pTexCon1_ == NULL) {
+//    if (pTexCon1_ == nullptr) {
 //        pTexCon1_ = connectToModelTextureManager("AstraeaLaserChip001.png");
 //        pTexCon2_ = connectToModelTextureManager("HesperiaLaserChip001.png");
 //        _pModel->setMaterialTexture(0, pTexCon1_);
@@ -94,11 +94,11 @@ EnemyAstraeaLaserChip004::~EnemyAstraeaLaserChip004() {
     pSplManufCon_->close();
     //if (pTexCon1_) {
     //    pTexCon1_->close();
-    //    pTexCon1_ = NULL;
+    //    pTexCon1_ = nullptr;
     //}
     //if (pTexCon2_) {
     //    pTexCon2_->close();
-    //    pTexCon2_ = NULL;
+    //    pTexCon2_ = nullptr;
     //}
 }
 

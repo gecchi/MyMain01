@@ -17,9 +17,9 @@ FormationJuno::FormationJuno(
             velo prm_veloMv_Juno,
             angle prm_angRzMv_JunoMv, angle prm_angRyMv_JunoMv,
             int prm_nJunoStock,
-            int prm_frame_app_interval) : DefaultGeometricActor(prm_name, NULL) {
+            int prm_frame_app_interval) : DefaultGeometricActor(prm_name, nullptr) {
     _class_name = "FormationJuno";
-    pDepoCon_ = connectToDepositoryManager("Conn_Shot004", NULL); //Juno‚Ì’e
+    pDepoCon_ = connectToDepositoryManager("Conn_Shot004", nullptr); //Juno‚Ì’e
 
     X1_app_ = prm_X1_app;
     Y1_app_ = prm_Y1_app;
@@ -53,10 +53,6 @@ FormationJuno::FormationJuno(
         pDepo_EnemyJuno_->addSubLast(pEnemyJuno);
     }
     addSubGroup(pDepo_EnemyJuno_);
-    _TRACE_("&_will_inactivate_after_flg="<<(&_will_inactivate_after_flg));
-    _TRACE_("_will_inactivate_after_flg="<<_will_inactivate_after_flg);
-    _TRACE_("&_is_active_flg="<<(&_is_active_flg));
-    _TRACE_("_is_active_flg="<<_is_active_flg);
 }
 
 void FormationJuno::initialize() {

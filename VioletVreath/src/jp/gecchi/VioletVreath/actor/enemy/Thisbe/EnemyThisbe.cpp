@@ -10,12 +10,12 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
         //CubeMapMorphMeshActor(prm_name, "1/ThisbeCM", STATUS(EnemyThisbe)) {
 
     _class_name = "EnemyThisbe";
-    pSplSeq_ = NULL;
-    pDepo_Shot_ = NULL;
-    pDepo_ShotEffect_ = NULL;
+    pSplSeq_ = nullptr;
+    pDepo_Shot_ = nullptr;
+    pDepo_ShotEffect_ = nullptr;
 
     pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
-    pLaserChipDepo_->config(100, 1, NULL); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
+    pLaserChipDepo_->config(100, 1, nullptr); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
 
 //    EnemyThisbeLaserChip001* pChip;
 //    for (int i = 0; i < 65; i++) { //レーザーストック
@@ -26,7 +26,7 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 //    }
 
 
-    pConn_RefractionEffectDepository_ = connectToDepositoryManager("Conn_EffRefraction001", NULL);
+    pConn_RefractionEffectDepository_ = connectToDepositoryManager("Conn_EffRefraction001", nullptr);
 
     EnemyThisbeLaserChip002* pChip;
     for (int i = 0; i < 100; i++) { //レーザーストック
@@ -40,9 +40,9 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 
     addSubGroup(pLaserChipDepo_);
 
-    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    _pSeTxer->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_CLOSE);
 }
@@ -90,8 +90,8 @@ void EnemyThisbe::processBehavior() {
                 pLaser->locateWith(this);
                 pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]);
                                    //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
-                if (pLaser->_pChip_front == NULL) {
-                    _pSeTxer->play3D(SE_FIRE);
+                if (pLaser->_pChip_front == nullptr) {
+                    _pSeTx->play3D(SE_FIRE);
                 }
             } else {
                 _pProg->change(PROG_CLOSE);
@@ -114,7 +114,7 @@ void EnemyThisbe::processBehavior() {
 
     _pKurokoA->behave();
     _pMorpher->behave();
-    _pSeTxer->behave();
+    _pSeTx->behave();
 }
 
 void EnemyThisbe::processJudgement() {
@@ -130,7 +130,7 @@ void EnemyThisbe::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
@@ -141,7 +141,7 @@ void EnemyThisbe::onHit(GgafActor* prm_pOtherActor) {
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ
-        _pSeTxer->play3D(SE_DAMAGED);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

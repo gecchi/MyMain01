@@ -5,12 +5,12 @@ using namespace GgafDxCore;
 
 DWORD GgafDxMeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
 int GgafDxMeshSetModel::_draw_set_num_LastDraw = -1;
-//LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = NULL;
+//LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = nullptr;
 
 GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     TRACE3("GgafDxMeshSetModel::GgafDxMeshSetModel(" << _model_name << ")");
-    _pModel3D = NULL;
-    _pMeshesFront = NULL;
+    _pModel3D = nullptr;
+    _pMeshesFront = nullptr;
     // prm_model_name には "xxxxxx" or "8/xxxxx" が、渡ってくる。
     // 同時描画セット数が8という意味です。
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そうかな。
@@ -18,9 +18,9 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_m
     char nm[51];
     strcpy(nm, prm_model_name);
     const char* pT = strtok(nm, "/" );
-    int num = (int)strtol(pT, NULL, 10);
-    pT = strtok(NULL, "/");
-    if (pT == NULL) {
+    int num = (int)strtol(pT, nullptr, 10);
+    pT = strtok(nullptr, "/");
+    if (pT == nullptr) {
         _TRACE_("GgafDxMeshSetModel("<<prm_model_name<<") のセット数省略のため、標準の最大の15セットが設定されます。");
         _set_num = 15;
     } else {
@@ -29,12 +29,12 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_m
             _TRACE_("GgafDxMeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大は15セットがですがそれ以上が設定されています。意図していますか？ _set_num="<<_set_num<<"。");
         }
     }
-    _pIDirect3DVertexBuffer9 = NULL;
-    _pIDirect3DIndexBuffer9 = NULL;
-    _paUint_material_list_grp_num = NULL;
-    _paVtxBuffer_org = NULL;
-    _paIdxBuffer_org = NULL;
-    _papaIndexParam = NULL;
+    _pIDirect3DVertexBuffer9 = nullptr;
+    _pIDirect3DIndexBuffer9 = nullptr;
+    _paUint_material_list_grp_num = nullptr;
+    _paVtxBuffer_org = nullptr;
+    _paIdxBuffer_org = nullptr;
+    _papaIndexParam = nullptr;
     _obj_model |= Obj_GgafDxMeshSetModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は
@@ -93,7 +93,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
             } else {
                 _TRACE_("GgafDxMeshSetModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
-                GgafDxGod::_pID3DDevice9->SetTexture(0, NULL);
+                GgafDxGod::_pID3DDevice9->SetTexture(0, nullptr);
             }
             //MaterialDiffuseはGgafDxMeshSetActor側でマテリアルを設定する。マテリアル色は単色とする。
             //理由はGgafDxMeshSetActorのメモ【GgafDxMeshSetActorのマテリアルカラーについて】を参照
@@ -108,7 +108,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() End() に失敗しました。");
 #ifdef MY_DEBUG
                 if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
                 } else {
                     GgafDxEffectManager::_pEffect_Active->_begin = false;
                 }
@@ -127,7 +127,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
 
 #ifdef MY_DEBUG
             if (pMeshSetEffect->_begin == true) {
-                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pMeshSetEffect->_begin = true;
             }
@@ -203,7 +203,7 @@ void GgafDxMeshSetModel::release() {
 
     DELETE_IMPOSSIBLE_NULL(_pModel3D);
     //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
-    _pMeshesFront = NULL;
+    _pMeshesFront = nullptr;
     for (int i = 0; i < _set_num; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam[i]);
     }

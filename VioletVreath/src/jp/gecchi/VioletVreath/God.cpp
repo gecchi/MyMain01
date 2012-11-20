@@ -4,10 +4,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-VirtualButton* God::pVbtn_PLAY_ = NULL;
-VirtualButton* God::pVbtn_UI_ = NULL;
-VirtualButton* God::pVbtn_active_ = NULL;
-VirtualButton* God::pVbtn_active_next_frame_ = NULL;
+VirtualButton* God::pVbtn_PLAY_ = nullptr;
+VirtualButton* God::pVbtn_UI_ = nullptr;
+VirtualButton* God::pVbtn_active_ = nullptr;
+VirtualButton* God::pVbtn_active_next_frame_ = nullptr;
 
 
 God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :

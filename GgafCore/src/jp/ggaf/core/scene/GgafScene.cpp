@@ -275,7 +275,7 @@ void GgafScene::clean(int prm_num_cleaning) {
     }
     if (_pDirector) {
         _pDirector->clean(prm_num_cleaning);
-        if (_pDirector->_pSubFirst == NULL) {
+        if (_pDirector->_pSubFirst == nullptr) {
             DELETE_IMPOSSIBLE_NULL(_pDirector);
         }
     } else {
@@ -288,7 +288,7 @@ GgafDirector* GgafScene::getDirector() {
 }
 
 GgafGod* GgafScene::askGod() {
-    if (_pGod == NULL) {
+    if (_pGod == nullptr) {
         _pGod = getParent()->askGod();
     }
     return _pGod;
@@ -305,7 +305,7 @@ void GgafScene::dump() {
                 if (pScene_tmp->_pNext) {
                     pScene_tmp = pScene_tmp->_pNext;
                 } else {
-                    _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");
+                    _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
                     break;
                 }
                 if (pScene_tmp->_is_first_flg) {
@@ -327,7 +327,7 @@ void GgafScene::dump(std::string prm_parent) {
                 if (pScene_tmp->_pNext) {
                     pScene_tmp = pScene_tmp->_pNext;
                 } else {
-                    _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");
+                    _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
                     break;
                 }
                 if (pScene_tmp->_is_first_flg) {

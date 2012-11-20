@@ -6,14 +6,14 @@ GgafMainActor::GgafMainActor(const char* prm_name, GgafStatus* prm_pStat) :
         GgafActor(prm_name, prm_pStat) {
     _obj_class |= Obj_GgafMainActor;
     _class_name = "GgafMainActor";
-    _pGroupHead = NULL;
-    _pDirector = NULL;
+    _pGroupHead = nullptr;
+    _pDirector = nullptr;
     setHitAble(false);
 }
 
 GgafMainActor* GgafMainActor::extract() {
     GgafMainActor* pActor = (GgafMainActor*)GgafActor::extract();
-    pActor->setSceneDirector(NULL); //監督アクターリセット
+    pActor->setSceneDirector(nullptr); //監督アクターリセット
     return pActor;
 }
 
@@ -73,16 +73,16 @@ void GgafMainActor::setGroupHead(GgafGroupHead* prm_pGroupHead) {
 
 
 GgafGroupHead* GgafMainActor::getMyGroupHead() {
-    if (_pGroupHead == NULL) {
-        if (_pParent == NULL) {
-            return NULL;
+    if (_pGroupHead == nullptr) {
+        if (_pParent == nullptr) {
+            return nullptr;
         } else if (_pParent->instanceOf(Obj_GgafMainActor)) {
             _pGroupHead = ((GgafMainActor*)(_pParent))->getMyGroupHead();
             return _pGroupHead;
         } else if (_pParent->instanceOf(Obj_GgafGroupHead)) {
             return (GgafGroupHead*)_pParent;
         } else {
-            return NULL;
+            return nullptr;
         }
     } else {
         return _pGroupHead;
@@ -91,8 +91,8 @@ GgafGroupHead* GgafMainActor::getMyGroupHead() {
 
 
 GgafDirector* GgafMainActor::getSceneDirector() {
-    if (_pDirector == NULL) {
-        if (_pParent == NULL) {
+    if (_pDirector == nullptr) {
+        if (_pParent == nullptr) {
             _pDirector = GgafGod::_pGod->_pUniverse->getDirector(); //この世の監督アクターに仮所属
             _TRACE_("【警告】GgafMainActor::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで仮所属でこの世(Universe)のDirectorを返しました。最終的に、親アクターがシーンに所属すれば、その時に更新されてご破算です。確認して下さい。");
         } else {
@@ -103,7 +103,7 @@ GgafDirector* GgafMainActor::getSceneDirector() {
             } else if (_pParent->instanceOf(Obj_GgafDirector)) { //ありえんかな
                 return (GgafDirector*)_pParent;
             } else {
-                _pDirector = NULL;
+                _pDirector = nullptr;
             }
            _pDirector = GgafGod::_pGod->_pUniverse->getDirector(); //この世の監督アクターに仮所属
             _TRACE_("【警告】GgafMainActor::getSceneDirector このツリーにはDirectorがいません！("<<getName()<<")。そこで仮所属でこの世(Universe)のDirectorを返しました。最終的に、親アクターがシーンに所属すれば、その時に更新されてご破算です。確認して下さい。");
@@ -119,7 +119,7 @@ GgafGroupHead* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm
         prm_pMainActor->extract();
     }
     GgafGroupHead* pMyGroupHead = getMyGroupHead();
-    if (pMyGroupHead != NULL && pMyGroupHead->_kind == prm_kind) {
+    if (pMyGroupHead != nullptr && pMyGroupHead->_kind == prm_kind) {
         //自身の団長種別と引数種別が同じ場合、
         addSubLast(prm_pMainActor); //単純にサブに追加でOK
         prm_pMainActor->setGroupHead(pMyGroupHead);
@@ -129,7 +129,7 @@ GgafGroupHead* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm
     } else {
         //自身の種別と違う場合
         GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind); //サブに同じ種別団長が居るか探す
-        if (pSubGroupActor == NULL) {
+        if (pSubGroupActor == nullptr) {
             //サブに同じ種別団長がいない場合、団長を新たに作成
             pSubGroupActor = NEW GgafGroupHead(prm_kind);
             addSubLast(pSubGroupActor);
@@ -151,11 +151,11 @@ GgafGroupHead* GgafMainActor::addSubGroup(GgafMainActor* prm_pMainActor) {
 }
 
 GgafGroupHead* GgafMainActor::searchSubGroupHead(actorkind prm_kind) {
-    if (_pSubFirst == NULL) {
-        return NULL;
+    if (_pSubFirst == nullptr) {
+        return nullptr;
     } else {
         GgafActor* pSubActor = _pSubFirst;
-        GgafGroupHead* pSubGroupHead_ret = NULL;
+        GgafGroupHead* pSubGroupHead_ret = nullptr;
         do {
             if (pSubActor->instanceOf(Obj_GgafGroupHead)) {
                 pSubGroupHead_ret = (GgafGroupHead*)pSubActor;
@@ -164,7 +164,7 @@ GgafGroupHead* GgafMainActor::searchSubGroupHead(actorkind prm_kind) {
                 }
             }
             if (pSubActor->_is_last_flg) {
-                return NULL;
+                return nullptr;
             } else {
                 pSubActor = pSubActor->_pNext;
             }
@@ -173,8 +173,8 @@ GgafGroupHead* GgafMainActor::searchSubGroupHead(actorkind prm_kind) {
 }
 
 GgafGod* GgafMainActor::askGod() {
-    if (_pGod == NULL) {
-        if (_pParent == NULL) {
+    if (_pGod == nullptr) {
+        if (_pParent == nullptr) {
             throwGgafCriticalException("GgafMainActor::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         }
         _pGod = getParent()->askGod();

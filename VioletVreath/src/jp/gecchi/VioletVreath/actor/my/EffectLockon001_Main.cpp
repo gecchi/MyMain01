@@ -18,7 +18,7 @@ void EffectLockon001_Main::initialize() {
 
 void EffectLockon001_Main::onActive() {
     EffectLockon001::onActive();
-    if (pTarget_ == NULL) {
+    if (pTarget_ == nullptr) {
         inactivateImmed();
         return;
     }
@@ -28,7 +28,7 @@ void EffectLockon001_Main::onActive() {
     _pScaler->setScale(60000); //(6000%)
     _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
-    _pSeTxer->play3D(0); //ロックオンSE
+    _pSeTx->play3D(0); //ロックオンSE
 
 
     if (pTarget_) {
@@ -75,7 +75,7 @@ void EffectLockon001_Main::processBehavior() {
     }
 
     if (_pProg->get() == LOCKON001_PROG_RELEASE) {
-        pTarget_ = NULL;
+        pTarget_ = nullptr;
         addAlpha(-0.05);
         if (_pScaler->_method[0] == NOSCALE || ZEROf_EQ(getAlpha())) {
             _pScaler->setScale(2000);
@@ -98,7 +98,7 @@ void EffectLockon001_Main::onInactive() {
 }
 
 void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
-    if (prm_pTarget == NULL || pTarget_ == prm_pTarget || MyLockonController::lockon_num_ == 0) {
+    if (prm_pTarget == nullptr || pTarget_ == prm_pTarget || MyLockonController::lockon_num_ == 0) {
         return;
     }
     pTarget_ = prm_pTarget;
@@ -110,7 +110,7 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
         _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
         _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
         _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);   //回転
-        _pSeTxer->play3D(0); //ロックオンSE
+        _pSeTx->play3D(0); //ロックオンSE
         _pProg->change(LOCKON001_PROG_FIRST_LOCK);
     }
 
@@ -131,7 +131,7 @@ void EffectLockon001_Main::releaseLockon() {
             //何も無し
         }
     }
-    pTarget_ = NULL;
+    pTarget_ = nullptr;
 }
 
 EffectLockon001_Main::~EffectLockon001_Main() {

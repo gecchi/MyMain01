@@ -1,7 +1,7 @@
 #include "stdafx.h"
 using namespace GgafCore;
 
-__map__<std::size_t, std::string> detectMemoryLeaksMemoryMap;
+std::map<std::size_t, std::string> detectMemoryLeaksMemoryMap;
 bool detectMemoryLeaksFlag = false;
 
 void *
@@ -49,8 +49,8 @@ void operator delete(void * address) {
 
     if (detectMemoryLeaksFlag) {
         //_TRACE_("delete: " << " address=" << address );
-        __map__<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
-        __map__<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
+        std::map<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
+        std::map<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
         std::size_t checkAddress = (std::size_t)address;
         for (; it != itEnd; it++) {
             if (it->first == checkAddress) {
@@ -68,8 +68,8 @@ void operator delete[](void * address) {
 
     if (detectMemoryLeaksFlag) {
         //_TRACE_("delete[]: " << " address=" << address);
-        __map__<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
-        __map__<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
+        std::map<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
+        std::map<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
         std::size_t checkAddress = (std::size_t)address;
         for (; it != itEnd; it++) {
             if (it->first == checkAddress) {
@@ -93,8 +93,8 @@ void detectMemoryLeaksEnd(std::ostream& ros) {
     if (detectMemoryLeaksMemoryMap.size() > 0) {
         //ros << "memory leaks ..." << std::endl;
         _TRACE_("memory leaks ...");
-        __map__<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
-        __map__<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
+        std::map<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
+        std::map<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
         for (; it != itEnd; it++) {
             //ros << "  " << it->second << std::endl;
             _TRACE_("  " << it->second);

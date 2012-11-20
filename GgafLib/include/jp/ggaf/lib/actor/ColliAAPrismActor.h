@@ -16,7 +16,7 @@ public:
     static ColliAAPrismActor* get();
     static void release();
 
-    ColliAAPrismActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat = NULL);
+    ColliAAPrismActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
 
     //void processDraw() {} //オーバーライド未実装にする。
     virtual void onCreateModel() override {

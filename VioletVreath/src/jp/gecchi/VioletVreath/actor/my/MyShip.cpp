@@ -188,10 +188,10 @@ MyShip::MyShip(const char* prm_name) :
     paFuncTurbo[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
-    _pSeTxer->set(SE_DAMAGED, "WAVE_MY_DAMAGED_001");
-    _pSeTxer->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_001");
-    _pSeTxer->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_001");
-    _pSeTxer->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_001");
+    _pSeTx->set(SE_DAMAGED, "WAVE_MY_DAMAGED_001");
+    _pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_001");
+    _pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_001");
+    _pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_001");
 
     iMvVelo_TurboTop_ = 30000;
     iMvVelo_TurboBottom_ = 10000;
@@ -464,7 +464,7 @@ void MyShip::processBehavior() {
     _pKurokoA->behave();
     _pKurokoB->behave();
     _pScaler->behave();
-    _pSeTxer->behave();
+    _pSeTx->behave();
 
     if (invincible_frames_ > 0) {
         setHitAble(false);
@@ -613,8 +613,8 @@ void MyShip::processJudgement() {
         if (VB_PLAY->isBeingPressed(VB_SHOT1)) {
             LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
-                if (pLaserChip->_pChip_front == NULL) {
-                    _pSeTxer->play3D(SE_FIRE_LASER);
+                if (pLaserChip->_pChip_front == nullptr) {
+                    _pSeTx->play3D(SE_FIRE_LASER);
                 }
             }
         } else {
@@ -642,7 +642,7 @@ void MyShip::processJudgement() {
             just_shot_ = true;//たった今ショットしましたフラグ
             MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
             if (pShot) {
-                _pSeTxer->play3D(SE_FIRE_SHOT);
+                _pSeTx->play3D(SE_FIRE_SHOT);
                 pShot->locateWith(this);
             }
             if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
@@ -658,12 +658,12 @@ void MyShip::processJudgement() {
     //光子魚雷発射
     if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         if (this->pTorpedoCtrlr_->fire()) {
-            _pSeTxer->play3D(MyShip::SE_FIRE_TORPEDO);
+            _pSeTx->play3D(MyShip::SE_FIRE_TORPEDO);
         }
         MyOptionController** papOptCtrlr = P_MYSHIP_SCENE->papOptionCtrlr_;
         for (int i = 0; i < MyOptionController::now_option_num_; i++) {
             if (papOptCtrlr[i]->pOption_->pTorpedoCtrlr_->fire()) {
-                papOptCtrlr[i]->pOption_->_pSeTxer->play3D(MyOption::SE_FIRE_TORPEDO);
+                papOptCtrlr[i]->pOption_->_pSeTx->play3D(MyOption::SE_FIRE_TORPEDO);
             }
         }
 
@@ -677,7 +677,7 @@ void MyShip::processJudgement() {
 //        if (can_fire) {
 //            for (int i = 0; i < MyOptionController::now_option_num_; i++) {
 //                if (i == 0) {
-//                    _pSeTxer->play3D(3);
+//                    _pSeTx->play3D(3);
 //                }
 //                papOptCtrlr[i]->pOption_->pTorpedoCtrlr_->fire();
 //            }
@@ -926,7 +926,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     if (pOther->getKind() & KIND_ITEM)  {
     } else {
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_DAMAGED);
+        _pSeTx->play3D(SE_DAMAGED);
     }
 
     if (pOther->getKind() & KIND_ITEM)  {

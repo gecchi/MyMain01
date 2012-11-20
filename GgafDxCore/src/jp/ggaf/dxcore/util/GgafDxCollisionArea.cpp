@@ -7,7 +7,7 @@ GgafDxCollisionArea::GgafDxCollisionArea(int prm_colli_part_num) : GgafObject() 
         _colli_part_num = prm_colli_part_num;
         _papColliPart = NEW GgafDxCollisionPart*[_colli_part_num];
         for (int i = 0; i < _colli_part_num; i++) {
-            _papColliPart[i] = NULL;
+            _papColliPart[i] = nullptr;
         }
     } else {
         throwGgafCriticalException("GgafDxCollisionArea::GgafDxCollisionArea —v‘f”‚ª•s³Bprm_colli_part_num="<<prm_colli_part_num);
@@ -18,7 +18,7 @@ GgafDxCollisionArea::GgafDxCollisionArea(int prm_colli_part_num) : GgafObject() 
 
 void GgafDxCollisionArea::updateAABB() {
     _AABB_X1 = _AABB_Y1 = _AABB_Z1 = _AABB_X2 = _AABB_Y2 = _AABB_Z2 = 0;
-    GgafDxCollisionPart* pColliPart = NULL;
+    GgafDxCollisionPart* pColliPart = nullptr;
     for (int i = 0; i < _colli_part_num; i++) {
         pColliPart = _papColliPart[i];
         if (pColliPart->_is_valid_flg) {

@@ -5,10 +5,10 @@ using namespace GgafDxCore;
 
 GgafDxBgmPerformerForScene::GgafDxBgmPerformerForScene(GgafDxScene* prm_pDxScene) : GgafDxBgmPerformer() {
     _pDxScene = prm_pDxScene;
-    _paBool_is_fade = NULL;
-    _paDouble_target_volume = NULL;
-    _paDouble_inc_volume = NULL;
-    _paBool_is_fadeout_stop = NULL;
+    _paBool_is_fade = nullptr;
+    _paDouble_target_volume = nullptr;
+    _paDouble_inc_volume = nullptr;
+    _paBool_is_fadeout_stop = nullptr;
     _default_fade = 360;
 }
 void GgafDxBgmPerformerForScene::useBgm(int prm_bgm_num, frame prm_default_fade) {

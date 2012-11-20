@@ -15,7 +15,7 @@ class GgafDummyActor : public GgafMainActor {
 public:
 //    bool _can_auto_end;
 
-    GgafDummyActor(const char* prm_name, GgafStatus* prm_pStat = NULL);
+    GgafDummyActor(const char* prm_name, GgafStatus* prm_pStat = nullptr);
 
     virtual void initialize() override {
     }
@@ -39,7 +39,7 @@ public:
     }
 
     virtual void processFinal() override {
-        if (getSubFirst() == NULL) {
+        if (getSubFirst() == nullptr) {
             sayonara(1); //1ÉtÉåÅ[ÉÄå„
         }
     }

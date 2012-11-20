@@ -12,11 +12,11 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     slide_from_offset_Y_ = 0;
     target_X_ = _X;
     target_Y_ = _Y;
-    _pSeTxer->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN"      ); 
-    _pSeTxer->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
-    _pSeTxer->set(SE_DECIDED_NOMAL , "WAVE_MENU_DECIDED_NOMAL" );
-    _pSeTxer->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
-    _pSeTxer->set(SE_ON_SINK       , "WAVE_MENU_ON_SINK"       );
+    _pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN"      ); 
+    _pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
+    _pSeTx->set(SE_DECIDED_NOMAL , "WAVE_MENU_DECIDED_NOMAL" );
+    _pSeTx->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
+    _pSeTx->set(SE_ON_SINK       , "WAVE_MENU_ON_SINK"       );
 }
 
 void MenuBoard::setTransition(frame prm_menu_fade_frames,
@@ -31,16 +31,16 @@ bool MenuBoard::condDecision() {
     if (VB->isPushedDown(VB_UI_EXECUTE)) {
         //「メニューアイテム：任意」で、VB_UI_EXECUTE ボタンの場合は
         //そのアイテムを「決定」した事とする。(当たり前だが)
-        _pSeTxer->play(SE_DECIDED_NOMAL);
+        _pSeTx->play(SE_DECIDED_NOMAL);
         return true;
     } else if (VB->isPushedDown(VB_UI_CANCEL) &&
-               _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != NULL &&
+               _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != nullptr &&
                _lstItems.getCurrent() == _lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         //特別に「メニューアイテム：キャンセル」にカーソルがある場合でかつ、VB_UI_CANCEL ボタンの場合は、
         //「メニューアイテム：キャンセル」を「決定」したことにする。
         //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの定義は、
         //relateAllItemCancel() で定義されたアイテムのインデックスかどうかで判断。
-        _pSeTxer->play(SE_DECIDED_CANCEL);
+        _pSeTx->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -50,7 +50,7 @@ bool MenuBoard::condCancel() {
     if (VB->isPushedDown(VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
-        _pSeTxer->play(SE_DECIDED_CANCEL);
+        _pSeTx->play(SE_DECIDED_CANCEL);
         return true;
     } else {
         return false;
@@ -95,7 +95,7 @@ void MenuBoard::riseSubMenu(coord prm_target_X, coord prm_target_Y) {
 
 void MenuBoard::moveCursor() {
     StringBoardMenu::moveCursor();
-    _pSeTxer->play(SE_MOVE_CURSOR);
+    _pSeTx->play(SE_MOVE_CURSOR);
 }
 
 void MenuBoard::initialize() {
@@ -116,7 +116,7 @@ void MenuBoard::onRisen() {
                     ),
                     menu_fade_frames_, 0.1, 0.3
                );
-    _pSeTxer->play(SE_ON_RISEN);
+    _pSeTx->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {
@@ -150,7 +150,7 @@ void MenuBoard::onSunk() {
                     ),
                     60, 0.2, 0.3
                );
-    _pSeTxer->play(SE_ON_SINK);
+    _pSeTx->play(SE_ON_SINK);
 }
 
 MenuBoard::~MenuBoard() {

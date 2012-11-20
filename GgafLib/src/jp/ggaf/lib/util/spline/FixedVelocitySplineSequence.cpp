@@ -16,7 +16,7 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_
 FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDxKurokoA* prmpKurokoA_target,
                                                          SplineLine* prmpSpl,
                                                          angvelo prm_angveloRzRyMv):
-        SplineSequence(NULL, prmpKurokoA_target) { //NULLで渡す事により、_is_created_pManufacture が falseになる
+        SplineSequence(nullptr, prmpKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
     _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_angveloRzRyMv);
     _pFixedVeloSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedVeloSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す

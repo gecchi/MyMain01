@@ -15,7 +15,7 @@ namespace GgafLib {
  * <TR><TD>_pScaler</TD><TD>Šg‘åk¬x‰‡</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
  * <TR><TD>_pFader</TD><TD>ƒtƒB[ƒhƒCƒ“EƒAƒEƒgx‰‡</TD><TD> GgafDxCore::GgafDxAlphaFader</TD></TR>
  * <TR><TD>_pScaler</TD><TD>Šg‘åk¬x‰‡</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
- * <TR><TD>_pSeTxer</TD><TD>Œø‰Ê‰¹”­¶ŠÇ—</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
+ * <TR><TD>_pSeTx</TD><TD>Œø‰Ê‰¹”­¶ŠÇ—</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * <TR><TD>_pScaler</TD><TD>Šg‘åk¬x‰‡</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
  * <TR><TD>_pColliChecker</TD><TD>Õ“Ë”»’èx‰‡</TD><TD>GgafLib::CollisionChecker</TD></TR>
  * </TABLE>
@@ -31,7 +31,7 @@ public:
     /** Õ“Ë”»’èx‰‡ƒIƒuƒWƒFƒNƒg */
     CollisionChecker* _pColliChecker;
 
-    DefaultD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
+    DefaultD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }

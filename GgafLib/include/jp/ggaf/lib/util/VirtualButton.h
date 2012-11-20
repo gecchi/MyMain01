@@ -1,7 +1,7 @@
 #ifndef VBRTUALBUTTON_H_
 #define VBRTUALBUTTON_H_
 
-typedef __map__<std::string, int> keymap;
+typedef std::map<std::string, int> keymap;
 typedef unsigned long int vbsta;
 
 namespace GgafLib {
@@ -108,15 +108,15 @@ public:
         vbsta _state;
 
         VBRecord() {
-            _next = NULL;
-            _prev = NULL;
+            _next = nullptr;
+            _prev = nullptr;
             _state = (vbsta)0;
         }
         ~VBRecord() {
         }
     };
     /** オートリピート判定用カウンター */
-    __map__<vbsta, frame> _auto_repeat_counter;
+    std::map<vbsta, frame> _auto_repeat_counter;
     /** オートリピート中ならば true */
     bool _is_auto_repeat;
 

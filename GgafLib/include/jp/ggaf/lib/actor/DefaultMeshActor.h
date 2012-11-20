@@ -14,7 +14,7 @@ namespace GgafLib {
  * <TR><TD>_pKrokoB</TD><TD>黒子B。移動支援</TD><TD>GgafDxCore::GgafDxKurokoB</TD></TR>
  * <TR><TD>_pFader</TD><TD>フィードイン・アウト支援</TD><TD> GgafDxCore::GgafDxAlphaFader</TD></TR>
  * <TR><TD>_pScaler</TD><TD>拡大縮小支援</TD><TD>GgafDxCore::GgafDxScaler</TD></TR>
- * <TR><TD>_pSeTxer</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
+ * <TR><TD>_pSeTx</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * <TR><TD>_pColliChecker</TD><TD>衝突判定支援</TD><TD>GgafLib::CollisionChecker</TD></TR>
  * </TABLE>
  * @version 1.00
@@ -35,7 +35,7 @@ public:
      * @param prm_model モデル定義
      * @param prm_pStat 定義済みのステータスを渡す。種別(STAT_DEFAULT_ACTOR_KIND)は衝突判定で使用される。
      */
-    DefaultMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
+    DefaultMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }

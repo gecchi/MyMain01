@@ -856,7 +856,7 @@ public:
      *     void processBehavior() {
      *         //配下アクター全てにaddX実行
      *         velo_ = 1000;
-     *         executeFuncLowerTree(XXXXActor::addX, &velo_, NULL);
+     *         executeFuncLowerTree(XXXXActor::addX, &velo_, nullptr);
      *     }
      * }
      *
@@ -873,7 +873,7 @@ public:
      * @param prm_num 進捗の場合の数
      */
     virtual void useProgress(int prm_num = 10) {
-        if (_pProg == NULL) {
+        if (_pProg == nullptr) {
             _pProg = NEW GgafProgress(&_frame_of_behaving, prm_num);
         } else {
             _TRACE_("＜警告＞useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。以前の進捗の場合の数="<<_pProg->_num_progress<<"。今回引数 prm_num="<<prm_num);
@@ -894,7 +894,7 @@ public:
 
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : GgafCore::GgafNode<T>(prm_name),
-_pGod(NULL),
+_pGod(nullptr),
 _was_initialize_flg(false),
 _frame_of_life(0),
 _frame_of_behaving(0),
@@ -915,7 +915,7 @@ _on_change_to_inactive_flg(false),
 _will_mv_first_in_next_frame_flg(false),
 _will_mv_last_in_next_frame_flg(false),
 _is_already_reset(false),
-_pProg(NULL)
+_pProg(nullptr)
 {
 
 }
@@ -1471,7 +1471,7 @@ bool GgafElement<T>::wasDeclaredEnd() {
 
 template<class T>
 void GgafElement<T>::clean(int prm_num_cleaning) {
-    if (GgafNode<T>::_pSubFirst == NULL) {
+    if (GgafNode<T>::_pSubFirst == nullptr) {
         return;
     }
 

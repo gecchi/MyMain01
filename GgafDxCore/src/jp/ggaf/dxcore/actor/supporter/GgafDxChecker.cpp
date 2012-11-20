@@ -4,7 +4,7 @@ using namespace GgafDxCore;
 
 GgafDxChecker::GgafDxChecker(GgafDxGeometricActor* prm_pActor) :
     GgafObject() {
-    _pCollisionArea = NULL;
+    _pCollisionArea = nullptr;
     _pActor = prm_pActor;
 //    _blown_sgn_vX = 0;
 //    _blown_sgn_vY = 0;

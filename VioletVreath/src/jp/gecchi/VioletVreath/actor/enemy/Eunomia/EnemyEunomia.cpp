@@ -8,10 +8,10 @@ EnemyEunomia::EnemyEunomia(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Eunomia", STATUS(EnemyEunomia)) {
     _class_name = "EnemyEunomia";
     iMovePatternNo_ = 0;
-    pSplSeq_ = NULL;
-    pDepo_Shot_ = NULL;
-    pDepo_ShotEffect_ = NULL;
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    pSplSeq_ = nullptr;
+    pDepo_Shot_ = nullptr;
+    pDepo_ShotEffect_ = nullptr;
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     useProgress(10);
 }
 
@@ -43,7 +43,7 @@ void EnemyEunomia::config(
 
 
 void EnemyEunomia::onActive() {
-    if (pSplSeq_ == NULL) {
+    if (pSplSeq_ == nullptr) {
         throwGgafCriticalException("EnemyEunomiaはスプライン必須ですconfigして下さい");
     }
     _pStatus->reset();
@@ -184,7 +184,6 @@ void EnemyEunomia::processBehavior() {
 
     pSplSeq_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
-    //_pSeTxer->behave();
 }
 
 void EnemyEunomia::processJudgement() {
@@ -200,7 +199,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
         //破壊された場合
         setHitAble(false); //以降同一フレーム内でヒットさせない。
         UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
-        _pSeTxer->play3D(SE_EXPLOSION);          //爆発音再生
+        _pSeTx->play3D(SE_EXPLOSION);          //爆発音再生
         if (pOther->getKind() & KIND_MY) { //自機側に撃たれて消滅の場合は
             UTIL::activateItemOf(this); //アイテム出現
         }

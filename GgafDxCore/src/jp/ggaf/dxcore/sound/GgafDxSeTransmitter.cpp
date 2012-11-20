@@ -5,14 +5,14 @@ using namespace GgafDxCore;
 
 GgafDxSeTransmitter::GgafDxSeTransmitter() : GgafObject() {
     _se_num = 0;
-    _papSeCon = NULL;
+    _papSeCon = nullptr;
 }
 
 void GgafDxSeTransmitter::declareSeNum(int prm_se_num) {
     _se_num = prm_se_num;
     _papSeCon = NEW GgafDxSeConnection*[_se_num];
     for (int i = 0; i < _se_num; i++) {
-        _papSeCon[i] = NULL;
+        _papSeCon[i] = nullptr;
     }
 }
 
@@ -21,8 +21,8 @@ void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_key, int prm_cannel
 //    if (_se_num <= 0) {
 //        throwGgafCriticalException("GgafDxSeTransmitter::set() useSeで使用するSe数を事前に宣言してください。prm_id="<<prm_id);
 //    }
-    if (_papSeCon == NULL) {
-        declareSeNum(3); //declareSeNumしない場合は3個まで
+    if (_papSeCon == nullptr) {
+        declareSeNum(prm_id+1); //declareSeNumしない場合はprm_id+1個まで
     }
     if (prm_id < 0) {
         throwGgafCriticalException("GgafDxSeTransmitter::set() IDが範囲外です。正の数でお願いします。 prm_id="<<prm_id);
@@ -34,8 +34,8 @@ void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_key, int prm_cannel
         }
         DELETEARR_POSSIBLE_NULL(_papSeCon);
         int wk_se_num = _se_num;
-        declareSeNum(_se_num+2); //2個拡張。_se_numも+2で更新される
-        for (int i = 0; i < wk_se_num; i++) { //戻し
+        declareSeNum(prm_id+1); //prm_id+1 へ個拡張。この時点で _se_num も prm_id+1 で更新される
+        for (int i = 0; i < wk_se_num; i++) { //引き継ぐ（退避を戻し）
             _papSeCon[i] = papSeCon[i];
         }
         DELETEARR_POSSIBLE_NULL(papSeCon);

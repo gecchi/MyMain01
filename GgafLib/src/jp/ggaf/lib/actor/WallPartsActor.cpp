@@ -21,7 +21,7 @@ WallPartsActor::WallPartsActor(const char* prm_name,
     _pScaler = NEW GgafDxScaler(this);
     _wall_draw_face = 0;
     _pos_prism = 0;
-    _pWalledSectionScene = NULL;
+    _pWalledSectionScene = nullptr;
 
     _wall_dep = 0;
     _wall_width = 0;

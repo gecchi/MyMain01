@@ -18,7 +18,7 @@ void GgafMainScene::updateActiveInTheTree() {
         if (instanceOf(Obj_GgafUniverse)) {
             _is_active_in_the_tree_flg = _is_active_flg;
         } else {
-            //自身が GgafUniverse以外でかつ _pParent=NULL で、
+            //自身が GgafUniverse以外でかつ _pParent=nullptr で、
             //updateActiveInTheTree() がコールされることはありえないはず。
             throwGgafCriticalException("GgafScene::updateActiveInTheTree() _is_active_in_the_tree_flg 更新できません。 name="<<getName()<<" this="<<this);
         }

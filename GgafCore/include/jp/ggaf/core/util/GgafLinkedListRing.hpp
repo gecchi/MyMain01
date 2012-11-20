@@ -91,13 +91,13 @@ public:
          */
         Elem(T* prm_pValue, int prm_relation_num, bool prm_is_delete_value = true) {
             _pValue = prm_pValue;
-            _pNext = _pPrev = NULL;
+            _pNext = _pPrev = nullptr;
             if (prm_relation_num == 0) {
-                _papRelation = NULL;
+                _papRelation = nullptr;
             } else {
                 _papRelation = NEW Elem*[prm_relation_num];
                 for (int i = 0; i < prm_relation_num; i++) {
-                    _papRelation[i] = NULL;
+                    _papRelation[i] = nullptr;
                 }
             }
             _is_first_flg = _is_last_flg = false;
@@ -162,7 +162,7 @@ public:
 
     /**
      * デストラクタ.
-     * 内部保持する要素の値は、NULLで無い場合、それぞれ delete により解放されます。<BR>
+     * 内部保持する要素の値は、nullptrで無い場合、それぞれ delete により解放されます。<BR>
      * TODO:delete[] やその他の解放方法に対応
      */
     virtual ~GgafLinkedListRing();
@@ -185,7 +185,7 @@ public:
      * ２回目以降 addNext() は、カレント要素に影響を与えません。<BR>
      * <pre>
      * ---「実行前」--------------------------
-     * NULL(要素なし)
+     * nullptr(要素なし)
      * ---------------------------------------
      *               ↓ addNext(A)
      * ---------------------------------------
@@ -237,7 +237,7 @@ public:
      * ２回目以降 addPrev() は、カレント要素に影響を与えません。<BR>
      * <pre>
      * ---「実行前」--------------------------
-     * NULL(要素なし)
+     * nullptr(要素なし)
      * ---------------------------------------
      *               ↓ addPrev(A)
      * ---------------------------------------
@@ -288,7 +288,7 @@ public:
      * ２回目以降 addLast() は、カレント要素に影響を与えません。<BR>
      * <pre>
      * ---「実行前」--------------------------
-     * NULL(要素なし)
+     * nullptr(要素なし)
      * ---------------------------------------
      *               ↓ addLast(A)
      * ---------------------------------------
@@ -327,7 +327,7 @@ public:
      * ２回目以降 addFirst() は、カレント要素に影響を与えません。<BR>
      * <pre>
      * ---「実行前」--------------------------
-     * NULL(要素なし)
+     * nullptr(要素なし)
      * ---------------------------------------
      *               ↓ addFirst(A)
      * ---------------------------------------
@@ -603,13 +603,13 @@ public:
     /**
      * 関連要素の値を取得する。カレント要素は変化しない .
      * @param prm_connection_index 関連要素接続番号
-     * @return 関連要素の値／引数が範囲外の場合、又は関連未設定の場合 NULL
+     * @return 関連要素の値／引数が範囲外の場合、又は関連未設定の場合 nullptr
      */
     virtual T* getRelation(int prm_connection_index);
 
     /**
      * 現在のカレント要素は、先頭から何番目か(0～)を返す。
-     * getCurrent() がNULL の場合は -1 を返す。
+     * getCurrent() がnullptr の場合は -1 を返す。
      * @return カレント要素のインデックス
      */
     virtual int getCurrentIndex();
@@ -650,12 +650,12 @@ public:
      * ---------------------------------------
      *
      * ※但し、上書き前の元の要素設定時に、自動 delete フラグをセットにしていた場合、
-     * 本メソッド実行時に内部で delete され、戻り値には NULLが返ります。
+     * 本メソッド実行時に内部で delete され、戻り値には nullptrが返ります。
      * </pre>
      * @param prm_pVal 新しい要素の値
      * @param prm_is_delete_value true  : リストのdelete時に、引数の要素値についてもdeleteを発行する。
      *                            false : リストのdelete時に、引数の要素値について何も行わない。
-     * @return 元の設定要素が自動 delete の場合 NULL ／ 元の設定要素が自動 delete ではない場合、上書きされる前の要素(解放に利用される事を想定。)
+     * @return 元の設定要素が自動 delete の場合 nullptr ／ 元の設定要素が自動 delete ではない場合、上書きされる前の要素(解放に利用される事を想定。)
      */
     virtual T* set(T* prm_pVal, bool prm_is_delete_value = true);
 
@@ -778,8 +778,8 @@ public:
      * @return
      */
     Elem* getElemFromFirst(int n) {
-        if (_pElem_first == NULL) {
-            return NULL;
+        if (_pElem_first == nullptr) {
+            return nullptr;
         }
         Elem* pElem_return = _pElem_first;
         for (int i = 0; i < n; i++) {
@@ -799,16 +799,16 @@ template<class T>
 GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
     GgafObject() {
     _num_elem = 0;
-    _pElemActive = NULL;
-    _pElem_first = NULL;
+    _pElemActive = nullptr;
+    _pElem_first = nullptr;
     _relation_num = prm_extend_relation_num;
 }
 
 
 //template<class T>
 //T* GgafLinkedListRing<T>::getFromFirst(int n) {
-//    if (_pElem_first == NULL) {
-//        return NULL;
+//    if (_pElem_first == nullptr) {
+//        return nullptr;
 //    }
 //    Elem* pElem_return = _pElem_first;
 //    for (int i = 0; i < n; i++) {
@@ -822,12 +822,12 @@ GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
 template<class T>
 void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
-//    if (prm_pNew == NULL) {
-//        throwGgafCriticalException("[GgafLinkedListRing::addNext()] Error! 引数がNULLです");
+//    if (prm_pNew == nullptr) {
+//        throwGgafCriticalException("[GgafLinkedListRing::addNext()] Error! 引数がnullptrです");
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
-    if (_pElem_first == NULL) {
+    if (_pElem_first == nullptr) {
         //最初の１つ
         pElem->_is_last_flg = true;
         pElem->_is_first_flg = true;
@@ -854,12 +854,12 @@ void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
 template<class T>
 void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
-//    if (prm_pNew == NULL) {
-//        throwGgafCriticalException("[GgafLinkedListRing::addPrev()] Error! 引数がNULLです");
+//    if (prm_pNew == nullptr) {
+//        throwGgafCriticalException("[GgafLinkedListRing::addPrev()] Error! 引数がnullptrです");
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
-    if (_pElem_first == NULL) {
+    if (_pElem_first == nullptr) {
         //最初の１つ
         pElem->_is_last_flg = true;
         pElem->_is_first_flg = true;
@@ -887,13 +887,13 @@ void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
 template<class T>
 void GgafLinkedListRing<T>::addLast(T* prm_pNew, bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
-//    if (prm_pNew == NULL) {
-//        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
+//    if (prm_pNew == nullptr) {
+//        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がnullptrです");
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
 
-    if (_pElem_first == NULL) {
+    if (_pElem_first == nullptr) {
         //最初の１つ
         pElem->_is_first_flg = true;
         pElem->_is_last_flg = true;
@@ -919,12 +919,12 @@ void GgafLinkedListRing<T>::addLast(T* prm_pNew, bool prm_is_delete_value) {
 template<class T>
 void GgafLinkedListRing<T>::addFirst(T* prm_pNew, bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
-//    if (prm_pNew == NULL) {
-//        throwGgafCriticalException("[GgafLinkedListRing::addFirst()] Error! 引数がNULLです");
+//    if (prm_pNew == nullptr) {
+//        throwGgafCriticalException("[GgafLinkedListRing::addFirst()] Error! 引数がnullptrです");
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
-    if (_pElem_first == NULL) {
+    if (_pElem_first == nullptr) {
         //最初の１つ
         pElem->_is_first_flg = true;
         pElem->_is_last_flg = true;
@@ -991,7 +991,7 @@ T* GgafLinkedListRing<T>::gotoRelation(int prm_connection_index) {
 #endif
     _pElemActive = _pElemActive->_papRelation[prm_connection_index];
 #ifdef MY_DEBUG
-    if (_pElemActive == NULL) {
+    if (_pElemActive == nullptr) {
         throwGgafCriticalException("GgafLinkedListRing<T>::gotoRelation 接続要素番号の要素が未設定です。prm_connection_index="<<prm_connection_index);
     }
 #endif
@@ -1014,8 +1014,8 @@ T* GgafLinkedListRing<T>::getNext(int n) {
 
 template<class T>
 T* GgafLinkedListRing<T>::getFromFirst(int n) {
-    if (_pElem_first == NULL) {
-        return NULL;
+    if (_pElem_first == nullptr) {
+        return nullptr;
     }
     Elem* pElem_return = _pElem_first;
     for (int i = 0; i < n; i++) {
@@ -1052,8 +1052,8 @@ T* GgafLinkedListRing<T>::getLast() {
 
 template<class T>
 T* GgafLinkedListRing<T>::getCurrent() {
-    if (_pElemActive == NULL) {
-        return NULL;
+    if (_pElemActive == nullptr) {
+        return nullptr;
     } else {
         return _pElemActive->_pValue;
     }
@@ -1070,14 +1070,14 @@ T* GgafLinkedListRing<T>::getRelation(int prm_connection_index) {
     if (pE) {
         return pE->_pValue;
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
 
 template<class T>
 int GgafLinkedListRing<T>::getCurrentIndex() {
-    if (_pElemActive == NULL) {
+    if (_pElemActive == nullptr) {
         return -1;
     } else {
         Elem* pElem = _pElem_first;
@@ -1111,7 +1111,7 @@ T* GgafLinkedListRing<T>::set(T* prm_pVal, bool prm_is_delete_value) {
     _pElemActive->_is_delete_value = prm_is_delete_value;
     if (is_delete_value) {
         DELETE_IMPOSSIBLE_NULL(pValue);
-        return NULL;
+        return nullptr;
     } else {
         return pValue;
     }
@@ -1123,8 +1123,8 @@ T* GgafLinkedListRing<T>::remove() {
     _num_elem--;
     if (pMy->_is_first_flg && pMy->_is_last_flg) {
         //要素が１つの場合
-        _pElemActive = NULL;
-        _pElem_first = NULL;
+        _pElemActive = nullptr;
+        _pElem_first = nullptr;
         T* r = pMy->_pValue;
         DELETE_IMPOSSIBLE_NULL(pMy);
         return r;
@@ -1164,14 +1164,14 @@ int GgafLinkedListRing<T>::removeAll() {
         }
     }
     _num_elem = 0;
-    _pElemActive = NULL;
-    _pElem_first = NULL;
+    _pElemActive = nullptr;
+    _pElem_first = nullptr;
     return n;
 }
 
 template<class T>
 int GgafLinkedListRing<T>::indexOf(T* prm_pVal) {
-    if (_pElem_first == NULL) {
+    if (_pElem_first == nullptr) {
         return -1;
     }
     int r = 0;
@@ -1206,8 +1206,8 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
         if (_num_elem == 1) {
             //子要素は１つの場合
             DELETE_IMPOSSIBLE_NULL(_pElem_first);
-            _pElem_first = NULL;
-            _pElemActive = NULL;
+            _pElem_first = nullptr;
+            _pElemActive = nullptr;
             _num_elem = 0;
 
         } else {
@@ -1218,8 +1218,8 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
                 DELETE_IMPOSSIBLE_NULL(pLast); //末尾からdelete
                 if (pLastPrev->_is_first_flg) {
                     DELETE_IMPOSSIBLE_NULL(_pElem_first); //pSubLastPrev == _pSubFirst である
-                    _pElem_first = NULL;
-                    _pElemActive = NULL;
+                    _pElem_first = nullptr;
+                    _pElemActive = nullptr;
                     _num_elem = 0;
                     break;
                 }

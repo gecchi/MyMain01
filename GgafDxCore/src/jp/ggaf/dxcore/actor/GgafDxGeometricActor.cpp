@@ -20,10 +20,10 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _pChecker = prm_pChecker;
     _pKurokoA = NEW GgafDxKurokoA(this);
     _pKurokoB = NEW GgafDxKurokoB(this);
-    _pSeTxer = NEW GgafDxSeTransmitterForActor(this);
+    _pSeTx = NEW GgafDxSeTransmitterForActor(this);
     _offscreen_kind = -1;
-    _pFunc_calcRotMvWorldMatrix = NULL;
-    _pActor_Base = NULL;
+    _pFunc_calcRotMvWorldMatrix = nullptr;
+    _pActor_Base = nullptr;
     _dest_from_vppln_top = 0;
     _dest_from_vppln_bottom = 0;
     _dest_from_vppln_left = 0;
@@ -42,7 +42,7 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _RX_final = _RX;
     _RY_final = _RY;
     _RZ_final = _RZ;
-    _pFormation = NULL;
+    _pFormation = nullptr;
 
     _is_local = false;
     _wasCalc_matInvWorldRotMv = false;
@@ -351,13 +351,13 @@ void GgafDxGeometricActor::scaleWith(GgafDxGeometricActor* prm_pActor) {
 
 void GgafDxGeometricActor::onEnded() {
     GgafDxBaseActor::onEnded();
-    _pFormation = NULL;
+    _pFormation = nullptr;
 }
 
 GgafDxGeometricActor::~GgafDxGeometricActor() {
     DELETE_IMPOSSIBLE_NULL(_pKurokoA);
     DELETE_IMPOSSIBLE_NULL(_pKurokoB);
-    DELETE_IMPOSSIBLE_NULL(_pSeTxer);
+    DELETE_IMPOSSIBLE_NULL(_pSeTx);
 }
 
 
@@ -370,7 +370,7 @@ void GgafDxGeometricActor::dump() {
             if (pActor_tmp->getNext()) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ‹Ç∑");
                 break;
             }
             if (pActor_tmp->isFirst()) {
@@ -390,7 +390,7 @@ void GgafDxGeometricActor::dump(std::string prm_parent) {
             if (pActor_tmp->getNext()) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™nullptrÇ¡ÇƒÇ‹Ç∑");
                 break;
             }
             if (pActor_tmp->isFirst()) {

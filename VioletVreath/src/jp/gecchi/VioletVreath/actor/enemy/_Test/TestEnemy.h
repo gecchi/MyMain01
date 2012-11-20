@@ -20,7 +20,7 @@ public:
      * @param prm_name
      * @return
      */
-    TestEnemy(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
+    TestEnemy(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     void dispStamina();
 

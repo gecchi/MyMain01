@@ -7,7 +7,7 @@ using namespace VioletVreath;
 
 
 MyTorpedoTail::MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pTorpedo) :
-        HomingLaserChip(prm_name, "AstraeaLaserChip001", NULL) {
+        HomingLaserChip(prm_name, "AstraeaLaserChip001", nullptr) {
     _class_name = "MyTorpedoTail";
     pTorpedo_ = prm_pTorpedo;
 }

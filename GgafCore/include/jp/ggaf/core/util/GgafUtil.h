@@ -233,7 +233,7 @@ public:
     static inline INT32 _rnd_int32_(INT32 prm_from, INT32 prm_to) {
 #ifdef MY_DEBUG
         if (prm_from > prm_to) {
-            MessageBox(NULL, "GgafUtil::_rnd_int32_() from toの大小がおかしい", "不本意な事態", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND);
+            MessageBox(nullptr, "GgafUtil::_rnd_int32_() from toの大小がおかしい", "不本意な事態", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND);
         }
 #endif
         return ((INT32)(GgafCore::CmRandomNumberGenerator::getInstance()->genrand_int32() % (prm_to - prm_from) ) + prm_from );
@@ -241,8 +241,8 @@ public:
 
     static void readProperties(std::string filename, GgafStrMap* pMap);
     static void readProperties(std::istream &is, GgafStrMap* pMap);
-    static void writeProperties(const char *filename, GgafStrMap* pMap, const char *header = NULL);
-    static void writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header = NULL);
+    static void writeProperties(const char *filename, GgafStrMap* pMap, const char *header = nullptr);
+    static void writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header = nullptr);
     static void printProperties(std::ostream &os, GgafStrMap* pMap);
     static inline char m_hex(int nibble) {
         static const char *digits = "0123456789ABCDEF";

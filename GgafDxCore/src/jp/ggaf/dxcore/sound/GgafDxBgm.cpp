@@ -5,7 +5,7 @@ using namespace IkdLib;
 
 //GgafDxBgm::GgafDxBgm(char* prm_ogg_name) : GgafObject() {
 //    _TRACE_("GgafDxBgm::GgafDxBgm "<<prm_ogg_name);
-//    if (GgafDxSound::_pIDirectSound8 == NULL) {
+//    if (GgafDxSound::_pIDirectSound8 == nullptr) {
 //        throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_ogg_name<<") DirectSound が、まだ初期化されていません。");
 //    }
 //    _file_name = std::string(prm_ogg_name);
@@ -16,7 +16,7 @@ using namespace IkdLib;
 //}
 
 GgafDxBgm::GgafDxBgm(char* prm_bgm_key) : GgafObject() {
-    if (GgafDxSound::_pIDirectSound8 == NULL) {
+    if (GgafDxSound::_pIDirectSound8 == nullptr) {
         throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_bgm_key<<") DirectSound が、まだ初期化されていません。");
     }
     std::string bgm_key = std::string(prm_bgm_key);

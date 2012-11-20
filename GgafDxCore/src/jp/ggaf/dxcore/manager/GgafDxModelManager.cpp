@@ -18,7 +18,7 @@ using namespace GgafDxCore;
 
 
 int GgafDxModelManager::_id_max = 0;
-GgafDxModel* GgafDxModelManager::_pModelLastDraw = NULL;
+GgafDxModel* GgafDxModelManager::_pModelLastDraw = nullptr;
 GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxModel> (prm_manager_name) {
 
@@ -155,7 +155,7 @@ GgafDxModel* GgafDxModelManager::processCreateResource(char* prm_idstr, void* pr
         default:
             TRACE3("GgafDxModelManager::processCreateResource("<<prm_idstr<<") そんな種別はありません");
             throwGgafCriticalException("GgafDxModelManager::processCreateResource("<<prm_idstr<<") そんなモデル種別は知りません");
-            pResourceModel = NULL;
+            pResourceModel = nullptr;
             break;
     }
     return pResourceModel;
@@ -339,19 +339,19 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     //流し込む頂点バッファデータ作成
     ToolBox::IO_Model_X iox;
 
-    Frm::Model3D* model_pModel3D = NULL;
-    Frm::Mesh*    model_pMeshesFront = NULL;
+    Frm::Model3D* model_pModel3D = nullptr;
+    Frm::Mesh*    model_pMeshesFront = nullptr;
 
-    GgafDxMeshModel::INDEXPARAM* model_paIndexParam = NULL;
-    GgafDxMeshModel::VERTEX*     model_paVtxBuffer_org = NULL;
-    WORD*                        model_paIdxBuffer_org = NULL;
-    D3DMATERIAL9*                model_paMaterial = NULL;
-    GgafDxTextureConnection**    model_papTextureCon = NULL;
+    GgafDxMeshModel::INDEXPARAM* model_paIndexParam = nullptr;
+    GgafDxMeshModel::VERTEX*     model_paVtxBuffer_org = nullptr;
+    WORD*                        model_paIdxBuffer_org = nullptr;
+    D3DMATERIAL9*                model_paMaterial = nullptr;
+    GgafDxTextureConnection**    model_papTextureCon = nullptr;
     int nVertices = 0;
     int nFaces = 0;
     int nFaceNormals = 0;
 
-    if (prm_pMeshModel->_pModel3D == NULL) {
+    if (prm_pMeshModel->_pModel3D == nullptr) {
         model_pModel3D = NEW Frm::Model3D();
 
         bool r = iox.Load(xfile_name, model_pModel3D);
@@ -510,7 +510,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
         delete[] paParam;
     }
 
-    if (prm_pMeshModel->_pIDirect3DVertexBuffer9 == NULL) {
+    if (prm_pMeshModel->_pIDirect3DVertexBuffer9 == nullptr) {
 
         //頂点バッファ作成
         hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
@@ -519,7 +519,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
                 GgafDxMeshModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pMeshModel->_pIDirect3DVertexBuffer9),
-                NULL);
+                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pMeshModel->_model_name));
 
         //バッファへ作成済み頂点データを流し込む
@@ -532,14 +532,14 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
 
 
     //インデックスバッファデータ作成
-    if (prm_pMeshModel->_pIDirect3DIndexBuffer9 == NULL) {
+    if (prm_pMeshModel->_pIDirect3DIndexBuffer9 == nullptr) {
         hr = GgafDxGod::_pID3DDevice9->CreateIndexBuffer(
                                sizeof(WORD) * nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
                                 &(prm_pMeshModel->_pIDirect3DIndexBuffer9),
-                                NULL);
+                                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMeshModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pMeshModel->_model_name));
         void* pIndexBuffer;
         prm_pMeshModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
@@ -750,7 +750,7 @@ void GgafDxModelManager::setMaterial(Frm::Mesh* in_pMeshesFront,
             (*pOut_paMaterial)[n].Emissive.a = 1.000000f;
 
             texture_filename = (char*)((*material)->_TextureName.c_str());
-            if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
+            if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
                 (*pOut_papTextureCon)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
             } else {
                 //テクスチャ無し時は真っ白なテクスチャに置き換え
@@ -974,7 +974,7 @@ void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_
 
         if ((*iteBone)) {
             Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
-            if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
+            if (pMatPos == 0 || pMatPos== nullptr || pMatPos->isIdentity()) {
                 //FrameTransformMatrix は単位行列
                 _TRACE_("FrameTransformMatrix is Identity");
             } else {
@@ -1140,19 +1140,19 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     }
     HRESULT hr;
     //流し込む頂点バッファデータ作成
-    ToolBox::IO_Model_X* paIOX = NULL;
-    Frm::Model3D**                        model_papModel3D = NULL;
-    Frm::Mesh**                           model_papMeshesFront = NULL;
+    ToolBox::IO_Model_X* paIOX = nullptr;
+    Frm::Model3D**                        model_papModel3D = nullptr;
+    Frm::Mesh**                           model_papMeshesFront = nullptr;
 
-    GgafDxMorphMeshModel::INDEXPARAM*     model_paIndexParam = NULL;
-    GgafDxMorphMeshModel::VERTEX_PRIMARY* model_paVtxBuffer_org_primary = NULL;
-    GgafDxMorphMeshModel::VERTEX_MORPH**  model_papaVtxBuffer_org_morph = NULL;
-    WORD*                                 model_paIdxBuffer_org = NULL;
-    D3DMATERIAL9*                         model_paMaterial = NULL;
+    GgafDxMorphMeshModel::INDEXPARAM*     model_paIndexParam = nullptr;
+    GgafDxMorphMeshModel::VERTEX_PRIMARY* model_paVtxBuffer_org_primary = nullptr;
+    GgafDxMorphMeshModel::VERTEX_MORPH**  model_papaVtxBuffer_org_morph = nullptr;
+    WORD*                                 model_paIdxBuffer_org = nullptr;
+    D3DMATERIAL9*                         model_paMaterial = nullptr;
 
-    GgafDxTextureConnection** model_papTextureCon = NULL;
+    GgafDxTextureConnection** model_papTextureCon = nullptr;
 
-    if (prm_pMorphMeshModel->_papModel3D == NULL) {
+    if (prm_pMorphMeshModel->_papModel3D == nullptr) {
         paIOX = NEW ToolBox::IO_Model_X[morph_target_num+1];
         model_papModel3D = NEW Frm::Model3D*[morph_target_num+1];
         model_papMeshesFront = NEW Frm::Mesh*[morph_target_num+1];
@@ -1336,7 +1336,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
         delete[] paParam;
     }
 
-    if (prm_pMorphMeshModel->_pIDirect3DVertexDeclaration9 == NULL) {
+    if (prm_pMorphMeshModel->_pIDirect3DVertexDeclaration9 == nullptr) {
 
         int elemnum = (4+(2*morph_target_num))+1; //D3DVERTEXELEMENT9 構造体の配列要素数
         D3DVERTEXELEMENT9* paVtxelem = NEW D3DVERTEXELEMENT9[elemnum];
@@ -1408,7 +1408,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     }
 
     //頂点バッファ作成
-    if (prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary == NULL) {
+    if (prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary == nullptr) {
         prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph = NEW LPDIRECT3DVERTEXBUFFER9[morph_target_num];
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
 
@@ -1420,7 +1420,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
                         0, //GgafDxMorphMeshModel::FVF,
                         D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                         &(prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary),
-                        NULL);
+                        nullptr);
                 checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗（プライマリ） model="<<(prm_pMorphMeshModel->_model_name));
                 void *pVertexBuffer;
                 hr = prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary->Lock(0, prm_pMorphMeshModel->_size_vertices_primary, (void**)&pVertexBuffer, 0);
@@ -1435,7 +1435,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
                         0, //GgafDxMorphMeshModel::FVF,
                         D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                         &(prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph[pattern-1]),
-                        NULL);
+                        nullptr);
                 checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(prm_pMorphMeshModel->_model_name));
                 void *pVertexBuffer;
                 hr = prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph[pattern-1]->Lock(0, prm_pMorphMeshModel->_size_vertices_morph, (void**)&pVertexBuffer, 0);
@@ -1448,7 +1448,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
 
 
     //インデックスバッファデータ作成（プライマリ、モーフターゲット共に同じ）
-    if (prm_pMorphMeshModel->_pIDirect3DIndexBuffer9 == NULL) {
+    if (prm_pMorphMeshModel->_pIDirect3DIndexBuffer9 == nullptr) {
         int nFaces = model_papMeshesFront[0]->_nFaces;
 
         hr = GgafDxGod::_pID3DDevice9->CreateIndexBuffer(
@@ -1457,7 +1457,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
                                 &(prm_pMorphMeshModel->_pIDirect3DIndexBuffer9),
-                                NULL);
+                                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pMorphMeshModel->_model_name));
         void* pIndexBuffer;
         prm_pMorphMeshModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
@@ -1514,9 +1514,9 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
            xfile_name.c_str(),         //[in]  LPCTSTR pFilename
            prm_pD3DXMeshModel->_dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
            GgafDxGod::_pID3DDevice9,   //[in]  LPDIRECT3DDEVICE9 pDevice
-           NULL,                       //[out] LPD3DXBUFFER* ppAdjacency
+           nullptr,                       //[out] LPD3DXBUFFER* ppAdjacency
            &pID3DXBuffer,              //[out] LPD3DXBUFFER* ppMaterials
-           NULL,                       //[out] LPD3DXBUFFER* ppEffectInstances
+           nullptr,                       //[out] LPD3DXBUFFER* ppEffectInstances
            &_num_materials,            //[out] DWORD* pNumMaterials
            &pID3DXMesh                 //[out] LPD3DXMESH* pMesh
          );
@@ -1526,9 +1526,9 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     DWORD *pAdjacency = NEW DWORD [ pID3DXMesh->GetNumFaces() * 3 ];
     hr = pID3DXMesh->GenerateAdjacency( 1e-6f, pAdjacency );
     checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] GenerateAdjacencyがつくれません。対象="<<xfile_name);
-    hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_ATTRSORT, pAdjacency, NULL, NULL, NULL );
+    hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_ATTRSORT, pAdjacency, nullptr, nullptr, nullptr );
     checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] D3DXMESHOPT_ATTRSORTできません。対象="<<xfile_name);
-    hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_VERTEXCACHE, pAdjacency, NULL, NULL, NULL );
+    hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_VERTEXCACHE, pAdjacency, nullptr, nullptr, nullptr );
     checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] D3DXMESHOPT_VERTEXCACHEできません。対象="<<xfile_name);
     DELETEARR_IMPOSSIBLE_NULL(pAdjacency);
 
@@ -1560,7 +1560,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     char* texture_filename;
     for( DWORD i = 0; i < _num_materials; i++) {
         texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
-        if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
+        if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
             model_papTextureCon[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
         } else {
             //テクスチャ無し
@@ -1571,7 +1571,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
 
     //Xファイルに法線がない場合、FVFに法線を追加し、法線を計算してを設定。
     if(pID3DXMesh->GetFVF() != (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1)) {
-        LPD3DXMESH pID3DXMesh_tmp = NULL;
+        LPD3DXMESH pID3DXMesh_tmp = nullptr;
         hr = pID3DXMesh->CloneMeshFVF(
                            pID3DXMesh->GetOptions(),             // [in]  DWORD Options,
                            D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1, // [in]  DWORD FVF,
@@ -1579,7 +1579,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
                            &pID3DXMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
                          );
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel]  pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name);
-        D3DXComputeNormals(pID3DXMesh_tmp, NULL); //法線計算（Faceの表裏どっちに法線向けるか、どうやって判定しているのだろうか・・・）
+        D3DXComputeNormals(pID3DXMesh_tmp, nullptr); //法線計算（Faceの表裏どっちに法線向けるか、どうやって判定しているのだろうか・・・）
         RELEASE_IMPOSSIBLE_NULL(pID3DXMesh);
         pID3DXMesh = pID3DXMesh_tmp;
     }
@@ -1602,8 +1602,8 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     //2)GgafDxD3DXAniMeshModelのメンバにセット
     //Xファイルのロードして必要な内容をGgafDxD3DXAniMeshModelメンバに設定しインスタンスとして完成させたい
     LPD3DXMESH pID3DXAniMesh; //メッシュ(ID3DXAniMeshインターフェイスへのポインタ）
-    D3DMATERIAL9* model_paMaterial = NULL; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
-    GgafDxTextureConnection** model_papTextureCon = NULL; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
+    D3DMATERIAL9* model_paMaterial = nullptr; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
+    GgafDxTextureConnection** model_papTextureCon = nullptr; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD _num_materials;
     std::string xfile_name = getMeshFileName(prm_pD3DXAniMeshModel->_model_name);
     if (xfile_name == "") {
@@ -1649,13 +1649,13 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
             D3DXMESH_SYSTEMMEM, //D3DXMESH_MANAGED,
             GgafDxGod::_pID3DDevice9,
             pAH,
-            NULL,
+            nullptr,
             (D3DXFRAME**)(&pFR),
             &pAC
          );
     _TRACE_("pAH="<<pAH<<" pFR="<<pFR<<" pAC="<<pAC<<" xfile_name.c_str()="<<xfile_name.c_str());
     checkDxException(hr, D3D_OK, "GgafDxModelManager::restoreD3DXAniMeshModel "<<xfile_name<<" 読み込みに失敗しました。対象="<<xfile_name);
-    if (pFR == NULL) {
+    if (pFR == nullptr) {
         throwGgafCriticalException("GgafDxModelManager::restoreD3DXAniMeshModel "<<xfile_name<<" のフレーム情報が取得できません！");
     }
     //マテリアル配列を作成
@@ -1665,7 +1665,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     int model_nMaterials = 0;
     //フレームリストを廻って、マテリアル総数取得
     for (int i = 0; it != listFrame.end(); i++, it++) {
-        if ((*it)->pMeshContainer == NULL) {
+        if ((*it)->pMeshContainer == nullptr) {
             continue;
         } else {
             model_nMaterials += (int)((*it)->pMeshContainer->NumMaterials);
@@ -1679,7 +1679,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     int n = 0;
     char* texture_filename;
     for (int i = 0; it != listFrame.end(); i++, it++) {
-        if ((*it)->pMeshContainer == NULL) {
+        if ((*it)->pMeshContainer == nullptr) {
             continue;
         } else {
             for (int j = 0; j < (int)((*it)->pMeshContainer->NumMaterials); j++) {
@@ -1687,7 +1687,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
                 model_paMaterial[n] = (*it)->pMeshContainer->pMaterials[j].MatD3D; //マテリアル情報コピー
 
                 texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
-                if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
+                if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
                     model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
                 } else {
                     //テクスチャ無し時は真っ白なテクスチャに置き換え
@@ -1735,7 +1735,7 @@ void GgafDxModelManager::getDrawFrameList(std::list<D3DXFRAME_WORLD*>* pList, D3
 
 void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel) {
     TRACE3("GgafDxModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");
-    prm_pSpriteModel->_papTextureCon = NULL;
+    prm_pSpriteModel->_papTextureCon = nullptr;
     HRESULT hr;
     std::string xfile_name = getSpriteFileName(prm_pSpriteModel->_model_name);
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
@@ -1754,9 +1754,9 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     }
 
     SIZE_T xsize = 0;
-    char* pXData = NULL;
+    char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
-    if (pXData == NULL) {
+    if (pXData == nullptr) {
         throwGgafCriticalException("[GgafDxModelManager::restoreSpriteModel] "<<xfile_name<<" のフォーマットエラー。");
     }
 //    GUID* pGuid;
@@ -1840,7 +1840,7 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
 
 
     //バッファ作成
-    if (prm_pSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
+    if (prm_pSpriteModel->_pIDirect3DVertexBuffer9 == nullptr) {
 
         hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
                 prm_pSpriteModel->_size_vertices,
@@ -1848,7 +1848,7 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
                 GgafDxSpriteModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pSpriteModel->_pIDirect3DVertexBuffer9),
-                NULL);
+                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreSpriteModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteModel->_model_name));
     }
     //頂点バッファ作成
@@ -1892,7 +1892,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         throwGgafCriticalException("[GgafDxModelManager::restoreSpriteSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pSpriteSetModel->getName()<<"  nFaces:2(*3)  セット数:"<<(prm_pSpriteSetModel->_set_num));
     }
 
-    prm_pSpriteSetModel->_papTextureCon = NULL;
+    prm_pSpriteSetModel->_papTextureCon = nullptr;
 
     HRESULT hr;
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
@@ -1920,9 +1920,9 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
     }
 
     SIZE_T xsize = 0;
-    char* pXData = NULL;
+    char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
-    if (pXData == NULL) {
+    if (pXData == nullptr) {
         throwGgafCriticalException("[GgafDxModelManager::restoreSpriteSetModel] "<<xfile_name<<" のフォーマットエラー。");
     }
 //    GUID* pGuid;
@@ -1941,7 +1941,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
     prm_pSpriteSetModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
     prm_pSpriteSetModel->_papTextureCon[0] = model_pTextureCon;
     //バッファ作成
-    if (prm_pSpriteSetModel->_pIDirect3DVertexBuffer9 == NULL) {
+    if (prm_pSpriteSetModel->_pIDirect3DVertexBuffer9 == nullptr) {
         prm_pSpriteSetModel->_size_vertices = sizeof(GgafDxSpriteSetModel::VERTEX)*4;
         prm_pSpriteSetModel->_size_vertex_unit = sizeof(GgafDxSpriteSetModel::VERTEX);
 
@@ -2013,7 +2013,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
                 GgafDxSpriteSetModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pSpriteSetModel->_pIDirect3DVertexBuffer9),
-                NULL);
+                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreSpriteSetModel] _p1ID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
@@ -2036,7 +2036,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
     }
 
     //インデックスバッファ作成
-    if (prm_pSpriteSetModel->_pIDirect3DIndexBuffer9 == NULL) {
+    if (prm_pSpriteSetModel->_pIDirect3DIndexBuffer9 == nullptr) {
         int nVertices = 4;
         int nFaces = 2;
         WORD* unit_paIdxBuffer = NEW WORD[(nFaces*3)];
@@ -2063,7 +2063,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
                                 &(prm_pSpriteSetModel->_pIDirect3DIndexBuffer9),
-                                NULL);
+                                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreSpriteSetModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
 
         void* pIndexBuffer;
@@ -2113,7 +2113,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
 void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     TRACE3("GgafDxModelManager::restoreBoardModel(" << prm_pBoardModel->_model_name << ")");
 
-    prm_pBoardModel->_papTextureCon = NULL;
+    prm_pBoardModel->_papTextureCon = nullptr;
     HRESULT hr;
     std::string xfile_name = getSpriteFileName(prm_pBoardModel->_model_name);
 
@@ -2132,9 +2132,9 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     }
 
     SIZE_T xsize = 0;
-    char* pXData = NULL;
+    char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
-    if (pXData == NULL) {
+    if (pXData == nullptr) {
         throwGgafCriticalException("[GgafDxModelManager::restoreBoardModel] "<<xfile_name<<" のフォーマットエラー。");
     }
     //    GUID* pGuid;
@@ -2188,7 +2188,7 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     paVertex[3].tv = (1.0 / xdata.row_texture_split) - dV;
 
     //バッファ作成
-    if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == NULL) {
+    if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == nullptr) {
 
         hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
                 prm_pBoardModel->_size_vertices,
@@ -2196,7 +2196,7 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
                 GgafDxBoardModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pBoardModel->_pIDirect3DVertexBuffer9),
-                NULL);
+                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreBoardModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pBoardModel->_model_name));
     }
     //頂点バッファ作成
@@ -2236,7 +2236,7 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
         throwGgafCriticalException("[GgafDxModelManager::restoreBoardSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pBoardSetModel->getName()<<"  nVertices:4  セット数:"<<(prm_pBoardSetModel->_set_num));
     }
 
-    prm_pBoardSetModel->_papTextureCon = NULL;
+    prm_pBoardSetModel->_papTextureCon = nullptr;
     HRESULT hr;
     std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
     //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
@@ -2264,9 +2264,9 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
     }
 
     SIZE_T xsize = 0;
-    char* pXData = NULL;
+    char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
-    if (pXData == NULL) {
+    if (pXData == nullptr) {
         throwGgafCriticalException("[GgafDxModelManager::restoreBoardSetModel] "<<xfile_name<<" のフォーマットエラー。");
     }
     //    GUID* pGuid;
@@ -2284,7 +2284,7 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
     prm_pBoardSetModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
     prm_pBoardSetModel->_papTextureCon[0] = model_pTextureCon;
 
-    if (prm_pBoardSetModel->_pIDirect3DVertexBuffer9 == NULL) {
+    if (prm_pBoardSetModel->_pIDirect3DVertexBuffer9 == nullptr) {
 
         prm_pBoardSetModel->_size_vertices = sizeof(GgafDxBoardSetModel::VERTEX)*4;
         prm_pBoardSetModel->_size_vertex_unit = sizeof(GgafDxBoardSetModel::VERTEX);
@@ -2334,7 +2334,7 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
                 GgafDxBoardSetModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pBoardSetModel->_pIDirect3DVertexBuffer9),
-                NULL);
+                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreBoardSetModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pBoardSetModel->_model_name));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
@@ -2359,7 +2359,7 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
 
 
     //インデックスバッファ作成
-    if (prm_pBoardSetModel->_pIDirect3DIndexBuffer9 == NULL) {
+    if (prm_pBoardSetModel->_pIDirect3DIndexBuffer9 == nullptr) {
         int nVertices = 4;
         int nFaces = 2;
         WORD* unit_paIdxBuffer = NEW WORD[(nFaces*3)];
@@ -2386,7 +2386,7 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
                                 &(prm_pBoardSetModel->_pIDirect3DIndexBuffer9),
-                                NULL);
+                                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreBoardSetModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pBoardSetModel->_model_name));
 
         void* pIndexBuffer;
@@ -2454,23 +2454,23 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     //流し込む頂点バッファデータ作成
     ToolBox::IO_Model_X iox;
 
-    Frm::Model3D* model_pModel3D = NULL;
-    Frm::Mesh* model_pMeshesFront = NULL;
+    Frm::Model3D* model_pModel3D = nullptr;
+    Frm::Mesh* model_pMeshesFront = nullptr;
 
-    GgafDxMeshSetModel::INDEXPARAM** model_papaIndexParam = NULL;
-    GgafDxMeshSetModel::VERTEX* unit_paVtxBuffer_org = NULL;
-    GgafDxMeshSetModel::VERTEX* model_paVtxBuffer_org = NULL;
-    WORD* unit_paIdxBuffer_org = NULL;
-    WORD* model_paIdxBuffer_org = NULL;
-    D3DMATERIAL9* model_paMaterial = NULL;
-    GgafDxTextureConnection** model_papTextureCon = NULL;
+    GgafDxMeshSetModel::INDEXPARAM** model_papaIndexParam = nullptr;
+    GgafDxMeshSetModel::VERTEX* unit_paVtxBuffer_org = nullptr;
+    GgafDxMeshSetModel::VERTEX* model_paVtxBuffer_org = nullptr;
+    WORD* unit_paIdxBuffer_org = nullptr;
+    WORD* model_paIdxBuffer_org = nullptr;
+    D3DMATERIAL9* model_paMaterial = nullptr;
+    GgafDxTextureConnection** model_papTextureCon = nullptr;
 
     int nVertices = 0;
     int nTextureCoords = 0;
     int nFaces = 0;
     int nFaceNormals = 0;
 
-    if (prm_pMeshSetModel->_pModel3D == NULL) {
+    if (prm_pMeshSetModel->_pModel3D == nullptr) {
         model_pModel3D = NEW Frm::Model3D();
 
         bool r = iox.Load(xfile_name, model_pModel3D);
@@ -2661,7 +2661,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
         DELETEARR_IMPOSSIBLE_NULL(paFaceMaterials);
     }
 
-    if (prm_pMeshSetModel->_pIDirect3DVertexBuffer9 == NULL) {
+    if (prm_pMeshSetModel->_pIDirect3DVertexBuffer9 == nullptr) {
         //頂点バッファ作成
         hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
                 prm_pMeshSetModel->_size_vertices * prm_pMeshSetModel->_set_num,
@@ -2669,7 +2669,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
                 GgafDxMeshSetModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pMeshSetModel->_pIDirect3DVertexBuffer9),
-                NULL);
+                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMeshSetModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pMeshSetModel->_model_name));
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
@@ -2691,7 +2691,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
 
 
     //流し込むインデックスバッファデータ作成
-    if (prm_pMeshSetModel->_pIDirect3DIndexBuffer9 == NULL) {
+    if (prm_pMeshSetModel->_pIDirect3DIndexBuffer9 == nullptr) {
 
         nFaces = model_pMeshesFront->_nFaces;
 
@@ -2701,7 +2701,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
                                 &(prm_pMeshSetModel->_pIDirect3DIndexBuffer9),
-                                NULL);
+                                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMeshSetModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pMeshSetModel->_model_name));
 
         void* pIndexBuffer;
@@ -2736,7 +2736,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
 
     TRACE3("GgafDxModelManager::restorePointSpriteModel(" << prm_pPointSpriteModel->_model_name << ")");
 
-    prm_pPointSpriteModel->_papTextureCon = NULL;
+    prm_pPointSpriteModel->_papTextureCon = nullptr;
     HRESULT hr;
 //    std::string xfile_name = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) + std::string(prm_pPointSpriteModel->_model_name) + ".psprx";
     std::string xfile_name = getPointSpriteFileName(prm_pPointSpriteModel->_model_name);
@@ -2772,9 +2772,9 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
         int VerticesNum;
     };
     SIZE_T xsize = 0;
-    char* pXData = NULL;
+    char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
-    if (pXData == NULL) {
+    if (pXData == nullptr) {
         throwGgafCriticalException("[GgafDxModelManager::restorePointSpriteModel] "<<xfile_name<<" のフォーマットエラー。");
     }
     //    GUID* pGuid;
@@ -2835,7 +2835,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     UINT model_size_vertex_unit = sizeof(GgafDxPointSpriteModel::VERTEX);
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection** model_papTextureCon = NULL;
+    GgafDxTextureConnection** model_papTextureCon = nullptr;
     model_papTextureCon = NEW GgafDxTextureConnection*[1];
     model_papTextureCon[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect(xDataHd.TextureFile );
 
@@ -2871,8 +2871,8 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
          }
     }
 
-    D3DMATERIAL9*   model_paMaterial = NULL;
-    if (prm_pPointSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
+    D3DMATERIAL9*   model_paMaterial = nullptr;
+    if (prm_pPointSpriteModel->_pIDirect3DVertexBuffer9 == nullptr) {
 
         //頂点バッファ作成
         hr = GgafDxGod::_pID3DDevice9->CreateVertexBuffer(
@@ -2881,7 +2881,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
                 GgafDxPointSpriteModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT D3DPOOL_MANAGED
                 &(prm_pPointSpriteModel->_pIDirect3DVertexBuffer9),
-                NULL);
+                nullptr);
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restorePointSpriteModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pPointSpriteModel->_model_name));
 
         //バッファへ作成済み頂点データを流し込む

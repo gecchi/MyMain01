@@ -14,7 +14,7 @@
 /**
  * この世が保持する CameraWorkerManager に接続し、コネクションを取得。
  * X：識別文字列（CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_idstr に渡る)
- * また、CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_p には NULL がセットされている。
+ * また、CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_p) の prm_p には nullptr がセットされている。
  */
 #define connectToCameraWorkerManager(X) ((VioletVreath::CameraWorkerConnection*)P_UNIVERSE->pCamWorkerManager_->connect(X))
 
@@ -39,12 +39,12 @@ class Universe : public GgafLib::DefaultUniverse {
         CameraWorkerConnectionStack() {
             p_ = 0;
             for (int i = 0; i < 30; i++) {
-                apCamWorkerCon_[i] = NULL;
+                apCamWorkerCon_[i] = nullptr;
             }
         }
         CameraWorkerConnection* getLast() {
             if (p_ == 0) {
-                return NULL;
+                return nullptr;
             } else {
                 return apCamWorkerCon_[p_-1];
             }
@@ -62,14 +62,14 @@ class Universe : public GgafLib::DefaultUniverse {
             } else {
                 p_--;
                 CameraWorkerConnection* r = apCamWorkerCon_[p_];
-                apCamWorkerCon_[p_] = NULL;
+                apCamWorkerCon_[p_] = nullptr;
                 return r;
             }
         }
         void clear() {
             p_ = 0;
             for (int i = 0; i < 30; i++) {
-                apCamWorkerCon_[i] = NULL;
+                apCamWorkerCon_[i] = nullptr;
             }
         }
 

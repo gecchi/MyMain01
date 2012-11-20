@@ -23,18 +23,18 @@ GgafDxMeshEffect::GgafDxMeshEffect(char* prm_effect_name) : GgafDxEffect(prm_eff
     hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf);
     checkDxException(hr, D3D_OK, "GgafDxMeshEffect::GgafDxSpriteEffect SetFloat(g_zf) に失敗しました。");
     //シェーダーハンドル
-    _h_matView = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
-    _h_matWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
-    _h_matInvWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matInvWorld" );
-    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( NULL, "g_colMaterialDiffuse" );
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
-    _h_offset_u = _pID3DXEffect->GetParameterByName( NULL, "g_offset_u" );
-    _h_offset_v = _pID3DXEffect->GetParameterByName( NULL, "g_offset_v" );
-    _h_specular = _pID3DXEffect->GetParameterByName( NULL, "g_specular" );
-    _h_specular_power = _pID3DXEffect->GetParameterByName( NULL, "g_specular_power" );
-    _h_posCam = _pID3DXEffect->GetParameterByName( NULL, "g_posCam_World" );
-    _h_far_rate = _pID3DXEffect->GetParameterByName( NULL, "g_far_rate" );
+    _h_matView = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
+    _h_matWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld" );
+    _h_matInvWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matInvWorld" );
+    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
+    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
+    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
+    _h_offset_u = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u" );
+    _h_offset_v = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v" );
+    _h_specular = _pID3DXEffect->GetParameterByName( nullptr, "g_specular" );
+    _h_specular_power = _pID3DXEffect->GetParameterByName( nullptr, "g_specular_power" );
+    _h_posCam = _pID3DXEffect->GetParameterByName( nullptr, "g_posCam_World" );
+    _h_far_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
 }
 
 void GgafDxMeshEffect::setParamPerFrame() {

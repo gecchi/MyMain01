@@ -40,7 +40,7 @@ public:
     /** [r/w]本グループの種別 */
     actorkind _kind;
 
-    GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat = NULL);
+    GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat = nullptr);
 
     /**
      * 初期処理 .
@@ -56,7 +56,7 @@ public:
      * サブが無ければ自動的に死亡する処理になっている。
      */
     void processJudgement() override {
-        if (getSubFirst() == NULL) {
+        if (getSubFirst() == nullptr) {
             //団長が居なければ監督も不要、さようなら。
             sayonara();
         }

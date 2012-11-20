@@ -5,7 +5,7 @@ GgafDepositoryFormation::GgafDepositoryFormation(const char* prm_name, frame prm
         GgafFormation(prm_name, prm_offset_frames_end)
 {
     _class_name = "GgafDepositoryFormation";
-    _pDepo = NULL;
+    _pDepo = nullptr;
     _is_all_called_up = false;
 }
 void GgafDepositoryFormation::setFormationAbleActorDepository(GgafActorDepository* prm_pDepo) {
@@ -65,7 +65,7 @@ void GgafDepositoryFormation::processFinal() {
 GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
-        return NULL;
+        return nullptr;
     }
 #ifdef MY_DEBUG
     if (!_pDepo) {
@@ -75,7 +75,7 @@ GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
 #endif
     if (prm_formation_sub_num <= _num_sub) {
         _is_all_called_up = true;
-        return NULL; //もうこれ以上callUpUntil不可
+        return nullptr; //もうこれ以上callUpUntil不可
     } else {
         GgafMainActor* pActor = _pDepo->dispatch();
         if (pActor) {
@@ -86,7 +86,7 @@ GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
             return (GgafActor*)pActor;
         } else {
             _is_all_called_up = true;
-            return NULL; //もうこれ以上callUpUntil不可
+            return nullptr; //もうこれ以上callUpUntil不可
         }
     }
 }

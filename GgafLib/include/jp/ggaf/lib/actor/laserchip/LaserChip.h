@@ -61,7 +61,7 @@ public:
     /** [r]前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効にするかどうか */
     float _middle_colli_able;
 
-    LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
+    LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
 

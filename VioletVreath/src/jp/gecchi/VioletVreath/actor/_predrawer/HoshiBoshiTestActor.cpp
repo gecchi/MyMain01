@@ -11,12 +11,12 @@ HoshiBoshiTestActor::HoshiBoshiTestActor(const char* prm_name) :
                                "_chk_HoshiBoshiTestModel",
                                "HoshiBoshiEffect",
                                "HoshiBoshiTechnique",
-                               NULL,
-                               NULL ) {
+                               nullptr,
+                               nullptr ) {
     _class_name = "HoshiBoshiTestActor";
-    h_fX_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fX_MyShip" );
-    h_fY_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fY_MyShip" );
-    h_fZ_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fZ_MyShip" );
+    h_fX_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_fX_MyShip" );
+    h_fY_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_fY_MyShip" );
+    h_fZ_MyShip_  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_fZ_MyShip" );
 
     effectBlendOne(); //‰ÁZ‡¬
     setHitAble(false);

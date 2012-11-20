@@ -31,7 +31,7 @@ public:
      * @param prm_name
      * @param prm_pStat
      */
-    GgafActorDepositoryStore(const char* prm_name, GgafStatus* prm_pStat = NULL);
+    GgafActorDepositoryStore(const char* prm_name, GgafStatus* prm_pStat = nullptr);
 
     /**
      * デポジトリを登録します.

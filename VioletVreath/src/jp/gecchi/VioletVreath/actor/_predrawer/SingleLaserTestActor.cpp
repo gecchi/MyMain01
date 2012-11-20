@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 SingleLaserTestActor::SingleLaserTestActor(const char* prm_name) :
-        SingleLaser(prm_name, "_chk_SingleLaserTestModel", NULL) {
+        SingleLaser(prm_name, "_chk_SingleLaserTestModel", nullptr) {
     _class_name = "SingleLaserTestActor";
 }
 

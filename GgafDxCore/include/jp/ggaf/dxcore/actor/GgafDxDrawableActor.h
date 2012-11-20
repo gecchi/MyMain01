@@ -71,9 +71,9 @@ public:
      * @param prm_model モデル識別キー文字列
      * @param prm_effect エフェクト識別キー文字列
      * @param prm_technique エフェクトのテクニック
-     * @param prm_pStat 使用するステータスオブジェクト(使用しない時 NULLでよい)
-     * @param prm_pStat 使用するステータスオブジェクト(使用しない時 NULLでよい)
-     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
+     * @param prm_pStat 使用するステータスオブジェクト(使用しない時 nullptrでよい)
+     * @param prm_pStat 使用するステータスオブジェクト(使用しない時 nullptrでよい)
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
      */
     GgafDxDrawableActor(const char* prm_name,
                         const char* prm_model,
@@ -93,8 +93,8 @@ public:
      * @param prm_effect_id エフェクト定義名
      * @param prm_effect_type エフェクトタイプ
      * @param prm_technique エフェクトのテクニック
-     * @param prm_pStat 使用するステータスオブジェクト(使用しない時 NULLでよい)
-     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
+     * @param prm_pStat 使用するステータスオブジェクト(使用しない時 nullptrでよい)
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
      */
     GgafDxDrawableActor(const char* prm_name,
                         const char* prm_model_id,

@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 bool GgafDxAAPrismActor::init = false;
-__map__<int, GgafDxAAPrismActor::RotPosPrism> GgafDxAAPrismActor::pos2r;
+std::map<int, GgafDxAAPrismActor::RotPosPrism> GgafDxAAPrismActor::pos2r;
 
 
 GgafDxAAPrismActor::GgafDxAAPrismActor(const char* prm_name, GgafStatus* prm_pStat,

@@ -7,7 +7,7 @@ using namespace VioletVreath;
 
 Universe::Universe(const char* prm_name, Camera* prm_pCamera) : DefaultUniverse(prm_name, prm_pCamera) {
     _class_name = "Universe";
-    pWorld_ = NULL;
+    pWorld_ = nullptr;
     _TRACE_("Universe::Universe()");
     pCamWorkerManager_ = NEW CameraWorkerManager("CameraWorkerManager");
 

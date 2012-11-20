@@ -20,10 +20,10 @@ void Stage01WalledSection001::processBehavior() {
         if (bound_alpha_ - (-(pMyShip->_dest_from_vppln_front)) < 0) {
             enableFrontAlpha(pMyShip);
         } else {
-            enableFrontAlpha(NULL); //背面カメラの近さならアルファ無し
+            enableFrontAlpha(nullptr); //背面カメラの近さならアルファ無し
         }
     } else {
-        enableFrontAlpha(NULL); //背面カメラの近さならアルファ無し
+        enableFrontAlpha(nullptr); //背面カメラの近さならアルファ無し
     }
 
 

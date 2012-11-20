@@ -8,7 +8,7 @@ using namespace VioletVreath;
 EnemyHermioneArmHead::EnemyHermioneArmHead(const char* prm_name) :
         EnemyHermioneArm(prm_name, "HermioneArmHead", STATUS(EnemyHermioneArmHead)) {
     _class_name = "EnemyHermioneArmHead";
-    pDpcon_ = connectToDepositoryManager("Conn_Shot004", NULL); //’e
+    pDpcon_ = connectToDepositoryManager("Conn_Shot004", nullptr); //’e
     pDepo_Fired_ = pDpcon_->fetch();
 }
 
@@ -72,7 +72,7 @@ void EnemyHermioneArmHead::onHit(GgafActor* prm_pOtherActor) {
 //        setHitAble(false);
 //        //”š”­Œø‰Ê
 //        UTIL::activateExplosionEffectOf(this);
-//        _pSeTxer->play3D(SE_EXPLOSION);
+//        _pSeTx->play3D(SE_EXPLOSION);
 //
 //        //Ž©‹@‘¤‚ÉŒ‚‚½‚ê‚ÄÁ–Å‚Ìê‡A
 //        if (pOther->getKind() & KIND_MY) {
@@ -83,7 +83,7 @@ void EnemyHermioneArmHead::onHit(GgafActor* prm_pOtherActor) {
 //    } else {
 //        //”ñ”j‰óŽž
 //        effectFlush(2); //ƒtƒ‰ƒbƒVƒ…
-//        _pSeTxer->play3D(SE_DAMAGED);
+//        _pSeTx->play3D(SE_DAMAGED);
 //    }
 }
 

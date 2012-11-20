@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-GgafDxCore::GgafDxModel* MyStraightLaserChip001::pModel_  = NULL;
+GgafDxCore::GgafDxModel* MyStraightLaserChip001::pModel_  = nullptr;
 char MyStraightLaserChip001::aaTextureName[3][51];
 int MyStraightLaserChip001::tex_no_ = 0;
 
@@ -15,7 +15,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
     _class_name = "MyStraightLaserChip001";
     default_stamina_ = _pStatus->get(STAT_Stamina);
     _veloMv = 100000;
-    pOrg_ = NULL;
+    pOrg_ = nullptr;
     lockon_st_ = 0;
 }
 
@@ -49,7 +49,7 @@ void MyStraightLaserChip001::onActive() {
     _pKurokoA->setMvVelo(80000);
     _pKurokoA->setMvAcce(1000);
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
-        if (_pChip_front == NULL) {
+        if (_pChip_front == nullptr) {
             //先端チップ
             lockon_st_ = 1;
             updateTex();
@@ -58,7 +58,7 @@ void MyStraightLaserChip001::onActive() {
             lockon_st_ = ((MyStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
-        if (_pChip_front == NULL) {
+        if (_pChip_front == nullptr) {
             //先端チップ
             lockon_st_ = 0;
             updateTex();
@@ -82,8 +82,8 @@ void MyStraightLaserChip001::processBehavior() {
             lockon_st_ = 2;
         }
     }
-    if (_pChip_front == NULL) {
-        _pSeTxer->behave();
+    if (_pChip_front == nullptr) {
+        _pSeTx->behave();
     }
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正
@@ -114,7 +114,7 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             if (pOther == pMainLockOnTarget) {
                 //オプションのロックオンに見事命中した場合
                 lockon_st_ = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
-                if (_pChip_front && _pChip_front->_pChip_front == NULL) {
+                if (_pChip_front && _pChip_front->_pChip_front == nullptr) {
                     //中間先頭チップがヒットした場合、先端にも伝える
                     ((MyStraightLaserChip001*)_pChip_front)->lockon_st_ = 2;
                 }

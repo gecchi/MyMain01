@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectExplosion004::EffectExplosion004(const char* prm_name) :
-        DefaultSpriteSetActor(prm_name, "EffectExplosion004", NULL) {
+        DefaultSpriteSetActor(prm_name, "EffectExplosion004", nullptr) {
     _class_name = "EffectExplosion004";
     //â¡éZçáê¨TechniqueéwíË
     effectBlendOne();

@@ -11,16 +11,16 @@ DWORD GgafDxMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DF
                                     );
 GgafDxMeshModel::GgafDxMeshModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     TRACE3("GgafDxMeshModel::GgafDxMeshModel(" << _model_name << ")");
-    _pModel3D = NULL;
-    _pMeshesFront = NULL;
+    _pModel3D = nullptr;
+    _pMeshesFront = nullptr;
 
-    _pIDirect3DVertexBuffer9 = NULL;
-    _pIDirect3DIndexBuffer9 = NULL;
-    _paVtxBuffer_org = NULL;
-    _paIdxBuffer_org = NULL;
-    _paIndexParam = NULL;
-    _pModel3D = NULL;
-    _pMeshesFront = NULL;
+    _pIDirect3DVertexBuffer9 = nullptr;
+    _pIDirect3DIndexBuffer9 = nullptr;
+    _paVtxBuffer_org = nullptr;
+    _paIdxBuffer_org = nullptr;
+    _paIndexParam = nullptr;
+    _pModel3D = nullptr;
+    _pMeshesFront = nullptr;
     _obj_model |= Obj_GgafDxMeshModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
@@ -66,7 +66,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
             } else {
                 _TRACE_("GgafDxMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
-                GgafDxGod::_pID3DDevice9->SetTexture(0, NULL);
+                GgafDxGod::_pID3DDevice9->SetTexture(0, nullptr);
             }
         }
         hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
@@ -84,7 +84,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
 
 #ifdef MY_DEBUG
                 if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
                 } else {
                     GgafDxEffectManager::_pEffect_Active->_begin = false;
                 }
@@ -103,7 +103,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
 
 #ifdef MY_DEBUG
             if (pMeshEffect->_begin == true) {
-                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pMeshEffect->_begin = true;
             }
@@ -180,7 +180,7 @@ void GgafDxMeshModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
     DELETE_IMPOSSIBLE_NULL(_pModel3D);
     //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
-    _pMeshesFront = NULL;
+    _pMeshesFront = nullptr;
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
 
     //TODO:親クラスメンバをDELETEするのはややきたないか

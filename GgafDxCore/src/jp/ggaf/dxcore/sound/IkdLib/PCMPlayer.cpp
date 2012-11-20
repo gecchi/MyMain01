@@ -12,30 +12,30 @@ using namespace GgafDxCore;
 using namespace IkdLib;
 
 
-#ifdef _MSC_VER
-
-#else
-#define NULL 0
-#endif
+//#ifdef _MSC_VER
+//
+//#else
+//#define nullptr 0
+//#endif
 
 namespace {
 double playTime_g = 1; // 1 sec.
 }
 
 PCMPlayer::PCMPlayer() :
-        _pDS8(NULL), _pDSBuffer(NULL), _pPCMDecoder(NULL), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
+        _pDS8(nullptr), _pDSBuffer(nullptr), _pPCMDecoder(nullptr), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
 {
     clear();
 }
 
 PCMPlayer::PCMPlayer(IDirectSound8* prm_pDS8) :
-        _pDS8(prm_pDS8), _pDSBuffer(NULL), _pPCMDecoder(NULL), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
+        _pDS8(prm_pDS8), _pDSBuffer(nullptr), _pPCMDecoder(nullptr), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
 {
     clear();
 }
 
 PCMPlayer::PCMPlayer(IDirectSound8* prm_pDS8, PCMDecoder* prm_pDecoder) :
-        _pDS8(prm_pDS8), _pDSBuffer(NULL), _pPCMDecoder(NULL), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
+        _pDS8(prm_pDS8), _pDSBuffer(nullptr), _pPCMDecoder(nullptr), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
 {
     clear();
     setDecoder(prm_pDecoder);
@@ -61,7 +61,7 @@ void PCMPlayer::clear() {
     memset(&_wave_format, 0, sizeof(_wave_format));
     if (_pDSBuffer) {
         RELEASE_IMPOSSIBLE_NULL(_pDSBuffer);
-        _pDSBuffer = NULL;
+        _pDSBuffer = nullptr;
     }
     _is_ready = false;
     _state = STATE_NONE;
@@ -111,7 +111,7 @@ void PCMPlayer::setDevice(IDirectSound8* prm_pDS8) {
 
 //! PCMデコーダを設定
 bool PCMPlayer::setDecoder(PCMDecoder* prm_pPcmDecoder) {
-    if (_pDS8 == NULL || prm_pPcmDecoder == NULL || prm_pPcmDecoder->isReady() == false) {
+    if (_pDS8 == nullptr || prm_pPcmDecoder == nullptr || prm_pPcmDecoder->isReady() == false) {
         _is_ready = false;
         return false;
     }
@@ -133,9 +133,9 @@ bool PCMPlayer::setDecoder(PCMDecoder* prm_pPcmDecoder) {
     _pPCMDecoder = prm_pPcmDecoder->createClone();
 
     // セカンダリバッファがまだ無い場合は作成
-    if (_pDSBuffer == NULL) {
+    if (_pDSBuffer == nullptr) {
         IDirectSoundBuffer* ptmpBuf = 0;
-        if (SUCCEEDED(_pDS8->CreateSoundBuffer(&_buffer_desc, &ptmpBuf, NULL))) {
+        if (SUCCEEDED(_pDS8->CreateSoundBuffer(&_buffer_desc, &ptmpBuf, nullptr))) {
             ptmpBuf->QueryInterface(IID_IDirectSoundBuffer8, (void**)&_pDSBuffer);
         } else {
             clear();
@@ -164,7 +164,7 @@ bool PCMPlayer::setDecoder(PCMDecoder* prm_pPcmDecoder) {
 
 //! バッファを初期化する
 bool PCMPlayer::initializeBuffer() {
-    if (_pPCMDecoder == NULL) {
+    if (_pPCMDecoder == nullptr) {
         return false;
     }
  ___BeginSynchronized2; //これが効いてる

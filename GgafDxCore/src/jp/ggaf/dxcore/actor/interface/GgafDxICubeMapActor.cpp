@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxICubeMapActor::GgafDxICubeMapActor()  {
-    _pCubeMapTextureCon = NULL;
+    _pCubeMapTextureCon = nullptr;
     _reflectance = 0.0f;
     _cubemap_tex = "alpha_zero_cubemap.dds";
 }

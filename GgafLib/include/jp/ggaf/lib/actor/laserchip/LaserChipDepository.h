@@ -7,7 +7,7 @@ namespace GgafLib {
  * new した後 addSubLast メソッドで LaserChipインスタンスを好きな個数登録してください。<BR>
  * new から initialize()まで、又は随時変更が有効なパラメータ<BR>
  * ・_num_chip_interval ・・・弾切れフレーム数（デフォルト:20）<BR>
- * ・_pSeCon_Laser ・・・ レーザーチップ発射時SE（デフォルト:NULL）<BR>
+ * ・_pSeCon_Laser ・・・ レーザーチップ発射時SE（デフォルト:nullptr）<BR>
  * <使用例><BR>
  * <code><pre>
  *
@@ -54,20 +54,20 @@ public:
     int _num_continual_dispatch_max;
     /** [r/w]弾切れフレーム数（読み書き可／デフォルト=20） */
     int _num_chip_interval;
-    /** [r/w]レーザー発射時エフェクト。不要の場合はNULLを設定する */
+    /** [r/w]レーザー発射時エフェクト。不要の場合はnullptrを設定する */
     GgafDxCore::GgafDxDrawableActor* _pEffectActor_Irradiate;
 
-    LaserChipDepository(const char* prm_name, GgafCore::GgafStatus* prm_pStat = NULL);
+    LaserChipDepository(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
 
     /**
      * LaserChipDepositoryを設定する。
      * @param prm_num_continual_dispatch_max 強制的に弾切れに移行するチップの連続取得数。
      * @param prm_num_chip_interval 弾切れフレーム数
-     * @param prm_pEffectActor_Irradiate シーン所属済み発射中エフェクト(不要時はNULL)。解放は呼び元で。
+     * @param prm_pEffectActor_Irradiate シーン所属済み発射中エフェクト(不要時はnullptr)。解放は呼び元で。
      */
     virtual void config(int prm_num_continual_dispatch_max,
                         UINT32 prm_num_chip_interval,
-                        GgafDxCore::GgafDxDrawableActor* prm_pEffectActor_Irradiate = NULL);
+                        GgafDxCore::GgafDxDrawableActor* prm_pEffectActor_Irradiate = nullptr);
 
     virtual void processBehavior() override {
     }
@@ -76,10 +76,10 @@ public:
 
     /**
      * レーザーチップの借り入れを試み、借り入れできれば取得し活動状態にする。 .
-     * ストック切れ、或いは弾切れ中の場合は戻りに NULL が返る。
+     * ストック切れ、或いは弾切れ中の場合は戻りに nullptr が返る。
      * 取得したチップの利用を終了する場合は sayonara() (或いはinactivate()) を実行してください。
      * 自動的にストックに戻ります。
-     * @return 借り入れしたレーザーチップ。借り入れできない場合はNULL
+     * @return 借り入れしたレーザーチップ。借り入れできない場合はnullptr
      */
     virtual LaserChip* dispatch(int prm_offset_frames = 1) override;
 

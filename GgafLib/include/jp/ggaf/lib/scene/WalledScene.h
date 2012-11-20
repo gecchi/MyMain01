@@ -50,7 +50,7 @@ public:
             coord prm_wall_start_X,
             WalledSectionScene** prm_papSection, int prm_section_num,
             GgafCore::GgafActorDepository* prm_pDepo_WallAABox,
-            GgafCore::GgafActorDepository* prm_pDepo_WallAAPrism = NULL
+            GgafCore::GgafActorDepository* prm_pDepo_WallAAPrism = nullptr
          );
 
     /**

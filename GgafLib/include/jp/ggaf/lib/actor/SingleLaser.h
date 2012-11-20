@@ -19,7 +19,7 @@ public:
     D3DXHANDLE _ah_matWorld[26];
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
-    SingleLaser(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat=NULL);
+    SingleLaser(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat=nullptr);
 
 
     virtual void onCreateModel() override {}

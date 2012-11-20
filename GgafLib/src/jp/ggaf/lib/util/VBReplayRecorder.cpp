@@ -4,9 +4,9 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 VBReplayRecorder::VBReplayRecorder() : GgafObject() {
-    _pFirstVBNote = NULL;
-    _pRecNote = NULL;
-    _pRecNote_RreadPrev = NULL;
+    _pFirstVBNote = nullptr;
+    _pRecNote = nullptr;
+    _pRecNote_RreadPrev = nullptr;
     _write_realtime = false;
     _frame_of_the_same_vbsta_reading = 0;
 }
@@ -48,17 +48,17 @@ void VBReplayRecorder::write(vbsta prm_state) {
         _ofs_realtime << prm_state << " 1" << std::endl;
     }
 
-    if (_pFirstVBNote == NULL) {
+    if (_pFirstVBNote == nullptr) {
         //V‹K
         _pFirstVBNote = NEW VBRecordNote(prm_state, 1);
         _pRecNote = _pFirstVBNote;
-        _pRecNote_RreadPrev = NULL;
+        _pRecNote_RreadPrev = nullptr;
         return;
     } else {
         if (_pRecNote_RreadPrev) {
             //read ¨ 0 ¨ write ‘±‚«‚©‚ç’Ç‹L(—vŒŸØ)
             _pRecNote = _pRecNote_RreadPrev;
-            _pRecNote_RreadPrev = NULL;
+            _pRecNote_RreadPrev = nullptr;
         }
 
         if (_pRecNote->_state != prm_state) {
@@ -75,7 +75,7 @@ void VBReplayRecorder::write(vbsta prm_state) {
 void VBReplayRecorder::outputFile(const char* prm_filename) {
     std::ofstream ofs(prm_filename);
     VBRecordNote* p = _pFirstVBNote;
-    while (p != NULL) {
+    while (p != nullptr) {
         ofs << p->_state << " " << p->_frame_of_keeping << std::endl;
         p = p ->_pNext;
     }

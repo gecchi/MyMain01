@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 
 DefaultMeshSetTestActor::DefaultMeshSetTestActor(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "_chk_DefaultMeshTestModel", NULL) {
+        DefaultMeshSetActor(prm_name, "_chk_DefaultMeshTestModel", nullptr) {
     _class_name = "DefaultMeshSetTestActor";
     setHitAble(false);
 }

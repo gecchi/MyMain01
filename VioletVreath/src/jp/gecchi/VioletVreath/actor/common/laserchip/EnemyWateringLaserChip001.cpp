@@ -8,7 +8,7 @@
 //        WateringLaserChip(prm_name, "EnemyWateringLaserChip001") {
 //    _class_name = "EnemyWateringLaserChip001";
 //    UTIL::resetEnemyWateringLaserChip001Status(_pStatus);
-//    pOrg_ = NULL;
+//    pOrg_ = nullptr;
 //    lockon_st_ = 0;
 //
 //}
@@ -31,7 +31,7 @@
 //    _pKurokoA->setVyMvAcce(0);
 //    _pKurokoA->setVzMvAcce(0);
 //    if (pOrg_->pLockonTarget_ && pOrg_->pLockonTarget_->isActiveInTheTree()) {
-//        if (_pChip_front == NULL) {
+//        if (_pChip_front == nullptr) {
 //            //先端チップ
 //            lockon_st_ = 1;
 //        } else {
@@ -39,14 +39,14 @@
 //            lockon_st_ = ((EnemyWateringLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
 //        }
 //    } else {
-//        if (_pChip_front == NULL) {
+//        if (_pChip_front == nullptr) {
 //            //先端チップ
 //            lockon_st_ = 0;
 //        } else {
 //            //先端以外
 //            lockon_st_ = ((EnemyWateringLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
 //        }
-//        pOrg_->pLockonTarget_ = NULL;
+//        pOrg_->pLockonTarget_ = nullptr;
 //    }
 //    renge_ = 150000;
 //    _pKurokoA->forceVxMvVeloRange(-renge_, renge_);
@@ -97,11 +97,11 @@
 //        }
 //    } else if (lockon_st_ == 2) {
 //        int dx, dy, dz;
-//        if (_pChip_front == NULL) {
+//        if (_pChip_front == nullptr) {
 ////            _pKurokoA->addVxMvAcce(_pKurokoA->acceVxMv_);
 ////            _pKurokoA->addVyMvAcce(_pKurokoA->acceVyMv_);
 ////            _pKurokoA->addVzMvAcce(_pKurokoA->acceVzMv_);
-//        } else if (_pChip_front->_pChip_front == NULL) {
+//        } else if (_pChip_front->_pChip_front == nullptr) {
 //            //新たなターゲットを作成
 //            dx = _pChip_front->_X - (_X + _pKurokoA->_veloVxMv);
 //            dy = _pChip_front->_Y - (_Y + _pKurokoA->_veloVyMv);
@@ -109,14 +109,14 @@
 //            _pKurokoA->setVxMvAcce(dx);
 //            _pKurokoA->setVyMvAcce(dy);
 //            _pKurokoA->setVzMvAcce(dz);
-//        } else if (_pChip_front->_pChip_front->_pChip_front == NULL) {
+//        } else if (_pChip_front->_pChip_front->_pChip_front == nullptr) {
 //            dx = _pChip_front->_pChip_front->_X - (_X + _pKurokoA->_veloVxMv*2);
 //            dy = _pChip_front->_pChip_front->_Y - (_Y + _pKurokoA->_veloVyMv*2);
 //            dz = _pChip_front->_pChip_front->_Z - (_Z + _pKurokoA->_veloVzMv*2);
 //            _pKurokoA->setVxMvAcce(dx);
 //            _pKurokoA->setVyMvAcce(dy);
 //            _pKurokoA->setVzMvAcce(dz);
-//        } else if (_pChip_front->_pChip_front->_pChip_front->_pChip_front == NULL) {
+//        } else if (_pChip_front->_pChip_front->_pChip_front->_pChip_front == nullptr) {
 //            dx = _pChip_front->_pChip_front->_pChip_front->_X - (_X + _pKurokoA->_veloVxMv*3);
 //            dy = _pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pKurokoA->_veloVyMv*3);
 //            dz = _pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pKurokoA->_veloVzMv*3);
@@ -132,8 +132,8 @@
 //            _pKurokoA->setVzMvAcce(dz);
 //        }
 //    }
-//    if (_pChip_front == NULL) {
-//        _pSeTxer->behave();
+//    if (_pChip_front == nullptr) {
+//        _pSeTx->behave();
 //    }
 //    WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 //}
@@ -150,7 +150,7 @@
 //                //もうホーミングする必要はない。今後の方針を決定
 //
 //                //中間先頭チップがヒットした場合の処理。(_chip_kind=3の場合)
-//                if (_pChip_front && _pChip_front->_pChip_front == NULL) {
+//                if (_pChip_front && _pChip_front->_pChip_front == nullptr) {
 //                    //先端チップへ今後の方針を伝える。（先端チップは当たり判定がないため）
 //                    EnemyWateringLaserChip001* pTip = (EnemyWateringLaserChip001*)_pChip_front; //先端チップ
 //                    pTip->lockon_st_ = 2; //先端に伝える
@@ -235,7 +235,7 @@
 //    //ロックオンが消滅ならば、切る
 //    if (pOrg_->pLockonTarget_) {
 //        if (pOrg_->pLockonTarget_->_pStatus->get(STAT_Stamina) <= 0) {
-//            pOrg_->pLockonTarget_ = NULL;
+//            pOrg_->pLockonTarget_ = nullptr;
 //            lockon_st_ = 2; //非ロックオン（ロックオン→非ロックオン）
 //        }
 //    }

@@ -23,7 +23,7 @@ public:
      * @param prm_name
      * @param prm_pStat
      */
-    GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat = NULL);
+    GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat = nullptr);
 
     /**
      * 貸出メンバー(GgafActor)を追加登録します.
@@ -63,7 +63,7 @@ public:
      * メンバー借り入れを試み、借り入れできれば取得し活動状態にする。 .
      * 暇そうなメンバー（active中、またはactive予約されていない）が存在すれば、
      * 取得し、活動状態にする（遅延設定可）。<BR>
-     * 暇なメンバーが居ない場合 NULL が返ります。<BR>
+     * 暇なメンバーが居ない場合 nullptr が返ります。<BR>
      * 取得できる場合、アクターに activate()が実行され、ポインタを返すと共に、
      * そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
      * 一時的にキャラを派遣するようなイメージ<BR>
@@ -83,7 +83,7 @@ public:
      */
     virtual GgafCore::GgafMainActor* dispatch(int prm_offset_frames = 1) {
 #ifdef MY_DEBUG
-        if (_pSubFirst == NULL) {
+        if (_pSubFirst == nullptr) {
             throwGgafCriticalException("GgafActorDepository::dispatch() this="<<getName()<<"("<<this<<") の子がありません");
         }
         if (_is_active_flg == true || (_will_activate_after_flg == true && _frame_of_life+1 == _frame_of_life_when_activation)) {
@@ -107,7 +107,7 @@ public:
                 break;//取得！
             } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
                 if (pActor->isLast()) {
-                    pActor = NULL;
+                    pActor = nullptr;
                     break;
                 } else {
                     pActor = pActor->getNext();
@@ -143,7 +143,7 @@ public:
      */
     virtual GgafCore::GgafMainActor* dispatchForce(frame prm_offset_frames = 1) {
         GgafMainActor* pActor = dispatch(prm_offset_frames);
-        if (pActor == NULL) {
+        if (pActor == nullptr) {
             getSubFirst()->moveLastImmed(); //お尻に回す
             pActor = getSubFirst();
         }

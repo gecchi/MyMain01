@@ -9,7 +9,7 @@ DepositoryManager::DepositoryManager(const char* prm_manager_name) :
 }
 
 GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, void* prm_p) {
-    GgafActorDepository* pResource = NULL;
+    GgafActorDepository* pResource = nullptr;
 
     if (UTIL::strcmp_ascii("Conn_Shot001", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_Shot001Stock");
@@ -284,7 +284,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 */
 
-    if (pResource == NULL) {
+    if (pResource == nullptr) {
         throwGgafCriticalException("DepositoryManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。Depositoryが作成できません。");
     }
     return pResource;

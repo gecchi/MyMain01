@@ -6,7 +6,7 @@ using namespace GgafDxCore;
 GgafDxSeTransmitterForActor::GgafDxSeTransmitterForActor(GgafDxGeometricActor* prm_pActor) :
         GgafDxSeTransmitter() {
     _pActor = prm_pActor;
-    _paBool_is_playing_3d = NULL;
+    _paBool_is_playing_3d = nullptr;
 }
 
 void GgafDxSeTransmitterForActor::declareSeNum(int prm_se_num) {

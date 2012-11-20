@@ -24,8 +24,8 @@ public:
      * @return
      */
     GgafLinearOctreeSpace() {
-        _pElem_first = NULL;
-        _pElem_last = NULL;
+        _pElem_first = nullptr;
+        _pElem_last = nullptr;
         _kindinfobit = 0;
         _my_index = 0xffffffff; //‚ ‚è‚¦‚È‚¢0xffffffff‚ð“ü‚ê‚Ä‚¨‚­
     }

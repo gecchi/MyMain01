@@ -9,7 +9,7 @@ SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
         GgafDxSpriteMeshActor(prm_name,
                                prm_model,
                                prm_pStat,
-                               NULL) {
+                               nullptr) {
 
     _class_name = "SpriteMeshWorldBoundActor";
     _pScaler = NEW GgafDxScaler(this);

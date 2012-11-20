@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MyOptionControllerGizmo::MyOptionControllerGizmo(const char* prm_name) :
-        DefaultMeshActor(prm_name, "Nothing", NULL) {
+        DefaultMeshActor(prm_name, "Nothing", nullptr) {
     _class_name = "MyOptionControllerGizmo";
 
     ptn_no_ = 0;

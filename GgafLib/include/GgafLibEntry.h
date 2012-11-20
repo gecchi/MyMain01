@@ -20,8 +20,8 @@ extern "C" {
 #endif
 
 
-HWND _hWnd1_ = NULL;
-HWND _hWnd2_ = NULL;
+HWND _hWnd1_ = nullptr;
+HWND _hWnd2_ = nullptr;
 HINSTANCE WinMain_hInstance;
 HINSTANCE WinMain_hPrevInstance;
 LPTSTR WinMain_lpCmdLine;
@@ -210,9 +210,9 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN1_WIDTH),
                         GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN1_HEIGHT),
                         HWND_DESKTOP,
-                        NULL,
+                        nullptr,
                         prm_wndclass1.hInstance,
-                        NULL
+                        nullptr
                       );
 
             RegisterClassEx(&prm_wndclass2);
@@ -226,9 +226,9 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN2_WIDTH),
                         GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT),
                         HWND_DESKTOP,
-                        NULL,
+                        nullptr,
                         prm_wndclass2.hInstance,
-                        NULL
+                        nullptr
                       );
 
         } else {
@@ -244,9 +244,9 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         GGAF_PROPERTY(SINGLE_VIEW_FULL_SCREEN_WIDTH),
                         GGAF_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT),
                         HWND_DESKTOP,
-                        NULL,
+                        nullptr,
                         prm_wndclass1.hInstance,
-                        NULL
+                        nullptr
                       );
 
         }
@@ -263,9 +263,9 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         GGAF_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH),
                         GGAF_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT),
                         HWND_DESKTOP,
-                        NULL,
+                        nullptr,
                         prm_wndclass1.hInstance,
-                        NULL
+                        nullptr
                       );
 
             RegisterClassEx(&prm_wndclass2);
@@ -278,9 +278,9 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         GGAF_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH),
                         GGAF_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT),
                         HWND_DESKTOP,
-                        NULL,
+                        nullptr,
                         prm_wndclass2.hInstance,
-                        NULL
+                        nullptr
                       );
         } else {
             //ウインドモード・１窓使用
@@ -294,9 +294,9 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         GGAF_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH),
                         GGAF_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT),
                         HWND_DESKTOP,
-                        NULL,
+                        nullptr,
                         prm_wndclass1.hInstance,
-                        NULL
+                        nullptr
                       );
         }
     }
@@ -344,7 +344,7 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
 //    DWORD aiSize;
 //    BYTE* paBuff;
 //
-//    GetAdaptersInfo(NULL, &aiSize);//必要バッファサイズ取得
+//    GetAdaptersInfo(nullptr, &aiSize);//必要バッファサイズ取得
 //    paBuff = new BYTE[aiSize];
 //    pAdapterInfo = (PIP_ADAPTER_INFO) paBuff;
 //

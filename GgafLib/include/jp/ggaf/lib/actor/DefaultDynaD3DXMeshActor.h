@@ -17,7 +17,7 @@ public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
-    DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=NULL);
+    DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }

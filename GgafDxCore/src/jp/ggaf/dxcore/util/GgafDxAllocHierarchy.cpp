@@ -52,7 +52,7 @@ void GgafDxAllocHierarchy::addReleaseList(IUnknown *comptr) {
 // 文字列コピー関数
 LPSTR GgafDxAllocHierarchy::copyStr(LPCSTR name) {
     if (!name)
-        return NULL;   // NULLは文字数をカウントできない
+        return nullptr;   // nullptrは文字数をカウントできない
     LPSTR
     Str = NEW
     char[strlen(name)+1];

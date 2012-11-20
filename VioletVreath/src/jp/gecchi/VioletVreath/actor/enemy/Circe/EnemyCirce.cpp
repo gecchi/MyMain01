@@ -8,7 +8,7 @@ EnemyCirce::EnemyCirce(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ceres", STATUS(EnemyCirce)) { //8/‚ð‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
     _class_name = "EnemyCirce";
     iMovePatternNo_ = 0;
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
 void EnemyCirce::onCreateModel() {
@@ -38,7 +38,7 @@ void EnemyCirce::processBehavior() {
     _pKurokoA->execTurnMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO);
     _pKurokoA->behave();
     _pScaler->behave();
-    //_pSeTxer->behave();
+    //_pSeTx->behave();
 }
 
 
@@ -55,7 +55,7 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
         //”j‰ó‚³‚ê‚½ê‡
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
         sayonara();
     }
 }

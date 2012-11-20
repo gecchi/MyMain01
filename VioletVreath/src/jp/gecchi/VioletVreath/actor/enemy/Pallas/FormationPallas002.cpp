@@ -13,14 +13,14 @@ FormationPallas002::FormationPallas002(const char* prm_name) :
     //パラス編隊作成
     pSplManufCon_ = connectToSplineManufactureManager("Pallas02");
 //    pSplLineCon_     = connectToSplineLineManager("SpConn_Pallas01"); //スプライン定義
-    //pDepoCon_ = connectToDepositoryManager("Conn_Shot002", NULL);
-    pDepoCon_ = NULL;
+    //pDepoCon_ = connectToDepositoryManager("Conn_Shot002", nullptr);
+    pDepoCon_ = nullptr;
     papPallas_ = NEW EnemyPallas*[num_Pallas_];
     for (int i = 0; i < num_Pallas_; i++) {
         papPallas_[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
         SplineSequence* pProgram = pSplManufCon_->fetch()->createSplineSequence(papPallas_[i]->_pKurokoA); //移動速度固定
-        papPallas_[i]->config(pProgram, NULL, NULL);
+        papPallas_[i]->config(pProgram, nullptr, nullptr);
         //papPallas_[i]->setDepository_Shot(pDepoCon_->fetch()); //弾設定
         papPallas_[i]->inactivateImmed();
         addSubLast(papPallas_[i]);

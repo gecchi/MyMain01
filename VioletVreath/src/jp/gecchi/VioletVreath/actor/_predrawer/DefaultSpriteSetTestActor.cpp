@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 
 DefaultSpriteSetTestActor::DefaultSpriteSetTestActor(const char* prm_name) :
-        DefaultSpriteSetActor(prm_name, "_chk_DefaultSpriteSetTestModel", NULL) {
+        DefaultSpriteSetActor(prm_name, "_chk_DefaultSpriteSetTestModel", nullptr) {
     _class_name = "DefaultSpriteSetTestActor";
     setHitAble(false);
 }

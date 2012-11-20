@@ -16,9 +16,9 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _frame_refraction_out = 0;
     _is_refracting = false;
 
-    _pDispatche_RefractionEffect = NULL;
-    _pRefractionEffect = NULL;
-    _prev_pRefractionEffect = NULL;
+    _pDispatche_RefractionEffect = nullptr;
+    _pRefractionEffect = nullptr;
+    _prev_pRefractionEffect = nullptr;
 
     _begining_X = _X;
     _begining_Y = _Y;
@@ -53,7 +53,7 @@ void RefractionLaserChip::onActive() {
 
     RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
     //レーザーチップ出現時処理
-    if (pChip_front == NULL) {
+    if (pChip_front == nullptr) {
         _is_leader = true;
         //自身が先頭の場合
         _begining_X = _X;
@@ -117,22 +117,22 @@ void RefractionLaserChip::onInactive() {
         //屈折エフェクトを解除
         if (_pRefractionEffect) {
             _pRefractionEffect->sayonara();
-            _pRefractionEffect = NULL;
+            _pRefractionEffect = nullptr;
         }
         if (_prev_pRefractionEffect) {
             _prev_pRefractionEffect->sayonara();
-            _prev_pRefractionEffect = NULL;
+            _prev_pRefractionEffect = nullptr;
         }
         pChip_behind->_pRefractionEffect = _pRefractionEffect;
     } else {
         //屈折エフェクトを解除
         if (_pRefractionEffect) {
             _pRefractionEffect->sayonara();
-            _pRefractionEffect = NULL;
+            _pRefractionEffect = nullptr;
         }
         if (_prev_pRefractionEffect) {
             _prev_pRefractionEffect->sayonara();
-            _prev_pRefractionEffect = NULL;
+            _prev_pRefractionEffect = nullptr;
         }
     }
     LaserChip::onInactive(); //つながりを切断処理
@@ -149,7 +149,7 @@ void RefractionLaserChip::processBehavior() {
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
         //数珠繋ぎになる。
-        if (pChip_front == NULL) {
+        if (pChip_front == nullptr) {
             //本当の先頭チップか、或いはにわか先頭チップの場合の共通処理
             _prev_X  = _X;
             _prev_Y  = _Y;
@@ -160,7 +160,7 @@ void RefractionLaserChip::processBehavior() {
             _prev_is_refracting = _is_refracting;
             _prev_pRefractionEffect = _pRefractionEffect;
 
-            _pRefractionEffect = NULL;
+            _pRefractionEffect = nullptr;
             if (!_is_refracting) {
                 if (getBehaveingFrame() >= _frame_refraction_enter) {
                     if (_cnt_refraction < _num_refraction) {
@@ -220,7 +220,7 @@ void RefractionLaserChip::processBehavior() {
             _RZ = pChip_front->_prev_RZ;
             _is_refracting =  pChip_front->_prev_is_refracting;
             _pRefractionEffect = pChip_front->_prev_pRefractionEffect;
-            if (_pChip_behind == NULL) {
+            if (_pChip_behind == nullptr) {
                 if (_pRefractionEffect) {
                     //_TRACE_("_pRefractionEffect->sayonara();");
                     _pRefractionEffect->sayonara(_frame_standstill_refraction);

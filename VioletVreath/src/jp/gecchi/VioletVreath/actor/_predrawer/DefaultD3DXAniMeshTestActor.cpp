@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 
 DefaultD3DXAniMeshTestActor::DefaultD3DXAniMeshTestActor(const char* prm_name) :
-        DefaultD3DXAniMeshActor(prm_name, "_chk_DefaultD3DXAniMeshTestModel", NULL) {
+        DefaultD3DXAniMeshActor(prm_name, "_chk_DefaultD3DXAniMeshTestModel", nullptr) {
     _class_name = "DefaultD3DXAniMeshTestActor";
     setHitAble(false);
 }

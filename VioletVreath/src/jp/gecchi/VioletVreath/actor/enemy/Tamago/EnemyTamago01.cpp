@@ -9,15 +9,15 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
 
     _class_name = "EnemyTamago01";
     iMovePatternNo_ = 0;
-    pProgram_Tamago01Move_ = NULL;
-    pDepoCon_ = NULL;
-    pDepo_Shot_ = NULL;
-    pDepo_ShotEffect_ = NULL;
+    pProgram_Tamago01Move_ = nullptr;
+    pDepoCon_ = nullptr;
+    pDepo_Shot_ = nullptr;
+    pDepo_ShotEffect_ = nullptr;
 
-    pDepoCon_ = connectToDepositoryManager("Conn_Shot001", NULL);
+    pDepoCon_ = connectToDepositoryManager("Conn_Shot001", nullptr);
     //pDepo_Shot_ = pDepoCon_->fetch();
-pDepo_Shot_ = NULL;
-    _pSeTxer->set(0, "WAVE_EXPLOSION_001");
+pDepo_Shot_ = nullptr;
+    _pSeTx->set(0, "WAVE_EXPLOSION_001");
 }
 
 void EnemyTamago01::onCreateModel() {
@@ -166,7 +166,7 @@ void EnemyTamago01::processBehavior() {
     _pKurokoA->behave();
     _pScaler->behave();
     _pUvFlipper->behave();
-    //_pSeTxer->behave();
+    //_pSeTx->behave();
 }
 
 void EnemyTamago01::processJudgement() {
@@ -178,7 +178,7 @@ void EnemyTamago01::processJudgement() {
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
-    _pSeTxer->play3D(0);
+    _pSeTx->play3D(0);
     _TRACE_("HIT!!!");
     if (pExplo001) {
         pExplo001->locateWith(this);

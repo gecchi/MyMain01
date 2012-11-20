@@ -14,7 +14,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
 //    had_ready_main_stage_ = false;
     loop_ = 1;
     main_stage_ = 1;
-    pStageMainCannel_ = NULL;
+    pStageMainCannel_ = nullptr;
 
     pTransitStage_ = NEW TransitStage("TransitStage");
     pTransitStage_->inactivateImmed();

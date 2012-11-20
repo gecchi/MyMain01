@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     _class_name = "VamSysCamWorker";
-    pMyShip_ = NULL; //MyShipSceneに設定してもらう
+    pMyShip_ = nullptr; //MyShipSceneに設定してもらう
 
     //初期カメラ移動範囲制限
     float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
@@ -67,7 +67,7 @@ void VamSysCamWorker::processBehavior() {
     //DefaultVamSysCamWorker::processBehavior();
 
     //ゲーム内カメラワーク処理
-    if (pMyShip_ == NULL) {
+    if (pMyShip_ == nullptr) {
         return; //MyShipSceneシーンが未だならカメラワーク禁止
     }
 

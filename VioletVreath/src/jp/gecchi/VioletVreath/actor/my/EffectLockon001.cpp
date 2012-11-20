@@ -5,9 +5,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id) :
-        DefaultSpriteSetActor(prm_name, prm_model_id, NULL) {
+        DefaultSpriteSetActor(prm_name, prm_model_id, nullptr) {
     _class_name = "EffectLockon001";
-    pTarget_ = NULL;
+    pTarget_ = nullptr;
     inactivateImmed();
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
@@ -17,7 +17,7 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     setAlpha(9.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
     setHitAble(false); //当たり判定無し
-    _pSeTxer->set(0, "WAVE_LOCKON_001"); //効果音定義
+    _pSeTx->set(0, "WAVE_LOCKON_001"); //効果音定義
     useProgress(LOCKON001_PROG_RELEASE);
 }
 
@@ -30,7 +30,7 @@ void EffectLockon001::onReset() {
 }
 
 void EffectLockon001::onActive() {
-    if (pTarget_ == NULL) {
+    if (pTarget_ == nullptr) {
         inactivateImmed();
         return;
     }
@@ -55,7 +55,7 @@ EffectLockon001::~EffectLockon001() {
 //
 //
 //void EffectLockon001::dump() {
-//    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==NULL?"NULL":pTarget_->getName())<<" "<<
+//    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==nullptr?"nullptr":pTarget_->getName())<<" "<<
 //                                                                               "@"<<frame_of_behaving_since_onActive_<<
 //                                                                               "/"<<
 //                                                                               frame_of_behaving_<<
@@ -91,7 +91,7 @@ EffectLockon001::~EffectLockon001() {
 //            if (pActor_tmp->_pNext) {
 //                pActor_tmp = pActor_tmp->_pNext;
 //            } else {
-//                _TRACE_("【警告】"<<_class_name<<"("<<this<<")["<<getName()<<"]のnextがNULLっています");
+//                _TRACE_("【警告】"<<_class_name<<"("<<this<<")["<<getName()<<"]のnextがnullptrっています");
 //                break;
 //            }
 //            if (pActor_tmp->is_first_flg_) {
@@ -104,7 +104,7 @@ EffectLockon001::~EffectLockon001() {
 
 
 //void EffectLockon001::dump(std::string prm_parent) {
-//    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==NULL?"NULL":pTarget_->getName())<<" "<<
+//    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"] Target="<<(pTarget_==nullptr?"nullptr":pTarget_->getName())<<" "<<
 //                                                                         "@"<<frame_of_behaving_since_onActive_<<
 //                                                                         "/"<<
 //                                                                         frame_of_behaving_<<
@@ -140,7 +140,7 @@ EffectLockon001::~EffectLockon001() {
 //            if (pActor_tmp->_pNext) {
 //                pActor_tmp = pActor_tmp->_pNext;
 //            } else {
-//                _TRACE_("【警告】"<<_class_name<<"("<<this<<")["<<getName()<<"]のnextがNULLっています");
+//                _TRACE_("【警告】"<<_class_name<<"("<<this<<")["<<getName()<<"]のnextがnullptrっています");
 //                break;
 //            }
 //            if (pActor_tmp->is_first_flg_) {

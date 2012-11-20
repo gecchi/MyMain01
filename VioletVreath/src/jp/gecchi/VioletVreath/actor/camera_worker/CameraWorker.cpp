@@ -4,10 +4,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, NULL) {
+CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, nullptr) {
     _class_name = "CameraWorker";
     pos_camera_ = 0;
-    pLockOnTarget_ = NULL;
+    pLockOnTarget_ = nullptr;
     move_target_XY_CAM_UP_ = D90ANG;
     angXY_nowCamUp_ = D90ANG;
     burenai_speed_ = 10000;
@@ -47,7 +47,7 @@ void CameraWorker::lockCamVp(GgafDxCore::GgafDxGeometricActor* pTarget) {
     pLockOnTarget_ = pTarget;
 }
 void CameraWorker::unlockCamVp() {
-    pLockOnTarget_ = NULL;
+    pLockOnTarget_ = nullptr;
 }
 
 

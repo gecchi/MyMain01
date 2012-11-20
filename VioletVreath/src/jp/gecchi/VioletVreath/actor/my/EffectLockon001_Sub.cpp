@@ -23,8 +23,8 @@ void EffectLockon001_Sub::onActive() {
     setAlpha(0.01);
     _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //右回転
-    //_pSeTxer->play3D(0); //ロックオンSE
-    if (pTarget_ == NULL) {
+    //_pSeTx->play3D(0); //ロックオンSE
+    if (pTarget_ == nullptr) {
         _TRACE_(getActivePartFrame()<<",こここ、this="<<getName()<<"("<<this<<") pTarget_="<<pTarget_);
         _TRACE_(getActivePartFrame()<<",なんでー");
     }
@@ -73,7 +73,7 @@ void EffectLockon001_Sub::processBehavior() {
     }
 
     if (_pProg->get() == LOCKON001_PROG_RELEASE) {
-        pTarget_ = NULL;
+        pTarget_ = nullptr;
         addAlpha(-0.05);
         _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
         _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
@@ -96,7 +96,7 @@ void EffectLockon001_Sub::onInactive() {
 
 void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
 
-    if (prm_pTarget == NULL || pTarget_ == prm_pTarget || MyLockonController::lockon_num_ == 0) {
+    if (prm_pTarget == nullptr || pTarget_ == prm_pTarget || MyLockonController::lockon_num_ == 0) {
         return;
     }
     pTarget_ = prm_pTarget;
@@ -118,7 +118,7 @@ void EffectLockon001_Sub::releaseLockon() {
             //何も無し
         }
     }
-    pTarget_ = NULL;
+    pTarget_ = nullptr;
 }
 
 EffectLockon001_Sub::~EffectLockon001_Sub() {

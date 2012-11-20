@@ -14,7 +14,7 @@ namespace GgafLib {
  * <TR><TD>_pKrokoB</TD><TD>黒子B。移動支援</TD><TD>GgafDxCore::GgafDxKurokoB</TD></TR>
  * <TR><TD>_pFader</TD><TD>フィードイン・アウト支援</TD><TD> GgafDxCore::GgafDxAlphaFader</TD></TR>
  * <TR><TD>_pUvFlipper</TD><TD>パラパラアニメーション支援</TD><TD>GgafDxCore::GgafDxUvFlipper</TD></TR>
- * <TR><TD>_pSeTxer</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
+ * <TR><TD>_pSeTx</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
  * </TABLE>
  * <B>【注意】</B>拡大縮小支援(GgafDxCore::GgafDxScaler)は使用出来ません。
  * @version 1.00
@@ -24,7 +24,7 @@ namespace GgafLib {
 class DefaultBoardSetActor : public GgafDxCore::GgafDxBoardSetActor {
 
 public:
-    DefaultBoardSetActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = NULL);
+    DefaultBoardSetActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = nullptr);
 
     virtual void onCreateModel() override {
     }

@@ -96,7 +96,7 @@ void VvvCamWorker::processBehavior() {
         //VP→CAMのワールド空間方向ベクトルを法線とする平面上に回転軸ベクトルは存在する
 
         D3DXMATRIX InvView;
-        D3DXMatrixInverse( &InvView, NULL, &pCam->_matView);
+        D3DXMatrixInverse( &InvView, nullptr, &pCam->_matView);
         //(vx,vy,vz) * InvView
         // 11_, 12_, 13_, 14_
         // 21_, 22_, 23_, 24_

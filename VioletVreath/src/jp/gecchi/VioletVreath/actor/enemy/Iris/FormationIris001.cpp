@@ -11,13 +11,13 @@ FormationIris001::FormationIris001(const char* prm_name) : TreeFormation(prm_nam
     velo_mv_         = RR_FormationIris001_MvVelo(_RANK_); //速度
     //イリス編隊作成
     pSplLineCon_   = connectToSplineLineManager("SpConn_00201_"); //スプライン定義
-    pDepoCon_ = connectToDepositoryManager("Conn_Shot001", NULL);
+    pDepoCon_ = connectToDepositoryManager("Conn_Shot001", nullptr);
     papIris_ = NEW EnemyIris*[num_Iris_];
     for (int i = 0; i < num_Iris_; i++) {
         papIris_[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
         SplineSequence* pProgram = NEW FixedVelocitySplineSequence(papIris_[i]->_pKurokoA, pSplLineCon_->fetch(), 10000); //移動速度固定
-        papIris_[i]->config(pProgram, pDepoCon_->fetch(), NULL);
+        papIris_[i]->config(pProgram, pDepoCon_->fetch(), nullptr);
         papIris_[i]->inactivateImmed();
         addSubLast(papIris_[i]);
     }

@@ -8,12 +8,12 @@ using namespace VioletVreath;
 EnemyHermioneArm::EnemyHermioneArm(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "EnemyHermioneArm";
-    _pActor_Base = NULL;
+    _pActor_Base = nullptr;
     aiming_ang_velo_ = 0;
     aiming_movable_limit_ang_ = 0;
 
-    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //˜r”j‰ó
+    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //˜r”j‰ó
     useProgress(10);
 }
 
@@ -131,7 +131,7 @@ void EnemyHermioneArm::processBehavior() {
 }
 
 void EnemyHermioneArm::processJudgement() {
-    if (_pActor_Base != NULL && _pActor_Base->isActiveInTheTree()) {
+    if (_pActor_Base != nullptr && _pActor_Base->isActiveInTheTree()) {
     } else {
         //“y‘ä‚ª‚È‚¯‚ê‚ÎŽ©•ª‚àŽ€‚Ê
         sayonara();

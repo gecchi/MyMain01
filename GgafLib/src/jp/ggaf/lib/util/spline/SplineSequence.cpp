@@ -26,7 +26,7 @@ SplineSequence::SplineSequence(SplineManufacture* prm_pManufacture, GgafDxKuroko
 
 void SplineSequence::setManufacture(SplineManufacture* prm_pManufacture) {
     _pManufacture = prm_pManufacture;
-    _pActor_target = NULL;
+    _pActor_target = nullptr;
     _option = ABSOLUTE_COORD;
     _offset_X = 0;
     _offset_Y = 0;

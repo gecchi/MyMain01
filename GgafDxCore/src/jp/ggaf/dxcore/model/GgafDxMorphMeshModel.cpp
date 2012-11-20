@@ -17,9 +17,9 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(p
     char nm[51];
     strcpy(nm, prm_model_name);
     const char* pT = strtok(nm, "/" );
-    int num = (int)strtol(pT, NULL, 10);
-    pT = strtok(NULL, "/");
-    if (pT == NULL) {
+    int num = (int)strtol(pT, nullptr, 10);
+    pT = strtok(nullptr, "/");
+    if (pT == nullptr) {
         throwGgafCriticalException("GgafDxMorphMeshModel::GgafDxMorphMeshModel モデルIDにモーフターゲット数が指定されてません。prm_model_name="<<prm_model_name);
     } else {
         _morph_target_num = num;
@@ -29,17 +29,17 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(p
     if (_morph_target_num > 6) {
         _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
     }
-    _papModel3D = NULL;
-    _papMeshesFront = NULL;
+    _papModel3D = nullptr;
+    _papMeshesFront = nullptr;
 
-    _pIDirect3DVertexDeclaration9 = NULL;
-    _pIDirect3DVertexBuffer9_primary = NULL;
-    _paIDirect3DVertexBuffer9_morph = NULL;
-    _pIDirect3DIndexBuffer9 = NULL;
-    _paVtxBuffer_org_primary = NULL;
-    _papaVtxBuffer_org_morph = NULL;
-    _paIdxBuffer_org = NULL;
-    _paIndexParam = NULL;
+    _pIDirect3DVertexDeclaration9 = nullptr;
+    _pIDirect3DVertexBuffer9_primary = nullptr;
+    _paIDirect3DVertexBuffer9_morph = nullptr;
+    _pIDirect3DIndexBuffer9 = nullptr;
+    _paVtxBuffer_org_primary = nullptr;
+    _papaVtxBuffer_org_morph = nullptr;
+    _paIdxBuffer_org = nullptr;
+    _paIndexParam = nullptr;
     _obj_model |= Obj_GgafDxMorphMeshModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
@@ -90,7 +90,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
             } else {
                 _TRACE_("GgafDxMorphMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
-                GgafDxGod::_pID3DDevice9->SetTexture(0, NULL);
+                GgafDxGod::_pID3DDevice9->SetTexture(0, nullptr);
             }
         }
         hr = pID3DXEffect->SetValue(pMorphMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
@@ -106,7 +106,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
 
 #ifdef MY_DEBUG
                 if (GgafDxEffectManager::_pEffect_Active->_begin == false) {
-                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                    throwGgafCriticalException("begin していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
                 } else {
                     GgafDxEffectManager::_pEffect_Active->_begin = false;
                 }
@@ -132,7 +132,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
 
 #ifdef MY_DEBUG
             if (pMorphMeshEffect->_begin == true) {
-                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==NULL?"NULL":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
+                throwGgafCriticalException("End していません "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pMorphMeshEffect->_begin = true;
             }
@@ -204,7 +204,7 @@ void GgafDxMorphMeshModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_papModel3D);
     //_papMeshesFront[0],_papMeshesFront[1] は _papModel3D をDELETEしているのでする必要は無い
     DELETEARR_IMPOSSIBLE_NULL(_papMeshesFront);
-    _papMeshesFront = NULL;
+    _papMeshesFront = nullptr;
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
 

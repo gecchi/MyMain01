@@ -22,16 +22,16 @@ GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(char* prm_effect_name) : GgafDx
     //_TRACE_("GgafDxPointSpriteEffect::GgafDxPointSpriteEffect g_dist_CamZ_default="<<P_CAM->_zn<<" g_dist_CamZ_default="<<( -(P_CAM->_cameraZ_org))<<"");
     //checkDxException(hr, D3D_OK, "GgafDxPointSpriteEffect::GgafDxPointSpriteEffect SetFloat(g_zn) に失敗しました。");
     //シェーダーハンドル
-    _h_matView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
-    _h_matWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
-    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( NULL, "g_colMaterialDiffuse" );
-    _h_alpha    = _pID3DXEffect->GetParameterByName( NULL, "g_alpha" );
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
-    _h_dist_VpFrontPlane = _pID3DXEffect->GetParameterByName( NULL, "g_dist_VpFrontPlane" );
-    _hTexSize = _pID3DXEffect->GetParameterByName( NULL, "g_TexSize" );
-    _hTextureSplitRowcol = _pID3DXEffect->GetParameterByName( NULL, "g_TextureSplitRowcol" );
-    _hUvFlipPtnNo = _pID3DXEffect->GetParameterByName( NULL, "g_UvFlipPtnNo" );
+    _h_matView  = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
+    _h_matWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld" );
+    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
+    _h_alpha    = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha" );
+    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
+    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
+    _h_dist_VpFrontPlane = _pID3DXEffect->GetParameterByName( nullptr, "g_dist_VpFrontPlane" );
+    _hTexSize = _pID3DXEffect->GetParameterByName( nullptr, "g_TexSize" );
+    _hTextureSplitRowcol = _pID3DXEffect->GetParameterByName( nullptr, "g_TextureSplitRowcol" );
+    _hUvFlipPtnNo = _pID3DXEffect->GetParameterByName( nullptr, "g_UvFlipPtnNo" );
 }
 
 void GgafDxPointSpriteEffect::setParamPerFrame() {

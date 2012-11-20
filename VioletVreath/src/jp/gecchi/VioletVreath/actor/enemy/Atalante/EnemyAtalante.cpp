@@ -7,9 +7,9 @@ using namespace VioletVreath;
 EnemyAtalante::EnemyAtalante(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Atalante", STATUS(EnemyAtalante)) {
     _class_name = "EnemyAtalante";
-    pDepo_Shot_ = NULL;
-    _pSeTxer->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTxer->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
+    pDepo_Shot_ = nullptr;
+    _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
     Z_ok_ = Y_ok_ = false;
     useProgress(10);
 }
@@ -138,7 +138,7 @@ void EnemyAtalante::processBehavior() {
     }
     _pKurokoA->behave();
 
-    //_pSeTxer->behave();
+    //_pSeTx->behave();
 }
 
 void EnemyAtalante::processJudgement() {
@@ -159,7 +159,7 @@ void EnemyAtalante::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         //”š”­Œø‰Ê
         UTIL::activateExplosionEffectOf(this);
-        _pSeTxer->play3D(SE_EXPLOSION);
+        _pSeTx->play3D(SE_EXPLOSION);
 
 //        //Ž©‹@‘¤‚ÉŒ‚‚½‚ê‚ÄÁ–Å‚Ìê‡A
 //        if (pOther->getKind() & KIND_MY) {

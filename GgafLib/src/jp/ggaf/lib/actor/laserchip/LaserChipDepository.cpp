@@ -11,12 +11,12 @@ LaserChipDepository::LaserChipDepository(const char* prm_name, GgafStatus* prm_p
     _is_tear_laser = true;
     _num_chip_max = 0;
     _num_chip_interval = 1;
-    _pChip_prev_dispatch = NULL;
+    _pChip_prev_dispatch = nullptr;
     _frame_of_behaving_prev_dispatch = 0;
 
     _num_interval_frame_count = _num_chip_interval; //生成直後はインターバルなど無し
     _num_continual_dispatch_max = _num_chip_max;
-    _pEffectActor_Irradiate = NULL;
+    _pEffectActor_Irradiate = nullptr;
 }
 
 void LaserChipDepository::config(int prm_num_continual_dispatch_max,
@@ -34,22 +34,22 @@ void LaserChipDepository::config(int prm_num_continual_dispatch_max,
 LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
     if (_num_continual_dispatch_count > _num_continual_dispatch_max) { //_num_continual_dispatch_max連続発射時、弾切れにする(_num_interval_frame_countをリセット)。
         _is_tear_laser = true;
-        _pChip_prev_dispatch = NULL;
+        _pChip_prev_dispatch = nullptr;
         _frame_of_behaving_prev_dispatch = 0;
         _num_continual_dispatch_count = 0;
         _num_interval_frame_count = 1; //ココに処理が来たことにより既に１フレーム弾切れなので１を設定
-        return NULL;
+        return nullptr;
     } else if (_num_interval_frame_count < _num_chip_interval) { //_num_chip_intervalフレーム以内なので弾切れにする。
         _is_tear_laser = true;
         _num_interval_frame_count++;
-        return NULL;
+        return nullptr;
     } else if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) { //弾切れの時 _num_chip_max/4 溜まってから発射
         _is_tear_laser = true;
-        _pChip_prev_dispatch = NULL;
+        _pChip_prev_dispatch = nullptr;
         _frame_of_behaving_prev_dispatch = 0;
         _num_continual_dispatch_count = 0;
         _num_interval_frame_count++;
-        return NULL;
+        return nullptr;
     } else {
         LaserChip* pChip = (LaserChip*)GgafActorDepository::dispatch(prm_offset_frames);
         if (pChip) {
@@ -60,20 +60,20 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
                     _num_continual_dispatch_count++;
                     pChip->_pChip_front = _pChip_prev_dispatch;
                     _pChip_prev_dispatch->_pChip_behind = pChip;
-                    pChip->_pChip_behind = NULL;
+                    pChip->_pChip_behind = nullptr;
                     _is_tear_laser = false;
                 } else {
                     //2フレーム連続でdispatch出来てない場合連結は切れてる
                     _num_continual_dispatch_count = 0;
-                    pChip->_pChip_front = NULL;
-                    pChip->_pChip_behind = NULL;
-                    //_pChip_prev_dispatch->_pChip_behind = NULL;
+                    pChip->_pChip_front = nullptr;
+                    pChip->_pChip_behind = nullptr;
+                    //_pChip_prev_dispatch->_pChip_behind = nullptr;
                     _is_tear_laser = true;
                 }
             } else {
                 //dispatch()初回
-                pChip->_pChip_front = NULL;
-                pChip->_pChip_behind = NULL;
+                pChip->_pChip_front = nullptr;
+                pChip->_pChip_behind = nullptr;
                 _is_tear_laser = false;
             }
             _pChip_prev_dispatch = pChip;
@@ -90,10 +90,10 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
             //dispatch()タイミングであったがdispatch()出来なかった場合
             _num_continual_dispatch_count = 0;
             _is_tear_laser = true;
-            _pChip_prev_dispatch = NULL;
+            _pChip_prev_dispatch = nullptr;
             _frame_of_behaving_prev_dispatch = 0;
             _num_interval_frame_count++;
-            return NULL;
+            return nullptr;
         }
     }
 }

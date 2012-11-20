@@ -12,8 +12,8 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
                                                            prm_effect_id,
                                                            "B",
                                                            prm_technique,
-                                                           NULL,
-                                                           NULL) {
+                                                           nullptr,
+                                                           nullptr) {
     _obj_class |= Obj_GgafDxBoardActor;
     _class_name = "GgafDxBoardActor";
 
@@ -31,7 +31,7 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
     _valign = VALIGN_TOP;
     _alpha = 1.0f;
     _is2DActor = true;
-    _pFunc_calcRotMvWorldMatrix = NULL;
+    _pFunc_calcRotMvWorldMatrix = nullptr;
     _Z = 0;
     setZEnable(false);
     setZWriteEnable(false);

@@ -9,7 +9,7 @@ SplineLineManager::SplineLineManager(const char* prm_manager_name) :
 }
 
 SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_p) {
-    SplineLine* pResource = NULL;
+    SplineLine* pResource = nullptr;
 
     if (UTIL::strcmp_ascii("SpConn_001", prm_idstr) == 0) {
         double p[][3] = { //        X ,        Y ,       Z

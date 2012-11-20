@@ -13,8 +13,8 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
                                                                  prm_effect_id,
                                                                  "b",
                                                                  prm_technique,
-                                                                 NULL,
-                                                                 NULL) {
+                                                                 nullptr,
+                                                                 nullptr) {
     _obj_class |= Obj_GgafDxBoardSetActor;
     _class_name = "GgafDxBoardSetActor";
 
@@ -34,7 +34,7 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
     _alpha = 1.0f;
 
     _is2DActor = true;
-    _pFunc_calcRotMvWorldMatrix = NULL;
+    _pFunc_calcRotMvWorldMatrix = nullptr;
 
     setZEnable(false);
     setZWriteEnable(false);
@@ -48,7 +48,7 @@ void GgafDxBoardSetActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
     GgafDxDrawableActor* pDrawActor = this;
-    GgafDxBoardSetActor* pBoardSetActor = NULL;
+    GgafDxBoardSetActor* pBoardSetActor = nullptr;
     float u,v;
 //    GgafDxRectUV* pRectUV_Active;
     while (true) {

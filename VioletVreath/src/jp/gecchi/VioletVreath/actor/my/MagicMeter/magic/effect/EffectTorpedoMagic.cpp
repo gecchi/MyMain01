@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectTorpedoMagic::EffectTorpedoMagic(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "EffectTorpedoMagic", NULL) {
+        DefaultSpriteActor(prm_name, "EffectTorpedoMagic", nullptr) {
     _class_name = "EffectTorpedoMagic";
     effectBlendOne(); //加算合成Technique
     setZEnable(true);       //Zバッファは考慮有り

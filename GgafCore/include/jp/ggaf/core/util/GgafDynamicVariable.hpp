@@ -331,7 +331,7 @@ public:
 
     /**
      * デストラクタ.
-     * 内部保持する要素の値は、NULLで無い場合、それぞれ delete により解放されます。<BR>
+     * 内部保持する要素の値は、nullptrで無い場合、それぞれ delete により解放されます。<BR>
      * TODO:delete[] やその他の解放方法に対応
      */
     virtual ~GgafDynamicVariable();

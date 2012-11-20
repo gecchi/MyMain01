@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 
 LaserChipTestActor::LaserChipTestActor(const char* prm_name) :
-        StraightLaserChip(prm_name, "_chk_LaserChipTestModel", NULL) {
+        StraightLaserChip(prm_name, "_chk_LaserChipTestModel", nullptr) {
     _class_name = "LaserChipTestActor";
     setHitAble(false);
 }

@@ -18,9 +18,6 @@ public:
     };
     DepositoryConnection* pConn_ShotDepo_;
     GgafCore::GgafActorDepository* pDepo_Shot_;
-
-    int iMovePatternNo_;
-
     int width_X_;
     int height_Z_;
     int depth_Y_;

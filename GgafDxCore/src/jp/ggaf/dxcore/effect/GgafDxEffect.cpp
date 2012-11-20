@@ -5,7 +5,7 @@ D3DXMACRO GgafDxEffect::_aD3DXMacro_Defines[3] =
 {
     { "VS_VERSION", "vs_3_0" },
     { "PS_VERSION", "ps_3_0" },
-    { NULL, NULL }
+    { nullptr, nullptr }
 };
 
 GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
@@ -26,7 +26,7 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
         }
     }
 
-    ID3DXBuffer* pError = NULL;
+    ID3DXBuffer* pError = nullptr;
     HRESULT hr;
 #ifdef MY_DEBUG
     DWORD dwFlags = D3DXSHADER_DEBUG; //|D3DXSHADER_SKIPOPTIMIZATION;//|D3DXSHADER_FORCE_PS_SOFTWARE_NOOPT|D3DXSHADER_FORCE_VS_SOFTWARE_NOOPT|D3DXSHADER_SKIPOPTIMIZATION;
@@ -59,12 +59,12 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
                  &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
             );
     }
-    if (hr != D3D_OK && pError == NULL) {
+    if (hr != D3D_OK && pError == nullptr) {
         throwGgafCriticalException("GgafDxEffect::GgafDxEffect "<<effect_file_name<<" が存在しないのではないだろうか・・・");
     }
     checkDxException(hr, D3D_OK, "GgafDxEffect::GgafDxEffect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
     _TRACE_(" GgafDxEffect::GgafDxEffect "<<prm_effect_name<<" のエフェクトを生成しました。ADD:"<<this);
-    _h_alpha_master = _pID3DXEffect->GetParameterByName( NULL, "g_alpha_master" ); //マスターα
+    _h_alpha_master = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha_master" ); //マスターα
 }
 
 std::string GgafDxEffect::getEffectFileName(std::string prm_file) {

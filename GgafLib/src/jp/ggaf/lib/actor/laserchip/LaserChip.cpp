@@ -15,49 +15,49 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _obj_class |= Obj_LaserChip;
     _pColliChecker = (CollisionChecker*)_pChecker;
     _class_name = "LaserChip";
-    _pChip_front = NULL;
-    _pChip_behind = NULL;
-    _pDepo = NULL; //LaserChipDepositoryに追加される時に設定される。通常LaserChipとLaserChipDepositoryはセット。
+    _pChip_front = nullptr;
+    _pChip_behind = nullptr;
+    _pDepo = nullptr; //LaserChipDepositoryに追加される時に設定される。通常LaserChipとLaserChipDepositoryはセット。
     _chip_kind = 1;
     _is_regist_hitarea = false;
     _hitarea_edge_length = 0;
     _harf_hitarea_edge_length = 0;
     _can_chikei_hit = false;
-    _ah_kind[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind001" );
-    _ah_kind[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind002" );
-    _ah_kind[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind003" );
-    _ah_kind[3]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind004" );
-    _ah_kind[4]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind005" );
-    _ah_kind[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind006" );
-    _ah_kind[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind007" );
-    _ah_kind[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind008" );
-    _ah_kind[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind009" );
-    _ah_kind[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind010" );
-    _ah_kind[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind011" );
+    _ah_kind[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind001" );
+    _ah_kind[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind002" );
+    _ah_kind[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind003" );
+    _ah_kind[3]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind004" );
+    _ah_kind[4]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind005" );
+    _ah_kind[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind006" );
+    _ah_kind[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind007" );
+    _ah_kind[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind008" );
+    _ah_kind[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind009" );
+    _ah_kind[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind010" );
+    _ah_kind[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_kind011" );
 
-    _ah_force_alpha[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha001" );
-    _ah_force_alpha[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha002" );
-    _ah_force_alpha[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha003" );
-    _ah_force_alpha[3]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha004" );
-    _ah_force_alpha[4]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha005" );
-    _ah_force_alpha[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha006" );
-    _ah_force_alpha[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha007" );
-    _ah_force_alpha[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha008" );
-    _ah_force_alpha[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha009" );
-    _ah_force_alpha[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha010" );
-    _ah_force_alpha[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_force_alpha011" );
+    _ah_force_alpha[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha001" );
+    _ah_force_alpha[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha002" );
+    _ah_force_alpha[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha003" );
+    _ah_force_alpha[3]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha004" );
+    _ah_force_alpha[4]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha005" );
+    _ah_force_alpha[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha006" );
+    _ah_force_alpha[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha007" );
+    _ah_force_alpha[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha008" );
+    _ah_force_alpha[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha009" );
+    _ah_force_alpha[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha010" );
+    _ah_force_alpha[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_force_alpha011" );
 
-    _ah_matWorld_front[0]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front001" );
-    _ah_matWorld_front[1]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front002" );
-    _ah_matWorld_front[2]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front003" );
-    _ah_matWorld_front[3]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front004" );
-    _ah_matWorld_front[4]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front005" );
-    _ah_matWorld_front[5]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front006" );
-    _ah_matWorld_front[6]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front007" );
-    _ah_matWorld_front[7]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front008" );
-    _ah_matWorld_front[8]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front009" );
-    _ah_matWorld_front[9]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front010" );
-    _ah_matWorld_front[10]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front011" );
+    _ah_matWorld_front[0]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front001" );
+    _ah_matWorld_front[1]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front002" );
+    _ah_matWorld_front[2]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front003" );
+    _ah_matWorld_front[3]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front004" );
+    _ah_matWorld_front[4]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front005" );
+    _ah_matWorld_front[5]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front006" );
+    _ah_matWorld_front[6]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front007" );
+    _ah_matWorld_front[7]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front008" );
+    _ah_matWorld_front[8]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front009" );
+    _ah_matWorld_front[9]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front010" );
+    _ah_matWorld_front[10]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld_front011" );
 
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -90,7 +90,7 @@ void LaserChip::processSettlementBehavior() {
     //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
     //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
     if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
-        if (_pChip_front != NULL) {
+        if (_pChip_front != nullptr) {
             int dX = _pChip_front->_X - _X;
             int dY = _pChip_front->_Y - _Y;
             int dZ = _pChip_front->_Z - _Z;
@@ -166,7 +166,7 @@ void LaserChip::processSettlementBehavior() {
     } else {
         _chip_kind = 4; //先端チップ。何も描画したくない
         _pLeader = this;
-        if (getActivePartFrame() > 1 && _pChip_behind == NULL) {
+        if (getActivePartFrame() > 1 && _pChip_behind == nullptr) {
             sayonara();
         }
         setHitAble(false);
@@ -199,7 +199,7 @@ void LaserChip::processDraw() {
     HRESULT hr;
     //基本モデル頂点数
     GgafDxDrawableActor* pDrawActor = this;
-    LaserChip* pLaserChip = NULL;
+    LaserChip* pLaserChip = nullptr;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
@@ -255,14 +255,14 @@ void LaserChip::onInactive() {
     }
     //前後の繋がりを切断
     if (_pChip_front) {
-        _pChip_front->_pChip_behind = NULL;
+        _pChip_front->_pChip_behind = nullptr;
     }
-    _pChip_front = NULL;
+    _pChip_front = nullptr;
     if (_pChip_behind) {
-        _pChip_behind->_pChip_front = NULL;
+        _pChip_behind->_pChip_front = nullptr;
     }
-    _pChip_behind = NULL;
-    _pLeader = NULL;
+    _pChip_behind = nullptr;
+    _pLeader = nullptr;
 }
 
 void LaserChip::registHitAreaCube(int prm_edge_length) {

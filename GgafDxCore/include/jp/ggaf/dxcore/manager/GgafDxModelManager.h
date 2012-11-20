@@ -88,7 +88,7 @@ private:
     void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                     Frm::Model3D* model_pModel3D,
                     UINT16* paNumVertices,
-                    GgafDxModel* prm_pModel = NULL);
+                    GgafDxModel* prm_pModel = nullptr);
 
     /**
      * ID3DXFileDataのデータポインタから、（Xファイルフォーマット通りに）スプライト情報を取り出す。

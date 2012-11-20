@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxWorldBoundEffect::GgafDxWorldBoundEffect(char* prm_effect_name) : GgafDxMorphMeshEffect(prm_effect_name) {
-    //_h_pos_camera = _pID3DXEffect->GetParameterByName( NULL, "pos_camera" );
+    //_h_pos_camera = _pID3DXEffect->GetParameterByName( nullptr, "pos_camera" );
 }
 
 //void GgafDxWorldBoundEffect::setParamPerFrame() {

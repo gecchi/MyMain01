@@ -125,7 +125,7 @@ GgafDxGeometricActor* StgUtil::shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
                                          velo prm_velo_first, acce prm_acce,
                                          int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                                          void (*pFunc_CallBackDispatched)(GgafDxGeometricActor*, int, int)) {
-    GgafDxGeometricActor* pRet = NULL;
+    GgafDxGeometricActor* pRet = nullptr;
     float vx, vy, vz;
     GgafDxUtil::getNormalizeVectorZY(prm_RZ, prm_RY, vx, vy, vz);
     coord X = vx * prm_r;
@@ -145,7 +145,7 @@ GgafDxGeometricActor* StgUtil::shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
             pActor_Shot->_pKurokoA->setRzRyMvAng(prm_RZ, prm_RY);
             pActor_Shot->_pKurokoA->setMvVelo(now_velo);
             pActor_Shot->_pKurokoA->setMvAcce(now_acce);
-            if (pRet == NULL) {
+            if (pRet == nullptr) {
                 pRet = pActor_Shot;
             }
             if (pFunc_CallBackDispatched) {
@@ -263,11 +263,11 @@ void StgUtil::shotWay002(coord prm_X, coord prm_Y, coord prm_Z,
                         pActor_Shot = (GgafDxGeometricActor*)prm_pDepo_Shot3->dispatch(n*prm_interval_frames+1);
                         depo_no = 3;
                     } else {
-                        pActor_Shot = NULL;
+                        pActor_Shot = nullptr;
                         depo_no = 0;
                     }
                 } else {
-                    pActor_Shot = NULL;
+                    pActor_Shot = nullptr;
                     depo_no = 0;
                 }
                 if (pActor_Shot) {
