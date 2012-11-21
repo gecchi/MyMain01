@@ -1256,6 +1256,50 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		return p;
 	}
+	GgafStatus* MyStgUtil::resetScoreItem001Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 500 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 0 );  //体力
+		p->set(STAT_Attack, 0 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
+		return p;
+	}
+	GgafStatus* MyStgUtil::resetVreathItem001Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 500 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 0 );  //体力
+		p->set(STAT_Attack, 0 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
+		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
+		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
+		return p;
+	}
 	GgafStatus* MyStgUtil::resetEnemyHebeStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性

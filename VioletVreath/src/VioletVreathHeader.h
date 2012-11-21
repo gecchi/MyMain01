@@ -498,14 +498,16 @@ class SplineLineManager;
 class CameraWorkerManager;
 class CameraWorkerConnection;
 
-
 class TestDepository;
-
 
 class Item;
 class MagicPointItem;
 class MagicPointItem001;
 class MagicPointItem002;
+class ScoreItem;
+class ScoreItem001;
+class VreathItem;
+class VreathItem001;
 
 class Properties;
 class QueryRanking;
@@ -829,6 +831,11 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem001.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem002.h"
+#include "jp/gecchi/VioletVreath/actor/item/ScoreItem.h"
+#include "jp/gecchi/VioletVreath/actor/item/ScoreItem001.h"
+#include "jp/gecchi/VioletVreath/actor/item/VreathItem.h"
+#include "jp/gecchi/VioletVreath/actor/item/VreathItem001.h"
+
 
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/util/QueryRanking.h"

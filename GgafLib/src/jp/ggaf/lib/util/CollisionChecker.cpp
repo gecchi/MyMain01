@@ -146,33 +146,24 @@ void CollisionChecker::updateHitArea() {
                                            pActor->_Y + pCollisionArea->_AABB_Y2,
                                            pActor->_Z + pCollisionArea->_AABB_Z2);
 
-#ifdef MY_DEBUG
-//        if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-//            _TRACE_("  CollisionChecker::updateHitArea()  registElem("<<(_pActor->getName())<<")=("<<
-//                                             (_pActor->_X + _pCollisionArea->_AABB_X1)<<","<<
-//                                             (_pActor->_Y + _pCollisionArea->_AABB_Y1)<<","<<
-//                                             (_pActor->_Z + _pCollisionArea->_AABB_Z1)<<","<<
-//                                             (_pActor->_X + _pCollisionArea->_AABB_X2)<<","<<
-//                                             (_pActor->_Y + _pCollisionArea->_AABB_Y2)<<","<<
-//                                             (_pActor->_Z + _pCollisionArea->_AABB_Z2)<<")");
-//            //_pLinearOctree->putTree();
-//
-//        }
-#endif
     }
 }
 
 
 bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
+#ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
-        return false;
+        throwGgafCriticalException("CollisionChecker::isHit() _pCollisionAreaがnullってやっぱあるんかー");
     }
+#endif
     CollisionChecker* pOppCChecker = (CollisionChecker*)prm_pOppChecker;
     //相手の当たり判定領域
     GgafDxCollisionArea* pOppCollisionArea = pOppCChecker->_pCollisionArea;
+#ifdef MY_DEBUG
     if (pOppCollisionArea == nullptr) {
-        return false;
+        throwGgafCriticalException("CollisionChecker::isHit() pOppCollisionAreaがnullってやっぱあるんかー");
     }
+#endif
     //当たり判定を行う相手のアクター
     GgafDxGeometricActor* pOppActor = pOppCChecker->_pActor;
 
@@ -187,7 +178,9 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
             pOppColliPart = pOppCollisionArea->_papColliPart[j];
             if (!pOppColliPart->_is_valid_flg) { continue; }
             opp_shape_kind = pOppColliPart->_shape_kind;
+#ifdef MY_DEBUG
             CollisionChecker::_num_check++;
+#endif
             if (shape_kind & COLLI_AAB) {
                 if (opp_shape_kind & COLLI_AAB) {
                     //＜AAB と AAB＞
@@ -200,7 +193,7 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                  } else if (opp_shape_kind & COLLI_SPHERE) {
                      //＜AAB と 球＞
                      if (UTIL::isHit(this        , _pActor  , (ColliAAB*)pColliPart,
-                                        pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
+                                     pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
                          _pCollisionArea->_hit_colli_part_index = i;
                          pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                          return true;
@@ -208,7 +201,7 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                  } else if (opp_shape_kind & COLLI_AAPRISM) {
                      //＜AAB と AAPrism＞
                      if (UTIL::isHit(pOppCChecker, pOppActor, (ColliAAPrism*)pOppColliPart,
-                                        this        , _pActor  , (ColliAAB*)pColliPart)) {
+                                     this        , _pActor  , (ColliAAB*)pColliPart)) {
                          _pCollisionArea->_hit_colli_part_index = i;
                          pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                          return true;
@@ -219,7 +212,7 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                 if (opp_shape_kind & COLLI_AAB) {
                     //＜球 と AAB＞
                     if (UTIL::isHit(pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart,
-                                       this        , _pActor  , (ColliSphere*)pColliPart)) {
+                                    this        , _pActor  , (ColliSphere*)pColliPart)) {
                         _pCollisionArea->_hit_colli_part_index = i;
                         pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;
@@ -227,7 +220,7 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                 } else if (opp_shape_kind & COLLI_SPHERE) {
                     //＜球 と 球＞
                     if (UTIL::isHit(this        , _pActor  , (ColliSphere*)pColliPart,
-                                       pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
+                                    pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
                         _pCollisionArea->_hit_colli_part_index = i;
                         pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;
@@ -235,7 +228,7 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                 } else if (opp_shape_kind & COLLI_AAPRISM) {
                     //＜球 と AAPrism＞
                     if (UTIL::isHit(pOppCChecker, pOppActor, (ColliAAPrism*)pOppColliPart,
-                                       this        , _pActor  , (ColliSphere*)pColliPart)) {
+                                    this        , _pActor  , (ColliSphere*)pColliPart)) {
                         _pCollisionArea->_hit_colli_part_index = i;
                         pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;
@@ -246,7 +239,7 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                 if (opp_shape_kind & COLLI_AAB) {
                     //＜AAPrism と AAB＞
                     if (UTIL::isHit(this        , _pActor  , (ColliAAPrism*)pColliPart,
-                                       pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
+                                    pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
                         _pCollisionArea->_hit_colli_part_index = i;
                         pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;
@@ -254,7 +247,7 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                 } else if (opp_shape_kind & COLLI_SPHERE) {
                     //＜AAPrism と 球＞
                     if (UTIL::isHit(this        , _pActor  , (ColliAAPrism*)pColliPart,
-                                       pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
+                                    pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
                         _pCollisionArea->_hit_colli_part_index = i;
                         pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
                         return true;

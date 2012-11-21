@@ -186,10 +186,14 @@ public:
 	static GgafCore::GgafStatus* resetEnemyMassaliaFragment3Status(GgafCore::GgafStatus* p);
 	//オプション
 	static GgafCore::GgafStatus* resetMyOptionStatus(GgafCore::GgafStatus* p);
-	//アイテム
+	//MPアイテム
 	static GgafCore::GgafStatus* resetMagicPointItem001Status(GgafCore::GgafStatus* p);
-	//編隊全滅アイテム
+	//編隊全滅MPアイテム
 	static GgafCore::GgafStatus* resetMagicPointItem002Status(GgafCore::GgafStatus* p);
+	//スコアアイテム
+	static GgafCore::GgafStatus* resetScoreItem001Status(GgafCore::GgafStatus* p);
+	//Vreathアイテム
+	static GgafCore::GgafStatus* resetVreathItem001Status(GgafCore::GgafStatus* p);
 	//ヘーベ
 	static GgafCore::GgafStatus* resetEnemyHebeStatus(GgafCore::GgafStatus* p);
 	//シズビー

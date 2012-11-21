@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?fileVersion 4.0.0?>
-
-<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="cdt.managedbuild.config.gnu.mingw.exe.debug.210050762">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.mingw.exe.debug.210050762" moduleId="org.eclipse.cdt.core.settings" name="DebugCdt">
@@ -252,7 +250,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.release.1619541121" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.release"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release.1607555504" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release">
 								<option id="gnu.cpp.link.option.paths.104115008" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;C:\w64_ming32\x86_64-w64-mingw32\lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\pleiades\eclipse\mingw\x86_64-w64-mingw32\lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/ReleaseCdt_x64}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/ReleaseCdt_x64}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/ReleaseCdt_x64}&quot;"/>

@@ -2,7 +2,6 @@
 #include "GgafLibEntry.h"
 #include "resource.h"
 
-
 #define MY_IDM_RESET_WINDOW_SIZE  10
 #define MY_IDM_ABOUT              11
 #define MY_IDM_VPOS_1             21
