@@ -136,27 +136,27 @@ public:
         }
         if (prm_vx >= 0 && prm_vy >= 0) { //ëÊ1è€å¿
             if (prm_vx >= prm_vy) {
-                return D0ANG  + SLANT2ANG[(int)(1.0*prm_vy/prm_vx*100000)];
+                return D0ANG  + SLANT2ANG[(int)(100000*prm_vy/prm_vx)];
             } else {
-                return D90ANG - SLANT2ANG[(int)(1.0*prm_vx/prm_vy*100000)];
+                return D90ANG - SLANT2ANG[(int)(100000*prm_vx/prm_vy)];
             }
         } else if (prm_vx <= 0 && prm_vy >= 0) { //ëÊ2è€å¿
             if (-prm_vx <= prm_vy) {
-                return D90ANG + SLANT2ANG[(int)(1.0*-prm_vx/prm_vy*100000)];
+                return D90ANG + SLANT2ANG[(int)(100000*-prm_vx/prm_vy)];
             } else {
-                return D180ANG - SLANT2ANG[(int)(1.0*prm_vy/-prm_vx*100000)];
+                return D180ANG - SLANT2ANG[(int)(100000*prm_vy/-prm_vx)];
             }
         } else if (prm_vx <= 0 && prm_vy <= 0) { //ëÊ3è€å¿
             if (-prm_vx >= -prm_vy) {
-                return D180ANG + SLANT2ANG[(int)(1.0*-prm_vy/-prm_vx*100000)];
+                return D180ANG + SLANT2ANG[(int)(100000*-prm_vy/-prm_vx)];
             } else {
-                return D270ANG - SLANT2ANG[(int)(1.0*-prm_vx/-prm_vy*100000)];
+                return D270ANG - SLANT2ANG[(int)(100000*-prm_vx/-prm_vy)];
             }
         } else if (prm_vx >= 0 && prm_vy <= 0) { //ëÊ4è€å¿
             if (prm_vx <= -prm_vy) {
-                return D270ANG + SLANT2ANG[(int)(1.0*prm_vx/-prm_vy*100000)];
+                return D270ANG + SLANT2ANG[(int)(100000*prm_vx/-prm_vy)];
             } else {
-                return D360ANG - SLANT2ANG[(int)(1.0*-prm_vy/prm_vx*100000)];
+                return D360ANG - SLANT2ANG[(int)(100000*-prm_vy/prm_vx)];
             }
         }
         return 0;

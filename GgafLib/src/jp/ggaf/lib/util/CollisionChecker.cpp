@@ -256,7 +256,7 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                    //＜AAPrism と AAPrism＞
                    //TODO: 考えるだけで重たくなりそう、というかめんどくさそうな感じがする；。
                    //時間があれば考えよう・・・。今は未対応。
-                   throwGgafCriticalException("AAPrism と AAPrismの当たり判定処理が存在します。未だ作ってません。 "<<
+                   throwGgafCriticalException("AAPrism と AAPrismの当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
                                               _pActor->getName()<<" vs "<<pOppActor->getName());
                    return false;
                 }

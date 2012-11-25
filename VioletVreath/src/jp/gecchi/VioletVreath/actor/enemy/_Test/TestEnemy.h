@@ -22,6 +22,8 @@ public:
      */
     TestEnemy(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
+    void initialize() override;
+
     void dispStamina();
 
     virtual ~TestEnemy();

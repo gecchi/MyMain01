@@ -84,6 +84,7 @@ void LaserChip::onActive() {
         _pDepo->_num_chip_active++;
     }
     _force_alpha = 1.00; //Å‰‚Í‰œ‚Å‚àƒnƒbƒLƒŠ‰f‚éB
+    _pColliChecker->disable(1);
 }
 
 void LaserChip::processSettlementBehavior() {
@@ -112,12 +113,7 @@ void LaserChip::processSettlementBehavior() {
                               );
                 _pColliChecker->enable(1);
             } else {
-                _pColliChecker->disable(1);
             }
-//            //L‚Ñ‚·‚¬‚½‚çØ‚ê‚é
-//            if (ABS(dX) >= _hitarea_edge_length*5 || ABS(dY) >= _hitarea_edge_length*5 || ABS(dZ) >= _hitarea_edge_length*5) {
-//                sayonara();
-//            }
         } else {
             _pColliChecker->disable(1);
         }

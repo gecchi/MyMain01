@@ -26,11 +26,6 @@ public:
     TestGu(const char* prm_name);
 
     /**
-     * 敵の初期処理（インスタンス生成後保証）
-     */
-    void initialize() override;
-
-    /**
      * 敵のがアクティブになった瞬間の処理 .
      */
     void onActive() override;

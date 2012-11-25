@@ -12,12 +12,6 @@ TestNomal::TestNomal(const char* prm_name)
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
 
-void TestNomal::initialize() {
-    setHitAble(true);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
-}
-
 void TestNomal::onActive() {
     _pStatus->reset();
 }

@@ -57,14 +57,16 @@ void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* prm_pSpace_target) {
             //１番目に追加の場合
             prm_pSpace_target->_pElem_first = this;
             prm_pSpace_target->_pElem_last = this;
-            _pNext = nullptr;
-            _pPrev = nullptr;
+//nullptrはclear時設定済み。省略しても大丈夫なはず。
+//            _pNext = nullptr;
+//            _pPrev = nullptr;
             _pSpace_current = prm_pSpace_target;
         } else {
             //末尾に追加の場合
             prm_pSpace_target->_pElem_last->_pNext = this;
             _pPrev = prm_pSpace_target->_pElem_last;
-            _pNext = nullptr;
+//nullptrはclear時設定済み。省略しても大丈夫なはず。
+//            _pNext = nullptr;
             prm_pSpace_target->_pElem_last = this;
             _pSpace_current = prm_pSpace_target;
         }
@@ -72,9 +74,16 @@ void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* prm_pSpace_target) {
     //引数の要素番号
     UINT32 index = prm_pSpace_target->_my_index;
     GgafLinearOctreeSpace* paSpace = _pLinearOctree->_paSpace;
+    UINT32 this_kindbit = this->_kindbit;
     //親空間すべてに要素種別情報を流す
     while(true) {
-        paSpace[index]._kindinfobit |= this->_kindbit;
+        if (paSpace[index]._kindinfobit & this_kindbit) {
+            //もう種別情報が設定済みならば、それ以上の親も設定済みの為、抜ける
+            break;
+        } else {
+            //空間に種別情報が未設定ならば設定
+            paSpace[index]._kindinfobit |= this_kindbit;
+        }
         if (index == 0) {
             break;
         }

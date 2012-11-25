@@ -36,7 +36,6 @@ void EnemyHebe::config(
     pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
 }
 
-
 void EnemyHebe::onActive() {
     if (pSplSeq_ == nullptr) {
         throwGgafCriticalException("EnemyHebeはスプライン必須ですconfigして下さい");

@@ -12,12 +12,6 @@ TestPa::TestPa(const char* prm_name)
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
 
-void TestPa::initialize() {
-    setHitAble(true);
-    _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
-}
-
 void TestPa::onActive() {
     _pStatus->reset();
 }

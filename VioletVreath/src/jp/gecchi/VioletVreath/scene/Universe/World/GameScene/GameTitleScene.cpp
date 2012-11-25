@@ -52,6 +52,7 @@ void GameTitleScene::onActive() {
     pHoshiBoshi_->activate();
     pWorldBound_->fadein();
     pHoshiBoshi_->fadein();
+    _pProg->set(GameTitleScene::PROG_INIT);
 }
 
 void GameTitleScene::initialize() {
