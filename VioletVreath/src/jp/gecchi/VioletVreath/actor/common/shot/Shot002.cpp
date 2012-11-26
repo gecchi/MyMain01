@@ -7,7 +7,6 @@ using namespace VioletVreath;
 Shot002::Shot002(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
-    my_frame_ = 0;
     _pSeTx->set(0, "WAVE_EXPLOSION_002");
 }
 
@@ -23,7 +22,6 @@ void Shot002::onActive() {
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setMvVelo(RR_Shot002_MvVelo(_RANK_));
     _pKurokoA->setFaceAngVelo(AXIS_X, RR_Shot002_AngVelo(_RANK_));
-    my_frame_ = 0;
 }
 
 void Shot002::processBehavior() {
@@ -32,23 +30,21 @@ void Shot002::processBehavior() {
 
 
 
-    if (my_frame_ == 70) {
+    if (getActivePartFrame() == 70) {
         _pKurokoA->execTurnMvAngSequence(P_MYSHIP,
-                                           3000, 0,
-                                           TURN_CLOSE_TO);
+                                         3000, 0,
+                                         TURN_CLOSE_TO);
     }
 
-    if (my_frame_ > 70 && _pKurokoA->_mv_ang_ry_target_flg == false && _pKurokoA->_mv_ang_rz_target_flg == false) {
-        _pKurokoA->execTurnMvAngSequence(
-                    P_MYSHIP,
-                    100, 0,
-                    TURN_CLOSE_TO);
+    if (getActivePartFrame() > 70 && !_pKurokoA->isRunnigTurnMvAngSequence()) {
+        _pKurokoA->execTurnMvAngSequence(P_MYSHIP,
+                                         100, 0,
+                                         TURN_CLOSE_TO);
     }
     //À•W‚É”½‰f
     _pKurokoA->behave();
     _pScaler->behave();
     _pSeTx->behave();
-    my_frame_++;
 }
 
 void Shot002::processJudgement() {
@@ -64,9 +60,6 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
         //”j‰ó‚³‚ê‚½ê‡
         EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
         _pSeTx->play3D(0);
-        if (pExplo001) {
-            pExplo001->locateWith(this);
-        }
         sayonara();
     }
 }

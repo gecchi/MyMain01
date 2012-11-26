@@ -889,7 +889,7 @@ public: //_X, _Y, _Z ‘€ìŠÖ˜A //////////////////////////////////////////////
      * @return true:Às’†/false:Às’†‚Å‚È‚¢
      */
     bool isRunnigTurnMvAngSequence() {
-        if (_mv_ang_rz_target_flg || _mv_ang_rz_target_flg) {
+        if (_mv_ang_rz_target_flg || _mv_ang_ry_target_flg) {
             return true;
         } else {
             return false;

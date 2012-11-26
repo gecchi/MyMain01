@@ -84,7 +84,9 @@ void LaserChip::onActive() {
         _pDepo->_num_chip_active++;
     }
     _force_alpha = 1.00; //最初は奥でもハッキリ映る。
-    _pColliChecker->disable(1);
+    if (_is_regist_hitarea) {
+        _pColliChecker->disable(1);
+    }
 }
 
 void LaserChip::processSettlementBehavior() {
