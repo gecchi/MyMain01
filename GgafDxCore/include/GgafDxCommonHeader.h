@@ -126,9 +126,6 @@ HASHVAL(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
 #include <dsound.h>
 #ifdef __GNUG__
     #undef __null
-    //GCCでは『#define NULL __null』と定義されており、『#undef __null』と定義をundefすると、
-    // NULL が空になりそうに見えるが、そうはならない。
-    //なぜなら __null は埋め込み定数だからだ、今のところはネ！。（苦肉の策）
 #endif
 #include <d3dx9xof.h>
 //#pragma GCC diagnostic pop

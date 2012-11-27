@@ -125,12 +125,18 @@ public:
     int _root_Y2;
     /** [r]root空間の対角の頂点となるz座標大きい方 */
     int _root_Z2;
-    /** [r]最小空間(=最高空間レベル)のXの距離 */
+    /** [r]最小空間(=最高分割の空間)の1空間のX軸方向の距離 */
     int _top_level_dX;
-    /** [r]最小空間(=最高空間レベル)のYの距離 */
+    /** [r]最小空間(=最高分割の空間)の1空間のY軸方向の距離 */
     int _top_level_dY;
-    /** [r]最小空間(=最高空間レベル)のZの距離 */
+    /** [r]最小空間(=最高分割の空間)の1空間のZ軸方向の距離 */
     int _top_level_dZ;
+
+
+    double _r_top_level_dX;
+    double _r_top_level_dY;
+    double _r_top_level_dZ;
+
 
     /** [r]8の累乗の値を予め計算して保持している配列 */
     UINT32* _paUint32_pow;

@@ -171,10 +171,8 @@ int GgafResourceConnection<T>::close() {
         return _num_connection;
     }
 
-    GgafResourceConnection<T>* pCurrent;
-    GgafResourceConnection<T>* pPrev;
-    pCurrent = _pManager->_pConnection_first;
-    pPrev = nullptr;
+    GgafResourceConnection<T>* pCurrent = _pManager->_pConnection_first;
+    GgafResourceConnection<T>* pPrev = nullptr;
     while (pCurrent) {
         if (pCurrent == this) {
             //î≠å©ÇµÇΩèÍçá

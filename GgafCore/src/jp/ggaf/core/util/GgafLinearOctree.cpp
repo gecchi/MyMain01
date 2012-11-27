@@ -7,6 +7,9 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
     _top_level_dX = 0;
     _top_level_dY = 0;
     _top_level_dZ = 0;
+    _r_top_level_dX = 0.0;
+    _r_top_level_dY = 0.0;
+    _r_top_level_dZ = 0.0;
     _root_X1 = 0;
     _root_Y1 = 0;
     _root_Z1 = 0;
@@ -40,6 +43,10 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
     _top_level_dX = ((_root_X2-_root_X1) / ((float)(1<<_top_space_level))) + 1;
     _top_level_dY = ((_root_Y2-_root_Y1) / ((float)(1<<_top_space_level))) + 1;
     _top_level_dZ = ((_root_Z2-_root_Z1) / ((float)(1<<_top_space_level))) + 1; //+1は空間数をオーバーしないように余裕をもたせるため
+    _r_top_level_dX = 1.0 / _top_level_dX;
+    _r_top_level_dY = 1.0 / _top_level_dY;
+    _r_top_level_dZ = 1.0 / _top_level_dZ;
+
     _TRACE_("八分木レベル0空間=" << _root_X2-_root_X1 << "x" << _root_Y2-_root_Y1 << "x" << _root_Z2-_root_Z1);
     _TRACE_("八分木レベル"<<_top_space_level<<"空間=" << _top_level_dX << "x" << _top_level_dY << "x" << _top_level_dZ);
 }
@@ -68,16 +75,16 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
 
     //BOXの左下手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
     UINT32 minnum_in_toplevel = getMortonOrderNumFromXYZindex(
-                                  (UINT32)((tX1 - _root_X1) / _top_level_dX),
-                                  (UINT32)((tY1 - _root_Y1) / _top_level_dY),
-                                  (UINT32)((tZ1 - _root_Z1) / _top_level_dZ)
+                                  (UINT32)((tX1 - _root_X1) * _r_top_level_dX),
+                                  (UINT32)((tY1 - _root_Y1) * _r_top_level_dY),
+                                  (UINT32)((tZ1 - _root_Z1) * _r_top_level_dZ)
                                 );
 
     //BOXの右上奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
     UINT32 maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
-                                  (UINT32)((tX2 - _root_X1) / _top_level_dX),
-                                  (UINT32)((tY2 - _root_Y1) / _top_level_dY),
-                                  (UINT32)((tZ2 - _root_Z1) / _top_level_dZ)
+                                  (UINT32)((tX2 - _root_X1) * _r_top_level_dX),
+                                  (UINT32)((tY2 - _root_Y1) * _r_top_level_dY),
+                                  (UINT32)((tZ2 - _root_Z1) * _r_top_level_dZ)
                                 );                 //↑_root_X2,_root_Y2,_root_Z2 と間違えていません。
 
 

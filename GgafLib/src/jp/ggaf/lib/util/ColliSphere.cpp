@@ -34,6 +34,11 @@ void ColliSphere::set(coord x, coord y, coord z, coord r, bool rotX, bool rotY, 
     _rotX = rotX;
     _rotY = rotY;
     _rotZ = rotZ;
+    if (_rotX || _rotY || _rotZ) {
+        _rot = true;
+    } else {
+        _rot = false;
+    }
     //‹«ŠE—Ìˆæ
     _aab_x1 = _x - _r;
     _aab_y1 = _y - _r;

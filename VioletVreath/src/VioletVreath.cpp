@@ -13,8 +13,8 @@
 #define MY_IDM_VPOS_7             27
 #define MY_IDM_VPOS_8             28
 #define MY_IDM_VPOS_9             29
-#define MY_IDM_ASPECT_FIXED             31
-#define MY_IDM_ASPECT_STRETCH             32
+#define MY_IDM_ASPECT_FIXED       31
+#define MY_IDM_ASPECT_STRETCH     32
 
 #define MAX_LOADSTRING 100
 // ÉOÉçÅ[ÉoÉãïœêî:
