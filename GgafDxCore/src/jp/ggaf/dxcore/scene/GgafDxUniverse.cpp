@@ -222,7 +222,6 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
             //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
 
             if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) {
-
                 //前に追加
                 pActorTmp = _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level];
                 prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;

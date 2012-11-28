@@ -22,6 +22,7 @@ public:
         PROG_CALM1 ,
         PROG_CALM2 ,
         PROG_CALM3 ,
+        PROG_CALM4 ,
         PROG_MAINLOOP ,
     };
 

@@ -60,11 +60,13 @@ void World::processBehavior() {
         }
 
         case World::PROG_CALM1: {
+            if (_pProg->hasJustChanged()) {
+            }
             if (_pProg->getFrameInProgress() >= 60 &&
                 GgafFactory::chkProgress(2) == 2 &&
                 pPreDrawScene_->_pProg->get() == PreDrawScene::PROG_WAIT &&
-                P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX))
-            {
+                 ( P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX) || _pProg->getFrameInProgress() == 60*60*10)
+            ) {
                 pLabel_title_->sayonara();
                 _pProg->changeNext();
             }
@@ -73,7 +75,11 @@ void World::processBehavior() {
         }
 
         case World::PROG_CALM2: {
-            if (_pProg->getFrameInProgress() >= 60 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
+            if (_pProg->hasJustChanged()) {
+            }
+            if (_pProg->getFrameInProgress() >= 60 &&
+                ( P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX) || _pProg->getFrameInProgress() == 60*60*5)
+            ) {
                 pGameScene_ = (GameScene*)obtainSceneFromFactory(2);
                 _pProg->changeNext();
             }
@@ -82,16 +88,26 @@ void World::processBehavior() {
         }
 
         case World::PROG_CALM3: {
-            if (_pProg->getFrameInProgress() <= 120) {
-                pLabel_aster_->_pFader->behave(); //右上＊チカチカ
-                if (_pProg->getFrameInProgress() == 70) {
-                    pLabel_aster_->update("!");
-                }
-                if (_pProg->getFrameInProgress() == 120) {
-                    pLabel_aster_->sayonara();
-                    _pProg->changeNext(); //メインへ！
-                }
+            if (_pProg->hasJustChanged()) {
             }
+            if (_pProg->getFrameInProgress() >= 60 &&
+                ( P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX) || _pProg->getFrameInProgress() == 60*60*5)
+            ) {
+                _pProg->changeNext();
+            }
+            pLabel_aster_->_pFader->behave(); //右上＊チカチカ
+            break;
+        }
+
+        case World::PROG_CALM4: {
+            if (_pProg->hasJustChanged()) {
+            }
+            if (_pProg->getFrameInProgress() == 60) {
+                pLabel_aster_->update("*");
+                pLabel_aster_->sayonara(60);
+                _pProg->changeNext(); //メインへループ
+            }
+            pLabel_aster_->_pFader->behave(); //右上＊チカチカ
             break;
         }
 

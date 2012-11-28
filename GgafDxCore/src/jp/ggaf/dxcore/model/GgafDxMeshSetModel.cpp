@@ -80,13 +80,15 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
 
     //描画
     for (UINT material_grp_index = 0; material_grp_index < _paUint_material_list_grp_num[prm_draw_set_num-1]; material_grp_index++) {
+        INDEXPARAM& indexParam = _papaIndexParam[prm_draw_set_num-1][material_grp_index];
+
         // TODO
         //モデルが同じでかつ、セット数も同じかつ、マテリアルNOが１つしかないならば、テクスチャ設定もスキップできる
         if (GgafDxModelManager::_pModelLastDraw  != this      ||
             //GgafDxMeshSetModel::_draw_set_num_LastDraw != draw_set_num ||
             _paUint_material_list_grp_num[prm_draw_set_num-1] != 1)
         {
-            material_no = _papaIndexParam[prm_draw_set_num-1][material_grp_index].MaterialNo;
+            material_no = indexParam.MaterialNo;
             if (_papTextureCon[material_no]) {
                 //テクスチャをs0レジスタにセット
                 GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->fetch()->_pIDirect3DBaseTexture9);
@@ -137,12 +139,13 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
             checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() CommitChanges() に失敗しました。");
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
+
         GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                       _papaIndexParam[prm_draw_set_num-1][material_grp_index].BaseVertexIndex,
-                                                       _papaIndexParam[prm_draw_set_num-1][material_grp_index].MinIndex,
-                                                       _papaIndexParam[prm_draw_set_num-1][material_grp_index].NumVertices,
-                                                       _papaIndexParam[prm_draw_set_num-1][material_grp_index].StartIndex,
-                                                       _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
+                                                       indexParam.BaseVertexIndex,
+                                                       indexParam.MinIndex,
+                                                       indexParam.NumVertices,
+                                                       indexParam.StartIndex,
+                                                       indexParam.PrimitiveCount);
         if (_numPass >= 2) { //２パス目以降が存在
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() １パス目 EndPass() に失敗しました。");
@@ -150,11 +153,11 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
                 hr = pID3DXEffect->BeginPass(i);
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() "<<i+1<<"パス目 BeginPass("<<i<<") に失敗しました。");
                 GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                               _papaIndexParam[prm_draw_set_num-1][material_grp_index].BaseVertexIndex,
-                                                               _papaIndexParam[prm_draw_set_num-1][material_grp_index].MinIndex,
-                                                               _papaIndexParam[prm_draw_set_num-1][material_grp_index].NumVertices,
-                                                               _papaIndexParam[prm_draw_set_num-1][material_grp_index].StartIndex,
-                                                               _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
+                                                               indexParam.BaseVertexIndex,
+                                                               indexParam.MinIndex,
+                                                               indexParam.NumVertices,
+                                                               indexParam.StartIndex,
+                                                               indexParam.PrimitiveCount);
                 hr = pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() "<<i+1<<"パス目 EndPass() に失敗しました。");
             }
