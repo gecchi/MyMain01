@@ -131,10 +131,9 @@ void EnemyThisbe::onHit(GgafActor* prm_pOtherActor) {
         //爆発効果
         UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(SE_EXPLOSION);
-
-        //自機側に撃たれて消滅の場合、
+        //自機側に撃たれて消滅？
         if (pOther->getKind() & KIND_MY) {
-            //アイテム出現
+            //ならばアイテム出現
             UTIL::activateItemOf(this);
         }
         sayonara();

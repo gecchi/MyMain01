@@ -365,12 +365,8 @@ float4 GgafDxPS_LaserChip(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0
 ) : COLOR  {
-
-	float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
-	return colOut;
+	return tex2D( MyTextureSampler, prm_uv) * prm_color;
 }
-
-
 
 technique LaserChipTechnique
 {

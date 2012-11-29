@@ -183,7 +183,7 @@ float4 GgafDxPS_DefaultMeshSet(
     float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
     float s = 0.0f; //スペキュラ成分
-    if (g_specular_power != 0) {
+    if (g_specular_power != 0.0f) {
         //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
         float3 vecHarf = normalize(prm_vecEye_World + (-g_vecLightFrom_World));
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算

@@ -439,11 +439,9 @@ float4 GgafDxPS_DefaultBoardSet(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0 
 ) : COLOR  {
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv); 
 	//求める色
-	float4 colOut = colTex; 
-	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+	float4 colOut = tex2D( MyTextureSampler, prm_uv); 
+	if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
 		colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
 	}          
 	//α考慮

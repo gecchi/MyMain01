@@ -1,10 +1,8 @@
-
 #include "stdafx.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 EnemyHesperiaLaserChip001::EnemyHesperiaLaserChip001(const char* prm_name) :
         HomingLaserChip(prm_name, "HesperiaLaserChip001", STATUS(EnemyHesperiaLaserChip001)) {

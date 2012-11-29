@@ -105,9 +105,7 @@ void EnemyAstraea::processBehavior() {
         case PROG_MOVE: {
             if (_pProg->hasJustChanged()) {
                 angle v = angveloTurn_ / 50;
-                _pKurokoA->setFaceAngVelo(AXIS_X, RND(-v, v));
-                _pKurokoA->setFaceAngVelo(AXIS_Z, RND(-v, v));
-                _pKurokoA->setFaceAngVelo(AXIS_Y, RND(-v, v));
+                _pKurokoA->setFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
                 _pKurokoA->setMvVelo(2000);
                 //_pKurokoA->setMvVelo(0);
             }

@@ -171,9 +171,7 @@ float4 GgafDxPS_SingleLaser(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0
 ) : COLOR  {
-
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);
-	float4 colOut = colTex * prm_color;
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
 	return colOut;
 }
 

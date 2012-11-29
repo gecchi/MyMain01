@@ -116,9 +116,7 @@ float4 PS_Flush(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
-	float4 colOut = colTex * prm_color * FLUSH_COLOR;
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color * FLUSH_COLOR;
 	colOut.a *= g_alpha_master;
 	return colOut;
 }
@@ -127,9 +125,7 @@ float4 PS_NoLight(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colTex = tex2D( MyTextureSampler, prm_uv);        
-	float4 colOut = colTex * prm_color;
+	float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
     //Blinkerを考慮
 //	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
 //		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
