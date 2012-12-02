@@ -468,6 +468,26 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermione.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArm.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmBody.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmHead.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmWeak.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperia.cpp"
 				>
 			</File>
@@ -552,11 +572,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe002.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip001.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip003.cpp"
 				>
 			</File>
 			<File
@@ -692,10 +720,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePauseScene.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePreTitleScene.cpp"
 				>
 			</File>
@@ -769,6 +793,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelSceneSymbol.cpp"
 				>
 			</File>
 			<File
@@ -980,6 +1008,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\ScoreItem.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\ScoreItem001.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot001.cpp"
 				>
 			</File>
@@ -1021,6 +1057,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.cpp"
 				>
 			</File>
 			<File
@@ -1267,6 +1307,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\VreathItem.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\VreathItem001.cpp"
 				>
 			</File>
 			<File
@@ -1584,6 +1632,26 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermione.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArm.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmBody.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmHead.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmWeak.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperia.h"
 				>
 			</File>
@@ -1668,11 +1736,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe002.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip001.h"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip003.h"
 				>
 			</File>
 			<File
@@ -1812,10 +1888,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePauseScene.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GamePreTitleScene.h"
 				>
 			</File>
@@ -1889,6 +1961,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelSceneSymbol.h"
 				>
 			</File>
 			<File
@@ -2100,6 +2176,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\ScoreItem.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\ScoreItem001.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\shot\Shot001.h"
 				>
 			</File>
@@ -2141,6 +2225,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.h"
 				>
 			</File>
 			<File
@@ -2353,6 +2441,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\VreathItem.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\VreathItem001.h"
 				>
 			</File>
 			<File

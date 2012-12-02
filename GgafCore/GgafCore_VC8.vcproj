@@ -221,7 +221,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\core\actor\GgafDummyActor.cpp"
+				RelativePath=".\src\jp\ggaf\core\actor\ex\GgafDummyActor.cpp"
 				>
 			</File>
 			<File
@@ -391,7 +391,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\actor\GgafDummyActor.h"
+				RelativePath=".\include\jp\ggaf\core\actor\ex\GgafDummyActor.h"
 				>
 			</File>
 			<File
@@ -439,11 +439,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\GgafLinkedListRing.hpp"
+				RelativePath=".\include\jp\ggaf\core\util\GgafLinkedListRing.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\util\GgafLinkedListRing.hpp"
+				RelativePath=".\include\jp\ggaf\core\GgafLinkedListRing.hpp"
 				>
 			</File>
 			<File
@@ -487,19 +487,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\GgafResourceConnection.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\core\util\GgafResourceConnection.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\GgafResourceManager.hpp"
+				RelativePath=".\include\jp\ggaf\core\GgafResourceConnection.hpp"
 				>
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\core\util\GgafResourceManager.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\core\GgafResourceManager.hpp"
 				>
 			</File>
 			<File
