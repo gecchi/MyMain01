@@ -85,7 +85,7 @@ public:
     /** [r]自身の現在のWorld変換行列の「回転×移動」の逆行列(回転×移動のインバース) */
     D3DXMATRIX _matInvWorldRotMv;
     /** [r]カレントフレームで自身の現在のWorld変換行列の逆行列(_matInvWorldRotMv)を計算して求めたかどうかのフラグ。 */
-    bool _wasCalc_matInvWorldRotMv;
+    bool _was_calculated_matInvWorldRotMv;
 
     /** [r]土台となるアクター、土台が無い場合はnullptr（IK用） */
     GgafDxCore::GgafDxGeometricActor* _pActor_Base;
@@ -384,11 +384,11 @@ public:
      * @return _matInvWorldRotMv
      */
     D3DXMATRIX* getInvMatWorldRotMv() {
-        if (_wasCalc_matInvWorldRotMv) {
+        if (_was_calculated_matInvWorldRotMv) {
             return &_matInvWorldRotMv;
         } else {
             D3DXMatrixInverse(&_matInvWorldRotMv, nullptr, &_matWorldRotMv);
-            _wasCalc_matInvWorldRotMv = true;
+            _was_calculated_matInvWorldRotMv = true;
             return &_matInvWorldRotMv;
         }
     }

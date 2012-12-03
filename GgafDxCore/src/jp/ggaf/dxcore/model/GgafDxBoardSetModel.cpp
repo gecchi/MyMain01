@@ -51,7 +51,7 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
 
     HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
-    if (GgafDxModelManager::_pModelLastDraw  != this) {
+    if (GgafDxModelManager::_pModelLastDraw != this) {
         GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDxGod::_pID3DDevice9->SetFVF(GgafDxBoardSetModel::FVF);
         GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->fetch()->_pIDirect3DBaseTexture9);
@@ -104,12 +104,13 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
         checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw() CommitChanges() に失敗しました。");
     }
     TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
+    INDEXPARAM& idxparam = _paIndexParam[prm_draw_set_num-1];
     GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                   _paIndexParam[prm_draw_set_num-1].BaseVertexIndex,
-                                                   _paIndexParam[prm_draw_set_num-1].MinIndex,
-                                                   _paIndexParam[prm_draw_set_num-1].NumVertices,
-                                                   _paIndexParam[prm_draw_set_num-1].StartIndex,
-                                                   _paIndexParam[prm_draw_set_num-1].PrimitiveCount);
+                                                   idxparam.BaseVertexIndex,
+                                                   idxparam.MinIndex,
+                                                   idxparam.NumVertices,
+                                                   idxparam.StartIndex,
+                                                   idxparam.PrimitiveCount);
 
     //前回描画モデル保持
     GgafDxModelManager::_pModelLastDraw = this;

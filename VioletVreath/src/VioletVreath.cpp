@@ -48,7 +48,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     std::set_unexpected(myUnexpectedHandler);
     std::set_terminate(myTerminateHandler);
 
-
     // グローバル文字列を初期化しています。
     LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadString(hInstance, IDC_VIOLETVREATH, szWindowClass, MAX_LOADSTRING);
@@ -63,10 +62,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         return EXIT_FAILURE;
     }
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
-
-
-
-
 
     GgafCore::GgafRgb rgb = GgafCore::GgafRgb(GGAF_PROPERTY(BORDER_COLOR));
     WNDCLASSEX wcex1;

@@ -42,7 +42,7 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
     TRACE4("GgafDxSpriteSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _set_num) {
-        _TRACE_("GgafDxSpriteSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
+        throwGgafCriticalException("GgafDxSpriteSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
     //対象Actor
@@ -106,12 +106,13 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
         checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() CommitChanges() に失敗しました。");
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name);
+    INDEXPARAM& idxparam = _paIndexParam[prm_draw_set_num - 1];
     GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                   _paIndexParam[prm_draw_set_num - 1].BaseVertexIndex,
-                                                   _paIndexParam[prm_draw_set_num - 1].MinIndex,
-                                                   _paIndexParam[prm_draw_set_num - 1].NumVertices,
-                                                   _paIndexParam[prm_draw_set_num - 1].StartIndex,
-                                                   _paIndexParam[prm_draw_set_num - 1].PrimitiveCount);
+                                                   idxparam.BaseVertexIndex,
+                                                   idxparam.MinIndex,
+                                                   idxparam.NumVertices,
+                                                   idxparam.StartIndex,
+                                                   idxparam.PrimitiveCount);
     if (_numPass >= 2) { //２パス目以降が存在
         hr = pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() １パス目 EndPass() に失敗しました。");
@@ -120,11 +121,11 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
             hr = pID3DXEffect->BeginPass(pass);
             checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
             GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                           _paIndexParam[prm_draw_set_num - 1].BaseVertexIndex,
-                                                           _paIndexParam[prm_draw_set_num - 1].MinIndex,
-                                                           _paIndexParam[prm_draw_set_num - 1].NumVertices,
-                                                           _paIndexParam[prm_draw_set_num - 1].StartIndex,
-                                                           _paIndexParam[prm_draw_set_num - 1].PrimitiveCount);
+                                                           idxparam.BaseVertexIndex,
+                                                           idxparam.MinIndex,
+                                                           idxparam.NumVertices,
+                                                           idxparam.StartIndex,
+                                                           idxparam.PrimitiveCount);
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() "<<pass+1<<"パス目 EndPass() に失敗しました。");
         }

@@ -45,7 +45,7 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
     _pFormation = nullptr;
 
     _is_local = false;
-    _wasCalc_matInvWorldRotMv = false;
+    _was_calculated_matInvWorldRotMv = false;
 }
 
 
@@ -54,7 +54,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         return;
     }
 
-    _wasCalc_matInvWorldRotMv = false;
+    _was_calculated_matInvWorldRotMv = false;
 
     if (_pActor_Base) {
         //ìyë‰Ç†ÇËéûÉçÅ[ÉJÉãç¿ïWÇ…àÍíUñﬂÇ∑
