@@ -28,6 +28,7 @@ pixcoord GgafDxProperties::DUAL_VIEW_FULL_SCREEN_WIDTH = 1600;
 pixcoord GgafDxProperties::DUAL_VIEW_FULL_SCREEN_HEIGHT = 900;
 
 bool GgafDxProperties::FIXED_GAME_VIEW_ASPECT = false;
+bool GgafDxProperties::FIXED_GAME_VIEW_PIXEL = false;
 bool GgafDxProperties::SWAP_GAME_VIEW = false;
 int GgafDxProperties::SINGLE_VIEW_DRAW_POSITION = 5;
 int GgafDxProperties::DUAL_VIEW_DRAW_POSITION1 = 6;
@@ -152,6 +153,10 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     if (GgafProperties::isExistKey("FIXED_GAME_VIEW_ASPECT")) {
         GgafDxProperties::FIXED_GAME_VIEW_ASPECT = getBool("FIXED_GAME_VIEW_ASPECT");
     }
+    if (GgafProperties::isExistKey("FIXED_GAME_VIEW_PIXEL")) {
+        GgafDxProperties::FIXED_GAME_VIEW_PIXEL = getBool("FIXED_GAME_VIEW_PIXEL");
+    }
+
     if (GgafProperties::isExistKey("SWAP_GAME_VIEW")) {
         GgafDxProperties::SWAP_GAME_VIEW = getBool("SWAP_GAME_VIEW");
     }
@@ -322,6 +327,7 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafDxProperties::DUAL_VIEW_FULL_SCREEN_WIDTH=" << GgafDxProperties::DUAL_VIEW_FULL_SCREEN_WIDTH);
     _TRACE_("GgafDxProperties::DUAL_VIEW_FULL_SCREEN_HEIGHT=" << GgafDxProperties::DUAL_VIEW_FULL_SCREEN_HEIGHT);
     _TRACE_("GgafDxProperties::FIXED_GAME_VIEW_ASPECT=" << GgafDxProperties::FIXED_GAME_VIEW_ASPECT);
+    _TRACE_("GgafDxProperties::FIXED_GAME_VIEW_ASPECT=" << GgafDxProperties::FIXED_GAME_VIEW_PIXEL);
     _TRACE_("GgafDxProperties::SWAP_GAME_VIEW=" << GgafDxProperties::SWAP_GAME_VIEW);
     _TRACE_("GgafDxProperties::SINGLE_VIEW_DRAW_POSITION=" << GgafDxProperties::SINGLE_VIEW_DRAW_POSITION);
     _TRACE_("GgafDxProperties::DUAL_VIEW_DRAW_POSITION1=" << GgafDxProperties::DUAL_VIEW_DRAW_POSITION1);

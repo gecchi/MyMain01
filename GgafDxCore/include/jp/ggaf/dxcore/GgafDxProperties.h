@@ -56,6 +56,8 @@ public:
     static pixcoord DUAL_VIEW_FULL_SCREEN_HEIGHT;
     /** [r/w] ゲーム表示領域アスペクト比を固定するかどうか */
     static bool FIXED_GAME_VIEW_ASPECT;
+    /** [r/w] ゲーム表示領域アスペクト比を固定時、ピクセルをバッファと１：１で表示するかどうか */
+    static bool FIXED_GAME_VIEW_PIXEL;
     /** [r/w] ２画面モード時、１画面目と２画面目を入れ替えるかどうか */
     static bool SWAP_GAME_VIEW;
     /** [r/w] １画面モード時かつゲーム表示領域アスペクト比を固定時、表示領域場所を指定(場所＝テンキーの数値) */

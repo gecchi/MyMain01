@@ -67,11 +67,11 @@ private:
     /**
      * 表示位置番号に対応する矩形座標範囲(ピクセル)を取得する。
      * @param prm_pos 表示位置番号
-     * @param out_rectPresent [out]対応する矩形座標範囲
+     * @param inout_rectPresent [in]中央(pos=5)基準の領域矩形、[out]表示位置に対応する矩形座標範囲
      * @param prm_screen_width 画面幅(ピクセル)
      * @param prm_screen_height 画面高さ(ピクセル)
      */
-    void positionPresentRect(int prm_pos, RECT& out_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height);
+    void positionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height);
 
     /**
      * マルチディスプレイ、フルスクリーンモード時、
