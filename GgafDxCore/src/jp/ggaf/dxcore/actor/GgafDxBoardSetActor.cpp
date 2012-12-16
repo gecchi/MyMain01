@@ -29,6 +29,8 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
 
     _width_px = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //•(px)
     _height_px = (int)(_pBoardSetModel->_fSize_BoardSetModelHeightPx); //‚‚³(px)
+    _harf_width_px = _width_px/2;
+    _harf_height_px = _height_px/2;
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
     _alpha = 1.0f;
@@ -59,7 +61,7 @@ void GgafDxBoardSetActor::processDraw() {
                 if (_align == ALIGN_RIGHT) {
                     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[_draw_set_num], C_PX(pBoardSetActor->_X) - pBoardSetActor->_width_px);
                 } else if (_align == ALIGN_CENTER) {
-                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[_draw_set_num], C_PX(pBoardSetActor->_X) - (pBoardSetActor->_width_px/2.0f));
+                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[_draw_set_num], C_PX(pBoardSetActor->_X) - (pBoardSetActor->_harf_width_px));
                 } else {
                     //ALIGN_LEFT
                     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[_draw_set_num], C_PX(pBoardSetActor->_X));
@@ -68,7 +70,7 @@ void GgafDxBoardSetActor::processDraw() {
                 if (_valign == VALIGN_BOTTOM) {
                     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[_draw_set_num], C_PX(pBoardSetActor->_Y) - pBoardSetActor->_height_px);
                 } else if (_valign == VALIGN_MIDDLE) {
-                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[_draw_set_num], C_PX(pBoardSetActor->_Y) - (pBoardSetActor->_height_px/2.0f));
+                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[_draw_set_num], C_PX(pBoardSetActor->_Y) - (pBoardSetActor->_harf_height_px));
                 } else {
                     //VALIGN_TOP
                     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[_draw_set_num], C_PX(pBoardSetActor->_Y));

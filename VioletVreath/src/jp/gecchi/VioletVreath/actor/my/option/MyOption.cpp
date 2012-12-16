@@ -224,6 +224,7 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
 
 void MyOption::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
+    GgafDxKurokoA* pKurokoA = _pKurokoA;
     //処理メイン
     _X = Xorg_;
     _Y = Yorg_;
@@ -253,7 +254,6 @@ void MyOption::processBehavior() {
     }
 
     if (return_to_base_angExpanse_seq_) {
-
         //自動戻り
         if (angExpanse_ > angExpanse_default_) {
             angExpanse_ -= 2000;
@@ -361,50 +361,48 @@ void MyOption::processBehavior() {
             if (pOptionCtrlr_->is_free_from_myship_mode_) {
                 //
             } else {
-                    GgafDxGeoElem* pGeoOpCon = pOptionCtrlr_->pRing_OptCtrlGeoHistory_->getPrev();
-                    if (VB_PLAY->isBeingPressed(VB_OPTION)) {
-                        //オプションボタン押下時は
-                        //radiusPositionをいじらない
-                    } else if (pGeoOpCon->_X == pOptionCtrlr_->_X &&
-                               pGeoOpCon->_Y == pOptionCtrlr_->_Y &&
-                               pGeoOpCon->_Z == pOptionCtrlr_->_Z )
-                    {
-                        //非移動時
-                        if (radiusPosition_stopping_ == radiusPosition_) {
-                            //kk
-                        } else if (radiusPosition_stopping_ > radiusPosition_) {
-                            addRadiusPosition(+2000, 1, radiusPosition_stopping_);
-                        } else if (radiusPosition_stopping_ < radiusPosition_) {
-                            addRadiusPosition(-2000, radiusPosition_);
-                        }
-                        if (veloMv_ == veloMv_base_) {
+                GgafDxGeoElem* pGeoOpCon = pOptionCtrlr_->pRing_OptCtrlGeoHistory_->getPrev();
+                if (VB_PLAY->isBeingPressed(VB_OPTION)) {
+                    //オプションボタン押下時は
+                    //radiusPositionをいじらない
+                } else if (pGeoOpCon->_X == pOptionCtrlr_->_X &&
+                           pGeoOpCon->_Y == pOptionCtrlr_->_Y &&
+                           pGeoOpCon->_Z == pOptionCtrlr_->_Z )
+                {
+                    //非移動時
+                    if (radiusPosition_stopping_ == radiusPosition_) {
+                        //kk
+                    } else if (radiusPosition_stopping_ > radiusPosition_) {
+                        addRadiusPosition(+2000, 1, radiusPosition_stopping_);
+                    } else if (radiusPosition_stopping_ < radiusPosition_) {
+                        addRadiusPosition(-2000, radiusPosition_);
+                    }
+                    if (veloMv_ == veloMv_base_) {
 
-                        } else {
-                            veloMv_ += 100;
-                            if (veloMv_ >= veloMv_base_) {
-                                if (need_adjust_pos_flg_) {
-                                    MyOptionController::adjustDefaltAngPosition(radiusPosition_stopping_ / 1000);
-                                    need_adjust_pos_flg_ = false;
-                                }
-                                veloMv_ = veloMv_base_;
-                            }
-                        }
                     } else {
-                        //移動時
-                        if (1 < radiusPosition_) {
-                            addRadiusPosition(-3000, 1);
-                        }
-                        if (radiusPosition_ < 10000) {
-                            need_adjust_pos_flg_ = true;
-                        }
-
-                        veloMv_ -= 200;
-                        if (veloMv_ < 0) {
-                            veloMv_ = 0;
+                        veloMv_ += 100;
+                        if (veloMv_ >= veloMv_base_) {
+                            if (need_adjust_pos_flg_) {
+                                MyOptionController::adjustDefaltAngPosition(radiusPosition_stopping_ / 1000);
+                                need_adjust_pos_flg_ = false;
+                            }
+                            veloMv_ = veloMv_base_;
                         }
                     }
-//                }
+                } else {
+                    //移動時
+                    if (1 < radiusPosition_) {
+                        addRadiusPosition(-3000, 1);
+                    }
+                    if (radiusPosition_ < 10000) {
+                        need_adjust_pos_flg_ = true;
+                    }
 
+                    veloMv_ -= 200;
+                    if (veloMv_ < 0) {
+                        veloMv_ = 0;
+                    }
+                }
             }
         }
     }
@@ -414,7 +412,6 @@ void MyOption::processBehavior() {
             //初期処理
             adjust_angPos_seq_progress_ = 2;
         }
-
 
         if (adjust_angPos_seq_progress_ == 2) {
             angle angPosition_now;
@@ -436,17 +433,17 @@ void MyOption::processBehavior() {
             //必要な角速度差分に対応する移動速度を求める
             velo veloMv_offset =  (2.0*PI*radiusPosition_ * angvelo_offset) / D360ANG;
             //速度設定
-            _pKurokoA->setRzMvAngVelo(angveloMove_ + angvelo_offset);
-            _pKurokoA->setMvVelo(veloMv_ + veloMv_offset);
-            adjust_angPos_seq_spent_frame_ --;
+            pKurokoA->setRzMvAngVelo(angveloMove_ + angvelo_offset);
+            pKurokoA->setMvVelo(veloMv_ + veloMv_offset);
+            adjust_angPos_seq_spent_frame_--;
 
             if (adjust_angPos_seq_spent_frame_ == 0) {
                 angPosition_base_ = adjust_angPos_seq_new_angPosition_base_;
                 //誤差修正のため理想位置に再設定
                 angveloMove_ = ((1.0*veloMv_ / radiusPosition_)*(double)D180ANG)/PI;
-                _pKurokoA->setMvVelo(veloMv_);
-                _pKurokoA->setRzMvAng(UTIL::simplifyAng(angPosition_base_ + D90ANG));
-                _pKurokoA->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
+                pKurokoA->setMvVelo(veloMv_);
+                pKurokoA->setRzMvAng(UTIL::simplifyAng(angPosition_base_ + D90ANG));
+                pKurokoA->setRzMvAngVelo(angveloMove_);//∵半径Ｒ＝速度Ｖ／角速度ω
                 _Z = ANG_COS(angPosition_base_)*radiusPosition_; //X軸中心回転なのでXYではなくてZY
                 _Y = ANG_SIN(angPosition_base_)*radiusPosition_; //X軸の正の方向を向いて時計回りに配置
                 _X = 0;
@@ -455,11 +452,11 @@ void MyOption::processBehavior() {
         }
     } else {
          //通常時
-        _pKurokoA->setMvVelo(veloMv_);
+        pKurokoA->setMvVelo(veloMv_);
     }
     angPosition_ = UTIL::simplifyAng(angPosition_+angveloMove_);
 
-    _pKurokoA->behave();
+    pKurokoA->behave();
     //_pKurokoB->behave();
 
     Xorg_ = _X;
@@ -488,11 +485,11 @@ void MyOption::processBehavior() {
     //しかしまだ色々と回転したいため。あとは普通に計算（力技）で、座標回転、向き回転を行なう。
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
-    GgafDxKurokoA* pOptionCtrlrKurokoA = pOptionCtrlr_->_pKurokoA;
-    float sinRZ = ANG_SIN(pOptionCtrlrKurokoA->_angFace[AXIS_Z]);
-    float cosRZ = ANG_COS(pOptionCtrlrKurokoA->_angFace[AXIS_Z]);
-    float sinRY = ANG_SIN(pOptionCtrlrKurokoA->_angFace[AXIS_Y]);
-    float cosRY = ANG_COS(pOptionCtrlrKurokoA->_angFace[AXIS_Y]);
+    GgafDxKurokoA* pOptionCtrlr_pKurokoA = pOptionCtrlr_->_pKurokoA;
+    float sinRZ = ANG_SIN(pOptionCtrlr_pKurokoA->_angFace[AXIS_Z]);
+    float cosRZ = ANG_COS(pOptionCtrlr_pKurokoA->_angFace[AXIS_Z]);
+    float sinRY = ANG_SIN(pOptionCtrlr_pKurokoA->_angFace[AXIS_Y]);
+    float cosRY = ANG_COS(pOptionCtrlr_pKurokoA->_angFace[AXIS_Y]);
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
     _X = cosRY*cosRZ*Xorg_ + cosRY*-sinRZ*Yorg_ + sinRY*Zorg_;
     _Y = sinRZ*Xorg_ + cosRZ*Yorg_;
@@ -517,27 +514,25 @@ void MyOption::processBehavior() {
     //回転軸 は(vX_axis, vY_axis, vZ_axis) 回転角は angExpanse_
     GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf); //R
 //    Q.set(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-    Q.mul(0, pOptionCtrlrKurokoA->_vX,
-             pOptionCtrlrKurokoA->_vY,
-             pOptionCtrlrKurokoA->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
+    Q.mul(0, pOptionCtrlr_pKurokoA->_vX,
+             pOptionCtrlr_pKurokoA->_vY,
+             pOptionCtrlr_pKurokoA->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
     Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
     UTIL::getRzRyAng(Q._x, Q._y, Q._z, _RZ, _RY);
 
-
     _X += pOptionCtrlr_->_X;
     _Y += pOptionCtrlr_->_Y;
     _Z += pOptionCtrlr_->_Z;
-
 
     //TODO
     //最適化
     if (pMyShip->is_shooting_laser_ && VB_PLAY->isBeingPressed(VB_SHOT1)) {
         MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)pLaserChipDepo_->dispatch();
 //        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)pLaserChipDepo_->dispatch();
-
         if (pLaserChip) {
+            GgafDxKurokoB* pLaserChip_pKurokoB = pLaserChip->_pKurokoB;
             if (pLaserChipDepo_->_pEffectActor_Irradiate) {
                 pLaserChipDepo_->_pEffectActor_Irradiate->locateWith(this);
             }
@@ -556,15 +551,16 @@ void MyOption::processBehavior() {
 ////            pLaserChip->_pKurokoA->_angFace[AXIS_X] = _pKurokoA->_angFace[AXIS_X];
 //            pLaserChip->_pKurokoA->_angFace[AXIS_Z] = _RZ;
 //            pLaserChip->_pKurokoA->_angFace[AXIS_Y] = _RY;
-
-            pLaserChip->_pKurokoB->setVxMvVelo(Q._x*pLaserChip->max_velo_renge_);
-            pLaserChip->_pKurokoB->setVyMvVelo(Q._y*pLaserChip->max_velo_renge_);
-            pLaserChip->_pKurokoB->setVzMvVelo(Q._z*pLaserChip->max_velo_renge_);
-            pLaserChip->_pKurokoB->setVxMvAcce(Q._x*pLaserChip->max_velo_renge_/pLaserChip->r_max_acce_);
-            pLaserChip->_pKurokoB->setVyMvAcce(Q._y*pLaserChip->max_velo_renge_/pLaserChip->r_max_acce_);
-            pLaserChip->_pKurokoB->setVzMvAcce(Q._z*pLaserChip->max_velo_renge_/pLaserChip->r_max_acce_);
+            int max_velo_renge = pLaserChip->max_velo_renge_;
+            int r_max_acce = pLaserChip->r_max_acce_;
+            pLaserChip_pKurokoB->setVxMvVelo(Q._x*max_velo_renge);
+            pLaserChip_pKurokoB->setVyMvVelo(Q._y*max_velo_renge);
+            pLaserChip_pKurokoB->setVzMvVelo(Q._z*max_velo_renge);
+            pLaserChip_pKurokoB->setVxMvAcce(Q._x*max_velo_renge/r_max_acce);
+            pLaserChip_pKurokoB->setVyMvAcce(Q._y*max_velo_renge/r_max_acce);
+            pLaserChip_pKurokoB->setVzMvAcce(Q._z*max_velo_renge/r_max_acce);
 //            pLaserChip->_pKurokoA->behave();
-            pLaserChip->_pKurokoB->behave();
+            pLaserChip_pKurokoB->behave();
             pLaserChip->_X = _X;
             pLaserChip->_Y = _Y;
             pLaserChip->_Z = _Z;
@@ -582,12 +578,13 @@ void MyOption::processBehavior() {
     if (pMyShip->just_shot_) {
         MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
         if (pShot) {
+            GgafDxKurokoA* pShot_pKurokoA = pShot->_pKurokoA;
             _pSeTx->play3D(SE_FIRE_SHOT);
             pShot->locateWith(this);
-            pShot->_pKurokoA->_angFace[AXIS_X] = _RX;
-            pShot->_pKurokoA->_angFace[AXIS_Z] = _RZ;
-            pShot->_pKurokoA->_angFace[AXIS_Y] = _RY;
-            pShot->_pKurokoA->setRzRyMvAng(_RZ, _RY);
+            pShot_pKurokoA->_angFace[AXIS_X] = _RX;
+            pShot_pKurokoA->_angFace[AXIS_Z] = _RZ;
+            pShot_pKurokoA->_angFace[AXIS_Y] = _RY;
+            pShot_pKurokoA->setRzRyMvAng(_RZ, _RY);
         }
     }
 

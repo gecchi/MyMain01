@@ -100,16 +100,19 @@ void RefractionLaserChip::onInactive() {
     //レーザーがゲーム領域外にたっしたときも、先頭チップから順に連続で引継ぎが発生することになる。
     //ちょっと無駄っぽいけど、さもなくば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
     if (_pChip_behind) {
-        RefractionLaserChip* pChip_behind = (RefractionLaserChip*)_pChip_behind;
-        pChip_behind->_pKurokoA->_vX = _pKurokoA->_vX;
-        pChip_behind->_pKurokoA->_vY = _pKurokoA->_vY;
-        pChip_behind->_pKurokoA->_vZ = _pKurokoA->_vZ;
-        pChip_behind->_pKurokoA->_angRzMv = _pKurokoA->_angRzMv;
-        pChip_behind->_pKurokoA->_angRyMv = _pKurokoA->_angRyMv;
-        pChip_behind->_pKurokoA->_veloMv = _pKurokoA->_veloMv;
-        pChip_behind->_pKurokoA->_angFace[AXIS_X] = _pKurokoA->_angFace[AXIS_X];
-        pChip_behind->_pKurokoA->_angFace[AXIS_Y] = _pKurokoA->_angFace[AXIS_Y];
-        pChip_behind->_pKurokoA->_angFace[AXIS_Z] = _pKurokoA->_angFace[AXIS_Z];
+        RefractionLaserChip* const pChip_behind = (RefractionLaserChip*)_pChip_behind;
+        GgafDxKurokoA* const pChip_behind_pKurokoA = pChip_behind->_pKurokoA;
+        GgafDxKurokoA* const pKurokoA = _pKurokoA;
+
+        pChip_behind_pKurokoA->_vX = pKurokoA->_vX;
+        pChip_behind_pKurokoA->_vY = pKurokoA->_vY;
+        pChip_behind_pKurokoA->_vZ = pKurokoA->_vZ;
+        pChip_behind_pKurokoA->_angRzMv = pKurokoA->_angRzMv;
+        pChip_behind_pKurokoA->_angRyMv = pKurokoA->_angRyMv;
+        pChip_behind_pKurokoA->_veloMv = pKurokoA->_veloMv;
+        pChip_behind_pKurokoA->_angFace[AXIS_X] = pKurokoA->_angFace[AXIS_X];
+        pChip_behind_pKurokoA->_angFace[AXIS_Y] = pKurokoA->_angFace[AXIS_Y];
+        pChip_behind_pKurokoA->_angFace[AXIS_Z] = pKurokoA->_angFace[AXIS_Z];
         pChip_behind->_cnt_refraction = _cnt_refraction;
         pChip_behind->_frame_refraction_enter = _frame_refraction_enter;
         pChip_behind->_frame_refraction_out = _frame_refraction_out;

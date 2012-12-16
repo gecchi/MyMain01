@@ -89,6 +89,10 @@ public:
     pixcoord _width_px;
     /** [r]‚‚³(px) */
     pixcoord _height_px;
+    /** [r]•(px)‚Ì”¼•ª */
+    pixcoord _harf_width_px;
+    /** [r]‚‚³(px)‚Ì”¼•ª */
+    pixcoord _harf_height_px;
     GgafDxAlign _align;
     GgafDxValign _valign;
 

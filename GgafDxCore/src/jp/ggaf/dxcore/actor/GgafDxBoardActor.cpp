@@ -27,6 +27,8 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
     _width_px = (int)(_pBoardModel->_fSize_BoardModelWidthPx); //幅(px)
     _height_px = (int)(_pBoardModel->_fSize_BoardModelHeightPx); //高さ(px)
+    _harf_width_px = _width_px/2;
+    _harf_height_px = _height_px/2;
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
     _alpha = 1.0f;
@@ -43,7 +45,7 @@ void GgafDxBoardActor::processDraw() {
     if (_align == ALIGN_RIGHT) {
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, float(C_PX(_X)-_width_px));
     } else if (_align == ALIGN_CENTER) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, float(C_PX(_X)-_width_px/2));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, float(C_PX(_X)-_harf_width_px));
     } else {
         //ALIGN_LEFT
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, float(C_PX(_X)));
@@ -52,7 +54,7 @@ void GgafDxBoardActor::processDraw() {
     if (_valign == VALIGN_BOTTOM) {
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, float(C_PX(_Y)-_height_px));
     } else if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, float(C_PX(_Y)-_height_px/2));
+        hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, float(C_PX(_Y)-_harf_height_px));
     } else {
         //VALIGN_TOP
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, float(C_PX(_Y)));
@@ -82,24 +84,33 @@ void GgafDxBoardActor::locateWith(GgafDxGeoElem* prm_pGeoElem) {
     _X = prm_pGeoElem->_X;
     _Y = prm_pGeoElem->_Y;
 }
+
 void GgafDxBoardActor::setScale(scale S) {
     _SX = S;
     _SY = S;
     _width_px = _pBoardModel->_fSize_BoardModelWidthPx * SC_R(S);
     _height_px = _pBoardModel->_fSize_BoardModelHeightPx * SC_R(S);
+    _harf_width_px = _width_px/2;
+    _harf_height_px = _height_px/2;
 }
+
 void GgafDxBoardActor::setScale(scale SX, scale SY) {
     _SX = SX;
     _SY = SY;
     _width_px = _pBoardModel->_fSize_BoardModelWidthPx * SC_R(SX);
     _height_px = _pBoardModel->_fSize_BoardModelHeightPx * SC_R(SY);
+    _harf_width_px = _width_px/2;
+    _harf_height_px = _height_px/2;
 }
+
 void GgafDxBoardActor::setScale(scale SX, scale SY, scale SZ) {
     _SX = SX;
     _SY = SY;
     _SZ = SZ; //_SZは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
     _width_px = _pBoardModel->_fSize_BoardModelWidthPx * SC_R(SX);
     _height_px = _pBoardModel->_fSize_BoardModelHeightPx * SC_R(SY);
+    _harf_width_px = _width_px/2;
+    _harf_height_px = _height_px/2;
 }
 
 void GgafDxBoardActor::setScaleR(float prm_rate) {
@@ -107,20 +118,29 @@ void GgafDxBoardActor::setScaleR(float prm_rate) {
     _SY = R_SC(prm_rate);
     _width_px = _pBoardModel->_fSize_BoardModelWidthPx * prm_rate;
     _height_px = _pBoardModel->_fSize_BoardModelHeightPx * prm_rate;
+    _harf_width_px = _width_px/2;
+    _harf_height_px = _height_px/2;
 }
+
 void GgafDxBoardActor::setScaleR(float prm_x_rate, float prm_y_rate) {
     _SX = R_SC(prm_x_rate);
     _SY = R_SC(prm_y_rate);
     _width_px = _pBoardModel->_fSize_BoardModelWidthPx * prm_x_rate;
     _height_px = _pBoardModel->_fSize_BoardModelHeightPx * prm_y_rate;
+    _harf_width_px = _width_px/2;
+    _harf_height_px = _height_px/2;
 }
+
 void GgafDxBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) {
     _SX = R_SC(prm_x_rate);
     _SY = R_SC(prm_y_rate);
     _SZ = R_SC(prm_z_rate); //_SZは2Dでは使用されないが、GgafDxScaler::behave() 内の判定で役に立つ。
     _width_px = _pBoardModel->_fSize_BoardModelWidthPx * prm_x_rate;
     _height_px = _pBoardModel->_fSize_BoardModelHeightPx * prm_y_rate;
+    _harf_width_px = _width_px/2;
+    _harf_height_px = _height_px/2;
 }
+
 GgafDxBoardActor::~GgafDxBoardActor() {
     DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
 }

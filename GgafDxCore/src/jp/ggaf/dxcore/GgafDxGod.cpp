@@ -34,10 +34,8 @@ bool GgafDxGod::_is_device_lost_flg = false;
 bool GgafDxGod::_adjustGameScreen = false;
 HWND GgafDxGod::_pHWnd_adjustScreen = nullptr;
 
-
 UINT32 GgafDxGod::_vs_v = 0;
 UINT32 GgafDxGod::_ps_v = 0;
-
 
 GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
     GgafGod(prm_hInstance) {
