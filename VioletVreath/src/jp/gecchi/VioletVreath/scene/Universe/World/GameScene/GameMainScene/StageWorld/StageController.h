@@ -2,7 +2,7 @@
 #define STAGECONTROLLER_H_
 
 #ifdef P_STAGE_WORLD
-    #define P_STAGE_CTRLER (P_STAGE_WORLD->pStageCtrlr_)
+    #define P_STAGE_CTRLER (P_STAGE_WORLD->pStageCtrler_)
 #else
     #error P_STAGE_WORLD isnt define
 #endif
@@ -29,7 +29,7 @@ public:
         PROG_FINISH  ,
     };
 
-//    static StageController* pStageCtrlr_;
+//    static StageController* pStageCtrler_;
 
     char buf_[60];
     /** メインステージ(現在アクティブな面のシーンポインタ） */

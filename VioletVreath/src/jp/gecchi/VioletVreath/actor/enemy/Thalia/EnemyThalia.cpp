@@ -69,9 +69,9 @@ void EnemyThalia::processBehavior() {
         case PROG_MOVE: {
             if (!_pKurokoA->isRunnigSmoothMvVeloSequence()) {
                 _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //ŠJ‚­ 0.0004 ŠJ‚­‘¬‚³
-                _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                  0, 100,
-                                                 TURN_CLOSE_TO);
+                                                 TURN_CLOSE_TO, false);
 
                 _pProg->changeNext();
             }
@@ -94,9 +94,9 @@ void EnemyThalia::processBehavior() {
         }
         case PROG_IN_FIRE: {
             if (getActivePartFrame() % 10 == 0) {
-                _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                  10, 0,
-                                                 TURN_CLOSE_TO);
+                                                 TURN_CLOSE_TO, false);
             }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {

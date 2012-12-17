@@ -42,7 +42,7 @@ void EnemyAstraeaLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (getActivePartFrame() == 40) {
-        _pKurokoA->execTurnMvAngSequence(
+        _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                     P_MYSHIP,
                     7000, 0,
                     TURN_ANTICLOSE_TO, false);
@@ -50,14 +50,14 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
 
 
     if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
-        _pKurokoA->execTurnMvAngSequence(
+        _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                     P_MYSHIP,
                     100, 0,
                     TURN_CLOSE_TO, false);
     }
 //
 //    if (frame_of_behaving_from_onActive_ == 35) {
-//        _pKurokoA->execTurnMvAngSequence(
+//        _pKurokoA->execTurnRzRyMvAngSequenceTwd(
 //                    P_MYSHIP,
 //                    20000, TURN_ANTICLOSE_TO);
 //    }

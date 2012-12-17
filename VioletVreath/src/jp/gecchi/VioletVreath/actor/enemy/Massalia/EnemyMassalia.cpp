@@ -27,7 +27,7 @@ void EnemyMassalia::onActive() {
     _X = GgafDxUniverse::_X_goneRight - 1000;
     _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
     _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
-    _pKurokoA->setMvAng(0, D180ANG);
+    _pKurokoA->setRzRyMvAngTwd(0, D180ANG);
     _pKurokoA->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
     _pKurokoA->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));
 }

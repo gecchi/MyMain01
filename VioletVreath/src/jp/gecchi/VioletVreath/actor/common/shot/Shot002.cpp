@@ -31,15 +31,15 @@ void Shot002::processBehavior() {
 
 
     if (getActivePartFrame() == 70) {
-        _pKurokoA->execTurnMvAngSequence(P_MYSHIP,
-                                         3000, 0,
-                                         TURN_CLOSE_TO);
-    }
+        _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP,
+                                                3000, 0,
+                                                TURN_CLOSE_TO, true);
+    }  
 
     if (getActivePartFrame() > 70 && !_pKurokoA->isRunnigTurnMvAngSequence()) {
-        _pKurokoA->execTurnMvAngSequence(P_MYSHIP,
-                                         100, 0,
-                                         TURN_CLOSE_TO);
+        _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP,
+                                                100, 0,
+                                                TURN_CLOSE_TO, true);
     }
     //À•W‚É”½‰f
     _pKurokoA->behave();

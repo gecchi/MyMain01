@@ -28,26 +28,19 @@ void GgafDxAlphaFader::behave() {
     if (_method == NO_ALPHAFADE) {
         return;
     } else if (_method == TARGET_ALPHAFADE_LINER) {
-
         _alpha += _velo_alpha;
-
-        //_TRACE_("_velo_alpha["<<c<<"]="<<_velo_alpha<<"/_target_alpha["<<c<<"]="<<_target_alpha<<"/_alpha["<<c<<"]="<<_alpha);
         if (_velo_alpha > 0 && _target_alpha <= _alpha) {
-            //_TRACE_("END1");
             _alpha = _target_alpha;
             _method = NO_ALPHAFADE;
         } else if (_velo_alpha < 0 && _target_alpha >= _alpha) {
-            //_TRACE_("END2");
             _alpha = _target_alpha;
             _method = NO_ALPHAFADE;
         }
     } else if (_method == TARGET_ALPHAFADE_ACCELERATION) {
         _alpha += _velo_alpha;
-        //if (_velo_alpha > 0 && _target_alpha <= _alpha) {
         if (_acce_alpha > 0 && _target_alpha <= _alpha) {
             _alpha = _target_alpha;
             _method = NO_ALPHAFADE;
-        //} else if (_velo_alpha < 0 && _target_alpha >= _alpha) {
         } else if (_acce_alpha < 0 && _target_alpha >= _alpha) {
             _alpha = _target_alpha;
             _method = NO_ALPHAFADE;
@@ -70,7 +63,6 @@ void GgafDxAlphaFader::behave() {
                 _method = NO_ALPHAFADE;
             }
         }
-
     } else if (_method == BEAT_ALPHAFADE_TRIANGLEWAVE) {
         _beat_frame_count++;
         if (_beat_progres == 0) { //開始～アタックまで

@@ -28,8 +28,11 @@ void GgafDxMorpher::reset() {
 }
 
 void GgafDxMorpher::behave() {
-    for (int i = 1; i <= _pActor->_pMorphMeshModel->_morph_target_num; i++) {
-        if (_method[i] == TARGET_MORPH_LINER) {
+    int morph_target_num = _pActor->_pMorphMeshModel->_morph_target_num;
+    GgafDxMorphingMethod method;
+    for (int i = 1; i <= morph_target_num; i++) {
+        method = _method[i];
+        if (method ==TARGET_MORPH_LINER) {
             _weight[i] += _velo_weight[i];
             if (_velo_weight[i] > 0 && _target_weight[i] < _weight[i]) {
                 _weight[i] = _target_weight[i];
@@ -41,7 +44,7 @@ void GgafDxMorpher::behave() {
                 _weight[i] = _target_weight[i];
                 _method[i] = NOMORPH;
             }
-        } else if (_method[i] == TARGET_MORPH_ACCELERATION) {
+        } else if (method ==TARGET_MORPH_ACCELERATION) {
             _weight[i] += _velo_weight[i];
             if (_velo_weight[i] > 0 && _target_weight[i] < _weight[i]) {
                 _weight[i] = _target_weight[i];
@@ -51,7 +54,7 @@ void GgafDxMorpher::behave() {
                 _method[i] = NOMORPH;
             }
             _velo_weight[i] += _acce_weight[i];
-        } else if (_method[i] == LOOP_MORPH_LINER) {
+        } else if (method ==LOOP_MORPH_LINER) {
             _weight[i] += _velo_weight[i];
             if (_top_weight[i] < _weight[i]) {
                 _weight[i] = _top_weight[i];
@@ -68,7 +71,7 @@ void GgafDxMorpher::behave() {
                     _method[i] = NOMORPH;
                 }
             }
-        } else if (_method[i] == LOOP_MORPH_TRIANGLEWAVE) {
+        } else if (method ==LOOP_MORPH_TRIANGLEWAVE) {
             _beat_frame_count[i]++;
             if (_beat_progres[i] == 0) { //開始～アタックまで
                 _weight[i] += _velo_weight[i];

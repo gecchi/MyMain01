@@ -61,7 +61,7 @@ void EffectLockon001_Sub::processBehavior() {
                      locateWith(pTarget_);
                      _pKurokoA->setMvVelo(0);
                  } else {
-                     _pKurokoA->setMvAng(pTarget_);
+                     _pKurokoA->setRzRyMvAngTwd(pTarget_);
                      _pKurokoA->setMvVelo(200000);
                  }
              } else {

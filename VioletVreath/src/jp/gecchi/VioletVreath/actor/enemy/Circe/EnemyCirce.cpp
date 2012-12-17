@@ -35,7 +35,7 @@ void EnemyCirce::onActive() {
 void EnemyCirce::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKurokoA->execTurnMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO);
+    _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP, 50, 0, TURN_CLOSE_TO, true);
     _pKurokoA->behave();
     _pScaler->behave();
     //_pSeTx->behave();

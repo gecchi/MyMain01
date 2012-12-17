@@ -68,48 +68,49 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     //World変換行列（_matWorld）を更新
     if (_pFunc_calcRotMvWorldMatrix) {
         //回転×移動のみ計算し _matWorldRotMv に保持
-        (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+        D3DXMATRIX& matWorldRotMv = _matWorldRotMv;
+        (*_pFunc_calcRotMvWorldMatrix)(this, matWorldRotMv);
         //スケールを考慮して、最終的な _matWorld を保持
         if (_SX != LEN_UNIT) {
             float Sx = SC_R(_SX);
-            _matWorld._11 = Sx * _matWorldRotMv._11;
-            _matWorld._12 = Sx * _matWorldRotMv._12;
-            _matWorld._13 = Sx * _matWorldRotMv._13;
+            _matWorld._11 = Sx * matWorldRotMv._11;
+            _matWorld._12 = Sx * matWorldRotMv._12;
+            _matWorld._13 = Sx * matWorldRotMv._13;
         } else {
-            _matWorld._11 = _matWorldRotMv._11;
-            _matWorld._12 = _matWorldRotMv._12;
-            _matWorld._13 = _matWorldRotMv._13;
+            _matWorld._11 = matWorldRotMv._11;
+            _matWorld._12 = matWorldRotMv._12;
+            _matWorld._13 = matWorldRotMv._13;
         }
-        _matWorld._14 = _matWorldRotMv._14;
+        _matWorld._14 = matWorldRotMv._14;
 
         if (_SY != LEN_UNIT) {
             float Sy = SC_R(_SY);
-            _matWorld._21 = Sy * _matWorldRotMv._21;
-            _matWorld._22 = Sy * _matWorldRotMv._22;
-            _matWorld._23 = Sy * _matWorldRotMv._23;
+            _matWorld._21 = Sy * matWorldRotMv._21;
+            _matWorld._22 = Sy * matWorldRotMv._22;
+            _matWorld._23 = Sy * matWorldRotMv._23;
         } else {
-            _matWorld._21 = _matWorldRotMv._21;
-            _matWorld._22 = _matWorldRotMv._22;
-            _matWorld._23 = _matWorldRotMv._23;
+            _matWorld._21 = matWorldRotMv._21;
+            _matWorld._22 = matWorldRotMv._22;
+            _matWorld._23 = matWorldRotMv._23;
         }
-        _matWorld._24 = _matWorldRotMv._24;
+        _matWorld._24 = matWorldRotMv._24;
 
         if (_SZ != LEN_UNIT) {
             float Sz = SC_R(_SZ);
-            _matWorld._31 = Sz * _matWorldRotMv._31;
-            _matWorld._32 = Sz * _matWorldRotMv._32;
-            _matWorld._33 = Sz * _matWorldRotMv._33;
+            _matWorld._31 = Sz * matWorldRotMv._31;
+            _matWorld._32 = Sz * matWorldRotMv._32;
+            _matWorld._33 = Sz * matWorldRotMv._33;
         } else {
-            _matWorld._31 = _matWorldRotMv._31;
-            _matWorld._32 = _matWorldRotMv._32;
-            _matWorld._33 = _matWorldRotMv._33;
+            _matWorld._31 = matWorldRotMv._31;
+            _matWorld._32 = matWorldRotMv._32;
+            _matWorld._33 = matWorldRotMv._33;
         }
-        _matWorld._34 = _matWorldRotMv._34;
+        _matWorld._34 = matWorldRotMv._34;
 
-        _matWorld._41 = _matWorldRotMv._41;
-        _matWorld._42 = _matWorldRotMv._42;
-        _matWorld._43 = _matWorldRotMv._43;
-        _matWorld._44 = _matWorldRotMv._44;
+        _matWorld._41 = matWorldRotMv._41;
+        _matWorld._42 = matWorldRotMv._42;
+        _matWorld._43 = matWorldRotMv._43;
+        _matWorld._44 = matWorldRotMv._44;
     }
 
     //デフォルトでは、_matWorldRotMv = 回転変換行列 × 平行移動変換行列

@@ -61,13 +61,12 @@ void MyOptionController::processBehavior() {
 
     if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
         //‚à‚Æ‚É–ß‚·
-        _pKurokoA->execTurnMvAngSequence(
-                        0,
-                        0,
+        _pKurokoA->execTurnRzRyMvAngSequence(
+                        0, 0,
                         20000, 0,
                         TURN_CLOSE_TO,
                         false
-                 );
+                   );
         is_free_from_myship_mode_ = false;
         is_handle_move_mode_ = false;
         return_to_default_position_seq_ = true;
@@ -120,7 +119,7 @@ void MyOptionController::processBehavior() {
             _pKurokoA->setMvVelo(0);
         }
     } else {
-        GgafDxGeoElem* pGeoMyShipTrace = pMyShip->pRing_MyShipGeoHistory4OptCtrlr_->getPrev(MyOptionController::o2o_*(no_+1));
+        GgafDxGeoElem* pGeoMyShipTrace = pMyShip->pRing_MyShipGeoHistory4OptCtrler_->getPrev(MyOptionController::o2o_*(no_+1));
         coord TX = pMyShip->_X_local + pGeoMyShipTrace->_X;
         coord TY = pMyShip->_Y_local + pGeoMyShipTrace->_Y;
         coord TZ = pMyShip->_Z_local + pGeoMyShipTrace->_Z;
@@ -169,10 +168,10 @@ void MyOptionController::setNumOption(int prm_num) {
     MyOptionController::now_option_num_ = prm_num;
     for (int i = 0; i < MyOptionController::max_option_num_; i++) {
         if (i >= MyOptionController::now_option_num_) {
-            pMyShipScene->papOptionCtrlr_[i]->pOption_->inactivate();
+            pMyShipScene->papOptionCtrler_[i]->pOption_->inactivate();
         }
         if (i < MyOptionController::now_option_num_) {
-            pMyShipScene->papOptionCtrlr_[i]->pOption_->activate();
+            pMyShipScene->papOptionCtrler_[i]->pOption_->activate();
         }
     }
 }
@@ -181,14 +180,14 @@ void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame) {
     MyShipScene* pMyShipScene = P_MYSHIP_SCENE;
     if (MyOptionController::now_option_num_ <= 4) {
         for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-            pMyShipScene->papOptionCtrlr_[i]->pOption_->adjustAngPosition((D360ANG/MyOptionController::now_option_num_)*i,prm_spent_frame);
+            pMyShipScene->papOptionCtrler_[i]->pOption_->adjustAngPosition((D360ANG/MyOptionController::now_option_num_)*i,prm_spent_frame);
         }
     } else if (MyOptionController::now_option_num_ > 4) {
         for (int i = 0; i < 4; i++) {
-            pMyShipScene->papOptionCtrlr_[i]->pOption_->adjustAngPosition((D360ANG/4)*i, prm_spent_frame);
+            pMyShipScene->papOptionCtrler_[i]->pOption_->adjustAngPosition((D360ANG/4)*i, prm_spent_frame);
         }
         for (int i = 4; i < MyOptionController::now_option_num_; i++) {
-            pMyShipScene->papOptionCtrlr_[i]->pOption_->adjustAngPosition((D360ANG/(MyOptionController::now_option_num_-4))*(i-4), prm_spent_frame);
+            pMyShipScene->papOptionCtrler_[i]->pOption_->adjustAngPosition((D360ANG/(MyOptionController::now_option_num_-4))*(i-4), prm_spent_frame);
         }
     }
 }

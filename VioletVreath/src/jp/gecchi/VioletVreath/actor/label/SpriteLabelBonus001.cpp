@@ -22,7 +22,7 @@ void SpriteLabelBonus001::initialize() {
 }
 
 void SpriteLabelBonus001::onActive() {
-    _pKurokoA->execTurnMvAngSequence(P_CAM, D_ANG(5), 0, TURN_CLOSE_TO, true);
+    _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_CAM, D_ANG(5), 0, TURN_CLOSE_TO, true);
     _pKurokoA->setMvAcce(300);
     setAlpha(0.99);
 }

@@ -34,14 +34,14 @@ public:
     int Xorg_,Yorg_,Zorg_;
 
     /** [r]親アクター */
-    MyOptionController* pOptionCtrlr_;
+    MyOptionController* pOptionCtrler_;
     /** [r]自身のオプション番号(０～・・・) */
     int no_;
 
     /** [r]ロックオンコントローラー */
-    MyLockonController* pLockonCtrlr_;
+    MyLockonController* pLockonCtrler_;
     /** [r]魚雷コントローラー */
-    MyTorpedoController* pTorpedoCtrlr_;
+    MyTorpedoController* pTorpedoCtrler_;
     /** [r]発射するレーザーチップのデポジトリ */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /** [r]発射するショットのデポジトリ */
@@ -99,10 +99,10 @@ public:
      * コンストラクタ .
      * @param prm_name
      * @param prm_no オプション番号（0～...)
-     * @param prm_pOptCtrlr 親アクター
+     * @param prm_pOptCtrler 親アクター
      * @return
      */
-    MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrlr);
+    MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrler);
 
     /**
      * 初期設定パラメーター .

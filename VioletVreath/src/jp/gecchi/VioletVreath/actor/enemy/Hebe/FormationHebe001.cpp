@@ -18,7 +18,7 @@ void FormationHebe001::processOnActiveHebe(EnemyHebe* pEnemyHebe) {
 //    pEnemyHebe->pSplSeq_->adjustAxisYFlip();
 //    pEnemyHebe->pSplSeq_->setAbsoluteBeginCoordinate();
     pEnemyHebe->locate(PX_C(300), PX_C(-300), PX_C(0));
-    pEnemyHebe->_pKurokoA->setMvAng(PX_C(300), PX_C(0), PX_C(0));
+    pEnemyHebe->_pKurokoA->setRzRyMvAngTwd(PX_C(300), PX_C(0), PX_C(0));
 }
 
 void FormationHebe001::processBehavior() {

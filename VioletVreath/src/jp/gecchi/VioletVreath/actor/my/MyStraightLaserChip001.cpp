@@ -45,7 +45,7 @@ void MyStraightLaserChip001::onActive() {
     default_stamina_ = _pStatus->get(STAT_Stamina);
     StraightLaserChip::onActive();
 
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrlr_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     _pKurokoA->setMvVelo(80000);
     _pKurokoA->setMvAcce(1000);
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
@@ -70,7 +70,7 @@ void MyStraightLaserChip001::onActive() {
 }
 
 void MyStraightLaserChip001::processBehavior() {
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrlr_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
 
     if (lockon_st_ == 1) {
         if (getActivePartFrame() < 120) {
@@ -106,7 +106,7 @@ void MyStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrlr_->pRingTarget_->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     //ヒットエフェクト
     //無し
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
@@ -126,7 +126,7 @@ void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         }
         //ロックオン可能アクターならロックオンを試みる
         if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-            pOrg_->pLockonCtrlr_->lockon(pOther);
+            pOrg_->pLockonCtrler_->lockon(pOther);
         }
 
         int stamina = UTIL::calcMyStamina(this, pOther);

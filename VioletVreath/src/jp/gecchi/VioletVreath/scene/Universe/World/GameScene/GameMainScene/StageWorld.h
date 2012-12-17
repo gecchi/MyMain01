@@ -19,8 +19,8 @@ class StageWorld : public GgafLib::DefaultScene {
 
 public:
     /** ランクアップ挿入シーン */
-    RankUpStageController* pRankUpStageCtrlr_;
-    StageController* pStageCtrlr_;
+    RankUpStageController* pRankUpStageCtrler_;
+    StageController* pStageCtrler_;
     bool can_rank_up_;
     StageWorld(const char* prm_name);
     void onReset() override;

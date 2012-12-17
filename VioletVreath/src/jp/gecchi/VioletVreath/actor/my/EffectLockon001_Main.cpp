@@ -63,7 +63,7 @@ void EffectLockon001_Main::processBehavior() {
                      _pKurokoA->_angveloFace[AXIS_Z] = 1000;
                  } else {
                      _pKurokoA->_angveloFace[AXIS_Z] = 3000; //‘¬Žü‚è
-                     _pKurokoA->setMvAng(pTarget_);
+                     _pKurokoA->setRzRyMvAngTwd(pTarget_);
                      _pKurokoA->setMvVelo(200000);
                  }
              } else {

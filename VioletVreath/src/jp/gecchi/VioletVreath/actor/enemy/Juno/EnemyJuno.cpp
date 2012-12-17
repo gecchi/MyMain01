@@ -45,7 +45,7 @@ void EnemyJuno::onActive() {
     velo_mv_begin_ = _pKurokoA->_veloTopMv; //初期移動速度を保存
     _pKurokoA->setMvVelo(velo_mv_begin_); //再加速
     _pKurokoA->setFaceAng(AXIS_X, 0);
-    //_pKurokoA->execTurnMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
+    //_pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
 }
 
 void EnemyJuno::processBehavior() {
@@ -78,7 +78,7 @@ void EnemyJuno::processBehavior() {
 //                    shot_num_++;
 //                    pShot->locateWith(this);
 //                    pShot->_pKurokoA->relateFaceAngWithMvAng(true);
-//                    pShot->_pKurokoA->setMvAng(P_MYSHIP);
+//                    pShot->_pKurokoA->setRzRyMvAngTwd(P_MYSHIP);
 //                    pShot->reset();
 //                    do_Shot_ = false;
 //                    effectFlush(2); //フラッシュ

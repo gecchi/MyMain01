@@ -848,7 +848,7 @@ template<class T>
 void MenuActor<T>::moveCursor() {
     if (_pCursor) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
-        _pCursor->_pKurokoA->setMvAng(
+        _pCursor->_pKurokoA->setRzRyMvAngTwd(
                                 pTargetItem->_X + _X_cursor_adjust,
                                 pTargetItem->_Y + _Y_cursor_adjust,
                                 pTargetItem->_Z + _Z_cursor_adjust

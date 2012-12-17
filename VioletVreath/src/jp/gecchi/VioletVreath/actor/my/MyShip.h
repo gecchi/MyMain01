@@ -196,9 +196,9 @@ public:
     void (MyShip::*paFuncTurbo[3*3*3])();
 
     /** [r]ロックオンコントローラー */
-    MyLockonController* pLockonCtrlr_;
+    MyLockonController* pLockonCtrler_;
     /** [r]魚雷コントローラー */
-    MyTorpedoController* pTorpedoCtrlr_;
+    MyTorpedoController* pTorpedoCtrler_;
     /** 方向入力値 */
     int stc_;
 
@@ -257,14 +257,14 @@ public:
 
 
 
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory4OptCtrlr_;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory4OptCtrler_;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
 //    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoOffsetHistory_;
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
     GgafCore::GgafActorDepository* pDepo_EffectExplosion001_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
-//    MyOptionController* pOptionCtrlr_;
+//    MyOptionController* pOptionCtrler_;
     EffectTurbo001* pEffectTurbo001_;
 
 //    //debug ---->
@@ -429,7 +429,7 @@ public:
             _pKurokoA->setRzRyMvAng(0, D270ANG);
             //旋廻
             _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_);
-            _pKurokoA->setStopTarget_FaceAng(AXIS_X, angRXStop_MZ_, TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+            _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_, TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
         }
         _Z += iMoveSpeed_;
         iMoveVelo_ = iMoveSpeed_;
@@ -442,7 +442,7 @@ public:
             _pKurokoA->setRzRyMvAng(0, D315ANG);
             //旋廻
             _pKurokoA->setFaceAngAcce(AXIS_X, (angRXAcce_MZ_/2)); //反時計回り
-            _pKurokoA->setStopTarget_FaceAng(AXIS_X, angRXStop_MZ_ - (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+            _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ - (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
         }
         _Z += iMoveSpeed_ * NANAME;
         _X += iMoveSpeed_ * NANAME;
@@ -456,7 +456,7 @@ public:
             _pKurokoA->setRzRyMvAng(D180ANG, D45ANG);
             //旋廻
             _pKurokoA->setFaceAngAcce(AXIS_X, (angRXAcce_MZ_/2));
-            _pKurokoA->setStopTarget_FaceAng(AXIS_X, angRXStop_MZ_ + (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+            _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ + (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
         }
         _Z += iMoveSpeed_ * NANAME;
         _X -= iMoveSpeed_ * NANAME;
@@ -470,7 +470,7 @@ public:
             _pKurokoA->setRzRyMvAng(D180ANG, D135ANG);
             //旋廻
             _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
-            _pKurokoA->setStopTarget_FaceAng(AXIS_X, -1*(angRXStop_MZ_ - (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+            _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ - (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
         }
         _Z -= iMoveSpeed_ * NANAME;
         _X += iMoveSpeed_ * NANAME;
@@ -484,7 +484,7 @@ public:
             _pKurokoA->setRzRyMvAng(0, D90ANG);
             //旋廻
             _pKurokoA->setFaceAngAcce(AXIS_X, -1*angRXAcce_MZ_);
-            _pKurokoA->setStopTarget_FaceAng(AXIS_X, -1*angRXStop_MZ_, TURN_CLOCKWISE, angRXTopVelo_MZ_);
+            _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*angRXStop_MZ_, TURN_CLOCKWISE, angRXTopVelo_MZ_);
         }
         _Z -= iMoveSpeed_;
         iMoveVelo_ = iMoveSpeed_;
@@ -497,7 +497,7 @@ public:
             _pKurokoA->setRzRyMvAng(0, D135ANG);
             //旋廻
             _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
-            _pKurokoA->setStopTarget_FaceAng(AXIS_X, -1*(angRXStop_MZ_ + (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+            _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ + (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
         }
         _Z -= iMoveSpeed_ * NANAME;
         _X -= iMoveSpeed_ * NANAME;
@@ -511,7 +511,7 @@ public:
             _pKurokoA->setRzRyMvAng(D45ANG, D270ANG);
             //旋廻
             _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_);
-            _pKurokoA->setStopTarget_FaceAng(AXIS_X, angRXStop_MZ_ - (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+            _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ - (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
         }
         _Z += iMoveSpeed_ * NANAME;
         _Y += iMoveSpeed_ * NANAME;
@@ -525,7 +525,7 @@ public:
             _pKurokoA->setRzRyMvAng(D315ANG, D270ANG);
             //旋廻
             _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_/2);
-            _pKurokoA->setStopTarget_FaceAng(AXIS_X, angRXStop_MZ_ + (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+            _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ + (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
 
         }
         _Z += iMoveSpeed_ * NANAME;
@@ -540,7 +540,7 @@ public:
             _pKurokoA->setRzRyMvAng(D45ANG, D90ANG);
             //旋廻
             _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
-            _pKurokoA->setStopTarget_FaceAng(AXIS_X, -1*(angRXStop_MZ_ - (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+            _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ - (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
         }
         _Z -= iMoveSpeed_ * NANAME;
         _Y += iMoveSpeed_ * NANAME;
@@ -554,7 +554,7 @@ public:
             _pKurokoA->setRzRyMvAng(D315ANG, D90ANG);
             //旋廻
             _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
-            _pKurokoA->setStopTarget_FaceAng(AXIS_X, -1*(angRXStop_MZ_ + (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+            _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ + (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
         }
         _Z -= iMoveSpeed_ * NANAME;
         _Y -= iMoveSpeed_ * NANAME;

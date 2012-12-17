@@ -16,8 +16,8 @@ public:
         coord Z;
     };
 
-    static inline bool isHit(CollisionChecker* pCChecker01, GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAB* pAAB01,
-                             CollisionChecker* pCChecker02, GgafDxCore::GgafDxGeometricActor* pActor02, ColliAAB* pAAB02) {
+    static inline bool isHit(GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAB* pAAB01,
+                             GgafDxCore::GgafDxGeometricActor* pActor02, ColliAAB* pAAB02 ) {
         //＜AAB と AAB＞
         //軸が一致しない確率が高そうな順番(X>Z>Y)に判定
         if (pActor01->_X + pAAB01->_x2 >= pActor02->_X + pAAB02->_x1) {
@@ -36,8 +36,8 @@ public:
         return false;
     }
 
-    static inline bool isHit(CollisionChecker* pCChecker01, GgafDxCore::GgafDxGeometricActor* pActor01, ColliSphere* pSphere01,
-                             CollisionChecker* pCChecker02, GgafDxCore::GgafDxGeometricActor* pActor02, ColliSphere* pSphere02) {
+    static inline bool isHit(GgafDxCore::GgafDxGeometricActor* pActor01, ColliSphere* pSphere01,
+                             GgafDxCore::GgafDxGeometricActor* pActor02, ColliSphere* pSphere02 ) {
         //＜球 と 球＞
         //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
         //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
@@ -53,8 +53,8 @@ public:
         }
     }
 
-    static inline bool isHit(CollisionChecker* pCChecker01, GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAB*    pAAB01,
-                             CollisionChecker* pCChecker02, GgafDxCore::GgafDxGeometricActor* pActor02, ColliSphere* pSphere02) {
+    static inline bool isHit(GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAB*    pAAB01,
+                             GgafDxCore::GgafDxGeometricActor* pActor02, ColliSphere* pSphere02) {
         //＜AAB と 球＞
         int o_scx = pActor02->_X + pSphere02->_cx;
         int o_scy = pActor02->_Y + pSphere02->_cy;
@@ -93,8 +93,8 @@ public:
     }
 
 
-    static inline bool isHit(CollisionChecker* pCChecker01, GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAPrism* pAAPrism01,
-                             CollisionChecker* pCChecker02, GgafDxCore::GgafDxGeometricActor* pActor02, ColliAAB*     pAAB02) {
+    static inline bool isHit(GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAPrism* pAAPrism01,
+                             GgafDxCore::GgafDxGeometricActor* pActor02, ColliAAB*     pAAB02     ) {
         //＜プリズム と AAB＞
         int aX1 = pActor01->_X + pAAPrism01->_x1;
         int aY1 = pActor01->_Y + pAAPrism01->_y1;
@@ -350,8 +350,8 @@ public:
 
 
 
-    static inline bool isHit(CollisionChecker* pCChecker01, GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAPrism* pAAPrism01,
-                             CollisionChecker* pCChecker02, GgafDxCore::GgafDxGeometricActor* pActor02, ColliSphere*  pSphere02) {
+    static inline bool isHit(GgafDxCore::GgafDxGeometricActor* pActor01, ColliAAPrism* pAAPrism01,
+                             GgafDxCore::GgafDxGeometricActor* pActor02, ColliSphere*  pSphere02  ) {
         //＜プリズム と 球＞
         //MEMO:厳密な当たり判定計算は行っていません。
         int aX1 = pActor01->_X + pAAPrism01->_x1;
@@ -362,8 +362,8 @@ public:
         int aZ2 = pActor01->_Z + pAAPrism01->_z2;
 
         //AAB 対 球でまず判定する
-        if (isHit(pCChecker01   , pActor01   , (ColliAAB*)pAAPrism01,
-                  pCChecker02, pActor02, pSphere02)          ) {
+        if (isHit(pActor01, (ColliAAB*)pAAPrism01,
+                  pActor02, pSphere02             ) ) {
             //この時点でAAB 対 球でヒット。ここからプリズムでもヒットか検証する
             int pos = pAAPrism01->_pos_prism;
             double a = pAAPrism01->_a;

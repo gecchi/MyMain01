@@ -73,10 +73,10 @@ void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level, int pr
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     r_effect_ = 1;
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-        MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrlr_[lv-1];
+        MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
         papEffect_[lv-1]->_pKurokoA->setMvVelo(0);
         papEffect_[lv-1]->_pKurokoA->setMvAcce(0);
-        papEffect_[lv-1]->_pKurokoB->execGravitationMvSequence(
+        papEffect_[lv-1]->_pKurokoB->execGravitationMvSequenceTwd(
                                          p->_X + p->pOption_->Xorg_,
                                          p->_Y + p->pOption_->Yorg_,
                                          p->_Z + p->pOption_->Zorg_,
@@ -103,7 +103,7 @@ int OptionMagic::effect(int prm_level) {
 void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     //レベルアップ時、エフェクトの処理
     for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-        MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrlr_[lv-1];
+        MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
         papEffect_[lv-1]->inactivateDelay(120); //非活動の保険
         papEffect_[lv-1]->_pKurokoB->_gravitation_mv_seq_pActor_target = p->pOption_;
     }
@@ -113,7 +113,7 @@ void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
     r_effect_ -= 0.01f;
     //レベルアップ時、エフェクトの処理
     for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-        MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrlr_[lv-1];
+        MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
         papEffect_[lv-1]->setAlpha(r_effect_);
 //        papEffect_[lv-1]->setScaleR(3.0f+(1.0f-r_effect_)*4.0);
         papEffect_[lv-1]->locateWith(p->pOption_);
@@ -121,7 +121,7 @@ void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
     }
     if (r_effect_ < 0) {
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-            MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrlr_[lv-1];
+            MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
             papEffect_[lv-1]->inactivate();
             p->pOption_->setAlpha(1.0);
         }

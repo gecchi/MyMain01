@@ -391,6 +391,7 @@ void GgafDxKurokoA::behave() {
                     _taget_mv_ang_alltime_pActor,
                     _taget_mv_ang_alltime_angVelo,
                     _taget_mv_ang_alltime_angAcce,
+                    _taget_mv_ang_alltime_way,
                     _taget_mv_ang_alltime_optimize_ang);
         } else {
             keepTurnMvAngAllTime(
@@ -399,6 +400,7 @@ void GgafDxKurokoA::behave() {
                     _taget_mv_ang_alltime_pActor->_Z - _pActor->_Z,
                     _taget_mv_ang_alltime_angVelo,
                     _taget_mv_ang_alltime_angAcce,
+                    _taget_mv_ang_alltime_way,
                     _taget_mv_ang_alltime_optimize_ang);
         }
 
@@ -413,7 +415,7 @@ void GgafDxKurokoA::setFaceAng(axis prm_axis, angle prm_angFace) {
     _angFace[prm_axis] = UTIL::simplifyAng(prm_angFace);
 }
 
-void GgafDxKurokoA::setFaceAng(coord prm_tX, coord prm_tY, coord prm_tZ) {
+void GgafDxKurokoA::setFaceAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
     UTIL::getRzRyAng(
                    prm_tX - _pActor->_X,
                    prm_tY - _pActor->_Y,
@@ -469,12 +471,12 @@ void GgafDxKurokoA::setFaceAngAcce(axis prm_axis, angacce prm_angacceRot) {
     _angacceFace[prm_axis] = prm_angacceRot;
 }
 
-void GgafDxKurokoA::setStopTarget_FaceAngV(axis prm_axis,
+void GgafDxKurokoA::setStopTargetFaceAngTwd(axis prm_axis,
                                            coord prm_tX,
                                            coord prm_tY,
                                            int prm_way_allow,
                                            angvelo prm_angveloAllowRyMv) {
-    setStopTarget_FaceAng(
+    setStopTargetFaceAng(
       prm_axis,
       UTIL::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
       prm_way_allow,
@@ -482,7 +484,7 @@ void GgafDxKurokoA::setStopTarget_FaceAngV(axis prm_axis,
     );
 }
 
-void GgafDxKurokoA::setStopTarget_FaceAng(axis prm_axis,
+void GgafDxKurokoA::setStopTargetFaceAng(axis prm_axis,
                                           angle prm_angTargetRot,
                                           int prm_way_allow,
                                           angvelo prm_angveloAllow) {
@@ -875,10 +877,6 @@ bool GgafDxKurokoA::isJustFinishSmoothMvVeloSequence() {
     }
 }
 
-void GgafDxKurokoA::setRzMvAng(coord prm_tX, coord prm_tY) {
-    setRzMvAng(UTIL::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
-}
-
 void GgafDxKurokoA::setRzMvAng(angle prm_ang) {
     if (prm_ang !=  _angRzMv) {
         _angRzMv = UTIL::simplifyAng(prm_ang);
@@ -925,7 +923,7 @@ void GgafDxKurokoA::forceRzMvAngVeloRange(angvelo prm_angveloRzMv01,
     setRzMvAngVelo(_angveloRzMv); //再設定して範囲内に補正
 }
 
-void GgafDxKurokoA::setStopTarget_RzMvAng(angle prm_angTargetRzMv,
+void GgafDxKurokoA::setStopTargetRzMvAng(angle prm_angTargetRzMv,
                                           int prm_way_allow,
                                           angvelo prm_angveloAllowRyMv) {
     _mv_ang_rz_target_flg = true;
@@ -935,14 +933,7 @@ void GgafDxKurokoA::setStopTarget_RzMvAng(angle prm_angTargetRzMv,
     _mv_ang_rz_target_allow_velo = prm_angveloAllowRyMv;
 }
 
-void GgafDxKurokoA::setStopTarget_RzMvAngV(coord prm_tX,
-                                           coord prm_tY,
-                                           int prm_way_allow,
-                                           angvelo prm_angveloAllowRyMv) {
-    setStopTarget_RzMvAng(UTIL::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
-}
-
-angle GgafDxKurokoA::getRzMvAngDistance(coord prm_tX, coord prm_tY, int prm_way) {
+angle GgafDxKurokoA::getRzMvAngDistanceTwd(coord prm_tX, coord prm_tY, int prm_way) {
     return getRzMvAngDistance(UTIL::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way);
 }
 
@@ -1060,9 +1051,9 @@ angle GgafDxKurokoA::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
 }
 
 
-void GgafDxKurokoA::setRyMvAng(coord prm_tX, coord prm_tY) {
-    setRyMvAng(UTIL::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
-}
+//void GgafDxKurokoA::setRyMvAngTwd(coord prm_tX, coord prm_tY) {
+//    setRyMvAng(UTIL::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
+//}
 
 void GgafDxKurokoA::setRyMvAng(angle prm_ang) {
     if (prm_ang != _angRyMv) {
@@ -1110,7 +1101,7 @@ void GgafDxKurokoA::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,
     setRyMvAngVelo(_angveloRyMv); //再設定して範囲内に補正
 }
 
-void GgafDxKurokoA::setStopTarget_RyMvAng(angle prm_angTargetRyMv,
+void GgafDxKurokoA::setStopTargetRyMvAng(angle prm_angTargetRyMv,
                                           int prm_way_allow,
                                           angvelo prm_angveloAllowRyMv) {
     _mv_ang_ry_target_flg = true;
@@ -1120,14 +1111,7 @@ void GgafDxKurokoA::setStopTarget_RyMvAng(angle prm_angTargetRyMv,
     _mv_ang_ry_target_allow_velo = prm_angveloAllowRyMv;
 }
 
-void GgafDxKurokoA::setStopTarget_RyMvAngV(coord prm_tX,
-                                           coord prm_tY,
-                                           int prm_way_allow,
-                                           angvelo prm_angveloAllowRyMv) {
-    setStopTarget_RyMvAng(UTIL::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
-}
-
-angle GgafDxKurokoA::getRyMvAngDistance(coord prm_tX, coord prm_tY, int prm_way) {
+angle GgafDxKurokoA::getRyMvAngDistanceTwd(coord prm_tX, coord prm_tY, int prm_way) {
     return getRyMvAngDistance(UTIL::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
                                         prm_way);
 }
@@ -1250,43 +1234,29 @@ void GgafDxKurokoA::getRzRyMvAngDistance(int prm_way,
                                          angle prm_target_angRz, angle prm_target_angRy,
                                          angle& out_d_angRz, angle& out_d_angRy,
                                          angle& out_target_angRz, angle& out_target_angRy) {
-//_TRACE_("getRzRyMvAngDistance ---->");
-//_TRACE_("this: angMvRz="<<_angRzMv<<" _angRyMv="<<_angRyMv);
-//_TRACE_("prm_target_angRz="<<prm_target_angRz<<" prm_target_angRy="<<prm_target_angRy);
     angle target_angRz = prm_target_angRz;
     angle target_angRy = prm_target_angRy;
     if (prm_way == TURN_CLOSE_TO) { //近いほう回転
         //目標に到達するためには、回り方が常に２パターンある。
         //それぞれ球面上の２点の距離を簡易近似値（速度優先のため）で比較し、近いと思われるほうを採用する。
-
-        //_TRACE_("1 target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
         angle d1_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO); //Rzの差
         angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO);
-        //_TRACE_("1 d1_angRz="<<d1_angRz<<" d1_angRy="<<d1_angRy);
         angle d1 = ABS(d1_angRz) > ABS(d1_angRy) ? ABS(d1_angRz) : ABS(d1_angRy);
-        //_TRACE_("1  d1="<<((float)d1));
-
         UTIL::anotherRzRy(target_angRz, target_angRy);
-        //_TRACE_("2 anotherRzRy target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
         angle d2_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO);
         angle d2_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO);
-        //_TRACE_("2 d2_angRz="<<d2_angRz<<" d2_angRy="<<d2_angRy);
         angle d2 = ABS(d2_angRz) > ABS(d2_angRy) ? ABS(d2_angRz) : ABS(d2_angRy);
-        //_TRACE_("2  d2="<<((float)d2));
         if (d1 <= d2) {
-            //_TRACE_("d1 <= d2 d1が採用されました");
             out_d_angRz = d1_angRz;
             out_d_angRy = d1_angRy;
             out_target_angRz = prm_target_angRz;
             out_target_angRy = prm_target_angRy;
         } else {
-            //_TRACE_("d1 > d2  d2が採用されました");
             out_d_angRz = d2_angRz;
             out_d_angRy = d2_angRy;
             out_target_angRz = target_angRz;
             out_target_angRy = target_angRy;
         }
-        //_TRACE_("<--- getRzRyMvAngDistance");
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
         angle d1_angRz = getRzMvAngDistance(target_angRz, TURN_ANTICLOSE_TO);
         angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO);
@@ -1413,19 +1383,19 @@ void GgafDxKurokoA::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz
     }
 }
 
-void GgafDxKurokoA::setMvAng(GgafDxGeometricActor* prm_pActor_Target) {
-    setMvAng(
+void GgafDxKurokoA::setRzRyMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
+    setRzRyMvAngTwd(
         prm_pActor_Target->_X,
         prm_pActor_Target->_Y,
         prm_pActor_Target->_Z
     );
 }
 
-void GgafDxKurokoA::setMvAng(coord prm_tX, coord prm_tY) {
-    setMvAng(prm_tX, prm_tY, _pActor->_Z);
+void GgafDxKurokoA::setRzRyMvAngTwd(coord prm_tX, coord prm_tY) {
+    setRzRyMvAngTwd(prm_tX, prm_tY, _pActor->_Z);
 }
 
-void GgafDxKurokoA::setMvAng(coord prm_tX, coord prm_tY, coord prm_tZ) {
+void GgafDxKurokoA::setRzRyMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
     UTIL::getRzRyAng(
                    prm_tX - _pActor->_X,
                    prm_tY - _pActor->_Y,
@@ -1444,15 +1414,15 @@ void GgafDxKurokoA::setMvAng(coord prm_tX, coord prm_tY, coord prm_tZ) {
     }
 }
 
-void GgafDxKurokoA::setStopTarget_RzRyMvAng(GgafDxGeometricActor* prm_pActor_Target) {
-    setStopTarget_RzRyMvAng(
+void GgafDxKurokoA::setStopTargetRzRyMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
+    setStopTargetRzRyMvAngTwd(
         prm_pActor_Target->_X,
         prm_pActor_Target->_Y,
         prm_pActor_Target->_Z
     );
 }
 
-void GgafDxKurokoA::setStopTarget_RzRyMvAng(coord prm_tX, coord prm_tY, coord prm_tZ) {
+void GgafDxKurokoA::setStopTargetRzRyMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
     angle angRz_Target;
     angle angRy_Target;
     float dummy1, dummy2, dummy3;
@@ -1467,8 +1437,8 @@ void GgafDxKurokoA::setStopTarget_RzRyMvAng(coord prm_tX, coord prm_tY, coord pr
                    angRz_Target,
                    angRy_Target
                  );
-    setStopTarget_RzMvAng(angRz_Target);
-    setStopTarget_RyMvAng(angRy_Target);
+    setStopTargetRzMvAng(angRz_Target);
+    setStopTargetRyMvAng(angRy_Target);
 }
 
 void GgafDxKurokoA::execTurnFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
@@ -1501,11 +1471,11 @@ void GgafDxKurokoA::execTurnFaceAngSequence(angle prm_angRz_Target, angle prm_an
         setFaceAngAcce(AXIS_Y, -prm_angAcce);
     }
 
-    setStopTarget_FaceAng(AXIS_Z, prm_angRz_Target);
-    setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
+    setStopTargetFaceAng(AXIS_Z, prm_angRz_Target);
+    setStopTargetFaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDxKurokoA::execTurnFaceAngSequence(coord prm_tX, coord prm_tY, coord prm_tZ,
+void GgafDxKurokoA::execTurnFaceAngSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
                                             angvelo prm_angVelo, angacce prm_angAcce,
                                             int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
@@ -1531,7 +1501,7 @@ void GgafDxKurokoA::execTurnRzFaceAngSequence(angle prm_angRz_Target,
         setFaceAngVelo(AXIS_Z, -prm_angVelo);
         setFaceAngAcce(AXIS_Z, -prm_angAcce);
     }
-    setStopTarget_FaceAng(AXIS_Z, prm_angRz_Target);
+    setStopTargetFaceAng(AXIS_Z, prm_angRz_Target);
 
 }
 
@@ -1545,7 +1515,7 @@ void GgafDxKurokoA::execTurnRyFaceAngSequence(angle prm_angRy_Target,
         setFaceAngVelo(AXIS_Y, -prm_angVelo);
         setFaceAngAcce(AXIS_Y, -prm_angAcce);
     }
-    setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
+    setStopTargetFaceAng(AXIS_Y, prm_angRy_Target);
 }
 
 void GgafDxKurokoA::execTurnRxSpinAngSequence(angle prm_angRx_Target,
@@ -1558,12 +1528,12 @@ void GgafDxKurokoA::execTurnRxSpinAngSequence(angle prm_angRx_Target,
         setFaceAngVelo(AXIS_X, -prm_angVelo);
         setFaceAngAcce(AXIS_X, -prm_angAcce);
     }
-    setStopTarget_FaceAng(AXIS_X, prm_angRx_Target);
+    setStopTargetFaceAng(AXIS_X, prm_angRx_Target);
 }
 
-void GgafDxKurokoA::execTurnMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
-                                          angvelo prm_angVelo, angacce prm_angAcce,
-                                          int prm_way, bool prm_optimize_ang) {
+void GgafDxKurokoA::execTurnRzRyMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+                                              angvelo prm_angVelo, angacce prm_angAcce,
+                                              int prm_way, bool prm_optimize_ang) {
     angle out_d_angRz;
     angle out_d_angRy;
     angle out_target_angRz;
@@ -1594,15 +1564,15 @@ void GgafDxKurokoA::execTurnMvAngSequence(angle prm_angRz_Target, angle prm_angR
         setRyMvAngAcce(-prm_angAcce);
     }
 
-    setStopTarget_RzMvAng(out_target_angRz);
-    setStopTarget_RyMvAng(out_target_angRy);
+    setStopTargetRzMvAng(out_target_angRz);
+    setStopTargetRyMvAng(out_target_angRy);
 
 }
 
 
-void GgafDxKurokoA::execTurnMvAngSequence(coord prm_tX, coord prm_tY, coord prm_tZ,
-                                          angvelo prm_angVelo, angacce prm_angAcce,
-                                          int prm_way, bool prm_optimize_ang) {
+void GgafDxKurokoA::execTurnRzRyMvAngSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+                                                 angvelo prm_angVelo, angacce prm_angAcce,
+                                                 int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
     angle out_angRy_Target;
     UTIL::getRzRyAng(prm_tX - _pActor->_X,
@@ -1610,7 +1580,7 @@ void GgafDxKurokoA::execTurnMvAngSequence(coord prm_tX, coord prm_tY, coord prm_
                      prm_tZ - _pActor->_Z,
                      out_angRz_Target,
                      out_angRy_Target);
-    execTurnMvAngSequence(out_angRz_Target, out_angRy_Target,
+    execTurnRzRyMvAngSequence(out_angRz_Target, out_angRy_Target,
                           prm_angVelo, prm_angAcce,
                           prm_way, prm_optimize_ang);
 }
@@ -1626,7 +1596,7 @@ void GgafDxKurokoA::execTurnRzMvAngSequence(angle prm_angRz_Target,
         setRzMvAngVelo(-prm_angVelo);
         setRzMvAngAcce(-prm_angAcce);
     }
-    setStopTarget_RzMvAng(prm_angRz_Target);
+    setStopTargetRzMvAng(prm_angRz_Target);
 
 }
 
@@ -1640,7 +1610,7 @@ void GgafDxKurokoA::execTurnRyMvAngSequence(angle prm_angRy_Target,
         setRyMvAngVelo(-prm_angVelo);
         setRyMvAngAcce(-prm_angAcce);
     }
-    setStopTarget_RyMvAng(prm_angRy_Target);
+    setStopTargetRyMvAng(prm_angRy_Target);
 }
 
 void GgafDxKurokoA::followMvFrom(GgafDxKurokoA* prm_pKurokoA) {

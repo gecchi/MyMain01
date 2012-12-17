@@ -54,9 +54,9 @@ void EnemyCeresShot001::processBehavior() {
     //•ûŒü“]Š·ŠJŽn
     if (getActivePartFrame() == frame_TurnBegin_) {
 
-        _pKurokoA->execTurnMvAngSequence(P_MYSHIP,
+        _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP,
                                          angVelo_Turn_, 0,
-                                         TURN_CLOSE_TO);
+                                         TURN_CLOSE_TO,true);
         _pKurokoA->setMvAcce(iMoveAcce_2nd_);
     }
 

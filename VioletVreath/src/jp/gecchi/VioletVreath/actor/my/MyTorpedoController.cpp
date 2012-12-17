@@ -8,13 +8,13 @@ int MyTorpedoController::torpedo_num_ = 0;
 
 MyTorpedoController::MyTorpedoController(const char* prm_name,
                                          GgafDxCore::GgafDxGeometricActor* prm_pOrg,
-                                         MyLockonController* prm_pLockonCtrlr) :
+                                         MyLockonController* prm_pLockonCtrler) :
         GgafDummyActor(prm_name, nullptr) {
     _class_name = "MyTorpedoController";
     firing_num_ = 0;
     in_firing_ = false;
     pOrg_ = prm_pOrg;
-    pLockonCtrlr_ = prm_pLockonCtrlr;
+    pLockonCtrler_ = prm_pLockonCtrler;
     papTorpedo_ = NEW MyTorpedo*[max_torpedo_num_];
     for (int i = 0; i < max_torpedo_num_; i++) {
         std::string name = std::string(prm_pOrg->getName())+"'s Torpedo("+ITOS(i)+")";
@@ -69,7 +69,7 @@ void MyTorpedoController::onInactive() {
 bool MyTorpedoController::fire() {
     if (!in_firing_ && MyTorpedoController::torpedo_num_ > 0) {
         in_firing_ = true;
-        int target_num = pLockonCtrlr_->pRingTarget_->length();
+        int target_num = pLockonCtrler_->pRingTarget_->length();
         firing_num_ = MyTorpedoController::torpedo_num_; //target_num < 4 ? 4 : target_num;
         angle* paAng_way = NEW angle[firing_num_];
         UTIL::getRadialAngle2D(D45ANG, firing_num_, paAng_way);
@@ -101,7 +101,7 @@ bool MyTorpedoController::fire() {
             if (target_num == 0) {
                 papTorpedo_[i]->pTarget_ = nullptr;
             } else {
-                papTorpedo_[i]->pTarget_ = pLockonCtrlr_->pRingTarget_->getNext(i);
+                papTorpedo_[i]->pTarget_ = pLockonCtrler_->pRingTarget_->getNext(i);
             }
             papTorpedo_[i]->_pKurokoA->setRzRyMvAng(paGeo[i]._RZ, paGeo[i]._RY);
             papTorpedo_[i]->activate();

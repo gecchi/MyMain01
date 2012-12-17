@@ -7,45 +7,45 @@ using namespace VioletVreath;
 
 MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) ,
 pMyShip_(nullptr),
-papOptionCtrlr_(nullptr) {
+papOptionCtrler_(nullptr) {
     _class_name = "MyShipScene";
     pMyShip_ = NEW MyShip("MYSHIP");
     pMyShip_->inactivateImmed(); //配下に仮登録のアクター発送者とかあるし
-    papOptionCtrlr_ = NEW MyOptionController*[MyOptionController::max_option_num_];
+    papOptionCtrler_ = NEW MyOptionController*[MyOptionController::max_option_num_];
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
         std::string name = "MyOpCtrler("+ITOS(i)+")";
-        papOptionCtrlr_[i] = NEW MyOptionController(name.c_str(), i);
-        getDirector()->addSubLast(papOptionCtrlr_[i]);
+        papOptionCtrler_[i] = NEW MyOptionController(name.c_str(), i);
+        getDirector()->addSubLast(papOptionCtrler_[i]);
     }
 
-    papOptionCtrlr_[0]->pOption_->config(60000, D0ANG, 0, 1000);
-    papOptionCtrlr_[0]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
-    papOptionCtrlr_[0]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[1]->pOption_->config(60000, D90ANG, 0, 1000);
-    papOptionCtrlr_[1]->pOption_->setMaterialColor(0.8, 1.0, 1.0);
-    papOptionCtrlr_[1]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[2]->pOption_->config(60000, D180ANG, 0, 1000);
-    papOptionCtrlr_[2]->pOption_->setMaterialColor(1.0, 0.8, 0.8);
-    papOptionCtrlr_[2]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[3]->pOption_->config(60000, D270ANG, 0, 1000);
-    papOptionCtrlr_[3]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
-    papOptionCtrlr_[3]->pOption_->setAlpha(0.7);
+    papOptionCtrler_[0]->pOption_->config(60000, D0ANG, 0, 1000);
+    papOptionCtrler_[0]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
+    papOptionCtrler_[0]->pOption_->setAlpha(0.7);
+    papOptionCtrler_[1]->pOption_->config(60000, D90ANG, 0, 1000);
+    papOptionCtrler_[1]->pOption_->setMaterialColor(0.8, 1.0, 1.0);
+    papOptionCtrler_[1]->pOption_->setAlpha(0.7);
+    papOptionCtrler_[2]->pOption_->config(60000, D180ANG, 0, 1000);
+    papOptionCtrler_[2]->pOption_->setMaterialColor(1.0, 0.8, 0.8);
+    papOptionCtrler_[2]->pOption_->setAlpha(0.7);
+    papOptionCtrler_[3]->pOption_->config(60000, D270ANG, 0, 1000);
+    papOptionCtrler_[3]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
+    papOptionCtrler_[3]->pOption_->setAlpha(0.7);
 
-    papOptionCtrlr_[4]->pOption_->config(120000, D_ANG(72*0), 0, -1500);
-    papOptionCtrlr_[4]->pOption_->setMaterialColor(0.8, 0.8, 1.0);
-    papOptionCtrlr_[4]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[5]->pOption_->config(120000, D_ANG(72*1), 0, -1500);
-    papOptionCtrlr_[5]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
-    papOptionCtrlr_[5]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[6]->pOption_->config(120000, D_ANG(72*2), 0, -1500);
-    papOptionCtrlr_[6]->pOption_->setMaterialColor(1.0, 0.8, 0);
-    papOptionCtrlr_[6]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[7]->pOption_->config(120000, D_ANG(72*3), 0, -1500);
-    papOptionCtrlr_[7]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
-    papOptionCtrlr_[7]->pOption_->setAlpha(0.7);
-    papOptionCtrlr_[8]->pOption_->config(120000, D_ANG(72*4), 0, -1500);
-    papOptionCtrlr_[8]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
-    papOptionCtrlr_[8]->pOption_->setAlpha(0.7);
+    papOptionCtrler_[4]->pOption_->config(120000, D_ANG(72*0), 0, -1500);
+    papOptionCtrler_[4]->pOption_->setMaterialColor(0.8, 0.8, 1.0);
+    papOptionCtrler_[4]->pOption_->setAlpha(0.7);
+    papOptionCtrler_[5]->pOption_->config(120000, D_ANG(72*1), 0, -1500);
+    papOptionCtrler_[5]->pOption_->setMaterialColor(0.8, 1.0, 0.8);
+    papOptionCtrler_[5]->pOption_->setAlpha(0.7);
+    papOptionCtrler_[6]->pOption_->config(120000, D_ANG(72*2), 0, -1500);
+    papOptionCtrler_[6]->pOption_->setMaterialColor(1.0, 0.8, 0);
+    papOptionCtrler_[6]->pOption_->setAlpha(0.7);
+    papOptionCtrler_[7]->pOption_->config(120000, D_ANG(72*3), 0, -1500);
+    papOptionCtrler_[7]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
+    papOptionCtrler_[7]->pOption_->setAlpha(0.7);
+    papOptionCtrler_[8]->pOption_->config(120000, D_ANG(72*4), 0, -1500);
+    papOptionCtrler_[8]->pOption_->setMaterialColor(1.0, 1.0, 1.0);
+    papOptionCtrler_[8]->pOption_->setAlpha(0.7);
 
     getDirector()->addSubGroup(pMyShip_);
 
@@ -70,7 +70,7 @@ void MyShipScene::onReset() {
     zanki_ = 1;
     pMyShip_->resetTree();
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
-        papOptionCtrlr_[i]->resetTree();
+        papOptionCtrler_[i]->resetTree();
     }
     fadeoutSceneWithBgm(0);
     _pProg->set(MyShipScene::PROG_INIT);
@@ -142,7 +142,7 @@ void MyShipScene::processBehavior() {
                 pEffectMyShipExplosion_->activate(); //爆発
                 pMyShip_->can_control_ = false;
                 for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
-                    papOptionCtrlr_[i]->is_free_from_myship_mode_ = true;
+                    papOptionCtrler_[i]->is_free_from_myship_mode_ = true;
                 }
                 zanki_ -= 1;
             }
@@ -177,5 +177,5 @@ void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 MyShipScene::~MyShipScene() {
-    DELETEARR_IMPOSSIBLE_NULL(papOptionCtrlr_);
+    DELETEARR_IMPOSSIBLE_NULL(papOptionCtrler_);
 }

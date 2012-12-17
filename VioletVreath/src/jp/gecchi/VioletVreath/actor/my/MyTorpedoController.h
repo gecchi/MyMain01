@@ -19,7 +19,7 @@ public:
 
     /** [r]親アクターとなるオプション */
     GgafDxCore::GgafDxGeometricActor* pOrg_;
-    MyLockonController* pLockonCtrlr_;
+    MyLockonController* pLockonCtrler_;
     /** [r]保持する魚雷配列（要素数は max_torpedo_num_ 個） */
     MyTorpedo** papTorpedo_;
     /** [r]保持する魚雷爆風デポジトリ */
@@ -35,7 +35,7 @@ public:
      * @param prm_pOrg 親となるオプション
      * @return
      */
-    MyTorpedoController(const char* prm_name, GgafDxCore::GgafDxGeometricActor* prm_pOrg, MyLockonController* prm_pLockonCtrlr);
+    MyTorpedoController(const char* prm_name, GgafDxCore::GgafDxGeometricActor* prm_pOrg, MyLockonController* prm_pLockonCtrler);
 
     void initialize() override;
 

@@ -26,36 +26,31 @@ GgafDxScaler::GgafDxScaler(GgafDxGeometricActor* prm_pActor) :
 }
 
 void GgafDxScaler::behave() {
+    GgafDxScalingMethod method;
     for (int ax = 0; ax < 3; ax++) {
-        if (_method[ax] == NOSCALE) {
+        method = _method[ax];
+        if (method == NOSCALE) {
             continue;
-        } else if (_method[ax] == TARGET_SCALE_LINER) {
-
+        } else if (method == TARGET_SCALE_LINER) {
             _scale[ax] += _velo_scale[ax];
-
-            //_TRACE_("_velo_scale["<<ax<<"]="<<_velo_scale[ax]<<"/_target_scale["<<ax<<"]="<<_target_scale[ax]<<"/_scale["<<ax<<"]="<<_scale[ax]);
             if (_velo_scale[ax] > 0 && _target_scale[ax] <= _scale[ax]) {
-                //_TRACE_("END1");
                 _scale[ax] = _target_scale[ax];
                 _method[ax] = NOSCALE;
             } else if (_velo_scale[ax] < 0 && _target_scale[ax] >= _scale[ax]) {
-                //_TRACE_("END2");
                 _scale[ax] = _target_scale[ax];
                 _method[ax] = NOSCALE;
             }
-        } else if (_method[ax] == TARGET_SCALE_ACCELERATION) {
+        } else if (method == TARGET_SCALE_ACCELERATION) {
             _scale[ax] += _velo_scale[ax];
-            //if (_velo_scale[ax] > 0 && _target_scale[ax] <= _scale[ax]) {
             if (_acce_scale[ax] > 0 && _target_scale[ax] <= _scale[ax]) {
                 _scale[ax] = _target_scale[ax];
                 _method[ax] = NOSCALE;
-            //} else if (_velo_scale[ax] < 0 && _target_scale[ax] >= _scale[ax]) {
             } else if (_acce_scale[ax] < 0 && _target_scale[ax] >= _scale[ax]) {
                 _scale[ax] = _target_scale[ax];
                 _method[ax] = NOSCALE;
             }
             _velo_scale[ax] += _acce_scale[ax];
-        } else if (_method[ax] == BEAT_SCALE_LINER) {
+        } else if (method == BEAT_SCALE_LINER) {
             _scale[ax] += _velo_scale[ax];
             if (_top_scale[ax] <= _scale[ax]) {
                 _scale[ax] = _top_scale[ax];
@@ -73,7 +68,7 @@ void GgafDxScaler::behave() {
                 }
             }
 
-        } else if (_method[ax] == BEAT_SCALE_TRIANGLEWAVE) {
+        } else if (method == BEAT_SCALE_TRIANGLEWAVE) {
             _beat_frame_count[ax]++;
             if (_beat_progres[ax] == 0) { //開始～アタックまで
                 _scale[ax] += _velo_scale[ax];

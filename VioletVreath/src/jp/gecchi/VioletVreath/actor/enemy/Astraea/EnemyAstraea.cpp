@@ -118,7 +118,7 @@ void EnemyAstraea::processBehavior() {
         case PROG_TURN: {
             if (_pProg->hasJustChanged()) {
                 //ターン開始
-                _pKurokoA->execTurnFaceAngSequence(P_MYSHIP, angveloTurn_, 0,
+                _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP, angveloTurn_, 0,
                                                    TURN_ANTICLOSE_TO, false);
                 cnt_laserchip_ = 0;
             }

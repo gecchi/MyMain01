@@ -105,7 +105,7 @@ void MenuBoard::onRisen() {
     //スライドイントランジション
     locate(target_X_ + slide_from_offset_X_,
            target_Y_ + slide_from_offset_Y_);
-    _pKurokoA->setMvAng(target_X_, target_Y_);
+    _pKurokoA->setRzRyMvAngTwd(target_X_, target_Y_);
     _pKurokoA->execSmoothMvVeloSequence(
                     0,
                     UTIL::getDistance(
@@ -138,7 +138,7 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSunk() {
     //スライドアウトトランジション
-    _pKurokoA->setMvAng(target_X_ + slide_from_offset_X_,
+    _pKurokoA->setRzRyMvAngTwd(target_X_ + slide_from_offset_X_,
                         target_Y_ + slide_from_offset_Y_);
     _pKurokoA->execSmoothMvVeloSequence(
                     0,

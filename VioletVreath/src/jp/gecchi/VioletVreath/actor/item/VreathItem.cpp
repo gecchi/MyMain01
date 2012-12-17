@@ -53,7 +53,7 @@ void VreathItem::onActive() {
             vX, vY, vZ);
     int d = PX_C(200);
     int r = PX_C(75);
-    _pKurokoA->setMvAng(
+    _pKurokoA->setRzRyMvAngTwd(
             (coord)(_X + (vX * d) + RND(-r, +r)),
             (coord)(_Y + (vY * d) + RND(-r, +r)),
             (coord)(_Z + (vZ * d) + RND(-r, +r))
@@ -85,7 +85,7 @@ void VreathItem::processBehavior() {
             _pKurokoB->setVxMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv);
             _pKurokoB->setVyMvVelo(_pKurokoA->_vY*_pKurokoA->_veloMv);
             _pKurokoB->setVzMvVelo(_pKurokoA->_vZ*_pKurokoA->_veloMv);
-            _pKurokoB->execGravitationMvSequence(pMyShip, PX_C(30), 100, 60000);
+            _pKurokoB->execGravitationMvSequenceTwd(pMyShip, PX_C(30), 100, 60000);
             _pKurokoA->setMvVelo(0);
             _pKurokoA->setMvAcce(0);
         }

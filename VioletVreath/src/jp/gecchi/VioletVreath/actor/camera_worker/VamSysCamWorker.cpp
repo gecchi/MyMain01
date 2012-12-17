@@ -44,7 +44,7 @@ void VamSysCamWorker::initialize() {
 //    pCam->_Y = 0;
 //    pCam->_Z = 0;
 //    pCam->setViewPoint(0,0,0);
-//    pCam->_pKurokoB->setMvAng(0,0,0);
+//    pCam->_pKurokoB->setRzRyMvAngTwd(0,0,0);
 
     cam_velo_renge_ = 30000;
     pCam->_pKurokoB->forceVxMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
@@ -73,7 +73,7 @@ void VamSysCamWorker::processBehavior() {
 
     GgafDxCamera* pCam = P_CAM;
     GgafDxGeometricActor* pVP = pCam->_pViewPoint;
-    MyOptionController* pOptCtrlr = P_MYSHIP_SCENE->papOptionCtrlr_[0];
+    MyOptionController* pOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_[0];
 
     //カメラ位置番号を決定処理
     is_cam_pos_option_back_ = false;
@@ -117,13 +117,13 @@ void VamSysCamWorker::processBehavior() {
     if (is_cam_pos_option_back_) {
         //オプション操作中のオプション背面に回る
         coord d = dZ_camera_init_*0.6;
-        move_target_X_CAM = pOptCtrlr->_X + pOptCtrlr->_pKurokoA->_vX*-d;
-        move_target_Y_CAM = pOptCtrlr->_Y + pOptCtrlr->_pKurokoA->_vY*-d;
-        move_target_Z_CAM = pOptCtrlr->_Z + pOptCtrlr->_pKurokoA->_vZ*-d;
-        move_target_X_VP = pOptCtrlr->_X + pOptCtrlr->_pKurokoA->_vX*d;
-        move_target_Y_VP = pOptCtrlr->_Y + pOptCtrlr->_pKurokoA->_vY*d;
-        move_target_Z_VP = pOptCtrlr->_Z + pOptCtrlr->_pKurokoA->_vZ*d;
-        move_target_XY_CAM_UP = UTIL::simplifyAng(pOptCtrlr->_pKurokoA->_angRzMv+D90ANG);
+        move_target_X_CAM = pOptCtrler->_X + pOptCtrler->_pKurokoA->_vX*-d;
+        move_target_Y_CAM = pOptCtrler->_Y + pOptCtrler->_pKurokoA->_vY*-d;
+        move_target_Z_CAM = pOptCtrler->_Z + pOptCtrler->_pKurokoA->_vZ*-d;
+        move_target_X_VP = pOptCtrler->_X + pOptCtrler->_pKurokoA->_vX*d;
+        move_target_Y_VP = pOptCtrler->_Y + pOptCtrler->_pKurokoA->_vY*d;
+        move_target_Z_VP = pOptCtrler->_Z + pOptCtrler->_pKurokoA->_vZ*d;
+        move_target_XY_CAM_UP = UTIL::simplifyAng(pOptCtrler->_pKurokoA->_angRzMv+D90ANG);
 
     } else {//通常時VAM
         if (pos_camera_ < VAM_POS_TO_BEHIND) {

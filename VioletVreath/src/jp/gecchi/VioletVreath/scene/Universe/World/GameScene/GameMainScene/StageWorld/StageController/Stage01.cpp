@@ -7,9 +7,9 @@ using namespace VioletVreath;
 Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     _class_name = "Stage01";
 
-    pScene_StagePartCtrlr_ = NEW Stage01PartController("Stage01PartController");
-    pScene_StagePartCtrlr_->inactivate();
-    addSubLast(pScene_StagePartCtrlr_);
+    pScene_StagePartCtrler_ = NEW Stage01PartController("Stage01PartController");
+    pScene_StagePartCtrler_->inactivate();
+    addSubLast(pScene_StagePartCtrler_);
     Sleep(2);
     pWorldBoundSpace_  = NEW WorldBoundSpace001("BG_SPACE");
     getDirector()->addSubGroup(pWorldBoundSpace_);
@@ -30,7 +30,7 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     //debug ---->
 //    EnemyThisbe* pTest = NEW EnemyThisbe("tst");
 //    pTest->locate(PX_C(0),PX_C(0), PX_C(100));
-//    pTest->_pKurokoA->setFaceAng(PX_C(100), PX_C(100), PX_C(100));
+//    pTest->_pKurokoA->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
 //    pTest->_pKurokoA->behave();
 //    getDirector()->addSubGroup(pTest);
     //<-----debug
@@ -57,7 +57,7 @@ void Stage01::processBehavior() {
                 pMessage_->activateImmed();
                 pWorldBoundSpace_->activateTree();    //背景ON
                 pHoshiBoshi_->activateTree();    //背景ON
-                pScene_StagePartCtrlr_->activate();
+                pScene_StagePartCtrler_->activate();
 
                 pPlanet_->activate();
 
@@ -106,7 +106,7 @@ void Stage01::processJudgement() {
 void Stage01::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_CTRLER_WAS_END ) {
         _TRACE_("Stage01::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
-        pScene_StagePartCtrlr_->sayonara(60*60);
+        pScene_StagePartCtrler_->sayonara(60*60);
         _pProg->change(Stage::PROG_END);
     } else {
 

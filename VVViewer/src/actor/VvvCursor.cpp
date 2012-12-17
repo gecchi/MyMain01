@@ -70,7 +70,7 @@ void VvvCursor::moveTo(coord X, coord Y, coord Z) {
     tX_ = X;
     tY_ = Y;
     tZ_ = Z;
-    _pKurokoA->setMvAng(tX_, tY_, tZ_);
+    _pKurokoA->setRzRyMvAngTwd(tX_, tY_, tZ_);
     _pKurokoA->execSmoothMvVeloSequence(0, UTIL::getDistance(_X, _Y, _Z, tX_, tY_, tZ_),
                                     20, 0.3f, 0.7f);
     _pProg->change(CUR_ON_MOVE);

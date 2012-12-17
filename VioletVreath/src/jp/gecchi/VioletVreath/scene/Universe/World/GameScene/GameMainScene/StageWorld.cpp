@@ -8,10 +8,10 @@ StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageWorld";
 
     can_rank_up_ = true;
-    pStageCtrlr_ = NEW StageController("StageController");
-    addSubLast(pStageCtrlr_);
-    pRankUpStageCtrlr_ = NEW RankUpStageController("RankUpStageController");
-    addSubLast(pRankUpStageCtrlr_);
+    pStageCtrler_ = NEW StageController("StageController");
+    addSubLast(pStageCtrler_);
+    pRankUpStageCtrler_ = NEW RankUpStageController("RankUpStageController");
+    addSubLast(pRankUpStageCtrler_);
 
 }
 
@@ -31,9 +31,9 @@ void StageWorld::processBehavior() {
         _TRACE_("_RANK_UP_LEVEL_？？？"<<_RANK_UP_LEVEL_);
         if (can_rank_up_) {
             _RANK_UP_LEVEL_ = _RANK_UP_LEVEL_ + 1;
-            pRankUpStageCtrlr_->execute();
+            pRankUpStageCtrler_->execute();
             _TRACE_("P_STAGE_CTRLER をスロー");
-            pStageCtrlr_->addRunFrameOnce(1); //スロー開始
+            pStageCtrler_->addRunFrameOnce(1); //スロー開始
         } else {
             //スルー
         }
@@ -46,15 +46,15 @@ void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
         _TRACE_("StageWorld::onCatchEvent EVENT_RANKUP_WAS_END");
         //スロー回復
         _TRACE_("P_STAGE_CTRLER をスロー回復");
-        pStageCtrlr_->addRunFrameOnce(-1); //スロー開始
+        pStageCtrler_->addRunFrameOnce(-1); //スロー開始
     }
 }
 
 StageWorld::~StageWorld() {
-    //_TRACE_("StageWorld::~StageWorld() pStageCtrlr_="<<pStageCtrlr_<<" ");
-    //_TRACE_("StageWorld::~StageWorld() pStageCtrlr_->pStageMainCannel_="<<pStageCtrlr_->pStageMainCannel_<<"");
-    if (pStageCtrlr_->pStageMainCannel_) {
-        pStageCtrlr_->pStageMainCannel_->sayonara();
-        pStageCtrlr_->pStageMainCannel_ = nullptr;
+    //_TRACE_("StageWorld::~StageWorld() pStageCtrler_="<<pStageCtrler_<<" ");
+    //_TRACE_("StageWorld::~StageWorld() pStageCtrler_->pStageMainCannel_="<<pStageCtrler_->pStageMainCannel_<<"");
+    if (pStageCtrler_->pStageMainCannel_) {
+        pStageCtrler_->pStageMainCannel_->sayonara();
+        pStageCtrler_->pStageMainCannel_ = nullptr;
     }
 }

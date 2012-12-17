@@ -82,18 +82,18 @@ void EnemyIris::processBehavior() {
                 }
             }
             //自機へ方向転換
-            _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+            _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                 3000, 0,
-                                                TURN_CLOSE_TO);
+                                                TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_Z-10000 < P_MYSHIP->_Z && P_MYSHIP->_Z < _Z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                _pKurokoA->execTurnMvAngSequence(MyShip::lim_behaind_ - 500000 , _Y, _Z,
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(MyShip::lim_behaind_ - 500000 , _Y, _Z,
                                                    10000, 0,
-                                                   TURN_CLOSE_TO);
+                                                   TURN_CLOSE_TO, true);
                 _pKurokoA->setMvAcce(100);
                 iMovePatternNo_++;
             } else {

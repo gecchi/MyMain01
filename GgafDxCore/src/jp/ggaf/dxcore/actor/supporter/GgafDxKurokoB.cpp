@@ -314,10 +314,10 @@ void GgafDxKurokoB::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxy
     forceVzMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
 }
 
-void GgafDxKurokoB::execGravitationMvSequence(coord prm_tX, coord prm_tY, coord prm_tZ,
-                                                  velo prm_max_velo,
-                                                  acce prm_acce,
-                                                  int prm_stop_renge ) {
+void GgafDxKurokoB::execGravitationMvSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+                                                 velo prm_max_velo,
+                                                 acce prm_acce,
+                                                 int prm_stop_renge ) {
     _gravitation_mv_seq_target_X = prm_tX;
     _gravitation_mv_seq_target_Y = prm_tY;
     _gravitation_mv_seq_target_Z = prm_tZ;
@@ -332,10 +332,10 @@ void GgafDxKurokoB::execGravitationMvSequence(coord prm_tX, coord prm_tY, coord 
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void GgafDxKurokoB::execGravitationMvSequence(GgafDxGeometricActor* prm_pActor_target,
-                                              velo prm_max_velo,
-                                              acce prm_acce,
-                                              int prm_stop_renge ) {
+void GgafDxKurokoB::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pActor_target,
+                                                 velo prm_max_velo,
+                                                 acce prm_acce,
+                                                 int prm_stop_renge ) {
     _gravitation_mv_seq_target_X = 0;
     _gravitation_mv_seq_target_Y = 0;
     _gravitation_mv_seq_target_Z = 0;

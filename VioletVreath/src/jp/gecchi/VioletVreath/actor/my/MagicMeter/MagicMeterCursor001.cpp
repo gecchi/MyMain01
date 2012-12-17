@@ -40,7 +40,7 @@ void MagicMeterCursor001::processJudgement() {
 void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     tX_ = pMagicMeter_->_X + pMagicMeter_->width_*prm_magic_mater_index + (pMagicMeter_->width_/2);
     tY_ = pMagicMeter_->_Y + (pMagicMeter_->height_/2);
-    _pKurokoA->setMvAng(tX_, tY_);
+    _pKurokoA->setRzRyMvAngTwd(tX_, tY_);
     _pKurokoA->execSmoothMvVeloSequence(0, UTIL::getDistance(_X, _Y, tX_, tY_),
                                         12, 0.2, 0.4);
 }

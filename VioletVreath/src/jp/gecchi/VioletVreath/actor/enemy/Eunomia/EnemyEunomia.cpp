@@ -75,9 +75,9 @@ void EnemyEunomia::processBehavior() {
         case PROG_MOVE01_1: {
             if (_pProg->hasJustChanged()) {
                 //自機へ方向転換
-                _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
                                                  2000, 0,
-                                                 TURN_CLOSE_TO);
+                                                 TURN_CLOSE_TO, true);
             }
 
 //            if (pDepo_Shot_) {
@@ -169,7 +169,7 @@ void EnemyEunomia::processBehavior() {
 //                }
 //            }
 ////            //自機へ方向転換
-//            _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+//            _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
 //                                                2000, 0,
 //                                                TURN_CLOSE_TO);
 //            iMovePatternNo_++; //次の行動パターンへ

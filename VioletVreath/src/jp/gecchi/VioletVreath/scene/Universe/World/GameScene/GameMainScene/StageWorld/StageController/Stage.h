@@ -20,7 +20,7 @@ public:
 
     static bool pause_;
 
-    StagePartController* pScene_StagePartCtrlr_;
+    StagePartController* pScene_StagePartCtrler_;
 
     Stage(const char* prm_name);
 

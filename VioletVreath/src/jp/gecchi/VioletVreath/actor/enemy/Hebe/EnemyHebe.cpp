@@ -72,7 +72,7 @@ void EnemyHebe::processBehavior() {
 
         case PROG_MOVE02_1: {
             if (_pProg->hasJustChanged()) {
-                _pKurokoA->execTurnMvAngSequence(_X - PX_C(300), _Y, _Z,
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(_X - PX_C(300), _Y, _Z,
                                                  D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
 

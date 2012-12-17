@@ -76,7 +76,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
 
 
     locate(0, 0, DX_C(_cameraZ));
-    _pKurokoA->setMvAng(0,0,0);
+    _pKurokoA->setRzRyMvAngTwd(0,0,0);
     _pKurokoA->setMvVelo(0);
     _pKurokoA->setRzMvAngVelo(0);
     _pKurokoA->setRyMvAngVelo(0);

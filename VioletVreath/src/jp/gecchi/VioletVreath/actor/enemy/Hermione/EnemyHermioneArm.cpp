@@ -95,7 +95,7 @@ void EnemyHermioneArm::processBehavior() {
                 _pKurokoA->execTurnFaceAngSequence(
                                 angRz_Target, angRy_Target,
                                 aiming_ang_velo_, aiming_ang_velo_*0.05,
-                                TURN_CLOSE_TO);
+                                TURN_CLOSE_TO, false);
             }
             if (_pKurokoA->isRunnigTurnMvAngSequence()) {
                 // ‘Ò‹@

@@ -31,7 +31,7 @@ void EnemyHesperiaLaserChip001::onActive() {
     _pKurokoA->setRzMvAngVelo(0);
     _pKurokoA->setRyMvAngVelo(0);
     if (_pChip_front == nullptr) {
-        _pKurokoA->setMvAng(tX1_, tY1_, tZ1_);
+        _pKurokoA->setRzRyMvAngTwd(tX1_, tY1_, tZ1_);
         _pProg->set(PROG_MOVE_UP);
         _pSeTx->play3D(SE_FIRE);
     } else {
@@ -61,7 +61,7 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
     switch (_pProg->get()) {
         case PROG_MOVE_UP: {
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
-                _pKurokoA->execTurnMvAngSequence(
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                              tX1_, tY1_, tZ1_,
                              D_ANG(5), 0,
                              TURN_CLOSE_TO, true);
@@ -76,7 +76,7 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_TURN1: {
             if (_pProg->hasJustChanged()) {
                 _pKurokoA->setMvVelo(_pKurokoA->_veloMv/4);
-                _pKurokoA->execTurnMvAngSequence(
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                              tX2_, tY2_, tZ2_,
                              D_ANG(20), 0,
                              TURN_CLOSE_TO, true);
@@ -92,7 +92,7 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
                 _pKurokoA->setMvVelo(_pKurokoA->_veloMv*3);
             }
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
-                _pKurokoA->execTurnMvAngSequence(
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                              tX2_, tY2_, tZ2_,
                              100, 0,
                              TURN_CLOSE_TO, false);
