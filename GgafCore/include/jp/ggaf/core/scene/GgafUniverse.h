@@ -82,7 +82,7 @@ public:
     virtual void processFinal() override {
     }
 
-    virtual void updateActiveInTheTree() override;
+    void updateActiveInTheTree() override;
 
     virtual ~GgafUniverse();
 };

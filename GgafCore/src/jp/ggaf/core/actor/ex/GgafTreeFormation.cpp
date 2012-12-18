@@ -14,7 +14,7 @@ void GgafTreeFormation::addSubLast(GgafActor* prm_pSub) {
         throwGgafCriticalException("GgafTreeFormation::addSubLast("<<prm_pSub->getName()<<") Šù‚ÉŽ€‚É‚ä‚­’è‚ß‚ÌFormation‚Å‚·BƒTƒu‚É’Ç‰Á‚·‚é‚±‚Æ‚Í‚¨‚©‚µ‚¢‚Å‚µ‚å‚¤Bthis="<<getName());
     }
 #endif
-    _num_sub++;
+    _num_formation_member++;
     if (_pSubFirst == nullptr) {
         //’c’·‚ÉŽí•Ê‚ð³‚µ‚­“`‚¦‚é‚½‚ß‚ÉŽí•Ê‚ðˆø‚«Œp‚®
         _pStatus->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));

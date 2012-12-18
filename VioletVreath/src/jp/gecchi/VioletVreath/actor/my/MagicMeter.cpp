@@ -172,16 +172,18 @@ void MagicMeter::onActive() {
 }
 
 void MagicMeter::processBehavior() {
-    if (VB_PLAY->isBeingPressed(VB_POWERUP)) {
+    VirtualButton* pVbPlay = VB_PLAY;
+
+    if (pVbPlay->isBeingPressed(VB_POWERUP)) {
         alpha_velo_ = 0.05f;
         Magic* pActiveMagic = ringMagics_.getCurrent();     //アクティブな魔法
         int active_idx = ringMagics_.getCurrentIndex();     //アクティブな魔法のインデックス
         progress active_prg = pActiveMagic->_pProg->get();  //アクティブな魔法の進捗
-        if (VB_PLAY->isPushedDown(VB_POWERUP)) {
+        if (pVbPlay->isPushedDown(VB_POWERUP)) {
             rollOpen(active_idx);
         }
 
-        if (VB_PLAY->isAutoRepeat(VB_RIGHT)) {    //「→」押下時
+        if (pVbPlay->isAutoRepeat(VB_RIGHT)) {    //「→」押下時
             //レベル表示
             if (papLvTargetCursor_[active_idx]->point_lv_ != pActiveMagic->level_) {
                 _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
@@ -198,7 +200,7 @@ void MagicMeter::processBehavior() {
             pMagicCursor_->moveTo(active_idx); //メーターカーソルも１つ進める
             _pSeTx->play(SE_CURSOR_MOVE_METER);
 
-        } else if (VB_PLAY->isAutoRepeat(VB_LEFT)) { //「←」押下時
+        } else if (pVbPlay->isAutoRepeat(VB_LEFT)) { //「←」押下時
             //レベル表示
             if (papLvTargetCursor_[active_idx]->point_lv_ != pActiveMagic->level_) {
                 _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
@@ -215,13 +217,13 @@ void MagicMeter::processBehavior() {
             pMagicCursor_->moveTo(active_idx); //メーターカーソルも１つ戻す
             _pSeTx->play(SE_CURSOR_MOVE_METER);
 
-        } else if (VB_PLAY->isAutoRepeat(VB_UP) ) {  // 「↑」押下時
+        } else if (pVbPlay->isAutoRepeat(VB_UP) ) {  // 「↑」押下時
             if (pActiveMagic->max_level_ > papLvTargetCursor_[active_idx]->point_lv_) {
                 _pSeTx->play(SE_CURSOR_MOVE_LEVEL);
                 papLvTargetCursor_[active_idx]->moveSmoothTo(papLvTargetCursor_[active_idx]->point_lv_ + 1);
             }
 
-        } else if (VB_PLAY->isAutoRepeat(VB_DOWN)) {  //「↓」押下時
+        } else if (pVbPlay->isAutoRepeat(VB_DOWN)) {  //「↓」押下時
             if (0 < papLvTargetCursor_[active_idx]->point_lv_) {
                 _pSeTx->play(SE_CURSOR_MOVE_LEVEL);
                 papLvTargetCursor_[active_idx]->moveSmoothTo(papLvTargetCursor_[active_idx]->point_lv_ - 1);
@@ -273,7 +275,7 @@ void MagicMeter::processBehavior() {
         }
 
         //「決定」時
-        if (VB_PLAY->isPushedDown(VB_SHOT1)) {
+        if (pVbPlay->isPushedDown(VB_SHOT1)) {
             int r = pActiveMagic->cast(papLvTargetCursor_[active_idx]->point_lv_);
 
             switch (r) {
@@ -332,7 +334,7 @@ void MagicMeter::processBehavior() {
         }
     } else  {
         alpha_velo_ = -0.02f;
-        if (VB_PLAY->isReleasedUp(VB_POWERUP)) {
+        if (pVbPlay->isReleasedUp(VB_POWERUP)) {
             rollClose(ringMagics_.getCurrentIndex());
         }
         cost_disp_mp_.set(0);

@@ -86,6 +86,11 @@ public:
      * @param prm_can_hit_out_of_view_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
      */
     void setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg);
+    /**
+     * 自アクターの衝突判定有無を設定する。 .
+     * 視野外衝突判定の有無は変化しない。
+     * @param prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     */
     void setHitAble(bool prm_can_hit_flg);
     /**
      * 自ツリーアクターの衝突判定有無を設定する。 .
@@ -216,6 +221,12 @@ public:
      */
     virtual GgafActor* extract() override;
 
+    /**
+     * オブジェクトが何のクラス由来かを調べる。
+     * _obj_class メンバ変数に Obj_xxxx マクロ定数が設定されていることが前提。
+     * @param prm_Obj_xxxx 調べるクラスのマクロ定数
+     * @return
+     */
     virtual bool instanceOf(UINT32 prm_Obj_xxxx) override {
         if ((Obj_SceneBit & prm_Obj_xxxx) == Obj_SceneBit) {
             //シーンを示すビットが立っていたら
@@ -238,4 +249,4 @@ public:
 };
 
 }
-#endif /**GGAFACTOR_H_*/
+#endif /*GGAFACTOR_H_*/

@@ -296,95 +296,95 @@ void MyShip::onInactive() {
 //    pLaserChipDepo_->reset();
 }
 void MyShip::processBehavior() {
-
+    VirtualButton* pVbPlay = VB_PLAY;
     if (!can_control_) {
         return;
     }
 
     //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
-    stc_ = VB_PLAY->getBeingPressedStick();
+    stc_ = pVbPlay->getBeingPressedStick();
     if (P_VAM->pos_camera_ == VAM_POS_RIGHT) {
         //右サイドビュー(右から左へスクロール)
-        if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
+        if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
             way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
-        if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
+        if (pVbPlay->isPushedDown(VB_RIGHT)) {  // →
             way_switch_.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //前方
         }
-        if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
+        if (pVbPlay->isPushedDown(VB_LEFT)) {   // ←
             way_switch_.ON_LEFT(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
-        if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
+        if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
             way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
     } else if (P_VAM->pos_camera_ == VAM_POS_LEFT) {
         //左サイドビュー(左から右へスクロール)
-        if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
+        if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
             way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
-        if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
+        if (pVbPlay->isPushedDown(VB_RIGHT)) {  // →
             way_switch_.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //後方
         }
-        if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
+        if (pVbPlay->isPushedDown(VB_LEFT)) {   // ←
             way_switch_.ON_LEFT(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
-        if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
+        if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
             way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
     } else if (P_VAM->pos_camera_ == VAM_POS_TOP) {
         //トップビュー(上から下へスクロール)
-        if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
+        if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
             way_switch_.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
         }
-        if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
+        if (pVbPlay->isPushedDown(VB_RIGHT)) {  // →
             way_switch_.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
-        if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
+        if (pVbPlay->isPushedDown(VB_LEFT)) {   // ←
             way_switch_.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
-        if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
+        if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
             way_switch_.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
     } else if (P_VAM->pos_camera_ == VAM_POS_BOTTOM) {
         //ボトムビュー(下から上へスクロール)
-        if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
+        if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
             way_switch_.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
         }
-        if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
+        if (pVbPlay->isPushedDown(VB_RIGHT)) {  // →
             way_switch_.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
-        if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
+        if (pVbPlay->isPushedDown(VB_LEFT)) {   // ←
             way_switch_.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
-        if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
+        if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
             way_switch_.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
     } else if (P_VAM->pos_camera_ > VAM_POS_TO_BEHIND) {
         //背後ビュー（奥から手前にスクロール）
-        if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
+        if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
             way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
-        if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
+        if (pVbPlay->isPushedDown(VB_RIGHT)) {  // →
             way_switch_.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
-        if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
+        if (pVbPlay->isPushedDown(VB_LEFT)) {   // ←
             way_switch_.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
-        if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
+        if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
             way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
     }
-    if (VB_PLAY->isReleasedUp(VB_UP)) {
+    if (pVbPlay->isReleasedUp(VB_UP)) {
         way_switch_.OFF_UP();    // ↑ を離す
     }
-    if (VB_PLAY->isReleasedUp(VB_RIGHT)) {
+    if (pVbPlay->isReleasedUp(VB_RIGHT)) {
         way_switch_.OFF_RIGHT(); // → を離す
     }
-    if (VB_PLAY->isReleasedUp(VB_LEFT)) {
+    if (pVbPlay->isReleasedUp(VB_LEFT)) {
         way_switch_.OFF_LEFT();  // ← を離す
     }
-    if (VB_PLAY->isReleasedUp(VB_DOWN)) {
+    if (pVbPlay->isReleasedUp(VB_DOWN)) {
         way_switch_.OFF_DOWN();  // ↓ を離す
     }
     MoveWay prev_way = way_;
@@ -394,7 +394,7 @@ void MyShip::processBehavior() {
     } else {
         is_just_change_way_ = false;
     }
-    if (VB_PLAY->isBeingPressed(VB_OPTION)) {
+    if (pVbPlay->isBeingPressed(VB_OPTION)) {
         int tmp = iMoveSpeed_;
         iMoveSpeed_ = iMoveSpeed_ / 8; //オプション操作中移動は遅い
         (this->*paFuncMove[way_])();   //方向値に応じた移動処理メソッドを呼び出す
@@ -403,7 +403,7 @@ void MyShip::processBehavior() {
         (this->*paFuncMove[way_])();   //方向値に応じた移動処理メソッドを呼び出す
     }
 
-    if (VB_PLAY->isPushedDown(VB_TURBO)) {
+    if (pVbPlay->isPushedDown(VB_TURBO)) {
         //ターボ開始時
         EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
          if (pTurbo002) {
@@ -413,7 +413,7 @@ void MyShip::processBehavior() {
         (this->*paFuncTurbo[way_])();
     } else {
         //Notターボ開始時
-        if (VB_PLAY->isBeingPressed(VB_TURBO)) {
+        if (pVbPlay->isBeingPressed(VB_TURBO)) {
             //ターボを押し続けることで、移動距離を伸ばす
             _pKurokoB->_veloVxMv *= 0.99;
             _pKurokoB->_veloVyMv *= 0.99;
@@ -436,7 +436,7 @@ void MyShip::processBehavior() {
     }
 
     //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTargetFaceAngの第4引数より角速度がゆるい場合受け入れ）
-    if (VB_PLAY->isBeingPressed(VB_LEFT) || VB_PLAY->isBeingPressed(VB_RIGHT)) {
+    if (pVbPlay->isBeingPressed(VB_LEFT) || pVbPlay->isBeingPressed(VB_RIGHT)) {
 
     } else {
 
@@ -518,7 +518,7 @@ void MyShip::processBehavior() {
 
 
     pRing_MyShipGeoHistory2_->next()->set(this);
-    if (VB_PLAY->isBeingPressed(VB_OPTION)) {
+    if (pVbPlay->isBeingPressed(VB_OPTION)) {
         GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory2_->getPrev();
         _X_local += (_X - pGeoMyShipPrev->_X);
         _Y_local += (_Y - pGeoMyShipPrev->_Y);
@@ -538,7 +538,7 @@ void MyShip::processJudgement() {
     if (!can_control_) {
         return;
     }
-
+    VirtualButton* pVbPlay = VB_PLAY;
 
 
 
@@ -584,7 +584,7 @@ void MyShip::processJudgement() {
 
 
     //自機消滅テスト
-    if (VB_PLAY->isBeingPressed(VB_BUTTON8)) {
+    if (pVbPlay->isBeingPressed(VB_BUTTON8)) {
         _TRACE_("自機消滅テスト");
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
@@ -592,7 +592,7 @@ void MyShip::processJudgement() {
 
     //ショット関連処理
     is_shooting_laser_ = false;
-    if (VB_PLAY->isBeingPressed(VB_SHOT1)) {
+    if (pVbPlay->isBeingPressed(VB_SHOT1)) {
         frame_shot_pressed_ ++;
         if (frame_shot_pressed_ > 30) { //12フレーム押しっぱなしでレーザーへ
             is_shooting_laser_ = true;
@@ -604,7 +604,7 @@ void MyShip::processJudgement() {
 
     //レーザー発射
     if (is_shooting_laser_) {
-        if (VB_PLAY->isBeingPressed(VB_SHOT1)) {
+        if (pVbPlay->isBeingPressed(VB_SHOT1)) {
             LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
                 if (pLaserChip->_pChip_front == nullptr) {
@@ -618,7 +618,7 @@ void MyShip::processJudgement() {
 
     //ソフト連射
     //1プッシュで4F毎に最大3発
-    if (VB_PLAY->isPushedDown(VB_SHOT1) && !VB_PLAY->isBeingPressed(VB_POWERUP)) {
+    if (pVbPlay->isPushedDown(VB_SHOT1) && !pVbPlay->isBeingPressed(VB_POWERUP)) {
         is_being_soft_rapidshot_ = true;
         if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL) {
             //SOFT_RAPIDSHOT_INTERVAL フレームより遅い場合
@@ -650,7 +650,7 @@ void MyShip::processJudgement() {
     }
 
     //光子魚雷発射
-    if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
+    if (pVbPlay->isBeingPressed(VB_SHOT2)) {
         if (this->pTorpedoCtrler_->fire()) {
             _pSeTx->play3D(MyShip::SE_FIRE_TORPEDO);
         }

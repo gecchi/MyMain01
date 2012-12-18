@@ -224,6 +224,7 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
 
 void MyOption::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
+    VirtualButton* pVbPlay = VB_PLAY;
     GgafDxKurokoA* pKurokoA = _pKurokoA;
     //処理メイン
     _X = Xorg_;
@@ -245,7 +246,7 @@ void MyOption::processBehavior() {
     } else {
 
         //オプション独立移動制御時
-        if (VB_PLAY->isBeingPressed(VB_OPTION) && pOptionCtrler_->is_handle_move_mode_) {
+        if (pVbPlay->isBeingPressed(VB_OPTION) && pOptionCtrler_->is_handle_move_mode_) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちの旋回半径増加速度のみを設定。
             addRadiusPosition(ANG_SIN(angExpanse_) * pOptionCtrler_->veloOptionsMv_);
@@ -268,89 +269,89 @@ void MyOption::processBehavior() {
         angExpanse_ = UTIL::simplifyAng(angExpanse_);
     } else {
         //オプション広がりと向き制御
-        if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isBeingPressed(VB_TURBO)) {
+        if (pVbPlay->isBeingPressed(VB_OPTION) && pVbPlay->isBeingPressed(VB_TURBO)) {
             int pos_camera = P_VAM->pos_camera_;
             if (pos_camera == VAM_POS_RIGHT) {
-                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                     angExpanse_ += angveloExpanseNomal_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                if (pVbPlay->isBeingPressed(VB_LEFT)) {
                     angExpanse_ -= angveloExpanseNomal_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_UP)) {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
                     addRadiusPosition(3000 * (radiusPosition_base_/60000));
                     radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
                     //angExpanse_ += angveloExpanseSlow_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
                     addRadiusPosition(-3000 * (radiusPosition_base_/60000));
                     radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
             } else if (pos_camera == VAM_POS_LEFT) {
-                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                     angExpanse_ -= angveloExpanseNomal_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                if (pVbPlay->isBeingPressed(VB_LEFT)) {
                     angExpanse_ += angveloExpanseNomal_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_UP)) {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
                     addRadiusPosition(3000 * (radiusPosition_base_/60000));
                     radiusPosition_stopping_+=(+3000 * (radiusPosition_base_/60000));
                     //angExpanse_ += angveloExpanseSlow_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
                     addRadiusPosition(-3000 * (radiusPosition_base_/60000));
                     radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
             } else if (pos_camera == VAM_POS_TOP) {
-                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                     addRadiusPosition(3000 * (radiusPosition_base_/60000));
                     radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
                     //angExpanse_ += angveloExpanseSlow_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                if (pVbPlay->isBeingPressed(VB_LEFT)) {
                     addRadiusPosition(-3000 * (radiusPosition_base_/60000));
                     radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_UP)) {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
                     angExpanse_ += angveloExpanseNomal_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
                     angExpanse_ -= angveloExpanseNomal_;
                 }
             } else if (pos_camera == VAM_POS_BOTTOM) {
-                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                     addRadiusPosition(-3000 * (radiusPosition_base_/60000));
                     radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
                     //angExpanse_ -= angveloExpanseSlow_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                if (pVbPlay->isBeingPressed(VB_LEFT)) {
                     addRadiusPosition(3000 * (radiusPosition_base_/60000));
                     radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
                     //angExpanse_ += angveloExpanseSlow_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_UP)) {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
                     angExpanse_ -= angveloExpanseNomal_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
                     angExpanse_ += angveloExpanseNomal_;
                 }
             } else if (pos_camera > VAM_POS_TO_BEHIND) {
-                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                     angExpanse_ += angveloExpanseNomal_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                if (pVbPlay->isBeingPressed(VB_LEFT)) {
                     angExpanse_ -= angveloExpanseNomal_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_UP)) {
+                if (pVbPlay->isBeingPressed(VB_UP)) {
                     addRadiusPosition(3000 * (radiusPosition_base_/60000));
                     radiusPosition_stopping_+=(3000 * (radiusPosition_base_/60000));
                     //angExpanse_ += angveloExpanseSlow_;
                 }
-                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                if (pVbPlay->isBeingPressed(VB_DOWN)) {
                     addRadiusPosition(-3000 * (radiusPosition_base_/60000));
                     radiusPosition_stopping_+=(-3000 * (radiusPosition_base_/60000));
                     //angExpanse_ -= angveloExpanseSlow_;
@@ -362,7 +363,7 @@ void MyOption::processBehavior() {
                 //
             } else {
                 GgafDxGeoElem* pGeoOpCon = pOptionCtrler_->pRing_OptCtrlGeoHistory_->getPrev();
-                if (VB_PLAY->isBeingPressed(VB_OPTION)) {
+                if (pVbPlay->isBeingPressed(VB_OPTION)) {
                     //オプションボタン押下時は
                     //radiusPositionをいじらない
                 } else if (pGeoOpCon->_X == pOptionCtrler_->_X &&
@@ -497,9 +498,9 @@ void MyOption::processBehavior() {
 
 
     //懐中電灯の照射角が広がるような回転（Quaternionで実現）
-    float vX_axis = cosRY*cosRZ*_pKurokoA->_vX + cosRY*-sinRZ*_pKurokoA->_vY + sinRY*_pKurokoA->_vZ;
-    float vY_axis = sinRZ*_pKurokoA->_vX + cosRZ*_pKurokoA->_vY;
-    float vZ_axis = -sinRY*cosRZ*_pKurokoA->_vX + -sinRY*-sinRZ*_pKurokoA->_vY + cosRY*_pKurokoA->_vZ;
+    float vX_axis = cosRY*cosRZ*pKurokoA->_vX + cosRY*-sinRZ*pKurokoA->_vY + sinRY*pKurokoA->_vZ;
+    float vY_axis = sinRZ*pKurokoA->_vX + cosRZ*pKurokoA->_vY;
+    float vZ_axis = -sinRY*cosRZ*pKurokoA->_vX + -sinRY*-sinRZ*pKurokoA->_vY + cosRY*pKurokoA->_vZ;
     float sinHalf = ANG_SIN(angExpanse_/2); //angExpanse_=回転させたい角度
     float cosHalf = ANG_COS(angExpanse_/2);
 
@@ -528,7 +529,7 @@ void MyOption::processBehavior() {
 
     //TODO
     //最適化
-    if (pMyShip->is_shooting_laser_ && VB_PLAY->isBeingPressed(VB_SHOT1)) {
+    if (pMyShip->is_shooting_laser_ && pVbPlay->isBeingPressed(VB_SHOT1)) {
         MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)pLaserChipDepo_->dispatch();
 //        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)pLaserChipDepo_->dispatch();
         if (pLaserChip) {

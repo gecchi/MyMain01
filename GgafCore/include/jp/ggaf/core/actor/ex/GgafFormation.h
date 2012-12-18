@@ -15,7 +15,7 @@ class GgafFormation : public GgafMainActor {
 
 public:
     /** [r]編隊要素として管理されているアクター数(addSubLast() callUpUntil() により増加) */
-    int _num_sub;
+    int _num_formation_member;
     /** [r]破壊による消滅したアクター数 (所属アクターの informDestroyedFollower() により増加)*/
     int _num_destory;
     /** [r]フォーメーション要員が全滅した際に自身を解放する猶予フレーム。下位クラスで、sayonaraの引数になる。 */

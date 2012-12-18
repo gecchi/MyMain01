@@ -49,7 +49,7 @@ public:
     }
 
 
-    virtual void updateActiveInTheTree() override;
+    void updateActiveInTheTree() override;
 
     /**
      * 自ツリーノードを連結リストから切り離し、独立する。 .

@@ -58,8 +58,9 @@ void MyOptionController::onActive() {
 
 void MyOptionController::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
+    VirtualButton* pVbPlay = VB_PLAY;
 
-    if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
+    if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8)) {
         //もとに戻す
         _pKurokoA->execTurnRzRyMvAngSequence(
                         0, 0,
@@ -79,23 +80,23 @@ void MyOptionController::processBehavior() {
                 pTurbo002->locateWith(pOption_);
             }
         }
-    } else if (VB_PLAY->isBeingPressed(VB_OPTION) && !VB_PLAY->isBeingPressed(VB_TURBO)) {
+    } else if (pVbPlay->isBeingPressed(VB_OPTION) && !pVbPlay->isBeingPressed(VB_TURBO)) {
         //オプション向き操作
-        if (VB_PLAY->isBeingPressed(VB_UP)) {
+        if (pVbPlay->isBeingPressed(VB_UP)) {
             _pKurokoA->addRzMvAng(angVelo_Turn_);
         }
-        if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+        if (pVbPlay->isBeingPressed(VB_DOWN)) {
             _pKurokoA->addRzMvAng(-angVelo_Turn_);
         }
-        if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+        if (pVbPlay->isBeingPressed(VB_RIGHT)) {
             _pKurokoA->addRyMvAng(angVelo_Turn_);
         }
-        if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+        if (pVbPlay->isBeingPressed(VB_LEFT)) {
             _pKurokoA->addRyMvAng(-angVelo_Turn_);
         }
     }
 
-    if (VB_PLAY->isRoundPushDown(VB_OPTION)) {
+    if (pVbPlay->isRoundPushDown(VB_OPTION)) {
         is_free_from_myship_mode_ = true;
         is_handle_move_mode_ = true;
         _pKurokoB->setZeroVxyzMvVelo();
@@ -109,7 +110,7 @@ void MyOptionController::processBehavior() {
     }
 
     if (is_free_from_myship_mode_) {
-        if (VB_PLAY->isBeingPressed(VB_OPTION) && is_handle_move_mode_) {
+        if (pVbPlay->isBeingPressed(VB_OPTION) && is_handle_move_mode_) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちのオプション移動速度のみを設定。
             _pKurokoA->setMvVelo(ANG_COS(pOption_->angExpanse_) * veloOptionsMv_);

@@ -70,16 +70,16 @@ GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
 #ifdef MY_DEBUG
     if (!_pDepo) {
         throwGgafCriticalException("GgafDepositoryFormation::callUpUntil "<<getName()<<"は、Depositoryが指定されてません。setFormationAbleActorDepositoryが必要です。"<<
-                                   "this="<<getName()<<" _num_sub="<<_num_sub);
+                                   "this="<<getName()<<" _num_formation_member="<<_num_formation_member);
     }
 #endif
-    if (prm_formation_sub_num <= _num_sub) {
+    if (prm_formation_sub_num <= _num_formation_member) {
         _is_all_called_up = true;
         return nullptr; //もうこれ以上callUpUntil不可
     } else {
         GgafMainActor* pActor = _pDepo->dispatch();
         if (pActor) {
-            _num_sub++;
+            _num_formation_member++;
             _is_all_called_up = false;
             pActor->_pFormation = this;
             _listFllower.addLast(pActor, false);

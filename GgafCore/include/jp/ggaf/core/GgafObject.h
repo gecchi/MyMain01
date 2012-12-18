@@ -26,7 +26,12 @@ public:
 
     virtual char* toString();
 
-
+    /**
+     * オブジェクトが何のクラス由来かを調べる。
+     * _obj_class メンバ変数に Obj_xxxx マクロ定数が設定されていることが前提。
+     * @param prm_Obj_xxxx 調べるクラスのマクロ定数
+     * @return
+     */
     virtual bool instanceOf(UINT32 prm_Obj_xxxx) {
         if ((_obj_class & prm_Obj_xxxx) == prm_Obj_xxxx) {
             return true;

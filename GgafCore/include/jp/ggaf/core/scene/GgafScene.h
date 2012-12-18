@@ -211,4 +211,4 @@ public:
 };
 
 }
-#endif /**GGAFSCENE_H_*/
+#endif /*GGAFSCENE_H_*/

@@ -126,12 +126,15 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //合成
         changeGeoFinal();
         //ワールド変換行列から飛行移動を取り出し最終的な座標とする
-        _X = DX_C(_matWorld._41);
-        _Y = DX_C(_matWorld._42);
-        _Z = DX_C(_matWorld._43);
+
         _fX = _matWorld._41;
         _fY = _matWorld._42;
         _fZ = _matWorld._43;
+
+        _X = DX_C(_fX);
+        _Y = DX_C(_fY);
+        _Z = DX_C(_fZ);
+
         //UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
 
         //TODO:絶対座標系の_RX, _RY, _RZ に変換は保留
@@ -182,35 +185,37 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     }
     //視錐台更新
     GgafDxCamera* pCam = P_CAM;
-
-    _dest_from_vppln_top    = pCam->_plnTop.a*_fX +
-                              pCam->_plnTop.b*_fY +
-                              pCam->_plnTop.c*_fZ +
+    dxcoord fX = _fX;
+    dxcoord fY = _fY;
+    dxcoord fZ = _fZ;
+    _dest_from_vppln_top    = pCam->_plnTop.a*fX +
+                              pCam->_plnTop.b*fY +
+                              pCam->_plnTop.c*fZ +
                               pCam->_plnTop.d;
 
-    _dest_from_vppln_bottom = pCam->_plnBottom.a*_fX +
-                              pCam->_plnBottom.b*_fY +
-                              pCam->_plnBottom.c*_fZ +
+    _dest_from_vppln_bottom = pCam->_plnBottom.a*fX +
+                              pCam->_plnBottom.b*fY +
+                              pCam->_plnBottom.c*fZ +
                               pCam->_plnBottom.d;
 
-    _dest_from_vppln_left   = pCam->_plnLeft.a*_fX +
-                              pCam->_plnLeft.b*_fY +
-                              pCam->_plnLeft.c*_fZ +
+    _dest_from_vppln_left   = pCam->_plnLeft.a*fX +
+                              pCam->_plnLeft.b*fY +
+                              pCam->_plnLeft.c*fZ +
                               pCam->_plnLeft.d;
 
-    _dest_from_vppln_right  = pCam->_plnRight.a*_fX +
-                              pCam->_plnRight.b*_fY +
-                              pCam->_plnRight.c*_fZ +
+    _dest_from_vppln_right  = pCam->_plnRight.a*fX +
+                              pCam->_plnRight.b*fY +
+                              pCam->_plnRight.c*fZ +
                               pCam->_plnRight.d;
 
-    _dest_from_vppln_front  = pCam->_plnFront.a*_fX +
-                              pCam->_plnFront.b*_fY +
-                              pCam->_plnFront.c*_fZ +
+    _dest_from_vppln_front  = pCam->_plnFront.a*fX +
+                              pCam->_plnFront.b*fY +
+                              pCam->_plnFront.c*fZ +
                               pCam->_plnFront.d;
 
-    _dest_from_vppln_back   = pCam->_plnBack.a*_fX +
-                              pCam->_plnBack.b*_fY +
-                              pCam->_plnBack.c*_fZ +
+    _dest_from_vppln_back   = pCam->_plnBack.a*fX +
+                              pCam->_plnBack.b*fY +
+                              pCam->_plnBack.c*fZ +
                               pCam->_plnBack.d;
     _offscreen_kind = -1;
 }

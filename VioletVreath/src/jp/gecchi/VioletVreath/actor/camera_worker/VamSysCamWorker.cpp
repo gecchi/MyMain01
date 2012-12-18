@@ -63,7 +63,7 @@ void VamSysCamWorker::initialize() {
 }
 
 void VamSysCamWorker::processBehavior() {
-
+    VirtualButton* pVbPlay = VB_PLAY;
     //DefaultVamSysCamWorker::processBehavior();
 
     //ゲーム内カメラワーク処理
@@ -77,23 +77,23 @@ void VamSysCamWorker::processBehavior() {
 
     //カメラ位置番号を決定処理
     is_cam_pos_option_back_ = false;
-    if (VB_PLAY->isBeingPressed(VB_OPTION)) { //オプション操作時
-        if (VB_PLAY->isBeingPressed(VB_VIEW)) {
+    if (pVbPlay->isBeingPressed(VB_OPTION)) { //オプション操作時
+        if (pVbPlay->isBeingPressed(VB_VIEW)) {
             is_cam_pos_option_back_ = true;
         }
-    } else if (VB_PLAY->isPushedDown(VB_VIEW)) { //ビューボタンプッシュ                              //オプション非操作時（通常時）
+    } else if (pVbPlay->isPushedDown(VB_VIEW)) { //ビューボタンプッシュ                              //オプション非操作時（通常時）
         _TRACE_("VB_VIEW!! now pos_camera_="<<pos_camera_);
         if (pos_camera_ < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
             pos_camera_ += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
         } else if (pos_camera_ > VAM_POS_TO_BEHIND) {//背面ビューポイントの場合
             //方向入力により新たなビューポイントへ
-            if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+            if (pVbPlay->isBeingPressed(VB_RIGHT)) {
                 pos_camera_ = VAM_POS_LEFT;
-            } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+            } else if (pVbPlay->isBeingPressed(VB_LEFT)) {
                 pos_camera_ = VAM_POS_RIGHT;
-            } else if (VB_PLAY->isBeingPressed(VB_UP)) {
+            } else if (pVbPlay->isBeingPressed(VB_UP)) {
                 pos_camera_ = VAM_POS_BOTTOM;
-            } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+            } else if (pVbPlay->isBeingPressed(VB_DOWN)) {
                 pos_camera_ = VAM_POS_TOP;
             } else {
                 //方向未入力の場合、元のビューポイントへ
@@ -256,7 +256,7 @@ void VamSysCamWorker::processBehavior() {
 
     int cam_velo_renge;  //カメラの移動速度の最大、最小敷居値
     //VB_VIEW押した時の処理
-    if (VB_PLAY->isBeingPressed(VB_VIEW)) {
+    if (pVbPlay->isBeingPressed(VB_VIEW)) {
         //VB_VIEWを押しっぱなし中は、ゆっくりな移動速度に制限
         cam_velo_renge = cam_velo_renge_ / 100;
     } else {
@@ -264,8 +264,8 @@ void VamSysCamWorker::processBehavior() {
         cam_velo_renge = cam_velo_renge_;
     }
     //VB_VIEW離した時の処理
-    if (VB_PLAY->isReleasedUp(VB_VIEW)) {
-        if (VB_PLAY->isPushedUp(VB_VIEW, 20)) {
+    if (pVbPlay->isReleasedUp(VB_VIEW)) {
+        if (pVbPlay->isPushedUp(VB_VIEW, 20)) {
             //チョン押しの場合、なにもしない（普通にビューポイント移動となる）
         } else {
             //長押しをしたた後、VB_VIEW離した時

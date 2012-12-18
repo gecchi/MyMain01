@@ -42,7 +42,7 @@ public:
         return nullptr;
     }
 
-    virtual void updateActiveInTheTree() override {
+    void updateActiveInTheTree() override {
         _is_active_in_the_tree_flg = false;
         _is_active_flg = false;
     }
