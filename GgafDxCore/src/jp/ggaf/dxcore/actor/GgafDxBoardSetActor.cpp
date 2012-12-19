@@ -45,51 +45,51 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
 }
 
 void GgafDxBoardSetActor::processDraw() {
-    _draw_set_num = 0; //GgafDxBoardSetActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //GgafDxBoardSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
+    GgafDxBoardSetEffect* pBoardSetEffect = _pBoardSetEffect;
+    ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
     GgafDxDrawableActor* pDrawActor = this;
     GgafDxBoardSetActor* pBoardSetActor = nullptr;
     float u,v;
-//    GgafDxRectUV* pRectUV_Active;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pBoardSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pBoardSetActor = (GgafDxBoardSetActor*)pDrawActor;
 
                 if (_align == ALIGN_RIGHT) {
-                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[_draw_set_num], C_PX(pBoardSetActor->_X) - pBoardSetActor->_width_px);
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[draw_set_num], C_PX(pBoardSetActor->_X) - pBoardSetActor->_width_px);
                 } else if (_align == ALIGN_CENTER) {
-                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[_draw_set_num], C_PX(pBoardSetActor->_X) - (pBoardSetActor->_harf_width_px));
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[draw_set_num], C_PX(pBoardSetActor->_X) - (pBoardSetActor->_harf_width_px));
                 } else {
                     //ALIGN_LEFT
-                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_X[_draw_set_num], C_PX(pBoardSetActor->_X));
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[draw_set_num], C_PX(pBoardSetActor->_X));
                 }
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_X) に失敗しました。");
                 if (_valign == VALIGN_BOTTOM) {
-                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[_draw_set_num], C_PX(pBoardSetActor->_Y) - pBoardSetActor->_height_px);
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[draw_set_num], C_PX(pBoardSetActor->_Y) - pBoardSetActor->_height_px);
                 } else if (_valign == VALIGN_MIDDLE) {
-                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[_draw_set_num], C_PX(pBoardSetActor->_Y) - (pBoardSetActor->_harf_height_px));
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[draw_set_num], C_PX(pBoardSetActor->_Y) - (pBoardSetActor->_harf_height_px));
                 } else {
                     //VALIGN_TOP
-                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_transformed_Y[_draw_set_num], C_PX(pBoardSetActor->_Y));
+                    hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_Y[draw_set_num], C_PX(pBoardSetActor->_Y));
                 }
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_transformed_Y) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_depth_Z[_draw_set_num], C_PX(pBoardSetActor->_Z));
+                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_Z[draw_set_num], C_PX(pBoardSetActor->_Z));
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_depth_Z) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_alpha[_draw_set_num], pBoardSetActor->_alpha);
+                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[draw_set_num], pBoardSetActor->_alpha);
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ah_alpha) に失敗しました。");
 
 //                pRectUV_Active = _pBoardSetModel->_paRectUV + (((GgafDxBoardSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
                 pBoardSetActor->_pUvFlipper->getUV(u,v);
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_u[_draw_set_num], u);
+                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_u[draw_set_num], u);
                 checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_offset_u) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ah_offset_v[_draw_set_num], v);
+                hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_v[draw_set_num], v);
                 checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_offset_v) に失敗しました。");
 
-                _draw_set_num++;
-                if (_draw_set_num >= _pBoardSetModel->_set_num) {
+                draw_set_num++;
+                if (draw_set_num >= _pBoardSetModel->_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
@@ -101,7 +101,7 @@ void GgafDxBoardSetActor::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pBoardSetActor; //描画セットの最後アクターをセット
-    _pBoardSetModel->draw(this, _draw_set_num);
+    _pBoardSetModel->draw(this, draw_set_num);
 }
 
 void GgafDxBoardSetActor::locateWith(GgafDxGeometricActor* prm_pActor) {

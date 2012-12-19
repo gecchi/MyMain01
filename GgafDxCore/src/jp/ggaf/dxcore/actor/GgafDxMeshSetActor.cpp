@@ -19,7 +19,6 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
                                                                 prm_pChecker) {
     _obj_class |= Obj_GgafDxMeshSetActor;
     _class_name = "GgafDxMeshSetActor";
-    _draw_set_num = 0;
     _pMeshSetModel = (GgafDxMeshSetModel*)_pModel;
     _pMeshSetEffect = (GgafDxMeshSetEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
@@ -44,7 +43,6 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
                                                                 prm_pChecker) {
     _obj_class |= Obj_GgafDxMeshSetActor;
     _class_name = "GgafDxMeshSetActor";
-    _draw_set_num = 0;
     _pMeshSetModel = (GgafDxMeshSetModel*)_pModel;
     _pMeshSetEffect = (GgafDxMeshSetEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
@@ -69,7 +67,7 @@ void GgafDxMeshSetActor::addAlpha(float prm_alpha) {
 }
 
 void GgafDxMeshSetActor::processDraw() {
-    _draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
@@ -79,9 +77,9 @@ void GgafDxMeshSetActor::processDraw() {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pMeshSetActor = (GgafDxMeshSetActor*)pDrawActor;
-                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[_draw_set_num], &(pMeshSetActor->_matWorld));
+                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pMeshSetActor->_matWorld));
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-                hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
+                hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[draw_set_num], &(pMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                 //【GgafDxMeshSetActorのマテリアルカラーについて考え方】備忘録メモ
                 //本来はマテリアル１オブジェクトに複数保持し、マテリアルリストのグループ毎に設定するものだが、実行速度最適化と使用レジスタ数削減(ピクセルシェーダー2.0)の為、
                 //各セットの[0]のマテリアルを全体のマテリアルとする。
@@ -90,8 +88,8 @@ void GgafDxMeshSetActor::processDraw() {
                 //もともと本クラスは、同一モデル複数オブジェクトを、同時に一回で描画しスピードアップを図ることを目的としたクラスで、たくさんマテリアルグループがあるオブジェクトには不向というか無意味である。
                 //１枚テクスチャで頑張れば問題ない・・・という方針。マテリアル色で色分けしたい場合は GgafDxMeshActor を使うしかない。
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
-                _draw_set_num++;
-                if (_draw_set_num >= _pMeshSetModel->_set_num) {
+                draw_set_num++;
+                if (draw_set_num >= _pMeshSetModel->_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
@@ -103,7 +101,7 @@ void GgafDxMeshSetActor::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pMeshSetActor; //描画セットの最後アクターをセット
-    _pMeshSetModel->draw(this, _draw_set_num);
+    _pMeshSetModel->draw(this, draw_set_num);
 }
 
 GgafDxMeshSetActor::~GgafDxMeshSetActor() {

@@ -3,7 +3,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 DWORD GgafDxBoardSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
-int GgafDxBoardSetModel::_draw_set_num_LastDraw = -1;
 GgafDxBoardSetModel::GgafDxBoardSetModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     TRACE3("GgafDxBoardSetModel::GgafDxBoardSetModel(" << _model_name << ")");
 
@@ -114,7 +113,6 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
 
     //‘O‰ñ•`‰æƒ‚ƒfƒ‹•ÛŽ
     GgafDxModelManager::_pModelLastDraw = this;
-    GgafDxBoardSetModel::_draw_set_num_LastDraw = prm_draw_set_num;
     GgafDxEffectManager::_pEffect_Active = pBoardSetEffect;
     GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
     GgafGod::_num_actor_drawing++;

@@ -24,7 +24,7 @@ GgafDxCubeMapMeshSetActor::GgafDxCubeMapMeshSetActor(const char* prm_name,
 }
 
 void GgafDxCubeMapMeshSetActor::processDraw() {
-    _draw_set_num = 0; //GgafDxCubeMapMeshSetActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //GgafDxCubeMapMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* pID3DXEffect = _pCubeMapMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
@@ -42,12 +42,12 @@ void GgafDxCubeMapMeshSetActor::processDraw() {
                 pCubeMapMeshSetActor = (GgafDxCubeMapMeshSetActor*)pDrawActor;
                 if (getCubeMapTexture() == pCubeMapMeshSetActor->getCubeMapTexture() &&
                       (_reflectance-0.00001f < pCubeMapMeshSetActor->_reflectance && pCubeMapMeshSetActor->_reflectance < _reflectance+0.00001f)) {
-                    hr = pID3DXEffect->SetMatrix(_pCubeMapMeshSetEffect->_ah_matWorld[_draw_set_num], &(pCubeMapMeshSetActor->_matWorld));
+                    hr = pID3DXEffect->SetMatrix(_pCubeMapMeshSetEffect->_ah_matWorld[draw_set_num], &(pCubeMapMeshSetActor->_matWorld));
                     checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-                    hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pCubeMapMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
+                    hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[draw_set_num], &(pCubeMapMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                     checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
-                    _draw_set_num++;
-                    if (_draw_set_num >= _pCubeMapMeshSetModel->_set_num) {
+                    draw_set_num++;
+                    if (draw_set_num >= _pCubeMapMeshSetModel->_set_num) {
                         break;
                     }
                     pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
@@ -62,7 +62,7 @@ void GgafDxCubeMapMeshSetActor::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pCubeMapMeshSetActor; //描画セットの最後アクターをセット
-    _pCubeMapMeshSetModel->draw(this, _draw_set_num);
+    _pCubeMapMeshSetModel->draw(this, draw_set_num);
 }
 
 GgafDxCubeMapMeshSetActor::~GgafDxCubeMapMeshSetActor() {

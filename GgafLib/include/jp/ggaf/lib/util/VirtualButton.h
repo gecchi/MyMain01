@@ -147,7 +147,10 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true/false
      */
-    vbsta isBeingPressed(vbsta prm_VB);
+    inline vbsta isBeingPressed(vbsta prm_VB) {
+        return (_pVBRecord_Active->_state & prm_VB);
+    }
+
 
     /**
      * 現在ボタンが押されていないか判定 .
@@ -184,7 +187,13 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true/false
      */
-    vbsta isPushedDown(vbsta prm_VB);
+    inline vbsta isPushedDown(vbsta prm_VB) {
+        if (!(_pVBRecord_Active->_prev->_state & prm_VB) && (_pVBRecord_Active->_state & prm_VB)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * 過去にボタンが押された瞬間があったのかどうか判定 .

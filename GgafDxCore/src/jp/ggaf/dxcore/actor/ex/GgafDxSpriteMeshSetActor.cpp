@@ -27,7 +27,7 @@ GgafDxSpriteMeshSetActor::GgafDxSpriteMeshSetActor(const char* prm_name,
 
 void GgafDxSpriteMeshSetActor::processDraw() {
 
-    _draw_set_num = 0; //GgafDxSpriteMeshSetActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //GgafDxSpriteMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
@@ -40,9 +40,9 @@ void GgafDxSpriteMeshSetActor::processDraw() {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pSpriteMeshSetActor = (GgafDxSpriteMeshSetActor*)pDrawActor;
 
-                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[_draw_set_num], &(pSpriteMeshSetActor->_matWorld));
+                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pSpriteMeshSetActor->_matWorld));
                 checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-                hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pSpriteMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
+                hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[draw_set_num], &(pSpriteMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                 checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetValue(g_colMaterialDiffuse) に失敗しました。");
 #ifdef MY_DEBUG
                 if (pDrawActor->instanceOf(Obj_GgafDxSpriteMeshSetActor)) {
@@ -55,7 +55,7 @@ void GgafDxSpriteMeshSetActor::processDraw() {
                 //GgafDxSpriteMeshSetActor は、GgafDxMeshSetActor から派生しているため、モデルクラスは同じGgafDxMeshSetModelである。
                 //GgafDxSpriteMeshSetActorが使用するモデル名("x/10/Flora"等)と、GgafDxMeshSetActorが使用するモデル名が
                 //同じものが存在する場合、pDrawActor は、GgafDxMeshSetActor の可能性もある。
-                //これは、_draw_set_num を求めるロジックは同一深度で連続の同一(アドレス)モデルである。という判定しか行っていないため。
+                //これは、draw_set_num を求めるロジックは同一深度で連続の同一(アドレス)モデルである。という判定しか行っていないため。
                 //実はここで、GgafDxSpriteMeshSetActor と GgafDxMeshSetActor で同一モデル名を使用することは禁止にしたいのである。
                 //本来は Actor の種類に関係なく、同じ Model で連続ならば、ステート切り替えぜず高速化することがウリであるのだが、
                 //GgafDxSpriteMeshSetActor は、GgafDxMeshSetActor から派生しているにもかかわらず、無理やりエフェクト自体を変更している。
@@ -69,14 +69,14 @@ void GgafDxSpriteMeshSetActor::processDraw() {
 
                 //UVオフセット設定
                 pSpriteMeshSetActor->_pUvFlipper->getUV(u, v);
-                hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ah_offset_u[_draw_set_num], u);
+                hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ah_offset_u[draw_set_num], u);
                 checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetMatrix(_h_offset_u) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ah_offset_v[_draw_set_num], v);
+                hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ah_offset_v[draw_set_num], v);
                 checkDxException(hr, D3D_OK, "GgafDxSpriteMeshSetActor::processDraw() SetMatrix(_h_offset_v) に失敗しました。");
 
 
-                _draw_set_num++;
-                if (_draw_set_num >= _pMeshSetModel->_set_num) {
+                draw_set_num++;
+                if (draw_set_num >= _pMeshSetModel->_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
@@ -88,7 +88,7 @@ void GgafDxSpriteMeshSetActor::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pSpriteMeshSetActor; //描画セットの最後アクターをセット
-    _pMeshSetModel->draw(this, _draw_set_num);
+    _pMeshSetModel->draw(this, draw_set_num);
 }
 
 

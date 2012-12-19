@@ -69,22 +69,22 @@ public:
      * 設定すると、現在のメーターの長さ(_val_px) も更新される
      * @param prm_val メーター値
      */
-    void set(int prm_val) {
+    inline void set(int prm_val) {
         *_pInt_val = prm_val;
     }
 
     /**
      * メーター値を取得 .
      */
-    int get() {
+    inline int get() {
         return *_pInt_val;
     }
 
     /**
      * メーター値をピクセル値で取得 .
      */
-    pixcoord getPx() {
-        return (pixcoord)(*_pInt_val * _rate_val);
+    inline pixcoord getPx() {
+        return (pixcoord)((*_pInt_val) * _rate_val);
     }
 
     /**
@@ -92,7 +92,7 @@ public:
      * 設定すると、現在のメーターの長さ(_val_px) も更新される
      * @param prm_val メーター加算値
      */
-    void inc(int prm_val) {
+    inline void inc(int prm_val) {
         *_pInt_val += prm_val;
     }
 
@@ -101,7 +101,7 @@ public:
      * 設定すると、現在のメーターの長さ(_val_px) も更新される
      * @param prm_val メーター加算値
      */
-    void dec(int prm_val) {
+    inline void dec(int prm_val) {
         *_pInt_val -= prm_val;
     }
 

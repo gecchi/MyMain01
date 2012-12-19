@@ -95,7 +95,6 @@ private:
     }
 
 public:
-    int _draw_set_num;
     /** [r]モデルオブジェクトへのポインタ */
     GgafDxBoardSetModel* _pBoardSetModel;
     /** [r]エフェクト */

@@ -90,13 +90,14 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::processSettlementBehavior() {
+    LaserChip* pChip_front = _pChip_front;
     //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
     //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
     if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
-        if (_pChip_front != nullptr) {
-            int dX = _pChip_front->_X - _X;
-            int dY = _pChip_front->_Y - _Y;
-            int dZ = _pChip_front->_Z - _Z;
+        if (pChip_front) {
+            int dX = pChip_front->_X - _X;
+            int dY = pChip_front->_Y - _Y;
+            int dZ = pChip_front->_Z - _Z;
             if (ABS(dX) >= _hitarea_edge_length_3 ||
                 ABS(dY) >= _hitarea_edge_length_3 ||
                 ABS(dZ) >= _hitarea_edge_length_3) {
@@ -143,23 +144,23 @@ void LaserChip::processSettlementBehavior() {
     //
     //先頭と先端という言葉で区別しています。
     setHitAble(true);
-    if (_pChip_front) {
+    if (pChip_front) {
         if (_pChip_behind) {
             if (_pChip_behind->isActiveInTheTree()) {
-                if (_pChip_front->_pChip_front) {
+                if (pChip_front->_pChip_front) {
                     _chip_kind = 2; //中間テクスチャチップ
-                    _pLeader = _pChip_front->_pLeader;
+                    _pLeader = pChip_front->_pLeader;
                 } else {
                     _chip_kind = 3; //先頭テクスチャチップ
-                    _pLeader = _pChip_front->_pLeader;
+                    _pLeader = pChip_front->_pLeader;
                 }
             } else {
                 _chip_kind = 1; //発射元の末端テクスチャチップ
-                _pLeader = _pChip_front->_pLeader;
+                _pLeader = pChip_front->_pLeader;
             }
         } else {
             _chip_kind = 1; //普通の末端テクスチャ
-            _pLeader = _pChip_front->_pLeader;
+            _pLeader = pChip_front->_pLeader;
         }
     } else {
         _chip_kind = 4; //先端チップ。何も描画したくない
@@ -191,7 +192,7 @@ void LaserChip::processPreDraw() {
 }
 
 void LaserChip::processDraw() {
-    _draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
@@ -207,16 +208,16 @@ void LaserChip::processDraw() {
                 //GgafDxSpriteLaserChipActorの[MEMO]を読み直せ！
                 if (pLaserChip->_pChip_front) {
                     //自身ワールド変換行列
-                    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[_draw_set_num], &(pLaserChip->_matWorld));
+                    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pLaserChip->_matWorld));
                     checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) に失敗しました。");
                     //一つ前方のワールド変換行列
-                    hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[_draw_set_num], &(pLaserChip->_pChip_front->_matWorld));
+                    hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[draw_set_num], &(pLaserChip->_pChip_front->_matWorld));
                     checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matWorld_front) に失敗しました。1");
                     //チップ種別
-                    hr = pID3DXEffect->SetInt(this->_ah_kind[_draw_set_num], pLaserChip->_chip_kind);
+                    hr = pID3DXEffect->SetInt(this->_ah_kind[draw_set_num], pLaserChip->_chip_kind);
                     checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
 
-                    hr = pID3DXEffect->SetFloat(this->_ah_force_alpha[_draw_set_num], pLaserChip->_force_alpha);
+                    hr = pID3DXEffect->SetFloat(this->_ah_force_alpha[draw_set_num], pLaserChip->_force_alpha);
                     checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetFloat(_ah_force_alpha) に失敗しました。2");
                 } else {
                     //先端チップは描画不要
@@ -224,8 +225,8 @@ void LaserChip::processDraw() {
                     continue;
                 }
 
-                _draw_set_num++;
-                if (_draw_set_num >= _pMeshSetModel->_set_num) {
+                draw_set_num++;
+                if (draw_set_num >= _pMeshSetModel->_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
@@ -237,8 +238,8 @@ void LaserChip::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pLaserChip; //描画セットの最後アクターをセット
-    if (_draw_set_num > 0) { //描画されない可能性があるためこの判定が必要
-        _pMeshSetModel->draw(this, _draw_set_num);
+    if (draw_set_num > 0) { //描画されない可能性があるためこの判定が必要
+        _pMeshSetModel->draw(this, draw_set_num);
     }
 }
 

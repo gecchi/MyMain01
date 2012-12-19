@@ -13,7 +13,6 @@ class GgafDxBoardSetModel : public GgafDxModel {
     friend class GgafDxBoardSetActor;
 
 public:
-    static int _draw_set_num_LastDraw;
     struct INDEXPARAM {
         UINT MaterialNo;
         INT BaseVertexIndex;

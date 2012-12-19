@@ -20,10 +20,6 @@ public:
     /** [r]エフェクト資源 */
     GgafDxMeshSetEffect* _pMeshSetEffect;
 
-    /** 描画時のオブジェクト数 */
-    int _draw_set_num;
-    //int _draw_object_num;
-
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）

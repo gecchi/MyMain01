@@ -24,6 +24,7 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
 
 void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
     LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElem_first));
+    GgafLinearOctreeElem* pElem_last = _paSpace[prm_index]._pElem_last;
     if (pElem) {
         while(true) {
             if (pElem->_kindbit & _kind_groupA) {
@@ -32,10 +33,10 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
             if (pElem->_kindbit & _kind_groupB) {
                 _stackCurrentSpaceActor_GroupB.push(pElem->_pActor);
             }
-            if (pElem == _paSpace[prm_index]._pElem_last) {
+            if (pElem == pElem_last) {
                 break;
             }
-            pElem = (LinearOctreeActorElem*)(pElem -> _pNext);
+            pElem = (LinearOctreeActorElem*)(pElem->_pNext);
         }
         //現在の空間のグループAとグループB総当り
         executeHitChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackCurrentSpaceActor_GroupB);
@@ -90,7 +91,6 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
     }
 }
 
-
 void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB) {
     //どちらか無ければ終了
     UINT32 num_stackA = prm_pStackA->_p;
@@ -103,7 +103,6 @@ void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA,
         }
     }
 }
-
 
 LinearOctreeForActor::~LinearOctreeForActor() {
 }

@@ -4,7 +4,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 DWORD GgafDxMeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
-int GgafDxMeshSetModel::_draw_set_num_LastDraw = -1;
 //LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = nullptr;
 
 GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
@@ -85,7 +84,6 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
         // TODO
         //モデルが同じでかつ、セット数も同じかつ、マテリアルNOが１つしかないならば、テクスチャ設定もスキップできる
         if (GgafDxModelManager::_pModelLastDraw  != this      ||
-            //GgafDxMeshSetModel::_draw_set_num_LastDraw != draw_set_num ||
             _paUint_material_list_grp_num[prm_draw_set_num-1] != 1)
         {
             material_no = idxparam.MaterialNo;
@@ -167,7 +165,6 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
         GgafGod::_num_actor_drawing++;
     }
     GgafDxModelManager::_pModelLastDraw = this;
-    GgafDxMeshSetModel::_draw_set_num_LastDraw = prm_draw_set_num;
     GgafDxEffectManager::_pEffect_Active = pMeshSetEffect;
     GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
     return D3D_OK;

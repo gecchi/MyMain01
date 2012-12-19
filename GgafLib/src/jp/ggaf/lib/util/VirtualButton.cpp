@@ -263,10 +263,6 @@ VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
     return pVBRecord_Temp;
 }
 
-vbsta VirtualButton::isBeingPressed(vbsta prm_VB) {
-    return (_pVBRecord_Active->_state & prm_VB);
-}
-
 vbsta VirtualButton::isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat, frame prm_while_repeat) {
     vbsta sta = (_pVBRecord_Active->_state & prm_VB);
     if (sta) {
@@ -316,13 +312,6 @@ vbsta VirtualButton::wasNotBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
     }
 }
 
-vbsta VirtualButton::isPushedDown(vbsta prm_VB) {
-    if (!(_pVBRecord_Active->_prev->_state & prm_VB) && (_pVBRecord_Active->_state & prm_VB)) {
-        return true;
-    } else {
-        return false;
-    }
-}
 vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, frame prm_frame_push, frame prm_frame_delay) {
     //-------oooo-----o
     //       <--><--->

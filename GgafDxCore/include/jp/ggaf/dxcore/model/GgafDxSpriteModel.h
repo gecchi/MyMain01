@@ -25,8 +25,6 @@ public:
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
     /** 頂点のFVF */
     static DWORD FVF;
-    /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
-//    GgafDxRectUV* _paRectUV;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertices;
     /** 1頂点のサイズ */

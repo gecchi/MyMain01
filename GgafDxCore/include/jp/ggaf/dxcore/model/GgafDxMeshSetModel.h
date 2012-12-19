@@ -46,9 +46,6 @@ public:
         float tu, tv;     // テクスチャ座標
     };
 
-    /** 前回表示の同時描画したセット数（キャラクタ数）*/
-    static int _draw_set_num_LastDraw;
-
     /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ（ｎキャラ分） */

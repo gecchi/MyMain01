@@ -13,8 +13,6 @@ namespace GgafDxCore {
 class GgafDxSpriteSetActor : public GgafDxDrawableActor {
 
 public:
-    /** [r]同時描画セット数 */
-    int _draw_set_num;
     /** [r]モデル資源 */
     GgafDxSpriteSetModel* _pSpriteSetModel;
     /** [r]エフェクト資源 */

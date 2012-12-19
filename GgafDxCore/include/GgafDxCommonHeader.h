@@ -492,7 +492,6 @@ class GgafDxBgmPerformerForScene;
 class GgafDxTextureBlinker;
 class GgafDxUvFlipper;
 class GgafDxPuppeteer;
-class GgafDxRectUV;
 
 class GgafDxSe;
 class GgafDxBgm;
@@ -626,9 +625,6 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
 
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
-
-#include "jp/ggaf/dxcore/model/GgafDxRectUV.h"
-
 
 #include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
 #include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"

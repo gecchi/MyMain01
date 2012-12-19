@@ -13,7 +13,6 @@ class GgafDxSpriteSetModel : public GgafDxModel {
 
 protected:
 public:
-    static int _draw_set_num_LastDraw;
     struct INDEXPARAM {
         UINT MaterialNo;
         INT BaseVertexIndex;
@@ -36,8 +35,6 @@ public:
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
     /** 頂点のFVF */
     static DWORD FVF;
-    /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
-//    GgafDxRectUV* _paRectUV;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertices;
     /** 1頂点のサイズ */

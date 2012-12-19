@@ -19,7 +19,6 @@ GgafDxSpriteSetActor::GgafDxSpriteSetActor(const char* prm_name,
                                                                    prm_pChecker) {
     _obj_class |= Obj_GgafDxSpriteSetActor;
     _class_name = "GgafDxSpriteSetActor";
-    _draw_set_num = 0;
     //モデル取得
     _pSpriteSetModel = (GgafDxSpriteSetModel*)_pModel;
     _pSpriteSetEffect = (GgafDxSpriteSetEffect*)_pEffect;
@@ -37,9 +36,10 @@ GgafDxSpriteSetActor::GgafDxSpriteSetActor(const char* prm_name,
 }
 
 void GgafDxSpriteSetActor::processDraw() {
-    _draw_set_num = 0; //GgafDxSpriteSetActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //GgafDxSpriteSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    ID3DXEffect* pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;
+    GgafDxSpriteSetEffect* pSpriteSetEffect = _pSpriteSetEffect;
+    ID3DXEffect* pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
 
     GgafDxDrawableActor* pDrawActor = this;
@@ -65,18 +65,18 @@ void GgafDxSpriteSetActor::processDraw() {
                     //VALIGN_BOTTOM
                     pSpriteSetActor->_matWorld._42 += PX_C(_pSpriteSetModel->_fSize_SpriteSetModelHeightPx/2);
                 }
-                hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ah_matWorld[_draw_set_num], &(pSpriteSetActor->_matWorld) );
+                hr = pID3DXEffect->SetMatrix(pSpriteSetEffect->_ah_matWorld[draw_set_num], &(pSpriteSetActor->_matWorld) );
                 checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw SetMatrix(_h_matWorld) に失敗しました。");
                 pSpriteSetActor->_pUvFlipper->getUV(u,v);
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_u[_draw_set_num], u);
+                hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_u[draw_set_num], u);
                 checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw() SetFloat(_h_offset_u) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_offset_v[_draw_set_num], v);
+                hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_v[draw_set_num], v);
                 checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw() SetFloat(_h_offset_v) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ah_alpha[_draw_set_num], pSpriteSetActor->_alpha);
+                hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_alpha[draw_set_num], pSpriteSetActor->_alpha);
                 checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw SetFloat(_alpha) に失敗しました。");
 
-                _draw_set_num++;
-                if (_draw_set_num >= _pSpriteSetModel->_set_num) {
+                draw_set_num++;
+                if (draw_set_num >= _pSpriteSetModel->_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
@@ -88,7 +88,7 @@ void GgafDxSpriteSetActor::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pSpriteSetActor; //描画セットの最後アクターをセット
-    _pSpriteSetModel->draw(this, _draw_set_num);
+    _pSpriteSetModel->draw(this, draw_set_num);
 }
 
 void GgafDxSpriteSetActor::setAlpha(float prm_alpha) {

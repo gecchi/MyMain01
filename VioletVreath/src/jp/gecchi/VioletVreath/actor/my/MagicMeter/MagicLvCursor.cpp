@@ -44,7 +44,8 @@ void MagicLvCursor::processPreDraw() {
     //カーソル関連は
     //少し早めに薄くなる（消える）ようにした
     //基本は_pFader、描画時のみロール同期の半透明を考慮
-    float alpha_r = pMagicMeter_->paFloat_rr_[magic_index_] * 2 - 1.0f;
+    float rr = pMagicMeter_->paFloat_rr_[magic_index_];
+    float alpha_r = rr * 2 - 1.0f;
     if (alpha_r < 0.0f) {
         alpha_r = 0.0f;
     }
@@ -52,7 +53,7 @@ void MagicLvCursor::processPreDraw() {
     setAlpha(alpha_r*tmp_alpha_*pMagicMeter_->getAlpha());
     //ここで、ロール分Y座標を補正
     tmp_Y_ = _Y; //退避
-    _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
+    _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - rr));
     DefaultBoardActor::processPreDraw();
 }
 
