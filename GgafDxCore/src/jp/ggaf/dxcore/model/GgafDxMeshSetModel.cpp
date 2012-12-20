@@ -34,6 +34,11 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(char* prm_model_name) : GgafDxModel(prm_m
     _paVtxBuffer_org = nullptr;
     _paIdxBuffer_org = nullptr;
     _papaIndexParam = nullptr;
+    _size_vertex_unit= 0;
+    _size_vertices = 0;
+    _nVertices = 0;
+    _nFaces= 0;
+
     _obj_model |= Obj_GgafDxMeshSetModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は

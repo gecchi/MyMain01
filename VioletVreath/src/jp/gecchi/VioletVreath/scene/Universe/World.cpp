@@ -16,6 +16,8 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     is_create_GameScene_ = false;
     pLabel_debug_ = nullptr;
     pLabel_title_ = nullptr;
+    pPreDrawScene_ = nullptr;
+    pGameScene_ = nullptr;
     //y‚ß‚àz
     //‚±‚±‚ÅActor‚âScene‚ÌNEW‚ğ‚Í‚µ‚Ä‚Í‚È‚ç‚È‚¢B
     //‚Ü‚¸‚Í‚±‚Ì¢‚ğì‚é‚±‚Æ‚ğ—Dæ‚µ‚È‚¢‚ÆA‚¢‚ë‚¢‚ë‚Æ•s“s‡‚ª‚ ‚éB

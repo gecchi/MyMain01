@@ -10,6 +10,8 @@ MagicMeterCursor001::MagicMeterCursor001(const char* prm_name, MagicMeter* prm_p
     _class_name = "MagicMeterCursor001";
     pMagicMeter_ = prm_pMagicMeter;
     tmp_alpha_ = _alpha;
+    tX_ = 0;
+    tY_ = 0;
 }
 void MagicMeterCursor001::initialize() {
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);

@@ -40,6 +40,11 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(p
     _papaVtxBuffer_org_morph = nullptr;
     _paIdxBuffer_org = nullptr;
     _paIndexParam = nullptr;
+    _nMaterialListGrp = 0;
+    _size_vertices_primary = 0;
+    _size_vertex_unit_primary = 0;
+    _size_vertices_morph = 0;
+    _size_vertex_unit_morph = 0;
     _obj_model |= Obj_GgafDxMorphMeshModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は

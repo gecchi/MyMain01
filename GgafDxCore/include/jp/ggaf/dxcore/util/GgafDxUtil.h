@@ -349,8 +349,6 @@ public:
                    (int)(nvz*LEN_UNIT*PX_UNIT),
                    out_angFaceZ,
                    out_angFaceY );
-
-
     }
 
 

@@ -128,6 +128,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
         StringBoardActor(prm_name, "RankFont")
 {
     _class_name = "LabelRankFont";
+    tmp_rank_ = 0;
     setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
     useProgress(PROG_RANKUP);
 }

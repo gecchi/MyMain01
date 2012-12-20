@@ -7,6 +7,7 @@ using namespace VioletVreath;
 #define ID_ORDER_BEGIN 11
 PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "PreDrawScene";
+    _id_ = 0;
     order_id_begin_ = ID_ORDER_BEGIN;
     int id = order_id_begin_;
     orderActorToFactory(id, CubeMapMeshTestActor       , "CubeMapMeshTestActor");           id++;
@@ -42,7 +43,7 @@ void PreDrawScene::ready() {
 void PreDrawScene::initialize() {
     GgafDxInput::updateMouseState();
     GgafDxInput::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
-    _id = 0;
+    _id_ = 0;
 
 
 //    GgafDxDrawableActor* x;
@@ -70,12 +71,12 @@ void PreDrawScene::processBehavior() {
     switch (_pProg->get()) {
         case PreDrawScene::PROG_INIT: {
             if (_pProg->getFrameInProgress() % 20 == 0 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
-                if (_id > order_id_end_-order_id_begin_) {
+                if (_id_ > order_id_end_-order_id_begin_) {
                     _pProg->changeNext();
                 } else {
-                    GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id+order_id_begin_);
-                    pActor->locate(PX_C(_id*70 - 500), PX_C(-100), 0);
-                    getDirector()->addSubGroup(pActor);  _id++;
+                    GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id_+order_id_begin_);
+                    pActor->locate(PX_C(_id_*70 - 500), PX_C(-100), 0);
+                    getDirector()->addSubGroup(pActor);  _id_++;
                 }
             }
             break;
@@ -106,26 +107,26 @@ void PreDrawScene::processBehavior() {
 //
 //    if (getActivePartFrame() == 1) {
 ////
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //CubeMapMeshTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //CubeMapMeshSetTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //CubeMapMorphMeshTestActor
-//        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //DefaultD3DXAniMeshTestActor
-//////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //DefaultBoardTestActor
-//////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //DefaultBoardSetTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //DefaultMeshTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //DefaultMeshSetTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //DefaultMorphMeshTestActor
-//////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //DefaultPointSpriteTestActor
-//////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //DefaultSpriteTestActor
-//////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //DefaultSpriteSetTestActor
-//////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //HoshiBoshiTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //LaserChipTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //SingleLaserTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //SpriteMeshTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //SpriteMeshSetTestActor
-//////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //StringBoardTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //WallAABTestActor
-////        getDirector()->addSubGroup(obtainActorFromFactory(_id));  _id++;     //WallAAPrismTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //CubeMapMeshTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //CubeMapMeshSetTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //CubeMapMorphMeshTestActor
+//        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultD3DXAniMeshTestActor
+//////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultBoardTestActor
+//////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultBoardSetTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultMeshTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultMeshSetTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultMorphMeshTestActor
+//////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultPointSpriteTestActor
+//////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultSpriteTestActor
+//////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultSpriteSetTestActor
+//////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //HoshiBoshiTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //LaserChipTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SingleLaserTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SpriteMeshTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SpriteMeshSetTestActor
+//////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //StringBoardTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //WallAABTestActor
+////        getDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //WallAAPrismTestActor
 //    }
 
 }

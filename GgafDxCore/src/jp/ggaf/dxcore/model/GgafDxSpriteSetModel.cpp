@@ -10,10 +10,11 @@ GgafDxSpriteSetModel::GgafDxSpriteSetModel(char* prm_model_name) : GgafDxModel(p
     _fSize_SpriteSetModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-//    _pattno_uvflip_Max = 0;
     _pIDirect3DVertexBuffer9 = nullptr;
     _pIDirect3DIndexBuffer9 = nullptr;
-//    _paRectUV = nullptr;
+    _size_vertices = 0;
+    _size_vertex_unit = 0;
+    _paIndexParam = nullptr;
 
     char nm[51];
     strcpy(nm, prm_model_name);

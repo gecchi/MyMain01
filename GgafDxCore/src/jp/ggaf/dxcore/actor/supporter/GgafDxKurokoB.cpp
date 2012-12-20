@@ -314,6 +314,54 @@ void GgafDxKurokoB::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxy
     forceVzMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
 }
 
+void GgafDxKurokoB::setVxyzMvVelo(velo prm_veloVxMv, velo prm_veloVyMv, velo prm_veloVzMv) {
+    if (prm_veloVxMv > _veloTopVxMv) {
+        _veloVxMv = _veloTopVxMv;
+    } else if (prm_veloVxMv < _veloBottomVxMv) {
+        _veloVxMv = _veloBottomVxMv;
+    } else {
+        _veloVxMv = prm_veloVxMv;
+    }
+    if (prm_veloVyMv > _veloTopVyMv) {
+        _veloVyMv = _veloTopVyMv;
+    } else if (prm_veloVyMv < _veloBottomVyMv) {
+        _veloVyMv = _veloBottomVyMv;
+    } else {
+        _veloVyMv = prm_veloVyMv;
+    }
+    if (prm_veloVzMv > _veloTopVzMv) {
+        _veloVzMv = _veloTopVzMv;
+    } else if (prm_veloVzMv < _veloBottomVzMv) {
+        _veloVzMv = _veloBottomVzMv;
+    } else {
+        _veloVzMv = prm_veloVzMv;
+    }
+}
+
+void GgafDxKurokoB::setVxyzMvAcce(acce prm_acceVxMv, acce prm_acceVyMv, acce prm_acceVzMv) {
+    if (prm_acceVxMv > _acceTopVxMv) {
+        _acceVxMv = _acceTopVxMv;
+    } else if (prm_acceVxMv < _acceBottomVxMv) {
+        _acceVxMv = _acceBottomVxMv;
+    } else {
+        _acceVxMv = prm_acceVxMv;
+    }
+    if (prm_acceVyMv > _acceTopVyMv) {
+        _acceVyMv = _acceTopVyMv;
+    } else if (prm_acceVyMv < _acceBottomVyMv) {
+        _acceVyMv = _acceBottomVyMv;
+    } else {
+        _acceVyMv = prm_acceVyMv;
+    }
+    if (prm_acceVzMv > _acceTopVzMv) {
+        _acceVzMv = _acceTopVzMv;
+    } else if (prm_acceVzMv < _acceBottomVzMv) {
+        _acceVzMv = _acceBottomVzMv;
+    } else {
+        _acceVzMv = prm_acceVzMv;
+    }
+}
+
 void GgafDxKurokoB::execGravitationMvSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
                                                  velo prm_max_velo,
                                                  acce prm_acce,

@@ -58,8 +58,6 @@ public:
     /** [r]所属フォーメーション(nullptrは未所属) */
     GgafFormation* _pFormation;
 
-    /** [r]アクター開始システム時刻 */
-    UINT32 _start_system_time;
     /** [r]アクター衝突判定有無フラグ */
     bool _can_hit_flg;
     /** [r]true:視界外でもヒットチェックを行う/false:視界外はヒットチェックを行なわない */

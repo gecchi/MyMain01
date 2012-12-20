@@ -21,6 +21,9 @@ GgafDxMeshModel::GgafDxMeshModel(char* prm_model_name) : GgafDxModel(prm_model_n
     _paIndexParam = nullptr;
     _pModel3D = nullptr;
     _pMeshesFront = nullptr;
+    _nMaterialListGrp = 0;
+    _size_vertices = 0;
+    _size_vertex_unit = 0;
     _obj_model |= Obj_GgafDxMeshModel;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は

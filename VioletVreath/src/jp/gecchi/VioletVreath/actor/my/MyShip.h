@@ -261,7 +261,6 @@ public:
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
 //    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoOffsetHistory_;
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
-    GgafCore::GgafActorDepository* pDepo_EffectExplosion001_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
 //    MyOptionController* pOptionCtrler_;

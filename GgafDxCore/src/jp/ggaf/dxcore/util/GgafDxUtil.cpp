@@ -516,14 +516,11 @@ void GgafDxUtil::getRzRyAng(coord vx,
                             coord vz,
                             angle& out_angRZ,
                             angle& out_angRY ) {
-
     if (vz == 0) {
         out_angRZ = getAngle2D(vx, vy);
         out_angRY = 0;
         return;
     }
-
-
 
     //何れかの要素が0の場合、getAngle2Dの結果が大きくずれてしまう。
     //とりあえず１を設定して近似させておこう。

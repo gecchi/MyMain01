@@ -18,6 +18,8 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
     point_lv_ = 0;
     tmp_Y_ = _Y;
     tmp_alpha_ = _alpha;
+    tX_ = 0;
+    tY_ = 0;
 }
 
 void MagicLvCursor::initialize() {

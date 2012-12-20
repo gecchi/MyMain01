@@ -533,10 +533,9 @@ void MyOption::processBehavior() {
         MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)pLaserChipDepo_->dispatch();
 //        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)pLaserChipDepo_->dispatch();
         if (pLaserChip) {
-            GgafDxKurokoB* pLaserChip_pKurokoB = pLaserChip->_pKurokoB;
-            if (pLaserChipDepo_->_pEffectActor_Irradiate) {
-                pLaserChipDepo_->_pEffectActor_Irradiate->locateWith(this);
-            }
+//            if (pLaserChipDepo_->_pEffectActor_Irradiate) {
+//                pLaserChipDepo_->_pEffectActor_Irradiate->locateWith(this);
+//            }
             //ストレート用
 //            pLaserChip->_pKurokoA->behave();
 //            pLaserChip->_pKurokoB->behave();
@@ -554,17 +553,15 @@ void MyOption::processBehavior() {
 //            pLaserChip->_pKurokoA->_angFace[AXIS_Y] = _RY;
             int max_velo_renge = pLaserChip->max_velo_renge_;
             int r_max_acce = pLaserChip->r_max_acce_;
-            pLaserChip_pKurokoB->setVxMvVelo(Q._x*max_velo_renge);
-            pLaserChip_pKurokoB->setVyMvVelo(Q._y*max_velo_renge);
-            pLaserChip_pKurokoB->setVzMvVelo(Q._z*max_velo_renge);
-            pLaserChip_pKurokoB->setVxMvAcce(Q._x*max_velo_renge/r_max_acce);
-            pLaserChip_pKurokoB->setVyMvAcce(Q._y*max_velo_renge/r_max_acce);
-            pLaserChip_pKurokoB->setVzMvAcce(Q._z*max_velo_renge/r_max_acce);
-//            pLaserChip->_pKurokoA->behave();
-            pLaserChip_pKurokoB->behave();
-            pLaserChip->_X = _X;
-            pLaserChip->_Y = _Y;
-            pLaserChip->_Z = _Z;
+            pLaserChip->_pKurokoB->setVxyzMvVelo(Q._x*max_velo_renge,
+                                                 Q._y*max_velo_renge,
+                                                 Q._z*max_velo_renge);
+            pLaserChip->_pKurokoB->setVxyzMvAcce(Q._x*max_velo_renge/r_max_acce,
+                                                 Q._y*max_velo_renge/r_max_acce,
+                                                 Q._z*max_velo_renge/r_max_acce);
+            pLaserChip->_pKurokoB->behave();
+
+            pLaserChip->locateWith(this);
             pLaserChip->_RZ = _RZ;
             pLaserChip->_RY = _RY;
             pLaserChip->pOrg_ = this;

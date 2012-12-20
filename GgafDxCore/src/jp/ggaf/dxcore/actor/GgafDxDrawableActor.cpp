@@ -16,8 +16,11 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
 
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
-    _temp_technique = NEW char[51];
     _hash_technique = 0;
+
+    _temp_technique = NEW char[51];
+    _hash_temp_technique = 0;
+
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
     _pNext_TheSameDrawDepthLevel = nullptr;
@@ -57,8 +60,11 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
 
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
-    _temp_technique = NEW char[51];
     _hash_technique = 0;
+
+    _temp_technique = NEW char[51];
+    _hash_temp_technique = 0;
+
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
 

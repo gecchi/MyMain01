@@ -196,16 +196,33 @@ public:
 
     /**
      * X軸Y軸Z軸方向の移動速度の上限下限を強制 .
-     * @param prm_veloVxyzMv01 速度１
-     * @param prm_veloVxyzMv02 速度１
+     * @param prm_veloVxyzMv01 速度1
+     * @param prm_veloVxyzMv02 速度2
      */
     void forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02);
+
     /**
      * X軸Y軸Z軸方向の移動加速度の上限下限を強制 .
      * @param prm_acceVxyzMv01 加速度１
      * @param prm_acceVxyzMv02 加速度２
      */
     void forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02);
+
+    /**
+     * X軸Y軸Z軸方向の移動速度を設定する。
+     * @param prm_veloVxMv X軸方向移動速度
+     * @param prm_veloVyMv Y軸方向移動速度
+     * @param prm_veloVzMv Z軸方向移動速度
+     */
+    void setVxyzMvVelo(velo prm_veloVxMv, velo prm_veloVyMv, velo prm_veloVzMv);
+
+    /**
+     * X軸Y軸Z軸方向の移動加速度を設定する。
+     * @param prm_acceVxMv X軸方向移動加速度
+     * @param prm_acceVyMv Y軸方向移動加速度
+     * @param prm_acceVzMv Z軸方向移動加速度
+     */
+    void setVxyzMvAcce(acce prm_acceVxMv, acce prm_acceVyMv, acce prm_acceVzMv);
 
     /**
      * X軸Y軸Z軸方向の移動速度を 0 に設定する。

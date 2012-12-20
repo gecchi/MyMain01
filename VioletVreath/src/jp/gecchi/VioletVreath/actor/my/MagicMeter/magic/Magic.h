@@ -102,9 +102,6 @@ public:
 
     /** [r]マジックポイント数量バー */
     GgafLib::AmountGraph* pMP_;
-    /** [r]メーターへのポインタ */
-    MagicMeter* pMagicMeter_;
-
     /** [r]各レベルの情報 0～MMETER_MAX_LEVEL */
     LevelInfo lvinfo_[MMETER_MAX_LEVEL+1];
 

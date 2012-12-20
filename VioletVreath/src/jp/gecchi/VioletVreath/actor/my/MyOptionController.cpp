@@ -37,6 +37,7 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     for (int i = 0; i < max_option_num_*o2o_; i++) {
         pRing_OptCtrlGeoHistory_->addLast(NEW GgafDxGeoElem(this));
     }
+	//way_myship_prev_ = MyShip::WAY_NONE;
 }
 
 void MyOptionController::initialize() {
