@@ -54,6 +54,8 @@ public:
     int _num_continual_dispatch_max;
     /** [r/w]弾切れフレーム数（読み書き可／デフォルト=20） */
     int _num_chip_interval;
+    /** [r]弾切れの時、何発溜まったら発射(dispatch()) 出来るようにするか */
+    int _num_chip_dispatch_able;
     /** [r/w]レーザー発射時エフェクト。不要の場合はnullptrを設定する */
     GgafDxCore::GgafDxDrawableActor* _pEffectActor_Irradiate;
 

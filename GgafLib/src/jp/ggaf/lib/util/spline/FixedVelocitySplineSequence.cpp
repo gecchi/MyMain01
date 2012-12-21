@@ -136,7 +136,7 @@ void FixedVelocitySplineSequence::behave() {
         //キャラの速度が1000ならば、_exec_fFrames ++;
         //キャラの速度が2000ならば  _exec_fFrames += 2.0;
         //キャラの速度が500ならば、 _exec_fFrames += 0.5
-        _exec_fFrames = _exec_fFrames +  (1.0*pKurokoA_target->_veloMv / LEN_UNIT);
+        _exec_fFrames += (1.0*pKurokoA_target->_veloMv / LEN_UNIT);
     }
 
 }

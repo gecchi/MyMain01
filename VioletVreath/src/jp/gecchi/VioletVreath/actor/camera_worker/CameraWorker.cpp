@@ -102,9 +102,9 @@ void CameraWorker::processBehavior() {
     int dX_VP = move_target_X_VP_ - pVP->_X;
     int dY_VP = move_target_Y_VP_ - pVP->_Y;
     int dZ_VP = move_target_Z_VP_ - pVP->_Z;
-    velo veloVxRenge = 4000;
-    velo veloVyRenge = 4000;
-    velo veloVzRenge = 4000;
+    static const velo veloVxRenge = 4000;
+    static const velo veloVyRenge = 4000;
+    static const velo veloVzRenge = 4000;
 
     velo last_CAM_veloVxMv = pCam->_pKurokoB->_veloVxMv;
     velo  new_CAM_veloVxMv = burenai_speed_*(dX_CAM*1.0 / stop_renge_);

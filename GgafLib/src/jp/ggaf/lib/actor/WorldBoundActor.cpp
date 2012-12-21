@@ -19,6 +19,7 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
     setZEnable(false);        //Zバッファは考慮無し
     setZWriteEnable(false);  //Zバッファは書き込み無し
 }
+
 void WorldBoundActor::initialize() {
     dxcoord dxworld_r = P_CAM->_zf-P_CAM->_zn; //世界境界球半径
     dxcoord dxmodel_r = 1.0f; //WorldBoundActorのモデルは半径DIRECTX距離1の球である事前提

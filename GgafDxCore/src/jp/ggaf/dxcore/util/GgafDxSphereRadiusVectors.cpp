@@ -26,11 +26,11 @@ GgafDxSphereRadiusVectors::GgafDxSphereRadiusVectors() : GgafObject() {
 }
 
 void GgafDxSphereRadiusVectors::getFaceAngClosely(UINT32 prm_x,
-                                                   UINT32 prm_y,
-                                                   UINT32 prm_z,
-                                                   s_ang& out_angFaceZ,
-                                                   s_ang& out_angFaceY_rev,
-                                                   int s) {
+                                                  UINT32 prm_y,
+                                                  UINT32 prm_z,
+                                                  s_ang& out_angFaceZ,
+                                                  s_ang& out_angFaceY_rev,
+                                                  int s) {
     static class COMPARE_ABLE_SR_VECTOR target;
     target.set(0, prm_y, 0);
 
@@ -80,16 +80,6 @@ void GgafDxSphereRadiusVectors::getFaceAngClosely(UINT32 prm_x,
 
 }
 
-void GgafDxSphereRadiusVectors::getVectorClosely(s_ang prm_angFaceY_rev,
-                                                  s_ang prm_angFaceZ,
-                                                  UINT32& out_x,
-                                                  UINT32& out_y,
-                                                  UINT32& out_z) {
-    int index = prm_angFaceZ*(D90SANG+1)+prm_angFaceY_rev;
-    out_x = _sr[index].vec.x;
-    out_y = _sr[index].vec.y;
-    out_z = _sr[index].vec.z;
-}
 
 GgafDxSphereRadiusVectors::~GgafDxSphereRadiusVectors() {
 }

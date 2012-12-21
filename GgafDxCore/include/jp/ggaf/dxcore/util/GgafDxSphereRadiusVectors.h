@@ -37,7 +37,7 @@ public:
 
         UINT64 num_yzx;
         SR_VECTOR vec;
-        COMPARE_ABLE_SR_VECTOR() : GgafObject() {
+        COMPARE_ABLE_SR_VECTOR() : GgafObject() , num_yzx(0) {
         }
         /**
          * 単位ベクトルを設定する。<BR>
@@ -94,12 +94,16 @@ public:
      * @param out_y 単位方向ベクトルY要素（長さ1 が 1000000) > 0
      * @param out_z 単位方向ベクトルZ要素（長さ1 が 1000000) > 0
      */
-    void getVectorClosely(s_ang prm_angFaceY_rev,
-                          s_ang prm_angFaceZ,
-                          UINT32& out_x,
-                          UINT32& out_y,
-                          UINT32& out_z
-                          );
+    inline void getVectorClosely(s_ang prm_angFaceY_rev,
+                                 s_ang prm_angFaceZ,
+                                 UINT32& out_x,
+                                 UINT32& out_y,
+                                 UINT32& out_z ) {
+        COMPARE_ABLE_SR_VECTOR::SR_VECTOR& V = _sr[(int)(prm_angFaceZ*(D90SANG+1)+prm_angFaceY_rev)].vec;
+        out_x = V.x;
+        out_y = V.y;
+        out_z = V.z;
+    }
 
 
     virtual ~GgafDxSphereRadiusVectors();

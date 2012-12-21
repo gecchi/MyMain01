@@ -43,7 +43,7 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
         _is_tear_laser = true;
         _num_interval_frame_count++;
         return nullptr;
-    } else if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) { //’eØ‚ê‚ÌŽž _num_chip_max/4 —­‚Ü‚Á‚Ä‚©‚ç”­ŽË
+    } else if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_dispatch_able) {
         _is_tear_laser = true;
         _pChip_prev_dispatch = nullptr;
         _frame_of_behaving_prev_dispatch = 0;
@@ -67,7 +67,6 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
                     _num_continual_dispatch_count = 0;
                     pChip->_pChip_front = nullptr;
                     pChip->_pChip_behind = nullptr;
-                    //_pChip_prev_dispatch->_pChip_behind = nullptr;
                     _is_tear_laser = true;
                 }
             } else {
@@ -116,6 +115,7 @@ void LaserChipDepository::processFinal() {
 void LaserChipDepository::addSubLast(LaserChip* prm_pLaserChip) {
     _num_chip_max ++;
     _num_continual_dispatch_max++;
+    _num_chip_dispatch_able = _num_chip_max/4; //’eØ‚ê‚ÌŽž _num_chip_max/4 —­‚Ü‚Á‚Ä‚©‚ç”­ŽË
     prm_pLaserChip->_pDepo = this;
     GgafActorDepository::addSubLast(prm_pLaserChip);
 }

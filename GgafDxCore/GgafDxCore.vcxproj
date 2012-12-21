@@ -255,7 +255,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\GgafDxProperties.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxPuppeteer.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxQuaternion.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxRectUV.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxScaler.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\scene\GgafDxScene.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSe.cpp" />
@@ -387,7 +386,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\GgafDxProperties.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxPuppeteer.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxQuaternion.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxRectUV.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxScaler.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\scene\GgafDxScene.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\GgafDxSe.h" />

@@ -118,15 +118,24 @@ void GgafDxKurokoB::behave() {
         }
     }
 
-    //XŽ²•ûŒüˆÚ“®‰Á‘¬“x‚Ìˆ—
     _veloVxMv += _acceVxMv;
-    setVxMvVelo(_veloVxMv);
-    //YŽ²•ûŒüˆÚ“®‰Á‘¬“x‚Ìˆ—
+    if (_veloVxMv > _veloTopVxMv) {
+        _veloVxMv = _veloTopVxMv;
+    } else if (_veloVxMv < _veloBottomVxMv) {
+        _veloVxMv = _veloBottomVxMv;
+    }
     _veloVyMv += _acceVyMv;
-    setVyMvVelo(_veloVyMv);
-    //ZŽ²•ûŒüˆÚ“®‰Á‘¬“x‚Ìˆ—
+    if (_veloVyMv > _veloTopVyMv) {
+        _veloVyMv = _veloTopVyMv;
+    } else if (_veloVyMv < _veloBottomVyMv) {
+        _veloVyMv = _veloBottomVyMv;
+    }
     _veloVzMv += _acceVzMv;
-    setVzMvVelo(_veloVzMv);
+    if (_veloVzMv > _veloTopVzMv) {
+        _veloVzMv = _veloTopVzMv;
+    } else if (_veloVzMv < _veloBottomVzMv) {
+        _veloVzMv = _veloBottomVzMv;
+    }
 
     //Actor‚É”½‰f
     _pActor->_X += _veloVxMv;

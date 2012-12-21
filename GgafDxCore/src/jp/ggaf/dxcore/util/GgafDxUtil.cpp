@@ -1410,23 +1410,23 @@ void GgafDxUtil::setWorldMatrix_RxRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXM
 }
 
 void GgafDxUtil::setWorldMatrix_RzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    GgafDxCamera* pCam = P_CAM;
+    D3DXMATRIX& matView = P_CAM->_matView;
     float sinRz = ANG_SIN(prm_pActor->_RZ);
     float cosRz = ANG_COS(prm_pActor->_RZ);
 
-    out_matWorld._11 = cosRz*pCam->_matView._11 + sinRz*pCam->_matView._12;
-    out_matWorld._12 = cosRz*pCam->_matView._21 + sinRz*pCam->_matView._22;
-    out_matWorld._13 = cosRz*pCam->_matView._31 + sinRz*pCam->_matView._32;
+    out_matWorld._11 = cosRz*matView._11 + sinRz*matView._12;
+    out_matWorld._12 = cosRz*matView._21 + sinRz*matView._22;
+    out_matWorld._13 = cosRz*matView._31 + sinRz*matView._32;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = -sinRz*pCam->_matView._11 + cosRz*pCam->_matView._12;
-    out_matWorld._22 = -sinRz*pCam->_matView._21 + cosRz*pCam->_matView._22;
-    out_matWorld._23 = -sinRz*pCam->_matView._31 + cosRz*pCam->_matView._32;
+    out_matWorld._21 = -sinRz*matView._11 + cosRz*matView._12;
+    out_matWorld._22 = -sinRz*matView._21 + cosRz*matView._22;
+    out_matWorld._23 = -sinRz*matView._31 + cosRz*matView._32;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = pCam->_matView._13;
-    out_matWorld._32 = pCam->_matView._32;
-    out_matWorld._33 = pCam->_matView._33;
+    out_matWorld._31 = matView._13;
+    out_matWorld._32 = matView._32;
+    out_matWorld._33 = matView._33;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
