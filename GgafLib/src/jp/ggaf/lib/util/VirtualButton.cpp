@@ -394,7 +394,7 @@ vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_num_button) {
     // ？ > ↑ > ？ > ↓
     //       or
     // ？ > ？ > ↑ > ↓
-    static bool prev1Flg, prev2Flg, prev3Flg;
+    bool prev1Flg, prev2Flg, prev3Flg;
     for (int i = 0; i < prm_num_button; i++) {
         prev1Flg = wasNotBeingPressed(prm_aVB[i], 1);
         prev2Flg = wasNotBeingPressed(prm_aVB[i], 2);

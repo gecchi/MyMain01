@@ -315,7 +315,7 @@ void GgafDxInput::updateKeyboardState() {
     _active_KeyboardState = !_active_KeyboardState; //ステートセットフリップ
 
     HRESULT hr;
-    again:
+again:
     hr = _pIDirectInputDevice8_Keyboard->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
     hr = _pIDirectInputDevice8_Keyboard->GetDeviceState(256, (void*)&_caKeyboardState[_active_KeyboardState]);
     if (FAILED(hr)) {
@@ -382,7 +382,7 @@ void GgafDxInput::updateJoystickState() {
     // ジョイスティックの状態を取得
     HRESULT hr;
 
-    again1:
+again1:
 
     hr = _pIDirectInputDevice8_Joystick->Poll();
     if (hr != DI_OK) {
@@ -393,7 +393,7 @@ void GgafDxInput::updateJoystickState() {
         }
     }
 
-    again2:
+again2:
 
     hr = _pIDirectInputDevice8_Joystick->GetDeviceState(sizeof(DIJOYSTATE), &_dijoystate);
     if (hr != DI_OK) {
