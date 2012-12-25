@@ -333,19 +333,6 @@ again:
     return;
 }
 
-bool GgafDxInput::isBeingPressedKey(int prm_DIK) {
-#ifdef MY_DEBUG
-    if (prm_DIK < 0 || 255 < prm_DIK) {
-        throwGgafCriticalException("iGgafDxInput::isBeingPressedKey:”ÍˆÍŠO prm_DIK="<<prm_DIK);
-    }
-#endif
-    if (_caKeyboardState[_active_KeyboardState][prm_DIK] & 0x80) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 bool GgafDxInput::isPushedDownKey(int prm_DIK) {
     if (GgafDxInput::isBeingPressedKey(prm_DIK)) { //¡‚Í‰Ÿ‚µ‚Ä‚¢‚é
         if (_caKeyboardState[!_active_KeyboardState][prm_DIK] & 0x80) {
@@ -402,51 +389,6 @@ again2:
             goto again2;
         } else {
         }
-    }
-}
-
-bool GgafDxInput::isBeingPressedJoyRgbButton(int prm_rgb_button_no) {
-    if (prm_rgb_button_no < 0 || 31 < prm_rgb_button_no) {
-        _TRACE_("isBeingPressedJoyRgbButton:”ÍˆÍŠO");
-        return false;
-    } else {
-        if (_dijoystate.rgbButtons[prm_rgb_button_no] & 0x80) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
-bool GgafDxInput::isBeingPressedJoyUp() {
-    if (_dijoystate.lY < -127) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool GgafDxInput::isBeingPressedJoyDown() {
-    if (_dijoystate.lY > 127) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool GgafDxInput::isBeingPressedJoyLeft() {
-    if (_dijoystate.lX < -127) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool GgafDxInput::isBeingPressedJoyRight() {
-    if (_dijoystate.lX > 127) {
-        return true;
-    } else {
-        return false;
     }
 }
 

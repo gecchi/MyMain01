@@ -125,15 +125,13 @@ void CollisionChecker::updateHitArea() {
             }
 #endif
             pColliPart = pCollisionArea->_papColliPart[i];
-
             if (pColliPart->_rot) {
                 pColliPart->rotateRxRzRy(pActor->_RX, pActor->_RY, pActor->_RZ);
                 _need_update_aabb = true;
             }
         }
         if (_need_update_aabb) {
-            //最外域のAABB更新
-            pCollisionArea->updateAABB();
+            pCollisionArea->updateAABB(); //最外域の境界AABB更新
             _need_update_aabb = false;
         }
 

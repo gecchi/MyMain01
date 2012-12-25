@@ -116,7 +116,9 @@ public:
      * @param prm_DIK 調べたいキー(DIK_*)
      * @return true：そのキーは押されている状態である／false：そうでは無い
      */
-    static bool isBeingPressedKey(int prm_DIK);
+    static inline bool isBeingPressedKey(int prm_DIK) {
+        return (_caKeyboardState[_active_KeyboardState][prm_DIK] & 0x80) ? true : false;
+    }
 
     /**
      * キーボードのキーが押された直後の状態を調べる .
@@ -143,31 +145,41 @@ public:
      * @param prm_rgb_button_no ジョイスティックボタン番号
      * @return  true：そのボタンは押されている状態である／false：そうでは無い
      */
-    static bool isBeingPressedJoyRgbButton(int prm_rgb_button_no);
+    static inline bool isBeingPressedJoyRgbButton(int prm_rgb_button_no) {
+        return (_dijoystate.rgbButtons[prm_rgb_button_no] & 0x80) ? true : false;
+    }
 
     /**
      * ジョイスティックの上方向の状態を調べる .
      * @return true：ジョイスティックの上方向はONである／false：そうでは無い
      */
-    static bool isBeingPressedJoyUp();
+    static inline bool isBeingPressedJoyUp() {
+        return (_dijoystate.lY < -127) ? true : false;
+    }
 
     /**
      * ジョイスティックの下方向の状態を調べる .
      * @return true：ジョイスティックの下方向はONである／false：そうでは無い
      */
-    static bool isBeingPressedJoyDown();
+    static inline bool isBeingPressedJoyDown() {
+        return (_dijoystate.lY > 127) ? true : false;
+    }
 
     /**
      * ジョイスティックの左方向の状態を調べる .
      * @return true：ジョイスティックの左方向はONである／false：そうでは無い
      */
-    static bool isBeingPressedJoyLeft();
+    static inline bool isBeingPressedJoyLeft() {
+        return (_dijoystate.lX < -127) ? true : false;
+    }
 
     /**
      * ジョイスティックの右方向の状態を調べる .
      * @return true：ジョイスティックの右方向はONである／false：そうでは無い
      */
-    static bool isBeingPressedJoyRight();
+    static inline bool isBeingPressedJoyRight() {
+        return (_dijoystate.lX > 127) ? true : false;
+    }
 
     /**
      * ジョイスティックのアナログスティックの方向の状態を調べる .

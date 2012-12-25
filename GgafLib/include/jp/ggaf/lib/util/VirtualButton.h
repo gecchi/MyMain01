@@ -404,9 +404,6 @@ public:
 
     void clear();
 
-
-
-
     virtual ~VirtualButton();
 };
 

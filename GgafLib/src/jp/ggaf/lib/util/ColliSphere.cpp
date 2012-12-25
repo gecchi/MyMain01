@@ -79,7 +79,7 @@ void ColliSphere::rotateRxRzRy(angle rX, angle rY, angle rZ) {
     if (_rotY) {
 //            _cz = (wk_cz * UTIL::COS[s_RY]) - (wk_cx * UTIL::SIN[s_RY]);
 //            _cx = (wk_cz * UTIL::SIN[s_RY]) + (wk_cx * UTIL::COS[s_RY]);
-        //↑普通はこう考えるけど
+        //↑こうかと一瞬思ったが
         //RYは、(1,0,0)を０度として、Y軸の方向を向いて反時計回りなのでこうなる
         _cx = (wk_cx * UTIL::COS[D360SANG-s_RY]) - (wk_cz * UTIL::SIN[D360SANG-s_RY]);
         _cz = (wk_cx * UTIL::SIN[D360SANG-s_RY]) + (wk_cz * UTIL::COS[D360SANG-s_RY]);
@@ -87,12 +87,9 @@ void ColliSphere::rotateRxRzRy(angle rX, angle rY, angle rZ) {
         wk_cx = _cx;
     }
 
-
-
     _x = wk_cx;
     _y = wk_cy;
     _z = wk_cz;
-    //_r = r;
     //境界領域も更新
     _aab_x1 = _x - _r;
     _aab_y1 = _y - _r;

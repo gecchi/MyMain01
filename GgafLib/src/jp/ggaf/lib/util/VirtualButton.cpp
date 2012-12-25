@@ -681,64 +681,66 @@ void VirtualButton::update() {
         _pVBRecord_Active = _pVBRecord_Active->_next;
 
         vbsta state = 0;
-        state |= (VB_BUTTON1 * (GgafDxInput::isBeingPressedKey(_tagKeymap.BUTTON1) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON1)));
+        KEYBOARDMAP& kmap = _tagKeymap;
+        JOYSTICKMAP& jmap = _tagJoymap;
+        state |= (VB_BUTTON1 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON1) ||
+                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON1)));
 
-        state |= (VB_BUTTON2 * (GgafDxInput::isBeingPressedKey(_tagKeymap.BUTTON2) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON2)));
+        state |= (VB_BUTTON2 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON2) ||
+                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON2)));
 
-        state |= (VB_BUTTON3 * (GgafDxInput::isBeingPressedKey(_tagKeymap.BUTTON3) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON3)));
+        state |= (VB_BUTTON3 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON3) ||
+                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON3)));
 
-        state |= (VB_BUTTON4 * (GgafDxInput::isBeingPressedKey(_tagKeymap.BUTTON4) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON4)));
+        state |= (VB_BUTTON4 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON4) ||
+                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON4)));
 
-        state |= (VB_BUTTON5 * (GgafDxInput::isBeingPressedKey(_tagKeymap.BUTTON5) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON5)));
+        state |= (VB_BUTTON5 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON5) ||
+                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON5)));
 
-        state |= (VB_BUTTON6 * (GgafDxInput::isBeingPressedKey(_tagKeymap.BUTTON6) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON6)));
+        state |= (VB_BUTTON6 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON6) ||
+                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON6)));
 
-        state |= (VB_BUTTON7 * (GgafDxInput::isBeingPressedKey(_tagKeymap.BUTTON7) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON7)));
+        state |= (VB_BUTTON7 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON7) ||
+                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON7)));
 
-        state |= (VB_BUTTON8 * (GgafDxInput::isBeingPressedKey(_tagKeymap.BUTTON8) ||
-                                GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON8)));
+        state |= (VB_BUTTON8 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON8) ||
+                                GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON8)));
 
-        state |= (VB_PAUSE * (GgafDxInput::isBeingPressedKey(_tagKeymap.PAUSE) ||
-                              GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.PAUSE)));
+        state |= (VB_PAUSE * (GgafDxInput::isBeingPressedKey(kmap.PAUSE) ||
+                              GgafDxInput::isBeingPressedJoyRgbButton(jmap.PAUSE)));
 
-        state |= (VB_UP * (GgafDxInput::isBeingPressedKey(_tagKeymap.UP) ||
+        state |= (VB_UP * (GgafDxInput::isBeingPressedKey(kmap.UP) ||
                            GgafDxInput::isBeingPressedJoyUp()));
 
-        state |= (VB_DOWN * (GgafDxInput::isBeingPressedKey(_tagKeymap.DOWN) ||
+        state |= (VB_DOWN * (GgafDxInput::isBeingPressedKey(kmap.DOWN) ||
                              GgafDxInput::isBeingPressedJoyDown()));
 
-        state |= (VB_LEFT * (GgafDxInput::isBeingPressedKey(_tagKeymap.LEFT) ||
+        state |= (VB_LEFT * (GgafDxInput::isBeingPressedKey(kmap.LEFT) ||
                              GgafDxInput::isBeingPressedJoyLeft()));
 
-        state |= (VB_RIGHT * (GgafDxInput::isBeingPressedKey(_tagKeymap.RIGHT) ||
+        state |= (VB_RIGHT * (GgafDxInput::isBeingPressedKey(kmap.RIGHT) ||
                               GgafDxInput::isBeingPressedJoyRight()));
 
-        state |= (VB_UI_UP * (GgafDxInput::isBeingPressedKey(_tagKeymap.UI_UP) ||
+        state |= (VB_UI_UP * (GgafDxInput::isBeingPressedKey(kmap.UI_UP) ||
                               GgafDxInput::isBeingPressedJoyUp()));
 
-        state |= (VB_UI_DOWN * (GgafDxInput::isBeingPressedKey(_tagKeymap.UI_DOWN) ||
+        state |= (VB_UI_DOWN * (GgafDxInput::isBeingPressedKey(kmap.UI_DOWN) ||
                                 GgafDxInput::isBeingPressedJoyDown()));
 
-        state |= (VB_UI_LEFT * (GgafDxInput::isBeingPressedKey(_tagKeymap.UI_LEFT) ||
+        state |= (VB_UI_LEFT * (GgafDxInput::isBeingPressedKey(kmap.UI_LEFT) ||
                                 GgafDxInput::isBeingPressedJoyLeft()));
 
-        state |= (VB_UI_RIGHT * (GgafDxInput::isBeingPressedKey(_tagKeymap.UI_RIGHT) ||
+        state |= (VB_UI_RIGHT * (GgafDxInput::isBeingPressedKey(kmap.UI_RIGHT) ||
                                  GgafDxInput::isBeingPressedJoyRight()));
 
-        state |= (VB_UI_EXECUTE * (GgafDxInput::isBeingPressedKey(_tagKeymap.UI_EXECUTE) ||
-                                   GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.UI_EXECUTE)));
+        state |= (VB_UI_EXECUTE * (GgafDxInput::isBeingPressedKey(kmap.UI_EXECUTE) ||
+                                   GgafDxInput::isBeingPressedJoyRgbButton(jmap.UI_EXECUTE)));
 
-        state |= (VB_UI_CANCEL * (GgafDxInput::isBeingPressedKey(_tagKeymap.UI_CANCEL) ||
-                                  GgafDxInput::isBeingPressedJoyRgbButton(_tagJoymap.UI_CANCEL)));
+        state |= (VB_UI_CANCEL * (GgafDxInput::isBeingPressedKey(kmap.UI_CANCEL) ||
+                                  GgafDxInput::isBeingPressedJoyRgbButton(jmap.UI_CANCEL)));
 
-        state |= (VB_UI_DEBUG * (GgafDxInput::isBeingPressedKey(_tagKeymap.UI_DEBUG)));
+        state |= (VB_UI_DEBUG * (GgafDxInput::isBeingPressedKey(kmap.UI_DEBUG)));
 
 
         if (state & VB_UP) {
