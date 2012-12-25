@@ -58,7 +58,7 @@ public:
         _next = nullptr;
     }
 
-    void set(coord prm_X, coord prm_Y, coord prm_Z, coord prm_RX, coord prm_RY, coord prm_RZ) {
+    void set(coord prm_X, coord prm_Y, coord prm_Z, angle prm_RX, angle prm_RY, angle prm_RZ) {
         _X = prm_X;
         _Y = prm_Y;
         _Z = prm_Z;
