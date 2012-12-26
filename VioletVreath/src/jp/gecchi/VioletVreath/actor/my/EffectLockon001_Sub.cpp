@@ -77,7 +77,7 @@ void EffectLockon001_Sub::processBehavior() {
         addAlpha(-0.05);
         _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
         _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
-        if (ZEROf_EQ(getAlpha())) {
+        if ( getAlpha() < 0.0f) {
             inactivate();
         }
     }

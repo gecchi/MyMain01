@@ -77,7 +77,7 @@ void EffectLockon001_Main::processBehavior() {
     if (_pProg->get() == LOCKON001_PROG_RELEASE) {
         pTarget_ = nullptr;
         addAlpha(-0.05);
-        if (_pScaler->_method[0] == NOSCALE || ZEROf_EQ(getAlpha())) {
+        if (_pScaler->_method[0] == NOSCALE || getAlpha() < 0.0f) {
             _pScaler->setScale(2000);
             inactivate();
         }

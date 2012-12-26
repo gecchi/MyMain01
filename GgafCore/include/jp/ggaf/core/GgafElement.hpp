@@ -1408,55 +1408,31 @@ void GgafElement<T>::end(frame prm_offset_frames) {
 
 template<class T>
 bool GgafElement<T>::isActive() {
-    if (_can_live_flg && _is_active_flg) {
-        return true;
-    } else {
-        return false;
-    }
+    return (_can_live_flg && _is_active_flg) ? true : false;
 }
 template<class T>
 bool GgafElement<T>::isActiveInTheTree() {
-    if (_can_live_flg && _is_active_in_the_tree_flg) {
-        return true;
-    } else {
-        return false;
-    }
+    return (_can_live_flg && _is_active_in_the_tree_flg) ? true : false;
 }
 
 template<class T>
 bool GgafElement<T>::onChangeToActive() {
-    if (_can_live_flg && _on_change_to_active_flg) {
-        return true;
-    } else {
-        return false;
-    }
+    return (_can_live_flg && _on_change_to_active_flg) ? true : false;
 }
 
 template<class T>
 bool GgafElement<T>::onChangeToInactive() {
-    if (_can_live_flg && _on_change_to_inactive_flg) {
-        return true;
-    } else {
-        return false;
-    }
+    return (_can_live_flg && _on_change_to_inactive_flg) ? true : false;
 }
 
 template<class T>
 bool GgafElement<T>::wasPaused() {
-    if (_was_paused_flg) {
-        return true;
-    } else {
-        return false;
-    }
+    return _was_paused_flg;
 }
 
 template<class T>
 bool GgafElement<T>::wasDeclaredEnd() {
-    if (_will_end_after_flg || _can_live_flg == false) {
-        return true;
-    } else {
-        return false;
-    }
+    return (_will_end_after_flg || _can_live_flg == false) ? true : false;
 }
 
 //template<class T>

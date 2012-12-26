@@ -8,9 +8,9 @@ LockonMagic::LockonMagic(const char* prm_name, AmountGraph* prm_pMP)
     : Magic(prm_name, prm_pMP,
             MyLockonController::max_lockon_num_,               //max_level
             1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
-            60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
+            60*2    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60*2    , 0.9,   //基本発動時間   , 飛びレベル時の rate
-            60*60*10, 1.0,   //基本持続時間   , ＋１レベル毎の持続時間の乗率
+            60*60*60, 1.0,   //基本持続時間   , ＋１レベル毎の持続時間の乗率
             1.0     , 1.0    //基本維持コスト , ＋１レベル毎の維持コストの乗率
            ) {
 
@@ -73,6 +73,7 @@ void LockonMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
 }
 
 void LockonMagic::processEffectFinish(int prm_justbefore_level) {
+    _TRACE_("ロックオン亡くなったで！！！");
     MyLockonController::lockon_num_ = 0;
 }
 

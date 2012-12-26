@@ -27,7 +27,7 @@ void ScrolledScene::processBehavior() {
         //’¼‚®ã‚É‹Lq‚µ‚ÄScrolledScene::scroll_X ‚Ìóæ‚èˆø” p1 ,p2 ‚Æ‘Î‰‚·‚é
         //  this           ¨ GgafObject* pThat
         //  &_scroll_speed ¨ void* p1
-        //  nullptr           ¨ void* p2
+        //  nullptr        ¨ void* p2
 
     }
 }

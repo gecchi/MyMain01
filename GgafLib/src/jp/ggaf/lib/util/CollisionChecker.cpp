@@ -149,8 +149,9 @@ void CollisionChecker::updateHitArea() {
 
 
 bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
+    GgafDxCollisionArea* pCollisionArea = _pCollisionArea;
 #ifdef MY_DEBUG
-    if (_pCollisionArea == nullptr) {
+    if (pCollisionArea == nullptr) {
         throwGgafCriticalException("CollisionChecker::isHit() _pCollisionAreaÇ™nullÇ¡ÇƒÇ‚Ç¡ÇœÇ†ÇÈÇÒÇ©Å[");
     }
 #endif
@@ -167,11 +168,13 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
     GgafDxCollisionPart* pColliPart;
     GgafDxCollisionPart* pOppColliPart;
     int shape_kind, opp_shape_kind;
-    for (int i = 0; i < _pCollisionArea->_colli_part_num; i++) {
-        pColliPart = _pCollisionArea->_papColliPart[i];
+    int colli_part_num = pCollisionArea->_colli_part_num;
+    for (int i = 0; i < colli_part_num; i++) {
+        pColliPart = pCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }
         shape_kind = pColliPart->_shape_kind;
-        for (int j = 0; j < pOppCollisionArea->_colli_part_num; j++) {
+        int opp_colli_part_num = pOppCollisionArea->_colli_part_num;
+        for (int j = 0; j < opp_colli_part_num; j++) {
             pOppColliPart = pOppCollisionArea->_papColliPart[j];
             if (!pOppColliPart->_is_valid_flg) { continue; }
             opp_shape_kind = pOppColliPart->_shape_kind;
@@ -183,24 +186,24 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                     //ÅÉAAB Ç∆ AABÅÑ
                     if (UTIL::isHit(_pActor  , (ColliAAB*)pColliPart,
                                     pOppActor, (ColliAAB*)pOppColliPart)) {
-                        _pCollisionArea->_hit_colli_part_index = i;
-                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                  } else if (opp_shape_kind & COLLI_SPHERE) {
                      //ÅÉAAB Ç∆ ãÖÅÑ
                      if (UTIL::isHit(_pActor  , (ColliAAB*)pColliPart,
                                      pOppActor, (ColliSphere*)pOppColliPart)) {
-                         _pCollisionArea->_hit_colli_part_index = i;
-                         pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
+                         pCollisionArea->_hit_colli_part_index = i;
+                         pOppCollisionArea->_hit_colli_part_index = j;
                          return true;
                      }
                  } else if (opp_shape_kind & COLLI_AAPRISM) {
                      //ÅÉAAB Ç∆ AAPrismÅÑ
                      if (UTIL::isHit(pOppActor, (ColliAAPrism*)pOppColliPart,
                                      _pActor  , (ColliAAB*)pColliPart        )) {
-                         _pCollisionArea->_hit_colli_part_index = i;
-                         pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
+                         pCollisionArea->_hit_colli_part_index = i;
+                         pOppCollisionArea->_hit_colli_part_index = j;
                          return true;
                      }
                  }
@@ -210,24 +213,24 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                     //ÅÉãÖ Ç∆ AABÅÑ
                     if (UTIL::isHit(pOppActor, (ColliAAB*)pOppColliPart,
                                     _pActor  , (ColliSphere*)pColliPart )) {
-                        _pCollisionArea->_hit_colli_part_index = i;
-                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind & COLLI_SPHERE) {
                     //ÅÉãÖ Ç∆ ãÖÅÑ
                     if (UTIL::isHit(_pActor  , (ColliSphere*)pColliPart,
                                     pOppActor, (ColliSphere*)pOppColliPart)) {
-                        _pCollisionArea->_hit_colli_part_index = i;
-                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind & COLLI_AAPRISM) {
                     //ÅÉãÖ Ç∆ AAPrismÅÑ
                     if (UTIL::isHit(pOppActor, (ColliAAPrism*)pOppColliPart,
                                     _pActor  , (ColliSphere*)pColliPart     )) {
-                        _pCollisionArea->_hit_colli_part_index = i;
-                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 }
@@ -237,16 +240,16 @@ bool CollisionChecker::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
                     //ÅÉAAPrism Ç∆ AABÅÑ
                     if (UTIL::isHit(_pActor  , (ColliAAPrism*)pColliPart,
                                     pOppActor, (ColliAAB*)pOppColliPart  )) {
-                        _pCollisionArea->_hit_colli_part_index = i;
-                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind & COLLI_SPHERE) {
                     //ÅÉAAPrism Ç∆ ãÖÅÑ
                     if (UTIL::isHit(_pActor  , (ColliAAPrism*)pColliPart,
                                     pOppActor, (ColliSphere*)pOppColliPart)) {
-                        _pCollisionArea->_hit_colli_part_index = i;
-                        pOppCChecker->_pCollisionArea->_hit_colli_part_index = j;
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 }  else if (opp_shape_kind & COLLI_AAPRISM) {
