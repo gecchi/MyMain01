@@ -560,9 +560,9 @@ bool VirtualButton::isRoundPushDown(vbsta prm_VB, frame prm_frame_delay) {
     if (isPushedDown(prm_VB)) {
         VBRecord* pVBRecord;
         pVBRecord = _pVBRecord_Active;
-        bool up = false;
-        bool down = false;
-        bool left = false;
+        bool up    = false;
+        bool down  = false;
+        bool left  = false;
         bool right = false;
         for (frame i = 0; i < prm_frame_delay; i++) {
             pVBRecord = pVBRecord->_prev;
@@ -583,11 +583,7 @@ bool VirtualButton::isRoundPushDown(vbsta prm_VB, frame prm_frame_delay) {
                 continue;
             }
         }
-        if (up && down && left && right) {
-            return true;
-        } else {
-            return false;
-        }
+        return (up && down && left && right) ? true : false;
     } else {
         return false;
     }
@@ -655,7 +651,6 @@ bool VirtualButton::isRoundPushDown(vbsta prm_VB, frame prm_frame_delay) {
 vbsta VirtualButton::getState() {
     return _pVBRecord_Active->_state;
 }
-
 
 void VirtualButton::update() {
 #ifdef MY_DEBUG
@@ -742,7 +737,6 @@ void VirtualButton::update() {
 
         state |= (VB_UI_DEBUG * (GgafDxInput::isBeingPressedKey(kmap.UI_DEBUG)));
 
-
         if (state & VB_UP) {
             if (state & VB_RIGHT) {
                 state |= VB_UP_RIGHT_STC;
@@ -766,7 +760,6 @@ void VirtualButton::update() {
         } else {
             state |= VB_NEUTRAL_STC; //何も入力しなかった場合、結果は VB_NEUTRAL_STC になる
         }
-
         _pVBRecord_Active->_state = state;
     }
     _pRpy->write(_pVBRecord_Active->_state); //リプレイ情報記録

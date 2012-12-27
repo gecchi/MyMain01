@@ -30,7 +30,6 @@ void EffectLockon001_Main::onActive() {
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeTx->play3D(0); //ロックオンSE
 
-
     if (pTarget_) {
         locateWith(pTarget_);
         _pProg->set(LOCKON001_PROG_FIRST_LOCK);
@@ -50,21 +49,21 @@ void EffectLockon001_Main::processBehavior() {
          if (_pScaler->_method[0] == NOSCALE) {
              //縮小完了後、Beat
              _pScaler->forceScaleRange(2000, 4000);
-             _pScaler->beat(30, 2, 2, -1); //無限ループ
+             _pScaler->beat(50, 4, 2, -1); //無限ループ
              _pProg->change(LOCKON001_PROG_LOCK);
          }
          if (pTarget_) {
              if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
-                 if (ABS(pTarget_->_X-_X) <= 200000 &&
-                     ABS(pTarget_->_Y-_Y) <= 200000 &&
-                     ABS(pTarget_->_Z-_Z) <= 200000) {
+                 if (ABS(pTarget_->_X-_X) <= PX_C(200) &&
+                     ABS(pTarget_->_Y-_Y) <= PX_C(200) &&
+                     ABS(pTarget_->_Z-_Z) <= PX_C(200)) {
                      locateWith(pTarget_);
                      _pKurokoA->setMvVelo(0);
                      _pKurokoA->_angveloFace[AXIS_Z] = 1000;
                  } else {
                      _pKurokoA->_angveloFace[AXIS_Z] = 3000; //速周り
                      _pKurokoA->setRzRyMvAngTwd(pTarget_);
-                     _pKurokoA->setMvVelo(200000);
+                     _pKurokoA->setMvVelo(PX_C(200));
                  }
              } else {
                  _pProg->change(LOCKON001_PROG_RELEASE);

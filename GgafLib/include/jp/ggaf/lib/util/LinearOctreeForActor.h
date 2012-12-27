@@ -50,7 +50,7 @@ public:
          */
         inline GgafCore::GgafActor* pop() {
             if (_p == 0) {
-                return (GgafCore::GgafActor*)nullptr;
+                return nullptr;
             } else {
                 _p--;
                 return (_apActor[_p]);

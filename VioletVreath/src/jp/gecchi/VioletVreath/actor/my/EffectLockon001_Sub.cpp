@@ -24,10 +24,6 @@ void EffectLockon001_Sub::onActive() {
     _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //右回転
     //_pSeTx->play3D(0); //ロックオンSE
-    if (pTarget_ == nullptr) {
-        _TRACE_(getActivePartFrame()<<",こここ、this="<<getName()<<"("<<this<<") pTarget_="<<pTarget_);
-        _TRACE_(getActivePartFrame()<<",なんでー");
-    }
     if (pTarget_) {
         locateWith(pTarget_);
         _pProg->set(LOCKON001_PROG_LOCK);
@@ -55,14 +51,14 @@ void EffectLockon001_Sub::processBehavior() {
          _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
          if (pTarget_) {
              if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
-                 if (ABS(pTarget_->_X-_X) <= 200000 &&
-                     ABS(pTarget_->_Y-_Y) <= 200000 &&
-                     ABS(pTarget_->_Z-_Z) <= 200000) {
+                 if (ABS(pTarget_->_X-_X) <= PX_C(200) &&
+                     ABS(pTarget_->_Y-_Y) <= PX_C(200) &&
+                     ABS(pTarget_->_Z-_Z) <= PX_C(200)) {
                      locateWith(pTarget_);
                      _pKurokoA->setMvVelo(0);
                  } else {
                      _pKurokoA->setRzRyMvAngTwd(pTarget_);
-                     _pKurokoA->setMvVelo(200000);
+                     _pKurokoA->setMvVelo(PX_C(200));
                  }
              } else {
                  _pProg->change(LOCKON001_PROG_RELEASE);

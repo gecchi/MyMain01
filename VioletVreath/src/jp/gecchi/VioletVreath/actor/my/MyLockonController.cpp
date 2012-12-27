@@ -49,7 +49,7 @@ void MyLockonController::onActive() {
 void MyLockonController::processBehavior() {
     //ロックオンターゲット生存確認
     GgafDxGeometricActor* pMainLockonTarget = pRingTarget_->getCurrent(); //メインロックオンのターゲット
-    GgafDxGeometricActor* pTarget = pRingTarget_->getCurrent(); //ターゲットカーソル
+    GgafDxGeometricActor* pTarget = pRingTarget_->getCurrent();  //ターゲットカーソル
     GgafMainActor* pLockonEffect_Active = getSubFirst();         //ロックオンエフェクトカーソル
     int n = pRingTarget_->length();
     for (int i = 0; i < n; i++) {

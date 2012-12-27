@@ -188,11 +188,7 @@ public:
      * @return true/false
      */
     inline vbsta isPushedDown(vbsta prm_VB) {
-        if (!(_pVBRecord_Active->_prev->_state & prm_VB) && (_pVBRecord_Active->_state & prm_VB)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (!(_pVBRecord_Active->_prev->_state & prm_VB) && (_pVBRecord_Active->_state & prm_VB)) ? true : false;
     }
 
     /**

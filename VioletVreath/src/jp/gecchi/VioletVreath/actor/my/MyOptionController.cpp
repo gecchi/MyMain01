@@ -64,10 +64,10 @@ void MyOptionController::processBehavior() {
     if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8)) {
         //‚à‚Æ‚É–ß‚·
         _pKurokoA->execTurnRzRyMvAngSequence(
-                        0, 0,
-                        20000, 0,
-                        TURN_CLOSE_TO,
-                        false
+                       D0ANG, D0ANG,
+                       D_ANG(20), 0,
+                       TURN_CLOSE_TO,
+                       false
                    );
         is_free_from_myship_mode_ = false;
         is_handle_move_mode_ = false;
@@ -127,19 +127,16 @@ void MyOptionController::processBehavior() {
         coord TZ = pMyShip->_Z_local + pGeoMyShipTrace->_Z;
         if (return_to_default_position_seq_) {
             //Œ³‚ÌˆÊ’u‚Ö
-            int dx = TX - (_X + _pKurokoB->_veloVxMv*6);
-            int dy = TY - (_Y + _pKurokoB->_veloVyMv*6);
-            int dz = TZ - (_Z + _pKurokoB->_veloVzMv*6);
-            _pKurokoB->setVxMvAcce(dx);
-            _pKurokoB->setVyMvAcce(dy);
-            _pKurokoB->setVzMvAcce(dz);
+            _pKurokoB->setVxyzMvAcce( TX - (_X + _pKurokoB->_veloVxMv*6),
+                                      TY - (_Y + _pKurokoB->_veloVyMv*6),
+                                      TZ - (_Z + _pKurokoB->_veloVzMv*6)  );
             if (ABS(_X - TX) < 10000 &&
                 ABS(_Y - TY) < 10000 &&
                 ABS(_Z - TZ) < 10000 &&
                 ABS(_pKurokoB->_veloVxMv) < 20000 &&
                 ABS(_pKurokoB->_veloVyMv) < 20000 &&
-                ABS(_pKurokoB->_veloVzMv) < 20000    ) {
-
+                ABS(_pKurokoB->_veloVzMv) < 20000
+            ) {
                 _TRACE_("‚à‚Ç‚Á‚½I");
                 _pKurokoB->setZeroVxyzMvVelo();
                 _pKurokoB->setZeroVxyzMvAcce();
