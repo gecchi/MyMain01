@@ -177,12 +177,9 @@ public:
     }
 
     static inline INT32 _abs_(INT32 x) {
-        if (x == INT_MIN) {
-            return INT_MAX;
-        } else {
-            return (x ^ (x>>31)) - (x>>31);
-        }
+        return (x == INT_MIN) ? INT_MAX : ((x ^ (x>>31)) - (x>>31));
     }
+
 
     /**
      * •½•ûª‚Ì‹ßŽ—‚ð‹‚ß‚é .

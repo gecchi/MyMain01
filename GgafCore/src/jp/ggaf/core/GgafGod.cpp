@@ -210,9 +210,10 @@ void GgafGod::makeUniversalMaterialize() {
         _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     }
     _num_actor_drawing = 0;
-    _pUniverse->preDraw();
-    _pUniverse->draw();
-    _pUniverse->afterDraw();
+    GgafUniverse* pUniverse = _pUniverse;
+    pUniverse->preDraw();
+    pUniverse->draw();
+    pUniverse->afterDraw();
 }
 
 void GgafGod::presentUniversalVisualize() {
