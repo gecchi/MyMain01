@@ -37,7 +37,7 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     for (int i = 0; i < max_option_num_*o2o_; i++) {
         pRing_OptCtrlGeoHistory_->addLast(NEW GgafDxGeoElem(this));
     }
-	//way_myship_prev_ = MyShip::WAY_NONE;
+    //way_myship_prev_ = MyShip::WAY_NONE;
 }
 
 void MyOptionController::initialize() {
@@ -60,8 +60,8 @@ void MyOptionController::onActive() {
 void MyOptionController::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
     VirtualButton* pVbPlay = VB_PLAY;
-
-    if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8)) {
+    vbsta is_double_push_VB_OPTION = pVbPlay->isDoublePushedDown(VB_OPTION,8,8);
+    if (is_double_push_VB_OPTION) {
         //もとに戻す
         _pKurokoA->execTurnRzRyMvAngSequence(
                        D0ANG, D0ANG,
@@ -98,6 +98,7 @@ void MyOptionController::processBehavior() {
     }
 
     if (pVbPlay->isRoundPushDown(VB_OPTION)) {
+        //オプションフリーモード発動
         is_free_from_myship_mode_ = true;
         is_handle_move_mode_ = true;
         _pKurokoB->setZeroVxyzMvVelo();
@@ -119,6 +120,11 @@ void MyOptionController::processBehavior() {
         } else {
             is_handle_move_mode_ = false;
             _pKurokoA->setMvVelo(0);
+            //フリーズオプションのよーな感じに
+            GgafDxGeoElem* pGeoMyShipPrev = pMyShip->pRing_MyShipGeoHistory2_->getPrev();
+            _X += (pMyShip->_X - pGeoMyShipPrev->_X);
+            _Y += (pMyShip->_Y - pGeoMyShipPrev->_Y);
+            _Z += (pMyShip->_Z - pGeoMyShipPrev->_Z);
         }
     } else {
         GgafDxGeoElem* pGeoMyShipTrace = pMyShip->pRing_MyShipGeoHistory4OptCtrler_->getPrev(MyOptionController::o2o_*(no_+1));
@@ -137,7 +143,7 @@ void MyOptionController::processBehavior() {
                 ABS(_pKurokoB->_veloVyMv) < 20000 &&
                 ABS(_pKurokoB->_veloVzMv) < 20000
             ) {
-                _TRACE_("もどった！");
+                //もどった！
                 _pKurokoB->setZeroVxyzMvVelo();
                 _pKurokoB->setZeroVxyzMvAcce();
                 locate(TX, TY, TZ);
@@ -191,7 +197,6 @@ void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame) {
     }
 }
 MyOptionController::~MyOptionController() {
-//    DELETEARR_IMPOSSIBLE_NULL(papOption_);
     DELETE_IMPOSSIBLE_NULL(pRing_OptCtrlGeoHistory_);
 }
 

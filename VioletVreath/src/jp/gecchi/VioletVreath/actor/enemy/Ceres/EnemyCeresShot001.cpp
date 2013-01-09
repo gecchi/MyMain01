@@ -10,15 +10,15 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) :
     inactivateTree();
 
     /** 出現時の初速 */
-    iMvVelo_1st_ = 13000;
+    velo1st_ = 13000;
     /** 出現時の加速度（負で遅くなる） */
     iMoveAcce_1st_ = -150;
     /** 自身が出現してから、自機の方向に方向転換を開始するフレーム */
     frame_TurnBegin_ = 60;
     /** 移動速度上限 */
-    iMvVelo_Top_ = 30000;
+    veloTop_ = 30000;
     /** 最低保証移動速度 */
-    iMvVelo_Bottom_ = 0;
+    veloBottom_ = 0;
     /** 方向転換に費やすことができるフレーム数 */
     frame_TurnInterval_ = 400;
     /** 方向転換中の角速度アングル値(正の値) */
@@ -29,7 +29,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) :
 }
 
 void EnemyCeresShot001::initialize() {
-    _pKurokoA->forceMvVeloRange(iMvVelo_Top_, iMvVelo_Bottom_);
+    _pKurokoA->forceMvVeloRange(veloTop_, veloBottom_);
     _pKurokoA->relateFaceAngWithMvAng(true);
 
     _pColliChecker->makeCollision(1);
@@ -41,7 +41,7 @@ void EnemyCeresShot001::onActive() {
     _pStatus->reset();
 
     //出現時
-    _pKurokoA->setMvVelo(iMvVelo_1st_);
+    _pKurokoA->setMvVelo(velo1st_);
     _pKurokoA->setMvAcce(iMoveAcce_1st_);
 
     setHitAble(true);

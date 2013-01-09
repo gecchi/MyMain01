@@ -18,15 +18,15 @@ public:
 
     //本Actorのカスタムプロパティ --->
     /** 出現時の初速 */
-    int iMvVelo_1st_;
+    int velo1st_;
     /** 出現時の加速度（負で遅くなる */
     int iMoveAcce_1st_;
     /** 自身が出現してから、自機の方向に方向転換を開始するフレーム */
     frame frame_TurnBegin_;
     /** 移動速度上限 */
-    int iMvVelo_Top_;
+    int veloTop_;
     /** 最低保証移動速度 */
-    int iMvVelo_Bottom_;
+    int veloBottom_;
     /** 方向転換に費やすことができるフレーム数 */
     frame frame_TurnInterval_;
     /** 方向転換中の角速度アングル値 */

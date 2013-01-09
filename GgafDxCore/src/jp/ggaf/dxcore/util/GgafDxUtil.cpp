@@ -388,8 +388,7 @@ void GgafDxUtil::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle
 //}
 
 angle GgafDxUtil::addAng(angle prm_angNow, angle prm_angOffset) {
-    static angle angAdd;
-    angAdd = prm_angNow + prm_angOffset;
+    angle angAdd = prm_angNow + prm_angOffset;
     while (angAdd >= D360ANG) {
         angAdd -= D360ANG;
     }

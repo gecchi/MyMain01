@@ -26,7 +26,7 @@ void TurboMeter::onActive() {
 
 void TurboMeter::processBehavior() {
     //sx_ += 0.01;
-    val_ = P_MYSHIP->iMvVelo_BeginMT_;
+    val_ = P_MYSHIP->veloBeginMT_;
     float length_px = unit_px_ * val_;
     _SX = R_SC(length_px / _pBoardModel->_fSize_BoardModelWidthPx);
     _pUvFlipper->behave();

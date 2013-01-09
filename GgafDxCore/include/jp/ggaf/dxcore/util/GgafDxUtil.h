@@ -469,14 +469,14 @@ public:
 
 
     static inline angle simplifyAng(angle prm_ang) {
-        angle angSimple = prm_ang;
-        while (angSimple >= D360ANG) {
-            angSimple -= D360ANG;
+        angle ang = prm_ang;
+        while (ang >= D360ANG) {
+            ang -= D360ANG;
         }
-        while (angSimple < 0) {
-            angSimple += D360ANG;
+        while (ang < 0) {
+            ang += D360ANG;
         }
-        return angSimple;
+        return ang;
     }
 
 

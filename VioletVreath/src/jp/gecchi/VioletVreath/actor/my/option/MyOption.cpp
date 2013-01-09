@@ -527,8 +527,7 @@ void MyOption::processBehavior() {
     _Y += pOptionCtrler_->_Y;
     _Z += pOptionCtrler_->_Z;
 
-    //TODO
-    //最適化
+    //レーザー発射。TODO:最適化
     if (pMyShip->is_shooting_laser_ && pVbPlay->isBeingPressed(VB_SHOT1)) {
         MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)pLaserChipDepo_->dispatch();
 //        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)pLaserChipDepo_->dispatch();
@@ -573,6 +572,8 @@ void MyOption::processBehavior() {
     } else {
         pLockonCtrler_->releaseAllLockon(); //ロックオン解除
     }
+
+    //ショット発射
     if (pMyShip->just_shot_) {
         MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
         if (pShot) {
@@ -585,8 +586,13 @@ void MyOption::processBehavior() {
             pShot_pKurokoA->setRzRyMvAng(_RZ, _RY);
         }
     }
-
-    _pSeTx->behave();
+    //光子魚雷発射
+    if (pVbPlay->isBeingPressed(VB_SHOT2)) {
+        if (pTorpedoCtrler_->fire()) {
+            _pSeTx->play3D(SE_FIRE_TORPEDO);
+        }
+    }
+//    _pSeTx->behave();
 
 }
 

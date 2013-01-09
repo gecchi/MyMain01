@@ -163,7 +163,9 @@
 // gen02 end
 
 //1/Å„2
-#define NANAME 0.70710
+#define NANAME2D_RATE 0.70710
+//1/Å„3
+#define NANAME3D_RATE 0.57735
 
 #undef P_GOD
 #define P_GOD ((VioletVreath::God*)VioletVreath::God::_pGod)

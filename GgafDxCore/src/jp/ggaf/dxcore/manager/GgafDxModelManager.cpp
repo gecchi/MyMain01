@@ -2765,6 +2765,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
 //    "  array  DWORD     InitUvPtnNo[VerticesNum];\n" \
 //    "  array  FLOAT     InitScale[VerticesNum];\n" \
 //    "}\n";
+//
     struct XFILE_FMT_HD {
         float SquareSize;
         char TextureFile[256];

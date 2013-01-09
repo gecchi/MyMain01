@@ -34,7 +34,7 @@ void Shot002::processBehavior() {
         _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP,
                                                 3000, 0,
                                                 TURN_CLOSE_TO, true);
-    }  
+    }
 
     if (getActivePartFrame() > 70 && !_pKurokoA->isRunnigTurnMvAngSequence()) {
         _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP,
@@ -55,11 +55,13 @@ void Shot002::processJudgement() {
 
 void Shot002::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    //・・・ココにヒットされたエフェクト
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        //破壊された場合
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
+        setHitAble(false); //以降同一フレーム内でヒットさせない。
+        UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
         _pSeTx->play3D(0);
+        if (pOther->getKind() & KIND_MY) { //自機側に撃たれて消滅の場合は
+            UTIL::activateItemOf(this); //アイテム出現
+        }
         sayonara();
     }
 }

@@ -209,18 +209,15 @@ public:
     /** 移動スピードレベルに相応する移動スピード */
     int iMoveSpeed_;
 
-    velo iMoveVelo_;
-
-
-    velo iMvVelo_TurboTop_;
-    velo iMvVelo_TurboBottom_;
+    velo veloTurboTop_;
+    velo veloTurboBottom_;
 
     /** Turbo移動開始時の移動速度の初速度 */
-    velo iMvVelo_BeginMT_; //Move Velo when I Begin To Move with Turbo
+    velo veloBeginMT_; //Move Velo when I Begin To Move with Turbo
     //Z軸が絡む場合、うまくこの値から計算しよう（Z軸の移動速度は正負で管理してるため）
 
     /** Turbo移動中の移動速度の加速度 */
-    acce iMvAcce_MT_; //Move Acce while I Move with Turbo
+    acce acce_MT_; //Move Acce while I Move with Turbo
     //但し 値 < 0 であること。 ∵だんだん遅くなるようにしたいから
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
@@ -230,7 +227,7 @@ public:
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** Turbo移動が終了と判断される移動速度 */
-//    velo iMvVelo_FMT_; //Rotation axisX angle Velo when I Finish Moveing with Turbo
+//    velo veloFMT_; //Rotation axisX angle Velo when I Finish Moveing with Turbo
     //但し 値 < 0 であること。
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
@@ -259,11 +256,9 @@ public:
 
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory4OptCtrler_;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
-//    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoOffsetHistory_;
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
-//    MyOptionController* pOptionCtrler_;
     EffectTurbo001* pEffectTurbo001_;
 
 //    //debug ---->
@@ -334,468 +329,222 @@ public:
     void doNotingMoveInput();
 
     static angle wk_dist, wk_angRx;
-    void move_WAY_NONE() {
-        //way_ = WAY_NONE;
-        iMoveVelo_ = 0;
-    }
+    void move_WAY_NONE();
     /**
      * 上移動
      */
-    void move_WAY_UP() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D90ANG, 0);
-        }
-        _Y += iMoveSpeed_;
-        iMoveVelo_ = iMoveSpeed_;
-    }
+    void move_WAY_UP();
     /**
      * 前方斜め上移動
      */
-    void move_WAY_UP_FRONT() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D45ANG, 0);
-        }
-        _Y += iMoveSpeed_ * NANAME;
-        _X += iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_UP_FRONT();
     /**
      * 後方斜め上移動
      */
-    void move_WAY_UP_BEHIND() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D135ANG, 0);
-        }
-        _Y += iMoveSpeed_ * NANAME;
-        _X -= iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_UP_BEHIND();
     /**
      * 前移動
      */
-    void move_WAY_FRONT() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(0, 0);
-        }
-        _X += iMoveSpeed_;
-        iMoveVelo_ = iMoveSpeed_;
-    }
+    void move_WAY_FRONT();
     /**
      * 後ろ移動
      */
-    void move_WAY_BEHIND() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D180ANG, 0);
-        }
-        _X -= iMoveSpeed_;
-        iMoveVelo_ = iMoveSpeed_;
-    }
+    void move_WAY_BEHIND();
     /**
      * 下移動
      */
-    void move_WAY_DOWN() {
-        _pKurokoA->setRzRyMvAng(D270ANG, 0);
-        _Y -= iMoveSpeed_;
-        iMoveVelo_ = iMoveSpeed_;
-    }
+    void move_WAY_DOWN();
     /**
      * 後方斜め下移動
      */
-    void move_WAY_DOWN_BEHIND() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D255ANG, 0);
-        }
-        _Y -= iMoveSpeed_ * NANAME;
-        _X -= iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_DOWN_BEHIND();
     /**
      * 前方斜め下移動
      */
-    void move_WAY_DOWN_FRONT() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D315ANG, 0);
-        }
-        _Y -= iMoveSpeed_ * NANAME;
-        _X += iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_DOWN_FRONT();
     /**
      * 左移動
      */
-    void move_WAY_ZLEFT() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(0, D270ANG);
-            //旋廻
-            _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_);
-            _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_, TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
-        }
-        _Z += iMoveSpeed_;
-        iMoveVelo_ = iMoveSpeed_;
-    }
+    void move_WAY_ZLEFT();
     /**
      * 前方斜め左移動
      */
-    void move_WAY_ZLEFT_FRONT() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(0, D315ANG);
-            //旋廻
-            _pKurokoA->setFaceAngAcce(AXIS_X, (angRXAcce_MZ_/2)); //反時計回り
-            _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ - (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
-        }
-        _Z += iMoveSpeed_ * NANAME;
-        _X += iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_ZLEFT_FRONT();
     /**
      * 後方斜め左移動
      */
-    void move_WAY_ZLEFT_BEHIND() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D180ANG, D45ANG);
-            //旋廻
-            _pKurokoA->setFaceAngAcce(AXIS_X, (angRXAcce_MZ_/2));
-            _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ + (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
-        }
-        _Z += iMoveSpeed_ * NANAME;
-        _X -= iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_ZLEFT_BEHIND();
     /**
      * 前方斜め右移動
      */
-    void move_WAY_ZRIGHT_FRONT() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D180ANG, D135ANG);
-            //旋廻
-            _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
-            _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ - (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
-        }
-        _Z -= iMoveSpeed_ * NANAME;
-        _X += iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_ZRIGHT_FRONT();
     /**
      * 右移動
      */
-    void move_WAY_ZRIGHT() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(0, D90ANG);
-            //旋廻
-            _pKurokoA->setFaceAngAcce(AXIS_X, -1*angRXAcce_MZ_);
-            _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*angRXStop_MZ_, TURN_CLOCKWISE, angRXTopVelo_MZ_);
-        }
-        _Z -= iMoveSpeed_;
-        iMoveVelo_ = iMoveSpeed_;
-    }
+    void move_WAY_ZRIGHT();
     /**
      * 後方斜め右
      */
-    void move_WAY_ZRIGHT_BEHIND() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(0, D135ANG);
-            //旋廻
-            _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
-            _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ + (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
-        }
-        _Z -= iMoveSpeed_ * NANAME;
-        _X -= iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_ZRIGHT_BEHIND();
     /**
      * 左斜め上移動
      */
-    void move_WAY_ZLEFT_UP() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D45ANG, D270ANG);
-            //旋廻
-            _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_);
-            _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ - (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
-        }
-        _Z += iMoveSpeed_ * NANAME;
-        _Y += iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_ZLEFT_UP();
     /**
      * 左斜め下移動
      */
-    void move_WAY_ZLEFT_DOWN() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D315ANG, D270ANG);
-            //旋廻
-            _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_/2);
-            _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ + (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
-
-        }
-        _Z += iMoveSpeed_ * NANAME;
-        _Y -= iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_ZLEFT_DOWN();
     /**
      * 右斜め上移動
      */
-    void move_WAY_ZRIGHT_UP() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D45ANG, D90ANG);
-            //旋廻
-            _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
-            _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ - (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
-        }
-        _Z -= iMoveSpeed_ * NANAME;
-        _Y += iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_ZRIGHT_UP();
     /**
      * 右斜め下移動
      */
-    void move_WAY_ZRIGHT_DOWN() {
-        if (is_just_change_way_) {
-            _pKurokoA->setRzRyMvAng(D315ANG, D90ANG);
-            //旋廻
-            _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
-            _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ + (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
-        }
-        _Z -= iMoveSpeed_ * NANAME;
-        _Y -= iMoveSpeed_ * NANAME;
-        iMoveVelo_ = iMoveSpeed_ * NANAME;
-    }
+    void move_WAY_ZRIGHT_DOWN();
     /**
      * 前方左斜め上移動
      */
-    void move_WAY_ZLEFT_UP_FRONT() {
-        _TRACE_("move_WAY_ZLEFT_UP_FRONTLEFT() came!");
-    }
+    void move_WAY_ZLEFT_UP_FRONT();
     /**
      * 後方左斜め上移動
      */
-    void move_WAY_ZLEFT_UP_BEHIND() {
-        _TRACE_("move_WAY_ZLEFT_UP_BEHINDLEFT() came!");
-    }
+    void move_WAY_ZLEFT_UP_BEHIND();
+    /**
+     * 前方左斜め下移動
+     */
+    void move_WAY_ZLEFT_DOWN_FRONT();
 
-    void move_WAY_ZLEFT_DOWN_FRONT() {
-        _TRACE_("move_WAY_ZLEFT_DOWN_FRONTLEFT() came!");
-    }
+    /**
+     * 後方左斜め下移動
+     */
+    void move_WAY_ZLEFT_DOWN_BEHIND();
 
-    void move_WAY_ZLEFT_DOWN_BEHIND() {
-        _TRACE_("move_WAY_ZLEFT_DOWN_BEHINDLEFT() came!");
-    }
-
-    void move_WAY_ZRIGHT_UP_FRONT() {
-        _TRACE_("move_WAY_ZRIGHT_UP_FRONTLEFT() came!");
-    }
-
-    void move_WAY_ZRIGHT_UP_BEHIND() {
-        _TRACE_("move_WAY_ZRIGHT_UP_BEHINDLEFT() came!");
-    }
-
-    void move_WAY_ZRIGHT_DOWN_FRONT() {
-        _TRACE_("move_WAY_ZRIGHT_DOWN_FRONTLEFT() came!");
-    }
-
-    void move_WAY_ZRIGHT_DOWN_BEHIND() {
-        _TRACE_("move_WAY_ZRIGHT_DOWN_BEHIND() came!");
-    }
-
+    /**
+     * 前方右斜め上移動
+     */
+    void move_WAY_ZRIGHT_UP_FRONT();
+    /**
+     * 後方右斜め上移動
+     */
+    void move_WAY_ZRIGHT_UP_BEHIND();
+    /**
+     * 前方右斜め下移動
+     */
+    void move_WAY_ZRIGHT_DOWN_FRONT();
+    /**
+     * 後方右斜め下移動
+     */
+    void move_WAY_ZRIGHT_DOWN_BEHIND();
 
     /////////////////TURBO_BEGIN
 
-    void turbo_WAY_NONE() {
-
-    }
-
+    void turbo_WAY_NONE();
     /**
      * 上ターボ開始
      */
-    void turbo_WAY_UP() {
-        _pKurokoA->setRzRyMvAng(D90ANG, 0);
-        _pKurokoB->addVyMvVelo(iMvVelo_BeginMT_);
-    }
+    void turbo_WAY_UP();
     /**
      * 前方斜め上ターボ開始
      */
-    void turbo_WAY_UP_FRONT() {
-        _pKurokoA->setRzRyMvAng(D45ANG, 0);
-        _pKurokoB->addVyMvVelo(iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVxMvVelo(iMvVelo_BeginMT_ * NANAME);
-    }
+    void turbo_WAY_UP_FRONT();
     /**
      * 後方斜め上ターボ開始
      */
-    void turbo_WAY_UP_BEHIND() {
-        _pKurokoA->setRzRyMvAng(D135ANG, 0);
-        _pKurokoB->addVyMvVelo(iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVxMvVelo(-iMvVelo_BeginMT_ * NANAME);
-    }
+    void turbo_WAY_UP_BEHIND();
     /**
      * 前ターボ開始
      */
-    void turbo_WAY_FRONT() {
-        _pKurokoA->setRzRyMvAng(0, 0);
-        _pKurokoB->addVxMvVelo(iMvVelo_BeginMT_);
-    }
+    void turbo_WAY_FRONT();
     /**
      * 後ろターボ開始
      */
-    void turbo_WAY_BEHIND() {
-        _pKurokoA->setRzRyMvAng(D180ANG, 0);
-        _pKurokoB->addVxMvVelo(-iMvVelo_BeginMT_);
-    }
+    void turbo_WAY_BEHIND();
     /**
      * 下ターボ開始
      */
-    void turbo_WAY_DOWN() {
-        _pKurokoA->setRzRyMvAng(D270ANG, 0);
-        _pKurokoB->addVyMvVelo(-iMvVelo_BeginMT_);
-    }
+    void turbo_WAY_DOWN();
     /**
      * 後方斜め下ターボ開始
      */
-    void turbo_WAY_DOWN_BEHIND() {
-        _pKurokoA->setRzRyMvAng(D255ANG, 0);
-        _pKurokoB->addVyMvVelo(-iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVxMvVelo(-iMvVelo_BeginMT_ * NANAME);
-    }
+    void turbo_WAY_DOWN_BEHIND();
     /**
      * 前方斜め下ターボ開始
      */
-    void turbo_WAY_DOWN_FRONT() {
-        _pKurokoA->setRzRyMvAng(D315ANG, 0);
-        _pKurokoB->addVyMvVelo(-iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVxMvVelo(iMvVelo_BeginMT_ * NANAME);
-    }
+    void turbo_WAY_DOWN_FRONT();
     /**
      * 左ターボ開始
      */
-    void turbo_WAY_ZLEFT() {
-        _pKurokoB->addVzMvVelo(iMvVelo_BeginMT_);
-        //旋廻
-        _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_); //勢いよく回転開始
-    }
+    void turbo_WAY_ZLEFT();
     /**
      * 前方斜め左ターボ開始
      */
-    void turbo_WAY_ZLEFT_FRONT() {
-        _pKurokoA->setRzRyMvAng(0, D270ANG);
-        _pKurokoB->addVzMvVelo(iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVxMvVelo(iMvVelo_BeginMT_ * NANAME);
-        //旋廻
-        _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME); //勢いよく回転開始
-    }
+    void turbo_WAY_ZLEFT_FRONT();
     /**
      * 後方斜め左ターボ開始
      */
-    void turbo_WAY_ZLEFT_BEHIND() {
-        _pKurokoA->setRzRyMvAng(D180ANG, D45ANG);
-        _pKurokoB->addVzMvVelo(iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVxMvVelo(-iMvVelo_BeginMT_ * NANAME);
-        //旋廻
-        _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME); //勢いよく回転開始
-    }
+    void turbo_WAY_ZLEFT_BEHIND();
     /**
      * 前方斜め右ターボ開始
      */
-    void turbo_WAY_ZRIGHT_FRONT() {
-        _pKurokoA->setRzRyMvAng(D180ANG, D135ANG);
-        _pKurokoB->addVzMvVelo(-iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVxMvVelo(iMvVelo_BeginMT_ * NANAME);
-        //旋廻
-        _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME); //勢いよく回転開始
-    }
+    void turbo_WAY_ZRIGHT_FRONT();
     /**
      * 右ターボ開始
      */
-    void turbo_WAY_ZRIGHT() {
-        _pKurokoA->setRzRyMvAng(0, D90ANG);
-        _pKurokoB->addVzMvVelo(-iMvVelo_BeginMT_);
-        //旋廻
-        _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_); //勢いよく回転開始
-    }
+    void turbo_WAY_ZRIGHT();
     /**
      * 後方斜め右
      */
-    void turbo_WAY_ZRIGHT_BEHIND() {
-        _pKurokoA->setRzRyMvAng(0, D135ANG);
-        _pKurokoB->addVzMvVelo(-iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVxMvVelo(-iMvVelo_BeginMT_ * NANAME);
-        //旋廻
-        _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME); //勢いよく回転開始
-    }
+    void turbo_WAY_ZRIGHT_BEHIND();
     /**
      * 左斜め上ターボ開始
      */
-    void turbo_WAY_ZLEFT_UP() {
-        _pKurokoA->setRzRyMvAng(D45ANG, D270ANG);
-        _pKurokoB->addVzMvVelo(iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVyMvVelo(iMvVelo_BeginMT_ * NANAME);
-        //旋廻
-        _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME); //勢いよく回転開始
-    }
+    void turbo_WAY_ZLEFT_UP();
     /**
      * 左斜め下ターボ開始
      */
-    void turbo_WAY_ZLEFT_DOWN() {
-        _pKurokoA->setRzRyMvAng(D315ANG, D270ANG);
-        _pKurokoB->addVzMvVelo(iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVyMvVelo(-iMvVelo_BeginMT_ * NANAME);
-        //旋廻
-        _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME); //勢いよく回転開始
-    }
+    void turbo_WAY_ZLEFT_DOWN();
     /**
      * 右斜め上ターボ開始
      */
-    void turbo_WAY_ZRIGHT_UP() {
-        _pKurokoA->setRzRyMvAng(D45ANG, D90ANG);
-        _pKurokoB->addVzMvVelo(-iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVyMvVelo(iMvVelo_BeginMT_ * NANAME);
-        //旋廻
-        _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME); //勢いよく回転開始
-    }
+    void turbo_WAY_ZRIGHT_UP();
     /**
      * 右斜め下ターボ開始
      */
-    void turbo_WAY_ZRIGHT_DOWN() {
-        _pKurokoA->setRzRyMvAng(D315ANG, D90ANG);
-        _pKurokoB->addVzMvVelo(-iMvVelo_BeginMT_ * NANAME);
-        _pKurokoB->addVyMvVelo(-iMvVelo_BeginMT_ * NANAME);
-        //旋廻
-        _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME); //勢いよく回転開始
-    }
+    void turbo_WAY_ZRIGHT_DOWN();
     /**
      * 前方左斜め上ターボ開始
      */
-    void turbo_WAY_ZLEFT_UP_FRONT() {
-        _TRACE_("turbo_WAY_ZLEFT_UP_FRONTLEFT() came!");
-    }
+    void turbo_WAY_ZLEFT_UP_FRONT();
     /**
      * 後方左斜め上ターボ開始
      */
-    void turbo_WAY_ZLEFT_UP_BEHIND() {
-        _TRACE_("turbo_WAY_ZLEFT_UP_BEHINDLEFT() came!");
-    }
+    void turbo_WAY_ZLEFT_UP_BEHIND();
+    /**
+     * 前方左斜め下ターボ開始
+     */
+    void turbo_WAY_ZLEFT_DOWN_FRONT();
+    /**
+     * 後方左斜め下ターボ開始
+     */
+    void turbo_WAY_ZLEFT_DOWN_BEHIND();
+    /**
+     * 前方右斜め上ターボ開始
+     */
+    void turbo_WAY_ZRIGHT_UP_FRONT();
+    /**
+     * 後方右斜め上ターボ開始
+     */
+    void turbo_WAY_ZRIGHT_UP_BEHIND();
+    /**
+     * 前方右斜め下ターボ開始
+     */
+    void turbo_WAY_ZRIGHT_DOWN_FRONT();
+    /**
+     * 後方右斜め下ターボ開始
+     */
+    void turbo_WAY_ZRIGHT_DOWN_BEHIND();
 
-    void turbo_WAY_ZLEFT_DOWN_FRONT() {
-        _TRACE_("turbo_WAY_ZLEFT_DOWN_FRONTLEFT() came!");
-    }
-
-    void turbo_WAY_ZLEFT_DOWN_BEHIND() {
-        _TRACE_("turbo_WAY_ZLEFT_DOWN_BEHINDLEFT() came!");
-    }
-
-    void turbo_WAY_ZRIGHT_UP_FRONT() {
-        _TRACE_("turbo_WAY_ZRIGHT_UP_FRONTLEFT() came!");
-    }
-
-    void turbo_WAY_ZRIGHT_UP_BEHIND() {
-        _TRACE_("turbo_WAY_ZRIGHT_UP_BEHINDLEFT() came!");
-    }
-
-    void turbo_WAY_ZRIGHT_DOWN_FRONT() {
-        _TRACE_("turbo_WAY_ZRIGHT_DOWN_FRONTLEFT() came!");
-    }
-
-    void turbo_WAY_ZRIGHT_DOWN_BEHIND() {
-        _TRACE_("turbo_WAY_ZRIGHT_DOWN_BEHIND() came!");
-    }
     void onChangeWay(MoveWay prev_way, MoveWay new_way) {
 
         switch(new_way) {

@@ -42,13 +42,11 @@ MyShip::MyShip(const char* prm_name) :
     angRXAcce_MZ_ = 300; //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度
     angRXTopVelo_MZ_ = 5000; //奥又は手前へ通常Z移動中のX軸回転角速度の上限角速度
     angRXStop_MZ_ = 90000; //奥又は手前へ通常Z移動中のX軸回転角の目標停止角度
-
-    //angRXVelo_BeginMZT_ = 23000; //奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
-    angRXVelo_BeginMZT_ = 40000;
+    angRXVelo_BeginMZT_ = 20000;//奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
 
     iMvBtmVelo_MT_ = 0; //Turbo移動中の移動速度の最低速度
-    iMvVelo_BeginMT_ = 40000; //Turbo移動開始時の移動速度の初速度
-    iMvAcce_MT_ = -200; //Turbo移動中の移動速度の加速度
+    veloBeginMT_ = 40000; //Turbo移動開始時の移動速度の初速度
+    acce_MT_ = -200; //Turbo移動中の移動速度の加速度
 
 //    pOptionCtrler_ = NEW MyOptionController("MY_OPTION_PARENT");
 //    addSubLast(pOptionCtrler_);
@@ -122,7 +120,6 @@ MyShip::MyShip(const char* prm_name) :
 //        pRing_MyShipGeoOffsetHistory_->addLast(NEW GgafDxGeoElem(this));
     }
 
-    iMoveVelo_ = 0;
 
     //     X   Y   Z
     //    -----------
@@ -193,8 +190,8 @@ MyShip::MyShip(const char* prm_name) :
     _pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_001");
     _pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_001");
 
-    iMvVelo_TurboTop_ = 30000;
-    iMvVelo_TurboBottom_ = 10000;
+    veloTurboTop_ = 30000;
+    veloTurboBottom_ = 10000;
 
     frame_soft_rapidshot_ = 0;
     is_being_soft_rapidshot_ = false;
@@ -256,11 +253,11 @@ void MyShip::initialize() {
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
 
-    _pKurokoB->forceVxyzMvVeloRange(-iMvVelo_TurboTop_, iMvVelo_TurboTop_);
+    _pKurokoB->forceVxyzMvVeloRange(-veloTurboTop_, veloTurboTop_);
     _pKurokoB->setZeroVxyzMvAcce();
-    //        _pKurokoA->forceMvVeloRange(iMvBtmVelo_MT_, iMvVelo_BeginMT_);
-    //        _pKurokoA->addMvVelo(iMvVelo_BeginMT_);  //速度追加
-    //        _pKurokoA->setMvAcce(iMvAcce_MT_);
+    //        _pKurokoA->forceMvVeloRange(iMvBtmVelo_MT_, veloBeginMT_);
+    //        _pKurokoA->addMvVelo(veloBeginMT_);  //速度追加
+    //        _pKurokoA->setMvAcce(acce_MT_);
 
     _pKurokoA->setFaceAngVelo(AXIS_X, 300);
 }
@@ -297,6 +294,7 @@ void MyShip::onInactive() {
 }
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
+    int pos_camera = P_VAM->pos_camera_;
     if (!can_control_) {
         return;
     }
@@ -304,7 +302,7 @@ void MyShip::processBehavior() {
     //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
     stc_ = pVbPlay->getBeingPressedStick();
-    if (P_VAM->pos_camera_ == VAM_POS_RIGHT) {
+    if (pos_camera == VAM_POS_RIGHT) {
         //右サイドビュー(右から左へスクロール)
         if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
             way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -318,7 +316,7 @@ void MyShip::processBehavior() {
         if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
             way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (P_VAM->pos_camera_ == VAM_POS_LEFT) {
+    } else if (pos_camera == VAM_POS_LEFT) {
         //左サイドビュー(左から右へスクロール)
         if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
             way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -332,7 +330,7 @@ void MyShip::processBehavior() {
         if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
             way_switch_.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (P_VAM->pos_camera_ == VAM_POS_TOP) {
+    } else if (pos_camera == VAM_POS_TOP) {
         //トップビュー(上から下へスクロール)
         if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
             way_switch_.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
@@ -346,7 +344,7 @@ void MyShip::processBehavior() {
         if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
             way_switch_.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
-    } else if (P_VAM->pos_camera_ == VAM_POS_BOTTOM) {
+    } else if (pos_camera == VAM_POS_BOTTOM) {
         //ボトムビュー(下から上へスクロール)
         if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
             way_switch_.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
@@ -360,7 +358,7 @@ void MyShip::processBehavior() {
         if (pVbPlay->isPushedDown(VB_DOWN)) {   // ↓
             way_switch_.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
-    } else if (P_VAM->pos_camera_ > VAM_POS_TO_BEHIND) {
+    } else if (pos_camera > VAM_POS_TO_BEHIND) {
         //背後ビュー（奥から手前にスクロール）
         if (pVbPlay->isPushedDown(VB_UP)) {     // ↑
             way_switch_.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -396,7 +394,7 @@ void MyShip::processBehavior() {
     }
     if (pVbPlay->isBeingPressed(VB_OPTION)) {
         int tmp = iMoveSpeed_;
-        iMoveSpeed_ = iMoveSpeed_ / 8; //オプション操作中移動は遅い
+        iMoveSpeed_ /= 8; //オプション操作中移動は遅い
         (this->*paFuncMove[way_])();   //方向値に応じた移動処理メソッドを呼び出す
         iMoveSpeed_ = tmp;
     } else {
@@ -410,18 +408,20 @@ void MyShip::processBehavior() {
              pTurbo002->locateWith(this);
              pTurbo002->activate();
          }
-        (this->*paFuncTurbo[way_])();
+        (this->*paFuncTurbo[way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
     } else {
         //Notターボ開始時
         if (pVbPlay->isBeingPressed(VB_TURBO)) {
-            //ターボを押し続けることで、移動距離を伸ばす
+            //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
+            //移動距離を伸ばす
             _pKurokoB->_veloVxMv *= 0.99;
             _pKurokoB->_veloVyMv *= 0.99;
             _pKurokoB->_veloVzMv *= 0.99;
         } else {
-            _pKurokoB->_veloVxMv *= 0.9;
-            _pKurokoB->_veloVyMv *= 0.9;
-            _pKurokoB->_veloVzMv *= 0.9;
+            //ターボを離した場合、速度減衰。
+            _pKurokoB->_veloVxMv *= 0.8;
+            _pKurokoB->_veloVyMv *= 0.8;
+            _pKurokoB->_veloVzMv *= 0.8;
         }
     }
 
@@ -451,8 +451,6 @@ void MyShip::processBehavior() {
     }
 
     ////////////////////////////////////////////////////
-
-
 
     //座標に反映
     _pKurokoA->behave();
@@ -495,7 +493,10 @@ void MyShip::processBehavior() {
         blown_veloZ_ *= r_blown_velo_attenuate_;
     }
 
-    if (!is_diving_) {
+    if (is_diving_) {
+        //突入モーション時は、移動範囲制御無し
+    } else {
+        //通常移動範囲制御
         if (_Y > MyShip::lim_top_) {
             _Y = MyShip::lim_top_;
         } else if (_Y < MyShip::lim_bottom_ ) {
@@ -516,7 +517,7 @@ void MyShip::processBehavior() {
     }
 
 
-
+    //オプションのために座標情報保存
     pRing_MyShipGeoHistory2_->next()->set(this);
     if (pVbPlay->isBeingPressed(VB_OPTION)) {
         GgafDxGeoElem* pGeoMyShipPrev = pRing_MyShipGeoHistory2_->getPrev();
@@ -654,29 +655,31 @@ void MyShip::processJudgement() {
         if (this->pTorpedoCtrler_->fire()) {
             _pSeTx->play3D(MyShip::SE_FIRE_TORPEDO);
         }
-        MyOptionController** papOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_;
-        for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-            if (papOptCtrler[i]->pOption_->pTorpedoCtrler_->fire()) {
-                papOptCtrler[i]->pOption_->_pSeTx->play3D(MyOption::SE_FIRE_TORPEDO);
-            }
-        }
-
-//        bool can_fire = true;
-//        for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-//            if (papOptCtrler[i]->pOption_->pTorpedoCtrler_->in_firing_) {
-//                can_fire = false;
-//                break;
-//            }
-//        }
-//        if (can_fire) {
-//            for (int i = 0; i < MyOptionController::now_option_num_; i++) {
-//                if (i == 0) {
-//                    _pSeTx->play3D(3);
-//                }
-//                papOptCtrler[i]->pOption_->pTorpedoCtrler_->fire();
-//            }
-//        }
     }
+//    if (pVbPlay->isBeingPressed(VB_SHOT2)) {
+//        MyOptionController** papOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_;
+//        for (int i = 0; i < MyOptionController::now_option_num_; i++) {
+//            if (papOptCtrler[i]->pOption_->pTorpedoCtrler_->fire()) {
+//                papOptCtrler[i]->pOption_->_pSeTx->play3D(MyOption::SE_FIRE_TORPEDO);
+//            }
+//        }
+//
+////        bool can_fire = true;
+////        for (int i = 0; i < MyOptionController::now_option_num_; i++) {
+////            if (papOptCtrler[i]->pOption_->pTorpedoCtrler_->in_firing_) {
+////                can_fire = false;
+////                break;
+////            }
+////        }
+////        if (can_fire) {
+////            for (int i = 0; i < MyOptionController::now_option_num_; i++) {
+////                if (i == 0) {
+////                    _pSeTx->play3D(3);
+////                }
+////                papOptCtrler[i]->pOption_->pTorpedoCtrler_->fire();
+////            }
+////        }
+//    }
 
     if (_pStatus->get(STAT_Stamina) < 0) {
         _pStatus->set(STAT_Stamina, 0);
@@ -951,6 +954,479 @@ void MyShip::setInvincibleFrames(int prm_frames) {
     setHitAble(false);
     invincible_frames_ = prm_frames;
 }
+
+
+void MyShip::move_WAY_NONE() {
+}
+
+void MyShip::move_WAY_UP() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D90ANG, 0);
+    }
+    _Y += iMoveSpeed_;
+}
+
+void MyShip::move_WAY_UP_FRONT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D45ANG, 0);
+    }
+    _Y += iMoveSpeed_ * NANAME2D_RATE;
+    _X += iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_UP_BEHIND() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D135ANG, 0);
+    }
+    _Y += iMoveSpeed_ * NANAME2D_RATE;
+    _X -= iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_FRONT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(0, 0);
+    }
+    _X += iMoveSpeed_;
+}
+
+void MyShip::move_WAY_BEHIND() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D180ANG, 0);
+    }
+    _X -= iMoveSpeed_;
+}
+
+void MyShip::move_WAY_DOWN() {
+    _pKurokoA->setRzRyMvAng(D270ANG, 0);
+    _Y -= iMoveSpeed_;
+}
+
+void MyShip::move_WAY_DOWN_BEHIND() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D255ANG, 0);
+    }
+    _Y -= iMoveSpeed_ * NANAME2D_RATE;
+    _X -= iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_DOWN_FRONT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D315ANG, 0);
+    }
+    _Y -= iMoveSpeed_ * NANAME2D_RATE;
+    _X += iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_ZLEFT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(0, D270ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_);
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_, TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _Z += iMoveSpeed_;
+}
+
+void MyShip::move_WAY_ZLEFT_FRONT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(0, D315ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, (angRXAcce_MZ_/2)); //反時計回り
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ - (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _Z += iMoveSpeed_ * NANAME2D_RATE;
+    _X += iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_ZLEFT_BEHIND() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D180ANG, D45ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, (angRXAcce_MZ_/2));
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ + (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _Z += iMoveSpeed_ * NANAME2D_RATE;
+    _X -= iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_ZRIGHT_FRONT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D180ANG, D135ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ - (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _Z -= iMoveSpeed_ * NANAME2D_RATE;
+    _X += iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_ZRIGHT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(0, D90ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, -1*angRXAcce_MZ_);
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*angRXStop_MZ_, TURN_CLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _Z -= iMoveSpeed_;
+}
+
+void MyShip::move_WAY_ZRIGHT_BEHIND() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(0, D135ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ + (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _Z -= iMoveSpeed_ * NANAME2D_RATE;
+    _X -= iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_ZLEFT_UP() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D45ANG, D270ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_/2);
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ - (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _Z += iMoveSpeed_ * NANAME2D_RATE;
+    _Y += iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_ZLEFT_DOWN() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D315ANG, D270ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_/2);
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ + (angRXStop_MZ_/2), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+
+    }
+    _Z += iMoveSpeed_ * NANAME2D_RATE;
+    _Y -= iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_ZRIGHT_UP() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D45ANG, D90ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ - (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _Z -= iMoveSpeed_ * NANAME2D_RATE;
+    _Y += iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_ZRIGHT_DOWN() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D315ANG, D90ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/2));
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ + (angRXStop_MZ_/2)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _Z -= iMoveSpeed_ * NANAME2D_RATE;
+    _Y -= iMoveSpeed_ * NANAME2D_RATE;
+}
+
+void MyShip::move_WAY_ZLEFT_UP_FRONT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D45ANG, D270ANG+D45ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_/3);
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ - (angRXStop_MZ_/3), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _X += iMoveSpeed_ * NANAME3D_RATE;
+    _Y += iMoveSpeed_ * NANAME3D_RATE;
+    _Z += iMoveSpeed_ * NANAME3D_RATE;
+}
+
+void MyShip::move_WAY_ZLEFT_UP_BEHIND() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D45ANG, D270ANG-D45ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_/3);
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ - (angRXStop_MZ_/3), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _X -= iMoveSpeed_ * NANAME3D_RATE;
+    _Y += iMoveSpeed_ * NANAME3D_RATE;
+    _Z += iMoveSpeed_ * NANAME3D_RATE;
+}
+
+void MyShip::move_WAY_ZLEFT_DOWN_FRONT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D315ANG, D270ANG+D45ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_/3);
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ + (angRXStop_MZ_/3), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+
+    }
+    _X += iMoveSpeed_ * NANAME3D_RATE;
+    _Y -= iMoveSpeed_ * NANAME3D_RATE;
+    _Z += iMoveSpeed_ * NANAME3D_RATE;
+}
+
+
+void MyShip::move_WAY_ZLEFT_DOWN_BEHIND() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D315ANG, D270ANG-D45ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, angRXAcce_MZ_/3);
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, angRXStop_MZ_ + (angRXStop_MZ_/3), TURN_COUNTERCLOCKWISE, angRXTopVelo_MZ_);
+
+    }
+    _X -= iMoveSpeed_ * NANAME3D_RATE;
+    _Y -= iMoveSpeed_ * NANAME3D_RATE;
+    _Z += iMoveSpeed_ * NANAME3D_RATE;
+}
+
+
+void MyShip::move_WAY_ZRIGHT_UP_FRONT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D45ANG, D90ANG-D45ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/3));
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ - (angRXStop_MZ_/3)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _X += iMoveSpeed_ * NANAME3D_RATE;
+    _Y += iMoveSpeed_ * NANAME3D_RATE;
+    _Z -= iMoveSpeed_ * NANAME3D_RATE;
+}
+
+void MyShip::move_WAY_ZRIGHT_UP_BEHIND() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D45ANG, D90ANG+D45ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/3));
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ - (angRXStop_MZ_/3)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _X -= iMoveSpeed_ * NANAME3D_RATE;
+    _Y += iMoveSpeed_ * NANAME3D_RATE;
+    _Z -= iMoveSpeed_ * NANAME3D_RATE;
+}
+
+void MyShip::move_WAY_ZRIGHT_DOWN_FRONT() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D315ANG, D90ANG-D45ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/3));
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ + (angRXStop_MZ_/3)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _X += iMoveSpeed_ * NANAME3D_RATE;
+    _Z -= iMoveSpeed_ * NANAME3D_RATE;
+    _Y -= iMoveSpeed_ * NANAME3D_RATE;
+}
+
+void MyShip::move_WAY_ZRIGHT_DOWN_BEHIND() {
+    if (is_just_change_way_) {
+        _pKurokoA->setRzRyMvAng(D315ANG, D90ANG+D45ANG);
+        //旋廻
+        _pKurokoA->setFaceAngAcce(AXIS_X, -1*(angRXAcce_MZ_/3));
+        _pKurokoA->setStopTargetFaceAng(AXIS_X, -1*(angRXStop_MZ_ + (angRXStop_MZ_/3)), TURN_CLOCKWISE, angRXTopVelo_MZ_);
+    }
+    _X -= iMoveSpeed_ * NANAME3D_RATE;
+    _Z -= iMoveSpeed_ * NANAME3D_RATE;
+    _Y -= iMoveSpeed_ * NANAME3D_RATE;
+}
+
+
+/////////////////TURBO_BEGIN
+
+void MyShip::turbo_WAY_NONE() {
+
+}
+
+
+void MyShip::turbo_WAY_UP() {
+    _pKurokoA->setRzRyMvAng(D90ANG, 0);
+    _pKurokoB->addVyMvVelo(veloBeginMT_);
+}
+
+void MyShip::turbo_WAY_UP_FRONT() {
+    _pKurokoA->setRzRyMvAng(D45ANG, 0);
+    _pKurokoB->addVyMvVelo(veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
+}
+
+void MyShip::turbo_WAY_UP_BEHIND() {
+    _pKurokoA->setRzRyMvAng(D135ANG, 0);
+    _pKurokoB->addVyMvVelo(veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+}
+
+void MyShip::turbo_WAY_FRONT() {
+    _pKurokoA->setRzRyMvAng(0, 0);
+    _pKurokoB->addVxMvVelo(veloBeginMT_);
+}
+
+void MyShip::turbo_WAY_BEHIND() {
+    _pKurokoA->setRzRyMvAng(D180ANG, 0);
+    _pKurokoB->addVxMvVelo(-veloBeginMT_);
+}
+
+void MyShip::turbo_WAY_DOWN() {
+    _pKurokoA->setRzRyMvAng(D270ANG, 0);
+    _pKurokoB->addVyMvVelo(-veloBeginMT_);
+}
+
+void MyShip::turbo_WAY_DOWN_BEHIND() {
+    _pKurokoA->setRzRyMvAng(D255ANG, 0);
+    _pKurokoB->addVyMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+}
+
+void MyShip::turbo_WAY_DOWN_FRONT() {
+    _pKurokoA->setRzRyMvAng(D315ANG, 0);
+    _pKurokoB->addVyMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
+}
+
+void MyShip::turbo_WAY_ZLEFT() {
+    _pKurokoB->addVzMvVelo(veloBeginMT_);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZLEFT_FRONT() {
+    _pKurokoA->setRzRyMvAng(0, D270ANG);
+    _pKurokoB->addVzMvVelo(veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZLEFT_BEHIND() {
+    _pKurokoA->setRzRyMvAng(D180ANG, D45ANG);
+    _pKurokoB->addVzMvVelo(veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZRIGHT_FRONT() {
+    _pKurokoA->setRzRyMvAng(D180ANG, D135ANG);
+    _pKurokoB->addVzMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVxMvVelo(veloBeginMT_ * NANAME2D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZRIGHT() {
+    _pKurokoA->setRzRyMvAng(0, D90ANG);
+    _pKurokoB->addVzMvVelo(-veloBeginMT_);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZRIGHT_BEHIND() {
+    _pKurokoA->setRzRyMvAng(0, D135ANG);
+    _pKurokoB->addVzMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVxMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZLEFT_UP() {
+    _pKurokoA->setRzRyMvAng(D45ANG, D270ANG);
+    _pKurokoB->addVzMvVelo(veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVyMvVelo(veloBeginMT_ * NANAME2D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZLEFT_DOWN() {
+    _pKurokoA->setRzRyMvAng(D315ANG, D270ANG);
+    _pKurokoB->addVzMvVelo(veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVyMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZRIGHT_UP() {
+    _pKurokoA->setRzRyMvAng(D45ANG, D90ANG);
+    _pKurokoB->addVzMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVyMvVelo(veloBeginMT_ * NANAME2D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZRIGHT_DOWN() {
+    _pKurokoA->setRzRyMvAng(D315ANG, D90ANG);
+    _pKurokoB->addVzMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+    _pKurokoB->addVyMvVelo(-veloBeginMT_ * NANAME2D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME2D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZLEFT_UP_FRONT() {
+    _pKurokoA->setRzRyMvAng(D45ANG, D270ANG+D45ANG);
+    _pKurokoB->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVyMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZLEFT_UP_BEHIND() {
+    _pKurokoA->setRzRyMvAng(D45ANG, D270ANG-D45ANG);
+    _pKurokoB->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVyMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZLEFT_DOWN_FRONT() {
+    _pKurokoA->setRzRyMvAng(D315ANG, D270ANG+D45ANG);
+    _pKurokoB->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVyMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZLEFT_DOWN_BEHIND() {
+    _pKurokoA->setRzRyMvAng(D315ANG, D270ANG-D45ANG);
+    _pKurokoB->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVzMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVyMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, angRXVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZRIGHT_UP_FRONT() {
+    _pKurokoA->setRzRyMvAng(D45ANG, D90ANG-D45ANG);
+    _pKurokoB->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVyMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZRIGHT_UP_BEHIND() {
+    _pKurokoA->setRzRyMvAng(D45ANG, D90ANG+D45ANG);
+    _pKurokoB->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVyMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZRIGHT_DOWN_FRONT() {
+    _pKurokoA->setRzRyMvAng(D315ANG, D90ANG-D45ANG);
+    _pKurokoB->addVxMvVelo(veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVyMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
+}
+
+void MyShip::turbo_WAY_ZRIGHT_DOWN_BEHIND() {
+    _pKurokoA->setRzRyMvAng(D315ANG, D90ANG+D45ANG);
+    _pKurokoB->addVxMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVzMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    _pKurokoB->addVyMvVelo(-veloBeginMT_ * NANAME3D_RATE);
+    //旋廻
+    _pKurokoA->setFaceAngVelo(AXIS_X, -angRXVelo_BeginMZT_*NANAME3D_RATE); //勢いよく回転開始
+}
+
 MyShip::~MyShip() {
     DELETE_IMPOSSIBLE_NULL(pRing_MyShipGeoHistory4OptCtrler_);
     DELETE_IMPOSSIBLE_NULL(pRing_MyShipGeoHistory2_);
