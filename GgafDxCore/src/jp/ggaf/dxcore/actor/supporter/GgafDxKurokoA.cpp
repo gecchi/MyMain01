@@ -1635,32 +1635,11 @@ void GgafDxKurokoA::followMvFrom(GgafDxKurokoA* prm_pKurokoA) {
 }
 
 void GgafDxKurokoA::resetMv() {
-    //キャラの移動方角単位ベクトル
     _vX = _vY = _vZ = 0.0f;
-    //移動方角のZ軸回転
     _angRzMv = 0;
-    //移動方角のY軸回転
     _angRyMv = 0;
-    //移動速度
     _veloMv = 0;
-    //移動速度上限 = 256 px/fream
-    _veloTopMv = 256 * LEN_UNIT; //_veloMv が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。
-    //移動速度下限 = 0   px/fream
-    _veloBottomMv = -256 * LEN_UNIT; //_veloMv が -256000(-256px) を下回る移動量があっても、強制的に座標増分は -256000px に抑えられる。
-    //移動加速度（移動速度の増分） = 0 px/fream^2
-    _accMv = 0; //_veloMv の増分。デフォルトは加速無し
-
-    //_jerkMv = 0;
-    //移動方角（Z軸回転）の角速度 = 0 angle/fream
-    _angveloRzMv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
-    //移動方角（Z軸回転）の角速度上限 = +360,000 angle/fream
-    _angveloRzTopMv = D360ANG; //_angveloRzMv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
-    //移動方角（Z軸回転）の角速度下限 = -360,000 angle/fream
-    _angveloRzBottomMv = D360ANG * -1; //_angveloRzMv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
-    //移動方角（Z軸回転）の角加速度 = 0 angle/fream^2
-    _angacceRzMv = 0; //_angveloRzMv の増分。デフォルトは移動方角の角加速度無し
-
-    _angjerkRzMv = 0;
+    _accMv = 0;
 }
 
 GgafDxKurokoA::~GgafDxKurokoA() {

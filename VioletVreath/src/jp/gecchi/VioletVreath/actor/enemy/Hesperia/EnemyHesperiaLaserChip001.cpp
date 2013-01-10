@@ -15,7 +15,7 @@ EnemyHesperiaLaserChip001::EnemyHesperiaLaserChip001(const char* prm_name) :
 }
 
 void EnemyHesperiaLaserChip001::initialize() {
-    registHitAreaCube(3000);
+    registHitAreaCube(20000);
     setHitAble(true, false);
     setScaleR(5.0);
     _pKurokoA->relateFaceAngWithMvAng(true);
@@ -33,7 +33,6 @@ void EnemyHesperiaLaserChip001::onActive() {
     if (_pChip_front == nullptr) {
         _pKurokoA->setRzRyMvAngTwd(tX1_, tY1_, tZ1_);
         _pProg->set(PROG_MOVE_UP);
-        _pSeTx->play3D(SE_FIRE);
     } else {
         _pProg->set(PROG_NOTHING);
     }
@@ -60,7 +59,9 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
     MyShip* pMyShip = P_MYSHIP;
     switch (_pProg->get()) {
         case PROG_MOVE_UP: {
+            //レーザー上昇
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
+                _pSeTx->play3D(SE_FIRE);
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                              tX1_, tY1_, tZ1_,
                              D_ANG(5), 0,
@@ -74,11 +75,12 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
         }
 
         case PROG_TURN1: {
+            //自機より少し上の座標で屈折
             if (_pProg->hasJustChanged()) {
-                _pKurokoA->setMvVelo(_pKurokoA->_veloMv/4);
+                _pKurokoA->setMvVelo(_pKurokoA->_veloMv/3); //屈折時少しスローダウン
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                              tX2_, tY2_, tZ2_,
-                             D_ANG(20), 0,
+                             D_ANG(10), 0,
                              TURN_CLOSE_TO, true);
             }
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
@@ -87,15 +89,29 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
             break;
         }
 
+        case PROG_TURN2: {
+            //屈折補正
+            if (_pProg->getFrameInProgress() % 10 == 0) {
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(
+                             tX2_, tY2_, tZ2_,
+                             D_ANG(5), 0,
+                             TURN_CLOSE_TO, true);
+            }
+            if (_pProg->getFrameInProgress() > 60) {
+                _pProg->changeNext();
+            }
+            break;
+        }
+
         case PROG_INTO_MYSHIP: {
             if (_pProg->hasJustChanged()) {
-                _pKurokoA->setMvVelo(_pKurokoA->_veloMv*3);
+                _pKurokoA->setMvVelo(_pKurokoA->_veloMv*2);
             }
-            if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
+            if (_pProg->getFrameInProgress() % 20 == 0) {
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                              tX2_, tY2_, tZ2_,
                              100, 0,
-                             TURN_CLOSE_TO, false);
+                             TURN_CLOSE_TO, true);
             }
             if (_pProg->getFrameInProgress() > 90) {
                 _pKurokoA->stopTurnMvAngSequence();

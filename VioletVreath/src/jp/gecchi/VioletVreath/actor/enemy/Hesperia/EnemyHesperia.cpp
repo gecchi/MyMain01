@@ -249,16 +249,16 @@ void EnemyHesperia::processBehavior() {
                                     //自機が手前、ヘスペリアが奥
                                     pLaserChip->tX1_ = _X + paPos_Target_[i]._X;
                                     pLaserChip->tY1_ = _Y + paPos_Target_[i]._Y + turn_dY;
-                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z + PX_C(200);
+                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z + PX_C(100);
                                 } else {
                                     //自機が奥、ヘスペリアが手前
                                     pLaserChip->tX1_ = _X + paPos_Target_[i]._X;
                                     pLaserChip->tY1_ = _Y + paPos_Target_[i]._Y + turn_dY;
-                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z - PX_C(200);
+                                    pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z - PX_C(100);
                                 }
                             } else {
-                                //シンバルロック付近を避けるためX-200
-                                pLaserChip->tX1_ = _X + paPos_Target_[i]._X - PX_C(200);
+                                //シンバルロック付近を避けるためX-100
+                                pLaserChip->tX1_ = _X + paPos_Target_[i]._X - PX_C(100);
                                 pLaserChip->tY1_ = _Y + paPos_Target_[i]._Y + turn_dY;
                                 pLaserChip->tZ1_ = _Z + paPos_Target_[i]._Z;
                             }
@@ -270,7 +270,7 @@ void EnemyHesperia::processBehavior() {
                             pLaserChip->tZ2_ = pMyShip->_Z + paPos_Target_[i]._Z;
                             //速さと加速度
                             pLaserChip->_pKurokoA->setMvVelo(10000); //初期速度
-                            pLaserChip->_pKurokoA->setMvAcce(200+(max_laser_way_-i)*150); //少しバラけるように
+                            pLaserChip->_pKurokoA->setMvAcce(150+(max_laser_way_-i)*10); //少しバラけるように
                         }
                     }
                 }
@@ -299,7 +299,6 @@ void EnemyHesperia::processBehavior() {
             break;
         }
     }
-    _pSeTx->behave();
     _pKurokoA->behave();
     _pMorpher->behave();
 }
@@ -346,7 +345,7 @@ coord EnemyHesperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
     //                ／      |     |
     //              ／        |     v
     //            ／         敵…………
-    //          ／θ=15°     |
+    //          ／θ=5°      |
     //    ---自機-------------+--------->
     //      ／:               |
     //    ／  :               |
@@ -354,9 +353,9 @@ coord EnemyHesperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
     //        :     DT(引数)  |
     //
     //DY = DT・tan(5°) - (敵_Y - 自機_Y)
-    static double tan33 = tan(15*(PI/180.0)); //５度上から打ち下ろす
+    static double tan5 = tan(5*(PI/180.0)); //５度上から打ち下ろす
     coord dY = pThis->_Y - pMyShip->_Y;
-    coord TurnDY = DT*tan33 - dY;
+    coord TurnDY = DT*tan5 - dY;
     if (TurnDY < 0) {
         return PX_C(200);
     } else {

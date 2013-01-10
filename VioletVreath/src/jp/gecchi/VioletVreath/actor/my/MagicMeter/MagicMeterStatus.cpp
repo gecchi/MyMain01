@@ -27,11 +27,12 @@ void MagicMeterStatus::processDraw() {
     int len_magics = pMM->ringMagics_.length();
     coord mm_w = PX_C(pMM->width_px_);
     coord mm_h = PX_C(pMM->height_px_);
+    float alpha1 = pMM->getAlpha()*2; //メータよりちょっと濃い目に表示
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
-        //各メーター下段表示
+        //各メーター下段表示（現在のレベルの残時間表示）
         if (pMagic->level_ > 0) {
-            setAlpha(pMM->getAlpha());
+            setAlpha(alpha1);
             _X = pMM->_X + mm_w*i;
             _Y = pMM->_Y + mm_h;
             sprintf(aBuf_, "%06d", (pMagic->lvinfo_[pMagic->level_].remainingtime_of_effect_)/60);
@@ -40,7 +41,7 @@ void MagicMeterStatus::processDraw() {
         }
 
         _X = pMM->_X + mm_w*(i+1); //i+1 は右隣に表示
-        //各マジック要素
+        //各マジックレベル要素
         float rr = pMM->paFloat_rr_[i];
         if (rr > 0.1) {
             for (int j = 1; j <= pMagic->level_; j++) {

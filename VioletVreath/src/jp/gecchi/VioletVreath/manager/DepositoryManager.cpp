@@ -219,7 +219,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         for (int nLaser = 0; nLaser < RR_EnemyHesperia_ShotWay(1.0)*8; nLaser++) {
             std::string name = "LaserChipDepo["+ITOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name.c_str());
-            for (int nChip = 0; nChip < 45; nChip++) {
+            for (int nChip = 0; nChip < 50; nChip++) {
                 std::string name = "EnemyHesperiaLaserChip001["+ITOS(nLaser)+"]["+ITOS(nChip)+"]";
                 pLaserChipDepo->addSubLast(NEW EnemyHesperiaLaserChip001(name.c_str()));
                 Sleep(1);

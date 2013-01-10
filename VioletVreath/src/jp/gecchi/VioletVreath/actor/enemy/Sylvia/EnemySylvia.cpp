@@ -10,6 +10,7 @@ EnemySylvia::EnemySylvia(const char* prm_name, const char* prm_model, coord prm_
     setCubeMap("BkSky_cubemap.dds", 0.4);
     r1_ = prm_r1;
     r2_ = prm_r2;
+    pColliArea_ = _pColliChecker->_pCollisionArea;
     colli_part_num_ = 16; //“–‚½‚è”»’è‹…‚Ì”
     useProgress(PROG_NOTHING);
 }
@@ -68,7 +69,6 @@ void EnemySylvia::onCreateModel() {
 
 void EnemySylvia::initialize() {
     makeCollisionArea(colli_part_num_);
-    pColliArea_ = _pColliChecker->_pCollisionArea;
     setHitAble(true);
     setAlpha(1.00);
 }

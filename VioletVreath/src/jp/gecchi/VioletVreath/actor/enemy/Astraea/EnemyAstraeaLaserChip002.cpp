@@ -8,6 +8,7 @@ using namespace VioletVreath;
 EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "AstraeaLaserChip001", STATUS(EnemyAstraeaLaserChip002)) {
     _class_name = "EnemyAstraeaLaserChip002";
+    pConn_RefractionEffectDepository_ = nullptr;
 }
 
 void EnemyAstraeaLaserChip002::initialize() {

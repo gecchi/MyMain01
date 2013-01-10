@@ -7,6 +7,7 @@ using namespace VioletVreath;
 CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, nullptr) {
     _class_name = "CameraWorker";
     pos_camera_ = 0;
+    dZ_camera_init_ = 0;
     pLockOnTarget_ = nullptr;
     move_target_XY_CAM_UP_ = D90ANG;
     angXY_nowCamUp_ = D90ANG;

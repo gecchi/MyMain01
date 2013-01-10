@@ -15,8 +15,6 @@ class EnemyHermione :
   public GgafLib::DefaultMorphMeshActor {
 //class EnemyHermione : public GgafLib::CubeMapMorphMeshActor {
 
-    /** Œ´“_‚©‚ç‰ŠúƒJƒƒ‰ZˆÊ’u‚Ì‹——£ */
-    int dZ_camera_init_;
 public:
     enum {
         PROG_MOVE = 1  ,

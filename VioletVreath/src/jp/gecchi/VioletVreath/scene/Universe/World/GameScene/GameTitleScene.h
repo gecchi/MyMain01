@@ -31,7 +31,6 @@ public:
 
     WorldBoundTitle* pWorldBound_;
     HoshiBoshiTitle* pHoshiBoshi_;
-    int max_menu_item_;
     int active_item_;
     frame frame_of_noinput_;
 

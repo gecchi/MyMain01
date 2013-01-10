@@ -9,6 +9,7 @@ public:
     enum {
         PROG_MOVE_UP = 1,
         PROG_TURN1,
+        PROG_TURN2,
         PROG_INTO_MYSHIP,
         PROG_NOTHING,
     };

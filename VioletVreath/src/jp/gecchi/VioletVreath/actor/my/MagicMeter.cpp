@@ -275,7 +275,7 @@ void MagicMeter::processBehavior() {
         }
 
         //「決定」時
-        if (pVbPlay->isPushedDown(VB_SHOT1)) {
+        if (pVbPlay->isPushedDown(VB_SHOT1) || pVbPlay->isPushedDown(VB_SHOT2) || pVbPlay->isPushedDown(VB_TURBO)) {
             int r = pActiveMagic->cast(papLvTargetCursor_[active_idx]->point_lv_);
 
             switch (r) {
@@ -500,7 +500,8 @@ void MagicMeter::processDraw() {
         float rr = paFloat_rr_[i];
         if (rr > 0.1) {
             //各マジック要素
-            for (int j = 0; j < pMagic->max_level_+1; j++) {
+            int lv_slecter_num = pMagic->max_level_+1;
+            for (int j = 0; j < lv_slecter_num; j++) {
                 //魔法名
                 hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[n], x + wx);
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_transformed_X) に失敗しました。");
@@ -525,9 +526,7 @@ void MagicMeter::processDraw() {
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetV_) に失敗しました。");
                 n++;
             }
-
         }
-
         _pBoardSetModel->draw(this, n);
         pElem = pElem->_pNext;
     }
