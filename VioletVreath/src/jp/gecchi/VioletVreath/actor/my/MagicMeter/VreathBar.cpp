@@ -16,14 +16,14 @@ void VreathBar::initialize() {
 }
 
 void VreathBar::onReset() {
-    _SX = R_SC(pAmount_->getPx() / org_width_); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+    _SX = R_SC(pAmount_->getPx() * rate_org_width_); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
 }
 
 void VreathBar::onActive() {
 }
 
 void VreathBar::processBehavior() {
-    _SX = R_SC(pAmount_->getPx() / org_width_); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+    _SX = R_SC(pAmount_->getPx() * rate_org_width_); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
     _pUvFlipper->behave();
 }
 

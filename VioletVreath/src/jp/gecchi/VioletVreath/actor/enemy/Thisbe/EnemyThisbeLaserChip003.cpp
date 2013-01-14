@@ -11,11 +11,10 @@ EnemyThisbeLaserChip003::EnemyThisbeLaserChip003(const char* prm_name) :
     pSplManufCon_ = connectToSplineManufactureManager("EnemyThisbeLaserChip003"); //ヒルベルト曲線
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
     pSplSeq_->adjustCoordOffset(PX_C(100), 0, 0);
-    setMiddleColliAble(true); //チップ間当たり判定自動発生
 }
 
 void EnemyThisbeLaserChip003::initialize() {
-    registHitAreaCube(20000);
+    registHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);

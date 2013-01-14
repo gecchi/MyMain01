@@ -18,7 +18,7 @@ MyOptionStraightLaserChip001::MyOptionStraightLaserChip001(const char* prm_name)
 
 void MyOptionStraightLaserChip001::initialize() {
     _pKurokoA->setRzRyMvAng(0,0);
-    registHitAreaCube(60000);
+    registHitAreaCube_AutoGenMidColli(60000);
     setHitAble(true);
     _SX = _SY = _SZ = R_SC(5);
     _alpha = 0.99;

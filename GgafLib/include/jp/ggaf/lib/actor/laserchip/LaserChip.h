@@ -8,7 +8,7 @@ namespace GgafLib {
  * processSettlementBehavior()内の処理により、
  * setHitAble(false); は意味をなしません。
  * 当たり判定を行いたくない場合、
- * registHitAreaCube() 等の当たり判定自体を作成しないで下さい。
+ * registHitAreaCube_AutoGenMidColli() 等の当たり判定自体を作成しないで下さい。
  * @version 1.00
  * @since 2008/11/24
  * @author Masatoshi Tsuge
@@ -33,12 +33,10 @@ private:
 
     /** 自身を管理してるアクター発送者 */
     LaserChipDepository* _pDepo;
-    /** registHitAreaCube() メソッドにより登録されているかどうか。trueならば、中間当たり判定自動生成機能が使える */
-    bool _is_regist_hitarea;
-    /** registHitAreaCube() メソッドにより登録時の当たり判定立方体の１辺の長さ */
+    /** registHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さ */
     int _hitarea_edge_length;
     int _hitarea_edge_length_3;
-    /** registHitAreaCube() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
+    /** registHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
     int _harf_hitarea_edge_length;
 
 public:
@@ -58,7 +56,7 @@ public:
     LaserChip* _pLeader;
     /** [r]強制上書きアルファ値。（出現時は遠方であっても表示させるため) */
     float _force_alpha;
-    /** [r]前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効にするかどうか */
+    /** [r]rueならば、前方チップと離れすぎた場合に中間当たり判定自動生成 */
     float _middle_colli_able;
 
     LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
@@ -84,7 +82,19 @@ public:
 
     virtual void drawHitArea() override;
 
-    virtual void registHitAreaCube(int prm_edge_length);
+    /**
+     * レーザーチップ用当たり判定立方体をセット .
+     * レーザーチップ間の距離が離れ、当たり判定のすり抜けを防止するため、<BR>
+     * 通常の当たり判定に加え、接続された前方チップとの距離が離れた場合にのみ、<BR>
+     * 自動的に中間に当たり判定を自動生成する機能も付与される。<BR>
+     * 当たり判定要素数は２つになる。
+     * 【注意】<BR>
+     * 予めレーザーチップ間の距離が開かず、すり抜けが起こらないとわかっている場合は、<BR>
+     * 本メソッドで設定せず、通常 _pColliChecker->makeCollision(1);<BR>
+     * を行ったほうがパフォーマンスが良い。<BR>
+     * @param prm_edge_length
+     */
+    virtual void registHitAreaCube_AutoGenMidColli(int prm_edge_length);
 
 
     /**
@@ -99,9 +109,6 @@ public:
      */
     virtual void addAlpha(float prm_alpha) override;
 
-    void setMiddleColliAble(bool prm_middle_colli_able) {
-        _middle_colli_able = prm_middle_colli_able;
-    }
 
     virtual ~LaserChip();
 

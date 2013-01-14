@@ -18,7 +18,7 @@ void CostDispBar::initialize() {
 }
 
 void CostDispBar::onReset() {
-    setScaleR(pCostValue_->getPx() / org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+    setScaleR(pCostValue_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
 }
 
 void CostDispBar::onActive() {
@@ -31,7 +31,7 @@ void CostDispBar::processBehavior() {
         pixcoord px = pSourceBar_->pAmount_->getPx() - pCostValue_->getPx();
         if (px > 0) {
             _X = pSourceBar_->_X +  PX_C(px);
-            setScaleR(pCostValue_->getPx() / org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+            setScaleR(pCostValue_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
         } else {
             //Œ³ƒ[ƒ^[‚©‚ç‚Í‚Í‚İo‚È‚¢‚æ‚¤‚É‚·‚é
             _X = pSourceBar_->_X;
@@ -41,7 +41,7 @@ void CostDispBar::processBehavior() {
         //•‰‚Ì’l‚ÍƒRƒXƒg‚ªƒ}ƒCƒiƒXA‚Â‚Ü‚èŒ³‚Ì’l‚ª‘‚¦‚éBåƒ[ƒ^[‚Ì‘•ª’l‚ğÂ‚Å¦‚·‚æ‚¤‚É‚·‚éB
         _pUvFlipper->setActivePtn(1);
         _X = pSourceBar_->_X + PX_C(pSourceBar_->pAmount_->getPx());
-        setScaleR(-1.0 * pCostValue_->getPx() / org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+        setScaleR(-1.0 * pCostValue_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
     }
     _pUvFlipper->behave();
 }

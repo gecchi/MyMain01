@@ -42,6 +42,7 @@ GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
     hr = _pIDirectSoundBuffer->GetFrequency(&_default_frequency);
     checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_key<<") GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
+    _pActor_LastPlayed = nullptr;
     _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<_id);
 }
 
@@ -165,9 +166,6 @@ int GgafDxSe::restore(void) {
     }
     return true;
 }
-
-
-
 
 bool GgafDxSe::isPlaying() {
     DWORD dwStatus = 0;

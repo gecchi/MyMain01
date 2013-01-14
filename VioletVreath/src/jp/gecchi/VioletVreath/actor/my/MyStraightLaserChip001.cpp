@@ -22,7 +22,9 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
 void MyStraightLaserChip001::initialize() {
     pOrg_ = P_MYSHIP;
     _pKurokoA->setRzRyMvAng(0,0);
-    registHitAreaCube(60000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB_WHD(0,120000,60000,60000);
+
     setHitAble(true);
     _SX = _SY = _SZ = R_SC(5);
     _alpha = 0.99;

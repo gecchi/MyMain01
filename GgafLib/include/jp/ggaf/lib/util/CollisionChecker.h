@@ -145,9 +145,9 @@ public:
      * @param x 中心X座標
      * @param y 中心Y座標
      * @param z 中心Z座標
-     * @param prm_width 幅
-     * @param prm_height 高さ
-     * @param prm_depth 深さ（奥行）
+     * @param prm_width 幅(X軸方向)
+     * @param prm_height 高さ(Y軸方向)
+     * @param prm_depth 深さ（奥行・Y軸方向）
      */
     void setColliAAB_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth) {
         int hw = prm_width  / 2;
@@ -161,9 +161,9 @@ public:
      * 当たり判定領域要素を軸並行直方体として定義 .
      * オブジェクトの基点を中心として、幅、高さ、奥行で指定
      * @param prm_index 当たり判定領域の要素番号
-     * @param prm_width 幅
-     * @param prm_height 高さ
-     * @param prm_depth 深さ（奥行）
+     * @param prm_width 幅(X軸方向)
+     * @param prm_height 高さ(Y軸方向)
+     * @param prm_depth 深さ（奥行・Y軸方向）
      */
     void setColliAAB_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth) {
         setColliAAB_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth);

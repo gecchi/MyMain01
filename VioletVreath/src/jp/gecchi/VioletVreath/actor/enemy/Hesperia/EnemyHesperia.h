@@ -35,6 +35,8 @@ public:
 
     /** [r]ヘスペリア１艦が発車する際の最大レーザーWay数 */
     static int max_laser_way_;
+    /** [r]本ヘスペリアの今回のレーザーWay数 */
+    int now_laser_way_;
     /** [r]発射レーザーチップの数（レーザー長さ） */
     int laser_length_;
     /** [r]レーザー発射時のX軸方向の自機との距離 */

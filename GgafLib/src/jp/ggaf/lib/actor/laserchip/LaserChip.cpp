@@ -19,7 +19,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _pChip_behind = nullptr;
     _pDepo = nullptr; //LaserChipDepositoryに追加される時に設定される。通常LaserChipとLaserChipDepositoryはセット。
     _chip_kind = 1;
-    _is_regist_hitarea = false;
     _hitarea_edge_length = 0;
     _harf_hitarea_edge_length = 0;
     _can_chikei_hit = false;
@@ -84,7 +83,7 @@ void LaserChip::onActive() {
         _pDepo->_num_chip_active++;
     }
     _force_alpha = 1.00; //最初は奥でもハッキリ映る。
-    if (_is_regist_hitarea) {
+    if (_middle_colli_able) {
         _pColliChecker->disable(1);
     }
 }
@@ -264,9 +263,9 @@ void LaserChip::onInactive() {
     _pLeader = nullptr;
 }
 
-void LaserChip::registHitAreaCube(int prm_edge_length) {
+void LaserChip::registHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     //下位レーザーチップでオーバーライトされている可能性あり
-    _is_regist_hitarea = true;
+    _middle_colli_able = true;
     _hitarea_edge_length = prm_edge_length;
     _hitarea_edge_length_3 = _hitarea_edge_length*3;
     _harf_hitarea_edge_length = _hitarea_edge_length / 2;

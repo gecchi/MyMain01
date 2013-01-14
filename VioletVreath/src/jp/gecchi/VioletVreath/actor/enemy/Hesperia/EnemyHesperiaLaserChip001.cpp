@@ -15,7 +15,8 @@ EnemyHesperiaLaserChip001::EnemyHesperiaLaserChip001(const char* prm_name) :
 }
 
 void EnemyHesperiaLaserChip001::initialize() {
-    registHitAreaCube(20000);
+    _pColliChecker->makeCollision(1);
+    _pColliChecker->setColliAAB_Cube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
     _pKurokoA->relateFaceAngWithMvAng(true);

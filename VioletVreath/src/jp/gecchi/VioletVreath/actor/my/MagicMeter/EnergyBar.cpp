@@ -15,7 +15,7 @@ void EnergyBar::initialize() {
 }
 
 void EnergyBar::onReset() {
-    setScaleR(pAmount_->getPx() / org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+    setScaleR(pAmount_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
 }
 
 void EnergyBar::onActive() {
@@ -23,7 +23,7 @@ void EnergyBar::onActive() {
 
 void EnergyBar::processBehavior() {
 //    amount_.set(value_);
-    setScaleR(pAmount_->getPx() / org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+    setScaleR(pAmount_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
     _pUvFlipper->behave();
 }
 

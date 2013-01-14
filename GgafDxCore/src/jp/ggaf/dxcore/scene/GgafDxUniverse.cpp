@@ -20,21 +20,26 @@ GgafDxUniverse::SeArray::SeArray() {
     _p = 0;
     for (int i = 0; i < MAX_SE_AT_ONCE; i++) {
         _apSe[i] = nullptr;
+        _apActor[i] = nullptr;
     }
 }
 
-void GgafDxUniverse::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency) {
+void GgafDxUniverse::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, GgafDxGeometricActor* prm_pActor) {
     if (_p < MAX_SE_AT_ONCE) {
         _apSe[_p] = prm_pSe;
         _rate_frequency[_p] = prm_rate_frequency;
         _volume[_p] = prm_volume;
         _pan[_p] = prm_pan;
+        _apActor[_p] = prm_pActor;
         _p++;
     }
 }
 
 void GgafDxUniverse::SeArray::play(int index) {
     _apSe[index]->play(_volume[index], _pan[index], _rate_frequency[index]);
+    _apSe[index]->_pActor_LastPlayed = _apActor[index];
+
+    _apActor[index] = nullptr;
     _apSe[index] = nullptr;
 }
 
@@ -69,7 +74,12 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
     GgafRepeatSeq::create(_seqkey_se_delay, 0, 8); //ズレSE再生フレーム
 }
 
-void GgafDxUniverse::registSe(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay ) {
+void GgafDxUniverse::registSe(GgafDxSe* prm_pSe,
+                              int prm_volume,
+                              float prm_pan,
+                              float prm_rate_frequency,
+                              int prm_delay,
+                              GgafDxGeometricActor* prm_pActor) {
 //    int bpm = GgafDxBgmPerformer::_active_bgm_bpm;
     //ズレフレーム数計算
     //1分間は60*60=3600フレーム
@@ -82,12 +92,9 @@ void GgafDxUniverse::registSe(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, 
     //F != 0 の場合 {f/(900/_bpm)の商 * (900/_bpm)} + (900/_bpm) が直近未来の16分音符タイミング
     //TODO:温めていたのにインベーダーエクストリームに先をこされてしまった！！＋α新要素が欲しい。！！
 
-
-
-
     //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
 
-    _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal(_seqkey_se_delay)))->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
+    _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal(_seqkey_se_delay)))->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency, prm_pActor);
     //_pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
 }
 

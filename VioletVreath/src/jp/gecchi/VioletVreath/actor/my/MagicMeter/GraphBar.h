@@ -16,6 +16,8 @@ public:
 
     float org_width_;
 
+    double rate_org_width_;
+
     /**
      *
      * @param prm_name

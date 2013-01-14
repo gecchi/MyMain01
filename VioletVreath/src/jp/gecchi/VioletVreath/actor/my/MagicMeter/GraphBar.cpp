@@ -9,6 +9,7 @@ GraphBar::GraphBar(const char* prm_name, const char* prm_model, AmountGraph* prm
     _class_name = "GraphBar";
     pAmount_ = prm_pAmount;
     org_width_ = _pBoardModel->_fSize_BoardModelWidthPx;
+    rate_org_width_ = 1.0 / org_width_;
 }
 
 

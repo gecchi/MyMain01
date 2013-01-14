@@ -11,13 +11,6 @@ namespace VioletVreath {
 //class MyOptionController : public GgafLib::DefaultMeshSetActor {
 class MyOptionController : public GgafDxCore::GgafDxGeometricActor {
 
-
-    struct AngRzRy {
-        angle Rz;
-        angle Ry;
-    };
-
-
 public:
     /** [r]最大オプション数 */
     static int max_option_num_;
@@ -30,7 +23,6 @@ public:
 
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_OptCtrlGeoHistory_;
     velo veloOptionsMv_;
-    MyShip::MoveWay way_myship_prev_;
 
     /** [r]現在のオプション数 */
     static int now_option_num_;

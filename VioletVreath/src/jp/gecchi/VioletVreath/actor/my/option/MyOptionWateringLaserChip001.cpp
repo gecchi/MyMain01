@@ -20,7 +20,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
 
 void MyOptionWateringLaserChip001::initialize() {
     _pKurokoA->relateFaceAngWithMvAng(true);
-    registHitAreaCube(80000);
+    registHitAreaCube_AutoGenMidColli(80000);
     setHitAble(true);
     setScaleR(6.0);
     setAlpha(0.99);

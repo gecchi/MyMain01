@@ -108,12 +108,12 @@ void EnemyHesperia::processBehavior() {
             if (_pProg->hasJustChanged()) {
                 //レーザーセット（レーザーチップのデポジトリで、１本分のレーザー）のデポジトリから、
                 //レーザーセットの借入を試みる
-                int laser_way = RR_EnemyHesperia_ShotWay(_RANK_); //今回発射レーザー本数
+                now_laser_way_ = RR_EnemyHesperia_ShotWay(_RANK_); //今回発射レーザー本数
                 coord laser_density = RR_EnemyHesperia_Density(_RANK_); //今回レーザーとレーザーの隙間
                 bool can_fire = false; //少なくとも一本は発射できるかどうか
 
                 for (int i = 0; i < max_laser_way_; i++) {
-                    if (laser_way > i) {
+                    if (now_laser_way_ > i) {
                         LaserChipDepository* pLaserChipDepo = (LaserChipDepository*)(pLaserChipDepoStore_->dispatch());
                         if (pLaserChipDepo) {
                             //レーザーセット（レーザーチップのデポジトリ）が借り入れ出来た。
@@ -183,13 +183,13 @@ void EnemyHesperia::processBehavior() {
                     //       [0]     [1]      [2]    [3]  ・・・ (b)
                     //       [3]     [2]      [1]    [0]  ・・・ (c)
                     //  とする
-                    coord total_laser_effect = laser_density*(laser_way-1)+1; //すだれレーザーのすだれ距離（範囲）
+                    coord total_laser_effect = laser_density*(now_laser_way_-1)+1; //すだれレーザーのすだれ距離（範囲）
 
                     dX_ = ABS(_X - pMyShip->_X);
                     dZ_ = ABS(_Z - pMyShip->_Z);
                     if (dX_ < dZ_)  {
                         //(a)(d) の場合、X方向距離よりZ方向距離が遠い
-                        for (int i = 0, tX = -total_laser_effect/2; i < laser_way; i++, tX+=laser_density) {
+                        for (int i = 0, tX = -total_laser_effect/2; i < now_laser_way_; i++, tX+=laser_density) {
                             paPos_Target_[i].set(tX, 0, 0);
                         }
                     } else {
@@ -197,24 +197,24 @@ void EnemyHesperia::processBehavior() {
                             //(b)(c)の場合、Z方向距離よりX方向距離が遠い
                             if (pMyShip->_Z < _Z) {
                                 //(b)自機が手前、ヘスペリアが奥
-                                for (int i = 0, tZ = total_laser_effect/2; i < laser_way; i++, tZ-=laser_density) {
+                                for (int i = 0, tZ = total_laser_effect/2; i < now_laser_way_; i++, tZ-=laser_density) {
                                     paPos_Target_[i].set(0, 0, tZ);
                                 }
                             } else {
                                 //(c)自機が奥、ヘスペリアが手前
-                                for (int i = 0, tZ = -total_laser_effect/2; i < laser_way; i++, tZ+=laser_density) {
+                                for (int i = 0, tZ = -total_laser_effect/2; i < now_laser_way_; i++, tZ+=laser_density) {
                                     paPos_Target_[i].set(0, 0, tZ);
                                 }
                             }
                         } else { //自機より後ろ (e)(f)
                             if (pMyShip->_Z < _Z) {
                                 //(e)自機が手前、ヘスペリアが奥
-                                for (int i = 0, tZ = -total_laser_effect/2; i < laser_way; i++, tZ+=laser_density) {
+                                for (int i = 0, tZ = -total_laser_effect/2; i < now_laser_way_; i++, tZ+=laser_density) {
                                     paPos_Target_[i].set(0, 0, tZ);
                                 }
                             } else {
                                 //(f)自機が奥、ヘスペリアが手前
-                                for (int i = 0, tZ = total_laser_effect/2; i < laser_way; i++, tZ-=laser_density) {
+                                for (int i = 0, tZ = total_laser_effect/2; i < now_laser_way_; i++, tZ-=laser_density) {
                                     paPos_Target_[i].set(0, 0, tZ);
                                 }
                             }

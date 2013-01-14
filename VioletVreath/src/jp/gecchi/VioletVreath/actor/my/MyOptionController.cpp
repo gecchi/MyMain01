@@ -37,7 +37,6 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     for (int i = 0; i < max_option_num_*o2o_; i++) {
         pRing_OptCtrlGeoHistory_->addLast(NEW GgafDxGeoElem(this));
     }
-    //way_myship_prev_ = MyShip::WAY_NONE;
 }
 
 void MyOptionController::initialize() {
@@ -48,7 +47,6 @@ void MyOptionController::onReset() {
     _pKurokoA->forceRyMvAngVeloRange(-1*angVelo_Turn_, angVelo_Turn_);
     _pKurokoA->forceRzMvAngVeloRange(-1*angVelo_Turn_, angVelo_Turn_);
     _pKurokoA->setRzRyMvAng(0,0);
-    way_myship_prev_ = P_MYSHIP->way_;
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->behave();
 }

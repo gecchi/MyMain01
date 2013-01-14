@@ -10,7 +10,6 @@ WateringLaserChip::WateringLaserChip(const char* prm_name, const char* prm_model
     _tmpX = 0;
     _tmpY = 0;
     _tmpZ = 0;
-    _middle_colli_able = true; //’†ŠÔ‚ ‚½‚è”»’è©“®¶¬—L
 }
 
 void WateringLaserChip::onActive() {

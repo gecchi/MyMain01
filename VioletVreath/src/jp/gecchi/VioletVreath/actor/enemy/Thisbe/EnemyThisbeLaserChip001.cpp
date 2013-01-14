@@ -13,7 +13,7 @@ EnemyThisbeLaserChip001::EnemyThisbeLaserChip001(const char* prm_name) :
 }
 
 void EnemyThisbeLaserChip001::initialize() {
-//    registHitAreaCube(20000);
+//    registHitAreaCube_AutoGenMidColli(20000);
     setScaleR(5.0);
     setAlpha(0.9);
 }

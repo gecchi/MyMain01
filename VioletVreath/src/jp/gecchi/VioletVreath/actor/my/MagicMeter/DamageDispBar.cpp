@@ -52,7 +52,7 @@ void DamageDispBar::processBehavior() {
         _pUvFlipper->setActivePtn(0);
         setAlpha(0.7);
         _X = pSourceBar_->_X + PX_C(pSourceBar_->pAmount_->getPx()); //元メータの右先端
-        setScaleR(1.0*pAmount_->getPx() / org_width_, 1.0); //右方向に倍率で伸ばす
+        setScaleR(1.0*pAmount_->getPx() * rate_org_width_, 1.0); //右方向に倍率で伸ばす
     } else {
         setAlpha(0);
 //        //負の値は回復を表す。主メーター右端から左に向かって青でダメージ回復の値を示すようにする。

@@ -36,10 +36,10 @@ public:
         int _volume[MAX_SE_AT_ONCE];
         float _pan[MAX_SE_AT_ONCE];
         float _rate_frequency[MAX_SE_AT_ONCE];
-
+        GgafDxGeometricActor* _apActor[MAX_SE_AT_ONCE];
         SeArray();
 
-        void add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency);
+        void add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, GgafDxGeometricActor* prm_pActor);
 
         void play(int index);
     };
@@ -87,7 +87,12 @@ public:
      */
     static int setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableActor* prm_pActor);
 
-    void registSe(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay );
+    void registSe(GgafDxSe* prm_pSe,
+                  int prm_volume,
+                  float prm_pan,
+                  float prm_rate_frequency,
+                  int prm_delay,
+                  GgafDxGeometricActor* prm_pActor);
 
 };
 
