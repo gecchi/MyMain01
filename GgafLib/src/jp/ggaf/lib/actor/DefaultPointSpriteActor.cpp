@@ -9,9 +9,9 @@ DefaultPointSpriteActor::DefaultPointSpriteActor(const char* prm_name, const cha
                             "DefaultPointSpriteEffect",
                             "DefaultPointSpriteTechnique",
                             prm_pStat,
-                            NEW CollisionChecker(this) ) {
+                            NEW CollisionChecker3D(this) ) {
     _class_name = "DefaultPointSpriteActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker3D*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 }
 

@@ -10,12 +10,12 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
                                  "SingleLaserEffect",
                                  "SingleLaserTechnique",
                                  prm_pStat,
-                                 NEW CollisionChecker(this) ) {
+                                 NEW CollisionChecker3D(this) ) {
 
     _pMeshSetModel->_set_num = 26; //現在のシングルレーザーの最大セット数強制上書き。
 
     _class_name = "SingleLaser";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker3D*)_pChecker;
     _ah_matWorld[0]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld001" );
     _ah_matWorld[1]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld002" );
     _ah_matWorld[2]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_matWorld003" );

@@ -9,10 +9,10 @@ CubeMapMorphMeshActor::CubeMapMorphMeshActor(const char* prm_name, const char* p
                                     "CubeMapMorphMeshEffect",
                                     "CubeMapMorphMeshTechnique",
                                     prm_pStat,
-                                    NEW CollisionChecker(this) ) {
+                                    NEW CollisionChecker3D(this) ) {
 
     _class_name = "CubeMapMorphMeshActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker3D*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 }
 

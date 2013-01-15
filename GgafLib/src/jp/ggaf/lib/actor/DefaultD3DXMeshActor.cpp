@@ -9,9 +9,9 @@ DefaultD3DXMeshActor::DefaultD3DXMeshActor(const char* prm_name, const char* prm
                          "DefaultMeshEffect",
                          "DefaultMeshTechnique",
                          prm_pStat,
-                         NEW CollisionChecker(this) ) {
+                         NEW CollisionChecker3D(this) ) {
     _class_name = "DefaultD3DXMeshActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker3D*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 }
 

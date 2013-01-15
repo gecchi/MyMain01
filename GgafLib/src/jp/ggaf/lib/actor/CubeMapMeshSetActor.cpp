@@ -9,10 +9,10 @@ CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name, const char* prm_m
                                "CubeMapMeshSetEffect",
                                "CubeMapMeshSetTechnique",
                                prm_pStat,
-                               NEW CollisionChecker(this) ) {
+                               NEW CollisionChecker3D(this) ) {
 
     _class_name = "CubeMapMeshSetActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker3D*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 }
 

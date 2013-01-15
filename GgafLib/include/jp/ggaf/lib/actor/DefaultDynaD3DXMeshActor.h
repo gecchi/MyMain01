@@ -15,7 +15,7 @@ public:
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* _pScaler;
     /** 衝突判定支援オブジェクト */
-    CollisionChecker* _pColliChecker;
+    CollisionChecker3D* _pColliChecker;
 
     DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 

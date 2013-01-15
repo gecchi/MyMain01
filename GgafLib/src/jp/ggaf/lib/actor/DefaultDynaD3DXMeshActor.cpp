@@ -9,10 +9,10 @@ DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const c
                              "DefaultMeshEffect",
                              "DefaultMeshTechnique",
                              prm_pStat,
-                             NEW CollisionChecker(this) ) {
+                             NEW CollisionChecker3D(this) ) {
     _class_name = "DefaultDynaD3DXMeshActor";
     _pScaler = NEW GgafDxScaler(this);
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker3D*)_pChecker;
 }
 
 void DefaultDynaD3DXMeshActor::drawHitArea() {

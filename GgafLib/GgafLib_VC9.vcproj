@@ -200,7 +200,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\util\CollisionChecker.cpp"
+				RelativePath=".\src\jp\ggaf\lib\util\CollisionChecker3D.cpp"
 				>
 			</File>
 			<File
@@ -506,7 +506,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\util\CollisionChecker.h"
+				RelativePath=".\include\jp\ggaf\lib\util\CollisionChecker3D.h"
 				>
 			</File>
 			<File

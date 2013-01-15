@@ -10,11 +10,11 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, Gg
                      "GroundMeshEffect",
                      "GroundMeshTechnique",
                      prm_pStat,
-                     NEW CollisionChecker(this) ) {
+                     NEW CollisionChecker3D(this) ) {
 
     _class_name = "GroundMeshActor";
     offset_frames_ = 0;
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker3D*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 
 //    if (pMeshModel_->paVtxBuffer_org_[0].nx == 0 &&

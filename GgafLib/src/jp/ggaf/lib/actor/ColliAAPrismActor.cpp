@@ -22,7 +22,7 @@ void ColliAAPrismActor::release() {
     DELETE_POSSIBLE_NULL(ColliAAPrismActor::_pObj);
 }
 
-void ColliAAPrismActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
+void ColliAAPrismActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
     if (prm_pColliChecker != nullptr &&
         prm_pColliChecker->_pCollisionArea != nullptr &&
         prm_pColliChecker->getTargetActor()->canHit() &&

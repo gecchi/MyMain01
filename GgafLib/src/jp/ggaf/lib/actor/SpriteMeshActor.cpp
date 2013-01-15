@@ -7,10 +7,10 @@ SpriteMeshActor::SpriteMeshActor(const char* prm_name, const char* prm_model, Gg
     GgafDxSpriteMeshActor(prm_name,
                            prm_model,
                            prm_pStat,
-                           NEW CollisionChecker(this) ) {
+                           NEW CollisionChecker3D(this) ) {
 
     _class_name = "SpriteMeshActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker3D*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 }
 

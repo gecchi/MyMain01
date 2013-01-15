@@ -10,10 +10,10 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
                          "LaserChipEffect",
                          "LaserChipTechnique",
                          prm_pStat,
-                         NEW CollisionChecker(this) ) {
+                         NEW CollisionChecker3D(this) ) {
     _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
     _obj_class |= Obj_LaserChip;
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker3D*)_pChecker;
     _class_name = "LaserChip";
     _pChip_front = nullptr;
     _pChip_behind = nullptr;

@@ -11,22 +11,12 @@ namespace GgafDxCore {
  */
 class GgafDxChecker : public GgafCore::GgafObject {
 
-protected:
+public:
     /** 対象アクター */
     GgafDxGeometricActor* _pActor;
 
-public:
-
     /** 当たり判定領域 */
     GgafDxCore::GgafDxCollisionArea* _pCollisionArea;
-//    /** 吹っ飛びX成分 */
-//    int _blown_sgn_vX;
-//    /** 吹っ飛びY成分 */
-//    int _blown_sgn_vY;
-//    /** 吹っ飛びZ成分 */
-//    int _blown_sgn_vZ;
-    /** 吹っ飛び計算を行うか */
-//    int _is_blown;
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
@@ -35,14 +25,53 @@ public:
 
     virtual void updateHitArea() = 0;
 
-    GgafDxGeometricActor* getTargetActor() {
+    /**
+     * 当たり判定領域を作成する（＝当たり判定領域要素の配列を作成する） .
+     * 内部で領域の配列を生成します。
+     * 最初に必ず実行してください。
+     * @param prm_colli_part_num 当たり判定領域の当たり判定領域要素数(1～n)
+     */
+    virtual void makeCollision(int prm_colli_part_num);
+
+    /**
+     * ヒットシしているかどうか
+     * @param prm_pOtherChecker 相手のチェッカー
+     * @return
+     */
+    virtual bool isHit(GgafDxChecker* prm_pOtherChecker) = 0;
+
+    virtual GgafDxGeometricActor* getTargetActor() {
         if (_pActor == nullptr) {
             _TRACE_("GgafDxChecker::getTargetActor nullptrであるがよいのか！");
         }
         return _pActor;
     }
 
-    virtual bool isHit(GgafDxChecker* prm_pOtherChecker) = 0;
+    /**
+     * 当たり判定領域の要素を有効にする。
+     * デフォルトは有効状態になっています。
+     * @param prm_index 有効にする当たり判定領域の要素番号
+     */
+    virtual void enable(int prm_index) {
+        _pCollisionArea->_papColliPart[prm_index]->_is_valid_flg = true;
+    }
+
+    /**
+     * 当たり判定領域の要素を無効にする。
+     * @param prm_index 無効にする当たり判定領域の要素番号
+     */
+    virtual void disable(int prm_index) {
+        _pCollisionArea->_papColliPart[prm_index]->_is_valid_flg = false;
+    }
+
+    /**
+     * 当たり判定領域の要素が有効か調べる。
+     * @param prm_index 調べたい当たり判定領域の要素番号
+     * @return true:有効 / false:無効
+     */
+    virtual bool isEnable(int prm_index) {
+        return _pCollisionArea->_papColliPart[prm_index]->_is_valid_flg;
+    }
 
     virtual ~GgafDxChecker();
 };

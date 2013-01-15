@@ -312,10 +312,10 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 void GameScene::processJudgement() {
 
     if (getBehaveingFrame() >= 120) {
-        CollisionChecker::_num_check = 0;
+        CollisionChecker3D::_num_check = 0;
 
 //        if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-//            CollisionChecker::_pLinearOctree->putTree();
+//            CollisionChecker3D::_pLinearOctree->putTree();
 //        }
 
         //本シーンの所属シーンの所属アクター全てについて当たり判定チェックを行う。
@@ -323,19 +323,19 @@ void GameScene::processJudgement() {
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
 
         //八分木アルゴリズムでヒットチェック
-        CollisionChecker::_pLinearOctree->executeAllHitChk(
+        CollisionChecker3D::_pLinearOctree->executeAllHitChk(
         KIND_CHIKEI,
         KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT
         );
-        CollisionChecker::_pLinearOctree->executeAllHitChk(
+        CollisionChecker3D::_pLinearOctree->executeAllHitChk(
         KIND_ITEM,
         KIND_MY_BODY_CHIKEI_HIT
         );
-        CollisionChecker::_pLinearOctree->executeAllHitChk(
+        CollisionChecker3D::_pLinearOctree->executeAllHitChk(
         KIND_MY,
         KIND_ENEMY_BODY
         );
-        CollisionChecker::_pLinearOctree->executeAllHitChk(
+        CollisionChecker3D::_pLinearOctree->executeAllHitChk(
         KIND_ENEMY_SHOT,
         KIND_MY_BODY
         );

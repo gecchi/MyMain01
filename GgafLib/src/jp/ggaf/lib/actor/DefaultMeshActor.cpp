@@ -11,10 +11,10 @@ DefaultMeshActor::DefaultMeshActor(const char* prm_name,
                      "DefaultMeshEffect",
                      "DefaultMeshTechnique",
                      prm_pStat,
-                     NEW CollisionChecker(this) ) {
+                     NEW CollisionChecker3D(this) ) {
 
     _class_name = "DefaultMeshActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliChecker = (CollisionChecker3D*)_pChecker;
     _pScaler = NEW GgafDxScaler(this);
 }
 

@@ -73,7 +73,7 @@ class ColliSphere;
 class ColliAAPrism;
 class LinearOctreeForActor;
 class LinearOctreeActorElem;
-class CollisionChecker;
+class CollisionChecker3D;
 
 class SplineLine;
 class SplineSequence;
@@ -99,7 +99,7 @@ class LaserChipDepositoryStore;
 }
 
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/ColliAAB.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"

@@ -41,7 +41,7 @@ public:
     }
 
 
-    void drawHitarea(CollisionChecker* prm_pChecker);
+    void drawHitarea(CollisionChecker3D* prm_pChecker);
 
     virtual ~ColliSphereActor();
 

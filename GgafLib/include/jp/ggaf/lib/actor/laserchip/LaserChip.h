@@ -42,7 +42,7 @@ private:
 public:
 
 
-    CollisionChecker* _pColliChecker;
+    CollisionChecker3D* _pColliChecker;
 
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_front;

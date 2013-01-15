@@ -3,7 +3,7 @@
 namespace GgafLib {
 
 /**
- * 衝突チェッカークラス.
+ * 3D用衝突チェッカークラス.
  * アクターに当たり判定チェック等機能を追加するクラス。
  * １つの「当たり判定領域」は、複数の「当たり判定領域要素」から形成されています。<BR>
  * 各「当たり判定領域要素」は、BOX型と球型の２種類の内から選べます。<BR>
@@ -15,7 +15,7 @@ namespace GgafLib {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class CollisionChecker : public GgafDxCore::GgafDxChecker {
+class CollisionChecker3D : public GgafDxCore::GgafDxChecker {
 
 public:
     /** 線形８分木オブジェクトへのポインタ */
@@ -31,9 +31,9 @@ public:
 
     /**
      * コンストラクタ<BR>
-     * @param	prm_pActor	当たり判定機能を追加するActor
+     * @param   prm_pActor  当たり判定機能を追加するActor
      */
-    CollisionChecker(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    CollisionChecker3D(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 当たり判定領域BOXの回転平行移動と、８分木登録を行います .
@@ -44,13 +44,6 @@ public:
      */
     virtual void updateHitArea() override;
 
-    /**
-     * 当たり判定領域を作成する（＝当たり判定領域要素の配列を作成する） .
-     * 内部で領域の配列を生成します。
-     * 最初に必ず実行してください。
-     * @param prm_colli_part_num 当たり判定領域の当たり判定領域要素数(1～n)
-     */
-    void makeCollision(int prm_colli_part_num);
 
     /**
      * 当たり判定領域要素を球として定義 .
@@ -134,8 +127,7 @@ public:
      * @param y2 右下奥Y座標
      */
     void setColliAAB(int prm_index, coord x1, coord y1, coord x2, coord y2) {
-        setColliAAB(prm_index, x1, y1, -1 * PX_C(1) / 2, x2, y2, PX_C(1) / 2, false, false,
-                      false);
+        setColliAAB(prm_index, x1, y1, -1 * PX_C(1) / 2, x2, y2, PX_C(1) / 2, false, false, false);
     }
 
     /**
@@ -312,40 +304,15 @@ public:
         setColliAAPrism_Cube(prm_index, 0, 0, 0, prm_edge, pos_prism);
     }
 
-    /**
-     * 当たり判定領域の要素を有効にする。
-     * デフォルトは有効状態になっています。
-     * @param prm_index 有効にする当たり判定領域の要素番号
-     */
-    void enable(int prm_index) {
-        _pCollisionArea->_papColliPart[prm_index]->_is_valid_flg = true;
-    }
-
-    /**
-     * 当たり判定領域の要素を無効にする。
-     * @param prm_index 無効にする当たり判定領域の要素番号
-     */
-    void disable(int prm_index) {
-        _pCollisionArea->_papColliPart[prm_index]->_is_valid_flg = false;
-    }
-
-    /**
-     * 当たり判定領域の要素が有効か調べる。
-     * @param prm_index 調べたい当たり判定領域の要素番号
-     * @return true:有効 / false:無効
-     */
-    bool isEnable(int prm_index) {
-        return _pCollisionArea->_papColliPart[prm_index]->_is_valid_flg;
-    }
 
     /**
      * 自身の判定領域と他の当たり判定領域と接触しているか調べる
-     * @param prm_pOtherChecker 他の当たり判定領域
+     * @param prm_pOppChecker 他の当たり判定領域
      * @return true:当たっている / false:当たっていない
      */
-    virtual bool isHit(GgafDxCore::GgafDxChecker* prm_pOtherChecker) override;
+    virtual bool isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) override;
 
-    virtual ~CollisionChecker();
+    virtual ~CollisionChecker3D();
 };
 
 }

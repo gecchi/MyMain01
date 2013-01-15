@@ -140,7 +140,7 @@ void World::processBehavior() {
 #ifdef MY_DEBUG
     sprintf(aBufDebug_, "%05uDRAW / %06uCHK / %07uF / %03.1fFPS / V%03d",
                             GgafGod::_num_actor_drawing,
-                            CollisionChecker::_num_check,
+                            CollisionChecker3D::_num_check,
                             (unsigned int)askGod()->_frame_of_God,
                             askGod()->_fps,
                             (GgafDxSound::_master_volume)

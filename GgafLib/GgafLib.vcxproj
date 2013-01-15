@@ -185,7 +185,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\ColliAABActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPrism.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\ColliAAPrismActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker3D.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliSphere.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\ColliSphereActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\CubeMapMeshActor.cpp" />
@@ -264,7 +264,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\ColliAABActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPrism.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\ColliAAPrismActor.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\collisionchecker3d.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliSphere.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\ColliSphereActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\CubeMapMeshActor.h" />
