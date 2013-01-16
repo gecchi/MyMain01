@@ -153,7 +153,6 @@ void MyOptionController::processBehavior() {
         }
     }
 
-
 //    //ƒMƒYƒ‚
 //    pDirectionVector_->locateWith(this);
 //    pDirectionVector_->_pKurokoA->setRzRyMvAng(_pKurokoA->_angRzMv, _pKurokoA->_angRyMv);

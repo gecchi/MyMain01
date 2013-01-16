@@ -4,127 +4,13 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 
-//void StgUtil::shotWay001(GgafDxGeometricActor* prm_pFrom,
-//                         GgafActorDepository* prm_pDepo_Shot,
-//                         GgafDxGeometricActor* prm_pTarget,
-//                         int prm_way, angle prm_angClearance,
-//                         velo prm_velo, acce prm_acce) {
-//    angle* paAng_way = NEW angle[prm_way];
-//    angle rz,ry;
-//    GgafDxUtil::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
-//                           prm_pTarget->_Y - prm_pFrom->_Y,
-//                           prm_pTarget->_Z - prm_pFrom->_Z,
-//                           rz, ry);
-//    GgafDxUtil::getWayAngle2D(0,prm_way, prm_angClearance, paAng_way);
-//    GgafDxGeometricActor* pActor_Shot;
-//    for (int i = 0; i < prm_way; i++) {
-//        pActor_Shot = (GgafDxGeometricActor*)prm_pDepo_Shot->dispatch();
-//        if (pActor_Shot) {
-//            pActor_Shot->locateWith(prm_pFrom);
-//            pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAng_way[i], ry);
-//            pActor_Shot->_pKurokoA->setMvVelo(prm_velo);
-//            pActor_Shot->_pKurokoA->setMvAcce(prm_acce);
-//        }
-//    }
-//    DELETEARR_IMPOSSIBLE_NULL(paAng_way);
-//}
-//
-//void StgUtil::shotWay001v2(GgafDxGeometricActor* prm_pFrom,
-//                           GgafActorDepository*  prm_pDepo_Shot,
-//                           GgafDxGeometricActor* prm_pTarget,
-//                           int prm_way, angle prm_angClearance,
-//                           velo prm_velo_first, acce prm_acce,
-//                           int prm_set_num, float prm_attenuated) {
-//    angle* paAng_way = NEW angle[prm_way];
-//    angle rz,ry;
-//    GgafDxUtil::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
-//                           prm_pTarget->_Y - prm_pFrom->_Y,
-//                           prm_pTarget->_Z - prm_pFrom->_Z,
-//                           rz, ry);
-//    GgafDxUtil::getWayAngle2D(0,prm_way, prm_angClearance, paAng_way);
-//    GgafDxGeometricActor* pActor_Shot;
-//    velo now_velo = prm_velo_first;
-//    acce now_acce = prm_acce;
-//    for (int n = 0; n < prm_set_num; n++) {
-//        for (int i = 0; i < prm_way; i++) {
-//            pActor_Shot = (GgafDxGeometricActor*)prm_pDepo_Shot->dispatch();
-//            if (pActor_Shot) {
-//                pActor_Shot->locateWith(prm_pFrom);
-//                pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAng_way[i], ry);
-//                pActor_Shot->_pKurokoA->setMvVelo(now_velo);
-//                pActor_Shot->_pKurokoA->setMvAcce(now_acce);
-//            }
-//        }
-//        now_velo *= prm_attenuated;
-//        now_acce *= prm_attenuated;
-//    }
-//    DELETEARR_IMPOSSIBLE_NULL(paAng_way);
-//}
-//
-//void StgUtil::shotWay002(GgafDxGeometricActor* prm_pFrom,
-//                         GgafActorDepository*  prm_pDepo_Shot,
-//                         GgafDxGeometricActor* prm_pTarget,
-//                         int prm_way, angle prm_angBegin,
-//                         velo prm_velo, acce prm_acce) {
-//    angle* paAng_way = NEW angle[prm_way];
-//    angle rz,ry;
-//    GgafDxUtil::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
-//                           prm_pTarget->_Y - prm_pFrom->_Y,
-//                           prm_pTarget->_Z - prm_pFrom->_Z,
-//                           rz, ry);
-//    GgafDxUtil::getRadialAngle2D(prm_angBegin, prm_way, paAng_way);
-//    GgafDxGeometricActor* pActor_Shot;
-//    for (int i = 0; i < prm_way; i++) {
-//        pActor_Shot = (GgafDxGeometricActor*)prm_pDepo_Shot->dispatch();
-//        if (pActor_Shot) {
-//            pActor_Shot->locateWith(prm_pFrom);
-//            pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAng_way[i], ry+D90ANG);
-//            pActor_Shot->_pKurokoA->setMvVelo(prm_velo);
-//            pActor_Shot->_pKurokoA->setMvAcce(prm_acce);
-//        }
-//    }
-//    DELETEARR_IMPOSSIBLE_NULL(paAng_way);
-//}
-//void StgUtil::shotWay002v2(GgafDxGeometricActor* prm_pFrom,
-//                           GgafActorDepository*     prm_pDepo_Shot,
-//                           GgafDxGeometricActor* prm_pTarget,
-//                           int prm_way, angle prm_angBegin,
-//                           velo prm_velo_first, acce prm_acce,
-//                           int prm_set_num, float prm_attenuated) {
-//    angle* paAng_way = NEW angle[prm_way];
-//    angle rz,ry;
-//    GgafDxUtil::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
-//                           prm_pTarget->_Y - prm_pFrom->_Y,
-//                           prm_pTarget->_Z - prm_pFrom->_Z,
-//                           rz, ry);
-//    GgafDxUtil::getRadialAngle2D(prm_angBegin, prm_way, paAng_way);
-//    GgafDxGeometricActor* pActor_Shot;
-//    velo now_velo = prm_velo_first;
-//    acce now_acce = prm_acce;
-//    for (int n = 0; n < prm_set_num; n++) {
-//        for (int i = 0; i < prm_way; i++) {
-//            pActor_Shot = (GgafDxGeometricActor*)prm_pDepo_Shot->dispatch();
-//            if (pActor_Shot) {
-//                pActor_Shot->locateWith(prm_pFrom);
-//                pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAng_way[i], ry+D90ANG);
-//                pActor_Shot->_pKurokoA->setMvVelo(now_velo);
-//                pActor_Shot->_pKurokoA->setMvAcce(now_acce);
-//            }
-//        }
-//        now_velo *= prm_attenuated;
-//        now_acce *= prm_attenuated;
-//    }
-//    DELETEARR_IMPOSSIBLE_NULL(paAng_way);
-//}
-
-
 GgafDxGeometricActor* StgUtil::shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
-                                         angle prm_RZ, angle prm_RY,
-                                         GgafActorDepository* prm_pDepo_Shot,
-                                         coord prm_r,
-                                         velo prm_velo_first, acce prm_acce,
-                                         int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                         void (*pFunc_CallBackDispatched)(GgafDxGeometricActor*, int, int)) {
+                                          angle prm_RZ, angle prm_RY,
+                                          GgafActorDepository* prm_pDepo_Shot,
+                                          coord prm_r,
+                                          velo prm_velo_first, acce prm_acce,
+                                          int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                          void (*pFunc_CallBackDispatched)(GgafDxGeometricActor*, int, int)) {
     GgafDxGeometricActor* pRet = nullptr;
     float vx, vy, vz;
     GgafDxUtil::getNormalizeVectorZY(prm_RZ, prm_RY, vx, vy, vz);

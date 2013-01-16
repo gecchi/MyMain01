@@ -680,12 +680,12 @@ public:
      * @param prm_attenuated      初弾以降のショット初期速度・加速度の減衰率(< 1.0)、或いは増幅率(>1.0)
      */
     static GgafDxCore::GgafDxGeometricActor* shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
-                                                       angle prm_RZ, angle prm_RY,
-                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot,
-                                                       coord prm_r,
-                                                       velo prm_velo_first, acce prm_acce,
-                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
+                                                        angle prm_RZ, angle prm_RY,
+                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                        coord prm_r,
+                                                        velo prm_velo_first, acce prm_acce,
+                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                        void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
 
     /**
      * 発射元の向いている方向（_RZ > _RY）に向かって 弾を複数個撃つ .
@@ -707,12 +707,12 @@ public:
      * @param prm_attenuated      初弾以降のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
      */
     static GgafDxCore::GgafDxGeometricActor* shotWay001(coord prm_from_X, coord prm_from_Y, coord prm_from_Z,
-                                                       coord prm_to_X, coord prm_to_Y, coord prm_to_Z,
-                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot,
-                                                       coord prm_r,
-                                                       velo prm_velo_first, acce prm_acce,
-                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
+                                                        coord prm_to_X, coord prm_to_Y, coord prm_to_Z,
+                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                        coord prm_r,
+                                                        velo prm_velo_first, acce prm_acce,
+                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                        void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
 
     /**
      * 発射元の向いている方向（_RZ > _RY）に向かって 弾を複数個撃つ .
@@ -729,11 +729,11 @@ public:
      * @param prm_attenuated      初弾以降のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
      */
     static GgafDxCore::GgafDxGeometricActor* shotWay001(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
-                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot,
-                                                       coord prm_r,
-                                                       velo prm_velo_first, acce prm_acce,
-                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
+                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                        coord prm_r,
+                                                        velo prm_velo_first, acce prm_acce,
+                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                        void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
 
     /**
      * N*M-Way弾を複数セット撃つ .
