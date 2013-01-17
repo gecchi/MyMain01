@@ -439,30 +439,42 @@ INVDESTALPHA : 1-Ad
 計算式 : src = dest
 
 
-アルファブレンドの基本式
-計算式 rgb : (Cs.rgb * ①) + (Cd.rgb * ②)
-       α  : (Cs.a   * ③) + (Cd.a   * ④)
+アルファブレンドの基本式（③⑥は演算）
+計算式 rgb : (Cs.rgb * ①) ③ (Cd.rgb * ②)
+       α  : (Cs.a   * ④) ⑥ (Cd.a   * ⑤)
 
 ①SrcBlend
 ②DestBlend
-③SrcBlendAlpha
-④DestBlendAlpha
+③BlendOp
+④SrcBlendAlpha
+⑤DestBlendAlpha
+⑥BlendOpAlpha
+---------------------------------------------------------------------
+
 
 ～半透明合成～
 後ろの画像が透けて見えます。
 煙のエフェクトなどで良く使います。
 
 rgb :  (Cs.rgb * As) + (Cd.rgb * (1-As)) 
-α  :  (Cs.a   * 1 ) + (Cs.d   * 0     )
+α  :  (Cs.a   * 1 ) + (Cd.a   * 0     )
 ---------------------------------------
+AlphaBlendEnable = true;          //default は false
+SeparateAlphaBlendEnable = true;  //アルファの演算を別途指定 default は false
+SrcBlend  = SrcAlpha;             
+DestBlend = InvSrcAlpha;          
+BlendOp = Add;                    
+SrcBlendAlpha = One;              //default
+DestBlendAlpha = Zero;            //default
+BlendOpAlpha = Add;               //default
+
+デフォルトを省略して書くと
+
 AlphaBlendEnable = true;
-SeparateAlphaBlendEnable = true;
 SrcBlend  = SrcAlpha;
 DestBlend = InvSrcAlpha;
-BlendOp = Add;            //default
-SrcBlendAlpha = One;      //default
-DestBlendAlpha = Zero;    //default
-BlendOpAlpha = Add;       //default
+BlendOp = Add;
+
 ---------------------------------------
 
 ～加算合成～
@@ -471,27 +483,51 @@ BlendOpAlpha = Add;       //default
 魔法や炎など、エフェクトで一番良く使われています。
 
 rgb :  (Cs.rgb * As) + (Cd.rgb * 1) 
-α  :  (Cs.a   * 1 ) + (Cs.d   * 0)
+α  :  (Cs.a   * 1 ) + (Cd.a   * 0)
 ---------------------------------------
+AlphaBlendEnable = true;              //default は false
+SeparateAlphaBlendEnable = true;      //アルファの演算を別途指定 default は false
+SrcBlend  = SrcAlpha;                 
+DestBlend = One;
+BlendOp = Add;                        
+SrcBlendAlpha = One;                  //default
+DestBlendAlpha = Zero;                //default
+BlendOpAlpha = Add;                   //default
+
+デフォルトを省略して書くと
+
 AlphaBlendEnable = true;
-SeparateAlphaBlendEnable = true;
 SrcBlend  = SrcAlpha;
 DestBlend = One;
-BlendOp = Add;            //default
-SrcBlendAlpha = One;      //default
-DestBlendAlpha = Zero;    //default
-BlendOpAlpha = Add;       //default
+BlendOp = Add;
+
 ---------------------------------------
 
 ～減算合成～
 加算合成とは逆に色を減算します。
 
-rgb : (Cd.rgb * 1) - (Cs.rgb * As) = dest rgb
-α  : (Cs.a   * 1 ) + (Cs.d   * 0)
-
-SrcBlend  = SrcAlpha;
+rgb : (Cd.rgb * 1) - (Cs.rgb * As) = dest rgb    ※CdとCsが順番逆に注意、Asを入れることで減算半透明合成。
+α  : (Cs.a   * 1) + (Cs.d   * 0 )
+---------------------------------------
+AlphaBlendEnable = true;              //default は false
+SeparateAlphaBlendEnable = true;      //アルファの演算を別途指定 default は false
 DestBlend = One;
+SrcBlend  = SrcAlpha;
 BlendOp = RevSubtract;
+SrcBlendAlpha = One;                  //default
+DestBlendAlpha = Zero;                //default
+BlendOpAlpha = Add;                   //default
+
+デフォルトを省略して書くと
+
+AlphaBlendEnable = true;
+DestBlend = One;
+SrcBlend  = SrcAlpha;
+BlendOp = RevSubtract;
+
+---------------------------------------
+
+
 
 ～乗算合成～
 色を乗算すると、
@@ -501,6 +537,7 @@ BlendOp = RevSubtract;
 次のようにして考える
 (Cs.rgb * Cd.rgb) + (Cd.rgb * 0) = dest
 
+AlphaBlendEnable = true;
 SrcBlend  = SrcColor;
 DestBlend = Zero;
 BlendOp = Add;
@@ -508,6 +545,8 @@ BlendOp = Add;
 または
 
 (Cs.rgb * 0) + (Cd * Cs.rgb) = dest
+
+AlphaBlendEnable = true;
 SrcBlend  = Zero;
 DestBlend = DestColor;
 BlendOp = Add;

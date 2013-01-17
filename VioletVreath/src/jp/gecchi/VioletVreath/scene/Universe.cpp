@@ -71,7 +71,6 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
         _TRACE_("＜警告＞Universe::switchCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()していますので無視します。pActiveCamWorker_="<<pActiveCamWorker_->getName());
 #endif
     }
-//    _TRACE_("switchCameraWork("<<prm_pID<<") end---");
 //    stack_CamWorkerCon_.dump();
     return pCamWorker;
 
