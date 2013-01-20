@@ -8,7 +8,7 @@ VvvUniverse::VvvUniverse(const char* prm_name, VvvCamera* prm_pCam) :
 
 void VvvUniverse::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
-    pWorld_ = createInFactory(VvvWorld, "SIMPLE_WORLD");
+    pWorld_ = createInFactory(VVViewer::VvvWorld, "SIMPLE_WORLD");
     addSubLast(pWorld_);
 }
 

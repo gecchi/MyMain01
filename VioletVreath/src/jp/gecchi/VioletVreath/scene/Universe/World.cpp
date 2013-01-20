@@ -28,7 +28,7 @@ void World::initialize() {
     pixcoord cx = GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2;
     pixcoord cy = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)/2;
 
-    pLabel_title_ = createInFactory(LabelGecchi16Font, "STR01");
+    pLabel_title_ = createInFactory(VioletVreath::LabelGecchi16Font, "STR01");
     getDirector()->addSubGroup(pLabel_title_);
     pLabel_title_->update(PX_C(cx), PX_C(cy),
                           "[ VIOLET VREATH ]\nVERSION 0.0.1\nPLEASE WAIT A MOMENT ...",
@@ -39,7 +39,7 @@ void World::initialize() {
     ColliAAPrismActor::get(); //当たり判定領域表示用プリズム、プリロード
     ColliSphereActor::get();  //当たり判定領域表示用球、プリロード
 #endif
-    pLabel_debug_ = createInFactory(LabelGecchi16Font, "DebugStr");
+    pLabel_debug_ = createInFactory(VioletVreath::LabelGecchi16Font, "DebugStr");
     pLabel_debug_->update(PX_C(1), PX_C(1), "");
     getDirector()->addSubGroup(pLabel_debug_);
 
@@ -113,16 +113,12 @@ void World::processBehavior() {
             break;
         }
 
-        case World::PROG_MAINLOOP: {
+        case World::PROG_MAINLOOP: { //世界のメインループ
             if (_pProg->hasJustChanged()) {
                 addSubLast(pGameScene_);
             }
 
-            //GameScene作成完了
             VB->update(); //入力情報更新
-
-            //_TRACE_("VB="<<(VB)<<" VB->_pVBRecord_Active->_state="<<VB->_pVBRecord_Active->_state);
-
 
             //F5キーが音量下げ
             if (GgafDxInput::isBeingPressedKey(DIK_F5)) {

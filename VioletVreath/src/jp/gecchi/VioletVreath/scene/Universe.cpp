@@ -22,7 +22,7 @@ Universe::Universe(const char* prm_name, Camera* prm_pCamera) : DefaultUniverse(
 }
 
 void Universe::initialize() {
-    pWorld_ = createInFactory(World, "WORLD");
+    pWorld_ = createInFactory(VioletVreath::World, "WORLD");
     addSubLast(pWorld_);
     _TRACE_("Universe::initialize()");
 }
@@ -30,7 +30,6 @@ void Universe::initialize() {
 void Universe::processBehavior() {
     DefaultUniverse::processBehavior();
 }
-
 
 void Universe::processJudgement() {
     DefaultUniverse::processJudgement();

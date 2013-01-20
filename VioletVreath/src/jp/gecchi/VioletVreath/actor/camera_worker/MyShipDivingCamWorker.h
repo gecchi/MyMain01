@@ -12,14 +12,12 @@ namespace VioletVreath {
 class MyShipDivingCamWorker : public CameraWorker {
 
 public:
-//    MyShip* pMyShip_;
-
 
     MyShipDivingCamWorker(const char* prm_name);
 
     virtual void initialize() override;
 
-    virtual ~MyShipDivingCamWorker(); //デストラクタ
+    virtual ~MyShipDivingCamWorker();
 };
 
 }
