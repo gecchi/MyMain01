@@ -8,7 +8,7 @@ MgrUniverse::MgrUniverse(const char* prm_name, MgrCamera* prm_pCam) :
 
 void MgrUniverse::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
-    MgrWorld* pWorld = createInFactory(Mogera::MgrWorld, "SIMPLE_WORLD");
+    MgrWorld* pWorld = createInFactory(Mogera::MgrWorld, "MOGERA_WORLD");
     addSubLast(pWorld);
 }
 

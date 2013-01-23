@@ -72,7 +72,6 @@ void EnemyThalia::processBehavior() {
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                  0, 100,
                                                  TURN_CLOSE_TO, false);
-
                 _pProg->changeNext();
             }
             break;

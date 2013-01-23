@@ -102,7 +102,7 @@ void GgafProperties::load(std::string prm_properties_filename) {
 
 void GgafProperties::clean() {
     _TRACE_("Properties::clean()");
-    DELETE_IMPOSSIBLE_NULL(_pMapProperties);
+    DELETE_POSSIBLE_NULL(_pMapProperties);
 }
 
 std::string GgafProperties::getStr(std::string prm_key) {

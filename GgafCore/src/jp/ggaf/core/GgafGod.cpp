@@ -42,14 +42,13 @@ GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
     _is_materialized_flg = false;
     GgafFactory::_pGarbageBox = NEW GgafGarbageBox();
     _is_being = false;
-//    _can_be = true;
     _was_cleaned = false;
     _skip_count_of_frame = 0;
     _max_skip_frames = (int)GGAF_PROPERTY(MAX_SKIP_FRAME);
     _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     _sync_frame_time = false;
     _cnt_frame = 0;
-    _can_be = true;
+    GgafGod::_can_be = true;
 }
 
 void GgafGod::be() {
@@ -97,7 +96,7 @@ void GgafGod::be() {
     //   例えば上図での 3frame begin  ～ 4frame begin 間の時間は前処理により変動する。
     //
 
-    if (_can_be) {
+    if (GgafGod::_can_be) {
         _is_being = true;
         if (_pUniverse == nullptr) {
             //この世がまだ無い場合は、先ずこの世を作成。

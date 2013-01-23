@@ -356,8 +356,8 @@ coord EnemyHesperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
     static double tan5 = tan(5*(PI/180.0)); //‚T“xã‚©‚ç‘Å‚¿‰º‚ë‚·
     coord dY = pThis->_Y - pMyShip->_Y;
     coord TurnDY = DT*tan5 - dY;
-    if (TurnDY < 0) {
-        return PX_C(200);
+    if (TurnDY < PX_C(100)) {
+        return PX_C(100);
     } else {
         return TurnDY;
     }

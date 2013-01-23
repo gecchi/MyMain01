@@ -146,8 +146,12 @@ public:
      * コンストラクタ<BR>
      */
     GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
-
-    HRESULT init();
+    /**
+     * DirectXのデバイスの初期設定を行う。
+     * 神を生成したならば１回実行して下さい。
+     * @return E_FAIL:失敗／D3D_OK:成功
+     */
+    virtual HRESULT initDevice();
 
     virtual void presentUniversalMoment() override;
     virtual void executeUniversalJudge() override;

@@ -47,7 +47,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     try {
         //神の誕生
         SmpGod* pGod = new SmpGod(hInstance, hWnd1, hWnd2);
-        pGod->init();
+        pGod->initDevice();
         timeBeginPeriod(1);
         //ループ本体
         while (true) {

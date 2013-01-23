@@ -451,7 +451,7 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
     _TRACE_(" _aRect_Present[1].bottom = "<<_aRect_Present[1].bottom);
 }
 
-HRESULT GgafDxGod::init() {
+HRESULT GgafDxGod::initDevice() {
     //2011/09/18 WDDM が使用できるなら使用するように変更。
     // マルチモニタフルスクリーン時のデバイスロスト時の復旧が、
     // XPではうまくいくのにVistaではうまくいかない時があることが発覚。

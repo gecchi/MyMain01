@@ -54,7 +54,6 @@ void EnemyPallas::processBehavior() {
         }
     }
 
-
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
             if (pSplSeq_) {
@@ -113,7 +112,6 @@ void EnemyPallas::processBehavior() {
             break;
     }
 
-
     if (pSplSeq_) {
         pSplSeq_->behave(); //スプライン移動を振る舞い
     }
@@ -129,7 +127,7 @@ void EnemyPallas::processJudgement() {
 
 void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    
+
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         setHitAble(false);
         //爆発効果

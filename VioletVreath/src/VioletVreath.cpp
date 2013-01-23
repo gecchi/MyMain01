@@ -114,7 +114,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     try {
         //神の誕生
         pGod = NEW VioletVreath::God(hInstance, hWnd1, hWnd2);
-        if (SUCCEEDED(pGod->init())) {
+        if (SUCCEEDED(pGod->initDevice())) {
             // ループ・ザ・ループ
             ::timeBeginPeriod(1);
             while (true) {

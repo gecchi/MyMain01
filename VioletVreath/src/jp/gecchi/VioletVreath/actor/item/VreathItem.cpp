@@ -12,9 +12,7 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::Gg
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.9);
 
-    _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, D_ANG(5));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(7));
+    _pKurokoA->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     _pKurokoA->relateFaceAngWithMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress();
@@ -82,9 +80,9 @@ void VreathItem::processBehavior() {
         MyShip* pMyShip = P_MYSHIP;
         if (_pProg->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            _pKurokoB->setVxMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv);
-            _pKurokoB->setVyMvVelo(_pKurokoA->_vY*_pKurokoA->_veloMv);
-            _pKurokoB->setVzMvVelo(_pKurokoA->_vZ*_pKurokoA->_veloMv);
+            _pKurokoB->setVxyzMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv,
+                                     _pKurokoA->_vY*_pKurokoA->_veloMv,
+                                     _pKurokoA->_vZ*_pKurokoA->_veloMv);
             _pKurokoB->execGravitationMvSequenceTwd(pMyShip, PX_C(30), 100, 60000);
             _pKurokoA->setMvVelo(0);
             _pKurokoA->setMvAcce(0);
@@ -122,7 +120,7 @@ void VreathItem::processBehavior() {
             _pProg->change(PROG_NOTIONG);
             sayonara(); //終了
         }
-        pMyShip->mp_.inc(1);
+        pMyShip->vreath_.inc(1);
     }
     _pKurokoA->behave();
     _pKurokoB->behave();
