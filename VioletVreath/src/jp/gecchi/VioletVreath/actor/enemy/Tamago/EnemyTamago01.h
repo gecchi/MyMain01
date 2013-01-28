@@ -22,7 +22,7 @@ public:
 
     DepositoryConnection* pDepoCon_;
 
-
+public:
     /**
      * コンストラクタ
      * @param prm_name

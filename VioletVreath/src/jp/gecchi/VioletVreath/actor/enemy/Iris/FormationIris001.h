@@ -13,6 +13,7 @@ class FormationIris001 : public GgafLib::TreeFormation {
     DepositoryConnection* pDepoCon_;
     /** スプライン定義資源への接続 */
     SplineLineConnection* pSplLineCon_;
+
 public:
     /** 編隊数(RANK変動) */
     int num_Iris_;
@@ -23,6 +24,7 @@ public:
     /** 移動速度(RANK変動) */
     velo velo_mv_;
 
+public:
     FormationIris001(const char* prm_name);
 
     virtual void initialize() override;

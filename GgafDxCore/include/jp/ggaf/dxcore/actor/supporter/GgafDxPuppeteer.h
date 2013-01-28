@@ -26,6 +26,11 @@ namespace GgafDxCore {
  */
 class GgafDxPuppeteer : public GgafCore::GgafObject {
 private:
+    /** [r]パペットのモデル */
+    GgafDxD3DXAniMeshModel* _pModel;
+    /** [r]パペットのアニメーションコントローラー */
+    ID3DXAnimationController* _pAc;
+
     /**
      * 芸(モーション) .
      */
@@ -57,8 +62,9 @@ private:
         bool   _is_shifting_weight;
         /** ループ方法 */
         GgafDxPuppeteerMethod _method;
-
+    public:
         Performance() {
+            _pAnimationSet = nullptr;
             _time_of_one_loop   = 0.0;
             _local_time         = 0.0;
             _target_loop        = -1;
@@ -83,11 +89,6 @@ private:
         Performance* _pPerformance;
     };
 
-    /** [r]パペットのモデル */
-    GgafDxD3DXAniMeshModel* _pModel;
-    /** [r]パペットのアニメーションコントローラー */
-    ID3DXAnimationController* _pAc;
-
 public:
     /** [r]パペット */
     GgafDxD3DXAniMeshActor* _pPuppet;
@@ -98,6 +99,7 @@ public:
     /** [r/w]左手用、右手用のパペッターの操り棒  [0]:左手用／[1]:右手用  */
     Stick _aStick[2];
 
+public:
     /**
      * コンストラクタ .
      * @param prm_pPuppet 操られる者

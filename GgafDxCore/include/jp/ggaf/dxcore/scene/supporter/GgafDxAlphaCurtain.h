@@ -21,6 +21,7 @@ public:
     /** [r]現在のシーンのα */
     float _alpha;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_pScene αカーテンを取り付けるシーン

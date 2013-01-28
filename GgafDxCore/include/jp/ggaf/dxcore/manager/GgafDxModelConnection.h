@@ -9,8 +9,8 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxModelConnection : public GgafCore::GgafResourceConnection<GgafDxModel> {
-public:
 
+public:
     /**
      * コンストラクタ<BR>
      * @param prm_idstr モデル識別名

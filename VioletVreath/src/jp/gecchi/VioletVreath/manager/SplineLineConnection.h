@@ -11,7 +11,6 @@ namespace VioletVreath {
 class SplineLineConnection : public GgafCore::GgafResourceConnection<GgafLib::SplineLine> {
 
 public:
-
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名

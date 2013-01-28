@@ -21,6 +21,7 @@ public:
     /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name

@@ -21,6 +21,7 @@ public:
     /** [r] ‚W•ª–Ø‹óŠÔƒŒƒxƒ‹” */
     static int OCTREE_LEVEL;
 
+public:
     static void load(std::string prm_properties_filename); //shadows
     static void clean();                            //shadows
 };

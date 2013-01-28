@@ -15,6 +15,7 @@ class WallAABActor : public WallPartsActor {
 public:
     D3DXHANDLE _h_distance_AlphaTarget;
 
+public:
     WallAABActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void processDraw() override;

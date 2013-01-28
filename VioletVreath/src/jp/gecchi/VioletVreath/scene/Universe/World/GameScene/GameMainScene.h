@@ -28,6 +28,7 @@ public:
     LabelGecchi8Font* pLabel_JIKI_Z_;
     LabelRankFont* pRankFont_;
 
+public:
     GameMainScene(const char* prm_name);
     void onReset() override;
     void initialize() override;

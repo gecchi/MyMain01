@@ -10,12 +10,13 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class EnemyHermioneArmHead : public EnemyHermioneArm {
-public:
 
+public:
     /** [r/w]ハッチから発射されるアクターをメンバーに持つデポジトリ */
     DepositoryConnection* pDpcon_;
     GgafCore::GgafActorDepository* pDepo_Fired_;
 
+public:
     EnemyHermioneArmHead(const char* prm_name);
 
     void onCreateModel() override;

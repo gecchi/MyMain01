@@ -19,6 +19,7 @@ public:
         PROG_END     ,
     };
 
+public:
     GameEndingScene(const char* prm_name);
     void onReset() override;
     void ready();

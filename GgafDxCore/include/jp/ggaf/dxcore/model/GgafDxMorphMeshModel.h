@@ -46,7 +46,6 @@ namespace GgafDxCore {
 class GgafDxMorphMeshModel : public GgafDxModel {
     friend class GgafDxModelManager;
 
-protected:
 public:
     struct INDEXPARAM {
         UINT MaterialNo;
@@ -67,7 +66,6 @@ public:
     /** モーフターゲットメッシュの頂点フォーマット定義 */
     class VERTEX_MORPH : public GgafDxModel::VERTEX_3D_BASE {
     public:
-
     };
 
     /** モーフターゲット数 */
@@ -109,13 +107,12 @@ public:
     /** Paulさんメッシュ（要素数＝プライマリ＋モーフターゲット数） */
     Frm::Mesh** _papMeshesFront;
 
+public:
     /**
      * コンストラクタ<BR>
      * @param prm_model_name モデル定義の識別名
      */
     GgafDxMorphMeshModel(char* prm_model_name);
-
-public:
 
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 

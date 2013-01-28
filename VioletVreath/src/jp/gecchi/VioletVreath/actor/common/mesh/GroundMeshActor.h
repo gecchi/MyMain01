@@ -16,6 +16,7 @@ public:
 
     GgafLib::CollisionChecker3D* _pColliChecker;
 
+public:
     GroundMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
     virtual void onCreateModel() override {
     }

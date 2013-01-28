@@ -22,6 +22,8 @@ public:
 
     LabelGecchi16Font* pLabel01_;
     bool need_name_entry_;
+
+public:
     GameOverScene(const char* prm_name);
     void onReset() override;
     virtual void initialize() override;

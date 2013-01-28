@@ -18,15 +18,18 @@ public:
         angle _rx;
         angle _rz;
         angle _ry;
-        RotPosPrism() {}
-        RotPosPrism(angle rx, angle rz, angle ry) : GgafCore::GgafObject(), _rx(rx), _rz(rz), _ry(ry) {
+    public:
+        RotPosPrism() : _rx(0), _rz(0), _ry(0) {
+        };
+        RotPosPrism(angle rx, angle rz, angle ry) :
+            GgafCore::GgafObject(), _rx(rx), _rz(rz), _ry(ry) {
         }
     };
-
 
     static bool init;
     static std::map<int, GgafDxAAPrismActor::RotPosPrism> pos2r;
 
+public:
     GgafDxAAPrismActor(const char* prm_name,
                         GgafCore::GgafStatus* prm_pStat,
                         GgafDxChecker* prm_pChecker);

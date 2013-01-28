@@ -10,6 +10,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class EnemyMassaliaFragment : public EnemyMassaliaBase {
+
 protected:
     void processStaminaEnd(GgafDxCore::GgafDxGeometricActor* prm_pOther) override;
 

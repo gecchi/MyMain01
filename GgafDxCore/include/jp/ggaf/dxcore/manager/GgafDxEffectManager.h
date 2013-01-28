@@ -12,9 +12,9 @@ namespace GgafDxCore {
 class GgafDxEffectManager : public GgafCore::GgafResourceManager<GgafDxEffect> {
 
 public:
-
     static GgafDxEffect* _pEffect_Active;
 
+public:
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称(リテラル必須)

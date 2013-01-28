@@ -10,7 +10,8 @@ public:
     /** 親オプション */
     MyOption* pOption_;
 
-    /**
+public:
+   /**
      * コンストラクタ .
      * @param prm_name
      * @param prm_pOption 親のオプション

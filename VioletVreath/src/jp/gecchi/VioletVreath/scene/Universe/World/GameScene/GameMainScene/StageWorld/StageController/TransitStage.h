@@ -18,6 +18,7 @@ public:
     HoshiBoshiTransit* pHoshiBoshi_;
     LabelGecchi16Font* pMessage_;
 
+public:
     TransitStage(const char* prm_name);
     /**
      * ‰Šúˆ—

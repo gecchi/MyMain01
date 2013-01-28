@@ -36,6 +36,7 @@ public:
     /** _hex が妥当かどうか */
     bool _is_valid;
 
+public:
     /**
      * コンストラクタ .
      * 保持されるRGBは(0, 0, 0)

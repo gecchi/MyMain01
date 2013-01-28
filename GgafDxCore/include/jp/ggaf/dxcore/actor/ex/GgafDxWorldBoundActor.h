@@ -9,7 +9,6 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxWorldBoundActor : public GgafDxMorphMeshActor, public GgafDxICubeMapActor {
-private:
 
 public:
     /** モデル資源 */
@@ -17,6 +16,7 @@ public:
     /** エフェクト資源 */
     GgafDxWorldBoundEffect* _pWorldBoundEffect;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）

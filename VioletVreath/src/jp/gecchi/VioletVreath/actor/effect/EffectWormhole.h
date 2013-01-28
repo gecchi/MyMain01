@@ -11,7 +11,6 @@ namespace VioletVreath {
 class EffectWormhole : public GgafLib::DefaultMorphMeshActor {
 
 public:
-
     EffectWormhole(const char* prm_name, const char* prm_model_id);
 
     void initialize() override;

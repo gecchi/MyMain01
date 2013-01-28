@@ -10,9 +10,7 @@ namespace VioletVreath {
  */
 class Stage02_01 : public GgafLib::DefaultScene {
 
-
 public:
-
     Stage02_01(const char* prm_name);
     /**
      * ‰Šúˆ—

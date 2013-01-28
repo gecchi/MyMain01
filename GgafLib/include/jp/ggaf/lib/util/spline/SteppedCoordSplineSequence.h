@@ -20,13 +20,13 @@ public:
     /** [r]補完点(基準点も含む)の数 */
     int _point_index;
 
-
     //計算用
     float _SIN_RzMv_begin;
     float _COS_RzMv_begin;
     float _SIN_RyMv_begin;
     float _COS_RyMv_begin;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること

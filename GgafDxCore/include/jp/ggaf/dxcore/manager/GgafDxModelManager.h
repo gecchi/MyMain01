@@ -45,8 +45,7 @@ private:
         int col_texture_split;
     };
 
-
-
+private:
     GgafDxD3DXMeshModel*         createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
     GgafDxD3DXAniMeshModel*      createD3DXAniMeshModel(char* prm_model_name);
     GgafDxD3DXMeshModel*         createDynaMeshModel(char* prm_model_name);
@@ -109,7 +108,6 @@ private:
             D3DXVECTOR3* outTangent, D3DXVECTOR3* outBinormal);
 public:
     GgafDxTextureManager* _pModelTextureManager;
-
 
 public:
     /**

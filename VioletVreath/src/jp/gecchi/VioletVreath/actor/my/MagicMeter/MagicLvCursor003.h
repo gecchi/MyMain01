@@ -13,7 +13,6 @@ namespace VioletVreath {
 class MagicLvCursor003 : public MagicLvCursor {
 
 public:
-
     /**
      * コンストラクタ .
      * @param prm_name 名称

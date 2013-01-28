@@ -65,6 +65,7 @@ public:
     /** [r/w]自由ステータス */
     GgafStatus* _pStatus;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name アクターの名前

@@ -12,7 +12,6 @@ namespace VioletVreath {
 class SplineLineManager : public GgafCore::GgafResourceManager<GgafLib::SplineLine> {
 
 public:
-
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称

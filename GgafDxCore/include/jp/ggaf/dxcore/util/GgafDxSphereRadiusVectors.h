@@ -20,7 +20,6 @@ public:
      */
     class COMPARE_ABLE_SR_VECTOR : public GgafCore::GgafObject {
     public:
-
         /**
          * COMPARE_ABLE_SR_VECTOR用の方向ベクトル構造体.
          * 各要素の単位は、1000000倍の整数で保持されます。<BR>
@@ -37,6 +36,7 @@ public:
 
         UINT64 num_yzx;
         SR_VECTOR vec;
+    public:
         COMPARE_ABLE_SR_VECTOR() : GgafObject() , num_yzx(0) {
         }
         /**
@@ -58,13 +58,10 @@ public:
         }
     };
 
-
-
-
-
     /** 作成目的の 1/8球分のソート可能方向ベクトル配列(要素数は900*900) */
-    //COMPARE_ABLE_SR_VECTOR _sr[];
     COMPARE_ABLE_SR_VECTOR _sr[(D90SANG + 1) * (D90SANG + 1)];
+
+public:
     GgafDxSphereRadiusVectors();
 
     /**

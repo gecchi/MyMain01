@@ -54,6 +54,7 @@ public:
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
     GgafLib::LaserChipDepository** papLaserChipDepo_;
 
+public:
     EnemyHesperia(const char* prm_name);
 
     void onCreateModel() override;

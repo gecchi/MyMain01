@@ -24,6 +24,7 @@ public:
     /** [r]最終地点到着までのフレーム数 */
     frame _spent_frame;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_source_file スプライン座標情報ファイル

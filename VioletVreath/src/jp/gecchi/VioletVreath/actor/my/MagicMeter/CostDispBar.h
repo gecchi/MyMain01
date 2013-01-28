@@ -8,6 +8,8 @@ public:
     /** “à—e—Ê */
     GraphBar* pSourceBar_;
     GgafLib::AmountGraph* pCostValue_;
+
+public:
     /**
      *
      * @param prm_name

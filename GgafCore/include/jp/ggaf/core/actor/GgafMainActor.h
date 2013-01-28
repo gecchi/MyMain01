@@ -13,14 +13,13 @@ namespace GgafCore {
  */
 class GgafMainActor : public GgafActor {
 
-protected:
-
 public:
     /** [r]自身が所属するグループの団長 */
     GgafGroupHead* _pGroupHead;
     /** [r]自身が所属するグループの団長の監督 */
     GgafDirector* _pDirector;
 
+public:
     GgafMainActor(const char* prm_name, GgafStatus* prm_pStat);
 
     /**
@@ -121,8 +120,6 @@ public:
      * @return
      */
     actorkind getKind();
-
-
 
     virtual ~GgafMainActor();
 };

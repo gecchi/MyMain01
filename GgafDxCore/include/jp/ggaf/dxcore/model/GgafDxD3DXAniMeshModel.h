@@ -42,8 +42,6 @@ public:
 
     void release() override;
 
-
-
     void putMat(D3DXMATRIX* pMat) {
         _TRACE_( pMat->_11<<", "<< pMat->_12<<", "<< pMat->_13<<", "<< pMat->_14);
         _TRACE_( pMat->_21<<", "<< pMat->_22<<", "<< pMat->_23<<", "<< pMat->_24);

@@ -22,6 +22,8 @@ public:
     int order_id_begin_;
     int order_id_end_;
     int _id_;
+
+public:
     PreDrawScene(const char* prm_name);
     void onReset() override;
     void ready();

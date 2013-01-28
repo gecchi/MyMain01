@@ -11,7 +11,6 @@ namespace VioletVreath {
 class VreathBar :  public GraphBar {
 
 public:
-
     /**
      *
      * @param prm_name

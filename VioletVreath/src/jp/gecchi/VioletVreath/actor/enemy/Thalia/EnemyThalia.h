@@ -42,6 +42,8 @@ public:
     velo veloTopMv_;
 
     GgafLib::LaserChipDepository* pLaserChipDepo_;
+
+public:
     /**
      * コンストラクタ
      * @param prm_name

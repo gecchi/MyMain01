@@ -32,6 +32,7 @@ public:
     /** [r]カーテンを閉める際の速度 */
     float _closing_velocity;
 
+public:
     /**
      * コンストラクタ .
      * カーテンの長さはデフォルトで 1.0 に設定されます。<BR>

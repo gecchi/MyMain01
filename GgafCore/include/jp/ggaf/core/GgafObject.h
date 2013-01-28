@@ -16,14 +16,13 @@ public:
     /** [r]インスタンス種類 */
     UINT32 _obj_class;
 
+public:
     GgafObject();
 
     /**
      * 識別名取得 .
      * @return 識別名
      */
-//    virtual char* getName();
-
     virtual char* toString();
 
     /**

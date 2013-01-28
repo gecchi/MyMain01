@@ -10,8 +10,8 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class DefaultScene : public GgafDxCore::GgafDxScene {
-public:
 
+public:
     /** [r]シーンイベント用のフレーム値の配列(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     UINT32* _paFrame_NextEvent;
     /** [r]シーンのイベント数（_paFrame_NextEventの要素数）(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
@@ -21,6 +21,7 @@ public:
     /** [r]シーン進捗管理(GgafElement<GgafScene>::GgafProgress* _pProg; を hiding) */
     SceneProgress* _pProg; //hiding [GgafElement<GgafScene>::GgafProgress* _pProg];
 
+public:
     DefaultScene(const char* prm_name);
 
     void useProgress(int prm_num = 10) override;

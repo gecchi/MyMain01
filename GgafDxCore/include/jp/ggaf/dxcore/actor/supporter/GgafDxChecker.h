@@ -14,9 +14,10 @@ class GgafDxChecker : public GgafCore::GgafObject {
 public:
     /** 対象アクター */
     GgafDxGeometricActor* _pActor;
-
     /** 当たり判定領域 */
     GgafDxCore::GgafDxCollisionArea* _pCollisionArea;
+
+public:
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor

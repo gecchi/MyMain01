@@ -11,7 +11,6 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxMorphMeshActor : public GgafDxDrawableActor {
-private:
 
 public:
     /** [r]モデル資源 */
@@ -22,6 +21,8 @@ public:
     float _weight[MAX_MORPH_TARGET+1]; //[0]は未使用、[1]～[6]がモーフターゲット1～6の重み
     /** モーフィング支援オブジェクト */
     GgafDxCore::GgafDxMorpher* _pMorpher;
+
+public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）

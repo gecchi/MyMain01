@@ -11,7 +11,6 @@ namespace GgafDxCore {
 class GgafDxTextureConnection : public GgafCore::GgafResourceConnection<GgafDxTexture> {
 
 public:
-
     /**
      * コンストラクタ<BR>
      * @param prm_idstr テクスチャ識別名

@@ -13,6 +13,8 @@ namespace GgafDxCore {
 class GgafDxCriticalException : public GgafCore::GgafCriticalException {
 public:
     HRESULT _hr;
+
+public:
     GgafDxCriticalException(std::string prm_message, HRESULT prm_hr);
     //オーバーライド
     virtual std::string getMsg();

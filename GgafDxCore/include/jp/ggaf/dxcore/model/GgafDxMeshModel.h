@@ -40,9 +40,7 @@ namespace GgafDxCore {
 class GgafDxMeshModel : public GgafDxModel {
     friend class GgafDxModelManager;
 
-protected:
 public:
-
     struct INDEXPARAM {
         UINT MaterialNo;
         INT BaseVertexIndex;
@@ -82,14 +80,12 @@ public:
     /** Paulさんメッシュ */
     Frm::Mesh* _pMeshesFront;
 
-
+public:
     /**
      * コンストラクタ<BR>
      * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
     GgafDxMeshModel(char* prm_model_name);
-
-public:
 
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 

@@ -83,6 +83,7 @@ public:
     bool _sync_frame_time;
     bool _was_cleaned;
 
+public:
     /**
      * コンストラクタ .
      * 別スレッドで工場を稼動させます。

@@ -13,6 +13,7 @@ class FormationPallas002 : public GgafLib::TreeFormation {
     DepositoryConnection* pDepoCon_;
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection* pSplManufCon_;
+
 public:
     /** 編隊数(RANK変動) */
     int num_Pallas_;
@@ -23,6 +24,7 @@ public:
     /** 移動速度(RANK変動) */
     velo velo_mv_;
 
+public:
     FormationPallas002(const char* prm_name);
 
     /**

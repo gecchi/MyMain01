@@ -12,6 +12,8 @@ class GgafException : public GgafObject {
 
 public:
     std::string _message;
+
+public:
     GgafException(std::string prm_message);
     virtual std::string getMsg();
     virtual ~GgafException();

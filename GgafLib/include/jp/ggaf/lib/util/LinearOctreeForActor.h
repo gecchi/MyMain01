@@ -24,7 +24,7 @@ public:
         GgafCore::GgafActor* _apActor[3000]; //１空間に 3000 もキャラが集まらないだろうという安易で浅はかな見積もり
         /** [r]カーソルポインタ  */
         UINT32 _p;
-
+    public:
         /**
          * コンストラクタ
          * @return
@@ -78,7 +78,6 @@ public:
     CollisionStack _stackCurrentSpaceActor_GroupA;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
     CollisionStack _stackCurrentSpaceActor_GroupB;
-
     /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Aグループのスタック */
     CollisionStack _stackParentSpaceActor_GroupA;
     /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Bグループのスタック */
@@ -89,7 +88,7 @@ public:
     /** [r]今回当たり判定を行うアクター種別B */
     actorkind _kind_groupB;
 
-
+public:
     /**
      * コンストラクタ
      * @param prm_level 作成する八分木空間レベル

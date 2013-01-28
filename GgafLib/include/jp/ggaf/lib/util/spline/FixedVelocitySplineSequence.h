@@ -17,14 +17,13 @@ public:
     float _exec_fFrames;
     /** [r]次の変わり目となる補間点(基準点も含む)に到達する_exec_fFrames */
     float _fFrame_of_next;
-
-
     //計算用
     float _SIN_RzMv_begin;
     float _COS_RzMv_begin;
     float _SIN_RyMv_begin;
     float _COS_RyMv_begin;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること

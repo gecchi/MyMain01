@@ -26,6 +26,7 @@ public:
     /** [r]補完点(基準点も含む)の数 */
     int _point_index;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_source_file スプライン座標情報ファイル

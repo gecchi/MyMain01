@@ -32,6 +32,7 @@ public:
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name

@@ -39,6 +39,8 @@ public :
     GgafDxBgmPerformerForScene* _pBgmPerformer;
     /** [r]シーンのα */
     float _master_alpha;
+
+public:
     /**
      * コンストラクタ .
      * @param prm_name

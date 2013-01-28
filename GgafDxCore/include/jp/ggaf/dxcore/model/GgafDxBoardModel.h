@@ -11,12 +11,6 @@ namespace GgafDxCore {
 class GgafDxBoardModel : public GgafDxModel {
     friend class GgafDxModelManager;
     friend class GgafDxBoardActor;
-protected:
-    /**
-     * コンストラクタ<BR>
-     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
-     */
-    GgafDxBoardModel(char* prm_model_name);
 
 public:
     struct VERTEX {
@@ -37,6 +31,13 @@ public:
     float _fSize_BoardModelHeightPx;
     int _row_texture_split;
     int _col_texture_split;
+
+public:
+    /**
+     * コンストラクタ<BR>
+     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     */
+    GgafDxBoardModel(char* prm_model_name);
 
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 

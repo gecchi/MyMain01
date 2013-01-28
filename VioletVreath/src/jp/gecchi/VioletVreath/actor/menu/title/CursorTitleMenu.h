@@ -11,6 +11,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class CursorTitleMenu : public GgafLib::DefaultBoardActor {
+
 public:
     CursorTitleMenu(const char* prm_name);
 

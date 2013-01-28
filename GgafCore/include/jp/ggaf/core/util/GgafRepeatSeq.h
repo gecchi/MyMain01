@@ -15,6 +15,7 @@ public:
     static std::map<std::string, int> mapMaxval;
     static std::map<std::string, int> mapMinval;
 
+public:
     /**
      * 順序オブジェクトを作成 .
      * @param ID 紐つける順序オブジェクトID（任意)

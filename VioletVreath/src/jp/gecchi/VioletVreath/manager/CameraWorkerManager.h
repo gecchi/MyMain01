@@ -12,7 +12,6 @@ namespace VioletVreath {
 class CameraWorkerManager : public GgafCore::GgafResourceManager<CameraWorker> {
 
 public:
-
     CameraWorkerManager(const char* prm_manager_name);
 
     CameraWorker* processCreateResource(char* prm_idstr, void* prm_p) override;

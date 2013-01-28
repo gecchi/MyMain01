@@ -14,8 +14,8 @@ HASHVAL(SYLVIA_EXPLOSION);
  */
 //class EnemySylvia : public GroundMeshActor {
 class EnemySylvia : public GgafLib::CubeMapMeshActor {
-public:
 
+public:
     enum {
         PROG_INIT = 1  ,
         PROG_FLOAT_MOVE   ,
@@ -29,6 +29,8 @@ public:
     coord r2_;
     int colli_part_num_;
     GgafDxCore::GgafDxCollisionArea* pColliArea_;
+
+public:
     /**
      * コンストラクタ .
      * @param prm_name

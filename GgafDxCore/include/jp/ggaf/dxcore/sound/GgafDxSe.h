@@ -8,20 +8,17 @@ namespace GgafDxCore {
 class GgafDxSe : public GgafCore::GgafObject {
 
     static std::string getWaveFileName(std::string prm_file);
-
 public:
     /** サウンドバッファ */
     LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;
     /** waveファイル名 */
     std::string _wave_file_name;
-//    char* _wave_name;
     /** 元の周波数 */
     DWORD _default_frequency;
-
-
     /** [r]最後に発生したアクター */
     GgafDxGeometricActor* _pActor_LastPlayed;
 
+public:
     /**
      * コンストラクタ
      * @param prm_wave_name 識別ID (プロパティファイルのキー)

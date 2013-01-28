@@ -35,7 +35,6 @@ public:
     /** •ûŒü“]Š·Šp‘¬“x */
     angvelo angveloTurn_;
 
-
     struct PosLaser {
         int X;
         int Y;
@@ -48,13 +47,13 @@ public:
 
     DepositoryConnection* pConn_LaserChipDepoStore_;
 
-
-
     GgafLib::LaserChipDepository*** papapLaserChipDepo_;
 
     DepositoryConnection* pConn_ShotDepo_;
     DepositoryConnection* pConn_ShotDepo2_;
     DepositoryConnection* pConn_ShotDepo3_;
+
+public:
     EnemyAstraea(const char* prm_name);
 
     void onCreateModel() override;

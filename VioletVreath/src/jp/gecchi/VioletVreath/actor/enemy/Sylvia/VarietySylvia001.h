@@ -13,6 +13,7 @@ class VarietySylvia001 : public EnemySylvia {
 public:
     EnemySylviaEye* pEnemySylviaEye_;
 
+public:
     VarietySylvia001(const char* prm_name);
 
     void initialize() override;

@@ -33,6 +33,7 @@ public:
     /** [r]構成メンバーのストッカー（nullptrの場合構成メンバーは配下アクターのはず） */
     GgafCore::GgafActorDepository* _pDepo;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name

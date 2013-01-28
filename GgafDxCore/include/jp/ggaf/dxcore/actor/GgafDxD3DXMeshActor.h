@@ -11,7 +11,6 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxD3DXMeshActor : public GgafDxDrawableActor {
-private:
 
 public:
     static DWORD FVF;
@@ -20,6 +19,7 @@ public:
     /** [r]エフェクト資源 */
     GgafDxMeshEffect* _pMeshEffect;
 
+public:
     GgafDxD3DXMeshActor(const char* prm_name,
                          const char* prm_model_id,
                          const char* prm_effect_id,

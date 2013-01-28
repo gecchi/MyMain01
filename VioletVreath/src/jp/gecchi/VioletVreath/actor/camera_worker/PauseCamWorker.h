@@ -22,6 +22,8 @@ public:
     bool mdz_flg_;
     double mdz_vx_, mdz_vy_, mdz_vz_, mdz_t_;
     int mdz_total_;
+
+public:
     PauseCamWorker(const char* prm_name);
 
     virtual void initialize() override;

@@ -22,9 +22,6 @@ namespace GgafCore {
  */
 class GgafActorDepositoryStore : public GgafActorDepository {
 
-private :
-
-
 public:
     /**
      * コンストラクタ .

@@ -54,11 +54,12 @@ public:
     int _flip_Z;
     /** [r]アクターの現在位置からスプライン始点までの距離。exec()時点で更新される。 */
     int _distance_to_begin;
-
     /** [r]現在処理中の補完点(基準点も含む)の数 */
     int _point_index;
+
+public:
     /**
-     *
+     * コンストラクタ .
      * @param prm_pManufacture
      * @param prm_pKurokoA
      */

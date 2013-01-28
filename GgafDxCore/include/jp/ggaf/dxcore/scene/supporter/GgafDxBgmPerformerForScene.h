@@ -35,6 +35,7 @@ public:
     /** [r/w]デフォルトのフェードイン・フェードアウトの費やすフレーム時間 */
     frame _default_fade;
 
+public:
     /**
      * コンストラクタ
      * @param prm_pDxScene シーン

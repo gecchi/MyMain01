@@ -11,7 +11,6 @@ namespace GgafDxCore {
 class GgafDxBgmConnection : public GgafCore::GgafResourceConnection<GgafDxBgm> {
 
 public:
-
     /**
      * コンストラクタ<BR>
      * @param prm_idstr OGG識別名(＝ファイル名)

@@ -11,7 +11,6 @@ namespace VioletVreath {
 class Stage01WalledScene : public GgafLib::WalledScene {
 
 public:
-
     Stage01WalledScene(const char* prm_name);
 
     /**

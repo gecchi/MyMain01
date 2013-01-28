@@ -31,9 +31,6 @@ class MagicMeter : public GgafLib::DefaultBoardSetActor {
         SE_BAD_OPERATION   ,
     };
 public:
-
-
-
     TractorMagic* pTractorMagic_;
     SpeedMagic*   pSpeedMagic_;
     LockonMagic*  pLockonMagic_;

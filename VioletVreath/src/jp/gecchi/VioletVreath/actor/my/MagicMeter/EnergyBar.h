@@ -5,7 +5,6 @@ namespace VioletVreath {
 class EnergyBar : public GraphBar {
 
 public:
-
     /**
      *
      * @param prm_name

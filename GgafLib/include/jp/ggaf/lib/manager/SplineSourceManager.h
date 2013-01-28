@@ -12,7 +12,6 @@ namespace GgafLib {
 class SplineSourceManager : public GgafCore::GgafResourceManager<SplineSource> {
 
 public:
-
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称(リテラル必須)

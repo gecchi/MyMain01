@@ -11,9 +11,6 @@ namespace VioletVreath {
 class WorldBoundSpace001 : public GgafLib::WorldBoundActor {
 
 public:
-
-//    float base_u_;
-//    float base_v_;
     /**
      * コンストラクタ
      * @param prm_name

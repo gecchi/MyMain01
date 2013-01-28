@@ -13,7 +13,6 @@ namespace VioletVreath {
 class Camera : public GgafLib::DefaultCamera {
 
 public:
-
     Camera(const char* prm_name);
 
     virtual void initialize() override;

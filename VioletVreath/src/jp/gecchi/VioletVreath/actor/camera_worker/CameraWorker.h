@@ -36,6 +36,7 @@ public:
     /** 等速でブレないスピード */
     velo burenai_speed_;
 
+public:
     CameraWorker(const char* prm_name);
 
     virtual void initialize() override {

@@ -87,7 +87,6 @@ class GgafScene : public GgafElement<GgafScene> {
     friend class GgafDirector;
 
 protected:
-
     /** ‚±‚ÌƒV[ƒ“‚ÌŠÄ“Â */
     GgafDirector* _pDirector;
 

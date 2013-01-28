@@ -19,6 +19,7 @@ class EffectLockon001 : public GgafLib::DefaultSpriteSetActor {
 public:
     GgafDxCore::GgafDxGeometricActor* pTarget_;
 
+public:
     EffectLockon001(const char* prm_name, const char* prm_model_id);
 
     virtual void initialize() override;

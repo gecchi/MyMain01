@@ -25,9 +25,9 @@ class DefaultUniverse : public GgafDxCore::GgafDxUniverse {
     virtual void processFinal() override;
 
 public:
-
     LinearOctreeForActor* _pLinearOctree;
 
+public:
     DefaultUniverse(const char* prm_name, DefaultCamera* prm_pCamera);
 
     virtual ~DefaultUniverse();

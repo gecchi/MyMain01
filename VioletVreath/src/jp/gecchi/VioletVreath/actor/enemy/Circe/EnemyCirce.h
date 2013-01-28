@@ -18,6 +18,7 @@ public:
     /** 行動パターン番号 */
     int iMovePatternNo_;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name

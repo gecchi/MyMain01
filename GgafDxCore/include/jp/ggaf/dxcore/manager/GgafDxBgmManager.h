@@ -12,7 +12,6 @@ namespace GgafDxCore {
 class GgafDxBgmManager : public GgafCore::GgafResourceManager<GgafDxBgm> {
 
 public:
-
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称(リテラル必須)

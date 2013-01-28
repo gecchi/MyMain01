@@ -9,8 +9,6 @@ class RankUpStage : public GgafLib::DefaultScene {
 
 public:
     static bool pause_;
-
-
     enum {
         PROG_INIT = 1,
         PROG_BEGIN   ,
@@ -29,6 +27,8 @@ public:
     HoshiBoshiRankUp* pHoshiBoshi_;
     LabelGecchi16Font* pMessage1_;
     LabelGecchi16Font* pMessage2_;
+
+public:
     RankUpStage(const char* prm_name);
 
     virtual void initialize() override;

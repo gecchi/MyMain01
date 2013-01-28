@@ -12,15 +12,9 @@ class GgafDxWorldBoundEffect : public GgafDxMorphMeshEffect {
     friend class GgafDxEffectManager;
 
 public:
-
-//    D3DXHANDLE _h_pos_camera;
-
     GgafDxWorldBoundEffect(char* prm_effect_name);
 
-//    virtual void setParamPerFrame() override;
-
     virtual ~GgafDxWorldBoundEffect(); //デストラクタ
-
 };
 
 }

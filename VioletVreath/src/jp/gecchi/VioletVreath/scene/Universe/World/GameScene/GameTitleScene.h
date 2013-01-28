@@ -34,7 +34,8 @@ public:
     int active_item_;
     frame frame_of_noinput_;
 
-    GameTitleScene(const char* prm_name);
+public:
+   GameTitleScene(const char* prm_name);
     void onReset() override;
     void initialize() override;
     void onActive() override;

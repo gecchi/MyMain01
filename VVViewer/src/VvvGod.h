@@ -11,10 +11,10 @@ namespace VVViewer {
 class VvvGod : public GgafLib::DefaultGod {
 
 public:
-
     static bool is_wm_dropfiles_;
     static char dropfiles_[2048];
 
+public:
     /**
      * コンストラクタ .
      * @param prm_hInstance インスタンスハンドル

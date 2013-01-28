@@ -11,6 +11,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class CursorConfirmMenu : public GgafLib::DefaultBoardActor {
+
 public:
     CursorConfirmMenu(const char* prm_name);
 

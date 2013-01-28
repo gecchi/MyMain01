@@ -10,6 +10,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class Shot003 : public GgafLib::DefaultMeshSetActor {
+
 public:
     Shot003(const char* prm_name);
 

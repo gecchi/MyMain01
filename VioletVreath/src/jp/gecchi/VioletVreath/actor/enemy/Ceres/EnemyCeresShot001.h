@@ -15,7 +15,6 @@ public:
     enum {
         CERESSHOT001_SE_EXPLOSION = 0,
     };
-
     //本Actorのカスタムプロパティ --->
     /** 出現時の初速 */
     int velo1st_;

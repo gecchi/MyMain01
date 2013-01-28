@@ -47,6 +47,7 @@ public:
     /** [r/w]要素番号にボリューム値を入れると、対応デシベルが取得できる配列 */
     static int aDbVolume[GGAF_MAX_VOLUME+1];
 
+public:
     /**
      * 初期設定 .
      * GgafDxSeManager、GgafDxBgmManager を使用可能にします。

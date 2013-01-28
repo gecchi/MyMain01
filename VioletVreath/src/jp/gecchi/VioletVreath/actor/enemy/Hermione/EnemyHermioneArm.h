@@ -24,6 +24,7 @@ public:
     angvelo aiming_ang_velo_;
     angle aiming_movable_limit_ang_;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name

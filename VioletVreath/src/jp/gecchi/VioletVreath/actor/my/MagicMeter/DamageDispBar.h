@@ -14,6 +14,7 @@ public:
     int aInt_my_ship_damage_history_[DISP_DELAY];
     int p_;
 
+public:
     /**
      *
      * @param prm_name

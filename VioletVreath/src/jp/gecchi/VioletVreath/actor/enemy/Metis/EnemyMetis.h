@@ -22,6 +22,7 @@ public:
     int height_Z_;
     int depth_Y_;
 
+public:
     EnemyMetis(const char* prm_name);
 
     void onCreateModel() override;

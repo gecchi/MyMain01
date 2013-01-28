@@ -41,6 +41,7 @@ public:
     /** [r]SE発生元アクター */
     GgafDxGeometricActor* _pActor;
 
+public:
     /**
      * コンストラクタ .
      */

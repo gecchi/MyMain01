@@ -14,7 +14,6 @@ namespace VioletVreath {
 class MyTorpedoBlast : public GgafLib::DefaultMeshSetActor {
 
 public:
-
     /**
      * コンストラクタ .
      * @param prm_name

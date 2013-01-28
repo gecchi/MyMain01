@@ -54,6 +54,7 @@ public:
     static GgafLib::VirtualButton* pVbtn_active_;
     static GgafLib::VirtualButton* pVbtn_active_next_frame_;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_hInstance

@@ -22,6 +22,8 @@ public:
     WalledSectionScene* _pLastSectionScene;
     bool _is_all_active_section_scenes;
     bool _is_finished;
+
+public:
     /**
      * コンストラクタ
      * @param prm_name

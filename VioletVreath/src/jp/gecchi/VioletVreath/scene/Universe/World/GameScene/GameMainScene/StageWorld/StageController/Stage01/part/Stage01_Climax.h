@@ -16,6 +16,7 @@ public:
 
     EnemyAstraea* pBoss_;
 
+public:
     Stage01_Climax(const char* prm_name);
     /**
      * ‰Šúˆ—

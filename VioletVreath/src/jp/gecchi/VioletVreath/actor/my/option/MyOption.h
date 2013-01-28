@@ -22,7 +22,6 @@ private:
      */
     void addRadiusPosition(int prm_radius_offset, int prm_min_radius = 30000, int prm_max_radius = 1000000);
 
-
 public:
     enum {
         SE_FIRE_LASER = 0,
@@ -95,6 +94,8 @@ public:
 
     /** [r]停止時、初期円周上角度位置へ自動戻りシークエンスの実行が必要かどうかフラグ */
     bool need_adjust_pos_flg_;
+
+public:
     /**
      * コンストラクタ .
      * @param prm_name

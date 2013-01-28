@@ -14,6 +14,7 @@ public:
     coord _X_prev, _Y_prev, _Z_prev;
     frame _offset_frames;
 
+public:
     GgafDxCameraViewPoint();
 
     virtual void initialize() override;

@@ -28,6 +28,8 @@ public:
 
     MenuBoardNameEntry* pNameEntryBoard_;
     std::string inputed_name_;
+
+public:
     NameEntryScene(const char* prm_name);
     void onReset() override;
     virtual void initialize() override;

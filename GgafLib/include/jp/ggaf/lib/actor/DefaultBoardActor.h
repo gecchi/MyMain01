@@ -26,6 +26,7 @@ class DefaultBoardActor : public GgafDxCore::GgafDxBoardActor {
 public:
     /** 拡大縮小支援オブジェクト */
     GgafDxCore::GgafDxScaler* _pScaler;
+
 public:
     DefaultBoardActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = nullptr);
 

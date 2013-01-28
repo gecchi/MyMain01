@@ -11,7 +11,6 @@ namespace GgafLib {
 class SplineManufactureManager : public GgafCore::GgafResourceManager<SplineManufacture> {
 
 public:
-
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称

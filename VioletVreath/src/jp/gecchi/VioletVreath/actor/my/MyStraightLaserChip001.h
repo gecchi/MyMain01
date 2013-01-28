@@ -16,6 +16,7 @@ public:
     /** テクスチャ名 */
     static char aaTextureName[3][51];
 
+public:
     MyStraightLaserChip001(const char* prm_name);
 
     void initialize() override;

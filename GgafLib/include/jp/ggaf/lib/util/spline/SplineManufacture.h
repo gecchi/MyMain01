@@ -29,7 +29,6 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class SplineManufacture : public GgafCore::GgafObject {
-private:
 
 public:
     SplineSourceConnection* _pSplSrcCon;
@@ -47,6 +46,7 @@ public:
     /** [r]次の補完点までの距離のテーブル */
     coord* _paDistance_to;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_source_file スプライン座標情報ファイル

@@ -11,7 +11,6 @@ namespace GgafDxCore {
 class GgafDxSpriteSetModel : public GgafDxModel {
     friend class GgafDxModelManager;
 
-protected:
 public:
     struct INDEXPARAM {
         UINT MaterialNo;
@@ -40,19 +39,19 @@ public:
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
     INDEXPARAM* _paIndexParam;
+
+    float _fSize_SpriteSetModelWidthPx;
+    float _fSize_SpriteSetModelHeightPx;
+    int _row_texture_split;
+    int _col_texture_split;
+
+public:
     /**
      * コンストラクタ<BR>
      * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
     GgafDxSpriteSetModel(char* prm_model_name);
 
-public:
-    /** 全アニメパターン数(0～) */
-//    int _pattno_uvflip_Max;
-    float _fSize_SpriteSetModelWidthPx;
-    float _fSize_SpriteSetModelHeightPx;
-    int _row_texture_split;
-    int _col_texture_split;
 
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 

@@ -34,6 +34,7 @@ namespace GgafLib {
  */
 class LaserChipDepository : public GgafCore::GgafActorDepository {
     friend class LaserChip;
+
 public:
     /** [r]保持するレーザーチップ数(読み取り専用) */
     int _num_chip_max;
@@ -59,6 +60,7 @@ public:
     /** [r/w]レーザー発射時エフェクト。不要の場合はnullptrを設定する */
     GgafDxCore::GgafDxDrawableActor* _pEffectActor_Irradiate;
 
+public:
     LaserChipDepository(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
 
     /**

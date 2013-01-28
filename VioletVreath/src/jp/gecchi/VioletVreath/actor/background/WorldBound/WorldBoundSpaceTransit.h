@@ -11,7 +11,6 @@ namespace VioletVreath {
 class WorldBoundSpaceTransit : public GgafLib::WorldBoundActor {
 
 public:
-
     /**
      * コンストラクタ
      * @param prm_name

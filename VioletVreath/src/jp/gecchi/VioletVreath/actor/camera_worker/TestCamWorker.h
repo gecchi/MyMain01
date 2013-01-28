@@ -13,7 +13,6 @@ namespace VioletVreath {
 class TestCamWorker : public CameraWorker {
 
 public:
-
     TestCamWorker(const char* prm_name);
     virtual void initialize() override {
     }

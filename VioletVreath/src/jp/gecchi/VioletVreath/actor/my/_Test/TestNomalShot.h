@@ -9,8 +9,8 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class TestNomalShot : public GgafLib::SingleLaser {
-public:
 
+public:
     TestNomalShot(const char* prm_name);
 
     void initialize() override;

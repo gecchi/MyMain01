@@ -9,7 +9,6 @@ namespace VioletVreath {
 class FormationJuno001 : public FormationJuno {
 
 public:
-
     FormationJuno001(const char* prm_name);
 
     void processJudgement() override;

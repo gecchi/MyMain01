@@ -19,6 +19,7 @@ public:
     D3DXHANDLE h_fZ_MyShip_;
     D3DXHANDLE h_far_rate_;
 
+public:
     HoshiBoshi(const char* prm_name, const char* prm_model_id);
 
     virtual void onCreateModel() override {

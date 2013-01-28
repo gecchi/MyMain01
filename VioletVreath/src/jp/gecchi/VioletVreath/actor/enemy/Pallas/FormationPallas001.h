@@ -24,6 +24,7 @@ public:
     /** ˆÚ“®‘¬“x(RANK•Ï“®) */
     velo velo_mv_;
 
+public:
     FormationPallas001(const char* prm_name);
 
     /**

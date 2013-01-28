@@ -30,6 +30,7 @@ public:
     /** [r/w]速度に対する加速度の割合（この値を大きくすると、カーブが緩くなる） */
     int r_max_acce_;
 
+public:
     MyOptionWateringLaserChip001(const char* prm_name);
 
     void initialize() override;

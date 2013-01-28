@@ -13,7 +13,6 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxD3DXAniMeshActor : public GgafDxDrawableActor {
-private:
 
 public:
     static DWORD FVF;
@@ -26,6 +25,7 @@ public:
 
     LPD3DXANIMATIONSET* _papAnimationSet;
 
+public:
     GgafDxD3DXAniMeshActor(const char* prm_name,
                              const char* prm_model_id,
                              const char* prm_effect_id,

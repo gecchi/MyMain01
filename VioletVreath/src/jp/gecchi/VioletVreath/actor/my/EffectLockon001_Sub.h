@@ -11,7 +11,6 @@ namespace VioletVreath {
 class EffectLockon001_Sub : public EffectLockon001 {
 
 public:
-
     EffectLockon001_Main* pEffectLockon001_Main_;
 
     EffectLockon001_Sub(const char* prm_name);

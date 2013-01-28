@@ -13,6 +13,8 @@ class MagicMeterStatus : public GgafLib::StringBoardActor {
 public:
     MagicMeter* pMagicMeter_;
     char aBuf_[30];
+
+public:
     MagicMeterStatus(const char* prm_name, MagicMeter* prm_pMagicMeter);
     virtual void initialize() override;
     virtual void processBehavior() override;

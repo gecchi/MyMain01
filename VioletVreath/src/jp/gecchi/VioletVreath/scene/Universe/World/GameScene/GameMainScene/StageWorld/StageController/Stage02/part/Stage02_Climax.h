@@ -10,12 +10,12 @@ namespace VioletVreath {
  */
 class Stage02_Climax : public GgafLib::DefaultScene {
 
-
 public:
     bool waiting_;
 
     EnemyAstraea* pBoss_;
 
+public:
     Stage02_Climax(const char* prm_name);
     /**
      * ‰Šúˆ—

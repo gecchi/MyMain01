@@ -9,6 +9,7 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class ColliSphere : public GgafDxCore::GgafDxCollisionPart {
+
 public:
     /** xç¿ïW */
     coord _x;
@@ -21,6 +22,7 @@ public:
     /** îºåaÇÃÇQèÊ */
     double _rr;
 
+public:
     ColliSphere();
 
     void set(coord x, coord y, coord z, coord r, bool rotX, bool rotY, bool rotZ);

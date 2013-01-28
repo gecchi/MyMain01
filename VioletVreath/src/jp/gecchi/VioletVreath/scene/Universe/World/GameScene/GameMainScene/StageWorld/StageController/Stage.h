@@ -22,6 +22,7 @@ public:
 
     StagePartController* pScene_StagePartCtrler_;
 
+public:
     Stage(const char* prm_name);
 
     virtual void initialize() override;

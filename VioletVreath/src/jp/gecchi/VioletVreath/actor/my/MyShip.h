@@ -36,7 +36,6 @@ public:
         SW_SUB = -1
     };
 
-
     enum MoveWay {
         WAY_ZRIGHT_DOWN_BEHIND = 0,   //0    TN(-1,-1,-1)
         WAY_DOWN_BEHIND,              //1    TN(-1,-1, 0)
@@ -251,9 +250,6 @@ public:
     angvelo angRXVelo_BeginMZT_; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
-
-
-
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory4OptCtrler_;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* pRing_MyShipGeoHistory2_;
     GgafCore::GgafActorDepository* pDepo_MyShots001_;
@@ -300,12 +296,13 @@ public:
     /** Vreath */
     GgafLib::AmountGraph vreath_;
 
-
     int invincible_frames_;
 
     /** 魔法メーター */
     MagicMeter* pMagicMeter_;
 
+
+public:
     MyShip(const char* prm_name);
 
     void onCreateModel() override;

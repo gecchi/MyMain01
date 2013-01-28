@@ -8,14 +8,7 @@ template<class T>  //T:管理する要素のポインタの型
 class GgafDynamicVariable : public GgafObject {
 
 public:
-
     T* _pVariable;
-
-    /**
-     * コンストラクタ .
-     */
-    GgafDynamicVariable(T* prm_variable, T prm_max_velo, T prm_max_acce);
-
 
     /** [r/w]X軸方向移動速度 */
     T _velo;
@@ -53,6 +46,12 @@ public:
     /** [r]なめらかな移動シークエンスの進捗状況 */
     int  _smooth_velo_seq_progress;
 
+public:
+
+    /**
+     * コンストラクタ .
+     */
+    GgafDynamicVariable(T* prm_variable, T prm_max_velo, T prm_max_acce);
     /**
      * X軸方向移動速度設定 .
      * @param prm_velo X軸方向移動速度

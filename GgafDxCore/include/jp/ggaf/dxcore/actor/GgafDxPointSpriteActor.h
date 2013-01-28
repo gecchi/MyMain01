@@ -122,7 +122,6 @@ namespace GgafDxCore {
 class GgafDxPointSpriteActor : public GgafDxDrawableActor {
 
 public:
-
     /** [r]モデル資源 */
     GgafDxPointSpriteModel* _pPointSpriteModel;
     /** [r]エフェクト資源 */
@@ -130,6 +129,7 @@ public:
     /** [r]UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name モデル名称（デバッグログで表示、なんでも良い）

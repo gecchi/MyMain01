@@ -18,6 +18,7 @@ public:
     };
     coord tX_, tY_, tZ_;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name

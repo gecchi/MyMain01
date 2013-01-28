@@ -20,7 +20,6 @@ namespace GgafCore {
 class GgafDirector : public GgafActor {
 
 private:
-
     /**
      * 使用不可 .
      */
@@ -70,7 +69,6 @@ public:
             s->throwEventUpperTree(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる
         }
     }
-
 
     /**
      * 当たり判定不要のため常にfalseを返す .
@@ -146,7 +144,6 @@ public:
      * @return
      */
     GgafGroupHead* searchSubGroupHead(actorkind prm_kind);
-
 
     void updateActiveInTheTree() override;
 

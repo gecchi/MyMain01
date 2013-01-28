@@ -21,7 +21,8 @@ public:
     float tmp_alpha_;
     MagicMeter* pMagicMeter_;
 
-    MagicMeterCursor001(const char* prm_name, MagicMeter* prm_pMagicMeter);
+public:
+   MagicMeterCursor001(const char* prm_name, MagicMeter* prm_pMagicMeter);
 
     void initialize() override;
 

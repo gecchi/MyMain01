@@ -11,19 +11,19 @@ namespace GgafDxCore {
  */
 class GgafDxQuaternion : public GgafCore::GgafObject {
 public:
-    float   _t; //‹••”
+    /** ‹••” */
+    float   _t;
     float   _x;
     float   _y;
     float   _z;
 
+public:
     GgafDxQuaternion() : GgafObject() {
         _t = 0;
         _x = 0;
         _y = 0;
         _z = 0;
     }
-
-//    GgafDxQuaternion(float prm_t, float prm_x, float prm_y, float prm_z);
 
     GgafDxQuaternion(float prm_t, float prm_x, float prm_y, float prm_z) : GgafObject(),
         _t(prm_t),

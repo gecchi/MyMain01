@@ -4,7 +4,6 @@ namespace VioletVreath {
 
 class EnemyHesperiaLaserChip001 : public GgafLib::HomingLaserChip {
 
-
 public:
     enum {
         PROG_MOVE_UP = 1,
@@ -25,6 +24,7 @@ public:
     /** 目標座標2(自機周りの到達ポイント) */
     coord tX2_, tY2_, tZ2_;
 
+public:
     EnemyHesperiaLaserChip001(const char* prm_name);
 
     void initialize() override;

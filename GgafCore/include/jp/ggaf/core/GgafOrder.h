@@ -13,6 +13,7 @@ namespace GgafCore {
 class GgafOrder : public GgafObject {
     friend class GgafGod;
     friend class GgafFactory;
+
 private:
     /** 発注者 */
     GgafObject* _pOrderer;
@@ -32,6 +33,7 @@ private:
     void* _pArg2;
     /** 商品製造メソッドのパラメータ3 */
     void* _pArg3;
+
 public:
     /** 注文識別ID */
     UINT32 _id;
@@ -40,6 +42,7 @@ public:
     /** 商品へのポインタ */
     GgafObject* _pObject_creation;
 
+public:
     GgafOrder(UINT32 prm_id);
     virtual ~GgafOrder();
 };

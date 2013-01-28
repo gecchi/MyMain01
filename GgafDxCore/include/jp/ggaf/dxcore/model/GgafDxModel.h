@@ -12,7 +12,6 @@ namespace GgafDxCore {
 class GgafDxModel : public GgafCore::GgafObject {
     friend class GgafDxModelManager;
 
-protected:
 public:
     class VERTEX_3D_BASE {
     public:
@@ -60,6 +59,8 @@ public:
     bool _is_init_model;
 
     UINT _numPass;
+
+public:
     /**
      * コンストラクタ<BR>
      * @param prm_model_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。

@@ -31,6 +31,7 @@ public:
     RankUpStage* apRankUpStage_[MAX_RANKUP_SCENE];
     RankUpStage* pNowRankUpStage_;
 
+public:
     RankUpStageController(const char* prm_name);
     void execute();
 

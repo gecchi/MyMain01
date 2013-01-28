@@ -23,6 +23,8 @@ public:
     TitleBoard* pTitleBoard_;
 
 //    SpriteLabelTest** papSpriteLabel_;
+
+public:
     GamePreTitleScene(const char* prm_name);
     void onReset() override;
     void initialize() override;

@@ -11,7 +11,6 @@ namespace VioletVreath {
 class CameraWorkerConnection : public GgafCore::GgafResourceConnection<CameraWorker> {
 
 public:
-
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名

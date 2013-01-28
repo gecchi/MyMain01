@@ -13,6 +13,7 @@ namespace VioletVreath {
 class FormationAdrastea001 : public GgafLib::TreeFormation {
 
     EnemyAdrastea* apEnemyAdrastea_[NUM_ADRASTEA_FORMATION001];
+
 public:
     FormationAdrastea001(const char* prm_name);
 

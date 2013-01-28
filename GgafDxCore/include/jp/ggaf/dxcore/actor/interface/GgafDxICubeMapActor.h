@@ -13,15 +13,13 @@ class GgafDxICubeMapActor {
 public:
     /** 環境マップテクスチャ資源 */
     GgafDxTextureConnection* _pCubeMapTextureCon;
-    /** 環境マップテクスチャ */
-//    IDirect3DBaseTexture9* _pCubeMapTexture;
     /** 環境マップテクスチャ映りこみ率 */
     float _reflectance;
 
     const char* _cubemap_tex;
 
+public:
     GgafDxICubeMapActor();
-
 
     /**
      * 環境マッピングするテクスチャと映り込み具合を指定する。 .
@@ -53,10 +51,6 @@ public:
     float getCubeMapReflectance() {
         return _reflectance;
     }
-
-//    void releaseCubeMapTex();
-//
-//    void restoreCubeMapTex();
 
     virtual ~GgafDxICubeMapActor(); //デストラクタ
 

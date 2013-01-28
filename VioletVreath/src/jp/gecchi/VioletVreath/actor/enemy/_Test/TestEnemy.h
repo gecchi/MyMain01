@@ -12,9 +12,9 @@ class TestEnemy :
   public GgafLib::DefaultMeshActor {
 
 public:
-
     SpriteLabelTest* pMoji_;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name

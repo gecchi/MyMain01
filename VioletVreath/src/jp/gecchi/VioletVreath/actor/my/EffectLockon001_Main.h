@@ -11,7 +11,6 @@ namespace VioletVreath {
 class EffectLockon001_Main : public EffectLockon001 {
 
 public:
-
     EffectLockon001_Main(const char* prm_name);
 
     void initialize() override;

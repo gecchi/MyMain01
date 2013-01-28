@@ -17,7 +17,6 @@ public:
     DepositoryConnection* pConn_ShotDepo_;
     GgafCore::GgafActorDepository* pDepo_Shot_;
 
-
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection** papSplManufCon_;
     /** 編隊列数(RANK変動) */
@@ -29,6 +28,7 @@ public:
     /** 編隊メンバーの移動速度(RANK変動) */
     velo RR_mv_velo_;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name

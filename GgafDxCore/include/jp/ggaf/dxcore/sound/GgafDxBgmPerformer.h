@@ -19,6 +19,7 @@ public:
     /** [r]Bgm‘Œ¹Ú‘± */
     GgafDxBgmConnection** _papBgmCon;
 
+public:
     GgafDxBgmPerformer();
 
     /**

@@ -20,6 +20,7 @@ public:
     IkdLib::OggVorbisFile* _pOggResource;
     IkdLib::OggDecoder* _pOggDecoder;
 
+public:
     /**
      * コンストラクタ .
      * プロパティファイルから次のキーの値を取得します。

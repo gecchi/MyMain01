@@ -10,10 +10,10 @@ namespace GgafDxCore {
  */
 class GgafDxGeoChain {
 public:
-
     GgafDxGeoElem* _pFirst;
     GgafDxGeoElem* _pGeoChainRingActive;
 
+public:
     /**
      * コンストラクタ
      */

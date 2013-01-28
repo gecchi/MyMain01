@@ -15,8 +15,11 @@ namespace GgafLib {
  */
 class WateringLaserChip : public LaserChip {
     friend class LaserChipDepository;
+
 public:
     int _tmpX, _tmpY, _tmpZ;
+
+public:
     WateringLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {}

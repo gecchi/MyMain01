@@ -13,6 +13,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafDisusedActor : public GgafActor {
+
 public:
     GgafDisusedActor() :
         GgafActor("DisusedActor", nullptr) {

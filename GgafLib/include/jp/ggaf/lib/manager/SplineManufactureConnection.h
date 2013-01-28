@@ -11,7 +11,6 @@ namespace GgafLib {
 class SplineManufactureConnection : public GgafCore::GgafResourceConnection<SplineManufacture> {
 
 public:
-
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名

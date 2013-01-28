@@ -115,6 +115,7 @@ public:
     /** [r] エフェクトファイル(fxファイル)を実行時にコンパイルするかどうか */
     static bool REALTIME_EFFECT_COMPILE;
 
+public:
     static void load(std::string prm_properties_filename); //shadows
     static void clean();                            //shadows
 };

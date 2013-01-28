@@ -41,22 +41,18 @@ public:
     coord _wall_width;
 //    /** [r]壁ブロック移動スピード(値は正、但し移動方向はX軸負の方向) */
 //    int _scroll_speed;
-
-
     GgafDxCore::GgafDxScaler* _pScaler;
     GgafLib::CollisionChecker3D* _pColliChecker;
-
     /** [r]外壁シーン */
     WalledSectionScene* _pWalledSectionScene;
 
-
+public:
     WallPartsActor(const char* prm_name,
               const char* prm_model_id,
               const char* prm_effect_id,
               const char* prm_technique,
               GgafCore::GgafStatus* prm_pStat=nullptr
               );
-
 
     virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor);
 

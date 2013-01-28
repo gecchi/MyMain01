@@ -28,6 +28,7 @@ public:
 
     int move_section_;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name

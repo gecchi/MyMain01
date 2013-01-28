@@ -13,11 +13,9 @@ class GgafDxCubeMapMeshSetEffect : public GgafDxMeshSetEffect {
 
 public:
     D3DXHANDLE _h_reflectance;
-//    D3DXHANDLE _h_pos_camera;
 
+public:
     GgafDxCubeMapMeshSetEffect(char* prm_effect_name);
-
-//    virtual void setParamPerFrame() override;
 
     virtual ~GgafDxCubeMapMeshSetEffect(); //デストラクタ
 

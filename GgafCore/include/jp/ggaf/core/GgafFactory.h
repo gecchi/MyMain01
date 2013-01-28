@@ -72,6 +72,7 @@ public:
     /** [r]完全店終い */
     static volatile bool _was_finished_flg;
 
+public:
     /**
      * 工場にアクター作成の注文を行う（メインスレッドが使用） .
      * メイン処理が呼び出します。<BR>

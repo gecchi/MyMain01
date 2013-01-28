@@ -13,13 +13,12 @@ namespace VioletVreath {
 class MenuBoardConfirm : public MenuBoard {
 
 public:
-
     enum {
         ITEM_OK = 0 ,
         ITEM_CANCEL ,
     };
 
-
+public:
     MenuBoardConfirm(const char* prm_name);
 
     bool condMoveCursorNext() override;

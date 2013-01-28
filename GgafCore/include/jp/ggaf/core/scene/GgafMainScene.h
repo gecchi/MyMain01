@@ -15,7 +15,6 @@ class GgafMainScene : public GgafScene {
     friend class GgafScene;
 
 public:
-
     GgafMainScene(const char* prm_name);
 
     void updateActiveInTheTree() override;

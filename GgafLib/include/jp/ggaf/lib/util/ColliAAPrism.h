@@ -11,6 +11,7 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class ColliAAPrism : public ColliAAB {
+
 public:
     /** プリズム位置 */
     int _pos_prism;
@@ -23,10 +24,10 @@ public:
     /** プリズム斜辺面の法線ベクトルの逆ベクトルY要素(当たり判定計算用) */
     float _vIH_y;
 
+public:
     ColliAAPrism();
 
     void set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism, bool rotX, bool rotY, bool rotZ);
-
 
     virtual ~ColliAAPrism();
 };

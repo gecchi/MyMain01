@@ -53,6 +53,7 @@ public:
 
     GgafCore::GgafActorDepository* pDepo_SpriteLabelBonus001_;
 
+public:
     CommonScene(const char* prm_name);
     /**
      * ‰Šúˆ—

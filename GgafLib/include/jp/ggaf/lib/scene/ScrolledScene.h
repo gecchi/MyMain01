@@ -15,8 +15,8 @@ class ScrolledScene : public DefaultScene {
     velo _scroll_speed;
     /** [r/w]スクロール関数へのポインタ */
     void (*_pFuncScrolling)(GgafCore::GgafObject*, void*, void*);
-public:
 
+public:
     /**
      * X軸方法にスクロール .
      * @param pThat アクター
@@ -50,7 +50,7 @@ public:
         _scroll_speed += prm_acce;
     }
 
-
+public:
     /**
      *
      * @param prm_name

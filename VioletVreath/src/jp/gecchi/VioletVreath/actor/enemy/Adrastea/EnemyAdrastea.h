@@ -31,6 +31,7 @@ public:
     int box_num_Y_;
     int box_num_Z_;
 
+public:
     EnemyAdrastea(const char* prm_name);
 
     void config(

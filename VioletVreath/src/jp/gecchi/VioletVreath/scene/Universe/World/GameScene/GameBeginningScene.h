@@ -25,6 +25,7 @@ public:
 
     int selected_stage_;
 
+public:
     GameBeginningScene(const char* prm_name);
     void onReset() override;
 //    void ready() override;

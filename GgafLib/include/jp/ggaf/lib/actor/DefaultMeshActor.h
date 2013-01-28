@@ -29,6 +29,7 @@ public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker3D* _pColliChecker;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name 名称

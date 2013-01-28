@@ -12,6 +12,7 @@ class FormationIris002 : public GgafLib::TreeFormation {
 
     DepositoryConnection* pDepoCon_;
     SplineLineConnection* pSplLineCon_;
+
 public:
     /** •Ò‘à”(RANK•Ï“®) */
     int num_Iris_;
@@ -22,6 +23,7 @@ public:
     /** ˆÚ“®‘¬“x(RANK•Ï“®) */
     velo velo_mv_;
 
+public:
     FormationIris002(const char* prm_name);
 
     virtual void initialize() override;

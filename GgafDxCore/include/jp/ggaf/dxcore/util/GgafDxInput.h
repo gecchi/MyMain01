@@ -39,6 +39,7 @@ public:
     /** ジョイスティックの状態 */
     static DIJOYSTATE _dijoystate;
 
+public:
     /**
      * 初期化 .
      * 使用前１度だけ呼び出す必要がある。

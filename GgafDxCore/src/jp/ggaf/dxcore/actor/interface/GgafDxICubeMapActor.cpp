@@ -32,7 +32,6 @@ IDirect3DBaseTexture9* GgafDxICubeMapActor::getCubeMapTexture() {
 }
 
 GgafDxICubeMapActor::~GgafDxICubeMapActor() {
-
     //資源取得の connet() はメインスレッドである。
     //しかし close() （デストラクタ）は工場スレッドで実行。
     //本当は避けるべきだが、GgafResourceConnection側のclose()を改良し、

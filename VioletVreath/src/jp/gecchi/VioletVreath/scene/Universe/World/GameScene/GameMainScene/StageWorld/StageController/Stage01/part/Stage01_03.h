@@ -12,7 +12,6 @@ class Stage01_03 : public GgafLib::DefaultScene {
 
 
 public:
-
     Stage01_03(const char* prm_name);
     /**
      * ‰Šúˆ—

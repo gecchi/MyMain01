@@ -69,6 +69,7 @@ protected:
 
     bool _will_be_able_to_controll;
 
+protected:
     /**
      * _lstItems のアクティブ要素を next() へ移動させ、カーソルを移動 .
      */
@@ -95,7 +96,6 @@ protected:
     virtual void moveCursorCancel();
 
 public:
-
     /** [r]メニューアイテムのリスト */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _lstItems;
     /** [r]メニューカーソル */
@@ -115,6 +115,7 @@ public:
     /** [r]サブメニュー */
     MenuActor<T>* _pActiveSubMenu;
 
+public:
     /**
      * コンストラクタ .
      * 【注意】生成直後非活動状態をデフォルトとしています。<BR>

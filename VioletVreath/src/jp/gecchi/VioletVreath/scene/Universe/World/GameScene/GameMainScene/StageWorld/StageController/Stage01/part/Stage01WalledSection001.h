@@ -11,9 +11,9 @@ namespace VioletVreath {
 class Stage01WalledSection001 : public GgafLib::WalledSectionScene {
 
 public:
-
     float bound_alpha_;
 
+public:
     Stage01WalledSection001(const char* prm_name,  GgafLib::ScrolledScene* prm_pScrolledScene, const char* prm_data_filename);
 
     void processBehavior() override;

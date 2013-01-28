@@ -18,6 +18,7 @@ public:
 
     double rate_org_width_;
 
+public:
     /**
      *
      * @param prm_name

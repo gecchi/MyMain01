@@ -24,7 +24,7 @@ public:
         PROG_FAINAL  ,
     };
 
-
+public:
     Stage01PartController(const char* prm_name);
     /**
      * ‰Šúˆ—

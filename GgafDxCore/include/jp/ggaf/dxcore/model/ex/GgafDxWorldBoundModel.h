@@ -12,7 +12,6 @@ class GgafDxWorldBoundModel : public GgafDxMorphMeshModel {
     friend class GgafDxModelManager;
 
 public:
-
     /**
      * コンストラクタ<BR>
      * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。

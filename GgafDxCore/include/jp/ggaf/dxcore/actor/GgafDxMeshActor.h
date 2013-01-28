@@ -13,7 +13,6 @@ namespace GgafDxCore {
 class GgafDxMeshActor : public GgafDxDrawableActor, public GgafDxIBumpMapActor {
 
 public:
-
     /** [r]モデル資源 */
     GgafDxMeshModel* _pMeshModel;
     /** [r]エフェクト資源 */
@@ -21,6 +20,7 @@ public:
 
     float _far_rate;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name モデル名称（デバッグログで表示、なんでも良い）

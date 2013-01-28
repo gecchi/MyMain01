@@ -14,10 +14,10 @@ namespace GgafDxCore {
 class GgafDxSpriteMeshActor : public GgafDxMeshActor {
 
 public:
-
     /** UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
 
+public:
     /**
      * コンストラクタ.
      * GgafDxSpriteMeshSetActor で使用するモデルIDは避けて下さい。

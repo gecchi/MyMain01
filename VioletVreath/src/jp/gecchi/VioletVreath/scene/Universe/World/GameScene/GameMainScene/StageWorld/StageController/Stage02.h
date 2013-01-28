@@ -11,12 +11,12 @@ namespace VioletVreath {
 class Stage02 : public Stage {
 
 public:
-
     WorldBoundSpace002* pWorldBoundSpace_;
     HoshiBoshi001* pHoshiBoshi_;
 
     LabelGecchi16Font* pMessage_;
 
+public:
     Stage02(const char* prm_name);
     /**
      * ‰Šúˆ—

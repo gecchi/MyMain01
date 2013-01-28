@@ -14,6 +14,7 @@ public:
     /** [r]軌跡を描く元の魚雷オブジェクト */
     MyTorpedo* pTorpedo_;
 
+public:
     /**
      *
      * @param prm_name

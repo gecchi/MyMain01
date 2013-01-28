@@ -11,9 +11,10 @@ namespace VioletVreath {
 class EnemyThisbeLaserChip001 : public GgafLib::HomingLaserChip {
 
 public:
-
     GgafLib::SplineManufactureConnection* pSplManufCon_;
     GgafLib::SplineSequence* pSplSeq_;
+
+public:
     EnemyThisbeLaserChip001(const char* prm_name);
 
     void initialize() override;

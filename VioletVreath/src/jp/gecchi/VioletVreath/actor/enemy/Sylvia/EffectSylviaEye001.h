@@ -13,6 +13,7 @@ class EffectSylviaEye001 : public GgafLib::DefaultSpriteActor {
 public:
     int cnt_;
 
+public:
     EffectSylviaEye001(const char* prm_name);
 
     void initialize() override;

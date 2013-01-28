@@ -12,7 +12,6 @@ namespace GgafDxCore {
 class GgafDxTextureManager : public GgafCore::GgafResourceManager<GgafDxTexture> {
 
 public:
-
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称(リテラル必須)

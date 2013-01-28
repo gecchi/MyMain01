@@ -29,8 +29,6 @@ public:
         PROG_FINISH  ,
     };
 
-//    static StageController* pStageCtrler_;
-
     char buf_[60];
     /** メインステージ(現在アクティブな面のシーンポインタ） */
     Stage* pStageMainCannel_;
@@ -42,8 +40,8 @@ public:
     int loop_;
     int main_stage_;
 
+public:
     StageController(const char* prm_name);
-
 
     void onReset() override;
     void readyStage(int prm_main_stage);

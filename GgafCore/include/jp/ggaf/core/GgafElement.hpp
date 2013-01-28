@@ -119,6 +119,7 @@ public:
     /** [r]状態進捗管理オブジェクト */
     GgafProgress* _pProg;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name ノード名称（ユニークにして下さい）

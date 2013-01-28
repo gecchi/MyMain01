@@ -4,7 +4,6 @@ namespace VioletVreath {
 
 class EnemyAstraeaLaserChip001 : public GgafLib::HomingLaserChip {
 
-
 public:
     EnemyAstraeaLaserChip001(const char* prm_name);
 

@@ -19,6 +19,7 @@ public:
     /** テストキャラ */
     SmpActor* pActor_;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name 名称

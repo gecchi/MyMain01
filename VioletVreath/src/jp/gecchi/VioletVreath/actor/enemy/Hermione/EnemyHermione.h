@@ -30,6 +30,7 @@ public:
         angle pos_Rz_;
         angle pos_Ry_;
         EnemyHermioneArm** papArmPart_;
+    public:
         Arm() : pos_Rz_(0),pos_Ry_(0),papArmPart_(nullptr) {}
         ~Arm() {
             DELETEARR_IMPOSSIBLE_NULL(papArmPart_);
@@ -39,6 +40,7 @@ public:
     int num_arm_part_;  //腕の節数（3以上）
     Arm* paArm_;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name

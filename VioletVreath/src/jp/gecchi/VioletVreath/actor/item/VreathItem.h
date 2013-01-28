@@ -14,7 +14,6 @@ class VreathItem : public Item {
     int kDX_, kDY_, kDZ_;
 
 public:
-
     enum {
         PROG_NOTIONG = 1, //‰½‚à‚µ‚Ä‚¢‚È‚¢ó‘Ô
         PROG_DRIFT      , //’ÊíˆÚ“®ó‘Ô
@@ -22,7 +21,7 @@ public:
         PROG_ABSORB     , //‹z’…’†(‹z’…Ï)ó‘Ô
     };
 
-
+public:
     VreathItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override {

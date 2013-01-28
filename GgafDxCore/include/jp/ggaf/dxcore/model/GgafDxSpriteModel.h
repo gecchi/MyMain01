@@ -11,9 +11,7 @@ namespace GgafDxCore {
 class GgafDxSpriteModel : public GgafDxModel {
     friend class GgafDxModelManager;
 
-protected:
 public:
-
     /** 頂点構造体 */
     class VERTEX : public VERTEX_3D_BASE {
     public:
@@ -29,18 +27,17 @@ public:
     UINT _size_vertices;
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
+    float _fSize_SpriteModelWidthPx;
+    float _fSize_SpriteModelHeightPx;
+    int _row_texture_split;
+    int _col_texture_split;
 
+public:
     /**
      * コンストラクタ<BR>
      * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
     GgafDxSpriteModel(char* prm_model_name);
-
-public:
-    float _fSize_SpriteModelWidthPx;
-    float _fSize_SpriteModelHeightPx;
-    int _row_texture_split;
-    int _col_texture_split;
 
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 

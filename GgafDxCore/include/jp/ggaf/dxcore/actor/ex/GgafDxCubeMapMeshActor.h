@@ -12,12 +12,12 @@ namespace GgafDxCore {
 class GgafDxCubeMapMeshActor : public GgafDxMeshActor, public GgafDxICubeMapActor  {
 
 public:
-
     /** モデル資源 */
     GgafDxCubeMapMeshModel* _pCubeMapMeshModel;
     /** エフェクト資源 */
     GgafDxCubeMapMeshEffect* _pCubeMapMeshEffect;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name モデル名称（デバッグログで表示、なんでも良い）

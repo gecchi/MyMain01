@@ -14,13 +14,14 @@ namespace VioletVreath {
 class MenuBoardTitle : public MenuBoard {
 
 public:
-
     enum {
         ITEM_GAME_START = 0 ,
         ITEM_CONFIG,
         ITEM_DEBUG,
         ITEM_QUIT,
     };
+
+public:
     MenuBoardTitle(const char* prm_name);
 
     bool condMoveCursorNext() override;

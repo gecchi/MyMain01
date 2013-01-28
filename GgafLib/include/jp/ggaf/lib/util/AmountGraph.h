@@ -25,6 +25,7 @@ public:
 
     bool _is_new;
 
+public:
     /**
      * コンストラクタ .
      * @return

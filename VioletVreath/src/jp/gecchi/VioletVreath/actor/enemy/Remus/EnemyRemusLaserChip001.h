@@ -5,7 +5,6 @@ namespace VioletVreath {
 class EnemyRemusLaserChip001 : public GgafLib::WateringLaserChip {
 
 public:
-
     EnemyRemusLaserChip001(const char* prm_name);
 
     void initialize() override;

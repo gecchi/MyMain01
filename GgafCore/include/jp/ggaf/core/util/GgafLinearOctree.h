@@ -106,9 +106,7 @@ namespace GgafCore {
  */
 class GgafLinearOctree {
 
-
 public:
-
     /** [r]八分木の空間を一直線に並べた線形配列 */
     GgafLinearOctreeSpace* _paSpace; //_paSpace[0] は ROOT空間へのポインタ
     /** [r]八分木の空間に登録を行った要素の先頭要素 */
@@ -132,11 +130,9 @@ public:
     /** [r]最小空間(=最高分割の空間)の1空間のZ軸方向の距離 */
     int _top_level_dZ;
 
-
     double _r_top_level_dX;
     double _r_top_level_dY;
     double _r_top_level_dZ;
-
 
     /** [r]8の累乗の値を予め計算して保持している配列 */
     UINT32* _paUint32_pow;
@@ -145,6 +141,7 @@ public:
     /** [r]最大空間レベル */
     int _top_space_level; //ルート空間はLevel=0
 
+public:
     /**
      * 線形八分木空間を構築する.
      * @param prm_level 構築する空間レベル

@@ -11,7 +11,6 @@ namespace GgafDxCore {
 class GgafDxPointSpriteModel : public GgafDxModel {
     friend class GgafDxModelManager;
 
-protected:
 public:
     struct VERTEX {
         float x, y, z;    // 頂点座標
@@ -39,14 +38,12 @@ public:
     /** テクスチャ分割数(１で分割無し。２で４パターン、３で９パターン) */
     int _texture_split_rowcol;
 
-
+public:
     /**
      * コンストラクタ<BR>
      * @param prm_model_name スプライト定義の識別名。".psprx"を追加すると定義Xファイル名になる。
      */
     GgafDxPointSpriteModel(char* prm_model_name);
-
-public:
 
     virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 

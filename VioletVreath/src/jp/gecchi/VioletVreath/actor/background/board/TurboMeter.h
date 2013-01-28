@@ -14,6 +14,7 @@ public:
     /** メーター値 1 の ピクセル値     */
     float unit_px_;
 
+public:
     TurboMeter(const char* prm_name);
 
     /**

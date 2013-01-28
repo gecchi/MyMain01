@@ -11,7 +11,6 @@ namespace GgafLib {
 class FixedVelocitySplineManufacture : public SplineManufacture {
 
 public:
-
     /** [r]始点からn番目の補完点(基準点も含む)到達に必要なフレーム数のテーブル */
     float* _paFrame_need_at;
     /** [r]基準速度 */
@@ -25,6 +24,7 @@ public:
     /** [r]補完点(基準点も含む)の数 */
     int _point_index;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_source_file スプライン座標情報ファイル

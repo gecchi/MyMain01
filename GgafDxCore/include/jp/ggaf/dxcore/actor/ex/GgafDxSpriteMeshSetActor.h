@@ -18,6 +18,7 @@ public:
     /** UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
 
+public:
     GgafDxSpriteMeshSetActor(const char* prm_name,
                              const char* prm_model,
                              GgafCore::GgafStatus* prm_pStat,

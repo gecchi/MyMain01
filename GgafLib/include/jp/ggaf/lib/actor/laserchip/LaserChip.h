@@ -40,10 +40,7 @@ private:
     int _harf_hitarea_edge_length;
 
 public:
-
-
     CollisionChecker3D* _pColliChecker;
-
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_front;
     /** 一つ後方のレーザーチップ */
@@ -59,6 +56,7 @@ public:
     /** [r]rueならば、前方チップと離れすぎた場合に中間当たり判定自動生成 */
     float _middle_colli_able;
 
+public:
     LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;

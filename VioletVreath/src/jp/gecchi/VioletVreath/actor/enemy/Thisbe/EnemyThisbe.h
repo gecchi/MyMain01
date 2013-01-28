@@ -37,6 +37,8 @@ public:
     DepositoryConnection* pConn_RefractionEffectDepository_;
 
     GgafLib::LaserChipDepository* pLaserChipDepo_;
+
+public:
     /**
      * コンストラクタ
      * @param prm_name

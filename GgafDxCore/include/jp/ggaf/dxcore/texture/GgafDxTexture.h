@@ -13,9 +13,8 @@ class GgafDxTexture : public GgafCore::GgafObject {
     friend class GgafDxTextureManager;
 
     static std::string getTextureFileName(std::string prm_file);
-protected:
-public:
 
+public:
     /** モデル定義の識別名。(50文字まで) */
     char* _texture_name;
     /** テクスチャの幅(px) */
@@ -24,6 +23,8 @@ public:
     UINT _tex_height;
     D3DXIMAGE_INFO* _pD3DXIMAGE_INFO;
     LPDIRECT3DBASETEXTURE9 _pIDirect3DBaseTexture9;
+
+public:
     /**
      * コンストラクタ<BR>
      * @param prm_texture_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
@@ -37,7 +38,6 @@ public:
     char* getName() {
         return _texture_name;
     }
-
 
     /**
      * デストラクタ<BR>

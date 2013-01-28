@@ -33,6 +33,7 @@ class WalledSectionScene : public DefaultScene {
         /** 当たり判定領域AAB情報 */
         int _aColliBoxStretch[6];
     };
+
 public:
     /** [r]外壁シーンの長さ（X座標軸の壁ブロック数） */
     int _area_len;
@@ -71,6 +72,7 @@ public:
 
     ScrolledScene*  _pScrolledScene;
 
+public:
     /**
      * コンストラクタ .
      * 壁ブロック情報ファイルを読み込み、オブジェクトに展開します。

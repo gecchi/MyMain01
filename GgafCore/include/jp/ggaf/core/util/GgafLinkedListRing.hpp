@@ -60,7 +60,6 @@ template<class T>  //T:管理する要素のポインタの型
 class GgafLinkedListRing : public GgafObject {
 
 public:
-
     /**
      * コンテナ .
      * 値をラップし、前後ポインタを保持。
@@ -153,6 +152,7 @@ public:
     /** [r]関連要素数 */
     int _relation_num;
 
+public:
     /**
      * コンストラクタ .
      * 拡張関連要素数とは、next prev 以外にリレーションを行う枝数です。

@@ -40,6 +40,7 @@ public:
     /** [r/w]本グループの種別 */
     actorkind _kind;
 
+public:
     GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat = nullptr);
 
     /**

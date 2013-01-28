@@ -11,7 +11,6 @@ namespace VioletVreath {
 class WorldBoundSpaceRankUp : public GgafLib::WorldBoundActor {
 
 public:
-
     /**
      * コンストラクタ
      * @param prm_name

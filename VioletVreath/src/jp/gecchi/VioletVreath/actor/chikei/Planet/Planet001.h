@@ -11,9 +11,9 @@ namespace VioletVreath {
 class Planet001 : public GgafLib::DefaultMeshActor {
 
 public:
-
     Planet001Atmosphere* pAtmosphere_;
 
+public:
     Planet001(const char* prm_name);
 
     virtual void onCreateModel() override;

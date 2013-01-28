@@ -11,7 +11,6 @@ namespace VioletVreath {
 class VarietySylvia003 : public EnemySylvia {
 
 public:
-
     VarietySylvia003(const char* prm_name);
 
     void initialize() override;

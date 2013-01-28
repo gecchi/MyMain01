@@ -12,14 +12,13 @@ namespace GgafDxCore {
  */
 class GgafDxSeTransmitter : public GgafCore::GgafObject {
 
-private:
-
 public:
     /** [r]SE資源接続の配列 */
     GgafDxSeConnection** _papSeCon;
     /** [r]SEの数 */
     int _se_num;
 
+public:
     /**
      * コンストラクタ .
      */

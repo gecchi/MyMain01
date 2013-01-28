@@ -29,6 +29,7 @@ public:
     /** 現在魚雷発射中かどうか true:いづれかの魚雷が活動中/false:全ての魚雷が非活動状態 */
     bool in_firing_;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name

@@ -26,6 +26,7 @@ public:
     };
     frame frame_prog_fainal_;
 
+public:
     Stage02PartController(const char* prm_name);
     /**
      * ‰Šúˆ—

@@ -18,6 +18,7 @@ public:
     angle _RZ;
     GgafDxGeoElem* _next;
 
+public:
     GgafDxGeoElem() {
         _X = 0;
         _Y = 0;

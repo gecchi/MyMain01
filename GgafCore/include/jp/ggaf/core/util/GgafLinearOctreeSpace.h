@@ -9,6 +9,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafLinearOctreeSpace {
+
 public:
     /** [r]線形八分木配列の自身の要素番号 */
     UINT32 _my_index;
@@ -19,6 +20,7 @@ public:
     /** [r]ぶら下がる要素の末尾 */
     GgafLinearOctreeElem* _pElem_last;
 
+public:
     /**
      * コンストラクタ
      * @return

@@ -11,6 +11,8 @@ public:
     bool is_lockon_;
 
     int default_stamina_;
+
+public:
     MyOptionStraightLaserChip001(const char* prm_name);
 
     void initialize() override;

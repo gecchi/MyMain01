@@ -39,6 +39,7 @@ public:
 
     int zanki_;
 
+public:
     MyShipScene(const char* prm_name);
     /**
      * ‰Šúˆ—

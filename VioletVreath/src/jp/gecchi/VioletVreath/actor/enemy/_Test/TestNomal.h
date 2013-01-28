@@ -11,12 +11,12 @@ namespace VioletVreath {
 class TestNomal : public TestEnemy {
 
 public:
-
       enum {
           SE_DAMAGED   = 0,
           SE_EXPLOSION ,
       };
 
+public:
     /**
      * コンストラクタ
      * @param prm_name

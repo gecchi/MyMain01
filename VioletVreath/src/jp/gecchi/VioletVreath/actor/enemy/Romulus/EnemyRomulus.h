@@ -40,6 +40,7 @@ public:
     GgafCore::GgafActorDepository* pDepo_Fired_;
     DepositoryConnection* pDpcon_;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name

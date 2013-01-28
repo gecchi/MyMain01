@@ -9,8 +9,8 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class EnemyHermioneArmWeak : public EnemyHermioneArm {
-public:
 
+public:
     EnemyHermioneArmWeak(const char* prm_name);
 
     void onCreateModel() override;

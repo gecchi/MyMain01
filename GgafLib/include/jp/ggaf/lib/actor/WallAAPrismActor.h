@@ -17,11 +17,11 @@ public:
     D3DXHANDLE _h_wall_dep;
     D3DXHANDLE _h_wall_height;
     D3DXHANDLE _h_wall_width;
-//    D3DXHANDLE _h_pos_prism;
     static bool _init;
     /** プリズム無条件追加描画不要面テーブル */
     static std::map<int, UINT> _delface;
 
+public:
     WallAAPrismActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void processDraw() override;

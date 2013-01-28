@@ -17,7 +17,6 @@ class GgafUniverse : public GgafMainScene {
     friend class GgafScene;
 
 public:
-
     GgafUniverse(const char* prm_name);
 
     /**

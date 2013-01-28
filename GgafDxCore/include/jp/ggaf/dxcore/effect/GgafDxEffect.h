@@ -12,7 +12,6 @@ namespace GgafDxCore {
 class GgafDxEffect : public GgafCore::GgafObject {
     friend class GgafDxEffectManager;
 
-
     static std::string getEffectFileName(std::string prm_file);
 
 protected:
@@ -27,6 +26,8 @@ public:
 #ifdef MY_DEBUG
     bool _begin;
 #endif
+
+public:
     /**
      * コンストラクタ<BR>
      * @param prm_effect_name エフェクト定義の識別名。".fx"を追加するとエフェクトファイル名になる。

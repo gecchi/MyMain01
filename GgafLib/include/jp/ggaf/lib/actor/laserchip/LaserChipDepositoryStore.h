@@ -11,6 +11,7 @@ namespace GgafLib {
  */
 class LaserChipDepositoryStore : public GgafCore::GgafActorDepository {
     friend class LaserChip;
+
 public:
     LaserChipDepositoryStore(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
 

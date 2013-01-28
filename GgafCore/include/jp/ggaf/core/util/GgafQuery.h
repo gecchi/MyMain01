@@ -43,8 +43,8 @@ private:
 
     /** クエリの列番号と値のペアをもったMapのListです */
     std::vector<GgafRecord*> _lstTtable;
-public:
 
+public:
     /**
      * 内容が空のクエリを作成 .
      */

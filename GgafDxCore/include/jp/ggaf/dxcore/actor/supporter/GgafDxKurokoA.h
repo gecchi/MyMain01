@@ -26,6 +26,8 @@ class GgafDxKurokoA : public GgafCore::GgafObject {
 public:
     /** [r]対象アクター */
     GgafDxGeometricActor* _pActor;
+
+public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
@@ -35,7 +37,6 @@ public:
 
 
 public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
-
     /** [r/w]キャラの向き(各軸回転方角の方角(0～360,000)) */
     angle _angFace[3];
     /** [r/w]軸回転方角の角速度（軸回転方角に毎フレーム加算する方角） */
@@ -59,6 +60,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
     /** [r/w]目標の軸回転方角自動停止機能が有効になる角速度（回転正負共通） */
     angvelo _face_ang_target_allow_velo[3]; //この角速度より小さい値の場合機能有効とするz
 
+public:
     /**
      * Actorの軸回転方角を設定。<BR>
      * @param   prm_axis    回転軸(AXIS_X / AXIS_Y / AXIS_Z)
@@ -247,7 +249,6 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
     /** [r]なめらかな移動シークエンスの進捗状況 */
     int  _smooth_mv_velo_seq_progress;
 
-
     bool _taget_mv_ang_alltime_flg;
     GgafDxGeometricActor* _taget_mv_ang_alltime_pActor;
     coord _taget_mv_ang_alltime_tX;
@@ -257,6 +258,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
     angacce _taget_mv_ang_alltime_angAcce;
     int _taget_mv_ang_alltime_way;
     bool _taget_mv_ang_alltime_optimize_ang;
+
+public:
     /**
      * 移動速度を設定 .
      * @param   prm_veloMv  移動速度

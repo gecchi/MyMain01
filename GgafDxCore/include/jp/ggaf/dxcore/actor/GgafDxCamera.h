@@ -24,7 +24,6 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxCamera : public GgafDxGeometricActor {
-private:
 
 public:
     D3DVIEWPORT9 _viewport;
@@ -100,7 +99,7 @@ public:
     coord _Y_buffer_top;
     coord _Y_buffer_bottom;
 
-
+public:
     /**
      * コンストラクタ .
      * 視野角と表示深さを設定する。

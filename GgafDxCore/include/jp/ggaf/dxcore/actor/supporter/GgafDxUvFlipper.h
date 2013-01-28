@@ -61,12 +61,10 @@ public:
     /** [r]“à•”UV”z—ñ */
     UV* _paUV;
 
-
+public:
     GgafDxUvFlipper(GgafDxTexture* prm_pTexture);
 
-
     virtual ~GgafDxUvFlipper();
-
 
     void copyStatesFrom(GgafDxUvFlipper* prm_pUvFlipper_Other) {
         _one_ptn_tex_width      = prm_pUvFlipper_Other->_one_ptn_tex_width;

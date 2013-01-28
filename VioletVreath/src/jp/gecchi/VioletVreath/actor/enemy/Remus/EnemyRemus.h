@@ -10,7 +10,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class EnemyRemus : public GgafLib::DefaultMorphMeshActor {
-private:
+
 public:
     enum {
         PROG_INIT         = 1,
@@ -42,6 +42,8 @@ public:
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
     bool is_firing_;
+
+public:
     /**
      * コンストラクタ
      * @param prm_name

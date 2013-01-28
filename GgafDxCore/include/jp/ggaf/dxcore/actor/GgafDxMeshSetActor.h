@@ -11,15 +11,14 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxMeshSetActor : public GgafDxDrawableActor {
-private:
 
 public:
-
     /** [r]モデル資源 */
     GgafDxMeshSetModel* _pMeshSetModel;
     /** [r]エフェクト資源 */
     GgafDxMeshSetEffect* _pMeshSetEffect;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）

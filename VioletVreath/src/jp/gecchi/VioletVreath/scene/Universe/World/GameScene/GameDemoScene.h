@@ -31,6 +31,7 @@ public:
     LabelGecchi16Font* pLabel02_;
     int demo_stage_;
 
+public:
     GameDemoScene(const char* prm_name);
     void onReset() override;
     void initialize() override;

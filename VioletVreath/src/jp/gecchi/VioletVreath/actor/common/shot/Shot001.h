@@ -10,12 +10,14 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class Shot001 : public GgafLib::DefaultMeshSetActor {
-public:
 
+public:
     /** 移動スプラインプログラム */
     GgafLib::SplineSequence* pSplSeq_;
     /** スプライン定義資源への接続 */
     SplineLineConnection* pSplLineCon_;
+
+public:
     Shot001(const char* prm_name);
 
     void initialize() override;

@@ -8,6 +8,7 @@ class TamagoScene : public GgafLib::DefaultScene {
 public:
     TurboMeter* pTurboMeter001_;
 
+public:
     TamagoScene(const char* prm_name);
     void onReset() override;
     void ready();

@@ -9,8 +9,8 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class FormationEunomia002b : public FormationEunomia002 {
-public:
 
+public:
     FormationEunomia002b(const char* prm_name);
 
     /**

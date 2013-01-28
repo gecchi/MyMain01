@@ -22,7 +22,9 @@ public:
     RankUpStageController* pRankUpStageCtrler_;
     StageController* pStageCtrler_;
     bool can_rank_up_;
-    StageWorld(const char* prm_name);
+
+public:
+   StageWorld(const char* prm_name);
     void onReset() override;
     void initialize() override;
     void processBehavior() override;

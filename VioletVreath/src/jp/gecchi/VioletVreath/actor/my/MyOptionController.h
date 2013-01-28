@@ -36,6 +36,8 @@ public:
     /** •ûŒü“]Š·Šp‘¬“x */
     angvelo angVelo_Turn_;
     int renge_;
+
+public:
     MyOptionController(const char* prm_name, int prm_no);
 
     virtual void initialize() override;

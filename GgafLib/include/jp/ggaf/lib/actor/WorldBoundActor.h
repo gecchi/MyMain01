@@ -16,6 +16,7 @@ public:
 
     frame _offset_frames;
 
+public:
     WorldBoundActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {

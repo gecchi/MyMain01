@@ -35,6 +35,7 @@ public:
     PreDrawScene* pPreDrawScene_;
     GameScene* pGameScene_;
 
+public:
     World(const char* prm_name);
 
     /**

@@ -21,6 +21,7 @@ public:
 
     DepositoryConnection* pDpcon_;
 
+public:
     FormationThalia(const char* prm_name);
 
     /**

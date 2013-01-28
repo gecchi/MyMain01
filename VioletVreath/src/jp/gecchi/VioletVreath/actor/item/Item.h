@@ -15,9 +15,10 @@ class Item : public GgafLib::DefaultMeshSetActor {
 public:
     TractorMagic* pTractorMagic_;
 
+public:
     Item(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
-	TractorMagic* getTractorMagic();
+  TractorMagic* getTractorMagic();
 
     virtual void initialize() override;
 

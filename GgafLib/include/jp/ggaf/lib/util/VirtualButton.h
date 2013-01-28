@@ -56,7 +56,6 @@ namespace GgafLib {
 class VirtualButton : public GgafCore::GgafObject {
 
 public:
-
     struct KEYBOARDMAP {
         int BUTTON1;
         int BUTTON2;
@@ -106,7 +105,7 @@ public:
         VBRecord* _prev; //時系列で前のフレームの入力状態
 
         vbsta _state;
-
+    public:
         VBRecord() {
             _next = nullptr;
             _prev = nullptr;
@@ -130,6 +129,7 @@ public:
     /** [r]初期状態:false／リプレイモード終了:true */
     bool _was_replay_done;
 
+public:
     /**
      * コンストラクタ .
      * 引数のリプレイファイルが存在する場合→リプレイーモード。

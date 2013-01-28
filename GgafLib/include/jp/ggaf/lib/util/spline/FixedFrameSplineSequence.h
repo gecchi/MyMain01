@@ -11,7 +11,6 @@ namespace GgafLib {
 class FixedFrameSplineSequence : public SplineSequence {
 
 public:
-
     FixedFrameSplineManufacture* _pFixedFrameSplManuf;
 
     //ŒvZ—p’è”
@@ -20,6 +19,7 @@ public:
     float _SIN_RyMv_begin;
     float _COS_RyMv_begin;
 
+public:
     /**
      *
      * @param prm_pManufacture calculate()Ï‚İ‚ÌSplineManufacture‚ğİ’è‚·‚é‚±‚Æ

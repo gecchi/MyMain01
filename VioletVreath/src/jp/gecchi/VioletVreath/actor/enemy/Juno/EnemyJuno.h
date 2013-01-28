@@ -23,6 +23,7 @@ public:
     int shot_num_;
     velo velo_mv_begin_;
 
+public:
     EnemyJuno(const char* prm_name);
 
     void onCreateModel() override;

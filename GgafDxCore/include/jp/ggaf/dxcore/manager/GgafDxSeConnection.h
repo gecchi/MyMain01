@@ -11,7 +11,6 @@ namespace GgafDxCore {
 class GgafDxSeConnection : public GgafCore::GgafResourceConnection<GgafDxSe> {
 
 public:
-
     /**
      * コンストラクタ<BR>
      * @param prm_idstr サウンドエフェクト識別名

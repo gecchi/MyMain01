@@ -31,6 +31,7 @@ public:
     /** リセットメソッド */
     GgafStatus* (*_pFunc_reset)(GgafStatus*);
 
+public:
     /**
      * ステータスセットを作成 .
      * リセットメソッドを実行しステータス初期化を行います。

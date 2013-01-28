@@ -23,7 +23,7 @@ public:
     /** AAB‚Ì‘ÎŠp‚Ì’¸“_‚Æ‚È‚ézÀ•W‘å‚«‚¢•û */
     coord _z2;
 
-
+public:
     ColliAAB();
 
     void set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, bool rotX, bool rotY, bool rotZ);

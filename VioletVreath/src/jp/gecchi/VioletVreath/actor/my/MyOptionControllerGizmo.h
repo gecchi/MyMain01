@@ -13,7 +13,8 @@ class MyOptionControllerGizmo : public GgafLib::DefaultMeshActor {
 public:
     int ptn_no_;
 
-    MyOptionControllerGizmo(const char* prm_name);
+public:
+   MyOptionControllerGizmo(const char* prm_name);
 
     void onCreateModel() override {
     }

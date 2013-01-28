@@ -11,7 +11,6 @@ namespace VioletVreath {
 class DepositoryConnection : public GgafCore::GgafResourceConnection<GgafCore::GgafActorDepository> {
 
 public:
-
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名

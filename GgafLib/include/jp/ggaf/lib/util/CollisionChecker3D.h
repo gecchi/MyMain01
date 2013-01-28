@@ -22,13 +22,12 @@ public:
     static LinearOctreeForActor* _pLinearOctree; //TODO:どこに持たせようか悩むがとりあえずココに
     /** １フレームの当たり判定要素同士の判定回数 */
     static int _num_check;
-
-
     /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
     bool _need_update_aabb;
     /** 線形８分木登録用要素 */
     LinearOctreeActorElem* _pElem;
 
+public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor

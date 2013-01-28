@@ -37,7 +37,6 @@ public:
     /** [r]ループの振る舞い種別 */
     GgafDxMorphingMethod _method[MAX_MORPH_TARGET+1];
 
-
     /** [r]ループ重みの１ループフレーム幅 */
     frame _beat_target_frames[MAX_MORPH_TARGET+1];
     /** [r]ループ重みの開始相対フレーム */
@@ -53,6 +52,7 @@ public:
     /** [r]ビート時、内部進捗番号 */
     int _beat_progres[MAX_MORPH_TARGET+1];
 
+public:
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor

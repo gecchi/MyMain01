@@ -11,8 +11,8 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class VBReplayRecorder : public GgafCore::GgafObject {
-public:
 
+public:
     /**
      * リプレイデータ要素 .
      */
@@ -24,7 +24,7 @@ public:
         vbsta _state;
         /** [r]ステータス継続フレーム数 */
         frame _frame_of_keeping;
-
+    public:
         /**
          * コンストラクタ .
          */
@@ -54,6 +54,8 @@ public:
     std::ofstream _ofs_realtime;
 
     bool _write_realtime;
+
+public:
     /**
      * コンストラクタ .
      */

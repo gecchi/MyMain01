@@ -25,6 +25,8 @@ public:
     int _colli_part_num;
 
     int _hit_colli_part_index;
+
+public:
     /**
      * コンストラクタ .
      * @param prm_colli_part_num 当たり判定領域要素数

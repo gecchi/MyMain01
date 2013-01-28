@@ -20,8 +20,8 @@ class EnemyIris :
     GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDepository* pDepo_ShotEffect_;
-public:
 
+public:
     enum {
         SE_EXPLOSION = 0,
     };
@@ -29,6 +29,7 @@ public:
     /** 行動パターン番号 */
     int iMovePatternNo_;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name

@@ -23,7 +23,6 @@ class VamSysCamWorker : public CameraWorker {
 
 public:
     MyShip* pMyShip_;
-
     /** 原点から初期カメラZ位置の距離 */
 //    int dZ_camera_init_;
 
@@ -70,6 +69,7 @@ public:
     /** カメラはオプション背面中である場合true */
     bool is_cam_pos_option_back_;
 
+public:
     VamSysCamWorker(const char* prm_name);
 
     virtual void initialize() override;

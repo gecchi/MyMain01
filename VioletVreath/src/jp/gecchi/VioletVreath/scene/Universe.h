@@ -97,6 +97,7 @@ public:
     /** [r]¢ŠE */
     World* pWorld_;
 
+public:
     Universe(const char* prm_name, Camera* prm_pCamera);
 
     void initialize() override;

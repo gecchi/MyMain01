@@ -43,6 +43,7 @@ public:
     /** [r] 保持プロパティMAP */
     static GgafStrMap* _pMapProperties;
 
+public:
     /**
      * 外部プロパティファイルから未ロードならロードしてプロパティ保持 .
      * @param prm_properties_filename プロパティファイル

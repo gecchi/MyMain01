@@ -65,6 +65,7 @@ public:
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name モデル名称（任意）

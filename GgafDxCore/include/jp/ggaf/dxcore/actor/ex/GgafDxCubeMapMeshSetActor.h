@@ -18,6 +18,7 @@ public:
     /** エフェクト資源 */
     GgafDxCubeMapMeshSetEffect* _pCubeMapMeshSetEffect;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）

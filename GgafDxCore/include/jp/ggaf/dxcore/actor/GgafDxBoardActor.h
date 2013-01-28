@@ -96,6 +96,7 @@ public:
     GgafDxAlign _align;
     GgafDxValign _valign;
 
+public:
     /**
      *
      * @param prm_name

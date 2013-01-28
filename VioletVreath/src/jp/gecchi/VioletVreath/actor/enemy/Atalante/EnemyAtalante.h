@@ -12,7 +12,6 @@ namespace VioletVreath {
 class EnemyAtalante : public GgafLib::DefaultMeshSetActor {
 
 public:
-
     enum {
         PROG_INIT = 1  ,
         PROG_MOVE01_1,
@@ -34,6 +33,8 @@ public:
     bool Y_ok_;
     /** Z軸揃ったよフラグ */
     bool Z_ok_;
+
+public:
     /**
      * コンストラクタ
      * @param prm_name

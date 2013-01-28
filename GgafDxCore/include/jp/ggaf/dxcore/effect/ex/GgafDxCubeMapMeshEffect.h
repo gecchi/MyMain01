@@ -12,12 +12,10 @@ class GgafDxCubeMapMeshEffect : public GgafDxMeshEffect {
     friend class GgafDxEffectManager;
 
 public:
-
-//    D3DXHANDLE _h_pos_camera;
     D3DXHANDLE _h_reflectance;
-    GgafDxCubeMapMeshEffect(char* prm_effect_name);
 
-//    virtual void setParamPerFrame() override;
+public:
+    GgafDxCubeMapMeshEffect(char* prm_effect_name);
 
     virtual ~GgafDxCubeMapMeshEffect(); //デストラクタ
 

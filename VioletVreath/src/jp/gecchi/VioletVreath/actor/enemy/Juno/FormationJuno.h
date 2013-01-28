@@ -16,6 +16,7 @@ public:
     int X1_app_, Y1_app_, Z1_app_, X2_app_, Y2_app_, Z2_app_;
     int frame_app_interval_;
 
+public:
     /**
      * コンストラクタ .
      * Junoフォーメーションを定義します。

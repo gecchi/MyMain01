@@ -12,7 +12,6 @@ namespace GgafDxCore {
 class GgafDxGod : public GgafCore::GgafGod {
 
 private:
-
     /** 使用可能なデバイスのアダプタ数 */
     int _num_adapter;
     /** Windows Display Driver Model（WDDM）が使用可能か否か */
@@ -38,6 +37,7 @@ private:
     /** デバイス作成時パラメーター（WDDM使用時のみ必要） */
     D3DDISPLAYMODEEX* _paDisplayMode;
 
+private:
     /**
      * WDDMかどうか判定し、デバイスを作成 .
      * 結果は GgafDxGod::_pID3D9 と GgafDxGod::_pID3DDevice9に保持される。
@@ -142,6 +142,7 @@ public:
     /** [r] フルスクリーン時２画面目の左上Y座標 */
     pixcoord _secondary_screen_y;
 
+public:
     /**
      * コンストラクタ<BR>
      */

@@ -13,12 +13,14 @@ typedef std::map<progress, GgafLib::DefaultScene*> ProgSceneMap;
  * @author Masatoshi Tsuge
  */
 class SceneProgress : public GgafCore::GgafProgress {
+
 public:
     /** [r]進捗管理対象シーン */
     DefaultScene* _pScene;
     /** [r]進捗番号 対 サブシーン */
     ProgSceneMap _mapProg2Scene;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_pScene       進捗を管理したい対象シーン

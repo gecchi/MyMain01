@@ -12,7 +12,6 @@ namespace GgafDxCore {
 class GgafDxEffectConnection : public GgafCore::GgafResourceConnection<GgafDxEffect> {
 
 public:
-
     /**
      * コンストラクタ<BR>
      * @param prm_idstr エフェクト識別名(＝ファイル名)

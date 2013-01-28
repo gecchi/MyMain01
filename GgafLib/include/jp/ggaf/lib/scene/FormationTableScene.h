@@ -84,6 +84,7 @@ public:
     /** 敵出現テーブル(TblElemオブジェクトの連結リスト) */
     GgafCore::GgafLinkedListRing<TblElem> _table;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name シーン名

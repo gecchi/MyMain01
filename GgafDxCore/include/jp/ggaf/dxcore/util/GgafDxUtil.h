@@ -104,6 +104,7 @@ public:
 
     static bool _was_inited_flg;
 
+public:
     static void init();
 
     /**

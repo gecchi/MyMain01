@@ -22,6 +22,8 @@ public:
 
     GgafDxAlign _align;
     GgafDxValign _valign;
+
+public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）

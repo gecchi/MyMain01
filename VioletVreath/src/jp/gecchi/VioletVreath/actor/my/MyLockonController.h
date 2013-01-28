@@ -22,6 +22,7 @@ public:
     /** ロックオンターゲットリストリング */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* pRingTarget_;
 
+public:
     MyLockonController(const char* prm_name);
 
     void initialize() override;

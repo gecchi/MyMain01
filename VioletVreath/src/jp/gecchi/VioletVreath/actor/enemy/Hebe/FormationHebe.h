@@ -16,7 +16,6 @@ public:
     /** ヘーベの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* pConn_ShotDepo_;
 
-
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection* pSplManufCon_;
     /** 編隊数(RANK変動) */
@@ -26,6 +25,7 @@ public:
     /** 編隊メンバーの移動速度(RANK変動) */
     velo rr_mv_velo_;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name

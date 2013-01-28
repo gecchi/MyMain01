@@ -2,8 +2,5 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-
-
-
 GgafDxQuaternion::~GgafDxQuaternion() {
 }

@@ -12,11 +12,12 @@ namespace GgafLib {
 class SplineSource : public GgafCore::GgafObject {
 
 public:
-
     SplineLine* _pSp;
     double _accuracy;
     std::string _idstr;
     bool _is_create_SplineLine;
+
+public:
     SplineSource(char* prm_idstr);
 
     SplineSource(SplineLine* prm_pSp);

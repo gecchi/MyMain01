@@ -8,7 +8,6 @@ namespace VioletVreath {
 class RankUp002 : public RankUpStage {
 
 public:
-
     RankUp002(const char* prm_name);
     /**
      * ‰Šúˆ—

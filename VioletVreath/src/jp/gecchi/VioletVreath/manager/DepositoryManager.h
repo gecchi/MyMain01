@@ -12,7 +12,6 @@ namespace VioletVreath {
 class DepositoryManager : public GgafCore::GgafResourceManager<GgafCore::GgafActorDepository> {
 
 public:
-
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称(リテラル必須)

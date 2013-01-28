@@ -12,8 +12,6 @@ namespace VioletVreath {
  */
 class EnemyCeres : public GgafLib::DefaultMeshSetActor {
 
-private:
-
 public:
     enum {
         SE_EXPLOSION = 0,
@@ -35,6 +33,7 @@ public:
     frame frame_Active_;
     SplineLineConnection* pSplLineCon_;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name オブジェクト

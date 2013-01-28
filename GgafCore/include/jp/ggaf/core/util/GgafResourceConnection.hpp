@@ -43,6 +43,7 @@ protected:
     /** [r]次のGgafResourceConnectionへのポインタ。終端はnullptr */
     GgafResourceConnection<T>* _pNext;
 
+protected:
     /**
      * コンストラクタ<BR>
      * protected である理由は、マネジャー(GgafResourceManager<T>) が生成するため。<BR>
@@ -66,7 +67,6 @@ protected:
     virtual void processReleaseResource(T* prm_pResource)= 0;
 
 public:
-
     /**
      * 識別名を返す .
      * @return 識別名

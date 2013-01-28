@@ -21,6 +21,7 @@ public:
     GgafLib::StringSpriteActor* pLabelInputedName_;
     GgafLib::StringSpriteActor* pLabelSelectedChar_;
 
+public:
     MenuBoardNameEntry(const char* prm_name);
 
     void setNameStringBoard(GgafLib::StringSpriteActor* prm_pInputedName,

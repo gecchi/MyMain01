@@ -10,11 +10,12 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class Shot004Blue : public GgafLib::SingleLaser {
+
 public:
-
     bool view_in_;
-    Shot004Blue(const char* prm_name);
 
+public:
+    Shot004Blue(const char* prm_name);
 
     void initialize() override;
 

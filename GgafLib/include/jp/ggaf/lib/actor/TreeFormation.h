@@ -12,6 +12,7 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class TreeFormation : public GgafCore::GgafTreeFormation {
+
 public:
     /**
      * コンストラクタ .

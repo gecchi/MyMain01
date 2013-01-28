@@ -46,7 +46,6 @@ public:
     GgafCore::GgafLinkedListRing<SeArray>* _pRing_pSeArray;
 
 public:
-
     /** ƒJƒƒ‰ */
     GgafDxCamera* _pCamera;
 
@@ -72,6 +71,7 @@ public:
     static coord _Z_goneNear;
     static std::string _seqkey_se_delay;
 
+public:
     GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera);
 
     virtual void processSettlementBehavior() override;

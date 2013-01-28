@@ -29,8 +29,8 @@ class GgafUtil {
 public:
     static UINT32 _timex;
 
+public:
     static UINT32 getSystemTime();
-
 
     /**
      * ƒtƒ@ƒCƒ‹“Ç‚İ‚İ .

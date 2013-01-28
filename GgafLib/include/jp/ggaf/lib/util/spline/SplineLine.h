@@ -24,7 +24,6 @@ namespace GgafLib {
 class SplineLine {
 
 public:
-
     /**
      * 簡易３次スプライン .
      */
@@ -32,6 +31,7 @@ public:
     public:
         int num;
         double a[MaxSplineSize + 1], b[MaxSplineSize + 1], c[MaxSplineSize + 1], d[MaxSplineSize + 1];
+    public:
         BSpline() {
             num = 0;
         }
@@ -80,6 +80,8 @@ public:
         }
     };
 
+
+public:
     /**
      * コンストラクタ .
      * 後で init() を呼び出して下さい。

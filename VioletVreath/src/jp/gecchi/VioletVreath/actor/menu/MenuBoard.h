@@ -25,6 +25,7 @@ public:
     coord target_X_;
     coord target_Y_;
 
+public:
     MenuBoard(const char* prm_name, const char* prm_model);
 
     /**

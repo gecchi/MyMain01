@@ -21,15 +21,8 @@ namespace GgafDxCore {
 class GgafDxKurokoB : public GgafCore::GgafObject {
 
 public:
-    /** 対象アクター */
+    /** [r]対象アクター */
     GgafDxGeometricActor* _pActor;
-
-    /**
-     * コンストラクタ<BR>
-     * @param   prm_pActor  適用Actor
-     */
-    GgafDxKurokoB(GgafDxGeometricActor* prm_pActor);
-
     /** [r/w]X軸方向移動速度 */
     velo _veloVxMv;
     /** [r/w]X軸方向移動速度上限 */
@@ -67,7 +60,6 @@ public:
     /** [r/w]Z軸方向移動加速度下限*/
     acce _acceBottomVzMv;
 
-
     coord _gravitation_mv_seq_target_X;
     coord _gravitation_mv_seq_target_Y;
     coord _gravitation_mv_seq_target_Z;
@@ -77,9 +69,14 @@ public:
     coord _gravitation_mv_seq_stop_renge;
     bool _gravitation_mv_seq_flg;
 
+public:
+    /**
+     * コンストラクタ<BR>
+     * @param   prm_pActor  適用Actor
+     */
+    GgafDxKurokoB(GgafDxGeometricActor* prm_pActor);
 
     int dot(int prm_vX, int prm_vY, int prm_vZ);
-    //virtual void behave();
     /**
      * X軸方向移動速度設定 .
      * @param prm_veloVxMv X軸方向移動速度

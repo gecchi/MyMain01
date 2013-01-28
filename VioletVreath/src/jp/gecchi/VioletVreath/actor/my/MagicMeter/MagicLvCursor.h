@@ -22,7 +22,6 @@ public:
     /** [r]現在指しているレベル */
     int point_lv_;
 
-
     /** 退避用 */
     coord tmp_Y_;
     /** 退避用 */

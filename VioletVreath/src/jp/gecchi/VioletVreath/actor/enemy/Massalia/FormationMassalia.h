@@ -25,6 +25,7 @@ public:
     /** 編隊メンバーの初期移動速度(RANK変動) */
     velo R_mv_velo_;
 
+public:
     /**
      * コンストラクタ .
      * @param prm_name

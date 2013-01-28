@@ -58,7 +58,7 @@ public:
     /** ²‰ñ“]‚Ì•½sˆÚ“®‚·‚é‚Ì‚©‚Ç‚¤‚© */
     bool _rot;
 
-
+public:
     GgafDxCollisionPart();
 
     /**

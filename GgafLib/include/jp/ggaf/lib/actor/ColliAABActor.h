@@ -16,6 +16,7 @@ public:
     static ColliAABActor* get();
     static void release();
 
+public:
     ColliAABActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
 
     virtual void onCreateModel() override {

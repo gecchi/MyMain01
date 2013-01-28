@@ -13,6 +13,7 @@ class MyOptionControllerDirectionVector : public GgafLib::DefaultMeshActor {
 public:
     int ptn_no_;
 
+public:
     MyOptionControllerDirectionVector(const char* prm_name);
 
     void onCreateModel() override {

@@ -16,7 +16,6 @@ namespace VioletVreath {
 class VamSysCamPosition : public GgafCore::GgafObject {
 
 public:
-
     class Pos {
     public:
         int pos_cam_;
@@ -42,8 +41,7 @@ public:
         }
     };
 
-
-
+public:
     VamSysCamPosition(MyShip* prm_pMyShip);
 
     virtual ~VamSysCamPosition();

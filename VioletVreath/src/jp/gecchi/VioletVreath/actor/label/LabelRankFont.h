@@ -63,7 +63,7 @@ public:
     /** [r]前フレームの_RANK_DISP_ */
     int tmp_rank_;
 
-
+public:
     /**
      * ランク数値から文字列変換
      * @param prm_rank ランク数値(1～100000)

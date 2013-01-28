@@ -11,7 +11,6 @@ namespace VioletVreath {
 class Stage05 : public Stage {
 
 public:
-
     Stage05(const char* prm_name);
     /**
      * ‰Šúˆ—

@@ -8,6 +8,7 @@ public:
     GgafLib::SplineManufactureConnection* pSplManufCon_;
     GgafLib::SplineSequence* pSplSeq_;
 
+public:
     EnemyAstraeaLaserChip003(const char* prm_name);
 
     void initialize() override;

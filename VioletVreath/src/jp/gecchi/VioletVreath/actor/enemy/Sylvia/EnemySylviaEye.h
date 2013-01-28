@@ -33,6 +33,8 @@ public:
     bool is_wake_;
     EnemySylvia* pSylvia_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;
+
+public:
     /**
      * コンストラクタ
      * @param prm_name
