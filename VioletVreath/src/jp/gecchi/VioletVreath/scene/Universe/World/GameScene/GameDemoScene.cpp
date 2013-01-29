@@ -96,7 +96,6 @@ void GameDemoScene::processBehavior() {
                 }
             }
 
-
             if (papLabel_Ranking_[ranking_num-1]->_pFader->isWorking()) {
                 //ˆê”ÔÅŒã‚ÌFader‚ª‚Ü‚¾“®‚¢‚Ä‚é‚È‚ç‚Î
                 for (int i = 0; i < ranking_num; i++) {
