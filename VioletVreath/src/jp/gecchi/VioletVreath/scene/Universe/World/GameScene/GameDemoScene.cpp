@@ -146,3 +146,4 @@ void GameDemoScene::onInactive() {
 GameDemoScene::~GameDemoScene() {
     DELETEARR_IMPOSSIBLE_NULL(papLabel_Ranking_);
 }
+
