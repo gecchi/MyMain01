@@ -177,7 +177,7 @@ void GgafDxMorpher::stopImmed(int prm_target_mesh_no) {
     _method[prm_target_mesh_no] = NOMORPH;
 }
 
-bool GgafDxMorpher::isMorph() {
+bool GgafDxMorpher::isMorphing() {
     for (int i = 1; i <= _pActor->_pMorphMeshModel->_morph_target_num; i++) {
         if (_method[i] != NOMORPH) {
             return true;

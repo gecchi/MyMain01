@@ -132,7 +132,7 @@ public:
      * 各モーフターゲットへの重みが、1つでも0より大きければ true
      * @return true:モーフしている/false:モーフしない
      */
-    bool isMorph();
+    bool isMorphing();
 
     /**
      * モーフターゲットへ一定速度でモーフィングする（フレーム数指定） .

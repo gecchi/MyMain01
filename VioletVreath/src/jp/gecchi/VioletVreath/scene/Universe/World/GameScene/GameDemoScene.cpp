@@ -129,7 +129,6 @@ void GameDemoScene::processBehavior() {
             break;
     }
     pLabel02_->_pFader->behave();
-
 }
 
 void GameDemoScene::onInactive() {
