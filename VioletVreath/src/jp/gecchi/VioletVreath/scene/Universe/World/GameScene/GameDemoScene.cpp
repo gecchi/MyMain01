@@ -43,7 +43,6 @@ void GameDemoScene::initialize() {
 }
 
 void GameDemoScene::processBehavior() {
-
     switch (_pProg->get()) {
         case GameDemoScene::PROG_INIT: {
             _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_INIT)");
