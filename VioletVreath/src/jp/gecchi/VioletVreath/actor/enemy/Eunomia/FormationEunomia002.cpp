@@ -10,7 +10,6 @@ FormationEunomia002::FormationEunomia002(const char* prm_name) :
     _class_name = "FormationEunomia002";
 }
 
-
 void FormationEunomia002::processBehavior() {
     FormationEunomia::processBehavior();
 }

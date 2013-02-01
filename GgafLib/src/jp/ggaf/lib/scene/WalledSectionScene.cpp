@@ -118,10 +118,10 @@ void WalledSectionScene::processBehavior() {
                 }
             }
             WallPartsActor* pWallParts = nullptr;
-            WallInfo& wallinfo;
+            WallInfo* pWallInfo = nullptr;
             for (int n = 0; n < _paWallInfoLen[_cnt_area_len]; n++) {
-                wallinfo = _papaWallInfo[_cnt_area_len][n];
-                if (wallinfo._pos_prism == 0) {
+                pWallInfo = &(_papaWallInfo[_cnt_area_len][n]);
+                if (pWallInfo->_pos_prism == 0) {
                     pWallParts = (WallPartsActor*)_pDepo_WallAAB->dispatchForce();
                 } else {
                     if (_pDepo_WallAAPrism) {
@@ -135,20 +135,18 @@ void WalledSectionScene::processBehavior() {
                     pWallParts->onInactive();
                 }
 
-                pWallParts->config(this,
-                                   wallinfo._pos_prism,
-                                   wallinfo._wall_draw_face,
-                                   wallinfo._aColliBoxStretch);
+                pWallParts->config(this, pWallInfo->_pos_prism,
+                                         pWallInfo->_wall_draw_face,
+                                         pWallInfo->_aColliBoxStretch);
                 pWallParts->locate( _pWallPartsLast==nullptr ? _wall_start_X : _pWallPartsLast->_X + _wall_dep,
-                                    ((-_area_height/2) + wallinfo._Y) * _wall_height,
-                                    ((-_area_width/2)  + wallinfo._Z) * _wall_width   );
+                                    ((-_area_height/2) + pWallInfo->_Y) * _wall_height,
+                                    ((-_area_width/2)  + pWallInfo->_Z) * _wall_width   );
                 pWallParts->activateImmed();
                 pWallParts->onActive();
             }
             _pWallPartsLast = pWallParts;
             _frame_of_launch_next = (frame)(_wall_dep / parent_scroll_speed);
             _cnt_area_len++;
-
         }
     } else {
         //èIóπ

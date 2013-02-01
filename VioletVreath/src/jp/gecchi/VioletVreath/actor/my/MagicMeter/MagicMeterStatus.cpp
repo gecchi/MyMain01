@@ -27,7 +27,7 @@ void MagicMeterStatus::processDraw() {
     int len_magics = pMM->ringMagics_.length();
     coord mm_w = PX_C(pMM->width_px_);
     coord mm_h = PX_C(pMM->height_px_);
-    float alpha1 = pMM->getAlpha()*2; //メータよりちょっと濃い目に表示
+    float alpha1 = pMM->getAlpha()*4; //メータよりちょっと濃い目に表示
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
         //各メーター下段表示（現在のレベルの残時間表示）

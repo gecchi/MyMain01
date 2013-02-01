@@ -45,7 +45,7 @@ EnemyHermione::EnemyHermione(const char* prm_name) :
 
         for (int i = 0; i < num_arm_part_; i++) { //˜r‚Ì“·‘Ì(ŠÖß)
             if (i == (num_arm_part_-1)/2) {
-                //˜r‚Ìß‚ÌŽã“_•”•ª
+                //˜r‚Ìß‚ÌŽã“_•”•ª(˜r‚Ìß”‚Ì”¼•ª‚ ‚½‚è‚ÉŽã“_ß‚ðì¬‚·‚é)
                 paArm_[arm].papArmPart_[i] = NEW EnemyHermioneArmWeak("ArmWeak");
             } else if (i == num_arm_part_-1) {
                 //˜r‚Ìß‚Ìæ“ª•”•ª
