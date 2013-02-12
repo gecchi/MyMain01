@@ -8,8 +8,6 @@ GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
         throwGgafCriticalException("GgafDxSe::GgafDxSe("<<prm_wave_key<<") DirectSound ‚ªA‚Ü‚¾‰Šú‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
     }
 
-//    _wave_name = NEW char[128];
-//    strcpy(_wave_name, prm_wave_key);
     _wave_file_name = (*GgafProperties::_pMapProperties)[prm_wave_key];
     std::string full_wave_file_name = getWaveFileName(_wave_file_name);
 

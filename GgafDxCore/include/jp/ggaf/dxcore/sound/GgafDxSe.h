@@ -8,14 +8,15 @@ namespace GgafDxCore {
 class GgafDxSe : public GgafCore::GgafObject {
 
     static std::string getWaveFileName(std::string prm_file);
+
 public:
-    /** サウンドバッファ */
+    /** [r]サウンドバッファ */
     LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;
-    /** waveファイル名 */
+    /** [r]waveファイル名 */
     std::string _wave_file_name;
-    /** 元の周波数 */
+    /** [r]元の周波数 */
     DWORD _default_frequency;
-    /** [r]最後に発生したアクター */
+    /** [r]SEを最後に発生したアクター */
     GgafDxGeometricActor* _pActor_LastPlayed;
 
 public:
@@ -41,16 +42,16 @@ public:
 
     /**
      * ボリュームとパンと周波数の率を指定してSEを１回再生
-     * @param prm_volume ボリューム(min:0 max:100)
-     * @param prm_pan パン(left:-1.0 center:0 right:1.0)
+     * @param prm_volume ボリューム(min:0 ～ max:100)
+     * @param prm_pan パン(left:-1.0 ～ center:0 ～ right:1.0)
      * @param prm_frequency 元の周波数に乗ずる率
      */
     virtual void play(int prm_volume, float prm_pan, float prm_frequency);
 
     /**
      * ボリュームとパンを指定してSEを1回再生
-     * @param prm_volume ボリューム(min:0 max:100)
-     * @param prm_pan    パン(left:-1.0 center:0 right:1.0)
+     * @param prm_volume ボリューム(min:0 ～ max:100)
+     * @param prm_pan    パン(left:-1.0 ～ center:0 ～ right:1.0)
      */
     virtual void play(int prm_volume, float prm_pan) {
         play(prm_volume, prm_pan, 1.0f);
@@ -70,14 +71,14 @@ public:
     /**
      * ボリュームを変更 .
      * play()実行後、SEが再生中に使用することを想定 .
-     * @param prm_volume ボリューム(min:0 max:100)
+     * @param prm_volume ボリューム(min:0 ～ max:100)
      */
     void setVolume(int prm_volume);
 
     /**
      * パンを変更 .
      * play()実行後、SEが再生中に使用することを想定 .
-     * @param prm_pan パン(left:-1.0 center:0 right:1.0)
+     * @param prm_pan パン(left:-1.0 ～ center:0 ～ right:1.0)
      */
     void setPan(float prm_pan);
 

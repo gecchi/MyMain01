@@ -17,7 +17,7 @@ namespace GgafDxCore {
 
 /**
  * DirectSound ユーティリティクラス.
- * IDirectSound8を保持し、サウンドに関するもろもろの機能を持ったクラスです
+ * IDirectSound8を保持し、サウンドに関するもろもろの機能を持ったユーティリティです
  * @version 1.00
  * @since 2008/03/04
  * @author Masatoshi Tsuge
@@ -50,22 +50,26 @@ public:
 public:
     /**
      * 初期設定 .
-     * GgafDxSeManager、GgafDxBgmManager を使用可能にします。
+     * 使用前に呼び出して下さい。GgafDxSeManager、GgafDxBgmManager を使用可能にします。
      */
     static void init();
 
     /**
      * 解放処理 .
-     * 使用が済んだら呼び出して下さい。
+     * 使用後に呼び出して下さい。
      */
     static void release();
 
     /**
-     * マスタボリューム設定の率設定 .
-     * @param prm_master_volume 0(無音) ～ 100
+     * マスタボリューム設定 .
+     * @param prm_master_volume 0(無音) ～ 100(最大)
      */
     static void setMasterVolume(int prm_master_volume);
 
+    /**
+     * マスタボリューム増分設定 .
+     * @param prm_master_volume_offset 音量増分
+     */
     static void addMasterVolume(int prm_master_volume_offset);
 
     /**
@@ -79,8 +83,6 @@ public:
      * @param prm_se_volume  0(無音) ～ 100(サンプリング本来の音量)
      */
     static void setSeVolume(float prm_se_volume);
-
-    static void updateBgmVolume();
 
 };
 

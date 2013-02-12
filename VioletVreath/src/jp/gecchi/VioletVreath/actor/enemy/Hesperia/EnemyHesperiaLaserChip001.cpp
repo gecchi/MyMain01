@@ -38,7 +38,7 @@ void EnemyHesperiaLaserChip001::onActive() {
         _pProg->set(PROG_NOTHING);
     }
     setAlpha(0.99);
-    //次のメンバーは EnemyHesperia により設定済みが前提
+    //次のメンバーは EnemyHesperia 本体側から設定済みが前提
     //turn_dY_;
     //tX1_, tY1_, tZ1_;
     //tX2_, tY2_, tZ2_;
@@ -62,7 +62,7 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_MOVE_UP: {
             //レーザー上昇
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
-                _pSeTx->play3D(SE_FIRE);
+//                _pSeTx->play3D(SE_FIRE);
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                              tX1_, tY1_, tZ1_,
                              D_ANG(5), 0,

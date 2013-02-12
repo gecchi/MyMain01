@@ -119,7 +119,8 @@ void WalledSectionScene::processBehavior() {
             }
             WallPartsActor* pWallParts = nullptr;
             WallInfo* pWallInfo = nullptr;
-            for (int n = 0; n < _paWallInfoLen[_cnt_area_len]; n++) {
+            int len = _paWallInfoLen[_cnt_area_len];
+            for (int n = 0; n < len; n++) {
                 pWallInfo = &(_papaWallInfo[_cnt_area_len][n]);
                 if (pWallInfo->_pos_prism == 0) {
                     pWallParts = (WallPartsActor*)_pDepo_WallAAB->dispatchForce();

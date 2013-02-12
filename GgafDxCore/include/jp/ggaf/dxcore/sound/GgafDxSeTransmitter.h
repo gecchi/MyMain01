@@ -41,7 +41,6 @@ public:
      */
     virtual void set(int prm_id, const char* prm_se_key, int prm_cannel);
 
-
     /**
      * Ä¶ .
      * @param prm_id  SE‚ÌID ( 0 ` SE”-1 )

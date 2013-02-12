@@ -185,10 +185,10 @@ bool PCMPlayer::initializeBuffer() {
         //↑TODO:ロック失敗している場合がある。仕方ないのでエラーチェックはコメントにする。
         //  起こった場合、メモリリークしているっぽい。長い期間悩んだが放置・・。
         //クリティカルセクション___BeginSynchronized2 ～ ___EndSynchronized2 で挟むようにしてみた。
-        //TODO:後で見直す。
+        //追記：クリティカルセクションで囲むように修正してから、長い期間安定している。
 
         if (SUCCEEDED(hr)) {
-            _pPCMDecoder->getSegment((char*)AP1, AB1, 0, 0); //← ココでも極稀に落ちる！
+            _pPCMDecoder->getSegment((char*)AP1, AB1, 0, 0); //← ココでも極稀に落ちる！（昔は）
             hr = _pDSBuffer->Unlock(AP1, AB1, AP2, AB2);
             checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Unlock に失敗しました。");
             break;

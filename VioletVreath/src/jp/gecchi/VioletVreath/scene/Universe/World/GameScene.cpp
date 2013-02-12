@@ -273,9 +273,8 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         _pProg->changeWithSceneFlipping(GameScene::PROG_TITLE); //タイトルへ
 
     } else if (prm_no == EVENT_GAMETITLESCENE_FINISH) {
-        //タイトルシーン終了
+        //タイトルシーンをボーっと見てたので時間切れ終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLESCENE_FINISH)");
-        //changeFlippingSubScene(GameScene::PROG_DEMO);
         _pProg->changeWithSceneCrossfading(GameScene::PROG_DEMO); //デモへ
 
     } else if (prm_no == EVENT_GAMEDEMOSCENE_FINISH) {
