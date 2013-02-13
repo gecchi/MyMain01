@@ -151,7 +151,6 @@ public:
         return (_pVBRecord_Active->_state & prm_VB);
     }
 
-
     /**
      * Œ»İƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢‚©”»’è .
      * isBeingPressed(vbsta) ‚Ì”Û’è‚ÌŒ‹‰Ê‚ª•Ô‚éB

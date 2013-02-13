@@ -97,6 +97,7 @@ public:
             GgafCore::GgafActorDepository* prm_pDepo_WallAAPrism,
             coord prm_wall_start_X,
             coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height);
+
     /**
      * 初期処理 .
      * デポジトリ(_pDepo_Wall)のチェックを行っているのみ .
@@ -108,7 +109,6 @@ public:
      * オーバーライドする場合、その処理の中で WalledSectionScene::onActive() も呼び出して下さい。
      */
     virtual void onActive() override;
-
 
     /**
      * 外壁を出現させ、移動させる.
@@ -126,7 +126,6 @@ public:
     void enableFrontAlpha(GgafDxCore::GgafDxGeometricActor* prm_pTarget_FrontAlpha) {
         _pTarget_FrontAlpha = prm_pTarget_FrontAlpha;
     }
-
 
     virtual ~WalledSectionScene();
 };

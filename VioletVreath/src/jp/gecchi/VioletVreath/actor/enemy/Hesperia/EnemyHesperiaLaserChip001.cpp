@@ -62,7 +62,8 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_MOVE_UP: {
             //ƒŒ[ƒU[ã¸
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
-//                _pSeTx->play3D(SE_FIRE);
+                _pSeTx->play3D(SE_FIRE);
+
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                              tX1_, tY1_, tZ1_,
                              D_ANG(5), 0,

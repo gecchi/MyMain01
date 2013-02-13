@@ -73,7 +73,6 @@ int GgafDxSe::writeBuffer(CWaveDecorder& WaveFile) {
     DWORD dwBytes1; // 最初のブロックのサイズ
     LPVOID lpvPtr2; // ２番目のブロックのポインタ
     DWORD dwBytes2; // ２番目のブロックのサイズ
-
     HRESULT hr;
 
     hr = _pIDirectSoundBuffer->Lock(0, WaveFile.GetWaveSize(), &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
@@ -89,21 +88,17 @@ int GgafDxSe::writeBuffer(CWaveDecorder& WaveFile) {
         return false;
     }
     // ロック成功
-
     // ここで，バッファに書き込む
     // バッファにデータをコピーする
     long lSize = WaveFile.GetWave(static_cast<LPBYTE> (lpvPtr1), dwBytes1);
     if (lSize > 0 && dwBytes2 != 0) {
         lSize = WaveFile.GetWave(static_cast<LPBYTE> (lpvPtr2), dwBytes2);
     }
-
     // 書き込みが終わったらすぐにUnlockする．
     _pIDirectSoundBuffer->Unlock(lpvPtr1, dwBytes1, lpvPtr2, dwBytes2);
-
     if (lSize < 0) {
         return false;
     }
-
     return true;
 }
 
@@ -175,9 +170,7 @@ bool GgafDxSe::isPlaying() {
     }
 }
 
-
 GgafDxSe::~GgafDxSe() {
     _TRACE_("GgafDxSe::~GgafDxSe() _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<_id);
-//    DELETEARR_IMPOSSIBLE_NULL(_wave_name);
     RELEASE_IMPOSSIBLE_NULL(_pIDirectSoundBuffer);
 }

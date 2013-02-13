@@ -402,12 +402,7 @@ void MyShip::processBehavior() {
     }
 
     if (pVbPlay->isPushedDown(VB_TURBO)) {
-        //ターボ開始時
-        EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
-         if (pTurbo002) {
-             pTurbo002->locateWith(this);
-             pTurbo002->activate();
-         }
+        UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
         (this->*paFuncTurbo[way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
     } else {
         //Notターボ開始時

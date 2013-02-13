@@ -90,8 +90,10 @@
 #define STAT_FormationDestroyedEffectKind (17)
 /** アクターステータス：編隊全滅時アイテム種別(int) */
 #define STAT_FormationDestroyedItemKind      (18)
+/** アクターステータス：その他固有エフェクト０１(int) */
+#define STAT_ProperEffect01Kind      (19)
 /** アクターステータス：番兵（配列要素数に使用される、STAT_Sentry は一番最後の数値を持ってくること）*/
-#define STAT_Sentry                 (19)
+#define STAT_Sentry                 (20)
 
 
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
