@@ -151,7 +151,6 @@ void WalledSectionScene::processBehavior() {
         }
     } else {
         //èIóπ
-        //
     }
 }
 

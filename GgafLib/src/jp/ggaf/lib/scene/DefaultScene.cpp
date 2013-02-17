@@ -8,6 +8,7 @@ DefaultScene::DefaultScene(const char* prm_name) : GgafDxScene(prm_name) {
     _paFrame_NextEvent = nullptr;
     _cnt_event = 0;
     _event_num = 0;
+    DefaultScene::_pProg == nullptr;
 }
 
 void DefaultScene::useProgress(int prm_num) {

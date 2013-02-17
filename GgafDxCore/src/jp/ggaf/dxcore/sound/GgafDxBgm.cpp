@@ -85,7 +85,6 @@ void GgafDxBgm::setPan(float prm_pan) {
 }
 
 
-
 void GgafDxBgm::clear() {
     _pPcmPlayer->clear();
 }
@@ -111,5 +110,5 @@ GgafDxBgm::~GgafDxBgm() {
     _TRACE_("DELETE_IMPOSSIBLE_NULL(_pOggResource);");
     DELETE_IMPOSSIBLE_NULL(_pOggResource);
     _TRACE_("GgafDxBgm::~GgafDxBgm() end");
-
 }
+

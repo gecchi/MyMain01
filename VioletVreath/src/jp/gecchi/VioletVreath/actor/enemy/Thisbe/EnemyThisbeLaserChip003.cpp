@@ -11,6 +11,7 @@ EnemyThisbeLaserChip003::EnemyThisbeLaserChip003(const char* prm_name) :
     pSplManufCon_ = connectToSplineManufactureManager("EnemyThisbeLaserChip003"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
     pSplSeq_->adjustCoordOffset(PX_C(100), 0, 0);
+    sp_index_ = 0;
 }
 
 void EnemyThisbeLaserChip003::initialize() {

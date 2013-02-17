@@ -56,8 +56,6 @@ void EnemyEunomia::onActive() {
 void EnemyEunomia::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
-
     switch (_pProg->get()) {
         case PROG_ENTRY: {
             pSplSeq_->exec(SplineSequence::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)

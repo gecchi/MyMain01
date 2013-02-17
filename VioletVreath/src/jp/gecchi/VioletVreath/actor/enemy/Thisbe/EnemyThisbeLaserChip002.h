@@ -6,9 +6,6 @@ class EnemyThisbeLaserChip002 : public GgafLib::RefractionLaserChip {
 
 public:
     frame end_active_frame_;
-    /** 反射時エフェクトデポジトリへの接続 */
-    DepositoryConnection* pConn_RefractionEffectDepository_;
-
     GgafLib::SplineManufactureConnection* pSplManufCon_;
     GgafLib::SplineSequence* pSplSeq_;
 

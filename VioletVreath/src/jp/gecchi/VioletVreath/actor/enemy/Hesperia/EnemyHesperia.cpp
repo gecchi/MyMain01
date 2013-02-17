@@ -12,6 +12,7 @@ EnemyHesperia::EnemyHesperia(const char* prm_name) :
 
     cnt_laserchip_ = 0;
     laser_length_ = 40;
+    now_laser_way_ = 0;
     //借り入れレーザーセットのデポジトリ保持用
     papLaserChipDepo_ = NEW LaserChipDepository*[max_laser_way_];
     for (int i = 0; i < max_laser_way_; i++) {
