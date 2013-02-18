@@ -95,8 +95,8 @@ void GameTitleScene::processBehavior() {
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             }
 
-            if (pMenu_->getSubMenu()->canControll()) {
-                int d = pMenu_->getSubMenu()->getDecidedIndex();
+            if (pMenu_->getSubMenu(0)->canControll()) {
+                int d = pMenu_->getSubMenu(0)->getDecidedIndex();
                 if (d >= 0) {
                     if (pMenu_->getSelectedIndex() == MenuBoardTitle::ITEM_QUIT) {
                         if (d == MenuBoardConfirm::ITEM_OK) {
@@ -111,6 +111,7 @@ void GameTitleScene::processBehavior() {
                 int d = pMenu_->getDecidedIndex();
                 if (d >= 0) {
                     if (d == MenuBoardTitle::ITEM_GAME_START) {
+                        pMenu_->disableControll(); //“ü—ÍŽó•tI‚í‚è
                         pSeCon_exec_->fetch()->play();
                         _pProg->change(GameTitleScene::PROG_GAMESTART);
                     } else if (d == MenuBoardTitle::ITEM_CONFIG) {

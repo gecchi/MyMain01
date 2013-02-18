@@ -112,8 +112,8 @@ public:
     float _cursor_move_p1;
     /** [r]カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合 */
     float _cursor_move_p2;
-    /** [r]サブメニュー */
-    MenuActor<T>* _pActiveSubMenu;
+    /** [r]サブメニューのリスト */
+    GgafCore::GgafLinkedListRing<MenuActor<T>> _lstSubMenus;
 
 public:
     /**
@@ -132,6 +132,21 @@ public:
      */
     virtual bool canControll() {
         return _can_controll;
+    }
+
+    /**
+     * 入力を受け付けを無効 .
+     * 選択完了後に呼び出す、等の使用を想定。
+     */
+    virtual void disableControll() {
+        _will_be_able_to_controll = false;
+    }
+
+    /**
+     * 入力を受け付けを有効 .
+     */
+    virtual void enableControll() {
+        _will_be_able_to_controll = true;
     }
 
     /**
@@ -521,27 +536,36 @@ public:
      * サブメニューを追加する。
      * @param prm_pSubMenu サブメニュー
      */
-    virtual void setSubMenu(MenuActor<T>* prm_pSubMenu);
+    virtual void addSubMenu(MenuActor<T>* prm_pSubMenu);
 
     /**
      * サブメニューを取得 .
-     * 事前に setSubMenu() でサブメニューを設定する必要があります。<BR>
-     * @return 設定済みサブメニュー
+     * 事前に addSubMenu() でサブメニューを設定する必要があります。<BR>
+     * @param prm_index サブメニューのインデックス
+     * @return
      */
-    virtual MenuActor<T>* getSubMenu();
+    virtual MenuActor<T>* getSubMenu(int prm_index);
 
     /**
-     * サブメニューを表示して開始する .
-     * 事前に setSubMenu() でサブメニューを設定する必要があります。<BR>
+     * 現在アクティブなサブメニューを取得 .
+     * @return アクティブなサブメニュー
+     */
+    virtual MenuActor<T>* getRisingSubMenu();
+
+    /**
+     * サブメニューをアクティブにして表示する .
+     * 事前に addSubMenu() でサブメニューを設定する必要があります。<BR>
+     * また、本メソッドにより現在アクティブなサブメニュー(getRisingSubMenu())は、
+     * 引数インデックスのメニューに変更されます。
      * サブメニューを表示すると、サブメニューを閉じる(sinkSubMenu()) まで、
      * 呼び出し元メニューは操作不可能になります。
-     * @param prm_pSubMenu
+     * @param prm_index アクティブにするサブメニューのインデックス
      */
-    virtual void riseSubMenu();
+    virtual void riseSubMenu(int prm_index);
 
     /**
-     * サブメニューを閉じて終了させる .
-     * 事前に setSubMenu() でサブメニューを設定する必要があります。<BR>
+     * 現在アクティブなサブメニューを閉じて終了させる .
+     * 事前に addSubMenu() でサブメニューを設定する必要があります。<BR>
      */
     virtual void sinkSubMenu();
 
@@ -576,7 +600,6 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _will_be_just_cancelled_next_frame = false;
     _can_controll = false;
     _will_be_able_to_controll = false;
-    _pActiveSubMenu = nullptr;
     for (int i = 0; i < 10; i++) {
         _lstMoveHistory.addLast(new int(0), true);
     }
@@ -883,7 +906,7 @@ void MenuActor<T>::rise() {
     _is_just_sunk = false;
     _will_be_rising_next_frame = true;
     _will_be_sinking_next_frame = false;
-    _will_be_able_to_controll = true;
+    enableControll();
 
     T::setAlpha(0.0);
     T::activate();
@@ -1005,7 +1028,7 @@ void MenuActor<T>::sink() {
     _is_just_sunk = false;
     _will_be_rising_next_frame = false;
     _will_be_sinking_next_frame = true;
-    _will_be_able_to_controll = false;
+    disableControll();
 }
 
 template<class T>
@@ -1023,33 +1046,43 @@ void MenuActor<T>::processSinking() {
 }
 
 template<class T>
-void MenuActor<T>::setSubMenu(MenuActor<T>* prm_pSubMenu) {
-    if (_pActiveSubMenu) {
-        throwGgafCriticalException("setSubMenu() 既にサブメニューは設定済みです。this="<<T::getName()<<"/prm_pSubMenu="<<(prm_pSubMenu->getName())<<"/既存_pActiveSubMenu="<<_pActiveSubMenu->getName());
-    }
-    _pActiveSubMenu = prm_pSubMenu;
-    T::addSubLast(_pActiveSubMenu); //サブに追加
+void MenuActor<T>::addSubMenu(MenuActor<T>* prm_pSubMenu) {
+    _lstSubMenus.addLast(prm_pSubMenu, false);
+    T::addSubLast(prm_pSubMenu); //サブに追加
 }
 
 template<class T>
-MenuActor<T>* MenuActor<T>::getSubMenu() {
-    return _pActiveSubMenu;
+MenuActor<T>* MenuActor<T>::getSubMenu(int prm_index) {
+#ifdef MY_DEBUG
+    if (_lstSubMenus.length() < prm_index+1) {
+        throwGgafCriticalException("MenuActor<T>::getSubMenu() サブメニューアイテム要素数オーバー name="<<T::getName()<<" _lstSubMenus.length()="<<_lstSubMenus.length()<<" prm_index="<<prm_index);
+    }
+#endif
+    return _lstSubMenus.getFromFirst(prm_index);
 }
 
 template<class T>
-void MenuActor<T>::riseSubMenu() {
-    if (_pActiveSubMenu) {
-        _pActiveSubMenu->rise();
-        _will_be_able_to_controll = false;
-    } else {
-        throwGgafCriticalException("riseSubMenu() サブメニューがセットされてません。this="<<T::getName()<<"");
+MenuActor<T>* MenuActor<T>::getRisingSubMenu() {
+    return _lstSubMenus.getCurrent();
+}
+
+
+template<class T>
+void MenuActor<T>::riseSubMenu(int prm_index) {
+#ifdef MY_DEBUG
+    if (_lstSubMenus.length() < prm_index+1) {
+        throwGgafCriticalException("MenuActor<T>::riseSubMenu() サブメニューアイテム要素数オーバー name="<<T::getName()<<" _lstSubMenus.length()="<<_lstSubMenus.length()<<" prm_index="<<prm_index);
     }
+#endif
+    _lstSubMenus.current(prm_index);
+    _lstSubMenus.getCurrent()->rise();
+    disableControll();
 }
 
 template<class T>
 void MenuActor<T>::sinkSubMenu() {
-    _pActiveSubMenu->sink();
-    _will_be_able_to_controll = true;
+    _lstSubMenus.getCurrent()->sink();
+    enableControll();
 }
 
 template<class T>

@@ -62,7 +62,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     setSelectedIndex(0); //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
                                             //上から下へ少しスライドさせる
-    setSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
+    addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
 }
 bool MenuBoardPause::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -81,16 +81,16 @@ void MenuBoardPause::processBehavior() {
     MenuBoard::processBehavior();
 
     //サブメニュー判定
-    StringBoardMenu* pSub = getSubMenu();
-    if (pSub) {
-        if (pSub->isJustDecided()) {
-            if (pSub->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
+    StringBoardMenu* pSubConfirm = getSubMenu(0);
+    if (pSubConfirm) {
+        if (pSubConfirm->isJustDecided()) {
+            if (pSubConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
 
                 if (getSelectedIndex() == ITEM_QUIT_GAME) {
                     PostQuitMessage(0);
                 }
 
-            } else if (pSub->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
+            } else if (pSubConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
                 sinkSubMenu();
             } else {
             }
@@ -104,7 +104,7 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
     if (prm_item_index == ITEM_BACK_TO_GAME) {
         sink();
     } else if (prm_item_index == ITEM_QUIT_GAME) {
-        riseSubMenu(getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //サブメニュー起動
+        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //サブメニュー起動
     }
 }
 void MenuBoardPause::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {

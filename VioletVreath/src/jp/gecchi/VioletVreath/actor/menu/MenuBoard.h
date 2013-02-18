@@ -65,10 +65,11 @@ public:
     /**
      * 表示完了位置を指定してサブメニューを起動 .
      * 引数座標はサブメニューがスライドが完了して落ち着く座標を指定。
+     * @param prm_index サブメニューインデックス
      * @param prm_target_X サブメニュー表示完了X座標
      * @param prm_target_Y サブメニュー表示完了Y座標
      */
-    virtual void riseSubMenu(coord prm_target_X, coord prm_target_Y);
+    virtual void riseSubMenu(int prm_index, coord prm_target_X, coord prm_target_Y);
     virtual void onRisen() override;
 
     virtual void processBehavior() override;

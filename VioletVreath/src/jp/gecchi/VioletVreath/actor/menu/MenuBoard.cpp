@@ -12,7 +12,7 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     slide_from_offset_Y_ = 0;
     target_X_ = _X;
     target_Y_ = _Y;
-    _pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN"      ); 
+    _pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN"      );
     _pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
     _pSeTx->set(SE_DECIDED_NOMAL , "WAVE_MENU_DECIDED_NOMAL" );
     _pSeTx->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
@@ -84,13 +84,9 @@ void MenuBoard::rise(coord prm_target_X, coord prm_target_Y) {
     StringBoardMenu::rise();
 }
 
-void MenuBoard::riseSubMenu(coord prm_target_X, coord prm_target_Y) {
-    if (_pActiveSubMenu) {
-        _pActiveSubMenu->locate(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::rise() に来た時にターゲット設定される
-        StringBoardMenu::riseSubMenu();
-    } else {
-        throwGgafCriticalException("MenuBoard::riseSubMenu() サブメニューがセットされてません。this="<<getName()<<"");
-    }
+void MenuBoard::riseSubMenu(int prm_index, coord prm_target_X, coord prm_target_Y) {
+    StringBoardMenu::getSubMenu(prm_index)->locate(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::rise() に来た時にターゲット設定される
+    StringBoardMenu::riseSubMenu(prm_index);
 }
 
 void MenuBoard::moveCursor() {

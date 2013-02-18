@@ -96,8 +96,10 @@ void GgafProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafProperties::DIR_SKIN="<<GgafProperties::DIR_SKIN);
     _TRACE_("GgafProperties::DIR_SKIN_KIND[0]="<<GgafProperties::DIR_SKIN_KIND[0]);
     _TRACE_("GgafProperties::DIR_SKIN_KIND[1]="<<GgafProperties::DIR_SKIN_KIND[1]);
+}
 
-    UTIL::writeProperties("back.properties", _pMapProperties);
+void GgafProperties::save(std::string prm_properties_filename) {
+    UTIL::writeProperties(prm_properties_filename.c_str(), _pMapProperties);
 }
 
 void GgafProperties::clean() {

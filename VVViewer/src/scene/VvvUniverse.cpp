@@ -3,6 +3,7 @@ using namespace VVViewer;
 
 VvvUniverse::VvvUniverse(const char* prm_name, VvvCamera* prm_pCam) :
         GgafLib::DefaultUniverse(prm_name, prm_pCam) {
+    pWorld_ = nullptr;
     //「この世」コンストラクタ内で、シーンの new は行わないで下さい。
 }
 

@@ -550,12 +550,18 @@ class WallAAPrismTestActor;
 
 class VamSysCamPosition;
 class MenuBoard;
-class MenuBoardConfirm;
 class CursorCofirmMenu;
-class MenuBoardPause;
+class MenuBoardConfirm;
 class CursorPauseMenu;
-class MenuBoardTitle;
+class MenuBoardPause;
 class CursorTitleMenu;
+class MenuBoardTitle;
+
+class CursorConfigMenu;
+class MenuBoardConfig;
+class CursorKeyConfigMenu;
+class MenuBoardKeyConfig;
+
 class MenuBoardNameEntry;
 class CursorNameEntryMenu;
 }
@@ -882,12 +888,22 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/_predrawer/WallAAPrismTestActor.h"
 
 #include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
-#include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
+
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/CursorConfirmMenu.h"
-#include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
+#include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
+
 #include "jp/gecchi/VioletVreath/actor/menu/pause/CursorPauseMenu.h"
-#include "jp/gecchi/VioletVreath/actor/menu/title/MenuBoardTitle.h"
+#include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
+
 #include "jp/gecchi/VioletVreath/actor/menu/title/CursorTitleMenu.h"
+#include "jp/gecchi/VioletVreath/actor/menu/title/MenuBoardTitle.h"
+
+#include "jp/gecchi/VioletVreath/actor/menu/config/CursorKeyConfigMenu.h"
+#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardKeyConfig.h"
+
+#include "jp/gecchi/VioletVreath/actor/menu/config/CursorConfigMenu.h"
+#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"
+
 #include "jp/gecchi/VioletVreath/actor/menu/name_entry/MenuBoardNameEntry.h"
 #include "jp/gecchi/VioletVreath/actor/menu/name_entry/CursorNameEntryMenu.h"
 

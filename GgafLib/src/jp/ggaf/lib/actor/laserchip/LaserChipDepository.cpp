@@ -11,6 +11,7 @@ LaserChipDepository::LaserChipDepository(const char* prm_name, GgafStatus* prm_p
     _is_tear_laser = true;
     _num_chip_max = 0;
     _num_chip_interval = 1;
+    _num_chip_dispatch_able = 0;
     _pChip_prev_dispatch = nullptr;
     _frame_of_behaving_prev_dispatch = 0;
 

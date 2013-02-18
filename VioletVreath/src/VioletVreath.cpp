@@ -53,14 +53,24 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     LoadString(hInstance, IDC_VIOLETVREATH, szWindowClass, MAX_LOADSTRING);
 
     //プロパティファイル読込み
-    try {
-        VioletVreath::Properties::load(".\\config.properties");
-    } catch (GgafCore::GgafCriticalException& e) {
-        MessageBox(nullptr, (std::string("config.properties のロードの失敗。\n理由：")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
+    if (PathFileExists(".\\default_config.properties")) {
+        if (PathFileExists(".\\config.properties")) {
+            VioletVreath::Properties::load(".\\config.properties");
+            _TRACE_("config.properties を load しました");
+        } else {
+            VioletVreath::Properties::load(".\\default_config.properties");
+            VioletVreath::Properties::save(".\\config.properties");
+            _TRACE_("＜警告＞config.properties が存在しないので、既定の .default_config.properties を load しました。");
+        }
+
+    } else {
+        MessageBox(nullptr, "既定設定ファイル(.default_config.properties)が見つかりません。",
+                                 "Error", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         VioletVreath::Properties::clean();
-        _TRACE_("[GgafCriticalException]:" << e.getMsg());
         return EXIT_FAILURE;
     }
+
+
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
 
     GgafCore::GgafRgb rgb = GgafCore::GgafRgb(GGAF_PROPERTY(BORDER_COLOR));

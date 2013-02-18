@@ -9,6 +9,7 @@ VvvCamWorker::VvvCamWorker(const char* prm_name) : DefaultGeometricActor(prm_nam
     cd_ = 0;
     mdz_flg_ = false;
     mdz_vx_ = mdz_vy_ = mdz_vz_ = mdz_t_ = 0.0;
+    cam_X_ = cam_Y_ = cam_Z_ = vp_X_ = vp_Y_ = vp_Z_ = 0;
     move_target_XY_CAM_UP_ = D90ANG;
     angXY_nowCamUp_ = D90ANG;
     stop_renge_ = 60000;

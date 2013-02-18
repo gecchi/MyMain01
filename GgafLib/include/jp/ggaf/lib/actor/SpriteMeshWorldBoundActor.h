@@ -25,7 +25,7 @@ public:
     virtual void initialize() override {
     }
 
-   virtual void processSettlementBehavior() override;
+    virtual void processSettlementBehavior() override;
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }

@@ -17,6 +17,7 @@ namespace GgafCore {
  */
 class GgafProperties {
 
+
 public:
     /** [r/w] 最高フレームスキップ数。つまりどんなに重くも最低描画するフレーム間隔。*/
     static UINT32 MAX_SKIP_FRAME;
@@ -49,6 +50,12 @@ public:
      * @param prm_properties_filename プロパティファイル
      */
     static void load(std::string prm_properties_filename);
+
+    /**
+     * 保持しているプロパティを、外部プロパティファイルへ保存 .
+     * @param prm_properties_filename プロパティファイル
+     */
+    static void save(std::string prm_properties_filename);
 
     /**
      * 保持プロパティを解放 .

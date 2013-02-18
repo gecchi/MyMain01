@@ -39,7 +39,9 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     //初期選択
     setSelectedIndex(ITEM_GAME_START);
     //確認サブメニュー
-    setSubMenu(NEW MenuBoardConfirm("confirm"));
+    addSubMenu(NEW MenuBoardConfirm("confirm"));
+    //コンフィグサブメニュー
+    addSubMenu(NEW MenuBoardConfig("config"));
 }
 bool MenuBoardTitle::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -59,7 +61,7 @@ void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
 void MenuBoardTitle::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
 }
 void MenuBoardTitle::riseConfirm() {
-    riseSubMenu(getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
+    riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
 }
 void MenuBoardTitle::sinkConfirm() {
     sinkSubMenu();

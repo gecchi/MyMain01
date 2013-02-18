@@ -67,7 +67,7 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     setSelectedIndex(0);          //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジションを上から下へ少しスライド
     relateAllItemCancel(ITEM_INDEX_BS_);       //キャンセル押下時は、[BS]へ移動
-    setSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューを生成
+    addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューを生成
 }
 
 void MenuBoardNameEntry::setNameStringBoard(StringSpriteActor* prm_pInputedName,
@@ -189,7 +189,7 @@ void MenuBoardNameEntry::processBehavior() {
 #endif
     MenuBoard::processBehavior();
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
-        StringBoardMenu* pMenuConfirm = getSubMenu();
+        StringBoardMenu* pMenuConfirm = getSubMenu(0);
         if (pMenuConfirm->isJustDecided()) { //サブメニューで「決定（振る舞い）」の時
             if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
                 //ネームエントリー完了OK
@@ -244,7 +244,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
     } else if (prm_item_index == ITEM_INDEX_OK_) {
         //[OK]で決定（振る舞い）の処理終了
         //確認サブメニュー起動
-        riseSubMenu(getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
+        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
     } else {
         //その他アイテム（入力文字）で決定（振る舞い）の処理
         //文字入力する
