@@ -95,32 +95,11 @@ void GameTitleScene::processBehavior() {
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             }
 
-            if (pMenu_->getSubMenu(0)->canControll()) {
-                int d = pMenu_->getSubMenu(0)->getDecidedIndex();
-                if (d >= 0) {
-                    if (pMenu_->getSelectedIndex() == MenuBoardTitle::ITEM_QUIT) {
-                        if (d == MenuBoardConfirm::ITEM_OK) {
-                            PostQuitMessage(0);
-                        } else if (d == MenuBoardConfirm::ITEM_CANCEL) {
-                            pMenu_->sinkConfirm();
-                        }
-                    }
-                }
-            }
             if (pMenu_->canControll()) {
-                int d = pMenu_->getDecidedIndex();
-                if (d >= 0) {
-                    if (d == MenuBoardTitle::ITEM_GAME_START) {
-                        pMenu_->disableControll(); //入力受付終わり
-                        pSeCon_exec_->fetch()->play();
-                        _pProg->change(GameTitleScene::PROG_GAMESTART);
-                    } else if (d == MenuBoardTitle::ITEM_CONFIG) {
-
-                    } else if (d == MenuBoardTitle::ITEM_DEBUG) {
-
-                    } else if (d == MenuBoardTitle::ITEM_QUIT) {
-                        pMenu_->riseConfirm();
-                    }
+                if (pMenu_->getDecidedIndex() == MenuBoardTitle::ITEM_GAME_START) {
+                    pMenu_->disableControll(); //入力受付終わり
+                    pSeCon_exec_->fetch()->play();
+                    _pProg->change(GameTitleScene::PROG_GAMESTART);
                 }
             }
 

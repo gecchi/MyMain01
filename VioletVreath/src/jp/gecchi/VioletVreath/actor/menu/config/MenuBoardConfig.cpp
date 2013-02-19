@@ -19,7 +19,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
            ")***********+\n"
            ")***********+\n"
            "-.........../");
-    _Z = 5; //プライオリティ
+    _Z = 9; //プライオリティ
 
     //メニューアイテム（選択可）設定
     char* apItemStr[] = {
@@ -44,7 +44,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
 
-    setSelectedIndex(0); //カーソルの初期選択アイテムを設定
+    setSelectedIndex(ITEM_BACK); //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
                                             //上から下へ少しスライドさせる
     addSubMenu(NEW MenuBoardKeyConfig("key_config"));
@@ -65,7 +65,7 @@ void MenuBoardConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int
         sink();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
         //keyconfig
-        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //サブメニュー起動
+        riseSubMenu(0, PX_C(50), PX_C(500)); //サブメニュー起動
     } else if (prm_item_index == ITEM_SOUND_CONFIG) {
         riseSubMenu(1, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50));
     } else if (prm_item_index == ITEM_SCREEN_CONFIG) {

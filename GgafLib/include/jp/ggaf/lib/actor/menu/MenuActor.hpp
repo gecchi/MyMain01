@@ -1018,6 +1018,18 @@ void MenuActor<T>::processBehavior() {
         }
         _pCursor->setAlpha(T::getAlpha());
     }
+
+    //サブメニューのrise() sink() 時
+    for (int i = 0; i < _lstSubMenus.length(); i++) {
+        MenuActor<T>* pSubMenu = _lstSubMenus.getFromFirst(i);
+        if (pSubMenu->isJustRise()) {
+            disableControll(); //サブメニューが立ち上がったので、自身は操作不可
+        }
+        if (pSubMenu->isJustSink()) {
+            enableControll(); //サブメニューが消えたので、自身の操作復帰
+        }
+    }
+
 }
 
 template<class T>
@@ -1076,13 +1088,11 @@ void MenuActor<T>::riseSubMenu(int prm_index) {
 #endif
     _lstSubMenus.current(prm_index);
     _lstSubMenus.getCurrent()->rise();
-    disableControll();
 }
 
 template<class T>
 void MenuActor<T>::sinkSubMenu() {
     _lstSubMenus.getCurrent()->sink();
-    enableControll();
 }
 
 template<class T>

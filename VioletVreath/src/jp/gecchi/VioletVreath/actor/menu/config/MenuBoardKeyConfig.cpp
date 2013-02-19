@@ -19,7 +19,7 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
            ")*******************+\n"
            ")*******************+\n"
            "-.................../");
-    _Z = 5; //プライオリティ
+    _Z = 8; //プライオリティ
 
     //メニューアイテム（選択可）設定
     char* apItemStr[] = {
