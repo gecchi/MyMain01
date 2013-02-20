@@ -7,11 +7,11 @@ using namespace VioletVreath;
 
 TitleBoard::TitleBoard(const char* prm_name) : DefaultBoardSetActor(prm_name, "Title") {
     _class_name = "TitleBoard";
-    //z_ = 0.9999999f;  //たぶん最背面 （0 <= z_ < 1.0）Z=(0～+1)
     setZEnable(false);
     setZWriteEnable(false);
 }
 void TitleBoard::initialize() {
+    _Z = 10; //メニューを表に出すために、タイトルは奥へ・・・
 }
 
 void TitleBoard::onActive() {

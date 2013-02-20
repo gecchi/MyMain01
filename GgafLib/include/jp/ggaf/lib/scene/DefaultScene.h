@@ -18,8 +18,8 @@ public:
     int _event_num;
     /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _cnt_event;
-    /** [r]シーン進捗管理(GgafElement<GgafScene>::GgafProgress* _pProg; を hiding) */
-    SceneProgress* _pProg; //hiding [GgafElement<GgafScene>::GgafProgress* _pProg];
+    /** [r]シーン進捗管理(hide a [GgafCore::GgafElement<GgafScene>::GgafProgress* _pProg]) */
+    SceneProgress* _pProg;
 
 public:
     DefaultScene(const char* prm_name);

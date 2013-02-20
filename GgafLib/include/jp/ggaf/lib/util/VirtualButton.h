@@ -122,6 +122,9 @@ public:
     VBReplayRecorder* _pRpy;
 
     static keymap _mapDIK;
+    static std::map<int, std::string> _mapKeyName;
+    static std::map<int, std::string> _mapJoyName;
+
     static bool _is_init;
 
     /** [r]リプレイモード時:true／ユーザー入力（リプレイモード記入）モード:false */

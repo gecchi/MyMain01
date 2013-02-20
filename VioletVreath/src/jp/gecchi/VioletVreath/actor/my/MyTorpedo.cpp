@@ -202,7 +202,7 @@ void MyTorpedo::processJudgement() {
     if (isOutOfUniverse() && _pProg->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
         _pProg->change(MyTorpedo_RELEASE);
-        GgafMainActor* pTailEffect = pTailEffectDepository_->getSubFirst();
+        GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getSubFirst();
         for (int i = 0; i < length_TailEffect_; i++) {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
@@ -224,7 +224,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     int sta = UTIL::calcMyStamina(this, pOther);
     setHitAble(false);
     _pProg->change(MyTorpedo_RELEASE);
-    GgafMainActor* pTailEffect = pTailEffectDepository_->getSubFirst();
+    GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getSubFirst();
     for (int i = 0; i < length_TailEffect_; i++) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();

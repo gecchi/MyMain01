@@ -33,7 +33,7 @@ void GgafActorDepository::onReset() {
     if (_pSubFirst == nullptr) {
         return;
     }
-    GgafMainActor* pActor = getSubFirst();
+    GgafActor* pActor = getSubFirst();
     while (true) {
         pActor->inactivate();
         if (pActor->isLast()) {

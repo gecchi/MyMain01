@@ -11,7 +11,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
     getDirector()->addSubGroup(pLabel_aster_);
     pLabel_aster_->update(PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
-    pLabel_aster_->_pFader->beat(60, 30, 0, 0, -1); //チカチカ点滅
+    pLabel_aster_->_pFader->beat(30, 15, 0, 0, -1); //チカチカ点滅
 
     is_create_GameScene_ = false;
     pLabel_debug_ = nullptr;

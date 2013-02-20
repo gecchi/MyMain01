@@ -91,7 +91,9 @@ void MenuBoard::riseSubMenu(int prm_index, coord prm_target_X, coord prm_target_
 
 void MenuBoard::moveCursor() {
     StringBoardMenu::moveCursor();
-    _pSeTx->play(SE_MOVE_CURSOR);
+    if (StringBoardMenu::canControll()) {
+        _pSeTx->play(SE_MOVE_CURSOR);
+    }
 }
 
 void MenuBoard::initialize() {

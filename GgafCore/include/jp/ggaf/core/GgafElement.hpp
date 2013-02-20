@@ -816,7 +816,7 @@ public:
      * 以降、振る舞い態時にフレーム加算される。<BR>
      * @return 振る舞いフレーム数総計
      */
-    virtual UINT32 getBehaveingFrame();
+    virtual frame getBehaveingFrame();
 
     /**
      * 直近の onActive() から開始した振る舞い状態は何フレーム目かを返す。 .
@@ -827,7 +827,7 @@ public:
      * getBehaveingFrame() と同じタイミングで加算される。processBehavior()では、1 ～ を返す。
      * @return onActive() からの振る舞いフレーム数
      */
-    virtual UINT32 getActivePartFrame();
+    virtual frame getActivePartFrame();
 
     /**
      * 自身と配下全てのオブジェクトに対して指定の関数を実行させる .
@@ -1495,12 +1495,12 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
 }
 
 template<class T>
-UINT32 GgafElement<T>::getBehaveingFrame() {
+frame GgafElement<T>::getBehaveingFrame() {
    return _frame_of_behaving;
 }
 
 template<class T>
-UINT32 GgafElement<T>::getActivePartFrame() {
+frame GgafElement<T>::getActivePartFrame() {
    return _frame_of_behaving_since_onActive;
 }
 

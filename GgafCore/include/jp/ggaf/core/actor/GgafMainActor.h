@@ -38,16 +38,6 @@ public:
         return (GgafMainActor*)GgafActor::getPrev();
     }
 
-    /**
-     * 子ノードのグループの先頭ノードを取得する .
-     * 子ノードが存在しない場合はエラー。
-     * @return  子ノードの先頭ノード
-     */
-    virtual GgafMainActor* getSubFirst() override {
-        return (GgafMainActor*)GgafActor::getSubFirst();
-    }
-
-
     void updateActiveInTheTree() override;
 
     /**

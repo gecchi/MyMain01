@@ -91,7 +91,7 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_SELECT: {
             if (_pProg->hasJustChanged()) {
-                pMenu_->rise(PX_C(50), PX_C(350));
+                pMenu_->rise(PX_C(50), PX_C(250));
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             }
 

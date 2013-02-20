@@ -98,7 +98,7 @@ public:
         }
 #endif
         frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);
-        GgafMainActor* pActor = getSubFirst();
+        GgafMainActor* pActor = (GgafMainActor*)getSubFirst();
         while (true) {
             if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
                 pActor->moveLast(); //éüÉtÉåÅ[ÉÄÇ®êKÇ…âÒÇ∑
@@ -141,11 +141,11 @@ public:
      * @param prm_offset_frames äàìÆèÛë‘Ç…Ç∑ÇÈíxâÑÉtÉåÅ[ÉÄ
      * @return
      */
-    virtual GgafCore::GgafMainActor* dispatchForce(frame prm_offset_frames = 1) {
+    virtual GgafMainActor* dispatchForce(frame prm_offset_frames = 1) {
         GgafMainActor* pActor = dispatch(prm_offset_frames);
         if (pActor == nullptr) {
             getSubFirst()->moveLastImmed(); //Ç®êKÇ…âÒÇ∑
-            pActor = getSubFirst();
+            pActor = (GgafMainActor*)getSubFirst();
         }
         return pActor;
     }

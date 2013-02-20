@@ -6,7 +6,6 @@ GgafActorDepositoryStore::GgafActorDepositoryStore(const char* prm_name, GgafSta
     setHitAble(false);
 }
 
-
 void GgafActorDepositoryStore::addSubLast(GgafActor* prm_pSub) {
 #ifdef MY_DEBUG
     if (prm_pSub->instanceOf(Obj_GgafActorDepository)) {
@@ -24,12 +23,11 @@ void GgafActorDepositoryStore::addSubLast(GgafActor* prm_pSub) {
 }
 
 void GgafActorDepositoryStore::processFinal() {
-
-    GgafMainActor* pSubDepository = getSubFirst();
+    GgafActorDepository* pSubDepository = (GgafActorDepository*)getSubFirst();
     while (true) {
         if (pSubDepository->_is_active_flg && !(pSubDepository->_will_inactivate_after_flg)) {
             bool is_inactive_all = false; //全メンバーが非活動の場合true
-            GgafMainActor* pActor = pSubDepository->getSubFirst()->getPrev(); //お尻から見る(アクティブは後ろに回されているためブレイク確立が高い）
+            GgafMainActor* pActor = (GgafMainActor*)(pSubDepository->getSubFirst()->getPrev()); //お尻から見る(アクティブは後ろに回されているためブレイク確立が高い）
             while (true) {
                 if (pActor->_is_active_flg) {
                     break;
@@ -48,6 +46,6 @@ void GgafActorDepositoryStore::processFinal() {
         if (pSubDepository->_is_last_flg) {
             break;
         }
-        pSubDepository = pSubDepository->getNext();
+        pSubDepository = (GgafActorDepository*)(pSubDepository->getNext());
     }
 }

@@ -65,7 +65,7 @@ void MenuBoardConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int
         sink();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
         //keyconfig
-        riseSubMenu(0, PX_C(50), PX_C(500)); //サブメニュー起動
+        riseSubMenu(0, PX_C(50), PX_C(10)); //サブメニュー起動
     } else if (prm_item_index == ITEM_SOUND_CONFIG) {
         riseSubMenu(1, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50));
     } else if (prm_item_index == ITEM_SCREEN_CONFIG) {
