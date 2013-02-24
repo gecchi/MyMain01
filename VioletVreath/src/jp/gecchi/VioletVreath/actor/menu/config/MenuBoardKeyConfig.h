@@ -20,23 +20,16 @@ public:
         ITEM_MAGIC     ,
         ITEM_VAM       ,
         ITEM_PAUSE     ,
-        ITEM_KEY_UP    ,
-        ITEM_KEY_DOWN  ,
-        ITEM_KEY_LEFT  ,
-        ITEM_KEY_LIGHT ,
     };
 
     int ITEM_INDEX_OK_;
     int ITEM_INDEX_CANCEL_;
 
-    LabelGecchi16Font** papDispKey_;
-    LabelGecchi16Font** papDispJoy_;
 
     struct VBProperty {
-        std::string key;
-        std::string joy;
+        LabelFix16Font01* pKey;
+        LabelFix16Font01* pJoy;
     };
-
     VBProperty* paVBProperties;
 public:
     MenuBoardKeyConfig(const char* prm_name);

@@ -38,7 +38,7 @@ bool MenuBoard::condDecision() {
                _lstItems.getCurrent() == _lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         //特別に「メニューアイテム：キャンセル」にカーソルがある場合でかつ、VB_UI_CANCEL ボタンの場合は、
         //「メニューアイテム：キャンセル」を「決定」したことにする。
-        //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの定義は、
+        //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの判断は、
         //relateAllItemCancel() で定義されたアイテムのインデックスかどうかで判断。
         _pSeTx->play(SE_DECIDED_CANCEL);
         return true;
@@ -96,6 +96,9 @@ void MenuBoard::moveCursor() {
     }
 }
 
+void MenuBoard::onMoveCursor(int prm_from, int prm_to) {
+}
+
 void MenuBoard::initialize() {
 }
 
@@ -124,6 +127,25 @@ void MenuBoard::processBehavior() {
         //スライド終了時、目的の座標へ補正
         locate(target_X_, target_Y_);
     }
+
+    //選択アイテムのフェーダー実行
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
+    for (int i = 0; i < _lstItems.length(); i++) {
+        GgafDxAlphaFader* pFader = pElem->_pValue->_pFader;
+        if (getSelectedIndex() == i && canControll()) {
+            if (pFader->isWorking()) {
+                pFader->behave();
+            } else {
+                pFader->beat(20, 10, 0, 0, -1);
+            }
+        } else {
+            if (pFader->isWorking()) {
+                pFader->reset();
+            }
+        }
+        pElem = pElem->_pNext;
+    }
+
     _pKurokoA->behave();
     StringBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
@@ -137,7 +159,7 @@ void MenuBoard::processJudgement() {
 void MenuBoard::onSunk() {
     //スライドアウトトランジション
     _pKurokoA->setRzRyMvAngTwd(target_X_ + slide_from_offset_X_,
-                        target_Y_ + slide_from_offset_Y_);
+                               target_Y_ + slide_from_offset_Y_);
     _pKurokoA->execSmoothMvVeloSequence(
                     0,
                     UTIL::getDistance(

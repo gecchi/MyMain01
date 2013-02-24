@@ -49,40 +49,43 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     //ランキング情報読み込み
     GameGlobal::qryRanking_.init();
 
+    initVB();
+}
+
+void God::initVB() {
     //仮想ボタンを本ゲーム用に上書きして再定義
-    VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_SHOT1)      ];
-    VirtualButton::_tagKeymap.BUTTON2    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_SHOT2)      ];
-    VirtualButton::_tagKeymap.BUTTON3    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_OPTION)     ];
-    VirtualButton::_tagKeymap.BUTTON4    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_VIEW)       ];
-    VirtualButton::_tagKeymap.BUTTON5    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_TURBO)      ];
-    VirtualButton::_tagKeymap.BUTTON6    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_POWERUP)    ];
-    VirtualButton::_tagKeymap.BUTTON7    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_BUTTON7)    ];
-    VirtualButton::_tagKeymap.BUTTON8    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_BUTTON8)    ];
-    VirtualButton::_tagKeymap.PAUSE      = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_PAUSE)      ];
-    VirtualButton::_tagKeymap.UP         = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_UP)         ];
-    VirtualButton::_tagKeymap.DOWN       = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_DOWN)       ];
-    VirtualButton::_tagKeymap.LEFT       = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_LEFT)       ];
-    VirtualButton::_tagKeymap.RIGHT      = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_RIGHT)      ];
-    VirtualButton::_tagKeymap.UI_UP      = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_UI_UP)      ];
-    VirtualButton::_tagKeymap.UI_DOWN    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_UI_DOWN)    ];
-    VirtualButton::_tagKeymap.UI_LEFT    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_UI_LEFT)    ];
-    VirtualButton::_tagKeymap.UI_RIGHT   = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_UI_RIGHT)   ];
-    VirtualButton::_tagKeymap.UI_EXECUTE = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_UI_EXECUTE) ];
-    VirtualButton::_tagKeymap.UI_CANCEL  = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_UI_CANCEL)  ];
-    VirtualButton::_tagKeymap.UI_DEBUG   = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_KEY_UI_DEBUG)   ];
+    VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_SHOT1)      ];
+    VirtualButton::_tagKeymap.BUTTON2    = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_SHOT2)      ];
+    VirtualButton::_tagKeymap.BUTTON3    = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_OPTION)     ];
+    VirtualButton::_tagKeymap.BUTTON4    = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_VIEW)       ];
+    VirtualButton::_tagKeymap.BUTTON5    = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_TURBO)      ];
+    VirtualButton::_tagKeymap.BUTTON6    = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_POWERUP)    ];
+    VirtualButton::_tagKeymap.BUTTON7    = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_BUTTON7)    ];
+    VirtualButton::_tagKeymap.BUTTON8    = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_BUTTON8)    ];
+    VirtualButton::_tagKeymap.PAUSE      = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_PAUSE)      ];
+    VirtualButton::_tagKeymap.UP         = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_UP)         ];
+    VirtualButton::_tagKeymap.DOWN       = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_DOWN)       ];
+    VirtualButton::_tagKeymap.LEFT       = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_LEFT)       ];
+    VirtualButton::_tagKeymap.RIGHT      = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_RIGHT)      ];
+    VirtualButton::_tagKeymap.UI_UP      = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_UI_UP)      ];
+    VirtualButton::_tagKeymap.UI_DOWN    = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_UI_DOWN)    ];
+    VirtualButton::_tagKeymap.UI_LEFT    = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_UI_LEFT)    ];
+    VirtualButton::_tagKeymap.UI_RIGHT   = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_UI_RIGHT)   ];
+    VirtualButton::_tagKeymap.UI_EXECUTE = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_UI_EXECUTE) ];
+    VirtualButton::_tagKeymap.UI_CANCEL  = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_UI_CANCEL)  ];
+    VirtualButton::_tagKeymap.UI_DEBUG   = VirtualButton::_mapStr2Dik[ GGAF_PROPERTY(MY_KEY_UI_DEBUG)   ];
 
-    VirtualButton::_tagJoymap.BUTTON1    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_SHOT1)      ];
-    VirtualButton::_tagJoymap.BUTTON2    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_SHOT2)      ];
-    VirtualButton::_tagJoymap.BUTTON3    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_OPTION)     ];
-    VirtualButton::_tagJoymap.BUTTON4    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_VIEW)       ];
-    VirtualButton::_tagJoymap.BUTTON5    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_TURBO)      ];
-    VirtualButton::_tagJoymap.BUTTON6    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_POWERUP)    ];
-    VirtualButton::_tagJoymap.BUTTON7    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_BUTTON7)    ];
-    VirtualButton::_tagJoymap.BUTTON8    = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_BUTTON8)    ];
-    VirtualButton::_tagJoymap.PAUSE      = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_PAUSE)      ];
-    VirtualButton::_tagJoymap.UI_EXECUTE = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_UI_EXECUTE) ];
-    VirtualButton::_tagJoymap.UI_CANCEL  = VirtualButton::_mapDIK[ GGAF_PROPERTY(MY_JOY_UI_CANCEL)  ];
-
+    VirtualButton::_tagJoymap.BUTTON1    = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_SHOT1)      ];
+    VirtualButton::_tagJoymap.BUTTON2    = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_SHOT2)      ];
+    VirtualButton::_tagJoymap.BUTTON3    = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_OPTION)     ];
+    VirtualButton::_tagJoymap.BUTTON4    = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_VIEW)       ];
+    VirtualButton::_tagJoymap.BUTTON5    = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_TURBO)      ];
+    VirtualButton::_tagJoymap.BUTTON6    = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_POWERUP)    ];
+    VirtualButton::_tagJoymap.BUTTON7    = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_BUTTON7)    ];
+    VirtualButton::_tagJoymap.BUTTON8    = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_BUTTON8)    ];
+    VirtualButton::_tagJoymap.PAUSE      = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_PAUSE)      ];
+    VirtualButton::_tagJoymap.UI_EXECUTE = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_UI_EXECUTE) ];
+    VirtualButton::_tagJoymap.UI_CANCEL  = VirtualButton::_mapStr2JoyBtn[ GGAF_PROPERTY(MY_JOY_UI_CANCEL)  ];
 }
 
 GgafUniverse* God::createUniverse() {

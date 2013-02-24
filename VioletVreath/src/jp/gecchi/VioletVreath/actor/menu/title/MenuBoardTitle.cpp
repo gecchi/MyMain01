@@ -14,8 +14,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
            ")*******+\n"
            ")*******+\n"
            "-......./");
-    _Z = 10;
-
+    _Z = 3;
     //メニューアイテム設定
     char* apItemStr[] = {
           "GAME START",   //0
@@ -58,32 +57,30 @@ bool MenuBoardTitle::condMoveCursorExPrev() {
 void MenuBoardTitle::processBehavior() {
     MenuBoard::processBehavior();
 
-    //Confirmメニュー判定
-    StringBoardMenu* pSubConfirm = getSubMenu(0);
-    if (pSubConfirm) {
-        if (pSubConfirm->isJustDecided()) {
-            if (getSelectedIndex() == ITEM_QUIT) { //自身のメニューが"ITEM_QUIT"を指している場合
-                if (pSubConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
-                    PostQuitMessage(0);
-                } else if (pSubConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
-                    sinkSubMenu();
-                } else {
-                }
-            } else if (getSelectedIndex() == ITEM_QUIT) {
+    if (getSelectedIndex() == ITEM_QUIT) { //自身のメニューが"ITEM_QUIT"を指している場合
+        //確認メニューの結果の振る舞い実行
+        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
+        if (pSubConfirm->wasDecidedOk()) {
+            PostQuitMessage(0);
+        } else if (pSubConfirm->wasDecidedCancel()) {
+            sinkSubMenu();
+        } else {
 
-            }
         }
+    } else if (getSelectedIndex() == ITEM_QUIT) {
+
     }
 
 }
 void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_GAME_START) {
-        //GameTitleSceneでイベント実行
+        //GameTitleSceneクラス側でイベント実行
     } else if (prm_item_index == ITEM_CONFIG) {
         riseSubMenu(1, PX_C(50), PX_C(50));
     } else if (prm_item_index == ITEM_DEBUG) {
         //
     } else if (prm_item_index == ITEM_QUIT) {
+        //確認メニュー起動
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
     }
 }

@@ -15,7 +15,6 @@ MenuBoardConfirm::MenuBoardConfirm(const char* prm_name) :
            ")**********+\n"
            ")**********+\n"
            "-........../");
-    _Z = 3; //プライオリティを他のメニューより手前
 
     LabelGecchi16Font* pLabel_ok = NEW LabelGecchi16Font("itemOK");
     pLabel_ok->update(" O K ", ALIGN_CENTER, VALIGN_MIDDLE);
@@ -53,6 +52,22 @@ void MenuBoardConfirm::onRisen() {
 void MenuBoardConfirm::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
 }
 void MenuBoardConfirm::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+}
+
+bool MenuBoardConfirm::wasDecidedOk() {
+    if (isJustDecided() && getSelectedIndex() == ITEM_OK) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool MenuBoardConfirm::wasDecidedCancel() {
+    if (isJustDecided() && getSelectedIndex() == ITEM_CANCEL) {
+        return true;
+    } else {
+        return false;
+    }
 }
 MenuBoardConfirm::~MenuBoardConfirm() {
 }

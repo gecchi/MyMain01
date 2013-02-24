@@ -122,12 +122,12 @@ public:
      * 内部的には、次のように実行するだけです。
      * stopImmed()
      * setAlphaToTop()
-     * behave()
+     * _pActor->setAlpha(_alpha);
      */
     void reset() {
         stopImmed();
         setAlphaToTop();
-        behave();
+        _pActor->setAlpha(_alpha);
     }
 
     /**

@@ -121,9 +121,10 @@ public:
 
     VBReplayRecorder* _pRpy;
 
-    static keymap _mapDIK;
-    static std::map<int, std::string> _mapKeyName;
-    static std::map<int, std::string> _mapJoyName;
+    static keymap _mapStr2Dik;
+    static keymap _mapStr2JoyBtn;
+    static std::map<int, std::string> _mapDik2Str;
+    static std::map<int, std::string> _mapJoyBtn2Str;
 
     static bool _is_init;
 

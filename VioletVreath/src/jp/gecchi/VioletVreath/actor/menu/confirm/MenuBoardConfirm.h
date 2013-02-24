@@ -30,6 +30,10 @@ public:
 
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
+
+    bool wasDecidedOk();
+    bool wasDecidedCancel();
+
     virtual ~MenuBoardConfirm();
 };
 

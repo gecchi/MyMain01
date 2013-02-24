@@ -36,8 +36,10 @@ public:
     static char _caKeyboardState[2][256];
     /** 現在アクティブなキーボード状態の表裏(0:表／1:裏) */
     static int _active_KeyboardState;
-    /** ジョイスティックの状態 */
-    static DIJOYSTATE _dijoystate;
+    /** ジョイスティックの状態(0:表／1:裏)  */
+    static DIJOYSTATE _dijoystate[2];
+    /** 現在アクティブなジョイスティック状態の表裏(0:表／1:裏) */
+    static int _active_JoyState;
 
 public:
     /**
@@ -122,11 +124,30 @@ public:
     }
 
     /**
+     * 押されているキーボードのキーを調べる .
+     * @return 押されたキー(DIK_* 定数) / -1:何も押されていない
+     */
+    static inline int getBeingPressedKey() {
+        for (int i = 0x00; i <= 0xED; i ++) {
+            if (_caKeyboardState[_active_KeyboardState][i] & 0x80) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * キーボードのキーが押された直後の状態を調べる .
      * @param prm_DIK 調べたいキー(DIK_*)
      * @return true：そのキーは押された直後である／false：そうでは無い
      */
     static bool isPushedDownKey(int prm_DIK);
+
+    /**
+     * キーボードの押された直後のキーを調べる .
+     * @return 押された直後のキー(DIK_*) / 0:何も押されていない
+     */
+    static int getPushedDownKey();
 
     /**
      * キーボードのキーが離された直後の状態を調べる .
@@ -147,15 +168,32 @@ public:
      * @return  true：そのボタンは押されている状態である／false：そうでは無い
      */
     static inline bool isBeingPressedJoyRgbButton(int prm_rgb_button_no) {
-        return (_dijoystate.rgbButtons[prm_rgb_button_no] & 0x80) ? true : false;
+        return (_dijoystate[_active_JoyState].rgbButtons[prm_rgb_button_no] & 0x80) ? true : false;
     }
+
+    /**
+     * 押されているジョイスティックのボタンを調べる .
+     * @return 押されたジョイスティックボタン番号(0～12) / -1:何も押されていない
+     */
+    static inline int getBeingPressedJoyRgbButton() {
+        for (int i = 0; i < 13; i ++) {
+            if (_dijoystate[_active_JoyState].rgbButtons[i] & 0x80) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    static bool isPushedDownJoyRgbButton(int prm_rgb_button_no);
+
+    static int getPushedDownJoyRgbButton();
 
     /**
      * ジョイスティックの上方向の状態を調べる .
      * @return true：ジョイスティックの上方向はONである／false：そうでは無い
      */
     static inline bool isBeingPressedJoyUp() {
-        return (_dijoystate.lY < -127) ? true : false;
+        return (_dijoystate[_active_JoyState].lY < -127) ? true : false;
     }
 
     /**
@@ -163,7 +201,7 @@ public:
      * @return true：ジョイスティックの下方向はONである／false：そうでは無い
      */
     static inline bool isBeingPressedJoyDown() {
-        return (_dijoystate.lY > 127) ? true : false;
+        return (_dijoystate[_active_JoyState].lY > 127) ? true : false;
     }
 
     /**
@@ -171,7 +209,7 @@ public:
      * @return true：ジョイスティックの左方向はONである／false：そうでは無い
      */
     static inline bool isBeingPressedJoyLeft() {
-        return (_dijoystate.lX < -127) ? true : false;
+        return (_dijoystate[_active_JoyState].lX < -127) ? true : false;
     }
 
     /**
@@ -179,7 +217,7 @@ public:
      * @return true：ジョイスティックの右方向はONである／false：そうでは無い
      */
     static inline bool isBeingPressedJoyRight() {
-        return (_dijoystate.lX > 127) ? true : false;
+        return (_dijoystate[_active_JoyState].lX > 127) ? true : false;
     }
 
     /**

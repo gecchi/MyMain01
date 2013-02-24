@@ -29,7 +29,6 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
 //               ")*+\n"
 //               "-./");
 
-    _Z = 5; //プライオリティ
     //メニューアイテム（入力文字盤）設定
     for (int i = 0; i < input_item_num_; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
@@ -143,8 +142,13 @@ void MenuBoardNameEntry::moveCursorPrev() { //左の時
         _pCursor->locateWith(_lstItems.getCurrent());
     }
     if (getSelectedIndex() == ITEM_INDEX_BS_) { //[BS]から左で戻る場合、
-        //直前の元の選択アイテムに戻す
-        _lstItems.current(getSelectedHistoryIndex(1));
+        int prev_item_index = getSelectedHistoryIndex(1);
+        if (prev_item_index < 0) {
+            _lstItems.current(getSelectedHistoryIndex(15));  //"/"
+        } else {
+            //直前の元の選択アイテムに戻す
+            _lstItems.current(getSelectedHistoryIndex(1));
+        }
     } else if (getSelectedIndex() == ITEM_INDEX_OK_) { //[OK]から左で戻る場合
         //最下段(4段目)の一番左のアイテム("P")に戻す
         _lstItems.current((16*3 + 1)-1);
@@ -170,8 +174,13 @@ void MenuBoardNameEntry::moveCursorExPrev() { //上の時
             _pCursor->locateWith(_lstItems.getCurrent());
         }
         if (getSelectedIndex() == ITEM_INDEX_OK_) { //OKから上で戻る場合、
-            //元の選択アイテムに戻す
-            _lstItems.current(getSelectedHistoryIndex(1));
+            int prev_item_index = getSelectedHistoryIndex(1);
+            if (prev_item_index < 0) {
+                _lstItems.current((16*3 + 1)-1); //"P"
+            } else {
+                //元の選択アイテムに戻す
+                _lstItems.current(prev_item_index);
+            }
         } else {
             _lstItems.gotoRelation(ITEM_RELATION_EX_PREV);
         }
@@ -185,7 +194,6 @@ void MenuBoardNameEntry::processBehavior() {
     if (pLabelInputedName_ == nullptr || pLabelSelectedChar_ == nullptr) {
         throwGgafCriticalException("MenuBoardNameEntry::processBehavior() 事前に setNameStringBoard() してください。");
     }
-
 #endif
     MenuBoard::processBehavior();
     if (getSelectedIndex() == ITEM_INDEX_OK_) {

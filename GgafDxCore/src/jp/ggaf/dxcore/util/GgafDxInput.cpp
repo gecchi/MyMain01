@@ -13,7 +13,8 @@ int  GgafDxInput::_active_MouseState = 0;
 char GgafDxInput::_caKeyboardState[2][256];
 int GgafDxInput::_active_KeyboardState = 0;
 DIDEVCAPS GgafDxInput::_didevcap;
-DIJOYSTATE GgafDxInput::_dijoystate;
+DIJOYSTATE GgafDxInput::_dijoystate[2];
+int GgafDxInput::_active_JoyState = 0;
 
 
 HRESULT GgafDxInput::init() {
@@ -346,6 +347,21 @@ bool GgafDxInput::isPushedDownKey(int prm_DIK) {
         return false;
     }
 }
+int GgafDxInput::getPushedDownKey() {
+    int DIK_pressed = GgafDxInput::getBeingPressedKey();
+    if (DIK_pressed > 0 ) { //今は押している
+        if (_caKeyboardState[!_active_KeyboardState][DIK_pressed] & 0x80) {
+            //前回セット[!_active_KeyboardState]も押されている。押しっぱなし
+            return -1;
+        } else {
+            //前回セット[!_active_KeyboardState]は押されていないのでOK
+            return DIK_pressed;
+        }
+    } else {
+        return -1;
+    }
+}
+
 
 bool GgafDxInput::isReleasedUpDownKey(int prm_DIK) {
     if (!GgafDxInput::isBeingPressedKey(prm_DIK)) { //今は離している
@@ -366,6 +382,9 @@ void GgafDxInput::updateJoystickState() {
         return;
     }
 
+
+    _active_JoyState = !_active_JoyState; //ステートセットフリップ
+
     // ジョイスティックの状態を取得
     HRESULT hr;
 
@@ -382,7 +401,7 @@ again1:
 
 again2:
 
-    hr = _pIDirectInputDevice8_Joystick->GetDeviceState(sizeof(DIJOYSTATE), &_dijoystate);
+    hr = _pIDirectInputDevice8_Joystick->GetDeviceState(sizeof(DIJOYSTATE), &_dijoystate[_active_JoyState]);
     if (hr != DI_OK) {
         hr = _pIDirectInputDevice8_Joystick->Acquire();
         if (hr == DI_OK) {
@@ -392,33 +411,63 @@ again2:
     }
 }
 
+bool GgafDxInput::isPushedDownJoyRgbButton(int prm_rgb_button_no) {
+    if (GgafDxInput::isBeingPressedJoyRgbButton(prm_rgb_button_no)) { //今は押している
+        if (_dijoystate[!_active_JoyState].rgbButtons[prm_rgb_button_no] & 0x80) {
+            //前回セット[!_active_JoyState]も押されている。押しっぱなし
+            return false;
+        } else {
+            //前回セット[!_active_JoyState]は押されていないのでOK
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+
+int GgafDxInput::getPushedDownJoyRgbButton() {
+    int JOY_pressed = GgafDxInput::getBeingPressedJoyRgbButton();
+    if (JOY_pressed > 0 ) { //今は押している
+        if (_dijoystate[!_active_JoyState].rgbButtons[JOY_pressed] & 0x80) {
+            //前回セット[!_active_JoyState]も押されている。押しっぱなし
+            return -1;
+        } else {
+            //前回セット[!_active_JoyState]は押されていないのでOK
+            return JOY_pressed;
+        }
+    } else {
+        return -1;
+    }
+}
+
+
 bool GgafDxInput::isBeingPressedJoyDirection(int prm_direction_no) {
     if (prm_direction_no < 1 || 9 < prm_direction_no) {
         return false;
     } else {
-        if (_dijoystate.lY < -127) {
-            if (_dijoystate.lX > 127 && prm_direction_no == 9) {
+        if (_dijoystate[_active_JoyState].lY < -127) {
+            if (_dijoystate[_active_JoyState].lX > 127 && prm_direction_no == 9) {
                 return true;
-            } else if (_dijoystate.lX < -127 && prm_direction_no == 7) {
+            } else if (_dijoystate[_active_JoyState].lX < -127 && prm_direction_no == 7) {
                 return true;
             } else if (prm_direction_no == 8) {
                 return true;
             } else {
                 return false;
             }
-        } else if (_dijoystate.lY > 127) {
-            if (_dijoystate.lX > 127 && prm_direction_no == 3) {
+        } else if (_dijoystate[_active_JoyState].lY > 127) {
+            if (_dijoystate[_active_JoyState].lX > 127 && prm_direction_no == 3) {
                 return true;
-            } else if (_dijoystate.lX < -127 && prm_direction_no == 1) {
+            } else if (_dijoystate[_active_JoyState].lX < -127 && prm_direction_no == 1) {
                 return true;
             } else if (prm_direction_no == 2) {
                 return true;
             } else {
                 return false;
             }
-        } else if (_dijoystate.lX > 127 && prm_direction_no == 6) {
+        } else if (_dijoystate[_active_JoyState].lX > 127 && prm_direction_no == 6) {
             return true;
-        } else if (_dijoystate.lX < -127 && prm_direction_no == 4) {
+        } else if (_dijoystate[_active_JoyState].lX < -127 && prm_direction_no == 4) {
             return true;
         } else if (prm_direction_no == 5) {
             return true;

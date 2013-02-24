@@ -44,19 +44,21 @@ public:
     virtual bool condMoveCursorExNext() override;
     virtual bool condMoveCursorExPrev() override;
     virtual bool condMoveCursorCancel() override;
-
     virtual void moveCursor() override;
+    virtual void onMoveCursor(int prm_from, int prm_to) override;
 
     virtual void initialize() override;
 
     /**
-     * 表示完了位置を現在の_X, _Yで設定しメニューを起動 .
+     * 表示完了位置を現在の_X, _Yで設定しメニュー(自身)を起動 .
+     * 通常は他のオブジェクトから呼び出されるメソッドです。
      */
     virtual void rise() override;
 
     /**
-     * 表示完了位置を指定してメニューを起動 .
+     * 表示完了位置を指定してメニュー(自身)を起動 .
      * 引数座標はスライドが完了して落ち着く座標を指定。
+     * 通常は他のオブジェクトから呼び出されるメソッドです。
      * @param prm_target_X 表示完了X座標
      * @param prm_target_Y 表示完了Y座標
      */

@@ -53,14 +53,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     LoadString(hInstance, IDC_VIOLETVREATH, szWindowClass, MAX_LOADSTRING);
 
     //プロパティファイル読込み
-    if (PathFileExists(".\\default_config.properties")) {
+    if (PathFileExists(VV_DEFAULT_CONFIG_FILE)) {
         if (PathFileExists(".\\config.properties")) {
-            VioletVreath::Properties::load(".\\config.properties");
+            VioletVreath::Properties::load(VV_CONFIG_FILE);
             _TRACE_("config.properties を load しました");
         } else {
-            VioletVreath::Properties::load(".\\default_config.properties");
-            VioletVreath::Properties::save(".\\config.properties");
-            _TRACE_("＜警告＞config.properties が存在しないので、既定の .default_config.properties を load しました。");
+            VioletVreath::Properties::load(VV_DEFAULT_CONFIG_FILE);
+            VioletVreath::Properties::save(VV_CONFIG_FILE);
+            _TRACE_("＜警告＞config.properties が存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load しました。");
         }
 
     } else {

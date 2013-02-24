@@ -323,8 +323,9 @@ public:
     /**
      * 過去にカーソルが選択中だったアイテムのインデックスを取得 .
      * getSelectedHistoryIndex(0) は getSelectedIndex() と同じです。
+     * 指定の過去がない場合は -1 を返します。
      * @param prm_n 幾つ過去のカーソル位置か(0 ～)
-     * @return 選択中だったのアイテムオブジェクトのインデックス
+     * @return 選択中だったのアイテムオブジェクトのインデックス（無い場合は -1）
      */
     virtual int getSelectedHistoryIndex(int prm_n);
 
@@ -353,6 +354,13 @@ public:
      * @return 選択中のアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxDrawableActor* getSelectedItem();
+
+    /**
+     * アイテムのオブジェクトを取得 .
+     * @param prm_index 取得したいアイテムのインデックス
+     * @return アイテムオブジェクト
+     */
+    virtual GgafDxCore::GgafDxDrawableActor* getItem(int prm_index);
 
     /**
      * 「決定（振る舞い）」した、という事の成立条件を実装する .
@@ -419,7 +427,7 @@ public:
     virtual void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) = 0;
 
     /**
-     * 「キャンセル（振る舞い）」された場合に呼び出されるコールバック。
+     * 「キャンセル（振る舞い）」された場合に呼び出されるコールバック。 .
      * 動作をオーバーライドして実装してください。<BR>
      * ＜メニューの選択項目がキャンセルされた場合の処理記述コードの場所について＞<BR>
      * processBehavior() で、getCancelIndex() の戻り値を毎フレーム調べることで、キャンセル時の処理を記述することが可能。<BR>
@@ -429,6 +437,14 @@ public:
      * @param prm_item_index
      */
     virtual void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) = 0;
+
+    /**
+     * カーソルが移動した場合に出されるコールバック。 .
+     * 動作をオーバーライドして実装してください。<BR>
+     * @param prm_from 移動元のアイテムのインデックス（無い（初期の）場合は -1）
+     * @param prm_to   移動先のアイテムのインデックス
+     */
+    virtual void onMoveCursor(int prm_from, int prm_to) = 0;
 
     /**
      * カーソルを _lstItems のアクティブ要素へ移動させる .
@@ -539,6 +555,12 @@ public:
     virtual void addSubMenu(MenuActor<T>* prm_pSubMenu);
 
     /**
+     * 親メニューを返す .
+     * @return 親メニュー
+     */
+    virtual MenuActor<T>* getParentMenu();
+
+    /**
      * サブメニューを取得 .
      * 事前に addSubMenu() でサブメニューを設定する必要があります。<BR>
      * @param prm_index サブメニューのインデックス
@@ -601,7 +623,7 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _can_controll = false;
     _will_be_able_to_controll = false;
     for (int i = 0; i < 10; i++) {
-        _lstMoveHistory.addLast(new int(0), true);
+        _lstMoveHistory.addLast(new int(-1), true);
     }
     T::inactivateImmed(); //メニューなので、初期状態は非活動状態をデフォルトとする
 }
@@ -738,6 +760,7 @@ template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::setSelectedIndex(int prm_index) {
     int n = getSelectedIndex();
     if (n == prm_index) {
+        //既に選択している。
         return _lstItems.getCurrent();
     } else {
 #ifdef MY_DEBUG
@@ -809,6 +832,11 @@ int MenuActor<T>::getCancelledIndex() {
 template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getSelectedItem() {
     return _lstItems.getCurrent();
+}
+
+template<class T>
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getItem(int prm_index) {
+    return _lstItems.getFromFirst(prm_index);
 }
 
 template<class T>
@@ -895,6 +923,7 @@ void MenuActor<T>::moveCursor() {
         _Y_cursor_target_prev = pTargetItem->_Y;
         _Z_cursor_target_prev = pTargetItem->_Z;
         *(_lstMoveHistory.next()) = _lstItems.getCurrentIndex();
+        onMoveCursor(*(_lstMoveHistory.getPrev()), *(_lstMoveHistory.getCurrent())); //コールバック
     }
 }
 
@@ -979,6 +1008,7 @@ void MenuActor<T>::processBehavior() {
     if (_pCursor) {
         _pCursor->_pKurokoA->behave();
     }
+
     //メニューアイテムをメニューに追従
     GgafDxCore::GgafDxDrawableActor* p;
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
@@ -987,7 +1017,9 @@ void MenuActor<T>::processBehavior() {
         p->locate(T::_X + p->_X_local,
                   T::_Y + p->_Y_local,
                   T::_Z + p->_Z_local);
-        p->setAlpha(T::getAlpha());
+        if (_with_sinking || _with_rising) {
+            p->setAlpha(T::getAlpha());
+        }
         pElem = pElem->_pNext;
     }
     //表示アイテムをメニューに追従
@@ -997,7 +1029,9 @@ void MenuActor<T>::processBehavior() {
         p->locate(T::_X + p->_X_local,
                   T::_Y + p->_Y_local,
                   T::_Z + p->_Z_local);
-        p->setAlpha(T::getAlpha());
+        if (_with_sinking || _with_rising) {
+            p->setAlpha(T::getAlpha());
+        }
         pElem = pElem->_pNext;
     }
 
@@ -1061,6 +1095,18 @@ template<class T>
 void MenuActor<T>::addSubMenu(MenuActor<T>* prm_pSubMenu) {
     _lstSubMenus.addLast(prm_pSubMenu, false);
     T::addSubLast(prm_pSubMenu); //サブに追加
+}
+
+template<class T>
+MenuActor<T>* MenuActor<T>::getParentMenu() {
+    GgafCore::GgafActor* pActor = T::getParent(); //サブに追加
+#ifdef MY_DEBUG
+    MenuActor<T>* pMenuActor = dynamic_cast<MenuActor<T>*>(pActor);
+    if (pMenuActor == nullptr) {
+        throwGgafCriticalException(" MenuActor<T>::getParentMenu 親ノードは同じメニューではありませんでした。name="<<T::getName()<<" this="<<this);
+    }
+#endif
+    return (MenuActor<T>*)pActor;
 }
 
 template<class T>

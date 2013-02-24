@@ -24,6 +24,7 @@ void GgafDxMorpher::reset() {
         _beat_target_frames[i] = 0;
         _stop_halfloop_num[i] = -1;
         _method[i] = NOMORPH;
+        _pActor->_weight[i] = this->_weight[i];
     }
 }
 

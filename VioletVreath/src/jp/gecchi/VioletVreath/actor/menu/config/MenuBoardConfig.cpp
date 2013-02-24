@@ -19,7 +19,6 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
            ")***********+\n"
            ")***********+\n"
            "-.........../");
-    _Z = 9; //プライオリティ
 
     //メニューアイテム（選択可）設定
     char* apItemStr[] = {
