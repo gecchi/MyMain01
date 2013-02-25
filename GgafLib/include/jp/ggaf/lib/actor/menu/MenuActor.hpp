@@ -102,7 +102,7 @@ public:
     GgafDxCore::GgafDxDrawableActor* _pCursor;
     /** [r]その他表示アイテムのリスト */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _lstDispActors;
-    /** [r]メニューアイテムインデックスのヒストリー */
+    /** [r]メニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
     GgafCore::GgafLinkedListRing<int> _lstMoveHistory;
     /** [r/w]メニューフェイドイン・アウト時のアルファ速度 */
     float _velo_alpha_fade;
@@ -113,7 +113,7 @@ public:
     /** [r]カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合 */
     float _cursor_move_p2;
     /** [r]サブメニューのリスト */
-    GgafCore::GgafLinkedListRing<MenuActor<T>> _lstSubMenus;
+    GgafCore::GgafLinkedListRing<MenuActor<T>> _lstSubMenu;
 
 public:
     /**
@@ -161,6 +161,8 @@ public:
      * 選択可能メニューアイテムを追加する .
      * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
      * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。
+     * 【注意】<BR>
+     * 同一Z座標ならば、後に addItem() した方が、より手前に表示となる。<BR>
      * @param prm_pItem メニューアイテム
      * @param prm_X_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
@@ -172,8 +174,10 @@ public:
      * 選択可能メニューアイテム追加する .
      * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
      * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。<BR>
-     * 【注意】Z座標は、オフセット0が設定される。つまりアイテムの絶対Z座標は、現在のメニューのZ座標と一致する。
-     * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定したほうが良い。
+     * 【注意】<BR>
+     * 同一Z座標ならば、後に addItem() した方が、より手前に表示となる。<BR>
+     * Z座標は、オフセット0が設定される。つまりアイテムの絶対Z座標は、現在のメニューのZ座標と一致する。<BR>
+     * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定も可能。
      * @param prm_pItem メニューアイテム
      * @param prm_X_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
@@ -185,6 +189,8 @@ public:
 
     /**
      * 選択不可の表示用メニューラベルを追加する .
+     * 【注意】<BR>
+     * 同一Z座標ならば、後に addDispLabel() した方が、より手前に表示となる。<BR>
      * @param prm_pItem 表示用ラベルのアクター
      * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
@@ -195,8 +201,10 @@ public:
 
     /**
      * 選択不可の表示用メニューラベルを追加する .
-     * 【注意】Z座標は、オフセット0が設定される。つまり表示用アクターの絶対Z座標は、現在のメニューのZ座標と一致する。
-     * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定したほうが良い。
+     * 【注意】<BR>
+     * 同一Z座標ならば、後に addDispLabel() した方が、より手前に表示となる。<BR>
+     * Z座標は、オフセット0が設定される。つまり表示用アクターの絶対Z座標は、現在のメニューのZ座標と一致する。
+     * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定も可能。
      * @param prm_pItem 表示用ラベルのアクター
      * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
@@ -1054,8 +1062,8 @@ void MenuActor<T>::processBehavior() {
     }
 
     //サブメニューのrise() sink() 時
-    for (int i = 0; i < _lstSubMenus.length(); i++) {
-        MenuActor<T>* pSubMenu = _lstSubMenus.getFromFirst(i);
+    for (int i = 0; i < _lstSubMenu.length(); i++) {
+        MenuActor<T>* pSubMenu = _lstSubMenu.getFromFirst(i);
         if (pSubMenu->isJustRise()) {
             disableControll(); //サブメニューが立ち上がったので、自身は操作不可
         }
@@ -1093,7 +1101,7 @@ void MenuActor<T>::processSinking() {
 
 template<class T>
 void MenuActor<T>::addSubMenu(MenuActor<T>* prm_pSubMenu) {
-    _lstSubMenus.addLast(prm_pSubMenu, false);
+    _lstSubMenu.addLast(prm_pSubMenu, false);
     T::addSubLast(prm_pSubMenu); //サブに追加
 }
 
@@ -1112,33 +1120,32 @@ MenuActor<T>* MenuActor<T>::getParentMenu() {
 template<class T>
 MenuActor<T>* MenuActor<T>::getSubMenu(int prm_index) {
 #ifdef MY_DEBUG
-    if (_lstSubMenus.length() < prm_index+1) {
-        throwGgafCriticalException("MenuActor<T>::getSubMenu() サブメニューアイテム要素数オーバー name="<<T::getName()<<" _lstSubMenus.length()="<<_lstSubMenus.length()<<" prm_index="<<prm_index);
+    if (_lstSubMenu.length() < prm_index+1) {
+        throwGgafCriticalException("MenuActor<T>::getSubMenu() サブメニューアイテム要素数オーバー name="<<T::getName()<<" _lstSubMenu.length()="<<_lstSubMenu.length()<<" prm_index="<<prm_index);
     }
 #endif
-    return _lstSubMenus.getFromFirst(prm_index);
+    return _lstSubMenu.getFromFirst(prm_index);
 }
 
 template<class T>
 MenuActor<T>* MenuActor<T>::getRisingSubMenu() {
-    return _lstSubMenus.getCurrent();
+    return _lstSubMenu.getCurrent();
 }
 
 
 template<class T>
 void MenuActor<T>::riseSubMenu(int prm_index) {
 #ifdef MY_DEBUG
-    if (_lstSubMenus.length() < prm_index+1) {
-        throwGgafCriticalException("MenuActor<T>::riseSubMenu() サブメニューアイテム要素数オーバー name="<<T::getName()<<" _lstSubMenus.length()="<<_lstSubMenus.length()<<" prm_index="<<prm_index);
+    if (_lstSubMenu.length() < prm_index+1) {
+        throwGgafCriticalException("MenuActor<T>::riseSubMenu() サブメニューアイテム要素数オーバー name="<<T::getName()<<" _lstSubMenu.length()="<<_lstSubMenu.length()<<" prm_index="<<prm_index);
     }
 #endif
-    _lstSubMenus.current(prm_index);
-    _lstSubMenus.getCurrent()->rise();
+    _lstSubMenu.current(prm_index)->rise();
 }
 
 template<class T>
 void MenuActor<T>::sinkSubMenu() {
-    _lstSubMenus.getCurrent()->sink();
+    _lstSubMenu.getCurrent()->sink();
 }
 
 template<class T>

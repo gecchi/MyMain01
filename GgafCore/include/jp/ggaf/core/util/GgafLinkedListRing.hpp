@@ -5,6 +5,7 @@ namespace GgafCore {
 /**
  * 環状双方向連結リスト(外部収納)を構築。.
  * <B>【解説】</B><BR>
+ * オブジェクトへポインタの環状双方向連結リストを作成します。<BR>
  * 例えば、次のようなコードを書くと
  * <pre><code>
  * Object* A = new Object();
@@ -104,6 +105,13 @@ public:
         }
 
         /**
+         * 要素の値を返す。
+         * @return 値
+         */
+        inline T* getValue() {
+            return _pValue;
+        }
+        /**
          * 要素を互いに関連付ける .
          * @param prm_connection_index 要素関連接続番号
          * @param prm_pOppElem 被関連要素
@@ -112,7 +120,6 @@ public:
             _papRelation[prm_connection_index] = prm_pOppElem;
             prm_pOppElem[prm_connection_index] = this;
         }
-
         /**
          * 要素を一方的に関連付ける .
          * @param prm_connection_index 要素関連接続番号
@@ -121,7 +128,6 @@ public:
         void connect(int prm_connection_index, Elem* prm_pOppElem) {
             _papRelation[prm_connection_index] = prm_pOppElem;
         }
-
         /**
          * 相手要素から自分へ、一方的に関連付けてもらう .
          * @param prm_pOppElem 相手の要素
@@ -130,7 +136,6 @@ public:
         void gotConnected(Elem* prm_pOppElem, int prm_opp_connection_index) {
             prm_pOppElem[prm_opp_connection_index] = this;
         }
-
         /**
          * デストラクタ.
          * 内部保持する要素の値もdeleteされます。<BR>
@@ -141,7 +146,8 @@ public:
             }
             DELETEARR_POSSIBLE_NULL(_papRelation);
         }
-    };
+    }; //class Elem
+
 
     /** [r]先頭要素 */
     Elem* _pElem_first;

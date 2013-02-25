@@ -11,6 +11,8 @@ namespace VioletVreath {
 #endif
 
 
+typedef GgafCore::GgafLinkedListRing<Magic> MagicList;
+
 /**
  * 魔法メーター .
  * @version 1.00
@@ -65,7 +67,7 @@ public:
     DamageDispBar* pDamageDispBar_;
 
     /** 魔法リスト */
-    GgafCore::GgafLinkedListRing<Magic> ringMagics_;
+    MagicList lstMagic_;
 
     /** メータ主カーソル */
     MagicMeterCursor001* pMagicCursor_;

@@ -40,6 +40,9 @@ pStageWorld_(nullptr) {
 
     was_paused_flg_GameMainScene_prev_frame_ = false;
 
+    _pBgmPerformer->useBgm(1);
+    _pBgmPerformer->set(0, "OGG_BGM_DEMO");
+
 }
 
 void GameScene::initialize() {
@@ -111,6 +114,7 @@ void GameScene::processBehavior() {
             //##########  タイトル前演出  ##########
             if (_pProg->hasJustChanged()) {
                 _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_PRE_TITLE)");
+                _pBgmPerformer->play_fadein(0);
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
@@ -146,6 +150,7 @@ void GameScene::processBehavior() {
         case GameScene::PROG_BEGINNING: {
             //##########  ゲーム開始（モード選択等）  ##########
             if (_pProg->hasJustChanged()) {
+                _pBgmPerformer->fadeout_stop();
                 _TRACE_("GameScene::processBehavior() Prog has Just Changed (to GameScene::PROG_BEGINNING)");
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE

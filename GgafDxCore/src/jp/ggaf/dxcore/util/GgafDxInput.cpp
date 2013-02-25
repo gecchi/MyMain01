@@ -349,7 +349,7 @@ bool GgafDxInput::isPushedDownKey(int prm_DIK) {
 }
 int GgafDxInput::getPushedDownKey() {
     int DIK_pressed = GgafDxInput::getBeingPressedKey();
-    if (DIK_pressed > 0 ) { //今は押している
+    if (DIK_pressed >= 0 ) { //今は押している
         if (_caKeyboardState[!_active_KeyboardState][DIK_pressed] & 0x80) {
             //前回セット[!_active_KeyboardState]も押されている。押しっぱなし
             return -1;
@@ -427,7 +427,7 @@ bool GgafDxInput::isPushedDownJoyRgbButton(int prm_rgb_button_no) {
 
 int GgafDxInput::getPushedDownJoyRgbButton() {
     int JOY_pressed = GgafDxInput::getBeingPressedJoyRgbButton();
-    if (JOY_pressed > 0 ) { //今は押している
+    if (JOY_pressed >= 0 ) { //今は押している
         if (_dijoystate[!_active_JoyState].rgbButtons[JOY_pressed] & 0x80) {
             //前回セット[!_active_JoyState]も押されている。押しっぱなし
             return -1;

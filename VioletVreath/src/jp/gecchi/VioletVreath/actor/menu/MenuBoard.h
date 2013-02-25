@@ -72,12 +72,10 @@ public:
      * @param prm_target_Y サブメニュー表示完了Y座標
      */
     virtual void riseSubMenu(int prm_index, coord prm_target_X, coord prm_target_Y);
+
     virtual void onRisen() override;
-
     virtual void processBehavior() override;
-
     virtual void processJudgement() override;
-
     virtual void onSunk() override;
 
     virtual ~MenuBoard();

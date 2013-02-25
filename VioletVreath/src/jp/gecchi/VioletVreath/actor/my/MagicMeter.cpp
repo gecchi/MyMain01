@@ -31,74 +31,85 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     pOptionMagic_  = NEW OptionMagic("OPTION", pMP_MyShip_);
     pVreathMagic_  = NEW VreathMagic("VREATH", pMP_MyShip_);
     pSmileMagic_   = NEW SmileMagic("SMILE", pMP_MyShip_); //即効魔法
-    ringMagics_.addLast(pTractorMagic_);
-    ringMagics_.addLast(pSpeedMagic_  );
-    ringMagics_.addLast(pLockonMagic_ );
-    ringMagics_.addLast(pTorpedoMagic_);
-    ringMagics_.addLast(pLaserMagic_  );
-    ringMagics_.addLast(pOptionMagic_ );
-    ringMagics_.addLast(pVreathMagic_ );
-    ringMagics_.addLast(pSmileMagic_  );
+    lstMagic_.addLast(pTractorMagic_);
+    lstMagic_.addLast(pSpeedMagic_  );
+    lstMagic_.addLast(pLockonMagic_ );
+    lstMagic_.addLast(pTorpedoMagic_);
+    lstMagic_.addLast(pLaserMagic_  );
+    lstMagic_.addLast(pOptionMagic_ );
+    lstMagic_.addLast(pVreathMagic_ );
+    lstMagic_.addLast(pSmileMagic_  );
 
-    for (int i = 0; i < ringMagics_.length(); i++) {
-        addSubGroup(ringMagics_.getNext(i));
+    int magic_num = lstMagic_.length();
+
+    for (int i = 0; i < magic_num; i++) {
+        addSubGroup(lstMagic_.getNext(i));
     }
 
-    pMagicCursor_ = NEW MagicMeterCursor001("MagicCursor", this); //メータ主カーソル
-    pMagicCursor_->_Z = _Z - 3; //最も手前に表示したい
-    addSubGroup(pMagicCursor_);
-
-    papLvTargetCursor_ = NEW MagicLvCursor001*[ringMagics_.length()];
-    papLvHilightCursor_ = NEW MagicLvCursor002*[ringMagics_.length()];
-    papLvCastingMarkCursor_ = NEW MagicLvCursor003*[ringMagics_.length()];
-    paFloat_rr_ = NEW float[ringMagics_.length()];
-    paFloat_velo_rr_ = NEW float[ringMagics_.length()];
+    papLvTargetCursor_      = NEW MagicLvCursor001*[magic_num];
+    papLvHilightCursor_     = NEW MagicLvCursor002*[magic_num];
+    papLvCastingMarkCursor_ = NEW MagicLvCursor003*[magic_num];
+    paFloat_rr_      = NEW float[magic_num];
+    paFloat_velo_rr_ = NEW float[magic_num];
     Magic* pMagic;
-    for (int i = 0; i < ringMagics_.length(); i++) {
-        pMagic = ringMagics_.getFromFirst(i);
-
-        papLvTargetCursor_[i] = NEW MagicLvCursor001("LvTargetCursor", this, pMagic); //メータ副カーソル
-        papLvTargetCursor_[i]->_Z = _Z - 3;
-        addSubGroup(papLvTargetCursor_[i]);
-
+    MagicList::Elem* pMagicElem = lstMagic_.getElemFirst();
+    for (int i = 0; i < magic_num; i++) {
+        pMagic = pMagicElem->getValue();
         papLvHilightCursor_[i] = NEW MagicLvCursor002("LvHilightCursor", this, pMagic); //現レベル強調カーソル
-        papLvHilightCursor_[i]->_Z = _Z - 1;
-        addSubGroup(papLvHilightCursor_[i]);
-
         papLvCastingMarkCursor_[i] = NEW MagicLvCursor003("LvCastMarkCursor_", this, pMagic); //詠唱レベル強調カーソル
-        papLvCastingMarkCursor_[i]->_Z = _Z - 2;
         papLvCastingMarkCursor_[i]->markOff();
-        addSubGroup(papLvCastingMarkCursor_[i]);
-
+        papLvTargetCursor_[i] = NEW MagicLvCursor001("LvTargetCursor", this, pMagic); //メータ副カーソル
+        pMagicElem = pMagicElem->_pNext;
+    }
+    for (int i = 0; i < magic_num; i++) {
         paFloat_rr_[i] = 0.0f;
         paFloat_velo_rr_[i] = 0.0f;
     }
 
-    pMagicMeterStatus_ = NEW MagicMeterStatus("MagicMeterStatus", this);
-    pMagicMeterStatus_->locateWith(this);
-    addSubGroup(pMagicMeterStatus_);
+
+    //表示プリオリティを考慮して、addSubGroupを行う事！
+    for (int i = 0; i < magic_num; i++) {
+        addSubGroup(papLvHilightCursor_[i]); //現レベル強調カーソル
+    }
+    for (int i = 0; i < magic_num; i++) {
+        addSubGroup(papLvCastingMarkCursor_[i]); //詠唱レベル強調カーソル
+    }
+    for (int i = 0; i < magic_num; i++) {
+        addSubGroup(papLvTargetCursor_[i]); //メータ副カーソル
+    }
+
 
     //エネルギーバー設置
     pEnergyBar_ = NEW EnergyBar("EnergyBar", pMP_MyShip_);
-    pEnergyBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 60.0f), _Z);
+    pEnergyBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 60.0f));
     addSubGroup(pEnergyBar_);
     //エネルギーバーのコスト表示バー
     pCostDispBar_ = NEW CostDispBar("CostDispBar", pEnergyBar_, &cost_disp_mp_);
-    pCostDispBar_->locate(pEnergyBar_->_X, pEnergyBar_->_Y, _Z-1);
+    pCostDispBar_->locate(pEnergyBar_->_X, pEnergyBar_->_Y);
     addSubGroup(pCostDispBar_);
 
     //Vreathバー設置
     pVreathBar_ = NEW VreathBar("VreathBar", pVreath_MyShip_);
-    pVreathBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 20.0f), _Z);
+    pVreathBar_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 20.0f));
     addSubGroup(pVreathBar_);
     //Vreathバーコスト表示バー
     pCostDispBar2_ = NEW CostDispBar("CostDispBar2", pVreathBar_, &cost_disp_vreath);
-    pCostDispBar2_->locate(pVreathBar_->_X, pVreathBar_->_Y, _Z-1);
+    pCostDispBar2_->locate(pVreathBar_->_X, pVreathBar_->_Y);
     addSubGroup(pCostDispBar2_);
     //Vreathバーダメージ表示バー
     pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_, &damage_disp_vreath);
-    pDamageDispBar_->locate(pVreathBar_->_X, pVreathBar_->_Y, _Z-1);
+    pDamageDispBar_->locate(pVreathBar_->_X, pVreathBar_->_Y);
     addSubGroup(pDamageDispBar_);
+
+
+    //残魔法効果持続時間表示
+    pMagicMeterStatus_ = NEW MagicMeterStatus("MagicMeterStatus", this);
+    pMagicMeterStatus_->locateWith(this);
+    addSubGroup(pMagicMeterStatus_);
+
+    //メータ主カーソル
+    pMagicCursor_ = NEW MagicMeterCursor001("MagicCursor", this);
+    addSubGroup(pMagicCursor_);
 
 
     _pSeTx->set(SE_CURSOR_MOVE_METER             , "WAVE_MM_CURSOR_MOVE_METER");  //主メーターカーソル移動時
@@ -127,11 +138,11 @@ void MagicMeter::saveStatus(int prm_saveno) {
 
 void MagicMeter::save(std::stringstream& sts) {
     sts << pMP_MyShip_->get() << " ";
-    Magic* pOrgMagic = ringMagics_.getCurrent();
-    int len_magics = ringMagics_.length();
+    Magic* pOrgMagic = lstMagic_.getCurrent();
+    int len_magics = lstMagic_.length();
     for (int i = 0; i < len_magics; i++) {
         pOrgMagic->save(sts);
-        pOrgMagic = ringMagics_.next();
+        pOrgMagic = lstMagic_.next();
     }
 }
 
@@ -140,19 +151,19 @@ void MagicMeter::load(std::stringstream& sts) {
     sts >> mp;
     pMP_MyShip_->set(mp);
 
-    Magic* pOrgMagic = ringMagics_.getCurrent();
-    int len_magics = ringMagics_.length();
+    Magic* pOrgMagic = lstMagic_.getCurrent();
+    int len_magics = lstMagic_.length();
     for (int i = 0; i < len_magics; i++) {
         pOrgMagic->load(sts);
-        pOrgMagic = ringMagics_.next();
+        pOrgMagic = lstMagic_.next();
     }
 }
 
 void MagicMeter::initialize() {
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
     Magic* pMagic;
-    for (int i = 0; i < ringMagics_.length(); i++) {
-        pMagic = ringMagics_.getFromFirst(i);
+    for (int i = 0; i < lstMagic_.length(); i++) {
+        pMagic = lstMagic_.getFromFirst(i);
         papLvTargetCursor_[i]->moveTo(pMagic->level_);
         papLvHilightCursor_[i]->moveTo(pMagic->level_);
         papLvCastingMarkCursor_[i]->moveTo(0);
@@ -160,8 +171,8 @@ void MagicMeter::initialize() {
 }
 void MagicMeter::onReset() {
     Magic* pMagic;
-    for (int i = 0; i < ringMagics_.length(); i++) {
-        pMagic = ringMagics_.getFromFirst(i);
+    for (int i = 0; i < lstMagic_.length(); i++) {
+        pMagic = lstMagic_.getFromFirst(i);
         pMagic->resetTree(); //先にMagicをリセットさせる。
         papLvTargetCursor_[i]->moveTo(pMagic->level_);
         papLvHilightCursor_[i]->moveTo(pMagic->level_);
@@ -176,8 +187,8 @@ void MagicMeter::processBehavior() {
 
     if (pVbPlay->isBeingPressed(VB_POWERUP)) {
         alpha_velo_ = 0.05f;
-        Magic* pActiveMagic = ringMagics_.getCurrent();     //アクティブな魔法
-        int active_idx = ringMagics_.getCurrentIndex();     //アクティブな魔法のインデックス
+        Magic* pActiveMagic = lstMagic_.getCurrent();     //アクティブな魔法
+        int active_idx = lstMagic_.getCurrentIndex();     //アクティブな魔法のインデックス
         progress active_prg = pActiveMagic->_pProg->get();  //アクティブな魔法の進捗
         if (pVbPlay->isPushedDown(VB_POWERUP)) {
             rollOpen(active_idx);
@@ -191,9 +202,9 @@ void MagicMeter::processBehavior() {
             }
             rollClose(active_idx); //現在ロールクローズ
 
-            ringMagics_.next(); //メーターを１つ進める
-            pActiveMagic= ringMagics_.getCurrent();     //更新
-            active_idx = ringMagics_.getCurrentIndex(); //更新
+            lstMagic_.next(); //メーターを１つ進める
+            pActiveMagic= lstMagic_.getCurrent();     //更新
+            active_idx = lstMagic_.getCurrentIndex(); //更新
             active_prg = pActiveMagic->_pProg->get();   //更新
 
             rollOpen(active_idx);  //進めた先をロールオープン
@@ -208,9 +219,9 @@ void MagicMeter::processBehavior() {
             }
             rollClose(active_idx); //現在ロールクローズ
 
-            ringMagics_.prev(); //メーターを１つ戻す
-            pActiveMagic= ringMagics_.getCurrent();     //更新
-            active_idx = ringMagics_.getCurrentIndex(); //更新
+            lstMagic_.prev(); //メーターを１つ戻す
+            pActiveMagic= lstMagic_.getCurrent();     //更新
+            active_idx = lstMagic_.getCurrentIndex(); //更新
             active_prg = pActiveMagic->_pProg->get();   //更新
 
             rollOpen(active_idx); //戻した先をロールオープン
@@ -335,7 +346,7 @@ void MagicMeter::processBehavior() {
     } else  {
         alpha_velo_ = -0.02f;
         if (pVbPlay->isReleasedUp(VB_POWERUP)) {
-            rollClose(ringMagics_.getCurrentIndex());
+            rollClose(lstMagic_.getCurrentIndex());
         }
         cost_disp_mp_.set(0);
         cost_disp_vreath.set(0);
@@ -350,8 +361,8 @@ void MagicMeter::processBehavior() {
     //毎フレームの各魔法表示についての処理
     GgafProgress* pMagicProg = nullptr;
     Magic* pMagic = nullptr;
-    for (int m = 0; m < ringMagics_.length(); m++) {
-        pMagic = ringMagics_.getFromFirst(m);
+    for (int m = 0; m < lstMagic_.length(); m++) {
+        pMagic = lstMagic_.getFromFirst(m);
         pMagicProg = pMagic->_pProg;
 
         paFloat_rr_[m] += paFloat_velo_rr_[m];
@@ -452,9 +463,9 @@ void MagicMeter::processDraw() {
     HRESULT hr;
     //パワーメーター
     //[====]が１つの大きさ [====][====][====]
-    GgafLinkedListRing<Magic>::Elem* pElem = ringMagics_.getElemFirst();
+    MagicList::Elem* pElem = lstMagic_.getElemFirst();
     Magic* pMagic;
-    int len_magics = ringMagics_.length();
+    int len_magics = lstMagic_.length();
     int n = 0;
     float u,v;
     float x = float(C_PX(_X));

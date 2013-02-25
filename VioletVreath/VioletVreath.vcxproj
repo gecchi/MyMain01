@@ -393,8 +393,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfigMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorKeyConfigMenu.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorSoundConfigMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardConfig.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardKeyConfig.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp" />
@@ -688,8 +690,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\config\cursorconfigmenu.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\config\cursorkeyconfigmenu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorSoundConfigMenu.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\config\menuboardconfig.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\config\menuboardkeyconfig.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\confirm\cursorconfirmmenu.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\confirm\menuboardconfirm.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\menuboard.h" />

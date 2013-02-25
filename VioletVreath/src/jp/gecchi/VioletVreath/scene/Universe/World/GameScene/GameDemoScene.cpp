@@ -13,9 +13,6 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     getDirector()->addSubGroup(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
     getDirector()->addSubGroup(pLabel02_);
-    _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "OGG_BGM_DEMO");
-
     demo_stage_ = 1;
 
     papLabel_Ranking_ = NEW LabelRankingFont*[GameGlobal::qryRanking_.getCount()];

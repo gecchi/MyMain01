@@ -107,7 +107,7 @@ void MyShipScene::processBehavior() {
 
                 //VreathMagicをデフォルトでレベル１に設定
                 MagicMeter* pMM = pMyShip_->pMagicMeter_;
-                int idx = pMM->ringMagics_.indexOf(pMyShip_->pMagicMeter_->pVreathMagic_);
+                int idx = pMM->lstMagic_.indexOf(pMyShip_->pMagicMeter_->pVreathMagic_);
                 pMM->pVreathMagic_->effect(1);
                 pMM->papLvTargetCursor_[idx]->moveSmoothTo(1); //カーソル
                 pMM->papLvHilightCursor_[idx]->moveSmoothTo(1); //カーソル

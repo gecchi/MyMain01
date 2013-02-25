@@ -86,6 +86,10 @@ void GgafDxSound::setBgmVolume(float prm_bgm_volume) {
     GgafDxSound::_pBgmManager->updateVolume(); //音量を更新
 }
 
+void GgafDxSound::addBgmVolume(int prm_bgm_volume_offset) {
+    setBgmVolume(_bgm_volume+prm_bgm_volume_offset);
+}
+
 void GgafDxSound::setSeVolume(float prm_se_volume) {
     _se_volume = prm_se_volume;
     if (_se_volume > GGAF_MAX_VOLUME) {
@@ -95,6 +99,10 @@ void GgafDxSound::setSeVolume(float prm_se_volume) {
     }
     _se_volume_rate = 1.0f * _se_volume / GGAF_MAX_VOLUME;
     GgafDxSound::_pSeManager->updateVolume(); //音量を更新
+}
+
+void GgafDxSound::addSeVolume(int prm_se_volume_offset) {
+    setSeVolume(_se_volume+prm_se_volume_offset);
 }
 
 void GgafDxSound::release() {

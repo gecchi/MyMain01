@@ -73,10 +73,16 @@ public:
     static void addMasterVolume(int prm_master_volume_offset);
 
     /**
-     * 全BGMボリュームの率設定 .
+     * 全BGMボリュームの設定 .
      * @param prm_bgm_volume  0(無音) ～ 100(サンプリング本来の音量)
      */
     static void setBgmVolume(float prm_bgm_volume);
+
+    /**
+     * 全BGMボリューム増分設定 .
+     * @param prm_bgm_volume_offset 音量増分
+     */
+    static void addBgmVolume(int prm_bgm_volume_offset);
 
     /**
      * 全SEボリュームの率設定 .
@@ -84,6 +90,11 @@ public:
      */
     static void setSeVolume(float prm_se_volume);
 
+    /**
+     * 全SEボリューム増分設定 .
+     * @param prm_se_volume_offset 音量増分
+     */
+    static void addSeVolume(int prm_se_volume_offset);
 };
 
 }

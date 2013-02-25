@@ -14,7 +14,6 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
            ")*******+\n"
            ")*******+\n"
            "-......./");
-    _Z = 3;
     //メニューアイテム設定
     char* apItemStr[] = {
           "GAME START",   //0

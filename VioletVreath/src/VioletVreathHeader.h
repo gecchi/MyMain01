@@ -564,6 +564,8 @@ class CursorConfigMenu;
 class MenuBoardConfig;
 class CursorKeyConfigMenu;
 class MenuBoardKeyConfig;
+class CursorSoundConfigMenu;
+class MenuBoardSoundConfig;
 
 class MenuBoardNameEntry;
 class CursorNameEntryMenu;
@@ -904,6 +906,9 @@ class CursorNameEntryMenu;
 
 #include "jp/gecchi/VioletVreath/actor/menu/config/CursorKeyConfigMenu.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardKeyConfig.h"
+
+#include "jp/gecchi/VioletVreath/actor/menu/config/CursorSoundConfigMenu.h"
+#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardSoundConfig.h"
 
 #include "jp/gecchi/VioletVreath/actor/menu/config/CursorConfigMenu.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"

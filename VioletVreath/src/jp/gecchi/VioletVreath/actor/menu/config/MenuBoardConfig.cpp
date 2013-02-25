@@ -36,6 +36,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("message");
     pMsg->update("[CONFIG MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
     addDispLabel(pMsg, PX_C(100), PX_C(20), -1);
+    //キャンセルアイテム設定
     relateAllItemCancel(ITEM_BACK);
 
     //メニューカーソルを設定
@@ -44,9 +45,10 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     setCursor(pCursor);
 
     setSelectedIndex(ITEM_BACK); //カーソルの初期選択アイテムを設定
-    setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
-                                            //上から下へ少しスライドさせる
+    setTransition(30, PX_C(0), +PX_C(100)); //トランジション（表示非表示時の挙動）
+
     addSubMenu(NEW MenuBoardKeyConfig("key_config"));
+    addSubMenu(NEW MenuBoardSoundConfig("sound_config"));
 }
 bool MenuBoardConfig::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -63,10 +65,9 @@ void MenuBoardConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int
     if (prm_item_index == ITEM_BACK) {
         sink();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
-        //keyconfig
-        riseSubMenu(0, PX_C(50), PX_C(10)); //サブメニュー起動
+        riseSubMenu(0, PX_C(50), PX_C(10)); //keyconfigメニュー起動
     } else if (prm_item_index == ITEM_SOUND_CONFIG) {
-        riseSubMenu(1, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50));
+        riseSubMenu(1,  PX_C(50), PX_C(10)); //soundconfigメニュー起動
     } else if (prm_item_index == ITEM_SCREEN_CONFIG) {
         riseSubMenu(2, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50));
     }

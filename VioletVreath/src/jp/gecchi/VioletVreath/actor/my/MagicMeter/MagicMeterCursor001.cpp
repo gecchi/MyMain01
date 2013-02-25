@@ -15,7 +15,7 @@ MagicMeterCursor001::MagicMeterCursor001(const char* prm_name, MagicMeter* prm_p
 }
 void MagicMeterCursor001::initialize() {
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    _X = tX_ = pMagicMeter_->_X + pMagicMeter_->width_*pMagicMeter_->ringMagics_.getCurrentIndex() + (pMagicMeter_->width_/2);
+    _X = tX_ = pMagicMeter_->_X + pMagicMeter_->width_*pMagicMeter_->lstMagic_.getCurrentIndex() + (pMagicMeter_->width_/2);
     _Y = tY_ = pMagicMeter_->_Y + (pMagicMeter_->height_/2);
     _pUvFlipper->setActivePtn(0);
 }

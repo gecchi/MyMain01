@@ -22,9 +22,9 @@ void MagicMeterStatus::processDraw() {
     //パワーメーター
     //[====]が１つの大きさ [====][====][====]
     MagicMeter* pMM = pMagicMeter_;
-    GgafLinkedListRing<Magic>::Elem* pElem = pMM->ringMagics_.getElemFirst();
+    MagicList::Elem* pElem = pMM->lstMagic_.getElemFirst();
     Magic* pMagic;
-    int len_magics = pMM->ringMagics_.length();
+    int len_magics = pMM->lstMagic_.length();
     coord mm_w = PX_C(pMM->width_px_);
     coord mm_h = PX_C(pMM->height_px_);
     float alpha1 = pMM->getAlpha()*4; //メータよりちょっと濃い目に表示

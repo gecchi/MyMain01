@@ -199,7 +199,6 @@ void GgafDxUniverse::draw() {
 
 int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableActor* prm_pActor) {
     int draw_depth_level;
-    GgafDxDrawableActor* pActorTmp;
     //上限下限カット
     if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 4) {
         draw_depth_level = MAX_DRAW_DEPTH_LEVEL - 4;
@@ -215,20 +214,21 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
         _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] = prm_pActor;
         _apAlphaActorLastList_DrawDepthLevel[draw_depth_level] = prm_pActor;
     } else {
+        GgafDxDrawableActor* pActorTmp;
         if (prm_pActor->_is2DActor) {
-            //前に追加
-            pActorTmp = _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level];
-            prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
-            _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level] = prm_pActor;
+            //同一深度で2Dの場合、連結リストのお尻に追加していく
+            //つまり、最後に addSubLast() すればするほど、描画順が後になり、プライオリティが高い。
+            pActorTmp = _apAlphaActorLastList_DrawDepthLevel[draw_depth_level];
+            pActorTmp->_pNext_TheSameDrawDepthLevel = prm_pActor;
+            prm_pActor->_pNext_TheSameDrawDepthLevel = nullptr;
+            _apAlphaActorLastList_DrawDepthLevel[draw_depth_level] = prm_pActor;
         } else {
-            //そのprm_draw_depth_levelで既にアクター登録済みだった場合
-            //表示順が固定にならないように、お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
+            //同一深度で3Dの場合、前に追加と、お尻に追加を交互に行う。
             //何故そんなことをするかというと、Zバッファ有りのテクスチャに透明があるオブジェクトや、半透明オブジェクトが交差した場合、
             //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
             //これを描画順を毎フレーム変化させることで、交互表示でちらつかせ若干のごまかしを行う。
             //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
-
-            if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) {
+            if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) { //奇数
                 //前に追加
                 pActorTmp = _apAlphaActorFirstList_DrawDepthLevel[draw_depth_level];
                 prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
@@ -243,7 +243,6 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
         }
     }
     return draw_depth_level;
-
 }
 
 

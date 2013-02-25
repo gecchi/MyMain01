@@ -35,36 +35,58 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
           "MAGIC     KEY & BUTTON",
           "VAM       KEY & BUTTON",
           "PAUSE     KEY & BUTTON",
-//          "SAVE AND EXIT", //6
-//          "CANCEL"         //7
     };
 
     int item_index;
     for (item_index = ITEM_MAIN_SHOT; item_index <= ITEM_PAUSE; item_index++) {
-        LabelFix16Font01* pLabel = NEW LabelFix16Font01("item");
+        LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[item_index], ALIGN_LEFT, VALIGN_MIDDLE);
-        addItem(pLabel, PX_C(200), PX_C(100+(item_index*20)), -1);
+        addItem(pLabel, PX_C(200), PX_C(100+(item_index*20)));
     }
 
-    LabelFix16Font01* pLabel_OK = NEW LabelFix16Font01("item");
-    pLabel_OK->update("OK", ALIGN_LEFT, VALIGN_MIDDLE);
-    addItem(pLabel_OK, PX_C(100), PX_C(350), -1);
+    LabelGecchi16Font* pLabel_OK = NEW LabelGecchi16Font("item_Ok");
+    pLabel_OK->update("OK & SAVE", ALIGN_LEFT, VALIGN_MIDDLE);
+    addItem(pLabel_OK, PX_C(100), PX_C(350));
     ITEM_INDEX_OK_ = item_index;
 
-    LabelFix16Font01* pLabel_CANCEL = NEW LabelFix16Font01("item");
+    LabelGecchi16Font* pLabel_CANCEL = NEW LabelGecchi16Font("item_Cancel");
     pLabel_CANCEL->update("CANCEL", ALIGN_LEFT, VALIGN_MIDDLE);
-    addItem(pLabel_CANCEL, PX_C(400), PX_C(350), -1);
+    addItem(pLabel_CANCEL, PX_C(400), PX_C(350));
     ITEM_INDEX_CANCEL_ = item_index + 1;
 
     paVBProperties = NEW VBProperty[item_index+1];
     for (int i = ITEM_MAIN_SHOT; i <= ITEM_PAUSE; i++) {
         paVBProperties[i].pKey = NEW LabelFix16Font01("DISP_KEY");
         paVBProperties[i].pKey->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-        addDispLabel(paVBProperties[i].pKey, PX_C(600), PX_C(100+(i*20)), -1);
+        addDispLabel(paVBProperties[i].pKey, PX_C(600), PX_C(100+(i*20)));
         paVBProperties[i].pJoy = NEW LabelFix16Font01("DISP_JOY");
         paVBProperties[i].pJoy->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-        addDispLabel(paVBProperties[i].pJoy, PX_C(800), PX_C(100+(i*20)), -1);
+        addDispLabel(paVBProperties[i].pJoy, PX_C(800), PX_C(100+(i*20)));
     }
+
+    LabelGecchi16Font* pTitle = NEW LabelGecchi16Font("message");
+    pTitle->update("SELECT AND PUSH KEY, JOY BUTTON!!", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDispLabel(pTitle, PX_C(300), PX_C(40));
+
+    //メニューカーソルを設定
+    CursorKeyConfigMenu* pCursor = NEW CursorKeyConfigMenu("CursorKeyConfigMenu");
+    pCursor->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
+    setCursor(pCursor);
+
+    setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
+                                            //上から下へ少しスライドさせる
+    addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
+}
+bool MenuBoardKeyConfig::condMoveCursorNext() {
+    return VB->isAutoRepeat(VB_UI_DOWN);
+}
+bool MenuBoardKeyConfig::condMoveCursorPrev() {
+    return VB->isAutoRepeat(VB_UI_UP);
+}
+void MenuBoardKeyConfig::onRisen() {
+
+    setSelectedIndex(ITEM_MAIN_SHOT); //カーソルの初期選択アイテムを設定
+    //リセット
     paVBProperties[ITEM_MAIN_SHOT].pKey->update(GGAF_PROPERTY(MY_KEY_SHOT1  ).c_str());
     paVBProperties[ITEM_SUB_SHOT ].pKey->update(GGAF_PROPERTY(MY_KEY_SHOT2  ).c_str());
     paVBProperties[ITEM_TURBO    ].pKey->update(GGAF_PROPERTY(MY_KEY_TURBO  ).c_str());
@@ -81,39 +103,15 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     paVBProperties[ITEM_VAM      ].pJoy->update(GGAF_PROPERTY(MY_JOY_VIEW   ).c_str());
     paVBProperties[ITEM_PAUSE    ].pJoy->update(GGAF_PROPERTY(MY_JOY_PAUSE  ).c_str());
 
-    LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("message");
-    pMsg->update("SELECT AND PUSH KEY, JOY BUTTON!!", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispLabel(pMsg, PX_C(100), PX_C(20), -1);
-
-
-
-    //特別なメニューカーソルオーダーを構築
-    relateAllItemCancel(ITEM_INDEX_CANCEL_);
-
-    //メニューカーソルを設定
-    CursorKeyConfigMenu* pCursor = NEW CursorKeyConfigMenu("CursorKeyConfigMenu");
-    pCursor->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    setCursor(pCursor);
-
-    setSelectedIndex(ITEM_MAIN_SHOT); //カーソルの初期選択アイテムを設定
-    setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
-                                            //上から下へ少しスライドさせる
-    addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
+    MenuBoard::onRisen();
 }
-bool MenuBoardKeyConfig::condMoveCursorNext() {
-    return VB->isAutoRepeat(VB_UI_DOWN);
-}
-bool MenuBoardKeyConfig::condMoveCursorPrev() {
-    return VB->isAutoRepeat(VB_UI_UP);
-}
-
 void MenuBoardKeyConfig::processBehavior() {
     MenuBoard::processBehavior();
 
     //サブメニュー判定
     MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
     if (pSubConfirm->wasDecidedOk()) {
-        //現プロパティに保存してセーブ！
+        //現プロパティをファイルに保存
         GGAF_PROPERTY(MY_KEY_SHOT1  ) = paVBProperties[ITEM_MAIN_SHOT].pKey->_draw_string;
         GGAF_PROPERTY(MY_KEY_SHOT2  ) = paVBProperties[ITEM_SUB_SHOT ].pKey->_draw_string;
         GGAF_PROPERTY(MY_KEY_TURBO  ) = paVBProperties[ITEM_TURBO    ].pKey->_draw_string;
@@ -130,8 +128,7 @@ void MenuBoardKeyConfig::processBehavior() {
         GGAF_PROPERTY(MY_JOY_VIEW   ) = paVBProperties[ITEM_VAM      ].pJoy->_draw_string;
         GGAF_PROPERTY(MY_JOY_PAUSE  ) = paVBProperties[ITEM_PAUSE    ].pJoy->_draw_string;
         VioletVreath::Properties::save(VV_CONFIG_FILE);
-
-        //アプリへ反映
+        //実行中アプリへも反映
         P_GOD->initVB();
 
         sinkSubMenu();
@@ -142,19 +139,21 @@ void MenuBoardKeyConfig::processBehavior() {
 
     }
 
+    //キー入力、ボタン入力、反映
     int index = getSelectedIndex();
     if ( ITEM_MAIN_SHOT <= index && index <= ITEM_PAUSE ) {
         int DIK_pushed = GgafDxInput::getPushedDownKey();
         if (0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
-            if (VirtualButton::_tagKeymap.UI_UP == DIK_pushed ||
-                VirtualButton::_tagKeymap.UI_DOWN == DIK_pushed ||
-                VirtualButton::_tagKeymap.UI_LEFT == DIK_pushed ||
+            if (VirtualButton::_tagKeymap.UI_UP    == DIK_pushed ||
+                VirtualButton::_tagKeymap.UI_DOWN  == DIK_pushed ||
+                VirtualButton::_tagKeymap.UI_LEFT  == DIK_pushed ||
                 VirtualButton::_tagKeymap.UI_RIGHT == DIK_pushed  )
             {
                 //UIのメニュー移動は無視
             } else {
                 paVBProperties[index].pKey->update(VirtualButton::_mapDik2Str[DIK_pushed].c_str());
                 paVBProperties[index].pKey->effectFlush(10);
+                _pSeTx->play(SE_DECIDED_NOMAL);
             }
         }
 
@@ -162,6 +161,7 @@ void MenuBoardKeyConfig::processBehavior() {
         if (0 <= JOY_pushed && JOY_pushed <= 12) {
             paVBProperties[index].pJoy->update(VirtualButton::_mapJoyBtn2Str[JOY_pushed].c_str());
             paVBProperties[index].pJoy->effectFlush(10);
+            _pSeTx->play(SE_DECIDED_NOMAL);
         }
     }
 

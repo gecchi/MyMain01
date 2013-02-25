@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * カーソルその１ .
+ * キーコンフィグのカーソル .
  * @version 1.00
  * @since 2013/02/18
  * @author Masatoshi Tsuge
