@@ -25,7 +25,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
           "BACK TO GAME",   //0
           "CONFIG",         //1
           "BACK TO TITLE",  //2
-          "QUIT GAME",      //3
+          "QUIT",           //3
 
           "DUMMY1",         //4
           "DUMMY2",         //5
@@ -40,12 +40,13 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     for (int i = ITEM_BACK_TO_GAME; i <= ITEM_HOGEHOGE; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addItem(pLabel, PX_C(100+((i/4)*200)), PX_C(100+((i%4)*30)), -1);
+        addItem(pLabel, PX_C(100+((i/4)*200)), PX_C(100+((i%4)*30)));
     }
     //メニューアイテム（選択不可）設定
-    LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("message");
-    pMsg->update("[PAUSE MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispLabel(pMsg, PX_C(100), PX_C(20), -1);
+    LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
+    pLabel_Title->update("[PAUSE MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDispLabel(pLabel_Title, PX_C(100), PX_C(20));
+
     //特別なメニューカーソルオーダーを構築
     relateItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1, ITEM_DUMMY5  , ITEM_CONFIG       );
     relateItemExNext(ITEM_CONFIG       , ITEM_DUMMY2, ITEM_DUMMY6  , ITEM_BACK_TO_TITLE);
@@ -62,6 +63,8 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
                                             //上から下へ少しスライドさせる
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
+    //コンフィグサブメニュー
+    addSubMenu(NEW MenuBoardConfig("config"));
 }
 bool MenuBoardPause::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -80,30 +83,37 @@ void MenuBoardPause::processBehavior() {
     MenuBoard::processBehavior();
 
     //サブメニュー判定
-    StringBoardMenu* pSubConfirm = getSubMenu(0);
-    if (pSubConfirm) {
-        if (pSubConfirm->isJustDecided()) {
-            if (pSubConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
 
-                if (getSelectedIndex() == ITEM_QUIT_GAME) {
-                    PostQuitMessage(0);
-                }
-
-            } else if (pSubConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
-                sinkSubMenu();
-            } else {
-            }
-        } else {
-
+    int selected = getSelectedIndex();
+    if (selected == ITEM_QUIT_GAME) { //自身のメニューが"ITEM_QUIT"を指している場合
+        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
+        if (pSubConfirm->wasDecidedOk()) {
+            PostQuitMessage(0);
+        } else if (pSubConfirm->wasDecidedCancel()) {
+            sinkSubMenu();
+        }
+    } if (selected == ITEM_BACK_TO_TITLE) {
+        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
+        if (pSubConfirm->wasDecidedOk()) {
+            sinkSubMenu();
+            sink();
+            throwEventUpperTree(EVENT_BACK_TO_TITLE);
+        } else if (pSubConfirm->wasDecidedCancel()) {
+            sinkSubMenu();
         }
     }
+
 }
 
 void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_BACK_TO_GAME) {
         sink();
-    } else if (prm_item_index == ITEM_QUIT_GAME) {
-        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //サブメニュー起動
+    } else if (prm_item_index == ITEM_CONFIG) {
+        riseSubMenu(1, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y - PX_C(50)); //コンフィグメニュー起動
+    } else if (prm_item_index == ITEM_BACK_TO_TITLE) {
+        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //確認メニュー起動
+    }else if (prm_item_index == ITEM_QUIT_GAME) {
+        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //確認メニュー起動
     }
 }
 void MenuBoardPause::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {

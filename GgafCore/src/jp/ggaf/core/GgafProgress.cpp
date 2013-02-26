@@ -13,7 +13,11 @@ _pFrame_counter(prm_pFrame_counter)
         _paFrame_progress_changed[i] = (*_pFrame_counter);
     }
 }
-
+void GgafProgress::reset() {
+    _progress = PROGRESS_NOTHING;
+    _progress_prev = -1;
+    _progress_next = PROGRESS_NOTHING;
+}
 progress GgafProgress::get() {
     return _progress;
 }
@@ -23,6 +27,7 @@ void GgafProgress::set(progress prm_progress) {
         throwGgafCriticalException("GgafProgress::set 進捗番号が範囲外です。set可能な進捗番号は(1～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
+    reset();
     _progress_prev = _progress;
     _progress = prm_progress;
     _progress_next = prm_progress;

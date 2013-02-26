@@ -22,20 +22,19 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
 
     //メニューアイテム（選択可）設定
     char* apItemStr[] = {
-          "KEY CONFIG",   //0
-          "SOUND CONFIG", //1
-          "SCREEN CONFIG",  //2
-          "BACK"            //3
+          "KEY CONFIG",
+          "SOUND CONFIG",
+          "BACK"
     };
     for (int i = ITEM_KEY_CONFIG; i <= ITEM_BACK; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
         addItem(pLabel, PX_C(200), PX_C(100+((i%4)*30)), -1);
     }
-    //メニューアイテム（選択不可）設定
-    LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("message");
-    pMsg->update("[CONFIG MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispLabel(pMsg, PX_C(100), PX_C(20), -1);
+    //表示ラベル設定
+    LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
+    pLabel_Title->update("[CONFIG MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDispLabel(pLabel_Title, PX_C(100), PX_C(20), -1);
     //キャンセルアイテム設定
     relateAllItemCancel(ITEM_BACK);
 
@@ -68,8 +67,6 @@ void MenuBoardConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int
         riseSubMenu(0, PX_C(50), PX_C(10)); //keyconfigメニュー起動
     } else if (prm_item_index == ITEM_SOUND_CONFIG) {
         riseSubMenu(1,  PX_C(50), PX_C(10)); //soundconfigメニュー起動
-    } else if (prm_item_index == ITEM_SCREEN_CONFIG) {
-        riseSubMenu(2, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50));
     }
 }
 void MenuBoardConfig::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {

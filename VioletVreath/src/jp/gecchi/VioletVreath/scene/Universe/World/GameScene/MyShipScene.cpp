@@ -74,6 +74,7 @@ void MyShipScene::onReset() {
     }
     fadeoutSceneWithBgm(0);
     _pProg->set(MyShipScene::PROG_INIT);
+    P_UNIVERSE->resetCamWorker();
 }
 
 void MyShipScene::onActive() {

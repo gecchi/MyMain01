@@ -208,6 +208,7 @@ HASHVAL(EVENT_GAMESTART);
 HASHVAL(EVENT_GOTO_GAMETITLE);
 HASHVAL(EVENT_GAMEMODE_DECIDE);
 HASHVAL(EVENT_GAMEOVERSCENE_FINISH);
+HASHVAL(EVENT_BACK_TO_TITLE);
 HASHVAL(EVENT_NAMEENTRYSCENE_FINISH);
 HASHVAL(EVENT_MENU_NAMEENTRY_DONE);
 
@@ -397,6 +398,7 @@ class LabelFix16Font01;
 class LabelGecchi8Font;
 class LabelGecchi16Font;
 class LabelGecchi32Font;
+class LabelMenuTitleFont01;
 class LabelRankFont;
 class LabelRankingFont;
 class SpriteLabelTest;
@@ -549,7 +551,6 @@ class SpriteMeshSetTestActor;
 class StringBoardTestActor;
 class WallAABTestActor;
 class WallAAPrismTestActor;
-
 
 class VamSysCamPosition;
 class MenuBoard;
@@ -749,6 +750,7 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi32Font.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankingFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"

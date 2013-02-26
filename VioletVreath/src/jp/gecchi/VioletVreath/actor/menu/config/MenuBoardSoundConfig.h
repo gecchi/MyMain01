@@ -21,9 +21,9 @@ public:
     int ITEM_INDEX_OK_;
     int ITEM_INDEX_CANCEL_;
 
-    LabelFix16Font01* pSeVol_;
-    LabelFix16Font01* pBgmVol_;
-    LabelFix16Font01* pMasterVol_;
+    LabelFix16Font01* pLabel_SeVol_;
+    LabelFix16Font01* pLabel_BgmVol_;
+    LabelFix16Font01* pLabel_MasterVol_;
 public:
     MenuBoardSoundConfig(const char* prm_name);
 

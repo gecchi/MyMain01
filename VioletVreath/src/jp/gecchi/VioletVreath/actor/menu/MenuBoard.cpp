@@ -14,9 +14,7 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     target_Y_ = _Y;
     _pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN"      );
     _pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR"   );
-    _pSeTx->set(SE_DECIDED_NOMAL , "WAVE_MENU_DECIDED_NOMAL" );
     _pSeTx->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
-    _pSeTx->set(SE_ON_SINK       , "WAVE_MENU_ON_SINK"       );
 }
 
 void MenuBoard::setTransition(frame prm_menu_fade_frames,
@@ -31,7 +29,6 @@ bool MenuBoard::condDecision() {
     if (VB->isPushedDown(VB_UI_EXECUTE)) {
         //「メニューアイテム：任意」で、VB_UI_EXECUTE ボタンの場合は
         //そのアイテムを「決定」した事とする。(当たり前だが)
-        _pSeTx->play(SE_DECIDED_NOMAL);
         return true;
     } else if (VB->isPushedDown(VB_UI_CANCEL) &&
                _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != nullptr &&
@@ -170,7 +167,6 @@ void MenuBoard::onSunk() {
                     ),
                     60, 0.2, 0.3
                );
-    _pSeTx->play(SE_ON_SINK);
 }
 
 MenuBoard::~MenuBoard() {

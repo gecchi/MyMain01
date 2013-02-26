@@ -43,6 +43,9 @@ public:
      */
     GgafProgress(frame* prm_pFrame_counter, int prm_num_progress);
 
+
+    virtual void reset();
+
     /**
      * Œ»İ‚Ìi’»”Ô†æ“¾ .
      * @return i’»”Ô†(0, 1`)

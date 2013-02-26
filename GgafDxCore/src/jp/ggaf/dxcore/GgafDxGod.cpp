@@ -729,11 +729,22 @@ HRESULT GgafDxGod::initDevice() {
                         //要求した使える解像度が見つからない
                         std::stringstream ss;
                         if (GGAF_PROPERTY(DUAL_VIEW)) {
-                            ss << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" フルスクリーンモードにする事ができません。\n"<<
-                                   (disp_no+1)<<"画面目の解像度の設定を確認してください。";
+                            if (disp_no == 0) {
+                                ss << "１画面目を、解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
+                                      "設定ファイルの DUAL_VIEW_FULL_SCREEN1_WIDTH, DUAL_VIEW_FULL_SCREEN1_HEIGHT の値を、\n" <<
+                                      "修正して下さい。";
+                            } else if (disp_no == 1) {
+                                ss << "２画面目を、解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
+                                      "設定ファイルの DUAL_VIEW_FULL_SCREEN2_WIDTH, DUAL_VIEW_FULL_SCREEN2_HEIGHT の値を、\n" <<
+                                      "修正して下さい。";
+                            } else {
+                                ss << "解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。" <<
+                                      "マルチヘッドディスプレイ数を減らしてみて下さい。\n";
+                            }
                         } else {
-                            ss << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" フルスクリーンモードにする事ができません。\n"<<
-                                    "解像度の設定を確認してください。";
+                            ss << "解像度 "<< _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
+                                    "設定ファイルの SINGLE_VIEW_FULL_SCREEN_WIDTH, SINGLE_VIEW_FULL_SCREEN_HEIGHT の値を、\n" <<
+                                    "修正して下さい。";
                         }
                         MessageBox(GgafDxGod::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
                         return E_FAIL;

@@ -55,8 +55,8 @@ bool MenuBoardTitle::condMoveCursorExPrev() {
 }
 void MenuBoardTitle::processBehavior() {
     MenuBoard::processBehavior();
-
-    if (getSelectedIndex() == ITEM_QUIT) { //自身のメニューが"ITEM_QUIT"を指している場合
+    int selected = getSelectedIndex();
+    if (selected == ITEM_QUIT) { //自身のメニューが"ITEM_QUIT"を指している場合
         //確認メニューの結果の振る舞い実行
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
         if (pSubConfirm->wasDecidedOk()) {
@@ -66,7 +66,7 @@ void MenuBoardTitle::processBehavior() {
         } else {
 
         }
-    } else if (getSelectedIndex() == ITEM_QUIT) {
+    } else if (selected == ITEM_QUIT) {
 
     }
 

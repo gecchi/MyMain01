@@ -23,7 +23,6 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
             ")*******************************************+\n"
             ")*******************************************+\n"
             ")*******************************************+\n"
-            ")*******************************************+\n"
             "-.........................................../");
 
     //メニューアイテム（選択可）設定
@@ -64,9 +63,9 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
         addDispLabel(paVBProperties[i].pJoy, PX_C(800), PX_C(100+(i*20)));
     }
 
-    LabelGecchi16Font* pTitle = NEW LabelGecchi16Font("message");
-    pTitle->update("SELECT AND PUSH KEY, JOY BUTTON!!", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispLabel(pTitle, PX_C(300), PX_C(40));
+    LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
+    pLabel_Title->update("SELECT AND PUSH KEY, JOY BUTTON!!", ALIGN_CENTER, VALIGN_MIDDLE);
+    addDispLabel(pLabel_Title, PX_C(300), PX_C(40));
 
     //メニューカーソルを設定
     CursorKeyConfigMenu* pCursor = NEW CursorKeyConfigMenu("CursorKeyConfigMenu");
@@ -131,8 +130,8 @@ void MenuBoardKeyConfig::processBehavior() {
         //実行中アプリへも反映
         P_GOD->initVB();
 
-        sinkSubMenu();
-        sink();
+        sinkSubMenu(); //確認メニュー閉じる
+        sink();        //自身メニュー閉じる
     } else if (pSubConfirm->wasDecidedCancel()) {
         sinkSubMenu();
     } else {
@@ -153,7 +152,6 @@ void MenuBoardKeyConfig::processBehavior() {
             } else {
                 paVBProperties[index].pKey->update(VirtualButton::_mapDik2Str[DIK_pushed].c_str());
                 paVBProperties[index].pKey->effectFlush(10);
-                _pSeTx->play(SE_DECIDED_NOMAL);
             }
         }
 
@@ -161,7 +159,6 @@ void MenuBoardKeyConfig::processBehavior() {
         if (0 <= JOY_pushed && JOY_pushed <= 12) {
             paVBProperties[index].pJoy->update(VirtualButton::_mapJoyBtn2Str[JOY_pushed].c_str());
             paVBProperties[index].pJoy->effectFlush(10);
-            _pSeTx->play(SE_DECIDED_NOMAL);
         }
     }
 

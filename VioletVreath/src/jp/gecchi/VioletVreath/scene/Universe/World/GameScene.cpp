@@ -309,6 +309,12 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_GAMEOVERSCENE_FINISH) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEOVERSCENE_FINISH)");
         _pProg->change(GameScene::PROG_FINISH);
+    } else if (prm_no == EVENT_BACK_TO_TITLE) {
+        _TRACE_("GameScene::onCatchEvent(EVENT_BACK_TO_TITLE)");
+        _TRACE_("UNPAUSE!(because EVENT_BACK_TO_TITLE)");
+        P_GOD->setVB(VB_PLAY);
+        _pProg->getGazedScene()->unpauseTree();//ポーズ解除！！
+        _pProg->change(GameScene::PROG_FINISH);
     }
 }
 
