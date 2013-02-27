@@ -67,15 +67,15 @@ void resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height) {
  * @param hWnd リセットするウィンドウのHWND
  */
 void resetWindowsize(HWND hWnd) {
-    if (!GGAF_PROPERTY(FULL_SCREEN)) {
-        if (GGAF_PROPERTY(DUAL_VIEW)) {
+    if (!PROPERTY::FULL_SCREEN) {
+        if (PROPERTY::DUAL_VIEW) {
             if (hWnd == _hWnd2_) {
-                resetWindowsize(hWnd, GGAF_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH), GGAF_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT));
+                resetWindowsize(hWnd, PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
             } else if (hWnd == _hWnd1_) {
-                resetWindowsize(hWnd, GGAF_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH), GGAF_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT));
+                resetWindowsize(hWnd, PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
             }
         } else {
-            resetWindowsize(hWnd, GGAF_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH), GGAF_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT));
+            resetWindowsize(hWnd, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
         }
     }
 }
@@ -134,7 +134,7 @@ void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_SIZE:
             if (GgafDxCore::GgafDxGod::_can_be) {
-                if (!GGAF_PROPERTY(FULL_SCREEN)) {
+                if (!PROPERTY::FULL_SCREEN) {
                     GgafDxCore::GgafDxGod::_adjustGameScreen = true;
                     GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = hWnd;
                 }
@@ -191,13 +191,13 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                          const char* prm_title1   , const char* prm_title2,
                          HWND&       out_hWnd1    , HWND&       out_hWnd2) {
 
-    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(GGAF_PROPERTY(BORDER_COLOR));
+    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(PROPERTY::BORDER_COLOR);
     prm_wndclass1.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
     prm_wndclass2.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
 
     // ウインドウの生成
-    if (GGAF_PROPERTY(FULL_SCREEN)) {
-        if (GGAF_PROPERTY(DUAL_VIEW)) {
+    if (PROPERTY::FULL_SCREEN) {
+        if (PROPERTY::DUAL_VIEW) {
             //フルスクリーンモード・２画面使用
             RegisterClassEx(&prm_wndclass1);
             _hWnd1_ = CreateWindowEx(
@@ -207,8 +207,8 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN1_WIDTH),
-                        GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN1_HEIGHT),
+                        PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH,
+                        PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT,
                         HWND_DESKTOP,
                         nullptr,
                         prm_wndclass1.hInstance,
@@ -223,8 +223,8 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN2_WIDTH),
-                        GGAF_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT),
+                        PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH,
+                        PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT,
                         HWND_DESKTOP,
                         nullptr,
                         prm_wndclass2.hInstance,
@@ -241,8 +241,8 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        GGAF_PROPERTY(SINGLE_VIEW_FULL_SCREEN_WIDTH),
-                        GGAF_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT),
+                        PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH,
+                        PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT,
                         HWND_DESKTOP,
                         nullptr,
                         prm_wndclass1.hInstance,
@@ -251,7 +251,7 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
 
         }
     } else {
-        if (GGAF_PROPERTY(DUAL_VIEW)) {
+        if (PROPERTY::DUAL_VIEW) {
             //ウインドモード・２窓使用
             RegisterClassEx(&prm_wndclass1);
             _hWnd1_ = CreateWindow(
@@ -260,8 +260,8 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         WS_OVERLAPPEDWINDOW,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        GGAF_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH),
-                        GGAF_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT),
+                        PROPERTY::DUAL_VIEW_WINDOW1_WIDTH,
+                        PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT,
                         HWND_DESKTOP,
                         nullptr,
                         prm_wndclass1.hInstance,
@@ -275,8 +275,8 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         WS_OVERLAPPEDWINDOW,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        GGAF_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH),
-                        GGAF_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT),
+                        PROPERTY::DUAL_VIEW_WINDOW2_WIDTH,
+                        PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT,
                         HWND_DESKTOP,
                         nullptr,
                         prm_wndclass2.hInstance,
@@ -291,8 +291,8 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                         WS_OVERLAPPEDWINDOW,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        GGAF_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH),
-                        GGAF_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT),
+                        PROPERTY::SINGLE_VIEW_WINDOW_WIDTH,
+                        PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT,
                         HWND_DESKTOP,
                         nullptr,
                         prm_wndclass1.hInstance,
@@ -310,19 +310,19 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
 
     //ウィンドウモード時、クライアント領域を所望の大きさにするため、
     //タイトルバー、リサイズボーダーの厚さを考慮し再設定。
-    if (!GGAF_PROPERTY(FULL_SCREEN)) {
-        if (GGAF_PROPERTY(DUAL_VIEW)) {
-            resetWindowsize(_hWnd1_, GGAF_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH), GGAF_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT));
-            resetWindowsize(_hWnd2_, GGAF_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH), GGAF_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT));
+    if (!PROPERTY::FULL_SCREEN) {
+        if (PROPERTY::DUAL_VIEW) {
+            resetWindowsize(_hWnd1_, PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
+            resetWindowsize(_hWnd2_, PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
         } else {
-            resetWindowsize(_hWnd1_, GGAF_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH), GGAF_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT));
+            resetWindowsize(_hWnd1_, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
         }
     }
 
     //アクティブに
     ShowWindow(_hWnd1_, WinMain_nCmdShow);
     UpdateWindow(_hWnd1_);
-    if (GGAF_PROPERTY(DUAL_VIEW)) {
+    if (PROPERTY::DUAL_VIEW) {
         ShowWindow(_hWnd2_, WinMain_nCmdShow);
         UpdateWindow(_hWnd2_);
     }

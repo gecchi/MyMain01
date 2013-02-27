@@ -74,6 +74,17 @@ public:
         }
     }
 
+    /**
+     * “à•”•ÛRGB’l‚ğ•¶š—ñ‚Åæ“¾
+     * @return "#FFFFFF"Œ`®‚Ì•¶š—ñ
+     */
+    std::string toStr() {
+        std::ostringstream oss;
+        oss << "#" << UTIL::dec2hex(_R,2) <<
+                      UTIL::dec2hex(_G,2) <<
+                      UTIL::dec2hex(_B,2);
+        return oss.str();
+    }
 };
 
 }

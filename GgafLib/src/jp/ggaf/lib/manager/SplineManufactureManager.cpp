@@ -18,7 +18,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     double rate_Z = 1.0f;
 
     std::string spl_data_file="";
-    std::string spl_filename = GGAF_PROPERTY(DIR_SPLINE) + std::string(prm_idstr) + ".spl";
+    std::string spl_filename = PROPERTY::DIR_SPLINE + std::string(prm_idstr) + ".spl";
 
 
     GgafStrMap mapSplPropperties;

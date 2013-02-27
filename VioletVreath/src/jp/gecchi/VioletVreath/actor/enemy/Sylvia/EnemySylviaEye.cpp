@@ -17,7 +17,7 @@ EnemySylviaEye::EnemySylviaEye(const char* prm_name, EnemySylvia* prm_pSylvia) :
     pLaserChipDepo_->config(60, 1, nullptr); //Thaliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemySylviaEyeStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
-        std::string name = "LaserChip("+ ITOS(i) + ")";
+        std::string name = "LaserChip("+ XTOS(i) + ")";
         pChip = NEW EnemySylviaEyeStraightLaserChip001(name.c_str());
         pChip->setSource(this); //位置向き同期
         pLaserChipDepo_->addSubLast(pChip);

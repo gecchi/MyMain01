@@ -19,7 +19,7 @@ FormationCeres002::FormationCeres002(const char* prm_name) : TreeFormation(prm_n
         Sleep(1);
         pEnemyCeres_[i] = NEW EnemyCeres("Ceres01");
         pEnemyCeres_[i]->inactivate();
-        pEnemyCeres_[i]->Y_turn_ = -1*(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2) + (i * ((GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT)/NUM_CERES_FORMATION002));
+        pEnemyCeres_[i]->Y_turn_ = -1*(PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT/2) + (i * ((PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT)/NUM_CERES_FORMATION002));
         pEnemyCeres_[i]->_Z = -1500000;
         addSubLast(pEnemyCeres_[i] );
     }

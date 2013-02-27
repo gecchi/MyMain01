@@ -86,21 +86,21 @@ void MenuBoardKeyConfig::onRisen() {
 
     setSelectedIndex(ITEM_MAIN_SHOT); //カーソルの初期選択アイテムを設定
     //リセット
-    paVBProperties[ITEM_MAIN_SHOT].pKey->update(GGAF_PROPERTY(MY_KEY_SHOT1  ).c_str());
-    paVBProperties[ITEM_SUB_SHOT ].pKey->update(GGAF_PROPERTY(MY_KEY_SHOT2  ).c_str());
-    paVBProperties[ITEM_TURBO    ].pKey->update(GGAF_PROPERTY(MY_KEY_TURBO  ).c_str());
-    paVBProperties[ITEM_CONTROLL ].pKey->update(GGAF_PROPERTY(MY_KEY_OPTION ).c_str());
-    paVBProperties[ITEM_MAGIC    ].pKey->update(GGAF_PROPERTY(MY_KEY_POWERUP).c_str());
-    paVBProperties[ITEM_VAM      ].pKey->update(GGAF_PROPERTY(MY_KEY_VIEW   ).c_str());
-    paVBProperties[ITEM_PAUSE    ].pKey->update(GGAF_PROPERTY(MY_KEY_PAUSE  ).c_str());
+    paVBProperties[ITEM_MAIN_SHOT].pKey->update(PROPERTY::MY_KEY_SHOT1  .c_str());
+    paVBProperties[ITEM_SUB_SHOT ].pKey->update(PROPERTY::MY_KEY_SHOT2  .c_str());
+    paVBProperties[ITEM_TURBO    ].pKey->update(PROPERTY::MY_KEY_TURBO  .c_str());
+    paVBProperties[ITEM_CONTROLL ].pKey->update(PROPERTY::MY_KEY_OPTION .c_str());
+    paVBProperties[ITEM_MAGIC    ].pKey->update(PROPERTY::MY_KEY_POWERUP.c_str());
+    paVBProperties[ITEM_VAM      ].pKey->update(PROPERTY::MY_KEY_VIEW   .c_str());
+    paVBProperties[ITEM_PAUSE    ].pKey->update(PROPERTY::MY_KEY_PAUSE  .c_str());
 
-    paVBProperties[ITEM_MAIN_SHOT].pJoy->update(GGAF_PROPERTY(MY_JOY_SHOT1  ).c_str());
-    paVBProperties[ITEM_SUB_SHOT ].pJoy->update(GGAF_PROPERTY(MY_JOY_SHOT2  ).c_str());
-    paVBProperties[ITEM_TURBO    ].pJoy->update(GGAF_PROPERTY(MY_JOY_TURBO  ).c_str());
-    paVBProperties[ITEM_CONTROLL ].pJoy->update(GGAF_PROPERTY(MY_JOY_OPTION ).c_str());
-    paVBProperties[ITEM_MAGIC    ].pJoy->update(GGAF_PROPERTY(MY_JOY_POWERUP).c_str());
-    paVBProperties[ITEM_VAM      ].pJoy->update(GGAF_PROPERTY(MY_JOY_VIEW   ).c_str());
-    paVBProperties[ITEM_PAUSE    ].pJoy->update(GGAF_PROPERTY(MY_JOY_PAUSE  ).c_str());
+    paVBProperties[ITEM_MAIN_SHOT].pJoy->update(PROPERTY::MY_JOY_SHOT1  .c_str());
+    paVBProperties[ITEM_SUB_SHOT ].pJoy->update(PROPERTY::MY_JOY_SHOT2  .c_str());
+    paVBProperties[ITEM_TURBO    ].pJoy->update(PROPERTY::MY_JOY_TURBO  .c_str());
+    paVBProperties[ITEM_CONTROLL ].pJoy->update(PROPERTY::MY_JOY_OPTION .c_str());
+    paVBProperties[ITEM_MAGIC    ].pJoy->update(PROPERTY::MY_JOY_POWERUP.c_str());
+    paVBProperties[ITEM_VAM      ].pJoy->update(PROPERTY::MY_JOY_VIEW   .c_str());
+    paVBProperties[ITEM_PAUSE    ].pJoy->update(PROPERTY::MY_JOY_PAUSE  .c_str());
 
     MenuBoard::onRisen();
 }
@@ -111,22 +111,23 @@ void MenuBoardKeyConfig::processBehavior() {
     MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
     if (pSubConfirm->wasDecidedOk()) {
         //現プロパティをファイルに保存
-        GGAF_PROPERTY(MY_KEY_SHOT1  ) = paVBProperties[ITEM_MAIN_SHOT].pKey->_draw_string;
-        GGAF_PROPERTY(MY_KEY_SHOT2  ) = paVBProperties[ITEM_SUB_SHOT ].pKey->_draw_string;
-        GGAF_PROPERTY(MY_KEY_TURBO  ) = paVBProperties[ITEM_TURBO    ].pKey->_draw_string;
-        GGAF_PROPERTY(MY_KEY_OPTION ) = paVBProperties[ITEM_CONTROLL ].pKey->_draw_string;
-        GGAF_PROPERTY(MY_KEY_POWERUP) = paVBProperties[ITEM_MAGIC    ].pKey->_draw_string;
-        GGAF_PROPERTY(MY_KEY_VIEW   ) = paVBProperties[ITEM_VAM      ].pKey->_draw_string;
-        GGAF_PROPERTY(MY_KEY_PAUSE  ) = paVBProperties[ITEM_PAUSE    ].pKey->_draw_string;
+        PROPERTY::setValue("MY_KEY_SHOT1"   , paVBProperties[ITEM_MAIN_SHOT].pKey->_draw_string);
+        PROPERTY::setValue("MY_KEY_SHOT2"   , paVBProperties[ITEM_SUB_SHOT ].pKey->_draw_string);
+        PROPERTY::setValue("MY_KEY_TURBO"   , paVBProperties[ITEM_TURBO    ].pKey->_draw_string);
+        PROPERTY::setValue("MY_KEY_OPTION"  , paVBProperties[ITEM_CONTROLL ].pKey->_draw_string);
+        PROPERTY::setValue("MY_KEY_POWERUP" , paVBProperties[ITEM_MAGIC    ].pKey->_draw_string);
+        PROPERTY::setValue("MY_KEY_VIEW"    , paVBProperties[ITEM_VAM      ].pKey->_draw_string);
+        PROPERTY::setValue("MY_KEY_PAUSE"   , paVBProperties[ITEM_PAUSE    ].pKey->_draw_string);
 
-        GGAF_PROPERTY(MY_JOY_SHOT1  ) = paVBProperties[ITEM_MAIN_SHOT].pJoy->_draw_string;
-        GGAF_PROPERTY(MY_JOY_SHOT2  ) = paVBProperties[ITEM_SUB_SHOT ].pJoy->_draw_string;
-        GGAF_PROPERTY(MY_JOY_TURBO  ) = paVBProperties[ITEM_TURBO    ].pJoy->_draw_string;
-        GGAF_PROPERTY(MY_JOY_OPTION ) = paVBProperties[ITEM_CONTROLL ].pJoy->_draw_string;
-        GGAF_PROPERTY(MY_JOY_POWERUP) = paVBProperties[ITEM_MAGIC    ].pJoy->_draw_string;
-        GGAF_PROPERTY(MY_JOY_VIEW   ) = paVBProperties[ITEM_VAM      ].pJoy->_draw_string;
-        GGAF_PROPERTY(MY_JOY_PAUSE  ) = paVBProperties[ITEM_PAUSE    ].pJoy->_draw_string;
-        VioletVreath::Properties::save(VV_CONFIG_FILE);
+        PROPERTY::setValue("MY_JOY_SHOT1"   , paVBProperties[ITEM_MAIN_SHOT].pJoy->_draw_string);
+        PROPERTY::setValue("MY_JOY_SHOT2"   , paVBProperties[ITEM_SUB_SHOT ].pJoy->_draw_string);
+        PROPERTY::setValue("MY_JOY_TURBO"   , paVBProperties[ITEM_TURBO    ].pJoy->_draw_string);
+        PROPERTY::setValue("MY_JOY_OPTION"  , paVBProperties[ITEM_CONTROLL ].pJoy->_draw_string);
+        PROPERTY::setValue("MY_JOY_POWERUP" , paVBProperties[ITEM_MAGIC    ].pJoy->_draw_string);
+        PROPERTY::setValue("MY_JOY_VIEW"    , paVBProperties[ITEM_VAM      ].pJoy->_draw_string);
+        PROPERTY::setValue("MY_JOY_PAUSE"   , paVBProperties[ITEM_PAUSE    ].pJoy->_draw_string);
+        PROPERTY::save(VV_CONFIG_FILE);
+        PROPERTY::load(VV_CONFIG_FILE); //再反映
         //実行中アプリへも反映
         P_GOD->initVB();
 

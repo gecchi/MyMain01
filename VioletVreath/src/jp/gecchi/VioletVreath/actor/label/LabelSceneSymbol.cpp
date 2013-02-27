@@ -9,7 +9,7 @@ LabelSceneSymbol::LabelSceneSymbol(const char* prm_name) :
 {
     _class_name = "LabelSceneSymbol";
     setAlign(ALIGN_CENTER, VALIGN_TOP);
-    update(PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2), 0, "Q");
+    update(PX_C(PROPERTY::GAME_BUFFER_WIDTH/2), 0, "Q");
 }
 
 void LabelSceneSymbol::onCreateModel() {

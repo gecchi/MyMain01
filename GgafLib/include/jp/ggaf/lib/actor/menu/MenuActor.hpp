@@ -526,7 +526,11 @@ public:
      * @return rue:今丁度 「決定（振る舞い）」 が実行された直後である/false:そうではない
      */
     virtual bool isJustDecided() {
-        return _is_just_decided;
+        if (_is_just_decided && _can_controll) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -534,7 +538,11 @@ public:
      * @return rue:今丁度 「キャンセル（振る舞い）」 が実行された直後である/false:そうではない
      */
     virtual bool isJustCancelled() {
-        return _is_just_cancelled;
+        if (_is_just_cancelled && _can_controll) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -643,33 +651,39 @@ void MenuActor<T>::nextFrame() {
     if (_will_be_rising_next_frame) {
         _with_rising = true;
         _is_just_risen = true;
-        onRisen();
         _will_be_rising_next_frame = false;
+        onRisen();
     }
 
     _is_just_sunk = false;
     if (_will_be_sinking_next_frame) {
         _with_sinking = true;
         _is_just_sunk = true;
-        onSunk();
         _will_be_sinking_next_frame = false;
+        onSunk();
     }
 
-    _is_just_decided = false;
-    if (_will_be_just_decided_next_frame) {
-        onDecision(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
+
+    if (_will_be_just_decided_next_frame && _can_controll) {
         _is_just_decided = true;
+        _will_be_just_decided_next_frame = false;
+        onDecision(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
+    } else {
+        _is_just_decided = false;
         _will_be_just_decided_next_frame = false;
     }
 
-    _is_just_cancelled = false;
-    if (_will_be_just_cancelled_next_frame) {
-        onCancel(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
+    if (_will_be_just_cancelled_next_frame && _can_controll) {
         _is_just_cancelled = true;
+        _will_be_just_cancelled_next_frame = false;
+        onCancel(_lstItems.getCurrent(), _lstItems.getCurrentIndex());
+    } else {
+        _is_just_cancelled = false;
         _will_be_just_cancelled_next_frame = false;
     }
 
     _can_controll = _will_be_able_to_controll;
+
 }
 
 template<class T>
@@ -1066,12 +1080,17 @@ void MenuActor<T>::processBehavior() {
         MenuActor<T>* pSubMenu = _lstSubMenu.getFromFirst(i);
         if (pSubMenu->isJustRise()) {
             disableControll(); //サブメニューが立ち上がったので、自身は操作不可
+            _can_controll = false; //即刻
         }
         if (pSubMenu->isJustSink()) {
-            enableControll(); //サブメニューが消えたので、自身の操作復帰
+            if (_with_sinking || _is_just_sunk || _will_be_sinking_next_frame) {
+                disableControll(); //自身も同時に閉じている場合
+                _can_controll = false; //即刻
+            } else {
+                enableControll(); //サブメニューが消えたので、自身の操作復帰
+            }
         }
     }
-
 }
 
 template<class T>
@@ -1083,6 +1102,7 @@ void MenuActor<T>::sink() {
     _will_be_rising_next_frame = false;
     _will_be_sinking_next_frame = true;
     disableControll();
+    _can_controll = false; //即刻
 }
 
 template<class T>

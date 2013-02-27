@@ -14,7 +14,7 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
     strcpy(_effect_name, prm_effect_name);
 
     std::string effect_file_name;
-    if (GGAF_PROPERTY(REALTIME_EFFECT_COMPILE)) {
+    if (PROPERTY::REALTIME_EFFECT_COMPILE) {
         //fx ファイルからコンパイル
         effect_file_name = getEffectFileName(std::string(prm_effect_name) + ".fx");
     } else {
@@ -68,17 +68,17 @@ GgafDxEffect::GgafDxEffect(char* prm_effect_name) : GgafObject() {
 }
 
 std::string GgafDxEffect::getEffectFileName(std::string prm_file) {
-    std::string effect_file = GGAF_PROPERTY(DIR_EFFECT[2]) + "/" + prm_file;
+    std::string effect_file = PROPERTY::DIR_EFFECT[2] + "/" + prm_file;
     UTIL::strReplace(effect_file, "//", "/");
     if (PathFileExists(effect_file.c_str()) ) {
         return effect_file;
     } else {
-        effect_file = GGAF_PROPERTY(DIR_EFFECT[1]) + "/" + prm_file;
+        effect_file = PROPERTY::DIR_EFFECT[1] + "/" + prm_file;
         UTIL::strReplace(effect_file, "//", "/");
         if (PathFileExists(effect_file.c_str()) ) {
             return effect_file; //ユーザースキンに存在すればそれを優先
         } else {
-            effect_file = GGAF_PROPERTY(DIR_EFFECT[0]) + "/" + prm_file;
+            effect_file = PROPERTY::DIR_EFFECT[0] + "/" + prm_file;
             UTIL::strReplace(effect_file, "//", "/");
             if (PathFileExists(effect_file.c_str()) ) {
                 return effect_file;

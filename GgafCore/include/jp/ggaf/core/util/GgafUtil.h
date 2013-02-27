@@ -1,7 +1,7 @@
 #ifndef GGAFUTIL_H_
 #define GGAFUTIL_H_
 
-#define ITOS(X) (GgafCore::GgafUtil::_itos_(X))
+#define XTOS(X) (GgafCore::GgafUtil::_xtos_(X))
 #define STOI(X) (GgafCore::GgafUtil::_stoi_(X))
 #define ABS(X) (GgafCore::GgafUtil::_abs_(X))
 #define SGN(X) (GgafCore::GgafUtil::_sgn_(X))
@@ -74,11 +74,22 @@ public:
         return (-epsilon < val && val < epsilon);
     }
 
-    static inline std::string _itos_(int prm_n) {
+    template<typename T>
+    static inline std::string _xtos_(T prm_x) {
         std::ostringstream oss;
-        oss << prm_n;
+        oss << prm_x;
         return oss.str();
     }
+
+    template<typename T>
+    static inline std::string _xtos_(bool prm_x) {
+        if (prm_x) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
 
     static inline int _stoi_(std::string& prm_s) {
         int n;
@@ -212,7 +223,21 @@ public:
         iss >> std::hex >> val;
         return val;
     }
+    static inline const std::string dec2hex(size_t prm_dec) {
+        std::ostringstream oss;
+        oss << std::hex << std::uppercase << prm_dec;
+        return oss.str();
+    }
+    static inline const std::string dec2hex(size_t prm_dec, int prm_keta) {
+        std::ostringstream oss;
+        oss << std::setw(prm_keta) << std::hex << std::setfill('0') << std::uppercase << prm_dec;
+        return oss.str();
+    }
 
+    static inline char m_hex(int nibble) {
+        static const char *digits = "0123456789ABCDEF";
+        return digits[(nibble & 0xf)];
+    }
 
     static inline std::string trim(std::string& str) {
         str.erase(0, str.find_first_not_of(' '));       //prefixing spaces
@@ -241,10 +266,7 @@ public:
     static void writeProperties(const char *filename, GgafStrMap* pMap, const char *header = nullptr);
     static void writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header = nullptr);
     static void printProperties(std::ostream &os, GgafStrMap* pMap);
-    static inline char m_hex(int nibble) {
-        static const char *digits = "0123456789ABCDEF";
-        return digits[(nibble & 0xf)];
-    }
+
     static bool isExistKey(std::string prm_key, GgafStrMap* p);
     static bool cnvBool(std::string prm_str);
 

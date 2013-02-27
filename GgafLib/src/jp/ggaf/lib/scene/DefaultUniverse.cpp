@@ -7,7 +7,7 @@ DefaultUniverse::DefaultUniverse(const char* prm_name, DefaultCamera* prm_pCamer
     _class_name = "DefaultUniverse";
     //‚W•ª–Øì¬
     _TRACE_("‚W•ª–Øì¬ŠJn");
-    _pLinearOctree = NEW LinearOctreeForActor(GGAF_PROPERTY(OCTREE_LEVEL));
+    _pLinearOctree = NEW LinearOctreeForActor(PROPERTY::OCTREE_LEVEL);
     _pLinearOctree->setRootSpace(_X_goneLeft  ,_Y_goneBottom, _Z_goneNear ,
                                  _X_goneRight ,_Y_goneTop   , _Z_goneFar   );
     _TRACE_("‚W•ª–Øì¬I—¹");

@@ -17,7 +17,7 @@ MyTorpedoController::MyTorpedoController(const char* prm_name,
     pLockonCtrler_ = prm_pLockonCtrler;
     papTorpedo_ = NEW MyTorpedo*[max_torpedo_num_];
     for (int i = 0; i < max_torpedo_num_; i++) {
-        std::string name = std::string(prm_pOrg->getName())+"'s Torpedo("+ITOS(i)+")";
+        std::string name = std::string(prm_pOrg->getName())+"'s Torpedo("+XTOS(i)+")";
         papTorpedo_[i] = NEW MyTorpedo(name.c_str(), this);
         papTorpedo_[i]->inactivateImmed();
         addSubGroup(papTorpedo_[i]);
@@ -25,7 +25,7 @@ MyTorpedoController::MyTorpedoController(const char* prm_name,
 
     pDepo_TorpedoBlast_ = NEW GgafActorDepository("DP_TorpedoBlast");
     for (int i = 0; i < max_torpedo_num_*2; i++) {
-        std::string name = std::string(prm_pOrg->getName())+"'s TorpedoBlast("+ITOS(i)+")";
+        std::string name = std::string(prm_pOrg->getName())+"'s TorpedoBlast("+XTOS(i)+")";
         MyTorpedoBlast* pTorpedoBlast = NEW MyTorpedoBlast(name.c_str());
         pTorpedoBlast->inactivateImmed();
         pDepo_TorpedoBlast_->addSubLast(pTorpedoBlast);

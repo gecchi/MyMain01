@@ -24,15 +24,15 @@ MyShip::MyShip(const char* prm_name) :
 
     //画面の大きさに伴って、移動範囲を決定
     //このあたりはFovXに依存するので微調整。
-    coord harf_width  = PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH))/2;
-    coord harf_height = PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT))/2;
+    coord harf_width  = PX_C(PROPERTY::GAME_BUFFER_WIDTH)/2;
+    coord harf_height = PX_C(PROPERTY::GAME_BUFFER_HEIGHT)/2;
 
-    lim_top_     =  harf_height + PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*4);  //上は、高さ4画面分
-    lim_bottom_  = -harf_height - PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*4);  //下は、高さ4画面分
-    lim_front_   =  harf_width  + PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2);   //前は、幅の2画面分
-    lim_behaind_ = -harf_width  - PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2);   //後ろは、幅の2画面分
-    lim_zleft_   =  harf_width  + PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2);   //手前は、幅の2画面分
-    lim_zright_  = -harf_width  - PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2);   //奥は、幅の2画面分
+    lim_top_     =  harf_height + PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //上は、高さ4画面分
+    lim_bottom_  = -harf_height - PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //下は、高さ4画面分
+    lim_front_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //前は、幅の2画面分
+    lim_behaind_ = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //後ろは、幅の2画面分
+    lim_zleft_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
+    lim_zright_  = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
     _TRACE_("MyShip::MyShip 範囲 X("<<lim_behaind_<<" ~ "<<lim_front_<<") Y("<<lim_bottom_<<" ~ "<<lim_top_<<") Z("<<lim_zright_<<" ~ "<<lim_zleft_<<")");
 
     /** 移動スピードレベルに相応する移動スピード */
@@ -87,7 +87,7 @@ MyShip::MyShip(const char* prm_name) :
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     MyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
-        std::string name = "MyStraightLaserChip001("+ITOS(i)+")";
+        std::string name = "MyStraightLaserChip001("+XTOS(i)+")";
         pChip = NEW MyStraightLaserChip001(name.c_str());
         pChip->setPositionSource(this); //位置だけ同期
         pLaserChipDepo_->addSubLast(pChip);
@@ -217,7 +217,7 @@ MyShip::MyShip(const char* prm_name) :
 
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &vreath_);
-    pMagicMeter_->locate(PX_C(100), PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f));
+    pMagicMeter_->locate(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 100.0f));
     addSubGroup(pMagicMeter_);
 
     r_blown_velo_attenuate_ = 0.8;

@@ -9,7 +9,7 @@ VarietySylvia001::VarietySylvia001(const char* prm_name) :
     _class_name = "VarietySylvia001";
     for (angle angPos1 = 0; angPos1 < D360ANG;  angPos1 += (D_ANG(60))) {
         for (angle angPos2 = 0; angPos2 < D360ANG;  angPos2 += (D_ANG(60))) {
-            std::string name = "Romulus(" + ITOS(angPos1) + "," + ITOS(angPos2) + ")";
+            std::string name = "Romulus(" + XTOS(angPos1) + "," + XTOS(angPos2) + ")";
             addSubGroupAsFkOnSurface(NEW EnemyRomulus(name.c_str()), angPos1, angPos2);
             Sleep(1);
         }

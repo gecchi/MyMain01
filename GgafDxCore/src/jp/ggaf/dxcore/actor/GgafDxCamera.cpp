@@ -13,7 +13,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     //半分を保持
     _rad_half_fovX = _rad_fovX / 2.0;
     //画面アスペクト比(w/h)
-    _screen_aspect = 1.0 * (GGAF_PROPERTY(GAME_BUFFER_WIDTH)*rev) / (GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*rev);
+    _screen_aspect = 1.0 * (PROPERTY::GAME_BUFFER_WIDTH*rev) / (PROPERTY::GAME_BUFFER_HEIGHT*rev);
     //fovXとアスペクト比からfovYを計算して求める
     double xzRatio = tan(_rad_fovX/2.0);
     double yRatio = xzRatio / _screen_aspect;
@@ -28,7 +28,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     _tan_half_fovX = tan(_rad_fovX/2.0);
     //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
-    _cameraZ = -1.0 * ((1.0 * (GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*rev) / PX_UNIT) / 2.0) / _tan_half_fovY;
+    _cameraZ = -1.0 * ((1.0 * (PROPERTY::GAME_BUFFER_HEIGHT*rev) / PX_UNIT) / 2.0) / _tan_half_fovY;
     _cameraZ_org = _cameraZ;
     _TRACE_("GgafDxCamera::GgafDxCamera カメラの位置(0,0,"<<_cameraZ<<")");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
@@ -48,12 +48,12 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     _zn = 0.1f;
     _zf = -_cameraZ_org*(_dep+1.0);
     _TRACE_("GgafDxCamera::GgafDxCamera 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
-    if (GGAF_PROPERTY(PRJ_2D_MODE)) {
+    if (PROPERTY::PRJ_2D_MODE) {
         //2Dモード正射影
         D3DXMatrixOrthoLH(
             &_matProj,
-            PX_DX(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*rev),
-            PX_DX(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)*rev),
+            PX_DX(PROPERTY::GAME_BUFFER_WIDTH*rev),
+            PX_DX(PROPERTY::GAME_BUFFER_HEIGHT*rev),
             _zn,
             _zf
         );
@@ -87,10 +87,10 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     _pViewPoint = NEW GgafDxCameraViewPoint();
     _pViewPoint->locate(0, 0, 0);
 
-    _X_buffer_left   = PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)) / -2;
-    _X_buffer_right  = PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)) / 2;
-    _Y_buffer_top    = PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / 2;
-    _Y_buffer_bottom = PX_C(GGAF_PROPERTY(GAME_BUFFER_HEIGHT)) / -2;
+    _X_buffer_left   = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2;
+    _X_buffer_right  = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / 2;
+    _Y_buffer_top    = PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / 2;
+    _Y_buffer_bottom = PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / -2;
     GgafDxGod::_pID3DDevice9->GetViewport(&_viewport);
 
     _X_prev = 0;

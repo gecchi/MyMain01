@@ -13,7 +13,7 @@ papOptionCtrler_(nullptr) {
     pMyShip_->inactivateImmed(); //配下に仮登録のアクター発送者とかあるし
     papOptionCtrler_ = NEW MyOptionController*[MyOptionController::max_option_num_];
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
-        std::string name = "MyOpCtrler("+ITOS(i)+")";
+        std::string name = "MyOpCtrler("+XTOS(i)+")";
         papOptionCtrler_[i] = NEW MyOptionController(name.c_str(), i);
         getDirector()->addSubLast(papOptionCtrler_[i]);
     }

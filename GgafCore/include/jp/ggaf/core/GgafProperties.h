@@ -1,10 +1,10 @@
 #ifndef GGAFPROPERTIES_H_
 #define GGAFPROPERTIES_H_
 
-#ifdef GGAF_PROPERTY
-    #undef GGAF_PROPERTY
+#ifdef PROPERTY
+    #undef PROPERTY
 #endif
-#define GGAF_PROPERTY(X) (GgafCore::GgafProperties::X)
+#define PROPERTY GgafCore::GgafProperties
 
 namespace GgafCore {
 
@@ -93,7 +93,7 @@ public:
     static float getFloat(std::string prm_key);
 
     /**
-     * キーに対するプロパティ値を float で取得 .
+     * キーに対するプロパティ値を int で取得 .
      * 内部で atoi() を使用。
      * @param prm_key キー文字列
      * @return プロパティ値(int)
@@ -122,6 +122,21 @@ public:
      * @return プロパティ値(GgafRgb)
      */
     static GgafRgb getRGB(std::string prm_key);
+
+
+    /**
+     * キーに対するプロパティ値を string で設定 .
+     * @param prm_key キー文字列
+     * @return プロパティ値(string)
+     */
+    template<typename T>
+    static void setValue(std::string prm_key, T prm_value) {
+        (*_pMapProperties)[prm_key] = XTOS(prm_value);
+    }
+
+    static void setValue(std::string prm_key, GgafRgb prm_value) {
+        (*_pMapProperties)[prm_key] = prm_value.toStr();
+    }
 
 };
 

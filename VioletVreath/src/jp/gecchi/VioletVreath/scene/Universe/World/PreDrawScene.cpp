@@ -70,7 +70,7 @@ void PreDrawScene::initialize() {
 void PreDrawScene::processBehavior() {
     switch (_pProg->get()) {
         case PreDrawScene::PROG_INIT: {
-            if (_pProg->getFrameInProgress() % 20 == 0 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
+            if (_pProg->getFrameInProgress() % 20 == 0 && P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                 if (_id_ > order_id_end_-order_id_begin_) {
                     _pProg->changeNext();
                 } else {
@@ -82,7 +82,7 @@ void PreDrawScene::processBehavior() {
             break;
         }
         case PreDrawScene::PROG_CALM: {
-            if (_pProg->getFrameInProgress() >= 60 && P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
+            if (_pProg->getFrameInProgress() >= 60 && P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                 fadeoutSceneWithBgmTree(120);
                 _pProg->changeNext();
             }

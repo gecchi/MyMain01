@@ -1,10 +1,10 @@
 #ifndef PROPERTIES_H_
 #define PROPERTIES_H_
 
-#ifdef GGAF_PROPERTY
-    #undef GGAF_PROPERTY
+#ifdef PROPERTY
+    #undef PROPERTY
 #endif
-#define GGAF_PROPERTY(X) (VioletVreath::Properties::X)
+#define PROPERTY VioletVreath::Properties
 
 namespace VioletVreath {
 

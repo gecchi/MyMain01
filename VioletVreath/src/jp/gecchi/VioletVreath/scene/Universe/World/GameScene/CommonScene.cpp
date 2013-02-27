@@ -15,7 +15,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     {
         pDepo_EffectExplosion001_ = NEW GgafActorDepository("CommonDepo_Explo001");
         for (int i = 0; i < 300; i++) {
-            std::string name = "EffectExplosion001("+ITOS(i)+")";
+            std::string name = "EffectExplosion001("+XTOS(i)+")";
             pDepo_EffectExplosion001_->addSubLast(NEW EffectExplosion001(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectExplosion001_);
@@ -25,7 +25,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     {
         pDepo_EffectExplosion002_ = NEW GgafActorDepository("CommonDepo_Explo002");
         for (int i = 0; i < 100; i++) {
-            std::string name = "EffectExplosion002("+ITOS(i)+")";
+            std::string name = "EffectExplosion002("+XTOS(i)+")";
             pDepo_EffectExplosion002_->addSubLast(NEW EffectExplosion002(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectExplosion002_);
@@ -34,7 +34,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     {
         pDepo_EffectExplosion003_ = NEW GgafActorDepository("CommonDepo_Explo003");
         for (int i = 0; i < 10; i++) {
-            std::string name = "EffectExplosion003("+ITOS(i)+")";
+            std::string name = "EffectExplosion003("+XTOS(i)+")";
             pDepo_EffectExplosion003_->addSubLast(NEW EffectExplosion003(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectExplosion003_);
@@ -44,7 +44,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     {
         pDepo_EffectExplosion004_ = NEW GgafActorDepository("CommonDepo_Explo004");
         for (int i = 0; i < 100; i++) {
-            std::string name = "EffectExplosion004("+ITOS(i)+")";
+            std::string name = "EffectExplosion004("+XTOS(i)+")";
             pDepo_EffectExplosion004_->addSubLast(NEW EffectExplosion004(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectExplosion004_);
@@ -54,7 +54,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //pDepo_MagicPointItem001_
         pDepo_MagicPointItem001_ = NEW GgafActorDepository("CommonDepo_MpItem001");
         for (int i = 0; i < 300; i++) {
-            std::string name = "MagicPointItem001("+ITOS(i)+")";
+            std::string name = "MagicPointItem001("+XTOS(i)+")";
             pDepo_MagicPointItem001_->addSubLast(NEW MagicPointItem001(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_MagicPointItem001_);
@@ -64,7 +64,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //pDepo_MagicPointItem002_
         pDepo_MagicPointItem002_ = NEW GgafActorDepository("CommonDepo_MpItem002");
         for (int i = 0; i < 10; i++) {
-            std::string name = "MagicPointItem002("+ITOS(i)+")";
+            std::string name = "MagicPointItem002("+XTOS(i)+")";
             pDepo_MagicPointItem002_->addSubLast(NEW MagicPointItem002(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_MagicPointItem002_);
@@ -73,7 +73,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //Effect EffectTurbo002 É^Å[É{ï¨éÀ
         pDepo_EffectTurbo002_ = NEW GgafActorDepository("RotExplo002");
         for (int i = 0; i < 10; i++) {
-            std::string name = "EffectTurbo002("+ITOS(i)+")";
+            std::string name = "EffectTurbo002("+XTOS(i)+")";
             pDepo_EffectTurbo002_->addSubLast(NEW EffectTurbo002(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectTurbo002_);
@@ -84,7 +84,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     {
         pDepo_EffectEntry001_ = NEW GgafActorDepository("CommonDepo_Explo001");
         for (int i = 0; i < 100; i++) {
-            std::string name = "EffectEntry001("+ITOS(i)+")";
+            std::string name = "EffectEntry001("+XTOS(i)+")";
             pDepo_EffectEntry001_->addSubLast(NEW EffectEntry001(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectEntry001_);
@@ -94,7 +94,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     {
         pDepo_EffectEntry002_ = NEW GgafActorDepository("CommonDepo_Explo002");
         for (int i = 0; i < 30; i++) {
-            std::string name = "EffectEntry002("+ITOS(i)+")";
+            std::string name = "EffectEntry002("+XTOS(i)+")";
             pDepo_EffectEntry002_->addSubLast(NEW EffectEntry002(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectEntry002_);
@@ -103,7 +103,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     {
         pDepo_EffectEntry003_ = NEW GgafActorDepository("CommonDepo_Explo003");
         for (int i = 0; i < 30; i++) {
-            std::string name = "EffectEntry003("+ITOS(i)+")";
+            std::string name = "EffectEntry003("+XTOS(i)+")";
             pDepo_EffectEntry003_->addSubLast(NEW EffectEntry003(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_EffectEntry003_);
@@ -113,7 +113,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     {
         pDepo_SpriteLabelBonus001_ = NEW GgafActorDepository("CommonDepo_FormationDestroyedEffect001");
         for (int i = 0; i < 10; i++) {
-            std::string name = "SpriteLabelBonus001("+ITOS(i)+")";
+            std::string name = "SpriteLabelBonus001("+XTOS(i)+")";
             pDepo_SpriteLabelBonus001_->addSubLast(NEW SpriteLabelBonus001(name.c_str()));
         }
         getDirector()->addSubGroup(pDepo_SpriteLabelBonus001_);

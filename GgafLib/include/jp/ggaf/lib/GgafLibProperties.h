@@ -1,10 +1,10 @@
 #ifndef GGAFLIBPROPERTIESH_
 #define GGAFLIBPROPERTIESH_
 
-#ifdef GGAF_PROPERTY
-    #undef GGAF_PROPERTY
+#ifdef PROPERTY
+    #undef PROPERTY
 #endif
-#define GGAF_PROPERTY(X) (GgafLib::GgafLibProperties::X)
+#define PROPERTY GgafLib::GgafLibProperties
 
 namespace GgafLib {
 

@@ -217,10 +217,10 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         pResource = NEW GgafActorDepositoryStore("EnemyHesperiaLaserChip0014DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < RR_EnemyHesperia_ShotWay(1.0)*8; nLaser++) {
-            std::string name = "LaserChipDepo["+ITOS(nLaser)+"]";
+            std::string name = "LaserChipDepo["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name.c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
-                std::string name = "EnemyHesperiaLaserChip001["+ITOS(nLaser)+"]["+ITOS(nChip)+"]";
+                std::string name = "EnemyHesperiaLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
                 pLaserChipDepo->addSubLast(NEW EnemyHesperiaLaserChip001(name.c_str()));
                 Sleep(1);
             }
@@ -232,7 +232,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (UTIL::strcmp_ascii("Conn_Atalante", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Depo_AtalanteStock");
         for (int i = 0; i < 2000; i++) {
-            std::string name = "EnemyAtalante("+ITOS(i)+")";
+            std::string name = "EnemyAtalante("+XTOS(i)+")";
             pResource->addSubLast(NEW EnemyAtalante(name.c_str()));
             Sleep(1);
         }
@@ -244,10 +244,10 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         pResource = NEW GgafActorDepositoryStore("EnemyRemusLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 20; nLaser++) { //‚Q‚O–{
-            std::string name = "LaserChipDepo["+ITOS(nLaser)+"]";
+            std::string name = "LaserChipDepo["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name.c_str());
             for (int nChip = 0; nChip < 100; nChip++) {
-                std::string name = "EnemyRemusLaserChip001["+ITOS(nLaser)+"]["+ITOS(nChip)+"]";
+                std::string name = "EnemyRemusLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
                 pLaserChipDepo->addSubLast(NEW EnemyRemusLaserChip001(name.c_str()));
                 Sleep(1);
             }

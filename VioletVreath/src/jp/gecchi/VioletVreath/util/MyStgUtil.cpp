@@ -202,7 +202,7 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
             SpriteLabelBonus001* pLabel = employForceFromCommon(SpriteLabelBonus001);
             pLabel->locateWith(prm_pActor);
             pLabel->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
-            std::string s = ITOS(prm_pActor->_pStatus->get(STAT_AddScorePoint));
+            std::string s = XTOS(prm_pActor->_pStatus->get(STAT_AddScorePoint));
             pLabel->update(s.c_str());
             pE = pLabel;
             break;
@@ -292,7 +292,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
             SpriteLabelBonus001* pLabel = employForceFromCommon(SpriteLabelBonus001);
             pLabel->locateWith(prm_pActor);
             pLabel->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
-            std::string s = ITOS(addscore);
+            std::string s = XTOS(addscore);
             pLabel->update(s.c_str());
             pE = pLabel;
             break;

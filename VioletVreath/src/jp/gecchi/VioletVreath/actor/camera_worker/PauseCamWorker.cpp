@@ -196,7 +196,7 @@ void PauseCamWorker::processBehavior() {
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
 
-            double r = ((d/cd_) * PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2));
+            double r = ((d/cd_) * PX_C(PROPERTY::GAME_BUFFER_WIDTH*2));
 
             move_target_X_CAM_ += (Q._x*r);
             move_target_Y_CAM_ += (Q._y*r);
@@ -251,7 +251,7 @@ void PauseCamWorker::processBehavior() {
         if (mdz != 0) {
             r = (mdz*PX_UNIT*LEN_UNIT/10.0);
         } else if ((GgafDxInput::isBeingPressedMouseButton(0) && GgafDxInput::isBeingPressedMouseButton(1))) {
-            r = ((1.0*mdy/cd_) * GGAF_PROPERTY(GAME_BUFFER_WIDTH)*2)*LEN_UNIT;
+            r = ((1.0*mdy/cd_) * PROPERTY::GAME_BUFFER_WIDTH*2)*LEN_UNIT;
         }
         move_target_X_CAM_ += mdz_vx_*r;
         move_target_Y_CAM_ += mdz_vy_*r;

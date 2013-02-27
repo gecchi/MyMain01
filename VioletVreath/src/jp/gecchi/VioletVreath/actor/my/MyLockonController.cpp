@@ -17,7 +17,7 @@ MyLockonController::MyLockonController(const char* prm_name) :
     pMainLockonEffect_->inactivateImmed();
     addSubLast(pMainLockonEffect_);
     for (int i = 1; i < MyLockonController::max_lockon_num_; i++) {
-        std::string name = "SubLockon("+ITOS(i)+")";
+        std::string name = "SubLockon("+XTOS(i)+")";
         EffectLockon001_Sub* pSubLockon = NEW EffectLockon001_Sub(name.c_str());
         pSubLockon->inactivateImmed();
         addSubLast(pSubLockon);

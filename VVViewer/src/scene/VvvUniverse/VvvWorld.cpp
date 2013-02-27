@@ -313,21 +313,21 @@ void VvvWorld::processBehavior() {
         _TRACE_("model_type="<<model_type);
 
         //プロパティ一時退避
-        string dir_mesh_model_default = GGAF_PROPERTY(DIR_MESH_MODEL[0]);
-        string dir_mesh_model_user = GGAF_PROPERTY(DIR_MESH_MODEL[1]);
-        string dir_mesh_model_current = GGAF_PROPERTY(DIR_MESH_MODEL[2]);
-        string dir_sprite_model_default = GGAF_PROPERTY(DIR_SPRITE_MODEL[0]);
-        string dir_sprite_model_user = GGAF_PROPERTY(DIR_SPRITE_MODEL[1]);
-        string dir_sprite_model_current = GGAF_PROPERTY(DIR_SPRITE_MODEL[2]);
-        string dir_texture_default = GGAF_PROPERTY(DIR_TEXTURE[0]);
-        string dir_texture_user = GGAF_PROPERTY(DIR_TEXTURE[1]);
-        string dir_texture_current = GGAF_PROPERTY(DIR_TEXTURE[2]);
+        string dir_mesh_model_default = PROPERTY::DIR_MESH_MODEL[0];
+        string dir_mesh_model_user = PROPERTY::DIR_MESH_MODEL[1];
+        string dir_mesh_model_current = PROPERTY::DIR_MESH_MODEL[2];
+        string dir_sprite_model_default = PROPERTY::DIR_SPRITE_MODEL[0];
+        string dir_sprite_model_user = PROPERTY::DIR_SPRITE_MODEL[1];
+        string dir_sprite_model_current = PROPERTY::DIR_SPRITE_MODEL[2];
+        string dir_texture_default = PROPERTY::DIR_TEXTURE[0];
+        string dir_texture_user = PROPERTY::DIR_TEXTURE[1];
+        string dir_texture_current = PROPERTY::DIR_TEXTURE[2];
         //プロパティ書き換え
-        GGAF_PROPERTY(DIR_MESH_MODEL[2])   = dropfile_dir;
-        GGAF_PROPERTY(DIR_SPRITE_MODEL[2]) = dropfile_dir;
-        GGAF_PROPERTY(DIR_TEXTURE[0])      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-        GGAF_PROPERTY(DIR_TEXTURE[1])      = dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
-        GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir;
+        PROPERTY::DIR_MESH_MODEL[2]   = dropfile_dir;
+        PROPERTY::DIR_SPRITE_MODEL[2] = dropfile_dir;
+        PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+        PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+        PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;
         transform(model_type.begin(), model_type.end(), model_type.begin(), static_cast<int (*)(int)>(toupper));
 
         GgafDxDrawableActor* pActor = nullptr;
@@ -339,7 +339,7 @@ void VvvWorld::processBehavior() {
                 //model_part = "donatu"
                 int targetnum = 0;
                 while (true) {
-                    string model_filenm = model_part + "_" + ITOS(targetnum+1) + ".x";
+                    string model_filenm = model_part + "_" + XTOS(targetnum+1) + ".x";
                     //model_filenm = "donatu_1.x"
                     string model_path = dropfile_dir + "/" + model_filenm;
                     if (PathFileExists(model_path.c_str())) {
@@ -349,7 +349,7 @@ void VvvWorld::processBehavior() {
                     }
                 }
                 pActor = createInFactory2(GgafLib::DefaultMorphMeshActor, "actor",
-                                          string(ITOS(targetnum) + "/" +model_part).c_str());
+                                          string(XTOS(targetnum) + "/" +model_part).c_str());
             } else {
 //            if (model_id.find("WORLDBOUND") == string::npos) {
 //                pActor = createInFactory2(GgafLib::WorldBoundActor, "actor", filename);
@@ -385,27 +385,27 @@ void VvvWorld::processBehavior() {
                 GgafDxDrawableActor* pNewActor = nullptr;
                 if (pCurrentActor->instanceOf(Obj_GgafDxMeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(_listActorInfo.getCurrent()->modelfile_.c_str()) + "/";
-                    GGAF_PROPERTY(DIR_MESH_MODEL[2])   = was_dropfile_dir;
-                    GGAF_PROPERTY(DIR_TEXTURE[0])      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    GGAF_PROPERTY(DIR_TEXTURE[1])      = was_dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
-                    GGAF_PROPERTY(DIR_TEXTURE[2])      = was_dropfile_dir;
+                    PROPERTY::DIR_MESH_MODEL[2]   = was_dropfile_dir;
+                    PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    PROPERTY::DIR_TEXTURE[1]      = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    PROPERTY::DIR_TEXTURE[2]      = was_dropfile_dir;
                     string was_model_id = UTIL::getFileBaseNameWithoutExt(_listActorInfo.getCurrent()->modelfile_.c_str());
                     pNewActor = createInFactory2(GgafLib::CubeMapMeshActor, "actor", was_model_id.c_str());
-                    GGAF_PROPERTY(DIR_TEXTURE[0])      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    GGAF_PROPERTY(DIR_TEXTURE[1])      = dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
-                    GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir;
+                    PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;
                     ((CubeMapMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
 
                 } else if (pCurrentActor->instanceOf(Obj_GgafDxMorphMeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(_listActorInfo.getCurrent()->modelfile_.c_str()) + "/";
-                    GGAF_PROPERTY(DIR_MESH_MODEL[2])   = was_dropfile_dir;
-                    GGAF_PROPERTY(DIR_TEXTURE[0])      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    GGAF_PROPERTY(DIR_TEXTURE[1])      = was_dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
-                    GGAF_PROPERTY(DIR_TEXTURE[2])      = was_dropfile_dir;
+                    PROPERTY::DIR_MESH_MODEL[2]   = was_dropfile_dir;
+                    PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    PROPERTY::DIR_TEXTURE[1]      = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    PROPERTY::DIR_TEXTURE[2]      = was_dropfile_dir;
                     pNewActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->_pModel->getName());
-                    GGAF_PROPERTY(DIR_TEXTURE[0])      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    GGAF_PROPERTY(DIR_TEXTURE[1])      = dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
-                    GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir;
+                    PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;
                     ((CubeMapMorphMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
                 }
                 pNewActor->locateWith(pCurrentActor);
@@ -424,24 +424,24 @@ void VvvWorld::processBehavior() {
             file_name.find("Normalmap") == std::string::npos)
         ) {
             GgafDxDrawableActor* pCurrentActor = _listActorInfo.getCurrent()->pActor_;
-            GGAF_PROPERTY(DIR_TEXTURE[0])      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-            GGAF_PROPERTY(DIR_TEXTURE[1])      = dropfile_dir + "/../" + GGAF_PROPERTY(DIRNAME_RESOURCE_SKIN_XXX_TEXTURE) + "/";
-            GGAF_PROPERTY(DIR_TEXTURE[2])      = dropfile_dir;
+            PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+            PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+            PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;
             if (pCurrentActor->instanceOf(Obj_GgafDxMeshActor)) {
                 ((GgafDxMeshActor*)pCurrentActor)->effectBumpMapping(file_name.c_str());
             }
         }
 
         //プロパティ復帰
-        GGAF_PROPERTY(DIR_MESH_MODEL[0])   = dir_mesh_model_default;
-        GGAF_PROPERTY(DIR_MESH_MODEL[1])   = dir_mesh_model_user;
-        GGAF_PROPERTY(DIR_MESH_MODEL[2])   = dir_mesh_model_current;
-        GGAF_PROPERTY(DIR_SPRITE_MODEL[0]) = dir_sprite_model_default;
-        GGAF_PROPERTY(DIR_SPRITE_MODEL[1]) = dir_sprite_model_user;
-        GGAF_PROPERTY(DIR_SPRITE_MODEL[2]) = dir_sprite_model_current;
-        GGAF_PROPERTY(DIR_TEXTURE[0])      = dir_texture_default;
-        GGAF_PROPERTY(DIR_TEXTURE[1])      = dir_texture_user;
-        GGAF_PROPERTY(DIR_TEXTURE[2])      = dir_texture_current;
+        PROPERTY::DIR_MESH_MODEL[0]   = dir_mesh_model_default;
+        PROPERTY::DIR_MESH_MODEL[1]   = dir_mesh_model_user;
+        PROPERTY::DIR_MESH_MODEL[2]   = dir_mesh_model_current;
+        PROPERTY::DIR_SPRITE_MODEL[0] = dir_sprite_model_default;
+        PROPERTY::DIR_SPRITE_MODEL[1] = dir_sprite_model_user;
+        PROPERTY::DIR_SPRITE_MODEL[2] = dir_sprite_model_current;
+        PROPERTY::DIR_TEXTURE[0]      = dir_texture_default;
+        PROPERTY::DIR_TEXTURE[1]      = dir_texture_user;
+        PROPERTY::DIR_TEXTURE[2]      = dir_texture_current;
         VvvGod::is_wm_dropfiles_ = false;
     }
 }

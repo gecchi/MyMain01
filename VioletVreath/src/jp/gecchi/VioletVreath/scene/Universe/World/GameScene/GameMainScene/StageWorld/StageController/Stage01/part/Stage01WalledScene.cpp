@@ -18,7 +18,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     WallAABActor* pWallAABActor;
     GgafActorDepository* pDepo_WallAAB = NEW GgafActorDepository("Dp_WallAAB");
     for (int i = 0; i < 1000; i++) {
-        std::string name = "Wall001_"+ITOS(i);
+        std::string name = "Wall001_"+XTOS(i);
         pWallAABActor = NEW Wall001(name.c_str());
         pWallAABActor->setScaleR(scale_r);
         pDepo_WallAAB->addSubLast(pWallAABActor);
@@ -31,7 +31,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     WallAAPrismActor* pWallAAPrismActor;
     GgafActorDepository* pDepo_WallAAPrism = NEW GgafActorDepository("Dp_WallAAPrism");
     for (int i = 0; i < 100; i++) {
-        std::string name = "Wall001Prism_"+ITOS(i);
+        std::string name = "Wall001Prism_"+XTOS(i);
         pWallAAPrismActor = NEW Wall001Prism(name.c_str());
         pWallAAPrismActor->setScaleR(scale_r);
         pDepo_WallAAPrism->addSubLast(pWallAAPrismActor);

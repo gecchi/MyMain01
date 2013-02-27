@@ -10,7 +10,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 
     pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
     getDirector()->addSubGroup(pLabel_aster_);
-    pLabel_aster_->update(PX_C(GGAF_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
+    pLabel_aster_->update(PX_C(PROPERTY::GAME_BUFFER_WIDTH), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
     pLabel_aster_->_pFader->beat(30, 15, 0, 0, -1); //チカチカ点滅
 
     is_create_GameScene_ = false;
@@ -25,8 +25,8 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 
 void World::initialize() {
     _TRACE_("World::initialize()");
-    pixcoord cx = GGAF_PROPERTY(GAME_BUFFER_WIDTH)/2;
-    pixcoord cy = GGAF_PROPERTY(GAME_BUFFER_HEIGHT)/2;
+    pixcoord cx = PROPERTY::GAME_BUFFER_WIDTH/2;
+    pixcoord cy = PROPERTY::GAME_BUFFER_HEIGHT/2;
 
     pLabel_title_ = createInFactory(VioletVreath::LabelGecchi16Font, "STR01");
     getDirector()->addSubGroup(pLabel_title_);
@@ -67,7 +67,7 @@ void World::processBehavior() {
             if (_pProg->getFrameInProgress() >= 60 &&
                 GgafFactory::chkProgress(2) == 2 &&
                 pPreDrawScene_->_pProg->get() == PreDrawScene::PROG_WAIT &&
-                 ( P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX) || _pProg->getFrameInProgress() == 60*60*10)
+                 ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*10)
             ) {
                 pLabel_title_->sayonara();
                 _pProg->changeNext();
@@ -80,7 +80,7 @@ void World::processBehavior() {
             if (_pProg->hasJustChanged()) {
             }
             if (_pProg->getFrameInProgress() >= 60 &&
-                ( P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX) || _pProg->getFrameInProgress() == 60*60*5)
+                ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*5)
             ) {
                 pGameScene_ = (GameScene*)obtainSceneFromFactory(2);
                 _pProg->changeNext();
@@ -93,7 +93,7 @@ void World::processBehavior() {
             if (_pProg->hasJustChanged()) {
             }
             if (_pProg->getFrameInProgress() >= 60 &&
-                ( P_GOD->_fps > GGAF_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX) || _pProg->getFrameInProgress() == 60*60*5)
+                ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*5)
             ) {
                 _pProg->changeNext();
             }

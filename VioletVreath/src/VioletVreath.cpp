@@ -73,7 +73,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
 
-    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(GGAF_PROPERTY(BORDER_COLOR));
+    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(PROPERTY::BORDER_COLOR);
     WNDCLASSEX wcex1;
     wcex1.cbSize = sizeof(WNDCLASSEX);
     wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
@@ -239,26 +239,26 @@ void myTerminateHandler() {
 
 
 void chengeViewPos(HWND prm_pHWnd, int pos) {
-    if (GGAF_PROPERTY(DUAL_VIEW)) {
+    if (PROPERTY::DUAL_VIEW) {
         if (prm_pHWnd == hWnd1) {
-            GGAF_PROPERTY(DUAL_VIEW_DRAW_POSITION1) = pos;
+            PROPERTY::DUAL_VIEW_DRAW_POSITION1 = pos;
         } else if (prm_pHWnd == hWnd2) {
-            GGAF_PROPERTY(DUAL_VIEW_DRAW_POSITION2) = pos;
+            PROPERTY::DUAL_VIEW_DRAW_POSITION2 = pos;
         }
     } else {
-        GGAF_PROPERTY(SINGLE_VIEW_DRAW_POSITION) = pos;
+        PROPERTY::SINGLE_VIEW_DRAW_POSITION = pos;
     }
     if (GgafDxCore::GgafDxGod::_can_be) {
-        if (!GGAF_PROPERTY(FULL_SCREEN)) {
+        if (!PROPERTY::FULL_SCREEN) {
             GgafDxCore::GgafDxGod::_adjustGameScreen = true;
             GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
         }
     }
 }
 void chengeViewAspect(HWND prm_pHWnd, bool prm_b) {
-    GGAF_PROPERTY(FIXED_GAME_VIEW_ASPECT) = prm_b;
+    PROPERTY::FIXED_GAME_VIEW_ASPECT = prm_b;
     if (GgafDxCore::GgafDxGod::_can_be) {
-        if (!GGAF_PROPERTY(FULL_SCREEN)) {
+        if (!PROPERTY::FULL_SCREEN) {
             GgafDxCore::GgafDxGod::_adjustGameScreen = true;
             GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
         }

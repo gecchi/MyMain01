@@ -97,6 +97,7 @@ void MenuBoardPause::processBehavior() {
         if (pSubConfirm->wasDecidedOk()) {
             sinkSubMenu();
             sink();
+            _TRACE_("MenuBoardPause::processBehavior() throwEventUpperTree(EVENT_BACK_TO_TITLE)");
             throwEventUpperTree(EVENT_BACK_TO_TITLE);
         } else if (pSubConfirm->wasDecidedCancel()) {
             sinkSubMenu();
@@ -112,7 +113,7 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
         riseSubMenu(1, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y - PX_C(50)); //コンフィグメニュー起動
     } else if (prm_item_index == ITEM_BACK_TO_TITLE) {
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //確認メニュー起動
-    }else if (prm_item_index == ITEM_QUIT_GAME) {
+    } else if (prm_item_index == ITEM_QUIT_GAME) {
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //確認メニュー起動
     }
 }
