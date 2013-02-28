@@ -27,7 +27,7 @@ void Wall001Prism::processBehavior() {
 //    _TRACE_(getName()<<":"<<_X<<","<<_Y<<","<<_Z);
 }
 //bool Wall001Prism::isOutOfUniverse() {
-//    if (GgafDxUniverse::_X_goneLeft < _X) {
+//    if (GgafDxUniverse::_X_gone_left < _X) {
 //        return false;
 //    }
 //    return true;

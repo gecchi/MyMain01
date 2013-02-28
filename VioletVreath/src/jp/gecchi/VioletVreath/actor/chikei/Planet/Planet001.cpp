@@ -24,7 +24,7 @@ void Planet001::onCreateModel() {
 
 void Planet001::initialize() {
     //setAlpha(0.99);
-    _X = (GgafDxUniverse::_X_goneRight*10);
+    _X = (GgafDxUniverse::_X_gone_right*10);
     _pScaler->setScale(1000*1000);
     _pKurokoA->setFaceAng(AXIS_Z, D90ANG - D_ANG(30));
     _pKurokoA->setFaceAng(AXIS_Y, D45ANG);

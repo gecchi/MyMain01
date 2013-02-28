@@ -21,7 +21,7 @@ VarietySylvia001::VarietySylvia001(const char* prm_name) :
 
 void VarietySylvia001::initialize() {
     EnemySylvia::initialize();
-    _X = GgafDxCore::GgafDxUniverse::_X_goneRight+r1_+r2_;
+    _X = GgafDxCore::GgafDxUniverse::_X_gone_right+r1_+r2_;
     _Y = 0;
     _Z = 0;
     _pKurokoA->setRzRyMvAng(D180ANG, 0);

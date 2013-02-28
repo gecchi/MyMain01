@@ -20,6 +20,9 @@ public:
     /** [r]進捗番号 対 サブシーン */
     ProgSceneMap _mapProg2Scene;
 
+    progress _progress_next_promise;
+    frame _count_next_promise;
+
 public:
     /**
      * コンストラクタ .
@@ -78,20 +81,28 @@ public:
      * 活動状態サブシーンは非活動状態にする。その際、フェードアウト・フェードイン効果を行う .
      * ※本メソッドの効果を得るには relatSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
-     * @param prm_fade_frames フェードイン・フェードアウトを行う時間
+     * @param prm_cross_fade_frames フェードイン & フェードアウトを行う時間
      */
-    void changeWithSceneCrossfading(progress prm_progress, frame prm_fade_frames = 300);
+    void changeWithSceneCrossfading(progress prm_progress, frame prm_cross_fade_frames = 300);
 
-    //未実装
-    void changeWithSceneFadeoutFadin(progress prm_progress, frame prm_fade_frames = 300);
+    /**
+     * 現進捗状態に紐付くサブシーンはフェードアウト→非活動状態にし、
+     * その後直ぐに次の新しい進捗状態に紐付くサブシーンを、フェードイン→活動状態にする。 .
+     * ※本メソッドの効果を得るには relatSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * @param prm_progress 新しい進捗状態
+     * @param prm_fade_out フェードアウト時間
+     * @param prm_fade_in フェードイン時間
+     */
+    void changeWithSceneFadeoutFadein(progress prm_progress, frame prm_fade_out=120, frame prm_fade_in = 120);
+
     /**
      * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替え、
      * 活動状態サブシーンは非活動状態にする。その際、指定フレーム間、同時進行（オーバーラッピング）させる .
      * ※本メソッドの効果を得るには relatSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
-     * @param prm_frames 同時進行させるフレーム数
+     * @param prm_overlapping_frames 同時進行させるフレーム数
      */
-    void changeWithSceneOverlapping(progress prm_progress, frame prm_frames);
+    void changeWithSceneOverlapping(progress prm_progress, frame prm_overlapping_frames);
 
     /**
      * 現在の進捗状態に関連づいているシーンを取得 .
@@ -107,6 +118,9 @@ public:
      * @return
      */
     DefaultScene* getScene(progress prm_progress);
+
+    virtual void changeDelay(progress prm_progress, frame prm_delay);
+    virtual void update() override;
 
     /**
      * デストラクタ .

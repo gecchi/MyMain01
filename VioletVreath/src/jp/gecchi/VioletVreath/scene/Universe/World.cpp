@@ -16,6 +16,8 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     is_create_GameScene_ = false;
     pLabel_debug_ = nullptr;
     pLabel_title_ = nullptr;
+    pLabel_resolution1_ = nullptr;
+    pLabel_resolution2_ = nullptr;
     pPreDrawScene_ = nullptr;
     pGameScene_ = nullptr;
     //y‚ß‚àz
@@ -30,8 +32,8 @@ void World::initialize() {
 
     pLabel_title_ = createInFactory(VioletVreath::LabelGecchi16Font, "STR01");
     getDirector()->addSubGroup(pLabel_title_);
-    pLabel_title_->update(PX_C(cx), PX_C(cy),
-                          "[ VIOLET VREATH ]\nVERSION 0.0.1\nPLEASE WAIT A MOMENT ...",
+    pLabel_title_->update(PX_C(cx), PX_C(cy/2),
+                          "[ VIOLET VREATH ]\nPLEASE WAIT A MOMENT ...",
                           ALIGN_CENTER, VALIGN_MIDDLE);
 
 #ifdef MY_DEBUG
@@ -42,6 +44,58 @@ void World::initialize() {
     pLabel_debug_ = createInFactory(VioletVreath::LabelGecchi16Font, "DebugStr");
     pLabel_debug_->update(PX_C(1), PX_C(1), "");
     getDirector()->addSubGroup(pLabel_debug_);
+
+    pLabel_resolution1_ = createInFactory(VioletVreath::LabelGecchi16Font, "RESOLUTION1");
+    pLabel_resolution1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    getDirector()->addSubGroup(pLabel_resolution1_);
+    pLabel_resolution2_ = createInFactory(VioletVreath::LabelGecchi16Font, "RESOLUTION2");
+    pLabel_resolution2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    getDirector()->addSubGroup(pLabel_resolution2_);
+
+    std::string fix_str = PROPERTY::FIXED_GAME_VIEW_ASPECT ? "ASPECT FIX" : "ASPECT STRETCH";
+    if (PROPERTY::DUAL_VIEW) {
+        //‚Q‰æ–Ê
+        if (PROPERTY::FULL_SCREEN) {
+            pLabel_resolution1_->update(
+                PX_C(cx/2), PX_C(cy),
+                ("(1) "+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH)+"X"+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT)+"\n"+
+                        fix_str).c_str()
+            );
+            pLabel_resolution2_->update(
+                PX_C(cx+(cx/2)), PX_C(cy),
+                ("(2) "+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH)+"X"+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT)+"\n"+
+                        fix_str).c_str()
+            );
+        } else {
+            pLabel_resolution1_->update(
+                PX_C(cx/2), PX_C(cy),
+                ("(1) "+XTOS(PROPERTY::DUAL_VIEW_WINDOW1_WIDTH)+"X"+XTOS(PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT)+"\n"+
+                        fix_str).c_str()
+            );
+            pLabel_resolution2_->update(
+                PX_C(cx+(cx/2)), PX_C(cy),
+                ("(2) "+XTOS(PROPERTY::DUAL_VIEW_WINDOW2_WIDTH)+"X"+XTOS(PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT)+"\n"+
+                        fix_str).c_str()
+            );
+        }
+    } else {
+        //‚P‰æ–Ê
+        pLabel_resolution2_->update("");
+        if (PROPERTY::FULL_SCREEN) {
+            pLabel_resolution1_->update(
+                PX_C(cx), PX_C(cy),
+                (XTOS(PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH) + "X" + XTOS(PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT)+"\n"+
+                        fix_str).c_str()
+            );
+        } else {
+            pLabel_resolution1_->update(
+                PX_C(cx), PX_C(cy),
+                (XTOS(PROPERTY::SINGLE_VIEW_WINDOW_WIDTH) + "X" + XTOS(PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT)+"\n"+
+                        fix_str).c_str()
+            );
+        }
+    }
+
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
     orderSceneToFactory(2, GameScene, "Game");

@@ -113,7 +113,7 @@ void MyShipScene::processBehavior() {
                 pMM->papLvTargetCursor_[idx]->moveSmoothTo(1); //カーソル
                 pMM->papLvHilightCursor_[idx]->moveSmoothTo(1); //カーソル
 
-                pMyShip_->_X = Universe::_X_goneLeft + 1000;
+                pMyShip_->_X = Universe::_X_gone_left + 1000;
                 pMyShip_->can_control_ = true;
                 pMyShip_->is_diving_ = true;
                 pMyShip_->activate();

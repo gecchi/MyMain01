@@ -47,17 +47,17 @@ MenuBoardSoundConfig::MenuBoardSoundConfig(const char* prm_name) :
 
     pLabel_SeVol_ = NEW LabelFix16Font01("LABEL_SE_VOL");
     pLabel_SeVol_->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    addDispLabel(pLabel_SeVol_, PX_C(600), PX_C(100+(0*20)));
+    addDisp(pLabel_SeVol_, PX_C(600), PX_C(100+(0*20)));
     pLabel_BgmVol_ = NEW LabelFix16Font01("LABEL_BGM_VOL");
     pLabel_BgmVol_->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    addDispLabel(pLabel_BgmVol_, PX_C(600), PX_C(100+(1*20)));
+    addDisp(pLabel_BgmVol_, PX_C(600), PX_C(100+(1*20)));
     pLabel_MasterVol_ = NEW LabelFix16Font01("LABEL_MASTER_VOL");
     pLabel_MasterVol_->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    addDispLabel(pLabel_MasterVol_, PX_C(600), PX_C(100+(2*20)));
+    addDisp(pLabel_MasterVol_, PX_C(600), PX_C(100+(2*20)));
 
     LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
     pLabel_Title->update("SELECT AND PUSH <- OR ->", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispLabel(pLabel_Title, PX_C(300), PX_C(40));
+    addDisp(pLabel_Title, PX_C(300), PX_C(40));
 
     //メニューカーソルを設定
     CursorSoundConfigMenu* pCursor = NEW CursorSoundConfigMenu("CursorSoundConfigMenu");

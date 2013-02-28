@@ -8,7 +8,7 @@ FormationJuno001::FormationJuno001(const char* prm_name) :
     FormationJuno(prm_name,
                   -800000, -400000, -1,
                    400000,  800000,  1,
-                   GgafDxUniverse::_X_goneRight - 300000, 0, GgafDxUniverse::_Z_goneFar - 1000,
+                   GgafDxUniverse::_X_gone_right - 300000, 0, GgafDxUniverse::_Z_gone_far - 1000,
                    2000,
                    D0ANG, D180ANG,
                    30000,
@@ -19,7 +19,7 @@ FormationJuno001::FormationJuno001(const char* prm_name) :
 }
 
 void FormationJuno001::processJudgement() {
-    if (_X < GgafDxUniverse::_X_goneLeft) {
+    if (_X < GgafDxUniverse::_X_gone_left) {
         _TRACE_("FormationJuno001::processJudgement() I—¹");
         sayonara();
     }

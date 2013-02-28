@@ -103,7 +103,7 @@ void MyTorpedo::processBehavior() {
                                 TURN_CLOSE_TO, false);
 
 //                    pKurokoA->execTurnRzRyMvAngSequenceTwd(
-//                                GgafDxUniverse::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
+//                                GgafDxUniverse::_X_gone_right, P_MYSHIP->_Y, P_MYSHIP->_Z,
 //                                2000, 200,
 //                                TURN_ANTICLOSE_TO, false);
                 }
@@ -143,7 +143,7 @@ void MyTorpedo::processBehavior() {
                                     1000, 200,
                                     TURN_CLOSE_TO, false);
 //                            _pKurokoA->execTurnRzRyMvAngSequenceTwd(
-//                                        GgafDxUniverse::_X_goneRight, _Y, _Z,
+//                                        GgafDxUniverse::_X_gone_right, _Y, _Z,
 //                                        1000, 200,
 //                                        TURN_CLOSE_TO, false);
                     }

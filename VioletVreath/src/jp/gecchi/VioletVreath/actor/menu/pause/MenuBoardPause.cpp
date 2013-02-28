@@ -45,7 +45,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     //メニューアイテム（選択不可）設定
     LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
     pLabel_Title->update("[PAUSE MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispLabel(pLabel_Title, PX_C(100), PX_C(20));
+    addDisp(pLabel_Title, PX_C(100), PX_C(20));
 
     //特別なメニューカーソルオーダーを構築
     relateItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1, ITEM_DUMMY5  , ITEM_CONFIG       );

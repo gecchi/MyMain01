@@ -316,12 +316,12 @@ int GgafDxGeometricActor::isOutOfView() {
 }
 
 bool GgafDxGeometricActor::isOutOfUniverse() {
-    if (GgafDxUniverse::_X_goneLeft < _X) {
-        if (_X < GgafDxUniverse::_X_goneRight) {
-            if (GgafDxUniverse::_Y_goneBottom < _Y) {
-                if (_Y < GgafDxUniverse::_Y_goneTop) {
-                    if (GgafDxUniverse::_Z_goneNear < _Z) {
-                        if (_Z < GgafDxUniverse::_Z_goneFar) {
+    if (GgafDxUniverse::_X_gone_left < _X) {
+        if (_X < GgafDxUniverse::_X_gone_right) {
+            if (GgafDxUniverse::_Y_gone_bottom < _Y) {
+                if (_Y < GgafDxUniverse::_Y_gone_top) {
+                    if (GgafDxUniverse::_Z_gone_near < _Z) {
+                        if (_Z < GgafDxUniverse::_Z_gone_far) {
                             return false;
                         }
                     }

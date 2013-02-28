@@ -24,17 +24,17 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     char* apItemStr[] = {
           "KEY CONFIG",
           "SOUND CONFIG",
-          "BACK"
+          "<- BACK"
     };
     for (int i = ITEM_KEY_CONFIG; i <= ITEM_BACK; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addItem(pLabel, PX_C(200), PX_C(100+((i%4)*30)), -1);
+        addItem(pLabel, PX_C(200), PX_C(100+((i%4)*30)));
     }
     //表示ラベル設定
     LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
     pLabel_Title->update("[CONFIG MENU]", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispLabel(pLabel_Title, PX_C(100), PX_C(20), -1);
+    addDisp(pLabel_Title, PX_C(100), PX_C(40));
     //キャンセルアイテム設定
     relateAllItemCancel(ITEM_BACK);
 
@@ -46,14 +46,19 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     setSelectedIndex(ITEM_BACK); //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), +PX_C(100)); //トランジション（表示非表示時の挙動）
 
-    addSubMenu(NEW MenuBoardKeyConfig("key_config"));
-    addSubMenu(NEW MenuBoardSoundConfig("sound_config"));
+    addSubMenu(NEW MenuBoardKeyConfig("key_config"));       //0番
+    addSubMenu(NEW MenuBoardSoundConfig("sound_config"));   //1番
 }
 bool MenuBoardConfig::condMoveCursorNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
 bool MenuBoardConfig::condMoveCursorPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
+}
+
+void MenuBoardConfig::onRisen() {
+    setSelectedIndex(ITEM_KEY_CONFIG); //カーソルの初期選択アイテムを設定
+    MenuBoard::onRisen();
 }
 
 void MenuBoardConfig::processBehavior() {

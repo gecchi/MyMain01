@@ -106,13 +106,8 @@ void MenuBoard::onRisen() {
     _pKurokoA->setRzRyMvAngTwd(target_X_, target_Y_);
     _pKurokoA->execSmoothMvVeloSequence(
                     0,
-                    UTIL::getDistance(
-                        _X,
-                        _Y,
-                        target_X_,
-                        target_Y_
-                    ),
-                    menu_fade_frames_, 0.1, 0.3
+                    UTIL::getDistance(_X, _Y, target_X_, target_Y_),
+                    menu_fade_frames_, 0.2, 0.3
                );
     _pSeTx->play(SE_ON_RISEN);
 }
@@ -160,12 +155,10 @@ void MenuBoard::onSunk() {
     _pKurokoA->execSmoothMvVeloSequence(
                     0,
                     UTIL::getDistance(
-                        _X,
-                        _Y,
-                        target_X_ + slide_from_offset_X_,
-                        target_Y_ + slide_from_offset_Y_
+                        _X, _Y,
+                        target_X_+slide_from_offset_X_, target_Y_+slide_from_offset_Y_
                     ),
-                    60, 0.2, 0.3
+                    menu_fade_frames_, 0.2, 0.3
                );
 }
 

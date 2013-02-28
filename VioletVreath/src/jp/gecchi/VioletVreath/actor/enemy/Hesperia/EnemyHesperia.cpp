@@ -58,7 +58,7 @@ void EnemyHesperia::onActive() {
     //èoåªà íu
     static coord appearances_renge_Z = (MyShip::lim_zleft_ - MyShip::lim_zright_) * 3;
     static coord appearances_renge_Y = (MyShip::lim_top_ - MyShip::lim_bottom_) * 3;
-    _X = GgafDxUniverse::_X_goneRight - 1000;
+    _X = GgafDxUniverse::_X_gone_right - 1000;
     _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
     _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
 

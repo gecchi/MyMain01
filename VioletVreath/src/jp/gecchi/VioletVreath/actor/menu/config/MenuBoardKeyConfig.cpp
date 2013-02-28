@@ -38,7 +38,7 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
 
     int item_index;
     for (item_index = ITEM_MAIN_SHOT; item_index <= ITEM_PAUSE; item_index++) {
-        LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
+        LabelFix16Font01* pLabel = NEW LabelFix16Font01("item");
         pLabel->update(apItemStr[item_index], ALIGN_LEFT, VALIGN_MIDDLE);
         addItem(pLabel, PX_C(200), PX_C(100+(item_index*20)));
     }
@@ -57,15 +57,15 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     for (int i = ITEM_MAIN_SHOT; i <= ITEM_PAUSE; i++) {
         paVBProperties[i].pKey = NEW LabelFix16Font01("DISP_KEY");
         paVBProperties[i].pKey->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-        addDispLabel(paVBProperties[i].pKey, PX_C(600), PX_C(100+(i*20)));
+        addDisp(paVBProperties[i].pKey, PX_C(600), PX_C(100+(i*20)));
         paVBProperties[i].pJoy = NEW LabelFix16Font01("DISP_JOY");
         paVBProperties[i].pJoy->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-        addDispLabel(paVBProperties[i].pJoy, PX_C(800), PX_C(100+(i*20)));
+        addDisp(paVBProperties[i].pJoy, PX_C(800), PX_C(100+(i*20)));
     }
 
     LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
     pLabel_Title->update("SELECT AND PUSH KEY, JOY BUTTON!!", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDispLabel(pLabel_Title, PX_C(300), PX_C(40));
+    addDisp(pLabel_Title, PX_C(300), PX_C(40));
 
     //メニューカーソルを設定
     CursorKeyConfigMenu* pCursor = NEW CursorKeyConfigMenu("CursorKeyConfigMenu");

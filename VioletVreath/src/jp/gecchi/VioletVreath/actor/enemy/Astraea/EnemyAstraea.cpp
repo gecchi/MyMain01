@@ -78,7 +78,7 @@ void EnemyAstraea::initialize() {
 void EnemyAstraea::onActive() {
     _pStatus->reset();
     setHitAble(false);
-    _X = GgafDxCore::GgafDxUniverse::_X_goneRight - 1000;
+    _X = GgafDxCore::GgafDxUniverse::_X_gone_right - 1000;
     _pProg->set(PROG_ENTRY);
 }
 

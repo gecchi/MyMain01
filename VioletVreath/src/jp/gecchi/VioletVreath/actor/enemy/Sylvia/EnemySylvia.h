@@ -58,7 +58,7 @@ public:
     virtual int isOutOfView() override;
 
     virtual bool isOutOfUniverse() override {
-        if (GgafDxCore::GgafDxUniverse::_X_goneLeft < _X) {
+        if (GgafDxCore::GgafDxUniverse::_X_gone_left < _X) {
             return false;
         } else {
             return true;

@@ -76,7 +76,6 @@ void MenuBoardNameEntry::setNameStringBoard(StringSpriteActor* prm_pInputedName,
 
 bool MenuBoardNameEntry::condDecision() {
     if (VB->isPushedDown(VB_UI_EXECUTE)) {
-        _pSeTx->play(SE_DECIDED_NOMAL);
         return true;
     } else if (VB->isPushedDown(VB_UI_CANCEL) &&
                getSelectedIndex() == ITEM_INDEX_BS_) {

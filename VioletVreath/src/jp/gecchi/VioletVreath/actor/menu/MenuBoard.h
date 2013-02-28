@@ -15,9 +15,7 @@ public:
     enum {
         SE_ON_RISEN = 0,
         SE_MOVE_CURSOR,
-        SE_DECIDED_NOMAL,
         SE_DECIDED_CANCEL,
-        SE_ON_SINK,
     };
     coord menu_fade_frames_;
     coord slide_from_offset_X_;
@@ -67,7 +65,7 @@ public:
     /**
      * 表示完了位置を指定してサブメニューを起動 .
      * 引数座標はサブメニューがスライドが完了して落ち着く座標を指定。
-     * @param prm_index サブメニューインデックス
+     * @param prm_index サブメニューインデックス(追加した順番。0～)
      * @param prm_target_X サブメニュー表示完了X座標
      * @param prm_target_Y サブメニュー表示完了Y座標
      */

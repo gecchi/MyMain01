@@ -27,7 +27,7 @@ void Wall001::processBehavior() {
 //    _TRACE_(getName()<<":"<<_X<<","<<_Y<<","<<_Z);
 }
 //bool Wall001::isOutOfUniverse() {
-//    if (GgafDxUniverse::_X_goneLeft/2 < _X) {
+//    if (GgafDxUniverse::_X_gone_left/2 < _X) {
 //        return false;
 //    }
 //    return true;

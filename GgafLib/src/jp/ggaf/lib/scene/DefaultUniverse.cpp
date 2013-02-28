@@ -8,16 +8,16 @@ DefaultUniverse::DefaultUniverse(const char* prm_name, DefaultCamera* prm_pCamer
     //８分木作成
     _TRACE_("８分木作成開始");
     _pLinearOctree = NEW LinearOctreeForActor(PROPERTY::OCTREE_LEVEL);
-    _pLinearOctree->setRootSpace(_X_goneLeft  ,_Y_goneBottom, _Z_goneNear ,
-                                 _X_goneRight ,_Y_goneTop   , _Z_goneFar   );
+    _pLinearOctree->setRootSpace(_X_gone_left  ,_Y_gone_bottom, _Z_gone_near ,
+                                 _X_gone_right ,_Y_gone_top   , _Z_gone_far   );
     _TRACE_("８分木作成終了");
 }
 
 void DefaultUniverse::processFinal() {
     _pLinearOctree->clearElem();
     //ルート空間更新
-//    _pLinearOctree->setRootSpace(_X_goneLeft  ,_Y_goneBottom, _Z_goneNear ,
-//                                     _X_goneRight ,_Y_goneTop   , _Z_goneFar   );
+//    _pLinearOctree->setRootSpace(_X_gone_left  ,_Y_gone_bottom, _Z_gone_near ,
+//                                     _X_gone_right ,_Y_gone_top   , _Z_gone_far   );
 }
 
 DefaultUniverse::~DefaultUniverse() {

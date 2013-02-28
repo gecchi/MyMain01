@@ -188,30 +188,30 @@ public:
     }
 
     /**
-     * 選択不可の表示用メニューラベルを追加する .
+     * 選択不可の表示用メニューアイテム(ラベル)を追加する .
      * 【注意】<BR>
-     * 同一Z座標ならば、後に addDispLabel() した方が、より手前に表示となる。<BR>
+     * 同一Z座標ならば、より後の順に addDisp() した方が、より手前に表示となる。<BR>
      * @param prm_pItem 表示用ラベルのアクター
      * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      * @param prm_Z_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Z座標
      */
-    virtual void addDispLabel(GgafDxCore::GgafDxDrawableActor* prm_pItem,
-                              coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
+    virtual void addDisp(GgafDxCore::GgafDxDrawableActor* prm_pDisp,
+                         coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
 
     /**
      * 選択不可の表示用メニューラベルを追加する .
      * 【注意】<BR>
-     * 同一Z座標ならば、後に addDispLabel() した方が、より手前に表示となる。<BR>
+     * 同一Z座標ならば、より後の順に addDisp() した方が、より手前に表示となる。<BR>
      * Z座標は、オフセット0が設定される。つまり表示用アクターの絶対Z座標は、現在のメニューのZ座標と一致する。
      * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定も可能。
      * @param prm_pItem 表示用ラベルのアクター
      * @param prm_X_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_Y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      */
-    virtual void addDispLabel(GgafDxCore::GgafDxDrawableActor* prm_pItem,
-                              coord prm_X_local, coord prm_Y_local) {
-        addDispLabel(prm_pItem, prm_X_local, prm_Y_local, 0);
+    virtual void addDisp(GgafDxCore::GgafDxDrawableActor* prm_pDisp,
+                         coord prm_X_local, coord prm_Y_local) {
+        addDisp(prm_pDisp, prm_X_local, prm_Y_local, 0);
     }
 
     /**
@@ -251,7 +251,7 @@ public:
     virtual void relateItemExNext(int prm_index_of_fromitem, int prm_index_of_toitem);
 
     /**
-     * メニューアイテム間のオーダー連結を拡張設定(From ⇔ To) .
+     * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3) .
      * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
      * @param prm_index_of_item2 拡張連結するメニューアイテムのインデックス2
      * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
@@ -260,7 +260,7 @@ public:
                                   int prm_index_of_item2,
                                   int prm_index_of_item3);
     /**
-     * メニューアイテム間のオーダー連結を拡張設定(From ⇔ To) .
+     * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3 ⇔ item4) .
      * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
      * @param prm_index_of_item2 拡張連結するメニューアイテムのインデックス2
      * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
@@ -271,7 +271,7 @@ public:
                                   int prm_index_of_item3,
                                   int prm_index_of_item4);
     /**
-     * メニューアイテム間のオーダー連結を拡張設定(From ⇔ To) .
+     * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3 ⇔ item4 ⇔ item5).
      * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
      * @param prm_index_of_item2 拡張連結するメニューアイテムのインデックス2
      * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
@@ -364,11 +364,18 @@ public:
     virtual GgafDxCore::GgafDxDrawableActor* getSelectedItem();
 
     /**
-     * アイテムのオブジェクトを取得 .
-     * @param prm_index 取得したいアイテムのインデックス
+     * 選択対象アイテムのオブジェクトを取得 .
+     * @param prm_index 取得したい選択対象アイテムのインデックス(0～)
      * @return アイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxDrawableActor* getItem(int prm_index);
+
+    /**
+     * その他表示用アイテムのオブジェクトを取得 .
+     * @param prm_index 取得したい表示用アイテムのインデックス(0～)
+     * @return 表示用アイテムオブジェクト
+     */
+    virtual GgafDxCore::GgafDxDrawableActor* getDisp(int prm_index);
 
     /**
      * 「決定（振る舞い）」した、という事の成立条件を実装する .
@@ -699,15 +706,15 @@ void MenuActor<T>::addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
 }
 
 template<class T>
-void MenuActor<T>::addDispLabel(GgafDxCore::GgafDxDrawableActor* prm_pItem,
-                                coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
-    prm_pItem->_X_local = prm_X_local;
-    prm_pItem->_Y_local = prm_Y_local;
-    prm_pItem->_Z_local = prm_Z_local;
-    prm_pItem->_alpha = T::_alpha; //半透明αを共有させる。
-    prm_pItem->inactivateImmed();
-    _lstDispActors.addLast(prm_pItem, false);
-    T::addSubLast(prm_pItem);
+void MenuActor<T>::addDisp(GgafDxCore::GgafDxDrawableActor* prm_pDisp,
+                           coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
+    prm_pDisp->_X_local = prm_X_local;
+    prm_pDisp->_Y_local = prm_Y_local;
+    prm_pDisp->_Z_local = prm_Z_local;
+    prm_pDisp->_alpha = T::_alpha; //半透明αを共有させる。
+    prm_pDisp->inactivateImmed();
+    _lstDispActors.addLast(prm_pDisp, false);
+    T::addSubLast(prm_pDisp);
 }
 
 template<class T>
@@ -859,6 +866,11 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getSelectedItem() {
 template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getItem(int prm_index) {
     return _lstItems.getFromFirst(prm_index);
+}
+
+template<class T>
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getDisp(int prm_index) {
+    return _lstDispActors.getFromFirst(prm_index);
 }
 
 template<class T>

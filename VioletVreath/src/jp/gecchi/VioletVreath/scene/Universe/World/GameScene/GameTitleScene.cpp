@@ -30,8 +30,8 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 
     pSeCon_exec_ = connectToSeManager("WAVE_EXECUTE");
 
-    _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "OGG_BGM_DEMO");
+    //_pBgmPerformer->useBgm(1);
+   // _pBgmPerformer->set(0, "OGG_BGM_DEMO");
     frame_of_noinput_ = 0;
     active_item_ = 0;
 
@@ -103,7 +103,7 @@ void GameTitleScene::processBehavior() {
                 }
             }
 
-            if (VB->getState() != VB_NEUTRAL_STC) { //
+            if (VB->getState() != VB_NEUTRAL_STC || pMenu_->getRisingSubMenu()->isActive()) { //
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             }
 

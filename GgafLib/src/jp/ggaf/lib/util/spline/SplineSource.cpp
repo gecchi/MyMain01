@@ -62,23 +62,23 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [BASEPOINT] ‚ÉÀ•W‚ª‚ ‚è‚Ü‚¹‚ñB");
     }
     for (int i = 0; i < n; i++) {
-        if (p[i][0] > GgafDxUniverse::_X_goneRight*0.9999) {
-            p[i][0] = GgafDxUniverse::_X_goneRight*0.9999;
+        if (p[i][0] > GgafDxUniverse::_X_gone_right*0.9999) {
+            p[i][0] = GgafDxUniverse::_X_gone_right*0.9999;
         }
-        if (p[i][0] < GgafDxUniverse::_X_goneLeft*0.9999) {
-            p[i][0] = GgafDxUniverse::_X_goneLeft*0.9999;
+        if (p[i][0] < GgafDxUniverse::_X_gone_left*0.9999) {
+            p[i][0] = GgafDxUniverse::_X_gone_left*0.9999;
         }
-        if (p[i][1] > GgafDxUniverse::_Y_goneTop*0.9999) {
-            p[i][1] = GgafDxUniverse::_Y_goneTop*0.9999;
+        if (p[i][1] > GgafDxUniverse::_Y_gone_top*0.9999) {
+            p[i][1] = GgafDxUniverse::_Y_gone_top*0.9999;
         }
-        if (p[i][1] < GgafDxUniverse::_Y_goneBottom*0.9999) {
-            p[i][1] = GgafDxUniverse::_Y_goneBottom*0.9999;
+        if (p[i][1] < GgafDxUniverse::_Y_gone_bottom*0.9999) {
+            p[i][1] = GgafDxUniverse::_Y_gone_bottom*0.9999;
         }
-        if (p[i][2] > GgafDxUniverse::_Z_goneFar*0.9999) {
-            p[i][2] = GgafDxUniverse::_Z_goneFar*0.9999;
+        if (p[i][2] > GgafDxUniverse::_Z_gone_far*0.9999) {
+            p[i][2] = GgafDxUniverse::_Z_gone_far*0.9999;
         }
-        if (p[i][2] < GgafDxUniverse::_Z_goneNear*0.9999) {
-            p[i][2] = GgafDxUniverse::_Z_goneNear*0.9999;
+        if (p[i][2] < GgafDxUniverse::_Z_gone_near*0.9999) {
+            p[i][2] = GgafDxUniverse::_Z_gone_near*0.9999;
         }
     }
     _pSp = NEW SplineLine(p, n, _accuracy);
