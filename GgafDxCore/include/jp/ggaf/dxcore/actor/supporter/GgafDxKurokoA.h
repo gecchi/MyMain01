@@ -1001,6 +1001,12 @@ public:
     bool isRunnigSmoothMvVeloSequence();
 
     /**
+     * なめらかな移動速度シークエンスを中止する .
+     * @return
+     */
+    void stopSmoothMvVeloSequence();
+
+    /**
      * 現フレームで「なめらかな移動速度シークエンス」が完了したか否か .
      * 「なめらかな移動速度シークエンス」とは、<BR>
      * execSmoothMvVeloSequence()<BR>

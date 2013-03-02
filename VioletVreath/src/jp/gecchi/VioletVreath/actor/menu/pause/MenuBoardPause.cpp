@@ -59,23 +59,23 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
 
-    setSelectedIndex(0); //カーソルの初期選択アイテムを設定
+    selectByIndex(0); //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
                                             //上から下へ少しスライドさせる
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
     //コンフィグサブメニュー
     addSubMenu(NEW MenuBoardConfig("config"));
 }
-bool MenuBoardPause::condMoveCursorNext() {
+bool MenuBoardPause::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
-bool MenuBoardPause::condMoveCursorPrev() {
+bool MenuBoardPause::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
-bool MenuBoardPause::condMoveCursorExNext() {
+bool MenuBoardPause::condSelectExNext() {
     return VB->isAutoRepeat(VB_UI_RIGHT);
 }
-bool MenuBoardPause::condMoveCursorExPrev() {
+bool MenuBoardPause::condSelectrExPrev() {
     return VB->isAutoRepeat(VB_UI_LEFT);
 }
 

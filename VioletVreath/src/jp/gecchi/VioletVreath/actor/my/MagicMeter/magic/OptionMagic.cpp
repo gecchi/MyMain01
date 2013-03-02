@@ -40,15 +40,16 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     for (int i = 0; i < max_level_; i++) {
         papEffect_[i]->inactivateImmed();
     }
-    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-        papEffect_[lv-1]->locateWith(P_MYSHIP);
-        papEffect_[lv-1]->_pKurokoA->setRzRyMvAng(paAng_way[n], D90ANG);
-        papEffect_[lv-1]->_pKurokoA->setMvVelo(2000);
-        papEffect_[lv-1]->_pKurokoA->setMvAcce(-5);
-        papEffect_[lv-1]->setAlpha(0.9);
-        papEffect_[lv-1]->setScaleR(2.0f);
-        papEffect_[lv-1]->activate();
-        n++;
+    GgafDxDrawableActor* pEffect;
+    for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
+        pEffect = papEffect_[lv-1];
+        pEffect->locateWith(P_MYSHIP);
+        pEffect->_pKurokoA->setRzRyMvAng(paAng_way[n], D90ANG);
+        pEffect->_pKurokoA->setMvVelo(2000);
+        pEffect->_pKurokoA->setMvAcce(-5);
+        pEffect->setAlpha(0.9);
+        pEffect->setScaleR(2.0f);
+        pEffect->activate();
     }
     DELETEARR_IMPOSSIBLE_NULL(paAng_way);
     r_effect_ = 1;

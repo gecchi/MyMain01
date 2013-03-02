@@ -73,27 +73,27 @@ protected:
     /**
      * _lstItems のアクティブ要素を next() へ移動させ、カーソルを移動 .
      */
-    virtual void moveCursorNext();
+    virtual void selectNext();
 
     /**
      * _lstItems のアクティブ要素を prev() へ移動させ、カーソルを移動 .
      */
-    virtual void moveCursorPrev();
+    virtual void selectPrev();
 
     /**
      * _lstItems のアクティブ要素を gotoRelation(ITEM_RELATION_EX_NEXT) へ移動させ、カーソルを移動 .
      */
-    virtual void moveCursorExNext();
+    virtual void selectExNext();
 
     /**
      * _lstItems のアクティブ要素を gotoRelation(ITEM_RELATION_EX_PREV) へ移動させ、カーソルを移動 .
      */
-    virtual void moveCursorExPrev();
+    virtual void selectExPrev();
 
     /**
      *  _lstItems のアクティブ要素を gotoRelation(ITEM_RELATION_TO_CANCEL) へ移動させ、カーソルを移動 .
      */
-    virtual void moveCursorCancel();
+    virtual void selectCancel();
 
 public:
     /** [r]メニューアイテムのリスト */
@@ -102,8 +102,12 @@ public:
     GgafDxCore::GgafDxDrawableActor* _pCursor;
     /** [r]その他表示アイテムのリスト */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _lstDispActors;
-    /** [r]メニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
-    GgafCore::GgafLinkedListRing<int> _lstMoveHistory;
+    /** [r]カーソルが移動したメニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
+    GgafCore::GgafLinkedListRing<int> _lstMvCursorHistory;
+    /** [r]選択したメニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
+    GgafCore::GgafLinkedListRing<int> _lstMvSelectHistory;
+
+
     /** [r/w]メニューフェイドイン・アウト時のアルファ速度 */
     float _velo_alpha_fade;
     /** [r]カーソルが、メニューアイテム間を移動する際に費やすスフレーム数 */
@@ -320,7 +324,17 @@ public:
      * @param prm_index ターゲットのアイテムインデックス
      * @return prm_indexのアイテムオブジェクト
      */
-    virtual GgafDxCore::GgafDxDrawableActor* setSelectedIndex(int prm_index);
+    virtual GgafDxCore::GgafDxDrawableActor* selectByIndex(int prm_index);
+
+    /**
+     * 指定のメニューアイテムへ、カーソルをセット .
+     * 内部で moveCursor() がコールバックされ、カーソルが移動することになる。<BR>
+     * 既に指定のインデックス選択中の場合はカーソルは何も移動無し。<BR>
+     * ついでに、引数アイテムオブジェクトのインデックスもゲット出来る。<BR>
+     * @param prm_item ターゲットのアイテム
+     * @return ターゲットのアイテムインデックス
+     */
+    virtual int selectItem(GgafDxCore::GgafDxDrawableActor* prm_item);
 
     /**
      * 現在カーソルが選択中のアイテムのインデックスを取得 .
@@ -329,39 +343,63 @@ public:
     virtual int getSelectedIndex();
 
     /**
-     * 過去にカーソルが選択中だったアイテムのインデックスを取得 .
-     * getSelectedHistoryIndex(0) は getSelectedIndex() と同じです。
-     * 指定の過去がない場合は -1 を返します。
-     * @param prm_n 幾つ過去のカーソル位置か(0 ～)
-     * @return 選択中だったのアイテムオブジェクトのインデックス（無い場合は -1）
-     */
-    virtual int getSelectedHistoryIndex(int prm_n);
-
-    /**
-     * 「決定（振る舞い）」が行われた時に、決定されたメニューアイテムのインデックスを返します .
-     * ＜メニューの選択項目が決定された場合の処理記述コードの場所について＞<BR>
-     * processBehavior() で getDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
-     * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
-     * どちらでも良いし、併用も可能。<BR>
-     * @return 決定された時：そのアイテムのインデックス(>=0)／何も決定されていない場合：常に -1
-     */
-    virtual int getDecidedIndex();
-
-    /**
-     * 「キャンセル（振る舞い）」が行われた時に、決定されたメニューアイテムのインデックスを返します .
-     * ＜メニューの選択項目がキャンセルされた場合の処理記述コードの場所について＞<BR>
-     * processBehavior() で getCancelledIndex() の戻り値を毎フレーム調べることで、キャンセル時の処理を記述することが可能。<BR>
-     * もちろん onCancel() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
-     * どちらでも良いし、併用も可能。<BR>
-     * @return キャンセルされた時：そのアイテムのインデックス(>=0)／何もキャンセルされていない場合：常に -1
-     */
-    virtual int getCancelledIndex();
-
-    /**
      * 現在カーソルが選択中のアイテムのオブジェクトを取得 .
      * @return 選択中のアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxDrawableActor* getSelectedItem();
+
+    /**
+     * 過去にカーソルが選択中だったアイテムのインデックスを取得 .
+     * getMvCursorHistoryIndex(0) は getSelectedIndex() と同じです。
+     * 指定の過去がない場合は -1 を返します。
+     * @param prm_n 幾つ過去のカーソル位置か(0 ～)
+     * @return 選択中だったのアイテムオブジェクトのインデックス（無い場合は -1）
+     */
+    virtual int getMvCursorHistoryIndex(int prm_n);
+
+    /**
+     * 「決定（振る舞い）」が行われた時に、そのメニューアイテムのインデックスを返します .
+     * それ以外の時は 常に -1 を返します<BR>
+     * ＜メニューの選択項目が決定された場合の処理記述コードの場所について＞<BR>
+     * processBehavior() で getOnDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
+     * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
+     * どちらでも良いし、併用も可能。<BR>
+     * @return 決定された時：そのアイテムのインデックス(>=0)／何も決定されていない場合：常に -1
+     */
+    virtual int getOnDecidedIndex();
+
+    /**
+     * 「決定（振る舞い）」が行われた時に、そのメニューアイテムを返します .
+     * それ以外の時は 常に nullptr を返します<BR>
+     * ＜メニューの選択項目が決定された場合の処理記述コードの場所について＞<BR>
+     * processBehavior() で getOnDecidedItem() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
+     * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
+     * どちらでも良いし、併用も可能。<BR>
+     * @return 決定された時：そのアイテム／何も決定されていない場合：常に nullptr
+     */
+    virtual GgafDxCore::GgafDxDrawableActor* getOnDecidedItem();
+
+    /**
+     * 「キャンセル（振る舞い）」が行われた時に、そのメニューアイテムのインデックスを返します .
+     * それ以外の時は 常に -1 を返します<BR>
+     * ＜メニューの選択項目がキャンセルされた場合の処理記述コードの場所について＞<BR>
+     * processBehavior() で getOnCancelledIndex() の戻り値を毎フレーム調べることで、キャンセル時の処理を記述することが可能。<BR>
+     * もちろん onCancel() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
+     * どちらでも良いし、併用も可能。<BR>
+     * @return キャンセルされた時：そのアイテムのインデックス(>=0)／何もキャンセルされていない場合：常に -1
+     */
+    virtual int getOnCancelledIndex();
+
+    /**
+     * 「キャンセル（振る舞い）」が行われた時に、そのメニューアイテムを返します .
+     * それ以外の時は 常に -1 を返します<BR>
+     * ＜メニューの選択項目がキャンセルされた場合の処理記述コードの場所について＞<BR>
+     * processBehavior() で getOnCancelledItem() の戻り値を毎フレーム調べることで、キャンセル時の処理を記述することが可能。<BR>
+     * もちろん onCancel() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
+     * どちらでも良いし、併用も可能。<BR>
+     * @return キャンセルされた時：そのアイテム／何もキャンセルされていない場合：常に nullptr
+     */
+    virtual GgafDxCore::GgafDxDrawableActor* getOnCancelledItem();
 
     /**
      * 選択対象アイテムのオブジェクトを取得 .
@@ -399,41 +437,41 @@ public:
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「次のメニューアイテム」へ移動の条件成立 / false:不成立
      */
-    virtual bool condMoveCursorNext() = 0;
+    virtual bool condSelectNext() = 0;
 
     /**
      * カーソルが「前のメニューアイテム」へ移動する条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「前のメニューアイテム」へ移動の条件成立 / false:不成立
      */
-    virtual bool condMoveCursorPrev() = 0;
+    virtual bool condSelectPrev() = 0;
 
     /**
      * カーソルが「もう一つの別の次のメニューアイテム」へ移動する条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「もう一つの別の次のメニューアイテム」へ移動の条件成立 / false:不成立
      */
-    virtual bool condMoveCursorExNext() = 0;
+    virtual bool condSelectExNext() = 0;
 
     /**
      * カーソルが「もう一つの別の前のメニューアイテム」へ移動する条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「もう一つの別の前のメニューアイテム」へ移動の条件成立 / false:不成立
      */
-    virtual bool condMoveCursorExPrev() = 0;
+    virtual bool condSelectrExPrev() = 0;
 
     /**
      * カーソルが「キャンセルのメニューアイテム」へ飛ぶ条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「キャンセルのメニューアイテム」へ移動の条件成立 / false:不成立
      */
-    virtual bool condMoveCursorCancel() = 0;
+    virtual bool condSelectCancel() = 0;
 
     /**
      * 「決定（振る舞い）」された場合に呼び出されるコールバック。
      * 動作をオーバーライドして実装してください。<BR>
      * ＜メニューの選択項目が決定された場合の処理記述コードの場所について＞<BR>
-     * processBehavior() で、getDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
+     * processBehavior() で、getOnDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
      * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
      * どちらでも良いし、併用も可能。
      * @param prm_pItem 決定されたのアイテム
@@ -454,35 +492,55 @@ public:
     virtual void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) = 0;
 
     /**
-     * カーソルが移動した場合に出されるコールバック。 .
+     * カーソルが移動した場合に呼び出されるコールバック。 .
      * 動作をオーバーライドして実装してください。<BR>
+     * 【捕捉】<BR>
+     * onMoveCursor(int,int) と onSelect(int,int) のコールバックタイミングの差について。<BR>
+     * onSelect(int,int) は、selectXxxxx 系 のメソッドを実行時に、もれなく呼び出されます。<BR>
+     * onMoveCursor(int,int) は、selectXxxxx 系のメソッド実行の際、カーソルが移動した場合のみ呼び出されます。<BR>
+     * 呼び出される順序は、onMoveCursor(int,int)  → onSelect(int,int) の順です。<BR>
      * @param prm_from 移動元のアイテムのインデックス（無い（初期の）場合は -1）
      * @param prm_to   移動先のアイテムのインデックス
      */
     virtual void onMoveCursor(int prm_from, int prm_to) = 0;
 
+
+    /**
+     * アイテムが選択された場合に呼び出されるコールバック。 .
+     * 動作をオーバーライドして実装してください。<BR>
+     * 【捕捉】<BR>
+     * onMoveCursor(int,int) と onSelect(int,int) のコールバックタイミングの差について。<BR>
+     * onSelect(int,int) は、selectXxxxx 系のメソッドを実行時に、もれなく呼び出されます。<BR>
+     * onMoveCursor(int,int) は、selectXxxxx 系のメソッド実行の際、カーソルが移動した場合のみ呼び出されます。<BR>
+     * 呼び出される順序は、onMoveCursor(int,int)  → onSelect(int,int) の順です。<BR>
+     * @param prm_from 選択元（今回選択される前）のアイテムのインデックス（無い（初期の）場合は -1）
+     * @param prm_to   選択先のアイテムのインデックス
+     */
+    virtual void onSelect(int prm_from, int prm_to) = 0;
+
     /**
      * カーソルを _lstItems のアクティブ要素へ移動させる .
      * カーソル移動時の効果音を鳴らす場合等は、オーバーライドして再定義してください。<BR>
      * 但し、その処理中に上位 moveCursor() を呼び出すのを忘れないように。<BR>
+     * @param prm_smooth スムーズ移動するか否か
      */
-    virtual void moveCursor();
+    virtual void moveCursor(bool prm_smooth = true);
 
     /**
-     * メニューを表示開始 .
+     * メニューを表示開始する .
      * 本オブジェクトを生成、タスクに追加後、表示させたいタイミングで実行してください。<BR>
      */
     virtual void rise();
 
     /**
-     * メニューを表示開始時の処理 .
+     * メニュー表示開始時のコールバック .
      * rise() 実行時直後、１回だけコールバックされます。<BR>
      * 必要に応じてオーバーライドしてください。<BR>
      */
     virtual void onRisen();
 
     /**
-     * メニュー表示のトランジション処理 .
+     * メニュー表示中トランジション処理 .
      * rise() 実行 ～ フェードイン完了までの間コールされ続けます。
      * アルファを加算しフェードイン効果を行い、アルファが1.0になれば終了。
      * というトランジション処理が実装済みです。<BR>
@@ -508,7 +566,7 @@ public:
     virtual void processBehavior() override;
 
     /**
-     * メニューを閉じて終了させる . .
+     * メニューを閉じて終了させる .
      */
     virtual void sink();
 
@@ -593,7 +651,8 @@ public:
 
     /**
      * 現在アクティブなサブメニューを取得 .
-     * @return アクティブなサブメニュー
+     * サブメニューが未登録の場合。或いは登録していても、アクティブではない場合は nullptr を返す。
+     * @return アクティブなサブメニュー/nullptr
      */
     virtual MenuActor<T>* getRisingSubMenu();
 
@@ -646,7 +705,8 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _can_controll = false;
     _will_be_able_to_controll = false;
     for (int i = 0; i < 10; i++) {
-        _lstMoveHistory.addLast(new int(-1), true);
+        _lstMvCursorHistory.addLast(new int(-1), true);
+        _lstMvSelectHistory.addLast(new int(-1), true);
     }
     T::inactivateImmed(); //メニューなので、初期状態は非活動状態をデフォルトとする
 }
@@ -786,21 +846,44 @@ void MenuActor<T>::relateAllItemCancel(int prm_index_of_cancel_item) {
 }
 
 template<class T>
-GgafDxCore::GgafDxDrawableActor* MenuActor<T>::setSelectedIndex(int prm_index) {
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectByIndex(int prm_index) {
     int n = getSelectedIndex();
+#ifdef MY_DEBUG
+    if (n == -1) {
+        throwGgafCriticalException("MenuActor<T>::selectByIndex() メニューアイテムが未登録です name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
+    }
+#endif
     if (n == prm_index) {
         //既に選択している。
+        *(_lstMvSelectHistory.next()) = _lstItems.getCurrentIndex();
+        onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
         return _lstItems.getCurrent();
     } else {
 #ifdef MY_DEBUG
         if (_lstItems.length() <= prm_index) {
-            throwGgafCriticalException("MenuActor<T>::setSelectedIndex() メニューアイテム要素数オーバー name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
+            throwGgafCriticalException("MenuActor<T>::selectByIndex() メニューアイテム要素数オーバー name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
         }
 #endif
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.current(prm_index);
-        moveCursor();
+        if (T::getActivePartFrame() > 1) {
+            moveCursor(true);  //スムーズ移動有り
+        } else {
+            moveCursor(false); //スムーズ移動無し
+        }
+        *(_lstMvSelectHistory.next()) = _lstItems.getCurrentIndex();
+        onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
         return pTargetItem;
     }
+}
+
+template<class T>
+int MenuActor<T>::selectItem(GgafDxCore::GgafDxDrawableActor* prm_item) {
+    int index = _lstItems.indexOf(prm_item);
+    if (index == -1) {
+        throwGgafCriticalException("MenuActor<T>::selectItem() その前にメニューアイテムが未登録です name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_item="<<prm_item->getName());
+    }
+    selectByIndex(index);
+    return index;
 }
 
 template<class T>
@@ -823,7 +906,7 @@ void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
     _cursor_move_frames = prm_cursor_move_frames;
     _cursor_move_p1 = prm_cursor_move_p1;
     _cursor_move_p2 = prm_cursor_move_p2;
-    *(_lstMoveHistory.current(0)) = _lstItems.getCurrentIndex();
+    selectByIndex(0);
 }
 
 template<class T>
@@ -837,12 +920,17 @@ int MenuActor<T>::getSelectedIndex() {
 }
 
 template<class T>
-int MenuActor<T>::getSelectedHistoryIndex(int prm_n) {
-    return (*(_lstMoveHistory.getPrev(prm_n)));
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getSelectedItem() {
+    return _lstItems.getCurrent();
 }
 
 template<class T>
-int MenuActor<T>::getDecidedIndex() {
+int MenuActor<T>::getMvCursorHistoryIndex(int prm_n) {
+    return (*(_lstMvCursorHistory.getPrev(prm_n)));
+}
+
+template<class T>
+int MenuActor<T>::getOnDecidedIndex() {
     if (_is_just_decided) {
         return _lstItems.getCurrentIndex();
     } else {
@@ -850,7 +938,16 @@ int MenuActor<T>::getDecidedIndex() {
     }
 }
 template<class T>
-int MenuActor<T>::getCancelledIndex() {
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getOnDecidedItem() {
+    if (_is_just_decided) {
+        return _lstItems.getCurrent();
+    } else {
+        return nullptr;
+    }
+}
+
+template<class T>
+int MenuActor<T>::getOnCancelledIndex() {
     if (_is_just_cancelled) {
         return _lstItems.getCurrentIndex();
     } else {
@@ -859,8 +956,12 @@ int MenuActor<T>::getCancelledIndex() {
 }
 
 template<class T>
-GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getSelectedItem() {
-    return _lstItems.getCurrent();
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getOnCancelledItem() {
+    if (_is_just_cancelled) {
+        return _lstItems.getCurrent();
+    } else {
+        return nullptr;
+    }
 }
 
 template<class T>
@@ -874,25 +975,29 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getDisp(int prm_index) {
 }
 
 template<class T>
-void MenuActor<T>::moveCursorNext() {
+void MenuActor<T>::selectNext() {
     if (_pCursor) {
         _pCursor->locateWith(_lstItems.getCurrent());
     }
     _lstItems.next();
     moveCursor();
+    *(_lstMvSelectHistory.next()) = _lstItems.getCurrentIndex();
+    onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
 }
 
 template<class T>
-void MenuActor<T>::moveCursorPrev() {
+void MenuActor<T>::selectPrev() {
     if (_pCursor) {
         _pCursor->locateWith(_lstItems.getCurrent());
     }
     _lstItems.prev();
     moveCursor();
+    *(_lstMvSelectHistory.next()) = _lstItems.getCurrentIndex();
+    onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
 }
 
 template<class T>
-void MenuActor<T>::moveCursorExNext() {
+void MenuActor<T>::selectExNext() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
         if (_pCursor) {
             _pCursor->locateWith(_lstItems.getCurrent());
@@ -902,10 +1007,12 @@ void MenuActor<T>::moveCursorExNext() {
     } else {
 
     }
+    *(_lstMvSelectHistory.next()) = _lstItems.getCurrentIndex();
+    onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
 }
 
 template<class T>
-void MenuActor<T>::moveCursorExPrev() {
+void MenuActor<T>::selectExPrev() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
         if (_pCursor) {
             _pCursor->locateWith(_lstItems.getCurrent());
@@ -915,10 +1022,12 @@ void MenuActor<T>::moveCursorExPrev() {
     } else {
 
     }
+    *(_lstMvSelectHistory.next()) = _lstItems.getCurrentIndex();
+    onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
 }
 
 template<class T>
-void MenuActor<T>::moveCursorCancel() {
+void MenuActor<T>::selectCancel() {
     if (_lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         if (_pCursor) {
             _pCursor->locateWith(_lstItems.getCurrent());
@@ -928,36 +1037,47 @@ void MenuActor<T>::moveCursorCancel() {
     } else {
 
     }
+    *(_lstMvSelectHistory.next()) = _lstItems.getCurrentIndex();
+    onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
 }
 
 template<class T>
-void MenuActor<T>::moveCursor() {
+void MenuActor<T>::moveCursor(bool prm_smooth) {
     if (_pCursor) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
-        _pCursor->_pKurokoA->setRzRyMvAngTwd(
-                                pTargetItem->_X + _X_cursor_adjust,
-                                pTargetItem->_Y + _Y_cursor_adjust,
-                                pTargetItem->_Z + _Z_cursor_adjust
-                            );
-        _pCursor->_pKurokoA->setMvVelo(0);
-        _pCursor->_pKurokoA->setMvAcce(0);
-        _pCursor->_pKurokoA->execSmoothMvVeloSequence(
-                                 0,
-                                 UTIL::getDistance(
-                                         _pCursor->_X,
-                                         _pCursor->_Y,
-                                         _pCursor->_Z,
-                                         pTargetItem->_X + _X_cursor_adjust,
-                                         pTargetItem->_Y + _Y_cursor_adjust,
-                                         pTargetItem->_Z + _Z_cursor_adjust),
-                                 _cursor_move_frames,
-                                 _cursor_move_p1, _cursor_move_p2
-                             );
-        _X_cursor_target_prev = pTargetItem->_X;
-        _Y_cursor_target_prev = pTargetItem->_Y;
-        _Z_cursor_target_prev = pTargetItem->_Z;
-        *(_lstMoveHistory.next()) = _lstItems.getCurrentIndex();
-        onMoveCursor(*(_lstMoveHistory.getPrev()), *(_lstMoveHistory.getCurrent())); //コールバック
+        if (prm_smooth) {
+            _pCursor->_pKurokoA->setRzRyMvAngTwd(
+                                    pTargetItem->_X + _X_cursor_adjust,
+                                    pTargetItem->_Y + _Y_cursor_adjust,
+                                    pTargetItem->_Z + _Z_cursor_adjust
+                                );
+            _pCursor->_pKurokoA->setMvVelo(0);
+            _pCursor->_pKurokoA->setMvAcce(0);
+            _pCursor->_pKurokoA->execSmoothMvVeloSequence(
+                                     0,
+                                     UTIL::getDistance(
+                                             _pCursor->_X,
+                                             _pCursor->_Y,
+                                             _pCursor->_Z,
+                                             pTargetItem->_X + _X_cursor_adjust,
+                                             pTargetItem->_Y + _Y_cursor_adjust,
+                                             pTargetItem->_Z + _Z_cursor_adjust),
+                                     _cursor_move_frames,
+                                     _cursor_move_p1, _cursor_move_p2
+                                 );
+            _X_cursor_target_prev = pTargetItem->_X;
+            _Y_cursor_target_prev = pTargetItem->_Y;
+            _Z_cursor_target_prev = pTargetItem->_Z;
+        } else {
+            _pCursor->_pKurokoA->stopSmoothMvVeloSequence();
+            _pCursor->_pKurokoA->setMvVelo(0);
+            _pCursor->_pKurokoA->setMvAcce(0);
+            _pCursor->_X = pTargetItem->_X + _X_cursor_adjust;
+            _pCursor->_Y = pTargetItem->_Y + _Y_cursor_adjust;
+            _pCursor->_Z = pTargetItem->_Z + _Z_cursor_adjust;
+        }
+        *(_lstMvCursorHistory.next()) = _lstItems.getCurrentIndex();
+        onMoveCursor(*(_lstMvCursorHistory.getPrev()), *(_lstMvCursorHistory.getCurrent())); //コールバック
     }
 }
 
@@ -1027,16 +1147,16 @@ void MenuActor<T>::processBehavior() {
             _will_be_just_decided_next_frame = true;
         } else if (condCancel()) {
             _will_be_just_cancelled_next_frame = true;
-        } else if (condMoveCursorNext()) {
-            moveCursorNext();
-        } else if (condMoveCursorPrev()) {
-            moveCursorPrev();
-        } else if (condMoveCursorExNext()) {
-            moveCursorExNext();
-        } else if (condMoveCursorExPrev()) {
-            moveCursorExPrev();
-        } else if (condMoveCursorCancel()) {
-            moveCursorCancel();
+        } else if (condSelectNext()) {
+            selectNext();
+        } else if (condSelectPrev()) {
+            selectPrev();
+        } else if (condSelectExNext()) {
+            selectExNext();
+        } else if (condSelectrExPrev()) {
+            selectExPrev();
+        } else if (condSelectCancel()) {
+            selectCancel();
         }
     }
     if (_pCursor) {
@@ -1161,7 +1281,13 @@ MenuActor<T>* MenuActor<T>::getSubMenu(int prm_index) {
 
 template<class T>
 MenuActor<T>* MenuActor<T>::getRisingSubMenu() {
-    return _lstSubMenu.getCurrent();
+    MenuActor<T>* pSub = _lstSubMenu.getCurrent();
+    if (pSub) {
+        if (pSub->isActiveInTheTree()) {
+            return pSub;
+        }
+    }
+    return nullptr;
 }
 
 

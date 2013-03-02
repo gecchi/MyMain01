@@ -56,8 +56,13 @@ MenuBoardSoundConfig::MenuBoardSoundConfig(const char* prm_name) :
     addDisp(pLabel_MasterVol_, PX_C(600), PX_C(100+(2*20)));
 
     LabelMenuTitleFont01* pLabel_Title = NEW LabelMenuTitleFont01("LABEL_TITLE");
-    pLabel_Title->update("SELECT AND PUSH <- OR ->", ALIGN_CENTER, VALIGN_MIDDLE);
+    pLabel_Title->update("[SOUND CONFIG]", ALIGN_CENTER, VALIGN_MIDDLE);
     addDisp(pLabel_Title, PX_C(300), PX_C(40));
+
+    pLabel_Msg_ = NEW LabelGecchi16Font("LABEL_MSG");
+    pLabel_Msg_->update("PRESS <- OR -> TO ADJUST THE VOLUME.", ALIGN_LEFT, VALIGN_MIDDLE);
+    addDisp(pLabel_Msg_, PX_C(300), PX_C(60));
+
 
     //メニューカーソルを設定
     CursorSoundConfigMenu* pCursor = NEW CursorSoundConfigMenu("CursorSoundConfigMenu");
@@ -71,14 +76,14 @@ MenuBoardSoundConfig::MenuBoardSoundConfig(const char* prm_name) :
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
 
 }
-bool MenuBoardSoundConfig::condMoveCursorNext() {
+bool MenuBoardSoundConfig::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
-bool MenuBoardSoundConfig::condMoveCursorPrev() {
+bool MenuBoardSoundConfig::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
 void MenuBoardSoundConfig::onRisen() {
-    setSelectedIndex(ITEM_SE_VOL); //カーソルの初期選択アイテムを設定
+    selectByIndex(ITEM_SE_VOL); //カーソルの初期選択アイテムを設定
     pLabel_SeVol_->update(XTOS(GgafDxSound::_se_volume).c_str());
     pLabel_BgmVol_->update(XTOS(GgafDxSound::_bgm_volume).c_str());
     pLabel_MasterVol_->update(XTOS(GgafDxSound::_master_volume).c_str());

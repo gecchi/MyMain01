@@ -18,35 +18,35 @@ MenuBoardConfirm::MenuBoardConfirm(const char* prm_name) :
 
     LabelGecchi16Font* pLabel_ok = NEW LabelGecchi16Font("itemOK");
     pLabel_ok->update(" O K ", ALIGN_CENTER, VALIGN_MIDDLE);
-    addItem(pLabel_ok, PX_C(100), PX_C(40), -1);
+    addItem(pLabel_ok, PX_C(100), PX_C(40));
     LabelGecchi16Font* pLabel_cancel = NEW LabelGecchi16Font("itemCANCEL");
     pLabel_cancel->update("CANCEL", ALIGN_CENTER, VALIGN_MIDDLE);
-    addItem(pLabel_cancel, PX_C(200), PX_C(40), -1);
+    addItem(pLabel_cancel, PX_C(200), PX_C(40));
 
     LabelGecchi16Font* pLabel_msg = NEW LabelGecchi16Font("message");
     pLabel_msg->update("ARE YOU SURE ?", ALIGN_CENTER, VALIGN_MIDDLE);
-    addDisp(pLabel_msg, PX_C(150), PX_C(20), -1);
+    addDisp(pLabel_msg, PX_C(150), PX_C(20));
     relateAllItemCancel(ITEM_CANCEL);
     CursorConfirmMenu* pCursor = NEW CursorConfirmMenu("CursorConfirmMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
-    setSelectedIndex(ITEM_OK); //初期選択
+    selectByIndex(ITEM_OK); //初期選択
     setTransition(10, -PX_C(100), PX_C(0)); //-100px左から右へスライド
 }
-bool MenuBoardConfirm::condMoveCursorNext() {
+bool MenuBoardConfirm::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_RIGHT);
 }
-bool MenuBoardConfirm::condMoveCursorPrev() {
+bool MenuBoardConfirm::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_LEFT);
 }
-bool MenuBoardConfirm::condMoveCursorExNext() {
+bool MenuBoardConfirm::condSelectExNext() {
     return false;
 }
-bool MenuBoardConfirm::condMoveCursorExPrev() {
+bool MenuBoardConfirm::condSelectrExPrev() {
     return false;
 }
 void MenuBoardConfirm::onRisen() {
-    setSelectedIndex(ITEM_OK); //初期選択をリセット
+    selectByIndex(ITEM_OK); //初期選択をリセット
     MenuBoard::onRisen();
 }
 void MenuBoardConfirm::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {

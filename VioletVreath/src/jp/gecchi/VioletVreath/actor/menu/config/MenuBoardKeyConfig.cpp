@@ -76,15 +76,15 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
                                             //上から下へ少しスライドさせる
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
 }
-bool MenuBoardKeyConfig::condMoveCursorNext() {
+bool MenuBoardKeyConfig::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
-bool MenuBoardKeyConfig::condMoveCursorPrev() {
+bool MenuBoardKeyConfig::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
 void MenuBoardKeyConfig::onRisen() {
 
-    setSelectedIndex(ITEM_MAIN_SHOT); //カーソルの初期選択アイテムを設定
+    selectByIndex(ITEM_MAIN_SHOT); //カーソルの初期選択アイテムを設定
     //リセット
     paVBProperties[ITEM_MAIN_SHOT].pKey->update(PROPERTY::MY_KEY_SHOT1  .c_str());
     paVBProperties[ITEM_SUB_SHOT ].pKey->update(PROPERTY::MY_KEY_SHOT2  .c_str());

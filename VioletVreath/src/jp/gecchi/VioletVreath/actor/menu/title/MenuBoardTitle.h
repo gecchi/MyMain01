@@ -24,12 +24,14 @@ public:
 public:
     MenuBoardTitle(const char* prm_name);
 
-    bool condMoveCursorNext() override;
-    bool condMoveCursorPrev() override;
-    bool condMoveCursorExNext() override;
-    bool condMoveCursorExPrev() override;
+    bool condSelectNext() override;
+    bool condSelectPrev() override;
+    bool condSelectExNext() override;
+    bool condSelectrExPrev() override;
+    void onSelect(int prm_from, int prm_to) override;
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
+
     void processBehavior() override;
 
     virtual ~MenuBoardTitle();

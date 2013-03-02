@@ -43,21 +43,21 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
 
-    setSelectedIndex(ITEM_BACK); //カーソルの初期選択アイテムを設定
+    selectByIndex(ITEM_BACK); //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), +PX_C(100)); //トランジション（表示非表示時の挙動）
 
     addSubMenu(NEW MenuBoardKeyConfig("key_config"));       //0番
     addSubMenu(NEW MenuBoardSoundConfig("sound_config"));   //1番
 }
-bool MenuBoardConfig::condMoveCursorNext() {
+bool MenuBoardConfig::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
-bool MenuBoardConfig::condMoveCursorPrev() {
+bool MenuBoardConfig::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
 
 void MenuBoardConfig::onRisen() {
-    setSelectedIndex(ITEM_KEY_CONFIG); //カーソルの初期選択アイテムを設定
+    selectByIndex(ITEM_KEY_CONFIG); //カーソルの初期選択アイテムを設定
     MenuBoard::onRisen();
 }
 

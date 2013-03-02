@@ -62,7 +62,7 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
 
-    setSelectedIndex(0);          //カーソルの初期選択アイテムを設定
+    selectByIndex(0);          //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジションを上から下へ少しスライド
     relateAllItemCancel(ITEM_INDEX_BS_);       //キャンセル押下時は、[BS]へ移動
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューを生成
@@ -98,32 +98,32 @@ bool MenuBoardNameEntry::condCancel() {
     }
 }
 
-bool MenuBoardNameEntry::condMoveCursorNext() {
+bool MenuBoardNameEntry::condSelectNext() {
     if (getSelectedIndex() == ITEM_INDEX_BS_) {  //BSから先へ進めなくする
         return false;
     } else {
         return VB->isAutoRepeat(VB_UI_RIGHT);
     }
 }
-bool MenuBoardNameEntry::condMoveCursorPrev() {
+bool MenuBoardNameEntry::condSelectPrev() {
     if (getSelectedIndex() == 0) { //先頭文字からさらに戻れなくする
         return false;
     } else {
         return VB->isAutoRepeat(VB_UI_LEFT);
     }
 }
-bool MenuBoardNameEntry::condMoveCursorExNext() {
+bool MenuBoardNameEntry::condSelectExNext() {
     if (getSelectedIndex() == ITEM_INDEX_OK_) { //OKから下へは進めなくする
         return false;
     } else {
         return VB->isAutoRepeat(VB_UI_DOWN);
     }
 }
-bool MenuBoardNameEntry::condMoveCursorExPrev() {
+bool MenuBoardNameEntry::condSelectrExPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
 
-void MenuBoardNameEntry::moveCursorNext() { //右の時
+void MenuBoardNameEntry::selectNext() { //右の時
     if (_pCursor) {
         _pCursor->locateWith(_lstItems.getCurrent());
     }
@@ -135,17 +135,17 @@ void MenuBoardNameEntry::moveCursorNext() { //右の時
     }
     moveCursor();
 }
-void MenuBoardNameEntry::moveCursorPrev() { //左の時
+void MenuBoardNameEntry::selectPrev() { //左の時
     if (_pCursor) {
         _pCursor->locateWith(_lstItems.getCurrent());
     }
     if (getSelectedIndex() == ITEM_INDEX_BS_) { //[BS]から左で戻る場合、
-        int prev_item_index = getSelectedHistoryIndex(1);
+        int prev_item_index = getMvCursorHistoryIndex(1);
         if (prev_item_index < 0) {
-            _lstItems.current(getSelectedHistoryIndex(15));  //"/"
+            _lstItems.current(getMvCursorHistoryIndex(15));  //"/"
         } else {
             //直前の元の選択アイテムに戻す
-            _lstItems.current(getSelectedHistoryIndex(1));
+            _lstItems.current(getMvCursorHistoryIndex(1));
         }
     } else if (getSelectedIndex() == ITEM_INDEX_OK_) { //[OK]から左で戻る場合
         //最下段(4段目)の一番左のアイテム("P")に戻す
@@ -155,7 +155,7 @@ void MenuBoardNameEntry::moveCursorPrev() { //左の時
     }
     moveCursor();
 }
-void MenuBoardNameEntry::moveCursorExNext() { //下の時
+void MenuBoardNameEntry::selectExNext() { //下の時
     if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
         if (_pCursor) {
             _pCursor->locateWith(_lstItems.getCurrent());
@@ -166,13 +166,13 @@ void MenuBoardNameEntry::moveCursorExNext() { //下の時
 
     }
 }
-void MenuBoardNameEntry::moveCursorExPrev() { //上の時
+void MenuBoardNameEntry::selectExPrev() { //上の時
     if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
         if (_pCursor) {
             _pCursor->locateWith(_lstItems.getCurrent());
         }
         if (getSelectedIndex() == ITEM_INDEX_OK_) { //OKから上で戻る場合、
-            int prev_item_index = getSelectedHistoryIndex(1);
+            int prev_item_index = getMvCursorHistoryIndex(1);
             if (prev_item_index < 0) {
                 _lstItems.current((16*3 + 1)-1); //"P"
             } else {

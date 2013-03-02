@@ -21,10 +21,10 @@ public:
 public:
     MenuBoardConfirm(const char* prm_name);
 
-    bool condMoveCursorNext() override;
-    bool condMoveCursorPrev() override;
-    bool condMoveCursorExNext() override;
-    bool condMoveCursorExPrev() override;
+    bool condSelectNext() override;
+    bool condSelectPrev() override;
+    bool condSelectExNext() override;
+    bool condSelectrExPrev() override;
 
     void onRisen() override;
 

@@ -53,19 +53,19 @@ bool MenuBoard::condCancel() {
         return false;
     }
 }
-bool MenuBoard::condMoveCursorNext() {
+bool MenuBoard::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
-bool MenuBoard::condMoveCursorPrev() {
+bool MenuBoard::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
-bool MenuBoard::condMoveCursorExNext() {
+bool MenuBoard::condSelectExNext() {
     return VB->isAutoRepeat(VB_UI_RIGHT);
 }
-bool MenuBoard::condMoveCursorExPrev() {
+bool MenuBoard::condSelectrExPrev() {
     return VB->isAutoRepeat(VB_UI_LEFT);
 }
-bool MenuBoard::condMoveCursorCancel() {
+bool MenuBoard::condSelectCancel() {
     return isJustCancelled();
 }
 
@@ -86,14 +86,18 @@ void MenuBoard::riseSubMenu(int prm_index, coord prm_target_X, coord prm_target_
     StringBoardMenu::riseSubMenu(prm_index);
 }
 
-void MenuBoard::moveCursor() {
-    StringBoardMenu::moveCursor();
-    if (StringBoardMenu::canControll()) {
+void MenuBoard::moveCursor(bool prm_smooth) {
+    StringBoardMenu::moveCursor(prm_smooth);
+    if (prm_smooth) { //スムーズ移動trueすなわち、活動状態。
         _pSeTx->play(SE_MOVE_CURSOR);
     }
 }
 
 void MenuBoard::onMoveCursor(int prm_from, int prm_to) {
+}
+
+
+void MenuBoard::onSelect(int prm_from, int prm_to) {
 }
 
 void MenuBoard::initialize() {
@@ -118,24 +122,6 @@ void MenuBoard::processBehavior() {
     } else {
         //スライド終了時、目的の座標へ補正
         locate(target_X_, target_Y_);
-    }
-
-    //選択アイテムのフェーダー実行
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
-    for (int i = 0; i < _lstItems.length(); i++) {
-        GgafDxAlphaFader* pFader = pElem->_pValue->_pFader;
-        if (getSelectedIndex() == i && canControll()) {
-            if (pFader->isWorking()) {
-                pFader->behave();
-            } else {
-                pFader->beat(20, 10, 0, 0, -1);
-            }
-        } else {
-            if (pFader->isWorking()) {
-                pFader->reset();
-            }
-        }
-        pElem = pElem->_pNext;
     }
 
     _pKurokoA->behave();

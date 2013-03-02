@@ -34,8 +34,8 @@ public:
 public:
     MenuBoardKeyConfig(const char* prm_name);
 
-    bool condMoveCursorNext() override;
-    bool condMoveCursorPrev() override;
+    bool condSelectNext() override;
+    bool condSelectPrev() override;
     void onRisen() override;
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;

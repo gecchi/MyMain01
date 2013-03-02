@@ -241,7 +241,7 @@ void GameScene::processBehavior() {
                     }
                 }
             }
-            if (_pProg->getFrameInProgress() == FADE_FRAMES) {
+            if (_pProg->getFrameInProgress() == FADE_FRAMES+10) {
                 reset(); //リセット（最初の進捗状態に戻る）
             }
             break;

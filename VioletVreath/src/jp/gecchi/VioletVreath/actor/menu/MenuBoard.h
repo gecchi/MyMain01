@@ -5,6 +5,8 @@ namespace VioletVreath {
 
 /**
  * 本アプリのメニューボード標準実装 .
+ * スライドのトランジション実装。
+ * キャンセルの実装。
  * @version 1.00
  * @since 2011/12/26
  * @author Masatoshi Tsuge
@@ -37,13 +39,14 @@ public:
 
     virtual bool condDecision() override;
     virtual bool condCancel() override;
-    virtual bool condMoveCursorNext() override;
-    virtual bool condMoveCursorPrev() override;
-    virtual bool condMoveCursorExNext() override;
-    virtual bool condMoveCursorExPrev() override;
-    virtual bool condMoveCursorCancel() override;
-    virtual void moveCursor() override;
+    virtual bool condSelectNext() override;
+    virtual bool condSelectPrev() override;
+    virtual bool condSelectExNext() override;
+    virtual bool condSelectrExPrev() override;
+    virtual bool condSelectCancel() override;
+    virtual void moveCursor(bool prm_smooth = true) override;
     virtual void onMoveCursor(int prm_from, int prm_to) override;
+    virtual void onSelect(int prm_from, int prm_to) override;
 
     virtual void initialize() override;
 

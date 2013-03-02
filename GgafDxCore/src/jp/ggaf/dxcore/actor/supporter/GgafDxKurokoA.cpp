@@ -873,6 +873,9 @@ void GgafDxKurokoA::execSmoothMvVeloSequenceT(velo prm_top_velo, velo prm_end_ve
 bool GgafDxKurokoA::isRunnigSmoothMvVeloSequence() {
     return _smooth_mv_velo_seq_flg;
 }
+void GgafDxKurokoA::stopSmoothMvVeloSequence() {
+    _smooth_mv_velo_seq_flg = false;
+}
 
 bool GgafDxKurokoA::isJustFinishSmoothMvVeloSequence() {
     if (_smooth_mv_velo_seq_flg == false && _smooth_mv_velo_seq_progress != -1) {

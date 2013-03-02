@@ -96,14 +96,14 @@ void GameTitleScene::processBehavior() {
             }
 
             if (pMenu_->canControll()) {
-                if (pMenu_->getDecidedIndex() == MenuBoardTitle::ITEM_GAME_START) {
+                if (pMenu_->getOnDecidedIndex() == MenuBoardTitle::ITEM_GAME_START) {
                     pMenu_->disableControll(); //“ü—ÍŽó•tI‚í‚è
                     pSeCon_exec_->fetch()->play();
                     _pProg->change(GameTitleScene::PROG_GAMESTART);
                 }
             }
 
-            if (VB->getState() != VB_NEUTRAL_STC || pMenu_->getRisingSubMenu()->isActive()) { //
+            if (VB->getState() != VB_NEUTRAL_STC ) { //
                 frame_of_noinput_ = _pProg->getFrameInProgress();
             }
 

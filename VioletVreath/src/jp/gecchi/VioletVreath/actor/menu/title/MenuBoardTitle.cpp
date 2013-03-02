@@ -35,24 +35,49 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     //スライド表示の設定
     setTransition(10, PX_C(0), +PX_C(100));
     //初期選択
-    setSelectedIndex(ITEM_GAME_START);
+    selectByIndex(ITEM_GAME_START);
     //確認サブメニュー
     addSubMenu(NEW MenuBoardConfirm("confirm")); //0
     //コンフィグサブメニュー
     addSubMenu(NEW MenuBoardConfig("config"));
 }
-bool MenuBoardTitle::condMoveCursorNext() {
+bool MenuBoardTitle::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
-bool MenuBoardTitle::condMoveCursorPrev() {
+bool MenuBoardTitle::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
-bool MenuBoardTitle::condMoveCursorExNext() {
+bool MenuBoardTitle::condSelectExNext() {
     return false;
 }
-bool MenuBoardTitle::condMoveCursorExPrev() {
+bool MenuBoardTitle::condSelectrExPrev() {
     return false;
 }
+
+void MenuBoardTitle::onSelect(int prm_from, int prm_to) {
+    if (prm_from > -1) {
+        getItem(prm_from)->_pFader->reset();
+    }
+    if (prm_to > -1) {
+        getItem(prm_to)->_pFader->beat(20,10,0,0,-1);
+    }
+}
+
+void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+    if (prm_item_index == ITEM_GAME_START) {
+        //GameTitleSceneクラス側でイベント実行
+    } else if (prm_item_index == ITEM_CONFIG) {
+        riseSubMenu(1, PX_C(50), PX_C(50));
+    } else if (prm_item_index == ITEM_DEBUG) {
+        //
+    } else if (prm_item_index == ITEM_QUIT) {
+        //確認メニュー起動
+        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
+    }
+}
+void MenuBoardTitle::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+}
+
 void MenuBoardTitle::processBehavior() {
     MenuBoard::processBehavior();
     int selected = getSelectedIndex();
@@ -70,21 +95,13 @@ void MenuBoardTitle::processBehavior() {
 
     }
 
-}
-void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
-    if (prm_item_index == ITEM_GAME_START) {
-        //GameTitleSceneクラス側でイベント実行
-    } else if (prm_item_index == ITEM_CONFIG) {
-        riseSubMenu(1, PX_C(50), PX_C(50));
-    } else if (prm_item_index == ITEM_DEBUG) {
-        //
-    } else if (prm_item_index == ITEM_QUIT) {
-        //確認メニュー起動
-        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
+    GgafDxDrawableActor* pItem = getSelectedItem();
+    pItem->_pFader->behave();
+    if (getRisingSubMenu()) {
+        pItem->setAlpha(pItem->_pFader->_top_alpha); //点滅を停止
     }
-}
-void MenuBoardTitle::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
-}
 
+
+}
 MenuBoardTitle::~MenuBoardTitle() {
 }

@@ -161,6 +161,8 @@ void World::processBehavior() {
             if (_pProg->getFrameInProgress() == 60) {
                 pLabel_aster_->update("*");
                 pLabel_aster_->sayonara(60);
+                pLabel_resolution1_->sayonara();
+                pLabel_resolution2_->sayonara();
                 _pProg->changeNext(); //メインへループ
             }
             pLabel_aster_->_pFader->behave(); //右上＊チカチカ

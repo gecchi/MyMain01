@@ -27,17 +27,17 @@ public:
     void setNameStringBoard(GgafLib::StringSpriteActor* prm_pInputedName,
                             GgafLib::StringSpriteActor* prm_pSelectedChar);
 
-    bool condMoveCursorNext() override;
-    bool condMoveCursorPrev() override;
-    bool condMoveCursorExNext() override;
-    bool condMoveCursorExPrev() override;
+    bool condSelectNext() override;
+    bool condSelectPrev() override;
+    bool condSelectExNext() override;
+    bool condSelectrExPrev() override;
     bool condDecision() override;
     bool condCancel() override;
 
-    void moveCursorNext() override;
-    void moveCursorPrev() override;
-    void moveCursorExNext() override;
-    void moveCursorExPrev() override;
+    void selectNext() override;
+    void selectPrev() override;
+    void selectExNext() override;
+    void selectExPrev() override;
 
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
