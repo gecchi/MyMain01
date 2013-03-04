@@ -8,10 +8,10 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     _class_name = "Stage01WalledScene";
 
     //********* 壁情報 ***********
-    coord wall_dep    = 400000;  //壁ブロックモデル１個のX軸方向の幅
-    coord wall_width  = 100000;  //壁ブロックモデル１個のZ軸方向の幅
-    coord wall_height = 100000;  //壁ブロックモデル１個のY軸方向の幅
-    float scale_r = 12.0f;       //壁ブロックモデルの元の大きさからの拡大率
+    coord wall_dep    = DX_C(40);  //壁ブロックモデル１個のX軸方向の幅設定（Xファイルにより決まる）
+    coord wall_width  = DX_C(10);  //壁ブロックモデル１個のZ軸方向の幅設定（Xファイルにより決まる）
+    coord wall_height = DX_C(10);  //壁ブロックモデル１個のY軸方向の幅設定（Xファイルにより決まる）
+    float scale_r = 6.0f;        //今回壁ブロックの拡大率（任意）
     //****************************
 
     //壁ブロック(直方体)デポジトリ生成

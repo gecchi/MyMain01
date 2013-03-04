@@ -7,7 +7,6 @@ using namespace VioletVreath;
 MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
         StringBoardMenu(prm_name, prm_model) {
     _class_name = "MenuBoard";
-    menu_fade_frames_ = 0;
     slide_from_offset_X_ = 0;
     slide_from_offset_Y_ = 0;
     target_X_ = _X;
@@ -20,7 +19,6 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
 void MenuBoard::setTransition(frame prm_menu_fade_frames,
                               coord prm_slide_from_offset_X, coord prm_slide_from_offset_Y) {
     setFadeFrames(prm_menu_fade_frames);
-    menu_fade_frames_ = prm_menu_fade_frames;
     slide_from_offset_X_ = prm_slide_from_offset_X;
     slide_from_offset_Y_ = prm_slide_from_offset_Y;
 }
@@ -111,7 +109,7 @@ void MenuBoard::onRisen() {
     _pKurokoA->execSmoothMvVeloSequence(
                     0,
                     UTIL::getDistance(_X, _Y, target_X_, target_Y_),
-                    menu_fade_frames_, 0.2, 0.3
+                    _fade_frames, 0.2, 0.3
                );
     _pSeTx->play(SE_ON_RISEN);
 }
@@ -144,7 +142,7 @@ void MenuBoard::onSunk() {
                         _X, _Y,
                         target_X_+slide_from_offset_X_, target_Y_+slide_from_offset_Y_
                     ),
-                    menu_fade_frames_, 0.2, 0.3
+                    _fade_frames, 0.2, 0.3
                );
 }
 

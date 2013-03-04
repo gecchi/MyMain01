@@ -299,6 +299,10 @@ public:
               frame prm_rest_frames,
               float prm_beat_num);
 
+    bool isWorking(axis prm_axis);
+
+    bool isWorking();
+
     /**
      * 毎フレームの振る舞いメソッド。<BR>
      * 本クラスの機能を利用する場合は、このメソッドを<BR>

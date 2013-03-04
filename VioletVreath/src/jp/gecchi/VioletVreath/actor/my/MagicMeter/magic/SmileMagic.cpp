@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 SmileMagic::SmileMagic(const char* prm_name, AmountGraph* prm_pMP)
     : Magic(prm_name, prm_pMP,
-            5,          //max_level
+            5,                 //max_level
             100       , 1.0,   //基本魔法コスト , 飛びレベル時の rate
             12        , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60        , 0.9,   //基本発動時間   , 飛びレベル時の rate
@@ -60,7 +60,6 @@ void SmileMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int p
 int SmileMagic::effect(int prm_level) {
     int r = Magic::effect(prm_level);
     //ニコニコビーム発射
-    _TRACE_("速攻魔法テスト、LEVEL"<<prm_level<<"のニコニコビーム発射！");
     std::string s = "";
     for (int i = 0; i < prm_level; i++) {
         s += "(^_^)SMILE!\n";

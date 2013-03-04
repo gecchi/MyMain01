@@ -28,7 +28,6 @@ public:
     /** ƒg[ƒ‰ƒX‚Ì”¼Œa2(‘¾‚³‚Ì”¼Œa) */
     coord r2_;
     int colli_part_num_;
-    GgafDxCore::GgafDxCollisionArea* pColliArea_;
 
 public:
     /**

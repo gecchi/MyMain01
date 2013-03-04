@@ -3,6 +3,7 @@
 namespace VioletVreath {
 
 HASHVAL(EVENT_HERMIONE_SAYONARA);
+HASHVAL(EVENT_HERMIONE_ENTRY_DONE);
 
 /**
  * “G‹@ƒwƒ‹ƒ~ƒIƒl  .
@@ -17,7 +18,9 @@ class EnemyHermione :
 
 public:
     enum {
-        PROG_MOVE = 1  ,
+        PROG_INIT = 1,
+        PROG_ENTRY,
+        PROG_MOVE ,
     };
 
     enum {

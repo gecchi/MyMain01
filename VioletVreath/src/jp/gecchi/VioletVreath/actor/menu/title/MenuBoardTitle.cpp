@@ -24,7 +24,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addItem(pLabel, PX_C(100), PX_C(40+(i*18)), -1);
+        addItem(pLabel, PX_C(100), PX_C(40+(i*18)));
     }
     //キャンセル押下時移動先アイテム
     relateAllItemCancel(ITEM_QUIT);
@@ -75,6 +75,7 @@ void MenuBoardTitle::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
     }
 }
+
 void MenuBoardTitle::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
 }
 
@@ -85,7 +86,7 @@ void MenuBoardTitle::processBehavior() {
         //確認メニューの結果の振る舞い実行
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
         if (pSubConfirm->wasDecidedOk()) {
-            PostQuitMessage(0);
+            ::PostQuitMessage(0);
         } else if (pSubConfirm->wasDecidedCancel()) {
             sinkSubMenu();
         } else {
@@ -100,8 +101,6 @@ void MenuBoardTitle::processBehavior() {
     if (getRisingSubMenu()) {
         pItem->setAlpha(pItem->_pFader->_top_alpha); //点滅を停止
     }
-
-
 }
 MenuBoardTitle::~MenuBoardTitle() {
 }

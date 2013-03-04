@@ -8,7 +8,6 @@ using namespace VioletVreath;
 EnemyHermioneArm::EnemyHermioneArm(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "EnemyHermioneArm";
-    _pActor_Base = nullptr;
     aiming_ang_velo_ = 0;
     aiming_movable_limit_ang_ = 0;
 
@@ -22,7 +21,6 @@ void EnemyHermioneArm::initialize() {
 }
 
 void EnemyHermioneArm::onActive() {
-    setHitAble(true);
     _pStatus->reset();
     _pProg->set(PROG_INIT);
 }
@@ -30,9 +28,24 @@ void EnemyHermioneArm::onActive() {
 void EnemyHermioneArm::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
-            _pProg->change(PROG_AIMING);
+            _pProg->change(PROG_WAITING);
             break;
         }
+        case PROG_WAITING: {
+            if (_pProg->hasJustChanged()) {
+                //FK座標反映後にするためにPROG_INITでは不可。１フレーム後のPROG_WAITINGで行う事
+                UTIL::activateEntryEffectOf(this);
+            }
+            break;
+        }
+
+        case PROG_NOTHING: {
+            if (_pProg->getFrameInProgress() == 10) {
+                _pProg->change(PROG_AIMING);
+            }
+            break;
+        }
+
         case PROG_AIMING: {
             if (_pProg->hasJustChanged() ) {
                 //自機へ方向を向ける
@@ -104,12 +117,7 @@ void EnemyHermioneArm::processBehavior() {
             }
             break;
         }
-        case PROG_NOTHING: {
-            if (_pProg->getFrameInProgress() == 10) {
-                _pProg->change(PROG_AIMING);
-            }
-            break;
-        }
+
         default :
             break;
     }
@@ -127,7 +135,9 @@ void EnemyHermioneArm::processBehavior() {
     _pKurokoA->behave();
     changeGeoFinal();
     //_pScaler->behave();
-
+    if (_pActor_Base) {
+        setAlpha(((GgafDxDrawableActor*)_pActor_Base)->getAlpha());
+    }
 }
 
 void EnemyHermioneArm::processJudgement() {
@@ -150,6 +160,12 @@ void EnemyHermioneArm::onCatchEvent(hashval prm_no, void* prm_pSource) {
         UTIL::activateExplosionEffectOf(this);//爆発エフェ
         sayonara();
     }
+    if ( prm_no == EVENT_HERMIONE_ENTRY_DONE) {
+        setHitAble(true);
+        _pProg->change(PROG_AIMING);
+    }
+
+
 }
 
 EnemyHermioneArm::~EnemyHermioneArm() {

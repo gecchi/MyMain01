@@ -11,6 +11,12 @@ namespace VioletVreath {
 class EffectEntry001 : public GgafLib::DefaultMeshSetActor {
 
 public:
+    enum {
+        PROG_INIT = 1,
+        PROG_EXPAND  ,
+        PROG_SHRINK  ,
+    };
+
     EffectEntry001(const char* prm_name);
 
     void initialize() override;

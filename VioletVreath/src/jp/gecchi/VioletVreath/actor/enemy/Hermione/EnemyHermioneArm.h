@@ -12,6 +12,7 @@ class EnemyHermioneArm : public GgafLib::DefaultMeshSetActor {
 public:
     enum {
         PROG_INIT         = 1,
+        PROG_WAITING,
         PROG_NOTHING,
         PROG_AIMING,
     };

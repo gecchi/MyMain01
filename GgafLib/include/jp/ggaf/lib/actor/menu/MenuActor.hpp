@@ -107,8 +107,9 @@ public:
     /** [r]選択したメニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
     GgafCore::GgafLinkedListRing<int> _lstMvSelectHistory;
 
-
-    /** [r/w]メニューフェイドイン・アウト時のアルファ速度 */
+    /** [r]メニューフェイドイン・アウト時のフレーム数 */
+    frame _fade_frames;
+    /** [r]メニューフェイドイン・アウト時のアルファ速度 */
     float _velo_alpha_fade;
     /** [r]カーソルが、メニューアイテム間を移動する際に費やすスフレーム数 */
     int _cursor_move_frames;
@@ -158,11 +159,12 @@ public:
      * @param prm_menu_fade_frames フェードフレーム時間
      */
     virtual void setFadeFrames(frame prm_menu_fade_frames) {
+        _fade_frames = prm_menu_fade_frames;
         _velo_alpha_fade = 1.0 / prm_menu_fade_frames;
     }
 
     /**
-     * 選択可能メニューアイテムを追加する .
+     * 選択可能メニューアイテムを追加し、メニューアイテム間のオーダーも連結追加する .
      * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
      * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。
      * 【注意】<BR>
@@ -175,7 +177,7 @@ public:
     virtual void addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
                          coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
     /**
-     * 選択可能メニューアイテム追加する .
+     * 選択可能メニューアイテム追加し、メニューアイテム間のオーダーも連結追加する .
      * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
      * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。<BR>
      * 【注意】<BR>
@@ -244,10 +246,10 @@ public:
     /**
      * メニューアイテム間のオーダー連結を拡張設定(自身がFrom ⇔ To) .
      * addItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
-     * 次、前、の線形オーダーが構築されている。<BR>
+     * 次、前、の線形オーダーが構築されているが、<BR>
      * このメソッドはそれとは別にアイテム間の「次」、「前」、の関係を追加設定する。<BR>
-     * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作にした場合に
-     * 「↑」「↓」の移動先を設定するといった使用方法を想定。<BR>
+     * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作になっているところに、
+     * さらに「↑」「↓」の移動先を別途設定するといった使用方法を想定。<BR>
      * @param prm_index_of_fromitem 連結元のメニューアイテムのインデックス
      * @param prm_index_of_toitem 連結元のメニューアイテムのインデックスから
      *                            「次」に対応する連結先のメニューアイテムのインデックス
@@ -294,7 +296,7 @@ public:
     /**
      * メニューアイテム間のオーダー連結を拡張設定(From ⇔ 自身がTo) .
      * addItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
-     * 次、前、の線形オーダーが構築されている。<BR>
+     * 次、前、の線形オーダーが構築されているが、<BR>
      * このメソッドはそれとは別にアイテム間の「前」、「次」、の関係を追加設定する。<BR>
      * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作にした場合に
      * 「↑」「↓」の移動先を設定するといった使用方法を想定。<BR>
@@ -685,6 +687,7 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _X_cursor_adjust = 0;
     _Y_cursor_adjust = 0;
     _Z_cursor_adjust = 0;
+    _fade_frames = 0;
     _velo_alpha_fade = 1.0;
     _cursor_move_frames = 10;
     _cursor_move_p1 = 0.2;

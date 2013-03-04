@@ -10,7 +10,6 @@ EnemySylvia::EnemySylvia(const char* prm_name, const char* prm_model, coord prm_
     setCubeMap("BkSky_cubemap.dds", 0.4);
     r1_ = prm_r1;
     r2_ = prm_r2;
-    pColliArea_ = _pColliChecker->_pCollisionArea;
     colli_part_num_ = 16; //ìñÇΩÇËîªíËãÖÇÃêî
     useProgress(PROG_NOTHING);
 }
@@ -100,7 +99,7 @@ void EnemySylvia::processBehavior() {
                 GgafDxCollisionPart* pPart;
                 GgafDxDrawableActor* pE;
                 for (int j = 0; j < colli_part_num_; j++) {
-                    pPart = pColliArea_->_papColliPart[j];
+                    pPart = _pColliChecker->_pCollisionArea->_papColliPart[j];
                     pE = employDelayFromCommon(EffectExplosion004, RND(1,10));
                     if (pE) {
                         pE->locate(_X + pPart->_cx + RND(-r2_, +r2_),
@@ -117,7 +116,7 @@ void EnemySylvia::processBehavior() {
                 GgafDxCollisionPart* pPart;
                 GgafDxDrawableActor* pE;
                 for (int j = 0; j < colli_part_num_; j++) {
-                    pPart = pColliArea_->_papColliPart[j];
+                    pPart = _pColliChecker->_pCollisionArea->_papColliPart[j];
                     pE = employFromCommon(EffectExplosion004);
                     if (pE) {
                         pE->locate(_X + pPart->_cx,

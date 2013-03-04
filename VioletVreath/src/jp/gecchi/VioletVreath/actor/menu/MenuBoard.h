@@ -19,7 +19,6 @@ public:
         SE_MOVE_CURSOR,
         SE_DECIDED_CANCEL,
     };
-    coord menu_fade_frames_;
     coord slide_from_offset_X_;
     coord slide_from_offset_Y_;
     coord target_X_;

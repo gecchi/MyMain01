@@ -28,8 +28,8 @@ void EnemyHermioneArmHead::initialize() {
 void EnemyHermioneArmHead::processBehavior() {
     EnemyHermioneArm::processBehavior();
 
-    //弾発射
-    if (getActivePartFrame() % 10 == 0) { //出現間隔
+    if (getActivePartFrame() % 10 == 0 && 
+        (_pProg->get() == PROG_NOTHING || _pProg->get() == PROG_AIMING)) { //出現間隔
         GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
         if (pActor) {
             //＜現在の最終的な向きを、RzRyで取得する＞

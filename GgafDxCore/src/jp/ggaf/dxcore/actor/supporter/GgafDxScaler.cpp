@@ -219,7 +219,22 @@ void GgafDxScaler::stopImmed() {
 void GgafDxScaler::stopImmed(axis prm_axis) {
     _method[prm_axis] = NOSCALE;
 }
+bool GgafDxScaler::isWorking(axis prm_axis) {
+    if (_method[prm_axis] == NOSCALE) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
+bool GgafDxScaler::isWorking() {
+    for (int a = 0; a < 3; a++) {
+        if (_method[(axis)a] != NOSCALE) {
+            return true;
+        }
+    }
+    return false;
+}
 
 GgafDxScaler::~GgafDxScaler() {
 }

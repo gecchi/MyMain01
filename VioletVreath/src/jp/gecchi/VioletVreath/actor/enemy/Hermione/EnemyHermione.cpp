@@ -35,7 +35,6 @@ EnemyHermione::EnemyHermione(const char* prm_name) :
 
     paArm_ = NEW EnemyHermione::Arm[num_arm_];
     float vx,vy,vz;
-    EnemyHermioneArm* pArmPart;
     for (int arm = 0; arm < num_arm_; arm++) { //腕の本数でループ
         paArm_[arm].pos_Rz_ = pos_rz[arm];
         paArm_[arm].pos_Ry_ = pos_ry[arm];
@@ -91,30 +90,55 @@ void EnemyHermione::initialize() {
 }
 
 void EnemyHermione::onActive() {
-    setHitAble(true);
     _pStatus->reset();
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
-    _pKurokoA->setRzRyMvAng(0, D180ANG);
-    _pKurokoA->setMvVelo(10);
-    _pKurokoA->setFaceAngVelo(20, 67, 99);
-    _pProg->set(PROG_MOVE);
-    setAlpha(0.2);
+
+    _pProg->set(PROG_INIT);
+    setHitAble(false);
 }
 
 void EnemyHermione::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
+        case PROG_INIT: {
+            setAlpha(0);
+            setHitAble(false);
+            _pKurokoA->setMvVelo(0);
+            _pKurokoA->setFaceAngVelo(0, 0, 0);
+
+            UTIL::activateEntryEffectOf(this);
+            _pProg->changeNext();
+            break;
+        }
+
+        case PROG_ENTRY: {
+            if (_pProg->getFrameInProgress() == 120) {
+                _pFader->intoTargetAlphaLinerStep(1.0, 0.01);
+            }
+            if (getAlpha() > 0.9) {
+                setHitAble(true);
+                throwEventLowerTree(EVENT_HERMIONE_ENTRY_DONE);
+
+                _pProg->changeNext();
+            }
+            break;
+        }
+
         case PROG_MOVE: {
+            if (_pProg->hasJustChanged()) {
+                _pKurokoA->setMvVelo(100);
+                _pKurokoA->setFaceAngVelo(20, 67, 99);
+                _pKurokoA->setRzRyMvAngTwd(P_MYSHIP);
+            }
             break;
         }
 
         default:
             break;
     }
-
-
+    _pFader->behave();
     _pKurokoA->behave();
     _pMorpher->behave();
     _pSeTx->behave();
