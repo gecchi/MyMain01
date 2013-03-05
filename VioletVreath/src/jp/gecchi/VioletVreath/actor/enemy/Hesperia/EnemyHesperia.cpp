@@ -76,7 +76,7 @@ void EnemyHesperia::processBehavior() {
                 _pFader->setAlpha(0);
                 _pFader->intoTargetAlphaLinerUntil(0.98, 20);
             }
-            if (_pFader->isWorking()) {
+            if (_pFader->isHaveingEffect()) {
                 _pFader->behave();
             } else {
                 setHitAble(true);

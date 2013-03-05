@@ -27,7 +27,6 @@ class GgafDxScaler : public GgafCore::GgafObject {
 public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** [r]対象アクター */
     GgafDxGeometricActor* _pActor;
-
     /** [r/w]各軸のスケール(1000 で 1倍) */
     int _scale[3]; //[0]:X軸、[1]:Y軸、[2]:Z軸。以降同様に  [3]・・・X軸、Y軸、Z軸の意
     /** [r/w]各軸の目標のスケール */
@@ -46,7 +45,6 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     int _stop_one_way_num[3];
     /** [r]各軸のスケーリング方法 */
     GgafDxScalingMethod _method[3];
-
     /** [r]ビート時、各軸の三角波の波形でスケーリングのアタックフレーム数 */
     frame _beat_attack_frames[3];
     /** [r]ビート時、各軸の三角波の波形でスケーリングのレストフレーム数 */
@@ -76,6 +74,7 @@ public:
             addScale((axis)a, prm_scale_diff);
         }
     }
+
     /**
      * スケールを相対指定（軸単位で指定）
      * @param prm_axis 軸
@@ -101,8 +100,6 @@ public:
      * @param prm_scale スケール値
      */
     void setScale(axis prm_axis, int prm_scale) {
-        //_TRACE_("setScale ["<<prm_axis<<"]prm_scale="<<prm_scale);
-        //_TRACE_("setScale _bottom_scale["<<prm_axis<<"]="<<_bottom_scale[prm_axis]<<"/_top_scale["<<prm_axis<<"]="<<_top_scale[prm_axis]<<"");
         if (_top_scale[prm_axis] < prm_scale) {
             _scale[prm_axis] = _top_scale[prm_axis];
         } else if (_bottom_scale[prm_axis] > prm_scale) {
@@ -110,8 +107,8 @@ public:
         } else {
             _scale[prm_axis] = prm_scale;
         }
-        //_TRACE_("setScale _scale ["<<prm_axis<<"] _scale[prm_axis]="<<prm_scale);
     }
+
     /**
      * スケールの上限下限を設定（全軸指定） .
      * 引数の大小は気にせず渡して(内部で自動判別)
@@ -124,6 +121,7 @@ public:
             setScale((axis)a, _scale[a]);
         }
     }
+
     /**
      * スケールの上限下限を設定（軸単位で指定）
      * @param prm_axis 軸
@@ -138,8 +136,8 @@ public:
             _bottom_scale[prm_axis] = prm_scale2;
             _top_scale[prm_axis] = prm_scale1;
         }
-        //_TRACE_("forceScaleRange _bottom_scale["<<prm_axis<<"]="<<_bottom_scale[prm_axis]<<"/_top_scale["<<prm_axis<<"]="<<_top_scale[prm_axis]<<"");
     }
+
     /**
      * スケールをリセット （全軸指定） .
      * 本オブジェクト(GgafDxScaler)によって変化さえる前の
@@ -150,6 +148,7 @@ public:
             setScaleToBottom((axis)a);
         }
     }
+
     /**
      * スケールをリセット （軸単位で指定）
      * 本オブジェクト(GgafDxScaler)によって変化さえる前の
@@ -173,6 +172,7 @@ public:
      * スケーリングを停止させる。 （全軸指定） .
      */
     void stopImmed();
+
     /**
      * スケーリングを停止させる。 （軸単位で指定）.
      * @param prm_axis
@@ -285,6 +285,7 @@ public:
               frame prm_attack_frames,
               frame prm_rest_frames,
               float prm_beat_num);
+
     /**
      * 三角波の波形でスケーリングする。（軸指定）.
      * @param prm_axis 軸
@@ -299,9 +300,18 @@ public:
               frame prm_rest_frames,
               float prm_beat_num);
 
-    bool isWorking(axis prm_axis);
+    /**
+     * スケーリング中かどうか調べる .
+     * @param prm_axis 軸
+     * @return true/false
+     */
+    bool isHaveingEffect(axis prm_axis);
 
-    bool isWorking();
+    /**
+     * スケーリング中かどうか調べる .
+     * @return true/false
+     */
+    bool isHaveingEffect();
 
     /**
      * 毎フレームの振る舞いメソッド。<BR>

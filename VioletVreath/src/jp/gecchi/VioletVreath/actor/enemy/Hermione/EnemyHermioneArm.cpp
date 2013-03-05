@@ -33,7 +33,8 @@ void EnemyHermioneArm::processBehavior() {
         }
         case PROG_WAITING: {
             if (_pProg->hasJustChanged()) {
-                //FK座標反映後にするためにPROG_INITでは不可。１フレーム後のPROG_WAITINGで行う事
+                //本体からFKとして追加された直後は、一度processSettlementBehavior()が実行されないと
+                //座標反映されない、したがって。１フレーム後のPROG_WAITINGでエントリエフェ実行行う事
                 UTIL::activateEntryEffectOf(this);
             }
             break;
@@ -162,7 +163,7 @@ void EnemyHermioneArm::onCatchEvent(hashval prm_no, void* prm_pSource) {
     }
     if ( prm_no == EVENT_HERMIONE_ENTRY_DONE) {
         setHitAble(true);
-        _pProg->change(PROG_AIMING);
+        _pProg->change(PROG_NOTHING);
     }
 
 

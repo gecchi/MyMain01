@@ -135,15 +135,15 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
             pE = nullptr; //爆発エフェクト無し
             break;
         }
-        case 1: {
+        case EF_EXPLOSION001: {
             pE = employFromCommon(EffectExplosion001);
             break;
         }
-        case 2: {
+        case EF_EXPLOSION002: {
             pE = employFromCommon(EffectExplosion002);
             break;
         }
-        case 3: {
+        case EF_EXPLOSION003: {
             pE = employFromCommon(EffectExplosion003);
             break;
         }
@@ -169,11 +169,11 @@ GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor)
             pI = nullptr; //アイテム無し
             break;
         }
-        case 1: {
+        case ITEM_MP_SMALL: {
             pI = employFromCommon(MagicPointItem001);
             break;
         }
-        case 2: {
+        case ITEM_MP_MIDDLE: {
             pI = employFromCommon(MagicPointItem002);
             break;
         }
@@ -197,7 +197,7 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
             pE = nullptr; //爆発エフェクト無し
             break;
         }
-        case 1: {
+        case EF_BONUS001: {
             //スコアが表示される消滅エフェクト
             SpriteLabelBonus001* pLabel = employForceFromCommon(SpriteLabelBonus001);
             pLabel->locateWith(prm_pActor);
@@ -229,16 +229,12 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
             pE = nullptr; //入場エフェクト無し
             break;
         }
-        case 1: {
+        case EF_ENTRY_SMALL001: {
             pE = employFromCommon(EffectEntry001);
             break;
         }
-        case 2: {
+        case EF_ENTRY_MIDDLE001: {
             pE = employFromCommon(EffectEntry002);
-            break;
-        }
-        case 3: {
-            pE = employFromCommon(EffectEntry003);
             break;
         }
         default: {
@@ -287,7 +283,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
             pE = nullptr; //エフェクト無し
             break;
         }
-        case 1: {
+        case EF_EXPLO_AND_BONUS001: {
             //1は通常のフォーメーションボーナススコア表示エフェクト
             SpriteLabelBonus001* pLabel = employForceFromCommon(SpriteLabelBonus001);
             pLabel->locateWith(prm_pActor);
@@ -295,6 +291,10 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
             std::string s = XTOS(addscore);
             pLabel->update(s.c_str());
             pE = pLabel;
+
+            EffectTurbo002* pTurbo002 = employForceFromCommon(EffectTurbo002);
+            pTurbo002->locateWith(prm_pActor);
+            pTurbo002->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
             break;
         }
 //            case 2: {
@@ -327,11 +327,11 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
             pI = nullptr; //アイテム無し
             break;
         }
-        case 1: {
+        case ITEM_MP_SMALL: {
             pI = employFromCommon(MagicPointItem001);
             break;
         }
-        case 2: {
+        case ITEM_MP_MIDDLE: {
             pI = employFromCommon(MagicPointItem002);
             break;
         }
@@ -355,7 +355,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
             pE = nullptr; //エフェクト無し
             break;
         }
-        case 1: {
+        case EF_TURBO: {
             //ターボエフェクト
             pE = employFromCommon(EffectTurbo002);
             break;
@@ -390,11 +390,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -413,11 +413,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -436,11 +436,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -459,11 +459,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -482,11 +482,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -505,15 +505,15 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
-		p->set(STAT_ProperEffect01Kind, 1 );  //その他固有エフェクト０１
+		p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyStraightLaserChip001Status(GgafStatus* p) {
@@ -528,11 +528,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -551,11 +551,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -574,14 +574,14 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-		p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
-		p->set(STAT_FormationDestroyedItemKind, 2 );  //編隊全滅時アイテム種別
+		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
 		return p;
 	}
@@ -597,11 +597,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -620,11 +620,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -643,11 +643,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -666,11 +666,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -689,11 +689,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -712,11 +712,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -735,11 +735,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -758,11 +758,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -781,11 +781,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -804,11 +804,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -827,14 +827,14 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 200 );  //編隊全滅時加算得点
-		p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
-		p->set(STAT_FormationDestroyedItemKind, 2 );  //編隊全滅時アイテム種別
+		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
 		return p;
 	}
@@ -850,11 +850,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -873,11 +873,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -896,11 +896,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -919,11 +919,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -942,11 +942,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -965,11 +965,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -988,11 +988,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1011,11 +1011,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1034,11 +1034,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 9999999 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1057,11 +1057,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 9999999 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1080,11 +1080,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 9999999 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1103,14 +1103,14 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-		p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
-		p->set(STAT_FormationDestroyedItemKind, 2 );  //編隊全滅時アイテム種別
+		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
 		return p;
 	}
@@ -1126,14 +1126,14 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-		p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
-		p->set(STAT_FormationDestroyedItemKind, 2 );  //編隊全滅時アイテム種別
+		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
 		return p;
 	}
@@ -1149,11 +1149,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1172,11 +1172,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1195,11 +1195,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1218,11 +1218,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1241,11 +1241,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1264,11 +1264,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1287,11 +1287,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1310,11 +1310,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1333,11 +1333,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1356,11 +1356,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1379,14 +1379,14 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
-		p->set(STAT_FormationDestroyedEffectKind, 1 );  //編隊全滅時エフェクト
-		p->set(STAT_FormationDestroyedItemKind, 2 );  //編隊全滅時アイテム種別
+		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
 		return p;
 	}
@@ -1402,11 +1402,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1425,11 +1425,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1448,11 +1448,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1471,11 +1471,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1494,11 +1494,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1517,11 +1517,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1540,11 +1540,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1563,11 +1563,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 2 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION002);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1586,11 +1586,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1609,11 +1609,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1632,11 +1632,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1655,11 +1655,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1678,11 +1678,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1701,11 +1701,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1724,11 +1724,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1747,11 +1747,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1770,11 +1770,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1793,11 +1793,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_DestroyedEffectKind, 1 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+		p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1816,11 +1816,11 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
@@ -1839,15 +1839,15 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
-		p->set(STAT_DestroyedEffectKind, 1 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+		p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
-		p->set(STAT_ProperEffect01Kind, 1 );  //その他固有エフェクト０１
+		p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHermioneArmHeadStatus(GgafStatus* p) {
@@ -1862,15 +1862,15 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001);  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
-		p->set(STAT_ProperEffect01Kind, 1 );  //その他固有エフェクト０１
+		p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHermioneArmBodyStatus(GgafStatus* p) {
@@ -1885,15 +1885,15 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001);  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
-		p->set(STAT_ProperEffect01Kind, 1 );  //その他固有エフェクト０１
+		p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHermioneArmWeakStatus(GgafStatus* p) {
@@ -1908,15 +1908,15 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, 1 );  //出現エフェクト種別
+		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001);  //出現エフェクト種別
 		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
-		p->set(STAT_ExplosionEffectKind, 1 );  //爆発エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
-		p->set(STAT_ItemKind, 1 );  //やられアイテム種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
 		p->set(STAT_FormationDestroyedAddScorePoint, 0 );  //編隊全滅時加算得点
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
-		p->set(STAT_ProperEffect01Kind, 1 );  //その他固有エフェクト０１
+		p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
 		return p;
 	}
 // gen02 end

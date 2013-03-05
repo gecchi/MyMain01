@@ -71,6 +71,7 @@ public:
     /**
      * ボリュームを変更 .
      * play()実行後、SEが再生中に使用することを想定 .
+     * GGAF_MAX_VOLUME(100)を設定すると GgafDxSound::_se_volume の音量となる。
      * @param prm_volume ボリューム(min:0 ～ max:100)
      */
     void setVolume(int prm_volume);

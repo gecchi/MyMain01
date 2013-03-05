@@ -94,7 +94,7 @@ void EnemyAstraea::processBehavior() {
                 _pFader->intoTargetAlphaLinerUntil(0.98, 20);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
             }
-            if (_pFader->isWorking()) {
+            if (_pFader->isHaveingEffect()) {
                 _pFader->behave();
             } else {
                 setHitAble(true);

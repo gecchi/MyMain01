@@ -14,14 +14,13 @@ EffectEntry001::EffectEntry001(const char* prm_name) :
 }
 
 void EffectEntry001::initialize() {
-    _pScaler->forceScaleRange(R_SC(0.0), R_SC(1.0));
     useProgress(4);
 }
 
 void EffectEntry001::onActive() {
     setHitAble(false);
 
-    _pScaler->forceScaleRange(1, 5000);
+    _pScaler->forceScaleRange(1, 10000);
     _pScaler->setScaleToBottom();
 
     _pFader->forceAlphaRange(0, 0.99);
@@ -34,13 +33,13 @@ void EffectEntry001::onActive() {
 void EffectEntry001::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
-            _pScaler->intoTargetScaleAcceStep(10000,1,10);
+            _pScaler->intoTargetScaleAcceStep(10000,1,2);
             _pProg->changeNext();
             break;
         }
 
         case PROG_EXPAND: {
-            if (_pScaler->isWorking() == false) {
+            if (_pScaler->isHaveingEffect() == false) {
                 _pFader->intoTargetAlphaLinerUntil(0, 120);
                 _pProg->changeNext();
             }
@@ -48,7 +47,7 @@ void EffectEntry001::processBehavior() {
         }
 
         case PROG_SHRINK: {
-            if (_pFader->isWorking() == false) {
+            if (_pFader->isHaveingEffect() == false) {
                 sayonara();
             }
             break;

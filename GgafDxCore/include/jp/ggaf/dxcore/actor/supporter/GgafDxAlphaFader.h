@@ -134,7 +134,7 @@ public:
      * 現在フェーディング中かどうか .
      * @return
      */
-    bool isWorking() {
+    bool isHaveingEffect() {
         if (_method == NO_ALPHAFADE) {
             return false;
         } else {

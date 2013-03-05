@@ -8,11 +8,31 @@
 
 #define STATUS(X) (NEW GgafCore::GgafStatus(STAT_Sentry+1, VioletVreath::MyStgUtil::reset##X##Status))
 
+
+
 namespace VioletVreath {
+
+
 
 class MyStgUtil : public GgafLib::StgUtil {
 public:
+    enum EffectKind {
+        EF_NOTHING,
+        EF_ENTRY_SMALL001,
+        EF_ENTRY_MIDDLE001,
+        EF_ENTRY003,
+        EF_EXPLOSION001 ,
+        EF_EXPLOSION002,
+        EF_EXPLOSION003,
+        EF_BONUS001,
+        EF_EXPLO_AND_BONUS001,
+        EF_TURBO,
+    };
 
+    enum ItemKind {
+        ITEM_MP_SMALL = 1,
+        ITEM_MP_MIDDLE,
+    };
 
     /**
      * é©ã@ë§ÇÃóDà ê´Çí≤Ç◊ÇÈ

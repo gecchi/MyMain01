@@ -84,7 +84,6 @@ void EnemyHermione::onCreateModel() {
 }
 
 void EnemyHermione::initialize() {
-    _pKurokoA->relateFaceAngWithMvAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 90000);
 }
@@ -103,11 +102,9 @@ void EnemyHermione::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
         case PROG_INIT: {
-            setAlpha(0);
             setHitAble(false);
+            _pFader->setAlpha(0);
             _pKurokoA->setMvVelo(0);
-            _pKurokoA->setFaceAngVelo(0, 0, 0);
-
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
@@ -120,7 +117,6 @@ void EnemyHermione::processBehavior() {
             if (getAlpha() > 0.9) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_HERMIONE_ENTRY_DONE);
-
                 _pProg->changeNext();
             }
             break;
@@ -128,7 +124,7 @@ void EnemyHermione::processBehavior() {
 
         case PROG_MOVE: {
             if (_pProg->hasJustChanged()) {
-                _pKurokoA->setMvVelo(100);
+                _pKurokoA->setMvVelo(1000);
                 _pKurokoA->setFaceAngVelo(20, 67, 99);
                 _pKurokoA->setRzRyMvAngTwd(P_MYSHIP);
             }

@@ -26,8 +26,12 @@ GgafDxAlphaFader::GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor) :
 
 void GgafDxAlphaFader::behave() {
     if (_method == NO_ALPHAFADE) {
+        _pActor->setAlpha(_alpha);
         return;
-    } else if (_method == TARGET_ALPHAFADE_LINER) {
+    }
+
+
+    if (_method == TARGET_ALPHAFADE_LINER) {
         _alpha += _velo_alpha;
         if (_velo_alpha > 0 && _target_alpha <= _alpha) {
             _alpha = _target_alpha;

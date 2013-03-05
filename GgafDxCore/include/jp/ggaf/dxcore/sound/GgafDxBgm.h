@@ -70,6 +70,7 @@ public:
     virtual void stop();
     /**
      * BGM‚Ìƒ{ƒŠƒ…[ƒ€İ’è .
+     * GGAF_MAX_VOLUME(100)‚ğİ’è‚·‚é‚Æ GgafDxSound::_bgm_volume ‚Ì‰¹—Ê‚Æ‚È‚éB
      * @param volume 0`100
      */
     virtual void setVolume(int volume);

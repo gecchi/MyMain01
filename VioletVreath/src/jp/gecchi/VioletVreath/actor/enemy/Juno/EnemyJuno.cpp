@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyJuno::EnemyJuno(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Pallas", STATUS(EnemyJuno)) {
+        DefaultMeshSetActor(prm_name, "Juno", STATUS(EnemyJuno)) {
     _class_name = "EnemyJuno";
     pDepo_ShotEffect_ = nullptr;
     pDepo_Shot_ = nullptr;
