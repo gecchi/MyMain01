@@ -71,7 +71,7 @@ void EnemySylviaEye::processBehavior() {
             break;
         }
         case PROG_OPEN: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(1, 1.0, 180); //ŠJ‚­
             }
             if (_pProg->getFrameInProgress() > 240) {
@@ -84,7 +84,7 @@ void EnemySylviaEye::processBehavior() {
         }
 
         case PROG_TURN: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (_pProg->getFrameInProgress() > 240) {
@@ -94,7 +94,7 @@ void EnemySylviaEye::processBehavior() {
         }
 
         case PROG_FIRE_BEGIN: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 //_pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
@@ -105,7 +105,7 @@ void EnemySylviaEye::processBehavior() {
             break;
         }
         case PROG_IN_FIRE: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP, 10, 0, TURN_CLOSE_TO, false);
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();
@@ -119,7 +119,7 @@ void EnemySylviaEye::processBehavior() {
             break;
         }
         case PROG_FIRE_END: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(1, 0.0, 180); //•Â‚¶‚é
                 _pKurokoA->setRzMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z]);
                 _pKurokoA->setRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);

@@ -82,9 +82,9 @@ bool MenuBoardKeyConfig::condSelectNext() {
 bool MenuBoardKeyConfig::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
-void MenuBoardKeyConfig::onRisen() {
+void MenuBoardKeyConfig::onRise() {
 
-    selectByIndex(ITEM_MAIN_SHOT); //カーソルの初期選択アイテムを設定
+    selectItem(ITEM_MAIN_SHOT); //カーソルの初期選択アイテムを設定
     //リセット
     paVBProperties[ITEM_MAIN_SHOT].pKey->update(PROPERTY::MY_KEY_SHOT1  .c_str());
     paVBProperties[ITEM_SUB_SHOT ].pKey->update(PROPERTY::MY_KEY_SHOT2  .c_str());
@@ -102,14 +102,14 @@ void MenuBoardKeyConfig::onRisen() {
     paVBProperties[ITEM_VAM      ].pJoy->update(PROPERTY::MY_JOY_VIEW   .c_str());
     paVBProperties[ITEM_PAUSE    ].pJoy->update(PROPERTY::MY_JOY_PAUSE  .c_str());
 
-    MenuBoard::onRisen();
+    MenuBoard::onRise();
 }
 void MenuBoardKeyConfig::processBehavior() {
     MenuBoard::processBehavior();
 
     //サブメニュー判定
     MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
-    if (pSubConfirm->wasDecidedOk()) {
+    if (pSubConfirm->isJustDecidedOk()) {
         //現プロパティをファイルに保存
         PROPERTY::setValue("MY_KEY_SHOT1"   , paVBProperties[ITEM_MAIN_SHOT].pKey->_draw_string);
         PROPERTY::setValue("MY_KEY_SHOT2"   , paVBProperties[ITEM_SUB_SHOT ].pKey->_draw_string);
@@ -133,7 +133,7 @@ void MenuBoardKeyConfig::processBehavior() {
 
         sinkSubMenu(); //確認メニュー閉じる
         sink();        //自身メニュー閉じる
-    } else if (pSubConfirm->wasDecidedCancel()) {
+    } else if (pSubConfirm->isJustDecidedCancel()) {
         sinkSubMenu();
     } else {
 

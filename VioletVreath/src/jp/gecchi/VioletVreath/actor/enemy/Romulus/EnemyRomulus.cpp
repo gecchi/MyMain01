@@ -107,7 +107,7 @@ void EnemyRomulus::processBehavior() {
             break;
         }
         case PROG_HATCH_CLOSE: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 0.0f, frame_of_morph_interval_);
                 _pKurokoA->setFaceAngVelo(AXIS_X, -3000);
@@ -120,7 +120,7 @@ void EnemyRomulus::processBehavior() {
             break;
         }
         case PROG_HATCH_OPEN: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 1.0f, frame_of_morph_interval_);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 0);

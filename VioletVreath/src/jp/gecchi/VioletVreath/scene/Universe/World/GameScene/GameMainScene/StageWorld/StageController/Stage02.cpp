@@ -49,7 +49,7 @@ void Stage02::processBehavior() {
     }
 
     if (_pProg->get() == Stage::PROG_END) {
-        if (_pProg->hasJustChanged()) {
+        if (_pProg->isJustChanged()) {
             _TRACE_("Stage01::processBehavior()  Stage::PROG_ENDになりますた！");
             throwEventUpperTree(EVENT_PREPARE_TRANSIT_STAGE); //通過ステージ準備へ
         }

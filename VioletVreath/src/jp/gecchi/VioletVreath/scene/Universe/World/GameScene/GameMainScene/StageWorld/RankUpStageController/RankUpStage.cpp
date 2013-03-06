@@ -45,7 +45,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case RankUpStage::PROG_BEGIN: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
                 pMessage1_->update("RANKUPSTAGE::PROG_BEGIN");
                 pMessage1_->_pFader->beat(120,30,30,30,-1);
@@ -58,7 +58,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case RankUpStage::PROG_PLAYING: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 pMessage1_->update("RANKUPSTAGE::PROG_PLAYING");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
             }
@@ -76,7 +76,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case RankUpStage::PROG_RESULT: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 pMessage1_->update("RANKUPSTAGE::PROG_RESULT");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_RESULT !");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] Œ‹‰Ê hit_enemy_num_="<<hit_enemy_num_<<" all_hit_num_="<<all_hit_num_);
@@ -94,7 +94,7 @@ void RankUpStage::processBehavior() {
             break;
         }
         case RankUpStage::PROG_END: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_END‚É‚È‚è‚Ü‚·‚½I");
                 pMessage1_->update("RANKUPSTAGE::PROG_END");
                 throwEventUpperTree(EVENT_RANKUP_WAS_END);
@@ -116,8 +116,8 @@ void RankUpStage::processBehavior() {
 void RankUpStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
-void RankUpStage::onEnded() {
-    _TRACE_("RankUpStage::onEnded() ["<<getName()<<"] throwEventUpperTree EVENT_RANKUP_ON_GARBAGEDI");
+void RankUpStage::onEnd() {
+    _TRACE_("RankUpStage::onEnd() ["<<getName()<<"] throwEventUpperTree EVENT_RANKUP_ON_GARBAGEDI");
     throwEventUpperTree(EVENT_RANKUP_ON_GARBAGED);
 
 }

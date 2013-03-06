@@ -63,7 +63,7 @@ void Stage02PartController::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_FAINAL: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 //STG01Climax_Ià‚Ìˆ—
                 _TRACE_("Stage02PartController::PROG_FAINAL‚«‚½");
             }

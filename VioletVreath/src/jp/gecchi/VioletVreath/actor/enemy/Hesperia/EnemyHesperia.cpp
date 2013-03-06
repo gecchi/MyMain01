@@ -71,7 +71,7 @@ void EnemyHesperia::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
     switch (_pProg->get()) {
         case PROG_ENTRY: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
                 _pFader->setAlpha(0);
                 _pFader->intoTargetAlphaLinerUntil(0.98, 20);
@@ -85,7 +85,7 @@ void EnemyHesperia::processBehavior() {
             break;
         }
         case PROG_MOVE: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
 
             }
             if (_pProg->getFrameInProgress() == 100) {
@@ -95,7 +95,7 @@ void EnemyHesperia::processBehavior() {
         }
 
         case PROG_HATCH_OPEN: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pSeTx->play3D(SE_HATCH_OPEN);
                 _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
             }
@@ -106,7 +106,7 @@ void EnemyHesperia::processBehavior() {
         }
 
         case PROG_FIRE: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 //レーザーセット（レーザーチップのデポジトリで、１本分のレーザー）のデポジトリから、
                 //レーザーセットの借入を試みる
                 now_laser_way_ = RR_EnemyHesperia_ShotWay(_RANK_); //今回発射レーザー本数
@@ -283,7 +283,7 @@ void EnemyHesperia::processBehavior() {
         }
 
         case PROG_HATCH_CLOSE: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pSeTx->play3D(SE_HATCH_CLOSE);
                 _pMorpher->intoTargetLinerUntil(1, 0.0, 120);
             }

@@ -40,7 +40,7 @@ public:
 
 //    virtual void processOnActiveMassalia(EnemyMassalia* pEnemyMassalia, int col) = 0;
 
-    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
+    virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
 

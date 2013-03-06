@@ -71,7 +71,7 @@ void EnemyEunomia::processBehavior() {
             break;
         }
         case PROG_MOVE01_1: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 //自機へ方向転換
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
                                                  2000, 0,
@@ -111,7 +111,7 @@ void EnemyEunomia::processBehavior() {
 //
 //
 //    //【パターン1：スプライン移動】
-//    if (_pProg->hasJustChangedTo(1)) {
+//    if (_pProg->isJustChangedTo(1)) {
 //        pSplSeq_->exec(SplineSequence::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
 //    }
 //    if (_pProg->get() == 1) {

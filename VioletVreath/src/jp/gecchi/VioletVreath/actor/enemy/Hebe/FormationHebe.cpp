@@ -45,7 +45,7 @@ void FormationHebe::processBehavior() {
     }
 }
 
-void FormationHebe::onDestroyedAll(GgafActor* prm_pActor_last_destroyed) {
+void FormationHebe::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     GgafDxGeometricActor* pActor_last_destroyed = (GgafDxGeometricActor*)prm_pActor_last_destroyed;
     //編隊全滅時エフェクト出現（スコア加算も行われる）
     UTIL::activateFormationDestroyedEffectOf(pActor_last_destroyed);

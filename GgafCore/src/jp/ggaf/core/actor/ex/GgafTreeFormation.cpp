@@ -43,8 +43,8 @@ void GgafTreeFormation::processFinal() {
     }
 
 }
-void GgafTreeFormation::onEnded() {
-    GgafFormation::onEnded();
+void GgafTreeFormation::onEnd() {
+    GgafFormation::onEnd();
 }
 
 

@@ -46,7 +46,7 @@ void TransitStage::processBehavior() {
             break;
         }
         case Stage::PROG_BEGIN: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("TransitStage::processBehavior() Prog has Just Changed (to Stage::PROG_BEGIN)");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→?");
             }
@@ -57,7 +57,7 @@ void TransitStage::processBehavior() {
             break;
         }
         case Stage::PROG_PLAYING: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("TransitStage::processBehavior() Prog has Just Changed (to Stage::PROG_PLAYING)");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→?");
             }
@@ -72,7 +72,7 @@ void TransitStage::processBehavior() {
         }
 
         case Stage::PROG_END: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("TransitStage::processBehavior() Prog has Just Changed (to Stage::PROG_END)");
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                 throwEventUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)(&next_main_stage_)); //次ステージ準備へ

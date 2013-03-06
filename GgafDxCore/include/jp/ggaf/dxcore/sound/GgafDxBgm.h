@@ -37,16 +37,24 @@ public:
 
     /**
      * BGM再生 .
+     * ボリュームについて、内部でマスタボリュームの考慮が処理される。
+     * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
+     * ボリュームを100で設定する事。
      * @param prm_volume 0～100
      * @param prm_pan 左 -1.0 ～ 0 ～ 1.0 右
      * @param prm_is_looping true:ループ再生
      */
     virtual void play(int prm_volume, float prm_pan, bool prm_is_looping);
+
     /**
      * BGM再生 .
+     * ボリュームについて、内部でマスタボリュームの考慮が処理される。
+     * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
+     * ボリュームを100で設定する事。
      * @param prm_is_looping true:ループ再生
      */
     virtual void play(bool prm_is_looping);
+
     /**
      * 一時停止する .
      * 再生中に pause() すると、サウンドバッファが停止されるが、
@@ -55,6 +63,7 @@ public:
      * 停止中に pause() しても何も処理されない。<BR>
      */
     virtual void pause();
+
     /**
      * 一時停止を解除する .
      * 一時停止中に unpause() すると、サウンドバッファが再生される。
@@ -63,17 +72,22 @@ public:
      * 停止中に unpause() しても何も処理されない。<BR>
      */
     virtual void unpause();
+
     /**
      * BGMの停止 .
      * どの様な状態でも、サウンドバッファが停止し、サウンドバッファの頭出しが行われる。
      */
     virtual void stop();
+
     /**
      * BGMのボリューム設定 .
-     * GGAF_MAX_VOLUME(100)を設定すると GgafDxSound::_bgm_volume の音量となる。
+     * 内部でマスタボリュームの考慮が処理される。
+     * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
+     * ボリュームを100で設定する事。
      * @param volume 0～100
      */
     virtual void setVolume(int volume);
+
     /**
      * BGMのパン設定 .
      * @param pan 左 -1.0 ～ 0 ～ 1.0 右

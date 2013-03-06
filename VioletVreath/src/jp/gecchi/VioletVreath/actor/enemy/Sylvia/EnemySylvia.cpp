@@ -90,7 +90,7 @@ void EnemySylvia::processBehavior() {
         }
 
         case PROG_EXPLOSION: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("EnemySylvia::processBehavior() _pProg=PROG_EXPLOSION ‚«‚½‚í`");
             }
             if (_pProg->getFrameInProgress() % 10 == 0) {

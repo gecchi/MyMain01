@@ -44,7 +44,7 @@ void GameBeginningScene::processBehavior() {
         }
 
         case GameBeginningScene::PROG_SELECT_MODE: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 pLabel01_->update(PX_C(200), PX_C(200), "GAME_BEGINNING_SCENE BEGIN");
                 pLabel02_->update(PX_C(200), PX_C(250), "SELECT MODE!");
             }
@@ -57,7 +57,7 @@ void GameBeginningScene::processBehavior() {
         }
 
         case GameBeginningScene::PROG_DECIDE: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 pLabel02_->update(PX_C(300), PX_C(300), "OK OK OK");
                 pLabel02_->_pFader->beat(20,3,7,3,-1);
 //                fadeoutScene(FADE_FRAMES);
@@ -74,7 +74,7 @@ void GameBeginningScene::processBehavior() {
         }
 
         case GameBeginningScene::PROG_FINISH: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 //inactivate();
             }
             break;

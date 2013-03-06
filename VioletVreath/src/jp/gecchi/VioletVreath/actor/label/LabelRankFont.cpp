@@ -161,14 +161,14 @@ void LabelRankFont::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_NOMALDISP: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pModel->_pTextureBlinker->intoTargetBlinkLinerUntil(1.0, 5);
             }
             break;
         }
 
         case PROG_RANKUP: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pModel->_pTextureBlinker->beat(30, 15, 1, 3);
             }
             if (_pModel->_pTextureBlinker->_method == NOBLINK) {

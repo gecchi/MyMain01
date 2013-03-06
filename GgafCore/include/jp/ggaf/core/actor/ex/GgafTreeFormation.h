@@ -60,9 +60,9 @@ public:
     /**
      * メンバーが残っていれば解放します。
      * 継承してオーバーライドする場合は、処理内で
-     * GgafTreeFormation::onEnded() を呼び出して下さい。
+     * GgafTreeFormation::onEnd() を呼び出して下さい。
      */
-    virtual void onEnded() override;
+    virtual void onEnd() override;
 
     virtual ~GgafTreeFormation();
 };

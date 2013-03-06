@@ -34,7 +34,7 @@ public:
     }
     virtual void onActive() override;
 
-    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
+    virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual ~FormationPallas002();
 };

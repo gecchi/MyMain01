@@ -62,7 +62,7 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
 
-    selectByIndex(0);          //カーソルの初期選択アイテムを設定
+    selectItem(0);          //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジションを上から下へ少しスライド
     relateAllItemCancel(ITEM_INDEX_BS_);       //キャンセル押下時は、[BS]へ移動
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューを生成

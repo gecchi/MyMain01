@@ -131,11 +131,19 @@ public:
      */
     template<typename T>
     static void setValue(std::string prm_key, T prm_value) {
-        (*_pMapProperties)[prm_key] = XTOS(prm_value);
+        if (isExistKey(prm_key)) {
+            (*_pMapProperties)[prm_key] = XTOS(prm_value);
+        } else {
+            throwGgafCriticalException("GgafProperties::setValue() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
+        }
     }
 
     static void setValue(std::string prm_key, GgafRgb prm_value) {
-        (*_pMapProperties)[prm_key] = prm_value.toStr();
+        if (isExistKey(prm_key)) {
+            (*_pMapProperties)[prm_key] = prm_value.toStr();
+        } else {
+            throwGgafCriticalException("GgafProperties::setValue() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
+        }
     }
 
 };

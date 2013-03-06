@@ -41,8 +41,11 @@ public:
     int restore(void);
 
     /**
-     * ボリュームとパンと周波数の率を指定してSEを１回再生
-     * @param prm_volume ボリューム(min:0 ～ max:100)
+     * ボリュームとパンと周波数の率を指定してSEを１回再生 .
+     * ボリュームについて、内部でマスタボリュームの考慮が処理されるので、
+     * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
+     * ボリュームを100で設定する事。
+     * @param prm_volume ボリューム(0 ～ 100)
      * @param prm_pan パン(left:-1.0 ～ center:0 ～ right:1.0)
      * @param prm_frequency 元の周波数に乗ずる率
      */
@@ -50,7 +53,10 @@ public:
 
     /**
      * ボリュームとパンを指定してSEを1回再生
-     * @param prm_volume ボリューム(min:0 ～ max:100)
+     * ボリュームについて、内部でマスタボリュームの考慮が処理されるので、
+     * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
+     * ボリュームを100で設定する事。
+     * @param prm_volume ボリューム(0 ～ 100)
      * @param prm_pan    パン(left:-1.0 ～ center:0 ～ right:1.0)
      */
     virtual void play(int prm_volume, float prm_pan) {
@@ -70,9 +76,9 @@ public:
 
     /**
      * ボリュームを変更 .
-     * play()実行後、SEが再生中に使用することを想定 .
-     * GGAF_MAX_VOLUME(100)を設定すると GgafDxSound::_se_volume の音量となる。
-     * @param prm_volume ボリューム(min:0 ～ max:100)
+     * play()実行後、SEが再生中に音量を変化させるなどに使用することを想定 .
+     * 内部でマスタボリュームの考慮が処理される。
+     * @param prm_volume ボリューム(0 ～ 100)
      */
     void setVolume(int prm_volume);
 

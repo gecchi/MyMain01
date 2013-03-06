@@ -8,7 +8,7 @@ EffectEntry001::EffectEntry001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "EffectEntry001", nullptr) {
     _class_name = "EffectEntry001";
     effectBlendOne();
-    setZEnable(true);
+    setZEnable(false);
     setZWriteEnable(false);
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
 }
@@ -20,7 +20,7 @@ void EffectEntry001::initialize() {
 void EffectEntry001::onActive() {
     setHitAble(false);
 
-    _pScaler->forceScaleRange(1, 10000);
+    _pScaler->forceScaleRange(1, 20000);
     _pScaler->setScaleToBottom();
 
     _pFader->forceAlphaRange(0, 0.99);

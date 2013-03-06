@@ -326,7 +326,7 @@ public:
      * @param prm_index ターゲットのアイテムインデックス
      * @return prm_indexのアイテムオブジェクト
      */
-    virtual GgafDxCore::GgafDxDrawableActor* selectByIndex(int prm_index);
+    virtual GgafDxCore::GgafDxDrawableActor* selectItem(int prm_index);
 
     /**
      * 指定のメニューアイテムへ、カーソルをセット .
@@ -539,7 +539,7 @@ public:
      * rise() 実行時直後、１回だけコールバックされます。<BR>
      * 必要に応じてオーバーライドしてください。<BR>
      */
-    virtual void onRisen();
+    virtual void onRise();
 
     /**
      * メニュー表示中トランジション処理 .
@@ -576,7 +576,7 @@ public:
      * rise()が実行された直後か否かを返す .
      * @return true:今丁度 rise()が 実行された直後である/false:そうではない
      */
-    virtual bool isJustRise() {
+    virtual bool isJustRisen() {
         return _is_just_risen;
     }
 
@@ -584,7 +584,7 @@ public:
      * sink() が実行された直後か否かを返す .
      * @return true:今丁度 sink() が実行された直後である/false:そうではない
      */
-    virtual bool isJustSink() {
+    virtual bool isJustSunk() {
         return _is_just_sunk;
     }
 
@@ -613,11 +613,11 @@ public:
     }
 
     /**
-     * メニューを消去開始時の処理 .
+     * メニューを消去開始時のコールバック .
      * sink() 実行時直後、１回だけコールバックされます。<BR>
      * 必要に応じてオーバーライドしてください。<BR>
      */
-    virtual void onSunk();
+    virtual void onSink();
 
     /**
      * メニュー消去のトランジション処理 .
@@ -722,7 +722,7 @@ void MenuActor<T>::nextFrame() {
         _with_rising = true;
         _is_just_risen = true;
         _will_be_rising_next_frame = false;
-        onRisen();
+        onRise();
     }
 
     _is_just_sunk = false;
@@ -730,7 +730,7 @@ void MenuActor<T>::nextFrame() {
         _with_sinking = true;
         _is_just_sunk = true;
         _will_be_sinking_next_frame = false;
-        onSunk();
+        onSink();
     }
 
 
@@ -849,11 +849,11 @@ void MenuActor<T>::relateAllItemCancel(int prm_index_of_cancel_item) {
 }
 
 template<class T>
-GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectByIndex(int prm_index) {
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectItem(int prm_index) {
     int n = getSelectedIndex();
 #ifdef MY_DEBUG
     if (n == -1) {
-        throwGgafCriticalException("MenuActor<T>::selectByIndex() メニューアイテムが未登録です name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
+        throwGgafCriticalException("MenuActor<T>::selectItem() メニューアイテムが未登録です name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
     }
 #endif
     if (n == prm_index) {
@@ -864,7 +864,7 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectByIndex(int prm_index) {
     } else {
 #ifdef MY_DEBUG
         if (_lstItems.length() <= prm_index) {
-            throwGgafCriticalException("MenuActor<T>::selectByIndex() メニューアイテム要素数オーバー name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
+            throwGgafCriticalException("MenuActor<T>::selectItem() メニューアイテム要素数オーバー name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
         }
 #endif
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.current(prm_index);
@@ -885,7 +885,7 @@ int MenuActor<T>::selectItem(GgafDxCore::GgafDxDrawableActor* prm_item) {
     if (index == -1) {
         throwGgafCriticalException("MenuActor<T>::selectItem() その前にメニューアイテムが未登録です name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_item="<<prm_item->getName());
     }
-    selectByIndex(index);
+    selectItem(index);
     return index;
 }
 
@@ -909,7 +909,7 @@ void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
     _cursor_move_frames = prm_cursor_move_frames;
     _cursor_move_p1 = prm_cursor_move_p1;
     _cursor_move_p2 = prm_cursor_move_p2;
-    selectByIndex(0);
+    selectItem(0);
 }
 
 template<class T>
@@ -1125,7 +1125,7 @@ void MenuActor<T>::rise() {
 }
 
 template<class T>
-void MenuActor<T>::onRisen() {
+void MenuActor<T>::onRise() {
 }
 
 template<class T>
@@ -1213,11 +1213,11 @@ void MenuActor<T>::processBehavior() {
     //サブメニューのrise() sink() 時
     for (int i = 0; i < _lstSubMenu.length(); i++) {
         MenuActor<T>* pSubMenu = _lstSubMenu.getFromFirst(i);
-        if (pSubMenu->isJustRise()) {
+        if (pSubMenu->isJustRisen()) {
             disableControll(); //サブメニューが立ち上がったので、自身は操作不可
             _can_controll = false; //即刻
         }
-        if (pSubMenu->isJustSink()) {
+        if (pSubMenu->isJustSunk()) {
             if (_with_sinking || _is_just_sunk || _will_be_sinking_next_frame) {
                 disableControll(); //自身も同時に閉じている場合
                 _can_controll = false; //即刻
@@ -1241,7 +1241,7 @@ void MenuActor<T>::sink() {
 }
 
 template<class T>
-void MenuActor<T>::onSunk() {
+void MenuActor<T>::onSink() {
 }
 
 template<class T>

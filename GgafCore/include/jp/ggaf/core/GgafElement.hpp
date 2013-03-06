@@ -708,7 +708,7 @@ public:
      * end(frame) 実行後、ゴミ箱(GgafGarbageBox) に取り込まれる直前に呼び出される。
      * 直前に処理が必要な場合は、オーバーライドして実装可能。
      */
-    virtual void onEnded() {
+    virtual void onEnd() {
     }
 
     /**
@@ -1028,7 +1028,7 @@ void GgafElement<T>::nextFrame() {
             if (pElementTemp->_is_last_flg) {
                 pElementTemp->nextFrame();
                 if (pElementTemp->_can_live_flg == false) {
-                    pElementTemp->onEnded();
+                    pElementTemp->onEnd();
                     GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
                 }
                 break;
@@ -1036,7 +1036,7 @@ void GgafElement<T>::nextFrame() {
                 pElementTemp = pElementTemp->_pNext;
                 pElementTemp->_pPrev->nextFrame();
                 if (pElementTemp->_pPrev->_can_live_flg == false) {
-                    ((T*)(pElementTemp->_pPrev))->onEnded();
+                    ((T*)(pElementTemp->_pPrev))->onEnd();
                     GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
                 }
             }

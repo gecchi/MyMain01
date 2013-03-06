@@ -42,7 +42,7 @@ void FormationPallas001::onActive() {
     } while (!pActor->isFirst());
 }
 
-void FormationPallas001::onDestroyedAll(GgafActor* prm_pActor_last_destroyed) {
+void FormationPallas001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     GgafDxGeometricActor* pActor_last_destroyed = (GgafDxGeometricActor*)prm_pActor_last_destroyed;
     //編隊全滅時エフェクト出現（スコア加算も行われる）
     UTIL::activateFormationDestroyedEffectOf(pActor_last_destroyed);

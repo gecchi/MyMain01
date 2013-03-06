@@ -101,7 +101,7 @@ void MenuBoard::onSelect(int prm_from, int prm_to) {
 void MenuBoard::initialize() {
 }
 
-void MenuBoard::onRisen() {
+void MenuBoard::onRise() {
     //スライドイントランジション
     locate(target_X_ + slide_from_offset_X_,
            target_Y_ + slide_from_offset_Y_);
@@ -132,7 +132,7 @@ void MenuBoard::processBehavior() {
 void MenuBoard::processJudgement() {
 }
 
-void MenuBoard::onSunk() {
+void MenuBoard::onSink() {
     //スライドアウトトランジション
     _pKurokoA->setRzRyMvAngTwd(target_X_ + slide_from_offset_X_,
                                target_Y_ + slide_from_offset_Y_);

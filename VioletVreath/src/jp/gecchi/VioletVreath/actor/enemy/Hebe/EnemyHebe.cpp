@@ -61,7 +61,7 @@ void EnemyHebe::processBehavior() {
         }
 
         case PROG_SPLINE_MOVE: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 pSplSeq_->exec(SplineSequence::RELATIVE_COORD);
             }
             if (!pSplSeq_->isExecuting()) {
@@ -71,7 +71,7 @@ void EnemyHebe::processBehavior() {
         }
 
         case PROG_MOVE02_1: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(_X - PX_C(300), _Y, _Z,
                                                  D_ANG(1), 0, TURN_CLOSE_TO, false);
             }

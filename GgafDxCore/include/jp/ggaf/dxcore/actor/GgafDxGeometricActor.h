@@ -522,7 +522,7 @@ public:
         _rate_of_bounding_sphere_radius = prm_rate;
     }
 
-    virtual void onEnded() override;
+    virtual void onEnd() override;
 
     /**
      * デストラクタ

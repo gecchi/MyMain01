@@ -15,6 +15,7 @@ float3 g_posCam_World;
 float g_specular;
 float g_specular_power;
 
+
 float g_distance_AlphaTarget;
 float g_zf;
 float g_tex_blink_power;   
@@ -120,7 +121,7 @@ OUT_VS GgafDxVS_WallAAB(
 		matWorld = g_matWorld019;
 	} 
     //描画面番号情報が、ワールド変換行列のmatWorld._14 に埋め込まれている
-	int draw_face = matWorld._14;
+	int draw_face = (int)matWorld._14;
     matWorld._14 = 0; //元の行列値に戻しておく
 
     //UVによりどの面の頂点か判断し、
@@ -162,8 +163,8 @@ OUT_VS GgafDxVS_WallAAB(
         draw_face -= 32;
     } else {
         //上面(面a)が描画不要の場合
-        if (0.25 < prm_uv.x && 
-            0.5  < prm_uv.y && prm_uv.y < 0.75 ) 
+        if (0.25f < prm_uv.x && 
+            0.5f  < prm_uv.y && prm_uv.y < 0.75f ) 
 		{
             return out_vs;
         }
@@ -174,8 +175,8 @@ OUT_VS GgafDxVS_WallAAB(
         draw_face -= 16;
     } else {
         //正面(面b)が描画不要の場合
-        if (                   prm_uv.x < 0.25 &&
-            0.5  < prm_uv.y                       ) 
+        if (                   prm_uv.x < 0.25f &&
+            0.5f  < prm_uv.y                       ) 
 		{
             return out_vs;
         }
@@ -185,8 +186,8 @@ OUT_VS GgafDxVS_WallAAB(
         draw_face -= 8;
     } else {
         //左側面(面c)が描画不要の場合
-        if (0.25 < prm_uv.x && 
-                               prm_uv.y < 0.25 ) 
+        if (0.25f < prm_uv.x && 
+                               prm_uv.y < 0.25f ) 
 		{
             return out_vs;
         }
@@ -196,8 +197,8 @@ OUT_VS GgafDxVS_WallAAB(
         draw_face -= 4;
     } else {
         //底面(面d)が描画不要の場合
-        if (0.25 < prm_uv.x &&
-            0.25 < prm_uv.y && prm_uv.y < 0.5 ) 
+        if (0.25f < prm_uv.x &&
+            0.25f < prm_uv.y && prm_uv.y < 0.5f ) 
 		{
             return out_vs;
         }
@@ -207,8 +208,8 @@ OUT_VS GgafDxVS_WallAAB(
         draw_face -= 2;
     } else {
         //右側面(面e)が描画不要の場合
-        if (0.25 < prm_uv.x &&
-            0.75 < prm_uv.y                    ) 
+        if (0.25f < prm_uv.x &&
+            0.75f < prm_uv.y                    ) 
 		{
             return out_vs;
         } 
@@ -218,8 +219,8 @@ OUT_VS GgafDxVS_WallAAB(
        // draw_face -= 1;
     } else {
         //向こう正面(面f)が描画不要の場合
-        if (                    prm_uv.x < 0.25 &&
-                                prm_uv.y < 0.5    ) 
+        if (                    prm_uv.x < 0.25f &&
+                                prm_uv.y < 0.5f    ) 
 		{
             return out_vs;
         }

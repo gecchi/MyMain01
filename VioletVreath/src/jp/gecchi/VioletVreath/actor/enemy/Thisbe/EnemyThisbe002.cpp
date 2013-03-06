@@ -60,7 +60,7 @@ void EnemyThisbe002::processBehavior() {
             break;
         }
         case PROG_OPEN: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
             }
             if (!_pMorpher->isMorphing()) {

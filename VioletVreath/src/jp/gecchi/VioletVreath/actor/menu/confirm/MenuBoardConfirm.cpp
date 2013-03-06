@@ -30,7 +30,7 @@ MenuBoardConfirm::MenuBoardConfirm(const char* prm_name) :
     CursorConfirmMenu* pCursor = NEW CursorConfirmMenu("CursorConfirmMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
-    selectByIndex(ITEM_OK); //初期選択
+    selectItem(ITEM_OK); //初期選択
     setTransition(10, -PX_C(100), PX_C(0)); //-100px左から右へスライド
 }
 bool MenuBoardConfirm::condSelectNext() {
@@ -45,16 +45,16 @@ bool MenuBoardConfirm::condSelectExNext() {
 bool MenuBoardConfirm::condSelectrExPrev() {
     return false;
 }
-void MenuBoardConfirm::onRisen() {
-    selectByIndex(ITEM_OK); //初期選択をリセット
-    MenuBoard::onRisen();
+void MenuBoardConfirm::onRise() {
+    selectItem(ITEM_OK); //初期選択をリセット
+    MenuBoard::onRise();
 }
 void MenuBoardConfirm::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
 }
 void MenuBoardConfirm::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
 }
 
-bool MenuBoardConfirm::wasDecidedOk() {
+bool MenuBoardConfirm::isJustDecidedOk() {
     if (isJustDecided() && getSelectedIndex() == ITEM_OK) {
         return true;
     } else {
@@ -62,7 +62,7 @@ bool MenuBoardConfirm::wasDecidedOk() {
     }
 }
 
-bool MenuBoardConfirm::wasDecidedCancel() {
+bool MenuBoardConfirm::isJustDecidedCancel() {
     if (isJustDecided() && getSelectedIndex() == ITEM_CANCEL) {
         return true;
     } else {

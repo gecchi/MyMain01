@@ -112,9 +112,9 @@ void EnemyHermione::processBehavior() {
 
         case PROG_ENTRY: {
             if (_pProg->getFrameInProgress() == 120) {
-                _pFader->intoTargetAlphaLinerStep(1.0, 0.01);
+                _pFader->intoTargetAlphaAcceStep(1.0, 0.000, 0.0001);
             }
-            if (getAlpha() > 0.9) {
+            if (getAlpha() > 0.8) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_HERMIONE_ENTRY_DONE);
                 _pProg->changeNext();
@@ -123,9 +123,10 @@ void EnemyHermione::processBehavior() {
         }
 
         case PROG_MOVE: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pKurokoA->setMvVelo(1000);
                 _pKurokoA->setFaceAngVelo(20, 67, 99);
+                _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP,1000,0,TURN_CLOSE_TO,false);
                 _pKurokoA->setRzRyMvAngTwd(P_MYSHIP);
             }
             break;

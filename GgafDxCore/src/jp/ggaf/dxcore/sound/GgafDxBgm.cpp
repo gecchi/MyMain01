@@ -61,7 +61,7 @@ void GgafDxBgm::play(int prm_volume, float prm_pan, bool prm_is_looping) {
     _pPcmPlayer->play(prm_is_looping);
 }
 void GgafDxBgm::play(bool prm_is_looping) {
-    play(GgafDxSound::_bgm_volume, 0.0f, prm_is_looping);
+    play(GGAF_MAX_VOLUME, 0.0f, prm_is_looping);
 }
 void GgafDxBgm::pause() {
     _pPcmPlayer->pause();
@@ -76,7 +76,7 @@ void GgafDxBgm::stop() {
 
 void GgafDxBgm::setVolume(int prm_volume) {
     //ボリューム→デシベル
-    int db = GgafDxSound::aDbVolume[(int)(prm_volume * GgafDxSound::_master_volume_rate * GgafDxSound::_bgm_volume_rate)];
+    int db = GgafDxSound::aDbVolume[(int)(prm_volume * GgafDxSound::_app_master_volume_rate * GgafDxSound::_bgm_master_volume_rate)];
     _pPcmPlayer->setVolume(db);
 }
 

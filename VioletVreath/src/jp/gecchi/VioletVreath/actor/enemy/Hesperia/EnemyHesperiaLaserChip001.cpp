@@ -78,7 +78,7 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
 
         case PROG_TURN1: {
             //自機より少し上の座標で屈折
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pKurokoA->setMvVelo(_pKurokoA->_veloMv/3); //屈折時少しスローダウン
                 _pKurokoA->execTurnRzRyMvAngSequenceTwd(
                              tX2_, tY2_, tZ2_,
@@ -106,7 +106,7 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
         }
 
         case PROG_INTO_MYSHIP: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pKurokoA->setMvVelo(_pKurokoA->_veloMv*2);
             }
             if (_pProg->getFrameInProgress() % 20 == 0) {

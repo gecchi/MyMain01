@@ -59,7 +59,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
 
-    selectByIndex(0); //カーソルの初期選択アイテムを設定
+    selectItem(0); //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
                                             //上から下へ少しスライドさせる
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
@@ -87,19 +87,19 @@ void MenuBoardPause::processBehavior() {
     int selected = getSelectedIndex();
     if (selected == ITEM_QUIT_GAME) { //自身のメニューが"ITEM_QUIT"を指している場合
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
-        if (pSubConfirm->wasDecidedOk()) {
+        if (pSubConfirm->isJustDecidedOk()) {
             PostQuitMessage(0);
-        } else if (pSubConfirm->wasDecidedCancel()) {
+        } else if (pSubConfirm->isJustDecidedCancel()) {
             sinkSubMenu();
         }
     } if (selected == ITEM_BACK_TO_TITLE) {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
-        if (pSubConfirm->wasDecidedOk()) {
+        if (pSubConfirm->isJustDecidedOk()) {
             sinkSubMenu();
             sink();
             _TRACE_("MenuBoardPause::processBehavior() throwEventUpperTree(EVENT_BACK_TO_TITLE)");
             throwEventUpperTree(EVENT_BACK_TO_TITLE);
-        } else if (pSubConfirm->wasDecidedCancel()) {
+        } else if (pSubConfirm->isJustDecidedCancel()) {
             sinkSubMenu();
         }
     }

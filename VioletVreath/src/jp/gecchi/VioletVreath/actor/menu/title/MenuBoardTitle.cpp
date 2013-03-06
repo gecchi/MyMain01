@@ -35,7 +35,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     //スライド表示の設定
     setTransition(10, PX_C(0), +PX_C(100));
     //初期選択
-    selectByIndex(ITEM_GAME_START);
+    selectItem(ITEM_GAME_START);
     //確認サブメニュー
     addSubMenu(NEW MenuBoardConfirm("confirm")); //0
     //コンフィグサブメニュー
@@ -85,9 +85,9 @@ void MenuBoardTitle::processBehavior() {
     if (selected == ITEM_QUIT) { //自身のメニューが"ITEM_QUIT"を指している場合
         //確認メニューの結果の振る舞い実行
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
-        if (pSubConfirm->wasDecidedOk()) {
+        if (pSubConfirm->isJustDecidedOk()) {
             ::PostQuitMessage(0);
-        } else if (pSubConfirm->wasDecidedCancel()) {
+        } else if (pSubConfirm->isJustDecidedCancel()) {
             sinkSubMenu();
         } else {
 

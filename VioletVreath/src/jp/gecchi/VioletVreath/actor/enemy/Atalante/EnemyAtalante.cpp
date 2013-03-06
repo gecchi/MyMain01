@@ -54,7 +54,7 @@ void EnemyAtalante::processBehavior() {
 
         case PROG_MOVE01_1: {
             //‚¿‚å‚Á‚Æ‚»‚Ì‚Ü‚Ü^‚Á’¼‚®i‚Þ
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
             }
             if (_pProg->getFrameInProgress() > 60) {
                 _pProg->changeNext(); //ŽŸ‚Ì“®‚«‚Ö
@@ -63,7 +63,7 @@ void EnemyAtalante::processBehavior() {
         }
 
         case PROG_MOVE01_2: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
             }
             MyShip* pMyShip = P_MYSHIP;
             if (Z_ok_ == false && pMyShip->_Z - PX_C(10) <= _Z && _Z <= pMyShip->_Z + PX_C(10)) {
@@ -109,7 +109,7 @@ void EnemyAtalante::processBehavior() {
         }
 
         case PROG_MOVE01_3: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 //XŽ²•ûŒü‚É“®‚­
                 MyShip* pMyShip = P_MYSHIP;
                 if (pMyShip->_X <= _X) {
@@ -129,7 +129,7 @@ void EnemyAtalante::processBehavior() {
         }
 
         case PROG_MOVE01_4: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pKurokoA->setMvAcce(300);
             }
             break;

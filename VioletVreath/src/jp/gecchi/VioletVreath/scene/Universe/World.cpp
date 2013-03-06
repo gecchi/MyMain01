@@ -116,7 +116,7 @@ void World::processBehavior() {
         }
 
         case World::PROG_CALM1: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
             }
             if (_pProg->getFrameInProgress() >= 60 &&
                 GgafFactory::chkProgress(2) == 2 &&
@@ -131,7 +131,7 @@ void World::processBehavior() {
         }
 
         case World::PROG_CALM2: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
             }
             if (_pProg->getFrameInProgress() >= 60 &&
                 ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*5)
@@ -144,7 +144,7 @@ void World::processBehavior() {
         }
 
         case World::PROG_CALM3: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
             }
             if (_pProg->getFrameInProgress() >= 60 &&
                 ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*5)
@@ -156,7 +156,7 @@ void World::processBehavior() {
         }
 
         case World::PROG_CALM4: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
             }
             if (_pProg->getFrameInProgress() == 60) {
                 pLabel_aster_->update("*");
@@ -170,7 +170,7 @@ void World::processBehavior() {
         }
 
         case World::PROG_MAINLOOP: { //世界のメインループ
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 addSubLast(pGameScene_);
             }
 
@@ -178,11 +178,11 @@ void World::processBehavior() {
 
             //F5キーが音量下げ
             if (GgafDxInput::isBeingPressedKey(DIK_F5)) {
-                GgafDxSound::addMasterVolume(-1);
+                GgafDxSound::addApplicationMasterVolume(-1);
             }
             //F6キーが音量上げ
             if (GgafDxInput::isBeingPressedKey(DIK_F6)) {
-                GgafDxSound::addMasterVolume(1);
+                GgafDxSound::addApplicationMasterVolume(1);
             }
 
             break;
@@ -195,7 +195,7 @@ void World::processBehavior() {
                             CollisionChecker3D::_num_check,
                             (unsigned int)askGod()->_frame_of_God,
                             askGod()->_fps,
-                            (GgafDxSound::_master_volume)
+                            (GgafDxSound::_app_master_volume)
                             );
     pLabel_debug_->update(aBufDebug_);
     if (getActivePartFrame() % 60 == 0) {

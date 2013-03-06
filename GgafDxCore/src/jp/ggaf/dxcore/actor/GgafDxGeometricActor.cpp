@@ -355,8 +355,8 @@ void GgafDxGeometricActor::scaleWith(GgafDxGeometricActor* prm_pActor) {
     _SZ = prm_pActor->_SZ;
 }
 
-void GgafDxGeometricActor::onEnded() {
-    GgafDxBaseActor::onEnded();
+void GgafDxGeometricActor::onEnd() {
+    GgafDxBaseActor::onEnd();
     _pFormation = nullptr;
 }
 

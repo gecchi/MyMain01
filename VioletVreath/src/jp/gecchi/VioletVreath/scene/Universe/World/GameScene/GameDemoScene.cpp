@@ -51,7 +51,7 @@ void GameDemoScene::processBehavior() {
         }
 
         case GameDemoScene::PROG_DEMOPLAY: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_DEMOPLAY)");
                 pLabel01_->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 pLabel02_->update(100*1000, 150*1000, "GAME OVER");
@@ -74,7 +74,7 @@ void GameDemoScene::processBehavior() {
 
         case GameDemoScene::PROG_RANKING: {
             int ranking_num = GameGlobal::qryRanking_.getCount();
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_RANKING)");
                 pLabel01_->update(PX_C(100), PX_C(100), "RANKING NOW");
                 char buf[60];
@@ -110,7 +110,7 @@ void GameDemoScene::processBehavior() {
         }
 
         case GameDemoScene::PROG_FINISH: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_FINISH)");
             }
             if (_pProg->getFrameInProgress() == 600) {

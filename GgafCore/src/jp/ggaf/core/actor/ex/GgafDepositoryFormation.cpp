@@ -96,8 +96,8 @@ bool GgafDepositoryFormation::isAllCalledUp() {
     return _is_all_called_up;
 }
 
-void GgafDepositoryFormation::onEnded() {
-    GgafFormation::onEnded();
+void GgafDepositoryFormation::onEnd() {
+    GgafFormation::onEnd();
     sayonaraFollwer();
 }
 void GgafDepositoryFormation::sayonaraFollwer() {

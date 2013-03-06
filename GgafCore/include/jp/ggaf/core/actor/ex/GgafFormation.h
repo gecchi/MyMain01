@@ -50,14 +50,14 @@ public:
      * その場合は、本メソッドは空実装しておいて下さい 。 <BR>
      * @param prm_pActor_last_destroyed 最後にやられたアクター
      */
-    virtual void onDestroyedAll(GgafActor* prm_pActor_last_destroyed) = 0;
+    virtual void onDestroyAll(GgafActor* prm_pActor_last_destroyed) = 0;
 
     /**
      * メンバーが残っていれば解放する処理を実装済み .
      * 継承してオーバーライドする場合は、処理内で
-     * GgafFormation::onEnded() を呼び出して下さい。
+     * GgafFormation::onEnd() を呼び出して下さい。
      */
-    virtual void onEnded() override;
+    virtual void onEnd() override;
 
     virtual ~GgafFormation();
 };

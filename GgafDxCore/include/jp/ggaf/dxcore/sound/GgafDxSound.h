@@ -32,19 +32,19 @@ public:
     static GgafDxSeManager* _pSeManager;
     /** [r]GgafDxBgm 管理クラス */
     static GgafDxBgmManager* _pBgmManager;
-    /** [r/w]マスターボリューム0～100 */
-    static int _master_volume;
-    /** [r/w]BGM全般のボリューム0～100 */
-    static int _bgm_volume;
-    /** [r/w]サウンドエフェクト全般のボリューム0～100 */
-    static int _se_volume;
-    /** [r/w]マスターボリューム割合 0.0～1.0 */
-    static float _master_volume_rate;
-    /** [r/w]BGM全般のボリューム割合 0.0～1.0 */
-    static float _bgm_volume_rate;
-    /** [r/w]サウンドエフェクト全般のボリューム割合 0.0～1.0 */
-    static float _se_volume_rate;
-    /** [r/w]要素番号にボリューム値を入れると、対応デシベルが取得できる配列 */
+    /** [r]アプリケーション・マスターボリューム値(0～100) */
+    static int _app_master_volume;
+    /** [r]BGM・マスターボリューム値(0～100) */
+    static int _bgm_master_volume;
+    /** [r]サウンドエフェクト・マスターボリューム値(0～100) */
+    static int _se_master_volume;
+    /** [r]アプリケーション・マスターボリュームの割合 0.0～1.0 */
+    static float _app_master_volume_rate;
+    /** [r]BGM・マスターボリュームの割合 0.0～1.0 */
+    static float _bgm_master_volume_rate;
+    /** [r]サウンドエフェクト・マスターボリューム割合 0.0～1.0 */
+    static float _se_master_volume_rate;
+    /** [r]要素番号にボリューム値を入れると、対応デシベルが取得できる配列 */
     static int aDbVolume[GGAF_MAX_VOLUME+1];
 
 public:
@@ -61,40 +61,40 @@ public:
     static void release();
 
     /**
-     * マスタボリューム設定 .
-     * @param prm_master_volume 0(無音) ～ 100(最大)
+     * アプリ全体のマスタボリューム設定 .
+     * @param prm_app_master_volume 0(無音) ～ 100(最大)
      */
-    static void setMasterVolume(int prm_master_volume);
+    static void setApplicationMasterVolume(int prm_app_master_volume);
 
     /**
-     * マスタボリューム増分設定 .
-     * @param prm_master_volume_offset 音量増分
+     * アプリ全体のマスタボリューム増分設定 .
+     * @param prm_app_master_volume_offset 音量増分
      */
-    static void addMasterVolume(int prm_master_volume_offset);
+    static void addApplicationMasterVolume(int prm_app_master_volume_offset);
 
     /**
-     * 全BGMボリュームの設定 .
-     * @param prm_bgm_volume  0(無音) ～ 100(サンプリング本来の音量)
+     * 全BGMのマスタボリュームの設定 .
+     * @param prm_bgm_master_volume  0(無音) ～ 100(最大)
      */
-    static void setBgmVolume(float prm_bgm_volume);
+    static void setBgmMasterVolume(float prm_bgm_master_volume);
 
     /**
-     * 全BGMボリューム増分設定 .
-     * @param prm_bgm_volume_offset 音量増分
+     * 全BGMのマスタボリューム増分設定 .
+     * @param prm_bgm_master_volume_offset 音量増分
      */
-    static void addBgmVolume(int prm_bgm_volume_offset);
+    static void addBgmMasterVolume(int prm_bgm_master_volume_offset);
 
     /**
-     * 全SEボリュームの率設定 .
-     * @param prm_se_volume  0(無音) ～ 100(サンプリング本来の音量)
+     * 全SEのマスタボリュームの率設定 .
+     * @param prm_se_master_volume  0(無音) ～ 100(最大)
      */
-    static void setSeVolume(float prm_se_volume);
+    static void setSeMasterVolume(float prm_se_master_volume);
 
     /**
-     * 全SEボリューム増分設定 .
-     * @param prm_se_volume_offset 音量増分
+     * 全SEのマスタボリューム増分設定 .
+     * @param prm_se_master_volume_offset 音量増分
      */
-    static void addSeVolume(int prm_se_volume_offset);
+    static void addSeMasterVolume(int prm_se_master_volume_offset);
 };
 
 }

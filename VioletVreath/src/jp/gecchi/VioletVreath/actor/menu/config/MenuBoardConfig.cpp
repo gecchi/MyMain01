@@ -43,7 +43,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setCursor(pCursor);
 
-    selectByIndex(ITEM_BACK); //カーソルの初期選択アイテムを設定
+    selectItem(ITEM_BACK); //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), +PX_C(100)); //トランジション（表示非表示時の挙動）
 
     addSubMenu(NEW MenuBoardKeyConfig("key_config"));       //0番
@@ -56,9 +56,9 @@ bool MenuBoardConfig::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
 
-void MenuBoardConfig::onRisen() {
-    selectByIndex(ITEM_KEY_CONFIG); //カーソルの初期選択アイテムを設定
-    MenuBoard::onRisen();
+void MenuBoardConfig::onRise() {
+    selectItem(ITEM_KEY_CONFIG); //カーソルの初期選択アイテムを設定
+    MenuBoard::onRise();
 }
 
 void MenuBoardConfig::processBehavior() {

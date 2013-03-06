@@ -17,11 +17,11 @@ void GgafFormation::destroyedFollower(GgafActor* prm_pActor_destroyed) {
     _num_destory++;
     if (_num_formation_member == _num_destory) {
         _was_all_destroyed = true;
-        onDestroyedAll(prm_pActor_destroyed);
+        onDestroyAll(prm_pActor_destroyed);
     }
 }
-void GgafFormation::onEnded() {
-    GgafActor::onEnded();
+void GgafFormation::onEnd() {
+    GgafActor::onEnd();
 }
 
 

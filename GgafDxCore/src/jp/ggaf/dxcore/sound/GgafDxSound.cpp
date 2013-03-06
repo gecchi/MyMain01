@@ -9,12 +9,12 @@ GgafDxSeManager* GgafDxSound::_pSeManager = nullptr;
 int GgafDxSound::aDbVolume[101];
 
 DSCAPS GgafDxSound::_dsCaps;
-int GgafDxSound::_master_volume = 100;
-int GgafDxSound::_bgm_volume = 100;
-int GgafDxSound::_se_volume = 100;
-float GgafDxSound::_master_volume_rate = 1.0;
-float GgafDxSound::_bgm_volume_rate = 1.0;
-float GgafDxSound::_se_volume_rate = 1.0;
+int GgafDxSound::_app_master_volume = 100;
+int GgafDxSound::_bgm_master_volume = 100;
+int GgafDxSound::_se_master_volume = 100;
+float GgafDxSound::_app_master_volume_rate = 1.0;
+float GgafDxSound::_bgm_master_volume_rate = 1.0;
+float GgafDxSound::_se_master_volume_rate = 1.0;
 
 
 void GgafDxSound::init() {
@@ -35,10 +35,6 @@ void GgafDxSound::init() {
     _pBgmManager = NEW GgafDxBgmManager("OggBgmManager");
     _pSeManager = NEW GgafDxSeManager("SoundEffectManager");
 
-    GgafDxSound::setBgmVolume(PROPERTY::BGM_VOLUME);
-    GgafDxSound::setSeVolume(PROPERTY::SE_VOLUME);
-    GgafDxSound::setMasterVolume(PROPERTY::MASTER_VOLUME);
-
     //メモ：ボリューム値(0~100)、減衰デシベル(DSBVOLUME_MIN~DSBVOLUME_MAX)変換配列
     //DirectSounnd の SetVolume の引数の値(単位：1/100dB) ＝ 33.22f * 100.0 * log10(volume)   但し0.0 < volume <= 1.0
     //<音量とデシベルの関係>
@@ -57,52 +53,56 @@ void GgafDxSound::init() {
         aDbVolume[i] = (int)(33.22f * 100.0 * log10(1.0*i / GGAF_MAX_VOLUME));
     }
     aDbVolume[GGAF_MAX_VOLUME] = DSBVOLUME_MAX;
+
+    GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
+    GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
+    GgafDxSound::setApplicationMasterVolume(PROPERTY::MASTER_VOLUME);
 }
 
-void GgafDxSound::setMasterVolume(int prm_master_volume) {
-    _master_volume = prm_master_volume;
-    if (_master_volume > GGAF_MAX_VOLUME) {
-        _master_volume = GGAF_MAX_VOLUME;
-    } else if (_master_volume < GGAF_MIN_VOLUME) {
-        _master_volume = GGAF_MIN_VOLUME;
+void GgafDxSound::setApplicationMasterVolume(int prm_app_master_volume) {
+    _app_master_volume = prm_app_master_volume;
+    if (_app_master_volume > GGAF_MAX_VOLUME) {
+        _app_master_volume = GGAF_MAX_VOLUME;
+    } else if (_app_master_volume < GGAF_MIN_VOLUME) {
+        _app_master_volume = GGAF_MIN_VOLUME;
     }
-    _master_volume_rate = 1.0f * _master_volume / GGAF_MAX_VOLUME;
+    _app_master_volume_rate = 1.0f * _app_master_volume / GGAF_MAX_VOLUME;
     GgafDxSound::_pBgmManager->updateVolume(); //音量を更新
     GgafDxSound::_pSeManager->updateVolume(); //音量を更新
 }
 
-void GgafDxSound::addMasterVolume(int prm_master_volume_offset) {
-    setMasterVolume(_master_volume+prm_master_volume_offset);
+void GgafDxSound::addApplicationMasterVolume(int prm_app_master_volume_offset) {
+    setApplicationMasterVolume(_app_master_volume+prm_app_master_volume_offset);
 }
 
-void GgafDxSound::setBgmVolume(float prm_bgm_volume) {
-    _bgm_volume = prm_bgm_volume;
-    if (_bgm_volume > GGAF_MAX_VOLUME) {
-        _bgm_volume = GGAF_MAX_VOLUME;
-    } else if (_bgm_volume < GGAF_MIN_VOLUME) {
-        _bgm_volume = GGAF_MIN_VOLUME;
+void GgafDxSound::setBgmMasterVolume(float prm_bgm_master_volume) {
+    _bgm_master_volume = prm_bgm_master_volume;
+    if (_bgm_master_volume > GGAF_MAX_VOLUME) {
+        _bgm_master_volume = GGAF_MAX_VOLUME;
+    } else if (_bgm_master_volume < GGAF_MIN_VOLUME) {
+        _bgm_master_volume = GGAF_MIN_VOLUME;
     }
-    _bgm_volume_rate = 1.0f * _bgm_volume / GGAF_MAX_VOLUME;
+    _bgm_master_volume_rate = 1.0f * _bgm_master_volume / GGAF_MAX_VOLUME;
     GgafDxSound::_pBgmManager->updateVolume(); //音量を更新
 }
 
-void GgafDxSound::addBgmVolume(int prm_bgm_volume_offset) {
-    setBgmVolume(_bgm_volume+prm_bgm_volume_offset);
+void GgafDxSound::addBgmMasterVolume(int prm_bgm_master_volume_offset) {
+    setBgmMasterVolume(_bgm_master_volume+prm_bgm_master_volume_offset);
 }
 
-void GgafDxSound::setSeVolume(float prm_se_volume) {
-    _se_volume = prm_se_volume;
-    if (_se_volume > GGAF_MAX_VOLUME) {
-        _se_volume = GGAF_MAX_VOLUME;
-    } else if (_se_volume < GGAF_MIN_VOLUME) {
-        _se_volume = GGAF_MIN_VOLUME;
+void GgafDxSound::setSeMasterVolume(float prm_se_master_volume) {
+    _se_master_volume = prm_se_master_volume;
+    if (_se_master_volume > GGAF_MAX_VOLUME) {
+        _se_master_volume = GGAF_MAX_VOLUME;
+    } else if (_se_master_volume < GGAF_MIN_VOLUME) {
+        _se_master_volume = GGAF_MIN_VOLUME;
     }
-    _se_volume_rate = 1.0f * _se_volume / GGAF_MAX_VOLUME;
+    _se_master_volume_rate = 1.0f * _se_master_volume / GGAF_MAX_VOLUME;
     GgafDxSound::_pSeManager->updateVolume(); //音量を更新
 }
 
-void GgafDxSound::addSeVolume(int prm_se_volume_offset) {
-    setSeVolume(_se_volume+prm_se_volume_offset);
+void GgafDxSound::addSeMasterVolume(int prm_se_master_volume_offset) {
+    setSeMasterVolume(_se_master_volume+prm_se_master_volume_offset);
 }
 
 void GgafDxSound::release() {

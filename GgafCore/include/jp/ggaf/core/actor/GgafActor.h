@@ -175,10 +175,10 @@ public:
      * 通知を行うことにより、管理されている Formation オブジェクトから、
      * 編隊全滅時に、
      *
-     * Formation::onDestroyedAll()
+     * Formation::onDestroyAll()
      *
      * のコールバックが行われます。
-     * 編隊ボーナス、アイテム出現等の処理を GgafDxFormationActor::onDestroyedAll() の
+     * 編隊ボーナス、アイテム出現等の処理を GgafDxFormationActor::onDestroyAll() の
      * オーバーライドで行って下さい。
      * <code><pre>
      * ＜例＞

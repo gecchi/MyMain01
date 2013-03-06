@@ -97,9 +97,9 @@ public:
     /**
      * メンバーが残っていれば解放します。
      * 継承してオーバーライドする場合は、処理内で
-     * GgafDepositoryFormation::onEnded() を呼び出して下さい。
+     * GgafDepositoryFormation::onEnd() を呼び出して下さい。
      */
-    virtual void onEnded() override;
+    virtual void onEnd() override;
 
     /**
      * デポジトリモード管理の編隊全てに sayonara() を実行する。

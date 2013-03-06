@@ -81,7 +81,7 @@ void StageController::processBehavior() {
         }
 
         case StageController::PROG_BEGIN: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_BEGIN)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
             }
@@ -92,7 +92,7 @@ void StageController::processBehavior() {
         }
 
         case StageController::PROG_PLAY_STAGE: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_PLAY_STAGE)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 readyStage(main_stage_); //念のために呼ぶ。通常はもう準備できているハズ。
@@ -110,7 +110,7 @@ void StageController::processBehavior() {
         }
 
         case StageController::PROG_PLAY_TRANSIT: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_PLAY_TRANSIT)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 pTransitStage_->fadeoutSceneWithBgmTree(0);
@@ -125,7 +125,7 @@ void StageController::processBehavior() {
         }
 
         case StageController::PROG_FINISH: {
-            if (_pProg->hasJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _TRACE_("StageController::processBehavior() Prog has Just Changed (to StageController::PROG_FINISH)");
                 _TRACE_("StageController::processBehavior() 直後 main_stage_="<<main_stage_);
                 main_stage_ = pTransitStage_->next_main_stage_; //次のステージ
