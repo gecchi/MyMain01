@@ -42,8 +42,6 @@ public:
         return false; //èÌÇ…ï\é¶
     }
 
-
-
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~ViewPointGuide();

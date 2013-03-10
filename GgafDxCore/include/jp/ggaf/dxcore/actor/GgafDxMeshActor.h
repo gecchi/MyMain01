@@ -64,7 +64,7 @@ public:
      * âìÇ≠ÇÃç¿ïWÇ≈Ç‡ã≠êßï\é¶ .
      * @param prm_b
      */
-    void viewAlsoForcesFar(bool prm_b) {
+    void drawAnyFar(bool prm_b) {
         if (prm_b) {
             _far_rate = 0.999f;
         } else {
