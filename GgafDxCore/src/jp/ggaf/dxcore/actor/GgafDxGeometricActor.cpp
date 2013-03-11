@@ -8,7 +8,7 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
                                            GgafDxChecker* prm_pChecker) : GgafDxBaseActor(prm_name, prm_pStat) {
     _obj_class |= Obj_GgafDxGeometricActor;
     _class_name = "GgafDxGeometricActor";
-    _is2DActor = false;
+    _is_2D = false;
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
     _SX = _SY = _SZ = LEN_UNIT;
@@ -50,7 +50,7 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
 
 
 void GgafDxGeometricActor::processSettlementBehavior() {
-    if (_is2DActor) {
+    if (_is_2D) {
         return;
     }
 
@@ -365,7 +365,6 @@ GgafDxGeometricActor::~GgafDxGeometricActor() {
     DELETE_IMPOSSIBLE_NULL(_pKurokoB);
     DELETE_IMPOSSIBLE_NULL(_pSeTx);
 }
-
 
 void GgafDxGeometricActor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")"<<DUMP_FLGS);

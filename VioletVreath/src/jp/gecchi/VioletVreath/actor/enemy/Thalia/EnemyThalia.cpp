@@ -93,9 +93,9 @@ void EnemyThalia::processBehavior() {
         }
         case PROG_IN_FIRE: {
             if (getActivePartFrame() % 10 == 0) {
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                                 10, 0,
-                                                 TURN_CLOSE_TO, false);
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP,
+                                                        10, 0,
+                                                        TURN_CLOSE_TO, false);
             }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {

@@ -58,8 +58,18 @@ void WallAABActor::processDraw() {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pWallPartsActor = (WallPartsActor*)pDrawActor;
+//                _TRACE_("WallAABActor::processDraw() pWallPartsActor->_wall_draw_face="<<(pWallPartsActor->_wall_draw_face)<<" befor._matWorld._14="<<(pWallPartsActor->_matWorld._14));
+
                 pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //•`‰æ–Ê”Ô†‚ðƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ÌmatWorld._14 ‚É–„‚ßž‚Þ
                 hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
+
+//                D3DXMATRIX& mat = pWallPartsActor->_matWorld;
+//                _TRACE_(mat._11<<","<<mat._12<<","<<mat._13<<","<<mat._14);
+//                _TRACE_(mat._21<<","<<mat._22<<","<<mat._23<<","<<mat._24);
+//                _TRACE_(mat._31<<","<<mat._32<<","<<mat._33<<","<<mat._34);
+//                _TRACE_(mat._41<<","<<mat._42<<","<<mat._43<<","<<mat._44);
+//                _TRACE_("------------");
+
                 checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 draw_set_num++;
                 if (draw_set_num >= _pMeshSetModel->_set_num) {

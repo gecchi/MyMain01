@@ -476,6 +476,7 @@ HRESULT GgafDxGod::initDevice() {
 
     DIRECT3DCREATE9EXFUNCTION pFunc_Direct3DCreate9Ex = (DIRECT3DCREATE9EXFUNCTION)GetProcAddress(hD3D, "Direct3DCreate9Ex");
     if (pFunc_Direct3DCreate9Ex) {
+        _TRACE_("GgafDxGod::initDevice() d3d9.dllに、Direct3DCreate9Exは存在しました。");
         //d3d9.dll に Direct3DCreate9Ex は存在する。
         hr = ((*pFunc_Direct3DCreate9Ex)(D3D_SDK_VERSION, &pID3D9Ex)); //Direct3DCreate9Ex 実行
         if (FAILED(hr)) {
@@ -492,6 +493,7 @@ HRESULT GgafDxGod::initDevice() {
         GgafDxGod::_pID3D9 = (IDirect3D9*)pID3D9Ex;
         _can_wddm = true;
     } else {
+        _TRACE_("GgafDxGod::initDevice() d3d9.dllに、Direct3DCreate9Exは存在しませんでした。");
         //d3d9.dll に Direct3DCreate9Ex は存在しない。
         pID3D9 = Direct3DCreate9(D3D_SDK_VERSION);
         if (!pID3D9) {

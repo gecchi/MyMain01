@@ -3,7 +3,9 @@
 namespace GgafLib {
 
 /**
- * 等速移動スプライン曲線移動。 .
+ * スプライン曲線移動 .
+ * 単純に、フレーム毎に順番に補完点座標へ移動。
+ * TODO:テストせよ
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge
@@ -11,7 +13,7 @@ namespace GgafLib {
 class SteppedCoordSplineSequence : public SplineSequence {
 
 public:
-    SteppedCoordSplineManufacture* _pFixedVeloSplManuf;
+    SteppedCoordSplineManufacture* _pSteppedSplManuf;
 
     /** [r]基準速度で移動した場合のスプライン移動時の経過フレーム数 */
     float _exec_fFrames;

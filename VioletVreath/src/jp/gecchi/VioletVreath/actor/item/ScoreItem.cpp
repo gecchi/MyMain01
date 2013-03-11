@@ -82,9 +82,9 @@ void ScoreItem::processBehavior() {
         MyShip* pMyShip = P_MYSHIP;
         if (_pProg->isJustChanged()) {
             //Ž©‹@‚Éˆø—Í‚Åˆø‚«Šñ‚¹‚ç‚ê‚é‚æ‚¤‚È“®‚«Ý’è
-            _pKurokoB->setVxMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv);
-            _pKurokoB->setVyMvVelo(_pKurokoA->_vY*_pKurokoA->_veloMv);
-            _pKurokoB->setVzMvVelo(_pKurokoA->_vZ*_pKurokoA->_veloMv);
+            _pKurokoB->setVxyzMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv,
+                                     _pKurokoA->_vY*_pKurokoA->_veloMv,
+                                     _pKurokoA->_vZ*_pKurokoA->_veloMv);
             _pKurokoB->execGravitationMvSequenceTwd(pMyShip, PX_C(30), 100, 60000);
             _pKurokoA->setMvVelo(0);
             _pKurokoA->setMvAcce(0);

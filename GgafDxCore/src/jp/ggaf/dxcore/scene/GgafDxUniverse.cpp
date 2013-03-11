@@ -215,7 +215,7 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
         _apAlphaActorLastList_DrawDepthLevel[draw_depth_level] = prm_pActor;
     } else {
         GgafDxDrawableActor* pActorTmp;
-        if (prm_pActor->_is2DActor) {
+        if (prm_pActor->_is_2D) {
             //同一深度で2Dの場合、連結リストのお尻に追加していく
             //つまり、最後に addSubLast() すればするほど、描画順が後になり、プライオリティが高い。
             pActorTmp = _apAlphaActorLastList_DrawDepthLevel[draw_depth_level];

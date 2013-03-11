@@ -126,7 +126,8 @@ void EnemyHermione::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _pKurokoA->setMvVelo(1000);
                 _pKurokoA->setFaceAngVelo(20, 67, 99);
-                _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP,1000,0,TURN_CLOSE_TO,false);
+                _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP,1,10,
+                                                      TURN_ANTICLOSE_TO,false);
                 _pKurokoA->setRzRyMvAngTwd(P_MYSHIP);
             }
             break;

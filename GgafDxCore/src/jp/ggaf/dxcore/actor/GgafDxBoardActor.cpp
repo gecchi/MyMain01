@@ -32,7 +32,7 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
     _alpha = 1.0f;
-    _is2DActor = true;
+    _is_2D = true;
     _pFunc_calcRotMvWorldMatrix = nullptr;
     _Z = 0;
     setZEnable(false);
