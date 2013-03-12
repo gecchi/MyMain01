@@ -73,9 +73,11 @@ void EnemyEunomia::processBehavior() {
         case PROG_MOVE01_1: {
             if (_pProg->isJustChanged()) {
                 //Ž©‹@‚Ö•ûŒü“]Š·
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
-                                                 2000, 0,
-                                                 TURN_CLOSE_TO, true);
+                _pKurokoA->execTurnRzRyMvAngSequenceTwd(
+                               P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+                               2000, 0,
+                               TURN_CLOSE_TO, true
+                           );
             }
 
 //            if (pDepo_Shot_) {

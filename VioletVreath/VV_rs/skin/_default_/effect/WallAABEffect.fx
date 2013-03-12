@@ -49,10 +49,30 @@ float4x4 g_matWorld013;
 float4x4 g_matWorld014;
 float4x4 g_matWorld015;
 float4x4 g_matWorld016;
-float4x4 g_matWorld017;
-float4x4 g_matWorld018;
-float4x4 g_matWorld019;
+//float4x4 g_matWorld017;
+//float4x4 g_matWorld018;
+//float4x4 g_matWorld019;
 //float4x4 g_matWorld020;
+
+int g_wall_draw_face001;
+int g_wall_draw_face002;
+int g_wall_draw_face003;
+int g_wall_draw_face004;
+int g_wall_draw_face005;
+int g_wall_draw_face006;
+int g_wall_draw_face007;
+int g_wall_draw_face008;
+int g_wall_draw_face009;
+int g_wall_draw_face010;
+int g_wall_draw_face011;
+int g_wall_draw_face012;
+int g_wall_draw_face013;
+int g_wall_draw_face014;
+int g_wall_draw_face015;
+int g_wall_draw_face016;
+//int g_wall_draw_face017;
+//int g_wall_draw_face018;
+//int g_wall_draw_face019;
 
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
@@ -79,50 +99,72 @@ OUT_VS GgafDxVS_WallAAB(
 	//ワールド変換行列を割り当てる
 	int index = (int)prm_object_index; 
 	float4x4 matWorld;
+    int draw_face = 0;
+
 	if (index == 0) {
+        draw_face = g_wall_draw_face001;
 		matWorld = g_matWorld001;
 	} else if (index == 1) {
+        draw_face = g_wall_draw_face002;
 		matWorld = g_matWorld002;
 	} else if (index == 2) {
+        draw_face = g_wall_draw_face003;
 		matWorld = g_matWorld003;
 	} else if (index == 3) {
+        draw_face = g_wall_draw_face004;
 		matWorld = g_matWorld004;
 	} else if (index == 4) {
+        draw_face = g_wall_draw_face005;
 		matWorld = g_matWorld005;
 	} else if (index == 5) {
+        draw_face = g_wall_draw_face006;
 		matWorld = g_matWorld006;
 	} else if (index == 6) {
+        draw_face = g_wall_draw_face007;
 		matWorld = g_matWorld007;
 	} else if (index == 7) {
+        draw_face = g_wall_draw_face008;
 		matWorld = g_matWorld008;
 	} else if (index == 8) {
+        draw_face = g_wall_draw_face009;
 		matWorld = g_matWorld009;
 	} else if (index == 9) {
+        draw_face = g_wall_draw_face010;
 		matWorld = g_matWorld010;
 	} else if (index == 10) {
+        draw_face = g_wall_draw_face011;
 		matWorld = g_matWorld011;
 	} else if (index == 11) {
+        draw_face = g_wall_draw_face012;
 		matWorld = g_matWorld012;
 	} else if (index == 12) {
+        draw_face = g_wall_draw_face013;
 		matWorld = g_matWorld013;
 	} else if (index == 13) {
+        draw_face = g_wall_draw_face014;
 		matWorld = g_matWorld014;
 	} else if (index == 14) {
+        draw_face = g_wall_draw_face015;
 		matWorld = g_matWorld015;
-	} else if (index == 15) {
+	} else {
+        draw_face = g_wall_draw_face016;
 		matWorld = g_matWorld016;
-	} else if (index == 16) {
-		matWorld = g_matWorld017;
-	} else if (index == 17) {
-		matWorld = g_matWorld018;
+    }
+//	} else if (index == 16) {
+//        draw_face = g_wall_draw_face017;
+//		matWorld = g_matWorld017;
+//	} else if (index == 17) {
+//        draw_face = g_wall_draw_face018;
+//		matWorld = g_matWorld018;
 //	} else if (index == 18) {
 //		matWorld = g_matWorld019;
-	} else {
-		matWorld = g_matWorld019;
-	} 
+//	} else {
+//        draw_face = g_wall_draw_face019;
+//		matWorld = g_matWorld019;
+//	} 
     //描画面番号情報が、ワールド変換行列のmatWorld._14 に埋め込まれている
-	int draw_face = (int)matWorld._14;
-    matWorld._14 = 0; //元の行列値に戻しておく
+//	int draw_face = (int)matWorld._14;
+//    matWorld._14 = 0; //元の行列値に戻しておく
 
     //UVによりどの面の頂点か判断し、
     //描画不要な面の頂点の場合は何とかする（ジオメトリシェーダー使いたい；）

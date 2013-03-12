@@ -281,12 +281,8 @@ void VamSysCamWorker::processBehavior() {
         }
     }
     //カメラの移動速度の最大、最小制限を設定
-    pCam->_pKurokoB->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pCam->_pKurokoB->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pCam->_pKurokoB->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVP->_pKurokoB->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVP->_pKurokoB->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVP->_pKurokoB->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pCam->_pKurokoB->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pVP->_pKurokoB->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
 
     //カメラとビューポイントの移動座標を制限。
     //自機移動範囲に応じて、画面端の感じを演出するため。(無くとも問題ない？)

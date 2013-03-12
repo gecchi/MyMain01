@@ -873,6 +873,12 @@ HRESULT GgafDxGod::initDevice() {
         }
     }
 
+    //テスト
+    if (_can_wddm) {
+        hr = ((IDirect3DDevice9Ex*)GgafDxGod::_pID3DDevice9)->SetMaximumFrameLatency(0);
+        checkDxException(hr, D3D_OK, "SetMaximumFrameLatency(0) に失敗しました。");
+    }
+
     //その他必要な初期化
     _pCubeMapTextureManager = NEW GgafDxTextureManager("CubeMapTexManager");
     _pBumpMapTextureManager = NEW GgafDxTextureManager("BumpMapTexManager");

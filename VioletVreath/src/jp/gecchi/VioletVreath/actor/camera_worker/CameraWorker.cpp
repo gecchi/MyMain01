@@ -81,12 +81,8 @@ void CameraWorker::processBehavior() {
 
     int cam_velo_renge = cam_velo_renge_;  //カメラの移動速度の最大、最小敷居値
     //カメラの移動速度の最大、最小制限を設定
-    pCam->_pKurokoB->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pCam->_pKurokoB->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pCam->_pKurokoB->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVP->_pKurokoB->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVP->_pKurokoB->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVP->_pKurokoB->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pCam->_pKurokoB->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pVP->_pKurokoB->forceVxyzMvVeloRange(-cam_velo_renge, cam_velo_renge);
 
     //カメラ、及びビューポイントの移動速度を求める。
 

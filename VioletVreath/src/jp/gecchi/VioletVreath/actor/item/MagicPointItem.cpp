@@ -12,9 +12,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.9);
 
-    _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, D_ANG(5));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(7));
+    _pKurokoA->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     _pKurokoA->relateFaceAngWithMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress();

@@ -313,9 +313,25 @@ void GgafDxKurokoB::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02)
 }
 
 void GgafDxKurokoB::forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02) {
-    forceVxMvVeloRange(prm_veloVxyzMv01, prm_veloVxyzMv02);
-    forceVyMvVeloRange(prm_veloVxyzMv01, prm_veloVxyzMv02);
-    forceVzMvVeloRange(prm_veloVxyzMv01, prm_veloVxyzMv02);
+    if (prm_veloVxyzMv01 < prm_veloVxyzMv02) {
+        _veloTopVxMv = prm_veloVxyzMv02;
+        _veloBottomVxMv = prm_veloVxyzMv01;
+        _veloTopVyMv = prm_veloVxyzMv02;
+        _veloBottomVyMv = prm_veloVxyzMv01;
+        _veloTopVzMv = prm_veloVxyzMv02;
+        _veloBottomVzMv = prm_veloVxyzMv01;
+    } else {
+        _veloTopVxMv = prm_veloVxyzMv01;
+        _veloBottomVxMv = prm_veloVxyzMv02;
+        _veloTopVyMv = prm_veloVxyzMv01;
+        _veloBottomVyMv = prm_veloVxyzMv02;
+        _veloTopVzMv = prm_veloVxyzMv01;
+        _veloBottomVzMv = prm_veloVxyzMv02;
+    }
+    //�Đݒ肵�Ĕ͈͓��ɕ␳
+    setVxMvVelo(_veloVxMv);
+    setVyMvVelo(_veloVyMv);
+    setVzMvVelo(_veloVzMv);
 }
 void GgafDxKurokoB::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02) {
     forceVxMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);

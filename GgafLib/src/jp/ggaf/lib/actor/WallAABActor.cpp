@@ -8,14 +8,37 @@ WallAABActor::WallAABActor(const char* prm_name,
                            GgafStatus* prm_pStat) :
 
                           WallPartsActor(prm_name,
-                                        std::string("19/" + std::string(prm_model)).c_str(),
+                                        std::string("16/" + std::string(prm_model)).c_str(),
                                         "WallAABEffect",
                                         "WallAABTechnique",
                                         prm_pStat) {
 
     _class_name = "WallAABActor";
-    _pMeshSetModel->_set_num = 19; //WallPartsActor最大セット数は20。
-    _h_distance_AlphaTarget = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
+    _pMeshSetModel->_set_num = 16; //WallPartsActor最大セット数は16。
+    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+
+    _h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
+    _ah_wall_draw_face[0]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face001" );
+    _ah_wall_draw_face[1]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face002" );
+    _ah_wall_draw_face[2]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face003" );
+    _ah_wall_draw_face[3]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face004" );
+    _ah_wall_draw_face[4]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face005" );
+    _ah_wall_draw_face[5]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face006" );
+    _ah_wall_draw_face[6]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face007" );
+    _ah_wall_draw_face[7]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face008" );
+    _ah_wall_draw_face[8]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face009" );
+    _ah_wall_draw_face[9]   = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face010" );
+    _ah_wall_draw_face[10]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face011" );
+    _ah_wall_draw_face[11]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face012" );
+    _ah_wall_draw_face[12]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face013" );
+    _ah_wall_draw_face[13]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face014" );
+    _ah_wall_draw_face[14]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face015" );
+    _ah_wall_draw_face[15]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face016" );
+//    _ah_wall_draw_face[16]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face017" );
+//    _ah_wall_draw_face[17]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face018" );
+//    _ah_wall_draw_face[18]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face019" );
+
+
     _pColliChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
     _pColliChecker->setColliAAB(0, 0,0,0, 0,0,0);
     setZEnable(true);       //Zバッファは考慮有り
@@ -60,8 +83,19 @@ void WallAABActor::processDraw() {
                 pWallPartsActor = (WallPartsActor*)pDrawActor;
 //                _TRACE_("WallAABActor::processDraw() pWallPartsActor->_wall_draw_face="<<(pWallPartsActor->_wall_draw_face)<<" befor._matWorld._14="<<(pWallPartsActor->_matWorld._14));
 
-                pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
+                //pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
+
+                hr = pID3DXEffect->SetInt(_ah_wall_draw_face[draw_set_num], pWallPartsActor->_wall_draw_face);
+                checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+
                 hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
+                checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+
+                //_set_num 19を18に、あるいは２とか３に減らしてみたはどうか
+                //FXをVS_2_0 に変えてみてはどうか
+                //
+
+
 
 //                D3DXMATRIX& mat = pWallPartsActor->_matWorld;
 //                _TRACE_(mat._11<<","<<mat._12<<","<<mat._13<<","<<mat._14);
@@ -70,7 +104,6 @@ void WallAABActor::processDraw() {
 //                _TRACE_(mat._41<<","<<mat._42<<","<<mat._43<<","<<mat._44);
 //                _TRACE_("------------");
 
-                checkDxException(hr, D3D_OK, "WallPartsActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
                 draw_set_num++;
                 if (draw_set_num >= _pMeshSetModel->_set_num) {
                     break;
