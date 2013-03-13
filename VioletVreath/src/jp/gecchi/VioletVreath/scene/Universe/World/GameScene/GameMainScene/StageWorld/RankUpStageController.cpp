@@ -43,7 +43,7 @@ void RankUpStageController::execute() {
 }
 
 void RankUpStageController::onReset() {
-    _pProg->set(RankUpStageController::PROG_INIT);
+    _pProg->reset(RankUpStageController::PROG_INIT);
 }
 
 void RankUpStageController::ready(int prm_rank_level) {

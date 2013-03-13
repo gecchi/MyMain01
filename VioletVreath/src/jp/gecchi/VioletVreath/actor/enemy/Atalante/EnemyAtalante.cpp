@@ -38,7 +38,7 @@ void EnemyAtalante::onActive() {
     _pKurokoA->setMvAcce(0);
     _pKurokoA->setMvVelo(4000);
     _pKurokoA->forceMvVeloRange(50000);
-    _pProg->set(PROG_INIT);
+    _pProg->reset(PROG_INIT);
 }
 
 void EnemyAtalante::processBehavior() {

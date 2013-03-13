@@ -140,7 +140,7 @@ void LabelRankFont::onCreateModel() {
 
 void LabelRankFont::initialize() {
     tmp_rank_ = _RANK_DISP_;
-    _pProg->set(PROG_NOMALDISP);
+    _pProg->reset(PROG_NOMALDISP);
 }
 
 void LabelRankFont::processBehavior() {
@@ -154,7 +154,7 @@ void LabelRankFont::processBehavior() {
         char c[65];
         cnvRankStr(rank_level, c);
         update(c);
-        _pProg->set(PROG_RANKUP);
+        _pProg->reset(PROG_RANKUP);
         tmp_rank_ = rank_level;
     }
 

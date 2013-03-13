@@ -61,7 +61,7 @@ public:
      */
     virtual void moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_p1, float prm_p2);
 
-    virtual void beginBlinking();
+    virtual void blink();
 
     virtual ~MagicLvCursor();
 };

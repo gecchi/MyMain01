@@ -33,7 +33,7 @@ void EffectMyOption::initialize() {
 }
 
 void EffectMyOption::onReset() {
-//    _pProg->set(1);
+//    _pProg->reset(1);
 }
 
 void EffectMyOption::onActive() {

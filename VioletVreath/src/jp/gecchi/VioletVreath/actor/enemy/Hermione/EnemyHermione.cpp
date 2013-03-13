@@ -93,7 +93,7 @@ void EnemyHermione::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
 
-    _pProg->set(PROG_INIT);
+    _pProg->reset(PROG_INIT);
     setHitAble(false);
 }
 
@@ -126,9 +126,10 @@ void EnemyHermione::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _pKurokoA->setMvVelo(1000);
                 _pKurokoA->setFaceAngVelo(20, 67, 99);
-                _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP,1,10,
-                                                      TURN_ANTICLOSE_TO,false);
-                _pKurokoA->setRzRyMvAngTwd(P_MYSHIP);
+                _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP,
+                                                      1, 10,
+                                                      TURN_ANTICLOSE_TO, false);
+                _pKurokoA->setMvAngTwd(P_MYSHIP);
             }
             break;
         }

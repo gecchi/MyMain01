@@ -59,7 +59,7 @@ void EnemyThisbe::initialize() {
 void EnemyThisbe::onActive() {
     _pStatus->reset();
     _pMorpher->reset();
-    _pProg->set(PROG_WAIT);
+    _pProg->reset(PROG_WAIT);
 }
 
 void EnemyThisbe::processBehavior() {

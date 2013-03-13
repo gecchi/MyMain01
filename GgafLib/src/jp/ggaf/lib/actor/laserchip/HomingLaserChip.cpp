@@ -100,7 +100,7 @@ void HomingLaserChip::onInactive() {
                             )
                          );
             pChip_behind->_pKurokoA->setMvVelo(D); //ãóó£Ç™ë¨ìxÇ…Ç»ÇÈ
-            pChip_behind->_pKurokoA->setRzRyMvAngTwd(this);
+            pChip_behind->_pKurokoA->setMvAngTwd(this);
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 Ç≈Ç†ÇÈÇ…Ç‡ä÷ÇÌÇÁÇ∏ÅA_pChip_behindÇ™ë∂ç›ÇµÇ‹ÇπÇÒ");
         }

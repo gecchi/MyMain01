@@ -62,7 +62,7 @@ void EnemyHesperia::onActive() {
     _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
     _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
 
-    _pProg->set(PROG_ENTRY);
+    _pProg->reset(PROG_ENTRY);
 }
 
 void EnemyHesperia::processBehavior() {

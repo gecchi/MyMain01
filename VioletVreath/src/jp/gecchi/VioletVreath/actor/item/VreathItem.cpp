@@ -51,15 +51,13 @@ void VreathItem::onActive() {
             vX, vY, vZ);
     int d = PX_C(200);
     int r = PX_C(75);
-    _pKurokoA->setRzRyMvAngTwd(
-            (coord)(_X + (vX * d) + RND(-r, +r)),
-            (coord)(_Y + (vY * d) + RND(-r, +r)),
-            (coord)(_Z + (vZ * d) + RND(-r, +r))
-    );
+    _pKurokoA->setMvAngTwd( (coord)(_X + (vX * d) + RND(-r, +r)),
+                                (coord)(_Y + (vY * d) + RND(-r, +r)),
+                                (coord)(_Z + (vZ * d) + RND(-r, +r)) );
     _pKurokoA->setMvVelo(2000);
     _pKurokoA->setMvAcce(100);
 
-    _pProg->set(PROG_DRIFT);
+    _pProg->reset(PROG_DRIFT);
     _SX = _SY = _SZ = 1000;
 }
 

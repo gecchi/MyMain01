@@ -73,7 +73,7 @@ void MyShipScene::onReset() {
         papOptionCtrler_[i]->resetTree();
     }
     fadeoutSceneWithBgm(0);
-    _pProg->set(MyShipScene::PROG_INIT);
+    _pProg->reset(MyShipScene::PROG_INIT);
     P_UNIVERSE->resetCamWorker();
 }
 

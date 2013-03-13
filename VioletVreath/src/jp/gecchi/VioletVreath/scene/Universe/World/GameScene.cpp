@@ -65,7 +65,7 @@ void GameScene::onReset() {
     }
     P_UNIVERSE->resetCamWorker();
     GameGlobal::init();
-    _pProg->set(GameScene::PROG_INIT);
+    _pProg->reset(GameScene::PROG_INIT);
 }
 
 void GameScene::onActive() {

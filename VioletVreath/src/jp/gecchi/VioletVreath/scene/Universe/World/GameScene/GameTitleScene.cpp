@@ -8,7 +8,7 @@ using namespace VioletVreath;
 GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
     useProgress(10);
-    _pProg->set(GameTitleScene::PROG_INIT);
+    _pProg->reset(GameTitleScene::PROG_INIT);
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     getDirector()->addSubGroup(pLabel01_);
@@ -42,7 +42,7 @@ void GameTitleScene::onReset() {
     pLabel01_->update("");
     pLabel02_->update("");
     pTitleBoard_->locate(PX_C(100), PX_C(90));
-    _pProg->set(GameTitleScene::PROG_INIT);
+    _pProg->reset(GameTitleScene::PROG_INIT);
 }
 
 void GameTitleScene::onActive() {
@@ -52,7 +52,7 @@ void GameTitleScene::onActive() {
     pHoshiBoshi_->activate();
     pWorldBound_->fadein();
     pHoshiBoshi_->fadein();
-    _pProg->set(GameTitleScene::PROG_INIT);
+    _pProg->reset(GameTitleScene::PROG_INIT);
 }
 
 void GameTitleScene::initialize() {

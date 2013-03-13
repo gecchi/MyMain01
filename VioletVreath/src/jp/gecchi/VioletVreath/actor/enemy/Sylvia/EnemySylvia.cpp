@@ -74,7 +74,7 @@ void EnemySylvia::initialize() {
 
 void EnemySylvia::onActive() {
     _pStatus->reset();
-    _pProg->set(PROG_INIT);
+    _pProg->reset(PROG_INIT);
 }
 
 void EnemySylvia::processBehavior() {

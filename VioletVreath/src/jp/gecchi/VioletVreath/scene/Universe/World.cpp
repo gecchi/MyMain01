@@ -100,7 +100,7 @@ void World::initialize() {
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
     orderSceneToFactory(2, GameScene, "Game");
     useProgress(World::PROG_MAINLOOP);
-    _pProg->set(World::PROG_INIT);
+    _pProg->reset(World::PROG_INIT);
 }
 
 void World::processBehavior() {

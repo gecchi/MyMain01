@@ -44,7 +44,7 @@ public:
     GgafProgress(frame* prm_pFrame_counter, int prm_num_progress);
 
 
-    virtual void reset();
+    void reset();
 
     /**
      * 現在の進捗番号取得 .
@@ -64,7 +64,7 @@ public:
      * isJustChanged() は成立しません。<BR>
      * @param prm_progress 進捗番号(1～)
      */
-    void set(progress prm_progress);
+    void reset(progress prm_progress);
 
     /**
      * 現在の進捗を0(無し)に設定する .
@@ -97,6 +97,7 @@ public:
      * @param prm_progress 進捗番号(1～)
      */
     void change(progress prm_progress);
+
 
     /**
      * 進捗番号を0(無し)に変更 .

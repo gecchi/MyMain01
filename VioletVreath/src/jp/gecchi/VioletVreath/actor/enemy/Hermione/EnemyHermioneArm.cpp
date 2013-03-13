@@ -22,7 +22,7 @@ void EnemyHermioneArm::initialize() {
 
 void EnemyHermioneArm::onActive() {
     _pStatus->reset();
-    _pProg->set(PROG_INIT);
+    _pProg->reset(PROG_INIT);
 }
 
 void EnemyHermioneArm::processBehavior() {

@@ -104,6 +104,9 @@ void GgafDxUvFlipper::behave() {
     }
 #endif
     _frame_counter_uvflip++;
+    if (_uvflip_method == NOT_ANIMATED) {
+        return;
+    }
     if (_uvflip_interval_frames < _frame_counter_uvflip) {
         if (_uvflip_method == FLIP_ORDER_LOOP) { //—áF0,1,2,3,4,5,0,1,2,3,4,5,...
             if (_pattno_uvflip_bottom > _pattno_uvflip_now) {

@@ -47,24 +47,19 @@ void MyTorpedo::onActive() {
     _SX = _SY = _SZ = 100;
     _pScaler->setScale(100);
     _pScaler->intoTargetScaleLinerStep(7000, 500);
-    pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
-    pKurokoA->setFaceAngVelo(AXIS_Y, D_ANG(5));
-    pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(7));
+    pKurokoA->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    pKurokoA->forceMvVeloRange(4000, 80000);
     pKurokoA->setMvVelo(20000);
     pKurokoA->setMvAcce(-500); //Å‰Œ¸‘¬
-    pKurokoA->setRzMvAngVelo(0);
-    pKurokoA->setRyMvAngVelo(0);
-    pKurokoA->setRzMvAngAcce(0);
-    pKurokoA->setRyMvAngAcce(0);
-    pKurokoA->forceMvVeloRange(4000, 80000);
-    pKurokoA->forceRzMvAngVeloRange(-40000, 40000);
-    pKurokoA->forceRyMvAngVeloRange(-40000, 40000);
+    pKurokoA->forceRzRyMvAngVeloRange(-40000, 40000);
+    pKurokoA->setRzRyMvAngVelo(0);
+    pKurokoA->setRzRyMvAngAcce(0);
     pKurokoA->stopTurnMvAngSequence();
     begin_X_ = _X;
     begin_Y_ = _Y;
     begin_Z_ = _Z;
     setHitAble(true);
-    _pProg->set(MyTorpedo_IN_FIRE);
+    _pProg->reset(MyTorpedo_IN_FIRE);
     move_section_ = 0;
 }
 
@@ -92,17 +87,16 @@ void MyTorpedo::processBehavior() {
             if (pKurokoA->_veloMv == pKurokoA->_veloBottomMv) { //Œ¸‘¬I—¹
                 pKurokoA->setMvAcce(500);
                 if (pTarget_) {
-                    pKurokoA->execTurnRzRyMvAngSequenceTwd(
-                                pTarget_,
-                                2000, 200,
-                                TURN_ANTICLOSE_TO, false);
+                    pKurokoA->execTurnMvAngSequenceTwd(pTarget_,
+                                                       2000, 200,
+                                                       TURN_ANTICLOSE_TO, false);
                 } else {
                     pKurokoA->execTurnRzRyMvAngSequence(
                                 pOptionTorpedoCtrler_->pOrg_->_RZ, pOptionTorpedoCtrler_->pOrg_->_RY,
                                 1000, 100,
                                 TURN_CLOSE_TO, false);
 
-//                    pKurokoA->execTurnRzRyMvAngSequenceTwd(
+//                    pKurokoA->execTurnMvAngSequenceTwd(
 //                                GgafDxUniverse::_X_gone_right, P_MYSHIP->_Y, P_MYSHIP->_Z,
 //                                2000, 200,
 //                                TURN_ANTICLOSE_TO, false);
@@ -126,23 +120,20 @@ void MyTorpedo::processBehavior() {
                 if (getActivePartFrame() % 10 == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
-                            pKurokoA->execTurnRzRyMvAngSequenceTwd(
-                                        pTarget_,
-                                        1000, 200,
-                                        TURN_CLOSE_TO, false);
+                            pKurokoA->execTurnMvAngSequenceTwd(pTarget_,
+                                                               1000, 200,
+                                                               TURN_CLOSE_TO, false);
                         } else {
                             //‚Ü‚Á‚·‚®
-                            pKurokoA->setRzMvAngVelo(0);
-                            pKurokoA->setRyMvAngVelo(0);
-                            pKurokoA->setRzMvAngAcce(0);
-                            pKurokoA->setRyMvAngAcce(0);
+                            pKurokoA->setRzRyMvAngVelo(0);
+                            pKurokoA->setRzRyMvAngAcce(0);
                         }
                     } else {
                         pKurokoA->execTurnRzRyMvAngSequence(
                                     pOptionTorpedoCtrler_->pOrg_->_RZ, pOptionTorpedoCtrler_->pOrg_->_RY,
                                     1000, 200,
                                     TURN_CLOSE_TO, false);
-//                            _pKurokoA->execTurnRzRyMvAngSequenceTwd(
+//                            _pKurokoA->execTurnMvAngSequenceTwd(
 //                                        GgafDxUniverse::_X_gone_right, _Y, _Z,
 //                                        1000, 200,
 //                                        TURN_CLOSE_TO, false);
@@ -160,16 +151,13 @@ void MyTorpedo::processBehavior() {
                 if (getActivePartFrame() % 20 == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
-                            pKurokoA->execTurnRzRyMvAngSequenceTwd(
-                                        pTarget_,
-                                        300, 0,
-                                        TURN_CLOSE_TO, false);
+                            pKurokoA->execTurnMvAngSequenceTwd(pTarget_,
+                                                               300, 0,
+                                                               TURN_CLOSE_TO, false);
                         } else {
                             //‚Ü‚Á‚·‚®
-                            pKurokoA->setRzMvAngVelo(0);
-                            pKurokoA->setRyMvAngVelo(0);
-                            pKurokoA->setRzMvAngAcce(0);
-                            pKurokoA->setRyMvAngAcce(0);
+                            pKurokoA->setRzRyMvAngVelo(0);
+                            pKurokoA->setRzRyMvAngAcce(0);
                         }
                     } else {
                         pKurokoA->execTurnRzRyMvAngSequence(
@@ -187,10 +175,8 @@ void MyTorpedo::processBehavior() {
         }
         //ƒ€[ƒu‚S
         if (move_section_ == 4) {
-            pKurokoA->setRzMvAngVelo(0);
-            pKurokoA->setRyMvAngVelo(0);
-            pKurokoA->setRzMvAngAcce(0);
-            pKurokoA->setRyMvAngAcce(0);
+            pKurokoA->setRzRyMvAngVelo(0);
+            pKurokoA->setRzRyMvAngAcce(0);
         }
 
         pKurokoA->behave();

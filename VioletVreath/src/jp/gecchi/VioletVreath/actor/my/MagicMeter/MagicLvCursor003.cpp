@@ -22,36 +22,47 @@ void MagicLvCursor003::initialize() {
     _pUvFlipper->forcePtnRange(0,3);
     _pUvFlipper->setActivePtn(3);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED);
+
+    _pScaler->forceScaleRange(1000, 10000);
 }
 
 void MagicLvCursor003::processPreDraw() {
-    //"CASTING" はロールが閉じても消さないようにする。
-    tmp_alpha_ = getAlpha();
-    if (_pUvFlipper->_uvflip_method == NOT_ANIMATED) {
-        setAlpha(0);
-    }
-    //ここで、ロール分Y座標を補正（・・・ここはMagicLvCursor::processPreDraw()と同じ）
+    //MagicLvCursor::processPreDraw(); 及び、MagicLvCursor::processAfterDraw()
+    //では、Y座標ロールの追従と、ロールオープン・クローズに伴う半透明処理を行なっている。
+    //しかし、本カーソル（"CASTING"などの文字）ロールが閉じても消さないようにするため、
+    //オーバーライドし、半透明処理を削ることにする。
+    //Y座標ロール追従は行うので、その部分のみ実装を行うことにする。
+    //MagicLvCursor::processPreDraw(); 及び、MagicLvCursor::processAfterDraw() の処理を変更したら、
+    //ここも変更せよ。
     tmp_Y_ = _Y; //退避
     _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
     DefaultBoardActor::processPreDraw();
 }
 
+void MagicLvCursor003::processAfterDraw() {
+    DefaultBoardActor::processAfterDraw();
+    _Y = tmp_Y_; //復帰
+}
+
 void MagicLvCursor003::markOff() {
-    setAlpha(0);
+    _pUvFlipper->stopFlip();
+    _pFader->reset();
+    _pFader->setAlpha(0);
 }
 
 void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
-    setAlpha(1);
+    _pFader->setAlpha(0);
+    _pFader->intoTargetAlphaLinerUntil(1.0, 20);
     moveTo(prm_lv);
     _pUvFlipper->forcePtnRange(0,3);
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 3);
     _pScaler->setScale(10000);
-    _pScaler->intoTargetScaleLinerUntil(1000,60);
+    _pScaler->intoTargetScaleLinerUntil(1000, 20);
 }
 
 void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
-    setAlpha(1);
+    _pFader->setAlpha(1.0);
     moveTo(prm_lv);
     _pUvFlipper->forcePtnRange(0,3);
     _pUvFlipper->setActivePtn(0);

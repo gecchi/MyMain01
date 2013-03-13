@@ -99,7 +99,7 @@ void EnemyPallas::processBehavior() {
                 }
             }
 //            //自機へ方向転換
-            _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+            _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
                                                 2000, 0,
                                                 TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ

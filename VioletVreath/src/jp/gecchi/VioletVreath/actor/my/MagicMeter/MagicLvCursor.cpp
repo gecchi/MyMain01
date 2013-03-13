@@ -28,6 +28,7 @@ void MagicLvCursor::initialize() {
     _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     _Y = tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pScaler->forceScaleRange(1000, 3000);
 }
 
 void MagicLvCursor::processBehavior() {
@@ -57,12 +58,16 @@ void MagicLvCursor::processPreDraw() {
     tmp_Y_ = _Y; //退避
     _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - rr));
     DefaultBoardActor::processPreDraw();
+
+    //Y座標ロール追従処理を変えたら、MagicLvCursor003::processPreDraw() も同様の変更を！
 }
 
 void MagicLvCursor::processAfterDraw() {
     DefaultBoardActor::processAfterDraw();
     _Y = tmp_Y_; //復帰
     setAlpha(tmp_alpha_); //復帰
+
+    //Y座標ロール追従処理を変えたら、MagicLvCursor003::processAfterDraw() も同様の変更を！
 }
 
 void MagicLvCursor::moveTo(int prm_lv) {
@@ -82,13 +87,14 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
     point_lv_ = prm_lv;
     tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
-    _pKurokoA->setRzRyMvAngTwd(tX_, tY_);
+    _pKurokoA->setMvAngTwd(tX_, tY_);
     _pKurokoA->execSmoothMvVeloSequence(0, UTIL::getDistance(_X, _Y, tX_, tY_),
                                         (int)prm_target_frames, prm_p1, prm_p2); //ロールを考慮せずにとりあえず移動
 }
 
-void MagicLvCursor::beginBlinking() {
-    _pFader->beat(6, 0, 3, 3, 15); //ピカピカ
+void MagicLvCursor::blink() {
+    _pFader->beat(6, 3, 0, 0, 15); //ピカピカ
+    _pScaler->beat(12, 6, 0, 3); //ピカピカ
 }
 
 MagicLvCursor::~MagicLvCursor() {

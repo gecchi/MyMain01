@@ -35,8 +35,6 @@ void EnemyRemus::onCreateModel() {
 
 void EnemyRemus::initialize() {
     setHitAble(true);
-    //_pKurokoA->setRzMvAngVelo(1000);
-    //_pKurokoA->setRyMvAngVelo(500);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
@@ -51,7 +49,7 @@ void EnemyRemus::onActive() {
     _pStatus->reset();
     _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
-    _pProg->set(PROG_HATCH_CLOSE);
+    _pProg->reset(PROG_HATCH_CLOSE);
 }
 
 void EnemyRemus::processBehavior() {

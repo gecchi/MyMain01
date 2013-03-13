@@ -23,7 +23,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
 
 }
 void GameDemoScene::onReset() {
-    _pProg->set(GameDemoScene::PROG_INIT);
+    _pProg->reset(GameDemoScene::PROG_INIT);
     pLabel01_->update("");
     pLabel02_->update("");
     for (int i = 0; i < GameGlobal::qryRanking_.getCount(); i++) {

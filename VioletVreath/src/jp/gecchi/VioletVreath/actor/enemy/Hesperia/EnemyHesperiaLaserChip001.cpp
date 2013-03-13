@@ -29,13 +29,12 @@ void EnemyHesperiaLaserChip001::onActive() {
     _pStatus->reset();
     begin_Y_ = _Y;
     _pKurokoA->stopTurnMvAngSequence();
-    _pKurokoA->setRzMvAngVelo(0);
-    _pKurokoA->setRyMvAngVelo(0);
+    _pKurokoA->setRzRyMvAngVelo(0);
     if (_pChip_front == nullptr) {
-        _pKurokoA->setRzRyMvAngTwd(tX1_, tY1_, tZ1_);
-        _pProg->set(PROG_MOVE_UP);
+        _pKurokoA->setMvAngTwd(tX1_, tY1_, tZ1_);
+        _pProg->reset(PROG_MOVE_UP);
     } else {
-        _pProg->set(PROG_NOTHING);
+        _pProg->reset(PROG_NOTHING);
     }
     setAlpha(0.99);
     //次のメンバーは EnemyHesperia 本体側から設定済みが前提
@@ -64,10 +63,9 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
                 _pSeTx->play3D(SE_FIRE);
 
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(
-                             tX1_, tY1_, tZ1_,
-                             D_ANG(5), 0,
-                             TURN_CLOSE_TO, true);
+                _pKurokoA->execTurnMvAngSequenceTwd(tX1_, tY1_, tZ1_,
+                                                    D_ANG(5), 0,
+                                                    TURN_CLOSE_TO, true);
             }
 
             if (_Y > begin_Y_+turn_dY_ || _pProg->getFrameInProgress() > 300) {
@@ -80,10 +78,9 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
             //自機より少し上の座標で屈折
             if (_pProg->isJustChanged()) {
                 _pKurokoA->setMvVelo(_pKurokoA->_veloMv/3); //屈折時少しスローダウン
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(
-                             tX2_, tY2_, tZ2_,
-                             D_ANG(10), 0,
-                             TURN_CLOSE_TO, true);
+                _pKurokoA->execTurnMvAngSequenceTwd(tX2_, tY2_, tZ2_,
+                                                    D_ANG(10), 0,
+                                                    TURN_CLOSE_TO, true);
             }
             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
                 _pProg->changeNext();
@@ -94,10 +91,9 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_TURN2: {
             //屈折補正
             if (_pProg->getFrameInProgress() % 10 == 0) {
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(
-                             tX2_, tY2_, tZ2_,
-                             D_ANG(5), 0,
-                             TURN_CLOSE_TO, true);
+                _pKurokoA->execTurnMvAngSequenceTwd(tX2_, tY2_, tZ2_,
+                                                    D_ANG(5), 0,
+                                                    TURN_CLOSE_TO, true);
             }
             if (_pProg->getFrameInProgress() > 60) {
                 _pProg->changeNext();
@@ -110,15 +106,13 @@ void EnemyHesperiaLaserChip001::processBehaviorHeadChip() {
                 _pKurokoA->setMvVelo(_pKurokoA->_veloMv*2);
             }
             if (_pProg->getFrameInProgress() % 20 == 0) {
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(
-                             tX2_, tY2_, tZ2_,
-                             100, 0,
-                             TURN_CLOSE_TO, true);
+                _pKurokoA->execTurnMvAngSequenceTwd(tX2_, tY2_, tZ2_,
+                                                    100, 0,
+                                                    TURN_CLOSE_TO, true);
             }
             if (_pProg->getFrameInProgress() > 90) {
                 _pKurokoA->stopTurnMvAngSequence();
-                _pKurokoA->setRzMvAngVelo(0);
-                _pKurokoA->setRyMvAngVelo(0);
+                _pKurokoA->setRzRyMvAngVelo(0);
                 _pProg->changeNext();
             }
             break;

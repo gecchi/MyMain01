@@ -33,7 +33,7 @@ void NameEntryScene::onReset() {
     pLabel01_->update("");
     pLabelInputedName_->update("");
     pWorldBound_->inactivateImmed();
-    _pProg->set(NameEntryScene::PROG_INIT);
+    _pProg->reset(NameEntryScene::PROG_INIT);
 }
 void NameEntryScene::initialize() {
     _TRACE_("NameEntryScene::initialize()");

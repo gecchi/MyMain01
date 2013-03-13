@@ -27,10 +27,10 @@ void EffectLockon001_Sub::onActive() {
     //_pSeTx->play3D(0); //ƒƒbƒNƒIƒ“SE
     if (pTarget_) {
         locateWith(pTarget_);
-        _pProg->set(LOCKON001_PROG_LOCK);
+        _pProg->reset(LOCKON001_PROG_LOCK);
     } else {
         setAlpha(0.00);
-        _pProg->set(LOCKON001_PROG_RELEASE);
+        _pProg->reset(LOCKON001_PROG_RELEASE);
     }
 }
 
@@ -58,7 +58,7 @@ void EffectLockon001_Sub::processBehavior() {
                      locateWith(pTarget_);
                      _pKurokoA->setMvVelo(0);
                  } else {
-                     _pKurokoA->setRzRyMvAngTwd(pTarget_);
+                     _pKurokoA->setMvAngTwd(pTarget_);
                      _pKurokoA->setMvVelo(PX_C(200));
                  }
              } else {

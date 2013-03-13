@@ -517,11 +517,23 @@ public:
 
     void forceRyMvAngVeloRange(angvelo prm_angveloRyMv01, angvelo prm_angveloRyMv02);
 
-    void setRyMvAngAcce(angacce prm_angacceRyMv);
+    void setRyMvAngAcce(angacce prm_angacceRyAcc);
 
     angle getRyMvAngDistanceTwd(coord prm_tX, coord prm_tY, int prm_way);
 
     angle getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way);
+
+
+    void forceRzRyMvAngVeloRange(angvelo prm_angveloRzRyMv01, angvelo prm_angveloRzRyMv02);
+
+    void setRzRyMvAngVelo(angvelo prm_angveloRzRyMv);
+
+    void setRzRyMvAngAcce(angacce prm_angacceRzRyMv);
+
+    void setRzRyMvAngVelo(angvelo prm_angveloRzMv, angvelo prm_angveloRyMv);
+
+    void setRzRyMvAngAcce(angacce prm_angacceRzMv, angacce prm_angacceRyMv);
+
 
 
     void getRzRyMvAngDistance(int prm_way,
@@ -554,7 +566,7 @@ public:
      * @param prm_tY 目標Y座標
      * @param prm_tZ 目標Z座標
      */
-    void setRzRyMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ);
+    void setMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ);
 
     /**
      * 目標座標点を座標指定で移動方角(RzRy)を設定。.
@@ -563,19 +575,19 @@ public:
      * @param prm_tX 目標X座標
      * @param prm_tY 目標Y座標
      */
-    void setRzRyMvAngTwd(coord prm_tX, coord prm_tY);
+    void setMvAngTwd(coord prm_tX, coord prm_tY);
 
     /**
      * 目標座標点指を対象アクターの座標指定で移動方角(RzRy)を設定。.
      * 方向ベクトル正規化も内部で行なう。
      * @param prm_pActor_Target 目標対象アクター
      */
-    void setRzRyMvAngTwd(GgafDxGeometricActor* prm_pActor_Target);
+    void setMvAngTwd(GgafDxGeometricActor* prm_pActor_Target);
 
 
-    void setStopTargetRzRyMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ);
+    void setStopTargetMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ);
 
-    void setStopTargetRzRyMvAngTwd(GgafDxGeometricActor* prm_pActor_Target);
+    void setStopTargetMvAngTwd(GgafDxGeometricActor* prm_pActor_Target);
 
 
     /**
@@ -728,16 +740,16 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTurnRzRyMvAngSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+    void execTurnMvAngSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way, bool prm_optimize_ang);
 
     void keepTurnMvAngAllTime(coord prm_tX, coord prm_tY, coord prm_tZ,
                               angvelo prm_angVelo, angacce prm_angAcce,
                               int prm_way, bool prm_optimize_ang) {
-        execTurnRzRyMvAngSequenceTwd(prm_tX, prm_tY, prm_tZ,
-                                    prm_angVelo,  prm_angAcce,
-                                    prm_way, prm_optimize_ang );
+        execTurnMvAngSequenceTwd(prm_tX, prm_tY, prm_tZ,
+                                 prm_angVelo,  prm_angAcce,
+                                 prm_way, prm_optimize_ang );
         _taget_mv_ang_alltime_flg = true;
         _taget_mv_ang_alltime_pActor = nullptr;
         _taget_mv_ang_alltime_tX = prm_tX;
@@ -778,10 +790,10 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTurnRzRyMvAngSequenceTwd(GgafDxGeometricActor* prm_pActor_Target,
-                                      angvelo prm_angVelo, angacce prm_angAcce,
-                                      int prm_way, bool prm_optimize_ang) {
-        execTurnRzRyMvAngSequenceTwd(
+    void execTurnMvAngSequenceTwd(GgafDxGeometricActor* prm_pActor_Target,
+                                  angvelo prm_angVelo, angacce prm_angAcce,
+                                  int prm_way, bool prm_optimize_ang) {
+        execTurnMvAngSequenceTwd(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
@@ -1023,8 +1035,6 @@ public:
      * @param prm_pKurokoA 引継元
      */
     void followMvFrom(GgafDxKurokoA* prm_pKurokoA);
-
-    void resetMv();
 
 
     /**

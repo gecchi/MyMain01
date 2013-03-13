@@ -79,7 +79,7 @@ void EnemyAstraea::onActive() {
     _pStatus->reset();
     setHitAble(false);
     _X = GgafDxCore::GgafDxUniverse::_X_gone_right - 1000;
-    _pProg->set(PROG_ENTRY);
+    _pProg->reset(PROG_ENTRY);
 }
 
 void EnemyAstraea::processBehavior() {
@@ -118,8 +118,8 @@ void EnemyAstraea::processBehavior() {
         case PROG_TURN: {
             if (_pProg->isJustChanged()) {
                 //ターン開始
-                _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP, angveloTurn_, 0,
-                                                   TURN_ANTICLOSE_TO, false);
+                _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP,
+                                                      angveloTurn_, 0, TURN_ANTICLOSE_TO, false);
                 cnt_laserchip_ = 0;
             }
             if (_pKurokoA->isRunnigTurnFaceAngSequence()) {

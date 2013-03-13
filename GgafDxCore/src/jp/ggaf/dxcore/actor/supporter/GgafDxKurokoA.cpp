@@ -1093,12 +1093,12 @@ void GgafDxKurokoA::setRyMvAngVelo(angvelo prm_angveloRyMv) {
     }
 }
 
-void GgafDxKurokoA::setRyMvAngAcce(angacce prm_angacceRyMv) {
-    _angacceRyMv = prm_angacceRyMv;
+void GgafDxKurokoA::setRyMvAngAcce(angacce prm_angacceRyAcc) {
+    _angacceRyMv = prm_angacceRyAcc;
 }
 
 void GgafDxKurokoA::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,
-                                               angvelo prm_angveloRyMv02) {
+                                          angvelo prm_angveloRyMv02) {
     if (prm_angveloRyMv01 < prm_angveloRyMv02) {
         _angveloRyTopMv = prm_angveloRyMv02;
         _angveloRyBottomMv = prm_angveloRyMv01;
@@ -1107,6 +1107,63 @@ void GgafDxKurokoA::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,
         _angveloRyBottomMv = prm_angveloRyMv02;
     }
     setRyMvAngVelo(_angveloRyMv); //ÄÝ’è‚µ‚Ä”ÍˆÍ“à‚É•â³
+}
+
+void GgafDxKurokoA::forceRzRyMvAngVeloRange(angvelo prm_angveloRzRyMv01, angvelo prm_angveloRzRyMv02) {
+    if (prm_angveloRzRyMv01 < prm_angveloRzRyMv02) {
+        _angveloRzTopMv = prm_angveloRzRyMv02;
+        _angveloRzBottomMv = prm_angveloRzRyMv01;
+        _angveloRyTopMv = prm_angveloRzRyMv02;
+        _angveloRyBottomMv = prm_angveloRzRyMv01;
+    } else {
+        _angveloRzTopMv = prm_angveloRzRyMv01;
+        _angveloRzBottomMv = prm_angveloRzRyMv02;
+        _angveloRyTopMv = prm_angveloRzRyMv01;
+        _angveloRyBottomMv = prm_angveloRzRyMv02;
+    }
+    setRzMvAngVelo(_angveloRzMv); //ÄÝ’è‚µ‚Ä”ÍˆÍ“à‚É•â³
+    setRyMvAngVelo(_angveloRyMv); //ÄÝ’è‚µ‚Ä”ÍˆÍ“à‚É•â³
+}
+void GgafDxKurokoA::setRzRyMvAngVelo(angvelo prm_angveloRzRyMv) {
+    if (prm_angveloRzRyMv > _angveloRzTopMv) {
+        _angveloRzMv = _angveloRzTopMv;
+    } else if (prm_angveloRzRyMv < _angveloRzBottomMv) {
+        _angveloRzMv = _angveloRzBottomMv;
+    } else {
+        _angveloRzMv = prm_angveloRzRyMv;
+    }
+    if (prm_angveloRzRyMv > _angveloRyTopMv) {
+        _angveloRyMv = _angveloRyTopMv;
+    } else if (prm_angveloRzRyMv < _angveloRyBottomMv) {
+        _angveloRyMv = _angveloRyBottomMv;
+    } else {
+        _angveloRyMv = prm_angveloRzRyMv;
+    }
+}
+void GgafDxKurokoA::setRzRyMvAngAcce(angacce prm_angacceRzRyMv) {
+    _angacceRzMv = prm_angacceRzRyMv;
+    _angacceRyMv = prm_angacceRzRyMv;
+}
+void GgafDxKurokoA::setRzRyMvAngAcce(angacce prm_angacceRzMv, angacce prm_angacceRyMv) {
+    _angacceRzMv = prm_angacceRzMv;
+    _angacceRyMv = prm_angacceRyMv;
+}
+
+void GgafDxKurokoA::setRzRyMvAngVelo(angvelo prm_angveloRzMv, angvelo prm_angveloRyMv) {
+    if (prm_angveloRzMv > _angveloRzTopMv) {
+        _angveloRzMv = _angveloRzTopMv;
+    } else if (prm_angveloRzMv < _angveloRzBottomMv) {
+        _angveloRzMv = _angveloRzBottomMv;
+    } else {
+        _angveloRzMv = prm_angveloRzMv;
+    }
+    if (prm_angveloRyMv > _angveloRyTopMv) {
+        _angveloRyMv = _angveloRyTopMv;
+    } else if (prm_angveloRyMv < _angveloRyBottomMv) {
+        _angveloRyMv = _angveloRyBottomMv;
+    } else {
+        _angveloRyMv = prm_angveloRyMv;
+    }
 }
 
 void GgafDxKurokoA::setStopTargetRyMvAng(angle prm_angTargetRyMv,
@@ -1391,19 +1448,19 @@ void GgafDxKurokoA::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz
     }
 }
 
-void GgafDxKurokoA::setRzRyMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
-    setRzRyMvAngTwd(
+void GgafDxKurokoA::setMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
+    setMvAngTwd(
         prm_pActor_Target->_X,
         prm_pActor_Target->_Y,
         prm_pActor_Target->_Z
     );
 }
 
-void GgafDxKurokoA::setRzRyMvAngTwd(coord prm_tX, coord prm_tY) {
-    setRzRyMvAngTwd(prm_tX, prm_tY, _pActor->_Z);
+void GgafDxKurokoA::setMvAngTwd(coord prm_tX, coord prm_tY) {
+    setMvAngTwd(prm_tX, prm_tY, _pActor->_Z);
 }
 
-void GgafDxKurokoA::setRzRyMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
+void GgafDxKurokoA::setMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
     UTIL::getRzRyAng(prm_tX - _pActor->_X,
                      prm_tY - _pActor->_Y,
                      prm_tZ - _pActor->_Z,
@@ -1417,15 +1474,15 @@ void GgafDxKurokoA::setRzRyMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
     }
 }
 
-void GgafDxKurokoA::setStopTargetRzRyMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
-    setStopTargetRzRyMvAngTwd(
+void GgafDxKurokoA::setStopTargetMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
+    setStopTargetMvAngTwd(
         prm_pActor_Target->_X,
         prm_pActor_Target->_Y,
         prm_pActor_Target->_Z
     );
 }
 
-void GgafDxKurokoA::setStopTargetRzRyMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
+void GgafDxKurokoA::setStopTargetMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
     angle angRz_Target;
     angle angRy_Target;
     float dummy1, dummy2, dummy3;
@@ -1573,9 +1630,9 @@ void GgafDxKurokoA::execTurnRzRyMvAngSequence(angle prm_angRz_Target, angle prm_
 }
 
 
-void GgafDxKurokoA::execTurnRzRyMvAngSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
-                                                 angvelo prm_angVelo, angacce prm_angAcce,
-                                                 int prm_way, bool prm_optimize_ang) {
+void GgafDxKurokoA::execTurnMvAngSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+                                             angvelo prm_angVelo, angacce prm_angAcce,
+                                             int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
     angle out_angRy_Target;
     UTIL::getRzRyAng(prm_tX - _pActor->_X,
@@ -1635,14 +1692,6 @@ void GgafDxKurokoA::followMvFrom(GgafDxKurokoA* prm_pKurokoA) {
     _accMv = prm_pKurokoA->_accMv;
     // ˆÚ“®–ô“x
     //_jerkMv = prm_pKurokoA->_jerkMv;
-}
-
-void GgafDxKurokoA::resetMv() {
-    _vX = _vY = _vZ = 0.0f;
-    _angRzMv = 0;
-    _angRyMv = 0;
-    _veloMv = 0;
-    _accMv = 0;
 }
 
 GgafDxKurokoA::~GgafDxKurokoA() {

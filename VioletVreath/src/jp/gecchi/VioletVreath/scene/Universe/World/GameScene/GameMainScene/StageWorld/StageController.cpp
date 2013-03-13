@@ -36,7 +36,7 @@ void StageController::onReset() {
     P_COMMON_SCENE->resetTree();
     P_COMMON_SCENE->activateImmed();
     addSubLast(P_COMMON_SCENE->extract());
-    _pProg->set(StageController::PROG_INIT);
+    _pProg->reset(StageController::PROG_INIT);
 }
 //void StageController::readyNextStage() {
 //    main_stage_++;

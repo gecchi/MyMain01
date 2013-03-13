@@ -1049,7 +1049,7 @@ void MenuActor<T>::moveCursor(bool prm_smooth) {
     if (_pCursor) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
         if (prm_smooth) {
-            _pCursor->_pKurokoA->setRzRyMvAngTwd(
+            _pCursor->_pKurokoA->setMvAngTwd(
                                     pTargetItem->_X + _X_cursor_adjust,
                                     pTargetItem->_Y + _Y_cursor_adjust,
                                     pTargetItem->_Z + _Z_cursor_adjust

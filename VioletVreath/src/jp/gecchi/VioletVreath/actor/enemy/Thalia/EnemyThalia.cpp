@@ -58,7 +58,7 @@ void EnemyThalia::onActive() {
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
     _pKurokoA->execSmoothMvVeloSequenceD(veloTopMv_, 1000,
                                          MyShip::lim_front_-_X, 0.4, 0.6);
-    _pProg->set(PROG_MOVE);
+    _pProg->reset(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
 }
 
@@ -69,9 +69,9 @@ void EnemyThalia::processBehavior() {
         case PROG_MOVE: {
             if (!_pKurokoA->isRunnigSmoothMvVeloSequence()) {
                 _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                                 0, 100,
-                                                 TURN_CLOSE_TO, false);
+                _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                                                    0, 100,
+                                                    TURN_CLOSE_TO, false);
                 _pProg->changeNext();
             }
             break;
@@ -93,9 +93,9 @@ void EnemyThalia::processBehavior() {
         }
         case PROG_IN_FIRE: {
             if (getActivePartFrame() % 10 == 0) {
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP,
-                                                        10, 0,
-                                                        TURN_CLOSE_TO, false);
+                _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
+                                                    10, 0,
+                                                    TURN_CLOSE_TO, false);
             }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {

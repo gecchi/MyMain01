@@ -105,6 +105,7 @@ void Stage01_01::processBehavior() {
 			}
 			case 4100: {
 				orderActorToFactory(30000023, FormationEunomia001b, "FormationEunomia001b-19");
+				orderActorToFactory(30000029, VarietySylvia001, "VarietySylvia001-20");
 				break;
 			}
 			case 4500: {
@@ -113,16 +114,18 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 4600: {
-				orderActorToFactory(30000016, FormationEunomia001a, "FormationEunomia001a-20");
+				orderActorToFactory(30000016, FormationEunomia001a, "FormationEunomia001a-21");
 				break;
 			}
 			case 5000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000023);
 				getDirector()->addSubGroup(pFormationEunomia);
+				VarietySylvia001* pSylvia = (VarietySylvia001*)obtainActorFromFactory(30000029);
+				getDirector()->addSubGroup(pSylvia);
 				break;
 			}
 			case 5100: {
-				orderActorToFactory(30000024, FormationEunomia001b, "FormationEunomia001b-21");
+				orderActorToFactory(30000024, FormationEunomia001b, "FormationEunomia001b-22");
 				break;
 			}
 			case 5500: {
@@ -131,7 +134,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 5600: {
-				orderActorToFactory(30000017, FormationEunomia001a, "FormationEunomia001a-22");
+				orderActorToFactory(30000017, FormationEunomia001a, "FormationEunomia001a-23");
 				break;
 			}
 			case 6000: {
@@ -140,7 +143,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 6100: {
-				orderActorToFactory(30000025, FormationEunomia001b, "FormationEunomia001b-23");
+				orderActorToFactory(30000025, FormationEunomia001b, "FormationEunomia001b-24");
 				break;
 			}
 			case 6500: {
@@ -149,7 +152,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 6600: {
-				orderActorToFactory(30000018, FormationEunomia001a, "FormationEunomia001a-24");
+				orderActorToFactory(30000018, FormationEunomia001a, "FormationEunomia001a-25");
 				break;
 			}
 			case 7000: {
@@ -158,7 +161,8 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 7100: {
-				orderActorToFactory(30000026, FormationEunomia001b, "FormationEunomia001b-25");
+				orderActorToFactory(30000026, FormationEunomia001b, "FormationEunomia001b-26");
+				orderActorToFactory(30000030, VarietySylvia002, "VarietySylvia002-27");
 				break;
 			}
 			case 7500: {
@@ -167,16 +171,18 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 7600: {
-				orderActorToFactory(30000019, FormationEunomia001a, "FormationEunomia001a-26");
+				orderActorToFactory(30000019, FormationEunomia001a, "FormationEunomia001a-28");
 				break;
 			}
 			case 8000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000026);
 				getDirector()->addSubGroup(pFormationEunomia);
+				VarietySylvia002* pSylvia = (VarietySylvia002*)obtainActorFromFactory(30000030);
+				getDirector()->addSubGroup(pSylvia);
 				break;
 			}
 			case 8100: {
-				orderActorToFactory(30000027, FormationEunomia001b, "FormationEunomia001b-27");
+				orderActorToFactory(30000027, FormationEunomia001b, "FormationEunomia001b-29");
 				break;
 			}
 			case 8500: {
@@ -185,7 +191,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 8600: {
-				orderActorToFactory(30000020, FormationEunomia001a, "FormationEunomia001a-28");
+				orderActorToFactory(30000020, FormationEunomia001a, "FormationEunomia001a-30");
 				break;
 			}
 			case 9000: {
@@ -194,7 +200,7 @@ void Stage01_01::processBehavior() {
 				break;
 			}
 			case 9100: {
-				orderActorToFactory(30000028, FormationEunomia001b, "FormationEunomia001b-29");
+				orderActorToFactory(30000028, FormationEunomia001b, "FormationEunomia001b-31");
 				break;
 			}
 			case 9500: {

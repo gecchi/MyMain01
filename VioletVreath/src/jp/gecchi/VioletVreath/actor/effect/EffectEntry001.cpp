@@ -27,7 +27,7 @@ void EffectEntry001::onActive() {
     _pFader->setAlphaToTop();
 
     _pKurokoA->setFaceAngVelo(11000,5000,7000);
-    _pProg->set(PROG_INIT);
+    _pProg->reset(PROG_INIT);
 }
 
 void EffectEntry001::processBehavior() {

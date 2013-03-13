@@ -50,7 +50,7 @@ void EnemyEunomia::onActive() {
     setHitAble(true);
     _pKurokoA->setFaceAng(AXIS_X, 0);
     iMovePatternNo_ = 0; //行動パターンリセット
-    _pProg->set(PROG_ENTRY);
+    _pProg->reset(PROG_ENTRY);
 }
 
 void EnemyEunomia::processBehavior() {
@@ -73,7 +73,7 @@ void EnemyEunomia::processBehavior() {
         case PROG_MOVE01_1: {
             if (_pProg->isJustChanged()) {
                 //自機へ方向転換
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(
+                _pKurokoA->execTurnMvAngSequenceTwd(
                                P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
                                2000, 0,
                                TURN_CLOSE_TO, true
@@ -169,7 +169,7 @@ void EnemyEunomia::processBehavior() {
 //                }
 //            }
 ////            //自機へ方向転換
-//            _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+//            _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
 //                                                2000, 0,
 //                                                TURN_CLOSE_TO);
 //            iMovePatternNo_++; //次の行動パターンへ

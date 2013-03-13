@@ -44,7 +44,7 @@ void VamSysCamWorker::initialize() {
 //    pCam->_Y = 0;
 //    pCam->_Z = 0;
 //    pCam->setViewPoint(0,0,0);
-//    pCam->_pKurokoB->setRzRyMvAngTwd(0,0,0);
+//    pCam->_pKurokoB->setMvAngTwd(0,0,0);
 
     cam_velo_renge_ = 30000;
     pCam->_pKurokoB->forceVxMvVeloRange(-cam_velo_renge_, cam_velo_renge_);

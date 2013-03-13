@@ -54,11 +54,11 @@ void EnemySylviaEye::onActive() {
     _pStatus->reset();
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
-    _pProg->set(PROG_MOVE);
+    _pProg->reset(PROG_MOVE);
     locateWith(pSylvia_);
     rotateWith(pSylvia_);
-    _pKurokoA->setRzMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z]);
-    _pKurokoA->setRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
+    _pKurokoA->setRzRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z],
+                                pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
 }
 
 void EnemySylviaEye::processBehavior() {
@@ -78,14 +78,15 @@ void EnemySylviaEye::processBehavior() {
                 _pProg->changeNext();
             }
             _pKurokoA->followMvFrom(pSylvia_->_pKurokoA);
-            _pKurokoA->setRzMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z]);
-            _pKurokoA->setRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
+            _pKurokoA->setRzRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z],
+                                        pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
             break;
         }
 
         case PROG_TURN: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
+                _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
+                                                    D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (_pProg->getFrameInProgress() > 240) {
                 _pProg->changeNext();
@@ -95,7 +96,7 @@ void EnemySylviaEye::processBehavior() {
 
         case PROG_FIRE_BEGIN: {
             if (_pProg->isJustChanged()) {
-                //_pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
+                //_pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
             pEffect_->locateWith(this);
@@ -106,7 +107,8 @@ void EnemySylviaEye::processBehavior() {
         }
         case PROG_IN_FIRE: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP, 10, 0, TURN_CLOSE_TO, false);
+                _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
+                                                    10, 0, TURN_CLOSE_TO, false);
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();
             if (pChip) {
@@ -121,8 +123,8 @@ void EnemySylviaEye::processBehavior() {
         case PROG_FIRE_END: {
             if (_pProg->isJustChanged()) {
                 _pMorpher->intoTargetLinerUntil(1, 0.0, 180); //•Â‚¶‚é
-                _pKurokoA->setRzMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z]);
-                _pKurokoA->setRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
+                _pKurokoA->setRzRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z],
+                                            pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
             }
             //d’¼
             if (_pProg->getFrameInProgress() >= 300) {
@@ -134,7 +136,6 @@ void EnemySylviaEye::processBehavior() {
         default:
             break;
     }
-
 
     _pKurokoA->behave();
     _pMorpher->behave();

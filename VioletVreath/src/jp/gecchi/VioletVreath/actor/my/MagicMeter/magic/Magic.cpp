@@ -82,7 +82,7 @@ void Magic::onReset() {
     }
     time_of_next_state_ = 0;
     is_working_ = false;
-    _pProg->set(STATE_NOTHING);
+    _pProg->reset(STATE_NOTHING);
     temp_hold_status_ = -1;
     temp_hold_new_level_ = 0;
 }
@@ -335,7 +335,7 @@ void Magic::processBehavior() {
                 time_of_next_state_ = interest_time_of_casting_[new_level_- level_];
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_CAST_BEGIN new_level_="<<new_level_<<" level_="<<level_<<" time_of_next_state_="<<time_of_next_state_<<"");
                 processCastBegin(level_, new_level_);  //コールバック
-                _pProg->set(STATE_CASTING);
+                _pProg->change(STATE_CASTING);
                 //↓ fall down ↓
             }
             /////////////////////////////////////// 詠唱中
@@ -358,7 +358,7 @@ void Magic::processBehavior() {
                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_INVOKE_BEGIN new_level_="<<new_level_<<" level_="<<level_<<" time_of_next_state_="<<time_of_next_state_<<"");
                 processInvokeBegin(level_, new_level_);     //コールバック
 
-                _pProg->set(STATE_INVOKING);
+                _pProg->change(STATE_INVOKING);
                 //↓ fall down ↓
             }
 
@@ -423,7 +423,7 @@ void Magic::processBehavior() {
                 //効果持続開始
                 processEffectBegin(last_level_, level_); //コールバック
 
-                _pProg->set(STATE_EFFECTING);
+                _pProg->change(STATE_EFFECTING);
                 break;
             }
 
@@ -465,7 +465,6 @@ void Magic::processBehavior() {
                 if (level_ > 0) {
                     processEffectingBehavior(last_level_, level_); //コールバック
                     lvinfo_[level_].remainingtime_of_effect_ --; //効果持続残り時間減少
-
 
                     if (keep_cost_base_ != 0) {
                         //維持コストがかかる場合の処理

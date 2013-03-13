@@ -32,10 +32,10 @@ void EffectLockon001_Main::onActive() {
 
     if (pTarget_) {
         locateWith(pTarget_);
-        _pProg->set(LOCKON001_PROG_FIRST_LOCK);
+        _pProg->reset(LOCKON001_PROG_FIRST_LOCK);
     } else {
         setAlpha(0.00);
-        _pProg->set(LOCKON001_PROG_RELEASE);
+        _pProg->reset(LOCKON001_PROG_RELEASE);
     }
 }
 
@@ -62,7 +62,7 @@ void EffectLockon001_Main::processBehavior() {
                      _pKurokoA->_angveloFace[AXIS_Z] = 1000;
                  } else {
                      _pKurokoA->_angveloFace[AXIS_Z] = 3000; //‘¬Žü‚è
-                     _pKurokoA->setRzRyMvAngTwd(pTarget_);
+                     _pKurokoA->setMvAngTwd(pTarget_);
                      _pKurokoA->setMvVelo(PX_C(200));
                  }
              } else {

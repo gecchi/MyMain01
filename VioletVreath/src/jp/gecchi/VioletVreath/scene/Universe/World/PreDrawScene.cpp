@@ -32,7 +32,7 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(id, WallAAPrismTestActor       , "WallAAPrismTestActor");           id++;
     order_id_end_ = id - 1;
     useProgress();
-    _pProg->set(PreDrawScene::PROG_INIT);
+    _pProg->reset(PreDrawScene::PROG_INIT);
 }
 
 void PreDrawScene::onReset() {

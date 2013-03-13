@@ -40,7 +40,8 @@ void EffectExplosion001::processJudgement() {
 }
 
 void EffectExplosion001::onInactive() {
-    _pKurokoA->resetMv();
+    _pKurokoA->setMvVelo(0);
+    _pKurokoA->setMvAcce(0);
 }
 
 

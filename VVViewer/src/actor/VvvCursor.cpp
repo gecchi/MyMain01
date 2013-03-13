@@ -15,7 +15,7 @@ VvvCursor::VvvCursor(const char* prm_name) :
     tY_ = _Y;
     tZ_ = _Z;
     useProgress(10);
-    _pProg->set(CUR_SINK);
+    _pProg->reset(CUR_SINK);
 }
 
 void VvvCursor::initialize() {
@@ -70,9 +70,9 @@ void VvvCursor::moveTo(coord X, coord Y, coord Z) {
     tX_ = X;
     tY_ = Y;
     tZ_ = Z;
-    _pKurokoA->setRzRyMvAngTwd(tX_, tY_, tZ_);
+    _pKurokoA->setMvAngTwd(tX_, tY_, tZ_);
     _pKurokoA->execSmoothMvVeloSequence(0, UTIL::getDistance(_X, _Y, _Z, tX_, tY_, tZ_),
-                                    20, 0.3f, 0.7f);
+                                        20, 0.3f, 0.7f);
     _pProg->change(CUR_ON_MOVE);
 }
 

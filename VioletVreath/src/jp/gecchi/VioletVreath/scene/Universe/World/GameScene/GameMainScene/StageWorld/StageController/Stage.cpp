@@ -13,7 +13,7 @@ Stage::Stage(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void Stage::initialize() {
-    _pProg->set(Stage::PROG_INIT);
+    _pProg->reset(Stage::PROG_INIT);
 }
 
 void Stage::onCatchEvent(hashval prm_no, void* prm_pSource) {

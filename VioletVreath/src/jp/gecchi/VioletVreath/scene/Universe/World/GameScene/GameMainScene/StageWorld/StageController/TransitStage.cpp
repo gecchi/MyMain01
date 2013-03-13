@@ -28,7 +28,7 @@ void TransitStage::initialize() {
 void TransitStage::onReset() {
     _TRACE_("TransitStage::onReset()");
     pMessage_->update("");
-    _pProg->set(Stage::PROG_INIT);
+    _pProg->reset(Stage::PROG_INIT);
 }
 
 void TransitStage::onActive() {

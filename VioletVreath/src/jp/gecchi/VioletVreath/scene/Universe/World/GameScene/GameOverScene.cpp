@@ -17,7 +17,7 @@ void GameOverScene::onReset() {
     fadeoutSceneWithBgm(0);
     pLabel01_->update("");
     pNameEntryScene_ = nullptr;
-    _pProg->set(GameOverScene::PROG_INIT);
+    _pProg->reset(GameOverScene::PROG_INIT);
 }
 void GameOverScene::initialize() {
     _TRACE_("GameOverScene::initialize()");

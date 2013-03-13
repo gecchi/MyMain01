@@ -26,7 +26,7 @@ void EffectLockon001::initialize() {
 
 
 void EffectLockon001::onReset() {
-    _pProg->set(LOCKON001_PROG_RELEASE);
+    _pProg->reset(LOCKON001_PROG_RELEASE);
 }
 
 void EffectLockon001::onActive() {

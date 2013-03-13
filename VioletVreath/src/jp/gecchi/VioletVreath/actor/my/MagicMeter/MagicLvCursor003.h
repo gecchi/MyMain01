@@ -23,7 +23,7 @@ public:
 
     void initialize() override;
     void processPreDraw() override;
-
+    void processAfterDraw() override;
     void markOff();
     void markOnLevelUpCast(int prm_lv);
     void markOnLevelDownCast(int prm_lv);

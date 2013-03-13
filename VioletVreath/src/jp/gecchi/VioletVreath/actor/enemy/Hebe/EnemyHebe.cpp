@@ -44,7 +44,7 @@ void EnemyHebe::onActive() {
     setHitAble(true);
     _pKurokoA->setFaceAng(AXIS_X, 0);
     _pKurokoA->setMvAcce(0);
-    _pProg->set(PROG_MOVE01_1);
+    _pProg->reset(PROG_MOVE01_1);
 }
 
 void EnemyHebe::processBehavior() {
@@ -72,8 +72,8 @@ void EnemyHebe::processBehavior() {
 
         case PROG_MOVE02_1: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->execTurnRzRyMvAngSequenceTwd(_X - PX_C(300), _Y, _Z,
-                                                 D_ANG(1), 0, TURN_CLOSE_TO, false);
+                _pKurokoA->execTurnMvAngSequenceTwd(_X - PX_C(300), _Y, _Z,
+                                                    D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
 
             break;

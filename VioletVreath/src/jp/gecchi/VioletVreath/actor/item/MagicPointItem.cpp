@@ -51,15 +51,13 @@ void MagicPointItem::onActive() {
             vX, vY, vZ);
     int d = PX_C(200);
     int r = PX_C(75);
-    _pKurokoA->setRzRyMvAngTwd(
-            (coord)(_X + (vX * d) + RND(-r, +r)),
-            (coord)(_Y + (vY * d) + RND(-r, +r)),
-            (coord)(_Z + (vZ * d) + RND(-r, +r))
-    );
+    _pKurokoA->setMvAngTwd( (coord)(_X + (vX * d) + RND(-r, +r)),
+                                (coord)(_Y + (vY * d) + RND(-r, +r)),
+                                (coord)(_Z + (vZ * d) + RND(-r, +r)) );
     _pKurokoA->setMvVelo(2000);
     _pKurokoA->setMvAcce(100);
 
-    _pProg->set(PROG_DRIFT);
+    _pProg->reset(PROG_DRIFT);
     _SX = _SY = _SZ = 1000;
 }
 
@@ -83,7 +81,8 @@ void MagicPointItem::processBehavior() {
             _pKurokoB->setVxyzMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv,
                                      _pKurokoA->_vY*_pKurokoA->_veloMv,
                                      _pKurokoA->_vZ*_pKurokoA->_veloMv);
-            _pKurokoB->execGravitationMvSequenceTwd(pMyShip, PX_C(30), 100, 60000);
+            _pKurokoB->execGravitationMvSequenceTwd(pMyShip,
+                                                    PX_C(30), 100, 60000);
             _pKurokoA->setMvVelo(0);
             _pKurokoA->setMvAcce(0);
         }

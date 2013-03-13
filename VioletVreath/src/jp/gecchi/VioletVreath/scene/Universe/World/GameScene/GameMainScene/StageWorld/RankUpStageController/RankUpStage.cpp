@@ -34,7 +34,7 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void RankUpStage::initialize() {
-    _pProg->set(RankUpStage::PROG_INIT);
+    _pProg->reset(RankUpStage::PROG_INIT);
 }
 void RankUpStage::processBehavior() {
     sprintf(buff,"%d/%d",hit_enemy_num_,all_hit_num_);

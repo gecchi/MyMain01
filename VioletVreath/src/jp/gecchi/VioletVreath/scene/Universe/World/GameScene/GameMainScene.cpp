@@ -45,7 +45,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 
 void GameMainScene::onReset() {
     _TRACE_("GameMainScene::onReset()");
-    _pProg->set(GameMainScene::PROG_INIT);
+    _pProg->reset(GameMainScene::PROG_INIT);
 }
 
 void GameMainScene::initialize() {

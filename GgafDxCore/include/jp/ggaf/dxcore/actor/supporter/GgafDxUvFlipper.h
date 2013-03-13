@@ -276,6 +276,10 @@ public:
      */
     void setFlipMethod(GgafDxUvFlippingMethod prm_method, int prm_interval = 1);
 
+    void stopFlip() {
+        setFlipMethod(NOT_ANIMATED);
+    }
+
 };
 
 }

@@ -31,7 +31,7 @@ void EnemyTamago01::initialize() {
     setHitAble(true);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
-    _pKurokoA->setRzRyMvAngTwd(900000, 300000, 300000);
+    _pKurokoA->setMvAngTwd(900000, 300000, 300000);
     _pKurokoA->setMvVelo(3000);
     _pColliChecker->makeCollision(1);
 //    _pColliChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
@@ -115,9 +115,9 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 1) {
         //スプライン移動終了時
-        _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                                   2000, 0,
-                                                   TURN_CLOSE_TO, false);
+        _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                                            2000, 0,
+                                            TURN_CLOSE_TO, false);
         iMovePatternNo_++; //次の行動パターンへ
     }
 
@@ -129,7 +129,8 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30 == 0) {
-        _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP, 2000,0,TURN_CLOSE_TO, false);
+        _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
+                                            2000,0,TURN_CLOSE_TO, false);
 
         if (pDepo_Shot_) {
             //放射状ショット発射

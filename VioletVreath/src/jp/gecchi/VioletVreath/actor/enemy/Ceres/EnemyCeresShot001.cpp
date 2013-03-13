@@ -54,16 +54,15 @@ void EnemyCeresShot001::processBehavior() {
     //•ûŒü“]Š·ŠJn
     if (getActivePartFrame() == frame_TurnBegin_) {
 
-        _pKurokoA->execTurnRzRyMvAngSequenceTwd(P_MYSHIP,
-                                         angVelo_Turn_, 0,
-                                         TURN_CLOSE_TO,true);
+        _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
+                                            angVelo_Turn_, 0,
+                                            TURN_CLOSE_TO,true);
         _pKurokoA->setMvAcce(iMoveAcce_2nd_);
     }
 
     //•ûŒü“]Š·I—¹
     if (getActivePartFrame() == frame_TurnBegin_ + frame_TurnInterval_) {
-        _pKurokoA->setRzMvAngVelo(0);
-        _pKurokoA->setRyMvAngVelo(0);
+        _pKurokoA->setRzRyMvAngVelo(0);
         _pKurokoA->_mv_ang_ry_target_flg = false;
         _pKurokoA->_mv_ang_rz_target_flg = false;
     }

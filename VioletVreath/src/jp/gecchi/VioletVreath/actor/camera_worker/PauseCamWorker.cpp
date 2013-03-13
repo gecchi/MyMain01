@@ -267,7 +267,7 @@ void PauseCamWorker::processBehavior() {
     if (ABS(move_target_X_CAM_ - pCam->_X) < 10 && ABS(move_target_Y_CAM_ - pCam->_Y) < 10 && ABS(move_target_Z_CAM_ - pCam->_Z) < 10) {
         //OK
     } else {
-        pCam->_pKurokoA->setRzRyMvAngTwd(move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
+        pCam->_pKurokoA->setMvAngTwd(move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
 
         int td1 = UTIL::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
                                            move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
@@ -278,7 +278,7 @@ void PauseCamWorker::processBehavior() {
     if (ABS(move_target_X_VP_ - pVP->_X) < 10 && ABS(move_target_Y_VP_ - pVP->_Y) < 10 && ABS(move_target_Z_VP_ - pVP->_Z) < 10) {
         //OK
     } else {
-        pVP->_pKurokoA->setRzRyMvAngTwd(move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
+        pVP->_pKurokoA->setMvAngTwd(move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
         int td2 = UTIL::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
                                            move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
         if (ABS(td2) > 10) {
