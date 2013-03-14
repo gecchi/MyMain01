@@ -23,6 +23,7 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
 }
 
 void MagicLvCursor::initialize() {
+    setZWriteEnable(false);
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     //MagicMeterの座標が定まってから行うこと
     _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
@@ -40,13 +41,13 @@ void MagicLvCursor::processBehavior() {
     }
     _pKurokoA->behave();
     _pUvFlipper->behave();
-    _pFader->behave();
+    _pAFader->behave();
     _pScaler->behave();
 }
 void MagicLvCursor::processPreDraw() {
     //カーソル関連は
     //少し早めに薄くなる（消える）ようにした
-    //基本は_pFader、描画時のみロール同期の半透明を考慮
+    //基本は_pAFader、描画時のみロール同期の半透明を考慮
     float rr = pMagicMeter_->paFloat_rr_[magic_index_];
     float alpha_r = rr * 2 - 1.0f;
     if (alpha_r < 0.0f) {
@@ -93,7 +94,7 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
 }
 
 void MagicLvCursor::blink() {
-    _pFader->beat(6, 3, 0, 0, 15); //ピカピカ
+    _pAFader->beat(6, 3, 0, 0, 15); //ピカピカ
     _pScaler->beat(12, 6, 0, 3); //ピカピカ
 }
 

@@ -36,7 +36,7 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _alpha = 1.0f;
-    _pFader = NEW GgafDxAlphaFader(this);
+    _pAFader = NEW GgafDxAlphaFader(this);
     //Å‘å‹——£’¸“_
     _bounding_sphere_radius = _pModel->_bounding_sphere_radius;
     _now_drawdepth = 0;
@@ -103,7 +103,7 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _alpha = 1.0f;
-    _pFader = NEW GgafDxAlphaFader(this);
+    _pAFader = NEW GgafDxAlphaFader(this);
     //Å‘å‹——£’¸“_
     _bounding_sphere_radius = _pModel->_bounding_sphere_radius;
 
@@ -321,7 +321,7 @@ void GgafDxDrawableActor::effectDefault() {
 }
 
 GgafDxDrawableActor::~GgafDxDrawableActor() {
-    DELETE_IMPOSSIBLE_NULL(_pFader);
+    DELETE_IMPOSSIBLE_NULL(_pAFader);
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     DELETEARR_IMPOSSIBLE_NULL(_temp_technique);
     DELETEARR_IMPOSSIBLE_NULL(_paMaterial);

@@ -23,15 +23,15 @@ void HoshiBoshiTitle::processBehavior() {
         _X -= 10000*far_rate_;
     }
     _pUvFlipper->behave();
-    _pFader->behave();
+    _pAFader->behave();
 }
 
 void HoshiBoshiTitle::processJudgement() {
 }
 
 void HoshiBoshiTitle::fadein() {
-    _pFader->setAlphaToBottom();
-    _pFader->intoTargetAlphaLinerUntil(1.0, 240);
+    _pAFader->setAlphaToBottom();
+    _pAFader->intoTargetAlphaLinerUntil(1.0, 240);
 }
 HoshiBoshiTitle::~HoshiBoshiTitle() {
 }

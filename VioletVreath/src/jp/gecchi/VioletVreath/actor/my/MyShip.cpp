@@ -590,7 +590,7 @@ void MyShip::processJudgement() {
     is_shooting_laser_ = false;
     if (pVbPlay->isBeingPressed(VB_SHOT1)) {
         frame_shot_pressed_ ++;
-        if (frame_shot_pressed_ > 30) { //12フレーム押しっぱなしでレーザーへ
+        if (frame_shot_pressed_ > 30) { //30フレーム押しっぱなしでレーザーへ
             is_shooting_laser_ = true;
         }
     } else {
@@ -767,7 +767,6 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
                         dZ2 = (_Z - (pOther->_Z               ));
                     }
 
-
                 } else if (pos_prism & POS_PRISM_YZ) {
 
                     if (pos_prism & POS_PRISM_pp) {
@@ -913,16 +912,12 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
                     vx1+vx2, vy1+vy2, vz1+vz2,
                     vx3, vy3, vz3);
         setBlownVelo(vx3*PX_C(40), vy3*PX_C(40), vz3*PX_C(40), 0.8);
-        setInvincibleFrames(2);
+        setInvincibleFrames(120);
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {
         UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(SE_DAMAGED);
-    }
-
-    if (pOther->getKind() & KIND_ITEM)  {
-
     }
 }
 

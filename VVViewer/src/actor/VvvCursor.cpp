@@ -24,7 +24,7 @@ void VvvCursor::initialize() {
     _pKurokoA->_angveloFace[AXIS_Z] = 1000;
     _pScaler->forceScaleRange(2000, 4000);
     _pScaler->beat(30, 2, 2, -1); //–³ŒÀƒ‹[ƒv
-    setAlpha(0);
+    _pAFader->setAlpha(0);
 }
 
 void VvvCursor::processBehavior() {
@@ -33,13 +33,13 @@ void VvvCursor::processBehavior() {
             break;
         }
         case CUR_ON_MOVE: {
-            _pFader->setAlpha(0.9);
+            _pAFader->setAlpha(0.9);
             _pProg->change(CUR_STAY);
             break;
         }
         case CUR_STAY: {
             if (_pProg->getFrameInProgress() > 60) {
-                _pFader->intoTargetAlphaLinerUntil(0.0, 120);
+                _pAFader->intoTargetAlphaLinerUntil(0.0, 120);
                 _pProg->change(CUR_SINK);
             }
             break;
@@ -57,7 +57,7 @@ void VvvCursor::processBehavior() {
     _pUvFlipper->behave();
     _pKurokoA->behave();
     _pScaler->behave();
-    _pFader->behave();
+    _pAFader->behave();
 }
 void VvvCursor::sink() {
     _pProg->change(CUR_SINK);

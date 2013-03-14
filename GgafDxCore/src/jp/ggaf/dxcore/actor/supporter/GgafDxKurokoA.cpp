@@ -1093,8 +1093,8 @@ void GgafDxKurokoA::setRyMvAngVelo(angvelo prm_angveloRyMv) {
     }
 }
 
-void GgafDxKurokoA::setRyMvAngAcce(angacce prm_angacceRyAcc) {
-    _angacceRyMv = prm_angacceRyAcc;
+void GgafDxKurokoA::setRyMvAngAcce(angacce prm_angacceRyMv) {
+    _angacceRyMv = prm_angacceRyMv;
 }
 
 void GgafDxKurokoA::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,

@@ -9,7 +9,6 @@ CostDispBar::CostDispBar(const char* prm_name, GraphBar* prm_pSourceBar, AmountG
     _class_name = "CostDispBar";
     pSourceBar_ = prm_pSourceBar;
     pCostValue_ = prm_pCostValue;
-    _Z = 3;
 }
 
 void CostDispBar::initialize() {

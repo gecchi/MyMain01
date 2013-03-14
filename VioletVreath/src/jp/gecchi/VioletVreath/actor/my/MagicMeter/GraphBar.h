@@ -13,8 +13,8 @@ class GraphBar : public GgafLib::DefaultBoardActor {
 public:
     /** 内容量 */
     GgafLib::AmountGraph* pAmount_;
-
-    float org_width_;
+    /** 横幅ピクセル */
+    pixcoord org_width_;
 
     double rate_org_width_;
 

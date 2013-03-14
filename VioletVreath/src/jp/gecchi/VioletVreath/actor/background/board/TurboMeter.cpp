@@ -8,7 +8,6 @@ TurboMeter::TurboMeter(const char* prm_name) : DefaultBoardActor(prm_name, "Turb
     _class_name = "TurboMeter";
     //z_ = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     //z_ = 0.9999999f;
-    _Z = 1;
     max_px_ = 1000.0f;
     max_val_ = 1000.0f;
     unit_px_ = max_px_ / max_val_;

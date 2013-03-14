@@ -55,8 +55,8 @@ void GameDemoScene::processBehavior() {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_DEMOPLAY)");
                 pLabel01_->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 pLabel02_->update(100*1000, 150*1000, "GAME OVER");
-                pLabel02_->_pFader->setAlphaToTop();
-                pLabel02_->_pFader->beat(60,3,27,27,-1);
+                pLabel02_->_pAFader->setAlphaToTop();
+                pLabel02_->_pAFader->beat(60,3,27,27,-1);
             }
 
 //            if (_pProg->getFrameInProgress() % 60 == 0) {
@@ -86,17 +86,17 @@ void GameDemoScene::processBehavior() {
                             GameGlobal::qryRanking_.getVal("REGDATE", i).c_str());
                     papLabel_Ranking_[i]->update(buf);
                     papLabel_Ranking_[i]->locate(PX_C(400), PX_C(50+(i*22)));
-                    papLabel_Ranking_[i]->_pFader->setAlphaToBottom();
-                    papLabel_Ranking_[i]->_pFader->beat(25*60, 2*60, 20*60, 1*60, 1); //フェードイン・しばらくしてフェードアウト
+                    papLabel_Ranking_[i]->_pAFader->setAlphaToBottom();
+                    papLabel_Ranking_[i]->_pAFader->beat(25*60, 2*60, 20*60, 1*60, 1); //フェードイン・しばらくしてフェードアウト
                     papLabel_Ranking_[i]->activateDelay((i+1)*12); //上から順番にぼやーっと表示していく
                 }
             }
 
-            if (papLabel_Ranking_[ranking_num-1]->_pFader->isHaveingEffect()) {
+            if (papLabel_Ranking_[ranking_num-1]->_pAFader->isHaveingEffect()) {
                 //一番最後のFaderがまだ動いてるならば
                 for (int i = 0; i < ranking_num; i++) {
                     if (papLabel_Ranking_[i]->isActive()) {
-                        papLabel_Ranking_[i]->_pFader->behave();
+                        papLabel_Ranking_[i]->_pAFader->behave();
                     }
                 }
             } else {
@@ -124,7 +124,7 @@ void GameDemoScene::processBehavior() {
         default:
             break;
     }
-    pLabel02_->_pFader->behave();
+    pLabel02_->_pAFader->behave();
 }
 
 void GameDemoScene::onInactive() {

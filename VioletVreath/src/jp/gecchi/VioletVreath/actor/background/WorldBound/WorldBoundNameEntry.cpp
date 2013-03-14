@@ -28,7 +28,7 @@ void WorldBoundNameEntry::onActive() {
 }
 
 void WorldBoundNameEntry::processBehavior() {
-    _pFader->behave();
+    _pAFader->behave();
 }
 
 void WorldBoundNameEntry::processJudgement() {
@@ -36,12 +36,12 @@ void WorldBoundNameEntry::processJudgement() {
 
 void WorldBoundNameEntry::fadein() {
     activate();
-    _pFader->setAlphaToBottom();
-    _pFader->intoTargetAlphaLinerUntil(1.0, 120);
+    _pAFader->setAlphaToBottom();
+    _pAFader->intoTargetAlphaLinerUntil(1.0, 120);
 }
 
 void WorldBoundNameEntry::fadeout() {
-    _pFader->intoTargetAlphaLinerUntil(0.0, 120);
+    _pAFader->intoTargetAlphaLinerUntil(0.0, 120);
     inactivateDelay(120);
 }
 

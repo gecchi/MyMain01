@@ -7,7 +7,6 @@ using namespace VioletVreath;
 EnergyBar::EnergyBar(const char* prm_name, AmountGraph* prm_pAmount)
       : GraphBar(prm_name, "TurboMeter", prm_pAmount) {
     _class_name = "EnergyBar";
-    _Z = 4;
 }
 
 void EnergyBar::initialize() {

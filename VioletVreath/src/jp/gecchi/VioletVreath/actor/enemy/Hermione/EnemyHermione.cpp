@@ -103,7 +103,7 @@ void EnemyHermione::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            _pFader->setAlpha(0);
+            _pAFader->setAlpha(0);
             _pKurokoA->setMvVelo(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
@@ -112,7 +112,7 @@ void EnemyHermione::processBehavior() {
 
         case PROG_ENTRY: {
             if (_pProg->getFrameInProgress() == 120) {
-                _pFader->intoTargetAlphaAcceStep(1.0, 0.000, 0.0001);
+                _pAFader->intoTargetAlphaAcceStep(1.0, 0.000, 0.0001);
             }
             if (getAlpha() > 0.8) {
                 setHitAble(true);
@@ -125,7 +125,7 @@ void EnemyHermione::processBehavior() {
         case PROG_MOVE: {
             if (_pProg->isJustChanged()) {
                 _pKurokoA->setMvVelo(1000);
-                _pKurokoA->setFaceAngVelo(20, 67, 99);
+//                _pKurokoA->setFaceAngVelo(20, 67, 99);
                 _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP,
                                                       1, 10,
                                                       TURN_ANTICLOSE_TO, false);
@@ -137,7 +137,7 @@ void EnemyHermione::processBehavior() {
         default:
             break;
     }
-    _pFader->behave();
+    _pAFader->behave();
     _pKurokoA->behave();
     _pMorpher->behave();
     _pSeTx->behave();

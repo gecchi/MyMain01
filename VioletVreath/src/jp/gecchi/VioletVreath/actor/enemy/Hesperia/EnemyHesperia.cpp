@@ -73,11 +73,11 @@ void EnemyHesperia::processBehavior() {
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
-                _pFader->setAlpha(0);
-                _pFader->intoTargetAlphaLinerUntil(0.98, 20);
+                _pAFader->setAlpha(0);
+                _pAFader->intoTargetAlphaLinerUntil(0.98, 20);
             }
-            if (_pFader->isHaveingEffect()) {
-                _pFader->behave();
+            if (_pAFader->isHaveingEffect()) {
+                _pAFader->behave();
             } else {
                 setHitAble(true);
                 _pProg->changeNext();

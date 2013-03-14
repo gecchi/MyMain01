@@ -23,8 +23,8 @@ void EffectEntry001::onActive() {
     _pScaler->forceScaleRange(1, 20000);
     _pScaler->setScaleToBottom();
 
-    _pFader->forceAlphaRange(0, 0.99);
-    _pFader->setAlphaToTop();
+    _pAFader->forceAlphaRange(0, 0.99);
+    _pAFader->setAlphaToTop();
 
     _pKurokoA->setFaceAngVelo(11000,5000,7000);
     _pProg->reset(PROG_INIT);
@@ -40,14 +40,14 @@ void EffectEntry001::processBehavior() {
 
         case PROG_EXPAND: {
             if (_pScaler->isHaveingEffect() == false) {
-                _pFader->intoTargetAlphaLinerUntil(0, 120);
+                _pAFader->intoTargetAlphaLinerUntil(0, 120);
                 _pProg->changeNext();
             }
             break;
         }
 
         case PROG_SHRINK: {
-            if (_pFader->isHaveingEffect() == false) {
+            if (_pAFader->isHaveingEffect() == false) {
                 sayonara();
             }
             break;
@@ -55,7 +55,7 @@ void EffectEntry001::processBehavior() {
         default:
             break;
     }
-    _pFader->behave();
+    _pAFader->behave();
     _pScaler->behave();
     _pKurokoA->behave();
 }

@@ -209,8 +209,8 @@ void EnemyRomulus::processBehavior() {
         UTIL::getRzRyAng(TvX, TvY, TvZ,
                          angRz_Target, angRy_Target);
         _pKurokoA->execTurnRzRyMvAngSequence(angRz_Target, angRy_Target,
-                                         1000, 0,
-                                         TURN_CLOSE_TO, false);
+                                             1000, 0,
+                                             TURN_CLOSE_TO, false);
     }
 
     _pScaler->behave();

@@ -25,7 +25,6 @@ void MagicMeterCursor001::onActive() {
 }
 
 void MagicMeterCursor001::processBehavior() {
-    _Z = 1;
     if (_pKurokoA->isRunnigSmoothMvVeloSequence() == false) {
         _X = tX_;
         _Y = tY_;

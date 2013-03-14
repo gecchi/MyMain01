@@ -12,7 +12,6 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     height_px_ = _pBoardSetModel->_fSize_BoardSetModelHeightPx;
     width_ = PX_C(width_px_);
     height_ = PX_C(height_px_);
-    _Z = 5;
 
     pMP_MyShip_ = prm_pMP_MyShip;
     cost_disp_mp_.config(pMP_MyShip_->_max_val_px, pMP_MyShip_->_max_val);
@@ -83,15 +82,15 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     pEnergyBar_ = NEW EnergyBar("EnergyBar", pMP_MyShip_);
     pEnergyBar_->locate(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 60.0f));
     addSubGroup(pEnergyBar_);
-    //エネルギーバーのコスト表示バー
-    pCostDispBar_ = NEW CostDispBar("CostDispBar", pEnergyBar_, &cost_disp_mp_);
-    pCostDispBar_->locate(pEnergyBar_->_X, pEnergyBar_->_Y);
-    addSubGroup(pCostDispBar_);
-
     //Vreathバー設置
     pVreathBar_ = NEW VreathBar("VreathBar", pVreath_MyShip_);
     pVreathBar_->locate(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 20.0f));
     addSubGroup(pVreathBar_);
+
+    //エネルギーバーのコスト表示バー
+    pCostDispBar_ = NEW CostDispBar("CostDispBar", pEnergyBar_, &cost_disp_mp_);
+    pCostDispBar_->locate(pEnergyBar_->_X, pEnergyBar_->_Y);
+    addSubGroup(pCostDispBar_);
     //Vreathバーコスト表示バー
     pCostDispBar2_ = NEW CostDispBar("CostDispBar2", pVreathBar_, &cost_disp_vreath);
     pCostDispBar2_->locate(pVreathBar_->_X, pVreathBar_->_Y);

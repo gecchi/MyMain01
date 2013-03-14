@@ -14,8 +14,6 @@ DamageDispBar::DamageDispBar(const char* prm_name, GraphBar* prm_pSourceBar, Amo
         aInt_my_ship_damage_history_[i] = 0;
     }
     p_ = 0;
-
-    _Z = 3;
 }
 
 void DamageDispBar::initialize() {

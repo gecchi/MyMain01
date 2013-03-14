@@ -48,7 +48,7 @@ void RankUpStage::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
                 pMessage1_->update("RANKUPSTAGE::PROG_BEGIN");
-                pMessage1_->_pFader->beat(120,30,30,30,-1);
+                pMessage1_->_pAFader->beat(120,30,30,30,-1);
                 _pBgmPerformer->play_fadein(0);
             }
 
@@ -109,7 +109,7 @@ void RankUpStage::processBehavior() {
         default:
             break;
     }
-    pMessage1_->_pFader->behave();
+    pMessage1_->_pAFader->behave();
 
 }
 

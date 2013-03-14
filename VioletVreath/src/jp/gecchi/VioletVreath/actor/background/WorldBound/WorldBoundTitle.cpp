@@ -30,14 +30,14 @@ void WorldBoundTitle::onActive() {
 }
 
 void WorldBoundTitle::processBehavior() {
-    _pFader->behave();
+    _pAFader->behave();
 }
 void WorldBoundTitle::processJudgement() {
 }
 
 void WorldBoundTitle::fadein() {
-    _pFader->setAlphaToBottom();
-    _pFader->intoTargetAlphaLinerUntil(1.0, 120);
+    _pAFader->setAlphaToBottom();
+    _pAFader->intoTargetAlphaLinerUntil(1.0, 120);
 }
 
 WorldBoundTitle::~WorldBoundTitle() {

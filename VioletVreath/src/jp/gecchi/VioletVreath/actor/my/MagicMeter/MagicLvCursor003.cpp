@@ -46,13 +46,13 @@ void MagicLvCursor003::processAfterDraw() {
 
 void MagicLvCursor003::markOff() {
     _pUvFlipper->stopFlip();
-    _pFader->reset();
-    _pFader->setAlpha(0);
+    _pAFader->reset();
+    _pAFader->setAlpha(0);
 }
 
 void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
-    _pFader->setAlpha(0);
-    _pFader->intoTargetAlphaLinerUntil(1.0, 20);
+    _pAFader->setAlpha(0);
+    _pAFader->intoTargetAlphaLinerUntil(1.0, 20);
     moveTo(prm_lv);
     _pUvFlipper->forcePtnRange(0,3);
     _pUvFlipper->setActivePtn(0);
@@ -62,7 +62,7 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
 }
 
 void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
-    _pFader->setAlpha(1.0);
+    _pAFader->setAlpha(1.0);
     moveTo(prm_lv);
     _pUvFlipper->forcePtnRange(0,3);
     _pUvFlipper->setActivePtn(0);

@@ -8,7 +8,6 @@ VreathBar::VreathBar(const char* prm_name, AmountGraph* prm_pAmount)
       : GraphBar(prm_name, "TurboMeter", prm_pAmount) {
     _class_name = "VreathBar";
     pAmount_ = prm_pAmount;
-    _Z = 4;
 }
 
 void VreathBar::initialize() {
@@ -27,7 +26,6 @@ void VreathBar::processBehavior() {
     _pUvFlipper->behave();
 }
 
-
 void VreathBar::processJudgement() {
 }
 
@@ -36,3 +34,4 @@ void VreathBar::onInactive() {
 
 VreathBar::~VreathBar() {
 }
+

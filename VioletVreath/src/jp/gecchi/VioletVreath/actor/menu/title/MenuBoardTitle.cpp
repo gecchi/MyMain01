@@ -56,10 +56,10 @@ bool MenuBoardTitle::condSelectrExPrev() {
 
 void MenuBoardTitle::onSelect(int prm_from, int prm_to) {
     if (prm_from > -1) {
-        getItem(prm_from)->_pFader->reset();
+        getItem(prm_from)->_pAFader->reset();
     }
     if (prm_to > -1) {
-        getItem(prm_to)->_pFader->beat(20,10,0,0,-1);
+        getItem(prm_to)->_pAFader->beat(20,10,0,0,-1);
     }
 }
 
@@ -97,9 +97,9 @@ void MenuBoardTitle::processBehavior() {
     }
 
     GgafDxDrawableActor* pItem = getSelectedItem();
-    pItem->_pFader->behave();
+    pItem->_pAFader->behave();
     if (getRisingSubMenu()) {
-        pItem->setAlpha(pItem->_pFader->_top_alpha); //“_–Å‚ð’âŽ~
+        pItem->setAlpha(pItem->_pAFader->_top_alpha); //“_–Å‚ð’âŽ~
     }
 }
 MenuBoardTitle::~MenuBoardTitle() {

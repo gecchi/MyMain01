@@ -69,7 +69,7 @@ void EnemyThalia::processBehavior() {
         case PROG_MOVE: {
             if (!_pKurokoA->isRunnigSmoothMvVeloSequence()) {
                 _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //ŠJ‚­ 0.0004 ŠJ‚­‘¬‚³
-                _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
                                                     0, 100,
                                                     TURN_CLOSE_TO, false);
                 _pProg->changeNext();

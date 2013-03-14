@@ -55,9 +55,9 @@ public:
     }
 
     /**
-     * 現在の進捗を設定する .
+     * 現在の進捗を即座に設定する .
      * 即座に反映される。0 は設定不可。<BR>
-     * 初期化などではこの set(int) を使用し、<BR>
+     * 初期化などではこの reset(int) を使用し、<BR>
      * 状態変化時は change(int) を使用する。<BR>
      * という設計。<BR>
      * 【注意】<BR>
@@ -115,12 +115,12 @@ public:
     /**
      * 進捗番号が切り替わった直後なのかどうかを判定。 .
      * change(progress) により進捗番号切り替えた次の update() 時だけ true になります。<BR>
-     * set(progress) により進捗番号切り替えた場合は成立しません。<BR>
+     * reset(progress) により進捗番号切り替えた場合は成立しません。<BR>
      * change(progress) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @return true:進捗に切り替わった直後である／false:それ以外
      */
     inline bool isJustChanged() {
-        if (_progress != _progress_prev) {
+        if (_progress != _progress_prev && _progress_prev > -1) {
             return true;
         } else {
             return false;
@@ -149,6 +149,7 @@ public:
      * 進捗番号が変化したか（前回と同じかどうか）調べる .
      * 変化した場合、その新しい進捗番号を返す。
      * change(progress) 又は changeNext() を実行した次フレームで取得条件が成立。
+     * reset(progress) により進捗番号切り替えた場合は成立しません。<BR>
      * @return 0(false) 又は 進捗番号
      *         0(false)：進捗番号が変化していない
      *         0以外   ：進捗番号が変化した直後であるので、その新しい進捗番号を返す
@@ -159,6 +160,7 @@ public:
      * 進捗番号が何から変化したか調べる .
      * 変化した場合、その元の進捗番号を返す。
      * change(progress) 又は changeNext() を実行した次フレームで取得条件が成立。
+     * reset(progress) により進捗番号切り替えた場合は成立しません。<BR>
      * @return 0(false) 又は 進捗番号
      *         0(false)：進捗番号が変化していない
      *         0以外   ：進捗番号が変化がした直後であるので、変化前の元の進捗番号返す

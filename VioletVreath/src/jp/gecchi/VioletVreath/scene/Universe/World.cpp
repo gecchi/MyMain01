@@ -11,7 +11,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
     getDirector()->addSubGroup(pLabel_aster_);
     pLabel_aster_->update(PX_C(PROPERTY::GAME_BUFFER_WIDTH), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
-    pLabel_aster_->_pFader->beat(30, 15, 0, 0, -1); //チカチカ点滅
+    pLabel_aster_->_pAFader->beat(30, 15, 0, 0, -1); //チカチカ点滅
 
     is_create_GameScene_ = false;
     pLabel_debug_ = nullptr;
@@ -111,7 +111,7 @@ void World::processBehavior() {
                 addSubLast(pPreDrawScene_);
                 _pProg->changeNext();
             }
-            pLabel_aster_->_pFader->behave(); //右上＊チカチカ
+            pLabel_aster_->_pAFader->behave(); //右上＊チカチカ
             break;
         }
 
@@ -126,7 +126,7 @@ void World::processBehavior() {
                 pLabel_title_->sayonara();
                 _pProg->changeNext();
             }
-            pLabel_aster_->_pFader->behave(); //右上＊チカチカ
+            pLabel_aster_->_pAFader->behave(); //右上＊チカチカ
             break;
         }
 
@@ -139,7 +139,7 @@ void World::processBehavior() {
                 pGameScene_ = (GameScene*)obtainSceneFromFactory(2);
                 _pProg->changeNext();
             }
-            pLabel_aster_->_pFader->behave(); //右上＊チカチカ
+            pLabel_aster_->_pAFader->behave(); //右上＊チカチカ
             break;
         }
 
@@ -151,7 +151,7 @@ void World::processBehavior() {
             ) {
                 _pProg->changeNext();
             }
-            pLabel_aster_->_pFader->behave(); //右上＊チカチカ
+            pLabel_aster_->_pAFader->behave(); //右上＊チカチカ
             break;
         }
 
@@ -165,7 +165,7 @@ void World::processBehavior() {
                 pLabel_resolution2_->sayonara();
                 _pProg->changeNext(); //メインへループ
             }
-            pLabel_aster_->_pFader->behave(); //右上＊チカチカ
+            pLabel_aster_->_pAFader->behave(); //右上＊チカチカ
             break;
         }
 

@@ -113,9 +113,9 @@ public:
      * @param   prm_angveloAllow 自動停止機能が有効になる回転角速度
      */
     void setStopTargetFaceAng(axis prm_axis,
-                               angle prm_angTargetRot,
-                               int prm_way_allow = TURN_BOTH,
-                               angvelo prm_angveloAllow = D180ANG);
+                              angle prm_angTargetRot,
+                              int prm_way_allow = TURN_BOTH,
+                              angvelo prm_angveloAllow = D180ANG);
 
     /**
      * Actorの目標回転方向自動停止機能を有効(現在XY座標からの対象XY座標で設定)<BR>
@@ -517,7 +517,7 @@ public:
 
     void forceRyMvAngVeloRange(angvelo prm_angveloRyMv01, angvelo prm_angveloRyMv02);
 
-    void setRyMvAngAcce(angacce prm_angacceRyAcc);
+    void setRyMvAngAcce(angacce prm_angacceRyMv);
 
     angle getRyMvAngDistanceTwd(coord prm_tX, coord prm_tY, int prm_way);
 
@@ -718,8 +718,8 @@ public:
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTurnRzRyMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
-                               angvelo prm_angVelo, angacce prm_angAcce,
-                               int prm_way, bool prm_optimize_ang);
+                                   angvelo prm_angVelo, angacce prm_angAcce,
+                                   int prm_way, bool prm_optimize_ang);
 
 
     /**
@@ -741,8 +741,8 @@ public:
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTurnMvAngSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
-                                      angvelo prm_angVelo, angacce prm_angAcce,
-                                      int prm_way, bool prm_optimize_ang);
+                                  angvelo prm_angVelo, angacce prm_angAcce,
+                                  int prm_way, bool prm_optimize_ang);
 
     void keepTurnMvAngAllTime(coord prm_tX, coord prm_tY, coord prm_tZ,
                               angvelo prm_angVelo, angacce prm_angAcce,
