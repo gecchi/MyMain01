@@ -90,7 +90,7 @@ void EnemyAstraeaLaserChip004::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyAstraeaLaserChip004::~EnemyAstraeaLaserChip004() {
-    DELETE_IMPOSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE(pSplSeq_);
     pSplManufCon_->close();
     //if (pTexCon1_) {
     //    pTexCon1_->close();

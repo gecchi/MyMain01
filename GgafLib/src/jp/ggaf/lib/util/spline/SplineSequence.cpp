@@ -112,7 +112,7 @@ int SplineSequence::getPointNum() {
 SplineSequence::~SplineSequence() {
     if (_is_created_pManufacture) {
         SplineSource* pSplSrc = _pManufacture->_pSplSrc;
-        DELETE_IMPOSSIBLE_NULL(pSplSrc);
-        DELETE_IMPOSSIBLE_NULL(_pManufacture);
+        GGAF_DELETE(pSplSrc);
+        GGAF_DELETE(_pManufacture);
     }
 }

@@ -9,6 +9,6 @@ GgafDxTextureConnection::GgafDxTextureConnection(char* prm_idstr, GgafDxTexture*
 }
 
 void GgafDxTextureConnection::processReleaseResource(GgafDxTexture* prm_pResource) {
-    DELETE_IMPOSSIBLE_NULL(prm_pResource);
+    GGAF_DELETE(prm_pResource);
 }
 

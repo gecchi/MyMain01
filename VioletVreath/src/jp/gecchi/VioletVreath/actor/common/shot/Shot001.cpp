@@ -65,6 +65,6 @@ void Shot001::onInactive() {
 
 
 Shot001::~Shot001() {
-    DELETE_IMPOSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE(pSplSeq_);
     pSplLineCon_->close();
 }

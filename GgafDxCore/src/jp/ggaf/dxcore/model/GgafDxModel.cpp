@@ -67,8 +67,8 @@ void GgafDxModel::swapTopTextureOrder(const char* prm_texture0) {
 
 GgafDxModel::~GgafDxModel() {
     _TRACE_("GgafDxModel::~GgafDxModel() " << _model_name << " ");
-    DELETEARR_POSSIBLE_NULL(_model_name);
-    DELETEARR_POSSIBLE_NULL(_paMaterial_default);
-    DELETE_IMPOSSIBLE_NULL(_pTextureBlinker);
+    GGAF_DELETEARR_NULLABLE(_model_name);
+    GGAF_DELETEARR_NULLABLE(_paMaterial_default);
+    GGAF_DELETE(_pTextureBlinker);
 }
 

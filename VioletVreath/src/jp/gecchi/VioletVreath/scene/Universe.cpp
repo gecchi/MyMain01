@@ -147,5 +147,5 @@ void Universe::resetCamWorker() {
 
 
 Universe::~Universe() {
-    DELETE_IMPOSSIBLE_NULL(pCamWorkerManager_);
+    GGAF_DELETE(pCamWorkerManager_);
 }

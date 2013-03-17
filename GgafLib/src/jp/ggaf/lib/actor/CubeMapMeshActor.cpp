@@ -21,6 +21,6 @@ void CubeMapMeshActor::drawHitArea() {
 }
 
 CubeMapMeshActor::~CubeMapMeshActor() {
-    DELETE_IMPOSSIBLE_NULL(_pColliChecker);
-    DELETE_IMPOSSIBLE_NULL(_pScaler);
+    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pScaler);
 }

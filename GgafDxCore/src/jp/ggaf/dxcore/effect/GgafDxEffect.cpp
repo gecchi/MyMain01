@@ -93,7 +93,7 @@ GgafDxEffect::~GgafDxEffect() {
     TRACE4("GgafDxEffect::~GgafDxEffect("<<_effect_name<<") Adr:"<<this);
     _pID3DXEffect->EndPass();
     _pID3DXEffect->End();
-    DELETEARR_IMPOSSIBLE_NULL(_effect_name);
-    RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
+    GGAF_DELETEARR(_effect_name);
+    GGAF_RELEASE(_pID3DXEffect);
 }
 

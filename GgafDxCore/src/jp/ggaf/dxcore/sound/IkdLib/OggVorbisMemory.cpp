@@ -41,7 +41,7 @@ OggVorbisResource* OggVorbisMemory::createClone() {
     // OggƒI[ƒvƒ“
     if (ov_open_callbacks(obj, &obj->_ogg_vorbis_file, 0, 0, callbacks) != 0) {
         obj->clear();
-        DELETE_IMPOSSIBLE_NULL(obj);
+        GGAF_DELETE(obj);
         return 0;
     }
     return obj;

@@ -104,14 +104,14 @@ void GgafProperties::save(std::string prm_properties_filename) {
 
 void GgafProperties::clean() {
     _TRACE_("Properties::clean()");
-    DELETE_POSSIBLE_NULL(_pMapProperties);
+    GGAF_DELETE_NULLABLE(_pMapProperties);
 }
 
 std::string GgafProperties::getStr(std::string prm_key) {
     if (isExistKey(prm_key)) {
         std::string* r = NEW std::string((*_pMapProperties)[prm_key].c_str());
         std::string val = *r;
-        DELETE_IMPOSSIBLE_NULL(r);
+        GGAF_DELETE(r);
         return val;
     } else {
         throwGgafCriticalException("GgafProperties::getStr() Error! プロパティに、キー("<<prm_key<<")が存在しません。");

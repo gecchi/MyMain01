@@ -171,7 +171,7 @@ void* GgafFactory::obtain(UINT32 prm_id, GgafObject* prm_org) {
                     if (pOrder->_is_first_order_flg && pOrder->_is_last_order_flg) {
                         objectCreation = pOrder->_pObject_creation;
                         pOrder->_pObject_creation = nullptr;
-                        DELETE_IMPOSSIBLE_NULL(pOrder);
+                        GGAF_DELETE(pOrder);
                         pOrder = nullptr;
                         ROOT_ORDER = nullptr;
                         CREATING_ORDER = nullptr;
@@ -198,7 +198,7 @@ void* GgafFactory::obtain(UINT32 prm_id, GgafObject* prm_org) {
                         }
                         objectCreation = pOrder->_pObject_creation;
                         pOrder->_pObject_creation = nullptr;
-                        DELETE_IMPOSSIBLE_NULL(pOrder);
+                        GGAF_DELETE(pOrder);
                         pOrder = nullptr;
 
                         return (void*)objectCreation;
@@ -251,7 +251,7 @@ void GgafFactory::clean() {
     while (true) {
         if (pOrder->_is_last_order_flg) {
             TRACE2("GgafFactory::clean ＜神＞ 製品削除["<<pOrder->_id<<"]、最後のストック");
-            DELETE_IMPOSSIBLE_NULL(pOrder);
+            GGAF_DELETE(pOrder);
             pOrder = nullptr;
             ROOT_ORDER = nullptr;
             CREATING_ORDER = nullptr;
@@ -259,7 +259,7 @@ void GgafFactory::clean() {
         } else {
             TRACE2("GgafFactory::clean ＜神＞ 製品削除["<<pOrder->_id<<"]");
             GgafOrder* pOrder_MyNext = pOrder->_pOrder_next;
-            DELETE_IMPOSSIBLE_NULL(pOrder);
+            GGAF_DELETE(pOrder);
             pOrder = pOrder_MyNext;
         }
     }
@@ -320,7 +320,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                     TRACE2("GgafFactory::work ＜工場長＞ 製造完了！品番["<<CREATING_ORDER->_id<<"] (^_^)v");
                     if (CREATING_ORDER == nullptr) {
                         TRACE2("GgafFactory::work ＜工場長＞ ガーン！。せっかく作ったのにキャンセルっすか・・・。破棄します。pObjectをdelete!");
-                        DELETE_IMPOSSIBLE_NULL(pObject);
+                        GGAF_DELETE(pObject);
                      ___EndSynchronized1; // <----- 排他終了
                         continue;
                     } else {

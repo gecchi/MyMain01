@@ -192,6 +192,6 @@ void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame) {
     }
 }
 MyOptionController::~MyOptionController() {
-    DELETE_IMPOSSIBLE_NULL(pRing_OptCtrlGeoHistory_);
+    GGAF_DELETE(pRing_OptCtrlGeoHistory_);
 }
 

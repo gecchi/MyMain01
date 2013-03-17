@@ -319,6 +319,6 @@ void GgafDxPuppeteer::work() {
 }
 
 GgafDxPuppeteer::~GgafDxPuppeteer() {
-    DELETEARR_IMPOSSIBLE_NULL(_paPerformances);
+    GGAF_DELETEARR(_paPerformances);
 }
 

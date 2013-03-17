@@ -269,19 +269,19 @@ void GgafGod::clean() {
             _TRACE_("GgafFactory::_pGarbageBox->_pDisusedActor ...");
             GgafFactory::_pGarbageBox->_pDisusedActor->dump();
     #endif
-            _TRACE_("DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);");
-            DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
+            _TRACE_("GGAF_DELETE(GgafFactory::_pGarbageBox);");
+            GGAF_DELETE(GgafFactory::_pGarbageBox);
             //Ç±ÇÃê¢Ç≈ê∂Ç´ÇƒÇ¢ÇÈï®Ç‡ë|èú
             Sleep(20);
-            _TRACE_("DELETE_IMPOSSIBLE_NULL(_pUniverse);");
-            DELETE_IMPOSSIBLE_NULL(_pUniverse);
+            _TRACE_("GGAF_DELETE(_pUniverse);");
+            GGAF_DELETE(_pUniverse);
             _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS2)); .....");
             DeleteCriticalSection(&(GgafGod::CS2));
         }
 
         //çHèÍó·äO _pException_Factory Ç™ãNÇ±Ç¡ÇƒÇ¢ÇÈÇ©Ç‡ÇµÇÍÇ»Ç¢ÅB
-        _TRACE_("DELETE_POSSIBLE_NULL(_pException_Factory);");
-        DELETE_POSSIBLE_NULL(_pException_Factory);
+        _TRACE_("GGAF_DELETE_NULLABLE(_pException_Factory);");
+        GGAF_DELETE_NULLABLE(_pException_Factory);
         _TRACE_("GgafGod::clean() end");
     }
 }

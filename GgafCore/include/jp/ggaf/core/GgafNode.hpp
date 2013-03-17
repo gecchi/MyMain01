@@ -652,16 +652,16 @@ GgafNode<T>::~GgafNode() {
         //‚Ü‚¸Žq‚ðdelete
         if (_pSubFirst->_is_last_flg) {
             //Žqƒm[ƒh‚Í‚P‚Â‚Ìê‡
-            DELETE_IMPOSSIBLE_NULL(_pSubFirst);
+            GGAF_DELETE(_pSubFirst);
             _pSubFirst = nullptr;
         } else {
             //Žqƒm[ƒh‚Í‚Q‚ÂˆÈã‚Ìê‡
             T* pSubLast = _pSubFirst->_pPrev;
             T* pSubLastPrev = pSubLast->_pPrev;
             while (true) {
-                DELETE_IMPOSSIBLE_NULL(pSubLast); //––”ö‚©‚çdelete
+                GGAF_DELETE(pSubLast); //––”ö‚©‚çdelete
                 if (pSubLastPrev->_is_first_flg) {
-                    DELETE_IMPOSSIBLE_NULL(_pSubFirst); //pSubLastPrev == _pSubFirst ‚Å‚ ‚é
+                    GGAF_DELETE(_pSubFirst); //pSubLastPrev == _pSubFirst ‚Å‚ ‚é
                     _pSubFirst = nullptr;
                     break;
                 }
@@ -704,7 +704,7 @@ GgafNode<T>::~GgafNode() {
             _is_last_flg = true;
         }
     }
-    DELETEARR_IMPOSSIBLE_NULL(_name);
+    GGAF_DELETEARR(_name);
 }
 
 }

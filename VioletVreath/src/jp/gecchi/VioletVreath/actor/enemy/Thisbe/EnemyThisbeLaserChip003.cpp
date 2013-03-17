@@ -71,7 +71,7 @@ void EnemyThisbeLaserChip003::onInactive() {
 }
 
 EnemyThisbeLaserChip003::~EnemyThisbeLaserChip003() {
-    DELETE_IMPOSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE(pSplSeq_);
     pSplManufCon_->close();
 }
 

@@ -13,8 +13,8 @@ void DefaultGod::clean() {
     if (!_was_cleaned) {
         _TRACE_("DefaultGod::clean() begin");
         GgafDxGod::clean();
-        DELETE_IMPOSSIBLE_NULL(_pSplSrcManager);
-        DELETE_IMPOSSIBLE_NULL(_pSplManufManager);
+        GGAF_DELETE(_pSplSrcManager);
+        GGAF_DELETE(_pSplManufManager);
         _TRACE_("DefaultGod::clean() end");
     }
 }

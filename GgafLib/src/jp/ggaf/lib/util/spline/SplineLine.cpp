@@ -45,9 +45,9 @@ void SplineLine::init(double prm_paaEstablish[][3], int prm_num, double prm_accu
 void SplineLine::compute(double prm_accuracy) {
     _rnum = _num_basepoint/prm_accuracy;
     if (_X_compute) {
-        DELETEARR_IMPOSSIBLE_NULL(_X_compute);
-        DELETEARR_IMPOSSIBLE_NULL(_Y_compute);
-        DELETEARR_IMPOSSIBLE_NULL(_Z_compute);
+        GGAF_DELETEARR(_X_compute);
+        GGAF_DELETEARR(_Y_compute);
+        GGAF_DELETEARR(_Z_compute);
     }
     _X_compute = NEW double[_rnum];
     _Y_compute = NEW double[_rnum];
@@ -65,11 +65,11 @@ void SplineLine::compute(double prm_accuracy) {
 
 SplineLine::~SplineLine() {
     _TRACE_("SplineLine::~SplineLine() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    DELETEARR_IMPOSSIBLE_NULL(_X_basepoint);
-    DELETEARR_IMPOSSIBLE_NULL(_Y_basepoint);
-    DELETEARR_IMPOSSIBLE_NULL(_Z_basepoint);
+    GGAF_DELETEARR(_X_basepoint);
+    GGAF_DELETEARR(_Y_basepoint);
+    GGAF_DELETEARR(_Z_basepoint);
     //イニシャライズされる前に解放されるかもしれない
-    DELETEARR_POSSIBLE_NULL(_X_compute);
-    DELETEARR_POSSIBLE_NULL(_Y_compute);
-    DELETEARR_POSSIBLE_NULL(_Z_compute);
+    GGAF_DELETEARR_NULLABLE(_X_compute);
+    GGAF_DELETEARR_NULLABLE(_Y_compute);
+    GGAF_DELETEARR_NULLABLE(_Z_compute);
 }

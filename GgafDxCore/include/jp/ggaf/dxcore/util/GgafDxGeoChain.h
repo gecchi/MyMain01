@@ -46,7 +46,7 @@ public:
         GgafDxGeoElem* pWorkNext = nullptr;
         for (DWORD i = 0; i < 50 - 1 + 1; i++) {
             pWorkNext = pWork->_next;
-            DELETE_IMPOSSIBLE_NULL(pWork);
+            GGAF_DELETE(pWork);
             pWork = pWorkNext;
         }
     }

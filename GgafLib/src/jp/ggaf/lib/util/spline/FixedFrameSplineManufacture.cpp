@@ -99,7 +99,7 @@ SplineSequence* FixedFrameSplineManufacture::createSplineSequence(GgafDxCore::Gg
 
 FixedFrameSplineManufacture::~FixedFrameSplineManufacture() {
     //イニシャライズされる前に解放されるかもしれない
-    DELETEARR_POSSIBLE_NULL(_paDistance_to);
+    GGAF_DELETEARR_NULLABLE(_paDistance_to);
     //イニシャライズされる前に解放されるかもしれない
-    DELETEARR_POSSIBLE_NULL(_paSPMvVeloTo);
+    GGAF_DELETEARR_NULLABLE(_paSPMvVeloTo);
 }

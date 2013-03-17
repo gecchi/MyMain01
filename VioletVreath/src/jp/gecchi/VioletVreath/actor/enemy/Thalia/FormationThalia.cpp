@@ -48,5 +48,5 @@ void FormationThalia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 
 FormationThalia::~FormationThalia() {
     pDpcon_->close();
-    DELETEARR_IMPOSSIBLE_NULL(papThalia_);
+    GGAF_DELETEARR(papThalia_);
 }

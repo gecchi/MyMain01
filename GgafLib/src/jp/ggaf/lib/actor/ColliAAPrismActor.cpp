@@ -19,7 +19,7 @@ ColliAAPrismActor* ColliAAPrismActor::get() {
 
 void ColliAAPrismActor::release() {
     //あたり判定を持つオブジェクトが一度も使用されないとnullptrかもしれない
-    DELETE_POSSIBLE_NULL(ColliAAPrismActor::_pObj);
+    GGAF_DELETE_NULLABLE(ColliAAPrismActor::_pObj);
 }
 
 void ColliAAPrismActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {

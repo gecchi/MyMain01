@@ -54,5 +54,5 @@ void WorldBoundActor::processSettlementBehavior() {
 //}
 
 WorldBoundActor::~WorldBoundActor() {
-    DELETE_IMPOSSIBLE_NULL(_pScaler);
+    GGAF_DELETE(_pScaler);
 }

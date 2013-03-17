@@ -484,10 +484,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxRectUV.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxScaler.cpp"
 				>
 			</File>
@@ -1021,10 +1017,6 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxQuaternion.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxRectUV.h"
 				>
 			</File>
 			<File

@@ -128,5 +128,5 @@ bool MyTorpedoController::fire() {
 }
 
 MyTorpedoController::~MyTorpedoController() {
-    DELETEARR_IMPOSSIBLE_NULL(papTorpedo_);
+    GGAF_DELETEARR(papTorpedo_);
 }

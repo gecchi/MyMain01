@@ -111,5 +111,5 @@ void GgafDxSpriteSetActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_vali
 }
 
 GgafDxSpriteSetActor::~GgafDxSpriteSetActor() {
-    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
+    GGAF_DELETE(_pUvFlipper);
 }

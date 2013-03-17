@@ -187,34 +187,34 @@ void GgafDxMorphMeshModel::release() {
             }
         }
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
+    GGAF_DELETEARR(_papTextureCon); //テクスチャの配列
 
     for (int pattern = 0; pattern <= _morph_target_num; pattern++) {
         if (pattern == 0) {
-            RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9_primary);
-            DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org_primary);
+            GGAF_RELEASE(_pIDirect3DVertexBuffer9_primary);
+            GGAF_DELETEARR(_paVtxBuffer_org_primary);
         } else {
-            RELEASE_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9_morph[pattern-1]);
-            DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org_morph[pattern-1]);
+            GGAF_RELEASE(_paIDirect3DVertexBuffer9_morph[pattern-1]);
+            GGAF_DELETEARR(_papaVtxBuffer_org_morph[pattern-1]);
         }
-        DELETE_IMPOSSIBLE_NULL(_papModel3D[pattern]);
+        GGAF_DELETE(_papModel3D[pattern]);
     }
 
 
-    DELETEARR_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9_morph);
-    DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org_morph);
-    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
-    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexDeclaration9);
+    GGAF_DELETEARR(_paIDirect3DVertexBuffer9_morph);
+    GGAF_DELETEARR(_papaVtxBuffer_org_morph);
+    GGAF_RELEASE(_pIDirect3DIndexBuffer9);
+    GGAF_RELEASE(_pIDirect3DVertexDeclaration9);
 
-    DELETEARR_IMPOSSIBLE_NULL(_papModel3D);
+    GGAF_DELETEARR(_papModel3D);
     //_papMeshesFront[0],_papMeshesFront[1] は _papModel3D をDELETEしているのでする必要は無い
-    DELETEARR_IMPOSSIBLE_NULL(_papMeshesFront);
+    GGAF_DELETEARR(_papMeshesFront);
     _papMeshesFront = nullptr;
-    DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
-    DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
+    GGAF_DELETEARR(_paIdxBuffer_org);
+    GGAF_DELETEARR(_paIndexParam);
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
+    GGAF_DELETEARR(_paMaterial_default);
     TRACE3("GgafDxMorphMeshModel::release() " << _model_name << " end");
 
 }

@@ -53,7 +53,7 @@ public:
         }
     }
 
-    void set(int prm_status_kind, char val) {
+    inline void set(int prm_status_kind, char val) {
 #ifdef MY_DEBUG
         if (_len < prm_status_kind) {
             throwGgafCriticalException("配列要素数オーバー");
@@ -62,7 +62,7 @@ public:
         _paValue[prm_status_kind]._char_val = val;
     }
 
-    void set(int prm_status_kind, int val) {
+    inline void set(int prm_status_kind, int val) {
 #ifdef MY_DEBUG
         if (_len < prm_status_kind) {
             throwGgafCriticalException("配列要素数オーバー");
@@ -71,7 +71,7 @@ public:
         _paValue[prm_status_kind]._int_val = val;
     }
 
-    void set(int prm_status_kind, double val) {
+    inline void set(int prm_status_kind, double val) {
 #ifdef MY_DEBUG
         if (_len < prm_status_kind) {
             throwGgafCriticalException("配列要素数オーバー");
@@ -80,7 +80,7 @@ public:
         _paValue[prm_status_kind]._double_val = val;
     }
 
-    void set(int prm_status_kind, void* p) {
+    inline void set(int prm_status_kind, void* p) {
 #ifdef MY_DEBUG
         if (_len < prm_status_kind) {
             throwGgafCriticalException("配列要素数オーバー");
@@ -89,59 +89,59 @@ public:
         _paValue[prm_status_kind]._ptr = p;
     }
 
-    char plus(int prm_status_kind, char val) {
+    inline char plus(int prm_status_kind, char val) {
         return _paValue[prm_status_kind]._char_val += val;
     }
 
-    int plus(int prm_status_kind, int val) {
+    inline int plus(int prm_status_kind, int val) {
         return _paValue[prm_status_kind]._int_val += val;
     }
 
-    double plus(int prm_status_kind, double val) {
+    inline double plus(int prm_status_kind, double val) {
         return _paValue[prm_status_kind]._double_val += val;
     }
 
-    char minus(int prm_status_kind, char val) {
+    inline char minus(int prm_status_kind, char val) {
         return _paValue[prm_status_kind]._char_val -= val;
     }
 
-    int minus(int prm_status_kind, int val) {
+    inline int minus(int prm_status_kind, int val) {
         return _paValue[prm_status_kind]._int_val -= val;
     }
 
-    double minus(int prm_status_kind, double val) {
+    inline double minus(int prm_status_kind, double val) {
         return _paValue[prm_status_kind]._double_val -= val;
     }
 
-    char mul(int prm_status_kind, char val) {
+    inline char mul(int prm_status_kind, char val) {
         return _paValue[prm_status_kind]._char_val *= val;
     }
 
-    int mul(int prm_status_kind, int val) {
+    inline int mul(int prm_status_kind, int val) {
         return _paValue[prm_status_kind]._int_val *= val;
     }
 
-    double mul(int prm_status_kind, double val) {
+    inline double mul(int prm_status_kind, double val) {
         return _paValue[prm_status_kind]._double_val *= val;
     }
 
-    int get(int prm_status_kind) {
+    inline int get(int prm_status_kind) {
         return _paValue[prm_status_kind]._int_val;
     }
 
-    int getChar(int prm_status_kind) {
+    inline int getChar(int prm_status_kind) {
         return _paValue[prm_status_kind]._char_val;
     }
 
-    int getInt(int prm_status_kind) {
+    inline int getInt(int prm_status_kind) {
         return _paValue[prm_status_kind]._int_val;
     }
 
-    double getDouble(int prm_status_kind) {
+    inline double getDouble(int prm_status_kind) {
         return _paValue[prm_status_kind]._double_val;
     }
 
-    void* getPtr(int prm_status_kind) {
+    inline void* getPtr(int prm_status_kind) {
         return _paValue[prm_status_kind]._ptr;
     }
 
@@ -159,7 +159,7 @@ public:
 
     ~GgafStatus() {
         delete[] _paValue;
-        //DELETEARR_IMPOSSIBLE_NULL(_paValue);
+        //GGAF_DELETEARR(_paValue);
     }
 
 };

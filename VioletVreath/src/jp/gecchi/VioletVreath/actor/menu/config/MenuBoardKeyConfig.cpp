@@ -178,5 +178,5 @@ void MenuBoardKeyConfig::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, in
 }
 
 MenuBoardKeyConfig::~MenuBoardKeyConfig() {
-    DELETEARR_IMPOSSIBLE_NULL(paVBProperties);
+    GGAF_DELETEARR(paVBProperties);
 }

@@ -117,7 +117,7 @@ VBReplayRecorder::~VBReplayRecorder() {
     VBRecordNote* w;
     while (p) {
         w = p ->_pNext;
-        DELETE_IMPOSSIBLE_NULL(p);
+        GGAF_DELETE(p);
         p = w;
     }
 

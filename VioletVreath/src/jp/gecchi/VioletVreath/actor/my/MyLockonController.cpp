@@ -181,7 +181,7 @@ void MyLockonController::releaseAllLockon() {
 }
 
 MyLockonController::~MyLockonController() {
-    DELETE_IMPOSSIBLE_NULL(pRingTarget_);
+    GGAF_DELETE(pRingTarget_);
 }
 
 void MyLockonController::dumpTarget(GgafDxGeometricActor* pMain) {

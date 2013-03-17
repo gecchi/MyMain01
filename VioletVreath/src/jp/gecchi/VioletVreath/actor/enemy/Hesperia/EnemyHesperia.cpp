@@ -366,7 +366,7 @@ coord EnemyHesperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
 
 EnemyHesperia::~EnemyHesperia() {
     pConn_LaserChipDepoStore_->close();
-    DELETEARR_IMPOSSIBLE_NULL(paLocalPos_Laser_);
-    DELETEARR_IMPOSSIBLE_NULL(paPos_Target_);
-    DELETEARR_IMPOSSIBLE_NULL(papLaserChipDepo_);
+    GGAF_DELETEARR(paLocalPos_Laser_);
+    GGAF_DELETEARR(paPos_Target_);
+    GGAF_DELETEARR(papLaserChipDepo_);
 }

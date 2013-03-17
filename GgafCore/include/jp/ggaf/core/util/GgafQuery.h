@@ -9,7 +9,8 @@ typedef std::map<std::string, std::string> GgafRecord;
 namespace GgafCore {
 
 /**
- * SELECTクエリを模したオブジェクトを扱うクラス.  <BR>
+ * SELECTクエリを模したオブジェクトを扱うクラス.
+ * 内部データを、全て std::string で保持しているTABLEオブジェクトです。
  * @version 1.00
  * @since 2012/10/02
  * @author Masatoshi Tsuge
@@ -143,9 +144,9 @@ public:
 
     /**
      * レコードを末尾行に追加します .
-     * GgafRecord オブジェクトのポインタを渡して下さい。
-     * 呼び元で GgafRecord オブジェクトの delete は不要。
+     * GgafRecord オブジェクトのポインタを渡して下さい。<BR>
      * 本クエリオブジェクト開放時に、全GgafRecordの解放が行われるので、
+     * 呼び元で GgafRecord オブジェクトの delete は不要。(むしろ行わないで下さい)
      * @param prm_pRow ヒープに作成したレコードオブジェクト（のポインタ）
      */
     void addRow(GgafRecord* prm_pRow);
@@ -185,18 +186,18 @@ public:
      * std::vector<std::string> data = split("\taaa\tbbb\t\t\tcccc\tddd\teeee\t\t", "\t");
      * ＜結果＞
      * data[0] = (空文字)
-     * data[1] = aaa
-     * data[2] = bbb
+     * data[1] = "aaa"
+     * data[2] = "bbb"
      * data[3] = (空文字)
      * data[4] = (空文字)
-     * data[5] = cccc
-     * data[6] = ddd
-     * data[7] = eeee
+     * data[5] = "cccc"
+     * data[6] = "ddd"
+     * data[7] = "eeee"
      * data[8] = (空文字)
      * data[9] = (空文字)
      * </pre>
      * @param str
-     * @return
+     * @return 文字列のベクタリスト
      */
     static inline std::vector<std::string> split(std::string str) {
         std::vector<std::string> r;

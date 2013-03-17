@@ -147,13 +147,13 @@ void GgafDxTexture::restore() {
     _TRACE_("GgafDxTextureManager::restore() "<<texture_name<<" のテクスチャ生成しました。");
 }
 void GgafDxTexture::release() {
-    DELETE_IMPOSSIBLE_NULL(_pD3DXIMAGE_INFO);
-    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DBaseTexture9);
+    GGAF_DELETE(_pD3DXIMAGE_INFO);
+    GGAF_RELEASE(_pIDirect3DBaseTexture9);
 }
 
 GgafDxTexture::~GgafDxTexture() {
     TRACE3("GgafDxTexture::~GgafDxTexture() " << _texture_name << " start-->");
     release();
-    DELETEARR_IMPOSSIBLE_NULL(_texture_name);
+    GGAF_DELETEARR(_texture_name);
 }
 

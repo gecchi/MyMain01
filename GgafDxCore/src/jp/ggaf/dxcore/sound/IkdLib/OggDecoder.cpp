@@ -19,7 +19,7 @@ OggDecoder::OggDecoder(OggVorbisResource* prm_pOggVorbisResource) {
 }
 
 OggDecoder::~OggDecoder() {
-    DELETE_IMPOSSIBLE_NULL(_pOggVorbisResource);
+    GGAF_DELETE(_pOggVorbisResource);
     clear();
 }
 

@@ -120,5 +120,5 @@ void GgafDxBoardSetActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valig
 }
 
 GgafDxBoardSetActor::~GgafDxBoardSetActor() {
-    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
+    GGAF_DELETE(_pUvFlipper);
 }

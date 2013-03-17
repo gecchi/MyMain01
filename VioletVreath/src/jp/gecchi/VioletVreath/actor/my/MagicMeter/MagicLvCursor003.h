@@ -28,6 +28,9 @@ public:
     void markOnLevelUpCast(int prm_lv);
     void markOnLevelDownCast(int prm_lv);
     void markOnInvoke(int prm_lv);
+    void markOnEffect(int prm_lv);
+
+
     virtual ~MagicLvCursor003();
 };
 

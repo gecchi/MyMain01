@@ -51,7 +51,7 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         pEffect->setScaleR(2.0f);
         pEffect->activate();
     }
-    DELETEARR_IMPOSSIBLE_NULL(paAng_way);
+    GGAF_DELETEARR(paAng_way);
     r_effect_ = 1;
 }
 
@@ -134,5 +134,5 @@ void OptionMagic::processEffectFinish(int prm_justbefore_level) {
 }
 
 OptionMagic::~OptionMagic() {
-    DELETEARR_IMPOSSIBLE_NULL(papEffect_);
+    GGAF_DELETEARR(papEffect_);
 }

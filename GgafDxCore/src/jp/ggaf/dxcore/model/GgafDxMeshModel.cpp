@@ -175,20 +175,20 @@ void GgafDxMeshModel::release() {
             }
         }
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
+    GGAF_DELETEARR(_papTextureCon); //テクスチャの配列
 
-    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
-    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
+    GGAF_RELEASE(_pIDirect3DVertexBuffer9);
+    GGAF_RELEASE(_pIDirect3DIndexBuffer9);
 
-    DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org);
-    DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
-    DELETE_IMPOSSIBLE_NULL(_pModel3D);
+    GGAF_DELETEARR(_paVtxBuffer_org);
+    GGAF_DELETEARR(_paIdxBuffer_org);
+    GGAF_DELETE(_pModel3D);
     //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
     _pMeshesFront = nullptr;
-    DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
+    GGAF_DELETEARR(_paIndexParam);
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
+    GGAF_DELETEARR(_paMaterial_default);
 
 
     TRACE3("GgafDxMeshModel::release() " << _model_name << " end");

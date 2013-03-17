@@ -65,7 +65,6 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
         paFloat_velo_rr_[i] = 0.0f;
     }
 
-
     //表示プリオリティを考慮して、addSubGroupを行う事！
     for (int i = 0; i < magic_num; i++) {
         addSubGroup(papLvHilightCursor_[i]); //現レベル強調カーソル
@@ -398,7 +397,8 @@ void MagicMeter::processBehavior() {
         if (pMagicProg->isJustChangedTo(Magic::STATE_EFFECT_BEGIN)) {
             if (pMagic->last_level_ < pMagic->level_) {
                 //レベルアップEFFECT_BEGEINだったならば
-                papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
+//                papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
+                papLvCastingMarkCursor_[m]->markOnEffect(pMagic->level_);
             } else {
                 //レベルダウンEFFECT_BEGEINだったならば
                 //markOnLevelDownCast() した直後である。
@@ -433,7 +433,8 @@ void MagicMeter::processBehavior() {
             //chenge(STATE_NOTHING) と上書きされるので
             // pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING) の判定となる
             //このタイミングで
-            papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
+//            papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
+            papLvCastingMarkCursor_[m]->markOnEffect(pMagic->level_);
             papLvHilightCursor_[m]->moveSmoothTo(pMagic->level_);
         }
     }
@@ -552,9 +553,9 @@ void MagicMeter::rollClose(int prm_meter_index) {
 }
 
 MagicMeter::~MagicMeter() {
-    DELETEARR_IMPOSSIBLE_NULL(papLvTargetCursor_);
-    DELETEARR_IMPOSSIBLE_NULL(papLvHilightCursor_);
-    DELETEARR_IMPOSSIBLE_NULL(papLvCastingMarkCursor_);
-    DELETEARR_IMPOSSIBLE_NULL(paFloat_rr_);
-    DELETEARR_IMPOSSIBLE_NULL(paFloat_velo_rr_);
+    GGAF_DELETEARR(papLvTargetCursor_);
+    GGAF_DELETEARR(papLvHilightCursor_);
+    GGAF_DELETEARR(papLvCastingMarkCursor_);
+    GGAF_DELETEARR(paFloat_rr_);
+    GGAF_DELETEARR(paFloat_velo_rr_);
 }

@@ -153,13 +153,13 @@ void GgafDxD3DXAniMeshModel::release() {
             }
         }
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
-//    RELEASE_IMPOSSIBLE_NULL(_pID3DXAniMesh);
+    GGAF_DELETEARR(_papTextureCon); //テクスチャの配列
+//    GGAF_RELEASE(_pID3DXAniMesh);
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
-    RELEASE_IMPOSSIBLE_NULL(_pAcBase);
-    DELETE_IMPOSSIBLE_NULL(_pAH);
+    GGAF_DELETEARR(_paMaterial_default);
+    GGAF_RELEASE(_pAcBase);
+    GGAF_DELETE(_pAH);
     //TODO:いつ消すの？
     TRACE3("GgafDxD3DXAniMeshModel::release() " << _model_name << " end");
 }

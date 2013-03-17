@@ -282,6 +282,6 @@ void GgafDxStringBoardActor::processDraw() {
 }
 
 GgafDxStringBoardActor::~GgafDxStringBoardActor() {
-    DELETE_IMPOSSIBLE_NULL(_buf);
+    GGAF_DELETE(_buf);
 }
 

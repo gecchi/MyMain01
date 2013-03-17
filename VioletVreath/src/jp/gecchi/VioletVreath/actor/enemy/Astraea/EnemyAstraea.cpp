@@ -51,7 +51,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
             papaPosLaser_[i][j].Z = vz * PX_C(100);
         }
     }
-    DELETEARR_IMPOSSIBLE_NULL(paAng_way);
+    GGAF_DELETEARR(paAng_way);
 
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
@@ -329,9 +329,9 @@ EnemyAstraea::~EnemyAstraea() {
     pConn_ShotDepo2_->close();
     pConn_ShotDepo3_->close();
     for (int i = 0; i < laser_way_; i++) {
-        DELETEARR_IMPOSSIBLE_NULL(papaPosLaser_[i]);
-        DELETEARR_IMPOSSIBLE_NULL(papapLaserChipDepo_[i]);
+        GGAF_DELETEARR(papaPosLaser_[i]);
+        GGAF_DELETEARR(papapLaserChipDepo_[i]);
     }
-    DELETEARR_IMPOSSIBLE_NULL(papaPosLaser_);
-    DELETEARR_IMPOSSIBLE_NULL(papapLaserChipDepo_);
+    GGAF_DELETEARR(papaPosLaser_);
+    GGAF_DELETEARR(papapLaserChipDepo_);
 }

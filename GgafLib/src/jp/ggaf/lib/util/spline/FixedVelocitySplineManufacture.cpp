@@ -93,6 +93,6 @@ SplineSequence* FixedVelocitySplineManufacture::createSplineSequence(GgafDxCore:
 }
 
 FixedVelocitySplineManufacture::~FixedVelocitySplineManufacture() {
-    DELETEARR_POSSIBLE_NULL(_paDistance_to);
-    DELETEARR_POSSIBLE_NULL(_paFrame_need_at);
+    GGAF_DELETEARR_NULLABLE(_paDistance_to);
+    GGAF_DELETEARR_NULLABLE(_paFrame_need_at);
 }

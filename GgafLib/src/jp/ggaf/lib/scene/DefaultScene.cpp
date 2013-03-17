@@ -22,5 +22,5 @@ void DefaultScene::useProgress(int prm_num) {
 
 DefaultScene::~DefaultScene() {
     //シーンにイベントが無いかもしれない
-    DELETEARR_POSSIBLE_NULL(_paFrame_NextEvent);
+    GGAF_DELETEARR_NULLABLE(_paFrame_NextEvent);
 }

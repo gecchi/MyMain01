@@ -43,7 +43,7 @@ void GgafDxUvFlipper::setRotation(float prm_base_u, float prm_base_v,
         _pattno_uvflip_bottom = _pattno_uvflip_max; //â∫å¿ÉpÉ^Å[Éìî‘çÜÇ™ñ¢ê›íËÇ»ÇÁç≈ëÂÇ…Ç†ÇÌÇπÇƒÇ®Ç≠
     }
     if (_paUV) {
-        DELETEARR_IMPOSSIBLE_NULL(_paUV);
+        GGAF_DELETEARR(_paUV);
     }
     _paUV = NEW UV[_pattno_uvflip_max+1];
 
@@ -206,5 +206,5 @@ void GgafDxUvFlipper::getUV(int prm_pattno_uvflip, float& out_u, float& out_v) {
 
 
 GgafDxUvFlipper::~GgafDxUvFlipper() {
-    DELETEARR_POSSIBLE_NULL(_paUV);
+    GGAF_DELETEARR_NULLABLE(_paUV);
 }

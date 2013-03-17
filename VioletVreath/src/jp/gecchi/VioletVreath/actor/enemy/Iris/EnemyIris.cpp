@@ -72,7 +72,7 @@ void EnemyIris::processBehavior() {
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
                     }
                 }
-                DELETEARR_IMPOSSIBLE_NULL(paAng_way);
+                GGAF_DELETEARR(paAng_way);
                 //ショット発射エフェクト
                 if (pDepo_ShotEffect_) {
                     GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
@@ -140,5 +140,5 @@ void EnemyIris::onInactive() {
 }
 
 EnemyIris::~EnemyIris() {
-    DELETE_POSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pSplSeq_);
 }

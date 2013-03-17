@@ -107,11 +107,11 @@ void GgafDxSound::addSeMasterVolume(int prm_se_master_volume_offset) {
 
 void GgafDxSound::release() {
     _TRACE_("GgafDxSound::release() begin");
-    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pBgmManager);");
-    DELETE_IMPOSSIBLE_NULL(_pBgmManager);
-    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pSeManager);");
-    DELETE_IMPOSSIBLE_NULL(_pSeManager);
-    _TRACE_("RELEASE_IMPOSSIBLE_NULL(_pIDirectSound8);");
-    RELEASE_IMPOSSIBLE_NULL(_pIDirectSound8);
+    _TRACE_("GGAF_DELETE(_pBgmManager);");
+    GGAF_DELETE(_pBgmManager);
+    _TRACE_("GGAF_DELETE(_pSeManager);");
+    GGAF_DELETE(_pSeManager);
+    _TRACE_("GGAF_RELEASE(_pIDirectSound8);");
+    GGAF_RELEASE(_pIDirectSound8);
     _TRACE_("GgafDxSound::release() end");
 }

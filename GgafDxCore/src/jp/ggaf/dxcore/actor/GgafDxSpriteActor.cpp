@@ -91,5 +91,5 @@ void GgafDxSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign)
     _valign = prm_valign;
 }
 GgafDxSpriteActor::~GgafDxSpriteActor() {
-    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
+    GGAF_DELETE(_pUvFlipper);
 }

@@ -49,5 +49,5 @@ void GgafDxD3DXAniMeshActor::processDraw() {
 }
 
 GgafDxD3DXAniMeshActor::~GgafDxD3DXAniMeshActor() {
-    DELETE_IMPOSSIBLE_NULL(_pPuppeteer);
+    GGAF_DELETE(_pPuppeteer);
 }

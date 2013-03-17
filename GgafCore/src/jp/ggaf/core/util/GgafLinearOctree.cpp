@@ -243,8 +243,8 @@ void GgafLinearOctree::clearElem() {
 }
 
 GgafLinearOctree::~GgafLinearOctree() {
-    DELETEARR_IMPOSSIBLE_NULL(_paSpace);
-    DELETEARR_IMPOSSIBLE_NULL(_pa_8pow);
+    GGAF_DELETEARR(_paSpace);
+    GGAF_DELETEARR(_pa_8pow);
 }
 
 

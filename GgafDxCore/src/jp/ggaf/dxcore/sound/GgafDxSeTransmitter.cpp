@@ -32,13 +32,13 @@ void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_key, int prm_cannel
         for (int i = 0; i < _se_num; i++) { //退避
             papSeCon[i] = _papSeCon[i];
         }
-        DELETEARR_POSSIBLE_NULL(_papSeCon);
+        GGAF_DELETEARR_NULLABLE(_papSeCon);
         int wk_se_num = _se_num;
         declareSeNum(prm_id+1); //prm_id+1 へ個拡張。この時点で _se_num も prm_id+1 で更新される
         for (int i = 0; i < wk_se_num; i++) { //引き継ぐ（退避を戻し）
             _papSeCon[i] = papSeCon[i];
         }
-        DELETEARR_POSSIBLE_NULL(papSeCon);
+        GGAF_DELETEARR_NULLABLE(papSeCon);
     }
     if (strlen(prm_se_key) > 128) {
         throwGgafCriticalException("GgafDxSeTransmitter::play() SE識別IDが長過ぎます。128文字に抑えて下さい。prm_se_key="<<prm_se_key);
@@ -79,6 +79,6 @@ GgafDxSeTransmitter::~GgafDxSeTransmitter() {
             _papSeCon[i]->close();
         }
     }
-    DELETEARR_POSSIBLE_NULL(_papSeCon);
+    GGAF_DELETEARR_NULLABLE(_papSeCon);
 }
 

@@ -68,7 +68,7 @@ CmRandomNumberGenerator* CmRandomNumberGenerator::getInstance() {
  *
  ******************************************************************************/
 void CmRandomNumberGenerator::release() {
-    DELETE_POSSIBLE_NULL(s_pInstance);
+    GGAF_DELETE_NULLABLE(s_pInstance);
 }
 
 /******************************************************************************

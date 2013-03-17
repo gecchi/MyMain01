@@ -129,15 +129,15 @@ void GgafDxSpriteModel::onDeviceLost() {
 
 void GgafDxSpriteModel::release() {
     TRACE3("GgafDxSpriteModel::release() " << _model_name << " start");
-    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
+    GGAF_RELEASE(_pIDirect3DVertexBuffer9);
     if (_papTextureCon) {
         if (_papTextureCon[0]) {
             _papTextureCon[0]->close();
         }
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
+    GGAF_DELETEARR(_papTextureCon);
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
+    GGAF_DELETEARR(_paMaterial_default);
     TRACE3("GgafDxSpriteModel::release() " << _model_name << " end");
 }
 

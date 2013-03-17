@@ -95,5 +95,5 @@ void SingleLaser::drawHitArea() {
 }
 
 SingleLaser::~SingleLaser() {
-    DELETE_IMPOSSIBLE_NULL(_pColliChecker);
+    GGAF_DELETE(_pColliChecker);
 }

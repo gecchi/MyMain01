@@ -361,9 +361,9 @@ void GgafDxGeometricActor::onEnd() {
 }
 
 GgafDxGeometricActor::~GgafDxGeometricActor() {
-    DELETE_IMPOSSIBLE_NULL(_pKurokoA);
-    DELETE_IMPOSSIBLE_NULL(_pKurokoB);
-    DELETE_IMPOSSIBLE_NULL(_pSeTx);
+    GGAF_DELETE(_pKurokoA);
+    GGAF_DELETE(_pKurokoB);
+    GGAF_DELETE(_pSeTx);
 }
 
 void GgafDxGeometricActor::dump() {

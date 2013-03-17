@@ -160,8 +160,8 @@ WallPartsActor* WalledSectionScene::getLastWallParts() {
 
 WalledSectionScene::~WalledSectionScene() {
     for (int i = 0; i < _area_len; i++) {
-        DELETEARR_IMPOSSIBLE_NULL(_papaWallInfo[i]);
+        GGAF_DELETEARR(_papaWallInfo[i]);
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papaWallInfo);
-    DELETEARR_IMPOSSIBLE_NULL(_paWallInfoLen);
+    GGAF_DELETEARR(_papaWallInfo);
+    GGAF_DELETEARR(_paWallInfoLen);
 }

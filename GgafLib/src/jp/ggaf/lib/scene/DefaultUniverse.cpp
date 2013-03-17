@@ -27,5 +27,5 @@ DefaultUniverse::~DefaultUniverse() {
     ColliAAPrismActor::release();
     ColliSphereActor::release();
 #endif
-    DELETE_IMPOSSIBLE_NULL(_pLinearOctree);
+    GGAF_DELETE(_pLinearOctree);
 }

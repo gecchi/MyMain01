@@ -57,7 +57,7 @@ void EnemySylvia::makeCollisionArea(int prm_nSphere){
                 );
     }
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_BIGOBJ-2);
-    DELETE_IMPOSSIBLE_NULL(paAngRadial);
+    GGAF_DELETE(paAngRadial);
 }
 
 void EnemySylvia::onCreateModel() {

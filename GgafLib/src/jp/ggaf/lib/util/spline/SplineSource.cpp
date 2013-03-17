@@ -132,6 +132,6 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 
 SplineSource::~SplineSource() {
     if (_is_create_SplineLine) {
-        DELETE_IMPOSSIBLE_NULL(_pSp);
+        GGAF_DELETE(_pSp);
     }
 }

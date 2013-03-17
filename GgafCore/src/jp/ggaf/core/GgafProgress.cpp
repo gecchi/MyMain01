@@ -149,7 +149,7 @@ void GgafProgress::update() {
 }
 
 GgafProgress::~GgafProgress() {
-    DELETEARR_IMPOSSIBLE_NULL(_paFrame_progress_changed);
+    GGAF_DELETEARR(_paFrame_progress_changed);
 
 }
 

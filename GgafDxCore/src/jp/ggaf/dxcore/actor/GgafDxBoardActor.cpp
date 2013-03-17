@@ -142,5 +142,5 @@ void GgafDxBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z
 }
 
 GgafDxBoardActor::~GgafDxBoardActor() {
-    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
+    GGAF_DELETE(_pUvFlipper);
 }

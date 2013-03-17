@@ -47,10 +47,10 @@ PCMPlayer::~PCMPlayer() {
     _TRACE_("PCMPlayer::~PCMPlayer() begin");
     _TRACE_("terminateThread();");
     terminateThread();
-    _TRACE_("RELEASE_IMPOSSIBLE_NULL(_pDSBuffer);");
-    RELEASE_IMPOSSIBLE_NULL(_pDSBuffer);
-    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pPCMDecoder);");
-    DELETE_IMPOSSIBLE_NULL(_pPCMDecoder);
+    _TRACE_("GGAF_RELEASE(_pDSBuffer);");
+    GGAF_RELEASE(_pDSBuffer);
+    _TRACE_("GGAF_DELETE(_pPCMDecoder);");
+    GGAF_DELETE(_pPCMDecoder);
     _TRACE_("PCMPlayer::~PCMPlayer() end");
 }
 
@@ -60,7 +60,7 @@ void PCMPlayer::clear() {
     memset(&_buffer_desc, 0, sizeof(_buffer_desc));
     memset(&_wave_format, 0, sizeof(_wave_format));
     if (_pDSBuffer) {
-        RELEASE_IMPOSSIBLE_NULL(_pDSBuffer);
+        GGAF_RELEASE(_pDSBuffer);
         _pDSBuffer = nullptr;
     }
     _is_ready = false;

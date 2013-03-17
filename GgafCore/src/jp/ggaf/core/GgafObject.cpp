@@ -16,5 +16,5 @@ char* GgafObject::toString() {
 }
 
 GgafObject::~GgafObject() {
-//    DELETEARR_IMPOSSIBLE_NULL(_name);
+//    GGAF_DELETEARR(_name);
 }

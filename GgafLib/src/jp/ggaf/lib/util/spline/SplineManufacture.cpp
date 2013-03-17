@@ -63,6 +63,6 @@ SplineManufacture::~SplineManufacture () {
         _pSplSrcCon->close();
     }
 //    if (!_is_connected) {
-//        DELETE_IMPOSSIBLE_NULL(_pSplSrc);
+//        GGAF_DELETE(_pSplSrc);
 //    }
 }

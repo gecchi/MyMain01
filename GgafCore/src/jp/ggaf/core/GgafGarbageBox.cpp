@@ -79,8 +79,8 @@ GgafGarbageBox::~GgafGarbageBox() {
         }
     }
     GgafGarbageBox::_wait = true;
-    DELETE_IMPOSSIBLE_NULL(_pDisusedScene);
-    DELETE_IMPOSSIBLE_NULL(_pDisusedActor);
+    GGAF_DELETE(_pDisusedScene);
+    GGAF_DELETE(_pDisusedActor);
     _TRACE_("GgafGarbageBox::~GgafGarbageBox() done");
 }
 

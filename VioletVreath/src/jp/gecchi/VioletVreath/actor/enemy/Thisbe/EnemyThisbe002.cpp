@@ -136,5 +136,5 @@ void EnemyThisbe002::onInactive() {
 }
 
 EnemyThisbe002::~EnemyThisbe002() {
-    DELETE_POSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pSplSeq_);
 }

@@ -19,6 +19,6 @@ GgafOrder::GgafOrder(UINT32 prm_id) : GgafObject() {
 
 GgafOrder::~GgafOrder() {
     //è§ïi _pObject_creation ÇÕçHèÍÇ™ê∂ê¨Ç∑ÇÈÇ©Ç‡ÇµÇÍÇ»Ç¢ÅB
-    DELETE_POSSIBLE_NULL(_pObject_creation);
+    GGAF_DELETE_NULLABLE(_pObject_creation);
 }
 

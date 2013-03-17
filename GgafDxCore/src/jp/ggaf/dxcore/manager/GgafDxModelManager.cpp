@@ -423,7 +423,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
                     model_pModel3D, paNumVertices,
                     prm_pMeshModel);
 
-        DELETE_IMPOSSIBLE_NULL(paNumVertices);
+        GGAF_DELETE(paNumVertices);
 
         //インデックスバッファ登録
         model_paIdxBuffer_org = NEW WORD[nFaces*3];
@@ -1247,7 +1247,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
                 prepareVtx((void*)(model_papaVtxBuffer_org_morph[pattern-1]), prm_pMorphMeshModel->_size_vertex_unit_morph,
                            model_papModel3D[pattern], paNumVertices);
             }
-            DELETE_IMPOSSIBLE_NULL(paNumVertices);
+            GGAF_DELETE(paNumVertices);
 
         }
 
@@ -1404,7 +1404,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreMorphMeshModel] GgafDxGod::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(prm_pMorphMeshModel->_model_name));
         //ストリーム数取得        hr = m_pDecl->GetDeclaration( m_pElement, &m_numElements);
 
-        DELETEARR_IMPOSSIBLE_NULL(paVtxelem);
+        GGAF_DELETEARR(paVtxelem);
     }
 
     //頂点バッファ作成
@@ -1476,8 +1476,8 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     setMaterial(model_papMeshesFront[0],
                 &model_nMaterials, &model_paMaterial, &model_papTextureCon);
 
-    DELETEARR_IMPOSSIBLE_NULL(paIOX);
-    DELETEARR_IMPOSSIBLE_NULL(paXfileName);
+    GGAF_DELETEARR(paIOX);
+    GGAF_DELETEARR(paXfileName);
 
     //モデルに保持させる
     prm_pMorphMeshModel->_papModel3D = model_papModel3D;
@@ -1530,7 +1530,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] D3DXMESHOPT_ATTRSORTできません。対象="<<xfile_name);
     hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_VERTEXCACHE, pAdjacency, nullptr, nullptr, nullptr );
     checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel] D3DXMESHOPT_VERTEXCACHEできません。対象="<<xfile_name);
-    DELETEARR_IMPOSSIBLE_NULL(pAdjacency);
+    GGAF_DELETEARR(pAdjacency);
 
     //マテリアルを取り出す
     D3DXMATERIAL* paD3DMaterial9_tmp = (D3DXMATERIAL*)(pID3DXBuffer->GetBufferPointer());
@@ -1567,7 +1567,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
             model_papTextureCon[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
         }
     }
-    RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
+    GGAF_RELEASE(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
 
     //Xファイルに法線がない場合、FVFに法線を追加し、法線を計算してを設定。
     if(pID3DXMesh->GetFVF() != (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1)) {
@@ -1580,7 +1580,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
                          );
         checkDxException(hr, D3D_OK, "[GgafDxModelManager::restoreD3DXMeshModel]  pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name);
         D3DXComputeNormals(pID3DXMesh_tmp, nullptr); //法線計算（Faceの表裏どっちに法線向けるか、どうやって判定しているのだろうか・・・）
-        RELEASE_IMPOSSIBLE_NULL(pID3DXMesh);
+        GGAF_RELEASE(pID3DXMesh);
         pID3DXMesh = pID3DXMesh_tmp;
     }
 
@@ -1877,9 +1877,9 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     prm_pSpriteModel->_paMaterial_default = model_paMaterial;
     //後始末
     pID3DXFileData->Unlock();
-    DELETEARR_IMPOSSIBLE_NULL(paVertex);
-    RELEASE_SAFETY(pID3DXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pID3DXFileEnumObject);
+    GGAF_DELETEARR(paVertex);
+    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
+    GGAF_RELEASE(pID3DXFileEnumObject);
 }
 
 void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSpriteSetModel) {
@@ -2032,7 +2032,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
             prm_pSpriteSetModel->_size_vertices* prm_pSpriteSetModel->_set_num
         ); //pVertexBuffer ← paVertex
         prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Unlock();
-        DELETEARR_IMPOSSIBLE_NULL(paVertex);
+        GGAF_DELETEARR(paVertex);
     }
 
     //インデックスバッファ作成
@@ -2074,8 +2074,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
           sizeof(WORD) * nFaces * 3 * prm_pSpriteSetModel->_set_num
         );
         prm_pSpriteSetModel->_pIDirect3DIndexBuffer9->Unlock();
-        DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer);
-        DELETEARR_IMPOSSIBLE_NULL(paIdxBufferSet);
+        GGAF_DELETEARR(unit_paIdxBuffer);
+        GGAF_DELETEARR(paIdxBufferSet);
 
         //描画時パラメーター
         GgafDxSpriteSetModel::INDEXPARAM* paIndexParam = NEW GgafDxSpriteSetModel::INDEXPARAM[prm_pSpriteSetModel->_set_num];
@@ -2106,8 +2106,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
     prm_pSpriteSetModel->_paMaterial_default = model_paMaterial;
     //後始末
     pID3DXFileData->Unlock();
-    RELEASE_SAFETY(pID3DXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pID3DXFileEnumObject);
+    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
+    GGAF_RELEASE(pID3DXFileEnumObject);
 }
 
 void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
@@ -2224,9 +2224,9 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
 
     //後始末
     pID3DXFileData->Unlock();
-    DELETEARR_IMPOSSIBLE_NULL(paVertex);
-    RELEASE_SAFETY(pID3DXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pID3DXFileEnumObject);
+    GGAF_DELETEARR(paVertex);
+    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
+    GGAF_RELEASE(pID3DXFileEnumObject);
 }
 
 void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSetModel) {
@@ -2354,7 +2354,7 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
         ); //pVertexBuffer ← paVertex
         prm_pBoardSetModel->_pIDirect3DVertexBuffer9->Unlock();
 
-        DELETEARR_IMPOSSIBLE_NULL(paVertex);
+        GGAF_DELETEARR(paVertex);
     }
 
 
@@ -2397,8 +2397,8 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
           sizeof(WORD) * nFaces * 3 * prm_pBoardSetModel->_set_num
         );
         prm_pBoardSetModel->_pIDirect3DIndexBuffer9->Unlock();
-        DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer);
-        DELETEARR_IMPOSSIBLE_NULL(paIdxBufferSet);
+        GGAF_DELETEARR(unit_paIdxBuffer);
+        GGAF_DELETEARR(paIdxBufferSet);
 
         //描画時パラメーター
         GgafDxBoardSetModel::INDEXPARAM* paIndexParam = NEW GgafDxBoardSetModel::INDEXPARAM[prm_pBoardSetModel->_set_num];
@@ -2430,8 +2430,8 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
 
     //後始末
     pID3DXFileData->Unlock();
-    RELEASE_SAFETY(pID3DXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pID3DXFileEnumObject);
+    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
+    GGAF_RELEASE(pID3DXFileEnumObject);
 }
 
 void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetModel) {
@@ -2540,7 +2540,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
         //法線設定とFrameTransformMatrix適用
         prepareVtx((void*)unit_paVtxBuffer_org, prm_pMeshSetModel->_size_vertex_unit,
                    model_pModel3D, paNumVertices);
-        DELETE_IMPOSSIBLE_NULL(paNumVertices);
+        GGAF_DELETE(paNumVertices);
 
         //インデックスバッファ登録
         unit_paIdxBuffer_org = NEW WORD[nFaces*3];
@@ -2558,7 +2558,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
                 model_paVtxBuffer_org[(i*nVertices) + j].index = (float)i; //+= (nVertices*i);
             }
         }
-        DELETEARR_IMPOSSIBLE_NULL(unit_paVtxBuffer_org);
+        GGAF_DELETEARR(unit_paVtxBuffer_org);
 
         //インデックスバッファをセット数分繰り返しコピーで作成
         model_paIdxBuffer_org = NEW WORD[(nFaces*3) * prm_pMeshSetModel->_set_num];
@@ -2569,7 +2569,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
                 model_paIdxBuffer_org[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer_org[j*3 + 2] + (nVertices*i);
             }
         }
-        DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer_org);
+        GGAF_DELETEARR(unit_paIdxBuffer_org);
 
         //マテリアルリストをセット数分繰り返しコピーで作成
         UINT16* paFaceMaterials = NEW UINT16[nFaces * prm_pMeshSetModel->_set_num];
@@ -2658,7 +2658,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
             delete[] paParam;
         }
 
-        DELETEARR_IMPOSSIBLE_NULL(paFaceMaterials);
+        GGAF_DELETEARR(paFaceMaterials);
     }
 
     if (prm_pMeshSetModel->_pIDirect3DVertexBuffer9 == nullptr) {
@@ -2826,7 +2826,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
 //    } else {
 //        throwGgafCriticalException("[GgafDxModelManager::restorePointSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
 //    }
-//    RELEASE_IMPOSSIBLE_NULL(pID3DXFileData);
+//    GGAF_RELEASE(pID3DXFileData);
     //退避
     float model_fSquareSize = xDataHd.SquareSize;
     int model_texture_split_rowcol = xDataHd.TextureSplitRowCol;
@@ -2912,13 +2912,13 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     prm_pPointSpriteModel->_paVtxBuffer_org = model_paVtxBuffer_org;
     prm_pPointSpriteModel->_bounding_sphere_radius = model_bounding_sphere_radius;
     pID3DXFileData->Unlock();
-    DELETEARR_IMPOSSIBLE_NULL(paD3DVECTOR_Vertices);
-    DELETEARR_IMPOSSIBLE_NULL(paD3DVECTOR_VertexColors);
-    DELETEARR_IMPOSSIBLE_NULL(paInt_InitUvPtnNo);
-    DELETEARR_IMPOSSIBLE_NULL(paFLOAT_InitScale);
+    GGAF_DELETEARR(paD3DVECTOR_Vertices);
+    GGAF_DELETEARR(paD3DVECTOR_VertexColors);
+    GGAF_DELETEARR(paInt_InitUvPtnNo);
+    GGAF_DELETEARR(paFLOAT_InitScale);
 
-    RELEASE_SAFETY(pID3DXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pID3DXFileEnumObject);
+    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
+    GGAF_RELEASE(pID3DXFileEnumObject);
 }
 
 
@@ -2931,9 +2931,9 @@ GgafResourceConnection<GgafDxModel>* GgafDxModelManager::processCreateConnection
 
 GgafDxModelManager::~GgafDxModelManager() {
     TRACE3("GgafDxModelManager::~GgafDxModelManager() start-->");
-    RELEASE_IMPOSSIBLE_NULL(_pID3DXFile_sprx);
-    RELEASE_IMPOSSIBLE_NULL(_pID3DXFile_psprx);
-    DELETE_IMPOSSIBLE_NULL(_pModelTextureManager);
+    GGAF_RELEASE(_pID3DXFile_sprx);
+    GGAF_RELEASE(_pID3DXFile_psprx);
+    GGAF_DELETE(_pModelTextureManager);
     TRACE3("GgafDxModelManager::releaseAll() するけども、ここでは既に何も解放するものがないはずです");
     releaseAll();
 }

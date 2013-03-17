@@ -116,6 +116,6 @@ SplineSequence* SteppedCoordSplineManufacture::createSplineSequence(GgafDxCore::
 }
 
 SteppedCoordSplineManufacture::~SteppedCoordSplineManufacture() {
-    DELETEARR_POSSIBLE_NULL(_paDistance_to);
-    DELETEARR_POSSIBLE_NULL(_paFrame_need_at);
+    GGAF_DELETEARR_NULLABLE(_paDistance_to);
+    GGAF_DELETEARR_NULLABLE(_paFrame_need_at);
 }

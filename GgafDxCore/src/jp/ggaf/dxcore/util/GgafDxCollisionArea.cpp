@@ -67,9 +67,9 @@ void GgafDxCollisionArea::updateAABB() {
 
 GgafDxCollisionArea::~GgafDxCollisionArea() {
     for (int i = 0; i < _colli_part_num; i++) {
-        DELETE_POSSIBLE_NULL(_papColliPart[i]);
+        GGAF_DELETE_NULLABLE(_papColliPart[i]);
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papColliPart);
+    GGAF_DELETEARR(_papColliPart);
 
     TRACE("GgafDxCollisionArea::~GgafDxCollisionArea()");
 }

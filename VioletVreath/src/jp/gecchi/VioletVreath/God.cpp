@@ -108,10 +108,10 @@ void God::clean() {
         }
         _TRACE_("God::clean() begin");
         DefaultGod::clean();
-        DELETE_IMPOSSIBLE_NULL(pVbtn_PLAY_);
-        DELETE_IMPOSSIBLE_NULL(pVbtn_UI_);
-        DELETE_IMPOSSIBLE_NULL(pDepoManager_);
-        DELETE_IMPOSSIBLE_NULL(pSpl3DManager_);
+        GGAF_DELETE(pVbtn_PLAY_);
+        GGAF_DELETE(pVbtn_UI_);
+        GGAF_DELETE(pDepoManager_);
+        GGAF_DELETE(pSpl3DManager_);
         _TRACE_("God::clean() end");
     }
 }

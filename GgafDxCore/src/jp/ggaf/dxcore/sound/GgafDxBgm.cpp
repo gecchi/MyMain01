@@ -103,12 +103,12 @@ GgafDxBgm::~GgafDxBgm() {
     _pPcmPlayer->setVolume(DSBVOLUME_MIN);
     _TRACE_("_pPcmPlayer->terminateThread();");
     _pPcmPlayer->terminateThread();
-    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pPcmPlayer);");
-    DELETE_IMPOSSIBLE_NULL(_pPcmPlayer);
-    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pOggDecoder);");
-    DELETE_IMPOSSIBLE_NULL(_pOggDecoder);
-    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pOggResource);");
-    DELETE_IMPOSSIBLE_NULL(_pOggResource);
+    _TRACE_("GGAF_DELETE(_pPcmPlayer);");
+    GGAF_DELETE(_pPcmPlayer);
+    _TRACE_("GGAF_DELETE(_pOggDecoder);");
+    GGAF_DELETE(_pOggDecoder);
+    _TRACE_("GGAF_DELETE(_pOggResource);");
+    GGAF_DELETE(_pOggResource);
     _TRACE_("GgafDxBgm::~GgafDxBgm() end");
 }
 

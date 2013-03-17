@@ -19,7 +19,7 @@ ColliAABActor* ColliAABActor::get() {
 
 void ColliAABActor::release() {
     //あたり判定を持つオブジェクトが一度も使用されないとnullptrかもしれない
-    DELETE_POSSIBLE_NULL(ColliAABActor::_pObj);
+    GGAF_DELETE_NULLABLE(ColliAABActor::_pObj);
 }
 
 void ColliAABActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {

@@ -23,7 +23,7 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
 
 GgafActor::~GgafActor() {
     _pFormation = nullptr;
-    DELETE_IMPOSSIBLE_NULL(_pStatus);
+    GGAF_DELETE(_pStatus);
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
     //OutputDebugStringA("*");
 }

@@ -77,7 +77,7 @@ void GgafQuery::exportToFile(std::string prm_file_name) {
         ofs << std::endl;
     }
 
-    DELETEARR_IMPOSSIBLE_NULL(header);
+    GGAF_DELETEARR(header);
 }
 
 size_t GgafQuery::getCount() {
@@ -139,7 +139,7 @@ void GgafQuery::removeRow(int prm_index) {
 #endif
     //TODO:‚±‚±‚ÅDELETE‚µ‚È‚¢‚Æ‚¢‚¯‚È‚¢
     GgafRecord* r = _lstTtable[prm_index];
-    DELETE_IMPOSSIBLE_NULL(r);
+    GGAF_DELETE(r);
     _lstTtable.erase(_lstTtable.begin() + prm_index);
 }
 void GgafQuery::removeRows(int prm_start_index) {
@@ -158,7 +158,7 @@ void GgafQuery::removeRows(int prm_start_index, int prm_end_index) {
 #endif
     for (int i = prm_start_index; i <= prm_end_index; i++) {
         GgafRecord* r = _lstTtable[i];
-        DELETE_IMPOSSIBLE_NULL(r);
+        GGAF_DELETE(r);
     }
     _lstTtable.erase(_lstTtable.begin() + prm_start_index, _lstTtable.begin() + (prm_end_index + 1)); //+1‚Í³‚µ‚¢B
 }
@@ -347,7 +347,7 @@ void GgafQuery::dump() {
 GgafQuery::~GgafQuery() {
     for (int i = 0; i < (int)getCount(); i++) {
         GgafRecord* r = _lstTtable[i];
-        DELETE_IMPOSSIBLE_NULL(r);
+        GGAF_DELETE(r);
     }
 }
 

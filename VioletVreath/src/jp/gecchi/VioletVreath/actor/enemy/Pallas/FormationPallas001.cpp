@@ -58,5 +58,5 @@ FormationPallas001::~FormationPallas001() {
     if (pDepoCon_) {
         pDepoCon_->close();
     }
-    DELETEARR_IMPOSSIBLE_NULL(papPallas_);
+    GGAF_DELETEARR(papPallas_);
 }

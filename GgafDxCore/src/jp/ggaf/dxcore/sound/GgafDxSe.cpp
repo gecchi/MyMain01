@@ -172,5 +172,5 @@ bool GgafDxSe::isPlaying() {
 
 GgafDxSe::~GgafDxSe() {
     _TRACE_("GgafDxSe::~GgafDxSe() _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<_id);
-    RELEASE_IMPOSSIBLE_NULL(_pIDirectSoundBuffer);
+    GGAF_RELEASE(_pIDirectSoundBuffer);
 }

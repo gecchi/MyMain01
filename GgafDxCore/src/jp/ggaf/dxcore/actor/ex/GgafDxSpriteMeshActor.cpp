@@ -41,5 +41,5 @@ void GgafDxSpriteMeshActor::processDraw() {
 
 
 GgafDxSpriteMeshActor::~GgafDxSpriteMeshActor() {
-    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
+    GGAF_DELETE(_pUvFlipper);
 }

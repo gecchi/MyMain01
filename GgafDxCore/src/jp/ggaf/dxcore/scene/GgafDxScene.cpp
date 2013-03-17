@@ -147,6 +147,6 @@ void GgafDxScene::fadeoutSceneWithBgmTree(int prm_frame_fade) {
 }
 
 GgafDxScene::~GgafDxScene() {
-    DELETE_IMPOSSIBLE_NULL(_pAlphaCurtain);
-    DELETE_IMPOSSIBLE_NULL(_pBgmPerformer);
+    GGAF_DELETE(_pAlphaCurtain);
+    GGAF_DELETE(_pBgmPerformer);
 }

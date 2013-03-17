@@ -150,7 +150,7 @@ void EnemyTamago01::processBehavior() {
                     pActor->locateWith(this);
                 }
             }
-            DELETEARR_IMPOSSIBLE_NULL(paAng_way);
+            GGAF_DELETEARR(paAng_way);
             //ショット発射エフェクト
             if (pDepo_ShotEffect_) {
                 pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
@@ -195,5 +195,5 @@ void EnemyTamago01::onInactive() {
 
 EnemyTamago01::~EnemyTamago01() {
     pDepoCon_->close();
-    DELETE_POSSIBLE_NULL(pProgram_Tamago01Move_);
+    GGAF_DELETE_NULLABLE(pProgram_Tamago01Move_);
 }

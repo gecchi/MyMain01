@@ -51,7 +51,7 @@ void EnemyAstraeaLaserChip003::onInactive() {
 }
 
 EnemyAstraeaLaserChip003::~EnemyAstraeaLaserChip003() {
-    DELETE_IMPOSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE(pSplSeq_);
     pSplManufCon_->close();
 }
 

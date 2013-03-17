@@ -47,5 +47,5 @@ void FormationIris001::onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroy
 FormationIris001::~FormationIris001() {
     pSplLineCon_->close();
     pDepoCon_->close();
-    DELETEARR_IMPOSSIBLE_NULL(papIris_);
+    GGAF_DELETEARR(papIris_);
 }

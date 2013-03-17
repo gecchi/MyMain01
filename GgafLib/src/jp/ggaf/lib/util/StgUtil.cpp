@@ -173,13 +173,13 @@ void StgUtil::shotWay002(coord prm_X, coord prm_Y, coord prm_Z,
         now_velo *= prm_attenuated;
     }
 
-    DELETEARR_IMPOSSIBLE_NULL(paAng_way_N);
-    DELETEARR_IMPOSSIBLE_NULL(paAng_way_M);
-    DELETEARR_IMPOSSIBLE_NULL(paUint32_dotmat);
+    GGAF_DELETEARR(paAng_way_N);
+    GGAF_DELETEARR(paAng_way_M);
+    GGAF_DELETEARR(paUint32_dotmat);
     for (int i = 0; i < prm_way_N; i++) {
-        DELETEARR_IMPOSSIBLE_NULL(papaGeo[i]);
+        GGAF_DELETEARR(papaGeo[i]);
     }
-    DELETEARR_IMPOSSIBLE_NULL(papaGeo);
+    GGAF_DELETEARR(papaGeo);
 
 }
 
@@ -261,8 +261,8 @@ void StgUtil::shotWay004(coord prm_X, coord prm_Y, coord prm_Z,
         }
         now_velo *= prm_attenuated;
     }
-    DELETEARR_IMPOSSIBLE_NULL(paAng_way);
-    DELETEARR_IMPOSSIBLE_NULL(paGeo);
+    GGAF_DELETEARR(paAng_way);
+    GGAF_DELETEARR(paGeo);
 }
 
 void StgUtil::shotWay004(GgafDxGeometricActor* prm_pFrom,
@@ -335,7 +335,7 @@ void StgUtil::shotWayGoldenAng(coord prm_X, coord prm_Y, coord prm_Z,
         }
         now_velo *= prm_attenuated;
     }
-    DELETEARR_IMPOSSIBLE_NULL(paGeo);
+    GGAF_DELETEARR(paGeo);
 }
 void StgUtil::shotWayGoldenAng(GgafDxGeometricActor* prm_pFrom,
                                GgafActorDepository* prm_pDepo_Shot,

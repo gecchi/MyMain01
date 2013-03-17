@@ -35,7 +35,7 @@ void EnemyEunomia::config(
         GgafCore::GgafActorDepository* prm_pDepo_Shot,
         GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
         ) {
-    DELETE_POSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pSplSeq_);
     pSplSeq_ = prm_pSplSeq;
     pDepo_Shot_ = prm_pDepo_Shot;
     pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
@@ -93,7 +93,7 @@ void EnemyEunomia::processBehavior() {
 //                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
-//                DELETEARR_IMPOSSIBLE_NULL(paAng_way);
+//                GGAF_DELETEARR(paAng_way);
 //                //ショット発射エフェクト
 //                if (pDepo_ShotEffect_) {
 //                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
@@ -159,7 +159,7 @@ void EnemyEunomia::processBehavior() {
 //                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
-//                DELETEARR_IMPOSSIBLE_NULL(paAng_way);
+//                GGAF_DELETEARR(paAng_way);
 //                //ショット発射エフェクト
 //                if (pDepo_ShotEffect_) {
 //                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
@@ -210,11 +210,11 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyEunomia::onInactive() {
-    DELETE_POSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pSplSeq_);
 }
 
 EnemyEunomia::~EnemyEunomia() {
-    DELETE_POSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pSplSeq_);
 }
 
 

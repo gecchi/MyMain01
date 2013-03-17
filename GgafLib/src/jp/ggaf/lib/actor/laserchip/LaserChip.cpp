@@ -287,6 +287,6 @@ void LaserChip::addAlpha(float prm_alpha) {
 }
 
 LaserChip::~LaserChip() {
-    DELETE_IMPOSSIBLE_NULL(_pColliChecker);
+    GGAF_DELETE(_pColliChecker);
 }
 

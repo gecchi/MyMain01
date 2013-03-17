@@ -85,7 +85,7 @@ FormationEunomia::~FormationEunomia() {
     for (int i = 0; i < 7; i++) {
         papSplManufCon_[i]->close();
     }
-    DELETEARR_IMPOSSIBLE_NULL(papSplManufCon_);
+    GGAF_DELETEARR(papSplManufCon_);
     if (pConn_ShotDepo_) {
         pConn_ShotDepo_->close();
     }

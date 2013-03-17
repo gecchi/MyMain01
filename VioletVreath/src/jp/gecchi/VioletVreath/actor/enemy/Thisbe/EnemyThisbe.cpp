@@ -149,6 +149,6 @@ void EnemyThisbe::onInactive() {
 }
 
 EnemyThisbe::~EnemyThisbe() {
-    DELETE_POSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pSplSeq_);
     pConn_RefractionEffectDepository_->close();
 }

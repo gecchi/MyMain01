@@ -58,23 +58,23 @@ void World::initialize() {
         if (PROPERTY::FULL_SCREEN) {
             pLabel_resolution1_->update(
                 PX_C(cx/2), PX_C(cy),
-                ("(1) "+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH)+"X"+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT)+"\n"+
+                ("(1) "+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH)+"*"+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT)+"\n"+
                         fix_str).c_str()
             );
             pLabel_resolution2_->update(
                 PX_C(cx+(cx/2)), PX_C(cy),
-                ("(2) "+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH)+"X"+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT)+"\n"+
+                ("(2) "+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH)+"*"+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT)+"\n"+
                         fix_str).c_str()
             );
         } else {
             pLabel_resolution1_->update(
                 PX_C(cx/2), PX_C(cy),
-                ("(1) "+XTOS(PROPERTY::DUAL_VIEW_WINDOW1_WIDTH)+"X"+XTOS(PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT)+"\n"+
+                ("(1) "+XTOS(PROPERTY::DUAL_VIEW_WINDOW1_WIDTH)+"*"+XTOS(PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT)+"\n"+
                         fix_str).c_str()
             );
             pLabel_resolution2_->update(
                 PX_C(cx+(cx/2)), PX_C(cy),
-                ("(2) "+XTOS(PROPERTY::DUAL_VIEW_WINDOW2_WIDTH)+"X"+XTOS(PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT)+"\n"+
+                ("(2) "+XTOS(PROPERTY::DUAL_VIEW_WINDOW2_WIDTH)+"*"+XTOS(PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT)+"\n"+
                         fix_str).c_str()
             );
         }
@@ -84,13 +84,13 @@ void World::initialize() {
         if (PROPERTY::FULL_SCREEN) {
             pLabel_resolution1_->update(
                 PX_C(cx), PX_C(cy),
-                (XTOS(PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH) + "X" + XTOS(PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT)+"\n"+
+                (XTOS(PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH) + "*" + XTOS(PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT)+"\n"+
                         fix_str).c_str()
             );
         } else {
             pLabel_resolution1_->update(
                 PX_C(cx), PX_C(cy),
-                (XTOS(PROPERTY::SINGLE_VIEW_WINDOW_WIDTH) + "X" + XTOS(PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT)+"\n"+
+                (XTOS(PROPERTY::SINGLE_VIEW_WINDOW_WIDTH) + "*" + XTOS(PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT)+"\n"+
                         fix_str).c_str()
             );
         }
@@ -121,7 +121,7 @@ void World::processBehavior() {
             if (_pProg->getFrameInProgress() >= 60 &&
                 GgafFactory::chkProgress(2) == 2 &&
                 pPreDrawScene_->_pProg->get() == PreDrawScene::PROG_WAIT &&
-                 ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*10)
+                 ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*5)
             ) {
                 pLabel_title_->sayonara();
                 _pProg->changeNext();

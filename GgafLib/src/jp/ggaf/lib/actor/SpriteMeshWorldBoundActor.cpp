@@ -45,5 +45,5 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
 //}
 
 SpriteMeshWorldBoundActor::~SpriteMeshWorldBoundActor() {
-    DELETE_IMPOSSIBLE_NULL(_pScaler);
+    GGAF_DELETE(_pScaler);
 }

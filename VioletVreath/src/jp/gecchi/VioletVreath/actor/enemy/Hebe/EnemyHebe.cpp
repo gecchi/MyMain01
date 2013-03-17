@@ -30,7 +30,7 @@ void EnemyHebe::config(
         GgafCore::GgafActorDepository* prm_pDepo_Shot,
         GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
         ) {
-    DELETE_POSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pSplSeq_);
     pSplSeq_ = prm_pSplSeq;
     pDepo_Shot_ = prm_pDepo_Shot;
     pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
@@ -113,11 +113,11 @@ void EnemyHebe::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyHebe::onInactive() {
-    DELETE_POSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pSplSeq_);
 }
 
 EnemyHebe::~EnemyHebe() {
-    DELETE_POSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pSplSeq_);
 }
 
 

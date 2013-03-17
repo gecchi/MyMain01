@@ -148,6 +148,6 @@ void GameTitleScene::processBehavior() {
 }
 
 GameTitleScene::~GameTitleScene() {
-//    DELETEARR_IMPOSSIBLE_NULL(papStringItem_);
+//    GGAF_DELETEARR(papStringItem_);
     pSeCon_exec_->close();
 }

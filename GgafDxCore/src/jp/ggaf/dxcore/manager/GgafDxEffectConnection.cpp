@@ -8,6 +8,6 @@ GgafDxEffectConnection::GgafDxEffectConnection(char* prm_idstr, GgafDxEffect* pr
 }
 
 void GgafDxEffectConnection::processReleaseResource(GgafDxEffect* prm_pResource) {
-	DELETE_IMPOSSIBLE_NULL(prm_pResource);
+	GGAF_DELETE(prm_pResource);
 }
 

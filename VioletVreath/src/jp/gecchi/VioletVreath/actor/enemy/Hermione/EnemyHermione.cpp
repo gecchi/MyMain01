@@ -185,5 +185,5 @@ void EnemyHermione::addArm(angle prm_rz, angle prm_ry) {
 }
 
 EnemyHermione::~EnemyHermione() {
-    DELETEARR_IMPOSSIBLE_NULL(paArm_);
+    GGAF_DELETEARR(paArm_);
 }

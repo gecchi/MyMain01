@@ -269,7 +269,7 @@ bool GgafDxCamera::isMove() {
 }
 
 GgafDxCamera::~GgafDxCamera() {
-    DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
-    DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
-    DELETE_IMPOSSIBLE_NULL(_pVecCamUp);
+    GGAF_DELETE(_pVecCamFromPoint);
+    GGAF_DELETE(_pVecCamLookatPoint);
+    GGAF_DELETE(_pVecCamUp);
 }

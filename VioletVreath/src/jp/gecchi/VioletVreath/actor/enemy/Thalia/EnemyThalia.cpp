@@ -203,5 +203,5 @@ void EnemyThalia::onInactive() {
 }
 
 EnemyThalia::~EnemyThalia() {
-    DELETE_POSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pSplSeq_);
 }

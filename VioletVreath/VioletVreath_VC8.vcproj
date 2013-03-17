@@ -248,7 +248,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfigMenu.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorKeyConfigMenu.cpp"
 				>
 			</File>
 			<File
@@ -257,6 +265,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorSoundConfigMenu.cpp"
 				>
 			</File>
 			<File
@@ -776,6 +788,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelFix16Font01.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi16Font.cpp"
 				>
 			</File>
@@ -785,6 +801,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelMenuTitleFont01.cpp"
 				>
 			</File>
 			<File
@@ -860,7 +880,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardConfig.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardKeyConfig.cpp"
 				>
 			</File>
 			<File
@@ -869,6 +897,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\pause\MenuBoardPause.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.cpp"
 				>
 			</File>
 			<File
@@ -1412,7 +1444,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfigMenu.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorKeyConfigMenu.h"
 				>
 			</File>
 			<File
@@ -1421,6 +1461,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorSoundConfigMenu.h"
 				>
 			</File>
 			<File
@@ -1944,6 +1988,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelFix16Font01.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi16Font.h"
 				>
 			</File>
@@ -1953,6 +2001,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelMenuTitleFont01.h"
 				>
 			</File>
 			<File
@@ -2028,7 +2080,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardConfig.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardKeyConfig.h"
 				>
 			</File>
 			<File
@@ -2037,6 +2097,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\pause\MenuBoardPause.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.h"
 				>
 			</File>
 			<File

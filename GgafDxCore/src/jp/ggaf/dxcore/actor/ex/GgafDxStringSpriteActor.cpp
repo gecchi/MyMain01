@@ -290,5 +290,5 @@ void GgafDxStringSpriteActor::processDraw() {
 }
 
 GgafDxStringSpriteActor::~GgafDxStringSpriteActor() {
-    DELETE_IMPOSSIBLE_NULL(_buf);
+    GGAF_DELETE(_buf);
 }

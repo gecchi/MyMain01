@@ -956,12 +956,12 @@ void VirtualButton::clear() {
 }
 
 VirtualButton::~VirtualButton() {
-    DELETE_IMPOSSIBLE_NULL(_pRpy);
+    GGAF_DELETE(_pRpy);
     VBRecord* pLast = _pVBRecord_Active->_next;
     VBRecord* pWk;
     for (VBRecord* p = _pVBRecord_Active->_prev; p != _pVBRecord_Active; p = p->_prev) {
         pWk = p->_next;
-        DELETE_IMPOSSIBLE_NULL(pWk);
+        GGAF_DELETE(pWk);
     }
-    DELETE_IMPOSSIBLE_NULL(pLast);
+    GGAF_DELETE(pLast);
 }

@@ -66,7 +66,7 @@ void EnemyCeres::processBehavior() {
 
         angle way[32];
         //UTIL::getWayAngle2D(180000, 8, 10000, way);
-        UTIL::getRadialAngle2D(0, 32, way);
+        UTIL::getRadialAngle2D(0, 32, way); //TODO:ñàâÒãÅÇﬂÇÈÇÃÇÕñ≥ë 
         GgafDxDrawableActor* pTama;
         for (int i = 0; i < 16; i++) {
             pTama = (GgafDxDrawableActor*)pDepo_EnemyCeresShots001_->dispatch();
@@ -129,5 +129,5 @@ bool EnemyCeres::isOutOfUniverse() {
 EnemyCeres::~EnemyCeres() {
     //staticÇ»ÇÃÇ≈ç≈èâÇÃÇPâÒÇæÇØâï˙ÇµÇΩÇ¢
     pSplLineCon_->close();
-    DELETE_POSSIBLE_NULL(pProgram_CeresMove_);
+    GGAF_DELETE_NULLABLE(pProgram_CeresMove_);
 }

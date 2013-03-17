@@ -142,9 +142,9 @@ public:
          */
         ~Elem() {
             if (_is_delete_value) {
-                DELETE_IMPOSSIBLE_NULL(_pValue);
+                GGAF_DELETE(_pValue);
             }
-            DELETEARR_POSSIBLE_NULL(_papRelation);
+            GGAF_DELETEARR_NULLABLE(_papRelation);
         }
     }; //class Elem
 
@@ -1116,7 +1116,7 @@ T* GgafLinkedListRing<T>::set(T* prm_pVal, bool prm_is_delete_value) {
     _pElemActive->_pValue = prm_pVal;
     _pElemActive->_is_delete_value = prm_is_delete_value;
     if (is_delete_value) {
-        DELETE_IMPOSSIBLE_NULL(pValue);
+        GGAF_DELETE(pValue);
         return nullptr;
     } else {
         return pValue;
@@ -1132,7 +1132,7 @@ T* GgafLinkedListRing<T>::remove() {
         _pElemActive = nullptr;
         _pElem_first = nullptr;
         T* r = pMy->_pValue;
-        DELETE_IMPOSSIBLE_NULL(pMy);
+        GGAF_DELETE(pMy);
         return r;
     } else {
         //連結から外す
@@ -1150,7 +1150,7 @@ T* GgafLinkedListRing<T>::remove() {
         }
         _pElemActive = pMyNext; //カレント要素は next に更新。
         T* r = pMy->_pValue;
-        DELETE_IMPOSSIBLE_NULL(pMy);
+        GGAF_DELETE(pMy);
         return r;
     }
 }
@@ -1161,11 +1161,11 @@ int GgafLinkedListRing<T>::removeAll() {
     int n = 0;
     while (pElem) {
         if (pElem->_is_last_flg) {
-            DELETE_IMPOSSIBLE_NULL(pElem);
+            GGAF_DELETE(pElem);
             break;
         } else {
             Elem* pTmp = pElem -> _pNext;
-            DELETE_IMPOSSIBLE_NULL(pElem);
+            GGAF_DELETE(pElem);
             pElem = pTmp;
         }
     }
@@ -1211,7 +1211,7 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
         //まず子をdelete
         if (_num_elem == 1) {
             //子要素は１つの場合
-            DELETE_IMPOSSIBLE_NULL(_pElem_first);
+            GGAF_DELETE(_pElem_first);
             _pElem_first = nullptr;
             _pElemActive = nullptr;
             _num_elem = 0;
@@ -1221,9 +1221,9 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
             Elem* pLast = _pElem_first->_pPrev;
             Elem* pLastPrev = pLast->_pPrev;
             while (true) {
-                DELETE_IMPOSSIBLE_NULL(pLast); //末尾からdelete
+                GGAF_DELETE(pLast); //末尾からdelete
                 if (pLastPrev->_is_first_flg) {
-                    DELETE_IMPOSSIBLE_NULL(_pElem_first); //pSubLastPrev == _pSubFirst である
+                    GGAF_DELETE(_pElem_first); //pSubLastPrev == _pSubFirst である
                     _pElem_first = nullptr;
                     _pElemActive = nullptr;
                     _num_elem = 0;

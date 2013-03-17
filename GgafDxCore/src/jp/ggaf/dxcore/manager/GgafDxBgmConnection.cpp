@@ -7,6 +7,6 @@ GgafDxBgmConnection::GgafDxBgmConnection(char* prm_idstr, GgafDxBgm* prm_pGgafDx
 }
 
 void GgafDxBgmConnection::processReleaseResource(GgafDxBgm* prm_pResource) {
-    DELETE_IMPOSSIBLE_NULL(prm_pResource);
+    GGAF_DELETE(prm_pResource);
 }
 

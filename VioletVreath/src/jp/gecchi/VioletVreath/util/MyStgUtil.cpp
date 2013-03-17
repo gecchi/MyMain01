@@ -5,7 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-int MyStgUtil::judgeMyDomination(actorkind attribute_my, actorkind attribute_enemy) {
+int MyStgUtil::judgeMyAdvantage(actorkind attribute_my, actorkind attribute_enemy) {
     int ret = 0;
     if (attribute_my & ATTRIBUTE_GU) {
         if (attribute_enemy & ATTRIBUTE_CHOKI) {
@@ -36,7 +36,7 @@ int MyStgUtil::judgeMyDomination(actorkind attribute_my, actorkind attribute_ene
     return ret;
 }
 
-int MyStgUtil::judgeEnemyDomination(actorkind kattribute_enemy, actorkind attribute_my) {
+int MyStgUtil::judgeEnemyAdvantage(actorkind kattribute_enemy, actorkind attribute_my) {
     int ret = 0;
     if (kattribute_enemy & ATTRIBUTE_GU) {
         if (attribute_my & ATTRIBUTE_CHOKI) {
@@ -72,7 +72,7 @@ int MyStgUtil::calcMyStamina(GgafMainActor* prm_pMy, GgafMainActor* prm_pOpp) {
     GgafStatus* pStatOpp = prm_pOpp->_pStatus;
 
     //—D«—ò«”»’è
-    int my_domi = MyStgUtil::judgeMyDomination(pStatMy->get(STAT_Attribute), pStatOpp->get(STAT_Attribute));
+    int my_domi = MyStgUtil::judgeMyAdvantage(pStatMy->get(STAT_Attribute), pStatOpp->get(STAT_Attribute));
     //‘ŠŽè(“G)UŒ‚—Í
     int opp_attack = pStatOpp->get(STAT_Attack);
     //—D«—ò«‚É‰ž‚¶‚Ä–hŒä—¦‚ðæ‚¸‚é
@@ -95,7 +95,7 @@ int MyStgUtil::calcEnemyStamina(GgafMainActor* prm_pEnemy, GgafMainActor* prm_pO
     GgafStatus* pStatEnemy = prm_pEnemy->_pStatus;
     GgafStatus* pStatOpp = prm_pOpp->_pStatus;
     //—D«—ò«”»’è
-    int enemy_domi = MyStgUtil::judgeEnemyDomination(pStatEnemy->get(STAT_Attribute), pStatOpp->get(STAT_Attribute));
+    int enemy_domi = MyStgUtil::judgeEnemyAdvantage(pStatEnemy->get(STAT_Attribute), pStatOpp->get(STAT_Attribute));
     //‘ŠŽè(Ž©‹@)UŒ‚—Í
     int opp_attack = pStatOpp->get(STAT_Attack);
     //—D«—ò«‚É‰ž‚¶‚Ä–hŒä—¦‚ðæ‚¸‚é

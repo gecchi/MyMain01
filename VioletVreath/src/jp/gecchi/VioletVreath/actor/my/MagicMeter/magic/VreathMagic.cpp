@@ -170,6 +170,6 @@ int VreathMagic::calcTotalVreath(int prm_now_level, int prm_target_up_level) {
 
 VreathMagic::~VreathMagic() {
     for (int lv = 0; lv <= max_level_; lv++) {
-        DELETEARR_IMPOSSIBLE_NULL(apaInt_vreath_per_frame_[lv]);
+        GGAF_DELETEARR(apaInt_vreath_per_frame_[lv]);
     }
 }

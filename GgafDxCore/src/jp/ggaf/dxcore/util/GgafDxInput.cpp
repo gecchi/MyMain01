@@ -483,12 +483,12 @@ void GgafDxInput::release() {
     if (_pIDirectInput8) {
         if (_pIDirectInputDevice8_Keyboard) {
             _pIDirectInputDevice8_Keyboard->Unacquire();
-            RELEASE_IMPOSSIBLE_NULL(_pIDirectInputDevice8_Keyboard);
+            GGAF_RELEASE(_pIDirectInputDevice8_Keyboard);
         }
         if (_pIDirectInputDevice8_Joystick) {
             _pIDirectInputDevice8_Joystick->Unacquire();
-            RELEASE_IMPOSSIBLE_NULL(_pIDirectInputDevice8_Joystick);
+            GGAF_RELEASE(_pIDirectInputDevice8_Joystick);
         }
-        RELEASE_IMPOSSIBLE_NULL(_pIDirectInput8);
+        GGAF_RELEASE(_pIDirectInput8);
     }
 }

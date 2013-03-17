@@ -103,6 +103,6 @@ GgafDxBgmPerformer::~GgafDxBgmPerformer() {
 
         }
     }
-    DELETEARR_POSSIBLE_NULL(_papBgmCon);
-    DELETEARR_POSSIBLE_NULL(_paDouble_volume);
+    GGAF_DELETEARR_NULLABLE(_papBgmCon);
+    GGAF_DELETEARR_NULLABLE(_paDouble_volume);
 }

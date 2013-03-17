@@ -178,5 +178,5 @@ void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 MyShipScene::~MyShipScene() {
-    DELETEARR_IMPOSSIBLE_NULL(papOptionCtrler_);
+    GGAF_DELETEARR(papOptionCtrler_);
 }

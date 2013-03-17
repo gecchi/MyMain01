@@ -66,7 +66,7 @@ int CWaveDecorder::readMMIO(void) {
                      (CHAR*) ( ((BYTE*) &(m_pwfx->cbSize)) + sizeof(WORD) ),
                      cbExtraBytes
                     ) != cbExtraBytes) {
-            DELETE_IMPOSSIBLE_NULL(m_pwfx);
+            GGAF_DELETE(m_pwfx);
             m_pwfx = nullptr;
             return false;
         }
@@ -74,7 +74,7 @@ int CWaveDecorder::readMMIO(void) {
 
     // Ascend the input file out of the 'fmt ' chunk.
     if (0 != mmioAscend(m_hmmioIn, &ckIn, 0)) {
-        DELETE_IMPOSSIBLE_NULL(m_pwfx);
+        GGAF_DELETE(m_pwfx);
         m_pwfx = nullptr;
         return false;
     }
@@ -115,7 +115,7 @@ int CWaveDecorder::Open(LPSTR lpszFilename) {
  */
 void CWaveDecorder::Close(void) {
     if (m_pwfx) {
-        DELETE_POSSIBLE_NULL(m_pwfx);
+        GGAF_DELETE_NULLABLE(m_pwfx);
         mmioClose(m_hmmioIn, 0);
     }
 }

@@ -107,8 +107,8 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     //Å‘å‹——£’¸“_
     _bounding_sphere_radius = _pModel->_bounding_sphere_radius;
 
-    DELETEARR_IMPOSSIBLE_NULL(model_name);
-    DELETEARR_IMPOSSIBLE_NULL(effelct_name);
+    GGAF_DELETEARR(model_name);
+    GGAF_DELETEARR(effelct_name);
 
     _now_drawdepth = 0;
     _specal_drawdepth = -1;
@@ -321,10 +321,10 @@ void GgafDxDrawableActor::effectDefault() {
 }
 
 GgafDxDrawableActor::~GgafDxDrawableActor() {
-    DELETE_IMPOSSIBLE_NULL(_pAFader);
-    DELETEARR_IMPOSSIBLE_NULL(_technique);
-    DELETEARR_IMPOSSIBLE_NULL(_temp_technique);
-    DELETEARR_IMPOSSIBLE_NULL(_paMaterial);
+    GGAF_DELETE(_pAFader);
+    GGAF_DELETEARR(_technique);
+    GGAF_DELETEARR(_temp_technique);
+    GGAF_DELETEARR(_paMaterial);
 
     _pEffectCon->close();
     _pModelCon->close();

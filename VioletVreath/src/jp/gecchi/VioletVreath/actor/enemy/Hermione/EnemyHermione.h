@@ -36,7 +36,7 @@ public:
     public:
         Arm() : pos_Rz_(0),pos_Ry_(0),papArmPart_(nullptr) {}
         ~Arm() {
-            DELETEARR_IMPOSSIBLE_NULL(papArmPart_);
+            GGAF_DELETEARR(papArmPart_);
         }
     };
     int num_arm_; //òrÇÃêî

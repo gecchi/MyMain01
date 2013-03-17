@@ -11,6 +11,6 @@ DefaultBoardActor::DefaultBoardActor(const char* prm_name, const char* prm_model
 }
 
 DefaultBoardActor::~DefaultBoardActor() {
-    DELETE_IMPOSSIBLE_NULL(_pScaler);
+    GGAF_DELETE(_pScaler);
 }
 

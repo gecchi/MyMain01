@@ -19,7 +19,7 @@ ColliSphereActor* ColliSphereActor::get() {
 
 void ColliSphereActor::release() {
     //あたり判定を持つオブジェクトが一度も使用されないとnullptrかもしれない
-    DELETE_POSSIBLE_NULL(ColliSphereActor::_pObj);
+    GGAF_DELETE_NULLABLE(ColliSphereActor::_pObj);
 }
 
 void ColliSphereActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {

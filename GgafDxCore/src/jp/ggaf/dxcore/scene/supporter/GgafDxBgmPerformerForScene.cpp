@@ -94,8 +94,8 @@ void GgafDxBgmPerformerForScene::fadeout_stop() {
 }
 
 GgafDxBgmPerformerForScene::~GgafDxBgmPerformerForScene() {
-    DELETEARR_POSSIBLE_NULL(_paBool_is_fade);
-    DELETEARR_POSSIBLE_NULL(_paBool_is_fadeout_stop);
-    DELETEARR_POSSIBLE_NULL(_paDouble_target_volume);
-    DELETEARR_POSSIBLE_NULL(_paDouble_inc_volume);
+    GGAF_DELETEARR_NULLABLE(_paBool_is_fade);
+    GGAF_DELETEARR_NULLABLE(_paBool_is_fadeout_stop);
+    GGAF_DELETEARR_NULLABLE(_paDouble_target_volume);
+    GGAF_DELETEARR_NULLABLE(_paDouble_inc_volume);
 }

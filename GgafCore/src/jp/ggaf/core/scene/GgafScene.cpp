@@ -24,7 +24,7 @@ GgafScene::~GgafScene() {
 #else
     //OutputDebugStringA("*");
 #endif
-    DELETE_POSSIBLE_NULL(_pDirector);
+    GGAF_DELETE_NULLABLE(_pDirector);
 }
 void GgafScene::setRunFrameOnce(int prm_once_in_n_time) {
     if (prm_once_in_n_time <= 1) {
@@ -276,7 +276,7 @@ void GgafScene::clean(int prm_num_cleaning) {
     if (_pDirector) {
         _pDirector->clean(prm_num_cleaning);
         if (_pDirector->_pSubFirst == nullptr) {
-            DELETE_IMPOSSIBLE_NULL(_pDirector);
+            GGAF_DELETE(_pDirector);
         }
     } else {
         GgafElement<GgafScene>::clean(prm_num_cleaning);

@@ -21,7 +21,7 @@ void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_key, int pr
     if (prm_id < 0) {
         throwGgafCriticalException("GgafDxSeTransmitter::set() IDが範囲外です。正の数でお願いします。 prm_id="<<prm_id);
     } else if (prm_id >= _se_num) {
-        DELETEARR_POSSIBLE_NULL(_paBool_is_playing_3d);
+        GGAF_DELETEARR_NULLABLE(_paBool_is_playing_3d);
         //declareSeNum が再呼び出しされるため、_paBool_is_playing_3d は再確保される。
     }
     GgafDxSeTransmitter::set(prm_id, prm_se_key, prm_cannel);
@@ -199,6 +199,6 @@ void GgafDxSeTransmitterForActor::behave() {
 }
 
 GgafDxSeTransmitterForActor::~GgafDxSeTransmitterForActor() {
-    DELETEARR_POSSIBLE_NULL(_paBool_is_playing_3d);
+    GGAF_DELETEARR_NULLABLE(_paBool_is_playing_3d);
 }
 

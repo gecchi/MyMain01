@@ -1113,9 +1113,9 @@ HRESULT GgafDxGod::initDx9Device() {
     //GgafDxCameraへ移動した
     // VIEW変換（カメラ位置）設定
     //D3DXMATRIX _matView; // ビュー変換行列
-    //    DELETE_POSSIBLE_NULL(_pVecCamFromPoint);
-    //    DELETE_POSSIBLE_NULL(_pVecCamLookatPoint);
-    //    DELETE_POSSIBLE_NULL(_pVecCamUp);
+    //    GGAF_DELETE_NULLABLE(_pVecCamFromPoint);
+    //    GGAF_DELETE_NULLABLE(_pVecCamLookatPoint);
+    //    GGAF_DELETE_NULLABLE(_pVecCamUp);
 
     //GgafDxCameraへ移動した
     // 射影変換（３Ｄ→平面）
@@ -1307,14 +1307,14 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
 
 
 HRESULT GgafDxGod::releaseFullScreenRenderTarget() {
-    RELEASE_SAFETY(_pRenderTextureSurface);
-    RELEASE_SAFETY(_pRenderTexture);
-    RELEASE_SAFETY(_pRenderTextureZ);
-    RELEASE_SAFETY(_apBackBuffer[0]);
-    RELEASE_SAFETY(_apSwapChain[0]);
+    GGAF_RELEASE_BY_FROCE(_pRenderTextureSurface);
+    GGAF_RELEASE_BY_FROCE(_pRenderTexture);
+    GGAF_RELEASE_BY_FROCE(_pRenderTextureZ);
+    GGAF_RELEASE_BY_FROCE(_apBackBuffer[0]);
+    GGAF_RELEASE_BY_FROCE(_apSwapChain[0]);
     if (PROPERTY::DUAL_VIEW) {
-        RELEASE_SAFETY(_apBackBuffer[1]);
-        RELEASE_SAFETY(_apSwapChain[1]);
+        GGAF_RELEASE_BY_FROCE(_apBackBuffer[1]);
+        GGAF_RELEASE_BY_FROCE(_apSwapChain[1]);
     }
     return D3D_OK;
 }
@@ -1605,10 +1605,10 @@ void GgafDxGod::clean() {
 
         CmRandomNumberGenerator::getInstance()->release();
         //保持モデル解放
-        DELETE_IMPOSSIBLE_NULL(_pCubeMapTextureManager);
-        DELETE_IMPOSSIBLE_NULL(_pBumpMapTextureManager);
-        DELETE_IMPOSSIBLE_NULL(_pModelManager);
-        DELETE_IMPOSSIBLE_NULL(_pEffectManager);
+        GGAF_DELETE(_pCubeMapTextureManager);
+        GGAF_DELETE(_pBumpMapTextureManager);
+        GGAF_DELETE(_pModelManager);
+        GGAF_DELETE(_pEffectManager);
         _TRACE_("GgafDxGod::clean() end");
     }
 }
@@ -1774,10 +1774,10 @@ GgafDxGod::~GgafDxGod() {
 
     _TRACE_("_pID3DDevice9 解放きたー");
     Sleep(60);
-    DELETEARR_IMPOSSIBLE_NULL(_paPresetPrm);
-    DELETEARR_IMPOSSIBLE_NULL(_paDisplayMode);
-    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
-    RELEASE_IMPOSSIBLE_NULL(_pID3D9);
+    GGAF_DELETEARR(_paPresetPrm);
+    GGAF_DELETEARR(_paDisplayMode);
+    GGAF_RELEASE(_pID3DDevice9);
+    GGAF_RELEASE(_pID3D9);
 
 }
 

@@ -1418,7 +1418,7 @@ void MyShip::turbo_WAY_ZRIGHT_DOWN_BEHIND() {
 }
 
 MyShip::~MyShip() {
-    DELETE_IMPOSSIBLE_NULL(pRing_MyShipGeoHistory4OptCtrler_);
-    DELETE_IMPOSSIBLE_NULL(pRing_MyShipGeoHistory2_);
+    GGAF_DELETE(pRing_MyShipGeoHistory4OptCtrler_);
+    GGAF_DELETE(pRing_MyShipGeoHistory2_);
 }
 

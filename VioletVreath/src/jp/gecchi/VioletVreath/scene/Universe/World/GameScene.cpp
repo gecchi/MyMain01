@@ -105,7 +105,7 @@ void GameScene::processBehavior() {
                 _pProg->changeWithSceneCrossfading(GameScene::PROG_PRE_TITLE);
                 P_WORLD->pPreDrawScene_->inactivateTreeImmed();
                 P_WORLD->pPreDrawScene_->pauseTreeImmed();
-
+                _pBgmPerformer->stop();
             }
             break;
         }
@@ -285,7 +285,8 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_GAMEDEMOSCENE_FINISH) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
-        _pProg->changeWithSceneCrossfading(GameScene::PROG_INIT); //最初へ
+        _pProg->changeWithSceneFadeoutFadein(GameScene::PROG_INIT,120,120); //最初へ
+        _pBgmPerformer->fadeout_stop();
 
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート

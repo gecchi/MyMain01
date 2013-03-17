@@ -816,7 +816,9 @@ public:
      * 以降、振る舞い態時にフレーム加算される。<BR>
      * @return 振る舞いフレーム数総計
      */
-    virtual frame getBehaveingFrame();
+    inline frame getBehaveingFrame() {
+        return _frame_of_behaving;
+    }
 
     /**
      * 直近の onActive() から開始した振る舞い状態は何フレーム目かを返す。 .
@@ -827,7 +829,9 @@ public:
      * getBehaveingFrame() と同じタイミングで加算される。processBehavior()では、1 ～ を返す。
      * @return onActive() からの振る舞いフレーム数
      */
-    virtual frame getActivePartFrame();
+    inline frame getActivePartFrame() {
+        return _frame_of_behaving_since_onActive;
+    }
 
     /**
      * 自身と配下全てのオブジェクトに対して指定の関数を実行させる .
@@ -1472,7 +1476,7 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
                 }
             }
             if (pElementTemp->_can_live_flg == false) {
-                DELETE_IMPOSSIBLE_NULL(pElementTemp);
+                GGAF_DELETE(pElementTemp);
                 GgafFactory::_cnt_cleaned++;
             }
             break;
@@ -1487,22 +1491,13 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
             }
             pElementTemp = pElementTemp->_pPrev;
             if (pWk->_can_live_flg == false) {
-                DELETE_IMPOSSIBLE_NULL(pWk);
+                GGAF_DELETE(pWk);
                 GgafFactory::_cnt_cleaned++;
             }
         }
     }
 }
 
-template<class T>
-frame GgafElement<T>::getBehaveingFrame() {
-   return _frame_of_behaving;
-}
-
-template<class T>
-frame GgafElement<T>::getActivePartFrame() {
-   return _frame_of_behaving_since_onActive;
-}
 
 template<class T>
 void GgafElement<T>::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
@@ -1569,7 +1564,7 @@ bool GgafElement<T>::isDisappear() {
 
 template<class T>
 GgafElement<T>::~GgafElement() {
-    DELETE_POSSIBLE_NULL(_pProg);
+    GGAF_DELETE_NULLABLE(_pProg);
 }
 
 }

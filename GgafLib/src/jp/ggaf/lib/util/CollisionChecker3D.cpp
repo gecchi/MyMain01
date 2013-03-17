@@ -249,7 +249,7 @@ bool CollisionChecker3D::isHit(GgafDxCore::GgafDxChecker* prm_pOppChecker) {
 
 CollisionChecker3D::~CollisionChecker3D() {
     TRACE("CollisionChecker3D::~CollisionChecker3D() _pActor="<<_pActor->getName());
-    DELETE_IMPOSSIBLE_NULL(_pElem);
-    DELETE_POSSIBLE_NULL(_pCollisionArea);
+    GGAF_DELETE(_pElem);
+    GGAF_DELETE_NULLABLE(_pCollisionArea);
     //ìñÇΩÇËîªíËÇÕÇ»Ç¢Ç©Ç‡ÇµÇÍÇ»Ç¢ÅBÇ±ÇÃèÍçá_pElemÇÕñ≥ë Ç»ê∂ê¨Ç∆âï˙ÇÇ∑ÇÈÇ±Ç∆Ç…Ç»ÇÈÅBÅB
 }

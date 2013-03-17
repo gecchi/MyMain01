@@ -87,7 +87,7 @@ void EnemyThisbeLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyThisbeLaserChip002::~EnemyThisbeLaserChip002() {
-    DELETE_IMPOSSIBLE_NULL(pSplSeq_);
+    GGAF_DELETE(pSplSeq_);
     pSplManufCon_->close();
 }
 
