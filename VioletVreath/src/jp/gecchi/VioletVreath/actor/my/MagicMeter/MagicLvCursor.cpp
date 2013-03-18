@@ -20,10 +20,10 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
     tmp_alpha_ = _alpha;
     tX_ = 0;
     tY_ = 0;
+    setZWriteEnable(false);
 }
 
 void MagicLvCursor::initialize() {
-    setZWriteEnable(false);
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     //MagicMeterの座標が定まってから行うこと
     _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
@@ -94,8 +94,8 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
 }
 
 void MagicLvCursor::blink() {
-    _pAFader->beat(6, 3, 0, 0, 15); //ピカピカ
-    _pScaler->beat(12, 6, 0, 3); //ピカピカ
+    _pAFader->beat(6, 3, 0, 0, 7.5); //ピカピカ、+0.5は最後は表示終了為
+    _pScaler->beat(12, 6, 0, 3);
 }
 
 MagicLvCursor::~MagicLvCursor() {

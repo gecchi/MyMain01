@@ -53,6 +53,8 @@ public:
 
     GgafCore::GgafActorDepository* pDepo_SpriteLabelBonus001_;
 
+    /** 汎用出現エフェクトその３用、常備デポジトリ */
+    GgafCore::GgafActorDepository* pDepo_Shot004_;
 public:
     CommonScene(const char* prm_name);
     /**

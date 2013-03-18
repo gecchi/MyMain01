@@ -351,6 +351,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemus.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemusLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Romulus\EnemyRomulus.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Sappho\EnemySappho.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001a.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001b.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EffectSylviaEye001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylvia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEye.cpp" />
@@ -649,6 +653,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemus.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\remus\enemyremuslaserchip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Romulus\EnemyRomulus.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\sappho\enemysappho.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\sappho\formationsappho001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\sappho\formationsappho001a.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001b.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\sylvia\effectsylviaeye001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\sylvia\enemysylvia.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\sylvia\enemysylviaeye.h" />

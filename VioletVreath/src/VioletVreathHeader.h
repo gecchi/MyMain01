@@ -82,18 +82,20 @@
 #define STAT_ExplosionEffectKind    (13)
 /** アクターステータス：やられたエフェクト(スコア表示等) (int) */
 #define STAT_DestroyedEffectKind    (14)
+/** アクターステータス：弾アクター(int) */
+#define STAT_ShotKind               (15)
 /** アクターステータス：保持アイテム種類(int) */
-#define STAT_ItemKind               (15)
+#define STAT_ItemKind               (16)
 /** アクターステータス：編隊全滅時加算得点(int) */
-#define STAT_FormationDestroyedAddScorePoint (16)
+#define STAT_FormationDestroyedAddScorePoint (17)
 /** アクターステータス：編隊全滅時エフェクト(ボーナス表示等)  (int) */
-#define STAT_FormationDestroyedEffectKind (17)
+#define STAT_FormationDestroyedEffectKind (18)
 /** アクターステータス：編隊全滅時アイテム種別(int) */
-#define STAT_FormationDestroyedItemKind      (18)
+#define STAT_FormationDestroyedItemKind      (19)
 /** アクターステータス：その他固有エフェクト０１(int) */
-#define STAT_ProperEffect01Kind      (19)
+#define STAT_ProperEffect01Kind      (20)
 /** アクターステータス：番兵（配列要素数に使用される、STAT_Sentry は一番最後の数値を持ってくること）*/
-#define STAT_Sentry                 (20)
+#define STAT_Sentry                 (21)
 
 
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
@@ -162,6 +164,12 @@
 // EnemyHesperia のランク式
 #define RR_EnemyHesperia_ShotWay(X)  (7 + (((X)>1.0?1.0:(X)) * 4))  //発射WAY数
 #define RR_EnemyHesperia_Density(X)  (90000 - (((X)>1.0?1.0:(X)) * 50000))  //密度
+// EnemySappho のランク式
+#define RR_EnemySappho_ShotWay(X)  (10+(X)*10)  //発射WAY数
+// FormationSappho001 のランク式
+#define RR_FormationSappho001_Num(X)  (12+(X)*8)  //隊数
+#define RR_FormationSappho001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RR_FormationSappho001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // gen02 end
 
 //1/√2
@@ -297,6 +305,11 @@ class VarietySylvia004;
 class EnemySylviaEye;
 class EnemySylviaEyeStraightLaserChip001;
 class EffectSylviaEye001;
+
+class EnemySappho;
+class FormationSappho001;
+class FormationSappho001a;
+class FormationSappho001b;
 
 class SingleLaser;
 class Shot001;
@@ -844,6 +857,11 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylviaEye.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylviaEyeStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EffectSylviaEye001.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/EnemySappho.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001a.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001b.h"
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"

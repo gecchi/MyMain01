@@ -13,8 +13,8 @@ class EnemyHermioneArmHead : public EnemyHermioneArm {
 
 public:
     /** [r/w]ハッチから発射されるアクターをメンバーに持つデポジトリ */
-    DepositoryConnection* pDpcon_;
-    GgafCore::GgafActorDepository* pDepo_Fired_;
+//    DepositoryConnection* pDpcon_;
+//    GgafCore::GgafActorDepository* pDepo_Fired_;
 
 public:
     EnemyHermioneArmHead(const char* prm_name);

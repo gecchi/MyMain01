@@ -119,6 +119,17 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         getDirector()->addSubGroup(pDepo_SpriteLabelBonus001_);
     }
 
+    //汎用ショット
+    {
+        pDepo_Shot004_ = NEW GgafActorDepository("CommonDepo_Shot004");
+        for (int i = 0; i < 1000; i++) {
+            std::string name = "Shot004("+XTOS(i)+")";
+            pDepo_Shot004_->addSubLast(NEW Shot004(name.c_str()));
+        }
+        getDirector()->addSubGroup(pDepo_Shot004_);
+    }
+
+
     //    { //EnemyShot001
     //        pDepo_EnemyShots001_ = NEW GgafActorDepository("TAMAS001");
     //        EnemyCeresShot001* pEnemyShot;

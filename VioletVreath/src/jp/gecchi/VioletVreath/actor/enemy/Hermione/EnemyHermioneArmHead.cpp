@@ -8,8 +8,8 @@ using namespace VioletVreath;
 EnemyHermioneArmHead::EnemyHermioneArmHead(const char* prm_name) :
         EnemyHermioneArm(prm_name, "HermioneArmHead", STATUS(EnemyHermioneArmHead)) {
     _class_name = "EnemyHermioneArmHead";
-    pDpcon_ = connectToDepositoryManager("Conn_Shot004", nullptr); //弾
-    pDepo_Fired_ = pDpcon_->fetch();
+//    pDpcon_ = connectToDepositoryManager("Conn_Shot004", nullptr); //弾
+//    pDepo_Fired_ = pDpcon_->fetch();
 }
 
 void EnemyHermioneArmHead::onCreateModel() {
@@ -28,10 +28,10 @@ void EnemyHermioneArmHead::initialize() {
 void EnemyHermioneArmHead::processBehavior() {
     EnemyHermioneArm::processBehavior();
 
-    if (getActivePartFrame() % 10 == 0 && 
+    if (getActivePartFrame() % 10 == 0 &&
         (_pProg->get() == PROG_NOTHING || _pProg->get() == PROG_AIMING)) { //出現間隔
-        GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
-        if (pActor) {
+        GgafDxDrawableActor* pShot = UTIL::activateShotOf(this);
+        if (pShot) {
             //＜現在の最終的な向きを、RzRyで取得する＞
             //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
             //元の方向ベクトルを(Xorg_,Yorg_,Zorg_)、
@@ -57,9 +57,9 @@ void EnemyHermioneArmHead::processBehavior() {
             angle Rz, Ry;
             UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                              Rz, Ry); //現在の最終的な向きを、RzRyで取得！
-            pActor->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
-            pActor->locateWith(this);
-            pActor->reset();
+            pShot->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+            pShot->locateWith(this);
+            pShot->reset();
         }
     }
 
@@ -89,5 +89,5 @@ void EnemyHermioneArmHead::onHit(GgafActor* prm_pOtherActor) {
 
 
 EnemyHermioneArmHead::~EnemyHermioneArmHead() {
-    pDpcon_->close();
+//    pDpcon_->close();
 }

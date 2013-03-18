@@ -162,6 +162,31 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
     return pE;
 }
 
+GgafDxDrawableActor* MyStgUtil::activateShotOf(GgafDxGeometricActor* prm_pActor) {
+    GgafDxDrawableActor* pI = nullptr;
+    switch (prm_pActor->_pStatus->get(STAT_ShotKind)) {
+        case 0: {
+            pI = nullptr; //ショット無し
+            break;
+        }
+        case SHOT_SMALL001: {
+            pI = employFromCommon(Shot004);
+            break;
+        }
+        default: {
+            throwGgafCriticalException("対応 ExplosionEffect が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
+            pI = nullptr;
+            break;
+        }
+    }
+    if (pI) {
+        //出現座標を設定
+        pI->locateWith(prm_pActor);
+    }
+    return pI;
+}
+
+
 GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor) {
     GgafDxDrawableActor* pI = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_ItemKind)) {
@@ -399,6 +424,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionWateringLaserChip001Status(GgafStatus* p) {
@@ -422,6 +448,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionStraightLaserChip001Status(GgafStatus* p) {
@@ -445,6 +472,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyTorpedoStatus(GgafStatus* p) {
@@ -468,6 +496,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyTorpedoBlastStatus(GgafStatus* p) {
@@ -491,6 +520,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyShipStatus(GgafStatus* p) {
@@ -514,6 +544,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyStraightLaserChip001Status(GgafStatus* p) {
@@ -537,6 +568,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCurveLaserChip001Status(GgafStatus* p) {
@@ -560,6 +592,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCeresStatus(GgafStatus* p) {
@@ -583,6 +616,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCeresShot001Status(GgafStatus* p) {
@@ -606,6 +640,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaStatus(GgafStatus* p) {
@@ -629,6 +664,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafStatus* p) {
@@ -652,6 +688,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip002Status(GgafStatus* p) {
@@ -675,6 +712,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip003Status(GgafStatus* p) {
@@ -698,6 +736,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip004Status(GgafStatus* p) {
@@ -721,6 +760,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyRomulusStatus(GgafStatus* p) {
@@ -744,6 +784,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyRemusStatus(GgafStatus* p) {
@@ -767,6 +808,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyRemusLaserChip001Status(GgafStatus* p) {
@@ -790,6 +832,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMetisStatus(GgafStatus* p) {
@@ -813,6 +856,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
@@ -836,6 +880,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyJunoStatus(GgafStatus* p) {
@@ -859,6 +904,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThaliaStatus(GgafStatus* p) {
@@ -882,6 +928,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot001Status(GgafStatus* p) {
@@ -905,6 +952,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot002Status(GgafStatus* p) {
@@ -928,6 +976,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyTamago01Status(GgafStatus* p) {
@@ -951,6 +1000,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyCirceStatus(GgafStatus* p) {
@@ -974,6 +1024,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot003Status(GgafStatus* p) {
@@ -997,6 +1048,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetShot004Status(GgafStatus* p) {
@@ -1020,6 +1072,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemySylviaStatus(GgafStatus* p) {
@@ -1043,6 +1096,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetWall001Status(GgafStatus* p) {
@@ -1066,6 +1120,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetWall001PrismStatus(GgafStatus* p) {
@@ -1089,6 +1144,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyPallasStatus(GgafStatus* p) {
@@ -1112,6 +1168,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyEunomiaStatus(GgafStatus* p) {
@@ -1135,6 +1192,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyShot001Status(GgafStatus* p) {
@@ -1158,6 +1216,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaStatus(GgafStatus* p) {
@@ -1181,6 +1240,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragmentStatus(GgafStatus* p) {
@@ -1204,6 +1264,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment2Status(GgafStatus* p) {
@@ -1227,6 +1288,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaFragment3Status(GgafStatus* p) {
@@ -1250,6 +1312,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMyOptionStatus(GgafStatus* p) {
@@ -1273,6 +1336,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMagicPointItem001Status(GgafStatus* p) {
@@ -1296,6 +1360,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetMagicPointItem002Status(GgafStatus* p) {
@@ -1319,6 +1384,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetScoreItem001Status(GgafStatus* p) {
@@ -1342,6 +1408,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetVreathItem001Status(GgafStatus* p) {
@@ -1365,6 +1432,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHebeStatus(GgafStatus* p) {
@@ -1388,6 +1456,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbeStatus(GgafStatus* p) {
@@ -1411,6 +1480,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbe002Status(GgafStatus* p) {
@@ -1434,6 +1504,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip001Status(GgafStatus* p) {
@@ -1457,6 +1528,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip002Status(GgafStatus* p) {
@@ -1480,6 +1552,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip003Status(GgafStatus* p) {
@@ -1503,6 +1576,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAdrasteaStatus(GgafStatus* p) {
@@ -1526,6 +1600,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyAtalanteStatus(GgafStatus* p) {
@@ -1549,6 +1624,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHesperiaStatus(GgafStatus* p) {
@@ -1572,6 +1648,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHesperiaLaserChip001Status(GgafStatus* p) {
@@ -1595,6 +1672,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestGuStatus(GgafStatus* p) {
@@ -1618,6 +1696,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestChokiStatus(GgafStatus* p) {
@@ -1641,6 +1720,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestPaStatus(GgafStatus* p) {
@@ -1664,6 +1744,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestNomalStatus(GgafStatus* p) {
@@ -1687,6 +1768,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestGuShotStatus(GgafStatus* p) {
@@ -1710,6 +1792,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestChokiShotStatus(GgafStatus* p) {
@@ -1733,6 +1816,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestPaShotStatus(GgafStatus* p) {
@@ -1756,6 +1840,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetTestNomalShotStatus(GgafStatus* p) {
@@ -1779,6 +1864,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemySylviaEyeStatus(GgafStatus* p) {
@@ -1802,6 +1888,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemySylviaEyeStraightLaserChip001Status(GgafStatus* p) {
@@ -1825,6 +1912,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHermioneStatus(GgafStatus* p) {
@@ -1848,6 +1936,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, SHOT_SMALL001);  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHermioneArmHeadStatus(GgafStatus* p) {
@@ -1871,6 +1960,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, SHOT_SMALL001);  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHermioneArmBodyStatus(GgafStatus* p) {
@@ -1894,6 +1984,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
 		return p;
 	}
 	GgafStatus* MyStgUtil::resetEnemyHermioneArmWeakStatus(GgafStatus* p) {
@@ -1917,6 +2008,31 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_FormationDestroyedEffectKind, 0 );  //編隊全滅時エフェクト
 		p->set(STAT_FormationDestroyedItemKind, 0 );  //編隊全滅時アイテム種別
 		p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, 0 );  //ショット
+		return p;
+	}
+	GgafStatus* MyStgUtil::resetEnemySapphoStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
+		p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 100 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 100 );  //体力
+		p->set(STAT_Attack, 99 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001);  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
+		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
+		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
+		p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+		p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
+		p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
+		p->set(STAT_ProperEffect01Kind, 0 );  //その他固有エフェクト０１
+		p->set(STAT_ShotKind, SHOT_SMALL001);  //ショット
 		return p;
 	}
 // gen02 end

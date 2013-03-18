@@ -15,6 +15,10 @@ namespace GgafCore {
  */
 class GgafTreeFormation : public GgafFormation {
 private:
+
+    /** [r]fetchSub()用のカーソル */
+    GgafCore::GgafActor* _pIte;
+
     void sayonaraFollwer();
 
 public:
@@ -56,6 +60,14 @@ public:
      * @param prm_pSub 編隊のメンバーのアクター
      */
     virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override;
+
+    /**
+     * 登録した編隊のメンバーを順番に取得します.
+     * addSubLast(GgafCore::GgafActor*) により、登録した編隊メンバーを順番に取り出します。
+     * nullptr が帰ってきた場合は、１順終了です。
+     * @return
+     */
+    virtual GgafActor* fetchSub();
 
     /**
      * メンバーが残っていれば解放します。

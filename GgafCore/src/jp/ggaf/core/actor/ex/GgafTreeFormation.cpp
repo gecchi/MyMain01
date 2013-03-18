@@ -5,6 +5,7 @@ GgafTreeFormation::GgafTreeFormation(const char* prm_name, frame prm_offset_fram
         GgafFormation(prm_name, prm_offset_frames_end)
 {
     _class_name = "GgafTreeFormation";
+    _pIte = nullptr;
 }
 
 void GgafTreeFormation::addSubLast(GgafActor* prm_pSub) {
@@ -32,7 +33,6 @@ void GgafTreeFormation::addSubLast(GgafActor* prm_pSub) {
     GgafFormation::addSubLast(prm_pSub);
 }
 
-
 void GgafTreeFormation::processFinal() {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //I—¹‚ð‘Ò‚Â‚Ì‚Ý
@@ -47,6 +47,17 @@ void GgafTreeFormation::onEnd() {
     GgafFormation::onEnd();
 }
 
+GgafActor* GgafTreeFormation::fetchSub() {
+    if (_pIte) {
+        _pIte = _pIte->getNext();
+        if (_pIte == getSubFirst()) {
+            _pIte = nullptr;
+        }
+    } else {
+        _pIte = getSubFirst();
+    }
+    return _pIte;
+}
 
 GgafTreeFormation::~GgafTreeFormation() {
 
