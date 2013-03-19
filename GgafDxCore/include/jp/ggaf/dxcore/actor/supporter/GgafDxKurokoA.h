@@ -246,6 +246,7 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
     int  _smooth_mv_velo_seq_p1;
     /** [r]なめらかな移動シークエンスで設定された等速～減速へ切り替わる位置 */
     int  _smooth_mv_velo_seq_p2;
+
     /** [r]なめらかな移動シークエンスの進捗状況 */
     int  _smooth_mv_velo_seq_progress;
 
@@ -346,11 +347,11 @@ public:
      * </code></pre>
      * 上図のような状態を想定し、目標到達速度(Vt)と、移動距離(D)から、加速度(a)を計算し設定している。<BR>
      * 目標到達まで必要なフレーム(Te) はパラメータにより変化するため指定不可。<BR>
-     * 捕捉：setMvAcceBy_Dv(0, D) は setMvAcceToStop(D) と同じである
+     * 捕捉：setMvAcceByVD(0, D) は setMvAcceToStop(D) と同じである
      * @param prm_target_distance  目標到達速度に達するまでに費やす距離(D)
      * @param prm_target_velo 目標到達速度(Vt)
      */
-    void setMvAcceBy_Dv(coord prm_target_distance, velo prm_target_velo);
+    void setMvAcceByVD(coord prm_target_distance, velo prm_target_velo);
 
 
     /**
@@ -381,7 +382,7 @@ public:
      * @param prm_target_frames 費やす時間(Te)
      * @param prm_target_velo  目標到達速度(Vt)
      */
-    void setMvAcceBy_tv(int prm_target_frames, velo prm_target_velo);
+    void setMvAcceByVT(int prm_target_frames, velo prm_target_velo);
 
     /**
      * Actorの移動方角（Z軸回転）を設定。<BR>
@@ -947,13 +948,13 @@ public:
      * @param prm_top_velo トップスピード(Vt)
      * @param prm_end_velo 最終スピード(Ve)
      * @param prm_target_distance 目標直線移動距離(D)
-     * @param prm_p1 トップスピードに達する距離となるような、距離(D)に対する割合
-     * @param prm_p2 減速を開始距離となるような、距離(D)に対する割合
+     * @param prm_p1 トップスピードに達する距離となるような、距離(D)に対する割合。(d1 = D*prm_p1)
+     * @param prm_p2 減速を開始距離となるような、距離(D)に対する割合 (d1+d2 = D*p2)
      * @param prm_endacc_flg
      */
-    void execSmoothMvVeloSequenceD(velo prm_top_velo, velo prm_end_velo,
-                                   coord prm_target_distance, float prm_p1, float prm_p2,
-                                   bool prm_endacc_flg = true);
+    void execSmoothMvVeloSequenceVD(velo prm_top_velo, velo prm_end_velo,
+                                    coord prm_target_distance, float prm_p1, float prm_p2,
+                                    bool prm_endacc_flg = true);
 
 
     /**
@@ -992,9 +993,9 @@ public:
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合(0.0～1.0)
      * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequenceT(velo prm_top_velo, velo prm_end_velo,
-                                   int prm_target_frames, float prm_p1, float prm_p2,
-                                   bool prm_endacc_flg = true);
+    void execSmoothMvVeloSequenceVT(velo prm_top_velo, velo prm_end_velo,
+                                    int prm_target_frames, float prm_p1, float prm_p2,
+                                    bool prm_endacc_flg = true);
 
 
 //    void execSmoothMvVeloSequence4(velo prm_end_velo, coord prm_target_distance, int prm_target_frames,
@@ -1005,8 +1006,8 @@ public:
      * 現在「なめらかな移動速度シークエンス」が実行中か否か .
      * 「なめらかな移動速度シークエンス」とは、<BR>
      * execSmoothMvVeloSequence()<BR>
-     * execSmoothMvVeloSequenceD()<BR>
-     * execSmoothMvVeloSequenceT()<BR>
+     * execSmoothMvVeloSequenceVD()<BR>
+     * execSmoothMvVeloSequenceVT()<BR>
      * の事。<BR>
      * @return true:現在実行中 / false:そうではない
      */
@@ -1022,8 +1023,8 @@ public:
      * 現フレームで「なめらかな移動速度シークエンス」が完了したか否か .
      * 「なめらかな移動速度シークエンス」とは、<BR>
      * execSmoothMvVeloSequence()<BR>
-     * execSmoothMvVeloSequenceD()<BR>
-     * execSmoothMvVeloSequenceT()<BR>
+     * execSmoothMvVeloSequenceVD()<BR>
+     * execSmoothMvVeloSequenceVT()<BR>
      * の事。<BR>
      * @return true:完了した / false:そうではない
      */

@@ -34,17 +34,17 @@ void CubeMapMeshTestActor::onActive() {
 void CubeMapMeshTestActor::processBehavior() {
 //    if (GgafDxInput::isPushedDownKey(DIK_T)) {
 ////        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.4, 0.6, true);
-//        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.4, 0.6);
+//        _pKurokoA->execSmoothMvVeloSequenceVD(10*1000, 0, 600*1000, 0.4, 0.6);
 //        _TRACE_("execSmoothMvVeloSequence!!");
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_Y)) {
 ////        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.1, 0.3, true);
-//        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.1, 0.3);
+//        _pKurokoA->execSmoothMvVeloSequenceVD(10*1000, 0, 600*1000, 0.1, 0.3);
 //        _TRACE_("execSmoothMvVeloSequence!!");
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_U)) {
 ////        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.7, 0.9, true);
-//        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.7, 0.9);
+//        _pKurokoA->execSmoothMvVeloSequenceVD(10*1000, 0, 600*1000, 0.7, 0.9);
 //        _TRACE_("execSmoothMvVeloSequence!!");
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_W)) {

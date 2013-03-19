@@ -11,14 +11,10 @@ namespace VioletVreath {
 class FormationSappho001 : public GgafLib::TreeFormation {
 
 public:
-    /** サッフォーの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoCon_;
     /** 編隊数(RANK変動) */
     int num_Sappho_;
     /** 編隊間隔フレーム(RANK変動) */
     frame interval_frames_;
-    /** 移動速度(RANK変動) */
-    velo velo_mv_;
 
     bool can_fetch_;
 public:

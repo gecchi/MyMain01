@@ -102,7 +102,7 @@
 // コード変更は「ランク定義Creater.xls」から行うこと。
 // gen01 start
 // EnemyEunomia のランク式
-#define RR_EnemyEunomia_ShotWay(X)  (10+(X)*10)  //発射WAY数
+#define RR_EnemyEunomia_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
 // FormationEunomia001 のランク式
 #define RR_FormationEunomia001_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
 #define RR_FormationEunomia001_Num(X)  (20 + (X)*10)  //隊数
@@ -114,7 +114,7 @@
 #define RR_FormationEunomia002_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
 #define RR_FormationEunomia002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // EnemyIris のランク式
-#define RR_EnemyIris_ShotWay(X)  (10+(X)*10)  //発射WAY数
+#define RR_EnemyIris_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
 // FormationIris001 のランク式
 #define RR_FormationIris001_Num(X)  (7 + (X)*7)  //隊数
 #define RR_FormationIris001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
@@ -124,7 +124,7 @@
 #define RR_FormationIris002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
 #define RR_FormationIris002_MvVelo(X)  (16000+(X)*1600)  //移動速度
 // EnemyPallas のランク式
-#define RR_EnemyPallas_ShotWay(X)  (10+(X)*10)  //発射WAY数
+#define RR_EnemyPallas_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
 // FormationPallas001 のランク式
 #define RR_FormationPallas001_Num(X)  (12+(X)*8)  //隊数
 #define RR_FormationPallas001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
@@ -134,13 +134,14 @@
 #define RR_FormationPallas002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
 #define RR_FormationPallas002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // EnemyThalia のランク式
-#define RR_EnemyThalia_ShotWay(X)  (20+(X)*10)  //発射WAY数
+#define RR_EnemyThalia_ShotWay(X)  (20+(X)*10)  //発射弾(Way)数
 // FormationThalia のランク式
 #define RR_FormationThalia_Num(X)  (7+(X)*4)  //隊数
 #define RR_FormationThalia_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X)) *20))  //出現間隔
 #define RR_FormationThalia_MvVelo(X)  (14000+(X)*10000)  //移動速度
 // EnemyRomulus のランク式
-#define RR_EnemyRomulus_ShotInterval(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射間隔
+#define RR_EnemyRomulus_ShotMvVelo(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射弾速度
+#define RR_EnemyRomulus_ShotInterval(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射弾間隔
 // Shot001 のランク式
 #define RR_Shot001_MvVelo(X)  (5000+(X)*5000)  //移動速度
 #define RR_Shot001_AngVelo(X)  (6000+(X)*6000)  //角速度
@@ -148,7 +149,7 @@
 #define RR_Shot002_MvVelo(X)  (8000+(X)*8000)  //移動速度
 #define RR_Shot002_AngVelo(X)  (1000+(X)*1000)  //角速度
 // EnemyMassalia のランク式
-#define RR_EnemyMassalia_ShotWay(X)  (4+(X)*4)  //発射WAY数
+#define RR_EnemyMassalia_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
 // EnemyMassaliaFragment のランク式
 // EnemyMassaliaFragment2 のランク式
 // EnemyMassaliaFragment3 のランク式
@@ -160,16 +161,17 @@
 #define RR_FormationHebe_Num(X)  (12+(X)*8)  //隊数
 #define RR_FormationHebe_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
 #define RR_FormationHebe_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-#define RR_FormationHebe_ShotWay(X)  (4+(X)*4)  //発射WAY数
+#define RR_FormationHebe_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
 // EnemyHesperia のランク式
-#define RR_EnemyHesperia_ShotWay(X)  (7 + (((X)>1.0?1.0:(X)) * 4))  //発射WAY数
+#define RR_EnemyHesperia_ShotWay(X)  (7 + (((X)>1.0?1.0:(X)) * 4))  //発射弾(Way)数
 #define RR_EnemyHesperia_Density(X)  (90000 - (((X)>1.0?1.0:(X)) * 50000))  //密度
 // EnemySappho のランク式
-#define RR_EnemySappho_ShotWay(X)  (10+(X)*10)  //発射WAY数
+#define RR_EnemySappho_MvVelo(X)  (15000 + (X)*10000)  //移動速度
+#define RR_EnemySappho_ShotWay(X)  (2+(X)*4)  //発射弾(Way)数
+#define RR_EnemySappho_ShotMvVelo(X)  (1000+(X)*5000)  //発射弾速度
 // FormationSappho001 のランク式
-#define RR_FormationSappho001_Num(X)  (12+(X)*8)  //隊数
+#define RR_FormationSappho001_Num(X)  (10+(X)*5)  //隊数
 #define RR_FormationSappho001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RR_FormationSappho001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // gen02 end
 
 //1/√2

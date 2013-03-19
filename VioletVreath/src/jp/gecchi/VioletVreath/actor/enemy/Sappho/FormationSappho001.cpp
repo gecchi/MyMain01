@@ -9,9 +9,6 @@ FormationSappho001::FormationSappho001(const char* prm_name) :
     _class_name = "FormationSappho001";
     num_Sappho_      = RR_FormationSappho001_Num(_RANK_);    //ï“ë‡êî
     interval_frames_ = RR_FormationSappho001_LaunchInterval(_RANK_);  //ÉpÉâÉXÇÃä‘äu(frame)
-    velo_mv_         = RR_FormationSappho001_MvVelo(_RANK_); //ë¨ìx
-    pDepoCon_ = nullptr;
-    SplineSequence* pSplSeq;
     for (int i = 0; i < num_Sappho_; i++) {
         EnemySappho* pSappho = NEW EnemySappho("Sappho01");
         pSappho->inactivateImmed();

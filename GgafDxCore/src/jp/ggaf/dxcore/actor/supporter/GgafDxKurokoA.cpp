@@ -202,7 +202,7 @@ void GgafDxKurokoA::behave() {
             //目標距離指定の場合
             if (_smooth_mv_velo_seq_progress == 0) {
                 //加速設定
-                setMvAcceBy_Dv(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
+                setMvAcceByVD(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
                 _smooth_mv_velo_seq_progress++;
             } else if (_smooth_mv_velo_seq_progress == 1) {
                 //加速中
@@ -216,11 +216,16 @@ void GgafDxKurokoA::behave() {
                 //等速中
                 if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_p2) {
                     //p2 に到達すれば 次回フレームから減速へ
-                    setMvAcceBy_Dv(_smooth_mv_velo_seq_target_distance - _smooth_mv_velo_seq_mv_distance, _smooth_mv_velo_seq_end_velo);
+                    setMvAcceByVD(_smooth_mv_velo_seq_target_distance - _smooth_mv_velo_seq_mv_distance, _smooth_mv_velo_seq_end_velo);
                     _smooth_mv_velo_seq_progress++;
                 }
             } else if (_smooth_mv_velo_seq_progress == 3) {
                 //減速中
+                if (_pActor->getBehaveingFrame() % 8 == 0) {
+                    //補正・補正・補正
+                    setMvAcceByVD(_smooth_mv_velo_seq_target_distance - _smooth_mv_velo_seq_mv_distance, _smooth_mv_velo_seq_end_velo);
+                }
+
                 if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_target_distance) {
                     //目標距離へ到達
                     setMvVelo(_smooth_mv_velo_seq_end_velo);
@@ -235,7 +240,7 @@ void GgafDxKurokoA::behave() {
             //目標時間指定の場合
             if (_smooth_mv_velo_seq_progress == 0) {
                 //加速設定
-                setMvAcceBy_tv(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
+                setMvAcceByVT(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
                 _smooth_mv_velo_seq_progress++;
             } else if (_smooth_mv_velo_seq_progress == 1) {
                 //加速中
@@ -249,11 +254,16 @@ void GgafDxKurokoA::behave() {
                 //等速中
                 if (_smooth_mv_velo_seq_frame_of_spent >= _smooth_mv_velo_seq_p2) {
                     //p2 に到達すれば 次回フレームから減速へ
-                    setMvAcceBy_tv(_smooth_mv_velo_seq_target_frames - _smooth_mv_velo_seq_frame_of_spent, _smooth_mv_velo_seq_end_velo);
+                    setMvAcceByVT(_smooth_mv_velo_seq_target_frames - _smooth_mv_velo_seq_frame_of_spent, _smooth_mv_velo_seq_end_velo);
                     _smooth_mv_velo_seq_progress++;
                 }
             } else if (_smooth_mv_velo_seq_progress == 3) {
                 //減速中
+                if (_pActor->getBehaveingFrame() % 8 == 0) {
+                    //補正・補正・補正
+                    setMvAcceByVT(_smooth_mv_velo_seq_target_frames - _smooth_mv_velo_seq_frame_of_spent, _smooth_mv_velo_seq_end_velo);
+                }
+
                 if (_smooth_mv_velo_seq_frame_of_spent >= _smooth_mv_velo_seq_target_frames) {
                     //目標距離へ到達
                     setMvVelo(_smooth_mv_velo_seq_end_velo);
@@ -658,26 +668,34 @@ void GgafDxKurokoA::setMvAcce(int prm_acceMove) {
 
 void GgafDxKurokoA::setMvAcceToStop(coord prm_target_distance) {
     // a = -(Vo^2) / 2D
-    _accMv  =  -(1.0*_veloMv*_veloMv) / (2.0*prm_target_distance);
-    if (_accMv < 0) {
-        _accMv += 1;
-    } else {
-        _accMv -= 1;
+    double acc = -(1.0*_veloMv*_veloMv) / (2.0*prm_target_distance);
+    if (acc > 0.0) {
+        acc += 0.5;
+    } else if (_accMv < 0.0) {
+        acc -= 0.5;
     }
+    _accMv = acc;
     //(frame)((2.0*prm_target_distance) / _veloMv); //使用フレーム数
 }
-void GgafDxKurokoA::setMvAcceBy_tv(int prm_target_frames, velo prm_target_velo) {
+void GgafDxKurokoA::setMvAcceByVT(int prm_target_frames, velo prm_target_velo) {
     //a = (Vt-Vo) / Te
-    _accMv = (prm_target_velo - _veloMv) / (1.0f*prm_target_frames);
-}
-void GgafDxKurokoA::setMvAcceBy_Dv(coord prm_target_distance, velo prm_target_velo) {
-    // a = (Vt^2 - Vo^2) / 2D
-    _accMv =  ((1.0f*prm_target_velo*prm_target_velo) - (1.0f*_veloMv*_veloMv)) / (2.0f*prm_target_distance);
-    if (_accMv < 0) {
-        _accMv += 1;
-    } else {
-        _accMv -= 1;
+    double acc = (prm_target_velo - _veloMv) / (1.0*prm_target_frames);
+    if (acc > 0.0) {
+        acc += 0.5;
+    } else if (_accMv < 0.0) {
+        acc -= 0.5;
     }
+    _accMv = acc;
+}
+void GgafDxKurokoA::setMvAcceByVD(coord prm_target_distance, velo prm_target_velo) {
+    // a = (Vt^2 - Vo^2) / 2D
+    double acc = ((1.0f*prm_target_velo*prm_target_velo) - (1.0*_veloMv*_veloMv)) / (2.0*prm_target_distance);
+    if (acc > 0.0) {
+        acc += 0.5;
+    } else if (_accMv < 0.0) {
+        acc -= 0.5;
+    }
+    _accMv = acc;
     //(frame)((1.0*prm_target_velo - _veloMv) / _accMv); //使用フレーム数
 
     // 【補足】
@@ -774,9 +792,9 @@ void GgafDxKurokoA::execSmoothMvVeloSequence(velo prm_end_velo, coord prm_target
 
 }
 
-void GgafDxKurokoA::execSmoothMvVeloSequenceD(velo prm_top_velo, velo prm_end_velo,
-                                              coord prm_target_distance, float prm_p1, float prm_p2,
-                                              bool prm_endacc_flg) {
+void GgafDxKurokoA::execSmoothMvVeloSequenceVD(velo prm_top_velo, velo prm_end_velo,
+                                               coord prm_target_distance, float prm_p1, float prm_p2,
+                                               bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
     _smooth_mv_velo_seq_top_velo = prm_top_velo;
@@ -791,9 +809,9 @@ void GgafDxKurokoA::execSmoothMvVeloSequenceD(velo prm_top_velo, velo prm_end_ve
 }
 
 
-void GgafDxKurokoA::execSmoothMvVeloSequenceT(velo prm_top_velo, velo prm_end_velo,
-                                              int prm_target_frames, float prm_p1, float prm_p2,
-                                              bool prm_endacc_flg) {
+void GgafDxKurokoA::execSmoothMvVeloSequenceVT(velo prm_top_velo, velo prm_end_velo,
+                                               int prm_target_frames, float prm_p1, float prm_p2,
+                                               bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
     _smooth_mv_velo_seq_top_velo = prm_top_velo;

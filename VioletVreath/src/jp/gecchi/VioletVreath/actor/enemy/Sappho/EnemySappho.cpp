@@ -57,44 +57,59 @@ void EnemySappho::processBehavior() {
 
          case PROG_MOVE01: {
              if (_pProg->isJustChanged()) {
+                 //滞留ポイントへGO!
+                 velo mv_velo = RR_EnemySappho_MvVelo(_RANK_);
                  coord d = UTIL::getDistance(_X, _Y, _Z,
                                              hanging_pos_._X, hanging_pos_._Y, hanging_pos_._Z);
-                 _pKurokoA->execSmoothMvVeloSequenceD(
-                              ((FormationSappho001*)getFormation())->velo_mv_,
-                              RND(-PX_C(0.01), PX_C(0.01)),
+                 _pKurokoA->execSmoothMvVeloSequenceVD(
+                              mv_velo,
+                              RND(-100, 100),
                               d,
-                              0.2, 0.2, false);
+                              0.2, 0.8);
              }
-             if (_pProg->getFrameInProgress() % 20 == 0) {
+             //滞留ポイントまで移動中
+             if (_pProg->getFrameInProgress() % 16 == 0) {
                  _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP,
-                                                       D_ANG(1), 0,
+                                                       1000, 10,
                                                        TURN_CLOSE_TO, false);
              }
              if (_pKurokoA->isJustFinishSmoothMvVeloSequence()) {
                  _pProg->changeNext();
              }
+             //_TRACE_("PROG_MOVE01:"<<_X<<","<<_Y<<","<<_Z<<","<<_pKurokoA->_veloMv<<","<<_pKurokoA->_accMv);
              break;
          }
          case PROG_MOVE02: {
+             if (_pProg->isJustChanged()) {
+                 //滞留ポイント到着、ふらふら気ままな方向へ移動させる
+                 _pKurokoA->execTurnMvAngSequenceTwd(_X + RND(-PX_C(100),PX_C(100)),
+                                                     _Y + RND(-PX_C(100),PX_C(100)),
+                                                     _Z + RND(-PX_C(100),PX_C(100)),
+                                                     100, 0, TURN_CLOSE_TO, false);
+             }
              //滞留中
-             if (_pProg->getFrameInProgress() % 20 == 0) {
+             if (_pProg->getFrameInProgress() % 16 == 0) {
+                 //ちょくちょく自機を狙う
                  _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP,
-                                                       D_ANG(1), 0,
+                                                       1000, 10,
                                                        TURN_CLOSE_TO, false);
              }
-             if (_pProg->getFrameInProgress() == 300) {
-                 //敵弾発射
-                 int way = RR_EnemySappho_ShotWay(_RANK_); //TODO:ショットWAY数
-
-                 GgafDxDrawableActor* pShot = UTIL::activateShotOf(this);
-                 if (pShot) {
-                     pShot->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z],
-                                                    _pKurokoA->_angFace[AXIS_Y]);
-                     pShot->_pKurokoA->setMvVelo(PX_C(2));
-                     pShot->_pKurokoA->setMvAcce(100);
+             if (_pProg->getFrameInProgress() == 180) {
+                 //敵弾発射！
+                 int shot_num = RR_EnemySappho_ShotWay(_RANK_); //弾数、ランク変動
+                 velo shot_velo = RR_EnemySappho_ShotMvVelo(_RANK_); //弾速、ランク変動
+                 for (int i = 0; i < shot_num; i++) {
+                     GgafDxDrawableActor* pShot = UTIL::activateShotOf(this);
+                     if (pShot) {
+                         pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
+                         pShot->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z],
+                                                        _pKurokoA->_angFace[AXIS_Y]);
+                         pShot->_pKurokoA->setMvVelo(shot_velo);
+                         pShot->_pKurokoA->setMvAcce(100);
+                     }
                  }
              }
-             if (_pProg->getFrameInProgress() == 600) {
+             if (_pProg->getFrameInProgress() == 240) {
                  _pProg->changeNext();
              }
              break;
@@ -102,18 +117,18 @@ void EnemySappho::processBehavior() {
          case PROG_MOVE03: {
              //さよなら準備
              if (_pProg->isJustChanged()) {
+                 //ゆっくりさよならポイントへ向ける
                  _pKurokoA->execTurnMvAngSequenceTwd(leave_pos_._X, leave_pos_._Y, leave_pos_._Z,
                                                      D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
                  _pKurokoA->setMvAcce(10);
              }
-             if (_pProg->getFrameInProgress() % 20 == 0) {
-                 _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP, D_ANG(1), 0,
+             if (_pProg->getFrameInProgress() % 16 == 0) {
+                 _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP, 1000, 10,
                                                        TURN_CLOSE_TO, false);
              }
              if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
                  _pProg->changeNext();
              }
-
              break;
          }
 
@@ -121,10 +136,11 @@ void EnemySappho::processBehavior() {
              //さよなら～
              if (_pProg->isJustChanged()) {
                  _pKurokoA->execTurnMvAngSequenceTwd(leave_pos_._X, leave_pos_._Y, leave_pos_._Z,
-                                                     D_ANG(10), 0, TURN_CLOSE_TO, false);
-                 _pKurokoA->setMvAcce(100);
+                                                     D_ANG(1), 0, TURN_CLOSE_TO, false);
+                 _pKurokoA->setMvAcce(100+(_RANK_*200));
              }
-             if (_pProg->getFrameInProgress() % 20 == 0) {
+             if (_pProg->getFrameInProgress() % 16 == 0) {
+                 //ちょくちょく自機を見つめる
                  _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP, D_ANG(1), 0,
                                                        TURN_CLOSE_TO, false);
              }

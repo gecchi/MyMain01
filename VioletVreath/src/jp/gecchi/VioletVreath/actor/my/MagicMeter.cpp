@@ -439,7 +439,6 @@ void MagicMeter::processBehavior() {
         }
     }
 
-
 //    //debug -------------->
 //    if (GgafDxInput::isPushedDownKey(DIK_K)) {
 //        _TRACE_("MagicMeter saveStatus(0)!!!!");
