@@ -13,10 +13,7 @@ class FormationPallas001b : public FormationPallas001 {
 public:
     FormationPallas001b(const char* prm_name);
 
-    /**
-     * ï“ë‡ÇçÏê¨ .
-     */
-    virtual void onActive() override;
+    virtual void onCallUpPallas(EnemyPallas* prm_pPallas) override;
 
     virtual ~FormationPallas001b();
 };

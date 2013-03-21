@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationIris002::FormationIris002(const char* prm_name) :
-        TreeFormation(prm_name, 30*60) { //30*60後にsayonara()する。早く開放しすぎると Depository の接続が切れるため。
+        TreeFormation(prm_name) {
     _class_name = "FormationIris002";
     num_Iris_        = RR_FormationIris002_Num(_RANK_);    //編隊数
     interval_frames_ = RR_FormationIris002_LaunchInterval(_RANK_);   //イリスの間隔(frame)
@@ -14,26 +14,30 @@ FormationIris002::FormationIris002(const char* prm_name) :
     pSplLineCon_ = connectToSplineLineManager("SpConn_00202_");
     pDepoCon_ = connectToDepositoryManager("Conn_Shot002", nullptr);
     //イリス編隊作成
-    papIris_ = NEW EnemyIris*[num_Iris_];
     for (int i = 0; i < num_Iris_; i++) {
-        papIris_[i] = NEW EnemyIris("Iris01");
+        EnemyIris* pIris = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(papIris_[i]->_pKurokoA, pSplLineCon_->fetch(), 10000); //移動速度固定
-        papIris_[i]->config(pProgram, pDepoCon_->fetch(), nullptr);
-        papIris_[i]->inactivateImmed();
-        addSubLast(papIris_[i]);
+        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(
+                                         pIris->_pKurokoA, pSplLineCon_->fetch(), 10000); //移動速度固定
+        pIris->config(pProgram, pDepoCon_->fetch(), nullptr);
+        addFormationMember(pIris);
     }
 }
 
 void FormationIris002::initialize() {
-
 }
 
 void FormationIris002::onActive() {
-    for (int i = 0; i < num_Iris_; i++) {
-        papIris_[i]->locate(MyShip::lim_behaind_ - 500000, 0, MyShip::lim_zright_ * 0.8);
-        papIris_[i]->_pKurokoA->setMvVelo(velo_mv_);
-        papIris_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_間隔でActiveにする。
+}
+
+void FormationIris002::processBehavior() {
+    if (canCallUp() && (getActivePartFrame()-1) % interval_frames_ == 0) {
+        EnemyIris* pIris = (EnemyIris*)callUp();
+        if (pIris) {
+            pIris->locate(MyShip::lim_behaind_ - 500000, 0, MyShip::lim_zright_ * 0.8);
+            pIris->_pKurokoA->setMvVelo(velo_mv_);
+            pIris->activate();
+        }
     }
 }
 
@@ -48,5 +52,4 @@ void FormationIris002::onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroy
 FormationIris002::~FormationIris002() {
     pSplLineCon_->close();
     pDepoCon_->close();
-    GGAF_DELETEARR(papIris_);
 }

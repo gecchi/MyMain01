@@ -9,7 +9,7 @@ FormationHebe::FormationHebe(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationHebe";
 
     pConn_HebeDepo_ = connectToDepositoryManager("Conn_EnemyHebe4Formation", this);
-    setFormationAbleActorDepository(pConn_HebeDepo_->fetch());
+    setFormationMemberDepository(pConn_HebeDepo_->fetch());
 
     //スプライン定義ファイルを読み込む
     pSplManufCon_ = connectToSplineManufactureManager("FormationHebe001");
@@ -32,7 +32,7 @@ void FormationHebe::onActive() {
 }
 
 void FormationHebe::processBehavior() {
-    if (! isAllCalledUp() && (getActivePartFrame() % rr_interval_frames_ == 0)) {
+    if (canCallUp() && (getActivePartFrame() % rr_interval_frames_ == 0)) {
         EnemyHebe* pHebe = (EnemyHebe*)callUpUntil(rr_num_formation_);
         if (pHebe) {
             SplineSequence* pSplSeq = pSplManufCon_->fetch()->

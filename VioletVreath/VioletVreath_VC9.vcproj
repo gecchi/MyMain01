@@ -570,6 +570,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\EnemySappho.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.cpp"
 				>
 			</File>
@@ -715,6 +719,18 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001a.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001b.cpp"
 				>
 			</File>
 			<File
@@ -1748,6 +1764,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\EnemySappho.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.h"
 				>
 			</File>
@@ -1897,6 +1917,18 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001a.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001b.h"
 				>
 			</File>
 			<File

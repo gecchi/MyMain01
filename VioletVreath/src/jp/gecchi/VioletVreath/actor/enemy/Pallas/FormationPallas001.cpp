@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationPallas001::FormationPallas001(const char* prm_name) :
-        TreeFormation(prm_name, 30*60) {
+        TreeFormation(prm_name) {
     _class_name = "FormationPallas001";
     num_Pallas_      = RR_FormationPallas001_Num(_RANK_);    //編隊数
     interval_frames_ = RR_FormationPallas001_LaunchInterval(_RANK_);  //パラスの間隔(frame)
@@ -13,33 +13,32 @@ FormationPallas001::FormationPallas001(const char* prm_name) :
     //パラス編隊作成
     pSplManufCon_ = connectToSplineManufactureManager("Pallas01");
     pDepoCon_ = nullptr;
-    papPallas_ = NEW EnemyPallas*[num_Pallas_];
-    SplineSequence* pSplSeq;
     for (int i = 0; i < num_Pallas_; i++) {
-        papPallas_[i] = NEW EnemyPallas("Pallas01");
-        //スプライン移動プログラム設定
-        pSplSeq = pSplManufCon_->fetch()->createSplineSequence(papPallas_[i]->_pKurokoA);
-        papPallas_[i]->config(pSplSeq, nullptr, nullptr);
-        //papPallas_[i]->setDepository_Shot(pDepoCon_->fetch()); //弾設定
-        papPallas_[i]->inactivateImmed();
-        addSubLast(papPallas_[i]);
+        EnemyPallas* pPallas= NEW EnemyPallas("Pallas01");
+        SplineSequence* pSplSeq = pSplManufCon_->fetch()->createSplineSequence(pPallas->_pKurokoA);
+        pPallas->config(pSplSeq, nullptr, nullptr);
+        addFormationMember(pPallas);
     }
 }
+
 void FormationPallas001::initialize() {
 }
 
 void FormationPallas001::onActive() {
-    GgafActor* pActor = getSubFirst();
-    EnemyPallas* pPallas = nullptr;
-    int t = 0;
-    do {
-        pPallas = (EnemyPallas*)pActor;
-        pPallas->pSplSeq_->setAbsoluteBeginCoordinate();
-        pPallas->_pKurokoA->setMvVelo(velo_mv_);
-        pPallas->activateDelay(t*interval_frames_ + 1);//interval_frames_間隔でActiveにする。
-        t++;
-        pActor = pActor->getNext();
-    } while (!pActor->isFirst());
+    for (int n = 0; canCallUp(); n++) {
+        EnemyPallas* pPallas = (EnemyPallas*)callUp();
+        if (pPallas) {
+            onCallUpPallas(pPallas); //コールバック
+            pPallas->activateDelay(n*interval_frames_ + 1);
+            n++;
+        }
+    }
+    //FormationTableScene に追加する編隊の場合、
+    //編隊が途中でちょん切れる事を防ぐために、このように
+    //onActive()で、一気に全ての編隊要員を callUp() & activate() しておく事。
+}
+
+void FormationPallas001::processBehavior() {
 }
 
 void FormationPallas001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
@@ -50,13 +49,9 @@ void FormationPallas001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     UTIL::activateFormationDestroyedItemOf(pActor_last_destroyed);
 }
 
-void FormationPallas001::processBehavior() {
-}
-
 FormationPallas001::~FormationPallas001() {
     pSplManufCon_->close();
     if (pDepoCon_) {
         pDepoCon_->close();
     }
-    GGAF_DELETEARR(papPallas_);
 }

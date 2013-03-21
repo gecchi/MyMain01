@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationPallas002::FormationPallas002(const char* prm_name) :
-        TreeFormation(prm_name, 30*60) {
+        TreeFormation(prm_name) {
     _class_name = "FormationPallas002";
     num_Pallas_      = RR_FormationPallas002_Num(_RANK_);  //•Ò‘à”
     interval_frames_ = RR_FormationPallas002_LaunchInterval(_RANK_);  //ƒpƒ‰ƒX‚ÌŠÔŠu(frame)
@@ -23,7 +23,7 @@ FormationPallas002::FormationPallas002(const char* prm_name) :
         papPallas_[i]->config(pProgram, nullptr, nullptr);
         //papPallas_[i]->setDepository_Shot(pDepoCon_->fetch()); //’eÝ’è
         papPallas_[i]->inactivateImmed();
-        addSubLast(papPallas_[i]);
+        addFormationMember(papPallas_[i]);
     }
 }
 

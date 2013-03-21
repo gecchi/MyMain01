@@ -13,7 +13,7 @@ class FormationSappho001a : public FormationSappho001 {
 public:
     FormationSappho001a(const char* prm_name);
 
-    virtual void onActiveSappho(EnemySappho* prm_pSappho) override;
+    virtual void onCallUpSappho(EnemySappho* prm_pSappho) override;
 
     virtual ~FormationSappho001a();
 };

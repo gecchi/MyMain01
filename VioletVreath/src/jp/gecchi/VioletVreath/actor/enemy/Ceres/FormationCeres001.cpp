@@ -6,16 +6,20 @@ using namespace VioletVreath;
 
 FormationCeres001::FormationCeres001(const char* prm_name) : TreeFormation(prm_name) {
     _class_name = "FormationCeres001";
-    for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
-        pEnemyCeres_[i] = NEW EnemyCeres("Ceres01");
-        pEnemyCeres_[i]->inactivateImmed();
-        addSubLast(pEnemyCeres_[i] );
+    for (int i = 0; i < 10; i++) {
+        addFormationMember(NEW EnemyCeres("Ceres"));
     }
 }
 
 void FormationCeres001::initialize() {
-    for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
-        pEnemyCeres_[i]->activateDelay(i * 30 + 1);
+}
+
+void FormationCeres001::processBehavior() {
+    if (canCallUp() && (getActivePartFrame()-1) % 30 == 0) {
+        EnemyCeres* pCeres = (EnemyCeres*)callUp();
+        if (pCeres) {
+            pCeres->activate();
+        }
     }
 }
 

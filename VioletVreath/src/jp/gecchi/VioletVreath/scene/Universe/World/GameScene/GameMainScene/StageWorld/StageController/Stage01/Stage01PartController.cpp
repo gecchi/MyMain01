@@ -15,10 +15,10 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,10,120,300,540,780,1020};
-	_paFrame_NextEvent = new frame[7];
+	frame f[] = {1,10,100,120,300,540,780,1000,1020};
+	_paFrame_NextEvent = new frame[9];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 7;
+	_event_num = 9;
 	orderActorToFactory(10000000, EnemyMetis, "EnemyMetis-1");
 	orderActorToFactory(10000001, FormationSappho001a, "FormationSappho001a-2");
 	orderActorToFactory(10000002, FormationSappho001b, "FormationSappho001b-3");
@@ -45,8 +45,23 @@ void Stage01PartController::processBehavior() {
 				getDirector()->addSubGroup(pMetis);
 				break;
 			}
+			case 100: {
+				orderActorToFactory(10000006, FormationPallas001a, "FormationPallas001a-5");
+				orderActorToFactory(10000007, FormationPallas001b, "FormationPallas001b-6");
+				orderActorToFactory(10000008, FormationPallas001c, "FormationPallas001c-7");
+				orderActorToFactory(10000009, FormationPallas001d, "FormationPallas001d-8");
+				orderActorToFactory(10000010, FormationPallas001a, "FormationPallas001a-9");
+				orderActorToFactory(10000011, FormationPallas001d, "FormationPallas001d-10");
+				orderActorToFactory(10000012, FormationPallas001b, "FormationPallas001b-11");
+				orderActorToFactory(10000013, FormationPallas001c, "FormationPallas001c-12");
+				orderActorToFactory(10000014, FormationPallas001a, "FormationPallas001a-13");
+				orderActorToFactory(10000015, FormationPallas001d, "FormationPallas001d-14");
+				orderActorToFactory(10000016, FormationPallas001b, "FormationPallas001b-15");
+				orderActorToFactory(10000017, FormationPallas001c, "FormationPallas001c-16");
+				break;
+			}
 			case 120: {
-				orderActorToFactory(10000004, FormationSappho001b, "FormationSappho001b-5");
+				orderActorToFactory(10000004, FormationSappho001b, "FormationSappho001b-17");
 				break;
 			}
 			case 300: {
@@ -64,6 +79,26 @@ void Stage01PartController::processBehavior() {
 				getDirector()->addSubGroup(pF);
 				break;
 			}
+			case 1000: {
+				{
+				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-18");
+				ta->setMaxPerformFrame(3000);
+				addSubLast(ta);
+				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(10000006)), 400);
+				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(10000007)), 400);
+				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(10000008)), 400);
+				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(10000009)), 400);
+				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(10000010)), 1);
+				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(10000011)), 400);
+				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(10000012)), 1);
+				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(10000013)), 400);
+				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(10000014)), 1);
+				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(10000015)), 1);
+				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(10000016)), 1);
+				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(10000017)), 400);
+				}
+				break;
+			}
 			case 1020: {
 				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(10000004);
 				getDirector()->addSubGroup(pF);
@@ -72,7 +107,7 @@ void Stage01PartController::processBehavior() {
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 7-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 9-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

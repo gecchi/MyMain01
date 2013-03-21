@@ -14,7 +14,7 @@ EffectExplosion004::EffectExplosion004(const char* prm_name) :
 }
 
 void EffectExplosion004::initialize() {
-    _pUvFlipper->forcePtnRange(0, 63);
+    _pUvFlipper->setFlipPtnRange(0, 63);
     _pScaler->forceScaleRange(500, 2000);
     setHitAble(false);
 }

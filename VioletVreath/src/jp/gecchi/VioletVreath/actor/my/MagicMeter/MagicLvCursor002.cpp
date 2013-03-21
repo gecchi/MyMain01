@@ -12,7 +12,7 @@ MagicLvCursor002::MagicLvCursor002(const char* prm_name, MagicMeter* prm_pMagicM
 void MagicLvCursor002::initialize() {
     MagicLvCursor::initialize();
     _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->forcePtnRange(0,2);
+    _pUvFlipper->setFlipPtnRange(0,2);
 }
 
 void MagicLvCursor002::moveSmoothTo(int prm_lv, frame prm_spent) {
@@ -20,12 +20,12 @@ void MagicLvCursor002::moveSmoothTo(int prm_lv, frame prm_spent) {
 }
 
 void MagicLvCursor002::dispDisable() {
-    _pUvFlipper->forcePtnRange(3,3); //ロック表示
+    _pUvFlipper->setFlipPtnRange(3,3); //ロック表示
     _pUvFlipper->setActivePtn(3);
 }
 
 void MagicLvCursor002::dispEnable() {
-    _pUvFlipper->forcePtnRange(0,2);
+    _pUvFlipper->setFlipPtnRange(0,2);
     _pUvFlipper->setActivePtn(0);
 }
 

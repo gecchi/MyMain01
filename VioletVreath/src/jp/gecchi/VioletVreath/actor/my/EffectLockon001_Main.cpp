@@ -11,7 +11,7 @@ EffectLockon001_Main::EffectLockon001_Main(const char* prm_name) :
 
 void EffectLockon001_Main::initialize() {
     EffectLockon001::initialize();
-    _pUvFlipper->forcePtnRange(0, 3);   //アニメ範囲を０～１５
+    _pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //アニメ順序
     _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
 }

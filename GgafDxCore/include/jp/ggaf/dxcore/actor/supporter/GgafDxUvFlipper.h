@@ -195,7 +195,7 @@ public:
      *     +--+--+--+--+--+
      * (1,0)              (1,1)
      *
-     *  prm_pattno_uvflip_max = 19
+     *  prm_pattno_uvflip_max = 20 は引数に無いが、内部自動計算
      *
      *  </pre>
      * @param prm_ptn_col_num テクスチャ縦分割数
@@ -228,6 +228,7 @@ public:
 
     /**
      * 現在のアニメーションパターンを設定する .
+     * setFlipPtnRange(int, int) の範囲外でも問題なく設定出来ます。
      * @param prm_pattno_uvflip アニメーションパターン番号
      */
     void setActivePtn(int prm_pattno_uvflip);
@@ -238,18 +239,20 @@ public:
     void setActivePtnToTop();
 
     /**
-     * 上限のアニメーションパターン、下限のアニメーションパターンを設定 .
+     * フリップアニメーションパターンの上限の下限のパターン番号を設定 .
+     * あくまで、フリップのの上限の下限であり、現在のパターン番号を制限するものではありません。<BR>
+     * setActivePtn(int) で範囲外でパターン番号も問題なく設定出来ます。
      * @param prm_top 上限のアニメーションパターン番号(若い方の番号)
      * @param prm_bottom 下限のアニメーションパターン番号(古い方の番号。若い番号の反対語って古い番号なのだろうか；)
      */
-    void forcePtnRange(int prm_top, int prm_bottom);
+    void setFlipPtnRange(int prm_top, int prm_bottom);
 
     void customizePtnOrder(int prm_aPtnOffset[], int prm_num);
 
     /**
      * アニメーション方法を設定する .
      * <pre>
-     * ＜例＞forcePtnRange(0,5) が設定済みとした場合。
+     * ＜例＞setFlipPtnRange(0,5) が設定済みとした場合。
      * FLIP_ORDER_LOOP     : 0,1,2,3,4,5,0,1,2,3,4,5,...
      * FLIP_REVERSE_LOOP   : 5,4,3,2,1,0,5,4,3,2,1,0,5,4...
      * FLIP_ORDER_NOLOOP   : 0,1,2,3,4,5,5,5,5,5,5,5...
@@ -257,16 +260,16 @@ public:
      * FLIP_OSCILLATE_LOOP : 0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
      * NOT_ANIMATED        : 3,3,3,3,3,3,3... （何もしない）
      *
-     * ＜特殊な使い方＞
+     * ＜ちょこっと特殊な使い方＞
      * 【例１】
      * setActivePtn(0);
-     * forcePtnRange(3,5);
+     * setFlipPtnRange(3,5);
      * setFlipMethod(FLIP_ORDER_LOOP); とした場合、
      * パターン番号: 0,1,2,3,4,5,3,4,5,3,4,5,...
      *
      * 【例２】
      * setActivePtn(5);
-     * forcePtnRange(0,3);
+     * setFlipPtnRange(0,3);
      * setFlipMethod(FLIP_ORDER_LOOP); とした場合、
      * パターン番号: 5,4,3,2,1,0,3,2,1,0,3,2,1,0,...
      *

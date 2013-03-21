@@ -10,7 +10,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
 
     //エウノミア編隊用デポジトリ
     pDepoCon_Eunomia_ = connectToDepositoryManager("Conn_EnemyEunomia4Formation", this);
-    setFormationAbleActorDepository(pDepoCon_Eunomia_->fetch());
+    setFormationMemberDepository(pDepoCon_Eunomia_->fetch());
 
     //スプライン定義ファイルを読み込む
     papSplManufCon_ = NEW SplineManufactureConnection*[7];
@@ -47,7 +47,7 @@ void FormationEunomia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 void FormationEunomia::processBehavior() {
-    if (! isAllCalledUp() && (getActivePartFrame() % RR_interval_frames_ == 0)) {
+    if (canCallUp() && (getActivePartFrame() % RR_interval_frames_ == 0)) {
         for (int i = 0; i < RR_num_formation_col_; i++) {
             EnemyEunomia* pEunomia = (EnemyEunomia*)callUpUntil(RR_num_formation_col_*RR_num_formation_row_);
             if (pEunomia) {

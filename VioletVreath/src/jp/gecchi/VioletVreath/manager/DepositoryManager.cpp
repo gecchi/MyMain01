@@ -161,7 +161,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
 //        if (prm_p) {
-//            ((FormationActor*)prm_p)->setFormationAbleActorDepository()
+//            ((FormationActor*)prm_p)->setFormationMemberDepository()
 //        } else {
 //            throwGgafCriticalException("DepositoryManager::processCreateResource("<<prm_idstr<<") Formation‚ðŽw’è‚µ‚Ä‰º‚³‚¢");
 //        }

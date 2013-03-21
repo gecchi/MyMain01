@@ -16,8 +16,6 @@ class FormationIris002 : public GgafLib::TreeFormation {
 public:
     /** 編隊数(RANK変動) */
     int num_Iris_;
-    /** イリスの配列(RANK変動) */
-    EnemyIris** papIris_;
     /** 編隊間隔フレーム(RANK変動) */
     frame interval_frames_;
     /** 移動速度(RANK変動) */
@@ -26,11 +24,13 @@ public:
 public:
     FormationIris002(const char* prm_name);
 
-    virtual void initialize() override;
+    void initialize() override;
 
-    virtual void onActive() override;
+    void onActive() override;
 
-    virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
+    void processBehavior() override;
+
+    void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual ~FormationIris002();
 };

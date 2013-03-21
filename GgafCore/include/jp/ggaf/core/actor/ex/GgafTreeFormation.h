@@ -15,10 +15,17 @@ namespace GgafCore {
  */
 class GgafTreeFormation : public GgafFormation {
 private:
+private:
+    /**
+     * 使用不可 .
+     * @param prm_pSub
+     */
+    virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override {
+    }
 
-    /** [r]fetchSub()用のカーソル */
+    /** [r]callUp()用のカーソル */
     GgafCore::GgafActor* _pIte;
-
+    bool _can_call_up;
     void sayonaraFollwer();
 
 public:
@@ -54,12 +61,13 @@ public:
      * 本メソッドを実行し、編隊構成メンバーを配下アクターに設定した場合、
      * 本フォーメーションオブジェクトは配下管理モードになる。このモードの編隊メンバーは使い捨てである。
      * 配下管理モードは、構成メンバーをこのメソッドにより初期登録しておく必要がある。
-     * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をaddSubLastしてください。
+     * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をaddFormationMember してください。
+     * 自動で inactivateImmed() がじっこうされるので、
      * 構成メンバーを活動させるには、通常通り activate() を使用。
-     * 構成メンバーを活動終了時は、sayonara() を使用。
+     * 構成メンバーを活動終了時は、sayonara() を使用。解放対象になります。
      * @param prm_pSub 編隊のメンバーのアクター
      */
-    virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override;
+    virtual void addFormationMember(GgafCore::GgafActor* prm_pSub);
 
     /**
      * 登録した編隊のメンバーを順番に取得します.
@@ -67,7 +75,15 @@ public:
      * nullptr が帰ってきた場合は、１順終了です。
      * @return
      */
-    virtual GgafActor* fetchSub();
+    GgafActor* callUp();
+
+    /**
+     * callUp() 可能な場合 true
+     * @return
+     */
+    bool canCallUp() {
+        return _can_call_up;
+    }
 
     /**
      * メンバーが残っていれば解放します。

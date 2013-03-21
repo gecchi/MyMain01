@@ -64,26 +64,32 @@ void GgafDxUvFlipper::setRotation(int prm_ptn_col_num, int prm_ptn_row_num) {
 
 
 void GgafDxUvFlipper::setActivePtn(int prm_pattno_uvflip) {
-    if (_pattno_uvflip_top <= prm_pattno_uvflip && prm_pattno_uvflip <= _pattno_uvflip_bottom) {
-        _pattno_uvflip_now = prm_pattno_uvflip;
-    } else if (prm_pattno_uvflip < _pattno_uvflip_top) {
-        _pattno_uvflip_now = _pattno_uvflip_top;
-    } else if (prm_pattno_uvflip > _pattno_uvflip_bottom) {
-        _pattno_uvflip_now = _pattno_uvflip_bottom;
+#ifdef MY_DEBUG
+    if (prm_pattno_uvflip > _pattno_uvflip_max) {
+        throwGgafCriticalException("GgafDxUvFlipper::setActivePtn 引数のパターン番号="<<prm_pattno_uvflip<<"は、範囲外です。_pattno_uvflip_max="<<_pattno_uvflip_max<<" Texture="<<_pTexture->_texture_name);
     }
+#endif
+    _pattno_uvflip_now = prm_pattno_uvflip;
+//    if (_pattno_uvflip_top <= prm_pattno_uvflip && prm_pattno_uvflip <= _pattno_uvflip_bottom) {
+//        _pattno_uvflip_now = prm_pattno_uvflip;
+//    } else if (prm_pattno_uvflip < _pattno_uvflip_top) {
+//        _pattno_uvflip_now = _pattno_uvflip_top;
+//    } else if (prm_pattno_uvflip > _pattno_uvflip_bottom) {
+//        _pattno_uvflip_now = _pattno_uvflip_bottom;
+//    }
 }
 
 void GgafDxUvFlipper::setActivePtnToTop() {
     _pattno_uvflip_now = _pattno_uvflip_top;
 }
 
-void GgafDxUvFlipper::forcePtnRange(int prm_top, int prm_bottom) {
+void GgafDxUvFlipper::setFlipPtnRange(int prm_top, int prm_bottom) {
 #ifdef MY_DEBUG
     if (prm_top < 0) {
-        _TRACE_("GgafDxUvFlipper::forcePtnRange prm_top="<<prm_top<<" TOPが負です。意図してますか？");
+        _TRACE_("GgafDxUvFlipper::setFlipPtnRange prm_top="<<prm_top<<" TOPが負です。意図してますか？");
     }
     if (prm_top > prm_bottom) {
-        throwGgafCriticalException("GgafDxUvFlipper::forcePtnRange prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" 大小がおかしいです。Texture="<<_pTexture->_texture_name);
+        throwGgafCriticalException("GgafDxUvFlipper::setFlipPtnRange prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" 大小がおかしいです。Texture="<<_pTexture->_texture_name);
     }
 #endif
     _pattno_uvflip_top = prm_top;

@@ -9,7 +9,7 @@ FormationMetis001::FormationMetis001(const char* prm_name) : TreeFormation(prm_n
     for (int i = 0; i < NUM_METIS_FORMATION001; i++) {
         apEnemyMetis_[i] = NEW EnemyMetis("Metis01");
         apEnemyMetis_[i]->inactivateImmed();
-        addSubLast(apEnemyMetis_[i] );
+        addFormationMember(apEnemyMetis_[i] );
     }
 }
 

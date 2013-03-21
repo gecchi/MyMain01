@@ -17,8 +17,6 @@ public:
     GgafLib::SplineManufactureConnection* pSplManufCon_;
     /** 編隊数(RANK変動) */
     int num_Pallas_;
-    /** パラスの配列(RANK変動) */
-    EnemyPallas** papPallas_;
     /** 編隊間隔フレーム(RANK変動) */
     frame interval_frames_;
     /** 移動速度(RANK変動) */
@@ -37,6 +35,8 @@ public:
     virtual void processBehavior() override;
 
     virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
+
+    virtual void onCallUpPallas(EnemyPallas* prm_pPallas) = 0;
 
     virtual ~FormationPallas001();
 };

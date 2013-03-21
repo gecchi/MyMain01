@@ -5,16 +5,14 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationSappho001::FormationSappho001(const char* prm_name) :
-        TreeFormation(prm_name, 30*60) {
+        TreeFormation(prm_name) {
     _class_name = "FormationSappho001";
     num_Sappho_      = RR_FormationSappho001_Num(_RANK_);    //編隊数
     interval_frames_ = RR_FormationSappho001_LaunchInterval(_RANK_);  //パラスの間隔(frame)
     for (int i = 0; i < num_Sappho_; i++) {
-        EnemySappho* pSappho = NEW EnemySappho("Sappho01");
-        pSappho->inactivateImmed();
-        addSubLast(pSappho);
+        std::string name = "Sappho("+XTOS(i)+")";
+        addFormationMember(NEW EnemySappho(name.c_str()));
     }
-    can_fetch_ = true;
 }
 void FormationSappho001::initialize() {
 }
@@ -23,13 +21,11 @@ void FormationSappho001::onActive() {
 }
 
 void FormationSappho001::processBehavior() {
-    if (can_fetch_ && getActivePartFrame() % interval_frames_ == 0) {
-        EnemySappho* pSappho = (EnemySappho*)fetchSub();
-        if (pSappho) {
-            pSappho->activate();
-            onActiveSappho(pSappho);  //コールバック
-        } else {
-            can_fetch_ = false;
+    if (canCallUp() && getActivePartFrame() % interval_frames_ == 0) {
+        EnemySappho* p = (EnemySappho*)callUp();
+        if (p) {
+            p->activate();
+            onCallUpSappho(p);  //コールバック
         }
     }
 }

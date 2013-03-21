@@ -6,9 +6,10 @@ GgafTreeFormation::GgafTreeFormation(const char* prm_name, frame prm_offset_fram
 {
     _class_name = "GgafTreeFormation";
     _pIte = nullptr;
+    _can_call_up = true;
 }
 
-void GgafTreeFormation::addSubLast(GgafActor* prm_pSub) {
+void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
 #ifdef MY_DEBUG
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
@@ -31,6 +32,7 @@ void GgafTreeFormation::addSubLast(GgafActor* prm_pSub) {
     prm_pSub->_pFormation = this; //メンバーへフォーメーションを設定
 //        _listFllower.addLast((GgafActor*)prm_pSub, false); //フォーメーションメンバーとして内部保持
     GgafFormation::addSubLast(prm_pSub);
+    prm_pSub->inactivateImmed(); //フォーメーションなので
 }
 
 void GgafTreeFormation::processFinal() {
@@ -47,16 +49,26 @@ void GgafTreeFormation::onEnd() {
     GgafFormation::onEnd();
 }
 
-GgafActor* GgafTreeFormation::fetchSub() {
-    if (_pIte) {
-        _pIte = _pIte->getNext();
-        if (_pIte == getSubFirst()) {
-            _pIte = nullptr;
-        }
-    } else {
-        _pIte = getSubFirst();
+GgafActor* GgafTreeFormation::callUp() {
+    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+        //終了を待つのみ
+        return nullptr;
     }
-    return _pIte;
+
+    if (_can_call_up) {
+        if (_pIte) {
+            _pIte = _pIte->getNext();
+            if (_pIte == getSubFirst()) { //１周した
+                _can_call_up = nullptr;
+                return nullptr;
+            }
+        } else {
+            _pIte = getSubFirst(); //初回はサブ先頭
+        }
+        return _pIte;
+    } else {
+        return nullptr;
+    }
 }
 
 GgafTreeFormation::~GgafTreeFormation() {

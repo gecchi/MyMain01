@@ -6,16 +6,20 @@ using namespace VioletVreath;
 
 FormationAdrastea001::FormationAdrastea001(const char* prm_name) : TreeFormation(prm_name) {
     _class_name = "FormationAdrastea001";
-    for (int i = 0; i < NUM_METIS_FORMATION001; i++) {
-        apEnemyAdrastea_[i] = NEW EnemyAdrastea("Adrastea01");
-        apEnemyAdrastea_[i]->inactivateImmed();
-        addSubLast(apEnemyAdrastea_[i] );
+    for (int i = 0; i < 10; i++) {
+        addFormationMember(NEW EnemyAdrastea("Adrastea01"));
     }
 }
 
 void FormationAdrastea001::initialize() {
-    for (int i = 0; i < NUM_METIS_FORMATION001; i++) {
-        apEnemyAdrastea_[i]->activateDelay(i * 20 + 1);
+}
+
+void FormationAdrastea001::processBehavior() {
+    if (canCallUp() && (getActivePartFrame()-1) % 20 == 0) {
+        EnemyAdrastea* pAdrastea = (EnemyAdrastea*)callUp();
+        if (pAdrastea) {
+            pAdrastea->activate();
+        }
     }
 }
 

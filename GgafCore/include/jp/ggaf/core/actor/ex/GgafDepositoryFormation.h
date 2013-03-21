@@ -7,7 +7,7 @@ namespace GgafCore {
  * デポジトリ管理のフォーメーション管理ークラス .
  * 編隊メンバーは使い回すフォーメーション。
  * 使用する場合は、本クラスを継承し、
- * setFormationAbleActorDepository(GgafActorDepository*) により
+ * setFormationMemberDepository(GgafActorDepository*) により
  * 編隊メンバー所属のデポジトリオブジェクトを登録してください。
  * processJudgement()を実装済み
  * @version 1.00
@@ -27,7 +27,7 @@ public:
     /** [r]編隊要素として管理されているアクターのリスト */
     GgafCore::GgafLinkedListRing<GgafActor> _listFllower;
     /** [r]これ以上 callUpUntil() 不可の場合 true */
-    bool _is_all_called_up;
+    bool _can_call_up;
     /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
     /** [r]構成メンバーのストッカー（nullptrの場合構成メンバーは配下アクターのはず） */
@@ -53,7 +53,7 @@ public:
      * メンバーを活動終了時は、sayonara() を使用。
      * @param prm_pDepo
      */
-    void setFormationAbleActorDepository(GgafCore::GgafActorDepository* prm_pDepo);
+    void setFormationMemberDepository(GgafCore::GgafActorDepository* prm_pDepo);
 
     /**
      * サブが無ければ本オブジェクト解放という処理 .
@@ -71,11 +71,11 @@ public:
 
     /**
      * デポジトリからメンバー呼び出しする。 .
-     * デポジトリモード時呼び出し可能。setFormationAbleActorDepository() の事前実行が必要。
+     * デポジトリモード時呼び出し可能。setFormationMemberDepository() の事前実行が必要。
      * 本メソッドを呼び出すと、デポジトリに管理されたメンバーが一つ dispatch() されます。(同時に activate() もされる)
      * デポジトリのメンバーが枯渇した場合 nullptr が返ります。
      * また、引数の prm_formation_sub_num は最大編隊構成要員数で、この数以上の呼び出しでも nullptr が返ります。
-     * 一度でも nullptr が返されると、内部フラグ isAllCalledUp() が true になり、以降本フォーメーションオブジェクトは
+     * 一度でも nullptr が返されると、内部フラグ canCallUp() が false になり、以降本フォーメーションオブジェクトは
      * メンバー呼び出しできないようになります。と同時に、 processJudgement() で自動的に sayonara() がコールされ
      * フォーメーションオブジェクトは解放されます。
      * 注意。初っ端に呼び出してもメンバーが確保できない場合も、
@@ -89,10 +89,10 @@ public:
     GgafActor* callUpUntil(int prm_formation_sub_num = INT_MAX);
 
     /**
-     * これ以上 callUpUntil() 不可の場合 true
+     * callUpUntil() 可能な場合 true
      * @return
      */
-    bool isAllCalledUp();
+    bool canCallUp();
 
     /**
      * メンバーが残っていれば解放します。

@@ -13,7 +13,7 @@ FormationMassalia::FormationMassalia(const char* prm_name)
     pDepoCon_Fragment_3_ = connectToDepositoryManager("Conn_MassaliaFragment3", this);
 
 
-    setFormationAbleActorDepository(pDepoCon_Massalia_->fetch());
+    setFormationMemberDepository(pDepoCon_Massalia_->fetch());
 }
 
 void FormationMassalia::updateRankParameter() {
@@ -37,7 +37,7 @@ void FormationMassalia::processBehavior() {
     if (getActivePartFrame() >= RR_FormationMassalia_DurationFrames(_RANK_)) {
         sayonara(20*60);
     } else {
-        if (!isAllCalledUp() && (getActivePartFrame() % R_interval_frames_ == 0)) {
+        if (canCallUp() && (getActivePartFrame() % R_interval_frames_ == 0)) {
             EnemyMassalia* pMassalia = (EnemyMassalia*)callUpUntil();
             if (pMassalia) {
                 pMassalia->_pKurokoA->setMvVelo(R_mv_velo_);

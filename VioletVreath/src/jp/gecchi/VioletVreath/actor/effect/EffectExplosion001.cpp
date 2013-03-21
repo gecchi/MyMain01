@@ -12,7 +12,7 @@ EffectExplosion001::EffectExplosion001(const char* prm_name) :
 }
 
 void EffectExplosion001::initialize() {
-    _pUvFlipper->forcePtnRange(0, 15);
+    _pUvFlipper->setFlipPtnRange(0, 15);
     setHitAble(false);
 
 }

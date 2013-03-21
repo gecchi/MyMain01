@@ -8,11 +8,11 @@ FormationSappho001a::FormationSappho001a(const char* prm_name) : FormationSappho
     _class_name = "FormationSappho001a";
 }
 
-void FormationSappho001a::onActiveSappho(EnemySappho* prm_pSappho) {
+void FormationSappho001a::onCallUpSappho(EnemySappho* prm_pSappho) {
     int d = 130;
     prm_pSappho->entry_pos_.set( P_MYSHIP->_X + RND(-PX_C(d),PX_C(d)),
-                                 (Universe::_Y_gone_bottom/4) + RND(-PX_C(d),PX_C(d)),
-                                 P_MYSHIP->_Z );
+                                 P_MYSHIP->_Y + RND(-PX_C(d),PX_C(d)),
+                                 MyShip::lim_zright_ + RND(-PX_C(d),PX_C(d)));
 
     prm_pSappho->hanging_pos_.set( P_MYSHIP->_X + PX_C(400) + RND(-PX_C(d),PX_C(d)),
                                    P_MYSHIP->_Y + (-PX_C(d)) + RND(-PX_C(d),PX_C(d)),

@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationThalia::FormationThalia(const char* prm_name) :
-        TreeFormation(prm_name, 30*60) {
+        TreeFormation(prm_name) {
     _class_name = "FormationThalia";
     num_Thalia_      = RR_FormationThalia_Num(_RANK_);         //編隊のタリアの数
     interval_frames_ = RR_FormationThalia_LaunchInterval(_RANK_);    //各タリアの出現間隔(frame)
@@ -19,8 +19,7 @@ FormationThalia::FormationThalia(const char* prm_name) :
         //スプライン移動プログラム設定
         papThalia_[i]->setSplineSequence(nullptr);
         papThalia_[i]->setDepository_Shot(pDpcon_->fetch()); //弾設定
-        papThalia_[i]->inactivateImmed();
-        addSubLast(papThalia_[i]);
+        addFormationMember(papThalia_[i]);
     }
 }
 

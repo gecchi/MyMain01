@@ -7,18 +7,11 @@ using namespace VioletVreath;
 FormationPallas001c::FormationPallas001c(const char* prm_name) : FormationPallas001(prm_name) {
     _class_name = "FormationPallas001c";
 }
-void FormationPallas001c::onActive() {
-    for (int i = 0; i < num_Pallas_; i++) {
-//        papPallas_[i]->pSplSeq_->adjustAxisRate(
-//                                            MyShip::lim_front_, //X•ûŒü”{—¦
-//                                            MyShip::lim_top_,   //Y•ûŒü”{—¦
-//                                           -MyShip::lim_zleft_  //Z•ûŒü”{—¦
-//                                        );
-        papPallas_[i]->pSplSeq_->adjustAxisZFlip();
-        papPallas_[i]->pSplSeq_->setAbsoluteBeginCoordinate();
-        papPallas_[i]->_pKurokoA->setMvVelo(velo_mv_);
-        papPallas_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_ŠÔŠu‚ÅActive‚É‚·‚éB
-    }
+
+void FormationPallas001c::onCallUpPallas(EnemyPallas* prm_pPallas) {
+    prm_pPallas->pSplSeq_->adjustAxisZFlip();
+    prm_pPallas->pSplSeq_->setAbsoluteBeginCoordinate();
+    prm_pPallas->_pKurokoA->setMvVelo(velo_mv_);
 }
 
 FormationPallas001c::~FormationPallas001c() {

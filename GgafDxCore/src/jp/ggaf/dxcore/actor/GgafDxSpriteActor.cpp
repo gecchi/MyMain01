@@ -23,7 +23,7 @@ GgafDxSpriteActor::GgafDxSpriteActor(const char* prm_name,
     _pSpriteModel = (GgafDxSpriteModel*)_pModel;
     _pSpriteEffect = (GgafDxSpriteEffect*)_pEffect;
 //    _pUvFlipper = NEW GgafDxUvFlipper(this);
-//    _pUvFlipper->forcePtnRange(0, _pSpriteModel->_pattno_uvflip_Max);
+//    _pUvFlipper->setFlipPtnRange(0, _pSpriteModel->_pattno_uvflip_Max);
 //    _pUvFlipper->setActivePtn(0);
 //    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
     GgafDxTexture* pTexture = _pSpriteModel->_papTextureCon[0]->fetch();
