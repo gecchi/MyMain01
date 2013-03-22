@@ -22,7 +22,7 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     _pStatus->reset();
     setHitAble(true);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setMvVelo(RR_Shot001_MvVelo(_RANK_));    //ˆÚ“®‘¬“x
     _pKurokoA->setFaceAngVelo(AXIS_X, RR_Shot001_AngVelo(_RANK_)); //‚«‚è‚à‚Ý‹ï‡
     pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION);

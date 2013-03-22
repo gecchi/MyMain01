@@ -16,7 +16,7 @@ void EnemyRemusLaserChip001::initialize() {
     setScaleR(5.0);
     setAlpha(0.9);
     _pKurokoA->setMvVelo(300000);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
 }
 
 void EnemyRemusLaserChip001::onActive() {

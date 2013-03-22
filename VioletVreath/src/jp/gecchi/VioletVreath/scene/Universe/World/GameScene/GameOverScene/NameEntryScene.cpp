@@ -86,10 +86,10 @@ void NameEntryScene::processBehavior() {
                 pNameEntryBoard_->sink(); //ネームエントリー板消去
                 pLabelSelectedChar_->inactivate(); //選択表示文字消去
                 pLabelInputedName_->_pAFader->beat(10, 5, 0, 0, -1); //入力ネーム点滅
-                pLabelInputedName_->_pKurokoA->execTurnFaceAngSequence(D0ANG, D0ANG,
-                                                                       8000, 0,
-                                                                       TURN_COUNTERCLOCKWISE, false);//急いで正常姿勢へ
-                pLabelInputedName_->_pKurokoA->execTurnRxSpinAngSequence(D0ANG, 8000, 0, TURN_COUNTERCLOCKWISE);
+                pLabelInputedName_->_pKurokoA->turnFaceAngTo(D0ANG, D0ANG,
+                                                             8000, 0,
+                                                             TURN_COUNTERCLOCKWISE, false);//急いで正常姿勢へ
+                pLabelInputedName_->_pKurokoA->turnRxSpinAngTo(D0ANG, 8000, 0, TURN_COUNTERCLOCKWISE);
                 //ここでハイスコア更新処理
                 inputed_name_ = std::string(pLabelInputedName_->_draw_string); //入力文字
                 GameGlobal::qryRanking_.addRow(inputed_name_, _SCORE_);

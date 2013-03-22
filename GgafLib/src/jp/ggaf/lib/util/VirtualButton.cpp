@@ -736,7 +736,7 @@ vbsta VirtualButton::isDoublePushedDownStick(frame prm_frame_push, frame prm_fra
 }
 
 
-bool VirtualButton::isRoundPushDown(vbsta prm_VB, frame prm_frame_delay) {
+bool VirtualButton::isScrewPushDown(vbsta prm_VB, frame prm_frame_delay) {
     if (isPushedDown(prm_VB)) {
         VBRecord* pVBRecord;
         pVBRecord = _pVBRecord_Active;

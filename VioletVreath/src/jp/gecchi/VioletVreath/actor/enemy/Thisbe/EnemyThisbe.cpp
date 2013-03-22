@@ -51,7 +51,7 @@ void EnemyThisbe::onCreateModel() {
 }
 
 void EnemyThisbe::initialize() {
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
 }

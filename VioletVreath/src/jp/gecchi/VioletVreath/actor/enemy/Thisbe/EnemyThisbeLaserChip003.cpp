@@ -20,7 +20,7 @@ void EnemyThisbeLaserChip003::initialize() {
     setScaleR(5.0);
     setAlpha(0.9);
 
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     sp_index_ = 0;
 }
 

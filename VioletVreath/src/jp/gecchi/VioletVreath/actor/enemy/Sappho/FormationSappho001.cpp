@@ -13,6 +13,7 @@ FormationSappho001::FormationSappho001(const char* prm_name) :
         std::string name = "Sappho("+XTOS(i)+")";
         addFormationMember(NEW EnemySappho(name.c_str()));
     }
+    cnt_call_up_ = 0;
 }
 void FormationSappho001::initialize() {
 }
@@ -25,7 +26,8 @@ void FormationSappho001::processBehavior() {
         EnemySappho* p = (EnemySappho*)callUp();
         if (p) {
             p->activate();
-            onCallUpSappho(p);  //コールバック
+            onCallUpSappho(p, cnt_call_up_);  //コールバック
+            cnt_call_up_++;
         }
     }
 }
@@ -37,8 +39,6 @@ void FormationSappho001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     //編隊全滅アイテム出現
     UTIL::activateFormationDestroyedItemOf(pActor_last_destroyed);
 }
-
-
 
 FormationSappho001::~FormationSappho001() {
 }

@@ -20,7 +20,7 @@ void EnemyEunomia::onCreateModel() {
 }
 
 void EnemyEunomia::initialize() {
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, -4000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
@@ -73,7 +73,7 @@ void EnemyEunomia::processBehavior() {
         case PROG_MOVE01_1: {
             if (_pProg->isJustChanged()) {
                 //自機へ方向転換
-                _pKurokoA->execTurnMvAngSequenceTwd(
+                _pKurokoA->turnMvAngTwd(
                                P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
                                2000, 0,
                                TURN_CLOSE_TO, true
@@ -169,7 +169,7 @@ void EnemyEunomia::processBehavior() {
 //                }
 //            }
 ////            //自機へ方向転換
-//            _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+//            _pKurokoA->turnMvAngTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
 //                                                2000, 0,
 //                                                TURN_CLOSE_TO);
 //            iMovePatternNo_++; //次の行動パターンへ

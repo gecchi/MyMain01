@@ -20,7 +20,7 @@ void EnemyHebe::onCreateModel() {
 }
 
 void EnemyHebe::initialize() {
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -72,8 +72,8 @@ void EnemyHebe::processBehavior() {
 
         case PROG_MOVE02_1: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->execTurnMvAngSequenceTwd(_X - PX_C(300), _Y, _Z,
-                                                    D_ANG(1), 0, TURN_CLOSE_TO, false);
+                _pKurokoA->turnMvAngTwd(_X - PX_C(300), _Y, _Z,
+                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
 
             break;

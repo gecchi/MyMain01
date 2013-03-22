@@ -25,7 +25,7 @@ void EnemyThisbeLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     end_active_frame_ = (_frame_standstill_refraction * _num_refraction     ) +
                         (_frame_between_refraction    * (_num_refraction-1) ) +
                         1; //

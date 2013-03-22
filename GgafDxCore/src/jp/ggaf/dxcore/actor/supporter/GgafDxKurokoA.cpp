@@ -95,17 +95,17 @@ GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) :
     //移動方角（Y軸回転）に伴いZ正面方角の同期を取る機能フラグ ＝ 無効
     _relate_RyFaceAng_with_RyMvAng_flg = false; //有効の場合は、移動方角を設定するとZ正面方角が同じになる。
 
-    _smooth_mv_velo_seq_flg = false;
-    _smooth_mv_velo_seq_endacc_flg = true;
-    _smooth_mv_velo_seq_top_velo = 0;
-    _smooth_mv_velo_seq_end_velo = 0;
-    _smooth_mv_velo_seq_target_distance = 0;
-    _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_target_frames = 0;
-    _smooth_mv_velo_seq_frame_of_spent = 0;
-    _smooth_mv_velo_seq_p1 = 0;
-    _smooth_mv_velo_seq_p2 = 0;
-    _smooth_mv_velo_seq_progress = -1;
+    _slide_mv_flg = false;
+    _slide_mv_endacc_flg = true;
+    _slide_mv_top_velo = 0;
+    _slide_mv_end_velo = 0;
+    _slide_mv_target_distance = 0;
+    _slide_mv_mv_distance = 0;
+    _slide_mv_target_frames = 0;
+    _slide_mv_frame_of_spent = 0;
+    _slide_mv_p1 = 0;
+    _slide_mv_p2 = 0;
+    _slide_mv_progress = -1;
 
 
     _taget_mv_ang_alltime_flg = false;
@@ -197,93 +197,93 @@ void GgafDxKurokoA::behave() {
         _veloMv = _veloBottomMv;
     }
     //なめらか移動シークエンス起動時
-    if (_smooth_mv_velo_seq_flg) {
-        if (_smooth_mv_velo_seq_target_frames < 0) {
+    if (_slide_mv_flg) {
+        if (_slide_mv_target_frames < 0) {
             //目標距離指定の場合
-            if (_smooth_mv_velo_seq_progress == 0) {
+            if (_slide_mv_progress == 0) {
                 //加速設定
-                setMvAcceByVD(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
-                _smooth_mv_velo_seq_progress++;
-            } else if (_smooth_mv_velo_seq_progress == 1) {
+                setMvAcceByD(_slide_mv_p1, _slide_mv_top_velo);
+                _slide_mv_progress++;
+            } else if (_slide_mv_progress == 1) {
                 //加速中
-                if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_p1) {
+                if (_slide_mv_mv_distance >= _slide_mv_p1) {
                     //p1 に到達すれば 等速へ
                     setMvAcce(0);
-                    setMvVelo(_smooth_mv_velo_seq_top_velo);
-                    _smooth_mv_velo_seq_progress++;
+                    setMvVelo(_slide_mv_top_velo);
+                    _slide_mv_progress++;
                 }
-            } else if (_smooth_mv_velo_seq_progress == 2) {
+            } else if (_slide_mv_progress == 2) {
                 //等速中
-                if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_p2) {
+                if (_slide_mv_mv_distance >= _slide_mv_p2) {
                     //p2 に到達すれば 次回フレームから減速へ
-                    setMvAcceByVD(_smooth_mv_velo_seq_target_distance - _smooth_mv_velo_seq_mv_distance, _smooth_mv_velo_seq_end_velo);
-                    _smooth_mv_velo_seq_progress++;
+                    setMvAcceByD(_slide_mv_target_distance - _slide_mv_mv_distance, _slide_mv_end_velo);
+                    _slide_mv_progress++;
                 }
-            } else if (_smooth_mv_velo_seq_progress == 3) {
+            } else if (_slide_mv_progress == 3) {
                 //減速中
                 if (_pActor->getBehaveingFrame() % 8 == 0) {
                     //補正・補正・補正
-                    setMvAcceByVD(_smooth_mv_velo_seq_target_distance - _smooth_mv_velo_seq_mv_distance, _smooth_mv_velo_seq_end_velo);
+                    setMvAcceByD(_slide_mv_target_distance - _slide_mv_mv_distance, _slide_mv_end_velo);
                 }
 
-                if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_target_distance) {
+                if (_slide_mv_mv_distance >= _slide_mv_target_distance) {
                     //目標距離へ到達
-                    setMvVelo(_smooth_mv_velo_seq_end_velo);
-                    if (_smooth_mv_velo_seq_endacc_flg) {
+                    setMvVelo(_slide_mv_end_velo);
+                    if (_slide_mv_endacc_flg) {
                         setMvAcce(0);
                     }
-                    _smooth_mv_velo_seq_progress++;
-                    _smooth_mv_velo_seq_flg = false; //おしまい
+                    _slide_mv_progress++;
+                    _slide_mv_flg = false; //おしまい
                 }
             }
         } else {
             //目標時間指定の場合
-            if (_smooth_mv_velo_seq_progress == 0) {
+            if (_slide_mv_progress == 0) {
                 //加速設定
-                setMvAcceByVT(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
-                _smooth_mv_velo_seq_progress++;
-            } else if (_smooth_mv_velo_seq_progress == 1) {
+                setMvAcceByT(_slide_mv_p1, _slide_mv_top_velo);
+                _slide_mv_progress++;
+            } else if (_slide_mv_progress == 1) {
                 //加速中
-                if (_smooth_mv_velo_seq_frame_of_spent >= _smooth_mv_velo_seq_p1) {
+                if (_slide_mv_frame_of_spent >= _slide_mv_p1) {
                     //p1 に到達すれば 等速へ
                     setMvAcce(0);
-                    setMvVelo(_smooth_mv_velo_seq_top_velo);
-                    _smooth_mv_velo_seq_progress++;
+                    setMvVelo(_slide_mv_top_velo);
+                    _slide_mv_progress++;
                 }
-            } else if (_smooth_mv_velo_seq_progress == 2) {
+            } else if (_slide_mv_progress == 2) {
                 //等速中
-                if (_smooth_mv_velo_seq_frame_of_spent >= _smooth_mv_velo_seq_p2) {
+                if (_slide_mv_frame_of_spent >= _slide_mv_p2) {
                     //p2 に到達すれば 次回フレームから減速へ
-                    setMvAcceByVT(_smooth_mv_velo_seq_target_frames - _smooth_mv_velo_seq_frame_of_spent, _smooth_mv_velo_seq_end_velo);
-                    _smooth_mv_velo_seq_progress++;
+                    setMvAcceByT(_slide_mv_target_frames - _slide_mv_frame_of_spent, _slide_mv_end_velo);
+                    _slide_mv_progress++;
                 }
-            } else if (_smooth_mv_velo_seq_progress == 3) {
+            } else if (_slide_mv_progress == 3) {
                 //減速中
                 if (_pActor->getBehaveingFrame() % 8 == 0) {
                     //補正・補正・補正
-                    setMvAcceByVT(_smooth_mv_velo_seq_target_frames - _smooth_mv_velo_seq_frame_of_spent, _smooth_mv_velo_seq_end_velo);
+                    setMvAcceByT(_slide_mv_target_frames - _slide_mv_frame_of_spent, _slide_mv_end_velo);
                 }
 
-                if (_smooth_mv_velo_seq_frame_of_spent >= _smooth_mv_velo_seq_target_frames) {
+                if (_slide_mv_frame_of_spent >= _slide_mv_target_frames) {
                     //目標距離へ到達
-                    setMvVelo(_smooth_mv_velo_seq_end_velo);
-                    if (_smooth_mv_velo_seq_endacc_flg) {
+                    setMvVelo(_slide_mv_end_velo);
+                    if (_slide_mv_endacc_flg) {
                         setMvAcce(0);
                     }
-                    _smooth_mv_velo_seq_progress++;
-                    _smooth_mv_velo_seq_flg = false; //おしまい
+                    _slide_mv_progress++;
+                    _slide_mv_flg = false; //おしまい
                 }
             }
         }
     } else {
-        _smooth_mv_velo_seq_progress = -1;
+        _slide_mv_progress = -1;
     }
 
-    if (_smooth_mv_velo_seq_flg) {
-        if (_smooth_mv_velo_seq_target_frames < 0) {
-            _smooth_mv_velo_seq_mv_distance+=ABS(_veloMv);
+    if (_slide_mv_flg) {
+        if (_slide_mv_target_frames < 0) {
+            _slide_mv_mv_distance+=ABS(_veloMv);
         } else {
-            _smooth_mv_velo_seq_frame_of_spent++;
+            _slide_mv_frame_of_spent++;
         }
     } else {
 
@@ -400,7 +400,7 @@ void GgafDxKurokoA::behave() {
         //}
     }
     ///////////////
-    if (_taget_mv_ang_alltime_pActor && _mv_ang_ry_target_flg == false && _mv_ang_ry_target_flg == false) {
+    if (_taget_mv_ang_alltime_flg && _mv_ang_ry_target_flg == false && _mv_ang_ry_target_flg == false) {
         if (_taget_mv_ang_alltime_pActor) {
             keepTurnMvAngAllTime(
                     _taget_mv_ang_alltime_pActor,
@@ -677,7 +677,7 @@ void GgafDxKurokoA::setMvAcceToStop(coord prm_target_distance) {
     _accMv = acc;
     //(frame)((2.0*prm_target_distance) / _veloMv); //使用フレーム数
 }
-void GgafDxKurokoA::setMvAcceByVT(int prm_target_frames, velo prm_target_velo) {
+void GgafDxKurokoA::setMvAcceByT(int prm_target_frames, velo prm_target_velo) {
     //a = (Vt-Vo) / Te
     double acc = (prm_target_velo - _veloMv) / (1.0*prm_target_frames);
     if (acc > 0.0) {
@@ -687,7 +687,7 @@ void GgafDxKurokoA::setMvAcceByVT(int prm_target_frames, velo prm_target_velo) {
     }
     _accMv = acc;
 }
-void GgafDxKurokoA::setMvAcceByVD(coord prm_target_distance, velo prm_target_velo) {
+void GgafDxKurokoA::setMvAcceByD(coord prm_target_distance, velo prm_target_velo) {
     // a = (Vt^2 - Vo^2) / 2D
     double acc = ((1.0f*prm_target_velo*prm_target_velo) - (1.0*_veloMv*_veloMv)) / (2.0*prm_target_distance);
     if (acc > 0.0) {
@@ -751,18 +751,18 @@ void GgafDxKurokoA::setMvAcceByVD(coord prm_target_distance, velo prm_target_vel
     //    Vo <= 0  かつ  Vt <= 0 場合、あるいは  Vo >= 0  かつ  Vt >= 0  場合と同じである
 }
 
-void GgafDxKurokoA::execSmoothMvVeloSequence(velo prm_end_velo, coord prm_target_distance,
-                                             int prm_target_frames, float prm_p1, float prm_p2,
-                                             bool prm_endacc_flg) {
-    _smooth_mv_velo_seq_flg = true;
-    _smooth_mv_velo_seq_p1 = (int)(prm_target_frames*prm_p1);
-    _smooth_mv_velo_seq_p2 = (int)(prm_target_frames*prm_p2);
-    _smooth_mv_velo_seq_end_velo = prm_end_velo;
-    _smooth_mv_velo_seq_target_distance = prm_target_distance;
-    _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_target_frames = prm_target_frames;
-    _smooth_mv_velo_seq_frame_of_spent = 0;
-    _smooth_mv_velo_seq_progress = 0;
+void GgafDxKurokoA::slideMvByDT(velo prm_end_velo, coord prm_target_distance,
+                                int prm_target_frames, float prm_p1, float prm_p2,
+                                bool prm_endacc_flg) {
+    _slide_mv_flg = true;
+    _slide_mv_p1 = (int)(prm_target_frames*prm_p1);
+    _slide_mv_p2 = (int)(prm_target_frames*prm_p2);
+    _slide_mv_end_velo = prm_end_velo;
+    _slide_mv_target_distance = prm_target_distance;
+    _slide_mv_mv_distance = 0;
+    _slide_mv_target_frames = prm_target_frames;
+    _slide_mv_frame_of_spent = 0;
+    _slide_mv_progress = 0;
 
     //＜トップスピード(Vt) を計算＞
     //
@@ -786,57 +786,57 @@ void GgafDxKurokoA::execSmoothMvVeloSequence(velo prm_end_velo, coord prm_target
     // D = (1/2) (Vo + Vt) p1 Te + Vt (p2-p1)Te  +  (1/2) (Ve + Vt) (1-p2)Te
     // これをVtについて解く
     // Vt = ( 2D - p1 Te Vo + (p2 - 1) Te Ve ) / ( (p2 - p1 + 1) Te )
-    _smooth_mv_velo_seq_top_velo =
+    _slide_mv_top_velo =
          ((2.0*prm_target_distance) - (prm_p1*prm_target_frames*_veloMv) + ((prm_p2-1.0)*prm_target_frames*prm_end_velo))
          / ((prm_p2-prm_p1+1.0)*prm_target_frames);
 
 }
 
-void GgafDxKurokoA::execSmoothMvVeloSequenceVD(velo prm_top_velo, velo prm_end_velo,
-                                               coord prm_target_distance, float prm_p1, float prm_p2,
-                                               bool prm_endacc_flg) {
-    _smooth_mv_velo_seq_flg = true;
-    _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
-    _smooth_mv_velo_seq_top_velo = prm_top_velo;
-    _smooth_mv_velo_seq_end_velo = prm_end_velo;
-    _smooth_mv_velo_seq_target_distance = prm_target_distance;
-    _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
-    _smooth_mv_velo_seq_frame_of_spent = 0;
-    _smooth_mv_velo_seq_p1 = (int)(prm_target_distance*prm_p1);
-    _smooth_mv_velo_seq_p2 = (int)(prm_target_distance*prm_p2);
-    _smooth_mv_velo_seq_progress = 0;
+void GgafDxKurokoA::slideMvByVD(velo prm_top_velo, velo prm_end_velo,
+                                coord prm_target_distance, float prm_p1, float prm_p2,
+                                bool prm_endacc_flg) {
+    _slide_mv_flg = true;
+    _slide_mv_endacc_flg = prm_endacc_flg;
+    _slide_mv_top_velo = prm_top_velo;
+    _slide_mv_end_velo = prm_end_velo;
+    _slide_mv_target_distance = prm_target_distance;
+    _slide_mv_mv_distance = 0;
+    _slide_mv_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
+    _slide_mv_frame_of_spent = 0;
+    _slide_mv_p1 = (int)(prm_target_distance*prm_p1);
+    _slide_mv_p2 = (int)(prm_target_distance*prm_p2);
+    _slide_mv_progress = 0;
 }
 
 
-void GgafDxKurokoA::execSmoothMvVeloSequenceVT(velo prm_top_velo, velo prm_end_velo,
-                                               int prm_target_frames, float prm_p1, float prm_p2,
-                                               bool prm_endacc_flg) {
-    _smooth_mv_velo_seq_flg = true;
-    _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
-    _smooth_mv_velo_seq_top_velo = prm_top_velo;
-    _smooth_mv_velo_seq_end_velo = prm_end_velo;
-    _smooth_mv_velo_seq_target_distance = 0;
-    _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_target_frames = prm_target_frames;
-    _smooth_mv_velo_seq_frame_of_spent = 0;
-    _smooth_mv_velo_seq_p1 = (int)(prm_target_frames*prm_p1);
-    _smooth_mv_velo_seq_p2 = (int)(prm_target_frames*prm_p1);
-    _smooth_mv_velo_seq_progress = 0;
+void GgafDxKurokoA::slideMvByVT(velo prm_top_velo, velo prm_end_velo,
+                                int prm_target_frames, float prm_p1, float prm_p2,
+                                bool prm_endacc_flg) {
+    _slide_mv_flg = true;
+    _slide_mv_endacc_flg = prm_endacc_flg;
+    _slide_mv_top_velo = prm_top_velo;
+    _slide_mv_end_velo = prm_end_velo;
+    _slide_mv_target_distance = 0;
+    _slide_mv_mv_distance = 0;
+    _slide_mv_target_frames = prm_target_frames;
+    _slide_mv_frame_of_spent = 0;
+    _slide_mv_p1 = (int)(prm_target_frames*prm_p1);
+    _slide_mv_p2 = (int)(prm_target_frames*prm_p1);
+    _slide_mv_progress = 0;
 }
 
 
-//void GgafDxKurokoA::execSmoothMvVeloSequence4(velo prm_end_velo, coord prm_target_distance, int prm_target_frames,
+//void GgafDxKurokoA::slideMv4(velo prm_end_velo, coord prm_target_distance, int prm_target_frames,
 //                                                      bool prm_endacc_flg) {
-//    _smooth_mv_velo_seq_flg = true;
-//    _smooth_mv_velo_seq_p1 = (int)(prm_target_distance*1.0 / 4.0);
-//    _smooth_mv_velo_seq_p2 = (int)(prm_target_distance*3.0 / 4.0);
-//    _smooth_mv_velo_seq_end_velo = prm_end_velo;
-//    _smooth_mv_velo_seq_target_distance = prm_target_distance;
-//    _smooth_mv_velo_seq_mv_distance = 0;
-//    _smooth_mv_velo_seq_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
-//    _smooth_mv_velo_seq_frame_of_spent = 0;
-//    _smooth_mv_velo_seq_progress = 0;
+//    _slide_mv_flg = true;
+//    _slide_mv_p1 = (int)(prm_target_distance*1.0 / 4.0);
+//    _slide_mv_p2 = (int)(prm_target_distance*3.0 / 4.0);
+//    _slide_mv_end_velo = prm_end_velo;
+//    _slide_mv_target_distance = prm_target_distance;
+//    _slide_mv_mv_distance = 0;
+//    _slide_mv_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
+//    _slide_mv_frame_of_spent = 0;
+//    _slide_mv_progress = 0;
 //
 //    //    速度
 //    //     ^
@@ -883,20 +883,20 @@ void GgafDxKurokoA::execSmoothMvVeloSequenceVT(velo prm_top_velo, velo prm_end_v
 //
 //
 //
-//    _smooth_mv_velo_seq_top_velo = (8.0*prm_target_distance/prm_target_frames - _veloMv - prm_end_velo) / 6.0;
+//    _slide_mv_top_velo = (8.0*prm_target_distance/prm_target_frames - _veloMv - prm_end_velo) / 6.0;
 //}
 
 
 
-bool GgafDxKurokoA::isRunnigSmoothMvVeloSequence() {
-    return _smooth_mv_velo_seq_flg;
+bool GgafDxKurokoA::isSlidingMv() {
+    return _slide_mv_flg;
 }
-void GgafDxKurokoA::stopSmoothMvVeloSequence() {
-    _smooth_mv_velo_seq_flg = false;
+void GgafDxKurokoA::stopSlidingMv() {
+    _slide_mv_flg = false;
 }
 
-bool GgafDxKurokoA::isJustFinishSmoothMvVeloSequence() {
-    if (_smooth_mv_velo_seq_flg == false && _smooth_mv_velo_seq_progress != -1) {
+bool GgafDxKurokoA::isJustFinishSlidingMv() {
+    if (_slide_mv_flg == false && _slide_mv_progress != -1) {
         return true;
     } else {
         return false;
@@ -1519,9 +1519,9 @@ void GgafDxKurokoA::setStopTargetMvAngTwd(coord prm_tX, coord prm_tY, coord prm_
     setStopTargetRyMvAng(angRy_Target);
 }
 
-void GgafDxKurokoA::execTurnFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
-                                            angvelo prm_angVelo, angacce prm_angAcce,
-                                            int prm_way, bool prm_optimize_ang) {
+void GgafDxKurokoA::turnFaceAngTo(angle prm_angRz_Target, angle prm_angRy_Target,
+                                  angvelo prm_angVelo, angacce prm_angAcce,
+                                  int prm_way, bool prm_optimize_ang) {
     angle out_d_angRz;
     angle out_d_angRy;
     if (prm_optimize_ang) {
@@ -1553,9 +1553,9 @@ void GgafDxKurokoA::execTurnFaceAngSequence(angle prm_angRz_Target, angle prm_an
     setStopTargetFaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDxKurokoA::execTurnFaceAngSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
-                                               angvelo prm_angVelo, angacce prm_angAcce,
-                                               int prm_way, bool prm_optimize_ang) {
+void GgafDxKurokoA::turnFaceAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+                                   angvelo prm_angVelo, angacce prm_angAcce,
+                                   int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
     angle out_angRy_Target;
     UTIL::getRzRyAng(prm_tX - _pActor->_X,
@@ -1564,14 +1564,14 @@ void GgafDxKurokoA::execTurnFaceAngSequenceTwd(coord prm_tX, coord prm_tY, coord
                      out_angRz_Target,
                      out_angRy_Target);
 
-    execTurnFaceAngSequence(out_angRz_Target, out_angRy_Target,
+    turnFaceAngTo(out_angRz_Target, out_angRy_Target,
                             prm_angVelo, prm_angAcce,
                             prm_way, prm_optimize_ang);
 }
 
-void GgafDxKurokoA::execTurnRzFaceAngSequence(angle prm_angRz_Target,
-                                              angvelo prm_angVelo, angacce prm_angAcce,
-                                              int prm_way) {
+void GgafDxKurokoA::turnRzFaceAngTo(angle prm_angRz_Target,
+                                    angvelo prm_angVelo, angacce prm_angAcce,
+                                    int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way) > 0) {
         setFaceAngVelo(AXIS_Z, prm_angVelo);
         setFaceAngAcce(AXIS_Z, prm_angAcce);
@@ -1583,9 +1583,9 @@ void GgafDxKurokoA::execTurnRzFaceAngSequence(angle prm_angRz_Target,
 
 }
 
-void GgafDxKurokoA::execTurnRyFaceAngSequence(angle prm_angRy_Target,
-                                              angvelo prm_angVelo, angacce prm_angAcce,
-                                              int prm_way) {
+void GgafDxKurokoA::turnRyFaceAngTo(angle prm_angRy_Target,
+                                    angvelo prm_angVelo, angacce prm_angAcce,
+                                    int prm_way) {
     if (getFaceAngDistance(AXIS_Y, prm_angRy_Target, prm_way) > 0) {
         setFaceAngVelo(AXIS_Y, prm_angVelo);
         setFaceAngAcce(AXIS_Y, prm_angAcce);
@@ -1596,9 +1596,9 @@ void GgafDxKurokoA::execTurnRyFaceAngSequence(angle prm_angRy_Target,
     setStopTargetFaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDxKurokoA::execTurnRxSpinAngSequence(angle prm_angRx_Target,
-                                              angvelo prm_angVelo, angacce prm_angAcce,
-                                              int prm_way) {
+void GgafDxKurokoA::turnRxSpinAngTo(angle prm_angRx_Target,
+                                    angvelo prm_angVelo, angacce prm_angAcce,
+                                    int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_angRx_Target, prm_way) > 0) {
         setFaceAngVelo(AXIS_X, prm_angVelo);
         setFaceAngAcce(AXIS_X, prm_angAcce);
@@ -1609,9 +1609,9 @@ void GgafDxKurokoA::execTurnRxSpinAngSequence(angle prm_angRx_Target,
     setStopTargetFaceAng(AXIS_X, prm_angRx_Target);
 }
 
-void GgafDxKurokoA::execTurnRzRyMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
-                                              angvelo prm_angVelo, angacce prm_angAcce,
-                                              int prm_way, bool prm_optimize_ang) {
+void GgafDxKurokoA::turnRzRyMvAngTo(angle prm_angRz_Target, angle prm_angRy_Target,
+                                    angvelo prm_angVelo, angacce prm_angAcce,
+                                    int prm_way, bool prm_optimize_ang) {
     angle out_d_angRz;
     angle out_d_angRy;
     angle out_target_angRz;
@@ -1648,9 +1648,9 @@ void GgafDxKurokoA::execTurnRzRyMvAngSequence(angle prm_angRz_Target, angle prm_
 }
 
 
-void GgafDxKurokoA::execTurnMvAngSequenceTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
-                                             angvelo prm_angVelo, angacce prm_angAcce,
-                                             int prm_way, bool prm_optimize_ang) {
+void GgafDxKurokoA::turnMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+                                 angvelo prm_angVelo, angacce prm_angAcce,
+                                 int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
     angle out_angRy_Target;
     UTIL::getRzRyAng(prm_tX - _pActor->_X,
@@ -1658,15 +1658,15 @@ void GgafDxKurokoA::execTurnMvAngSequenceTwd(coord prm_tX, coord prm_tY, coord p
                      prm_tZ - _pActor->_Z,
                      out_angRz_Target,
                      out_angRy_Target);
-    execTurnRzRyMvAngSequence(out_angRz_Target, out_angRy_Target,
-                          prm_angVelo, prm_angAcce,
-                          prm_way, prm_optimize_ang);
+    turnRzRyMvAngTo(out_angRz_Target, out_angRy_Target,
+                    prm_angVelo, prm_angAcce,
+                    prm_way, prm_optimize_ang);
 }
 
 
-void GgafDxKurokoA::execTurnRzMvAngSequence(angle prm_angRz_Target,
-                                            angvelo prm_angVelo, angacce prm_angAcce,
-                                            int prm_way) {
+void GgafDxKurokoA::turnRzMvAngTo(angle prm_angRz_Target,
+                                  angvelo prm_angVelo, angacce prm_angAcce,
+                                  int prm_way) {
     if (getRzMvAngDistance(prm_angRz_Target, prm_way) > 0) {
         setRzMvAngVelo(prm_angVelo);
         setRzMvAngAcce(prm_angAcce);
@@ -1678,9 +1678,9 @@ void GgafDxKurokoA::execTurnRzMvAngSequence(angle prm_angRz_Target,
 
 }
 
-void GgafDxKurokoA::execTurnRyMvAngSequence(angle prm_angRy_Target,
-                                            angvelo prm_angVelo, angacce prm_angAcce,
-                                            int prm_way) {
+void GgafDxKurokoA::turnRyMvAngTo(angle prm_angRy_Target,
+                                  angvelo prm_angVelo, angacce prm_angAcce,
+                                  int prm_way) {
     if (getRyMvAngDistance(prm_angRy_Target, prm_way) > 0) {
         setRyMvAngVelo(prm_angVelo);
         setRyMvAngAcce(prm_angAcce);

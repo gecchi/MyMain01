@@ -101,7 +101,7 @@ void PreDrawScene::processBehavior() {
     if (_pProg->get() == 2) {
         if (_pProg->isJustChanged()) {
             fadeoutSceneWithBgmTree(120);
-            //end(120);
+            sayonara(120);
         }
     }
 //

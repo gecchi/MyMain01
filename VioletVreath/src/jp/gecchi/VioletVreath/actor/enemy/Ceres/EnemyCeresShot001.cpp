@@ -30,7 +30,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) :
 
 void EnemyCeresShot001::initialize() {
     _pKurokoA->forceMvVeloRange(veloTop_, veloBottom_);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
 
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
@@ -54,9 +54,9 @@ void EnemyCeresShot001::processBehavior() {
     //•ûŒü“]Š·ŠJŽn
     if (getActivePartFrame() == frame_TurnBegin_) {
 
-        _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
-                                            angVelo_Turn_, 0,
-                                            TURN_CLOSE_TO,true);
+        _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                                angVelo_Turn_, 0,
+                                TURN_CLOSE_TO,true);
         _pKurokoA->setMvAcce(iMoveAcce_2nd_);
     }
 

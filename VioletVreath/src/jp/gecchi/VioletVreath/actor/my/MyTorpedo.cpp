@@ -87,16 +87,16 @@ void MyTorpedo::processBehavior() {
             if (pKurokoA->_veloMv == pKurokoA->_veloBottomMv) { //減速終了
                 pKurokoA->setMvAcce(500);
                 if (pTarget_) {
-                    pKurokoA->execTurnMvAngSequenceTwd(pTarget_,
-                                                       2000, 200,
-                                                       TURN_ANTICLOSE_TO, false);
+                    pKurokoA->turnMvAngTwd(pTarget_,
+                                           2000, 200,
+                                           TURN_ANTICLOSE_TO, false);
                 } else {
-                    pKurokoA->execTurnRzRyMvAngSequence(
+                    pKurokoA->turnRzRyMvAngTo(
                                 pOptionTorpedoCtrler_->pOrg_->_RZ, pOptionTorpedoCtrler_->pOrg_->_RY,
                                 1000, 100,
                                 TURN_CLOSE_TO, false);
 
-//                    pKurokoA->execTurnMvAngSequenceTwd(
+//                    pKurokoA->turnMvAngTwd(
 //                                GgafDxUniverse::_X_gone_right, P_MYSHIP->_Y, P_MYSHIP->_Z,
 //                                2000, 200,
 //                                TURN_ANTICLOSE_TO, false);
@@ -107,7 +107,7 @@ void MyTorpedo::processBehavior() {
 
         //ムーブ１
         if (move_section_ == 1) {
-            if (pKurokoA->isRunnigTurnMvAngSequence()) {
+            if (pKurokoA->isTurningMvAng()) {
                 //TURN_ANTICLOSE_TOターゲット完了を待つ
             } else {
                 //TURN_ANTICLOSE_TOターゲット完了
@@ -120,20 +120,20 @@ void MyTorpedo::processBehavior() {
                 if (getActivePartFrame() % 10 == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
-                            pKurokoA->execTurnMvAngSequenceTwd(pTarget_,
-                                                               1000, 200,
-                                                               TURN_CLOSE_TO, false);
+                            pKurokoA->turnMvAngTwd(pTarget_,
+                                                   1000, 200,
+                                                   TURN_CLOSE_TO, false);
                         } else {
                             //まっすぐ
                             pKurokoA->setRzRyMvAngVelo(0);
                             pKurokoA->setRzRyMvAngAcce(0);
                         }
                     } else {
-                        pKurokoA->execTurnRzRyMvAngSequence(
+                        pKurokoA->turnRzRyMvAngTo(
                                     pOptionTorpedoCtrler_->pOrg_->_RZ, pOptionTorpedoCtrler_->pOrg_->_RY,
                                     1000, 200,
                                     TURN_CLOSE_TO, false);
-//                            _pKurokoA->execTurnMvAngSequenceTwd(
+//                            _pKurokoA->turnMvAngTwd(
 //                                        GgafDxUniverse::_X_gone_right, _Y, _Z,
 //                                        1000, 200,
 //                                        TURN_CLOSE_TO, false);
@@ -151,16 +151,16 @@ void MyTorpedo::processBehavior() {
                 if (getActivePartFrame() % 20 == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
-                            pKurokoA->execTurnMvAngSequenceTwd(pTarget_,
-                                                               300, 0,
-                                                               TURN_CLOSE_TO, false);
+                            pKurokoA->turnMvAngTwd(pTarget_,
+                                                   300, 0,
+                                                   TURN_CLOSE_TO, false);
                         } else {
                             //まっすぐ
                             pKurokoA->setRzRyMvAngVelo(0);
                             pKurokoA->setRzRyMvAngAcce(0);
                         }
                     } else {
-                        pKurokoA->execTurnRzRyMvAngSequence(
+                        pKurokoA->turnRzRyMvAngTo(
                                     pOptionTorpedoCtrler_->pOrg_->_RZ, pOptionTorpedoCtrler_->pOrg_->_RY,
                                     300, 0,
                                     TURN_CLOSE_TO, false);

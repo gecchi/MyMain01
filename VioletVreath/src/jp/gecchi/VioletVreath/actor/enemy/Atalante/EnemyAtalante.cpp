@@ -19,7 +19,7 @@ void EnemyAtalante::onCreateModel() {
 }
 
 void EnemyAtalante::initialize() {
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 5000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
@@ -72,12 +72,12 @@ void EnemyAtalante::processBehavior() {
                 _pKurokoA->addMvVelo(2000);
                 if (pMyShip->_Y <= _Y) {
                     //真下へ折れる
-                    _pKurokoA->execTurnRzRyMvAngSequence(D270ANG, 0,
-                                                         D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
+                    _pKurokoA->turnRzRyMvAngTo(D270ANG, 0,
+                                               D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //真上へ折れる
-                    _pKurokoA->execTurnRzRyMvAngSequence(D90ANG, 0,
-                                                         D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
+                    _pKurokoA->turnRzRyMvAngTo(D90ANG, 0,
+                                               D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
 
@@ -87,16 +87,16 @@ void EnemyAtalante::processBehavior() {
                 _pKurokoA->addMvVelo(2000);
                 if (pMyShip->_Z <= _Z) {
                     //奥の自機の方向折れる
-                    _pKurokoA->execTurnRzRyMvAngSequence(0, D90ANG,
-                                                         D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
+                    _pKurokoA->turnRzRyMvAngTo(0, D90ANG,
+                                               D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //手前の自機の方向折れる
-                    _pKurokoA->execTurnRzRyMvAngSequence(0, D270ANG,
-                                                         D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
+                    _pKurokoA->turnRzRyMvAngTo(0, D270ANG,
+                                               D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
 
-            if (_pKurokoA->isRunnigTurnMvAngSequence() == false) {
+            if (_pKurokoA->isTurningMvAng() == false) {
                 if (Y_ok_ && Z_ok_) {
                     //Z座標Y座標揃ったら次の動きへ
                     _pProg->changeNext();
@@ -114,15 +114,15 @@ void EnemyAtalante::processBehavior() {
                 MyShip* pMyShip = P_MYSHIP;
                 if (pMyShip->_X <= _X) {
                     //左へ折れる
-                    _pKurokoA->execTurnRzRyMvAngSequence(D180ANG, 0,
-                                                         D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
+                    _pKurokoA->turnRzRyMvAngTo(D180ANG, 0,
+                                               D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //右へ折れる
-                    _pKurokoA->execTurnRzRyMvAngSequence(0, 0,
-                                                         D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
+                    _pKurokoA->turnRzRyMvAngTo(0, 0,
+                                               D_ANG(6), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
-            if (_pKurokoA->isRunnigTurnMvAngSequence() == false) {
+            if (_pKurokoA->isTurningMvAng() == false) {
                 _pProg->changeNext(); //次の動きへ
             }
             break;

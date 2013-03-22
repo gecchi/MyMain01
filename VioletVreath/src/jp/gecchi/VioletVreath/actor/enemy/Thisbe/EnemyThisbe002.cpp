@@ -37,7 +37,7 @@ void EnemyThisbe002::onCreateModel() {
 
 void EnemyThisbe002::initialize() {
     _pKurokoA->setFaceAngVelo(AXIS_Y, 500);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
 }

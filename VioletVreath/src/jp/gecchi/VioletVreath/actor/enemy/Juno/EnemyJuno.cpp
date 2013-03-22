@@ -45,7 +45,7 @@ void EnemyJuno::onActive() {
     velo_mv_begin_ = _pKurokoA->_veloTopMv; //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
     _pKurokoA->setMvVelo(velo_mv_begin_); //Ä‰Á‘¬
     _pKurokoA->setFaceAng(AXIS_X, 0);
-    //_pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
+    //_pKurokoA->turnMvAngTwd(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
 }
 
 void EnemyJuno::processBehavior() {
@@ -55,18 +55,18 @@ void EnemyJuno::processBehavior() {
     if (do_Shot_) {
         if (getActivePartFrame() == frame_when_shot_) {
             _pKurokoA->setMvVelo(PX_C(3)); //Œ¸‘¬
-            _pKurokoA->execTurnRxSpinAngSequence(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE);
+            _pKurokoA->turnRxSpinAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE);
         } else if (getActivePartFrame() == frame_when_shot_ + 60) {
             MyShip* pM = P_MYSHIP;
             if (pDepo_Shot_) {
                 GgafDxGeometricActor* pFirst =
                   UTIL::shotWay001(_X, _Y, _Z,
-                                      pM->_X, pM->_Y, pM->_Z,
-                                      pDepo_Shot_,
-                                      PX_C(10),
-                                      10000, 100,
-                                      3, 5, 0.9,
-                                      EnemyJuno::callbackDispatched);
+                                   pM->_X, pM->_Y, pM->_Z,
+                                   pDepo_Shot_,
+                                   PX_C(10),
+                                   10000, 100,
+                                   3, 5, 0.9,
+                                   EnemyJuno::callbackDispatched);
                 if (pFirst) {
                     shot_num_++;
                     do_Shot_ = false;
@@ -77,7 +77,7 @@ void EnemyJuno::processBehavior() {
 //                if (pShot) {
 //                    shot_num_++;
 //                    pShot->locateWith(this);
-//                    pShot->_pKurokoA->relateFaceAngWithMvAng(true);
+//                    pShot->_pKurokoA->relateMvFaceAng(true);
 //                    pShot->_pKurokoA->setMvAngTwd(P_MYSHIP);
 //                    pShot->reset();
 //                    do_Shot_ = false;

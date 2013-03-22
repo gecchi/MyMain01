@@ -32,7 +32,7 @@ void EnemyRomulus::onCreateModel() {
 
 void EnemyRomulus::initialize() {
     setHitAble(true);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     _pColliChecker->makeCollision(1);
@@ -208,7 +208,7 @@ void EnemyRomulus::processBehavior() {
         angle angRz_Target, angRy_Target;
         UTIL::getRzRyAng(TvX, TvY, TvZ,
                          angRz_Target, angRy_Target);
-        _pKurokoA->execTurnRzRyMvAngSequence(angRz_Target, angRy_Target,
+        _pKurokoA->turnRzRyMvAngTo(angRz_Target, angRy_Target,
                                              1000, 0,
                                              TURN_CLOSE_TO, false);
     }

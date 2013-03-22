@@ -15,6 +15,9 @@ public:
     int num_Sappho_;
     /** •Ò‘àŠÔŠuƒtƒŒ[ƒ€(RANK•Ï“®) */
     frame interval_frames_;
+
+    int cnt_call_up_;
+
 public:
     FormationSappho001(const char* prm_name);
 
@@ -25,7 +28,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onCallUpSappho(EnemySappho* prm_pSappho) = 0;
+    virtual void onCallUpSappho(EnemySappho* prm_pSappho, int prm_index) = 0;
 
     virtual void processBehavior() override;
 

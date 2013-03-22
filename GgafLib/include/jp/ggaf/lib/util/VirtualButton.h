@@ -336,7 +336,7 @@ public:
      * @param prm_frame_delay 「グルッとポン」が成立する全体の許容フレーム
      * @return true/false
      */
-    bool isRoundPushDown(vbsta prm_VB, frame prm_frame_delay=30);
+    bool isScrewPushDown(vbsta prm_VB, frame prm_frame_delay=30);
 
     /**
      * 現在押しっぱなしのスティックの番号を返す。

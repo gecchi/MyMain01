@@ -19,7 +19,7 @@ void Shot002::onActive() {
     _pStatus->reset();
     setHitAble(true);
     _pScaler->setScale(2000);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setMvVelo(RR_Shot002_MvVelo(_RANK_));
     _pKurokoA->setFaceAngVelo(AXIS_X, RR_Shot002_AngVelo(_RANK_));
 }
@@ -28,18 +28,16 @@ void Shot002::processBehavior() {
     //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-
-
     if (getActivePartFrame() == 70) {
-        _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
-                                            3000, 0,
-                                            TURN_CLOSE_TO, true);
+        _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                                3000, 0,
+                                TURN_CLOSE_TO, true);
     }
 
-    if (getActivePartFrame() > 70 && !_pKurokoA->isRunnigTurnMvAngSequence()) {
-        _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
-                                            100, 0,
-                                            TURN_CLOSE_TO, true);
+    if (getActivePartFrame() > 70 && !_pKurokoA->isTurningMvAng()) {
+        _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                                100, 0,
+                                TURN_CLOSE_TO, true);
     }
     //À•W‚É”½‰f
     _pKurokoA->behave();

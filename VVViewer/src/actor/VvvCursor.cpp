@@ -48,7 +48,7 @@ void VvvCursor::processBehavior() {
             break;
         }
     }
-    if (_pKurokoA->isJustFinishSmoothMvVeloSequence()) {
+    if (_pKurokoA->isJustFinishSlidingMv()) {
         //—‘zˆÊ’u‚É•â³
         _X = tX_;
         _Y = tY_;
@@ -64,14 +64,14 @@ void VvvCursor::sink() {
 }
 
 void VvvCursor::moveTo(coord X, coord Y, coord Z) {
-    _pKurokoA->_smooth_mv_velo_seq_flg = false;
+    _pKurokoA->_slide_mv_flg = false;
     _pKurokoA->setMvVelo(0);
     _pKurokoA->setMvAcce(0);
     tX_ = X;
     tY_ = Y;
     tZ_ = Z;
     _pKurokoA->setMvAngTwd(tX_, tY_, tZ_);
-    _pKurokoA->execSmoothMvVeloSequence(0, UTIL::getDistance(_X, _Y, _Z, tX_, tY_, tZ_),
+    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_X, _Y, _Z, tX_, tY_, tZ_),
                                         20, 0.3f, 0.7f);
     _pProg->change(CUR_ON_MOVE);
 }

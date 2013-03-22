@@ -29,7 +29,7 @@ void EnemyTamago01::onCreateModel() {
 void EnemyTamago01::initialize() {
 
     setHitAble(true);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
     _pKurokoA->setMvAngTwd(900000, 300000, 300000);
     _pKurokoA->setMvVelo(3000);
@@ -115,7 +115,7 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 1) {
         //スプライン移動終了時
-        _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
+        _pKurokoA->turnMvAngTwd(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                             2000, 0,
                                             TURN_CLOSE_TO, false);
         iMovePatternNo_++; //次の行動パターンへ
@@ -129,7 +129,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30 == 0) {
-        _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
+        _pKurokoA->turnMvAngTwd(P_MYSHIP,
                                             2000,0,TURN_CLOSE_TO, false);
 
         if (pDepo_Shot_) {
@@ -145,7 +145,7 @@ void EnemyTamago01::processBehavior() {
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                 if (pActor) {
-                    pActor->_pKurokoA->relateFaceAngWithMvAng(true);
+                    pActor->_pKurokoA->relateMvFaceAng(true);
                     pActor->_pKurokoA->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
                     pActor->locateWith(this);
                 }

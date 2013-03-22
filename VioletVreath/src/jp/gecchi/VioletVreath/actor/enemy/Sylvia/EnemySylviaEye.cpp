@@ -45,7 +45,7 @@ void EnemySylviaEye::onCreateModel() {
 
 void EnemySylviaEye::initialize() {
     setHitAble(true);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 200000);
 }
@@ -85,8 +85,8 @@ void EnemySylviaEye::processBehavior() {
 
         case PROG_TURN: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
-                                                    D_ANG(1), 0, TURN_CLOSE_TO, false);
+                _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (_pProg->getFrameInProgress() > 240) {
                 _pProg->changeNext();
@@ -96,7 +96,7 @@ void EnemySylviaEye::processBehavior() {
 
         case PROG_FIRE_BEGIN: {
             if (_pProg->isJustChanged()) {
-                //_pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
+                //_pKurokoA->turnMvAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
             pEffect_->locateWith(this);
@@ -107,8 +107,8 @@ void EnemySylviaEye::processBehavior() {
         }
         case PROG_IN_FIRE: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
-                                                    10, 0, TURN_CLOSE_TO, false);
+                _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                                        10, 0, TURN_CLOSE_TO, false);
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();
             if (pChip) {

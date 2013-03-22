@@ -1056,7 +1056,7 @@ void MenuActor<T>::moveCursor(bool prm_smooth) {
                                 );
             _pCursor->_pKurokoA->setMvVelo(0);
             _pCursor->_pKurokoA->setMvAcce(0);
-            _pCursor->_pKurokoA->execSmoothMvVeloSequence(
+            _pCursor->_pKurokoA->slideMvByDT(
                                      0,
                                      UTIL::getDistance(
                                              _pCursor->_X,
@@ -1072,7 +1072,7 @@ void MenuActor<T>::moveCursor(bool prm_smooth) {
             _Y_cursor_target_prev = pTargetItem->_Y;
             _Z_cursor_target_prev = pTargetItem->_Z;
         } else {
-            _pCursor->_pKurokoA->stopSmoothMvVeloSequence();
+            _pCursor->_pKurokoA->stopSlidingMv();
             _pCursor->_pKurokoA->setMvVelo(0);
             _pCursor->_pKurokoA->setMvAcce(0);
             _pCursor->_X = pTargetItem->_X + _X_cursor_adjust;
@@ -1195,7 +1195,7 @@ void MenuActor<T>::processBehavior() {
     //カーソルをメニューアイテムに追従
     if (_pCursor) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
-        if (_pCursor->_pKurokoA->isRunnigSmoothMvVeloSequence()) {
+        if (_pCursor->_pKurokoA->isSlidingMv()) {
             _pCursor->_X += (pTargetItem->_X - _X_cursor_target_prev);
             _pCursor->_Y += (pTargetItem->_Y - _Y_cursor_target_prev);
             _pCursor->_Z += (pTargetItem->_Z - _Z_cursor_target_prev);

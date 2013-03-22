@@ -79,30 +79,24 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
 
     //エネルギーバー設置
     pEnergyBar_ = NEW EnergyBar("EnergyBar", pMP_MyShip_);
-    pEnergyBar_->locate(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 60.0f));
     addSubGroup(pEnergyBar_);
     //Vreathバー設置
     pVreathBar_ = NEW VreathBar("VreathBar", pVreath_MyShip_);
-    pVreathBar_->locate(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 20.0f));
     addSubGroup(pVreathBar_);
 
     //エネルギーバーのコスト表示バー
     pCostDispBar_ = NEW CostDispBar("CostDispBar", pEnergyBar_, &cost_disp_mp_);
-    pCostDispBar_->locate(pEnergyBar_->_X, pEnergyBar_->_Y);
     addSubGroup(pCostDispBar_);
     //Vreathバーコスト表示バー
     pCostDispBar2_ = NEW CostDispBar("CostDispBar2", pVreathBar_, &cost_disp_vreath);
-    pCostDispBar2_->locate(pVreathBar_->_X, pVreathBar_->_Y);
     addSubGroup(pCostDispBar2_);
     //Vreathバーダメージ表示バー
     pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_, &damage_disp_vreath);
-    pDamageDispBar_->locate(pVreathBar_->_X, pVreathBar_->_Y);
     addSubGroup(pDamageDispBar_);
 
 
     //残魔法効果持続時間表示
     pMagicMeterStatus_ = NEW MagicMeterStatus("MagicMeterStatus", this);
-    pMagicMeterStatus_->locateWith(this);
     addSubGroup(pMagicMeterStatus_);
 
     //メータ主カーソル
@@ -158,6 +152,13 @@ void MagicMeter::load(std::stringstream& sts) {
 }
 
 void MagicMeter::initialize() {
+    pEnergyBar_->locate(_X, _Y + height_ + PX_C(16));
+    pCostDispBar_->locate(pEnergyBar_->_X, pEnergyBar_->_Y);
+    pVreathBar_->locate(_X, _Y + height_ + PX_C(16) + PX_C(16) );
+    pCostDispBar2_->locate(pVreathBar_->_X, pVreathBar_->_Y);
+    pDamageDispBar_->locate(pVreathBar_->_X, pVreathBar_->_Y);
+    pMagicMeterStatus_->locateWith(this);
+
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
     Magic* pMagic;
     for (int i = 0; i < lstMagic_.length(); i++) {
@@ -391,8 +392,6 @@ void MagicMeter::processBehavior() {
             papLvHilightCursor_[m]->dispEnable();
             papLvHilightCursor_[m]->blink();
         }
-
-
 
         if (pMagicProg->isJustChangedTo(Magic::STATE_EFFECT_BEGIN)) {
             if (pMagic->last_level_ < pMagic->level_) {

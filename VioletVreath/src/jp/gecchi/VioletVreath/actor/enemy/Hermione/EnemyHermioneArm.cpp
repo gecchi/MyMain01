@@ -106,12 +106,12 @@ void EnemyHermioneArm::processBehavior() {
                 } else if (D180ANG <= angRy_Target && angRy_Target <= D360ANG - aiming_movable_limit_ang_) {
                     angRy_Target = D360ANG - aiming_movable_limit_ang_;
                 }
-                _pKurokoA->execTurnFaceAngSequence(
+                _pKurokoA->turnFaceAngTo(
                                 angRz_Target, angRy_Target,
                                 aiming_ang_velo_, aiming_ang_velo_*0.05,
                                 TURN_CLOSE_TO, false);
             }
-            if (_pKurokoA->isRunnigTurnMvAngSequence()) {
+            if (_pKurokoA->isTurningMvAng()) {
                 // ‘Ò‹@
             } else {
                 _pProg->change(PROG_NOTHING);

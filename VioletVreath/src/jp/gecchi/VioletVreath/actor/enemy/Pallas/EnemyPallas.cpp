@@ -22,7 +22,7 @@ void EnemyPallas::onCreateModel() {
 void EnemyPallas::initialize() {
     setHitAble(true);
     _pKurokoA->setFaceAngVelo(AXIS_Z, -7000);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -99,9 +99,9 @@ void EnemyPallas::processBehavior() {
                 }
             }
 //            //自機へ方向転換
-            _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
-                                                2000, 0,
-                                                TURN_CLOSE_TO, true);
+            _pKurokoA->turnMvAngTwd(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+                                    2000, 0,
+                                    TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
             break;
 

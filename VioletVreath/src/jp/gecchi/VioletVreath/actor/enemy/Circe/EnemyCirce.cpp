@@ -20,7 +20,7 @@ void EnemyCirce::onCreateModel() {
 void EnemyCirce::initialize() {
     setHitAble(true);
     _pScaler->setScale(1000);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setMvVelo(3000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
@@ -35,8 +35,8 @@ void EnemyCirce::onActive() {
 void EnemyCirce::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
-                                        50, 0, TURN_CLOSE_TO, true);
+    _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                            50, 0, TURN_CLOSE_TO, true);
     _pKurokoA->behave();
     _pScaler->behave();
     //_pSeTx->behave();

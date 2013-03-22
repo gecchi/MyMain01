@@ -45,7 +45,7 @@ void EnemyThalia::onCreateModel() {
 
 void EnemyThalia::initialize() {
     setHitAble(true);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 90000);
     setScaleR(0.3);
@@ -56,7 +56,7 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
-    _pKurokoA->execSmoothMvVeloSequenceVD(veloTopMv_, 1000,
+    _pKurokoA->slideMvByVD(veloTopMv_, 1000,
                                          MyShip::lim_front_-_X, 0.4, 0.6);
     _pProg->reset(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
@@ -67,11 +67,11 @@ void EnemyThalia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
         case PROG_MOVE: {
-            if (!_pKurokoA->isRunnigSmoothMvVeloSequence()) {
+            if (!_pKurokoA->isSlidingMv()) {
                 _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
-                _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
-                                                    0, 100,
-                                                    TURN_CLOSE_TO, false);
+                _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                                        0, 100,
+                                        TURN_CLOSE_TO, false);
                 _pProg->changeNext();
             }
             break;
@@ -93,9 +93,9 @@ void EnemyThalia::processBehavior() {
         }
         case PROG_IN_FIRE: {
             if (getActivePartFrame() % 10 == 0) {
-                _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP,
-                                                    10, 0,
-                                                    TURN_CLOSE_TO, false);
+                _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                                        10, 0,
+                                        TURN_CLOSE_TO, false);
             }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)pLaserChipDepo_->dispatch();
             if (pLaser) {
@@ -111,8 +111,8 @@ void EnemyThalia::processBehavior() {
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60); //閉じる
-            _pKurokoA->execSmoothMvVeloSequenceVD(veloTopMv_, 1000, 1500000, 0.4, 0.6);
-//            _pKurokoA->execSmoothMvVeloSequence(200, 1000000, 180);
+            _pKurokoA->slideMvByVD(veloTopMv_, 1000, 1500000, 0.4, 0.6);
+//            _pKurokoA->slideMvByDT(200, 1000000, 180);
             _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(PROG_MOVE);
             break;

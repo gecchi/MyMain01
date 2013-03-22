@@ -36,7 +36,7 @@ void EnemySappho::processBehavior() {
              locate(entry_pos_._X, entry_pos_._Y, entry_pos_._Z);
              _pAFader->setAlpha(0);
              _pKurokoA->setMvVelo(0);
-             _pKurokoA->relateFaceAngWithMvAng(true);
+             _pKurokoA->relateMvFaceAng(true);
              _pKurokoA->setMvAngTwd(hanging_pos_._X, hanging_pos_._Y, hanging_pos_._Z);
              _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
              UTIL::activateEntryEffectOf(this);
@@ -60,42 +60,43 @@ void EnemySappho::processBehavior() {
                  velo mv_velo = RR_EnemySappho_MvVelo(_RANK_);
                  coord d = UTIL::getDistance(_X, _Y, _Z,
                                              hanging_pos_._X, hanging_pos_._Y, hanging_pos_._Z);
-                 _pKurokoA->execSmoothMvVeloSequenceVD(
-                              mv_velo,
-                              RND(-PX_C(0.5),PX_C(0.5)),
-                              d,
-                              0.2, 0.8);
+                 _pKurokoA->slideMvByVD(mv_velo,
+                                        RND(-PX_C(0.5),PX_C(0.5)),
+                                        d, 0.2, 0.8);
              }
              //滞留ポイントまで移動中
              if (_pProg->getFrameInProgress() % 32 == 0) {
                  //ちょくちょく自機を見つめる
-                 _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP, D_ANG(0.5), 0,
-                                                       TURN_CLOSE_TO, true);
+                 _pKurokoA->turnFaceAngTwd(P_MYSHIP, D_ANG(0.5), 0,
+                                           TURN_CLOSE_TO, true);
              }
-             if (_pKurokoA->isJustFinishSmoothMvVeloSequence()) {
+             if (_pKurokoA->isJustFinishSlidingMv()) {
                  _pProg->changeNext();
              }
              //_TRACE_("PROG_MOVE01:"<<_X<<","<<_Y<<","<<_Z<<","<<_pKurokoA->_veloMv<<","<<_pKurokoA->_accMv);
              break;
          }
+
          case PROG_MOVE02: {
              if (_pProg->isJustChanged()) {
                  //移動方向と向きの連携解除
-                 _pKurokoA->relateFaceAngWithMvAng(false);
+                 _pKurokoA->relateMvFaceAng(false);
                  //滞留ポイント到着、ふらふら気ままな方向へ移動させる
-                 _pKurokoA->execTurnMvAngSequenceTwd(_X + RND(-PX_C(100),PX_C(100)),
-                                                     _Y + RND(-PX_C(100),PX_C(100)),
-                                                     _Z + RND(-PX_C(100),PX_C(100)),
-                                                     100, 0, TURN_CLOSE_TO, false);
+                 _pKurokoA->turnMvAngTwd(_X + RND(-PX_C(100),PX_C(100)),
+                                         _Y + RND(-PX_C(100),PX_C(100)),
+                                         _Z + RND(-PX_C(100),PX_C(100)),
+                                         100, 0, TURN_CLOSE_TO, false);
                  //ゆっくり自機の方へ向かせる
-                 _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP, D_ANG(1), 0,
-                                                       TURN_CLOSE_TO, true);
+                 _pKurokoA->turnFaceAngTwd(P_MYSHIP,
+                                           D_ANG(1), 0,
+                                           TURN_CLOSE_TO, true);
              }
              //滞留中
              if (_pProg->getFrameInProgress() % 16 == 0) {
                  //ちょくちょく自機を見つめる
-                 _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP, D_ANG(1), 0,
-                                                       TURN_CLOSE_TO, true);
+                 _pKurokoA->turnFaceAngTwd(P_MYSHIP,
+                                           D_ANG(1), 0,
+                                           TURN_CLOSE_TO, true);
              }
 
              if (_pProg->getFrameInProgress() == 180) {
@@ -113,25 +114,25 @@ void EnemySappho::processBehavior() {
                      }
                  }
              }
-
              if (_pProg->getFrameInProgress() == 240) {
                  _pProg->changeNext();
              }
              break;
          }
+
          case PROG_MOVE03: {
              //さよなら準備
              if (_pProg->isJustChanged()) {
                  //ゆっくりさよならポイントへ向ける
-                 _pKurokoA->execTurnMvAngSequenceTwd(leave_pos_._X, leave_pos_._Y, leave_pos_._Z,
-                                                     D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
+                 _pKurokoA->turnMvAngTwd(leave_pos_._X, leave_pos_._Y, leave_pos_._Z,
+                                         D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
                  _pKurokoA->setMvAcce(10);
              }
              if (_pProg->getFrameInProgress() % 16 == 0) {
-                 _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP, D_ANG(1), 0,
-                                                       TURN_CLOSE_TO, true);
+                 _pKurokoA->turnFaceAngTwd(P_MYSHIP, D_ANG(1), 0,
+                                           TURN_CLOSE_TO, true);
              }
-             if (!_pKurokoA->isRunnigTurnMvAngSequence()) {
+             if (!_pKurokoA->isTurningMvAng()) {
                  _pProg->changeNext();
              }
              break;
@@ -140,14 +141,14 @@ void EnemySappho::processBehavior() {
          case PROG_MOVE04: {
              //さよなら～
              if (_pProg->isJustChanged()) {
-                 _pKurokoA->execTurnMvAngSequenceTwd(leave_pos_._X, leave_pos_._Y, leave_pos_._Z,
-                                                     D_ANG(1), 0, TURN_CLOSE_TO, false);
+                 _pKurokoA->turnMvAngTwd(leave_pos_._X, leave_pos_._Y, leave_pos_._Z,
+                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
                  _pKurokoA->setMvAcce(100+(_RANK_*200));
              }
              if (_pProg->getFrameInProgress() % 16 == 0) {
                  //ちょくちょく自機を見つめる
-                 _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP, D_ANG(1), 0,
-                                                       TURN_CLOSE_TO, true);
+                 _pKurokoA->turnFaceAngTwd(P_MYSHIP, D_ANG(1), 0,
+                                           TURN_CLOSE_TO, true);
              }
              break;
          }

@@ -23,7 +23,7 @@ void EnemyIris::onCreateModel() {
 
 void EnemyIris::initialize() {
     setHitAble(true);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 5000);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
@@ -82,16 +82,16 @@ void EnemyIris::processBehavior() {
                 }
             }
             //自機へ方向転換
-            _pKurokoA->execTurnMvAngSequenceTwd(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                                3000, 0,
-                                                TURN_CLOSE_TO, true);
+            _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                                    3000, 0,
+                                    TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_Z-10000 < P_MYSHIP->_Z && P_MYSHIP->_Z < _Z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                _pKurokoA->execTurnMvAngSequenceTwd(MyShip::lim_behaind_ - 500000 , _Y, _Z,
+                _pKurokoA->turnMvAngTwd(MyShip::lim_behaind_ - 500000 , _Y, _Z,
                                                     10000, 0,
                                                     TURN_CLOSE_TO, true);
                 _pKurokoA->setMvAcce(100);

@@ -22,7 +22,7 @@ void EnemyThisbeLaserChip001::onActive() {
     //ステータスリセット
     _pStatus->reset();
     _pKurokoA->setMvVelo(30000);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     //位置と向きはEnemyThisbeが設定
     pSplSeq_->stop();
 }

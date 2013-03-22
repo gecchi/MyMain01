@@ -46,7 +46,7 @@ void MyOptionController::onReset() {
     _pKurokoA->setMvVelo(0);
     _pKurokoA->forceRzRyMvAngVeloRange(-1*angVelo_Turn_, angVelo_Turn_);
     _pKurokoA->setRzRyMvAng(0,0);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->behave();
 }
 
@@ -60,7 +60,7 @@ void MyOptionController::processBehavior() {
     vbsta is_double_push_VB_OPTION = pVbPlay->isDoublePushedDown(VB_OPTION,8,8);
     if (is_double_push_VB_OPTION) {
         //もとに戻す
-        _pKurokoA->execTurnRzRyMvAngSequence(
+        _pKurokoA->turnRzRyMvAngTo(
                        D0ANG, D0ANG,
                        D_ANG(20), 0,
                        TURN_CLOSE_TO,
@@ -94,7 +94,7 @@ void MyOptionController::processBehavior() {
         }
     }
 
-    if (pVbPlay->isRoundPushDown(VB_OPTION)) {
+    if (pVbPlay->isScrewPushDown(VB_OPTION)) {
         //オプションフリーモード発動
         is_free_from_myship_mode_ = true;
         is_handle_move_mode_ = true;

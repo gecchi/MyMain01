@@ -25,7 +25,7 @@ void MagicMeterCursor001::onActive() {
 }
 
 void MagicMeterCursor001::processBehavior() {
-    if (_pKurokoA->isRunnigSmoothMvVeloSequence() == false) {
+    if (_pKurokoA->isSlidingMv() == false) {
         _X = tX_;
         _Y = tY_;
     }
@@ -42,7 +42,7 @@ void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     tX_ = pMagicMeter_->_X + pMagicMeter_->width_*prm_magic_mater_index + (pMagicMeter_->width_/2);
     tY_ = pMagicMeter_->_Y + (pMagicMeter_->height_/2);
     _pKurokoA->setMvAngTwd(tX_, tY_);
-    _pKurokoA->execSmoothMvVeloSequence(0, UTIL::getDistance(_X, _Y, tX_, tY_),
+    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_X, _Y, tX_, tY_),
                                         12, 0.2, 0.4);
 }
 

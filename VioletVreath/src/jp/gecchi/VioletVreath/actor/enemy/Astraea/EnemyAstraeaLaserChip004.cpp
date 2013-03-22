@@ -39,7 +39,7 @@ void EnemyAstraeaLaserChip004::onActive() {
 
     _pKurokoA->setMvVelo(10000);
     _pKurokoA->setMvAcce(400);
-    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateMvFaceAng(true);
     pSplSeq_->stop();
     _force_alpha = 1.50; //Å‰‚Í‚¿‚å‚Á‚Æ–¾‚é‚ß
 }

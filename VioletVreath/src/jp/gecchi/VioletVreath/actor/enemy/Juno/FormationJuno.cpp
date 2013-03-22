@@ -44,7 +44,7 @@ FormationJuno::FormationJuno(
         std::string name = "Juno"+XTOS(i);
         EnemyJuno* pEnemyJuno = NEW EnemyJuno(name.c_str());
         pEnemyJuno->setDepository_Shot(pDepoCon_->fetch()); //’eÝ’è
-        pEnemyJuno->_pKurokoA->relateFaceAngWithMvAng(true);
+        pEnemyJuno->_pKurokoA->relateMvFaceAng(true);
         pEnemyJuno->_pKurokoA->setMvVelo(prm_veloMv_Juno);
         pEnemyJuno->_pKurokoA->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
         pEnemyJuno->_pKurokoB->setVxMvVelo(vX_AppBox*prm_veloMv_App);

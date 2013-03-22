@@ -211,13 +211,13 @@ MyShip::MyShip(const char* prm_name) :
     is_just_change_way_ = true;
 
     mp_.config(600, 100000); //値 100000 で表示は600pxとする。
-    mp_.set(10000000);         //初期値は100000
-    //vreath_ は mp_ のメーターの長さ(px)にあわす。実値を _pStatus の値を参照するように設定。
+    mp_.set(150000);         //初期値は100000
+    //vreath_ は mp_ のメーターの長さ(px)にあわす。実値を _pStatus のSTAT_Stamina値を参照するように設定。
     vreath_.config(mp_._max_val_px, _pStatus->get(STAT_Stamina), &(_pStatus->_paValue[STAT_Stamina]._int_val));
 
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &vreath_);
-    pMagicMeter_->locate(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT - 100.0f));
+    pMagicMeter_->locate(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
     addSubGroup(pMagicMeter_);
 
     r_blown_velo_attenuate_ = 0.8;

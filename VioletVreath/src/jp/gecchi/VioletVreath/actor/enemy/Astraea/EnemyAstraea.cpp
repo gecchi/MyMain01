@@ -94,7 +94,7 @@ void EnemyAstraea::processBehavior() {
                 _pAFader->intoTargetAlphaLinerUntil(0.98, 20);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
             }
-            if (_pAFader->isHaveingEffect()) {
+            if (_pAFader->isHavingEffect()) {
                 _pAFader->behave();
             } else {
                 setHitAble(true);
@@ -118,11 +118,11 @@ void EnemyAstraea::processBehavior() {
         case PROG_TURN: {
             if (_pProg->isJustChanged()) {
                 //ターン開始
-                _pKurokoA->execTurnFaceAngSequenceTwd(P_MYSHIP,
-                                                      angveloTurn_, 0, TURN_ANTICLOSE_TO, false);
+                _pKurokoA->turnFaceAngTwd(P_MYSHIP,
+                                          angveloTurn_, 0, TURN_ANTICLOSE_TO, false);
                 cnt_laserchip_ = 0;
             }
-            if (_pKurokoA->isRunnigTurnFaceAngSequence()) {
+            if (_pKurokoA->isTurningFaceAng()) {
                 //ターン中
             } else {
                 //自機にがいた方向に振り向きが完了時
