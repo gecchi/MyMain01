@@ -39,7 +39,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void processOnActiveHebe(EnemyHebe* pEnemyHebe) = 0;
+    virtual void onCallUpHebe(EnemyHebe* pEnemyHebe) = 0;
 
     /**
      * •Ò‘à‚ª‘S‚Ä©‹@‘¤‚ÌUŒ‚‚ÅŸr–Å‚³‚¹‚ç‚ê‚½ê‡‚Ìˆ—À‘• .

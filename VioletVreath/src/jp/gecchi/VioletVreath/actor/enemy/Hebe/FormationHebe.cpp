@@ -40,7 +40,7 @@ void FormationHebe::processBehavior() {
             GgafActorDepository* pDepo_Shot = pConn_ShotDepo_ ? pConn_ShotDepo_->fetch() : nullptr;
             pHebe->config(pSplSeq, pDepo_Shot, nullptr);
             pHebe->_pKurokoA->setMvVelo(rr_mv_velo_);
-            processOnActiveHebe(pHebe); //下位フォーメーションクラス個別実装の処理
+            onCallUpHebe(pHebe); //下位フォーメーションクラス個別実装の処理
         }
     }
 }

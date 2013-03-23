@@ -154,7 +154,7 @@ void LabelRankFont::processBehavior() {
         char c[65];
         cnvRankStr(rank_level, c);
         update(c);
-        _pProg->reset(PROG_RANKUP);
+        _pProg->change(PROG_RANKUP);
         tmp_rank_ = rank_level;
     }
 

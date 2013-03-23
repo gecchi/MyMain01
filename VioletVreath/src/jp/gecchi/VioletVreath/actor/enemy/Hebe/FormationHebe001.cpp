@@ -8,7 +8,7 @@ FormationHebe001::FormationHebe001(const char* prm_name) :
         FormationHebe(prm_name, "FormationHebe001") {
     _class_name = "FormationHebe001";
 }
-void FormationHebe001::processOnActiveHebe(EnemyHebe* pEnemyHebe) {
+void FormationHebe001::onCallUpHebe(EnemyHebe* pEnemyHebe) {
 //    pEnemyHebe->pSplSeq_->adjustAxisRate(
 //                                        MyShip::lim_front_, //X•ûŒü”{—¦
 //                                       -1.0 * MyShip::lim_top_,   //Y•ûŒü”{—¦

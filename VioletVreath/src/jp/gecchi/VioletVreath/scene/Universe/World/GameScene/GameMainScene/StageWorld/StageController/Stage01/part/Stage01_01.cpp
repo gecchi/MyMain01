@@ -65,152 +65,200 @@ void Stage01_01::processBehavior() {
 			}
 			case 1600: {
 				orderActorToFactory(30000013, FormationEunomia001a, "FormationEunomia001a-14");
+				orderActorToFactory(30000029, VarietySylvia001, "VarietySylvia001-15");
+				orderActorToFactory(30000031, FormationSappho001a, "FormationSappho001a-16");
 				break;
 			}
 			case 2100: {
-				orderActorToFactory(30000021, FormationEunomia001b, "FormationEunomia001b-15");
+				orderActorToFactory(30000021, FormationEunomia001b, "FormationEunomia001b-17");
+				orderActorToFactory(30000030, VarietySylvia002, "VarietySylvia002-18");
+				orderActorToFactory(30000039, FormationSappho001b, "FormationSappho001b-19");
 				break;
 			}
 			case 2500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000013);
 				getDirector()->addSubGroup(pFormationEunomia);
+				VarietySylvia001* pSylvia = (VarietySylvia001*)obtainActorFromFactory(30000029);
+				getDirector()->addSubGroup(pSylvia);
+				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000031);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 2600: {
-				orderActorToFactory(30000014, FormationEunomia001a, "FormationEunomia001a-16");
+				orderActorToFactory(30000014, FormationEunomia001a, "FormationEunomia001a-20");
+				orderActorToFactory(30000032, FormationSappho001a, "FormationSappho001a-21");
 				break;
 			}
 			case 3000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000021);
 				getDirector()->addSubGroup(pFormationEunomia);
+				VarietySylvia002* pSylvia = (VarietySylvia002*)obtainActorFromFactory(30000030);
+				getDirector()->addSubGroup(pSylvia);
+				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000039);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 3100: {
-				orderActorToFactory(30000022, FormationEunomia001b, "FormationEunomia001b-17");
+				orderActorToFactory(30000022, FormationEunomia001b, "FormationEunomia001b-22");
+				orderActorToFactory(30000040, FormationSappho001b, "FormationSappho001b-23");
 				break;
 			}
 			case 3500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000014);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000032);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 3600: {
-				orderActorToFactory(30000015, FormationEunomia001a, "FormationEunomia001a-18");
+				orderActorToFactory(30000015, FormationEunomia001a, "FormationEunomia001a-24");
+				orderActorToFactory(30000033, FormationSappho001a, "FormationSappho001a-25");
 				break;
 			}
 			case 4000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000022);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000040);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 4100: {
-				orderActorToFactory(30000023, FormationEunomia001b, "FormationEunomia001b-19");
-				orderActorToFactory(30000029, VarietySylvia001, "VarietySylvia001-20");
+				orderActorToFactory(30000023, FormationEunomia001b, "FormationEunomia001b-26");
+				orderActorToFactory(30000041, FormationSappho001b, "FormationSappho001b-27");
 				break;
 			}
 			case 4500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000015);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000033);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 4600: {
-				orderActorToFactory(30000016, FormationEunomia001a, "FormationEunomia001a-21");
+				orderActorToFactory(30000016, FormationEunomia001a, "FormationEunomia001a-28");
+				orderActorToFactory(30000034, FormationSappho001a, "FormationSappho001a-29");
 				break;
 			}
 			case 5000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000023);
 				getDirector()->addSubGroup(pFormationEunomia);
-				VarietySylvia001* pSylvia = (VarietySylvia001*)obtainActorFromFactory(30000029);
-				getDirector()->addSubGroup(pSylvia);
+				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000041);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 5100: {
-				orderActorToFactory(30000024, FormationEunomia001b, "FormationEunomia001b-22");
+				orderActorToFactory(30000024, FormationEunomia001b, "FormationEunomia001b-30");
+				orderActorToFactory(30000042, FormationSappho001b, "FormationSappho001b-31");
 				break;
 			}
 			case 5500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000016);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000034);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 5600: {
-				orderActorToFactory(30000017, FormationEunomia001a, "FormationEunomia001a-23");
+				orderActorToFactory(30000017, FormationEunomia001a, "FormationEunomia001a-32");
+				orderActorToFactory(30000035, FormationSappho001a, "FormationSappho001a-33");
 				break;
 			}
 			case 6000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000024);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000042);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 6100: {
-				orderActorToFactory(30000025, FormationEunomia001b, "FormationEunomia001b-24");
+				orderActorToFactory(30000025, FormationEunomia001b, "FormationEunomia001b-34");
+				orderActorToFactory(30000043, FormationSappho001b, "FormationSappho001b-35");
 				break;
 			}
 			case 6500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000017);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000035);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 6600: {
-				orderActorToFactory(30000018, FormationEunomia001a, "FormationEunomia001a-25");
+				orderActorToFactory(30000018, FormationEunomia001a, "FormationEunomia001a-36");
+				orderActorToFactory(30000036, FormationSappho001a, "FormationSappho001a-37");
 				break;
 			}
 			case 7000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000025);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000043);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 7100: {
-				orderActorToFactory(30000026, FormationEunomia001b, "FormationEunomia001b-26");
-				orderActorToFactory(30000030, VarietySylvia002, "VarietySylvia002-27");
+				orderActorToFactory(30000026, FormationEunomia001b, "FormationEunomia001b-38");
+				orderActorToFactory(30000044, FormationSappho001b, "FormationSappho001b-39");
 				break;
 			}
 			case 7500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000018);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000036);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 7600: {
-				orderActorToFactory(30000019, FormationEunomia001a, "FormationEunomia001a-28");
+				orderActorToFactory(30000019, FormationEunomia001a, "FormationEunomia001a-40");
+				orderActorToFactory(30000037, FormationSappho001a, "FormationSappho001a-41");
 				break;
 			}
 			case 8000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000026);
 				getDirector()->addSubGroup(pFormationEunomia);
-				VarietySylvia002* pSylvia = (VarietySylvia002*)obtainActorFromFactory(30000030);
-				getDirector()->addSubGroup(pSylvia);
+				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000044);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 8100: {
-				orderActorToFactory(30000027, FormationEunomia001b, "FormationEunomia001b-29");
+				orderActorToFactory(30000027, FormationEunomia001b, "FormationEunomia001b-42");
+				orderActorToFactory(30000045, FormationSappho001b, "FormationSappho001b-43");
 				break;
 			}
 			case 8500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000019);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000037);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 8600: {
-				orderActorToFactory(30000020, FormationEunomia001a, "FormationEunomia001a-30");
+				orderActorToFactory(30000020, FormationEunomia001a, "FormationEunomia001a-44");
+				orderActorToFactory(30000038, FormationSappho001a, "FormationSappho001a-45");
 				break;
 			}
 			case 9000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000027);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000045);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 9100: {
-				orderActorToFactory(30000028, FormationEunomia001b, "FormationEunomia001b-31");
+				orderActorToFactory(30000028, FormationEunomia001b, "FormationEunomia001b-46");
+				orderActorToFactory(30000046, FormationSappho001b, "FormationSappho001b-47");
 				break;
 			}
 			case 9500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000020);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000038);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 10000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000028);
 				getDirector()->addSubGroup(pFormationEunomia);
+				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000046);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			default :

@@ -14,7 +14,7 @@ public:
 
     FormationHebe001(const char* prm_name);
 
-    void processOnActiveHebe(EnemyHebe* pEnemyHebe) override;
+    void onCallUpHebe(EnemyHebe* pEnemyHebe) override;
 
     virtual void processBehavior() override;
 
