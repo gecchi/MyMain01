@@ -55,8 +55,8 @@ void EnemyHermioneArmHead::processBehavior() {
             //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
             //最終的な方向ベクトルは（Xorg_*mat_11, Xorg_*mat_12, Xorg_*mat_13) である。
             angle Rz, Ry;
-            UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
-                             Rz, Ry); //現在の最終的な向きを、RzRyで取得！
+            UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
+                                   Rz, Ry); //現在の最終的な向きを、RzRyで取得！
             pShot->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
             pShot->locateWith(this);
             pShot->reset();

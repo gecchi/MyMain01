@@ -29,8 +29,8 @@ void EnemyMetis::initialize() {
     _pColliChecker->makeCollision(nArea);
     for (int i = 0, n = 0; i < width_X_-depth_Y_; i += depth_Y_, n++) {
         _pColliChecker->setColliAAB(n,
-                                    i - ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0), -((depth_Y_/2.0)/1.5), -(height_Z_/2.0),
-                                    i + ((depth_Y_/2.0)/1.5)-(width_X_/2 - depth_Y_/2.0),  ((depth_Y_/2.0)/1.5),  (height_Z_/2.0),
+                                    i - ((depth_Y_/2.0)/1.5)-(width_X_/2.0 - depth_Y_/2.0), -((depth_Y_/2.0)/1.5), -(height_Z_/2.0),
+                                    i + ((depth_Y_/2.0)/1.5)-(width_X_/2.0 - depth_Y_/2.0),  ((depth_Y_/2.0)/1.5),  (height_Z_/2.0),
                                     false, false, true );
     }
 }
@@ -77,10 +77,10 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         if (pDepo_Shot_) {
             MyShip* pM = P_MYSHIP;
             angle rz,ry;
-            UTIL::getRzRyAng(pM->_X - _X,
-                             pM->_Y - _Y,
-                             pM->_Z - _Z,
-                             rz, ry);
+            UTIL::convVectorToRzRy(pM->_X - _X,
+                                   pM->_Y - _Y,
+                                   pM->_Z - _Z,
+                                   rz, ry);
             UTIL::shotWayGoldenAng(_X, _Y, _Z,
                                    rz, ry,
                                    pDepo_Shot_,

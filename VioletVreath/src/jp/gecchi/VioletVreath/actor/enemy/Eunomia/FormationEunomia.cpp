@@ -49,13 +49,13 @@ void FormationEunomia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 void FormationEunomia::processBehavior() {
     if (canCallUp() && (getActivePartFrame() % RR_interval_frames_ == 0)) {
         for (int i = 0; i < RR_num_formation_col_; i++) {
-            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpUntil(RR_num_formation_col_*RR_num_formation_row_);
+            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpMemberUntil(RR_num_formation_col_*RR_num_formation_row_);
             if (pEunomia) {
                 SplineSequence* pSplSeq = papSplManufCon_[i]->fetch()->
                                               createSplineSequence(pEunomia->_pKurokoA);
                 pEunomia->config(pSplSeq, nullptr, nullptr);
                 pEunomia->_pKurokoA->setMvVelo(RR_mv_velo_);
-                processOnActiveEunomia(pEunomia, i); //フォーメーション個別実装の処理
+                onCallUpEunomia(pEunomia, i); //フォーメーション個別実装の処理
             }
         }
     }

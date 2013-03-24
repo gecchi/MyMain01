@@ -13,7 +13,7 @@ GgafDxGeometricActor* StgUtil::shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
                                           void (*pFunc_CallBackDispatched)(GgafDxGeometricActor*, int, int)) {
     GgafDxGeometricActor* pRet = nullptr;
     float vx, vy, vz;
-    GgafDxUtil::getNormalizeVectorZY(prm_RZ, prm_RY, vx, vy, vz);
+    GgafDxUtil::convRzRyToVector(prm_RZ, prm_RY, vx, vy, vz);
     coord X = vx * prm_r;
     coord Y = vy * prm_r;
     coord Z = vz * prm_r;
@@ -66,7 +66,7 @@ GgafDxGeometricActor* StgUtil::shotWay001(coord prm_from_X, coord prm_from_Y, co
                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                                           void (*pFunc_CallBackDispatched)(GgafDxGeometricActor*, int, int)) {
     angle RZ,RY;
-    GgafDxUtil::getRzRyAng(prm_to_X - prm_from_X,
+    GgafDxUtil::convVectorToRzRy(prm_to_X - prm_from_X,
                            prm_to_Y - prm_from_Y,
                            prm_to_Z - prm_from_Z,
                            RZ, RY);
@@ -115,14 +115,14 @@ void StgUtil::shotWay002(coord prm_X, coord prm_Y, coord prm_Z,
         for (int j = 0; j < prm_way_M; j++) {
             if (paUint32_dotmat[i] & GgafDxUtil::BITNUM[prm_way_M-j]) {
                 Ry = GgafDxUtil::simplifyAng(paAng_way_M[j]);
-                GgafDxUtil::getNormalizeVectorZY(Rz, Ry, vx, vy, vz);
+                GgafDxUtil::convRzRyToVector(Rz, Ry, vx, vy, vz);
                 X = vx * prm_r;
                 Y = vy * prm_r;
                 Z = vz * prm_r;
                 papaGeo[i][j]._X = X*matWorldRot._11 + Y*matWorldRot._21 + Z*matWorldRot._31;
                 papaGeo[i][j]._Y = X*matWorldRot._12 + Y*matWorldRot._22 + Z*matWorldRot._32;
                 papaGeo[i][j]._Z = X*matWorldRot._13 + Y*matWorldRot._23 + Z*matWorldRot._33;
-                GgafDxUtil::getRzRyAng(papaGeo[i][j]._X , papaGeo[i][j]._Y, papaGeo[i][j]._Z,
+                GgafDxUtil::convVectorToRzRy(papaGeo[i][j]._X , papaGeo[i][j]._Y, papaGeo[i][j]._Z,
                                        papaGeo[i][j]._RZ, papaGeo[i][j]._RY);
             }
         }
@@ -227,14 +227,14 @@ void StgUtil::shotWay004(coord prm_X, coord prm_Y, coord prm_Z,
     float vx, vy, vz;
     coord X,Y,Z;
     for (int i = 0; i < prm_way; i++) {
-        GgafDxUtil::getNormalizeVectorZY(expanse_rz, paAng_way[i], vx, vy, vz);
+        GgafDxUtil::convRzRyToVector(expanse_rz, paAng_way[i], vx, vy, vz);
         X = vx * prm_r;
         Y = vy * prm_r;
         Z = vz * prm_r;
         paGeo[i]._X = X*matWorldRot._11 + Y*matWorldRot._21 + Z*matWorldRot._31;
         paGeo[i]._Y = X*matWorldRot._12 + Y*matWorldRot._22 + Z*matWorldRot._32;
         paGeo[i]._Z = X*matWorldRot._13 + Y*matWorldRot._23 + Z*matWorldRot._33;
-        GgafDxUtil::getRzRyAng(paGeo[i]._X , paGeo[i]._Y, paGeo[i]._Z,
+        GgafDxUtil::convVectorToRzRy(paGeo[i]._X , paGeo[i]._Y, paGeo[i]._Z,
                                paGeo[i]._RZ, paGeo[i]._RY);
     }
     GgafDxGeometricActor* pActor_Shot;
@@ -300,14 +300,14 @@ void StgUtil::shotWayGoldenAng(coord prm_X, coord prm_Y, coord prm_Z,
     float vx, vy, vz;
     coord X,Y,Z;
     for (int i = 0; i < prm_way_num; i++) {
-        GgafDxUtil::getNormalizeVectorZY(expanse_rz, GOLDEN_ANG[i], vx, vy, vz);
+        GgafDxUtil::convRzRyToVector(expanse_rz, GOLDEN_ANG[i], vx, vy, vz);
         X = vx * prm_r;
         Y = vy * prm_r;
         Z = vz * prm_r;
         paGeo[i]._X = X*matWorldRot._11 + Y*matWorldRot._21 + Z*matWorldRot._31;
         paGeo[i]._Y = X*matWorldRot._12 + Y*matWorldRot._22 + Z*matWorldRot._32;
         paGeo[i]._Z = X*matWorldRot._13 + Y*matWorldRot._23 + Z*matWorldRot._33;
-        GgafDxUtil::getRzRyAng(paGeo[i]._X , paGeo[i]._Y, paGeo[i]._Z,
+        GgafDxUtil::convVectorToRzRy(paGeo[i]._X , paGeo[i]._Y, paGeo[i]._Z,
                                paGeo[i]._RZ, paGeo[i]._RY);
         expanse_rz -= (prm_inc_expanse_angle/2);
     }

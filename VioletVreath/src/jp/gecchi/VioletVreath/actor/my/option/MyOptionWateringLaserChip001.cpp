@@ -156,8 +156,7 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
     //ƒlƒWƒŒ•`‰æ‚ª‰˜‚­‚È‚ç‚È‚¢‚æ‚¤‚É‰ñ“]‚ð§ŒÀ
     if (lVM > max_velo_renge_/2) {
         angle RZ_temp, RY_temp;
-        UTIL::getRzRyAng(vVMx, vVMy, vVMz,
-                         RZ_temp, RY_temp);
+        UTIL::convVectorToRzRy(vVMx, vVMy, vVMz, RZ_temp, RY_temp);
         angle angDRZ = UTIL::getAngDiff(RZ_temp, _RZ);
         angle angDRY = UTIL::getAngDiff(RY_temp, _RY);
         if (-4000 <= angDRZ) {

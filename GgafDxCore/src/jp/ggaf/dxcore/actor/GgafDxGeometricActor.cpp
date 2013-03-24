@@ -135,13 +135,13 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         _Y = DX_C(_fY);
         _Z = DX_C(_fZ);
 
-        //UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
+        //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
 
         //TODO:絶対座標系の_RX, _RY, _RZ に変換は保留
         //     現在の最終的な向きを、RzRyで取得求める方法は以下の通り、
         //     フレームワークでは _RX, _RY, _RZ はどうでもよく変換行列があれば良い。
         //     したがって計算をスキップできる。
-        //     UTIL::getRzRyAng() の計算負荷が無視できないと考えたため、ここで計算しない。
+        //     UTIL::convVectorToRzRy() の計算負荷が無視できないと考えたため、ここで計算しない。
         //     計算で求めるんならば以下の方法で行える
         //
         //＜説明＞
@@ -170,7 +170,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //この方向ベクトルを _RZ _RY 表現すれば良い。
         //計算しやすいようにXorg_を1と置いて
         //
-        //UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
+        //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _RZ, _RY);
         //となる
     }
 

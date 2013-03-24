@@ -301,14 +301,14 @@ public:
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
-    static void getRzRyAng(coord x,
-                           coord y,
-                           coord z,
-                           float& out_nvx,
-                           float& out_nvy,
-                           float& out_nvz,
-                           angle& out_angFaceZ,
-                           angle& out_angFaceY);
+    static void convVectorToRzRy(coord x,
+                                 coord y,
+                                 coord z,
+                                 float& out_nvx,
+                                 float& out_nvy,
+                                 float& out_nvz,
+                                 angle& out_angFaceZ,
+                                 angle& out_angFaceY);
 
     /**
      * 原点からパラメータ座標を向く方向ベクトルに対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
@@ -320,7 +320,7 @@ public:
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
-    static void getRzRyAng(coord x, coord y, coord z, angle& out_angFaceZ, angle& out_angFaceY);
+    static void convVectorToRzRy(coord x, coord y, coord z, angle& out_angFaceZ, angle& out_angFaceY);
 
     /**
      * 原点からパラメータ座標を向く方向ベクトル(単位ベクトル)に対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
@@ -328,7 +328,7 @@ public:
      * 方向ベクトル -> Z軸Y軸回転方角 の変換。<BR>
      * 計算せずにテーブル参照で高速に行う。<BR>
      * 処理中で、方向ベクトルの正規化を行わないので <BR>
-     * getRzRyAng(int, int, int , angle&, angle&);
+     * convVectorToRzRy(int, int, int , angle&, angle&);
      * よりやや高速。単位ベクトルが求まっているときはこちらを使用しましょう。<BR>
      * @param nvx [in]単位ベクトルX要素
      * @param nvy [in]単位ベクトルY要素
@@ -336,20 +336,20 @@ public:
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
-    static void getRzRyAng(double nvx, double nvy, double nvz, angle& out_angFaceZ, angle& out_angFaceY) {
-        getRzRyAng((int)(nvx*LEN_UNIT*PX_UNIT),
-                   (int)(nvy*LEN_UNIT*PX_UNIT),
-                   (int)(nvz*LEN_UNIT*PX_UNIT),
-                   out_angFaceZ,
-                   out_angFaceY );
+    static void convVectorToRzRy(double nvx, double nvy, double nvz, angle& out_angFaceZ, angle& out_angFaceY) {
+        convVectorToRzRy((int)(nvx*LEN_UNIT*PX_UNIT),
+                         (int)(nvy*LEN_UNIT*PX_UNIT),
+                         (int)(nvz*LEN_UNIT*PX_UNIT),
+                         out_angFaceZ,
+                         out_angFaceY );
     }
 
-    static void getRzRyAng(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY) {
-        getRzRyAng((int)(nvx*LEN_UNIT*PX_UNIT),
-                   (int)(nvy*LEN_UNIT*PX_UNIT),
-                   (int)(nvz*LEN_UNIT*PX_UNIT),
-                   out_angFaceZ,
-                   out_angFaceY );
+    static void convVectorToRzRy(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY) {
+        convVectorToRzRy((int)(nvx*LEN_UNIT*PX_UNIT),
+                         (int)(nvy*LEN_UNIT*PX_UNIT),
+                         (int)(nvz*LEN_UNIT*PX_UNIT),
+                         out_angFaceZ,
+                         out_angFaceY );
     }
 
 
@@ -364,11 +364,11 @@ public:
      * @param out_nvy [out]単位ベクトルY要素
      * @param out_nvz [out]単位ベクトルZ要素
      */
-    static void getNormalizeVectorZY(angle prm_angFaceZ,
-                                     angle prm_angFaceY,
-                                     float& out_nvx,
-                                     float& out_nvy,
-                                     float& out_nvz);
+    static void convRzRyToVector(angle prm_angFaceZ,
+                                 angle prm_angFaceY,
+                                 float& out_nvx,
+                                 float& out_nvy,
+                                 float& out_nvz);
     static void getNormalizeVector(dxcoord x,
                                    dxcoord y,
                                    dxcoord z,

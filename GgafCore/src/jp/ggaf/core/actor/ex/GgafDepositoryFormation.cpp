@@ -63,7 +63,7 @@ void GgafDepositoryFormation::processFinal() {
     }
 }
 
-GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
+GgafActor* GgafDepositoryFormation::callUpMemberUntil(int prm_formation_sub_num) {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //èIóπÇë“Ç¬ÇÃÇ›
         return nullptr;

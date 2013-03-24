@@ -54,11 +54,11 @@ void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
         angle out_angRy_Target;
         angle out_d_angRz;
         angle out_d_angRy;
-        UTIL::getRzRyAng(P_MYSHIP->_X - _X,
-                         P_MYSHIP->_Y - _Y,
-                         P_MYSHIP->_Z - _Z,
-                         out_angRz_Target,
-                         out_angRy_Target);
+        UTIL::convVectorToRzRy(P_MYSHIP->_X - _X,
+                               P_MYSHIP->_Y - _Y,
+                               P_MYSHIP->_Z - _Z,
+                               out_angRz_Target,
+                               out_angRy_Target);
         out_d_angRz = _pKurokoA->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
         out_d_angRy = _pKurokoA->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
         _pKurokoA->addRzMvAng(SGN(out_d_angRz)*20000);

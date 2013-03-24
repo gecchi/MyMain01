@@ -39,7 +39,7 @@ void EnemySylvia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, 
     double CY = -r1_*-ANG_SIN(prm_angPos1);
     double CZ = -r1_*ANG_COS(prm_angPos1);
     angle angRz, angRy;
-    UTIL::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
+    UTIL::convVectorToRzRy((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
     //ƒ{[ƒ“‚Æ‚µ‚Ä’Ç‰Á
     this->addSubGroupAsFk(prm_pGeoActor, X, Y, Z, D0ANG, angRy, angRz);
 }

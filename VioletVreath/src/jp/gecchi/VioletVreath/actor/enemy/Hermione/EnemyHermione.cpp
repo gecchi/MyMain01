@@ -38,8 +38,8 @@ EnemyHermione::EnemyHermione(const char* prm_name) :
     for (int arm = 0; arm < num_arm_; arm++) { //腕の本数でループ
         paArm_[arm].pos_Rz_ = pos_rz[arm];
         paArm_[arm].pos_Ry_ = pos_ry[arm];
-        UTIL::getNormalizeVectorZY(paArm_[arm].pos_Rz_, paArm_[arm].pos_Ry_,
-                                   vx, vy, vz); //腕をつける方向のベクトル
+        UTIL::convRzRyToVector(paArm_[arm].pos_Rz_, paArm_[arm].pos_Ry_,
+                               vx, vy, vz); //腕をつける方向のベクトル
         paArm_[arm].papArmPart_ = NEW EnemyHermioneArm*[num_arm_part_];
 
         for (int i = 0; i < num_arm_part_; i++) { //腕の胴体(関節)

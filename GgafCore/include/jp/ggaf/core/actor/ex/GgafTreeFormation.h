@@ -23,7 +23,7 @@ private:
     virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override {
     }
 
-    /** [r]callUp()用のカーソル */
+    /** [r]callUpMember()用のカーソル */
     GgafCore::GgafActor* _pIte;
     bool _can_call_up;
     void sayonaraFollwer();
@@ -75,10 +75,10 @@ public:
      * nullptr が帰ってきた場合は、１順終了です。
      * @return
      */
-    GgafActor* callUp();
+    GgafActor* callUpMember();
 
     /**
-     * callUp() 可能な場合 true
+     * callUpMember() 可能な場合 true
      * @return
      */
     bool canCallUp() {

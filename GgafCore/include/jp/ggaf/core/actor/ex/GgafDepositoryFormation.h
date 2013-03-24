@@ -26,7 +26,7 @@ private:
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
     GgafCore::GgafLinkedListRing<GgafActor> _listFllower;
-    /** [r]これ以上 callUpUntil() 不可の場合 true */
+    /** [r]これ以上 callUpMemberUntil() 不可の場合 true */
     bool _can_call_up;
     /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
@@ -49,7 +49,7 @@ public:
      * 本メソッドを実行し、構成メンバーの入ったデポジトリを設定した場合、
      * 本フォーメーションオブジェクトはデポジトリモードになる。
      * デポジトリモードでは、addSubLast は不要。
-     * メンバーを活動させるには、専用メソッド callUpUntil() を使用する必要がある。
+     * メンバーを活動させるには、専用メソッド callUpMemberUntil() を使用する必要がある。
      * メンバーを活動終了時は、sayonara() を使用。
      * @param prm_pDepo
      */
@@ -86,10 +86,10 @@ public:
      *         最大編隊構成要員数をオーバーして呼び出した場合、或いは
      *         デポジトリに構成要員がもういない場合は nullptr
      */
-    GgafActor* callUpUntil(int prm_formation_sub_num = INT_MAX);
+    GgafActor* callUpMemberUntil(int prm_formation_sub_num = INT_MAX);
 
     /**
-     * callUpUntil() 可能な場合 true
+     * callUpMemberUntil() 可能な場合 true
      * @return
      */
     bool canCallUp();

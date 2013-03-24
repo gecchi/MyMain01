@@ -7,7 +7,7 @@ using namespace VioletVreath;
 FormationEunomia002a::FormationEunomia002a(const char* prm_name) : FormationEunomia002(prm_name) {
     _class_name = "FormationEunomia002a";
 }
-void FormationEunomia002a::processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) {
+void FormationEunomia002a::onCallUpEunomia(EnemyEunomia* pEnemyEunomia, int col) {
 //    pEnemyEunomia->pSplSeq_->adjustAxisRate(
 //                                        MyShip::lim_front_, //X•ûŒü”{—¦
 //                                        MyShip::lim_top_,   //Y•ûŒü”{—¦

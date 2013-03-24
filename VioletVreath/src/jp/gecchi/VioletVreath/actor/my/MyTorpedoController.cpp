@@ -99,7 +99,7 @@ bool MyTorpedoController::fire() {
         coord X1,Y1,Z1, X2, Y2, Z2;
         coord RZ,RY;
         for (int i = 0; i < firing_num_; i++) {
-            UTIL::getNormalizeVectorZY(expanse_rz, ang_way, vx, vy, vz);
+            UTIL::convRzRyToVector(expanse_rz, ang_way, vx, vy, vz);
             X1 = vx * r;
             Y1 = vy * r;
             Z1 = vz * r;
@@ -116,7 +116,7 @@ bool MyTorpedoController::fire() {
             } else {
                 papTorpedo_[i]->pTarget_ = pLockonCtrler_->pRingTarget_->getNext(i);
             }
-            UTIL::getRzRyAng(X2, Y2, Z2, RZ, RY);
+            UTIL::convVectorToRzRy(X2, Y2, Z2, RZ, RY);
             papTorpedo_[i]->_pKurokoA->setRzRyMvAng(RZ, RY); //”ò‚Ô•ûŒü
             papTorpedo_[i]->activate();
             ang_way = UTIL::addAng(ang_way, ang_way_offset); //Ÿ‚Ì•úËó‚Ì‹›—‹‚Ö

@@ -16,7 +16,7 @@ void FormationCeres001::initialize() {
 
 void FormationCeres001::processBehavior() {
     if (canCallUp() && (getActivePartFrame()-1) % 30 == 0) {
-        EnemyCeres* pCeres = (EnemyCeres*)callUp();
+        EnemyCeres* pCeres = (EnemyCeres*)callUpMember();
         if (pCeres) {
             pCeres->activate();
         }

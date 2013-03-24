@@ -42,7 +42,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) = 0;
+    virtual void onCallUpEunomia(EnemyEunomia* pEnemyEunomia, int col) = 0;
 
     /**
      * •Ò‘à‚ª‘S‚Ä©‹@‘¤‚ÌUŒ‚‚ÅŸr–Å‚³‚¹‚ç‚ê‚½ê‡‚Ìˆ—À‘• .

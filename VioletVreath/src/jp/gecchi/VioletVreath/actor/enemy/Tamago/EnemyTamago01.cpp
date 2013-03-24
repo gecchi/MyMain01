@@ -137,7 +137,8 @@ void EnemyTamago01::processBehavior() {
             int way = 8;
             angle* paAng_way = NEW angle[way];
             angle target_RzRy_Rz, target_RzRy_Ry;
-            UTIL::getRzRyAng(P_MYSHIP->_X - _X, P_MYSHIP->_Y - _Y, P_MYSHIP->_Z - _Z, target_RzRy_Rz, target_RzRy_Ry);
+            UTIL::convVectorToRzRy(P_MYSHIP->_X - _X, P_MYSHIP->_Y - _Y, P_MYSHIP->_Z - _Z,
+                                   target_RzRy_Rz, target_RzRy_Ry);
             angle target_RyRz_Ry, target_RyRz_Rz;
             UTIL::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);
             UTIL::getWayAngle2D(target_RyRz_Ry, way, 10000, paAng_way);

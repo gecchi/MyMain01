@@ -91,8 +91,7 @@ void EnemyHermioneArm::processBehavior() {
                 int TvZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
                 //自動方向向きシークエンス開始
                 angle angRz_Target, angRy_Target;
-                UTIL::getRzRyAng(TvX, TvY, TvZ,
-                                 angRz_Target, angRy_Target);
+                UTIL::convVectorToRzRy(TvX, TvY, TvZ, angRz_Target, angRy_Target);
                 //計算の結果、angRz_Target angRy_Target に向けば、自機に向ける
 
                 //angRz_Target、angRy_Target 可動範囲内に制限する
@@ -106,7 +105,7 @@ void EnemyHermioneArm::processBehavior() {
                 } else if (D180ANG <= angRy_Target && angRy_Target <= D360ANG - aiming_movable_limit_ang_) {
                     angRy_Target = D360ANG - aiming_movable_limit_ang_;
                 }
-                _pKurokoA->turnFaceAngTo(
+                _pKurokoA->turnRzRyFaceAngTo(
                                 angRz_Target, angRy_Target,
                                 aiming_ang_velo_, aiming_ang_velo_*0.05,
                                 TURN_CLOSE_TO, false);

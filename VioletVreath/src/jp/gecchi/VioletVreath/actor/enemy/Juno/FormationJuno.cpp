@@ -34,8 +34,8 @@ FormationJuno::FormationJuno(
     _pKurokoA->setMvVelo(prm_veloMv_App);
     _pKurokoA->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
     float vX_AppBox, vY_AppBox, vZ_AppBox;
-    UTIL::getNormalizeVectorZY(prm_angRzMv_AppBox, prm_angRyMv_AppBox,
-                                      vX_AppBox, vY_AppBox, vZ_AppBox);
+    UTIL::convRzRyToVector(prm_angRzMv_AppBox, prm_angRyMv_AppBox,
+                           vX_AppBox, vY_AppBox, vZ_AppBox);
 
     frame_app_interval_ = prm_frame_app_interval;
 

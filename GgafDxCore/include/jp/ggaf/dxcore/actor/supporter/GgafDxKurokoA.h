@@ -608,9 +608,9 @@ public:
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void turnFaceAngTo(angle prm_angRz_Target, angle prm_angRy_Target,
-                       angvelo prm_angVelo, angacce prm_angAcce,
-                       int prm_way, bool prm_optimize_ang);
+    void turnRzRyFaceAngTo(angle prm_angRz_Target, angle prm_angRy_Target,
+                           angvelo prm_angVelo, angacce prm_angAcce,
+                           int prm_way, bool prm_optimize_ang);
 
     /**
      * 軸回転方角を目標にターゲットするシークエンスを実行 .

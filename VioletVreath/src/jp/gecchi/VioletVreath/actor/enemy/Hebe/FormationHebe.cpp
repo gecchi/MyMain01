@@ -33,7 +33,7 @@ void FormationHebe::onActive() {
 
 void FormationHebe::processBehavior() {
     if (canCallUp() && (getActivePartFrame() % rr_interval_frames_ == 0)) {
-        EnemyHebe* pHebe = (EnemyHebe*)callUpUntil(rr_num_formation_);
+        EnemyHebe* pHebe = (EnemyHebe*)callUpMemberUntil(rr_num_formation_);
         if (pHebe) {
             SplineSequence* pSplSeq = pSplManufCon_->fetch()->
                                           createSplineSequence(pHebe->_pKurokoA);

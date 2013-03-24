@@ -45,7 +45,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         papaPosLaser_[i] = NEW PosLaser[laser_way_];
         for (int j = 0; j < laser_way_; j++) {
             Ry = UTIL::simplifyAng(paAng_way[j]);
-            UTIL::getNormalizeVectorZY(Rz, Ry, vx, vy, vz);
+            UTIL::convRzRyToVector(Rz, Ry, vx, vy, vz);
             papaPosLaser_[i][j].X = vx * PX_C(100);
             papaPosLaser_[i][j].Y = vy * PX_C(100);
             papaPosLaser_[i][j].Z = vz * PX_C(100);
@@ -184,7 +184,7 @@ void EnemyAstraea::processBehavior() {
                                 vX = p->X*matWorldRot._11 + p->Y*matWorldRot._21 + p->Z*matWorldRot._31;
                                 vY = p->X*matWorldRot._12 + p->Y*matWorldRot._22 + p->Z*matWorldRot._32;
                                 vZ = p->X*matWorldRot._13 + p->Y*matWorldRot._23 + p->Z*matWorldRot._33;
-                                UTIL::getRzRyAng(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
+                                UTIL::convVectorToRzRy(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
                                 pLaserChip->locate(_X+vX, _Y+vY, _Z+vZ);
                                 pLaserChip->_pKurokoA->setRzRyMvAng(Rz, Ry);
                                 pLaserChip->_pKurokoA->_angFace[AXIS_Z] = Rz;

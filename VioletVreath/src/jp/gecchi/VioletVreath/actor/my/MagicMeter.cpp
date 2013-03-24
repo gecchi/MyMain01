@@ -508,7 +508,7 @@ void MagicMeter::processDraw() {
         n++;
 
         float rr = paFloat_rr_[i];
-        if (rr > 0.1) {
+        if (rr > 0.1f) {
             //各マジック要素
             int lv_slecter_num = pMagic->max_level_+1;
             for (int j = 0; j < lv_slecter_num; j++) {

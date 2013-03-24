@@ -99,8 +99,8 @@ void EnemyRemus::processBehavior() {
                 if (pChip) {
                     pChip->locateWith(this);
                     angle Rz, Ry;  //現在の最終的な向きを、RzRyで取得する
-                    UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
-                                     Rz, Ry); //現在の最終的な向きを、RzRyで取得！
+                    UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
+                                           Rz, Ry); //現在の最終的な向きを、RzRyで取得！
                     pChip->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
                 } else {
                     is_firing_ = false;

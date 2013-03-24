@@ -16,7 +16,7 @@ public:
     /**
      * Т▓Ро .
      */
-    void processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) override;
+    void onCallUpEunomia(EnemyEunomia* pEnemyEunomia, int col) override;
 
     virtual ~FormationEunomia001a();
 };

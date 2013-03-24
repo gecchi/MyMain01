@@ -153,8 +153,8 @@ void EnemyRomulus::processBehavior() {
                             //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
                             //最終的な方向ベクトルは（Xorg_*mat_11, Xorg_*mat_12, Xorg_*mat_13) である。
                             angle Rz, Ry;
-                            UTIL::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
-                                             Rz, Ry); //現在の最終的な向きを、RzRyで取得！
+                            UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
+                                                   Rz, Ry); //現在の最終的な向きを、RzRyで取得！
                             pActor->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
                             pActor->locateWith(this);
                             pActor->reset();
@@ -206,11 +206,10 @@ void EnemyRomulus::processBehavior() {
         int TvZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
         //自動方向向きシークエンス開始
         angle angRz_Target, angRy_Target;
-        UTIL::getRzRyAng(TvX, TvY, TvZ,
-                         angRz_Target, angRy_Target);
+        UTIL::convVectorToRzRy(TvX, TvY, TvZ, angRz_Target, angRy_Target);
         _pKurokoA->turnRzRyMvAngTo(angRz_Target, angRy_Target,
-                                             1000, 0,
-                                             TURN_CLOSE_TO, false);
+                                   1000, 0,
+                                   TURN_CLOSE_TO, false);
     }
 
     _pScaler->behave();

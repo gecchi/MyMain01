@@ -49,7 +49,7 @@ void GgafTreeFormation::onEnd() {
     GgafFormation::onEnd();
 }
 
-GgafActor* GgafTreeFormation::callUp() {
+GgafActor* GgafTreeFormation::callUpMember() {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //I—¹‚ğ‘Ò‚Â‚Ì‚İ
         return nullptr;

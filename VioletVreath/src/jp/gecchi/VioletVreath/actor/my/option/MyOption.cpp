@@ -521,7 +521,7 @@ void MyOption::processBehavior() {
     Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
     //ZŽ²‰ñ“]AYŽ²‰ñ“]Šp“x‚ðŒvŽZ
-    UTIL::getRzRyAng(Q._x, Q._y, Q._z, _RZ, _RY);
+    UTIL::convVectorToRzRy(Q._x, Q._y, Q._z, _RZ, _RY);
 
     _X += pOptionCtrler_->_X;
     _Y += pOptionCtrler_->_Y;

@@ -23,7 +23,7 @@ void FormationSappho001::onActive() {
 
 void FormationSappho001::processBehavior() {
     if (canCallUp() && getActivePartFrame() % interval_frames_ == 0) {
-        EnemySappho* p = (EnemySappho*)callUp();
+        EnemySappho* p = (EnemySappho*)callUpMember();
         if (p) {
             p->activate();
             onCallUpSappho(p, cnt_call_up_);  //コールバック

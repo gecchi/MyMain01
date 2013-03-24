@@ -26,7 +26,7 @@ void FormationPallas001::initialize() {
 
 void FormationPallas001::onActive() {
     for (int n = 0; canCallUp(); n++) {
-        EnemyPallas* pPallas = (EnemyPallas*)callUp();
+        EnemyPallas* pPallas = (EnemyPallas*)callUpMember();
         if (pPallas) {
             onCallUpPallas(pPallas); //コールバック
             pPallas->activateDelay(n*interval_frames_ + 1);
@@ -35,7 +35,7 @@ void FormationPallas001::onActive() {
     }
     //FormationTableScene に追加する編隊の場合、
     //編隊が途中でちょん切れる事を防ぐために、このように
-    //onActive()で、一気に全ての編隊要員を callUp() & activate() しておく事。
+    //onActive()で、一気に全ての編隊要員を callUpMember() & activate() しておく事。
 }
 
 void FormationPallas001::processBehavior() {

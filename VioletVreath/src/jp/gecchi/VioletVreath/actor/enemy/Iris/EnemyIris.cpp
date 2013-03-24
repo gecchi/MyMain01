@@ -92,8 +92,8 @@ void EnemyIris::processBehavior() {
             if (_Z-10000 < P_MYSHIP->_Z && P_MYSHIP->_Z < _Z+10000) {
                 //Ž©‹@‚ÆZŽ²‚ªÚ‹ß‚µ‚½‚çƒOƒ‹ƒb‚Æ‹t‰ñ“]‚Å•ûŒü“]Š·
                 _pKurokoA->turnMvAngTwd(MyShip::lim_behaind_ - 500000 , _Y, _Z,
-                                                    10000, 0,
-                                                    TURN_CLOSE_TO, true);
+                                        10000, 0,
+                                        TURN_CLOSE_TO, true);
                 _pKurokoA->setMvAcce(100);
                 iMovePatternNo_++;
             } else {

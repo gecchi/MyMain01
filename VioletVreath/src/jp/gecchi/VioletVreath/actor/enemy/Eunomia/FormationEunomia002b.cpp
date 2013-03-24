@@ -8,7 +8,7 @@ FormationEunomia002b::FormationEunomia002b(const char* prm_name) : FormationEuno
     _class_name = "FormationEunomia002b";
 }
 
-void FormationEunomia002b::processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) {
+void FormationEunomia002b::onCallUpEunomia(EnemyEunomia* pEnemyEunomia, int col) {
 //    pEnemyEunomia->pSplSeq_->adjustAxisRate(
 //                                        MyShip::lim_front_, //X•ûŒü”{—¦
 //                                       -1.0 * MyShip::lim_top_,   //Y•ûŒü”{—¦

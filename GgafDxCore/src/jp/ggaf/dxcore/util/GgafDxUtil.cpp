@@ -205,7 +205,7 @@ void GgafDxUtil::init() {
             nvx = t * vx;
             nvy = t * vy;
             nvz = t * vz;
-            //getRzRyAng((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
+            //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
             //íPà ÉxÉNÉgÉãÇ©ÇÁRxRyÇãÅÇﬂÇÈ
             _srv.getFaceAngClosely(
                     (UINT32)(nvx*1000000),
@@ -236,7 +236,7 @@ void GgafDxUtil::init() {
             nvx = t * vx;
             nvy = t * vy;
             nvz = t * vz;
-            //getRzRyAng((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
+            //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
             //íPà ÉxÉNÉgÉãÇ©ÇÁRxRyÇãÅÇﬂÇÈ
             _srv.getFaceAngClosely(
                     (UINT32)(nvx*1000000),
@@ -354,8 +354,8 @@ void GgafDxUtil::getRadialAngle2D(angle prm_angStart, int prm_nWay, angle* out_p
 
 void GgafDxUtil::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle& out_Rz) {
     float vx,vy,vz;
-    getNormalizeVectorZY(prm_Rz, prm_Ry , vx, vy, vz);
-    getRzRyAng(vx, vz, -1.0f*vy, out_Ry, out_Rz ); //-ÇXÇOìxXé≤âÒì]RzRyì¸ÇÍë÷Ç¶
+    convRzRyToVector(prm_Rz, prm_Ry , vx, vy, vz);
+    convVectorToRzRy(vx, vz, -1.0f*vy, out_Ry, out_Rz ); //-ÇXÇOìxXé≤âÒì]RzRyì¸ÇÍë÷Ç¶
     out_Rz = D360ANG-out_Rz; //Yé≤ÇZé≤çlÇ¶ÇÈÇΩÇﬂÅAê≥ïâÇ™ïœÇÌÇÈÅÅãtâÒì]ÅÅ360Ç©ÇÁà¯Ç≠
 }
 
@@ -365,7 +365,7 @@ void GgafDxUtil::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle
 //                                              int prm_nWay, angle prm_angClearance,
 //                                              angle* out_paAngleRz, angle* out_paAngleRy) {
 //    float vx,vy,vz;
-//    getNormalizeVectorZY(prm_angCenterRz, prm_angCenterRy, vx, vy, vz);
+//    convRzRyToVector(prm_angCenterRz, prm_angCenterRy, vx, vy, vz);
 //    float vx2,vy2,vz2;
 //    //Xé≤ÇXÇOìxâÒì]
 //    vx2 = vx;
@@ -379,7 +379,7 @@ void GgafDxUtil::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle
 //void GgafDxUtil::getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tX, coord prm_tY, coord prm_tZ,
 //                                          angle& out_angFaceZ, angle* out_paAngRotY) {
 //    angle tRz, tRy;
-//    getRzRyAng(prm_tX, prm_tY, prm_tZ, tRy, tRy);
+//    convVectorToRzRy(prm_tX, prm_tY, prm_tZ, tRy, tRy);
 //
 //    angle angStart = addAng(tRy, ((prm_nWay - 1) * prm_angClearance) / -2);
 //    for (int i = 0; i < prm_nWay; i++) {
@@ -510,7 +510,7 @@ int GgafDxUtil::getDistance(int x1, int y1, int x2, int y2) {
 //}
 
 
-void GgafDxUtil::getRzRyAng(coord vx,
+void GgafDxUtil::convVectorToRzRy(coord vx,
                             coord vy,
                             coord vz,
                             angle& out_angRZ,
@@ -591,7 +591,7 @@ void GgafDxUtil::getRzRyAng(coord vx,
 }
 
 
-void GgafDxUtil::getRzRyAng(coord vx,
+void GgafDxUtil::convVectorToRzRy(coord vx,
                             coord vy,
                             coord vz,
                             float& out_nvx,
@@ -600,13 +600,13 @@ void GgafDxUtil::getRzRyAng(coord vx,
                             angle& out_angFaceZ,
                             angle& out_angFaceY) {
 
-    getRzRyAng(vx,
+    convVectorToRzRy(vx,
                vy,
                vz,
                out_angFaceZ,
                out_angFaceY );
 
-    getNormalizeVectorZY(out_angFaceZ,
+    convRzRyToVector(out_angFaceZ,
                          out_angFaceY,
                          out_nvx,
                          out_nvy,
@@ -644,7 +644,7 @@ void GgafDxUtil::getNormalizeVector(dxcoord x,
 
 
 
-void GgafDxUtil::getNormalizeVectorZY(angle prm_angFaceZ,
+void GgafDxUtil::convRzRyToVector(angle prm_angFaceZ,
                                       angle prm_angFaceY,
                                       float& out_nvx,
                                       float& out_nvy,
