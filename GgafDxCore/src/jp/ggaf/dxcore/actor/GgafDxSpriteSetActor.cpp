@@ -27,7 +27,7 @@ GgafDxSpriteSetActor::GgafDxSpriteSetActor(const char* prm_name,
                              _pSpriteSetModel->_row_texture_split
                             );
     _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+    _pUvFlipper->exec(NOT_ANIMATED, 1);
 
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
 

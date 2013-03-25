@@ -12,18 +12,18 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     addSubLast(pScene_StagePartCtrler_);
     Sleep(2);
     pWorldBoundSpace_  = NEW WorldBoundSpace001("BG_SPACE");
-    getDirector()->addSubGroup(pWorldBoundSpace_);
+    getSceneDirector()->addSubGroup(pWorldBoundSpace_);
 
     pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
-    getDirector()->addSubGroup(pHoshiBoshi_);
+    getSceneDirector()->addSubGroup(pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("Stage01Msg");
-    getDirector()->addSubGroup(pMessage_);
+    getSceneDirector()->addSubGroup(pMessage_);
     pMessage_->inactivate();
 
 
     pPlanet_ = NEW Planet001("Planet001");
-    getDirector()->addSubGroup(KIND_EFFECT, pPlanet_);
+    getSceneDirector()->addSubGroup(KIND_EFFECT, pPlanet_);
 
 
 
@@ -32,7 +32,7 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
 //    pTest->locate(PX_C(0),PX_C(0), PX_C(100));
 //    pTest->_pKurokoA->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
 //    pTest->_pKurokoA->behave();
-//    getDirector()->addSubGroup(pTest);
+//    getSceneDirector()->addSubGroup(pTest);
     //<-----debug
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\Ž¦

@@ -24,7 +24,7 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
                              _pBoardModel->_row_texture_split
                             );
     _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+    _pUvFlipper->exec(NOT_ANIMATED, 1);
     _width_px = (int)(_pBoardModel->_fSize_BoardModelWidthPx); //ïù(px)
     _height_px = (int)(_pBoardModel->_fSize_BoardModelHeightPx); //çÇÇ≥(px)
     _harf_width_px = _width_px/2;

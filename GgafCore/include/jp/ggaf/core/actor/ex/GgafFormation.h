@@ -14,7 +14,7 @@ namespace GgafCore {
 class GgafFormation : public GgafMainActor {
 
 public:
-    /** [r]編隊要素として管理されているアクター数(addSubLast() callUpMemberUntil() により増加) */
+    /** [r]編隊要素として管理されているアクター数(addSubLast() callUpMember() により増加) */
     int _num_formation_member;
     /** [r]破壊による消滅したアクター数 (所属アクターの informDestroyedFollower() により増加)*/
     int _num_destory;

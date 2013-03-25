@@ -5,7 +5,8 @@ namespace VioletVreath {
 /**
  * 敵機サッフォー .
  * 超連射６８Kの雑魚のように、
- * 現れて、目の前でちょっとウロウロして、逃げる。
+ * 現れて、目の前にスーっと来て、
+ * ちょっとウロウロして、スーっと逃げる。
  * @version 1.00
  * @since 2013/03/18
  * @author Masatoshi Tsuge
@@ -43,27 +44,27 @@ public:
     void onCreateModel() override;
 
     /**
-     * パラスの初期処理（インスタンス生成後保証）
+     * サッフォーの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 
     /**
-     * パラスのがアクティブになった瞬間の処理 .
+     * サッフォーのがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 
     /**
-     * パラスの振る舞い .
+     * サッフォーの振る舞い .
      */
     void processBehavior() override;
 
     /**
-     * パラスの振る舞い後の判定処理 .
+     * サッフォーの振る舞い後の判定処理 .
      */
     void processJudgement() override;
 
     /**
-     * パラスの衝突時処理 .
+     * サッフォーの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;

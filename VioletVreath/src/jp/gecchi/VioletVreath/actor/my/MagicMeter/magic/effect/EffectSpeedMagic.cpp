@@ -15,7 +15,7 @@ EffectSpeedMagic::EffectSpeedMagic(const char* prm_name) :
 }
 
 void EffectSpeedMagic::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void EffectSpeedMagic::onActive() {

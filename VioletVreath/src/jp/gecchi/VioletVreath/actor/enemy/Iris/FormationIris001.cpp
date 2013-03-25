@@ -34,14 +34,13 @@ void FormationIris001::processBehavior() {
         if (pIris) {
             pIris->locate(MyShip::lim_behaind_ - 500000, 0, MyShip::lim_zleft_ * 0.8);
             pIris->_pKurokoA->setMvVelo(velo_mv_);
-            pIris->activate();
         }
     }
 }
 
 void FormationIris001::onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) {
     GgafDxGeometricActor* pActor_last_destroyed = (GgafDxGeometricActor*)prm_pActor_last_destroyed;
-    //編隊全滅時エフェクト出現（スコア加算も行われる）
+    //編隊全滅時エフェクト出現（※ボーナススコア加算も行われる）
     UTIL::activateFormationDestroyedEffectOf(pActor_last_destroyed);
     //編隊全滅アイテム出現
     UTIL::activateFormationDestroyedItemOf(pActor_last_destroyed);

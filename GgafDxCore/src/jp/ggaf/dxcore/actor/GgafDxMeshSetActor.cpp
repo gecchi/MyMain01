@@ -10,13 +10,13 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
                                        GgafDxChecker* prm_pChecker) :
 
                                            GgafDxDrawableActor(prm_name,
-                                                                prm_model_id,
-                                                                "x",
-                                                                prm_effect_id,
-                                                                "x",
-                                                                prm_technique,
-                                                                prm_pStat,
-                                                                prm_pChecker) {
+                                                               prm_model_id,
+                                                               "x",
+                                                               prm_effect_id,
+                                                               "x",
+                                                               prm_technique,
+                                                               prm_pStat,
+                                                               prm_pChecker) {
     _obj_class |= Obj_GgafDxMeshSetActor;
     _class_name = "GgafDxMeshSetActor";
     _pMeshSetModel = (GgafDxMeshSetModel*)_pModel;

@@ -65,7 +65,8 @@ class StringBoardActor;
 class StringSpriteActor;
 class WallPartsActor;
 class WallAABctor;
-class WallAAPrismctor;
+class WallAAPrismActor;
+
 class SpriteMeshWorldBoundActor;
 class WorldBoundActor;
 class ColliAAB;
@@ -149,6 +150,7 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/actor/WallPartsActor.h"
 #include "jp/ggaf/lib/actor/WallAABActor.h"
 #include "jp/ggaf/lib/actor/WallAAPrismActor.h"
+
 #include "jp/ggaf/lib/actor/SpriteMeshWorldBoundActor.h"
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 

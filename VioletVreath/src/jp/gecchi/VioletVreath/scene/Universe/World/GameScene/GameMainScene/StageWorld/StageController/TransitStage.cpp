@@ -10,14 +10,14 @@ TransitStage::TransitStage(const char* prm_name) : Stage(prm_name) {
     teansit_stage_ = 0;
     next_main_stage_ = 1;
     pWorldBoundSpace_ = NEW WorldBoundSpaceTransit("WBSTransit");
-    getDirector()->addSubGroup(pWorldBoundSpace_);
+    getSceneDirector()->addSubGroup(pWorldBoundSpace_);
 
     pHoshiBoshi_ = NEW HoshiBoshiTransit("HoshiBoshiTransit");
-    getDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
+    getSceneDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("TransitStageMsg");
     pMessage_->update(300*1000, 300*1000, "");
-    getDirector()->addSubGroup(KIND_EFFECT, pMessage_);
+    getSceneDirector()->addSubGroup(KIND_EFFECT, pMessage_);
     useProgress(10);
 }
 

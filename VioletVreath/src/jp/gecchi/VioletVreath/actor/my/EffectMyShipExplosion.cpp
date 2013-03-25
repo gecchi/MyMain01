@@ -18,7 +18,7 @@ void EffectMyShipExplosion::initialize() {
 
 void EffectMyShipExplosion::onActive() {
     _pUvFlipper->setActivePtnToTop();
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 20);
+    _pUvFlipper->exec(FLIP_ORDER_NOLOOP, 20);
     locateWith(P_MYSHIP);
     _alpha = 0.99;
     _pScaler->setScale(8000);

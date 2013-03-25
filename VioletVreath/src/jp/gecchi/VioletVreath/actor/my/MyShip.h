@@ -94,7 +94,7 @@ public:
             way_.X = way_.Y = way_.Z = SW_NOP;
             sw_UP_ = sw_LEFT_ = sw_RIGHT_ = sw_DOWN_ = false;
         }
-        void ON_UP(Switch swX, Switch swY, Switch swZ) {
+        inline void ON_UP(Switch swX, Switch swY, Switch swZ) {
             if (!sw_UP_) {
                 way_.X += swX;
                 way_.Y += swY;
@@ -105,7 +105,7 @@ public:
                 sw_UP_ = true;
             }
         }
-        void ON_LEFT(Switch swX, Switch swY, Switch swZ) {
+        inline void ON_LEFT(Switch swX, Switch swY, Switch swZ) {
             if (!sw_LEFT_) {
                 way_.X += swX;
                 way_.Y += swY;
@@ -116,7 +116,7 @@ public:
                 sw_LEFT_ = true;
             }
         }
-        void ON_RIGHT(Switch swX, Switch swY, Switch swZ) {
+        inline void ON_RIGHT(Switch swX, Switch swY, Switch swZ) {
             if (!sw_RIGHT_) {
                 way_.X += swX;
                 way_.Y += swY;
@@ -127,7 +127,7 @@ public:
                 sw_RIGHT_ = true;
             }
         }
-        void ON_DOWN(Switch swX, Switch swY, Switch swZ) {
+        inline void ON_DOWN(Switch swX, Switch swY, Switch swZ) {
             if (!sw_DOWN_) {
                 way_.X += swX;
                 way_.Y += swY;
@@ -138,7 +138,7 @@ public:
                 sw_DOWN_ = true;
             }
         }
-        void OFF_UP() {
+        inline void OFF_UP() {
             if (sw_UP_) {
                 way_.X -= on_UP_.X;
                 way_.Y -= on_UP_.Y;
@@ -146,7 +146,7 @@ public:
                 sw_UP_ = false;
             }
         }
-        void OFF_RIGHT() {
+        inline void OFF_RIGHT() {
             if (sw_RIGHT_) {
                 way_.X -= on_RIGHT_.X;
                 way_.Y -= on_RIGHT_.Y;
@@ -154,7 +154,7 @@ public:
                 sw_RIGHT_ = false;
             }
         }
-        void OFF_LEFT() {
+        inline void OFF_LEFT() {
             if (sw_LEFT_) {
                 way_.X -= on_LEFT_.X;
                 way_.Y -= on_LEFT_.Y;
@@ -162,7 +162,7 @@ public:
                 sw_LEFT_ = false;
             }
         }
-        void OFF_DOWN() {
+        inline void OFF_DOWN() {
             if (sw_DOWN_) {
                 way_.X -= on_DOWN_.X;
                 way_.Y -= on_DOWN_.Y;
@@ -170,7 +170,7 @@ public:
                 sw_DOWN_ = false;
             }
         }
-        int getIndex() {
+        inline int getIndex() {
             //3êiêîÅ®10êiêîïœä∑
             //_TRACE_("way_.X, way_.Y, way_.Z="<<way_.X<<","<<way_.Y<<","<< way_.Z);
             return (3*3*(SGN(way_.X)+1)) + (3*(SGN(way_.Y)+1)) + (SGN(way_.Z)+1);

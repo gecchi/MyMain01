@@ -29,7 +29,7 @@ GgafDxPointSpriteActor::GgafDxPointSpriteActor(const char* prm_name,
     _pUvFlipper->setRotation(_pPointSpriteModel->_texture_split_rowcol,
                              _pPointSpriteModel->_texture_split_rowcol);
     _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+    _pUvFlipper->exec(NOT_ANIMATED, 1);
     setZEnable(false);
     setZWriteEnable(false);
 }

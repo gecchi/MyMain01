@@ -23,10 +23,9 @@ void FormationSappho001::onActive() {
 
 void FormationSappho001::processBehavior() {
     if (canCallUp() && getActivePartFrame() % interval_frames_ == 0) {
-        EnemySappho* p = (EnemySappho*)callUpMember();
-        if (p) {
-            p->activate();
-            onCallUpSappho(p, cnt_call_up_);  //コールバック
+        EnemySappho* pSappho = (EnemySappho*)callUpMember();
+        if (pSappho) {
+            onCallUpSappho(pSappho, cnt_call_up_);  //コールバック
             cnt_call_up_++;
         }
     }
@@ -34,7 +33,7 @@ void FormationSappho001::processBehavior() {
 
 void FormationSappho001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     GgafDxGeometricActor* pActor_last_destroyed = (GgafDxGeometricActor*)prm_pActor_last_destroyed;
-    //編隊全滅時エフェクト出現（スコア加算も行われる）
+    //編隊全滅時エフェクト出現（※ボーナススコア加算も行われる）
     UTIL::activateFormationDestroyedEffectOf(pActor_last_destroyed);
     //編隊全滅アイテム出現
     UTIL::activateFormationDestroyedItemOf(pActor_last_destroyed);

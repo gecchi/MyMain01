@@ -21,7 +21,7 @@ void MagicLvCursor003::initialize() {
     MagicLvCursor::initialize();
     _pUvFlipper->setFlipPtnRange(0,3);
     _pUvFlipper->setActivePtn(3);
-    _pUvFlipper->setFlipMethod(NOT_ANIMATED);
+    _pUvFlipper->exec(NOT_ANIMATED);
 
     _pScaler->forceScaleRange(1000, 10000);
 }
@@ -56,7 +56,7 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(0,3);
     _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     _pScaler->setScale(10000);
     _pScaler->intoTargetScaleLinerUntil(1000, 20);
 }
@@ -67,7 +67,7 @@ void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(8, 11);
     _pUvFlipper->setActivePtn(8);
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     _pScaler->setScale(1000);
     _pScaler->intoTargetScaleLinerUntil(10000, 20);
 }
@@ -76,7 +76,7 @@ void MagicLvCursor003::markOnInvoke(int prm_lv) {
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(4, 7);
     _pUvFlipper->setActivePtn(4);
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void MagicLvCursor003::markOnEffect(int prm_lv) {
@@ -85,7 +85,7 @@ void MagicLvCursor003::markOnEffect(int prm_lv) {
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(8, 11);
     _pUvFlipper->setActivePtn(8);
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     _pScaler->setScale(1000);
     _pScaler->intoTargetScaleLinerUntil(10000, 20);
 }

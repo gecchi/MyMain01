@@ -9,7 +9,7 @@ CursorConfirmMenu::CursorConfirmMenu(const char* prm_name) : DefaultBoardActor(p
     _class_name = "CursorConfirmMenu";
 }
 void CursorConfirmMenu::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_OSCILLATE_LOOP, 10);
+    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorConfirmMenu::onActive() {

@@ -96,7 +96,7 @@ void GgafDxUvFlipper::setFlipPtnRange(int prm_top, int prm_bottom) {
     _pattno_uvflip_bottom = prm_bottom;
 }
 
-void GgafDxUvFlipper::setFlipMethod(GgafDxUvFlippingMethod prm_method, int prm_interval) {
+void GgafDxUvFlipper::exec(GgafDxUvFlippingMethod prm_method, int prm_interval) {
     _uvflip_method = prm_method;
     _uvflip_interval_frames = prm_interval;
     _is_reverse_order_in_oscillate_animation_flg = false;

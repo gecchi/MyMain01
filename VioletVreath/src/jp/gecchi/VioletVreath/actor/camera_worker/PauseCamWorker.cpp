@@ -18,7 +18,7 @@ PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
 
 void PauseCamWorker::initialize() {
     pVPGuide_->inactivateImmed();
-    P_WORLD->getDirector()->addSubGroup(pVPGuide_);
+    P_WORLD->getSceneDirector()->addSubGroup(pVPGuide_);
 }
 
 

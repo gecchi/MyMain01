@@ -12,7 +12,7 @@ CostDispBar::CostDispBar(const char* prm_name, GraphBar* prm_pSourceBar, AmountG
 }
 
 void CostDispBar::initialize() {
-    _pUvFlipper->setFlipMethod(NOT_ANIMATED); //アニメ順序
+    _pUvFlipper->exec(NOT_ANIMATED); //アニメ順序
     setAlpha(0.7);
 }
 

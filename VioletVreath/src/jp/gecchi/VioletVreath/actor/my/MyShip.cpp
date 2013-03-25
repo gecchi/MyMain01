@@ -211,7 +211,7 @@ MyShip::MyShip(const char* prm_name) :
     is_just_change_way_ = true;
 
     mp_.config(600, 100000); //値 100000 で表示は600pxとする。
-    mp_.set(150000);         //初期値は100000
+    mp_.set(100000);         //初期値は100000
     //vreath_ は mp_ のメーターの長さ(px)にあわす。実値を _pStatus のSTAT_Stamina値を参照するように設定。
     vreath_.config(mp_._max_val_px, _pStatus->get(STAT_Stamina), &(_pStatus->_paValue[STAT_Stamina]._int_val));
 
@@ -232,9 +232,9 @@ void MyShip::initialize() {
     _TRACE_("MyShip::initialize()");
 
     //種別に振り分け
-//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
-//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyWaves001_->extract());
-    //getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
+//    getSceneDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
+//    getSceneDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyWaves001_->extract());
+    //getSceneDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
 
     setHitAble(true);
     _pColliChecker->makeCollision(1);
@@ -456,7 +456,7 @@ void MyShip::processBehavior() {
     if (invincible_frames_ > 0) {
         setHitAble(false);
         invincible_frames_ --;
-        if (getActivePartFrame() % 3 == 0) {
+        if (getActivePartFrame() % 2 == 0) {
             setAlpha(0.6);
         } else {
             setAlpha(0);

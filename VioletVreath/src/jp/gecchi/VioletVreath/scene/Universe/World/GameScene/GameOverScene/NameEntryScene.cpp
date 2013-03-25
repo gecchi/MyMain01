@@ -7,23 +7,23 @@ using namespace VioletVreath;
 NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "NameEntryScene";
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(pLabel01_);
+    getSceneDirector()->addSubGroup(pLabel01_);
 
     pWorldBound_ = NEW WorldBoundNameEntry("NAMEENTRY_WB");
-    getDirector()->addSubGroup(pWorldBound_);
+    getSceneDirector()->addSubGroup(pWorldBound_);
 
     pLabelInputedName_ = NEW SpriteLabelGecchi32Font("InputedName");
     pLabelInputedName_->locate(PX_C(100), PX_C(0), -2);
-    getDirector()->addSubGroup(pLabelInputedName_);
+    getSceneDirector()->addSubGroup(pLabelInputedName_);
 
     pLabelSelectedChar_ = NEW SpriteLabelGecchi32Font("SelectedChar");
     pLabelSelectedChar_->_pAFader->beat(60, 10, 0, 0, -1); //チカチカ点滅
     pLabelSelectedChar_->locateWith(pLabelInputedName_);
-    getDirector()->addSubGroup(pLabelSelectedChar_);
+    getSceneDirector()->addSubGroup(pLabelSelectedChar_);
 
     pNameEntryBoard_ = NEW MenuBoardNameEntry("pNameEntryBoard_");
     pNameEntryBoard_->setNameStringBoard(pLabelInputedName_, pLabelSelectedChar_);
-    getDirector()->addSubGroup(pNameEntryBoard_);
+    getSceneDirector()->addSubGroup(pNameEntryBoard_);
 
     inputed_name_ = "";
     useProgress(10);

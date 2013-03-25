@@ -20,12 +20,17 @@ public:
     void initialize() override;
 
     void onActive() override;
+
     void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
 
     /**
      * 先頭チップの動きを定義
      */
     void processBehaviorHeadChip() override;
+
+//    void processBehavior() override;
+
+    void processJudgement() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

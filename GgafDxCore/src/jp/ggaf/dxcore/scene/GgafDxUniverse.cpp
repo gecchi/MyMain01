@@ -54,7 +54,7 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
     _pCamera = prm_pCamera;
 
 
-    getDirector()->addSubGroup(_pCamera);
+    getSceneDirector()->addSubGroup(_pCamera);
     _pActor_DrawActive = nullptr;
 
     //ƒJƒƒ‰‚ÌÊ‚·”ÍˆÍB

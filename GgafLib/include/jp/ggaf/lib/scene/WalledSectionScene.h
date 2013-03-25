@@ -55,11 +55,11 @@ public:
     int _cnt_loop;
     /** [r]外壁表示間隔時間 */
     frame _frame_of_launch_next;
-    /** [r]表示済み外壁シーンの長さ */
+    /** [r]表示済み外壁シーンの長さ(壁ブロック数) */
     int _cnt_area_len;
     /** [r]全壁ブロック(WallPartsActor)の配置情報 */
     WallInfo** _papaWallInfo;
-    /** [r]全壁ブロック(WallPartsActor)の配置情報の、外壁シーンの長さ別個数 */
+    /** [r]全壁ブロック(WallPartsActor)の配置情報の、外壁の壁ブロック数。要素＝何ブロック目か */
     int* _paWallInfoLen;
     /** [r]壁ブロック(WallPartsActor)デポジトリ */
     GgafCore::GgafActorDepository* _pDepo_WallAAB;
@@ -126,6 +126,15 @@ public:
     void enableFrontAlpha(GgafDxCore::GgafDxGeometricActor* prm_pTarget_FrontAlpha) {
         _pTarget_FrontAlpha = prm_pTarget_FrontAlpha;
     }
+
+    /**
+     * YZ面に、ブロックのセットが出現完了時に呼び出されるコールバック。 .
+     * オーバーライドしてもいいのよ。
+     * @param prm_loop_count セクションのループ数カウント(0～)
+     * @param prm_wall_count セクションのYZ面ブロックセット数カウント(0～)
+     * @param prm_wall_X 出現したYZ面のブロックのX座標
+     */
+    virtual void onBlockLaunch(int prm_loop_count, int prm_wall_count, coord prm_wall_X) {};
 
     virtual ~WalledSectionScene();
 };

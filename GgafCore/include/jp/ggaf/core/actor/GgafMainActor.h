@@ -16,8 +16,8 @@ class GgafMainActor : public GgafActor {
 public:
     /** [r]自身が所属するグループの団長 */
     GgafGroupHead* _pGroupHead;
-    /** [r]自身が所属するグループの団長の監督 */
-    GgafDirector* _pDirector;
+    /** [r]自身が所属するグループの団長のシーン監督 */
+    GgafSceneDirector* _pSceneDirector;
 
 public:
     GgafMainActor(const char* prm_name, GgafStatus* prm_pStat);
@@ -51,7 +51,7 @@ public:
     /**
      * シーン監督を設定する。 .
      */
-    virtual void setSceneDirector(GgafDirector* prm_pDirector);
+    virtual void setSceneDirector(GgafSceneDirector* prm_pSceneDirector);
 
     /**
      * 団長を設定する。<BR>
@@ -62,7 +62,7 @@ public:
      * シーン監督取得。 .
      * @return 監督 ／ いない場合 nullptr
      */
-    virtual GgafDirector* getSceneDirector();
+    virtual GgafSceneDirector* getSceneDirector();
 
     /**
      * シーン団長を取得する。 .

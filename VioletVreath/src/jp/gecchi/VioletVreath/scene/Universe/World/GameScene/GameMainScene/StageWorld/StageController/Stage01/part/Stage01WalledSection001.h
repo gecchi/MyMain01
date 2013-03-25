@@ -18,6 +18,8 @@ public:
 
     void processBehavior() override;
 
+    virtual void onBlockLaunch(int prm_loop_count, int prm_wall_count, coord prm_wall_X) override;
+
     virtual ~Stage01WalledSection001();
 };
 

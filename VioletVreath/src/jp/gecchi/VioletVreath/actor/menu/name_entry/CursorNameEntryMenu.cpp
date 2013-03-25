@@ -9,7 +9,7 @@ CursorNameEntryMenu::CursorNameEntryMenu(const char* prm_name) : DefaultBoardAct
     _class_name = "CursorNameEntryMenu";
 }
 void CursorNameEntryMenu::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_OSCILLATE_LOOP, 10);
+    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorNameEntryMenu::onActive() {

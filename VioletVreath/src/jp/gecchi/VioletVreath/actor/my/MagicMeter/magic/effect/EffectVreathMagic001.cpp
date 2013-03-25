@@ -15,7 +15,7 @@ EffectVreathMagic001::EffectVreathMagic001(const char* prm_name) :
 }
 
 void EffectVreathMagic001::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void EffectVreathMagic001::onActive() {

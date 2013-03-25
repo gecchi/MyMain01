@@ -16,16 +16,13 @@ void FormationCeres001::initialize() {
 
 void FormationCeres001::processBehavior() {
     if (canCallUp() && (getActivePartFrame()-1) % 30 == 0) {
-        EnemyCeres* pCeres = (EnemyCeres*)callUpMember();
-        if (pCeres) {
-            pCeres->activate();
-        }
+        callUpMember();
     }
 }
 
 void FormationCeres001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     GgafDxGeometricActor* pActor_last_destroyed = (GgafDxGeometricActor*)prm_pActor_last_destroyed;
-    //編隊全滅時エフェクト出現（スコア加算も行われる）
+    //編隊全滅時エフェクト出現（※ボーナススコア加算も行われる）
     UTIL::activateFormationDestroyedEffectOf(pActor_last_destroyed);
     //編隊全滅アイテム出現
     UTIL::activateFormationDestroyedItemOf(pActor_last_destroyed);

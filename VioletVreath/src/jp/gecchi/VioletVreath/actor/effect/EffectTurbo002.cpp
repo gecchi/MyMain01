@@ -14,7 +14,7 @@ EffectTurbo002::EffectTurbo002(const char* prm_name) :
 
 void EffectTurbo002::initialize() {
     _pUvFlipper->setFlipPtnRange(0, 0);   //アニメ範囲を０～１５
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 2); //アニメ順序
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 2); //アニメ順序
 
 }
 

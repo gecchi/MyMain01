@@ -15,7 +15,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
 }
 
 void HoshiBoshi001::onActive() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 6);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 6);
 }
 
 void HoshiBoshi001::processBehavior() {

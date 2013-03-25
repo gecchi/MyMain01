@@ -368,7 +368,7 @@ typedef std::map<std::string, std::string> GgafStrMap;
 #define Obj_GgafActor             (0x1)              //0b 00000000 00000000 00000000 00000001
 #define Obj_GgafMainActor         (0x2)              //0b 00000000 00000000 00000000 00000010
 #define Obj_GgafDummyActor        (0x4)              //0b 00000000 00000000 00000000 00000100
-#define Obj_GgafDirector          (0x8)              //0b 00000000 00000000 00000000 00001000
+#define Obj_GgafSceneDirector          (0x8)              //0b 00000000 00000000 00000000 00001000
 #define Obj_GgafGroupHead         (0x10)             //0b 00000000 00000000 00000000 00010000
 #define Obj_GgafDisusedActor      (0x20)             //0b 00000000 00000000 00000000 00100000
 #define Obj_GgafActorDepository   (0x40)             //0b 00000000 00000000 00000000 01000000
@@ -415,7 +415,7 @@ class GgafMainActor;
 class GgafDummyActor;
 class GgafUniverse;
 class GgafMainScene;
-class GgafDirector;
+class GgafSceneDirector;
 class GgafGroupHead;
 
 class GgafFormation;
@@ -466,7 +466,7 @@ class GgafQuery;
 #include "jp/ggaf/core/actor/GgafDisusedActor.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 #include "jp/ggaf/core/scene/GgafUniverse.h"
-#include "jp/ggaf/core/actor/GgafDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
 #include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"

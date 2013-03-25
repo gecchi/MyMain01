@@ -27,7 +27,7 @@ void DefaultPointSpriteTestActor::initialize() {
 }
 
 void DefaultPointSpriteTestActor::onActive() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void DefaultPointSpriteTestActor::processBehavior() {

@@ -15,7 +15,7 @@ HoshiBoshiRankUp::HoshiBoshiRankUp(const char* prm_name) :
 }
 
 void HoshiBoshiRankUp::onActive() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 36);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 36);
 }
 
 void HoshiBoshiRankUp::processBehavior() {

@@ -22,7 +22,7 @@ void FormationSappho001a::onCallUpSappho(EnemySappho* prm_pSappho, int prm_index
                                    P_MYSHIP->_Z );
 
     prm_pSappho->leave_pos_.set( (Universe::_X_gone_right/2) + RND(-PX_C(d),PX_C(d)),
-                                 (Universe::_Y_gone_top/2)+ RND(-PX_C(d),PX_C(d)),
+                                 (Universe::_Y_gone_top/2)   + RND(-PX_C(d),PX_C(d)),
                                  P_MYSHIP->_Z);
 
 }

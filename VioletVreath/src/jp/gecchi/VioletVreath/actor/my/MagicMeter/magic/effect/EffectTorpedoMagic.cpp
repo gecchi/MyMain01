@@ -15,7 +15,7 @@ EffectTorpedoMagic::EffectTorpedoMagic(const char* prm_name) :
 }
 
 void EffectTorpedoMagic::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void EffectTorpedoMagic::onActive() {

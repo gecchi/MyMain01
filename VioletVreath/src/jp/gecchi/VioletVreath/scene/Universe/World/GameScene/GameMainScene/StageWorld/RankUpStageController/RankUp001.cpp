@@ -73,188 +73,188 @@ void RankUp001::processBehavior() {
 			}
 			case 200: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000000);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				orderActorToFactory(80000030, EnemyCirce, "EnemyCirce-31");
 				break;
 			}
 			case 260: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000001);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 320: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000002);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 380: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000003);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 440: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000004);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 500: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000005);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 560: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000006);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 620: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000007);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 680: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000008);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 740: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000009);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 800: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000010);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 860: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000011);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 920: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000012);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 980: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000013);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1040: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000014);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1100: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000015);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1160: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000016);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1220: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000017);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1280: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000018);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1340: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000019);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1400: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000020);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1460: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000021);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1520: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000022);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1580: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000023);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1640: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000024);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1700: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000025);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1760: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000026);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1820: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000027);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1880: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000028);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 1940: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000029);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}
 			case 2000: {
 				EnemyCirce* p = (EnemyCirce*)obtainActorFromFactory(80000030);
-				getDirector()->addSubGroup(p);
+				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
 				break;
 			}

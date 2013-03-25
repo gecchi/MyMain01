@@ -9,7 +9,7 @@ CursorKeyConfigMenu::CursorKeyConfigMenu(const char* prm_name) : DefaultBoardAct
     _class_name = "CursorKeyConfigMenu";
 }
 void CursorKeyConfigMenu::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_OSCILLATE_LOOP, 10);
+    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorKeyConfigMenu::onActive() {

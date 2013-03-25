@@ -13,7 +13,7 @@ EffectLockon001_Sub::EffectLockon001_Sub(const char* prm_name) :
 void EffectLockon001_Sub::initialize() {
     EffectLockon001::initialize();
     _pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //アニメ順序
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
 }
 
 void EffectLockon001_Sub::onActive() {

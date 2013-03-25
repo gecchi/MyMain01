@@ -9,7 +9,7 @@ namespace GgafCore {
  * 団長配下の全てのアクターの『種別』は、団長の『種別』と一致する。という仕組みになっています。<BR>
  * 『種別』とは、当たり判定時の [自機の弾]対[敵本体] の [] の中身の事を指します。（分類と表現すべきなのかもしれません）<BR>
  * 団長は配下のアクターが消滅すると、次フレームに自身も寂しくなって自殺します。部下を持たない上役は無意味です！<BR>
- * 監督(GgafDirector)の直下のサブアクターは、全て必ずこの団長になっています。<BR>
+ * 監督(GgafSceneDirector)の直下のサブアクターは、全て必ずこの団長になっています。<BR>
  * また、団長配下のアクターに、さらに団長が存在することも可能です。<BR>
  * 但し団長の直接配下に団長は置けません。これは、団長の配下には少なくとも一人は普通のアクターが存在しなければいけないという仕組み上の問題です。<BR>
  * 複数の団長を経た末端のアクターの種別は、直近の団長の種別が優先されます。<BR>
@@ -18,7 +18,7 @@ namespace GgafCore {
  *         ・・・⇔ GgafScene ⇔ GgafScene ⇔・・・
  *                   ｜
  *                   ↓メンバー
- *           GgafDirector  （←1つのSceneに必ず１つのDirector）
+ *           GgafSceneDirector  （←1つのSceneに必ず１つのDirector）
  *               ｜
  *               ｜getSubFirst()
  *               ↓
@@ -35,8 +35,8 @@ namespace GgafCore {
 class GgafGroupHead : public GgafActor {
 
 public:
-    /** [r]監督 */
-    GgafDirector* _pDirector;
+    /** [r]シーン監督 */
+    GgafSceneDirector* _pSceneDirector;
     /** [r/w]本グループの種別 */
     actorkind _kind;
 
@@ -58,7 +58,7 @@ public:
      */
     void processJudgement() override {
         if (getSubFirst() == nullptr) {
-            //団長が居なければ監督も不要、さようなら。
+            //団長が居なければシーン監督も不要、さようなら。
             sayonara();
         }
     }
@@ -91,16 +91,16 @@ public:
     }
 
     /**
-     * 監督(GgafDirector)を取得 .
-     * @return 自身が管理されている監督
+     * 自身が管理されているシーンの監督を取得 .
+     * @return シーン監督
      */
-    GgafDirector* getSceneDirector();
+    GgafSceneDirector* getSceneDirector();
 
     /**
-     * 監督(GgafDirector)を設定 .
-     * @param prm_pDirector 監督
+     * シーン監督(GgafSceneDirector)を設定 .
+     * @param prm_pSceneDirector 監督
      */
-    void setSceneDirector(GgafDirector* prm_pDirector);
+    void setSceneDirector(GgafSceneDirector* prm_pSceneDirector);
 
     /**
      * 神に謁見 .

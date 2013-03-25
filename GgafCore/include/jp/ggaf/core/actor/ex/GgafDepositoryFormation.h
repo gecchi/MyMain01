@@ -26,7 +26,7 @@ private:
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
     GgafCore::GgafLinkedListRing<GgafActor> _listFllower;
-    /** [r]これ以上 callUpMemberUntil() 不可の場合 true */
+    /** [r]これ以上 callUpMember() 不可の場合 true */
     bool _can_call_up;
     /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
@@ -49,7 +49,7 @@ public:
      * 本メソッドを実行し、構成メンバーの入ったデポジトリを設定した場合、
      * 本フォーメーションオブジェクトはデポジトリモードになる。
      * デポジトリモードでは、addSubLast は不要。
-     * メンバーを活動させるには、専用メソッド callUpMemberUntil() を使用する必要がある。
+     * メンバーを活動させるには、専用メソッド callUpMember() を使用する必要がある。
      * メンバーを活動終了時は、sayonara() を使用。
      * @param prm_pDepo
      */
@@ -70,26 +70,26 @@ public:
     virtual void processFinal() override;
 
     /**
-     * デポジトリからメンバー呼び出しする。 .
-     * デポジトリモード時呼び出し可能。setFormationMemberDepository() の事前実行が必要。
+     * デポジトリからアクターを本フォーメーションメンバーとして設定し取得する（招集する） .
+     * etFormationMemberDepository() の事前実行が必要。<BR>
      * 本メソッドを呼び出すと、デポジトリに管理されたメンバーが一つ dispatch() されます。(同時に activate() もされる)
-     * デポジトリのメンバーが枯渇した場合 nullptr が返ります。
+     * デポジトリのメンバーがすべて活動中で、枯渇している場合 nullptr が返ります。
      * また、引数の prm_formation_sub_num は最大編隊構成要員数で、この数以上の呼び出しでも nullptr が返ります。
      * 一度でも nullptr が返されると、内部フラグ canCallUp() が false になり、以降本フォーメーションオブジェクトは
-     * メンバー呼び出しできないようになります。と同時に、 processJudgement() で自動的に sayonara() がコールされ
-     * フォーメーションオブジェクトは解放されます。
+     * メンバー呼び出しできないようになります。と同時に、processFinal() で自動的に sayonara(_offset_frames_end) が実行され、
+     * フォーメーションオブジェクトは自動終了体制に入ります。_offset_frames_end のデフォルト値は FORMATION_END_DELAY フレームです。
      * 注意。初っ端に呼び出してもメンバーが確保できない場合も、
-     * 本フォーメーションオブジェクトは終了してしまいます。
+     * 本フォーメーションオブジェクトは sayonara(_offset_frames_end) が実行され終了してしまいます。
      * 構成メンバーを登録後に呼び出すようにして下さい。
      * @param prm_formation_sub_num 本フォーメーションの最大編隊構成要員数
      * @return 編隊構成要員のアクター。
      *         最大編隊構成要員数をオーバーして呼び出した場合、或いは
      *         デポジトリに構成要員がもういない場合は nullptr
      */
-    GgafActor* callUpMemberUntil(int prm_formation_sub_num = INT_MAX);
+    GgafActor* callUpMember(int prm_formation_sub_num = INT_MAX);
 
     /**
-     * callUpMemberUntil() 可能な場合 true
+     * callUpMember() 可能な場合 true
      * @return
      */
     bool canCallUp();

@@ -10,7 +10,7 @@ MyWave001::MyWave001(const char* prm_name) :
 }
 
 void MyWave001::initialize() {
-    //setFlipMethod(FLIP_OSCILLATE_LOOP, 2);
+    //exec(FLIP_OSCILLATE_LOOP, 2);
 
     _pKurokoA->setRzMvAngVelo(0);
     //_pKurokoA->setFaceAngVelo(AXIS_Z, 2*1000);

@@ -9,7 +9,7 @@ Cursor001::Cursor001(const char* prm_name) : DefaultBoardActor(prm_name, "Cursor
     _class_name = "Cursor001";
 }
 void Cursor001::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_OSCILLATE_LOOP, 10);
+    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void Cursor001::onActive() {

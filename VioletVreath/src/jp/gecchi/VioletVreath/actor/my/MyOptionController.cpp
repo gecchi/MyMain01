@@ -60,12 +60,10 @@ void MyOptionController::processBehavior() {
     vbsta is_double_push_VB_OPTION = pVbPlay->isDoublePushedDown(VB_OPTION,8,8);
     if (is_double_push_VB_OPTION) {
         //‚à‚Æ‚É–ß‚·
-        _pKurokoA->turnRzRyMvAngTo(
-                       D0ANG, D0ANG,
-                       D_ANG(20), 0,
-                       TURN_CLOSE_TO,
-                       false
-                   );
+        _pKurokoA->turnRzRyMvAngTo(D0ANG, D0ANG,
+                                   D_ANG(20), 0,
+                                   TURN_CLOSE_TO,
+                                   false );
         is_free_from_myship_mode_ = false;
         is_handle_move_mode_ = false;
         return_to_default_position_seq_ = true;

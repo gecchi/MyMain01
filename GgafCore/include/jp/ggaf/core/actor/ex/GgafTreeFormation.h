@@ -81,7 +81,7 @@ public:
      * callUpMember() ‰Â”\‚Èê‡ true
      * @return
      */
-    bool canCallUp() {
+    inline bool canCallUp() {
         return _can_call_up;
     }
 

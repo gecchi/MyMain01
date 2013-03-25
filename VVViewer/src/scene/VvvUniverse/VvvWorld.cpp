@@ -7,11 +7,11 @@ using namespace std;
 
 VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pCamWorker_ = NEW VvvCamWorker("VvvCamWorker");
-    getDirector()->addSubGroup(pCamWorker_);
+    getSceneDirector()->addSubGroup(pCamWorker_);
     pCursor_ = NEW VvvCursor("Cursor");
-    getDirector()->addSubGroup(pCursor_);
+    getSceneDirector()->addSubGroup(pCursor_);
     pGrid_ = NEW VvvGrid("GRID");
-    getDirector()->addSubGroup(pGrid_);
+    getSceneDirector()->addSubGroup(pGrid_);
 
     vb_ = NEW VirtualButton();
 }
@@ -366,7 +366,7 @@ void VvvWorld::processBehavior() {
         }
 
         if (pActor) {
-            getDirector()->addSubGroup(pActor);
+            getSceneDirector()->addSubGroup(pActor);
             ActorInfo* pActorInfo = NEW ActorInfo(pActor, string(VvvGod::dropfiles_));
             _listActorInfo.addLast(pActorInfo);
             _listActorInfo.last(); //ƒJƒŒƒ“ƒg‚ğlast‚Ö
@@ -411,7 +411,7 @@ void VvvWorld::processBehavior() {
                 pNewActor->locateWith(pCurrentActor);
                 pNewActor->rotateWith(pCurrentActor);
                 pNewActor->scaleWith(pCurrentActor);
-                getDirector()->addSubGroup(pNewActor);
+                getSceneDirector()->addSubGroup(pNewActor);
                 ActorInfo* pActorInfoNew = NEW ActorInfo(pNewActor, _listActorInfo.getCurrent()->modelfile_);
                 _listActorInfo.set(pActorInfoNew);
                 pCurrentActor->end();

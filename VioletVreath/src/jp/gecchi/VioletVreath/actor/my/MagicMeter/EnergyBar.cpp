@@ -10,7 +10,7 @@ EnergyBar::EnergyBar(const char* prm_name, AmountGraph* prm_pAmount)
 }
 
 void EnergyBar::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
 }
 
 void EnergyBar::onReset() {

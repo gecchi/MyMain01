@@ -17,7 +17,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW Shot001("Shot001"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
     }
 
     if (UTIL::strcmp_ascii("Conn_Shot002", prm_idstr) == 0) {
@@ -26,7 +26,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW Shot002("Shot002"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
     if (UTIL::strcmp_ascii("Conn_Shot003", prm_idstr) == 0) {
@@ -35,7 +35,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW Shot003("Shot003"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
     if (UTIL::strcmp_ascii("Conn_Shot004", prm_idstr) == 0) {
@@ -44,7 +44,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW Shot004("Shot004"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
     if (UTIL::strcmp_ascii("Conn_Shot004Blue", prm_idstr) == 0) {
@@ -53,7 +53,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW Shot004Blue("Shot004Blue"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
     if (UTIL::strcmp_ascii("Conn_Shot004Yellow", prm_idstr) == 0) {
@@ -62,7 +62,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
     if (UTIL::strcmp_ascii("Conn_EffRefraction001", prm_idstr) == 0) {
@@ -71,7 +71,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW EffectLaserRefraction001("EffRefraction001"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
     if (UTIL::strcmp_ascii("Conn_EnemyAstraeaLaserChip001DepoStore", prm_idstr) == 0) {
@@ -89,7 +89,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             }
             pResource->addSubLast(pLaserChipDepo);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
 
@@ -112,7 +112,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             }
             pResource->addSubLast(pLaserChipDepo);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
 
@@ -131,7 +131,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             }
             pResource->addSubLast(pLaserChipDepo);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
     if (UTIL::strcmp_ascii("Conn_EnemyAstraeaLaserChip004DepoStore", prm_idstr) == 0) {
@@ -149,7 +149,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             }
             pResource->addSubLast(pLaserChipDepo);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
     if (UTIL::strcmp_ascii("Conn_EnemyEunomia4Formation", prm_idstr) == 0) {
@@ -159,7 +159,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             Sleep(1);
         }
 
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
 //        if (prm_p) {
 //            ((FormationActor*)prm_p)->setFormationMemberDepository()
 //        } else {
@@ -173,7 +173,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW EnemyMassalia("EnemyMassalia"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
     if (UTIL::strcmp_ascii("Conn_MassaliaFragment", prm_idstr) == 0) {
@@ -182,7 +182,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW EnemyMassaliaFragment("EMF"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
     if (UTIL::strcmp_ascii("Conn_MassaliaFragment2", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_MassaliaFragment2");
@@ -190,7 +190,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW EnemyMassaliaFragment2("EMF2"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
     if (UTIL::strcmp_ascii("Conn_MassaliaFragment3", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_MassaliaFragment3");
@@ -198,7 +198,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW EnemyMassaliaFragment3("EMF3"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
 
@@ -209,7 +209,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW EnemyHebe("EnemyMassalia"));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
 
@@ -226,7 +226,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             }
             pResource->addSubLast(pLaserChipDepo);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
     if (UTIL::strcmp_ascii("Conn_Atalante", prm_idstr) == 0) {
@@ -236,7 +236,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(NEW EnemyAtalante(name.c_str()));
             Sleep(1);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
 
@@ -253,7 +253,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             }
             pResource->addSubLast(pLaserChipDepo);
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
 
@@ -280,7 +280,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             pResource->addSubLast(pLaserChipDepo);
 
         }
-        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 */
 

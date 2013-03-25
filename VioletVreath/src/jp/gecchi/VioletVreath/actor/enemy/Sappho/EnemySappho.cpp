@@ -88,15 +88,13 @@ void EnemySappho::processBehavior() {
                                          100, 0, TURN_CLOSE_TO, false);
                  //‚ä‚Á‚­‚èŽ©‹@‚Ì•û‚ÖŒü‚©‚¹‚é
                  _pKurokoA->turnFaceAngTwd(P_MYSHIP,
-                                           D_ANG(1), 0,
-                                           TURN_CLOSE_TO, true);
+                                           D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              //‘Ø—¯’†
              if (_pProg->getFrameInProgress() % 16 == 0) {
                  //‚¿‚å‚­‚¿‚å‚­Ž©‹@‚ðŒ©‚Â‚ß‚é
                  _pKurokoA->turnFaceAngTwd(P_MYSHIP,
-                                           D_ANG(1), 0,
-                                           TURN_CLOSE_TO, true);
+                                           D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
 
              if (_pProg->getFrameInProgress() == 180) {
@@ -129,8 +127,8 @@ void EnemySappho::processBehavior() {
                  _pKurokoA->setMvAcce(10);
              }
              if (_pProg->getFrameInProgress() % 16 == 0) {
-                 _pKurokoA->turnFaceAngTwd(P_MYSHIP, D_ANG(1), 0,
-                                           TURN_CLOSE_TO, true);
+                 _pKurokoA->turnFaceAngTwd(P_MYSHIP,
+                                           D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              if (!_pKurokoA->isTurningMvAng()) {
                  _pProg->changeNext();
@@ -147,8 +145,8 @@ void EnemySappho::processBehavior() {
              }
              if (_pProg->getFrameInProgress() % 16 == 0) {
                  //‚¿‚å‚­‚¿‚å‚­Ž©‹@‚ðŒ©‚Â‚ß‚é
-                 _pKurokoA->turnFaceAngTwd(P_MYSHIP, D_ANG(1), 0,
-                                           TURN_CLOSE_TO, true);
+                 _pKurokoA->turnFaceAngTwd(P_MYSHIP,
+                                           D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              break;
          }

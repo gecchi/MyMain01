@@ -10,14 +10,14 @@ RankUp100::RankUp100(const char* prm_name) : RankUpStage(prm_name) {
     Sleep(2);
     pWorldBoundSpace_  = NEW WorldBoundSpace001("BG_SPACE");
     pWorldBoundSpace_->inactivateTree();
-    getDirector()->addSubGroup(KIND_EFFECT, pWorldBoundSpace_);
+    getSceneDirector()->addSubGroup(KIND_EFFECT, pWorldBoundSpace_);
 
     pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
     pHoshiBoshi_->inactivateTree();
-    getDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
+    getSceneDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("RankUp100Msg");
-    getDirector()->addSubGroup(KIND_EFFECT, pMessage_);
+    getSceneDirector()->addSubGroup(KIND_EFFECT, pMessage_);
     pMessage_->inactivate();
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\¦

@@ -159,7 +159,7 @@ void MagicMeter::initialize() {
     pDamageDispBar_->locate(pVreathBar_->_X, pVreathBar_->_Y);
     pMagicMeterStatus_->locateWith(this);
 
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
     Magic* pMagic;
     for (int i = 0; i < lstMagic_.length(); i++) {
         pMagic = lstMagic_.getFromFirst(i);

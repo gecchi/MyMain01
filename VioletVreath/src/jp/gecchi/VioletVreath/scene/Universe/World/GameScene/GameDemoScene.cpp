@@ -10,15 +10,15 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameDemoScene";
     useProgress(GameDemoScene::PROG_FINISH);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(pLabel01_);
+    getSceneDirector()->addSubGroup(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    getDirector()->addSubGroup(pLabel02_);
+    getSceneDirector()->addSubGroup(pLabel02_);
     demo_stage_ = 1;
 
     papLabel_Ranking_ = NEW LabelRankingFont*[GameGlobal::qryRanking_.getCount()];
     for (int i = 0; i < GameGlobal::qryRanking_.getCount(); i++) {
         papLabel_Ranking_[i] = NEW LabelRankingFont("RANK_INFO");
-        getDirector()->addSubGroup(papLabel_Ranking_[i]);
+        getSceneDirector()->addSubGroup(papLabel_Ranking_[i]);
     }
 
 }

@@ -11,7 +11,7 @@ VreathBar::VreathBar(const char* prm_name, AmountGraph* prm_pAmount)
 }
 
 void VreathBar::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
 }
 
 void VreathBar::onReset() {

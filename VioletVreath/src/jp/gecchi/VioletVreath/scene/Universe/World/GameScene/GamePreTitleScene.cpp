@@ -9,16 +9,16 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
     useProgress(10);
     _pProg->change(GamePreTitleScene::PROG_INIT);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(pLabel01_);
+    getSceneDirector()->addSubGroup(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    getDirector()->addSubGroup(pLabel02_);
+    getSceneDirector()->addSubGroup(pLabel02_);
     pTitleBoard_ = NEW TitleBoard("TitleBoard");
-    getDirector()->addSubGroup(pTitleBoard_);
+    getSceneDirector()->addSubGroup(pTitleBoard_);
 
 //    papSpriteLabel_ = NEW SpriteLabelTest*[9];
 //    for (int i = 0; i < 9; i++) {
 //        papSpriteLabel_[i] = NEW SpriteLabelTest("tst");
-//        getDirector()->addSubGroup(papSpriteLabel_[i]);
+//        getSceneDirector()->addSubGroup(papSpriteLabel_[i]);
 //    }
 }
 void GamePreTitleScene::onReset() {

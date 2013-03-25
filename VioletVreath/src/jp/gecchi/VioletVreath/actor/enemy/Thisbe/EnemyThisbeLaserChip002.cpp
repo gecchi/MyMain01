@@ -72,6 +72,15 @@ void EnemyThisbeLaserChip002::processBehavior() {
     }
 }
 
+void EnemyThisbeLaserChip002::processJudgement() {
+    if (isOutOfUniverse()) {
+        if (_X >= GgafDxUniverse::_X_gone_right) {
+            //WALLì‡é¿å±
+        } else {
+            sayonara();
+        }
+    }
+}
 
 void EnemyThisbeLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 //    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;

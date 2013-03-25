@@ -39,7 +39,7 @@ void GgafTreeFormation::processFinal() {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
     } else {
-        if (getSubFirst() == nullptr) {          //配下がない場合、フォーメーションはなかったことになり、自身を終了
+        if (getSubFirst() == nullptr) {  //配下がない場合、フォーメーションはなかったことになり、自身を終了
             sayonara(_offset_frames_end);
         }
     }
@@ -65,6 +65,7 @@ GgafActor* GgafTreeFormation::callUpMember() {
         } else {
             _pIte = getSubFirst(); //初回はサブ先頭
         }
+        _pIte->activate();
         return _pIte;
     } else {
         return nullptr;

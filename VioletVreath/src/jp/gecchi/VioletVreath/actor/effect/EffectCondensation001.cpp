@@ -15,7 +15,7 @@ EffectCondensation001::EffectCondensation001(const char* prm_name) :
 
 void EffectCondensation001::initialize() {
     _pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //アニメ順序
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
 
 }
 

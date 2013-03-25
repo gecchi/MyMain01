@@ -40,7 +40,7 @@ void FormationEunomia::onActive() {
 
 void FormationEunomia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     GgafDxGeometricActor* pActor_last_destroyed = (GgafDxGeometricActor*)prm_pActor_last_destroyed;
-    //編隊全滅時エフェクト出現（スコア加算も行われる）
+    //編隊全滅時エフェクト出現（※ボーナススコア加算も行われる）
     UTIL::activateFormationDestroyedEffectOf(pActor_last_destroyed);
     //編隊全滅アイテム出現
     UTIL::activateFormationDestroyedItemOf(pActor_last_destroyed);
@@ -49,7 +49,7 @@ void FormationEunomia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 void FormationEunomia::processBehavior() {
     if (canCallUp() && (getActivePartFrame() % RR_interval_frames_ == 0)) {
         for (int i = 0; i < RR_num_formation_col_; i++) {
-            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpMemberUntil(RR_num_formation_col_*RR_num_formation_row_);
+            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpMember(RR_num_formation_col_*RR_num_formation_row_);
             if (pEunomia) {
                 SplineSequence* pSplSeq = papSplManufCon_[i]->fetch()->
                                               createSplineSequence(pEunomia->_pKurokoA);

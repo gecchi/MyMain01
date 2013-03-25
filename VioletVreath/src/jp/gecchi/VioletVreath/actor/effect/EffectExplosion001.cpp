@@ -19,7 +19,7 @@ void EffectExplosion001::initialize() {
 
 void EffectExplosion001::onActive() {
     _pUvFlipper->setActivePtnToTop();
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1);
     _alpha = 0.99;
     _SX = _SY = _SZ = 1000;
 }

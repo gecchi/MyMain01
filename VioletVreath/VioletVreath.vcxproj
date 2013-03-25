@@ -822,7 +822,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01_02.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01_03.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01_climax.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\stage01partcontroller.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\stage01partcontroller.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage02.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage02\part\stage02_01.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\universe\world\gamescene\gamemainscene\stageworld\stagecontroller\stage02\part\stage02_climax.h" />

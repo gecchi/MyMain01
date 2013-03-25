@@ -33,7 +33,7 @@ void FormationHebe::onActive() {
 
 void FormationHebe::processBehavior() {
     if (canCallUp() && (getActivePartFrame() % rr_interval_frames_ == 0)) {
-        EnemyHebe* pHebe = (EnemyHebe*)callUpMemberUntil(rr_num_formation_);
+        EnemyHebe* pHebe = (EnemyHebe*)callUpMember(rr_num_formation_);
         if (pHebe) {
             SplineSequence* pSplSeq = pSplManufCon_->fetch()->
                                           createSplineSequence(pHebe->_pKurokoA);
@@ -47,7 +47,7 @@ void FormationHebe::processBehavior() {
 
 void FormationHebe::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     GgafDxGeometricActor* pActor_last_destroyed = (GgafDxGeometricActor*)prm_pActor_last_destroyed;
-    //編隊全滅時エフェクト出現（スコア加算も行われる）
+    //編隊全滅時エフェクト出現（※ボーナススコア加算も行われる）
     UTIL::activateFormationDestroyedEffectOf(pActor_last_destroyed);
     //編隊全滅アイテム出現
     UTIL::activateFormationDestroyedItemOf(pActor_last_destroyed);

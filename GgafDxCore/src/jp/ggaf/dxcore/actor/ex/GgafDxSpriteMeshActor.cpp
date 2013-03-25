@@ -20,7 +20,7 @@ GgafDxSpriteMeshActor::GgafDxSpriteMeshActor(const char* prm_name,
     _pUvFlipper = NEW GgafDxUvFlipper(pTexture);
     _pUvFlipper->setRotation(1, 1);
     _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+    _pUvFlipper->exec(NOT_ANIMATED, 1);
 }
 
 

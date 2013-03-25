@@ -13,8 +13,8 @@ namespace GgafCore {
  * レイヤー（セル）のような物にあたります。<BR>
  * 機能として、シーンオブジェクト同士をポインタ接合し、ツリー階層構造を採る事ができます。（このツリー構造はクラスの継承と関係ありません。）<BR>
  * シーンに実装されているメソッド郡のほとんどは、自分自身と自分配下のシーン（自ツリーシーン）全てに影響する仕様になっています。<BR>
- * 各シーンは、必ず１つの監督アクター(GgafDirector)をメンバとして保持しています。<BR>
- * 監督アクターとは各シーンのアクターの大親分のようなもので、GgafDirector のコメントも参照して下さい。<BR>
+ * 各シーンは、必ず１つのシーン監督アクター(GgafSceneDirector)をメンバとして保持しています。<BR>
+ * シーン監督アクターとは各シーンのアクターの大親分のようなもので、GgafSceneDirector のコメントも参照して下さい。<BR>
  *
  * <B>【用語補足】</B>
  * <TABLE border='1'>
@@ -84,11 +84,11 @@ class GgafScene : public GgafElement<GgafScene> {
     friend class GgafUniverse;
     friend class GgafActor;
     friend class GgafGroupHead;
-    friend class GgafDirector;
+    friend class GgafSceneDirector;
 
 protected:
     /** このシーンの監督 */
-    GgafDirector* _pDirector;
+    GgafSceneDirector* _pSceneDirector;
 
 public:
     /** 何フレームに１回動作するか */
@@ -158,7 +158,7 @@ public:
     virtual void resetTree() override;
 
     /**
-     * 配下全てのシーンと、その各シーンの監督(GgafDirector)、その配下全アクターに対して指定の関数を実行させる .
+     * 配下全てのシーンと、その各シーンの監督(GgafSceneDirector)、その配下全アクターに対して指定の関数を実行させる .
      * @param pFunc オブジェクトに実行させたい関数
      * @param prm1 渡したい引数その１
      * @param prm2 渡したい引数その２
@@ -193,9 +193,9 @@ public:
 
     /**
      * 自シーンの監督を取得 .
-     * @return	監督
+     * @return シーン監督
      */
-    virtual GgafDirector* getDirector();
+    virtual GgafSceneDirector* getSceneDirector();
 
 
     /**

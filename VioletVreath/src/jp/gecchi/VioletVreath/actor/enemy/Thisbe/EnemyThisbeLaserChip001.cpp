@@ -8,7 +8,7 @@ using namespace VioletVreath;
 EnemyThisbeLaserChip001::EnemyThisbeLaserChip001(const char* prm_name) :
         HomingLaserChip(prm_name, "ThisbeLaserChip001", STATUS(EnemyThisbeLaserChip001)) {
     _class_name = "EnemyThisbeLaserChip001";
-    pSplManufCon_ = connectToSplineManufactureManager("Hilbert"); //ヒルベルト曲線
+    pSplManufCon_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ヒルベルト曲線
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
 }
 
@@ -40,11 +40,27 @@ void EnemyThisbeLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyThisbeLaserChip001::processBehaviorHeadChip() {
+    pSplSeq_->_X_begin -= 10000;
+    //TODO:↑これをどうやるか・・・・
+
     if (getActivePartFrame() == 2) {
         pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
     pSplSeq_->behave();
     _pKurokoA->behave();
+}
+
+//void EnemyThisbeLaserChip001::processBehavior() {
+//    HomingLaserChip::processBehavior();
+//}
+void EnemyThisbeLaserChip001::processJudgement() {
+    if (isOutOfUniverse()) {
+        if (_X >= GgafDxUniverse::_X_gone_right) {
+            //WALL内実験
+        } else {
+            sayonara();
+        }
+    }
 }
 
 void EnemyThisbeLaserChip001::onHit(GgafActor* prm_pOtherActor) {

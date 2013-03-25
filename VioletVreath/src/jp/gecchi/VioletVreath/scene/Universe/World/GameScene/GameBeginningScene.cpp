@@ -10,9 +10,9 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
     _class_name = "GameBeginningScene";
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(KIND_EFFECT, pLabel01_);
+    getSceneDirector()->addSubGroup(KIND_EFFECT, pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    getDirector()->addSubGroup(KIND_EFFECT, pLabel02_);
+    getSceneDirector()->addSubGroup(KIND_EFFECT, pLabel02_);
     selected_stage_ = 0;
     useProgress(GameBeginningScene::PROG_FINISH);
 }

@@ -25,7 +25,7 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
                              _pBoardSetModel->_row_texture_split
                             );
     _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+    _pUvFlipper->exec(NOT_ANIMATED, 1);
 
     _width_px = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //•(px)
     _height_px = (int)(_pBoardSetModel->_fSize_BoardSetModelHeightPx); //‚‚³(px)

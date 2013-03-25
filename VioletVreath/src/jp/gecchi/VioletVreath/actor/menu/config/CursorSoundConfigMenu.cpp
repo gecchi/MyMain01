@@ -9,7 +9,7 @@ CursorSoundConfigMenu::CursorSoundConfigMenu(const char* prm_name) : DefaultBoar
     _class_name = "CursorSoundConfigMenu";
 }
 void CursorSoundConfigMenu::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_OSCILLATE_LOOP, 10);
+    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorSoundConfigMenu::onActive() {

@@ -9,7 +9,7 @@ CursorConfigMenu::CursorConfigMenu(const char* prm_name) : DefaultBoardActor(prm
     _class_name = "CursorConfigMenu";
 }
 void CursorConfigMenu::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_OSCILLATE_LOOP, 10);
+    _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorConfigMenu::onActive() {

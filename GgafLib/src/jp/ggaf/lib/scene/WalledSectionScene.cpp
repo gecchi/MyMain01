@@ -147,7 +147,10 @@ void WalledSectionScene::processBehavior() {
             }
             _pWallPartsLast = pWallParts;
             _frame_of_launch_next = (frame)(_wall_dep / parent_scroll_speed);
+
+            onBlockLaunch(_cnt_loop, _cnt_area_len, _pWallPartsLast==nullptr ? _wall_start_X : _pWallPartsLast->_X + _wall_dep); //コールバック
             _cnt_area_len++;
+
         }
     } else {
         //終了

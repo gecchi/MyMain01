@@ -1,15 +1,15 @@
-#ifndef GGAFDIRECTOR_H_
-#define GGAFDIRECTOR_H_
+#ifndef GGAFSCENEDIRECTOR_H_
+#define GGAFSCENEDIRECTOR_H_
 namespace GgafCore {
 
 /**
- * 監督クラス .
+ * シーンの監督クラス .
  * 団長(GgafGroupHead)の親階層のアクターで、団長達を管理します。<BR>
  * また、シーンクラスとの橋渡しを行う特別なアクターでもあります。<BR>
- * シーンクラスと監督は普通のhasAの関係です。（監督と団長は階層関係になっています）<BR>
- * 全てのシーン(GgafSceaneオブジェクト)に必ず１人つ監督のが居ます。<BR>
- * 監督は、必ずアクター達ツリーの最も頂点に位置します。<BR>
- * 監督(GgafDirector)のサブアクターは必ず団長(GgafGroupHead)になっています。<BR>
+ * シーンクラスとシーン監督は普通のhasAの関係です。（監督と団長は階層関係になっています）<BR>
+ * 全てのシーン(GgafSceaneオブジェクト)に必ず１人シーン監督のが居ます。<BR>
+ * 監督は、アクター達ツリーの最も頂点に位置します。<BR>
+ * 監督(GgafSceneDirector)のサブアクターは必ず団長(GgafGroupHead)になっています。<BR>
  * さらに団長の下に普通のアクターが居ます。<BR>
  * 監督へのメソッド実行は、その配下全ての団長＋アクターへの指示となります。<BR>
  * 団長(GgafGroupHead)の解説もあわせて参照して下さい。
@@ -17,19 +17,19 @@ namespace GgafCore {
  * @since 2007/11/29
  * @author Masatoshi Tsuge
  */
-class GgafDirector : public GgafActor {
+class GgafSceneDirector : public GgafActor {
 
 private:
     /**
      * 使用不可 .
      */
-    GgafDirector* extract() override {
-        throwGgafCriticalException("GgafDirector に extract() は実行できません。name="<<getName());
-        return (GgafDirector*)nullptr;
+    GgafSceneDirector* extract() override {
+        throwGgafCriticalException("GgafSceneDirector に extract() は実行できません。name="<<getName());
+        return (GgafSceneDirector*)nullptr;
     }
 
 public:
-    GgafDirector(GgafScene* prm_pScene_platform);
+    GgafSceneDirector(GgafScene* prm_pScene_platform);
 
     /**
      * 初期処理<BR>
@@ -121,7 +121,7 @@ public:
      * </pre>
      * 補足：引数の prm_pMainActor 以下全てのアクターに関して、
      *       ・所属シーンメンバ (_pScene_platform)
-     *       ・監督アクターメンバ(_pDirector)
+     *       ・監督アクターメンバ(_pSceneDirector)
      *       ・団長アクターメンバ(_pGroupHead) ※但し下位に他の団長がいた場合はそこまで
      *       の更新を行います。
      * @param   prm_kind    種別名（＝GgafGroupHead名）
@@ -153,8 +153,8 @@ public:
      */
     GgafGod* askGod();
 
-    virtual ~GgafDirector();
+    virtual ~GgafSceneDirector();
 };
 
 }
-#endif /**GGAFDIRECTOR_H_*/
+#endif /**GGAFSCENEDIRECTOR_H_*/

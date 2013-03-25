@@ -17,7 +17,7 @@ TurboMeter::TurboMeter(const char* prm_name) : DefaultBoardActor(prm_name, "Turb
 
 void TurboMeter::initialize() {
     graduateScale(400, 100000);
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
 }
 
 void TurboMeter::onActive() {

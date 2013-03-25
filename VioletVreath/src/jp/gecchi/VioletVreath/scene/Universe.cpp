@@ -14,7 +14,7 @@ Universe::Universe(const char* prm_name, Camera* prm_pCamera) : DefaultUniverse(
     CameraWorkerConnection* pCamWorkerCon = (CameraWorkerConnection*)pCamWorkerManager_->connect("DefaultCamWorker");
     stack_CamWorkerCon_.push(pCamWorkerCon);
     pActiveCamWorker_ = pCamWorkerCon->fetch();
-    getDirector()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
+    getSceneDirector()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
 
     //【めも】
     //ここでActorやSceneのNEWをあんまししてはならない。
@@ -56,10 +56,10 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
         //パラメータの CameraWork を活動へ
         pCamWorker->activate();
         pCamWorker->onSwitchCameraWork(); //コールバック
-        if (getDirector()->getSubFirst()->getSub(pCamWorker)) {
+        if (getSceneDirector()->getSubFirst()->getSub(pCamWorker)) {
             //２回目以降の
         } else {
-            getDirector()->addSubGroup(pCamWorker); //初回はツリーに追加
+            getSceneDirector()->addSubGroup(pCamWorker); //初回はツリーに追加
         }
         //スタックに積む
         stack_CamWorkerCon_.push(pCon);

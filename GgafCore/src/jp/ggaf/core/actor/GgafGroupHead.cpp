@@ -15,38 +15,38 @@ GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafAc
 
     _kind = prm_kind;
     setHitAble(false);
-    _pDirector = nullptr;
+    _pSceneDirector = nullptr;
 }
 
-GgafDirector* GgafGroupHead::getSceneDirector() {
-    if (_pDirector == nullptr) {
+GgafSceneDirector* GgafGroupHead::getSceneDirector() {
+    if (_pSceneDirector == nullptr) {
         if (_pParent == nullptr) {
             _TRACE_("【警告】GgafGroupHead::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
-            _pDirector = GgafGod::_pGod->_pUniverse->getDirector();
+            _pSceneDirector = GgafGod::_pGod->_pUniverse->getSceneDirector();
         } else {
             if (_pParent->instanceOf(Obj_GgafMainActor)) {
-                _pDirector = ((GgafMainActor*)(_pParent))->getSceneDirector();
+                _pSceneDirector = ((GgafMainActor*)(_pParent))->getSceneDirector();
             } else if (_pParent->instanceOf(Obj_GgafGroupHead)) {
-                _pDirector = ((GgafGroupHead*)(_pParent))->getSceneDirector();
-            } else if (_pParent->instanceOf(Obj_GgafDirector)) {
-                return (GgafDirector*)_pParent; //Actorツリー頂点
+                _pSceneDirector = ((GgafGroupHead*)(_pParent))->getSceneDirector();
+            } else if (_pParent->instanceOf(Obj_GgafSceneDirector)) {
+                return (GgafSceneDirector*)_pParent; //Actorツリー頂点
             }
             _TRACE_("【警告】GgafGroupHead::getSceneDirector このツリーにはDirectorがいません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のDirectorを返しました");
-            _pDirector = GgafGod::_pGod->_pUniverse->getDirector();
+            _pSceneDirector = GgafGod::_pGod->_pUniverse->getSceneDirector();
         }
     }
-    return _pDirector;
+    return _pSceneDirector;
 }
 
-void GgafGroupHead::setSceneDirector(GgafDirector* prm_pDirector) {
-    _pDirector = prm_pDirector;
+void GgafGroupHead::setSceneDirector(GgafSceneDirector* prm_pSceneDirector) {
+    _pSceneDirector = prm_pSceneDirector;
     if (_pSubFirst) {
         GgafActor* pActor = getSubFirst();
         while (true) {
             if (pActor->instanceOf(Obj_GgafMainActor)) {
-                ((GgafMainActor*)(pActor))->setSceneDirector(prm_pDirector);
+                ((GgafMainActor*)(pActor))->setSceneDirector(prm_pSceneDirector);
             } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
-                ((GgafGroupHead*)(pActor))->setSceneDirector(prm_pDirector);
+                ((GgafGroupHead*)(pActor))->setSceneDirector(prm_pSceneDirector);
             }
             if (pActor->_is_last_flg) {
                 break;

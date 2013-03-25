@@ -9,7 +9,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     _TRACE_("World::World");
 
     pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
-    getDirector()->addSubGroup(pLabel_aster_);
+    getSceneDirector()->addSubGroup(pLabel_aster_);
     pLabel_aster_->update(PX_C(PROPERTY::GAME_BUFFER_WIDTH), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
     pLabel_aster_->_pAFader->beat(30, 15, 0, 0, -1); //チカチカ点滅
 
@@ -31,7 +31,7 @@ void World::initialize() {
     pixcoord cy = PROPERTY::GAME_BUFFER_HEIGHT/2;
 
     pLabel_title_ = createInFactory(VioletVreath::LabelGecchi16Font, "STR01");
-    getDirector()->addSubGroup(pLabel_title_);
+    getSceneDirector()->addSubGroup(pLabel_title_);
     pLabel_title_->update(PX_C(cx), PX_C(cy/2),
                           "[ VIOLET VREATH ]\nPLEASE WAIT A MOMENT ...",
                           ALIGN_CENTER, VALIGN_MIDDLE);
@@ -43,14 +43,14 @@ void World::initialize() {
 #endif
     pLabel_debug_ = createInFactory(VioletVreath::LabelGecchi16Font, "DebugStr");
     pLabel_debug_->update(PX_C(1), PX_C(1), "");
-    getDirector()->addSubGroup(pLabel_debug_);
+    getSceneDirector()->addSubGroup(pLabel_debug_);
 
     pLabel_resolution1_ = createInFactory(VioletVreath::LabelGecchi16Font, "RESOLUTION1");
     pLabel_resolution1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    getDirector()->addSubGroup(pLabel_resolution1_);
+    getSceneDirector()->addSubGroup(pLabel_resolution1_);
     pLabel_resolution2_ = createInFactory(VioletVreath::LabelGecchi16Font, "RESOLUTION2");
     pLabel_resolution2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    getDirector()->addSubGroup(pLabel_resolution2_);
+    getSceneDirector()->addSubGroup(pLabel_resolution2_);
 
     std::string fix_str = PROPERTY::FIXED_GAME_VIEW_ASPECT ? "ASPECT FIX" : "ASPECT STRETCH";
     if (PROPERTY::DUAL_VIEW) {

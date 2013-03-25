@@ -28,7 +28,7 @@ void MagicLvCursor::initialize() {
     //MagicMeter‚ÌÀ•W‚ª’è‚Ü‚Á‚Ä‚©‚çs‚¤‚±‚Æ
     _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     _Y = tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     _pScaler->forceScaleRange(1000, 3000);
 }
 

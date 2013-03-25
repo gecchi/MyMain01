@@ -38,7 +38,7 @@ void FormationMassalia::processBehavior() {
         sayonara(20*60);
     } else {
         if (canCallUp() && (getActivePartFrame() % R_interval_frames_ == 0)) {
-            EnemyMassalia* pMassalia = (EnemyMassalia*)callUpMemberUntil();
+            EnemyMassalia* pMassalia = (EnemyMassalia*)callUpMember();
             if (pMassalia) {
                 pMassalia->_pKurokoA->setMvVelo(R_mv_velo_);
             }

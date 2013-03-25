@@ -175,6 +175,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafDummyActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\GgafSceneDirector.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GgafActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafActorDepository.cpp" />
@@ -183,7 +184,6 @@
     <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafCurtain.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafDepositoryFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\GgafDirector.cpp" />
     <ClCompile Include="src\jp\ggaf\core\exception\GgafException.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafFactory.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafFormation.cpp" />
@@ -216,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\jp\ggaf\core\actor\ex\ggafdummyactor.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ggafscenedirector.h" />
     <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafActorDepository.h" />
@@ -225,7 +226,6 @@
     <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafCurtain.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\GgafDepositoryFormation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\GgafDirector.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafDisusedActor.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\GgafDisusedScene.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafElement.hpp" />

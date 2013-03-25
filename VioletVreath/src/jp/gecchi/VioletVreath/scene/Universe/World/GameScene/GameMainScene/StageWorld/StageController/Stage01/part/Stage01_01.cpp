@@ -77,11 +77,11 @@ void Stage01_01::processBehavior() {
 			}
 			case 2500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000013);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				VarietySylvia001* pSylvia = (VarietySylvia001*)obtainActorFromFactory(30000029);
-				getDirector()->addSubGroup(pSylvia);
+				getSceneDirector()->addSubGroup(pSylvia);
 				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000031);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 2600: {
@@ -91,11 +91,11 @@ void Stage01_01::processBehavior() {
 			}
 			case 3000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000021);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				VarietySylvia002* pSylvia = (VarietySylvia002*)obtainActorFromFactory(30000030);
-				getDirector()->addSubGroup(pSylvia);
+				getSceneDirector()->addSubGroup(pSylvia);
 				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000039);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 3100: {
@@ -105,9 +105,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 3500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000014);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000032);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 3600: {
@@ -117,9 +117,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 4000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000022);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000040);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 4100: {
@@ -129,9 +129,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 4500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000015);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000033);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 4600: {
@@ -141,9 +141,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 5000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000023);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000041);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 5100: {
@@ -153,9 +153,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 5500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000016);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000034);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 5600: {
@@ -165,9 +165,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 6000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000024);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000042);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 6100: {
@@ -177,9 +177,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 6500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000017);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000035);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 6600: {
@@ -189,9 +189,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 7000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000025);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000043);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 7100: {
@@ -201,9 +201,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 7500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000018);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000036);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 7600: {
@@ -213,9 +213,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 8000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000026);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000044);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 8100: {
@@ -225,9 +225,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 8500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000019);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000037);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 8600: {
@@ -237,9 +237,9 @@ void Stage01_01::processBehavior() {
 			}
 			case 9000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000027);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000045);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 9100: {
@@ -249,16 +249,16 @@ void Stage01_01::processBehavior() {
 			}
 			case 9500: {
 				FormationEunomia001a* pFormationEunomia = (FormationEunomia001a*)obtainActorFromFactory(30000020);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001a* pF = (FormationSappho001a*)obtainActorFromFactory(30000038);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 10000: {
 				FormationEunomia001b* pFormationEunomia = (FormationEunomia001b*)obtainActorFromFactory(30000028);
-				getDirector()->addSubGroup(pFormationEunomia);
+				getSceneDirector()->addSubGroup(pFormationEunomia);
 				FormationSappho001b* pF = (FormationSappho001b*)obtainActorFromFactory(30000046);
-				getDirector()->addSubGroup(pF);
+				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			default :

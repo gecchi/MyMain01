@@ -8,7 +8,7 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameOverScene";
     pNameEntryScene_ = nullptr;
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getDirector()->addSubGroup(pLabel01_);
+    getSceneDirector()->addSubGroup(pLabel01_);
     useProgress(10);
     need_name_entry_ = false;
 }

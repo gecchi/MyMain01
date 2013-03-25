@@ -21,7 +21,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
     addSubLast(pTransitStage_);
 
     _pSceneSymbol = NEW LabelSceneSymbol("LabelSceneSymbol");
-    getDirector()->addSubGroup(_pSceneSymbol);
+    getSceneDirector()->addSubGroup(_pSceneSymbol);
 
 
     useProgress(StageController::PROG_FINISH);

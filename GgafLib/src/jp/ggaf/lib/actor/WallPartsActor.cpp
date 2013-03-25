@@ -4,17 +4,17 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 WallPartsActor::WallPartsActor(const char* prm_name,
-                                 const char* prm_model_id,
-                                 const char* prm_effect_id,
-                                 const char* prm_technique,
-                                 GgafStatus* prm_pStat) :
+                               const char* prm_model_id,
+                               const char* prm_effect_id,
+                               const char* prm_technique,
+                               GgafStatus* prm_pStat) :
 
                         GgafDxMeshSetActor(prm_name,
-                                            prm_model_id,
-                                            prm_effect_id,
-                                            prm_technique,
-                                            prm_pStat,
-                                            NEW CollisionChecker3D(this) ) {
+                                           prm_model_id,
+                                           prm_effect_id,
+                                           prm_technique,
+                                           prm_pStat,
+                                           NEW CollisionChecker3D(this) ) {
     _class_name = "WallPartsActor";
     _obj_class |= Obj_WallPartsActor;
     _pColliChecker = (CollisionChecker3D*)_pChecker;

@@ -12,15 +12,15 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
 
     pWorldBoundSpace_  = NEW WorldBoundSpaceRankUp("BG_RankUp");
     pWorldBoundSpace_->inactivateImmed();
-    getDirector()->addSubGroup(pWorldBoundSpace_);
+    getSceneDirector()->addSubGroup(pWorldBoundSpace_);
     pHoshiBoshi_ = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
-    getDirector()->addSubGroup( pHoshiBoshi_);
+    getSceneDirector()->addSubGroup( pHoshiBoshi_);
     pMessage1_ = NEW LabelGecchi16Font("RankUpMsg1");
     pMessage1_->locate(PX_C(400), PX_C(200));
-    getDirector()->addSubGroup(pMessage1_);
+    getSceneDirector()->addSubGroup(pMessage1_);
     pMessage2_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage2_->locate(PX_C(400), PX_C(220));
-    getDirector()->addSubGroup(pMessage2_);
+    getSceneDirector()->addSubGroup(pMessage2_);
 
     useProgress(RankUpStage::PROG_END);
 

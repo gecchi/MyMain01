@@ -12,7 +12,7 @@ WorldBoundSpace002::WorldBoundSpace002(const char* prm_name) :
 }
 void WorldBoundSpace002::initialize() {
     //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
-    //    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
+    //    _pUvFlipper->exec(FLIP_ORDER_LOOP, 5);
     //    _pUvFlipper->setFlipPtnRange(0, 16*16-1);
     //    _pUvFlipper->setActivePtn(0);
     setHitAble(false);
@@ -24,7 +24,7 @@ void WorldBoundSpace002::initialize() {
 }
 
 void WorldBoundSpace002::onActive() {
-    //_pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
+    //_pUvFlipper->exec(FLIP_ORDER_LOOP, 5);
 }
 
 void WorldBoundSpace002::processBehavior() {

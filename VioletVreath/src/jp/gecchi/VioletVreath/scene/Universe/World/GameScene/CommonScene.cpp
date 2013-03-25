@@ -18,7 +18,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "EffectExplosion001("+XTOS(i)+")";
             pDepo_EffectExplosion001_->addSubLast(NEW EffectExplosion001(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_EffectExplosion001_);
+        getSceneDirector()->addSubGroup(pDepo_EffectExplosion001_);
     }
 
     //汎用爆発エフェクト EffectExplosion002
@@ -28,7 +28,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "EffectExplosion002("+XTOS(i)+")";
             pDepo_EffectExplosion002_->addSubLast(NEW EffectExplosion002(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_EffectExplosion002_);
+        getSceneDirector()->addSubGroup(pDepo_EffectExplosion002_);
     }
     //汎用爆発エフェクト EffectExplosion003
     {
@@ -37,7 +37,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "EffectExplosion003("+XTOS(i)+")";
             pDepo_EffectExplosion003_->addSubLast(NEW EffectExplosion003(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_EffectExplosion003_);
+        getSceneDirector()->addSubGroup(pDepo_EffectExplosion003_);
     }
 
     //汎用爆発エフェクト大 EffectExplosion004
@@ -47,7 +47,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "EffectExplosion004("+XTOS(i)+")";
             pDepo_EffectExplosion004_->addSubLast(NEW EffectExplosion004(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_EffectExplosion004_);
+        getSceneDirector()->addSubGroup(pDepo_EffectExplosion004_);
     }
 
     //アイテム小
@@ -57,7 +57,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "MagicPointItem001("+XTOS(i)+")";
             pDepo_MagicPointItem001_->addSubLast(NEW MagicPointItem001(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_MagicPointItem001_);
+        getSceneDirector()->addSubGroup(pDepo_MagicPointItem001_);
     }
 
     //アイテム中
@@ -67,7 +67,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "MagicPointItem002("+XTOS(i)+")";
             pDepo_MagicPointItem002_->addSubLast(NEW MagicPointItem002(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_MagicPointItem002_);
+        getSceneDirector()->addSubGroup(pDepo_MagicPointItem002_);
     }
 
     { //Effect EffectTurbo002 ターボ噴射
@@ -76,7 +76,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "EffectTurbo002("+XTOS(i)+")";
             pDepo_EffectTurbo002_->addSubLast(NEW EffectTurbo002(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_EffectTurbo002_);
+        getSceneDirector()->addSubGroup(pDepo_EffectTurbo002_);
     }
 
 
@@ -87,7 +87,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "EffectEntry001("+XTOS(i)+")";
             pDepo_EffectEntry001_->addSubLast(NEW EffectEntry001(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_EffectEntry001_);
+        getSceneDirector()->addSubGroup(pDepo_EffectEntry001_);
     }
 
     //汎用出現エフェクト EffectEntry002
@@ -97,7 +97,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "EffectEntry002("+XTOS(i)+")";
             pDepo_EffectEntry002_->addSubLast(NEW EffectEntry002(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_EffectEntry002_);
+        getSceneDirector()->addSubGroup(pDepo_EffectEntry002_);
     }
     //汎用出現エフェクト EffectEntry003
     {
@@ -106,7 +106,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "EffectEntry003("+XTOS(i)+")";
             pDepo_EffectEntry003_->addSubLast(NEW EffectEntry003(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_EffectEntry003_);
+        getSceneDirector()->addSubGroup(pDepo_EffectEntry003_);
     }
 
     //ボーナスポイント表示エフェクト
@@ -116,7 +116,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "SpriteLabelBonus001("+XTOS(i)+")";
             pDepo_SpriteLabelBonus001_->addSubLast(NEW SpriteLabelBonus001(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_SpriteLabelBonus001_);
+        getSceneDirector()->addSubGroup(pDepo_SpriteLabelBonus001_);
     }
 
     //汎用ショット
@@ -126,7 +126,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             std::string name = "Shot004("+XTOS(i)+")";
             pDepo_Shot004_->addSubLast(NEW Shot004(name.c_str()));
         }
-        getDirector()->addSubGroup(pDepo_Shot004_);
+        getSceneDirector()->addSubGroup(pDepo_Shot004_);
     }
 
 
@@ -138,7 +138,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //            pEnemyShot->inactivateTreeImmed(); //最初非表示
     //            pDepo_EnemyShots001_->addSubLast(pEnemyShot);
     //        }
-    //        getDirector()->addSubGroup(pDepo_EnemyShots001_);
+    //        getSceneDirector()->addSubGroup(pDepo_EnemyShots001_);
     //    }
 
 
@@ -151,7 +151,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //            pEffectExplosion->inactivateTreeImmed(); //最初非表示
     //            pDepo_EffectExplosion003_->addSubLast(pEffectExplosion);
     //        }
-    //        getDirector()->addSubGroup(pDepo_EffectExplosion003_);
+    //        getSceneDirector()->addSubGroup(pDepo_EffectExplosion003_);
     //    }
 
 //
@@ -173,7 +173,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 //            pLaserChipDepo->inactivateImmed();
 //            pDepo_LaserChipDepository_->addSubLast(pLaserChipDepo);
 //        }
-//        getDirector()->addSubGroup(pDepo_LaserChipDepository_);
+//        getSceneDirector()->addSubGroup(pDepo_LaserChipDepository_);
 //    }
 }
 

@@ -38,9 +38,9 @@ void ColliSphereActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
                     //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
 
                     drawSphere(pActor->_X + sphere->_x,
-                                pActor->_Y + sphere->_y,
-                                pActor->_Z + sphere->_z,
-                                sphere->_r);
+                               pActor->_Y + sphere->_y,
+                               pActor->_Z + sphere->_z,
+                               sphere->_r);
                     GgafGod::_num_actor_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
                 }
             }

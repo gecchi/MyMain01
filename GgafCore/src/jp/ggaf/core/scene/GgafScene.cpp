@@ -8,7 +8,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     _class_name = "GgafScene";
     _obj_class |= Obj_GgafScene;
 
-    _pDirector = NEW GgafDirector(this);
+    _pSceneDirector = NEW GgafSceneDirector(this);
     _once_in_n_time = 1;
 #ifdef MY_DEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
@@ -24,7 +24,7 @@ GgafScene::~GgafScene() {
 #else
     //OutputDebugStringA("*");
 #endif
-    GGAF_DELETE_NULLABLE(_pDirector);
+    GGAF_DELETE_NULLABLE(_pSceneDirector);
 }
 void GgafScene::setRunFrameOnce(int prm_once_in_n_time) {
     if (prm_once_in_n_time <= 1) {
@@ -50,7 +50,7 @@ void GgafScene::addSubLast(GgafScene* prm_pScene) {
 void GgafScene::nextFrame() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::nextFrame();
-        _pDirector->nextFrame();
+        _pSceneDirector->nextFrame();
     }
 //    } else {
 //		isActive()?
@@ -63,7 +63,7 @@ void GgafScene::nextFrame() {
 }
 //void GgafScene::update_last_frame_of_god() {
 //    GgafElement<GgafScene>::update_last_frame_of_god();
-//    _pDirector->update_last_frame_of_god();
+//    _pSceneDirector->update_last_frame_of_god();
 //}
 
 
@@ -71,50 +71,50 @@ void GgafScene::behave() {
     TRACE("GgafScene::behave() " << getName());
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::behave();
-        _pDirector->behave();
+        _pSceneDirector->behave();
     }
 }
 
 void GgafScene::settleBehavior() {
     TRACE("GgafScene::settleBehavior() " << getName());
     GgafElement<GgafScene>::settleBehavior();
-    _pDirector->settleBehavior();
+    _pSceneDirector->settleBehavior();
 }
 
 void GgafScene::judge() {
     TRACE("GgafScene::judge() " << getName());
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::judge();
-        _pDirector->judge();
+        _pSceneDirector->judge();
     }
 }
 
 void GgafScene::preDraw() {
     TRACE("GgafScene::preDraw() " << getName());
     GgafElement<GgafScene>::preDraw();
-    _pDirector->preDraw();
+    _pSceneDirector->preDraw();
 }
 
 void GgafScene::draw() {
     TRACE("GgafScene::draw() " << getName());
     GgafElement<GgafScene>::draw();
-    _pDirector->draw();
+    _pSceneDirector->draw();
 }
 
 void GgafScene::afterDraw() {
     TRACE("GgafScene::afterDraw() " << getName());
     GgafElement<GgafScene>::afterDraw();
-    _pDirector->afterDraw();
+    _pSceneDirector->afterDraw();
 }
 
 void GgafScene::throwEventLowerTree(hashval prm_no, void* prm_pSource) {
     GgafElement<GgafScene>::throwEventLowerTree(prm_no, prm_pSource);
-    _pDirector->throwEventLowerTree(prm_no, prm_pSource);
+    _pSceneDirector->throwEventLowerTree(prm_no, prm_pSource);
 }
 
 void GgafScene::throwEventLowerTree(hashval prm_no) {
     GgafElement<GgafScene>::throwEventLowerTree(prm_no);
-    _pDirector->throwEventLowerTree(prm_no);
+    _pSceneDirector->throwEventLowerTree(prm_no);
 }
 
 void GgafScene::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
@@ -127,118 +127,118 @@ void GgafScene::throwEventUpperTree(hashval prm_no) {
 void GgafScene::doFinally() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::doFinally();
-        _pDirector->doFinally();
+        _pSceneDirector->doFinally();
     }
 }
 
 void GgafScene::activateTree() {
     GgafElement<GgafScene>::activateTree();
-    _pDirector->activateTree();
+    _pSceneDirector->activateTree();
 }
 
 void GgafScene::activateDelay(frame prm_offset_frames) {
     GgafElement<GgafScene>::activateDelay(prm_offset_frames);
-    _pDirector->activateDelay(prm_offset_frames);
+    _pSceneDirector->activateDelay(prm_offset_frames);
 }
 
 void GgafScene::activate() {
     GgafElement<GgafScene>::activate();
-    _pDirector->activate();
+    _pSceneDirector->activate();
 }
 
 void GgafScene::activateTreeImmed() {
     GgafElement<GgafScene>::activateTreeImmed();
-    _pDirector->activateTreeImmed();
+    _pSceneDirector->activateTreeImmed();
 }
 
 void GgafScene::activateImmed() {
     GgafElement<GgafScene>::activateImmed();
-    _pDirector->activateImmed();
+    _pSceneDirector->activateImmed();
 }
 
 void GgafScene::inactivateTree() {
     GgafElement<GgafScene>::inactivateTree();
-    _pDirector->inactivateTree();
+    _pSceneDirector->inactivateTree();
 }
 
 void GgafScene::inactivateDelay(frame prm_offset_frames) {
     GgafElement<GgafScene>::inactivateDelay(prm_offset_frames);
-    _pDirector->inactivateDelay(prm_offset_frames);
+    _pSceneDirector->inactivateDelay(prm_offset_frames);
 }
 
 void GgafScene::inactivate() {
     GgafElement<GgafScene>::inactivate();
-    _pDirector->inactivate();
+    _pSceneDirector->inactivate();
 }
 
 void GgafScene::inactivateTreeImmed() {
     GgafElement<GgafScene>::inactivateTreeImmed();
-    _pDirector->inactivateTreeImmed();
+    _pSceneDirector->inactivateTreeImmed();
 }
 
 void GgafScene::inactivateImmed() {
     GgafElement<GgafScene>::inactivateImmed();
-    _pDirector->inactivateImmed();
+    _pSceneDirector->inactivateImmed();
 }
 
 void GgafScene::pauseTree() {
     GgafElement<GgafScene>::pauseTree();
-    _pDirector->pauseTree();
+    _pSceneDirector->pauseTree();
 }
 
 void GgafScene::pause() {
     GgafElement<GgafScene>::pause();
-    _pDirector->pause();
+    _pSceneDirector->pause();
 }
 
 void GgafScene::pauseTreeImmed() {
     GgafElement<GgafScene>::pauseTreeImmed();
-    _pDirector->pauseTreeImmed();
+    _pSceneDirector->pauseTreeImmed();
 }
 
 void GgafScene::pauseImmed() {
     GgafElement<GgafScene>::pauseImmed();
-    _pDirector->pauseImmed();
+    _pSceneDirector->pauseImmed();
 }
 
 void GgafScene::unpauseTree() {
     GgafElement<GgafScene>::unpauseTree();
-    _pDirector->unpauseTree();
+    _pSceneDirector->unpauseTree();
 }
 
 void GgafScene::unpause() {
     GgafElement<GgafScene>::unpause();
-    _pDirector->unpause();
+    _pSceneDirector->unpause();
 }
 
 void GgafScene::unpauseTreeImmed() {
     GgafElement<GgafScene>::unpauseTreeImmed();
-    _pDirector->unpauseTreeImmed();
+    _pSceneDirector->unpauseTreeImmed();
 }
 
 void GgafScene::unpauseImmed() {
     GgafElement<GgafScene>::unpauseImmed();
-    _pDirector->unpauseImmed();
+    _pSceneDirector->unpauseImmed();
 }
 
 void GgafScene::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
     GgafElement<GgafScene>::executeFuncLowerTree(pFunc, prm1, prm2);
-    _pDirector->executeFuncLowerTree(pFunc, prm1, prm2);
+    _pSceneDirector->executeFuncLowerTree(pFunc, prm1, prm2);
 }
 
 void GgafScene::reset() {
     GgafElement<GgafScene>::reset();
-    _pDirector->reset();
+    _pSceneDirector->reset();
 
 }
 void GgafScene::resetTree() {
     GgafElement<GgafScene>::resetTree();
-    _pDirector->resetTree();
+    _pSceneDirector->resetTree();
 }
 
 
 void GgafScene::end(frame prm_offset_frames) {
-    _pDirector->end(prm_offset_frames);
+    _pSceneDirector->end(prm_offset_frames);
     if (prm_offset_frames > 3) {
         GgafElement<GgafScene>::end(prm_offset_frames-2);
     } else {
@@ -248,7 +248,7 @@ void GgafScene::end(frame prm_offset_frames) {
 }
 
 void GgafScene::sayonara(frame prm_offset_frames) {
-    _pDirector->sayonara(prm_offset_frames);
+    _pSceneDirector->sayonara(prm_offset_frames);
     if (prm_offset_frames > 3) {
         GgafElement<GgafScene>::end(prm_offset_frames-2);
     } else {
@@ -273,18 +273,18 @@ void GgafScene::clean(int prm_num_cleaning) {
     if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
         return;
     }
-    if (_pDirector) {
-        _pDirector->clean(prm_num_cleaning);
-        if (_pDirector->_pSubFirst == nullptr) {
-            GGAF_DELETE(_pDirector);
+    if (_pSceneDirector) {
+        _pSceneDirector->clean(prm_num_cleaning);
+        if (_pSceneDirector->_pSubFirst == nullptr) {
+            GGAF_DELETE(_pSceneDirector);
         }
     } else {
         GgafElement<GgafScene>::clean(prm_num_cleaning);
     }
 }
 
-GgafDirector* GgafScene::getDirector() {
-    return _pDirector;
+GgafSceneDirector* GgafScene::getSceneDirector() {
+    return _pSceneDirector;
 }
 
 GgafGod* GgafScene::askGod() {
@@ -296,8 +296,8 @@ GgafGod* GgafScene::askGod() {
 
 void GgafScene::dump() {
     _TRACE_("Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
-    if (_pDirector) {
-        _pDirector->dump();
+    if (_pSceneDirector) {
+        _pSceneDirector->dump();
         GgafScene* pScene_tmp = _pSubFirst;
         if (_pSubFirst) {
             while (true) {
@@ -318,8 +318,8 @@ void GgafScene::dump() {
 
 void GgafScene::dump(std::string prm_parent) {
     _TRACE_(prm_parent+"Åú"<<_class_name<<"("<<this<<")["<<getName()<<"]"<<DUMP_FLGS);
-    if (_pDirector) {
-        _pDirector->dump(prm_parent + "\t\t\t\t\t\t\t\t");
+    if (_pSceneDirector) {
+        _pSceneDirector->dump(prm_parent + "\t\t\t\t\t\t\t\t");
         GgafScene* pScene_tmp = _pSubFirst;
         if (_pSubFirst) {
             while (true) {

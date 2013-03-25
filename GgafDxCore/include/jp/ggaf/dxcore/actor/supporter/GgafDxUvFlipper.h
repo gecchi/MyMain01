@@ -141,7 +141,7 @@ public:
      *       _pUvFlipper = NEW GgafDxUvFlipper(this);
      *       _pUvFlipper->setRotation(縦分割数, 横分割数);
      *       _pUvFlipper->setActivePtn(0);
-     *       _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+     *       _pUvFlipper->exec(NOT_ANIMATED, 1);
      *       ----------------------------------------------------------
      *       縦分割数, 横分割数はスプライト定義ファイル(.sprx)から取得される。
      *
@@ -152,7 +152,7 @@ public:
      *       _pUvFlipper = NEW GgafDxUvFlipper(this);
      *       _pUvFlipper->setRotation(1, 1);
      *       _pUvFlipper->setActivePtn(0);
-     *       _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+     *       _pUvFlipper->exec(NOT_ANIMATED, 1);
      *       ----------------------------------------------------------
      *
      * ・その他のアクタークラスについて・・・
@@ -211,7 +211,7 @@ public:
     /**
      * アニメーションを1フレーム分進行させる .
      * 本メソッドを、processBehavior() 等で毎フレーム呼び出す必要があります。<BR>
-     * 呼び出すことで、setFlipMethod()で設定した方法に応じて<BR>
+     * 呼び出すことで、exec()で設定した方法に応じて<BR>
      * アクティブなパターン番号(_pattno_uvflip_now)が内部で切り替わります。<BR>
      */
     virtual void behave();
@@ -264,23 +264,23 @@ public:
      * 【例１】
      * setActivePtn(0);
      * setFlipPtnRange(3,5);
-     * setFlipMethod(FLIP_ORDER_LOOP); とした場合、
+     * exec(FLIP_ORDER_LOOP); とした場合、
      * パターン番号: 0,1,2,3,4,5,3,4,5,3,4,5,...
      *
      * 【例２】
      * setActivePtn(5);
      * setFlipPtnRange(0,3);
-     * setFlipMethod(FLIP_ORDER_LOOP); とした場合、
+     * exec(FLIP_ORDER_LOOP); とした場合、
      * パターン番号: 5,4,3,2,1,0,3,2,1,0,3,2,1,0,...
      *
      * </pre>
      * @param prm_method アニメーション方法定数
      * @param prm_interval アニメーション間隔フレーム（default=1)
      */
-    void setFlipMethod(GgafDxUvFlippingMethod prm_method, int prm_interval = 1);
+    void exec(GgafDxUvFlippingMethod prm_method, int prm_interval = 1);
 
     void stopFlip() {
-        setFlipMethod(NOT_ANIMATED);
+        exec(NOT_ANIMATED);
     }
 
 };

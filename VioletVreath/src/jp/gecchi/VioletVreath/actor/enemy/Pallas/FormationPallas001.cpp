@@ -29,13 +29,13 @@ void FormationPallas001::onActive() {
         EnemyPallas* pPallas = (EnemyPallas*)callUpMember();
         if (pPallas) {
             onCallUpPallas(pPallas); //コールバック
-            pPallas->activateDelay(n*interval_frames_ + 1);
+            pPallas->activateDelay(n*interval_frames_ + 1); //活動予定フレーム上書き
             n++;
         }
     }
     //FormationTableScene に追加する編隊の場合、
     //編隊が途中でちょん切れる事を防ぐために、このように
-    //onActive()で、一気に全ての編隊要員を callUpMember() & activate() しておく事。
+    //onActive()内で、一気に全ての編隊要員を callUpMember() することにした。
 }
 
 void FormationPallas001::processBehavior() {
@@ -43,7 +43,7 @@ void FormationPallas001::processBehavior() {
 
 void FormationPallas001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
     GgafDxGeometricActor* pActor_last_destroyed = (GgafDxGeometricActor*)prm_pActor_last_destroyed;
-    //編隊全滅時エフェクト出現（スコア加算も行われる）
+    //編隊全滅時エフェクト出現（※ボーナススコア加算も行われる）
     UTIL::activateFormationDestroyedEffectOf(pActor_last_destroyed);
     //編隊全滅アイテム出現
     UTIL::activateFormationDestroyedItemOf(pActor_last_destroyed);

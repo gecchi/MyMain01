@@ -15,7 +15,7 @@ EffectLockonMagic::EffectLockonMagic(const char* prm_name) :
 }
 
 void EffectLockonMagic::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
 }
 
 void EffectLockonMagic::onActive() {
