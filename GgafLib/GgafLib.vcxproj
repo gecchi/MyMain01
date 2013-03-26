@@ -220,7 +220,6 @@
     <ClCompile Include="src\jp\ggaf\lib\util\LinearOctreeForActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\scene\ScrolledScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SingleLaser.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineLine.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineManufacture.cpp" />
@@ -302,7 +301,6 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\menu\MenuActor.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h" />
-    <ClInclude Include="include\jp\ggaf\lib\scene\ScrolledScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SingleLaser.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineLine.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineManufacture.h" />

@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FormationTableScene::FormationTableScene(const char* prm_name) : GgafDxScene(prm_name) {
+FormationTableScene::FormationTableScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "FormationTableScene";
     _max_perform_frame = 0xffffffff;
     _frame_of_current_part_began = 0;

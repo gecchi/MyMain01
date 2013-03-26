@@ -70,7 +70,7 @@ public:
     bool _is_loop_end;
     WallPartsActor* _pWallPartsLast;
 
-    ScrolledScene*  _pScrolledScene;
+    WalledScene*  _pWalledScene;
 
 public:
     /**
@@ -78,9 +78,9 @@ public:
      * 壁ブロック情報ファイルを読み込み、オブジェクトに展開します。
      * @param prm_name シーン名
      * @param prm_data_filename 壁ブロック情報ファイル
-     * @param prm_pScrolledScene スクロールシーンを継承したシーンオブジェクト
+     * @param prm_pWalledScene 親の壁シーンオブジェクト
      */
-    WalledSectionScene(const char* prm_name, const char* prm_data_filename, ScrolledScene* prm_pScrolledScene);
+    WalledSectionScene(const char* prm_name, const char* prm_data_filename, WalledScene* prm_pWalledScene);
 
     /**
      * 外壁シーンを設定.

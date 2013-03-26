@@ -40,7 +40,7 @@ void EnemyThisbeLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyThisbeLaserChip001::processBehaviorHeadChip() {
-    pSplSeq_->_X_begin -= 10000;
+    pSplSeq_->_X_begin -= 5000;
     //TODO:↑これをどうやるか・・・・
 
     if (getActivePartFrame() == 2) {

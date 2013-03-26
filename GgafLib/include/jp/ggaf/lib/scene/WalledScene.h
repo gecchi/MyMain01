@@ -9,7 +9,7 @@ namespace GgafLib {
  * @since 2010/11/05
  * @author Masatoshi Tsuge
  */
-class WalledScene : public GgafLib::ScrolledScene {
+class WalledScene : public DefaultScene {
 
 public:
     /** セクションシーンの保持リスト */

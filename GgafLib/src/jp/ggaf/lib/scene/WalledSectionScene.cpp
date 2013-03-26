@@ -4,13 +4,13 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 
-WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_data_filename,  ScrolledScene* prm_pScrolledScene) : DefaultScene(prm_name) {
+WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_data_filename,  WalledScene* prm_pWalledScene) : DefaultScene(prm_name) {
 //ruby tool/script/make_stage_data.rb > scene/stage_data.txt
 
     _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" begin");
     _class_name = "WalledSectionScene";
     _pTarget_FrontAlpha = nullptr;
-    _pScrolledScene = prm_pScrolledScene;
+    _pWalledScene = prm_pWalledScene;
     _area_len = 0;
     _area_height = 0;
     _area_width= 0;
@@ -93,14 +93,14 @@ void WalledSectionScene::initialize() {
 }
 
 void WalledSectionScene::onActive() {
-    _frame_of_launch_next = (frame)(_wall_dep /_pScrolledScene->getScrollSpeed());
+    _frame_of_launch_next = (frame)(_wall_dep /_pWalledScene->getScrollSpeed());
     _cnt_area_len = 0;
     _cnt_loop = 0;
     _is_loop_end = false;
 }
 
 void WalledSectionScene::processBehavior() {
-    velo parent_scroll_speed =_pScrolledScene->getScrollSpeed();
+    velo parent_scroll_speed =_pWalledScene->getScrollSpeed();
     if (!_is_loop_end && parent_scroll_speed != 0) {
 
         if (_pWallPartsLast == nullptr || (_wall_start_X - _pWallPartsLast->_X) >= _wall_dep) {

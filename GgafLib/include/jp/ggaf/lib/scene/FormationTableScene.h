@@ -47,7 +47,7 @@ namespace GgafLib {
  * @since 2010/08/19
  * @author Masatoshi Tsuge
  */
-class FormationTableScene : public GgafDxCore::GgafDxScene {
+class FormationTableScene : public DefaultScene {
 
 private:
     /**

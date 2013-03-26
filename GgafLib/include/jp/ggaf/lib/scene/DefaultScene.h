@@ -21,6 +21,11 @@ public:
     /** [r]シーン進捗管理(hide a [GgafCore::GgafElement<GgafScene>::GgafProgress* _pProg]) */
     SceneProgress* _pProg;
 
+    /** スクロール速度 */
+    velo _scroll_speed;
+    /** [r/w]スクロール関数へのポインタ */
+    void (*_pFuncScrolling)(GgafCore::GgafObject*, void*, void*);
+
 public:
     DefaultScene(const char* prm_name);
 
@@ -38,6 +43,10 @@ public:
 
     virtual void processBehavior() override {
     }
+    /**
+     * スクロール処理の追加 .
+     */
+    virtual void processSettlementBehavior() override;
 
     virtual void processJudgement() override {
     }
@@ -46,6 +55,41 @@ public:
     }
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
+    }
+
+
+public:
+    /**
+     * X軸方法にスクロール .
+     * @param pThat アクター
+     * @param p1 スクロールスピード(_scroll_speedへのポインタ)
+     * @param p2 任意（引数は特に無し）
+     */
+    static void scroll_X(GgafObject* pThat, void* p1, void* p2);
+
+
+    /**
+     * スクロール関数を設定する。
+     * 設定されたスクロール関数を配下ツリーシーンの全アクターに実行を行う。<BR>
+     * 第１引数には、対象アクター、第２引数には、スクロールスピード(_scroll_speedへのポインタ)が渡される。<BR>
+     * 標準で DefaultScene::scroll_X(GgafObject*, void*, void*) が用意されているので、指定可能だが、<BR>
+     * 任意のユーザー定義スクロール関数に切り替えができる。<BR>
+     * @param prm_pFuncScrolling 引数が(GgafObject*, void*, void*) となる関数ポインタ
+     */
+    void setScrollingFunction(void (*prm_pFuncScrolling)(GgafCore::GgafObject*, void*, void*)) {
+        _pFuncScrolling = prm_pFuncScrolling;
+    }
+
+    void setScrollSpeed(velo prm_scroll_speed) {
+        _scroll_speed = prm_scroll_speed;
+    }
+
+    velo getScrollSpeed() {
+        return _scroll_speed;
+    }
+
+    void addScrollSpeed(acce prm_acce) {
+        _scroll_speed += prm_acce;
     }
 
     virtual ~DefaultScene();

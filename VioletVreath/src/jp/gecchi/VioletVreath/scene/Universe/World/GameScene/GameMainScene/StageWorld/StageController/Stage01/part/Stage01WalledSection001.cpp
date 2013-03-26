@@ -5,12 +5,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-Stage01WalledSection001::Stage01WalledSection001(const char* prm_name, ScrolledScene* prm_pScrolledScene, const char* prm_data_filename)
-     : WalledSectionScene(prm_name, prm_data_filename, prm_pScrolledScene) {
+Stage01WalledSection001::Stage01WalledSection001(const char* prm_name, WalledScene* prm_pWalledScene, const char* prm_data_filename)
+     : WalledSectionScene(prm_name, prm_data_filename, prm_pWalledScene) {
     _class_name = "Stage01WalledSection001";
     bound_alpha_ = -P_CAM->_cameraZ_org*0.7; //”w–ÊƒJƒƒ‰‚Í_cameraZ_org*0.6‚É—R—ˆ‚µ‚Ä‚¢‚é
-
-
 }
 
 void Stage01WalledSection001::processBehavior() {
@@ -46,7 +44,6 @@ void Stage01WalledSection001::onBlockLaunch(int prm_loop_count, int prm_wall_cou
     }
 
 }
-
 
 Stage01WalledSection001::~Stage01WalledSection001() {
 

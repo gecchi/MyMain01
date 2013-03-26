@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
+WalledScene::WalledScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "WalledScene";
     _pDepo_WallAAB = nullptr;
     _pDepo_WallAAPrism = nullptr;
@@ -117,7 +117,6 @@ void WalledScene::processBehavior() {
                 }
             }
         }
-        ScrolledScene::processBehavior();
 
         //_ringLoopEndSectionチェック
         //WallPartsActor::_pWalledSectionScene が不正ポインタにならないための考慮である。
@@ -143,7 +142,6 @@ void WalledScene::processBehavior() {
             }
         }
     } else {
-        ScrolledScene::processBehavior();
     }
 
 }

@@ -32,7 +32,6 @@ class AmountGraph;
 
 class DefaultScene;
 class FormationTableScene;
-class ScrolledScene;
 class WalledScene;
 class WalledSectionScene;
 
@@ -113,7 +112,6 @@ class LaserChipDepositoryStore;
 
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
-#include "jp/ggaf/lib/scene/ScrolledScene.h"
 #include "jp/ggaf/lib/scene/WalledScene.h"
 #include "jp/ggaf/lib/scene/WalledSectionScene.h"
 
