@@ -10,6 +10,10 @@ namespace GgafLib {
 #define COLLI_SPHERE  (0x2)  //0b 00000000 00000000 00000000 00000010
 #define COLLI_AAPRISM (0x4)  //0b 00000000 00000000 00000000 00000100
 
+
+#define Obj_DefaultScene                 (0x80000040)     //0b 10000000 00000000 00000000 01000000
+#define Obj_WalledScene                  (0x80000080)     //0b 10000000 00000000 00000000 10000000
+
 #define Obj_LaserChip                    (0x10000000)     //0b 00010000 00000000 00000000 00000000
 #define Obj_WallPartsActor               (0x20000000)     //0b 00100000 00000000 00000000 00000000
 #define Obj_IFormationAble               (0x40000000)     //0b 01000000 00000000 00000000 00000000

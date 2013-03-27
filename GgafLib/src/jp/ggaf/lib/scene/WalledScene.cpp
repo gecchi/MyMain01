@@ -4,6 +4,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 WalledScene::WalledScene(const char* prm_name) : DefaultScene(prm_name) {
+    _obj_class |= Obj_WalledScene;
     _class_name = "WalledScene";
     _pDepo_WallAAB = nullptr;
     _pDepo_WallAAPrism = nullptr;
@@ -19,6 +20,8 @@ void WalledScene::buildWalledScene(
         GgafActorDepository* prm_pDepo_WallAAB,
         GgafActorDepository* prm_pDepo_WallAAPrism) {
     _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] build...");
+    setScrollingFunction(WalledScene::scrollX);
+
     _pDepo_WallAAB = prm_pDepo_WallAAB;
     _pDepo_WallAAPrism = prm_pDepo_WallAAPrism;
     if (_pDepo_WallAAB->getPlatformScene()) {
@@ -147,6 +150,15 @@ void WalledScene::processBehavior() {
 }
 
 void WalledScene::processFinal() {
+}
+
+void WalledScene::scrollX(GgafObject* pThat, void* p1, void* p2) {
+    if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
+        GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
+        if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
+            pActor->_X -= (*((coord*)p1));
+        }
+    }
 }
 
 WalledScene::~WalledScene() {

@@ -4,6 +4,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 DefaultScene::DefaultScene(const char* prm_name) : GgafDxScene(prm_name) {
+    _obj_class |= Obj_DefaultScene;
     _class_name = "DefaultScene";
     _paFrame_NextEvent = nullptr;
     _cnt_event = 0;
@@ -22,15 +23,6 @@ void DefaultScene::useProgress(int prm_num) {
     }
 }
 
-void DefaultScene::scroll_X(GgafObject* pThat, void* p1, void* p2) {
-    if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
-        GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
-        if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
-            pActor->_X -= (*((coord*)p1));
-        }
-    }
-}
-
 void DefaultScene::processSettlementBehavior() {
     GgafDxScene::processSettlementBehavior();
     if (_pFuncScrolling && _is_active_flg && !_was_paused_flg && _can_live_flg) {
@@ -41,6 +33,45 @@ void DefaultScene::processSettlementBehavior() {
         //  &_scroll_speed ¨ void* p1
         //  nullptr        ¨ void* p2
 
+    }
+}
+
+DefaultScene* DefaultScene::getNearestScrollingScene() {
+    if (_pFuncScrolling) {
+        return this;
+    } else {
+        GgafScene* pScene = this;
+        while(true) {
+            pScene = pScene->getParent();
+            if (pScene) {
+                if (pScene->instanceOf(Obj_DefaultScene)) {
+                    DefaultScene* pDefaultScene = (DefaultScene*)pScene;
+                    if (pDefaultScene->_pFuncScrolling) {
+                         return pDefaultScene;
+                    }
+                }
+            } else {
+                return nullptr;
+            }
+        }
+    }
+}
+
+WalledScene* DefaultScene::getNearestWalledScene() {
+    if (instanceOf(Obj_WalledScene)) {
+        return (WalledScene*)this;
+    } else {
+        GgafScene* pScene = this;
+        while(true) {
+            pScene = pScene->getParent();
+            if (pScene) {
+                if (pScene->instanceOf(Obj_WalledScene)) {
+                    return  (WalledScene*)pScene;
+                }
+            } else {
+                return nullptr;
+            }
+        }
     }
 }
 

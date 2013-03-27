@@ -13,7 +13,7 @@ class EnemyThisbeLaserChip001 : public GgafLib::HomingLaserChip {
 public:
     GgafLib::SplineManufactureConnection* pSplManufCon_;
     GgafLib::SplineSequence* pSplSeq_;
-
+    GgafLib::WalledScene* pWalledScene_;
 public:
     EnemyThisbeLaserChip001(const char* prm_name);
 
@@ -27,8 +27,6 @@ public:
      * 先頭チップの動きを定義
      */
     void processBehaviorHeadChip() override;
-
-//    void processBehavior() override;
 
     void processJudgement() override;
 

@@ -79,6 +79,15 @@ public:
 
     virtual void processFinal() override;
 
+    /**
+     * X軸の負の方向にスクロールさせる関数 .
+     * @param pThat アクター
+     * @param p1 スクロールスピード(_scroll_speedへのポインタ)
+     * @param p2 任意（引数は特に無し）
+     */
+    static void scrollX(GgafObject* pThat, void* p1, void* p2);
+
+
     virtual ~WalledScene();
 };
 

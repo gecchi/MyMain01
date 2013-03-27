@@ -106,7 +106,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
                 std::stringstream name;
                 name <<  "EnemyAstraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
                 pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
-                pChip->config(30, 20, 8, (GgafActorDepository*)prm_p);
+                pChip->config(30, 20, 8, true, (GgafActorDepository*)prm_p);
                 pLaserChipDepo->addSubLast(pChip);
                 Sleep(1);
             }

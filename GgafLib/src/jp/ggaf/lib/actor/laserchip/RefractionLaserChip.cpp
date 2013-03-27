@@ -33,11 +33,13 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _prev_RY = _RY;
     _prev_RZ = _RZ;
     _prev_is_refracting = false;
+    _is_fix_begin_pos = true;
 }
 
 void RefractionLaserChip::config(int prm_num_refraction,
                                 frame prm_frame_between_refraction,
                                 frame prm_frame_standstill_refraction,
+                                bool prm_is_fix_begin_pos,
                                 GgafActorDepository* prm_pDispatche_RefractionEffect) {
 #ifdef MY_DEBUG
     if (prm_frame_between_refraction == 0) {
@@ -50,6 +52,7 @@ void RefractionLaserChip::config(int prm_num_refraction,
     _num_refraction = prm_num_refraction;
     _frame_between_refraction = prm_frame_between_refraction;
     _frame_standstill_refraction = prm_frame_standstill_refraction;
+    _is_fix_begin_pos = prm_is_fix_begin_pos;
     _pDispatche_RefractionEffect = prm_pDispatche_RefractionEffect;
 }
 
@@ -82,13 +85,15 @@ void RefractionLaserChip::onActive() {
         _begining_RX = pChip_front->_begining_RX;
         _begining_RY = pChip_front->_begining_RY;
         _begining_RZ = pChip_front->_begining_RZ;
-
-        _X = _begining_X;
-        _Y = _begining_Y;
-        _Z = _begining_Z;
+        if (_is_fix_begin_pos) {
+            _X = _begining_X;
+            _Y = _begining_Y;
+            _Z = _begining_Z;
+        }
         _RX = _begining_RX;
         _RY = _begining_RY;
         _RZ = _begining_RZ;
+
         _cnt_refraction = 0;
         _frame_refraction_enter = INT_MAX;
         _frame_refraction_out = INT_MAX;

@@ -56,6 +56,7 @@ public:
     frame _frame_between_refraction;
     /** [r]屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数(>= 1) */
     frame _frame_standstill_refraction;
+    bool _is_fix_begin_pos;
 
 public:
     RefractionLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
@@ -65,11 +66,13 @@ public:
      * @param prm_num_refraction 何回屈折するか
      * @param prm_frame_between_refraction 直進開始(屈折終了)～直進～直進終了(屈折開始)、のフレーム数(>= 1)
      * @param prm_frame_standstill_refraction 屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数(>= 1)
+     * @param prm_is_fix_beginning_pos true:レーザー発射元は、先頭レーザーチップの座標に固定される。／false:それぞれのレーザーチップの座標に依存
      * @param prm_pDispatche_RefractionEffect 屈折時のエフェクトアクターのデポジトリ(無しの場合はnullptr)
      */
     virtual void config(int prm_num_refraction,
                         frame prm_frame_between_refraction,
                         frame prm_frame_standstill_refraction,
+                        bool prm_is_fix_begin_pos, 
                         GgafCore::GgafActorDepository* prm_pDispatche_RefractionEffect);
 
     virtual void onCreateModel() override {}

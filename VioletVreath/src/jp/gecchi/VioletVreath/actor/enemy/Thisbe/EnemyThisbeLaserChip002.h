@@ -8,7 +8,7 @@ public:
     frame end_active_frame_;
     GgafLib::SplineManufactureConnection* pSplManufCon_;
     GgafLib::SplineSequence* pSplSeq_;
-
+    GgafLib::WalledScene* pWalledScene_;
 public:
     EnemyThisbeLaserChip002(const char* prm_name);
 

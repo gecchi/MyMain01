@@ -14,29 +14,43 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
 
+
+    GgafActorDepository* pDepoEffect = NEW GgafActorDepository("ThisbeLaser");
+
+//    pConn_RefractionEffectDepository_ = connectToDepositoryManager("Conn_EffRefraction001", nullptr);
+//    GgafCore::GgafActorDepository* pRefractionEffectDepository_ = pConn_RefractionEffectDepository_->fetch();
+    EffectLaserRefraction001* pEffect;
+    for (int i = 0; i < 100; i++) {
+        std::string name = "EffectLaserRefraction001["+XTOS(i)+"]";
+        pEffect = NEW EffectLaserRefraction001(name.c_str());
+        pDepoEffect->addSubLast(pEffect);
+    }
+    addSubGroup(pDepoEffect);
+
+
+
+
+
     pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
     pLaserChipDepo_->config(100, 1, nullptr); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
 
-    EnemyThisbeLaserChip001* pChip;
-    for (int i = 0; i < 65; i++) { //レーザーストック
-        std::stringstream name;
-        name <<  "EnemyThisbeLaserChip001[" << i << "]";
-        pChip = NEW EnemyThisbeLaserChip001(name.str().c_str());
-        pLaserChipDepo_->addSubLast(pChip);
-    }
-
-
-//    pConn_RefractionEffectDepository_ = connectToDepositoryManager("Conn_EffRefraction001", nullptr);
-//    EnemyThisbeLaserChip002* pChip;
-//    for (int i = 0; i < 100; i++) { //レーザーストック
+//    EnemyThisbeLaserChip001* pChip;
+//    for (int i = 0; i < 65; i++) { //レーザーストック
 //        std::stringstream name;
-//        name <<  "EnemyThisbeLaserChip002[" << i << "]";
-//        pChip = NEW EnemyThisbeLaserChip002(name.str().c_str());
-//        int num_refraction = pChip->pSplSeq_->getPointNum();
-//        pChip->config(num_refraction, 1, 1, pConn_RefractionEffectDepository_->fetch());
+//        name <<  "EnemyThisbeLaserChip001[" << i << "]";
+//        pChip = NEW EnemyThisbeLaserChip001(name.str().c_str());
 //        pLaserChipDepo_->addSubLast(pChip);
 //    }
 
+
+    EnemyThisbeLaserChip002* pChip;
+    for (int i = 0; i < 100; i++) { //レーザーストック
+        std::string name = "EnemyThisbeLaserChip002["+XTOS(i)+"]";
+        pChip = NEW EnemyThisbeLaserChip002(name.c_str());
+        int num_refraction = pChip->pSplSeq_->getPointNum();
+        pChip->config(num_refraction, 1, 1, false, pDepoEffect);
+        pLaserChipDepo_->addSubLast(pChip);
+    }
     addSubGroup(pLaserChipDepo_);
 
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
@@ -153,5 +167,5 @@ void EnemyThisbe::onInactive() {
 
 EnemyThisbe::~EnemyThisbe() {
     GGAF_DELETE_NULLABLE(pSplSeq_);
-//    pConn_RefractionEffectDepository_->close();
+    //pConn_RefractionEffectDepository_->close();
 }

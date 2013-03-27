@@ -59,14 +59,6 @@ public:
 
 
 public:
-    /**
-     * X軸方法にスクロール .
-     * @param pThat アクター
-     * @param p1 スクロールスピード(_scroll_speedへのポインタ)
-     * @param p2 任意（引数は特に無し）
-     */
-    static void scroll_X(GgafObject* pThat, void* p1, void* p2);
-
 
     /**
      * スクロール関数を設定する。
@@ -91,6 +83,22 @@ public:
     void addScrollSpeed(acce prm_acce) {
         _scroll_speed += prm_acce;
     }
+    /**
+     * 最も直近のスクロールしているシーンを探して取得。 .
+     * 検索範囲は 自シーン＋親シーン。
+     * 関数ポインタ _pFuncScrolling が nullptr でなければ、スクロールしていると判断。
+     * @return 直近のスクロールしているシーン
+     */
+    DefaultScene* getNearestScrollingScene();
+
+    /**
+     * 最も直近の WalledScene を探して取得。 .
+     * 検索範囲は 自シーン＋親シーン。
+     * WalledScene はX軸の負の方向スクロールしていることが将来保証されている。
+     * _pFuncScrolling が nullptr であろうとなかろうと、関係はなく、WalledScene ならばそれを返す。
+     * @return 直近のWalledScene
+     */
+    WalledScene* getNearestWalledScene();
 
     virtual ~DefaultScene();
 };

@@ -10,12 +10,14 @@ EnemyThisbeLaserChip001::EnemyThisbeLaserChip001(const char* prm_name) :
     _class_name = "EnemyThisbeLaserChip001";
     pSplManufCon_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ヒルベルト曲線
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
+    pWalledScene_ = nullptr;
 }
 
 void EnemyThisbeLaserChip001::initialize() {
 //    registHitAreaCube_AutoGenMidColli(20000);
     setScaleR(5.0);
     setAlpha(0.9);
+    pWalledScene_ = ((DefaultScene*)getPlatformScene())->getNearestWalledScene();
 }
 void EnemyThisbeLaserChip001::onActive() {
     HomingLaserChip::onActive();
@@ -40,7 +42,10 @@ void EnemyThisbeLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyThisbeLaserChip001::processBehaviorHeadChip() {
-    pSplSeq_->_X_begin -= 5000;
+    if (pWalledScene_) {
+        pSplSeq_->_X_begin -= pWalledScene_->getScrollSpeed();
+    }
+
     //TODO:↑これをどうやるか・・・・
 
     if (getActivePartFrame() == 2) {
@@ -50,9 +55,6 @@ void EnemyThisbeLaserChip001::processBehaviorHeadChip() {
     _pKurokoA->behave();
 }
 
-//void EnemyThisbeLaserChip001::processBehavior() {
-//    HomingLaserChip::processBehavior();
-//}
 void EnemyThisbeLaserChip001::processJudgement() {
     if (isOutOfUniverse()) {
         if (_X >= GgafDxUniverse::_X_gone_right) {

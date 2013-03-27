@@ -12,6 +12,7 @@ EnemyThisbeLaserChip002::EnemyThisbeLaserChip002(const char* prm_name) :
     pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
     pSplSeq_->adjustCoordOffset(PX_C(100), 0, 0);
     end_active_frame_ = 0;
+    pWalledScene_ = nullptr;
 }
 
 void EnemyThisbeLaserChip002::initialize() {
@@ -19,6 +20,7 @@ void EnemyThisbeLaserChip002::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
+    pWalledScene_ = ((DefaultScene*)getPlatformScene())->getNearestWalledScene();
 }
 
 void EnemyThisbeLaserChip002::onActive() {
@@ -50,7 +52,7 @@ void EnemyThisbeLaserChip002::onRefractionBegin(int prm_num_refraction)  {
 
 void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
-        pSplSeq_->exec(SplineSequence::RELATIVE_COORD); //向てる方向にスプライン座標をワールド変換
+        pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
         //prm_num_refraction = 0 は、発射口→pSplSeq_->_point_index = 0 の点への移動直前処理
     }
     if (pSplSeq_->isExecuting()) {
@@ -66,6 +68,10 @@ void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
 }
 
 void EnemyThisbeLaserChip002::processBehavior() {
+    if (pWalledScene_) {
+        pSplSeq_->_X_begin -= pWalledScene_->getScrollSpeed();
+    }
+
     RefractionLaserChip::processBehavior();
     if (getActivePartFrame() == end_active_frame_+5) {
         sayonara();
