@@ -34,26 +34,26 @@ class Universe : public GgafLib::DefaultUniverse {
 
     class CameraWorkerConnectionStack {
     public:
-        CameraWorkerConnection* apCamWorkerCon_[30];
+        CameraWorkerConnection* apCamWorkerConnection_[30];
         UINT32 p_;
         CameraWorkerConnectionStack() {
             p_ = 0;
             for (int i = 0; i < 30; i++) {
-                apCamWorkerCon_[i] = nullptr;
+                apCamWorkerConnection_[i] = nullptr;
             }
         }
         CameraWorkerConnection* getLast() {
             if (p_ == 0) {
                 return nullptr;
             } else {
-                return apCamWorkerCon_[p_-1];
+                return apCamWorkerConnection_[p_-1];
             }
         }
         void push(CameraWorkerConnection* prm_pCamWorkerCon) {
             if (p_ > 30-1) {
                 throwGgafCriticalException("CameraWorkerConnectionStack::push("<<prm_pCamWorkerCon->getIdStr()<<") スタックを使い切りました。");
             }
-            apCamWorkerCon_[p_] = prm_pCamWorkerCon;
+            apCamWorkerConnection_[p_] = prm_pCamWorkerCon;
             p_++;
         }
         CameraWorkerConnection* pop() {
@@ -61,23 +61,23 @@ class Universe : public GgafLib::DefaultUniverse {
                 throwGgafCriticalException("CameraWorkerConnectionStack::pop() ポップしすぎです");
             } else {
                 p_--;
-                CameraWorkerConnection* r = apCamWorkerCon_[p_];
-                apCamWorkerCon_[p_] = nullptr;
+                CameraWorkerConnection* r = apCamWorkerConnection_[p_];
+                apCamWorkerConnection_[p_] = nullptr;
                 return r;
             }
         }
         void clear() {
             p_ = 0;
             for (int i = 0; i < 30; i++) {
-                apCamWorkerCon_[i] = nullptr;
+                apCamWorkerConnection_[i] = nullptr;
             }
         }
 
         void dump() {
             _TRACE_("CameraWorkerConnectionStack p_="<<p_);
             for (int i = 0; i < 30; i++) {
-                if (apCamWorkerCon_[i]) {
-                    _TRACE_("apCamWorkerCon_["<<i<<"]="<<(apCamWorkerCon_[i]->getIdStr()));
+                if (apCamWorkerConnection_[i]) {
+                    _TRACE_("apCamWorkerConnection_["<<i<<"]="<<(apCamWorkerConnection_[i]->getIdStr()));
                 }
             }
         }
@@ -93,7 +93,7 @@ public:
     /** [r]カメラマンのマネージャー */
     CameraWorkerManager* pCamWorkerManager_;
     /** [r]カメラマンのスタック */
-    CameraWorkerConnectionStack stack_CamWorkerCon_;
+    CameraWorkerConnectionStack stack_CamWorkerConnection_;
     /** [r]世界 */
     World* pWorld_;
 

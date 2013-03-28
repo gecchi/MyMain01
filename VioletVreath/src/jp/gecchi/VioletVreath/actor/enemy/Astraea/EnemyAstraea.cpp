@@ -26,13 +26,13 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         }
     }
 
-    pConn_RefractionEffectDepository_ = connectToDepositoryManager("Conn_EffRefraction001", nullptr);
-    pConn_LaserChipDepoStore_ = connectToDepositoryManager(
-            "Conn_EnemyAstraeaLaserChip004DepoStore",
-         //"Conn_EnemyAstraeaLaserChip003DepoStore",
-         //"Conn_EnemyAstraeaLaserChip001DepoStore",
-         //"Conn_EnemyAstraeaLaserChip002DepoStore",
-         pConn_RefractionEffectDepository_->fetch()
+    pConnection_RefractionEffectDepository_ = connectToDepositoryManager("EffRefraction001", nullptr);
+    pConnection_LaserChipDepoStore_ = connectToDepositoryManager(
+            "EnemyAstraeaLaserChip004DepoStore",
+         //"EnemyAstraeaLaserChip003DepoStore",
+         //"EnemyAstraeaLaserChip001DepoStore",
+         //"EnemyAstraeaLaserChip002DepoStore",
+         pConnection_RefractionEffectDepository_->peek()
         );
 
     papaPosLaser_ = NEW PosLaser*[laser_way_];
@@ -57,9 +57,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_FIRE);
-    pConn_ShotDepo_  = connectToDepositoryManager("Conn_Shot004", nullptr);
-    pConn_ShotDepo2_ = connectToDepositoryManager("Conn_Shot004Yellow", nullptr);
-    pConn_ShotDepo3_ = connectToDepositoryManager("Conn_Shot004Blue", nullptr);
+    pConnection_ShotDepo_  = connectToDepositoryManager("Shot004", nullptr);
+    pConnection_ShotDepo2_ = connectToDepositoryManager("Shot004Yellow", nullptr);
+    pConnection_ShotDepo3_ = connectToDepositoryManager("Shot004Blue", nullptr);
 }
 
 void EnemyAstraea::onCreateModel() {
@@ -139,7 +139,7 @@ void EnemyAstraea::processBehavior() {
             if (_pProg->isJustChanged()) {
                 //レーザーセット、借入
                 GgafActorDepositoryStore* pLaserChipDepoStore =
-                        (GgafActorDepositoryStore*)(pConn_LaserChipDepoStore_->fetch());
+                        (GgafActorDepositoryStore*)(pConnection_LaserChipDepoStore_->peek());
                 bool can_fire = false;
                 for (int i = 0; i < laser_way_; i++) {
                     for (int j = 0; j < laser_way_; j++) {
@@ -293,9 +293,9 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 
 
         UTIL::shotWay002(this,
-                         pConn_ShotDepo_->fetch(), red_dot,
-                         pConn_ShotDepo2_->fetch(), yellow_dot,
-                         pConn_ShotDepo3_->fetch(), blue_dot,
+                         pConnection_ShotDepo_->peek(), red_dot,
+                         pConnection_ShotDepo2_->peek(), yellow_dot,
+                         pConnection_ShotDepo3_->peek(), blue_dot,
                          PX_C(20),
                          11, 11,
                          D_ANG(1), D_ANG(1),
@@ -323,11 +323,11 @@ void EnemyAstraea::onInactive() {
 
 
 EnemyAstraea::~EnemyAstraea() {
-    pConn_RefractionEffectDepository_->close();
-    pConn_LaserChipDepoStore_->close();
-    pConn_ShotDepo_->close();
-    pConn_ShotDepo2_->close();
-    pConn_ShotDepo3_->close();
+    pConnection_RefractionEffectDepository_->close();
+    pConnection_LaserChipDepoStore_->close();
+    pConnection_ShotDepo_->close();
+    pConnection_ShotDepo2_->close();
+    pConnection_ShotDepo3_->close();
     for (int i = 0; i < laser_way_; i++) {
         GGAF_DELETEARR(papaPosLaser_[i]);
         GGAF_DELETEARR(papapLaserChipDepo_[i]);

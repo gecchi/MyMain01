@@ -46,9 +46,9 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target
     for (UINT i = 0; i < _nMaterialListGrp; i++) {
         material_no = _paIndexParam[i].MaterialNo;
         if (GgafDxModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
-            if (_papTextureCon[material_no]) {
+            if (_papTextureConnection[material_no]) {
                 //テクスチャをs0レジスタにセット
-                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->fetch()->_pIDirect3DBaseTexture9);
+                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
             } else {
                 _TRACE_("GgafDxCubeMapMorphMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
                 //無ければテクスチャ無し

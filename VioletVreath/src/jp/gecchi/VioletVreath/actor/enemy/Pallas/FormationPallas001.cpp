@@ -11,11 +11,11 @@ FormationPallas001::FormationPallas001(const char* prm_name) :
     interval_frames_ = RR_FormationPallas001_LaunchInterval(_RANK_);  //パラスの間隔(frame)
     velo_mv_         = RR_FormationPallas001_MvVelo(_RANK_); //速度
     //パラス編隊作成
-    pSplManufCon_ = connectToSplineManufactureManager("Pallas01");
-    pDepoCon_ = nullptr;
+    pSplManufConnection_ = connectToSplineManufactureManager("Pallas01");
+    pDepoConnection_ = nullptr;
     for (int i = 0; i < num_Pallas_; i++) {
         EnemyPallas* pPallas= NEW EnemyPallas("Pallas01");
-        SplineSequence* pSplSeq = pSplManufCon_->fetch()->createSplineSequence(pPallas->_pKurokoA);
+        SplineSequence* pSplSeq = pSplManufConnection_->peek()->createSplineSequence(pPallas->_pKurokoA);
         pPallas->config(pSplSeq, nullptr, nullptr);
         addFormationMember(pPallas);
     }
@@ -50,8 +50,8 @@ void FormationPallas001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 FormationPallas001::~FormationPallas001() {
-    pSplManufCon_->close();
-    if (pDepoCon_) {
-        pDepoCon_->close();
+    pSplManufConnection_->close();
+    if (pDepoConnection_) {
+        pDepoConnection_->close();
     }
 }

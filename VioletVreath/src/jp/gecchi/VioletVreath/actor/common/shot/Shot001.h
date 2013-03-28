@@ -15,7 +15,7 @@ public:
     /** 移動スプラインプログラム */
     GgafLib::SplineSequence* pSplSeq_;
     /** スプライン定義資源への接続 */
-    SplineLineConnection* pSplLineCon_;
+    SplineLineConnection* pSplLineConnection_;
 
 public:
     Shot001(const char* prm_name);

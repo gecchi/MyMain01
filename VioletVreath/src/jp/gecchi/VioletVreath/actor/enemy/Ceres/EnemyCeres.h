@@ -31,7 +31,7 @@ public:
 
     int iMovePatternNo_;
     frame frame_Active_;
-    SplineLineConnection* pSplLineCon_;
+    SplineLineConnection* pSplLineConnection_;
 
 public:
     /**

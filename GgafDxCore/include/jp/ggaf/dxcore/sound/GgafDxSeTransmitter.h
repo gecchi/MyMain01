@@ -14,7 +14,7 @@ class GgafDxSeTransmitter : public GgafCore::GgafObject {
 
 public:
     /** [r]SE‘Œ¹Ú‘±‚Ì”z—ñ */
-    GgafDxSeConnection** _papSeCon;
+    GgafDxSeConnection** _papSeConnection;
     /** [r]SE‚Ì” */
     int _se_num;
 

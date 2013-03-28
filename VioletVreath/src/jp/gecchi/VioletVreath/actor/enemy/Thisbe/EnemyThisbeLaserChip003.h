@@ -5,10 +5,10 @@ namespace VioletVreath {
 class EnemyThisbeLaserChip003 : public GgafLib::WateringLaserChip {
 
 public:
-    GgafLib::SplineManufactureConnection* pSplManufCon_;
+    GgafLib::SplineManufactureConnection* pSplManufConnection_;
     GgafLib::SplineSequence* pSplSeq_;
     int sp_index_;
-
+    GgafLib::WalledScene* pWalledScene_;
 public:
     EnemyThisbeLaserChip003(const char* prm_name);
 

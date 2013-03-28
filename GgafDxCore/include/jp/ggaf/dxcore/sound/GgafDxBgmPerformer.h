@@ -17,7 +17,7 @@ public:
     /** [r]BGMのボリューム配列(添字はBGMチャンネル番号) */
     double* _paDouble_volume;
     /** [r]Bgm資源接続 */
-    GgafDxBgmConnection** _papBgmCon;
+    GgafDxBgmConnection** _papBgmConnection;
 
 public:
     GgafDxBgmPerformer();

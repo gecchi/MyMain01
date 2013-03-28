@@ -8,8 +8,8 @@ using namespace VioletVreath;
 EnemyThisbeLaserChip001::EnemyThisbeLaserChip001(const char* prm_name) :
         HomingLaserChip(prm_name, "ThisbeLaserChip001", STATUS(EnemyThisbeLaserChip001)) {
     _class_name = "EnemyThisbeLaserChip001";
-    pSplManufCon_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ヒルベルト曲線
-    pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
+    pSplManufConnection_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ヒルベルト曲線
+    pSplSeq_ = pSplManufConnection_->peek()->createSplineSequence(_pKurokoA);
     pWalledScene_ = nullptr;
 }
 
@@ -24,6 +24,7 @@ void EnemyThisbeLaserChip001::onActive() {
     //ステータスリセット
     _pStatus->reset();
     _pKurokoA->setMvVelo(30000);
+    _pKurokoA->forceRzRyMvAngVeloRange(-D_ANG(45), D_ANG(45));
     _pKurokoA->relateMvFaceAng(true);
     //位置と向きはEnemyThisbeが設定
     pSplSeq_->stop();
@@ -45,9 +46,6 @@ void EnemyThisbeLaserChip001::processBehaviorHeadChip() {
     if (pWalledScene_) {
         pSplSeq_->_X_begin -= pWalledScene_->getScrollSpeed();
     }
-
-    //TODO:↑これをどうやるか・・・・
-
     if (getActivePartFrame() == 2) {
         pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
@@ -80,6 +78,6 @@ void EnemyThisbeLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 
 EnemyThisbeLaserChip001::~EnemyThisbeLaserChip001() {
     GGAF_DELETE(pSplSeq_);
-    pSplManufCon_->close();
+    pSplManufConnection_->close();
 }
 

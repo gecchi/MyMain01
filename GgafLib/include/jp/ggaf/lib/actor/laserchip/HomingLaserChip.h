@@ -30,7 +30,7 @@ public:
     angle _prev_RX;
     angle _prev_RY;
     angle _prev_RZ;
-
+    bool _is_fix_begin_pos;
 public:
     HomingLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 

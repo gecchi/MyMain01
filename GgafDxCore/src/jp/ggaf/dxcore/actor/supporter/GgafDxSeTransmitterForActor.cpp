@@ -99,7 +99,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     }
 
 
-    P_UNIVERSE->registSe(_papSeCon[prm_id]->fetch(), vol, pan, rate_frequency, delay, _pActor); // + (GgafDxSe::VOLUME_RANGE / 6) ‚Í‰¹—Ê’êã‚°
+    P_UNIVERSE->registSe(_papSeConnection[prm_id]->peek(), vol, pan, rate_frequency, delay, _pActor); // + (GgafDxSe::VOLUME_RANGE / 6) ‚Í‰¹—Ê’êã‚°
 
     _paBool_is_playing_3d[prm_id] = true;
     //^‚ñ’†‚©‚ç‚Ì‹——£
@@ -132,8 +132,8 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     float rate_frequency = 1.0;
     for (int i = 0; i < _se_num; i++) {
         if (_paBool_is_playing_3d[i]) {
-            if (_papSeCon[i]) {
-                GgafDxSe* pSe = _papSeCon[i]->fetch();
+            if (_papSeConnection[i]) {
+                GgafDxSe* pSe = _papSeConnection[i]->peek();
                 if (pSe->isPlaying() && pSe->_pActor_LastPlayed == _pActor) {
                     if (calc_flg) {
                         calc_flg = false;

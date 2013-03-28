@@ -11,15 +11,15 @@ FormationIris002::FormationIris002(const char* prm_name) :
     interval_frames_ = RR_FormationIris002_LaunchInterval(_RANK_);   //イリスの間隔(frame)
     velo_mv_         = RR_FormationIris002_MvVelo(_RANK_); //速度
     //スプライン移動の定義
-    pSplLineCon_ = connectToSplineLineManager("SpConn_00202_");
-    pDepoCon_ = connectToDepositoryManager("Conn_Shot002", nullptr);
+    pSplLineConnection_ = connectToSplineLineManager("Spl_00202_");
+    pDepoConnection_ = connectToDepositoryManager("Shot002", nullptr);
     //イリス編隊作成
     for (int i = 0; i < num_Iris_; i++) {
         EnemyIris* pIris = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
         SplineSequence* pProgram = NEW FixedVelocitySplineSequence(
-                                         pIris->_pKurokoA, pSplLineCon_->fetch(), 10000); //移動速度固定
-        pIris->config(pProgram, pDepoCon_->fetch(), nullptr);
+                                         pIris->_pKurokoA, pSplLineConnection_->peek(), 10000); //移動速度固定
+        pIris->config(pProgram, pDepoConnection_->peek(), nullptr);
         addFormationMember(pIris);
     }
 }
@@ -49,6 +49,6 @@ void FormationIris002::onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroy
 }
 
 FormationIris002::~FormationIris002() {
-    pSplLineCon_->close();
-    pDepoCon_->close();
+    pSplLineConnection_->close();
+    pDepoConnection_->close();
 }

@@ -326,7 +326,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
             int rnum = pCurrent->_num_connection;
             _TRACE_("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストに[" << pCurrent->_idstr << "←" << rnum
                     << "Connection]が残ってます。強制削除しますが、本来あってはいけません。特別に" << rnum << "回 close()を発行します");
-//            T* r = pCurrent->fetch();
+//            T* r = pCurrent->peek();
             pCurrent_next = pCurrent->_pNext;
 //            if (r) {
 //                pCurrent->processReleaseResource(r); //リソースの解放

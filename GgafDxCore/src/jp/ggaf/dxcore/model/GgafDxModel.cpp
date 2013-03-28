@@ -10,7 +10,7 @@ GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject() {
     strcpy(_model_name, prm_model_name);
     _paMaterial_default = nullptr;
     _num_materials = 0;
-    _papTextureCon = nullptr;
+    _papTextureConnection = nullptr;
     _bounding_sphere_radius = 0;
     _power_blink = -1.0f;
     _blink_threshold = 1.1f;
@@ -28,23 +28,23 @@ GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject() {
 //void GgafDxModel::setMaterialTexture(int prm_material_no, const char* prm_texture) {
 //    GgafDxTextureManager* pModelTextureManager = P_GOD->_pModelManager->_pModelTextureManager;
 //    GgafDxTextureConnection* pTexCon = (GgafDxTextureConnection*)pModelTextureManager->connect(prm_texture);
-//    _papTextureCon[prm_material_no]->close();
-//    _papTextureCon[prm_material_no] = pTexCon;
+//    _papTextureConnection[prm_material_no]->close();
+//    _papTextureConnection[prm_material_no] = pTexCon;
 //}
 
 //GgafDxTextureConnection* GgafDxModel::setMaterialTexture(int prm_material_no, GgafDxTextureConnection* prm_pTexCon) {
 //    if (prm_material_no > _num_materials) {
 //        throwGgafCriticalException("GgafDxModel::setMaterialTexture マテリアルINDEXが範囲外です。_model_name="<<_model_name<<" _num_materials="<<_num_materials<<" prm_material_no="<<prm_material_no)
 //    } else {
-//        GgafDxTextureConnection* r = _papTextureCon[prm_material_no];
-//        _papTextureCon[prm_material_no] = prm_pTexCon;
+//        GgafDxTextureConnection* r = _papTextureConnection[prm_material_no];
+//        _papTextureConnection[prm_material_no] = prm_pTexCon;
 //        return r;
 //    }
 //}
 void GgafDxModel::swapTopTextureOrder(const char* prm_texture0) {
     int idx = -1;
     for (int i = 0; i < _num_materials; i++) {
-        if (UTIL::strcmp_ascii(_papTextureCon[i]->fetch()->getName(), prm_texture0) == 0) {
+        if (UTIL::strcmp_ascii(_papTextureConnection[i]->peek()->getName(), prm_texture0) == 0) {
             if (i == 0) {
                 return;
             } else {
@@ -56,13 +56,13 @@ void GgafDxModel::swapTopTextureOrder(const char* prm_texture0) {
     if (idx < 0) {
         throwGgafCriticalException("GgafDxModel::swapTextureOrder 指定テクスチャは見つかりません。prm_texture0="<<prm_texture0);
     }
-    GgafDxTextureConnection* top = _papTextureCon[idx];
+    GgafDxTextureConnection* top = _papTextureConnection[idx];
     for (int i = _num_materials-1; i >= 1; i--) {
         if (i <= idx) {
-            _papTextureCon[i] = _papTextureCon[i-1];
+            _papTextureConnection[i] = _papTextureConnection[i-1];
         }
     }
-    _papTextureCon[0] = top;
+    _papTextureConnection[0] = top;
 }
 
 GgafDxModel::~GgafDxModel() {

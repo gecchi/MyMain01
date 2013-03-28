@@ -20,7 +20,7 @@ public:
         PROG_FINISH   ,
     };
 
-    GgafDxCore::GgafDxSeConnection* pSeCon_exec_;
+    GgafDxCore::GgafDxSeConnection* pSeConnection_exec_;
 
     LabelGecchi16Font* pLabel01_;
     LabelGecchi16Font* pLabel02_;

@@ -9,7 +9,7 @@ namespace VioletVreath {
 class FormationJuno : public GgafLib::DefaultGeometricActor {
     /** ジュノーストック */
     GgafCore::GgafActorDepository* pDepo_EnemyJuno_;
-    DepositoryConnection* pDepoCon_;
+    DepositoryConnection* pDepoConnection_;
 
 public:
     /** 出現範囲幅BOX */

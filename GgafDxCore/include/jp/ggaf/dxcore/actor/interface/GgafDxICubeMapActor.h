@@ -12,7 +12,7 @@ class GgafDxICubeMapActor {
 
 public:
     /** 環境マップテクスチャ資源 */
-    GgafDxTextureConnection* _pCubeMapTextureCon;
+    GgafDxTextureConnection* _pCubeMapTextureConnection;
     /** 環境マップテクスチャ映りこみ率 */
     float _reflectance;
 

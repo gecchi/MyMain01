@@ -19,7 +19,7 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : DefaultGeometricActor(prm_name, nullptr) {
     _class_name = "FormationJuno";
-    pDepoCon_ = connectToDepositoryManager("Conn_Shot004", nullptr); //Juno‚Ì’e
+    pDepoConnection_ = connectToDepositoryManager("Shot004", nullptr); //Juno‚Ì’e
 
     X1_app_ = prm_X1_app;
     Y1_app_ = prm_Y1_app;
@@ -43,7 +43,7 @@ FormationJuno::FormationJuno(
     for (int i = 0; i < prm_nJunoStock; i++) {
         std::string name = "Juno"+XTOS(i);
         EnemyJuno* pEnemyJuno = NEW EnemyJuno(name.c_str());
-        pEnemyJuno->setDepository_Shot(pDepoCon_->fetch()); //’eÝ’è
+        pEnemyJuno->setDepository_Shot(pDepoConnection_->peek()); //’eÝ’è
         pEnemyJuno->_pKurokoA->relateMvFaceAng(true);
         pEnemyJuno->_pKurokoA->setMvVelo(prm_veloMv_Juno);
         pEnemyJuno->_pKurokoA->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
@@ -72,5 +72,5 @@ void FormationJuno::processBehavior() {
 }
 
 FormationJuno::~FormationJuno() {
-    pDepoCon_->close();
+    pDepoConnection_->close();
 }

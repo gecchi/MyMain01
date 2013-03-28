@@ -10,12 +10,12 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     _class_name = "EnemyTamago01";
     iMovePatternNo_ = 0;
     pProgram_Tamago01Move_ = nullptr;
-    pDepoCon_ = nullptr;
+    pDepoConnection_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
 
-    pDepoCon_ = connectToDepositoryManager("Conn_Shot001", nullptr);
-    //pDepo_Shot_ = pDepoCon_->fetch();
+    pDepoConnection_ = connectToDepositoryManager("Shot001", nullptr);
+    //pDepo_Shot_ = pDepoConnection_->peek();
 pDepo_Shot_ = nullptr;
     _pSeTx->set(0, "WAVE_EXPLOSION_001");
 }
@@ -195,6 +195,6 @@ void EnemyTamago01::onInactive() {
 }
 
 EnemyTamago01::~EnemyTamago01() {
-    pDepoCon_->close();
+    pDepoConnection_->close();
     GGAF_DELETE_NULLABLE(pProgram_Tamago01Move_);
 }

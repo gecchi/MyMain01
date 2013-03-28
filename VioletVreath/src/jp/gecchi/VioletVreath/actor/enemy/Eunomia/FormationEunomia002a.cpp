@@ -14,7 +14,7 @@ void FormationEunomia002a::onCallUpEunomia(EnemyEunomia* pEnemyEunomia, int col)
 //                                        MyShip::lim_zleft_  //Z•ûŒü”{—¦
 //                                    );
 //    pEnemyEunomia->pSplSeq_->adjustCoordOffset(0, col*50*1000, col*50*1000);
-//    pEnemyEunomia->locate(papSplLineCon_[col]->fetch()->pSp_->_Xbasepoint_[0], 0, 0);
+//    pEnemyEunomia->locate(papSplLineConnection_[col]->peek()->pSp_->_Xbasepoint_[0], 0, 0);
 }
 
 FormationEunomia002a::~FormationEunomia002a() {

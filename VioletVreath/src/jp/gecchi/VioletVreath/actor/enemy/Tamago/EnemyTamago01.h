@@ -20,7 +20,7 @@ public:
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 
-    DepositoryConnection* pDepoCon_;
+    DepositoryConnection* pDepoConnection_;
 
 public:
     /**

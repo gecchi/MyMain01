@@ -33,10 +33,10 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
         createGgafActorDepository_ = false;
     }
 
-    pSplLineCon_ = connectToSplineLineManager("SpConn_001");
-    pProgram_CeresMove_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->fetch(), 5000); //移動速度固定
+    pSplLineConnection_ = connectToSplineLineManager("Spl_001");
+    pProgram_CeresMove_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineConnection_->peek(), 5000); //移動速度固定
 
-//    pProgram_CeresMove_ = NEW FixedFrameSplineSequence(_pKurokoA, pSplLineCon_->fetch(), 600, 5000); //移動フレーム数固定
+//    pProgram_CeresMove_ = NEW FixedFrameSplineSequence(_pKurokoA, pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
@@ -128,6 +128,6 @@ bool EnemyCeres::isOutOfUniverse() {
 
 EnemyCeres::~EnemyCeres() {
     //staticなので最初の１回だけ解放したい
-    pSplLineCon_->close();
+    pSplLineConnection_->close();
     GGAF_DELETE_NULLABLE(pProgram_CeresMove_);
 }

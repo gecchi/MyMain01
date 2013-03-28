@@ -45,8 +45,8 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
     //マテリアル・テクスチャの一発目をセット、
     LPDIRECT3DBASETEXTURE9 pTex = nullptr;
     LPDIRECT3DBASETEXTURE9 pLastTex = nullptr;
-    if (_papTextureCon[n]) {
-        pLastTex = _papTextureCon[n]->fetch()->_pIDirect3DBaseTexture9;
+    if (_papTextureConnection[n]) {
+        pLastTex = _papTextureConnection[n]->peek()->_pIDirect3DBaseTexture9;
         GgafDxGod::_pID3DDevice9->SetTexture(0, pLastTex);
     } else {
         //無ければテクスチャ無し
@@ -101,7 +101,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
         } else {
             for (int j = 0; j < (int)((*it)->pMeshContainer->NumMaterials); j++) {
                 if (n > 0) {
-                    pTex = _papTextureCon[n]->fetch()->_pIDirect3DBaseTexture9;
+                    pTex = _papTextureConnection[n]->peek()->_pIDirect3DBaseTexture9;
                     if (pTex != pLastTex) {
                         //テクスチャが異なれば設定
                         GgafDxGod::_pID3DDevice9->SetTexture(0, pTex);
@@ -145,15 +145,15 @@ void GgafDxD3DXAniMeshModel::release() {
 //    if (_pID3DXAniMesh == nullptr) {
 //        throwGgafCriticalException("[GgafDxD3DXAniMeshModel::release] Error! _pID3DXAniMeshが オブジェクトになっていないため release できません！");
 //    }
-    if (_papTextureCon) {
+    if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
-            if (_papTextureCon[i]) {
-                TRACE3("close() _papTextureCon["<<i<<"]->"<<(_papTextureCon[i]->getIdStr()));
-                _papTextureCon[i]->close();
+            if (_papTextureConnection[i]) {
+                TRACE3("close() _papTextureConnection["<<i<<"]->"<<(_papTextureConnection[i]->getIdStr()));
+                _papTextureConnection[i]->close();
             }
         }
     }
-    GGAF_DELETEARR(_papTextureCon); //テクスチャの配列
+    GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
 //    GGAF_RELEASE(_pID3DXAniMesh);
 
     //TODO:親クラスメンバをDELETEするのはややきたないか

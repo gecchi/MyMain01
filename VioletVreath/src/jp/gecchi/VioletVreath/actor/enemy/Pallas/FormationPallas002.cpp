@@ -11,17 +11,17 @@ FormationPallas002::FormationPallas002(const char* prm_name) :
     interval_frames_ = RR_FormationPallas002_LaunchInterval(_RANK_);  //パラスの間隔(frame)
     velo_mv_         = RR_FormationPallas002_MvVelo(_RANK_); //速度
     //パラス編隊作成
-    pSplManufCon_ = connectToSplineManufactureManager("Pallas02");
-//    pSplLineCon_     = connectToSplineLineManager("SpConn_Pallas01"); //スプライン定義
-    //pDepoCon_ = connectToDepositoryManager("Conn_Shot002", nullptr);
-    pDepoCon_ = nullptr;
+    pSplManufConnection_ = connectToSplineManufactureManager("Pallas02");
+//    pSplLineConnection_     = connectToSplineLineManager("Spl_Pallas01"); //スプライン定義
+    //pDepoConnection_ = connectToDepositoryManager("Shot002", nullptr);
+    pDepoConnection_ = nullptr;
     papPallas_ = NEW EnemyPallas*[num_Pallas_];
     for (int i = 0; i < num_Pallas_; i++) {
         papPallas_[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = pSplManufCon_->fetch()->createSplineSequence(papPallas_[i]->_pKurokoA); //移動速度固定
+        SplineSequence* pProgram = pSplManufConnection_->peek()->createSplineSequence(papPallas_[i]->_pKurokoA); //移動速度固定
         papPallas_[i]->config(pProgram, nullptr, nullptr);
-        //papPallas_[i]->setDepository_Shot(pDepoCon_->fetch()); //弾設定
+        //papPallas_[i]->setDepository_Shot(pDepoConnection_->peek()); //弾設定
         papPallas_[i]->inactivateImmed();
         addFormationMember(papPallas_[i]);
     }
@@ -44,9 +44,9 @@ void FormationPallas002::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 FormationPallas002::~FormationPallas002() {
-    pSplManufCon_->close();
-    if (pDepoCon_) {
-        pDepoCon_->close();
+    pSplManufConnection_->close();
+    if (pDepoConnection_) {
+        pDepoConnection_->close();
     }
     GGAF_DELETEARR(papPallas_);
 }

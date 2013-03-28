@@ -44,7 +44,7 @@ public:
     //ゼビウスのキャラの赤い点滅のようなことをしたかったため作成。
 
     /** [r]テクスチャ資源コネクション配列 */
-    GgafDxTextureConnection** _papTextureCon;
+    GgafDxTextureConnection** _papTextureConnection;
     /** [r]点滅操作支援オブジェクト */
     GgafDxTextureBlinker* _pTextureBlinker;
     /** [r]GgafDxTextureBlinker専用カウンター */

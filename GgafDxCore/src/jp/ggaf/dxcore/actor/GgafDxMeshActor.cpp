@@ -80,7 +80,7 @@ void GgafDxMeshActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_far_rate, _far_rate );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    if (_pBumpMapTextureCon) {
+    if (_pBumpMapTextureConnection) {
         hr = GgafDxGod::_pID3DDevice9->SetTexture(2, getBumpMapTexture());
         checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetTexture() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matInvWorld, getInvMatWorldRotMv() );

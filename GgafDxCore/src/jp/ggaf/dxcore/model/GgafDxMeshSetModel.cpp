@@ -92,9 +92,9 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
             _paUint_material_list_grp_num[prm_draw_set_num-1] != 1)
         {
             material_no = idxparam.MaterialNo;
-            if (_papTextureCon[material_no]) {
+            if (_papTextureConnection[material_no]) {
                 //テクスチャをs0レジスタにセット
-                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->fetch()->_pIDirect3DBaseTexture9);
+                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
             } else {
                 _TRACE_("GgafDxMeshSetModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
@@ -191,15 +191,15 @@ void GgafDxMeshSetModel::release() {
     TRACE3("GgafDxMeshSetModel::release() " << _model_name << " start");
 
     //テクスチャを解放
-    if (_papTextureCon) {
+    if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
-            if (_papTextureCon[i]) {
-                TRACE3("close() _papTextureCon["<<i<<"]->"<<(_papTextureCon[i]->getIdStr()));
-                _papTextureCon[i]->close();
+            if (_papTextureConnection[i]) {
+                TRACE3("close() _papTextureConnection["<<i<<"]->"<<(_papTextureConnection[i]->getIdStr()));
+                _papTextureConnection[i]->close();
             }
         }
     }
-    GGAF_DELETEARR(_papTextureCon); //テクスチャの配列
+    GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
     GGAF_RELEASE(_pIDirect3DVertexBuffer9);
     GGAF_RELEASE(_pIDirect3DIndexBuffer9);
 

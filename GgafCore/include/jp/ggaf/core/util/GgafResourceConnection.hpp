@@ -81,11 +81,11 @@ public:
     GgafResourceConnection<T>* getNext();
 
     /**
-     * 資源を取得 .
+     * コネクション先の資源を取得 .
      * 接続カウンタは増えません<BR>
      * @return 資源へのポインタ
      */
-    virtual T* fetch();
+    virtual T* peek();
 
     bool isNew();
 
@@ -135,7 +135,7 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
 }
 
 template<class T>
-T* GgafResourceConnection<T>::fetch() {
+T* GgafResourceConnection<T>::peek() {
     return _pResource;
 }
 template<class T>
@@ -219,7 +219,7 @@ int GgafResourceConnection<T>::close() {
     }
 
     if (_num_connection == 0) {
-        T* r = pCurrent->fetch();
+        T* r = pCurrent->peek();
         if (r) {
             _TRACE_("GgafResourceConnection::close()[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection <<" processReleaseResource() Begin.");
             pCurrent->processReleaseResource(r); //本当の解放

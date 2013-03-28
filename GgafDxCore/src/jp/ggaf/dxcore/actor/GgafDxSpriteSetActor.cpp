@@ -22,7 +22,7 @@ GgafDxSpriteSetActor::GgafDxSpriteSetActor(const char* prm_name,
     //ƒ‚ƒfƒ‹Žæ“¾
     _pSpriteSetModel = (GgafDxSpriteSetModel*)_pModel;
     _pSpriteSetEffect = (GgafDxSpriteSetEffect*)_pEffect;
-    _pUvFlipper = NEW GgafDxUvFlipper(_pSpriteSetModel->_papTextureCon[0]->fetch());
+    _pUvFlipper = NEW GgafDxUvFlipper(_pSpriteSetModel->_papTextureConnection[0]->peek());
     _pUvFlipper->setRotation(_pSpriteSetModel->_col_texture_split,
                              _pSpriteSetModel->_row_texture_split
                             );

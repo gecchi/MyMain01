@@ -37,7 +37,7 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
     if (GgafDxModelManager::_pModelLastDraw != this) {
         GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDxGod::_pID3DDevice9->SetFVF(GgafDxPointSpriteModel::FVF);
-        GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->fetch()->_pIDirect3DBaseTexture9);
+        GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
 
         hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -116,12 +116,12 @@ void GgafDxPointSpriteModel::release() {
     TRACE3("GgafDxPointSpriteModel::release() " << _model_name << " start");
     GGAF_RELEASE(_pIDirect3DVertexBuffer9);
     GGAF_DELETEARR(_paVtxBuffer_org);
-    if (_papTextureCon) {
-        if (_papTextureCon[0]) {
-            _papTextureCon[0]->close();
+    if (_papTextureConnection) {
+        if (_papTextureConnection[0]) {
+            _papTextureConnection[0]->close();
         }
     }
-    GGAF_DELETEARR(_papTextureCon);
+    GGAF_DELETEARR(_papTextureConnection);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
     TRACE3("GgafDxPointSpriteModel::release() " << _model_name << " end");

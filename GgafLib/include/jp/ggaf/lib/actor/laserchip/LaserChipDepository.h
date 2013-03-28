@@ -7,7 +7,7 @@ namespace GgafLib {
  * new した後 addSubLast メソッドで LaserChipインスタンスを好きな個数登録してください。<BR>
  * new から initialize()まで、又は随時変更が有効なパラメータ<BR>
  * ・_num_chip_interval ・・・弾切れフレーム数（デフォルト:20）<BR>
- * ・_pSeCon_Laser ・・・ レーザーチップ発射時SE（デフォルト:nullptr）<BR>
+ * ・_pSeConnection_Laser ・・・ レーザーチップ発射時SE（デフォルト:nullptr）<BR>
  * <使用例><BR>
  * <code><pre>
  *

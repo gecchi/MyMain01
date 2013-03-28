@@ -12,12 +12,12 @@ class FormationHebe : public GgafLib::DepositoryFormation {
 
 public:
     /** ヘーベ借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_HebeDepo_;
+    DepositoryConnection* pConnection_HebeDepo_;
     /** ヘーベの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_ShotDepo_;
+    DepositoryConnection* pConnection_ShotDepo_;
 
     /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection* pSplManufCon_;
+    GgafLib::SplineManufactureConnection* pSplManufConnection_;
     /** 編隊数(RANK変動) */
     int rr_num_formation_;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */

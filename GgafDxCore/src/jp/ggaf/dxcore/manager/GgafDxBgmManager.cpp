@@ -17,7 +17,7 @@ void GgafDxBgmManager::updateVolume() {
     }
     GgafDxBgmConnection* pConnection = (GgafDxBgmConnection*)_pConnection_first;
     while (pConnection) {
-        pConnection->fetch()->setVolume(GGAF_MAX_VOLUME);
+        pConnection->peek()->setVolume(GGAF_MAX_VOLUME);
         while(_is_connecting_resource) { //ŠÈˆÕ”r‘¼
             Sleep(1);
         }

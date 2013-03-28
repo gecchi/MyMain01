@@ -19,7 +19,7 @@ public:
     /** ˆÚ“®‘¬“x(RANK•Ï“®) */
     velo velo_mv_;
 
-    DepositoryConnection* pDpcon_;
+    DepositoryConnection* pDepoConnection_;
 
 public:
     FormationThalia(const char* prm_name);

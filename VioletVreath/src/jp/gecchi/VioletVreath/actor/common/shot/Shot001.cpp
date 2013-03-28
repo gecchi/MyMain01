@@ -8,8 +8,8 @@ Shot001::Shot001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot001)) {
     _class_name = "Shot001";
     _pSeTx->set(0, "WAVE_EXPLOSION_002");
-    pSplLineCon_ = (SplineLineConnection*)(P_GOD->pSpl3DManager_->connect("SpConn_HAN")); //スプライン定義
-    pSplSeq_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineCon_->fetch(), 10000); //移動速度固定
+    pSplLineConnection_ = (SplineLineConnection*)(P_GOD->pSpl3DManager_->connect("Spl_HAN")); //スプライン定義
+    pSplSeq_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineConnection_->peek(), 10000); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -66,5 +66,5 @@ void Shot001::onInactive() {
 
 Shot001::~Shot001() {
     GGAF_DELETE(pSplSeq_);
-    pSplLineCon_->close();
+    pSplLineConnection_->close();
 }

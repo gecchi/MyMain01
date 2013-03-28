@@ -32,7 +32,7 @@ void GgafDxCubeMapMeshActor::processDraw() {
     hr = pID3DXEffect->SetFloat(_pCubeMapMeshEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "GgafDxCubeMapMeshActor::processDraw() SetFloat(_h_reflectances) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     GgafDxGod::_pID3DDevice9->SetTexture(1, getCubeMapTexture());
-    if (_pBumpMapTextureCon) {
+    if (_pBumpMapTextureConnection) {
         hr = GgafDxGod::_pID3DDevice9->SetTexture(2, getBumpMapTexture());
         checkDxException(hr, D3D_OK, "GgafDxCubeMapMeshActor::processDraw() SetTexture() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetMatrix(_pCubeMapMeshEffect->_h_matInvWorld, getInvMatWorldRotMv() );

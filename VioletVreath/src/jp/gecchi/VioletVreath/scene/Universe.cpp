@@ -12,8 +12,8 @@ Universe::Universe(const char* prm_name, Camera* prm_pCamera) : DefaultUniverse(
     pCamWorkerManager_ = NEW CameraWorkerManager("CameraWorkerManager");
 
     CameraWorkerConnection* pCamWorkerCon = (CameraWorkerConnection*)pCamWorkerManager_->connect("DefaultCamWorker");
-    stack_CamWorkerCon_.push(pCamWorkerCon);
-    pActiveCamWorker_ = pCamWorkerCon->fetch();
+    stack_CamWorkerConnection_.push(pCamWorkerCon);
+    pActiveCamWorker_ = pCamWorkerCon->peek();
     getSceneDirector()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
 
     //【めも】
@@ -37,7 +37,7 @@ void Universe::processJudgement() {
 
 CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
 //    _TRACE_("switchCameraWork("<<prm_pID<<") begin---");
-//    stack_CamWorkerCon_.dump();
+//    stack_CamWorkerConnection_.dump();
     //    |      |                             |      |
     //    |      |                             +------+
     //    |      |            push ConC        | ConC | ←Active(return)
@@ -48,7 +48,7 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
     //    +------+                             +------+
 
     CameraWorkerConnection* pCon = connectToCameraWorkerManager(prm_pID);
-    CameraWorker* pCamWorker = pCon->fetch();
+    CameraWorker* pCamWorker = pCon->peek();
     if (pCamWorker != pActiveCamWorker_) {
         //現在の CameraWork を非活動へ
         pActiveCamWorker_->onSwitchToOtherCameraWork(); //コールバック
@@ -62,22 +62,22 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
             getSceneDirector()->addSubGroup(pCamWorker); //初回はツリーに追加
         }
         //スタックに積む
-        stack_CamWorkerCon_.push(pCon);
+        stack_CamWorkerConnection_.push(pCon);
         pActiveCamWorker_ = pCamWorker;
     } else {
 #ifdef MY_DEBUG
-        stack_CamWorkerCon_.dump();
+        stack_CamWorkerConnection_.dump();
         _TRACE_("＜警告＞Universe::switchCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()していますので無視します。pActiveCamWorker_="<<pActiveCamWorker_->getName());
 #endif
     }
-//    stack_CamWorkerCon_.dump();
+//    stack_CamWorkerConnection_.dump();
     return pCamWorker;
 
 }
 
 CameraWorker* Universe::undoCameraWork() {
 //    _TRACE_("undoCameraWork begin---");
-//    stack_CamWorkerCon_.dump();
+//    stack_CamWorkerConnection_.dump();
     //    |      |                       |      |
     //    +------+                       |      |
     //    | ConC | ←Active      pop     |      |
@@ -88,10 +88,10 @@ CameraWorker* Universe::undoCameraWork() {
     //    +------+                       +------+
 
     //スタックｋら取り出し
-    CameraWorkerConnection* pConn_now = stack_CamWorkerCon_.pop(); //pConn_nowは上図のConCが返る
-    CameraWorkerConnection* pCon = stack_CamWorkerCon_.getLast(); //pConは上図で言うとConBが返る
+    CameraWorkerConnection* pConnection_now = stack_CamWorkerConnection_.pop(); //pConnection_nowは上図のConCが返る
+    CameraWorkerConnection* pCon = stack_CamWorkerConnection_.getLast(); //pConは上図で言うとConBが返る
     if (pCon) {
-        CameraWorker* pCamWorker = pCon->fetch();
+        CameraWorker* pCamWorker = pCon->peek();
         if (pCamWorker != pActiveCamWorker_) {
             //現在の CameraWork を非活動へ
             pActiveCamWorker_->inactivate();
@@ -102,22 +102,22 @@ CameraWorker* Universe::undoCameraWork() {
                 pActiveCamWorker_->onCameBackFromOtherCameraWork();  //コールバック
                 pActiveCamWorker_->activate();
             } else {
-                stack_CamWorkerCon_.dump();
+                stack_CamWorkerConnection_.dump();
                 throwGgafCriticalException("Universe::undoCameraWork()  stack_CameraWorker_ から pop() しすぎ。");
             }
-            pConn_now->close();
+            pConnection_now->close();
 //            _TRACE_("undoCameraWork end---");
-//            stack_CamWorkerCon_.dump();
+//            stack_CamWorkerConnection_.dump();
             return pActiveCamWorker_;
         } else {
 #ifdef MY_DEBUG
-            stack_CamWorkerCon_.dump();
+            stack_CamWorkerConnection_.dump();
             _TRACE_("＜警告＞Universe::undoCameraWork() pop()したカメラワークは、pop()前と同じカメラワークです。pCamWorker="<<pCamWorker->getName());
 #endif
             return pActiveCamWorker_;
         }
     } else {
-        stack_CamWorkerCon_.dump();
+        stack_CamWorkerConnection_.dump();
         throwGgafCriticalException("Universe::undoCameraWork()  stack_CameraWorker_ から pop() しすぎにも程がある");
     }
 }
@@ -125,24 +125,24 @@ CameraWorker* Universe::undoCameraWork() {
 void Universe::resetCamWorker() {
     //DefaultCamWorkerまでキレイにする
 //    _TRACE_("resetCamWorker begin---");
-//    stack_CamWorkerCon_.dump();
+//    stack_CamWorkerConnection_.dump();
     for (int i = 0; i < 30; i++) {
-        if (stack_CamWorkerCon_.p_ == 1) {
+        if (stack_CamWorkerConnection_.p_ == 1) {
             break;
         } else {
-            CameraWorkerConnection* pCon = stack_CamWorkerCon_.pop();
+            CameraWorkerConnection* pCon = stack_CamWorkerConnection_.pop();
             pCon->close();
         }
     }
     P_CAM->setDefaultPosition();
-    pActiveCamWorker_ = stack_CamWorkerCon_.getLast()->fetch();
+    pActiveCamWorker_ = stack_CamWorkerConnection_.getLast()->peek();
     pActiveCamWorker_->setMoveTargetCamBy(P_CAM);
     pActiveCamWorker_->setMoveTargetCamVpBy(P_CAM->_pViewPoint);
     pActiveCamWorker_->angXY_nowCamUp_ = UTIL::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
     pActiveCamWorker_->move_target_XY_CAM_UP_ = pActiveCamWorker_->angXY_nowCamUp_;
     pActiveCamWorker_->activate();
 //    _TRACE_("resetCamWorker end---");
-//    stack_CamWorkerCon_.dump();
+//    stack_CamWorkerConnection_.dump();
 }
 
 

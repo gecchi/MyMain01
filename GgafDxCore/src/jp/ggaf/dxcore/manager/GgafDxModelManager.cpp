@@ -346,7 +346,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     GgafDxMeshModel::VERTEX*     model_paVtxBuffer_org = nullptr;
     WORD*                        model_paIdxBuffer_org = nullptr;
     D3DMATERIAL9*                model_paMaterial = nullptr;
-    GgafDxTextureConnection**    model_papTextureCon = nullptr;
+    GgafDxTextureConnection**    model_papTextureConnection = nullptr;
     int nVertices = 0;
     int nFaces = 0;
     int nFaceNormals = 0;
@@ -550,7 +550,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     //マテリアル設定
     int model_nMaterials = 0;
     setMaterial(model_pMeshesFront,
-                &model_nMaterials, &model_paMaterial, &model_papTextureCon);
+                &model_nMaterials, &model_paMaterial, &model_papTextureConnection);
 
     //モデルに保持させる
     prm_pMeshModel->_pModel3D = model_pModel3D;
@@ -560,7 +560,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     prm_pMeshModel->_paVtxBuffer_org = model_paVtxBuffer_org;
     prm_pMeshModel->_paIndexParam = model_paIndexParam;
     prm_pMeshModel->_paMaterial_default = model_paMaterial;
-    prm_pMeshModel->_papTextureCon = model_papTextureCon;
+    prm_pMeshModel->_papTextureConnection = model_papTextureConnection;
     prm_pMeshModel->_num_materials = model_nMaterials;
 
 
@@ -713,7 +713,7 @@ void GgafDxModelManager::calcTangentAndBinormal(
 void GgafDxModelManager::setMaterial(Frm::Mesh* in_pMeshesFront,
                                      int* pOut_material_num,
                                      D3DMATERIAL9**                pOut_paMaterial,
-                                     GgafDxTextureConnection***    pOut_papTextureCon) {
+                                     GgafDxTextureConnection***    pOut_papTextureConnection) {
 
     for (std::list<Frm::Material*>::iterator material = in_pMeshesFront->_Materials.begin();
             material != in_pMeshesFront->_Materials.end(); material++) {
@@ -722,7 +722,7 @@ void GgafDxModelManager::setMaterial(Frm::Mesh* in_pMeshesFront,
 
     if ((*pOut_material_num) > 0) {
         (*pOut_paMaterial) = NEW D3DMATERIAL9[(*pOut_material_num)];
-        (*pOut_papTextureCon) = NEW GgafDxTextureConnection*[(*pOut_material_num)];
+        (*pOut_papTextureConnection) = NEW GgafDxTextureConnection*[(*pOut_material_num)];
 
         char* texture_filename;
         int n = 0;
@@ -751,19 +751,19 @@ void GgafDxModelManager::setMaterial(Frm::Mesh* in_pMeshesFront,
 
             texture_filename = (char*)((*material)->_TextureName.c_str());
             if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-                (*pOut_papTextureCon)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
+                (*pOut_papTextureConnection)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
             } else {
                 //テクスチャ無し時は真っ白なテクスチャに置き換え
-                (*pOut_papTextureCon)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
+                (*pOut_papTextureConnection)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
             }
             n++;
         }
     } else {
         //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
         (*pOut_paMaterial)  = NEW D3DMATERIAL9[1];
-        (*pOut_papTextureCon) = NEW GgafDxTextureConnection*[1];
+        (*pOut_papTextureConnection) = NEW GgafDxTextureConnection*[1];
         setDefaultMaterial(&((*pOut_paMaterial)[0]));
-        (*pOut_papTextureCon)[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
+        (*pOut_papTextureConnection)[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
         (*pOut_material_num) = 1;
     }
 }
@@ -1150,7 +1150,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     WORD*                                 model_paIdxBuffer_org = nullptr;
     D3DMATERIAL9*                         model_paMaterial = nullptr;
 
-    GgafDxTextureConnection** model_papTextureCon = nullptr;
+    GgafDxTextureConnection** model_papTextureConnection = nullptr;
 
     if (prm_pMorphMeshModel->_papModel3D == nullptr) {
         paIOX = NEW ToolBox::IO_Model_X[morph_target_num+1];
@@ -1474,7 +1474,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     //TODO:将来的にはモーフターゲット別にマテリアル設定できれば表現が増す。いつかしようか、多分だいぶ先。
     int model_nMaterials = 0;
     setMaterial(model_papMeshesFront[0],
-                &model_nMaterials, &model_paMaterial, &model_papTextureCon);
+                &model_nMaterials, &model_paMaterial, &model_papTextureConnection);
 
     GGAF_DELETEARR(paIOX);
     GGAF_DELETEARR(paXfileName);
@@ -1487,7 +1487,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
     prm_pMorphMeshModel->_papaVtxBuffer_org_morph = model_papaVtxBuffer_org_morph;
     prm_pMorphMeshModel->_paIndexParam = model_paIndexParam;
     prm_pMorphMeshModel->_paMaterial_default = model_paMaterial;
-    prm_pMorphMeshModel->_papTextureCon = model_papTextureCon;
+    prm_pMorphMeshModel->_papTextureConnection = model_papTextureConnection;
     prm_pMorphMeshModel->_num_materials = model_nMaterials;
 }
 
@@ -1500,7 +1500,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     //Xファイルのロードして必要な内容をGgafDxD3DXMeshModelメンバに設定しインスタンスとして完成させたい
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
     D3DMATERIAL9* model_paMaterial; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
-    GgafDxTextureConnection** model_papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
+    GgafDxTextureConnection** model_papTextureConnection; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD _num_materials;
     std::string xfile_name = getMeshFileName(prm_pD3DXMeshModel->_model_name);
     if (xfile_name == "") {
@@ -1556,15 +1556,15 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     }
 
     //テクスチャを取り出す
-    model_papTextureCon = NEW GgafDxTextureConnection*[_num_materials];
+    model_papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
     char* texture_filename;
     for( DWORD i = 0; i < _num_materials; i++) {
         texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
         if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
+            model_papTextureConnection[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
         } else {
             //テクスチャ無し
-            model_papTextureCon[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
+            model_papTextureConnection[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
         }
     }
     GGAF_RELEASE(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
@@ -1587,7 +1587,7 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
     prm_pD3DXMeshModel->_pID3DXMesh = pID3DXMesh;
     prm_pD3DXMeshModel->_paMaterial_default = model_paMaterial;
-    prm_pD3DXMeshModel->_papTextureCon = model_papTextureCon;
+    prm_pD3DXMeshModel->_papTextureConnection = model_papTextureConnection;
     prm_pD3DXMeshModel->_num_materials = _num_materials;
     prm_pD3DXMeshModel->_bounding_sphere_radius = 10.0f; //TODO:境界球半径大きさとりあえず100px
 
@@ -1603,7 +1603,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     //Xファイルのロードして必要な内容をGgafDxD3DXAniMeshModelメンバに設定しインスタンスとして完成させたい
     LPD3DXMESH pID3DXAniMesh; //メッシュ(ID3DXAniMeshインターフェイスへのポインタ）
     D3DMATERIAL9* model_paMaterial = nullptr; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
-    GgafDxTextureConnection** model_papTextureCon = nullptr; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
+    GgafDxTextureConnection** model_papTextureConnection = nullptr; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD _num_materials;
     std::string xfile_name = getMeshFileName(prm_pD3DXAniMeshModel->_model_name);
     if (xfile_name == "") {
@@ -1673,7 +1673,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     }
     //配列数がやっと解ったので作成
     model_paMaterial = NEW D3DMATERIAL9[model_nMaterials];
-    model_papTextureCon  = NEW GgafDxTextureConnection*[model_nMaterials];
+    model_papTextureConnection  = NEW GgafDxTextureConnection*[model_nMaterials];
     //モデル保持用マテリアル、テクスチャ作成のため、もう一度回す
     it = listFrame.begin();
     int n = 0;
@@ -1688,10 +1688,10 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
 
                 texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
                 if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-                    model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
                 } else {
                     //テクスチャ無し時は真っ白なテクスチャに置き換え
-                    model_papTextureCon[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
                 }
                 n ++;
             }
@@ -1713,7 +1713,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
 
 //    prm_pD3DXAniMeshModel->_pID3DXAniMesh = pID3DXAniMesh;
     prm_pD3DXAniMeshModel->_paMaterial_default = model_paMaterial;
-    prm_pD3DXAniMeshModel->_papTextureCon = model_papTextureCon;
+    prm_pD3DXAniMeshModel->_papTextureConnection = model_papTextureConnection;
     prm_pD3DXAniMeshModel->_num_materials = model_nMaterials;
     prm_pD3DXAniMeshModel->_anim_ticks_per_second = anim_ticks_per_second;
 }
@@ -1735,7 +1735,7 @@ void GgafDxModelManager::getDrawFrameList(std::list<D3DXFRAME_WORLD*>* pList, D3
 
 void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel) {
     TRACE3("GgafDxModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");
-    prm_pSpriteModel->_papTextureCon = nullptr;
+    prm_pSpriteModel->_papTextureConnection = nullptr;
     HRESULT hr;
     std::string xfile_name = getSpriteFileName(prm_pSpriteModel->_model_name);
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
@@ -1771,11 +1771,11 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     prm_pSpriteModel->_col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
 
     //テクスチャの参照を保持させる。
-    prm_pSpriteModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
-    prm_pSpriteModel->_papTextureCon[0] = model_pTextureCon;
+    prm_pSpriteModel->_papTextureConnection = NEW GgafDxTextureConnection*[1];
+    prm_pSpriteModel->_papTextureConnection[0] = model_pTextureConnection;
 
     GgafDxSpriteModel::VERTEX* paVertex = NEW GgafDxSpriteModel::VERTEX[4];
     prm_pSpriteModel->_size_vertices = sizeof(GgafDxSpriteModel::VERTEX)*4;
@@ -1785,8 +1785,8 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
     //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
     //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
-    float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-    float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+    float texWidth  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
     double dU = 1.0 / texWidth  / 100000.0; //テクスチャの幅1pxの10000分の1px
     double dV = 1.0 / texHeight / 100000.0; //テクスチャの高さ1pxの10000分の1px
     double rev = 1.0;//0.99609308; //99609309で割れ
@@ -1892,7 +1892,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
         throwGgafCriticalException("[GgafDxModelManager::restoreSpriteSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pSpriteSetModel->getName()<<"  nFaces:2(*3)  セット数:"<<(prm_pSpriteSetModel->_set_num));
     }
 
-    prm_pSpriteSetModel->_papTextureCon = nullptr;
+    prm_pSpriteSetModel->_papTextureConnection = nullptr;
 
     HRESULT hr;
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
@@ -1936,10 +1936,10 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
     prm_pSpriteSetModel->_col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
     //テクスチャの参照を保持させる。
-    prm_pSpriteSetModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
-    prm_pSpriteSetModel->_papTextureCon[0] = model_pTextureCon;
+    prm_pSpriteSetModel->_papTextureConnection = NEW GgafDxTextureConnection*[1];
+    prm_pSpriteSetModel->_papTextureConnection[0] = model_pTextureConnection;
     //バッファ作成
     if (prm_pSpriteSetModel->_pIDirect3DVertexBuffer9 == nullptr) {
         prm_pSpriteSetModel->_size_vertices = sizeof(GgafDxSpriteSetModel::VERTEX)*4;
@@ -1947,8 +1947,8 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
 
         GgafDxSpriteSetModel::VERTEX* paVertex = NEW GgafDxSpriteSetModel::VERTEX[4 * prm_pSpriteSetModel->_set_num];
 
-        float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-        float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+        float texWidth  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+        float texHeight = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
         double dU = 1.0 / texWidth  / 100000.0; //テクスチャの幅1pxの100000分の1px
         double dV = 1.0 / texHeight / 100000.0; //テクスチャの高さ1pxの100000分の1px
         double rev = 1.0;//0.99609308; //99609309で割れ
@@ -2113,7 +2113,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
 void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     TRACE3("GgafDxModelManager::restoreBoardModel(" << prm_pBoardModel->_model_name << ")");
 
-    prm_pBoardModel->_papTextureCon = nullptr;
+    prm_pBoardModel->_papTextureConnection = nullptr;
     HRESULT hr;
     std::string xfile_name = getSpriteFileName(prm_pBoardModel->_model_name);
 
@@ -2147,18 +2147,18 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     prm_pBoardModel->_col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
     //テクスチャの参照を保持させる。
-    prm_pBoardModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
-    prm_pBoardModel->_papTextureCon[0] = model_pTextureCon;
+    prm_pBoardModel->_papTextureConnection = NEW GgafDxTextureConnection*[1];
+    prm_pBoardModel->_papTextureConnection[0] = model_pTextureConnection;
 
     GgafDxBoardModel::VERTEX* paVertex = NEW GgafDxBoardModel::VERTEX[4];
     prm_pBoardModel->_size_vertices = sizeof(GgafDxBoardModel::VERTEX)*4;
     prm_pBoardModel->_size_vertex_unit = sizeof(GgafDxBoardModel::VERTEX);
 
     //1pxあたりのuvの大きさを求める
-    float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-    float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+    float texWidth  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
     double dU = 0.0;//1.0 / texWidth  / 100000.0; //テクスチャの幅1pxの10000分の1px
     double dV = 0.0;//1.0 / texHeight / 100000.0; //テクスチャの高さ1pxの10000分の1px
 
@@ -2236,7 +2236,7 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
         throwGgafCriticalException("[GgafDxModelManager::restoreBoardSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pBoardSetModel->getName()<<"  nVertices:4  セット数:"<<(prm_pBoardSetModel->_set_num));
     }
 
-    prm_pBoardSetModel->_papTextureCon = nullptr;
+    prm_pBoardSetModel->_papTextureConnection = nullptr;
     HRESULT hr;
     std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
     //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
@@ -2279,10 +2279,10 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
     prm_pBoardSetModel->_col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureCon = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
     //テクスチャの参照を保持させる。
-    prm_pBoardSetModel->_papTextureCon = NEW GgafDxTextureConnection*[1];
-    prm_pBoardSetModel->_papTextureCon[0] = model_pTextureCon;
+    prm_pBoardSetModel->_papTextureConnection = NEW GgafDxTextureConnection*[1];
+    prm_pBoardSetModel->_papTextureConnection[0] = model_pTextureConnection;
 
     if (prm_pBoardSetModel->_pIDirect3DVertexBuffer9 == nullptr) {
 
@@ -2291,8 +2291,8 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
         GgafDxBoardSetModel::VERTEX* paVertex = NEW GgafDxBoardSetModel::VERTEX[4 * prm_pBoardSetModel->_set_num];
 
         //1pxあたりのuvの大きさを求める
-        float texWidth  = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-        float texHeight = (float)(model_pTextureCon->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+        float texWidth  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+        float texHeight = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
         double dU = 0.0; //1.0 / texWidth  / 100000.0; //テクスチャの幅1pxの10000分の1px
         double dV = 0.0; //1.0 / texHeight / 100000.0; //テクスチャの高さ1pxの10000分の1px
         for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
@@ -2463,7 +2463,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     WORD* unit_paIdxBuffer_org = nullptr;
     WORD* model_paIdxBuffer_org = nullptr;
     D3DMATERIAL9* model_paMaterial = nullptr;
-    GgafDxTextureConnection** model_papTextureCon = nullptr;
+    GgafDxTextureConnection** model_papTextureConnection = nullptr;
 
     int nVertices = 0;
     int nTextureCoords = 0;
@@ -2718,7 +2718,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     //マテリアル設定
     int model_nMaterials = 0;
     setMaterial(model_pMeshesFront,
-                &model_nMaterials, &model_paMaterial, &model_papTextureCon);
+                &model_nMaterials, &model_paMaterial, &model_papTextureConnection);
 
     //モデルに保持させる
     prm_pMeshSetModel->_pModel3D = model_pModel3D;
@@ -2728,7 +2728,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     prm_pMeshSetModel->_paVtxBuffer_org = model_paVtxBuffer_org;
     prm_pMeshSetModel->_papaIndexParam = model_papaIndexParam;
     prm_pMeshSetModel->_paMaterial_default = model_paMaterial;
-    prm_pMeshSetModel->_papTextureCon = model_papTextureCon;
+    prm_pMeshSetModel->_papTextureConnection = model_papTextureConnection;
     prm_pMeshSetModel->_num_materials = model_nMaterials;
 }
 
@@ -2736,7 +2736,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
 
     TRACE3("GgafDxModelManager::restorePointSpriteModel(" << prm_pPointSpriteModel->_model_name << ")");
 
-    prm_pPointSpriteModel->_papTextureCon = nullptr;
+    prm_pPointSpriteModel->_papTextureConnection = nullptr;
     HRESULT hr;
 //    std::string xfile_name = PROPERTY::DIR_SPRITE_MODEL[0] + std::string(prm_pPointSpriteModel->_model_name) + ".psprx";
     std::string xfile_name = getPointSpriteFileName(prm_pPointSpriteModel->_model_name);
@@ -2836,12 +2836,12 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     UINT model_size_vertex_unit = sizeof(GgafDxPointSpriteModel::VERTEX);
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection** model_papTextureCon = nullptr;
-    model_papTextureCon = NEW GgafDxTextureConnection*[1];
-    model_papTextureCon[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect(xDataHd.TextureFile );
+    GgafDxTextureConnection** model_papTextureConnection = nullptr;
+    model_papTextureConnection = NEW GgafDxTextureConnection*[1];
+    model_papTextureConnection[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect(xDataHd.TextureFile );
 
-    float texWidth  = (float)(model_papTextureCon[0]->fetch()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-    float texHeight = (float)(model_papTextureCon[0]->fetch()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
+    float texWidth  = (float)(model_papTextureConnection[0]->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(model_papTextureConnection[0]->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
     FLOAT model_bounding_sphere_radius = 0;
 
     //頂点バッファ作成
@@ -2901,7 +2901,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
 
     //モデルに保持させる
     prm_pPointSpriteModel->_paMaterial_default = model_paMaterial;
-    prm_pPointSpriteModel->_papTextureCon = model_papTextureCon;
+    prm_pPointSpriteModel->_papTextureConnection = model_papTextureConnection;
     prm_pPointSpriteModel->_num_materials = 1;
     prm_pPointSpriteModel->_fSquareSize = model_fSquareSize;
     prm_pPointSpriteModel->_fTexSize = texWidth;
@@ -2943,7 +2943,7 @@ void GgafDxModelManager::restoreAll() {
     GgafResourceConnection<GgafDxModel>* pCurrent = _pConnection_first;
     TRACE3("restoreAll pCurrent="<<pCurrent);
     while (pCurrent) {
-        pCurrent->fetch()->restore();
+        pCurrent->peek()->restore();
         pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDxModelManager::restoreAll() end<--");
@@ -2954,9 +2954,9 @@ void GgafDxModelManager::onDeviceLostAll() {
     GgafResourceConnection<GgafDxModel>* pCurrent = _pConnection_first;
     TRACE3("onDeviceLostAll pCurrent="<<pCurrent);
     while (pCurrent) {
-        _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->fetch()->_model_name<<"] onDeviceLost begin");
-        pCurrent->fetch()->onDeviceLost();
-        _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->fetch()->_model_name<<"] onDeviceLost end");
+        _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->peek()->_model_name<<"] onDeviceLost begin");
+        pCurrent->peek()->onDeviceLost();
+        _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->peek()->_model_name<<"] onDeviceLost end");
         pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDxModelManager::onDeviceLostAll() end<--");
@@ -2966,7 +2966,7 @@ void GgafDxModelManager::releaseAll() {
     TRACE3("GgafDxModelManager::releaseAll() start-->");
     GgafResourceConnection<GgafDxModel>* pCurrent = _pConnection_first;
     while (pCurrent) {
-        pCurrent->fetch()->release();
+        pCurrent->peek()->release();
         pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDxModelManager::releaseAll() end<--");

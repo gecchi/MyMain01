@@ -12,9 +12,9 @@ class FormationPallas001 : public GgafLib::TreeFormation {
 
 public:
     /** パラスの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoCon_;
+    DepositoryConnection* pDepoConnection_;
     /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection* pSplManufCon_;
+    GgafLib::SplineManufactureConnection* pSplManufConnection_;
     /** 編隊数(RANK変動) */
     int num_Pallas_;
     /** 編隊間隔フレーム(RANK変動) */

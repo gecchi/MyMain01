@@ -43,15 +43,15 @@ public:
     /** レーザー発射ローカル座標 */
     PosLaser** papaPosLaser_;
 
-    DepositoryConnection* pConn_RefractionEffectDepository_;
+    DepositoryConnection* pConnection_RefractionEffectDepository_;
 
-    DepositoryConnection* pConn_LaserChipDepoStore_;
+    DepositoryConnection* pConnection_LaserChipDepoStore_;
 
     GgafLib::LaserChipDepository*** papapLaserChipDepo_;
 
-    DepositoryConnection* pConn_ShotDepo_;
-    DepositoryConnection* pConn_ShotDepo2_;
-    DepositoryConnection* pConn_ShotDepo3_;
+    DepositoryConnection* pConnection_ShotDepo_;
+    DepositoryConnection* pConnection_ShotDepo2_;
+    DepositoryConnection* pConnection_ShotDepo3_;
 
 public:
     EnemyAstraea(const char* prm_name);

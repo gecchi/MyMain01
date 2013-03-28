@@ -11,7 +11,7 @@ namespace VioletVreath {
 class EnemyThisbeLaserChip001 : public GgafLib::HomingLaserChip {
 
 public:
-    GgafLib::SplineManufactureConnection* pSplManufCon_;
+    GgafLib::SplineManufactureConnection* pSplManufConnection_;
     GgafLib::SplineSequence* pSplSeq_;
     GgafLib::WalledScene* pWalledScene_;
 public:

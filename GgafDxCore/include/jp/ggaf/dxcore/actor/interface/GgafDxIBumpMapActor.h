@@ -12,7 +12,7 @@ class GgafDxIBumpMapActor {
 
 public:
     /** 環境マップテクスチャ資源 */
-    GgafDxTextureConnection* _pBumpMapTextureCon;
+    GgafDxTextureConnection* _pBumpMapTextureConnection;
 
     const char* _bumpmap_tex;
 

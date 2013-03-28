@@ -17,7 +17,7 @@ public:
         PROG_END     ,
     };
 
-    GgafDxCore::GgafDxSeConnection* pSeCon_all_hit_;
+    GgafDxCore::GgafDxSeConnection* pSeConnection_all_hit_;
 
     int hit_enemy_num_;
     int all_hit_num_;

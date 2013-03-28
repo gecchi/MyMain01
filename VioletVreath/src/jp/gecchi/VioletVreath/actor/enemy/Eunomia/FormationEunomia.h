@@ -12,13 +12,13 @@ class FormationEunomia : public GgafLib::DepositoryFormation {
 
 public:
     /** エウノミア借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoCon_Eunomia_;
+    DepositoryConnection* pDepoConnection_Eunomia_;
     /** エウノミアの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConn_ShotDepo_;
+    DepositoryConnection* pConnection_ShotDepo_;
     GgafCore::GgafActorDepository* pDepo_Shot_;
 
     /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection** papSplManufCon_;
+    GgafLib::SplineManufactureConnection** papSplManufConnection_;
     /** 編隊列数(RANK変動) */
     int RR_num_formation_col_;
     /** １列の編隊数(RANK変動) */

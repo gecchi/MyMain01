@@ -7,13 +7,13 @@ using namespace VioletVreath;
 FormationMassalia::FormationMassalia(const char* prm_name)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationMassalia";
-    pDepoCon_Massalia_ = connectToDepositoryManager("Conn_Massalia", this);
-    pDepoCon_Fragment_ = connectToDepositoryManager("Conn_MassaliaFragment", this);
-    pDepoCon_Fragment_2_ = connectToDepositoryManager("Conn_MassaliaFragment2", this);
-    pDepoCon_Fragment_3_ = connectToDepositoryManager("Conn_MassaliaFragment3", this);
+    pDepoConnection_Massalia_ = connectToDepositoryManager("Massalia", this);
+    pDepoConnection_Fragment_ = connectToDepositoryManager("MassaliaFragment", this);
+    pDepoConnection_Fragment_2_ = connectToDepositoryManager("MassaliaFragment2", this);
+    pDepoConnection_Fragment_3_ = connectToDepositoryManager("MassaliaFragment3", this);
 
 
-    setFormationMemberDepository(pDepoCon_Massalia_->fetch());
+    setFormationMemberDepository(pDepoConnection_Massalia_->peek());
 }
 
 void FormationMassalia::updateRankParameter() {
@@ -47,8 +47,8 @@ void FormationMassalia::processBehavior() {
 }
 
 FormationMassalia::~FormationMassalia() {
-    pDepoCon_Massalia_->close();
-    pDepoCon_Fragment_->close();
-    pDepoCon_Fragment_2_->close();
-    pDepoCon_Fragment_3_->close();
+    pDepoConnection_Massalia_->close();
+    pDepoConnection_Fragment_->close();
+    pDepoConnection_Fragment_2_->close();
+    pDepoConnection_Fragment_3_->close();
 }

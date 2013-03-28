@@ -9,18 +9,18 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationEunomia";
 
     //エウノミア編隊用デポジトリ
-    pDepoCon_Eunomia_ = connectToDepositoryManager("Conn_EnemyEunomia4Formation", this);
-    setFormationMemberDepository(pDepoCon_Eunomia_->fetch());
+    pDepoConnection_Eunomia_ = connectToDepositoryManager("EnemyEunomia4Formation", this);
+    setFormationMemberDepository(pDepoConnection_Eunomia_->peek());
 
     //スプライン定義ファイルを読み込む
-    papSplManufCon_ = NEW SplineManufactureConnection*[7];
+    papSplManufConnection_ = NEW SplineManufactureConnection*[7];
     for (int i = 0; i < 7; i++) {
         std::stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
-        papSplManufCon_[i] = connectToSplineManufactureManager(spl_id.str().c_str());
+        papSplManufConnection_[i] = connectToSplineManufactureManager(spl_id.str().c_str());
     }
-    pConn_ShotDepo_ = connectToDepositoryManager("Conn_Shot004", nullptr); //Eunomiaの弾;
-    pDepo_Shot_ = pConn_ShotDepo_->fetch();
+    pConnection_ShotDepo_ = connectToDepositoryManager("Shot004", nullptr); //Eunomiaの弾;
+    pDepo_Shot_ = pConnection_ShotDepo_->peek();
     updateRankParameter();
 }
 
@@ -51,7 +51,7 @@ void FormationEunomia::processBehavior() {
         for (int i = 0; i < RR_num_formation_col_; i++) {
             EnemyEunomia* pEunomia = (EnemyEunomia*)callUpMember(RR_num_formation_col_*RR_num_formation_row_);
             if (pEunomia) {
-                SplineSequence* pSplSeq = papSplManufCon_[i]->fetch()->
+                SplineSequence* pSplSeq = papSplManufConnection_[i]->peek()->
                                               createSplineSequence(pEunomia->_pKurokoA);
                 pEunomia->config(pSplSeq, nullptr, nullptr);
                 pEunomia->_pKurokoA->setMvVelo(RR_mv_velo_);
@@ -81,12 +81,12 @@ void FormationEunomia::processBehavior() {
 }
 
 FormationEunomia::~FormationEunomia() {
-    pDepoCon_Eunomia_->close();
+    pDepoConnection_Eunomia_->close();
     for (int i = 0; i < 7; i++) {
-        papSplManufCon_[i]->close();
+        papSplManufConnection_[i]->close();
     }
-    GGAF_DELETEARR(papSplManufCon_);
-    if (pConn_ShotDepo_) {
-        pConn_ShotDepo_->close();
+    GGAF_DELETEARR(papSplManufConnection_);
+    if (pConnection_ShotDepo_) {
+        pConnection_ShotDepo_->close();
     }
 }

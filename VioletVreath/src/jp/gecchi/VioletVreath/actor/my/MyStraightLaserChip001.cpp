@@ -37,7 +37,7 @@ void MyStraightLaserChip001::onCreateModel() {
     }
     pModel_ = _pModel;
     for (int i = 0; i < _pModel->_num_materials; i ++) {
-        strcpy(aaTextureName[i], _pModel->_papTextureCon[i]->fetch()->getName());
+        strcpy(aaTextureName[i], _pModel->_papTextureConnection[i]->peek()->getName());
     }
 }
 

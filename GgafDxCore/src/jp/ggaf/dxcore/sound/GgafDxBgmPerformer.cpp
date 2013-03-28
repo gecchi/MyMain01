@@ -8,15 +8,15 @@ using namespace GgafDxCore;
 GgafDxBgmPerformer::GgafDxBgmPerformer() : GgafObject() {
     _bgm_num = 0;
     _paDouble_volume = nullptr;
-    _papBgmCon = nullptr;
+    _papBgmConnection = nullptr;
 }
 
 void GgafDxBgmPerformer::useBgm(int prm_bgm_num) {
     _bgm_num = prm_bgm_num;
-    _papBgmCon = NEW GgafDxBgmConnection*[_bgm_num];
+    _papBgmConnection = NEW GgafDxBgmConnection*[_bgm_num];
     _paDouble_volume = NEW double[_bgm_num];
     for (int i = 0; i < _bgm_num; i++) {
-        _papBgmCon[i] = nullptr;
+        _papBgmConnection[i] = nullptr;
         _paDouble_volume[i] = GGAF_MAX_VOLUME;
     }
 }
@@ -26,12 +26,12 @@ void GgafDxBgmPerformer::set(int prm_id, const char* prm_bgm_name) {
         throwGgafCriticalException("GgafDxBgmPerformer::set() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id<<" prm_bgm_name="<<prm_bgm_name);
     }
 #endif
-    if (_papBgmCon[prm_id]) {
+    if (_papBgmConnection[prm_id]) {
         _TRACE_("【警告】GgafDxBgmPerformer::set() IDが使用済みです、上書きしますが意図してますか？？。prm_id="<<prm_id<<" prm_bgm_name="<<prm_bgm_name);
-        _papBgmCon[prm_id]->close();
+        _papBgmConnection[prm_id]->close();
     }
-    _papBgmCon[prm_id] = connectToBgmManager(prm_bgm_name);
-    _papBgmCon[prm_id]->fetch()->stop(); //どこかのシーンで演奏中だったかももしれないので頭出しする・・・
+    _papBgmConnection[prm_id] = connectToBgmManager(prm_bgm_name);
+    _papBgmConnection[prm_id]->peek()->stop(); //どこかのシーンで演奏中だったかももしれないので頭出しする・・・
 }
 
 void GgafDxBgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
@@ -41,8 +41,8 @@ void GgafDxBgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
     }
 #endif
     _paDouble_volume[prm_id] = (double)prm_volume;
-    _papBgmCon[prm_id]->fetch()->play(prm_volume, 0.0f, prm_is_loop);
-//    GgafDxBgmPerformer::_active_bgm_bpm = _papBgmCon[prm_id]->fetch()->_bpm; //最新のBGMのBPMリズム
+    _papBgmConnection[prm_id]->peek()->play(prm_volume, 0.0f, prm_is_loop);
+//    GgafDxBgmPerformer::_active_bgm_bpm = _papBgmConnection[prm_id]->peek()->_bpm; //最新のBGMのBPMリズム
 }
 
 void GgafDxBgmPerformer::stop(int prm_id) {
@@ -51,7 +51,7 @@ void GgafDxBgmPerformer::stop(int prm_id) {
         throwGgafCriticalException("GgafDxBgmPerformer::stop() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
 #endif
-    _papBgmCon[prm_id]->fetch()->stop();
+    _papBgmConnection[prm_id]->peek()->stop();
 }
 
 void GgafDxBgmPerformer::pause(int prm_id) {
@@ -60,7 +60,7 @@ void GgafDxBgmPerformer::pause(int prm_id) {
         throwGgafCriticalException("GgafDxBgmPerformer::pause() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
 #endif
-    _papBgmCon[prm_id]->fetch()->pause();
+    _papBgmConnection[prm_id]->peek()->pause();
 }
 
 void GgafDxBgmPerformer::pause() {
@@ -75,7 +75,7 @@ void GgafDxBgmPerformer::unpause(int prm_id) {
         throwGgafCriticalException("GgafDxBgmPerformer::pause() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
 #endif
-    _papBgmCon[prm_id]->fetch()->unpause();
+    _papBgmConnection[prm_id]->peek()->unpause();
 }
 
 void GgafDxBgmPerformer::unpause() {
@@ -92,17 +92,17 @@ void GgafDxBgmPerformer::stop() {
 
 void GgafDxBgmPerformer::setVolume(int prm_id, int prm_volume) {
     _paDouble_volume[prm_id] = (double)prm_volume;
-    _papBgmCon[prm_id]->fetch()->setVolume(prm_volume);
+    _papBgmConnection[prm_id]->peek()->setVolume(prm_volume);
 }
 GgafDxBgmPerformer::~GgafDxBgmPerformer() {
-    if (_papBgmCon) {
+    if (_papBgmConnection) {
         for (int i = 0; i < _bgm_num; i++) {
-            if (_papBgmCon[i]) {
-                _papBgmCon[i]->close();
+            if (_papBgmConnection[i]) {
+                _papBgmConnection[i]->close();
             }
 
         }
     }
-    GGAF_DELETEARR_NULLABLE(_papBgmCon);
+    GGAF_DELETEARR_NULLABLE(_papBgmConnection);
     GGAF_DELETEARR_NULLABLE(_paDouble_volume);
 }

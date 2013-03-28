@@ -12,13 +12,13 @@ class FormationMassalia : public GgafLib::DepositoryFormation {
 
 public:
     /** マッサリア借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoCon_Massalia_;
+    DepositoryConnection* pDepoConnection_Massalia_;
     /** マッサリア断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoCon_Fragment_;
+    DepositoryConnection* pDepoConnection_Fragment_;
     /** マッサリア断片の断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoCon_Fragment_2_;
+    DepositoryConnection* pDepoConnection_Fragment_2_;
     /** マッサリア断片の断片借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoCon_Fragment_3_;
+    DepositoryConnection* pDepoConnection_Fragment_3_;
 
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
     frame R_interval_frames_;

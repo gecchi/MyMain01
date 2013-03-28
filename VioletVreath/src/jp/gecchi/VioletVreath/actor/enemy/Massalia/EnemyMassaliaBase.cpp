@@ -47,7 +47,7 @@ void EnemyMassaliaBase::onHit(GgafActor* prm_pOtherActor) {
 void EnemyMassaliaBase::appearFragment(const char* prm_dp_name) {
     //’f•ÐoŒ»
     DepositoryConnection* pCon = connectToDepositoryManager(prm_dp_name, this);
-    GgafActorDepository* pDepo = pCon->fetch();
+    GgafActorDepository* pDepo = pCon->peek();
     for (int i = 0; i < RR_EnemyMassalia_ShotWay(_RANK_); i++) {
         EnemyMassaliaBase* pFragment = (EnemyMassaliaBase*)(pDepo->dispatch());
         if (pFragment) {

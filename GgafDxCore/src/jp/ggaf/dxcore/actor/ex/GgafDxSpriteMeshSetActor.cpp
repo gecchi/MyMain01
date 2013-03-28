@@ -17,7 +17,7 @@ GgafDxSpriteMeshSetActor::GgafDxSpriteMeshSetActor(const char* prm_name,
     _obj_class |= Obj_GgafDxSpriteMeshSetActor;
     _class_name = "GgafDxSpriteMeshSetActor";
 
-    GgafDxTexture* pTexture = _pMeshSetModel->_papTextureCon[0]->fetch();
+    GgafDxTexture* pTexture = _pMeshSetModel->_papTextureConnection[0]->peek();
     _pUvFlipper = NEW GgafDxUvFlipper(pTexture);
     _pUvFlipper->setRotation(1, 1);
     _pUvFlipper->setActivePtn(0);

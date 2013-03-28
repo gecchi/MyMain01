@@ -8,10 +8,11 @@ using namespace VioletVreath;
 EnemyThisbeLaserChip003::EnemyThisbeLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "ThisbeLaserChip003", STATUS(EnemyThisbeLaserChip003)) {
     _class_name = "EnemyThisbeLaserChip003";
-    pSplManufCon_ = connectToSplineManufactureManager("EnemyThisbeLaserChip003"); //ヒルベルト曲線
-    pSplSeq_ = pSplManufCon_->fetch()->createSplineSequence(_pKurokoA);
+    pSplManufConnection_ = connectToSplineManufactureManager("EnemyThisbeLaserChip003"); //ゴスパー曲線
+    pSplSeq_ = pSplManufConnection_->peek()->createSplineSequence(_pKurokoA);
     pSplSeq_->adjustCoordOffset(PX_C(100), 0, 0);
     sp_index_ = 0;
+    pWalledScene_ = nullptr;
 }
 
 void EnemyThisbeLaserChip003::initialize() {
@@ -22,6 +23,7 @@ void EnemyThisbeLaserChip003::initialize() {
 
     _pKurokoA->relateMvFaceAng(true);
     sp_index_ = 0;
+    pWalledScene_ = ((DefaultScene*)getPlatformScene())->getNearestWalledScene();
 }
 
 void EnemyThisbeLaserChip003::onActive() {
@@ -33,6 +35,10 @@ void EnemyThisbeLaserChip003::onActive() {
 }
 
 void EnemyThisbeLaserChip003::processBehavior() {
+    if (pWalledScene_) {
+        pSplSeq_->_X_begin -= pWalledScene_->getScrollSpeed();
+    }
+
     if (pSplSeq_->isExecuting()) {
         _pKurokoA->setMvVelo(pSplSeq_->getSegmentDistance(sp_index_));
         sp_index_++;
@@ -72,6 +78,6 @@ void EnemyThisbeLaserChip003::onInactive() {
 
 EnemyThisbeLaserChip003::~EnemyThisbeLaserChip003() {
     GGAF_DELETE(pSplSeq_);
-    pSplManufCon_->close();
+    pSplManufConnection_->close();
 }
 

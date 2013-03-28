@@ -89,11 +89,10 @@ void RefractionLaserChip::onActive() {
             _X = _begining_X;
             _Y = _begining_Y;
             _Z = _begining_Z;
+            _RX = _begining_RX;
+            _RY = _begining_RY;
+            _RZ = _begining_RZ;
         }
-        _RX = _begining_RX;
-        _RY = _begining_RY;
-        _RZ = _begining_RZ;
-
         _cnt_refraction = 0;
         _frame_refraction_enter = INT_MAX;
         _frame_refraction_out = INT_MAX;

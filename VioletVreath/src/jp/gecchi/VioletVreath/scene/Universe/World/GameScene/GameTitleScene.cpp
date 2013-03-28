@@ -28,7 +28,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     pHoshiBoshi_ = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
     getSceneDirector()->addSubGroup(pHoshiBoshi_);
 
-    pSeCon_exec_ = connectToSeManager("WAVE_EXECUTE");
+    pSeConnection_exec_ = connectToSeManager("WAVE_EXECUTE");
 
     //_pBgmPerformer->useBgm(1);
    // _pBgmPerformer->set(0, "OGG_BGM_DEMO");
@@ -78,7 +78,7 @@ void GameTitleScene::processBehavior() {
                 pLabel02_->update(PX_C(400), PX_C(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                pSeCon_exec_->fetch()->play();
+                pSeConnection_exec_->peek()->play();
                 _pProg->change(GameTitleScene::PROG_SELECT);
             } else if (_pProg->getFrameInProgress() == GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
@@ -98,7 +98,7 @@ void GameTitleScene::processBehavior() {
             if (pMenu_->canControll()) {
                 if (pMenu_->getOnDecidedIndex() == MenuBoardTitle::ITEM_GAME_START) {
                     pMenu_->disableControll(); //入力受付終わり
-                    pSeCon_exec_->fetch()->play();
+                    pSeConnection_exec_->peek()->play();
                     _pProg->change(GameTitleScene::PROG_GAMESTART);
                 }
             }
@@ -149,5 +149,5 @@ void GameTitleScene::processBehavior() {
 
 GameTitleScene::~GameTitleScene() {
 //    GGAF_DELETEARR(papStringItem_);
-    pSeCon_exec_->close();
+    pSeConnection_exec_->close();
 }

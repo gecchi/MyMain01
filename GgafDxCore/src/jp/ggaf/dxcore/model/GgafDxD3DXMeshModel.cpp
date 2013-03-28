@@ -29,9 +29,9 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
 
     for (DWORD i = 0; i < _num_materials; i++) {
         if (GgafDxModelManager::_pModelLastDraw != this || _num_materials != 1) {
-            if (_papTextureCon[i]) {
+            if (_papTextureConnection[i]) {
                 //テクスチャのセット
-                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->fetch()->_pIDirect3DBaseTexture9);
+                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[i]->peek()->_pIDirect3DBaseTexture9);
             } else {
                 _TRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
@@ -136,15 +136,15 @@ void GgafDxD3DXMeshModel::release() {
         _TRACE_("＜警告＞ [GgafDxD3DXMeshModel::release()]  "<<_model_name<<" の _pID3DXMeshが オブジェクトになっていないため release できません！");
     }
     //テクスチャを解放
-    if (_papTextureCon) {
+    if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
-            if (_papTextureCon[i]) {
-                TRACE3("close() _papTextureCon["<<i<<"]->"<<(_papTextureCon[i]->getIdStr()));
-                _papTextureCon[i]->close();
+            if (_papTextureConnection[i]) {
+                TRACE3("close() _papTextureConnection["<<i<<"]->"<<(_papTextureConnection[i]->getIdStr()));
+                _papTextureConnection[i]->close();
             }
         }
     }
-    GGAF_DELETEARR(_papTextureCon); //テクスチャの配列
+    GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
     GGAF_RELEASE(_pID3DXMesh);
 
     //TODO:親クラスメンバをDELETEするのはややきたないか

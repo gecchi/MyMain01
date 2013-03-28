@@ -10,9 +10,9 @@ namespace VioletVreath {
  */
 class FormationPallas002 : public GgafLib::TreeFormation {
     /** イリスの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoCon_;
+    DepositoryConnection* pDepoConnection_;
     /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection* pSplManufCon_;
+    GgafLib::SplineManufactureConnection* pSplManufConnection_;
 
 public:
     /** 編隊数(RANK変動) */

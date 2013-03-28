@@ -6,7 +6,7 @@ class EnemyThisbeLaserChip002 : public GgafLib::RefractionLaserChip {
 
 public:
     frame end_active_frame_;
-    GgafLib::SplineManufactureConnection* pSplManufCon_;
+    GgafLib::SplineManufactureConnection* pSplManufConnection_;
     GgafLib::SplineSequence* pSplSeq_;
     GgafLib::WalledScene* pWalledScene_;
 public:

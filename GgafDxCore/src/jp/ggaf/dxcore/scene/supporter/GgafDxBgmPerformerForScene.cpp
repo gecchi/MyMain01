@@ -71,17 +71,17 @@ void GgafDxBgmPerformerForScene::behave() {
             _paDouble_volume[id] += _paDouble_inc_volume[id];
             if (_paDouble_inc_volume[id] > 0 && _paDouble_volume[id] >= _paDouble_target_volume[id]) {
                 //増音フェード完了時
-                _papBgmCon[id]->fetch()->setVolume(_paDouble_volume[id]);
+                _papBgmConnection[id]->peek()->setVolume(_paDouble_volume[id]);
                 _paBool_is_fade[id] = false;
             } else if (_paDouble_inc_volume[id] < 0 && _paDouble_volume[id] <= _paDouble_target_volume[id]) {
                 //減音フェード完了時
-                _papBgmCon[id]->fetch()->setVolume(_paDouble_volume[id]);
+                _papBgmConnection[id]->peek()->setVolume(_paDouble_volume[id]);
                 _paBool_is_fade[id] = false;
                 if (_paBool_is_fadeout_stop[id]) {
                     stop(id);
                 }
             } else {
-                _papBgmCon[id]->fetch()->setVolume(_paDouble_volume[id]);
+                _papBgmConnection[id]->peek()->setVolume(_paDouble_volume[id]);
             }
         }
     }

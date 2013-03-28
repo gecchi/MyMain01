@@ -11,14 +11,14 @@ FormationThalia::FormationThalia(const char* prm_name) :
     interval_frames_ = RR_FormationThalia_LaunchInterval(_RANK_);    //各タリアの出現間隔(frame)
     velo_mv_         = RR_FormationThalia_MvVelo(_RANK_); //各タリアの移動速度
 
-    pDpcon_ = connectToDepositoryManager("Conn_Shot004", nullptr);
+    pDepoConnection_ = connectToDepositoryManager("Shot004", nullptr);
     //編隊作成
     papThalia_ = NEW EnemyThalia*[num_Thalia_];
     for (int i = 0; i < num_Thalia_; i++) {
         papThalia_[i] = NEW EnemyThalia("Thalia01");
         //スプライン移動プログラム設定
         papThalia_[i]->setSplineSequence(nullptr);
-        papThalia_[i]->setDepository_Shot(pDpcon_->fetch()); //弾設定
+        papThalia_[i]->setDepository_Shot(pDepoConnection_->peek()); //弾設定
         addFormationMember(papThalia_[i]);
     }
 }
@@ -46,6 +46,6 @@ void FormationThalia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 
 
 FormationThalia::~FormationThalia() {
-    pDpcon_->close();
+    pDepoConnection_->close();
     GGAF_DELETEARR(papThalia_);
 }

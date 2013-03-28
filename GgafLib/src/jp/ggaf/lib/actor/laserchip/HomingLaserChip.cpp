@@ -21,6 +21,7 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, Gg
     _prev_RX = _RX;
     _prev_RY = _RY;
     _prev_RZ = _RZ;
+    _is_fix_begin_pos = true;
 }
 
 void HomingLaserChip::onActive() {
@@ -49,13 +50,14 @@ void HomingLaserChip::onActive() {
         _begining_RX = pChip_front->_begining_RX;
         _begining_RY = pChip_front->_begining_RY;
         _begining_RZ = pChip_front->_begining_RZ;
-
-        _X = _begining_X;
-        _Y = _begining_Y;
-        _Z = _begining_Z;
-        _RX = _begining_RX;
-        _RY = _begining_RY;
-        _RZ = _begining_RZ;
+        if (_is_fix_begin_pos) {
+            _X = _begining_X;
+            _Y = _begining_Y;
+            _Z = _begining_Z;
+            _RX = _begining_RX;
+            _RY = _begining_RY;
+            _RZ = _begining_RZ;
+        }
     }
 }
 

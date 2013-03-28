@@ -56,7 +56,7 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
     if (GgafDxModelManager::_pModelLastDraw != this) {
         GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDxGod::_pID3DDevice9->SetFVF(GgafDxBoardSetModel::FVF);
-        GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->fetch()->_pIDirect3DBaseTexture9);
+        GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
         GgafDxGod::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_h_tex_blink_power, _power_blink);
@@ -138,12 +138,12 @@ void GgafDxBoardSetModel::release() {
     TRACE3("GgafDxBoardSetModel::release() " << _model_name << " start");
     GGAF_RELEASE(_pIDirect3DVertexBuffer9);
     GGAF_RELEASE(_pIDirect3DIndexBuffer9);
-    if (_papTextureCon) {
-        if (_papTextureCon[0]) {
-            _papTextureCon[0]->close();
+    if (_papTextureConnection) {
+        if (_papTextureConnection[0]) {
+            _papTextureConnection[0]->close();
         }
     }
-    GGAF_DELETEARR(_papTextureCon);
+    GGAF_DELETEARR(_papTextureConnection);
     GGAF_DELETEARR(_paIndexParam);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);

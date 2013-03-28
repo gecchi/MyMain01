@@ -64,7 +64,7 @@ private:
     void setMaterial(Frm::Mesh* in_pMeshesFront,
                      int* pOut_material_num,
                      D3DMATERIAL9**                pOut_paMaterial,
-                     GgafDxTextureConnection***    pOut_papTextureCon);
+                     GgafDxTextureConnection***    pOut_papTextureConnection);
     void setDefaultMaterial(D3DMATERIAL9* out_pD3DMATERIAL9);
 
     /**

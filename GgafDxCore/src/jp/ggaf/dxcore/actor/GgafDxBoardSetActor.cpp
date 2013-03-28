@@ -20,7 +20,7 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
 
     _pBoardSetModel = (GgafDxBoardSetModel*)_pModel;
     _pBoardSetEffect = (GgafDxBoardSetEffect*)_pEffect;
-    _pUvFlipper = NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureCon[0]->fetch());
+    _pUvFlipper = NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureConnection[0]->peek());
     _pUvFlipper->setRotation(_pBoardSetModel->_col_texture_split,
                              _pBoardSetModel->_row_texture_split
                             );

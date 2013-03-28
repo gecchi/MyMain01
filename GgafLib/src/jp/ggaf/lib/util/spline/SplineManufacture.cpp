@@ -6,7 +6,7 @@ using namespace GgafLib;
 SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject() {
     _source_file = std::string(prm_source_file);
     _pSplSrcCon = (SplineSourceConnection*)((P_GOD)->_pSplSrcManager->connect(prm_source_file));
-    _pSplSrc = _pSplSrcCon->fetch();
+    _pSplSrc = _pSplSrcCon->peek();
     _sp = _pSplSrc->_pSp;
     _paDistance_to = NEW coord[_sp->_rnum];
     _rate_X = 1.0;

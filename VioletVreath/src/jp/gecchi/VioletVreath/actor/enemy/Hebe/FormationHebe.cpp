@@ -8,13 +8,13 @@ FormationHebe::FormationHebe(const char* prm_name, const char* prm_spl_id)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationHebe";
 
-    pConn_HebeDepo_ = connectToDepositoryManager("Conn_EnemyHebe4Formation", this);
-    setFormationMemberDepository(pConn_HebeDepo_->fetch());
+    pConnection_HebeDepo_ = connectToDepositoryManager("EnemyHebe4Formation", this);
+    setFormationMemberDepository(pConnection_HebeDepo_->peek());
 
     //スプライン定義ファイルを読み込む
-    pSplManufCon_ = connectToSplineManufactureManager("FormationHebe001");
-    //pConn_ShotDepo_ = connectToDepositoryManager("Conn_Shot004", nullptr); //Hebeの弾;
-    pConn_ShotDepo_ = nullptr;
+    pSplManufConnection_ = connectToSplineManufactureManager("FormationHebe001");
+    //pConnection_ShotDepo_ = connectToDepositoryManager("Shot004", nullptr); //Hebeの弾;
+    pConnection_ShotDepo_ = nullptr;
     updateRankParameter();
 }
 
@@ -35,9 +35,9 @@ void FormationHebe::processBehavior() {
     if (canCallUp() && (getActivePartFrame() % rr_interval_frames_ == 0)) {
         EnemyHebe* pHebe = (EnemyHebe*)callUpMember(rr_num_formation_);
         if (pHebe) {
-            SplineSequence* pSplSeq = pSplManufCon_->fetch()->
+            SplineSequence* pSplSeq = pSplManufConnection_->peek()->
                                           createSplineSequence(pHebe->_pKurokoA);
-            GgafActorDepository* pDepo_Shot = pConn_ShotDepo_ ? pConn_ShotDepo_->fetch() : nullptr;
+            GgafActorDepository* pDepo_Shot = pConnection_ShotDepo_ ? pConnection_ShotDepo_->peek() : nullptr;
             pHebe->config(pSplSeq, pDepo_Shot, nullptr);
             pHebe->_pKurokoA->setMvVelo(rr_mv_velo_);
             onCallUpHebe(pHebe); //下位フォーメーションクラス個別実装の処理
@@ -54,10 +54,10 @@ void FormationHebe::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 FormationHebe::~FormationHebe() {
-    pConn_HebeDepo_->close();
-    pSplManufCon_->close();
-    if (pConn_ShotDepo_) {
-        pConn_ShotDepo_->close();
+    pConnection_HebeDepo_->close();
+    pSplManufConnection_->close();
+    if (pConnection_ShotDepo_) {
+        pConnection_ShotDepo_->close();
     }
 }
 

@@ -81,7 +81,7 @@ void GgafDxTexture::restore() {
                              0,                          // [in] D3DCOLOR ColorKey,
                              _pD3DXIMAGE_INFO,           // [out] D3DXIMAGE_INFO *pSrcInfo,
                              nullptr,                    // [in] PALETTEENTRY *pPalette,
-                             &pIDirect3DTexture9         // [out] GgafDxTextureConnection* *ppTextureCon
+                             &pIDirect3DTexture9         // [out] GgafDxTextureConnection* *ppTextureConnection
                           );
             checkDxException(hr2, D3D_OK, "＜警告＞GgafDxTextureManager::restore() D3DXCreateTextureFromFileEx失敗。対象="<<texture_file_name2);
         }
@@ -140,7 +140,7 @@ void GgafDxTexture::restore() {
 
     //    //1pxあたりのuvの大きさを求める
     //     D3DSURFACE_DESC d3dsurface_desc;
-    //     model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
+    //     model_pTextureConnection->view()->GetLevelDesc(0, &d3dsurface_desc);
     //     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
     //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
 

@@ -8,8 +8,8 @@ using namespace VioletVreath;
 EnemyHermioneArmHead::EnemyHermioneArmHead(const char* prm_name) :
         EnemyHermioneArm(prm_name, "HermioneArmHead", STATUS(EnemyHermioneArmHead)) {
     _class_name = "EnemyHermioneArmHead";
-//    pDpcon_ = connectToDepositoryManager("Conn_Shot004", nullptr); //’e
-//    pDepo_Fired_ = pDpcon_->fetch();
+//    pDepoConnection_ = connectToDepositoryManager("Shot004", nullptr); //’e
+//    pDepo_Fired_ = pDepoConnection_->peek();
 }
 
 void EnemyHermioneArmHead::onCreateModel() {
@@ -89,5 +89,5 @@ void EnemyHermioneArmHead::onHit(GgafActor* prm_pOtherActor) {
 
 
 EnemyHermioneArmHead::~EnemyHermioneArmHead() {
-//    pDpcon_->close();
+//    pDepoConnection_->close();
 }

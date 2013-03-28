@@ -16,7 +16,7 @@ EnemyRomulus::EnemyRomulus(const char* prm_name) :
     frame_of_morph_interval_   = 120;
 
     pDepo_Fired_ = nullptr;
-    pDpcon_ = connectToDepositoryManager("Conn_Atalante", nullptr);
+    pDepoConnection_ = connectToDepositoryManager("Atalante", nullptr);
 
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -40,7 +40,7 @@ void EnemyRomulus::initialize() {
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 1200);
     _pScaler->beat(30, 5, 5, -1);
-    pDepo_Fired_ = pDpcon_->fetch();
+    pDepo_Fired_ = pDepoConnection_->peek();
 }
 
 void EnemyRomulus::onActive() {
@@ -263,5 +263,5 @@ void EnemyRomulus::onInactive() {
 }
 
 EnemyRomulus::~EnemyRomulus() {
-    pDpcon_->close();
+    pDepoConnection_->close();
 }
