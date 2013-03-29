@@ -34,14 +34,13 @@ public:
 public:
     EnemyAdrastea(const char* prm_name);
 
-    void config(
-            coord prm_colli_box_dx,
-            coord prm_colli_box_dY,
-            coord prm_colli_box_dZ,
-            int prm_box_num_X,
-            int prm_box_num_Y,
-            int prm_box_num_Z
-        );
+    void config(coord prm_colli_box_dx,
+                coord prm_colli_box_dY,
+                coord prm_colli_box_dZ,
+                int prm_box_num_X,
+                int prm_box_num_Y,
+                int prm_box_num_Z );
+
     void onCreateModel() override;
 
     void initialize() override;

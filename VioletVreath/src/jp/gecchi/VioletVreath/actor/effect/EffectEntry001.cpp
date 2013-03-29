@@ -39,7 +39,7 @@ void EffectEntry001::processBehavior() {
         }
 
         case PROG_EXPAND: {
-            if (_pScaler->isHavingEffect() == false) {
+            if (_pScaler->isFading() == false) {
                 _pAFader->intoTargetAlphaLinerUntil(0, 120);
                 _pProg->changeNext();
             }
@@ -47,7 +47,7 @@ void EffectEntry001::processBehavior() {
         }
 
         case PROG_SHRINK: {
-            if (_pAFader->isHavingEffect() == false) {
+            if (_pAFader->isFading() == false) {
                 sayonara();
             }
             break;

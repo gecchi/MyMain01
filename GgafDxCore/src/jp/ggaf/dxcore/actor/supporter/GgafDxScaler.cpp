@@ -219,7 +219,7 @@ void GgafDxScaler::stopImmed() {
 void GgafDxScaler::stopImmed(axis prm_axis) {
     _method[prm_axis] = NOSCALE;
 }
-bool GgafDxScaler::isHavingEffect(axis prm_axis) {
+bool GgafDxScaler::isFading(axis prm_axis) {
     if (_method[prm_axis] == NOSCALE) {
         return false;
     } else {
@@ -227,7 +227,7 @@ bool GgafDxScaler::isHavingEffect(axis prm_axis) {
     }
 }
 
-bool GgafDxScaler::isHavingEffect() {
+bool GgafDxScaler::isFading() {
     for (int a = 0; a < 3; a++) {
         if (_method[(axis)a] != NOSCALE) {
             return true;

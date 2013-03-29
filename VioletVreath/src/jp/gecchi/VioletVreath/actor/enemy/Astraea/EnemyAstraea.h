@@ -11,6 +11,12 @@ private:
     /** 発射済みレーザーチップ数 */
     int cnt_laserchip_;
 
+    struct PosLaser {
+        int X;
+        int Y;
+        int Z;
+    };
+
 public:
     enum {
         PROG_ENTRY = 1,
@@ -34,12 +40,6 @@ public:
     angle angClearance_;
     /** 方向転換角速度 */
     angvelo angveloTurn_;
-
-    struct PosLaser {
-        int X;
-        int Y;
-        int Z;
-    };
     /** レーザー発射ローカル座標 */
     PosLaser** papaPosLaser_;
 

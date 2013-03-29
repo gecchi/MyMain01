@@ -51,7 +51,7 @@ EffectLockon001::~EffectLockon001() {
 
 //
 //DEBUGモードアプリ終了時のツリー表示時、
-//pTarget_が不正になる場合があるため、必要なときにコメントを外して仕様することとする。
+//pTarget_が不正になる場合等、必要なときにコメントを外して使用。
 //
 //
 //void EffectLockon001::dump() {

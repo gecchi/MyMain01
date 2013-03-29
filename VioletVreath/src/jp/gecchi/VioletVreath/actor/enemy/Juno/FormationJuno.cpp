@@ -47,9 +47,9 @@ FormationJuno::FormationJuno(
         pEnemyJuno->_pKurokoA->relateMvFaceAng(true);
         pEnemyJuno->_pKurokoA->setMvVelo(prm_veloMv_Juno);
         pEnemyJuno->_pKurokoA->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
-        pEnemyJuno->_pKurokoB->setVxMvVelo(vX_AppBox*prm_veloMv_App);
-        pEnemyJuno->_pKurokoB->setVyMvVelo(vY_AppBox*prm_veloMv_App);
-        pEnemyJuno->_pKurokoB->setVzMvVelo(vZ_AppBox*prm_veloMv_App);
+        pEnemyJuno->_pKurokoB->setVxyzMvVelo(vX_AppBox*prm_veloMv_App,
+                                             vY_AppBox*prm_veloMv_App,
+                                             vZ_AppBox*prm_veloMv_App );
         pDepo_EnemyJuno_->addSubLast(pEnemyJuno);
     }
     addSubGroup(pDepo_EnemyJuno_);

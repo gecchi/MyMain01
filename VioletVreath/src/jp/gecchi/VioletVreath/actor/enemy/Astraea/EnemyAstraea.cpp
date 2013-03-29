@@ -94,12 +94,11 @@ void EnemyAstraea::processBehavior() {
                 _pAFader->intoTargetAlphaLinerUntil(0.98, 20);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
             }
-            if (_pAFader->isHavingEffect()) {
-                _pAFader->behave();
-            } else {
+            if (!_pAFader->isFading()) {
                 setHitAble(true);
                 _pProg->changeNext();
             }
+            _pAFader->behave();
             break;
         }
         case PROG_MOVE: {
@@ -126,9 +125,7 @@ void EnemyAstraea::processBehavior() {
                 //ƒ^[ƒ“’†
             } else {
                 //Ž©‹@‚É‚ª‚¢‚½•ûŒü‚ÉU‚èŒü‚«‚ªŠ®—¹Žž
-                _pKurokoA->setFaceAngVelo(AXIS_X, angveloTurn_*2);
-                _pKurokoA->setFaceAngVelo(AXIS_Z, 0);
-                _pKurokoA->setFaceAngVelo(AXIS_Y, 0);
+                _pKurokoA->setFaceAngVelo(angveloTurn_*2, 0, 0);
                 _pKurokoA->setMvVelo(0);
                 _pProg->changeNext();
             }

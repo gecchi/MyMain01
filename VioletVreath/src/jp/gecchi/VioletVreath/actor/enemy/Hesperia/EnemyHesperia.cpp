@@ -76,12 +76,11 @@ void EnemyHesperia::processBehavior() {
                 _pAFader->setAlpha(0);
                 _pAFader->intoTargetAlphaLinerUntil(0.98, 20);
             }
-            if (_pAFader->isHavingEffect()) {
-                _pAFader->behave();
-            } else {
+            if (!_pAFader->isFading()) {
                 setHitAble(true);
                 _pProg->changeNext();
             }
+            _pAFader->behave();
             break;
         }
         case PROG_MOVE: {

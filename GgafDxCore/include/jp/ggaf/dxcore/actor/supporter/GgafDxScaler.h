@@ -305,13 +305,13 @@ public:
      * @param prm_axis 軸
      * @return true/false
      */
-    bool isHavingEffect(axis prm_axis);
+    bool isFading(axis prm_axis);
 
     /**
      * スケーリング中かどうか調べる .
      * @return true/false
      */
-    bool isHavingEffect();
+    bool isFading();
 
     /**
      * 毎フレームの振る舞いメソッド。<BR>

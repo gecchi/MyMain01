@@ -100,7 +100,7 @@ void EnemyAtalante::processBehavior() {
                 if (Y_ok_ && Z_ok_) {
                     //Z座標Y座標揃ったら次の動きへ
                     _pProg->changeNext();
-                } else if (_pProg->getFrameInProgress() >= 360) {
+                } else if (_pProg->getFrameInProgress() >= 480) {
                     //Z座標Y座標揃わずとも一定時間で次の動きへ
                     _pProg->changeNext();
                 }
