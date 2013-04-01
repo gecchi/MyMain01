@@ -147,7 +147,6 @@ public:
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-
     virtual void setDefaultPosition();
 
     /**
@@ -166,7 +165,7 @@ public:
      */
     virtual void setViewPoint(GgafDxGeometricActor* prm_pActor);
 
-    bool isMove();
+    bool isMoving();
 
     virtual ~GgafDxCamera(); //デストラクタ
 };

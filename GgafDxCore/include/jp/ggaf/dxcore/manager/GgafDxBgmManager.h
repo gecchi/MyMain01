@@ -18,7 +18,7 @@ public:
      */
     GgafDxBgmManager(const char* prm_manager_name);
 
-    GgafDxBgm* processCreateResource(char* prm_idstr, void* prm_p) override;
+    GgafDxBgm* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
     GgafCore::GgafResourceConnection<GgafDxBgm>* processCreateConnection(char* prm_idstr, GgafDxBgm* prm_pResource) override;
 

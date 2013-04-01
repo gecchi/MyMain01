@@ -7,10 +7,10 @@ using namespace VioletVreath;
 FormationMassalia::FormationMassalia(const char* prm_name)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationMassalia";
-    pDepoConnection_Massalia_ = connectToDepositoryManager("Massalia", this);
-    pDepoConnection_Fragment_ = connectToDepositoryManager("MassaliaFragment", this);
-    pDepoConnection_Fragment_2_ = connectToDepositoryManager("MassaliaFragment2", this);
-    pDepoConnection_Fragment_3_ = connectToDepositoryManager("MassaliaFragment3", this);
+    pDepoConnection_Massalia_ = connectToDepositoryManager("Massalia");
+    pDepoConnection_Fragment_ = connectToDepositoryManager("MassaliaFragment");
+    pDepoConnection_Fragment_2_ = connectToDepositoryManager("MassaliaFragment2");
+    pDepoConnection_Fragment_3_ = connectToDepositoryManager("MassaliaFragment3");
 
 
     setFormationMemberDepository(pDepoConnection_Massalia_->peek());

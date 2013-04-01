@@ -11,7 +11,7 @@ FormationIris001::FormationIris001(const char* prm_name) : TreeFormation(prm_nam
     velo_mv_         = RR_FormationIris001_MvVelo(_RANK_); //速度
     //イリス編隊作成
     pSplLineConnection_ = connectToSplineLineManager("Spl_00201_"); //スプライン定義
-    pDepoConnection_ = connectToDepositoryManager("Shot001", nullptr);
+    pDepoConnection_ = connectToDepositoryManager("Shot001");
     for (int i = 0; i < num_Iris_; i++) {
         EnemyIris* pIris = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定

@@ -20,7 +20,7 @@ public:
 
     GgafCore::GgafResourceConnection<GgafDxSe>* processCreateConnection(char* prm_idstr, GgafDxSe* prm_pResource) override;
 
-    GgafDxSe* processCreateResource(char* prm_idstr, void* prm_p) override;
+    GgafDxSe* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
     void updateVolume();
 

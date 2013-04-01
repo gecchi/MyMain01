@@ -8,7 +8,7 @@ DepositoryManager::DepositoryManager(const char* prm_manager_name) :
     GgafResourceManager<GgafActorDepository> (prm_manager_name) {
 }
 
-GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, void* prm_p) {
+GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     GgafActorDepository* pResource = nullptr;
 
     if (UTIL::strcmp_ascii("Shot001", prm_idstr) == 0) {
@@ -106,7 +106,8 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
                 std::stringstream name;
                 name <<  "EnemyAstraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
                 pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
-                pChip->config(30, 20, 8, true, (GgafActorDepository*)prm_p);
+                pChip->config(30, 20, 8, true, nullptr);
+
                 pLaserChipDepo->addSubLast(pChip);
                 Sleep(1);
             }
@@ -256,6 +257,37 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
+
+    if (UTIL::strcmp_ascii("EnemyThisbeLaserChip001DepoStore", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepositoryStore("EnemyRemusLaserChip001DepoStore");
+        LaserChipDepository* pLaserChipDepo;
+        for (int nLaser = 0; nLaser < 2; nLaser++) { //２本
+            std::string name = "LaserChipDepo["+XTOS(nLaser)+"]";
+            pLaserChipDepo = NEW LaserChipDepository(name.c_str());
+            for (int nChip = 0; nChip < 300; nChip++) {
+                std::string name = "EnemyThisbeLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
+                EnemyThisbeLaserChip001* pChip = NEW EnemyThisbeLaserChip001(name.c_str());
+                pChip->_is_fix_begin_pos = false;
+                pLaserChipDepo->addSubLast(pChip);
+                Sleep(1);
+            }
+            pResource->addSubLast(pLaserChipDepo);
+        }
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
+    }
+
+
+
+
+    //    pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
+    //    pLaserChipDepo_->config(300, 1, nullptr); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
+    //    for (int i = 0; i < 300; i++) { //レーザーストック
+    //        std::string name = "EnemyThisbeLaserChip001["+XTOS(i)+"]";
+    //        EnemyThisbeLaserChip001* pChip = NEW EnemyThisbeLaserChip001(name.c_str());
+    //        pChip->_is_fix_begin_pos = false;
+    //        pLaserChipDepo_->addSubLast(pChip);
+    //    }
+    //    addSubGroup(pLaserChipDepo_);
 
 
     //敵カーブレーザー01未使用。こぴぺのために残す

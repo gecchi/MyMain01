@@ -16,7 +16,7 @@ EnemyRomulus::EnemyRomulus(const char* prm_name) :
     frame_of_morph_interval_   = 120;
 
     pDepo_Fired_ = nullptr;
-    pDepoConnection_ = connectToDepositoryManager("Atalante", nullptr);
+    pDepoConnection_ = connectToDepositoryManager("Atalante");
 
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");

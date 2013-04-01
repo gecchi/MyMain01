@@ -20,7 +20,7 @@ public:
 
     GgafCore::GgafResourceConnection<GgafDxTexture>* processCreateConnection(char* prm_idstr, GgafDxTexture* prm_pResource) override;
 
-    GgafDxTexture* processCreateResource(char* prm_idstr, void* prm_p) override;
+    GgafDxTexture* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
     void releaseAll();
 

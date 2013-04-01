@@ -46,7 +46,7 @@ public:
      * @param prm_p 自由パラメータ、現在未使用
      * @return エフェクトオブジェクト
      */
-    GgafDxEffect* processCreateResource(char* prm_idstr, void* prm_p) override;
+    GgafDxEffect* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
     GgafCore::GgafResourceConnection<GgafDxEffect>* processCreateConnection(char* prm_idstr, GgafDxEffect* prm_pResource) override;
 

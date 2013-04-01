@@ -20,6 +20,10 @@ class EnemyThisbe :  public GgafLib::DefaultMorphMeshActor {
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 
+
+    DepositoryConnection* pConnection_LaserChipDepoStore_;
+    GgafLib::LaserChipDepository* pLaserChipDepo_;
+
 public:
     enum {
         PROG_WAIT = 1,
@@ -36,7 +40,7 @@ public:
     /** 反射時エフェクトデポジトリへの接続 */
     DepositoryConnection* pConnection_RefractionEffectDepository_;
 
-    GgafLib::LaserChipDepository* pLaserChipDepo_;
+
 
 public:
     /**

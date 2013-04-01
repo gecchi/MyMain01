@@ -82,7 +82,7 @@ protected:
      * @param prm_p 自由パラメータ
      * @return 資源インスタンスのポインタ
      */
-    virtual T* processCreateResource(char* prm_idstr, void* prm_p) = 0;
+    virtual T* processCreateResource(char* prm_idstr, void* prm_pConnector) = 0;
 
 //    int GgafResourceManager<T>::getConnectionNum();
 
@@ -107,34 +107,34 @@ public:
      * 保持リストから取得した場合、接続カウンタが増えます。<BR>
      * new した場合、接続カウンタは1です。<BR>
      * @param prm_idstr 識別名
-     * @param prm_p 何らかの引数
+     * @param prm_connector 接続元、thisを渡して下さい。
      * @return 識別名に紐付く資源接続(GgafResourceConnection)
      */
-    virtual GgafResourceConnection<T>* connect(char* prm_idstr, void* prm_p);
+    virtual GgafResourceConnection<T>* connect(char* prm_idstr, void* prm_connector);
 
-    /**
-     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
-     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
-     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
-     * new した場合、接続カウンタは1です。<BR>
-     * @param prm_idstr 識別名
-     * @return 識別名に紐付く資源接続(GgafResourceConnection)
-     */
-    virtual GgafResourceConnection<T>* connect(char* prm_idstr) {
-        return this->connect(prm_idstr, nullptr);
-    }
-
-    /**
-     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
-     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
-     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
-     * new した場合、接続カウンタは1です。<BR>
-     * @param prm_idstr 識別名
-     * @return 識別名に紐付く資源接続(GgafResourceConnection)
-     */
-    virtual GgafResourceConnection<T>* connect(const char* prm_idstr) {
-        return this->connect((char*)prm_idstr, nullptr);
-    }
+//    /**
+//     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
+//     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
+//     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
+//     * new した場合、接続カウンタは1です。<BR>
+//     * @param prm_idstr 識別名
+//     * @return 識別名に紐付く資源接続(GgafResourceConnection)
+//     */
+//    virtual GgafResourceConnection<T>* connect(char* prm_idstr) {
+//        return this->connect(prm_idstr, nullptr);
+//    }
+//
+//    /**
+//     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
+//     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
+//     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
+//     * new した場合、接続カウンタは1です。<BR>
+//     * @param prm_idstr 識別名
+//     * @return 識別名に紐付く資源接続(GgafResourceConnection)
+//     */
+//    virtual GgafResourceConnection<T>* connect(const char* prm_idstr) {
+//        return this->connect((char*)prm_idstr, nullptr);
+//    }
 
     /**
      * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
@@ -203,7 +203,7 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_new) {
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void* prm_p) {
+GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void* prm_connector) {
     if (prm_idstr == nullptr) {
         TRACE3("警告 GgafResourceManager<T>::connect(nullptr) [" << _manager_name << "]");
     }
@@ -244,10 +244,10 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     pObj = find(prm_idstr);
     if (pObj == nullptr) {
         //未生成ならば生成。接続カウンタを１
-        T* pResource = createResource(prm_idstr, prm_p);
+        T* pResource = createResource(prm_idstr, prm_connector);
         pObj = createResourceConnection(prm_idstr, pResource);
         pObj->_num_connection = 1;
-        pObj->_is_new = true;
+        pObj->_first_connector = prm_connector;
         add(pObj);
         TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "は無いので、新規作成して保持に決定");
         _is_connecting_resource = false;
@@ -255,7 +255,6 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     } else {
         //生成済みならそれを返す。接続カウンタを＋１
         pObj->_num_connection++;
-        pObj->_is_new = false;
         TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "はあるので接続カウント＋１." << pObj->_num_connection);
         _is_connecting_resource = false;
         return pObj;

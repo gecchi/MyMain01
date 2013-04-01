@@ -10,7 +10,7 @@ GgafDxAAPrismActor::GgafDxAAPrismActor(const char* prm_name, GgafStatus* prm_pSt
                                    GgafDxChecker* prm_pChecker) :
 
                                    GgafDxMeshActor(prm_name,
-                                                   "GgafDxAAPrism",
+                                                   PROPERTY::COLI_AAPRISM_MODEL.c_str(),
                                                    "DefaultMeshEffect",
                                                    "DefaultMeshTechnique",
                                                    prm_pStat,

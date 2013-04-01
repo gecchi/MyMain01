@@ -13,7 +13,7 @@ FormationPallas002::FormationPallas002(const char* prm_name) :
     //パラス編隊作成
     pSplManufConnection_ = connectToSplineManufactureManager("Pallas02");
 //    pSplLineConnection_     = connectToSplineLineManager("Spl_Pallas01"); //スプライン定義
-    //pDepoConnection_ = connectToDepositoryManager("Shot002", nullptr);
+    //pDepoConnection_ = connectToDepositoryManager("Shot002");
     pDepoConnection_ = nullptr;
     papPallas_ = NEW EnemyPallas*[num_Pallas_];
     for (int i = 0; i < num_Pallas_; i++) {

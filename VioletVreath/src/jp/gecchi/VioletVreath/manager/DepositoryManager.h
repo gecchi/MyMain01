@@ -18,7 +18,7 @@ public:
      */
     DepositoryManager(const char* prm_manager_name);
 
-    GgafCore::GgafActorDepository* processCreateResource(char* prm_idstr, void* prm_p) override;
+    GgafCore::GgafActorDepository* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
     GgafCore::GgafResourceConnection<GgafCore::GgafActorDepository>* processCreateConnection(char* prm_idstr, GgafCore::GgafActorDepository* prm_pResource) override;
 

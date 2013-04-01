@@ -25,10 +25,10 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     _is_temp_technique = false;
     _pNext_TheSameDrawDepthLevel = nullptr;
     //モデル取得connectModelManager
-    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model);
+    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model, this);
     _pModel = (GgafDxModel*)_pModelCon->peek();
     //エフェクト取得
-    _pEffectCon = (GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(prm_effect);
+    _pEffectCon = (GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(prm_effect, this);
     _pEffect = (GgafDxEffect*)_pEffectCon->peek();
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
@@ -92,10 +92,10 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
 
     _pNext_TheSameDrawDepthLevel = nullptr;
     //モデル取得
-    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(model_name);
+    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(model_name, this);
     _pModel = (GgafDxModel*)_pModelCon->peek();
     //エフェクト取得
-    _pEffectCon = (GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(effelct_name);
+    _pEffectCon = (GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(effelct_name, this);
     _pEffect = (GgafDxEffect*)_pEffectCon->peek();
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];

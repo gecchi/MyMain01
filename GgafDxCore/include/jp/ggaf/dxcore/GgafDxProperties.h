@@ -115,6 +115,19 @@ public:
     /** [r] エフェクトファイル(fxファイル)を実行時にコンパイルするかどうか */
     static bool REALTIME_EFFECT_COMPILE;
 
+    /** [r] 不正な場合に代わりに貼り付けられるテクスチャファイル */
+    static std::string ILLIGAL_TEXTURE;
+    /** [r] 不正な場合に代わりに貼り付けられる環境マップテクスチャファイル */
+    static std::string ILLIGAL_CUBEMAP_TEXTURE;
+    /** [r] 何も無かった場合に貼り付けられる白無地のテクスチャ */
+    static std::string WHITE_TEXTURE;
+    /** [r] AABox当たり判定要素表示用のモデル */
+    static std::string COLI_AAB_MODEL;
+    /** [r] AAPrism当たり判定要素表示用のモデル */
+    static std::string COLI_AAPRISM_MODEL;
+    /** [r] 球の当たり判定要素表示用のモデル */
+    static std::string COLI_SPHERE_MODEL;
+
 public:
     static void load(std::string prm_properties_filename); //shadows
     static void clean();                            //shadows

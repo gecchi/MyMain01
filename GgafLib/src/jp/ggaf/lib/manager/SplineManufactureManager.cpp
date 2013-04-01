@@ -7,7 +7,7 @@ SplineManufactureManager::SplineManufactureManager(const char* prm_manager_name)
     GgafResourceManager<SplineManufacture> (prm_manager_name) {
 }
 
-SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_idstr, void* prm_p) {
+SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     frame spent_frame = 0;
     angvelo angveloRzRyMv = 0;
     std::string classname = "";

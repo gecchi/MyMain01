@@ -42,7 +42,7 @@ public:
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-    bool isMove();
+    bool isMoving();
 
     virtual ~GgafDxCameraViewPoint();
 };

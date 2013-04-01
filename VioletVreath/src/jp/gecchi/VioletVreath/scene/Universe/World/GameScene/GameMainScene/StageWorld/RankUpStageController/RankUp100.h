@@ -8,12 +8,6 @@ namespace VioletVreath {
 class RankUp100 : public RankUpStage {
 
 public:
-    WorldBoundSpace001* pWorldBoundSpace_;
-    HoshiBoshi001* pHoshiBoshi_;
-
-    LabelGecchi16Font* pMessage_;
-
-public:
     RankUp100(const char* prm_name);
     /**
      * ‰Šúˆ—

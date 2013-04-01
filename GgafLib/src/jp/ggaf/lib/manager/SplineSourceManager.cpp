@@ -7,7 +7,7 @@ SplineSourceManager::SplineSourceManager(const char* prm_manager_name) :
     GgafResourceManager<SplineSource> (prm_manager_name) {
 }
 
-SplineSource* SplineSourceManager::processCreateResource(char* prm_idstr, void* prm_p) {
+SplineSource* SplineSourceManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
 
     SplineSource* pResource = NEW SplineSource(prm_idstr);
 

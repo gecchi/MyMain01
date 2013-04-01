@@ -103,7 +103,7 @@ void GgafDxCamera::initialize() {
 }
 
 void GgafDxCamera::processBehavior() {
-    //if (isMove() || _pViewPoint->isMove()) {
+    //if (isMoving() || _pViewPoint->isMoving()) {
         //if (_frame_of_behaving % 2 == 0) { //10フレームに１回だけ計算
         //スクリーン全体のクライアント領域を保持。
 
@@ -260,8 +260,8 @@ void GgafDxCamera::setDefaultPosition() {
     _pVecCamUp->y = 1.0f;
     _pVecCamUp->z = 0.0f;
 }
-bool GgafDxCamera::isMove() {
-    if (_X_prev == _X && _X_prev == _Y && _Z_prev == _Z) {
+bool GgafDxCamera::isMoving() {
+    if (_X_prev == _X && _Y_prev == _Y && _Z_prev == _Z) {
         return false;
     } else {
         return true;

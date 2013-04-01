@@ -8,12 +8,12 @@ FormationHebe::FormationHebe(const char* prm_name, const char* prm_spl_id)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationHebe";
 
-    pConnection_HebeDepo_ = connectToDepositoryManager("EnemyHebe4Formation", this);
+    pConnection_HebeDepo_ = connectToDepositoryManager("EnemyHebe4Formation");
     setFormationMemberDepository(pConnection_HebeDepo_->peek());
 
     //スプライン定義ファイルを読み込む
     pSplManufConnection_ = connectToSplineManufactureManager("FormationHebe001");
-    //pConnection_ShotDepo_ = connectToDepositoryManager("Shot004", nullptr); //Hebeの弾;
+    //pConnection_ShotDepo_ = connectToDepositoryManager("Shot004"); //Hebeの弾;
     pConnection_ShotDepo_ = nullptr;
     updateRankParameter();
 }

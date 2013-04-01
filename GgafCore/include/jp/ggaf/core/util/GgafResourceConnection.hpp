@@ -31,8 +31,8 @@ private:
     int _num_connection;
     /** 使いまわす大事な資源 */
     T* _pResource;
-
-    bool _is_new;
+    /** 初めての接続元 */
+    void* _first_connector;
 
     /** close中はtrueの排他フラグ */
     static volatile bool _is_closing_resource;
@@ -87,7 +87,17 @@ public:
      */
     virtual T* peek();
 
-    bool isNew();
+    /**
+     * 初めてのコネクションならばtrue .
+     * @return
+     */
+
+    /**
+     * 引数のポインタのオブジェクトが、初めてのコネクションオブジェクトかどうか調べる。 .
+     * @param prm_this 調べるオブジェクト。thisを渡して下さい。
+     * @return true:初めてconnectした(=resourceを new した）オブジェクトである。/fale:そうではない。
+     */
+    bool chkFirstConnectionIs(void* prm_this);
 
     /**
      * 資源(Resource)への接続数を取得 .
@@ -129,7 +139,7 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
     _pNext = nullptr;
     _pManager = nullptr;
     _num_connection = 0;
-    _is_new = false;
+    _first_connector = nullptr;
     _idstr = NEW char[51];
     strcpy(_idstr, prm_idstr);
 }
@@ -144,8 +154,12 @@ int GgafResourceConnection<T>::getNumConnection() {
 }
 
 template<class T>
-bool GgafResourceConnection<T>::isNew() {
-    return _is_new;
+bool GgafResourceConnection<T>::chkFirstConnectionIs(void* prm_this) {
+    if (_first_connector == prm_this) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 

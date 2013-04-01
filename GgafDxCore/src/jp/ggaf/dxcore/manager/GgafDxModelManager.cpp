@@ -82,7 +82,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
 #endif
 }
 
-GgafDxModel* GgafDxModelManager::processCreateResource(char* prm_idstr, void* prm_p) {
+GgafDxModel* GgafDxModelManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     //振り分け
     char model_type = *prm_idstr; //頭一文字
     char* model_name = prm_idstr + 2; //３文字目以降
@@ -693,7 +693,7 @@ void GgafDxModelManager::calcTangentAndBinormal(
         if (VABC.x == 0.0f) {
             // やばいす！
             // ポリゴンかUV上のポリゴンが縮退してます！
-            _TRACE_("＜警告＞ GgafDxModelManager::calcTangentAndBinormal ポリゴンかUV上のポリゴンが縮退してます！");
+            //_TRACE_("＜警告＞ GgafDxModelManager::calcTangentAndBinormal ポリゴンかUV上のポリゴンが縮退してます！");
             U[i] = -SGN(VABC.y) * lim;
             V[i] = -SGN(VABC.z) * lim;
         } else {
@@ -751,10 +751,10 @@ void GgafDxModelManager::setMaterial(Frm::Mesh* in_pMeshesFront,
 
             texture_filename = (char*)((*material)->_TextureName.c_str());
             if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-                (*pOut_papTextureConnection)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
+                (*pOut_papTextureConnection)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename, this);
             } else {
                 //テクスチャ無し時は真っ白なテクスチャに置き換え
-                (*pOut_papTextureConnection)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
+                (*pOut_papTextureConnection)[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this);
             }
             n++;
         }
@@ -763,7 +763,7 @@ void GgafDxModelManager::setMaterial(Frm::Mesh* in_pMeshesFront,
         (*pOut_paMaterial)  = NEW D3DMATERIAL9[1];
         (*pOut_papTextureConnection) = NEW GgafDxTextureConnection*[1];
         setDefaultMaterial(&((*pOut_paMaterial)[0]));
-        (*pOut_papTextureConnection)[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
+        (*pOut_papTextureConnection)[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this);
         (*pOut_material_num) = 1;
     }
 }
@@ -1561,10 +1561,10 @@ void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel* prm_pD3DXMesh
     for( DWORD i = 0; i < _num_materials; i++) {
         texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
         if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-            model_papTextureConnection[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
+            model_papTextureConnection[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename, this);
         } else {
             //テクスチャ無し
-            model_papTextureConnection[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
+            model_papTextureConnection[i] = (GgafDxTextureConnection*)_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this);
         }
     }
     GGAF_RELEASE(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
@@ -1688,10 +1688,10 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
 
                 texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
                 if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-                    model_papTextureConnection[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename);
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(texture_filename, this);
                 } else {
                     //テクスチャ無し時は真っ白なテクスチャに置き換え
-                    model_papTextureConnection[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect("white.dds");
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this);
                 }
                 n ++;
             }
@@ -1771,7 +1771,7 @@ void GgafDxModelManager::restoreSpriteModel(GgafDxSpriteModel* prm_pSpriteModel)
     prm_pSpriteModel->_col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file, this);
 
     //テクスチャの参照を保持させる。
     prm_pSpriteModel->_papTextureConnection = NEW GgafDxTextureConnection*[1];
@@ -1936,7 +1936,7 @@ void GgafDxModelManager::restoreSpriteSetModel(GgafDxSpriteSetModel* prm_pSprite
     prm_pSpriteSetModel->_col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file, this);
     //テクスチャの参照を保持させる。
     prm_pSpriteSetModel->_papTextureConnection = NEW GgafDxTextureConnection*[1];
     prm_pSpriteSetModel->_papTextureConnection[0] = model_pTextureConnection;
@@ -2147,7 +2147,7 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     prm_pBoardModel->_col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file, this);
     //テクスチャの参照を保持させる。
     prm_pBoardModel->_papTextureConnection = NEW GgafDxTextureConnection*[1];
     prm_pBoardModel->_papTextureConnection[0] = model_pTextureConnection;
@@ -2279,7 +2279,7 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
     prm_pBoardSetModel->_col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file);
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)_pModelTextureManager->connect(xdata.texture_file, this);
     //テクスチャの参照を保持させる。
     prm_pBoardSetModel->_papTextureConnection = NEW GgafDxTextureConnection*[1];
     prm_pBoardSetModel->_papTextureConnection[0] = model_pTextureConnection;
@@ -2838,7 +2838,7 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     //テクスチャ取得しモデルに保持させる
     GgafDxTextureConnection** model_papTextureConnection = nullptr;
     model_papTextureConnection = NEW GgafDxTextureConnection*[1];
-    model_papTextureConnection[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect(xDataHd.TextureFile );
+    model_papTextureConnection[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect(xDataHd.TextureFile , this);
 
     float texWidth  = (float)(model_papTextureConnection[0]->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
     float texHeight = (float)(model_papTextureConnection[0]->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる

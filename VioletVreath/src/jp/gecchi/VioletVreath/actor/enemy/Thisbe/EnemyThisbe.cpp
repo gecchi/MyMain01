@@ -36,18 +36,17 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 //    addSubGroup(pLaserChipDepo_);
 //    //<---------------------
 
-
-    //ホーミング------>
-    pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
-    pLaserChipDepo_->config(300, 1, nullptr); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
-    for (int i = 0; i < 300; i++) { //レーザーストック
-        std::string name = "EnemyThisbeLaserChip001["+XTOS(i)+"]";
-        EnemyThisbeLaserChip001* pChip = NEW EnemyThisbeLaserChip001(name.c_str());
-        pChip->_is_fix_begin_pos = false;
-        pLaserChipDepo_->addSubLast(pChip);
-    }
-    addSubGroup(pLaserChipDepo_);
-    //<---------------------
+//    //ホーミング------>
+//    pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
+//    pLaserChipDepo_->config(300, 1, nullptr); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
+//    for (int i = 0; i < 300; i++) { //レーザーストック
+//        std::string name = "EnemyThisbeLaserChip001["+XTOS(i)+"]";
+//        EnemyThisbeLaserChip001* pChip = NEW EnemyThisbeLaserChip001(name.c_str());
+//        pChip->_is_fix_begin_pos = false;
+//        pLaserChipDepo_->addSubLast(pChip);
+//    }
+//    addSubGroup(pLaserChipDepo_);
+//    //<---------------------
 
 //    //水------>
 //    pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
@@ -60,6 +59,11 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 //    addSubGroup(pLaserChipDepo_);
 //    //<---------------------
 
+
+    //ホーミング(リポジトリ)------>
+    pConnection_LaserChipDepoStore_ = connectToDepositoryManager("EnemyThisbeLaserChip001DepoStore");
+    pLaserChipDepo_ = nullptr;
+    //
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
@@ -74,12 +78,20 @@ void EnemyThisbe::initialize() {
     _pKurokoA->relateMvFaceAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
+
+    if (pConnection_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
+        _TRACE_("pConnection_LaserChipDepoStore_は、私("<<this<<")がこしらえた！エヘン！")
+        getPlatformScene()->getSceneDirector()->addSubGroup(
+                pConnection_LaserChipDepoStore_->peek()->extract()
+                );
+    }
 }
 
 void EnemyThisbe::onActive() {
     _pStatus->reset();
     _pMorpher->reset();
     _pProg->reset(PROG_WAIT);
+
 }
 
 void EnemyThisbe::processBehavior() {
@@ -88,7 +100,14 @@ void EnemyThisbe::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_WAIT: {
-            if (pLaserChipDepo_->_num_chip_active == 0) {
+            if (pLaserChipDepo_) {
+                if (pLaserChipDepo_->_num_chip_active == 0) {
+                    pLaserChipDepo_ = nullptr;
+                    _pProg->changeNext();
+                } else {
+
+                }
+            } else {
                 _pProg->changeNext();
             }
             break;
@@ -105,16 +124,23 @@ void EnemyThisbe::processBehavior() {
         }
 
         case PROG_FIRE: {
-            LaserChip* pLaser = pLaserChipDepo_->dispatch();
-            if (pLaser) {
-                pLaser->locateWith(this);
-                pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]);
-                                   //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
-                if (pLaser->_pChip_front == nullptr) {
-                    _pSeTx->play3D(SE_FIRE);
+            if (_pProg->isJustChanged()) {
+                GgafActorDepositoryStore* pLaserChipDepoStore =
+                        (GgafActorDepositoryStore*)(pConnection_LaserChipDepoStore_->peek());
+                pLaserChipDepo_ = (LaserChipDepository*)(pLaserChipDepoStore->dispatch()); //レーザーセット一本借ります。
+            }
+            if (pLaserChipDepo_) {
+                LaserChip* pLaser = pLaserChipDepo_->dispatch();
+                if (pLaser) {
+                    pLaser->locateWith(this);
+                    pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]);
+                                       //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
+                    if (pLaser->_pChip_front == nullptr) {
+                        _pSeTx->play3D(SE_FIRE);
+                    }
+                } else {
+                    _pProg->change(PROG_CLOSE);
                 }
-            } else {
-                _pProg->change(PROG_CLOSE);
             }
             break;
         }
@@ -174,5 +200,6 @@ void EnemyThisbe::onInactive() {
 
 EnemyThisbe::~EnemyThisbe() {
     GGAF_DELETE_NULLABLE(pSplSeq_);
+        pConnection_LaserChipDepoStore_->close();
     //pConnection_RefractionEffectDepository_->close();
 }

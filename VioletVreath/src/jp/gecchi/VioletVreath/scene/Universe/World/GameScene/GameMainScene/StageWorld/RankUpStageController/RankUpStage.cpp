@@ -30,7 +30,7 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
     pSeConnection_all_hit_ = connectToSeManager("WAVE_EXPLOSION_002"); //‘S–Å‚ÌÅŒã‚Ìˆê‹@”j‰óSE
 
     all_hit_num_ = 0;
-    hit_enemy_num_ = 0;
+    hit_enemy_num_ = 0; //MyStgUtil::calcEnemyStamina() ‚Å‰ÁZ‚³‚ê‚Ü‚·
 }
 
 void RankUpStage::initialize() {

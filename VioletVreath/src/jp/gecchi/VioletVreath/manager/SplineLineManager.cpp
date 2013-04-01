@@ -8,7 +8,7 @@ SplineLineManager::SplineLineManager(const char* prm_manager_name) :
     GgafResourceManager<GgafLib::SplineLine> (prm_manager_name) {
 }
 
-SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_p) {
+SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_pConnector) {
     SplineLine* pResource = nullptr;
 
     if (UTIL::strcmp_ascii("Spl_001", prm_idstr) == 0) {

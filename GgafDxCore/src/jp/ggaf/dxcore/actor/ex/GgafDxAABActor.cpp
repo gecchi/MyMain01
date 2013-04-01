@@ -6,7 +6,7 @@ GgafDxAABActor::GgafDxAABActor(const char* prm_name, GgafStatus* prm_pStat,
                                    GgafDxChecker* prm_pChecker) :
 
                                    GgafDxMeshActor(prm_name,
-                                                   "GgafDxAAB",
+                                                   PROPERTY::COLI_AAB_MODEL.c_str(),
                                                    "DefaultMeshEffect",
                                                    "DefaultMeshTechnique",
                                                    prm_pStat,

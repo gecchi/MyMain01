@@ -12,7 +12,7 @@ FormationIris002::FormationIris002(const char* prm_name) :
     velo_mv_         = RR_FormationIris002_MvVelo(_RANK_); //速度
     //スプライン移動の定義
     pSplLineConnection_ = connectToSplineLineManager("Spl_00202_");
-    pDepoConnection_ = connectToDepositoryManager("Shot002", nullptr);
+    pDepoConnection_ = connectToDepositoryManager("Shot002");
     //イリス編隊作成
     for (int i = 0; i < num_Iris_; i++) {
         EnemyIris* pIris = NEW EnemyIris("Iris01");

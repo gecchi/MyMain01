@@ -27,7 +27,7 @@ GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject() {
 
 //void GgafDxModel::setMaterialTexture(int prm_material_no, const char* prm_texture) {
 //    GgafDxTextureManager* pModelTextureManager = P_GOD->_pModelManager->_pModelTextureManager;
-//    GgafDxTextureConnection* pTexCon = (GgafDxTextureConnection*)pModelTextureManager->connect(prm_texture);
+//    GgafDxTextureConnection* pTexCon = (GgafDxTextureConnection*)pModelTextureManager->connect(prm_texture, this);
 //    _papTextureConnection[prm_material_no]->close();
 //    _papTextureConnection[prm_material_no] = pTexCon;
 //}

@@ -26,13 +26,13 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         }
     }
 
-    pConnection_RefractionEffectDepository_ = connectToDepositoryManager("EffRefraction001", nullptr);
+    pConnection_RefractionEffectDepository_ = connectToDepositoryManager("EffRefraction001");
     pConnection_LaserChipDepoStore_ = connectToDepositoryManager(
-            "EnemyAstraeaLaserChip004DepoStore",
+            "EnemyAstraeaLaserChip004DepoStore"//,
          //"EnemyAstraeaLaserChip003DepoStore",
          //"EnemyAstraeaLaserChip001DepoStore",
          //"EnemyAstraeaLaserChip002DepoStore",
-         pConnection_RefractionEffectDepository_->peek()
+         //pConnection_RefractionEffectDepository_->peek()
         );
 
     papaPosLaser_ = NEW PosLaser*[laser_way_];
@@ -57,9 +57,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_FIRE);
-    pConnection_ShotDepo_  = connectToDepositoryManager("Shot004", nullptr);
-    pConnection_ShotDepo2_ = connectToDepositoryManager("Shot004Yellow", nullptr);
-    pConnection_ShotDepo3_ = connectToDepositoryManager("Shot004Blue", nullptr);
+    pConnection_ShotDepo_  = connectToDepositoryManager("Shot004");
+    pConnection_ShotDepo2_ = connectToDepositoryManager("Shot004Yellow");
+    pConnection_ShotDepo3_ = connectToDepositoryManager("Shot004Blue");
 }
 
 void EnemyAstraea::onCreateModel() {

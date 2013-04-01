@@ -7,7 +7,7 @@ GgafDxSphereActor::GgafDxSphereActor(const char* prm_name,
                                      GgafDxChecker* prm_pChecker) :
 
                                      GgafDxMeshActor(prm_name,
-                                                     "GgafDxSphere",
+                                                     PROPERTY::COLI_SPHERE_MODEL.c_str(),
                                                      "DefaultMeshEffect",
                                                      "DefaultMeshTechnique",
                                                      prm_pStat,

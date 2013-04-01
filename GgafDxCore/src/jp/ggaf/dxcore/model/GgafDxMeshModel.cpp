@@ -68,7 +68,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
                 //テクスチャをs0レジスタにセット
                 GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
             } else {
-                _TRACE_("GgafDxMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
+                _TRACE_("GgafDxMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
                 GgafDxGod::_pID3DDevice9->SetTexture(0, nullptr);
             }

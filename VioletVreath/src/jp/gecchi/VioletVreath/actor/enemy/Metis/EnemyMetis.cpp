@@ -13,7 +13,7 @@ EnemyMetis::EnemyMetis(const char* prm_name) :
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 
-    pConnection_ShotDepo_ = connectToDepositoryManager("Shot004", nullptr);
+    pConnection_ShotDepo_ = connectToDepositoryManager("Shot004");
     pDepo_Shot_ = pConnection_ShotDepo_->peek();
 }
 

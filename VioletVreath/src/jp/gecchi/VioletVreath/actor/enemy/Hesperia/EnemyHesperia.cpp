@@ -19,7 +19,7 @@ EnemyHesperia::EnemyHesperia(const char* prm_name) :
         papLaserChipDepo_[i] = nullptr;
     }
 
-    pConnection_LaserChipDepoStore_ = connectToDepositoryManager("EnemyHesperiaLaserChip001DepoStore", nullptr);
+    pConnection_LaserChipDepoStore_ = connectToDepositoryManager("EnemyHesperiaLaserChip001DepoStore");
     pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConnection_LaserChipDepoStore_->peek());
 
     paLocalPos_Laser_ = NEW GgafDxGeoElem[max_laser_way_];

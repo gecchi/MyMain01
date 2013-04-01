@@ -85,6 +85,14 @@ std::string GgafDxProperties::DIR_WAVE[] = {
 
 bool GgafDxProperties::REALTIME_EFFECT_COMPILE = false;
 
+std::string GgafDxProperties::ILLIGAL_TEXTURE = "GgafDxIlligalTexture.dds";
+std::string GgafDxProperties::ILLIGAL_CUBEMAP_TEXTURE = "GgafDxIlligalCubeMapTexture.dds";
+std::string GgafDxProperties::WHITE_TEXTURE = "GgafDxWhite.dds";
+std::string GgafDxProperties::COLI_AAB_MODEL = "GgafDxAAB";
+std::string GgafDxProperties::COLI_AAPRISM_MODEL = "GgafDxAAPrism";
+std::string GgafDxProperties::COLI_SPHERE_MODEL = "GgafDxSphere";
+
+
 void GgafDxProperties::load(std::string prm_properties_filename) {
     GgafProperties::load(prm_properties_filename);
 
@@ -221,6 +229,25 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     }
 
 
+    if (GgafProperties::isExistKey("ILLIGAL_TEXTURE")) {
+        GgafDxProperties::ILLIGAL_TEXTURE = getStr("ILLIGAL_TEXTURE");
+    }
+    if (GgafProperties::isExistKey("ILLIGAL_CUBEMAP_TEXTURE")) {
+        GgafDxProperties::ILLIGAL_CUBEMAP_TEXTURE = getStr("ILLIGAL_CUBEMAP_TEXTURE");
+    }
+    if (GgafProperties::isExistKey("WHITE_TEXTURE")) {
+        GgafDxProperties::WHITE_TEXTURE = getStr("WHITE_TEXTURE");
+    }
+    if (GgafProperties::isExistKey("COLI_AAB_MODEL")) {
+        GgafDxProperties::COLI_AAB_MODEL = getStr("COLI_AAB_MODEL");
+    }
+    if (GgafProperties::isExistKey("COLI_AAPRISM_MODEL")) {
+        GgafDxProperties::COLI_AAPRISM_MODEL = getStr("COLI_AAPRISM_MODEL");
+    }
+    if (GgafProperties::isExistKey("COLI_SPHERE_MODEL")) {
+        GgafDxProperties::COLI_SPHERE_MODEL = getStr("COLI_SPHERE_MODEL");
+    }
+
 
     GgafDxProperties::DIR_MESH_MODEL[0] = GgafProperties::DIR_SKIN_KIND[0] + "/"
             + GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
@@ -254,7 +281,6 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     GgafDxProperties::DIR_EFFECT[2] = GgafProperties::DIR_SKIN_KIND[2] + "/";
     GgafDxProperties::DIR_OGG[2] = GgafProperties::DIR_SKIN_KIND[2] + "/";
     GgafDxProperties::DIR_WAVE[2] = GgafProperties::DIR_SKIN_KIND[2] + "/";
-
 
 
     UTIL::strReplace(GgafDxProperties::DIR_MESH_MODEL[0]    , "//", "/");

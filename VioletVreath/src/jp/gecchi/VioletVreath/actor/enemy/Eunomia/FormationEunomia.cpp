@@ -9,7 +9,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationEunomia";
 
     //エウノミア編隊用デポジトリ
-    pDepoConnection_Eunomia_ = connectToDepositoryManager("EnemyEunomia4Formation", this);
+    pDepoConnection_Eunomia_ = connectToDepositoryManager("EnemyEunomia4Formation");
     setFormationMemberDepository(pDepoConnection_Eunomia_->peek());
 
     //スプライン定義ファイルを読み込む
@@ -19,7 +19,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
         papSplManufConnection_[i] = connectToSplineManufactureManager(spl_id.str().c_str());
     }
-    pConnection_ShotDepo_ = connectToDepositoryManager("Shot004", nullptr); //Eunomiaの弾;
+    pConnection_ShotDepo_ = connectToDepositoryManager("Shot004"); //Eunomiaの弾;
     pDepo_Shot_ = pConnection_ShotDepo_->peek();
     updateRankParameter();
 }

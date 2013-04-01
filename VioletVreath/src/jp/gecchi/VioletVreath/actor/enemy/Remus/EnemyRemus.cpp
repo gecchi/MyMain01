@@ -16,7 +16,7 @@ EnemyRemus::EnemyRemus(const char* prm_name) :
     frame_of_morph_interval_   = 120;
 
     pConnection_LaserChipDepoStore_ = connectToDepositoryManager(
-             "EnemyRemusLaserChip001DepoStore", nullptr
+             "EnemyRemusLaserChip001DepoStore"
          );
     pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConnection_LaserChipDepoStore_->peek());
     pLaserChipDepo_ = nullptr;

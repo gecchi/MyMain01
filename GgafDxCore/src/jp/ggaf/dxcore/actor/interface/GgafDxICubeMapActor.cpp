@@ -18,7 +18,7 @@ void GgafDxICubeMapActor::setCubeMapTexture(const char* prm_cubemap_tex) {
     if (_pCubeMapTextureConnection) {
         _pCubeMapTextureConnection->close();
     }
-    _pCubeMapTextureConnection = (GgafDxTextureConnection*)(GgafDxGod::_pCubeMapTextureManager->connect(prm_cubemap_tex));
+    _pCubeMapTextureConnection = (GgafDxTextureConnection*)(GgafDxGod::_pCubeMapTextureManager->connect(prm_cubemap_tex,this));
 }
 void GgafDxICubeMapActor::setCubeMapReflectance(float prm_reflectance) {
     _reflectance = prm_reflectance;
@@ -26,7 +26,7 @@ void GgafDxICubeMapActor::setCubeMapReflectance(float prm_reflectance) {
 
 IDirect3DBaseTexture9* GgafDxICubeMapActor::getCubeMapTexture() {
     if (!_pCubeMapTextureConnection) {
-        _pCubeMapTextureConnection = (GgafDxTextureConnection*)(GgafDxGod::_pCubeMapTextureManager->connect("alpha_zero_cubemap.dds"));
+        _pCubeMapTextureConnection = (GgafDxTextureConnection*)(GgafDxGod::_pCubeMapTextureManager->connect("alpha_zero_cubemap.dds",this));
     }
     return _pCubeMapTextureConnection->peek()->_pIDirect3DBaseTexture9;;
 }

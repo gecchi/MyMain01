@@ -11,7 +11,7 @@ Universe::Universe(const char* prm_name, Camera* prm_pCamera) : DefaultUniverse(
     _TRACE_("Universe::Universe()");
     pCamWorkerManager_ = NEW CameraWorkerManager("CameraWorkerManager");
 
-    CameraWorkerConnection* pCamWorkerCon = (CameraWorkerConnection*)pCamWorkerManager_->connect("DefaultCamWorker");
+    CameraWorkerConnection* pCamWorkerCon = (CameraWorkerConnection*)pCamWorkerManager_->connect("DefaultCamWorker", this);
     stack_CamWorkerConnection_.push(pCamWorkerCon);
     pActiveCamWorker_ = pCamWorkerCon->peek();
     getSceneDirector()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク

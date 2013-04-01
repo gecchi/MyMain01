@@ -20,8 +20,8 @@ void GgafDxCameraViewPoint::processBehavior() {
     _Z_prev = _Z;
 }
 
-bool GgafDxCameraViewPoint::isMove() {
-    if (_X_prev == _X && _X_prev == _Y && _Z_prev == _Z) {
+bool GgafDxCameraViewPoint::isMoving() {
+    if (_X_prev == _X && _Y_prev == _Y && _Z_prev == _Z) {
         return false;
     } else {
         return true;

@@ -7,13 +7,13 @@ namespace GgafDxCore {
  * @param X：SE定義識別文字列。プロパティ DIR_WAVE[0] 配下の「X + ".wave"」というファイル名を使用する。
  *           チャンネル指定時は、スラッシュを挿入 ("1/click" 等）
  */
-#define connectToSeManager(X)  ((GgafDxCore::GgafDxSeConnection*)GgafDxCore::GgafDxSound::_pSeManager->connect(X))
+#define connectToSeManager(X)  ((GgafDxCore::GgafDxSeConnection*)GgafDxCore::GgafDxSound::_pSeManager->connect((X), this))
 
 /**
  * 神が保持する GgafDxBgmManager に接続し、コネクションを取得。
  * @param X：BGM定義識別文字列。プロパティ DIR_OGG[0] 配下から、プロパティ X +"_OGG" の値のファイル名を使用する。
  */
-#define connectToBgmManager(X) ((GgafDxCore::GgafDxBgmConnection*)GgafDxCore::GgafDxSound::_pBgmManager->connect(X))
+#define connectToBgmManager(X) ((GgafDxCore::GgafDxBgmConnection*)GgafDxCore::GgafDxSound::_pBgmManager->connect((X), this))
 
 /**
  * DirectSound ユーティリティクラス.

@@ -17,7 +17,7 @@
 #define Obj_GgafDxWorldBoundModel        (0x2000)         //0b 00000000 00000000 00100000 00000000
 #define Obj_GgafDxPointSpriteModel       (0x4000)         //0b 00000000 00000000 01000000 00000000
 
-#define connectToModelTextureManager(X) ((GgafDxCore::GgafDxTextureConnection*)P_GOD->_pModelManager->_pModelTextureManager->connect(X))
+#define connectToModelTextureManager(X) ((GgafDxCore::GgafDxTextureConnection*)P_GOD->_pModelManager->_pModelTextureManager->connect((X), this))
 
 
 namespace GgafDxCore {
@@ -142,7 +142,7 @@ public:
      * @param prm_p 自由パラメータ、現在未使用
      * @return モデルオブジェクト
      */
-    GgafDxModel* processCreateResource(char* prm_idstr, void* prm_p) override;
+    GgafDxModel* processCreateResource(char* prm_idstr, void* prm_pConnector) override;
 
     /**
      * GgafDxD3DXMeshModel オブジェクトを再構築する。 .
