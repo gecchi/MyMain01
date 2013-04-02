@@ -70,7 +70,7 @@ public:
      * コールバックされる。
      * sayonara() などを実装して下さい。
      */
-    virtual void onFinishedSection() = 0;
+    virtual void onFinishedAllSection() = 0;
 
     /**
      * 処理実装済み。下位でオーバーライドする場合は、上位processBehavior()を呼び出して下さい。

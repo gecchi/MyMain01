@@ -102,6 +102,7 @@ void WalledScene::onActive() {
 }
 
 void WalledScene::processBehavior() {
+
     if (!_is_finished) {
         if (!_is_all_active_section_scenes) {
 
@@ -138,9 +139,9 @@ void WalledScene::processBehavior() {
                 if (pSection == _pLastSectionScene) {
                     //最終セクションならば一度コールバックを行い、処理を任せる。
                     //（以前はここでsayonara()をしていた）
-                    _TRACE_("WalledScene::processBehavior() ["<<getName()<<"] 最終セクションシーンだったためonFinishedSection() コールバック");
+                    _TRACE_("WalledScene::processBehavior() ["<<getName()<<"] 最終セクションシーンだったためonFinishedAllSection() コールバック");
                     _is_finished = true;
-                    onFinishedSection(); //コールバック
+                    onFinishedAllSection(); //コールバック
                 }
             }
         }

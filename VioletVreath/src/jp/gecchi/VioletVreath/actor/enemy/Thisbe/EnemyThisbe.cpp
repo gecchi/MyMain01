@@ -61,9 +61,15 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 
 
     //ホーミング(リポジトリ)------>
-    pConnection_LaserChipDepoStore_ = connectToDepositoryManager("EnemyThisbeLaserChip001DepoStore");
+//    pConnection_LaserChipDepoStore_ = connectToDepositoryManager("EnemyThisbeLaserChip001DepoStore");
+//    pLaserChipDepo_ = nullptr;
+    //<---------------------
+
+    //リフレクション(リポジトリ)------>
+    pConnection_LaserChipDepoStore_ = connectToDepositoryManager("EnemyThisbeLaserChip002DepoStore");
     pLaserChipDepo_ = nullptr;
-    //
+
+
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
@@ -79,12 +85,12 @@ void EnemyThisbe::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
 
-    if (pConnection_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
-        _TRACE_("pConnection_LaserChipDepoStore_は、私("<<this<<")がこしらえた！エヘン！")
-        getPlatformScene()->getSceneDirector()->addSubGroup(
-                pConnection_LaserChipDepoStore_->peek()->extract()
-                );
-    }
+//    if (pConnection_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
+//        _TRACE_("pConnection_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
+//        getPlatformScene()->getSceneDirector()->addSubGroup(
+//                pConnection_LaserChipDepoStore_->peek()->extract()
+//                );
+//    }
 }
 
 void EnemyThisbe::onActive() {
@@ -103,9 +109,6 @@ void EnemyThisbe::processBehavior() {
             if (pLaserChipDepo_) {
                 if (pLaserChipDepo_->_num_chip_active == 0) {
                     pLaserChipDepo_ = nullptr;
-                    _pProg->changeNext();
-                } else {
-
                 }
             } else {
                 _pProg->changeNext();
@@ -125,9 +128,7 @@ void EnemyThisbe::processBehavior() {
 
         case PROG_FIRE: {
             if (_pProg->isJustChanged()) {
-                GgafActorDepositoryStore* pLaserChipDepoStore =
-                        (GgafActorDepositoryStore*)(pConnection_LaserChipDepoStore_->peek());
-                pLaserChipDepo_ = (LaserChipDepository*)(pLaserChipDepoStore->dispatch()); //レーザーセット一本借ります。
+                pLaserChipDepo_ = (LaserChipDepository*)(pConnection_LaserChipDepoStore_->peek()->dispatch()); //レーザーセット一本借ります。
             }
             if (pLaserChipDepo_) {
                 LaserChip* pLaser = pLaserChipDepo_->dispatch();
@@ -141,6 +142,9 @@ void EnemyThisbe::processBehavior() {
                 } else {
                     _pProg->change(PROG_CLOSE);
                 }
+            } else {
+                //借りれなかった！
+                _pProg->change(PROG_CLOSE);
             }
             break;
         }
@@ -157,7 +161,6 @@ void EnemyThisbe::processBehavior() {
         default:
             break;
     }
-
     _pKurokoA->behave();
     _pMorpher->behave();
     _pSeTx->behave();

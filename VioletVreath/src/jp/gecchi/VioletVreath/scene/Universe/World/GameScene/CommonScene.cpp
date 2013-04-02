@@ -180,6 +180,10 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 void CommonScene::initialize() {
 }
 void CommonScene::onReset() {
+    //ƒXƒNƒ[ƒ‹‰ğœ
+    setScrollingFunction(nullptr);
+    setScrollSpeed(0);
+
     fadeinScene(0);
 }
 

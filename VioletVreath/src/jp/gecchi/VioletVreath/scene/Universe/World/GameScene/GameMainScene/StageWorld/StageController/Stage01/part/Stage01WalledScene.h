@@ -20,7 +20,7 @@ public:
 
     virtual void processBehavior() override;
 
-    void onFinishedSection() override;
+    void onFinishedAllSection() override;
 
     virtual ~Stage01WalledScene();
 };

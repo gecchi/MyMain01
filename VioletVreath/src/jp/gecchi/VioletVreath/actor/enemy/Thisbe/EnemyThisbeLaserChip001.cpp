@@ -10,15 +10,16 @@ EnemyThisbeLaserChip001::EnemyThisbeLaserChip001(const char* prm_name) :
     _class_name = "EnemyThisbeLaserChip001";
     pSplManufConnection_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ヒルベルト曲線
     pSplSeq_ = pSplManufConnection_->peek()->createSplineSequence(_pKurokoA);
-    pWalledScene_ = nullptr;
+    pNearestScrollingScene_ = nullptr;
 }
 
 void EnemyThisbeLaserChip001::initialize() {
 //    registHitAreaCube_AutoGenMidColli(20000);
     setScaleR(5.0);
     setAlpha(0.9);
-    pWalledScene_ = ((DefaultScene*)getPlatformScene())->getNearestWalledScene();
+    pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
+
 void EnemyThisbeLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
@@ -43,9 +44,10 @@ void EnemyThisbeLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyThisbeLaserChip001::processBehaviorHeadChip() {
-    if (pWalledScene_) {
-        pSplSeq_->_X_begin -= pWalledScene_->getScrollSpeed();
+    if (pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
+        pSplSeq_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
     }
+
     if (getActivePartFrame() == 2) {
         pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }

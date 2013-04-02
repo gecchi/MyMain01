@@ -22,6 +22,9 @@ class EnemyThisbe :  public GgafLib::DefaultMorphMeshActor {
 
 
     DepositoryConnection* pConnection_LaserChipDepoStore_;
+
+
+
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
 public:

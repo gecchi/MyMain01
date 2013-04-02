@@ -12,7 +12,7 @@ EnemyThisbeLaserChip002::EnemyThisbeLaserChip002(const char* prm_name) :
     pSplSeq_ = pSplManufConnection_->peek()->createSplineSequence(_pKurokoA);
     pSplSeq_->adjustCoordOffset(PX_C(100), 0, 0);
     end_active_frame_ = 0;
-    pWalledScene_ = nullptr;
+    pNearestScrollingScene_ = nullptr;
 }
 
 void EnemyThisbeLaserChip002::initialize() {
@@ -20,7 +20,7 @@ void EnemyThisbeLaserChip002::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);
-    pWalledScene_ = ((DefaultScene*)getPlatformScene())->getNearestWalledScene();
+    pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
 }
 
 void EnemyThisbeLaserChip002::onActive() {
@@ -68,8 +68,8 @@ void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
 }
 
 void EnemyThisbeLaserChip002::processBehavior() {
-    if (pWalledScene_) {
-        pSplSeq_->_X_begin -= pWalledScene_->getScrollSpeed();
+    if (pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
+        pSplSeq_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
     }
 
     RefractionLaserChip::processBehavior();

@@ -22,6 +22,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     pConnection_ShotDepo_ = connectToDepositoryManager("Shot004"); //Eunomiaの弾;
     pDepo_Shot_ = pConnection_ShotDepo_->peek();
     updateRankParameter();
+
 }
 
 void FormationEunomia::updateRankParameter() {
@@ -32,6 +33,12 @@ void FormationEunomia::updateRankParameter() {
 }
 
 void FormationEunomia::initialize() {
+//    if (pDepoConnection_Eunomia_->chkFirstConnectionIs(this)) {
+//        _TRACE_("pDepoConnection_Eunomia_ は、ワシ("<<this<<")が育てたエヘン！")
+//        getPlatformScene()->getSceneDirector()->addSubGroup(
+//                pDepoConnection_Eunomia_->peek()->extract()
+//                );
+//    }
 }
 
 void FormationEunomia::onActive() {
