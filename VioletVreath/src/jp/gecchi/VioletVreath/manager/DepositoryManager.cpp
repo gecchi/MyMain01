@@ -279,8 +279,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (UTIL::strcmp_ascii("EnemyThisbeLaserChip002DepoStore", prm_idstr) == 0) {
         GgafActorDepository* pDepoEffect = NEW GgafActorDepository("ThisbeLaser");
         EffectLaserRefraction001* pEffect;
-        int num_refraction = 100;
-        for (int i = 0; i < num_refraction; i++) {
+        for (int i = 0; i < 200; i++) {
             std::string name = "EffectLaserRefraction001["+XTOS(i)+"]";
             pEffect = NEW EffectLaserRefraction001(name.c_str());
             pDepoEffect->addSubLast(pEffect);
@@ -292,9 +291,10 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         for (int nLaser = 0; nLaser < 4; nLaser++) { //4–{
             std::string name = "LaserChipDepo["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name.c_str());
-            for (int nChip = 0; nChip < 100; nChip++) {
+            for (int nChip = 0; nChip < 200; nChip++) {
                 std::string name = "EnemyThisbeLaserChip002["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
                 EnemyThisbeLaserChip002* pChip = NEW EnemyThisbeLaserChip002(name.c_str());
+                int num_refraction = pChip->pSplSeq_->getPointNum();
                 pChip->config(num_refraction, 1, 1, false, pDepoEffect);
                 pLaserChipDepo->addSubLast(pChip);
                 Sleep(1);

@@ -23,8 +23,6 @@ class EnemyThisbe :  public GgafLib::DefaultMorphMeshActor {
 
     DepositoryConnection* pConnection_LaserChipDepoStore_;
 
-
-
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
 public:
@@ -39,10 +37,6 @@ public:
         SE_EXPLOSION,
         SE_FIRE,
     };
-
-    /** 反射時エフェクトデポジトリへの接続 */
-    DepositoryConnection* pConnection_RefractionEffectDepository_;
-
 
 
 public:

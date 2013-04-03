@@ -5,7 +5,7 @@ namespace GgafLib {
 /**
  * ホーミングレーザー用ポリラインのチップ .
  * ホーミングレーザーなどとと表現しているが、正確には <BR>
- * ・発射座標位置固定（発射元座標が移動不可）<BR>
+ * ・発射座標位置固定（発射元座標が通常移動不可）<BR>
  * ・移動方向、速度は先頭チップがのみが決め、残りチップは単に追従する<BR>
  * と言うべきか、レイフォースのロックオンレーザーと言うべきか、そんな感じ。<BR>
  * @version 1.00
@@ -30,7 +30,9 @@ public:
     angle _prev_RX;
     angle _prev_RY;
     angle _prev_RZ;
+    /** [r]発射開始座標固定か否か(true:固定、呼び元のlocate等を上書きして、最初の[0]の座標に強制上書き/false:非固定。スクロールシーン配下等の場合は false が良い */
     bool _is_fix_begin_pos;
+
 public:
     HomingLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 

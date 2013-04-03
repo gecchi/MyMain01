@@ -76,31 +76,6 @@ void Stage01WalledScene::initialize() {
 void Stage01WalledScene::processBehavior() {
     WalledScene::processBehavior();
 
-//
-//    P_COMMON_SCENE->executeFuncLowerTree(_pFuncScrolling, &_scroll_speed, nullptr);
-
-//    if (_pFuncScrolling && _is_active_flg && !_was_paused_flg && _can_live_flg) {
-//        executeFuncLowerTree(_pFuncScrolling, &_scroll_speed, nullptr);
-//        //ここの executeFuncLowerTree の第２第３引数は、
-//        //このメソッドのエディタ上の直ぐ上に記述してある DefaultScene::scroll_X の受取り引数 p1 ,p2 と対応する
-//        //  this           → GgafObject* pThat
-//        //  &_scroll_speed → void* p1
-//        //  nullptr        → void* p2
-//
-//    }
-
-
-
-
-    //debug ---->
-//    if (GgafDxInput::isPushedDownKey(DIK_O)) {
-//        setScrollSpeed(0);
-//    }
-//    if (GgafDxInput::isPushedDownKey(DIK_P)) {
-//        setScrollSpeed(10000);
-//    }
-    //<---- debug
-
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start

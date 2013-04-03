@@ -66,7 +66,7 @@ WalledScene* DefaultScene::getNearestWalledScene() {
             pScene = pScene->getParent();
             if (pScene) {
                 if (pScene->instanceOf(Obj_WalledScene)) {
-                    return  (WalledScene*)pScene;
+                    return (WalledScene*)pScene;
                 }
             } else {
                 return nullptr;

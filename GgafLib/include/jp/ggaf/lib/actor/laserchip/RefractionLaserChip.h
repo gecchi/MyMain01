@@ -6,7 +6,7 @@ namespace GgafLib {
 /**
  * 反射（屈折）レーザー用ポリラインのチップ .
  * 反射（屈折）レーザーなどどと表現しているが、正確には <BR>
- * ・発射座標固定（発射元座標が移動不可） <BR>
+ * ・発射座標固定（発射元座標は通常は移動不可） <BR>
  * ・移動方向、速度は先頭チップがのみが決め、残りチップは単に追従する<BR>
  * ・移動方向は直進、但し一定間隔で移動方向が変化 <BR>
  * と言うべきか、ダライアスのボスの多段レーザーと言うべきか、そんな感じ。
@@ -56,6 +56,7 @@ public:
     frame _frame_between_refraction;
     /** [r]屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数(>= 1) */
     frame _frame_standstill_refraction;
+    /** [r]発射開始座標固定か否か(true:固定、呼び元のlocate等を上書きして、最初の[0]の座標に強制上書き/false:非固定。スクロールシーン配下等の場合は false が良い */
     bool _is_fix_begin_pos;
 
 public:
@@ -72,7 +73,7 @@ public:
     virtual void config(int prm_num_refraction,
                         frame prm_frame_between_refraction,
                         frame prm_frame_standstill_refraction,
-                        bool prm_is_fix_begin_pos, 
+                        bool prm_is_fix_begin_pos,
                         GgafCore::GgafActorDepository* prm_pDispatche_RefractionEffect);
 
     virtual void onCreateModel() override {}

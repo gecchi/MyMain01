@@ -49,10 +49,6 @@ float4x4 g_matWorld013;
 float4x4 g_matWorld014;
 float4x4 g_matWorld015;
 float4x4 g_matWorld016;
-//float4x4 g_matWorld017;
-//float4x4 g_matWorld018;
-//float4x4 g_matWorld019;
-//float4x4 g_matWorld020;
 
 int g_wall_draw_face001;
 int g_wall_draw_face002;
@@ -70,9 +66,6 @@ int g_wall_draw_face013;
 int g_wall_draw_face014;
 int g_wall_draw_face015;
 int g_wall_draw_face016;
-//int g_wall_draw_face017;
-//int g_wall_draw_face018;
-//int g_wall_draw_face019;
 
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
@@ -150,21 +143,6 @@ OUT_VS GgafDxVS_WallAAB(
         draw_face = g_wall_draw_face016;
 		matWorld = g_matWorld016;
     }
-//	} else if (index == 16) {
-//        draw_face = g_wall_draw_face017;
-//		matWorld = g_matWorld017;
-//	} else if (index == 17) {
-//        draw_face = g_wall_draw_face018;
-//		matWorld = g_matWorld018;
-//	} else if (index == 18) {
-//		matWorld = g_matWorld019;
-//	} else {
-//        draw_face = g_wall_draw_face019;
-//		matWorld = g_matWorld019;
-//	} 
-    //描画面番号情報が、ワールド変換行列のmatWorld._14 に埋め込まれている
-//	int draw_face = (int)matWorld._14;
-//    matWorld._14 = 0; //元の行列値に戻しておく
 
     //UVによりどの面の頂点か判断し、
     //描画不要な面の頂点の場合は何とかする（ジオメトリシェーダー使いたい；）
