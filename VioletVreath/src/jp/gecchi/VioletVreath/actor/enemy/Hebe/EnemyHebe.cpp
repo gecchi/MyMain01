@@ -7,7 +7,7 @@ using namespace VioletVreath;
 EnemyHebe::EnemyHebe(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Hebe", STATUS(EnemyHebe)) {
     _class_name = "EnemyHebe";
-    pSplSeq_ = nullptr;
+    pKurokoStepper_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
@@ -26,18 +26,18 @@ void EnemyHebe::initialize() {
 }
 
 void EnemyHebe::config(
-        GgafLib::SplineSequence* prm_pSplSeq,
+        GgafLib::SplineKurokoStepper* prm_pKurokoStepper,
         GgafCore::GgafActorDepository* prm_pDepo_Shot,
         GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
         ) {
-    GGAF_DELETE_NULLABLE(pSplSeq_);
-    pSplSeq_ = prm_pSplSeq;
+    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    pKurokoStepper_ = prm_pKurokoStepper;
     pDepo_Shot_ = prm_pDepo_Shot;
     pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
 }
 
 void EnemyHebe::onActive() {
-    if (pSplSeq_ == nullptr) {
+    if (pKurokoStepper_ == nullptr) {
         throwGgafCriticalException("EnemyHebeはスプライン必須ですconfigして下さい");
     }
     _pStatus->reset();
@@ -62,9 +62,9 @@ void EnemyHebe::processBehavior() {
 
         case PROG_SPLINE_MOVE: {
             if (_pProg->isJustChanged()) {
-                pSplSeq_->exec(SplineSequence::RELATIVE_COORD);
+                pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_COORD);
             }
-            if (!pSplSeq_->isExecuting()) {
+            if (!pKurokoStepper_->isStepping()) {
                 _pProg->changeNext();
             }
             break;
@@ -80,7 +80,7 @@ void EnemyHebe::processBehavior() {
         }
     }
 
-    pSplSeq_->behave(); //スプライン移動を振る舞い
+    pKurokoStepper_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
 }
 
@@ -113,11 +113,11 @@ void EnemyHebe::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyHebe::onInactive() {
-    GGAF_DELETE_NULLABLE(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pKurokoStepper_);
 }
 
 EnemyHebe::~EnemyHebe() {
-    GGAF_DELETE_NULLABLE(pSplSeq_);
+    GGAF_DELETE_NULLABLE(pKurokoStepper_);
 }
 
 

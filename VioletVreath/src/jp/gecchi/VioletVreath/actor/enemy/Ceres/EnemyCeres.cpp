@@ -34,9 +34,9 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
     }
 
     pSplLineConnection_ = connectToSplineLineManager("Spl_001");
-    pProgram_CeresMove_ = NEW FixedVelocitySplineSequence(_pKurokoA, pSplLineConnection_->peek(), 5000); //移動速度固定
+    pProgram_CeresMove_ = NEW FixedVelocitySplineKurokoStepper(_pKurokoA, pSplLineConnection_->peek(), 5000); //移動速度固定
 
-//    pProgram_CeresMove_ = NEW FixedFrameSplineSequence(_pKurokoA, pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
+//    pProgram_CeresMove_ = NEW FixedFrameSplineKurokoStepper(_pKurokoA, pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
@@ -53,7 +53,7 @@ void EnemyCeres::onActive() {
     _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 6000);
     _pKurokoA->setMvVelo(8000);
-    pProgram_CeresMove_->exec(SplineSequence::ABSOLUTE_COORD); //スプライン移動を開始
+    pProgram_CeresMove_->start(SplineKurokoStepper::ABSOLUTE_COORD); //スプライン移動を開始
     frame_Active_ = 0;
 }
 
@@ -112,7 +112,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
 void EnemyCeres::onInactive() {
     if (createGgafActorDepository_) {
         //弾は遅れて開放させるように、動きを継続させるため移動
-        getSceneDirector()->addSubLast(pDepo_EnemyCeresShots001_->getMyGroupHead()->extract());
+       getSceneDirector()->addSubLast(pDepo_EnemyCeresShots001_->getMyGroupHead()->extract());
        pDepo_EnemyCeresShots001_->sayonara(60 * 5);//解放予約
     }
     sayonara();

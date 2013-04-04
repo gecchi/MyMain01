@@ -2,8 +2,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prmpKurokoA_target) :
-        SplineSequence(prm_pManufacture, prmpKurokoA_target) {
+FixedVelocitySplineKurokoStepper::FixedVelocitySplineKurokoStepper(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prmpKurokoA_target) :
+        SplineKurokoStepper(prm_pManufacture, prmpKurokoA_target) {
     _pFixedVeloSplManuf = (FixedVelocitySplineManufacture*)prm_pManufacture;
     _exec_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
@@ -13,10 +13,10 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_
     _COS_RyMv_begin = 0.0f;
 }
 
-FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDxKurokoA* prmpKurokoA_target,
-                                                         SplineLine* prmpSpl,
-                                                         angvelo prm_angveloRzRyMv):
-        SplineSequence(nullptr, prmpKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
+FixedVelocitySplineKurokoStepper::FixedVelocitySplineKurokoStepper(GgafDxKurokoA* prmpKurokoA_target,
+                                                                   SplineLine* prmpSpl,
+                                                                   angvelo prm_angveloRzRyMv):
+        SplineKurokoStepper(nullptr, prmpKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
     _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_angveloRzRyMv);
     _pFixedVeloSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedVeloSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
@@ -29,9 +29,9 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDxKurokoA* prmpKuro
     _COS_RyMv_begin = 0.0f;
 }
 
-void FixedVelocitySplineSequence::exec(SplinTraceOption prm_option) {
+void FixedVelocitySplineKurokoStepper::start(SplinTraceOption prm_option) {
     if (_pFixedVeloSplManuf) {
-        _is_executing = true;
+        _is_stepping = true;
         _option = prm_option;
         _exec_fFrames = 0.0f;
         _fFrame_of_next = -0.00001f;
@@ -50,12 +50,12 @@ void FixedVelocitySplineSequence::exec(SplinTraceOption prm_option) {
             _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
             _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
             _distance_to_begin = UTIL::getDistance(
-                                           0.0  , 0.0  , 0.0  ,
+                                           0.0, 0.0, 0.0,
                                            P0X, P0Y, P0Z
                                       );
         } else if (_option == RELATIVE_COORD) {
             _distance_to_begin = UTIL::getDistance(
-                                           0.0  , 0.0  , 0.0  ,
+                                           0.0, 0.0, 0.0,
                                            P0X, P0Y, P0Z
                                       );
         } else { //ABSOLUTE_COORD
@@ -69,12 +69,12 @@ void FixedVelocitySplineSequence::exec(SplinTraceOption prm_option) {
                                  );
        }
     } else {
-        throwGgafCriticalException("SplineSequence::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
+        throwGgafCriticalException("SplineKurokoStepper::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
     }
 }
 
-void FixedVelocitySplineSequence::behave() {
-    if (_is_executing) {
+void FixedVelocitySplineKurokoStepper::behave() {
+    if (_is_stepping) {
         GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
         //変わり目
         if (_exec_fFrames >= _fFrame_of_next) {
@@ -127,7 +127,7 @@ void FixedVelocitySplineSequence::behave() {
             _point_index++;
             if ( _point_index == pSpl->_rnum) {
                 //終了
-                _is_executing = false;
+                _is_stepping = false;
                 return;
             }
         } else {
@@ -140,5 +140,5 @@ void FixedVelocitySplineSequence::behave() {
     }
 
 }
-FixedVelocitySplineSequence::~FixedVelocitySplineSequence() {
+FixedVelocitySplineKurokoStepper::~FixedVelocitySplineKurokoStepper() {
 }

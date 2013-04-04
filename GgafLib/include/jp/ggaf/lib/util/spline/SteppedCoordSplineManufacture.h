@@ -15,11 +15,7 @@ public:
     coord* _paDistance_to;
     /** [r]始点からn番目の補完点(基準点も含む)到達に必要なフレーム数のテーブル */
     float* _paFrame_need_at;
-    /** [r]基準速度 */
-//    velo _veloMvUnit;
-    /** [rw]1フレームあたり旋回可能な回転角角速度 */
-//    angvelo _angveloRzRyMv;
-        /** [rw]旋回方法 */
+    /** [rw]旋回方法 */
     int _turn_way;
     /** [rw]旋回最適化有無 */
     bool _turn_optimize;
@@ -35,7 +31,6 @@ public:
      * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト true)
      */
     SteppedCoordSplineManufacture(const char* prm_source_file,
-//                                   angvelo prm_angveloRzRyMv = (D90ANG/9),
                                    int prm_turn_way = TURN_CLOSE_TO,
                                    bool prm_turn_optimaize = true );
 
@@ -47,9 +42,8 @@ public:
      * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト true)
      */
     SteppedCoordSplineManufacture(SplineSource* prm_pSplSrc,
-//                                   angvelo prm_angveloRzRyMv = (D90ANG/9),
-                                   int prm_turn_way = TURN_CLOSE_TO,
-                                   bool prm_turn_optimaize = true );
+                                  int prm_turn_way = TURN_CLOSE_TO,
+                                  bool prm_turn_optimaize = true );
 
     /**
      * 初期化（計算）処理 .
@@ -59,12 +53,12 @@ public:
     void calculate() override;
 
     /**
-     * SplineSequenceオブジェクトの生成 .
-     * インスタンスは SteppedCoordSplineSequence です。
+     * SplineKurokoStepperオブジェクトの生成 .
+     * インスタンスは SteppedCoordSplineKurokoStepper です。
      * @param prm_pKurokoA スプライン移動させる対象アクター
-     * @return SplineSequenceオブジェクト
+     * @return SplineKurokoStepperオブジェクト
      */
-    SplineSequence* createSplineSequence(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) override;
+    SplineKurokoStepper* createSplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) override;
 
     virtual ~SteppedCoordSplineManufacture();
 };

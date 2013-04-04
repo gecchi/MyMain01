@@ -105,7 +105,7 @@ void MenuBoardSoundConfig::processBehavior() {
             //実行中アプリへも即時反映
             GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
             GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
-            GgafDxSound::setApplicationMasterVolume(PROPERTY::MASTER_VOLUME);
+            GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
 
             sinkSubMenu();
             sink();
@@ -135,9 +135,9 @@ void MenuBoardSoundConfig::processBehavior() {
         pLabel_BgmVol_->update(XTOS(GgafDxSound::_bgm_master_volume).c_str());
     } else if (index == ITEM_MASTER_VOL) {
         if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
-            GgafDxSound::addApplicationMasterVolume(+1);
+            GgafDxSound::addAppMasterVolume(+1);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
-            GgafDxSound::addApplicationMasterVolume(-1);
+            GgafDxSound::addAppMasterVolume(-1);
         }
         pLabel_MasterVol_->update(XTOS(GgafDxSound::_app_master_volume).c_str());
     }
@@ -148,7 +148,7 @@ void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem
         //音量を元に戻す
         GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
         GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
-        GgafDxSound::setApplicationMasterVolume(PROPERTY::MASTER_VOLUME);
+        GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
         sink();
     } else if (prm_item_index == ITEM_INDEX_OK_) {
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y - PX_C(50)); //確認メニュー起動

@@ -15,7 +15,6 @@ namespace GgafCore {
  */
 class GgafTreeFormation : public GgafFormation {
 private:
-private:
     /**
      * Žg—p•s‰Â .
      * @param prm_pSub

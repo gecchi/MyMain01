@@ -17,7 +17,7 @@ FormationThalia::FormationThalia(const char* prm_name) :
     for (int i = 0; i < num_Thalia_; i++) {
         papThalia_[i] = NEW EnemyThalia("Thalia01");
         //スプライン移動プログラム設定
-        papThalia_[i]->setSplineSequence(nullptr);
+        papThalia_[i]->setSplineKurokoStepper(nullptr);
         papThalia_[i]->setDepository_Shot(pDepoConnection_->peek()); //弾設定
         addFormationMember(papThalia_[i]);
     }

@@ -9,14 +9,14 @@ FormationHebe001::FormationHebe001(const char* prm_name) :
     _class_name = "FormationHebe001";
 }
 void FormationHebe001::onCallUpHebe(EnemyHebe* pEnemyHebe) {
-//    pEnemyHebe->pSplSeq_->adjustAxisRate(
+//    pEnemyHebe->pKurokoStepper_->adjustAxisRate(
 //                                        MyShip::lim_front_, //X•ûŒü”{—¦
 //                                       -1.0 * MyShip::lim_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_zleft_  //Z•ûŒü”{—¦
 //                                    );
-//    pEnemyHebe->pSplSeq_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
-//    pEnemyHebe->pSplSeq_->adjustAxisYFlip();
-//    pEnemyHebe->pSplSeq_->setAbsoluteBeginCoordinate();
+//    pEnemyHebe->pKurokoStepper_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
+//    pEnemyHebe->pKurokoStepper_->adjustAxisYFlip();
+//    pEnemyHebe->pKurokoStepper_->setAbsoluteBeginCoord();
     pEnemyHebe->locate(PX_C(300), PX_C(-300), PX_C(0));
     pEnemyHebe->_pKurokoA->setMvAngTwd(PX_C(300), PX_C(0), PX_C(0));
 }

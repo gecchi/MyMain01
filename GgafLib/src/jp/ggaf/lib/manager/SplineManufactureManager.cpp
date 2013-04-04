@@ -119,8 +119,8 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     } else if (classname.find("SteppedCoordSpline") != std::string::npos) {
         pSplManuf = NEW SteppedCoordSplineManufacture(spl_data_file.c_str(),
                                                       // angveloRzRyMv,
-                                                       turn_way,
-                                                       turn_optimize);
+                                                      turn_way,
+                                                      turn_optimize);
         pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
         pSplManuf->calculate();
     } else {

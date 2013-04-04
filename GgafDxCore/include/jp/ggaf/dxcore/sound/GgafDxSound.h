@@ -64,13 +64,13 @@ public:
      * アプリ全体のマスタボリューム設定 .
      * @param prm_app_master_volume 0(無音) ～ 100(最大)
      */
-    static void setApplicationMasterVolume(int prm_app_master_volume);
+    static void setAppMasterVolume(int prm_app_master_volume);
 
     /**
      * アプリ全体のマスタボリューム増分設定 .
      * @param prm_app_master_volume_offset 音量増分
      */
-    static void addApplicationMasterVolume(int prm_app_master_volume_offset);
+    static void addAppMasterVolume(int prm_app_master_volume_offset);
 
     /**
      * 全BGMのマスタボリュームの設定 .

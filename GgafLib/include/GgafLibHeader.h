@@ -80,10 +80,10 @@ class LinearOctreeActorElem;
 class CollisionChecker3D;
 
 class SplineLine;
-class SplineSequence;
-class FixedFrameSplineSequence;
-class FixedVelocitySplineSequence;
-class SteppedCoordSplineSequence;
+class SplineKurokoStepper;
+class FixedFrameSplineKurokoStepper;
+class FixedVelocitySplineKurokoStepper;
+class SteppedCoordSplineKurokoStepper;
 class SplineManufacture;
 class SplineSource;
 class FixedFrameSplineManufacture;
@@ -160,12 +160,12 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/util/LinearOctreeActorElem.h"
 
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
-#include "jp/ggaf/lib/util/spline/SplineSequence.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoStepper.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineSequence.h"
-#include "jp/ggaf/lib/util/spline/FixedVelocitySplineSequence.h"
-#include "jp/ggaf/lib/util/spline/SteppedCoordSplineSequence.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoStepper.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoStepper.h"
+#include "jp/ggaf/lib/util/spline/SteppedCoordSplineKurokoStepper.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineManufacture.h"

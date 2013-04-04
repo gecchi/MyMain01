@@ -14,7 +14,7 @@ class EnemyThisbe002 :  public GgafLib::DefaultMorphMeshActor {
 //class EnemyThisbe002 : public GgafLib::CubeMapMorphMeshActor {
 
     /** 移動スプラインプログラム */
-    GgafLib::SplineSequence* pSplSeq_;
+    GgafLib::SplineKurokoStepper* pKurokoStepper_;
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
@@ -86,10 +86,10 @@ public:
     /**
      * スプライン移動設定 .
      * initialize() までに設定して下さい。
-     * @param prm_pSplSeq
+     * @param prm_pKurokoStepper
      */
-    void setSplineSequence(GgafLib::SplineSequence* prm_pSplSeq) {
-        pSplSeq_ = prm_pSplSeq;
+    void setSplineKurokoStepper(GgafLib::SplineKurokoStepper* prm_pKurokoStepper) {
+        pKurokoStepper_ = prm_pKurokoStepper;
     }
 
     /**

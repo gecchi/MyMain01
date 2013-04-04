@@ -46,10 +46,9 @@ void EnemyMassaliaBase::onHit(GgafActor* prm_pOtherActor) {
 
 void EnemyMassaliaBase::appearFragment(const char* prm_dp_name) {
     //’f•ÐoŒ»
-    DepositoryConnection* pCon = connectToDepositoryManager(prm_dp_name);
-    GgafActorDepository* pDepo = pCon->peek();
+    DepositoryConnection* pDepoConn = connectToDepositoryManager(prm_dp_name);
     for (int i = 0; i < RR_EnemyMassalia_ShotWay(_RANK_); i++) {
-        EnemyMassaliaBase* pFragment = (EnemyMassaliaBase*)(pDepo->dispatch());
+        EnemyMassaliaBase* pFragment = (EnemyMassaliaBase*)(pDepoConn->peek()->dispatch());
         if (pFragment) {
             pFragment->locateWith(this);
             pFragment->_pKurokoA->followMvFrom(this->_pKurokoA);
@@ -58,7 +57,7 @@ void EnemyMassaliaBase::appearFragment(const char* prm_dp_name) {
             pFragment->_pKurokoA->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));
         }
     }
-    pCon->close();
+    pDepoConn->close();
 }
 void EnemyMassaliaBase::onInactive() {
     sayonara();

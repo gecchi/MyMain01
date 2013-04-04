@@ -45,9 +45,9 @@ public:
     scale _SY;
     /** [r/w]ワールドZ軸方向スケール(_SZ : 倍率 = 1000 : 1.0倍) */
     scale _SZ;
-    /** [r]黒子A */
+    /** [r]黒衣A */
     GgafDxKurokoA* _pKurokoA;
-    /** [r]黒子B */
+    /** [r]黒衣B */
     GgafDxKurokoB* _pKurokoB;
     /** [r]チェッカー */
     GgafDxChecker* _pChecker;
@@ -399,7 +399,7 @@ public:
      * _X,_Y,_Z,_RX,_RY,_RZ をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _X,_Y,_Z,_RX,_RY,_RZ 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 黒子A(_pKurokoA) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 黒衣A(_pKurokoA) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_kind     種別
      * @param prm_pGeoActor 従属させるアクター
@@ -426,7 +426,7 @@ public:
      * _X,_Y,_Z,_RX,_RY,_RZ をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _X,_Y,_Z,_RX,_RY,_RZ 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 黒子A(_pKurokoA) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 黒衣A(_pKurokoA) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_pGeoActor 従属させるアクター
      * @param prm_X_init_local  従属アクターのローカル(this)位置からのX座標位置

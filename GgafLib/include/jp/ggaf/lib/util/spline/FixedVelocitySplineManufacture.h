@@ -57,12 +57,12 @@ public:
     void calculate() override;
 
     /**
-     * SplineSequenceオブジェクトの生成 .
-     * インスタンスは FixedVelocitySplineSequence です。
+     * SplineKurokoStepperオブジェクトの生成 .
+     * インスタンスは FixedVelocitySplineKurokoStepper です。
      * @param prm_pKurokoA スプライン移動させる対象アクター
-     * @return SplineSequenceオブジェクト
+     * @return SplineKurokoStepperオブジェクト
      */
-    SplineSequence* createSplineSequence(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) override;
+    SplineKurokoStepper* createSplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) override;
 
     virtual ~FixedVelocitySplineManufacture();
 };

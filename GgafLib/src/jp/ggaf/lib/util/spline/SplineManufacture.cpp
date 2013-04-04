@@ -53,8 +53,8 @@ void SplineManufacture::calculate() {
                                  );
     }
     _paDistance_to[0] = 0; //_paDistance_to[0] は最初の補完点までの距離となるべきだが、
-                          //SplineSequence::exec() を行うまで距離が確定しない。ので使用不可。
-                          //最初の補完点までの距離は、SplineSequence メンバーの _distance_to_begin で
+                          //SplineKurokoStepper::exec() を行うまで距離が確定しない。ので使用不可。
+                          //最初の補完点までの距離は、SplineKurokoStepper メンバーの _distance_to_begin で
                           //取得可能。
 }
 

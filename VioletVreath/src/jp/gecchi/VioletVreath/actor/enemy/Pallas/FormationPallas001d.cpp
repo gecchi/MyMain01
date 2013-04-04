@@ -9,9 +9,9 @@ FormationPallas001d::FormationPallas001d(const char* prm_name) : FormationPallas
 }
 
 void FormationPallas001d::onCallUpPallas(EnemyPallas* prm_pPallas) {
-    prm_pPallas->pSplSeq_->adjustAxisYFlip();
-    prm_pPallas->pSplSeq_->adjustAxisZFlip();
-    prm_pPallas->pSplSeq_->setAbsoluteBeginCoordinate();
+    prm_pPallas->pKurokoStepper_->adjustAxisYFlip();
+    prm_pPallas->pKurokoStepper_->adjustAxisZFlip();
+    prm_pPallas->pKurokoStepper_->setAbsoluteBeginCoord();
     prm_pPallas->_pKurokoA->setMvVelo(velo_mv_);
 }
 

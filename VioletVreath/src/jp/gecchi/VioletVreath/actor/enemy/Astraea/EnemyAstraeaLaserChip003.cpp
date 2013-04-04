@@ -9,7 +9,7 @@ EnemyAstraeaLaserChip003::EnemyAstraeaLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "AstraeaLaserChip001", STATUS(EnemyAstraeaLaserChip003)) {
     _class_name = "EnemyAstraeaLaserChip003";
     pSplManufConnection_ = connectToSplineManufactureManager("GURUGURU");
-    pSplSeq_ = pSplManufConnection_->peek()->createSplineSequence(_pKurokoA);
+    pKurokoStepper_ = pSplManufConnection_->peek()->createSplineKurokoStepper(_pKurokoA);
 }
 
 void EnemyAstraeaLaserChip003::initialize() {
@@ -25,11 +25,11 @@ void EnemyAstraeaLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向いた方向にワールド変換
+    pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_DIRECTION); //向いた方向にワールド変換
 }
 
 void EnemyAstraeaLaserChip003::processBehavior() {
-    pSplSeq_->behave();
+    pKurokoStepper_->behave();
     _pKurokoA->behave();
     WateringLaserChip::processBehavior();
 }
@@ -51,7 +51,7 @@ void EnemyAstraeaLaserChip003::onInactive() {
 }
 
 EnemyAstraeaLaserChip003::~EnemyAstraeaLaserChip003() {
-    GGAF_DELETE(pSplSeq_);
+    GGAF_DELETE(pKurokoStepper_);
     pSplManufConnection_->close();
 }
 

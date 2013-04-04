@@ -6,7 +6,7 @@ class EnemyThisbeLaserChip003 : public GgafLib::WateringLaserChip {
 
 public:
     GgafLib::SplineManufactureConnection* pSplManufConnection_;
-    GgafLib::SplineSequence* pSplSeq_;
+    GgafLib::SplineKurokoStepper* pKurokoStepper_;
     int sp_index_;
     GgafLib::DefaultScene* pNearestScrollingScene_;
 public:

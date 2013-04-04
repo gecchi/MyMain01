@@ -9,7 +9,7 @@ FormationEunomia002b::FormationEunomia002b(const char* prm_name) : FormationEuno
 }
 
 void FormationEunomia002b::onCallUpEunomia(EnemyEunomia* pEnemyEunomia, int col) {
-//    pEnemyEunomia->pSplSeq_->adjustAxisRate(
+//    pEnemyEunomia->pKurokoStepper_->adjustAxisRate(
 //                                        MyShip::lim_front_, //X•ûŒü”{—¦
 //                                       -1.0 * MyShip::lim_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_zleft_  //Z•ûŒü”{—¦

@@ -11,7 +11,7 @@ EnemyAstraeaLaserChip004::EnemyAstraeaLaserChip004(const char* prm_name) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001", STATUS(EnemyAstraeaLaserChip004)) {
     _class_name = "EnemyAstraeaLaserChip004";
     pSplManufConnection_ = connectToSplineManufactureManager("GURUGURU");
-    pSplSeq_ = pSplManufConnection_->peek()->createSplineSequence(_pKurokoA);
+    pKurokoStepper_ = pSplManufConnection_->peek()->createSplineKurokoStepper(_pKurokoA);
 //    if (pTexCon1_ == nullptr) {
 //        pTexCon1_ = connectToModelTextureManager("AstraeaLaserChip001.png");
 //        pTexCon2_ = connectToModelTextureManager("HesperiaLaserChip001.png");
@@ -40,7 +40,7 @@ void EnemyAstraeaLaserChip004::onActive() {
     _pKurokoA->setMvVelo(10000);
     _pKurokoA->setMvAcce(400);
     _pKurokoA->relateMvFaceAng(true);
-    pSplSeq_->stop();
+    pKurokoStepper_->stop();
     _force_alpha = 1.50; //最初はちょっと明るめ
 }
 
@@ -70,9 +70,9 @@ void EnemyAstraeaLaserChip004::processBehaviorHeadChip() {
 //    //<--debug
 
     if (getActivePartFrame() == 2) {
-        pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向いた方向にワールド変換
+        pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
-    pSplSeq_->behave(); //←途中でちょんぎれたらだめじゃん
+    pKurokoStepper_->behave(); //←途中でちょんぎれたらだめじゃん
     _pKurokoA->behave();
 }
 
@@ -90,7 +90,7 @@ void EnemyAstraeaLaserChip004::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyAstraeaLaserChip004::~EnemyAstraeaLaserChip004() {
-    GGAF_DELETE(pSplSeq_);
+    GGAF_DELETE(pKurokoStepper_);
     pSplManufConnection_->close();
     //if (pTexCon1_) {
     //    pTexCon1_->close();

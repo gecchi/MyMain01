@@ -1,5 +1,5 @@
-#ifndef STEPPEDCOORDSPLINESEQUENCE_H_
-#define STEPPEDCOORDSPLINESEQUENCE_H_
+#ifndef STEPPEDCOORDSPLINEKUROKOSTEPPER_H_
+#define STEPPEDCOORDSPLINEKUROKOSTEPPER_H_
 namespace GgafLib {
 
 /**
@@ -10,7 +10,7 @@ namespace GgafLib {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class SteppedCoordSplineSequence : public SplineSequence {
+class SteppedCoordSplineKurokoStepper : public SplineKurokoStepper {
 
 public:
     SteppedCoordSplineManufacture* _pSteppedSplManuf;
@@ -32,28 +32,28 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
-     * @param prm_pKurokoA 対象のアクターの黒子A
+     * @param prm_pKurokoA 対象のアクターの黒衣A
      */
-    SteppedCoordSplineSequence(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
+    SteppedCoordSplineKurokoStepper(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
 
     /**
      * コンストラクタ .
      * 等速移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
-     * @param prm_pKurokoA 対象のアクターの黒子A
+     * @param prm_pKurokoA 対象のアクターの黒衣A
      * @param prm_sp 計算済みスプラインオブジェクト
      * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    SteppedCoordSplineSequence(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
-                               SplineLine* prm_sp,
-                               angvelo prm_angveloRzRyMv);
+    SteppedCoordSplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
+                                    SplineLine* prm_sp,
+                                    angvelo prm_angveloRzRyMv);
 
 
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
      */
-    void exec(SplinTraceOption prm_option = ABSOLUTE_COORD) override;
+    void start(SplinTraceOption prm_option = ABSOLUTE_COORD) override;
 
     /**
      * 毎フレームの振る舞いメソッド .
@@ -62,8 +62,8 @@ public:
     void behave() override;
 
 
-    virtual ~SteppedCoordSplineSequence();
+    virtual ~SteppedCoordSplineKurokoStepper();
 };
 
 }
-#endif /*FIXEDVELOCITYSPLINESEQUENCE_H_*/
+#endif /*FIXEDVELOCITYSPLINEKUROKOSTEPPER_H_*/

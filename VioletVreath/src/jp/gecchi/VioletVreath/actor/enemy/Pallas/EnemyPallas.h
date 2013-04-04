@@ -18,7 +18,7 @@ public:
     };
 
     /** 移動スプラインプログラム */
-    GgafLib::SplineSequence* pSplSeq_;
+    GgafLib::SplineKurokoStepper* pKurokoStepper_;
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
@@ -67,16 +67,16 @@ public:
 
     /**
      *
-     * @param prm_pSplSeq
+     * @param prm_pKurokoStepper
      * @param prm_pDepo_Shot
      * @param prm_pDepo_ShotEffect
      */
     virtual void config(
-            GgafLib::SplineSequence* prm_pSplSeq,
+            GgafLib::SplineKurokoStepper* prm_pKurokoStepper,
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
             ) {
-        pSplSeq_ = prm_pSplSeq;
+        pKurokoStepper_ = prm_pKurokoStepper;
         pDepo_Shot_ = prm_pDepo_Shot;
         pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
     }

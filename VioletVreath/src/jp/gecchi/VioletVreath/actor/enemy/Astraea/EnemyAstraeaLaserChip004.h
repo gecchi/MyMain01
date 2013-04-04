@@ -6,7 +6,7 @@ class EnemyAstraeaLaserChip004 : public GgafLib::HomingLaserChip {
 
 public:
     GgafLib::SplineManufactureConnection* pSplManufConnection_;
-    GgafLib::SplineSequence* pSplSeq_;
+    GgafLib::SplineKurokoStepper* pKurokoStepper_;
 //    static GgafDxCore::GgafDxTextureConnection* pTexCon1_;
 //    static GgafDxCore::GgafDxTextureConnection* pTexCon2_;
 

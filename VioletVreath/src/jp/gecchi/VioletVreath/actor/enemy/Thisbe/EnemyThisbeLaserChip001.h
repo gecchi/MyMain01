@@ -12,7 +12,7 @@ class EnemyThisbeLaserChip001 : public GgafLib::HomingLaserChip {
 
 public:
     GgafLib::SplineManufactureConnection* pSplManufConnection_;
-    GgafLib::SplineSequence* pSplSeq_;
+    GgafLib::SplineKurokoStepper* pKurokoStepper_;
     GgafLib::DefaultScene* pNearestScrollingScene_;
 public:
     EnemyThisbeLaserChip001(const char* prm_name);

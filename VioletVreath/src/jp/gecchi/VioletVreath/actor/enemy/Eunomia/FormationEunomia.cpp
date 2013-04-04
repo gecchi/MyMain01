@@ -10,7 +10,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
 
     //エウノミア編隊用デポジトリ
     pDepoConnection_Eunomia_ = connectToDepositoryManager("EnemyEunomia4Formation");
-    setFormationMemberDepository(pDepoConnection_Eunomia_->peek());
+    setFormationMemberDepo(pDepoConnection_Eunomia_->peek());
 
     //スプライン定義ファイルを読み込む
     papSplManufConnection_ = NEW SplineManufactureConnection*[7];
@@ -58,9 +58,9 @@ void FormationEunomia::processBehavior() {
         for (int i = 0; i < RR_num_formation_col_; i++) {
             EnemyEunomia* pEunomia = (EnemyEunomia*)callUpMember(RR_num_formation_col_*RR_num_formation_row_);
             if (pEunomia) {
-                SplineSequence* pSplSeq = papSplManufConnection_[i]->peek()->
-                                              createSplineSequence(pEunomia->_pKurokoA);
-                pEunomia->config(pSplSeq, nullptr, nullptr);
+                SplineKurokoStepper* pKurokoStepper = papSplManufConnection_[i]->peek()->
+                                              createSplineKurokoStepper(pEunomia->_pKurokoA);
+                pEunomia->config(pKurokoStepper, nullptr, nullptr);
                 pEunomia->_pKurokoA->setMvVelo(RR_mv_velo_);
                 onCallUpEunomia(pEunomia, i); //フォーメーション個別実装の処理
             }
@@ -69,12 +69,12 @@ void FormationEunomia::processBehavior() {
 
     if (getActivePartFrame() == 60 * 20) {
         MyShip* pMy = P_MYSHIP;
-        GgafActor* pFllower = _listFllower.getCurrent();
-        int num_follwer = _listFllower.length();
+        GgafActor* pFollower = _listFollower.getCurrent();
+        int num_follwer = _listFollower.length();
         EnemyEunomia* pEunomia;
         GgafDxGeometricActor* pShot;
         for (int i = 0; i < num_follwer; i++) {
-            pEunomia = (EnemyEunomia*)pFllower;
+            pEunomia = (EnemyEunomia*)pFollower;
             pShot = (GgafDxGeometricActor*)pDepo_Shot_->dispatch();
             if (pShot) {
                 pShot->locateWith(pEunomia);
@@ -82,7 +82,7 @@ void FormationEunomia::processBehavior() {
                 pShot->_pKurokoA->setMvVelo(PX_C(10));
                 pShot->_pKurokoA->setMvAcce(0);
             }
-            pFllower = _listFllower.next();
+            pFollower = _listFollower.next();
         }
     }
 }

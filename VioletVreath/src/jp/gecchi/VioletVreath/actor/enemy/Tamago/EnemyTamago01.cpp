@@ -59,7 +59,7 @@ void EnemyTamago01::initialize() {
 void EnemyTamago01::onActive() {
     _pStatus->reset();
     if (pProgram_Tamago01Move_) {
-        pProgram_Tamago01Move_->exec(SplineSequence::ABSOLUTE_COORD); //スプライン移動をプログラムしておく
+        pProgram_Tamago01Move_->start(SplineKurokoStepper::ABSOLUTE_COORD); //スプライン移動をプログラムしておく
     }
 
 //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
@@ -108,7 +108,7 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 0) {
         //スプライン移動中
-        if (pProgram_Tamago01Move_ && !(pProgram_Tamago01Move_->isExecuting())) {
+        if (pProgram_Tamago01Move_ && !(pProgram_Tamago01Move_->isStepping())) {
             iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
         }
     }

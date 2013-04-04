@@ -7,6 +7,7 @@ GgafTreeFormation::GgafTreeFormation(const char* prm_name, frame prm_offset_fram
     _class_name = "GgafTreeFormation";
     _pIte = nullptr;
     _can_call_up = true;
+    _was_all_destroyed = false;
 }
 
 void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
@@ -30,7 +31,7 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
 #endif
     }
     prm_pSub->_pFormation = this; //メンバーへフォーメーションを設定
-//        _listFllower.addLast((GgafActor*)prm_pSub, false); //フォーメーションメンバーとして内部保持
+//        _listFollower.addLast((GgafActor*)prm_pSub, false); //フォーメーションメンバーとして内部保持
     GgafFormation::addSubLast(prm_pSub);
     prm_pSub->inactivateImmed(); //フォーメーションなので
 }

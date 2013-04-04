@@ -24,27 +24,27 @@ public:
     T _acceBottom;
 
     /** [r]なめらかな移動シークエンスを実行中はtrue */
-    bool _smooth_velo_seq_flg;
+    bool _slide_velo_seq_flg;
     /** [r]なめらかな移動シークエンスを実行完了時の加速度設定（true：加速度0に設定／false:加速度をそのままにしておく） */
-    bool _smooth_velo_seq_endacc_flg;
+    bool _slide_velo_seq_endacc_flg;
     /** [r]なめらかな移動シークエンスで設定されたトップスピード（等速移動時速度） */
-    T _smooth_velo_seq_top_velo;
+    T _slide_velo_seq_top_velo;
     /** [r]なめらかな移動シークエンスで設定された終了時の速度 */
-    T _smooth_velo_seq_end_velo;
+    T _slide_velo_seq_end_velo;
     /** [r]なめらかな移動シークエンスで設定された目標移動距離 */
-    T _smooth_velo_seq_target_distance;
+    T _slide_velo_seq_target_distance;
     /** [r]なめらかな移動シークエンスに開始から現在までの移動距離 */
-    T _smooth_velo_seq_distance;
+    T _slide_velo_seq_distance;
     /** [r]なめらかな移動シークエンスで設定された目標時間 */
-    int  _smooth_velo_seq_target_frames;
+    int  _slide_velo_seq_target_frames;
     /** [r]なめらかな移動シークエンスに開始から現在までの経過時間 */
-    int  _smooth_velo_seq_frame_of_spent;
+    int  _slide_velo_seq_frame_of_spent;
     /** [r]なめらかな移動シークエンスで設定された加速～等速へ切り替わる位置 */
-    int  _smooth_velo_seq_p1;
+    int  _slide_velo_seq_p1;
     /** [r]なめらかな移動シークエンスで設定された等速～減速へ切り替わる位置 */
-    int  _smooth_velo_seq_p2;
+    int  _slide_velo_seq_p2;
     /** [r]なめらかな移動シークエンスの進捗状況 */
-    int  _smooth_velo_seq_progress;
+    int  _slide_velo_seq_progress;
 
 public:
 
@@ -93,9 +93,9 @@ public:
 
 
     /**
-     * 黒子Bが振る舞う .
-     * 黒子B機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
-     * 逆に黒子Bを必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
+     * 黒衣Bが振る舞う .
+     * 黒衣B機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
+     * 逆に黒衣Bを必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
      */
     virtual void behave();
 
@@ -356,17 +356,17 @@ GgafDynamicVariable<T>::GgafDynamicVariable(T* prm_pVariable, T prm_max_velo, T 
     _acceBottom =  (T)(-prm_max_acce);
 
 
-    _smooth_velo_seq_flg = false;
-    _smooth_velo_seq_endacc_flg = true;
-    _smooth_velo_seq_top_velo = (T)0;
-    _smooth_velo_seq_end_velo = (T)0;
-    _smooth_velo_seq_target_distance = (T)0;
-    _smooth_velo_seq_distance = (T)0;
-    _smooth_velo_seq_target_frames = 0;
-    _smooth_velo_seq_frame_of_spent = 0;
-    _smooth_velo_seq_p1 = 0;
-    _smooth_velo_seq_p2 = 0;
-    _smooth_velo_seq_progress = -1;
+    _slide_velo_seq_flg = false;
+    _slide_velo_seq_endacc_flg = true;
+    _slide_velo_seq_top_velo = (T)0;
+    _slide_velo_seq_end_velo = (T)0;
+    _slide_velo_seq_target_distance = (T)0;
+    _slide_velo_seq_distance = (T)0;
+    _slide_velo_seq_target_frames = 0;
+    _slide_velo_seq_frame_of_spent = 0;
+    _slide_velo_seq_p1 = 0;
+    _slide_velo_seq_p2 = 0;
+    _slide_velo_seq_progress = -1;
 }
 
 template<class T>
@@ -376,83 +376,83 @@ void GgafDynamicVariable<T>::behave() {
     setVelo(_velo);
 
     //なめらか移動シークエンス起動時
-    if (_smooth_velo_seq_flg) {
-        if (_smooth_velo_seq_target_frames < 0) {
+    if (_slide_velo_seq_flg) {
+        if (_slide_velo_seq_target_frames < 0) {
             //目標距離指定の場合
-            if (_smooth_velo_seq_progress == 0) {
+            if (_slide_velo_seq_progress == 0) {
                 //加速設定
-                setAcceBy_Dv(_smooth_velo_seq_p1, _smooth_velo_seq_top_velo);
-                _smooth_velo_seq_progress++;
-            } else if (_smooth_velo_seq_progress == 1) {
+                setAcceBy_Dv(_slide_velo_seq_p1, _slide_velo_seq_top_velo);
+                _slide_velo_seq_progress++;
+            } else if (_slide_velo_seq_progress == 1) {
                 //加速中
-                if (_smooth_velo_seq_distance >= _smooth_velo_seq_p1) {
+                if (_slide_velo_seq_distance >= _slide_velo_seq_p1) {
                     //p1 に到達すれば 等速へ
                     setAcce(0);
-                    setVelo(_smooth_velo_seq_top_velo);
-                    _smooth_velo_seq_progress++;
+                    setVelo(_slide_velo_seq_top_velo);
+                    _slide_velo_seq_progress++;
                 }
-            } else if (_smooth_velo_seq_progress == 2) {
+            } else if (_slide_velo_seq_progress == 2) {
                 //等速中
-                if (_smooth_velo_seq_distance >= _smooth_velo_seq_p2) {
+                if (_slide_velo_seq_distance >= _slide_velo_seq_p2) {
                     //p2 に到達すれば 次回フレームから減速へ
-                    setAcceBy_Dv(_smooth_velo_seq_target_distance - _smooth_velo_seq_distance, _smooth_velo_seq_end_velo);
-                    _smooth_velo_seq_progress++;
+                    setAcceBy_Dv(_slide_velo_seq_target_distance - _slide_velo_seq_distance, _slide_velo_seq_end_velo);
+                    _slide_velo_seq_progress++;
                 }
-            } else if (_smooth_velo_seq_progress == 3) {
+            } else if (_slide_velo_seq_progress == 3) {
                 //減速中
-                if (_smooth_velo_seq_distance >= _smooth_velo_seq_target_distance) {
+                if (_slide_velo_seq_distance >= _slide_velo_seq_target_distance) {
                     //目標距離へ到達
-                    setVelo(_smooth_velo_seq_end_velo);
-                    if (_smooth_velo_seq_endacc_flg) {
+                    setVelo(_slide_velo_seq_end_velo);
+                    if (_slide_velo_seq_endacc_flg) {
                         setAcce(0);
                     }
-                    _smooth_velo_seq_progress++;
-                    _smooth_velo_seq_flg = false; //おしまい
+                    _slide_velo_seq_progress++;
+                    _slide_velo_seq_flg = false; //おしまい
                 }
             }
         } else {
             //目標時間指定の場合
-            if (_smooth_velo_seq_progress == 0) {
+            if (_slide_velo_seq_progress == 0) {
                 //加速設定
-                setAcceBy_tv(_smooth_velo_seq_p1, _smooth_velo_seq_top_velo);
-                _smooth_velo_seq_progress++;
-            } else if (_smooth_velo_seq_progress == 1) {
+                setAcceBy_tv(_slide_velo_seq_p1, _slide_velo_seq_top_velo);
+                _slide_velo_seq_progress++;
+            } else if (_slide_velo_seq_progress == 1) {
                 //加速中
-                if (_smooth_velo_seq_frame_of_spent >= _smooth_velo_seq_p1) {
+                if (_slide_velo_seq_frame_of_spent >= _slide_velo_seq_p1) {
                     //p1 に到達すれば 等速へ
                     setAcce(0);
-                    setVelo(_smooth_velo_seq_top_velo);
-                    _smooth_velo_seq_progress++;
+                    setVelo(_slide_velo_seq_top_velo);
+                    _slide_velo_seq_progress++;
                 }
-            } else if (_smooth_velo_seq_progress == 2) {
+            } else if (_slide_velo_seq_progress == 2) {
                 //等速中
-                if (_smooth_velo_seq_frame_of_spent >= _smooth_velo_seq_p2) {
+                if (_slide_velo_seq_frame_of_spent >= _slide_velo_seq_p2) {
                     //p2 に到達すれば 次回フレームから減速へ
-                    setAcceBy_tv(_smooth_velo_seq_target_frames - _smooth_velo_seq_frame_of_spent, _smooth_velo_seq_end_velo);
-                    _smooth_velo_seq_progress++;
+                    setAcceBy_tv(_slide_velo_seq_target_frames - _slide_velo_seq_frame_of_spent, _slide_velo_seq_end_velo);
+                    _slide_velo_seq_progress++;
                 }
-            } else if (_smooth_velo_seq_progress == 3) {
+            } else if (_slide_velo_seq_progress == 3) {
                 //減速中
-                if (_smooth_velo_seq_frame_of_spent >= _smooth_velo_seq_target_frames) {
+                if (_slide_velo_seq_frame_of_spent >= _slide_velo_seq_target_frames) {
                     //目標距離へ到達
-                    setVelo(_smooth_velo_seq_end_velo);
-                    if (_smooth_velo_seq_endacc_flg) {
+                    setVelo(_slide_velo_seq_end_velo);
+                    if (_slide_velo_seq_endacc_flg) {
                         setAcce(0);
                     }
-                    _smooth_velo_seq_progress++;
-                    _smooth_velo_seq_flg = false; //おしまい
+                    _slide_velo_seq_progress++;
+                    _slide_velo_seq_flg = false; //おしまい
                 }
             }
         }
     } else {
-        _smooth_velo_seq_progress = -1;
+        _slide_velo_seq_progress = -1;
     }
 
-    if (_smooth_velo_seq_flg) {
-        if (_smooth_velo_seq_target_frames < 0) {
-            _smooth_velo_seq_distance+=ABS(_velo);
+    if (_slide_velo_seq_flg) {
+        if (_slide_velo_seq_target_frames < 0) {
+            _slide_velo_seq_distance+=ABS(_velo);
         } else {
-            _smooth_velo_seq_frame_of_spent++;
+            _slide_velo_seq_frame_of_spent++;
         }
     } else {
 
@@ -610,15 +610,15 @@ template<class T>
 void GgafDynamicVariable<T>::execSmoothSequence(T prm_end_velo, T prm_target_distance,
                                          int prm_target_frames, float prm_p1, float prm_p2,
                                          bool prm_endacc_flg) {
-    _smooth_velo_seq_flg = true;
-    _smooth_velo_seq_p1 = (int)(prm_target_frames*prm_p1);
-    _smooth_velo_seq_p2 = (int)(prm_target_frames*prm_p2);
-    _smooth_velo_seq_end_velo = prm_end_velo;
-    _smooth_velo_seq_target_distance = prm_target_distance;
-    _smooth_velo_seq_distance = 0;
-    _smooth_velo_seq_target_frames = prm_target_frames;
-    _smooth_velo_seq_frame_of_spent = 0;
-    _smooth_velo_seq_progress = 0;
+    _slide_velo_seq_flg = true;
+    _slide_velo_seq_p1 = (int)(prm_target_frames*prm_p1);
+    _slide_velo_seq_p2 = (int)(prm_target_frames*prm_p2);
+    _slide_velo_seq_end_velo = prm_end_velo;
+    _slide_velo_seq_target_distance = prm_target_distance;
+    _slide_velo_seq_distance = 0;
+    _slide_velo_seq_target_frames = prm_target_frames;
+    _slide_velo_seq_frame_of_spent = 0;
+    _slide_velo_seq_progress = 0;
 
     //＜トップスピード(Vt) を計算＞
     //
@@ -642,7 +642,7 @@ void GgafDynamicVariable<T>::execSmoothSequence(T prm_end_velo, T prm_target_dis
     // D = (1/2) (Vo + Vt) p1 Te + Vt (p2-p1)Te  +  (1/2) (Ve + Vt) (1-p2)Te
     // これをVtについて解く
     // Vt = ( 2D - p1 Te Vo + (p2 - 1) Te Ve ) / ( (p2 - p1 + 1) Te )
-    _smooth_velo_seq_top_velo =
+    _slide_velo_seq_top_velo =
          ((2.0*prm_target_distance) - (prm_p1*prm_target_frames*_velo) + ((prm_p2-1.0)*prm_target_frames*prm_end_velo))
          / ((prm_p2-prm_p1+1.0)*prm_target_frames);
 
@@ -652,34 +652,34 @@ template<class T>
 void GgafDynamicVariable<T>::execSmoothSequenceD(T prm_top_velo, T prm_end_velo,
                                           T prm_target_distance, float prm_p1, float prm_p2,
                                           bool prm_endacc_flg) {
-    _smooth_velo_seq_flg = true;
-    _smooth_velo_seq_endacc_flg = prm_endacc_flg;
-    _smooth_velo_seq_top_velo = prm_top_velo;
-    _smooth_velo_seq_end_velo = prm_end_velo;
-    _smooth_velo_seq_target_distance = prm_target_distance;
-    _smooth_velo_seq_distance = 0;
-    _smooth_velo_seq_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
-    _smooth_velo_seq_frame_of_spent = 0;
-    _smooth_velo_seq_p1 = (int)(prm_target_distance*prm_p1);
-    _smooth_velo_seq_p2 = (int)(prm_target_distance*prm_p2);
-    _smooth_velo_seq_progress = 0;
+    _slide_velo_seq_flg = true;
+    _slide_velo_seq_endacc_flg = prm_endacc_flg;
+    _slide_velo_seq_top_velo = prm_top_velo;
+    _slide_velo_seq_end_velo = prm_end_velo;
+    _slide_velo_seq_target_distance = prm_target_distance;
+    _slide_velo_seq_distance = 0;
+    _slide_velo_seq_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
+    _slide_velo_seq_frame_of_spent = 0;
+    _slide_velo_seq_p1 = (int)(prm_target_distance*prm_p1);
+    _slide_velo_seq_p2 = (int)(prm_target_distance*prm_p2);
+    _slide_velo_seq_progress = 0;
 }
 
 template<class T>
 void GgafDynamicVariable<T>::execSmoothSequenceT(T prm_top_velo, T prm_end_velo,
                                           int prm_target_frames, float prm_p1, float prm_p2,
                                           bool prm_endacc_flg) {
-    _smooth_velo_seq_flg = true;
-    _smooth_velo_seq_endacc_flg = prm_endacc_flg;
-    _smooth_velo_seq_top_velo = prm_top_velo;
-    _smooth_velo_seq_end_velo = prm_end_velo;
-    _smooth_velo_seq_target_distance = 0;
-    _smooth_velo_seq_distance = 0;
-    _smooth_velo_seq_target_frames = prm_target_frames;
-    _smooth_velo_seq_frame_of_spent = 0;
-    _smooth_velo_seq_p1 = (int)(prm_target_frames*prm_p1);
-    _smooth_velo_seq_p2 = (int)(prm_target_frames*prm_p1);
-    _smooth_velo_seq_progress = 0;
+    _slide_velo_seq_flg = true;
+    _slide_velo_seq_endacc_flg = prm_endacc_flg;
+    _slide_velo_seq_top_velo = prm_top_velo;
+    _slide_velo_seq_end_velo = prm_end_velo;
+    _slide_velo_seq_target_distance = 0;
+    _slide_velo_seq_distance = 0;
+    _slide_velo_seq_target_frames = prm_target_frames;
+    _slide_velo_seq_frame_of_spent = 0;
+    _slide_velo_seq_p1 = (int)(prm_target_frames*prm_p1);
+    _slide_velo_seq_p2 = (int)(prm_target_frames*prm_p1);
+    _slide_velo_seq_progress = 0;
 }
 
 

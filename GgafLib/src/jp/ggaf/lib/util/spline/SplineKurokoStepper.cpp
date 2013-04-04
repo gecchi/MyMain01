@@ -3,18 +3,21 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SplineSequence::SplineSequence(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA) :
+SplineKurokoStepper::SplineKurokoStepper(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA) :
         GgafObject() {
     _pManufacture = prm_pManufacture;
     _pActor_target = prm_pKurokoA->_pActor;
     _option = ABSOLUTE_COORD;
+    _X_begin = 0;
+    _Y_begin = 0;
+    _Z_begin = 0;
     _offset_X = 0;
     _offset_Y = 0;
     _offset_Z = 0;
     _flip_X = 1;
     _flip_Y = 1;
     _flip_Z = 1;
-    _is_executing = false;
+    _is_stepping = false;
     if (prm_pManufacture) {
         _is_created_pManufacture = false;
     } else {
@@ -22,9 +25,10 @@ SplineSequence::SplineSequence(SplineManufacture* prm_pManufacture, GgafDxKuroko
     }
     _distance_to_begin = 0;
     _point_index = 0;
+    _execute_frames = 0;
 }
 
-void SplineSequence::setManufacture(SplineManufacture* prm_pManufacture) {
+void SplineKurokoStepper::setManufacture(SplineManufacture* prm_pManufacture) {
     _pManufacture = prm_pManufacture;
     _pActor_target = nullptr;
     _option = ABSOLUTE_COORD;
@@ -34,18 +38,18 @@ void SplineSequence::setManufacture(SplineManufacture* prm_pManufacture) {
     _flip_X = 1;
     _flip_Y = 1;
     _flip_Z = 1;
-    _is_executing = false;
+    _is_stepping = false;
 }
 
-void SplineSequence::adjustCoordOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
+void SplineKurokoStepper::adjustCoordOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
     _offset_X = prm_offset_X;
     _offset_Y = prm_offset_Y;
     _offset_Z = prm_offset_Z;
 }
 
-void SplineSequence::exec(SplinTraceOption prm_option) {
+void SplineKurokoStepper::start(SplinTraceOption prm_option) {
     if (_pManufacture) {
-        _is_executing = true;
+        _is_stepping = true;
         _option = prm_option;
         _execute_frames = 0;
         SplineLine* pSpl = _pManufacture->_sp;
@@ -61,29 +65,29 @@ void SplineSequence::exec(SplinTraceOption prm_option) {
                                 _Z_begin
                              );
     } else {
-        throwGgafCriticalException("SplineSequence::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
+        throwGgafCriticalException("SplineKurokoStepper::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
     }
 }
-void SplineSequence::stop() {
-    _is_executing = false;
+void SplineKurokoStepper::stop() {
+    _is_stepping = false;
 }
 
 
-void SplineSequence::setAbsoluteBeginCoordinate() {
+void SplineKurokoStepper::setAbsoluteBeginCoord() {
     SplineLine* pSpl = _pManufacture->_sp;
     _pActor_target->_X = _flip_X*pSpl->_X_compute[0]*_pManufacture->_rate_X + _offset_X;
     _pActor_target->_Y = _flip_Y*pSpl->_Y_compute[0]*_pManufacture->_rate_Y + _offset_Y;
     _pActor_target->_Z = _flip_Z*pSpl->_Z_compute[0]*_pManufacture->_rate_Z + _offset_Z;
 }
-void SplineSequence::behave() {
+void SplineKurokoStepper::behave() {
 
-    if (_is_executing) {
+    if (_is_stepping) {
         //現在の点INDEX
         int point_index = _execute_frames;
         SplineLine* pSpl = _pManufacture->_sp;
         if ( point_index == pSpl->_rnum) {
             //終了
-            _is_executing = false;
+            _is_stepping = false;
             return;
         }
 
@@ -94,10 +98,10 @@ void SplineSequence::behave() {
     }
 }
 
-coord SplineSequence::getSegmentDistance(int prm_index) {
+coord SplineKurokoStepper::getSegmentDistance(int prm_index) {
 #ifdef MY_DEBUG
     if (prm_index < 0 || prm_index > (_pManufacture->_sp->_rnum -1)) {
-        throwGgafCriticalException("SplineSequence::getSegmentDistance("<<prm_index<<") は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
+        throwGgafCriticalException("SplineKurokoStepper::getSegmentDistance("<<prm_index<<") は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
     }
 #endif
     if (prm_index == 0) {
@@ -106,10 +110,10 @@ coord SplineSequence::getSegmentDistance(int prm_index) {
         return _pManufacture->_paDistance_to[prm_index];
     }
 }
-int SplineSequence::getPointNum() {
+int SplineKurokoStepper::getPointNum() {
     return _pManufacture->_sp->_rnum;
 }
-SplineSequence::~SplineSequence() {
+SplineKurokoStepper::~SplineKurokoStepper() {
     if (_is_created_pManufacture) {
         SplineSource* pSplSrc = _pManufacture->_pSplSrc;
         GGAF_DELETE(pSplSrc);

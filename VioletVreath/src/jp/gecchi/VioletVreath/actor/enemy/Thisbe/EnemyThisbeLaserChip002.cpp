@@ -9,8 +9,8 @@ EnemyThisbeLaserChip002::EnemyThisbeLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "ThisbeLaserChip002", STATUS(EnemyThisbeLaserChip002)) {
     _class_name = "EnemyThisbeLaserChip002";
     pSplManufConnection_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ヒルベルト曲線
-    pSplSeq_ = pSplManufConnection_->peek()->createSplineSequence(_pKurokoA);
-    pSplSeq_->adjustCoordOffset(PX_C(100), 0, 0);
+    pKurokoStepper_ = pSplManufConnection_->peek()->createSplineKurokoStepper(_pKurokoA);
+    pKurokoStepper_->adjustCoordOffset(PX_C(100), 0, 0);
     end_active_frame_ = 0;
     pNearestScrollingScene_ = nullptr;
 }
@@ -52,24 +52,24 @@ void EnemyThisbeLaserChip002::onRefractionBegin(int prm_num_refraction)  {
 
 void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
-        pSplSeq_->exec(SplineSequence::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
-        //prm_num_refraction = 0 は、発射口→pSplSeq_->_point_index = 0 の点への移動直前処理
+        pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
+        //prm_num_refraction = 0 は、発射口→pKurokoStepper_->_point_index = 0 の点への移動直前処理
     }
-    if (pSplSeq_->isExecuting()) {
-        _pKurokoA->setMvVelo(pSplSeq_->getSegmentDistance(prm_num_refraction));
+    if (pKurokoStepper_->isStepping()) {
+        _pKurokoA->setMvVelo(pKurokoStepper_->getSegmentDistance(prm_num_refraction));
     } else {
         //最後のリフレクションだった場合
         _pKurokoA->setMvVelo(0); //ちょっと sayonara() まで待機
     }
-    //pSplSeq_->behave(); 内部で pKurokoA->_veloMv を参照し次フレーム数決定してるので、
-    //１フレームで次の点に到達するべく、pSplSeq_->behave(); の前に pKurokoA->setMvVelo() で設定しなければいけない。
-    pSplSeq_->behave();
+    //pKurokoStepper_->behave(); 内部で pKurokoA->_veloMv を参照し次フレーム数決定してるので、
+    //１フレームで次の点に到達するべく、pKurokoStepper_->behave(); の前に pKurokoA->setMvVelo() で設定しなければいけない。
+    pKurokoStepper_->behave();
     _pKurokoA->behave();
 }
 
 void EnemyThisbeLaserChip002::processBehavior() {
     if (pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
-        pSplSeq_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
+        pKurokoStepper_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
     }
 
     RefractionLaserChip::processBehavior();
@@ -103,7 +103,7 @@ void EnemyThisbeLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyThisbeLaserChip002::~EnemyThisbeLaserChip002() {
-    GGAF_DELETE(pSplSeq_);
+    GGAF_DELETE(pKurokoStepper_);
     pSplManufConnection_->close();
 }
 

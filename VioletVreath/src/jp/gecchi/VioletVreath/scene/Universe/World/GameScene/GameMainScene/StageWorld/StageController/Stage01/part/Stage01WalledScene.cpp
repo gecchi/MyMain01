@@ -160,7 +160,6 @@ void Stage01WalledScene::processBehavior() {
     }
     // gen02 end
 
-
   if (getActivePartFrame() == 1) {
       P_COMMON_SCENE->setScrollingFunction(_pFuncScrolling);
       P_COMMON_SCENE->setScrollSpeed(_scroll_speed);

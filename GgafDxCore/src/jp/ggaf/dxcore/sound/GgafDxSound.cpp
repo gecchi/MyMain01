@@ -56,10 +56,10 @@ void GgafDxSound::init() {
 
     GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
     GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
-    GgafDxSound::setApplicationMasterVolume(PROPERTY::MASTER_VOLUME);
+    GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
 }
 
-void GgafDxSound::setApplicationMasterVolume(int prm_app_master_volume) {
+void GgafDxSound::setAppMasterVolume(int prm_app_master_volume) {
     _app_master_volume = prm_app_master_volume;
     if (_app_master_volume > GGAF_MAX_VOLUME) {
         _app_master_volume = GGAF_MAX_VOLUME;
@@ -71,8 +71,8 @@ void GgafDxSound::setApplicationMasterVolume(int prm_app_master_volume) {
     GgafDxSound::_pSeManager->updateVolume(); //‰¹—Ê‚ğXV
 }
 
-void GgafDxSound::addApplicationMasterVolume(int prm_app_master_volume_offset) {
-    setApplicationMasterVolume(_app_master_volume+prm_app_master_volume_offset);
+void GgafDxSound::addAppMasterVolume(int prm_app_master_volume_offset) {
+    setAppMasterVolume(_app_master_volume+prm_app_master_volume_offset);
 }
 
 void GgafDxSound::setBgmMasterVolume(float prm_bgm_master_volume) {

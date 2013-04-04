@@ -9,16 +9,16 @@ GgafDepositoryFormation::GgafDepositoryFormation(const char* prm_name, frame prm
     _can_call_up = true;
     _was_all_destroyed = false;
 }
-void GgafDepositoryFormation::setFormationMemberDepository(GgafActorDepository* prm_pDepo) {
+void GgafDepositoryFormation::setFormationMemberDepo(GgafActorDepository* prm_pDepo) {
 #ifdef MY_DEBUG
     if (_pDepo) {
-        throwGgafCriticalException("GgafDepositoryFormation::setFormationMemberDepository 既にデポジトリは登録済みです。\n"<<
+        throwGgafCriticalException("GgafDepositoryFormation::setFormationMemberDepo 既にデポジトリは登録済みです。\n"<<
                                    "this="<<getName()<<" prm_pDepo="<<prm_pDepo);
     }
     if (prm_pDepo && prm_pDepo->_pSubFirst) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDepositoryFormation::setFormationMemberDepository 不正なデポジトリです。\n"<<
+        throwGgafCriticalException("GgafDepositoryFormation::setFormationMemberDepo 不正なデポジトリです。\n"<<
                                    "this="<<getName()<<" prm_pDepo="<<prm_pDepo);
 
     }
@@ -30,7 +30,7 @@ void GgafDepositoryFormation::setFormationMemberDepository(GgafActorDepository* 
     if (_pDepo->getSubFirst()) {
 
     } else {
-        throwGgafCriticalException("GgafDepositoryFormation::setFormationMemberDepository("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません this="<<getName());
+        throwGgafCriticalException("GgafDepositoryFormation::setFormationMemberDepo("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません this="<<getName());
     }
 #endif
 }
@@ -40,7 +40,7 @@ void GgafDepositoryFormation::processFinal() {
         //終了を待つのみ
     }
 
-    if (_listFllower.length() == 0) {
+    if (_listFollower.length() == 0) {
         if (_can_call_up) {
             //メンバーが0だが、まだ追加中。
             return;
@@ -51,13 +51,13 @@ void GgafDepositoryFormation::processFinal() {
         }
     } else {
         //不正ポインタのチェック
-        GgafActor* pFllower = _listFllower.getCurrent();
-        int num_follwer = _listFllower.length();
+        GgafActor* pFollower = _listFollower.getCurrent();
+        int num_follwer = _listFollower.length();
         for (int i = 0; i < num_follwer; i++) {
-            if (_can_live_flg && (pFllower->_is_active_flg || pFllower->_will_activate_after_flg)) {
-                pFllower = _listFllower.next();
+            if (_can_live_flg && (pFollower->_is_active_flg || pFollower->_will_activate_after_flg)) {
+                pFollower = _listFollower.next();
             } else {
-                _listFllower.remove();
+                _listFollower.remove();
             }
         }
     }
@@ -70,7 +70,7 @@ GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
     }
 #ifdef MY_DEBUG
     if (!_pDepo) {
-        throwGgafCriticalException("GgafDepositoryFormation::callUpUntil "<<getName()<<"は、Depositoryが指定されてません。setFormationMemberDepositoryが必要です。"<<
+        throwGgafCriticalException("GgafDepositoryFormation::callUpUntil "<<getName()<<"は、Depositoryが指定されてません。setFormationMemberDepoが必要です。"<<
                                    "this="<<getName()<<" _num_formation_member="<<_num_formation_member);
     }
 #endif
@@ -83,7 +83,7 @@ GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
             _num_formation_member++;
             _can_call_up = true;
             pActor->_pFormation = this;
-            _listFllower.addLast(pActor, false);
+            _listFollower.addLast(pActor, false);
             return (GgafActor*)pActor;
         } else {
             _can_call_up = false;
@@ -101,16 +101,16 @@ void GgafDepositoryFormation::onEnd() {
     sayonaraFollwer();
 }
 void GgafDepositoryFormation::sayonaraFollwer() {
-    if (_listFllower.length() == 0) {
+    if (_listFollower.length() == 0) {
         return;
     }
-    while (_listFllower.length() > 0) {
-        GgafActor* pFllower =  _listFllower.getCurrent();
-        if (pFllower->_pFormation == this) {
-            _TRACE_("GgafDepositoryFormation::sayonaraFollwer _listFllowerの"<<_listFllower.getCurrent()->getName()<<"をsayonaraします。");
-            _listFllower.getCurrent()->sayonara();
+    while (_listFollower.length() > 0) {
+        GgafActor* pFollower =  _listFollower.getCurrent();
+        if (pFollower->_pFormation == this) {
+            _TRACE_("GgafDepositoryFormation::sayonaraFollwer _listFollowerの"<<_listFollower.getCurrent()->getName()<<"をsayonaraします。");
+            _listFollower.getCurrent()->sayonara();
         }
-        _listFllower.remove();
+        _listFollower.remove();
     }
 
 }

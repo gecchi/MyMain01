@@ -7,7 +7,7 @@ namespace GgafCore {
  * デポジトリ管理のフォーメーション管理ークラス .
  * 編隊メンバーは使い回すフォーメーション。
  * 使用する場合は、本クラスを継承し、
- * setFormationMemberDepository(GgafActorDepository*) により
+ * setFormationMemberDepo(GgafActorDepository*) により
  * 編隊メンバー所属のデポジトリオブジェクトを登録してください。
  * processJudgement()を実装済み
  * @version 1.00
@@ -25,7 +25,7 @@ private:
 
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
-    GgafCore::GgafLinkedListRing<GgafActor> _listFllower;
+    GgafCore::GgafLinkedListRing<GgafActor> _listFollower;
     /** [r]これ以上 callUpMember() 不可の場合 true */
     bool _can_call_up;
     /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
@@ -53,7 +53,7 @@ public:
      * メンバーを活動終了時は、sayonara() を使用。
      * @param prm_pDepo
      */
-    void setFormationMemberDepository(GgafCore::GgafActorDepository* prm_pDepo);
+    void setFormationMemberDepo(GgafCore::GgafActorDepository* prm_pDepo);
 
     /**
      * サブが無ければ本オブジェクト解放という処理 .

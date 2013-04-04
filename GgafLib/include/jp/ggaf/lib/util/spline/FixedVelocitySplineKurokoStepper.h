@@ -1,5 +1,5 @@
-#ifndef FIXEDVELOCITYSPLINESEQUENCE_H_
-#define FIXEDVELOCITYSPLINESEQUENCE_H_
+#ifndef FIXEDVELOCITYSPLINEKUROKOSTEPPER_H_
+#define FIXEDVELOCITYSPLINEKUROKOSTEPPER_H_
 namespace GgafLib {
 
 /**
@@ -8,7 +8,7 @@ namespace GgafLib {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class FixedVelocitySplineSequence : public SplineSequence {
+class FixedVelocitySplineKurokoStepper : public SplineKurokoStepper {
 
 public:
     FixedVelocitySplineManufacture* _pFixedVeloSplManuf;
@@ -27,39 +27,39 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
-     * @param prm_pKurokoA 対象のアクターの黒子A
+     * @param prm_pKurokoA 対象のアクターの黒衣A
      */
-    FixedVelocitySplineSequence(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
+    FixedVelocitySplineKurokoStepper(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
 
     /**
      * コンストラクタ .
      * 等速移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
-     * @param prm_pKurokoA 対象のアクターの黒子A
+     * @param prm_pKurokoA 対象のアクターの黒衣A
      * @param prm_sp 計算済みスプラインオブジェクト
      * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    FixedVelocitySplineSequence(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
-                               SplineLine* prm_sp,
-                               angvelo prm_angveloRzRyMv);
+    FixedVelocitySplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
+                                     SplineLine* prm_sp,
+                                     angvelo prm_angveloRzRyMv);
 
 
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
      */
-    void exec(SplinTraceOption prm_option = ABSOLUTE_COORD) override;
+    void start(SplinTraceOption prm_option = ABSOLUTE_COORD) override;
 
     /**
      * 毎フレームの振る舞いメソッド .
-     * exec() を行った同一フレームに behave() 実行を避けるといったことは不要。<BR>
-     * exec() を行った最初のbehave()は、『現在の座標→ポイント[0]』への処理となります。<BR>
+     * start() を行った同一フレームに behave() 実行を避けるといったことは不要。<BR>
+     * start() を行った最初のbehave()は、『現在の座標→ポイント[0]』への処理となります。<BR>
      */
     void behave() override;
 
 
-    virtual ~FixedVelocitySplineSequence();
+    virtual ~FixedVelocitySplineKurokoStepper();
 };
 
 }
-#endif /*FIXEDVELOCITYSPLINESEQUENCE_H_*/
+#endif /*FIXEDVELOCITYSPLINEKUROKOSTEPPER_H_*/

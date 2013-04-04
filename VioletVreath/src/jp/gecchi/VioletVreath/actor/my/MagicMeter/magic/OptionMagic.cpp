@@ -52,7 +52,7 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         pEffect->activate();
     }
     GGAF_DELETEARR(paAng_way);
-    r_effect_ = 1;
+    r_effect_ = 1.0;
 }
 
 void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){

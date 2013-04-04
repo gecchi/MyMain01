@@ -162,7 +162,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
 //        if (prm_p) {
-//            ((FormationActor*)prm_p)->setFormationMemberDepository()
+//            ((FormationActor*)prm_p)->setFormationMemberDepo()
 //        } else {
 //            throwGgafCriticalException("DepositoryManager::processCreateResource("<<prm_idstr<<") Formation‚ðŽw’è‚µ‚Ä‰º‚³‚¢");
 //        }
@@ -294,7 +294,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             for (int nChip = 0; nChip < 200; nChip++) {
                 std::string name = "EnemyThisbeLaserChip002["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
                 EnemyThisbeLaserChip002* pChip = NEW EnemyThisbeLaserChip002(name.c_str());
-                int num_refraction = pChip->pSplSeq_->getPointNum();
+                int num_refraction = pChip->pKurokoStepper_->getPointNum();
                 pChip->config(num_refraction, 1, 1, false, pDepoEffect);
                 pLaserChipDepo->addSubLast(pChip);
                 Sleep(1);

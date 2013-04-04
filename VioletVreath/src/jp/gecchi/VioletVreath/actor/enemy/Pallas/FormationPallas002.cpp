@@ -19,7 +19,7 @@ FormationPallas002::FormationPallas002(const char* prm_name) :
     for (int i = 0; i < num_Pallas_; i++) {
         papPallas_[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = pSplManufConnection_->peek()->createSplineSequence(papPallas_[i]->_pKurokoA); //移動速度固定
+        SplineKurokoStepper* pProgram = pSplManufConnection_->peek()->createSplineKurokoStepper(papPallas_[i]->_pKurokoA); //移動速度固定
         papPallas_[i]->config(pProgram, nullptr, nullptr);
         //papPallas_[i]->setDepository_Shot(pDepoConnection_->peek()); //弾設定
         papPallas_[i]->inactivateImmed();
