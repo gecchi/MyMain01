@@ -198,7 +198,7 @@ void World::processBehavior() {
                             (GgafDxSound::_app_master_volume)
                             );
     pLabel_debug_->update(aBufDebug_);
-    if (getActivePartFrame() % 60 == 0) {
+    if (getActiveFrame() % 60 == 0) {
         _TRACE_("aBufDebug_="<<aBufDebug_);
     }
     if (P_GOD->_sync_frame_time) {

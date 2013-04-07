@@ -65,7 +65,7 @@ void MyOptionStraightLaserChip001::processBehavior() {
 
 
     if (lockon_st_ == 1) {
-        if (getActivePartFrame() < 120) {
+        if (getActiveFrame() < 120) {
             if (pMainLockOnTarget) {
             } else {
                 lockon_st_ = 2;
@@ -146,7 +146,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
-            EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
+            EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
             if (pExplo001) {
                 pExplo001->locateWith(this);
             }
@@ -167,7 +167,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         //地形相手は無条件さようなら
 
         //破壊されたエフェクト
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locateWith(this);
         }
@@ -182,7 +182,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //            //一撃でチップ消滅の攻撃力
 //
 //            //破壊されたエフェクト
-//            EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
+//            EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
 //            if (pExplo001) {
 //                pExplo001->locateWith(this);
 //                pExplo001->activate();
@@ -195,7 +195,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //    } else if (pOther->getKind() & KIND_CHIKEI) {
 //        //地形相手は無条件さようなら
 //        //破壊されたエフェクト
-//        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
+//        EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
 //        if (pExplo001) {
 //            pExplo001->locateWith(this);
 //        }

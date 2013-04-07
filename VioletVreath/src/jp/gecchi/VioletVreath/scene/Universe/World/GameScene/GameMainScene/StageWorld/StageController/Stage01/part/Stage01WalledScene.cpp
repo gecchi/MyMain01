@@ -79,8 +79,8 @@ void Stage01WalledScene::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-    if (getActivePartFrame() == _paFrame_NextEvent[_cnt_event]) {
-        switch (getActivePartFrame()) {
+    if (getActiveFrame() == _paFrame_NextEvent[_cnt_event]) {
+        switch (getActiveFrame()) {
             case 1: {
                 break;
             }
@@ -160,7 +160,7 @@ void Stage01WalledScene::processBehavior() {
     }
     // gen02 end
 
-  if (getActivePartFrame() == 1) {
+  if (getActiveFrame() == 1) {
       P_COMMON_SCENE->setScrollingFunction(_pFuncScrolling);
       P_COMMON_SCENE->setScrollSpeed(_scroll_speed);
   }

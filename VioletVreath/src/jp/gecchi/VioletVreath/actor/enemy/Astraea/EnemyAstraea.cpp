@@ -108,7 +108,7 @@ void EnemyAstraea::processBehavior() {
                 _pKurokoA->setMvVelo(2000);
                 //_pKurokoA->setMvVelo(0);
             }
-            if (getActivePartFrame() % laser_interval_ == 0) {
+            if (getActiveFrame() % laser_interval_ == 0) {
                 _pProg->changeNext();
             }
             break;

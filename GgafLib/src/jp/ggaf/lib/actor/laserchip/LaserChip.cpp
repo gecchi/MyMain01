@@ -164,7 +164,7 @@ void LaserChip::processSettlementBehavior() {
     } else {
         _chip_kind = 4; //æ’[ƒ`ƒbƒvB‰½‚à•`‰æ‚µ‚½‚­‚È‚¢
         _pLeader = this;
-        if (getActivePartFrame() > 1 && _pChip_behind == nullptr) {
+        if (getActiveFrame() > 1 && _pChip_behind == nullptr) {
             sayonara();
         }
         setHitAble(false);
@@ -175,7 +175,7 @@ void LaserChip::processSettlementBehavior() {
 
     //Å‰‚Í‰œ‚Å‚àƒnƒbƒLƒŠ‰f‚éB‚ª
     //1•bŒã‚Í‹——£‚ÉŠñ‚Á‚Ä”–‚Ü‚éŽd—l
-    if (getActivePartFrame() > 60 && _force_alpha > 0) {
+    if (getActiveFrame() > 60 && _force_alpha > 0) {
         _force_alpha -= 0.01;
     }
     GgafDxMeshSetActor::processSettlementBehavior(); //‚W•ª–Ø“o˜^

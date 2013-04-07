@@ -868,7 +868,7 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectItem(int prm_index) {
         }
 #endif
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.current(prm_index);
-        if (T::getActivePartFrame() > 1) {
+        if (T::getActiveFrame() > 1) {
             moveCursor(true);  //スムーズ移動有り
         } else {
             moveCursor(false); //スムーズ移動無し
@@ -1145,7 +1145,7 @@ void MenuActor<T>::processBehavior() {
     if (_with_rising) {
         processRising();
     }
-    if (_can_controll && T::getActivePartFrame() > 2) {
+    if (_can_controll && T::getActiveFrame() > 2) {
         if (condDecision()) {
             _will_be_just_decided_next_frame = true;
         } else if (condCancel()) {

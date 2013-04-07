@@ -12,8 +12,8 @@
  * 共通オブジェクト取得マクロ
  * EffectExplosion001, EffectTurbo002, MagicPointItem001, MagicPointItem002 のみ可能
  */
-#define employFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch())
-#define employDelayFromCommon(X, F) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch((F)))
+#define dispatchFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch())
+#define dispatchDelayFromCommon(X, F) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch((F)))
 #define employForceFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatchForce())
 #define employForceDelayFromCommon(X, F) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatchForce((F)))
 

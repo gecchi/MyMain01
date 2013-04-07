@@ -34,10 +34,10 @@ void FormationMassalia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 
 void FormationMassalia::processBehavior() {
     updateRankParameter();
-    if (getActivePartFrame() >= RR_FormationMassalia_DurationFrames(_RANK_)) {
+    if (getActiveFrame() >= RR_FormationMassalia_DurationFrames(_RANK_)) {
         sayonara(20*60);
     } else {
-        if (canCallUp() && (getActivePartFrame() % R_interval_frames_ == 0)) {
+        if (canCallUp() && (getActiveFrame() % R_interval_frames_ == 0)) {
             EnemyMassalia* pMassalia = (EnemyMassalia*)callUpMember();
             if (pMassalia) {
                 pMassalia->_pKurokoA->setMvVelo(R_mv_velo_);

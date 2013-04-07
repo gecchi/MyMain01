@@ -18,7 +18,7 @@ void EffectLockon001_Sub::initialize() {
 
 void EffectLockon001_Sub::onActive() {
     EffectLockon001::onActive();
-    _TRACE_(getActivePartFrame()<<",EffectLockon001_Sub::onActive()Athis="<<getName()<<"("<<this<<") pTarget_="<<pTarget_);
+    _TRACE_(getActiveFrame()<<",EffectLockon001_Sub::onActive()Athis="<<getName()<<"("<<this<<") pTarget_="<<pTarget_);
     pEffectLockon001_Main_ = (EffectLockon001_Main*)getParent()->getSubFirst();
     _pUvFlipper->setActivePtnToTop();
     setAlpha(0.01);

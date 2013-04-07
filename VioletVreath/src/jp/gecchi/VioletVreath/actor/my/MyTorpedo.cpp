@@ -116,8 +116,8 @@ void MyTorpedo::processBehavior() {
         }
         //ムーブ２
         if (move_section_ == 2) {
-            if (getActivePartFrame() < 120) {
-                if (getActivePartFrame() % 10 == 0) {
+            if (getActiveFrame() < 120) {
+                if (getActiveFrame() % 16 == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
                             pKurokoA->turnMvAngTwd(pTarget_,
@@ -147,8 +147,8 @@ void MyTorpedo::processBehavior() {
         }
         //ムーブ３
         if (move_section_ == 3) {
-            if (getActivePartFrame() < 300) {
-                if (getActivePartFrame() % 20 == 0) {
+            if (getActiveFrame() < 300) {
+                if (getActiveFrame() % 32 == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
                             pKurokoA->turnMvAngTwd(pTarget_,
@@ -219,7 +219,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //自身のinactive()はprocessBehavior()で行われ
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 
-    //爆風発生
+    //爆風発生(TODO:爆風はデポジトリではなくて、絶対発生させるようにすること)
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)pOptionTorpedoCtrler_->pDepo_TorpedoBlast_->dispatch();
     if (pBlast) {
         pBlast->locateWith(this);

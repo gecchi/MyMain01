@@ -148,6 +148,7 @@ void EnemyThisbe::processBehavior() {
             }
             break;
         }
+
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 120); //閉じる

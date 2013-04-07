@@ -19,7 +19,7 @@ void FormationCeres002::initialize() {
 }
 
 void FormationCeres002::processBehavior() {
-    if (canCallUp() && (getActivePartFrame()-1) % 80 == 0) {
+    if (canCallUp() && (getActiveFrame()-1) % 64 == 0) {
         EnemyCeres* pCeres = (EnemyCeres*)callUpMember();
         if (pCeres) {
             pCeres->activate();

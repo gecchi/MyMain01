@@ -24,13 +24,13 @@ void EffectEntry002::onActive() {
 }
 
 void EffectEntry002::processBehavior() {
-    if (getActivePartFrame() == 1) {
+    if (getActiveFrame() == 1) {
         _pScaler->intoTargetScaleLinerUntil(R_SC(1.0), 60);
     }
-    if (getActivePartFrame() == 120) {
+    if (getActiveFrame() == 120) {
         _pScaler->intoTargetScaleLinerUntil(R_SC(0.0), 60);
     }
-    if (getActivePartFrame() == 180) {
+    if (getActiveFrame() == 180) {
         sayonara();
     }
     //_pUvFlipper->behave();

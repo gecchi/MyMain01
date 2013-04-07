@@ -48,7 +48,7 @@ void EnemyThisbeLaserChip001::processBehaviorHeadChip() {
         pKurokoStepper_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
     }
 
-    if (getActivePartFrame() == 2) {
+    if (getActiveFrame() == 2) {
         pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_DIRECTION); //Œü‚¢‚½•ûŒü‚Éƒ[ƒ‹ƒh•ÏŠ·
     }
     pKurokoStepper_->behave();

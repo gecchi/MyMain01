@@ -52,7 +52,7 @@ void EnemyCeresShot001::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     //•ûŒü“]Š·ŠJn
-    if (getActivePartFrame() == frame_TurnBegin_) {
+    if (getActiveFrame() == frame_TurnBegin_) {
 
         _pKurokoA->turnMvAngTwd(P_MYSHIP,
                                 angVelo_Turn_, 0,
@@ -61,7 +61,7 @@ void EnemyCeresShot001::processBehavior() {
     }
 
     //•ûŒü“]Š·I—¹
-    if (getActivePartFrame() == frame_TurnBegin_ + frame_TurnInterval_) {
+    if (getActiveFrame() == frame_TurnBegin_ + frame_TurnInterval_) {
         _pKurokoA->setRzRyMvAngVelo(0);
         _pKurokoA->_mv_ang_ry_target_flg = false;
         _pKurokoA->_mv_ang_rz_target_flg = false;

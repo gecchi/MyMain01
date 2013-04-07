@@ -37,7 +37,7 @@ void EnemySappho::processBehavior() {
              _pAFader->setAlpha(0);
              _pKurokoA->setMvVelo(0);
              _pKurokoA->relateMvFaceAng(true);
-             _pKurokoA->setMvAngTwd(hanging_pos_._X, hanging_pos_._Y, hanging_pos_._Z);
+             _pKurokoA->setMvAngTwd(&hanging_pos_);
              _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
@@ -58,8 +58,7 @@ void EnemySappho::processBehavior() {
              if (_pProg->isJustChanged()) {
                  //滞留ポイントへGO!
                  velo mv_velo = RR_EnemySappho_MvVelo(_RANK_);
-                 coord d = UTIL::getDistance(_X, _Y, _Z,
-                                             hanging_pos_._X, hanging_pos_._Y, hanging_pos_._Z);
+                 coord d = UTIL::getDistance(this, &hanging_pos_);
                  _pKurokoA->slideMvByVD(mv_velo,
                                         RND(-PX_C(0.5),PX_C(0.5)),
                                         d, 0.2, 0.8);
@@ -122,7 +121,7 @@ void EnemySappho::processBehavior() {
              //さよなら準備
              if (_pProg->isJustChanged()) {
                  //ゆっくりさよならポイントへ向ける
-                 _pKurokoA->turnMvAngTwd(leave_pos_._X, leave_pos_._Y, leave_pos_._Z,
+                 _pKurokoA->turnMvAngTwd(&leave_pos_,
                                          D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
                  _pKurokoA->setMvAcce(10);
              }
@@ -139,7 +138,7 @@ void EnemySappho::processBehavior() {
          case PROG_MOVE04: {
              //さよなら～
              if (_pProg->isJustChanged()) {
-                 _pKurokoA->turnMvAngTwd(leave_pos_._X, leave_pos_._Y, leave_pos_._Z,
+                 _pKurokoA->turnMvAngTwd(&leave_pos_,
                                          D_ANG(1), 0, TURN_CLOSE_TO, false);
                  _pKurokoA->setMvAcce(100+(_RANK_*200));
              }

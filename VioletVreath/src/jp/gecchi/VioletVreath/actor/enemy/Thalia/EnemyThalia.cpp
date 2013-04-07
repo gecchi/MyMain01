@@ -92,7 +92,7 @@ void EnemyThalia::processBehavior() {
             break;
         }
         case PROG_IN_FIRE: {
-            if (getActivePartFrame() % 10 == 0) {
+            if (getActiveFrame() % 16 == 0) {
                 _pKurokoA->turnMvAngTwd(P_MYSHIP,
                                         10, 0,
                                         TURN_CLOSE_TO, false);

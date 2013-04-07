@@ -29,7 +29,11 @@ void SpriteLabelBonus001::onActive() {
 }
 
 void SpriteLabelBonus001::processBehavior() {
-    if (getActivePartFrame() > 60*10) {
+    if (getActiveFrame() == 60) {
+        _pKurokoA->turnMvAngTwd(P_CAM,
+                                D_ANG(3), 0, TURN_CLOSE_TO, true);
+    }
+    if (getActiveFrame() > 60*10) {
         addAlpha(-0.01);
         if (getAlpha() <= 0.0) {
             sayonara();

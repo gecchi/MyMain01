@@ -61,7 +61,7 @@ void MyOptionWateringLaserChip001::onActive() {
 
 void MyOptionWateringLaserChip001::processBehavior() {
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
-    if (getActivePartFrame() > 6) {
+    if (getActiveFrame() > 6) {
         if (lockon_st_ == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
                 moveChip(pMainLockOnTarget->_X,

@@ -32,7 +32,7 @@ void FormationHebe::onActive() {
 }
 
 void FormationHebe::processBehavior() {
-    if (canCallUp() && (getActivePartFrame() % rr_interval_frames_ == 0)) {
+    if (canCallUp() && (getActiveFrame() % rr_interval_frames_ == 0)) {
         EnemyHebe* pHebe = (EnemyHebe*)callUpMember(rr_num_formation_);
         if (pHebe) {
             SplineKurokoStepper* pKurokoStepper = pSplManufConnection_->peek()->

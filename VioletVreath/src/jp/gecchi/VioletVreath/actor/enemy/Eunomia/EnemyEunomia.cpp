@@ -58,14 +58,12 @@ void EnemyEunomia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
         case PROG_ENTRY: {
-            pKurokoStepper_->start(SplineKurokoStepper::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+            pKurokoStepper_->start(SplineKurokoStepper::ABSOLUTE_COORD);
             _pProg->changeNext();
             break;
         }
         case PROG_SPLINE_MOVE: {
-            if (pKurokoStepper_->isStepping()) {
-                //スプライン移動終了の待ちぼうけ
-            } else {
+            if (pKurokoStepper_->isFinished()) {
                 _pProg->changeNext(); //次へ
             }
             break;

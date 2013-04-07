@@ -14,7 +14,7 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     setZEnable(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //Zバッファは書き込み無しに強制
     setSpecialDrawDepth(1); //描画順序を最前面描画に強制。ロックオンエフェクトが隠れないようにするため。
-    setAlpha(9.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
+    setAlpha(0.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
     setHitAble(false); //当たり判定無し
     _pSeTx->set(0, "WAVE_LOCKON_001"); //効果音定義

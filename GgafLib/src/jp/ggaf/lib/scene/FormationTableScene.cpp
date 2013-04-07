@@ -25,11 +25,11 @@ GgafGroupHead* FormationTableScene::addToTable(GgafFormation* prm_pFormationActo
 
 void FormationTableScene::onActive() {
     if (_table.length() > 0) {
-        _frame_of_current_part_began = getActivePartFrame();
+        _frame_of_current_part_began = getActiveFrame();
         _table.first();
         _table.getCurrent()->_pFormationActor->activate();
         //OK
-        //_frame_of_current_part_began = getActivePartFrame(); todo:絶対に０になるし。相対フレームでいいっか・・・
+        //_frame_of_current_part_began = getActiveFrame(); todo:絶対に０になるし。相対フレームでいいっか・・・
         _TRACE_("FormationTableScene::onActive() ["<<getName()<<"] 来ました。");
     } else {
         throwGgafCriticalException("FormationTableScene::onActive() ["<<getName()<<"] テーブルにアクターが未だありません");
@@ -68,7 +68,7 @@ void FormationTableScene::processBehavior() {
             } else {
                 _TRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] pActiveActor="<<pF->getName()<<" 消滅により早回しきたー！！");
                 //最終パートではない場合、テーブル全体の許容フレームか判断
-                if (_max_perform_frame <  getActivePartFrame()) {
+                if (_max_perform_frame <  getActiveFrame()) {
                     //収まらないと言うわけで、以降は全て無視されてシーン終了
                     _TRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了１！！");
                     sayonara(FORMATION_END_DELAY); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
@@ -77,7 +77,7 @@ void FormationTableScene::processBehavior() {
                     //余裕があるため次のパートをアクティブにする。
                     TblElem* n = _table.next(); //アクティブを次のパートへ
                     n->_pFormationActor->activate();     //敵アクティブ
-                    _frame_of_current_part_began = getActivePartFrame();
+                    _frame_of_current_part_began = getActiveFrame();
                 }
             }
         } else {
@@ -89,8 +89,8 @@ void FormationTableScene::processBehavior() {
                 //このsayonara() により、本処理先頭の wasDeclaredEnd() が真となる
             } else {
                 //max_delay_offset過ぎれば次へ
-                if (getActivePartFrame() >= e->_max_delay_offset+_frame_of_current_part_began) {
-                    if (_max_perform_frame <  getActivePartFrame()) {
+                if (getActiveFrame() >= e->_max_delay_offset+_frame_of_current_part_began) {
+                    if (_max_perform_frame <  getActiveFrame()) {
                         //収まらないと言うわけで、以降は全て無視され共生終了
                         _TRACE_("FormationTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了２！！");
                         sayonara(FORMATION_END_DELAY); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
@@ -98,7 +98,7 @@ void FormationTableScene::processBehavior() {
                     } else {
                         TblElem* n = _table.next(); //アクティブを次のパートへ
                         n->_pFormationActor->activate();
-                        _frame_of_current_part_began = getActivePartFrame();
+                        _frame_of_current_part_began = getActiveFrame();
                     }
 
                 }

@@ -65,8 +65,7 @@ void EnemyAtalante::processBehavior() {
         case PROG_MOVE01_2: {
             if (_pProg->isJustChanged()) {
             }
-            MyShip* pMyShip = P_MYSHIP;
-            if (Z_ok_ == false && pMyShip->_Z - PX_C(10) <= _Z && _Z <= pMyShip->_Z + PX_C(10)) {
+            if (Z_ok_ == false && pMyShip->_Z - PX_C(5) <= _Z && _Z <= pMyShip->_Z + PX_C(5)) {
                 //Z座標揃った
                 Z_ok_ = true;
                 _pKurokoA->addMvVelo(2000);
@@ -81,7 +80,7 @@ void EnemyAtalante::processBehavior() {
                 }
             }
 
-            if (Y_ok_ == false && pMyShip->_Y - PX_C(10) <= _Y && _Y <= pMyShip->_Y + PX_C(10)) {
+            if (Y_ok_ == false && pMyShip->_Y - PX_C(5) <= _Y && _Y <= pMyShip->_Y + PX_C(5)) {
                 //Y座標揃った
                 Y_ok_ = true;
                 _pKurokoA->addMvVelo(2000);
@@ -111,7 +110,6 @@ void EnemyAtalante::processBehavior() {
         case PROG_MOVE01_3: {
             if (_pProg->isJustChanged()) {
                 //X軸方向に動く
-                MyShip* pMyShip = P_MYSHIP;
                 if (pMyShip->_X <= _X) {
                     //左へ折れる
                     _pKurokoA->turnRzRyMvAngTo(D180ANG, 0,
@@ -130,7 +128,7 @@ void EnemyAtalante::processBehavior() {
 
         case PROG_MOVE01_4: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setMvAcce(300);
+                _pKurokoA->setMvAcce(300);//加速開始
             }
             break;
         }
@@ -149,7 +147,7 @@ void EnemyAtalante::processJudgement() {
 
 void EnemyAtalante::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (getActivePartFrame() < 30 && (pOther->getKind() & KIND_CHIKEI)) {
+    if (getActiveFrame() < 30 && (pOther->getKind() & KIND_CHIKEI)) {
         //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
     }

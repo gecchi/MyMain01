@@ -41,7 +41,7 @@ void EnemyAstraeaLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
-    if (getActivePartFrame() == 40) {
+    if (getActiveFrame() == 40) {
         _pKurokoA->turnMvAngTwd(P_MYSHIP,
                                 7000, 0,
                                 TURN_ANTICLOSE_TO, false);

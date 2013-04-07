@@ -62,7 +62,7 @@ void CubeMapMeshTestActor::processBehavior() {
 //    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
 //        _X = 0;
 //    }
-////    _TRACE_(getActivePartFrame() <<":"<<_X<<","<<_Y<<","<<_Z);
+////    _TRACE_(getActiveFrame() <<":"<<_X<<","<<_Y<<","<<_Z);
 //
 //
 //    _pKurokoA->behave();

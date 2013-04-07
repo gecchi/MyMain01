@@ -1466,24 +1466,13 @@ void GgafDxKurokoA::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz
     }
 }
 
-void GgafDxKurokoA::setMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
-    setMvAngTwd(
-        prm_pActor_Target->_X,
-        prm_pActor_Target->_Y,
-        prm_pActor_Target->_Z
-    );
-}
-
-void GgafDxKurokoA::setMvAngTwd(coord prm_tX, coord prm_tY) {
-    setMvAngTwd(prm_tX, prm_tY, _pActor->_Z);
-}
 
 void GgafDxKurokoA::setMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
     UTIL::convVectorToRzRy(prm_tX - _pActor->_X,
-                     prm_tY - _pActor->_Y,
-                     prm_tZ - _pActor->_Z,
-                     _vX, _vY, _vZ,
-                     _angRzMv, _angRyMv );
+                           prm_tY - _pActor->_Y,
+                           prm_tZ - _pActor->_Z,
+                           _vX, _vY, _vZ,
+                           _angRzMv, _angRyMv );
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
         setFaceAng(AXIS_Z, _angRzMv);
     }

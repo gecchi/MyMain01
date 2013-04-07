@@ -54,7 +54,7 @@ void FormationEunomia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 void FormationEunomia::processBehavior() {
-    if (canCallUp() && (getActivePartFrame() % RR_interval_frames_ == 0)) {
+    if (canCallUp() && (getActiveFrame() % RR_interval_frames_ == 0)) {
         for (int i = 0; i < RR_num_formation_col_; i++) {
             EnemyEunomia* pEunomia = (EnemyEunomia*)callUpMember(RR_num_formation_col_*RR_num_formation_row_);
             if (pEunomia) {
@@ -67,7 +67,7 @@ void FormationEunomia::processBehavior() {
         }
     }
 
-    if (getActivePartFrame() == 60 * 20) {
+    if (getActiveFrame() == 60 * 20) {
         MyShip* pMy = P_MYSHIP;
         GgafActor* pFollower = _listFollower.getCurrent();
         int num_follwer = _listFollower.length();

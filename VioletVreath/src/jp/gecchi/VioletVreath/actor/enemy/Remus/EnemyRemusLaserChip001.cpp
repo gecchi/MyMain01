@@ -32,7 +32,7 @@ void EnemyRemusLaserChip001::processBehavior() {
 
 void EnemyRemusLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (getActivePartFrame() < 30 && (pOther->getKind() & KIND_CHIKEI)) {
+    if (getActiveFrame() < 30 && (pOther->getKind() & KIND_CHIKEI)) {
         //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
     }

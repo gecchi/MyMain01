@@ -576,14 +576,30 @@ public:
      * @param prm_tX 目標X座標
      * @param prm_tY 目標Y座標
      */
-    void setMvAngTwd(coord prm_tX, coord prm_tY);
+    inline void setMvAngTwd(coord prm_tX, coord prm_tY) {
+        setMvAngTwd(prm_tX, prm_tY, _pActor->_Z);
+    }
 
     /**
      * 目標座標点指を対象アクターの座標指定で移動方角(RzRy)を設定。.
      * 方向ベクトル正規化も内部で行なう。
      * @param prm_pActor_Target 目標対象アクター
      */
-    void setMvAngTwd(GgafDxGeometricActor* prm_pActor_Target);
+    inline void setMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
+        setMvAngTwd(
+            prm_pActor_Target->_X,
+            prm_pActor_Target->_Y,
+            prm_pActor_Target->_Z
+        );
+    }
+
+    inline void setMvAngTwd(GgafDxGeoElem* prm_pGeoElem) {
+        setMvAngTwd(
+            prm_pGeoElem->_X,
+            prm_pGeoElem->_Y,
+            prm_pGeoElem->_Z
+        );
+    }
 
 
     void setStopTargetMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ);
@@ -651,7 +667,7 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void turnFaceAngTwd(GgafDxGeometricActor* prm_pActor_Target,
+    inline void turnFaceAngTwd(GgafDxGeometricActor* prm_pActor_Target,
                         angvelo prm_angVelo, angacce prm_angAcce,
                         int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
@@ -664,7 +680,19 @@ public:
                 prm_optimize_ang
         );
     }
-
+    inline void turnFaceAngTwd(GgafDxGeoElem* prm_pGeoElem,
+                        angvelo prm_angVelo, angacce prm_angAcce,
+                        int prm_way, bool prm_optimize_ang) {
+        turnFaceAngTwd(
+                prm_pGeoElem->_X,
+                prm_pGeoElem->_Y,
+                prm_pGeoElem->_Z,
+                prm_angVelo,
+                prm_angAcce,
+                prm_way,
+                prm_optimize_ang
+        );
+    }
     /**
      * 軸回転方角(Z軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRz_Target 目標軸回転方角(Z軸)
@@ -791,13 +819,27 @@ public:
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void turnMvAngTwd(GgafDxGeometricActor* prm_pActor_Target,
+    inline void turnMvAngTwd(GgafDxGeometricActor* prm_pActor_Target,
                       angvelo prm_angVelo, angacce prm_angAcce,
                       int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
+                prm_angVelo,
+                prm_angAcce,
+                prm_way,
+                prm_optimize_ang
+        );
+    }
+
+    inline void turnMvAngTwd(GgafDxGeoElem* prm_pGeoElem,
+                      angvelo prm_angVelo, angacce prm_angAcce,
+                      int prm_way, bool prm_optimize_ang) {
+        turnMvAngTwd(
+                prm_pGeoElem->_X,
+                prm_pGeoElem->_Y,
+                prm_pGeoElem->_Z,
                 prm_angVelo,
                 prm_angAcce,
                 prm_way,

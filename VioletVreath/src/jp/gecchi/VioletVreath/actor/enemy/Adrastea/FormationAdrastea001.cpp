@@ -15,7 +15,7 @@ void FormationAdrastea001::initialize() {
 }
 
 void FormationAdrastea001::processBehavior() {
-    if (canCallUp() && (getActivePartFrame()-1) % 20 == 0) {
+    if (canCallUp() && (getActiveFrame()-1) % 32 == 0) {
         callUpMember();
     }
 }

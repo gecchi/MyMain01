@@ -29,7 +29,7 @@ void FormationIris001::onActive() {
 }
 
 void FormationIris001::processBehavior() {
-    if (canCallUp() && (getActivePartFrame()-1) % interval_frames_ == 0) {
+    if (canCallUp() && (getActiveFrame()-1) % interval_frames_ == 0) {
         EnemyIris* pIris = (EnemyIris*)callUpMember();
         if (pIris) {
             pIris->locate(MyShip::lim_behaind_ - 500000, 0, MyShip::lim_zleft_ * 0.8);

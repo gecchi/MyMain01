@@ -71,7 +71,7 @@ void MyOptionController::processBehavior() {
         pOption_->return_to_base_radiusPosition_seq_ = true;
         pOption_->return_to_base_angExpanse_seq_= true;
         if (pOption_->isActive()) {
-            EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
+            EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
             if (pTurbo002) {
                 pTurbo002->locateWith(pOption_);
             }
@@ -99,7 +99,7 @@ void MyOptionController::processBehavior() {
         _pKurokoB->setZeroVxyzMvVelo();
         _pKurokoB->setZeroVxyzMvAcce();
         if (pOption_->isActive()) {
-            EffectTurbo002* pTurbo002 = employFromCommon(EffectTurbo002);
+            EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
             if (pTurbo002) {
                 pTurbo002->locateWith(pOption_);
             }

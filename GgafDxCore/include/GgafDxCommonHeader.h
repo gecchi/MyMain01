@@ -595,7 +595,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+
 #include "jp/ggaf/dxcore/util/GgafDxAgainstWay.h"
 #include "jp/ggaf/dxcore/util/GgafDxSphereRadiusVectors.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
@@ -603,6 +603,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoChain.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 #include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"

@@ -47,9 +47,7 @@ void EnemyPallas::processBehavior() {
     }
     if (_pProg->get() == 1) {
         //スプライン移動終了待ち
-        if (pKurokoStepper_->isStepping()) {
-            //待ちぼうけ
-        } else {
+        if (pKurokoStepper_->isFinished()) {
             _pProg->changeNext(); //次のパターンへ
         }
     }
@@ -65,7 +63,7 @@ void EnemyPallas::processBehavior() {
         case 1:  //【パターン１：スプライン移動終了待ち】
             if (pKurokoStepper_) {
                 //スプライン移動有り
-                if (!(pKurokoStepper_->isStepping())) {
+                if (pKurokoStepper_->isFinished()) {
                     iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {

@@ -456,7 +456,7 @@ void MyShip::processBehavior() {
     if (invincible_frames_ > 0) {
         setHitAble(false);
         invincible_frames_ --;
-        if (getActivePartFrame() % 2 == 0) {
+        if (getActiveFrame() % 2 == 0) {
             setAlpha(0.6);
         } else {
             setAlpha(0);

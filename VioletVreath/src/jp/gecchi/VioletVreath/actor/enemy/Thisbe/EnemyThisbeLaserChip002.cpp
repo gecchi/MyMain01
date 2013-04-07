@@ -73,7 +73,7 @@ void EnemyThisbeLaserChip002::processBehavior() {
     }
 
     RefractionLaserChip::processBehavior();
-    if (getActivePartFrame() == end_active_frame_+5) {
+    if (getActiveFrame() == end_active_frame_+5) {
         sayonara();
     }
 }

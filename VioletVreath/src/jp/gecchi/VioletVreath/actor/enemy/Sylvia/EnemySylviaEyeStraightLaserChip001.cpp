@@ -16,7 +16,7 @@ void EnemySylviaEyeStraightLaserChip001::initialize() {
     registHitAreaCube_AutoGenMidColli(300000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     //setScaleR(5.0);
-setScaleR(500.0);
+    setScaleR(500.0);
     setAlpha(0.9);
 }
 

@@ -78,8 +78,8 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
             }
             _pChip_prev_dispatch = pChip;
             _frame_of_behaving_prev_dispatch = pChip->getBehaveingFrame();
-            //10回に一回は地形ヒットありのチップとする
-            if (_num_continual_dispatch_count % 10 == 0) {
+            //8回に一回は地形ヒットありのチップとする
+            if (_num_continual_dispatch_count % 8 == 0) {
                 pChip->_can_chikei_hit = true;
             } else {
                 pChip->_can_chikei_hit = false;

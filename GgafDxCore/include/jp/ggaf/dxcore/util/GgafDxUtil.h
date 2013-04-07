@@ -272,9 +272,8 @@ public:
                     )
                  );
     }
-
-
-    static double getDistance(GgafDxCore::GgafDxGeometricActor* pA1, GgafDxCore::GgafDxGeometricActor* pA2) {
+    template<class T>
+    static double getDistance(GgafDxCore::GgafDxGeometricActor* pA1, T* pA2) {
         return sqrt(
                       (
                         ((double)(pA2->_X - pA1->_X)) * ((double)(pA2->_X - pA1->_X))
@@ -286,6 +285,18 @@ public:
                     );
     }
 
+    template<class T>
+    static double getDistance(GgafDxCore::GgafDxGeoElem* pA1, T* pA2) {
+        return sqrt(
+                      (
+                        ((double)(pA2->_X - pA1->_X)) * ((double)(pA2->_X - pA1->_X))
+                      ) + (
+                        ((double)(pA2->_Y - pA1->_Y)) * ((double)(pA2->_Y - pA1->_Y))
+                      ) + (
+                        ((double)(pA2->_Z - pA1->_Z)) * ((double)(pA2->_Z - pA1->_Z))
+                      )
+                    );
+    }
 
     /**
      * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .

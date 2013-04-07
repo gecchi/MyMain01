@@ -108,7 +108,7 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 0) {
         //スプライン移動中
-        if (pProgram_Tamago01Move_ && !(pProgram_Tamago01Move_->isStepping())) {
+        if (pProgram_Tamago01Move_ && pProgram_Tamago01Move_->isFinished()) {
             iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
         }
     }
@@ -179,7 +179,7 @@ void EnemyTamago01::processJudgement() {
 
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
+    EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
     _pSeTx->play3D(0);
     _TRACE_("HIT!!!");
     if (pExplo001) {

@@ -274,7 +274,7 @@ void VvvCamWorker::processBehavior() {
         pCam->_pKurokoA->setMvAngTwd(move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
 
         int td1 = UTIL::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
-                                           move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
+                                    move_target_X_CAM_, move_target_Y_CAM_, move_target_Z_CAM_);
         if (ABS(td1) > 10) {
             pCam->_pKurokoA->slideMvByDT(0, td1, 20, 0.4, 0.6);
         }
@@ -284,7 +284,7 @@ void VvvCamWorker::processBehavior() {
     } else {
         pVP->_pKurokoA->setMvAngTwd(move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
         int td2 = UTIL::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
-                                           move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
+                                    move_target_X_VP_, move_target_Y_VP_, move_target_Z_VP_);
         if (ABS(td2) > 10) {
             pVP->_pKurokoA->slideMvByDT(0, td2, 20, 0.4, 0.6);
         }

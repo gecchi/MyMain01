@@ -17,22 +17,21 @@ void MyTorpedoTail::initialize() {
     _SX = _SY = _SZ = R_SC(6);
     setAlpha(0.3);
     _bounding_sphere_radius = 5.0f;
-
 }
 
 void MyTorpedoTail::onActive() {
     HomingLaserChip::onActive();
 }
+
 void MyTorpedoTail::onInactive() {
     HomingLaserChip::onInactive();
 }
-void MyTorpedoTail::processBehaviorHeadChip() {
 
+void MyTorpedoTail::processBehaviorHeadChip() {
     locateWith(pTorpedo_);
     rotateWith(pTorpedo_);
 }
 
 MyTorpedoTail::~MyTorpedoTail() {
-
 }
 

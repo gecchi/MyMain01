@@ -93,14 +93,14 @@ void EnemySylvia::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _TRACE_("EnemySylvia::processBehavior() _pProg=PROG_EXPLOSION きたわ～");
             }
-            if (_pProg->getFrameInProgress() % 10 == 0) {
+            if (_pProg->getFrameInProgress() % 16 == 0) {
                 //沸々爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;
                 GgafDxDrawableActor* pE;
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = _pColliChecker->_pCollisionArea->_papColliPart[j];
-                    pE = employDelayFromCommon(EffectExplosion004, RND(1,10));
+                    pE = dispatchDelayFromCommon(EffectExplosion004, RND(1,10));
                     if (pE) {
                         pE->locate(_X + pPart->_cx + RND(-r2_, +r2_),
                                    _Y + pPart->_cy + RND(-r2_, +r2_),
@@ -117,7 +117,7 @@ void EnemySylvia::processBehavior() {
                 GgafDxDrawableActor* pE;
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = _pColliChecker->_pCollisionArea->_papColliPart[j];
-                    pE = employFromCommon(EffectExplosion004);
+                    pE = dispatchFromCommon(EffectExplosion004);
                     if (pE) {
                         pE->locate(_X + pPart->_cx,
                                    _Y + pPart->_cy,

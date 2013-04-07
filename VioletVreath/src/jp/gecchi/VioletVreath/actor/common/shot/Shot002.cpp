@@ -28,13 +28,13 @@ void Shot002::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    if (getActivePartFrame() == 70) {
+    if (getActiveFrame() == 70) {
         _pKurokoA->turnMvAngTwd(P_MYSHIP,
                                 3000, 0,
                                 TURN_CLOSE_TO, true);
     }
 
-    if (getActivePartFrame() > 70 && !_pKurokoA->isTurningMvAng()) {
+    if (getActiveFrame() > 70 && !_pKurokoA->isTurningMvAng()) {
         _pKurokoA->turnMvAngTwd(P_MYSHIP,
                                 100, 0,
                                 TURN_CLOSE_TO, true);

@@ -28,7 +28,7 @@ void EnemyHermioneArmHead::initialize() {
 void EnemyHermioneArmHead::processBehavior() {
     EnemyHermioneArm::processBehavior();
 
-    if (getActivePartFrame() % 10 == 0 &&
+    if (getActiveFrame() % 10 == 0 &&
         (_pProg->get() == PROG_NOTHING || _pProg->get() == PROG_AIMING)) { //èoåªä‘äu
         GgafDxDrawableActor* pShot = UTIL::activateShotOf(this);
         if (pShot) {

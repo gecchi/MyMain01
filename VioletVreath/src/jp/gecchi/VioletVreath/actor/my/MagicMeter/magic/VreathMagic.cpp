@@ -146,7 +146,7 @@ void VreathMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 }
 void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
     if (beat_time_[prm_now_level] > 0) {
-        frame f = getActivePartFrame() % beat_time_[prm_now_level];
+        frame f = getActiveFrame() % beat_time_[prm_now_level];
 #ifdef MY_DEBUG
         if (f > beat_time_[prm_now_level]) {
             throwGgafCriticalException("VreathMagic::processEffectingBehavior ”ÍˆÍŠO‚Å‚·B f="<<f<<" beat_time_["<<prm_now_level<<"]");

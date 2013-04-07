@@ -64,7 +64,7 @@ void EnemyHebe::processBehavior() {
             if (_pProg->isJustChanged()) {
                 pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_COORD);
             }
-            if (!pKurokoStepper_->isStepping()) {
+            if (pKurokoStepper_->isFinished()) {
                 _pProg->changeNext();
             }
             break;

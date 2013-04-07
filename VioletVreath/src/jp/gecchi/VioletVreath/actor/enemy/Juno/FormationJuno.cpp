@@ -59,7 +59,7 @@ void FormationJuno::initialize() {
 }
 
 void FormationJuno::processBehavior() {
-    if (getActivePartFrame() % frame_app_interval_ == 0) {
+    if (getActiveFrame() % frame_app_interval_ == 0) {
         EnemyJuno* pEnemyJuno = (EnemyJuno*)pDepo_EnemyJuno_->dispatch();
         if (pEnemyJuno) {
             pEnemyJuno->_X = RND(X1_app_, X2_app_) + _X;

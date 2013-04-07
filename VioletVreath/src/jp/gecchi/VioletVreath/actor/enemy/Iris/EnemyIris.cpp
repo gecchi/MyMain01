@@ -49,7 +49,7 @@ void EnemyIris::processBehavior() {
         case 1:  //【パターン１：スプライン移動終了待ち】
             if (pKurokoStepper_) {
                 //スプライン移動有り
-                if (!(pKurokoStepper_->isStepping())) {
+                if (pKurokoStepper_->isFinished()) {
                     iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {

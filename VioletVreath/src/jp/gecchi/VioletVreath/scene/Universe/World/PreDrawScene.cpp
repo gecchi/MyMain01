@@ -105,7 +105,7 @@ void PreDrawScene::processBehavior() {
         }
     }
 //
-//    if (getActivePartFrame() == 1) {
+//    if (getActiveFrame() == 1) {
 ////
 ////        getSceneDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //CubeMapMeshTestActor
 ////        getSceneDirector()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //CubeMapMeshSetTestActor

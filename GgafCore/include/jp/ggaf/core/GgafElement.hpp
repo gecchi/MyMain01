@@ -606,7 +606,7 @@ public:
      *   ・２回以上呼び出されている。→ 何もしないでreturn<BR>
      * ② 次の内部フレームカウンタをリセット<BR>
      *   ・getBehaveingFrame() を 0 にする。<BR>
-     *   ・getActivePartFrame() を 0 にする。<BR>
+     *   ・getActiveFrame() を 0 にする。<BR>
      * ③ 下位実装処理の onReset() をコールバックする。<BR>
      * 補足:内部で initialize() 呼び出し直後に、１回だけ reset() は自動的に呼び出される。<BR>
      */
@@ -640,7 +640,7 @@ public:
     // もちろん、他のオブジェクトから、非表示(非活動)→表示(活動) をチェックし、reset() を実行してあげれば
     // 問題ないが、いつリセットされるのか、処理を追いかけないと分からないようになるというデメリットもあるのではないだろうか。
     // onActive() がコールされても、getBehaveingFrame() は「リセットされない」が、
-    // getActivePartFrame()は「リセット」される事に注意。
+    // getActiveFrame()は「リセット」される事に注意。
     // 主に敵弾など汎用的なアクターは、これに該当すると予想する。
     //
     // ・onReset() を使用すべき場合
@@ -831,7 +831,7 @@ public:
      * getBehaveingFrame() と同じタイミングで加算される。processBehavior()では、1 ～ を返す。
      * @return onActive() からの振る舞いフレーム数
      */
-    inline frame getActivePartFrame() {
+    inline frame getActiveFrame() {
         return _frame_of_behaving_since_onActive;
     }
 

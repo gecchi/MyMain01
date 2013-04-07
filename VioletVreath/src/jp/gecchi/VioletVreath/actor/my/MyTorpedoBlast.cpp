@@ -15,9 +15,7 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 
 void MyTorpedoBlast::initialize() {
     _pColliChecker->makeCollision(1);
-    _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(0));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, D_ANG(6));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(0));
+    _pKurokoA->setFaceAngVelo(D_ANG(0), D_ANG(6), D_ANG(0));
     setHitAble(true);
 }
 
@@ -27,7 +25,6 @@ void MyTorpedoBlast::onReset() {
     _pKurokoA->setMvVelo(0);
     _pScaler->setScale(R_SC(1));
     _pScaler->forceScaleRange(R_SC(1), R_SC(400));
-
 }
 
 void MyTorpedoBlast::onActive() {
@@ -49,7 +46,6 @@ void MyTorpedoBlast::processJudgement() {
 
 void MyTorpedoBlast::onInactive() {
 }
-
 
 void MyTorpedoBlast::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;

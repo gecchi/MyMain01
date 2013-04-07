@@ -45,7 +45,7 @@ void Shot004Yellow::processJudgement() {
         if (view_in_) {
             sayonara();
         }
-        if (getActivePartFrame() > 60) {
+        if (getActiveFrame() > 60) {
             sayonara();
         }
     } else {
@@ -62,7 +62,7 @@ void Shot004Yellow::onHit(GgafActor* prm_pOtherActor) {
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = employFromCommon(EffectExplosion001);
+        EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
         if (pExplo001) {
             pExplo001->locateWith(this);
         }

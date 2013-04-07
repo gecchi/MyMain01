@@ -53,7 +53,7 @@ void MyWave001::processBehavior() {
         _pKurokoA->setFaceAng(AXIS_Z, P_MYSHIP->_pKurokoA->_angFace[AXIS_Z]);
         _pKurokoA->setFaceAng(AXIS_Y, P_MYSHIP->_pKurokoA->_angFace[AXIS_Y]);
         _pKurokoA->setRzRyMvAng(P_MYSHIP->_pKurokoA->_angFace[AXIS_Z],
-                                     P_MYSHIP->_pKurokoA->_angFace[AXIS_Y]);
+                                P_MYSHIP->_pKurokoA->_angFace[AXIS_Y]);
         //		_X = P_MYSHIP->_X;
         //		_Y = P_MYSHIP->_Y;
         //		_Z = P_MYSHIP->_Z;

@@ -6,6 +6,7 @@ namespace GgafLib {
 
 /**
  * スプライン曲線移動を実行するためのオブジェクト .
+ * 黒衣Aに指示を出して移動を実現します。
  * 補完点に移動するため、粒度が荒いとカクカクです。
  * @version 1.00
  * @since 2009/10/27
@@ -131,9 +132,18 @@ public:
      * スプライン移動プログラム実行中か
      * @return true:実行中 / false:実行が終了している
      */
-    bool isStepping() {
+    inline bool isStepping() {
         return _is_stepping;
     }
+
+    /**
+     * スプライン移動が終了したか否か。 .
+     * @return true:実行が終了している / false:実行中
+     */
+    inline bool isFinished() {
+        return _is_stepping ? false : true;
+    }
+
     /**
      * スプラインの補完点と補完点の間の距離を取得する。
      * SplineManufacture::adjustAxisRate(double,double,double);<BR>

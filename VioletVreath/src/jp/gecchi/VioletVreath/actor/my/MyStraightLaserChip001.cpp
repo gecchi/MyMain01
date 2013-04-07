@@ -75,7 +75,7 @@ void MyStraightLaserChip001::processBehavior() {
     GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
 
     if (lockon_st_ == 1) {
-        if (getActivePartFrame() < 120) {
+        if (getActiveFrame() < 120) {
             if (pMainLockOnTarget) {
             } else {
                 lockon_st_ = 2;

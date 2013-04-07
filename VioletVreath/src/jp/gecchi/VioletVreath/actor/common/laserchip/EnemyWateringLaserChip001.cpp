@@ -60,13 +60,13 @@
 //
 //void EnemyWateringLaserChip001::processBehavior() {
 //    if (lockon_st_ == 1) {
-//        if (getActivePartFrame() < 100) {
+//        if (getActiveFrame() < 100) {
 //            maxAcceRange_+=100;
 //            _pKurokoA->forceVxMvAcceRange(-maxAcceRange_, maxAcceRange_);
 //            _pKurokoA->forceVyMvAcceRange(-maxAcceRange_, maxAcceRange_);
 //            _pKurokoA->forceVzMvAcceRange(-maxAcceRange_, maxAcceRange_);
 //            if (pOrg_->pLockonTarget_ && pOrg_->pLockonTarget_->isActiveInTheTree()) {
-//                float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
+//                float rate = 8.0 - 0.06*getActiveFrame(); //0.06 * 120 = 8.0
 //                rate = rate > 0 ? rate : 0;
 //                int fdx = pOrg_->pLockonTarget_->_X - (_X + _pKurokoA->_veloVxMv*rate);
 //                int fdy = pOrg_->pLockonTarget_->_Y - (_Y + _pKurokoA->_veloVyMv*rate);

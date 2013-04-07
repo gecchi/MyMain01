@@ -136,15 +136,15 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
             break;
         }
         case EF_EXPLOSION001: {
-            pE = employFromCommon(EffectExplosion001);
+            pE = dispatchFromCommon(EffectExplosion001);
             break;
         }
         case EF_EXPLOSION002: {
-            pE = employFromCommon(EffectExplosion002);
+            pE = dispatchFromCommon(EffectExplosion002);
             break;
         }
         case EF_EXPLOSION003: {
-            pE = employFromCommon(EffectExplosion003);
+            pE = dispatchFromCommon(EffectExplosion003);
             break;
         }
         default: {
@@ -170,7 +170,7 @@ GgafDxDrawableActor* MyStgUtil::activateShotOf(GgafDxGeometricActor* prm_pActor)
             break;
         }
         case SHOT_SMALL001: {
-            pI = employFromCommon(Shot004);
+            pI = dispatchFromCommon(Shot004);
             break;
         }
         default: {
@@ -195,11 +195,11 @@ GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor)
             break;
         }
         case ITEM_MP_SMALL: {
-            pI = employFromCommon(MagicPointItem001);
+            pI = dispatchFromCommon(MagicPointItem001);
             break;
         }
         case ITEM_MP_MIDDLE: {
-            pI = employFromCommon(MagicPointItem002);
+            pI = dispatchFromCommon(MagicPointItem002);
             break;
         }
         default: {
@@ -255,11 +255,11 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
             break;
         }
         case EF_ENTRY_SMALL001: {
-            pE = employFromCommon(EffectEntry001);
+            pE = dispatchFromCommon(EffectEntry001);
             break;
         }
         case EF_ENTRY_MIDDLE001: {
-            pE = employFromCommon(EffectEntry002);
+            pE = dispatchFromCommon(EffectEntry002);
             break;
         }
         default: {
@@ -283,7 +283,7 @@ GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_
             break;
         }
         case 1: {
-            pE = employFromCommon(EffectEntry001);
+            pE = dispatchFromCommon(EffectEntry001);
             break;
         }
         default: {
@@ -323,11 +323,11 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
             break;
         }
 //            case 2: {
-//                pE = employFromCommon(EffectExplosion002);
+//                pE = dispatchFromCommon(EffectExplosion002);
 //                break;
 //            }
 //            case 3: {
-//                pE = employFromCommon(EffectExplosion003);
+//                pE = dispatchFromCommon(EffectExplosion003);
 //                break;
 //            }
         default: {
@@ -353,11 +353,11 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
             break;
         }
         case ITEM_MP_SMALL: {
-            pI = employFromCommon(MagicPointItem001);
+            pI = dispatchFromCommon(MagicPointItem001);
             break;
         }
         case ITEM_MP_MIDDLE: {
-            pI = employFromCommon(MagicPointItem002);
+            pI = dispatchFromCommon(MagicPointItem002);
             break;
         }
         default: {
@@ -382,7 +382,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
         }
         case EF_TURBO: {
             //ターボエフェクト
-            pE = employFromCommon(EffectTurbo002);
+            pE = dispatchFromCommon(EffectTurbo002);
             break;
         }
         default: {

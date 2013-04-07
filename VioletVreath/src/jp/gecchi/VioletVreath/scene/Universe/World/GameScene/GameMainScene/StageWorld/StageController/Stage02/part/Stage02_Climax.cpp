@@ -20,14 +20,14 @@ void Stage02_Climax::processBehavior() {
         return;
     }
 
-    if (getActivePartFrame() == 60) {
+    if (getActiveFrame() == 60) {
         pBoss_ = (EnemyAstraea*)obtainActorFromFactory(11111111);
         pBoss_->_Z = -1800000;
         pBoss_->_Y = -100000;
         getSceneDirector()->addSubGroup(pBoss_);
     }
 
-    if (getActivePartFrame() > 60) {
+    if (getActiveFrame() > 60) {
         if (pBoss_->isDisappear()) {
             //isDisappear()‚É‚È‚è‚Á•ú‚µ‚ð‚È‚ñ‚Æ‚©‚·‚é
             _TRACE_("Stage02_Climax::processBehavior() EVENT_STG02_CLIMAX_WAS_BROKEN!!!!");
