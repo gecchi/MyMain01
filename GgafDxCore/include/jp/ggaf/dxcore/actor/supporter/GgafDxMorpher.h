@@ -140,7 +140,7 @@ public:
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetLinerUntil(int prm_target_mesh_no, float prm_target_weight, frame prm_spend_frame);
+    void morphLinerUntil(int prm_target_mesh_no, float prm_target_weight, frame prm_spend_frame);
 
     /**
      * モーフターゲットへ一定速度でモーフィングする（重み差分指定） .
@@ -148,18 +148,18 @@ public:
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_velo_weight 毎フレーム加算する重み差分(>0.0)。正の重みを指定する事。加算か減算かは自動判断する。
      */
-    void intoTargetLinerStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight);
+    void morphLinerStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight);
 
     /**
      * モーフターゲットへ加速指定でモーフィングする（重み速度、重み加速度差指定） .
-     * 重み加速度を0に指定すると intoTargetLinerStep とほぼ同じ意味になる。
-     * intoTargetLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（加速度だからできない）。
+     * 重み加速度を0に指定すると morphLinerStep とほぼ同じ意味になる。
+     * morphLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（加速度だからできない）。
      * @param prm_target_mesh_no モーフターゲットメッシュNO
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_velo_weight 初期重み速度
      * @param prm_acce_weight 重み加速度
      */
-    void intoTargetAcceStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight, float prm_acce_weight);
+    void morphAcceStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight, float prm_acce_weight);
 
     /**
      * モーフターゲットへ一定速度でモーフィングし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .

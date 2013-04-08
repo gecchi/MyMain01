@@ -84,7 +84,7 @@ void EnemyTamago01::processBehavior() {
 //        _pModel->_pTextureBlinker->->addScale(-2000);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
-//        _pModel->_pTextureBlinker->->intoTargetScaleAcceStep(3000, 0, 3);
+//        _pModel->_pTextureBlinker->->scaleAcceStep(3000, 0, 3);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
 //        _pModel->_pTextureBlinker->->loopLiner(20, -1);

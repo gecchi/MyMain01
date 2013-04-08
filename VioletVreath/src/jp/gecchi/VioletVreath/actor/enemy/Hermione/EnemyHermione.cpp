@@ -112,7 +112,7 @@ void EnemyHermione::processBehavior() {
 
         case PROG_ENTRY: {
             if (_pProg->getFrameInProgress() == 120) {
-                _pAFader->intoTargetAlphaAcceStep(1.0, 0.000, 0.0001);
+                _pAFader->fadeAcceStep(1.0, 0.000, 0.0001);
             }
             if (getAlpha() > 0.8) {
                 setHitAble(true);

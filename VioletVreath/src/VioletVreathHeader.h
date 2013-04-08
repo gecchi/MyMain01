@@ -172,6 +172,13 @@
 // FormationSappho001 ÇÃÉâÉìÉNéÆ
 #define RR_FormationSappho001_Num(X)  (10+(X)*5)  //ë‡êî
 #define RR_FormationSappho001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //èoåªä‘äu
+// EnemyAntiope ÇÃÉâÉìÉNéÆ
+#define RR_EnemyAntiope_MvVelo(X)  (15000 + (X)*10000)  //à⁄ìÆë¨ìx
+#define RR_EnemyAntiope_ShotWay(X)  (2+(X)*4)  //î≠éÀíe(Way)êî
+#define RR_EnemyAntiope_ShotMvVelo(X)  (1000+(X)*5000)  //î≠éÀíeë¨ìx
+// FormationAntiope001 ÇÃÉâÉìÉNéÆ
+#define RR_FormationAntiope001_Num(X)  (120+(X)*120)  //ë‡êî
+#define RR_FormationAntiope001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //èoåªä‘äu
 // gen02 end
 
 //1/Å„2
@@ -308,10 +315,6 @@ class EnemySylviaEye;
 class EnemySylviaEyeStraightLaserChip001;
 class EffectSylviaEye001;
 
-class EnemySappho;
-class FormationSappho001;
-class FormationSappho001a;
-class FormationSappho001b;
 
 class SingleLaser;
 class Shot001;
@@ -510,6 +513,18 @@ class EnemyHermioneArm;
 class EnemyHermioneArmBody;
 class EnemyHermioneArmHead;
 class EnemyHermioneArmWeak;
+
+class EnemySappho;
+class FormationSappho001;
+class FormationSappho001a;
+class FormationSappho001b;
+
+class EnemyAntiope;
+class EnemyAntiopeP;
+class EnemyAntiopeN;
+class FormationAntiope001;
+
+
 
 class DepositoryConnection;
 class DepositoryManager;
@@ -864,6 +879,12 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001a.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001b.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiope.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeP.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeN.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/FormationAntiope001.h"
+
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"

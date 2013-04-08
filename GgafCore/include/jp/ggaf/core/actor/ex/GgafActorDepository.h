@@ -98,7 +98,7 @@ public:
         }
 #endif
         frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);
-        GgafMainActor* pActor = (GgafMainActor*)getSubFirst();
+        GgafMainActor* pActor = (GgafMainActor*)_pSubFirst;
         while (true) {
             if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
                 pActor->moveLast(); //次フレームお尻に回す
@@ -106,11 +106,11 @@ public:
 
                 break;//取得！
             } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
-                if (pActor->isLast()) {
+                if (pActor->_is_last_flg) {
                     pActor = nullptr;
                     break;
                 } else {
-                    pActor = pActor->getNext();
+                    pActor = (GgafMainActor*)(pActor->_pNext);
                     continue;
                 }
             }

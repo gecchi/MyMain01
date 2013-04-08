@@ -305,6 +305,26 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
 
+    if (UTIL::strcmp_ascii("AntiopeP", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Depo_AntiopeP");
+        for (int i = 0; i < 120; i++) {
+            std::string name = "AntiopeP("+XTOS(i)+")";
+            pResource->addSubLast(NEW EnemyAntiopeP(name.c_str()));
+            Sleep(1);
+        }
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
+    }
+
+    if (UTIL::strcmp_ascii("AntiopeN", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Depo_AntiopeN");
+        for (int i = 0; i < 120; i++) {
+            std::string name = "AntiopeN("+XTOS(i)+")";
+            pResource->addSubLast(NEW EnemyAntiopeP(name.c_str()));
+            Sleep(1);
+        }
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
+    }
+
     //    pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
     //    pLaserChipDepo_->config(300, 1, nullptr); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
     //    for (int i = 0; i < 300; i++) { //レーザーストック

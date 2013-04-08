@@ -74,7 +74,7 @@ void EnemyHesperia::processBehavior() {
             if (_pProg->isJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
                 _pAFader->setAlpha(0);
-                _pAFader->intoTargetAlphaLinerUntil(0.98, 20);
+                _pAFader->fadeLinerUntil(0.98, 20);
             }
             if (!_pAFader->isFading()) {
                 setHitAble(true);
@@ -96,7 +96,7 @@ void EnemyHesperia::processBehavior() {
         case PROG_HATCH_OPEN: {
             if (_pProg->isJustChanged()) {
                 _pSeTx->play3D(SE_HATCH_OPEN);
-                _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
+                _pMorpher->morphLinerUntil(1, 1.0, 120);
             }
             if (_pProg->getFrameInProgress() == 120) {
                 _pProg->changeNext();
@@ -284,7 +284,7 @@ void EnemyHesperia::processBehavior() {
         case PROG_HATCH_CLOSE: {
             if (_pProg->isJustChanged()) {
                 _pSeTx->play3D(SE_HATCH_CLOSE);
-                _pMorpher->intoTargetLinerUntil(1, 0.0, 120);
+                _pMorpher->morphLinerUntil(1, 0.0, 120);
             }
             if (_pProg->getFrameInProgress() == 120) {
                 _pProg->changeNext();

@@ -39,7 +39,7 @@ void VvvCursor::processBehavior() {
         }
         case CUR_STAY: {
             if (_pProg->getFrameInProgress() > 60) {
-                _pAFader->intoTargetAlphaLinerUntil(0.0, 120);
+                _pAFader->fadeLinerUntil(0.0, 120);
                 _pProg->change(CUR_SINK);
             }
             break;

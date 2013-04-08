@@ -502,8 +502,8 @@ bool GgafDxUtil::chk2DLineCrossing(coord x11, coord y11, coord x12, coord y12, c
     return true;
 }
 
-int GgafDxUtil::getDistance(int x1, int y1, int x2, int y2) {
-    return (int)sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))));
+coord GgafDxUtil::getDistance(coord x1, coord y1, coord x2, coord y2) {
+    return (coord)sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))));
 }
 //int GgafDxUtil::getDistance(int x1, int y1, int z1, int x2, int y2, int z2) {
 //    return (int)sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))) + (((double)(z2 - z1)) * ((double)(z2 - z1))));
@@ -511,10 +511,10 @@ int GgafDxUtil::getDistance(int x1, int y1, int x2, int y2) {
 
 
 void GgafDxUtil::convVectorToRzRy(coord vx,
-                            coord vy,
-                            coord vz,
-                            angle& out_angRZ,
-                            angle& out_angRY ) {
+                                  coord vy,
+                                  coord vz,
+                                  angle& out_angRZ,
+                                  angle& out_angRY ) {
     if (vz == 0) {
         out_angRZ = getAngle2D(vx, vy);
         out_angRY = 0;

@@ -91,7 +91,7 @@ void EnemyAstraea::processBehavior() {
             if (_pProg->isJustChanged()) {
                 UTIL::activateEntryEffectOf(this);
                 _pAFader->setAlpha(0);
-                _pAFader->intoTargetAlphaLinerUntil(0.98, 20);
+                _pAFader->fadeLinerUntil(0.98, 20);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
             }
             if (!_pAFader->isFading()) {

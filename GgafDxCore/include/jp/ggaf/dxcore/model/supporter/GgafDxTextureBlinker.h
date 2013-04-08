@@ -134,7 +134,7 @@ public:
      * @param prm_target_power_blink 目標色強度
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetBlinkLinerUntil(float prm_target_power_blink, frame prm_spend_frame);
+    void blinkLinerUntil(float prm_target_power_blink, frame prm_spend_frame);
 
     /**
      * 片道等速点灯（全軸・色強度速度指定） .
@@ -143,18 +143,18 @@ public:
      * @param prm_velo_power_blink 毎フレーム加算する色強度差分(>0.0)。正の色強度差分を指定する事。
      *                             色強度の加算か減算かは現在の色強度より目標色強度が高いか低いかで自動判断する。
      */
-    void intoTargetBlinkLinerStep(float prm_target_power_blink, float prm_velo_power_blink);
+    void blinkLinerStep(float prm_target_power_blink, float prm_velo_power_blink);
 
     /**
      * 片道加速点灯（全軸・色強度速度・色強度加速度指定） .
      * 目標の色強度へ加速指定で１回点灯（消灯）する
-     * 色強度加速度を0に指定すると intoTargetBlinkLinerStep とほぼ同じ意味になる。
-     * intoTargetBlinkLinerStep の第２引数は正負を気にすること無いが、本メソッドは正負の自動判定はしないので注意して設定せよ。
+     * 色強度加速度を0に指定すると blinkLinerStep とほぼ同じ意味になる。
+     * blinkLinerStep の第２引数は正負を気にすること無いが、本メソッドは正負の自動判定はしないので注意して設定せよ。
      * @param prm_target_power_blink 目標色強度
      * @param prm_velo_power_blink 初期色強度速度
      * @param prm_acce_power_blink 色強度加速度
      */
-    void intoTargetBlinkAcceStep(float prm_target_power_blink, float prm_velo_power_blink, float prm_acce_power_blink);
+    void blinkAcceStep(float prm_target_power_blink, float prm_velo_power_blink, float prm_acce_power_blink);
 
     /**
      * 反復等速点滅 .

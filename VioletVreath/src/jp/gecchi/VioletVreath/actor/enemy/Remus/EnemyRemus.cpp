@@ -61,7 +61,7 @@ void EnemyRemus::processBehavior() {
         }
         case PROG_HATCH_CLOSE: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->intoTargetLinerUntil(MORPHTARGET_HATCH_OPEN,
+                _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 0.0f, frame_of_morph_interval_);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 0);
             }
@@ -74,7 +74,7 @@ void EnemyRemus::processBehavior() {
         }
         case PROG_HATCH_OPEN: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->intoTargetLinerUntil(MORPHTARGET_HATCH_OPEN,
+                _pMorpher->morphLinerUntil(MORPHTARGET_HATCH_OPEN,
                                                 1.0f, frame_of_morph_interval_);
                 _pKurokoA->setFaceAngVelo(AXIS_X, 3000);
             }

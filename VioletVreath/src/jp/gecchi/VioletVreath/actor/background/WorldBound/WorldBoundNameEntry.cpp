@@ -37,11 +37,11 @@ void WorldBoundNameEntry::processJudgement() {
 void WorldBoundNameEntry::fadein() {
     activate();
     _pAFader->setAlphaToBottom();
-    _pAFader->intoTargetAlphaLinerUntil(1.0, 120);
+    _pAFader->fadeLinerUntil(1.0, 120);
 }
 
 void WorldBoundNameEntry::fadeout() {
-    _pAFader->intoTargetAlphaLinerUntil(0.0, 120);
+    _pAFader->fadeLinerUntil(0.0, 120);
     inactivateDelay(120);
 }
 

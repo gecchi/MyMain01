@@ -20,7 +20,7 @@ void EffectWormhole001::onActive() {
     setAlpha(0.01);
     _pScaler->forceScaleRange(30000, 1000); //スケーリング・範囲
     _pScaler->setScale(30000);
-    _pScaler->intoTargetScaleLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
+    _pScaler->scaleLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 

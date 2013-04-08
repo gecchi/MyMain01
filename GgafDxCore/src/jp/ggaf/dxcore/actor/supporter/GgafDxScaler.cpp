@@ -124,13 +124,13 @@ void GgafDxScaler::behave() {
 //            _TRACE_("_bottom_scale["<<ax<<"] - _top_scale["<<ax<<"]" << (_bottom_scale[ax] - _top_scale[ax]));
 //            _TRACE_("_scale["<<ax<<"] _velo_scale["<<ax<<"]="<<_scale[ax]<<" "<<_velo_scale[ax]);
 
-void GgafDxScaler::intoTargetScaleLinerUntil(int prm_target_scale, frame prm_spend_frame) {
+void GgafDxScaler::scaleLinerUntil(int prm_target_scale, frame prm_spend_frame) {
     for (int a = 0; a < 3; a++) {
-        intoTargetScaleLinerUntil((axis)a, prm_target_scale, prm_spend_frame);
+        scaleLinerUntil((axis)a, prm_target_scale, prm_spend_frame);
     }
 }
 
-void GgafDxScaler::intoTargetScaleLinerUntil(axis prm_axis, int prm_target_scale, frame prm_spend_frame) {
+void GgafDxScaler::scaleLinerUntil(axis prm_axis, int prm_target_scale, frame prm_spend_frame) {
     _method[prm_axis] = TARGET_SCALE_LINER;
     _target_scale[prm_axis] = prm_target_scale;
     _velo_scale[prm_axis] = (prm_target_scale - _scale[prm_axis]) / (int)prm_spend_frame;
@@ -139,26 +139,26 @@ void GgafDxScaler::intoTargetScaleLinerUntil(axis prm_axis, int prm_target_scale
     }
 }
 
-void GgafDxScaler::intoTargetScaleAcceStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
+void GgafDxScaler::scaleAcceStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
     for (int a = 0; a < 3; a++) {
-        intoTargetScaleAcceStep((axis)a, prm_target_scale, prm_velo_scale, prm_acce_scale);
+        scaleAcceStep((axis)a, prm_target_scale, prm_velo_scale, prm_acce_scale);
     }
 }
 
-void GgafDxScaler::intoTargetScaleAcceStep(axis prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
+void GgafDxScaler::scaleAcceStep(axis prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
     _method[prm_axis] = TARGET_SCALE_ACCELERATION;
     _target_scale[prm_axis] = prm_target_scale;
     _velo_scale[prm_axis] = prm_velo_scale;
     _acce_scale[prm_axis] = prm_acce_scale;
 }
 
-void GgafDxScaler::intoTargetScaleLinerStep(int prm_target_scale, int prm_velo_scale) {
+void GgafDxScaler::scaleLinerStep(int prm_target_scale, int prm_velo_scale) {
     for (int a = 0; a < 3; a++) {
-        intoTargetScaleLinerStep((axis)a, prm_target_scale, prm_velo_scale);
+        scaleLinerStep((axis)a, prm_target_scale, prm_velo_scale);
     }
 }
 
-void GgafDxScaler::intoTargetScaleLinerStep(axis prm_axis, int prm_target_scale, int prm_velo_scale) {
+void GgafDxScaler::scaleLinerStep(axis prm_axis, int prm_target_scale, int prm_velo_scale) {
     _method[prm_axis] = TARGET_SCALE_LINER;
     _target_scale[prm_axis] = prm_target_scale;
     _velo_scale[prm_axis] = SGN(prm_target_scale - _scale[prm_axis])*prm_velo_scale;
@@ -219,7 +219,7 @@ void GgafDxScaler::stopImmed() {
 void GgafDxScaler::stopImmed(axis prm_axis) {
     _method[prm_axis] = NOSCALE;
 }
-bool GgafDxScaler::isFading(axis prm_axis) {
+bool GgafDxScaler::isScaling(axis prm_axis) {
     if (_method[prm_axis] == NOSCALE) {
         return false;
     } else {
@@ -227,7 +227,7 @@ bool GgafDxScaler::isFading(axis prm_axis) {
     }
 }
 
-bool GgafDxScaler::isFading() {
+bool GgafDxScaler::isScaling() {
     for (int a = 0; a < 3; a++) {
         if (_method[(axis)a] != NOSCALE) {
             return true;

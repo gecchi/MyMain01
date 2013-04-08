@@ -72,7 +72,7 @@ void EnemySylviaEye::processBehavior() {
         }
         case PROG_OPEN: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->intoTargetLinerUntil(1, 1.0, 180); //ŠJ‚­
+                _pMorpher->morphLinerUntil(1, 1.0, 180); //ŠJ‚­
             }
             if (_pProg->getFrameInProgress() > 240) {
                 _pProg->changeNext();
@@ -122,7 +122,7 @@ void EnemySylviaEye::processBehavior() {
         }
         case PROG_FIRE_END: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->intoTargetLinerUntil(1, 0.0, 180); //•Â‚¶‚é
+                _pMorpher->morphLinerUntil(1, 0.0, 180); //•Â‚¶‚é
                 _pKurokoA->setRzRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z],
                                             pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
             }

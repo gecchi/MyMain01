@@ -185,7 +185,7 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetScaleLinerUntil(int prm_target_scale, frame prm_spend_frame);
+    void scaleLinerUntil(int prm_target_scale, frame prm_spend_frame);
 
     /**
      * 片道等速スケーリング（軸単位・持続フレーム数指定） .
@@ -194,7 +194,7 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetScaleLinerUntil(axis prm_axis, int prm_target_scale, frame prm_spend_frame);
+    void scaleLinerUntil(axis prm_axis, int prm_target_scale, frame prm_spend_frame);
 
     /**
      * 片道等速スケーリング（全軸・スケール速度指定） .
@@ -202,7 +202,7 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_velo_scale 毎フレーム加算するスケール差分(>0.0)。正のスケールを指定する事。加算か減算かは自動判断する。
      */
-    void intoTargetScaleLinerStep(int prm_target_scale, int prm_velo_scale);
+    void scaleLinerStep(int prm_target_scale, int prm_velo_scale);
 
     /**
      * 片道等速スケーリング（軸単位・スケール速度指定） .
@@ -211,32 +211,32 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_velo_scale 毎フレーム加算するスケール差分(>0.0)。正のスケールを指定する事。加算か減算かは自動判断する。
      */
-    void intoTargetScaleLinerStep(axis prm_axis, int prm_target_scale, int prm_velo_scale);
+    void scaleLinerStep(axis prm_axis, int prm_target_scale, int prm_velo_scale);
 
     /**
      * 片道加速スケーリング（全軸・スケール速度・スケール加速度指定） .
      * 目標のスケールへ加速指定でスケーリングする
-     * スケール加速度を0に指定すると intoTargetScaleLinerStep とほぼ同じ意味になる。
-     * intoTargetScaleLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * スケール加速度を0に指定すると scaleLinerStep とほぼ同じ意味になる。
+     * scaleLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
      * スケール加速度が正の場合、目標スケールを超えるとスケーリング終了。
      * スケール加速度が負の場合、目標スケールを下回るとスケーリング終了。
      * @param prm_target_scale 目標スケール
      * @param prm_velo_scale 初期スケール速度
      * @param prm_acce_scale スケール加速度
      */
-    void intoTargetScaleAcceStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
+    void scaleAcceStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
 
     /**
      * 片道加速スケーリング（軸単位・スケール速度・スケール加速度指定） .
      * 目標のスケールへ加速指定でスケーリングする（スケール速度、スケール加速度差指定） .
-     * スケール加速度を0に指定すると intoTargetScaleLinerStep とほぼ同じ意味になる。
-     * intoTargetScaleLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * スケール加速度を0に指定すると scaleLinerStep とほぼ同じ意味になる。
+     * scaleLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
      * @param prm_axis 軸
      * @param prm_target_scale 目標スケール
      * @param prm_velo_scale 初期スケール速度
      * @param prm_acce_scale スケール加速度
      */
-    void intoTargetScaleAcceStep(axis prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
+    void scaleAcceStep(axis prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
 
     /**
      * 反復等速スケーリング（全軸・フレーム数指定） .
@@ -305,13 +305,13 @@ public:
      * @param prm_axis 軸
      * @return true/false
      */
-    bool isFading(axis prm_axis);
+    bool isScaling(axis prm_axis);
 
     /**
      * スケーリング中かどうか調べる .
      * @return true/false
      */
-    bool isFading();
+    bool isScaling();
 
     /**
      * 毎フレームの振る舞いメソッド。<BR>

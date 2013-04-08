@@ -31,7 +31,7 @@ void HoshiBoshiTitle::processJudgement() {
 
 void HoshiBoshiTitle::fadein() {
     _pAFader->setAlphaToBottom();
-    _pAFader->intoTargetAlphaLinerUntil(1.0, 240);
+    _pAFader->fadeLinerUntil(1.0, 240);
 }
 HoshiBoshiTitle::~HoshiBoshiTitle() {
 }

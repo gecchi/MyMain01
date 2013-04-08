@@ -108,7 +108,7 @@ void GgafDxMorpher::behave() {
     }
 }
 
-void GgafDxMorpher::intoTargetLinerUntil(int prm_target_mesh_no, float prm_target_weight, frame prm_spend_frame) {
+void GgafDxMorpher::morphLinerUntil(int prm_target_mesh_no, float prm_target_weight, frame prm_spend_frame) {
     if (ZEROf_EQ(prm_target_weight - _weight[prm_target_mesh_no])) {
         //既にターゲットと同じ重み
         return;
@@ -119,7 +119,7 @@ void GgafDxMorpher::intoTargetLinerUntil(int prm_target_mesh_no, float prm_targe
     }
 }
 
-void GgafDxMorpher::intoTargetAcceStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight, float prm_acce_weight) {
+void GgafDxMorpher::morphAcceStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight, float prm_acce_weight) {
     _method[prm_target_mesh_no] = TARGET_MORPH_ACCELERATION;
     _target_weight[prm_target_mesh_no] = prm_target_weight;
     _velo_weight[prm_target_mesh_no] = prm_velo_weight;
@@ -127,10 +127,10 @@ void GgafDxMorpher::intoTargetAcceStep(int prm_target_mesh_no, float prm_target_
 }
 
 
-void GgafDxMorpher::intoTargetLinerStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight) {
+void GgafDxMorpher::morphLinerStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight) {
 #ifdef MY_DEBUG
     if (prm_velo_weight < 0) {
-        throwGgafCriticalException("GgafDxMorpher::intoTargetLinerStep() prm_velo_weightは正の値を設定して下さい。説明読んで。");
+        throwGgafCriticalException("GgafDxMorpher::morphLinerStep() prm_velo_weightは正の値を設定して下さい。説明読んで。");
     }
 #endif
     if (ZEROf_EQ(prm_target_weight - _weight[prm_target_mesh_no])) {

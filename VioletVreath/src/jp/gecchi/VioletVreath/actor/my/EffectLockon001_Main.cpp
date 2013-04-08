@@ -26,7 +26,7 @@ void EffectLockon001_Main::onActive() {
     setAlpha(0.01);
     _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
     _pScaler->setScale(60000); //(6000%)
-    _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
+    _pScaler->scaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeTx->play3D(0); //ロックオンSE
 
@@ -107,7 +107,7 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
     } else if (_pProg->get() == LOCKON001_PROG_LOCK) {
     } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {
         _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
-        _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
+        _pScaler->scaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
         _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);   //回転
         _pSeTx->play3D(0); //ロックオンSE
         _pProg->change(LOCKON001_PROG_FIRST_LOCK);
@@ -118,12 +118,12 @@ void EffectLockon001_Main::releaseLockon() {
     if (isActiveInTheTree()) {
         if (_pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
             _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
-            _pScaler->intoTargetScaleLinerUntil(60000, 60);//スケーリング
+            _pScaler->scaleLinerUntil(60000, 60);//スケーリング
             _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_angveloFace[AXIS_Z]*-3); //速く逆回転
             _pProg->change(LOCKON001_PROG_RELEASE);
         } else if (_pProg->get() == LOCKON001_PROG_LOCK) {
             _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
-            _pScaler->intoTargetScaleLinerUntil(60000, 60);//スケーリング
+            _pScaler->scaleLinerUntil(60000, 60);//スケーリング
             _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_angveloFace[AXIS_Z]*-3); //速く逆回転
             _pProg->change(LOCKON001_PROG_RELEASE);
         } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {

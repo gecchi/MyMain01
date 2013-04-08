@@ -147,7 +147,7 @@ public:
      * @param prm_target_alpha 目標強度
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetAlphaLinerUntil(float prm_target_alpha, frame prm_spend_frame);
+    void fadeLinerUntil(float prm_target_alpha, frame prm_spend_frame);
 
 
     /**
@@ -156,19 +156,19 @@ public:
      * @param prm_target_alpha 目標強度
      * @param prm_velo_alpha 毎フレーム加算する強度差分(>0.0)。正の強度を指定する事。加算か減算かは自動判断する。
      */
-    void intoTargetAlphaLinerStep(float prm_target_alpha, float prm_velo_alpha);
+    void fadeLinerStep(float prm_target_alpha, float prm_velo_alpha);
 
 
     /**
      * 片道加速フェーディング（強度速度・強度加速度指定） .
      * 目標の強度へ加速指定でフェーディングする（強度速度、強度加速度差指定） .
-     * 強度加速度を0に指定すると intoTargetAlphaLinerStep とほぼ同じ意味になる。
-     * intoTargetAlphaLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * 強度加速度を0に指定すると fadeLinerStep とほぼ同じ意味になる。
+     * fadeLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
      * @param prm_target_alpha 目標強度
      * @param prm_velo_alpha 初期強度速度
      * @param prm_acce_alpha 強度加速度
      */
-    void intoTargetAlphaAcceStep(float prm_target_alpha, float prm_velo_alpha, float prm_acce_alpha);
+    void fadeAcceStep(float prm_target_alpha, float prm_velo_alpha, float prm_acce_alpha);
 
 
     /**

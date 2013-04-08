@@ -119,26 +119,26 @@ void GgafDxAlphaFader::behave() {
     _pActor->setAlpha(_alpha);
 }
 
-void GgafDxAlphaFader::intoTargetAlphaLinerUntil(float prm_target_alpha, frame prm_spend_frame) {
-    //_TRACE_("intoTargetAlphaLinerUntil prm_c="<<prm_c<<"/prm_target_alpha="<<prm_target_alpha<<"/prm_spend_frame="<<prm_spend_frame);
+void GgafDxAlphaFader::fadeLinerUntil(float prm_target_alpha, frame prm_spend_frame) {
+    //_TRACE_("fadeLinerUntil prm_c="<<prm_c<<"/prm_target_alpha="<<prm_target_alpha<<"/prm_spend_frame="<<prm_spend_frame);
     _method = TARGET_ALPHAFADE_LINER;
     _target_alpha = prm_target_alpha;
     _velo_alpha = (prm_target_alpha - _alpha) / (int)prm_spend_frame;
-    //_TRACE_("intoTargetAlphaLinerUntil prm_target_alpha="<<prm_target_alpha<<"/ _alpha["<<prm_c<<"]="<<_alpha);
-    //_TRACE_("intoTargetAlphaLinerUntil _velo_alpha["<<prm_c<<"]="<<_velo_alpha);
+    //_TRACE_("fadeLinerUntil prm_target_alpha="<<prm_target_alpha<<"/ _alpha["<<prm_c<<"]="<<_alpha);
+    //_TRACE_("fadeLinerUntil _velo_alpha["<<prm_c<<"]="<<_velo_alpha);
     if (int(_velo_alpha*1000.0) == 0) {
         _velo_alpha = prm_target_alpha - _alpha;
     }
 }
 
-void GgafDxAlphaFader::intoTargetAlphaAcceStep(float prm_target_alpha, float prm_velo_alpha, float prm_acce_alpha) {
+void GgafDxAlphaFader::fadeAcceStep(float prm_target_alpha, float prm_velo_alpha, float prm_acce_alpha) {
     _method = TARGET_ALPHAFADE_ACCELERATION;
     _target_alpha = prm_target_alpha;
     _velo_alpha = prm_velo_alpha;
     _acce_alpha = prm_acce_alpha;
 }
 
-void GgafDxAlphaFader::intoTargetAlphaLinerStep(float prm_target_alpha, float prm_velo_alpha) {
+void GgafDxAlphaFader::fadeLinerStep(float prm_target_alpha, float prm_velo_alpha) {
     _method = TARGET_ALPHAFADE_LINER;
     _target_alpha = prm_target_alpha;
     _velo_alpha = SGN(prm_target_alpha - _alpha)*prm_velo_alpha;

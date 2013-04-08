@@ -33,14 +33,14 @@ void EffectEntry001::onActive() {
 void EffectEntry001::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
-            _pScaler->intoTargetScaleAcceStep(10000,1,2);
+            _pScaler->scaleAcceStep(10000,1,2);
             _pProg->changeNext();
             break;
         }
 
         case PROG_EXPAND: {
-            if (_pScaler->isFading() == false) {
-                _pAFader->intoTargetAlphaLinerUntil(0, 120);
+            if (_pScaler->isScaling() == false) {
+                _pAFader->fadeLinerUntil(0, 120);
                 _pProg->changeNext();
             }
             break;

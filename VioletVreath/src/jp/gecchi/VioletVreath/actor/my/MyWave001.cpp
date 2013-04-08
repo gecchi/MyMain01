@@ -46,7 +46,7 @@ void MyWave001::processBehavior() {
     if (onChangeToActive()) {
         //oŒ»Žž‹¤’Êˆ—
         _pScaler->setScale(1000);
-        _pScaler->intoTargetScaleLinerStep(100000,100);
+        _pScaler->scaleLinerStep(100000,100);
         _pScaler->behave();
         setHitAble(true);
         locateWith(P_MYSHIP);

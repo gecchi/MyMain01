@@ -52,24 +52,24 @@ void MagicLvCursor003::markOff() {
 
 void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     _pAFader->setAlpha(0);
-    _pAFader->intoTargetAlphaLinerUntil(1.0, 20);
+    _pAFader->fadeLinerUntil(1.0, 20);
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(0,3);
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     _pScaler->setScale(10000);
-    _pScaler->intoTargetScaleLinerUntil(1000, 20);
+    _pScaler->scaleLinerUntil(1000, 20);
 }
 
 void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
     _pAFader->setAlpha(1.0);
-    _pAFader->intoTargetAlphaLinerUntil(0, 20);
+    _pAFader->fadeLinerUntil(0, 20);
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(8, 11);
     _pUvFlipper->setActivePtn(8);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     _pScaler->setScale(1000);
-    _pScaler->intoTargetScaleLinerUntil(10000, 20);
+    _pScaler->scaleLinerUntil(10000, 20);
 }
 
 void MagicLvCursor003::markOnInvoke(int prm_lv) {
@@ -81,13 +81,13 @@ void MagicLvCursor003::markOnInvoke(int prm_lv) {
 
 void MagicLvCursor003::markOnEffect(int prm_lv) {
     _pAFader->setAlpha(1.0);
-    _pAFader->intoTargetAlphaLinerUntil(0, 20);
+    _pAFader->fadeLinerUntil(0, 20);
     moveTo(prm_lv);
     _pUvFlipper->setFlipPtnRange(8, 11);
     _pUvFlipper->setActivePtn(8);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     _pScaler->setScale(1000);
-    _pScaler->intoTargetScaleLinerUntil(10000, 20);
+    _pScaler->scaleLinerUntil(10000, 20);
 }
 
 MagicLvCursor003::~MagicLvCursor003() {

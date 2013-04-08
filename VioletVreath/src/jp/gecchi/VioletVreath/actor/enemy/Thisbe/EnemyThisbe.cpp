@@ -117,7 +117,7 @@ void EnemyThisbe::processBehavior() {
         }
         case PROG_OPEN: {
             if (_pProg->isJustChanged()) {
-                _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
+                _pMorpher->morphLinerUntil(1, 1.0, 120);
             }
             if (!_pMorpher->isMorphing()) {
                 //完全に開いたら
@@ -151,7 +151,7 @@ void EnemyThisbe::processBehavior() {
 
         case PROG_CLOSE: {
             //１サイクルレーザー打ち切った
-            _pMorpher->intoTargetLinerUntil(1, 0.0, 120); //閉じる
+            _pMorpher->morphLinerUntil(1, 0.0, 120); //閉じる
             if (!_pMorpher->isMorphing()) {
                 //完全に閉じたら
                 _pProg->change(PROG_WAIT);

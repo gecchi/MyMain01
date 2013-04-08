@@ -119,8 +119,8 @@ void GgafDxTextureBlinker::behave() {
 //            _TRACE_("_bottom_power_blink["<<<<"] - _top_power_blink["<<<<"]" << (_bottom_power_blink - _top_power_blink));
 //            _TRACE_("_power_blink["<<<<"] _velo_power_blink["<<<<"]="<<_power_blink<<" "<<_velo_power_blink);
 
-void GgafDxTextureBlinker::intoTargetBlinkLinerUntil(float prm_target_power_blink, frame prm_spend_frame) {
-    //_TRACE_("intoTargetBlinkLinerUntil prm_="<<prm_<<"/prm_target_power_blink="<<prm_target_power_blink<<"/prm_spend_frame="<<prm_spend_frame);
+void GgafDxTextureBlinker::blinkLinerUntil(float prm_target_power_blink, frame prm_spend_frame) {
+    //_TRACE_("blinkLinerUntil prm_="<<prm_<<"/prm_target_power_blink="<<prm_target_power_blink<<"/prm_spend_frame="<<prm_spend_frame);
     _method = TARGET_BLINK_LINER;
     _target_power_blink = prm_target_power_blink;
     _velo_power_blink = (prm_target_power_blink - _power_blink) / (int)prm_spend_frame;
@@ -129,14 +129,14 @@ void GgafDxTextureBlinker::intoTargetBlinkLinerUntil(float prm_target_power_blin
     }
 }
 
-void GgafDxTextureBlinker::intoTargetBlinkAcceStep(float prm_target_power_blink, float prm_velo_power_blink, float prm_acce_power_blink) {
+void GgafDxTextureBlinker::blinkAcceStep(float prm_target_power_blink, float prm_velo_power_blink, float prm_acce_power_blink) {
     _method = TARGET_BLINK_ACCELERATION;
     _target_power_blink = prm_target_power_blink;
     _velo_power_blink = prm_velo_power_blink;
     _acce_power_blink = prm_acce_power_blink;
 }
 
-void GgafDxTextureBlinker::intoTargetBlinkLinerStep(float prm_target_power_blink, float prm_velo_power_blink) {
+void GgafDxTextureBlinker::blinkLinerStep(float prm_target_power_blink, float prm_velo_power_blink) {
     _method = TARGET_BLINK_LINER;
     _target_power_blink = prm_target_power_blink;
     _velo_power_blink = SGN(prm_target_power_blink - _power_blink)*prm_velo_power_blink;

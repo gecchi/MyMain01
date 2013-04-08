@@ -177,7 +177,7 @@ public:
      * @param prm_target_color 目標強度
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetColorLinerUntil(int prm_target_color, frame prm_spend_frame);
+    void colorLinerUntil(int prm_target_color, frame prm_spend_frame);
 
     /**
      * 片道等速スケーリング（色要素単位・持続フレーム数指定） .
@@ -186,7 +186,7 @@ public:
      * @param prm_target_color 目標強度
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetColorLinerUntil(int prm_c, int prm_target_color, frame prm_spend_frame);
+    void colorLinerUntil(int prm_c, int prm_target_color, frame prm_spend_frame);
 
     /**
      * 片道等速スケーリング（全色要素・強度速度指定） .
@@ -194,7 +194,7 @@ public:
      * @param prm_target_color 目標強度
      * @param prm_velo_color 毎フレーム加算する強度差分(>0.0)。正の強度を指定する事。加算か減算かは自動判断する。
      */
-    void intoTargetColorLinerStep(int prm_target_color, int prm_velo_color);
+    void colorLinerStep(int prm_target_color, int prm_velo_color);
 
     /**
      * 片道等速スケーリング（色要素単位・強度速度指定） .
@@ -203,32 +203,32 @@ public:
      * @param prm_target_color 目標強度
      * @param prm_velo_color 毎フレーム加算する強度差分(>0.0)。正の強度を指定する事。加算か減算かは自動判断する。
      */
-    void intoTargetColorLinerStep(int prm_c, int prm_target_color, int prm_velo_color);
+    void colorLinerStep(int prm_c, int prm_target_color, int prm_velo_color);
 
     /**
      * 片道加速スケーリング（全色要素・強度速度・強度加速度指定） .
      * 目標の強度へ加速指定でスケーリングする
-     * 強度加速度を0に指定すると intoTargetColorLinerStep とほぼ同じ意味になる。
-     * intoTargetColorLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * 強度加速度を0に指定すると colorLinerStep とほぼ同じ意味になる。
+     * colorLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
      * 強度加速度が正の場合、目標強度を超えるとスケーリング終了。
      * 強度加速度が負の場合、目標強度を下回るとスケーリング終了。
      * @param prm_target_color 目標強度
      * @param prm_velo_color 初期強度速度
      * @param prm_acce_color 強度加速度
      */
-    void intoTargetColorAcceStep(int prm_target_color, int prm_velo_color, int prm_acce_color);
+    void colorAcceStep(int prm_target_color, int prm_velo_color, int prm_acce_color);
 
     /**
      * 片道加速スケーリング（色要素単位・強度速度・強度加速度指定） .
      * 目標の強度へ加速指定でスケーリングする（強度速度、強度加速度差指定） .
-     * 強度加速度を0に指定すると intoTargetColorLinerStep とほぼ同じ意味になる。
-     * intoTargetColorLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * 強度加速度を0に指定すると colorLinerStep とほぼ同じ意味になる。
+     * colorLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
      * @param prm_c 色要素
      * @param prm_target_color 目標強度
      * @param prm_velo_color 初期強度速度
      * @param prm_acce_color 強度加速度
      */
-    void intoTargetColorAcceStep(int prm_c, int prm_target_color, int prm_velo_color, int prm_acce_color);
+    void colorAcceStep(int prm_c, int prm_target_color, int prm_velo_color, int prm_acce_color);
 
     /**
      * 反復等速スケーリング（全色要素・フレーム数指定） .

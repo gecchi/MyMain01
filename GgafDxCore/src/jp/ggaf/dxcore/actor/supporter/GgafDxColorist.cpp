@@ -111,44 +111,44 @@ void GgafDxColorist::behave() {
     _pActor->setAlpha(_color[3]/1000.0);
 }
 
-void GgafDxColorist::intoTargetColorLinerUntil(int prm_target_color, frame prm_spend_frame) {
+void GgafDxColorist::colorLinerUntil(int prm_target_color, frame prm_spend_frame) {
     for (int c = 0; c < 4; c++) {
-        intoTargetColorLinerUntil(c, prm_target_color, prm_spend_frame);
+        colorLinerUntil(c, prm_target_color, prm_spend_frame);
     }
 }
 
-void GgafDxColorist::intoTargetColorLinerUntil(int prm_c, int prm_target_color, frame prm_spend_frame) {
-    //_TRACE_("intoTargetColorLinerUntil prm_c="<<prm_c<<"/prm_target_color="<<prm_target_color<<"/prm_spend_frame="<<prm_spend_frame);
+void GgafDxColorist::colorLinerUntil(int prm_c, int prm_target_color, frame prm_spend_frame) {
+    //_TRACE_("colorLinerUntil prm_c="<<prm_c<<"/prm_target_color="<<prm_target_color<<"/prm_spend_frame="<<prm_spend_frame);
     _method[prm_c] = TARGET_COLOR_LINER;
     _target_color[prm_c] = prm_target_color;
     _velo_color[prm_c] = (prm_target_color - _color[prm_c]) / (int)prm_spend_frame;
-    //_TRACE_("intoTargetColorLinerUntil prm_target_color="<<prm_target_color<<"/ _color["<<prm_c<<"]="<<_color[prm_c]);
-    //_TRACE_("intoTargetColorLinerUntil _velo_color["<<prm_c<<"]="<<_velo_color[prm_c]);
+    //_TRACE_("colorLinerUntil prm_target_color="<<prm_target_color<<"/ _color["<<prm_c<<"]="<<_color[prm_c]);
+    //_TRACE_("colorLinerUntil _velo_color["<<prm_c<<"]="<<_velo_color[prm_c]);
     if (_velo_color[prm_c] == 0) {
         _velo_color[prm_c] = prm_target_color - _color[prm_c];
     }
 }
 
-void GgafDxColorist::intoTargetColorAcceStep(int prm_target_color, int prm_velo_color, int prm_acce_color) {
+void GgafDxColorist::colorAcceStep(int prm_target_color, int prm_velo_color, int prm_acce_color) {
     for (int c = 0; c < 4; c++) {
-        intoTargetColorAcceStep(c, prm_target_color, prm_velo_color, prm_acce_color);
+        colorAcceStep(c, prm_target_color, prm_velo_color, prm_acce_color);
     }
 }
 
-void GgafDxColorist::intoTargetColorAcceStep(int prm_c, int prm_target_color, int prm_velo_color, int prm_acce_color) {
+void GgafDxColorist::colorAcceStep(int prm_c, int prm_target_color, int prm_velo_color, int prm_acce_color) {
     _method[prm_c] = TARGET_COLOR_ACCELERATION;
     _target_color[prm_c] = prm_target_color;
     _velo_color[prm_c] = prm_velo_color;
     _acce_color[prm_c] = prm_acce_color;
 }
 
-void GgafDxColorist::intoTargetColorLinerStep(int prm_target_color, int prm_velo_color) {
+void GgafDxColorist::colorLinerStep(int prm_target_color, int prm_velo_color) {
     for (int c = 0; c < 3; c++) {
-        intoTargetColorLinerStep(c, prm_target_color, prm_velo_color);
+        colorLinerStep(c, prm_target_color, prm_velo_color);
     }
 }
 
-void GgafDxColorist::intoTargetColorLinerStep(int prm_c, int prm_target_color, int prm_velo_color) {
+void GgafDxColorist::colorLinerStep(int prm_c, int prm_target_color, int prm_velo_color) {
     _method[prm_c] = TARGET_COLOR_LINER;
     _target_color[prm_c] = prm_target_color;
     _velo_color[prm_c] = SGN(prm_target_color - _color[prm_c])*prm_velo_color;

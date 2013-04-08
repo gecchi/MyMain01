@@ -45,7 +45,7 @@ void EnemySappho::processBehavior() {
          }
          case PROG_ENTRY: {
              if (_pProg->getFrameInProgress() == 60) {
-                 _pAFader->intoTargetAlphaLinerUntil(1.0, 60);
+                 _pAFader->fadeLinerUntil(1.0, 60);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
