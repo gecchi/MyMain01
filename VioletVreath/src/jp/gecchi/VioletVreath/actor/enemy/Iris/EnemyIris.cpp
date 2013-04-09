@@ -16,9 +16,9 @@ EnemyIris::EnemyIris(const char* prm_name)
 }
 
 void EnemyIris::onCreateModel() {
-    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.5, 2.0);
-    _pModel->_pTextureBlinker->setBlink(0.5);
-    _pModel->_pTextureBlinker->beat(60, 3, 1, -1);
+    _pModel->_pTexBlinker->setBlinkableRange(0.9, 0.5, 2.0);
+    _pModel->_pTexBlinker->setPower(0.5);
+    _pModel->_pTexBlinker->beat(60, 3, 1, -1);
 }
 
 void EnemyIris::initialize() {
@@ -68,7 +68,7 @@ void EnemyIris::processBehavior() {
                 for (int i = 0; i < way; i++) {
                     pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
-                        pActor_Shot->locateWith(this);
+                        pActor_Shot->locateAs(this);
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
                     }
                 }
@@ -77,7 +77,7 @@ void EnemyIris::processBehavior() {
                 if (pDepo_ShotEffect_) {
                     GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
                     if (pTestActor_Shot) {
-                        pTestActor_Shot->locateWith(this);
+                        pTestActor_Shot->locateAs(this);
                     }
                 }
             }

@@ -12,9 +12,9 @@ Wall001Prism::Wall001Prism(const char* prm_name) :
 }
 
 void Wall001Prism::onCreateModel() {
-//    _pModel->_pTextureBlinker->forceBlinkRange(0.1, 0.8, 3.0);
-//    _pModel->_pTextureBlinker->setBlink(1.0);
-//    _pModel->_pTextureBlinker->beat(10*20, 10*9, 10*3, -1);
+//    _pModel->_pTexBlinker->setBlinkableRange(0.1, 0.8, 3.0);
+//    _pModel->_pTexBlinker->setPower(1.0);
+//    _pModel->_pTexBlinker->beat(10*20, 10*9, 10*3, -1);
 }
 
 void Wall001Prism::processBehavior() {

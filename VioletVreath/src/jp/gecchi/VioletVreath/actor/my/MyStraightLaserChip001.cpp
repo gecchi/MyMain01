@@ -90,7 +90,7 @@ void MyStraightLaserChip001::processBehavior() {
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
-        locateWith(pOrg_);
+        locateAs(pOrg_);
     }
 }
 

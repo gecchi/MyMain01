@@ -12,9 +12,9 @@ CubeMapMorphMeshTestActor::CubeMapMorphMeshTestActor(const char* prm_name) :
     setHitAble(false);
 }
 void CubeMapMorphMeshTestActor::onCreateModel() {
-    _pModel->_pTextureBlinker->forceBlinkRange(0.6, 0.1, 1.0);
-    _pModel->_pTextureBlinker->setBlink(0.1);
-    _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
+    _pModel->_pTexBlinker->setBlinkableRange(0.6, 0.1, 1.0);
+    _pModel->_pTexBlinker->setPower(0.1);
+    _pModel->_pTexBlinker->beat(120, 60, 1, -1);
     _pModel->setSpecular(5.0, 1.0);
 }
 

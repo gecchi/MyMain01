@@ -115,9 +115,9 @@ public:
      * @param prm_scale1 スケール値1
      * @param prm_scale2 スケール値2
      */
-    void forceScaleRange(int prm_scale1, int prm_scale2) {
+    void forceRange(int prm_scale1, int prm_scale2) {
         for (int a = 0; a < 3; a++) {
-            forceScaleRange((axis)a, prm_scale1, prm_scale2);
+            forceRange((axis)a, prm_scale1, prm_scale2);
             setScale((axis)a, _scale[a]);
         }
     }
@@ -128,7 +128,7 @@ public:
      * @param prm_scale1 スケール値1
      * @param prm_scale2 スケール値2
      */
-    void forceScaleRange(axis prm_axis, int prm_scale1, int prm_scale2) {
+    void forceRange(axis prm_axis, int prm_scale1, int prm_scale2) {
         if (prm_scale1 < prm_scale2) {
             _bottom_scale[prm_axis] = prm_scale1;
             _top_scale[prm_axis] = prm_scale2;

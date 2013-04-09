@@ -26,7 +26,7 @@ void EffectLockon001_Sub::onActive() {
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //右回転
     //_pSeTx->play3D(0); //ロックオンSE
     if (pTarget_) {
-        locateWith(pTarget_);
+        locateAs(pTarget_);
         _pProg->reset(LOCKON001_PROG_LOCK);
     } else {
         setAlpha(0.00);
@@ -55,7 +55,7 @@ void EffectLockon001_Sub::processBehavior() {
                  if (ABS(pTarget_->_X-_X) <= PX_C(200) &&
                      ABS(pTarget_->_Y-_Y) <= PX_C(200) &&
                      ABS(pTarget_->_Z-_Z) <= PX_C(200)) {
-                     locateWith(pTarget_);
+                     locateAs(pTarget_);
                      _pKurokoA->setMvVelo(0);
                  } else {
                      _pKurokoA->setMvAngTwd(pTarget_);

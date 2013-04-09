@@ -96,9 +96,9 @@ MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_
 }
 
 void MyOption::onCreateModel() {
-//    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.3, 2.0);
-//    _pModel->_pTextureBlinker->setBlink(1.0);
-//    _pModel->_pTextureBlinker->beat(120, 10, 1, -1);
+//    _pModel->_pTexBlinker->setBlinkableRange(0.9, 0.3, 2.0);
+//    _pModel->_pTexBlinker->setPower(1.0);
+//    _pModel->_pTexBlinker->beat(120, 10, 1, -1);
     _pModel->setSpecular(5.0, 1.0);
 }
 
@@ -533,7 +533,7 @@ void MyOption::processBehavior() {
 //        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)pLaserChipDepo_->dispatch();
         if (pLaserChip) {
 //            if (pLaserChipDepo_->_pEffectActor_Irradiate) {
-//                pLaserChipDepo_->_pEffectActor_Irradiate->locateWith(this);
+//                pLaserChipDepo_->_pEffectActor_Irradiate->locateAs(this);
 //            }
             //ストレート用
 //            pLaserChip->_pKurokoA->behave();
@@ -560,7 +560,7 @@ void MyOption::processBehavior() {
                                                  Q._z*max_velo_renge/r_max_acce);
             pLaserChip->_pKurokoB->behave();
 
-            pLaserChip->locateWith(this);
+            pLaserChip->locateAs(this);
             pLaserChip->_RZ = _RZ;
             pLaserChip->_RY = _RY;
             pLaserChip->pOrg_ = this;
@@ -579,7 +579,7 @@ void MyOption::processBehavior() {
         if (pShot) {
             GgafDxKurokoA* pShot_pKurokoA = pShot->_pKurokoA;
             _pSeTx->play3D(SE_FIRE_SHOT);
-            pShot->locateWith(this);
+            pShot->locateAs(this);
             pShot_pKurokoA->_angFace[AXIS_X] = _RX;
             pShot_pKurokoA->_angFace[AXIS_Z] = _RZ;
             pShot_pKurokoA->_angFace[AXIS_Y] = _RY;

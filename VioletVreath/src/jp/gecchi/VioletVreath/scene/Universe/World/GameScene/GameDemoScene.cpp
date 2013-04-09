@@ -55,7 +55,7 @@ void GameDemoScene::processBehavior() {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_DEMOPLAY)");
                 pLabel01_->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 pLabel02_->update(100*1000, 150*1000, "GAME OVER");
-                pLabel02_->_pAFader->setAlphaToTop();
+                pLabel02_->_pAFader->setToTop();
                 pLabel02_->_pAFader->beat(60,3,27,27,-1);
             }
 
@@ -86,7 +86,7 @@ void GameDemoScene::processBehavior() {
                             GameGlobal::qryRanking_.getVal("REGDATE", i).c_str());
                     papLabel_Ranking_[i]->update(buf);
                     papLabel_Ranking_[i]->locate(PX_C(400), PX_C(50+(i*22)));
-                    papLabel_Ranking_[i]->_pAFader->setAlphaToBottom();
+                    papLabel_Ranking_[i]->_pAFader->setToBottom();
                     papLabel_Ranking_[i]->_pAFader->beat(25*60, 2*60, 20*60, 1*60, 1); //フェードイン・しばらくしてフェードアウト
                     papLabel_Ranking_[i]->activateDelay((i+1)*12); //上から順番にぼやーっと表示していく
                 }

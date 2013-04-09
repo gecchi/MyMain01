@@ -43,7 +43,7 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     GgafDxDrawableActor* pEffect;
     for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
         pEffect = papEffect_[lv-1];
-        pEffect->locateWith(P_MYSHIP);
+        pEffect->locateAs(P_MYSHIP);
         pEffect->_pKurokoA->setRzRyMvAng(paAng_way[n], D90ANG);
         pEffect->_pKurokoA->setMvVelo(2000);
         pEffect->_pKurokoA->setMvAcce(-5);
@@ -117,7 +117,7 @@ void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
         MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
         papEffect_[lv-1]->setAlpha(r_effect_);
 //        papEffect_[lv-1]->setScaleR(3.0f+(1.0f-r_effect_)*4.0);
-        papEffect_[lv-1]->locateWith(p->pOption_);
+        papEffect_[lv-1]->locateAs(p->pOption_);
         p->pOption_->setAlpha(1.0f-r_effect_);
     }
     if (r_effect_ < 0) {

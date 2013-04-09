@@ -21,9 +21,9 @@ pDepo_Shot_ = nullptr;
 }
 
 void EnemyTamago01::onCreateModel() {
-    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
-    _pModel->_pTextureBlinker->setBlink(0.1);
-    _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
+    _pModel->_pTexBlinker->setBlinkableRange(0.9, 0.1, 1.0);
+    _pModel->_pTexBlinker->setPower(0.1);
+    _pModel->_pTexBlinker->beat(120, 60, 1, -1);
 }
 
 void EnemyTamago01::initialize() {
@@ -78,28 +78,28 @@ void EnemyTamago01::processBehavior() {
 //        _pScaler->addScale(-500);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
-//        _pModel->_pTextureBlinker->->addScale(2000);
+//        _pModel->_pTexBlinker->->addScale(2000);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_2)) {
-//        _pModel->_pTextureBlinker->->addScale(-2000);
+//        _pModel->_pTexBlinker->->addScale(-2000);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
-//        _pModel->_pTextureBlinker->->scaleAcceStep(3000, 0, 3);
+//        _pModel->_pTexBlinker->->scaleAcceStep(3000, 0, 3);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
-//        _pModel->_pTextureBlinker->->loopLiner(20, -1);
+//        _pModel->_pTexBlinker->->loopLiner(20, -1);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_5)) {
-//        _pModel->_pTextureBlinker->->loopLiner(10, 5);
+//        _pModel->_pTexBlinker->->loopLiner(10, 5);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_6)) {
-//        _pModel->_pTextureBlinker->->beat(20, 2 ,5, -1);
+//        _pModel->_pTexBlinker->->beat(20, 2 ,5, -1);
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_7)) {
-//        _pModel->_pTextureBlinker->->stopImmed();
+//        _pModel->_pTexBlinker->->stopImmed();
 //    }
 //    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
-//        _pModel->_pTextureBlinker->->setScaleToBottom();
+//        _pModel->_pTexBlinker->->setScaleToBottom();
 //    }
 
 
@@ -148,7 +148,7 @@ void EnemyTamago01::processBehavior() {
                 if (pActor) {
                     pActor->_pKurokoA->relateMvFaceAng(true);
                     pActor->_pKurokoA->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
-                    pActor->locateWith(this);
+                    pActor->locateAs(this);
                 }
             }
             GGAF_DELETEARR(paAng_way);
@@ -156,7 +156,7 @@ void EnemyTamago01::processBehavior() {
             if (pDepo_ShotEffect_) {
                 pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                 if (pActor) {
-                    pActor->locateWith(this);
+                    pActor->locateAs(this);
                 }
             }
         }
@@ -183,7 +183,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     _pSeTx->play3D(0);
     _TRACE_("HIT!!!");
     if (pExplo001) {
-        pExplo001->locateWith(this);
+        pExplo001->locateAs(this);
     }
 
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {

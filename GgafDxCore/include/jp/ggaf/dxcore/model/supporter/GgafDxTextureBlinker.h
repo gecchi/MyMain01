@@ -65,17 +65,17 @@ public:
      * 色強度を相対指定
      * @param prm_power_blink_diff 色強度値増分
      */
-    void addBlink(float prm_power_blink_diff) {
-        setBlink(_power_blink + prm_power_blink_diff);
+    void addPower(float prm_power_blink_diff) {
+        setPower(_power_blink + prm_power_blink_diff);
     }
 
     /**
      * 色強度を絶対指定
      * @param prm_power_blink 色強度値
      */
-    void setBlink(float prm_power_blink) {
-        //_TRACE_("setBlink ["<<prm_<<"]prm_power_blink="<<prm_power_blink);
-        //_TRACE_("setBlink _bottom_power_blink["<<prm_<<"]="<<_bottom_power_blink<<"/_top_power_blink["<<prm_<<"]="<<_top_power_blink<<"");
+    void setPower(float prm_power_blink) {
+        //_TRACE_("setPower ["<<prm_<<"]prm_power_blink="<<prm_power_blink);
+        //_TRACE_("setPower _bottom_power_blink["<<prm_<<"]="<<_bottom_power_blink<<"/_top_power_blink["<<prm_<<"]="<<_top_power_blink<<"");
         if (_top_power_blink < prm_power_blink) {
             _power_blink = _top_power_blink;
         } else if (_bottom_power_blink > prm_power_blink) {
@@ -83,21 +83,29 @@ public:
         } else {
             _power_blink = prm_power_blink;
         }
-        //_TRACE_("setBlink _power_blink ["<<prm_<<"] _power_blink="<<prm_power_blink);
+        //_TRACE_("setPower _power_blink ["<<prm_<<"] _power_blink="<<prm_power_blink);
     }
-    /**
-     * 色強度の上限下限を設定
-     * @param prm_power_blink1 色強度値1
-     * @param prm_power_blink2 色強度値2
-     */
 
     /**
-     * 対象色しきい値と、色強度の上限下限を設定
-     * @param prm_blink_threshold 点滅対象しきい値
+     * 対象色しきい値と、色強度の上限下限を設定 .
+     * 対象色しきい値とは、点滅させる対象のテクスチャの色の強さ具合です。<BR>
+     * ピクセルシェーダーにおいて、<BR>
+     * ・ここまでの計算した色（テクスチャやライト考慮済み）・・・ colOut.rgba<BR>
+     * ・テクスチャの色 ・・・ colTex.rgba<BR>
+     * ・対象色しきい値 ・・・ g_tex_blink_threshold<BR>
+     * ・現在の色強度値 ・・・ g_tex_blink_power<BR>
+     * とした場合、以下の様な処理を行なっています。<BR>
+     * <code><pre>
+     * <BR>
+     * if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+     *     colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
+     * }
+     * </pre></code>
+     * @param prm_blink_threshold 点滅の対象色しきい値 (0.0 ～ 1.0)
      * @param prm_power_blink1 色強度値1 (負の数 ～ 0:黒 ～ 1.0:等倍強度 ～ )
      * @param prm_power_blink2 色強度値2 (負の数 ～ 0:黒 ～ 1.0:等倍強度 ～ )
      */
-    void forceBlinkRange(float prm_blink_threshold, float prm_power_blink1, float prm_power_blink2) {
+    void setBlinkableRange(float prm_blink_threshold, float prm_power_blink1, float prm_power_blink2) {
         _pModel->_blink_threshold = prm_blink_threshold;
         if (prm_power_blink1 < prm_power_blink2) {
             _bottom_power_blink = prm_power_blink1;
@@ -106,20 +114,20 @@ public:
             _bottom_power_blink = prm_power_blink2;
             _top_power_blink = prm_power_blink1;
         }
-        //_TRACE_("forceBlinkRange _bottom_power_blink["<<prm_<<"]="<<_bottom_power_blink<<"/_top_power_blink["<<prm_<<"]="<<_top_power_blink<<"");
+        //_TRACE_("setBlinkableRange _bottom_power_blink["<<prm_<<"]="<<_bottom_power_blink<<"/_top_power_blink["<<prm_<<"]="<<_top_power_blink<<"");
     }
 
     /**
      * 色強度を下限にリセット
      */
-    void setBlinkToBottom() {
+    void setPowerToBottom() {
         _power_blink = _bottom_power_blink;
     }
 
     /**
      * 色強度を上限にリセット
      */
-    void setBlinkToTop() {
+    void setPowerToTop() {
         _power_blink = _top_power_blink;
     }
 

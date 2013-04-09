@@ -20,11 +20,11 @@ void EffectEntry001::initialize() {
 void EffectEntry001::onActive() {
     setHitAble(false);
 
-    _pScaler->forceScaleRange(1, 20000);
+    _pScaler->forceRange(1, 20000);
     _pScaler->setScaleToBottom();
 
-    _pAFader->forceAlphaRange(0, 0.99);
-    _pAFader->setAlphaToTop();
+    _pAFader->forceRange(0, 0.99);
+    _pAFader->setToTop();
 
     _pKurokoA->setFaceAngVelo(11000,5000,7000);
     _pProg->reset(PROG_INIT);

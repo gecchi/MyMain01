@@ -86,7 +86,7 @@ public:
      * @param prm_alpha1 強度値1
      * @param prm_alpha2 強度値2
      */
-    void forceAlphaRange(float prm_alpha1, float prm_alpha2) {
+    void forceRange(float prm_alpha1, float prm_alpha2) {
         if (prm_alpha1 < prm_alpha2) {
             _bottom_alpha = prm_alpha1;
             _top_alpha = prm_alpha2;
@@ -101,11 +101,11 @@ public:
      * 本オブジェクト(GgafDxAlphaFader)によって変化さえる前の
      * 初期の大きさに戻す。
      */
-    void setAlphaToBottom() {
+    void setToBottom() {
         _alpha = _bottom_alpha;
     }
 
-    void setAlphaToTop() {
+    void setToTop() {
         _alpha = _top_alpha;
     }
 
@@ -121,12 +121,12 @@ public:
      * 例えば beat() 中、途中で元に戻したい場合等に使用する。
      * 内部的には、次のように実行するだけです。
      * stopImmed()
-     * setAlphaToTop()
+     * setToTop()
      * _pActor->setAlpha(_alpha);
      */
     void reset() {
         stopImmed();
-        setAlphaToTop();
+        setToTop();
         _pActor->setAlpha(_alpha);
     }
 

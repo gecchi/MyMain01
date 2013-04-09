@@ -31,7 +31,7 @@ void Planet001::initialize() {
     _pKurokoA->setFaceAngVelo(AXIS_X, 500); //自転の速さ
 
     pAtmosphere_->_pScaler->setScale(_pScaler->_scale[0]);
-    pAtmosphere_->locateWith(this);
+    pAtmosphere_->locateAs(this);
 }
 void Planet001::processBehavior() {
     //巨大オブジェクト移動テスト
@@ -69,7 +69,7 @@ void Planet001::processBehavior() {
     _pKurokoA->behave();
 
     pAtmosphere_->_pScaler->setScale(_pScaler->_scale[0]);
-    pAtmosphere_->locateWith(this);
+    pAtmosphere_->locateAs(this);
 }
 
 Planet001::~Planet001() {

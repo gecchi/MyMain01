@@ -68,6 +68,10 @@ public:
      */
     void setFaceAng(axis prm_axis, angle prm_angFace);
 
+    void setFaceAngByMvAng() {
+        setFaceAng(AXIS_Z, _angRzMv);
+        setFaceAng(AXIS_Y, _angRyMv);
+    }
     /**
      * Actorの自身の座標から対象座標点に向いた方向に、Z軸回転方角とY軸回転方角を設定<BR>
      * @param prm_tX 対象点X座標
@@ -99,6 +103,7 @@ public:
      * @param   prm_angDistance 回転軸方角値の増分アングル値(範囲：_iBottom_RotVeloAngle ～ _angveloTopRot)
      */
     void addFaceAng(axis prm_axis, angle prm_angDistance);
+
 
     /**
      * Actorの目標の軸回転方角自動停止機能を有効(目標の軸回転方角設定)<BR>
@@ -600,6 +605,8 @@ public:
             prm_pGeoElem->_Z
         );
     }
+
+    void reverseMvAng();
 
 
     void setStopTargetMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ);

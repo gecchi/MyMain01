@@ -73,7 +73,7 @@ void MyOptionController::processBehavior() {
         if (pOption_->isActive()) {
             EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
             if (pTurbo002) {
-                pTurbo002->locateWith(pOption_);
+                pTurbo002->locateAs(pOption_);
             }
         }
     } else if (pVbPlay->isBeingPressed(VB_OPTION) && !pVbPlay->isBeingPressed(VB_TURBO)) {
@@ -101,7 +101,7 @@ void MyOptionController::processBehavior() {
         if (pOption_->isActive()) {
             EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
             if (pTurbo002) {
-                pTurbo002->locateWith(pOption_);
+                pTurbo002->locateAs(pOption_);
             }
         }
     }
@@ -151,7 +151,7 @@ void MyOptionController::processBehavior() {
     }
 
 //    //ƒMƒYƒ‚
-//    pDirectionVector_->locateWith(this);
+//    pDirectionVector_->locateAs(this);
 //    pDirectionVector_->_pKurokoA->setRzRyMvAng(_pKurokoA->_angRzMv, _pKurokoA->_angRyMv);
 
     _pKurokoA->behave();

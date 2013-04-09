@@ -77,7 +77,7 @@ private:
      * 使用不可のため、privateでoverride
      * @return
      */
-    void rotateWith(GgafDxGeometricActor* prm_pActor) override {
+    void rotateAs(GgafDxGeometricActor* prm_pActor) override {
     }
     void setScale(scale S) override {
     }
@@ -126,9 +126,9 @@ public:
 
     virtual ~GgafDxBoardSetActor(); //デストラクタ
 
-    virtual void locateWith(GgafDxGeometricActor* prm_pActor) override;
+    virtual void locateAs(GgafDxGeometricActor* prm_pActor) override;
 
-    virtual void locateWith(GgafDxGeoElem* prm_pGeoElem) override;
+    virtual void locateAs(GgafDxGeoElem* prm_pGeoElem) override;
 
     virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign = VALIGN_TOP);
 };

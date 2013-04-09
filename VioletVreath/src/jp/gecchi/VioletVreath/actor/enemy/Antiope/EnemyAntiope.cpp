@@ -34,7 +34,10 @@ void EnemyAntiope::processBehavior() {
              setHitAble(false);
              _pAFader->setAlpha(0);
              _pKurokoA->setMvVelo(0);
+             _pKurokoA->setMvAcce(0);
+             _pKurokoA->setFaceAngVelo(AXIS_X, 0);
              _pKurokoA->relateMvFaceAng(false);
+             _pKurokoB->setZeroVxyzMvVelo();
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
              break;
@@ -52,11 +55,16 @@ void EnemyAntiope::processBehavior() {
 
          case PROG_MOVE01: {
              if (_pProg->isJustChanged()) {
-                 _pKurokoA->setMvVelo(30000);
+                 _pKurokoA->setMvVelo(20000);
                  _pKurokoA->setMvAcce(-1000);
+                 _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(5));
+                 _pKurokoB->setVxyzMvVelo(mv_velo_twd_._X, mv_velo_twd_._Y, mv_velo_twd_._Z);
              }
 
-             if (_pKurokoA->_veloMv <= -30000) {
+             if (_pKurokoA->_veloMv <= (-20000 + 1000)) {
+                 _pKurokoA->setMvVelo(0);
+                 _pKurokoA->setMvAcce(0);
+                 _pKurokoB->setZeroVxyzMvVelo();
                  _pProg->changeNext();
              }
              break;
@@ -65,10 +73,8 @@ void EnemyAntiope::processBehavior() {
 
          case PROG_LEAVE: {
              if (_pProg->isJustChanged()) {
-                 _pAFader->setAlpha(0);
-                 _pKurokoA->setMvVelo(0);
                  UTIL::activateLeaveEffectOf(this);
-                 _pAFader->fadeLinerUntil(0.0, 60);
+                 _pAFader->fadeLinerUntil(0.0, 10);
              }
              if (getAlpha() < 0.5) {
                  setHitAble(false);
@@ -82,7 +88,9 @@ void EnemyAntiope::processBehavior() {
              break;
      }
 
+//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_X<<","<<_Y<<","<<_Z<<"  ("<<_pKurokoA->_veloMv<<") "<<_pKurokoA->_vX<<","<<_pKurokoA->_vY<<","<<_pKurokoA->_vZ<<"");
     _pKurokoA->behave();
+    _pKurokoB->behave();
     _pAFader->behave();
 }
 
@@ -95,19 +103,19 @@ void EnemyAntiope::processJudgement() {
 void EnemyAntiope::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        setHitAble(false);
-        //爆発効果
-        UTIL::activateExplosionEffectOf(this);
-        _pSeTx->play3D(SE_EXPLOSION);
-
-        //自機側に撃たれて消滅の場合、
-        if (pOther->getKind() & KIND_MY) {
-            //アイテム出現
-            UTIL::activateItemOf(this);
-        }
-        sayonara();
-    }
+//    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
+//        setHitAble(false);
+//        //爆発効果
+//        UTIL::activateExplosionEffectOf(this);
+//        _pSeTx->play3D(SE_EXPLOSION);
+//
+//        //自機側に撃たれて消滅の場合、
+//        if (pOther->getKind() & KIND_MY) {
+//            //アイテム出現
+//            UTIL::activateItemOf(this);
+//        }
+//        sayonara();
+//    }
 }
 
 void EnemyAntiope::onInactive() {

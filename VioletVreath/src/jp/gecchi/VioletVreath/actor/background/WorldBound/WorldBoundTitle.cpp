@@ -36,7 +36,7 @@ void WorldBoundTitle::processJudgement() {
 }
 
 void WorldBoundTitle::fadein() {
-    _pAFader->setAlphaToBottom();
+    _pAFader->setToBottom();
     _pAFader->fadeLinerUntil(1.0, 120);
 }
 

@@ -349,7 +349,7 @@ public:
      * 座標(_X, _Y, _Z)をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void locateWith(GgafDxGeometricActor* prm_pActor) {
+    virtual void locateAs(GgafDxGeometricActor* prm_pActor) {
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;
@@ -359,25 +359,25 @@ public:
      * 座標(_X, _Y, _Z)をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
-    virtual void locateWith(GgafDxGeoElem* prm_pGeoElem);
+    virtual void locateAs(GgafDxGeoElem* prm_pGeoElem);
 
     /**
      * 回転角度(_RX, _RY, _RZ)をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void rotateWith(GgafDxGeometricActor* prm_pActor);
+    virtual void rotateAs(GgafDxGeometricActor* prm_pActor);
 
     /**
      * 回転角度(_RX, _RY, _RZ)をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
-    virtual void rotateWith(GgafDxGeoElem* prm_pGeoElem);
+    virtual void rotateAs(GgafDxGeoElem* prm_pGeoElem);
 
     /**
      * X軸Y軸Z軸スケール(_SX, _SY, _SZ)をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void scaleWith(GgafDxGeometricActor* prm_pActor);
+    virtual void scaleAs(GgafDxGeometricActor* prm_pActor);
 
     /**
      * 自身の内部ワールド変換(_matWorldRotMv) の逆行列を未計算なら計算し、計算済みならそのまま返す .

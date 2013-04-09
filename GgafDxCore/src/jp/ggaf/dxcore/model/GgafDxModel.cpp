@@ -15,7 +15,7 @@ GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject() {
     _power_blink = -1.0f;
     _blink_threshold = 1.1f;
     _blinker_frames = 0;
-    _pTextureBlinker = NEW GgafDxTextureBlinker(this);
+    _pTexBlinker = NEW GgafDxTextureBlinker(this);
     _is_init_model = false;
     _set_num = 1; //デフォルト最大同描画数１
     _specular = 0.0f;
@@ -69,6 +69,6 @@ GgafDxModel::~GgafDxModel() {
     _TRACE_("GgafDxModel::~GgafDxModel() " << _model_name << " ");
     GGAF_DELETEARR_NULLABLE(_model_name);
     GGAF_DELETEARR_NULLABLE(_paMaterial_default);
-    GGAF_DELETE(_pTextureBlinker);
+    GGAF_DELETE(_pTexBlinker);
 }
 

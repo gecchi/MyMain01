@@ -24,7 +24,7 @@ void GameBeginningScene::onReset() {
     pLabel01_->update("");
     pLabel02_->update("");
     pLabel02_->_pAFader->stopImmed();
-    pLabel02_->_pAFader->setAlphaToTop();
+    pLabel02_->_pAFader->setToTop();
 }
 //void GameBeginningScene::ready() {
 //    _TRACE_("GameBeginningScene::ready()");

@@ -242,7 +242,7 @@ void GgafDxCamera::setViewPoint(coord prm_tX, coord prm_tY, coord prm_tZ) {
 }
 
 void GgafDxCamera::setViewPoint(GgafDxGeometricActor* prm_pActor) {
-    _pViewPoint->locateWith(prm_pActor);
+    _pViewPoint->locateAs(prm_pActor);
 }
 
 GgafDxCameraViewPoint* GgafDxCamera::getViewPoint() {

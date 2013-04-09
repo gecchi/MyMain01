@@ -35,7 +35,7 @@ void MyWave001::initialize() {
     //	_pColliChecker->pHitAreaBoxs_->setLine(4, 30000, 30000, -30000, -30000, true);
     //	_pColliChecker->pHitAreaBoxs_->setLine(5, -30000, 30000, 30000, -30000, true);
     //
-    _pScaler->forceScaleRange(1000,20000);
+    _pScaler->forceRange(1000,20000);
     //setAlpha(0.2);
 
     setHitAble(true);
@@ -49,7 +49,7 @@ void MyWave001::processBehavior() {
         _pScaler->scaleLinerStep(100000,100);
         _pScaler->behave();
         setHitAble(true);
-        locateWith(P_MYSHIP);
+        locateAs(P_MYSHIP);
         _pKurokoA->setFaceAng(AXIS_Z, P_MYSHIP->_pKurokoA->_angFace[AXIS_Z]);
         _pKurokoA->setFaceAng(AXIS_Y, P_MYSHIP->_pKurokoA->_angFace[AXIS_Y]);
         _pKurokoA->setRzRyMvAng(P_MYSHIP->_pKurokoA->_angFace[AXIS_Z],

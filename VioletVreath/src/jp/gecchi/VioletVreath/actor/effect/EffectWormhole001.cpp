@@ -18,7 +18,7 @@ void EffectWormhole001::initialize() {
 
 void EffectWormhole001::onActive() {
     setAlpha(0.01);
-    _pScaler->forceScaleRange(30000, 1000); //スケーリング・範囲
+    _pScaler->forceRange(30000, 1000); //スケーリング・範囲
     _pScaler->setScale(30000);
     _pScaler->scaleLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);        //回転
@@ -31,7 +31,7 @@ void EffectWormhole001::processBehavior() {
 
     if (_pScaler->_method[0] == NOSCALE) {
         //縮小完了後、Beat
-        _pScaler->forceScaleRange(1000, 2000);
+        _pScaler->forceRange(1000, 2000);
         _pScaler->beat(30, 2, 2, -1); //無限ループ
     }
     _pKurokoA->behave();

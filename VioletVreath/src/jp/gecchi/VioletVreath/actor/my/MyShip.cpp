@@ -248,7 +248,7 @@ void MyShip::initialize() {
 
     _pKurokoA->setMvVelo(0);
     _pScaler->setScale(1000);
-    _pScaler->forceScaleRange(1000, 7000);
+    _pScaler->forceRange(1000, 7000);
 
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
@@ -542,25 +542,25 @@ void MyShip::processJudgement() {
 //    if (GgafDxInput::isPushedDownKey(DIK_W)) {
 //        TestGuShot* pShot = (TestGuShot*)pDepo_TestGuShot_->dispatch();
 //        if (pShot) {
-//            pShot->locateWith(this);
+//            pShot->locateAs(this);
 //        }
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_E)) {
 //        TestChokiShot* pShot = (TestChokiShot*)pDepo_TestChokiShot_->dispatch();
 //        if (pShot) {
-//            pShot->locateWith(this);
+//            pShot->locateAs(this);
 //        }
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_R)) {
 //        TestPaShot* pShot = (TestPaShot*)pDepo_TestPaShot_->dispatch();
 //        if (pShot) {
-//            pShot->locateWith(this);
+//            pShot->locateAs(this);
 //        }
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_T)) {
 //        TestNomalShot* pShot = (TestNomalShot*)pDepo_TestNomalShot_->dispatch();
 //        if (pShot) {
-//            pShot->locateWith(this);
+//            pShot->locateAs(this);
 //        }
 //    }
     //<---- debug
@@ -633,7 +633,7 @@ void MyShip::processJudgement() {
             MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
             if (pShot) {
                 _pSeTx->play3D(SE_FIRE_SHOT);
-                pShot->locateWith(this);
+                pShot->locateAs(this);
             }
             if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
                 //SOFT_RAPIDSHOT_NUM 発打ち終えたらソフト連射終了

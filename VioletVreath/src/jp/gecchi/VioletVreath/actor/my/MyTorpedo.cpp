@@ -222,7 +222,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //爆風発生(TODO:爆風はデポジトリではなくて、絶対発生させるようにすること)
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)pOptionTorpedoCtrler_->pDepo_TorpedoBlast_->dispatch();
     if (pBlast) {
-        pBlast->locateWith(this);
+        pBlast->locateAs(this);
         pBlast->reset();
     }
 

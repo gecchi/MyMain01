@@ -23,7 +23,7 @@ void MagicLvCursor003::initialize() {
     _pUvFlipper->setActivePtn(3);
     _pUvFlipper->exec(NOT_ANIMATED);
 
-    _pScaler->forceScaleRange(1000, 10000);
+    _pScaler->forceRange(1000, 10000);
 }
 
 void MagicLvCursor003::processPreDraw() {

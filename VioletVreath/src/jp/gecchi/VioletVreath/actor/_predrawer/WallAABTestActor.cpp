@@ -11,9 +11,9 @@ WallAABTestActor::WallAABTestActor(const char* prm_name) :
 }
 
 void WallAABTestActor::onCreateModel() {
-    _pModel->_pTextureBlinker->forceBlinkRange(0.5, 0.2, 3.0);
-    _pModel->_pTextureBlinker->setBlink(0.5);
-    _pModel->_pTextureBlinker->beat(10*20, 10*9, 10*3, -1);
+    _pModel->_pTexBlinker->setBlinkableRange(0.5, 0.2, 3.0);
+    _pModel->_pTexBlinker->setPower(0.5);
+    _pModel->_pTexBlinker->beat(10*20, 10*9, 10*3, -1);
 }
 
 

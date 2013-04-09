@@ -20,7 +20,7 @@ void ViewPointGuide::onActive() {
 }
 
 void ViewPointGuide::processBehavior() {
-    locateWith(P_CAM->_pViewPoint);
+    locateAs(P_CAM->_pViewPoint);
 }
 
 void ViewPointGuide::processJudgement() {

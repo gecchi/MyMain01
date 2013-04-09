@@ -208,10 +208,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\core\actor\GgafDirector.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\ggaf\core\actor\ex\GgafDummyActor.cpp"
 				>
 			</File>
@@ -292,6 +288,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\core\actor\GgafSceneDirector.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\core\util\GgafStasus.cpp"
 				>
 			</File>
@@ -367,10 +367,6 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\core\actor\ex\GgafDepositoryFormation.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\core\actor\GgafDirector.h"
 				>
 			</File>
 			<File
@@ -487,6 +483,10 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\core\scene\GgafScene.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\core\actor\GgafSceneDirector.h"
 				>
 			</File>
 			<File

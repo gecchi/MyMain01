@@ -45,7 +45,7 @@ void Shot003::onHit(GgafActor* prm_pOtherActor) {
 //        EffectExplosion003* pExplo003 = (EffectExplosion003*)P_COMMON_SCENE->pDepo_EffectExplosion003_->dispatch();
 //        playSe3D1();
 //        if (pExplo003) {
-//            pExplo003->locateWith(this);
+//            pExplo003->locateAs(this);
 //        }
 //        sayonara();
 //    }

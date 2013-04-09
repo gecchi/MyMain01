@@ -25,8 +25,7 @@ public:
 
     };
 
-
-    GgafDxCore::GgafDxGeoElem leave_pos_;
+    GgafDxCore::GgafDxGeoElem mv_velo_twd_;
 public:
     /**
      * コンストラクタ

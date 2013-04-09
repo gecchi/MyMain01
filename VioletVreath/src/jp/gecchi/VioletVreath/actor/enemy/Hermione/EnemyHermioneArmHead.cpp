@@ -20,7 +20,7 @@ void EnemyHermioneArmHead::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
     _pScaler->setScale(1000);
-    _pScaler->forceScaleRange(1000, 1200);
+    _pScaler->forceRange(1000, 1200);
     _pScaler->beat(30, 5, 5, -1);
 }
 
@@ -58,7 +58,7 @@ void EnemyHermioneArmHead::processBehavior() {
             UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                    Rz, Ry); //現在の最終的な向きを、RzRyで取得！
             pShot->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
-            pShot->locateWith(this);
+            pShot->locateAs(this);
             pShot->reset();
         }
     }

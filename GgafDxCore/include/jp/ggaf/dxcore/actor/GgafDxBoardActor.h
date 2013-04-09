@@ -71,7 +71,7 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
      */
     void changeGeoFinal() override {
     }
-    void rotateWith(GgafDxGeometricActor* prm_pActor) override {
+    void rotateAs(GgafDxGeometricActor* prm_pActor) override {
     }
 
 
@@ -118,8 +118,8 @@ public:
 
     virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign = VALIGN_TOP);
 
-    virtual void locateWith(GgafDxGeometricActor* prm_pActor) override;
-    virtual void locateWith(GgafDxGeoElem* prm_pGeoElem) override;
+    virtual void locateAs(GgafDxGeometricActor* prm_pActor) override;
+    virtual void locateAs(GgafDxGeoElem* prm_pGeoElem) override;
     virtual void setScale(scale S) override;
     virtual void setScale(scale SX, scale SY) override;
     virtual void setScale(scale SX, scale SY, scale SZ) override;

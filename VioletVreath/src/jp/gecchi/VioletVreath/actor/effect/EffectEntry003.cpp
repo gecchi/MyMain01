@@ -12,7 +12,7 @@ EffectEntry003::EffectEntry003(const char* prm_name) :
 
 void EffectEntry003::initialize() {
     //_pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
-    _pScaler->forceScaleRange(R_SC(0.0), R_SC(1.0));
+    _pScaler->forceRange(R_SC(0.0), R_SC(1.0));
     setAlpha(0.99);
 }
 

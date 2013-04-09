@@ -21,9 +21,9 @@ EnemyJuno::EnemyJuno(const char* prm_name) :
 }
 
 void EnemyJuno::onCreateModel() {
-//    _pModel->_pTextureBlinker->forceBlinkRange(0.5, 2.0);
-//    _pModel->_pTextureBlinker->setBlink(0.5);
-//    _pModel->_pTextureBlinker->beat(60, 3, 1, -1);
+//    _pModel->_pTexBlinker->setBlinkableRange(0.5, 2.0);
+//    _pModel->_pTexBlinker->setPower(0.5);
+//    _pModel->_pTexBlinker->beat(60, 3, 1, -1);
 //    _pModel->blink_threshold_ = 0.8;
 }
 
@@ -76,7 +76,7 @@ void EnemyJuno::processBehavior() {
 //                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                if (pShot) {
 //                    shot_num_++;
-//                    pShot->locateWith(this);
+//                    pShot->locateAs(this);
 //                    pShot->_pKurokoA->relateMvFaceAng(true);
 //                    pShot->_pKurokoA->setMvAngTwd(P_MYSHIP);
 //                    pShot->reset();

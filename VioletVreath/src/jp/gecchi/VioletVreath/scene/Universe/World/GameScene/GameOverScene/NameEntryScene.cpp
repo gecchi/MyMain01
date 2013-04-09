@@ -18,7 +18,7 @@ NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
 
     pLabelSelectedChar_ = NEW SpriteLabelGecchi32Font("SelectedChar");
     pLabelSelectedChar_->_pAFader->beat(60, 10, 0, 0, -1); //チカチカ点滅
-    pLabelSelectedChar_->locateWith(pLabelInputedName_);
+    pLabelSelectedChar_->locateAs(pLabelInputedName_);
     getSceneDirector()->addSubGroup(pLabelSelectedChar_);
 
     pNameEntryBoard_ = NEW MenuBoardNameEntry("pNameEntryBoard_");
@@ -73,7 +73,7 @@ void NameEntryScene::processBehavior() {
 
             }
             pLabelInputedName_->_pKurokoA->behave();
-            pLabelSelectedChar_->rotateWith(pLabelInputedName_);
+            pLabelSelectedChar_->rotateAs(pLabelInputedName_);
             pLabelSelectedChar_->_pAFader->behave(); //チカチカ
             //EVENT_MENU_NAMEENTRY_DONE まち。
             break;
@@ -103,7 +103,7 @@ void NameEntryScene::processBehavior() {
             }
 
             pLabelInputedName_->_pKurokoA->behave();
-            pLabelSelectedChar_->rotateWith(pLabelInputedName_);
+            pLabelSelectedChar_->rotateAs(pLabelInputedName_);
             pLabelInputedName_->_pAFader->behave(); //点滅チカチカ
             break;
         }

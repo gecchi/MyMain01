@@ -980,7 +980,7 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getDisp(int prm_index) {
 template<class T>
 void MenuActor<T>::selectNext() {
     if (_pCursor) {
-        _pCursor->locateWith(_lstItems.getCurrent());
+        _pCursor->locateAs(_lstItems.getCurrent());
     }
     _lstItems.next();
     moveCursor();
@@ -991,7 +991,7 @@ void MenuActor<T>::selectNext() {
 template<class T>
 void MenuActor<T>::selectPrev() {
     if (_pCursor) {
-        _pCursor->locateWith(_lstItems.getCurrent());
+        _pCursor->locateAs(_lstItems.getCurrent());
     }
     _lstItems.prev();
     moveCursor();
@@ -1003,7 +1003,7 @@ template<class T>
 void MenuActor<T>::selectExNext() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
         if (_pCursor) {
-            _pCursor->locateWith(_lstItems.getCurrent());
+            _pCursor->locateAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_EX_NEXT);
         moveCursor();
@@ -1018,7 +1018,7 @@ template<class T>
 void MenuActor<T>::selectExPrev() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
         if (_pCursor) {
-            _pCursor->locateWith(_lstItems.getCurrent());
+            _pCursor->locateAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_EX_PREV);
         moveCursor();
@@ -1033,7 +1033,7 @@ template<class T>
 void MenuActor<T>::selectCancel() {
     if (_lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         if (_pCursor) {
-            _pCursor->locateWith(_lstItems.getCurrent());
+            _pCursor->locateAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_TO_CANCEL);
         moveCursor();

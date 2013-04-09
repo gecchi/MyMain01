@@ -39,9 +39,9 @@ EnemyHesperia::EnemyHesperia(const char* prm_name) :
 }
 
 void EnemyHesperia::onCreateModel() {
-    _pModel->_pTextureBlinker->forceBlinkRange(0.97, 0.5, 12.0);
-    _pModel->_pTextureBlinker->setBlink(1.0);
-    _pModel->_pTextureBlinker->beat(60*6, 60*2, 60*2, -1);
+    _pModel->_pTexBlinker->setBlinkableRange(0.97, 0.5, 12.0);
+    _pModel->_pTexBlinker->setPower(1.0);
+    _pModel->_pTexBlinker->beat(60*6, 60*2, 60*2, -1);
 }
 
 void EnemyHesperia::initialize() {

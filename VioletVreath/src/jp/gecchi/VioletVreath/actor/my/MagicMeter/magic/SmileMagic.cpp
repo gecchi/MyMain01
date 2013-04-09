@@ -31,7 +31,7 @@ SmileMagic::SmileMagic(const char* prm_name, AmountGraph* prm_pMP)
 }
 
 void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    pMoji_->locateWith(P_MYSHIP);
+    pMoji_->locateAs(P_MYSHIP);
     pMoji_->setAlpha(0.9);
     pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
     pMoji_->_pKurokoA->setFaceAngVelo(AXIS_X, 200);

@@ -157,7 +157,7 @@ void MagicMeter::initialize() {
     pVreathBar_->locate(_X, _Y + height_ + PX_C(16) + PX_C(16) );
     pCostDispBar2_->locate(pVreathBar_->_X, pVreathBar_->_Y);
     pDamageDispBar_->locate(pVreathBar_->_X, pVreathBar_->_Y);
-    pMagicMeterStatus_->locateWith(this);
+    pMagicMeterStatus_->locateAs(this);
 
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
     Magic* pMagic;

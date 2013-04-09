@@ -18,7 +18,7 @@ void EffectSylviaEye001::initialize() {
 
 void EffectSylviaEye001::onActive() {
     cnt_ = 0;
-    _pScaler->forceScaleRange(100000, 1); //スケーリング・範囲
+    _pScaler->forceRange(100000, 1); //スケーリング・範囲
     _pScaler->setScale(100000);
     _pScaler->beat(30, 0, 0, 3);
 }

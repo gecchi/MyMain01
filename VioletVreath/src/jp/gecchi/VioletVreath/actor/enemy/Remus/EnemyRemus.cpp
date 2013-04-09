@@ -27,9 +27,9 @@ EnemyRemus::EnemyRemus(const char* prm_name) :
 }
 
 void EnemyRemus::onCreateModel() {
-    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
-    _pModel->_pTextureBlinker->setBlink(0.1);
-    _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
+    _pModel->_pTexBlinker->setBlinkableRange(0.9, 0.1, 1.0);
+    _pModel->_pTexBlinker->setPower(0.1);
+    _pModel->_pTexBlinker->beat(120, 60, 1, -1);
     _pModel->setSpecular(5.0, 1.0);
 }
 
@@ -41,7 +41,7 @@ void EnemyRemus::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
     _pScaler->setScale(1000);
-    _pScaler->forceScaleRange(1000, 1200);
+    _pScaler->forceRange(1000, 1200);
     _pScaler->beat(30, 5, 5, -1);
 }
 
@@ -97,7 +97,7 @@ void EnemyRemus::processBehavior() {
             if (is_firing_) {
                 LaserChip* pChip = pLaserChipDepo_->dispatch();
                 if (pChip) {
-                    pChip->locateWith(this);
+                    pChip->locateAs(this);
                     angle Rz, Ry;  //現在の最終的な向きを、RzRyで取得する
                     UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                            Rz, Ry); //現在の最終的な向きを、RzRyで取得！

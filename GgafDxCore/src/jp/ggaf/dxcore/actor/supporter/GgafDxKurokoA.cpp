@@ -1481,6 +1481,16 @@ void GgafDxKurokoA::setMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ) {
     }
 }
 
+void GgafDxKurokoA::reverseMvAng() {
+    _vX = -_vX;
+    _vY = -_vY;
+    _vZ = -_vZ;
+    _angRzMv = UTIL::simplifyAng(_angRzMv+D180ANG);
+    if (_relate_RzFaceAng_with_RzMvAng_flg) {
+        setFaceAng(AXIS_Z, _angRzMv);
+    }
+}
+
 void GgafDxKurokoA::setStopTargetMvAngTwd(GgafDxGeometricActor* prm_pActor_Target) {
     setStopTargetMvAngTwd(
         prm_pActor_Target->_X,

@@ -22,7 +22,7 @@ void VvvCursor::initialize() {
     //座標設定
     _X = _Y = _Z = 0; //(0,0,0) は画面の中心
     _pKurokoA->_angveloFace[AXIS_Z] = 1000;
-    _pScaler->forceScaleRange(2000, 4000);
+    _pScaler->forceRange(2000, 4000);
     _pScaler->beat(30, 2, 2, -1); //無限ループ
     _pAFader->setAlpha(0);
 }
