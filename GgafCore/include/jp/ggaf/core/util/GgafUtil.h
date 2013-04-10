@@ -6,6 +6,7 @@
 #define ABS(X) (GgafCore::GgafUtil::_abs_(X))
 #define SGN(X) (GgafCore::GgafUtil::_sgn_(X))
 #define MAX3(a,b,c) (GgafCore::GgafUtil::_max3_(a,b,c))
+#define MIN3(a,b,c) (GgafCore::GgafUtil::_min3_(a,b,c))
 
 #define ZEROf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_(X))
 #define ONEf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_((X)-1.0f))
@@ -215,6 +216,11 @@ public:
     template<typename T>
     static inline T _max3_(T a, T b, T c) {
         return ( (a)>(b) ? ((a)>(c)?(a):(c)) : ((b)>(c)?(b):(c)) );
+    }
+
+    template<typename T>
+    static inline T _min3_(T a, T b, T c) {
+        return ( (a) < ((b)<(c)?(b):(c)) ? (a) : ((b)<(c)?(b):(c)) );
     }
 
     static inline size_t hex2dec(const std::string &prm_hex) {

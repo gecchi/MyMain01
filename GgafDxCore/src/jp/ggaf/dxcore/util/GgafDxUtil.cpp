@@ -592,13 +592,13 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
 
 
 void GgafDxUtil::convVectorToRzRy(coord vx,
-                            coord vy,
-                            coord vz,
-                            float& out_nvx,
-                            float& out_nvy,
-                            float& out_nvz,
-                            angle& out_angFaceZ,
-                            angle& out_angFaceY) {
+                                  coord vy,
+                                  coord vz,
+                                  float& out_nvx,
+                                  float& out_nvy,
+                                  float& out_nvz,
+                                  angle& out_angFaceZ,
+                                  angle& out_angFaceY) {
 
     convVectorToRzRy(vx,
                vy,

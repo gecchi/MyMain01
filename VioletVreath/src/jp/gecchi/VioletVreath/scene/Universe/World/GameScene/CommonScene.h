@@ -14,8 +14,8 @@
  */
 #define dispatchFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch())
 #define dispatchDelayFromCommon(X, F) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatch((F)))
-#define employForceFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatchForce())
-#define employForceDelayFromCommon(X, F) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatchForce((F)))
+#define dispatchForceFromCommon(X) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatchForce())
+#define dispatchForceDelayFromCommon(X, F) ((X*)P_COMMON_SCENE->pDepo_##X##_->dispatchForce((F)))
 
 namespace VioletVreath {
 

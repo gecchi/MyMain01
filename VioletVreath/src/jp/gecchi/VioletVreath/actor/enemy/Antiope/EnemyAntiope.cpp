@@ -35,16 +35,15 @@ void EnemyAntiope::processBehavior() {
              _pAFader->setAlpha(0);
              _pKurokoA->setMvVelo(0);
              _pKurokoA->setMvAcce(0);
-             _pKurokoA->setFaceAngVelo(AXIS_X, 0);
-             _pKurokoA->relateMvFaceAng(false);
+             _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(10));
              _pKurokoB->setZeroVxyzMvVelo();
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
              break;
          }
          case PROG_ENTRY: {
-             if (_pProg->getFrameInProgress() == 60) {
-                 _pAFader->fadeLinerUntil(1.0, 60);
+             if (_pProg->isJustChanged()) {
+                 _pAFader->fadeLinerUntil(1.0, 30);
              }
              if (getAlpha() > 0.5) {
                  setHitAble(true);
@@ -55,13 +54,12 @@ void EnemyAntiope::processBehavior() {
 
          case PROG_MOVE01: {
              if (_pProg->isJustChanged()) {
-                 _pKurokoA->setMvVelo(20000);
+                 _pKurokoA->setMvVelo(30000);
                  _pKurokoA->setMvAcce(-1000);
-                 _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(5));
                  _pKurokoB->setVxyzMvVelo(mv_velo_twd_._X, mv_velo_twd_._Y, mv_velo_twd_._Z);
              }
 
-             if (_pKurokoA->_veloMv <= (-20000 + 1000)) {
+             if (_pKurokoA->_veloMv <= (-30000 + 1000)) {
                  _pKurokoA->setMvVelo(0);
                  _pKurokoA->setMvAcce(0);
                  _pKurokoB->setZeroVxyzMvVelo();
@@ -103,19 +101,19 @@ void EnemyAntiope::processJudgement() {
 void EnemyAntiope::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
-//    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-//        setHitAble(false);
-//        //爆発効果
-//        UTIL::activateExplosionEffectOf(this);
-//        _pSeTx->play3D(SE_EXPLOSION);
-//
-//        //自機側に撃たれて消滅の場合、
-//        if (pOther->getKind() & KIND_MY) {
-//            //アイテム出現
-//            UTIL::activateItemOf(this);
-//        }
-//        sayonara();
-//    }
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
+        setHitAble(false);
+        //爆発効果
+        UTIL::activateExplosionEffectOf(this);
+        _pSeTx->play3D(SE_EXPLOSION);
+
+        //自機側に撃たれて消滅の場合、
+        if (pOther->getKind() & KIND_MY) {
+            //アイテム出現
+            UTIL::activateItemOf(this);
+        }
+        sayonara();
+    }
 }
 
 void EnemyAntiope::onInactive() {

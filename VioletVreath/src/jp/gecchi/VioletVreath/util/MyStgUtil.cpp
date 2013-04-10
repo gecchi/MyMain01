@@ -224,7 +224,7 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
         }
         case EF_BONUS001: {
             //スコアが表示される消滅エフェクト
-            SpriteLabelBonus001* pLabel = employForceFromCommon(SpriteLabelBonus001);
+            SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
             pLabel->locateAs(prm_pActor);
             pLabel->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
             std::string s = XTOS(prm_pActor->_pStatus->get(STAT_AddScorePoint));
@@ -248,55 +248,71 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
 }
 
 GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pE = nullptr;
+    GgafDxDrawableActor* pRet = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_EntryEffectKind)) {
         case 0: {
-            pE = nullptr; //入場エフェクト無し
+            pRet = nullptr; //入場エフェクト無し
             break;
         }
-        case EF_ENTRY_SMALL001: {
-            pE = dispatchFromCommon(EffectEntry001);
+        case EF_ENTRY_SMALL001_LONG: {
+            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+            if (pE) {
+                pE->locateAs(prm_pActor);
+                pE->config(30,120,60);
+            }
+            pRet = pE;
+            break;
+        }
+        case EF_ENTRY_SMALL001_F60: {
+            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+            if (pE) {
+                pE->locateAs(prm_pActor);
+                pE->config(30,1,30);
+            }
+            pRet = pE;
             break;
         }
         case EF_ENTRY_MIDDLE001: {
-            pE = dispatchFromCommon(EffectEntry002);
+            EffectEntry002* pE = dispatchFromCommon(EffectEntry002);
+            pRet = pE;
             break;
         }
         default: {
             throwGgafCriticalException("対応 STAT_EntryEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-            pE = nullptr;
+            pRet = nullptr;
             break;
         }
     }
-    if (pE) {
-        //出現座標を設定
-        pE->locateAs(prm_pActor);
+    if (pRet) {
     }
-    return pE;
+    return pRet;
 }
 
 GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_pActor) {
-    GgafDxDrawableActor* pE = nullptr;
+    GgafDxDrawableActor* pRet = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_LeaveEffectKind)) {
         case 0: {
-            pE = nullptr; //退場エフェクト無し
+            pRet = nullptr; //退場エフェクト無し
             break;
         }
-        case EF_LEAVE_SMALL001: {
-            pE = dispatchFromCommon(EffectEntry001);
+        case EF_LEAVE_SMALL001_F60: {
+            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+            if (pE) {
+                pE->locateAs(prm_pActor);
+                pE->config(30,1,30);
+            }
+            pRet = pE;
             break;
         }
         default: {
             throwGgafCriticalException("対応 STAT_LeaveEffectKind が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-            pE = nullptr;
+            pRet = nullptr;
             break;
         }
     }
-    if (pE) {
-        //出現座標を設定
-        pE->locateAs(prm_pActor);
+    if (pRet) {
     }
-    return pE;
+    return pRet;
 }
 
 GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
@@ -310,14 +326,14 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
         }
         case EF_EXPLO_AND_BONUS001: {
             //1は通常のフォーメーションボーナススコア表示エフェクト
-            SpriteLabelBonus001* pLabel = employForceFromCommon(SpriteLabelBonus001);
+            SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
             pLabel->locateAs(prm_pActor);
             pLabel->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
             std::string s = XTOS(addscore);
             pLabel->update(s.c_str());
             pE = pLabel;
 
-            EffectTurbo002* pTurbo002 = employForceFromCommon(EffectTurbo002);
+            EffectTurbo002* pTurbo002 = dispatchForceFromCommon(EffectTurbo002);
             pTurbo002->locateAs(prm_pActor);
             pTurbo002->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
             break;
@@ -416,7 +432,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -440,7 +456,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -464,7 +480,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -488,7 +504,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -512,7 +528,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -536,7 +552,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -560,7 +576,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -584,7 +600,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -608,7 +624,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -632,7 +648,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -656,7 +672,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -680,7 +696,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -704,7 +720,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -728,7 +744,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -752,7 +768,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -776,7 +792,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -800,7 +816,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -824,7 +840,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -848,7 +864,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -872,7 +888,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -896,7 +912,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -920,7 +936,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -944,7 +960,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -968,7 +984,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -992,7 +1008,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1016,7 +1032,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1040,7 +1056,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1064,7 +1080,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1088,7 +1104,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1112,7 +1128,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1136,7 +1152,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1160,7 +1176,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1184,7 +1200,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1208,7 +1224,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1232,7 +1248,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1256,7 +1272,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1280,7 +1296,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1304,7 +1320,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1328,7 +1344,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1352,7 +1368,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1376,7 +1392,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1400,7 +1416,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1424,7 +1440,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1448,7 +1464,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1472,7 +1488,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1496,7 +1512,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1520,7 +1536,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1544,7 +1560,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1568,7 +1584,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1592,7 +1608,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1616,7 +1632,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1640,7 +1656,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION002);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1664,7 +1680,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1688,7 +1704,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1712,7 +1728,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1736,7 +1752,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1760,7 +1776,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1784,7 +1800,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1808,7 +1824,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1832,7 +1848,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1856,7 +1872,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1880,7 +1896,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1904,7 +1920,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, 0 );  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1928,7 +1944,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1951,8 +1967,8 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001);  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1975,8 +1991,8 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001);  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -1999,8 +2015,8 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001);  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -2023,8 +2039,8 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001);  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, 1 );  //退出エフェクト種別
+		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, 0 );  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
@@ -2047,8 +2063,8 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001);  //出現エフェクト種別
-		p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001);  //退出エフェクト種別
+		p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
+		p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F60);  //退出エフェクト種別
 		p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 		p->set(STAT_DestroyedEffectKind, 0 );  //やられエフェクト種別
 		p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別

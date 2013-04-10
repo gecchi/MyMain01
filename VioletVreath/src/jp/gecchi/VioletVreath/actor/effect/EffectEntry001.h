@@ -11,10 +11,15 @@ namespace VioletVreath {
 class EffectEntry001 : public GgafLib::DefaultMeshSetActor {
 
 public:
+    frame scale_in_frames_;
+    frame duration_frames_;
+    frame scale_out_frames_;
+
     enum {
         PROG_INIT = 1,
-        PROG_EXPAND  ,
-        PROG_SHRINK  ,
+        PROG_IN  ,
+        PROG_STAY  ,
+        PROG_OUT ,
     };
 
     EffectEntry001(const char* prm_name);
@@ -28,6 +33,27 @@ public:
     void onInactive() override;
 
     void processJudgement() override;
+
+    /**
+     * エフェクトの発生、持続、消滅の時間を設定。.
+     * </PRE>
+     *       ＿＿＿＿               ← スケール率 1.0
+     *      /:      :＼
+     *     / :      :  ＼
+     *    /  :      :    ＼
+     *   /   :      :      ＼
+     *  /    :      :        ＼
+     * /     :      :          ＼   ← スケール率 0
+     * ----------------------------------------------->時間（フレーム）
+     * ←①→|←②→|←─ ③ ─→|
+     *
+     * </PRE>
+     *
+     * @param prm_scale_in_frames 上記①のフレーム数
+     * @param prm_duration_frames 上記②のフレーム数
+     * @param prm_scale_out_frames 上記③のフレーム数
+     */
+    void config(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames);
 
     virtual ~EffectEntry001();
 };

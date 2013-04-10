@@ -18,10 +18,11 @@ class MyStgUtil : public GgafLib::StgUtil {
 public:
     enum EffectKind {
         EF_NOTHING,
-        EF_ENTRY_SMALL001,
+        EF_ENTRY_SMALL001_F60,
+        EF_ENTRY_SMALL001_LONG,
         EF_ENTRY_MIDDLE001,
         EF_ENTRY003,
-        EF_LEAVE_SMALL001,
+        EF_LEAVE_SMALL001_F60,
         EF_EXPLOSION001 ,
         EF_EXPLOSION002,
         EF_EXPLOSION003,

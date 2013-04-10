@@ -1485,7 +1485,7 @@ void GgafDxKurokoA::reverseMvAng() {
     _vX = -_vX;
     _vY = -_vY;
     _vZ = -_vZ;
-    _angRzMv = UTIL::simplifyAng(_angRzMv+D180ANG);
+    _angRzMv = UTIL::simplifyAng(_angRzMv-D180ANG);
     if (_relate_RzFaceAng_with_RzMvAng_flg) {
         setFaceAng(AXIS_Z, _angRzMv);
     }

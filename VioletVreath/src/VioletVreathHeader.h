@@ -177,8 +177,8 @@
 #define RR_EnemyAntiope_ShotWay(X)  (2+(X)*4)  //î≠éÀíe(Way)êî
 #define RR_EnemyAntiope_ShotMvVelo(X)  (1000+(X)*5000)  //î≠éÀíeë¨ìx
 // FormationAntiope001 ÇÃÉâÉìÉNéÆ
-#define RR_FormationAntiope001_Num(X)  (120+(X)*120)  //ë‡êî
-#define RR_FormationAntiope001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //èoåªä‘äu
+#define RR_FormationAntiope001_Num(X)  (300+(X)*300)  //ë‡êî
+#define RR_FormationAntiope001_LaunchInterval(X)  (2 + (2 - ((X)>1.0?1.0:(X))*2))  //èoåªä‘äu
 // gen02 end
 
 //1/Å„2

@@ -27,21 +27,21 @@ void FormationAntiope001::processBehavior() {
     if (cnt_Antiope_ < num_Antiope_) {
         if (getActiveFrame() % interval_frames_ == 0) {
             MyShip* pMyShip = P_MYSHIP;
-            coord renge = PX_C(1000);
-            GgafDxCore::GgafDxGeoElem entry_pos(RND(pMyShip->_X - renge ,pMyShip->_X + renge),
-                                                RND(pMyShip->_Y - renge ,pMyShip->_Y + renge),
-                                                RND(pMyShip->_Z - renge ,pMyShip->_Z + renge) );
+            coord renge = PX_C(1200);
+            GgafDxCore::GgafDxGeoElem entry_pos(RND(pMyShip->_X - renge, pMyShip->_X + renge),
+                                                RND(pMyShip->_Y - renge, pMyShip->_Y + renge),
+                                                RND(pMyShip->_Z - renge, pMyShip->_Z + renge) );
 
-            GgafDxCore::GgafDxGeoElem twd_pos_p(RND(pMyShip->_X - renge ,pMyShip->_X + renge),
-                                                RND(pMyShip->_Y - renge ,pMyShip->_Y + renge),
-                                                RND(pMyShip->_Z - renge ,pMyShip->_Z + renge) );
+            GgafDxCore::GgafDxGeoElem twd_pos_p(RND(pMyShip->_X - renge, pMyShip->_X + renge),
+                                                RND(pMyShip->_Y - renge, pMyShip->_Y + renge),
+                                                RND(pMyShip->_Z - renge, pMyShip->_Z + renge) );
 
             float vX, vY, vZ;
-            UTIL::getNormalizeVector(RND(pMyShip->_X - renge ,pMyShip->_X + renge),
-                                     RND(pMyShip->_Y - renge ,pMyShip->_Y + renge),
-                                     RND(pMyShip->_Z - renge ,pMyShip->_Z + renge),
+            UTIL::getNormalizeVector(RND(pMyShip->_X - renge, pMyShip->_X + renge),
+                                     RND(pMyShip->_Y - renge, pMyShip->_Y + renge),
+                                     RND(pMyShip->_Z - renge, pMyShip->_Z + renge),
                                      vX, vY, vZ);
-            coord veloMv = 3000;
+            coord veloMv = 4000;
 
             EnemyAntiopeP* pP = (EnemyAntiopeP*)pDepoConnection_AntiopeP_->peek()->dispatch();
             if (pP) {
@@ -58,7 +58,7 @@ void FormationAntiope001::processBehavior() {
                 pN->locateAs(&entry_pos);
                 pN->_pKurokoA->setMvAngTwd(&twd_pos_p);
                 pN->_pKurokoA->reverseMvAng();
-                pP->_pKurokoA->setFaceAngByMvAng();
+                pN->_pKurokoA->setFaceAngByMvAng();
                 pN->_pKurokoA->setMvVelo(0);
                 pN->_pKurokoA->setMvAcce(0);
                 pN->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);

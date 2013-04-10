@@ -11,21 +11,17 @@ EffectEntry001::EffectEntry001(const char* prm_name) :
     setZEnable(false);
     setZWriteEnable(false);
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
+    scale_in_frames_ = duration_frames_ = scale_out_frames_ = 1;
 }
 
 void EffectEntry001::initialize() {
-    useProgress(4);
+    useProgress(5);
 }
 
 void EffectEntry001::onActive() {
     setHitAble(false);
-
     _pScaler->forceRange(1, 20000);
     _pScaler->setScaleToBottom();
-
-    _pAFader->forceRange(0, 0.99);
-    _pAFader->setToTop();
-
     _pKurokoA->setFaceAngVelo(11000,5000,7000);
     _pProg->reset(PROG_INIT);
 }
@@ -33,29 +29,37 @@ void EffectEntry001::onActive() {
 void EffectEntry001::processBehavior() {
     switch (_pProg->get()) {
         case PROG_INIT: {
-            _pScaler->scaleAcceStep(10000,1,2);
+            _pScaler->scaleLinerTop(scale_in_frames_);
             _pProg->changeNext();
             break;
         }
 
-        case PROG_EXPAND: {
+        case PROG_IN: {
             if (_pScaler->isScaling() == false) {
-                _pAFader->fadeLinerUntil(0, 120);
                 _pProg->changeNext();
             }
             break;
         }
 
-        case PROG_SHRINK: {
-            if (_pAFader->isFading() == false) {
+        case PROG_STAY: {
+            if (_pProg->getFrameInProgress() >= duration_frames_) {
+                _pScaler->scaleLinerBottom(scale_in_frames_);
+                _pProg->changeNext();
+            }
+            break;
+        }
+
+        case PROG_OUT: {
+            if (_pScaler->isScaling() == false) {
+                _pProg->changeNothing();
                 sayonara();
             }
             break;
         }
+
         default:
             break;
     }
-    _pAFader->behave();
     _pScaler->behave();
     _pKurokoA->behave();
 }
@@ -64,6 +68,12 @@ void EffectEntry001::processJudgement() {
 }
 
 void EffectEntry001::onInactive() {
+}
+
+void EffectEntry001::config(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames) {
+    scale_in_frames_ = prm_scale_in_frames;
+    duration_frames_ = prm_duration_frames;
+    scale_out_frames_ = prm_scale_out_frames;
 }
 
 EffectEntry001::~EffectEntry001() {

@@ -122,7 +122,7 @@ void World::processBehavior() {
                 GgafFactory::chkProgress(2) == 2 &&
                 pPreDrawScene_->_pProg->get() == PreDrawScene::PROG_WAIT &&
                  ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*5)
-            ) {
+            ) {  //TODO:WAIT画面でメニュー出してたら pPreDrawScene_->_pProg が不正ポインタになった。
                 pLabel_title_->sayonara();
                 _pProg->changeNext();
             }
