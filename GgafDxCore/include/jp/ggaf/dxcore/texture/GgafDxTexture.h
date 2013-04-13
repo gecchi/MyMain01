@@ -3,8 +3,8 @@
 namespace GgafDxCore {
 
 /**
- * テクスチャ基底クラス.
- * キャラ(アクター)のテクスチャをラップするクラスです。<BR>
+ * テクスチャクラス.
+ * DirectXのテクスチャインターフェースのラッパーです。<BR>
  * @version 1.00
  * @since 2009/03/09
  * @author Masatoshi Tsuge

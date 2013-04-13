@@ -18,7 +18,6 @@ public:
         PROG_CALM ,
         PROG_WAIT ,
     };
-    TurboMeter* pTurboMeter001_;
     int order_id_begin_;
     int order_id_end_;
     int _id_;

@@ -97,7 +97,6 @@ void EnemyThisbe::onActive() {
     _pStatus->reset();
     _pMorpher->reset();
     _pProg->reset(PROG_WAIT);
-
 }
 
 void EnemyThisbe::processBehavior() {
@@ -115,6 +114,7 @@ void EnemyThisbe::processBehavior() {
             }
             break;
         }
+
         case PROG_OPEN: {
             if (_pProg->isJustChanged()) {
                 _pMorpher->morphLinerUntil(1, 1.0, 120);

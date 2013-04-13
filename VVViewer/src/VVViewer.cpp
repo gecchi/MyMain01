@@ -32,9 +32,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     wcex1.lpszClassName = "primary";
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
+    DWORD dwStyle = WS_OVERLAPPEDWINDOW;
     HWND hWnd1, hWnd2;
     GgafLibCreateWindow(wcex1, wcex2,
                         "VVViewer[1]", "VVViewer[2]", //タイトル文字列
+                        dwStyle, dwStyle,
                         hWnd1, hWnd2); //HWNDが代入されます(戻り値)
 
     DragAcceptFiles(hWnd1,TRUE);

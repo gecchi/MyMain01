@@ -178,17 +178,21 @@ void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     }
 }
 
+
 /**
  * ウィンドウ生成処理
  * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
  * @param prm_wndclass2 ２画面目のWNDCLASSEXパラメータ
  * @param prm_title1 １画面目のタイトル
  * @param prm_title2 ２画面目のタイトル
+ * @param prm_dwStyle1 ウィンドウモード時のウインドウ1のスタイル定数(WS_OVERLAPPEDWINDOW 等)
+ * @param prm_dwStyle2 ウィンドウモード時のウインドウ2のスタイル定数(WS_OVERLAPPEDWINDOW 等)
  * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
  * @param out_hWnd2 （戻り値）２画面目のウィンドウハンドル
  */
 void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                          const char* prm_title1   , const char* prm_title2,
+                         DWORD       prm_dwStyle1 , DWORD       prm_dwStyle2,
                          HWND&       out_hWnd1    , HWND&       out_hWnd2) {
 
     GgafCore::GgafRgb rgb = GgafCore::GgafRgb(PROPERTY::BORDER_COLOR);
@@ -257,7 +261,7 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
             _hWnd1_ = CreateWindow(
                         prm_wndclass1.lpszClassName,
                         prm_title1,
-                        WS_OVERLAPPEDWINDOW,
+                        prm_dwStyle1,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
                         PROPERTY::DUAL_VIEW_WINDOW1_WIDTH,
@@ -272,7 +276,7 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
             _hWnd2_ = CreateWindow(
                         prm_wndclass2.lpszClassName,
                         prm_title2,
-                        WS_OVERLAPPEDWINDOW,
+                        prm_dwStyle2,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
                         PROPERTY::DUAL_VIEW_WINDOW2_WIDTH,
@@ -288,7 +292,7 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
             _hWnd1_ = CreateWindow(
                         prm_wndclass1.lpszClassName,
                         prm_title1,
-                        WS_OVERLAPPEDWINDOW,
+                        prm_dwStyle1,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
                         PROPERTY::SINGLE_VIEW_WINDOW_WIDTH,
@@ -328,9 +332,55 @@ void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
     }
 }
 
+/**
+ * ウィンドウ生成処理 .
+ * ウィンドウモード時のウインドウスタイル定数は WS_OVERLAPPEDWINDOW が設定されます。
+ * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
+ * @param prm_wndclass2 ２画面目のWNDCLASSEXパラメータ
+ * @param prm_title1 １画面目のタイトル
+ * @param prm_title2 ２画面目のタイトル
+ * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
+ * @param out_hWnd2 （戻り値）２画面目のウィンドウハンドル
+ */
+void GgafLibCreateWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
+                         const char* prm_title1   , const char* prm_title2,
+                         HWND&       out_hWnd1    , HWND&       out_hWnd2) {
 
+    GgafLibCreateWindow( prm_wndclass1,  prm_wndclass2,
+                         prm_title1   ,  prm_title2,
+                         WS_OVERLAPPEDWINDOW, WS_OVERLAPPEDWINDOW,
+                         out_hWnd1   ,        out_hWnd2   );
+}
 
+/**
+ * ウィンドウ生成処理 .
+ * 標準的なウィンドウを作成します。
+ * @param prm_WndProc ウィンドウプロシージャ関数
+ * @param prm_title1 １画面目のタイトル
+ * @param prm_title2 ２画面目のタイトル
+ * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
+ * @param out_hWnd2 （戻り値）２画面目のウィンドウハンドル
+ */
+void GgafLibCreateWindow(WNDPROC prm_WndProc,
+                         const char* prm_title1, const char* prm_title2,
+                         HWND&       out_hWnd1 , HWND&       out_hWnd2  ) {
+    //ウィンドウ定義＆作成
+    WNDCLASSEX wcex1;
+    ZeroMemory(&wcex1, sizeof(WNDCLASSEX));
+    wcex1.cbSize = sizeof(WNDCLASSEX);
+    wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC;
+    wcex1.lpfnWndProc = (WNDPROC)prm_WndProc;
+    wcex1.hInstance = WinMain_hInstance;
+    wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
+    wcex1.lpszClassName = "primary";
+    WNDCLASSEX wcex2 = wcex1; //コピー
+    wcex2.lpszClassName = "secondary";
 
+    GgafLibCreateWindow( wcex1,  wcex2,
+                         prm_title1   ,  prm_title2,
+                         WS_OVERLAPPEDWINDOW, WS_OVERLAPPEDWINDOW,
+                         out_hWnd1   ,        out_hWnd2   );
+}
 
 //
 //#include <windows.h>

@@ -19,10 +19,12 @@ public:
     enum EffectKind {
         EF_NOTHING,
         EF_ENTRY_SMALL001_F60,
+        EF_ENTRY_SMALL001_F30,
         EF_ENTRY_SMALL001_LONG,
         EF_ENTRY_MIDDLE001,
         EF_ENTRY003,
         EF_LEAVE_SMALL001_F60,
+        EF_LEAVE_SMALL001_F30,
         EF_EXPLOSION001 ,
         EF_EXPLOSION002,
         EF_EXPLOSION003,
@@ -32,11 +34,14 @@ public:
     };
 
     enum ItemKind {
-        ITEM_MP_SMALL = 1,
+        ITEM_NOTHING,
+        ITEM_MP_SMALL,
         ITEM_MP_MIDDLE,
     };
+
     enum ShotKind {
-        SHOT_SMALL001 = 1,
+        SHOT_NOTHING,
+        SHOT_SMALL001,
         SHOT_SMALL002,
     };
 

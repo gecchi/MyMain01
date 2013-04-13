@@ -37,27 +37,27 @@ public:
     void onCreateModel() override;
 
     /**
-     * サッフォーの初期処理（インスタンス生成後保証）
+     * アンティオペの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 
     /**
-     * サッフォーのがアクティブになった瞬間の処理 .
+     * アンティオペのがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 
     /**
-     * サッフォーの振る舞い .
+     * アンティオペの振る舞い .
      */
     void processBehavior() override;
 
     /**
-     * サッフォーの振る舞い後の判定処理 .
+     * アンティオペの振る舞い後の判定処理 .
      */
     void processJudgement() override;
 
     /**
-     * サッフォーの衝突時処理 .
+     * アンティオペの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;

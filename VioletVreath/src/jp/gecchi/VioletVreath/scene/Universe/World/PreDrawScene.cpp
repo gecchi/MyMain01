@@ -82,28 +82,18 @@ void PreDrawScene::processBehavior() {
             break;
         }
         case PreDrawScene::PROG_CALM: {
-            if (_pProg->getFrameInProgress() >= 60 && P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
+            if (_pProg->getFrameInProgress() == 60 && P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                 fadeoutSceneWithBgmTree(120);
                 _pProg->changeNext();
             }
             break;
         }
         case PreDrawScene::PROG_WAIT: {
+            //World シーンが sayonara をしてくれるまで・・
             break;
         }
     }
 
-//
-    if (_pProg->get() == 1) {
-
-    }
-
-    if (_pProg->get() == 2) {
-        if (_pProg->isJustChanged()) {
-            fadeoutSceneWithBgmTree(120);
-            sayonara(120);
-        }
-    }
 //
 //    if (getActiveFrame() == 1) {
 ////

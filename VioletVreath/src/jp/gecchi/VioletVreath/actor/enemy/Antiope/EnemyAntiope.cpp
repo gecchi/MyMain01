@@ -45,7 +45,7 @@ void EnemyAntiope::processBehavior() {
              if (_pProg->isJustChanged()) {
                  _pAFader->fadeLinerUntil(1.0, 30);
              }
-             if (getAlpha() > 0.5) {
+             if (_pProg->getFrameInProgress() == 30) {
                  setHitAble(true);
                  _pProg->changeNext();
              }
@@ -72,12 +72,10 @@ void EnemyAntiope::processBehavior() {
          case PROG_LEAVE: {
              if (_pProg->isJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
-                 _pAFader->fadeLinerUntil(0.0, 10);
+                 _pAFader->fadeLinerUntil(0.0, 15);
              }
-             if (getAlpha() < 0.5) {
+             if (_pProg->getFrameInProgress() == 15) {
                  setHitAble(false);
-             }
-             if (getAlpha() < 0.01) {
                  sayonara();
              }
              break;

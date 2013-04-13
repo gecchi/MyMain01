@@ -97,8 +97,8 @@ namespace GgafCore {
  * 本プログラムは、<BR>
  * 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html<BR>
  * サイト内コンテンツの 「その15 8分木空間分割を最適化する！」 http://marupeke296.com/COL_3D_No15_Octree.html<BR>
- * の記事を参考に作成しています。<BR>
- * 非常に解りやすい解説に感謝いたします。<BR>
+ * の記事を参考に（というか殆どそのまま）作成しています。<BR>
+ * 目から鱗の非常に解りやすい解説に感謝いたします。<BR>
  * <BR>
  * @version 1.00
  * @since 2009/11/23

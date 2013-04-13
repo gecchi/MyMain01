@@ -26,20 +26,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     //プロパティファイル読込み
     GgafLib::GgafLibProperties::load(".\\config.properties");
 
-    //ウィンドウ定義＆作成
-    WNDCLASSEX wcex1;
-    ZeroMemory(&wcex1, sizeof(WNDCLASSEX));
-    wcex1.cbSize = sizeof(WNDCLASSEX);
-    wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC;
-    wcex1.lpfnWndProc = (WNDPROC)WndProc;
-    wcex1.hInstance = hInstance;
-    wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex1.lpszClassName = "primary";
-    WNDCLASSEX wcex2 = wcex1;
-    wcex2.lpszClassName = "secondary";
+    //ウィンドウ作成
     HWND hWnd1, hWnd2;
-    GgafLibCreateWindow(wcex1, wcex2,
-                        "SimpleSample[1]", "SimpleSample[2]", //タイトル文字列
+    GgafLibCreateWindow(WndProc,
+                        "SimpleSample[1]", "SimpleSample[2]",
                         hWnd1, hWnd2); //HWNDが代入されます(戻り値)
 
     //ゲームループ

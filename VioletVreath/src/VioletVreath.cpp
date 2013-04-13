@@ -54,7 +54,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
     //プロパティファイル読込み
     if (PathFileExists(VV_DEFAULT_CONFIG_FILE)) {
-        if (PathFileExists(".\\config.properties")) {
+        if (PathFileExists(VV_CONFIG_FILE)) {
             VioletVreath::Properties::load(VV_CONFIG_FILE);
             _TRACE_("config.properties を load しました");
         } else {
@@ -87,13 +87,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     wcex1.lpszMenuName = nullptr;//MAKEINTRESOURCE(IDC_VIOLETVREATH);//nullptr; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
     wcex1.lpszClassName = szWindowClass;
     wcex1.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SMALL));
-
-
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
+    DWORD dwStyle = WS_OVERLAPPEDWINDOW;
 
-
-    GgafLibCreateWindow(wcex1, wcex2, szTitle, "secondary", hWnd1, hWnd2);
+    GgafLibCreateWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
 
     //_CrtSetBreakAlloc(203659);
 
