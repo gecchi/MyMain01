@@ -254,9 +254,9 @@ public:
      * 実装用の processFinal() がコールバックされる条件は、
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
      * （_is_active_in_the_tree_flg && !_was_paused_flg && _can_live_flg）の場合である。 <BR>
-     * processFinally() をコールした後、配下のノード全てについて doFinally() を再帰的に実行する。<BR>
+     * processFinal() をコールした後、配下のノード全てについて doFinally() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 下位クラスではコールされる processFinally() をオーバーライドしてロジックを実装する <BR>
+     * 下位クラスではコールされる processFinal() をオーバーライドしてロジックを実装する <BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して doFinally() 実行後、<BR>
      * 次フレームまでの残時間に余裕があれば clean() を実行する。<BR>
      * その後は nextFrame() を実行することになる。<BR>

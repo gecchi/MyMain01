@@ -179,6 +179,10 @@
 // FormationAntiope001 のランク式
 #define RR_FormationAntiope001_Num(X)  (300+(X)*300)  //隊数
 #define RR_FormationAntiope001_LaunchInterval(X)  (2 + (2 - ((X)>1.0?1.0:(X))*2))  //出現間隔
+// FormationAdelheid のランク式
+#define RR_FormationAdelheid_Num(X)  (30+(X)*10)  //隊数
+#define RR_FormationAdelheid_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RR_FormationAdelheid_ShotWay(X)  (7+(X)*5)  //発射弾(Way)数
 // gen02 end
 
 //1/√2
@@ -524,7 +528,9 @@ class EnemyAntiopeP;
 class EnemyAntiopeN;
 class FormationAntiope001;
 
-
+class EnemyAdelheid;
+class FormationAdelheid;
+class FormationAdelheid001;
 
 class DepositoryConnection;
 class DepositoryManager;
@@ -885,6 +891,9 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeN.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/FormationAntiope001.h"
 
+#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/EnemyAdelheid.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid001.h"
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"
@@ -894,7 +903,6 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/item/ScoreItem001.h"
 #include "jp/gecchi/VioletVreath/actor/item/VreathItem.h"
 #include "jp/gecchi/VioletVreath/actor/item/VreathItem001.h"
-
 
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/util/QueryRanking.h"

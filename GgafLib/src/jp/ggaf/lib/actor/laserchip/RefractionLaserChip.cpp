@@ -37,10 +37,10 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
 }
 
 void RefractionLaserChip::config(int prm_num_refraction,
-                                frame prm_frame_between_refraction,
-                                frame prm_frame_standstill_refraction,
-                                bool prm_is_fix_begin_pos,
-                                GgafActorDepository* prm_pDispatche_RefractionEffect) {
+                                 frame prm_frame_between_refraction,
+                                 frame prm_frame_standstill_refraction,
+                                 bool prm_is_fix_begin_pos,
+                                 GgafActorDepository* prm_pDispatche_RefractionEffect) {
 #ifdef MY_DEBUG
     if (prm_frame_between_refraction == 0) {
         throwGgafCriticalException("RefractionLaserChip::config 直進間隔フレーム数が0は設定不可です。name="<<getName());

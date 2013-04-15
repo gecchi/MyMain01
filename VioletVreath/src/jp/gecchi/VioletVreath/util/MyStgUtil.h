@@ -287,6 +287,8 @@ public:
 	static GgafCore::GgafStatus* resetEnemySapphoStatus(GgafCore::GgafStatus* p);
 	//アンティオペ
 	static GgafCore::GgafStatus* resetEnemyAntiopeStatus(GgafCore::GgafStatus* p);
+	//アーデルハイド
+	static GgafCore::GgafStatus* resetEnemyAdelheidStatus(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

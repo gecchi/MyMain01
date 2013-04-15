@@ -106,11 +106,8 @@ void MenuBoard::onRise() {
     locate(target_X_ + slide_from_offset_X_,
            target_Y_ + slide_from_offset_Y_);
     _pKurokoA->setMvAngTwd(target_X_, target_Y_);
-    _pKurokoA->slideMvByDT(
-                    0,
-                    UTIL::getDistance(_X, _Y, target_X_, target_Y_),
-                    _fade_frames, 0.2, 0.3
-               );
+    _pKurokoA->slideMvByDT(0, UTIL::getDistance(_X, _Y, target_X_, target_Y_),
+                           _fade_frames, 0.2, 0.3 );
     _pSeTx->play(SE_ON_RISEN);
 }
 
@@ -136,13 +133,11 @@ void MenuBoard::onSink() {
     //スライドアウトトランジション
     _pKurokoA->setMvAngTwd(target_X_ + slide_from_offset_X_,
                            target_Y_ + slide_from_offset_Y_);
-    _pKurokoA->slideMvByDT(0,
-                       UTIL::getDistance(
-                          _X, _Y,
-                          target_X_+slide_from_offset_X_, target_Y_+slide_from_offset_Y_
-                       ),
-                       _fade_frames, 0.2, 0.3
-               );
+    _pKurokoA->slideMvByDT(0, UTIL::getDistance(
+                                _X, _Y,
+                                target_X_+slide_from_offset_X_, target_Y_+slide_from_offset_Y_
+                              ),
+                           _fade_frames, 0.2, 0.3 );
 }
 
 MenuBoard::~MenuBoard() {
