@@ -7,6 +7,9 @@ using namespace VioletVreath;
 FormationAdelheid001::FormationAdelheid001(const char* prm_name) :
         FormationAdelheid(prm_name, "FormationAdelheid001") {
     _class_name = "FormationAdelheid001";
+
+    pSplManufConnection_ = connectToSplineManufactureManager("FormationAdelheid001");
+    pConnection_ShotDepo_ = connectToDepositoryManager("Shot004"); //Adelheid‚Ì’e;
 }
 void FormationAdelheid001::onCallUpAdelheid(EnemyAdelheid* pEnemyAdelheid) {
 //    pEnemyAdelheid->pKurokoStepper_->adjustAxisRate(

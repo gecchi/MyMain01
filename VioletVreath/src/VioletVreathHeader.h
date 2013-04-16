@@ -532,6 +532,8 @@ class EnemyAdelheid;
 class FormationAdelheid;
 class FormationAdelheid001;
 
+class EnemyPalisana;
+
 class DepositoryConnection;
 class DepositoryManager;
 
@@ -894,6 +896,8 @@ class CursorNameEntryMenu;
 #include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/EnemyAdelheid.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid001.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Palisana/EnemyPalisana.h"
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"
