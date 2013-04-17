@@ -61,7 +61,7 @@ public:
      * start() を行った最初のbehave()は、『現在の座標→ポイント[0]』への処理となります。<BR>
      */
     void behave() override;
-
+    void getCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) override;
 
     virtual ~FixedVelocitySplineKurokoStepper();
 };

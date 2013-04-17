@@ -28,6 +28,15 @@ SplineKurokoStepper::SplineKurokoStepper(SplineManufacture* prm_pManufacture, Gg
     _execute_frames = 0;
 }
 
+
+void SplineKurokoStepper::getCoord(int prm_point_index, coord &out_X, coord&out_Y, coord &out_Z) {
+    SplineLine* pSpl = _pManufacture->_sp;
+    out_X = (coord)(_flip_X*pSpl->_X_compute[prm_point_index]*_pManufacture->_rate_X + _offset_X);
+    out_Y = (coord)(_flip_Y*pSpl->_Y_compute[prm_point_index]*_pManufacture->_rate_Y + _offset_Y);
+    out_Z = (coord)(_flip_Z*pSpl->_Z_compute[prm_point_index]*_pManufacture->_rate_Z + _offset_Z);
+}
+
+
 void SplineKurokoStepper::setManufacture(SplineManufacture* prm_pManufacture) {
     _pManufacture = prm_pManufacture;
     _pActor_target = nullptr;
@@ -52,10 +61,7 @@ void SplineKurokoStepper::start(SplinTraceOption prm_option) {
         _is_stepping = true;
         _option = prm_option;
         _execute_frames = 0;
-        SplineLine* pSpl = _pManufacture->_sp;
-        _X_begin = _flip_X*pSpl->_X_compute[0]*_pManufacture->_rate_X + _offset_X;
-        _Y_begin = _flip_Y*pSpl->_Y_compute[0]*_pManufacture->_rate_Y + _offset_Y;
-        _Z_begin = _flip_Z*pSpl->_Z_compute[0]*_pManufacture->_rate_Z + _offset_Z;
+        SplineKurokoStepper::getCoord(0, _X_begin, _Y_begin, _Z_begin);
         _distance_to_begin = UTIL::getDistance(
                                 _pActor_target->_X,
                                 _pActor_target->_Y,
@@ -74,10 +80,7 @@ void SplineKurokoStepper::stop() {
 
 
 void SplineKurokoStepper::setAbsoluteBeginCoord() {
-    SplineLine* pSpl = _pManufacture->_sp;
-    _pActor_target->_X = _flip_X*pSpl->_X_compute[0]*_pManufacture->_rate_X + _offset_X;
-    _pActor_target->_Y = _flip_Y*pSpl->_Y_compute[0]*_pManufacture->_rate_Y + _offset_Y;
-    _pActor_target->_Z = _flip_Z*pSpl->_Z_compute[0]*_pManufacture->_rate_Z + _offset_Z;
+    SplineKurokoStepper::getCoord(0, _pActor_target->_X, _pActor_target->_Y, _pActor_target->_Z);
 }
 void SplineKurokoStepper::behave() {
 
@@ -90,10 +93,7 @@ void SplineKurokoStepper::behave() {
             _is_stepping = false;
             return;
         }
-
-        _pActor_target->_X = (coord)(_flip_X*pSpl->_X_compute[point_index]*_pManufacture->_rate_X + _offset_X);
-        _pActor_target->_Y = (coord)(_flip_Y*pSpl->_Y_compute[point_index]*_pManufacture->_rate_Y + _offset_Y);
-        _pActor_target->_Z = (coord)(_flip_Z*pSpl->_Z_compute[point_index]*_pManufacture->_rate_Z + _offset_Z);
+        SplineKurokoStepper::getCoord(point_index, _pActor_target->_X, _pActor_target->_Y, _pActor_target->_Z);
         _execute_frames++;
     }
 }

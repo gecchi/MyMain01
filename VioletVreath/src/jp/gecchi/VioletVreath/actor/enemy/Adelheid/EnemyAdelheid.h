@@ -4,12 +4,12 @@ namespace VioletVreath {
 
 /**
  * 敵機アーデルハイド .
- * フェルマー螺旋。
+ * 超連射68Kの３面の連なった編隊の敵の改！
  * @version 1.00
  * @since 2013/04/15
  * @author Masatoshi Tsuge
  */
-class EnemyAdelheid : public GgafLib::DefaultMeshSetActor {
+class EnemyAdelheid : public GgafLib::DefaultMorphMeshActor {
 
 public:
 

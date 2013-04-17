@@ -191,6 +191,9 @@ public:
      */
     int getPointNum();
 
+
+    virtual void getCoord(int prm_index, coord &out_X, coord&out_Y, coord &out_Z);
+
     virtual ~SplineKurokoStepper();
 };
 

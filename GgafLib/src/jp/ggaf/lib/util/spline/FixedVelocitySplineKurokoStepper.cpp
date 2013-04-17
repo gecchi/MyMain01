@@ -28,6 +28,48 @@ FixedVelocitySplineKurokoStepper::FixedVelocitySplineKurokoStepper(GgafDxKurokoA
     _SIN_RyMv_begin = 0.0f;
     _COS_RyMv_begin = 0.0f;
 }
+void FixedVelocitySplineKurokoStepper::getCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) {
+#ifdef MY_DEBUG
+    if (prm_point_index >= _pFixedVeloSplManuf->_sp->_rnum) {
+        throwGgafCriticalException("FixedVelocitySplineKurokoStepper::getCoord ポイントのインデックスオーバー。"<<
+                                   "補完点数="<<(_pFixedVeloSplManuf->_sp->_rnum)<<" prm_point_index="<<prm_point_index);
+    }
+#endif
+
+
+    SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
+    double dx = _flip_X*pSpl->_X_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_X + _offset_X;
+    double dy = _flip_Y*pSpl->_Y_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_Y + _offset_Y;
+    double dz = _flip_Z*pSpl->_Z_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_Z + _offset_Z;
+    if (_option == RELATIVE_DIRECTION) {
+        if (_is_stepping == false) {
+            GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
+            _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
+            _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
+            _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
+            _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
+        }
+        //    並行移動 ＞ Z軸回転 ＞ Y軸回転 の 平行移動部分 tx,ty,tz
+        //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
+        //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
+        //    | sinRy                                  , 0                    , cosRy                                   , 0 |
+        //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
+       out_X = ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) *  _COS_RyMv_begin + dz * _SIN_RyMv_begin) + _X_begin;
+       out_Y =  (dx * _SIN_RzMv_begin + dy *  _COS_RzMv_begin)                                            + _Y_begin;
+       out_Z = ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz * _COS_RyMv_begin) + _Z_begin;
+
+    } else if (_option == RELATIVE_COORD) {
+        //相対座標ターゲット
+        out_X = dx + _X_begin;
+        out_Y = dy + _Y_begin;
+        out_Z = dz + _Z_begin;
+    } else { //ABSOLUTE_COORD
+        //絶対座標ターゲット
+        out_X = dx;
+        out_Y = dy;
+        out_Z = dz;
+    }
+}
 
 void FixedVelocitySplineKurokoStepper::start(SplinTraceOption prm_option) {
     if (_pFixedVeloSplManuf) {
@@ -78,44 +120,12 @@ void FixedVelocitySplineKurokoStepper::behave() {
         GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
         //変わり目
         if (_exec_fFrames >= _fFrame_of_next) {
-            SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
-            //次の補間点（or制御点)に移動方角を向ける
-            double dx = _flip_X*pSpl->_X_compute[_point_index]*_pFixedVeloSplManuf->_rate_X + _offset_X;
-            double dy = _flip_Y*pSpl->_Y_compute[_point_index]*_pFixedVeloSplManuf->_rate_Y + _offset_Y;
-            double dz = _flip_Z*pSpl->_Z_compute[_point_index]*_pFixedVeloSplManuf->_rate_Z + _offset_Z;
-            if (_option == RELATIVE_DIRECTION) {
-                //    並行移動 ＞ Z軸回転 ＞ Y軸回転 の 平行移動部分 tx,ty,tz
-                //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
-                //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
-                //    | sinRy                                  , 0                    , cosRy                                   , 0 |
-                //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-                pKurokoA_target->turnMvAngTwd(
-                                    ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) *  _COS_RyMv_begin + dz * _SIN_RyMv_begin) + _X_begin,
-                                     (dx * _SIN_RzMv_begin + dy *  _COS_RzMv_begin)                                            + _Y_begin,
-                                    ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz * _COS_RyMv_begin) + _Z_begin,
-                                    _pFixedVeloSplManuf->_angveloRzRyMv, 0,
-                                    _pFixedVeloSplManuf->_turn_way,
-                                    _pFixedVeloSplManuf->_turn_optimize);
-
-            } else if (_option == RELATIVE_COORD) {
-                //相対座標ターゲット
-                pKurokoA_target->turnMvAngTwd(
-                                    dx + _X_begin,
-                                    dy + _Y_begin,
-                                    dz + _Z_begin,
-                                    _pFixedVeloSplManuf->_angveloRzRyMv, 0,
-                                    _pFixedVeloSplManuf->_turn_way,
-                                    _pFixedVeloSplManuf->_turn_optimize);
-
-            } else { //ABSOLUTE_COORD
-                //絶対座標ターゲット
-                pKurokoA_target->turnMvAngTwd(
-                                    dx, dy, dz,
-                                    _pFixedVeloSplManuf->_angveloRzRyMv, 0,
-                                    _pFixedVeloSplManuf->_turn_way,
-                                    _pFixedVeloSplManuf->_turn_optimize);
-
-            }
+            coord X, Y, Z;
+            getCoord(_point_index, X, Y, Z);
+            pKurokoA_target->turnMvAngTwd(X, Y, Z,
+                                          _pFixedVeloSplManuf->_angveloRzRyMv, 0,
+                                          _pFixedVeloSplManuf->_turn_way,
+                                          _pFixedVeloSplManuf->_turn_optimize);
             if (_point_index == 0) {
                 //始点までに必要なフレーム数取得
                 _fFrame_of_next = (float)(1.0*_distance_to_begin / _pFixedVeloSplManuf->_veloMvUnit);
@@ -125,7 +135,7 @@ void FixedVelocitySplineKurokoStepper::behave() {
                                      _pFixedVeloSplManuf->_paFrame_need_at[_point_index];
             }
             _point_index++;
-            if ( _point_index == pSpl->_rnum) {
+            if ( _point_index == _pFixedVeloSplManuf->_sp->_rnum) {
                 //終了
                 _is_stepping = false;
                 return;

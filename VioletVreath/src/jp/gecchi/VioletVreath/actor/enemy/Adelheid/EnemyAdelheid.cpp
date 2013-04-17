@@ -5,7 +5,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyAdelheid::EnemyAdelheid(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Adelheid", STATUS(EnemyAdelheid)) {
+        DefaultMorphMeshActor(prm_name, "1/Adelheid", STATUS(EnemyAdelheid)) {
     _class_name = "EnemyAdelheid";
     pKurokoStepper_ = nullptr;
     pDepo_Shot_ = nullptr;

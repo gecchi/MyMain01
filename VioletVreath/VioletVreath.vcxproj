@@ -296,6 +296,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Adelheid\EnemyAdelheid.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Adelheid\FormationAdelheid.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Adelheid\FormationAdelheid001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\EnemyAdrastea.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\FormationAdrastea001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiope.cpp" />
@@ -345,6 +348,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Massalia\FormationMassalia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Metis\EnemyMetis.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Metis\FormationMetis001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Palisana\EnemyPalisana.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Pallas\EnemyPallas.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001a.cpp" />
@@ -602,6 +606,9 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectturbo002.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectwormhole.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\effect\effectwormhole001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\adelheid\enemyadelheid.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\adelheid\formationadelheid.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\adelheid\formationadelheid001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\adrastea\enemyadrastea.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\adrastea\formationadrastea001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiope.h" />
@@ -651,6 +658,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\massalia\formationmassalia.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\metis\enemymetis.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\metis\formationmetis001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\palisana\enemypalisana.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\pallas\enemypallas.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\pallas\formationpallas001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\pallas\formationpallas001a.h" />

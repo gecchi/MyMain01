@@ -50,6 +50,8 @@ public:
      */
     void behave() override;
 
+    void getCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) override;
+
     virtual ~FixedFrameSplineKurokoStepper();
 };
 

@@ -52,8 +52,8 @@ void Stage01_02::processBehavior() {
 				getSceneDirector()->addSubGroup(pMetis);
 				orderActorToFactory(40000015, EnemyMetis, "EnemyMetis-16");
 				orderActorToFactory(40000082, VarietySylvia001, "VarietySylvia001-17");
-				orderActorToFactory(40000104, FormationThalia, "FormationThalia-18");
-				orderActorToFactory(40000120, FormationHebe001, "FormationHebe001-19");
+				orderActorToFactory(40000100, FormationThalia, "FormationThalia-18");
+				orderActorToFactory(40000116, FormationHebe001, "FormationHebe001-19");
 				break;
 			}
 			case 160: {
@@ -146,9 +146,9 @@ void Stage01_02::processBehavior() {
 				orderActorToFactory(40000030, EnemyMetis, "EnemyMetis-34");
 				VarietySylvia001* pSylvia = (VarietySylvia001*)obtainActorFromFactory(40000082);
 				getSceneDirector()->addSubGroup(pSylvia);
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000104);
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000100);
 				getSceneDirector()->addSubGroup(pF);
-				FormationHebe001* pF35 = (FormationHebe001*)obtainActorFromFactory(40000120);
+				FormationHebe001* pF35 = (FormationHebe001*)obtainActorFromFactory(40000116);
 				getSceneDirector()->addSubGroup(pF35);
 				break;
 			}
@@ -159,8 +159,8 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 1100: {
-				orderActorToFactory(40000105, FormationThalia, "FormationThalia-37");
-				orderActorToFactory(40000121, FormationHebe001, "FormationHebe001-38");
+				orderActorToFactory(40000101, FormationThalia, "FormationThalia-37");
+				orderActorToFactory(40000117, FormationHebe001, "FormationHebe001-38");
 				break;
 			}
 			case 1120: {
@@ -274,9 +274,9 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 2000: {
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000105);
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000101);
 				getSceneDirector()->addSubGroup(pF);
-				FormationHebe001* pF68 = (FormationHebe001*)obtainActorFromFactory(40000121);
+				FormationHebe001* pF68 = (FormationHebe001*)obtainActorFromFactory(40000117);
 				getSceneDirector()->addSubGroup(pF68);
 				break;
 			}
@@ -294,8 +294,8 @@ void Stage01_02::processBehavior() {
 			}
 			case 2100: {
 				orderActorToFactory(40000098, FormationJuno001, "FormationJuno001-71");
-				orderActorToFactory(40000106, FormationThalia, "FormationThalia-72");
-				orderActorToFactory(40000122, FormationHebe001, "FormationHebe001-73");
+				orderActorToFactory(40000102, FormationThalia, "FormationThalia-72");
+				orderActorToFactory(40000118, FormationHebe001, "FormationHebe001-73");
 				break;
 			}
 			case 2140: {
@@ -420,9 +420,9 @@ void Stage01_02::processBehavior() {
 			case 3000: {
 				FormationJuno001* pF90 = (FormationJuno001*)obtainActorFromFactory(40000098);
 				getSceneDirector()->addSubGroup(pF90);
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000106);
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000102);
 				getSceneDirector()->addSubGroup(pF);
-				FormationHebe001* pF91 = (FormationHebe001*)obtainActorFromFactory(40000122);
+				FormationHebe001* pF91 = (FormationHebe001*)obtainActorFromFactory(40000118);
 				getSceneDirector()->addSubGroup(pF91);
 				break;
 			}
@@ -437,8 +437,8 @@ void Stage01_02::processBehavior() {
 				getSceneDirector()->addSubGroup(pMetis);
 				orderActorToFactory(40000065, EnemyMetis, "EnemyMetis-93");
 				orderActorToFactory(40000099, VarietySylvia001, "VarietySylvia001-94");
-				orderActorToFactory(40000107, FormationThalia, "FormationThalia-95");
-				orderActorToFactory(40000123, FormationHebe001, "FormationHebe001-96");
+				orderActorToFactory(40000103, FormationThalia, "FormationThalia-95");
+				orderActorToFactory(40000119, FormationHebe001, "FormationHebe001-96");
 				break;
 			}
 			case 3160: {
@@ -531,9 +531,9 @@ void Stage01_02::processBehavior() {
 				orderActorToFactory(40000080, EnemyMetis, "EnemyMetis-111");
 				VarietySylvia001* pSylvia = (VarietySylvia001*)obtainActorFromFactory(40000099);
 				getSceneDirector()->addSubGroup(pSylvia);
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000107);
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000103);
 				getSceneDirector()->addSubGroup(pF);
-				FormationHebe001* pF112 = (FormationHebe001*)obtainActorFromFactory(40000123);
+				FormationHebe001* pF112 = (FormationHebe001*)obtainActorFromFactory(40000119);
 				getSceneDirector()->addSubGroup(pF112);
 				break;
 			}
@@ -544,10 +544,9 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 4100: {
-				orderActorToFactory(40000100, VarietySylvia002, "VarietySylvia002-114");
-				orderActorToFactory(40000108, FormationThalia, "FormationThalia-115");
-				orderActorToFactory(40000124, FormationHebe001, "FormationHebe001-116");
-				orderActorToFactory(40000126, EnemyHesperia, "EnemyHesperia-117");
+				orderActorToFactory(40000104, FormationThalia, "FormationThalia-114");
+				orderActorToFactory(40000120, FormationHebe001, "FormationHebe001-115");
+				orderActorToFactory(40000122, EnemyHesperia, "EnemyHesperia-116");
 				break;
 			}
 			case 4120: {
@@ -576,7 +575,7 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 4400: {
-				orderActorToFactory(40000127, EnemyHesperia, "EnemyHesperia-118");
+				orderActorToFactory(40000123, EnemyHesperia, "EnemyHesperia-117");
 				break;
 			}
 			case 4420: {
@@ -605,7 +604,7 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 4700: {
-				orderActorToFactory(40000128, EnemyHesperia, "EnemyHesperia-119");
+				orderActorToFactory(40000124, EnemyHesperia, "EnemyHesperia-118");
 				break;
 			}
 			case 4720: {
@@ -634,167 +633,156 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 5000: {
-				VarietySylvia002* pSylviaA = (VarietySylvia002*)obtainActorFromFactory(40000100);
-				getSceneDirector()->addSubGroup(pSylviaA);
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000108);
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000104);
 				getSceneDirector()->addSubGroup(pF);
-				FormationHebe001* pF120 = (FormationHebe001*)obtainActorFromFactory(40000124);
-				getSceneDirector()->addSubGroup(pF120);
-				EnemyHesperia* p121 = (EnemyHesperia*)obtainActorFromFactory(40000126);
-				getSceneDirector()->addSubGroup(p121);
-				orderActorToFactory(40000129, EnemyHesperia, "EnemyHesperia-122");
+				FormationHebe001* pF119 = (FormationHebe001*)obtainActorFromFactory(40000120);
+				getSceneDirector()->addSubGroup(pF119);
+				EnemyHesperia* p120 = (EnemyHesperia*)obtainActorFromFactory(40000122);
+				getSceneDirector()->addSubGroup(p120);
+				orderActorToFactory(40000125, EnemyHesperia, "EnemyHesperia-121");
 				break;
 			}
 			case 5100: {
-				orderActorToFactory(40000101, VarietySylvia003, "VarietySylvia003-123");
-				orderActorToFactory(40000109, FormationThalia, "FormationThalia-124");
-				orderActorToFactory(40000125, FormationHebe001, "FormationHebe001-125");
+				orderActorToFactory(40000105, FormationThalia, "FormationThalia-122");
+				orderActorToFactory(40000121, FormationHebe001, "FormationHebe001-123");
 				break;
 			}
 			case 5300: {
-				EnemyHesperia* p126 = (EnemyHesperia*)obtainActorFromFactory(40000127);
-				getSceneDirector()->addSubGroup(p126);
-				orderActorToFactory(40000130, EnemyHesperia, "EnemyHesperia-127");
+				EnemyHesperia* p124 = (EnemyHesperia*)obtainActorFromFactory(40000123);
+				getSceneDirector()->addSubGroup(p124);
+				orderActorToFactory(40000126, EnemyHesperia, "EnemyHesperia-125");
 				break;
 			}
 			case 5600: {
-				EnemyHesperia* p128 = (EnemyHesperia*)obtainActorFromFactory(40000128);
-				getSceneDirector()->addSubGroup(p128);
-				orderActorToFactory(40000131, EnemyHesperia, "EnemyHesperia-129");
+				EnemyHesperia* p126 = (EnemyHesperia*)obtainActorFromFactory(40000124);
+				getSceneDirector()->addSubGroup(p126);
+				orderActorToFactory(40000127, EnemyHesperia, "EnemyHesperia-127");
 				break;
 			}
 			case 5900: {
-				EnemyHesperia* p130 = (EnemyHesperia*)obtainActorFromFactory(40000129);
-				getSceneDirector()->addSubGroup(p130);
-				orderActorToFactory(40000132, EnemyHesperia, "EnemyHesperia-131");
+				EnemyHesperia* p128 = (EnemyHesperia*)obtainActorFromFactory(40000125);
+				getSceneDirector()->addSubGroup(p128);
+				orderActorToFactory(40000128, EnemyHesperia, "EnemyHesperia-129");
 				break;
 			}
 			case 6000: {
-				VarietySylvia003* pSylviaB = (VarietySylvia003*)obtainActorFromFactory(40000101);
-				getSceneDirector()->addSubGroup(pSylviaB);
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000109);
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000105);
 				getSceneDirector()->addSubGroup(pF);
-				FormationHebe001* pF132 = (FormationHebe001*)obtainActorFromFactory(40000125);
-				getSceneDirector()->addSubGroup(pF132);
+				FormationHebe001* pF130 = (FormationHebe001*)obtainActorFromFactory(40000121);
+				getSceneDirector()->addSubGroup(pF130);
 				break;
 			}
 			case 6100: {
-				orderActorToFactory(40000102, VarietySylvia004, "VarietySylvia004-133");
-				orderActorToFactory(40000110, FormationThalia, "FormationThalia-134");
+				orderActorToFactory(40000106, FormationThalia, "FormationThalia-131");
 				break;
 			}
 			case 6200: {
-				EnemyHesperia* p135 = (EnemyHesperia*)obtainActorFromFactory(40000130);
-				getSceneDirector()->addSubGroup(p135);
-				orderActorToFactory(40000133, EnemyHesperia, "EnemyHesperia-136");
+				EnemyHesperia* p132 = (EnemyHesperia*)obtainActorFromFactory(40000126);
+				getSceneDirector()->addSubGroup(p132);
+				orderActorToFactory(40000129, EnemyHesperia, "EnemyHesperia-133");
 				break;
 			}
 			case 6500: {
-				EnemyHesperia* p137 = (EnemyHesperia*)obtainActorFromFactory(40000131);
-				getSceneDirector()->addSubGroup(p137);
-				orderActorToFactory(40000134, EnemyHesperia, "EnemyHesperia-138");
+				EnemyHesperia* p134 = (EnemyHesperia*)obtainActorFromFactory(40000127);
+				getSceneDirector()->addSubGroup(p134);
+				orderActorToFactory(40000130, EnemyHesperia, "EnemyHesperia-135");
 				break;
 			}
 			case 6800: {
-				EnemyHesperia* p139 = (EnemyHesperia*)obtainActorFromFactory(40000132);
-				getSceneDirector()->addSubGroup(p139);
-				orderActorToFactory(40000135, EnemyHesperia, "EnemyHesperia-140");
+				EnemyHesperia* p136 = (EnemyHesperia*)obtainActorFromFactory(40000128);
+				getSceneDirector()->addSubGroup(p136);
+				orderActorToFactory(40000131, EnemyHesperia, "EnemyHesperia-137");
 				break;
 			}
 			case 7000: {
-				VarietySylvia004* pSylvia = (VarietySylvia004*)obtainActorFromFactory(40000102);
-				getSceneDirector()->addSubGroup(pSylvia);
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000110);
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000106);
 				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 7100: {
-				orderActorToFactory(40000103, VarietySylvia004, "VarietySylvia004-141");
-				orderActorToFactory(40000111, FormationThalia, "FormationThalia-142");
-				EnemyHesperia* p143 = (EnemyHesperia*)obtainActorFromFactory(40000133);
-				getSceneDirector()->addSubGroup(p143);
-				orderActorToFactory(40000136, EnemyHesperia, "EnemyHesperia-144");
+				orderActorToFactory(40000107, FormationThalia, "FormationThalia-138");
+				EnemyHesperia* p139 = (EnemyHesperia*)obtainActorFromFactory(40000129);
+				getSceneDirector()->addSubGroup(p139);
+				orderActorToFactory(40000132, EnemyHesperia, "EnemyHesperia-140");
 				break;
 			}
 			case 7400: {
-				EnemyHesperia* p145 = (EnemyHesperia*)obtainActorFromFactory(40000134);
-				getSceneDirector()->addSubGroup(p145);
-				orderActorToFactory(40000137, EnemyHesperia, "EnemyHesperia-146");
+				EnemyHesperia* p141 = (EnemyHesperia*)obtainActorFromFactory(40000130);
+				getSceneDirector()->addSubGroup(p141);
+				orderActorToFactory(40000133, EnemyHesperia, "EnemyHesperia-142");
 				break;
 			}
 			case 7700: {
-				EnemyHesperia* p147 = (EnemyHesperia*)obtainActorFromFactory(40000135);
-				getSceneDirector()->addSubGroup(p147);
-				orderActorToFactory(40000138, EnemyHesperia, "EnemyHesperia-148");
+				EnemyHesperia* p143 = (EnemyHesperia*)obtainActorFromFactory(40000131);
+				getSceneDirector()->addSubGroup(p143);
+				orderActorToFactory(40000134, EnemyHesperia, "EnemyHesperia-144");
 				break;
 			}
 			case 8000: {
-				VarietySylvia004* pSylvia = (VarietySylvia004*)obtainActorFromFactory(40000103);
-				getSceneDirector()->addSubGroup(pSylvia);
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000111);
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000107);
 				getSceneDirector()->addSubGroup(pF);
-				EnemyHesperia* p149 = (EnemyHesperia*)obtainActorFromFactory(40000136);
-				getSceneDirector()->addSubGroup(p149);
-				orderActorToFactory(40000139, EnemyHesperia, "EnemyHesperia-150");
+				EnemyHesperia* p145 = (EnemyHesperia*)obtainActorFromFactory(40000132);
+				getSceneDirector()->addSubGroup(p145);
+				orderActorToFactory(40000135, EnemyHesperia, "EnemyHesperia-146");
 				break;
 			}
 			case 8100: {
-				orderActorToFactory(40000112, FormationThalia, "FormationThalia-151");
+				orderActorToFactory(40000108, FormationThalia, "FormationThalia-147");
 				break;
 			}
 			case 8300: {
-				orderActorToFactory(40000114, FormationIris002, "FormationIris002-152");
-				orderActorToFactory(40000115, FormationIris001, "FormationIris001-153");
-				orderActorToFactory(40000116, FormationIris001, "FormationIris001-154");
-				orderActorToFactory(40000117, FormationIris002, "FormationIris002-155");
-				orderActorToFactory(40000118, FormationIris001, "FormationIris001-156");
-				orderActorToFactory(40000119, FormationIris002, "FormationIris002-157");
-				EnemyHesperia* p158 = (EnemyHesperia*)obtainActorFromFactory(40000137);
-				getSceneDirector()->addSubGroup(p158);
-				orderActorToFactory(40000140, EnemyHesperia, "EnemyHesperia-159");
+				orderActorToFactory(40000110, FormationIris002, "FormationIris002-148");
+				orderActorToFactory(40000111, FormationIris001, "FormationIris001-149");
+				orderActorToFactory(40000112, FormationIris001, "FormationIris001-150");
+				orderActorToFactory(40000113, FormationIris002, "FormationIris002-151");
+				orderActorToFactory(40000114, FormationIris001, "FormationIris001-152");
+				orderActorToFactory(40000115, FormationIris002, "FormationIris002-153");
+				EnemyHesperia* p154 = (EnemyHesperia*)obtainActorFromFactory(40000133);
+				getSceneDirector()->addSubGroup(p154);
+				orderActorToFactory(40000136, EnemyHesperia, "EnemyHesperia-155");
 				break;
 			}
 			case 8600: {
-				EnemyHesperia* p160 = (EnemyHesperia*)obtainActorFromFactory(40000138);
-				getSceneDirector()->addSubGroup(p160);
-				orderActorToFactory(40000141, EnemyHesperia, "EnemyHesperia-161");
+				EnemyHesperia* p156 = (EnemyHesperia*)obtainActorFromFactory(40000134);
+				getSceneDirector()->addSubGroup(p156);
+				orderActorToFactory(40000137, EnemyHesperia, "EnemyHesperia-157");
 				break;
 			}
 			case 8900: {
-				EnemyHesperia* p162 = (EnemyHesperia*)obtainActorFromFactory(40000139);
-				getSceneDirector()->addSubGroup(p162);
-				orderActorToFactory(40000142, EnemyHesperia, "EnemyHesperia-163");
+				EnemyHesperia* p158 = (EnemyHesperia*)obtainActorFromFactory(40000135);
+				getSceneDirector()->addSubGroup(p158);
+				orderActorToFactory(40000138, EnemyHesperia, "EnemyHesperia-159");
 				break;
 			}
 			case 9000: {
-				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000112);
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(40000108);
 				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 9200: {
 				{
-				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-164");
+				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-160");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
-				ta->addToTable(((FormationIris002*)obtainActorFromFactory(40000114)), 400);
-				ta->addToTable(((FormationIris001*)obtainActorFromFactory(40000115)), 400);
-				ta->addToTable(((FormationIris001*)obtainActorFromFactory(40000116)), 400);
-				ta->addToTable(((FormationIris002*)obtainActorFromFactory(40000117)), 400);
-				ta->addToTable(((FormationIris001*)obtainActorFromFactory(40000118)), 400);
-				ta->addToTable(((FormationIris002*)obtainActorFromFactory(40000119)), 400);
+				ta->addToTable(((FormationIris002*)obtainActorFromFactory(40000110)), 400);
+				ta->addToTable(((FormationIris001*)obtainActorFromFactory(40000111)), 400);
+				ta->addToTable(((FormationIris001*)obtainActorFromFactory(40000112)), 400);
+				ta->addToTable(((FormationIris002*)obtainActorFromFactory(40000113)), 400);
+				ta->addToTable(((FormationIris001*)obtainActorFromFactory(40000114)), 400);
+				ta->addToTable(((FormationIris002*)obtainActorFromFactory(40000115)), 400);
 				}
-				EnemyHesperia* p165 = (EnemyHesperia*)obtainActorFromFactory(40000140);
-				getSceneDirector()->addSubGroup(p165);
+				EnemyHesperia* p161 = (EnemyHesperia*)obtainActorFromFactory(40000136);
+				getSceneDirector()->addSubGroup(p161);
 				break;
 			}
 			case 9500: {
-				EnemyHesperia* p166 = (EnemyHesperia*)obtainActorFromFactory(40000141);
-				getSceneDirector()->addSubGroup(p166);
+				EnemyHesperia* p162 = (EnemyHesperia*)obtainActorFromFactory(40000137);
+				getSceneDirector()->addSubGroup(p162);
 				break;
 			}
 			case 9800: {
-				EnemyHesperia* p167 = (EnemyHesperia*)obtainActorFromFactory(40000142);
-				getSceneDirector()->addSubGroup(p167);
+				EnemyHesperia* p163 = (EnemyHesperia*)obtainActorFromFactory(40000138);
+				getSceneDirector()->addSubGroup(p163);
 				break;
 			}
 			default :
