@@ -70,7 +70,7 @@ void PreDrawScene::initialize() {
 void PreDrawScene::processBehavior() {
     switch (_pProg->get()) {
         case PreDrawScene::PROG_INIT: {
-            if (_pProg->getFrameInProgress() % 20 == 0 && P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
+            if (_pProg->getFrameInProgress() % 20 == 0 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                 if (_id_ > order_id_end_-order_id_begin_) {
                     _pProg->changeNext();
                 } else {
@@ -79,10 +79,16 @@ void PreDrawScene::processBehavior() {
                     getSceneDirector()->addSubGroup(pActor);  _id_++;
                 }
             }
+            if (_pProg->getFrameInProgress() > 60*120) {
+                //タイムアウト
+                _TRACE_("PreDrawScene Time Out!!");
+                _pProg->changeNext();
+            }
             break;
         }
         case PreDrawScene::PROG_CALM: {
-            if (_pProg->getFrameInProgress() == 60 && P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
+            if ((_pProg->getFrameInProgress() > 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) ||
+                 _pProg->getFrameInProgress() > 60*60) {
                 fadeoutSceneWithBgmTree(120);
                 _pProg->changeNext();
             }

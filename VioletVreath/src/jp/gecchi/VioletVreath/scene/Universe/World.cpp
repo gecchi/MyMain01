@@ -116,13 +116,7 @@ void World::processBehavior() {
         }
 
         case World::PROG_CALM1: {
-            if (_pProg->isJustChanged()) {
-            }
-            if (_pProg->getFrameInProgress() >= 60 &&
-                GgafFactory::chkProgress(2) == 2 &&
-                pPreDrawScene_->_pProg->get() == PreDrawScene::PROG_WAIT &&
-                 ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*5)
-            ) {
+            if (pPreDrawScene_->_pProg->get() == PreDrawScene::PROG_WAIT) {
                 pLabel_title_->sayonara();
                 pPreDrawScene_->sayonara(120);
                 _pProg->changeNext();
@@ -132,11 +126,7 @@ void World::processBehavior() {
         }
 
         case World::PROG_CALM2: {
-            if (_pProg->isJustChanged()) {
-            }
-            if (_pProg->getFrameInProgress() >= 60 &&
-                ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*5)
-            ) {
+            if ((_pProg->getFrameInProgress() >= 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || _pProg->getFrameInProgress() >= 60*60*5) {
                 pGameScene_ = (GameScene*)obtainSceneFromFactory(2);
                 _pProg->changeNext();
             }
@@ -147,9 +137,7 @@ void World::processBehavior() {
         case World::PROG_CALM3: {
             if (_pProg->isJustChanged()) {
             }
-            if (_pProg->getFrameInProgress() >= 60 &&
-                ( P_GOD->_fps > PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX || _pProg->getFrameInProgress() == 60*60*5)
-            ) {
+            if ((_pProg->getFrameInProgress() >= 60 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) || _pProg->getFrameInProgress() >= 60*60*5) {
                 _pProg->changeNext();
             }
             pLabel_aster_->_pAFader->behave(); //右上＊チカチカ
@@ -159,7 +147,7 @@ void World::processBehavior() {
         case World::PROG_CALM4: {
             if (_pProg->isJustChanged()) {
             }
-            if (_pProg->getFrameInProgress() == 60) {
+            if (_pProg->getFrameInProgress() >= 60) {
                 pLabel_aster_->update("*");
                 pLabel_aster_->sayonara(60);
                 pLabel_resolution1_->sayonara();
