@@ -13,7 +13,7 @@ EnemyPalisana::EnemyPalisana(const char* prm_name) :
 
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG_HATCH_OPEN);
+    useProgress(PROG_LEAVE);
 }
 
 void EnemyPalisana::onCreateModel() {

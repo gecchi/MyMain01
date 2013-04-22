@@ -13,7 +13,7 @@ class EnemyAtalante : public GgafLib::DefaultMeshSetActor {
 
 public:
     enum {
-        PROG_INIT = 1  ,
+        PROG_INIT    ,
         PROG_MOVE01_1,
         PROG_MOVE01_2,
         PROG_MOVE01_3,
@@ -22,7 +22,7 @@ public:
     };
 
     enum {
-        SE_DAMAGED   = 0,
+        SE_DAMAGED  ,
         SE_EXPLOSION,
     };
 

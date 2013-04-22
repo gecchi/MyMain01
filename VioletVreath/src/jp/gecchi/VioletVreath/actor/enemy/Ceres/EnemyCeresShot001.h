@@ -13,7 +13,7 @@ namespace VioletVreath {
 class EnemyCeresShot001 : public GgafLib::DefaultMeshSetActor {
 public:
     enum {
-        CERESSHOT001_SE_EXPLOSION = 0,
+        CERESSHOT001_SE_EXPLOSION,
     };
     //本Actorのカスタムプロパティ --->
     /** 出現時の初速 */

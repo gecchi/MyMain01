@@ -68,7 +68,7 @@ void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
 }
 
 void EnemyThisbeLaserChip002::processBehavior() {
-    if (pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
+    if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
         pKurokoStepper_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
     }
 

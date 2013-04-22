@@ -16,10 +16,10 @@ public:
     frame scale_out_frames_;
 
     enum {
-        PROG_INIT = 1,
-        PROG_IN  ,
-        PROG_STAY  ,
-        PROG_OUT ,
+        PROG_INIT ,
+        PROG_IN   ,
+        PROG_STAY ,
+        PROG_OUT  ,
     };
 
     EffectEntry001(const char* prm_name);

@@ -12,7 +12,7 @@ EnemyHebe::EnemyHebe(const char* prm_name) :
     pDepo_ShotEffect_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    useProgress(10);
+    useProgress(PROG_MOVE02_2);
 }
 
 void EnemyHebe::onCreateModel() {

@@ -23,7 +23,7 @@ class GameScene : public GgafLib::DefaultScene {
 public:
 
     enum {
-        PROG_INIT = 1  ,
+        PROG_INIT      ,
         PROG_PRE_TITLE ,
         PROG_TITLE     ,
         PROG_DEMO      ,

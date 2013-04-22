@@ -9,7 +9,7 @@ EnemySappho::EnemySappho(const char* prm_name) :
     _class_name = "EnemySappho";
     _SX=_SY=_SZ=100;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(10);
+    useProgress(PROG_MOVE04);
 }
 
 void EnemySappho::onCreateModel() {

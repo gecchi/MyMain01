@@ -12,7 +12,7 @@ class EnemyCirce : public GgafLib::DefaultMeshSetActor {
 
 public:
     enum {
-        SE_EXPLOSION = 0,
+        SE_EXPLOSION,
     };
 
     /** 行動パターン番号 */

@@ -7,8 +7,8 @@ class EnemyJuno : public GgafLib::DefaultMeshSetActor {
 
 public:
     enum {
-        SE_EXPLOSION = 0,
-        SE_FIRE
+        SE_EXPLOSION,
+        SE_FIRE     ,
     };
 
     int iMovePatternNo_;

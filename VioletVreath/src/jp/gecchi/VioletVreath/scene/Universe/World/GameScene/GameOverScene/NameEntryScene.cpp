@@ -26,7 +26,7 @@ NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
     getSceneDirector()->addSubGroup(pNameEntryBoard_);
 
     inputed_name_ = "";
-    useProgress(10);
+    useProgress(PROG_FINISH);
 }
 
 void NameEntryScene::onReset() {

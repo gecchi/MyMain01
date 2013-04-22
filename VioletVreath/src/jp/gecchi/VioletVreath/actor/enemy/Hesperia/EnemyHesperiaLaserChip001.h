@@ -6,14 +6,14 @@ class EnemyHesperiaLaserChip001 : public GgafLib::HomingLaserChip {
 
 public:
     enum {
-        PROG_MOVE_UP = 1,
+        PROG_MOVE_UP,
         PROG_TURN1,
         PROG_TURN2,
         PROG_INTO_MYSHIP,
         PROG_NOTHING,
     };
     enum {
-        SE_FIRE = 0,
+        SE_FIRE,
     };
     /** î≠éÀéûÇÃYç¿ïW */
     coord begin_Y_;

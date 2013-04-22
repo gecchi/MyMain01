@@ -16,16 +16,16 @@ class EnemySappho :
 
 public:
     enum {
-        SE_EXPLOSION = 0,
+        SE_EXPLOSION ,
     };
 
     enum {
-        PROG_INIT = 1 ,
-        PROG_ENTRY,
-        PROG_MOVE01   ,
-        PROG_MOVE02  ,
-        PROG_MOVE03   ,
-        PROG_MOVE04   ,
+        PROG_INIT   ,
+        PROG_ENTRY  ,
+        PROG_MOVE01 ,
+        PROG_MOVE02 ,
+        PROG_MOVE03 ,
+        PROG_MOVE04 ,
     };
     /** [r]出現座標(フォーメーションオブジェクトが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;

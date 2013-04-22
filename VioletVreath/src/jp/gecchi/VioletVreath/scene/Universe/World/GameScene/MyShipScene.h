@@ -21,11 +21,11 @@ class MyShipScene : public GgafLib::DefaultScene {
 
 public:
     enum {
-        PROG_INIT = 1,
+        PROG_INIT    ,
         PROG_BEGIN   ,
         PROG_PLAY    ,
         PROG_DESTROY ,
-        PROG_END
+        PROG_END     ,
     };
 
     /** Ž©‹@ */

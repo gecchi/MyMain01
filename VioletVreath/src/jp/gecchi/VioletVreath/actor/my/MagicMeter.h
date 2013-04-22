@@ -21,7 +21,7 @@ typedef GgafCore::GgafLinkedListRing<Magic> MagicList;
  */
 class MagicMeter : public GgafLib::DefaultBoardSetActor {
     enum {
-        SE_CURSOR_MOVE_METER = 0   ,
+        SE_CURSOR_MOVE_METER       ,
         SE_CURSOR_MOVE_LEVEL       ,
         SE_CURSOR_MOVE_LEVEL_CANCEL,
         SE_CURSOR_BAD_MOVE         ,

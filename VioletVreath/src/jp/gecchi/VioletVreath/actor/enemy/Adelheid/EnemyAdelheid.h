@@ -14,14 +14,14 @@ class EnemyAdelheid : public GgafLib::DefaultMorphMeshActor {
 public:
 
     enum {
-        PROG_MOVE01_1 = 1  ,
-        PROG_SPLINE_MOVE   ,
-        PROG_MOVE02_1      ,
-        PROG_MOVE02_2      ,
+        PROG_MOVE01_1   ,
+        PROG_SPLINE_MOVE,
+        PROG_MOVE02_1   ,
+        PROG_MOVE02_2   ,
     };
 
     enum {
-        SE_DAMAGED   = 0,
+        SE_DAMAGED  ,
         SE_EXPLOSION,
     };
 

@@ -18,7 +18,9 @@ public:
      */
     void initialize() override;
 
-    virtual void processBehavior() override;
+    void onActive() override;
+
+    void processBehavior() override;
 
     void onFinishedAllSection() override;
 

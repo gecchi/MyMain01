@@ -11,14 +11,14 @@ namespace VioletVreath {
 class EnemyHermioneArm : public GgafLib::DefaultMeshSetActor {
 public:
     enum {
-        PROG_INIT         = 1,
+        PROG_INIT   ,
         PROG_WAITING,
         PROG_NOTHING,
-        PROG_AIMING,
+        PROG_AIMING ,
     };
 
     enum {
-        SE_DAMAGED   = 0,
+        SE_DAMAGED  ,
         SE_EXPLOSION,
     };
 

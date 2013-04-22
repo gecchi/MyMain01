@@ -3,9 +3,9 @@
 namespace VioletVreath {
 
 enum {
-    LOCKON001_PROG_FIRST_LOCK = 1,
-    LOCKON001_PROG_LOCK          ,
-    LOCKON001_PROG_RELEASE       ,
+    LOCKON001_PROG_FIRST_LOCK ,
+    LOCKON001_PROG_LOCK       ,
+    LOCKON001_PROG_RELEASE    ,
 };
 
 /**

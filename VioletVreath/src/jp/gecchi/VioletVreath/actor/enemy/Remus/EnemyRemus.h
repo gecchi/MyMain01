@@ -13,15 +13,15 @@ class EnemyRemus : public GgafLib::DefaultMorphMeshActor {
 
 public:
     enum {
-        PROG_INIT         = 1,
+        PROG_INIT       ,
         PROG_HATCH_CLOSE,
-        PROG_HATCH_OPEN,
-        PROG_FIRE,
-        PROG_NOTHING,
+        PROG_HATCH_OPEN ,
+        PROG_FIRE       ,
+        PROG_NOTHING    ,
     };
 
     enum {
-        SE_DAMAGED   = 0,
+        SE_DAMAGED  ,
         SE_EXPLOSION,
     };
 

@@ -13,10 +13,10 @@ class GameOverScene : public GgafLib::DefaultScene {
 
 public:
     enum {
-        PROG_INIT = 1,
-        PROG_DISP    ,
+        PROG_INIT     ,
+        PROG_DISP     ,
         PROG_NAMEENTRY,
-        PROG_FINISH  ,
+        PROG_FINISH   ,
     };
     NameEntryScene* pNameEntryScene_;
 

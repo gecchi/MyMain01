@@ -14,7 +14,7 @@ class GameBeginningScene : public GgafLib::DefaultScene {
 
 public:
     enum {
-        PROG_INIT = 1   ,
+        PROG_INIT       ,
         PROG_SELECT_MODE,
         PROG_DECIDE     ,
         PROG_FINISH     ,

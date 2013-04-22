@@ -24,7 +24,7 @@ class EnemyThalia :
     int dZ_camera_init_;
 public:
     enum {
-        PROG_MOVE = 1  ,
+        PROG_MOVE      ,
         PROG_TURN_OPEN ,
         PROG_FIRE_BEGIN,
         PROG_IN_FIRE   ,
@@ -32,7 +32,7 @@ public:
     };
 
     enum {
-        SE_DAMAGED   = 0,
+        SE_DAMAGED  ,
         SE_EXPLOSION,
         SE_FIRE,
     };

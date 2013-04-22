@@ -13,15 +13,15 @@ class EnemyEunomia : public GgafLib::DefaultMeshSetActor {
 
 public:
     enum {
-        PROG_ENTRY = 1  ,
-        PROG_SPLINE_MOVE   ,
-        PROG_MOVE01_1      ,
-        PROG_MOVE01_2      ,
-        PROG_LEAVE,
+        PROG_ENTRY      ,
+        PROG_SPLINE_MOVE,
+        PROG_MOVE01_1   ,
+        PROG_MOVE01_2   ,
+        PROG_LEAVE      ,
     };
 
     enum {
-        SE_EXPLOSION = 0,
+        SE_EXPLOSION ,
     };
 
     /** 移動スプラインのシークエンスプログラム */

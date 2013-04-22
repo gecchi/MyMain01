@@ -12,7 +12,7 @@ class TestNomal : public TestEnemy {
 
 public:
       enum {
-          SE_DAMAGED   = 0,
+          SE_DAMAGED   ,
           SE_EXPLOSION ,
       };
 

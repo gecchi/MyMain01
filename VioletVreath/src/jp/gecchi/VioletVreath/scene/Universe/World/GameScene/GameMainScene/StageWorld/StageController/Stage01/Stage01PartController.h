@@ -20,8 +20,8 @@ class Stage01PartController : public StagePartController {
 
 public:
     enum {
-        PROG_INIT = 1,
-        PROG_FAINAL  ,
+        PROG_INIT   ,
+        PROG_FAINAL ,
     };
 
 public:

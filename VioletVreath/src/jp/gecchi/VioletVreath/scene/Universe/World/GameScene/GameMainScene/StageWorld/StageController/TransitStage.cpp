@@ -18,7 +18,6 @@ TransitStage::TransitStage(const char* prm_name) : Stage(prm_name) {
     pMessage_ = NEW LabelGecchi16Font("TransitStageMsg");
     pMessage_->update(300*1000, 300*1000, "");
     getSceneDirector()->addSubGroup(KIND_EFFECT, pMessage_);
-    useProgress(10);
 }
 
 void TransitStage::initialize() {

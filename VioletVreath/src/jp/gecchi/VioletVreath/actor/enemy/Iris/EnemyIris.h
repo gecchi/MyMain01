@@ -23,7 +23,7 @@ class EnemyIris :
 
 public:
     enum {
-        SE_EXPLOSION = 0,
+        SE_EXPLOSION,
     };
 
     /** 行動パターン番号 */

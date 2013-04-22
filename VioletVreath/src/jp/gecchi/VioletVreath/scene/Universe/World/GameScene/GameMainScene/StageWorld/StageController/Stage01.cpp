@@ -36,7 +36,6 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     //<-----debug
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\Ž¦
-    useProgress(10);
 }
 
 void Stage01::initialize() {

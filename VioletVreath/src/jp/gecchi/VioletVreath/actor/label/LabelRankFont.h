@@ -56,8 +56,8 @@ private:
 
 public:
     enum {
-        PROG_NOMALDISP = 1,
-        PROG_RANKUP       ,
+        PROG_NOMALDISP,
+        PROG_RANKUP   ,
     };
 
     /** [r]ëOÉtÉåÅ[ÉÄÇÃ_RANK_DISP_ */

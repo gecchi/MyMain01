@@ -13,7 +13,7 @@ class EnemyMetis : public GgafLib::DefaultMeshSetActor {
 
 public:
     enum {
-        SE_DAMAGED   = 0,
+        SE_DAMAGED   ,
         SE_EXPLOSION ,
     };
     DepositoryConnection* pConnection_ShotDepo_;

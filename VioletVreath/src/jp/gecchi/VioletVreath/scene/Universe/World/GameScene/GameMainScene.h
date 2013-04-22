@@ -13,7 +13,7 @@ class GameMainScene : public GgafLib::DefaultScene {
 
 public:
     enum {
-        PROG_INIT = 1,
+        PROG_INIT    ,
         PROG_BEGIN   ,
         PROG_PLAY    ,
         PROG_FINISH  ,

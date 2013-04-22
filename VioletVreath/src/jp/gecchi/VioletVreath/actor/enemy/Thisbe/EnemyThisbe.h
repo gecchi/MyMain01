@@ -27,13 +27,13 @@ class EnemyThisbe :  public GgafLib::DefaultMorphMeshActor {
 
 public:
     enum {
-        PROG_WAIT = 1,
+        PROG_WAIT,
         PROG_OPEN,
         PROG_FIRE,
         PROG_CLOSE,
     };
     enum {
-        SE_DAMAGED   = 0,
+        SE_DAMAGED  ,
         SE_EXPLOSION,
         SE_FIRE,
     };

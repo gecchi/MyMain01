@@ -12,9 +12,9 @@ class GamePreTitleScene : public GgafLib::DefaultScene {
 
 public:
     enum {
-        PROG_INIT = 1,
-        PROG_EXEC    ,
-        PROG_FINISH  ,
+        PROG_INIT   ,
+        PROG_EXEC   ,
+        PROG_FINISH ,
     };
 
 

@@ -11,7 +11,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     coord wall_dep    = DX_C(40);  //壁ブロックモデル１個のX軸方向の幅設定（Xファイルにより決まる）
     coord wall_width  = DX_C(10);  //壁ブロックモデル１個のZ軸方向の幅設定（Xファイルにより決まる）
     coord wall_height = DX_C(10);  //壁ブロックモデル１個のY軸方向の幅設定（Xファイルにより決まる）
-    float scale_r = 12.0f;        //今回壁ブロックの拡大率（任意）
+    float scale_r = 2.0f;        //今回壁ブロックの拡大率（任意）
     //****************************
 
     //壁ブロック(直方体)デポジトリ生成
@@ -56,7 +56,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     );
 
     //初期スクロールスピード
-    setScrollSpeed(6000);
+    setScrollSpeed(20000);
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
@@ -71,6 +71,12 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 
 void Stage01WalledScene::initialize() {
     WalledScene::initialize(); //重要
+}
+
+void Stage01WalledScene::onActive() {
+    P_COMMON_SCENE->setScrollingFunction(_pFuncScrolling);
+    P_COMMON_SCENE->setScrollSpeed(_scroll_speed);
+     WalledScene::onActive();
 }
 
 void Stage01WalledScene::processBehavior() {
@@ -160,13 +166,12 @@ void Stage01WalledScene::processBehavior() {
     }
     // gen02 end
 
-  if (getActiveFrame() == 1) {
-      P_COMMON_SCENE->setScrollingFunction(_pFuncScrolling);
-      P_COMMON_SCENE->setScrollSpeed(_scroll_speed);
-  }
+
 }
 
 void Stage01WalledScene::onFinishedAllSection() {
+    P_COMMON_SCENE->setScrollingFunction(nullptr);
+    P_COMMON_SCENE->setScrollSpeed(0);
     throwEventUpperTree(EVENT_STG01_WALLED_WAS_BROKEN);
 }
 

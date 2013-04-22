@@ -12,7 +12,7 @@ class GameEndingScene : public GgafLib::DefaultScene {
 
 public:
     enum {
-        PROG_INIT = 1,
+        PROG_INIT    ,
         PROG_BEGIN   ,
         PROG_OPE     ,
         PROG_DECIDE  ,

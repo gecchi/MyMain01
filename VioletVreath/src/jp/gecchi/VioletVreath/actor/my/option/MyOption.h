@@ -24,8 +24,8 @@ private:
 
 public:
     enum {
-        SE_FIRE_LASER = 0,
-        SE_FIRE_SHOT,
+        SE_FIRE_LASER  ,
+        SE_FIRE_SHOT   ,
         SE_FIRE_TORPEDO,
     };
 

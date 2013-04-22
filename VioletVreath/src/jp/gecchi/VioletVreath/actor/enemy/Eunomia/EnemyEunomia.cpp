@@ -12,7 +12,7 @@ EnemyEunomia::EnemyEunomia(const char* prm_name) :
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    useProgress(10);
+    useProgress(PROG_LEAVE);
 }
 
 void EnemyEunomia::onCreateModel() {

@@ -18,7 +18,7 @@ class World : public GgafLib::DefaultScene {
 
 public:
     enum {
-        PROG_INIT = 1 ,
+        PROG_INIT  ,
         PROG_CALM1 ,
         PROG_CALM2 ,
         PROG_CALM3 ,

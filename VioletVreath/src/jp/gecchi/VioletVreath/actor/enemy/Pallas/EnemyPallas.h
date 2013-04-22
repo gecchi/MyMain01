@@ -14,7 +14,7 @@ class EnemyPallas :
 
 public:
     enum {
-        SE_EXPLOSION = 0,
+        SE_EXPLOSION ,
     };
 
     /** 移動スプラインプログラム */

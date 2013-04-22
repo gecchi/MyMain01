@@ -14,15 +14,14 @@ class EnemyAntiope :
 
 public:
     enum {
-        SE_EXPLOSION = 0,
+        SE_EXPLOSION,
     };
 
     enum {
-        PROG_INIT = 1 ,
-        PROG_ENTRY,
-        PROG_MOVE01   ,
-        PROG_LEAVE,
-
+        PROG_INIT  ,
+        PROG_ENTRY ,
+        PROG_MOVE01,
+        PROG_LEAVE ,
     };
 
     GgafDxCore::GgafDxGeoElem mv_velo_twd_;

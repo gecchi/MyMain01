@@ -17,7 +17,7 @@ private:
 
 public:
     enum {
-        PROG_ENTRY = 1,
+        PROG_ENTRY,
         PROG_MOVE,
         PROG_HATCH_OPEN,
         PROG_FIRE,
@@ -26,7 +26,7 @@ public:
     };
 
     enum {
-        SE_EXPLOSION = 0,
+        SE_EXPLOSION,
         SE_DAMAGED,
         SE_HATCH_OPEN,
         SE_FIRE,

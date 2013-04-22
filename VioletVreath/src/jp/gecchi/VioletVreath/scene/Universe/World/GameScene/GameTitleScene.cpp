@@ -7,7 +7,7 @@ using namespace VioletVreath;
 #define GAMETITLE_TIMEOUT (60*20)
 GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
-    useProgress(10);
+    useProgress(PROG_FINISH);
     _pProg->reset(GameTitleScene::PROG_INIT);
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");

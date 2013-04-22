@@ -14,7 +14,7 @@ class EnemyCeres : public GgafLib::DefaultMeshSetActor {
 
 public:
     enum {
-        SE_EXPLOSION = 0,
+        SE_EXPLOSION ,
     };
 
     /** 弾ストック */

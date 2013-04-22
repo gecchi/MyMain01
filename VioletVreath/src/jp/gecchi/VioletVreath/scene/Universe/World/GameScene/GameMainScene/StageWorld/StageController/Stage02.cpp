@@ -22,7 +22,6 @@ Stage02::Stage02(const char* prm_name) : Stage(prm_name) {
     pMessage_->inactivate();
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\¦
-    useProgress(10);
 }
 
 void Stage02::initialize() {

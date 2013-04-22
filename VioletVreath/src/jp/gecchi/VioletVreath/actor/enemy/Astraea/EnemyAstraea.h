@@ -19,15 +19,15 @@ private:
 
 public:
     enum {
-        PROG_ENTRY = 1,
-        PROG_MOVE,
-        PROG_TURN,
-        PROG_FIRE,
+        PROG_ENTRY,
+        PROG_MOVE ,
+        PROG_TURN ,
+        PROG_FIRE ,
     };
 
     enum {
-        SE_EXPLOSION = 0,
-        SE_FIRE,
+        SE_EXPLOSION,
+        SE_FIRE     ,
     };
 
     /** ÉåÅ[ÉUî≠éÀä‘äu(frame) */

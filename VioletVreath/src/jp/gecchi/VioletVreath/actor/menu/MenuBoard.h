@@ -15,8 +15,8 @@ class MenuBoard : public GgafLib::StringBoardMenu {
 
 public:
     enum {
-        SE_ON_RISEN = 0,
-        SE_MOVE_CURSOR,
+        SE_ON_RISEN      ,
+        SE_MOVE_CURSOR   ,
         SE_DECIDED_CANCEL,
     };
     coord slide_from_offset_X_;

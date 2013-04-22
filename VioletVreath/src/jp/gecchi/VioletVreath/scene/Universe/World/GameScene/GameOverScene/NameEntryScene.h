@@ -12,7 +12,7 @@ class NameEntryScene : public GgafLib::DefaultScene {
 
 public:
     enum {
-        PROG_INIT = 1,
+        PROG_INIT     ,
         PROG_PRE_DISP ,
         PROG_INPUT    ,
         PROG_DONE_DISP,

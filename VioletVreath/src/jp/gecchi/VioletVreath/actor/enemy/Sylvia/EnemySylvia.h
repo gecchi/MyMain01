@@ -17,10 +17,10 @@ class EnemySylvia : public GgafLib::CubeMapMeshActor {
 
 public:
     enum {
-        PROG_INIT = 1  ,
-        PROG_FLOAT_MOVE   ,
-        PROG_EXPLOSION    ,
-        PROG_NOTHING    ,
+        PROG_INIT      ,
+        PROG_FLOAT_MOVE,
+        PROG_EXPLOSION ,
+        PROG_NOTHING   ,
     };
 
     /** ÉgÅ[ÉâÉXÇÃîºåa1(ó÷ÇÃîºåa) */

@@ -57,7 +57,7 @@ papOptionCtrler_(nullptr) {
     //z_ = 0.9999999f;
 
     zanki_ = 0;
-    useProgress(10);
+    useProgress(PROG_END);
 
 }
 

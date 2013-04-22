@@ -10,7 +10,7 @@ class RankUpStage : public GgafLib::DefaultScene {
 public:
     static bool pause_;
     enum {
-        PROG_INIT = 1,
+        PROG_INIT    ,
         PROG_BEGIN   ,
         PROG_PLAYING ,
         PROG_RESULT  ,

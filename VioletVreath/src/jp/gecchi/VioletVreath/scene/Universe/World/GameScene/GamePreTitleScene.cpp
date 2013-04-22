@@ -6,7 +6,7 @@ using namespace VioletVreath;
 
 GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePreTitleScene";
-    useProgress(10);
+    useProgress(PROG_FINISH);
     _pProg->change(GamePreTitleScene::PROG_INIT);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     getSceneDirector()->addSubGroup(pLabel01_);

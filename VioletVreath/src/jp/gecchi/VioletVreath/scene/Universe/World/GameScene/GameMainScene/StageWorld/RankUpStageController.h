@@ -22,9 +22,9 @@ class RankUpStageController : public GgafLib::DefaultScene {
 
 public:
     enum {
-        PROG_INIT = 1,
-        PROG_PLAY    ,
-        PROG_FINISH  ,
+        PROG_INIT  ,
+        PROG_PLAY  ,
+        PROG_FINISH,
     };
 
     char buf_[60];

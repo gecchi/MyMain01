@@ -15,7 +15,6 @@ class VreathItem : public Item {
 
 public:
     enum {
-        PROG_NOTIONG = 1, //‰½‚à‚µ‚Ä‚¢‚È‚¢ó‘Ô
         PROG_DRIFT      , //’ÊíˆÚ“®ó‘Ô
         PROG_ATTACH     , //‹z’…’†(–¢‹z’…)ó‘Ô
         PROG_ABSORB     , //‹z’…’†(‹z’…Ï)ó‘Ô

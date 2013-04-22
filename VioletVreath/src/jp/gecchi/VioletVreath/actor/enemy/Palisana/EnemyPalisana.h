@@ -13,14 +13,14 @@ class EnemyPalisana : public GgafLib::DefaultMorphMeshActor {
 
 public:
     enum {
-        PROG_INIT    = 1,
+        PROG_INIT ,
         PROG_ENTRY,
         PROG_HATCH_OPEN,
         PROG_HATCH_CLOSE,
         PROG_LEAVE,
     };
     enum {
-        SE_DAMAGED   = 0,
+        SE_DAMAGED  ,
         SE_EXPLOSION,
     };
 

@@ -67,7 +67,7 @@ public:
     };
 
     enum {
-        SE_DAMAGED = 0,
+        SE_DAMAGED   ,
         SE_FIRE_LASER,
         SE_FIRE_SHOT,
         SE_FIRE_TORPEDO,

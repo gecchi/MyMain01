@@ -17,13 +17,13 @@ private:
 //    frame frame_of_moment_nextclose_;
 public:
     enum {
-        PROG_INIT         = 1,
+        PROG_INIT       ,
         PROG_HATCH_CLOSE,
-        PROG_HATCH_OPEN,
+        PROG_HATCH_OPEN ,
     };
 
     enum {
-        SE_DAMAGED   = 0,
+        SE_DAMAGED  ,
         SE_EXPLOSION,
     };
 

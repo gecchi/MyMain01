@@ -15,7 +15,7 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::Gg
     _pKurokoA->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     _pKurokoA->relateMvFaceAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
-    useProgress();
+    useProgress(PROG_ABSORB);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³Œø
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 400000);
@@ -115,7 +115,7 @@ void VreathItem::processBehavior() {
         _SZ -= 100;
         if (_SX < 5) {
             _pSeTx->play(0);
-            _pProg->change(PROG_NOTIONG);
+            _pProg->changeNothing();
             sayonara(); //I—¹
         }
         pMyShip->vreath_.inc(1);
