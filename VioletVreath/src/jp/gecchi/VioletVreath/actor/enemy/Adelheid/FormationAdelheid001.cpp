@@ -5,11 +5,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationAdelheid001::FormationAdelheid001(const char* prm_name) :
-        FormationAdelheid(prm_name, "FormationAdelheid001") {
+        FormationAdelheid(prm_name) {
     _class_name = "FormationAdelheid001";
 
     pSplManufConnection_ = connectToSplineManufactureManager("FormationAdelheid001");
-    pConnection_ShotDepo_ = connectToDepositoryManager("Shot004"); //Adelheid‚Ì’e;
+    pSplManuf_ = pSplManufConnection_->peek(); //eƒƒ“ƒo[‚ÌpSplManuf_Ý’è‚Í•K{
+
 }
 void FormationAdelheid001::onCallUpAdelheid(EnemyAdelheid* pEnemyAdelheid) {
 //    pEnemyAdelheid->pKurokoStepper_->adjustAxisRate(
@@ -29,4 +30,5 @@ void FormationAdelheid001::processBehavior() {
 }
 
 FormationAdelheid001::~FormationAdelheid001() {
+    pSplManufConnection_->close();
 }

@@ -14,10 +14,9 @@ class EnemyAdelheid : public GgafLib::DefaultMorphMeshActor {
 public:
 
     enum {
-        PROG_MOVE01_1   ,
+        PROG_INIT,
         PROG_SPLINE_MOVE,
-        PROG_MOVE02_1   ,
-        PROG_MOVE02_2   ,
+        PROG_FINISH,
     };
 
     enum {
@@ -29,8 +28,6 @@ public:
     GgafLib::SplineKurokoStepper* pKurokoStepper_;
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_Shot_;
-    /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 
 public:
     /**
@@ -80,8 +77,7 @@ public:
      */
     virtual void config(
             GgafLib::SplineKurokoStepper* prm_pKurokoStepper,
-            GgafCore::GgafActorDepository* prm_pDepo_Shot,
-            GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
+            GgafCore::GgafActorDepository* prm_pDepo_Shot
             );
 
 

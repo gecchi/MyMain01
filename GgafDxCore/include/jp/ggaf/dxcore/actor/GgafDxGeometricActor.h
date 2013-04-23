@@ -361,6 +361,18 @@ public:
      */
     virtual void locateAs(GgafDxGeoElem* prm_pGeoElem);
 
+
+    virtual void rotate(angle RX, angle RY, angle RZ) {
+        _RX = RX;
+        _RY = RY;
+        _RZ = RZ;
+    }
+
+    virtual void face(angle RZ, angle RY) {
+        _RZ = RZ;
+        _RY = RY;
+    }
+
     /**
      * 回転角度(_RX, _RY, _RZ)をコピーして設定 .
      * @param prm_pActor コピー元アクター

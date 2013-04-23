@@ -62,8 +62,13 @@ void EnemyPalisana::processBehavior() {
                                            1.0, frame_of_morph_interval_);
             }
             if (!_pMorpher->isMorphing()) {
-                _pProg->changeNothing(); //‚¨‚µ‚Ü‚¢I
+                _pProg->changeNext();
             }
+            break;
+        }
+
+        case PROG_HATCH_OPEN_DONE: {
+            //‚¨‚µ‚Ü‚¢B
             break;
         }
 
@@ -116,7 +121,13 @@ void EnemyPalisana::onInactive() {
 void EnemyPalisana::acitve_open() {
     _pProg->change(PROG_INIT);
 }
-
+bool EnemyPalisana::isOpenDone() {
+    if (_pProg->get() == PROG_HATCH_OPEN_DONE) {
+        return true;
+    } else {
+        return false;
+    }
+}
 void EnemyPalisana::close_sayonara() {
     _pProg->change(PROG_HATCH_CLOSE);
 }

@@ -9,10 +9,9 @@ EnemyAdelheid::EnemyAdelheid(const char* prm_name) :
     _class_name = "EnemyAdelheid";
     pKurokoStepper_ = nullptr;
     pDepo_Shot_ = nullptr;
-    pDepo_ShotEffect_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    useProgress(PROG_MOVE02_2);
+    useProgress(PROG_FINISH);
 }
 
 void EnemyAdelheid::onCreateModel() {
@@ -27,13 +26,11 @@ void EnemyAdelheid::initialize() {
 
 void EnemyAdelheid::config(
         GgafLib::SplineKurokoStepper* prm_pKurokoStepper,
-        GgafCore::GgafActorDepository* prm_pDepo_Shot,
-        GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
+        GgafCore::GgafActorDepository* prm_pDepo_Shot
         ) {
     GGAF_DELETE_NULLABLE(pKurokoStepper_);
     pKurokoStepper_ = prm_pKurokoStepper;
     pDepo_Shot_ = prm_pDepo_Shot;
-    pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
 }
 
 void EnemyAdelheid::onActive() {
@@ -44,7 +41,7 @@ void EnemyAdelheid::onActive() {
     setHitAble(true);
     _pKurokoA->setFaceAng(AXIS_X, 0);
     _pKurokoA->setMvAcce(0);
-    _pProg->reset(PROG_MOVE01_1);
+    _pProg->reset(PROG_INIT);
 }
 
 void EnemyAdelheid::processBehavior() {
@@ -53,10 +50,8 @@ void EnemyAdelheid::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
 
     switch (_pProg->get()) {
-        case PROG_MOVE01_1: {
-            if (_pProg->getFrameInProgress() > (PX_C(300) / ABS(_pKurokoA->_veloMv))) {
-                _pProg->changeNext();
-            }
+        case PROG_INIT: {
+            _pProg->changeNext();
             break;
         }
 
@@ -70,12 +65,10 @@ void EnemyAdelheid::processBehavior() {
             break;
         }
 
-        case PROG_MOVE02_1: {
+        case PROG_FINISH: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->turnMvAngTwd(_X - PX_C(300), _Y, _Z,
-                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
+               sayonara();
             }
-
             break;
         }
     }

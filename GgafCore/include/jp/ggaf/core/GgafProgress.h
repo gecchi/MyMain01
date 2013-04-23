@@ -121,7 +121,7 @@ public:
      * @return true:i’»‚ÉØ‚è‘Ö‚í‚Á‚½’¼Œã‚Å‚ ‚é^false:‚»‚êˆÈŠO
      */
     inline bool isJustChanged() {
-        if (_progress != _progress_prev && _progress_prev > PROGRESS_NULL) {
+        if (_progress != _progress_prev && _progress_prev >= PROGRESS_NOTHING) {
             return true;
         } else {
             return false;

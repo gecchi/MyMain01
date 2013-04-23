@@ -11,13 +11,27 @@ namespace VioletVreath {
 class FormationAdelheid : public GgafLib::DepositoryFormation {
 
 public:
+    enum {
+        PROG_INIT  ,
+        PROG_ENTRY ,
+        PROG_FROMATION_MOVE1,
+        PROG_FROMATION_MOVE2,
+        PROG_LEAVE ,
+    };
+
+
     /** アーデルハイド借り入れ元Depository資源への接続 */
     DepositoryConnection* pConnection_AdelheidDepo_;
     /** アーデルハイドの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* pConnection_ShotDepo_;
 
-    /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+    GgafLib::SplineManufacture* pSplManuf_;
+    EnemyAdelheid* pFirstAdelheid_;
+
+
+    EnemyPalisana* pPalisana1_;
+    EnemyPalisana* pPalisana2_;
+
     /** 編隊数(RANK変動) */
     int rr_num_formation_;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
@@ -29,9 +43,8 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_spl_id スプライン定義ID(XXX.spl の XXX)
      */
-    FormationAdelheid(const char* prm_name, const char* prm_spl_id) ;
+    FormationAdelheid(const char* prm_name) ;
 
     void updateRankParameter();
 

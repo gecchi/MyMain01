@@ -16,6 +16,7 @@ public:
         PROG_INIT ,
         PROG_ENTRY,
         PROG_HATCH_OPEN,
+        PROG_HATCH_OPEN_DONE,
         PROG_HATCH_CLOSE,
         PROG_LEAVE,
     };
@@ -69,10 +70,11 @@ public:
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-
     void onInactive() override;
 
     void acitve_open();
+
+    bool isOpenDone();
 
     void close_sayonara();
 

@@ -13,6 +13,8 @@ class FormationAdelheid001 : public FormationAdelheid {
 
 public:
 
+    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+
     FormationAdelheid001(const char* prm_name);
 
     void onCallUpAdelheid(EnemyAdelheid* pEnemyAdelheid) override;
