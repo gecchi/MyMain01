@@ -66,7 +66,7 @@ public:
 
     /**
      * モーフターゲットの重みの上限と下限を設定し重みの値を制限する .
-     * @param prm_target_mesh_no モーフターゲットメッシュNO
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_weight1 重み１(上限 or 下限)
      * @param prm_weight2 重み２(下限 or 上限)
      */
@@ -82,7 +82,7 @@ public:
 
     /**
      * モーフターゲットの重みを直接指定 .
-     * @param prm_target_mesh_no モーフターゲットメッシュNO
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_weight 重み
      */
     void setWeight(int prm_target_mesh_no, float prm_weight) {
@@ -98,7 +98,7 @@ public:
     /**
      * モーフターゲットの重みを加算(負で減算) .
      * 上限下限は保証される。
-     * @param prm_target_mesh_no
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_weight
      */
     void addWeight(int prm_target_mesh_no, float prm_weight_offset) {
@@ -107,7 +107,7 @@ public:
 
     /**
      * モーフターゲットの重みを下限値に設定 .
-     * @param prm_target_mesh_no モーフターゲットメッシュNO
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      */
     void setWeightToBottom(int prm_target_mesh_no) {
         _weight[prm_target_mesh_no] = _bottom_weight[prm_target_mesh_no];
@@ -115,7 +115,7 @@ public:
 
     /**
      * モーフターゲットの重みを上限値に設定 .
-     * @param prm_target_mesh_no モーフターゲットメッシュNO
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      */
     void setWeightToTop(int prm_target_mesh_no) {
         _weight[prm_target_mesh_no] = _top_weight[prm_target_mesh_no];
@@ -123,7 +123,7 @@ public:
 
     /**
      * モーフィングを停止する .
-     * @param prm_target_mesh_no モーフィング中のモーフターゲットメッシュNO
+     * @param prm_target_mesh_no モーフィング中のモーフターゲットメッシュNO(1～)
      */
     void stopImmed(int prm_target_mesh_no);
 
@@ -136,7 +136,7 @@ public:
 
     /**
      * モーフターゲットへ一定速度でモーフィングする（フレーム数指定） .
-     * @param prm_target_mesh_no モーフターゲットメッシュNO
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_spend_frame 費やすフレーム数
      */
@@ -144,7 +144,7 @@ public:
 
     /**
      * モーフターゲットへ一定速度でモーフィングする（重み差分指定） .
-     * @param prm_target_mesh_no モーフターゲットメッシュNO
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_velo_weight 毎フレーム加算する重み差分(>0.0)。正の重みを指定する事。加算か減算かは自動判断する。
      */
@@ -154,7 +154,7 @@ public:
      * モーフターゲットへ加速指定でモーフィングする（重み速度、重み加速度差指定） .
      * 重み加速度を0に指定すると morphLinerStep とほぼ同じ意味になる。
      * morphLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（加速度だからできない）。
-     * @param prm_target_mesh_no モーフターゲットメッシュNO
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_velo_weight 初期重み速度
      * @param prm_acce_weight 重み加速度
@@ -163,7 +163,7 @@ public:
 
     /**
      * モーフターゲットへ一定速度でモーフィングし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
-     * @param prm_target_mesh_no モーフターゲットメッシュNO
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_beat_target_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
@@ -190,7 +190,7 @@ public:
      * ④ 重み上限(_top_weight[prm_target_mesh_no] が保持)<BR>
      * ⑤ 重み下限(_bottom_weight[prm_target_mesh_no] が保持)<BR>
      * <BR>
-     * @param prm_target_mesh_no モーフターゲットメッシュNO
+     * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_beat_target_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数
      * @param prm_rest_frames 上図で③のフレーム数

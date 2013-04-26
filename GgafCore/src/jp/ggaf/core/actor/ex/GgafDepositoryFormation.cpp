@@ -47,6 +47,7 @@ void GgafDepositoryFormation::processFinal() {
         } else {
             //もうこれ以上callUpUntil不可で
             //メンバーが0の場合はさよなら
+            processOnSayonara(); //コールバック
             sayonara(_offset_frames_end);
         }
     } else {
@@ -54,8 +55,15 @@ void GgafDepositoryFormation::processFinal() {
         GgafActor* pFollower = _listFollower.getCurrent();
         int num_follwer = _listFollower.length();
         for (int i = 0; i < num_follwer; i++) {
-            if (_can_live_flg && (pFollower->_is_active_flg || pFollower->_will_activate_after_flg)) {
-                pFollower = _listFollower.next();
+            if (_can_live_flg) {
+                if (pFollower->_is_active_flg) {
+                    pFollower = _listFollower.next();
+                } else if (pFollower->_will_activate_after_flg && (pFollower->_frame_of_life <= pFollower->_frame_of_life_when_activation)) {
+                    //未来に活動予定でも残す
+                    pFollower = _listFollower.next();
+                } else {
+                    _listFollower.remove();
+                }
             } else {
                 _listFollower.remove();
             }

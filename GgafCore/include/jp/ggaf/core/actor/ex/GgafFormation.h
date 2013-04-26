@@ -53,6 +53,11 @@ public:
     virtual void onDestroyAll(GgafActor* prm_pActor_last_destroyed) = 0;
 
     /**
+     * さよならの直前に呼び出されます。
+     */
+    virtual void processOnSayonara() = 0;
+
+    /**
      * メンバーが残っていれば解放する処理を実装済み .
      * 継承してオーバーライドする場合は、処理内で
      * GgafFormation::onEnd() を呼び出して下さい。

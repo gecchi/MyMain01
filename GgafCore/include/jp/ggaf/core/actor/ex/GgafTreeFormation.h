@@ -20,6 +20,7 @@ private:
      * @param prm_pSub
      */
     virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override {
+        throwGgafCriticalException("GgafTreeFormation::addSubLast は使用不可です。");
     }
 
     /** [r]callUpMember()用のカーソル */
@@ -90,6 +91,9 @@ public:
      * GgafTreeFormation::onEnd() を呼び出して下さい。
      */
     virtual void onEnd() override;
+
+    virtual void processOnSayonara() override {
+    }
 
     virtual ~GgafTreeFormation();
 };

@@ -34,9 +34,9 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
     }
 
     pSplLineConnection_ = connectToSplineLineManager("Spl_001");
-    pProgram_CeresMove_ = NEW FixedVelocitySplineKurokoStepper(_pKurokoA, pSplLineConnection_->peek(), 5000); //移動速度固定
+    pProgram_CeresMove_ = NEW FixedVelocitySplineKurokoLeader(_pKurokoA, pSplLineConnection_->peek(), 5000); //移動速度固定
 
-//    pProgram_CeresMove_ = NEW FixedFrameSplineKurokoStepper(_pKurokoA, pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
+//    pProgram_CeresMove_ = NEW FixedFrameSplineKurokoLeader(_pKurokoA, pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
@@ -53,7 +53,7 @@ void EnemyCeres::onActive() {
     _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 6000);
     _pKurokoA->setMvVelo(8000);
-    pProgram_CeresMove_->start(SplineKurokoStepper::ABSOLUTE_COORD); //スプライン移動を開始
+    pProgram_CeresMove_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始
     frame_Active_ = 0;
 }
 

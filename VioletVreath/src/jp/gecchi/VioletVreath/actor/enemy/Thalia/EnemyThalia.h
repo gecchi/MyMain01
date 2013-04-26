@@ -14,7 +14,7 @@ class EnemyThalia :
   public GgafLib::DefaultMorphMeshActor {
 //class EnemyThalia : public GgafLib::CubeMapMorphMeshActor {
     /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoStepper* pKurokoStepper_;
+    GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
@@ -94,10 +94,10 @@ public:
     /**
      * スプライン移動設定 .
      * initialize() までに設定して下さい。
-     * @param prm_pKurokoStepper
+     * @param prm_pKurokoLeader
      */
-    void setSplineKurokoStepper(GgafLib::SplineKurokoStepper* prm_pKurokoStepper) {
-        pKurokoStepper_ = prm_pKurokoStepper;
+    void setSplineKurokoLeader(GgafLib::SplineKurokoLeader* prm_pKurokoLeader) {
+        pKurokoLeader_ = prm_pKurokoLeader;
     }
 
     /**

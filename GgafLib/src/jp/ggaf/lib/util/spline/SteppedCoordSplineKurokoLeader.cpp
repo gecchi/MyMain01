@@ -2,8 +2,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-SteppedCoordSplineKurokoStepper::SteppedCoordSplineKurokoStepper(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prmpKurokoA_target) :
-        SplineKurokoStepper(prm_pManufacture, prmpKurokoA_target) {
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prmpKurokoA_target) :
+        SplineKurokoLeader(prm_pManufacture, prmpKurokoA_target) {
     _pSteppedSplManuf = (SteppedCoordSplineManufacture*)prm_pManufacture;
     _exec_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
@@ -14,10 +14,10 @@ SteppedCoordSplineKurokoStepper::SteppedCoordSplineKurokoStepper(SplineManufactu
     _COS_RyMv_begin = 0.0f;
 }
 
-SteppedCoordSplineKurokoStepper::SteppedCoordSplineKurokoStepper(GgafDxKurokoA* prmpKurokoA_target,
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKurokoA* prmpKurokoA_target,
                                                                  SplineLine* prmpSpl,
                                                                  angvelo prm_angveloRzRyMv):
-        SplineKurokoStepper(nullptr, prmpKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
+        SplineKurokoLeader(nullptr, prmpKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
     _pSteppedSplManuf = NEW SteppedCoordSplineManufacture(NEW SplineSource(prmpSpl), prm_angveloRzRyMv);
     _pSteppedSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pSteppedSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
@@ -31,9 +31,9 @@ SteppedCoordSplineKurokoStepper::SteppedCoordSplineKurokoStepper(GgafDxKurokoA* 
     _COS_RyMv_begin = 0.0f;
 }
 
-void SteppedCoordSplineKurokoStepper::start(SplinTraceOption prm_option) {
+void SteppedCoordSplineKurokoLeader::start(SplinTraceOption prm_option) {
     if (_pSteppedSplManuf) {
-        _is_stepping = true;
+        _is_leading = true;
         _option = prm_option;
         _exec_fFrames = 0.0f;
         _fFrame_of_next = -0.00001f;
@@ -58,12 +58,12 @@ void SteppedCoordSplineKurokoStepper::start(SplinTraceOption prm_option) {
             _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z;
        }
     } else {
-        throwGgafCriticalException("SplineKurokoStepper::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
+        throwGgafCriticalException("SplineKurokoLeader::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
     }
 }
 
-void SteppedCoordSplineKurokoStepper::behave() {
-//    if (_is_stepping) {
+void SteppedCoordSplineKurokoLeader::behave() {
+//    if (_is_leading) {
 //        GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
 //        //変わり目
 //        if (_exec_fFrames >= _fFrame_of_next) {
@@ -160,7 +160,7 @@ void SteppedCoordSplineKurokoStepper::behave() {
 //            if ( _point_index == pSpl->_rnum) {
 ////                printf(" %s END _point_index=%d\n",_pActor_target->getName(),_point_index);
 //                //終了
-//                _is_stepping = false;
+//                _is_leading = false;
 //                return;
 //            }
 //        } else {
@@ -174,5 +174,5 @@ void SteppedCoordSplineKurokoStepper::behave() {
 //    }
 
 }
-SteppedCoordSplineKurokoStepper::~SteppedCoordSplineKurokoStepper() {
+SteppedCoordSplineKurokoLeader::~SteppedCoordSplineKurokoLeader() {
 }

@@ -29,8 +29,8 @@ void SteppedCoordSplineManufacture::calculate() {
 
 }
 
-SplineKurokoStepper* SteppedCoordSplineManufacture::createSplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) {
-    return NEW SteppedCoordSplineKurokoStepper(this, prm_pKurokoA);
+SplineKurokoLeader* SteppedCoordSplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) {
+    return NEW SteppedCoordSplineKurokoLeader(this, prm_pKurokoA);
 }
 
 SteppedCoordSplineManufacture::~SteppedCoordSplineManufacture() {

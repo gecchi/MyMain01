@@ -8,7 +8,7 @@ EnemyEunomia::EnemyEunomia(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Eunomia", STATUS(EnemyEunomia)) {
     _class_name = "EnemyEunomia";
     iMovePatternNo_ = 0;
-    pKurokoStepper_ = nullptr;
+    pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
@@ -31,19 +31,19 @@ void EnemyEunomia::onReset() {
 }
 
 void EnemyEunomia::config(
-        GgafLib::SplineKurokoStepper* prm_pKurokoStepper,
+        GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
         GgafCore::GgafActorDepository* prm_pDepo_Shot,
         GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
         ) {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
-    pKurokoStepper_ = prm_pKurokoStepper;
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    pKurokoLeader_ = prm_pKurokoLeader;
     pDepo_Shot_ = prm_pDepo_Shot;
     pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
 }
 
 
 void EnemyEunomia::onActive() {
-    if (pKurokoStepper_ == nullptr) {
+    if (pKurokoLeader_ == nullptr) {
         throwGgafCriticalException("EnemyEunomiaはスプライン必須ですconfigして下さい");
     }
     _pStatus->reset();
@@ -58,12 +58,12 @@ void EnemyEunomia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     switch (_pProg->get()) {
         case PROG_ENTRY: {
-            pKurokoStepper_->start(SplineKurokoStepper::ABSOLUTE_COORD);
+            pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD);
             _pProg->changeNext();
             break;
         }
         case PROG_SPLINE_MOVE: {
-            if (pKurokoStepper_->isFinished()) {
+            if (pKurokoLeader_->isFinished()) {
                 _pProg->changeNext(); //次へ
             }
             break;
@@ -112,11 +112,11 @@ void EnemyEunomia::processBehavior() {
 //
 //    //【パターン1：スプライン移動】
 //    if (_pProg->isJustChangedTo(1)) {
-//        pKurokoStepper_->start(SplineKurokoStepper::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+//        pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
 //    }
 //    if (_pProg->get() == 1) {
 //        //スプライン移動終了待ち
-//        if (pKurokoStepper_->isStepping()) {
+//        if (pKurokoLeader_->isLeading()) {
 //            //待ちぼうけ
 //        } else {
 //            _pProg->changeNext(); //次のパターンへ
@@ -125,16 +125,16 @@ void EnemyEunomia::processBehavior() {
 //
 //    switch (iMovePatternNo_) {
 //        case 0:  //【パターン０：スプライン移動開始】
-//            if (pKurokoStepper_) {
-//                pKurokoStepper_->start(SplineKurokoStepper::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+//            if (pKurokoLeader_) {
+//                pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
 //            }
 //            iMovePatternNo_++; //次の行動パターンへ
 //            break;
 //
 //        case 1:  //【パターン１：スプライン移動終了待ち】
-//            if (pKurokoStepper_) {
+//            if (pKurokoLeader_) {
 //                //スプライン移動有り
-//                if (!(pKurokoStepper_->isStepping())) {
+//                if (!(pKurokoLeader_->isLeading())) {
 //                    iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
 //                }
 //            } else {
@@ -180,7 +180,7 @@ void EnemyEunomia::processBehavior() {
 //            break;
 //    }
 
-    pKurokoStepper_->behave(); //スプライン移動を振る舞い
+    pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
 }
 
@@ -208,11 +208,11 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyEunomia::onInactive() {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
 
 EnemyEunomia::~EnemyEunomia() {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
 
 

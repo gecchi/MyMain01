@@ -13,7 +13,7 @@ class Shot001 : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoStepper* pKurokoStepper_;
+    GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** スプライン定義資源への接続 */
     SplineLineConnection* pSplLineConnection_;
 

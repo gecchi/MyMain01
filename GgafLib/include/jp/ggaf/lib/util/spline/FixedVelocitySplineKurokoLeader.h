@@ -1,9 +1,9 @@
-#ifndef FIXEDVELOCITYSPLINEKUROKOSTEPPER_H_
-#define FIXEDVELOCITYSPLINEKUROKOSTEPPER_H_
+#ifndef FIXEDVELOCITYSPLINEKUROKOLEADER_H_
+#define FIXEDVELOCITYSPLINEKUROKOLEADER_H_
 namespace GgafLib {
 
 /**
- * 等速移動スプライン曲線移動。 .
+ * 等速移動スプライン曲線移動の先導者。 .
  * 開始点～終了点まで、同じスピードで移動します。<BR>
  * 次の補完点までの距離を測り、現在の移動速度から、測った距離を減算し「残り移動距離」を求める。
  * 残り移動距離が0になれば、次の補完点に向きを変えながらまた距離を測る・・・を繰り返します。<BR>
@@ -13,7 +13,7 @@ namespace GgafLib {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class FixedVelocitySplineKurokoStepper : public SplineKurokoStepper {
+class FixedVelocitySplineKurokoLeader : public SplineKurokoLeader {
 
 public:
     FixedVelocitySplineManufacture* _pFixedVeloSplManuf;
@@ -34,7 +34,7 @@ public:
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
      * @param prm_pKurokoA 対象のアクターの黒衣A
      */
-    FixedVelocitySplineKurokoStepper(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
+    FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
 
     /**
      * コンストラクタ .
@@ -44,9 +44,9 @@ public:
      * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    FixedVelocitySplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
-                                     SplineLine* prm_sp,
-                                     angvelo prm_angveloRzRyMv);
+    FixedVelocitySplineKurokoLeader(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
+                                    SplineLine* prm_sp,
+                                    angvelo prm_angveloRzRyMv);
 
 
     /**
@@ -61,10 +61,10 @@ public:
      * start() を行った最初のbehave()は、『現在の座標→ポイント[0]』への処理となります。<BR>
      */
     void behave() override;
-    void getCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) override;
+    void getPointCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) override;
 
-    virtual ~FixedVelocitySplineKurokoStepper();
+    virtual ~FixedVelocitySplineKurokoLeader();
 };
 
 }
-#endif /*FIXEDVELOCITYSPLINEKUROKOSTEPPER_H_*/
+#endif /*FIXEDVELOCITYSPLINEKUROKOLEADER_H_*/

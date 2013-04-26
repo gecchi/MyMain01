@@ -10,7 +10,7 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
         //CubeMapMorphMeshActor(prm_name, "1/ThisbeCM", STATUS(EnemyThisbe)) {
 
     _class_name = "EnemyThisbe";
-    pKurokoStepper_ = nullptr;
+    pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
 
@@ -29,7 +29,7 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 //    for (int i = 0; i < 100; i++) { //レーザーストック
 //        std::string name = "EnemyThisbeLaserChip002["+XTOS(i)+"]";
 //        EnemyThisbeLaserChip002* pChip = NEW EnemyThisbeLaserChip002(name.c_str());
-//        int num_refraction = pChip->pKurokoStepper_->getPointNum();
+//        int num_refraction = pChip->pKurokoLeader_->getPointNum();
 //        pChip->config(num_refraction, 1, 1, false, pDepoEffect);
 //        pLaserChipDepo_->addSubLast(pChip);
 //    }
@@ -203,7 +203,7 @@ void EnemyThisbe::onInactive() {
 }
 
 EnemyThisbe::~EnemyThisbe() {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
         pConnection_LaserChipDepoStore_->close();
     //pConnection_RefractionEffectDepository_->close();
 }

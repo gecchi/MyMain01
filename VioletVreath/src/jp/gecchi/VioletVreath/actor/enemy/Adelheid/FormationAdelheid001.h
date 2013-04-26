@@ -19,6 +19,8 @@ public:
 
     void onCallUpAdelheid(EnemyAdelheid* pEnemyAdelheid) override;
 
+    GgafLib::SplineManufacture* getFormationSplManuf() override;
+
     virtual void processBehavior() override;
 
     virtual ~FormationAdelheid001();

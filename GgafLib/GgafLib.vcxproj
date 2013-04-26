@@ -208,9 +208,9 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\DefaultUniverse.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DepositoryFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoStepper.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoStepper.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\FormationTableScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\HomingLaserChip.cpp" />
@@ -221,7 +221,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SingleLaser.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineKurokoStepper.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineLine.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\manager\SplineManufactureConnection.cpp" />
@@ -232,7 +232,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshWorldBoundActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\spline\SteppedCoordSplineKurokoStepper.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\SteppedCoordSplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -286,9 +286,9 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\DefaultUniverse.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DepositoryFormation.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\fixedframesplinekurokostepper.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\fixedframesplinekurokoleader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\fixedvelocitysplinekurokostepper.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\fixedvelocitysplinekurokoleader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\FormationTableScene.h" />
     <ClInclude Include="include\GgafLibHeader.h" />
@@ -302,7 +302,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SingleLaser.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\splinekurokostepper.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\splinekurokoleader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineLine.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineManufacture.h" />
     <ClInclude Include="include\jp\ggaf\lib\manager\SplineManufactureConnection.h" />
@@ -313,7 +313,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshWorldBoundActor.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\steppedcoordsplinekurokostepper.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\steppedcoordsplinekurokoleader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\StgUtil.h" />

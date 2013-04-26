@@ -9,7 +9,7 @@ EnemyIris::EnemyIris(const char* prm_name)
       : DefaultMeshSetActor(prm_name, "Iris", STATUS(EnemyIris)) {
     _class_name = "EnemyIris";
     iMovePatternNo_ = 0;
-    pKurokoStepper_ = nullptr;
+    pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
@@ -40,16 +40,16 @@ void EnemyIris::processBehavior() {
 
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (pKurokoStepper_) {
-                pKurokoStepper_->start(SplineKurokoStepper::ABSOLUTE_COORD); //スプライン移動を開始
+            if (pKurokoLeader_) {
+                pKurokoLeader_->start(SplineKurokoLeader::ABSOLUTE_COORD); //スプライン移動を開始
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (pKurokoStepper_) {
+            if (pKurokoLeader_) {
                 //スプライン移動有り
-                if (pKurokoStepper_->isFinished()) {
+                if (pKurokoLeader_->isFinished()) {
                     iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -105,8 +105,8 @@ void EnemyIris::processBehavior() {
     }
 
 
-    if (pKurokoStepper_) {
-        pKurokoStepper_->behave(); //スプライン移動を振る舞い
+    if (pKurokoLeader_) {
+        pKurokoLeader_->behave(); //スプライン移動を振る舞い
     }
     _pKurokoA->behave();
     //_pSeTx->behave();
@@ -140,5 +140,5 @@ void EnemyIris::onInactive() {
 }
 
 EnemyIris::~EnemyIris() {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

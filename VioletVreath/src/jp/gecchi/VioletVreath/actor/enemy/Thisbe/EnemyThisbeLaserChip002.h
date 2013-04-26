@@ -7,7 +7,7 @@ class EnemyThisbeLaserChip002 : public GgafLib::RefractionLaserChip {
 public:
     frame end_active_frame_;
     GgafLib::SplineManufactureConnection* pSplManufConnection_;
-    GgafLib::SplineKurokoStepper* pKurokoStepper_;
+    GgafLib::SplineKurokoLeader* pKurokoLeader_;
     GgafLib::DefaultScene* pNearestScrollingScene_;
 public:
     EnemyThisbeLaserChip002(const char* prm_name);

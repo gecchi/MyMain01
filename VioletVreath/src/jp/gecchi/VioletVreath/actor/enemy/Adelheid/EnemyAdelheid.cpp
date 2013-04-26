@@ -7,7 +7,7 @@ using namespace VioletVreath;
 EnemyAdelheid::EnemyAdelheid(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Adelheid", STATUS(EnemyAdelheid)) {
     _class_name = "EnemyAdelheid";
-    pKurokoStepper_ = nullptr;
+    pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
@@ -25,16 +25,16 @@ void EnemyAdelheid::initialize() {
 }
 
 void EnemyAdelheid::config(
-        GgafLib::SplineKurokoStepper* prm_pKurokoStepper,
+        GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
         GgafCore::GgafActorDepository* prm_pDepo_Shot
         ) {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
-    pKurokoStepper_ = prm_pKurokoStepper;
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    pKurokoLeader_ = prm_pKurokoLeader;
     pDepo_Shot_ = prm_pDepo_Shot;
 }
 
 void EnemyAdelheid::onActive() {
-    if (pKurokoStepper_ == nullptr) {
+    if (pKurokoLeader_ == nullptr) {
         throwGgafCriticalException("EnemyAdelheidはスプライン必須ですconfigして下さい");
     }
     _pStatus->reset();
@@ -51,15 +51,17 @@ void EnemyAdelheid::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_INIT: {
+            _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] PROG_INIT よー");
             _pProg->changeNext();
             break;
         }
 
         case PROG_SPLINE_MOVE: {
             if (_pProg->isJustChanged()) {
-                pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_COORD);
+                _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] PROG_SPLINE_MOVE よー");
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD);
             }
-            if (pKurokoStepper_->isFinished()) {
+            if (pKurokoLeader_->isFinished()) {
                 _pProg->changeNext();
             }
             break;
@@ -67,13 +69,14 @@ void EnemyAdelheid::processBehavior() {
 
         case PROG_FINISH: {
             if (_pProg->isJustChanged()) {
+                _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] PROG_FINISH sayonara() よー");
                sayonara();
             }
             break;
         }
     }
 
-    pKurokoStepper_->behave(); //スプライン移動を振る舞い
+    pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
 }
 
@@ -106,11 +109,11 @@ void EnemyAdelheid::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyAdelheid::onInactive() {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
 
 EnemyAdelheid::~EnemyAdelheid() {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
 
 

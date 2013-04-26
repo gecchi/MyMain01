@@ -53,12 +53,12 @@ public:
     void calculate() override;
 
     /**
-     * SplineKurokoStepperオブジェクトの生成 .
-     * インスタンスは SteppedCoordSplineKurokoStepper です。
+     * SplineKurokoLeaderオブジェクトの生成 .
+     * インスタンスは SteppedCoordSplineKurokoLeader です。
      * @param prm_pKurokoA スプライン移動させる対象アクター
-     * @return SplineKurokoStepperオブジェクト
+     * @return SplineKurokoLeaderオブジェクト
      */
-    SplineKurokoStepper* createSplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) override;
+    SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) override;
 
     virtual ~SteppedCoordSplineManufacture();
 };

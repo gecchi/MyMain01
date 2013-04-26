@@ -20,7 +20,7 @@ public:
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_EnemyCeresShots001_;
     /** スプラインプログラム */
-    GgafLib::SplineKurokoStepper* pProgram_CeresMove_;
+    GgafLib::SplineKurokoLeader* pProgram_CeresMove_;
 
     /** GgafActorDepositoryをコンストラクタで生成したか否か */
     bool createGgafActorDepository_;

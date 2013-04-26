@@ -1203,6 +1203,11 @@ void GgafElement<T>::activateDelay(frame prm_offset_frames) {
     }
 #endif
     if (_can_live_flg) {
+#ifdef MY_DEBUG
+        if (_is_active_flg) {
+            _TRACE_("＜警告＞activateDelay("<<prm_offset_frames<<") しましたけど、既に活動状態ですよ。意図してますか？ name="<<GgafNode<T>::_name<<" this="<<this);
+        }
+#endif
         //既にinactivateDelay()実行済みの場合は
         //そのinactivateDelay()は無効化される。
         _will_inactivate_after_flg = false;

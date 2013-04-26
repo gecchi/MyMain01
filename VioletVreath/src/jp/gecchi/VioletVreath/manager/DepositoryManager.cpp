@@ -294,7 +294,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
             for (int nChip = 0; nChip < 200; nChip++) {
                 std::string name = "EnemyThisbeLaserChip002["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
                 EnemyThisbeLaserChip002* pChip = NEW EnemyThisbeLaserChip002(name.c_str());
-                int num_refraction = pChip->pKurokoStepper_->getPointNum();
+                int num_refraction = pChip->pKurokoLeader_->getPointNum();
                 pChip->config(num_refraction, 1, 1, false, pDepoEffect);
                 pLaserChipDepo->addSubLast(pChip);
                 Sleep(1);
@@ -320,6 +320,24 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         for (int i = 0; i < 120; i++) {
             std::string name = "AntiopeN("+XTOS(i)+")";
             pResource->addSubLast(NEW EnemyAntiopeP(name.c_str()));
+            Sleep(1);
+        }
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
+    }
+
+    if (UTIL::strcmp_ascii("EnemyAdelheid4Formation", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Depo_AdelheidStock");
+        for (int i = 0; i < 3; i++) {
+            std::string name = "EnemyAdelheid("+XTOS(i)+")";
+            pResource->addSubLast(NEW EnemyAdelheid(name.c_str()));
+            Sleep(1);
+        }
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
+    }
+    if (UTIL::strcmp_ascii("EnemyAdelheidShot", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("MgrDepo_AdelheidShotStock");
+        for (int i = 0; i < 3; i++) {
+            pResource->addSubLast(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);

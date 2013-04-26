@@ -44,13 +44,13 @@ namespace GgafCore {
  * 『[A]』の『 [ ] 』 は、『要素』と呼ばれる入れ物（コンテナ）を表し、『[A]』の『A』は要素が保持する『値』を表しています。<BR>
  * 図の『⇔』は、要素同士がお互いポインタを指しあっている事を示しています。<BR>
  * "!" はカレント要素(カーソルが指しているようなもの)で、本テンプレートメソッドによる機能の基準となる要素です。<BR>
- * 両端の「([E])」と「([A]!)」という表記は、要素リストの先頭と末尾が、お互い連結している事を示しています。<BR>
+ * 両端の『([E])』と『([A]!)』という表記は、要素リストの先頭と末尾が、お互い連結している事を示しています。<BR>
  * 環状になっているため終端が無く、永遠に next 或いは prev が可能です。<BR>
  * next 或いは prev での終端はありませんが、内部フラグによってリストの先頭要素、末尾要素は管理されています。<BR>
- * 上図では、[A] を先頭要素値、[E] を末尾要素値、として内部管理されており、通常の線形リストのような使い方も可能です。<BR>
+ * 上図では、『[A]』 を先頭要素、『[E]』 を末尾要素、として内部管理されており、通常の線形リストのような使い方も可能です。<BR>
  * [捕捉]<BR>
  * 本クラスの説明で、「要素」という表現は、実はインナークラスの Elemオブジェクトへのポインタの事を指し、<BR>
- * 「要素の値」という表現は各「要素」の _pValue を指します。<BR>
+ * 「要素の値」という表現は Elem オブジェクトのメンバ _pValue を指します。<BR>
  * 「要素の値」の型は T* です。上の例では Object* 型を指します。Object の値自体ではありません。
  * <BR>
  * @version 1.00
@@ -86,7 +86,7 @@ public:
          * コンストラクタ
          * @param prm_pValue 値（ポインタ）
          * @param prm_relation_num 追加確保する関連要素数
-         * @param prm_is_delete_value true  : GgafLinkedListRingインスタンスdelete時に、要素(_pValue)もdeleteする。
+         * @param prm_is_delete_value true  : GgafLinkedListRingインスタンスdelete時に、要素(_pValue)もdeleteする。<BR>
          *                            false : 要素(_pValue)をdeleteしない。
          */
         Elem(T* prm_pValue, int prm_relation_num, bool prm_is_delete_value = true) {
@@ -147,7 +147,6 @@ public:
             GGAF_DELETEARR_NULLABLE(_papRelation);
         }
     }; //class Elem
-
 
     /** [r]先頭要素 */
     Elem* _pElem_first;
@@ -219,7 +218,7 @@ public:
      * ---------------------------------------
      * </pre>
      * @param prm_pNew インスタンス生成済み要素のポインタ
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。<BR>
      *                            false : リストのdelete時に、引数の追加要素値について何も行わない。
      */
     virtual void addNext(T* prm_pNew, bool prm_is_delete_value = true);
@@ -271,7 +270,7 @@ public:
      * ---------------------------------------
      * </pre>
      * @param prm_pNew 新しい要素の値
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。<BR>
      *                            false : リストのdelete時に、引数の追加要素について何も行わない。
      */
     virtual void addPrev(T* prm_pNew, bool prm_is_delete_value = true);
@@ -310,7 +309,7 @@ public:
      * ---------------------------------------
      * </pre>
      * @param prm_pNew 新しい要素の値
-     * @param prm_is_delete_value true  : リストのインスタンスdelete時に、引数の追加要素値についてもdeleteを発行する。
+     * @param prm_is_delete_value true  : リストのインスタンスdelete時に、引数の追加要素値についてもdeleteを発行する。<BR>
      *                            false : リストのインスタンスdelete時に、引数の追加要素値について何も行わない。
      */
     virtual void addLast(T* prm_pNew, bool prm_is_delete_value = true);
@@ -349,7 +348,7 @@ public:
      * ---------------------------------------
      * </pre>
      * @param prm_pNew 新しい要素の値
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。<BR>
      *                            false : リストのdelete時に、引数の追加要素値について何も行わない。
      */
     virtual void addFirst(T* prm_pNew, bool prm_is_delete_value = true);
@@ -659,7 +658,7 @@ public:
      * 本メソッド実行時に内部で delete され、戻り値には nullptrが返ります。
      * </pre>
      * @param prm_pVal 新しい要素の値
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の要素値についてもdeleteを発行する。
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の要素値についてもdeleteを発行する。<BR>
      *                            false : リストのdelete時に、引数の要素値について何も行わない。
      * @return 元の設定要素が自動 delete の場合 nullptr ／ 元の設定要素が自動 delete ではない場合、上書きされる前の要素(解放に利用される事を想定。)
      */

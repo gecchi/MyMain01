@@ -16,12 +16,13 @@ namespace GgafCore {
  */
 class GgafDepositoryFormation : public GgafFormation {
 private:
-    /**
-     * 使用不可 .
-     * @param prm_pSub
-     */
-    virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override {
-    }
+//    /**
+//     * 使用不可 .
+//     * @param prm_pSub
+//     */
+//    virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override {
+//        throwGgafCriticalException("GgafDepositoryFormation::addSubLast() は使用不可です。");
+//    }
 
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
@@ -105,6 +106,9 @@ public:
      * デポジトリモード管理の編隊全てに sayonara() を実行する。
      */
     virtual void sayonaraFollwer();
+
+    virtual void processOnSayonara() override {
+    }
 
     virtual ~GgafDepositoryFormation();
 };

@@ -9,8 +9,8 @@ EnemyThisbeLaserChip003::EnemyThisbeLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "ThisbeLaserChip003", STATUS(EnemyThisbeLaserChip003)) {
     _class_name = "EnemyThisbeLaserChip003";
     pSplManufConnection_ = connectToSplineManufactureManager("EnemyThisbeLaserChip003"); //ゴスパー曲線
-    pKurokoStepper_ = pSplManufConnection_->peek()->createSplineKurokoStepper(_pKurokoA);
-    pKurokoStepper_->adjustCoordOffset(PX_C(100), 0, 0);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
+    pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     sp_index_ = 0;
     pNearestScrollingScene_ = nullptr;
 }
@@ -30,24 +30,24 @@ void EnemyThisbeLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
     _pStatus->reset();
-    pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
+    pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
     sp_index_ = 0;
 }
 
 void EnemyThisbeLaserChip003::processBehavior() {
     if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
-        pKurokoStepper_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
+        pKurokoLeader_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
     }
 
-    if (pKurokoStepper_->isStepping()) {
-        _pKurokoA->setMvVelo(pKurokoStepper_->getSegmentDistance(sp_index_));
+    if (pKurokoLeader_->isLeading()) {
+        _pKurokoA->setMvVelo(pKurokoLeader_->getSegmentDistance(sp_index_));
         sp_index_++;
     } else {
         sayonara();
     }
-    //pKurokoStepper_->behave(); 内部で pKurokoA->_veloMv を参照し次フレーム数決定してるので、
-    //１フレームで次の点に到達するべく、pKurokoStepper_->behave(); の前に pKurokoA->setMvVelo() で設定しなければいけない。
-    pKurokoStepper_->behave();
+    //pKurokoLeader_->behave(); 内部で pKurokoA->_veloMv を参照し次フレーム数決定してるので、
+    //１フレームで次の点に到達するべく、pKurokoLeader_->behave(); の前に pKurokoA->setMvVelo() で設定しなければいけない。
+    pKurokoLeader_->behave();
     _pKurokoA->behave();
     WateringLaserChip::processBehavior();
 }
@@ -77,7 +77,7 @@ void EnemyThisbeLaserChip003::onInactive() {
 }
 
 EnemyThisbeLaserChip003::~EnemyThisbeLaserChip003() {
-    GGAF_DELETE(pKurokoStepper_);
+    GGAF_DELETE(pKurokoLeader_);
     pSplManufConnection_->close();
 }
 

@@ -7,7 +7,7 @@ using namespace VioletVreath;
 EnemyHebe::EnemyHebe(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Hebe", STATUS(EnemyHebe)) {
     _class_name = "EnemyHebe";
-    pKurokoStepper_ = nullptr;
+    pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
@@ -26,18 +26,18 @@ void EnemyHebe::initialize() {
 }
 
 void EnemyHebe::config(
-        GgafLib::SplineKurokoStepper* prm_pKurokoStepper,
+        GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
         GgafCore::GgafActorDepository* prm_pDepo_Shot,
         GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
         ) {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
-    pKurokoStepper_ = prm_pKurokoStepper;
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    pKurokoLeader_ = prm_pKurokoLeader;
     pDepo_Shot_ = prm_pDepo_Shot;
     pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
 }
 
 void EnemyHebe::onActive() {
-    if (pKurokoStepper_ == nullptr) {
+    if (pKurokoLeader_ == nullptr) {
         throwGgafCriticalException("EnemyHebeはスプライン必須ですconfigして下さい");
     }
     _pStatus->reset();
@@ -62,9 +62,9 @@ void EnemyHebe::processBehavior() {
 
         case PROG_SPLINE_MOVE: {
             if (_pProg->isJustChanged()) {
-                pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_COORD);
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD);
             }
-            if (pKurokoStepper_->isFinished()) {
+            if (pKurokoLeader_->isFinished()) {
                 _pProg->changeNext();
             }
             break;
@@ -80,7 +80,7 @@ void EnemyHebe::processBehavior() {
         }
     }
 
-    pKurokoStepper_->behave(); //スプライン移動を振る舞い
+    pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
 }
 
@@ -113,11 +113,11 @@ void EnemyHebe::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyHebe::onInactive() {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
 
 EnemyHebe::~EnemyHebe() {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
 
 

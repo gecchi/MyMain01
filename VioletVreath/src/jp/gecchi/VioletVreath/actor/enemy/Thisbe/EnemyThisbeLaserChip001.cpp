@@ -9,7 +9,7 @@ EnemyThisbeLaserChip001::EnemyThisbeLaserChip001(const char* prm_name) :
         HomingLaserChip(prm_name, "ThisbeLaserChip001", STATUS(EnemyThisbeLaserChip001)) {
     _class_name = "EnemyThisbeLaserChip001";
     pSplManufConnection_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ヒルベルト曲線
-    pKurokoStepper_ = pSplManufConnection_->peek()->createSplineKurokoStepper(_pKurokoA);
+    pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
     pNearestScrollingScene_ = nullptr;
 }
 
@@ -28,7 +28,7 @@ void EnemyThisbeLaserChip001::onActive() {
     _pKurokoA->forceRzRyMvAngVeloRange(-D_ANG(45), D_ANG(45));
     _pKurokoA->relateMvFaceAng(true);
     //位置と向きはEnemyThisbeが設定
-    pKurokoStepper_->stop();
+    pKurokoLeader_->stop();
 }
 
 void EnemyThisbeLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -45,13 +45,13 @@ void EnemyThisbeLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void EnemyThisbeLaserChip001::processBehaviorHeadChip() {
     if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
-        pKurokoStepper_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
+        pKurokoLeader_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
     }
 
     if (getActiveFrame() == 2) {
-        pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_DIRECTION); //向いた方向にワールド変換
+        pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
-    pKurokoStepper_->behave();
+    pKurokoLeader_->behave();
     _pKurokoA->behave();
 }
 
@@ -79,7 +79,7 @@ void EnemyThisbeLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyThisbeLaserChip001::~EnemyThisbeLaserChip001() {
-    GGAF_DELETE(pKurokoStepper_);
+    GGAF_DELETE(pKurokoLeader_);
     pSplManufConnection_->close();
 }
 

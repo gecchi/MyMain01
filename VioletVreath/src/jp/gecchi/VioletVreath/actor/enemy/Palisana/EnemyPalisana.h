@@ -26,6 +26,7 @@ public:
     };
 
     enum {
+        MPH_HATCH_CLOSE,
         MPH_HATCH_OPEN,
     };
 

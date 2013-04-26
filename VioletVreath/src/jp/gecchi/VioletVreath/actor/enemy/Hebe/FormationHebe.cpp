@@ -35,10 +35,10 @@ void FormationHebe::processBehavior() {
     if (canCallUp() && (getActiveFrame() % rr_interval_frames_ == 0)) {
         EnemyHebe* pHebe = (EnemyHebe*)callUpMember(rr_num_formation_);
         if (pHebe) {
-            SplineKurokoStepper* pKurokoStepper = pSplManufConnection_->peek()->
-                                          createSplineKurokoStepper(pHebe->_pKurokoA);
+            SplineKurokoLeader* pKurokoLeader = pSplManufConnection_->peek()->
+                                          createKurokoLeader(pHebe->_pKurokoA);
             GgafActorDepository* pDepo_Shot = pConnection_ShotDepo_ ? pConnection_ShotDepo_->peek() : nullptr;
-            pHebe->config(pKurokoStepper, pDepo_Shot, nullptr);
+            pHebe->config(pKurokoLeader, pDepo_Shot, nullptr);
             pHebe->_pKurokoA->setMvVelo(rr_mv_velo_);
             onCallUpHebe(pHebe); //下位フォーメーションクラス個別実装の処理
         }

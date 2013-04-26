@@ -3,7 +3,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SplineKurokoStepper::SplineKurokoStepper(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA) :
+SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA) :
         GgafObject() {
     _pManufacture = prm_pManufacture;
     _pActor_target = prm_pKurokoA->_pActor;
@@ -17,7 +17,7 @@ SplineKurokoStepper::SplineKurokoStepper(SplineManufacture* prm_pManufacture, Gg
     _flip_X = 1;
     _flip_Y = 1;
     _flip_Z = 1;
-    _is_stepping = false;
+    _is_leading = false;
     if (prm_pManufacture) {
         _is_created_pManufacture = false;
     } else {
@@ -29,7 +29,7 @@ SplineKurokoStepper::SplineKurokoStepper(SplineManufacture* prm_pManufacture, Gg
 }
 
 
-void SplineKurokoStepper::getCoord(int prm_point_index, coord &out_X, coord&out_Y, coord &out_Z) {
+void SplineKurokoLeader::getPointCoord(int prm_point_index, coord &out_X, coord&out_Y, coord &out_Z) {
     SplineLine* pSpl = _pManufacture->_sp;
     out_X = (coord)(_flip_X*pSpl->_X_compute[prm_point_index]*_pManufacture->_rate_X + _offset_X);
     out_Y = (coord)(_flip_Y*pSpl->_Y_compute[prm_point_index]*_pManufacture->_rate_Y + _offset_Y);
@@ -37,7 +37,7 @@ void SplineKurokoStepper::getCoord(int prm_point_index, coord &out_X, coord&out_
 }
 
 
-void SplineKurokoStepper::setManufacture(SplineManufacture* prm_pManufacture) {
+void SplineKurokoLeader::setManufacture(SplineManufacture* prm_pManufacture) {
     _pManufacture = prm_pManufacture;
     _pActor_target = nullptr;
     _option = ABSOLUTE_COORD;
@@ -47,21 +47,21 @@ void SplineKurokoStepper::setManufacture(SplineManufacture* prm_pManufacture) {
     _flip_X = 1;
     _flip_Y = 1;
     _flip_Z = 1;
-    _is_stepping = false;
+    _is_leading = false;
 }
 
-void SplineKurokoStepper::adjustCoordOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
+void SplineKurokoLeader::adjustCoordOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
     _offset_X = prm_offset_X;
     _offset_Y = prm_offset_Y;
     _offset_Z = prm_offset_Z;
 }
 
-void SplineKurokoStepper::start(SplinTraceOption prm_option) {
+void SplineKurokoLeader::start(SplinTraceOption prm_option) {
     if (_pManufacture) {
-        _is_stepping = true;
+        _is_leading = true;
         _option = prm_option;
         _execute_frames = 0;
-        SplineKurokoStepper::getCoord(0, _X_begin, _Y_begin, _Z_begin);
+        SplineKurokoLeader::getPointCoord(0, _X_begin, _Y_begin, _Z_begin);
         _distance_to_begin = UTIL::getDistance(
                                 _pActor_target->_X,
                                 _pActor_target->_Y,
@@ -71,37 +71,37 @@ void SplineKurokoStepper::start(SplinTraceOption prm_option) {
                                 _Z_begin
                              );
     } else {
-        throwGgafCriticalException("SplineKurokoStepper::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
+        throwGgafCriticalException("SplineKurokoLeader::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
     }
 }
-void SplineKurokoStepper::stop() {
-    _is_stepping = false;
+void SplineKurokoLeader::stop() {
+    _is_leading = false;
 }
 
 
-void SplineKurokoStepper::setAbsoluteBeginCoord() {
-    SplineKurokoStepper::getCoord(0, _pActor_target->_X, _pActor_target->_Y, _pActor_target->_Z);
+void SplineKurokoLeader::setAbsoluteBeginCoord() {
+    SplineKurokoLeader::getPointCoord(0, _pActor_target->_X, _pActor_target->_Y, _pActor_target->_Z);
 }
-void SplineKurokoStepper::behave() {
+void SplineKurokoLeader::behave() {
 
-    if (_is_stepping) {
+    if (_is_leading) {
         //現在の点INDEX
         int point_index = _execute_frames;
         SplineLine* pSpl = _pManufacture->_sp;
         if ( point_index == pSpl->_rnum) {
             //終了
-            _is_stepping = false;
+            _is_leading = false;
             return;
         }
-        SplineKurokoStepper::getCoord(point_index, _pActor_target->_X, _pActor_target->_Y, _pActor_target->_Z);
+        SplineKurokoLeader::getPointCoord(point_index, _pActor_target->_X, _pActor_target->_Y, _pActor_target->_Z);
         _execute_frames++;
     }
 }
 
-coord SplineKurokoStepper::getSegmentDistance(int prm_index) {
+coord SplineKurokoLeader::getSegmentDistance(int prm_index) {
 #ifdef MY_DEBUG
     if (prm_index < 0 || prm_index > (_pManufacture->_sp->_rnum -1)) {
-        throwGgafCriticalException("SplineKurokoStepper::getSegmentDistance("<<prm_index<<") は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
+        throwGgafCriticalException("SplineKurokoLeader::getSegmentDistance("<<prm_index<<") は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
     }
 #endif
     if (prm_index == 0) {
@@ -110,10 +110,10 @@ coord SplineKurokoStepper::getSegmentDistance(int prm_index) {
         return _pManufacture->_paDistance_to[prm_index];
     }
 }
-int SplineKurokoStepper::getPointNum() {
+int SplineKurokoLeader::getPointNum() {
     return _pManufacture->_sp->_rnum;
 }
-SplineKurokoStepper::~SplineKurokoStepper() {
+SplineKurokoLeader::~SplineKurokoLeader() {
     if (_is_created_pManufacture) {
         SplineSource* pSplSrc = _pManufacture->_pSplSrc;
         GGAF_DELETE(pSplSrc);

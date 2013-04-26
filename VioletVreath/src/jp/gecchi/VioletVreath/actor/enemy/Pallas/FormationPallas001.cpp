@@ -15,8 +15,8 @@ FormationPallas001::FormationPallas001(const char* prm_name) :
     pDepoConnection_ = nullptr;
     for (int i = 0; i < num_Pallas_; i++) {
         EnemyPallas* pPallas= NEW EnemyPallas("Pallas01");
-        SplineKurokoStepper* pKurokoStepper = pSplManufConnection_->peek()->createSplineKurokoStepper(pPallas->_pKurokoA);
-        pPallas->config(pKurokoStepper, nullptr, nullptr);
+        SplineKurokoLeader* pKurokoLeader = pSplManufConnection_->peek()->createKurokoLeader(pPallas->_pKurokoA);
+        pPallas->config(pKurokoLeader, nullptr, nullptr);
         addFormationMember(pPallas);
     }
 }

@@ -8,13 +8,13 @@ FormationEunomia001a::FormationEunomia001a(const char* prm_name) : FormationEuno
     _class_name = "FormationEunomia001a";
 }
 void FormationEunomia001a::onCallUpEunomia(EnemyEunomia* pEnemyEunomia, int col) {
-//    pEnemyEunomia->pKurokoStepper_->adjustAxisRate(
+//    pEnemyEunomia->pKurokoLeader_->adjustAxisRate(
 //                                        MyShip::lim_front_, //X•ûŒü”{—¦
 //                                        MyShip::lim_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_zleft_  //Z•ûŒü”{—¦
 //                                    );
-    pEnemyEunomia->pKurokoStepper_->adjustCoordOffset(PX_C(0), PX_C(col*50), PX_C(col*50));
-    pEnemyEunomia->pKurokoStepper_->setAbsoluteBeginCoord();
+    pEnemyEunomia->pKurokoLeader_->adjustCoordOffset(PX_C(0), PX_C(col*50), PX_C(col*50));
+    pEnemyEunomia->pKurokoLeader_->setAbsoluteBeginCoord();
 }
 
 FormationEunomia001a::~FormationEunomia001a() {

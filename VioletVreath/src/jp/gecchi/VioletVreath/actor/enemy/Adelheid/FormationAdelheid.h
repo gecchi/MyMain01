@@ -25,7 +25,6 @@ public:
     /** アーデルハイドの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* pConnection_ShotDepo_;
 
-    GgafLib::SplineManufacture* pSplManuf_;
     EnemyAdelheid* pFirstAdelheid_;
 
 
@@ -61,6 +60,14 @@ public:
     virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
+    /**
+     * スプライン情報を取得。
+     * 下位で実装して下さい。
+     * @return
+     */
+    virtual GgafLib::SplineManufacture* getFormationSplManuf() = 0;
+
+    virtual void processOnSayonara() override;
 
     virtual ~FormationAdelheid();
 };

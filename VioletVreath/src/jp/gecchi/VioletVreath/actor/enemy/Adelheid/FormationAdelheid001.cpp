@@ -9,22 +9,23 @@ FormationAdelheid001::FormationAdelheid001(const char* prm_name) :
     _class_name = "FormationAdelheid001";
 
     pSplManufConnection_ = connectToSplineManufactureManager("FormationAdelheid001");
-    pSplManuf_ = pSplManufConnection_->peek(); //êeÉÅÉìÉoÅ[ÇÃpSplManuf_ê›íËÇÕïKê{
 
 }
 void FormationAdelheid001::onCallUpAdelheid(EnemyAdelheid* pEnemyAdelheid) {
-//    pEnemyAdelheid->pKurokoStepper_->adjustAxisRate(
+//    pEnemyAdelheid->pKurokoLeader_->adjustAxisRate(
 //                                        MyShip::lim_front_, //Xï˚å¸î{ó¶
 //                                       -1.0 * MyShip::lim_top_,   //Yï˚å¸î{ó¶
 //                                        MyShip::lim_zleft_  //Zï˚å¸î{ó¶
 //                                    );
-//    pEnemyAdelheid->pKurokoStepper_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
-//    pEnemyAdelheid->pKurokoStepper_->adjustAxisYFlip();
-//    pEnemyAdelheid->pKurokoStepper_->setAbsoluteBeginCoord();
-    pEnemyAdelheid->locate(PX_C(300), PX_C(-300), PX_C(0));
-    pEnemyAdelheid->_pKurokoA->setMvAngTwd(PX_C(300), PX_C(0), PX_C(0));
+//    pEnemyAdelheid->pKurokoLeader_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
+//    pEnemyAdelheid->pKurokoLeader_->adjustAxisYFlip();
+//    pEnemyAdelheid->pKurokoLeader_->setAbsoluteBeginCoord();
+    pEnemyAdelheid->locate(PX_C(300), PX_C(-300), PX_C(500));
+    pEnemyAdelheid->_pKurokoA->setMvAngTwd(PX_C(300), PX_C(0), PX_C(500));
 }
-
+GgafLib::SplineManufacture* FormationAdelheid001::getFormationSplManuf() {
+    return pSplManufConnection_->peek(); //êe
+}
 void FormationAdelheid001::processBehavior() {
     FormationAdelheid::processBehavior();
 }

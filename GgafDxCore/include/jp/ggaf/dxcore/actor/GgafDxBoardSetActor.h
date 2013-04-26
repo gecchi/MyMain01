@@ -19,6 +19,7 @@ private:
      * @return
      */
     int isOutOfView() override {
+        throwGgafCriticalException("GgafDxBoardSetActor::isOutOfView() は使用不可です。");
         return 0;
     }
 
@@ -27,6 +28,7 @@ private:
      * @return
      */
     bool isOutOfUniverse() override {
+        throwGgafCriticalException("GgafDxBoardSetActor::isOutOfUniverse() は使用不可です。");
         return false;
     }
 
@@ -42,6 +44,7 @@ private:
                                              int prm_RX_init_local,
                                              int prm_RY_init_local,
                                              int prm_RZ_init_local) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::addSubGroupAsFk() は使用不可です。");
         return nullptr;
     }
 
@@ -56,6 +59,7 @@ private:
                                              int prm_RX_init_local,
                                              int prm_RY_init_local,
                                              int prm_RZ_init_local) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::addSubGroupAsFk() は使用不可です。");
         return nullptr;
     }
 
@@ -64,6 +68,7 @@ private:
      * @return
      */
     void changeGeoLocal() override {
+        throwGgafCriticalException("GgafDxBoardSetActor::changeGeoLocal() は使用不可です。");
     }
 
     /**
@@ -71,6 +76,7 @@ private:
      * @return
      */
     void changeGeoFinal() override {
+        throwGgafCriticalException("GgafDxBoardSetActor::changeGeoFinal() は使用不可です。");
     }
 
     /**
@@ -78,20 +84,28 @@ private:
      * @return
      */
     void rotateAs(GgafDxGeometricActor* prm_pActor) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::rotateAs() は使用不可です。");
     }
     void setScale(scale S) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::setScale() は使用不可です。");
     }
     void setScale(scale SX, scale SY) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::setScale() は使用不可です。");
     }
     void setScale(scale SX, scale SY, scale SZ) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::setScale() は使用不可です。");
     }
     void setScaleR(float prm_rate) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::setScaleR() は使用不可です。");
     }
     void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::setScaleR() は使用不可です。");
     }
     void setScaleR(float prm_x_rate, float prm_y_rate) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::setScaleR() は使用不可です。");
     }
     void addScale(scale dS) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::addScale() は使用不可です。");
     }
 
 public:

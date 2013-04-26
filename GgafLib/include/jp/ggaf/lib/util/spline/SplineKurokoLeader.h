@@ -1,18 +1,15 @@
-#ifndef SPLINEKUROKOSTEPPER_H_
-#define SPLINEKUROKOSTEPPER_H_
+#ifndef SPLINEKUROKOLEADER_H_
+#define SPLINEKUROKOLEADER_H_
 namespace GgafLib {
-
-
 
 /**
  * スプライン曲線移動を実行するためのオブジェクト .
- * 黒衣Aに指示を出して移動を実現します。
- * 補完点に移動するため、粒度が荒いとカクカクです。
+ * 黒衣Aに指示を出して移動を先導します。
  * @version 1.00
  * @since 2009/10/27
  * @author Masatoshi Tsuge
  */
-class SplineKurokoStepper : public GgafCore::GgafObject {
+class SplineKurokoLeader : public GgafCore::GgafObject {
 
 public:
     enum SplinTraceOption {
@@ -25,8 +22,8 @@ public:
     SplineManufacture* _pManufacture;
     /** start()からの経過フレーム数 */
     frame _execute_frames;
-    /** 現在プログラム実行中であるかどうか */
-    bool _is_stepping;
+    /** 現在先導中であるかどうか */
+    bool _is_leading;
     /** 座標を操作する対象となるアクター */
     GgafDxCore::GgafDxGeometricActor* _pActor_target;
     /** コンストラクタ内部でSplineLineを生成した場合true/コンストラクタ引数にSplineLineが渡された場合false。一時しのぎいずれ消す。*/
@@ -64,7 +61,7 @@ public:
      * @param prm_pManufacture
      * @param prm_pKurokoA
      */
-    SplineKurokoStepper(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
+    SplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
 
     /**
      * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに加算(平行移動)し、補正します .
@@ -102,8 +99,8 @@ public:
 
     /**
      * 対象アクター(_pActor_target)の座標を、スプラインの一番最初の制御点座標で設定する .
-     * start(SplineKurokoStepper::ABSOLUTE_COORD) の場合、つまり「絶対座標移動スプライン」の場合、有効な設定となりうるでしょう。<BR>
-     * 「絶対座標移動スプライン」以外あまり意味がありません。<BR>
+     * start(SplineKurokoLeader::ABSOLUTE_COORD) の場合、つまり「絶対座標移動スプライン」の場合、
+     * 有効な設定となりうるでしょう。<BR>
      */
     void setAbsoluteBeginCoord();
 
@@ -114,12 +111,16 @@ public:
     virtual void setManufacture(SplineManufacture* prm_pManufacture);
 
     /**
-     * スプライン曲線の補完点を移動するプログラムを実行開始
-     * @param prm_option オプション 特に意味無し。下位実装拡張用
+     * スプライン曲線の補完点を移動する先導開始 .
+     * @param prm_option オプション 下位実装拡張用
      */
     virtual void start(SplinTraceOption prm_option = ABSOLUTE_COORD);
 
+    /**
+     * スプライン曲線の補完点を移動する先導をやめる（注：アクターが停止するわけではない） .
+     */
     virtual void stop();
+
     /**
      * 移動実行メソッド .
      * 移動を行うために、毎フレームこのメソッドを呼び出す必要があります。<BR>
@@ -129,19 +130,19 @@ public:
     virtual void behave();
 
     /**
-     * スプライン移動プログラム実行中か
-     * @return true:実行中 / false:実行が終了している
+     * 黒衣Aを先導中か否か .
+     * @return true:先導中 / false:先導が終了している
      */
-    inline bool isStepping() {
-        return _is_stepping;
+    inline bool isLeading() {
+        return _is_leading;
     }
 
     /**
-     * スプライン移動が終了したか否か。 .
-     * @return true:実行が終了している / false:実行中
+     * 黒衣Aを先導が終了したか否か。 .
+     * @return true:先導が終了している / false:先導中
      */
     inline bool isFinished() {
-        return _is_stepping ? false : true;
+        return _is_leading ? false : true;
     }
 
     /**
@@ -191,11 +192,18 @@ public:
      */
     int getPointNum();
 
+    /**
+     * 補完点の座標を取得する。
+     * @param prm_index 補完点インデックス(0～) <BR>
+     *                  開始点インデックス：0 ～ 最終点インデックス：getPointNum()-1
+     * @param out_X 戻り値X座標
+     * @param out_Y 戻り値Y座標
+     * @param out_Z 戻り値Z座標
+     */
+    virtual void getPointCoord(int prm_index, coord &out_X, coord&out_Y, coord &out_Z);
 
-    virtual void getCoord(int prm_index, coord &out_X, coord&out_Y, coord &out_Z);
-
-    virtual ~SplineKurokoStepper();
+    virtual ~SplineKurokoLeader();
 };
 
 }
-#endif /*SPLINEKUROKOSTEPPER_H_*/
+#endif /*SPLINEKUROKOLEADER_H_*/

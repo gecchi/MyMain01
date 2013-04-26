@@ -5,15 +5,15 @@ namespace GgafLib {
 /**
  * スプライン曲線移動のための情報セット .
  * オブジェクトの関係
- * SplineKurokoStepper     各アクター毎に生成される。
+ * SplineKurokoLeader     各アクター毎に生成される。
  *                    アクターに対する、スプライン曲線上の現在の補完点の位置・時間・距離等の管理を行い、
  *                    黒衣A(KurokoA)に指示を出してアクターを移動させる。
- *                    １つの SplineManufacture オブジェクトに対して N 個の SplineKurokoStepperオブジェクトが参照している。
+ *                    １つの SplineManufacture オブジェクトに対して N 個の SplineKurokoLeaderオブジェクトが参照している。
  *                    スプラインの座標点間の距離に影響の無い情報はココで保持する。
  *                    つまりスプライン曲線の座標点の軸平行移動オフセット、
  *                    X,Y,Zの正負入れ替え情報。（TODO:将来は、回転情報もココに）
  *
- * SplineManufacture  スプライン曲線の座標点セットの拡大縮小情報、またそれに伴うSplineKurokoStepperの実装クラスの情報を保持。
+ * SplineManufacture  スプライン曲線の座標点セットの拡大縮小情報、またそれに伴うSplineKurokoLeaderの実装クラスの情報を保持。
  *                    拡大縮小により、各補完点毎の距離等の情報を予め計算して保持している。
  *                    拡大縮小率を変更する場合は、このオブジェクトのフィールドも再計算が必要となる。
  *                    １つの SplineSource オブジェクトに対して N 個の SplineSourceオブジェクトが参照している。
@@ -82,12 +82,12 @@ public:
     virtual void calculate();
 
     /**
-     * SplineKurokoStepper オブジェクトの生成 .
+     * SplineKurokoLeader オブジェクトの生成 .
      * 設定した黒衣Aを、操作しますので注意して下さい。
      * @param prm_pKurokoA 対象のアクターの黒衣A
      * @return
      */
-    virtual SplineKurokoStepper* createSplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) = 0;
+    virtual SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) = 0;
 
 
     virtual ~SplineManufacture();

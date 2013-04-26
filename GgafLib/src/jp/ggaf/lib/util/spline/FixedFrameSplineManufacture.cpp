@@ -93,8 +93,8 @@ void FixedFrameSplineManufacture::calculate() {
     _paSPMvVeloTo[0] = 1000;
 }
 
-SplineKurokoStepper* FixedFrameSplineManufacture::createSplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) {
-    return NEW FixedFrameSplineKurokoStepper(this, prm_pKurokoA);
+SplineKurokoLeader* FixedFrameSplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) {
+    return NEW FixedFrameSplineKurokoLeader(this, prm_pKurokoA);
 }
 
 FixedFrameSplineManufacture::~FixedFrameSplineManufacture() {

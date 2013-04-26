@@ -9,7 +9,7 @@ FormationPallas001a::FormationPallas001a(const char* prm_name) : FormationPallas
 }
 
 void FormationPallas001a::onCallUpPallas(EnemyPallas* prm_pPallas)  {
-    prm_pPallas->pKurokoStepper_->setAbsoluteBeginCoord();
+    prm_pPallas->pKurokoLeader_->setAbsoluteBeginCoord();
     prm_pPallas->_pKurokoA->setMvVelo(velo_mv_);
 }
 

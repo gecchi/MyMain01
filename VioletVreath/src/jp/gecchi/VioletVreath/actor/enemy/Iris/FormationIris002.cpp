@@ -17,7 +17,7 @@ FormationIris002::FormationIris002(const char* prm_name) :
     for (int i = 0; i < num_Iris_; i++) {
         EnemyIris* pIris = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
-        SplineKurokoStepper* pProgram = NEW FixedVelocitySplineKurokoStepper(
+        SplineKurokoLeader* pProgram = NEW FixedVelocitySplineKurokoLeader(
                                          pIris->_pKurokoA, pSplLineConnection_->peek(), 10000); //移動速度固定
         pIris->config(pProgram, pDepoConnection_->peek(), nullptr);
         addFormationMember(pIris);

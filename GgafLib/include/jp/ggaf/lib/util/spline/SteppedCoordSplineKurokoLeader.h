@@ -1,5 +1,5 @@
-#ifndef STEPPEDCOORDSPLINEKUROKOSTEPPER_H_
-#define STEPPEDCOORDSPLINEKUROKOSTEPPER_H_
+#ifndef STEPPEDCOORDSPLINEKUROKOLEADER_H_
+#define STEPPEDCOORDSPLINEKUROKOLEADER_H_
 namespace GgafLib {
 
 /**
@@ -10,7 +10,7 @@ namespace GgafLib {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class SteppedCoordSplineKurokoStepper : public SplineKurokoStepper {
+class SteppedCoordSplineKurokoLeader : public SplineKurokoLeader {
 
 public:
     SteppedCoordSplineManufacture* _pSteppedSplManuf;
@@ -34,7 +34,7 @@ public:
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
      * @param prm_pKurokoA 対象のアクターの黒衣A
      */
-    SteppedCoordSplineKurokoStepper(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
+    SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
 
     /**
      * コンストラクタ .
@@ -44,7 +44,7 @@ public:
      * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    SteppedCoordSplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
+    SteppedCoordSplineKurokoLeader(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
                                     SplineLine* prm_sp,
                                     angvelo prm_angveloRzRyMv);
 
@@ -62,8 +62,8 @@ public:
     void behave() override;
 
 
-    virtual ~SteppedCoordSplineKurokoStepper();
+    virtual ~SteppedCoordSplineKurokoLeader();
 };
 
 }
-#endif /*FIXEDVELOCITYSPLINEKUROKOSTEPPER_H_*/
+#endif /*FIXEDVELOCITYSPLINEKUROKOLEADER_H_*/

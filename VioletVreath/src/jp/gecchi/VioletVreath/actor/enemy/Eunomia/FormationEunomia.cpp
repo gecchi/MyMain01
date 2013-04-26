@@ -58,9 +58,9 @@ void FormationEunomia::processBehavior() {
         for (int i = 0; i < RR_num_formation_col_; i++) {
             EnemyEunomia* pEunomia = (EnemyEunomia*)callUpMember(RR_num_formation_col_*RR_num_formation_row_);
             if (pEunomia) {
-                SplineKurokoStepper* pKurokoStepper = papSplManufConnection_[i]->peek()->
-                                              createSplineKurokoStepper(pEunomia->_pKurokoA);
-                pEunomia->config(pKurokoStepper, nullptr, nullptr);
+                SplineKurokoLeader* pKurokoLeader = papSplManufConnection_[i]->peek()->
+                                              createKurokoLeader(pEunomia->_pKurokoA);
+                pEunomia->config(pKurokoLeader, nullptr, nullptr);
                 pEunomia->_pKurokoA->setMvVelo(RR_mv_velo_);
                 onCallUpEunomia(pEunomia, i); //フォーメーション個別実装の処理
             }

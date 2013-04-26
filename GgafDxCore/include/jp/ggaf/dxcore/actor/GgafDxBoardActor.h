@@ -18,6 +18,7 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
      * @return
      */
     int isOutOfView() override {
+        throwGgafCriticalException("GgafDxBoardActor::isOutOfView() は使用不可です。");
         return 0;
     }
 
@@ -26,6 +27,7 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
      * @return
      */
     bool isOutOfUniverse() override {
+        throwGgafCriticalException("GgafDxBoardActor::isOutOfUniverse() は使用不可です。");
         return false;
     }
 
@@ -41,6 +43,7 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
                                              int prm_RX_init_local,
                                              int prm_RY_init_local,
                                              int prm_RZ_init_local) override {
+        throwGgafCriticalException("GgafDxBoardActor::addSubGroupAsFk() は使用不可です。");
         return nullptr;
     }
 
@@ -55,6 +58,7 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
                                              int prm_RX_init_local,
                                              int prm_RY_init_local,
                                              int prm_RZ_init_local) override {
+        throwGgafCriticalException("GgafDxBoardActor::addSubGroupAsFk() は使用不可です。");
         return nullptr;
     }
 
@@ -63,6 +67,7 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
      * @return
      */
     void changeGeoLocal() override {
+        throwGgafCriticalException("GgafDxBoardActor::changeGeoLocal() は使用不可です。");
     }
 
     /**
@@ -70,12 +75,16 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
      * @return
      */
     void changeGeoFinal() override {
+        throwGgafCriticalException("GgafDxBoardActor::changeGeoFinal() は使用不可です。");
     }
+
     void rotateAs(GgafDxGeometricActor* prm_pActor) override {
+        throwGgafCriticalException("GgafDxBoardActor::rotateAs() は使用不可です。");
     }
 
 
     void addScale(scale dS) override {
+        throwGgafCriticalException("GgafDxBoardActor::addScale() は使用不可です。");
     }
 
 public:

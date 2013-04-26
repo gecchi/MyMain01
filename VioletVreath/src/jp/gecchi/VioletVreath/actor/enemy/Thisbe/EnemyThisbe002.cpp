@@ -10,7 +10,7 @@ EnemyThisbe002::EnemyThisbe002(const char* prm_name) :
         //CubeMapMorphMeshActor(prm_name, "1/ThisbeCM", STATUS(EnemyThisbe002)) {
 
     _class_name = "EnemyThisbe002";
-    pKurokoStepper_ = nullptr;
+    pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
 
@@ -136,5 +136,5 @@ void EnemyThisbe002::onInactive() {
 }
 
 EnemyThisbe002::~EnemyThisbe002() {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

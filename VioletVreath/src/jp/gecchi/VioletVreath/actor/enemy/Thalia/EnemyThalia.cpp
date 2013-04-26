@@ -11,7 +11,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     _class_name = "EnemyThalia";
     veloTopMv_ = 20000;
     iMovePatternNo_ = 0;
-    pKurokoStepper_ = nullptr;
+    pKurokoLeader_ = nullptr;
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
 
@@ -204,5 +204,5 @@ void EnemyThalia::onInactive() {
 }
 
 EnemyThalia::~EnemyThalia() {
-    GGAF_DELETE_NULLABLE(pKurokoStepper_);
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

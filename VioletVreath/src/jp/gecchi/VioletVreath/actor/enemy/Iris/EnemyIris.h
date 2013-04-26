@@ -15,7 +15,7 @@ class EnemyIris :
 //    /** フォーメーション(非フォーメーション時はnullptr) */
 //    GgafLib::TreeFormation* pFormation_;
     /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoStepper* pKurokoStepper_;
+    GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_Shot_;
     /** 弾発射効果エフェクト */
@@ -70,11 +70,11 @@ public:
 
 
     virtual void config(
-            GgafLib::SplineKurokoStepper* prm_pKurokoStepper,
+            GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
             ) {
-        pKurokoStepper_ = prm_pKurokoStepper;
+        pKurokoLeader_ = prm_pKurokoLeader;
         pDepo_Shot_ = prm_pDepo_Shot;
         pDepo_ShotEffect_ = prm_pDepo_ShotEffect;
     }

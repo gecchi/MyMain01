@@ -1,9 +1,9 @@
-#ifndef FIXEDFRAMESPLINEKUROKOSTEPPER_H_
-#define FIXEDFRAMESPLINEKUROKOSTEPPER_H_
+#ifndef FIXEDFRAMESPLINEKUROKOLEADER_H_
+#define FIXEDFRAMESPLINEKUROKOLEADER_H_
 namespace GgafLib {
 
 /**
- * 固定時間（フレーム）スプライン曲線移動。 .
+ * 固定時間（フレーム）スプライン曲線移動の先導者。 .
  * 開始点～終了点まで、決められた時間で移動します。<BR>
  * 中間の補完点～次の補完点までを、均等に割った時間で移動します。<BR>
  * 補完点の密度が薄いところは移動速度増。<BR>
@@ -13,7 +13,7 @@ namespace GgafLib {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class FixedFrameSplineKurokoStepper : public SplineKurokoStepper {
+class FixedFrameSplineKurokoLeader : public SplineKurokoLeader {
 
 public:
     FixedFrameSplineManufacture* _pFixedFrameSplManuf;
@@ -30,13 +30,13 @@ public:
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
      * @param prm_pKurokoA
      */
-    FixedFrameSplineKurokoStepper(SplineManufacture* prm_pManufacture,
-                                  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
+    FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture,
+                                 GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
 
-    FixedFrameSplineKurokoStepper(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
-                                  SplineLine* prmpSpl,
-                                  frame prm_spent_frame,
-                                  angvelo prm_angveloRzRyMv);
+    FixedFrameSplineKurokoLeader(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
+                                 SplineLine* prmpSpl,
+                                 frame prm_spent_frame,
+                                 angvelo prm_angveloRzRyMv);
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
@@ -50,10 +50,10 @@ public:
      */
     void behave() override;
 
-    void getCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) override;
+    void getPointCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) override;
 
-    virtual ~FixedFrameSplineKurokoStepper();
+    virtual ~FixedFrameSplineKurokoLeader();
 };
 
 }
-#endif /*FIXEDFRAMESPLINEKUROKOSTEPPER_H_*/
+#endif /*FIXEDFRAMESPLINEKUROKOLEADER_H_*/

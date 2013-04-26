@@ -2,8 +2,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-FixedVelocitySplineKurokoStepper::FixedVelocitySplineKurokoStepper(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prmpKurokoA_target) :
-        SplineKurokoStepper(prm_pManufacture, prmpKurokoA_target) {
+FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prmpKurokoA_target) :
+        SplineKurokoLeader(prm_pManufacture, prmpKurokoA_target) {
     _pFixedVeloSplManuf = (FixedVelocitySplineManufacture*)prm_pManufacture;
     _exec_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
@@ -13,10 +13,10 @@ FixedVelocitySplineKurokoStepper::FixedVelocitySplineKurokoStepper(SplineManufac
     _COS_RyMv_begin = 0.0f;
 }
 
-FixedVelocitySplineKurokoStepper::FixedVelocitySplineKurokoStepper(GgafDxKurokoA* prmpKurokoA_target,
+FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(GgafDxKurokoA* prmpKurokoA_target,
                                                                    SplineLine* prmpSpl,
                                                                    angvelo prm_angveloRzRyMv):
-        SplineKurokoStepper(nullptr, prmpKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
+        SplineKurokoLeader(nullptr, prmpKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
     _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_angveloRzRyMv);
     _pFixedVeloSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedVeloSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
@@ -28,10 +28,10 @@ FixedVelocitySplineKurokoStepper::FixedVelocitySplineKurokoStepper(GgafDxKurokoA
     _SIN_RyMv_begin = 0.0f;
     _COS_RyMv_begin = 0.0f;
 }
-void FixedVelocitySplineKurokoStepper::getCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) {
+void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) {
 #ifdef MY_DEBUG
     if (prm_point_index >= _pFixedVeloSplManuf->_sp->_rnum) {
-        throwGgafCriticalException("FixedVelocitySplineKurokoStepper::getCoord ポイントのインデックスオーバー。"<<
+        throwGgafCriticalException("FixedVelocitySplineKurokoLeader::getPointCoord ポイントのインデックスオーバー。"<<
                                    "補完点数="<<(_pFixedVeloSplManuf->_sp->_rnum)<<" prm_point_index="<<prm_point_index);
     }
 #endif
@@ -42,7 +42,7 @@ void FixedVelocitySplineKurokoStepper::getCoord(int prm_point_index, coord& out_
     double dy = _flip_Y*pSpl->_Y_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_Y + _offset_Y;
     double dz = _flip_Z*pSpl->_Z_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_Z + _offset_Z;
     if (_option == RELATIVE_DIRECTION) {
-        if (_is_stepping == false) {
+        if (_is_leading == false) {
             GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
             _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
             _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
@@ -71,9 +71,9 @@ void FixedVelocitySplineKurokoStepper::getCoord(int prm_point_index, coord& out_
     }
 }
 
-void FixedVelocitySplineKurokoStepper::start(SplinTraceOption prm_option) {
+void FixedVelocitySplineKurokoLeader::start(SplinTraceOption prm_option) {
     if (_pFixedVeloSplManuf) {
-        _is_stepping = true;
+        _is_leading = true;
         _option = prm_option;
         _exec_fFrames = 0.0f;
         _fFrame_of_next = -0.00001f;
@@ -111,17 +111,17 @@ void FixedVelocitySplineKurokoStepper::start(SplinTraceOption prm_option) {
                                  );
        }
     } else {
-        throwGgafCriticalException("SplineKurokoStepper::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
+        throwGgafCriticalException("SplineKurokoLeader::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
     }
 }
 
-void FixedVelocitySplineKurokoStepper::behave() {
-    if (_is_stepping) {
+void FixedVelocitySplineKurokoLeader::behave() {
+    if (_is_leading) {
         GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
         //変わり目
         if (_exec_fFrames >= _fFrame_of_next) {
             coord X, Y, Z;
-            getCoord(_point_index, X, Y, Z);
+            getPointCoord(_point_index, X, Y, Z);
             pKurokoA_target->turnMvAngTwd(X, Y, Z,
                                           _pFixedVeloSplManuf->_angveloRzRyMv, 0,
                                           _pFixedVeloSplManuf->_turn_way,
@@ -137,7 +137,7 @@ void FixedVelocitySplineKurokoStepper::behave() {
             _point_index++;
             if ( _point_index == _pFixedVeloSplManuf->_sp->_rnum) {
                 //終了
-                _is_stepping = false;
+                _is_leading = false;
                 return;
             }
         } else {
@@ -150,5 +150,5 @@ void FixedVelocitySplineKurokoStepper::behave() {
     }
 
 }
-FixedVelocitySplineKurokoStepper::~FixedVelocitySplineKurokoStepper() {
+FixedVelocitySplineKurokoLeader::~FixedVelocitySplineKurokoLeader() {
 }

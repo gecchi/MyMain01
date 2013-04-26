@@ -9,7 +9,7 @@ Shot001::Shot001(const char* prm_name) :
     _class_name = "Shot001";
     _pSeTx->set(0, "WAVE_EXPLOSION_002");
     pSplLineConnection_ = (SplineLineConnection*)(P_GOD->pSpl3DManager_->connect("Spl_HAN", this)); //スプライン定義
-    pKurokoStepper_ = NEW FixedVelocitySplineKurokoStepper(_pKurokoA, pSplLineConnection_->peek(), 10000); //移動速度固定
+    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(_pKurokoA, pSplLineConnection_->peek(), 10000); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -25,7 +25,7 @@ void Shot001::onActive() {
     _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setMvVelo(RR_Shot001_MvVelo(_RANK_));    //移動速度
     _pKurokoA->setFaceAngVelo(AXIS_X, RR_Shot001_AngVelo(_RANK_)); //きりもみ具合
-    pKurokoStepper_->start(SplineKurokoStepper::RELATIVE_DIRECTION);
+    pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
     _pScaler->beat(30,5,2,-1);
 }
 
@@ -33,7 +33,7 @@ void Shot001::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //座標に反映
-    pKurokoStepper_->behave(); //スプライン移動を振る舞い
+    pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
     _pScaler->behave();
 }
@@ -65,6 +65,6 @@ void Shot001::onInactive() {
 
 
 Shot001::~Shot001() {
-    GGAF_DELETE(pKurokoStepper_);
+    GGAF_DELETE(pKurokoLeader_);
     pSplLineConnection_->close();
 }
