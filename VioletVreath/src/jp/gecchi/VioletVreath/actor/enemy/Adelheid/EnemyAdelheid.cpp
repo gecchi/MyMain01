@@ -19,7 +19,6 @@ void EnemyAdelheid::onCreateModel() {
 }
 
 void EnemyAdelheid::initialize() {
-    _pKurokoA->relateMvFaceAng(true);
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
 }
@@ -34,22 +33,24 @@ void EnemyAdelheid::config(
 }
 
 void EnemyAdelheid::onActive() {
-_TRACE_("EnemyAdelheid::onActive() ["<<getName()<<"] "<<_frame_of_life<<" onActive()来ましたはbrfor pKurokoLeader_="<<pKurokoLeader_);
+//_TRACE_("EnemyAdelheid::onActive() ["<<getName()<<"] "<<_frame_of_life<<" onActive()来ましたはbrfor pKurokoLeader_="<<pKurokoLeader_);
     if (pKurokoLeader_ == nullptr) {
         throwGgafCriticalException("EnemyAdelheidはスプライン必須ですconfigして下さい。 this="<<this<<" name="<<getName());
     }
-	_TRACE_("EnemyAdelheid::onActive() ["<<getName()<<"] "<<_frame_of_life<<"  onActive()来ましたはafter pKurokoLeader_="<<pKurokoLeader_);
+//	_TRACE_("EnemyAdelheid::onActive() ["<<getName()<<"] "<<_frame_of_life<<"  onActive()来ましたはafter pKurokoLeader_="<<pKurokoLeader_);
     _pStatus->reset();
     setHitAble(true);
     _pKurokoA->setFaceAng(AXIS_X, 0);
     _pKurokoA->setMvAcce(0);
+    _pKurokoA->keepOnTurningFaceAngTwd(P_MYSHIP,
+                                       D_ANG(2), 0, TURN_CLOSE_TO, false);
     _pProg->reset(PROG_INIT);
 
-    _TRACE_("onActive X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
+//    _TRACE_("onActive X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
 }
 
 void EnemyAdelheid::processBehavior() {
-    _TRACE_("befor X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
+//    _TRACE_("befor X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
 
 
     //加算ランクポイントを減少
@@ -82,15 +83,17 @@ void EnemyAdelheid::processBehavior() {
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
 
-    if (pKurokoLeader_->isFinished()) {
-        _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] isFinished  sayonara();");
-        sayonara();
-    }
-    _TRACE_("after X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
+//    _TRACE_("after X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
 }
 
 void EnemyAdelheid::processJudgement() {
+    if (pKurokoLeader_->isFinished()) {
+        _TRACE_("EnemyAdelheid::processJudgement() ["<<getName()<<"] isFinished  sayonara();");
+        sayonara();
+    }
+
     if (isOutOfUniverse()) {
+        _TRACE_("EnemyAdelheid::processJudgement() ["<<getName()<<"] isOutOfUniverse  sayonara();");
         sayonara();
     }
 }

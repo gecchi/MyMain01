@@ -115,6 +115,7 @@ FixedFrameSpline    EEE ƒXƒvƒ‰ƒCƒ“‚ÌŠJŽn“_`I—¹“_‚ÌˆÚ“®‚ðAŽžŠÔ(ƒtƒŒ[ƒ€)ŒÅ’
 FixedVelocitySpline EEE ƒXƒvƒ‰ƒCƒ“‚ÌŠJŽn“_`I—¹“_‚ÌˆÚ“®‚ðA‘¬“xŒÅ’è‚ÅˆÚ“®‚³‚¹‚éB
                            ŠeƒLƒƒƒ‰‚ª•ÛŽ‚µ‚Ä‚¢‚éˆÚ“®‘¬“x‚ª‚¸‚Á‚ÆŽg—p‚³‚ê‚Ü‚·B
                            ƒXƒvƒ‰ƒCƒ“‹Èü‚Ì“_‚Ì–§“x‚ªƒXƒs[ƒh‚É‰e‹¿‚µ‚Ü‚¹‚ñB
+                           •âŠ®“_ŠÔ‚Ì‹——£‚É‰ž‚¶‚ÄA”ï‚â‚·ˆÚ“®ŽžŠÔ‚ª—\‚ßŒvŽZ‚³‚ê‚Ü‚·B
                            ƒXƒvƒ‰ƒCƒ“‚ÌŠJŽn“_`I—¹“_‚ÌˆÚ“®‚É‰½ƒtƒŒ[ƒ€‚©‚©‚é‚©‚ÍƒLƒƒƒ‰‚ÌƒXƒs[ƒhŽŸ‘æ‚Å‚·B
 
 
@@ -142,7 +143,7 @@ TURN_CLOCKWISE        EEEŽŸ‚Ì•âŠ®“_À•W‚Ö•ûŒü“]Š·‚·‚éÛAí‚ÉŽžŒv‰ñ‚è‚Åù‰ñ‚·
 TURN_COUNTERCLOCKWISE EEEŽŸ‚Ì•âŠ®“_À•W‚Ö•ûŒü“]Š·‚·‚éÛAí‚É”½ŽžŒv‰ñ‚è‚Åù‰ñ‚·‚é
 
 ‚Ù‚ÚATURN_WAY=TURN_CLOSE_TO ‚Ì‚P‘ð‚Å‚·B
-‘¼‚Ìù‰ñ•û–@‚Í–Ê”’‚¢“®‚«‚ªŠú‘Ò‚Å‚«‚Ü‚·B
+‚Ü‚ŸA‘¼‚Ìù‰ñ•û–@‚Í–Ê”’‚¢“®‚«‚ªŠú‘Ò‚Å‚«‚Ü‚·B
 
 
 E"TURN_OPTIMIZE"

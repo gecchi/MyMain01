@@ -3085,7 +3085,7 @@ Mesh {
    0.000000;0.000000;0.000000;;
    0.250000;0.250000;0.250000;;
    TextureFilename {
-    "uffizi_cross_cubemap.dds";
+    "Adelheid.png";
    }
   }
  }

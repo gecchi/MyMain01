@@ -255,15 +255,15 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
     /** [r]なめらかな移動シークエンスの進捗状況 */
     int  _slide_mv_progress;
 
-    bool _taget_mv_ang_alltime_flg;
-    GgafDxGeometricActor* _taget_mv_ang_alltime_pActor;
-    coord _taget_mv_ang_alltime_tX;
-    coord _taget_mv_ang_alltime_tY;
-    coord _taget_mv_ang_alltime_tZ;
-    angvelo  _taget_mv_ang_alltime_angVelo;
-    angacce _taget_mv_ang_alltime_angAcce;
-    int _taget_mv_ang_alltime_way;
-    bool _taget_mv_ang_alltime_optimize_ang;
+    bool _taget_face_ang_alltime_flg;
+    GgafDxGeometricActor* _taget_face_ang_alltime_pActor;
+    coord _taget_face_ang_alltime_tX;
+    coord _taget_face_ang_alltime_tY;
+    coord _taget_face_ang_alltime_tZ;
+    angvelo  _taget_face_ang_alltime_angVelo;
+    angacce _taget_face_ang_alltime_angAcce;
+    int _taget_face_ang_alltime_way;
+    bool _taget_face_ang_alltime_optimize_ang;
 
 public:
     /**
@@ -780,34 +780,34 @@ public:
                       angvelo prm_angVelo, angacce prm_angAcce,
                       int prm_way, bool prm_optimize_ang);
 
-    void keepTurnMvAngAllTime(coord prm_tX, coord prm_tY, coord prm_tZ,
-                              angvelo prm_angVelo, angacce prm_angAcce,
-                              int prm_way, bool prm_optimize_ang) {
-        turnMvAngTwd(prm_tX, prm_tY, prm_tZ,
-                     prm_angVelo,  prm_angAcce,
-                     prm_way, prm_optimize_ang );
-        _taget_mv_ang_alltime_flg = true;
-        _taget_mv_ang_alltime_pActor = nullptr;
-        _taget_mv_ang_alltime_tX = prm_tX;
-        _taget_mv_ang_alltime_tY = prm_tY;
-        _taget_mv_ang_alltime_tZ = prm_tZ;
-        _taget_mv_ang_alltime_angVelo = prm_angVelo;
-        _taget_mv_ang_alltime_angAcce = prm_angAcce;
-        _taget_mv_ang_alltime_way = prm_way;
-        _taget_mv_ang_alltime_optimize_ang = prm_optimize_ang;
+    void keepOnTurningFaceAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
+                            angvelo prm_angVelo, angacce prm_angAcce,
+                            int prm_way, bool prm_optimize_ang) {
+        turnFaceAngTwd(prm_tX, prm_tY, prm_tZ,
+                       prm_angVelo,  prm_angAcce,
+                       prm_way, prm_optimize_ang );
+        _taget_face_ang_alltime_flg = true;
+        _taget_face_ang_alltime_pActor = nullptr;
+        _taget_face_ang_alltime_tX = prm_tX;
+        _taget_face_ang_alltime_tY = prm_tY;
+        _taget_face_ang_alltime_tZ = prm_tZ;
+        _taget_face_ang_alltime_angVelo = prm_angVelo;
+        _taget_face_ang_alltime_angAcce = prm_angAcce;
+        _taget_face_ang_alltime_way = prm_way;
+        _taget_face_ang_alltime_optimize_ang = prm_optimize_ang;
     }
 
 
-    void keepTurnMvAngAllTime(GgafDxGeometricActor* prm_pActor_Target,
-                              angvelo prm_angVelo, angacce prm_angAcce,
-                              int prm_way, bool prm_optimize_ang) {
-        keepTurnMvAngAllTime(
+    void keepOnTurningFaceAngTwd(GgafDxGeometricActor* prm_pActor_Target,
+                            angvelo prm_angVelo, angacce prm_angAcce,
+                            int prm_way, bool prm_optimize_ang) {
+        keepOnTurningFaceAngTwd(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
                 prm_angVelo, prm_angAcce,
                 prm_way, prm_optimize_ang);
-        _taget_mv_ang_alltime_pActor = prm_pActor_Target;
+        _taget_face_ang_alltime_pActor = prm_pActor_Target;
     }
 
     /**
@@ -884,8 +884,14 @@ public:
         _mv_ang_rz_target_stop_flg = false;
         _mv_ang_ry_target_flg = false;
         _mv_ang_rz_target_stop_flg = false;
-        _taget_mv_ang_alltime_pActor = nullptr;
-        _taget_mv_ang_alltime_flg = false;
+    }
+
+    void stopTurnFaceAngSequence() {
+        _face_ang_targeting_flg[AXIS_X] = false;
+        _face_ang_targeting_flg[AXIS_Y] = false;
+        _face_ang_targeting_flg[AXIS_Z] = false;
+        _taget_face_ang_alltime_pActor = nullptr;
+        _taget_face_ang_alltime_flg = false;
     }
 
     /**

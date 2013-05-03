@@ -137,7 +137,7 @@ void FixedFrameSplineKurokoLeader::behave() {
 
             //移動速度設定
             if (_point_index == 0) {
-                //_paSPMvVeloTo[0] は未定義なので、特別処理
+                //始点へ行く特別処理。ちなみに_paSPMvVeloTo[0] は未定義。
                 if (pKurokoA_target->_veloMv <= 0) {
                     //もし、現在速度が0の場合、始点に到達するために無理やり速度を 1000 にする。
                     _TRACE_("[警告]  FixedFrameSplineKurokoLeader::behave() "<<pKurokoA_target->_pActor->getName()<<" の速度を無理やり速度を 1000 にしました。意図してますか？");

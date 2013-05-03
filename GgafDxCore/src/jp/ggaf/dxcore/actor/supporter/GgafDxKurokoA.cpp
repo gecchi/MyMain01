@@ -108,15 +108,15 @@ GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) :
     _slide_mv_progress = -1;
 
 
-    _taget_mv_ang_alltime_flg = false;
-    _taget_mv_ang_alltime_pActor = nullptr;
-    _taget_mv_ang_alltime_tX = 0;
-    _taget_mv_ang_alltime_tY = 0;
-    _taget_mv_ang_alltime_tZ = 0;
-    _taget_mv_ang_alltime_angVelo = 0;
-    _taget_mv_ang_alltime_angAcce = 0;
-    _taget_mv_ang_alltime_way = TURN_CLOSE_TO;
-    _taget_mv_ang_alltime_optimize_ang = true;
+    _taget_face_ang_alltime_flg = false;
+    _taget_face_ang_alltime_pActor = nullptr;
+    _taget_face_ang_alltime_tX = 0;
+    _taget_face_ang_alltime_tY = 0;
+    _taget_face_ang_alltime_tZ = 0;
+    _taget_face_ang_alltime_angVelo = 0;
+    _taget_face_ang_alltime_angAcce = 0;
+    _taget_face_ang_alltime_way = TURN_CLOSE_TO;
+    _taget_face_ang_alltime_optimize_ang = true;
 
 }
 
@@ -400,23 +400,23 @@ void GgafDxKurokoA::behave() {
         //}
     }
     ///////////////
-    if (_taget_mv_ang_alltime_flg && _mv_ang_ry_target_flg == false && _mv_ang_ry_target_flg == false) {
-        if (_taget_mv_ang_alltime_pActor) {
-            keepTurnMvAngAllTime(
-                    _taget_mv_ang_alltime_pActor,
-                    _taget_mv_ang_alltime_angVelo,
-                    _taget_mv_ang_alltime_angAcce,
-                    _taget_mv_ang_alltime_way,
-                    _taget_mv_ang_alltime_optimize_ang);
+    if (_taget_face_ang_alltime_flg && _face_ang_targeting_flg[AXIS_Z] == false && _face_ang_targeting_flg[AXIS_Y] == false) {
+        if (_taget_face_ang_alltime_pActor) {
+            keepOnTurningFaceAngTwd(
+                    _taget_face_ang_alltime_pActor,
+                    _taget_face_ang_alltime_angVelo,
+                    _taget_face_ang_alltime_angAcce,
+                    _taget_face_ang_alltime_way,
+                    _taget_face_ang_alltime_optimize_ang);
         } else {
-            keepTurnMvAngAllTime(
-                    _taget_mv_ang_alltime_pActor->_X - _pActor->_X,
-                    _taget_mv_ang_alltime_pActor->_Y - _pActor->_Y,
-                    _taget_mv_ang_alltime_pActor->_Z - _pActor->_Z,
-                    _taget_mv_ang_alltime_angVelo,
-                    _taget_mv_ang_alltime_angAcce,
-                    _taget_mv_ang_alltime_way,
-                    _taget_mv_ang_alltime_optimize_ang);
+            keepOnTurningFaceAngTwd(
+                    _taget_face_ang_alltime_pActor->_X,
+                    _taget_face_ang_alltime_pActor->_Y,
+                    _taget_face_ang_alltime_pActor->_Z,
+                    _taget_face_ang_alltime_angVelo,
+                    _taget_face_ang_alltime_angAcce,
+                    _taget_face_ang_alltime_way,
+                    _taget_face_ang_alltime_optimize_ang);
         }
 
     }
