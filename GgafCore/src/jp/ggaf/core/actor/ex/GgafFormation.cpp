@@ -11,6 +11,7 @@ GgafFormation::GgafFormation(const char* prm_name, frame prm_offset_frames_end) 
     setHitAble(false);
     _num_destory = 0;
     _was_all_destroyed = false;
+    _was_all_sayonara = false;
 }
 
 void GgafFormation::destroyedFollower(GgafActor* prm_pActor_destroyed) {

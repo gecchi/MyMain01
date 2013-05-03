@@ -22,6 +22,8 @@ public:
     SplineManufacture* _pManufacture;
     /** start()からの経過フレーム数 */
     frame _execute_frames;
+    /** 先導開始をしたかどうか */
+    bool _was_started;
     /** 現在先導中であるかどうか */
     bool _is_leading;
     /** 座標を操作する対象となるアクター */
@@ -52,7 +54,7 @@ public:
     int _flip_Z;
     /** [r]アクターの現在位置からスプライン始点までの距離。start()時点で更新される。 */
     int _distance_to_begin;
-    /** [r]現在処理中の補完点(基準点も含む)の数 */
+    /** [r]現在向かっている最中の補完点(基準点も含む)の数 */
     int _point_index;
 
 public:
@@ -139,10 +141,14 @@ public:
 
     /**
      * 黒衣Aを先導が終了したか否か。 .
-     * @return true:先導が終了している / false:先導中
+     * @return true:先導が終了している / false:まだ開始していないか、先導中
      */
     inline bool isFinished() {
-        return _is_leading ? false : true;
+        if (_was_started) {
+            return _is_leading ? false : true;
+        } else {
+            return false;
+        }
     }
 
     /**

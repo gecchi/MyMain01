@@ -23,6 +23,8 @@ public:
     /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
     bool _was_all_destroyed;
 
+    bool _was_all_sayonara;
+
 public:
     /**
      * コンストラクタ .
@@ -53,9 +55,9 @@ public:
     virtual void onDestroyAll(GgafActor* prm_pActor_last_destroyed) = 0;
 
     /**
-     * さよならの直前に呼び出されます。
+     * 編隊に所属したアクターが全てさよなら(sayonara()が呼び出された)した場合コールバックされるメソッド（とする) .
      */
-    virtual void processOnSayonara() = 0;
+    virtual void onSayonaraAll() = 0;
 
     /**
      * メンバーが残っていれば解放する処理を実装済み .

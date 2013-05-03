@@ -292,7 +292,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoStepper.cpp"
+				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.cpp"
 				>
 			</File>
 			<File
@@ -300,7 +300,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoStepper.cpp"
+				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.cpp"
 				>
 			</File>
 			<File
@@ -348,7 +348,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\util\spline\SplineKurokoStepper.cpp"
+				RelativePath=".\src\jp\ggaf\lib\util\spline\SplineKurokoLeader.cpp"
 				>
 			</File>
 			<File
@@ -412,7 +412,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\util\spline\SteppedCoordSplineKurokoStepper.cpp"
+				RelativePath=".\src\jp\ggaf\lib\util\spline\SteppedCoordSplineKurokoLeader.cpp"
 				>
 			</File>
 			<File
@@ -594,7 +594,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoStepper.h"
+				RelativePath=".\include\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.h"
 				>
 			</File>
 			<File
@@ -602,7 +602,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoStepper.h"
+				RelativePath=".\include\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.h"
 				>
 			</File>
 			<File
@@ -611,10 +611,6 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\lib\scene\FormationTableScene.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\GgafDxLibStgHeader.h"
 				>
 			</File>
 			<File
@@ -670,7 +666,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\util\spline\SplineKurokoStepper.h"
+				RelativePath=".\include\jp\ggaf\lib\util\spline\SplineKurokoLeader.h"
 				>
 			</File>
 			<File
@@ -718,7 +714,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\util\spline\SteppedCoordSplineKurokoStepper.h"
+				RelativePath=".\include\jp\ggaf\lib\util\spline\SteppedCoordSplineKurokoLeader.h"
 				>
 			</File>
 			<File

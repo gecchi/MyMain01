@@ -34,6 +34,7 @@ void EnemyPalisana::initialize() {
 void EnemyPalisana::onActive() {
     _pStatus->reset();
     _pProg->reset(PROG_INIT);
+    _pKurokoA->setFaceAngVelo(AXIS_X, 200);
 }
 
 void EnemyPalisana::processBehavior() {
@@ -45,6 +46,7 @@ void EnemyPalisana::processBehavior() {
             _pAFader->setAlpha(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
+            _TRACE_("EnemyPalisana::processBehavior() "<<getName()<<" _X,_Y,_Z="<<_X<<","<<_Y<<","<<_Z<<"");
             break;
         }
         case PROG_ENTRY: {
@@ -108,7 +110,7 @@ void EnemyPalisana::processBehavior() {
     }
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
+    _pAFader->behave();
     _pMorpher->behave();
     _pKurokoA->behave();
 }

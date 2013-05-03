@@ -37,12 +37,13 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
 }
 
 void GgafTreeFormation::processFinal() {
-    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+    if (_was_all_sayonara || wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
     } else {
         if (getSubFirst() == nullptr) {  //配下がない場合、フォーメーションはなかったことになり、自身を終了
-            processOnSayonara(); //コールバック
+            onSayonaraAll(); //コールバック
             sayonara(_offset_frames_end);
+            _was_all_sayonara = true;
         }
     }
 

@@ -48,6 +48,9 @@ void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out
             _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
             _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
             _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
+            _X_begin = _pActor_target->_X;
+            _Y_begin = _pActor_target->_Y;
+            _Z_begin = _pActor_target->_Z;
         }
         //    ï¿çsà⁄ìÆ ÅÑ Zé≤âÒì] ÅÑ Yé≤âÒì]
         //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
@@ -72,7 +75,7 @@ void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out
 
 void FixedFrameSplineKurokoLeader::start(SplinTraceOption prm_option) {
     if (_pFixedFrameSplManuf) {
-
+        _was_started = true;
         _is_leading = true;
         _option = prm_option;
         _execute_frames = 0;

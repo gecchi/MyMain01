@@ -34,17 +34,24 @@ void EnemyAdelheid::config(
 }
 
 void EnemyAdelheid::onActive() {
+_TRACE_("EnemyAdelheid::onActive() ["<<getName()<<"] "<<_frame_of_life<<" onActive()来ましたはbrfor pKurokoLeader_="<<pKurokoLeader_);
     if (pKurokoLeader_ == nullptr) {
-        throwGgafCriticalException("EnemyAdelheidはスプライン必須ですconfigして下さい");
+        throwGgafCriticalException("EnemyAdelheidはスプライン必須ですconfigして下さい。 this="<<this<<" name="<<getName());
     }
+	_TRACE_("EnemyAdelheid::onActive() ["<<getName()<<"] "<<_frame_of_life<<"  onActive()来ましたはafter pKurokoLeader_="<<pKurokoLeader_);
     _pStatus->reset();
     setHitAble(true);
     _pKurokoA->setFaceAng(AXIS_X, 0);
     _pKurokoA->setMvAcce(0);
     _pProg->reset(PROG_INIT);
+
+    _TRACE_("onActive X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
 }
 
 void EnemyAdelheid::processBehavior() {
+    _TRACE_("befor X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
+
+
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     MyShip* pMyShip = P_MYSHIP;
@@ -59,18 +66,14 @@ void EnemyAdelheid::processBehavior() {
         case PROG_SPLINE_MOVE: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] PROG_SPLINE_MOVE よー");
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD);
-            }
-            if (pKurokoLeader_->isFinished()) {
-                _pProg->changeNext();
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
             }
             break;
         }
 
         case PROG_FINISH: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] PROG_FINISH sayonara() よー");
-               sayonara();
+                _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] PROG_FINISH ");
             }
             break;
         }
@@ -78,6 +81,12 @@ void EnemyAdelheid::processBehavior() {
 
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
+
+    if (pKurokoLeader_->isFinished()) {
+        _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] isFinished  sayonara();");
+        sayonara();
+    }
+    _TRACE_("after X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
 }
 
 void EnemyAdelheid::processJudgement() {
@@ -101,7 +110,7 @@ void EnemyAdelheid::onHit(GgafActor* prm_pOtherActor) {
             //アイテム出現
             UTIL::activateItemOf(this);
         }
-        sayonara();
+        //sayonara();
     } else {
         //非破壊時
         effectFlush(2); //フラッシュ

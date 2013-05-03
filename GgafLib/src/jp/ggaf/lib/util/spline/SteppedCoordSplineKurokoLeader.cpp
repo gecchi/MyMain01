@@ -33,6 +33,7 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKurokoA* pr
 
 void SteppedCoordSplineKurokoLeader::start(SplinTraceOption prm_option) {
     if (_pSteppedSplManuf) {
+        _was_started = true;
         _is_leading = true;
         _option = prm_option;
         _exec_fFrames = 0.0f;
@@ -63,116 +64,7 @@ void SteppedCoordSplineKurokoLeader::start(SplinTraceOption prm_option) {
 }
 
 void SteppedCoordSplineKurokoLeader::behave() {
-//    if (_is_leading) {
-//        GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
-//        //変わり目
-//        if (_exec_fFrames >= _fFrame_of_next) {
-//            SplineLine* pSpl = _pSteppedSplManuf->_sp;
-//            if (_point_index == 0) {
-//                //始点へ行く！
-//                int distance_to;
-//                double dx = _flip_X*pSpl->_X_compute[0]*_pSteppedSplManuf->_rate_X + _offset_X;
-//                double dy = _flip_Y*pSpl->_Y_compute[0]*_pSteppedSplManuf->_rate_Y + _offset_Y;
-//                double dz = _flip_Z*pSpl->_Z_compute[0]*_pSteppedSplManuf->_rate_Z + _offset_Z;
-//                if (_option == RELATIVE_DIRECTION) {
-//                    //    並行移動 ＞ Z軸回転 ＞ Y軸回転
-//                    //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
-//                    //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
-//                    //    | sinRy                                  , 0                    , cosRy                                   , 0 |
-//                    //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-//
-//                    distance_to = UTIL::getDistance(
-//                                            (double)_pActor_target->_X,
-//                                            (double)_pActor_target->_Y,
-//                                            (double)_pActor_target->_Z,
-//                                            ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * _COS_RyMv_begin + dz * _SIN_RyMv_begin) - _X_begin,
-//                                            (dx * _SIN_RzMv_begin + dy * _COS_RzMv_begin) - _Y_begin,
-//                                            ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz * _COS_RyMv_begin) - _Z_begin
-//                                         );
-//                } else if (_option == RELATIVE_COORD) {
-//                    //相対座標ターゲット
-//                    distance_to = UTIL::getDistance(
-//                                            (double)_pActor_target->_X,
-//                                            (double)_pActor_target->_Y,
-//                                            (double)_pActor_target->_Z,
-//                                            dx - _X_begin,
-//                                            dy - _Y_begin,
-//                                            dz - _Z_begin
-//                                         );
-//                } else { //ABSOLUTE_COORD
-//                    //絶対座標ターゲット
-//                    distance_to = UTIL::getDistance(
-//                                            (double)_pActor_target->_X,
-//                                            (double)_pActor_target->_Y,
-//                                            (double)_pActor_target->_Z,
-//                                            dx,
-//                                            dy,
-//                                            dz
-//                                         );
-//                }
-//
-//
-//                //始点までに必要なフレーム数取得
-//                _fFrame_of_next = (float)(1.0*distance_to / _pSteppedSplManuf->_veloMvUnit);
-//            } else {
-//                //始点以外の場合
-//                //次の補間点（or制御点)に移動方角を向ける
-//                double dx = _flip_X*pSpl->_X_compute[_point_index]*_pSteppedSplManuf->_rate_X + _offset_X;
-//                double dy = _flip_Y*pSpl->_Y_compute[_point_index]*_pSteppedSplManuf->_rate_Y + _offset_Y;
-//                double dz = _flip_Z*pSpl->_Z_compute[_point_index]*_pSteppedSplManuf->_rate_Z + _offset_Z;
-//                if (_option == RELATIVE_DIRECTION) {
-//                    //    並行移動 ＞ Z軸回転 ＞ Y軸回転
-//                    //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
-//                    //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
-//                    //    | sinRy                                  , 0                    , cosRy                                   , 0 |
-//                    //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-//                    pKurokoA_target->turnMvAngTwd(
-//                                    ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * _COS_RyMv_begin + dz*_SIN_RyMv_begin) - _X_begin,
-//                                    (dx*_SIN_RzMv_begin + dy*_COS_RzMv_begin) - _Y_begin,
-//                                    ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) - _Z_begin,
-//                                    _pSteppedSplManuf->_angveloRzRyMv, 0,
-//                                    _pSteppedSplManuf->_turn_way,
-//                                    _pSteppedSplManuf->_turn_optimize);
-//
-//                } else if (_option == RELATIVE_COORD) {
-//                    //相対座標ターゲット
-//                    pKurokoA_target->turnMvAngTwd(
-//                                    dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
-//                                    _pSteppedSplManuf->_angveloRzRyMv, 0,
-//                                    _pSteppedSplManuf->_turn_way,
-//                                    _pSteppedSplManuf->_turn_optimize);
-//
-//                } else { //ABSOLUTE_COORD
-//                    //絶対座標ターゲット
-//                    pKurokoA_target->turnMvAngTwd(
-//                                    dx, dy, dz,
-//                                    _pSteppedSplManuf->_angveloRzRyMv, 0,
-//                                    _pSteppedSplManuf->_turn_way,
-//                                    _pSteppedSplManuf->_turn_optimize);
-//
-//                }
-//                //次の補完点までに必要なフレーム数を更新
-//                _fFrame_of_next = _pSteppedSplManuf->_paFrame_need_at[0] +
-//                                     _pSteppedSplManuf->_paFrame_need_at[_point_index];
-//            }
-//
-//            _point_index++;
-//            if ( _point_index == pSpl->_rnum) {
-////                printf(" %s END _point_index=%d\n",_pActor_target->getName(),_point_index);
-//                //終了
-//                _is_leading = false;
-//                return;
-//            }
-//        } else {
-//
-//        }
-//
-//        //キャラの速度が1000ならば、_exec_fFrames ++;
-//        //キャラの速度が2000ならば  _exec_fFrames += 2.0;
-//        //キャラの速度が500ならば、 _exec_fFrames += 0.5
-//        _exec_fFrames = _exec_fFrames +  (1.0*pKurokoA_target->_veloMv / LEN_UNIT);
-//    }
-
+    //TODO:未実装！早く作ろう
 }
 SteppedCoordSplineKurokoLeader::~SteppedCoordSplineKurokoLeader() {
 }

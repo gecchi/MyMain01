@@ -36,25 +36,27 @@ void GgafDepositoryFormation::setFormationMemberDepo(GgafActorDepository* prm_pD
 }
 
 void GgafDepositoryFormation::processFinal() {
-    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+    if (_was_all_sayonara || wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
+        return;
     }
 
     if (_listFollower.length() == 0) {
         if (_can_call_up) {
-            //メンバーが0だが、まだ追加中。
+            //編隊メンバーが0だが、まだ callUp の最中。
             return;
         } else {
-            //もうこれ以上callUpUntil不可で
-            //メンバーが0の場合はさよなら
-            processOnSayonara(); //コールバック
+            //編隊メンバーが0かつ、
+            //もうこれ以上 callUp 不可は、
+            //編隊自体がさよなら
+            onSayonaraAll(); //コールバック
             sayonara(_offset_frames_end);
+            _was_all_sayonara = true;
         }
     } else {
-        //不正ポインタのチェック
+        //編隊メンバー状況チェック
         GgafActor* pFollower = _listFollower.getCurrent();
-        int num_follwer = _listFollower.length();
-        for (int i = 0; i < num_follwer; i++) {
+        for (int i = 0; i < _listFollower.length(); i++) {
             if (_can_live_flg) {
                 if (pFollower->_is_active_flg) {
                     pFollower = _listFollower.next();
@@ -62,10 +64,14 @@ void GgafDepositoryFormation::processFinal() {
                     //未来に活動予定でも残す
                     pFollower = _listFollower.next();
                 } else {
-                    _listFollower.remove();
+                    //編隊メンバーから外す
+//					_TRACE_("今メンバー数"<<_listFollower.length()<<" そしてこれから"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(X)");
+                    _listFollower.remove(); //remove() 時、新たなカレント要素は next の要素になる。
                 }
             } else {
-                _listFollower.remove();
+                //編隊メンバーから外す
+//                 _TRACE_("今メンバー数"<<_listFollower.length()<<" そして"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(A)");
+                _listFollower.remove();//remove() 時、新たなカレント要素は next の要素になる。
             }
         }
     }

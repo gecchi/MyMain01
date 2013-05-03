@@ -92,7 +92,7 @@ public:
      */
     virtual void onEnd() override;
 
-    virtual void processOnSayonara() override {
+    virtual void onSayonaraAll() override {
     }
 
     virtual ~GgafTreeFormation();

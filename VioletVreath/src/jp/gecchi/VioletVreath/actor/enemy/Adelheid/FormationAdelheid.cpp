@@ -16,26 +16,26 @@ FormationAdelheid::FormationAdelheid(const char* prm_name)
     pPalisana2_ = NEW EnemyPalisana("Palisana2");
     pPalisana2_->inactivateImmed();
     addSubGroup(pPalisana2_);
-    _TRACE_("だんぴん1");
-    dump();
+
+    //軌道計算用のダミー
+    pDummy_ = NEW EnemyAdelheid("DammyEnemyAdelheid");;
+    pDummy_->inactivateImmed();
+    addSubGroup(pDummy_);
 
     //編隊隊員デポジトリセット
     pConnection_AdelheidDepo_ = connectToDepositoryManager("EnemyAdelheid4Formation");
     setFormationMemberDepo(pConnection_AdelheidDepo_->peek());
 
-
-
     pConnection_ShotDepo_ = connectToDepositoryManager("EnemyAdelheidShot");
 
     updateRankParameter();
 
-    pFirstAdelheid_ = nullptr;
 
     useProgress(PROG_LEAVE);
 }
 
 void FormationAdelheid::updateRankParameter() {
-    rr_num_formation_     = 2; //RR_FormationAdelheid_Num(_RANK_);            //編隊数
+    rr_num_formation_     = 1; //RR_FormationAdelheid_Num(_RANK_);            //編隊数
     rr_interval_frames_   = 30;
     rr_mv_velo_           = RR_FormationAdelheid_MvVelo(_RANK_);         //速度
 }
@@ -51,44 +51,37 @@ void FormationAdelheid::onActive() {
 
 void FormationAdelheid::processBehavior() {
 
-    pConnection_AdelheidDepo_->peek()->dump();
-
-
     switch (_pProg->get()) {
          case PROG_INIT: {
              _TRACE_("FormationAdelheid::processBehavior() PROG_INIT だー");
 
              //最初の一機
-             pFirstAdelheid_ = (EnemyAdelheid*)callUpMember(rr_num_formation_);
-             if (!pFirstAdelheid_) {
-                 //１機目が呼び出せなかったら編隊そのものを無し
-                 _pProg->changeNothing();
-                 sayonara();
-                 break;
-             }
-             pFirstAdelheid_->inactivateImmed(); //計算用に呼び出したので、活動はちょっと待って。
-             pFirstAdelheid_->config(getFormationSplManuf()->createKurokoLeader(pFirstAdelheid_->_pKurokoA),
+             pDummy_->config(getFormationSplManuf()->createKurokoLeader(pDummy_->_pKurokoA),
                                      pConnection_ShotDepo_->peek());
-             pFirstAdelheid_->_pKurokoA->setMvVelo(rr_mv_velo_);
-             onCallUpAdelheid(pFirstAdelheid_); //下位フォーメーションクラス個別実装の処理
-                                                //開始座標と方向が定まる
+             pDummy_->_pKurokoA->setMvVelo(rr_mv_velo_);
+             onCallUpAdelheid(pDummy_); //下位フォーメーションクラス個別実装の処理
+                                        //開始座標と方向が定まる
+             pDummy_->pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //座標計算のためスタート＆オプション指定
+                                                                                     //オプションはEnemyAdelheidと合わせること
              //出現開始位置にpPalisana1_配備
-             pPalisana1_->locateAs(pFirstAdelheid_);
+             pPalisana1_->locateAs(pDummy_);
              coord next_X, next_Y, next_Z;
-             pFirstAdelheid_->pKurokoLeader_->getPointCoord(1, next_X, next_Y, next_Z);
+             pDummy_->pKurokoLeader_->getPointCoord(1, next_X, next_Y, next_Z);
              pPalisana1_->_pKurokoA->setFaceAngTwd(next_X, next_Y, next_Z); //向きセット
              pPalisana1_->acitve_open(); //有効＆ハッチオープン
              //出現終了位置と、方角を求め、出現終了位置にpPalisana2_配備
              coord end_X, end_Y, end_Z;
              coord end_prev_X, end_prev_Y, end_prev_Z;
-             int spl_point_num = pFirstAdelheid_->pKurokoLeader_->getPointNum();
-             pFirstAdelheid_->pKurokoLeader_->getPointCoord(spl_point_num-1,
-                                                            end_X, end_Y, end_Z); //最終補完点座標
-             pFirstAdelheid_->pKurokoLeader_->getPointCoord(spl_point_num-2,
-                                                            end_prev_X, end_prev_Y, end_prev_Z);  //最終-1 補完点座標
+             int spl_point_num = pDummy_->pKurokoLeader_->getPointNum();
+             pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-1,
+                                                    end_X, end_Y, end_Z); //最終補完点座標
+             pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-2,
+                                                    end_prev_X, end_prev_Y, end_prev_Z);  //最終-1 補完点座標
              pPalisana2_->locate(end_X, end_Y, end_Z);
              pPalisana2_->_pKurokoA->setFaceAngTwd(end_prev_X, end_prev_Y, end_prev_Z);
              pPalisana2_->acitve_open();//有効＆ハッチオープン
+
+             pDummy_->sayonara(); //ありがとうダミー
              _pProg->changeNext();
              _TRACE_("FormationAdelheid::processBehavior() PROG_INIT OK だー");
              break;
@@ -110,10 +103,7 @@ void FormationAdelheid::processBehavior() {
                  _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE1 だー");
              }
 
-             if (_pProg->getFrameInProgress() == rr_interval_frames_) {
-                 //最初の１機目
-                 pFirstAdelheid_->activate();
-             } else if (canCallUp() && (_pProg->getFrameInProgress() % rr_interval_frames_ == 0)) {
+             if (canCallUp() && (_pProg->getFrameInProgress() % rr_interval_frames_ == 0)) {
                  //２機目以降
                  EnemyAdelheid* pAdelheid = (EnemyAdelheid*)callUpMember(rr_num_formation_);
                  if (pAdelheid) {
@@ -151,10 +141,10 @@ void FormationAdelheid::processBehavior() {
              break;
      }
 }
-void FormationAdelheid::processOnSayonara() {
+void FormationAdelheid::onSayonaraAll() {
     //余命は FORMATION_END_DELAY フレーム
     //それ以内に閉じるアニメーションを終わらせましょう
-    _TRACE_("FormationAdelheid::processOnSayonara() だー");
+    _TRACE_("FormationAdelheid::onSayonaraAll() だー");
     _pProg->change(PROG_LEAVE);
 }
 void FormationAdelheid::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {

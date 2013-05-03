@@ -25,7 +25,7 @@ public:
     /** アーデルハイドの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* pConnection_ShotDepo_;
 
-    EnemyAdelheid* pFirstAdelheid_;
+    EnemyAdelheid* pDummy_;
 
 
     EnemyPalisana* pPalisana1_;
@@ -67,7 +67,7 @@ public:
      */
     virtual GgafLib::SplineManufacture* getFormationSplManuf() = 0;
 
-    virtual void processOnSayonara() override;
+    virtual void onSayonaraAll() override;
 
     virtual ~FormationAdelheid();
 };

@@ -17,6 +17,7 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _flip_X = 1;
     _flip_Y = 1;
     _flip_Z = 1;
+    _was_started = false;
     _is_leading = false;
     if (prm_pManufacture) {
         _is_created_pManufacture = false;
@@ -47,6 +48,7 @@ void SplineKurokoLeader::setManufacture(SplineManufacture* prm_pManufacture) {
     _flip_X = 1;
     _flip_Y = 1;
     _flip_Z = 1;
+    _was_started = false;
     _is_leading = false;
 }
 
@@ -58,6 +60,7 @@ void SplineKurokoLeader::adjustCoordOffset(coord prm_offset_X, coord prm_offset_
 
 void SplineKurokoLeader::start(SplinTraceOption prm_option) {
     if (_pManufacture) {
+        _was_started = true;
         _is_leading = true;
         _option = prm_option;
         _execute_frames = 0;
