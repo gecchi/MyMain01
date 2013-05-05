@@ -930,7 +930,7 @@ BOOL CALLBACK GgafDxGod::getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
     if (moniter_info.dwFlags != MONITORINFOF_PRIMARY) {
         //プライマリモニタでは無い
         if (moniter_info.rcMonitor.right - moniter_info.rcMonitor.left == PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH &&
-           moniter_info.rcMonitor.bottom - moniter_info.rcMonitor.top == PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT
+            moniter_info.rcMonitor.bottom - moniter_info.rcMonitor.top == PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT
         ) {
             //プライマリモニタでは無い、かつ２画面目の解像度に一致。
             //よって２画面目と見なす(正攻法でないなぁ・・・)
@@ -938,10 +938,15 @@ BOOL CALLBACK GgafDxGod::getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
             //２画面目の左上座標を上書き保存
             pGod->_secondary_screen_x = moniter_info.rcMonitor.left;
             pGod->_secondary_screen_y = moniter_info.rcMonitor.top;
-            return TRUE;
+            return FALSE; //列挙を中止
         } else {
-            return FALSE;
+            //プライマリモニタでは無い、かつ２画面目の解像度に不一致。
+            //多分ここには来ない
+            return TRUE; //列挙を続行
         }
+    } else {
+        //プライマリモニタだった
+        return TRUE; //列挙を続行
     }
 }
 

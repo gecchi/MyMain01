@@ -282,19 +282,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedFrameSplineSequence.cpp"
+				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedVelocitySplineSequence.cpp"
 				>
 			</File>
 			<File
@@ -334,10 +334,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\scene\ScrolledScene.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\ggaf\lib\actor\SingleLaser.cpp"
 				>
 				<FileConfiguration
@@ -360,6 +356,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\lib\util\spline\SplineKurokoLeader.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\lib\util\spline\SplineLine.cpp"
 				>
 			</File>
@@ -373,10 +373,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\lib\manager\SplineManufactureManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\ggaf\lib\util\spline\SplineSequence.cpp"
 				>
 			</File>
 			<File
@@ -424,11 +420,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.cpp"
+				RelativePath=".\src\jp\ggaf\lib\util\spline\SteppedCoordSplineKurokoLeader.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\util\spline\SteppedCoordSplineSequence.cpp"
+				RelativePath=".\src\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.cpp"
 				>
 			</File>
 			<File
@@ -606,11 +602,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\util\spline\FixedFrameSplineSequence.h"
+				RelativePath=".\include\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.h"
 				>
 			</File>
 			<File
@@ -618,15 +618,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\util\spline\FixedVelocitySplineSequence.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\lib\scene\FormationTableScene.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\GgafLibEntory.h"
 				>
 			</File>
 			<File
@@ -678,11 +670,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\scene\ScrolledScene.h"
+				RelativePath=".\include\jp\ggaf\lib\actor\SingleLaser.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\actor\SingleLaser.h"
+				RelativePath=".\include\jp\ggaf\lib\util\spline\SplineKurokoLeader.h"
 				>
 			</File>
 			<File
@@ -699,10 +691,6 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\lib\manager\SplineManufactureManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\lib\util\spline\SplineSequence.h"
 				>
 			</File>
 			<File
@@ -734,11 +722,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.h"
+				RelativePath=".\include\jp\ggaf\lib\util\spline\SteppedCoordSplineKurokoLeader.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\util\spline\SteppedCoordSplineSequence.h"
+				RelativePath=".\include\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.h"
 				>
 			</File>
 			<File
@@ -747,10 +735,6 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\lib\actor\laserchip\StraightLaserChip.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\lib\actor\menu\StringBoardActor.h"
 				>
 			</File>
 			<File
