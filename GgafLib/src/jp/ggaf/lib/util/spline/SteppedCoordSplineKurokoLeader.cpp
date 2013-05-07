@@ -2,10 +2,10 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prmpKurokoA_target) :
-        SplineKurokoLeader(prm_pManufacture, prmpKurokoA_target) {
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA_target) :
+        SplineKurokoLeader(prm_pManufacture, prm_pKurokoA_target) {
     _pSteppedSplManuf = (SteppedCoordSplineManufacture*)prm_pManufacture;
-    _exec_fFrames = 0.0f;
+    _leadning_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
     _point_index = 0;
     _SIN_RzMv_begin = 0.0f;
@@ -14,15 +14,15 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture
     _COS_RyMv_begin = 0.0f;
 }
 
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKurokoA* prmpKurokoA_target,
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKurokoA* prm_pKurokoA_target,
                                                                  SplineLine* prmpSpl,
                                                                  angvelo prm_angveloRzRyMv):
-        SplineKurokoLeader(nullptr, prmpKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
+        SplineKurokoLeader(nullptr, prm_pKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
     _pSteppedSplManuf = NEW SteppedCoordSplineManufacture(NEW SplineSource(prmpSpl), prm_angveloRzRyMv);
     _pSteppedSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pSteppedSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
 
-    _exec_fFrames = 0.0f;
+    _leadning_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
     _point_index = 0;
     _SIN_RzMv_begin = 0.0f;
@@ -36,7 +36,7 @@ void SteppedCoordSplineKurokoLeader::start(SplinTraceOption prm_option) {
         _was_started = true;
         _is_leading = true;
         _option = prm_option;
-        _exec_fFrames = 0.0f;
+        _leadning_fFrames = 0.0f;
         _fFrame_of_next = -0.00001f;
         _point_index = 0;
         SplineLine* pSpl = _pSteppedSplManuf->_sp;

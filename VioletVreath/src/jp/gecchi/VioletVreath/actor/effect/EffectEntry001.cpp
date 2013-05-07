@@ -10,7 +10,6 @@ EffectEntry001::EffectEntry001(const char* prm_name) :
     effectBlendOne();
     setZEnable(false);
     setZWriteEnable(false);
-//    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     scale_in_frames_ = duration_frames_ = scale_out_frames_ = 1;
 }
 

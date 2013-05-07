@@ -5,19 +5,21 @@ using namespace GgafLib;
 
 
 
-FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prmpKurokoA_target) :
-        SplineKurokoLeader(prm_pManufacture, prmpKurokoA_target) {
+FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA_target) :
+        SplineKurokoLeader(prm_pManufacture, prm_pKurokoA_target) {
     _pFixedFrameSplManuf = (FixedFrameSplineManufacture*)prm_pManufacture;
     _SIN_RzMv_begin = 0;
     _COS_RzMv_begin = 0;
     _SIN_RyMv_begin = 0;
     _COS_RyMv_begin = 0;
+    _prev_point_index = -1;
+    _hosei_frames = 0;
 }
-FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKurokoA* prmpKurokoA_target,
+FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKurokoA* prm_pKurokoA_target,
                                                            SplineLine* prmpSpl,
                                                            frame prm_spent_frame,
                                                            angvelo prm_angveloRzRyMv):
-        SplineKurokoLeader(nullptr, prmpKurokoA_target) {  //nullptrで渡す事により、_is_created_pManufacture が falseになる
+        SplineKurokoLeader(nullptr, prm_pKurokoA_target) {  //nullptrで渡す事により、_is_created_pManufacture が falseになる
 
     _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prmpSpl), prm_spent_frame, prm_angveloRzRyMv);
     _pFixedFrameSplManuf->calculate();//これも忘れないように。いずれこのタイプは消す
@@ -27,6 +29,8 @@ FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKurokoA* prmpKu
     _COS_RzMv_begin = 0.0f;
     _SIN_RyMv_begin = 0.0f;
     _COS_RyMv_begin = 0.0f;
+    _prev_point_index = -1;
+    _hosei_frames = 0;
 }
 
 void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out_X, coord& out_Y, coord& out_Z) {
@@ -78,7 +82,9 @@ void FixedFrameSplineKurokoLeader::start(SplinTraceOption prm_option) {
         _was_started = true;
         _is_leading = true;
         _option = prm_option;
-        _execute_frames = 0;
+        _leading_frames = 0;
+        _hosei_frames = 0;
+        _prev_point_index = -1;
         SplineLine* pSpl = _pFixedFrameSplManuf->_sp;
         double P0X = (_flip_X * pSpl->_X_compute[0] * _pFixedFrameSplManuf->_rate_X) + _offset_X;
         double P0Y = (_flip_Y * pSpl->_Y_compute[0] * _pFixedFrameSplManuf->_rate_Y) + _offset_Y;
@@ -87,15 +93,15 @@ void FixedFrameSplineKurokoLeader::start(SplinTraceOption prm_option) {
         _Y_begin = _pActor_target->_Y;
         _Z_begin = _pActor_target->_Z;
         if (_option == RELATIVE_DIRECTION) {
-            GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
-            _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
-            _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
-            _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
-            _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
+            _SIN_RzMv_begin = ANG_SIN(_pActor_target->_pKurokoA->_angRzMv);
+            _COS_RzMv_begin = ANG_COS(_pActor_target->_pKurokoA->_angRzMv);
+            _SIN_RyMv_begin = ANG_SIN(_pActor_target->_pKurokoA->_angRyMv);
+            _COS_RyMv_begin = ANG_COS(_pActor_target->_pKurokoA->_angRyMv);
             _distance_to_begin = UTIL::getDistance(
                                            0.0  , 0.0  , 0.0  ,
                                            P0X, P0Y, P0Z
                                       );
+
         } else if (_option == RELATIVE_COORD) {
             _distance_to_begin = UTIL::getDistance(
                                            0.0  , 0.0  , 0.0  ,
@@ -103,13 +109,34 @@ void FixedFrameSplineKurokoLeader::start(SplinTraceOption prm_option) {
                                       );
         } else { //ABSOLUTE_COORD
             _distance_to_begin = UTIL::getDistance(
-                                    _pActor_target->_X,
-                                    _pActor_target->_Y,
-                                    _pActor_target->_Z,
-                                    _X_begin,
-                                    _Y_begin,
-                                    _Z_begin
+                                    (double)(_pActor_target->_X),
+                                    (double)(_pActor_target->_Y),
+                                    (double)(_pActor_target->_Z),
+                                    P0X, P0Y, P0Z
                                  );
+        }
+        //始点へ行く特別処理。
+        //始点への距離(_distance_to_begin) がわかっているので、
+        //
+        // 始点への速度 = (velo)(_distance_to_begin / _pFixedFrameSplManuf->_fFrame_of_segment)
+        //
+        //としたいが、
+        //_pFixedFrameSplManuf->_fFrame_of_segment は、現座標～始点 を除いた
+        //計算で求めているので、補完点数が少ない場合、費やされるフレーム合計の誤差が大きい。
+        //そこで始点への距離0とみなせる場合には、現座標～始点 をなかったコトにする。
+        //そうでなければ仕方ないので、費やされるフレーム合計の誤差を認める仕様とする。
+        if (ABS(_distance_to_begin) <= PX_C(1)) {
+            //始点への距離が無い、間引く。
+            //_TRACE_("＜警告＞FixedFrameSplineKurokoLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
+            //    " 現座標～始点[0]への距離は 0 であるため、現座標～始点への移動プロセスはカットされます。");
+            _hosei_frames = _pFixedFrameSplManuf->_fFrame_of_segment;
+            //これにより、_point_index は、初回いきなり1から始まる。
+        } else {
+            _TRACE_("＜警告＞FixedFrameSplineKurokoLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
+                " 現座標～始点[0]への距離("<<_distance_to_begin<<" coord)が離れているため、現座標～始点への移動プロセスとしてセグメントが＋１されます。"<<
+                "そのため、合計移動フレーム時間に誤差(+"<<_pFixedFrameSplManuf->_fFrame_of_segment<<"フレーム)が生じます。ご了承くださいませ。");
+            _hosei_frames = 0;
+            //これにより、_point_index は、初回0から始まる。
         }
     }
 }
@@ -118,9 +145,8 @@ void FixedFrameSplineKurokoLeader::start(SplinTraceOption prm_option) {
 void FixedFrameSplineKurokoLeader::behave() {
     if (_is_leading) {
         GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
-
         //現在の点INDEX
-        _point_index = _execute_frames/_pFixedFrameSplManuf->_frame_of_segment;
+        _point_index = (_leading_frames+_hosei_frames) / _pFixedFrameSplManuf->_fFrame_of_segment;
         if ( _point_index == _pFixedFrameSplManuf->_sp->_rnum) {
             //終了
             _is_leading = false;
@@ -128,28 +154,23 @@ void FixedFrameSplineKurokoLeader::behave() {
         }
 
         //変わり目
-        if (_execute_frames % _pFixedFrameSplManuf->_frame_of_segment == 0) {
+        if (_prev_point_index != _point_index) {
+            _prev_point_index = _point_index;
             coord X, Y, Z;
             getPointCoord(_point_index, X, Y, Z);
             pKurokoA_target->turnMvAngTwd(X, Y, Z,
                                           _pFixedFrameSplManuf->_angveloRzRyMv, 0,
                                           _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
 
-            //移動速度設定
             if (_point_index == 0) {
-                //始点へ行く特別処理。ちなみに_paSPMvVeloTo[0] は未定義。
-                if (pKurokoA_target->_veloMv <= 0) {
-                    //もし、現在速度が0の場合、始点に到達するために無理やり速度を 1000 にする。
-                    _TRACE_("[警告]  FixedFrameSplineKurokoLeader::behave() "<<pKurokoA_target->_pActor->getName()<<" の速度を無理やり速度を 1000 にしました。意図してますか？");
-                    pKurokoA_target->setMvVelo(1000);
-                } else {
-                    //なにもせん
-                }
+                //現座標と視点が離れている。
+                //誤差も仕方ないので _fFrame_of_segment で始点に移動する速度を付与
+                pKurokoA_target->setMvVelo((velo)(_distance_to_begin / _pFixedFrameSplManuf->_fFrame_of_segment));
             } else {
                 pKurokoA_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index]);
             }
         }
-        _execute_frames++;
+        _leading_frames++;
     }
 
 }

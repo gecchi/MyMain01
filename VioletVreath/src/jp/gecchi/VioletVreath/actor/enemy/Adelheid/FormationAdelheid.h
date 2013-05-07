@@ -24,12 +24,13 @@ public:
     DepositoryConnection* pConnection_AdelheidDepo_;
     /** アーデルハイドの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* pConnection_ShotDepo_;
-
+    /** 始点・終点の座標計算のためのダミー */
     EnemyAdelheid* pDummy_;
 
-
-    EnemyPalisana* pPalisana1_;
-    EnemyPalisana* pPalisana2_;
+    /** 始点のパリサナ */
+    EnemyPalisana* pPalisana_start;
+    /** 終点のパリサナ */
+    EnemyPalisana* pPalisana_goal;
 
     /** 編隊数(RANK変動) */
     int rr_num_formation_;
@@ -65,7 +66,7 @@ public:
      * 下位で実装して下さい。
      * @return
      */
-    virtual GgafLib::SplineManufacture* getFormationSplManuf() = 0;
+    virtual GgafLib::SplineManufacture* getSplManuf() = 0;
 
     virtual void onSayonaraAll() override;
 

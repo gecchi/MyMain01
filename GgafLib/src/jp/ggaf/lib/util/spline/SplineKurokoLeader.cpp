@@ -26,7 +26,7 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     }
     _distance_to_begin = 0;
     _point_index = 0;
-    _execute_frames = 0;
+    _leading_frames = 0;
 }
 
 
@@ -63,7 +63,7 @@ void SplineKurokoLeader::start(SplinTraceOption prm_option) {
         _was_started = true;
         _is_leading = true;
         _option = prm_option;
-        _execute_frames = 0;
+        _leading_frames = 0;
         SplineKurokoLeader::getPointCoord(0, _X_begin, _Y_begin, _Z_begin);
         _distance_to_begin = UTIL::getDistance(
                                 _pActor_target->_X,
@@ -89,7 +89,7 @@ void SplineKurokoLeader::behave() {
 
     if (_is_leading) {
         //Œ»İ‚Ì“_INDEX
-        int point_index = _execute_frames;
+        int point_index = _leading_frames;
         SplineLine* pSpl = _pManufacture->_sp;
         if ( point_index == pSpl->_rnum) {
             //I—¹
@@ -97,7 +97,7 @@ void SplineKurokoLeader::behave() {
             return;
         }
         SplineKurokoLeader::getPointCoord(point_index, _pActor_target->_X, _pActor_target->_Y, _pActor_target->_Z);
-        _execute_frames++;
+        _leading_frames++;
     }
 }
 
@@ -113,6 +113,11 @@ coord SplineKurokoLeader::getSegmentDistance(int prm_index) {
         return _pManufacture->_paDistance_to[prm_index];
     }
 }
+
+coord SplineKurokoLeader::getTotalDistance() {
+    return _pManufacture->_total_distance + _distance_to_begin;
+}
+
 int SplineKurokoLeader::getPointNum() {
     return _pManufacture->_sp->_rnum;
 }

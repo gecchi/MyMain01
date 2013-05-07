@@ -23,6 +23,9 @@ public:
     float _COS_RzMv_begin;
     float _SIN_RyMv_begin;
     float _COS_RyMv_begin;
+    frame _hosei_frames;
+    /** ‘O‰ñ‚Ì_point_index */
+    int _prev_point_index;
 
 public:
     /**

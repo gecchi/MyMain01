@@ -4,7 +4,8 @@ namespace GgafLib {
 
 /**
  * スプライン曲線移動のための情報セット .
- * オブジェクトの関係
+ * 全てのアクターに共通するスプラインの情報はここに集約。<BR>
+ * オブジェクトの関係<BR>
  * SplineKurokoLeader     各アクター毎に生成される。
  *                    アクターに対する、スプライン曲線上の現在の補完点の位置・時間・距離等の管理を行い、
  *                    黒衣A(KurokoA)に指示を出してアクターを移動させる。
@@ -45,6 +46,8 @@ public:
     double _rate_Z;
     /** [r]次の補完点までの距離のテーブル */
     coord* _paDistance_to;
+    /** [r]距離の合計 _paDistance_to[0] ～ _paDistance_to[n]  */
+    coord _total_distance;
 
 public:
     /**

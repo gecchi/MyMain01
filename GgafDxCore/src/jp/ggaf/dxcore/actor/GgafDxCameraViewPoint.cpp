@@ -8,6 +8,7 @@ GgafDxCameraViewPoint::GgafDxCameraViewPoint() :
     _X_prev = 0;
     _Y_prev = 0;
     _Z_prev = 0;
+    _offset_frames = 0;
 }
 
 void GgafDxCameraViewPoint::initialize() {

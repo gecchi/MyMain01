@@ -76,7 +76,7 @@ void Stage01WalledScene::initialize() {
 void Stage01WalledScene::onActive() {
     P_COMMON_SCENE->setScrollingFunction(_pFuncScrolling);
     P_COMMON_SCENE->setScrollSpeed(_scroll_speed);
-     WalledScene::onActive();
+    WalledScene::onActive();
 }
 
 void Stage01WalledScene::processBehavior() {

@@ -23,7 +23,7 @@ void FormationAdelheid001::onCallUpAdelheid(EnemyAdelheid* pEnemyAdelheid) {
     pEnemyAdelheid->locate(PX_C(0), PX_C(0), PX_C(1000));
     pEnemyAdelheid->_pKurokoA->setMvAngTwd(PX_C(500), PX_C(0), PX_C(1000));
 }
-GgafLib::SplineManufacture* FormationAdelheid001::getFormationSplManuf() {
+GgafLib::SplineManufacture* FormationAdelheid001::getSplManuf() {
     return pSplManufConnection_->peek(); //êe
 }
 void FormationAdelheid001::processBehavior() {

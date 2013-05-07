@@ -46,27 +46,27 @@ void EffectLockon001_Sub::processBehavior() {
             } else {
                 addAlpha(0.01);
             }
-         }
-         //縮小完了後、Mainのビートに合わせる
-         _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
-         _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
-         if (pTarget_) {
-             if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
-                 if (ABS(pTarget_->_X-_X) <= PX_C(200) &&
-                     ABS(pTarget_->_Y-_Y) <= PX_C(200) &&
-                     ABS(pTarget_->_Z-_Z) <= PX_C(200)) {
-                     locateAs(pTarget_);
-                     _pKurokoA->setMvVelo(0);
-                 } else {
-                     _pKurokoA->setMvAngTwd(pTarget_);
-                     _pKurokoA->setMvVelo(PX_C(200));
-                 }
-             } else {
-                 _pProg->change(LOCKON001_PROG_RELEASE);
-             }
-         } else {
-             _pProg->change(LOCKON001_PROG_RELEASE);
-         }
+        }
+        //縮小完了後、Mainのビートに合わせる
+        _SX = _SY = _SZ = pEffectLockon001_Main_->_SX;
+        _pKurokoA->_angveloFace[AXIS_Z] = pEffectLockon001_Main_->_pKurokoA->_angveloFace[AXIS_Z];
+        if (pTarget_) {
+            if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
+                if (ABS(pTarget_->_X-_X) <= PX_C(200) &&
+                    ABS(pTarget_->_Y-_Y) <= PX_C(200) &&
+                    ABS(pTarget_->_Z-_Z) <= PX_C(200)) {
+                    locateAs(pTarget_);
+                    _pKurokoA->setMvVelo(0);
+                } else {
+                    _pKurokoA->setMvAngTwd(pTarget_);
+                    _pKurokoA->setMvVelo(PX_C(200));
+                }
+            } else {
+                _pProg->change(LOCKON001_PROG_RELEASE);
+            }
+        } else {
+            _pProg->change(LOCKON001_PROG_RELEASE);
+        }
     }
 
     if (_pProg->get() == LOCKON001_PROG_RELEASE) {

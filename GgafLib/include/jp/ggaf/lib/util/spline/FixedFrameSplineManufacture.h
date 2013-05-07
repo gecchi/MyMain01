@@ -4,6 +4,7 @@ namespace GgafLib {
 
 /**
  * 区間固定時間（フレーム）移動による、スプライン曲線移動のための情報セット .
+ * 全てのアクターに共通するスプラインの情報はここに集約。
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge
@@ -12,7 +13,7 @@ class FixedFrameSplineManufacture : public SplineManufacture {
 
 public:
     /** [r]１区間の使用可能フレーム */
-    frame _frame_of_segment;
+    float _fFrame_of_segment;
     /** [r]次の補完点到達に必要な移動速度のテーブル */
     velo* _paSPMvVeloTo;
     /** [rw]1フレームあたり旋回可能な回転角角速度 */
@@ -28,7 +29,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_source_file スプライン座標情報ファイル
-     * @param prm_spent_frame 最終地点到着までのフレーム数
+     * @param prm_spent_frame 始点(アクターの現座標ではない)～最終地点到着までのフレーム数
      * @param prm_angveloRzRyMv アクターの旋回角度
      * @param prm_turn_way アクターの旋回方法(デフォルト TURN_CLOSE_TO)
      * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト true)
@@ -42,7 +43,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pSplSrc スプライン座標情報オブジェクト
-     * @param prm_spent_frame スプライン座標情報ファイル
+     * @param prm_spent_frame 始点(アクターの現座標ではない)～最終地点到着までのフレーム数
      * @param prm_angveloRzRyMv アクターの旋回角度
      * @param prm_turn_way アクターの旋回方法 (デフォルト TURN_CLOSE_TO)
      * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト true)

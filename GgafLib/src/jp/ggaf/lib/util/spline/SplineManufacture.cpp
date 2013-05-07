@@ -12,6 +12,7 @@ SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject()
     _rate_X = 1.0;
     _rate_Y = 1.0;
     _rate_Z = 1.0;
+    _total_distance = 0;
 }
 SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
     _source_file = "Nothing";
@@ -22,6 +23,7 @@ SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
     _rate_X = 1.0;
     _rate_Y = 1.0;
     _rate_Z = 1.0;
+    _total_distance = 0;
 }
 void SplineManufacture::adjustAxisRate(double prm_rate_X, double prm_rate_Y, double prm_rate_Z) {
     _rate_X = prm_rate_X;
@@ -51,9 +53,10 @@ void SplineManufacture::calculate() {
                                     y_to,
                                     z_to
                                  );
+        _total_distance += _paDistance_to[t];
     }
     _paDistance_to[0] = 0; //_paDistance_to[0] は最初の補完点までの距離となるべきだが、
-                          //SplineKurokoLeader::exec() を行うまで距離が確定しない。ので使用不可。
+                          //SplineKurokoLeader::start() を行うまで距離が確定しない。ので使用不可。
                           //最初の補完点までの距離は、SplineKurokoLeader メンバーの _distance_to_begin で
                           //取得可能。
 }

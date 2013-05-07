@@ -73,7 +73,7 @@ public:
 
     void onInactive() override;
 
-    void acitve_open();
+    void acitve_open(frame prm_delay = 1);
 
     bool isOpenDone();
 

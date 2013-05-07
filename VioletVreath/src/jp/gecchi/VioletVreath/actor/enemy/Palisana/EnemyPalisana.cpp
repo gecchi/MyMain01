@@ -17,18 +17,19 @@ EnemyPalisana::EnemyPalisana(const char* prm_name) :
 }
 
 void EnemyPalisana::onCreateModel() {
-    _pModel->_pTexBlinker->setBlinkableRange(0.9, 0.1, 1.0);
-    _pModel->_pTexBlinker->setPower(0.1);
-    _pModel->_pTexBlinker->beat(120, 60, 1, -1);
+//    _pModel->_pTexBlinker->setBlinkableRange(0.9, 0.1, 1.0);
+//    _pModel->_pTexBlinker->setPower(0.1);
+//    _pModel->_pTexBlinker->beat(120, 60, 1, -1);
     _pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyPalisana::initialize() {
-    setScaleR(4.0);
+
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 200000);
 
     setHitAble(true);
+    setScaleR(2.0);
 }
 
 void EnemyPalisana::onActive() {
@@ -52,7 +53,7 @@ void EnemyPalisana::processBehavior() {
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("EnemyPalisana::processBehavior() ["<<getName()<<"] PROG_ENTRY ‚«‚½");
-                _pAFader->fadeLinerUntil(1.0, 60);
+                _pAFader->fadeLinerUntil(0.7, 60);
             }
             if (_pProg->getFrameInProgress() == 60) {
                 setHitAble(true);
@@ -129,8 +130,8 @@ void EnemyPalisana::onInactive() {
     sayonara();
 }
 
-void EnemyPalisana::acitve_open() {
-    activate();
+void EnemyPalisana::acitve_open(frame prm_delay) {
+    activateDelay(prm_delay);
 }
 bool EnemyPalisana::isOpenDone() {
     if (_pProg->get() == PROG_HATCH_OPEN_DONE) {

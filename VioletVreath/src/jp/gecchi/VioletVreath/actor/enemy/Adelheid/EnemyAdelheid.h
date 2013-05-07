@@ -15,8 +15,7 @@ public:
 
     enum {
         PROG_INIT,
-        PROG_SPLINE_MOVE,
-        PROG_FINISH,
+        PROG_MOVING,
     };
 
     enum {

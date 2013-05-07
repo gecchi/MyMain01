@@ -16,8 +16,8 @@ public:
     SteppedCoordSplineManufacture* _pSteppedSplManuf;
 
     /** [r]基準速度で移動した場合のスプライン移動時の経過フレーム数 */
-    float _exec_fFrames;
-    /** [r]次の変わり目となる補間点(基準点も含む)に到達する_exec_fFrames */
+    float _leadning_fFrames;
+    /** [r]次の変わり目となる補間点(基準点も含む)に到達する_leadning_fFrames */
     float _fFrame_of_next;
     /** [r]補完点(基準点も含む)の数 */
     int _point_index;

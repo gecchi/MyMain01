@@ -6,37 +6,37 @@ GgafQuery::GgafQuery() : GgafCore::GgafObject() {
 }
 
 void GgafQuery::importFromFile(std::string prm_file_name) {
-   std::ifstream ifs(prm_file_name.c_str());
-   if (ifs.fail()) {
-       throwGgafCriticalException("GgafQuery "<<prm_file_name<<" が開けません");
-   }
-   GgafRecord* r;
-   std::string line; // ファイルから読み込んだテキストを入れる
-   int n = 0;
-   std::vector<std::string> header;
-   int header_num = 0;
-   while (getline(ifs, line)) { // 一行ずつ読み込み
-       if (line.length() < 1) {
-           //空行は飛ばす
-           continue;
-       }
-       if (n == 0) {
-           //ヘッダ行として読み込む
-           header = GgafQuery::split(line);
-           header_num = header.size();
-           n++;
-           continue;
-       } else {
-           r = NEW GgafRecord();
-           //通常データ行
-           std::vector<std::string> data = GgafQuery::split(line);
-           for (int j = 0; j < header_num; j++) {
-               r->insert( GgafRecord::value_type( header[j], data[j]) );
-           }
-           addRow(r);
-           n++;
-       }
-   }
+    std::ifstream ifs(prm_file_name.c_str());
+    if (ifs.fail()) {
+        throwGgafCriticalException("GgafQuery "<<prm_file_name<<" が開けません");
+    }
+    GgafRecord* r;
+    std::string line; // ファイルから読み込んだテキストを入れる
+    int n = 0;
+    std::vector<std::string> header;
+    int header_num = 0;
+    while (getline(ifs, line)) { // 一行ずつ読み込み
+        if (line.length() < 1) {
+            //空行は飛ばす
+            continue;
+        }
+        if (n == 0) {
+            //ヘッダ行として読み込む
+            header = GgafQuery::split(line);
+            header_num = header.size();
+            n++;
+            continue;
+        } else {
+            r = NEW GgafRecord();
+            //通常データ行
+            std::vector<std::string> data = GgafQuery::split(line);
+            for (int j = 0; j < header_num; j++) {
+                r->insert( GgafRecord::value_type( header[j], data[j]) );
+            }
+            addRow(r);
+            n++;
+        }
+    }
 }
 
 void GgafQuery::exportToFile(std::string prm_file_name) {

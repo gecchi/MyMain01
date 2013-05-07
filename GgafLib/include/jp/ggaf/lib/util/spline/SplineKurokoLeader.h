@@ -21,7 +21,7 @@ public:
     /** スプライン情報セット */
     SplineManufacture* _pManufacture;
     /** start()からの経過フレーム数 */
-    frame _execute_frames;
+    frame _leading_frames;
     /** 先導開始をしたかどうか */
     bool _was_started;
     /** 現在先導中であるかどうか */
@@ -172,9 +172,15 @@ public:
      *
      *  </pre>
      * @param prm_index インデックス（0=アクター現座標→始点間の距離。1=始点→始点+1の補完点間距離・・・）
-     * @return
+     * @return そのセグメントの距離
      */
     coord getSegmentDistance(int prm_index);
+
+    /**
+     * 現在の座標～始点[0]～終点間の距離を取得する。
+     * @return 合計距離
+     */
+    coord getTotalDistance();
 
     /**
      * スプラインの補完点(基準点も含む)の数を返す。

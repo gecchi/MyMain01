@@ -19,7 +19,7 @@ public:
 
     void onCallUpAdelheid(EnemyAdelheid* pEnemyAdelheid) override;
 
-    GgafLib::SplineManufacture* getFormationSplManuf() override;
+    GgafLib::SplineManufacture* getSplManuf() override;
 
     virtual void processBehavior() override;
 

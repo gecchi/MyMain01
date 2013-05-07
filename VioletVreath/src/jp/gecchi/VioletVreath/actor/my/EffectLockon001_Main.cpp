@@ -44,33 +44,33 @@ void EffectLockon001_Main::processBehavior() {
 
     if (_pProg->get() == LOCKON001_PROG_LOCK || _pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
         if (getAlpha() < 1.0) {
-             addAlpha(0.01);
-         }
-         if (_pScaler->_method[0] == NOSCALE) {
-             //縮小完了後、Beat
-             _pScaler->forceRange(2000, 4000);
-             _pScaler->beat(50, 4, 2, -1); //無限ループ
-             _pProg->change(LOCKON001_PROG_LOCK);
-         }
-         if (pTarget_) {
-             if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
-                 if (ABS(pTarget_->_X-_X) <= PX_C(200) &&
-                     ABS(pTarget_->_Y-_Y) <= PX_C(200) &&
-                     ABS(pTarget_->_Z-_Z) <= PX_C(200)) {
-                     locateAs(pTarget_);
-                     _pKurokoA->setMvVelo(0);
-                     _pKurokoA->_angveloFace[AXIS_Z] = 1000;
-                 } else {
-                     _pKurokoA->_angveloFace[AXIS_Z] = 3000; //速周り
-                     _pKurokoA->setMvAngTwd(pTarget_);
-                     _pKurokoA->setMvVelo(PX_C(200));
-                 }
-             } else {
-                 _pProg->change(LOCKON001_PROG_RELEASE);
-             }
-         } else {
-             _pProg->change(LOCKON001_PROG_RELEASE);
-         }
+            addAlpha(0.01);
+        }
+        if (_pScaler->_method[0] == NOSCALE) {
+            //縮小完了後、Beat
+            _pScaler->forceRange(2000, 4000);
+            _pScaler->beat(50, 4, 2, -1); //無限ループ
+            _pProg->change(LOCKON001_PROG_LOCK);
+        }
+        if (pTarget_) {
+            if (pTarget_->isActiveInTheTree() || pTarget_->_will_activate_after_flg) {
+                if (ABS(pTarget_->_X-_X) <= PX_C(200) &&
+                    ABS(pTarget_->_Y-_Y) <= PX_C(200) &&
+                    ABS(pTarget_->_Z-_Z) <= PX_C(200)) {
+                    locateAs(pTarget_);
+                    _pKurokoA->setMvVelo(0);
+                    _pKurokoA->_angveloFace[AXIS_Z] = 1000;
+                } else {
+                    _pKurokoA->_angveloFace[AXIS_Z] = 3000; //速周り
+                    _pKurokoA->setMvAngTwd(pTarget_);
+                    _pKurokoA->setMvVelo(PX_C(200));
+                }
+            } else {
+                _pProg->change(LOCKON001_PROG_RELEASE);
+            }
+        } else {
+            _pProg->change(LOCKON001_PROG_RELEASE);
+        }
     }
 
     if (_pProg->get() == LOCKON001_PROG_RELEASE) {

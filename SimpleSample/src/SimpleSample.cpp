@@ -8,7 +8,14 @@
 using namespace SimpleSample;
 
 
-LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+/**
+ * ウィンドウプロシージャ実装例 .
+ */
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+    GgafLibWndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
+    //必要があれば、メッセージ処理をココに追加記述
+    return DefWindowProc(hWnd, message, wParam, lParam);
+}
 
 /**
  * GCC のエントリポイント
@@ -73,12 +80,4 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     return (int)msg.wParam;
 }
 
-/**
- * ウィンドウプロシージャ実装例 .
- */
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    GgafLibWndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
-    //必要があれば、メッセージ処理をココに追加記述
-    return DefWindowProc(hWnd, message, wParam, lParam);
-}
 

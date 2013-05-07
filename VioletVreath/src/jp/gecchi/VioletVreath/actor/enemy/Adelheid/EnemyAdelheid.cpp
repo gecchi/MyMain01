@@ -11,7 +11,7 @@ EnemyAdelheid::EnemyAdelheid(const char* prm_name) :
     pDepo_Shot_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
-    useProgress(PROG_FINISH);
+    useProgress(PROG_MOVING);
 }
 
 void EnemyAdelheid::onCreateModel() {
@@ -21,6 +21,7 @@ void EnemyAdelheid::onCreateModel() {
 void EnemyAdelheid::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
+    setScaleR(0.3);
 }
 
 void EnemyAdelheid::config(
@@ -33,11 +34,9 @@ void EnemyAdelheid::config(
 }
 
 void EnemyAdelheid::onActive() {
-//_TRACE_("EnemyAdelheid::onActive() ["<<getName()<<"] "<<_frame_of_life<<" onActive()来ましたはbrfor pKurokoLeader_="<<pKurokoLeader_);
     if (pKurokoLeader_ == nullptr) {
         throwGgafCriticalException("EnemyAdelheidはスプライン必須ですconfigして下さい。 this="<<this<<" name="<<getName());
     }
-//	_TRACE_("EnemyAdelheid::onActive() ["<<getName()<<"] "<<_frame_of_life<<"  onActive()来ましたはafter pKurokoLeader_="<<pKurokoLeader_);
     _pStatus->reset();
     setHitAble(true);
     _pKurokoA->setFaceAng(AXIS_X, 0);
@@ -45,55 +44,38 @@ void EnemyAdelheid::onActive() {
     _pKurokoA->keepOnTurningFaceAngTwd(P_MYSHIP,
                                        D_ANG(2), 0, TURN_CLOSE_TO, false);
     _pProg->reset(PROG_INIT);
-
-//    _TRACE_("onActive X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
 }
 
 void EnemyAdelheid::processBehavior() {
-//    _TRACE_("befor X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
-
-
     //加算ランクポイントを減少
+    _TRACE_(getActiveFrame()<<": before X,Y,Z="<<_X<<","<<_Y<<","<<_Z<<"");
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     MyShip* pMyShip = P_MYSHIP;
 
     switch (_pProg->get()) {
         case PROG_INIT: {
-            _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] PROG_INIT よー");
+            pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
             _pProg->changeNext();
             break;
         }
-
-        case PROG_SPLINE_MOVE: {
+        case PROG_MOVING: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] PROG_SPLINE_MOVE よー");
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
             }
-            break;
-        }
-
-        case PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("EnemyAdelheid::processBehavior() ["<<getName()<<"] PROG_FINISH ");
-            }
+            //pKurokoLeader_->isFinished() 待ち
             break;
         }
     }
-
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
-
-//    _TRACE_("after X,Y,Z="<<_X<<","<<_Y<<","<<_Z);
+    _TRACE_(getActiveFrame()<<": after X,Y,Z="<<_X<<","<<_Y<<","<<_Z<<"");
 }
 
 void EnemyAdelheid::processJudgement() {
     if (pKurokoLeader_->isFinished()) {
-        _TRACE_("EnemyAdelheid::processJudgement() ["<<getName()<<"] isFinished  sayonara();");
         sayonara();
     }
 
     if (isOutOfUniverse()) {
-        _TRACE_("EnemyAdelheid::processJudgement() ["<<getName()<<"] isOutOfUniverse  sayonara();");
         sayonara();
     }
 }
