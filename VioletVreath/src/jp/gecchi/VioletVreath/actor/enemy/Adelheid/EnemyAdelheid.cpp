@@ -11,6 +11,7 @@ EnemyAdelheid::EnemyAdelheid(const char* prm_name) :
     pDepo_Shot_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
+    pFormation_ = nullptr;
     useProgress(PROG_MOVING);
 }
 
@@ -22,6 +23,7 @@ void EnemyAdelheid::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
     setScaleR(0.3);
+
 }
 
 void EnemyAdelheid::config(
@@ -43,12 +45,12 @@ void EnemyAdelheid::onActive() {
     _pKurokoA->setMvAcce(0);
     _pKurokoA->keepOnTurningFaceAngTwd(P_MYSHIP,
                                        D_ANG(2), 0, TURN_CLOSE_TO, false);
+    pFormation_ = (FormationAdelheid*)getFormation();
     _pProg->reset(PROG_INIT);
 }
 
 void EnemyAdelheid::processBehavior() {
     //加算ランクポイントを減少
-    _TRACE_(getActiveFrame()<<": before X,Y,Z="<<_X<<","<<_Y<<","<<_Z<<"");
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     MyShip* pMyShip = P_MYSHIP;
 
@@ -65,9 +67,12 @@ void EnemyAdelheid::processBehavior() {
             break;
         }
     }
+    if (pFormation_) {
+        _pKurokoA->_veloMv = pFormation_->mv_velo_member_;
+    }
+
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
-    _TRACE_(getActiveFrame()<<": after X,Y,Z="<<_X<<","<<_Y<<","<<_Z<<"");
 }
 
 void EnemyAdelheid::processJudgement() {
@@ -103,6 +108,7 @@ void EnemyAdelheid::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyAdelheid::onInactive() {
+    pFormation_ = nullptr;
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
 

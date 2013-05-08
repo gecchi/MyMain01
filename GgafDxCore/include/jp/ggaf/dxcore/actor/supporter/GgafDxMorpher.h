@@ -128,6 +128,11 @@ public:
     void stopImmed(int prm_target_mesh_no);
 
     /**
+     * 全てのモーフィングを停止する .
+     */
+    void stopImmed();
+
+    /**
      * モーフしているか調べる .
      * 各モーフターゲットへの重みが、1つでも0より大きければ true
      * @return true:モーフしている/false:モーフしない

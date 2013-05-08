@@ -7,22 +7,14 @@ using namespace VioletVreath;
 FormationAdelheid001::FormationAdelheid001(const char* prm_name) :
         FormationAdelheid(prm_name) {
     _class_name = "FormationAdelheid001";
-
     pSplManufConnection_ = connectToSplineManufactureManager("FormationAdelheid001");
+}
 
-}
 void FormationAdelheid001::onCallUpAdelheid(EnemyAdelheid* pEnemyAdelheid) {
-//    pEnemyAdelheid->pKurokoLeader_->adjustAxisRate(
-//                                        MyShip::lim_front_, //X•ûŒü”{—¦
-//                                       -1.0 * MyShip::lim_top_,   //Y•ûŒü”{—¦
-//                                        MyShip::lim_zleft_  //Z•ûŒü”{—¦
-//                                    );
-//    pEnemyAdelheid->pKurokoLeader_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
-//    pEnemyAdelheid->pKurokoLeader_->adjustAxisYFlip();
-//    pEnemyAdelheid->pKurokoLeader_->setAbsoluteBeginCoord();
-    pEnemyAdelheid->locate(PX_C(0), PX_C(0), PX_C(1000));
-    pEnemyAdelheid->_pKurokoA->setMvAngTwd(PX_C(500), PX_C(0), PX_C(1000));
+    pEnemyAdelheid->locateAs(&geoLocate_);
+    pEnemyAdelheid->_pKurokoA->setRzRyMvAng(geoLocate_._RZ, geoLocate_._RY);
 }
+
 GgafLib::SplineManufacture* FormationAdelheid001::getSplManuf() {
     return pSplManufConnection_->peek(); //e
 }

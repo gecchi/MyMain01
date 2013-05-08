@@ -28,6 +28,7 @@ public:
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_Shot_;
 
+    FormationAdelheid* pFormation_;
 public:
     /**
      * コンストラクタ

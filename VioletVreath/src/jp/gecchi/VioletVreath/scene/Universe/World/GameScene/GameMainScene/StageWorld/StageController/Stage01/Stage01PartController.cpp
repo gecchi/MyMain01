@@ -15,11 +15,19 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,401};
-	_paFrame_NextEvent = new frame[2];
+	frame f[] = {1,400,460,520,580,640,700,760,820,880};
+	_paFrame_NextEvent = new frame[10];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 2;
+	_event_num = 10;
 	orderActorToFactory(10000000, FormationAdelheid001, "FormationAdelheid001-1");
+	orderActorToFactory(10000001, FormationAdelheid001, "FormationAdelheid001-2");
+	orderActorToFactory(10000002, FormationAdelheid001, "FormationAdelheid001-3");
+	orderActorToFactory(10000003, FormationAdelheid001, "FormationAdelheid001-4");
+	orderActorToFactory(10000004, FormationAdelheid001, "FormationAdelheid001-5");
+	orderActorToFactory(10000005, FormationAdelheid001, "FormationAdelheid001-6");
+	orderActorToFactory(10000006, FormationAdelheid001, "FormationAdelheid001-7");
+	orderActorToFactory(10000007, FormationAdelheid001, "FormationAdelheid001-8");
+	orderActorToFactory(10000008, FormationAdelheid001, "FormationAdelheid001-9");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -37,15 +45,64 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 401: {
+			case 400: {
 				FormationAdelheid001* pF = (FormationAdelheid001*)obtainActorFromFactory(10000000);
 				getSceneDirector()->addSubGroup(pF);
+				pF->locate(PX_C(-200), PX_C(-400), PX_C(500), D_ANG(-40), D_ANG(0));
+				break;
+			}
+			case 460: {
+				FormationAdelheid001* pF = (FormationAdelheid001*)obtainActorFromFactory(10000001);
+				getSceneDirector()->addSubGroup(pF);
+				pF->locate(PX_C(-200), PX_C(-300), PX_C(500), D_ANG(-30), D_ANG(0));
+				break;
+			}
+			case 520: {
+				FormationAdelheid001* pF = (FormationAdelheid001*)obtainActorFromFactory(10000002);
+				getSceneDirector()->addSubGroup(pF);
+				pF->locate(PX_C(-200), PX_C(-200), PX_C(500), D_ANG(-20), D_ANG(0));
+				break;
+			}
+			case 580: {
+				FormationAdelheid001* pF = (FormationAdelheid001*)obtainActorFromFactory(10000003);
+				getSceneDirector()->addSubGroup(pF);
+				pF->locate(PX_C(-200), PX_C(-100), PX_C(500), D_ANG(-10), D_ANG(0));
+				break;
+			}
+			case 640: {
+				FormationAdelheid001* pF = (FormationAdelheid001*)obtainActorFromFactory(10000004);
+				getSceneDirector()->addSubGroup(pF);
+				pF->locate(PX_C(-200), PX_C(  0), PX_C(500), D_ANG(0), D_ANG(0));
+				break;
+			}
+			case 700: {
+				FormationAdelheid001* pF = (FormationAdelheid001*)obtainActorFromFactory(10000005);
+				getSceneDirector()->addSubGroup(pF);
+				pF->locate(PX_C(-200), PX_C( 100), PX_C(500), D_ANG(10), D_ANG(0));
+				break;
+			}
+			case 760: {
+				FormationAdelheid001* pF = (FormationAdelheid001*)obtainActorFromFactory(10000006);
+				getSceneDirector()->addSubGroup(pF);
+				pF->locate(PX_C(-200), PX_C( 200), PX_C(500), D_ANG(20), D_ANG(0));
+				break;
+			}
+			case 820: {
+				FormationAdelheid001* pF = (FormationAdelheid001*)obtainActorFromFactory(10000007);
+				getSceneDirector()->addSubGroup(pF);
+				pF->locate(PX_C(-200), PX_C( 300), PX_C(500), D_ANG(30), D_ANG(0));
+				break;
+			}
+			case 880: {
+				FormationAdelheid001* pF = (FormationAdelheid001*)obtainActorFromFactory(10000008);
+				getSceneDirector()->addSubGroup(pF);
+				pF->locate(PX_C(-200), PX_C( 400), PX_C(500), D_ANG(40), D_ANG(0));
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 10-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

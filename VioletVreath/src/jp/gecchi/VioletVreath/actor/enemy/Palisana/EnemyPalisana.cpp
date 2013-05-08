@@ -29,7 +29,7 @@ void EnemyPalisana::initialize() {
     _pColliChecker->setColliAAB_Cube(0, 200000);
 
     setHitAble(true);
-    setScaleR(2.0);
+    setScaleR(1.0);
 }
 
 void EnemyPalisana::onActive() {
@@ -53,9 +53,9 @@ void EnemyPalisana::processBehavior() {
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("EnemyPalisana::processBehavior() ["<<getName()<<"] PROG_ENTRY ‚«‚½");
-                _pAFader->fadeLinerUntil(0.7, 60);
+                _pAFader->fadeLinerUntil(0.7, 30);
             }
-            if (_pProg->getFrameInProgress() == 60) {
+            if (_pProg->getFrameInProgress() == 20) {
                 setHitAble(true);
                 _pProg->changeNext();
             }
@@ -98,7 +98,7 @@ void EnemyPalisana::processBehavior() {
                 _TRACE_("EnemyPalisana::processBehavior() ["<<getName()<<"] PROG_LEAVE ‚«‚½");
                 setHitAble(false);
                 UTIL::activateLeaveEffectOf(this);
-                _pAFader->fadeLinerUntil(0.0, 60);
+                _pAFader->fadeLinerUntil(0.0, 30);
             }
             if (_pProg->getFrameInProgress() == 60) {
                 sayonara();
@@ -141,6 +141,7 @@ bool EnemyPalisana::isOpenDone() {
     }
 }
 void EnemyPalisana::close_sayonara() {
+    _pMorpher->stopImmed();
     _pProg->change(PROG_HATCH_CLOSE);
 }
 

@@ -142,13 +142,11 @@ void FixedVelocitySplineKurokoLeader::behave() {
                 //始点までに必要なフレーム数取得
                 _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_veloMvUnit);
             } else {
-
+                
                 //始点以外の場合次の補完点までに必要なフレーム数を更新
                 _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_veloMvUnit) +
                                      _pFixedVeloSplManuf->_paFrame_need_at[_point_index];
-            }
-
-        } else {
+             }
         }
 
         //キャラの速度が1000ならば、_leadning_fFrames ++;

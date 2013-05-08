@@ -35,9 +35,10 @@ FormationAdelheid::FormationAdelheid(const char* prm_name)
 }
 
 void FormationAdelheid::updateRankParameter() {
-    rr_num_formation_     = 1; //RR_FormationAdelheid_Num(_RANK_);            //編隊数
-    rr_interval_frames_   = 12;
+    rr_num_formation_     = 30; //RR_FormationAdelheid_Num(_RANK_);            //編隊数
+    rr_interval_frames_   = 10;
     rr_mv_velo_           = PX_C(8); //RR_FormationAdelheid_MvVelo(_RANK_);         //速度
+    mv_velo_member_ = rr_mv_velo_;
 }
 
 void FormationAdelheid::initialize() {
@@ -53,7 +54,7 @@ void FormationAdelheid::processBehavior() {
 
     switch (_pProg->get()) {
          case PROG_INIT: {
-             _TRACE_("FormationAdelheid::processBehavior() PROG_INIT だー");
+             _TRACE_("FormationAdelheid::processBehavior() PROG_INIT です");
 
              //最初の一機
              pDummy_->config(getSplManuf()->createKurokoLeader(pDummy_->_pKurokoA),
@@ -80,18 +81,18 @@ void FormationAdelheid::processBehavior() {
              pPalisana_goal->locate(end_X, end_Y, end_Z);
              pPalisana_goal->_pKurokoA->setFaceAngTwd(end_prev_X, end_prev_Y, end_prev_Z);
              pPalisana_goal->acitve_open(
-                               (frame)(pDummy_->pKurokoLeader_->getTotalDistance() / rr_mv_velo_)
+                               (frame)(pDummy_->pKurokoLeader_->getTotalDistance() / rr_mv_velo_ /2)
                              ); //遅れてハッチオープン
 
              pDummy_->sayonara(); //ありがとうダミー
              _pProg->changeNext();
-             _TRACE_("FormationAdelheid::processBehavior() PROG_INIT OK だー");
+             _TRACE_("FormationAdelheid::processBehavior() PROG_INIT OK です");
              break;
          }
 
          case PROG_ENTRY: {
              if (_pProg->isJustChanged()) {
-                 _TRACE_("FormationAdelheid::processBehavior() PROG_ENTRY だー");
+                 _TRACE_("FormationAdelheid::processBehavior() PROG_ENTRY です");
              }
              if (pPalisana_start->isOpenDone()) {
                  //ハッチオープン完了
@@ -103,36 +104,81 @@ void FormationAdelheid::processBehavior() {
 
          case PROG_FROMATION_MOVE1: {
              if (_pProg->isJustChanged()) {
-                 _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE1 だー");
+                 _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE1 です");
              }
-             if (canCallUp() && (_pProg->getFrameInProgress() % rr_interval_frames_ == 0)) {
-                 //２機目以降
-                 EnemyAdelheid* pAdelheid = (EnemyAdelheid*)callUpMember(rr_num_formation_);
-                 if (pAdelheid) {
-                     SplineKurokoLeader* pKurokoLeader =
-                             getSplManuf()->createKurokoLeader(pAdelheid->_pKurokoA);
-                     pAdelheid->config(pKurokoLeader, pConnection_ShotDepo_->peek());
-                     pAdelheid->_pKurokoA->setMvVelo(rr_mv_velo_);
-                     onCallUpAdelheid(pAdelheid); //下位フォーメーションクラス個別実装の処理
-                 } else {
-                     _pProg->changeNext(); //規定数出現終了
+             if (canCallUp()) {
+                 if (_pProg->getFrameInProgress() % rr_interval_frames_ == 0) {
+                     //２機目以降
+                     EnemyAdelheid* pAdelheid = (EnemyAdelheid*)callUpMember(rr_num_formation_);
+                     if (pAdelheid) {
+                         SplineKurokoLeader* pKurokoLeader =
+                                 getSplManuf()->createKurokoLeader(pAdelheid->_pKurokoA);
+                         pAdelheid->config(pKurokoLeader, pConnection_ShotDepo_->peek());
+                         pAdelheid->_pKurokoA->setMvVelo(rr_mv_velo_);
+                         onCallUpAdelheid(pAdelheid); //下位フォーメーションクラス個別実装の処理
+                     }
                  }
+             } else {
+                pPalisana_start->close_sayonara();
+                _pProg->changeNext(); //出現終了！
              }
              break;
          }
 
+         //メンバー減速
          case PROG_FROMATION_MOVE2: {
-            if (_pProg->isJustChanged()) {
-                 _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE2 だー");
+             if (_pProg->isJustChanged()) {
+                 _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE2 です");
              }
-             //コールバック processOnSayonar() が起こるまで待つ。
+
+             if (mv_velo_member_ < -(rr_mv_velo_/4) ) {
+                 mv_velo_member_ = -(rr_mv_velo_/4);
+                 _pProg->changeNext(); //減速終了！
+             } else {
+                 mv_velo_member_ -= 200;
+             }
              break;
          }
+
+         //メンバー停滞&発射
+         case PROG_FROMATION_MOVE3: {
+             if (_pProg->isJustChanged()) {
+                 _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE3 です");
+             }
+
+             if (_pProg->getFrameInProgress() == 300) {
+                 _pProg->changeNext(); //停滞終了！
+             }
+             break;
+         }
+
+         //メンバー再始動
+         case PROG_FROMATION_MOVE4: {
+             if (_pProg->isJustChanged()) {
+                 _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE4 です");
+             }
+             if (mv_velo_member_ > rr_mv_velo_)  {
+                 mv_velo_member_ = rr_mv_velo_;
+                 _pProg->changeNext(); //再始動終了！
+             } else {
+                 mv_velo_member_ += 100;
+             }
+             break;
+         }
+
+         //待機
+         case PROG_FROMATION_MOVE5: {
+             if (_pProg->isJustChanged()) {
+                 _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE5 です");
+             }
+             break;
+         }
+
 
          case PROG_LEAVE: {
              if (_pProg->isJustChanged()) {
-                  _TRACE_("FormationAdelheid::processBehavior() PROG_LEAVE だー");
-                 pPalisana_start->close_sayonara();
+                  _TRACE_("FormationAdelheid::processBehavior() PROG_LEAVE です");
+
                  pPalisana_goal->close_sayonara();
              }
              if (_pProg->getFrameInProgress() == 15) {
@@ -148,7 +194,7 @@ void FormationAdelheid::processBehavior() {
 void FormationAdelheid::onSayonaraAll() {
     //余命は FORMATION_END_DELAY フレーム
     //それ以内に閉じるアニメーションを終わらせましょう
-    _TRACE_("FormationAdelheid::onSayonaraAll() だー");
+    _TRACE_("FormationAdelheid::onSayonaraAll() です");
     _pProg->change(PROG_LEAVE);
 }
 

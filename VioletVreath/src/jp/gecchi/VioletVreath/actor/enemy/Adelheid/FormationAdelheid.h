@@ -16,6 +16,9 @@ public:
         PROG_ENTRY ,
         PROG_FROMATION_MOVE1,
         PROG_FROMATION_MOVE2,
+        PROG_FROMATION_MOVE3,
+        PROG_FROMATION_MOVE4,
+        PROG_FROMATION_MOVE5,
         PROG_LEAVE ,
     };
 
@@ -36,8 +39,10 @@ public:
     int rr_num_formation_;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
     frame rr_interval_frames_;
-    /** 編隊メンバーの移動速度(RANK変動) */
+    /** 編隊メンバーの初期移動速度(RANK変動) */
     velo rr_mv_velo_;
+    /** 編隊メンバー全体の現在の移動速度 */
+    velo mv_velo_member_;
 
 public:
     /**
