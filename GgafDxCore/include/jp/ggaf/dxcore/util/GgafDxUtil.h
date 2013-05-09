@@ -309,8 +309,8 @@ public:
      * @param out_nvx [out]単位ベクトルX要素
      * @param out_nvy [out]単位ベクトルY要素
      * @param out_nvz [out]単位ベクトルZ要素
-     * @param out_angFaceZ [out]Z軸回転アングル値
-     * @param out_angFaceY [out]Y軸回転アングル値
+     * @param out_angRZ [out]Z軸回転アングル値
+     * @param out_angRY [out]Y軸回転アングル値
      */
     static void convVectorToRzRy(coord x,
                                  coord y,
@@ -318,23 +318,23 @@ public:
                                  float& out_nvx,
                                  float& out_nvy,
                                  float& out_nvz,
-                                 angle& out_angFaceZ,
-                                 angle& out_angFaceY);
+                                 angle& out_angRZ,
+                                 angle& out_angRY);
 
     /**
-     * 原点からパラメータ座標を向く方向ベクトルに対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
+     * 原点(0,0,0) からパラメータ座標(vx,vy,vz) を向く方向ベクトルに対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
      * 本クラスの中核とも言うべきメソッドその１<BR>
      * 方向ベクトル -> Z軸Y軸回転方角 の変換<BR>
-     * @param x [in]X座標
-     * @param y [in]Y座標
-     * @param z [in]Z座標
-     * @param out_angFaceZ [out]Z軸回転アングル値
-     * @param out_angFaceY [out]Y軸回転アングル値
+     * @param vx [in]X座標
+     * @param vy [in]Y座標
+     * @param vz [in]Z座標
+     * @param out_angRZ [out]Z軸回転アングル値
+     * @param out_angRY [out]Y軸回転アングル値
      */
-    static void convVectorToRzRy(coord x, coord y, coord z, angle& out_angFaceZ, angle& out_angFaceY);
+    static void convVectorToRzRy(coord vx, coord vy, coord vz, angle& out_angRZ, angle& out_angRY);
 
     /**
-     * 原点からパラメータ座標を向く方向ベクトル(単位ベクトル)に対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
+     * 原点(0,0,0) からパラメータ座標を向く方向ベクトル(単位ベクトル)に対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
      * 本クラスの中核とも言うべきメソッドその１<BR>
      * 方向ベクトル -> Z軸Y軸回転方角 の変換。<BR>
      * 計算せずにテーブル参照で高速に行う。<BR>
@@ -344,23 +344,23 @@ public:
      * @param nvx [in]単位ベクトルX要素
      * @param nvy [in]単位ベクトルY要素
      * @param nvz [in]単位ベクトルZ要素
-     * @param out_angFaceZ [out]Z軸回転アングル値
-     * @param out_angFaceY [out]Y軸回転アングル値
+     * @param out_angRZ [out]Z軸回転アングル値
+     * @param out_angRY [out]Y軸回転アングル値
      */
-    static void convVectorToRzRy(double nvx, double nvy, double nvz, angle& out_angFaceZ, angle& out_angFaceY) {
+    static void convVectorToRzRy(double nvx, double nvy, double nvz, angle& out_angRZ, angle& out_angRY) {
         convVectorToRzRy((int)(nvx*LEN_UNIT*PX_UNIT),
                          (int)(nvy*LEN_UNIT*PX_UNIT),
                          (int)(nvz*LEN_UNIT*PX_UNIT),
-                         out_angFaceZ,
-                         out_angFaceY );
+                         out_angRZ,
+                         out_angRY );
     }
 
-    static void convVectorToRzRy(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY) {
+    static void convVectorToRzRy(float nvx, float nvy, float nvz, angle& out_angRZ, angle& out_angRY) {
         convVectorToRzRy((int)(nvx*LEN_UNIT*PX_UNIT),
                          (int)(nvy*LEN_UNIT*PX_UNIT),
                          (int)(nvz*LEN_UNIT*PX_UNIT),
-                         out_angFaceZ,
-                         out_angFaceY );
+                         out_angRZ,
+                         out_angRY );
     }
 
 
@@ -369,17 +369,26 @@ public:
      * 本クラスの中核とも言うべきメソッドその2<BR>
      * Z軸Y軸回転方角 -> 方向ベクトル の変換<BR>
      * 計算せずにテーブル参照で高速に行う。<BR>
-     * @param prm_angFaceZ [in]Z軸回転アングル値
-     * @param prm_angFaceY [in]Y軸回転アングル値
+     * @param prm_angRZ [in]Z軸回転アングル値
+     * @param prm_angRY [in]Y軸回転アングル値
      * @param out_nvx [out]単位ベクトルX要素
      * @param out_nvy [out]単位ベクトルY要素
      * @param out_nvz [out]単位ベクトルZ要素
      */
-    static void convRzRyToVector(angle prm_angFaceZ,
-                                 angle prm_angFaceY,
+    static void convRzRyToVector(angle prm_angRZ,
+                                 angle prm_angRY,
                                  float& out_nvx,
                                  float& out_nvy,
                                  float& out_nvz);
+    /**
+     * ベクトル正規化 .
+     * @param x
+     * @param y
+     * @param z
+     * @param out_nvx
+     * @param out_nvy
+     * @param out_nvz
+     */
     static void getNormalizeVector(dxcoord x,
                                    dxcoord y,
                                    dxcoord z,
@@ -387,6 +396,15 @@ public:
                                    float& out_nvy,
                                    float& out_nvz);
 
+    /**
+     * ベクトル正規化 .
+     * @param x
+     * @param y
+     * @param z
+     * @param out_nvx
+     * @param out_nvy
+     * @param out_nvz
+     */
     static void getNormalizeVector(coord x,
                                    coord y,
                                    coord z,

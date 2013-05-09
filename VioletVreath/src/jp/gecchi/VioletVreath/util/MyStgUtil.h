@@ -6,7 +6,7 @@
 #endif
 #define UTIL VioletVreath::MyStgUtil
 
-#define STATUS(X) (NEW GgafCore::GgafStatus(STAT_Sentry+1, VioletVreath::MyStgUtil::reset##X##Status))
+#define STATUS(X) (NEW GgafCore::GgafStatus(STAT_BANPEI+1, VioletVreath::MyStgUtil::reset##X##Status))
 
 
 
@@ -34,6 +34,7 @@ public:
         EF_BONUS001,
         EF_EXPLO_AND_BONUS001,
         EF_TURBO,
+        EF_DAMAGED001,
     };
 
     enum ItemKind {
@@ -44,8 +45,13 @@ public:
 
     enum ShotKind {
         SHOT_NOTHING,
+
         SHOT_SMALL001,
         SHOT_SMALL002,
+
+        SHOT_RV_GENERAL001,
+        SHOT_RV_GENERAL002,
+        SHOT_RV_GOLDEN_ANG_WAY,
     };
 
 
@@ -91,7 +97,16 @@ public:
      */
     static GgafDxCore::GgafDxDrawableActor* activateExplosionEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
-    static GgafDxCore::GgafDxDrawableActor* activateShotOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    static GgafDxCore::GgafDxDrawableActor* activateDamagedEffectOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+
+
+    static GgafDxCore::GgafDxDrawableActor* activateAttackShotOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    /**
+     * 打ち返し弾 .
+     * @param prm_pActor
+     * @return
+     */
+    static GgafDxCore::GgafDxDrawableActor* activateRevengeShotOf(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 対象アクターに紐ついた保持アイテムを、取得できれば有効にし、それを返す .
@@ -148,6 +163,14 @@ public:
      * @return 対象アクターの入場エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
     static GgafDxCore::GgafDxDrawableActor* activateProperEffect01Of(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+
+    /**
+     * 敵キャラヒット時の標準的な処理 .
+     * @param prm_this
+     * @param prm_pOther
+     * @return
+     */
+    static bool proceedEnemyHit(GgafDxCore::GgafDxDrawableActor* prm_this, GgafDxCore::GgafDxGeometricActor* prm_pOther);
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コード変更は「ステータスCreater.xls」から行うこと。

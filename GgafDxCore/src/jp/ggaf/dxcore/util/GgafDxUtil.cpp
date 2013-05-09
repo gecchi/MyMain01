@@ -597,20 +597,20 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
                                   float& out_nvx,
                                   float& out_nvy,
                                   float& out_nvz,
-                                  angle& out_angFaceZ,
-                                  angle& out_angFaceY) {
+                                  angle& out_angRZ,
+                                  angle& out_angRY) {
 
     convVectorToRzRy(vx,
                vy,
                vz,
-               out_angFaceZ,
-               out_angFaceY );
+               out_angRZ,
+               out_angRY );
 
-    convRzRyToVector(out_angFaceZ,
-                         out_angFaceY,
-                         out_nvx,
-                         out_nvy,
-                         out_nvz);
+    convRzRyToVector(out_angRZ,
+                     out_angRY,
+                     out_nvx,
+                     out_nvy,
+                     out_nvz);
 
 }
 
@@ -630,6 +630,7 @@ void GgafDxUtil::getNormalizeVector(coord x,
     out_nvy = t * vy;
     out_nvz = t * vz;
 }
+
 void GgafDxUtil::getNormalizeVector(dxcoord x,
                                     dxcoord y,
                                     dxcoord z,
@@ -643,121 +644,120 @@ void GgafDxUtil::getNormalizeVector(dxcoord x,
 }
 
 
-
-void GgafDxUtil::convRzRyToVector(angle prm_angFaceZ,
-                                      angle prm_angFaceY,
-                                      float& out_nvx,
-                                      float& out_nvy,
-                                      float& out_nvz) {
-    //void GgafDxSphereRadiusVectors::getVectorClosely(int out_angFaceY, int prm_angFaceZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z) {
+void GgafDxUtil::convRzRyToVector(angle prm_angRZ,
+                                  angle prm_angRY,
+                                  float& out_nvx,
+                                  float& out_nvy,
+                                  float& out_nvz) {
+    //void GgafDxSphereRadiusVectors::getVectorClosely(int out_angFaceY, int prm_angZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z) {
     //回転角によって象限を考慮し、getVectorCloselyのパラメータ角(< 900)を出す
     int Xsign, Ysign, Zsign;
     s_ang rZ, rY_rev;
 
-    if (0 <= prm_angFaceZ && prm_angFaceZ < D90ANG) {
-        rZ = (prm_angFaceZ - D0ANG) / SANG_RATE;
-        if (0 <= prm_angFaceY && prm_angFaceY < D90ANG) { //第五象限
-            rY_rev = prm_angFaceY / SANG_RATE;
+    if (0 <= prm_angRZ && prm_angRZ < D90ANG) {
+        rZ = (prm_angRZ - D0ANG) / SANG_RATE;
+        if (0 <= prm_angRY && prm_angRY < D90ANG) { //第五象限
+            rY_rev = prm_angRY / SANG_RATE;
             Xsign = 1;
             Ysign = 1;
             Zsign = -1;
-        } else if (D90ANG <= prm_angFaceY && prm_angFaceY < D180ANG) { //第六象限
-            rY_rev = (D180ANG - prm_angFaceY) / SANG_RATE;
+        } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //第六象限
+            rY_rev = (D180ANG - prm_angRY) / SANG_RATE;
             Xsign = -1;
             Ysign = 1;
             Zsign = -1;
-        } else if (D180ANG <= prm_angFaceY && prm_angFaceY < D270ANG) { //第二象限
-            rY_rev = (prm_angFaceY - D180ANG) / SANG_RATE;
+        } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //第二象限
+            rY_rev = (prm_angRY - D180ANG) / SANG_RATE;
             Xsign = -1;
             Ysign = 1;
             Zsign = 1;
-        } else if (D270ANG <= prm_angFaceY && prm_angFaceY <= D360ANG) { //第一象限
-            rY_rev = (D360ANG - prm_angFaceY) / SANG_RATE;
+        } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //第一象限
+            rY_rev = (D360ANG - prm_angRY) / SANG_RATE;
             Xsign = 1;
             Ysign = 1;
             Zsign = 1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(1) prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
+            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(1) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
         }
-    } else if (D90ANG <= prm_angFaceZ && prm_angFaceZ < D180ANG) {
-        rZ = (D180ANG - prm_angFaceZ) / SANG_RATE;
+    } else if (D90ANG <= prm_angRZ && prm_angRZ < D180ANG) {
+        rZ = (D180ANG - prm_angRZ) / SANG_RATE;
 
-        if (0 <= prm_angFaceY && prm_angFaceY < D90ANG) { //第二象限
-            rY_rev = prm_angFaceY / SANG_RATE;
+        if (0 <= prm_angRY && prm_angRY < D90ANG) { //第二象限
+            rY_rev = prm_angRY / SANG_RATE;
             Xsign = -1;
             Ysign = 1;
             Zsign = 1;
-        } else if (D90ANG <= prm_angFaceY && prm_angFaceY < D180ANG) { //第一象限
-            rY_rev = (D180ANG - prm_angFaceY) / SANG_RATE;
+        } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //第一象限
+            rY_rev = (D180ANG - prm_angRY) / SANG_RATE;
             Xsign = 1;
             Ysign = 1;
             Zsign = 1;
-        } else if (D180ANG <= prm_angFaceY && prm_angFaceY < D270ANG) { //第五象限
-            rY_rev = (prm_angFaceY - D180ANG) / SANG_RATE;
+        } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //第五象限
+            rY_rev = (prm_angRY - D180ANG) / SANG_RATE;
             Xsign = 1;
             Ysign = 1;
             Zsign = -1;
-        } else if (D270ANG <= prm_angFaceY && prm_angFaceY <= D360ANG) { //第六象限
-            rY_rev = (D360ANG - prm_angFaceY) / SANG_RATE;
+        } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //第六象限
+            rY_rev = (D360ANG - prm_angRY) / SANG_RATE;
             Xsign = -1;
             Ysign = 1;
             Zsign = -1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(2) prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
+            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(2) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
         }
 
-    } else if (D180ANG <= prm_angFaceZ && prm_angFaceZ < D270ANG) {
-        rZ = (prm_angFaceZ - D180ANG) / SANG_RATE;
-        if (0 <= prm_angFaceY && prm_angFaceY < D90ANG) { //第三象限
-            rY_rev = prm_angFaceY / SANG_RATE;
+    } else if (D180ANG <= prm_angRZ && prm_angRZ < D270ANG) {
+        rZ = (prm_angRZ - D180ANG) / SANG_RATE;
+        if (0 <= prm_angRY && prm_angRY < D90ANG) { //第三象限
+            rY_rev = prm_angRY / SANG_RATE;
             Xsign = -1;
             Ysign = -1;
             Zsign = 1;
-        } else if (D90ANG <= prm_angFaceY && prm_angFaceY < D180ANG) { //第四象限
-            rY_rev = (D180ANG - prm_angFaceY) / SANG_RATE;
+        } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //第四象限
+            rY_rev = (D180ANG - prm_angRY) / SANG_RATE;
             Xsign = 1;
             Ysign = -1;
             Zsign = 1;
-        } else if (D180ANG <= prm_angFaceY && prm_angFaceY < D270ANG) { //第八象限
-            rY_rev = (prm_angFaceY - D180ANG) / SANG_RATE;
+        } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //第八象限
+            rY_rev = (prm_angRY - D180ANG) / SANG_RATE;
             Xsign = 1;
             Ysign = -1;
             Zsign = -1;
-        } else if (D270ANG <= prm_angFaceY && prm_angFaceY <= D360ANG) { //第七象限
-            rY_rev = (D360ANG - prm_angFaceY) / SANG_RATE;
+        } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //第七象限
+            rY_rev = (D360ANG - prm_angRY) / SANG_RATE;
             Xsign = -1;
             Ysign = -1;
             Zsign = -1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(3) prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
+            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(3) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
         }
-    } else if (D270ANG <= prm_angFaceZ && prm_angFaceZ <= D360ANG) {
-        rZ = (D360ANG - prm_angFaceZ) / SANG_RATE;
-        if (0 <= prm_angFaceY && prm_angFaceY < D90ANG) { //第八象限
-            rY_rev = prm_angFaceY / SANG_RATE;
+    } else if (D270ANG <= prm_angRZ && prm_angRZ <= D360ANG) {
+        rZ = (D360ANG - prm_angRZ) / SANG_RATE;
+        if (0 <= prm_angRY && prm_angRY < D90ANG) { //第八象限
+            rY_rev = prm_angRY / SANG_RATE;
             Xsign = 1;
             Ysign = -1;
             Zsign = -1;
-        } else if (D90ANG <= prm_angFaceY && prm_angFaceY < D180ANG) { //第七象限
-            rY_rev = (D180ANG - prm_angFaceY) / SANG_RATE;
+        } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //第七象限
+            rY_rev = (D180ANG - prm_angRY) / SANG_RATE;
             Xsign = -1;
             Ysign = -1;
             Zsign = -1;
-        } else if (D180ANG <= prm_angFaceY && prm_angFaceY < D270ANG) { //第三象限
-            rY_rev = (prm_angFaceY - D180ANG) / SANG_RATE;
+        } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //第三象限
+            rY_rev = (prm_angRY - D180ANG) / SANG_RATE;
             Xsign = -1;
             Ysign = -1;
             Zsign = 1;
-        } else if (D270ANG <= prm_angFaceY && prm_angFaceY <= D360ANG) { //第四象限
-            rY_rev = (D360ANG - prm_angFaceY) / SANG_RATE;
+        } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //第四象限
+            rY_rev = (D360ANG - prm_angRY) / SANG_RATE;
             Xsign = 1;
             Ysign = -1;
             Zsign = 1;
         } else {
-            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(4) prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
+            throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(4) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
         }
     } else {
-        throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(5) prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
+        throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(5) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
     }
     UINT32 vx, vy, vz;
     _srv.getVectorClosely(rY_rev, rZ, vx, vy, vz);

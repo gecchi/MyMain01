@@ -30,7 +30,7 @@ void EnemyHermioneArmHead::processBehavior() {
 
     if (getActiveFrame() % 10 == 0 &&
         (_pProg->get() == PROG_NOTHING || _pProg->get() == PROG_AIMING)) { //出現間隔
-        GgafDxDrawableActor* pShot = UTIL::activateShotOf(this);
+        GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
         if (pShot) {
             //＜現在の最終的な向きを、RzRyで取得する＞
             //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。

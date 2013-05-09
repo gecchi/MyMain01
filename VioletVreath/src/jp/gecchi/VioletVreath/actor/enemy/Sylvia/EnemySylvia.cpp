@@ -147,6 +147,7 @@ void EnemySylvia::processJudgement() {
 void EnemySylvia::onHit(GgafActor* prm_pOtherActor) {
 
 }
+
 void EnemySylvia::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == SYLVIA_EXPLOSION) {
         _TRACE_("EnemySylvia::onCatchEvent SYLVIA_EXPLOSION ƒLƒƒƒbƒ`");

@@ -17,11 +17,11 @@ namespace GgafDxCore {
 class GgafDxCollisionPart : public GgafCore::GgafObject {
 
 public:
-    /** 当たり判定種別(COLLI_AAB:辺が各軸に並行な直方体 / COLLI_AAPRISM:辺が各軸に並行なプリズム/COLLI_SPHERE:球) */
+    /** 当たり判定種別(COLLI_AAB:辺が各軸に平行な直方体 / COLLI_AAPRISM:辺が各軸に平行なプリズム/COLLI_SPHERE:球) */
     int _shape_kind;
     /** 有効フラグ */
     bool _is_valid_flg;
-    /** 軸並行直方体 */
+    /** 軸平行直方体 */
     coord _aab_x1, _aab_y1, _aab_z1, _aab_x2, _aab_y2, _aab_z2;
 
     /** 当たり判定要素のX軸方向幅 */

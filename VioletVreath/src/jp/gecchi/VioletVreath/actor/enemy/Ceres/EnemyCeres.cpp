@@ -99,13 +99,12 @@ void EnemyCeres::processJudgement() {
 
 
 void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        //”j‰ó‚³‚ê‚½ê‡
-        setHitAble(false);
-        UTIL::activateExplosionEffectOf(this);
+    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //”j‰óŽž
         _pSeTx->play3D(SE_EXPLOSION);
-        sayonara();
+    } else {
+        //”ñ”j‰óŽž
     }
 }
 

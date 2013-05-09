@@ -191,19 +191,12 @@ void EnemyEunomia::processJudgement() {
 }
 
 void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        //破壊された場合
-        setHitAble(false); //以降同一フレーム内でヒットさせない。
-        UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
-        _pSeTx->play3D(SE_EXPLOSION);          //爆発音再生
-        if (pOther->getKind() & KIND_MY) { //自機側に撃たれて消滅の場合は
-            UTIL::activateItemOf(this); //アイテム出現
-        }
-        sayonara();
+    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊時
+        _pSeTx->play3D(SE_EXPLOSION);
     } else {
-        //一発で死ぬのでココは通らないハズ。
+        //非破壊時
     }
 }
 

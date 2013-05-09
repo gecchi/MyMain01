@@ -3,7 +3,7 @@
 namespace GgafLib {
 
 /**
- * AAB(軸並行直方体：Axis-Aligned Box)当たり判定要素クラス
+ * AAB(軸平行直方体：Axis-Aligned Box)当たり判定要素クラス
  * @version 1.00
  * @since 2008/03/13
  * @author Masatoshi Tsuge

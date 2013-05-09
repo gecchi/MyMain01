@@ -56,7 +56,7 @@ void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out
             _Y_begin = _pActor_target->_Y;
             _Z_begin = _pActor_target->_Z;
         }
-        //    ï¿çsà⁄ìÆ ÅÑ Zé≤âÒì] ÅÑ Yé≤âÒì]
+        //    ïΩçsà⁄ìÆ ÅÑ Zé≤âÒì] ÅÑ Yé≤âÒì]
         //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
         //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
         //    | sinRy                                  , 0                    , cosRy                                   , 0 |

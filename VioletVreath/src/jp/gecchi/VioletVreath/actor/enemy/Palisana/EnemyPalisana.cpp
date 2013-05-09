@@ -120,10 +120,14 @@ void EnemyPalisana::processJudgement() {
 }
 
 void EnemyPalisana::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-
-    //effectFlush(2); //ƒtƒ‰ƒbƒVƒ…
-    _pSeTx->play3D(SE_DAMAGED);
+    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //”j‰óŽž
+        _pSeTx->play3D(SE_EXPLOSION);
+    } else {
+        //”ñ”j‰óŽž
+        _pSeTx->play3D(SE_DAMAGED);
+    }
 }
 
 void EnemyPalisana::onInactive() {

@@ -54,48 +54,34 @@
 
 
 //STAT_DEFAULT_ACTOR_KINDは0
-/** アクターステータス：属性(ATTRIBUTE_NOMAL/ATTRIBUTE_GU/ATTRIBUTE_CHOKI/ATTRIBUTE_PA) */
-#define STAT_Attribute              (1)
-/** アクターステータス：加算スコア(int) */
-#define STAT_AddScorePoint          (2)
-/** アクターステータス：加算ランクポイント(double) */
-#define STAT_AddRankPoint           (3)
-/** アクターステータス：加算ランクポイントの、フレーム毎減少率(double) */
-#define STAT_AddRankPoint_Reduction (4)
-/** アクターステータス：アクターの残り体力(int) */
-#define STAT_Stamina                (5)
-/** アクターステータス：アクターの攻撃力(int) */
-#define STAT_Attack                 (6)
-/** アクターステータス：アクターの基本防御能力(double) 。相手のSTAT_Attackに乗じる(1.0で0%防御,0.9で10%防御) */
-#define STAT_DefaultDefenceRate     (7)
-/** アクターステータス：アクターの優性属性時防御能力(double) */
-#define STAT_DominantDefenceRate    (8)
-/** アクターステータス：アクターの劣性属性時防御能力(double) */
-#define STAT_RecessiveDefenceRate   (9)
-/** アクターステータス：ロックオン可否(0:不可 1:可) */
-#define STAT_LockonAble             (10)
-/** アクターステータス：登場エフェクト種類(int) */
-#define STAT_EntryEffectKind        (11)
-/** アクターステータス：退出エフェクト種類(int) */
-#define STAT_LeaveEffectKind        (12)
-/** アクターステータス：爆発エフェクト種類(int) */
-#define STAT_ExplosionEffectKind    (13)
-/** アクターステータス：やられたエフェクト(スコア表示等) (int) */
-#define STAT_DestroyedEffectKind    (14)
-/** アクターステータス：弾アクター(int) */
-#define STAT_ShotKind               (15)
-/** アクターステータス：保持アイテム種類(int) */
-#define STAT_ItemKind               (16)
-/** アクターステータス：編隊全滅時加算得点(int) */
-#define STAT_FormationDestroyedAddScorePoint (17)
-/** アクターステータス：編隊全滅時エフェクト(ボーナス表示等)  (int) */
-#define STAT_FormationDestroyedEffectKind (18)
-/** アクターステータス：編隊全滅時アイテム種別(int) */
-#define STAT_FormationDestroyedItemKind      (19)
-/** アクターステータス：その他固有エフェクト０１(int) */
-#define STAT_ProperEffect01Kind      (20)
-/** アクターステータス：番兵（配列要素数に使用される、STAT_Sentry は一番最後の数値を持ってくること）*/
-#define STAT_Sentry                 (21)
+enum {
+    STAT_Attribute = 1,                   //属性
+    STAT_LockonAble,                      //ロックオン可否
+    STAT_AddDestroyScorePoint,            //破壊時加算得点
+    STAT_AddDamagedScorePoint,            //ダメージ時加算得点
+    STAT_FlushAble,                       //ダメージ時フラッシュ要否
+    STAT_AddRankPoint,                    //破壊時加算ランク
+    STAT_AddRankPoint_Reduction,          //破壊時加算ランク減少率
+    STAT_Stamina,                         //体力
+    STAT_Attack,                          //攻撃力
+    STAT_DefaultDefenceRate,              //基準防御率
+    STAT_DominantDefenceRate,             //優性時の防御率
+    STAT_RecessiveDefenceRate,            //劣性時の防御率
+    STAT_EntryEffectKind,                 //出現エフェクト種別
+    STAT_LeaveEffectKind,                 //退出エフェクト種別
+    STAT_ExplosionEffectKind,             //爆発エフェクト種別
+    STAT_DamagedEffectKind,               //ダメージ時エフェクト種別
+    STAT_DestroyedEffectKind,             //やられエフェクト種別
+    STAT_ItemKind,                        //やられアイテム種別
+    STAT_FormationDestroyedAddScorePoint, //編隊全滅時加算得点
+    STAT_FormationDestroyedEffectKind,    //編隊全滅時エフェクト
+    STAT_ProperEffect01Kind,              //その他固有エフェクト０１
+    STAT_FormationDestroyedItemKind,      //編隊全滅時アイテム種別
+    STAT_AttackShotKind,                  //ショット種別
+    STAT_RevengeShotKind,                 //打ち返し種別
+
+    STAT_BANPEI,   //番兵（配列要素数に使用される、一番最後に記述すること）
+};
 
 
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。

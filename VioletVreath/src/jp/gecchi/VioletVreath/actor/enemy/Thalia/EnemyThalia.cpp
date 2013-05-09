@@ -135,66 +135,12 @@ void EnemyThalia::processJudgement() {
 }
 
 void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        setHitAble(false);
-        //爆発効果
-        UTIL::activateExplosionEffectOf(this);
+    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊時
         _pSeTx->play3D(SE_EXPLOSION);
-
-        //打ち返し弾
-        if (pDepo_Shot_) {
-//                UTIL::shotWay001(this,
-//                                       pDepo_Shot_,
-//                                       P_MYSHIP,
-//                                       10+_RANK_*10, 10000,
-//                                       2000, 200);
-//                UTIL::shotWay001v2(this,
-//                                       pDepo_Shot_,
-//                                       P_MYSHIP,
-//                                       10+_RANK_*10, 10000,
-//                                       3000, 200,
-//                                       5, 0.8);
-//                UTIL::shotWay002(this,
-//                                       pDepo_Shot_,
-//                                       P_MYSHIP,
-//                                       20+_RANK_*10, 0,
-//                                       2000, 200);
-//                  UTIL::shotWay002v2(this,
-//                                       pDepo_Shot_,
-//                                       P_MYSHIP,
-//                                       RR_EnemyThalia_ShotWay(_RANK_), 0,
-//                                       2000, 200,
-//                                       5, 0.8);
-//                  UTIL::shotWay002(this, pDepo_Shot_,
-//                                      PX_C(20),
-//                                      5, 5, D_ANG(10), D_ANG(10),
-//                                      2000, 200);
-
-//                  UTIL::shotWay002(this, pDepo_Shot_,
-//                                      PX_C(20),
-//                                      6, 6, D_ANG(8), D_ANG(8),
-//                                      2000, 200,
-//                                      20, 60, 0.9);
-
-            UTIL::shotWay004(this, pDepo_Shot_,
-                             PX_C(20),
-                             8, D_ANG(10),
-                             2000, 200,
-                             12, 3, 0.9);
-
-        }
-
-        //自機側に撃たれて消滅の場合、
-        if (pOther->getKind() & KIND_MY) {
-            //アイテム出現
-            UTIL::activateItemOf(this);
-        }
-        sayonara();
     } else {
         //非破壊時
-        effectFlush(2); //フラッシュ
         _pSeTx->play3D(SE_DAMAGED);
     }
 }

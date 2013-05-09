@@ -678,17 +678,19 @@ public:
      * @param prm_set_num         撃つ弾の合計数
      * @param prm_interval_frames 弾と弾の出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全弾一斉発射。）
      * @param prm_attenuated      初弾以降のショット初期速度・加速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxGeometricActor* shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
-                                                        angle prm_RZ, angle prm_RY,
-                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
-                                                        coord prm_r,
-                                                        velo prm_velo_first, acce prm_acce,
-                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                        void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
+    static GgafDxCore::GgafDxDrawableActor* shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
+                                                       angle prm_RZ, angle prm_RY,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                       coord prm_r,
+                                                       velo prm_velo_first, acce prm_acce,
+                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int) = nullptr);
 
     /**
-     * 発射元の向いている方向（_RZ > _RY）に向かって 弾を複数個撃つ .
+     * 発射元が向いている方向（_RZ > _RY）に向かって 弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _X, _Y, _Z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
@@ -705,17 +707,19 @@ public:
      * @param prm_set_num         撃つ弾の合計数
      * @param prm_interval_frames 弾と弾の出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全弾一斉発射。）
      * @param prm_attenuated      初弾以降のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxGeometricActor* shotWay001(coord prm_from_X, coord prm_from_Y, coord prm_from_Z,
-                                                        coord prm_to_X, coord prm_to_Y, coord prm_to_Z,
-                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
-                                                        coord prm_r,
-                                                        velo prm_velo_first, acce prm_acce,
-                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                        void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
+    static GgafDxCore::GgafDxDrawableActor* shotWay001(coord prm_from_X, coord prm_from_Y, coord prm_from_Z,
+                                                       coord prm_to_X, coord prm_to_Y, coord prm_to_Z,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                       coord prm_r,
+                                                       velo prm_velo_first, acce prm_acce,
+                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int) = nullptr);
 
     /**
-     * 発射元の向いている方向（_RZ > _RY）に向かって 弾を複数個撃つ .
+     * 発射元が向いている方向（_RZ > _RY）に向かって 弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _X, _Y, _Z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
@@ -727,13 +731,81 @@ public:
      * @param prm_set_num         撃つ弾の合計数
      * @param prm_interval_frames 弾と弾の出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全弾一斉発射。）
      * @param prm_attenuated      初弾以降のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static GgafDxCore::GgafDxGeometricActor* shotWay001(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
-                                                        GgafCore::GgafActorDepository* prm_pDepo_Shot,
-                                                        coord prm_r,
-                                                        velo prm_velo_first, acce prm_acce,
-                                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                        void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int) = nullptr);
+    static GgafDxCore::GgafDxDrawableActor* shotWay001(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                       coord prm_r,
+                                                       velo prm_velo_first, acce prm_acce,
+                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int) = nullptr);
+
+
+    /**
+     * N-Way弾（Rz変化）を複数セット撃つ .
+     * 発射するショットに、次の項目が設定されます。<BR>
+     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
+     * @param prm_X                発射元X座標
+     * @param prm_Y                発射元Y座標
+     * @param prm_Z                発射元Z座標
+     * @param prm_RX               N Wayの回転角
+     * @param prm_RZ               発射方向Rz
+     * @param prm_RY               発射方向Ry
+     * @param prm_pDepo_Shot      発射するショットのデポジトリ
+     * @param prm_r                発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
+     * @param prm_way_N            N-Way数（Rz変化）
+     * @param prm_angClearance_N   N-Wayの間隔角度
+     * @param prm_velo_first       N-Way弾初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
+     * @param prm_acce             N-Way弾各セットのショット初期加速度
+     * @param prm_set_num          発射する N-Way弾セットの合計セット数
+     * @param prm_interval_frames  弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
+     * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
+     */
+    static GgafDxCore::GgafDxDrawableActor* shotWay002(coord prm_X, coord prm_Y, coord prm_Z,
+                                                       angle prm_RX, angle prm_RZ, angle prm_RY,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                       coord prm_r,
+                                                       int prm_way_N,
+                                                       angle prm_angClearance_N,
+                                                       velo prm_velo_first, acce prm_acce,
+                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
+
+    /**
+     * 発射元が向いている方向（_RX, _RZ > _RY）N-Way弾（Rz変化）を複数セット撃つ .
+     * 発射するショットに、次の項目が設定されます。<BR>
+     * ・ショットの _X, _Y, _Z 座標 <BR>
+     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
+     * @param prm_X                発射元X座標
+     * @param prm_Y                発射元Y座標
+     * @param prm_Z                発射元Z座標
+     * @param prm_RX               N Wayの回転角
+     * @param prm_RZ               発射方向Rz
+     * @param prm_RY               発射方向Ry
+     * @param prm_pDepo_Shot      発射するショットのデポジトリ
+     * @param prm_r                発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
+     * @param prm_way_N            N-Way数（Rz変化）
+     * @param prm_angClearance_N   N-Wayの間隔角度
+     * @param prm_velo_first       N-Way弾初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
+     * @param prm_acce             N-Way弾各セットのショット初期加速度
+     * @param prm_set_num          発射する N-Way弾セットの合計セット数
+     * @param prm_interval_frames  弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
+     * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
+     */
+    static GgafDxCore::GgafDxDrawableActor* shotWay002(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                       coord prm_r,
+                                                       int prm_way_N,
+                                                       angle prm_angClearance_N,
+                                                       velo prm_velo_first, acce prm_acce,
+                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
     /**
      * N*M-Way弾を複数セット撃つ .
@@ -762,26 +834,28 @@ public:
      * @param prm_set_num          発射する N*M-Way弾セットの合計セット数
      * @param prm_interval_frames  弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static void shotWay002(coord prm_X, coord prm_Y, coord prm_Z,
-                           angle prm_RX, angle prm_RZ, angle prm_RY,
-                           GgafCore::GgafActorDepository* prm_pDepo_Shot1, UINT32* prm_paUint32_dotmat1,
-                           GgafCore::GgafActorDepository* prm_pDepo_Shot2, UINT32* prm_paUint32_dotmat2,
-                           GgafCore::GgafActorDepository* prm_pDepo_Shot3, UINT32* prm_paUint32_dotmat3,
-                           coord prm_r,
-                           int prm_way_N, int prm_way_M,
-                           angle prm_angClearance_N, angle prm_angClearance_M,
-                           velo prm_velo_first, acce prm_acce,
-                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int, int, int) = nullptr);
+    static GgafDxCore::GgafDxDrawableActor* shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
+                                                       angle prm_RX, angle prm_RZ, angle prm_RY,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot1, UINT32* prm_paUint32_dotmat1,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot2, UINT32* prm_paUint32_dotmat2,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot3, UINT32* prm_paUint32_dotmat3,
+                                                       coord prm_r,
+                                                       int prm_way_N, int prm_way_M,
+                                                       angle prm_angClearance_N, angle prm_angClearance_M,
+                                                       velo prm_velo_first, acce prm_acce,
+                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int, int, int) = nullptr);
 
 
     /**
-     * 発射元の向いている方向（_RX > _RZ > _RY）に向かって N*M-Way弾を複数セット撃つ .
+     * 発射元が向いている方向（_RX > _RZ > _RY）に向かって N*M-Way弾を複数セット撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _X, _Y, _Z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
-     * @param prm_pFrom           発射元
+     * @param prm_pFrom            発射元
      * @param prm_pDepo_Shot1      発射するショットのデポジトリその１
      * @param prm_paUint32_dotmat1 ショットその１を使用するドットマトリックス
      * @param prm_pDepo_Shot2      発射するショットのデポジトリその２
@@ -798,17 +872,20 @@ public:
      * @param prm_set_num          発射する N*M-Way弾セットの合計セット数
      * @param prm_interval_frames  弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static void shotWay002(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
-                           GgafCore::GgafActorDepository* prm_pDepo_Shot1, UINT32* prm_paUint32_dotmat1,
-                           GgafCore::GgafActorDepository* prm_pDepo_Shot2, UINT32* prm_paUint32_dotmat2,
-                           GgafCore::GgafActorDepository* prm_pDepo_Shot3, UINT32* prm_paUint32_dotmat3,
-                           coord prm_r,
-                           int prm_way_N, int prm_way_M,
-                           angle prm_angClearance_N, angle prm_angClearance_M,
-                           velo prm_velo_first, acce prm_acce,
-                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int, int, int) = nullptr);
+    static GgafDxCore::GgafDxDrawableActor* shotWay003(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot1, UINT32* prm_paUint32_dotmat1,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot2, UINT32* prm_paUint32_dotmat2,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot3, UINT32* prm_paUint32_dotmat3,
+                                                       coord prm_r,
+                                                       int prm_way_N, int prm_way_M,
+                                                       angle prm_angClearance_N, angle prm_angClearance_M,
+                                                       velo prm_velo_first, acce prm_acce,
+                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int, int, int) = nullptr);
+
 
 
     /**
@@ -830,18 +907,20 @@ public:
      * @param prm_set_num         撃つ放射WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static void shotWay004(coord prm_X, coord prm_Y, coord prm_Z,
-                           angle prm_RZ, angle prm_RY,
-                           GgafCore::GgafActorDepository* prm_pDepo_Shot,
-                           coord prm_r,
-                           int prm_radial_way_num, angle prm_expanse_angle,
-                           velo prm_velo_first, acce prm_acce,
-                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = nullptr);
+    static GgafDxCore::GgafDxDrawableActor* shotWay004(coord prm_X, coord prm_Y, coord prm_Z,
+                                                       angle prm_RZ, angle prm_RY,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                       coord prm_r,
+                                                       int prm_radial_way_num, angle prm_expanse_angle,
+                                                       velo prm_velo_first, acce prm_acce,
+                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
     /**
-     * 発射元の向いている方向（_RZ > _RY）に向かって拡散放射弾を複数セット同時に撃つ .
+     * 発射元が向いている方向（_RZ > _RY）に向かって拡散放射弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _X, _Y, _Z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
@@ -855,14 +934,16 @@ public:
      * @param prm_set_num         撃つ放射WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度・加速度の減衰率(> 1.0)、或いは増幅率(>1.0)
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static void shotWay004(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
-                           GgafCore::GgafActorDepository* prm_pDepo_Shot,
-                           coord prm_r,
-                           int prm_radial_way_num, angle prm_expanse_angle,
-                           velo prm_velo_first, acce prm_acce,
-                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                           void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = nullptr);
+    static GgafDxCore::GgafDxDrawableActor* shotWay004(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                       coord prm_r,
+                                                       int prm_radial_way_num, angle prm_expanse_angle,
+                                                       velo prm_velo_first, acce prm_acce,
+                                                       int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                       void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
     /**
      * 黄金角拡散放射弾を複数セット同時に撃つ .
@@ -884,19 +965,21 @@ public:
      * @param prm_set_num         撃つ放射WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static void shotWayGoldenAng(coord prm_X, coord prm_Y, coord prm_Z,
-                                 angle prm_RZ, angle prm_RY,
-                                 GgafCore::GgafActorDepository* prm_pDepo_Shot,
-                                 coord prm_r,
-                                 int prm_way_num,
-                                 angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
-                                 velo prm_velo_first, acce prm_acce,
-                                 int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                 void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = nullptr);
+    static GgafDxCore::GgafDxDrawableActor* shotWayGoldenAng(coord prm_X, coord prm_Y, coord prm_Z,
+                                                             angle prm_RZ, angle prm_RY,
+                                                             GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                             coord prm_r,
+                                                             int prm_way_num,
+                                                             angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                                                             velo prm_velo_first, acce prm_acce,
+                                                             int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                             void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
     /**
-     * 発射元の向いている方向（_RZ > _RY）に向かって黄金角拡散放射弾を複数セット同時に撃つ .
+     * 発射元が向いている方向（_RZ > _RY）に向かって黄金角拡散放射弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _X, _Y, _Z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
@@ -911,16 +994,17 @@ public:
      * @param prm_set_num         撃つ放射WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(< 1.0)、或いは増幅率(>1.0)
-
+     * @param pFunc_CallBackDispatched
+     * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
-    static void shotWayGoldenAng(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
-                                 GgafCore::GgafActorDepository* prm_pDepo_Shot,
-                                 coord prm_r,
-                                 int prm_way_num,
-                                 angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
-                                 velo prm_velo_first, acce prm_acce,
-                                 int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                 void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxGeometricActor*, int, int, int) = nullptr);
+    static GgafDxCore::GgafDxDrawableActor* shotWayGoldenAng(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
+                                                             GgafCore::GgafActorDepository* prm_pDepo_Shot,
+                                                             coord prm_r,
+                                                             int prm_way_num,
+                                                             angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                                                             velo prm_velo_first, acce prm_acce,
+                                                             int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                             void (*pFunc_CallBackDispatched)(GgafDxCore::GgafDxDrawableActor*, int, int, int) = nullptr);
 
 
 };

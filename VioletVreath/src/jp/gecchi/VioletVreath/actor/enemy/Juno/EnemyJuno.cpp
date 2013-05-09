@@ -117,20 +117,18 @@ void EnemyJuno::onInactive() {
 }
 
 void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        setHitAble(false);
-        //”š”­Œø‰Ê
-        UTIL::activateExplosionEffectOf(this);
+    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //”j‰óŽž
         _pSeTx->play3D(SE_EXPLOSION);
-
-        sayonara();
+    } else {
+        //”ñ”j‰óŽž
     }
 }
 
 EnemyJuno::~EnemyJuno() {
 }
 
-void EnemyJuno::callbackDispatched(GgafDxGeometricActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {
+void EnemyJuno::callbackDispatched(GgafDxDrawableActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {
 }
 

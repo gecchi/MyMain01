@@ -27,21 +27,16 @@ void EnemyMassaliaBase::processJudgement() {
 
 void EnemyMassaliaBase::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
+    bool was_destroyed = UTIL::proceedEnemyHit(this, pOther);
+    if (was_destroyed) {
         //破壊時
-        setHitAble(false);
-        UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(SE_EXPLOSION);
-        sayonara();
         //下位クラスの個々の処理
         processStaminaEnd(pOther);
     } else {
         //非破壊時
-        effectFlush(2); //フラッシュ
         _pSeTx->play3D(SE_DAMAGED);
     }
-
 }
 
 void EnemyMassaliaBase::appearFragment(const char* prm_dp_name) {

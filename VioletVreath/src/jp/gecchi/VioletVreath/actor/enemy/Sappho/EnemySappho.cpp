@@ -101,7 +101,7 @@ void EnemySappho::processBehavior() {
                  int shot_num = RR_EnemySappho_ShotWay(_RANK_); //弾数、ランク変動
                  velo shot_velo = RR_EnemySappho_ShotMvVelo(_RANK_); //弾速、ランク変動
                  for (int i = 0; i < shot_num; i++) {
-                     GgafDxDrawableActor* pShot = UTIL::activateShotOf(this);
+                     GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
                          pShot->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z],
@@ -164,20 +164,12 @@ void EnemySappho::processJudgement() {
 }
 
 void EnemySappho::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        setHitAble(false);
-        //爆発効果
-        UTIL::activateExplosionEffectOf(this);
+    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊時
         _pSeTx->play3D(SE_EXPLOSION);
-
-        //自機側に撃たれて消滅の場合、
-        if (pOther->getKind() & KIND_MY) {
-            //アイテム出現
-            UTIL::activateItemOf(this);
-        }
-        sayonara();
+    } else {
+        //非破壊時
     }
 }
 

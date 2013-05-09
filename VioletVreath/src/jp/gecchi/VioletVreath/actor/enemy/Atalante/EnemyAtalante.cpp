@@ -148,26 +148,17 @@ void EnemyAtalante::processJudgement() {
 void EnemyAtalante::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (getActiveFrame() < 30 && (pOther->getKind() & KIND_CHIKEI)) {
-        //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
-        return;
+         //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
+         return;
     }
 
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
+    bool was_destroyed = UTIL::proceedEnemyHit(this, pOther);
+    if (was_destroyed) {
         //破壊時
-        setHitAble(false);
-        //爆発効果
-        UTIL::activateExplosionEffectOf(this);
         _pSeTx->play3D(SE_EXPLOSION);
-
-//        //自機側に撃たれて消滅の場合、
-//        if (pOther->getKind() & KIND_MY) {
-//            //アイテム出現
-//            UTIL::activateItemOf(this);
-//        }
-        sayonara();
     } else {
         //非破壊時
-        effectFlush(2); //フラッシュ
+        _pSeTx->play3D(SE_DAMAGED);
     }
 }
 

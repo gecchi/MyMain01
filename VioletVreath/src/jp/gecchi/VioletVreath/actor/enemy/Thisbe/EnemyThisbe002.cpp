@@ -110,23 +110,12 @@ void EnemyThisbe002::processJudgement() {
 }
 
 void EnemyThisbe002::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        setHitAble(false);
-        //爆発効果
-        UTIL::activateExplosionEffectOf(this);
+    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //破壊時
         _pSeTx->play3D(SE_EXPLOSION);
-
-        //自機側に撃たれて消滅の場合、
-        if (pOther->getKind() & KIND_MY) {
-            //アイテム出現
-            UTIL::activateItemOf(this);
-        }
-        sayonara();
     } else {
         //非破壊時
-        effectFlush(2); //フラッシュ
         _pSeTx->play3D(SE_DAMAGED);
     }
 }

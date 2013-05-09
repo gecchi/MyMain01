@@ -207,7 +207,6 @@ void EnemyAstraea::processJudgement() {
 }
 
 void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     static UINT32 spritedoller[24] = {
                                      6144      ,       //  000000000001100000000000
                                      14336     ,       //  000000000011100000000000
@@ -277,20 +276,13 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
         };
 
 
-
-    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        setHitAble(false);
-        UTIL::activateExplosionEffectOf(this);
+    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+    if (was_destroyed) {
+        //”j‰óŽž
         _pSeTx->play3D(SE_EXPLOSION);
-//          UTIL::shotWay002(this, pDepo_Shot_,
-//                              PX_C(20),
-//                              5, 5, D_ANG(6), D_ANG(6),
-//                              3000, 200,
-//                              3, 5, 0.9);
-
-
-        UTIL::shotWay002(this,
-                         pConnection_ShotDepo_->peek(), red_dot,
+        //‘Å‚¿•Ô‚µ
+        UTIL::shotWay003(this,
+                         pConnection_ShotDepo_->peek() , red_dot,
                          pConnection_ShotDepo2_->peek(), yellow_dot,
                          pConnection_ShotDepo3_->peek(), blue_dot,
                          PX_C(20),
@@ -298,11 +290,9 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
                          D_ANG(1), D_ANG(1),
                          5000, 100,
                          2, 1, 0.9);
-        sayonara();
     } else {
-        effectFlush(2); //ƒtƒ‰ƒbƒVƒ…
+        //”ñ”j‰óŽž
     }
-
 }
 
 

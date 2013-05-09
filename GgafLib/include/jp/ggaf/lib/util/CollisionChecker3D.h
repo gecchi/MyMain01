@@ -51,15 +51,15 @@ public:
      * @param y 当たり判定の球の中心ローカルY座標
      * @param z 当たり判定の球の中心ローカルZ座標
      * @param r 当たり判定の球の半径
-     * @param rotX 当たり判定の球を、向きに伴ってローカルX軸での回転並行移動を行う場合 true
-     * @param rotY 当たり判定の球を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
-     * @param rotZ 当たり判定の球を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
+     * @param rotX 当たり判定の球を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rotY 当たり判定の球を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rotZ 当たり判定の球を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
     void setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rotX, bool rotY, bool rotZ);
 
     /**
      * 当たり判定領域要素を球として定義 .
-     * 向きに伴っての当たり判定の球の回転並行移動機能は無し
+     * 向きに伴っての当たり判定の球の回転平行移動機能は無し
      * @param prm_index 当たり判定領域の要素番号
      * @param x 当たり判定の球の中心ローカルX座標
      * @param y 当たり判定の球の中心ローカルY座標
@@ -73,7 +73,7 @@ public:
     /**
      * 当たり判定領域要素を球として定義 .
      * オブジェクトの基点を球の中心とする。<br>
-     * 向きに伴っての当たり判定の球の回転並行移動機能は無し。<br>
+     * 向きに伴っての当たり判定の球の回転平行移動機能は無し。<br>
      * @param prm_index 当たり判定領域の要素番号
      * @param r 当たり判定の球の半径
      */
@@ -82,7 +82,7 @@ public:
     }
 
     /**
-     * 当たり判定領域要素を軸並行直方体として定義 .
+     * 当たり判定領域要素を軸平行直方体として定義 .
      * @param prm_index 当たり判定領域の要素番号
      * @param x1 左上手前X座標
      * @param y1 左上手前Y座標
@@ -90,9 +90,9 @@ public:
      * @param x2 右下奥X座標
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
-     * @param rotX 当たり判定の直方体を、向きに伴ってローカルX軸での回転並行移動を行う場合 true
-     * @param rotY 当たり判定の直方体を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
-     * @param rotZ 当たり判定の直方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
+     * @param rotX 当たり判定の直方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rotY 当たり判定の直方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rotZ 当たり判定の直方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
     void setColliAAB(int prm_index,
                      coord x1, coord y1, coord z1,
@@ -100,8 +100,8 @@ public:
                      bool rotX, bool rotY, bool rotZ);
 
     /**
-     * 当たり判定領域要素を軸並行直方体として定義 .
-     * 向きに伴っての当たり判定の球の回転並行移動機能は無し
+     * 当たり判定領域要素を軸平行直方体として定義 .
+     * 向きに伴っての当たり判定の球の回転平行移動機能は無し
      * @param prm_index 当たり判定領域の要素番号
      * @param x1 左上手前X座標
      * @param y1 左上手前Y座標
@@ -117,7 +117,7 @@ public:
     }
 
     /**
-     * 当たり判定領域要素を軸並行直方体として定義 .
+     * 当たり判定領域要素を軸平行直方体として定義 .
      * Zの厚みは、1px相当
      * @param prm_index 当たり判定領域の要素番号
      * @param x1 左上手前X座標
@@ -130,7 +130,7 @@ public:
     }
 
     /**
-     * 当たり判定領域要素を軸並行直方体として定義 .
+     * 当たり判定領域要素を軸平行直方体として定義 .
      * BOX中心座標と、幅、高さ、奥行で指定
      * @param prm_index
      * @param x 中心X座標
@@ -149,7 +149,7 @@ public:
     }
 
     /**
-     * 当たり判定領域要素を軸並行直方体として定義 .
+     * 当たり判定領域要素を軸平行直方体として定義 .
      * オブジェクトの基点を中心として、幅、高さ、奥行で指定
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_width 幅(X軸方向)
@@ -162,7 +162,7 @@ public:
 
 
     /**
-     * 当たり判定領域要素を軸並行立方体として定義 .
+     * 当たり判定領域要素を軸平行立方体として定義 .
      * 引数座標を中心として、１辺の長さで指定
      * @param prm_index 当たり判定領域の要素番号
      * @param x 当たり判定の立方体の中心ローカルX座標
@@ -177,7 +177,7 @@ public:
 
 
     /**
-     * 当たり判定領域要素を軸並行立方体として定義 .
+     * 当たり判定領域要素を軸平行立方体として定義 .
      * オブジェクトの基点を中心として、１辺の長さで指定
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_edge １辺の長さ
@@ -187,16 +187,16 @@ public:
     }
 
     /**
-     * 当たり判定領域要素を軸並行立方体として定義 .
+     * 当たり判定領域要素を軸平行立方体として定義 .
      * 引数座標を中心として、１辺の長さで指定
      * @param prm_index 当たり判定領域の要素番号
      * @param x 当たり判定の立方体の中心ローカルX座標
      * @param y 当たり判定の立方体の中心ローカルY座標
      * @param z 当たり判定の立方体の中心ローカルZ座標
      * @param prm_edge １辺の長さ
-     * @param rotX 当たり判定の立方体を、向きに伴ってローカルX軸での回転並行移動を行う場合 true
-     * @param rotY 当たり判定の立方体を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
-     * @param rotZ 当たり判定の立方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
+     * @param rotX 当たり判定の立方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rotY 当たり判定の立方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rotZ 当たり判定の立方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
     void setColliAAB_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, bool rotX, bool rotY, bool rotZ) {
         int h = prm_edge / 2;
@@ -206,7 +206,7 @@ public:
 
 
     /**
-     * 当たり判定領域要素を軸並行プリズム型として定義 .
+     * 当たり判定領域要素を軸平行プリズム型として定義 .
      * @param prm_index 当たり判定領域の要素番号
      * @param x1 左上手前X座標
      * @param y1 左上手前Y座標
@@ -215,15 +215,15 @@ public:
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
      * @param pos_prism プリズム位置（POS_PRISM_**_**)
-     * @param rotX 当たり判定の直方体を、向きに伴ってローカルX軸での回転並行移動を行う場合 true
-     * @param rotY 当たり判定の直方体を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
-     * @param rotZ 当たり判定の直方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
+     * @param rotX 当たり判定の直方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rotY 当たり判定の直方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rotZ 当たり判定の直方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
     void setColliAAPrism(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_prism, bool rotX, bool rotY, bool rotZ);
 
     /**
-     * 当たり判定領域要素を軸並行直方体として定義 .
-     * 向きに伴っての当たり判定の球の回転並行移動機能は無し
+     * 当たり判定領域要素を軸平行直方体として定義 .
+     * 向きに伴っての当たり判定の球の回転平行移動機能は無し
      * @param prm_index 当たり判定領域の要素番号
      * @param x1 左上手前X座標
      * @param y1 左上手前Y座標
@@ -247,7 +247,7 @@ public:
     }
 
     /**
-     * 当たり判定領域要素を軸並行直方体として定義 .
+     * 当たり判定領域要素を軸平行直方体として定義 .
      * オブジェクトの基点を中心として、幅、高さ、奥行で指定
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_width 幅(X軸方向幅)
@@ -260,7 +260,7 @@ public:
     }
 
     /**
-     * 当たり判定領域要素を軸並行立方体として定義 .
+     * 当たり判定領域要素を軸平行立方体として定義 .
      * 引数座標を中心として、１辺の長さで指定
      * @param prm_index 当たり判定領域の要素番号
      * @param x 当たり判定の立方体の中心ローカルX座標
@@ -275,16 +275,16 @@ public:
     }
 
     /**
-     * 当たり判定領域要素を軸並行立方体として定義 .
+     * 当たり判定領域要素を軸平行立方体として定義 .
      * 引数座標を中心として、１辺の長さで指定
      * @param prm_index 当たり判定領域の要素番号
      * @param x 当たり判定の立方体の中心ローカルX座標
      * @param y 当たり判定の立方体の中心ローカルY座標
      * @param z 当たり判定の立方体の中心ローカルZ座標
      * @param prm_edge １辺の長さ
-     * @param rotX 当たり判定の立方体を、向きに伴ってローカルX軸での回転並行移動を行う場合 true
-     * @param rotY 当たり判定の立方体を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
-     * @param rotZ 当たり判定の立方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
+     * @param rotX 当たり判定の立方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
+     * @param rotY 当たり判定の立方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
+     * @param rotZ 当たり判定の立方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
     void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_prism, bool rotX, bool rotY, bool rotZ) {
@@ -293,7 +293,7 @@ public:
     }
 
     /**
-     * 当たり判定領域要素を軸並行立方体として定義 .
+     * 当たり判定領域要素を軸平行立方体として定義 .
      * オブジェクトの基点を中心として、１辺の長さで指定
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_edge １辺の長さ

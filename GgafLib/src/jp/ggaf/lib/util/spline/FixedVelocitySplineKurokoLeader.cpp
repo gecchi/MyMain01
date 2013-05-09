@@ -54,7 +54,7 @@ void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& 
             _Y_begin = _pActor_target->_Y;
             _Z_begin = _pActor_target->_Z;
         }
-        //    並行移動 ＞ Z軸回転 ＞ Y軸回転 の 平行移動部分 tx,ty,tz
+        //    平行移動 ＞ Z軸回転 ＞ Y軸回転 の 平行移動部分 tx,ty,tz
         //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
         //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
         //    | sinRy                                  , 0                    , cosRy                                   , 0 |
