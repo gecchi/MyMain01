@@ -55,12 +55,24 @@ void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
         pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION); //向てる方向にスプライン座標をワールド変換
         //prm_num_refraction = 0 は、発射口→pKurokoLeader_->_point_index = 0 の点への移動直前処理
     }
-    if (pKurokoLeader_->isLeading()) {
-        _pKurokoA->setMvVelo(pKurokoLeader_->getSegmentDistance(prm_num_refraction));
-    } else {
+
+
+    if (prm_num_refraction > (pKurokoLeader_->_pManufacture->_sp->_rnum -1)) {
         //最後のリフレクションだった場合
         _pKurokoA->setMvVelo(0); //ちょっと sayonara() まで待機
+    } else {
+        _pKurokoA->setMvVelo(prm_num_refraction);
     }
+
+
+//
+//    if (pKurokoLeader_->isLeading()) {
+//        _pKurokoA->setMvVelo(pKurokoLeader_->getSegmentDistance(prm_num_refraction)); //←TODO:ここをなんとかする。SplineKurokoLeader::getSegmentDistance(256) は、範囲外です
+//
+//    } else {
+//        //最後のリフレクションだった場合
+//        _pKurokoA->setMvVelo(0); //ちょっと sayonara() まで待機
+//    }
     //pKurokoLeader_->behave(); 内部で pKurokoA->_veloMv を参照し次フレーム数決定してるので、
     //１フレームで次の点に到達するべく、pKurokoLeader_->behave(); の前に pKurokoA->setMvVelo() で設定しなければいけない。
     pKurokoLeader_->behave();

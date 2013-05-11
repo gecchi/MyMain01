@@ -12,7 +12,7 @@ EnemyAdelheid::EnemyAdelheid(const char* prm_name) :
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     pFormation_ = nullptr;
-    useProgress(PROG_MOVING);
+    useProgress(PROG_MOVING_AFTER_LEAD);
 }
 
 void EnemyAdelheid::onCreateModel() {
@@ -47,6 +47,7 @@ void EnemyAdelheid::onActive() {
                                        D_ANG(2), 0, TURN_CLOSE_TO, false);
     pFormation_ = (FormationAdelheid*)getFormation();
     _pProg->reset(PROG_INIT);
+    _TRACE_("EnemyAdelheid::onActive() PROG_INITへリセット this="<<getName()<<"("<<this<<")");
 }
 
 void EnemyAdelheid::processBehavior() {
@@ -56,28 +57,57 @@ void EnemyAdelheid::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_INIT: {
+            _TRACE_("EnemyAdelheid::processBehavior() PROG_INIT this="<<getName()<<"("<<this<<")");
+            
             pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
             _pProg->changeNext();
             break;
         }
         case PROG_MOVING: {
             if (_pProg->isJustChanged()) {
+                _TRACE_("EnemyAdelheid::processBehavior() PROG_MOVING this="<<getName()<<"("<<this<<")");
+            }
+            if (pFormation_) {
+                _pKurokoA->_veloMv = pFormation_->mv_velo_member_;
             }
             //pKurokoLeader_->isFinished() 待ち
             break;
         }
+
+        //ゴールのパリサナがいない場合、その後の移動
+        case PROG_MOVING_AFTER_LEAD: {
+            if (_pProg->isJustChanged()) {
+                _TRACE_("EnemyAdelheid::processBehavior() pPalisana_goal が無い(T_T)。なんとなく自機を狙う！PROG_MOVING_AFTER_LEAD this="<<getName()<<"("<<this<<")");
+                _pKurokoA->turnMvAngTwd(P_MYSHIP,
+                                        D_ANG(2), 0, TURN_ANTICLOSE_TO, false);
+                _pKurokoA->setMvAcce(100);
+            }
+            //isOutOfUniverse() まで・・・
+            break;
+        }
     }
-    if (pFormation_) {
-        _pKurokoA->_veloMv = pFormation_->mv_velo_member_;
-    }
+
 
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
 }
 
 void EnemyAdelheid::processJudgement() {
-    if (pKurokoLeader_->isFinished()) {
-        sayonara();
+    if (_pProg->get() == PROG_MOVING) {
+        if (pKurokoLeader_->isFinished()) {
+            if (pFormation_) {
+                if (pFormation_->pPalisana_goal) {
+                    _TRACE_("EnemyAdelheid::processJudgement() pPalisana_goal pPalisana_goal が存在。通常終了 this="<<getName()<<"("<<this<<")");
+                    _pProg->changeNothing();
+                    sayonara();
+                } else {
+                    _TRACE_("EnemyAdelheid::processJudgement() pPalisana_goal pPalisana_goal が無い。PROG_MOVING_AFTER_LEADへイクス this="<<getName()<<"("<<this<<")");
+                    _pProg->change(PROG_MOVING_AFTER_LEAD);
+                }
+            } else {
+                //ダミーの時か、来ないハズ
+            }
+        }
     }
 
     if (isOutOfUniverse()) {

@@ -44,6 +44,7 @@ public:
      * 自ツリーノードを連結リストから切り離し、独立する。 .
      * 切り離され穴が開いた部分は、周りのノードが穴を埋めます（再連結します）<BR>
      * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
+     * GgafMainActorの場合、配下の _pSceneDirector 及び _pGroupHead に nullptr がセットされる。<BR>
      * @return  自ノードのポインタ
      */
     virtual GgafMainActor* extract() override;

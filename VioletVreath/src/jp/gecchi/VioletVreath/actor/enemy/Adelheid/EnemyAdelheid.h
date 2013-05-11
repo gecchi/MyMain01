@@ -16,6 +16,7 @@ public:
     enum {
         PROG_INIT,
         PROG_MOVING,
+        PROG_MOVING_AFTER_LEAD,
     };
 
     enum {

@@ -208,27 +208,36 @@ GgafDxDrawableActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_
             pI = nullptr; //ショット無し
             break;
         }
-        case SHOT_RV_GENERAL001: {
-            pI = UTIL::shotWay002(prm_pActor,
-                                  getCommonDepository(Shot004),
-                                  PX_C(20),       //r
-                                  3,              //way
-                                  D_ANG(10),           //間隔
-                                  PX_C(3), 100,
-                                  1, 8, 0.0f,
-                                  nullptr
-                                  );
+        case SHOT_RV_NOMAL001: {
+            pI = UTIL::shotWay002(
+                   prm_pActor,
+                   getCommonDepository(Shot004),
+                   PX_C(20),       //r
+                   RR_SHOT_RV_NOMAL001_ShotWay(_RANK_),    //way数
+                   RR_SHOT_RV_NOMAL001_Density(_RANK_),    //wayとwayの間隔
+                   RR_SHOT_RV_ShotMvVelo(_RANK_),          //初期速度
+                   RR_SHOT_RV_ShotMvAcce(_RANK_),          //加速度
+                   RR_SHOT_RV_NOMAL001_ShotSetNum(_RANK_), //wayのセット数
+                   8, //セットとセットの間隔フレーム
+                   0.0f,
+                   nullptr
+                 );
 
             break;
         }
 
-        case SHOT_RV_GENERAL002: {
+        case SHOT_RV_NOMAL002: {
 
-            pI = UTIL::shotWay004(prm_pActor, getCommonDepository(Shot004),
+            pI = UTIL::shotWay004(prm_pActor,
+                                  getCommonDepository(Shot004),
                                   PX_C(20),
-                                  8, D_ANG(10),
-                                  2000, 200,
-                                  12, 3, 0.9);
+                                  8,
+                                  D_ANG(10),
+                                  RR_SHOT_RV_ShotMvVelo(_RANK_),
+                                  RR_SHOT_RV_ShotMvAcce(_RANK_),
+                                  12,
+                                  3,
+                                  0.9);
 
 
             break;
@@ -1194,7 +1203,7 @@ GgafStatus* MyStgUtil::resetEnemyThaliaStatus(GgafStatus* p) {
     p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
     p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
     p->set(STAT_AttackShotKind, SHOT_NOTHING);  //ショット種別
-    p->set(STAT_RevengeShotKind, SHOT_RV_GENERAL002);  //打ち返し種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL002);  //打ち返し種別
     return p;
 }
 GgafStatus* MyStgUtil::resetShot001Status(GgafStatus* p) {
@@ -2370,7 +2379,7 @@ GgafStatus* MyStgUtil::resetEnemyHermioneStatus(GgafStatus* p) {
     p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
     p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
     p->set(STAT_AttackShotKind, SHOT_SMALL001);  //ショット種別
-    p->set(STAT_RevengeShotKind, SHOT_RV_GENERAL001);  //打ち返し種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
     return p;
 }
 GgafStatus* MyStgUtil::resetEnemyHermioneArmHeadStatus(GgafStatus* p) {
@@ -2398,7 +2407,7 @@ GgafStatus* MyStgUtil::resetEnemyHermioneArmHeadStatus(GgafStatus* p) {
     p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
     p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
     p->set(STAT_AttackShotKind, SHOT_SMALL001);  //ショット種別
-    p->set(STAT_RevengeShotKind, SHOT_RV_GENERAL001);  //打ち返し種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
     return p;
 }
 GgafStatus* MyStgUtil::resetEnemyHermioneArmBodyStatus(GgafStatus* p) {
@@ -2482,7 +2491,7 @@ GgafStatus* MyStgUtil::resetEnemySapphoStatus(GgafStatus* p) {
     p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
     p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別
     p->set(STAT_AttackShotKind, SHOT_SMALL001);  //ショット種別
-    p->set(STAT_RevengeShotKind, SHOT_RV_GENERAL001);  //打ち返し種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
     return p;
 }
 GgafStatus* MyStgUtil::resetEnemyAntiopeStatus(GgafStatus* p) {
@@ -2510,7 +2519,7 @@ GgafStatus* MyStgUtil::resetEnemyAntiopeStatus(GgafStatus* p) {
     p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
     p->set(STAT_FormationDestroyedItemKind, ITEM_NOTHING);  //編隊全滅時アイテム種別
     p->set(STAT_AttackShotKind, SHOT_SMALL001);  //ショット種別
-    p->set(STAT_RevengeShotKind, SHOT_RV_GENERAL001);  //打ち返し種別
+    p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
     return p;
 }
 GgafStatus* MyStgUtil::resetEnemyAdelheidStatus(GgafStatus* p) {
@@ -2522,7 +2531,7 @@ GgafStatus* MyStgUtil::resetEnemyAdelheidStatus(GgafStatus* p) {
     p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
     p->set(STAT_AddRankPoint, 0.10000 );  //破壊時加算ランク
     p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //破壊時加算ランク減少率
-    p->set(STAT_Stamina, 10000 );  //体力
+    p->set(STAT_Stamina, 1000 );  //体力
     p->set(STAT_Attack, 99 );  //攻撃力
     p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
     p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
@@ -2550,7 +2559,7 @@ GgafStatus* MyStgUtil::resetEnemyPalisanaStatus(GgafStatus* p) {
     p->set(STAT_FlushAble, 1 );  //ダメージ時フラッシュ要否
     p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク
     p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //破壊時加算ランク減少率
-    p->set(STAT_Stamina, 10000 );  //体力
+    p->set(STAT_Stamina, 1000 );  //体力
     p->set(STAT_Attack, 99 );  //攻撃力
     p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
     p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率

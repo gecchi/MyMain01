@@ -744,9 +744,7 @@ public:
 
     /**
      * N-Way弾（Rz変化）を複数セット撃つ .
-     * 発射するショットに、次の項目が設定されます。<BR>
-     * ・ショットの _X, _Y, _Z 座標 <BR>
-     * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
+     * prm_RX, prm_RZ, prm_RY = (0,0,0) で、XY平面上にRz変化の N-Way弾 を放ちます。
      * @param prm_X                発射元X座標
      * @param prm_Y                発射元Y座標
      * @param prm_Z                発射元Z座標

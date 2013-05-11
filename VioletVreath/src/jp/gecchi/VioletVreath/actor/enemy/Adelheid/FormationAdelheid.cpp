@@ -35,7 +35,7 @@ FormationAdelheid::FormationAdelheid(const char* prm_name)
 }
 
 void FormationAdelheid::updateRankParameter() {
-    rr_num_formation_     = 30; //RR_FormationAdelheid_Num(_RANK_);            //編隊数
+    rr_num_formation_     = 40; //RR_FormationAdelheid_Num(_RANK_);            //編隊数
     rr_interval_frames_   = 10;
     rr_mv_velo_           = PX_C(8); //RR_FormationAdelheid_MvVelo(_RANK_);         //速度
     mv_velo_member_ = rr_mv_velo_;
@@ -51,6 +51,16 @@ void FormationAdelheid::onActive() {
 }
 
 void FormationAdelheid::processBehavior() {
+    if (pPalisana_start) {
+        if (pPalisana_start->onChangeToInactive()) {
+            pPalisana_start = nullptr;
+        }
+    }
+    if (pPalisana_goal) {
+        if (pPalisana_goal->onChangeToInactive()) {
+            pPalisana_goal = nullptr;
+        }
+    }
 
     switch (_pProg->get()) {
          case PROG_INIT: {
@@ -94,9 +104,15 @@ void FormationAdelheid::processBehavior() {
              if (_pProg->isJustChanged()) {
                  _TRACE_("FormationAdelheid::processBehavior() PROG_ENTRY です");
              }
-             if (pPalisana_start->isOpenDone()) {
-                 //ハッチオープン完了
-                 _pProg->changeNext();
+             if (pPalisana_start) {
+                 if (pPalisana_start->isOpenDone()) {
+                     //ハッチオープン完了
+                     _pProg->changeNext();
+                 }
+             } else {
+                 _TRACE_("FormationAdelheid::processBehavior() PROG_ENTRY pPalisana_startオープン完了前に破壊された！");
+                 callUpMember(0); //招集打ち切り（これにより、本フォーメションオブジェクトは解放体制に入る）
+                 _pProg->changeNothing(); //編隊処理自体終了
              }
              //ハッチオープン中
              break;
@@ -106,21 +122,27 @@ void FormationAdelheid::processBehavior() {
              if (_pProg->isJustChanged()) {
                  _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE1 です");
              }
-             if (canCallUp()) {
-                 if (_pProg->getFrameInProgress() % rr_interval_frames_ == 0) {
-                     //２機目以降
-                     EnemyAdelheid* pAdelheid = (EnemyAdelheid*)callUpMember(rr_num_formation_);
-                     if (pAdelheid) {
-                         SplineKurokoLeader* pKurokoLeader =
-                                 getSplManuf()->createKurokoLeader(pAdelheid->_pKurokoA);
-                         pAdelheid->config(pKurokoLeader, pConnection_ShotDepo_->peek());
-                         pAdelheid->_pKurokoA->setMvVelo(rr_mv_velo_);
-                         onCallUpAdelheid(pAdelheid); //下位フォーメーションクラス個別実装の処理
+             if (pPalisana_start) {
+                 if (canCallUp()) {
+                     if (_pProg->getFrameInProgress() % rr_interval_frames_ == 0) {
+                         //２機目以降
+                         EnemyAdelheid* pAdelheid = (EnemyAdelheid*)callUpMember(rr_num_formation_);
+                         if (pAdelheid) {
+                             SplineKurokoLeader* pKurokoLeader =
+                                     getSplManuf()->createKurokoLeader(pAdelheid->_pKurokoA);
+                             pAdelheid->config(pKurokoLeader, pConnection_ShotDepo_->peek());
+                             pAdelheid->_pKurokoA->setMvVelo(rr_mv_velo_);
+                             onCallUpAdelheid(pAdelheid); //下位フォーメーションクラス個別実装の処理
+                         }
                      }
+                 } else {
+                    pPalisana_start->close_sayonara();
+                    _pProg->changeNext(); //出現終了！
                  }
              } else {
-                pPalisana_start->close_sayonara();
-                _pProg->changeNext(); //出現終了！
+                 _TRACE_("FormationAdelheid::processBehavior() PROG_ENTRY pPalisana_start callUpMember完了前に破壊された！");
+                 callUpMember(0); //招集打ち切り（これにより、本フォーメションオブジェクトは解放体制に入る）
+                 _pProg->changeNext(); //出現終了！
              }
              break;
          }
@@ -174,16 +196,15 @@ void FormationAdelheid::processBehavior() {
              break;
          }
 
-
+//----------------------------------------------
          case PROG_LEAVE: {
              if (_pProg->isJustChanged()) {
                   _TRACE_("FormationAdelheid::processBehavior() PROG_LEAVE です");
+                  if (pPalisana_goal) {
+                      pPalisana_goal->close_sayonara();
+                  }
+             }
 
-                 pPalisana_goal->close_sayonara();
-             }
-             if (_pProg->getFrameInProgress() == 15) {
-                 setHitAble(false);
-             }
              break;
          }
          default:
@@ -192,10 +213,10 @@ void FormationAdelheid::processBehavior() {
 }
 
 void FormationAdelheid::onSayonaraAll() {
-    //余命は FORMATION_END_DELAY フレーム
-    //それ以内に閉じるアニメーションを終わらせましょう
+    //このコールバックが呼び出された時点で、余命は FORMATION_END_DELAY フレームのはず
     _TRACE_("FormationAdelheid::onSayonaraAll() です");
     _pProg->change(PROG_LEAVE);
+    //解放を待つ
 }
 
 void FormationAdelheid::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {

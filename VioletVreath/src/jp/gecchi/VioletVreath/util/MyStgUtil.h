@@ -49,8 +49,8 @@ public:
         SHOT_SMALL001,
         SHOT_SMALL002,
 
-        SHOT_RV_GENERAL001,
-        SHOT_RV_GENERAL002,
+        SHOT_RV_NOMAL001,
+        SHOT_RV_NOMAL002,
         SHOT_RV_GOLDEN_ANG_WAY,
     };
 
