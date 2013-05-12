@@ -61,7 +61,7 @@ void EnemyThisbeLaserChip002::onRefractionFinish(int prm_num_refraction)  {
         //最後のリフレクションだった場合
         _pKurokoA->setMvVelo(0); //ちょっと sayonara() まで待機
     } else {
-        _pKurokoA->setMvVelo(prm_num_refraction);
+        _pKurokoA->setMvVelo(pKurokoLeader_->getSegmentDistance(prm_num_refraction));
     }
 
 
