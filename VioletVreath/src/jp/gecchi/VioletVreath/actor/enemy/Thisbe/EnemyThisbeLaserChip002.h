@@ -5,7 +5,7 @@ namespace VioletVreath {
 class EnemyThisbeLaserChip002 : public GgafLib::RefractionLaserChip {
 
 public:
-    frame end_active_frame_;
+    static frame end_active_frame_;
     GgafLib::SplineManufactureConnection* pSplManufConnection_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     GgafLib::DefaultScene* pNearestScrollingScene_;

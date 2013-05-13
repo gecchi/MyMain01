@@ -7,6 +7,8 @@ using namespace VioletVreath;
 FormationHebe001::FormationHebe001(const char* prm_name) :
         FormationHebe(prm_name, "FormationHebe001") {
     _class_name = "FormationHebe001";
+    //スプライン定義ファイルを読み込む
+    pSplManufConnection_ = connectToSplineManufactureManager("FormationHebe001");
 }
 void FormationHebe001::onCallUpHebe(EnemyHebe* pEnemyHebe) {
 //    pEnemyHebe->pKurokoLeader_->adjustAxisRate(
@@ -24,6 +26,10 @@ void FormationHebe001::onCallUpHebe(EnemyHebe* pEnemyHebe) {
 void FormationHebe001::processBehavior() {
     FormationHebe::processBehavior();
 }
+SplineManufacture* FormationHebe001::getSplManuf() {
+    return pSplManufConnection_->peek();
+}
 
 FormationHebe001::~FormationHebe001() {
+    pSplManufConnection_->close();
 }

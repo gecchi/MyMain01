@@ -16,8 +16,6 @@ public:
     /** ヘーベの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* pConnection_ShotDepo_;
 
-    /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
     /** 編隊数(RANK変動) */
     int rr_num_formation_;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
@@ -48,6 +46,8 @@ public:
     virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
+
+    virtual GgafLib::SplineManufacture* getSplManuf() = 0;
 
     virtual ~FormationHebe();
 };

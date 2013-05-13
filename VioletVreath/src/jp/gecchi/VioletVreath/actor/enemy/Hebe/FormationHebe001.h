@@ -9,7 +9,8 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class FormationHebe001 : public FormationHebe {
-
+    /** スプライン定義資源への接続 */
+    GgafLib::SplineManufactureConnection* pSplManufConnection_;
 public:
 
     FormationHebe001(const char* prm_name);
@@ -17,6 +18,8 @@ public:
     void onCallUpHebe(EnemyHebe* pEnemyHebe) override;
 
     virtual void processBehavior() override;
+
+    GgafLib::SplineManufacture* getSplManuf() override;
 
     virtual ~FormationHebe001();
 };

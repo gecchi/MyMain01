@@ -140,11 +140,11 @@ void EnemyThisbe::processBehavior() {
                         _pSeTx->play3D(SE_FIRE);
                     }
                 } else {
-                    _pProg->change(PROG_CLOSE);
+                    _pProg->changeNext();
                 }
             } else {
                 //ŽØ‚è‚ê‚È‚©‚Á‚½I
-                _pProg->change(PROG_CLOSE);
+                _pProg->changeNext();
             }
             break;
         }

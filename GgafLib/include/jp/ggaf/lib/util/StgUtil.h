@@ -8,6 +8,12 @@
 
 namespace GgafLib {
 
+/**
+ * ユーティリティ .
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
+ */
 class StgUtil: public GgafDxCore::GgafDxUtil {
 public:
     struct Pos {
@@ -678,7 +684,7 @@ public:
      * @param prm_set_num         撃つ弾の合計数
      * @param prm_interval_frames 弾と弾の出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全弾一斉発射。）
      * @param prm_attenuated      初弾以降のショット初期速度・加速度の減衰率(< 1.0)、或いは増幅率(>1.0)
-     * @param pFunc_CallBackDispatched
+     * @param pFunc_CallBackDispatched 弾がデポジトリから dispach() された時に呼び出すコールバック。
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDxCore::GgafDxDrawableActor* shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
@@ -751,7 +757,7 @@ public:
      * @param prm_RX               N Wayの回転角
      * @param prm_RZ               発射方向Rz
      * @param prm_RY               発射方向Ry
-     * @param prm_pDepo_Shot      発射するショットのデポジトリ
+     * @param prm_pDepo_Shot       発射するショットのデポジトリ
      * @param prm_r                発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_way_N            N-Way数（Rz変化）
      * @param prm_angClearance_N   N-Wayの間隔角度
@@ -784,7 +790,7 @@ public:
      * @param prm_RX               N Wayの回転角
      * @param prm_RZ               発射方向Rz
      * @param prm_RY               発射方向Ry
-     * @param prm_pDepo_Shot      発射するショットのデポジトリ
+     * @param prm_pDepo_Shot       発射するショットのデポジトリ
      * @param prm_r                発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_way_N            N-Way数（Rz変化）
      * @param prm_angClearance_N   N-Wayの間隔角度

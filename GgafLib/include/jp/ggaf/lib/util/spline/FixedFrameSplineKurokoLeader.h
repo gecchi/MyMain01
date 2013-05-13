@@ -16,6 +16,7 @@ namespace GgafLib {
 class FixedFrameSplineKurokoLeader : public SplineKurokoLeader {
 
 public:
+    /** [r]スプライン情報セット(splファイルの情報に相当) */
     FixedFrameSplineManufacture* _pFixedFrameSplManuf;
 
     //計算用定数
@@ -53,6 +54,13 @@ public:
      */
     void behave() override;
 
+    /**
+     * 補完点の座標を取得する .
+     * @param prm_point_index 補完点のインデックス (0～)
+     * @param out_X 対応するX座標(戻り値)
+     * @param out_Y 対応するY座標(戻り値)
+     * @param out_Z 対応するZ座標(戻り値)
+     */
     void getPointCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) override;
 
     virtual ~FixedFrameSplineKurokoLeader();

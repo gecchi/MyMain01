@@ -11,8 +11,7 @@ FormationHebe::FormationHebe(const char* prm_name, const char* prm_spl_id)
     pConnection_HebeDepo_ = connectToDepositoryManager("EnemyHebe4Formation");
     setFormationMemberDepo(pConnection_HebeDepo_->peek());
 
-    //スプライン定義ファイルを読み込む
-    pSplManufConnection_ = connectToSplineManufactureManager("FormationHebe001");
+
     //pConnection_ShotDepo_ = connectToDepositoryManager("Shot004"); //Hebeの弾;
     pConnection_ShotDepo_ = nullptr;
     updateRankParameter();
@@ -35,8 +34,7 @@ void FormationHebe::processBehavior() {
     if (canCallUp() && (getActiveFrame() % rr_interval_frames_ == 0)) {
         EnemyHebe* pHebe = (EnemyHebe*)callUpMember(rr_num_formation_);
         if (pHebe) {
-            SplineKurokoLeader* pKurokoLeader = pSplManufConnection_->peek()->
-                                          createKurokoLeader(pHebe->_pKurokoA);
+            SplineKurokoLeader* pKurokoLeader = getSplManuf()->createKurokoLeader(pHebe->_pKurokoA);
             GgafActorDepository* pDepo_Shot = pConnection_ShotDepo_ ? pConnection_ShotDepo_->peek() : nullptr;
             pHebe->config(pKurokoLeader, pDepo_Shot, nullptr);
             pHebe->_pKurokoA->setMvVelo(rr_mv_velo_);
@@ -46,16 +44,11 @@ void FormationHebe::processBehavior() {
 }
 
 void FormationHebe::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    GgafDxGeometricActor* pActor_last_destroyed = (GgafDxGeometricActor*)prm_pActor_last_destroyed;
-    //編隊全滅時エフェクト出現（※ボーナススコア加算も行われる）
-    UTIL::activateFormationDestroyedEffectOf(pActor_last_destroyed);
-    //編隊全滅アイテム出現
-    UTIL::activateFormationDestroyedItemOf(pActor_last_destroyed);
+    UTIL::proceedFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
 }
 
 FormationHebe::~FormationHebe() {
     pConnection_HebeDepo_->close();
-    pSplManufConnection_->close();
     if (pConnection_ShotDepo_) {
         pConnection_ShotDepo_->close();
     }

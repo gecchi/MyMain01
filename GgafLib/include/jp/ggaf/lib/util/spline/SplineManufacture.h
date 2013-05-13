@@ -6,7 +6,7 @@ namespace GgafLib {
  * スプライン曲線移動のための情報セット .
  * 全てのアクターに共通するスプラインの情報はここに集約。<BR>
  * オブジェクトの関係<BR>
- * SplineKurokoLeader     各アクター毎に生成される。
+ * SplineKurokoLeader 各アクター毎に生成される。
  *                    アクターに対する、スプライン曲線上の現在の補完点の位置・時間・距離等の管理を行い、
  *                    黒衣A(KurokoA)に指示を出してアクターを移動させる。
  *                    １つの SplineManufacture オブジェクトに対して N 個の SplineKurokoLeaderオブジェクトが参照している。
@@ -18,12 +18,14 @@ namespace GgafLib {
  *                    拡大縮小により、各補完点毎の距離等の情報を予め計算して保持している。
  *                    拡大縮小率を変更する場合は、このオブジェクトのフィールドも再計算が必要となる。
  *                    １つの SplineSource オブジェクトに対して N 個の SplineSourceオブジェクトが参照している。
+ *                    (※splファイルの情報に相当する。)
  *
  * SplineSource       SplineLine オブジェクトを使いまわすためのSplineLineラッパークラス。
  *                    SplineSource は生成と同時に、引数のファイル名の外部ファイルを読み込み、
- *                    SplineLineを生成し、内部保持する。
+ *                    座標の補完点を計算し、内部保持する。
+ *                    (※datファイルの情報に相当する。)
  *
- * SplineLine           スプライン曲線の座標点セットの情報を保持するオブジェクト。
+ * SplineLine         スプライン曲線の座標点セットの情報を保持するオブジェクト。
  *
  * @version 1.00
  * @since 2011/08/05
@@ -33,8 +35,9 @@ class SplineManufacture : public GgafCore::GgafObject {
 
 public:
     SplineSourceConnection* _pSplSrcCon;
+    /** [r]座標情報(datファイル情報に相当)*/
     SplineSource* _pSplSrc;
-
+    /** [r]スプライン座標情報ファイル名(splファイル) */
     std::string _source_file;
     /** スプライン曲線の補完点生成、保持するクラス */
     SplineLine* _sp;
@@ -52,7 +55,7 @@ public:
 public:
     /**
      * コンストラクタ .
-     * @param prm_source_file スプライン座標情報ファイル
+     * @param prm_source_file スプライン座標情報ファイル(splファイル)
      */
     SplineManufacture(const char* prm_source_file);
 

@@ -66,16 +66,11 @@ void EnemyThisbeLaserChip003::processJudgement() {
 
 void EnemyThisbeLaserChip003::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    //ƒqƒbƒgŽž
-    //‘Ì—ÍŒvŽZ
-    int sta = UTIL::calcEnemyStamina(this, pOther);
-    if (sta <= 0) {
-        //ƒqƒbƒg‚µ‚ÄÁ–ÅŽž
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
         sayonara();
-    } else {
-        //ƒqƒbƒg‚µ‚Ä¶‘¶Žž
     }
 }
+
 void EnemyThisbeLaserChip003::onInactive() {
     WateringLaserChip::onInactive();
 }

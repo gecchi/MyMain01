@@ -4,7 +4,7 @@ namespace VioletVreath {
 
 /**
  * 敵機パリサナ .
- * 破壊不可のハッチ。
+ * Adelheidのハッチ。
  * @version 1.00
  * @since 2014/04/16
  * @author Masatoshi Tsuge

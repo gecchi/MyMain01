@@ -16,6 +16,7 @@ namespace GgafLib {
 class FixedVelocitySplineKurokoLeader : public SplineKurokoLeader {
 
 public:
+    /** [r]スプライン情報セット(splファイルの情報に相当)  */
     FixedVelocitySplineManufacture* _pFixedVeloSplManuf;
 
     /** [r]基準速度で移動した場合のスプライン移動時の経過フレーム数 */
@@ -61,6 +62,14 @@ public:
      * start() を行った最初のbehave()は、『現在の座標→ポイント[0]』への処理となります。<BR>
      */
     void behave() override;
+
+    /**
+     * 補完点の座標を取得する .
+     * @param prm_point_index 補完点のインデックス (0～)
+     * @param out_X 対応するX座標(戻り値)
+     * @param out_Y 対応するY座標(戻り値)
+     * @param out_Z 対応するZ座標(戻り値)
+     */
     void getPointCoord(int prm_point_index, coord& out_X, coord& out_Y, coord& out_Z) override;
 
     virtual ~FixedVelocitySplineKurokoLeader();

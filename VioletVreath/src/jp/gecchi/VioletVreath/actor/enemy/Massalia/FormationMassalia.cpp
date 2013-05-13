@@ -30,6 +30,7 @@ void FormationMassalia::onActive() {
 }
 
 void FormationMassalia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
+    UTIL::proceedFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
 }
 
 void FormationMassalia::processBehavior() {

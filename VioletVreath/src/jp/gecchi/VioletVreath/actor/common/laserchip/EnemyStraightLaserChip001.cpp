@@ -40,14 +40,9 @@ void EnemyStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) 
 
 void EnemyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
-    //・・・ココにヒットされたエフェクト
-    //playSe3D1();
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        //破壊された場合
-        //・・・ココに破壊されたエフェクト
         sayonara();
     }
-
 }
 
 

@@ -39,11 +39,7 @@ void FormationIris001::processBehavior() {
 }
 
 void FormationIris001::onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) {
-    GgafDxGeometricActor* pActor_last_destroyed = (GgafDxGeometricActor*)prm_pActor_last_destroyed;
-    //編隊全滅時エフェクト出現（※ボーナススコア加算も行われる）
-    UTIL::activateFormationDestroyedEffectOf(pActor_last_destroyed);
-    //編隊全滅アイテム出現
-    UTIL::activateFormationDestroyedItemOf(pActor_last_destroyed);
+    UTIL::proceedFormationDestroyAll((GgafDxDrawableActor*)prm_pActor_last_destroyed);
 }
 
 FormationIris001::~FormationIris001() {

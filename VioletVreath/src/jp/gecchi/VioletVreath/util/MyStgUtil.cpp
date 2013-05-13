@@ -452,8 +452,7 @@ GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_
 }
 
 GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometricActor* prm_pActor) {
-    int addscore = prm_pActor->_pStatus->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点加算
-    _SCORE_ += addscore;
+
     GgafDxDrawableActor* pE = nullptr;
     switch (prm_pActor->_pStatus->get(STAT_FormationDestroyedEffectKind)) {
         case 0: {
@@ -465,6 +464,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
             SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
             pLabel->locateAs(prm_pActor);
             pLabel->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+            int addscore = prm_pActor->_pStatus->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点
             std::string s = XTOS(addscore);
             pLabel->update(s.c_str());
             pE = pLabel;
@@ -584,8 +584,17 @@ bool MyStgUtil::proceedEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricAc
         UTIL::activateDamagedEffectOf(prm_this); //ダメージエフェクト
         return false;
     }
-
 }
+
+void MyStgUtil::proceedFormationDestroyAll(GgafDxDrawableActor* prm_pActor_last_destroyed) {
+    //編隊全滅時ボーナス加算
+    _SCORE_ += prm_pActor_last_destroyed->_pStatus->get(STAT_FormationDestroyedAddScorePoint);
+    //編隊全滅時エフェクト出現
+    UTIL::activateFormationDestroyedEffectOf(prm_pActor_last_destroyed);
+    //編隊全滅アイテム出現
+    UTIL::activateFormationDestroyedItemOf(prm_pActor_last_destroyed);
+}
+
 
 // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
 // コード変更は「ステータスCreater.xls」から行うこと。
