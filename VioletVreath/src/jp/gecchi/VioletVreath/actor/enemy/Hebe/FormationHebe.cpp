@@ -9,7 +9,7 @@ FormationHebe::FormationHebe(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationHebe";
 
     pConnection_HebeDepo_ = connectToDepositoryManager("EnemyHebe4Formation");
-    setFormationMemberDepo(pConnection_HebeDepo_->peek());
+    setFormationMember(pConnection_HebeDepo_->peek());
 
 
     //pConnection_ShotDepo_ = connectToDepositoryManager("Shot004"); //Hebe‚Ì’e;

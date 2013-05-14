@@ -20,9 +20,24 @@ public:
     };
 
     enum {
+        PROG2_WAIT,
+        PROG2_OPEN,
+        PROG2_SHOT,
+        PROG2_CLOSE,
+    };
+
+
+    enum {
+        MPH_CLOSE,
+        MPH_OPEN,
+    };
+
+    enum {
         SE_DAMAGED  ,
         SE_EXPLOSION,
     };
+
+    GgafCore::GgafProgress* pProg2_;
 
     /** 移動スプラインのシークエンスプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
@@ -40,6 +55,8 @@ public:
 
     void onCreateModel() override;
 
+
+    void nextFrame() override;
     /**
      * アーデルハイドの初期処理（インスタンス生成後保証）
      */
@@ -81,6 +98,7 @@ public:
             GgafCore::GgafActorDepository* prm_pDepo_Shot
             );
 
+    void open_shot();
 
     virtual ~EnemyAdelheid();
 };

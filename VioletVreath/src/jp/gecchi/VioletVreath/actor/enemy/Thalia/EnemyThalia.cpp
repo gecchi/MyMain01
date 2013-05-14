@@ -135,14 +135,17 @@ void EnemyThalia::processJudgement() {
 }
 
 void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
-    if (was_destroyed) {
-        //”j‰óŽž
-        _pSeTx->play3D(SE_EXPLOSION);
-    } else {
-        //”ñ”j‰óŽž
-        _pSeTx->play3D(SE_DAMAGED);
+    if (_pProg->get() == PROG_MOVE) {
+        bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
+        if (was_destroyed) {
+            //”j‰óŽž
+            _pSeTx->play3D(SE_EXPLOSION);
+        } else {
+            //”ñ”j‰óŽž
+            _pSeTx->play3D(SE_DAMAGED);
+        }
     }
+
 }
 
 void EnemyThalia::onInactive() {

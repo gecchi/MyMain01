@@ -24,7 +24,7 @@ FormationAdelheid::FormationAdelheid(const char* prm_name)
 
     //編隊隊員デポジトリセット
     pConnection_AdelheidDepo_ = connectToDepositoryManager("EnemyAdelheid4Formation");
-    setFormationMemberDepo(pConnection_AdelheidDepo_->peek());
+    setFormationMember(pConnection_AdelheidDepo_->peek());
 
     pConnection_ShotDepo_ = connectToDepositoryManager("EnemyAdelheidShot");
 
@@ -35,9 +35,9 @@ FormationAdelheid::FormationAdelheid(const char* prm_name)
 }
 
 void FormationAdelheid::updateRankParameter() {
-    rr_num_formation_     = 40; //RR_FormationAdelheid_Num(_RANK_);            //編隊数
-    rr_interval_frames_   = 10;
-    rr_mv_velo_           = PX_C(8); //RR_FormationAdelheid_MvVelo(_RANK_);         //速度
+    rr_num_formation_     = 21;  //調査 20 で両方開くが、21で一つしかひらかないのは何故。  //RR_FormationAdelheid_Num(_RANK_);            //編隊数
+    rr_interval_frames_   = 25;
+    rr_mv_velo_           = PX_C(40); //RR_FormationAdelheid_MvVelo(_RANK_);         //速度
     mv_velo_member_ = rr_mv_velo_;
 }
 
@@ -51,11 +51,13 @@ void FormationAdelheid::onActive() {
 }
 
 void FormationAdelheid::processBehavior() {
+    //pPalisana_start が破壊されているかチェック
     if (pPalisana_start) {
         if (pPalisana_start->onChangeToInactive()) {
             pPalisana_start = nullptr;
         }
     }
+    //pPalisana_goal が破壊されているかチェック
     if (pPalisana_goal) {
         if (pPalisana_goal->onChangeToInactive()) {
             pPalisana_goal = nullptr;
@@ -90,9 +92,11 @@ void FormationAdelheid::processBehavior() {
                                                     end_prev_X, end_prev_Y, end_prev_Z);  //最終-1 補完点座標
              pPalisana_goal->locate(end_X, end_Y, end_Z);
              pPalisana_goal->_pKurokoA->setFaceAngTwd(end_prev_X, end_prev_Y, end_prev_Z);
-             pPalisana_goal->acitve_open(
-                               (frame)(pDummy_->pKurokoLeader_->getTotalDistance() / rr_mv_velo_ /2)
-                             ); //遅れてハッチオープン
+             //pPalisana_goal->acitve_open(
+             //                  (frame)(pDummy_->pKurokoLeader_->getTotalDistance() / rr_mv_velo_)
+             //                ); //遅れてハッチオープン
+
+             pPalisana_goal->acitve_open();
 
              pDummy_->sayonara(); //ありがとうダミー
              _pProg->changeNext();
@@ -153,11 +157,11 @@ void FormationAdelheid::processBehavior() {
                  _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE2 です");
              }
 
-             if (mv_velo_member_ < -(rr_mv_velo_/4) ) {
-                 mv_velo_member_ = -(rr_mv_velo_/4);
+             if (mv_velo_member_ < -(rr_mv_velo_/8) ) {
+                 mv_velo_member_ = -(rr_mv_velo_/8);
                  _pProg->changeNext(); //減速終了！
              } else {
-                 mv_velo_member_ -= 200;
+                 mv_velo_member_ -= 2000;
              }
              break;
          }
@@ -166,9 +170,17 @@ void FormationAdelheid::processBehavior() {
          case PROG_FROMATION_MOVE3: {
              if (_pProg->isJustChanged()) {
                  _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE3 です");
+
+                 GgafActor* pFollower = _listFollower.getCurrent();
+                 int num_follwer = _listFollower.length();
+                 for (int i = 0; i < num_follwer; i++) {
+                     ((EnemyAdelheid*)pFollower)->open_shot();
+                     pFollower = _listFollower.next();
+                 }
+
              }
 
-             if (_pProg->getFrameInProgress() == 300) {
+             if (_pProg->getFrameInProgress() == 360) {
                  _pProg->changeNext(); //停滞終了！
              }
              break;
@@ -183,7 +195,7 @@ void FormationAdelheid::processBehavior() {
                  mv_velo_member_ = rr_mv_velo_;
                  _pProg->changeNext(); //再始動終了！
              } else {
-                 mv_velo_member_ += 100;
+                 mv_velo_member_ += 500;
              }
              break;
          }

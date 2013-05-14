@@ -106,7 +106,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() BeginPass(0) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 #ifdef MY_DEBUG
-            if (pMeshEffect->_begin == true) {
+            if (pMeshEffect->_begin) {
                 throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pMeshEffect->_begin = true;

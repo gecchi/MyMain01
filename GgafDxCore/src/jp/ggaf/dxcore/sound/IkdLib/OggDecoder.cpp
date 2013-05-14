@@ -58,7 +58,7 @@ bool OggDecoder::getSegment(char* prm_buffer, unsigned int prm_size, unsigned in
         readSize = ov_read(&ovf, (char*) (prm_buffer + comSize ), requestSize, 0, 2, 1, &bitstream );
         if(readSize == 0 ) {
             // ファイルエンドに達した
-            if (isLooping() == true ) {
+            if (isLooping()) {
                 // ループする場合読み込み位置を最初に戻す
                 ov_time_seek( &ovf, 0.0 );
             } else {
@@ -97,7 +97,7 @@ bool OggDecoder::getSegment(char* prm_buffer, unsigned int prm_size, unsigned in
 }
 
 void OggDecoder::setHead() {
-    if (isReady() == true) {
+    if (isReady()) {
         ov_time_seek(&_pOggVorbisResource->getOggVorbisFile(), 0.0);
     }
 }

@@ -246,7 +246,7 @@ void PCMPlayer::streamThread(void* playerPtr) {
                     }
 
                     // 最終書き込みの場合は終了位置を特定
-                    if (isEnd == true && waitFinish == false) {
+                    if (isEnd && waitFinish == false) {
                         finishPos = writeSize;
                         player->_pDSBuffer->GetCurrentPosition(&prePlayPos, 0);
                         waitFinish = true;
@@ -260,7 +260,7 @@ void PCMPlayer::streamThread(void* playerPtr) {
                     }
 
                     // 最終書き込みの場合はNorifyを設定
-                    if (isEnd == true && waitFinish == false) {
+                    if (isEnd && waitFinish == false) {
                         finishPos = size + writeSize;
                         player->_pDSBuffer->GetCurrentPosition(&prePlayPos, 0);
                         waitFinish = true;
@@ -284,7 +284,7 @@ void PCMPlayer::streamThread(void* playerPtr) {
      ___EndSynchronized2;
 
         // 終了位置判定チェック
-        if (isEnd == true) {
+        if (isEnd) {
             DWORD curPlayPos;
             player->_pDSBuffer->GetCurrentPosition(&curPlayPos, 0);
             if (curPlayPos < prePlayPos) {
@@ -358,14 +358,14 @@ void PCMPlayer::stop() {
 
 //! 音量を変える
 void PCMPlayer::setVolume(int volume) {
-    if (isReady() == true) {
+    if (isReady()) {
         _pDSBuffer->SetVolume(volume);
     }
 }
 
 //! パンの位置を変える
 void PCMPlayer::setPan(int pan) {
-    if (isReady() == true) {
+    if (isReady()) {
         _pDSBuffer->SetPan(pan);
     }
 }

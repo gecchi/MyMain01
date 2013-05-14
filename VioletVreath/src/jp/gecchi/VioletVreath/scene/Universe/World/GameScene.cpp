@@ -167,7 +167,7 @@ void GameScene::processBehavior() {
 
             //今ポーズではない時
             if (!_pProg->getGazedScene()->wasPaused()) {
-                if (was_paused_flg_GameMainScene_prev_frame_ == true)  {
+                if (was_paused_flg_GameMainScene_prev_frame_)  {
                     //現フレームポーズではない、かつ前フレームポーズの場合。
                     //ポーズ解除から最初のフレーム処理はココへ
                     P_UNIVERSE->undoCameraWork();

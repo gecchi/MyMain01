@@ -136,7 +136,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
             checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() BeginPass("<<_morph_target_num<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 #ifdef MY_DEBUG
-            if (pMorphMeshEffect->_begin == true) {
+            if (pMorphMeshEffect->_begin) {
                 throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pMorphMeshEffect->_begin = true;

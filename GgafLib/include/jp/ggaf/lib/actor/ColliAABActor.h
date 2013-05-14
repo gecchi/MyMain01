@@ -1,5 +1,5 @@
-#ifndef COLLIAABACTER_H_
-#define COLLIAABACTER_H_
+#ifndef COLLIAABACTOR_H_
+#define COLLIAABACTOR_H_
 namespace GgafLib {
 
 /**
@@ -48,4 +48,4 @@ public:
 };
 
 }
-#endif /*COLLIAABACTER_H_*/
+#endif /*COLLIAABACTOR_H_*/

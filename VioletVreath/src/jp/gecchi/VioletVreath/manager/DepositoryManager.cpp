@@ -162,7 +162,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
 //        if (prm_p) {
-//            ((FormationActor*)prm_p)->setFormationMemberDepo()
+//            ((FormationActor*)prm_p)->setFormationMember()
 //        } else {
 //            throwGgafCriticalException("DepositoryManager::processCreateResource("<<prm_idstr<<") Formation‚ðŽw’è‚µ‚Ä‰º‚³‚¢");
 //        }
@@ -327,7 +327,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
     if (UTIL::strcmp_ascii("EnemyAdelheid4Formation", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Depo_AdelheidStock");
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 25; i++) {
             std::string name = "EnemyAdelheid("+XTOS(i)+")";
             pResource->addSubLast(NEW EnemyAdelheid(name.c_str()));
             Sleep(1);
@@ -336,7 +336,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
     if (UTIL::strcmp_ascii("EnemyAdelheidShot", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_AdelheidShotStock");
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 300; i++) {
             pResource->addSubLast(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
         }

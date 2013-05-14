@@ -7,22 +7,14 @@ namespace GgafCore {
  * デポジトリ管理のフォーメーション管理ークラス .
  * 編隊メンバーは使い回すフォーメーション。
  * 使用する場合は、本クラスを継承し、
- * setFormationMemberDepo(GgafActorDepository*) により
+ * setFormationMember(GgafActorDepository*) により
  * 編隊メンバー所属のデポジトリオブジェクトを登録してください。
- * processJudgement()を実装済み
+ * processFinal() を実装済みですので、オーバーライドする場合は注意して下さい。
  * @version 1.00
  * @since 2008/08/08
  * @author Masatoshi Tsuge
  */
 class GgafDepositoryFormation : public GgafFormation {
-private:
-//    /**
-//     * 使用不可 .
-//     * @param prm_pSub
-//     */
-//    virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override {
-//        throwGgafCriticalException("GgafDepositoryFormation::addSubLast() は使用不可です。");
-//    }
 
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
@@ -44,17 +36,12 @@ public:
     GgafDepositoryFormation(const char* prm_name, frame prm_offset_frames_end);
 
     /**
-     * デポジトリモードにする。
-     * GgafFormation は２つのフォーメーション管理モードが存在する。
-     * 構成メンバーを、配下アクターにするか、デポジトリに置くかで管理モードが決定する。
-     * 本メソッドを実行し、構成メンバーの入ったデポジトリを設定した場合、
-     * 本フォーメーションオブジェクトはデポジトリモードになる。
-     * デポジトリモードでは、addSubLast は不要。
-     * メンバーを活動させるには、専用メソッド callUpMember() を使用する必要がある。
+     * 編隊構成メンバーがストックされたデポジトリを設定する .
+     * メンバーを活動させるには、専用メソッド callUpMember() を使用する。
      * メンバーを活動終了時は、sayonara() を使用。
      * @param prm_pDepo
      */
-    void setFormationMemberDepo(GgafCore::GgafActorDepository* prm_pDepo);
+    void setFormationMember(GgafCore::GgafActorDepository* prm_pDepo);
 
     /**
      * サブが無ければ本オブジェクト解放という処理 .
@@ -72,7 +59,7 @@ public:
 
     /**
      * デポジトリからアクターを本フォーメーションメンバーとして設定し取得する（招集する） .
-     * setFormationMemberDepository() の事前実行が必要。<BR>
+     * setFormationMembersitory() の事前実行が必要。<BR>
      * 本メソッドを呼び出すと、デポジトリに管理されたメンバーが一つ dispatch() されます。(同時に activate() もされる)
      * デポジトリのメンバーがすべて活動中で、枯渇している場合 nullptr が返ります。<BR>
      * また、引数の prm_formation_sub_num は最大編隊構成要員数で、この数以上の呼び出しでも nullptr が返ります。<BR>
@@ -109,6 +96,10 @@ public:
      */
     virtual void sayonaraFollwer();
 
+    /**
+     * 編隊に所属したアクターが全てさよなら(sayonara()が呼び出された)した場合コールバックされるメソッド .
+     * 必要に応じて下位でオーバーライドし実装して下さい。
+     */
     virtual void onSayonaraAll() override {
     }
 

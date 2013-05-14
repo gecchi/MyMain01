@@ -1384,7 +1384,7 @@ void GgafDxGod::presentUniversalVisualize() {
     //            }
     //        }
     HRESULT hr;
-    if (_is_device_lost_flg != true) {
+    if (_is_device_lost_flg == false) {
         if (_adjustGameScreen && _pHWnd_adjustScreen) {
             adjustGameScreen(_pHWndPrimary);
             adjustGameScreen(_pHWndSecondary);

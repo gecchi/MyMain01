@@ -80,7 +80,7 @@ HRESULT GgafDxWorldBoundModel::draw(GgafDxDrawableActor* prm_pActor_Target, int 
             checkDxException(hr, D3D_OK, "GgafDxWorldBoundModel::draw() BeginPass("<<_morph_target_num<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 #ifdef MY_DEBUG
-            if (pWorldBoundEffect->_begin == true) {
+            if (pWorldBoundEffect->_begin) {
                 throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pWorldBoundEffect->_begin = true;

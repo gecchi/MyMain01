@@ -137,7 +137,6 @@ progress GgafProgress::getToProgWhenWillChange() {
     }
 }
 
-
 void GgafProgress::update() {
     //êiíªÇîΩâfÇ∑ÇÈ
     if (_progress != _progress_next) {
@@ -145,7 +144,6 @@ void GgafProgress::update() {
     }
     _progress_prev = _progress;
     _progress = _progress_next;
-
 }
 
 GgafProgress::~GgafProgress() {

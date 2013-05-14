@@ -127,6 +127,13 @@ public:
             return false;
         }
     }
+    /**
+     * 現在の進捗番号がPROGRESS_NOTHINGが否か調べる。 .
+     * @return
+     */
+    inline bool isNothing() {
+        return _progress == PROGRESS_NOTHING ? true : false;
+    }
 
     /**
      * 引数の進捗番号に切り替わった直後なのかどうか調べる。.

@@ -13,7 +13,7 @@ FormationMassalia::FormationMassalia(const char* prm_name)
     pDepoConnection_Fragment_3_ = connectToDepositoryManager("MassaliaFragment3");
 
 
-    setFormationMemberDepo(pDepoConnection_Massalia_->peek());
+    setFormationMember(pDepoConnection_Massalia_->peek());
 }
 
 void FormationMassalia::updateRankParameter() {

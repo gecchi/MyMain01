@@ -9,30 +9,34 @@ GgafDepositoryFormation::GgafDepositoryFormation(const char* prm_name, frame prm
     _can_call_up = true;
     _was_all_destroyed = false;
 }
-void GgafDepositoryFormation::setFormationMemberDepo(GgafActorDepository* prm_pDepo) {
+void GgafDepositoryFormation::setFormationMember(GgafActorDepository* prm_pDepo) {
 #ifdef MY_DEBUG
     if (_pDepo) {
-        throwGgafCriticalException("GgafDepositoryFormation::setFormationMemberDepo 既にデポジトリは登録済みです。\n"<<
-                                   "this="<<getName()<<" prm_pDepo="<<prm_pDepo);
+        throwGgafCriticalException("GgafDepositoryFormation::setFormationMember 既にデポジトリは登録済み("<<_pDepo->getName()<<")です。\n"<<
+                                   "this="<<this<<"("<<getName()<<") prm_pDepo="<<prm_pDepo);
     }
-    if (prm_pDepo && prm_pDepo->_pSubFirst) {
+    if (prm_pDepo) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDepositoryFormation::setFormationMemberDepo 不正なデポジトリです。\n"<<
-                                   "this="<<getName()<<" prm_pDepo="<<prm_pDepo);
-
+        throwGgafCriticalException("GgafDepositoryFormation::setFormationMember 不正なデポジトリです。\n"<<
+                                   "this="<<this<<"("<<getName()<<") prm_pDepo="<<prm_pDepo);
+    }
+    if (prm_pDepo->getSubFirst()) {
+        //OK
+    } else {
+        throwGgafCriticalException("GgafDepositoryFormation::setFormationMember("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません。\n"<<
+                                   "this="<<this<<"("<<getName()<<") prm_pDepo="<<prm_pDepo);
+    }
+    if (prm_pDepo->getPlatformScene()) {
+        //OK
+    } else {
+        throwGgafCriticalException("GgafDepositoryFormation::setFormationMember("<<prm_pDepo->getName()<<") 引数デポジトリがシーンに未所属です。\n"<<
+                                   "this="<<this<<"("<<getName()<<") prm_pDepo="<<prm_pDepo);
     }
 #endif
     _pDepo = prm_pDepo;
     //団長に種別を正しく伝えるためにデポジトリ種別引継ぎ
     _pStatus->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
-#ifdef MY_DEBUG
-    if (_pDepo->getSubFirst()) {
-
-    } else {
-        throwGgafCriticalException("GgafDepositoryFormation::setFormationMemberDepo("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません this="<<getName());
-    }
-#endif
 }
 
 void GgafDepositoryFormation::processFinal() {
@@ -84,7 +88,7 @@ GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
     }
 #ifdef MY_DEBUG
     if (!_pDepo) {
-        throwGgafCriticalException("GgafDepositoryFormation::callUpUntil "<<getName()<<"は、Depositoryが指定されてません。setFormationMemberDepoが必要です。"<<
+        throwGgafCriticalException("GgafDepositoryFormation::callUpUntil "<<getName()<<"は、Depositoryが指定されてません。setFormationMemberが必要です。"<<
                                    "this="<<getName()<<" _num_formation_member="<<_num_formation_member);
     }
 #endif

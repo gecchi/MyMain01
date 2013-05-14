@@ -86,7 +86,7 @@ public:
         if (_pSubFirst == nullptr) {
             throwGgafCriticalException("GgafActorDepository::dispatch() this="<<getName()<<"("<<this<<") の子がありません");
         }
-        if (_is_active_flg == true || (_will_activate_after_flg == true && _frame_of_life+1 == _frame_of_life_when_activation)) {
+        if (_is_active_flg || (_will_activate_after_flg && _frame_of_life+1 == _frame_of_life_when_activation)) {
             //活動フラグが立っている→問題無し
             //あるいは、次フレームで活動フラグが立つ予定→デポジトリを作った直後の同一フレーム内処理のため許可
         } else {

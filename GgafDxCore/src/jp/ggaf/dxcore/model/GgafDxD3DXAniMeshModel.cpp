@@ -85,7 +85,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
             checkDxException(hr, D3D_OK, "["<<i<<"],GgafDxD3DXAniMeshModel::draw() BeginPass(0) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 #ifdef MY_DEBUG
-            if (pD3DXAniMeshEffect->_begin == true) {
+            if (pD3DXAniMeshEffect->_begin) {
                 throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pD3DXAniMeshEffect->_begin = true;

@@ -77,7 +77,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_
         checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() BeginPass(0) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 #ifdef MY_DEBUG
-        if (pSpriteEffect->_begin == true) {
+        if (pSpriteEffect->_begin) {
             throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
         } else {
             pSpriteEffect->_begin = true;

@@ -161,8 +161,8 @@ public:
      * morphLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（加速度だからできない）。
      * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
-     * @param prm_velo_weight 初期重み速度
-     * @param prm_acce_weight 重み加速度
+     * @param prm_velo_weight 初期重み速度（正負を意識してください）
+     * @param prm_acce_weight 重み加速度（正負を意識してください）
      */
     void morphAcceStep(int prm_target_mesh_no, float prm_target_weight, float prm_velo_weight, float prm_acce_weight);
 

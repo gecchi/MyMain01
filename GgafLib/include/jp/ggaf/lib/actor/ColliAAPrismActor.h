@@ -49,4 +49,4 @@ public:
 };
 
 }
-#endif /*COLLIAABACTER_H_*/
+#endif /*COLLIAAPRISMACTOR_H_*/

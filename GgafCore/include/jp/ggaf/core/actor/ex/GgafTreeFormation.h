@@ -6,9 +6,9 @@ namespace GgafCore {
 /**
  * 配下ツリー管理のフォーメーション管理クラス .
  * 編隊メンバーは使い捨てのフォーメーション。
- * 使用する場合は、本クラスを継承し、addSubLast(GgafActor*) により
+ * 使用する場合は、本クラスを継承し、addFormationMember(GgafActor*) により
  * 編隊メンバーを追加していってください。
- * processJudgement()を実装済み。
+ * processFinal()を実装済みですので、オーバーライドする場合は注意して下さい。
  * @version 1.00
  * @since 2008/08/08
  * @author Masatoshi Tsuge
@@ -56,15 +56,12 @@ public:
 
     /**
      * 編隊のメンバーを登録します.
-     * GgafFormation は２つのフォーメーション管理モードが存在する。
-     * 構成メンバーを、配下アクターにするか、デポジトリに置くかで管理モードが決定する。
-     * 本メソッドを実行し、編隊構成メンバーを配下アクターに設定した場合、
-     * 本フォーメーションオブジェクトは配下管理モードになる。このモードの編隊メンバーは使い捨てである。
-     * 配下管理モードは、構成メンバーをこのメソッドにより初期登録しておく必要がある。
-     * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をaddFormationMember してください。
-     * 自動で inactivateImmed() がじっこうされるので、
-     * 構成メンバーを活動させるには、通常通り activate() を使用。
-     * 構成メンバーを活動終了時は、sayonara() を使用。解放対象になります。
+     * 編隊を構成するために、本メソッドを実行し、メンバーを予め配下アクターに設定する必要がある。<BR>
+     * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をaddFormationMember する必要がある。<BR>
+     * 内部で自動で inactivateImmed() が実行され、最初は待機状態となる。<BR>
+     * 構成メンバーを活動させるには、callUpMember() を使用。<BR>
+     * 構成メンバーを活動終了時は、sayonara() を使用。解放対象になる。<BR>
+     * 編隊メンバーは使い捨てである。<BR>
      * @param prm_pSub 編隊のメンバーのアクター
      */
     virtual void addFormationMember(GgafCore::GgafActor* prm_pSub);
@@ -72,14 +69,14 @@ public:
     /**
      * 登録した編隊のメンバーを順番に取得します.
      * addSubLast(GgafCore::GgafActor*) により、登録した編隊メンバーを順番に取り出します。
-     * nullptr が帰ってきた場合は、１順終了です。
-     * @return
+     * 全て編隊メンバーを取得してしまった場合、nullptr を返します。
+     * @return 未活動の編隊登録メンバー。又は nullptr、未活動の編隊登録メンバーはもう無い。
      */
     GgafActor* callUpMember();
 
     /**
      * callUpMember() 可能な場合 true
-     * @return
+     * @return true:未活動の編隊登録メンバーが未だ存在/false:もう存在しない。
      */
     inline bool canCallUp() {
         return _can_call_up;
@@ -92,6 +89,10 @@ public:
      */
     virtual void onEnd() override;
 
+    /**
+     * 編隊に所属したアクターが全てさよなら(sayonara()が呼び出された)した場合コールバックされるメソッド .
+     * 必要に応じて下位でオーバーライドし実装して下さい。
+     */
     virtual void onSayonaraAll() override {
     }
 

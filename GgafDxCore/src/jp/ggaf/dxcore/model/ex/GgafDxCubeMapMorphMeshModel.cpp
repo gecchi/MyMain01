@@ -93,7 +93,7 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target
             hr = pID3DXEffect->BeginPass(_morph_target_num);
             checkDxException(hr, D3D_OK, "GgafDxCubeMapMorphMeshModel::draw() BeginPass("<<_morph_target_num<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 #ifdef MY_DEBUG
-            if (pCubeMapMorphMeshEffect->_begin == true) {
+            if (pCubeMapMorphMeshEffect->_begin) {
                 throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDxEffectManager::_pEffect_Active==nullptr?"nullptr":GgafDxEffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pCubeMapMorphMeshEffect->_begin = true;

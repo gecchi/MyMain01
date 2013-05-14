@@ -876,6 +876,7 @@ public:
      */
     virtual void executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
 
+
     /**
      * 進捗管理オブジェクト(GgafProgress) が管理する進捗の場合数を設定する。
      * 本メソッド実行後、_pProg メンバーが使用可能になる。
@@ -890,6 +891,10 @@ public:
                 throwGgafCriticalException("useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。ダメじゃないのか？！。\n以前の進捗の場合の数="<<_pProg->_num_progress<<"。今回引数 prm_num="<<prm_num);
             }
         }
+    }
+
+    virtual GgafProgress* createProgress(int prm_num = 10) {
+        return NEW GgafProgress(&_frame_of_behaving, prm_num);
     }
 
     /**

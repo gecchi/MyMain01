@@ -10,7 +10,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
 
     //エウノミア編隊用デポジトリ
     pDepoConnection_Eunomia_ = connectToDepositoryManager("EnemyEunomia4Formation");
-    setFormationMemberDepo(pDepoConnection_Eunomia_->peek());
+    setFormationMember(pDepoConnection_Eunomia_->peek());
 
     //スプライン定義ファイルを読み込む
     papSplManufConnection_ = NEW SplineManufactureConnection*[7];
