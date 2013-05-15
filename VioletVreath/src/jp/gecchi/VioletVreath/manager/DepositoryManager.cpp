@@ -327,7 +327,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
     if (UTIL::strcmp_ascii("EnemyAdelheid4Formation", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Depo_AdelheidStock");
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 300; i++) {
             std::string name = "EnemyAdelheid("+XTOS(i)+")";
             pResource->addSubLast(NEW EnemyAdelheid(name.c_str()));
             Sleep(1);
@@ -336,7 +336,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
     if (UTIL::strcmp_ascii("EnemyAdelheidShot", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_AdelheidShotStock");
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 400; i++) {
             pResource->addSubLast(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
         }

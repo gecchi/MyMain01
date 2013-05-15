@@ -40,49 +40,50 @@ void GgafDepositoryFormation::setFormationMember(GgafActorDepository* prm_pDepo)
 }
 
 void GgafDepositoryFormation::processFinal() {
-    if (_was_all_sayonara || wasDeclaredEnd() || _will_inactivate_after_flg) {
-        //終了を待つのみ
-        return;
-    }
-
-    if (_listFollower.length() == 0) {
-        if (_can_call_up) {
-            //編隊メンバーが0だが、まだ callUp の最中。
-            return;
-        } else {
-            //編隊メンバーが0かつ、
-            //もうこれ以上 callUp 不可は、
-            //編隊自体がさよなら
-            onSayonaraAll(); //コールバック
-            sayonara(_offset_frames_end);
-            _was_all_sayonara = true;
-        }
-    } else {
+//    _TRACE_("processFinal() "<<getActiveFrame()<<":before----->");
+//    for (int i = 0; i < _listFollower.length(); i++) {
+//        _TRACE_("processFinal() _listFollower["<<i<<"]="<<_listFollower.getFromFirst(i)->getName()<<"("<<_listFollower.getFromFirst(i)<<")");
+//    }
+//    _TRACE_("processFinal() "<<getActiveFrame()<<"<-----");
+    if (_listFollower.length() > 0) {
         //編隊メンバー状況チェック
-        GgafActor* pFollower = _listFollower.getCurrent();
-        for (int i = 0; i < _listFollower.length(); i++) {
+        GgafActor* pFollower;
+        for (int i = 0; i < _listFollower.length(); i++) { //
+            pFollower = _listFollower.getCurrent();
             if (_can_live_flg) {
                 if (pFollower->_is_active_flg) {
-                    pFollower = _listFollower.next();
+                    _listFollower.next();
                 } else if (pFollower->_will_activate_after_flg && (pFollower->_frame_of_life <= pFollower->_frame_of_life_when_activation)) {
                     //未来に活動予定でも残す
-                    pFollower = _listFollower.next();
+                    _listFollower.next();
                 } else {
                     //編隊メンバーから外す
-//					_TRACE_("今メンバー数"<<_listFollower.length()<<" そしてこれから"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(X)");
+//                    _TRACE_("i="<<i<<" 今メンバー数"<<_listFollower.length()<<" そしてこれから"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(X)");
+                    _listFollower.getCurrent()->_pFormation = nullptr;
                     _listFollower.remove(); //remove() 時、新たなカレント要素は next の要素になる。
                 }
             } else {
                 //編隊メンバーから外す
-//                 _TRACE_("今メンバー数"<<_listFollower.length()<<" そして"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(A)");
+//                 _TRACE_("i="<<i<<" 今メンバー数"<<_listFollower.length()<<" そして"<<_listFollower.getCurrent()->getName()<<"をメンバーから外します！(A)");
+                _listFollower.getCurrent()->_pFormation = nullptr;
                 _listFollower.remove();//remove() 時、新たなカレント要素は next の要素になる。
             }
+        }
+    }
+
+    if (_listFollower.length() == 0) {
+        if (_can_call_up == false && _was_all_sayonara == false) {
+            //編隊メンバーが0かつ、
+            //もうこれ以上 callUp 不可で、onSayonaraAll()コールバック未実行の場合
+            onSayonaraAll(); //コールバック
+            sayonara(_offset_frames_end); //編隊自体がさよなら。
+            _was_all_sayonara = true;
         }
     }
 }
 
 GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
-    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+    if (_can_call_up == false || wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
         return nullptr;
     }
@@ -92,6 +93,7 @@ GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
                                    "this="<<getName()<<" _num_formation_member="<<_num_formation_member);
     }
 #endif
+
     if (prm_formation_sub_num <= _num_formation_member) {
         _can_call_up = false;
         return nullptr; //もうこれ以上callUpUntil不可
@@ -124,9 +126,14 @@ void GgafDepositoryFormation::sayonaraFollwer() {
     }
     while (_listFollower.length() > 0) {
         GgafActor* pFollower =  _listFollower.getCurrent();
-        if (pFollower->_pFormation == this) {
-            _TRACE_("GgafDepositoryFormation::sayonaraFollwer _listFollowerの"<<_listFollower.getCurrent()->getName()<<"をsayonaraします。");
+        if (_listFollower.getCurrent()->_pFormation == this) {
             _listFollower.getCurrent()->sayonara();
+            _listFollower.getCurrent()->_pFormation = nullptr;
+        } else {
+            throwGgafCriticalException("GgafDepositoryFormation::sayonaraFollwer() _listFollowerに自身のformation管理ではないメンバーがいました！\n"<<
+                                       " this="<<getName()<<"("<<this<<") \n"<<
+                                       " _listFollower.getCurrent()="<<(_listFollower.getCurrent()->getName())<<"("<<(_listFollower.getCurrent())<<") \n"<<
+                                       " _listFollower.getCurrent()->_pFormation="<<(_listFollower.getCurrent()->_pFormation->getName())<<"("<<(_listFollower.getCurrent()->_pFormation)<<") ");
         }
         _listFollower.remove();
     }

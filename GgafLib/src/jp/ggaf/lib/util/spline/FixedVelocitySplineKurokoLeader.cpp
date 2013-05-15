@@ -15,8 +15,8 @@ FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufactu
 }
 
 FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(GgafDxKurokoA* prm_pKurokoA_target,
-                                                                   SplineLine* prmpSpl,
-                                                                   angvelo prm_angveloRzRyMv):
+                                                                 SplineLine* prmpSpl,
+                                                                 angvelo prm_angveloRzRyMv):
         SplineKurokoLeader(nullptr, prm_pKurokoA_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
     _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_angveloRzRyMv);
     _pFixedVeloSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
@@ -142,7 +142,7 @@ void FixedVelocitySplineKurokoLeader::behave() {
                 //始点までに必要なフレーム数取得
                 _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_veloMvUnit);
             } else {
-                
+
                 //始点以外の場合次の補完点までに必要なフレーム数を更新
                 _fFrame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_veloMvUnit) +
                                      _pFixedVeloSplManuf->_paFrame_need_at[_point_index];

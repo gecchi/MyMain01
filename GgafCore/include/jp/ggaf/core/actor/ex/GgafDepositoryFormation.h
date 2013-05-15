@@ -44,10 +44,9 @@ public:
     void setFormationMember(GgafCore::GgafActorDepository* prm_pDepo);
 
     /**
-     * サブが無ければ本オブジェクト解放という処理 .
-     * 構成メンバーが全て sayonara() し、デポジトリに戻った場合、
-     * 本フォーメーションオブジェクトが自動解放されるようにするための
-     * 実装です。
+     * 編隊メンバーが全て非活動ならば、本フォーメーションオブジェクト解放 .
+     * 構成メンバーが全て sayonara() で、デポジトリに戻った場合、
+     * 本フォーメーションオブジェクトが自動解放されるようにするための仕組みを実装。
      * 下位で processFinal() の処理が必要な場合は、
      * オーバーライドして、その処理中での何処かで
      * <code>
@@ -63,14 +62,15 @@ public:
      * 本メソッドを呼び出すと、デポジトリに管理されたメンバーが一つ dispatch() されます。(同時に activate() もされる)
      * デポジトリのメンバーがすべて活動中で、枯渇している場合 nullptr が返ります。<BR>
      * また、引数の prm_formation_sub_num は最大編隊構成要員数で、この数以上の呼び出しでも nullptr が返ります。<BR>
-     * 一度でも nullptr が返されると、内部フラグ canCallUp() が false になり、以降本フォーメーションオブジェクトは
-     * メンバー呼び出しできないようになります。と同時に、processFinal() で自動的に sayonara(_offset_frames_end) が実行され、
-     * フォーメーションオブジェクトは自動終了体制に入ります。_offset_frames_end のデフォルト値は FORMATION_END_DELAY フレームです。<BR>
-     * 注意。初っ端に呼び出してもメンバーが確保できない場合も、
-     * 本フォーメーションオブジェクトは sayonara(_offset_frames_end) が実行され終了してしまいます。<BR>
-     * 構成メンバーを登録後に呼び出すようにして下さい。<BR>
-     * callUpMember() して取得したメンバーは sayonara() (内部的にはinactive()) することにより、編隊から離脱したことになります。
-     * 従って、callUpMember() したメンバーを、inactive() して、内部保有し確保することはデポジトリモードではできません。<BR>
+     * 一度でも nullptr が返されると、内部フラグ _can_call_up が false になり、以降本フォーメーションオブジェクトは
+     * メンバー呼び出しできないようになります。と同時に(_can_call_up==falseを受けて)processFinal() 内では、
+     * 全ての編隊メンバーが非活動時、本フォーメーションオブジェクトが自動的に sayonara(_offset_frames_end) が実行されるようになります。<BR>
+     * 【ハマったメモ１】初っ端に callUpMember 呼び出しで、デポジトリストック枯渇により、いきなりnullptrが返った場合も、
+     * _can_call_up = false になります。よって、本フォーメーションオブジェクトは、いきなり sayonara(_offset_frames_end) が実行され終了する。
+     * という動作になります。構成メンバーが確保できなかった場合も考慮して下さい。<BR>
+     * 【ハマったメモ２】callUpMember() して取得したメンバーは sayonara() (内部的にはinactive()) することにより、編隊から離脱したことになります。
+     * 従って、callUpMember() したメンバーを、inactive() して、内部一時保有し確保することは、その瞬間に編隊から離脱したこと同意になりますので、
+     * できません。そのようにしたい場合は GgafTreeFormation を使うしかありません。<BR>
      * @param prm_formation_sub_num 本フォーメーションの最大編隊構成要員数
      * @return 編隊構成要員のアクター。
      *         最大編隊構成要員数をオーバーして呼び出した場合、或いは

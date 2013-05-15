@@ -31,7 +31,6 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
 #endif
     }
     prm_pSub->_pFormation = this; //メンバーへフォーメーションを設定
-//        _listFollower.addLast((GgafActor*)prm_pSub, false); //フォーメーションメンバーとして内部保持
     GgafFormation::addSubLast(prm_pSub);
     prm_pSub->inactivateImmed(); //フォーメーションなので
 }
@@ -46,8 +45,8 @@ void GgafTreeFormation::processFinal() {
             _was_all_sayonara = true;
         }
     }
-
 }
+
 void GgafTreeFormation::onEnd() {
     GgafFormation::onEnd();
 }
@@ -57,7 +56,6 @@ GgafActor* GgafTreeFormation::callUpMember() {
         //終了を待つのみ
         return nullptr;
     }
-
     if (_can_call_up) {
         if (_pIte) {
             _pIte = _pIte->getNext();

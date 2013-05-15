@@ -12,39 +12,34 @@ namespace VioletVreath {
 class EnemyAdelheid : public GgafLib::DefaultMorphMeshActor {
 
 public:
-
     enum {
         PROG_INIT,
         PROG_MOVING,
         PROG_MOVING_AFTER_LEAD,
     };
-
     enum {
         PROG2_WAIT,
         PROG2_OPEN,
         PROG2_SHOT,
         PROG2_CLOSE,
     };
-
-
     enum {
         MPH_CLOSE,
         MPH_OPEN,
     };
-
     enum {
         SE_DAMAGED  ,
         SE_EXPLOSION,
     };
 
+    /** スプライン移動のシークエンス */
+    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+
+    /** ショット開始時間 */
+    frame shot_begin_frame_;
+    /** ショット関連の進捗状態 */
     GgafCore::GgafProgress* pProg2_;
 
-    /** 移動スプラインのシークエンスプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
-    /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_Shot_;
-
-    FormationAdelheid* pFormation_;
 public:
     /**
      * コンストラクタ
@@ -88,17 +83,10 @@ public:
     void onInactive() override;
 
     /**
-     *
-     * @param prm_pKurokoLeader
-     * @param prm_pDepo_Shot
-     * @param prm_pDepo_ShotEffect
+     * ショットを撃つ .
      */
-    virtual void config(
-            GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
-            GgafCore::GgafActorDepository* prm_pDepo_Shot
-            );
-
     void open_shot();
+
 
     virtual ~EnemyAdelheid();
 };

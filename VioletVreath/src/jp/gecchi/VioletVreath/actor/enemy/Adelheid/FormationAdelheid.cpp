@@ -9,16 +9,17 @@ FormationAdelheid::FormationAdelheid(const char* prm_name)
    : DepositoryFormation(prm_name) {
     _class_name = "FormationAdelheid";
 
-    pPalisana_start = NEW EnemyPalisana("Palisana1");
+    pPalisana_start = NEW EnemyPalisana("Palisana_START");
     pPalisana_start->inactivateImmed();
     addSubGroup(pPalisana_start);
 
-    pPalisana_goal = NEW EnemyPalisana("Palisana2");
+    pPalisana_goal = NEW EnemyPalisana("Palisana_GOAL");
     pPalisana_goal->inactivateImmed();
     addSubGroup(pPalisana_goal);
 
     //軌道計算用のダミー
-    pDummy_ = NEW EnemyAdelheid("DammyEnemyAdelheid");;
+    pDummy_ = NEW EnemyAdelheid("DammyEnemyAdelheid");
+    pDummy_->pKurokoLeader_ = nullptr;
     pDummy_->inactivateImmed();
     addSubGroup(pDummy_);
 
@@ -30,14 +31,13 @@ FormationAdelheid::FormationAdelheid(const char* prm_name)
 
     updateRankParameter();
 
-
     useProgress(PROG_LEAVE);
 }
 
 void FormationAdelheid::updateRankParameter() {
-    rr_num_formation_     = 21;  //調査 20 で両方開くが、21で一つしかひらかないのは何故。  //RR_FormationAdelheid_Num(_RANK_);            //編隊数
-    rr_interval_frames_   = 25;
-    rr_mv_velo_           = PX_C(40); //RR_FormationAdelheid_MvVelo(_RANK_);         //速度
+    rr_num_formation_     = 50;  //調査 20 で両方開くが、21で一つしかひらかないのは何故。  //RR_FormationAdelheid_Num(_RANK_);            //編隊数
+    rr_interval_frames_   = 15;
+    rr_mv_velo_           = PX_C(10); //RR_FormationAdelheid_MvVelo(_RANK_);         //速度
     mv_velo_member_ = rr_mv_velo_;
 }
 
@@ -69,8 +69,7 @@ void FormationAdelheid::processBehavior() {
              _TRACE_("FormationAdelheid::processBehavior() PROG_INIT です");
 
              //最初の一機
-             pDummy_->config(getSplManuf()->createKurokoLeader(pDummy_->_pKurokoA),
-                                     pConnection_ShotDepo_->peek());
+             pDummy_->pKurokoLeader_ = getSplManuf()->createKurokoLeader(pDummy_->_pKurokoA);
              pDummy_->_pKurokoA->setMvVelo(rr_mv_velo_);
              onCallUpAdelheid(pDummy_); //下位フォーメーションクラス個別実装の処理
                                         //開始座標と方向が定まる
@@ -92,12 +91,9 @@ void FormationAdelheid::processBehavior() {
                                                     end_prev_X, end_prev_Y, end_prev_Z);  //最終-1 補完点座標
              pPalisana_goal->locate(end_X, end_Y, end_Z);
              pPalisana_goal->_pKurokoA->setFaceAngTwd(end_prev_X, end_prev_Y, end_prev_Z);
-             //pPalisana_goal->acitve_open(
-             //                  (frame)(pDummy_->pKurokoLeader_->getTotalDistance() / rr_mv_velo_)
-             //                ); //遅れてハッチオープン
-
-             pPalisana_goal->acitve_open();
-
+             pPalisana_goal->acitve_open(
+                               (frame)(pDummy_->pKurokoLeader_->getTotalDistance() / rr_mv_velo_)
+                             ); //遅れてハッチオープン
              pDummy_->sayonara(); //ありがとうダミー
              _pProg->changeNext();
              _TRACE_("FormationAdelheid::processBehavior() PROG_INIT OK です");
@@ -115,8 +111,8 @@ void FormationAdelheid::processBehavior() {
                  }
              } else {
                  _TRACE_("FormationAdelheid::processBehavior() PROG_ENTRY pPalisana_startオープン完了前に破壊された！");
-                 callUpMember(0); //招集打ち切り（これにより、本フォーメションオブジェクトは解放体制に入る）
-                 _pProg->changeNothing(); //編隊処理自体終了
+                 callUpMember(0); //招集打ち切り（本フォーメションオブジェクトを解放させるために必要）
+                 _pProg->changeNothing(); //終了！
              }
              //ハッチオープン中
              break;
@@ -132,9 +128,6 @@ void FormationAdelheid::processBehavior() {
                          //２機目以降
                          EnemyAdelheid* pAdelheid = (EnemyAdelheid*)callUpMember(rr_num_formation_);
                          if (pAdelheid) {
-                             SplineKurokoLeader* pKurokoLeader =
-                                     getSplManuf()->createKurokoLeader(pAdelheid->_pKurokoA);
-                             pAdelheid->config(pKurokoLeader, pConnection_ShotDepo_->peek());
                              pAdelheid->_pKurokoA->setMvVelo(rr_mv_velo_);
                              onCallUpAdelheid(pAdelheid); //下位フォーメーションクラス個別実装の処理
                          }
@@ -145,8 +138,8 @@ void FormationAdelheid::processBehavior() {
                  }
              } else {
                  _TRACE_("FormationAdelheid::processBehavior() PROG_ENTRY pPalisana_start callUpMember完了前に破壊された！");
-                 callUpMember(0); //招集打ち切り（これにより、本フォーメションオブジェクトは解放体制に入る）
-                 _pProg->changeNext(); //出現終了！
+                 callUpMember(0); //招集打ち切り（本フォーメションオブジェクトを解放させるために必要）
+                 _pProg->changeNext(); //終了！
              }
              break;
          }
@@ -161,7 +154,7 @@ void FormationAdelheid::processBehavior() {
                  mv_velo_member_ = -(rr_mv_velo_/8);
                  _pProg->changeNext(); //減速終了！
              } else {
-                 mv_velo_member_ -= 2000;
+                 mv_velo_member_ -= 100;
              }
              break;
          }
@@ -170,16 +163,14 @@ void FormationAdelheid::processBehavior() {
          case PROG_FROMATION_MOVE3: {
              if (_pProg->isJustChanged()) {
                  _TRACE_("FormationAdelheid::processBehavior() PROG_FROMATION_MOVE3 です");
-
+                 //活動中の編隊メンバーにショット発射指示
                  GgafActor* pFollower = _listFollower.getCurrent();
                  int num_follwer = _listFollower.length();
                  for (int i = 0; i < num_follwer; i++) {
                      ((EnemyAdelheid*)pFollower)->open_shot();
                      pFollower = _listFollower.next();
                  }
-
              }
-
              if (_pProg->getFrameInProgress() == 360) {
                  _pProg->changeNext(); //停滞終了！
              }
@@ -195,7 +186,7 @@ void FormationAdelheid::processBehavior() {
                  mv_velo_member_ = rr_mv_velo_;
                  _pProg->changeNext(); //再始動終了！
              } else {
-                 mv_velo_member_ += 500;
+                 mv_velo_member_ += 50;
              }
              break;
          }
@@ -216,9 +207,9 @@ void FormationAdelheid::processBehavior() {
                       pPalisana_goal->close_sayonara();
                   }
              }
-
              break;
          }
+
          default:
              break;
      }
