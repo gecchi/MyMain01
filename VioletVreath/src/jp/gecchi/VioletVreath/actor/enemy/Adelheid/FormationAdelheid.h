@@ -41,8 +41,6 @@ public:
     frame rr_interval_frames_;
     /** 編隊メンバーの初期移動速度(RANK変動) */
     velo rr_mv_velo_;
-    /** 編隊メンバー全体の現在の移動速度 */
-    velo mv_velo_member_;
 
 public:
     /**
@@ -74,6 +72,14 @@ public:
     virtual GgafLib::SplineManufacture* getSplManuf() = 0;
 
     virtual void onSayonaraAll() override;
+
+
+    static void order1(GgafCore::GgafActor* prm_pAdelheid, void* prm1, void* prm2);
+
+    static void order2(GgafCore::GgafActor* prm_pAdelheid, void* prm1, void* prm2);
+
+    static void order3(GgafCore::GgafActor* prm_pAdelheid, void* prm1, void* prm2);
+
 
     virtual ~FormationAdelheid();
 };

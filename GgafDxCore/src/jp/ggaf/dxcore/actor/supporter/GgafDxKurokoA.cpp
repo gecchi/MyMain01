@@ -671,7 +671,7 @@ void GgafDxKurokoA::setMvAcceToStop(coord prm_target_distance) {
     double acc = -(1.0*_veloMv*_veloMv) / (2.0*prm_target_distance);
     if (acc > 0.0) {
         acc += 0.5;
-    } else if (_accMv < 0.0) {
+    } else if (acc < 0.0) {
         acc -= 0.5;
     }
     _accMv = acc;
@@ -682,7 +682,7 @@ void GgafDxKurokoA::setMvAcceByT(int prm_target_frames, velo prm_target_velo) {
     double acc = (prm_target_velo - _veloMv) / (1.0*prm_target_frames);
     if (acc > 0.0) {
         acc += 0.5;
-    } else if (_accMv < 0.0) {
+    } else if (acc < 0.0) {
         acc -= 0.5;
     }
     _accMv = acc;
@@ -692,7 +692,7 @@ void GgafDxKurokoA::setMvAcceByD(coord prm_target_distance, velo prm_target_velo
     double acc = ((1.0f*prm_target_velo*prm_target_velo) - (1.0*_veloMv*_veloMv)) / (2.0*prm_target_distance);
     if (acc > 0.0) {
         acc += 0.5;
-    } else if (_accMv < 0.0) {
+    } else if (acc < 0.0) {
         acc -= 0.5;
     }
     _accMv = acc;
@@ -891,6 +891,7 @@ void GgafDxKurokoA::slideMvByVT(velo prm_top_velo, velo prm_end_velo,
 bool GgafDxKurokoA::isSlidingMv() {
     return _slide_mv_flg;
 }
+
 void GgafDxKurokoA::stopSlidingMv() {
     _slide_mv_flg = false;
 }

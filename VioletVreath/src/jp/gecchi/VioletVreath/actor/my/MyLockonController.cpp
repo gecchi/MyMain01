@@ -28,10 +28,7 @@ void MyLockonController::initialize() {
 }
 void MyLockonController::onReset() {
     //ロックオンターゲットのリストを空にする
-    int n = pRingTarget_->length();
-    for (int i = 0; i < n; i++) {
-        pRingTarget_->remove();
-    }
+    pRingTarget_->removeAll();
     //ロックオンアクターのリセット
     EffectLockon001* pEffectLockon001;
     for (int i = 0; i < MyLockonController::max_lockon_num_; i++) {

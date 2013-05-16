@@ -792,6 +792,56 @@ public:
         }
         return pElem_return;
     }
+
+    /**
+     * 全ての要素値に対して指定の関数を実行させる .
+     * 要素地のポインタが、引数関数ポインタの pFuncの第１引数 T* に渡ってきます。
+     * prm1, prm2 は、引数関数ポインタの void*, void* に渡ってきます。(キャプチャ的に使って！)<BR>
+     * <BR>
+     * ＜使用例＞<BR>
+     * フォーメーションの編隊メンバーのオブジェクト(GgafActor*)が、GgafLinkedListRingリスト(listFollowers_)に
+     * 管理されているとする。<BR>
+     * この編隊メンバー全員に、加速命令(order1)を出す。加速の速度は int velo_mv_ とする。
+     * といった場合、以下のような感になる。<BR>
+     * <BR>
+     * <code><pre>
+     *
+     * class FormationXXX : public DepositoryFormation {
+     * public :
+     *     int velo_mv_;
+     *     GgafLinkedListRing<GgafActor> listFollowers_;
+     *
+     *     static void FormationXXX::order1(GgafCore::GgafActor* prm_pActor, void* p1, void* p2) {
+     *         //個々のメンバー加速
+     *         EnemyXXX* pEnemyXXX = (EnemyAdelheid*)prm_pActor; //実装の型にキャスト
+     *         int velo_mv = *((velo*)p1);                       //キャプチャ引数を元の型に戻す
+     *         pEnemyXXX->_pKurokoA->setMvVelo(velo_mv);         //加速設定
+     *     }
+     *
+     *     void processBehavior() {
+     *         //全ての編隊メンバーに加速支持を出す。
+     *         velo_mv_ = 3000; //速度
+     *         listFollowers_.executeFunc(FormationXXX::order1, &velo_mv_, nullptr);
+     *     }
+     * }
+     *
+     * </pre></code>
+     * @param pFunc 要素値に実行させたい関数。パラメータは(T*, void*, void*) 固定。
+     * @param prm1 渡したい引数その１
+     * @param prm2 渡したい引数その２
+     */
+    void executeFunc(void (*pFunc)(T*, void*, void*), void* prm1, void* prm2) {
+        if (_pElemActive == nullptr) {
+            return;
+        } else {
+            Elem* pElem = _pElem_first;
+            for (int i = 0; i < _num_elem; i++) {
+                pFunc(pElem->_pValue, prm1, prm2);
+                pElem = pElem -> _pNext;
+            }
+            return;
+        }
+    }
 };
 
 //////////////////////////////////////////////////////////////////

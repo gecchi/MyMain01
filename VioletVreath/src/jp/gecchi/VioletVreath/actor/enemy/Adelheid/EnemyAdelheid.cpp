@@ -13,6 +13,8 @@ EnemyAdelheid::EnemyAdelheid(const char* prm_name) :
     useProgress(PROG_MOVING_AFTER_LEAD);
     pProg2_ = createProgress(PROG2_CLOSE);
     shot_begin_frame_ = 0;
+    pKurokoLeader_ = nullptr;
+    pDepoShot_ = nullptr;
 }
 
 void EnemyAdelheid::onCreateModel() {
@@ -25,6 +27,14 @@ void EnemyAdelheid::nextFrame() {
         pProg2_->update();
     }
 }
+
+void EnemyAdelheid::config(GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
+                           GgafCore::GgafActorDepository* prm_pDepoShot  ) {
+    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    pKurokoLeader_ = prm_pKurokoLeader;
+    pDepoShot_ = prm_pDepoShot;
+}
+
 void EnemyAdelheid::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 40000);
@@ -32,10 +42,6 @@ void EnemyAdelheid::initialize() {
 }
 
 void EnemyAdelheid::onActive() {
-    if (getFormation()) {
-        GGAF_DELETE_NULLABLE(pKurokoLeader_);
-        pKurokoLeader_ = ((FormationAdelheid*)getFormation())->getSplManuf()->createKurokoLeader(_pKurokoA);
-    }
     if (pKurokoLeader_ == nullptr) {
         throwGgafCriticalException("EnemyAdelheidはスプライン必須ですconfigして下さい。 this="<<this<<" name="<<getName());
     }
@@ -65,15 +71,13 @@ void EnemyAdelheid::processBehavior() {
         case PROG_MOVING: {
             if (_pProg->isJustChanged()) {
             }
-
-            //pKurokoLeader_->isFinished() 待ち
+            //pKurokoLeader_->isFinished() 成立待ち
             break;
         }
 
         //ゴールのパリサナがいない場合、その後の移動
         case PROG_MOVING_AFTER_LEAD: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setMvAcce(100);
             }
 
             //isOutOfUniverse() まで・・・
@@ -105,7 +109,7 @@ void EnemyAdelheid::processBehavior() {
             if (pProg2_->getFrameInProgress() == shot_begin_frame_) {
                 UTIL::shotWay002(
                        this,
-                       ((FormationAdelheid*)getFormation())->pConnection_ShotDepo_->peek(),
+                       pDepoShot_,
                        PX_C(20),     //r
                        5,            //way数
                        D_ANG(10),    //wayとwayの間隔
@@ -135,11 +139,7 @@ void EnemyAdelheid::processBehavior() {
     }
     //-----------------------------------------------
 
-    if (getFormation()) {
-        _pKurokoA->_veloMv = ((FormationAdelheid*)getFormation())->mv_velo_member_;
-        _pKurokoA->_angveloFace[AXIS_X] = ((FormationAdelheid*)getFormation())->mv_velo_member_ / 2;
-    }
-
+    _pKurokoA->_angveloFace[AXIS_X] = _pKurokoA->_veloMv/2;
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
     _pMorpher->behave();
@@ -150,6 +150,7 @@ void EnemyAdelheid::processJudgement() {
         if (pKurokoLeader_->isFinished()) {
             if (getFormation()) {
                 if (((FormationAdelheid*)getFormation())->pPalisana_goal) {
+                    //ゴールがある場合、そこでさよなら。
                     _pProg->changeNothing();
                     sayonara();
                 } else {
@@ -182,7 +183,6 @@ void EnemyAdelheid::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyAdelheid::onInactive() {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
 
 void EnemyAdelheid::open_shot() {

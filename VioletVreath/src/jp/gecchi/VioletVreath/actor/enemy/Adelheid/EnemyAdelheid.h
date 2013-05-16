@@ -34,7 +34,8 @@ public:
 
     /** スプライン移動のシークエンス */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
-
+    /** ショットのデポジトリ */
+    GgafCore::GgafActorDepository* pDepoShot_;
     /** ショット開始時間 */
     frame shot_begin_frame_;
     /** ショット関連の進捗状態 */
@@ -50,13 +51,15 @@ public:
 
     void onCreateModel() override;
 
-
     void nextFrame() override;
+
+    void config(GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
+                GgafCore::GgafActorDepository* prm_pDepoShot);
+
     /**
      * アーデルハイドの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
-
 
     /**
      * アーデルハイドのがアクティブになった瞬間の処理 .
@@ -86,6 +89,7 @@ public:
      * ショットを撃つ .
      */
     void open_shot();
+
 
 
     virtual ~EnemyAdelheid();
