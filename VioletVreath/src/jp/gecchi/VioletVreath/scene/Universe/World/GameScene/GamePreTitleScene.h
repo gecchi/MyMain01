@@ -1,5 +1,7 @@
 #ifndef GAMEPRETITLESCENE_H_
 #define GAMEPRETITLESCENE_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+
 namespace VioletVreath {
 
 /**

@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "VarietySylvia003.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Romulus/EnemyRomulus.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylviaEye.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,4 +1,20 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+
+#include "jp/ggaf/core/actor/GgafGroupHead.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
+#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/scene/DefaultUniverse.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/ColliAAB.h"
+#include "jp/ggaf/lib/util/ColliSphere.h"
+#include "jp/ggaf/lib/util/ColliAAPrism.h"
+#include "jp/ggaf/lib/util/LinearOctreeForActor.h"
+#include "jp/ggaf/lib/util/LinearOctreeActorElem.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
+
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

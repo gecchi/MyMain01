@@ -1,5 +1,7 @@
 #ifndef GGAFDXCOLORIST_H_
 #define GGAFDXCOLORIST_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafDxCore {
 
 #define COLOR_R 0

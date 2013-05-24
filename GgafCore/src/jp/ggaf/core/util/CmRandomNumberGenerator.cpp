@@ -1,5 +1,6 @@
-//#include "CmRandomNumberGenerator.h"
 #include "stdafx.h"
+#include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
+
 using namespace GgafCore;
 
 //!< Period Parameter for Mersenne Twister
@@ -17,7 +18,7 @@ using namespace GgafCore;
  */
 CmRandomNumberGenerator* CmRandomNumberGenerator::s_pInstance = nullptr;
 
-UINT32 CmRandomNumberGenerator::mt[__N__];
+uint32_t CmRandomNumberGenerator::mt[__N__];
 int CmRandomNumberGenerator::mti = __N__ + 1;
 
 /******************************************************************************
@@ -106,7 +107,7 @@ double CmRandomNumberGenerator::getDouble() {
  * @date	Nov. 2005
  *
  ******************************************************************************/
-void CmRandomNumberGenerator::changeSeed(UINT32 a_ulSeed) {
+void CmRandomNumberGenerator::changeSeed(uint32_t a_ulSeed) {
     init_genrand(a_ulSeed);
 }
 
@@ -115,7 +116,7 @@ void CmRandomNumberGenerator::changeSeed(UINT32 a_ulSeed) {
  ******************************************************************************/
 
 /* initializes mt[__N__] with a seed */
-void CmRandomNumberGenerator::init_genrand(UINT32 s) {
+void CmRandomNumberGenerator::init_genrand(uint32_t s) {
     mt[0] = s & 0xffffffffUL;
 
     for (mti = 1; mti < __N__; mti++) {
@@ -130,9 +131,9 @@ void CmRandomNumberGenerator::init_genrand(UINT32 s) {
 }
 
 /* generates a random number on [0,0xffffffff]-interval */
-UINT32 CmRandomNumberGenerator::genrand_int32(void) {
-    UINT32 y;
-    static UINT32 mag01[2] = {0x0UL, MATRIX_A};
+uint32_t CmRandomNumberGenerator::genrand_int32(void) {
+    uint32_t y;
+    static uint32_t mag01[2] = {0x0UL, MATRIX_A};
     /* mag01[x] = x * MATRIX_A  for x=0,1 */
 
     if (mti >= __N__) {
@@ -170,8 +171,8 @@ UINT32 CmRandomNumberGenerator::genrand_int32(void) {
 }
 
 /* generates a random number on [0,0x7fffffff]-interval */
-INT32 CmRandomNumberGenerator::genrand_int31(void) {
-    return (INT32)(genrand_int32() >> 1);
+int32_t CmRandomNumberGenerator::genrand_int31(void) {
+    return (int32_t)(genrand_int32() >> 1);
 }
 
 /* generates a random number on [0,1]-real-interval */

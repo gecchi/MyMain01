@@ -1,5 +1,10 @@
 #ifndef STRAIGHTLASERCHIP_H_
 #define STRAIGHTLASERCHIP_H_
+#include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+
+
 namespace GgafLib {
 
 /**

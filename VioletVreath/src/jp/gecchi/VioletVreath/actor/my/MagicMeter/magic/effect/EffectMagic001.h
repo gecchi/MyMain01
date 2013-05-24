@@ -1,5 +1,7 @@
 #ifndef EFFECTMAGIC001_H_
 #define EFFECTMAGIC001_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 /**

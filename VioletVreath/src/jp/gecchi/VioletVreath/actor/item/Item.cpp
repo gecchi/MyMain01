@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "Item.h"
+
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

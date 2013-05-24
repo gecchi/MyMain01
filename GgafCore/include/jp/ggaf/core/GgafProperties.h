@@ -1,5 +1,8 @@
 #ifndef GGAFPROPERTIES_H_
 #define GGAFPROPERTIES_H_
+#include "jp/ggaf/core/util/GgafUtil.h"
+
+#include "jp/ggaf/core/util/GgafRgb.h"
 
 #ifdef PROPERTY
     #undef PROPERTY
@@ -20,7 +23,7 @@ class GgafProperties {
 
 public:
     /** [r/w] 最高フレームスキップ数。つまりどんなに重くも最低描画するフレーム間隔。*/
-    static UINT32 MAX_SKIP_FRAME;
+    static uint32_t MAX_SKIP_FRAME;
     /** [r/w] 60fps→40fpsの処理落ち演出を行うかどうかの境界。1フレームあたり内部描画回数で設定 */
     static int DRAWNUM_TO_SLOWDOWN1;
     /** [r/w] 40fps→30fpsの処理落ち演出を行うかどうかの境界。1フレームあたり内部描画回数で設定 */
@@ -101,12 +104,12 @@ public:
     static int getInt(std::string prm_key);
 
     /**
-     * キーに対するプロパティ値を UINT32 で取得 .
-     * 内部で _atoi64() して、UINT32にキャスト
+     * キーに対するプロパティ値を uint32_t で取得 .
+     * 内部で _atoi64() して、uint32_tにキャスト
      * @param prm_key キー文字列
-     * @return プロパティ値(UINT32)
+     * @return プロパティ値(uint32_t)
      */
-    static UINT32 getUInt(std::string prm_key);
+    static uint32_t getUInt(std::string prm_key);
 
     /**
      * キーに対するプロパティ値を double で取得 .

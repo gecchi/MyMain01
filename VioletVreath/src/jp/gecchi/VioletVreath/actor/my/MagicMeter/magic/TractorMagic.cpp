@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "TractorMagic.h"
+
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,4 +1,15 @@
 #include "stdafx.h"
+#include "NameEntryScene.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundNameEntry.h"
+#include "jp/gecchi/VioletVreath/actor/menu/name_entry/MenuBoardNameEntry.h"
+#include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/util/QueryRanking.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

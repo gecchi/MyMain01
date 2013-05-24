@@ -1,13 +1,17 @@
 #ifndef GGAFDXUNIVERSE_H_
 #define GGAFDXUNIVERSE_H_
+#include "jp/ggaf/core/scene/GgafUniverse.h"
 
-namespace GgafDxCore {
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 
 #ifdef P_UNIVERSE
     #define P_CAM (P_UNIVERSE->_pCamera)
 #else
     #error P_UNIVERSE isnt define
 #endif
+
+namespace GgafDxCore {
 
 /**
  * GgafDxCore–¼‘O‹óŠÔ‚Ì‚±‚Ì¢ƒNƒ‰ƒX.

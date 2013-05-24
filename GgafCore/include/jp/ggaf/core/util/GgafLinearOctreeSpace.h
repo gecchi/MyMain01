@@ -1,5 +1,7 @@
 #ifndef GGAFLINEAROCTREESPACE_H_
 #define GGAFLINEAROCTREESPACE_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafCore {
 
 /**
@@ -8,13 +10,13 @@ namespace GgafCore {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-class GgafLinearOctreeSpace {
+class GgafLinearOctreeSpace : public GgafObject {
 
 public:
     /** [r]線形八分木配列の自身の要素番号 */
-    UINT32 _my_index;
+    uint32_t _my_index;
     /** [r]所属してる要素の種別情報 */
-    UINT32 _kindinfobit;
+    uint32_t _kindinfobit;
     /** [r]ぶら下がる要素の先頭 */
     GgafLinearOctreeElem* _pElem_first;
     /** [r]ぶら下がる要素の末尾 */
@@ -25,7 +27,7 @@ public:
      * コンストラクタ
      * @return
      */
-    GgafLinearOctreeSpace() {
+    GgafLinearOctreeSpace() : GgafObject() {
         _pElem_first = nullptr;
         _pElem_last = nullptr;
         _kindinfobit = 0;

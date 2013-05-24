@@ -1,10 +1,12 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/util/spline/SplineLine.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
 
-SplineLine::SplineLine() {
+SplineLine::SplineLine() : GgafObject() {
     _X_basepoint = nullptr;
     _Y_basepoint = nullptr;
     _Z_basepoint = nullptr;
@@ -16,12 +18,10 @@ SplineLine::SplineLine() {
     _accuracy = 1.0;
 }
 
-
-SplineLine::SplineLine(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
+SplineLine::SplineLine(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) : GgafObject() {
     init(prm_paaEstablish, prm_num, prm_accuracy);
     _accuracy = prm_accuracy;
 }
-
 
 void SplineLine::init(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
     _num_basepoint = prm_num;
@@ -64,7 +64,7 @@ void SplineLine::compute(double prm_accuracy) {
 }
 
 SplineLine::~SplineLine() {
-    _TRACE_("SplineLine::~SplineLine() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    _TRACE_("SplineLine::~SplineLine() ");
     GGAF_DELETEARR(_X_basepoint);
     GGAF_DELETEARR(_Y_basepoint);
     GGAF_DELETEARR(_Z_basepoint);

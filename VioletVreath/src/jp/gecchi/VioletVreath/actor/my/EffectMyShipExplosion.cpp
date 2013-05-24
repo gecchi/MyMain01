@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "EffectMyShipExplosion.h"
+
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

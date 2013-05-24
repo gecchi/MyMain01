@@ -1,5 +1,7 @@
 #ifndef MAGIC_H_
 #define MAGIC_H_
+#include "jp/ggaf/core/actor/GgafMainActor.h"
+
 namespace VioletVreath {
 
 typedef int magic_point;
@@ -25,6 +27,7 @@ typedef frame magic_time;
 #define MAGIC_EFFECT_OK_LEVELUP     (1)
 #define MAGIC_EFFECT_OK_LEVELDOWN   (2)
 
+#define MMETER_MAX_LEVEL 9
 
 /**
  * íäè€ñÇñ@ÉNÉâÉX .

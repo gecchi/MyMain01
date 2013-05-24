@@ -1,5 +1,9 @@
 #ifndef GGAFDXSECONNECTION_H_
 #define GGAFDXSECONNECTION_H_
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+
+#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+
 namespace GgafDxCore {
 
 /**

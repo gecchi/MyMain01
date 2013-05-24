@@ -1,5 +1,7 @@
 #ifndef SPLINEKUROKOLEADER_H_
 #define SPLINEKUROKOLEADER_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafLib {
 
 /**

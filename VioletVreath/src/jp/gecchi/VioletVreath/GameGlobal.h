@@ -1,6 +1,8 @@
 #ifndef GAMEGLOBAL_H_
 #define GAMEGLOBAL_H_
 
+#include "jp/gecchi/VioletVreath/util/QueryRanking.h"
+
 /** ランク (0.0 ～ 1.0) */
 #define _RANK_ (GameGlobal::rank_)
 /** 表示用ランク値 */

@@ -1,9 +1,16 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgmPerformer.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
+#include "jp/ggaf/dxcore/manager/GgafDxBgmManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxBgmConnection.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
 //int GgafDxBgmPerformer::_active_bgm_bpm = 120;
-
 
 GgafDxBgmPerformer::GgafDxBgmPerformer() : GgafObject() {
     _bgm_num = 0;

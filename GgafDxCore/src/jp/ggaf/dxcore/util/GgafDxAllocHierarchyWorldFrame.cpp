@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/util/GgafDxAllocHierarchyWorldFrame.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

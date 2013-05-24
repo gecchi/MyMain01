@@ -1,5 +1,7 @@
 #ifndef ENEMYASTRAEA_H_
 #define ENEMYASTRAEA_H_
+#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+
 namespace VioletVreath {
 
 /**

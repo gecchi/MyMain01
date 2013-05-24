@@ -1,9 +1,21 @@
 #include "stdafx.h"
+#include "EnemyIris.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 EnemyIris::EnemyIris(const char* prm_name)
       : DefaultMeshSetActor(prm_name, "Iris", STATUS(EnemyIris)) {
@@ -61,7 +73,7 @@ void EnemyIris::processBehavior() {
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
             if (pDepo_Shot_) {
                 //放射状ショット
-                int way = RR_EnemyIris_ShotWay(_RANK_); //ショットWAY数
+                int way = RF_EnemyIris_ShotWay(_RANK_); //ショットWAY数
                 angle* paAng_way = NEW angle[way];
                 UTIL::getRadialAngle2D(0, way, paAng_way);
                 GgafDxDrawableActor* pActor_Shot;

@@ -1,5 +1,7 @@
 #ifndef HOSHIBOSHI001_H_
 #define HOSHIBOSHI001_H_
+#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
+
 namespace VioletVreath {
 
 /**

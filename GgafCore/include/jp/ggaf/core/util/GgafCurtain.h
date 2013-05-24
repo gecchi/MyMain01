@@ -1,5 +1,7 @@
 #ifndef GGAFCURTAIN_H_
 #define GGAFCURTAIN_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafCore {
 
 enum GgafCurtainState {

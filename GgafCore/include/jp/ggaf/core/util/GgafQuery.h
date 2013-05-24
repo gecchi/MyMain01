@@ -1,5 +1,10 @@
 #ifndef GGAFQUERY_H_
 #define GGAFQUERY_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <string>
+#include <vector>
+#include <map>
 
 /** GgafQuery‚Ì‚PƒŒƒR[ƒh‚ÌŒ^ */
 typedef std::map<std::string, std::string> GgafRecord;

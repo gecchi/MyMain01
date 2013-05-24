@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/util/VirtualButton.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/lib/util/VBReplayRecorder.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

@@ -1,6 +1,11 @@
 #ifndef DEFAULTGOD_H_
 #define DEFAULTGOD_H_
+#include "jp/ggaf/dxcore/GgafDxGod.h"
 
+#include "jp/ggaf/lib/manager/SplineSourceManager.h"
+#include "jp/ggaf/lib/manager/SplineSourceConnection.h"
+#include "jp/ggaf/lib/manager/SplineManufactureManager.h"
+#include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
 /**
  * 神が保持する SplineManufactureManager に接続し、コネクションを取得。
  * @param X：スプライン定義識別文字列。プロパティ DIR_SPLINE 配下の「X + ".spl"」というファイル名を使用する

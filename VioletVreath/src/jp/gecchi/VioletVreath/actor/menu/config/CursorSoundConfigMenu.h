@@ -1,5 +1,7 @@
 #ifndef CURSORSOUNDCONFIGMENU_H_
 #define CURSORSOUNDCONFIGMENU_H_
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+
 
 
 namespace VioletVreath {

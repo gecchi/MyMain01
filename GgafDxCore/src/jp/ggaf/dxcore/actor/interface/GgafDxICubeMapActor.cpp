@@ -1,8 +1,15 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
+
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxICubeMapActor::GgafDxICubeMapActor()  {
+GgafDxICubeMapActor::GgafDxICubeMapActor() {
     _pCubeMapTextureConnection = nullptr;
     _reflectance = 0.0f;
     _cubemap_tex = "alpha_zero_cubemap.dds";

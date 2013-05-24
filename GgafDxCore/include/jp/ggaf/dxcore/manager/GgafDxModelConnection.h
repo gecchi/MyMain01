@@ -1,5 +1,9 @@
 #ifndef GGAFDXMODELCONNECTION_H_
 #define GGAFDXMODELCONNECTION_H_
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+
 namespace GgafDxCore {
 
 /**

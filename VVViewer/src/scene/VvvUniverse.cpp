@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "VvvUniverse.h"
+
 using namespace VVViewer;
 
 VvvUniverse::VvvUniverse(const char* prm_name, VvvCamera* prm_pCam) :

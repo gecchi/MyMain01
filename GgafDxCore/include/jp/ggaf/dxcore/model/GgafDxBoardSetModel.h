@@ -1,5 +1,7 @@
 #ifndef GGAFDXBOARDSETMODEL_H_
 #define GGAFDXBOARDSETMODEL_H_
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+
 namespace GgafDxCore {
 
 /**

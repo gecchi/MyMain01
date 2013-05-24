@@ -1,5 +1,7 @@
 #ifndef STAGE01_03_H_
 #define STAGE01_03_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+
 namespace VioletVreath {
 
 /**

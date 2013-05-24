@@ -1,5 +1,7 @@
 #ifndef TESTCHOKISHOT_H_
 #define TESTCHOKISHOT_H_
+#include "jp/ggaf/lib/actor/SingleLaser.h"
+
 namespace VioletVreath {
 
 /**

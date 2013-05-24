@@ -1,5 +1,7 @@
 #ifndef COLLISIONCHECKER_H_
 #define COLLISIONCHECKER_H_
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
+
 namespace GgafLib {
 
 /**

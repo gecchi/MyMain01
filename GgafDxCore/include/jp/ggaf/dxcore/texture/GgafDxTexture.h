@@ -1,5 +1,10 @@
 #ifndef GGAFDXTEXTURE_H_
 #define GGAFDXTEXTURE_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <string>
+#include <d3dx9.h>
+
 namespace GgafDxCore {
 
 /**

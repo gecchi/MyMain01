@@ -1,5 +1,8 @@
 #ifndef GGAFDXIBUMPMAPACTOR_H_
 #define GGAFDXIBUMPMAPACTOR_H_
+
+#include <d3d9.h>
+
 namespace GgafDxCore {
 
 /**

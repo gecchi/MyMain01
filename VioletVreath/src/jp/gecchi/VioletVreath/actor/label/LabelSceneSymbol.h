@@ -1,5 +1,7 @@
 #ifndef LABELSCENESYMBOL_H_
 #define LABELSCENESYMBOL_H_
+#include "jp/ggaf/lib/actor/StringBoardActor.h"
+
 namespace VioletVreath {
 
 /**

@@ -1,5 +1,9 @@
 #ifndef ENEMYSAPPHO_H_
 #define ENEMYSAPPHO_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+
 namespace VioletVreath {
 
 /**
@@ -11,8 +15,7 @@ namespace VioletVreath {
  * @since 2013/03/18
  * @author Masatoshi Tsuge
  */
-class EnemySappho :
-    public GgafLib::DefaultMeshSetActor {
+class EnemySappho : public GgafLib::DefaultMeshSetActor {
 
 public:
     enum {

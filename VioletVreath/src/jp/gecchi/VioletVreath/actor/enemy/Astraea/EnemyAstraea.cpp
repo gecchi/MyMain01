@@ -1,4 +1,18 @@
 #include "stdafx.h"
+#include "EnemyAstraea.h"
+
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -207,7 +221,7 @@ void EnemyAstraea::processJudgement() {
 }
 
 void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
-    static UINT32 spritedoller[24] = {
+    static uint32_t spritedoller[24] = {
                                      6144      ,       //  000000000001100000000000
                                      14336     ,       //  000000000011100000000000
                                      13312     ,       //  000000000011010000000000
@@ -235,7 +249,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     };
 
 
-    static UINT32 red_dot[11] = {
+    static uint32_t red_dot[11] = {
             32  ,       //  00000100000
             112 ,       //  00001110000
             248 ,       //  00011111000
@@ -248,7 +262,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
             0   ,       //  00000000000
             0           //  00000000000
     };
-    static UINT32 yellow_dot[11] = {
+    static uint32_t yellow_dot[11] = {
             0   ,       //  00000000000
             0   ,       //  00000000000
             0   ,       //  00000000000
@@ -261,7 +275,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
             32  ,       //  00000100000
             32          //  00000100000
         };
-    static UINT32 blue_dot[11] = {
+    static uint32_t blue_dot[11] = {
             0   ,       //  00000000000
             1025,       //  10000000001
             1025,       //  10000000001

@@ -1,4 +1,15 @@
 #include "stdafx.h"
+#include "VamSysCamWorker.h"
+
+#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

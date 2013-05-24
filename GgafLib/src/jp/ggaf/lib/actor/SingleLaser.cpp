@@ -1,8 +1,18 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/SingleLaser.h"
+
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
+#include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/actor/ColliAABActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
              GgafDxMeshSetActor(prm_name,

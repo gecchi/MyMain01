@@ -1,5 +1,7 @@
 #ifndef ENEMYPALISANA_H_
 #define ENEMYPALISANA_H_
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+
 namespace VioletVreath {
 
 /**

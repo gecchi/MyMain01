@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "FormationMassalia.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassalia.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -17,8 +24,8 @@ FormationMassalia::FormationMassalia(const char* prm_name)
 }
 
 void FormationMassalia::updateRankParameter() {
-    R_interval_frames_   = RR_FormationMassalia_LaunchInterval(_RANK_); //ŠÔŠu
-    R_mv_velo_           = RR_FormationMassalia_MvVelo(_RANK_);         //‘¬“x
+    R_interval_frames_   = RF_FormationMassalia_LaunchInterval(_RANK_); //ŠÔŠu
+    R_mv_velo_           = RF_FormationMassalia_MvVelo(_RANK_);         //‘¬“x
 }
 
 void FormationMassalia::initialize() {
@@ -35,7 +42,7 @@ void FormationMassalia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 
 void FormationMassalia::processBehavior() {
     updateRankParameter();
-    if (getActiveFrame() >= RR_FormationMassalia_DurationFrames(_RANK_)) {
+    if (getActiveFrame() >= RF_FormationMassalia_DurationFrames(_RANK_)) {
         sayonara(20*60);
     } else {
         if (canCallUp() && (getActiveFrame() % R_interval_frames_ == 0)) {

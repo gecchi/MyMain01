@@ -1,5 +1,7 @@
 #ifndef CURSOR001_H_
 #define CURSOR001_H_
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+
 
 
 namespace VioletVreath {

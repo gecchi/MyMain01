@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

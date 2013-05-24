@@ -1,5 +1,6 @@
 #ifndef WALL001PRISM_H_
 #define WALL001PRISM_H_
+#include "jp/ggaf/lib/actor/WallAAPrismActor.h"
 
 namespace VioletVreath  {
 

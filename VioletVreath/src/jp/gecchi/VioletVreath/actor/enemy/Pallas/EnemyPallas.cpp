@@ -1,4 +1,17 @@
 #include "stdafx.h"
+#include "EnemyPallas.h"
+
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/God.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -75,7 +88,7 @@ void EnemyPallas::processBehavior() {
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
             if (pDepo_Shot_) {
                 //放射状ショット
-                int way = RR_EnemyPallas_ShotWay(_RANK_); //ショットWAY数
+                int way = RF_EnemyPallas_ShotWay(_RANK_); //ショットWAY数
                 angle* paAng_way = NEW angle[way];
                 UTIL::getRadialAngle2D(0, way, paAng_way);
                 GgafDxDrawableActor* pActor_Shot;

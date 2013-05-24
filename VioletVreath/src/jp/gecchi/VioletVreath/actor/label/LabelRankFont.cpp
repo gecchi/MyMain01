@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "LabelRankFont.h"
+
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

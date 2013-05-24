@@ -2,6 +2,8 @@
 #define IKD_DIX_OGGVORBISRESOURCE_H
 
 #define OV_EXCLUDE_STATIC_CALLBACKS
+
+#include <string.h>
 #include "vorbis/vorbisfile.h"
 
 namespace IkdLib {

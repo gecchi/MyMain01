@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "actor/MgrActor.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+
 using namespace Mogera;
 
 MgrActor::MgrActor(const char* prm_name) :

@@ -1,5 +1,7 @@
 #ifndef GGAFDXMORPHMESHEFFECT_H_
 #define GGAFDXMORPHMESHEFFECT_H_
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+
 namespace GgafDxCore {
 
 /**

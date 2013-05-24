@@ -1,5 +1,6 @@
 #ifndef DEFAULTUNIVERSE_H_
 #define DEFAULTUNIVERSE_H_
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
 #ifdef P_UNIVERSE
     #ifdef P_CAM

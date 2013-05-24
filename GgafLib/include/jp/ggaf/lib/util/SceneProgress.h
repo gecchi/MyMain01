@@ -1,5 +1,8 @@
 #ifndef SCENEPROGRESS_H_
 #define SCENEPROGRESS_H_
+#include "jp/ggaf/core/GgafProgress.h"
+
+#include <map>
 namespace GgafLib {
 
 typedef std::map<progress, GgafLib::DefaultScene*> ProgSceneMap;

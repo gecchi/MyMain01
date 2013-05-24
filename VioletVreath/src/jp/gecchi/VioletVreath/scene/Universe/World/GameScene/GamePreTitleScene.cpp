@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "GamePreTitleScene.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/gecchi/VioletVreath/actor/title/TitleBoard.h"
+#include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,5 +1,6 @@
 #ifndef GGAFPROGRESS_H_
 #define GGAFPROGRESS_H_
+#include "jp/ggaf/core/GgafObject.h"
 
 #define PROGRESS_NOTHING (-1)
 #define PROGRESS_NULL (-2)

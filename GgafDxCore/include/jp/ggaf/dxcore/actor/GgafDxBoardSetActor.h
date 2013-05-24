@@ -1,5 +1,7 @@
 #ifndef GGAFDXBOARDSETACTORD_H_
 #define GGAFDXBOARDSETACTORD_H_
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
 namespace GgafDxCore {
 
 /**

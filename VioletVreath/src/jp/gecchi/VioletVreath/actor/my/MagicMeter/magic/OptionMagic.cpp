@@ -1,4 +1,15 @@
 #include "stdafx.h"
+#include "OptionMagic.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectMagic001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

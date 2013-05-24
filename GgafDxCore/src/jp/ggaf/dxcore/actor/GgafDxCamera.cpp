@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
+
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -68,11 +75,6 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
         );
 
     }
-
-
-
-
-
 
 
     locate(0, 0, DX_C(_cameraZ));

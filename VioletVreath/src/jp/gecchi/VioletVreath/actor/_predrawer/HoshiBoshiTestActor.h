@@ -1,5 +1,7 @@
 #ifndef HOSHIBOSHIEFFECTACTOR_H_
 #define HOSHIBOSHIEFFECTACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxPointSpriteActor.h"
+
 namespace VioletVreath {
 
 

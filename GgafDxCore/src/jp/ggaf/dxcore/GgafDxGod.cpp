@@ -1,4 +1,17 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -34,8 +47,8 @@ bool GgafDxGod::_is_device_lost_flg = false;
 bool GgafDxGod::_adjustGameScreen = false;
 HWND GgafDxGod::_pHWnd_adjustScreen = nullptr;
 
-UINT32 GgafDxGod::_vs_v = 0;
-UINT32 GgafDxGod::_ps_v = 0;
+uint32_t GgafDxGod::_vs_v = 0;
+uint32_t GgafDxGod::_ps_v = 0;
 
 GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
     GgafGod(prm_hInstance) {

@@ -1,5 +1,7 @@
 #ifndef GGAFDXPOINTSPRITEMODEL_H_
 #define GGAFDXPOINTSPRITEMODEL_H_
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+
 namespace GgafDxCore {
 
 /**

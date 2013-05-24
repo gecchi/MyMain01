@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "MyLockonController.h"
+
+#include "EffectLockon001_Main.h"
+#include "EffectLockon001_Sub.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

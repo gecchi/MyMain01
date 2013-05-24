@@ -1,5 +1,9 @@
 #ifndef ENEMYHERMIONE_H_
 #define ENEMYHERMIONE_H_
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArm.h"
+
 namespace VioletVreath {
 
 HASHVAL(EVENT_HERMIONE_SAYONARA);

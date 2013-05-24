@@ -1,5 +1,7 @@
 #ifndef GROUNDMESHACTOR_H_
 #define GROUNDMESHACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
+
 namespace VioletVreath {
 
 /**

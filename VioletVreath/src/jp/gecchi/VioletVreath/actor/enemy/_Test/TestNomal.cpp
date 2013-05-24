@@ -1,9 +1,14 @@
 #include "stdafx.h"
+#include "TestNomal.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 TestNomal::TestNomal(const char* prm_name)
       : TestEnemy(prm_name, "TestNomal", STATUS(TestNomal)) {

@@ -1,8 +1,15 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/scene/WalledSectionScene.h"
+
+#include <fstream>
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/scene/WalledScene.h"
+#include "jp/ggaf/lib/actor/WallPartsActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_data_filename,  WalledScene* prm_pWalledScene) : DefaultScene(prm_name) {
 //ruby tool/script/make_stage_data.rb > scene/stage_data.txt

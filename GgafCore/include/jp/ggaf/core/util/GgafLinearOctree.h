@@ -1,5 +1,7 @@
 #ifndef GGAFLINEAROCTREE_H_
 #define GGAFLINEAROCTREE_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafCore {
 
 /**
@@ -104,7 +106,7 @@ namespace GgafCore {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-class GgafLinearOctree {
+class GgafLinearOctree : public GgafObject {
 
 public:
     /** [r]八分木の空間を一直線に並べた線形配列 */
@@ -135,9 +137,9 @@ public:
     double _r_top_level_dZ;
 
     /** [r]8の累乗の値を予め計算して保持している配列 */
-    UINT32* _pa_8pow;
+    uint32_t* _pa_8pow;
     /** [r]全空間数 */
-    UINT32 _num_space;
+    uint32_t _num_space;
     /** [r]最大空間レベル */
     int _top_space_level; //ルート空間はLevel=0
 
@@ -220,7 +222,7 @@ public:
      * @return そのLevell空間の(x_index, y_index, z_index)で示される空間に対応する
      *         八分木モートン順序の通し空間番号(最大Level8で、0～23068671)
      */
-    inline UINT32 getMortonOrderNumFromXYZindex( UINT32 x_space_index, UINT32 y_space_index, UINT32 z_space_index ) {
+    inline uint32_t getMortonOrderNumFromXYZindex( uint32_t x_space_index, uint32_t y_space_index, uint32_t z_space_index ) {
         return separateEveryThirdBit(x_space_index) | separateEveryThirdBit(y_space_index)<<1 | separateEveryThirdBit(z_space_index)<<2;
     }
 
@@ -254,7 +256,7 @@ public:
      * @param n 0～255までの数値
      * @return 3bitごとに間隔が空けられた値
      */
-    inline UINT32 separateEveryThirdBit(UINT32 n) {
+    inline uint32_t separateEveryThirdBit(uint32_t n) {
         n = ( n | n<<8 ) & 0x0000f00f;
         n = ( n | n<<4 ) & 0x000c30c3;
         n = ( n | n<<2 ) & 0x00249249;

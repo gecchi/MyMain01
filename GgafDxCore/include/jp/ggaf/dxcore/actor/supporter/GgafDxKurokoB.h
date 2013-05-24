@@ -1,7 +1,8 @@
 #ifndef GGAFDXMVTRANSPORTER_H_
 #define GGAFDXMVTRANSPORTER_H_
-namespace GgafDxCore {
+#include "jp/ggaf/core/GgafObject.h"
 
+namespace GgafDxCore {
 
 /**
  * çïàﬂB(çïàﬂB)  .

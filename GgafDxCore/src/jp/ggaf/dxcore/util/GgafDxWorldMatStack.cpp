@@ -1,8 +1,10 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/util/GgafDxWorldMatStack.h"
+#include "jp/ggaf/dxcore/util/GgafDxAllocHierarchyWorldFrame.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxWorldMatStack::GgafDxWorldMatStack(void) {
+GgafDxWorldMatStack::GgafDxWorldMatStack(void) : GgafObject() {
 }
 
 GgafDxWorldMatStack::~GgafDxWorldMatStack(void) {

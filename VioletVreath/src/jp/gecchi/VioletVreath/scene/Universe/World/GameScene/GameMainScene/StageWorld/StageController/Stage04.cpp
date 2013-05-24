@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "Stage04.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -9,7 +14,7 @@ Stage04::Stage04(const char* prm_name) : Stage(prm_name) {
 }
 
 void Stage04::initialize() {
-    CmRandomNumberGenerator::getInstance()->changeSeed(P_MYSHIP->_Y);
+    Stage::initialize();
 }
 
 void Stage04::processBehavior() {

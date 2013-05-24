@@ -1,5 +1,7 @@
 #ifndef GGAFDXWORLDMODEL_H_
 #define GGAFDXWORLDMODEL_H_
+#include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
+
 namespace GgafDxCore {
 
 /**

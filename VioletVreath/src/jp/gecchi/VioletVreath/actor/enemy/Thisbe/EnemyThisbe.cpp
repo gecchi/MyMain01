@@ -1,9 +1,20 @@
 #include "stdafx.h"
+#include "EnemyThisbe.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 EnemyThisbe::EnemyThisbe(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Thisbe", STATUS(EnemyThisbe)) {

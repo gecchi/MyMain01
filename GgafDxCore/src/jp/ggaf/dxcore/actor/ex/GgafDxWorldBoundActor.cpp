@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/ex/GgafDxWorldBoundActor.h"
+
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/model/ex/GgafDxWorldBoundModel.h"
+#include "jp/ggaf/dxcore/effect/ex/GgafDxWorldBoundEffect.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -10,13 +19,13 @@ GgafDxWorldBoundActor::GgafDxWorldBoundActor(const char* prm_name,
                                              GgafDxChecker* prm_pChecker) :
 
                                                  GgafDxMorphMeshActor(prm_name,
-                                                                       prm_model_id,
-                                                                       "W",
-                                                                       prm_effect_id,
-                                                                       "W",
-                                                                       prm_technique,
-                                                                       prm_pStat,
-                                                                       prm_pChecker),
+                                                                      prm_model_id,
+                                                                      "W",
+                                                                      prm_effect_id,
+                                                                      "W",
+                                                                      prm_technique,
+                                                                      prm_pStat,
+                                                                      prm_pChecker),
                                                      GgafDxICubeMapActor() {
     _obj_class |= Obj_GgafDxWorldBoundActor;
     _class_name = "GgafDxWorldBoundActor";

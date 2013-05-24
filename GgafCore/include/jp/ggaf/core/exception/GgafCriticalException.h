@@ -1,7 +1,15 @@
 #ifndef GGAFCRITICALEXCEPTION_H_
 #define GGAFCRITICALEXCEPTION_H_
-namespace GgafCore {
+#include "jp/ggaf/core/exception/GgafException.h"
+#include <sstream>
 
+#define throwGgafCriticalException(X)  do { \
+    std::stringstream ss; \
+    ss <<__FILE__<<"("<<__LINE__<<") : "<< X; \
+    throw GgafCore::GgafCriticalException(ss.str()); \
+} while(0)
+
+namespace GgafCore {
 
 /**
  * GgafCoreライブラリ専用、ライブラリ業務例外 .

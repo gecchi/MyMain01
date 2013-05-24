@@ -1,5 +1,7 @@
 #ifndef GGAFDXSPRITEEFFECT_H_
 #define GGAFDXSPRITEEFFECT_H_
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+
 namespace GgafDxCore {
 
 /**
@@ -20,6 +22,7 @@ public:
     D3DXHANDLE _h_offset_v;
     D3DXHANDLE _h_alpha;
     D3DXHANDLE _h_far_rate;
+
 public:
     /**
      * コンストラクタ<BR>

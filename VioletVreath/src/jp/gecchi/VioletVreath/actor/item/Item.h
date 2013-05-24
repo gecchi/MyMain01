@@ -1,8 +1,8 @@
 #ifndef ITEM_H_
 #define ITEM_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {
-
 
 /**
  * ƒAƒCƒeƒ€ .

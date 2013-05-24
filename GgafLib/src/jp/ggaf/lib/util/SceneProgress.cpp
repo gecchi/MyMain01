@@ -1,9 +1,11 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/util/SceneProgress.h"
+
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
-
 
 SceneProgress::SceneProgress(DefaultScene* prm_pScene, int prm_num_progress)  : GgafProgress(&(prm_pScene->_frame_of_behaving), prm_num_progress) {
     _pScene = prm_pScene;

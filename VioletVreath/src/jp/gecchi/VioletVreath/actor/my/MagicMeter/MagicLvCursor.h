@@ -1,6 +1,6 @@
 #ifndef MAGICLVCURSOR_H_
 #define MAGICLVCURSOR_H_
-
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
 namespace VioletVreath {
 

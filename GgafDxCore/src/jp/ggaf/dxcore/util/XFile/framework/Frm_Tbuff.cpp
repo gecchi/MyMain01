@@ -1,5 +1,5 @@
 #include "stdafx.h"
-//#include "jp/ggaf/core/util/XFile/framework/Frm_Tbuff.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/Frm_Tbuff.h"
 
 TBuff* TBuff::_Instance = 0;
 

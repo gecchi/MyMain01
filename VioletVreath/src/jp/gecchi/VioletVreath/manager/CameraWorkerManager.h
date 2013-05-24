@@ -1,5 +1,9 @@
 #ifndef CAMERAWORKERMANAGER_H_
 #define CAMERAWORKERMANAGER_H_
+#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+
+#include "jp/gecchi/VioletVreath/actor/camera_worker/CameraWorker.h"
+
 namespace VioletVreath {
 
 /**

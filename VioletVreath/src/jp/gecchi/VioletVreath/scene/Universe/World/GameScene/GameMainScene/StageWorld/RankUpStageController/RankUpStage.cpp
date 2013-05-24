@@ -1,4 +1,17 @@
 #include "stdafx.h"
+#include "RankUpStage.h"
+
+#include <stdio.h>
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
+#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiRankUp.h"
+#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpaceRankUp.h"
+#include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

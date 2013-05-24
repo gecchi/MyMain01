@@ -1,6 +1,8 @@
 #include "stdafx.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisFile.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+
 using namespace IkdLib;
 
 OggVorbisFile::OggVorbisFile() {

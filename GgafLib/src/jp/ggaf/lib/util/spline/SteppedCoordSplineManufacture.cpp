@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/util/spline/SteppedCoordSplineManufacture.h"
+
+#include "jp/ggaf/lib/util/spline/SplineLine.h"
+#include "jp/ggaf/lib/util/spline/SteppedCoordSplineKurokoLeader.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

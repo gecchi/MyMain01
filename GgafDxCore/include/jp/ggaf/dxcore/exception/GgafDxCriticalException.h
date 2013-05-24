@@ -1,7 +1,28 @@
 #ifndef GGAFDXCRITICALEXCEPTION_H_
 #define GGAFDXCRITICALEXCEPTION_H_
-namespace GgafDxCore {
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
 
+#include <windows.h>
+
+#ifdef MY_DEBUG
+    #define checkDxException(HR, OKVAL, X) do { \
+        if (HR != OKVAL) { \
+            std::stringstream ss; \
+            ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
+            throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
+        } \
+    } while(0)
+#else
+    #define checkDxException(HR, OKVAL, X)
+#endif
+
+#define throwGgafDxCriticalException(HR, X) do { \
+    std::stringstream ss; \
+    ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
+    throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
+} while(0)
+
+namespace GgafDxCore {
 
 /**
  * GgafDxCoreライブラリ専用、ライブラリ業務例外 .

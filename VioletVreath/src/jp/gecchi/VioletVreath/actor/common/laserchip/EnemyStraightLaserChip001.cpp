@@ -1,9 +1,14 @@
 #include "stdafx.h"
+#include "EnemyStraightLaserChip001.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "EnemyStraightLaserChip001", STATUS(EnemyStraightLaserChip001)) {
@@ -44,7 +49,6 @@ void EnemyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         sayonara();
     }
 }
-
 
 EnemyStraightLaserChip001::~EnemyStraightLaserChip001() {
 }

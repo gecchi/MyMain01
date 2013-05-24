@@ -1,5 +1,9 @@
 #ifndef GGAFDXGEOELEM_H_
 #define GGAFDXGEOELEM_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+
 namespace GgafDxCore {
 
 /**
@@ -8,7 +12,7 @@ namespace GgafDxCore {
  * @since 2008/12/19
  * @author Masatoshi Tsuge
  */
-class GgafDxGeoElem {
+class GgafDxGeoElem : public GgafCore::GgafObject {
 public:
     coord _X;
     coord _Y;
@@ -19,7 +23,7 @@ public:
     GgafDxGeoElem* _next;
 
 public:
-    GgafDxGeoElem() {
+    GgafDxGeoElem() : GgafObject() {
         _X = 0;
         _Y = 0;
         _Z = 0;
@@ -29,7 +33,7 @@ public:
         _next = nullptr;
     }
 
-    GgafDxGeoElem(coord prm_X, coord prm_Y, coord prm_Z) {
+    GgafDxGeoElem(coord prm_X, coord prm_Y, coord prm_Z) : GgafObject() {
         _X = prm_X;
         _Y = prm_Y;
         _Z = prm_Z;
@@ -39,7 +43,7 @@ public:
         _next = nullptr;
     }
 
-    GgafDxGeoElem(coord prm_X, coord prm_Y, coord prm_Z, angle prm_RX, angle prm_RY, angle prm_RZ) {
+    GgafDxGeoElem(coord prm_X, coord prm_Y, coord prm_Z, angle prm_RX, angle prm_RY, angle prm_RZ) : GgafObject() {
         _X = prm_X;
         _Y = prm_Y;
         _Z = prm_Z;
@@ -49,7 +53,7 @@ public:
         _next = nullptr;
     }
 
-    GgafDxGeoElem(GgafDxGeometricActor* prm_pActor) {
+    GgafDxGeoElem(GgafDxGeometricActor* prm_pActor) : GgafObject() {
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;

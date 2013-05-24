@@ -1,5 +1,7 @@
 #ifndef FORMATIONJUNO001_H_
 #define FORMATIONJUNO001_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/Juno/FormationJuno.h"
+
 namespace VioletVreath {
 
 /**

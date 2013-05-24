@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "MenuBoardConfirm.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "CursorConfirmMenu.h"
+#include "jp/gecchi/VioletVreath/God.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

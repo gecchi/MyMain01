@@ -1,5 +1,7 @@
 #ifndef GGAFSCENEDIRECTOR_H_
 #define GGAFSCENEDIRECTOR_H_
+#include "jp/ggaf/core/actor/GgafActor.h"
+
 namespace GgafCore {
 
 /**
@@ -63,12 +65,7 @@ public:
     void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    void throwEventUpperTree(hashval prm_no, void* prm_pSource) override {
-        GgafScene* s = getPlatformScene();
-        if (s) {
-            s->throwEventUpperTree(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる
-        }
-    }
+    void throwEventUpperTree(hashval prm_no, void* prm_pSource) override;
 
     /**
      * 当たり判定不要のため常にfalseを返す .

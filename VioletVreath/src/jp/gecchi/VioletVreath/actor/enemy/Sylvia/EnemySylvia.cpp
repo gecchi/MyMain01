@@ -1,4 +1,15 @@
 #include "stdafx.h"
+#include "EnemySylvia.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion004.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -156,9 +167,18 @@ void EnemySylvia::onCatchEvent(hashval prm_no, void* prm_pSource) {
     }
 
 }
+
 int EnemySylvia::isOutOfView() {
     //Ž‹–ìŠO”»’è–³‚µ
     return 0;
+}
+
+bool EnemySylvia::isOutOfUniverse() {
+    if (GgafDxCore::GgafDxUniverse::_X_gone_left < _X) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 EnemySylvia::~EnemySylvia() {

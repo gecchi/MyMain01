@@ -1,5 +1,11 @@
 #include "stdafx.h"
-using namespace GgafCore;
+#include "jp/ggaf/dxcore/actor/interface/GgafDxIBumpMapActor.h"
+
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+
 using namespace GgafDxCore;
 
 GgafDxIBumpMapActor::GgafDxIBumpMapActor()  {

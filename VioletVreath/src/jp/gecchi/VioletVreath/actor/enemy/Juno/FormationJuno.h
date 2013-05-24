@@ -1,5 +1,7 @@
 #ifndef FORMATIONJUNO_H_
 #define FORMATIONJUNO_H_
+#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
+
 namespace VioletVreath {
 
 /**

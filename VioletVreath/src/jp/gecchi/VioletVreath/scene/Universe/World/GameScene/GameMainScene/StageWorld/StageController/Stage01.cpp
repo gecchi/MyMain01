@@ -1,4 +1,16 @@
 #include "stdafx.h"
+#include "Stage01.h"
+
+#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi001.h"
+#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpace001.h"
+#include "jp/gecchi/VioletVreath/actor/chikei/Planet/Planet001.h"
+#include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/Stage01PartController.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -40,7 +52,6 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
 
 void Stage01::initialize() {
     Stage::initialize();
-    CmRandomNumberGenerator::getInstance()->changeSeed(P_MYSHIP->_Y);
 }
 
 void Stage01::processBehavior() {

@@ -1,5 +1,7 @@
 #ifndef DEFAULTMORPHMESHEFFECTACTOR_H_
 #define DEFAULTMORPHMESHEFFECTACTOR_H_
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+
 namespace VioletVreath {
 
 /**

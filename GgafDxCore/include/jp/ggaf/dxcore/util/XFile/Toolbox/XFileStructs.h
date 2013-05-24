@@ -8,29 +8,29 @@
 #define _XFILESTRUCTS_H
 
 #define XOFFILE_FORMAT_MAGIC \
-    ((INT32)'x' + ((INT32)'o' << 8) + ((INT32)'f' << 16) + ((INT32)' ' << 24))
+    ((int32_t)'x' + ((int32_t)'o' << 8) + ((int32_t)'f' << 16) + ((int32_t)' ' << 24))
 
 #define XOFFILE_FORMAT_VERSION03 \
-    ((INT32)'0' + ((INT32)'3' << 8))
+    ((int32_t)'0' + ((int32_t)'3' << 8))
 
 //tsuge alter
 #define XOFFILE_FORMAT_VERSION02 \
-    ((INT32)'0' + ((INT32)'2' << 8))
+    ((int32_t)'0' + ((int32_t)'2' << 8))
 
 #define XOFFILE_FORMAT_BINARY \
-    ((INT32)'b' + ((INT32)'i' << 8) + ((INT32)'n' << 16) + ((INT32)' ' << 24))
+    ((int32_t)'b' + ((int32_t)'i' << 8) + ((int32_t)'n' << 16) + ((int32_t)' ' << 24))
 
 #define XOFFILE_FORMAT_TEXT   \
-    ((INT32)'t' + ((INT32)'x' << 8) + ((INT32)'t' << 16) + ((INT32)' ' << 24))
+    ((int32_t)'t' + ((int32_t)'x' << 8) + ((int32_t)'t' << 16) + ((int32_t)' ' << 24))
 
 #define XOFFILE_FORMAT_COMPRESSED \
-    ((INT32)'c' + ((INT32)'m' << 8) + ((INT32)'p' << 16) + ((INT32)' ' << 24))
+    ((int32_t)'c' + ((int32_t)'m' << 8) + ((int32_t)'p' << 16) + ((int32_t)' ' << 24))
 
 #define XOFFILE_FORMAT_FLOAT_BITS_32 \
-    ((INT32)'0' + ((INT32)'0' << 8) + ((INT32)'3' << 16) + ((INT32)'2' << 24))
+    ((int32_t)'0' + ((int32_t)'0' << 8) + ((int32_t)'3' << 16) + ((int32_t)'2' << 24))
 
 #define XOFFILE_FORMAT_FLOAT_BITS_64 \
-    ((INT32)'0' + ((INT32)'0' << 8) + ((INT32)'6' << 16) + ((INT32)'4' << 24))
+    ((int32_t)'0' + ((int32_t)'0' << 8) + ((int32_t)'6' << 16) + ((int32_t)'4' << 24))
 
 
 struct XFileHeader {

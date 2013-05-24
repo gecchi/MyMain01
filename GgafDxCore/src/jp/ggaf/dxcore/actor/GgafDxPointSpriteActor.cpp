@@ -1,7 +1,16 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/GgafDxPointSpriteActor.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
+#include "jp/ggaf/dxcore/model/GgafDxPointSpriteModel.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 GgafDxPointSpriteActor::GgafDxPointSpriteActor(const char* prm_name,
                                                const char* prm_model_id,

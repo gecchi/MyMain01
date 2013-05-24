@@ -2,8 +2,8 @@
 #define SIMPLEMOGERA_H_
 
 //「Gecchi Game App Freamework ライブラリ」を利用する場合
-//次のように"GgafLibHeader.h" をインクルードします。
-#include "GgafLibHeader.h"
+//次のように"GgafLibCommonHeader.h" をインクルードします。
+#include "GgafLibCommonHeader.h"
 
 //その他のヘッダファイルはこの様に記述
 

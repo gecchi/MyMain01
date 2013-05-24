@@ -1,4 +1,14 @@
 #include "stdafx.h"
+#include "MagicLvCursor.h"
+
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

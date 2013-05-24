@@ -1,14 +1,20 @@
 #include "stdafx.h"
+#include "SmpWorld.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "actor/SmpActor.h"
+
 using namespace SimpleSample;
 
 SmpWorld::SmpWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
-    pActor_ = new SmpActor("TEST");      //キャラ作成＆保持
-    getSceneDirector()->addSubGroup(pActor_); //キャラをシーン監督の配下に所属（表示される）
-    GgafLib::VirtualButton::_tagKeymap.BUTTON1 = DIK_SPACE; //ボタン１=スペースキー とする。
+    pActor_ = new SmpActor("TEST");  //キャラ作成＆保持
+    getSceneDirector()->addSubGroup(pActor_);  //キャラをシーン監督の配下に所属（表示される）
+    GgafLib::VirtualButton::_tagKeymap.BUTTON1 = DIK_SPACE;  //ボタン１=スペースキー とする。
 }
 
 void SmpWorld::initialize() {
 }
+
 
 void SmpWorld::processBehavior() {
     //キャラをボタン入力で移動

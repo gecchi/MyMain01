@@ -1,5 +1,7 @@
 #ifndef MYTORPEDOTAIL_H_
 #define MYTORPEDOTAIL_H_
+#include "jp/ggaf/lib/actor/laserchip/HomingLaserChip.h"
+
 namespace VioletVreath {
 
 /**

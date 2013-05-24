@@ -1,10 +1,16 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/GgafProperties.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/core/util/GgafUtil.h"
+#include "Shlwapi.h"
+
 
 using namespace GgafCore;
 
 GgafStrMap* GgafProperties::_pMapProperties = nullptr;
 
-UINT32 GgafProperties::MAX_SKIP_FRAME = 12;
+uint32_t GgafProperties::MAX_SKIP_FRAME = 12;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN1 = 350;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN2 = 500;
 float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 50.0f;
@@ -136,9 +142,9 @@ int GgafProperties::getInt(std::string prm_key) {
     }
 }
 
-UINT32 GgafProperties::getUInt(std::string prm_key) {
+uint32_t GgafProperties::getUInt(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        UINT32 ret = (UINT32)(atof((*_pMapProperties)[prm_key].c_str()));
+        uint32_t ret = (uint32_t)(atof((*_pMapProperties)[prm_key].c_str()));
         return ret;
     } else {
         throwGgafCriticalException("GgafProperties::getUInt() Error! プロパティに、キー("<<prm_key<<")が存在しません。");

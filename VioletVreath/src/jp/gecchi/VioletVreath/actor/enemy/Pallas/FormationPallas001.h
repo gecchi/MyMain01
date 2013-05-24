@@ -1,5 +1,7 @@
 #ifndef FORMATIONPALLAS001_H_
 #define FORMATIONPALLAS001_H_
+#include "jp/ggaf/lib/actor/TreeFormation.h"
+
 namespace VioletVreath {
 
 /**

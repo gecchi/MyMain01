@@ -1,5 +1,6 @@
 #ifndef GGAFMAINACTOR_H_
 #define GGAFMAINACTOR_H_
+#include "jp/ggaf/core/actor/GgafActor.h"
 
 namespace GgafCore {
 

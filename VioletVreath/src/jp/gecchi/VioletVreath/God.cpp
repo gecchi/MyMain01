@@ -1,4 +1,16 @@
 #include "stdafx.h"
+#include "God.h"
+
+#include "jp/ggaf/lib/util/VirtualButton.h"
+#include "jp/ggaf/lib/util/VBReplayRecorder.h"
+#include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"
+#include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
+#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
+#include "jp/gecchi/VioletVreath/actor/Camera.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

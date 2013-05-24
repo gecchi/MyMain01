@@ -1,5 +1,6 @@
 #ifndef MYSHIPDIVINGCAMWORKER_H_
 #define MYSHIPDIVINGCAMWORKER_H_
+#include "jp/gecchi/VioletVreath/actor/camera_worker/CameraWorker.h"
 
 namespace VioletVreath {
 

@@ -1,7 +1,23 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/manager/GgafDxEffectConnection.h"
+#include "jp/ggaf/dxcore/effect/GgafDxD3DXAniMeshEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxSpriteEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxSpriteSetEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
+#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshEffect.h"
+#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshSetEffect.h"
+#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMorphMeshEffect.h"
+#include "jp/ggaf/dxcore/effect/ex/GgafDxWorldBoundEffect.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 GgafDxEffect* GgafDxEffectManager::_pEffect_Active = nullptr;
 

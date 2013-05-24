@@ -1,5 +1,8 @@
 #ifndef FORMATIONADELHEID001_H_
 #define FORMATIONADELHEID001_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 
 namespace VioletVreath {
 

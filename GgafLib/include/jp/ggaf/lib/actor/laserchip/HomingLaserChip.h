@@ -1,5 +1,7 @@
 #ifndef HOMINGLASERCHIP_H_
 #define HOMINGLASERCHIP_H_
+#include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
+
 namespace GgafLib {
 
 /**

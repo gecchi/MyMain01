@@ -1,8 +1,10 @@
 #ifndef GGAFDXALLOCHIERARCHY_H_
 #define GGAFDXALLOCHIERARCHY_H_
 
-namespace GgafDxCore {
+#include <list>
+#include <d3dx9.h>
 
+namespace GgafDxCore {
 
 /**
  * ID3DXAllocateHierarchyŽÀ‘•ƒNƒ‰ƒX .

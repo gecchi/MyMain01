@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/scene/GgafDxScene.h"
+
+#include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
+#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "VvvCamWorker.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "actor/VvvCamera.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

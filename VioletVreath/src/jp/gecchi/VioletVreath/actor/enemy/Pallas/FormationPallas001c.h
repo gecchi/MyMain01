@@ -1,5 +1,7 @@
 #ifndef FORMATIONPALLAS001C_H_
 #define FORMATIONPALLAS001C_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001.h"
+
 namespace VioletVreath {
 
 /**

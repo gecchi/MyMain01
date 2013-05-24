@@ -1,5 +1,9 @@
 #ifndef GGAFDXMODEL_H_
 #define GGAFDXMODEL_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <d3d9.h>
+
 namespace GgafDxCore {
 
 /**
@@ -27,7 +31,7 @@ public:
     /** [r]モデル定義の識別名。(50文字まで) */
     char* _model_name;
     /** [r]モデルインスタンス種類 */
-    UINT32 _obj_model;
+    uint32_t _obj_model;
     /** [r]マテリアル配列 */
     D3DMATERIAL9* _paMaterial_default;
     /** [r]マテリアル数 */

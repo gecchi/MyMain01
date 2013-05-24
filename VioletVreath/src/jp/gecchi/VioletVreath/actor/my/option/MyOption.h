@@ -1,5 +1,7 @@
 #ifndef MYOPTION_H_
 #define MYOPTION_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 //class MyOption : public GgafLib::DefaultMorphMeshActor {
@@ -103,7 +105,7 @@ public:
      * @param prm_pOptCtrler 親アクター
      * @return
      */
-    MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrler);
+    MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* prm_pOptCtrler);
 
     /**
      * 初期設定パラメーター .

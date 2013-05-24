@@ -1,7 +1,9 @@
 #ifndef IKD_DIX_OGGVORBISFILE_H
 #define IKD_DIX_OGGVORBISFILE_H
+#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisResource.h"
 
 namespace IkdLib {
+
 /**
  * OggVorbisFile .
  * 本プログラムは、<BR>

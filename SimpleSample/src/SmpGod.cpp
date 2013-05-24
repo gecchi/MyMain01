@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "SmpGod.h"
+
+#include "actor/SmpCamera.h"
+#include "scene/SmpUniverse.h"
+
 using namespace SimpleSample;
 
 SmpGod::SmpGod(HINSTANCE prm_hInstance, HWND prm_hWnd1, HWND prm_hWnd2) :

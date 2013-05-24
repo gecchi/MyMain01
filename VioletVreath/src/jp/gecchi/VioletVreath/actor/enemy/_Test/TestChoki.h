@@ -1,5 +1,7 @@
 #ifndef TESTCHOKI_H_
 #define TESTCHOKI_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
+
 namespace VioletVreath {
 
 /**
@@ -8,8 +10,7 @@ namespace VioletVreath {
  * @since 2012/08/27
  * @author Masatoshi Tsuge
  */
-class TestChoki :
-  public TestEnemy {
+class TestChoki : public TestEnemy {
 
 public:
       enum {

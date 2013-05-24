@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "FormationThalia.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Thalia/EnemyThalia.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -7,9 +16,9 @@ using namespace VioletVreath;
 FormationThalia::FormationThalia(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationThalia";
-    num_Thalia_      = RR_FormationThalia_Num(_RANK_);         //編隊のタリアの数
-    interval_frames_ = RR_FormationThalia_LaunchInterval(_RANK_);    //各タリアの出現間隔(frame)
-    velo_mv_         = RR_FormationThalia_MvVelo(_RANK_); //各タリアの移動速度
+    num_Thalia_      = RF_FormationThalia_Num(_RANK_);         //編隊のタリアの数
+    interval_frames_ = RF_FormationThalia_LaunchInterval(_RANK_);    //各タリアの出現間隔(frame)
+    velo_mv_         = RF_FormationThalia_MvVelo(_RANK_); //各タリアの移動速度
 
     pDepoConnection_ = connectToDepositoryManager("Shot004");
     //編隊作成

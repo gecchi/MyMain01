@@ -1,5 +1,7 @@
 #ifndef GGAFDXBASEACTOR_H_
 #define GGAFDXBASEACTOR_H_
+#include "jp/ggaf/core/actor/GgafMainActor.h"
+
 namespace GgafDxCore {
 
 /**

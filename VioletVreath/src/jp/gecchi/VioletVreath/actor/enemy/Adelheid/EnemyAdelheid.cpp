@@ -1,4 +1,18 @@
 #include "stdafx.h"
+#include "EnemyAdelheid.h"
+
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -10,7 +24,7 @@ EnemyAdelheid::EnemyAdelheid(const char* prm_name) :
     pKurokoLeader_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
-    useProgress(PROG_MOVING_AFTER_LEAD);
+    useProgress(PROG_AFTER_LEAD_MOVING);
     pProg2_ = createProgress(PROG2_CLOSE);
     shot_begin_frame_ = 0;
     pKurokoLeader_ = nullptr;
@@ -68,19 +82,24 @@ void EnemyAdelheid::processBehavior() {
             _pProg->changeNext();
             break;
         }
-        case PROG_MOVING: {
+        case PROG_SPLINE_MOVING: {
             if (_pProg->isJustChanged()) {
             }
-            //pKurokoLeader_->isFinished() 成立待ち
+            //processJudgement() で pKurokoLeader_->isFinished() 成立待ち
             break;
         }
 
         //ゴールのパリサナがいない場合、その後の移動
-        case PROG_MOVING_AFTER_LEAD: {
+        case PROG_AFTER_LEAD: {
             if (_pProg->isJustChanged()) {
+                //もう一回だけ同じスプライン移動する
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
             }
-
-            //isOutOfUniverse() まで・・・
+            //processJudgement() で pKurokoLeader_->isFinished() 成立待ち
+            break;
+        }
+        case PROG_AFTER_LEAD_MOVING: {
+            //isOutOfUniverse() 成立待ち
             break;
         }
     }
@@ -146,21 +165,31 @@ void EnemyAdelheid::processBehavior() {
 }
 
 void EnemyAdelheid::processJudgement() {
-    if (_pProg->get() == PROG_MOVING) {
-        if (pKurokoLeader_->isFinished()) {
-            if (getFormation()) {
+
+    switch (_pProg->get()) {
+        case PROG_SPLINE_MOVING: {
+            if (pKurokoLeader_->isFinished()) {
                 if (((FormationAdelheid*)getFormation())->pPalisana_goal) {
-                    //ゴールがある場合、そこでさよなら。
+                    //ゴールが存在する場合、そこでさよなら。
                     _pProg->changeNothing();
                     sayonara();
                 } else {
-                    _pProg->change(PROG_MOVING_AFTER_LEAD);
+                    _pProg->change(PROG_AFTER_LEAD);
                 }
-            } else {
-                //ダミーの時か、来ないハズ
             }
+            break;
+        }
+
+        //ゴールのパリサナがいない場合、その後の移動
+        case PROG_AFTER_LEAD: {
+            if (pKurokoLeader_->isFinished()) {
+                //もう一回のスプライン移動も終わった場合
+                _pProg->change(PROG_AFTER_LEAD_MOVING);
+            }
+            break;
         }
     }
+
 
     if (isOutOfUniverse()) {
         sayonara();

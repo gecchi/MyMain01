@@ -1,9 +1,14 @@
 #include "stdafx.h"
+#include "TestGu.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 TestGu::TestGu(const char* prm_name)
       : TestEnemy(prm_name, "TestGu", STATUS(TestGu)) {

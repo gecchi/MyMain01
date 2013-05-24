@@ -1,5 +1,7 @@
 #ifndef FORMATIONCERES001_H_
 #define FORMATIONCERES001_H_
+#include "jp/ggaf/lib/actor/TreeFormation.h"
+
 namespace VioletVreath {
 
 /**

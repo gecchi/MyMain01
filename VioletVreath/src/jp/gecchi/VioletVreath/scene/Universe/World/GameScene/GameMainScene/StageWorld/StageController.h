@@ -1,5 +1,10 @@
 #ifndef STAGECONTROLLER_H_
 #define STAGECONTROLLER_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/TransitStage.h"
 
 #ifdef P_STAGE_WORLD
     #define P_STAGE_CTRLER (P_STAGE_WORLD->pStageCtrler_)

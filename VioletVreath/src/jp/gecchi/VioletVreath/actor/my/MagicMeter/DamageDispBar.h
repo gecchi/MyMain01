@@ -1,5 +1,7 @@
 #ifndef DAMAGEDISPBARH_
 #define DAMAGEDISPBARH_
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+
 namespace VioletVreath {
 
 #define DISP_DELAY 180

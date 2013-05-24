@@ -1,5 +1,9 @@
 #ifndef SPLINEPROGRAMCONNECTION_H_
 #define SPLINEPROGRAMCONNECTION_H_
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+
+#include "jp/ggaf/lib/util/spline/SplineSource.h"
+
 namespace GgafLib {
 
 /**

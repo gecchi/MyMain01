@@ -1,8 +1,10 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
-
-
 
 //角度の種類の変数名の命名。忘れないようメモ(2009/10/21)
 //
@@ -80,8 +82,9 @@ angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_X_REV[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_Y[D90SANG+1][D90SANG+1];
 double GgafDxUtil::SMOOTH_DV[3600+1];
 angle GgafDxUtil::GOLDEN_ANG[1000];
-UINT32 GgafDxUtil::BITNUM[33];
+uint32_t GgafDxUtil::BITNUM[33];
 GgafDxSphereRadiusVectors GgafDxUtil::_srv = GgafDxSphereRadiusVectors();
+GgafDxCamera* GgafDxUtil::_pCam = nullptr; //GgafDxUniverse::GgafDxUniverse() で設定される
 
 void GgafDxUtil::init() {
     if (_was_inited_flg) {
@@ -208,9 +211,9 @@ void GgafDxUtil::init() {
             //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
             //単位ベクトルからRxRyを求める
             _srv.getFaceAngClosely(
-                    (UINT32)(nvx*1000000),
-                    (UINT32)(nvy*1000000),
-                    (UINT32)(nvz*1000000),
+                    (uint32_t)(nvx*1000000),
+                    (uint32_t)(nvy*1000000),
+                    (uint32_t)(nvz*1000000),
                     rz,
                     ry_rev,
                     9999
@@ -239,9 +242,9 @@ void GgafDxUtil::init() {
             //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
             //単位ベクトルからRxRyを求める
             _srv.getFaceAngClosely(
-                    (UINT32)(nvx*1000000),
-                    (UINT32)(nvy*1000000),
-                    (UINT32)(nvz*1000000),
+                    (uint32_t)(nvx*1000000),
+                    (uint32_t)(nvy*1000000),
+                    (uint32_t)(nvz*1000000),
                     rz,
                     ry_rev,
                     9999
@@ -649,7 +652,7 @@ void GgafDxUtil::convRzRyToVector(angle prm_angRZ,
                                   float& out_nvx,
                                   float& out_nvy,
                                   float& out_nvz) {
-    //void GgafDxSphereRadiusVectors::getVectorClosely(int out_angFaceY, int prm_angZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z) {
+    //void GgafDxSphereRadiusVectors::getVectorClosely(int out_angFaceY, int prm_angZ, uint16_t& out_x, uint16_t& out_y, uint16_t& out_z) {
     //回転角によって象限を考慮し、getVectorCloselyのパラメータ角(< 900)を出す
     int Xsign, Ysign, Zsign;
     s_ang rZ, rY_rev;
@@ -759,7 +762,7 @@ void GgafDxUtil::convRzRyToVector(angle prm_angRZ,
     } else {
         throwGgafCriticalException("getNormalizeVectorZY: なんかおかしいですぜ(5) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
     }
-    UINT32 vx, vy, vz;
+    uint32_t vx, vy, vz;
     _srv.getVectorClosely(rY_rev, rZ, vx, vy, vz);
     out_nvx = Xsign * (int)vx / 1000000.0;
     out_nvy = Ysign * (int)vy / 1000000.0;
@@ -1266,25 +1269,23 @@ void GgafDxUtil::updateWorldMatrix_Mv(GgafDxGeometricActor* prm_pActor, D3DXMATR
 
 
 void GgafDxUtil::setWorldMatrix_BxyzScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    GgafDxCamera* pCam = P_CAM;
-
     float Sx = SC_R(prm_pActor->_SX);
     float Sy = SC_R(prm_pActor->_SY);
     float Sz = SC_R(prm_pActor->_SZ);
 
-    out_matWorld._11 = pCam->_matView._11 * Sx;
-    out_matWorld._12 = pCam->_matView._21 * Sy;
-    out_matWorld._13 = pCam->_matView._31 * Sz;
+    out_matWorld._11 = _pCam->_matView._11 * Sx;
+    out_matWorld._12 = _pCam->_matView._21 * Sy;
+    out_matWorld._13 = _pCam->_matView._31 * Sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = pCam->_matView._12 * Sx;
-    out_matWorld._22 = pCam->_matView._22 * Sy;
-    out_matWorld._23 = pCam->_matView._32 * Sz;
+    out_matWorld._21 = _pCam->_matView._12 * Sx;
+    out_matWorld._22 = _pCam->_matView._22 * Sy;
+    out_matWorld._23 = _pCam->_matView._32 * Sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = pCam->_matView._13 * Sx;
-    out_matWorld._32 = pCam->_matView._23 * Sy;
-    out_matWorld._33 = pCam->_matView._33 * Sz;
+    out_matWorld._31 = _pCam->_matView._13 * Sx;
+    out_matWorld._32 = _pCam->_matView._23 * Sy;
+    out_matWorld._33 = _pCam->_matView._33 * Sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1299,7 +1300,6 @@ void GgafDxUtil::setWorldMatrix_BxyzScMv(GgafDxGeometricActor* prm_pActor, D3DXM
 
 
 void GgafDxUtil::setWorldMatrix_ScRzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    GgafDxCamera* pCam = P_CAM;
 
     float sinRz = ANG_SIN(prm_pActor->_RZ);
     float cosRz = ANG_COS(prm_pActor->_RZ);
@@ -1307,19 +1307,19 @@ void GgafDxUtil::setWorldMatrix_ScRzBxyzMv(GgafDxGeometricActor* prm_pActor, D3D
     float Sy = SC_R(prm_pActor->_SY);
     float Sz = SC_R(prm_pActor->_SZ);
 
-    out_matWorld._11 = Sx*cosRz*pCam->_matView._11 + Sx*sinRz*pCam->_matView._12;
-    out_matWorld._12 = Sx*cosRz*pCam->_matView._21 + Sx*sinRz*pCam->_matView._22;
-    out_matWorld._13 = Sx*cosRz*pCam->_matView._31 + Sx*sinRz*pCam->_matView._32;
+    out_matWorld._11 = Sx*cosRz*_pCam->_matView._11 + Sx*sinRz*_pCam->_matView._12;
+    out_matWorld._12 = Sx*cosRz*_pCam->_matView._21 + Sx*sinRz*_pCam->_matView._22;
+    out_matWorld._13 = Sx*cosRz*_pCam->_matView._31 + Sx*sinRz*_pCam->_matView._32;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = Sy*-sinRz*pCam->_matView._11 + Sy*cosRz*pCam->_matView._12;
-    out_matWorld._22 = Sy*-sinRz*pCam->_matView._21 + Sy*cosRz*pCam->_matView._22;
-    out_matWorld._23 = Sy*-sinRz*pCam->_matView._31 + Sy*cosRz*pCam->_matView._32;
+    out_matWorld._21 = Sy*-sinRz*_pCam->_matView._11 + Sy*cosRz*_pCam->_matView._12;
+    out_matWorld._22 = Sy*-sinRz*_pCam->_matView._21 + Sy*cosRz*_pCam->_matView._22;
+    out_matWorld._23 = Sy*-sinRz*_pCam->_matView._31 + Sy*cosRz*_pCam->_matView._32;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = Sz*pCam->_matView._13;
-    out_matWorld._32 = Sz*pCam->_matView._32;
-    out_matWorld._33 = Sz*pCam->_matView._33;
+    out_matWorld._31 = Sz*_pCam->_matView._13;
+    out_matWorld._32 = Sz*_pCam->_matView._32;
+    out_matWorld._33 = Sz*_pCam->_matView._33;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1409,7 +1409,7 @@ void GgafDxUtil::setWorldMatrix_RxRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXM
 }
 
 void GgafDxUtil::setWorldMatrix_RzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    D3DXMATRIX& matView = P_CAM->_matView;
+    D3DXMATRIX& matView = _pCam->_matView;
     float sinRz = ANG_SIN(prm_pActor->_RZ);
     float cosRz = ANG_COS(prm_pActor->_RZ);
 

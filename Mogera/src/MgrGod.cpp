@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "MgrGod.h"
+
+#include "actor/MgrCamera.h"
+#include "scene/MgrUniverse.h"
+
 using namespace Mogera;
 
 MgrGod::MgrGod(HINSTANCE prm_hInstance, HWND prm_hWnd1, HWND prm_hWnd2) :

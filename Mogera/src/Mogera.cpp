@@ -5,6 +5,8 @@
 #include "GgafLibEntry.h" //"GgafLibEntry.h" をインクルードし、
                           //main関数 WinMain関数 ウィンドウプロシージャは
                           //１つのファイルに記述します。
+#include "MgrGod.h"
+
 using namespace Mogera;
 
 
@@ -20,7 +22,7 @@ int main(int argc, char *argv[]) {
 /**
  * MSVC のエントリポイント
  */
-int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow); //直後に、この様に呼び出して下さい。
 
     //プロパティファイル読込み

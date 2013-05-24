@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
+#include "jp/ggaf/core/util/GgafStatus.h"
+
+
 using namespace GgafCore;
 
 GgafActorDepositoryStore::GgafActorDepositoryStore(const char* prm_name, GgafStatus* prm_pStat) : GgafActorDepository(prm_name, prm_pStat) {

@@ -1,5 +1,6 @@
 #ifndef WALL001_H_
 #define WALL001_H_
+#include "jp/ggaf/lib/actor/WallAABActor.h"
 
 namespace VioletVreath  {
 

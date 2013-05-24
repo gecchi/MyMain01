@@ -1,5 +1,7 @@
 #ifndef SMPCAMERA_H_
 #define SMPCAMERA_H_
+#include "jp/ggaf/lib/actor/DefaultCamera.h"
+
 namespace SimpleSample {
 
 /**

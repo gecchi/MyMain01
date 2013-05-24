@@ -1,8 +1,12 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
+
+#include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
+#include "jp/ggaf/core/util/GgafLinearOctree.h"
+
 using namespace GgafCore;
 
-
-GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit) {
+GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, uint32_t prm_kindbit) : GgafObject() {
     _pSpace_current = nullptr;
     _pNext = nullptr;
     _pPrev = nullptr;
@@ -18,7 +22,7 @@ void GgafLinearOctreeElem::clear() {
         return;
     }
     //情報リセット
-    UINT32 index = _pSpace_current->_my_index;
+    uint32_t index = _pSpace_current->_my_index;
     GgafLinearOctreeSpace* paSpace = _pLinearOctree->_paSpace;
     while(true) {
         if (paSpace[index]._kindinfobit == 0 ) {
@@ -72,9 +76,9 @@ void GgafLinearOctreeElem::belongTo(GgafLinearOctreeSpace* prm_pSpace_target) {
         }
     }
     //引数の要素番号
-    UINT32 index = prm_pSpace_target->_my_index;
+    uint32_t index = prm_pSpace_target->_my_index;
     GgafLinearOctreeSpace* paSpace = _pLinearOctree->_paSpace;
-    UINT32 this_kindbit = this->_kindbit;
+    uint32_t this_kindbit = this->_kindbit;
     //親空間すべてに要素種別情報を流す
     while(true) {
         if (paSpace[index]._kindinfobit & this_kindbit) {

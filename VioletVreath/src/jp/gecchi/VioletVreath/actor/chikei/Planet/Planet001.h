@@ -1,5 +1,7 @@
 #ifndef PLANET001_H_
 #define PLANET001_H_
+#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+
 namespace VioletVreath {
 
 /**

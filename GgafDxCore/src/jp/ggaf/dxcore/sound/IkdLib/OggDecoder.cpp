@@ -1,7 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/sound/IkdLib/OggDecoder.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisResource.h"
+
 using namespace IkdLib;
 
 namespace {

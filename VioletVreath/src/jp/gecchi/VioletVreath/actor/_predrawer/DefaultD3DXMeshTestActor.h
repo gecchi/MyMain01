@@ -1,5 +1,7 @@
 #ifndef DEFAULTD3DXMESHEFFECTACTOR_H_
 #define DEFAULTD3DXMESHEFFECTACTOR_H_
+#include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"
+
 namespace VioletVreath {
 
 /**

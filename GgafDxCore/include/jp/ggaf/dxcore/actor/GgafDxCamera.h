@@ -1,12 +1,8 @@
 #ifndef GGAFDXCAMERAACTOR_H_
 #define GGAFDXCAMERAACTOR_H_
-
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 namespace GgafDxCore {
-
-// (2009/2/12 の脳みそ)
-// ２～３個 new して、１カメ、２カメみたいな切り替え操作ができたら良いかもな
-
 
 /**
  * カメラアクター.

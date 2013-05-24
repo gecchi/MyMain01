@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
+#include "jp/ggaf/lib/util/spline/SplineLine.h"
+#include "jp/ggaf/lib/util/spline/SplineManufacture.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

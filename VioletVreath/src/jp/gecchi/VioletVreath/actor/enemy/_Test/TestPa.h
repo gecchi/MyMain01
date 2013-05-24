@@ -1,5 +1,7 @@
 #ifndef TESTPA_H_
 #define TESTPA_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
+
 namespace VioletVreath {
 
 /**
@@ -8,8 +10,7 @@ namespace VioletVreath {
  * @since 2012/08/27
  * @author Masatoshi Tsuge
  */
-class TestPa :
-  public TestEnemy {
+class TestPa : public TestEnemy {
 
 public:
     enum {

@@ -1,5 +1,7 @@
 #ifndef GGAFDISUSEDACTOR_H_
 #define GGAFDISUSEDACTOR_H_
+#include "jp/ggaf/core/actor/GgafActor.h"
+
 namespace GgafCore {
 
 /**

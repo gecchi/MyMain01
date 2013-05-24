@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/StringSpriteActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

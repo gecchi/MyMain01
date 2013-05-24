@@ -1,4 +1,14 @@
 #include "stdafx.h"
+#include "Shot002.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -20,8 +30,8 @@ void Shot002::onActive() {
     setHitAble(true);
     _pScaler->setScale(2000);
     _pKurokoA->relateMvFaceAng(true);
-    _pKurokoA->setMvVelo(RR_Shot002_MvVelo(_RANK_));
-    _pKurokoA->setFaceAngVelo(AXIS_X, RR_Shot002_AngVelo(_RANK_));
+    _pKurokoA->setMvVelo(RF_Shot002_MvVelo(_RANK_));
+    _pKurokoA->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(_RANK_));
 }
 
 void Shot002::processBehavior() {

@@ -1,5 +1,8 @@
 #ifndef GGAFDXGEOMETRICACTOR_H_
 #define GGAFDXGEOMETRICACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxBaseActor.h"
+
+#include <D3dx9math.h>
 
 namespace GgafDxCore {
 

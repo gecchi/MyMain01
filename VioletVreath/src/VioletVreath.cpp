@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "GgafLibEntry.h"
 #include "resource.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/ggaf/lib/util/VBReplayRecorder.h"
 
 #define MY_IDM_RESET_WINDOW_SIZE  10
 #define MY_IDM_ABOUT              11
@@ -43,7 +46,7 @@ static VioletVreath::God* pGod = nullptr;
 /**
  * VCならばエントリポイント
  */
-int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
     std::set_unexpected(myUnexpectedHandler);
     std::set_terminate(myTerminateHandler);
@@ -217,7 +220,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         return EXIT_FAILURE;
     }
 #endif
-
     return (int) msg.wParam;
 }
 

@@ -1,5 +1,7 @@
 #ifndef STAGEPARTCONTROLLER_H_
 #define STAGEPARTCONTROLLER_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+
 namespace VioletVreath {
 
 /**

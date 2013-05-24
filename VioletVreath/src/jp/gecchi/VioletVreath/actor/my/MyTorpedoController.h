@@ -1,5 +1,7 @@
 #ifndef MYTORPEDOCONTROLLER_H_
 #define MYTORPEDOCONTROLLER_H_
+#include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
+
 namespace VioletVreath {
 
 /**

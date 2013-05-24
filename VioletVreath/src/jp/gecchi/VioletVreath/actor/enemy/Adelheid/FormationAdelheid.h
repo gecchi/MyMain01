@@ -1,5 +1,7 @@
 #ifndef FORMATIONADELHEID_H_
 #define FORMATIONADELHEID_H_
+#include "jp/ggaf/lib/actor/DepositoryFormation.h"
+
 namespace VioletVreath {
 
 /**
@@ -36,11 +38,11 @@ public:
     EnemyPalisana* pPalisana_goal;
 
     /** 編隊数(RANK変動) */
-    int rr_num_formation_;
+    int RV_NumFormation_;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
-    frame rr_interval_frames_;
+    frame RV_IntervalFrames_;
     /** 編隊メンバーの初期移動速度(RANK変動) */
-    velo rr_mv_velo_;
+    velo RV_MvVelo_;
 
 public:
     /**

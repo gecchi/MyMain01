@@ -1,5 +1,7 @@
 #ifndef GGAFDXCOLLISIONPART_H_
 #define GGAFDXCOLLISIONPART_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafDxCore {
 
 /**

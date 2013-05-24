@@ -1,5 +1,7 @@
 #ifndef FORMATIONSAPPHO001B_H_
 #define FORMATIONSAPPHO001B_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001.h"
+
 namespace VioletVreath {
 
 /**

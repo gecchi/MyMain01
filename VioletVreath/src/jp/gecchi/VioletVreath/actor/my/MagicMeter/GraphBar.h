@@ -1,5 +1,7 @@
 #ifndef GRAPHBAR_H_
 #define GRAPHBAR_H_
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+
 namespace VioletVreath {
 
 /**

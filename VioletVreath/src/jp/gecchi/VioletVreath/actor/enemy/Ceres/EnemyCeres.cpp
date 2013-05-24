@@ -1,4 +1,18 @@
 #include "stdafx.h"
+#include "EnemyCeres.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafGroupHead.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeresShot001.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

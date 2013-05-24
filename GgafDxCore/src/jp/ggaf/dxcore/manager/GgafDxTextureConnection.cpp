@@ -1,7 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 GgafDxTextureConnection::GgafDxTextureConnection(char* prm_idstr, GgafDxTexture* prm_pResource)
     :GgafResourceConnection<GgafDxTexture>(prm_idstr, prm_pResource) {
@@ -9,6 +10,7 @@ GgafDxTextureConnection::GgafDxTextureConnection(char* prm_idstr, GgafDxTexture*
 }
 
 void GgafDxTextureConnection::processReleaseResource(GgafDxTexture* prm_pResource) {
+    _TRACE_("GgafDxTexture="<<prm_pResource->getName()<<" ‚ðŠJ•ú‚µ‚Ü‚·B");
     GGAF_DELETE(prm_pResource);
 }
 

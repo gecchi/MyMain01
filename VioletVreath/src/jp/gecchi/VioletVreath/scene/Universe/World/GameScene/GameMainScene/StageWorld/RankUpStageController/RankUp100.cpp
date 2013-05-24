@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "RankUp100.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

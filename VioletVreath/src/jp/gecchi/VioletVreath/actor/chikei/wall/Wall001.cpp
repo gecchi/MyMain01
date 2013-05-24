@@ -1,9 +1,13 @@
 #include "stdafx.h"
+#include "Wall001.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 Wall001::Wall001(const char* prm_name) :
         WallAABActor(prm_name, "g_box001", STATUS(Wall001)) {

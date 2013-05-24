@@ -1,5 +1,7 @@
 #ifndef ENEMYSTRAIGHTLASERCHIP001_H_
 #define ENEMYSTRAIGHTLASERCHIP001_H_
+#include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
+
 namespace VioletVreath {
 
 class EnemyStraightLaserChip001 : public GgafLib::StraightLaserChip {

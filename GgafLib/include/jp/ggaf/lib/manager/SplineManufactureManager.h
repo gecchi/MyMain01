@@ -1,5 +1,7 @@
 #ifndef SPLINEMANUFACTUREMANAGER_H_
 #define SPLINEMANUFACTUREMANAGER_H_
+#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+
 namespace GgafLib {
 /**
  * SplineManufacture ä«óùÉNÉâÉX .

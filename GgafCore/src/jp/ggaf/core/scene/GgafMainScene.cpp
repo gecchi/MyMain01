@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/scene/GgafMainScene.h"
 
 using namespace GgafCore;
 

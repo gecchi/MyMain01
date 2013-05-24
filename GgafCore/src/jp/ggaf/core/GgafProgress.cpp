@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/GgafProgress.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+
 using namespace GgafCore;
 
 GgafProgress::GgafProgress(frame* prm_pFrame_counter, int prm_num_progress) : GgafObject() ,

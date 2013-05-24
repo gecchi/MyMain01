@@ -1,5 +1,7 @@
 #ifndef MAGICMETERCURSOR001_H_
 #define MAGICMETERCURSOR001_H_
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+
 
 
 namespace VioletVreath {

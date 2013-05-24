@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -22,6 +24,12 @@ GgafDxAlphaFader::GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor) :
     _beat_progres = 0;
     _stop_one_way_num = -1;
     _method = NO_ALPHAFADE;
+}
+
+void GgafDxAlphaFader::reset() {
+    stopImmed();
+    setToTop();
+    _pActor->setAlpha(_alpha);
 }
 
 void GgafDxAlphaFader::behave() {

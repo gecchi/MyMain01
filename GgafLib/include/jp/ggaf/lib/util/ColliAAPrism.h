@@ -1,7 +1,8 @@
 #ifndef COLLIAAPOS_PRISM_H_
 #define COLLIAAPOS_PRISM_H_
-namespace GgafLib {
+#include "jp/ggaf/lib/util/ColliAAB.h"
 
+namespace GgafLib {
 
 /**
  * AAPrism(軸平行プリズム：Axis-Aligned Prism)当たり判定要素クラス

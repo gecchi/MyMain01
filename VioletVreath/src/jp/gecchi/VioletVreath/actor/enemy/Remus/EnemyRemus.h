@@ -1,5 +1,7 @@
 #ifndef ENEMYREMUS_H_
 #define ENEMYREMUS_H_
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+
 namespace VioletVreath {
 
 /**

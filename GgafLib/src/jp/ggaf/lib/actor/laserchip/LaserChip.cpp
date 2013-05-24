@@ -1,8 +1,19 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "jp/ggaf/lib/actor/ColliAABActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
       GgafDxMeshSetActor(prm_name,

@@ -1,5 +1,8 @@
 #ifndef GGAFDXMESHACTOR_H_
 #define GGAFDXMESHACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/interface/GgafDxIBumpMapActor.h"
+
 namespace GgafDxCore {
 
 /**

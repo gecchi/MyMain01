@@ -1,5 +1,7 @@
 #ifndef TRANSITSTAGE_H_
 #define TRANSITSTAGE_H_
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
+
 namespace VioletVreath {
 
 /**

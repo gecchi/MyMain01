@@ -1,9 +1,13 @@
 #include "stdafx.h"
+#include "Wall001Prism.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 Wall001Prism::Wall001Prism(const char* prm_name) :
         WallAAPrismActor(prm_name, "g_box001Prism", STATUS(Wall001Prism)) {

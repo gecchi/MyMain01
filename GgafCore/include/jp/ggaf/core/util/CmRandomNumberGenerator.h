@@ -10,7 +10,6 @@
 #ifndef _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
 #define _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
 namespace GgafCore {
-//#include <stdio.h>
 
 //!< Period Parameter for Mersenne Twister
 #define	__N__ (624)
@@ -121,14 +120,14 @@ public:
      * @name Seed
      */
     //@{
-    void changeSeed(UINT32 a_ulSeed);
+    void changeSeed(uint32_t a_ulSeed);
     //@}
 
     //private:
 
-    void init_genrand(UINT32 s); // initialize mt[__N__] with a seed
-    UINT32 genrand_int32(void); // [0, 0xffffffff]
-    INT32 genrand_int31(void); // [0, 0x7fffffff]
+    void init_genrand(uint32_t s); // initialize mt[__N__] with a seed
+    uint32_t genrand_int32(void); // [0, 0xffffffff]
+    int32_t genrand_int31(void); // [0, 0x7fffffff]
     double genrand_real1(void); // [0, 1]
     double genrand_real2(void); // [0, 1)
     double genrand_real3(void); // (0, 1)
@@ -137,7 +136,7 @@ private:
 
     static CmRandomNumberGenerator* s_pInstance;
 
-    static UINT32 mt[__N__]; //!< array for the state vector
+    static uint32_t mt[__N__]; //!< array for the state vector
     static int mti; //!< mti==__N__+1 means mt[__N__] is not initialized
 };
 

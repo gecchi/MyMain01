@@ -1,3 +1,2 @@
-#pragma once
-#include "src/VVViewer.h"
+#include "VVViewer.h"
 

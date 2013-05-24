@@ -1,5 +1,7 @@
 #ifndef GGAFDXDYNAD3DXMESHACTOR_H_
 #define GGAFDXDYNAD3DXMESHACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
 namespace GgafDxCore {
 
 //注意：このクラスは現在未使用です。削除予定。

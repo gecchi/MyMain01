@@ -1,7 +1,15 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+
+#include <Shlwapi.h>
+#include <d3d9.h>
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
     if (GgafDxSound::_pIDirectSound8 == nullptr) {

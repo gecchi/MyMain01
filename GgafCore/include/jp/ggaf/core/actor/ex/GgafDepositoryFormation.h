@@ -1,5 +1,8 @@
 #ifndef GGAFDEPOSITORYFORMATION_H_
 #define GGAFDEPOSITORYFORMATION_H_
+#include "jp/ggaf/core/actor/ex/GgafFormation.h"
+
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 
 namespace GgafCore {
 

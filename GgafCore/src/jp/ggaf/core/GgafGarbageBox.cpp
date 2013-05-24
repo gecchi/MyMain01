@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/GgafGarbageBox.h"
+
+#include "jp/ggaf/core/actor/GgafDisusedActor.h"
+#include "jp/ggaf/core/scene/GgafDisusedScene.h"
+#include <windows.h>
+
 using namespace GgafCore;
 
 #define GgafGarbage_MAX_WAIT 2000

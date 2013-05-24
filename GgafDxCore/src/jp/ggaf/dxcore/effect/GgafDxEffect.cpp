@@ -1,6 +1,14 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "Shlwapi.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
+
 D3DXMACRO GgafDxEffect::_aD3DXMacro_Defines[3] =
 {
     { "VS_VERSION", "vs_3_0" },

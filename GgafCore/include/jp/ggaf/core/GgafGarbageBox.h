@@ -1,5 +1,7 @@
 #ifndef GGAFGARBAGEBOX_H_
 #define GGAFGARBAGEBOX_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafCore {
 
 /**

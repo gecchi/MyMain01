@@ -1,4 +1,16 @@
 #include "stdafx.h"
+#include "GroundMeshActor.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
+#include "jp/ggaf/lib/actor/ColliAABActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

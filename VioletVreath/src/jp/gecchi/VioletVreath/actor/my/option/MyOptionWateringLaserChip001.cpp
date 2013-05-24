@@ -1,10 +1,19 @@
 #include "stdafx.h"
+#include "MyOptionWateringLaserChip001.h"
+
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
-
 
 MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name) :
         WateringLaserChip(prm_name, "MyOptionWateringLaserChip001", STATUS(MyOptionWateringLaserChip001)) {

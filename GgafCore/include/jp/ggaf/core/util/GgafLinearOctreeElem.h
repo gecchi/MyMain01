@@ -1,5 +1,6 @@
 #ifndef GGAFLINEAROCTREEELEM_H_
 #define GGAFLINEAROCTREEELEM_H_
+#include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafCore {
 
@@ -9,7 +10,7 @@ namespace GgafCore {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-class GgafLinearOctreeElem {
+class GgafLinearOctreeElem : public GgafObject {
 
     friend class GgafLinearOctree;
 
@@ -39,7 +40,7 @@ public:
     /** [r]対象オブジェクト */
     GgafObject* _pObject;
     /** [r]対象オブジェクト種別 */
-    UINT32 _kindbit;
+    uint32_t _kindbit;
     /** [r]登録リスト用リンク */
     GgafLinearOctreeElem* _pRegLinkNext;
 
@@ -49,7 +50,7 @@ public:
      * @param prm_kindbit その対象オブジェクの種別、種類分け不要な場合は、任意の数値でよい。
      * @return
      */
-    GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit);
+    GgafLinearOctreeElem(GgafObject* prm_pObject, uint32_t prm_kindbit);
 
     void dump();
 

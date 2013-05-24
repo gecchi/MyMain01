@@ -1,5 +1,7 @@
 #ifndef FORMATIONTHALIA_H_
 #define FORMATIONTHALIA_H_
+#include "jp/ggaf/lib/actor/TreeFormation.h"
+
 namespace VioletVreath {
 
 /**

@@ -1,6 +1,8 @@
 #ifndef GGAFDXINPUT_H_
 #define GGAFDXINPUT_H_
 
+#include <dinput.h>
+
 //Pキーを押したときだけ_TRACE_(デバッグ用)
 #define _PTRACE_(M) {if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) { _TRACE_(M); }}
 

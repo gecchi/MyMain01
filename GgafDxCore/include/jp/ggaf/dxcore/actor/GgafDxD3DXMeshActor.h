@@ -1,5 +1,7 @@
 #ifndef GGAFDXD3DXMESHACTOR_H_
 #define GGAFDXD3DXMESHACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
 namespace GgafDxCore {
 
 /**

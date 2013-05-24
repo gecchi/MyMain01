@@ -1,5 +1,7 @@
 #ifndef MGRCAMERA_H_
 #define MGRCAMERA_H_
+#include "jp/ggaf/lib/actor/DefaultCamera.h"
+
 namespace Mogera {
 
 /**

@@ -1,5 +1,9 @@
 #ifndef GGAFDXEFFECTMANAGER_H_
 #define GGAFDXEFFECTMANAGER_H_
+#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+
 namespace GgafDxCore {
 
 /**
@@ -55,9 +59,6 @@ public:
     void restoreAll();
 
     void onDeviceLostAll();
-
-
-
 
     virtual ~GgafDxEffectManager() {
     }

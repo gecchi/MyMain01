@@ -1,5 +1,7 @@
 #ifndef COSTDISPBAR_H_
 #define COSTDISPBAR_H_
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+
 namespace VioletVreath {
 
 class CostDispBar : public GraphBar {

@@ -7,7 +7,7 @@
 #ifndef FRM_TIMER_H
 #define FRM_TIMER_H
 
-#include "../framework/frm_types.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/frm_types.h"
 
 #define MAX_TIMERS 10
 
@@ -17,9 +17,9 @@ public:
     //derive the function static Timer* GetInstance(void);
     ~Timer(void) {
     }
-    virtual void InitTimer(UINT16 index = 0) {
+    virtual void InitTimer(uint16_t index = 0) {
     }
-    virtual UINT32 GetTime(UINT16 index = 0) {
+    virtual uint32_t GetTime(uint16_t index = 0) {
         return 0;
     }
 
@@ -30,7 +30,7 @@ protected:
             _new[i] = 0;
         }
     }
-    UINT32 _old[MAX_TIMERS], _new[MAX_TIMERS];
+    uint32_t _old[MAX_TIMERS], _new[MAX_TIMERS];
     static Timer* _Instance;
 };
 

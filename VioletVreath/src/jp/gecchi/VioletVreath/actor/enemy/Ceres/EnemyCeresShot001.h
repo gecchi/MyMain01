@@ -1,5 +1,7 @@
 #ifndef ENEMYCELESSHOT001_H_
 #define ENEMYCELESSHOT001_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 /**

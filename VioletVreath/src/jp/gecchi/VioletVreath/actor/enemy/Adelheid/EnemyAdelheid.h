@@ -1,5 +1,7 @@
 #ifndef ENEMYADELHEID_H_
 #define ENEMYADELHEID_H_
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+
 namespace VioletVreath {
 
 /**
@@ -14,8 +16,9 @@ class EnemyAdelheid : public GgafLib::DefaultMorphMeshActor {
 public:
     enum {
         PROG_INIT,
-        PROG_MOVING,
-        PROG_MOVING_AFTER_LEAD,
+        PROG_SPLINE_MOVING,
+        PROG_AFTER_LEAD,
+        PROG_AFTER_LEAD_MOVING,
     };
     enum {
         PROG2_WAIT,

@@ -1,5 +1,7 @@
 #ifndef FIXEDFRAMESPLINEMANUFACTURE_H_
 #define FIXEDFRAMESPLINEMANUFACTURE_H_
+#include "jp/ggaf/lib/util/spline/SplineManufacture.h"
+
 namespace GgafLib {
 
 /**

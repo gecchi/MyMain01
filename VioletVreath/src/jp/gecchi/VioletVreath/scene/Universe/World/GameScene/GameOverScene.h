@@ -1,5 +1,7 @@
 #ifndef GAMEOVERSCENE_H_
 #define GAMEOVERSCENE_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+
 namespace VioletVreath {
 
 #define ORDER_ID_NAMEENTRYSCENE 99

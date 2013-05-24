@@ -1,5 +1,7 @@
 #ifndef GGAFUNIVERSE_H_
 #define GGAFUNIVERSE_H_
+#include "jp/ggaf/core/scene/GgafMainScene.h"
+
 namespace GgafCore {
 
 /**

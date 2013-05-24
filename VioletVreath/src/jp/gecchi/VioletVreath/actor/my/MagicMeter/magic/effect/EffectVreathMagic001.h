@@ -1,5 +1,7 @@
 #ifndef EFFECTVREATHMAGIC001_H_
 #define EFFECTVREATHMAGIC001_H_
+#include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
+
 namespace VioletVreath {
 
 /**

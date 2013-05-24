@@ -1,5 +1,10 @@
 #ifndef MYOPTIONCONTROLLER_H_
 #define MYOPTIONCONTROLLER_H_
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+
 namespace VioletVreath {
 
 /**

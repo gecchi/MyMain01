@@ -1,5 +1,7 @@
 #ifndef DEFAULTCUBEMAPMESHACTOR_H_
 #define DEFAULTCUBEMAPMESHACTOR_H_
+#include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMeshActor.h"
+
 namespace GgafLib {
 
 /**

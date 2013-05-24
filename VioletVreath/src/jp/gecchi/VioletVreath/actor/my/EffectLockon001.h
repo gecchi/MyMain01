@@ -1,5 +1,7 @@
 #ifndef EFFECTLOCKON001_H_
 #define EFFECTLOCKON001_H_
+#include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
+
 namespace VioletVreath {
 
 enum {

@@ -1,5 +1,7 @@
 #ifndef GGAFDXSPRITEACTORD_H_
 #define GGAFDXSPRITEACTORD_H_
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
 namespace GgafDxCore {
 
 /**

@@ -1,5 +1,7 @@
 #ifndef COLLISPHEREACTOR_H_
 #define COLLISPHEREACTOR_H_
+#include "jp/ggaf/dxcore/actor/ex/GgafDxSphereActor.h"
+
 namespace GgafLib {
 
 /**

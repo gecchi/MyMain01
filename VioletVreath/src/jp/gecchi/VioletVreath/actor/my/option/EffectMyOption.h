@@ -1,5 +1,7 @@
 #ifndef MYOPTIONEFFECT_H_
 #define EFFECTMYOPTION_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 

@@ -1,5 +1,8 @@
 #ifndef GGAFLIBPROPERTIESH_
 #define GGAFLIBPROPERTIESH_
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+
+#include <Shlwapi.h>
 
 #ifdef PROPERTY
     #undef PROPERTY

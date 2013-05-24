@@ -1,5 +1,7 @@
 #ifndef FORMATIONANTIOPE001_H_
 #define FORMATIONANTIOPE001_H_
+#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
+
 namespace VioletVreath {
 
 /**

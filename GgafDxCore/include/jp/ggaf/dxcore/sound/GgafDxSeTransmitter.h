@@ -1,5 +1,7 @@
 #ifndef GGAFDXSEREFLECTOR_H_
 #define GGAFDXSEREFLECTOR_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafDxCore {
 
 /**

@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+
+#include "jp/ggaf/core/util/GgafStatus.h"
+
 using namespace GgafCore;
 
 GgafActorDepository::GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat) : GgafDummyActor(prm_name, prm_pStat) {
@@ -6,7 +10,6 @@ GgafActorDepository::GgafActorDepository(const char* prm_name, GgafStatus* prm_p
     _class_name = "GgafActorDepository";
     setHitAble(false);
 }
-
 
 void GgafActorDepository::addSubLast(GgafActor* prm_pSub) {
 

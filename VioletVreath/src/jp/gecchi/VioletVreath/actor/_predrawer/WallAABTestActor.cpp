@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "WallAABTestActor.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

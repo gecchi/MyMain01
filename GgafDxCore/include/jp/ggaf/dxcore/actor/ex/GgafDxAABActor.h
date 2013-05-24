@@ -1,5 +1,7 @@
 #ifndef GGAFDXBOXACTOR_H_
 #define GGAFDXBOXACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
+
 namespace GgafDxCore {
 
 /**

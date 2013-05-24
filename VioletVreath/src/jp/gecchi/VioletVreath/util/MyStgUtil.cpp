@@ -1,4 +1,18 @@
 #include "stdafx.h"
+#include "MyStgUtil.h"
+
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
+#include "jp/gecchi/VioletVreath/actor/Camera.h"
+#include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -213,11 +227,11 @@ GgafDxDrawableActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_
                    prm_pActor,
                    getCommonDepository(Shot004),
                    PX_C(20),       //r
-                   RR_SHOT_RV_NOMAL001_ShotWay(_RANK_),    //way数
-                   RR_SHOT_RV_NOMAL001_Density(_RANK_),    //wayとwayの間隔
-                   RR_SHOT_RV_ShotMvVelo(_RANK_),          //初期速度
-                   RR_SHOT_RV_ShotMvAcce(_RANK_),          //加速度
-                   RR_SHOT_RV_NOMAL001_ShotSetNum(_RANK_), //wayのセット数
+                   RF_SHOT_RV_NOMAL001_ShotWay(_RANK_),    //way数
+                   RF_SHOT_RV_NOMAL001_Density(_RANK_),    //wayとwayの間隔
+                   RF_SHOT_RV_ShotMvVelo(_RANK_),          //初期速度
+                   RF_SHOT_RV_ShotMvAcce(_RANK_),          //加速度
+                   RF_SHOT_RV_NOMAL001_ShotSetNum(_RANK_), //wayのセット数
                    8, //セットとセットの間隔フレーム
                    0.0f,
                    nullptr
@@ -233,8 +247,8 @@ GgafDxDrawableActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_
                                   PX_C(20),
                                   8,
                                   D_ANG(10),
-                                  RR_SHOT_RV_ShotMvVelo(_RANK_),
-                                  RR_SHOT_RV_ShotMvAcce(_RANK_),
+                                  RF_SHOT_RV_ShotMvVelo(_RANK_),
+                                  RF_SHOT_RV_ShotMvAcce(_RANK_),
                                   12,
                                   3,
                                   0.9);

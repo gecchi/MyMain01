@@ -6,9 +6,13 @@
 //                                            2009/01/13 Masatoshi Tsuge<BR>
 
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/sound/IkdLib/PCMPlayer.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+#include <process.h>
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/sound/IkdLib/PCMDecoder.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+
 using namespace IkdLib;
 
 
@@ -79,7 +83,7 @@ void PCMPlayer::terminateThread() {
                 _TRACE_("＜警告＞ PCMPlayer::terminateThread() 失敗しました。原因不明。頻発する場合は調査が必要！！");
                 break;
             }
-            DWORD flag = WaitForSingleObject((HANDLE)(__int64 )_hnd_thread, 10);
+            DWORD flag = WaitForSingleObject((HANDLE)(int64_t )_hnd_thread, 10);
             switch (flag) {
                 case WAIT_OBJECT_0:
                     // スレッドが終わった

@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "EnemyMassaliaBase.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -42,7 +49,7 @@ void EnemyMassaliaBase::onHit(GgafActor* prm_pOtherActor) {
 void EnemyMassaliaBase::appearFragment(const char* prm_dp_name) {
     //ífï–èoåª
     DepositoryConnection* pDepoConn = connectToDepositoryManager(prm_dp_name);
-    for (int i = 0; i < RR_EnemyMassalia_ShotWay(_RANK_); i++) {
+    for (int i = 0; i < RF_EnemyMassalia_ShotWay(_RANK_); i++) {
         EnemyMassaliaBase* pFragment = (EnemyMassaliaBase*)(pDepoConn->peek()->dispatch());
         if (pFragment) {
             pFragment->locateAs(this);

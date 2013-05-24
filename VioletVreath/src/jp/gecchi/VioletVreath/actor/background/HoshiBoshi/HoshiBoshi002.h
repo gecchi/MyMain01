@@ -1,5 +1,7 @@
 #ifndef HOSHIBOSHI002_H_
 #define HOSHIBOSHI002_H_
+#include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
+
 namespace VioletVreath {
 //åªç›ñ¢égóp
 /**

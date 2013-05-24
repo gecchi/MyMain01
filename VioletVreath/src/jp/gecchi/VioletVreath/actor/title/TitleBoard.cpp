@@ -1,4 +1,7 @@
 #include "stdafx.h"
+#include "TitleBoard.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

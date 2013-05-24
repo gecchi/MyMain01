@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "FormationEunomia001b.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/EnemyEunomia.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

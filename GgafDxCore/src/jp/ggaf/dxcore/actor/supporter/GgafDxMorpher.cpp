@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
+
+#include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
+#include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

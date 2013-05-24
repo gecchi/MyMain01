@@ -1,5 +1,18 @@
 #ifndef GGAFDXSE_H_
 #define GGAFDXSE_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <sstream>
+//↑#include <dsound.h> より先に無いと、out__ やらが sal.h により汚染されるため
+#ifdef __GNUG__
+    //dsound.h 内で、__null 定数を使用したコードあるため
+    #define __null
+#endif
+#include <dsound.h>
+#ifdef __GNUG__
+    #undef __null
+#endif
+
 namespace GgafDxCore {
 
 /**

@@ -1,5 +1,8 @@
 #ifndef GGAFDXCUBEMAPMESHSETACTOR_H_
 #define GGAFDXCUBEMAPMESHSETACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
+#include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
+
 namespace GgafDxCore {
 
 /**

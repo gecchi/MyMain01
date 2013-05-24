@@ -1,5 +1,6 @@
 #ifndef IKD_DIX_OGGVORBISMEMORY_H
 #define IKD_DIX_OGGVORBISMEMORY_H
+#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisResource.h"
 
 namespace IkdLib {
 

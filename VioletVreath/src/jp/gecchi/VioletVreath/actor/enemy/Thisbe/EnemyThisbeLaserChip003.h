@@ -1,5 +1,7 @@
 #ifndef ENEMYTHISBELASERCHIP003_H_
 #define ENEMYTHISBELASERCHIP003_H_
+#include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
+
 namespace VioletVreath {
 
 class EnemyThisbeLaserChip003 : public GgafLib::WateringLaserChip {

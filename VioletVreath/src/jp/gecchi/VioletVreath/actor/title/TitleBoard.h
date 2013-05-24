@@ -1,5 +1,7 @@
 #ifndef TITLEBOARD_H_
 #define TITLEBOARD_H_
+#include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
+
 
 namespace VioletVreath {
 

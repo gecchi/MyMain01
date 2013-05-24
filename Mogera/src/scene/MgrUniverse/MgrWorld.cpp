@@ -1,5 +1,11 @@
 #include "stdafx.h"
+#include "MgrWorld.h"
+
+#include "actor/MgrActor.h"
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+
 using namespace Mogera;
+using GgafCore::GgafSceneDirector;
 
 MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pActor_ = new MgrActor("TEST");      //ƒLƒƒƒ‰ì¬••Û

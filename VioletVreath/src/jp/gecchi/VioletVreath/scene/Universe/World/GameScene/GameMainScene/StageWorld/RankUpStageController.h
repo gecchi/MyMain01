@@ -1,5 +1,8 @@
 #ifndef RANKUPSTAGECONTROLLER_H_
 #define RANKUPSTAGECONTROLLER_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld.h"
 
 #ifdef P_STAGE_WORLD
     #define P_RANK_UP_CONTROLLER (P_STAGE_WORLD->pRankUpStageCtrler_)

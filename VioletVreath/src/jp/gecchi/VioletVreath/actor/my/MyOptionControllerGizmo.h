@@ -1,5 +1,7 @@
 #ifndef MYOPTIONCONTROLLERGIZMO_H_
 #define MYOPTIONCONTROLLERGIZMO_H_
+#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+
 namespace VioletVreath {
 
 /**

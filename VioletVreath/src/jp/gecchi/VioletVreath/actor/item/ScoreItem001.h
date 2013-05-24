@@ -1,5 +1,6 @@
 #ifndef SCOREITEM001_H_
 #define SCOREITEM001_H_
+#include "jp/gecchi/VioletVreath/actor/item/ScoreItem.h"
 
 namespace VioletVreath {
 

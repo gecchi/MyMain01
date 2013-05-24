@@ -1,7 +1,8 @@
 #ifndef ENEMYSYLVIAEYE_H_
 #define ENEMYSYLVIAEYE_H_
-namespace VioletVreath {
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
+namespace VioletVreath {
 
 /**
  * トーラスの目玉 .
@@ -9,8 +10,7 @@ namespace VioletVreath {
  * @since 2012/10/16
  * @author Masatoshi Tsuge
  */
-class EnemySylviaEye :
-  public GgafLib::DefaultMorphMeshActor {
+class EnemySylviaEye : public GgafLib::DefaultMorphMeshActor {
     /** 弾発射前溜め効果エフェクト */
     EffectSylviaEye001* pEffect_;
 

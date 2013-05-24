@@ -1,7 +1,14 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
+#include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
                                  const char* prm_model_id,

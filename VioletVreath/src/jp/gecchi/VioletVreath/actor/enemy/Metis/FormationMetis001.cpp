@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "FormationMetis001.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Metis/EnemyMetis.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

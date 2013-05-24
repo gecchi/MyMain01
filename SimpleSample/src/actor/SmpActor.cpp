@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "SmpActor.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+
 using namespace SimpleSample;
 
 SmpActor::SmpActor(const char* prm_name) :

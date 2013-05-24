@@ -1,5 +1,9 @@
 #ifndef GGAFSTATUS_H_
 #define GGAFSTATUS_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+
 namespace GgafCore {
 
 /**
@@ -9,7 +13,7 @@ namespace GgafCore {
  * @since 2009/07/22 誕生日
  * @author Masatoshi Tsuge
  */
-class GgafStatus {
+class GgafStatus : public GgafObject {
 
     /**
      * ステータス値を表す .
@@ -38,20 +42,7 @@ public:
      * @param prm_max_status_kind 最大ステータス要素数。
      * @param prm_pFunc_reset ステータスリセットメソッド
      */
-    GgafStatus(int prm_max_status_kind, GgafStatus* (*prm_pFunc_reset)(GgafStatus*) = nullptr) {
-        _len = prm_max_status_kind;
-        _paValue = new VALUE[_len];
-        for (int i = 0; i < _len; i++) {
-            _paValue[i]._double_val = 0;
-            _paValue[i]._int_val = 0;
-            _paValue[i]._char_val = 0;
-            _paValue[i]._ptr = nullptr;
-        }
-        _pFunc_reset = prm_pFunc_reset;
-        if (_pFunc_reset) {
-            (*_pFunc_reset)(this); //リセットメソッドを実行して初期化
-        }
-    }
+    GgafStatus(int prm_max_status_kind, GgafStatus* (*prm_pFunc_reset)(GgafStatus*) = nullptr);
 
     inline void set(int prm_status_kind, char val) {
 #ifdef MY_DEBUG
@@ -157,10 +148,7 @@ public:
         }
     }
 
-    ~GgafStatus() {
-        delete[] _paValue;
-        //GGAF_DELETEARR(_paValue);
-    }
+    ~GgafStatus();
 
 };
 

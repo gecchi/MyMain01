@@ -1,4 +1,12 @@
 #include "stdafx.h"
+#include "FormationJuno.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Juno/EnemyJuno.h"
+#include "jp/gecchi/VioletVreath/God.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

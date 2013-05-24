@@ -7,7 +7,7 @@
 #ifndef FRM_MATERIAL_H
 #define FRM_MATERIAL_H
 
-#include "../framework/frm_types.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/frm_types.h"
 
 namespace Frm {
 
@@ -27,7 +27,7 @@ public:
     Color4 _FaceColor;
     float _power;
     Color3 _SpecularColor, _EmissiveColor;
-    UINT16 _TextID;
+    uint16_t _TextID;
     std::string _TextureName;
 };
 

@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "FormationEunomia.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/EnemyEunomia.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -26,10 +35,10 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
 }
 
 void FormationEunomia::updateRankParameter() {
-    RR_num_formation_col_ = RR_FormationEunomia001_Col(_RANK_);            //編隊列数
-    RR_num_formation_row_ = RR_FormationEunomia001_Num(_RANK_);            //１列の編隊数
-    RR_interval_frames_   = RR_FormationEunomia001_LaunchInterval(_RANK_); //エウノミアの間隔(frame)
-    RR_mv_velo_           = RR_FormationEunomia001_MvVelo(_RANK_);         //速度
+    RF_num_formation_col_ = RF_FormationEunomia001_Col(_RANK_);            //編隊列数
+    RF_num_formation_row_ = RF_FormationEunomia001_Num(_RANK_);            //１列の編隊数
+    RF_interval_frames_   = RF_FormationEunomia001_LaunchInterval(_RANK_); //エウノミアの間隔(frame)
+    RF_mv_velo_           = RF_FormationEunomia001_MvVelo(_RANK_);         //速度
 }
 
 void FormationEunomia::initialize() {
@@ -50,14 +59,14 @@ void FormationEunomia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 void FormationEunomia::processBehavior() {
-    if (canCallUp() && (getActiveFrame() % RR_interval_frames_ == 0)) {
-        for (int i = 0; i < RR_num_formation_col_; i++) {
-            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpMember(RR_num_formation_col_*RR_num_formation_row_);
+    if (canCallUp() && (getActiveFrame() % RF_interval_frames_ == 0)) {
+        for (int i = 0; i < RF_num_formation_col_; i++) {
+            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpMember(RF_num_formation_col_*RF_num_formation_row_);
             if (pEunomia) {
                 SplineKurokoLeader* pKurokoLeader = papSplManufConnection_[i]->peek()->
                                               createKurokoLeader(pEunomia->_pKurokoA);
                 pEunomia->config(pKurokoLeader, nullptr, nullptr);
-                pEunomia->_pKurokoA->setMvVelo(RR_mv_velo_);
+                pEunomia->_pKurokoA->setMvVelo(RF_mv_velo_);
                 onCallUpEunomia(pEunomia, i); //フォーメーション個別実装の処理
             }
         }

@@ -1,5 +1,7 @@
 #ifndef EFFECTCONDENSATION001_H_
 #define EFFECTCONDENSATION001_H_
+#include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
+
 namespace VioletVreath {
 
 /**

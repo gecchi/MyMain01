@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "MgrUniverse.h"
+
 using namespace Mogera;
 
 MgrUniverse::MgrUniverse(const char* prm_name, MgrCamera* prm_pCam) :

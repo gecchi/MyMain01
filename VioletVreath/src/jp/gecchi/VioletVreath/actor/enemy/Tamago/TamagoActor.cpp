@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "TamagoActor.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxPuppeteer.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

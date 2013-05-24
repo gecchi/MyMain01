@@ -1,5 +1,7 @@
 #ifndef FORMATIONHEBE001_H_
 #define FORMATIONHEBE001_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe.h"
+
 namespace VioletVreath {
 
 /**

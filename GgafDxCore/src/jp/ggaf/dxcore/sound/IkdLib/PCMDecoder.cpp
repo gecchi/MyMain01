@@ -1,7 +1,6 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/sound/IkdLib/PCMDecoder.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
 using namespace IkdLib;
 
 PCMDecoder::PCMDecoder() :

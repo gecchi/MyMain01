@@ -1,5 +1,7 @@
 #ifndef TESTGUSHOT_H_
 #define TESTGUSHOT_H_
+#include "jp/ggaf/lib/actor/SingleLaser.h"
+
 namespace VioletVreath {
 
 /**

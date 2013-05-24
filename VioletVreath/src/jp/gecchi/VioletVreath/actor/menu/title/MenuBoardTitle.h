@@ -1,5 +1,7 @@
 #ifndef MENUBOARDTITLE_H_
 #define MENUBOARDTITLE_H_
+#include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
+
 
 
 

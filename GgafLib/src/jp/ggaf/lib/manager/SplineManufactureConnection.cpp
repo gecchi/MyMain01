@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+
+#include <Shlwapi.h>
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

@@ -1,9 +1,14 @@
 #include "stdafx.h"
+#include "CubeMapMorphMeshTestActor.h"
+
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 CubeMapMorphMeshTestActor::CubeMapMorphMeshTestActor(const char* prm_name) :
         CubeMapMorphMeshActor(prm_name, "0/_chk_CubeMapMorphMeshTestModel", nullptr) {

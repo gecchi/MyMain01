@@ -1,5 +1,7 @@
 #ifndef SPRITELABELBONUS001_H_
 #define SPRITELABELBONUS001_H_
+#include "jp/ggaf/lib/actor/StringSpriteActor.h"
+
 namespace VioletVreath {
 
 /**

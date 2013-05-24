@@ -1,9 +1,13 @@
 #include "stdafx.h"
+#include "CommonScene.h"
+
+#include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "CommonScene";

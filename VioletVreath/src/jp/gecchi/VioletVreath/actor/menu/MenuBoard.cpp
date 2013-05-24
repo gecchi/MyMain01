@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "MenuBoard.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/gecchi/VioletVreath/God.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

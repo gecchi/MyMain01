@@ -1,10 +1,12 @@
-
 #include "stdafx.h"
+#include "MyTorpedoTail.h"
+
+#include "MyTorpedo.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 MyTorpedoTail::MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pTorpedo) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001", nullptr) {

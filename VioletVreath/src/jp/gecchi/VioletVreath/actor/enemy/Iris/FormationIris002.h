@@ -1,5 +1,7 @@
 #ifndef FORMATIONIRIS002_H_
 #define FORMATIONIRIS002_H_
+#include "jp/ggaf/lib/actor/TreeFormation.h"
+
 namespace VioletVreath {
 
 /**

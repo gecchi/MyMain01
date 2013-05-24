@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "FormationCeres002.h"
+
+#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeres.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

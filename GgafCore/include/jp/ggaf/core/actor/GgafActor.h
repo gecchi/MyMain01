@@ -1,8 +1,9 @@
 #ifndef GGAFACTOR_H_
 #define GGAFACTOR_H_
+#include "jp/ggaf/core/GgafElement.hpp"
 
+#include "jp/ggaf/core/util/GgafStatus.h"
 #define STAT_DEFAULT_ACTOR_KIND 0
-
 
 namespace GgafCore {
 
@@ -226,7 +227,7 @@ public:
      * @param prm_Obj_xxxx 調べるクラスのマクロ定数
      * @return
      */
-    virtual bool instanceOf(UINT32 prm_Obj_xxxx) override {
+    virtual bool instanceOf(uint32_t prm_Obj_xxxx) override {
         if ((Obj_SceneBit & prm_Obj_xxxx) == Obj_SceneBit) {
             //シーンを示すビットが立っていたら
             return false;

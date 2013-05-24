@@ -1,5 +1,7 @@
 #ifndef GGAFDXD3DXANIMESHEFFECT_H_
 #define GGAFDXD3DXANIMESHEFFECT_H_
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+
 namespace GgafDxCore {
 
 /**

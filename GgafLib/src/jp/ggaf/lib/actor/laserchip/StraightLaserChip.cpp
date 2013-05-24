@@ -1,8 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
             LaserChip(prm_name, prm_model, prm_pStat) {

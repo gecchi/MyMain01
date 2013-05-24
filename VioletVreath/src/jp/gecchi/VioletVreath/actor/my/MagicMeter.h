@@ -1,8 +1,10 @@
 #ifndef MAGICMETER_H_
 #define MAGICMETER_H_
-namespace VioletVreath {
+#include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
 
-#define MMETER_MAX_LEVEL 9
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
+namespace VioletVreath {
 
 #ifdef P_MYSHIP
     #define P_MAGICMETER (P_MYSHIP->pMagicMeter_)

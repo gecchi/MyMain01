@@ -1,5 +1,11 @@
 #ifndef MYSHIP_H_
 #define MYSHIP_H_
+#include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"
+
+#include "jp/ggaf/lib/util/AmountGraph.h"
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+
 namespace VioletVreath {
 
 #define SH_NOMAL 0;

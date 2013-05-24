@@ -1,5 +1,9 @@
 #ifndef LASERCHIPDEPOSITORY_H_
 #define LASERCHIPDEPOSITORY_H_
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+
+#include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
+
 namespace GgafLib {
 
 /**
@@ -70,7 +74,7 @@ public:
      * @param prm_pEffectActor_Irradiate シーン所属済み発射中エフェクト(不要時はnullptr)。解放は呼び元で。
      */
     virtual void config(int prm_num_continual_dispatch_max,
-                        UINT32 prm_num_chip_interval,
+                        uint32_t prm_num_chip_interval,
                         GgafDxCore::GgafDxDrawableActor* prm_pEffectActor_Irradiate = nullptr);
 
     virtual void processBehavior() override {

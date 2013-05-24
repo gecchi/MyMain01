@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "Magic.h"
+
+#include "jp/ggaf/lib/util/AmountGraph.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,7 +1,11 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+
+#include "jp/ggaf/dxcore/manager/GgafDxBgmConnection.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 GgafDxBgmPerformerForScene::GgafDxBgmPerformerForScene(GgafDxScene* prm_pDxScene) : GgafDxBgmPerformer() {
     _pDxScene = prm_pDxScene;

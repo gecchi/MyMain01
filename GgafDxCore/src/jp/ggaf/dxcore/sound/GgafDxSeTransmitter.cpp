@@ -1,4 +1,12 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSeTransmitter.h"
+
+#include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+#include <stdio.h>
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

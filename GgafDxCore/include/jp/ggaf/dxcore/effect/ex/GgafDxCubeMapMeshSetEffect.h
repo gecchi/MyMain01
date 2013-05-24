@@ -1,5 +1,7 @@
 #ifndef GGAFDXCUBEMAPMESHSETEFFECT_H_
 #define GGAFDXCUBEMAPMESHSETEFFECT_H_
+#include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
+
 namespace GgafDxCore {
 
 /**

@@ -1,5 +1,21 @@
 #ifndef MENUACTOR_H_
 #define MENUACTOR_H_
+
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+#include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
+#include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
+#include "jp/ggaf/lib/actor/menu/MenuActor.hpp"
+#include "jp/ggaf/lib/actor/StringBoardActor.h"
+#include "jp/ggaf/lib/actor/StringSpriteActor.h"
+
+using GgafDxCore::GgafDxUtil;
+
+
 namespace GgafLib {
 
 /**

@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMeshActor.h"
+
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshEffect.h"
+#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

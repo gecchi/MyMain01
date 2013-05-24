@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "GgafLibEntry.h"
+
+#include "VvvGod.h"
+
 using namespace VVViewer;
 
 
@@ -15,7 +18,7 @@ int main(int argc, char *argv[]) {
 /**
  * MSVC のエントリポイント
  */
-int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 
     //プロパティファイル読込み

@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "TestCamWorker.h"
+
+#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/God.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

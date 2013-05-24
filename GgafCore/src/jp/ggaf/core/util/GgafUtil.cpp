@@ -1,10 +1,15 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/util/GgafUtil.h"
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include <fstream>
+#include <time.h>
+#include <windows.h>
 
 using namespace GgafCore;
 
-UINT32 GgafUtil::_timex = 0;
+uint32_t GgafUtil::_timex = 0;
 
-UINT32 GgafUtil::getSystemTime() {
+uint32_t GgafUtil::getSystemTime() {
 
     return timeGetTime();
     //return _timex++;
@@ -15,7 +20,7 @@ char* GgafUtil::getFileText(std::string prm_filename) {
     if (!ifs.is_open()) {
         return nullptr;
     } else {
-        UINT32 size = 0;
+        uint32_t size = 0;
         // サイズを取得
         while (!ifs.eof()) {
             ifs.ignore();
@@ -29,6 +34,16 @@ char* GgafUtil::getFileText(std::string prm_filename) {
         ifs.read(pa_char, size-1);
         return pa_char;
     }
+}
+
+int32_t GgafUtil::_rnd_int32_(int32_t prm_from, int32_t prm_to) {
+#ifdef MY_DEBUG
+    if (prm_from > prm_to) {
+        MessageBox(nullptr, "GgafUtil::_rnd_int32_() from toの大小がおかしい", "不本意な事態", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND);
+    }
+#endif
+    return ((int32_t)(GgafCore::CmRandomNumberGenerator::getInstance()->genrand_real2() * (prm_to - prm_from + 1) ) + prm_from );
+    //↑[N3551 Random Number Generation in C++11] を読んで焦って修正、今まで剰余使ってたし！ 2013/03/22
 }
 
 void GgafUtil::readProperties(std::string filename, GgafStrMap* pMap)

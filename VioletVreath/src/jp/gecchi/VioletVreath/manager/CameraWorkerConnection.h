@@ -1,5 +1,9 @@
 #ifndef CAMERAWORKERCONNECTION_H_
 #define CAMERAWORKERCONNECTION_H_
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+
+#include "jp/gecchi/VioletVreath/actor/camera_worker/CameraWorker.h"
+
 namespace VioletVreath {
 
 /**

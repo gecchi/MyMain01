@@ -1,5 +1,6 @@
 #ifndef VVVUNIVERSE_H_
 #define VVVUNIVERSE_H_
+#include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
 #ifdef P_UNIVERSE
     #ifdef P_CAM

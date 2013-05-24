@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "TamagoScene.h"
+
+#include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

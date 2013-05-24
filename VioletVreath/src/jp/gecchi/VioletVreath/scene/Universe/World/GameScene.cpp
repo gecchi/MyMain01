@@ -1,4 +1,25 @@
 #include "stdafx.h"
+#include "GameScene.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/LinearOctreeForActor.h"
+#include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameBeginningScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameDemoScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameEndingScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GamePreTitleScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameTitleScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/PreDrawScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

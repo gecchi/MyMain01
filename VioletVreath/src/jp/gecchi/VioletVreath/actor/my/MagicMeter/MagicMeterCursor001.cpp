@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "MagicMeterCursor001.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

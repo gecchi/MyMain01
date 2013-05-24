@@ -1,9 +1,8 @@
 #ifndef RANKUPSTAGE_H_
 #define RANKUPSTAGE_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
-
-
 
 class RankUpStage : public GgafLib::DefaultScene {
 

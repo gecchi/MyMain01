@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/ex/GgafDxStringSpriteActor.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/model/GgafDxSpriteSetModel.h"
+#include "jp/ggaf/dxcore/effect/GgafDxSpriteSetEffect.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

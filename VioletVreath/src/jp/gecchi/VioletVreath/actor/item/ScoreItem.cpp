@@ -1,4 +1,14 @@
 #include "stdafx.h"
+#include "ScoreItem.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -54,8 +64,8 @@ void ScoreItem::onActive() {
     int d = PX_C(200);
     int r = PX_C(75);
     _pKurokoA->setMvAngTwd((coord)(_X + (vX * d) + RND(-r, +r)),
-                               (coord)(_Y + (vY * d) + RND(-r, +r)),
-                               (coord)(_Z + (vZ * d) + RND(-r, +r)) );
+                           (coord)(_Y + (vY * d) + RND(-r, +r)),
+                           (coord)(_Z + (vZ * d) + RND(-r, +r)) );
     _pKurokoA->setMvVelo(2000);
     _pKurokoA->setMvAcce(100);
 

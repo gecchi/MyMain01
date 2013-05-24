@@ -1,9 +1,15 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/ex/GgafDxAABActor.h"
+
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxAABActor::GgafDxAABActor(const char* prm_name, GgafStatus* prm_pStat,
-                                   GgafDxChecker* prm_pChecker) :
+GgafDxAABActor::GgafDxAABActor(const char* prm_name,
+                               GgafStatus* prm_pStat,
+                               GgafDxChecker* prm_pChecker) :
 
                                    GgafDxMeshActor(prm_name,
                                                    PROPERTY::COLI_AAB_MODEL.c_str(),

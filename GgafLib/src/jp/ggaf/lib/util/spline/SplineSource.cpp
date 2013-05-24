@@ -1,8 +1,14 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/util/spline/SplineSource.h"
+
+#include <fstream>
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/lib/util/spline/SplineLine.h"
+#include "jp/ggaf/lib/GgafLibProperties.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 SplineSource::SplineSource(SplineLine* prm_pSp) : GgafObject() {
     _idstr = "Nothing";

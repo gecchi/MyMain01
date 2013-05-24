@@ -5,8 +5,10 @@
 #include "GgafLibEntry.h" //"GgafLibEntry.h" をインクルードし、
                           //main関数 WinMain関数 ウィンドウプロシージャは
                           //１つのファイルに記述します。
-using namespace SimpleSample;
 
+#include "SmpGod.h"
+
+using namespace SimpleSample;
 
 /**
  * ウィンドウプロシージャ実装例 .
@@ -24,10 +26,11 @@ int main(int argc, char *argv[]) {
     return GgafLibMain(argc, argv); //直後に、この様に呼び出して下さい。
 }
 
+
 /**
  * MSVC のエントリポイント
  */
-int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow); //直後に、この様に呼び出して下さい。
 
     //プロパティファイル読込み
@@ -79,5 +82,4 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     }
     return (int)msg.wParam;
 }
-
 

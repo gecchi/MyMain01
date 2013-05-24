@@ -1,4 +1,12 @@
 #include "stdafx.h"
+#include "DamageDispBar.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/lib/util/AmountGraph.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

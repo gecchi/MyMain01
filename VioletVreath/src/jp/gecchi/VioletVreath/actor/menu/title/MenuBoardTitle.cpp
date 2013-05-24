@@ -1,4 +1,14 @@
 #include "stdafx.h"
+#include "MenuBoardTitle.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/lib/actor/menu/MenuActor.hpp"
+#include "CursorTitleMenu.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"
+#include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
+#include "jp/gecchi/VioletVreath/God.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

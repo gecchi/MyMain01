@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "FormationIris002.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Iris/EnemyIris.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -7,9 +16,9 @@ using namespace VioletVreath;
 FormationIris002::FormationIris002(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationIris002";
-    num_Iris_        = RR_FormationIris002_Num(_RANK_);    //編隊数
-    interval_frames_ = RR_FormationIris002_LaunchInterval(_RANK_);   //イリスの間隔(frame)
-    velo_mv_         = RR_FormationIris002_MvVelo(_RANK_); //速度
+    num_Iris_        = RF_FormationIris002_Num(_RANK_);    //編隊数
+    interval_frames_ = RF_FormationIris002_LaunchInterval(_RANK_);   //イリスの間隔(frame)
+    velo_mv_         = RF_FormationIris002_MvVelo(_RANK_); //速度
     //スプライン移動の定義
     pSplLineConnection_ = connectToSplineLineManager("Spl_00202_");
     pDepoConnection_ = connectToDepositoryManager("Shot002");

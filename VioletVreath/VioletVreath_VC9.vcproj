@@ -53,7 +53,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="false"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include;..\VioletVreath"
+				AdditionalIncludeDirectories=".\src;..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include;..\VioletVreath"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -154,7 +154,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="&quot;..\CustomizeOgg_static\include&quot;;&quot;..\CustomizeVorbis_static\include&quot;;&quot;..\GgafCore\include&quot;;&quot;..\GgafDxCore\include&quot;;&quot;..\GgafLib\include&quot;;&quot;..\VioletVreath&quot;"
+				AdditionalIncludeDirectories=".\src;..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include;..\VioletVreath"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
@@ -346,10 +346,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffecMagic001.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectCondensation001.cpp"
 				>
 			</File>
@@ -399,6 +395,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLockonMagic.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectMagic001.cpp"
 				>
 			</File>
 			<File
@@ -1430,7 +1430,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpaceRunkUp.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundSpaceRankUp.cpp"
 				>
 			</File>
 			<File
@@ -2609,6 +2609,14 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h"
 				>
 			</File>
 			<File

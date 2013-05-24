@@ -1,5 +1,7 @@
 #ifndef MENUBOARDSOUNDCONFIG_H_
 #define MENUBOARDSOUNDCONFIG_H_
+#include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
+
 
 namespace VioletVreath {
 

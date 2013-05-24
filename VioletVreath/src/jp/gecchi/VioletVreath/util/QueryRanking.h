@@ -1,5 +1,7 @@
 #ifndef QUERYRANKING_H_
 #define QUERYRANKING_H_
+#include "jp/ggaf/core/util/GgafQuery.h"
+
 namespace VioletVreath {
 
 #define QUERYRANKING_NAME_LEN 10

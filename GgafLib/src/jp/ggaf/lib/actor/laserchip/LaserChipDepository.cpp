@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -21,7 +23,7 @@ LaserChipDepository::LaserChipDepository(const char* prm_name, GgafStatus* prm_p
 }
 
 void LaserChipDepository::config(int prm_num_continual_dispatch_max,
-                                 UINT32 prm_num_chip_interval,
+                                 uint32_t prm_num_chip_interval,
                                  GgafDxCore::GgafDxDrawableActor* prm_pEffectActor_Irradiate) {
     _num_continual_dispatch_max = prm_num_continual_dispatch_max;
     _num_chip_interval = prm_num_chip_interval;
@@ -30,7 +32,6 @@ void LaserChipDepository::config(int prm_num_continual_dispatch_max,
         _pEffectActor_Irradiate->inactivateImmed();
     }
 }
-
 
 LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
     if (_num_continual_dispatch_count > _num_continual_dispatch_max) { //_num_continual_dispatch_max連続発射時、弾切れにする(_num_interval_frame_countをリセット)。

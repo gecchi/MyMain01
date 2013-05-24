@@ -1,10 +1,14 @@
 #include "stdafx.h"
+#include "HoshiBoshiRankUp.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
-
 
 HoshiBoshiRankUp::HoshiBoshiRankUp(const char* prm_name) :
         HoshiBoshi(prm_name, "HoshiBoshiRankUp") {

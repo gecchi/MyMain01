@@ -1,8 +1,18 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/model/ex/GgafDxWorldBoundModel.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/effect/ex/GgafDxWorldBoundEffect.h"
+#include "jp/ggaf/dxcore/actor/ex/GgafDxWorldBoundActor.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
 
 GgafDxWorldBoundModel::GgafDxWorldBoundModel(char* prm_model_name) : GgafDxMorphMeshModel(prm_model_name) {
     TRACE3("GgafDxWorldBoundModel::GgafDxWorldBoundModel(" << _model_name << ")");

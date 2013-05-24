@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/actor/ex/GgafFormation.h"
+
 using namespace GgafCore;
 
 GgafFormation::GgafFormation(const char* prm_name, frame prm_offset_frames_end) :

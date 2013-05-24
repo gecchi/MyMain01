@@ -1,4 +1,22 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/util/GgafRepeatSeq.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelConnection.h"
+#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/dxcore/scene/GgafDxScene.h"
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -52,7 +70,7 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
     }
     //æ‚ÉƒJƒƒ‰‚ÍNEW‚µ‚Ä‚¨‚©‚È‚¢‚Æ‚¢‚¯‚È‚¢B
     _pCamera = prm_pCamera;
-
+    GgafDxUtil::_pCam = prm_pCamera;
 
     getSceneDirector()->addSubGroup(_pCamera);
     _pActor_DrawActive = nullptr;

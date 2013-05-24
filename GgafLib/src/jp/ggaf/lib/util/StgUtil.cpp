@@ -1,8 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
+
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 GgafDxDrawableActor* StgUtil::shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
                                          angle prm_RZ, angle prm_RY,
@@ -153,9 +158,9 @@ GgafDxCore::GgafDxDrawableActor* StgUtil::shotWay002(GgafDxCore::GgafDxGeometric
 
 GgafDxDrawableActor* StgUtil::shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
                                          angle prm_RX, angle prm_RZ, angle prm_RY,
-                                         GgafActorDepository* prm_pDepo_Shot1, UINT32* prm_paUint32_dotmat1,
-                                         GgafActorDepository* prm_pDepo_Shot2, UINT32* prm_paUint32_dotmat2,
-                                         GgafActorDepository* prm_pDepo_Shot3, UINT32* prm_paUint32_dotmat3,
+                                         GgafActorDepository* prm_pDepo_Shot1, uint32_t* prm_paUint32_dotmat1,
+                                         GgafActorDepository* prm_pDepo_Shot2, uint32_t* prm_paUint32_dotmat2,
+                                         GgafActorDepository* prm_pDepo_Shot3, uint32_t* prm_paUint32_dotmat3,
                                          coord prm_r,
                                          int prm_way_N, int prm_way_M,
                                          angle prm_angClearance_N, angle prm_angClearance_M,
@@ -164,7 +169,7 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
                                          void (*pFunc_CallBackDispatched)(GgafDxDrawableActor*, int, int, int, int, int)) {
     angle* paAng_way_N = NEW angle[prm_way_N];
     angle* paAng_way_M = NEW angle[prm_way_M];
-    UINT32* paUint32_dotmat = NEW UINT32[prm_way_N];
+    uint32_t* paUint32_dotmat = NEW uint32_t[prm_way_N];
     GgafDxUtil::getWayAngle2D(0, prm_way_N, prm_angClearance_N, paAng_way_N);
     GgafDxUtil::getWayAngle2D(0, prm_way_M, prm_angClearance_M, paAng_way_M);
     GgafDxGeoElem** papaGeo = NEW GgafDxGeoElem*[prm_way_N];
@@ -173,7 +178,7 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
     D3DXMATRIX matWorldRot;
     GgafDxUtil::setWorldMatrix_RxRzRy(prm_RX, prm_RZ, prm_RY, matWorldRot);
     coord X,Y,Z;
-    UINT32 dot1,dot2,dot3;
+    uint32_t dot1,dot2,dot3;
     for (int i = 0; i < prm_way_N; i++) {
         dot1 = prm_paUint32_dotmat1 ? prm_paUint32_dotmat1[i] : 0;
         dot2 = prm_paUint32_dotmat2 ? prm_paUint32_dotmat2[i] : 0;
@@ -258,9 +263,9 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
 
 
 GgafDxDrawableActor* StgUtil::shotWay003(GgafDxGeometricActor* prm_pFrom,
-                                         GgafActorDepository* prm_pDepo_Shot1, UINT32* prm_paUint32_dotmat1,
-                                         GgafActorDepository* prm_pDepo_Shot2, UINT32* prm_paUint32_dotmat2,
-                                         GgafActorDepository* prm_pDepo_Shot3, UINT32* prm_paUint32_dotmat3,
+                                         GgafActorDepository* prm_pDepo_Shot1, uint32_t* prm_paUint32_dotmat1,
+                                         GgafActorDepository* prm_pDepo_Shot2, uint32_t* prm_paUint32_dotmat2,
+                                         GgafActorDepository* prm_pDepo_Shot3, uint32_t* prm_paUint32_dotmat3,
                                          coord prm_r,
                                          int prm_way_N, int prm_way_M,
                                          angle prm_angClearance_N, angle prm_angClearance_M,

@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -21,6 +26,18 @@ GgafDxTextureBlinker::GgafDxTextureBlinker(GgafDxModel* prm_pModel) :
     _beat_target_frames = 0;
     _stop_one_way_num = -1;
     _method = NOBLINK;
+}
+
+void GgafDxTextureBlinker::setBlinkableRange(float prm_blink_threshold, float prm_power_blink1, float prm_power_blink2) {
+    _pModel->_blink_threshold = prm_blink_threshold;
+    if (prm_power_blink1 < prm_power_blink2) {
+        _bottom_power_blink = prm_power_blink1;
+        _top_power_blink = prm_power_blink2;
+    } else {
+        _bottom_power_blink = prm_power_blink2;
+        _top_power_blink = prm_power_blink1;
+    }
+    //_TRACE_("setBlinkableRange _bottom_power_blink["<<prm_<<"]="<<_bottom_power_blink<<"/_top_power_blink["<<prm_<<"]="<<_top_power_blink<<"");
 }
 
 void GgafDxTextureBlinker::behave() {

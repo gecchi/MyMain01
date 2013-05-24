@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "SplineLineManager.h"
+
+#include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "EnemyAntiopeN.h"
+
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

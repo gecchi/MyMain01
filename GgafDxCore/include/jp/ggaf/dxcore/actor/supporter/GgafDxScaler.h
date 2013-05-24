@@ -1,5 +1,7 @@
 #ifndef GGAFDXSCALER_H_
 #define GGAFDXSCALER_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafDxCore {
 
 /**
@@ -191,17 +193,13 @@ public:
      * 上限スケールへ片道等速スケーリング（全軸・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
-    inline void scaleLinerTop(frame prm_spend_frame) {
-        scaleLinerUntil(MAX3(_top_scale[0],_top_scale[1],_top_scale[2]), prm_spend_frame);
-    }
+    void scaleLinerTop(frame prm_spend_frame);
 
     /**
      * 下限スケールへ片道等速スケーリング（全軸・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
-    inline void scaleLinerBottom(frame prm_spend_frame) {
-        scaleLinerUntil(MIN3(_bottom_scale[0],_bottom_scale[1],_bottom_scale[2]), prm_spend_frame);
-    }
+    void scaleLinerBottom(frame prm_spend_frame);
 
     /**
      * 片道等速スケーリング（軸単位・持続フレーム数指定） .

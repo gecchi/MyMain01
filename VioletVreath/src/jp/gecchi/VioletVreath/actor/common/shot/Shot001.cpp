@@ -1,4 +1,17 @@
 #include "stdafx.h"
+#include "Shot001.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
+#include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -23,8 +36,8 @@ void Shot001::onActive() {
     _pStatus->reset();
     setHitAble(true);
     _pKurokoA->relateMvFaceAng(true);
-    _pKurokoA->setMvVelo(RR_Shot001_MvVelo(_RANK_));    //ˆÚ“®‘¬“x
-    _pKurokoA->setFaceAngVelo(AXIS_X, RR_Shot001_AngVelo(_RANK_)); //‚«‚è‚à‚İ‹ï‡
+    _pKurokoA->setMvVelo(RF_Shot001_MvVelo(_RANK_));    //ˆÚ“®‘¬“x
+    _pKurokoA->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(_RANK_)); //‚«‚è‚à‚İ‹ï‡
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
     _pScaler->beat(30,5,2,-1);
 }

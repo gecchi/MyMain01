@@ -1,5 +1,7 @@
 #ifndef MYVREATH_H_
 #define MYVREATH_H_
+#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+
 namespace VioletVreath {
 
 /**

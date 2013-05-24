@@ -7,9 +7,9 @@
 #ifndef FRM_TYPES_H
 #define FRM_TYPES_H
 
-#include "../ToolBox/MyTrace.h"
+#include "jp/ggaf/dxcore/util/XFile/ToolBox/MyTrace.h"
 
-//del tsuge ‘S•” BaseTsd.h ‚ÌŒ^‚É“ˆê
+//del tsuge ‘S•” C99 ‚ÌŒ^‚É“ˆê
 //typedef short int int16;
 //typedef long int int32;
 //typedef unsigned short int uint16;
@@ -38,13 +38,13 @@
 #define TXT_RGBA  4
 
 struct TEXTURE {
-    UINT8 Type, Depth; //Type of texture and bit depth
-    UINT16 Width, Height; //Width and height of texture
-    UINT32 Size; //Size of texture = Width * Height
-    UINT32 Compressed; //Compressed size of texture
-    UINT8* Bits; //texture data
+    uint8_t Type, Depth; //Type of texture and bit depth
+    uint16_t Width, Height; //Width and height of texture
+    uint32_t Size; //Size of texture = Width * Height
+    uint32_t Compressed; //Compressed size of texture
+    uint8_t* Bits; //texture data
 };
 
-#include "../framework/Frm_3dMath.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/Frm_3dMath.h"
 
 #endif

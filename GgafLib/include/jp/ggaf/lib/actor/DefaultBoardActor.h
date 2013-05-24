@@ -1,5 +1,7 @@
 #ifndef DEFAULTBOARDACTOR_H_
 #define DEFAULTBOARDACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxBoardActor.h"
+
 namespace GgafLib {
 
 /**

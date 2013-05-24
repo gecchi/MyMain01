@@ -1,5 +1,7 @@
 #ifndef ENEMYHERMIONEARMWEAK_H_
 #define ENEMYHERMIONEARMWEAK_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArm.h"
+
 namespace VioletVreath {
 
 /**

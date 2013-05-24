@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "FormationPallas001d.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/EnemyPallas.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

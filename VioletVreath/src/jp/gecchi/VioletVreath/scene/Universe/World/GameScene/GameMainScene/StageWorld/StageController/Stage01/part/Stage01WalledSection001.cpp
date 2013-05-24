@@ -1,4 +1,16 @@
 #include "stdafx.h"
+#include "Stage01WalledSection001.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+#include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "../Stage01PartController.h"
+#include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

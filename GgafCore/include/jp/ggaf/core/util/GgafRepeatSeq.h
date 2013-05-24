@@ -1,5 +1,8 @@
 #ifndef GGAFREPEATSEQ_H_
 #define GGAFREPEATSEQ_H_
+#include <map>
+#include <string>
+
 namespace GgafCore {
 
 /**

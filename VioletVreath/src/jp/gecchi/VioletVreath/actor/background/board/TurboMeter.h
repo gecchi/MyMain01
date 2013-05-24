@@ -1,5 +1,7 @@
 #ifndef TURBOMETER_H_
 #define TURBOMETER_H_
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+
 namespace VioletVreath {
 
 class TurboMeter : public GgafLib::DefaultBoardActor {

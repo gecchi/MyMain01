@@ -1,9 +1,10 @@
 #include "stdafx.h"
+#include "DefaultBoardTestActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 DefaultBoardTestActor::DefaultBoardTestActor(const char* prm_name) :
         DefaultBoardActor(prm_name, "_chk_DefaultBoardTestModel") {

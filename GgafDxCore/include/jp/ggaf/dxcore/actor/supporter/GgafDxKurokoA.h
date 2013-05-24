@@ -1,5 +1,10 @@
 #ifndef GGAFDXMVNAVIGATOR_H_
 #define GGAFDXMVNAVIGATOR_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+
 namespace GgafDxCore {
 
 /**
@@ -285,7 +290,14 @@ public:
      * @param prm_veloMv02  移動速度２
      */
     void forceMvVeloRange(velo prm_veloMv01, velo prm_veloMv02);
+
+    /**
+     * 移動速度の上限下限を設定し、移動速度の範囲を制限する .
+     * 上限下限値は、-prm_veloMv ～ prm_veloMv の範囲になる。
+     * @param prm_veloMv 移動速度
+     */
     void forceMvVeloRange(velo prm_veloMv);
+
     /**
      * 移動加速度を設定 .
      * @param prm_acceMove 移動加速度

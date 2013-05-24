@@ -1,4 +1,15 @@
 #include "stdafx.h"
+#include "GameMainScene.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/scene/GgafScene.h"
+#include <stdio.h>
+#include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

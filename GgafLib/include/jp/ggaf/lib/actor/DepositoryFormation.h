@@ -1,10 +1,8 @@
 #ifndef DEPOSITORYFORMATION_H_
 #define DEPOSITORYFORMATION_H_
+#include "jp/ggaf/core/actor/ex/GgafDepositoryFormation.h"
 
-#define FORMATION_END_DELAY (30*60)
 namespace GgafLib {
-
-
 
 /**
  * フォーメーションアクタークラス .

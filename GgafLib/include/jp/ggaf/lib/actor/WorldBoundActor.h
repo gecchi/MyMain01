@@ -1,5 +1,7 @@
 #ifndef WORLDBOUNDACTOR_H_
 #define WORLDBOUNDACTOR_H_
+#include "jp/ggaf/dxcore/actor/ex/GgafDxWorldBoundActor.h"
+
 namespace GgafLib {
 
 /**

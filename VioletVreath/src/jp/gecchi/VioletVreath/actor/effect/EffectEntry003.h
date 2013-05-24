@@ -1,5 +1,7 @@
 #ifndef EFFECTENTRANCE003_H_
 #define EFFECTENTRANCE003_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 /**

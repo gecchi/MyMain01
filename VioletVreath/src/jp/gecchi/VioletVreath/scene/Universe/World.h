@@ -1,7 +1,10 @@
 #ifndef WORLD_H_
 #define WORLD_H_
-namespace VioletVreath {
+#include "jp/ggaf/lib/scene/DefaultScene.h"
 
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+
+namespace VioletVreath {
 
 #ifdef P_UNIVERSE
     #define P_WORLD ((VioletVreath::World*)(P_UNIVERSE->pWorld_))

@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "WorldBoundTitle.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -2,9 +2,9 @@
 #define VIOLETVREATHHEADER_H_
 
 //「DirectX9ライブラリ」を利用する（利用者は俺！）場合
-//次の"GgafLibHeader.h"ヘッダをインクルードします。
+//次の"GgafLibCommonHeader.h"ヘッダをインクルードします。
 
-#include "GgafLibHeader.h"
+#include "GgafLibCommonHeader.h"
 
 //種別定数
 //意味は資料「種別相関定義コピペツール.xls」を参照
@@ -88,94 +88,94 @@ enum {
 // コード変更は「ランク定義Creater.xls」から行うこと。
 // gen01 start
 // エウノミア(EnemyEunomia) のランク式
-#define RR_EnemyEunomia_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
+#define RF_EnemyEunomia_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
 // エウノミア編隊001(FormationEunomia001) のランク式
-#define RR_FormationEunomia001_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
-#define RR_FormationEunomia001_Num(X)  (20 + (X)*10)  //隊数
-#define RR_FormationEunomia001_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
-#define RR_FormationEunomia001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RF_FormationEunomia001_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
+#define RF_FormationEunomia001_Num(X)  (20 + (X)*10)  //隊数
+#define RF_FormationEunomia001_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
+#define RF_FormationEunomia001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // エウノミア編隊002(FormationEunomia002) のランク式
-#define RR_FormationEunomia002_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
-#define RR_FormationEunomia002_Num(X)  (20 + (X)*10)  //隊数
-#define RR_FormationEunomia002_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
-#define RR_FormationEunomia002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RF_FormationEunomia002_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
+#define RF_FormationEunomia002_Num(X)  (20 + (X)*10)  //隊数
+#define RF_FormationEunomia002_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
+#define RF_FormationEunomia002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // イリス(EnemyIris) のランク式
-#define RR_EnemyIris_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
+#define RF_EnemyIris_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
 // イリス編隊001(FormationIris001) のランク式
-#define RR_FormationIris001_Num(X)  (7 + (X)*7)  //隊数
-#define RR_FormationIris001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RR_FormationIris001_MvVelo(X)  (16000+(X)*1600)  //移動速度
+#define RF_FormationIris001_Num(X)  (7 + (X)*7)  //隊数
+#define RF_FormationIris001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationIris001_MvVelo(X)  (16000+(X)*1600)  //移動速度
 // イリス編隊002(FormationIris002) のランク式
-#define RR_FormationIris002_Num(X)  (7 + (X)*7)  //隊数
-#define RR_FormationIris002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RR_FormationIris002_MvVelo(X)  (16000+(X)*1600)  //移動速度
+#define RF_FormationIris002_Num(X)  (7 + (X)*7)  //隊数
+#define RF_FormationIris002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationIris002_MvVelo(X)  (16000+(X)*1600)  //移動速度
 // パラス(EnemyPallas) のランク式
-#define RR_EnemyPallas_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
+#define RF_EnemyPallas_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
 // パラス編隊001(FormationPallas001) のランク式
-#define RR_FormationPallas001_Num(X)  (12+(X)*8)  //隊数
-#define RR_FormationPallas001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RR_FormationPallas001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RF_FormationPallas001_Num(X)  (12+(X)*8)  //隊数
+#define RF_FormationPallas001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationPallas001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // パラス編隊002(FormationPallas002) のランク式
-#define RR_FormationPallas002_Num(X)  (12+(X)*8)  //隊数
-#define RR_FormationPallas002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RR_FormationPallas002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RF_FormationPallas002_Num(X)  (12+(X)*8)  //隊数
+#define RF_FormationPallas002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationPallas002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
 // タエラ(EnemyThalia) のランク式
-#define RR_EnemyThalia_ShotWay(X)  (20+(X)*10)  //発射弾(Way)数
+#define RF_EnemyThalia_ShotWay(X)  (20+(X)*10)  //発射弾(Way)数
 // タエラ編隊(FormationThalia) のランク式
-#define RR_FormationThalia_Num(X)  (7+(X)*4)  //隊数
-#define RR_FormationThalia_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X)) *20))  //出現間隔
-#define RR_FormationThalia_MvVelo(X)  (14000+(X)*10000)  //移動速度
+#define RF_FormationThalia_Num(X)  (7+(X)*4)  //隊数
+#define RF_FormationThalia_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X)) *20))  //出現間隔
+#define RF_FormationThalia_MvVelo(X)  (14000+(X)*10000)  //移動速度
 // ロムルス(EnemyRomulus) のランク式
-#define RR_EnemyRomulus_ShotMvVelo(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射弾速度
-#define RR_EnemyRomulus_ShotInterval(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射弾間隔
+#define RF_EnemyRomulus_ShotMvVelo(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射弾速度
+#define RF_EnemyRomulus_ShotInterval(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射弾間隔
 // 汎用ショット001(Shot001) のランク式
-#define RR_Shot001_MvVelo(X)  (5000+(X)*5000)  //移動速度
-#define RR_Shot001_AngVelo(X)  (6000+(X)*6000)  //角速度
+#define RF_Shot001_MvVelo(X)  (5000+(X)*5000)  //移動速度
+#define RF_Shot001_AngVelo(X)  (6000+(X)*6000)  //角速度
 // 汎用ショット002(Shot002) のランク式
-#define RR_Shot002_MvVelo(X)  (8000+(X)*8000)  //移動速度
-#define RR_Shot002_AngVelo(X)  (1000+(X)*1000)  //角速度
+#define RF_Shot002_MvVelo(X)  (8000+(X)*8000)  //移動速度
+#define RF_Shot002_AngVelo(X)  (1000+(X)*1000)  //角速度
 // マッサリア(EnemyMassalia) のランク式
-#define RR_EnemyMassalia_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
+#define RF_EnemyMassalia_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
 // マッサリア断片(EnemyMassaliaFragment) のランク式
 // マッサリア断片の断片(EnemyMassaliaFragment2) のランク式
 // マッサリア断片の断片の断片(EnemyMassaliaFragment3) のランク式
 // マッサリア群(FormationMassalia) のランク式
-#define RR_FormationMassalia_LaunchInterval(X)  (10  + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RR_FormationMassalia_MvVelo(X)  (8000+(X)*8000)  //移動速度
-#define RR_FormationMassalia_DurationFrames(X)  (60*20)  //持続時間
+#define RF_FormationMassalia_LaunchInterval(X)  (10  + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationMassalia_MvVelo(X)  (8000+(X)*8000)  //移動速度
+#define RF_FormationMassalia_DurationFrames(X)  (60*20)  //持続時間
 // ヘーベ編隊(FormationHebe) のランク式
-#define RR_FormationHebe_Num(X)  (12+(X)*8)  //隊数
-#define RR_FormationHebe_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RR_FormationHebe_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-#define RR_FormationHebe_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
+#define RF_FormationHebe_Num(X)  (12+(X)*8)  //隊数
+#define RF_FormationHebe_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationHebe_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RF_FormationHebe_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
 // ヘスペリア(EnemyHesperia) のランク式
-#define RR_EnemyHesperia_Density(X)  (90000 - (((X)>1.0?1.0:(X)) * 50000))  //密度
-#define RR_EnemyHesperia_ShotWay(X)  (7 + (((X)>1.0?1.0:(X)) * 4))  //発射弾(Way)数
+#define RF_EnemyHesperia_Density(X)  (90000 - (((X)>1.0?1.0:(X)) * 50000))  //密度
+#define RF_EnemyHesperia_ShotWay(X)  (7 + (((X)>1.0?1.0:(X)) * 4))  //発射弾(Way)数
 // サッフォー(EnemySappho) のランク式
-#define RR_EnemySappho_MvVelo(X)  (15000 + (X)*10000)  //移動速度
-#define RR_EnemySappho_ShotWay(X)  (2+(X)*4)  //発射弾(Way)数
-#define RR_EnemySappho_ShotMvVelo(X)  (1000+(X)*5000)  //発射弾速度
+#define RF_EnemySappho_MvVelo(X)  (15000 + (X)*10000)  //移動速度
+#define RF_EnemySappho_ShotWay(X)  (2+(X)*4)  //発射弾(Way)数
+#define RF_EnemySappho_ShotMvVelo(X)  (1000+(X)*5000)  //発射弾速度
 // サッフォー編隊001(FormationSappho001) のランク式
-#define RR_FormationSappho001_Num(X)  (10+(X)*5)  //隊数
-#define RR_FormationSappho001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationSappho001_Num(X)  (10+(X)*5)  //隊数
+#define RF_FormationSappho001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
 // アテンティオペ(EnemyAntiope) のランク式
-#define RR_EnemyAntiope_MvVelo(X)  (15000 + (X)*10000)  //移動速度
-#define RR_EnemyAntiope_ShotWay(X)  (2+(X)*4)  //発射弾(Way)数
-#define RR_EnemyAntiope_ShotMvVelo(X)  (1000+(X)*5000)  //発射弾速度
+#define RF_EnemyAntiope_MvVelo(X)  (15000 + (X)*10000)  //移動速度
+#define RF_EnemyAntiope_ShotWay(X)  (2+(X)*4)  //発射弾(Way)数
+#define RF_EnemyAntiope_ShotMvVelo(X)  (1000+(X)*5000)  //発射弾速度
 // アテンティオペ編隊001(FormationAntiope001) のランク式
-#define RR_FormationAntiope001_Num(X)  (300+(X)*300)  //隊数
-#define RR_FormationAntiope001_LaunchInterval(X)  (2 + (2 - ((X)>1.0?1.0:(X))*2))  //出現間隔
+#define RF_FormationAntiope001_Num(X)  (300+(X)*300)  //隊数
+#define RF_FormationAntiope001_LaunchInterval(X)  (2 + (2 - ((X)>1.0?1.0:(X))*2))  //出現間隔
 // アーデルハイド編隊(FormationAdelheid) のランク式
-#define RR_FormationAdelheid_Num(X)  (30+(X)*10)  //隊数
-#define RR_FormationAdelheid_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-#define RR_FormationAdelheid_ShotWay(X)  (7+(X)*5)  //発射弾(Way)数
+#define RF_FormationAdelheid_Num(X)  (30+(X)*10)  //隊数
+#define RF_FormationAdelheid_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RF_FormationAdelheid_ShotWay(X)  (7+(X)*5)  //発射弾(Way)数
 // 打ち返し弾共通(SHOT_RV) のランク式
-#define RR_SHOT_RV_ShotMvVelo(X)  (3000+((X)*5000))  //発射弾速度
-#define RR_SHOT_RV_ShotMvAcce(X)  (100+((X)*400))  //発射弾加速度
+#define RF_SHOT_RV_ShotMvVelo(X)  (3000+((X)*5000))  //発射弾速度
+#define RF_SHOT_RV_ShotMvAcce(X)  (100+((X)*400))  //発射弾加速度
 // ノーマル打ち返し弾001(SHOT_RV_NOMAL001) のランク式
-#define RR_SHOT_RV_NOMAL001_Density(X)  (D_ANG(15)-((X)*D_ANG(5)))  //密度
-#define RR_SHOT_RV_NOMAL001_ShotWay(X)  (3+(2*((X)*2)))  //発射弾(Way)数
-#define RR_SHOT_RV_NOMAL001_ShotSetNum(X)  (1+((X)*3))  //発射弾(Way)弾のセット数
+#define RF_SHOT_RV_NOMAL001_Density(X)  (D_ANG(15)-((X)*D_ANG(5)))  //密度
+#define RF_SHOT_RV_NOMAL001_ShotWay(X)  (3+(2*((X)*2)))  //発射弾(Way)数
+#define RF_SHOT_RV_NOMAL001_ShotSetNum(X)  (1+((X)*3))  //発射弾(Way)弾のセット数
 // gen02 end
 
 //1/√2
@@ -200,31 +200,6 @@ enum {
 
 #define Obj_RankUpStage              (0x81000000)     //0b 10000001 00000000 00000000 00000000
 
-
-//イベント用 hashval 数値宣言
-HASHVAL(EVENT_GOD_WILL_DIE);
-HASHVAL(EVENT_PREPARE_TRANSIT_STAGE);
-HASHVAL(EVENT_PREPARE_NEXT_STAGE);
-HASHVAL(EVENT_JUST_GAME_OVER);
-
-HASHVAL(EVENT_TRANSIT_WAS_END);
-HASHVAL(EVENT_RANKUP_WAS_END);
-HASHVAL(EVENT_RANKUP_ON_GARBAGED);
-
-HASHVAL(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
-HASHVAL(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
-HASHVAL(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
-
-HASHVAL(EVENT_PREGAMETITLESCENE_FINISH);
-HASHVAL(EVENT_GAMETITLESCENE_FINISH);
-HASHVAL(EVENT_GAMEDEMOSCENE_FINISH);
-HASHVAL(EVENT_GAMESTART);
-HASHVAL(EVENT_GOTO_GAMETITLE);
-HASHVAL(EVENT_GAMEMODE_DECIDE);
-HASHVAL(EVENT_GAMEOVERSCENE_FINISH);
-HASHVAL(EVENT_BACK_TO_TITLE);
-HASHVAL(EVENT_NAMEENTRYSCENE_FINISH);
-HASHVAL(EVENT_MENU_NAMEENTRY_DONE);
 
 namespace VioletVreath {
 
@@ -308,6 +283,7 @@ class VarietySylvia001;
 class VarietySylvia002;
 class VarietySylvia003;
 class VarietySylvia004;
+class EnemySylvia;
 class EnemySylviaEye;
 class EnemySylviaEyeStraightLaserChip001;
 class EffectSylviaEye001;
@@ -602,366 +578,366 @@ class MenuBoardSoundConfig;
 class MenuBoardNameEntry;
 class CursorNameEntryMenu;
 }
-
-#include "jp/gecchi/VioletVreath/GameGlobal.h"
-#include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/manager/CameraWorkerManager.h"
-#include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
-
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/PreDrawScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
-
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GamePreTitleScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameTitleScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameDemoScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameBeginningScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameEndingScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene/NameEntryScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/TamagoScene.h"
-
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp001.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp002.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp003.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp100.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage03.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage04.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage05.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/TransitStage.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage/StagePartController.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/Stage01PartController.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_01.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_02.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_03.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_Climax.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/Stage02PartController.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/part/Stage02_01.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/part/Stage02_Climax.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01WalledScene.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01WalledSection001.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/wall/Wall001.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/wall/Wall001Prism.h"
-
-#include "jp/gecchi/VioletVreath/actor/Camera.h"
-#include "jp/gecchi/VioletVreath/actor/ViewPointGuide.h"
-
-
-#include "jp/gecchi/VioletVreath/actor/common/mesh/GroundMeshActor.h"
-#include "jp/gecchi/VioletVreath/actor/common/shot/Shot001.h"
-#include "jp/gecchi/VioletVreath/actor/common/shot/Shot002.h"
-#include "jp/gecchi/VioletVreath/actor/common/shot/Shot003.h"
-#include "jp/gecchi/VioletVreath/actor/common/shot/Shot004.h"
-#include "jp/gecchi/VioletVreath/actor/common/shot/Shot004Blue.h"
-#include "jp/gecchi/VioletVreath/actor/common/shot/Shot004Yellow.h"
-#include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyWateringLaserChip001.h"
-#include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
-
-#include "jp/gecchi/VioletVreath/actor/camera_worker/CameraWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/DefaultCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/VamSysCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/PauseCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/MyShipDivingCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera_worker/TestCamWorker.h"
-
-#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerGizmo.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerDirectionVector.h"
-#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001.h"
-#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001_Main.h"
-#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001_Sub.h"
-
-#include "jp/gecchi/VioletVreath/actor/my/MyShot001.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyWave001.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyVreath.h"
-
-#include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
-#include "jp/gecchi/VioletVreath/actor/my/EffectMyShipExplosion.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyTorpedo.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoTail.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoBlast.h"
-
-#include "jp/gecchi/VioletVreath/actor/my/_Test/TestGuShot.h"
-#include "jp/gecchi/VioletVreath/actor/my/_Test/TestChokiShot.h"
-#include "jp/gecchi/VioletVreath/actor/my/_Test/TestPaShot.h"
-#include "jp/gecchi/VioletVreath/actor/my/_Test/TestNomalShot.h"
-
-#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion002.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion003.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion004.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectCondensation001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry002.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry003.h"
-
-#include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/EffectMyOption.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionWateringLaserChip001.h"
-#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionStraightLaserChip001.h"
-
-
-
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterStatus.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterCursor001.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor001.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor002.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor003.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/EnergyBar.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/CostDispBar.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/VreathBar.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
-
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/OptionMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/SpeedMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LockonMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TorpedoMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/VreathMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/SmileMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectMagic001.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSpeedMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectTorpedoMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectLockonMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectVreathMagic001.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSmileMagic001.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestGu.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestChoki.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestPa.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestNomal.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Tamago/TamagoActor.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Tamago/EnemyTamago01.h"
-
-#include "jp/gecchi/VioletVreath/actor/title/TitleBoard.h"
-#include "jp/gecchi/VioletVreath/actor/title/Cursor001.h"
-
-#include "jp/gecchi/VioletVreath/actor/background/board/TurboMeter.h"
-#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
-#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiTransit.h"
-#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiRankUp.h"
-#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi001.h"
-#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi002.h"
-#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiTitle.h"
-
-#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpaceTransit.h"
-#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpace001.h"
-#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpace002.h"
-#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpaceRankUp.h"
-#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundTitle.h"
-#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundNameEntry.h"
-
-#include "jp/gecchi/VioletVreath/actor/label/LabelFix16Font01.h"
-#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
-#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
-#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi32Font.h"
-#include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
-#include "jp/gecchi/VioletVreath/actor/label/LabelRankFont.h"
-#include "jp/gecchi/VioletVreath/actor/label/LabelRankingFont.h"
-#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
-#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
-#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelBonus001.h"
-#include "jp/gecchi/VioletVreath/actor/label/LabelSceneSymbol.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeres.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeresShot001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/FormationCeres001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/FormationCeres002.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/EnemyPallas.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001a.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001b.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001c.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001d.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas002.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/EnemyEunomia.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia001a.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia001b.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002a.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002b.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Juno/EnemyJuno.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Juno/FormationJuno.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Juno/FormationJuno001.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Metis/EnemyMetis.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Metis/FormationMetis001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Adrastea/EnemyAdrastea.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Adrastea/FormationAdrastea001.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraea.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraeaLaserChip001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraeaLaserChip002.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraeaLaserChip003.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraeaLaserChip004.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Iris/EnemyIris.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Iris/FormationIris001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Iris/FormationIris002.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Romulus/EnemyRomulus.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Remus/EnemyRemus.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Remus/EnemyRemusLaserChip001.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Circe/EnemyCirce.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Thalia/EnemyThalia.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Thalia/FormationThalia.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaBase.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassalia.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaFragment.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaFragment2.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaFragment3.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/FormationMassalia.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/EnemyHebe.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe001.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbe.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbe002.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip002.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip003.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperia.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperiaLaserChip001.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Atalante/EnemyAtalante.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermione.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArm.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmBody.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmHead.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmWeak.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylvia.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia002.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia003.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia004.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylviaEye.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylviaEyeStraightLaserChip001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EffectSylviaEye001.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/EnemySappho.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001a.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001b.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiope.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeP.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeN.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/FormationAntiope001.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/EnemyAdelheid.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid001.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/Palisana/EnemyPalisana.h"
-
-#include "jp/gecchi/VioletVreath/actor/item/Item.h"
-#include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"
-#include "jp/gecchi/VioletVreath/actor/item/MagicPointItem001.h"
-#include "jp/gecchi/VioletVreath/actor/item/MagicPointItem002.h"
-#include "jp/gecchi/VioletVreath/actor/item/ScoreItem.h"
-#include "jp/gecchi/VioletVreath/actor/item/ScoreItem001.h"
-#include "jp/gecchi/VioletVreath/actor/item/VreathItem.h"
-#include "jp/gecchi/VioletVreath/actor/item/VreathItem001.h"
-
-#include "jp/gecchi/VioletVreath/Properties.h"
-#include "jp/gecchi/VioletVreath/util/QueryRanking.h"
-#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/util/VamSysCamPosition.h"
-
-#include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"
-#include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
-#include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
-#include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
-
-#include "jp/gecchi/VioletVreath/actor/common/template/Formation001.hpp"
-
-#include "jp/gecchi/VioletVreath/actor/common/TestDepository.h"
-
-#include "jp/gecchi/VioletVreath/actor/chikei/Planet/Planet001.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/Planet/Planet001Atmosphere.h"
-
-
-#include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMeshTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMeshSetTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMorphMeshTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultD3DXAniMeshTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultBoardTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultBoardSetTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMeshTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultD3DXMeshTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMeshSetTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMorphMeshTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultPointSpriteTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultSpriteTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultSpriteSetTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/HoshiBoshiTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/LaserChipTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/SingleLaserTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/SpriteMeshTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/SpriteMeshSetTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/StringBoardTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/WallAABTestActor.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/WallAAPrismTestActor.h"
-
-#include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
-
-#include "jp/gecchi/VioletVreath/actor/menu/confirm/CursorConfirmMenu.h"
-#include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
-
-#include "jp/gecchi/VioletVreath/actor/menu/pause/CursorPauseMenu.h"
-#include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
-
-#include "jp/gecchi/VioletVreath/actor/menu/title/CursorTitleMenu.h"
-#include "jp/gecchi/VioletVreath/actor/menu/title/MenuBoardTitle.h"
-
-#include "jp/gecchi/VioletVreath/actor/menu/config/CursorKeyConfigMenu.h"
-#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardKeyConfig.h"
-
-#include "jp/gecchi/VioletVreath/actor/menu/config/CursorSoundConfigMenu.h"
-#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardSoundConfig.h"
-
-#include "jp/gecchi/VioletVreath/actor/menu/config/CursorConfigMenu.h"
-#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"
-
-#include "jp/gecchi/VioletVreath/actor/menu/name_entry/MenuBoardNameEntry.h"
-#include "jp/gecchi/VioletVreath/actor/menu/name_entry/CursorNameEntryMenu.h"
+//
+//#include "jp/gecchi/VioletVreath/GameGlobal.h"
+//#include "jp/gecchi/VioletVreath/God.h"
+//#include "jp/gecchi/VioletVreath/manager/CameraWorkerManager.h"
+//#include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
+//
+//#include "jp/gecchi/VioletVreath/scene/Universe.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/PreDrawScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
+//
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GamePreTitleScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameTitleScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameDemoScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameBeginningScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameEndingScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene/NameEntryScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/TamagoScene.h"
+//
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp001.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp002.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp003.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp100.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage03.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage04.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage05.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/TransitStage.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage/StagePartController.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/Stage01PartController.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_01.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_02.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_03.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_Climax.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/Stage02PartController.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/part/Stage02_01.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/part/Stage02_Climax.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01WalledScene.h"
+//#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01WalledSection001.h"
+//#include "jp/gecchi/VioletVreath/actor/chikei/wall/Wall001.h"
+//#include "jp/gecchi/VioletVreath/actor/chikei/wall/Wall001Prism.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/Camera.h"
+//#include "jp/gecchi/VioletVreath/actor/ViewPointGuide.h"
+//
+//
+//#include "jp/gecchi/VioletVreath/actor/common/mesh/GroundMeshActor.h"
+//#include "jp/gecchi/VioletVreath/actor/common/shot/Shot001.h"
+//#include "jp/gecchi/VioletVreath/actor/common/shot/Shot002.h"
+//#include "jp/gecchi/VioletVreath/actor/common/shot/Shot003.h"
+//#include "jp/gecchi/VioletVreath/actor/common/shot/Shot004.h"
+//#include "jp/gecchi/VioletVreath/actor/common/shot/Shot004Blue.h"
+//#include "jp/gecchi/VioletVreath/actor/common/shot/Shot004Yellow.h"
+//#include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyWateringLaserChip001.h"
+//#include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/camera_worker/CameraWorker.h"
+//#include "jp/gecchi/VioletVreath/actor/camera_worker/DefaultCamWorker.h"
+//#include "jp/gecchi/VioletVreath/actor/camera_worker/VamSysCamWorker.h"
+//#include "jp/gecchi/VioletVreath/actor/camera_worker/PauseCamWorker.h"
+//#include "jp/gecchi/VioletVreath/actor/camera_worker/MyShipDivingCamWorker.h"
+//#include "jp/gecchi/VioletVreath/actor/camera_worker/TestCamWorker.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerGizmo.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MyOptionControllerDirectionVector.h"
+//#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001.h"
+//#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001_Main.h"
+//#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001_Sub.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/my/MyShot001.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MyWave001.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MyVreath.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
+//#include "jp/gecchi/VioletVreath/actor/my/EffectMyShipExplosion.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MyTorpedo.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoTail.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoBlast.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/my/_Test/TestGuShot.h"
+//#include "jp/gecchi/VioletVreath/actor/my/_Test/TestChokiShot.h"
+//#include "jp/gecchi/VioletVreath/actor/my/_Test/TestPaShot.h"
+//#include "jp/gecchi/VioletVreath/actor/my/_Test/TestNomalShot.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion002.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion003.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion004.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo001.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectCondensation001.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole001.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry001.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry002.h"
+//#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry003.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
+//#include "jp/gecchi/VioletVreath/actor/my/option/EffectMyOption.h"
+//#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionWateringLaserChip001.h"
+//#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionStraightLaserChip001.h"
+//
+//
+//
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterStatus.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterCursor001.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor001.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor002.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor003.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/EnergyBar.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/CostDispBar.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/VreathBar.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/OptionMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/SpeedMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LockonMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TorpedoMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/VreathMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/SmileMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectMagic001.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSpeedMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectTorpedoMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectLockonMagic.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectVreathMagic001.h"
+//#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectSmileMagic001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestGu.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestChoki.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestPa.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestNomal.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Tamago/TamagoActor.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Tamago/EnemyTamago01.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/title/TitleBoard.h"
+//#include "jp/gecchi/VioletVreath/actor/title/Cursor001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/background/board/TurboMeter.h"
+//#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
+//#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiTransit.h"
+//#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiRankUp.h"
+//#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi001.h"
+//#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi002.h"
+//#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiTitle.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpaceTransit.h"
+//#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpace001.h"
+//#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpace002.h"
+//#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpaceRankUp.h"
+//#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundTitle.h"
+//#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundNameEntry.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/label/LabelFix16Font01.h"
+//#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
+//#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+//#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi32Font.h"
+//#include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
+//#include "jp/gecchi/VioletVreath/actor/label/LabelRankFont.h"
+//#include "jp/gecchi/VioletVreath/actor/label/LabelRankingFont.h"
+//#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
+//#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
+//#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelBonus001.h"
+//#include "jp/gecchi/VioletVreath/actor/label/LabelSceneSymbol.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeres.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeresShot001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/FormationCeres001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/FormationCeres002.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/EnemyPallas.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001a.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001b.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001c.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas001d.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/FormationPallas002.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/EnemyEunomia.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia001a.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia001b.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002a.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia002b.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Juno/EnemyJuno.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Juno/FormationJuno.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Juno/FormationJuno001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Metis/EnemyMetis.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Metis/FormationMetis001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Adrastea/EnemyAdrastea.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Adrastea/FormationAdrastea001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraea.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraeaLaserChip001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraeaLaserChip002.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraeaLaserChip003.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Astraea/EnemyAstraeaLaserChip004.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Iris/EnemyIris.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Iris/FormationIris001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Iris/FormationIris002.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Romulus/EnemyRomulus.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Remus/EnemyRemus.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Remus/EnemyRemusLaserChip001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Circe/EnemyCirce.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Thalia/EnemyThalia.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Thalia/FormationThalia.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaBase.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassalia.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaFragment.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaFragment2.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaFragment3.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/FormationMassalia.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/EnemyHebe.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Hebe/FormationHebe001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbe.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbe002.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip002.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Thisbe/EnemyThisbeLaserChip003.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperia.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperiaLaserChip001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Atalante/EnemyAtalante.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermione.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArm.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmBody.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmHead.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmWeak.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylvia.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia002.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia003.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/VarietySylvia004.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylviaEye.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylviaEyeStraightLaserChip001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EffectSylviaEye001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/EnemySappho.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001a.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Sappho/FormationSappho001b.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiope.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeP.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeN.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/FormationAntiope001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/EnemyAdelheid.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid.h"
+//#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid001.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/enemy/Palisana/EnemyPalisana.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/item/Item.h"
+//#include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"
+//#include "jp/gecchi/VioletVreath/actor/item/MagicPointItem001.h"
+//#include "jp/gecchi/VioletVreath/actor/item/MagicPointItem002.h"
+//#include "jp/gecchi/VioletVreath/actor/item/ScoreItem.h"
+//#include "jp/gecchi/VioletVreath/actor/item/ScoreItem001.h"
+//#include "jp/gecchi/VioletVreath/actor/item/VreathItem.h"
+//#include "jp/gecchi/VioletVreath/actor/item/VreathItem001.h"
+//
+//#include "jp/gecchi/VioletVreath/Properties.h"
+//#include "jp/gecchi/VioletVreath/util/QueryRanking.h"
+//#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+//#include "jp/gecchi/VioletVreath/util/VamSysCamPosition.h"
+//
+//#include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"
+//#include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
+//#include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
+//#include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/common/template/Formation001.hpp"
+//
+//#include "jp/gecchi/VioletVreath/actor/common/TestDepository.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/chikei/Planet/Planet001.h"
+//#include "jp/gecchi/VioletVreath/actor/chikei/Planet/Planet001Atmosphere.h"
+//
+//
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMeshTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMeshSetTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMorphMeshTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultD3DXAniMeshTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultBoardTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultBoardSetTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMeshTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultD3DXMeshTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMeshSetTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMorphMeshTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultPointSpriteTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultSpriteTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultSpriteSetTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/HoshiBoshiTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/LaserChipTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/SingleLaserTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/SpriteMeshTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/SpriteMeshSetTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/StringBoardTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/WallAABTestActor.h"
+//#include "jp/gecchi/VioletVreath/actor/_predrawer/WallAAPrismTestActor.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/menu/confirm/CursorConfirmMenu.h"
+//#include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/menu/pause/CursorPauseMenu.h"
+//#include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/menu/title/CursorTitleMenu.h"
+//#include "jp/gecchi/VioletVreath/actor/menu/title/MenuBoardTitle.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/menu/config/CursorKeyConfigMenu.h"
+//#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardKeyConfig.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/menu/config/CursorSoundConfigMenu.h"
+//#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardSoundConfig.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/menu/config/CursorConfigMenu.h"
+//#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"
+//
+//#include "jp/gecchi/VioletVreath/actor/menu/name_entry/MenuBoardNameEntry.h"
+//#include "jp/gecchi/VioletVreath/actor/menu/name_entry/CursorNameEntryMenu.h"
 
 #endif /*VIOLETVREATHHEADER_H_*/

@@ -1,4 +1,7 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/actor/GgafActor.h"
+#include "jp/ggaf/core/actor/ex/GgafFormation.h"
+
 using namespace GgafCore;
 
 GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :

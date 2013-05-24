@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "Stage.h"
+
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -14,6 +19,7 @@ Stage::Stage(const char* prm_name) : DefaultScene(prm_name) {
 
 void Stage::initialize() {
     _pProg->reset(Stage::PROG_INIT);
+    CmRandomNumberGenerator::getInstance()->changeSeed(P_MYSHIP->_X + P_MYSHIP->_Y + P_MYSHIP->_Z);
 }
 
 void Stage::onCatchEvent(hashval prm_no, void* prm_pSource) {

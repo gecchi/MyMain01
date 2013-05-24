@@ -1,5 +1,7 @@
 #ifndef LINEAROCTREEFORACTOR_H_
 #define LINEAROCTREEFORACTOR_H_
+#include "jp/ggaf/core/util/GgafLinearOctree.h"
+
 namespace GgafLib {
 
 /**
@@ -11,7 +13,7 @@ namespace GgafLib {
  */
 class LinearOctreeForActor : public GgafCore::GgafLinearOctree {
 
-    UINT32 _num_space_minus_one;
+    uint32_t _num_space_minus_one;
 
 public:
     /**
@@ -23,7 +25,7 @@ public:
         /** [r]一つの空間にスタックするアクターの配列 */
         GgafCore::GgafActor* _apActor[3000]; //１空間に 3000 もキャラが集まらないだろうという安易で浅はかな見積もり
         /** [r]カーソルポインタ  */
-        UINT32 _p;
+        uint32_t _p;
     public:
         /**
          * コンストラクタ
@@ -38,7 +40,7 @@ public:
          */
         inline void push(GgafCore::GgafActor* prm_pActor) {
             if (_p > 3000-1) {
-                _TRACE_("LinearOctreeForActor::push("<<prm_pActor->getName()<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                _TRACE_("LinearOctreeForActor::push("<<prm_pActor<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                 return;
             }
             _apActor[_p] = prm_pActor;
@@ -67,7 +69,7 @@ public:
         }
         void dump() {
             TEXT5("CollisionStack.dump=");
-            for (UINT32 i = 0; i < _p; i++) {
+            for (uint32_t i = 0; i < _p; i++) {
                 TEXT5((_apActor[i]->getName())<<"->");
             }
             TEXT5("END");
@@ -108,7 +110,7 @@ public:
      * executeAllHitChk から使用される。
      * @param prm_index 線形八分木配列の配列要素番号
      */
-    void executeHitChk(UINT32 prm_index);
+    void executeHitChk(uint32_t prm_index);
 
     /**
      * アクター種別Aグループのスタックと、アクター種別Bグループのスタックの総当りの当たり判定を行う  .

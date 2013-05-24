@@ -1,6 +1,8 @@
 #ifndef SPLINELINE_H_
 #define SPLINELINE_H_
+#include "jp/ggaf/core/GgafObject.h"
 
+#include <math.h>
 #define MaxSplineSize 1001
 
 namespace GgafLib {
@@ -21,7 +23,7 @@ namespace GgafLib {
  * @since 2009/10/16
  * @author Masatoshi Tsuge
  */
-class SplineLine {
+class SplineLine : public GgafCore::GgafObject {
 
 public:
     /**

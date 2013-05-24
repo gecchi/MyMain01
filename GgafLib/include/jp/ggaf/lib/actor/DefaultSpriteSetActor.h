@@ -1,5 +1,7 @@
 #ifndef DEFAULTSPRITESETACTOR_H_
 #define DEFAULTSPRITESETACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxSpriteSetActor.h"
+
 namespace GgafLib {
 
 /**

@@ -1,8 +1,11 @@
 #ifndef GGAFDXGOD_H_
 #define GGAFDXGOD_H_
+#include "jp/ggaf/core/GgafGod.h"
 
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 namespace GgafDxCore {
+
 /**
  * DirectX神 .
  * @version 1.00
@@ -117,9 +120,9 @@ public:
 
 
     /** [r] 頂点シェーダーのバージョン(D3DVS_VERSION(_Major,_Minor)) */
-    static UINT32 _vs_v;
+    static uint32_t _vs_v;
     /** [r] ピクセルシェーダーのバージョン(D3DPS_VERSION(_Major,_Minor)) */
-    static UINT32 _ps_v;
+    static uint32_t _ps_v;
 
     /** [r] ゲームバッファ領域(ピクセル的な系) */
     RECT _rectGameBuffer;

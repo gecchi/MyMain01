@@ -1,5 +1,7 @@
 #ifndef GGAFDISUSEDSCENE_H_
 #define GGAFDISUSEDSCENE_H_
+#include "jp/ggaf/core/scene/GgafScene.h"
+
 namespace GgafCore {
 
 /**

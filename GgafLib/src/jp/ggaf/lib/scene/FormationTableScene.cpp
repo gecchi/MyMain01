@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/scene/FormationTableScene.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/ex/GgafFormation.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

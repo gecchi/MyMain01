@@ -1,6 +1,8 @@
 #ifndef COMMONSCENE_H_
 #define COMMONSCENE_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
 
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
 
 #ifdef P_GAME_SCENE
     #define P_COMMON_SCENE (P_GAME_SCENE->pCommonScene_)

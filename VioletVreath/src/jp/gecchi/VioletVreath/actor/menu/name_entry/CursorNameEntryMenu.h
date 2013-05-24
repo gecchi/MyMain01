@@ -1,5 +1,7 @@
 #ifndef CURSORNAMEENTRYMENU_H_
 #define CURSORNAMEENTRYMENU_H_
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+
 
 
 namespace VioletVreath {

@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

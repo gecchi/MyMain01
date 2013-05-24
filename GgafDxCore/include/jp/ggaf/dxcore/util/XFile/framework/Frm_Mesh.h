@@ -7,13 +7,13 @@
 #ifndef FRM_MESH_H
 #define FRM_MESH_H
 
-#include "../framework/frm_types.h"
-#include "../framework/frm_3Dmath.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/frm_types.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/frm_3Dmath.h"
 //#include "framework\frm_Quaternion.h"
-#include "../framework/frm_Material.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/frm_Material.h"
 
 //#define DEBUG
-#include "../Toolbox/Mytrace.h"
+#include "jp/ggaf/dxcore/util/XFile/ToolBox/Mytrace.h"
 
 #include <list>
 #include <vector>
@@ -33,11 +33,11 @@ public:
     }
     ~Bone(void);
     Bone* IsName(std::string &BoneName);
-    void UpdateIndices(UINT16 pIndex);
+    void UpdateIndices(uint16_t pIndex);
 
     Matrix _MatrixPos, _SkinOffset;
-    UINT32 _nVertices;
-    UINT16* _Vertices;
+    uint32_t _nVertices;
+    uint16_t* _Vertices;
     float* _Weights;
     std::string _MeshName;
     std::string _Name;
@@ -45,7 +45,7 @@ public:
 };
 
 struct Subset {
-    UINT16 Size;
+    uint16_t Size;
     Face* Faces;
 };
 
@@ -68,46 +68,46 @@ public:
     void UpdateIndices(void);
     void CreateSubsets(void);
     //Vertices
-    UINT16 _nVertices, _FirstVertex;
+    uint16_t _nVertices, _FirstVertex;
     Vertex* _Vertices;
     //Texture Coords for each vertex
-    UINT16 _nTextureCoords, _FirstTextureCoord;
+    uint16_t _nTextureCoords, _FirstTextureCoord;
     TCoord* _TextureCoords;
     //Faces
-    UINT32 _nFaces, _FirstFace;
+    uint32_t _nFaces, _FirstFace;
     Face* _Faces;
     //Subset of a mesh: there is one subset for each material used
     std::list<Subset*> _Subsets;
     //Normals
-    UINT16 _nNormals, _FirstNormal;
+    uint16_t _nNormals, _FirstNormal;
     vector<float>* _Normals;
-    UINT16 _nFaceNormals;
+    uint16_t _nFaceNormals;
     Face* _FaceNormals;   //add tsuge
     //Material index for each face
-    UINT16 _nMaterials, _FirstMaterial;
-    UINT16* _FaceMaterials;
+    uint16_t _nMaterials, _FirstMaterial;
+    uint16_t* _FaceMaterials;
     //list of Materials for that Mesh
     std::list<Material*> _Materials;
     std::string _Name;
 };
 
 typedef struct {
-    UINT32 Time;
+    uint32_t Time;
     Frm::Quaternion Rotation;
 } RotateKey;
 
 typedef struct {
-    UINT32 Time;
+    uint32_t Time;
     Frm::Vertex Translation;
 } PositionKey;
 
 typedef struct {
-    UINT32 Time;
+    uint32_t Time;
     Frm::Vector Scale;
 } ScaleKey;
 
 typedef struct {
-    UINT32 Time;
+    uint32_t Time;
     Frm::Matrix Matrix;
 } MatrixKey;
 
@@ -141,7 +141,7 @@ public:
     Animation* FindAnimation(std::string &pText);
     std::string _Name;
     std::list<Animation*> _Animations;
-    UINT32 _MaxKey; //Maximum time key for the full animation set
+    uint32_t _MaxKey; //Maximum time key for the full animation set
 };
 
 class Model3D {

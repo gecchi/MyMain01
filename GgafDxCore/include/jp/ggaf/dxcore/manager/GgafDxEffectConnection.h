@@ -1,5 +1,9 @@
 #ifndef GGAFDXEFFECTCONNECTION_H_
 #define GGAFDXEFFECTCONNECTION_H_
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+
 namespace GgafDxCore {
 
 /**

@@ -1,5 +1,9 @@
 #ifndef GGAFDXTEXTUREMANAGER_H_
 #define GGAFDXTEXTUREMANAGER_H_
+#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+
 namespace GgafDxCore {
 
 /**

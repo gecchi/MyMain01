@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "LabelSceneSymbol.h"
+
+#include "jp/gecchi/VioletVreath/Properties.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

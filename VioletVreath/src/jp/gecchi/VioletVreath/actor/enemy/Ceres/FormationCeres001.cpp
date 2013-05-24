@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "FormationCeres001.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Ceres/EnemyCeres.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

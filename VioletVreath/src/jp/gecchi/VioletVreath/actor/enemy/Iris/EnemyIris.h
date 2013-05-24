@@ -1,5 +1,7 @@
 #ifndef ENEMYIRIS_H_
 #define ENEMYIRIS_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 /**
@@ -9,8 +11,7 @@ namespace VioletVreath {
  * @since 2009/12/22
  * @author Masatoshi Tsuge
  */
-class EnemyIris :
-  public GgafLib::DefaultMeshSetActor {
+class EnemyIris : public GgafLib::DefaultMeshSetActor {
 
 //    /** フォーメーション(非フォーメーション時はnullptr) */
 //    GgafLib::TreeFormation* pFormation_;

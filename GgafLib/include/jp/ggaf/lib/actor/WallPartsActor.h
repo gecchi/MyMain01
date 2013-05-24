@@ -1,6 +1,6 @@
 #ifndef WALLPARTSACTOR_H_
 #define WALLPARTSACTOR_H_
-
+#include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
 
 #define FACE_A_IDX 5
 #define FACE_B_IDX 4

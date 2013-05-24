@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "TestEnemy.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include <stdio.h>
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

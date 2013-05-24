@@ -1,5 +1,7 @@
 #ifndef SINGLELASEREFFECTACTOR_H_
 #define SINGLELASEREFFECTACTOR_H_
+#include "jp/ggaf/lib/actor/SingleLaser.h"
+
 namespace VioletVreath {
 
 /**

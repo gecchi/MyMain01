@@ -1,5 +1,10 @@
 #ifndef GGAFRGB_H_
 #define GGAFRGB_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/core/util/GgafUtil.h"
+
 namespace GgafCore {
 
 /**

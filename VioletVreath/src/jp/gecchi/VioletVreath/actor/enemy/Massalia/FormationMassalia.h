@@ -1,5 +1,7 @@
 #ifndef FORMATIONMASSALIA_H_
 #define FORMATIONMASSALIA_H_
+#include "jp/ggaf/lib/actor/DepositoryFormation.h"
+
 namespace VioletVreath {
 
 /**

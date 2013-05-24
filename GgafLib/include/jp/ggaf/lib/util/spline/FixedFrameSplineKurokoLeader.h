@@ -1,5 +1,7 @@
 #ifndef FIXEDFRAMESPLINEKUROKOLEADER_H_
 #define FIXEDFRAMESPLINEKUROKOLEADER_H_
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+
 namespace GgafLib {
 
 /**

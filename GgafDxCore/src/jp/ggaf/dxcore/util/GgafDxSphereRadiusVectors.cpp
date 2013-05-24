@@ -1,12 +1,15 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/util/GgafDxSphereRadiusVectors.h"
+
+#include <math.h>
+
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 GgafDxSphereRadiusVectors::GgafDxSphereRadiusVectors() : GgafObject() {
     int index;
     static double s_angRad = ((PI * 2.0) / (D90SANG * 4));
-    UINT32 xXY, yXY, xXZ, zXZ;
+    uint32_t xXY, yXY, xXZ, zXZ;
     double radRotAxisZ, radRotAxisY;
     for (s_ang angFaceAxisZ = 0; angFaceAxisZ <= D90SANG; angFaceAxisZ++) {
         //XY•½–Êã‚Ì‹…•\–Ê‚Ì“_‚ð‹‚ß‚éB
@@ -25,9 +28,9 @@ GgafDxSphereRadiusVectors::GgafDxSphereRadiusVectors() : GgafObject() {
     }
 }
 
-void GgafDxSphereRadiusVectors::getFaceAngClosely(UINT32 prm_x,
-                                                  UINT32 prm_y,
-                                                  UINT32 prm_z,
+void GgafDxSphereRadiusVectors::getFaceAngClosely(uint32_t prm_x,
+                                                  uint32_t prm_y,
+                                                  uint32_t prm_z,
                                                   s_ang& out_angFaceZ,
                                                   s_ang& out_angFaceY_rev,
                                                   int s) {

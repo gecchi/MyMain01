@@ -1,5 +1,7 @@
 #ifndef VAMSYSCAMPOSITION_H_
 #define VAMSYSCAMPOSITION_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace VioletVreath {
 
 #define VAM_POS_CAM_MYSHIP_RIGHT  1

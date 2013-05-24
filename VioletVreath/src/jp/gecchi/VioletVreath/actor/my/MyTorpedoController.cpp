@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "MyTorpedoController.h"
+
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "MyTorpedo.h"
+#include "MyTorpedoBlast.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

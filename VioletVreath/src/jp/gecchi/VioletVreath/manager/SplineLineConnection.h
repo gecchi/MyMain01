@@ -1,5 +1,9 @@
 #ifndef SPLINELINECONNECTION_H_
 #define SPLINELINECONNECTION_H_
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+
+#include "jp/ggaf/lib/util/spline/SplineLine.h"
+
 namespace VioletVreath {
 
 /**

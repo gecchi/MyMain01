@@ -1,5 +1,7 @@
 #ifndef TESTNOMALSHOT_H_
 #define TESTNOMALSHOT_H_
+#include "jp/ggaf/lib/actor/SingleLaser.h"
+
 namespace VioletVreath {
 
 /**

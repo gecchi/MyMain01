@@ -1,5 +1,10 @@
 #ifndef GGAFDXEFFECT_H_
 #define GGAFDXEFFECT_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <d3dx9.h>
+#include <string>
+
 namespace GgafDxCore {
 
 /**

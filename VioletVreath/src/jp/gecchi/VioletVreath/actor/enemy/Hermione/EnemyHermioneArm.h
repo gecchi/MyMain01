@@ -1,5 +1,7 @@
 #ifndef ENEMYHERMIONEARM_H_
 #define ENEMYHERMIONEARM_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 /**

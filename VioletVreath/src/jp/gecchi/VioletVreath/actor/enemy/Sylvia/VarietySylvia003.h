@@ -1,5 +1,7 @@
 #ifndef VARIETYSYLVIA003_H_
 #define VARIETYSYLVIA003_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/Sylvia/EnemySylvia.h"
+
 namespace VioletVreath {
 
 /**

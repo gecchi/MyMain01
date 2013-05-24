@@ -1,7 +1,7 @@
 #ifndef TREEFORMATION_H_
 #define TREEFORMATION_H_
+#include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
 
-#define FORMATION_END_DELAY (30*60)
 namespace GgafLib {
 
 /**

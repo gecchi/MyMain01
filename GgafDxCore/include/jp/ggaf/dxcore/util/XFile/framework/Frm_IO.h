@@ -7,7 +7,10 @@
 #ifndef FRM_IO_H
 #define FRM_IO_H
 
-#include "../framework/frm_types.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/frm_types.h"
+#include <string>
+#include <vector>
+#include <fstream>
 
 namespace Frm {
 template<class T>
@@ -34,7 +37,7 @@ public:
         fin.close();
     }
 
-    UINT8 _Type;
+    uint8_t _Type;
 protected:
     char* Buffer;
     float TextToNum(char* pText) {
@@ -92,7 +95,7 @@ protected:
     }
     void Remove(char pDelimiter, char* pText) {
         char result[255];
-        UINT32 i, j = 0;
+        uint32_t i, j = 0;
         for (i = 0; i < strlen(pText); i++)
             if (pText[i] != pDelimiter)
                 result[j++] = pText[i];

@@ -1,6 +1,17 @@
 #ifndef GGAFUTIL_H_
 #define GGAFUTIL_H_
 
+#include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
+#include <map>
+#include <string>
+#include <vector>
+#include <iostream>
+#include <sstream>
+#include <limits.h>
+#include <iomanip>
+
+#define HASHVAL(X) const static hashval X = GgafCore::GgafUtil::easy_hash(#X)
+
 #define XTOS(X) (GgafCore::GgafUtil::_xtos_(X))
 #define STOI(X) (GgafCore::GgafUtil::_stoi_(X))
 #define ABS(X) (GgafCore::GgafUtil::_abs_(X))
@@ -10,7 +21,12 @@
 
 #define ZEROf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_(X))
 #define ONEf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_((X)-1.0f))
+#define ZEROd_EQ(X) (GgafCore::GgafUtil::_zerod_eq_(X))
+#define ONEd_EQ(X) (GgafCore::GgafUtil::_zerod_eq_((X)-1.0f))
+
 #define RND(__FROM__,__TO__) (GgafCore::GgafUtil::_rnd_int32_(__FROM__,__TO__))
+
+typedef std::map<std::string, std::string> GgafStrMap;
 
 #ifdef UTIL
     #undef UTIL
@@ -28,10 +44,10 @@ namespace GgafCore {
  */
 class GgafUtil {
 public:
-    static UINT32 _timex;
+    static uint32_t _timex;
 
 public:
-    static UINT32 getSystemTime();
+    static uint32_t getSystemTime();
 
     /**
      * ファイル読み込み .
@@ -71,7 +87,12 @@ public:
         }
         return r;
     }
+
     static inline bool _zerof_eq_(float val, float epsilon = 1e-5f ) {
+        return (-epsilon < val && val < epsilon);
+    }
+
+    static inline bool _zerod_eq_(double val, double epsilon = 1e-5f ) {
         return (-epsilon < val && val < epsilon);
     }
 
@@ -127,7 +148,7 @@ public:
      * @param out_binstr 2進数文字列化  char[33]  [out]
      * @param bitnum 所望の２進数ビット数
      */
-    static inline void strbin(UINT32 prm_decimal, char* out_binstr, int bitnum = 32){
+    static inline void strbin(uint32_t prm_decimal, char* out_binstr, int bitnum = 32){
         /* 10進数-->2進数変換 */
         int i, k;
         for (i = 0, k = bitnum - 1; k >= 0; i++, k--) {
@@ -188,7 +209,7 @@ public:
         return x < 0 ? -x : x;
     }
 
-    static inline INT32 _abs_(INT32 x) {
+    static inline int32_t _abs_(int32_t x) {
         return (x == INT_MIN) ? INT_MAX : ((x ^ (x>>31)) - (x>>31));
     }
 
@@ -252,21 +273,13 @@ public:
     }
 
     /**
-     * INT32ランダム関数 .
+     * int32_tランダム関数 .
      * prm_from と prm_to が逆転してはいけない(負の%演算は、VC++での動作は不定のため)
      * @param prm_from
      * @param prm_to
      * @return
      */
-    static inline INT32 _rnd_int32_(INT32 prm_from, INT32 prm_to) {
-#ifdef MY_DEBUG
-        if (prm_from > prm_to) {
-            MessageBox(nullptr, "GgafUtil::_rnd_int32_() from toの大小がおかしい", "不本意な事態", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND);
-        }
-#endif
-        return ((INT32)(GgafCore::CmRandomNumberGenerator::getInstance()->genrand_real2() * (prm_to - prm_from + 1) ) + prm_from );
-        //↑[N3551 Random Number Generation in C++11] を読んで焦って修正、今まで剰余使ってたし！ 2013/03/22
-    }
+    static int32_t _rnd_int32_(int32_t prm_from, int32_t prm_to);
 
     static void readProperties(std::string filename, GgafStrMap* pMap);
     static void readProperties(std::istream &is, GgafStrMap* pMap);

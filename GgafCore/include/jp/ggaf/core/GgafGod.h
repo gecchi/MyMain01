@@ -1,6 +1,11 @@
 #ifndef GGAFGOD_H_
 #define GGAFGOD_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <windows.h>
+
 namespace GgafCore {
+
 
 //#define XXXX(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
 
@@ -24,6 +29,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafGod : public GgafObject {
+
 
 private:
     /** behave‚ðs‚Á‚½‚©ƒtƒ‰ƒO */

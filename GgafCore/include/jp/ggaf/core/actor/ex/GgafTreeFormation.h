@@ -1,5 +1,6 @@
 #ifndef GGAFTREEFORMATION_H_
 #define GGAFTREEFORMATION_H_
+#include "jp/ggaf/core/actor/ex/GgafFormation.h"
 
 namespace GgafCore {
 

@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "TestDepository.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

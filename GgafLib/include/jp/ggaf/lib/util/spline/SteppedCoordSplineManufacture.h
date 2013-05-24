@@ -1,5 +1,7 @@
 #ifndef STEPPEDCOORDSPLINEMANUFACTURE_H_
 #define STEPPEDCOORDSPLINEMANUFACTURE_H_
+#include "jp/ggaf/lib/util/spline/SplineManufacture.h"
+
 namespace GgafLib {
 
 /**

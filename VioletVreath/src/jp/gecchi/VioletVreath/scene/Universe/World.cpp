@@ -1,4 +1,23 @@
 #include "stdafx.h"
+#include "World.h"
+
+#include <stdio.h>
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/lib/actor/ColliAABActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#include "jp/ggaf/lib/util/VirtualButton.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/PreDrawScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

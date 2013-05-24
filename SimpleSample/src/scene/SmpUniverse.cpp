@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "SmpUniverse.h"
+
+#include "SmpUniverse/SmpWorld.h"
+#include "actor/SmpCamera.h"
+
 using namespace SimpleSample;
 
 SmpUniverse::SmpUniverse(const char* prm_name, SmpCamera* prm_pCam) :

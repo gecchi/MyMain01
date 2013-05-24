@@ -1,7 +1,8 @@
 #ifndef ENEMYTHALIA_H_
 #define ENEMYTHALIA_H_
-namespace VioletVreath {
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
+namespace VioletVreath {
 
 /**
  * 敵機タリア .
@@ -10,8 +11,7 @@ namespace VioletVreath {
  * @since 2010/08/03
  * @author Masatoshi Tsuge
  */
-class EnemyThalia :
-  public GgafLib::DefaultMorphMeshActor {
+class EnemyThalia : public GgafLib::DefaultMorphMeshActor {
 //class EnemyThalia : public GgafLib::CubeMapMorphMeshActor {
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;

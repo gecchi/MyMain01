@@ -1,7 +1,8 @@
 #ifndef GGAFDXMORPHER_H_
 #define GGAFDXMORPHER_H_
-namespace GgafDxCore {
+#include "jp/ggaf/core/GgafObject.h"
 
+namespace GgafDxCore {
 
 /**
  * モーフィング支援クラス .

@@ -1,5 +1,7 @@
 #ifndef LABELMENUTITLEFONT01_H_
 #define LABELMENUTITLEFONT01_H_
+#include "jp/ggaf/lib/actor/StringBoardActor.h"
+
 namespace VioletVreath {
 
 /**

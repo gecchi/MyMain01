@@ -1,11 +1,27 @@
 #include "stdafx.h"
+#include "EnemyHesperia.h"
+
+#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hesperia/EnemyHesperiaLaserChip001.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-int EnemyHesperia::max_laser_way_ = RR_EnemyHesperia_ShotWay(1.0);
-//RR_EnemyHesperia_ShotWayランク式は 1.0で最大を取るようにしなければならない
+int EnemyHesperia::max_laser_way_ = RF_EnemyHesperia_ShotWay(1.0);
+//RF_EnemyHesperia_ShotWayランク式は 1.0で最大を取るようにしなければならない
 
 EnemyHesperia::EnemyHesperia(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Hesperia", STATUS(EnemyHesperia)) {
@@ -108,8 +124,8 @@ void EnemyHesperia::processBehavior() {
             if (_pProg->isJustChanged()) {
                 //レーザーセット（レーザーチップのデポジトリで、１本分のレーザー）のデポジトリから、
                 //レーザーセットの借入を試みる
-                now_laser_way_ = RR_EnemyHesperia_ShotWay(_RANK_); //今回発射レーザー本数
-                coord laser_density = RR_EnemyHesperia_Density(_RANK_); //今回レーザーとレーザーの隙間
+                now_laser_way_ = RF_EnemyHesperia_ShotWay(_RANK_); //今回発射レーザー本数
+                coord laser_density = RF_EnemyHesperia_Density(_RANK_); //今回レーザーとレーザーの隙間
                 bool can_fire = false; //少なくとも一本は発射できるかどうか
 
                 for (int i = 0; i < max_laser_way_; i++) {

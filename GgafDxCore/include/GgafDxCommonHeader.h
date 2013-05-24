@@ -86,67 +86,9 @@
 #define MAX_SE_AT_ONCE 15
 #define MAX_SE_DELAY 240
 
-//イベント用 UINT32 数値宣言
-HASHVAL(GGAF_EVENT_ON_DEVICE_LOST);
-HASHVAL(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
-
-
-#ifdef MY_DEBUG
-    #define checkDxException(HR, OKVAL, X) do { \
-        if (HR != OKVAL) { \
-            std::stringstream ss; \
-            ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
-            throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
-        } \
-    } while(0)
-#else
-    #define checkDxException(HR, OKVAL, X)
-#endif
-
-#define throwGgafDxCriticalException(HR, X) do { \
-    std::stringstream ss; \
-    ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
-    throw GgafDxCore::GgafDxCriticalException(ss.str(),HR); \
-} while(0)
-
 
 //シェーダー2.0の限界のモーフターゲットは6個だった
 #define MAX_MORPH_TARGET 6
-
-//#pragma GCC diagnostic push
-//#pragma GCC diagnostic ignored "-Wall"
-//#pragma GCC diagnostic warning "-w"
-#include <d3d9.h>
-#include <d3dx9.h>
-#include <dinput.h>
-#ifdef __GNUG__
-    //dsound.h 内で、__null 定数を使用したコードあるため
-    #define __null
-#endif
-#include <dsound.h>
-#ifdef __GNUG__
-    #undef __null
-#endif
-#include <d3dx9xof.h>
-//#pragma GCC diagnostic pop
-
-//「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html
-// の主、Ikd さん作のoggファイル再生ライブラリ
-namespace IkdLib {
-class PCMPlayer;
-class OggVorbisResource;
-class PCMDecoder;
-class OggDecoder;
-class OggVorbisFile;
-class OggVorbisMemory;
-}
-#include "jp/ggaf/dxcore/sound/IkdLib/PCMPlayer.h"
-#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisResource.h"
-#include "jp/ggaf/dxcore/sound/IkdLib/PCMDecoder.h"
-#include "jp/ggaf/dxcore/sound/IkdLib/OggDecoder.h"
-#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisFile.h"
-#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisMemory.h"
-
 
 /** アプリケーション座標単位 (目安： 1 coord  =  0.001 pixcoord  =  0.00001 dxcoord  ) */
 typedef int coord;
@@ -379,6 +321,35 @@ enum GgafDxValign {
 #undef P_UNIVERSE
 #define P_UNIVERSE ((GgafDxCore::GgafDxUniverse*)(P_GOD->_pUniverse))
 
+
+
+//前方宣言(forward declaration)
+namespace IkdLib {
+//「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html
+// の主、Ikd さん作のoggファイル再生ライブラリ
+class PCMPlayer;
+class OggVorbisResource;
+class PCMDecoder;
+class OggDecoder;
+class OggVorbisFile;
+class OggVorbisMemory;
+}
+//#include "jp/ggaf/dxcore/sound/IkdLib/PCMPlayer.h"
+//#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisResource.h"
+//#include "jp/ggaf/dxcore/sound/IkdLib/PCMDecoder.h"
+//#include "jp/ggaf/dxcore/sound/IkdLib/OggDecoder.h"
+//#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisFile.h"
+//#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisMemory.h"
+
+//前方宣言(forward declaration)
+namespace Frm {
+
+class Model3D;
+class Mesh;
+
+}
+
+//前方宣言(forward declaration)
 namespace GgafDxCore {
 
 class GgafDxCriticalException;
@@ -504,134 +475,129 @@ class CWaveDecorder;
 
 }
 
-#include "jp/ggaf/dxcore/util/XFile/framework/Frm_Mesh.h"
-#include "jp/ggaf/dxcore/util/XFile/framework/Frm_Tbuff.h"
-#include "jp/ggaf/dxcore/util/XFile/ToolBox/IOModel_X.h"
-#include "jp/ggaf/dxcore/util/XFile/ToolBox/IOTexture_Bmp.h"
-#include "jp/ggaf/dxcore/util/XFile/ToolBox/TBox_Textures.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
-#include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelConnection.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
-#include "jp/ggaf/dxcore/manager/GgafDxEffectConnection.h"
-#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
-
-#include "jp/ggaf/dxcore/util/GgafDxAllocHierarchy.h"
-#include "jp/ggaf/dxcore/util/GgafDxAllocHierarchyWorldFrame.h"
-#include "jp/ggaf/dxcore/util/GgafDxWorldMatStack.h"
-
-#include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
-#include "jp/ggaf/dxcore/actor/interface/GgafDxIBumpMapActor.h"
-
-#include "jp/ggaf/dxcore/actor/GgafDxBaseActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
-
-#include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxD3DXMeshActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxD3DXAniMeshActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDynaD3DXMeshActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxSpriteActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxSpriteSetActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
-#include "jp/ggaf/dxcore/actor/GgafDxBoardActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxBoardSetActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxPointSpriteActor.h"
-
-#include "jp/ggaf/dxcore/actor/ex/GgafDxAABActor.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxAAPrismActor.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxSphereActor.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshActor.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshSetActor.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxStringBoardActor.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxStringSpriteActor.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMeshActor.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMeshSetActor.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMorphMeshActor.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxWorldBoundActor.h"
-
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxD3DXMeshModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxD3DXAniMeshModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxSpriteModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxSpriteSetModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxPointSpriteModel.h"
-#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
-#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"
-#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMorphMeshModel.h"
-#include "jp/ggaf/dxcore/model/ex/GgafDxWorldBoundModel.h"
-
-#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
-
-#include "jp/ggaf/dxcore/effect/GgafDxD3DXAniMeshEffect.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
-#include "jp/ggaf/dxcore/effect/GgafDxSpriteEffect.h"
-#include "jp/ggaf/dxcore/effect/GgafDxSpriteSetEffect.h"
-#include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
-#include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
-#include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
-#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshEffect.h"
-#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshSetEffect.h"
-#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMorphMeshEffect.h"
-#include "jp/ggaf/dxcore/effect/ex/GgafDxWorldBoundEffect.h"
-
-#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
-
-#include "jp/ggaf/dxcore/scene/GgafDxScene.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
-
-
-#include "jp/ggaf/dxcore/util/GgafDxAgainstWay.h"
-#include "jp/ggaf/dxcore/util/GgafDxSphereRadiusVectors.h"
-#include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
-#include "jp/ggaf/dxcore/util/GgafDxGeoChain.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-
-#include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
-#include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
-#include "jp/ggaf/dxcore/sound/GgafDxBgmPerformer.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSeTransmitter.h"
-
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxPuppeteer.h"
-
-#include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
-#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
-
-#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
-
-#include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
-#include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
-#include "jp/ggaf/dxcore/manager/GgafDxBgmConnection.h"
-#include "jp/ggaf/dxcore/manager/GgafDxBgmManager.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+//#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+//#include "jp/ggaf/dxcore/GgafDxProperties.h"
+//#include "jp/ggaf/dxcore/GgafDxGod.h"
+//#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+//#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+//#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+//#include "jp/ggaf/dxcore/manager/GgafDxModelConnection.h"
+//#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+//#include "jp/ggaf/dxcore/manager/GgafDxEffectConnection.h"
+//#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+//
+//#include "jp/ggaf/dxcore/util/GgafDxAllocHierarchy.h"
+//#include "jp/ggaf/dxcore/util/GgafDxAllocHierarchyWorldFrame.h"
+//#include "jp/ggaf/dxcore/util/GgafDxWorldMatStack.h"
+//
+//#include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
+//#include "jp/ggaf/dxcore/actor/interface/GgafDxIBumpMapActor.h"
+//
+//#include "jp/ggaf/dxcore/actor/GgafDxBaseActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+//
+//#include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxD3DXMeshActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxD3DXAniMeshActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxDynaD3DXMeshActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxSpriteActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxSpriteSetActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxBoardActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxBoardSetActor.h"
+//#include "jp/ggaf/dxcore/actor/GgafDxPointSpriteActor.h"
+//
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxAABActor.h"
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxAAPrismActor.h"
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxSphereActor.h"
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshActor.h"
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshSetActor.h"
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxStringBoardActor.h"
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxStringSpriteActor.h"
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMeshActor.h"
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMeshSetActor.h"
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMorphMeshActor.h"
+//#include "jp/ggaf/dxcore/actor/ex/GgafDxWorldBoundActor.h"
+//
+//#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+//#include "jp/ggaf/dxcore/model/GgafDxD3DXMeshModel.h"
+//#include "jp/ggaf/dxcore/model/GgafDxD3DXAniMeshModel.h"
+//#include "jp/ggaf/dxcore/model/GgafDxSpriteModel.h"
+//#include "jp/ggaf/dxcore/model/GgafDxSpriteSetModel.h"
+//#include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
+//#include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
+//#include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
+//#include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
+//#include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
+//#include "jp/ggaf/dxcore/model/GgafDxPointSpriteModel.h"
+//#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
+//#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"
+//#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMorphMeshModel.h"
+//#include "jp/ggaf/dxcore/model/ex/GgafDxWorldBoundModel.h"
+//
+//#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+//#include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
+//
+//#include "jp/ggaf/dxcore/effect/GgafDxD3DXAniMeshEffect.h"
+//#include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
+//#include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
+//#include "jp/ggaf/dxcore/effect/GgafDxSpriteEffect.h"
+//#include "jp/ggaf/dxcore/effect/GgafDxSpriteSetEffect.h"
+//#include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
+//#include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
+//#include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
+//#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshEffect.h"
+//#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshSetEffect.h"
+//#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMorphMeshEffect.h"
+//#include "jp/ggaf/dxcore/effect/ex/GgafDxWorldBoundEffect.h"
+//
+//#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+//
+//#include "jp/ggaf/dxcore/scene/GgafDxScene.h"
+//#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+//
+//
+//#include "jp/ggaf/dxcore/util/GgafDxAgainstWay.h"
+//#include "jp/ggaf/dxcore/util/GgafDxSphereRadiusVectors.h"
+//#include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
+//#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
+//#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+//#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+//#include "jp/ggaf/dxcore/util/GgafDxGeoChain.h"
+//#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+//
+//#include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
+//#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+//#include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
+//#include "jp/ggaf/dxcore/sound/GgafDxBgmPerformer.h"
+//#include "jp/ggaf/dxcore/sound/GgafDxSeTransmitter.h"
+//
+//#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+//#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+//#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
+//#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+//#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+//#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
+//#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
+//#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+//#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+//#include "jp/ggaf/dxcore/actor/supporter/GgafDxPuppeteer.h"
+//
+//#include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
+//#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+//
+//#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+//
+//#include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
+//#include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
+//#include "jp/ggaf/dxcore/manager/GgafDxBgmConnection.h"
+//#include "jp/ggaf/dxcore/manager/GgafDxBgmManager.h"
+//#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 
 
 #endif /*GGAFDXCOMMONHEADER_H_*/

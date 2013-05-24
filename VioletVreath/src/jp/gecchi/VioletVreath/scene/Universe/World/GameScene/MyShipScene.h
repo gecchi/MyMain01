@@ -1,5 +1,10 @@
 #ifndef MYSHIPSCENE_H_
 #define MYSHIPSCENE_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
+#include "jp/gecchi/VioletVreath/actor/camera_worker/VamSysCamWorker.h"
 
 #ifdef P_GAME_SCENE
     #define P_MYSHIP_SCENE (P_GAME_SCENE->pMyShip_Scene)

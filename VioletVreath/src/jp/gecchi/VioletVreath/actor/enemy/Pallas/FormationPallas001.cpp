@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "FormationPallas001.h"
+
+#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Pallas/EnemyPallas.h"
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -7,9 +16,9 @@ using namespace VioletVreath;
 FormationPallas001::FormationPallas001(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationPallas001";
-    num_Pallas_      = RR_FormationPallas001_Num(_RANK_);    //編隊数
-    interval_frames_ = RR_FormationPallas001_LaunchInterval(_RANK_);  //パラスの間隔(frame)
-    velo_mv_         = RR_FormationPallas001_MvVelo(_RANK_); //速度
+    num_Pallas_      = RF_FormationPallas001_Num(_RANK_);    //編隊数
+    interval_frames_ = RF_FormationPallas001_LaunchInterval(_RANK_);  //パラスの間隔(frame)
+    velo_mv_         = RF_FormationPallas001_MvVelo(_RANK_); //速度
     //パラス編隊作成
     pSplManufConnection_ = connectToSplineManufactureManager("Pallas01");
     pDepoConnection_ = nullptr;

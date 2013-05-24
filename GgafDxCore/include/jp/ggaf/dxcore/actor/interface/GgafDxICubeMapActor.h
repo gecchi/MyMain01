@@ -1,5 +1,8 @@
 #ifndef GGAFDXICUBEMAPACTOR_H_
 #define GGAFDXICUBEMAPACTOR_H_
+
+#include <d3d9.h>
+
 namespace GgafDxCore {
 
 /**

@@ -1,5 +1,7 @@
 #ifndef ENEMYPALLAS_H_
 #define ENEMYPALLAS_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 /**
@@ -9,8 +11,7 @@ namespace VioletVreath {
  * @since 2010/06/13
  * @author Masatoshi Tsuge
  */
-class EnemyPallas :
-    public GgafLib::DefaultMeshSetActor {
+class EnemyPallas : public GgafLib::DefaultMeshSetActor {
 
 public:
     enum {

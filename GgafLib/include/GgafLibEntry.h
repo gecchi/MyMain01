@@ -2,6 +2,11 @@
 #define GGAFLIBENTRY_H_
 #include "GgafDxCommonHeader.h"
 
+#include <windows.h>
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/DefaultGod.h"
+
 #ifdef  __cplusplus
 extern "C" {
 #endif

@@ -1,5 +1,6 @@
 #ifndef IKD_DIX_OGGDECODER_H
 #define IKD_DIX_OGGDECODER_H
+#include "jp/ggaf/dxcore/sound/IkdLib/PCMDecoder.h"
 
 #define OV_EXCLUDE_STATIC_CALLBACKS
 #include "vorbis/vorbisfile.h"
@@ -17,6 +18,7 @@ namespace IkdLib {
  * @author  IKD
  */
 class OggDecoder : public PCMDecoder {
+
 public:
     OggDecoder();
     OggDecoder(OggVorbisResource* prm_pOggVorbisResource);

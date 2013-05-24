@@ -1,5 +1,8 @@
 #ifndef MGRUNIVERSE_H_
 #define MGRUNIVERSE_H_
+#include "jp/ggaf/lib/scene/DefaultUniverse.h"
+
+#include "actor/MgrCamera.h"
 
 #ifdef P_UNIVERSE
     #ifdef P_CAM

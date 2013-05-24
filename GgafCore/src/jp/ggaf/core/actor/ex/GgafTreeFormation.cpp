@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
+
+#include "jp/ggaf/core/util/GgafStatus.h"
+
 using namespace GgafCore;
 
 GgafTreeFormation::GgafTreeFormation(const char* prm_name, frame prm_offset_frames_end) :

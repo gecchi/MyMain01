@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "LabelGecchi32Font.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

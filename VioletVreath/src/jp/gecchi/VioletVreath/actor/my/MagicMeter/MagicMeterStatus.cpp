@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "MagicMeterStatus.h"
+
+#include <stdio.h>
+#include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -10,6 +17,7 @@ MagicMeterStatus::MagicMeterStatus(const char* prm_name, MagicMeter* prm_pMagicM
     _class_name = "MagicMeterStatus";
     pMagicMeter_ = prm_pMagicMeter;
 }
+
 void MagicMeterStatus::initialize() {
 }
 

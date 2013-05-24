@@ -1,5 +1,9 @@
 #ifndef GGAFDXSEMANAGER_H_
 #define GGAFDXSEMANAGER_H_
+#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+
+#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+
 namespace GgafDxCore {
 
 /**

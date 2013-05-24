@@ -1,8 +1,11 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 WateringLaserChip::WateringLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
             LaserChip(prm_name, prm_model, prm_pStat) {

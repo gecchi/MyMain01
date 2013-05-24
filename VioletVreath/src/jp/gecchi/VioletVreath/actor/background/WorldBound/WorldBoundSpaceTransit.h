@@ -1,5 +1,7 @@
 #ifndef WORLDBOUNDSPACETRANSIT_H_
 #define WORLDBOUNDSPACETRANSIT_H_
+#include "jp/ggaf/lib/actor/WorldBoundActor.h"
+
 namespace VioletVreath {
 
 /**

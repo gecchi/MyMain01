@@ -1,6 +1,10 @@
 #ifndef UNIVERSE_H_
 #define UNIVERSE_H_
+#include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
+#include "jp/gecchi/VioletVreath/actor/Camera.h"
+#include "jp/gecchi/VioletVreath/manager/CameraWorkerManager.h"
+#include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
 
 #ifdef P_UNIVERSE
     #ifdef P_CAM
@@ -35,55 +39,14 @@ class Universe : public GgafLib::DefaultUniverse {
     class CameraWorkerConnectionStack {
     public:
         CameraWorkerConnection* apCamWorkerConnection_[30];
-        UINT32 p_;
-        CameraWorkerConnectionStack() {
-            p_ = 0;
-            for (int i = 0; i < 30; i++) {
-                apCamWorkerConnection_[i] = nullptr;
-            }
-        }
-        CameraWorkerConnection* getLast() {
-            if (p_ == 0) {
-                return nullptr;
-            } else {
-                return apCamWorkerConnection_[p_-1];
-            }
-        }
-        void push(CameraWorkerConnection* prm_pCamWorkerCon) {
-            if (p_ > 30-1) {
-                throwGgafCriticalException("CameraWorkerConnectionStack::push("<<prm_pCamWorkerCon->getIdStr()<<") スタックを使い切りました。");
-            }
-            apCamWorkerConnection_[p_] = prm_pCamWorkerCon;
-            p_++;
-        }
-        CameraWorkerConnection* pop() {
-            if (p_ == 0) {
-                throwGgafCriticalException("CameraWorkerConnectionStack::pop() ポップしすぎです");
-            } else {
-                p_--;
-                CameraWorkerConnection* r = apCamWorkerConnection_[p_];
-                apCamWorkerConnection_[p_] = nullptr;
-                return r;
-            }
-        }
-        void clear() {
-            p_ = 0;
-            for (int i = 0; i < 30; i++) {
-                apCamWorkerConnection_[i] = nullptr;
-            }
-        }
-
-        void dump() {
-            _TRACE_("CameraWorkerConnectionStack p_="<<p_);
-            for (int i = 0; i < 30; i++) {
-                if (apCamWorkerConnection_[i]) {
-                    _TRACE_("apCamWorkerConnection_["<<i<<"]="<<(apCamWorkerConnection_[i]->getIdStr()));
-                }
-            }
-        }
-        ~CameraWorkerConnectionStack() {
-            clear();
-        }
+        uint32_t p_;
+        CameraWorkerConnectionStack();
+        CameraWorkerConnection* getLast();
+        void push(CameraWorkerConnection* prm_pCamWorkerCon);
+        CameraWorkerConnection* pop();
+        void clear();
+        void dump();
+        ~CameraWorkerConnectionStack();
     };
 
 

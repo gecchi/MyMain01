@@ -1,5 +1,6 @@
 #ifndef AMOUNTGRAPH_H_
 #define AMOUNTGRAPH_H_
+#include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafLib {
 

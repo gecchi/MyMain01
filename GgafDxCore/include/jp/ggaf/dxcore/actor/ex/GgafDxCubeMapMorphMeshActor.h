@@ -1,5 +1,8 @@
 #ifndef GGAFDXCUBEMAPMORPHMESHACTOR_H_
 #define GGAFDXCUBEMAPMORPHMESHACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
+#include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
+
 namespace GgafDxCore {
 
 /**
@@ -28,11 +31,11 @@ public:
      * @return
      */
     GgafDxCubeMapMorphMeshActor(const char* prm_name,
-                                 const char* prm_model_id,
-                                 const char* prm_effect_id,
-                                 const char* prm_technique,
-                                 GgafCore::GgafStatus* prm_pStat,
-                                 GgafDxChecker* prm_pChecker );
+                                const char* prm_model_id,
+                                const char* prm_effect_id,
+                                const char* prm_technique,
+                                GgafCore::GgafStatus* prm_pStat,
+                                GgafDxChecker* prm_pChecker );
 
 
     virtual void processDraw() override;

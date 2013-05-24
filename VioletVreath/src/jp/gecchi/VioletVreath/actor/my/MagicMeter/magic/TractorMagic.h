@@ -1,5 +1,7 @@
 #ifndef TRACTORMAGIC_H_
 #define TRACTORMAGIC_H_
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
+
 namespace VioletVreath {
 
 /**

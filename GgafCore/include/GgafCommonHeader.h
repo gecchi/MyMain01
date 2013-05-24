@@ -7,6 +7,38 @@
  * @author Masatoshi Tsuge
  */
 
+
+//#include <windows.h>
+//#include <stdio.h>
+//#include <stdarg.h>
+//#include <stdlib.h>
+//#include <malloc.h>
+//#include <memory.h>
+//#include <tchar.h>
+//#include <mmsystem.h>
+//#include <process.h>
+//#include <conio.h>
+//#include <math.h>
+//#include <limits.h>
+//#include <sys/stat.h>
+//#include <iostream>
+//#include <iomanip>
+//#include <fstream>
+//#include <typeinfo>
+//#include <set>
+//#include <string>
+//#include <map>
+//#include <vector>
+//#include <list>
+//#include <stack>
+//#include <sstream>
+//#include <cstddef>
+//#include "Shlwapi.h"
+//#include <time.h>
+//#include <algorithm>
+
+
+
 //MY_DEBUGは自分用のデバッグビルド
 #ifdef _DEBUG
     //#undef _DEBUG
@@ -24,6 +56,7 @@
     #ifdef _DEBUG
         #define _CRTDBG_MAP_ALLOC
         #define _CRTDBG_MAP_ALLOC_NEW
+        #include <crtdbg.h>
     #endif
     #if _MSC_VER < 1500
         #define override
@@ -36,47 +69,23 @@
 
 #define _HAS_ITERATOR_DEBUGGING 0
 
-// Windows ヘッダー ファイル:
-#include <windows.h>
-#include <stdio.h>
-#include <stdarg.h>
-
-#include <stdlib.h>
 
 #ifdef _MSC_VER
-    #ifdef _DEBUG
-        #include <crtdbg.h>
-    #endif
+    typedef __int8            int8_t;
+    typedef __int16           int16_t;
+    typedef __int32           int32_t;
+    typedef __int64           int64_t;
+    typedef unsigned __int8   uint8_t;
+    typedef unsigned __int32  uint16_t;
+    typedef unsigned __int32  uint32_t;
+    typedef unsigned __int64  uint64_t;
+#else
+    #include <cstdint>
 #endif
 
-#include <malloc.h>
-#include <memory.h>
-#include <tchar.h>
-#include <mmsystem.h>
-#include <process.h>
-#include <conio.h>
-#include <math.h>
-#include <limits.h>
-#include <sys/stat.h>
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-#include <typeinfo>
-#include <set>
-#include <string>
-#include <map>
-#include <vector>
-#include <list>
-#include <stack>
-#include <sstream>
-#include <cstddef>
-#include "Shlwapi.h"
-#include <time.h>
-#include <algorithm>
 
 #ifdef MY_DEBUG
 //自分用デバッグビルドの場合
-
     #ifdef _MSC_VER
         #ifdef _DEBUG
             //自分用デバッグ かつ VC++の デバッグビルド時
@@ -93,38 +102,10 @@
         //#define NEW new(__FILE__, __LINE__)
         #define NEW new
     #endif
-
     //#define PFUNC std::cout << __PRETTY_FUNCTION__ << std::endl
 
-    /** コンストラクタ、主要メソッド、デストラクタ関連ログ */
-    //#define TRACE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define TRACE(X)
-
-    /** 工場関連関連ログ */
-    //#define TRACE2(X) {std::stringstream ss; ss << "[製造工場]" << X; GgafCore::GgafLogger::writeln(ss); }
-    #define TRACE2(X)
-
-    /** 資源マネージャ、コネクション関連ログ */
-    //#define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define TRACE3(X)
-
-    /** エフェクト、パス、Draw関連ログ */
-    //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define TRACE4(X)
-
-    /** ８分木、あたり判定関連ログ */
-    //#define TRACE5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define TRACE5(X)
-    //#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
-    #define TEXT5(X)
-
-    /** デバッグ用通常ログ */
-    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    //#define _TRACE_(X)
-    #define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
-    //#define _TEXT_(X)
-
     //メモリ解放用マクロ
+    #include "jp/ggaf/core/util/GgafLogger.h"
     /** nullptrかどうか不明なdelete */
     #define GGAF_DELETE_NULLABLE(POINTER) do { \
         if (POINTER) { \
@@ -201,7 +182,7 @@
             rc = (POINTER)->Release(); \
             if (rc == 0) { \
                 std::stringstream ss; \
-                ss << "GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                ss << "GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                       #POINTER << "は、既に参照カウンタ0です。リリースをやむなく無視しました。調査が必要です！"; \
                 GgafCore::GgafLogger::writeln(ss); \
             } else { \
@@ -231,9 +212,6 @@
             (POINTER) = nullptr; \
         } \
     } while(0)
-//#define GGAF_RELEASE_NULLABLE(POINTER) {(POINTER) = nullptr;}
-//#define GGAF_RELEASE(POINTER) {(POINTER) = nullptr;}
-//#define GGAF_RELEASE_BY_FROCE(POINTER) {(POINTER) = nullptr;}
 
 #else
 //自分用リリースビルド時
@@ -252,18 +230,6 @@
         #define NEW new
     #endif
 
-    #define TRACE(X)
-    #define TRACE2(X)
-    #define TRACE3(X)
-    #define TRACE4(X)
-    #define TRACE5(X)
-    #define TEXT5(X)
-    //#define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define _TRACE_(X)
-    //#define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
-    #define _TEXT_(X)
-    #define _TRACEORE(X)
-    //#define _TRACEORE(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
 
     //メモリ解放用マクロ
     /** nullptrかもしれない delete */
@@ -283,7 +249,50 @@
 
 #endif
 
+#ifdef MY_DEBUG
+    /** コンストラクタ、主要メソッド、デストラクタ関連ログ */
+    //#define TRACE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define TRACE(X)
 
+    /** 工場関連関連ログ */
+    //#define TRACE2(X) {std::stringstream ss; ss << "[製造工場]" << X; GgafCore::GgafLogger::writeln(ss); }
+    #define TRACE2(X)
+
+    /** 資源マネージャ、コネクション関連ログ */
+    //#define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define TRACE3(X)
+
+    /** エフェクト、パス、Draw関連ログ */
+    //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define TRACE4(X)
+
+    /** ８分木、あたり判定関連ログ */
+    //#define TRACE5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define TRACE5(X)
+    //#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    #define TEXT5(X)
+
+    /** デバッグ用通常ログ */
+    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE_(X)
+    #define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    //#define _TEXT_(X)
+
+# else
+
+    #define TRACE(X)
+    #define TRACE2(X)
+    #define TRACE3(X)
+    #define TRACE4(X)
+    #define TRACE5(X)
+    #define TEXT5(X)
+    //#define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define _TRACE_(X)
+    //#define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    #define _TEXT_(X)
+    #define _TRACEORE(X)
+    //#define _TRACEORE(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+#endif
 #define DUMP_FLGS   "@"<< \
                     _frame_of_behaving_since_onActive<< \
                     "/"<< \
@@ -314,23 +323,6 @@
                     _will_mv_last_in_next_frame_flg
 
 
-#define throwGgafCriticalException(X)  do { \
-    std::stringstream ss; \
-    ss <<__FILE__<<"("<<__LINE__<<") : "<< X; \
-    throw GgafCore::GgafCriticalException(ss.str()); \
-} while(0)
-
-//#define PP_ADD_0_0 0
-//#define PP_ADD_0_1 1
-//#define PP_ADD_0_2 2
-//#define PP_ADD_0_3 3
-//#define PP_ADD_1_0 1
-//#define PP_ADD_1_1 2
-//
-//#define PP_ADD(m, n) PP_ADD_I(m, n)
-//#define PP_ADD_I(m, n) PP_ADD_ ## m ## _ ## n
-#define HASHVAL(X) const static hashval X = GgafCore::GgafUtil::easy_hash(#X)
-
 /** 共通遅延解放フレーム数 */
 #define GGAF_SAYONARA_DELAY (60*15)
 //GGAF_SAYONARA_DELAYは全Element共通の解放遅延フレーム数で、
@@ -346,17 +338,15 @@
 //例えば爆発SEが１分かかるような物が一つでも使用したい場合は、最大の1分(60*60)を設定しなければならない。
 
 
-//#define HASHVAL(X)  const static UINT32 X=__LINE__*3+/*'"*/__TIME__"
+//#define HASHVAL(X)  const static uint32_t X=__LINE__*3+/*'"*/__TIME__"
 
 /** ハッシュ数値 */
-typedef UINT64 hashval;
+typedef uint64_t hashval;
 /** アクターの種類 */
-typedef UINT32 actorkind;
+typedef uint32_t actorkind;
 /** フレーム(アプリケーション時間) */
-typedef UINT32 frame;
+typedef uint32_t frame;
 #define MAX_FRAME (UINT_MAX)
-/** 文字：文字 マップ */
-typedef std::map<std::string, std::string> GgafStrMap;
 
 #define Obj_SceneBit              (0x80000000)       //0b 10000000 00000000 00000000 00000000
 
@@ -377,7 +367,9 @@ typedef std::map<std::string, std::string> GgafStrMap;
 #define P_GOD (GgafCore::GgafGod::_pGod)
 #define P_UNIVERSE (P_GOD->_pUniverse)
 
+//前方宣言(forward declaration)
 namespace GgafCore {
+
 class GgafUtil;
 class GgafRepeatSeq;
 class GgafObject;
@@ -437,48 +429,48 @@ class GgafCurtain;
 class GgafQuery;
 }
 
-#include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
-#include "jp/ggaf/core/util/GgafUtil.h"
-#include "jp/ggaf/core/util/GgafRepeatSeq.h"
-#include "jp/ggaf/core/GgafObject.h"
-#include "jp/ggaf/core/exception/GgafException.h"
-#include "jp/ggaf/core/exception/GgafCriticalException.h"
-#include "jp/ggaf/core/util/GgafStatus.h"
-#include "jp/ggaf/core/util/GgafLogger.h"
-#include "jp/ggaf/core/util/GgafRgb.h"
-#include "jp/ggaf/core/GgafProperties.h"
-#include "jp/ggaf/core/GgafGod.h"
-
-#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
-#include "jp/ggaf/core/util/GgafResourceManager.hpp"
-
-#include "jp/ggaf/core/GgafFactory.h"
-#include "jp/ggaf/core/GgafGarbageBox.h"
-#include "jp/ggaf/core/GgafProgress.h"
-#include "jp/ggaf/core/GgafNode.hpp"
-#include "jp/ggaf/core/GgafElement.hpp"
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
-#include "jp/ggaf/core/scene/GgafScene.h"
-#include "jp/ggaf/core/scene/GgafDisusedScene.h"
-#include "jp/ggaf/core/scene/GgafMainScene.h"
-#include "jp/ggaf/core/actor/GgafActor.h"
-
-#include "jp/ggaf/core/actor/GgafDisusedActor.h"
-#include "jp/ggaf/core/actor/GgafMainActor.h"
-#include "jp/ggaf/core/scene/GgafUniverse.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
-#include "jp/ggaf/core/actor/GgafGroupHead.h"
-#include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
-#include "jp/ggaf/core/actor/ex/GgafFormation.h"
-#include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
-#include "jp/ggaf/core/actor/ex/GgafDepositoryFormation.h"
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
-#include "jp/ggaf/core/GgafOrder.h"
-#include "jp/ggaf/core/util/GgafLinearOctree.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
-#include "jp/ggaf/core/util/GgafCurtain.h"
-#include "jp/ggaf/core/util/GgafQuery.h"
+//#include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
+//#include "jp/ggaf/core/util/GgafUtil.h"
+//#include "jp/ggaf/core/util/GgafRepeatSeq.h"
+//#include "jp/ggaf/core/GgafObject.h"
+//#include "jp/ggaf/core/exception/GgafException.h"
+//#include "jp/ggaf/core/exception/GgafCriticalException.h"
+//#include "jp/ggaf/core/util/GgafStatus.h"
+//#include "jp/ggaf/core/util/GgafLogger.h"
+//#include "jp/ggaf/core/util/GgafRgb.h"
+//#include "jp/ggaf/core/GgafProperties.h"
+//#include "jp/ggaf/core/GgafGod.h"
+//
+//#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+//#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+//
+//#include "jp/ggaf/core/GgafFactory.h"
+//#include "jp/ggaf/core/GgafGarbageBox.h"
+//#include "jp/ggaf/core/GgafProgress.h"
+//#include "jp/ggaf/core/GgafNode.hpp"
+//#include "jp/ggaf/core/GgafElement.hpp"
+//#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+//#include "jp/ggaf/core/scene/GgafScene.h"
+//#include "jp/ggaf/core/scene/GgafDisusedScene.h"
+//#include "jp/ggaf/core/scene/GgafMainScene.h"
+//#include "jp/ggaf/core/actor/GgafActor.h"
+//
+//#include "jp/ggaf/core/actor/GgafDisusedActor.h"
+//#include "jp/ggaf/core/actor/GgafMainActor.h"
+//#include "jp/ggaf/core/scene/GgafUniverse.h"
+//#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+//#include "jp/ggaf/core/actor/GgafGroupHead.h"
+//#include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
+//#include "jp/ggaf/core/actor/ex/GgafFormation.h"
+//#include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
+//#include "jp/ggaf/core/actor/ex/GgafDepositoryFormation.h"
+//#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+//#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
+//#include "jp/ggaf/core/GgafOrder.h"
+//#include "jp/ggaf/core/util/GgafLinearOctree.h"
+//#include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
+//#include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
+//#include "jp/ggaf/core/util/GgafCurtain.h"
+//#include "jp/ggaf/core/util/GgafQuery.h"
 
 #endif /*GGAFCOMMONHEADER_H_*/

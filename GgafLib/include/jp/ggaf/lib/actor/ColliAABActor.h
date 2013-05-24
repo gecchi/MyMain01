@@ -1,5 +1,7 @@
 #ifndef COLLIAABACTOR_H_
 #define COLLIAABACTOR_H_
+#include "jp/ggaf/dxcore/actor/ex/GgafDxAABActor.h"
+
 namespace GgafLib {
 
 /**

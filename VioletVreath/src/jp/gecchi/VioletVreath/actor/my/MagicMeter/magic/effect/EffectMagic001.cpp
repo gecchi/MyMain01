@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "EffectMagic001.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

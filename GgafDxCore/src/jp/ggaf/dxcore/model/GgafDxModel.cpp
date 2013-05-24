@@ -1,7 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject() {
     TRACE3("GgafDxModel::GgafDxModel(" << prm_model_name << ")");

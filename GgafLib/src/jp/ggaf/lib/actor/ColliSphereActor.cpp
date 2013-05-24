@@ -1,4 +1,12 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+
+#include "jp/ggaf/core/GgafGod.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
+#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/lib/util/ColliSphere.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

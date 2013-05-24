@@ -5,17 +5,17 @@
 //
 ////////////////////////////////////////////////////////////////
 
-//#include "jp/ggaf/core/util/XFile/ToolBox/TBox_Textures.h"
+#include "jp/ggaf/dxcore/util/XFile/ToolBox/TBox_Textures.h"
 
-#define CTOL(C)     (*(UINT32*)&C)
-#define PCTOL(PC)	  (*(UINT32*)PC)
-#define PCTOS(PC)	  (*(UINT16*)PC)
+#define CTOL(C)     (*(uint32_t*)&C)
+#define PCTOL(PC)	  (*(uint32_t*)PC)
+#define PCTOS(PC)	  (*(uint16_t*)PC)
 
 ////////////////////////////////////////////////////////////
 // Main convert function
 //
 ////////////////////////////////////////////////////////////
-void ToolBox::ConvText::Convert(TEXTURE* pText, UINT8 pType) {
+void ToolBox::ConvText::Convert(TEXTURE* pText, uint8_t pType) {
     if (pText->Type == pType)
         return;
 
@@ -42,13 +42,13 @@ void ToolBox::ConvText::Convert(TEXTURE* pText, UINT8 pType) {
 // color
 ////////////////////////////////////////////////////////////
 void ToolBox::ConvText::RGB2RGBA(TEXTURE* pText) {
-    UINT8* tempBits;
-    UINT32 tempSize;
+    uint8_t* tempBits;
+    uint32_t tempSize;
 
     tempSize = pText->Width * pText->Height * 4;
-    tempBits = NEW UINT8[tempSize];
+    tempBits = NEW uint8_t[tempSize];
 
-    UINT32 src, dst;
+    uint32_t src, dst;
 
     dst = 0;
     for (src = 0; src < pText->Size; src += pText->Depth, dst += 4) {
@@ -71,14 +71,14 @@ void ToolBox::ConvText::RGB2RGBA(TEXTURE* pText) {
 // Convert a 24 bit texture to 8 bit alpha
 ////////////////////////////////////////////////////////////
 void ToolBox::ConvText::RGB2A(TEXTURE* pText) {
-    UINT8* tempBits;
-    UINT32 tempSize;
+    uint8_t* tempBits;
+    uint32_t tempSize;
 
     tempSize = pText->Width * pText->Height * 1;
-    tempBits = NEW UINT8[tempSize];
+    tempBits = NEW uint8_t[tempSize];
 
-    UINT32 src, dst;
-    UINT32 test;
+    uint32_t src, dst;
+    uint32_t test;
 
     dst = 0;
     for (src = 0; src < pText->Size; src += pText->Depth, dst++) {
@@ -87,7 +87,7 @@ void ToolBox::ConvText::RGB2A(TEXTURE* pText) {
         if (test == _tColor)
             tempBits[dst] = 0;
         else
-            tempBits[dst] = (UINT8) ((pText->Bits[src] + pText->Bits[src + 1]
+            tempBits[dst] = (uint8_t) ((pText->Bits[src] + pText->Bits[src + 1]
                     + pText->Bits[src + 2]) / 3);
     }
 
@@ -102,14 +102,14 @@ void ToolBox::ConvText::RGB2A(TEXTURE* pText) {
 // Convert a 24 bit texture to 16 bit luminance-alpha
 ////////////////////////////////////////////////////////////
 void ToolBox::ConvText::RGB2LA(TEXTURE* pText) {
-    UINT8* tempBits;
-    UINT32 tempSize;
+    uint8_t* tempBits;
+    uint32_t tempSize;
 
     tempSize = pText->Width * pText->Height * 2;
-    tempBits = NEW UINT8[tempSize];
+    tempBits = NEW uint8_t[tempSize];
 
-    UINT32 src, dst;
-    UINT32 test;
+    uint32_t src, dst;
+    uint32_t test;
 
     dst = 0;
     for (src = 0; src < pText->Size; src += pText->Depth, dst += 2) {
@@ -120,7 +120,7 @@ void ToolBox::ConvText::RGB2LA(TEXTURE* pText) {
             tempBits[dst + 1] = 0;
         } else {
             tempBits[dst] = 255;
-            tempBits[dst + 1] = (UINT8) ((pText->Bits[src] + pText->Bits[src
+            tempBits[dst + 1] = (uint8_t) ((pText->Bits[src] + pText->Bits[src
                     + 1] + pText->Bits[src + 2]) / 3);
         }
     }

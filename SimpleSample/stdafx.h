@@ -1,3 +1,2 @@
-#pragma once
-#include "src/SimpleSample.h"
+#include "SimpleSample.h"
 

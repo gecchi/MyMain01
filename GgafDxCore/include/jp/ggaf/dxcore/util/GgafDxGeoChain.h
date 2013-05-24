@@ -1,5 +1,9 @@
 #ifndef GGAFDXGEOCHAIN_H_
 #define GGAFDXGEOCHAIN_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+
 namespace GgafDxCore {
 
 /**
@@ -8,7 +12,7 @@ namespace GgafDxCore {
  * @since 2008/12/19
  * @author Masatoshi Tsuge
  */
-class GgafDxGeoChain {
+class GgafDxGeoChain : public GgafCore::GgafObject {
 public:
     GgafDxGeoElem* _pFirst;
     GgafDxGeoElem* _pGeoChainRingActive;
@@ -17,7 +21,7 @@ public:
     /**
      * コンストラクタ
      */
-    GgafDxGeoChain(int prm_num, GgafDxGeometricActor* prm_pActor) {
+    GgafDxGeoChain(int prm_num, GgafDxGeometricActor* prm_pActor) : GgafObject() {
         static GgafDxGeoElem* pWork;
         static GgafDxGeoElem* pTemp;
         _pFirst = NEW GgafDxGeoElem(prm_pActor);

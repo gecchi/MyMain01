@@ -1,6 +1,6 @@
 #ifndef VVVCAMWORKER_H_
 #define VVVCAMWORKER_H_
-
+#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
 namespace VVViewer {
 

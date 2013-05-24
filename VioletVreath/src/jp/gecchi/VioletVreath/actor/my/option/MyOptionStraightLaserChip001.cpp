@@ -1,9 +1,20 @@
 #include "stdafx.h"
+#include "MyOptionStraightLaserChip001.h"
+
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 MyOptionStraightLaserChip001::MyOptionStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "MyOptionStraightLaserChip001", STATUS(MyOptionStraightLaserChip001)) {
@@ -23,8 +34,6 @@ void MyOptionStraightLaserChip001::initialize() {
     _SX = _SY = _SZ = R_SC(5);
     _alpha = 0.99;
     _bounding_sphere_radius = 20.0;
-
-
 }
 void MyOptionStraightLaserChip001::onActive() {
     _pStatus->reset();

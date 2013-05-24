@@ -1,5 +1,7 @@
 #ifndef STRINGSPRITEACTOR_H_
 #define STRINGSPRITEACTOR_H_
+#include "jp/ggaf/dxcore/actor/ex/GgafDxStringSpriteActor.h"
+
 namespace GgafLib {
 
 /**

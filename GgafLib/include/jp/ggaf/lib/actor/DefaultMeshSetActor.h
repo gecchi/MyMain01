@@ -1,5 +1,7 @@
 #ifndef DEFAULTMESHSETACTOR_H_
 #define DEFAULTMESHSETACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
+
 namespace GgafLib {
 
 /**

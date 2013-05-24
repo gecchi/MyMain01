@@ -1,5 +1,7 @@
 #ifndef ENEMYJUNO_H_
 #define ENEMYJUNO_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 //ƒWƒ…ƒm[

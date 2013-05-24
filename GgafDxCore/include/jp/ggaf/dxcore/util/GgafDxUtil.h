@@ -1,10 +1,21 @@
 #ifndef GGAFDXUTIL_H_
 #define GGAFDXUTIL_H_
+#include "jp/ggaf/core/util/GgafUtil.h"
+
+#include <math.h>
+#include "jp/ggaf/dxcore/util/GgafDxSphereRadiusVectors.h"
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
 
 #ifdef UTIL
     #undef UTIL
 #endif
 #define UTIL GgafDxCore::GgafDxUtil
+
+////イベント用 uint32_t 数値宣言
+HASHVAL(GGAF_EVENT_ON_DEVICE_LOST);
+HASHVAL(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
 
 namespace GgafDxCore {
 
@@ -98,12 +109,13 @@ public:
      */
     static angle GOLDEN_ANG[1000];
 
-    static UINT32 BITNUM[];
+    static uint32_t BITNUM[];
 
     static GgafDxSphereRadiusVectors _srv;
 
     static bool _was_inited_flg;
 
+    static GgafDxCamera* _pCam;
 public:
     static void init();
 
@@ -113,8 +125,7 @@ public:
      * @param prm_vy ベクトル y 要素
      * @return なす角のアングル値 (0 ～ 360000)
      */
-    template<typename T>
-    static angle getAngle2D(T prm_vx, T prm_vy) {
+    static angle getAngle2D(int prm_vx, int prm_vy) {
         if (prm_vx == 0) {
             if (prm_vy > 0) {
                 return D90ANG;
@@ -159,6 +170,56 @@ public:
                 return D270ANG + SLANT2ANG[(int)(((double)prm_vx)/-prm_vy*100000.0)];
             } else {
                 return D360ANG - SLANT2ANG[(int)(((double)-prm_vy)/prm_vx*100000.0)];
+            }
+        }
+        return 0;
+    }
+
+    static angle getAngle2D(double prm_vx, double prm_vy) {
+        if (ZEROd_EQ(prm_vx)) {
+            if (prm_vy > 0.0) {
+                return D90ANG;
+            } else if (prm_vy < 0.0) {
+                return D270ANG;
+            } else {
+                //原点である、不定。
+                return 0;
+            }
+        }
+        if (ZEROd_EQ(prm_vy)) {
+            if (prm_vx > 0) {
+                return 0;
+            } else if (prm_vx < 0) {
+                return D180ANG;
+            } else {
+                //原点である、不定。
+                return 0;
+            }
+        }
+
+        if (prm_vx >= 0.0 && prm_vy >= 0.0) { //第1象限
+            if (prm_vx >= prm_vy) {
+                return D0ANG  + SLANT2ANG[(int)(prm_vy/prm_vx*100000.0)];
+            } else {
+                return D90ANG - SLANT2ANG[(int)(prm_vx/prm_vy*100000.0)];
+            }
+        } else if (prm_vx <= 0.0 && prm_vy >= 0.0) { //第2象限
+            if (-prm_vx <= prm_vy) {
+                return D90ANG  + SLANT2ANG[(int)(-prm_vx/prm_vy*100000.0)];
+            } else {
+                return D180ANG - SLANT2ANG[(int)(prm_vy/-prm_vx*100000.0)];
+            }
+        } else if (prm_vx <= 0.0 && prm_vy <= 0.0) { //第3象限
+            if (-prm_vx >= -prm_vy) {
+                return D180ANG + SLANT2ANG[(int)(-prm_vy/-prm_vx*100000.0)];
+            } else {
+                return D270ANG - SLANT2ANG[(int)(-prm_vx/-prm_vy*100000.0)];
+            }
+        } else if (prm_vx >= 0.0 && prm_vy <= 0.0) { //第4象限
+            if (prm_vx <= -prm_vy) {
+                return D270ANG + SLANT2ANG[(int)(prm_vx/-prm_vy*100000.0)];
+            } else {
+                return D360ANG - SLANT2ANG[(int)(-prm_vy/prm_vx*100000.0)];
             }
         }
         return 0;

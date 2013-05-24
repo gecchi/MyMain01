@@ -1,9 +1,73 @@
 #include "stdafx.h"
+#include "Universe.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/actor/Camera.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
+#include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
+#include "jp/gecchi/VioletVreath/manager/CameraWorkerManager.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/God.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+Universe::CameraWorkerConnectionStack::CameraWorkerConnectionStack() {
+    p_ = 0;
+    for (int i = 0; i < 30; i++) {
+        apCamWorkerConnection_[i] = nullptr;
+    }
+}
+CameraWorkerConnection* Universe::CameraWorkerConnectionStack::getLast() {
+    if (p_ == 0) {
+        return nullptr;
+    } else {
+        return apCamWorkerConnection_[p_-1];
+    }
+}
+void Universe::CameraWorkerConnectionStack::push(CameraWorkerConnection* prm_pCamWorkerCon) {
+    if (p_ > 30-1) {
+        throwGgafCriticalException("CameraWorkerConnectionStack::push("<<prm_pCamWorkerCon->getIdStr()<<") スタックを使い切りました。");
+    }
+    apCamWorkerConnection_[p_] = prm_pCamWorkerCon;
+    p_++;
+}
+CameraWorkerConnection* Universe::CameraWorkerConnectionStack::pop() {
+    if (p_ == 0) {
+        throwGgafCriticalException("CameraWorkerConnectionStack::pop() ポップしすぎです");
+    } else {
+        p_--;
+        CameraWorkerConnection* r = apCamWorkerConnection_[p_];
+        apCamWorkerConnection_[p_] = nullptr;
+        return r;
+    }
+}
+void Universe::CameraWorkerConnectionStack::clear() {
+    p_ = 0;
+    for (int i = 0; i < 30; i++) {
+        apCamWorkerConnection_[i] = nullptr;
+    }
+}
+
+void Universe::CameraWorkerConnectionStack::dump() {
+    _TRACE_("CameraWorkerConnectionStack p_="<<p_);
+    for (int i = 0; i < 30; i++) {
+        if (apCamWorkerConnection_[i]) {
+            _TRACE_("apCamWorkerConnection_["<<i<<"]="<<(apCamWorkerConnection_[i]->getIdStr()));
+        }
+    }
+}
+Universe::CameraWorkerConnectionStack::~CameraWorkerConnectionStack() {
+    clear();
+}
+
+/////////////////////////////////////////////////
 
 Universe::Universe(const char* prm_name, Camera* prm_pCamera) : DefaultUniverse(prm_name, prm_pCamera) {
     _class_name = "Universe";
@@ -138,7 +202,7 @@ void Universe::resetCamWorker() {
     pActiveCamWorker_ = stack_CamWorkerConnection_.getLast()->peek();
     pActiveCamWorker_->setMoveTargetCamBy(P_CAM);
     pActiveCamWorker_->setMoveTargetCamVpBy(P_CAM->_pViewPoint);
-    pActiveCamWorker_->angXY_nowCamUp_ = UTIL::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    pActiveCamWorker_->angXY_nowCamUp_ = UTIL::getAngle2D((double)(P_CAM->_pVecCamUp->x), (double)(P_CAM->_pVecCamUp->y));
     pActiveCamWorker_->move_target_XY_CAM_UP_ = pActiveCamWorker_->angXY_nowCamUp_;
     pActiveCamWorker_->activate();
 //    _TRACE_("resetCamWorker end---");

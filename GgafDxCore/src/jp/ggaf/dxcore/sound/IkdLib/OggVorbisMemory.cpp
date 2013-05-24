@@ -1,7 +1,6 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisMemory.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
 using namespace IkdLib;
 
 OggVorbisMemory::OggVorbisMemory() :

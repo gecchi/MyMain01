@@ -1,5 +1,7 @@
 #ifndef VREATHBAR_H_
 #define VREATHBAR_H_
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+
 namespace VioletVreath {
 
 /**

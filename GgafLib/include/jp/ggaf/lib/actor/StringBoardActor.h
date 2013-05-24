@@ -1,5 +1,7 @@
 #ifndef STRINGBOARDACTOR_H_
 #define STRINGBOARDACTOR_H_
+#include "jp/ggaf/dxcore/actor/ex/GgafDxStringBoardActor.h"
+
 namespace GgafLib {
 
 /**

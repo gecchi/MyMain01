@@ -1,4 +1,7 @@
 #include "stdafx.h"
+#include "FormationJuno001.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

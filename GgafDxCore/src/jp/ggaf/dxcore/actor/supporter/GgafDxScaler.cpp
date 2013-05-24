@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -128,6 +133,14 @@ void GgafDxScaler::scaleLinerUntil(int prm_target_scale, frame prm_spend_frame) 
     for (int a = 0; a < 3; a++) {
         scaleLinerUntil((axis)a, prm_target_scale, prm_spend_frame);
     }
+}
+
+void GgafDxScaler::scaleLinerTop(frame prm_spend_frame) {
+    scaleLinerUntil(MAX3(_top_scale[0],_top_scale[1],_top_scale[2]), prm_spend_frame);
+}
+
+void GgafDxScaler::scaleLinerBottom(frame prm_spend_frame) {
+    scaleLinerUntil(MIN3(_bottom_scale[0],_bottom_scale[1],_bottom_scale[2]), prm_spend_frame);
 }
 
 void GgafDxScaler::scaleLinerUntil(axis prm_axis, int prm_target_scale, frame prm_spend_frame) {

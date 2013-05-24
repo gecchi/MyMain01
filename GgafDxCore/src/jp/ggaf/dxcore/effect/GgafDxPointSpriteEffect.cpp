@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

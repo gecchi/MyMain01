@@ -1,8 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/util/LinearOctreeForActor.h"
+
+#include "jp/ggaf/core/actor/GgafActor.h"
+#include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
+#include "jp/ggaf/lib/util/LinearOctreeActorElem.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 LinearOctreeForActor::LinearOctreeForActor(int prm_level) : GgafLinearOctree(prm_level) {
     _num_space_minus_one = _num_space-1;
@@ -22,7 +27,7 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
     }
 }
 
-void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
+void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
     LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElem_first));
     GgafLinearOctreeElem* pElem_last = _paSpace[prm_index]._pElem_last;
     if (pElem) {
@@ -46,7 +51,7 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
         executeHitChk_RoundRobin(&_stackParentSpaceActor_GroupA , &_stackCurrentSpaceActor_GroupB);
     }
 
-    UINT32 next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
+    uint32_t next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
     if ( next_level_index > _num_space_minus_one) {
         //要素数オーバー、つまりリーフ
         _stackCurrentSpaceActor_GroupA.clear();
@@ -77,7 +82,7 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
         }
 
         //子空間へもぐるが良い
-        for(UINT32 i = next_level_index; i < next_level_index+8; i++) {
+        for(uint32_t i = next_level_index; i < next_level_index+8; i++) {
             if ((_paSpace[i]._kindinfobit & _kind_groupA) || (_paSpace[i]._kindinfobit & _kind_groupB) ) {
                 executeHitChk(i);
             }
@@ -93,14 +98,14 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
 
 void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB) {
     //どちらか無ければ終了
-    UINT32 num_stackA = prm_pStackA->_p;
-    UINT32 num_stackB = prm_pStackB->_p;
+    uint32_t num_stackA = prm_pStackA->_p;
+    uint32_t num_stackB = prm_pStackB->_p;
     GgafActor** papStackActor_A = prm_pStackA->_apActor;
     GgafActor** papStackActor_B = prm_pStackB->_apActor;
     GgafActor* pActor_A;
-    for (UINT32 i = 0; i < num_stackA; i++) {
+    for (uint32_t i = 0; i < num_stackA; i++) {
         pActor_A = papStackActor_A[i];
-        for (UINT32 j = 0; j < num_stackB; j++) {
+        for (uint32_t j = 0; j < num_stackB; j++) {
             pActor_A->executeHitChk_MeAnd(papStackActor_B[j]);
         }
     }

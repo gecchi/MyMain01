@@ -7,8 +7,8 @@
 #ifndef	_INCLUDE_WAVEDECORDER_HPP
 #define	_INCLUDE_WAVEDECORDER_HPP
 
-#include <mmreg.h>
-#include <mmsystem.h>
+#include <windows.h>
+
 namespace GgafDxCore {
 /**
  @brief		Waveファイルデコーダ

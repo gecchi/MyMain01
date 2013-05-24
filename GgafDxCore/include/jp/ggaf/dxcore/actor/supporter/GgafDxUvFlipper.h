@@ -1,5 +1,7 @@
 #ifndef GGAFDXUVFLIPPER_H_
 #define GGAFDXUVFLIPPER_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafDxCore {
 
 /**

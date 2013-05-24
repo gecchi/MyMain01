@@ -1,16 +1,14 @@
 #ifndef MYTRACE_H
 #define MYTRACE_H
 
-#include "../framework/Frm_TBuff.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/Frm_TBuff.h"
 
 #include <stdio.h>
+#include <string>
 
 namespace ToolBox {
 
 static std::string temp;
-
-
-
 
 //static const char* GetLastError()
 //{

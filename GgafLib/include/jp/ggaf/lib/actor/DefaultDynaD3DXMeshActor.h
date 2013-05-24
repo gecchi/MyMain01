@@ -1,5 +1,7 @@
 #ifndef DEFAULTDYNAD3DXMESHACTOR_H_
 #define DEFAULTDYNAD3DXMESHACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxDynaD3DXMeshActor.h"
+
 namespace GgafLib {
 
 /**

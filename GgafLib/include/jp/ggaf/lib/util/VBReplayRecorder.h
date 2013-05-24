@@ -1,5 +1,10 @@
 #ifndef VBREPLAYRECORDER_H_
 #define VBREPLAYRECORDER_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <fstream>
+#include "jp/ggaf/lib/util/VirtualButton.h"
+
 namespace GgafLib {
 
 /**

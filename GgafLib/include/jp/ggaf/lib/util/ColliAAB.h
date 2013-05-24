@@ -1,5 +1,7 @@
 #ifndef COLIAAB_H_
 #define COLIAAB_H_
+#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+
 namespace GgafLib {
 
 /**

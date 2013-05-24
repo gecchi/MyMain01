@@ -1,7 +1,17 @@
 #ifndef GGAFDXSOUND_H_
 #define GGAFDXSOUND_H_
+#include <sstream>
+//↑#include <dsound.h> より先に無いと、out__ やらが sal.h により汚染されるため
+#ifdef __GNUG__
+    //dsound.h 内で、__null 定数を使用したコードあるため
+    #define __null
+#endif
+#include <dsound.h>
+#ifdef __GNUG__
+    #undef __null
+#endif
+#include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
 
-namespace GgafDxCore {
 /**
  * 神が保持する GgafDxSeManager に接続し、コネクションを取得。
  * @param X：SE定義識別文字列。プロパティ DIR_WAVE[0] 配下の「X + ".wave"」というファイル名を使用する。
@@ -14,6 +24,9 @@ namespace GgafDxCore {
  * @param X：BGM定義識別文字列。プロパティ DIR_OGG[0] 配下から、プロパティ X +"_OGG" の値のファイル名を使用する。
  */
 #define connectToBgmManager(X) ((GgafDxCore::GgafDxBgmConnection*)GgafDxCore::GgafDxSound::_pBgmManager->connect((X), this))
+
+
+namespace GgafDxCore {
 
 /**
  * DirectSound ユーティリティクラス.

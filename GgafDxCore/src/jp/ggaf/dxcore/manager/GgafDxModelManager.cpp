@@ -12,10 +12,36 @@
 //                                         2009/03/06 Masatoshi Tsuge
 
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+
+#include <Shlwapi.h>
+#include <d3dx9xof.h>
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+#include "jp/ggaf/dxcore/model/GgafDxD3DXMeshModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxD3DXAniMeshModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxSpriteModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxSpriteSetModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxPointSpriteModel.h"
+#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
+#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"
+#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMorphMeshModel.h"
+#include "jp/ggaf/dxcore/model/ex/GgafDxWorldBoundModel.h"
+#include "jp/ggaf/dxcore/util/GgafDxWorldMatStack.h"
+#include "jp/ggaf/dxcore/util/GgafDxAllocHierarchyWorldFrame.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelConnection.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 int GgafDxModelManager::_id_max = 0;
 GgafDxModel* GgafDxModelManager::_pModelLastDraw = nullptr;
@@ -360,7 +386,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
         }
         //メッシュを結合する前に、情報を確保しておく
         int nMesh = (int)model_pModel3D->_Meshes.size();
-        UINT16* paNumVertices = NEW UINT16[nMesh];
+        uint16_t* paNumVertices = NEW uint16_t[nMesh];
         int index_Mesh = 0;
         for (std::list<Frm::Mesh*>::iterator iteMeshes = model_pModel3D->_Meshes.begin();
                 iteMeshes != model_pModel3D->_Meshes.end(); iteMeshes++) {
@@ -793,7 +819,7 @@ void GgafDxModelManager::setDefaultMaterial(D3DMATERIAL9* out_pD3DMATERIAL9) {
 
 void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                                     Frm::Model3D* model_pModel3D,
-                                    UINT16* paNumVertices,
+                                    uint16_t* paNumVertices,
                                     GgafDxModel* prm_pModel) {
     //＜前提＞
     //prm_paVtxBuffer には x,y,z,tu,tv は設定済み
@@ -1170,7 +1196,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
             }
             //メッシュを結合する前に、情報を確保しておく
             int nMesh = (int)model_papModel3D[pattern]->_Meshes.size();
-            UINT16* paNumVertices = NEW UINT16[nMesh];
+            uint16_t* paNumVertices = NEW uint16_t[nMesh];
             int index_Mesh = 0;
             for (std::list<Frm::Mesh*>::iterator iteMeshes = model_papModel3D[pattern]->_Meshes.begin();
                     iteMeshes != model_papModel3D[pattern]->_Meshes.end(); iteMeshes++) {
@@ -2480,7 +2506,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
 
         //メッシュを結合する前に、情報を確保しておく
         int nMesh = (int)model_pModel3D->_Meshes.size();
-        UINT16* paNumVertices = NEW UINT16[nMesh];
+        uint16_t* paNumVertices = NEW uint16_t[nMesh];
         int index_Mesh = 0;
         for (std::list<Frm::Mesh*>::iterator iteMeshes = model_pModel3D->_Meshes.begin();
                 iteMeshes != model_pModel3D->_Meshes.end(); iteMeshes++) {
@@ -2572,7 +2598,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
         GGAF_DELETEARR(unit_paIdxBuffer_org);
 
         //マテリアルリストをセット数分繰り返しコピーで作成
-        UINT16* paFaceMaterials = NEW UINT16[nFaces * prm_pMeshSetModel->_set_num];
+        uint16_t* paFaceMaterials = NEW uint16_t[nFaces * prm_pMeshSetModel->_set_num];
         for (int i = 0; i < prm_pMeshSetModel->_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
                 paFaceMaterials[(i*nFaces) + j] = model_pMeshesFront->_FaceMaterials[j];

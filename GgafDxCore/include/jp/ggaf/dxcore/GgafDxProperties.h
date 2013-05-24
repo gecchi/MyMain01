@@ -1,5 +1,6 @@
 #ifndef GGAFDXPROPERTIES_H_
 #define GGAFDXPROPERTIES_H_
+#include "jp/ggaf/core/GgafProperties.h"
 
 #ifdef PROPERTY
     #undef PROPERTY

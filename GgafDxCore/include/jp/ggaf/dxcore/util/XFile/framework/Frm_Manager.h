@@ -7,7 +7,7 @@
 #ifndef FRM_MANAGER_H
 #define FRM_MANAGER_H
 
-#include "../framework/frm_types.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/frm_types.h"
 #include <vector>
 
 namespace Frm {
@@ -16,7 +16,7 @@ class Manager {
 public:
     Manager(void) {
     }
-    void SetSize(UINT16 pMaxSize) {
+    void SetSize(uint16_t pMaxSize) {
         _Ts.reserve(pMaxSize);
     }
     virtual ~Manager(void) {
@@ -24,31 +24,31 @@ public:
             _Ts.pop_back();
     }
     //redefine the destructor for each manager created
-    inline UINT16 Add(T &pT) {
+    inline uint16_t Add(T &pT) {
         _Ts.push_back(pT);
-        return (UINT16) _Ts.size();
+        return (uint16_t) _Ts.size();
     }
-    inline bool Set(UINT16 pID, T pT) {
+    inline bool Set(uint16_t pID, T pT) {
         if (_Ts[pID] != 0)
             return false;
         _Ts[pID] = pT;
         return true;
     }
-    inline T Remove(UINT16 pID) {
+    inline T Remove(uint16_t pID) {
         T temp = _Ts[pID];
         _Ts[pID] = 0;
         return temp;
     }
-    inline T Get(UINT16 pID) {
+    inline T Get(uint16_t pID) {
         return _Ts[pID];
     }
-    UINT16 Size(void) {
-        return (UINT16) _Ts.size();
+    uint16_t Size(void) {
+        return (uint16_t) _Ts.size();
     }
-    const T operator[](UINT16 pID) {
+    const T operator[](uint16_t pID) {
         return _Ts[pID];
     }
-    //      T& operator[](UINT16 pID)const{return _Ts[pID];};
+    //      T& operator[](uint16_t pID)const{return _Ts[pID];};
 protected:
     std::vector<T> _Ts;
 };

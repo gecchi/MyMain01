@@ -1,5 +1,9 @@
 #ifndef SPLINEMANUFACTURE_H_
 #define SPLINEMANUFACTURE_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <string>
+
 namespace GgafLib {
 
 /**

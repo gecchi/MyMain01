@@ -1,5 +1,10 @@
 #ifndef VBRTUALBUTTON_H_
 #define VBRTUALBUTTON_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <string>
+#include <map>
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
 
 typedef std::map<std::string, int> keymap;
 typedef unsigned long int vbsta;

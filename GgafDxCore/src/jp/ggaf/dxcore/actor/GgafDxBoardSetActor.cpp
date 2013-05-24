@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/GgafDxBoardSetActor.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
+#include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

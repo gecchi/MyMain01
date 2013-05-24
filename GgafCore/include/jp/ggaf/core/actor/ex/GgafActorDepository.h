@@ -1,5 +1,7 @@
 #ifndef GGAFACTORDEPOSITORY_H_
 #define GGAFACTORDEPOSITORY_H_
+#include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
+
 namespace GgafCore {
 
 /**

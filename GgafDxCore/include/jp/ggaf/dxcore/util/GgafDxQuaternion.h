@@ -1,5 +1,7 @@
 #ifndef GGAFDXQUATERNION_H_
 #define GGAFDXQUATERNION_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafDxCore {
 
 /**

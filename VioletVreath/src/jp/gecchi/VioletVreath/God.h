@@ -1,5 +1,13 @@
 #ifndef GOD_H_
 #define GOD_H_
+#include "jp/ggaf/lib/DefaultGod.h"
+
+#include "jp/ggaf/lib/util/VirtualButton.h"
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
+#include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"
+#include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
+#include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
+#include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
 
 namespace VioletVreath {
 

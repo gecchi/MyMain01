@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "FormationAdrastea001.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Adrastea/EnemyAdrastea.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,5 +1,7 @@
 #ifndef MGRACTOR_H_
 #define MGRACTOR_H_
+#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+
 namespace Mogera {
 
 /**

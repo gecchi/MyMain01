@@ -1,6 +1,6 @@
 #ifndef DEFAULTCAMWORKER_H_
 #define DEFAULTCAMWORKER_H_
-
+#include "jp/gecchi/VioletVreath/actor/camera_worker/CameraWorker.h"
 
 namespace VioletVreath {
 

@@ -1,5 +1,7 @@
 #ifndef WORLDBOUNDSPACERANKUP_H_
 #define WORLDBOUNDSPACERANKUP_H_
+#include "jp/ggaf/lib/actor/WorldBoundActor.h"
+
 namespace VioletVreath {
 
 /**

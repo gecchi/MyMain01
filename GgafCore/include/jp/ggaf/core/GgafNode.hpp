@@ -1,5 +1,11 @@
 #ifndef GGAFNODE_H_
 #define GGAFNODE_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <cstring>
+#include "jp/ggaf/core/util/GgafUtil.h"
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+
 namespace GgafCore {
 
 /**

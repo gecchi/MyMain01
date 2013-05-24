@@ -1,4 +1,15 @@
 #include "stdafx.h"
+#include "EnemySappho.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -57,7 +68,7 @@ void EnemySappho::processBehavior() {
          case PROG_MOVE01: {
              if (_pProg->isJustChanged()) {
                  //滞留ポイントへGO!
-                 velo mv_velo = RR_EnemySappho_MvVelo(_RANK_);
+                 velo mv_velo = RF_EnemySappho_MvVelo(_RANK_);
                  coord d = UTIL::getDistance(this, &hanging_pos_);
                  _pKurokoA->slideMvByVD(mv_velo,
                                         RND(-PX_C(0.5),PX_C(0.5)),
@@ -98,8 +109,8 @@ void EnemySappho::processBehavior() {
 
              if (_pProg->getFrameInProgress() == 180) {
                  //自機の方に向いたら敵弾発射！
-                 int shot_num = RR_EnemySappho_ShotWay(_RANK_); //弾数、ランク変動
-                 velo shot_velo = RR_EnemySappho_ShotMvVelo(_RANK_); //弾速、ランク変動
+                 int shot_num = RF_EnemySappho_ShotWay(_RANK_); //弾数、ランク変動
+                 velo shot_velo = RF_EnemySappho_ShotMvVelo(_RANK_); //弾速、ランク変動
                  for (int i = 0; i < shot_num; i++) {
                      GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {

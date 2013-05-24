@@ -1,5 +1,7 @@
 #ifndef TORPEDOMAGIC_H_
 #define TORPEDOMAGIC_H_
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
+
 namespace VioletVreath {
 
 /**

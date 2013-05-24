@@ -1,5 +1,7 @@
 #ifndef GGAFDXDRAWABLEACTOR_H_
 #define GGAFDXDRAWABLEACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+
 namespace GgafDxCore {
 
 /**

@@ -1,9 +1,15 @@
 #ifndef GGAFDXWORLDMATSTACK_H_
 #define GGAFDXWORLDMATSTACK_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <list>
+#include <stack>
+#include <d3dx9.h>
 
 namespace GgafDxCore {
+class D3DXFRAME_WORLD;
 
-class GgafDxWorldMatStack {
+class GgafDxWorldMatStack : public GgafCore::GgafObject {
 protected:
    D3DXMATRIX m_WorldTransMatrix;
    std::stack<D3DXMATRIX*> m_MatrixStack;

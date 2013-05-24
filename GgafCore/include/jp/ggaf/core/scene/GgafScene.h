@@ -1,5 +1,6 @@
 #ifndef GGAFSCENE_H_
 #define GGAFSCENE_H_
+#include "jp/ggaf/core/GgafElement.hpp"
 
 namespace GgafCore {
 

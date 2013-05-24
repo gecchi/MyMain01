@@ -1,4 +1,12 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/manager/SplineManufactureManager.h"
+
+#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
+#include "jp/ggaf/lib/util/spline/SteppedCoordSplineManufacture.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

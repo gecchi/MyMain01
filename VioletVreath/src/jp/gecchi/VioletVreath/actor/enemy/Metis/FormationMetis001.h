@@ -1,5 +1,7 @@
 #ifndef FORMATIONMETIS001_H_
 #define FORMATIONMETIS001_H_
+#include "jp/ggaf/lib/actor/TreeFormation.h"
+
 namespace VioletVreath {
 
 #define NUM_METIS_FORMATION001 10

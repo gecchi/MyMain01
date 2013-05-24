@@ -1,5 +1,7 @@
 #ifndef FORMATIONEUNOMIA001A_H_
 #define FORMATIONEUNOMIA001A_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/Eunomia/FormationEunomia001.h"
+
 namespace VioletVreath {
 
 /**

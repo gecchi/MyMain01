@@ -1,4 +1,17 @@
 #include "stdafx.h"
+#include "EnemyRomulus.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -126,7 +139,7 @@ void EnemyRomulus::processBehavior() {
 
             //オープン時敵出現処理
             if (_pMorpher->_weight[MORPHTARGET_HATCH_OPEN] > 0.5) { //モーションが半分以上まで到達したなら
-                if (_pProg->getFrameInProgress() % (frame)(RR_EnemyRomulus_ShotInterval(_RANK_)) == 0) { //出現間隔
+                if (_pProg->getFrameInProgress() % (frame)(RF_EnemyRomulus_ShotInterval(_RANK_)) == 0) { //出現間隔
                     if (pDepo_Fired_) {
                         GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
                         if (pActor) {

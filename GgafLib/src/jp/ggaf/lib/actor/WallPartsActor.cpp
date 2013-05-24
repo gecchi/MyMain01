@@ -1,4 +1,15 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/WallPartsActor.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/actor/ColliAABActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#include "jp/ggaf/lib/scene/WalledSectionScene.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,5 +1,7 @@
 #ifndef EFFECTSYLVIAEYE001_H_
 #define EFFECTSYLVIAEYE001_H_
+#include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
+
 namespace VioletVreath {
 
 /**

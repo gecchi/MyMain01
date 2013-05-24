@@ -1,5 +1,7 @@
 #ifndef EFFECTSMILEMAGIC001_H_
 #define EFFECTSMILEMAGIC001_H_
+#include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
+
 namespace VioletVreath {
 
 /**

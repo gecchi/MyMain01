@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "VvvGod.h"
+
 using namespace VVViewer;
 
 bool VvvGod::is_wm_dropfiles_ = false;

@@ -1,9 +1,16 @@
 #include "stdafx.h"
+#include "EnemyHermioneArmWeak.h"
+#include "EnemyHermione.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 EnemyHermioneArmWeak::EnemyHermioneArmWeak(const char* prm_name) :
         EnemyHermioneArm(prm_name, "HermioneArmWeak", STATUS(EnemyHermioneArmWeak)) {

@@ -1,5 +1,7 @@
 #ifndef SPEEDMAGIC_H_
 #define SPEEDMAGIC_H_
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
+
 namespace VioletVreath {
 
 /**

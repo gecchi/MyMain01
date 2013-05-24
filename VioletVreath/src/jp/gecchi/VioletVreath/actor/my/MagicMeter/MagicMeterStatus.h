@@ -1,5 +1,7 @@
 #ifndef MAGICMETERSTATUS_H_
 #define MAGICMETERSTATUS_H_
+#include "jp/ggaf/lib/actor/StringBoardActor.h"
+
 namespace VioletVreath {
 
 /**

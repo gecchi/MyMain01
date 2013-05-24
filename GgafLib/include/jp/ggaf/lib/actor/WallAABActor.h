@@ -1,5 +1,6 @@
 #ifndef WALLAABACTOR_H_
 #define WALLAABACTOR_H_
+#include "jp/ggaf/lib/actor/WallPartsActor.h"
 
 namespace GgafLib {
 

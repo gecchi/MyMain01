@@ -1,21 +1,29 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMeshSetActor.h"
+
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshSetEffect.h"
+#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxCubeMapMeshSetActor::GgafDxCubeMapMeshSetActor(const char* prm_name,
-                                                       const char* prm_model_id,
-                                                       const char* prm_effect_id,
-                                                       const char* prm_technique,
-                                                       GgafStatus* prm_pStat,
-                                                       GgafDxChecker* prm_pChecker) :
+                                                     const char* prm_model_id,
+                                                     const char* prm_effect_id,
+                                                     const char* prm_technique,
+                                                     GgafStatus* prm_pStat,
+                                                     GgafDxChecker* prm_pChecker) :
                                               GgafDxMeshSetActor(prm_name,
-                                                                  prm_model_id,
-                                                                  "g",
-                                                                  prm_effect_id,
-                                                                  "g",
-                                                                  prm_technique,
-                                                                  prm_pStat,
-                                                                  prm_pChecker) ,
+                                                                 prm_model_id,
+                                                                 "g",
+                                                                 prm_effect_id,
+                                                                 "g",
+                                                                 prm_technique,
+                                                                 prm_pStat,
+                                                                 prm_pChecker) ,
                                               GgafDxICubeMapActor() {
     _obj_class |= Obj_GgafDxCubeMapMeshSetActor;
     _class_name = "GgafDxCubeMapMeshSetActor";

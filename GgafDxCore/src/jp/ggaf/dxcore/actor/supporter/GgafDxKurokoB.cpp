@@ -1,12 +1,14 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 // ＜軸方向移動: VxMv VyMv VzMv＞
 // 上記の移動体系とはまったく別に、独立して X軸、Y軸、Z軸に平行な移動指定ができる。
 // 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_X,_Y,_Z)にそれぞれの移動増分が
 // 加算される。
-
-
 
 GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) :
     GgafObject() {

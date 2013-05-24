@@ -1,4 +1,17 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelConnection.h"
+#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxEffectConnection.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dxcore/scene/GgafDxScene.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

@@ -1,7 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+
+#include "Shlwapi.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 GgafDxTexture::GgafDxTexture(char* prm_texture_name) : GgafObject() {
     TRACE("GgafDxTexture::GgafDxTexture(" << prm_texture_name << ")");
@@ -144,7 +150,7 @@ void GgafDxTexture::restore() {
     //     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
     //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
 
-    _TRACE_("GgafDxTextureManager::restore() "<<texture_name<<" のテクスチャ生成しました。");
+    _TRACE_("GgafDxTextureManager::restore() "<<texture_name<<" のテクスチャ生成しました。this="<<this);
 }
 void GgafDxTexture::release() {
     GGAF_DELETE(_pD3DXIMAGE_INFO);
@@ -152,8 +158,8 @@ void GgafDxTexture::release() {
 }
 
 GgafDxTexture::~GgafDxTexture() {
-    TRACE3("GgafDxTexture::~GgafDxTexture() " << _texture_name << " start-->");
-    release();
+    _TRACE_("GgafDxTexture::~GgafDxTexture() " << _texture_name );
+    GgafDxTexture::release();
     GGAF_DELETEARR(_texture_name);
 }
 

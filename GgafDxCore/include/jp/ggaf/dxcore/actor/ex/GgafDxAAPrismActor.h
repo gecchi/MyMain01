@@ -1,5 +1,6 @@
 #ifndef GGAFDXAAPRISMACTOR_H_
 #define GGAFDXAAPRISMACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
 
 namespace GgafDxCore {
 

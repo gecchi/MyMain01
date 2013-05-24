@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "CursorPauseMenu.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

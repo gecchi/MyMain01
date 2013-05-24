@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/WallAABActor.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/scene/WalledSectionScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -7,11 +16,11 @@ WallAABActor::WallAABActor(const char* prm_name,
                            const char* prm_model,
                            GgafStatus* prm_pStat) :
 
-                          WallPartsActor(prm_name,
-                                        std::string("16/" + std::string(prm_model)).c_str(),
-                                        "WallAABEffect",
-                                        "WallAABTechnique",
-                                        prm_pStat) {
+                           WallPartsActor(prm_name,
+                                          std::string("16/" + std::string(prm_model)).c_str(),
+                                          "WallAABEffect",
+                                          "WallAABTechnique",
+                                          prm_pStat) {
 
     _class_name = "WallAABActor";
     _pMeshSetModel->_set_num = 16; //WallPartsActor最大セット数は16。

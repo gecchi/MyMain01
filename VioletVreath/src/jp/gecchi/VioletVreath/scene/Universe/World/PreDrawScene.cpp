@@ -1,4 +1,32 @@
 #include "stdafx.h"
+#include "PreDrawScene.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMeshTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMeshSetTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/CubeMapMorphMeshTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultD3DXAniMeshTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultBoardTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultBoardSetTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMeshTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultD3DXMeshTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMeshSetTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMorphMeshTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultPointSpriteTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultSpriteTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultSpriteSetTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/HoshiBoshiTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/LaserChipTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/SingleLaserTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/SpriteMeshTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/SpriteMeshSetTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/StringBoardTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/WallAABTestActor.h"
+#include "jp/gecchi/VioletVreath/actor/_predrawer/WallAAPrismTestActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

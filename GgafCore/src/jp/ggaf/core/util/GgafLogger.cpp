@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/util/GgafLogger.h"
+
+#include <iostream>
+#include <windows.h>
 
 using namespace GgafCore;
 

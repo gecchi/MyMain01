@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/laserchip/RefractionLaserChip.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

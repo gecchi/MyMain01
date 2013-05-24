@@ -1,5 +1,11 @@
 #ifndef STGUTIL_H_
 #define STGUTIL_H_
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+
+#include "jp/ggaf/lib/util/ColliAAB.h"
+#include "jp/ggaf/lib/util/ColliSphere.h"
+#include "jp/ggaf/lib/util/ColliAAPrism.h"
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 #ifdef UTIL
     #undef UTIL
@@ -843,9 +849,9 @@ public:
      */
     static GgafDxCore::GgafDxDrawableActor* shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
                                                        angle prm_RX, angle prm_RZ, angle prm_RY,
-                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot1, UINT32* prm_paUint32_dotmat1,
-                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot2, UINT32* prm_paUint32_dotmat2,
-                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot3, UINT32* prm_paUint32_dotmat3,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot1, uint32_t* prm_paUint32_dotmat1,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot2, uint32_t* prm_paUint32_dotmat2,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot3, uint32_t* prm_paUint32_dotmat3,
                                                        coord prm_r,
                                                        int prm_way_N, int prm_way_M,
                                                        angle prm_angClearance_N, angle prm_angClearance_M,
@@ -880,9 +886,9 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDxCore::GgafDxDrawableActor* shotWay003(GgafDxCore::GgafDxGeometricActor* prm_pFrom,
-                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot1, UINT32* prm_paUint32_dotmat1,
-                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot2, UINT32* prm_paUint32_dotmat2,
-                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot3, UINT32* prm_paUint32_dotmat3,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot1, uint32_t* prm_paUint32_dotmat1,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot2, uint32_t* prm_paUint32_dotmat2,
+                                                       GgafCore::GgafActorDepository* prm_pDepo_Shot3, uint32_t* prm_paUint32_dotmat3,
                                                        coord prm_r,
                                                        int prm_way_N, int prm_way_M,
                                                        angle prm_angClearance_N, angle prm_angClearance_M,

@@ -1,5 +1,11 @@
 #ifndef GGAFRESOURCECONNECTION_H_
 #define GGAFRESOURCECONNECTION_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <cstring>
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+
 namespace GgafCore {
 
 /**
@@ -15,7 +21,8 @@ namespace GgafCore {
  * close() を呼び出すと、内部で「接続カウント」により本当に解放か否かを判断します。<BR>
  * 接続カウントが0になった場合、資源(Resource)は解放されます。
  * T には資源の型を指定してください。<BR>
- * 注意：スレッドセーフの保証は同時に２スレッドまで。３スレッド以上は正しく動作しません。
+ * 注意：スレッドセーフの保証は同時に２スレッドまで。３スレッド以上は正しく動作しません。<BR>
+ * 注意：最終close()時の解放で、正しくデストラクタを呼び出す為に、T のクラスヘッダの include を忘れずに！！<BR>
  * @version 1.00
  * @since 2008/01/28
  * @author Masatoshi Tsuge

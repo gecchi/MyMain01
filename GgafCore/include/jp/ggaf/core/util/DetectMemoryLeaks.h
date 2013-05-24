@@ -1,5 +1,8 @@
 #ifndef DETECT_MEMORY_LEAKS_H
 #define DETECT_MEMORY_LEAKS_H
+#include <map>
+#include <string>
+
 #ifdef _MSC_VER
     #pragma warning(disable: 4291)
 #endif
@@ -19,9 +22,9 @@ void * operator new(std::size_t size, const char* strFileName, int nLineNum) thr
 
 void * operator new[](std::size_t size, const char* strFileName, int nLineNum) throw (std::bad_alloc);
 
-void operator delete(void * address);
+void operator delete(void * address) throw();
 
-void operator delete[](void * address);
+void operator delete[](void * address) throw();
 
 void detectMemoryLeaksStart(std::ostream& ros);
 

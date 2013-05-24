@@ -5,7 +5,7 @@
 //
 /////////////////////////////////////////////////////////
 
-//#include "jp/ggaf/core/util/XFile/ToolBox/IOTexture_Bmp.h"
+#include "jp/ggaf/dxcore/util/XFile/ToolBox/IOTexture_Bmp.h"
 
 //#define EXIT        {fclose(in); return false;}
 //#define EXIT(msg)   {MYTRACE(msg); fclose(in); return false;}
@@ -27,9 +27,9 @@ bool ToolBox::IO_Texture_BMP::Load(std::string pFilename, TEXTURE &pT) {
     }
       //  EXIT("Corrupt Bitmap information header.");
 
-    pT.Width = (UINT16) BmpIH.biWidth;
-    pT.Height = (UINT16) BmpIH.biHeight;
-    pT.Depth = (UINT8) (BmpIH.biBitCount / 8);
+    pT.Width = (uint16_t) BmpIH.biWidth;
+    pT.Height = (uint16_t) BmpIH.biHeight;
+    pT.Depth = (uint8_t) (BmpIH.biBitCount / 8);
 
     if (pT.Depth < 3) {
         fclose(in); return false;
@@ -37,12 +37,12 @@ bool ToolBox::IO_Texture_BMP::Load(std::string pFilename, TEXTURE &pT) {
         //EXIT("8 and 16 bit depths are not supported.");
 
     if (BmpIH.biSizeImage == 0) {
-        pT.Size = (UINT32) (BmpIH.biWidth * BmpIH.biHeight * BmpIH.biBitCount
+        pT.Size = (uint32_t) (BmpIH.biWidth * BmpIH.biHeight * BmpIH.biBitCount
                 / 8);
     } else {
-        pT.Size = (UINT32) BmpIH.biSizeImage;
+        pT.Size = (uint32_t) BmpIH.biSizeImage;
     }
-    pT.Bits = NEW UINT8[pT.Size];
+    pT.Bits = NEW uint8_t[pT.Size];
 
     switch (BmpIH.biBitCount) {
     case 24:
@@ -55,8 +55,8 @@ bool ToolBox::IO_Texture_BMP::Load(std::string pFilename, TEXTURE &pT) {
     fread(pT.Bits, pT.Size, 1, in);
 
     // Inverse R et B
-    UINT8 t;
-    for (UINT32 i = 0; i < pT.Size; i += pT.Depth) {
+    uint8_t t;
+    for (uint32_t i = 0; i < pT.Size; i += pT.Depth) {
         t = pT.Bits[i];
         pT.Bits[i] = pT.Bits[i + 2];
         pT.Bits[i + 2] = t;

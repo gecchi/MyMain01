@@ -1,5 +1,7 @@
 #ifndef GGAFDUMMYACTOR_H_
 #define GGAFDUMMYACTOR_H_
+#include "jp/ggaf/core/actor/GgafMainActor.h"
+
 namespace GgafCore {
 
 /**

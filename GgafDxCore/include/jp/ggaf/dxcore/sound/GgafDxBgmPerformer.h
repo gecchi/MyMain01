@@ -1,5 +1,7 @@
 #ifndef GGAFDXBGMPERFORMER_H_
 #define GGAFDXBGMPERFORMER_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafDxCore {
 
 /**

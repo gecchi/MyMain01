@@ -1,5 +1,13 @@
 #ifndef GGAFDXMODELMANAGER_H_
 #define GGAFDXMODELMANAGER_H_
+#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/Frm_Mesh.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/Frm_Tbuff.h"
+#include "jp/ggaf/dxcore/util/XFile/ToolBox/IOModel_X.h"
+#include "jp/ggaf/dxcore/util/XFile/ToolBox/IOTexture_Bmp.h"
+#include "jp/ggaf/dxcore/util/XFile/ToolBox/TBox_Textures.h"
 
 //#define Obj_GgafDxDynaD3DXMeshModel      (0x1)            //0b 00000000 00000000 00000000 00000001
 #define Obj_GgafDxD3DXAniMeshModel       (0x2)            //0b 00000000 00000000 00000000 00000010
@@ -18,7 +26,6 @@
 #define Obj_GgafDxPointSpriteModel       (0x4000)         //0b 00000000 00000000 01000000 00000000
 
 #define connectToModelTextureManager(X) ((GgafDxCore::GgafDxTextureConnection*)P_GOD->_pModelManager->_pModelTextureManager->connect((X), this))
-
 
 namespace GgafDxCore {
 
@@ -86,7 +93,7 @@ private:
      */
     void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                     Frm::Model3D* model_pModel3D,
-                    UINT16* paNumVertices,
+                    uint16_t* paNumVertices,
                     GgafDxModel* prm_pModel = nullptr);
 
     /**

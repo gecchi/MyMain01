@@ -1,5 +1,7 @@
 #ifndef GGAFDXBGMPERFORMERFORSCENE_H_
 #define GGAFDXBGMPERFORMERFORSCENE_H_
+#include "jp/ggaf/dxcore/sound/GgafDxBgmPerformer.h"
+
 namespace GgafDxCore {
 
 /**

@@ -1,5 +1,9 @@
 #ifndef SPLINEMANUFACTURECONNECTION_H_
 #define SPLINEMANUFACTURECONNECTION_H_
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+
+#include "jp/ggaf/lib/util/spline/SplineManufacture.h"
+
 namespace GgafLib {
 
 /**

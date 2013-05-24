@@ -1,7 +1,17 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
+#include "jp/ggaf/lib/util/spline/SplineLine.h"
+#include "jp/ggaf/lib/util/spline/SplineSource.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
+
 FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA_target) :
         SplineKurokoLeader(prm_pManufacture, prm_pKurokoA_target) {
     _pFixedVeloSplManuf = (FixedVelocitySplineManufacture*)prm_pManufacture;

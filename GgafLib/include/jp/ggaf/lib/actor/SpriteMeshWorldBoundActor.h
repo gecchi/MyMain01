@@ -1,5 +1,7 @@
 #ifndef SPRITEMESHWORLDBOUNDACTOR_H_
 #define SPRITEMESHWORLDBOUNDACTOR_H_
+#include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshActor.h"
+
 namespace GgafLib {
 
 /**

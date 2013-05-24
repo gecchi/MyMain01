@@ -1,5 +1,9 @@
 #ifndef LASERCHIPDEPOSITORYSTORE_H_
 #define LASERCHIPDEPOSITORYSTORE_H_
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+
 namespace GgafLib {
 
 /**

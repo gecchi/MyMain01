@@ -1,7 +1,10 @@
 #ifndef GGAFDXALPHAFADER_H_
 #define GGAFDXALPHAFADER_H_
-namespace GgafDxCore {
+#include "jp/ggaf/core/GgafObject.h"
 
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
+namespace GgafDxCore {
 
 /**
  * フェーディング支援クラス .
@@ -124,11 +127,7 @@ public:
      * setToTop()
      * _pActor->setAlpha(_alpha);
      */
-    void reset() {
-        stopImmed();
-        setToTop();
-        _pActor->setAlpha(_alpha);
-    }
+    void reset();
 
     /**
      * 現在フェーディング中かどうか .

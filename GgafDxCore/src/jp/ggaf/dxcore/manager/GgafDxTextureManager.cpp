@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
+
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

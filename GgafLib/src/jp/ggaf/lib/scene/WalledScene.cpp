@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/scene/WalledScene.h"
+
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/lib/scene/WalledSectionScene.h"
+#include "jp/ggaf/lib/actor/WallPartsActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

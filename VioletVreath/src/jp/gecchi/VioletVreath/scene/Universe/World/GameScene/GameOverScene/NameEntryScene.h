@@ -1,5 +1,7 @@
 #ifndef NAMEENTRYSCENE_H_
 #define NAMEENTRYSCENE_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+
 namespace VioletVreath {
 
 /**

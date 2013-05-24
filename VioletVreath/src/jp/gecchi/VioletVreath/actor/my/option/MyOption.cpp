@@ -1,14 +1,31 @@
 #include "stdafx.h"
+#include "MyOption.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "MyOptionWateringLaserChip001.h"
+#include "EffectMyOption.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShot001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-
-
-//MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrler) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
-//MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrler) : CubeMapMeshSetActor(prm_name, "4/Core4cm_") {
-MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pOptCtrler) :
+//MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* prm_pOptCtrler) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
+//MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* prm_pOptCtrler) : CubeMapMeshSetActor(prm_name, "4/Core4cm_") {
+MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* prm_pOptCtrler) :
         DefaultMeshSetActor(prm_name, "8/CORE4", STATUS(MyOption)) {
 
     _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");

@@ -1,5 +1,7 @@
 #ifndef ENEMYEUNOMIA_H_
 #define ENEMYEUNOMIA_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 /**

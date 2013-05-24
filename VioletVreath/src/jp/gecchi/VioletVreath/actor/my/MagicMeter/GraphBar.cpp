@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "GraphBar.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
+#include "jp/ggaf/lib/util/AmountGraph.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

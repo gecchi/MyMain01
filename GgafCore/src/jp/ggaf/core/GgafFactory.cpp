@@ -1,4 +1,12 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/GgafFactory.h"
+
+#include "jp/ggaf/core/GgafGod.h"
+#include "jp/ggaf/core/GgafOrder.h"
+#include "jp/ggaf/core/actor/GgafActor.h"
+#include "jp/ggaf/core/scene/GgafScene.h"
+#include "jp/ggaf/core/GgafProperties.h"
+
 
 using namespace GgafCore;
 
@@ -16,17 +24,17 @@ GgafGarbageBox* GgafFactory::_pGarbageBox = nullptr;
 
 
 
-GgafMainActor* GgafFactory::obtainActor(UINT32 prm_id, GgafObject* prm_org) {
+GgafMainActor* GgafFactory::obtainActor(uint32_t prm_id, GgafObject* prm_org) {
     return (GgafMainActor*)obtain(prm_id, prm_org);
 }
 
-GgafMainScene* GgafFactory::obtainScene(UINT32 prm_id, GgafObject* prm_org) {
+GgafMainScene* GgafFactory::obtainScene(uint32_t prm_id, GgafObject* prm_org) {
     return (GgafMainScene*)obtain(prm_id, prm_org);
 }
 
 //íçï∂
 //Ç±ÇÃÉÅÉ\ÉbÉhÇÕÉÅÉCÉìÉXÉåÉbÉhÇ™é¿çsÇ∑ÇÈÅB
-void GgafFactory::order(UINT32 prm_id,
+void GgafFactory::order(uint32_t prm_id,
                         GgafObject* (*prm_pFunc)(void*, void*, void*),
                         GgafObject* prm_pOrderer,
                         void* prm_pArg1,
@@ -77,7 +85,7 @@ void GgafFactory::order(UINT32 prm_id,
     }
 }
 
-int GgafFactory::chkProgress(UINT32 prm_id) {
+int GgafFactory::chkProgress(uint32_t prm_id) {
     GgafOrder* pOrder;
     pOrder = ROOT_ORDER;
     if (pOrder == nullptr) {
@@ -97,7 +105,7 @@ int GgafFactory::chkProgress(UINT32 prm_id) {
     return -2;
 }
 
-void* GgafFactory::obtain(UINT32 prm_id, GgafObject* prm_org) {
+void* GgafFactory::obtain(uint32_t prm_id, GgafObject* prm_org) {
     TRACE("GgafFactory::obtain "<<prm_id<<"/");
     GgafOrder* pOrder;
     GgafOrder* pOrder_MyNext;
@@ -232,6 +240,25 @@ void* GgafFactory::obtain(UINT32 prm_id, GgafObject* prm_org) {
         throw *(GgafGod::_pException_Factory);
     }
     return nullptr;
+}
+
+void GgafFactory::beginRest() {
+    _TRACE_("GgafFactory::beginRest() ÅÉê_ÅÑçHèÍÅAãxåeÇµÇ»Ç≥Ç¢");
+    _have_to_rest_flg = true;
+}
+
+bool GgafFactory::isResting() {
+    if (_is_resting_flg) {
+        _TRACE_("GgafFactory::isResting() çHèÍãxé~èÛë‘");
+    } else {
+        _TRACE_("GgafFactory::isResting() çHèÍâ“ì≠èÛë‘");
+    }
+    return _is_resting_flg;
+}
+
+void GgafFactory::finishRest() {
+    _TRACE_("GgafFactory::beginRest() ÅÉê_ÅÑçHèÍÅAãxåeÇÕÇ®ÇµÇ‹Ç¢ÅBÇ≥Ç†ìÆÇØÅI");
+    _have_to_rest_flg = false;
 }
 
 //çHèÍÇ…ÇΩÇﬂçûÇÒÇ≈Ç¢ÇÈëSÇƒÇÃÉCÉìÉXÉ^ÉìÉXÇîjä¸

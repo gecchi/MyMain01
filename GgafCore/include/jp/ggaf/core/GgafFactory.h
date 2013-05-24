@@ -1,5 +1,7 @@
 #ifndef GGAFGACTORY_H_
 #define GGAFGACTORY_H_
+#include <limits.h>
+
 namespace GgafCore {
 
 /**
@@ -31,7 +33,7 @@ private:
      * @param prm_pArg3	製造処理を行う関数への引数3
      *
      */
-    static void order(UINT32 prm_id,
+    static void order(uint32_t prm_id,
                       GgafObject* (*prm_pFunc)(void*, void*, void*),
                       GgafObject* prm_pOrderer,
                       void* prm_pArg1,
@@ -45,7 +47,7 @@ private:
      * @param   prm_org 注文元（デバッグ用）
      * @return	製品のポインタ
      */
-    static void* obtain(UINT32 prm_id, GgafObject* prm_org);
+    static void* obtain(uint32_t prm_id, GgafObject* prm_org);
 
 public:
     /** 先頭の注文 */
@@ -84,7 +86,7 @@ public:
      * @param prm_pArg3 製造処理を行う関数への引数3
      */
     template<class X>
-    static void orderActor(UINT32 prm_id,
+    static void orderActor(uint32_t prm_id,
                            X* (*prm_pFunc)(void*, void*, void*),
                            GgafObject* prm_pOrderer,
                            void* prm_pArg1,
@@ -104,7 +106,7 @@ public:
      * @param prm_pArg3	製造処理を行う関数への引数3
      */
     template<class X>
-    static void orderScene(UINT32 prm_id,
+    static void orderScene(uint32_t prm_id,
                            X* (*prm_pFunc)(void*, void*, void*),
                            GgafObject* prm_pOrderer,
                            void* prm_pArg1,
@@ -121,7 +123,7 @@ public:
      * @param   prm_org 注文元（デバッグ用）
      * @return	生成されたアクターのポインタ
      */
-    static GgafMainActor* obtainActor(UINT32 prm_id, GgafObject* prm_org);
+    static GgafMainActor* obtainActor(uint32_t prm_id, GgafObject* prm_org);
 
     /**
      * 注文したシーンを取り出す。（メインスレッドが使用） .
@@ -131,7 +133,7 @@ public:
      * @param   prm_org 注文元（デバッグ用）
      * @return	生成されたシーンのポインタ
      */
-    static GgafMainScene* obtainScene(UINT32 prm_id, GgafObject* prm_org);
+    static GgafMainScene* obtainScene(uint32_t prm_id, GgafObject* prm_org);
 
 
     template<class X>
@@ -151,7 +153,7 @@ public:
      * @param   prm_id   注文識別ID
      * @return   注文識別IDの商品の進捗具合(-2:工場自体が動いてない/-1:注文すらしていない/0:注文済みで工場未着手/1:製造中/2:製造済み）
      */
-    static int chkProgress(UINT32 prm_id);
+    static int chkProgress(uint32_t prm_id);
 
     /**
      * 工場を掃除する（メインスレッドが使用） .
@@ -178,32 +180,17 @@ public:
      * しかし呼び出しても直ぐに休止状態になるとは限りません。<BR>
      * isResting() で完全休止するまで調べる続ける必要があります。<BR>
      */
-    static void beginRest() {
-        _TRACE_("GgafFactory::beginRest() ＜神＞工場、休憩しなさい");
-        _have_to_rest_flg = true;
-    }
-
+    static void beginRest();
     /**
      * 工場の状態を取得（メインスレッドが使用） .
      * @return true=休止状態/false=稼動状態
      */
-    static bool isResting() {
-        if (_is_resting_flg) {
-            _TRACE_("GgafFactory::isResting() 工場休止状態");
-        } else {
-            _TRACE_("GgafFactory::isResting() 工場稼働状態");
-        }
-        return _is_resting_flg;
-    }
+    static bool isResting();
 
     /**
      * 工場休止の解除を指示 （メインスレッドが使用） .
      */
-    static void finishRest() {
-        _TRACE_("GgafFactory::beginRest() ＜神＞工場、休憩はおしまい。さあ動け！");
-        _have_to_rest_flg = false;
-    }
-
+    static void finishRest();
 
     template<class X>
     static X* create(void* p1, void* p2, void* p3) {

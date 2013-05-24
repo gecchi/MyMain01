@@ -1,15 +1,22 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/WorldBoundActor.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/scene/DefaultUniverse.h"
+#include "jp/ggaf/lib/actor/DefaultCamera.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
 WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
         GgafDxWorldBoundActor(prm_name,
-                               prm_model,
-                               "WorldBoundEffect",
-                               "WorldBoundTechnique",
-                               nullptr,
-                               nullptr) {
+                              prm_model,
+                              "WorldBoundEffect",
+                              "WorldBoundTechnique",
+                              nullptr,
+                              nullptr) {
 
     _class_name = "WorldBoundActor";
     _offset_frames = 0;

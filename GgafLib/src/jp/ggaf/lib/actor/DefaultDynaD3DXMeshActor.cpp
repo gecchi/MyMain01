@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/DefaultDynaD3DXMeshActor.h"
+
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/lib/actor/ColliAABActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

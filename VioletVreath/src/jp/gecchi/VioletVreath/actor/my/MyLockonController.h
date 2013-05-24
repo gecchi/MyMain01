@@ -1,5 +1,10 @@
 #ifndef MYOPTIONLOCKONCONTROLLER_H_
 #define MYOPTIONLOCKONCONTROLLER_H_
+#include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
+
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+
 namespace VioletVreath {
 
 

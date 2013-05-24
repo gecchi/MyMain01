@@ -1,9 +1,18 @@
 #include "stdafx.h"
+#include "EnemyThisbeLaserChip003.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+#include "jp/ggaf/lib/scene/WalledScene.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 EnemyThisbeLaserChip003::EnemyThisbeLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "ThisbeLaserChip003", STATUS(EnemyThisbeLaserChip003)) {

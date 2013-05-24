@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
+
+#include <cstring>
+#include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

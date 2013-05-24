@@ -1,5 +1,7 @@
 #ifndef GGAFDXMESHSETMODEL_H_
 #define GGAFDXMESHSETMODEL_H_
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+
 namespace GgafDxCore {
 
 /**

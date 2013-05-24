@@ -1,5 +1,7 @@
 #ifndef WALLAAPRISMEFFECTACTOR_H_
 #define WALLAAPRISMEFFECTACTOR_H_
+#include "jp/ggaf/lib/actor/WallAAPrismActor.h"
+
 
 namespace VioletVreath  {
 

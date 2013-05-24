@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/scene/DefaultUniverse.h"
+
+#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/actor/DefaultCamera.h"
+#include "jp/ggaf/lib/util/LinearOctreeForActor.h"
+#include "jp/ggaf/lib/actor/ColliAABActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

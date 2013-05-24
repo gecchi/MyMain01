@@ -1,7 +1,8 @@
 #ifndef GGAFDXMESHMODEL_H_
 #define GGAFDXMESHMODEL_H_
-namespace GgafDxCore {
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
+namespace GgafDxCore {
 
 // 本プログラムは Paul Coppens さんの作成された、Xファイルを読み込むサンプル
 // を元に、独自に改良修正（やデバッグ）したクラスを使用しています。

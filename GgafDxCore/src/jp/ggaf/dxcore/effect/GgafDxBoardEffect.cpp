@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
+
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

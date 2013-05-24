@@ -1,5 +1,7 @@
 #ifndef FORMATIONEUNOMIA_H_
 #define FORMATIONEUNOMIA_H_
+#include "jp/ggaf/lib/actor/DepositoryFormation.h"
+
 namespace VioletVreath {
 
 /**
@@ -20,13 +22,13 @@ public:
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection** papSplManufConnection_;
     /** 編隊列数(RANK変動) */
-    int RR_num_formation_col_;
+    int RF_num_formation_col_;
     /** １列の編隊数(RANK変動) */
-    int RR_num_formation_row_;
+    int RF_num_formation_row_;
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */
-    frame RR_interval_frames_;
+    frame RF_interval_frames_;
     /** 編隊メンバーの移動速度(RANK変動) */
-    velo RR_mv_velo_;
+    velo RF_mv_velo_;
 
 public:
     /**

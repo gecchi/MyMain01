@@ -1,18 +1,28 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshActor.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxSpriteMeshActor::GgafDxSpriteMeshActor(const char* prm_name,
-                                               const char* prm_model,
-                                               GgafStatus* prm_pStat,
-                                               GgafDxChecker* prm_pChecker) :
+                                             const char* prm_model,
+                                             GgafStatus* prm_pStat,
+                                             GgafDxChecker* prm_pChecker) :
 
                                         GgafDxMeshActor(prm_name,
-                                                         prm_model,
-                                                         "SpriteMeshEffect",
-                                                         "SpriteMeshTechnique",
-                                                         prm_pStat,
-                                                         prm_pChecker) {
+                                                        prm_model,
+                                                        "SpriteMeshEffect",
+                                                        "SpriteMeshTechnique",
+                                                        prm_pStat,
+                                                        prm_pChecker) {
 
     _obj_class |= Obj_GgafDxSpriteMeshActor;
     _class_name = "GgafDxSpriteMeshActor";
@@ -22,7 +32,6 @@ GgafDxSpriteMeshActor::GgafDxSpriteMeshActor(const char* prm_name,
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 }
-
 
 void GgafDxSpriteMeshActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshEffect->_pID3DXEffect;
@@ -38,7 +47,6 @@ void GgafDxSpriteMeshActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pMeshModel->draw(this);
 }
-
 
 GgafDxSpriteMeshActor::~GgafDxSpriteMeshActor() {
     GGAF_DELETE(_pUvFlipper);

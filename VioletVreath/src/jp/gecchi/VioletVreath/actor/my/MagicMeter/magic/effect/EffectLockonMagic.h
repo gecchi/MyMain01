@@ -1,5 +1,7 @@
 #ifndef EFFECTLOCKONMAGIC_H_
 #define EFFECTLOCKONMAGIC_H_
+#include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
+
 namespace VioletVreath {
 
 /**

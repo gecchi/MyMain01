@@ -1,5 +1,9 @@
 #ifndef GGAFDXBGMCONNECTION_H_
 #define GGAFDXBGMCONNECTION_H_
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+
+#include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
+
 namespace GgafDxCore {
 
 /**

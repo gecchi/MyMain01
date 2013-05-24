@@ -9,10 +9,11 @@
 
 #define DEBUG
 #include <windows.h>
-#include "../framework/frm_IO.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/frm_IO.h"
 //#include <gl\freeglut.h>
 //del gecchi
 #include <stdio.h>
+#include <string>
 
 namespace ToolBox {
 

@@ -1,5 +1,10 @@
 #ifndef GGAFRESOURCEMANAGER_H_
 #define GGAFRESOURCEMANAGER_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+
 namespace GgafCore {
 
 /**

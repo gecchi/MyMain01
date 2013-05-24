@@ -1,5 +1,8 @@
 #ifndef GGAFDXPUPPETEER_H_
 #define GGAFDXPUPPETEER_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <d3dx9.h>
 
 namespace GgafDxCore {
 

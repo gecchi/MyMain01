@@ -1,5 +1,9 @@
 #ifndef GGAFEXCEPTION_H_
 #define GGAFEXCEPTION_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <string>
+
 namespace GgafCore {
 
 /**

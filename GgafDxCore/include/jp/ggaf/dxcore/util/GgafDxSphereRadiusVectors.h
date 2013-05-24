@@ -1,5 +1,7 @@
 #ifndef GGAFDXSPHERERADIUSVECTORS_H_
 #define GGAFDXSPHERERADIUSVECTORS_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafDxCore {
 
 /**
@@ -7,12 +9,11 @@ namespace GgafDxCore {
  * 方向ベクトルからZ軸回転角とY軸回転角、逆にZ軸回転角とY軸回転角から方向ベクトルの相互変換を可能とするために設計。<BR>
  * 但し保持されている範囲は単位球の、x≧0 y≧0 z≧0 の範囲の方向ベクトルだけです。（1/8球分のみ）<BR>
  * 【補足】<BR>
- * 保持しているベクトルの各要(X,Y,Z)の単位(unsigned __int16)は、長さ1 が 10000 に相当する整数になっています。<BR>
+ * 保持しているベクトルの各要(X,Y,Z)の単位(uint16_t)は、長さ1 が 10000 に相当する整数になっています。<BR>
  * 角度の単位（s_ang）は、1度 が 10 に相当します。直角は 900 になります。angle値(1度が1000)と混在しないように注意<BR>
  */
 class GgafDxSphereRadiusVectors : public GgafCore::GgafObject {
 public:
-
     /**
      * ソート可能方向ベクトルクラス.
      * SR_VECTOR(方向ベクトル)に大小の値をつけ、比較を可能にしたメンバをもつクラス。<BR>
@@ -28,13 +29,13 @@ public:
          * SR_VECTORでは、(658301, 113200, 744000) です<BR>
          */
         struct SR_VECTOR {
-            UINT32 x;
-            UINT32 z;
-            UINT32 y;
+            uint32_t x;
+            uint32_t z;
+            uint32_t y;
         };
 
 
-        UINT64 num_yzx;
+        uint64_t num_yzx;
         SR_VECTOR vec;
     public:
         COMPARE_ABLE_SR_VECTOR() : GgafObject() , num_yzx(0) {
@@ -45,7 +46,7 @@ public:
          * @param prm_y 単位方向ベクトルY要素（長さ1 が 1000000)
          * @param prm_z 単位方向ベクトルZ要素（長さ1 が 1000000)
          */
-        void set(UINT32 prm_x, UINT32 prm_y, UINT32 prm_z) {
+        void set(uint32_t prm_x, uint32_t prm_y, uint32_t prm_z) {
             vec.x = prm_x;
             vec.y = prm_y;
             vec.z = prm_z;
@@ -74,9 +75,9 @@ public:
      * @param out_angFaceY_rev 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
      * @param s 計算回数（精度）。回数が多いほど正確になる。
      */
-    void getFaceAngClosely(UINT32 prm_x,
-                           UINT32 prm_y,
-                           UINT32 prm_z,
+    void getFaceAngClosely(uint32_t prm_x,
+                           uint32_t prm_y,
+                           uint32_t prm_z,
                            s_ang& out_angFaceZ,
                            s_ang& out_angFaceY_rev,
                            int s = 25);
@@ -84,7 +85,7 @@ public:
     /**
      * 引数のZ軸回転とY軸回転の値から、相当する単位方向ベクトルの近時を求める .
      * 但し、結果の方向ベクトルの各要素(X,Y,Z)が正の値になるような引数しか受け付けない。<BR>
-     * 戻り値はUINT32で符号無しのため、intと演算する時は気をつけよ<BR>
+     * 戻り値はuint32_tで符号無しのため、intと演算する時は気をつけよ<BR>
      * @param prm_angFaceY_rev Z軸回転値（ 回転値0は、方向ベクトル(1,0,0)。方向ベクトル(0,0,1)を向いて反時計回り。）（単位s_ang）
      * @param prm_angFaceZ 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
      * @param out_x 単位方向ベクトルX要素（長さ1 が 1000000) > 0
@@ -93,9 +94,9 @@ public:
      */
     inline void getVectorClosely(s_ang prm_angFaceY_rev,
                                  s_ang prm_angFaceZ,
-                                 UINT32& out_x,
-                                 UINT32& out_y,
-                                 UINT32& out_z ) {
+                                 uint32_t& out_x,
+                                 uint32_t& out_y,
+                                 uint32_t& out_z ) {
         COMPARE_ABLE_SR_VECTOR::SR_VECTOR& V = _sr[(int)(prm_angFaceZ*(D90SANG+1)+prm_angFaceY_rev)].vec;
         out_x = V.x;
         out_y = V.y;

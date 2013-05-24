@@ -1,5 +1,6 @@
 #ifndef VVVIEWER_H_
 #define VVVIEWER_H_
+#include "VVViewer.h"
 
 /**
  * モデルビューワー
@@ -8,7 +9,7 @@
  * @author Masatoshi Tsuge
  */
 
-#include "GgafLibHeader.h"
+#include "GgafLibCommonHeader.h"
 
 #undef P_GOD
 #define P_GOD ((VVViewer::VvvGod*)VVViewer::VvvGod::_pGod)

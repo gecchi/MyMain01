@@ -1,5 +1,9 @@
 #ifndef GGAFDXD3DXMESHMODEL_H_
 #define GGAFDXD3DXMESHMODEL_H_
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+
+#include <d3dx9.h>
+
 namespace GgafDxCore {
 
 /**

@@ -1,4 +1,19 @@
 #include "stdafx.h"
+#include "DepositoryManager.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
+
+#include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -206,7 +221,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
     if (UTIL::strcmp_ascii("EnemyHebe4Formation", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_Hebe");
-        for (int i = 0; i < RR_FormationHebe_Num(2.0); i++) {
+        for (int i = 0; i < RF_FormationHebe_Num(2.0); i++) {
             pResource->addSubLast(NEW EnemyHebe("EnemyMassalia"));
             Sleep(1);
         }
@@ -217,7 +232,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (UTIL::strcmp_ascii("EnemyHesperiaLaserChip001DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyHesperiaLaserChip0014DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        for (int nLaser = 0; nLaser < RR_EnemyHesperia_ShotWay(1.0)*8; nLaser++) {
+        for (int nLaser = 0; nLaser < RF_EnemyHesperia_ShotWay(1.0)*8; nLaser++) {
             std::string name = "LaserChipDepo["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name.c_str());
             for (int nChip = 0; nChip < 50; nChip++) {

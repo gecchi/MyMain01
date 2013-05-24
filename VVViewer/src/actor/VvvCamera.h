@@ -1,5 +1,7 @@
 #ifndef VVVCAMERA_H_
-#define VVVCAMERAH_
+#define VVVCAMERA_H_
+#include "jp/ggaf/lib/actor/DefaultCamera.h"
+
 namespace VVViewer {
 
 /**

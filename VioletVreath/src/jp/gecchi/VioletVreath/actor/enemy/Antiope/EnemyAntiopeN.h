@@ -1,5 +1,7 @@
 #ifndef ENEMYANTIOPEN_H_
 #define ENEMYANTIOPEN_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiope.h"
+
 namespace VioletVreath {
 
 /**

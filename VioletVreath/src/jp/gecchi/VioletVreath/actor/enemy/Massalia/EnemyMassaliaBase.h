@@ -1,5 +1,7 @@
 #ifndef ENEMYMASSALIABASE_H_
 #define ENEMYMASSALIABASE_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 /**

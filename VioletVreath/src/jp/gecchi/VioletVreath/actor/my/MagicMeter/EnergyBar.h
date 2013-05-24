@@ -1,5 +1,7 @@
 #ifndef ENERGYBAR_H_
 #define ENERGYBAR_H_
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+
 namespace VioletVreath {
 
 class EnergyBar : public GraphBar {

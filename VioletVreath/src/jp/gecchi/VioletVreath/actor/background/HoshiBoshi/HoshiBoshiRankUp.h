@@ -1,5 +1,7 @@
 #ifndef HOSHIBOSHIRANKUP_H_
 #define HOSHIBOSHIRANKUP_H_
+#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
+
 namespace VioletVreath {
 
 /**

@@ -1,5 +1,6 @@
 #ifndef VIEWPOINTGUIDE_H_
 #define VIEWPOINTGUIDE_H_
+#include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"
 
 namespace VioletVreath {
 

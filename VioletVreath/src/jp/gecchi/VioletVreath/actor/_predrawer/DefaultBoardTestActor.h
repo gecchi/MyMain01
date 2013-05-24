@@ -1,5 +1,7 @@
 #ifndef DEFAULTBOARDEFFECTACTOR_H_
 #define DEFAULTBOARDEFFECTACTOR_H_
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+
 
 
 namespace VioletVreath {

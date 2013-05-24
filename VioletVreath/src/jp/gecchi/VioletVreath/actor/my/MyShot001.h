@@ -1,5 +1,7 @@
 #ifndef MYSHOT001_H_
 #define MYSHOT001_H_
+#include "jp/ggaf/lib/actor/SingleLaser.h"
+
 namespace VioletVreath {
 
 /**

@@ -1,5 +1,9 @@
 #ifndef GGAFDXBGM_H_
 #define GGAFDXBGM_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include <string>
+
 namespace GgafDxCore {
 
 /**

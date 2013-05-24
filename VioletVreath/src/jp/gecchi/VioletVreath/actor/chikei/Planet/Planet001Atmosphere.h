@@ -1,5 +1,7 @@
 #ifndef PLANET001ATMOSPHERE_H_
 #define PLANET001ATMOSPHERE_H_
+#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+
 namespace VioletVreath {
 
 /**

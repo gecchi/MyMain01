@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "EffectEntry002.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

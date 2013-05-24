@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "MyOptionControllerGizmo.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -7,7 +11,6 @@ using namespace VioletVreath;
 MyOptionControllerGizmo::MyOptionControllerGizmo(const char* prm_name) :
         DefaultMeshActor(prm_name, "Nothing", nullptr) {
     _class_name = "MyOptionControllerGizmo";
-
     ptn_no_ = 0;
 }
 

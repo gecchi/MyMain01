@@ -1,5 +1,7 @@
 #ifndef GGAFORDER_H_
 #define GGAFORDER_H_
+#include "jp/ggaf/core/GgafObject.h"
+
 namespace GgafCore {
 
 /**
@@ -36,14 +38,14 @@ private:
 
 public:
     /** 注文識別ID */
-    UINT32 _id;
+    uint32_t _id;
     /** 進捗具合（0:未着手/1:製造中/2:製造済み） */
     int _progress;
     /** 商品へのポインタ */
     GgafObject* _pObject_creation;
 
 public:
-    GgafOrder(UINT32 prm_id);
+    GgafOrder(uint32_t prm_id);
     virtual ~GgafOrder();
 };
 

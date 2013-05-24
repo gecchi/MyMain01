@@ -1,5 +1,7 @@
 #ifndef EFFECTLASERREFRACTION001_H_
 #define EFFECTLASERREFRACTION001_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 namespace VioletVreath {
 
 /**

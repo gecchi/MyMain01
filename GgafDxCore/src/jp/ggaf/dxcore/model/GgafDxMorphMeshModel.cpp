@@ -1,8 +1,18 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
+
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
+#include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
-
 
 GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(prm_model_name) {
     TRACE3("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ")");

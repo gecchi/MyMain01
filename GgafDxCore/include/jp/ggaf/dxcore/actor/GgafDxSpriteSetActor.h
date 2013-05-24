@@ -1,5 +1,7 @@
 #ifndef GGAFDXSPRITESETACTOR_H_
 #define GGAFDXSPRITESETACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
 namespace GgafDxCore {
 
 /**

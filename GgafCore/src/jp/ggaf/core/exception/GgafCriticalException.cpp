@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
 
 using namespace GgafCore;
 

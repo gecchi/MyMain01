@@ -1,5 +1,7 @@
 #ifndef ENEMYMASSALIAFRAGMENT3_H_
 #define ENEMYMASSALIAFRAGMENT3_H_
+#include "jp/gecchi/VioletVreath/actor/enemy/Massalia/EnemyMassaliaBase.h"
+
 namespace VioletVreath {
 
 /**

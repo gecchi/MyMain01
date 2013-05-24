@@ -1,5 +1,7 @@
 #ifndef ENEMYHESPERIA_H_
 #define ENEMYHESPERIA_H_
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+
 namespace VioletVreath {
 
 /**

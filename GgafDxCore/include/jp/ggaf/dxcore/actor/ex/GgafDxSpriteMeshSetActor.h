@@ -1,5 +1,7 @@
 #ifndef GGAFDXSPRITEMESHSETACTOR_H_
 #define GGAFDXSPRITEMESHSETACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
+
 namespace GgafDxCore {
 
 /**

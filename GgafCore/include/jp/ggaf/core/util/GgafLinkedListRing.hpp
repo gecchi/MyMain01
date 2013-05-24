@@ -1,5 +1,9 @@
 #ifndef GGAFLINKEDLISTRING_H_
 #define GGAFLINKEDLISTRING_H_
+#include "jp/ggaf/core/GgafObject.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+
 namespace GgafCore {
 
 /**
@@ -218,7 +222,7 @@ public:
      * ---------------------------------------
      * </pre>
      * @param prm_pNew インスタンス生成済み要素のポインタ
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。<BR>
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
      *                            false : リストのdelete時に、引数の追加要素値について何も行わない。
      */
     virtual void addNext(T* prm_pNew, bool prm_is_delete_value = true);
@@ -270,7 +274,7 @@ public:
      * ---------------------------------------
      * </pre>
      * @param prm_pNew 新しい要素の値
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。<BR>
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
      *                            false : リストのdelete時に、引数の追加要素について何も行わない。
      */
     virtual void addPrev(T* prm_pNew, bool prm_is_delete_value = true);
@@ -309,7 +313,7 @@ public:
      * ---------------------------------------
      * </pre>
      * @param prm_pNew 新しい要素の値
-     * @param prm_is_delete_value true  : リストのインスタンスdelete時に、引数の追加要素値についてもdeleteを発行する。<BR>
+     * @param prm_is_delete_value true  : リストのインスタンスdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
      *                            false : リストのインスタンスdelete時に、引数の追加要素値について何も行わない。
      */
     virtual void addLast(T* prm_pNew, bool prm_is_delete_value = true);
@@ -348,7 +352,7 @@ public:
      * ---------------------------------------
      * </pre>
      * @param prm_pNew 新しい要素の値
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。<BR>
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
      *                            false : リストのdelete時に、引数の追加要素値について何も行わない。
      */
     virtual void addFirst(T* prm_pNew, bool prm_is_delete_value = true);
@@ -658,7 +662,7 @@ public:
      * 本メソッド実行時に内部で delete され、戻り値には nullptrが返ります。
      * </pre>
      * @param prm_pVal 新しい要素の値
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の要素値についてもdeleteを発行する。<BR>
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
      *                            false : リストのdelete時に、引数の要素値について何も行わない。
      * @return 元の設定要素が自動 delete の場合 nullptr ／ 元の設定要素が自動 delete ではない場合、上書きされる前の要素(解放に利用される事を想定。)
      */

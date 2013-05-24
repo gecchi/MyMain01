@@ -1,5 +1,9 @@
 #ifndef DEPOSITORYMANAGER_H_
 #define DEPOSITORYMANAGER_H_
+#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+
 namespace VioletVreath {
 
 /**

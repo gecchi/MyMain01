@@ -1,5 +1,7 @@
 #ifndef GGAFDXALPHACURTAIN_H_
 #define GGAFDXALPHACURTAIN_H_
+#include "jp/ggaf/core/util/GgafCurtain.h"
+
 namespace GgafDxCore {
 
 /**

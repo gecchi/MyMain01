@@ -1,5 +1,7 @@
 #ifndef EFFECTMYSHIPEXPLOSION_H_
 #define EFFECTMYSHIPEXPLOSION_H_
+#include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
+
 namespace VioletVreath {
 
 /**

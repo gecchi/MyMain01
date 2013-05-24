@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
+
+#include "Shlwapi.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisFile.h"
+#include "jp/ggaf/dxcore/sound/IkdLib/OggDecoder.h"
+#include "jp/ggaf/dxcore/sound/IkdLib/PCMPlayer.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace IkdLib;

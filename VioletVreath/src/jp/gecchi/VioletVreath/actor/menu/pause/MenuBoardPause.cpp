@@ -1,4 +1,14 @@
 #include "stdafx.h"
+#include "MenuBoardPause.h"
+
+#include "CursorPauseMenu.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
+#include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"
+#include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

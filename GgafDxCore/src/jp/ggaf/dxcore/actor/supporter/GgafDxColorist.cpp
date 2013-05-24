@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
+
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

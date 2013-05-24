@@ -1,5 +1,7 @@
 #ifndef EFFECTWORMHOLE_H_
 #define EFFECTWORMHOLE_H_
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+
 namespace VioletVreath {
 
 /**

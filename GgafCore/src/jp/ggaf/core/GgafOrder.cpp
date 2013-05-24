@@ -1,8 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/GgafOrder.h"
 
 using namespace GgafCore;
 
-GgafOrder::GgafOrder(UINT32 prm_id) : GgafObject() {
+GgafOrder::GgafOrder(uint32_t prm_id) : GgafObject() {
     _id = prm_id;
     _pOrderer = nullptr;
     _pOrder_next = nullptr;

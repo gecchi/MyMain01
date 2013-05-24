@@ -1,5 +1,7 @@
 #ifndef DEFAULTMORPHMESHACTOR_H_
 #define DEFAULTMORPHMESHACTOR_H_
+#include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
+
 namespace GgafLib {
 
 /**

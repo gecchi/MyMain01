@@ -1,5 +1,9 @@
 #ifndef GAMESCENE_H_
 #define GAMESCENE_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+
+#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
+
 namespace VioletVreath {
 
 #ifdef P_WORLD

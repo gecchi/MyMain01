@@ -1,5 +1,7 @@
 #ifndef LABELGECCHI16FONT_H_
 #define LABELGECCHI16FONT_H_
+#include "jp/ggaf/lib/actor/StringBoardActor.h"
+
 namespace VioletVreath {
 
 /**

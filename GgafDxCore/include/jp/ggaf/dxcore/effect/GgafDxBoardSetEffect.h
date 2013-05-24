@@ -1,5 +1,7 @@
 #ifndef GGAFDXBOARDSETEFFECT_H_
 #define GGAFDXBOARDSETEFFECT_H_
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+
 namespace GgafDxCore {
 
 /**

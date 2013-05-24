@@ -1,5 +1,7 @@
 #ifndef MYTORPEDO_H_
 #define MYTORPEDO_H_
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+
 
 #define MyTorpedo_IN_FIRE 1
 #define MyTorpedo_RELEASE 2

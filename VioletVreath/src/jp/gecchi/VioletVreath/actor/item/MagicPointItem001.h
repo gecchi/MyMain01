@@ -1,8 +1,6 @@
 #ifndef MAGICPOINTITEM001_H_
 #define MAGICPOINTITEM001_H_
-
-
-
+#include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"
 
 namespace VioletVreath {
 

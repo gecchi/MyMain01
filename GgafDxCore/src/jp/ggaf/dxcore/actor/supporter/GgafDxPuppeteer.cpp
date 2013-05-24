@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxPuppeteer.h"
+
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/model/GgafDxD3DXAniMeshModel.h"
+#include "jp/ggaf/dxcore/actor/GgafDxD3DXAniMeshActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

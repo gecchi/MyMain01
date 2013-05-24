@@ -1,3 +1,2 @@
-#pragma once
-#include "src/Mogera.h"
+#include "Mogera.h"
 

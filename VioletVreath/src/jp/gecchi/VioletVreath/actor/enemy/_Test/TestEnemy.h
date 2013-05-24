@@ -1,5 +1,7 @@
 #ifndef TESTENEMY_H_
 #define TESTENEMY_H_
+#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+
 namespace VioletVreath {
 
 /**

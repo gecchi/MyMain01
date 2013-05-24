@@ -1,8 +1,18 @@
 #include "stdafx.h"
+#include "DefaultPointSpriteTestActor.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/actor/Camera.h"
+
+
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
 DefaultPointSpriteTestActor::DefaultPointSpriteTestActor(const char* prm_name) :
         DefaultPointSpriteActor(prm_name, "_chk_DefaultPointSpriteTestModel", nullptr) {
     _class_name = "DefaultPointSpriteTestActor";

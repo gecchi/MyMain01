@@ -1,5 +1,7 @@
 #ifndef CURVELASERCHIP_H_
 #define CURVELASERCHIP_H_
+#include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
+
 namespace GgafLib {
 
 /**

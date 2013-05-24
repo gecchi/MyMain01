@@ -1,5 +1,7 @@
 #ifndef FIXEDVELOCITYSPLINEKUROKOLEADER_H_
 #define FIXEDVELOCITYSPLINEKUROKOLEADER_H_
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+
 namespace GgafLib {
 
 /**

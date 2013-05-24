@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "FormationAdelheid001.h"
+
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/EnemyAdelheid.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

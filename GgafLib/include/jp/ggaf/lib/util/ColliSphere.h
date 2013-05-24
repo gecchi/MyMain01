@@ -1,5 +1,7 @@
 #ifndef COLLISPHERE_H_
 #define COLLISPHERE_H_
+#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+
 namespace GgafLib {
 
 /**

@@ -1,5 +1,7 @@
 #ifndef STEPPEDCOORDSPLINEKUROKOLEADER_H_
 #define STEPPEDCOORDSPLINEKUROKOLEADER_H_
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+
 namespace GgafLib {
 
 /**

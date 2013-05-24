@@ -1,5 +1,7 @@
 #ifndef SPRITEMESHSETACTOR_H_
 #define SPRITEMESHSETACTOR_H_
+#include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshSetActor.h"
+
 namespace GgafLib {
 
 /**

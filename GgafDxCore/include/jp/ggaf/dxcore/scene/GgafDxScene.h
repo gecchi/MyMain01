@@ -1,5 +1,7 @@
 #ifndef GGAFDXSCENE_H_
 #define GGAFDXSCENE_H_
+#include "jp/ggaf/core/scene/GgafMainScene.h"
+
 namespace GgafDxCore {
 
 #define MAX_BGM_PER_ACTOR 3

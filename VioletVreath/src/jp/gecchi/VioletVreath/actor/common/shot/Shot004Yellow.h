@@ -1,5 +1,7 @@
 #ifndef SHOT004YELLOW_H_
 #define SHOT004YELLOW_H_
+#include "jp/ggaf/lib/actor/SingleLaser.h"
+
 namespace VioletVreath {
 
 /**
@@ -31,8 +33,6 @@ public:
     }
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
-
-    void drawHitArea() override;
 
     virtual ~Shot004Yellow();
 };

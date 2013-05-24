@@ -1,5 +1,7 @@
 #ifndef GGAFGROUPHEAD_H_
 #define GGAFGROUPHEAD_H_
+#include "jp/ggaf/core/actor/GgafActor.h"
+
 namespace GgafCore {
 
 /**

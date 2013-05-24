@@ -1,5 +1,7 @@
 #ifndef SPRITEMESHEFFECTACTOR_H_
 #define SPRITEMESHEFFECTACTOR_H_
+#include "jp/ggaf/lib/actor/SpriteMeshActor.h"
+
 namespace VioletVreath {
 
 /**

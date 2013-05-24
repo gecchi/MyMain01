@@ -1,6 +1,8 @@
 #ifndef IKD_DIX_PCMDECODER_H
 #define IKD_DIX_PCMDECODER_H
 
+#include <windows.h>
+
 namespace IkdLib {
 
 /**

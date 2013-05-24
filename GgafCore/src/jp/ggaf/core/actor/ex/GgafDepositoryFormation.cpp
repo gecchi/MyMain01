@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/actor/ex/GgafDepositoryFormation.h"
+
+#include "jp/ggaf/core/util/GgafStatus.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+
+
 using namespace GgafCore;
 
 GgafDepositoryFormation::GgafDepositoryFormation(const char* prm_name, frame prm_offset_frames_end) :

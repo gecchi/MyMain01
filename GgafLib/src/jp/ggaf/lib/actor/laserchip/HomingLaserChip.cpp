@@ -1,8 +1,11 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/actor/laserchip/HomingLaserChip.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
             LaserChip(prm_name, prm_model, prm_pStat) {

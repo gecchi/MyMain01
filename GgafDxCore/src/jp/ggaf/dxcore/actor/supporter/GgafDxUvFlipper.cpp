@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

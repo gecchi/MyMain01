@@ -1,5 +1,7 @@
 #ifndef ENEMYSYLVIA_H_
 #define ENEMYSYLVIA_H_
+#include "jp/ggaf/lib/actor/CubeMapMeshActor.h"
+
 namespace VioletVreath {
 
 
@@ -56,13 +58,8 @@ public:
 
     virtual int isOutOfView() override;
 
-    virtual bool isOutOfUniverse() override {
-        if (GgafDxCore::GgafDxUniverse::_X_gone_left < _X) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+    virtual bool isOutOfUniverse() override;
+
     virtual ~EnemySylvia();
 
 protected:

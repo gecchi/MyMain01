@@ -1,5 +1,12 @@
 #ifndef GGAFELEMENT_H_
 #define GGAFELEMENT_H_
+#include "jp/ggaf/core/GgafNode.hpp"
+
+#include "jp/ggaf/core/GgafProgress.h"
+#include "jp/ggaf/core/GgafGarbageBox.h"
+#include "jp/ggaf/core/GgafFactory.h"
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+
 namespace GgafCore {
 
 /**

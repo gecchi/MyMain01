@@ -1,4 +1,18 @@
 #include "stdafx.h"
+#include "GameTitleScene.h"
+
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiTitle.h"
+#include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundTitle.h"
+#include "jp/gecchi/VioletVreath/actor/menu/title/MenuBoardTitle.h"
+#include "jp/gecchi/VioletVreath/actor/title/TitleBoard.h"
+#include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameTitleScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

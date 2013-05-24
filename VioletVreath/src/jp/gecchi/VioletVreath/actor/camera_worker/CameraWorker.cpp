@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "CameraWorker.h"
+
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
+#include "jp/gecchi/VioletVreath/actor/Camera.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,4 +1,14 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dxcore/manager/GgafDxBgmManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

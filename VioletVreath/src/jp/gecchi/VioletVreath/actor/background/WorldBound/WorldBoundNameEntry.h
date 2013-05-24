@@ -1,5 +1,7 @@
 #ifndef WORLDBOUNDNAMEENTRY_H_
 #define WORLDBOUNDNAMEENTRY_H_
+#include "jp/ggaf/lib/actor/WorldBoundActor.h"
+
 namespace VioletVreath {
 
 /**
@@ -9,6 +11,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class WorldBoundNameEntry : public GgafLib::WorldBoundActor {
+
 
 public:
     /**

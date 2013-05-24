@@ -1,4 +1,33 @@
 #include "stdafx.h"
+#include "MagicMeter.h"
+
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
+#include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/CostDispBar.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/EnergyBar.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LockonMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/OptionMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/SmileMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/SpeedMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TorpedoMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/VreathMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor002.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor003.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterCursor001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterStatus.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/VreathBar.h"
+#include "jp/gecchi/VioletVreath/God.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

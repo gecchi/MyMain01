@@ -1,4 +1,11 @@
 #include "stdafx.h"
+#include "Shot003.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,5 +1,7 @@
 #ifndef LABELFIX16FONT01_H_
 #define LABELFIX16FONT01_H_
+#include "jp/ggaf/lib/actor/StringBoardActor.h"
+
 namespace VioletVreath {
 
 /**

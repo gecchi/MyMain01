@@ -1,4 +1,16 @@
 #include "stdafx.h"
+#include "MenuBoardKeyConfig.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/lib/util/VirtualButton.h"
+#include "CursorKeyConfigMenu.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelFix16Font01.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
+#include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Properties.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

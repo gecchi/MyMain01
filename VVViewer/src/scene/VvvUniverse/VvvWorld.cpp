@@ -1,4 +1,25 @@
 #include "stdafx.h"
+#include "VvvWorld.h"
+
+#include <algorithm>
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
+#include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
+#include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/lib/actor/CubeMapMeshActor.h"
+#include "jp/ggaf/lib/actor/CubeMapMorphMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
+#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/util/VirtualButton.h"
+#include "actor/CamWorker/VvvCamWorker.h"
+#include "actor/VvvCursor.h"
+#include "actor/VvvGrid.h"
+#include "actor/VvvCamera.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -1,4 +1,12 @@
 #include "stdafx.h"
+#include "FormationAntiope001.h"
+
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeP.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeN.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -18,9 +26,9 @@ void FormationAntiope001::initialize() {
 }
 
 void FormationAntiope001::onActive() {
-    num_Antiope_ = RR_FormationAntiope001_Num(_RANK_);    //編隊数
+    num_Antiope_ = RF_FormationAntiope001_Num(_RANK_);    //編隊数
     cnt_Antiope_ = 0;
-    interval_frames_ = RR_FormationAntiope001_LaunchInterval(_RANK_);  //パラスの間隔(frame)
+    interval_frames_ = RF_FormationAntiope001_LaunchInterval(_RANK_);  //パラスの間隔(frame)
 }
 
 void FormationAntiope001::processBehavior() {

@@ -1,8 +1,20 @@
 #include "stdafx.h"
+#include "MyOptionController.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyOptionController.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
 int MyOptionController::max_option_num_ = 9;
 int MyOptionController::o2o_ = 15;
 int MyOptionController::now_option_num_ = 0;

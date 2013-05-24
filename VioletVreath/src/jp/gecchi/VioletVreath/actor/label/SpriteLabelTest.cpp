@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "SpriteLabelTest.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -86,9 +88,9 @@ void SpriteLabelTest::processBehavior() {
 //    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(1));
 //    _pKurokoA->behave();
 
-    if (GgafDxInput::isBeingPressedKey(DIK_P)) {
-        addScale(100);
-    }
+//    if (GgafDxInput::isBeingPressedKey(DIK_P)) {
+//        addScale(100);
+//    }
 
 //    //“ü—Í‚ÅˆÚ“®
 //    if (GgafDxInput::isBeingPressedKey(DIK_SPACE)) {

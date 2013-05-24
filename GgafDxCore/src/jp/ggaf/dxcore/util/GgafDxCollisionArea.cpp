@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

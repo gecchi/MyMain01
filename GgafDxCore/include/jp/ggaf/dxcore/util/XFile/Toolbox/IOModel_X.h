@@ -9,13 +9,11 @@
 
 //#define DEBUG
 
-
-#include "../Toolbox/MyTrace.h"
-
-#include "../framework/frm_IO.h"
+#include "jp/ggaf/dxcore/util/XFile/ToolBox/MyTrace.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/frm_IO.h"
 //#include <GL\freeglut.h>
-#include "../framework/Frm_Mesh.h"
-#include "../ToolBox/XFileStructs.h"
+#include "jp/ggaf/dxcore/util/XFile/framework/Frm_Mesh.h"
+#include "jp/ggaf/dxcore/util/XFile/ToolBox/XFileStructs.h"
 
 namespace ToolBox {
 
@@ -43,26 +41,26 @@ private:
     Frm::Model3D* _Object;
     std::string active_load_filename;
     //Utilities
-    INT16 ProcessBlock(void);
-    INT16 BlockID(std::string &pText);
+    int16_t ProcessBlock(void);
+    int16_t BlockID(std::string &pText);
     void AvoidTemplate(void);
-    void Find(UINT8 pChar);
+    void Find(uint8_t pChar);
     //Unique X struct ID in case no name are found
     //Uses the Windows function GetTickCount
     char* SetUID(char pType);
     //structure used by the previous function to quickly
     //convert a 32 bit number to a non-significant text.
     union {
-        UINT32 Integer[2]; //mod tsuge
+        uint32_t Integer[2]; //mod tsuge
         //char Text[5];
         char Text[8+2]; //mod tsuge
     } _X_UID;
 
     /** Xファイル読み込み時の次のトークン予約 */
-    UINT8 token_next; //add tsuge
+    uint8_t token_next; //add tsuge
 
     //X File struct processing
-    UINT32 _MaxKey; //Max animation key for a loaded animation set
+    uint32_t _MaxKey; //Max animation key for a loaded animation set
     void ProcessFrameTransformMatrix(Frm::Bone* &pB);
     void ProcessBone(Frm::Bone* pBone);
     void ProcessMesh(void);

@@ -1,5 +1,7 @@
 #ifndef MYWAVE001_H_
 #define MYWAVE001_H_
+#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+
 namespace VioletVreath {
 
 class MyWave001 : public GgafLib::DefaultMeshActor {

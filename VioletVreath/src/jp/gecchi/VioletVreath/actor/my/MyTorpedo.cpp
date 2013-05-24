@@ -1,4 +1,17 @@
 #include "stdafx.h"
+#include "MyTorpedo.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "MyTorpedoBlast.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
+#include "MyTorpedoTail.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

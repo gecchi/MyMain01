@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

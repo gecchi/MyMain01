@@ -1,8 +1,14 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/util/GgafQuery.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include <fstream>
+#include <cstring>
+
 
 using namespace GgafCore;
 
-GgafQuery::GgafQuery() : GgafCore::GgafObject() {
+GgafQuery::GgafQuery() : GgafObject() {
 }
 
 void GgafQuery::importFromFile(std::string prm_file_name) {

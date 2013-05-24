@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+
+#include "jp/ggaf/core/scene/GgafScene.h"
+#include "jp/ggaf/core/actor/GgafMainActor.h"
+#include "jp/ggaf/core/actor/GgafGroupHead.h"
+#include "jp/ggaf/core/util/GgafStatus.h"
 
 using namespace GgafCore;
 
@@ -9,7 +15,12 @@ GgafSceneDirector::GgafSceneDirector(GgafScene* prm_pScene_platform) : GgafActor
     _pScene_platform = prm_pScene_platform;
     setHitAble(false);
 }
-
+void GgafSceneDirector::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
+    GgafScene* s = getPlatformScene();
+    if (s) {
+        s->throwEventUpperTree(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる
+    }
+}
 void GgafSceneDirector::remove() {
     throwGgafCriticalException("[GgafSceneDirector::remove] Error! GgafSceneDirectorはremove()によって削除は行えません！");
 }

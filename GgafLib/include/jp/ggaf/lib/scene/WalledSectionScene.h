@@ -1,5 +1,6 @@
 #ifndef WALLEDSECTIONSCENE_H_
 #define WALLEDSECTIONSCENE_H_
+#include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #define FULL_VAL (-2)
 #define KARA_VAL (-2)

@@ -1,4 +1,7 @@
 #include "stdafx.h"
+#include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
+
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

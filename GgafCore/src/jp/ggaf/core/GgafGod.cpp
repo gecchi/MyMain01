@@ -1,4 +1,16 @@
 #include "stdafx.h"
+#include "jp/ggaf/core/GgafGod.h"
+
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/core/GgafFactory.h"
+#include "jp/ggaf/core/GgafGarbageBox.h"
+#include "jp/ggaf/core/GgafProperties.h"
+#include "jp/ggaf/core/scene/GgafUniverse.h"
+#include "jp/ggaf/core/scene/GgafDisusedScene.h"
+#include "jp/ggaf/core/actor/GgafDisusedActor.h"
+
+
+#include <process.h>
 
 using namespace GgafCore;
 

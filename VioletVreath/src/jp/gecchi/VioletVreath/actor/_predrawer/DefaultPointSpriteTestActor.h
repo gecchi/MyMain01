@@ -1,5 +1,7 @@
 #ifndef DEFAULTPOINTSPRITEEFFECTACTOR_H_
 #define DEFAULTPOINTSPRITEEFFECTACTOR_H_
+#include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
+
 namespace VioletVreath {
 
 /**

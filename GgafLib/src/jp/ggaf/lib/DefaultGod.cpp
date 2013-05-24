@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "jp/ggaf/lib/DefaultGod.h"
+
+#include "jp/ggaf/lib/manager/SplineSourceManager.h"
+#include "jp/ggaf/lib/manager/SplineManufactureManager.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

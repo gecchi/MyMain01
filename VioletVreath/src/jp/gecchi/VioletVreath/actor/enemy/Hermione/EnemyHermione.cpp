@@ -1,4 +1,19 @@
 #include "stdafx.h"
+#include "EnemyHermione.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxMorpher.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmWeak.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmHead.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Hermione/EnemyHermioneArmBody.h"
+
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -14,7 +29,6 @@ EnemyHermione::EnemyHermione(const char* prm_name) :
     angle pos_ry[] = {D_ANG(0),   D_ANG(0),    D_ANG(0)  ,  D_ANG(0)  , D_ANG(90), D_ANG(270) };
     static coord R = PX_C(100);     //–{‘ÌHermione‚Ì”¼Œa
     static coord arm_R = PX_C(45);  //‰Â“®•”‚Ì˜r‚ÌŠÖß‚PŒÂ‚Ì”¼Œa
-
 
     //Ÿ‚Ì‚æ‚¤‚ÈƒcƒŠ[\‘¢‚ğì‚é(˜r‚ª‚R–{‚Ìê‡)
     //Hermione

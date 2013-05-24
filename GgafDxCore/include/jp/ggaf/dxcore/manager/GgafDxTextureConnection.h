@@ -1,5 +1,9 @@
 #ifndef GGAFDXTEXTURECONNECTION_H_
 #define GGAFDXTEXTURECONNECTION_H_
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+
 namespace GgafDxCore {
 
 /**

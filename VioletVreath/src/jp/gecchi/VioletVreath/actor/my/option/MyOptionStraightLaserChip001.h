@@ -1,5 +1,7 @@
 #ifndef MYOPTIONSTRAIGHTLASERCHIP001_H_
 #define MYOPTIONSTRAIGHTLASERCHIP001_H_
+#include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
+
 namespace VioletVreath {
 
 class MyOptionStraightLaserChip001 : public GgafLib::StraightLaserChip {

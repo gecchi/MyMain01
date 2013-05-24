@@ -1,5 +1,7 @@
 #ifndef CURSORPAUSEMENU_H_
 #define CURSORPAUSEMENU_H_
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+
 
 
 namespace VioletVreath {

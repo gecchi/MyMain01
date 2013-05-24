@@ -1,8 +1,32 @@
 #include "stdafx.h"
+#include "MyShip.h"
+
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
+#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "MyStraightLaserChip001.h"
+#include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShot001.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
 int MyShip::wk_dist = 0;
 angle MyShip::wk_angRx = 0;
 
@@ -114,7 +138,7 @@ MyShip::MyShip(const char* prm_name) :
     pRing_MyShipGeoHistory4OptCtrler_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
     pRing_MyShipGeoHistory2_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
 //    pRing_MyShipGeoOffsetHistory_ = NEW GgafLinkedListRing<GgafDxGeoElem>();
-    for (UINT32 i = 0; i < 300; i++) {
+    for (uint32_t i = 0; i < 300; i++) {
         pRing_MyShipGeoHistory4OptCtrler_->addLast(NEW GgafDxGeoElem(this));
         pRing_MyShipGeoHistory2_->addLast(NEW GgafDxGeoElem(0,0,0));
 //        pRing_MyShipGeoOffsetHistory_->addLast(NEW GgafDxGeoElem(this));
