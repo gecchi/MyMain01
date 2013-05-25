@@ -30,7 +30,7 @@
         #define override
     #endif
     #if _MSC_VER < 1600
-        #define nullptr NULL
+        #define nullptr 0
     #endif
 #endif
 

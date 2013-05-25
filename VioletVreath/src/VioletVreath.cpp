@@ -141,7 +141,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                             pGod = nullptr;
                             VioletVreath::Properties::clean();
                         }
-
                         ::timeEndPeriod(1);
 
 #ifdef MY_DEBUG
