@@ -3,6 +3,8 @@
 #include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
 
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 
 namespace VioletVreath {
 

@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "VvvGod.h"
 
+#include "actor/VvvCamera.h"
+#include "scene/VvvUniverse.h"
+
 using namespace VVViewer;
 
 bool VvvGod::is_wm_dropfiles_ = false;

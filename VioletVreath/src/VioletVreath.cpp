@@ -137,7 +137,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                                 Sleep(2);
                                 _TRACE_("Wait! ê_ is being yet..");
                             }
-                            delete pGod; //ê_ÇÃç≈ä˙
+                            GGAF_DELETE(pGod); //ê_ÇÃç≈ä˙
                             pGod = nullptr;
                             VioletVreath::Properties::clean();
                         }

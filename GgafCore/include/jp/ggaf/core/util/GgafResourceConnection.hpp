@@ -3,8 +3,10 @@
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <cstring>
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
+
 
 namespace GgafCore {
 

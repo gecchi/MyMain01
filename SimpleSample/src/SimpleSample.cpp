@@ -57,7 +57,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                     if (SmpGod::_can_be) {
                         SmpGod::_can_be = false;
                         while (pGod->_is_being) { Sleep(2); }
-                        delete pGod;
+                        GGAF_DELETE(pGod);
                         GgafLib::GgafLibProperties::clean(); //プロパティ解放
                     }
                     timeEndPeriod(1);

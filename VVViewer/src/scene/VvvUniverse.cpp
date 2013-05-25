@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "VvvUniverse.h"
+#include "scene/VvvUniverse/VvvWorld.h"
+#include "actor/VvvCamera.h"
 
 using namespace VVViewer;
 

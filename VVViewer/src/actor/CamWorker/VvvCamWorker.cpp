@@ -6,7 +6,9 @@
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"
+#include "VvvGod.h"
 #include "actor/VvvCamera.h"
+#include "scene/VvvUniverse.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

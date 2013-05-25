@@ -15,10 +15,12 @@
 #include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
+#include "VvvGod.h"
 #include "actor/CamWorker/VvvCamWorker.h"
 #include "actor/VvvCursor.h"
 #include "actor/VvvGrid.h"
 #include "actor/VvvCamera.h"
+#include "scene/VvvUniverse.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

@@ -12,6 +12,7 @@
 #undef P_UNIVERSE
 #define P_UNIVERSE ((Mogera::MgrUniverse*)(P_GOD->_pUniverse))
 
+//ëOï˚êÈåæ
 namespace Mogera {
 class MgrGod;
 class MgrUniverse;
@@ -19,11 +20,5 @@ class MgrWorld;
 class MgrCamera;
 class MgrActor;
 }
-
-#include "MgrGod.h"
-#include "scene/MgrUniverse.h"
-#include "scene/MgrUniverse/MgrWorld.h"
-#include "actor/MgrCamera.h"
-#include "actor/MgrActor.h"
 
 #endif /*SIMPLEMOGERA_H_*/

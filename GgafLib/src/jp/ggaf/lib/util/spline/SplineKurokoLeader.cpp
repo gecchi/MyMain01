@@ -5,6 +5,7 @@
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
+#include "jp/ggaf/lib/util/spline/SplineSource.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

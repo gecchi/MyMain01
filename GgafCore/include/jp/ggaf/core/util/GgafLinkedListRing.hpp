@@ -2,6 +2,7 @@
 #define GGAFLINKEDLISTRING_H_
 #include "jp/ggaf/core/GgafObject.h"
 
+#include "GgafCommonHeader.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 
 namespace GgafCore {

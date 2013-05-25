@@ -7,38 +7,6 @@
  * @author Masatoshi Tsuge
  */
 
-
-//#include <windows.h>
-//#include <stdio.h>
-//#include <stdarg.h>
-//#include <stdlib.h>
-//#include <malloc.h>
-//#include <memory.h>
-//#include <tchar.h>
-//#include <mmsystem.h>
-//#include <process.h>
-//#include <conio.h>
-//#include <math.h>
-//#include <limits.h>
-//#include <sys/stat.h>
-//#include <iostream>
-//#include <iomanip>
-//#include <fstream>
-//#include <typeinfo>
-//#include <set>
-//#include <string>
-//#include <map>
-//#include <vector>
-//#include <list>
-//#include <stack>
-//#include <sstream>
-//#include <cstddef>
-//#include "Shlwapi.h"
-//#include <time.h>
-//#include <algorithm>
-
-
-
 //MY_DEBUGは自分用のデバッグビルド
 #ifdef _DEBUG
     //#undef _DEBUG
@@ -109,6 +77,7 @@
     /** nullptrかどうか不明なdelete */
     #define GGAF_DELETE_NULLABLE(POINTER) do { \
         if (POINTER) { \
+            POINTER = POINTER + 0; /* 不完全型簡易チェック */ \
             delete (POINTER); \
             (POINTER) = nullptr; \
         } else { \
@@ -118,6 +87,7 @@
     /** nullptrかどうか不明なdelete[] */
     #define GGAF_DELETEARR_NULLABLE(POINTER) do { \
         if (POINTER) { \
+            POINTER = POINTER + 0; /* 不完全型簡易チェック */ \
             delete[] (POINTER); \
             (POINTER) = nullptr; \
         } else { \
@@ -128,6 +98,7 @@
     /** nullptrはありえないdelete */
     #define GGAF_DELETE(POINTER) do { \
         if (POINTER) { \
+            POINTER = POINTER + 0; /* 不完全型簡易チェック */ \
             delete (POINTER); \
             (POINTER) = nullptr; \
         } else { \
@@ -141,6 +112,7 @@
     /** nullptrはありえないdelete[] */
     #define GGAF_DELETEARR(POINTER) do { \
         if (POINTER) { \
+            POINTER = POINTER + 0; /* 不完全型簡易チェック */ \
             delete[] (POINTER); \
             (POINTER) = nullptr; \
         } else { \
@@ -428,49 +400,5 @@ class GgafLinearOctreeElem;
 class GgafCurtain;
 class GgafQuery;
 }
-
-//#include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
-//#include "jp/ggaf/core/util/GgafUtil.h"
-//#include "jp/ggaf/core/util/GgafRepeatSeq.h"
-//#include "jp/ggaf/core/GgafObject.h"
-//#include "jp/ggaf/core/exception/GgafException.h"
-//#include "jp/ggaf/core/exception/GgafCriticalException.h"
-//#include "jp/ggaf/core/util/GgafStatus.h"
-//#include "jp/ggaf/core/util/GgafLogger.h"
-//#include "jp/ggaf/core/util/GgafRgb.h"
-//#include "jp/ggaf/core/GgafProperties.h"
-//#include "jp/ggaf/core/GgafGod.h"
-//
-//#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
-//#include "jp/ggaf/core/util/GgafResourceManager.hpp"
-//
-//#include "jp/ggaf/core/GgafFactory.h"
-//#include "jp/ggaf/core/GgafGarbageBox.h"
-//#include "jp/ggaf/core/GgafProgress.h"
-//#include "jp/ggaf/core/GgafNode.hpp"
-//#include "jp/ggaf/core/GgafElement.hpp"
-//#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
-//#include "jp/ggaf/core/scene/GgafScene.h"
-//#include "jp/ggaf/core/scene/GgafDisusedScene.h"
-//#include "jp/ggaf/core/scene/GgafMainScene.h"
-//#include "jp/ggaf/core/actor/GgafActor.h"
-//
-//#include "jp/ggaf/core/actor/GgafDisusedActor.h"
-//#include "jp/ggaf/core/actor/GgafMainActor.h"
-//#include "jp/ggaf/core/scene/GgafUniverse.h"
-//#include "jp/ggaf/core/actor/GgafSceneDirector.h"
-//#include "jp/ggaf/core/actor/GgafGroupHead.h"
-//#include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
-//#include "jp/ggaf/core/actor/ex/GgafFormation.h"
-//#include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
-//#include "jp/ggaf/core/actor/ex/GgafDepositoryFormation.h"
-//#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-//#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
-//#include "jp/ggaf/core/GgafOrder.h"
-//#include "jp/ggaf/core/util/GgafLinearOctree.h"
-//#include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
-//#include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
-//#include "jp/ggaf/core/util/GgafCurtain.h"
-//#include "jp/ggaf/core/util/GgafQuery.h"
 
 #endif /*GGAFCOMMONHEADER_H_*/

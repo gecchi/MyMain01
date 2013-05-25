@@ -14,10 +14,4 @@ class SmpCamera;
 class SmpActor;
 }
 
-//#include "SmpGod.h"
-//#include "scene/SmpUniverse.h"
-//#include "scene/SmpUniverse/SmpWorld.h"
-//#include "actor/SmpCamera.h"
-//#include "actor/SmpActor.h"
-
 #endif /*SIMPLESAMPLE_H_*/

@@ -27,10 +27,10 @@ protected:
         virtual ~Deleter(){
             if ( isAry ) {
                 T* pa = (T*)pObj;
-                delete[] pa;
+                GGAF_DELETEARR(pa);
             } else {
                 T* p = (T*)pObj;
-                delete p;
+                GGAF_DELETE(p);
             }
         }
     };

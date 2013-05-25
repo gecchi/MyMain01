@@ -1,6 +1,7 @@
 #ifndef VVVWORLD_H_
 #define VVVWORLD_H_
 #include "jp/ggaf/lib/scene/DefaultScene.h"
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 
 namespace VVViewer {
 
