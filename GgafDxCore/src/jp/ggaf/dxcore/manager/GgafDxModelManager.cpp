@@ -339,7 +339,8 @@ std::string GgafDxModelManager::getPointSpriteFileName(std::string prm_model_nam
                 return xfile_name;
             } else {
                 throwGgafCriticalException("GgafDxModelManager::getSpriteFileName ポイントスプライトファイル(*.psprx)が見つかりません。xfile_name="<<xfile_name);
-            }        }
+            }
+        }
     }
 }
 
