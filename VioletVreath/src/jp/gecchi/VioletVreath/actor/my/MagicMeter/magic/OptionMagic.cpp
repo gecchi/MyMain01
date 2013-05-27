@@ -47,7 +47,6 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
     UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
-    int n = 0;
     for (int i = 0; i < max_level_; i++) {
         papEffect_[i]->inactivateImmed();
     }

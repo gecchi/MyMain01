@@ -30,7 +30,8 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     demo_stage_ = 1;
 
     papLabel_Ranking_ = NEW LabelRankingFont*[GameGlobal::qryRanking_.getCount()];
-    for (int i = 0; i < GameGlobal::qryRanking_.getCount(); i++) {
+    int cnt = (int)(GameGlobal::qryRanking_.getCount());
+    for (int i = 0; i < cnt; i++) {
         papLabel_Ranking_[i] = NEW LabelRankingFont("RANK_INFO");
         getSceneDirector()->addSubGroup(papLabel_Ranking_[i]);
     }
@@ -40,7 +41,8 @@ void GameDemoScene::onReset() {
     _pProg->reset(GameDemoScene::PROG_INIT);
     pLabel01_->update("");
     pLabel02_->update("");
-    for (int i = 0; i < GameGlobal::qryRanking_.getCount(); i++) {
+    int cnt = (int)(GameGlobal::qryRanking_.getCount());
+    for (int i = 0; i < cnt; i++) {
         papLabel_Ranking_[i]->update("");
         papLabel_Ranking_[i]->inactivateImmed();
     }

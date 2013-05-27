@@ -717,7 +717,7 @@ void GgafDxModelManager::calcTangentAndBinormal(
         D3DXVECTOR3 VABC;
         D3DXVec3Cross(&VABC, &V1, &V2);
 
-        if (VABC.x == 0.0f) {
+        if (ZEROf_EQ(VABC.x)) {
             // ‚â‚Î‚¢‚·I
             // ƒ|ƒŠƒSƒ“‚©UVã‚Ìƒ|ƒŠƒSƒ“‚ªk‘Ş‚µ‚Ä‚Ü‚·I
             //_TRACE_("ƒŒx„ GgafDxModelManager::calcTangentAndBinormal ƒ|ƒŠƒSƒ“‚©UVã‚Ìƒ|ƒŠƒSƒ“‚ªk‘Ş‚µ‚Ä‚Ü‚·I");
@@ -3024,7 +3024,7 @@ float GgafDxModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm:
     LV = V.Abs();
     LW = W.Abs();
     cosV1 = DOT / LV / LW;
-    if (cosV1 == 0) {
+    if (ZEROf_EQ(cosV1)) {
         return (float)PI/2;
     } else {
         return cosV1;

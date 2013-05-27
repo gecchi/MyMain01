@@ -65,7 +65,7 @@ void EnemyHebe::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_MOVE01_1: {
-            if (_pProg->getFrameInProgress() > (PX_C(300) / ABS(_pKurokoA->_veloMv))) {
+            if ((int)(_pProg->getFrameInProgress()) > (int)(PX_C(300) / ABS(_pKurokoA->_veloMv))) {
                 _pProg->changeNext();
             }
             break;

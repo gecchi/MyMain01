@@ -80,6 +80,10 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
         throwGgafCriticalException("GgafDxBoardActor::changeGeoFinal() は使用不可です。");
     }
 
+    void rotateAs(GgafDxGeoElem* prm_pActor) override {
+        throwGgafCriticalException("GgafDxBoardActor::rotateAs() は使用不可です。");
+    }
+
     void rotateAs(GgafDxGeometricActor* prm_pActor) override {
         throwGgafCriticalException("GgafDxBoardActor::rotateAs() は使用不可です。");
     }

@@ -138,7 +138,7 @@ GgafRecord* GgafQuery::getRecord(int prm_index) {
 
 void GgafQuery::removeRow(int prm_index) {
 #ifdef MY_DEBUG
-    if (_lstTtable.size() < prm_index) {
+    if ((int)(_lstTtable.size()) < prm_index) {
         throwGgafCriticalException(
                 "GgafQuery#removeRow: 削除レコードINDEXは存在しません。本クエリsize="<<_lstTtable.size()<<"/引数の削除INDEX="<<prm_index);
     }
@@ -153,11 +153,11 @@ void GgafQuery::removeRows(int prm_start_index) {
 }
 void GgafQuery::removeRows(int prm_start_index, int prm_end_index) {
 #ifdef MY_DEBUG
-    if (_lstTtable.size() < prm_start_index) {
+    if ((int)(_lstTtable.size()) < prm_start_index) {
         throwGgafCriticalException(
                 "GgafQuery#removeRows: 削除レコードINDEXは存在しません。本クエリsize="<<_lstTtable.size()<<"/引数prm_start_index="<<prm_start_index);
     }
-    if (_lstTtable.size() < prm_end_index) {
+    if ((int)(_lstTtable.size()) < prm_end_index) {
         throwGgafCriticalException(
                 "GgafQuery#removeRows: 削除レコードINDEXは存在しません。本クエリsize="<<_lstTtable.size()<<"/引数prm_end_index="<<prm_end_index);
     }

@@ -55,8 +55,8 @@ public:
     LaserChip* _pLeader;
     /** [r]強制上書きアルファ値。（出現時は遠方であっても表示させるため) */
     float _force_alpha;
-    /** [r]rueならば、前方チップと離れすぎた場合に中間当たり判定自動生成 */
-    float _middle_colli_able;
+    /** [r]trueならば、前方チップと離れすぎた場合に中間当たり判定自動生成 */
+    bool _middle_colli_able;
 
 public:
     LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);

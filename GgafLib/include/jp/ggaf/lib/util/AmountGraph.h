@@ -32,7 +32,7 @@ public:
      * @return
      */
     AmountGraph() : GgafCore::GgafObject() {
-        _max_val_px = 100.0f;
+        _max_val_px = 100;
         _max_val = 100;
         _rate_val = 1.0;
         _pInt_val = NEW int;

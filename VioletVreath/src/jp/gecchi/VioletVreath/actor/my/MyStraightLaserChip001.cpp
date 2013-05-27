@@ -50,7 +50,7 @@ void MyStraightLaserChip001::onCreateModel() {
         throwGgafCriticalException("MyStraightLaserChip001::onCreateModel() MyStraightLaserChip001モデルは、マテリアが３つ必要です。");
     }
     pModel_ = _pModel;
-    for (int i = 0; i < _pModel->_num_materials; i ++) {
+    for (DWORD i = 0; i < _pModel->_num_materials; i ++) {
         strcpy(aaTextureName[i], _pModel->_papTextureConnection[i]->peek()->getName());
     }
 }

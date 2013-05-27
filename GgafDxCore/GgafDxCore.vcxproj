@@ -186,6 +186,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgmPerformer.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSeTransmitter.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxAgainstWay.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxGeoElem.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\framework\Frm_Mesh.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\framework\Frm_Tbuff.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.cpp" />

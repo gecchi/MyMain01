@@ -131,7 +131,6 @@ void GgafDepositoryFormation::sayonaraFollwer() {
         return;
     }
     while (_listFollower.length() > 0) {
-        GgafActor* pFollower =  _listFollower.getCurrent();
         if (_listFollower.getCurrent()->_pFormation == this) {
             _listFollower.getCurrent()->sayonara();
             _listFollower.getCurrent()->_pFormation = nullptr;

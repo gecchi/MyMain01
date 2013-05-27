@@ -1,7 +1,7 @@
-/* The standard CSS for doxygen 1.8.3 */
+/* The standard CSS for doxygen 1.8.4 */
 
 body, table, div, p, dl {
-	font: 400 14px/19px Roboto,sans-serif;
+	font: 400 14px/22px Roboto,sans-serif;
 }
 
 /* @group Heading Levels */
@@ -11,6 +11,7 @@ h1.groupheader {
 }
 
 .title {
+	font: 400 14px/28px Roboto,sans-serif;
 	font-size: 150%;
 	font-weight: bold;
 	margin: 10px 2px;
@@ -168,16 +169,16 @@ pre.fragment {
 }
 
 div.fragment {
-        padding: 4px;
-        margin: 4px;
+        padding: 0px;
+        margin: 0px;
 	background-color: #F9F9FA;
 	border: 1px solid #AE9FBD;
 }
 
 div.line {
 	font-family: monospace, fixed;
-        font-size: 12px;
-	min-height: 12px;
+        font-size: 13px;
+	min-height: 13px;
 	line-height: 1.2;
 	text-wrap: unrestricted;
 	white-space: -moz-pre-wrap; /* Moz */
@@ -321,7 +322,7 @@ img.footer {
 /* @group Code Colorization */
 
 span.keyword {
-	color: #9400D3
+	color: #008000
 }
 
 span.keywordtype {
@@ -329,23 +330,23 @@ span.keywordtype {
 }
 
 span.keywordflow {
-	color: #DC143C
+	color: #e08000
 }
 
 span.comment {
-	color: #008000
+	color: #800000
 }
 
 span.preprocessor {
-	color: #606000
+	color: #806020
 }
 
 span.stringliteral {
-	color: #8B4513
+	color: #002080
 }
 
 span.charliteral {
-	color: #8B4513
+	color: #008080
 }
 
 span.vhdldigit { 
@@ -688,6 +689,7 @@ div.directory {
 .directory td.entry {
         white-space: nowrap;
         padding-right: 6px;
+	padding-top: 3px;
 }
 
 .directory td.entry a {
@@ -788,7 +790,7 @@ table.fieldtable {
 }
 
 .fieldtable td.fieldname {
-        padding-top: 5px;
+        padding-top: 3px;
 }
 
 .fieldtable td.fielddoc {
@@ -797,7 +799,7 @@ table.fieldtable {
 }
 
 .fieldtable td.fielddoc p:first-child {
-        margin-top: 2px;
+        margin-top: 0px;
 }       
         
 .fieldtable td.fielddoc p:last-child {

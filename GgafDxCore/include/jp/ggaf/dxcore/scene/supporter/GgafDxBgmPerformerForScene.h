@@ -107,6 +107,23 @@ public:
     virtual void play(int prm_id, int prm_volume, bool prm_is_loop) override;
 
     /**
+     * BGMを、フェード効果無しで、普通にループ再生を開始する。
+     * @param prm_id       BGMチャンネル番号(0 ～ )
+     * @param prm_volume   ボリューム(0～100)
+     */
+    virtual void play(int prm_id, int prm_volume) override {
+        play(prm_id, prm_volume, true);
+    }
+
+    /**
+     * BGMを、フェード効果無しで、普通にボリューム100でループ再生を開始する。
+     * @param prm_id       BGMチャンネル番号(0 ～ )
+     */
+    virtual void play(int prm_id) override {
+        play(prm_id, GGAF_MAX_VOLUME);
+    }
+
+    /**
      * 全チャンネル番号の再生中のBGMにフェードアウト効果を実行し、フェードアウト後演奏を停止する。
      */
     virtual void fadeout_stop();

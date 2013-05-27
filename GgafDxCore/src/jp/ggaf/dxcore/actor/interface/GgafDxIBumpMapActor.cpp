@@ -25,7 +25,7 @@ IDirect3DBaseTexture9* GgafDxIBumpMapActor::getBumpMapTexture() {
     if (!_pBumpMapTextureConnection) {
         _pBumpMapTextureConnection = (GgafDxTextureConnection*)(GgafDxGod::_pBumpMapTextureManager->connect("alpha_zero_cubemap.dds",this));
     }
-    return _pBumpMapTextureConnection->peek()->_pIDirect3DBaseTexture9;;
+    return _pBumpMapTextureConnection->peek()->_pIDirect3DBaseTexture9;
 }
 
 GgafDxIBumpMapActor::~GgafDxIBumpMapActor() {

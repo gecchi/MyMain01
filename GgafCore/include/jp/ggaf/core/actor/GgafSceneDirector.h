@@ -66,7 +66,9 @@ public:
     }
 
     void throwEventUpperTree(hashval prm_no, void* prm_pSource) override;
-
+    void throwEventUpperTree(hashval prm_no) override {
+        throwEventUpperTree(prm_no, this);
+    }
     /**
      * “–‚½‚è”»’è•s—v‚Ì‚½‚ßí‚Éfalse‚ğ•Ô‚· .
      * @param prm_pOtherActor
