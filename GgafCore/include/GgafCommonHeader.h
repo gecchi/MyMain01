@@ -336,8 +336,6 @@ typedef uint32_t frame;
 #define Obj_GgafActorDepository   (0x40)             //0b 00000000 00000000 00000000 01000000
 #define Obj_GgafFormation         (0x80)             //0b 00000000 00000000 00000000 10000000
 
-#define P_GOD (GgafCore::GgafGod::_pGod)
-#define P_UNIVERSE (P_GOD->_pUniverse)
 
 //‘O•ûéŒ¾(forward declaration)
 namespace GgafCore {

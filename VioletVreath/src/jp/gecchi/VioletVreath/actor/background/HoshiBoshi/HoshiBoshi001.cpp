@@ -2,7 +2,6 @@
 #include "HoshiBoshi001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 
 using namespace GgafCore;

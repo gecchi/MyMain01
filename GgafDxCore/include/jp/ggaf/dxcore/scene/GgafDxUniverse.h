@@ -3,12 +3,16 @@
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
 
-#ifdef P_UNIVERSE
+#ifdef P_GOD
+    #undef P_UNIVERSE
+    #define P_UNIVERSE ((GgafDxCore::GgafDxUniverse*)(P_GOD->_pUniverse))
+    #undef P_CAM
     #define P_CAM (P_UNIVERSE->_pCamera)
 #else
-    #error P_UNIVERSE isnt define
+    #undef P_UNIVERSE
+    #undef P_CAM
 #endif
 
 namespace GgafDxCore {

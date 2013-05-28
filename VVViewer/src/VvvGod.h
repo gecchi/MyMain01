@@ -2,6 +2,10 @@
 #define VVVGOD_H_
 #include "jp/ggaf/lib/DefaultGod.h"
 
+
+#undef P_GOD
+#define P_GOD ((VVViewer::VvvGod*)VVViewer::VvvGod::_pGod)
+
 namespace VVViewer {
 
 /**

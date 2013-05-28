@@ -7,9 +7,10 @@
 namespace VioletVreath {
 
 #ifdef P_UNIVERSE
+    #undef  P_WORLD
     #define P_WORLD ((VioletVreath::World*)(P_UNIVERSE->pWorld_))
 #else
-    #error P_UNIVERSE isnt define
+    #undef P_WORLD
 #endif
 
 
@@ -28,7 +29,6 @@ public:
         PROG_CALM4 ,
         PROG_MAINLOOP ,
     };
-
 
     bool is_create_GameScene_;
     char aBufDebug_[80];

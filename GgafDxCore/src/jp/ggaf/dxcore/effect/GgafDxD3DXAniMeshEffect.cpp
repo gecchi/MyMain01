@@ -3,7 +3,6 @@
 
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
 using namespace GgafCore;

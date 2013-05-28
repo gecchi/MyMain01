@@ -4,6 +4,9 @@
 
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
+#undef P_GOD
+#define P_GOD ((GgafDxCore::GgafDxGod*)GgafDxCore::GgafDxGod::_pGod)
+
 namespace GgafDxCore {
 
 /**

@@ -1,14 +1,17 @@
 #ifndef VVVWORLD_H_
 #define VVVWORLD_H_
 #include "jp/ggaf/lib/scene/DefaultScene.h"
+
+#include "scene/VvvUniverse.h"
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 
 namespace VVViewer {
 
 #ifdef P_UNIVERSE
+    #undef P_WORLD
     #define P_WORLD ((VVViewer::VvvWorld*)(P_UNIVERSE->pWorld_))
 #else
-    #error P_UNIVERSE isnt define
+    #undef P_WORLD
 #endif
 
 /**

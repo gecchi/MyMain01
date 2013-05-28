@@ -46,8 +46,7 @@ int32_t GgafUtil::_rnd_int32_(int32_t prm_from, int32_t prm_to) {
     //↑[N3551 Random Number Generation in C++11] を読んで焦って修正、今まで剰余使ってたし！ 2013/03/22
 }
 
-void GgafUtil::readProperties(std::string filename, GgafStrMap* pMap)
-{
+void GgafUtil::readProperties(std::string filename, GgafStrMap* pMap) {
     std::ifstream file(filename.c_str());
     if (!file) {
         throwGgafCriticalException("GgafUtil::readProperties() ファイルが見つかりません。 filename="<<filename);
@@ -56,37 +55,33 @@ void GgafUtil::readProperties(std::string filename, GgafStrMap* pMap)
     file.close();
 }
 
-void GgafUtil::readProperties(std::istream &is, GgafStrMap* pMap)
-{
+void GgafUtil::readProperties(std::istream &is, GgafStrMap* pMap) {
     if (!is)
         throwGgafCriticalException("unable to read from stream");
 
-    int ch = 0, next = 0;
+    int ch = 0;
 
     ch = is.get();
 
-    while (!is.eof())
-    {
-        switch (ch)
-        {
-        case '#' :
-        case '!' :
-            do  {
+    while (!is.eof()) {
+        switch (ch) {
+            case '#':
+            case '!':
+                do {
+                    ch = is.get();
+                } while (!is.eof() && ch >= 0 && ch != '\n' && ch != '\r');
+                continue;
+            case '\n':
+            case '\r':
+            case ' ':
+            case '\t':
                 ch = is.get();
-            } while (!is.eof() && ch >= 0 && ch != '\n' && ch != '\r');
-            continue;
-        case '\n':
-        case '\r':
-        case ' ' :
-        case '\t': ch = is.get(); continue;
+                continue;
         }
 
-        // Read the key
         std::ostringstream key, val;
 
-        while (!is.eof() && ch >= 0 && ch != '=' && ch != ':' &&
-               ch != ' ' && ch != '\t' && ch != '\n' && ch != '\r')
-        {
+        while (!is.eof() && ch >= 0 && ch != '=' && ch != ':' && ch != ' ' && ch != '\t' && ch != '\n' && ch != '\r') {
             key << char(ch);
             ch = is.get();
         }
@@ -100,9 +95,7 @@ void GgafUtil::readProperties(std::istream &is, GgafStrMap* pMap)
         while (!is.eof() && (ch == ' ' || ch == '\t'))
             ch = is.get();
 
-        // Read the value
-        while (!is.eof() && ch >= 0 && ch != '\n' && ch != '\r')
-        {
+        while (!is.eof() && ch >= 0 && ch != '\n' && ch != '\r') {
             int next = 0;
             next = is.get();
             val << char(ch);
@@ -113,29 +106,25 @@ void GgafUtil::readProperties(std::istream &is, GgafStrMap* pMap)
     }
 }
 
-void GgafUtil::writeProperties(const char *filename, GgafStrMap* pMap, const char *header)
-{
+void GgafUtil::writeProperties(const char *filename, GgafStrMap* pMap, const char *header) {
     std::ofstream file(filename);
     writeProperties(file, pMap, header);
     file.close();
 }
 
-void GgafUtil::writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header)
-{
+void GgafUtil::writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header) {
     if (header != nullptr) {
         os << '#' << header << std::endl;
     }
     os << '#' << "update " << getSystemDateTimeStr() << std::endl;
 
     for (GgafStrMap::iterator it = pMap->begin(), end = pMap->end(); it != end; ++it) {
-        const std::string &key = (*it).first,
-                          &val = (*it).second;
+        const std::string &key = (*it).first, &val = (*it).second;
         os << key << '=' << val << std::endl;
     }
 }
 
-void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap)
-{
+void GgafUtil::printProperties(std::ostream &os, GgafStrMap* pMap) {
     GgafStrMap::iterator it = pMap->begin(), end = pMap->end();
     for (; it != end; ++it)
         os << (*it).first << "=" << (*it).second << std::endl;

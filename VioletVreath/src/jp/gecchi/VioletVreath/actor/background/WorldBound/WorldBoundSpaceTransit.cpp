@@ -2,7 +2,6 @@
 #include "WorldBoundSpaceTransit.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 
 using namespace GgafCore;

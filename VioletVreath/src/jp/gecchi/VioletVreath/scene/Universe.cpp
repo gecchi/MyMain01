@@ -4,14 +4,10 @@
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
-#include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/actor/Camera.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerManager.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
-#include "jp/gecchi/VioletVreath/God.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

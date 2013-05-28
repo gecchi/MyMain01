@@ -2,6 +2,15 @@
 #define GGAFUNIVERSE_H_
 #include "jp/ggaf/core/scene/GgafMainScene.h"
 
+#include "jp/ggaf/core/GgafGod.h"
+
+#ifdef P_GOD
+    #undef P_UNIVERSE
+    #define P_UNIVERSE (P_GOD->_pUniverse)
+#else
+    #undef P_UNIVERSE
+#endif
+
 namespace GgafCore {
 
 /**

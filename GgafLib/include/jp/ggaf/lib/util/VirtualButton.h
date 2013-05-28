@@ -1,12 +1,11 @@
-#ifndef VBRTUALBUTTON_H_
-#define VBRTUALBUTTON_H_
+#ifndef VIRTUALBUTTON_H_
+#define VIRTUALBUTTON_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>
 #include <map>
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 
-typedef std::map<std::string, int> keymap;
 typedef unsigned long int vbsta;
 
 namespace GgafLib {
@@ -61,6 +60,25 @@ namespace GgafLib {
 class VirtualButton : public GgafCore::GgafObject {
 
 public:
+    /**
+     * 仮想ボタンリスト .
+     */
+    class VBRecord {
+    public :
+        VBRecord* _next; //時系列で次のフレームの入力状態
+        VBRecord* _prev; //時系列で前のフレームの入力状態
+        vbsta _state;
+    public:
+        VBRecord() {
+            _next = nullptr;
+            _prev = nullptr;
+            _state = (vbsta)0;
+        }
+        ~VBRecord() {
+        }
+    };
+
+
     struct KEYBOARDMAP {
         int BUTTON1;
         int BUTTON2;
@@ -98,27 +116,20 @@ public:
         int UI_CANCEL;
     };
 
-    static KEYBOARDMAP _tagKeymap;
-    static JOYSTICKMAP _tagJoymap;
+public:
+    /** キーボード割り当て値 */
+    static KEYBOARDMAP _keyboardmap;
+    /** ジョイスティック割り当て値 */
+    static JOYSTICKMAP _joystickmap;
 
-    /**
-     * 仮想ボタンコンテナ .
-     */
-    class VBRecord {
-    public :
-        VBRecord* _next; //時系列で次のフレームの入力状態
-        VBRecord* _prev; //時系列で前のフレームの入力状態
+    static std::map<std::string, int> _mapStr2Dik;
+    static std::map<std::string, int> _mapStr2JoyBtn;
+    static std::map<int, std::string> _mapDik2Str;
+    static std::map<int, std::string> _mapJoyBtn2Str;
 
-        vbsta _state;
-    public:
-        VBRecord() {
-            _next = nullptr;
-            _prev = nullptr;
-            _state = (vbsta)0;
-        }
-        ~VBRecord() {
-        }
-    };
+    static bool _is_init;
+
+
     /** オートリピート判定用カウンター */
     std::map<vbsta, frame> _auto_repeat_counter;
     /** オートリピート中ならば true */
@@ -126,17 +137,12 @@ public:
 
     VBReplayRecorder* _pRpy;
 
-    static keymap _mapStr2Dik;
-    static keymap _mapStr2JoyBtn;
-    static std::map<int, std::string> _mapDik2Str;
-    static std::map<int, std::string> _mapJoyBtn2Str;
-
-    static bool _is_init;
-
     /** [r]リプレイモード時:true／ユーザー入力（リプレイモード記入）モード:false */
     bool _is_replaying;
     /** [r]初期状態:false／リプレイモード終了:true */
     bool _was_replay_done;
+    /** 現在フレームの入力状態 */
+    VirtualButton::VBRecord* _pVBRecord_Active;
 
 public:
     /**
@@ -146,15 +152,12 @@ public:
      * @param prm_replay_file リプレイファイル
      */
     VirtualButton(const char* prm_replay_file = "VirtualButton.rep");
-
-    VBRecord* _pVBRecord_Active; //現在フレームの入力状態
-
-    VBRecord* getPastVBRecord(frame prm_frame_ago);
+    /**     * 過去の入力状態を取得 .     * @param prm_frame_ago 現在より何フレーム過去かを指定     * @return 過去の入力状態     */    VirtualButton::VBRecord* getPastVBRecord(frame prm_frame_ago);
 
     /**
      * 現在ボタンが押されているか判定 .
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
-     * @return true/false
+     * @return true / false
      */
     inline vbsta isBeingPressed(vbsta prm_VB) {
         return (_pVBRecord_Active->_state & prm_VB);
@@ -164,7 +167,7 @@ public:
      * 現在ボタンが押されていないか判定 .
      * isBeingPressed(vbsta) の否定の結果が返る。
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
-     * @return true/false
+     * @return true / false
      */
     vbsta isNotBeingPressed(vbsta prm_VB);
 
@@ -172,9 +175,9 @@ public:
      * 過去にボタンが押されていたかどうか判定 .
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
-     *                      1 で 1フレーム前、2 で 2フレーム前、0 は isBeingPressed(vbsta) と同じ意味になる。
-     *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
-     * @return true/false
+     * 1 で 1フレーム前、2 で 2フレーム前、0 は isBeingPressed(vbsta) と同じ意味になる。
+     * 最大 (VB_MAP_BUFFER-1) フレーム前まで可
+     * @return true / false
      */
     vbsta wasBeingPressed(vbsta prm_VB, frame prm_frame_ago);
 
@@ -185,7 +188,7 @@ public:
      * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
      *                      1 で 1フレーム前、2 で 2フレーム前、0 は isBeingPressed(vbsta) と同じ意味になる。
      *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
-     * @return true/false
+     * @return true / false
      */
     vbsta wasNotBeingPressed(vbsta prm_VB, frame prm_frame_ago);
 
@@ -193,7 +196,7 @@ public:
      * 現在ボタンが押された瞬間なのかどうか判定 .
      * 現在は押されている、かつ、１フレーム前は押されていない場合に true
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
-     * @return true/false
+     * @return true / false
      */
     inline vbsta isPushedDown(vbsta prm_VB) {
         return (!(_pVBRecord_Active->_prev->_state & prm_VB) && (_pVBRecord_Active->_state & prm_VB)) ? true : false;
@@ -206,7 +209,7 @@ public:
      * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
      *                      1 で 1フレーム前、2 で 2フレーム前、0 は isPushedDown(vbsta) と同じ意味になる。
      *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
-     * @return true/false
+     * @return true / false
      */
     vbsta wasPushedDown(vbsta prm_VB, frame prm_frame_ago);
 
@@ -214,7 +217,7 @@ public:
      * 現在ボタンを離した瞬間なのかどうか判定 .
      * 現在は押されていない、かつ、１フレーム前は押されていた場合に true
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
-     * @return true/false
+     * @return true / false
      */
     vbsta isReleasedUp(vbsta prm_VB);
 
@@ -224,7 +227,7 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
      *                      1 で 1フレーム前、2 で 2フレーム前、0 は isReleasedUp(vbsta) と同じ意味になる。
-     * @return true/false
+     * @return true / false
      */
     vbsta wasReleasedUp(vbsta prm_VB, frame prm_frame_ago);
 
@@ -236,7 +239,7 @@ public:
      * ※たとえば独歩のGボタン判定なら prm_frame_push=2 を指定。ﾅﾝﾉｺｯﾁｬ;
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_frame_push 許容するボタンを押していた期間フレーム(default=5)
-     * @return true/false
+     * @return true / false
      */
     vbsta isPushedUp(vbsta prm_VB, frame prm_frame_push = 5);
 
@@ -249,7 +252,7 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_frame_push 許容する(b)～(c) の期間
      * @param prm_frame_delay 許容する(c)～(d) の期間
-     * @return true/false
+     * @return true / false
      */
     vbsta isDoublePushedDown(vbsta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5);
 
@@ -273,7 +276,7 @@ public:
      * </pre>
      * @param prm_aVB (3フレ猶予)同時押し判定対象仮想ボタン配列
      * @param prm_num_button 配列の要素数
-     * @return true/false
+     * @return true / false
      */
     vbsta arePushedDownAtOnce(vbsta prm_aVB[], int prm_num_button);
 
@@ -281,7 +284,7 @@ public:
      * ３フレ猶予の２つボタン同時押し判定 .
      * @param prm_VB1 判定対象仮想ボタン１
      * @param prm_VB2 判定対象仮想ボタン２
-     * @return true/false
+     * @return true / false
      */
     vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2) {
         vbsta vb[2];
@@ -295,7 +298,7 @@ public:
      * @param prm_VB1 判定対象仮想ボタン１
      * @param prm_VB2 判定対象仮想ボタン２
      * @param prm_VB3 判定対象仮想ボタン３
-     * @return true/false
+     * @return true / false
      */
     vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2, vbsta prm_VB3) {
         vbsta vb[3];
@@ -311,7 +314,7 @@ public:
      * @param prm_VB2 判定対象仮想ボタン２
      * @param prm_VB3 判定対象仮想ボタン３
      * @param prm_VB4 判定対象仮想ボタン４
-     * @return true/false
+     * @return true / false
      */
     vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2, vbsta prm_VB3, vbsta prm_VB4) {
         vbsta vb[4];
@@ -327,7 +330,7 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_begin_repeat オートリピート開始フレーム数
      * @param prm_while_repeat オートリピート開始後、リピート間隔フレーム数
-     * @return true/false
+     * @return true / false
      */
     vbsta isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat = 20, frame prm_while_repeat = 5);
 
@@ -339,7 +342,7 @@ public:
      * の場合に true としています。
      * @param prm_VB 「グルッとポン」の「ポン」のボタン
      * @param prm_frame_delay 「グルッとポン」が成立する全体の許容フレーム
-     * @return true/false
+     * @return true / false
      */
     bool isScrewPushDown(vbsta prm_VB, frame prm_frame_delay=30);
 
@@ -373,27 +376,7 @@ public:
      */
     vbsta getPushedDownStick();
 
-
     vbsta isDoublePushedDownStick(frame prm_frame_push = 5, frame prm_frame_delay = 5);
-
-
-//    /**
-//     * 今、prm_VB1と同時にPushedDownされたスティックの番号を返す。
-//     * @return 次の何れか
-//     * VB_UP_STC
-//     * VB_UP_RIGHT_STC
-//     * VB_RIGHT_STC
-//     * VB_DOWN_RIGHT_STC
-//     * VB_DOWN_STC
-//     * VB_DOWN_LEFT_STC
-//     * VB_LEFT_STC
-//     * VB_UP_LEFT_STC
-//     * VB_NEUTRAL_STC
-//     */
-//    static vbsta getPushedDownStickWith(int prm_VB);
-
-
-    //vbsta isClicked(vbsta prm_VB);
 
     vbsta getState();
 
@@ -412,4 +395,4 @@ public:
 };
 
 }
-#endif /*VBRTUALBUTTON_H_*/
+#endif /*VIRTUALBUTTON_H_*/

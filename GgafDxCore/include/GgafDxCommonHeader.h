@@ -316,10 +316,7 @@ enum GgafDxValign {
 #define Obj_GgafDxBoardSetActor         (0x4000000)      //0b 00000100 00000000 00000000 00000000
 #define Obj_GgafDxPointSpriteActor      (0x8000000)      //0b 00001000 00000000 00000000 00000000
 
-#undef P_GOD
-#define P_GOD ((GgafDxCore::GgafDxGod*)GgafDxCore::GgafDxGod::_pGod)
-#undef P_UNIVERSE
-#define P_UNIVERSE ((GgafDxCore::GgafDxUniverse*)(P_GOD->_pUniverse))
+
 
 
 

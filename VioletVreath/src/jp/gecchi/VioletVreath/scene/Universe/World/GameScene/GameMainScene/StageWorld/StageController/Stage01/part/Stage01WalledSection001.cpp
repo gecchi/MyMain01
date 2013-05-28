@@ -6,7 +6,6 @@
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 #include "../Stage01PartController.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
-#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

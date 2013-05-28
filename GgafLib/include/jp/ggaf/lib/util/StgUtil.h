@@ -790,21 +790,16 @@ public:
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _X, _Y, _Z 座標 <BR>
      * ・ショットの GgafDxKurokoA の移動方向、移動速度、加速度<BR>
-     * @param prm_X                発射元X座標
-     * @param prm_Y                発射元Y座標
-     * @param prm_Z                発射元Z座標
-     * @param prm_RX               N Wayの回転角
-     * @param prm_RZ               発射方向Rz
-     * @param prm_RY               発射方向Ry
-     * @param prm_pDepo_Shot       発射するショットのデポジトリ
-     * @param prm_r                発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
-     * @param prm_way_N            N-Way数（Rz変化）
-     * @param prm_angClearance_N   N-Wayの間隔角度
-     * @param prm_velo_first       N-Way弾初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
-     * @param prm_acce             N-Way弾各セットのショット初期加速度
-     * @param prm_set_num          発射する N-Way弾セットの合計セット数
-     * @param prm_interval_frames  弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
-     * @param prm_attenuated       初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
+     * @param prm_pFrom                  発射元
+     * @param prm_pDepo_Shot             発射するショットのデポジトリ
+     * @param prm_r                      発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
+     * @param prm_way_N                  N-Way数（Rz変化）
+     * @param prm_angClearance_N         N-Wayの間隔角度
+     * @param prm_velo_first             N-Way弾初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
+     * @param prm_acce                   N-Way弾各セットのショット初期加速度
+     * @param prm_set_num                発射する N-Way弾セットの合計セット数
+     * @param prm_interval_frames        弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
+     * @param prm_attenuated             初弾セット以降の各セット毎のショット初期速度の減衰率(< 1.0)、或いは増幅率(>1.0)
      * @param pFunc_CallBackDispatched
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */

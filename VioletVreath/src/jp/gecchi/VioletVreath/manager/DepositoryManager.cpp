@@ -5,10 +5,6 @@
 #include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
-#include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World.h"
-#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
 

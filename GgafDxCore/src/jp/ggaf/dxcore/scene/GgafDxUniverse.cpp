@@ -1,21 +1,21 @@
 #include "stdafx.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/util/GgafRepeatSeq.h"
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelConnection.h"
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelConnection.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
-#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

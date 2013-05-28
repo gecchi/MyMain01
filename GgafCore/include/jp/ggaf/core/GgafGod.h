@@ -4,10 +4,10 @@
 
 #include <windows.h>
 
+#undef P_GOD
+#define P_GOD (GgafCore::GgafGod::_pGod)
+
 namespace GgafCore {
-
-
-//#define XXXX(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
 
 #define  ___BeginSynchronized1   ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
 #define  ___EndSynchronized1     ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
@@ -29,7 +29,6 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafGod : public GgafObject {
-
 
 private:
     /** behave‚ðs‚Á‚½‚©ƒtƒ‰ƒO */

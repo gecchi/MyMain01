@@ -6,9 +6,7 @@
 #include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"
 #include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World.h"
-#include "jp/gecchi/VioletVreath/actor/Camera.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -60,44 +58,43 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
 
     //ランキング情報読み込み
     GameGlobal::qryRanking_.init();
-
     initVB();
 }
 
 void God::initVB() {
     //仮想ボタンを本ゲーム用に上書きして再定義
-    VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_SHOT1      ];
-    VirtualButton::_tagKeymap.BUTTON2    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_SHOT2      ];
-    VirtualButton::_tagKeymap.BUTTON3    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_OPTION     ];
-    VirtualButton::_tagKeymap.BUTTON4    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_VIEW       ];
-    VirtualButton::_tagKeymap.BUTTON5    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_TURBO      ];
-    VirtualButton::_tagKeymap.BUTTON6    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_POWERUP    ];
-    VirtualButton::_tagKeymap.BUTTON7    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_BUTTON7    ];
-    VirtualButton::_tagKeymap.BUTTON8    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_BUTTON8    ];
-    VirtualButton::_tagKeymap.PAUSE      = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_PAUSE      ];
-    VirtualButton::_tagKeymap.UP         = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UP         ];
-    VirtualButton::_tagKeymap.DOWN       = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_DOWN       ];
-    VirtualButton::_tagKeymap.LEFT       = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_LEFT       ];
-    VirtualButton::_tagKeymap.RIGHT      = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_RIGHT      ];
-    VirtualButton::_tagKeymap.UI_UP      = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_UP      ];
-    VirtualButton::_tagKeymap.UI_DOWN    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_DOWN    ];
-    VirtualButton::_tagKeymap.UI_LEFT    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_LEFT    ];
-    VirtualButton::_tagKeymap.UI_RIGHT   = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_RIGHT   ];
-    VirtualButton::_tagKeymap.UI_EXECUTE = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_EXECUTE ];
-    VirtualButton::_tagKeymap.UI_CANCEL  = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_CANCEL  ];
-    VirtualButton::_tagKeymap.UI_DEBUG   = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_DEBUG   ];
+    VirtualButton::_keyboardmap.BUTTON1    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_SHOT1      ];
+    VirtualButton::_keyboardmap.BUTTON2    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_SHOT2      ];
+    VirtualButton::_keyboardmap.BUTTON3    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_OPTION     ];
+    VirtualButton::_keyboardmap.BUTTON4    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_VIEW       ];
+    VirtualButton::_keyboardmap.BUTTON5    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_TURBO      ];
+    VirtualButton::_keyboardmap.BUTTON6    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_POWERUP    ];
+    VirtualButton::_keyboardmap.BUTTON7    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_BUTTON7    ];
+    VirtualButton::_keyboardmap.BUTTON8    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_BUTTON8    ];
+    VirtualButton::_keyboardmap.PAUSE      = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_PAUSE      ];
+    VirtualButton::_keyboardmap.UP         = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UP         ];
+    VirtualButton::_keyboardmap.DOWN       = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_DOWN       ];
+    VirtualButton::_keyboardmap.LEFT       = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_LEFT       ];
+    VirtualButton::_keyboardmap.RIGHT      = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_RIGHT      ];
+    VirtualButton::_keyboardmap.UI_UP      = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_UP      ];
+    VirtualButton::_keyboardmap.UI_DOWN    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_DOWN    ];
+    VirtualButton::_keyboardmap.UI_LEFT    = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_LEFT    ];
+    VirtualButton::_keyboardmap.UI_RIGHT   = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_RIGHT   ];
+    VirtualButton::_keyboardmap.UI_EXECUTE = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_EXECUTE ];
+    VirtualButton::_keyboardmap.UI_CANCEL  = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_CANCEL  ];
+    VirtualButton::_keyboardmap.UI_DEBUG   = VirtualButton::_mapStr2Dik[ PROPERTY::MY_KEY_UI_DEBUG   ];
 
-    VirtualButton::_tagJoymap.BUTTON1    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_SHOT1      ];
-    VirtualButton::_tagJoymap.BUTTON2    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_SHOT2      ];
-    VirtualButton::_tagJoymap.BUTTON3    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_OPTION     ];
-    VirtualButton::_tagJoymap.BUTTON4    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_VIEW       ];
-    VirtualButton::_tagJoymap.BUTTON5    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_TURBO      ];
-    VirtualButton::_tagJoymap.BUTTON6    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_POWERUP    ];
-    VirtualButton::_tagJoymap.BUTTON7    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_BUTTON7    ];
-    VirtualButton::_tagJoymap.BUTTON8    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_BUTTON8    ];
-    VirtualButton::_tagJoymap.PAUSE      = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_PAUSE      ];
-    VirtualButton::_tagJoymap.UI_EXECUTE = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_EXECUTE ];
-    VirtualButton::_tagJoymap.UI_CANCEL  = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_CANCEL  ];
+    VirtualButton::_joystickmap.BUTTON1    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_SHOT1      ];
+    VirtualButton::_joystickmap.BUTTON2    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_SHOT2      ];
+    VirtualButton::_joystickmap.BUTTON3    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_OPTION     ];
+    VirtualButton::_joystickmap.BUTTON4    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_VIEW       ];
+    VirtualButton::_joystickmap.BUTTON5    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_TURBO      ];
+    VirtualButton::_joystickmap.BUTTON6    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_POWERUP    ];
+    VirtualButton::_joystickmap.BUTTON7    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_BUTTON7    ];
+    VirtualButton::_joystickmap.BUTTON8    = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_BUTTON8    ];
+    VirtualButton::_joystickmap.PAUSE      = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_PAUSE      ];
+    VirtualButton::_joystickmap.UI_EXECUTE = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_EXECUTE ];
+    VirtualButton::_joystickmap.UI_CANCEL  = VirtualButton::_mapStr2JoyBtn[ PROPERTY::MY_JOY_UI_CANCEL  ];
 }
 
 GgafUniverse* God::createUniverse() {

@@ -2,13 +2,17 @@
 #define VVVUNIVERSE_H_
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
-#ifdef P_UNIVERSE
-    #ifdef P_CAM
-        #undef P_CAM
-    #endif
+#include "VvvGod.h"
+#include "actor/VvvCamera.h"
+
+#ifdef P_GOD
+    #undef P_UNIVERSE
+    #define P_UNIVERSE ((VVViewer::VvvUniverse*)(P_GOD->_pUniverse))
+    #undef P_CAM
     #define P_CAM ((VVViewer::VvvCamera*)(P_UNIVERSE->_pCamera))
 #else
-    #error P_UNIVERSE isnt define
+    #undef P_UNIVERSE
+    #undef P_CAM
 #endif
 
 namespace VVViewer {

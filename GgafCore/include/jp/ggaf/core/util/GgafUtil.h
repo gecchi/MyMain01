@@ -70,12 +70,13 @@ public:
      * data[3] = ddd
      * data[4] = eeee
      * </pre>
-     * @param str
-     * @return
+     * @param str •¶Žš—ñ
+     * @param delim •ªŠ„•¶Žš
+     * @return •ªŠ„‚³‚ê‚½vector
      */
     static inline std::vector<std::string> split(std::string str, std::string delim) {
         std::vector<std::string> r;
-        int cutAt;
+        size_t cutAt;
         while ((cutAt = str.find_first_of(delim)) != str.npos) {
             if (cutAt > 0) {
                 r.push_back(str.substr(0, cutAt));

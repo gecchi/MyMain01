@@ -2,11 +2,10 @@
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 #include "jp/ggaf/core/util/GgafStatus.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
-#include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
 using namespace GgafCore;

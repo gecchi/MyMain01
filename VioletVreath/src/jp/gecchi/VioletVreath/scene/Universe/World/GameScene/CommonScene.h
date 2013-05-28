@@ -7,7 +7,7 @@
 #ifdef P_GAME_SCENE
     #define P_COMMON_SCENE (P_GAME_SCENE->pCommonScene_)
 #else
-    #error P_GAME_SCENE isnt define
+    #undef P_COMMON_SCENE
 #endif
 
 /**

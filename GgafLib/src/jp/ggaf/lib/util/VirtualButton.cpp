@@ -8,8 +8,8 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-keymap VirtualButton::_mapStr2Dik;
-keymap VirtualButton::_mapStr2JoyBtn;
+std::map<std::string, int> VirtualButton::_mapStr2Dik;
+std::map<std::string, int> VirtualButton::_mapStr2JoyBtn;
 std::map<int, std::string> VirtualButton::_mapDik2Str;
 std::map<int, std::string> VirtualButton::_mapJoyBtn2Str;
 
@@ -17,7 +17,7 @@ std::map<int, std::string> VirtualButton::_mapJoyBtn2Str;
 bool VirtualButton::_is_init = false;
 
 //組み込み標準キーボード割り当て
-VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
+VirtualButton::KEYBOARDMAP VirtualButton::_keyboardmap = {
                               DIK_Z,      // BUTTON1
                               DIK_X,      // BUTTON2
                               DIK_C,      // BUTTON3
@@ -40,7 +40,7 @@ VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_Q       // UI_DEBUG
                            };
 
-VirtualButton::JOYSTICKMAP VirtualButton::_tagJoymap = {
+VirtualButton::JOYSTICKMAP VirtualButton::_joystickmap = {
                               0, // BUTTON1
                               1, // BUTTON2
                               2, // BUTTON3
@@ -57,14 +57,14 @@ VirtualButton::JOYSTICKMAP VirtualButton::_tagJoymap = {
 VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
     //環状双方向連結リスト構築
     _pVBRecord_Active = NEW VBRecord();
-    VBRecord* pVBRecord_Temp = _pVBRecord_Active;
+    VirtualButton::VBRecord* pVBRecord_Temp = _pVBRecord_Active;
     for (int i = 1; i < VB_MAP_BUFFER - 1; i++) {
-        VBRecord* pVBRecordWork = NEW VBRecord();
+        VirtualButton::VBRecord* pVBRecordWork = NEW VirtualButton::VBRecord();
         pVBRecordWork->_next = pVBRecord_Temp;
         pVBRecord_Temp->_prev = pVBRecordWork;
         pVBRecord_Temp = pVBRecordWork;
     }
-    VBRecord* pVBRecordOldest = NEW VBRecord();
+    VirtualButton::VBRecord* pVBRecordOldest = NEW VirtualButton::VBRecord();
     pVBRecord_Temp->_prev = pVBRecordOldest;
     pVBRecordOldest->_next = pVBRecord_Temp;
     pVBRecordOldest->_prev = _pVBRecord_Active;
@@ -74,12 +74,12 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
     _pRpy = NEW VBReplayRecorder();
     if (_pRpy->importFile(prm_replay_file) ) {
         //読み込めた場合リプレイモード
-        _TRACE_("VirtualButton::VirtualButton("<<prm_replay_file<<") リプレイモードです。");
+        _TRACE_("VirtualButton("<<prm_replay_file<<") リプレイモードです。");
         _is_replaying = true;
     } else {
         //読み込めない場合は通常記録モード
         _is_replaying = false;
-        _TRACE_("VirtualButton::VirtualButton("<<prm_replay_file<<") 通常記録モード。");
+        _TRACE_("VirtualButton("<<prm_replay_file<<") 通常記録モード。");
     }
     if (!_is_init) {
         init();
@@ -440,7 +440,7 @@ void VirtualButton::init() {
 }
 
 VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
-    VBRecord* pVBRecord_Temp = _pVBRecord_Active;
+    VirtualButton::VBRecord* pVBRecord_Temp = _pVBRecord_Active;
     for (frame i = 0; i < prm_frame_ago; i++) {
         pVBRecord_Temp = pVBRecord_Temp->_prev;
     }
@@ -476,7 +476,7 @@ vbsta VirtualButton::isAutoRepeat(vbsta prm_VB, frame prm_begin_repeat, frame pr
 
 
 vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
-    VBRecord* pVBRecord_Temp = getPastVBRecord(prm_frame_ago);
+    VirtualButton::VBRecord* pVBRecord_Temp = getPastVBRecord(prm_frame_ago);
     return (pVBRecord_Temp->_state & prm_VB);
 }
 
@@ -742,7 +742,7 @@ vbsta VirtualButton::isDoublePushedDownStick(frame prm_frame_push, frame prm_fra
 
 bool VirtualButton::isScrewPushDown(vbsta prm_VB, frame prm_frame_delay) {
     if (isPushedDown(prm_VB)) {
-        VBRecord* pVBRecord;
+        VirtualButton::VBRecord* pVBRecord;
         pVBRecord = _pVBRecord_Active;
         bool up    = false;
         bool down  = false;
@@ -860,8 +860,8 @@ void VirtualButton::update() {
         _pVBRecord_Active = _pVBRecord_Active->_next;
 
         vbsta state = 0;
-        KEYBOARDMAP& kmap = _tagKeymap;
-        JOYSTICKMAP& jmap = _tagJoymap;
+        KEYBOARDMAP& kmap = _keyboardmap;
+        JOYSTICKMAP& jmap = _joystickmap;
         state |= (VB_BUTTON1 * (GgafDxInput::isBeingPressedKey(kmap.BUTTON1) ||
                                 GgafDxInput::isBeingPressedJoyRgbButton(jmap.BUTTON1)));
 
@@ -952,7 +952,7 @@ void VirtualButton::update() {
 
 
 void VirtualButton::clear() {
-    VBRecord* pVBRecord = _pVBRecord_Active;
+    VirtualButton::VBRecord* pVBRecord = _pVBRecord_Active;
     for (int i = 0; i < VB_MAP_BUFFER; i++) {
         pVBRecord->_state = 0;
         pVBRecord = pVBRecord->_next;
@@ -961,9 +961,9 @@ void VirtualButton::clear() {
 
 VirtualButton::~VirtualButton() {
     GGAF_DELETE(_pRpy);
-    VBRecord* pLast = _pVBRecord_Active->_next;
-    VBRecord* pWk;
-    for (VBRecord* p = _pVBRecord_Active->_prev; p != _pVBRecord_Active; p = p->_prev) {
+    VirtualButton::VBRecord* pLast = _pVBRecord_Active->_next;
+    VirtualButton::VBRecord* pWk;
+    for (VirtualButton::VBRecord* p = _pVBRecord_Active->_prev; p != _pVBRecord_Active; p = p->_prev) {
         pWk = p->_next;
         GGAF_DELETE(pWk);
     }

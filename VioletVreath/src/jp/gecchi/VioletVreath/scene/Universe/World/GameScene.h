@@ -9,7 +9,7 @@ namespace VioletVreath {
 #ifdef P_WORLD
     #define P_GAME_SCENE (P_WORLD->pGameScene_)
 #else
-    #error P_WORLD isnt define
+    #undef P_GAME_SCENE
 #endif
 
 /**

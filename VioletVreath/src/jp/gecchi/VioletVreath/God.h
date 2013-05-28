@@ -9,6 +9,9 @@
 #include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
 #include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
 
+#undef P_GOD
+#define P_GOD ((VioletVreath::God*)VioletVreath::God::_pGod)
+
 namespace VioletVreath {
 
 /** ƒQ[ƒ€‚ÌVirtualButton */

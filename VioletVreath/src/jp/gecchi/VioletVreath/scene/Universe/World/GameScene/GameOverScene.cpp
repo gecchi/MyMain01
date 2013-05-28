@@ -4,7 +4,6 @@
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
-#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameOverScene/NameEntryScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

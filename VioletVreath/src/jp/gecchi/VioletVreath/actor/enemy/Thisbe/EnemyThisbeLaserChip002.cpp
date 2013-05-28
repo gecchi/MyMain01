@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "EnemyThisbeLaserChip002.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/ggaf/lib/scene/WalledScene.h"
-#include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

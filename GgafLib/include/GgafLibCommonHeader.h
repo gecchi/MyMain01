@@ -18,11 +18,6 @@
 #define Obj_WallPartsActor               (0x20000000)     //0b 00100000 00000000 00000000 00000000
 #define Obj_IFormationAble               (0x40000000)     //0b 01000000 00000000 00000000 00000000
 
-#undef P_GOD
-#define P_GOD ((GgafLib::DefaultGod*)GgafCore::GgafGod::_pGod)
-#undef P_UNIVERSE
-#define P_UNIVERSE ((GgafLib::DefaultUniverse*)(P_GOD->_pUniverse))
-
 //‘O•ûéŒ¾(forward declaration)
 namespace GgafLib {
 

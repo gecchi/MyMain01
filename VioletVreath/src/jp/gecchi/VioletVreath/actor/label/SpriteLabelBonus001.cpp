@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "SpriteLabelBonus001.h"
 
-#include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/gecchi/VioletVreath/scene/Universe.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

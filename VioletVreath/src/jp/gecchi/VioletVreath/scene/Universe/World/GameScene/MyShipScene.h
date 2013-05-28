@@ -2,8 +2,8 @@
 #define MYSHIPSCENE_H_
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/actor/camera_worker/VamSysCamWorker.h"
 
 #ifdef P_GAME_SCENE
@@ -11,7 +11,9 @@
     #define P_MYSHIP (P_MYSHIP_SCENE->pMyShip_)
     #define P_VAM (P_MYSHIP_SCENE->pVamSysCamWorker_)
 #else
-    #error P_GAME_SCENE isnt define
+    #undef P_MYSHIP_SCENE
+    #undef P_MYSHIP
+    #undef P_VAM
 #endif
 
 namespace VioletVreath {

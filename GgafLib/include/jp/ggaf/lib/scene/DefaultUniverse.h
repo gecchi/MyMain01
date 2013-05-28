@@ -2,13 +2,17 @@
 #define DEFAULTUNIVERSE_H_
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
-#ifdef P_UNIVERSE
-    #ifdef P_CAM
-        #undef P_CAM
-    #endif
+#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/actor/DefaultCamera.h"
+
+#ifdef P_GOD
+    #undef P_UNIVERSE
+    #define P_UNIVERSE ((GgafLib::DefaultUniverse*)(P_GOD->_pUniverse))
+    #undef P_CAM
     #define P_CAM ((GgafLib::DefaultCamera*)(P_UNIVERSE->_pCamera))
 #else
-    #error P_UNIVERSE isnt define
+    #undef P_UNIVERSE
+    #undef P_CAM
 #endif
 
 namespace GgafLib {

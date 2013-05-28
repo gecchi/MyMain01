@@ -80,11 +80,9 @@ private:
     void changeGeoFinal() override {
         throwGgafCriticalException("GgafDxBoardSetActor::changeGeoFinal() は使用不可です。");
     }
-
-    /**
-     * 使用不可のため、privateでoverride
-     * @return
-     */
+    void rotateAs(GgafDxGeoElem* prm_pActor) override {
+        throwGgafCriticalException("GgafDxBoardSetActor::rotateAs() は使用不可です。");
+    }
     void rotateAs(GgafDxGeometricActor* prm_pActor) override {
         throwGgafCriticalException("GgafDxBoardSetActor::rotateAs() は使用不可です。");
     }

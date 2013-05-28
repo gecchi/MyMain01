@@ -2,8 +2,8 @@
 #define VBREPLAYRECORDER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
-#include <fstream>
 #include "jp/ggaf/lib/util/VirtualButton.h"
+#include <fstream>
 
 namespace GgafLib {
 
@@ -44,7 +44,7 @@ public:
         VBRecordNote(vbsta state, frame frame_of_keeping) : _pNext(nullptr),_state(state),_frame_of_keeping(frame_of_keeping) {
         }
 
-        virtual ~VBRecordNote() {
+        ~VBRecordNote() {
         }
     };
 

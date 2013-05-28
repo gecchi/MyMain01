@@ -1,16 +1,16 @@
 #include "stdafx.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
-#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
-#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

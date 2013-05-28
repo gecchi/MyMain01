@@ -9,7 +9,6 @@
 #include "jp/ggaf/core/scene/GgafDisusedScene.h"
 #include "jp/ggaf/core/actor/GgafDisusedActor.h"
 
-
 #include <process.h>
 
 using namespace GgafCore;

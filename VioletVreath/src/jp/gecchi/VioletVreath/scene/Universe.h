@@ -2,17 +2,19 @@
 #define UNIVERSE_H_
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/Camera.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerManager.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
 
-#ifdef P_UNIVERSE
-    #ifdef P_CAM
-        #undef P_CAM
-    #endif
+#ifdef P_GOD
+    #undef P_UNIVERSE
+    #define P_UNIVERSE ((VioletVreath::Universe*)(P_GOD->_pUniverse))
+    #undef P_CAM
     #define P_CAM ((VioletVreath::Camera*)(P_UNIVERSE->_pCamera))
 #else
-    #error P_UNIVERSE isnt define
+    #undef P_UNIVERSE
+    #undef P_CAM
 #endif
 
 /**

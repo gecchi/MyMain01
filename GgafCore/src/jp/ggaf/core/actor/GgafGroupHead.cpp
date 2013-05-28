@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
 
-#include "jp/ggaf/core/GgafGod.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 

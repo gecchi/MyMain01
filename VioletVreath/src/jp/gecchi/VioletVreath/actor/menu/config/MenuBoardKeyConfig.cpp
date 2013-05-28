@@ -156,10 +156,10 @@ void MenuBoardKeyConfig::processBehavior() {
     if ( ITEM_MAIN_SHOT <= index && index <= ITEM_PAUSE ) {
         int DIK_pushed = GgafDxInput::getPushedDownKey();
         if (0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
-            if (VirtualButton::_tagKeymap.UI_UP    == DIK_pushed ||
-                VirtualButton::_tagKeymap.UI_DOWN  == DIK_pushed ||
-                VirtualButton::_tagKeymap.UI_LEFT  == DIK_pushed ||
-                VirtualButton::_tagKeymap.UI_RIGHT == DIK_pushed  )
+            if (VirtualButton::_keyboardmap.UI_UP    == DIK_pushed ||
+                VirtualButton::_keyboardmap.UI_DOWN  == DIK_pushed ||
+                VirtualButton::_keyboardmap.UI_LEFT  == DIK_pushed ||
+                VirtualButton::_keyboardmap.UI_RIGHT == DIK_pushed  )
             {
                 //UI‚Ìƒƒjƒ…[ˆÚ“®‚Í–³Ž‹
             } else {

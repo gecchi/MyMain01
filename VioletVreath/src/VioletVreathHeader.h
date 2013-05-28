@@ -183,11 +183,6 @@ enum {
 //1/ã3
 #define NANAME3D_RATE 0.57735
 
-#undef P_GOD
-#define P_GOD ((VioletVreath::God*)VioletVreath::God::_pGod)
-#undef P_UNIVERSE
-#define P_UNIVERSE ((VioletVreath::Universe*)(P_GOD->_pUniverse))
-
 #define FADE_FRAMES 60
 
 #define DRAW_DEPTH_LEVEL_HOSHIBOSHI (MAX_DRAW_DEPTH_LEVEL-1)

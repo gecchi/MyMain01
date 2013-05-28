@@ -20,7 +20,7 @@
 #include "actor/VvvCursor.h"
 #include "actor/VvvGrid.h"
 #include "actor/VvvCamera.h"
-#include "scene/VvvUniverse.h"
+
 
 using namespace GgafCore;
 using namespace GgafDxCore;
