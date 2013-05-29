@@ -2,6 +2,7 @@
 #include "VvvWorld.h"
 
 #include <algorithm>
+#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
@@ -21,7 +22,6 @@
 #include "actor/VvvGrid.h"
 #include "actor/VvvCamera.h"
 
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -35,7 +35,6 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     getSceneDirector()->addSubGroup(pCursor_);
     pGrid_ = NEW VvvGrid("GRID");
     getSceneDirector()->addSubGroup(pGrid_);
-
     vb_ = NEW VirtualButton();
 }
 
@@ -57,24 +56,24 @@ void VvvWorld::processBehavior() {
         pCamWorker_->move_target_XY_CAM_UP_ = D90ANG;
     } else if (GgafDxInput::isPushedDownKey(DIK_F2)) {
         //ターゲット変更のみ
-        if (_listActorInfo.length() > 0) {
+        if (listActorInfo_.length() > 0) {
             if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
-                pCursor_->moveTo(_listActorInfo.getCurrent()->pActor_);
+                pCursor_->moveTo(listActorInfo_.getCurrent()->pActor_);
             } else {
-                pCursor_->moveTo(_listActorInfo.next()->pActor_);
+                pCursor_->moveTo(listActorInfo_.next()->pActor_);
             }
-            _listActorInfo.getCurrent()->pActor_->effectFlush(30);
+            listActorInfo_.getCurrent()->pActor_->effectFlush(30);
         }
     } else if (GgafDxInput::isPushedDownKey(DIK_RETURN)) {
         //ターゲット変更＋カメラ向く
-        if (_listActorInfo.length() > 0) {
+        if (listActorInfo_.length() > 0) {
             if (pCursor_->_pProg->get() == VvvCursor::CUR_SINK) {
-                pCursor_->moveTo(_listActorInfo.getCurrent()->pActor_);
+                pCursor_->moveTo(listActorInfo_.getCurrent()->pActor_);
             } else {
-                pCursor_->moveTo(_listActorInfo.next()->pActor_);
+                pCursor_->moveTo(listActorInfo_.next()->pActor_);
             }
-            _listActorInfo.getCurrent()->pActor_->effectFlush(30);
-            GgafDxDrawableActor* pT = _listActorInfo.getCurrent()->pActor_;
+            listActorInfo_.getCurrent()->pActor_->effectFlush(30);
+            GgafDxDrawableActor* pT = listActorInfo_.getCurrent()->pActor_;
             pCamWorker_->move_target_X_VP_ =  pT->_X;
             pCamWorker_->move_target_Y_VP_ =  pT->_Y;
             pCamWorker_->move_target_Z_VP_ =  pT->_Z;
@@ -83,12 +82,12 @@ void VvvWorld::processBehavior() {
 
     } else if (GgafDxInput::isPushedDownKey(DIK_DELETE)) {
         //選択を削除
-        if (_listActorInfo.length() > 0) {
-            _listActorInfo.getCurrent()->pActor_->end();
-            _listActorInfo.remove();
+        if (listActorInfo_.length() > 0) {
+            listActorInfo_.getCurrent()->pActor_->end();
+            listActorInfo_.remove();
         }
-        if (_listActorInfo.length() > 0) {
-            pCursor_->moveTo(_listActorInfo.getCurrent()->pActor_);
+        if (listActorInfo_.length() > 0) {
+            pCursor_->moveTo(listActorInfo_.getCurrent()->pActor_);
         }
     } else if (GgafDxInput::isPushedDownKey(DIK_W)) {
         //ワイヤフレーム表示切替
@@ -107,8 +106,8 @@ void VvvWorld::processBehavior() {
         }
     } else if (GgafDxInput::isPushedDownKey(DIK_O)) {
         //加算合成有り無し
-        if (_listActorInfo.length() > 0) {
-            GgafDxDrawableActor* pA = _listActorInfo.getCurrent()->pActor_;
+        if (listActorInfo_.length() > 0) {
+            GgafDxDrawableActor* pA = listActorInfo_.getCurrent()->pActor_;
             if (pA->_is_temp_technique) {
                 pA->effectDefault();
             } else {
@@ -117,8 +116,8 @@ void VvvWorld::processBehavior() {
         }
     } else if (GgafDxInput::isPushedDownKey(DIK_Z)) {
         //Zバッファは書き込み有り無し
-        if (_listActorInfo.length() > 0) {
-            GgafDxDrawableActor* pA = _listActorInfo.getCurrent()->pActor_;
+        if (listActorInfo_.length() > 0) {
+            GgafDxDrawableActor* pA = listActorInfo_.getCurrent()->pActor_;
             if (pA->_zwriteenable) {
                 pA->setZWriteEnable(false); //Zバッファは書き込み無し
             } else {
@@ -127,8 +126,8 @@ void VvvWorld::processBehavior() {
         }
     }
 
-    if (_listActorInfo.length() > 0) {
-        GgafDxDrawableActor* pActor =  _listActorInfo.getCurrent()->pActor_;
+    if (listActorInfo_.length() > 0) {
+        GgafDxDrawableActor* pActor =  listActorInfo_.getCurrent()->pActor_;
         int d = 1;
         if (GgafDxInput::isBeingPressedKey(DIK_SPACE) || GgafDxInput::isBeingPressedKey(DIK_LCONTROL) || GgafDxInput::isBeingPressedKey(DIK_RCONTROL)) {
             d = 10;
@@ -237,7 +236,7 @@ void VvvWorld::processBehavior() {
                 pActor->_RZ = 0;
             }
         } else if (GgafDxInput::isBeingPressedKey(DIK_C)) {
-
+            //環境マップテクスチャ映りこみ率
             if (pActor->instanceOf(Obj_GgafDxCubeMapMeshActor)) {
                 CubeMapMeshActor* pCubeMapActor = (CubeMapMeshActor*)pActor;
                 if (GgafDxInput::isBeingPressedKey(DIK_RIGHT)) {
@@ -391,8 +390,8 @@ void VvvWorld::processBehavior() {
         if (pActor) {
             getSceneDirector()->addSubGroup(pActor);
             ActorInfo* pActorInfo = NEW ActorInfo(pActor, string(VvvGod::dropfiles_));
-            _listActorInfo.addLast(pActorInfo);
-            _listActorInfo.last(); //カレントをlastへ
+            listActorInfo_.addLast(pActorInfo);
+            listActorInfo_.last(); //カレントをlastへ
             VvvCamera* pCam = P_CAM;
 
             GgafDxGeometricActor* p = pCam->getViewPoint();
@@ -403,16 +402,16 @@ void VvvWorld::processBehavior() {
               file_name.find("CubeMap") == std::string::npos &&
               file_name.find("Cubemap") == std::string::npos)
         ) {
-            if (_listActorInfo.getCurrent()) {
-                GgafDxDrawableActor* pCurrentActor = _listActorInfo.getCurrent()->pActor_;
+            if (listActorInfo_.getCurrent()) {
+                GgafDxDrawableActor* pCurrentActor = listActorInfo_.getCurrent()->pActor_;
                 GgafDxDrawableActor* pNewActor = nullptr;
                 if (pCurrentActor->instanceOf(Obj_GgafDxMeshActor)) {
-                    string was_dropfile_dir = UTIL::getFileDirName(_listActorInfo.getCurrent()->modelfile_.c_str()) + "/";
+                    string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
                     PROPERTY::DIR_MESH_MODEL[2]   = was_dropfile_dir;
                     PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
                     PROPERTY::DIR_TEXTURE[1]      = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     PROPERTY::DIR_TEXTURE[2]      = was_dropfile_dir;
-                    string was_model_id = UTIL::getFileBaseNameWithoutExt(_listActorInfo.getCurrent()->modelfile_.c_str());
+                    string was_model_id = UTIL::getFileBaseNameWithoutExt(listActorInfo_.getCurrent()->modelfile_.c_str());
                     pNewActor = createInFactory2(GgafLib::CubeMapMeshActor, "actor", was_model_id.c_str());
                     PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
                     PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
@@ -420,7 +419,7 @@ void VvvWorld::processBehavior() {
                     ((CubeMapMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
 
                 } else if (pCurrentActor->instanceOf(Obj_GgafDxMorphMeshActor)) {
-                    string was_dropfile_dir = UTIL::getFileDirName(_listActorInfo.getCurrent()->modelfile_.c_str()) + "/";
+                    string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
                     PROPERTY::DIR_MESH_MODEL[2]   = was_dropfile_dir;
                     PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
                     PROPERTY::DIR_TEXTURE[1]      = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
@@ -435,8 +434,8 @@ void VvvWorld::processBehavior() {
                 pNewActor->rotateAs(pCurrentActor);
                 pNewActor->scaleAs(pCurrentActor);
                 getSceneDirector()->addSubGroup(pNewActor);
-                ActorInfo* pActorInfoNew = NEW ActorInfo(pNewActor, _listActorInfo.getCurrent()->modelfile_);
-                _listActorInfo.set(pActorInfoNew);
+                ActorInfo* pActorInfoNew = NEW ActorInfo(pNewActor, listActorInfo_.getCurrent()->modelfile_);
+                listActorInfo_.set(pActorInfoNew);
                 pCurrentActor->end();
             }
         } else if (!(file_name.find("Nmap") == std::string::npos &&
@@ -446,7 +445,7 @@ void VvvWorld::processBehavior() {
             file_name.find("NormalMap") == std::string::npos &&
             file_name.find("Normalmap") == std::string::npos)
         ) {
-            GgafDxDrawableActor* pCurrentActor = _listActorInfo.getCurrent()->pActor_;
+            GgafDxDrawableActor* pCurrentActor = listActorInfo_.getCurrent()->pActor_;
             PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
             PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
             PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;

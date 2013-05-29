@@ -51,9 +51,7 @@
 								<option id="gnu.cpp.compiler.option.other.other.390840211" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++11 -Wunreachable-code -Winit-self -Wshadow -Wsign-compare -Wfloat-equal -Woverloaded-virtual" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.pedantic.1477397133" name="ペダンティック (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1093427632" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="_DEBUG=1"/>
-									<listOptionValue builtIn="false" value="WINVER=0x0501"/>
-									<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.debugging.gprof.1695053499" name="gprof 情報の生成 (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.452194199" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -71,9 +69,9 @@
 								<option id="gnu.c.compiler.option.preprocessor.nostdinc.606496992" name="システム・ディレクトリーを検索しない (-nostdinc)" superClass="gnu.c.compiler.option.preprocessor.nostdinc" value="false" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.debugging.gprof.1095793787" name="gprof 情報の生成 (-pg)" superClass="gnu.c.compiler.option.debugging.gprof" value="false" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.420699652" name="定義済みのシンボル (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="_DEBUG=1"/>
 									<listOptionValue builtIn="false" value="WINVER=0x0501"/>
 									<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1900115219" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -143,7 +141,9 @@
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.630276346" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++11 " valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.pedantic.1472037371" name="ペダンティック (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.1570298481" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.1570298481" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
+								</option>
 								<option id="gnu.cpp.compiler.option.warnings.allwarn.512977306" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.warnings.nowarn.537564010" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.435083141" name="その他の最適化フラグ" superClass="gnu.cpp.compiler.option.optimization.flags" value="" valueType="string"/>
@@ -165,6 +165,7 @@
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.323039149" name="定義済みのシンボル (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="WINVER=0x0501"/>
 									<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1053129091" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -235,7 +236,9 @@
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.954222566" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++11 " valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.pedantic.1830487455" name="ペダンティック (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.1285223030" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.1285223030" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
+								</option>
 								<option id="gnu.cpp.compiler.option.warnings.allwarn.19226082" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.warnings.nowarn.623338077" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.debugging.gprof.892350374" name="gprof 情報の生成 (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof" value="true" valueType="boolean"/>
@@ -258,6 +261,7 @@
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.238449553" name="定義済みのシンボル (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="WINVER=0x0501"/>
 									<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1417966052" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -314,7 +318,9 @@
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.877171220" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++11 " valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.pedantic.1929995365" name="ペダンティック (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.1427615639" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.1427615639" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
+								</option>
 								<option id="gnu.cpp.compiler.option.warnings.allwarn.1907438725" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.warnings.nowarn.199147601" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.1448623170" name="その他の最適化フラグ" superClass="gnu.cpp.compiler.option.optimization.flags" value="" valueType="string"/>
@@ -337,6 +343,7 @@
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.318329761" name="定義済みのシンボル (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="WINVER=0x0501"/>
 									<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.892292937" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -393,7 +400,9 @@
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.256388570" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++11 -mfpmath=sse -msse" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.pedantic.1260973916" name="ペダンティック (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.438435728" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.438435728" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
+								</option>
 								<option id="gnu.cpp.compiler.option.warnings.allwarn.1025015648" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.warnings.nowarn.2136439592" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.2000259999" name="その他の最適化フラグ" superClass="gnu.cpp.compiler.option.optimization.flags" value="" valueType="string"/>
@@ -416,6 +425,7 @@
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1580659970" name="定義済みのシンボル (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="WINVER=0x0501"/>
 									<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1206264234" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -473,9 +483,7 @@
 								<option id="gnu.cpp.compiler.option.other.other.1399105896" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++11 -mfpmath=sse -msse2 -Wunreachable-code -Winit-self -Wshadow -Wsign-compare -Wfloat-equal -Woverloaded-virtual" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.pedantic.81828323" name="ペダンティック (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1524375340" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="_DEBUG=1"/>
-									<listOptionValue builtIn="false" value="WINVER=0x0501"/>
-									<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.debugging.gprof.757661280" name="gprof 情報の生成 (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1829511244" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -493,9 +501,9 @@
 								<option id="gnu.c.compiler.option.preprocessor.nostdinc.1644309893" name="システム・ディレクトリーを検索しない (-nostdinc)" superClass="gnu.c.compiler.option.preprocessor.nostdinc" value="false" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.debugging.gprof.593460977" name="gprof 情報の生成 (-pg)" superClass="gnu.c.compiler.option.debugging.gprof" value="false" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.230217407" name="定義済みのシンボル (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="_DEBUG=1"/>
 									<listOptionValue builtIn="false" value="WINVER=0x0501"/>
 									<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.374618308" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>

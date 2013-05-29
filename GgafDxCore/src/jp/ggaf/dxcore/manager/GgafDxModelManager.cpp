@@ -53,7 +53,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     //板ポリゴンモデル定義ファイル(拡張子sprx)のフォーマット定義
     HRESULT hr;
     D3DXFileCreate( &_pID3DXFile_sprx );
-    char* paChar_SpriteModelineTemplate =
+    const char* paChar_SpriteModelineTemplate =
     "xof 0303txt 0032\n" \
     "template SpriteDef {" \
     "   <E4EECE4C-E106-11DC-9B62-346D55D89593>" \
@@ -73,7 +73,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
 
     //ポイントスプライト定義ファイル(拡張子psprx)のフォーマット定義
     D3DXFileCreate( &_pID3DXFile_psprx );
-    char* paChar_PointSpriteModelineTemplate =
+    const char* paChar_PointSpriteModelineTemplate =
             "xof 0303txt 0032\n" \
             "template Vector {\n" \
             "  <3d82ab5e-62da-11cf-ab39-0020af71e433>\n" \
@@ -376,7 +376,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
     GgafDxTextureConnection**    model_papTextureConnection = nullptr;
     int nVertices = 0;
     int nFaces = 0;
-    int nFaceNormals = 0;
+//    int nFaceNormals = 0;
 
     if (prm_pMeshModel->_pModel3D == nullptr) {
         model_pModel3D = NEW Frm::Model3D();
@@ -400,7 +400,7 @@ void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel* prm_pMeshModel) {
         model_pMeshesFront = model_pModel3D->_Meshes.front();
         nVertices = model_pMeshesFront->_nVertices; //メッシュ連結後の総頂点数
         nFaces = model_pMeshesFront->_nFaces;       //メッシュ連結後の総面数
-        nFaceNormals = model_pMeshesFront->_nFaceNormals; //メッシュ連結後の総法線数
+//        nFaceNormals = model_pMeshesFront->_nFaceNormals; //メッシュ連結後の総法線数
         model_paVtxBuffer_org = NEW GgafDxMeshModel::VERTEX[nVertices];
         prm_pMeshModel->_size_vertices = sizeof(GgafDxMeshModel::VERTEX) * nVertices;
         prm_pMeshModel->_size_vertex_unit = sizeof(GgafDxMeshModel::VERTEX);
@@ -1187,7 +1187,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
         int nVertices = 0;
         int nTextureCoords = 0;
         int nFaces = 0;
-        int nFaceNormals = 0;
+//        int nFaceNormals = 0;
         FLOAT model_bounding_sphere_radius;
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
             model_papModel3D[pattern] = NEW Frm::Model3D();
@@ -1209,7 +1209,7 @@ void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel* prm_pMorphM
             nVertices = model_papMeshesFront[pattern]->_nVertices;
             nTextureCoords = model_papMeshesFront[pattern]->_nTextureCoords;
             nFaces = model_papMeshesFront[pattern]->_nFaces;
-            nFaceNormals = model_papMeshesFront[pattern]->_nFaceNormals;
+//            nFaceNormals = model_papMeshesFront[pattern]->_nFaceNormals;
 
             if (nVertices*(morph_target_num+1) > 65535) {
                 throwGgafCriticalException("[GgafDxModelManager::restoreMorphMeshModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pMorphMeshModel->getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(morph_target_num+1));
@@ -1628,10 +1628,10 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
     //2)GgafDxD3DXAniMeshModelのメンバにセット
     //Xファイルのロードして必要な内容をGgafDxD3DXAniMeshModelメンバに設定しインスタンスとして完成させたい
-    LPD3DXMESH pID3DXAniMesh; //メッシュ(ID3DXAniMeshインターフェイスへのポインタ）
+//    LPD3DXMESH pID3DXAniMesh; //メッシュ(ID3DXAniMeshインターフェイスへのポインタ）
     D3DMATERIAL9* model_paMaterial = nullptr; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDxTextureConnection** model_papTextureConnection = nullptr; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
-    DWORD _num_materials;
+//    DWORD _num_materials;
     std::string xfile_name = getMeshFileName(prm_pD3DXAniMeshModel->_model_name);
     if (xfile_name == "") {
          throwGgafCriticalException("GgafDxModelManager::restoreD3DXAniMeshModel メッシュファイル(*.x)が見つかりません。model_name="<<(prm_pD3DXAniMeshModel->_model_name));
@@ -1665,7 +1665,7 @@ void GgafDxModelManager::restoreD3DXAniMeshModel(GgafDxD3DXAniMeshModel* prm_pD3
     }
     ifs.close();
 
-    LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
+//    LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
     //Xファイルのファイルロード
     GgafDxAllocHierarchyWorldFrame* pAH = NEW GgafDxAllocHierarchyWorldFrame(); // CAllocHierarchyBaseの派生クラス
@@ -2184,8 +2184,8 @@ void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel* prm_pBoardModel) {
     prm_pBoardModel->_size_vertex_unit = sizeof(GgafDxBoardModel::VERTEX);
 
     //1pxあたりのuvの大きさを求める
-    float texWidth  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-    float texHeight = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+//    float texWidth  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+//    float texHeight = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
     double dU = 0.0;//1.0 / texWidth  / 100000.0; //テクスチャの幅1pxの10000分の1px
     double dV = 0.0;//1.0 / texHeight / 100000.0; //テクスチャの高さ1pxの10000分の1px
 
@@ -2318,8 +2318,8 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
         GgafDxBoardSetModel::VERTEX* paVertex = NEW GgafDxBoardSetModel::VERTEX[4 * prm_pBoardSetModel->_set_num];
 
         //1pxあたりのuvの大きさを求める
-        float texWidth  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-        float texHeight = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+//        float texWidth  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+//        float texHeight = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
         double dU = 0.0; //1.0 / texWidth  / 100000.0; //テクスチャの幅1pxの10000分の1px
         double dV = 0.0; //1.0 / texHeight / 100000.0; //テクスチャの高さ1pxの10000分の1px
         for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
@@ -2495,7 +2495,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
     int nVertices = 0;
     int nTextureCoords = 0;
     int nFaces = 0;
-    int nFaceNormals = 0;
+//    int nFaceNormals = 0;
 
     if (prm_pMeshSetModel->_pModel3D == nullptr) {
         model_pModel3D = NEW Frm::Model3D();
@@ -2520,7 +2520,7 @@ void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetMod
         nVertices = model_pMeshesFront->_nVertices;
         nTextureCoords = model_pMeshesFront->_nTextureCoords;
         nFaces = model_pMeshesFront->_nFaces;
-        nFaceNormals = model_pMeshesFront->_nFaceNormals;
+//        nFaceNormals = model_pMeshesFront->_nFaceNormals;
         unit_paVtxBuffer_org = NEW GgafDxMeshSetModel::VERTEX[nVertices];
 
         if (nVertices*prm_pMeshSetModel->_set_num > 65535) {
@@ -2781,17 +2781,17 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     }
 
-//    "template PointSpriteDef {\n" \
-//    "  <E4EECE4C-E106-11DC-9B62-346D55D89593>\n" \
-//    "  FLOAT  SquareSize;\n" \
-//    "  STRING TextureFile;\n" \
-//    "  DWORD  TextureSplitRowCol;\n" \
-//    "  DWORD  VerticesNum;\n" \
-//    "  array  Vector    Vertices[VerticesNum];\n" \
-//    "  array  ColorRGBA VertexColors[VerticesNum];\n" \
-//    "  array  DWORD     InitUvPtnNo[VerticesNum];\n" \
-//    "  array  FLOAT     InitScale[VerticesNum];\n" \
-//    "}\n";
+//    "template PointSpriteDef { "
+//    "  <E4EECE4C-E106-11DC-9B62-346D55D89593> "
+//    "  FLOAT  SquareSize; "
+//    "  STRING TextureFile; "
+//    "  DWORD  TextureSplitRowCol; "
+//    "  DWORD  VerticesNum; "
+//    "  array  Vector    Vertices[VerticesNum]; "
+//    "  array  ColorRGBA VertexColors[VerticesNum]; "
+//    "  array  DWORD     InitUvPtnNo[VerticesNum]; "
+//    "  array  FLOAT     InitScale[VerticesNum]; "
+//    "} "
 //
     struct XFILE_FMT_HD {
         float SquareSize;
@@ -2837,23 +2837,6 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     memcpy(paFLOAT_InitScale, pXData, sizeof(float)*xDataHd.VerticesNum);
     pXData += sizeof(float)*xDataHd.VerticesNum;
 
-
-//    if(true) {
-//        DWORD Size;
-//        // PersonIDテンプレートデータを取得
-//        pID3DXFileData->GetData("SquareSize"     , &Size, (void**)&pFloat_SquareSize);
-//        pID3DXFileData->GetData("TextureFile"    , &Size, (void**)&ppaChar_TextureFile);
-//        pID3DXFileData->GetData("TextureSplitRowCol", &Size, (void**)&pInt_TextureSplitRowCol);
-//        pID3DXFileData->GetData("VerticesNum"    , &Size, (void**)&pInt_VerticesNum);
-//        pID3DXFileData->GetData("Vertices"       , &Size, (void**)&paD3DVECTOR_Vertices);
-//        pID3DXFileData->GetData("VertexColors"   , &Size, (void**)&paD3DVECTOR_VertexColors);
-//        pID3DXFileData->GetData("InitUvPtnNo"    , &Size, (void**)&paInt_InitUvPtnNo);
-//        pID3DXFileData->GetData("InitScale"      , &Size, (void**)&paFLOAT_InitScale);
-//
-//    } else {
-//        throwGgafCriticalException("[GgafDxModelManager::restorePointSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
-//    }
-//    GGAF_RELEASE(pID3DXFileData);
     //退避
     float model_fSquareSize = xDataHd.SquareSize;
     int model_texture_split_rowcol = xDataHd.TextureSplitRowCol;
@@ -2863,12 +2846,15 @@ void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel* prm_pPo
     UINT model_size_vertex_unit = sizeof(GgafDxPointSpriteModel::VERTEX);
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection** model_papTextureConnection = nullptr;
-    model_papTextureConnection = NEW GgafDxTextureConnection*[1];
+    GgafDxTextureConnection** model_papTextureConnection = NEW GgafDxTextureConnection*[1];
     model_papTextureConnection[0] = (GgafDxTextureConnection*)_pModelTextureManager->connect(xDataHd.TextureFile , this);
+    GgafDxTexture* pTex = model_papTextureConnection[0]->peek();
 
-    float texWidth  = (float)(model_papTextureConnection[0]->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-    float texHeight = (float)(model_papTextureConnection[0]->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
+    float texWidth  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(pTex->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
+    if ((int)(texWidth*100000) != (int)(texHeight*100000)) {
+        throwGgafCriticalException("[GgafDxModelManager::restorePointSpriteModel] ポイントスプライト用テクスチャ["<<pTex->getName()<<"]("<<texWidth<<"x"<<texHeight<<")は、正方形である必要があります。");
+    }
     FLOAT model_bounding_sphere_radius = 0;
 
     //頂点バッファ作成

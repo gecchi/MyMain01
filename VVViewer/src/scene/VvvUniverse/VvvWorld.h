@@ -35,7 +35,7 @@ public:
     };
 
 
-    GgafCore::GgafLinkedListRing<ActorInfo> _listActorInfo;
+    GgafCore::GgafLinkedListRing<ActorInfo> listActorInfo_;
     /** 入力受付 */
     GgafLib::VirtualButton* vb_;
     /** カーソル */

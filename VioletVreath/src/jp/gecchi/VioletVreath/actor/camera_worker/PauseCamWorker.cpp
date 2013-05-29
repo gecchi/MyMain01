@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PauseCamWorker.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"

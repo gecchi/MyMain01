@@ -18,6 +18,11 @@ class GgafGarbageBox : public GgafObject {
     static bool _wait;
 
 public:
+    /** [r]ゴミ箱(不要なアクター置き場) */
+    static GgafGarbageBox* _pGarbageBox;
+    /** [r]掃除オブジェクト数 */
+    static int _cnt_cleaned;
+
     /** [r]まもなくdeleteされるアクターのツリートップのノード */
     GgafDisusedActor* _pDisusedActor;
     /** [r]まもなくdeleteされるシーンのツリートップのノード */

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Stage.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 

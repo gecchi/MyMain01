@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MgrUniverse.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
 #include "scene/MgrUniverse/MgrWorld.h"
 
 using namespace Mogera;

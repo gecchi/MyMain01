@@ -17,7 +17,6 @@ void SceneProgress::relatSubScene(progress prm_FirstProgress, progress prm_EndPr
 }
 void SceneProgress::relatSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene) {
     DefaultScene* pSub = prm_pFirstSubScene;
-    int num_progress = _pScene->_pProg->_num_progress;
     int num = 1;
     for (progress prog = prm_FirstProgress; prog <= prm_EndProgress; prog++, num++) {
         _mapProg2Scene[prog] = pSub;

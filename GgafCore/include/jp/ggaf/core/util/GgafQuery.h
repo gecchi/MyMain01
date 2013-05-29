@@ -206,7 +206,7 @@ public:
      */
     static inline std::vector<std::string> split(std::string str) {
         std::vector<std::string> r;
-        int cutAt;
+        size_t cutAt;
         while ((cutAt = str.find_first_of(GGAFQUERY_SEPA)) != str.npos) {
             r.push_back(str.substr(0, cutAt));
             str = str.substr(cutAt + 1);

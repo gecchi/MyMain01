@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "VvvUniverse.h"
+
+#include "jp/ggaf/core/GgafFactory.h"
 #include "scene/VvvUniverse/VvvWorld.h"
 
 using namespace VVViewer;

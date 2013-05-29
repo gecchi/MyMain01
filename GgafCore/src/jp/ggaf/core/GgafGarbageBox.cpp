@@ -10,6 +10,9 @@ using namespace GgafCore;
 #define GgafGarbage_MAX_WAIT 2000
 //CRITICAL_SECTION GgafGarbageBox::CS;
 bool GgafGarbageBox::_wait = false;
+GgafGarbageBox* GgafGarbageBox::_pGarbageBox = nullptr;
+int GgafGarbageBox::_cnt_cleaned = 0;
+
 
 GgafGarbageBox::GgafGarbageBox() : GgafObject() {
     GgafGarbageBox::_wait = false;

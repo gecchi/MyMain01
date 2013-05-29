@@ -14,7 +14,7 @@ namespace VioletVreath {
 class MenuBoardNameEntry : public MenuBoard {
 
 public:
-    static char* apInputItemStr_[];
+    static const char* apInputItemStr_[];
     static int input_item_num_;
     int ITEM_INDEX_OK_;
     int ITEM_INDEX_BS_;

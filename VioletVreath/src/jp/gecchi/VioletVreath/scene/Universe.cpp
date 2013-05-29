@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Universe.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/actor/GgafDxCameraViewPoint.h"

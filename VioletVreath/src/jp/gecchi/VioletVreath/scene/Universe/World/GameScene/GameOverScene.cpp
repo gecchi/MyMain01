@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameOverScene.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"

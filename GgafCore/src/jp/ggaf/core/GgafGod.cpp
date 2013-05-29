@@ -51,7 +51,7 @@ GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
     _prev_visualize_frames = 0;
     _is_behaved_flg = false;
     _is_materialized_flg = false;
-    GgafFactory::_pGarbageBox = NEW GgafGarbageBox();
+    GgafGarbageBox::_pGarbageBox = NEW GgafGarbageBox();
     _is_being = false;
     _was_cleaned = false;
     _skip_count_of_frame = 0;
@@ -275,13 +275,13 @@ void GgafGod::clean() {
             GgafFactory::clean();
             //ÉSÉ~î†
     #ifdef MY_DEBUG
-            _TRACE_("Dumping GgafFactory::_pGarbageBox->_pDisusedScene ...");
-            GgafFactory::_pGarbageBox->_pDisusedScene->dump();
-            _TRACE_("GgafFactory::_pGarbageBox->_pDisusedActor ...");
-            GgafFactory::_pGarbageBox->_pDisusedActor->dump();
+            _TRACE_("Dumping GgafGarbageBox::_pGarbageBox->_pDisusedScene ...");
+            GgafGarbageBox::_pGarbageBox->_pDisusedScene->dump();
+            _TRACE_("GgafGarbageBox::_pGarbageBox->_pDisusedActor ...");
+            GgafGarbageBox::_pGarbageBox->_pDisusedActor->dump();
     #endif
-            _TRACE_("GGAF_DELETE(GgafFactory::_pGarbageBox);");
-            GGAF_DELETE(GgafFactory::_pGarbageBox);
+            _TRACE_("GGAF_DELETE(GgafGarbageBox::_pGarbageBox);");
+            GGAF_DELETE(GgafGarbageBox::_pGarbageBox);
             //Ç±ÇÃê¢Ç≈ê∂Ç´ÇƒÇ¢ÇÈï®Ç‡ë|èú
             Sleep(20);
             _TRACE_("GGAF_DELETE(_pUniverse);");

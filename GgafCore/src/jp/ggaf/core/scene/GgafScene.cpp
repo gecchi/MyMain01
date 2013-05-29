@@ -274,7 +274,7 @@ void GgafScene::sayonara(frame prm_offset_frames) {
 }
 
 void GgafScene::clean(int prm_num_cleaning) {
-    if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
+    if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
         return;
     }
     if (_pSceneDirector) {

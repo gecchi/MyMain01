@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SmpUniverse.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
 #include "SmpUniverse/SmpWorld.h"
 #include "actor/SmpCamera.h"
 

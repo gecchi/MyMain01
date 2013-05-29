@@ -3,6 +3,7 @@
 
 #include "jp/ggaf/core/GgafGod.h"
 #include "jp/ggaf/core/GgafOrder.h"
+#include "jp/ggaf/core/GgafGarbageBox.h"
 #include "jp/ggaf/core/actor/GgafActor.h"
 #include "jp/ggaf/core/scene/GgafScene.h"
 #include "jp/ggaf/core/GgafProperties.h"
@@ -16,13 +17,7 @@ GgafOrder* GgafFactory::CREATING_ORDER = nullptr;
 volatile bool GgafFactory::_is_working_flg = true;
 volatile bool GgafFactory::_have_to_rest_flg = false;
 volatile bool GgafFactory::_is_resting_flg = false;
-
-
 volatile bool GgafFactory::_was_finished_flg = false;
-int GgafFactory::_cnt_cleaned = 0;
-GgafGarbageBox* GgafFactory::_pGarbageBox = nullptr;
-
-
 
 GgafMainActor* GgafFactory::obtainActor(uint32_t prm_id, GgafObject* prm_org) {
     return (GgafMainActor*)obtain(prm_id, prm_org);
@@ -366,8 +361,8 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
              ___EndSynchronized1; // <----- îrëºèIóπ
                 if (GgafGod::_pGod->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                     TRACE2("GgafFactory::work ÅÉçHèÍí∑ÅÑ FPSÇÕçÇÇ¢ÇÊÇ»ÇüÅAÇªÇÃä‘ÇóòópÇµÇƒÉSÉ~î†ë|èúÇ≈Ç‡Ç‚Ç¡Ç∆Ç´Ç‹Ç∑ÅB1");
-                    _pGarbageBox->clean(5); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
-                    _cnt_cleaned = 0;
+                    GgafGarbageBox::_pGarbageBox->clean(5); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
+                    GgafGarbageBox::_cnt_cleaned = 0;
                 }
             } else {
                 if (ROOT_ORDER != nullptr && ROOT_ORDER->_pOrder_prev->_progress == 0) {
@@ -380,8 +375,8 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                  ___EndSynchronized1; // <----- îrëºèIóπ
                     if (GgafGod::_pGod->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                         TRACE2("GgafFactory::work ÅÉçHèÍí∑ÅÑ FPSÇÕçÇÇ¢Ç»ÇüÅAÇªÇÃä‘ÇóòópÇµÇƒÉSÉ~î†ë|èúÇ≈Ç‡Ç‚Ç¡Ç∆Ç´Ç‹Ç∑ÅB2");
-                        _pGarbageBox->clean(5); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
-                        _cnt_cleaned = 0;
+                        GgafGarbageBox::_pGarbageBox->clean(5); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
+                        GgafGarbageBox::_cnt_cleaned = 0;
                     }
                 }
             }

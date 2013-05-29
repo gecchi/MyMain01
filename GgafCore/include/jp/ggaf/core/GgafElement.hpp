@@ -4,7 +4,6 @@
 
 #include "jp/ggaf/core/GgafProgress.h"
 #include "jp/ggaf/core/GgafGarbageBox.h"
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 
 namespace GgafCore {
@@ -1049,7 +1048,7 @@ void GgafElement<T>::nextFrame() {
                 pElementTemp->nextFrame();
                 if (pElementTemp->_can_live_flg == false) {
                     pElementTemp->onEnd();
-                    GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
+                    GgafGarbageBox::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
                 }
                 break;
             } else {
@@ -1057,7 +1056,7 @@ void GgafElement<T>::nextFrame() {
                 pElementTemp->_pPrev->nextFrame();
                 if (pElementTemp->_pPrev->_can_live_flg == false) {
                     ((T*)(pElementTemp->_pPrev))->onEnd();
-                    GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
+                    GgafGarbageBox::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
                 }
             }
         }
@@ -1482,11 +1481,11 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
     T* pElementTemp = GgafNode<T>::_pSubFirst->_pPrev;
     T* pWk;
 
-    while(GgafFactory::_cnt_cleaned < prm_num_cleaning) {
+    while(GgafGarbageBox::_cnt_cleaned < prm_num_cleaning) {
         if (pElementTemp->_pSubFirst) {
             //子の子がまだのっている場合さらにもぐる
             pElementTemp->clean(prm_num_cleaning);
-            if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
+            if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
                 break;
             }
         }
@@ -1494,13 +1493,13 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
             if (pElementTemp->_pSubFirst) {
                 //子の子がまだのっている場合さらにもぐる
                 pElementTemp->clean(prm_num_cleaning);
-                if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
+                if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
                     break;
                 }
             }
             if (pElementTemp->_can_live_flg == false) {
                 GGAF_DELETE(pElementTemp);
-                GgafFactory::_cnt_cleaned++;
+                GgafGarbageBox::_cnt_cleaned++;
             }
             break;
         } else {
@@ -1508,14 +1507,14 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
             if (pWk->_pSubFirst) {
                 //子の子がまだのっている場合さらにもぐる
                 pWk->clean(prm_num_cleaning);
-                if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
+                if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
                     break;
                 }
             }
             pElementTemp = pElementTemp->_pPrev;
             if (pWk->_can_live_flg == false) {
                 GGAF_DELETE(pWk);
-                GgafFactory::_cnt_cleaned++;
+                GgafGarbageBox::_cnt_cleaned++;
             }
         }
     }

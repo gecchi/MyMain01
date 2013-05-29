@@ -59,12 +59,6 @@ public:
     //_is_last_order_flg == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
     //製造を行って次に進める。 _is_last_order_flg == false になるまで製造しつづける
 
-    /** [r]ゴミ箱(不要なアクター置き場) */
-    static GgafGarbageBox* _pGarbageBox;
-
-    /** [r]掃除オブジェクト数 */
-    static int _cnt_cleaned;
-
     /** [r]活動フラグ(神が操作する) */
     static volatile bool _is_working_flg;
     /** [r]休むフラグ */

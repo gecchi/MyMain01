@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PreDrawScene.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/gecchi/VioletVreath/God.h"
