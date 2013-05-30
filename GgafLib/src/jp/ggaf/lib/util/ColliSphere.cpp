@@ -105,5 +105,4 @@ void ColliSphere::rotateRxRzRy(angle rX, angle rY, angle rZ) {
 
 
 ColliSphere::~ColliSphere() {
-    TRACE("ColliSphere::~ColliSphere()");
 }

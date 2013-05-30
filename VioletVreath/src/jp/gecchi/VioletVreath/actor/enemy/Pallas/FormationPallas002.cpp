@@ -39,7 +39,7 @@ FormationPallas002::FormationPallas002(const char* prm_name) :
 
 void FormationPallas002::onActive() {
     for (int i = 0; i < num_Pallas_; i++) {
-        papPallas_[i]->locate(MyShip::lim_behaind_ *2 , P_MYSHIP->_Y+300000,  P_MYSHIP->_Z);
+        papPallas_[i]->locate(MyShip::lim_X_behaind_ *2 , P_MYSHIP->_Y+300000,  P_MYSHIP->_Z);
         papPallas_[i]->_pKurokoA->setMvVelo(velo_mv_);
         papPallas_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_ä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
     }

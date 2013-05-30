@@ -126,7 +126,7 @@ public:
     /**
      * ‚±‚Ì¢‚ÌŸ‚ÌuŠÔ‚ğ‘n‘¢‚·‚é‚½‚ß‚Ì€”õAŒãn–– .
      */
-    virtual void finalizeUniversal();
+    virtual void finalizeUniverse();
 
     /**
      * ‚±‚Ì¢‚ğæ“¾ .

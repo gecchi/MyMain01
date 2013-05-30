@@ -13,7 +13,7 @@ namespace VioletVreath {
 
 #define MAX_LEVEL_MOVE_SPEED 5
 #define MIN_LEVEL_MOVE_SPEED 0
-//Ternary numeral -1,0.1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ
+//Ternary numeral -1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ
 #define TN(X,Y,Z) (((3*3)*(X+1)) + ((3)*(Y+1)) + (Z+1))
 
 #define EQ_OPTION 1
@@ -184,17 +184,17 @@ public:
     };
 public:
     /** 移動Y座標上限 */
-    static coord lim_top_;
+    static coord lim_Y_top_;
     /** 移動Y座標下限 */
-    static coord lim_bottom_;
+    static coord lim_Y_bottom_;
     /** 移動X座標上限 */
-    static coord lim_front_;
+    static coord lim_X_front_;
     /** 移動X座標下限 */
-    static coord lim_behaind_;
+    static coord lim_X_behaind_;
     /** 移動Z座標上限 */
-    static coord lim_zleft_;
+    static coord lim_Z_left_;
     /** 移動Z座標下限 */
-    static coord lim_zright_;
+    static coord lim_Z_right_;
 
     MyShipWaySwitch way_switch_;
     void (MyShip::*paFuncMove[3*3*3])();

@@ -83,7 +83,6 @@ void MyWave001::processJudgement() {
 
 /*
  bool MyWave001::processHitChkLogic(GgafDxGeometricActor* prm_pOtherActor) {
- //TRACE("MyWave001::processHitChkLogic "+getPlatformScene()->getName()+"."+getName()+"‚˜"+prm_pOtherActor->getPlatformScene()->getName()+"."+prm_pOtherActor->getName());
  return false;
  }
  */

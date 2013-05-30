@@ -174,6 +174,7 @@ void GgafDxStringSpriteActor::processDraw() {
     if (_len == 0) {
         return;
     }
+    GgafDxSpriteSetModel* pSpriteSetModel = _pSpriteSetModel;
     GgafDxSpriteSetEffect* pSpriteSetEffect = _pSpriteSetEffect;
     ID3DXEffect* pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
@@ -211,7 +212,7 @@ void GgafDxStringSpriteActor::processDraw() {
         while (true) {
             if (_draw_string[pos] == '\0') {
                 if (draw_set_cnt > 0) {
-                    _pSpriteSetModel->draw(this, draw_set_cnt);
+                    pSpriteSetModel->draw(this, draw_set_cnt);
                 }
                 break; //‚¨‚µ‚Ü‚¢
             } else if (_draw_string[pos] == '\n') {
@@ -242,8 +243,8 @@ void GgafDxStringSpriteActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_v) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
             draw_set_cnt++;
-            if (draw_set_cnt == _pSpriteSetModel->_set_num) {
-                _pSpriteSetModel->draw(this, draw_set_cnt);
+            if (draw_set_cnt == pSpriteSetModel->_set_num) {
+                pSpriteSetModel->draw(this, draw_set_cnt);
                 draw_set_cnt = 0;
             }
             pos++;
@@ -258,7 +259,7 @@ void GgafDxStringSpriteActor::processDraw() {
         while (true) {
             if (pos == -1) {
                 if (draw_set_cnt > 0) {
-                    _pSpriteSetModel->draw(this, draw_set_cnt);
+                    pSpriteSetModel->draw(this, draw_set_cnt);
                 }
                 break;
             } else if (_draw_string[pos] == '\n') {
@@ -287,8 +288,8 @@ void GgafDxStringSpriteActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_offset_v) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
             draw_set_cnt++;
-            if (draw_set_cnt == _pSpriteSetModel->_set_num) {
-                _pSpriteSetModel->draw(this, draw_set_cnt);
+            if (draw_set_cnt == pSpriteSetModel->_set_num) {
+                pSpriteSetModel->draw(this, draw_set_cnt);
                 draw_set_cnt = 0;
             }
 

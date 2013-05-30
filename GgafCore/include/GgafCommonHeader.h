@@ -222,9 +222,11 @@
 #endif
 
 #ifdef MY_DEBUG
-    /** コンストラクタ、主要メソッド、デストラクタ関連ログ */
-    //#define TRACE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define TRACE(X)
+    /** デバッグ用通常ログ */
+    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE_(X)
+    #define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    //#define _TEXT_(X)
 
     /** 工場関連関連ログ */
     //#define TRACE2(X) {std::stringstream ss; ss << "[製造工場]" << X; GgafCore::GgafLogger::writeln(ss); }
@@ -244,27 +246,19 @@
     //#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
     #define TEXT5(X)
 
-    /** デバッグ用通常ログ */
-    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    //#define _TRACE_(X)
-    #define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
-    //#define _TEXT_(X)
-
 # else
+    //#define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define _TRACE_(X)
+    //#define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    #define _TEXT_(X)
 
-    #define TRACE(X)
     #define TRACE2(X)
     #define TRACE3(X)
     #define TRACE4(X)
     #define TRACE5(X)
     #define TEXT5(X)
-    //#define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define _TRACE_(X)
-    //#define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
-    #define _TEXT_(X)
-    #define _TRACEORE(X)
-    //#define _TRACEORE(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
 #endif
+
 #define DUMP_FLGS   "@"<< \
                     _frame_of_behaving_since_onActive<< \
                     "/"<< \
@@ -298,19 +292,18 @@
 /** 共通遅延解放フレーム数 */
 #define GGAF_SAYONARA_DELAY (60*15)
 //GGAF_SAYONARA_DELAYは全Element共通の解放遅延フレーム数で、
-//長めに設定しないと、いろいろ不都合が多い。
-//消失後もなお参照が可能とするための仕組みで、
+//アクター消失後、直ぐに不正ポインタになるのではなく、しばらく参照が可能とするための仕組み。
+//少し長めに設定しないと、いろいろ不都合が多い。
 //例えば、消滅後の爆発SE等で、3D効果のためSE発声元座標情報がしばらく必要とか、
-//消滅後の消滅アクターに属する子アクターの発射弾が、親アクターの座標を参照しているなど、
-//消滅しても、しばらくは残存させなければいけない場合がある。
-//基本的に、消滅確定→完全に消失までのフレームの最大フレームを指定する。
-//GGAF_SAYONARA_DELAYを短めに設定すると、現在は10秒(60*15)
+//消滅後の消滅アクター配下に属する発射弾（子アクター）が、親アクターの座標を参照しているなど、
+//消滅しても、しばらくは残存させなければいけない場合が多々ある。
+//GGAF_SAYONARA_DELAYには、基本的に、画面から消滅確定→完全にdeleteまでのフレームの最大フレームを指定する。
+//現在は15秒(60*15)。
+//もし、GGAF_SAYONARA_DELAYを短めに設定すると、
 //消滅後の子の発射弾については、残された発射弾が突然消えるので少し不自然。という程度で問題はない。
 //しかし、SEの3D効果は、エラーになるため、SE再生時間の最大フレーム数を設定しなければいけない。
-//例えば爆発SEが１分かかるような物が一つでも使用したい場合は、最大の1分(60*60)を設定しなければならない。
+//例えば効果音が１分かかるようなWAVEが一つでもあるならば、(60*60)を設定しなければならない。
 
-
-//#define HASHVAL(X)  const static uint32_t X=__LINE__*3+/*'"*/__TIME__"
 
 /** ハッシュ数値 */
 typedef uint64_t hashval;

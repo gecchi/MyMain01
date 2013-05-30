@@ -429,20 +429,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\TBox_Textures.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\XFileStructs.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CustomizeOgg_static\CustomizeOgg_static.vcxproj">
-      <Project>{2fdefa24-55e5-4955-8497-44085c92a5b1}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\CustomizeVorbis_static\CustomizeVorbis_static.vcxproj">
-      <Project>{3a06bba2-2a59-4965-8095-3836e2a10840}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\GgafCore\GgafCore.vcxproj">
-      <Project>{4cd46674-bb16-4b83-b01e-d6daf7fb6c81}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

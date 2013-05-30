@@ -14,7 +14,7 @@ class GgafObject {
 public:
     int _id;
     /** [r]インスタンス種類 */
-    int32_t _obj_class;
+    uint32_t _obj_class;
 
 public:
     GgafObject();

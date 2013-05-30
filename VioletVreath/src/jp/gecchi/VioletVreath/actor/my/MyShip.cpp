@@ -31,12 +31,12 @@ int MyShip::wk_dist = 0;
 angle MyShip::wk_angRx = 0;
 
 #define S_OPTION 0
-coord MyShip::lim_top_     =  0;
-coord MyShip::lim_bottom_  =  0;
-coord MyShip::lim_front_   =  0;
-coord MyShip::lim_behaind_ =  0;
-coord MyShip::lim_zleft_   =  0;
-coord MyShip::lim_zright_  =  0;
+coord MyShip::lim_Y_top_     =  0;
+coord MyShip::lim_Y_bottom_  =  0;
+coord MyShip::lim_X_front_   =  0;
+coord MyShip::lim_X_behaind_ =  0;
+coord MyShip::lim_Z_left_   =  0;
+coord MyShip::lim_Z_right_  =  0;
 
 MyShip::MyShip(const char* prm_name) :
         DefaultD3DXMeshActor(prm_name, "VicViper", STATUS(MyShip)) {
@@ -51,13 +51,13 @@ MyShip::MyShip(const char* prm_name) :
     coord harf_width  = PX_C(PROPERTY::GAME_BUFFER_WIDTH)/2;
     coord harf_height = PX_C(PROPERTY::GAME_BUFFER_HEIGHT)/2;
 
-    lim_top_     =  harf_height + PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //上は、高さ4画面分
-    lim_bottom_  = -harf_height - PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //下は、高さ4画面分
-    lim_front_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //前は、幅の2画面分
-    lim_behaind_ = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //後ろは、幅の2画面分
-    lim_zleft_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
-    lim_zright_  = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
-    _TRACE_("MyShip::MyShip 範囲 X("<<lim_behaind_<<" ~ "<<lim_front_<<") Y("<<lim_bottom_<<" ~ "<<lim_top_<<") Z("<<lim_zright_<<" ~ "<<lim_zleft_<<")");
+    lim_Y_top_     =  harf_height + PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //上は、高さ4画面分
+    lim_Y_bottom_  = -harf_height - PX_C(PROPERTY::GAME_BUFFER_HEIGHT*4);  //下は、高さ4画面分
+    lim_X_front_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //前は、幅の2画面分
+    lim_X_behaind_ = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //後ろは、幅の2画面分
+    lim_Z_left_   =  harf_width  + PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //手前は、幅の2画面分
+    lim_Z_right_  = -harf_width  - PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);   //奥は、幅の2画面分
+    _TRACE_("MyShip::MyShip 範囲 X("<<lim_X_behaind_<<" ~ "<<lim_X_front_<<") Y("<<lim_Y_bottom_<<" ~ "<<lim_Y_top_<<") Z("<<lim_Z_right_<<" ~ "<<lim_Z_left_<<")");
 
     /** 移動スピードレベルに相応する移動スピード */
     iMoveSpeed_ = 2000;
@@ -152,7 +152,7 @@ MyShip::MyShip(const char* prm_name) :
     //    +1  +1  +1
 
     //それぞれのスイッチの状態に応じた処理の関数テーブル配列。
-    /////////////// X  Y  Z
+    ////////////// X  Y  Z
     paFuncMove[TN(-1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_BEHIND;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BEHIND  = 0
     paFuncMove[TN(-1,-1, 0)] = &MyShip::move_WAY_DOWN_BEHIND;          //TN(-1,-1, 0) =  WAY_DOWN_BEHIND         = 1
     paFuncMove[TN(-1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_BEHIND;    //TN(-1,-1, 1) =  WAY_ZLEFT_DOWN_BEHIND   = 2
@@ -516,22 +516,22 @@ void MyShip::processBehavior() {
         //突入モーション時は、移動範囲制御無し
     } else {
         //通常移動範囲制御
-        if (_Y > MyShip::lim_top_) {
-            _Y = MyShip::lim_top_;
-        } else if (_Y < MyShip::lim_bottom_ ) {
-            _Y = MyShip::lim_bottom_;
+        if (_Y > MyShip::lim_Y_top_) {
+            _Y = MyShip::lim_Y_top_;
+        } else if (_Y < MyShip::lim_Y_bottom_ ) {
+            _Y = MyShip::lim_Y_bottom_;
         }
 
-        if (_X > MyShip::lim_front_) {
-            _X = MyShip::lim_front_;
-        } else if (_X < MyShip::lim_behaind_) {
-            _X = MyShip::lim_behaind_;
+        if (_X > MyShip::lim_X_front_) {
+            _X = MyShip::lim_X_front_;
+        } else if (_X < MyShip::lim_X_behaind_) {
+            _X = MyShip::lim_X_behaind_;
         }
 
-        if (_Z > MyShip::lim_zleft_) {
-            _Z = MyShip::lim_zleft_;
-        } else if (_Z < MyShip::lim_zright_) {
-            _Z = MyShip::lim_zright_;
+        if (_Z > MyShip::lim_Z_left_) {
+            _Z = MyShip::lim_Z_left_;
+        } else if (_Z < MyShip::lim_Z_right_) {
+            _Z = MyShip::lim_Z_right_;
         }
     }
 

@@ -73,7 +73,6 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(char* prm_idstr, void* 
             pResourceEffect = NEW GgafDxPointSpriteEffect(effect_name);
             break;
         default:
-            TRACE("GgafDxEffectManager::processCreateResource("<<prm_idstr<<") そんな種別はありません");
             throwGgafCriticalException("GgafDxEffectManager::processCreateResource("<<prm_idstr<<") そんなエッフェクト種別は知りません");
             pResourceEffect = nullptr;
             break;

@@ -15,7 +15,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions) : GgafDxModel(prm_model_name) {
-    TRACE("GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(" << prm_model_name << ")");
     _pID3DXMesh = nullptr;
     _num_materials = 0L;
     _dwOptions = prm_dwOptions;

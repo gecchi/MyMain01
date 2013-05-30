@@ -74,7 +74,7 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(1, 0.0);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
     _pKurokoA->slideMvByVD(veloTopMv_, 1000,
-                                         MyShip::lim_front_-_X, 0.4, 0.6);
+                                         MyShip::lim_X_front_-_X, 0.4, 0.6);
     _pProg->reset(PROG_MOVE);
     iMovePatternNo_ = 0; //行動パターンリセット
 }

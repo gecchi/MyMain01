@@ -125,5 +125,4 @@ void ColliAAB::rotateRxRzRy(angle rX, angle rY, angle rZ) {
 
 
 ColliAAB::~ColliAAB() {
-    TRACE("ColliAAB::~ColliAAB()");
 }

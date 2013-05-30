@@ -391,7 +391,6 @@ _sub_num(0)
 #endif
     _name = NEW char[51];
     strcpy(_name, prm_name);
-    TRACE("template<class T> GgafNode<T>::GgafNode(" << _name << ")");
 }
 
 template<class T>
@@ -432,7 +431,6 @@ T* GgafNode<T>::extract() {
         //親の頂点が横並び手をつなぎ、台形のような構造を採れるようにした場合は、
         //ここの場所に横連結からのみ切り離す処理を追加する必要がある事を忘れずに。
 
-        TRACE("[GgafNode<" << _class_name << ">::extract()] ＜警告＞ " << getName() << "は、何所にも所属していません。既に独立してました");
         return ((T*)this);
     }
 }

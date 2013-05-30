@@ -18,9 +18,9 @@ FormationHebe001::FormationHebe001(const char* prm_name) :
 }
 void FormationHebe001::onCallUpHebe(EnemyHebe* pEnemyHebe) {
 //    pEnemyHebe->pKurokoLeader_->adjustAxisRate(
-//                                        MyShip::lim_front_, //X•ûŒü”{—¦
-//                                       -1.0 * MyShip::lim_top_,   //Y•ûŒü”{—¦
-//                                        MyShip::lim_zleft_  //Z•ûŒü”{—¦
+//                                        MyShip::lim_X_front_, //X•ûŒü”{—¦
+//                                       -1.0 * MyShip::lim_Y_top_,   //Y•ûŒü”{—¦
+//                                        MyShip::lim_Z_left_  //Z•ûŒü”{—¦
 //                                    );
 //    pEnemyHebe->pKurokoLeader_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
 //    pEnemyHebe->pKurokoLeader_->adjustAxisYFlip();

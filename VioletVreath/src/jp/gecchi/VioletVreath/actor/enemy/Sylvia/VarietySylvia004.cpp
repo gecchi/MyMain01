@@ -27,7 +27,7 @@ VarietySylvia004::VarietySylvia004(const char* prm_name) : EnemySylvia(prm_name,
 void VarietySylvia004::initialize() {
     EnemySylvia::initialize();
     _X = GgafDxCore::GgafDxUniverse::_X_gone_right+r1_+r2_;
-    _Y = MyShip::lim_bottom_;
+    _Y = MyShip::lim_Y_bottom_;
     _Z = 0;
     _pKurokoA->setRzRyMvAng(D180ANG, 0);
     _pKurokoA->setMvVelo(3000);

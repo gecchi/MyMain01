@@ -357,31 +357,6 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     //    addSubGroup(pLaserChipDepo_);
 
 
-    //敵カーブレーザー01未使用。こぴぺのために残す
-    /*
-    if (UTIL::strcmp_ascii("EneWateringLaser001Dp", prm_idstr) == 0) {
-        pResource = NEW LaserChipDepositoryStore("DPDP_EneWateringLaser001");
-        LaserChipDepository* pLaserChipDepo;
-        EnemyWateringLaserChip001* pChip;
-        for (int set = 0; set < 20; set++) {
-            std::stringstream name;
-            name <<  "EneWateringLaser001Dp["<<set<<"]";
-            pLaserChipDepo = NEW LaserChipDepository(name.str().c_str());
-            for (int n = 0; n < 50; n++) {
-                std::stringstream name;
-                name <<  "EneWateringLaser001["<<set<<"]["<<n<<"]";
-                pChip = NEW EnemyWateringLaserChip001(name.str().c_str());
-                pChip->inactivateImmed();
-                pLaserChipDepo->addSubLast(pChip);
-                if (n % 20 == 0) { Sleep(1); }
-            }
-            pLaserChipDepo->inactivateImmed();
-            pResource->addSubLast(pLaserChipDepo);
-
-        }
-        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
-    }
-*/
     if (pResource == nullptr) {
         throwGgafCriticalException("DepositoryManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。Depositoryが作成できません。");
     }

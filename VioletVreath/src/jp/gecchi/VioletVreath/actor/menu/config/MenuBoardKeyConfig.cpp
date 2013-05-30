@@ -38,7 +38,7 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
             "-.........................................../");
 
     //メニューアイテム（選択可）設定
-    char* apItemStr[] = {
+    const char* apItemStr[] = {
           "MAIN SHOT KEY & BUTTON",
           "SUB SHOT  KEY & BUTTON",
           "TURBO     KEY & BUTTON",

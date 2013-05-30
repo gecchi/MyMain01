@@ -15,7 +15,6 @@
 
 ////イベント用 uint32_t 数値宣言
 HASHVAL(GGAF_EVENT_ON_DEVICE_LOST);
-HASHVAL(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
 
 namespace GgafDxCore {
 

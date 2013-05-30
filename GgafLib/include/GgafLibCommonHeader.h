@@ -93,7 +93,6 @@ class HomingLaserChip;
 class StraightLaserChip;
 class RefractionLaserChip;
 class LaserChipDepository;
-class LaserChipDepositoryStore;
 }
 
 #endif /*GGAFLIBHEADER_H_*/

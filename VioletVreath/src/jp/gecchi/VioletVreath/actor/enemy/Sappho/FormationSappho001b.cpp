@@ -18,7 +18,7 @@ void FormationSappho001b::onCallUpSappho(EnemySappho* prm_pSappho, int prm_index
     int d = 130;
     prm_pSappho->entry_pos_.set( P_MYSHIP->_X + RND(-PX_C(d),PX_C(d)),
                                  P_MYSHIP->_Y + RND(-PX_C(d),PX_C(d)),
-                                 MyShip::lim_zleft_ + RND(-PX_C(d),PX_C(d)));
+                                 MyShip::lim_Z_left_ + RND(-PX_C(d),PX_C(d)));
     coord R = PX_C(400);
     angle pos_ang = D_ANG((prm_index+1)*8);
     coord X = ANG_COS(pos_ang) * R;

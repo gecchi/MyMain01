@@ -16,5 +16,4 @@ GgafDxCollisionPart::GgafDxCollisionPart() : GgafObject() {
 }
 
 GgafDxCollisionPart::~GgafDxCollisionPart() {
-    TRACE("GgafDxCollisionPart::~GgafDxCollisionPart()");
 }

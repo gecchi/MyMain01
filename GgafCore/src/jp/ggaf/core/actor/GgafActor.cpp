@@ -6,7 +6,6 @@ using namespace GgafCore;
 
 GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
     GgafElement<GgafActor> (prm_name) {
-    TRACE("GgafActor::GgafActor("<<this<<") "<<prm_name);
     _class_name = "GgafActor";
     _obj_class = Obj_GgafActor;
     if (prm_pStat) {
@@ -48,17 +47,14 @@ void GgafActor::setPlatformScene(GgafScene* prm_pScene_platform) {
 }
 
 void GgafActor::setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg) {
-    TRACE("GgafActor::setHitAble() " << getName());
     _can_hit_flg = prm_can_hit_flg;
     _can_hit_out_of_view = prm_can_hit_out_of_view_flg;
 }
 void GgafActor::setHitAble(bool prm_can_hit_flg) {
-    TRACE("GgafActor::setHitAble() " << getName());
     _can_hit_flg = prm_can_hit_flg;
 }
 
 void GgafActor::setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg) {
-    TRACE("GgafActor::setHitAble() " << getName());
     _can_hit_flg = prm_can_hit_flg;
     _can_hit_out_of_view = prm_can_hit_out_of_view_flg;
     GgafActor* pActor_tmp;
@@ -76,7 +72,6 @@ void GgafActor::setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_vie
 }
 
 void GgafActor::setHitAbleTree(bool prm_can_hit_flg) {
-    TRACE("GgafActor::setHitAble() " << getName());
     _can_hit_flg = prm_can_hit_flg;
     GgafActor* pActor_tmp;
     if (_pSubFirst) {

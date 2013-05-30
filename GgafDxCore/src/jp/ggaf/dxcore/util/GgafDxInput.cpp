@@ -482,7 +482,6 @@ bool GgafDxInput::isBeingPressedJoyDirection(int prm_direction_no) {
 }
 
 void GgafDxInput::release() {
-    TRACE("GgafDxInput::~GgafDxInput()");
     //デバイス解放
     if (_pIDirectInput8) {
         if (_pIDirectInputDevice8_Keyboard) {

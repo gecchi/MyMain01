@@ -53,7 +53,6 @@ uint32_t GgafDxGod::_ps_v = 0;
 
 GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
     GgafGod(prm_hInstance) {
-    TRACE("GgafDxGod::GgafDxGod() ");
 
     GgafDxGod::_pHWndPrimary = prm_pHWndPrimary;
     GgafDxGod::_pHWndSecondary = prm_pHWndSecondary;
@@ -1357,10 +1356,8 @@ void GgafDxGod::makeUniversalMaterialize() {
     if (_is_device_lost_flg) {
         return;
     }
-    TRACE("GgafDxGod::materialize() start");
     HRESULT hr;
-        //通常時処理
-
+    //通常時処理
     //バッファクリア
     hr = GgafDxGod::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                          nullptr, // 矩形領域
@@ -1383,7 +1380,6 @@ void GgafDxGod::makeUniversalMaterialize() {
     hr = GgafDxGod::_pID3DDevice9->EndScene();
     checkDxException(hr, D3D_OK, "GgafDxGod::_pID3DDevice9->EndScene() に失敗しました。");
 
-    TRACE("GgafDxGod::makeUniversalMaterialize() end");
 }
 
 void GgafDxGod::presentUniversalVisualize() {
@@ -1475,7 +1471,6 @@ void GgafDxGod::presentUniversalVisualize() {
 
             //工場休止
             _TRACE_("【デバイスロスト処理】工場停止 BEGIN ------>");
-            int cnt = 0;
             GgafFactory::beginRest();
          ___EndSynchronized1; // <----- 排他終了
             for (int i = 0; GgafFactory::isResting() == false; i++) {
@@ -1578,7 +1573,7 @@ void GgafDxGod::presentUniversalVisualize() {
         //モデル再設定
         GgafDxGod::_pModelManager->restoreAll();
         //全ノードに再設定しなさいイベント発令
-        getUniverse()->throwEventLowerTree(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
+        getUniverse()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
         //前回描画モデル情報を無効にする
         GgafDxModelManager::_pModelLastDraw = nullptr;
         _is_device_lost_flg = false;
@@ -1602,11 +1597,11 @@ void GgafDxGod::presentUniversalVisualize() {
     }
 }
 
-void GgafDxGod::finalizeUniversal() {
+void GgafDxGod::finalizeUniverse() {
     if (_is_device_lost_flg) {
         return;
     } else {
-        GgafGod::finalizeUniversal();
+        GgafGod::finalizeUniverse();
     }
 }
 

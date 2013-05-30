@@ -25,8 +25,6 @@ void MagicMeterStatus::processBehavior() {
 }
 
 void MagicMeterStatus::processDraw() {
-    ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
-    HRESULT hr;
     //パワーメーター
     //[====]が１つの大きさ [====][====][====]
     MagicMeter* pMM = pMagicMeter_;

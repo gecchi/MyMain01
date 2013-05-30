@@ -28,7 +28,7 @@ void VarietySylvia003::initialize() {
     EnemySylvia::initialize();
     _X = GgafDxCore::GgafDxUniverse::_X_gone_right+r1_+r2_;
     _Y = 0;
-    _Z = MyShip::lim_zright_;
+    _Z = MyShip::lim_Z_right_;
     _pKurokoA->setRzRyMvAng(D180ANG, 0);
     _pKurokoA->setMvVelo(3000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, -20);

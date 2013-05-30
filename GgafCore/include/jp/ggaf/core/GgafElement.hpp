@@ -78,11 +78,11 @@ public:
     GgafGod* _pGod;
     /** [r]initializeが行われたどうかのフラグ(true=行われた) */
     bool _was_initialize_flg;
-    /** [r]ノードが誕生(addSubされた）時からのフレーム数総計(但し、_was_paused_flg==true 時は加算され無い) */
+    /** [r]ノードが誕生(addSubされた）時からのフレーム数総計(但し、_was_paused_flg = true 時は加算され無い) */
     frame _frame_of_life;
-    /** [r]ノードが誕生(addSubされた）時から、振舞ったフレーム数総計(但し、_was_paused_flg==true 又は _is_active_flg==false 時は加算され無い) */
+    /** [r]ノードが誕生(addSubされた）時から、振舞ったフレーム数総計(但し、_was_paused_flg = true 又は _is_active_flg = false 時は加算され無い) */
     frame _frame_of_behaving;
-    /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計(但し、_was_paused_flg==true 又は _is_active_flg==false 時は加算され無い) */
+    /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計(但し、_was_paused_flg = true 又は _is_active_flg = false 時は加算され無い) */
     frame _frame_of_behaving_since_onActive;
 
     /** [r]ノード活動フラグ */
@@ -819,7 +819,7 @@ public:
 
     /**
      * 振る舞い状態時に加算されるフレーム数を取得する .
-     * 「振る舞い状態」とは、canBehave() == true の条件成立時の事を意味する。<BR>
+     * 「振る舞い状態」とは、canBehave() → true の条件成立時の事を意味する。<BR>
      * 0 Frame状態は基本存在せず、1 Frame ～ からの値になる。但し例外的に<BR>
      * 生成時コンストラクタ内、および、最初の initialize() 内では 0 Frame を返す。<BR>
      * 初回実行の onActive()、processBehavior()、processJudgement() 等の中で 1 になっている。<BR>
@@ -942,10 +942,6 @@ _pProg(nullptr)
 
 template<class T>
 void GgafElement<T>::nextFrame() {
-//    _last_frame_of_god = P_GOD->_frame_of_God;
-    TRACE("GgafElement::nextFrame BEGIN _frame_of_behaving=" << _frame_of_behaving << " name=" << GgafObject::_name << " class="
-            << GgafNode<T>::_class_name);
-
     //moveLast予約時
     if (_will_mv_last_in_next_frame_flg) {
         _will_mv_last_in_next_frame_flg = false;
@@ -1068,8 +1064,6 @@ void GgafElement<T>::nextFrame() {
         //moveFirstを一番最後にすることは重要。
         //これは nextFrame() の２重実行を避けるため。
     }
-
-    TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafObject::_name<<" class="<<GgafNode<T>::_class_name);
 }
 
 template<class T>

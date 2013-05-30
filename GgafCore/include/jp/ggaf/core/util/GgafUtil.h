@@ -22,7 +22,7 @@
 #define ZEROf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_(X))
 #define ONEf_EQ(X) (GgafCore::GgafUtil::_zerof_eq_((X)-1.0f))
 #define ZEROd_EQ(X) (GgafCore::GgafUtil::_zerod_eq_(X))
-#define ONEd_EQ(X) (GgafCore::GgafUtil::_zerod_eq_((X)-1.0f))
+#define ONEd_EQ(X) (GgafCore::GgafUtil::_zerod_eq_((X)-1.0))
 
 #define RND(__FROM__,__TO__) (GgafCore::GgafUtil::_rnd_int32_(__FROM__,__TO__))
 
@@ -89,14 +89,31 @@ public:
         return r;
     }
 
+    /**
+     * float 用 0 っぽいのかどうか判定 .
+     * @param val 判定したい値
+     * @param epsilon 0っぽい範囲
+     * @return true:0っぽい / false:0っぽくない
+     */
     static inline bool _zerof_eq_(float val, float epsilon = 1e-5f ) {
         return (-epsilon < val && val < epsilon);
     }
 
-    static inline bool _zerod_eq_(double val, double epsilon = 1e-5f ) {
+    /**
+     * double 用 0 っぽいのかどうか判定 .
+     * @param val 判定したい値
+     * @param epsilon 0っぽい範囲
+     * @return true:0っぽい / false:0っぽくない
+     */
+    static inline bool _zerod_eq_(double val, double epsilon = 1e-13) {
         return (-epsilon < val && val < epsilon);
     }
 
+    /**
+     * いろいろな型の値を文字列に変換 .
+     * @param prm_x
+     * @return 文字列
+     */
     template<typename T>
     static inline std::string _xtos_(T prm_x) {
         std::ostringstream oss;
@@ -104,6 +121,11 @@ public:
         return oss.str();
     }
 
+    /**
+     * いろいろな型の値を文字列に変換の bool 特殊化 .
+     * @param prm_x
+     * @return
+     */
     template<typename T>
     static inline std::string _xtos_(bool prm_x) {
         if (prm_x) {
@@ -113,15 +135,20 @@ public:
         }
     }
 
-
+    /**
+     * 文字列を int に変換 .
+     * @param prm_s
+     * @return
+     */
     static inline int _stoi_(std::string& prm_s) {
         int n;
         std::istringstream istr(prm_s);
         istr >> n;
         return n;
     }
+
     /**
-     * ASCII限定文字列比較 .
+     * C文字列比較 .
      * @param s1
      * @param s2
      * @return s1 > s2 で正の値、s1 < s2 で負の値、s1 = s2で 0 を返す。
@@ -131,8 +158,9 @@ public:
             if (*s1++ == 0) return (0);
         return (*s1 - *(s2 - 1));
     }
+
     /**
-     * ASCII限定文字列比較 .
+     * C文字列比較 .
      * @param s1
      * @param s2
      * @return s1 > s2 で正の値、s1 < s2 で負の値、s1 = s2で 0 を返す。
@@ -168,7 +196,7 @@ public:
     /**
      * 簡易ハッシュ .
      * 文字列 を、さも一意のような64bit数値に変換。
-     * もちろん完全ではない。
+     * 完全ではない。
      * @param str 文字列
      * @return ハッシュ値
      */
@@ -268,8 +296,8 @@ public:
     }
 
     static inline std::string trim(std::string& str) {
-        str.erase(0, str.find_first_not_of(' '));       //prefixing spaces
-        str.erase(str.find_last_not_of(' ')+1);         //surfixing spaces
+        str.erase(0, str.find_first_not_of(' '));
+        str.erase(str.find_last_not_of(' ')+1);
         return str;
     }
 

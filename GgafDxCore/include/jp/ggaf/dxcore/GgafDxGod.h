@@ -164,7 +164,7 @@ public:
     virtual void executeUniversalJudge() override;
     virtual void makeUniversalMaterialize() override;
     virtual void presentUniversalVisualize() override;
-    virtual void finalizeUniversal() override;
+    virtual void finalizeUniverse() override;
 
     virtual void clean() override;
 

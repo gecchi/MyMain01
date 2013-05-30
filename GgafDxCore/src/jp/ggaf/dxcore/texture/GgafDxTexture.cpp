@@ -10,7 +10,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxTexture::GgafDxTexture(char* prm_texture_name) : GgafObject() {
-    TRACE("GgafDxTexture::GgafDxTexture(" << prm_texture_name << ")");
     _texture_name = NEW char[51];
     strcpy(_texture_name, prm_texture_name);
     restore();
@@ -40,7 +39,6 @@ std::string GgafDxTexture::getTextureFileName(std::string prm_file) {
 }
 
 void GgafDxTexture::restore() {
-    TRACE("GgafDxTexture::restore()");
     _pIDirect3DBaseTexture9 = nullptr;
     _pD3DXIMAGE_INFO = NEW D3DXIMAGE_INFO;
     std::string texture_name = std::string(_texture_name);

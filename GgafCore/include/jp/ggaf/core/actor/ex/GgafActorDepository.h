@@ -127,7 +127,7 @@ public:
      * dispatch() を試みて取り出せない場合、強制的にメンバー達の先頭メンバーを返します。<BR>
      * <b>＜注意＞</b><BR>
      * 取り出し後、アクターに active() を実行しても、そのアクターが既に
-     * isActiveInTheTree() == true の状態もありうるため、onActive() コールバックは
+     * isActiveInTheTree() → true の状態もありうるため、onActive() コールバックは
      * 呼ばれない可能性がある。<BR>
      * 強制的にonActive() コールバックを呼び出したい場合に次のようなコードに
      * しなければいけないかも知れない。

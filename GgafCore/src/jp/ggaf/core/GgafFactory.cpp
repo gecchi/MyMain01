@@ -101,7 +101,6 @@ int GgafFactory::chkProgress(uint32_t prm_id) {
 }
 
 void* GgafFactory::obtain(uint32_t prm_id, GgafObject* prm_org) {
-    TRACE("GgafFactory::obtain "<<prm_id<<"/");
     GgafOrder* pOrder;
     GgafOrder* pOrder_MyNext;
     GgafOrder* pOrder_MyPrev;

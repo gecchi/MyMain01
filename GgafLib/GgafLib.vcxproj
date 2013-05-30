@@ -216,7 +216,6 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\HomingLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\LaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\LaserChipDepository.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\LaserChipDepositoryStore.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\LinearOctreeForActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp" />
@@ -295,7 +294,6 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\HomingLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChipDepository.h" />
-    <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChipDepositoryStore.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\LinearOctreeActorElem.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\LinearOctreeForActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\menu\MenuActor.hpp" />
@@ -334,21 +332,6 @@
     <None Include="Release\BuildLog.htm">
       <DeploymentContent>true</DeploymentContent>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CustomizeOgg_static\CustomizeOgg_static.vcxproj">
-      <Project>{2fdefa24-55e5-4955-8497-44085c92a5b1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\CustomizeVorbis_static\CustomizeVorbis_static.vcxproj">
-      <Project>{3a06bba2-2a59-4965-8095-3836e2a10840}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GgafCore\GgafCore.vcxproj">
-      <Project>{4cd46674-bb16-4b83-b01e-d6daf7fb6c81}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GgafDxCore\GgafDxCore.vcxproj">
-      <Project>{f04b2bae-f007-4de8-a91f-ea7e9ddcb6f2}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

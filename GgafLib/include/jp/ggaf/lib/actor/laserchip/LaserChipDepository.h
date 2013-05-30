@@ -94,7 +94,8 @@ public:
     /**
      * レーザーチップストックの追加 .
      * 好きなだけ追加して下さい。
-     * 追加すればするほど玉切れがおきにくい
+     * 追加すればするほど玉切れがおきにくい。<br>
+     * (※上位の GgafActorDepository::addSubLast(GgafActor* prm_pSub) を隠蔽)<br>
      * @param prm_pLaserChip レーザーチップ
      */
     void addSubLast(LaserChip* prm_pLaserChip);

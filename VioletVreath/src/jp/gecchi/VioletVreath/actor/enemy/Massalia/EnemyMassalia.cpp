@@ -31,8 +31,8 @@ void EnemyMassalia::onActive() {
     //ステータスリセット
     UTIL::resetEnemyMassaliaStatus(_pStatus);
     setHitAble(true);
-    static coord appearances_renge_Z = (MyShip::lim_zleft_ - MyShip::lim_zright_) * 3;
-    static coord appearances_renge_Y = (MyShip::lim_top_ - MyShip::lim_bottom_) * 3;
+    static coord appearances_renge_Z = (MyShip::lim_Z_left_ - MyShip::lim_Z_right_) * 3;
+    static coord appearances_renge_Y = (MyShip::lim_Y_top_ - MyShip::lim_Y_bottom_) * 3;
     _X = GgafDxUniverse::_X_gone_right - 1000;
     _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
     _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));

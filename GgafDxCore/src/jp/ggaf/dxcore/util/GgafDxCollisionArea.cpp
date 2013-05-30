@@ -75,6 +75,4 @@ GgafDxCollisionArea::~GgafDxCollisionArea() {
         GGAF_DELETE_NULLABLE(_papColliPart[i]);
     }
     GGAF_DELETEARR(_papColliPart);
-
-    TRACE("GgafDxCollisionArea::~GgafDxCollisionArea()");
 }

@@ -8,7 +8,6 @@
 using namespace GgafCore;
 
 GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
-    TRACE("GgafScene::GgafScene() " << prm_name);
     _class_name = "GgafScene";
     _obj_class |= Obj_GgafScene;
 
@@ -72,7 +71,6 @@ void GgafScene::nextFrame() {
 
 
 void GgafScene::behave() {
-    TRACE("GgafScene::behave() " << getName());
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::behave();
         _pSceneDirector->behave();
@@ -80,13 +78,11 @@ void GgafScene::behave() {
 }
 
 void GgafScene::settleBehavior() {
-    TRACE("GgafScene::settleBehavior() " << getName());
     GgafElement<GgafScene>::settleBehavior();
     _pSceneDirector->settleBehavior();
 }
 
 void GgafScene::judge() {
-    TRACE("GgafScene::judge() " << getName());
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::judge();
         _pSceneDirector->judge();
@@ -94,19 +90,16 @@ void GgafScene::judge() {
 }
 
 void GgafScene::preDraw() {
-    TRACE("GgafScene::preDraw() " << getName());
     GgafElement<GgafScene>::preDraw();
     _pSceneDirector->preDraw();
 }
 
 void GgafScene::draw() {
-    TRACE("GgafScene::draw() " << getName());
     GgafElement<GgafScene>::draw();
     _pSceneDirector->draw();
 }
 
 void GgafScene::afterDraw() {
-    TRACE("GgafScene::afterDraw() " << getName());
     GgafElement<GgafScene>::afterDraw();
     _pSceneDirector->afterDraw();
 }

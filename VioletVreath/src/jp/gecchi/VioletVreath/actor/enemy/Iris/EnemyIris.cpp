@@ -103,7 +103,7 @@ void EnemyIris::processBehavior() {
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_Z-10000 < P_MYSHIP->_Z && P_MYSHIP->_Z < _Z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                _pKurokoA->turnMvAngTwd(MyShip::lim_behaind_ - 500000 , _Y, _Z,
+                _pKurokoA->turnMvAngTwd(MyShip::lim_X_behaind_ - 500000 , _Y, _Z,
                                         10000, 0,
                                         TURN_CLOSE_TO, true);
                 _pKurokoA->setMvAcce(100);

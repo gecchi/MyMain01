@@ -30,7 +30,6 @@ volatile bool GgafGod::_can_be = false;
 GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
   _pUniverse(nullptr),
   _fps(0) {
-    TRACE("GgafGod::GgafGod");
     GgafGod::_hInstance = prm_hInstance;
 
     _frame_of_God = 0;
@@ -71,7 +70,7 @@ void GgafGod::be() {
     // ‡AJu = executeUniversalJudge();      ¥¥¥ ”»’èˆ—E•K{ˆ—
     // ‡BMa = makeUniversalMaterialize();   ¥¥¥ •`‰æˆ—(d‚¢)EƒXƒLƒbƒv‰Â
     // ‡CVi = presentUniversalVisualize();  ¥¥¥ •`‰æƒtƒŠƒbƒvˆ—EƒXƒLƒbƒv‰Â(’A‚µ‡B‚Æ‡C‚ÍƒZƒbƒgˆ—)
-    // ‡DFi = finalizeUniversal();          ¥¥¥ ÅIˆ—E•K{ˆ—
+    // ‡DFi = finalizeUniverse();          ¥¥¥ ÅIˆ—E•K{ˆ—
     //
     // ‚±‚±‚Ås‚È‚¢‚½‚¢‚±‚Æ‚Íw‚Å‚«‚éŒÀ‚èA‡CVi ‚ð 1/60 •b–ˆ‚ÉˆÀ’è‚µ‚ÄŽÀs‚·‚é‚±‚Æx‚Æ‚µ‚½B
     // ‚»‚±‚ÅAŽŸ‚Ì—l‚ÈÝŒv‚ðs‚Á‚½B
@@ -158,22 +157,22 @@ void GgafGod::be() {
             if (_is_materialized_flg) { // ‡B makeUniversalMaterialize() ŽÀsÏ‚Ý‚Ìê‡
                 //•`‰æ—L‚èiƒXƒLƒbƒv‚È‚µj
                 presentUniversalVisualize(); _visualize_frames++; //‡C
-                finalizeUniversal(); //‡D
+                finalizeUniverse(); //‡D
             } else {                   // ‡B makeUniversalMaterialize() ŽÀs‚µ‚Ä‚¢‚È‚¢ê‡
                 //•`‰æ–³‚µiƒXƒLƒbƒvŽžj
                 if (_sync_frame_time) { //“¯Šú’²®ƒ‚[ƒhŽž‚Í
                     //–³ðŒ‚Å•`‰æ‚È‚µB
-                    finalizeUniversal(); //‡D
+                    finalizeUniverse(); //‡D
                 } else {   //“¯Šú’²®ƒ‚[ƒh‚Å‚Í‚È‚¢ê‡‚Í’ÊíƒXƒLƒbƒv
                     _skip_count_of_frame++;
                     //’A‚µAƒXƒLƒbƒv‚·‚é‚Æ‚¢‚Á‚Ä‚à MAX_SKIP_FRAME ƒtƒŒ[ƒ€‚É‚P‰ñ‚Í•`‰æ‚Í‚·‚éB
                     if (_skip_count_of_frame >= _max_skip_frames) {
                         makeUniversalMaterialize(); //‡B
                         presentUniversalVisualize(); _visualize_frames++; //‡C
-                        finalizeUniversal();        //‡D
+                        finalizeUniverse();        //‡D
                         _skip_count_of_frame = 0;
                     } else {
-                        finalizeUniversal(); //‡D
+                        finalizeUniverse(); //‡D
                     }
                 }
             }
@@ -230,7 +229,7 @@ void GgafGod::presentUniversalVisualize() {
     _pUniverse->dump();
 }
 
-void GgafGod::finalizeUniversal() {
+void GgafGod::finalizeUniverse() {
     _pUniverse->doFinally();
 }
 
