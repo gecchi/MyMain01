@@ -8,7 +8,9 @@
 #define FRM_MATERIAL_H
 
 #include "jp/ggaf/dxcore/util/XFile/framework/frm_types.h"
-
+#include <stdio.h>
+#include <string>
+#include <string.h>
 namespace Frm {
 
 class Material {

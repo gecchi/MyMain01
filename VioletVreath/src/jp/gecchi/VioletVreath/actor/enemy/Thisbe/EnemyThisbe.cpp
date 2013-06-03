@@ -72,12 +72,12 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 
 
     //ホーミング(リポジトリ)------>
-//    pConnection_LaserChipDepoStore_ = connectToDepositoryManager("EnemyThisbeLaserChip001DepoStore");
+//    pConne_LaserChipDepoStore_ = connectToDepositoryManager("EnemyThisbeLaserChip001DepoStore");
 //    pLaserChipDepo_ = nullptr;
     //<---------------------
 
     //リフレクション(リポジトリ)------>
-    pConnection_LaserChipDepoStore_ = connectToDepositoryManager("EnemyThisbeLaserChip002DepoStore");
+    pConne_LaserChipDepoStore_ = connectToDepositoryManager("EnemyThisbeLaserChip002DepoStore");
     pLaserChipDepo_ = nullptr;
 
 
@@ -96,10 +96,10 @@ void EnemyThisbe::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
 
-//    if (pConnection_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
-//        _TRACE_("pConnection_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
+//    if (pConne_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
+//        _TRACE_("pConne_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
 //        getPlatformScene()->getSceneDirector()->addSubGroup(
-//                pConnection_LaserChipDepoStore_->peek()->extract()
+//                pConne_LaserChipDepoStore_->peek()->extract()
 //                );
 //    }
 }
@@ -139,7 +139,7 @@ void EnemyThisbe::processBehavior() {
 
         case PROG_FIRE: {
             if (_pProg->isJustChanged()) {
-                pLaserChipDepo_ = (LaserChipDepository*)(pConnection_LaserChipDepoStore_->peek()->dispatch()); //レーザーセット一本借ります。
+                pLaserChipDepo_ = (LaserChipDepository*)(pConne_LaserChipDepoStore_->peek()->dispatch()); //レーザーセット一本借ります。
             }
             if (pLaserChipDepo_) {
                 LaserChip* pLaser = pLaserChipDepo_->dispatch();
@@ -205,6 +205,6 @@ void EnemyThisbe::onInactive() {
 
 EnemyThisbe::~EnemyThisbe() {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
-        pConnection_LaserChipDepoStore_->close();
-    //pConnection_RefractionEffectDepository_->close();
+        pConne_LaserChipDepoStore_->close();
+    //pConne_RefractionEffectDepository_->close();
 }

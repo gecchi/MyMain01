@@ -89,7 +89,7 @@ void GgafDxStringSpriteActor::update(const char* prm_str) {
             throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName());
         }
 #endif
-        _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];
+        _aWidth_line_px[nn] += _aWidthPx[(unsigned char)(_draw_string[i])];
     }
     _nn = nn;
     if (max_len_px > _chr_width_px) {
@@ -129,7 +129,7 @@ void GgafDxStringSpriteActor::update(char* prm_str) {
             throwGgafCriticalException("GgafDxStringSpriteActor::update 文字列の改行数が256個を超えました。name="<<getName());
         }
 #endif
-        _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];
+        _aWidth_line_px[nn] += _aWidthPx[(unsigned char)(_draw_string[i])];
     }
     _nn = nn;
     if (max_len_px > _chr_width_px) {
@@ -204,7 +204,8 @@ void GgafDxStringSpriteActor::processDraw() {
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
         int nnn = 0; // num of \n now
         int pos = 0;
-        pixcoord dx = (_align == ALIGN_CENTER ? -_aWidth_line_px[nnn] / 2 : 0) + (_aWidthPx[_draw_string[pos]] / 2);
+        pixcoord dx = (_align == ALIGN_CENTER ? -_aWidth_line_px[nnn] / 2 : 0) +
+                        (_aWidthPx[(unsigned char)(_draw_string[pos])] / 2);
         pixcoord dx_tmp = dx;
         float u, v;
         int pattno = 0;
@@ -219,7 +220,8 @@ void GgafDxStringSpriteActor::processDraw() {
                 nnn++;
                 pos++;
 
-                dx = (_align == ALIGN_CENTER ? -_aWidth_line_px[nnn] / 2 : 0) + (_aWidthPx[_draw_string[pos]] / 2);
+                dx = (_align == ALIGN_CENTER ? -_aWidth_line_px[nnn] / 2 : 0) +
+                        (_aWidthPx[(unsigned char)(_draw_string[pos])] / 2);
                 dx_tmp = dx;
                 dy -= _chr_height_px;
 
@@ -228,7 +230,7 @@ void GgafDxStringSpriteActor::processDraw() {
                 pattno = _draw_string[pos] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
-            int w = ((_chr_width_px - _aWidthPx[_draw_string[pos]]) / 2);
+            int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[pos])]) / 2);
             dx = dx_tmp - w;
             dx_tmp = dx + _chr_width_px - w;
 
@@ -251,7 +253,7 @@ void GgafDxStringSpriteActor::processDraw() {
         }
     } else if (_align == ALIGN_RIGHT) {
         int pos = _len-1;
-        pixcoord dx = +1*(_aWidthPx[_draw_string[pos]] / 2);
+        pixcoord dx = +1*(_aWidthPx[(unsigned char)(_draw_string[pos])] / 2);
         pixcoord dx_tmp = dx;
         float u, v;
         int pattno = 0;
@@ -265,7 +267,7 @@ void GgafDxStringSpriteActor::processDraw() {
             } else if (_draw_string[pos] == '\n') {
                 pos--;
 
-                dx = +1*(_aWidthPx[_draw_string[pos]] / 2);
+                dx = +1*(_aWidthPx[(unsigned char)(_draw_string[pos])] / 2);
                 dx_tmp = dx;
                 dy += _chr_height_px;
 

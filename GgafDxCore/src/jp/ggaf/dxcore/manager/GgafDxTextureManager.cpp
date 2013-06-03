@@ -19,7 +19,7 @@ GgafDxTexture* GgafDxTextureManager::processCreateResource(char* prm_idstr, void
 
 void GgafDxTextureManager::releaseAll() {
     _TRACE_("GgafDxTextureManager::releaseAll() start-->");
-    GgafResourceConnection<GgafDxTexture>* pCurrent = _pConnection_first;
+    GgafResourceConnection<GgafDxTexture>* pCurrent = _pConne_first;
     while (pCurrent) {
         pCurrent->peek()->release();
         pCurrent = pCurrent->getNext();
@@ -29,7 +29,7 @@ void GgafDxTextureManager::releaseAll() {
 
 void GgafDxTextureManager::restoreAll() {
     _TRACE_("GgafDxTextureManager::restoreAll() start-->");
-    GgafResourceConnection<GgafDxTexture>* pCurrent = _pConnection_first;
+    GgafResourceConnection<GgafDxTexture>* pCurrent = _pConne_first;
     while (pCurrent) {
         pCurrent->peek()->restore();
         pCurrent = pCurrent->getNext();
@@ -39,8 +39,8 @@ void GgafDxTextureManager::restoreAll() {
 
 GgafResourceConnection<GgafDxTexture>* GgafDxTextureManager::processCreateConnection(char* prm_idstr, GgafDxTexture* prm_pResource) {
     TRACE3(" GgafDxTextureManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
-    GgafDxTextureConnection* pConnection = NEW GgafDxTextureConnection(prm_idstr, prm_pResource);
+    GgafDxTextureConnection* pConne = NEW GgafDxTextureConnection(prm_idstr, prm_pResource);
     TRACE3(" GgafDxTextureManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
-    return pConnection;
+    return pConne;
 }
 

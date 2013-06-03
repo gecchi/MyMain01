@@ -157,8 +157,7 @@ GgafGroupHead* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm
 
 GgafGroupHead* GgafMainActor::addSubGroup(GgafMainActor* prm_pMainActor) {
     //_pStatus->get() はint 型だが、例え負の数になっていたとしても、ビットの情報に影響はない
-    //したがって actorkind へキャストしても問題ない。
-    return addSubGroup((actorkind)(prm_pMainActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)), prm_pMainActor);
+    return addSubGroup(prm_pMainActor->_pStatus->getUint(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
 }
 
 GgafGroupHead* GgafMainActor::searchSubGroupHead(actorkind prm_kind) {

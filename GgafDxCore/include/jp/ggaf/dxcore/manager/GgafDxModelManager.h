@@ -4,26 +4,23 @@
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/util/XFile/framework/Frm_Mesh.h"
-#include "jp/ggaf/dxcore/util/XFile/framework/Frm_Tbuff.h"
 #include "jp/ggaf/dxcore/util/XFile/ToolBox/IOModel_X.h"
-#include "jp/ggaf/dxcore/util/XFile/ToolBox/IOTexture_Bmp.h"
-#include "jp/ggaf/dxcore/util/XFile/ToolBox/TBox_Textures.h"
 
-//#define Obj_GgafDxDynaD3DXMeshModel      (0x1)            //0b 00000000 00000000 00000000 00000001
-#define Obj_GgafDxD3DXAniMeshModel       (0x2)            //0b 00000000 00000000 00000000 00000010
-#define Obj_GgafDxD3DXMeshModel          (0x4)            //0b 00000000 00000000 00000000 00000100
-#define Obj_GgafDxSpriteModel            (0x8)            //0b 00000000 00000000 00000000 00001000
-#define Obj_GgafDxSpriteSetModel         (0x10)           //0b 00000000 00000000 00000000 00010000
-#define Obj_GgafDxBoardModel             (0x20)           //0b 00000000 00000000 00000000 00100000
-#define Obj_GgafDxBoardSetModel          (0x40)           //0b 00000000 00000000 00000000 01000000
-#define Obj_GgafDxMeshModel              (0x80)           //0b 00000000 00000000 00000000 10000000
-#define Obj_GgafDxMeshSetModel           (0x100)          //0b 00000000 00000000 00000001 00000000
-#define Obj_GgafDxCubeMapMeshModel       (0x200)          //0b 00000000 00000000 00000010 00000000
-#define Obj_GgafDxCubeMapMeshSetModel    (0x400)          //0b 00000000 00000000 00000100 00000000
-#define Obj_GgafDxMorphMeshModel         (0x800)          //0b 00000000 00000000 00001000 00000000
-#define Obj_GgafDxCubeMapMorphMeshModel  (0x1000)         //0b 00000000 00000000 00010000 00000000
-#define Obj_GgafDxWorldBoundModel        (0x2000)         //0b 00000000 00000000 00100000 00000000
-#define Obj_GgafDxPointSpriteModel       (0x4000)         //0b 00000000 00000000 01000000 00000000
+//#define Obj_GgafDxDynaD3DXMeshModel      (0x1U)            //0b 00000000 00000000 00000000 00000001
+#define Obj_GgafDxD3DXAniMeshModel       (0x2U)            //0b 00000000 00000000 00000000 00000010
+#define Obj_GgafDxD3DXMeshModel          (0x4U)            //0b 00000000 00000000 00000000 00000100
+#define Obj_GgafDxSpriteModel            (0x8U)            //0b 00000000 00000000 00000000 00001000
+#define Obj_GgafDxSpriteSetModel         (0x10U)           //0b 00000000 00000000 00000000 00010000
+#define Obj_GgafDxBoardModel             (0x20U)           //0b 00000000 00000000 00000000 00100000
+#define Obj_GgafDxBoardSetModel          (0x40U)           //0b 00000000 00000000 00000000 01000000
+#define Obj_GgafDxMeshModel              (0x80U)           //0b 00000000 00000000 00000000 10000000
+#define Obj_GgafDxMeshSetModel           (0x100U)          //0b 00000000 00000000 00000001 00000000
+#define Obj_GgafDxCubeMapMeshModel       (0x200U)          //0b 00000000 00000000 00000010 00000000
+#define Obj_GgafDxCubeMapMeshSetModel    (0x400U)          //0b 00000000 00000000 00000100 00000000
+#define Obj_GgafDxMorphMeshModel         (0x800U)          //0b 00000000 00000000 00001000 00000000
+#define Obj_GgafDxCubeMapMorphMeshModel  (0x1000U)         //0b 00000000 00000000 00010000 00000000
+#define Obj_GgafDxWorldBoundModel        (0x2000U)         //0b 00000000 00000000 00100000 00000000
+#define Obj_GgafDxPointSpriteModel       (0x4000U)         //0b 00000000 00000000 01000000 00000000
 
 #define connectToModelTextureManager(X) ((GgafDxCore::GgafDxTextureConnection*)P_GOD->_pModelManager->_pModelTextureManager->connect((X), this))
 
@@ -216,7 +213,7 @@ public:
      * @return æ“ª‚Ìƒ‚ƒfƒ‹
      */
     GgafDxModelConnection* getFirstConnection() {
-        return (GgafDxModelConnection*)_pConnection_first;
+        return (GgafDxModelConnection*)_pConne_first;
     }
 
     virtual ~GgafDxModelManager();

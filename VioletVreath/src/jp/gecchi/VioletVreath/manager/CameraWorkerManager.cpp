@@ -50,7 +50,7 @@ CameraWorker* CameraWorkerManager::processCreateResource(char* prm_idstr, void* 
 
 GgafResourceConnection<CameraWorker>* CameraWorkerManager::processCreateConnection(char* prm_idstr, CameraWorker* prm_pResource) {
     TRACE3(" CameraWorkerManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
-    CameraWorkerConnection* pConnection = NEW CameraWorkerConnection(prm_idstr, prm_pResource);
+    CameraWorkerConnection* pConne = NEW CameraWorkerConnection(prm_idstr, prm_pResource);
     TRACE3(" CameraWorkerManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
-    return pConnection;
+    return pConne;
 }

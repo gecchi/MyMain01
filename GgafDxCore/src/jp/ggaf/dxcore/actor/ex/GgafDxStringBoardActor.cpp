@@ -82,7 +82,7 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
             throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName());
         }
 #endif
-        _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];
+        _aWidth_line_px[nn] += _aWidthPx[(unsigned char)(_draw_string[i])];
     }
     _nn = nn;
 }
@@ -112,7 +112,7 @@ void GgafDxStringBoardActor::update(char* prm_str) {
             throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName());
         }
 #endif
-        _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];
+        _aWidth_line_px[nn] += _aWidthPx[(unsigned char)(_draw_string[i])];
     }
     _nn = nn;
 }

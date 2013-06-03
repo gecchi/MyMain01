@@ -28,8 +28,8 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
         spl_id << prm_spl_id << "_" << i;  //ƒ—á„"FormationEunomia001_0"
         papSplManufConnection_[i] = connectToSplineManufactureManager(spl_id.str().c_str());
     }
-    pConnection_ShotDepo_ = connectToDepositoryManager("Shot004"); //Eunomia‚Ì’e;
-    pDepo_Shot_ = pConnection_ShotDepo_->peek();
+    pConne_ShotDepo_ = connectToDepositoryManager("Shot004"); //Eunomia‚Ì’e;
+    pDepo_Shot_ = pConne_ShotDepo_->peek();
     updateRankParameter();
 
 }
@@ -98,7 +98,7 @@ FormationEunomia::~FormationEunomia() {
         papSplManufConnection_[i]->close();
     }
     GGAF_DELETEARR(papSplManufConnection_);
-    if (pConnection_ShotDepo_) {
-        pConnection_ShotDepo_->close();
+    if (pConne_ShotDepo_) {
+        pConne_ShotDepo_->close();
     }
 }

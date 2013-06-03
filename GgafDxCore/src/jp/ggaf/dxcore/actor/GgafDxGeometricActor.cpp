@@ -261,7 +261,7 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(GgafDxGeometricActor* prm_p
                                                      coord prm_RX_init_local,
                                                      coord prm_RY_init_local,
                                                      coord prm_RZ_init_local) {
-    return addSubGroupAsFk(prm_pGeoActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND),
+    return addSubGroupAsFk(prm_pGeoActor->_pStatus->getUint(STAT_DEFAULT_ACTOR_KIND),
                            prm_pGeoActor,
                            prm_X_init_local,
                            prm_Y_init_local,

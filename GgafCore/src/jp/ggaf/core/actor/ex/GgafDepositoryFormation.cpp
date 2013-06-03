@@ -42,7 +42,7 @@ void GgafDepositoryFormation::setFormationMember(GgafActorDepository* prm_pDepo)
 #endif
     _pDepo = prm_pDepo;
     //’c’·‚ÉŽí•Ê‚ð³‚µ‚­“`‚¦‚é‚½‚ß‚Éƒfƒ|ƒWƒgƒŠŽí•ÊˆøŒp‚¬
-    _pStatus->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
+    _pStatus->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->_pStatus->getUint(STAT_DEFAULT_ACTOR_KIND));
 }
 
 void GgafDepositoryFormation::processFinal() {

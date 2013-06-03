@@ -14,9 +14,9 @@ class FormationHebe : public GgafLib::DepositoryFormation {
 
 public:
     /** ヘーベ借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConnection_HebeDepo_;
+    DepositoryConnection* pConne_HebeDepo_;
     /** ヘーベの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConnection_ShotDepo_;
+    DepositoryConnection* pConne_ShotDepo_;
 
     /** 編隊数(RANK変動) */
     int RV_NumFormation_;

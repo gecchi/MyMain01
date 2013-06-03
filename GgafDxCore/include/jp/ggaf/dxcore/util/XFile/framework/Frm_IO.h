@@ -9,6 +9,7 @@
 
 #include "jp/ggaf/dxcore/util/XFile/framework/frm_types.h"
 #include <string>
+#include <string.h>
 #include <vector>
 #include <fstream>
 

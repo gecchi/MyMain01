@@ -81,7 +81,8 @@ int MyStgUtil::calcMyStamina(GgafMainActor* prm_pMy, GgafMainActor* prm_pOpp) {
     GgafStatus* pStatOpp = prm_pOpp->_pStatus;
 
     //—D«—ò«”»’è
-    int my_domi = MyStgUtil::judgeMyAdvantage(pStatMy->get(STAT_Attribute), pStatOpp->get(STAT_Attribute));
+    int my_domi = MyStgUtil::judgeMyAdvantage(pStatMy->getUint(STAT_Attribute),
+                                              pStatOpp->getUint(STAT_Attribute));
     //‘ŠŽè(“G)UŒ‚—Í
     int opp_attack = pStatOpp->get(STAT_Attack);
     //—D«—ò«‚É‰ž‚¶‚Ä–hŒä—¦‚ðæ‚¸‚é
@@ -104,7 +105,8 @@ int MyStgUtil::calcEnemyStamina(GgafMainActor* prm_pEnemy, GgafMainActor* prm_pO
     GgafStatus* pStatEnemy = prm_pEnemy->_pStatus;
     GgafStatus* pStatOpp = prm_pOpp->_pStatus;
     //—D«—ò«”»’è
-    int enemy_domi = MyStgUtil::judgeEnemyAdvantage(pStatEnemy->get(STAT_Attribute), pStatOpp->get(STAT_Attribute));
+    int enemy_domi = MyStgUtil::judgeEnemyAdvantage(pStatEnemy->getUint(STAT_Attribute),
+                                                    pStatOpp->getUint(STAT_Attribute));
     //‘ŠŽè(Ž©‹@)UŒ‚—Í
     int opp_attack = pStatOpp->get(STAT_Attack);
     //—D«—ò«‚É‰ž‚¶‚Ä–hŒä—¦‚ðæ‚¸‚é

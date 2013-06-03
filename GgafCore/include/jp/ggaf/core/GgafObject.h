@@ -14,7 +14,7 @@ class GgafObject {
 public:
     int _id;
     /** [r]インスタンス種類 */
-    uint32_t _obj_class;
+    classkind _obj_class;
 
 public:
     GgafObject();
@@ -31,7 +31,7 @@ public:
      * @param prm_Obj_xxxx 調べるクラスのマクロ定数
      * @return
      */
-    virtual bool instanceOf(uint32_t prm_Obj_xxxx) {
+    virtual bool instanceOf(classkind prm_Obj_xxxx) {
         if ((_obj_class & prm_Obj_xxxx) == prm_Obj_xxxx) {
             return true;
         } else {

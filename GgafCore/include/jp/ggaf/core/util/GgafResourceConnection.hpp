@@ -194,7 +194,7 @@ int GgafResourceConnection<T>::close() {
         return _num_connection;
     }
 
-    GgafResourceConnection<T>* pCurrent = _pManager->_pConnection_first;
+    GgafResourceConnection<T>* pCurrent = _pManager->_pConne_first;
     GgafResourceConnection<T>* pPrev = nullptr;
     while (pCurrent) {
         if (pCurrent == this) {
@@ -207,7 +207,7 @@ int GgafResourceConnection<T>::close() {
                     //末尾だった
                     if (pPrev == nullptr) {
                         //末尾で先頭だった（＝最後の一つ）
-                        _pManager->_pConnection_first = nullptr;
+                        _pManager->_pConne_first = nullptr;
                     } else {
                         //末尾で先頭でなかった
                         pPrev->_pNext = nullptr;
@@ -216,7 +216,7 @@ int GgafResourceConnection<T>::close() {
                     //末尾でない
                     if (pPrev == nullptr) {
                         //先頭だった
-                        _pManager->_pConnection_first = pCurrent->_pNext; //先頭を次にずらす
+                        _pManager->_pConne_first = pCurrent->_pNext; //先頭を次にずらす
                     } else {
                         //末尾でも先頭でもない（中間）
                         pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる

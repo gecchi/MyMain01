@@ -309,25 +309,27 @@
 typedef uint64_t hashval;
 /** アクターの種類 */
 typedef uint32_t actorkind;
+/** クラス種別 */
+typedef uint32_t classkind;
 /** フレーム(アプリケーション時間) */
 typedef uint32_t frame;
 #define MAX_FRAME (UINT_MAX)
 
-#define Obj_SceneBit              (0x80000000)       //0b 10000000 00000000 00000000 00000000
+#define Obj_SceneBit              (0x80000000U)       //0b 10000000 00000000 00000000 00000000
 
-#define Obj_GgafScene             (0x80000001)       //0b 10000000 00000000 00000000 00000001
-#define Obj_GgafMainScene         (0x80000002)       //0b 10000000 00000000 00000000 00000010
-#define Obj_GgafDisusedScene      (0x80000004)       //0b 10000000 00000000 00000000 00000100
-#define Obj_GgafUniverse          (0x80000008)       //0b 10000000 00000000 00000000 00001000
+#define Obj_GgafScene             (0x80000001U)       //0b 10000000 00000000 00000000 00000001
+#define Obj_GgafMainScene         (0x80000002U)       //0b 10000000 00000000 00000000 00000010
+#define Obj_GgafDisusedScene      (0x80000004U)       //0b 10000000 00000000 00000000 00000100
+#define Obj_GgafUniverse          (0x80000008U)       //0b 10000000 00000000 00000000 00001000
 
-#define Obj_GgafActor             (0x1)              //0b 00000000 00000000 00000000 00000001
-#define Obj_GgafMainActor         (0x2)              //0b 00000000 00000000 00000000 00000010
-#define Obj_GgafDummyActor        (0x4)              //0b 00000000 00000000 00000000 00000100
-#define Obj_GgafSceneDirector     (0x8)              //0b 00000000 00000000 00000000 00001000
-#define Obj_GgafGroupHead         (0x10)             //0b 00000000 00000000 00000000 00010000
-#define Obj_GgafDisusedActor      (0x20)             //0b 00000000 00000000 00000000 00100000
-#define Obj_GgafActorDepository   (0x40)             //0b 00000000 00000000 00000000 01000000
-#define Obj_GgafFormation         (0x80)             //0b 00000000 00000000 00000000 10000000
+#define Obj_GgafActor             (0x1U)              //0b 00000000 00000000 00000000 00000001
+#define Obj_GgafMainActor         (0x2U)              //0b 00000000 00000000 00000000 00000010
+#define Obj_GgafDummyActor        (0x4U)              //0b 00000000 00000000 00000000 00000100
+#define Obj_GgafSceneDirector     (0x8U)              //0b 00000000 00000000 00000000 00001000
+#define Obj_GgafGroupHead         (0x10U)             //0b 00000000 00000000 00000000 00010000
+#define Obj_GgafDisusedActor      (0x20U)             //0b 00000000 00000000 00000000 00100000
+#define Obj_GgafActorDepository   (0x40U)             //0b 00000000 00000000 00000000 01000000
+#define Obj_GgafFormation         (0x80U)             //0b 00000000 00000000 00000000 10000000
 
 
 //前方宣言(forward declaration)

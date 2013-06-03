@@ -188,7 +188,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxAgainstWay.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxGeoElem.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\framework\Frm_Mesh.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\framework\Frm_Tbuff.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\ex\GgafDxAAPrismActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxAllocHierarchy.cpp" />
@@ -286,7 +285,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\model\ex\GgafDxWorldBoundModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxWorldMatStack.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\Toolbox\ioModel_X.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\Toolbox\iotexture_bmp.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\IkdLib\OggDecoder.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\IkdLib\OggVorbisFile.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\IkdLib\OggVorbisMemory.cpp" />
@@ -298,7 +296,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\Toolbox\TBox_Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.h" />
@@ -307,14 +304,10 @@
     <ClInclude Include="include\jp\ggaf\dxcore\sound\CWaveDecorder.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxbgmperformer.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxsetransmitter.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_3DMath.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_IO.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Manager.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Material.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Mesh.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Tbuff.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_Timer.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\framework\Frm_types.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ex\GgafDxAAPrismActor.h" />
@@ -417,8 +410,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\model\ex\GgafDxWorldBoundModel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxWorldMatStack.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\IOModel_X.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\IOTexture_BMP.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\MyTrace.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\OggDecoder.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\OggVorbisFile.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\OggVorbisMemory.h" />
@@ -426,7 +417,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\PCMDecoder.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\IkdLib\PCMPlayer.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\TBox_Textures.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\XFileStructs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

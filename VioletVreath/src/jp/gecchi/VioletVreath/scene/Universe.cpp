@@ -149,7 +149,7 @@ CameraWorker* Universe::undoCameraWork() {
     //    +------+                       +------+
 
     //ƒXƒ^ƒbƒN‚‹‚çŽæ‚èo‚µ
-    CameraWorkerConnection* pConnection_now = stack_CamWorkerConnection_.pop(); //pConnection_now‚Íã}‚ÌConC‚ª•Ô‚é
+    CameraWorkerConnection* pConne_now = stack_CamWorkerConnection_.pop(); //pConne_now‚Íã}‚ÌConC‚ª•Ô‚é
     CameraWorkerConnection* pCon = stack_CamWorkerConnection_.getLast(); //pCon‚Íã}‚ÅŒ¾‚¤‚ÆConB‚ª•Ô‚é
     if (pCon) {
         CameraWorker* pCamWorker = pCon->peek();
@@ -166,7 +166,7 @@ CameraWorker* Universe::undoCameraWork() {
                 stack_CamWorkerConnection_.dump();
                 throwGgafCriticalException("Universe::undoCameraWork()  stack_CameraWorker_ ‚©‚ç pop() ‚µ‚·‚¬B");
             }
-            pConnection_now->close();
+            pConne_now->close();
 //            _TRACE_("undoCameraWork end---");
 //            stack_CamWorkerConnection_.dump();
             return pActiveCamWorker_;

@@ -31,7 +31,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
            "-.................../");
 
     //メニューアイテム（選択可）設定
-    char* apItemStr[] = {
+    const char* apItemStr[] = {
           "BACK TO GAME",   //0
           "CONFIG",         //1
           "BACK TO TITLE",  //2

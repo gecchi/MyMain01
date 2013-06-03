@@ -9,7 +9,7 @@
 
 //#define DEBUG
 
-#include "jp/ggaf/dxcore/util/XFile/ToolBox/MyTrace.h"
+//#include "jp/ggaf/dxcore/util/XFile/ToolBox/MyTrace.h"
 #include "jp/ggaf/dxcore/util/XFile/framework/frm_IO.h"
 //#include <GL\freeglut.h>
 #include "jp/ggaf/dxcore/util/XFile/framework/Frm_Mesh.h"

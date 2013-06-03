@@ -4,12 +4,12 @@
 using namespace IkdLib;
 
 OggVorbisMemory::OggVorbisMemory() :
-        _size(0), _pos_current(0)
+        _buffer(0), _size(0), _pos_current(0)
 {
 }
 
 OggVorbisMemory::OggVorbisMemory(const char* prm_filepath) :
-        _size(0), _pos_current(0)
+        _buffer(0), _size(0), _pos_current(0)
 {
     createBuffer(prm_filepath);
 }

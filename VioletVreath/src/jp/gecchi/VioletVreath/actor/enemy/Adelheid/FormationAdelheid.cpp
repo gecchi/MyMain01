@@ -34,10 +34,10 @@ FormationAdelheid::FormationAdelheid(const char* prm_name)
     addSubGroup(pDummy_);
 
     //編隊隊員デポジトリセット
-    pConnection_AdelheidDepo_ = connectToDepositoryManager("EnemyAdelheid4Formation");
-    setFormationMember(pConnection_AdelheidDepo_->peek());
+    pConne_AdelheidDepo_ = connectToDepositoryManager("EnemyAdelheid4Formation");
+    setFormationMember(pConne_AdelheidDepo_->peek());
     //編隊隊員のショットデポジトリ
-    pConnection_ShotDepo_ = connectToDepositoryManager("EnemyAdelheidShot");
+    pConne_ShotDepo_ = connectToDepositoryManager("EnemyAdelheidShot");
 
     updateRankParameter();
     useProgress(PROG_LEAVE);
@@ -127,7 +127,7 @@ void FormationAdelheid::processBehavior() {
                          EnemyAdelheid* pAdelheid = (EnemyAdelheid*)callUpMember(RV_NumFormation_);
                          if (pAdelheid) {
                              pAdelheid->config(getSplManuf()->createKurokoLeader(pAdelheid->_pKurokoA),
-                                               pConnection_ShotDepo_->peek() );
+                                               pConne_ShotDepo_->peek() );
                              pAdelheid->_pKurokoA->forceMvVeloRange(RV_MvVelo_*2);
                              pAdelheid->_pKurokoA->setMvVelo(RV_MvVelo_);
 
@@ -242,7 +242,7 @@ void FormationAdelheid::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 FormationAdelheid::~FormationAdelheid() {
-    pConnection_ShotDepo_->close();
-    pConnection_AdelheidDepo_->close();
+    pConne_ShotDepo_->close();
+    pConne_AdelheidDepo_->close();
 }
 

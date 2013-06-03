@@ -20,8 +20,6 @@
 #define GGAF_MIN_VOLUME (0)
 
 
-
-
 /** âÒì]ï˚ñ@íËêîÅAãﬂÇ¢ï˚å¸Ç…âÒì] */
 #define TURN_CLOSE_TO 0
 /** âÒì]ï˚ñ@íËêîÅAâìÇ¢ï˚å¸Ç…âÒì] */
@@ -68,9 +66,6 @@
 #define POS_PRISM_pn      (0x4)  //0b 0000100
 /** íºäpÇ™Ç†ÇÈèÍèä ÇÕ, (ê≥, ê≥)Ç≈Ç†ÇÈ */
 #define POS_PRISM_pp      (0x8)  //0b 0001000
-
-
-
 
 
 
@@ -292,32 +287,29 @@ enum GgafDxValign {
 
 
 
-#define Obj_GgafDxScene                 (0x80000010)     //0b 10000000 00000000 00000000 00010000
-#define Obj_GgafDxUniverse              (0x80000020)     //0b 10000000 00000000 00000000 00100000
+#define Obj_GgafDxScene                 (0x80000010U)     //0b 10000000 00000000 00000000 00010000
+#define Obj_GgafDxUniverse              (0x80000020U)     //0b 10000000 00000000 00000000 00100000
 
-#define Obj_GgafDxBaseActor             (0x100)          //0b 00000000 00000000 00000001 00000000
-#define Obj_GgafDxGeometricActor        (0x200)          //0b 00000000 00000000 00000010 00000000
-#define Obj_GgafDxDrawableActor         (0x400)          //0b 00000000 00000000 00000100 00000000
-#define Obj_GgafDxMeshActor             (0x800)          //0b 00000000 00000000 00001000 00000000
-#define Obj_GgafDxMeshSetActor          (0x1000)         //0b 00000000 00000000 00010000 00000000
-#define Obj_GgafDxMorphMeshActor        (0x2000)         //0b 00000000 00000000 00100000 00000000
-#define Obj_GgafDxD3DXMeshActor         (0x4000)         //0b 00000000 00000000 01000000 00000000
-#define Obj_GgafDxDynaD3DXMeshActor     (0x8000)         //0b 00000000 00000000 10000000 00000000
-#define Obj_GgafDxD3DXAniMeshActor      (0x10000)        //0b 00000000 00000001 00000000 00000000
-#define Obj_GgafDxSpriteMeshActor       (0x20000)        //0b 00000000 00000010 00000000 00000000
-#define Obj_GgafDxSpriteMeshSetActor    (0x40000)        //0b 00000000 00000100 00000000 00000000
-#define Obj_GgafDxCubeMapMeshActor      (0x80000)        //0b 00000000 00001000 00000000 00000000
-#define Obj_GgafDxCubeMapMeshSetActor   (0x100000)       //0b 00000000 00010000 00000000 00000000
-#define Obj_GgafDxCubeMapMorphMeshActor (0x200000)       //0b 00000000 00100000 00000000 00000000
-#define Obj_GgafDxWorldBoundActor       (0x400000)       //0b 00000000 01000000 00000000 00000000
-#define Obj_GgafDxSpriteActor           (0x800000)       //0b 00000000 10000000 00000000 00000000
-#define Obj_GgafDxSpriteSetActor        (0x1000000)      //0b 00000001 00000000 00000000 00000000
-#define Obj_GgafDxBoardActor            (0x2000000)      //0b 00000010 00000000 00000000 00000000
-#define Obj_GgafDxBoardSetActor         (0x4000000)      //0b 00000100 00000000 00000000 00000000
-#define Obj_GgafDxPointSpriteActor      (0x8000000)      //0b 00001000 00000000 00000000 00000000
-
-
-
+#define Obj_GgafDxBaseActor             (0x100U)          //0b 00000000 00000000 00000001 00000000
+#define Obj_GgafDxGeometricActor        (0x200U)          //0b 00000000 00000000 00000010 00000000
+#define Obj_GgafDxDrawableActor         (0x400U)          //0b 00000000 00000000 00000100 00000000
+#define Obj_GgafDxMeshActor             (0x800U)          //0b 00000000 00000000 00001000 00000000
+#define Obj_GgafDxMeshSetActor          (0x1000U)         //0b 00000000 00000000 00010000 00000000
+#define Obj_GgafDxMorphMeshActor        (0x2000U)         //0b 00000000 00000000 00100000 00000000
+#define Obj_GgafDxD3DXMeshActor         (0x4000U)         //0b 00000000 00000000 01000000 00000000
+#define Obj_GgafDxDynaD3DXMeshActor     (0x8000U)         //0b 00000000 00000000 10000000 00000000
+#define Obj_GgafDxD3DXAniMeshActor      (0x10000U)        //0b 00000000 00000001 00000000 00000000
+#define Obj_GgafDxSpriteMeshActor       (0x20000U)        //0b 00000000 00000010 00000000 00000000
+#define Obj_GgafDxSpriteMeshSetActor    (0x40000U)        //0b 00000000 00000100 00000000 00000000
+#define Obj_GgafDxCubeMapMeshActor      (0x80000U)        //0b 00000000 00001000 00000000 00000000
+#define Obj_GgafDxCubeMapMeshSetActor   (0x100000U)       //0b 00000000 00010000 00000000 00000000
+#define Obj_GgafDxCubeMapMorphMeshActor (0x200000U)       //0b 00000000 00100000 00000000 00000000
+#define Obj_GgafDxWorldBoundActor       (0x400000U)       //0b 00000000 01000000 00000000 00000000
+#define Obj_GgafDxSpriteActor           (0x800000U)       //0b 00000000 10000000 00000000 00000000
+#define Obj_GgafDxSpriteSetActor        (0x1000000U)      //0b 00000001 00000000 00000000 00000000
+#define Obj_GgafDxBoardActor            (0x2000000U)      //0b 00000010 00000000 00000000 00000000
+#define Obj_GgafDxBoardSetActor         (0x4000000U)      //0b 00000100 00000000 00000000 00000000
+#define Obj_GgafDxPointSpriteActor      (0x8000000U)      //0b 00001000 00000000 00000000 00000000
 
 
 //ëOï˚êÈåæ(forward declaration)
@@ -331,19 +323,10 @@ class OggDecoder;
 class OggVorbisFile;
 class OggVorbisMemory;
 }
-//#include "jp/ggaf/dxcore/sound/IkdLib/PCMPlayer.h"
-//#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisResource.h"
-//#include "jp/ggaf/dxcore/sound/IkdLib/PCMDecoder.h"
-//#include "jp/ggaf/dxcore/sound/IkdLib/OggDecoder.h"
-//#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisFile.h"
-//#include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisMemory.h"
-
 //ëOï˚êÈåæ(forward declaration)
 namespace Frm {
-
 class Model3D;
 class Mesh;
-
 }
 
 //ëOï˚êÈåæ(forward declaration)

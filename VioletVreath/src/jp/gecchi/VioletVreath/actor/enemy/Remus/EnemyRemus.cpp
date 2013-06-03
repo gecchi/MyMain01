@@ -30,10 +30,10 @@ EnemyRemus::EnemyRemus(const char* prm_name) :
     frame_of_close_interval_ = 5*60;
     frame_of_morph_interval_   = 120;
 
-    pConnection_LaserChipDepoStore_ = connectToDepositoryManager(
+    pConne_LaserChipDepoStore_ = connectToDepositoryManager(
              "EnemyRemusLaserChip001DepoStore"
          );
-    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConnection_LaserChipDepoStore_->peek());
+    pLaserChipDepoStore_ = (GgafActorDepositoryStore*)(pConne_LaserChipDepoStore_->peek());
     pLaserChipDepo_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -172,5 +172,5 @@ void EnemyRemus::onInactive() {
 }
 
 EnemyRemus::~EnemyRemus() {
-    pConnection_LaserChipDepoStore_->close();
+    pConne_LaserChipDepoStore_->close();
 }

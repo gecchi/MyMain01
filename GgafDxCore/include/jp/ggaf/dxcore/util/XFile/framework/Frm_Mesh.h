@@ -13,7 +13,7 @@
 #include "jp/ggaf/dxcore/util/XFile/framework/frm_Material.h"
 
 //#define DEBUG
-#include "jp/ggaf/dxcore/util/XFile/ToolBox/Mytrace.h"
+//#include "jp/ggaf/dxcore/util/XFile/ToolBox/Mytrace.h"
 
 #include <list>
 #include <vector>

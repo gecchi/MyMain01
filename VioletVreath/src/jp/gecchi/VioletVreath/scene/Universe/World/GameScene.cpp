@@ -85,7 +85,11 @@ void GameScene::onReset() {
         }
     }
     P_UNIVERSE->resetCamWorker();
-    GameGlobal::init();
+
+    _RANK_ = 0.0;
+    _RANK_UP_LEVEL_ = 0;
+    _SCORE_ = 0;
+
     _pProg->reset(GameScene::PROG_INIT);
 }
 

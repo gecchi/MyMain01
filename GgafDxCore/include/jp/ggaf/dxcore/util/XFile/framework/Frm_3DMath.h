@@ -9,6 +9,7 @@
 
 //#include <mem.h>
 #include <math.h>
+#include <string.h>
 
 #define MINFLOAT 1.17549435E-38F
 

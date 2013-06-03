@@ -31,7 +31,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
            "-.........../");
 
     //メニューアイテム（選択可）設定
-    char* apItemStr[] = {
+    const char* apItemStr[] = {
           "KEY CONFIG",
           "SOUND CONFIG",
           "<- BACK"

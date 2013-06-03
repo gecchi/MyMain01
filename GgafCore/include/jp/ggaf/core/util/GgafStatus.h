@@ -17,11 +17,11 @@ class GgafStatus : public GgafObject {
 
     /**
      * ステータス値を表す .
-     * 型は char, int, doubleのいずれか。
      */
     union VALUE {
       char _char_val;
       int _int_val;
+      unsigned int _uint_val;
       double _double_val;
       void* _ptr;
     };
@@ -60,6 +60,15 @@ public:
         }
 #endif
         _paValue[prm_status_kind]._int_val = val;
+    }
+
+    inline void set(int prm_status_kind, unsigned int val) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
+        _paValue[prm_status_kind]._uint_val = val;
     }
 
     inline void set(int prm_status_kind, double val) {
@@ -126,6 +135,10 @@ public:
 
     inline int getInt(int prm_status_kind) {
         return _paValue[prm_status_kind]._int_val;
+    }
+
+    inline int getUint(int prm_status_kind) {
+        return _paValue[prm_status_kind]._uint_val;
     }
 
     inline double getDouble(int prm_status_kind) {

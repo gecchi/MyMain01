@@ -142,8 +142,8 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 
 GgafResourceConnection<SplineManufacture>* SplineManufactureManager::processCreateConnection(char* prm_idstr, SplineManufacture* prm_pResource) {
     TRACE3(" SplineManufactureManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
-    SplineManufactureConnection* pConnection = NEW SplineManufactureConnection(prm_idstr, prm_pResource);
+    SplineManufactureConnection* pConne = NEW SplineManufactureConnection(prm_idstr, prm_pResource);
     TRACE3(" SplineManufactureManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
-    return pConnection;
+    return pConne;
 }
 

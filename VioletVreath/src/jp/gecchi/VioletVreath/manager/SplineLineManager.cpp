@@ -42,11 +42,11 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
     if (UTIL::strcmp_ascii("Spl_00201_", prm_idstr) == 0) {
         //後方から
         double p[][3] = { //           X  ,                       Y ,                         Z
-           { MyShip::lim_X_behaind_ - 500000.0 ,                    0.0 ,  MyShip::lim_Z_left_ * 0.8 },
-           {                       3000000 , MyShip::lim_Y_top_ * 0.2 ,                       0.0 },
-           {                       3000000 , MyShip::lim_Y_top_ * 0.5 , MyShip::lim_Z_right_ * 0.3 },
-           {                       3000000 , MyShip::lim_Y_top_ * 1.0 ,                       0.0 },
-           {                       3000000 ,                    0.0 ,                       0.0 }
+           { MyShip::lim_X_behaind_ - 500000.0 ,                      0.0 ,  MyShip::lim_Z_left_ * 0.8 },
+           {                          3000000 , MyShip::lim_Y_top_ * 0.2 ,                        0.0 },
+           {                          3000000 , MyShip::lim_Y_top_ * 0.5 , MyShip::lim_Z_right_ * 0.3 },
+           {                          3000000 , MyShip::lim_Y_top_ * 1.0 ,                        0.0 },
+           {                          3000000 ,                      0.0 ,                        0.0 }
         };
         pResource = NEW SplineLine(p, 5, 0.2); //粒度 0.2
     }
@@ -54,11 +54,11 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
     if (UTIL::strcmp_ascii("Spl_00202_", prm_idstr) == 0) {
         //後方から
         double p[][3] = { //           X  ,                          Y ,                         Z
-           { MyShip::lim_X_behaind_ - 500000.0 ,                       0.0 , MyShip::lim_Z_right_ * 0.8 },
-           {      MyShip::lim_X_front_ * 1.5 , MyShip::lim_Y_bottom_ * 0.2 ,                       0.0 },
-           {      MyShip::lim_X_front_ * 2.5 , MyShip::lim_Y_bottom_ * 0.5 ,  MyShip::lim_Z_left_ * 0.3 },
-           {      MyShip::lim_X_front_ * 2.2 , MyShip::lim_Y_bottom_ * 1.0 ,                       0.0 },
-           {      MyShip::lim_X_front_ * 2.0 ,                       0.0 ,                       0.0 }
+           { MyShip::lim_X_behaind_ - 500000.0 ,                         0.0 , MyShip::lim_Z_right_ * 0.8 },
+           { MyShip::lim_X_front_ * 1.5        , MyShip::lim_Y_bottom_ * 0.2 ,                        0.0 },
+           { MyShip::lim_X_front_ * 2.5        , MyShip::lim_Y_bottom_ * 0.5 ,  MyShip::lim_Z_left_ * 0.3 },
+           { MyShip::lim_X_front_ * 2.2        , MyShip::lim_Y_bottom_ * 1.0 ,                        0.0 },
+           { MyShip::lim_X_front_ * 2.0        ,                         0.0 ,                        0.0 }
         };
         pResource = NEW SplineLine(p, 5, 0.2); //粒度 0.2
     }
@@ -124,8 +124,8 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
 
 GgafResourceConnection<GgafLib::SplineLine>* SplineLineManager::processCreateConnection(char* prm_idstr, SplineLine* prm_pResource) {
     TRACE3(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
-    SplineLineConnection* pConnection = NEW SplineLineConnection(prm_idstr, prm_pResource);
+    SplineLineConnection* pConne = NEW SplineLineConnection(prm_idstr, prm_pResource);
     TRACE3(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
-    return pConnection;
+    return pConne;
 }
 

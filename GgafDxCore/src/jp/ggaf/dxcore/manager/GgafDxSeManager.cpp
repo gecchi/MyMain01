@@ -35,19 +35,19 @@ void GgafDxSeManager::updateVolume() {
     while(_is_connecting_resource) {
         Sleep(1);
     }
-    GgafDxSeConnection* pConnection = (GgafDxSeConnection*)_pConnection_first;
-    while (pConnection) {
-        pConnection->peek()->setVolume(GGAF_MAX_VOLUME);
+    GgafDxSeConnection* pConne = (GgafDxSeConnection*)_pConne_first;
+    while (pConne) {
+        pConne->peek()->setVolume(GGAF_MAX_VOLUME);
         while(_is_connecting_resource) { //簡易排他
             Sleep(1);
         }
-        pConnection = (GgafDxSeConnection*)(pConnection->getNext());
+        pConne = (GgafDxSeConnection*)(pConne->getNext());
     }
 }
 
 GgafResourceConnection<GgafDxSe>* GgafDxSeManager::processCreateConnection(char* prm_idstr, GgafDxSe* prm_pResource) {
     TRACE3(" GgafDxSeManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
-    GgafDxSeConnection* pConnection = NEW GgafDxSeConnection(prm_idstr, prm_pResource);
+    GgafDxSeConnection* pConne = NEW GgafDxSeConnection(prm_idstr, prm_pResource);
     TRACE3(" GgafDxSeManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
-    return pConnection;
+    return pConne;
 }

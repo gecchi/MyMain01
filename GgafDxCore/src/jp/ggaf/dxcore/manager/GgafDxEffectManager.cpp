@@ -83,7 +83,7 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(char* prm_idstr, void* 
 
 void GgafDxEffectManager::onDeviceLostAll() {
     TRACE3("GgafDxEffectManager::onDeviceLostAll() start-->");
-    GgafResourceConnection<GgafDxEffect>* pCurrent = _pConnection_first;
+    GgafResourceConnection<GgafDxEffect>* pCurrent = _pConne_first;
     HRESULT hr;
     while (pCurrent) {
         hr = pCurrent->peek()->_pID3DXEffect->OnLostDevice();
@@ -96,7 +96,7 @@ void GgafDxEffectManager::onDeviceLostAll() {
 
 void GgafDxEffectManager::restoreAll() {
     TRACE3("GgafDxEffectManager::restoreAll() start-->");
-    GgafResourceConnection<GgafDxEffect>* pCurrent = _pConnection_first;
+    GgafResourceConnection<GgafDxEffect>* pCurrent = _pConne_first;
     HRESULT hr;
     while (pCurrent) {
         hr = pCurrent->peek()->_pID3DXEffect->OnResetDevice();
@@ -107,7 +107,7 @@ void GgafDxEffectManager::restoreAll() {
     TRACE3("GgafDxEffectManager::restoreAll() end<--");
 }
 void GgafDxEffectManager::setParamPerFrameAll() {
-    GgafResourceConnection<GgafDxEffect>* pCurrent = _pConnection_first;
+    GgafResourceConnection<GgafDxEffect>* pCurrent = _pConne_first;
     while (pCurrent) {
         pCurrent->peek()->setParamPerFrame();
         pCurrent = pCurrent->getNext();
@@ -116,8 +116,8 @@ void GgafDxEffectManager::setParamPerFrameAll() {
 GgafResourceConnection<GgafDxEffect>* GgafDxEffectManager::processCreateConnection(char* prm_idstr,
                                                                                      GgafDxEffect* prm_pResource) {
     TRACE3(" GgafDxEffectManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
-    GgafDxEffectConnection* pConnection = NEW GgafDxEffectConnection(prm_idstr, prm_pResource);
+    GgafDxEffectConnection* pConne = NEW GgafDxEffectConnection(prm_idstr, prm_pResource);
     TRACE3(" GgafDxEffectManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
-    return pConnection;
+    return pConne;
 }
 

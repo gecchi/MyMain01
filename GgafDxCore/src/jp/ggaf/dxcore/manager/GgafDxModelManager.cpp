@@ -2953,7 +2953,7 @@ GgafDxModelManager::~GgafDxModelManager() {
 
 void GgafDxModelManager::restoreAll() {
     TRACE3("GgafDxModelManager::restoreAll() start-->");
-    GgafResourceConnection<GgafDxModel>* pCurrent = _pConnection_first;
+    GgafResourceConnection<GgafDxModel>* pCurrent = _pConne_first;
     TRACE3("restoreAll pCurrent="<<pCurrent);
     while (pCurrent) {
         pCurrent->peek()->restore();
@@ -2964,7 +2964,7 @@ void GgafDxModelManager::restoreAll() {
 
 void GgafDxModelManager::onDeviceLostAll() {
     TRACE3("GgafDxModelManager::onDeviceLostAll() start-->");
-    GgafResourceConnection<GgafDxModel>* pCurrent = _pConnection_first;
+    GgafResourceConnection<GgafDxModel>* pCurrent = _pConne_first;
     TRACE3("onDeviceLostAll pCurrent="<<pCurrent);
     while (pCurrent) {
         _TRACE_("GgafDxModelManager::onDeviceLostAll ["<<pCurrent->peek()->_model_name<<"] onDeviceLost begin");
@@ -2977,7 +2977,7 @@ void GgafDxModelManager::onDeviceLostAll() {
 
 void GgafDxModelManager::releaseAll() {
     TRACE3("GgafDxModelManager::releaseAll() start-->");
-    GgafResourceConnection<GgafDxModel>* pCurrent = _pConnection_first;
+    GgafResourceConnection<GgafDxModel>* pCurrent = _pConne_first;
     while (pCurrent) {
         pCurrent->peek()->release();
         pCurrent = pCurrent->getNext();
