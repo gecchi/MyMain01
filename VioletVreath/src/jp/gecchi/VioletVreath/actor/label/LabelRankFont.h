@@ -62,7 +62,7 @@ public:
         PROG_RANKUP   ,
     };
 
-    /** [r]前フレームの_RANK_DISP_ */
+    /** [r]前フレームのG_RANK_DISP */
     int tmp_rank_;
 
 public:

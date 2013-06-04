@@ -6,7 +6,9 @@
 #include "jp/ggaf/lib/util/VBReplayRecorder.h"
 
 #define MY_IDM_RESET_WINDOW_SIZE  10
-#define MY_IDM_ABOUT              11
+#define MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE  11
+#define MY_IDM_SAVE               12
+#define MY_IDM_ABOUT              13
 #define MY_IDM_VPOS_1             21
 #define MY_IDM_VPOS_2             22
 #define MY_IDM_VPOS_3             23
@@ -281,8 +283,64 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 //                dhwnd  = CreateDialog(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
                 DialogBox(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
             } else if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
-                //ウィンドウリサイズ
-                resetWindowsize(hWnd);
+                //初期ウィンドウサイズにリセット
+                if (!PROPERTY::FULL_SCREEN) {
+                    if (PROPERTY::DUAL_VIEW) {
+                        resetWindowsize(_hWnd1_, PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
+                        resetWindowsize(_hWnd2_, PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
+                    } else {
+                        resetWindowsize(_hWnd1_, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
+                    }
+                }
+            } else if(wParam == MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE) {
+                //dot by dot ウィンドウサイズにリセット
+                if (!PROPERTY::FULL_SCREEN) {
+                    if (PROPERTY::DUAL_VIEW) {
+                        resetWindowsize(_hWnd1_, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
+                        resetWindowsize(_hWnd2_, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
+                    } else {
+                        resetWindowsize(_hWnd1_, PROPERTY::RENDER_TARGET_BUFFER_WIDTH, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
+                    }
+                }
+            } else if(wParam == MY_IDM_SAVE) {
+                if (!PROPERTY::FULL_SCREEN) {
+                    if (PROPERTY::DUAL_VIEW) {
+                        RECT cRect1, cRect2;
+                        GetClientRect(_hWnd1_, &cRect1);
+                        GetClientRect(_hWnd2_, &cRect2);
+                        pixcoord cw1 = cRect1.right - cRect1.left;
+                        pixcoord ch1 = cRect1.bottom - cRect1.top;
+                        pixcoord cw2 = cRect2.right - cRect2.left;
+                        pixcoord ch2 = cRect2.bottom - cRect2.top;
+                        PROPERTY::DUAL_VIEW_WINDOW1_WIDTH  = cw1;
+                        PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT = ch1;
+                        PROPERTY::DUAL_VIEW_WINDOW2_WIDTH  = cw2;
+                        PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT = ch2;
+                        PROPERTY::setValue("DUAL_VIEW_WINDOW1_WIDTH" , PROPERTY::DUAL_VIEW_WINDOW1_WIDTH);
+                        PROPERTY::setValue("DUAL_VIEW_WINDOW1_HEIGHT", PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
+                        PROPERTY::setValue("DUAL_VIEW_WINDOW2_WIDTH" , PROPERTY::DUAL_VIEW_WINDOW2_WIDTH);
+                        PROPERTY::setValue("DUAL_VIEW_WINDOW2_HEIGHT", PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
+
+                        PROPERTY::setValue("DUAL_VIEW_DRAW_POSITION1", PROPERTY::DUAL_VIEW_DRAW_POSITION1);
+                        PROPERTY::setValue("DUAL_VIEW_DRAW_POSITION2", PROPERTY::DUAL_VIEW_DRAW_POSITION2);
+
+                    } else {
+                        RECT cRect1;
+                        GetClientRect(_hWnd1_, &cRect1);
+                        pixcoord cw1 = cRect1.right - cRect1.left;
+                        pixcoord ch1 = cRect1.bottom - cRect1.top;
+                        PROPERTY::SINGLE_VIEW_WINDOW_WIDTH  = cw1;
+                        PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT = ch1;
+                        PROPERTY::setValue("SINGLE_VIEW_WINDOW_WIDTH" , PROPERTY::SINGLE_VIEW_WINDOW_WIDTH);
+                        PROPERTY::setValue("SINGLE_VIEW_WINDOW_HEIGHT", PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
+
+                        PROPERTY::setValue("SINGLE_VIEW_DRAW_POSITION", PROPERTY::SINGLE_VIEW_DRAW_POSITION);
+                    }
+                    PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", PROPERTY::FIXED_GAME_VIEW_ASPECT);
+
+                    PROPERTY::save(VV_CONFIG_FILE); //プロパティ保存
+                    PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
+                }
             } else if(wParam == MY_IDM_VPOS_1) {
                 chengeViewPos(hWnd, 1);
             } else if(wParam == MY_IDM_VPOS_2) {
@@ -345,10 +403,14 @@ BOOL CustmizeSysMenu(HWND hWnd)
 
     HMENU hMenu = GetSystemMenu(hWnd, FALSE);
     InsertMenu(hMenu, 5, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
-    InsertMenu(hMenu, 6, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE    , "Reset window size.");
-    InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect.");
-    InsertMenu(hMenu, 8, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position.");
-    InsertMenu(hMenu, 9, MF_BYPOSITION | MF_STRING, MY_IDM_ABOUT, "About");
+    InsertMenu(hMenu, 6, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE    , "Reset window size of beginning.");
+    InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE , "Reset window size of Dot by Dot.");
+    InsertMenu(hMenu, 8, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect.");
+    InsertMenu(hMenu, 9, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position.");
+    InsertMenu(hMenu, 10, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
+    InsertMenu(hMenu, 11, MF_BYPOSITION | MF_STRING, MY_IDM_SAVE ,"Save window size and view.");
+    InsertMenu(hMenu, 12, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
+    InsertMenu(hMenu, 13, MF_BYPOSITION | MF_STRING, MY_IDM_ABOUT, "About");
 
     //システムメニューを作成
     DrawMenuBar(hWnd);

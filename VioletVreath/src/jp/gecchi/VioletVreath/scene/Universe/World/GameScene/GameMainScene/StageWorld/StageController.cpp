@@ -157,10 +157,10 @@ void StageController::processBehavior() {
 
 /*
     //ランクアップシーン差し込み
-    if (_RANK_DISP_ % 10 == 0) {
+    if (G_RANK_DISP % 10 == 0) {
         if (can_rank_up_) {
             can_rank_up_ = false;
-            _RANK_UP_LEVEL_++;
+            G_RANKUP_LEVEL++;
             pRankUpStageCtrler_->execute();
         } else {
             //スルー

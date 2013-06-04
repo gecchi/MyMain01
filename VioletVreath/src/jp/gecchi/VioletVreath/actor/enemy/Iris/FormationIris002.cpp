@@ -16,9 +16,9 @@ using namespace VioletVreath;
 FormationIris002::FormationIris002(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationIris002";
-    num_Iris_        = RF_FormationIris002_Num(_RANK_);    //編隊数
-    interval_frames_ = RF_FormationIris002_LaunchInterval(_RANK_);   //イリスの間隔(frame)
-    velo_mv_         = RF_FormationIris002_MvVelo(_RANK_); //速度
+    num_Iris_        = RF_FormationIris002_Num(G_RANK);    //編隊数
+    interval_frames_ = RF_FormationIris002_LaunchInterval(G_RANK);   //イリスの間隔(frame)
+    velo_mv_         = RF_FormationIris002_MvVelo(G_RANK); //速度
     //スプライン移動の定義
     pSplLineConnection_ = connectToSplineLineManager("Spl_00202_");
     pDepoConnection_ = connectToDepositoryManager("Shot002");

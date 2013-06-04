@@ -103,9 +103,9 @@ void NameEntryScene::processBehavior() {
                 pLabelInputedName_->_pKurokoA->turnRxSpinAngTo(D0ANG, 8000, 0, TURN_COUNTERCLOCKWISE);
                 //ここでハイスコア更新処理
                 inputed_name_ = std::string(pLabelInputedName_->_draw_string); //入力文字
-                _RANKING_.addRow(inputed_name_, _SCORE_);
-                _RANKING_.sort();
-                _RANKING_.save();
+                G_RANKING.addRow(inputed_name_, G_SCORE);
+                G_RANKING.sort();
+                G_RANKING.save();
 
                 pWorldBound_->fadeout();
             }

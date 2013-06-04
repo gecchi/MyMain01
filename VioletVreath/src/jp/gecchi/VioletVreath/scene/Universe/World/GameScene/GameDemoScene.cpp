@@ -29,8 +29,8 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     getSceneDirector()->addSubGroup(pLabel02_);
     demo_stage_ = 1;
 
-    papLabel_Ranking_ = NEW LabelRankingFont*[_RANKING_.getCount()];
-    int cnt = (int)(_RANKING_.getCount());
+    papLabel_Ranking_ = NEW LabelRankingFont*[G_RANKING.getCount()];
+    int cnt = (int)(G_RANKING.getCount());
     for (int i = 0; i < cnt; i++) {
         papLabel_Ranking_[i] = NEW LabelRankingFont("RANK_INFO");
         getSceneDirector()->addSubGroup(papLabel_Ranking_[i]);
@@ -41,7 +41,7 @@ void GameDemoScene::onReset() {
     _pProg->reset(GameDemoScene::PROG_INIT);
     pLabel01_->update("");
     pLabel02_->update("");
-    int cnt = (int)(_RANKING_.getCount());
+    int cnt = (int)(G_RANKING.getCount());
     for (int i = 0; i < cnt; i++) {
         papLabel_Ranking_[i]->update("");
         papLabel_Ranking_[i]->inactivateImmed();
@@ -89,7 +89,7 @@ void GameDemoScene::processBehavior() {
         }
 
         case GameDemoScene::PROG_RANKING: {
-            int ranking_num = _RANKING_.getCount();
+            int ranking_num = G_RANKING.getCount();
             if (_pProg->isJustChanged()) {
                 _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_RANKING)");
                 pLabel01_->update(PX_C(100), PX_C(100), "RANKING NOW");
@@ -97,9 +97,9 @@ void GameDemoScene::processBehavior() {
                 for (int i = 0; i < ranking_num; i++) {
                     sprintf(buf, "NO.%02d  %-12s  %10s  %s",
                             i+1,
-                            _RANKING_.getVal("NAME"   , i).c_str(),
-                            _RANKING_.getVal("SCORE"  , i).c_str(),
-                            _RANKING_.getVal("REGDATE", i).c_str());
+                            G_RANKING.getVal("NAME"   , i).c_str(),
+                            G_RANKING.getVal("SCORE"  , i).c_str(),
+                            G_RANKING.getVal("REGDATE", i).c_str());
                     papLabel_Ranking_[i]->update(buf);
                     papLabel_Ranking_[i]->locate(PX_C(400), PX_C(50+(i*22)));
                     papLabel_Ranking_[i]->_pAFader->setToBottom();

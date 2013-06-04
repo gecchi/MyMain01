@@ -36,8 +36,8 @@ void Shot001::onActive() {
     _pStatus->reset();
     setHitAble(true);
     _pKurokoA->relateMvFaceAng(true);
-    _pKurokoA->setMvVelo(RF_Shot001_MvVelo(_RANK_));    //ˆÚ“®‘¬“x
-    _pKurokoA->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(_RANK_)); //‚«‚è‚à‚İ‹ï‡
+    _pKurokoA->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //ˆÚ“®‘¬“x
+    _pKurokoA->setFaceAngVelo(AXIS_X, RF_Shot001_AngVelo(G_RANK)); //‚«‚è‚à‚İ‹ï‡
     pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
     _pScaler->beat(30,5,2,-1);
 }

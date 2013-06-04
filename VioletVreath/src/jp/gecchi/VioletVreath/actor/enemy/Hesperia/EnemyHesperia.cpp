@@ -124,8 +124,8 @@ void EnemyHesperia::processBehavior() {
             if (_pProg->isJustChanged()) {
                 //レーザーセット（レーザーチップのデポジトリで、１本分のレーザー）のデポジトリから、
                 //レーザーセットの借入を試みる
-                now_laser_way_ = RF_EnemyHesperia_ShotWay(_RANK_); //今回発射レーザー本数
-                coord laser_density = RF_EnemyHesperia_Density(_RANK_); //今回レーザーとレーザーの隙間
+                now_laser_way_ = RF_EnemyHesperia_ShotWay(G_RANK); //今回発射レーザー本数
+                coord laser_density = RF_EnemyHesperia_Density(G_RANK); //今回レーザーとレーザーの隙間
                 bool can_fire = false; //少なくとも一本は発射できるかどうか
 
                 for (int i = 0; i < max_laser_way_; i++) {

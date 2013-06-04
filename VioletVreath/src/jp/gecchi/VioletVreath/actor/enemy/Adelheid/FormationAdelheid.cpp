@@ -44,8 +44,8 @@ FormationAdelheid::FormationAdelheid(const char* prm_name)
 }
 
 void FormationAdelheid::updateRankParameter() {
-    RV_NumFormation_     = RF_FormationAdelheid_Num(_RANK_);    //ï“ë‡êî
-    RV_MvVelo_           = RF_FormationAdelheid_MvVelo(_RANK_); //ë¨ìx
+    RV_NumFormation_     = RF_FormationAdelheid_Num(G_RANK);    //ï“ë‡êî
+    RV_MvVelo_           = RF_FormationAdelheid_MvVelo(G_RANK); //ë¨ìx
     RV_IntervalFrames_   = 64 / C_PX(RV_MvVelo_);
 }
 

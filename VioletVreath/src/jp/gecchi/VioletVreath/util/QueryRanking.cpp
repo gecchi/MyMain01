@@ -27,7 +27,7 @@ void QueryRanking::init() {
 void QueryRanking::addRow(std::string& prm_name, int prm_score) {
     GgafRecord* r = NEW GgafRecord();
     (*r)["NAME"]    = prm_name;
-    (*r)["SCORE"]   = UTIL::padZeroStr(prm_score, QUERYRANKING_SCORE_LEN);
+    (*r)["SCORE"]   = UTIL::padZeroStr(prm_score, QUERYRANKINGG_SCORELEN);
     (*r)["REGDATE"] = UTIL::getSystemDateTimeStr();
     GgafQuery::addRow(r);
 }

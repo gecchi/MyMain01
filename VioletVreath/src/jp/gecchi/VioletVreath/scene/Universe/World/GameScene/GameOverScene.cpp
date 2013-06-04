@@ -58,7 +58,7 @@ void GameOverScene::processBehavior() {
                 pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
 
-                if (_RANKING_.isRankIn(_SCORE_)) {
+                if (G_RANKING.isRankIn(G_SCORE)) {
                     _TRACE_("ランクイン!!!!");
                     //ランクインのため、ネームエントリーシーン準備
                     orderSceneToFactory(ORDER_ID_NAMEENTRYSCENE, NameEntryScene, "NameEntryScene");

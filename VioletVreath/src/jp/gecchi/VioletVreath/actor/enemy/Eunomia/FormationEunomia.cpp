@@ -35,10 +35,10 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
 }
 
 void FormationEunomia::updateRankParameter() {
-    RF_num_formation_col_ = RF_FormationEunomia001_Col(_RANK_);            //編隊列数
-    RF_num_formation_row_ = RF_FormationEunomia001_Num(_RANK_);            //１列の編隊数
-    RF_interval_frames_   = RF_FormationEunomia001_LaunchInterval(_RANK_); //エウノミアの間隔(frame)
-    RF_mv_velo_           = RF_FormationEunomia001_MvVelo(_RANK_);         //速度
+    RF_num_formation_col_ = RF_FormationEunomia001_Col(G_RANK);            //編隊列数
+    RF_num_formation_row_ = RF_FormationEunomia001_Num(G_RANK);            //１列の編隊数
+    RF_interval_frames_   = RF_FormationEunomia001_LaunchInterval(G_RANK); //エウノミアの間隔(frame)
+    RF_mv_velo_           = RF_FormationEunomia001_MvVelo(G_RANK);         //速度
 }
 
 void FormationEunomia::initialize() {

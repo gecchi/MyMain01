@@ -57,7 +57,7 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     }
 
     //ƒ‰ƒ“ƒLƒ“ƒOî•ñ“Ç‚İ‚İ
-    _RANKING_.init();
+    G_RANKING.init();
     initVB();
 }
 

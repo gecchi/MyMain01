@@ -68,7 +68,7 @@ void EnemySappho::processBehavior() {
          case PROG_MOVE01: {
              if (_pProg->isJustChanged()) {
                  //滞留ポイントへGO!
-                 velo mv_velo = RF_EnemySappho_MvVelo(_RANK_);
+                 velo mv_velo = RF_EnemySappho_MvVelo(G_RANK);
                  coord d = UTIL::getDistance(this, &hanging_pos_);
                  _pKurokoA->slideMvByVD(mv_velo,
                                         RND(-PX_C(0.5),PX_C(0.5)),
@@ -109,8 +109,8 @@ void EnemySappho::processBehavior() {
 
              if (_pProg->getFrameInProgress() == 180) {
                  //自機の方に向いたら敵弾発射！
-                 int shot_num = RF_EnemySappho_ShotWay(_RANK_); //弾数、ランク変動
-                 velo shot_velo = RF_EnemySappho_ShotMvVelo(_RANK_); //弾速、ランク変動
+                 int shot_num = RF_EnemySappho_ShotWay(G_RANK); //弾数、ランク変動
+                 velo shot_velo = RF_EnemySappho_ShotMvVelo(G_RANK); //弾速、ランク変動
                  for (int i = 0; i < shot_num; i++) {
                      GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
@@ -151,7 +151,7 @@ void EnemySappho::processBehavior() {
              if (_pProg->isJustChanged()) {
                  _pKurokoA->turnMvAngTwd(&leave_pos_,
                                          D_ANG(1), 0, TURN_CLOSE_TO, false);
-                 _pKurokoA->setMvAcce(100+(_RANK_*200));
+                 _pKurokoA->setMvAcce(100+(G_RANK*200));
              }
              if (_pProg->getFrameInProgress() % 16 == 0) {
                  //ちょくちょく自機を見つめる

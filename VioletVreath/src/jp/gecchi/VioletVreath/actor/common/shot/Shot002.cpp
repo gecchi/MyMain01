@@ -30,8 +30,8 @@ void Shot002::onActive() {
     setHitAble(true);
     _pScaler->setScale(2000);
     _pKurokoA->relateMvFaceAng(true);
-    _pKurokoA->setMvVelo(RF_Shot002_MvVelo(_RANK_));
-    _pKurokoA->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(_RANK_));
+    _pKurokoA->setMvVelo(RF_Shot002_MvVelo(G_RANK));
+    _pKurokoA->setFaceAngVelo(AXIS_X, RF_Shot002_AngVelo(G_RANK));
 }
 
 void Shot002::processBehavior() {

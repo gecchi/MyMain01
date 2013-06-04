@@ -66,25 +66,6 @@ void resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height) {
     );
 }
 
-
-/**
- * ウィンドウのサイズを元の大きさにリセット .
- * @param hWnd リセットするウィンドウのHWND
- */
-void resetWindowsize(HWND hWnd) {
-    if (!PROPERTY::FULL_SCREEN) {
-        if (PROPERTY::DUAL_VIEW) {
-            if (hWnd == _hWnd2_) {
-                resetWindowsize(hWnd, PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
-            } else if (hWnd == _hWnd1_) {
-                resetWindowsize(hWnd, PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
-            }
-        } else {
-            resetWindowsize(hWnd, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
-        }
-    }
-}
-
 /**
  * メイン処理 .
  * @param argc

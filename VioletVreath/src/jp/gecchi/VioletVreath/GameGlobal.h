@@ -4,15 +4,15 @@
 #include "jp/gecchi/VioletVreath/util/QueryRanking.h"
 
 /** ランク (0.0 ～ 1.0) */
-#define _RANK_ (VioletVreath::GameGlobal::rank_)
+#define G_RANK (VioletVreath::GameGlobal::rank_)
 /** 表示用ランク値 */
-#define _RANK_DISP_ ((int)(_RANK_*100000))
+#define G_RANK_DISP ((int)(G_RANK*100000))
 /** ランクアップレベル値 */
-#define _RANK_UP_LEVEL_ (VioletVreath::GameGlobal::rank_up_level_)
+#define G_RANKUP_LEVEL (VioletVreath::GameGlobal::rank_up_level_)
 /** スコア */
-#define _SCORE_ (VioletVreath::GameGlobal::score_)
+#define G_SCORE (VioletVreath::GameGlobal::score_)
 /** ランキングスコア */
-#define _RANKING_ (VioletVreath::GameGlobal::qryRanking_)
+#define G_RANKING (VioletVreath::GameGlobal::qryRanking_)
 
 namespace VioletVreath {
 

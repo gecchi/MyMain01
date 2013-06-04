@@ -26,9 +26,9 @@ FormationHebe::FormationHebe(const char* prm_name, const char* prm_spl_id)
 }
 
 void FormationHebe::updateRankParameter() {
-    RV_NumFormation_     = RF_FormationHebe_Num(_RANK_);            //ï“ë‡êî
-    RV_IntervalFrames_   = RF_FormationHebe_LaunchInterval(_RANK_); //ÉwÅ[ÉxÇÃä‘äu(frame)
-    RV_MvVelo_           = RF_FormationHebe_MvVelo(_RANK_);         //ë¨ìx
+    RV_NumFormation_     = RF_FormationHebe_Num(G_RANK);            //ï“ë‡êî
+    RV_IntervalFrames_   = RF_FormationHebe_LaunchInterval(G_RANK); //ÉwÅ[ÉxÇÃä‘äu(frame)
+    RV_MvVelo_           = RF_FormationHebe_MvVelo(G_RANK);         //ë¨ìx
 }
 
 void FormationHebe::initialize() {

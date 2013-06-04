@@ -22,8 +22,8 @@ public:
     };
 
     char buf_[60];
-    LabelGecchi16Font* pLabel_SCORE_;
-    LabelGecchi16Font* pLabel_RANK_;
+    LabelGecchi16Font* pLabelG_SCORE;
+    LabelGecchi16Font* pLabelG_RANK;
     LabelGecchi16Font* pLabel_STAMINA_;
     LabelGecchi8Font* pLabel_JIKI_X_;
     LabelGecchi8Font* pLabel_JIKI_Y_;

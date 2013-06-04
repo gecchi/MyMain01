@@ -139,7 +139,7 @@ void EnemyRomulus::processBehavior() {
 
             //オープン時敵出現処理
             if (_pMorpher->_weight[MORPHTARGET_HATCH_OPEN] > 0.5) { //モーションが半分以上まで到達したなら
-                if (_pProg->getFrameInProgress() % (frame)(RF_EnemyRomulus_ShotInterval(_RANK_)) == 0) { //出現間隔
+                if (_pProg->getFrameInProgress() % (frame)(RF_EnemyRomulus_ShotInterval(G_RANK)) == 0) { //出現間隔
                     if (pDepo_Fired_) {
                         GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)pDepo_Fired_->dispatch();
                         if (pActor) {

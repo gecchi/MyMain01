@@ -145,17 +145,17 @@ void LabelRankFont::onCreateModel() {
 }
 
 void LabelRankFont::initialize() {
-    tmp_rank_ = _RANK_DISP_;
+    tmp_rank_ = G_RANK_DISP;
     _pProg->reset(PROG_NOMALDISP);
 }
 
 void LabelRankFont::processBehavior() {
 //    //debug---->
 //    if (GgafDxInput::isPushedDownKey(DIK_R)) {
-//        _RANK_+=0.0001;
+//        G_RANK+=0.0001;
 //    }
 //    //<---- debug
-    int rank_level = _RANK_DISP_;
+    int rank_level = G_RANK_DISP;
     if (rank_level != tmp_rank_) {
         char c[65];
         cnvRankStr(rank_level, c);

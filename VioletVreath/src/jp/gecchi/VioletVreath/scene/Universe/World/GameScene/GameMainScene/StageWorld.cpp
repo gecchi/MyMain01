@@ -38,9 +38,9 @@ void StageWorld::processBehavior() {
     //ランクアップシーン差し込み
 
     if (VB_PLAY->isPushedDown(VB_BUTTON7)) {
-        _TRACE_("_RANK_UP_LEVEL_？？？"<<_RANK_UP_LEVEL_);
+        _TRACE_("G_RANKUP_LEVEL？？？"<<G_RANKUP_LEVEL);
         if (can_rank_up_) {
-            _RANK_UP_LEVEL_ = _RANK_UP_LEVEL_ + 1;
+            G_RANKUP_LEVEL = G_RANKUP_LEVEL + 1;
             pRankUpStageCtrler_->execute();
             _TRACE_("P_STAGE_CTRLER をスロー");
             pStageCtrler_->addRunFrameOnce(1); //スロー開始

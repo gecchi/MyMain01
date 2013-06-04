@@ -5,7 +5,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld.h"
 
 #ifdef P_STAGE_WORLD
-    #define P_RANK_UP_CONTROLLER (P_STAGE_WORLD->pRankUpStageCtrler_)
+    #define PG_RANKUP_CONTROLLER (P_STAGE_WORLD->pRankUpStageCtrler_)
 #else
     #error P_STAGE_CTRLER isnt define
 #endif

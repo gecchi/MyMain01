@@ -16,9 +16,9 @@ using namespace VioletVreath;
 FormationThalia::FormationThalia(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationThalia";
-    num_Thalia_      = RF_FormationThalia_Num(_RANK_);         //編隊のタリアの数
-    interval_frames_ = RF_FormationThalia_LaunchInterval(_RANK_);    //各タリアの出現間隔(frame)
-    velo_mv_         = RF_FormationThalia_MvVelo(_RANK_); //各タリアの移動速度
+    num_Thalia_      = RF_FormationThalia_Num(G_RANK);         //編隊のタリアの数
+    interval_frames_ = RF_FormationThalia_LaunchInterval(G_RANK);    //各タリアの出現間隔(frame)
+    velo_mv_         = RF_FormationThalia_MvVelo(G_RANK); //各タリアの移動速度
 
     pDepoConnection_ = connectToDepositoryManager("Shot004");
     //編隊作成

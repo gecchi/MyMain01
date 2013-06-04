@@ -224,11 +224,11 @@ GgafDxDrawableActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_
                    prm_pActor,
                    getCommonDepository(Shot004),
                    PX_C(20),       //r
-                   RF_SHOT_RV_NOMAL001_ShotWay(_RANK_),    //way数
-                   RF_SHOT_RV_NOMAL001_Density(_RANK_),    //wayとwayの間隔
-                   RF_SHOT_RV_ShotMvVelo(_RANK_),          //初期速度
-                   RF_SHOT_RV_ShotMvAcce(_RANK_),          //加速度
-                   RF_SHOT_RV_NOMAL001_ShotSetNum(_RANK_), //wayのセット数
+                   RF_SHOT_RV_NOMAL001_ShotWay(G_RANK),    //way数
+                   RF_SHOT_RV_NOMAL001_Density(G_RANK),    //wayとwayの間隔
+                   RF_SHOT_RV_ShotMvVelo(G_RANK),          //初期速度
+                   RF_SHOT_RV_ShotMvAcce(G_RANK),          //加速度
+                   RF_SHOT_RV_NOMAL001_ShotSetNum(G_RANK), //wayのセット数
                    8, //セットとセットの間隔フレーム
                    0.0f,
                    nullptr
@@ -244,8 +244,8 @@ GgafDxDrawableActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_
                                   PX_C(20),
                                   8,
                                   D_ANG(10),
-                                  RF_SHOT_RV_ShotMvVelo(_RANK_),
-                                  RF_SHOT_RV_ShotMvAcce(_RANK_),
+                                  RF_SHOT_RV_ShotMvVelo(G_RANK),
+                                  RF_SHOT_RV_ShotMvAcce(G_RANK),
                                   12,
                                   3,
                                   0.9);
@@ -568,8 +568,8 @@ bool MyStgUtil::proceedEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricAc
         prm_this->setHitAble(false); //当たり判定消失
         if (prm_pOther->getKind() & KIND_MY) {
             //相手(自機)の種別が MY*** （自機関連） ならば
-            _SCORE_ += prm_this->_pStatus->get(STAT_AddDestroyScorePoint);   //破壊時得点
-            _RANK_  += prm_this->_pStatus->getDouble(STAT_AddRankPoint);     //ランク加算
+            G_SCORE += prm_this->_pStatus->get(STAT_AddDestroyScorePoint);   //破壊時得点
+            G_RANK  += prm_this->_pStatus->getDouble(STAT_AddRankPoint);     //ランク加算
 
             prm_this->notifyDestroyedToFormation();     //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
             UTIL::activateItemOf(prm_this);             //アイテム出現
@@ -587,7 +587,7 @@ bool MyStgUtil::proceedEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricAc
     } else {
         //＜非破壊時、ダメージを受けた場合＞
         if (prm_pOther->getKind() & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
-            _SCORE_ += prm_this->_pStatus->get(STAT_AddDamagedScorePoint);   //ダメージ時得点
+            G_SCORE += prm_this->_pStatus->get(STAT_AddDamagedScorePoint);   //ダメージ時得点
         }
         if (prm_this->_pStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
             prm_this->effectFlush(2); //フラッシュ！
@@ -599,7 +599,7 @@ bool MyStgUtil::proceedEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricAc
 
 void MyStgUtil::proceedFormationDestroyAll(GgafDxDrawableActor* prm_pActor_last_destroyed) {
     //編隊全滅時ボーナス加算
-    _SCORE_ += prm_pActor_last_destroyed->_pStatus->get(STAT_FormationDestroyedAddScorePoint);
+    G_SCORE += prm_pActor_last_destroyed->_pStatus->get(STAT_FormationDestroyedAddScorePoint);
     //編隊全滅時エフェクト出現
     UTIL::activateFormationDestroyedEffectOf(prm_pActor_last_destroyed);
     //編隊全滅アイテム出現

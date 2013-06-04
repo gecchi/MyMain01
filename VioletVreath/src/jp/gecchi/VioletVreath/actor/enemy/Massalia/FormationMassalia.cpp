@@ -24,8 +24,8 @@ FormationMassalia::FormationMassalia(const char* prm_name)
 }
 
 void FormationMassalia::updateRankParameter() {
-    R_interval_frames_   = RF_FormationMassalia_LaunchInterval(_RANK_); //ŠÔŠu
-    R_mv_velo_           = RF_FormationMassalia_MvVelo(_RANK_);         //‘¬“x
+    R_interval_frames_   = RF_FormationMassalia_LaunchInterval(G_RANK); //ŠÔŠu
+    R_mv_velo_           = RF_FormationMassalia_MvVelo(G_RANK);         //‘¬“x
 }
 
 void FormationMassalia::initialize() {
@@ -42,7 +42,7 @@ void FormationMassalia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 
 void FormationMassalia::processBehavior() {
     updateRankParameter();
-    if (getActiveFrame() >= RF_FormationMassalia_DurationFrames(_RANK_)) {
+    if (getActiveFrame() >= RF_FormationMassalia_DurationFrames(G_RANK)) {
         sayonara(20*60);
     } else {
         if (canCallUp() && (getActiveFrame() % R_interval_frames_ == 0)) {

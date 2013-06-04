@@ -26,9 +26,9 @@ void FormationAntiope001::initialize() {
 }
 
 void FormationAntiope001::onActive() {
-    num_Antiope_ = RF_FormationAntiope001_Num(_RANK_);    //編隊数
+    num_Antiope_ = RF_FormationAntiope001_Num(G_RANK);    //編隊数
     cnt_Antiope_ = 0;
-    interval_frames_ = RF_FormationAntiope001_LaunchInterval(_RANK_);  //パラスの間隔(frame)
+    interval_frames_ = RF_FormationAntiope001_LaunchInterval(G_RANK);  //パラスの間隔(frame)
 }
 
 void FormationAntiope001::processBehavior() {
