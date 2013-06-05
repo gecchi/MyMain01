@@ -328,10 +328,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\actor\laserchip\LaserChipDepositoryStore.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\ggaf\lib\util\LinearOctreeForActor.cpp"
 				>
 			</File>
@@ -635,10 +631,6 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\lib\actor\laserchip\LaserChipDepository.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\lib\actor\laserchip\LaserChipDepositoryStore.h"
 				>
 			</File>
 			<File

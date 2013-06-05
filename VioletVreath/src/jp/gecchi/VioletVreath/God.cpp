@@ -20,8 +20,8 @@ VirtualButton* God::pVbtn_active_ = nullptr;
 VirtualButton* God::pVbtn_active_next_frame_ = nullptr;
 
 
-God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
-      DefaultGod(prm_hInstance, prm_pHWndPrimary, prm_pHWndSecondary) {
+God::God() :
+      DefaultGod() {
     pDepoManager_ = NEW DepositoryManager("DepositoryManager");
     pSpl3DManager_ = NEW SplineLineManager("SplineLineManager");
     God::pVbtn_PLAY_ = NEW VirtualButton(FILE_INPUT_PLAY_REPLAY);

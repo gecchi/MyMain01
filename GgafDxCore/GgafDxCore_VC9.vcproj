@@ -188,10 +188,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\dxcore\util\XFile\framework\Frm_Tbuff.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.cpp"
 				>
 			</File>
@@ -369,6 +365,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxEffectManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxGeoElem.cpp"
 				>
 			</File>
 			<File
@@ -604,10 +604,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\ggaf\dxcore\util\XFile\Toolbox\iotexture_bmp.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\ggaf\dxcore\sound\IkdLib\OggDecoder.cpp"
 				>
 			</File>
@@ -647,10 +643,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath=".\src\jp\ggaf\dxcore\util\XFile\Toolbox\TBox_Textures.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="ヘッダー ファイル"
@@ -662,10 +654,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_3DMath.h"
 				>
 			</File>
@@ -674,23 +662,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_Manager.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_Material.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_Mesh.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_Tbuff.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_Timer.h"
 				>
 			</File>
 			<File
@@ -1122,14 +1098,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\dxcore\util\XFile\Toolbox\IOTexture_BMP.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\dxcore\util\XFile\Toolbox\MyTrace.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\dxcore\sound\IkdLib\OggDecoder.h"
 				>
 			</File>
@@ -1155,10 +1123,6 @@
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\dxcore\util\XFile\Toolbox\TBox_Textures.h"
 				>
 			</File>
 			<File

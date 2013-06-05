@@ -6,8 +6,8 @@
 
 using namespace Mogera;
 
-MgrGod::MgrGod(HINSTANCE prm_hInstance, HWND prm_hWnd1, HWND prm_hWnd2) :
-        GgafLib::DefaultGod(prm_hInstance, prm_hWnd1, prm_hWnd2) {
+MgrGod::MgrGod() :
+        GgafLib::DefaultGod() {
 }
 
 GgafCore::GgafUniverse* MgrGod::createUniverse() {

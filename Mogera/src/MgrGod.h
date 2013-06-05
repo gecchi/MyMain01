@@ -21,7 +21,7 @@ public:
      * @param prm_hWnd1 １画面目ウインドウハンドル
      * @param prm_hWnd2 ２画面目ウインドウハンドル
      */
-    MgrGod(HINSTANCE prm_hInstance, HWND prm_hWnd1, HWND prm_hWnd2);
+    MgrGod();
 
     /**
      * この世生成方法の実装 .

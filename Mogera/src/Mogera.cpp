@@ -41,17 +41,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
     HWND hWnd1, hWnd2;
-    GgafLibCreateWindow(wcex1, wcex2,
-                        "Mogera[1]", "Mogera[2]", //タイトル文字列
-                        dwStyle, dwStyle,
-                        hWnd1, hWnd2); //HWNDが代入されます(戻り値)
 
+    MgrGod* pGod = new MgrGod();
     //ゲームループ
     MSG msg;
     try {
         //神の誕生
-        MgrGod* pGod = new MgrGod(hInstance, hWnd1, hWnd2);
-        pGod->initDevice();
+        pGod->createWindow(wcex1, wcex2,
+                          "Mogera[1]", "Mogera[2]", //タイトル文字列
+                          dwStyle, dwStyle,
+                          hWnd1, hWnd2); //HWNDが代入されます(戻り値)
         timeBeginPeriod(1);
         //ループ本体
         while (true) {

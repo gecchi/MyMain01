@@ -96,7 +96,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
 
-    GgafLibCreateWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
+
 
     //_CrtSetBreakAlloc(203659);
 
@@ -124,26 +124,26 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #endif
 
     MSG msg;
+    pGod = NEW VioletVreath::God();
     try {
         //神の誕生
-        pGod = NEW VioletVreath::God(hInstance, hWnd1, hWnd2);
-        if (SUCCEEDED(pGod->initDevice())) {
-            // ループ・ザ・ループ
-            ::timeBeginPeriod(1);
-            while (true) {
-                if (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
-                    if (msg.message == WM_QUIT) {
-                        if (VioletVreath::God::_can_be) {
-                            VioletVreath::God::_can_be = false;
-                            while (pGod->_is_being) {
-                                Sleep(2);
-                                _TRACE_("Wait! 神 is being yet..");
-                            }
-                            GGAF_DELETE(pGod); //神の最期
-                            pGod = nullptr;
-                            VioletVreath::Properties::clean();
+        pGod->createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
+        // ループ・ザ・ループ
+        ::timeBeginPeriod(1);
+        while (true) {
+            if (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+                if (msg.message == WM_QUIT) {
+                    if (VioletVreath::God::_can_be) {
+                        VioletVreath::God::_can_be = false;
+                        while (pGod->_is_being) {
+                            Sleep(2);
+                            _TRACE_("Wait! 神 is being yet..");
                         }
-                        ::timeEndPeriod(1);
+                        GGAF_DELETE(pGod); //神の最期
+                        pGod = nullptr;
+                        VioletVreath::Properties::clean();
+                    }
+                    ::timeEndPeriod(1);
 
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
@@ -172,16 +172,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     #endif
 #endif
 
-                        return EXIT_SUCCESS;
-                    }
-                    ::TranslateMessage(&msg);
-                    ::DispatchMessage(&msg);
-                } else {
-                    if (VioletVreath::God::_can_be && pGod->_is_being == false) {
-                        pGod->be(); //be() で、この世が動く
-                    }
-
+                    return EXIT_SUCCESS;
                 }
+                ::TranslateMessage(&msg);
+                ::DispatchMessage(&msg);
+            } else {
+                if (VioletVreath::God::_can_be && pGod->_is_being == false) {
+                    pGod->be(); //be() で、この世が動く
+                }
+
             }
         }
     } catch (GgafCore::GgafException& e) {
@@ -286,28 +285,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 //初期ウィンドウサイズにリセット
                 if (!PROPERTY::FULL_SCREEN) {
                     if (PROPERTY::DUAL_VIEW) {
-                        resetWindowsize(_hWnd1_, PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
-                        resetWindowsize(_hWnd2_, PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
                     } else {
-                        resetWindowsize(_hWnd1_, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
                     }
                 }
             } else if(wParam == MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE) {
                 //dot by dot ウィンドウサイズにリセット
                 if (!PROPERTY::FULL_SCREEN) {
                     if (PROPERTY::DUAL_VIEW) {
-                        resetWindowsize(_hWnd1_, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
-                        resetWindowsize(_hWnd2_, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
                     } else {
-                        resetWindowsize(_hWnd1_, PROPERTY::RENDER_TARGET_BUFFER_WIDTH, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
                     }
                 }
             } else if(wParam == MY_IDM_SAVE) {
                 if (!PROPERTY::FULL_SCREEN) {
                     if (PROPERTY::DUAL_VIEW) {
                         RECT cRect1, cRect2;
-                        GetClientRect(_hWnd1_, &cRect1);
-                        GetClientRect(_hWnd2_, &cRect2);
+                        GetClientRect(hWnd1, &cRect1);
+                        GetClientRect(hWnd2, &cRect2);
                         pixcoord cw1 = cRect1.right - cRect1.left;
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
                         pixcoord cw2 = cRect2.right - cRect2.left;
@@ -326,7 +325,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
                     } else {
                         RECT cRect1;
-                        GetClientRect(_hWnd1_, &cRect1);
+                        GetClientRect(hWnd1, &cRect1);
                         pixcoord cw1 = cRect1.right - cRect1.left;
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
                         PROPERTY::SINGLE_VIEW_WINDOW_WIDTH  = cw1;

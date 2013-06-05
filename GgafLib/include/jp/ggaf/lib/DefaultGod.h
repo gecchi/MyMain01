@@ -24,7 +24,7 @@ public:
     SplineManufactureManager* _pSplManufManager;
 
 public:
-    DefaultGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
+    DefaultGod();
     virtual void clean() override;
     virtual ~DefaultGod();
 };

@@ -9,8 +9,8 @@ using namespace VVViewer;
 bool VvvGod::is_wm_dropfiles_ = false;
 char VvvGod::dropfiles_[2048];
 
-VvvGod::VvvGod(HINSTANCE prm_hInstance, HWND prm_hWnd1, HWND prm_hWnd2) :
-        GgafLib::DefaultGod(prm_hInstance, prm_hWnd1, prm_hWnd2) {
+VvvGod::VvvGod() :
+        GgafLib::DefaultGod() {
 }
 
 GgafCore::GgafUniverse* VvvGod::createUniverse() {

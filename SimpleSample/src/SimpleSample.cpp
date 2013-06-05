@@ -38,16 +38,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
     //ウィンドウ作成
     HWND hWnd1, hWnd2;
-    GgafLibCreateWindow(WndProc,
-                        "SimpleSample[1]", "SimpleSample[2]",
-                        hWnd1, hWnd2); //HWNDが代入されます(戻り値)
-
     //ゲームループ
     MSG msg;
+    SmpGod* pGod = new SmpGod();
     try {
         //神の誕生
-        SmpGod* pGod = new SmpGod(hInstance, hWnd1, hWnd2);
-        pGod->initDevice();
+        pGod->createWindow(WndProc,
+                           "SimpleSample[1]", "SimpleSample[2]",
+                           hWnd1, hWnd2); //HWNDが代入されます(戻り値)
         timeBeginPeriod(1);
         //ループ本体
         while (true) {

@@ -68,6 +68,10 @@ private:
 
     HRESULT releaseFullScreenRenderTarget();
 
+    /**
+     * ウィンドウモード時、ウィンドウサイズに応じた描画範囲を再設定する。
+     * @param prm_pHWnd
+     */
     void adjustGameScreen(HWND prm_pHWnd);
 
     /**
@@ -102,7 +106,7 @@ public:
     static HWND _pHWndPrimary;
     /** [r] 2画面目のウィンドウハンドル  */
     static HWND _pHWndSecondary;
-
+    /** [r] 本アプリケーションのインスタンスハンドル */
     static HINSTANCE _hInstance;
     /** [r] デバッグモード時、ワイヤーフレーム表示 */
     static D3DFILLMODE _d3dfillmode;
@@ -152,10 +156,71 @@ public:
     /**
      * コンストラクタ<BR>
      */
-    GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
+    GgafDxGod();
+
+    /**
+     * フルスクリーン時、最も妥当な解像度を探す。
+     * @param prm_paMode 解像度配列
+     * @param prm_mode_num 解像度配列の要素数
+     * @param prm_width 所望の解像度の幅
+     * @param prm_height 所望の解像度の高さ
+     * @return 最も妥当な要素インデックス
+     */
+    static int checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_mode_num,
+                                               UINT prm_width, UINT prm_height);
+    /**
+     * ウィンドウ生成処理
+     * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
+     * @param prm_wndclass2 ２画面目のWNDCLASSEXパラメータ
+     * @param prm_title1 １画面目のタイトル
+     * @param prm_title2 ２画面目のタイトル
+     * @param prm_dwStyle1 ウィンドウモード時のウインドウ1のスタイル定数(WS_OVERLAPPEDWINDOW 等)
+     * @param prm_dwStyle2 ウィンドウモード時のウインドウ2のスタイル定数(WS_OVERLAPPEDWINDOW 等)
+     * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
+     * @param out_hWnd2 （戻り値）２画面目のウィンドウハンドル
+     */
+    void createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
+                      const char* prm_title1   , const char* prm_title2,
+                      DWORD       prm_dwStyle1 , DWORD       prm_dwStyle2,
+                      HWND&       out_hWnd1    , HWND&       out_hWnd2);
+
+    /**
+     * ウィンドウ生成処理 .
+     * 標準的なウィンドウを作成します。
+     * @param prm_WndProc ウィンドウプロシージャ関数
+     * @param prm_title1 １画面目のタイトル
+     * @param prm_title2 ２画面目のタイトル
+     * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
+     * @param out_hWnd2 （戻り値）２画面目のウィンドウハンドル
+     */
+    void createWindow(WNDPROC prm_WndProc,
+                      const char* prm_title1, const char* prm_title2,
+                      HWND&       out_hWnd1 , HWND&       out_hWnd2  );
+
+    /**
+     * ウィンドウ生成処理 .
+     * ウィンドウモード時のウインドウスタイル定数は WS_OVERLAPPEDWINDOW が設定されます。
+     * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
+     * @param prm_wndclass2 ２画面目のWNDCLASSEXパラメータ
+     * @param prm_title1 １画面目のタイトル
+     * @param prm_title2 ２画面目のタイトル
+     * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
+     * @param out_hWnd2 （戻り値）２画面目のウィンドウハンドル
+     */
+    void createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
+                      const char* prm_title1   , const char* prm_title2,
+                      HWND&       out_hWnd1    , HWND&       out_hWnd2);
+
+    /**
+     * ウィンドウのサイズを再設定 .
+     * @param hWnd 再設定するウィンドウのHWND
+     * @param client_width クライアント領域横幅（ピクセル）
+     * @param client_height クライアント領域縦幅（ピクセル）
+     */
+    static void resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height);
+
     /**
      * DirectXのデバイスの初期設定を行う。
-     * 神を生成したならば１回実行して下さい。
      * @return E_FAIL:失敗／D3D_OK:成功
      */
     virtual HRESULT initDevice();

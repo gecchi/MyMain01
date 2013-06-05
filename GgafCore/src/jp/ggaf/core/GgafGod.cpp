@@ -14,7 +14,7 @@
 using namespace GgafCore;
 
 GgafCriticalException* GgafGod::_pException_Factory = nullptr;
-HINSTANCE GgafGod::_hInstance = nullptr;
+
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 
@@ -27,10 +27,9 @@ DWORD GgafGod::_aaTime_offset_of_next_view[3][60] = {
 };
 volatile bool GgafGod::_can_be = false;
 
-GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
+GgafGod::GgafGod() : GgafObject(),
   _pUniverse(nullptr),
   _fps(0) {
-    GgafGod::_hInstance = prm_hInstance;
 
     _frame_of_God = 0;
     _handleFactory01 = (HANDLE)::_beginthreadex(nullptr, 0, GgafFactory::work, nullptr, CREATE_SUSPENDED, &_thID01);

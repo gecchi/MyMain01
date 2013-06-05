@@ -17,11 +17,8 @@ class SmpGod : public GgafLib::DefaultGod {
 public:
     /**
      * コンストラクタ .
-     * @param prm_hInstance インスタンスハンドル
-     * @param prm_hWnd1 １画面目ウインドウハンドル
-     * @param prm_hWnd2 ２画面目ウインドウハンドル
      */
-    SmpGod(HINSTANCE prm_hInstance, HWND prm_hWnd1, HWND prm_hWnd2);
+    SmpGod();
 
     /**
      * この世生成方法の実装 .

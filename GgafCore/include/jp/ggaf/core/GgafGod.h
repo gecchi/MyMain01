@@ -49,8 +49,6 @@ public:
     static GgafCriticalException* _pException_Factory;
     /** [r] 次にこの世を活動させる時間のオフセット */
     static DWORD _aaTime_offset_of_next_view[3][60];
-    /** [r] 本アプリケーションのインスタンスハンドル */
-    static HINSTANCE _hInstance;
 
     /** [r] be() 中かどうか */
     bool _is_being;
@@ -93,7 +91,7 @@ public:
      * コンストラクタ .
      * 別スレッドで工場を稼動させます。
      */
-    GgafGod(HINSTANCE prm_hInstance);
+    GgafGod();
 
     /**
      * 「存在する」というメソッド .

@@ -70,7 +70,7 @@ public:
      * @param prm_pHWndPrimary ‚P‰æ–Ê–ÚHWND
      * @param prm_pHWndSecondary ‚Q‰æ–Ê–ÚHWND
      */
-    God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
+    God();
 
 
     void initVB();

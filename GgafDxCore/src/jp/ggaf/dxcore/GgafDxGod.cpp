@@ -31,7 +31,7 @@ using namespace GgafDxCore;
 
 HWND GgafDxGod::_pHWndPrimary = nullptr;
 HWND GgafDxGod::_pHWndSecondary = nullptr;
-
+HINSTANCE GgafDxGod::_hInstance = nullptr;
 IDirect3D9* GgafDxGod::_pID3D9 = nullptr;
 IDirect3DDevice9* GgafDxGod::_pID3DDevice9 = nullptr;
 D3DLIGHT9 GgafDxGod::_d3dlight9_default;
@@ -51,14 +51,14 @@ HWND GgafDxGod::_pHWnd_adjustScreen = nullptr;
 uint32_t GgafDxGod::_vs_v = 0;
 uint32_t GgafDxGod::_ps_v = 0;
 
-GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
-    GgafGod(prm_hInstance) {
-
-    GgafDxGod::_pHWndPrimary = prm_pHWndPrimary;
-    GgafDxGod::_pHWndSecondary = prm_pHWndSecondary;
+GgafDxGod::GgafDxGod() : GgafGod() {
     _is_device_lost_flg = false;
     _adjustGameScreen = false;
     _pHWnd_adjustScreen = nullptr;
+
+    GgafDxGod::_hInstance = GetModuleHandle(0);
+
+
     CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 Seed
     GgafRgb rgb_border = GgafRgb(PROPERTY::BORDER_COLOR);
     _color_border = D3DCOLOR_RGBA(rgb_border._R, rgb_border._G, rgb_border._B, 0);
@@ -75,6 +75,480 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
 
     _secondary_screen_x = 0;
     _secondary_screen_y = 0;
+
+
+}
+
+
+/**
+ * ウィンドウのサイズを再設定 .
+ * @param hWnd 再設定するウィンドウのHWND
+ * @param client_width クライアント領域横幅（ピクセル）
+ * @param client_height クライアント領域縦幅（ピクセル）
+ */
+void GgafDxGod::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height) {
+    RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
+    pixcoord ww1, wh1; // ウィンドウ全体の幅、高さ
+    pixcoord cw1, ch1; // クライアント領域の幅、高さ
+    pixcoord fw1, fh1; // フレームの幅、高さ
+    // ウィンドウ全体の幅・高さを計算
+    GetWindowRect(hWnd, &wRect1);
+    ww1 = wRect1.right - wRect1.left;
+    wh1 = wRect1.bottom - wRect1.top;
+    // クライアント領域の幅・高さを計算
+    GetClientRect(hWnd, &cRect1);
+    cw1 = cRect1.right - cRect1.left;
+    ch1 = cRect1.bottom - cRect1.top;
+    // クライアント領域以外に必要なサイズを計算
+    fw1 = ww1 - cw1;
+    fh1 = wh1 - ch1;
+    // 計算した幅と高さをウィンドウに設定
+    SetWindowPos(
+            hWnd,
+            HWND_TOP,
+            0,
+            0,
+            client_width + fw1,
+            client_height + fh1,
+            SWP_NOMOVE
+    );
+}
+
+
+int GgafDxGod::checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_mode_num,
+                                           UINT prm_width, UINT prm_height) {
+    _TRACE_("checkAppropriateDisplaySize() 所望 "<<prm_width<<"x"<<prm_height);
+
+    for (int n = 0; n < prm_mode_num; n++) {
+        if (prm_width == prm_paMode[n].Width && prm_height == prm_paMode[n].Height) {
+            _TRACE_("["<<n<<"] でBINGO!");
+            return n; //ぴったし
+        }
+    }
+    _TRACE_("BINGOなし、近い解像度を探す");
+    int cfg_width  = (int)(prm_width * 1.1);  //解像度の高い方を選択しやすくするため
+    int cfg_height = (int)(prm_height * 1.1); //10%水増し
+    double cfg_aspect = 1.0 * cfg_width / cfg_height;
+
+    int eval_top = INT_MAX; //評価(小さいほど良い)
+    int resut_index = 0;
+    for (int n = 0; n < prm_mode_num; n++) {
+        int disp_width  = (int)(prm_paMode[n].Width);
+        int disp_height = (int)(prm_paMode[n].Height);
+        int eval_level = ABS(disp_width-cfg_width) + (int)(ABS(disp_height-cfg_height) * cfg_aspect * 1.5); //アスペクト比を重視のため1.5倍
+        _TRACE_("["<<n<<"] "<<disp_width<<"x"<<disp_height<<" ・・・ 評価："<<eval_level);
+        if (eval_level < eval_top) {
+            eval_top = eval_level;
+            resut_index = n;
+        }
+    }
+    _TRACE_("結論、["<<resut_index<<"] の "<<prm_paMode[resut_index].Width<<"x"<<prm_paMode[resut_index].Height<<" が近いのではないかしら！");
+    return resut_index;
+}
+
+
+void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
+                         const char* prm_title1   , const char* prm_title2,
+                         DWORD       prm_dwStyle1 , DWORD       prm_dwStyle2,
+                         HWND&       out_hWnd1    , HWND&       out_hWnd2) {
+
+
+
+
+    //2011/09/18 WDDM が使用できるなら使用するように変更。
+    // マルチモニタフルスクリーン時のデバイスロスト時の復旧が、
+    // XPではうまくいくのにVistaではうまくいかない時があることが発覚。
+    // IDirect3D9Ex の存在が気になり、試す事に至った。
+    // WDDMつまり IDirect3D9Ex or IDirect3D9 の選択を行う。
+    // IDirect3D9Ex を取得する Direct3DCreate9Ex() を使用し、
+    // 戻り値の結果で判定すれば良いと安易に考えていたが、
+    // IDirect3D9Ex の実態が、Vista 以降 の d3d9.dll にのみ存在するらしく、
+    // Direct3DCreate9Ex() 関数のコードを書いた時点で、XPの場合 d3d9.dll ロード時に
+    // 「エントリポイントがありません」とかいうエラーになってしまい実行すらできない。
+    // コードを両対応させるには、Direct3DCreate9Ex() は使えないと思う。
+    // そこで以下のように d3d9.dll から、Direct3DCreate9Ex を直接探して、ポインタを
+    // 取得する方法がMSDNにあったので、参考にして実装。
+    // __uuid 演算子が GCC には無いので、IDD_IDirect3D9 に変更。
+    // TODO::これで正解なのだろうか…。
+
+    HRESULT hr;
+    typedef HRESULT (WINAPI *DIRECT3DCREATE9EXFUNCTION)(UINT SDKVersion, IDirect3D9Ex**);
+    IDirect3D9* pID3D9 = nullptr;
+    IDirect3D9Ex* pID3D9Ex = nullptr;
+    HMODULE hD3D = LoadLibrary(TEXT("d3d9.dll"));
+
+    DIRECT3DCREATE9EXFUNCTION pFunc_Direct3DCreate9Ex = (DIRECT3DCREATE9EXFUNCTION)GetProcAddress(hD3D, "Direct3DCreate9Ex");
+    if (pFunc_Direct3DCreate9Ex) {
+        _TRACE_("GgafDxGod::initDevice() d3d9.dllに、Direct3DCreate9Exは存在しました。");
+        //d3d9.dll に Direct3DCreate9Ex は存在する。
+        hr = ((*pFunc_Direct3DCreate9Ex)(D3D_SDK_VERSION, &pID3D9Ex)); //Direct3DCreate9Ex 実行
+        if (FAILED(hr)) {
+            FreeLibrary(hD3D);
+            throwGgafCriticalException("IDirect3D9Ex コンポーネント取得に失敗しました。(1)"); //失敗
+        }
+//        hr = pID3D9Ex->QueryInterface(IID_IDirect3D9, reinterpret_cast<void **>(&pID3D9)); //COMとして使用
+//        if (FAILED(hr)) {
+//            MessageBox(GgafDxGod::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(2)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
+//            FreeLibrary(hD3D);
+//            return E_FAIL; //失敗
+//        }
+        GgafDxGod::_pID3D9 = (IDirect3D9*)pID3D9Ex;
+        _can_wddm = true;
+    } else {
+        _TRACE_("GgafDxGod::initDevice() d3d9.dllに、Direct3DCreate9Exは存在しませんでした。");
+        //d3d9.dll に Direct3DCreate9Ex は存在しない。
+        pID3D9 = Direct3DCreate9(D3D_SDK_VERSION);
+        if (!pID3D9) {
+            FreeLibrary(hD3D);
+            throwGgafCriticalException("IDirect3D9 コンポーネント取得に失敗しました。");
+        }
+        GgafDxGod::_pID3D9 = pID3D9;
+        _can_wddm = false;
+    }
+    FreeLibrary(hD3D);
+
+    //デバイスパラメータ作成
+    D3DCAPS9 caps;
+    GgafDxGod::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
+                                       D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
+                                       &caps);             // [out] デバイスの能力が格納される
+
+    _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
+    _paPresetPrm = NEW D3DPRESENT_PARAMETERS[_num_adapter > 2 ? _num_adapter : 2];
+    ZeroMemory(&_paPresetPrm[0], sizeof(D3DPRESENT_PARAMETERS));
+
+    //ウィンドウ時・フルスクリーン時共通
+    _paPresetPrm[0].BackBufferCount        = 1;            //バックバッファの数
+    _paPresetPrm[0].EnableAutoDepthStencil = TRUE;         //バックバッファの Zバッファの自動作成
+    _paPresetPrm[0].AutoDepthStencilFormat = D3DFMT_D24S8; //深度ステンシルバッファ //D3DFMT_D16;
+    _paPresetPrm[0].Flags                  = 0;            //0にしておく
+
+    if (PROPERTY::FULL_SCREEN) {
+
+        //フルスクリーン時
+        _paPresetPrm[0].BackBufferFormat           = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
+        _paPresetPrm[0].Windowed                   = false; //フルスクリーンモード時
+        _paPresetPrm[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
+        _paPresetPrm[0].PresentationInterval       = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
+        _paPresetPrm[0].SwapEffect                 = D3DSWAPEFFECT_DISCARD;
+
+        if(PROPERTY::DUAL_VIEW) {
+            _paPresetPrm[1] = _paPresetPrm[0]; //ココまでを複製
+
+            _paPresetPrm[0].EnableAutoDepthStencil = FALSE;   //Zバッファの自動作成無効
+            _paPresetPrm[1].EnableAutoDepthStencil = FALSE;
+            //【メモ】
+            //EnableAutoDepthStencil = FALSE;
+            //とすると、レンダリングステートの D3DRS_ZENABLE が FALSE になるだけのように見える。
+            //従って「無効」にしただけであり、「使用不可」ではないのだろう・・・。
+        } else {
+            _paPresetPrm[0].EnableAutoDepthStencil = FALSE; //Z バッファの自動作成有効
+        }
+    } else {
+        //ウィンドウ時
+        _paPresetPrm[0].BackBufferFormat           = D3DFMT_UNKNOWN; //現在の表示モードフォーマット
+        _paPresetPrm[0].Windowed                   = true; //ウィンドウモード時
+        _paPresetPrm[0].FullScreen_RefreshRateInHz = 0; //リフレッシュレート
+        _paPresetPrm[0].PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
+        _paPresetPrm[0].SwapEffect                 = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
+
+        if(PROPERTY::DUAL_VIEW) {
+            _paPresetPrm[1] = _paPresetPrm[0]; //ココまでを複製
+            _paPresetPrm[0].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
+            _paPresetPrm[1].EnableAutoDepthStencil = TRUE;
+        } else {
+
+            _paPresetPrm[0].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
+        }
+
+
+//        //デスプレイモードの取得
+//        D3DDISPLAYMODE structD3DDisplayMode0; //結果が格納される構造体
+//        hr = GgafDxGod::_pID3D9->GetAdapterDisplayMode(0, &structD3DDisplayMode0);
+//        returnWhenFailed(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。");
+//        if(PROPERTY::DUAL_VIEW) {
+//            D3DDISPLAYMODE structD3DDisplayMode1;
+//            hr = GgafDxGod::_pID3D9->GetAdapterDisplayMode(1, &structD3DDisplayMode1);
+//            returnWhenFailed(hr, D3D_OK, "2画面目 GetAdapterDisplayMode に失敗しました");
+//            _paPresetPrm[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
+//            _paPresetPrm[1].BackBufferFormat = structD3DDisplayMode1.Format; //現在の画面モードを利用
+//        } else {
+//            _paPresetPrm[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
+//            _paPresetPrm[1].BackBufferFormat = D3DFMT_UNKNOWN; //現在の画面モードを利用
+//        }
+    }
+
+    //アンチアイリアスにできるかチェック
+    DWORD qualityLevels = D3DMULTISAMPLE_NONE;
+    D3DMULTISAMPLE_TYPE multiSampleType = D3DMULTISAMPLE_NONE;
+//    if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
+//        D3DADAPTER_DEFAULT,
+//        D3DDEVTYPE_HAL,
+//        _paPresetPrm[0].BackBufferFormat,  //TODO:ウィンドウモード時は
+//        PROPERTY::FULL_SCREEN ? FALSE : TRUE,
+//        D3DMULTISAMPLE_2_SAMPLES,
+//        &qualityLevels) ) )
+//    {
+//        if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
+//            D3DADAPTER_DEFAULT,
+//            D3DDEVTYPE_HAL,
+//            _paPresetPrm[0].AutoDepthStencilFormat,
+//            PROPERTY::FULL_SCREEN ? FALSE : TRUE,
+//            D3DMULTISAMPLE_2_SAMPLES,
+//            nullptr) ) )
+//        {
+//            multiSampleType = D3DMULTISAMPLE_2_SAMPLES;
+//            _TRACE_("ハードウェア MultiSampleType = D3DMULTISAMPLE_2_SAMPLES 有効！！");
+//        } else {
+//            multiSampleType = D3DMULTISAMPLE_NONE;
+//            qualityLevels = D3DMULTISAMPLE_NONE;
+//        }
+//    } else {
+//        multiSampleType = D3DMULTISAMPLE_NONE;
+//        qualityLevels = D3DMULTISAMPLE_NONE;
+//    }
+
+    if(PROPERTY::DUAL_VIEW) {
+        //マルチサンプルの数
+        _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE; D3DMULTISAMPLE_2_SAMPLES
+        //マルチサンプルの品質レベル
+        _paPresetPrm[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+        //マルチサンプルの数
+        _paPresetPrm[1].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        //マルチサンプルの品質レベル
+        _paPresetPrm[1].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+    } else {
+        //マルチサンプルの数
+        _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        //マルチサンプルの品質レベル
+        _paPresetPrm[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+    }
+
+//    //マルチサンプルの数
+//    _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+//    //マルチサンプルの品質レベル
+//    _paPresetPrm[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
+
+
+//    //フルスクリーンに出来るか調べる
+//    _TRACE_("_num_adapter = "<< _num_adapter);
+//    if (PROPERTY::FULL_SCREEN) {
+//        for (int disp_no = 0; disp_no <= (PROPERTY::DUAL_VIEW ? (_num_adapter-1) : 0); disp_no++) {
+//            int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(disp_no,
+//                                                                    _paPresetPrm[0].BackBufferFormat);
+//            if (mode_num) {
+//                D3DDISPLAYMODE adp;
+//                for (int i = mode_num-1; i >= 0; i--) {
+//                    GgafDxGod::_pID3D9->EnumAdapterModes(disp_no,
+//                                                          _paPresetPrm[0].BackBufferFormat, i, &adp);
+//                    _TRACE_("disp_no["<<disp_no<<"].mode["<<i<<"]:"<<adp.Width<<"x"<<adp.Height);
+//                    if (disp_no > 1) {
+//                        //メモ：３画面目以降１画面目・２画面目の解像度以外の無難な解像度を探してそれに設定。
+//                        //これは３画面目以降であることを判定するために解像度で判定している箇所があるため。
+//                        //TODO:スクリーン番号を正確に取得する方法が、色々調べて悩んだけどわからなかった。ので苦肉の策・・・。
+//                        if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat) {
+//                            if ((adp.Width == _paPresetPrm[0].BackBufferWidth && adp.Height == _paPresetPrm[0].BackBufferHeight) ||
+//                                (adp.Width == _paPresetPrm[1].BackBufferWidth && adp.Height == _paPresetPrm[1].BackBufferHeight)
+//                            ) {
+//                                //ダメ
+//                            } else {
+//                                _TRACE_("...無難か");
+//                                _paPresetPrm[disp_no].BackBufferWidth  = adp.Width;
+//                                _paPresetPrm[disp_no].BackBufferHeight = adp.Height;
+//                                _paDisplayMode[disp_no].Width  = _paPresetPrm[disp_no].BackBufferWidth;
+//                                _paDisplayMode[disp_no].Height = _paPresetPrm[disp_no].BackBufferHeight;
+//                                break;
+//                            }
+//                        }
+//                    } else {
+//                        //１画面目・２画面目は、プロパティ要求の解像度を探す
+//                        if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat &&
+//                            adp.Width  == _paPresetPrm[disp_no].BackBufferWidth  &&
+//                            adp.Height == _paPresetPrm[disp_no].BackBufferHeight ) {
+//                            //OK
+//                            _TRACE_("...BINGO!");
+//                            break;
+//                        }
+//                    }
+//                    if (i == 0) {
+//                        //要求した使える解像度が見つからない
+//                        std::stringstream ss;
+//                        if (PROPERTY::DUAL_VIEW) {
+//                            if (disp_no == 0) {
+//                                ss << "１画面目を、解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
+//                                      "設定ファイルの DUAL_VIEW_FULL_SCREEN1_WIDTH, DUAL_VIEW_FULL_SCREEN1_HEIGHT の値を、\n" <<
+//                                      "修正して下さい。";
+//                            } else if (disp_no == 1) {
+//                                ss << "２画面目を、解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
+//                                      "設定ファイルの DUAL_VIEW_FULL_SCREEN2_WIDTH, DUAL_VIEW_FULL_SCREEN2_HEIGHT の値を、\n" <<
+//                                      "修正して下さい。";
+//                            } else {
+//                                ss << "解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。" <<
+//                                      "マルチヘッドディスプレイ数を減らしてみて下さい。\n";
+//                            }
+//                        } else {
+//                            ss << "解像度 "<< _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
+//                                    "設定ファイルの SINGLE_VIEW_FULL_SCREEN_WIDTH, SINGLE_VIEW_FULL_SCREEN_HEIGHT の値を、\n" <<
+//                                    "修正して下さい。";
+//                        }
+//                        throwGgafCriticalException(ss.str().c_str());
+//                    }
+//                }
+//            } else {
+//                throwGgafCriticalException("フルスクリーンモード可能な解像度情報が取得できませんでした。\nご使用のビデオカードではプログラムを実行できません。");
+//            }
+//        }
+//    }
+
+
+
+    //バックバッファサイズ
+    if (PROPERTY::FULL_SCREEN) {
+        if(PROPERTY::DUAL_VIEW) {
+            //フルスクリーンモード・２画面使用 (フルスクリーンチェックで上書きされるかもしれない)
+            _paPresetPrm[0].BackBufferWidth  = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
+            _paPresetPrm[0].BackBufferHeight = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+            _paPresetPrm[1].BackBufferWidth  = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
+            _paPresetPrm[1].BackBufferHeight = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+        } else {
+            //フルスクリーンモード・１画面使用 (フルスクリーンチェックで上書きされるかもしれない)
+            _paPresetPrm[0].BackBufferWidth  = PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH;
+            _paPresetPrm[0].BackBufferHeight = PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+            _paPresetPrm[1].BackBufferWidth  = 0;
+            _paPresetPrm[1].BackBufferHeight = 0;
+        }
+    } else {
+        if(PROPERTY::DUAL_VIEW) {
+            //ウィンドウモード・２画面使用
+            _paPresetPrm[0].BackBufferWidth  = PROPERTY::RENDER_TARGET_BUFFER_WIDTH;
+            _paPresetPrm[0].BackBufferHeight = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT;
+            _paPresetPrm[1].BackBufferWidth  = 0;
+            _paPresetPrm[1].BackBufferHeight = 0;
+        } else {
+            //ウィンドウモード・１画面使用
+            _paPresetPrm[0].BackBufferWidth  = PROPERTY::RENDER_TARGET_BUFFER_WIDTH;
+            _paPresetPrm[0].BackBufferHeight = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT;
+            _paPresetPrm[1].BackBufferWidth  = 0;
+            _paPresetPrm[1].BackBufferHeight = 0;
+        }
+    }
+
+    _paDisplayMode = NEW D3DDISPLAYMODEEX[_num_adapter > 2 ? _num_adapter : 2];
+    _paDisplayMode[0].Size = sizeof(_paDisplayMode[0]);
+    _paDisplayMode[0].Width = _paPresetPrm[0].BackBufferWidth;
+    _paDisplayMode[0].Height = _paPresetPrm[0].BackBufferHeight;
+    _paDisplayMode[0].Format = _paPresetPrm[0].BackBufferFormat;
+    _paDisplayMode[0].RefreshRate = _paPresetPrm[0].FullScreen_RefreshRateInHz;
+    _paDisplayMode[0].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
+
+    _paDisplayMode[1].Size = sizeof(_paDisplayMode[1]);
+    _paDisplayMode[1].Width = _paPresetPrm[1].BackBufferWidth;
+    _paDisplayMode[1].Height = _paPresetPrm[1].BackBufferHeight;
+    _paDisplayMode[1].Format = _paPresetPrm[1].BackBufferFormat;
+    _paDisplayMode[1].RefreshRate = _paPresetPrm[1].FullScreen_RefreshRateInHz;
+    _paDisplayMode[1].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
+
+    //３画面目以降のパラメータを２画面のパラメータのコピーで作成
+    for (int i = 2; i < _num_adapter; i++) {
+        _paPresetPrm[i] = _paPresetPrm[1];
+        _paDisplayMode[i] = _paDisplayMode[1];
+    }
+
+    //フルスクリーンに出来るか調べ、
+    //_paPresetPrm[] と、_paDisplayMode[] を上書きする
+    _TRACE_("_num_adapter = "<< _num_adapter);
+    if (PROPERTY::FULL_SCREEN) {
+        for (int disp_no = 0; disp_no < _num_adapter; disp_no++) {
+            int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(disp_no, _paPresetPrm[0].BackBufferFormat);
+            D3DDISPLAYMODE* paMode = NEW D3DDISPLAYMODE[mode_num];
+            for (int n = 0; n < mode_num; n++) {
+                GgafDxGod::_pID3D9->EnumAdapterModes(disp_no, _paPresetPrm[0].BackBufferFormat, n, &(paMode[n]));
+            }
+            if (PROPERTY::DUAL_VIEW) {
+                //２画面フルスクリーン時
+                if (disp_no == 0) {
+                    //１画面目
+                    int n = checkAppropriateDisplaySize(
+                                    paMode, mode_num,
+                                    (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH,
+                                    (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT
+                                );
+                    PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH  = (pixcoord)(paMode[n].Width);
+                    PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT = (pixcoord)(paMode[n].Height);
+                    _paPresetPrm[disp_no].BackBufferWidth  = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
+                    _paPresetPrm[disp_no].BackBufferHeight = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+                } else if (disp_no == 1) {
+                    //２画面目
+                    int n = checkAppropriateDisplaySize(
+                                    paMode, mode_num,
+                                    (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH,
+                                    (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT
+                                );
+                    PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH  = (pixcoord)(paMode[n].Width);
+                    PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT = (pixcoord)(paMode[n].Height);
+                    _paPresetPrm[disp_no].BackBufferWidth  = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
+                    _paPresetPrm[disp_no].BackBufferHeight = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+                } else if (disp_no >= 2) {
+                    //メモ：３画面目以降１画面目・２画面目の解像度以外の無難な解像度を探してそれに設定。
+                    //これは getSecondaryMoniterPixcoordCallback() において
+                    //２画面目の左上隅座標を取得（デバイスロスト時必要）するために、
+                    //プライマリでなく、かつ３画面目以降でない→２画面目だ。
+                    //という判定するために解像度で判定している箇所があるため。
+                    //TODO:スクリーン番号を正確に取得する方法が、色々調べて悩んだけどわからなかった。ので苦肉の策・・・。
+                    for (int n = 0; n < mode_num; n++) {
+                        if ((paMode[n].Width == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH && paMode[n].Height == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT) ||
+                            (paMode[n].Width == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH && paMode[n].Height == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT)    ) {
+                            //１画面目か２画面目と同じなので避ける
+                        } else {
+                            _TRACE_("画面["<<disp_no<<"] は、"<<paMode[n].Width<<"x"<<paMode[n].Height<<"に設定");
+                            _paPresetPrm[disp_no].BackBufferWidth  = paMode[n].Width;
+                            _paPresetPrm[disp_no].BackBufferHeight = paMode[n].Height;
+                            break;
+                        }
+                    }
+                }
+
+
+            } else {
+                //１画面フルスクリーン時
+                if (disp_no == 0) {
+                    int n = checkAppropriateDisplaySize(
+                                    paMode, mode_num,
+                                    (UINT)PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH,
+                                    (UINT)PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT
+                                );
+                    PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH = (pixcoord)(paMode[n].Width);
+                    PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT = (pixcoord)(paMode[n].Height);
+                    _paPresetPrm[disp_no].BackBufferWidth  = PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH;
+                    _paPresetPrm[disp_no].BackBufferHeight = PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+                } else if (disp_no >= 1) {
+                    _paPresetPrm[disp_no].BackBufferWidth  = 0;
+                    _paPresetPrm[disp_no].BackBufferHeight = 0;
+                }
+
+            }
+            //上書き更新
+            _paDisplayMode[disp_no].Width  = _paPresetPrm[disp_no].BackBufferWidth;
+            _paDisplayMode[disp_no].Height = _paPresetPrm[disp_no].BackBufferHeight;
+
+
+            GGAF_DELETEARR(paMode);
+        }
+    }
+
+    //ピクセルシェーダー、頂点シェーダーバージョンチェック
+    _vs_v = caps.VertexShaderVersion;
+    _ps_v = caps.PixelShaderVersion;
+    _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(_vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(_vs_v));
+    _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(_ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(_ps_v));
+    if (_vs_v < D3DVS_VERSION(2, 0) || _ps_v < D3DPS_VERSION(2, 0)) {
+        _TRACE_("ビデオカードハードの頂点シェーダーとピンクセルシェーダーは、共にバージョン 2_0 以上が推奨です。");
+        _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
+    }
+
+
+
+
 
     //[メモ：RECT構造体]
     //引数に使用するRECT構造体のメンバ right, bottom は「右下座標」となっているが表現が正確ではない。
@@ -462,325 +936,206 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
     _TRACE_(" _aRect_Present[1].top    = "<<_aRect_Present[1].top   );
     _TRACE_(" _aRect_Present[1].right  = "<<_aRect_Present[1].right );
     _TRACE_(" _aRect_Present[1].bottom = "<<_aRect_Present[1].bottom);
-}
 
-HRESULT GgafDxGod::initDevice() {
-    //2011/09/18 WDDM が使用できるなら使用するように変更。
-    // マルチモニタフルスクリーン時のデバイスロスト時の復旧が、
-    // XPではうまくいくのにVistaではうまくいかない時があることが発覚。
-    // IDirect3D9Ex の存在が気になり、試す事に至った。
-    // WDDMつまり IDirect3D9Ex or IDirect3D9 の選択を行う。
-    // IDirect3D9Ex を取得する Direct3DCreate9Ex() を使用し、
-    // 戻り値の結果で判定すれば良いと安易に考えていたが、
-    // IDirect3D9Ex の実態が、Vista 以降 の d3d9.dll にのみ存在するらしく、
-    // Direct3DCreate9Ex() 関数のコードを書いた時点で、XPの場合 d3d9.dll ロード時に
-    // 「エントリポイントがありません」とかいうエラーになってしまい実行すらできない。
-    // コードを両対応させるには、Direct3DCreate9Ex() は使えないと思う。
-    // そこで以下のように d3d9.dll から、Direct3DCreate9Ex を直接探して、ポインタを
-    // 取得する方法がMSDNにあったので、参考にして実装。
-    // __uuid 演算子が GCC には無いので、IDD_IDirect3D9 に変更。
-    // TODO::これで正解なのだろうか…。
 
-    HRESULT hr;
-    typedef HRESULT (WINAPI *DIRECT3DCREATE9EXFUNCTION)(UINT SDKVersion, IDirect3D9Ex**);
-    IDirect3D9* pID3D9 = nullptr;
-    IDirect3D9Ex* pID3D9Ex = nullptr;
-    HMODULE hD3D = LoadLibrary(TEXT("d3d9.dll"));
 
-    DIRECT3DCREATE9EXFUNCTION pFunc_Direct3DCreate9Ex = (DIRECT3DCREATE9EXFUNCTION)GetProcAddress(hD3D, "Direct3DCreate9Ex");
-    if (pFunc_Direct3DCreate9Ex) {
-        _TRACE_("GgafDxGod::initDevice() d3d9.dllに、Direct3DCreate9Exは存在しました。");
-        //d3d9.dll に Direct3DCreate9Ex は存在する。
-        hr = ((*pFunc_Direct3DCreate9Ex)(D3D_SDK_VERSION, &pID3D9Ex)); //Direct3DCreate9Ex 実行
-        if (FAILED(hr)) {
-            MessageBox(GgafDxGod::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(1)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
-            FreeLibrary(hD3D);
-            return E_FAIL; //失敗
-        }
-//        hr = pID3D9Ex->QueryInterface(IID_IDirect3D9, reinterpret_cast<void **>(&pID3D9)); //COMとして使用
-//        if (FAILED(hr)) {
-//            MessageBox(GgafDxGod::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(2)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
-//            FreeLibrary(hD3D);
-//            return E_FAIL; //失敗
-//        }
-        GgafDxGod::_pID3D9 = (IDirect3D9*)pID3D9Ex;
-        _can_wddm = true;
-    } else {
-        _TRACE_("GgafDxGod::initDevice() d3d9.dllに、Direct3DCreate9Exは存在しませんでした。");
-        //d3d9.dll に Direct3DCreate9Ex は存在しない。
-        pID3D9 = Direct3DCreate9(D3D_SDK_VERSION);
-        if (!pID3D9) {
-            MessageBox(GgafDxGod::_pHWndPrimary, TEXT("IDirect3D9 コンポーネント取得に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
-            FreeLibrary(hD3D);
-            return E_FAIL; //失敗
-        }
-        GgafDxGod::_pID3D9 = pID3D9;
-        _can_wddm = false;
-    }
-    FreeLibrary(hD3D);
 
-    //デバイスパラメータ作成
-    D3DCAPS9 caps;
-    GgafDxGod::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
-                                       D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
-                                       &caps);             // [out] デバイスの能力が格納される
 
-    _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
-    _paPresetPrm = NEW D3DPRESENT_PARAMETERS[_num_adapter > 2 ? _num_adapter : 2];
-    ZeroMemory(&_paPresetPrm[0], sizeof(D3DPRESENT_PARAMETERS));
 
-    //ウィンドウ時・フルスクリーン時共通
-    _paPresetPrm[0].BackBufferCount        = 1;            //バックバッファの数
-    _paPresetPrm[0].EnableAutoDepthStencil = TRUE;         //バックバッファの Zバッファの自動作成
-    _paPresetPrm[0].AutoDepthStencilFormat = D3DFMT_D24S8; //深度ステンシルバッファ //D3DFMT_D16;
-    _paPresetPrm[0].Flags                  = 0;            //0にしておく
 
+
+
+
+
+
+
+    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(PROPERTY::BORDER_COLOR);
+    prm_wndclass1.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
+    prm_wndclass2.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
+    // ウインドウの生成
     if (PROPERTY::FULL_SCREEN) {
+        if (PROPERTY::DUAL_VIEW) {
+            //フルスクリーンモード・２画面使用
+            RegisterClassEx(&prm_wndclass1);
+            GgafDxGod::_pHWndPrimary = CreateWindowEx(
+                                        WS_EX_APPWINDOW,
+                                        prm_wndclass1.lpszClassName,
+                                        prm_title1,
+                                        WS_POPUP | WS_VISIBLE,
+                                        CW_USEDEFAULT,
+                                        CW_USEDEFAULT,
+                                        PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH,
+                                        PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT,
+                                        HWND_DESKTOP,
+                                        nullptr,
+                                        prm_wndclass1.hInstance,
+                                        nullptr
+                                      );
 
-        //フルスクリーン時
-        _paPresetPrm[0].BackBufferFormat           = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
-        _paPresetPrm[0].Windowed                   = false; //フルスクリーンモード時
-        _paPresetPrm[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
-        _paPresetPrm[0].PresentationInterval       = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
-        _paPresetPrm[0].SwapEffect                 = D3DSWAPEFFECT_DISCARD;
+            RegisterClassEx(&prm_wndclass2);
+            GgafDxGod::_pHWndSecondary = CreateWindowEx(
+                        WS_EX_APPWINDOW,
+                        prm_wndclass2.lpszClassName,
+                        prm_title2,
+                        WS_POPUP | WS_VISIBLE,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH,
+                        PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT,
+                        HWND_DESKTOP,
+                        nullptr,
+                        prm_wndclass2.hInstance,
+                        nullptr
+                      );
 
-        if(PROPERTY::DUAL_VIEW) {
-            _paPresetPrm[1] = _paPresetPrm[0]; //ココまでを複製
-
-            _paPresetPrm[0].EnableAutoDepthStencil = FALSE;   //Zバッファの自動作成無効
-            _paPresetPrm[1].EnableAutoDepthStencil = FALSE;
-            //【メモ】
-            //EnableAutoDepthStencil = FALSE;
-            //とすると、レンダリングステートの D3DRS_ZENABLE が FALSE になるだけのように見える。
-            //従って「無効」にしただけであり、「使用不可」ではないのだろう・・・。
         } else {
-            _paPresetPrm[0].EnableAutoDepthStencil = FALSE; //Z バッファの自動作成有効
+            //フルスクリーンモード・１画面使用
+            RegisterClassEx(&prm_wndclass1);
+            GgafDxGod::_pHWndPrimary  = CreateWindowEx(
+                        WS_EX_APPWINDOW,
+                        prm_wndclass1.lpszClassName,
+                        prm_title1,
+                        WS_POPUP | WS_VISIBLE,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH,
+                        PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT,
+                        HWND_DESKTOP,
+                        nullptr,
+                        prm_wndclass1.hInstance,
+                        nullptr
+                      );
+
         }
     } else {
-        //ウィンドウ時
-        _paPresetPrm[0].BackBufferFormat           = D3DFMT_UNKNOWN; //現在の表示モードフォーマット
-        _paPresetPrm[0].Windowed                   = true; //ウィンドウモード時
-        _paPresetPrm[0].FullScreen_RefreshRateInHz = 0; //リフレッシュレート
-        _paPresetPrm[0].PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
-        _paPresetPrm[0].SwapEffect                 = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
+        if (PROPERTY::DUAL_VIEW) {
+            //ウインドモード・２窓使用
+            RegisterClassEx(&prm_wndclass1);
+            GgafDxGod::_pHWndPrimary  = CreateWindow(
+                        prm_wndclass1.lpszClassName,
+                        prm_title1,
+                        prm_dwStyle1,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        PROPERTY::DUAL_VIEW_WINDOW1_WIDTH,
+                        PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT,
+                        HWND_DESKTOP,
+                        nullptr,
+                        prm_wndclass1.hInstance,
+                        nullptr
+                      );
 
-        if(PROPERTY::DUAL_VIEW) {
-            _paPresetPrm[1] = _paPresetPrm[0]; //ココまでを複製
-            _paPresetPrm[0].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
-            _paPresetPrm[1].EnableAutoDepthStencil = TRUE;
+            RegisterClassEx(&prm_wndclass2);
+            GgafDxGod::_pHWndSecondary = CreateWindow(
+                        prm_wndclass2.lpszClassName,
+                        prm_title2,
+                        prm_dwStyle2,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        PROPERTY::DUAL_VIEW_WINDOW2_WIDTH,
+                        PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT,
+                        HWND_DESKTOP,
+                        nullptr,
+                        prm_wndclass2.hInstance,
+                        nullptr
+                      );
         } else {
-
-            _paPresetPrm[0].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
+            //ウインドモード・１窓使用
+            RegisterClassEx(&prm_wndclass1);
+            GgafDxGod::_pHWndPrimary  = CreateWindow(
+                        prm_wndclass1.lpszClassName,
+                        prm_title1,
+                        prm_dwStyle1,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        PROPERTY::SINGLE_VIEW_WINDOW_WIDTH,
+                        PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT,
+                        HWND_DESKTOP,
+                        nullptr,
+                        prm_wndclass1.hInstance,
+                        nullptr
+                      );
         }
-
-
-//        //デスプレイモードの取得
-//        D3DDISPLAYMODE structD3DDisplayMode0; //結果が格納される構造体
-//        hr = GgafDxGod::_pID3D9->GetAdapterDisplayMode(0, &structD3DDisplayMode0);
-//        returnWhenFailed(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。");
-//        if(PROPERTY::DUAL_VIEW) {
-//            D3DDISPLAYMODE structD3DDisplayMode1;
-//            hr = GgafDxGod::_pID3D9->GetAdapterDisplayMode(1, &structD3DDisplayMode1);
-//            returnWhenFailed(hr, D3D_OK, "2画面目 GetAdapterDisplayMode に失敗しました");
-//            _paPresetPrm[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
-//            _paPresetPrm[1].BackBufferFormat = structD3DDisplayMode1.Format; //現在の画面モードを利用
-//        } else {
-//            _paPresetPrm[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
-//            _paPresetPrm[1].BackBufferFormat = D3DFMT_UNKNOWN; //現在の画面モードを利用
-//        }
     }
 
-    //アンチアイリアスにできるかチェック
-    DWORD qualityLevels = D3DMULTISAMPLE_NONE;
-    D3DMULTISAMPLE_TYPE multiSampleType = D3DMULTISAMPLE_NONE;
-//    if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
-//        D3DADAPTER_DEFAULT,
-//        D3DDEVTYPE_HAL,
-//        _paPresetPrm[0].BackBufferFormat,  //TODO:ウィンドウモード時は
-//        PROPERTY::FULL_SCREEN ? FALSE : TRUE,
-//        D3DMULTISAMPLE_2_SAMPLES,
-//        &qualityLevels) ) )
-//    {
-//        if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
-//            D3DADAPTER_DEFAULT,
-//            D3DDEVTYPE_HAL,
-//            _paPresetPrm[0].AutoDepthStencilFormat,
-//            PROPERTY::FULL_SCREEN ? FALSE : TRUE,
-//            D3DMULTISAMPLE_2_SAMPLES,
-//            nullptr) ) )
-//        {
-//            multiSampleType = D3DMULTISAMPLE_2_SAMPLES;
-//            _TRACE_("ハードウェア MultiSampleType = D3DMULTISAMPLE_2_SAMPLES 有効！！");
-//        } else {
-//            multiSampleType = D3DMULTISAMPLE_NONE;
-//            qualityLevels = D3DMULTISAMPLE_NONE;
-//        }
-//    } else {
-//        multiSampleType = D3DMULTISAMPLE_NONE;
-//        qualityLevels = D3DMULTISAMPLE_NONE;
-//    }
+    out_hWnd1 = GgafDxGod::_pHWndPrimary;
+    out_hWnd2 = GgafDxGod::_pHWndSecondary;
 
-    if(PROPERTY::DUAL_VIEW) {
-        //マルチサンプルの数
-        _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE; D3DMULTISAMPLE_2_SAMPLES
-        //マルチサンプルの品質レベル
-        _paPresetPrm[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
-        //マルチサンプルの数
-        _paPresetPrm[1].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
-        //マルチサンプルの品質レベル
-        _paPresetPrm[1].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
-    } else {
-        //マルチサンプルの数
-        _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
-        //マルチサンプルの品質レベル
-        _paPresetPrm[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+    if (!GgafDxGod::_pHWndPrimary) {
+        std::cout << "can't CreateWindow " << std::endl;
     }
-
-//    //マルチサンプルの数
-//    _paPresetPrm[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
-//    //マルチサンプルの品質レベル
-//    _paPresetPrm[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
-
-
-
-
-
     //Windowハンドルを個別指定
     _paPresetPrm[0].hDeviceWindow = _pHWndPrimary;
     _paPresetPrm[1].hDeviceWindow = _pHWndSecondary;
-    //バックバッファサイズ
-    if (PROPERTY::FULL_SCREEN) {
-        if(PROPERTY::DUAL_VIEW) {
-            //フルスクリーンモード・２画面使用
-            _paPresetPrm[0].BackBufferWidth  = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-            _paPresetPrm[0].BackBufferHeight = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-            _paPresetPrm[1].BackBufferWidth  = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-            _paPresetPrm[1].BackBufferHeight = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+
+    //ウィンドウモード時、クライアント領域を所望の大きさにするため、
+    //タイトルバー、リサイズボーダーの厚さを考慮し再設定。
+    if (!PROPERTY::FULL_SCREEN) {
+        if (PROPERTY::DUAL_VIEW) {
+            resetWindowsize(GgafDxGod::_pHWndPrimary, PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
+            resetWindowsize(GgafDxGod::_pHWndSecondary, PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
         } else {
-            //フルスクリーンモード・１画面使用
-            _paPresetPrm[0].BackBufferWidth  = PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-            _paPresetPrm[0].BackBufferHeight = PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
-            _paPresetPrm[1].BackBufferWidth  = 0;
-            _paPresetPrm[1].BackBufferHeight = 0;
-        }
-    } else {
-        if(PROPERTY::DUAL_VIEW) {
-            //ウィンドウモード・２画面使用
-            _paPresetPrm[0].BackBufferWidth  = PROPERTY::RENDER_TARGET_BUFFER_WIDTH;
-            _paPresetPrm[0].BackBufferHeight = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT;
-            _paPresetPrm[1].BackBufferWidth  = 0;
-            _paPresetPrm[1].BackBufferHeight = 0;
-        } else {
-            //ウィンドウモード・１画面使用
-            _paPresetPrm[0].BackBufferWidth  = PROPERTY::RENDER_TARGET_BUFFER_WIDTH;
-            _paPresetPrm[0].BackBufferHeight = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT;
-            _paPresetPrm[1].BackBufferWidth  = 0;
-            _paPresetPrm[1].BackBufferHeight = 0;
+            resetWindowsize(GgafDxGod::_pHWndPrimary, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
         }
     }
 
-    _paDisplayMode = NEW D3DDISPLAYMODEEX[_num_adapter > 2 ? _num_adapter : 2];
-    _paDisplayMode[0].Size = sizeof(_paDisplayMode[0]);
-    _paDisplayMode[0].Width = _paPresetPrm[0].BackBufferWidth;
-    _paDisplayMode[0].Height = _paPresetPrm[0].BackBufferHeight;
-    _paDisplayMode[0].Format = _paPresetPrm[0].BackBufferFormat;
-    _paDisplayMode[0].RefreshRate = _paPresetPrm[0].FullScreen_RefreshRateInHz;
-    _paDisplayMode[0].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
-
-    _paDisplayMode[1].Size = sizeof(_paDisplayMode[1]);
-    _paDisplayMode[1].Width = _paPresetPrm[1].BackBufferWidth;
-    _paDisplayMode[1].Height = _paPresetPrm[1].BackBufferHeight;
-    _paDisplayMode[1].Format = _paPresetPrm[1].BackBufferFormat;
-    _paDisplayMode[1].RefreshRate = _paPresetPrm[1].FullScreen_RefreshRateInHz;
-    _paDisplayMode[1].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
-
-    //３画面目以降のパラメータをコピーで作成
-    for (int i = 2; i < _num_adapter; i++) {
-        _paPresetPrm[i] = _paPresetPrm[1];
-        _paDisplayMode[i] = _paDisplayMode[1];
+    //アクティブに
+    ShowWindow(GgafDxGod::_pHWndPrimary, SW_SHOWNORMAL);
+    UpdateWindow(GgafDxGod::_pHWndPrimary);
+    if (PROPERTY::DUAL_VIEW) {
+        ShowWindow(GgafDxGod::_pHWndSecondary, SW_SHOWNORMAL);
+        UpdateWindow(GgafDxGod::_pHWndSecondary);
     }
 
-    //フルスクリーンに出来るか調べる
-    _TRACE_("_num_adapter = "<< _num_adapter);
-    if (PROPERTY::FULL_SCREEN) {
-        for (int disp_no = 0; disp_no <= (PROPERTY::DUAL_VIEW ? (_num_adapter-1) : 0); disp_no++) {
-            int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(disp_no,
-                                                                    _paPresetPrm[0].BackBufferFormat);
-            if (mode_num) {
-                D3DDISPLAYMODE adp;
-                for (int i = mode_num-1; i >= 0; i--) {
-                    GgafDxGod::_pID3D9->EnumAdapterModes(disp_no,
-                                                          _paPresetPrm[0].BackBufferFormat, i, &adp);
-                    _TRACE_("disp_no["<<disp_no<<"].mode["<<i<<"]:"<<adp.Width<<"x"<<adp.Height);
-                    if (disp_no > 1) {
-                        //メモ：３画面目以降１画面目・２画面目の解像度以外の無難な解像度を探してそれに設定。
-                        //これは３画面目以降であることを判定するために解像度で判定している箇所があるため。
-                        //TODO:スクリーン番号を正確に取得する方法が、色々調べて悩んだけどわからなかった。ので苦肉の策・・・。
-                        if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat) {
-                            if ((adp.Width == _paPresetPrm[0].BackBufferWidth && adp.Height == _paPresetPrm[0].BackBufferHeight) ||
-                                (adp.Width == _paPresetPrm[1].BackBufferWidth && adp.Height == _paPresetPrm[1].BackBufferHeight)
-                            ) {
-                                //ダメ
-                            } else {
-                                _TRACE_("...無難か");
-                                _paPresetPrm[disp_no].BackBufferWidth  = adp.Width;
-                                _paPresetPrm[disp_no].BackBufferHeight = adp.Height;
-                                _paDisplayMode[disp_no].Width  = _paPresetPrm[disp_no].BackBufferWidth;
-                                _paDisplayMode[disp_no].Height = _paPresetPrm[disp_no].BackBufferHeight;
-                                break;
-                            }
-                        }
-                    } else {
-                        //１画面目・２画面目は、プロパティ要求の解像度を探す
-                        if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat &&
-                            adp.Width  == _paPresetPrm[disp_no].BackBufferWidth  &&
-                            adp.Height == _paPresetPrm[disp_no].BackBufferHeight ) {
-                            //OK
-                            _TRACE_("...BINGO!");
-                            break;
-                        }
-                    }
-                    if (i == 0) {
-                        //要求した使える解像度が見つからない
-                        std::stringstream ss;
-                        if (PROPERTY::DUAL_VIEW) {
-                            if (disp_no == 0) {
-                                ss << "１画面目を、解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
-                                      "設定ファイルの DUAL_VIEW_FULL_SCREEN1_WIDTH, DUAL_VIEW_FULL_SCREEN1_HEIGHT の値を、\n" <<
-                                      "修正して下さい。";
-                            } else if (disp_no == 1) {
-                                ss << "２画面目を、解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
-                                      "設定ファイルの DUAL_VIEW_FULL_SCREEN2_WIDTH, DUAL_VIEW_FULL_SCREEN2_HEIGHT の値を、\n" <<
-                                      "修正して下さい。";
-                            } else {
-                                ss << "解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。" <<
-                                      "マルチヘッドディスプレイ数を減らしてみて下さい。\n";
-                            }
-                        } else {
-                            ss << "解像度 "<< _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
-                                    "設定ファイルの SINGLE_VIEW_FULL_SCREEN_WIDTH, SINGLE_VIEW_FULL_SCREEN_HEIGHT の値を、\n" <<
-                                    "修正して下さい。";
-                        }
-                        MessageBox(GgafDxGod::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
-                        return E_FAIL;
-                    }
-                }
-            } else {
-                MessageBox(GgafDxGod::_pHWndPrimary, TEXT("フルスクリーンモード可能な解像度情報が取得できませんでした。\nご使用のビデオカードではプログラムを実行できません。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
-                return E_FAIL;
-            }
-        }
+
+
+
+    //デバイス作成
+    if (FAILED(initDevice())) {
+        throwGgafCriticalException("初期化に失敗しました。アプリケーションを起動出来ません。");
     }
 
-    //ピクセルシェーダー、頂点シェーダーバージョンチェック
-    _vs_v = caps.VertexShaderVersion;
-    _ps_v = caps.PixelShaderVersion;
-    _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(_vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(_vs_v));
-    _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(_ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(_ps_v));
-    if (_vs_v < D3DVS_VERSION(2, 0) || _ps_v < D3DPS_VERSION(2, 0)) {
-        _TRACE_("ビデオカードハードの頂点シェーダーとピンクセルシェーダーは、共にバージョン 2_0 以上が推奨です。");
-        _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
-    }
+}
+
+void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
+                                    const char* prm_title1   , const char* prm_title2,
+                                    HWND&       out_hWnd1    , HWND&       out_hWnd2) {
+
+    createWindow( prm_wndclass1,  prm_wndclass2,
+                         prm_title1   ,  prm_title2,
+                         WS_OVERLAPPEDWINDOW, WS_OVERLAPPEDWINDOW,
+                         out_hWnd1   ,        out_hWnd2   );
+}
+
+void GgafDxGod::createWindow(WNDPROC prm_WndProc,
+                                    const char* prm_title1, const char* prm_title2,
+                                    HWND&       out_hWnd1 , HWND&       out_hWnd2  ) {
+    //ウィンドウ定義＆作成
+    WNDCLASSEX wcex1;
+    ZeroMemory(&wcex1, sizeof(WNDCLASSEX));
+    wcex1.cbSize = sizeof(WNDCLASSEX);
+    wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC;
+    wcex1.lpfnWndProc = (WNDPROC)prm_WndProc;
+    wcex1.hInstance = GgafDxGod::_hInstance;
+    wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
+    wcex1.lpszClassName = "primary";
+    WNDCLASSEX wcex2 = wcex1; //コピー
+    wcex2.lpszClassName = "secondary";
+
+    createWindow( wcex1,  wcex2,
+                         prm_title1   ,  prm_title2,
+                         WS_OVERLAPPEDWINDOW, WS_OVERLAPPEDWINDOW,
+                         out_hWnd1   ,        out_hWnd2   );
+}
+
+
+HRESULT GgafDxGod::initDevice() {
+
+
+
+
+
+
 
 //    //default
 //    UINT AdapterToUse = D3DADAPTER_DEFAULT;
@@ -809,8 +1164,7 @@ HRESULT GgafDxGod::initDevice() {
 //
 //#endif
     // <------------------------------------------------ NVIDIA PerfHUD 用 end
-
-
+    HRESULT hr;
     if (PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW) {
         //＜フルスクリーン かつ デュアルビュー の場合＞
         //デバイス作成を試み GgafDxGod::_pID3DDevice9 へ設定する。
