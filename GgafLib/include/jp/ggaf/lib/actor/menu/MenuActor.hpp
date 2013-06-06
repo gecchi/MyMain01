@@ -176,7 +176,11 @@ public:
      */
     virtual void setFadeFrames(frame prm_menu_fade_frames) {
         _fade_frames = prm_menu_fade_frames;
-        _velo_alpha_fade = 1.0 / prm_menu_fade_frames;
+        if (prm_menu_fade_frames == 0) {
+            _velo_alpha_fade = 1.0;
+        } else {
+            _velo_alpha_fade = 1.0 / prm_menu_fade_frames;
+        }
     }
 
     /**
@@ -1109,8 +1113,11 @@ void MenuActor<T>::rise() {
     _will_be_rising_next_frame = true;
     _will_be_sinking_next_frame = false;
     enableControll();
-
-    T::setAlpha(0.0);
+    if (_velo_alpha_fade >= 1.0) {
+        T::setAlpha(1.0);
+    } else {
+        T::setAlpha(0.0);
+    }
     T::activate();
     //メニューアイテム初期配置
     GgafDxCore::GgafDxDrawableActor* p;
@@ -1254,6 +1261,10 @@ void MenuActor<T>::sink() {
     _will_be_sinking_next_frame = true;
     disableControll();
     _can_controll = false; //即刻
+    if (_velo_alpha_fade >= 1.0) {
+        T::setAlpha(0.0);
+        T::inactivateTree();
+    }
 }
 
 template<class T>

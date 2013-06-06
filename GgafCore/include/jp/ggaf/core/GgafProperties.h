@@ -39,10 +39,15 @@ public:
     /** [r] アプリケーションのスキンフォルダのユーザースキン名(リソースディレクトリのスキンフォルダ配下) */
     static std::string DIRNAME_RESOURCE_SKIN_USER;
 
+    ////// 以下は、上記プロパティから生成される読み出し専用プロパティ ////////
+
     /** [r] アプリケーションのスキンディレクトリ */
     static std::string DIR_SKIN;
     /** [r] アプリケーションのデフォルトスキンディレクトリ(0:default/1:ユーザー/2:カレント) */
     static std::string DIR_SKIN_KIND[3];
+
+
+
 
     /** [r] 保持プロパティMAP */
     static GgafStrMap* _pMapProperties;

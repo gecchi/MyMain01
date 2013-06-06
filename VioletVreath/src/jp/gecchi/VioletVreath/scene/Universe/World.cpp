@@ -12,6 +12,7 @@
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/PreDrawScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
@@ -47,7 +48,7 @@ void World::initialize() {
     pixcoord cx = PROPERTY::GAME_BUFFER_WIDTH/2;
     pixcoord cy = PROPERTY::GAME_BUFFER_HEIGHT/2;
 
-    pLabel_title_ = createInFactory(VioletVreath::LabelGecchi16Font, "STR01");
+    pLabel_title_ = createInFactory(LabelGecchi16Font, "STR01");
     getSceneDirector()->addSubGroup(pLabel_title_);
     pLabel_title_->update(PX_C(cx), PX_C(cy/2),
                           "[ VIOLET VREATH ]\nPLEASE WAIT A MOMENT ...",
@@ -58,7 +59,7 @@ void World::initialize() {
     ColliAAPrismActor::get(); //当たり判定領域表示用プリズム、プリロード
     ColliSphereActor::get();  //当たり判定領域表示用球、プリロード
 #endif
-    pLabel_debug_ = createInFactory(VioletVreath::LabelGecchi16Font, "DebugStr");
+    pLabel_debug_ = createInFactory(LabelGecchi16Font, "DebugStr");
     pLabel_debug_->update(PX_C(1), PX_C(1), "");
     getSceneDirector()->addSubGroup(pLabel_debug_);
 
@@ -69,50 +70,104 @@ void World::initialize() {
     pLabel_resolution2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     getSceneDirector()->addSubGroup(pLabel_resolution2_);
 
-    std::string fix_str = PROPERTY::FIXED_GAME_VIEW_ASPECT ? "ASPECT FIX" : "ASPECT STRETCH";
+    pLabel_warn1_ = createInFactory(VioletVreath::LabelGecchi8Font, "WARN1");
+    pLabel_warn1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    getSceneDirector()->addSubGroup(pLabel_warn1_);
+    pLabel_warn2_ = createInFactory(VioletVreath::LabelGecchi8Font, "WARN2");
+    pLabel_warn2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    getSceneDirector()->addSubGroup(pLabel_warn2_);
+
+
+    std::string fix_str = PROPERTY::FIXED_GAME_VIEW_ASPECT ? "ASPECT FIX" : "VIEW STRETCH";
+    int w1,h1,w2,h2;
+    int w1_bk,h1_bk,w2_bk,h2_bk;
+    bool is_warn1 = false;
+    bool is_warn2 = false;
     if (PROPERTY::DUAL_VIEW) {
-        //２画面
         if (PROPERTY::FULL_SCREEN) {
-            pLabel_resolution1_->update(
-                PX_C(cx/2), PX_C(cy),
-                ("(1) "+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH)+"*"+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT)+"\n"+
-                        fix_str).c_str()
-            );
-            pLabel_resolution2_->update(
-                PX_C(cx+(cx/2)), PX_C(cy),
-                ("(2) "+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH)+"*"+XTOS(PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT)+"\n"+
-                        fix_str).c_str()
-            );
+            w1 = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
+            h1 = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+            w2 = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
+            h2 = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+            w1_bk = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH_BK;
+            h1_bk = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT_BK;
+            w2_bk = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH_BK;
+            h2_bk = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK;
+            if (w1 != w1_bk || h1 != h1_bk) {
+                is_warn1 = true;
+            }
+            if (w2 != w2_bk || h2 != h2_bk) {
+                is_warn2 = true;
+            }
         } else {
-            pLabel_resolution1_->update(
-                PX_C(cx/2), PX_C(cy),
-                ("(1) "+XTOS(PROPERTY::DUAL_VIEW_WINDOW1_WIDTH)+"*"+XTOS(PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT)+"\n"+
-                        fix_str).c_str()
-            );
-            pLabel_resolution2_->update(
-                PX_C(cx+(cx/2)), PX_C(cy),
-                ("(2) "+XTOS(PROPERTY::DUAL_VIEW_WINDOW2_WIDTH)+"*"+XTOS(PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT)+"\n"+
-                        fix_str).c_str()
-            );
+            w1 = PROPERTY::DUAL_VIEW_WINDOW1_WIDTH;
+            h1 = PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT;
+            w2 = PROPERTY::DUAL_VIEW_WINDOW2_WIDTH;
+            h2 = PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT;
+            w1_bk = w1;
+            h1_bk = h1;
+            w2_bk = w2;
+            h2_bk = h2;
         }
     } else {
-        //１画面
-        pLabel_resolution2_->update("");
         if (PROPERTY::FULL_SCREEN) {
-            pLabel_resolution1_->update(
-                PX_C(cx), PX_C(cy),
-                (XTOS(PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH) + "*" + XTOS(PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT)+"\n"+
-                        fix_str).c_str()
-            );
+            w1 = PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH;
+            h1 = PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+            w1_bk = PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;
+            h1_bk = PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK;
+            if (w1 != w1_bk || h1 != h1_bk) {
+                is_warn1 = true;
+            }
         } else {
-            pLabel_resolution1_->update(
-                PX_C(cx), PX_C(cy),
-                (XTOS(PROPERTY::SINGLE_VIEW_WINDOW_WIDTH) + "*" + XTOS(PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT)+"\n"+
-                        fix_str).c_str()
-            );
+            w1 = PROPERTY::SINGLE_VIEW_WINDOW_WIDTH;
+            h1 = PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT;
+            w1_bk = w1;
+            h1_bk = h1;
         }
     }
 
+
+
+    if (PROPERTY::DUAL_VIEW) {
+        //解像度情報表示
+        pLabel_resolution1_->update(
+            PX_C(cx/2), PX_C(cy),
+            ("[0] "+XTOS(w1)+"*"+XTOS(h1)+"\n"+
+                    fix_str).c_str()
+        );
+        if (is_warn1) {
+            pLabel_warn1_->update(
+                PX_C(cx/2), PX_C(cy+32),
+                ("WARN: CAN NOT "+XTOS(w1_bk)+"*"+XTOS(h1_bk)+"").c_str()
+            );
+        }
+
+        pLabel_resolution2_->update(
+            PX_C(cx+(cx/2)), PX_C(cy),
+            ("[1] "+XTOS(w2)+"*"+XTOS(h2)+"\n"+
+                    fix_str).c_str()
+        );
+        if (is_warn2) {
+            pLabel_warn2_->update(
+                PX_C(cx+(cx/2)), PX_C(cy+32),
+                ("WARN: CAN NOT "+XTOS(w2_bk)+"*"+XTOS(h2_bk)+"").c_str()
+            );
+        }
+
+    } else {
+        //解像度情報表示
+        pLabel_resolution1_->update(
+            PX_C(cx), PX_C(cy),
+            (""+XTOS(w1)+"*"+XTOS(h1)+"\n"+
+                    fix_str).c_str()
+        );
+        if (is_warn1) {
+            pLabel_warn1_->update(
+                PX_C(cx), PX_C(cy+32),
+                ("WARN: CAN NOT "+XTOS(w1_bk)+"*"+XTOS(h1_bk)+"").c_str()
+            );
+        }
+    }
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
     orderSceneToFactory(2, GameScene, "Game");
@@ -169,6 +224,8 @@ void World::processBehavior() {
                 pLabel_aster_->sayonara(60);
                 pLabel_resolution1_->sayonara();
                 pLabel_resolution2_->sayonara();
+                pLabel_warn1_->sayonara();
+                pLabel_warn2_->sayonara();
                 _pProg->changeNext(); //メインへループ
             }
             pLabel_aster_->_pAFader->behave(); //右上＊チカチカ

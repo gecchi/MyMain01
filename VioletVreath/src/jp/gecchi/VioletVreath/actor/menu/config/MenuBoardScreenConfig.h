@@ -1,35 +1,33 @@
-#ifndef MENUBOARDSOUNDCONFIG_H_
-#define MENUBOARDSOUNDCONFIG_H_
+#ifndef MENUBOARDSCREENCONFIG_H_
+#define MENUBOARDSCREENCONFIG_H_
 #include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
 
 
 namespace VioletVreath {
 
 /**
- * サウンドコンフィグメニュー .
+ * スクリーンコンフィグメニュー .
  * @version 1.00
- * @since 2013/02/25
+ * @since 2013/06/06
  * @author Masatoshi Tsuge
  */
-class MenuBoardSoundConfig : public MenuBoard {
+class MenuBoardScreenConfig : public MenuBoard {
 
 public:
     enum {
-        ITEM_SE_VOL = 0,
-        ITEM_BGM_VOL  ,
-        ITEM_MASTER_VOL,
+        ITEM_SCREEN_MODE = 0,
+        ITEM_VIEW_NUM    ,
+        ITEM_VIEW_ASPECT_TYPE   ,
+        ITEM_VIEW_POSITION ,
+        ITEM_OK,
+        ITEM_CANCEL,
     };
 
-    int ITEM_INDEX_OK_;
-    int ITEM_INDEX_CANCEL_;
-
-    LabelFix16Font01* pLabel_SeVol_;
-    LabelFix16Font01* pLabel_BgmVol_;
-    LabelFix16Font01* pLabel_MasterVol_;
+    int SUB_SCREEN_MODE_, SUB_VIEW_NUM_, SUB_VIEW_ASPECT_TYPE_, SUB_VIEW_POSITION_, SUB_CONFIRM_;
 
     LabelGecchi16Font* pLabel_Msg_;
 public:
-    MenuBoardSoundConfig(const char* prm_name);
+    MenuBoardScreenConfig(const char* prm_name);
 
     bool condSelectNext() override;
     bool condSelectPrev() override;
@@ -38,9 +36,9 @@ public:
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void processBehavior() override;
 
-    virtual ~MenuBoardSoundConfig();
+    virtual ~MenuBoardScreenConfig();
 };
 
 }
-#endif /*MENUBOARDKEYCONFIG_H_*/
+#endif /*MENUBOARDSCREENCONFIG_H_*/
 

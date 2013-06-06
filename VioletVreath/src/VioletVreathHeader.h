@@ -569,6 +569,8 @@ class CursorKeyConfigMenu;
 class MenuBoardKeyConfig;
 class CursorSoundConfigMenu;
 class MenuBoardSoundConfig;
+class CursorScreenConfigMenu;
+class MenuBoardScreenConfig;
 
 class MenuBoardNameEntry;
 class CursorNameEntryMenu;

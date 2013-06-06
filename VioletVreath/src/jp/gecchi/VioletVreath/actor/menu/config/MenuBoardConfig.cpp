@@ -4,6 +4,7 @@
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "MenuBoardKeyConfig.h"
 #include "MenuBoardSoundConfig.h"
+#include "MenuBoardScreenConfig.h"
 #include "CursorConfigMenu.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
@@ -34,6 +35,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
     const char* apItemStr[] = {
           "KEY CONFIG",
           "SOUND CONFIG",
+          "SCREEN CONFIG",
           "<- BACK"
     };
     for (int i = ITEM_KEY_CONFIG; i <= ITEM_BACK; i++) {
@@ -58,6 +60,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
 
     addSubMenu(NEW MenuBoardKeyConfig("key_config"));       //0番
     addSubMenu(NEW MenuBoardSoundConfig("sound_config"));   //1番
+    addSubMenu(NEW MenuBoardScreenConfig("screen_config"));   //1番
 }
 bool MenuBoardConfig::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -79,9 +82,11 @@ void MenuBoardConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int
     if (prm_item_index == ITEM_BACK) {
         sink();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
-        riseSubMenu(0, PX_C(50), PX_C(10)); //keyconfigメニュー起動
+        riseSubMenu(0, PX_C(50), PX_C(10)); //key configメニュー起動
     } else if (prm_item_index == ITEM_SOUND_CONFIG) {
-        riseSubMenu(1,  PX_C(50), PX_C(10)); //soundconfigメニュー起動
+        riseSubMenu(1,  PX_C(50), PX_C(10)); //sound configメニュー起動
+    } else if (prm_item_index == ITEM_SCREEN_CONFIG) {
+        riseSubMenu(2,  PX_C(50), PX_C(10)); //screen configメニュー起動
     }
 }
 void MenuBoardConfig::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {

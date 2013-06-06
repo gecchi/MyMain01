@@ -117,7 +117,7 @@ void GgafDxGod::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord clien
 
 int GgafDxGod::checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_mode_num,
                                            UINT prm_width, UINT prm_height) {
-    _TRACE_("checkAppropriateDisplaySize() 所望 "<<prm_width<<"x"<<prm_height);
+    _TRACE_("checkAppropriateDisplaySize() 所望、"<<prm_width<<"x"<<prm_height);
 
     for (int n = 0; n < prm_mode_num; n++) {
         if (prm_width == prm_paMode[n].Width && prm_height == prm_paMode[n].Height) {
@@ -125,8 +125,8 @@ int GgafDxGod::checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_m
             return n; //ぴったし
         }
     }
-    _TRACE_("BINGOなし、近い解像度を探す");
-    int cfg_width  = (int)(prm_width * 1.1);  //解像度の高い方を選択しやすくするため
+    _TRACE_("BINGOなし、近い解像度を探します。");
+    int cfg_width  = (int)(prm_width * 1.1);  //解像度の高い方をやや選択しやすくするため
     int cfg_height = (int)(prm_height * 1.1); //10%水増し
     double cfg_aspect = 1.0 * cfg_width / cfg_height;
 
@@ -135,14 +135,15 @@ int GgafDxGod::checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_m
     for (int n = 0; n < prm_mode_num; n++) {
         int disp_width  = (int)(prm_paMode[n].Width);
         int disp_height = (int)(prm_paMode[n].Height);
-        int eval_level = ABS(disp_width-cfg_width) + (int)(ABS(disp_height-cfg_height) * cfg_aspect * 1.5); //アスペクト比を重視のため1.5倍
+        int eval_level = ABS(disp_width-cfg_width) + (int)(ABS(disp_height-cfg_height) * cfg_aspect * 1.5); //アスペクト比をやや重視のため1.5倍
         _TRACE_("["<<n<<"] "<<disp_width<<"x"<<disp_height<<" ・・・ 評価："<<eval_level);
         if (eval_level < eval_top) {
             eval_top = eval_level;
             resut_index = n;
         }
     }
-    _TRACE_("結論、["<<resut_index<<"] の "<<prm_paMode[resut_index].Width<<"x"<<prm_paMode[resut_index].Height<<" が近いのではないかしら！");
+    _TRACE_("checkAppropriateDisplaySize() 結論、["<<resut_index<<"] の "<<
+            prm_paMode[resut_index].Width<<"x"<<prm_paMode[resut_index].Height<<" が良さげじゃなかしら！");
     return resut_index;
 }
 
@@ -151,9 +152,6 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                          const char* prm_title1   , const char* prm_title2,
                          DWORD       prm_dwStyle1 , DWORD       prm_dwStyle2,
                          HWND&       out_hWnd1    , HWND&       out_hWnd2) {
-
-
-
 
     //2011/09/18 WDDM が使用できるなら使用するように変更。
     // マルチモニタフルスクリーン時のデバイスロスト時の復旧が、
@@ -179,7 +177,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 
     DIRECT3DCREATE9EXFUNCTION pFunc_Direct3DCreate9Ex = (DIRECT3DCREATE9EXFUNCTION)GetProcAddress(hD3D, "Direct3DCreate9Ex");
     if (pFunc_Direct3DCreate9Ex) {
-        _TRACE_("GgafDxGod::initDevice() d3d9.dllに、Direct3DCreate9Exは存在しました。");
+        _TRACE_("GgafDxGod::createWindow() d3d9.dllに、Direct3DCreate9Exは存在しました。");
         //d3d9.dll に Direct3DCreate9Ex は存在する。
         hr = ((*pFunc_Direct3DCreate9Ex)(D3D_SDK_VERSION, &pID3D9Ex)); //Direct3DCreate9Ex 実行
         if (FAILED(hr)) {
@@ -194,8 +192,9 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 //        }
         GgafDxGod::_pID3D9 = (IDirect3D9*)pID3D9Ex;
         _can_wddm = true;
+        _TRACE_("GgafDxGod::createWindow() WDDM モード");
     } else {
-        _TRACE_("GgafDxGod::initDevice() d3d9.dllに、Direct3DCreate9Exは存在しませんでした。");
+        _TRACE_("GgafDxGod::createWindow() d3d9.dllに、Direct3DCreate9Exは存在しませんでした。");
         //d3d9.dll に Direct3DCreate9Ex は存在しない。
         pID3D9 = Direct3DCreate9(D3D_SDK_VERSION);
         if (!pID3D9) {
@@ -204,6 +203,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         }
         GgafDxGod::_pID3D9 = pID3D9;
         _can_wddm = false;
+        _TRACE_("GgafDxGod::createWindow() XPDM モード");
     }
     FreeLibrary(hD3D);
 
@@ -330,78 +330,6 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 //    _paPresetPrm[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
 
 
-//    //フルスクリーンに出来るか調べる
-//    _TRACE_("_num_adapter = "<< _num_adapter);
-//    if (PROPERTY::FULL_SCREEN) {
-//        for (int disp_no = 0; disp_no <= (PROPERTY::DUAL_VIEW ? (_num_adapter-1) : 0); disp_no++) {
-//            int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(disp_no,
-//                                                                    _paPresetPrm[0].BackBufferFormat);
-//            if (mode_num) {
-//                D3DDISPLAYMODE adp;
-//                for (int i = mode_num-1; i >= 0; i--) {
-//                    GgafDxGod::_pID3D9->EnumAdapterModes(disp_no,
-//                                                          _paPresetPrm[0].BackBufferFormat, i, &adp);
-//                    _TRACE_("disp_no["<<disp_no<<"].mode["<<i<<"]:"<<adp.Width<<"x"<<adp.Height);
-//                    if (disp_no > 1) {
-//                        //メモ：３画面目以降１画面目・２画面目の解像度以外の無難な解像度を探してそれに設定。
-//                        //これは３画面目以降であることを判定するために解像度で判定している箇所があるため。
-//                        //TODO:スクリーン番号を正確に取得する方法が、色々調べて悩んだけどわからなかった。ので苦肉の策・・・。
-//                        if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat) {
-//                            if ((adp.Width == _paPresetPrm[0].BackBufferWidth && adp.Height == _paPresetPrm[0].BackBufferHeight) ||
-//                                (adp.Width == _paPresetPrm[1].BackBufferWidth && adp.Height == _paPresetPrm[1].BackBufferHeight)
-//                            ) {
-//                                //ダメ
-//                            } else {
-//                                _TRACE_("...無難か");
-//                                _paPresetPrm[disp_no].BackBufferWidth  = adp.Width;
-//                                _paPresetPrm[disp_no].BackBufferHeight = adp.Height;
-//                                _paDisplayMode[disp_no].Width  = _paPresetPrm[disp_no].BackBufferWidth;
-//                                _paDisplayMode[disp_no].Height = _paPresetPrm[disp_no].BackBufferHeight;
-//                                break;
-//                            }
-//                        }
-//                    } else {
-//                        //１画面目・２画面目は、プロパティ要求の解像度を探す
-//                        if (adp.Format == _paPresetPrm[disp_no].BackBufferFormat &&
-//                            adp.Width  == _paPresetPrm[disp_no].BackBufferWidth  &&
-//                            adp.Height == _paPresetPrm[disp_no].BackBufferHeight ) {
-//                            //OK
-//                            _TRACE_("...BINGO!");
-//                            break;
-//                        }
-//                    }
-//                    if (i == 0) {
-//                        //要求した使える解像度が見つからない
-//                        std::stringstream ss;
-//                        if (PROPERTY::DUAL_VIEW) {
-//                            if (disp_no == 0) {
-//                                ss << "１画面目を、解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
-//                                      "設定ファイルの DUAL_VIEW_FULL_SCREEN1_WIDTH, DUAL_VIEW_FULL_SCREEN1_HEIGHT の値を、\n" <<
-//                                      "修正して下さい。";
-//                            } else if (disp_no == 1) {
-//                                ss << "２画面目を、解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
-//                                      "設定ファイルの DUAL_VIEW_FULL_SCREEN2_WIDTH, DUAL_VIEW_FULL_SCREEN2_HEIGHT の値を、\n" <<
-//                                      "修正して下さい。";
-//                            } else {
-//                                ss << "解像度 " << _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。" <<
-//                                      "マルチヘッドディスプレイ数を減らしてみて下さい。\n";
-//                            }
-//                        } else {
-//                            ss << "解像度 "<< _paPresetPrm[disp_no].BackBufferWidth<<"x"<<_paPresetPrm[disp_no].BackBufferHeight<<" のフルスクリーンモードにする事ができません。\n"<<
-//                                    "設定ファイルの SINGLE_VIEW_FULL_SCREEN_WIDTH, SINGLE_VIEW_FULL_SCREEN_HEIGHT の値を、\n" <<
-//                                    "修正して下さい。";
-//                        }
-//                        throwGgafCriticalException(ss.str().c_str());
-//                    }
-//                }
-//            } else {
-//                throwGgafCriticalException("フルスクリーンモード可能な解像度情報が取得できませんでした。\nご使用のビデオカードではプログラムを実行できません。");
-//            }
-//        }
-//    }
-
-
-
     //バックバッファサイズ
     if (PROPERTY::FULL_SCREEN) {
         if(PROPERTY::DUAL_VIEW) {
@@ -448,17 +376,19 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     _paDisplayMode[1].RefreshRate = _paPresetPrm[1].FullScreen_RefreshRateInHz;
     _paDisplayMode[1].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
 
-    //３画面目以降のパラメータを２画面のパラメータのコピーで作成
+    //フルスクリーン時３画面目以降のパラメータを２画面のパラメータのコピーで作成
     for (int i = 2; i < _num_adapter; i++) {
         _paPresetPrm[i] = _paPresetPrm[1];
         _paDisplayMode[i] = _paDisplayMode[1];
     }
 
-    //フルスクリーンに出来るか調べ、
-    //_paPresetPrm[] と、_paDisplayMode[] を上書きする
+    //フルスクリーン要求時、指定解像度に出来るか調べ、
+    //出来ない場合は、近い解像度を探し、
+    //_paPresetPrm[] と、_paDisplayMode[] を上書きする。
     _TRACE_("_num_adapter = "<< _num_adapter);
     if (PROPERTY::FULL_SCREEN) {
         for (int disp_no = 0; disp_no < _num_adapter; disp_no++) {
+            _TRACE_("--- " << disp_no+1 << "画面目 の解像度設定 --->");
             int mode_num = GgafDxGod::_pID3D9->GetAdapterModeCount(disp_no, _paPresetPrm[0].BackBufferFormat);
             D3DDISPLAYMODE* paMode = NEW D3DDISPLAYMODE[mode_num];
             for (int n = 0; n < mode_num; n++) {
@@ -500,7 +430,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                             (paMode[n].Width == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH && paMode[n].Height == (UINT)PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT)    ) {
                             //１画面目か２画面目と同じなので避ける
                         } else {
-                            _TRACE_("画面["<<disp_no<<"] は、"<<paMode[n].Width<<"x"<<paMode[n].Height<<"に設定");
+                            _TRACE_(disp_no+1 << "画面目は、適当に "<<paMode[n].Width<<"x"<<paMode[n].Height<<" に設定");
                             _paPresetPrm[disp_no].BackBufferWidth  = paMode[n].Width;
                             _paPresetPrm[disp_no].BackBufferHeight = paMode[n].Height;
                             break;
@@ -533,6 +463,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 
 
             GGAF_DELETEARR(paMode);
+            _TRACE_("<---" << disp_no+1 << "画面目の解像度は、"<<_paDisplayMode[disp_no].Width<<"x"<<_paDisplayMode[disp_no].Height<<"に確定しました。");
         }
     }
 
@@ -545,10 +476,6 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         _TRACE_("ビデオカードハードの頂点シェーダーとピンクセルシェーダーは、共にバージョン 2_0 以上が推奨です。");
         _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
     }
-
-
-
-
 
     //[メモ：RECT構造体]
     //引数に使用するRECT構造体のメンバ right, bottom は「右下座標」となっているが表現が正確ではない。
@@ -938,17 +865,6 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     _TRACE_(" _aRect_Present[1].bottom = "<<_aRect_Present[1].bottom);
 
 
-
-
-
-
-
-
-
-
-
-
-
     GgafCore::GgafRgb rgb = GgafCore::GgafRgb(PROPERTY::BORDER_COLOR);
     prm_wndclass1.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
     prm_wndclass2.hbrBackground = CreateSolidBrush(RGB(rgb._R, rgb._G, rgb._B));
@@ -957,104 +873,104 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         if (PROPERTY::DUAL_VIEW) {
             //フルスクリーンモード・２画面使用
             RegisterClassEx(&prm_wndclass1);
-            GgafDxGod::_pHWndPrimary = CreateWindowEx(
-                                        WS_EX_APPWINDOW,
-                                        prm_wndclass1.lpszClassName,
-                                        prm_title1,
-                                        WS_POPUP | WS_VISIBLE,
-                                        CW_USEDEFAULT,
-                                        CW_USEDEFAULT,
-                                        PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH,
-                                        PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT,
-                                        HWND_DESKTOP,
-                                        nullptr,
-                                        prm_wndclass1.hInstance,
-                                        nullptr
-                                      );
+            GgafDxGod::_pHWndPrimary   = CreateWindowEx(
+                                           WS_EX_APPWINDOW,
+                                           prm_wndclass1.lpszClassName,
+                                           prm_title1,
+                                           WS_POPUP | WS_VISIBLE,
+                                           CW_USEDEFAULT,
+                                           CW_USEDEFAULT,
+                                           PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH,
+                                           PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT,
+                                           HWND_DESKTOP,
+                                           nullptr,
+                                           prm_wndclass1.hInstance,
+                                           nullptr
+                                        );
 
             RegisterClassEx(&prm_wndclass2);
             GgafDxGod::_pHWndSecondary = CreateWindowEx(
-                        WS_EX_APPWINDOW,
-                        prm_wndclass2.lpszClassName,
-                        prm_title2,
-                        WS_POPUP | WS_VISIBLE,
-                        CW_USEDEFAULT,
-                        CW_USEDEFAULT,
-                        PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH,
-                        PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT,
-                        HWND_DESKTOP,
-                        nullptr,
-                        prm_wndclass2.hInstance,
-                        nullptr
-                      );
+                                           WS_EX_APPWINDOW,
+                                           prm_wndclass2.lpszClassName,
+                                           prm_title2,
+                                           WS_POPUP | WS_VISIBLE,
+                                           CW_USEDEFAULT,
+                                           CW_USEDEFAULT,
+                                           PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH,
+                                           PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT,
+                                           HWND_DESKTOP,
+                                           nullptr,
+                                           prm_wndclass2.hInstance,
+                                           nullptr
+                                         );
 
         } else {
             //フルスクリーンモード・１画面使用
             RegisterClassEx(&prm_wndclass1);
-            GgafDxGod::_pHWndPrimary  = CreateWindowEx(
-                        WS_EX_APPWINDOW,
-                        prm_wndclass1.lpszClassName,
-                        prm_title1,
-                        WS_POPUP | WS_VISIBLE,
-                        CW_USEDEFAULT,
-                        CW_USEDEFAULT,
-                        PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH,
-                        PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT,
-                        HWND_DESKTOP,
-                        nullptr,
-                        prm_wndclass1.hInstance,
-                        nullptr
-                      );
+            GgafDxGod::_pHWndPrimary   = CreateWindowEx(
+                                           WS_EX_APPWINDOW,
+                                           prm_wndclass1.lpszClassName,
+                                           prm_title1,
+                                           WS_POPUP | WS_VISIBLE,
+                                           CW_USEDEFAULT,
+                                           CW_USEDEFAULT,
+                                           PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH,
+                                           PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT,
+                                           HWND_DESKTOP,
+                                           nullptr,
+                                           prm_wndclass1.hInstance,
+                                           nullptr
+                                         );
 
         }
     } else {
         if (PROPERTY::DUAL_VIEW) {
             //ウインドモード・２窓使用
             RegisterClassEx(&prm_wndclass1);
-            GgafDxGod::_pHWndPrimary  = CreateWindow(
-                        prm_wndclass1.lpszClassName,
-                        prm_title1,
-                        prm_dwStyle1,
-                        CW_USEDEFAULT,
-                        CW_USEDEFAULT,
-                        PROPERTY::DUAL_VIEW_WINDOW1_WIDTH,
-                        PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT,
-                        HWND_DESKTOP,
-                        nullptr,
-                        prm_wndclass1.hInstance,
-                        nullptr
-                      );
+            GgafDxGod::_pHWndPrimary   = CreateWindow(
+                                           prm_wndclass1.lpszClassName,
+                                           prm_title1,
+                                           prm_dwStyle1,
+                                           CW_USEDEFAULT,
+                                           CW_USEDEFAULT,
+                                           PROPERTY::DUAL_VIEW_WINDOW1_WIDTH,
+                                           PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT,
+                                           HWND_DESKTOP,
+                                           nullptr,
+                                           prm_wndclass1.hInstance,
+                                           nullptr
+                                         );
 
             RegisterClassEx(&prm_wndclass2);
             GgafDxGod::_pHWndSecondary = CreateWindow(
-                        prm_wndclass2.lpszClassName,
-                        prm_title2,
-                        prm_dwStyle2,
-                        CW_USEDEFAULT,
-                        CW_USEDEFAULT,
-                        PROPERTY::DUAL_VIEW_WINDOW2_WIDTH,
-                        PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT,
-                        HWND_DESKTOP,
-                        nullptr,
-                        prm_wndclass2.hInstance,
-                        nullptr
-                      );
+                                           prm_wndclass2.lpszClassName,
+                                           prm_title2,
+                                           prm_dwStyle2,
+                                           CW_USEDEFAULT,
+                                           CW_USEDEFAULT,
+                                           PROPERTY::DUAL_VIEW_WINDOW2_WIDTH,
+                                           PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT,
+                                           HWND_DESKTOP,
+                                           nullptr,
+                                           prm_wndclass2.hInstance,
+                                           nullptr
+                                         );
         } else {
             //ウインドモード・１窓使用
             RegisterClassEx(&prm_wndclass1);
             GgafDxGod::_pHWndPrimary  = CreateWindow(
-                        prm_wndclass1.lpszClassName,
-                        prm_title1,
-                        prm_dwStyle1,
-                        CW_USEDEFAULT,
-                        CW_USEDEFAULT,
-                        PROPERTY::SINGLE_VIEW_WINDOW_WIDTH,
-                        PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT,
-                        HWND_DESKTOP,
-                        nullptr,
-                        prm_wndclass1.hInstance,
-                        nullptr
-                      );
+                                          prm_wndclass1.lpszClassName,
+                                          prm_title1,
+                                          prm_dwStyle1,
+                                          CW_USEDEFAULT,
+                                          CW_USEDEFAULT,
+                                          PROPERTY::SINGLE_VIEW_WINDOW_WIDTH,
+                                          PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT,
+                                          HWND_DESKTOP,
+                                          nullptr,
+                                          prm_wndclass1.hInstance,
+                                          nullptr
+                                        );
         }
     }
 
@@ -1067,7 +983,9 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     //Windowハンドルを個別指定
     _paPresetPrm[0].hDeviceWindow = _pHWndPrimary;
     _paPresetPrm[1].hDeviceWindow = _pHWndSecondary;
-
+    for (int disp_no = 2; disp_no < _num_adapter; disp_no++) {
+        _paPresetPrm[disp_no].hDeviceWindow = _pHWndSecondary;
+    }
     //ウィンドウモード時、クライアント領域を所望の大きさにするため、
     //タイトルバー、リサイズボーダーの厚さを考慮し再設定。
     if (!PROPERTY::FULL_SCREEN) {
@@ -1087,9 +1005,6 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         UpdateWindow(GgafDxGod::_pHWndSecondary);
     }
 
-
-
-
     //デバイス作成
     if (FAILED(initDevice())) {
         throwGgafCriticalException("初期化に失敗しました。アプリケーションを起動出来ません。");
@@ -1098,18 +1013,18 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 }
 
 void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
-                                    const char* prm_title1   , const char* prm_title2,
-                                    HWND&       out_hWnd1    , HWND&       out_hWnd2) {
+                             const char* prm_title1   , const char* prm_title2,
+                             HWND&       out_hWnd1    , HWND&       out_hWnd2) {
 
-    createWindow( prm_wndclass1,  prm_wndclass2,
-                         prm_title1   ,  prm_title2,
-                         WS_OVERLAPPEDWINDOW, WS_OVERLAPPEDWINDOW,
-                         out_hWnd1   ,        out_hWnd2   );
+    createWindow( prm_wndclass1, prm_wndclass2,
+                  prm_title1, prm_title2,
+                  WS_OVERLAPPEDWINDOW, WS_OVERLAPPEDWINDOW,
+                  out_hWnd1, out_hWnd2   );
 }
 
 void GgafDxGod::createWindow(WNDPROC prm_WndProc,
-                                    const char* prm_title1, const char* prm_title2,
-                                    HWND&       out_hWnd1 , HWND&       out_hWnd2  ) {
+                             const char* prm_title1, const char* prm_title2,
+                             HWND&       out_hWnd1 , HWND&       out_hWnd2  ) {
     //ウィンドウ定義＆作成
     WNDCLASSEX wcex1;
     ZeroMemory(&wcex1, sizeof(WNDCLASSEX));
@@ -1118,23 +1033,18 @@ void GgafDxGod::createWindow(WNDPROC prm_WndProc,
     wcex1.lpfnWndProc = (WNDPROC)prm_WndProc;
     wcex1.hInstance = GgafDxGod::_hInstance;
     wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex1.lpszClassName = "primary";
-    WNDCLASSEX wcex2 = wcex1; //コピー
-    wcex2.lpszClassName = "secondary";
+    wcex1.lpszClassName = "Gecchi Game App Framework (window[0])";
+    WNDCLASSEX wcex2 = wcex1;
+    wcex2.lpszClassName = "Gecchi Game App Framework (window[1])";
 
-    createWindow( wcex1,  wcex2,
-                         prm_title1   ,  prm_title2,
-                         WS_OVERLAPPEDWINDOW, WS_OVERLAPPEDWINDOW,
-                         out_hWnd1   ,        out_hWnd2   );
+    createWindow( wcex1, wcex2,
+                  prm_title1, prm_title2,
+                  WS_OVERLAPPEDWINDOW, WS_OVERLAPPEDWINDOW,
+                  out_hWnd1, out_hWnd2   );
 }
 
 
 HRESULT GgafDxGod::initDevice() {
-
-
-
-
-
 
 
 //    //default

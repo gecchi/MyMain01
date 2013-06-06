@@ -17,6 +17,7 @@ public:
     enum {
         ITEM_KEY_CONFIG = 0 ,
         ITEM_SOUND_CONFIG,
+        ITEM_SCREEN_CONFIG,
         ITEM_BACK,
     };
 

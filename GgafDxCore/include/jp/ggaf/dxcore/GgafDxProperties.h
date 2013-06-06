@@ -51,10 +51,6 @@ public:
     static pixcoord DUAL_VIEW_FULL_SCREEN2_WIDTH;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの解像度(縦) */
     static pixcoord DUAL_VIEW_FULL_SCREEN2_HEIGHT;
-    /** [r] ２画面フルスクリーンモードだった場合の両画面のスクリーンの解像度(横) */
-    static pixcoord DUAL_VIEW_FULL_SCREEN_WIDTH;
-    /** [r] ２画面フルスクリーンモードだった場合の両画面のスクリーンの解像度(縦) */
-    static pixcoord DUAL_VIEW_FULL_SCREEN_HEIGHT;
     /** [r/w] 表示領域で、RENDER_TARGET_BUFFERのサイズのまま表示するかどうか。(true=RENDER_TARGET_BUFFERサイズ表示/false=表示領域はサイズ可変) */
     static bool VIEW_AS_RENDER_TARGET_BUFFER_SIZE;
     /** [r/w] 表示領域サイズ可変時、表示領域アスペクト比をゲームバッファの縦横比で固定にするかどうか(true=固定/false=固定にしない) */
@@ -100,19 +96,6 @@ public:
     /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_SKIN_XXX_WAVE;
 
-    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
-    static std::string DIR_MESH_MODEL[3];
-    /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
-    static std::string DIR_SPRITE_MODEL[3];
-    /** [r] テクスチャファイルの格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
-    static std::string DIR_TEXTURE[3];
-    /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
-    static std::string DIR_EFFECT[3];
-    /** [r] BGMファイル(oggファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
-    static std::string DIR_OGG[3];
-    /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
-    static std::string DIR_WAVE[3];
-
     /** [r] エフェクトファイル(fxファイル)を実行時にコンパイルするかどうか */
     static bool REALTIME_EFFECT_COMPILE;
 
@@ -129,9 +112,36 @@ public:
     /** [r] 球の当たり判定要素表示用のモデル */
     static std::string COLI_SPHERE_MODEL;
 
+    ////// 以下は、上記プロパティから生成される読み出し専用プロパティ ////////
+
+    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
+    static std::string DIR_MESH_MODEL[3];
+    /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
+    static std::string DIR_SPRITE_MODEL[3];
+    /** [r] テクスチャファイルの格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
+    static std::string DIR_TEXTURE[3];
+    /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
+    static std::string DIR_EFFECT[3];
+    /** [r] BGMファイル(oggファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
+    static std::string DIR_OGG[3];
+    /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
+    static std::string DIR_WAVE[3];
+    /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(横) */
+    static pixcoord SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;
+    /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(縦) */
+    static pixcoord SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK;
+    /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの補正前解像度(横) */
+    static pixcoord DUAL_VIEW_FULL_SCREEN1_WIDTH_BK;
+    /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの補正前解像度(縦) */
+    static pixcoord DUAL_VIEW_FULL_SCREEN1_HEIGHT_BK;
+    /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの補正前解像度(横) */
+    static pixcoord DUAL_VIEW_FULL_SCREEN2_WIDTH_BK;
+    /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの補正前解像度(縦) */
+    static pixcoord DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK;
+
 public:
     static void load(std::string prm_properties_filename); //shadows
-    static void clean();                            //shadows
+    static void clean();                                   //shadows
 };
 
 }

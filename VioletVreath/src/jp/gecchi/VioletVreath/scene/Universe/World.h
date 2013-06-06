@@ -37,6 +37,8 @@ public:
     LabelGecchi16Font* pLabel_debug_;
     LabelGecchi16Font* pLabel_resolution1_;
     LabelGecchi16Font* pLabel_resolution2_;
+    LabelGecchi8Font*  pLabel_warn1_;
+    LabelGecchi8Font*  pLabel_warn2_;
     PreDrawScene* pPreDrawScene_;
     GameScene* pGameScene_;
 
