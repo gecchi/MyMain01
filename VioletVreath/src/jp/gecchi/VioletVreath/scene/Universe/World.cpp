@@ -81,6 +81,8 @@ void World::initialize() {
     std::string fix_str = PROPERTY::FIXED_GAME_VIEW_ASPECT ? "ASPECT FIX" : "VIEW STRETCH";
     int w1,h1,w2,h2;
     int w1_bk,h1_bk,w2_bk,h2_bk;
+    w1 = h1 = w2 = h2 = 0;
+    w1_bk = h1_bk = w2_bk = h2_bk = 0;
     bool is_warn1 = false;
     bool is_warn2 = false;
     if (PROPERTY::DUAL_VIEW) {
@@ -126,8 +128,6 @@ void World::initialize() {
         }
     }
 
-
-
     if (PROPERTY::DUAL_VIEW) {
         //‰ð‘œ“xî•ñ•\Ž¦
         pLabel_resolution1_->update(
@@ -138,10 +138,9 @@ void World::initialize() {
         if (is_warn1) {
             pLabel_warn1_->update(
                 PX_C(cx/2), PX_C(cy+32),
-                ("WARN: CAN NOT "+XTOS(w1_bk)+"*"+XTOS(h1_bk)+"").c_str()
+                ("WARNING, "+XTOS(w1_bk)+"*"+XTOS(h1_bk)+" WAS NOT ABLE !").c_str()
             );
         }
-
         pLabel_resolution2_->update(
             PX_C(cx+(cx/2)), PX_C(cy),
             ("[1] "+XTOS(w2)+"*"+XTOS(h2)+"\n"+
@@ -150,7 +149,7 @@ void World::initialize() {
         if (is_warn2) {
             pLabel_warn2_->update(
                 PX_C(cx+(cx/2)), PX_C(cy+32),
-                ("WARN: CAN NOT "+XTOS(w2_bk)+"*"+XTOS(h2_bk)+"").c_str()
+                ("WARNING, "+XTOS(w2_bk)+"*"+XTOS(h2_bk)+" WAS NOT ABLE !").c_str()
             );
         }
 
@@ -164,7 +163,7 @@ void World::initialize() {
         if (is_warn1) {
             pLabel_warn1_->update(
                 PX_C(cx), PX_C(cy+32),
-                ("WARN: CAN NOT "+XTOS(w1_bk)+"*"+XTOS(h1_bk)+"").c_str()
+                ("WARNING, "+XTOS(w1_bk)+"*"+XTOS(h1_bk)+" WAS NOT ABLE !").c_str()
             );
         }
     }

@@ -112,7 +112,7 @@ protected:
     virtual void selectCancel();
 
 public:
-    /** [r]メニューアイテムのリスト */
+    /** [r]メニューアイテムのリスト、アクティブはカーソルが選択されている */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _lstItems;
     /** [r]メニューカーソル */
     GgafDxCore::GgafDxDrawableActor* _pCursor;

@@ -94,43 +94,44 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
 
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
                                             //上から下へ少しスライドさせる
+    addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
 
 
 
-    MenuSelectSub* pSelect_Sub01 = NEW MenuSelectSub("Select_Sub01", "board_bg01");
+
+
+
+
     LabelGecchi16Font* pLabel_Sub01_01 = NEW LabelGecchi16Font("Sub01_01");
     pLabel_Sub01_01->update("FULL SCREEN", ALIGN_LEFT, VALIGN_MIDDLE);
-    pSelect_Sub01->addItem(pLabel_Sub01_01, PX_C(0), PX_C(0));
+    addDisp(pLabel_Sub01_01, PX_C(300), PX_C(100+(0*20)));
+
     LabelGecchi16Font* pLabel_Sub01_02 = NEW LabelGecchi16Font("Sub01_02");
     pLabel_Sub01_02->update("WINDOW MODE", ALIGN_LEFT, VALIGN_MIDDLE);
-    pSelect_Sub01->addItem(pLabel_Sub01_02, PX_C(32*14), PX_C(0));
+    addDisp(pLabel_Sub01_02, PX_C(450), PX_C(100+(0*20)));
 
-    MenuSelectSub* pSelect_Sub02 = NEW MenuSelectSub("Select_Sub02", "board_bg01");
     LabelGecchi16Font* pLabel_Sub02_01 = NEW LabelGecchi16Font("Sub02_01");
     pLabel_Sub02_01->update("SINGLE VIEW", ALIGN_LEFT, VALIGN_MIDDLE);
-    pSelect_Sub02->addItem(pLabel_Sub02_01, PX_C(0), PX_C(0));
+    addDisp(pLabel_Sub02_01, PX_C(300), PX_C(100+(0*20)));
+
     LabelGecchi16Font* pLabel_Sub02_02 = NEW LabelGecchi16Font("Sub02_02");
     pLabel_Sub02_02->update("DUAL VIEW", ALIGN_LEFT, VALIGN_MIDDLE);
-    pSelect_Sub02->addItem(pLabel_Sub02_02, PX_C(32*14), PX_C(0));
+    addDisp(pLabel_Sub02_02, PX_C(450), PX_C(100+(0*20)));
 
-    MenuSelectSub* pSelect_Sub03 = NEW MenuSelectSub("Select_Sub03", "board_bg01");
     LabelGecchi16Font* pLabel_Sub03_01 = NEW LabelGecchi16Font("Sub03_01");
     pLabel_Sub03_01->update("FIX", ALIGN_LEFT, VALIGN_MIDDLE);
-    pSelect_Sub03->addItem(pLabel_Sub03_01, PX_C(0), PX_C(0));
+    addDisp(pLabel_Sub03_01, PX_C(300), PX_C(100+(0*20)));
+
     LabelGecchi16Font* pLabel_Sub03_02 = NEW LabelGecchi16Font("Sub03_02");
     pLabel_Sub03_02->update("STRETCH", ALIGN_LEFT, VALIGN_MIDDLE);
-    pSelect_Sub03->addItem(pLabel_Sub03_02, PX_C(32*14), PX_C(0));
+    addDisp(pLabel_Sub03_02, PX_C(450), PX_C(100+(0*20)));
 
-
-    addSubMenu(pSelect_Sub01); SUB_SCREEN_MODE_ = 0;
-    addSubMenu(pSelect_Sub02); SUB_VIEW_NUM_ = 1;
-    addSubMenu(pSelect_Sub03); SUB_VIEW_ASPECT_TYPE_ = 2;
 
     riseSubMenu(SUB_SCREEN_MODE_     , PX_C(300), PX_C(100+(0*20)));
     riseSubMenu(SUB_VIEW_NUM_        , PX_C(300), PX_C(100+(1*20)));
     riseSubMenu(SUB_VIEW_ASPECT_TYPE_, PX_C(300), PX_C(100+(2*20)));
 
-    addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューをサブメニューに追加
+
     SUB_CONFIRM_ = 3;
 
 
