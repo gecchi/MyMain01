@@ -2,7 +2,6 @@
 #include "MenuBoardTitle.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/lib/actor/menu/MenuActor.hpp"
 #include "CursorTitleMenu.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"
@@ -41,7 +40,12 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     //カーソル設定
     CursorTitleMenu* pCursor = NEW CursorTitleMenu("CursorTitleMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    setCursor(pCursor);
+    setMainCursor(pCursor);
+
+    CursorTitleMenu* pSubCursor = NEW CursorTitleMenu("SubCursorTitleMenu");
+    pSubCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    addSubCursor(pSubCursor);
+
     //スライド表示の設定
     setTransition(10, PX_C(0), +PX_C(100));
     //初期選択
@@ -111,6 +115,22 @@ void MenuBoardTitle::processBehavior() {
     if (getRisingSubMenu()) {
         pItem->setAlpha(pItem->_pAFader->_top_alpha); //点滅を停止
     }
+
+
+
+    if (GgafDxInput::isPushedDownKey(DIK_1)) {
+        selectItemBySubCursor(0, 0);
+    }
+    if (GgafDxInput::isPushedDownKey(DIK_2)) {
+        selectItemBySubCursor(1, 0);
+    }
+    if (GgafDxInput::isPushedDownKey(DIK_3)) {
+        selectItemBySubCursor(2, 0);
+    }
+    if (GgafDxInput::isPushedDownKey(DIK_4)) {
+        selectItemBySubCursor(3, 0);
+    }
+
 }
 MenuBoardTitle::~MenuBoardTitle() {
 }

@@ -67,7 +67,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     //メニューカーソルを設定
     CursorPauseMenu* pCursor = NEW CursorPauseMenu("CursorPauseMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    setCursor(pCursor);
+    setMainCursor(pCursor);
 
     selectItem(0); //カーソルの初期選択アイテムを設定
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）

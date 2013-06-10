@@ -47,19 +47,9 @@ protected:
         ITEM_RELATION_TO_CANCEL,
     };
 
-    /** カーソルの補正X座標 */
-    coord _X_cursor_adjust;
-    /** カーソルの補正Y座標 */
-    coord _Y_cursor_adjust;
-    /** カーソルの補正Z座標 */
-    coord _Z_cursor_adjust;
 
-    /** カーソル移動先アイテムの前フレームのX座標 */
-    coord _X_cursor_target_prev;
-    /** カーソル移動先アイテムの前フレームのY座標 */
-    coord _Y_cursor_target_prev;
-    /** カーソル移動先アイテムの前フレームのZ座標 */
-    coord _Z_cursor_target_prev;
+
+
     /** フェードイン中は true */
     bool _with_rising;
     /** フェードアウト中は true */
@@ -85,6 +75,78 @@ protected:
 
     bool _will_be_able_to_controll;
 
+
+    /** メインカーソルの補正X座標 */
+    coord _X_cursor_adjust;
+    /** メインカーソルの補正Y座標 */
+    coord _Y_cursor_adjust;
+    /** メインカーソルの補正Z座標 */
+    coord _Z_cursor_adjust;
+    /** メインカーソル移動先アイテムの前フレームのX座標 */
+    coord _X_cursor_target_prev;
+    /** メインカーソル移動先アイテムの前フレームのY座標 */
+    coord _Y_cursor_target_prev;
+    /** メインカーソル移動先アイテムの前フレームのZ座標 */
+    coord _Z_cursor_target_prev;
+    /** [r]メインカーソルが、メニューアイテム間を移動する際に費やすスフレーム数 */
+    int _cursor_move_frames;
+    /** [r]メインカーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合 */
+    float _cursor_move_p1;
+    /** [r]メインカーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合 */
+    float _cursor_move_p2;
+    /** [r]メインメニューカーソル */
+    GgafDxCore::GgafDxDrawableActor* _pCursorActor;
+
+    /**
+     * 副カーソル .
+     */
+    class SubCursor {
+    public:
+        /** [r]副カーソルアクター */
+        GgafDxCore::GgafDxDrawableActor* _pActor;
+        /** 選択中インデックス  */
+        int _select_index;
+        /** 副カーソルの補正X座標 */
+        coord _X_adjust;
+        /** 副カーソルの補正Y座標 */
+        coord _Y_adjust;
+        /** 副カーソルの補正Z座標 */
+        coord _Z_adjust;
+        /** 副カーソル移動先アイテムの前フレームのX座標 */
+        coord _X_target_prev;
+        /** 副カーソル移動先アイテムの前フレームのY座標 */
+        coord _Y_target_prev;
+        /** 副カーソル移動先アイテムの前フレームのZ座標 */
+        coord _Z_target_prev;
+        /** [r]副カーソルが、メニューアイテム間を移動する際に費やすスフレーム数 */
+        int _move_frames;
+        /** [r]副カーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合 */
+        float _move_p1;
+        /** [r]副カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合 */
+        float _move_p2;
+    public:
+        SubCursor() {
+            _select_index = 0;
+            _move_frames = 10;
+            _move_p1 = 0.2;
+            _move_p2 = 0.7;
+//            _X_cursor_target_prev = T::_X;
+//            _Y_cursor_target_prev = T::_Y;
+//            _Z_target_prev = T::_Z;
+
+            _X_target_prev = 0;
+            _Y_target_prev = 0;
+            _Z_target_prev = 0;
+
+            _pActor = nullptr;
+            _X_adjust = 0;
+            _Y_adjust = 0;
+            _Z_adjust = 0;
+        }
+
+
+
+    };
 protected:
     /**
      * _lstItems のアクティブ要素を next() へ移動させ、カーソルを移動 .
@@ -112,13 +174,11 @@ protected:
     virtual void selectCancel();
 
 public:
-    /** [r]メニューアイテムのリスト、アクティブはカーソルが選択されている */
+    /** [r]メニューアイテムのリスト、アクティブはメインカーソルが選択されている */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _lstItems;
-    /** [r]メニューカーソル */
-    GgafDxCore::GgafDxDrawableActor* _pCursor;
     /** [r]その他表示アイテムのリスト */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor> _lstDispActors;
-    /** [r]カーソルが移動したメニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
+    /** [r]メインカーソルが移動したメニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
     GgafCore::GgafLinkedListRing<int> _lstMvCursorHistory;
     /** [r]選択したメニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
     GgafCore::GgafLinkedListRing<int> _lstMvSelectHistory;
@@ -127,15 +187,12 @@ public:
     frame _fade_frames;
     /** [r]メニューフェイドイン・アウト時のアルファ速度 */
     float _velo_alpha_fade;
-    /** [r]カーソルが、メニューアイテム間を移動する際に費やすスフレーム数 */
-    int _cursor_move_frames;
-    /** [r]カーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合 */
-    float _cursor_move_p1;
-    /** [r]カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合 */
-    float _cursor_move_p2;
+
     /** [r]サブメニューのリスト */
     GgafCore::GgafLinkedListRing<MenuActor<T>> _lstSubMenu;
 
+    /** [r]サブメニューのリスト */
+    GgafCore::GgafLinkedListRing<SubCursor> _lstSubCursor;
 public:
     /**
      * コンストラクタ .
@@ -241,28 +298,53 @@ public:
     }
 
     /**
-     * メニューカーソルオブジェクトを設定する .
+     * メインカーソルオブジェクトを設定する .
      * 【注意】<BR>
      * カーソル移動を制御するため、MenuActor<T>::processBehavior() 内で、<BR>
-     * _pCursor->_pKurokoA->behave(); <BR>
+     * _pCursorActor->_pKurokoA->behave(); <BR>
      * を実行しています。したがって、引数のカーソルクラスで、<BR>
      * _pKurokoA->behave(); <BR>
      * を実行する必要はありません。<BR>
-     * @param prm_pCursor カーソル
+     * @param prm_pCursorActor メインカーソル
      * @param prm_X_cursor_adjust アイテムとの重なりを補正するための加算される差分X座標
      * @param prm_Y_cursor_adjust アイテムとの重なりを補正するための加算される差分Y座標
      * @param prm_Z_cursor_adjust アイテムとの重なりを補正するための加算される差分Z座標
-     * @param prm_cursor_move_frames カーソルがアイテム間移動に費やすフレーム(デフォルト8フレーム)
-     * @param prm_cursor_move_p1 カーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
-     * @param prm_cursor_move_p2 カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合(デフォルト0.7)
+     * @param prm_cursor_move_frames メインカーソルがアイテム間移動に費やすフレーム(デフォルト8フレーム)
+     * @param prm_cursor_move_p1 メインカーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
+     * @param prm_cursor_move_p2 メインカーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合(デフォルト0.7)
      */
-    virtual void setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
-                           coord prm_X_cursor_adjust = 0,
-                           coord prm_Y_cursor_adjust = 0,
-                           coord prm_Z_cursor_adjust = 0,
-                           int prm_cursor_move_frames = 8,
-                           float prm_cursor_move_p1 = 0.2,
-                           float prm_cursor_move_p2 = 0.7);
+    virtual void setMainCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursorActor,
+                               coord prm_X_cursor_adjust = 0,
+                               coord prm_Y_cursor_adjust = 0,
+                               coord prm_Z_cursor_adjust = 0,
+                               int prm_cursor_move_frames = 8,
+                               float prm_cursor_move_p1 = 0.2,
+                               float prm_cursor_move_p2 = 0.7);
+
+    /**
+     * 副カーソルオブジェクトを設定する .
+     * 【注意】<BR>
+     * カーソル移動を制御するため、MenuActor<T>::processBehavior() 内で、<BR>
+     * _lstSubCursor.getFromFirst(i)->_pActor->_pKurokoA->behave(); <BR>
+     * を実行しています。したがって、引数のカーソルクラスで、<BR>
+     * _pKurokoA->behave(); <BR>
+     * を実行する必要はありません。<BR>
+     * @param prm_pCursorActor 副カーソル
+     * @param prm_X_cursor_adjust アイテムとの重なりを補正するための加算される差分X座標
+     * @param prm_Y_cursor_adjust アイテムとの重なりを補正するための加算される差分Y座標
+     * @param prm_Z_cursor_adjust アイテムとの重なりを補正するための加算される差分Z座標
+     * @param prm_cursor_move_frames 副カーソルがアイテム間移動に費やすフレーム(デフォルト8フレーム)
+     * @param prm_cursor_move_p1 副カーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
+     * @param prm_cursor_move_p2 副カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合(デフォルト0.7)
+     */
+    virtual void addSubCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursorActor,
+                             coord prm_X_cursor_adjust = 0,
+                             coord prm_Y_cursor_adjust = 0,
+                             coord prm_Z_cursor_adjust = 0,
+                             int prm_cursor_move_frames = 8,
+                             float prm_cursor_move_p1 = 0.2,
+                             float prm_cursor_move_p2 = 0.7);
+
     /**
      * メニューアイテム間のオーダー連結を拡張設定(自身がFrom ⇔ To) .
      * addItem(GgafDxCore::GgafDxDrawableActor*) により、追加を行うことで、自動的に<BR>
@@ -333,21 +415,38 @@ public:
     virtual void relateAllItemCancel(int prm_index_of_cancel_item);
 
     /**
-     * メニューに設定されているカーソルを取得 .
-     * @return カーソルオブジェクト
+     * メニューに設定されているメインカーソルを取得 .
+     * @return メインカーソルオブジェクト
      */
     virtual GgafDxCore::GgafDxDrawableActor* getCursor();
 
     /**
-     * 指定のインデックスのメニューアイテムへ、カーソルをセット .
-     * 内部で moveCursor() がコールバックされ、カーソルが移動することになる。<BR>
-     * 既に指定のインデックス選択中の場合はカーソルは何も移動無し。<BR>
+     * メニューに設定されている副カーソルを取得 .
+     * @param prm_subcur_no 副カーソル番号
+     * @return 副カーソルオブジェクト
+     */
+    virtual GgafDxCore::GgafDxDrawableActor* getSubCursor(int prm_subcur_no);
+
+    /**
+     * 指定のインデックスのメニューアイテムへ、メインカーソルをセット .
+     * 内部で moveCursor() がコールバックされ、メインカーソルが移動することになる。<BR>
+     * 既に指定のインデックス選択中の場合はメインカーソルは何も移動無し。<BR>
      * ついでに、引数インデックスのアイテムオブジェクトもゲット出来る。<BR>
      * @param prm_index ターゲットのアイテムインデックス
      * @return prm_indexのアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxDrawableActor* selectItem(int prm_index);
 
+    /**
+     * 指定のインデックスのメニューアイテムへ、副カーソルをセット .
+     * 内部で moveCursor() がコールバックされ、副カーソルが移動することになる。<BR>
+     * 既に指定のインデックス選択中の場合はメインカーソルは何も移動無し。<BR>
+     * ついでに、引数インデックスのアイテムオブジェクトもゲット出来る。<BR>
+     * @param prm_index ターゲットのアイテムインデックス
+     * @param prm_subcur_no 副カーソル番号
+     * @return prm_indexのアイテムオブジェクト
+     */
+    virtual GgafDxCore::GgafDxDrawableActor* selectItemBySubCursor(int prm_index, int prm_subcur_no);
     /**
      * 指定のメニューアイテムへ、カーソルをセット .
      * 内部で moveCursor() がコールバックされ、カーソルが移動することになる。<BR>
@@ -357,21 +456,33 @@ public:
      * @return ターゲットのアイテムインデックス
      */
     virtual int selectItem(GgafDxCore::GgafDxDrawableActor* prm_item);
+    /**
+     *
+     * @param prm_item
+     * @param prm_subcur_no
+     * @return
+     */
+    virtual int selectItemBySubCursor(GgafDxCore::GgafDxDrawableActor* prm_item, int prm_subcur_no);
 
     /**
-     * 現在カーソルが選択中のアイテムのインデックスを取得 .
+     * 現在メインカーソルが選択中のアイテムのインデックスを取得 .
      * @return 選択中のアイテムオブジェクトのインデックス
      */
     virtual int getSelectedIndex();
 
+    virtual int getSelectedIndexBySubCursor(int prm_subcur_no);
+
     /**
-     * 現在カーソルが選択中のアイテムのオブジェクトを取得 .
+     * 現在メインカーソルが選択中のアイテムのオブジェクトを取得 .
      * @return 選択中のアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxDrawableActor* getSelectedItem();
 
+    virtual GgafDxCore::GgafDxDrawableActor* getSelectedItemBySubCursor(int prm_subcur_no);
+
+
     /**
-     * 過去にカーソルが選択中だったアイテムのインデックスを取得 .
+     * 過去にメインカーソルが選択中だったアイテムのインデックスを取得 .
      * getMvCursorHistoryIndex(0) は getSelectedIndex() と同じです。
      * 指定の過去がない場合は -1 を返します。
      * @param prm_n 幾つ過去のカーソル位置か(0 ～)
@@ -455,35 +566,35 @@ public:
      */
     virtual bool condCancel() = 0;
     /**
-     * カーソルが「次のメニューアイテム」へ移動する条件を実装する .
+     * メインカーソルが「次のメニューアイテム」へ移動する条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「次のメニューアイテム」へ移動の条件成立 / false:不成立
      */
     virtual bool condSelectNext() = 0;
 
     /**
-     * カーソルが「前のメニューアイテム」へ移動する条件を実装する .
+     * メインカーソルが「前のメニューアイテム」へ移動する条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「前のメニューアイテム」へ移動の条件成立 / false:不成立
      */
     virtual bool condSelectPrev() = 0;
 
     /**
-     * カーソルが「もう一つの別の次のメニューアイテム」へ移動する条件を実装する .
+     * メインカーソルが「もう一つの別の次のメニューアイテム」へ移動する条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「もう一つの別の次のメニューアイテム」へ移動の条件成立 / false:不成立
      */
     virtual bool condSelectExNext() = 0;
 
     /**
-     * カーソルが「もう一つの別の前のメニューアイテム」へ移動する条件を実装する .
+     * メインカーソルが「もう一つの別の前のメニューアイテム」へ移動する条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「もう一つの別の前のメニューアイテム」へ移動の条件成立 / false:不成立
      */
     virtual bool condSelectrExPrev() = 0;
 
     /**
-     * カーソルが「キャンセルのメニューアイテム」へ飛ぶ条件を実装する .
+     * メインカーソルが「キャンセルのメニューアイテム」へ飛ぶ条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
      * @return true:「キャンセルのメニューアイテム」へ移動の条件成立 / false:不成立
      */
@@ -514,7 +625,7 @@ public:
     virtual void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) = 0;
 
     /**
-     * カーソルが移動した場合に呼び出されるコールバック。 .
+     * メインカーソルが移動した場合に呼び出されるコールバック。 .
      * 動作をオーバーライドして実装してください。<BR>
      * 【捕捉】<BR>
      * onMoveCursor(int,int) と onSelect(int,int) のコールバックタイミングの差について。<BR>
@@ -528,7 +639,7 @@ public:
 
 
     /**
-     * アイテムが選択された場合に呼び出されるコールバック。 .
+     * メインカーソルがアイテムを選択された場合に呼び出されるコールバック。 .
      * 動作をオーバーライドして実装してください。<BR>
      * 【捕捉】<BR>
      * onMoveCursor(int,int) と onSelect(int,int) のコールバックタイミングの差について。<BR>
@@ -547,6 +658,8 @@ public:
      * @param prm_smooth スムーズ移動するか否か
      */
     virtual void moveCursor(bool prm_smooth = true);
+
+    virtual void moveSubCursor(int prm_subcur_no, bool prm_smooth = true);
 
     /**
      * メニューを表示開始する .
@@ -703,18 +816,10 @@ template<class T>
 MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
   T(prm_name, prm_model, nullptr),_lstItems(3) { //全アイテム枝を３つ追加：「その他次」「その他前」「キャンセル」の３つ
     T::_class_name = "MenuActor";
-    _pCursor = nullptr;
-    _X_cursor_adjust = 0;
-    _Y_cursor_adjust = 0;
-    _Z_cursor_adjust = 0;
+
     _fade_frames = 0;
     _velo_alpha_fade = 1.0;
-    _cursor_move_frames = 10;
-    _cursor_move_p1 = 0.2;
-    _cursor_move_p2 = 0.7;
-    _X_cursor_target_prev = T::_X;
-    _Y_cursor_target_prev = T::_Y;
-    _Z_cursor_target_prev = T::_Z;
+
     _with_rising = false;
     _with_sinking = false;
     _is_just_risen = false;
@@ -727,6 +832,18 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
     _will_be_just_cancelled_next_frame = false;
     _can_controll = false;
     _will_be_able_to_controll = false;
+
+    _cursor_move_frames = 10;
+    _cursor_move_p1 = 0.2;
+    _cursor_move_p2 = 0.7;
+    _X_cursor_target_prev = T::_X;
+    _Y_cursor_target_prev = T::_Y;
+    _Z_cursor_target_prev = T::_Z;
+    _pCursorActor = nullptr;
+    _X_cursor_adjust = 0;
+    _Y_cursor_adjust = 0;
+    _Z_cursor_adjust = 0;
+
     for (int i = 0; i < 10; i++) {
         _lstMvCursorHistory.addLast(new int(-1), true);
         _lstMvSelectHistory.addLast(new int(-1), true);
@@ -868,6 +985,7 @@ void MenuActor<T>::relateAllItemCancel(int prm_index_of_cancel_item) {
     }
 }
 
+
 template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectItem(int prm_index) {
     int n = getSelectedIndex();
@@ -887,7 +1005,7 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectItem(int prm_index) {
             throwGgafCriticalException("MenuActor<T>::selectItem() メニューアイテム要素数オーバー name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
         }
 #endif
-        GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.current(prm_index);
+        GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.current(prm_index); //これでセレクト！
         if (T::getActiveFrame() > 1) {
             moveCursor(true);  //スムーズ移動有り
         } else {
@@ -900,6 +1018,38 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectItem(int prm_index) {
 }
 
 template<class T>
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectItemBySubCursor(int prm_index, int prm_subcur_no) {
+    int n = getSelectedIndexBySubCursor(prm_subcur_no);
+#ifdef MY_DEBUG
+    if (n == -1) {
+        throwGgafCriticalException("MenuActor<T>::selectItemBySubCursor() メニューアイテムが未登録です name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
+    }
+#endif
+    //副カーソルはコールバックなし
+    if (n == prm_index) {
+        //既に選択している。
+        return _lstItems.getFromFirst(n);
+    } else {
+#ifdef MY_DEBUG
+        if (_lstItems.length() <= prm_index) {
+            throwGgafCriticalException("MenuActor<T>::selectItemBySubCursor() メニューアイテム要素数オーバー name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_index="<<prm_index);
+        }
+#endif
+        _lstSubCursor.getFromFirst(prm_subcur_no)->_select_index = prm_index; //これでセレクト！
+        GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getFromFirst(prm_index);
+
+        if (T::getActiveFrame() > 1) {
+            moveSubCursor(prm_subcur_no, true);  //スムーズ移動有り
+        } else {
+            moveSubCursor(prm_subcur_no, false); //スムーズ移動無し
+        }
+        return pTargetItem;
+    }
+}
+
+
+
+template<class T>
 int MenuActor<T>::selectItem(GgafDxCore::GgafDxDrawableActor* prm_item) {
     int index = _lstItems.indexOf(prm_item);
     if (index == -1) {
@@ -910,19 +1060,27 @@ int MenuActor<T>::selectItem(GgafDxCore::GgafDxDrawableActor* prm_item) {
 }
 
 template<class T>
-void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
-                             coord prm_X_cursor_adjust,
-                             coord prm_Y_cursor_adjust,
-                             coord prm_Z_cursor_adjust,
-                             int prm_cursor_move_frames,
-                             float prm_cursor_move_p1,
-                             float prm_cursor_move_p2) {
-    _pCursor = prm_pCursor;
-    if (_pCursor) {
-        _pCursor->_alpha = T::_alpha;
-        _pCursor->inactivateImmed();
+int MenuActor<T>::selectItemBySubCursor(GgafDxCore::GgafDxDrawableActor* prm_item, int prm_subcur_no) {
+    int index = _lstItems.indexOf(prm_item);
+    if (index == -1) {
+        throwGgafCriticalException("MenuActor<T>::selectItemBySubCursor() その前にメニューアイテムが未登録です name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_item="<<prm_item->getName());
     }
-    T::addSubLast(_pCursor);
+    selectItemBySubCursor(index, prm_subcur_no);
+    return index;
+}
+
+template<class T>
+void MenuActor<T>::setMainCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursorActor,
+                                 coord prm_X_cursor_adjust,
+                                 coord prm_Y_cursor_adjust,
+                                 coord prm_Z_cursor_adjust,
+                                 int prm_cursor_move_frames,
+                                 float prm_cursor_move_p1,
+                                 float prm_cursor_move_p2) {
+    _pCursorActor = prm_pCursorActor;
+    _pCursorActor->_alpha = T::_alpha;
+    _pCursorActor->inactivateImmed();
+    T::addSubLast(_pCursorActor);
     _X_cursor_adjust = prm_X_cursor_adjust;
     _Y_cursor_adjust = prm_Y_cursor_adjust;
     _Z_cursor_adjust = prm_Z_cursor_adjust;
@@ -933,8 +1091,40 @@ void MenuActor<T>::setCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursor,
 }
 
 template<class T>
+void MenuActor<T>::addSubCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursorActor,
+                                 coord prm_X_cursor_adjust,
+                                 coord prm_Y_cursor_adjust,
+                                 coord prm_Z_cursor_adjust,
+                                 int prm_cursor_move_frames,
+                                 float prm_cursor_move_p1,
+                                 float prm_cursor_move_p2) {
+
+
+    MenuActor<T>::SubCursor* pSubCursor = NEW MenuActor<T>::SubCursor();
+    pSubCursor->_pActor = prm_pCursorActor;
+    pSubCursor->_pActor->_alpha = T::_alpha;
+    pSubCursor->_pActor->inactivateImmed();
+    pSubCursor->_select_index = 0;
+    pSubCursor->_X_adjust = prm_X_cursor_adjust;
+    pSubCursor->_Y_adjust = prm_Y_cursor_adjust;
+    pSubCursor->_Z_adjust = prm_Z_cursor_adjust;
+    pSubCursor->_move_frames = prm_cursor_move_frames;
+    pSubCursor->_move_p1 = prm_cursor_move_p1;
+    pSubCursor->_move_p2 = prm_cursor_move_p2;
+    _lstSubCursor.addLast(pSubCursor, true);
+    T::addSubLast(pSubCursor->_pActor);
+    selectItemBySubCursor(0, _lstSubCursor.length()-1);
+}
+
+
+template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getCursor() {
-    return _pCursor;
+    return _pCursorActor;
+}
+
+template<class T>
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getSubCursor(int prm_subcur_no) {
+    return _lstSubCursor.getFromFirst(prm_subcur_no)->_pActor;
 }
 
 template<class T>
@@ -943,8 +1133,19 @@ int MenuActor<T>::getSelectedIndex() {
 }
 
 template<class T>
+int MenuActor<T>::getSelectedIndexBySubCursor(int prm_subcur_no) {
+    return _lstSubCursor.getFromFirst(prm_subcur_no)->_select_index;
+}
+
+
+template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getSelectedItem() {
     return _lstItems.getCurrent();
+}
+
+template<class T>
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getSelectedItemBySubCursor(int prm_subcur_no) {
+    return _lstItems.getFromFirst(getSelectedIndexBySubCursor(prm_subcur_no));
 }
 
 template<class T>
@@ -997,10 +1198,11 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getDisp(int prm_index) {
     return _lstDispActors.getFromFirst(prm_index);
 }
 
+
 template<class T>
 void MenuActor<T>::selectNext() {
-    if (_pCursor) {
-        _pCursor->locateAs(_lstItems.getCurrent());
+    if (_pCursorActor) {
+        _pCursorActor->locateAs(_lstItems.getCurrent());
     }
     _lstItems.next();
     moveCursor();
@@ -1010,8 +1212,8 @@ void MenuActor<T>::selectNext() {
 
 template<class T>
 void MenuActor<T>::selectPrev() {
-    if (_pCursor) {
-        _pCursor->locateAs(_lstItems.getCurrent());
+    if (_pCursorActor) {
+        _pCursorActor->locateAs(_lstItems.getCurrent());
     }
     _lstItems.prev();
     moveCursor();
@@ -1019,11 +1221,12 @@ void MenuActor<T>::selectPrev() {
     onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
 }
 
+
 template<class T>
 void MenuActor<T>::selectExNext() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
-        if (_pCursor) {
-            _pCursor->locateAs(_lstItems.getCurrent());
+        if (_pCursorActor) {
+            _pCursorActor->locateAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_EX_NEXT);
         moveCursor();
@@ -1037,8 +1240,8 @@ void MenuActor<T>::selectExNext() {
 template<class T>
 void MenuActor<T>::selectExPrev() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
-        if (_pCursor) {
-            _pCursor->locateAs(_lstItems.getCurrent());
+        if (_pCursorActor) {
+            _pCursorActor->locateAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_EX_PREV);
         moveCursor();
@@ -1052,8 +1255,8 @@ void MenuActor<T>::selectExPrev() {
 template<class T>
 void MenuActor<T>::selectCancel() {
     if (_lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
-        if (_pCursor) {
-            _pCursor->locateAs(_lstItems.getCurrent());
+        if (_pCursorActor) {
+            _pCursorActor->locateAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_TO_CANCEL);
         moveCursor();
@@ -1066,22 +1269,22 @@ void MenuActor<T>::selectCancel() {
 
 template<class T>
 void MenuActor<T>::moveCursor(bool prm_smooth) {
-    if (_pCursor) {
+    if (_pCursorActor) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
         if (prm_smooth) {
-            _pCursor->_pKurokoA->setMvAngTwd(
+            _pCursorActor->_pKurokoA->setMvAngTwd(
                                     pTargetItem->_X + _X_cursor_adjust,
                                     pTargetItem->_Y + _Y_cursor_adjust,
                                     pTargetItem->_Z + _Z_cursor_adjust
                                 );
-            _pCursor->_pKurokoA->setMvVelo(0);
-            _pCursor->_pKurokoA->setMvAcce(0);
-            _pCursor->_pKurokoA->slideMvByDT(
+            _pCursorActor->_pKurokoA->setMvVelo(0);
+            _pCursorActor->_pKurokoA->setMvAcce(0);
+            _pCursorActor->_pKurokoA->slideMvByDT(
                                      0,
                                      UTIL::getDistance(
-                                             _pCursor->_X,
-                                             _pCursor->_Y,
-                                             _pCursor->_Z,
+                                             _pCursorActor->_X,
+                                             _pCursorActor->_Y,
+                                             _pCursorActor->_Z,
                                              pTargetItem->_X + _X_cursor_adjust,
                                              pTargetItem->_Y + _Y_cursor_adjust,
                                              pTargetItem->_Z + _Z_cursor_adjust),
@@ -1092,15 +1295,56 @@ void MenuActor<T>::moveCursor(bool prm_smooth) {
             _Y_cursor_target_prev = pTargetItem->_Y;
             _Z_cursor_target_prev = pTargetItem->_Z;
         } else {
-            _pCursor->_pKurokoA->stopSlidingMv();
-            _pCursor->_pKurokoA->setMvVelo(0);
-            _pCursor->_pKurokoA->setMvAcce(0);
-            _pCursor->_X = pTargetItem->_X + _X_cursor_adjust;
-            _pCursor->_Y = pTargetItem->_Y + _Y_cursor_adjust;
-            _pCursor->_Z = pTargetItem->_Z + _Z_cursor_adjust;
+            _pCursorActor->_pKurokoA->stopSlidingMv();
+            _pCursorActor->_pKurokoA->setMvVelo(0);
+            _pCursorActor->_pKurokoA->setMvAcce(0);
+            _pCursorActor->_X = pTargetItem->_X + _X_cursor_adjust;
+            _pCursorActor->_Y = pTargetItem->_Y + _Y_cursor_adjust;
+            _pCursorActor->_Z = pTargetItem->_Z + _Z_cursor_adjust;
         }
         *(_lstMvCursorHistory.next()) = _lstItems.getCurrentIndex();
         onMoveCursor(*(_lstMvCursorHistory.getPrev()), *(_lstMvCursorHistory.getCurrent())); //コールバック
+    }
+}
+
+
+template<class T>
+void MenuActor<T>::moveSubCursor(int prm_subcur_no, bool prm_smooth) {
+    if (_lstSubCursor.length() > 0) {
+        GgafDxCore::GgafDxDrawableActor* pTargetItem = getSelectedItemBySubCursor(prm_subcur_no);
+        SubCursor* pSubCursor = _lstSubCursor.getFromFirst(prm_subcur_no);
+        GgafDxCore::GgafDxDrawableActor* pSubCursorActor = pSubCursor->_pActor;
+        if (prm_smooth) {
+            pSubCursorActor->_pKurokoA->setMvAngTwd(
+                                    pTargetItem->_X + pSubCursor->_X_adjust,
+                                    pTargetItem->_Y + pSubCursor->_Y_adjust,
+                                    pTargetItem->_Z + pSubCursor->_Z_adjust
+                                );
+            pSubCursorActor->_pKurokoA->setMvVelo(0);
+            pSubCursorActor->_pKurokoA->setMvAcce(0);
+            pSubCursorActor->_pKurokoA->slideMvByDT(
+                                     0,
+                                     UTIL::getDistance(
+                                             pSubCursorActor->_X,
+                                             pSubCursorActor->_Y,
+                                             pSubCursorActor->_Z,
+                                             pTargetItem->_X + pSubCursor->_X_adjust,
+                                             pTargetItem->_Y + pSubCursor->_Y_adjust,
+                                             pTargetItem->_Z + pSubCursor->_Z_adjust),
+                                             pSubCursor->_move_frames,
+                                             pSubCursor->_move_p1, pSubCursor->_move_p2
+                                 );
+            pSubCursor->_X_target_prev = pTargetItem->_X;
+            pSubCursor->_Y_target_prev = pTargetItem->_Y;
+            pSubCursor->_Z_target_prev = pTargetItem->_Z;
+        } else {
+            pSubCursorActor->_pKurokoA->stopSlidingMv();
+            pSubCursorActor->_pKurokoA->setMvVelo(0);
+            pSubCursorActor->_pKurokoA->setMvAcce(0);
+            pSubCursorActor->_X = pTargetItem->_X + pSubCursor->_X_adjust;
+            pSubCursorActor->_Y = pTargetItem->_Y + pSubCursor->_Y_adjust;
+            pSubCursorActor->_Z = pTargetItem->_Z + pSubCursor->_Z_adjust;
+        }
     }
 }
 
@@ -1142,8 +1386,12 @@ void MenuActor<T>::rise() {
         p->activate();
         pElem = pElem->_pNext;
     }
-    if (_pCursor) {
-        _pCursor->activate();
+
+    if (_pCursorActor) {
+        _pCursorActor->activate();
+    }
+    for (int i = 0; i < _lstSubCursor.length(); i++) {
+        _lstSubCursor.getFromFirst(i)->_pActor->activate();
     }
 }
 
@@ -1185,8 +1433,14 @@ void MenuActor<T>::processBehavior() {
             selectCancel();
         }
     }
-    if (_pCursor) {
-        _pCursor->_pKurokoA->behave();
+
+    if (_pCursorActor) {
+        _pCursorActor->_pKurokoA->behave();
+        //メインカーソル側で、_pKurokoA->behave() しないように注意
+    }
+    for (int i = 0; i < _lstSubCursor.length(); i++) {
+        _lstSubCursor.getFromFirst(i)->_pActor->_pKurokoA->behave();
+        //副カーソル側で、_pKurokoA->behave() しないように注意
     }
 
     //メニューアイテムをメニューに追従
@@ -1215,22 +1469,42 @@ void MenuActor<T>::processBehavior() {
         pElem = pElem->_pNext;
     }
 
-    //カーソルをメニューアイテムに追従
-    if (_pCursor) {
+    //メインカーソルをメニューアイテムに追従
+    if (_pCursorActor) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
-        if (_pCursor->_pKurokoA->isSlidingMv()) {
-            _pCursor->_X += (pTargetItem->_X - _X_cursor_target_prev);
-            _pCursor->_Y += (pTargetItem->_Y - _Y_cursor_target_prev);
-            _pCursor->_Z += (pTargetItem->_Z - _Z_cursor_target_prev);
+        if (_pCursorActor->_pKurokoA->isSlidingMv()) {
+            _pCursorActor->_X += (pTargetItem->_X - _X_cursor_target_prev);
+            _pCursorActor->_Y += (pTargetItem->_Y - _Y_cursor_target_prev);
+            _pCursorActor->_Z += (pTargetItem->_Z - _Z_cursor_target_prev);
             _X_cursor_target_prev = pTargetItem->_X;
             _Y_cursor_target_prev = pTargetItem->_Y;
             _Z_cursor_target_prev = pTargetItem->_Z;
         } else {
-            _pCursor->locate(pTargetItem->_X + _X_cursor_adjust,
-                             pTargetItem->_Y + _Y_cursor_adjust,
-                             pTargetItem->_Z + _Z_cursor_adjust );
+            _pCursorActor->locate(pTargetItem->_X + _X_cursor_adjust,
+                                  pTargetItem->_Y + _Y_cursor_adjust,
+                                  pTargetItem->_Z + _Z_cursor_adjust );
         }
-        _pCursor->setAlpha(T::getAlpha());
+        _pCursorActor->setAlpha(T::getAlpha());
+    }
+    //副カーソルをメニューアイテムに追従
+    for (int i = 0; i < _lstSubCursor.length(); i++) {
+        SubCursor* pSubCursor = _lstSubCursor.getFromFirst(i);
+        GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getFromFirst(pSubCursor->_select_index);
+        GgafDxCore::GgafDxDrawableActor* pSubCursorActor = pSubCursor->_pActor;
+        if (pSubCursorActor->_pKurokoA->isSlidingMv()) {
+            pSubCursorActor->_X += (pTargetItem->_X - pSubCursor->_X_target_prev);
+            pSubCursorActor->_Y += (pTargetItem->_Y - pSubCursor->_Y_target_prev);
+            pSubCursorActor->_Z += (pTargetItem->_Z - pSubCursor->_Z_target_prev);
+            pSubCursor->_X_target_prev = pTargetItem->_X;
+            pSubCursor->_Y_target_prev = pTargetItem->_Y;
+            pSubCursor->_Z_target_prev = pTargetItem->_Z;
+        } else {
+            pSubCursorActor->locate(pTargetItem->_X + pSubCursor->_X_adjust,
+                                   pTargetItem->_Y + pSubCursor->_Y_adjust,
+                                   pTargetItem->_Z + pSubCursor->_Z_adjust );
+        }
+        pSubCursorActor->setAlpha(T::getAlpha());
+
     }
 
     //サブメニューのrise() sink() 時

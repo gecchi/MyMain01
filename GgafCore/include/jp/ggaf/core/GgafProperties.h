@@ -132,27 +132,19 @@ public:
     static GgafRgb getRGB(std::string prm_key);
 
 
-    /**
-     * キーに対するプロパティ値を string で設定 .
-     * @param prm_key キー文字列
-     * @return プロパティ値(string)
-     */
-    template<typename T>
-    static void setValue(std::string prm_key, T prm_value) {
-        if (isExistKey(prm_key)) {
-            (*_pMapProperties)[prm_key] = XTOS(prm_value);
-        } else {
-            throwGgafCriticalException("GgafProperties::setValue() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
-        }
-    }
+    static void setValue(std::string prm_key, int prm_value);
 
-    static void setValue(std::string prm_key, GgafRgb prm_value) {
-        if (isExistKey(prm_key)) {
-            (*_pMapProperties)[prm_key] = prm_value.toStr();
-        } else {
-            throwGgafCriticalException("GgafProperties::setValue() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
-        }
-    }
+    static void setValue(std::string prm_key, uint32_t prm_value);
+
+    static void setValue(std::string prm_key, std::string prm_value);
+
+    static void setValue(std::string prm_key, float prm_value);
+
+    static void setValue(std::string prm_key, double prm_value);
+
+    static void setValue(std::string prm_key, bool prm_value);
+
+    static void setValue(std::string prm_key, GgafRgb prm_value);
 
 };
 

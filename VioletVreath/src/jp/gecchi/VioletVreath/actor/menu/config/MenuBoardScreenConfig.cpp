@@ -52,9 +52,6 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
 
 
 
-
-
-
     //メニューアイテム（選択可）設定
     const char* apItemStr[] = {
           "SCREEN MODE",
@@ -88,7 +85,7 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
     //メニューカーソルを設定
     CursorScreenConfigMenu* pCursor = NEW CursorScreenConfigMenu("CursorScreenConfigMenu");
     pCursor->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    setCursor(pCursor);
+    setMainCursor(pCursor);
     //キャンセルアイテム設定
     relateAllItemCancel(ITEM_CANCEL);
 
@@ -127,9 +124,9 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
     addDisp(pLabel_Sub03_02, PX_C(450), PX_C(100+(0*20)));
 
 
-    riseSubMenu(SUB_SCREEN_MODE_     , PX_C(300), PX_C(100+(0*20)));
-    riseSubMenu(SUB_VIEW_NUM_        , PX_C(300), PX_C(100+(1*20)));
-    riseSubMenu(SUB_VIEW_ASPECT_TYPE_, PX_C(300), PX_C(100+(2*20)));
+//    riseSubMenu(SUB_SCREEN_MODE_     , PX_C(300), PX_C(100+(0*20)));
+//    riseSubMenu(SUB_VIEW_NUM_        , PX_C(300), PX_C(100+(1*20)));
+//    riseSubMenu(SUB_VIEW_ASPECT_TYPE_, PX_C(300), PX_C(100+(2*20)));
 
 
     SUB_CONFIRM_ = 3;

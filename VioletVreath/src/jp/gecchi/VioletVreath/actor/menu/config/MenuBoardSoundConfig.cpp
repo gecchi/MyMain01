@@ -78,7 +78,7 @@ MenuBoardSoundConfig::MenuBoardSoundConfig(const char* prm_name) :
     //メニューカーソルを設定
     CursorSoundConfigMenu* pCursor = NEW CursorSoundConfigMenu("CursorSoundConfigMenu");
     pCursor->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-    setCursor(pCursor);
+    setMainCursor(pCursor);
     //キャンセルアイテム設定
     relateAllItemCancel(ITEM_INDEX_CANCEL_);
 

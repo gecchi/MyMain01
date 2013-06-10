@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MenuBoardConfirm.h"
+
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "CursorConfirmMenu.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -34,7 +35,7 @@ MenuBoardConfirm::MenuBoardConfirm(const char* prm_name) :
     relateAllItemCancel(ITEM_CANCEL);
     CursorConfirmMenu* pCursor = NEW CursorConfirmMenu("CursorConfirmMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    setCursor(pCursor);
+    setMainCursor(pCursor);
     selectItem(ITEM_OK); //初期選択
     setTransition(10, -PX_C(100), PX_C(0)); //-100px左から右へスライド
 }

@@ -142,19 +142,20 @@ bool GgafUtil::isExistKey(std::string prm_key, GgafStrMap* p) {
 
 bool GgafUtil::cnvBool(std::string prm_str) {
     bool ret;
-    if (strcmp(prm_str.c_str(), "true") == 0 ||
-        strcmp(prm_str.c_str(), "on")   == 0 ||
-        strcmp(prm_str.c_str(), "yes")  == 0 ||
-        strcmp(prm_str.c_str(), "True") == 0 ||
-        strcmp(prm_str.c_str(), "On")   == 0 ||
-        strcmp(prm_str.c_str(), "Yes")  == 0 ||
-        strcmp(prm_str.c_str(), "TRUE") == 0 ||
-        strcmp(prm_str.c_str(), "ON")   == 0 ||
-        strcmp(prm_str.c_str(), "YES")  == 0
+    if (strcmp(prm_str.c_str(), "false") == 0 ||
+        strcmp(prm_str.c_str(), "off")   == 0 ||
+        strcmp(prm_str.c_str(), "no")    == 0 ||
+        strcmp(prm_str.c_str(), "False") == 0 ||
+        strcmp(prm_str.c_str(), "Off")   == 0 ||
+        strcmp(prm_str.c_str(), "No")    == 0 ||
+        strcmp(prm_str.c_str(), "FALSE") == 0 ||
+        strcmp(prm_str.c_str(), "OFF")   == 0 ||
+        strcmp(prm_str.c_str(), "NO")    == 0 ||
+        strcmp(prm_str.c_str(), "0")     == 0
     ) {
-        ret = true;
-    } else {
         ret = false;
+    } else {
+        ret = true;
     }
     return ret;
 }
