@@ -397,6 +397,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi16Font.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi32Font.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelMenuItemFont01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelMenuTitleFont01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankFont.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.cpp" />
@@ -412,6 +413,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardKeyConfig.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardScreenConfig.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\SupCursorScreenConfigMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp" />
@@ -710,6 +712,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelgecchi16font.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelgecchi32font.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelgecchi8font.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelmenuitemfont01.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelmenutitlefont01.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelrankfont.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelrankingfont.h" />
@@ -725,6 +728,7 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\config\menuboardkeyconfig.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\config\menuboardscreenconfig.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\SupCursorScreenConfigMenu.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\confirm\cursorconfirmmenu.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\confirm\menuboardconfirm.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\menuboard.h" />

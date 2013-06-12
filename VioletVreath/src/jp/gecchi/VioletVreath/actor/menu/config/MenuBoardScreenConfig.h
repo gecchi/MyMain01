@@ -21,10 +21,20 @@ public:
         ITEM_VIEW_POSITION ,
         ITEM_OK,
         ITEM_CANCEL,
+
+        ITEM_SCREEN_MODE_FULL_SCREEN,
+        ITEM_SCREEN_MODE_WINDOW_MODE,
+        ITEM_VIEW_NUM_SINGLE,
+        ITEM_VIEW_NUM_DUAL,
+        ITEM_VIEW_ASPECT_TYPE_FIX,
+        ITEM_VIEW_ASPECT_TYPE_STRETCH,
     };
 
-    int SUB_SCREEN_MODE_, SUB_VIEW_NUM_, SUB_VIEW_ASPECT_TYPE_, SUB_VIEW_POSITION_, SUB_CONFIRM_;
-
+    enum {
+        SUPCUR_SCREEN_MODE,
+        SUPCUR_VIEW_NUM,
+        SUPCUR_VIEW_ASPECT,
+    };
     LabelGecchi16Font* pLabel_Msg_;
 public:
     MenuBoardScreenConfig(const char* prm_name);

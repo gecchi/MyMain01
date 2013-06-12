@@ -7,6 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -31,7 +32,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
           "QUIT",         //3
     };
     for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
-        LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
+        LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
         addItem(pLabel, PX_C(100), PX_C(40+(i*18)));
     }
@@ -41,10 +42,6 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     CursorTitleMenu* pCursor = NEW CursorTitleMenu("CursorTitleMenu");
     pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setMainCursor(pCursor);
-
-    CursorTitleMenu* pSubCursor = NEW CursorTitleMenu("SubCursorTitleMenu");
-    pSubCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    addSubCursor(pSubCursor);
 
     //スライド表示の設定
     setTransition(10, PX_C(0), +PX_C(100));
@@ -119,16 +116,16 @@ void MenuBoardTitle::processBehavior() {
 
 
     if (GgafDxInput::isPushedDownKey(DIK_1)) {
-        selectItemBySubCursor(0, 0);
+        selectItemBySupCursor(0, 0);
     }
     if (GgafDxInput::isPushedDownKey(DIK_2)) {
-        selectItemBySubCursor(1, 0);
+        selectItemBySupCursor(1, 0);
     }
     if (GgafDxInput::isPushedDownKey(DIK_3)) {
-        selectItemBySubCursor(2, 0);
+        selectItemBySupCursor(2, 0);
     }
     if (GgafDxInput::isPushedDownKey(DIK_4)) {
-        selectItemBySubCursor(3, 0);
+        selectItemBySupCursor(3, 0);
     }
 
 }

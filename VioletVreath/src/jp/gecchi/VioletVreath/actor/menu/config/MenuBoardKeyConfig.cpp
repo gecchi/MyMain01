@@ -10,6 +10,7 @@
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -50,17 +51,17 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
 
     int item_index;
     for (item_index = ITEM_MAIN_SHOT; item_index <= ITEM_PAUSE; item_index++) {
-        LabelFix16Font01* pLabel = NEW LabelFix16Font01("item");
+        LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[item_index], ALIGN_LEFT, VALIGN_MIDDLE);
         addItem(pLabel, PX_C(200), PX_C(100+(item_index*20)));
     }
 
-    LabelGecchi16Font* pLabel_OK = NEW LabelGecchi16Font("item_Ok");
+    LabelMenuItemFont01* pLabel_OK = NEW LabelMenuItemFont01("item_Ok");
     pLabel_OK->update("OK & SAVE", ALIGN_LEFT, VALIGN_MIDDLE);
     addItem(pLabel_OK, PX_C(100), PX_C(350));
     ITEM_INDEX_OK_ = item_index;
 
-    LabelGecchi16Font* pLabel_CANCEL = NEW LabelGecchi16Font("item_Cancel");
+    LabelMenuItemFont01* pLabel_CANCEL = NEW LabelMenuItemFont01("item_Cancel");
     pLabel_CANCEL->update("CANCEL", ALIGN_LEFT, VALIGN_MIDDLE);
     addItem(pLabel_CANCEL, PX_C(400), PX_C(350));
     ITEM_INDEX_CANCEL_ = item_index + 1;

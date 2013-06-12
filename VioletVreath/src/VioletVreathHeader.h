@@ -385,6 +385,7 @@ class LabelGecchi8Font;
 class LabelGecchi16Font;
 class LabelGecchi32Font;
 class LabelMenuTitleFont01;
+class LabelMenuItemFont01;
 class LabelRankFont;
 class LabelRankingFont;
 class SpriteLabelTest;
@@ -574,6 +575,8 @@ class MenuBoardScreenConfig;
 
 class MenuBoardNameEntry;
 class CursorNameEntryMenu;
+class SupCursorScreenConfigMenu;
+
 }
 
 

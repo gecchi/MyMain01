@@ -86,7 +86,7 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
         papLvHilightCursor_[i] = NEW MagicLvCursor002("LvHilightCursor", this, pMagic); //現レベル強調カーソル
         papLvCastingMarkCursor_[i] = NEW MagicLvCursor003("LvCastMarkCursor_", this, pMagic); //詠唱レベル強調カーソル
         papLvCastingMarkCursor_[i]->markOff();
-        papLvTargetCursor_[i] = NEW MagicLvCursor001("LvTargetCursor", this, pMagic); //メータ副カーソル
+        papLvTargetCursor_[i] = NEW MagicLvCursor001("LvTargetCursor", this, pMagic); //メータ補助カーソル
         pMagicElem = pMagicElem->_pNext;
     }
     for (int i = 0; i < magic_num; i++) {
@@ -102,7 +102,7 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
         addSubGroup(papLvCastingMarkCursor_[i]); //詠唱レベル強調カーソル
     }
     for (int i = 0; i < magic_num; i++) {
-        addSubGroup(papLvTargetCursor_[i]); //メータ副カーソル
+        addSubGroup(papLvTargetCursor_[i]); //メータ補助カーソル
     }
 
 

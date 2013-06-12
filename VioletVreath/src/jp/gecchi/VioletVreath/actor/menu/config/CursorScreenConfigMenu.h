@@ -5,9 +5,9 @@
 namespace VioletVreath {
 
 /**
- * スクリーンコンフィグのカーソル .
+ * スクリーンコンフィグの補助カーソル .
  * @version 1.00
- * @since 2013/06/06
+ * @since 2013/06/12
  * @author Masatoshi Tsuge
  */
 class CursorScreenConfigMenu : public GgafLib::DefaultBoardActor {

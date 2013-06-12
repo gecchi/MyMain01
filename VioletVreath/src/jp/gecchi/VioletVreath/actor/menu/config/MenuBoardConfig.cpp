@@ -8,6 +8,7 @@
 #include "CursorConfigMenu.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
 using namespace GgafCore;
@@ -39,7 +40,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
           "<- BACK"
     };
     for (int i = ITEM_KEY_CONFIG; i <= ITEM_BACK; i++) {
-        LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
+        LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
         addItem(pLabel, PX_C(200), PX_C(100+((i%4)*30)));
     }
