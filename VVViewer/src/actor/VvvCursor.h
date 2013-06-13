@@ -41,7 +41,7 @@ public:
         moveTo(pT->_X,pT->_Y,pT->_Z);
     }
     void moveTo(coord X, coord Y, coord Z);
-    void sink();
+    void sinkMe();
 
 
     virtual ~VvvCursor();

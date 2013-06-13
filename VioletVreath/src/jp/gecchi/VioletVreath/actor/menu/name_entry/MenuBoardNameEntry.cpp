@@ -210,9 +210,9 @@ void MenuBoardNameEntry::processBehavior() {
                 //ネームエントリー完了OK
                 throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);
                 _TRACE_("MenuBoardNameEntry::processBehavior() おしまい。イベントを投げた throwEventUpperTree(EVENT_MENU_NAMEENTRY_DONE);");
-                sinkSubMenu();
+                sinkCurrentSubMenu();
             } else if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_CANCEL) {
-                sinkSubMenu();
+                sinkCurrentSubMenu();
             } else {
             }
         } else {

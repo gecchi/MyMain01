@@ -41,6 +41,8 @@ public:
 
     bool condSelectNext() override;
     bool condSelectPrev() override;
+    bool condSelectExNext() override;
+    bool condSelectrExPrev() override;
     void onRise() override;
     void onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) override;

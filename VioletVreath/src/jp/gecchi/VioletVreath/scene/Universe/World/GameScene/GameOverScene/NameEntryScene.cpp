@@ -94,7 +94,7 @@ void NameEntryScene::processBehavior() {
             //##########  ネームエントリー完了後の画面表示  ##########
             if (_pProg->isJustChanged()) {
                 _TRACE_("NameEntryScene::processBehavior() Prog has Just Changed (to NameEntryScene::PROG_DONE_DISP)");
-                pNameEntryBoard_->sink(); //ネームエントリー板消去
+                pNameEntryBoard_->sinkMe(); //ネームエントリー板消去
                 pLabelSelectedChar_->inactivate(); //選択表示文字消去
                 pLabelInputedName_->_pAFader->beat(10, 5, 0, 0, -1); //入力ネーム点滅
                 pLabelInputedName_->_pKurokoA->turnRzRyFaceAngTo(D0ANG, D0ANG,

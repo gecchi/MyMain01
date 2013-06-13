@@ -99,7 +99,7 @@ void MenuBoardTitle::processBehavior() {
         if (pSubConfirm->isJustDecidedOk()) {
             ::PostQuitMessage(0);
         } else if (pSubConfirm->isJustDecidedCancel()) {
-            sinkSubMenu();
+            sinkCurrentSubMenu();
         } else {
 
         }

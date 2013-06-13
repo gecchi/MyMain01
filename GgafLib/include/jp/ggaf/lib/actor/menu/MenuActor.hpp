@@ -497,7 +497,7 @@ public:
      * @param prm_supcur_no 補助カーソル番号
      * @return prm_indexのアイテムオブジェクト
      */
-    virtual GgafDxCore::GgafDxDrawableActor* selectItemBySupCursor(int prm_item_index, int prm_supcur_no);
+    virtual GgafDxCore::GgafDxDrawableActor* selectItemBySupCursor(int prm_supcur_no, int prm_item_index);
 
     /**
      * メインカーソルで指定のメニューアイテムを「選択」し、メインカーソルを移動させる .
@@ -518,7 +518,7 @@ public:
      * @param prm_supcur_no 補助カーソル番号
      * @return
      */
-    virtual int selectItemBySupCursor(GgafDxCore::GgafDxDrawableActor* prm_item, int prm_supcur_no);
+    virtual int selectItemBySupCursor(int prm_supcur_no, GgafDxCore::GgafDxDrawableActor* prm_item);
 
     /**
      * 現在メインカーソルが選択中のアイテムのインデックスを取得 .
@@ -720,18 +720,18 @@ public:
      * メニューを表示開始する .
      * 本オブジェクトを生成、タスクに追加後、表示させたいタイミングで実行してください。<BR>
      */
-    virtual void rise();
+    virtual void riseMe();
 
     /**
      * メニュー表示開始時のコールバック .
-     * rise() 実行時直後、１回だけコールバックされます。<BR>
+     * riseMe() 実行時直後、１回だけコールバックされます。<BR>
      * 必要に応じてオーバーライドしてください。<BR>
      */
     virtual void onRise();
 
     /**
      * メニュー表示中トランジション処理 .
-     * rise() 実行 ～ フェードイン完了までの間コールされ続けます。
+     * riseMe() 実行 ～ フェードイン完了までの間コールされ続けます。
      * アルファを加算しフェードイン効果を行い、アルファが1.0になれば終了。
      * というトランジション処理が実装済みです。<BR>
      * トランジションを独自に行いたい場合はオーバーライドし、トランジション完了時に<BR>
@@ -758,19 +758,19 @@ public:
     /**
      * メニューを閉じて終了させる .
      */
-    virtual void sink();
+    virtual void sinkMe();
 
     /**
-     * rise()が実行された直後か否かを返す .
-     * @return true:今丁度 rise()が 実行された直後である/false:そうではない
+     * riseMe()が実行された直後か否かを返す .
+     * @return true:今丁度 riseMe()が 実行された直後である/false:そうではない
      */
     virtual bool isJustRisen() {
         return _is_just_risen;
     }
 
     /**
-     * sink() が実行された直後か否かを返す .
-     * @return true:今丁度 sink() が実行された直後である/false:そうではない
+     * sinkMe() が実行された直後か否かを返す .
+     * @return true:今丁度 sinkMe() が実行された直後である/false:そうではない
      */
     virtual bool isJustSunk() {
         return _is_just_sunk;
@@ -802,14 +802,14 @@ public:
 
     /**
      * メニューを消去開始時のコールバック .
-     * sink() 実行時直後、１回だけコールバックされます。<BR>
+     * sinkMe() 実行時直後、１回だけコールバックされます。<BR>
      * 必要に応じてオーバーライドしてください。<BR>
      */
     virtual void onSink();
 
     /**
      * メニュー消去のトランジション処理 .
-     * sink() 実行 ～ フェードアウト完了までの間コールされ続けます。
+     * sinkMe() 実行 ～ フェードアウト完了までの間コールされ続けます。
      * アルファを減算しフェードアウト効果を行い、アルファが1.0になれば終了
      * というトランジション処理が実装済みです。<BR>
      * トランジションを独自に行いたい場合はオーバーライドし、トランジション完了時に<BR>
@@ -851,7 +851,7 @@ public:
      * 事前に addSubMenu() でサブメニューを設定する必要があります。<BR>
      * また、本メソッドにより現在アクティブなサブメニュー(getRisingSubMenu())は、
      * 引数インデックスのメニューに変更されます。
-     * サブメニューを表示すると、サブメニューを閉じる(sinkSubMenu()) まで、
+     * サブメニューを表示すると、サブメニューを閉じる(sinkCurrentSubMenu()) まで、
      * 呼び出し元メニューは操作不可能になります。
      * @param prm_index アクティブにするサブメニューのインデックス
      */
@@ -861,7 +861,7 @@ public:
      * 現在アクティブなサブメニューを閉じて終了させる .
      * 事前に addSubMenu() でサブメニューを設定する必要があります。<BR>
      */
-    virtual void sinkSubMenu();
+    virtual void sinkCurrentSubMenu();
 
     virtual ~MenuActor();
 };
@@ -1090,7 +1090,7 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectItem(int prm_index) {
 }
 
 template<class T>
-GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectItemBySupCursor(int prm_item_index, int prm_supcur_no) {
+GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectItemBySupCursor(int prm_supcur_no, int prm_item_index) {
     int n = getSelectedIndexOnSupCursor(prm_supcur_no);
 #ifdef MY_DEBUG
     if (n == -1) {
@@ -1132,7 +1132,7 @@ int MenuActor<T>::selectItem(GgafDxCore::GgafDxDrawableActor* prm_item) {
 }
 
 template<class T>
-int MenuActor<T>::selectItemBySupCursor(GgafDxCore::GgafDxDrawableActor* prm_item, int prm_supcur_no) {
+int MenuActor<T>::selectItemBySupCursor(int prm_supcur_no, GgafDxCore::GgafDxDrawableActor* prm_item) {
     int index = _lstItems.indexOf(prm_item);
     if (index == -1) {
         throwGgafCriticalException("MenuActor<T>::selectItemBySupCursor() その前にメニューアイテムが未登録です name="<<T::getName()<<" _lstItems.length()="<<_lstItems.length()<<" prm_item="<<prm_item->getName());
@@ -1421,7 +1421,7 @@ void MenuActor<T>::moveSupCursor(int prm_supcur_no, bool prm_smooth) {
 }
 
 template<class T>
-void MenuActor<T>::rise() {
+void MenuActor<T>::riseMe() {
     _with_rising = false;
     _with_sinking = false;
     _is_just_risen = false;
@@ -1579,7 +1579,7 @@ void MenuActor<T>::processBehavior() {
 
     }
 
-    //サブメニューのrise() sink() 時
+    //サブメニューのriseMe() sinkMe() 時
     for (int i = 0; i < _lstSubMenu.length(); i++) {
         MenuActor<T>* pSubMenu = _lstSubMenu.getFromFirst(i);
         if (pSubMenu->isJustRisen()) {
@@ -1598,7 +1598,7 @@ void MenuActor<T>::processBehavior() {
 }
 
 template<class T>
-void MenuActor<T>::sink() {
+void MenuActor<T>::sinkMe() {
     _with_rising = false;
     _with_sinking = false;
     _is_just_risen = false;
@@ -1674,12 +1674,12 @@ void MenuActor<T>::riseSubMenu(int prm_index) {
         throwGgafCriticalException("MenuActor<T>::riseSubMenu() サブメニューアイテム要素数オーバー name="<<T::getName()<<" _lstSubMenu.length()="<<_lstSubMenu.length()<<" prm_index="<<prm_index);
     }
 #endif
-    _lstSubMenu.current(prm_index)->rise();
+    _lstSubMenu.current(prm_index)->riseMe();
 }
 
 template<class T>
-void MenuActor<T>::sinkSubMenu() {
-    _lstSubMenu.getCurrent()->sink();
+void MenuActor<T>::sinkCurrentSubMenu() {
+    _lstSubMenu.getCurrent()->sinkMe();
 }
 
 template<class T>

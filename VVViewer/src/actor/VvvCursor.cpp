@@ -67,7 +67,7 @@ void VvvCursor::processBehavior() {
     _pScaler->behave();
     _pAFader->behave();
 }
-void VvvCursor::sink() {
+void VvvCursor::sinkMe() {
     _pProg->change(CUR_SINK);
 }
 

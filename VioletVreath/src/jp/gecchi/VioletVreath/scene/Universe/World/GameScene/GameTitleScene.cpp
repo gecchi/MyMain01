@@ -148,7 +148,7 @@ void GameTitleScene::processBehavior() {
 
         case GameTitleScene::PROG_FINISH: {
             if (_pProg->isJustChanged()) {
-                pMenu_->sink();
+                pMenu_->sinkMe();
 //                fadeoutSceneWithBgmTree(FADE_FRAMES);
 //                inactivateDelay(FADE_FRAMES);
             }

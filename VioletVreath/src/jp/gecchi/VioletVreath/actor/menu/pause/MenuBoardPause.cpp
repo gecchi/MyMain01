@@ -100,17 +100,17 @@ void MenuBoardPause::processBehavior() {
         if (pSubConfirm->isJustDecidedOk()) {
             PostQuitMessage(0);
         } else if (pSubConfirm->isJustDecidedCancel()) {
-            sinkSubMenu();
+            sinkCurrentSubMenu();
         }
     } if (selected == ITEM_BACK_TO_TITLE) {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
         if (pSubConfirm->isJustDecidedOk()) {
-            sinkSubMenu();
-            sink();
+            sinkCurrentSubMenu();
+            sinkMe();
             _TRACE_("MenuBoardPause::processBehavior() throwEventUpperTree(EVENT_BACK_TO_TITLE)");
             throwEventUpperTree(EVENT_BACK_TO_TITLE);
         } else if (pSubConfirm->isJustDecidedCancel()) {
-            sinkSubMenu();
+            sinkCurrentSubMenu();
         }
     }
 
@@ -118,7 +118,7 @@ void MenuBoardPause::processBehavior() {
 
 void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_BACK_TO_GAME) {
-        sink();
+        sinkMe();
     } else if (prm_item_index == ITEM_CONFIG) {
         riseSubMenu(1, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y - PX_C(50)); //コンフィグメニュー起動
     } else if (prm_item_index == ITEM_BACK_TO_TITLE) {

@@ -54,7 +54,7 @@ public:
      * 表示完了位置を現在の_X, _Yで設定しメニュー(自身)を起動 .
      * 通常は他のオブジェクトから呼び出されるメソッドです。
      */
-    virtual void rise() override;
+    virtual void riseMe() override;
 
     /**
      * 表示完了位置を指定してメニュー(自身)を起動 .

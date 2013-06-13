@@ -119,10 +119,10 @@ void MenuBoardSoundConfig::processBehavior() {
             GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
             GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
 
-            sinkSubMenu();
-            sink();
+            sinkCurrentSubMenu();
+            sinkMe();
         } else if (pSubConfirm->isJustDecidedCancel()) { //確認でキャンセル
-            sinkSubMenu();
+            sinkCurrentSubMenu();
         } else {
 
         }
@@ -161,7 +161,7 @@ void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem
         GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
         GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
         GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
-        sink();
+        sinkMe();
     } else if (prm_item_index == ITEM_INDEX_OK_) {
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y - PX_C(50)); //確認メニュー起動
     } else {

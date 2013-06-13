@@ -144,10 +144,10 @@ void MenuBoardKeyConfig::processBehavior() {
         //実行中アプリへも反映
         P_GOD->initVB();
 
-        sinkSubMenu(); //確認メニュー閉じる
-        sink();        //自身メニュー閉じる
+        sinkCurrentSubMenu(); //確認メニュー閉じる
+        sinkMe();        //自身メニュー閉じる
     } else if (pSubConfirm->isJustDecidedCancel()) {
-        sinkSubMenu();
+        sinkCurrentSubMenu();
     } else {
 
     }
@@ -180,7 +180,7 @@ void MenuBoardKeyConfig::processBehavior() {
 
 void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_INDEX_CANCEL_) {
-        sink();
+        sinkMe();
     } else if (prm_item_index == ITEM_INDEX_OK_) {
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y - PX_C(50)); //確認メニュー起動
     } else {

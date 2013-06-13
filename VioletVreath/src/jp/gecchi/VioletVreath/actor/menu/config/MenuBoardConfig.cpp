@@ -61,7 +61,7 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
 
     addSubMenu(NEW MenuBoardKeyConfig("key_config"));       //0”Ô
     addSubMenu(NEW MenuBoardSoundConfig("sound_config"));   //1”Ô
-    addSubMenu(NEW MenuBoardScreenConfig("screen_config"));   //1”Ô
+    addSubMenu(NEW MenuBoardScreenConfig("screen_config"));   //2”Ô
 }
 bool MenuBoardConfig::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -81,7 +81,7 @@ void MenuBoardConfig::processBehavior() {
 
 void MenuBoardConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_BACK) {
-        sink();
+        sinkMe();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
         riseSubMenu(0, PX_C(50), PX_C(10)); //key configƒƒjƒ…[‹N“®
     } else if (prm_item_index == ITEM_SOUND_CONFIG) {

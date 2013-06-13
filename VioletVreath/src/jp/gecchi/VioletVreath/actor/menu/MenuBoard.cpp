@@ -73,20 +73,20 @@ bool MenuBoard::condSelectCancel() {
     return isJustCancelled();
 }
 
-void MenuBoard::rise() {
+void MenuBoard::riseMe() {
     target_X_ = _X;
     target_Y_ = _Y;
-    StringBoardMenu::rise();
+    StringBoardMenu::riseMe();
 }
 
 void MenuBoard::rise(coord prm_target_X, coord prm_target_Y) {
     target_X_ = prm_target_X;
     target_Y_ = prm_target_Y;
-    StringBoardMenu::rise();
+    StringBoardMenu::riseMe();
 }
 
 void MenuBoard::riseSubMenu(int prm_index, coord prm_target_X, coord prm_target_Y) {
-    StringBoardMenu::getSubMenu(prm_index)->locate(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::rise() に来た時にターゲット設定される
+    StringBoardMenu::getSubMenu(prm_index)->locate(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
     StringBoardMenu::riseSubMenu(prm_index);
 }
 
