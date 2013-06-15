@@ -114,7 +114,32 @@ void GgafDxGod::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord clien
     );
 }
 
-
+void GgafDxGod::chengeViewPos(HWND prm_pHWnd, int pos) {
+    if (PROPERTY::DUAL_VIEW) {
+        if (prm_pHWnd ==  GgafDxGod::_pHWndPrimary) {
+            PROPERTY::DUAL_VIEW_DRAW_POSITION1 = pos;
+        } else if (prm_pHWnd ==  GgafDxGod::_pHWndSecondary) {
+            PROPERTY::DUAL_VIEW_DRAW_POSITION2 = pos;
+        }
+    } else {
+        PROPERTY::SINGLE_VIEW_DRAW_POSITION = pos;
+    }
+    if (GgafDxCore::GgafDxGod::_can_be) {
+        if (!PROPERTY::FULL_SCREEN) {
+            GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+            GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
+        }
+    }
+}
+void GgafDxGod::chengeViewAspect(bool prm_b) {
+    PROPERTY::FIXED_GAME_VIEW_ASPECT = prm_b;
+    if (GgafDxCore::GgafDxGod::_can_be) {
+        if (!PROPERTY::FULL_SCREEN) {
+            GgafDxCore::GgafDxGod::_adjustGameScreen = true;
+            GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = GgafDxGod::_pHWndPrimary;
+        }
+    }
+}
 int GgafDxGod::checkAppropriateDisplaySize(D3DDISPLAYMODE* prm_paMode, int prm_mode_num,
                                            UINT prm_width, UINT prm_height) {
     _TRACE_("checkAppropriateDisplaySize() èäñ]ÅA"<<prm_width<<"x"<<prm_height);

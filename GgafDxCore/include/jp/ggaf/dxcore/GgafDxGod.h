@@ -218,7 +218,8 @@ public:
      * @param client_height クライアント領域縦幅（ピクセル）
      */
     static void resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height);
-
+    static void chengeViewPos(HWND prm_pHWnd, int pos);
+    static void chengeViewAspect(bool prm_b);
     /**
      * DirectXのデバイスの初期設定を行う。
      * @return E_FAIL:失敗／D3D_OK:成功

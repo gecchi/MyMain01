@@ -238,32 +238,6 @@ void myTerminateHandler() {
 }
 
 
-void chengeViewPos(HWND prm_pHWnd, int pos) {
-    if (PROPERTY::DUAL_VIEW) {
-        if (prm_pHWnd == hWnd1) {
-            PROPERTY::DUAL_VIEW_DRAW_POSITION1 = pos;
-        } else if (prm_pHWnd == hWnd2) {
-            PROPERTY::DUAL_VIEW_DRAW_POSITION2 = pos;
-        }
-    } else {
-        PROPERTY::SINGLE_VIEW_DRAW_POSITION = pos;
-    }
-    if (GgafDxCore::GgafDxGod::_can_be) {
-        if (!PROPERTY::FULL_SCREEN) {
-            GgafDxCore::GgafDxGod::_adjustGameScreen = true;
-            GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
-        }
-    }
-}
-void chengeViewAspect(HWND prm_pHWnd, bool prm_b) {
-    PROPERTY::FIXED_GAME_VIEW_ASPECT = prm_b;
-    if (GgafDxCore::GgafDxGod::_can_be) {
-        if (!PROPERTY::FULL_SCREEN) {
-            GgafDxCore::GgafDxGod::_adjustGameScreen = true;
-            GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
-        }
-    }
-}
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     GgafLibWndProc(hWnd, message, wParam, lParam);
 
@@ -341,27 +315,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                     PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
                 }
             } else if(wParam == MY_IDM_VPOS_1) {
-                chengeViewPos(hWnd, 1);
+            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 1);
             } else if(wParam == MY_IDM_VPOS_2) {
-                chengeViewPos(hWnd, 2);
+            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 2);
             } else if(wParam == MY_IDM_VPOS_3) {
-                chengeViewPos(hWnd, 3);
+            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 3);
             } else if(wParam == MY_IDM_VPOS_4) {
-                chengeViewPos(hWnd, 4);
+            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 4);
             } else if(wParam == MY_IDM_VPOS_5) {
-                chengeViewPos(hWnd, 5);
+            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 5);
             } else if(wParam == MY_IDM_VPOS_6) {
-                chengeViewPos(hWnd, 6);
+            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 6);
             } else if(wParam == MY_IDM_VPOS_7) {
-                chengeViewPos(hWnd, 7);
+            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 7);
             } else if(wParam == MY_IDM_VPOS_8) {
-                chengeViewPos(hWnd, 8);
+            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 8);
             } else if(wParam == MY_IDM_VPOS_9) {
-                chengeViewPos(hWnd, 9);
+            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 9);
             } else if(wParam == MY_IDM_ASPECT_FIXED) {
-                chengeViewAspect(hWnd, true);
+            	GgafDxCore::GgafDxGod::chengeViewAspect(true);
             } else if(wParam == MY_IDM_ASPECT_STRETCH) {
-                chengeViewAspect(hWnd, false);
+            	GgafDxCore::GgafDxGod::chengeViewAspect(false);
             }
             break;
         default:

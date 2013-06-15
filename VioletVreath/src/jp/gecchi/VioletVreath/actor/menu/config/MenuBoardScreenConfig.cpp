@@ -139,11 +139,10 @@ void MenuBoardScreenConfig::processBehavior() {
     VirtualButton* pVB = VB;
     int selected_index = getSelectedIndex();
 
-
     //OK時の確認メニュー判定
     if (selected_index == ITEM_OK) {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
-        if (pSubConfirm->isJustDecidedOk()) { //確認OK!
+        if (pSubConfirm->isJustDecidedOk()) { //SAVE確認OK!
             //現プロパティへ書き込み
             if (getSelectedIndexOnSupCursor(SUPCUR_SCREEN_MODE) == ITEM_SCREEN_MODE_FULL_SCREEN) {
                 PROPERTY::FULL_SCREEN = true;
@@ -163,6 +162,7 @@ void MenuBoardScreenConfig::processBehavior() {
             PROPERTY::save(VV_CONFIG_FILE); //プロパティ保存
             PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
             //実行中アプリへも即時反映 TODO:
+            GgafDxCore::GgafDxGod::chengeViewAspect(PROPERTY::FIXED_GAME_VIEW_ASPECT);
 
             sinkCurrentSubMenu();
             sinkMe();
@@ -189,8 +189,12 @@ void MenuBoardScreenConfig::processBehavior() {
     } else if (selected_index == ITEM_VIEW_ASPECT_TYPE) {
         if (pVB->isPushedDown(VB_UI_LEFT)) {
             selectItemBySupCursor(SUPCUR_VIEW_ASPECT, ITEM_VIEW_ASPECT_TYPE_FIX);
+            PROPERTY::FIXED_GAME_VIEW_ASPECT = true;
+            GgafDxCore::GgafDxGod::chengeViewAspect(true);
         } else if (pVB->isPushedDown(VB_UI_RIGHT)) {
             selectItemBySupCursor(SUPCUR_VIEW_ASPECT, ITEM_VIEW_ASPECT_TYPE_STRETCH);
+            PROPERTY::FIXED_GAME_VIEW_ASPECT = false;
+            GgafDxCore::GgafDxGod::chengeViewAspect(false);
         }
     } else if (selected_index == ITEM_VIEW_POSITION) {
         if (pVB->isPushedDown(VB_UI_RIGHT)) {
@@ -202,9 +206,11 @@ void MenuBoardScreenConfig::processBehavior() {
 void MenuBoardScreenConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_CANCEL) {
         //元に戻す
+        PROPERTY::load(VV_CONFIG_FILE); //既存プロパティ読み込み上書き
+        GgafDxCore::GgafDxGod::chengeViewAspect(PROPERTY::FIXED_GAME_VIEW_ASPECT);
         sinkMe();
-    } else if (prm_item_index == ITEM_OK) {
-        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y - PX_C(50)); //確認メニュー起動
+    } else if (prm_item_index == ITEM_OK) { //保存のOK
+        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y - PX_C(50)); //SAVE確認メニュー起動
     } else {
 
     }
