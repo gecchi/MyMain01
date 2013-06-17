@@ -33,6 +33,7 @@ public:
 
     enum {
         SE_DAMAGED  ,
+        SE_UNDAMAGED  ,
         SE_EXPLOSION,
         SE_FIRE,
     };

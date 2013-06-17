@@ -23,7 +23,8 @@ EnemyAdelheid::EnemyAdelheid(const char* prm_name) :
     _class_name = "EnemyAdelheid";
     pKurokoLeader_ = nullptr;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
+    _pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_AFTER_LEAD_MOVING);
     pProg2_ = createProgress(PROG2_CLOSE);
     shot_begin_frame_ = 0;
@@ -190,16 +191,13 @@ void EnemyAdelheid::processJudgement() {
         }
     }
 
-
     if (isOutOfUniverse()) {
         sayonara();
     }
 }
 
 void EnemyAdelheid::onHit(GgafActor* prm_pOtherActor) {
-    if (pProg2_->isNothing() || pProg2_->get() == PROG2_WAIT) {
-        //ŠJ‚¢‚Ä‚È‚¢‚Ì‚Å“–‚½‚ç‚È‚¢
-    } else {
+    if (_pMorpher->_weight[MPH_OPEN] > 0.1) {
         bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //”j‰óŽž
@@ -208,6 +206,9 @@ void EnemyAdelheid::onHit(GgafActor* prm_pOtherActor) {
             //”ñ”j‰óŽž
             _pSeTx->play3D(SE_DAMAGED);
         }
+    } else {
+        //ŠJ‚¢‚Ä‚È‚¢‚Ì‚Å“–‚½‚ç‚È‚¢
+        _pSeTx->play3D(SE_UNDAMAGED);
     }
 }
 

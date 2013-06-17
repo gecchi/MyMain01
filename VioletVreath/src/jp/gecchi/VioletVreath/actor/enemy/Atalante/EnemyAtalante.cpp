@@ -81,11 +81,11 @@ void EnemyAtalante::processBehavior() {
                 _pKurokoA->addMvVelo(2000);
                 if (pMyShip->_Y <= _Y) {
                     //真下へ折れる
-                    _pKurokoA->turnRzRyMvAngTo(D270ANG, 0,
+                    _pKurokoA->turnRzRyMvAngTo(D270ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //真上へ折れる
-                    _pKurokoA->turnRzRyMvAngTo(D90ANG, 0,
+                    _pKurokoA->turnRzRyMvAngTo(D90ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
@@ -96,11 +96,11 @@ void EnemyAtalante::processBehavior() {
                 _pKurokoA->addMvVelo(2000);
                 if (pMyShip->_Z <= _Z) {
                     //奥の自機の方向折れる
-                    _pKurokoA->turnRzRyMvAngTo(0, D90ANG,
+                    _pKurokoA->turnRzRyMvAngTo(D0ANG, D90ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //手前の自機の方向折れる
-                    _pKurokoA->turnRzRyMvAngTo(0, D270ANG,
+                    _pKurokoA->turnRzRyMvAngTo(D0ANG, D270ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
@@ -122,11 +122,11 @@ void EnemyAtalante::processBehavior() {
                 //X軸方向に動く
                 if (pMyShip->_X <= _X) {
                     //左へ折れる
-                    _pKurokoA->turnRzRyMvAngTo(D180ANG, 0,
+                    _pKurokoA->turnRzRyMvAngTo(D180ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //右へ折れる
-                    _pKurokoA->turnRzRyMvAngTo(0, 0,
+                    _pKurokoA->turnRzRyMvAngTo(D0ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }

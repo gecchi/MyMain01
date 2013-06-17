@@ -51,6 +51,7 @@ void GgafUtil::readProperties(std::string filename, GgafStrMap* pMap) {
     if (!file) {
         throwGgafCriticalException("GgafUtil::readProperties() ファイルが見つかりません。 filename="<<filename);
     }
+    _TRACE_("GgafUtil::readProperties..."<<filename);
     readProperties(file, pMap);
     file.close();
 }
@@ -101,7 +102,7 @@ void GgafUtil::readProperties(std::istream &is, GgafStrMap* pMap) {
             val << char(ch);
             ch = next;
         }
-        _TRACE_("key:" << key.str() << "|value:" << val.str());
+        _TRACE_("[" << key.str() << "]=>[" << val.str() <<"]");
         (*pMap)[key.str()] = val.str();
     }
 }

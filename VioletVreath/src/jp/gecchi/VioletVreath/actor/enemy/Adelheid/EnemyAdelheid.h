@@ -32,6 +32,7 @@ public:
     };
     enum {
         SE_DAMAGED  ,
+        SE_UNDAMAGED,
         SE_EXPLOSION,
     };
 

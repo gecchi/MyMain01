@@ -145,19 +145,19 @@ void MenuBoardScreenConfig::processBehavior() {
         if (pSubConfirm->isJustDecidedOk()) { //SAVE確認OK!
             //現プロパティへ書き込み
             if (getSelectedIndexOnSupCursor(SUPCUR_SCREEN_MODE) == ITEM_SCREEN_MODE_FULL_SCREEN) {
-                PROPERTY::FULL_SCREEN = true;
+                PROPERTY::setValue("FULL_SCREEN", true);
             } else {
-                PROPERTY::FULL_SCREEN = false;
+            	PROPERTY::setValue("FULL_SCREEN", false);
             }
             if (getSelectedIndexOnSupCursor(SUPCUR_VIEW_NUM) == ITEM_VIEW_NUM_DUAL) {
-                PROPERTY::DUAL_VIEW = true;
+                PROPERTY::setValue("DUAL_VIEW", true);
             } else {
-                PROPERTY::DUAL_VIEW = false;
+                PROPERTY::setValue("DUAL_VIEW", false);
             }
             if (getSelectedIndexOnSupCursor(SUPCUR_VIEW_ASPECT) == ITEM_VIEW_ASPECT_TYPE_FIX) {
-                PROPERTY::FIXED_GAME_VIEW_ASPECT = true;
+            	PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", true);
             } else {
-                PROPERTY::FIXED_GAME_VIEW_ASPECT = false;
+            	PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", false);
             }
             PROPERTY::save(VV_CONFIG_FILE); //プロパティ保存
             PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
@@ -189,11 +189,9 @@ void MenuBoardScreenConfig::processBehavior() {
     } else if (selected_index == ITEM_VIEW_ASPECT_TYPE) {
         if (pVB->isPushedDown(VB_UI_LEFT)) {
             selectItemBySupCursor(SUPCUR_VIEW_ASPECT, ITEM_VIEW_ASPECT_TYPE_FIX);
-            PROPERTY::FIXED_GAME_VIEW_ASPECT = true;
             GgafDxCore::GgafDxGod::chengeViewAspect(true);
         } else if (pVB->isPushedDown(VB_UI_RIGHT)) {
             selectItemBySupCursor(SUPCUR_VIEW_ASPECT, ITEM_VIEW_ASPECT_TYPE_STRETCH);
-            PROPERTY::FIXED_GAME_VIEW_ASPECT = false;
             GgafDxCore::GgafDxGod::chengeViewAspect(false);
         }
     } else if (selected_index == ITEM_VIEW_POSITION) {

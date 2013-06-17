@@ -45,6 +45,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) :
     addSubGroup(pLaserChipDepo_);
 
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    _pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
@@ -151,7 +152,7 @@ void EnemyThalia::processJudgement() {
 }
 
 void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
-    if (_pProg->get() == PROG_MOVE) {
+    if (_pMorpher->_weight[1] > 0.1) { //Œû‚ª‹ó‚¢‚Ä‚½‚ç
         bool was_destroyed = UTIL::proceedEnemyHit(this, (GgafDxGeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //”j‰óŽž
@@ -160,8 +161,9 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
             //”ñ”j‰óŽž
             _pSeTx->play3D(SE_DAMAGED);
         }
+    } else {
+    	_pSeTx->play3D(SE_UNDAMAGED);
     }
-
 }
 
 void EnemyThalia::onInactive() {
