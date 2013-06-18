@@ -499,6 +499,12 @@ class FormationAdelheid001;
 
 class EnemyPalisana;
 
+class EnemyAida;
+class EnemyAidaBase;
+class EnemyAidaBase001;
+class FormationAida;
+class FormationAida001;
+
 class DepositoryConnection;
 class DepositoryManager;
 

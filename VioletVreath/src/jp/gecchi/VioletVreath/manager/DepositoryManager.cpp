@@ -291,7 +291,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
         pResource = NEW GgafActorDepositoryStore("EnemyRemusLaserChip002DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        for (int nLaser = 0; nLaser < 4; nLaser++) { //4–{
+        for (int nLaser = 0; nLaser < 40; nLaser++) { //4–{
             std::string name1 = "LaserChipDepo["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
             for (int nChip = 0; nChip < 200; nChip++) {
@@ -338,6 +338,15 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
     if (UTIL::strcmp_ascii("EnemyAdelheidShot", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("MgrDepo_AdelheidShotStock");
+        for (int i = 0; i < 400; i++) {
+            pResource->addSubLast(NEW Shot004Yellow("Shot004Yellow"));
+            Sleep(1);
+        }
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
+    }
+
+    if (UTIL::strcmp_ascii("RingShot", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_AdelheidShotStock");
         for (int i = 0; i < 400; i++) {
             pResource->addSubLast(NEW Shot004Yellow("Shot004Yellow"));

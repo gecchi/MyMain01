@@ -301,6 +301,11 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Adelheid\FormationAdelheid001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\EnemyAdrastea.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\FormationAdrastea001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Aida\EnemyAida.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Aida\EnemyAidaBase.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Aida\EnemyAidaBase001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Aida\FormationAida.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Aida\FormationAida001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiope.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiopeN.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiopeP.cpp" />
@@ -616,6 +621,11 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\adelheid\formationadelheid001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\adrastea\enemyadrastea.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\adrastea\formationadrastea001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Aida\EnemyAida.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Aida\EnemyAidaBase.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Aida\EnemyAidaBase001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Aida\FormationAida.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Aida\FormationAida001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiope.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiopeN.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiopeP.h" />
