@@ -302,6 +302,13 @@ public:
      * @return 存在する場合子ノードが返る、存在しない場合 nullptr が返る
      */
     virtual T* getSub(T* prm_pSub);
+
+    /**
+     * 子ノードを先頭からのインデックス指定で取得する .
+     * 0 は _pSubFirst と同じ。
+     * @param prm_index インデックス(0～)
+     * @return
+     */
     virtual T* getSub(int prm_index);
 
     /**

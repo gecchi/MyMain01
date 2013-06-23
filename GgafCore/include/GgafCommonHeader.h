@@ -74,7 +74,37 @@
 
     //メモリ解放用マクロ
     #include "jp/ggaf/core/util/GgafLogger.h"
-    /** nullptrかどうか不明なdelete */
+    /** nullptr はありえない、普通の delete */
+    #define GGAF_DELETE(POINTER) do { \
+        if (POINTER) { \
+            POINTER = POINTER + 0; /* 不完全型簡易チェック */ \
+            delete (POINTER); \
+            (POINTER) = nullptr; \
+        } else { \
+            std::stringstream ss; \
+            ss << "＜警告＞GGAF_DELETE(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
+                  #POINTER << " の解放をやむなく無視しました。本来は、ここで nullptr になってこと自体おかしいのでは？。調査せよ！"; \
+            GgafCore::GgafLogger::writeln(ss); \
+            (POINTER) = nullptr; \
+        } \
+    } while(0)
+
+    /** nullptr はありえない、普通の delete[] */
+    #define GGAF_DELETEARR(POINTER) do { \
+        if (POINTER) { \
+            POINTER = POINTER + 0; /* 不完全型簡易チェック */ \
+            delete[] (POINTER); \
+            (POINTER) = nullptr; \
+        } else { \
+            std::stringstream ss; \
+            ss << "＜警告＞GGAF_DELETEARR(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
+                  #POINTER << "の解放をやむなく無視しました。本来は、ここで nullptr になってこと自体おかしいのでは？。調査せよ！"; \
+            GgafCore::GgafLogger::writeln(ss); \
+            (POINTER) = nullptr; \
+        } \
+    } while(0)
+
+    /** nullptr かどうか不明な、特別な delete */
     #define GGAF_DELETE_NULLABLE(POINTER) do { \
         if (POINTER) { \
             POINTER = POINTER + 0; /* 不完全型簡易チェック */ \
@@ -84,7 +114,8 @@
             (POINTER) = nullptr; \
         } \
     } while(0)
-    /** nullptrかどうか不明なdelete[] */
+
+    /** nullptr かどうか不明な、特別な delete[] */
     #define GGAF_DELETEARR_NULLABLE(POINTER) do { \
         if (POINTER) { \
             POINTER = POINTER + 0; /* 不完全型簡易チェック */ \
@@ -95,34 +126,6 @@
         } \
     } while(0)
 
-    /** nullptrはありえないdelete */
-    #define GGAF_DELETE(POINTER) do { \
-        if (POINTER) { \
-            POINTER = POINTER + 0; /* 不完全型簡易チェック */ \
-            delete (POINTER); \
-            (POINTER) = nullptr; \
-        } else { \
-            std::stringstream ss; \
-            ss << "GGAF_DELETE(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
-                  #POINTER << " の解放をやむなく無視しました。本来は、ここでnullptrになってこと自体おかしいのでは？。調査せよ。"; \
-            GgafCore::GgafLogger::writeln(ss); \
-            (POINTER) = nullptr; \
-        } \
-    } while(0)
-    /** nullptrはありえないdelete[] */
-    #define GGAF_DELETEARR(POINTER) do { \
-        if (POINTER) { \
-            POINTER = POINTER + 0; /* 不完全型簡易チェック */ \
-            delete[] (POINTER); \
-            (POINTER) = nullptr; \
-        } else { \
-            std::stringstream ss; \
-            ss << "GGAF_DELETEARR(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
-                  #POINTER << "の解放をやむなく無視しました。本来は、ここでnullptrになってこと自体おかしいのでは？。調査せよ。"; \
-            GgafCore::GgafLogger::writeln(ss); \
-            (POINTER) = nullptr; \
-        } \
-    } while(0)
     /** nullptrかどうか不明なRelease() */
     #define GGAF_RELEASE_NULLABLE(POINTER) do { \
         if (POINTER) { \
@@ -130,14 +133,14 @@
             rc = (POINTER)->Release(); \
             if (rc == 0) { \
                 std::stringstream ss; \
-                ss << "GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                ss << "＜警告＞GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                       #POINTER << "は、既に参照カウンタ0です。Release() は行いませんでした。調査が必要です！"; \
                 GgafCore::GgafLogger::writeln(ss); \
             } else { \
                 rc = (POINTER)->Release(); \
                 if (rc > 0) { \
                     std::stringstream ss; \
-                    ss << "GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                    ss << "＜情報＞GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                           #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
                     GgafCore::GgafLogger::writeln(ss); \
                 } \
@@ -147,6 +150,7 @@
             (POINTER) = nullptr; \
         } \
     } while(0)
+
     /** nullptrはありえないRelease() */
     #define GGAF_RELEASE(POINTER) do { \
         if (POINTER) { \
@@ -154,14 +158,14 @@
             rc = (POINTER)->Release(); \
             if (rc == 0) { \
                 std::stringstream ss; \
-                ss << "GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                ss << "＜警告＞GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                       #POINTER << "は、既に参照カウンタ0です。リリースをやむなく無視しました。調査が必要です！"; \
                 GgafCore::GgafLogger::writeln(ss); \
             } else { \
                 rc = (POINTER)->Release(); \
                 if (rc > 0) { \
                     std::stringstream ss; \
-                    ss << "GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                    ss << "＜情報＞GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                           #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
                     GgafCore::GgafLogger::writeln(ss); \
                 } \
@@ -175,6 +179,7 @@
             (POINTER) = nullptr; \
         } \
     } while(0)
+
     /** 自明で検査不要の何も言わないRelease() */
     #define GGAF_RELEASE_BY_FROCE(POINTER) do { \
         if (POINTER) { \
@@ -204,16 +209,16 @@
 
 
     //メモリ解放用マクロ
+    /** nullptrはありえない delete */
+    #define GGAF_DELETE(POINTER)     do { if(POINTER) { delete (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    /** nullptrはありえない delete[] */
+    #define GGAF_DELETEARR(POINTER)  do { if(POINTER) { delete[] (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** nullptrかもしれない delete */
     #define GGAF_DELETE_NULLABLE(POINTER)       do { if(POINTER) { delete (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** nullptrかもしれない delete[] */
     #define GGAF_DELETEARR_NULLABLE(POINTER)    do { if(POINTER) { delete[] (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** nullptrかもしれない Release() */
     #define GGAF_RELEASE_NULLABLE(POINTER)      do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
-    /** nullptrはありえない delete */
-    #define GGAF_DELETE(POINTER)     do { if(POINTER) { delete (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
-    /** nullptrはありえない delete[] */
-    #define GGAF_DELETEARR(POINTER)  do { if(POINTER) { delete[] (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** nullptrはありえない Release() */
     #define GGAF_RELEASE(POINTER)    do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** 自明で検査不要の何も言わないRelease() */

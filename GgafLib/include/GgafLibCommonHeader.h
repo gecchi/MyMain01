@@ -37,6 +37,7 @@ class WalledSectionScene;
 
 class GgafLibProperties;
 class TreeFormation;
+class FkFormation;
 class DepositoryFormation;
 class DefaultGeometricActor;
 class DefaultD3DXMeshActor;

@@ -1,5 +1,5 @@
-#ifndef FORMATIONHEBE001_H_
-#define FORMATIONHEBE001_H_
+#ifndef FORMATIONAIDA001_H_
+#define FORMATIONAIDA001_H_
 #include "jp/gecchi/VioletVreath/actor/enemy/Aida/FormationAida.h"
 
 namespace VioletVreath {
@@ -11,8 +11,6 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class FormationAida001 : public FormationAida {
-    /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection* pSplManufConnection_;
 public:
 
     FormationAida001(const char* prm_name);
@@ -21,10 +19,8 @@ public:
 
     virtual void processBehavior() override;
 
-    GgafLib::SplineManufacture* getSplManuf() override;
-
     virtual ~FormationAida001();
 };
 
 }
-#endif /*FORMATIONEUNOMIA001_H_*/
+#endif /*FORMATIONAIDA001_H_*/

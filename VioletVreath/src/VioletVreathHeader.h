@@ -505,6 +505,10 @@ class EnemyAidaBase001;
 class FormationAida;
 class FormationAida001;
 
+
+
+//"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
+
 class DepositoryConnection;
 class DepositoryManager;
 

@@ -13,7 +13,6 @@ GgafDepositoryFormation::GgafDepositoryFormation(const char* prm_name, frame prm
     _class_name = "GgafDepositoryFormation";
     _pDepo = nullptr;
     _can_call_up = true;
-    _was_all_destroyed = false;
 }
 void GgafDepositoryFormation::setFormationMember(GgafActorDepository* prm_pDepo) {
 #ifdef MY_DEBUG

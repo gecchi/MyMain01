@@ -29,6 +29,7 @@ GgafDxD3DXAniMeshActor::GgafDxD3DXAniMeshActor(const char* prm_name,
     _pD3DXAniMeshModel = (GgafDxD3DXAniMeshModel*)_pModel;
     _pD3DXAniMeshEffect = (GgafDxD3DXAniMeshEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
     _pPuppeteer = NEW GgafDxPuppeteer(this);
 }
 

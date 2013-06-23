@@ -178,6 +178,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\lib\actor\FkFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\StringSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\GgafLibProperties.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\AmountGraph.cpp" />
@@ -256,6 +257,7 @@
   <ItemGroup>
     <ClInclude Include="include\ggaflibcommonheader.h" />
     <ClInclude Include="include\ggaflibentry.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\fkformation.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\StringSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\GgafLibProperties.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\AmountGraph.h" />

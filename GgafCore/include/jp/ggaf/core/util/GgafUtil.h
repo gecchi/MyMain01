@@ -238,8 +238,8 @@ public:
         return x < 0 ? -x : x;
     }
 
-    static inline int32_t _abs_(int32_t x) {
-        return (x == INT_MIN) ? INT_MAX : ((x ^ (x>>31)) - (x>>31));
+    static inline int _abs_(int x) {
+        return (x == INT_MIN) ? INT_MAX : (x < 0 ? -x : x);
     }
 
 

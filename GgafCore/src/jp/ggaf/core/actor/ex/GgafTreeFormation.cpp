@@ -11,7 +11,6 @@ GgafTreeFormation::GgafTreeFormation(const char* prm_name, frame prm_offset_fram
     _class_name = "GgafTreeFormation";
     _pIte = nullptr;
     _can_call_up = true;
-    _was_all_destroyed = false;
 }
 
 void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
@@ -64,7 +63,7 @@ GgafActor* GgafTreeFormation::callUpMember() {
         if (_pIte) {
             _pIte = _pIte->getNext();
             if (_pIte == getSubFirst()) { //‚PŽü‚µ‚½
-                _can_call_up = nullptr;
+                _can_call_up = false;
                 return nullptr;
             }
         } else {

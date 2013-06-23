@@ -22,10 +22,7 @@ class GgafDepositoryFormation : public GgafFormation {
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
     GgafCore::GgafLinkedListRing<GgafActor> _listFollower;
-    /** [r]これ以上 callUpMember() 不可の場合 true */
     bool _can_call_up;
-    /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
-    bool _was_all_destroyed;
     /** [r]構成メンバーのストッカー（nullptrの場合構成メンバーは配下アクターのはず） */
     GgafCore::GgafActorDepository* _pDepo;
 

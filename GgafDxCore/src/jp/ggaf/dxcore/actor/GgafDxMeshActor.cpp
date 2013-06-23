@@ -32,6 +32,7 @@ GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
     _pMeshEffect = (GgafDxMeshEffect*)_pEffect;
     _far_rate = -1.0f;
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
 }
 
 GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
@@ -59,6 +60,7 @@ GgafDxMeshActor::GgafDxMeshActor(const char* prm_name,
     _pMeshEffect = (GgafDxMeshEffect*)_pEffect;
     _far_rate = -1.0f;
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
 }
 
 void GgafDxMeshActor::setAlpha(float prm_alpha) {

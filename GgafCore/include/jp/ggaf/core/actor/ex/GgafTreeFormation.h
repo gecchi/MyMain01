@@ -27,11 +27,6 @@ private:
     /** [r]callUpMember()用のカーソル */
     GgafCore::GgafActor* _pIte;
     bool _can_call_up;
-    void sayonaraFollwer();
-
-public:
-    /** [r]全滅時 true (GgafActor::notifyDestroyedToFormation() が設定) */
-    bool _was_all_destroyed;
 
 public:
     /**

@@ -32,6 +32,7 @@ GgafDxPointSpriteActor::GgafDxPointSpriteActor(const char* prm_name,
     _pPointSpriteModel = (GgafDxPointSpriteModel*)_pModel;
     _pPointSpriteEffect = (GgafDxPointSpriteEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
 
     GgafDxTexture* pTexture = _pPointSpriteModel->_papTextureConnection[0]->peek();
     _pUvFlipper = NEW GgafDxUvFlipper(pTexture);

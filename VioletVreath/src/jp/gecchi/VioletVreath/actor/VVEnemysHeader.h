@@ -94,6 +94,12 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Adelheid/FormationAdelheid001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Palisana/EnemyPalisana.h"
 
+#include "jp/gecchi/VioletVreath/actor/enemy/Aida/EnemyAida.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Aida/EnemyAidaBase.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Aida/EnemyAidaBase001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Aida/FormationAida.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Aida/FormationAida001.h"
 
+#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 #endif /*VVENEMYSHEADER_H_*/

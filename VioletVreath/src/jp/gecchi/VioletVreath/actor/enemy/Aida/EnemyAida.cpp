@@ -42,7 +42,7 @@ void EnemyAida::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     MyShip* pMyShip = P_MYSHIP;
-
+    /*
     switch (_pProg->get()) {
         case PROG_MOVE01_1: {
             if ((int)(_pProg->getFrameInProgress()) > (int)(PX_C(300) / ABS(_pKurokoA->_veloMv))) {
@@ -51,8 +51,10 @@ void EnemyAida::processBehavior() {
             break;
         }
     }
-
+    */
+    changeGeoLocal();
     _pKurokoA->behave();
+    changeGeoFinal();
 }
 
 void EnemyAida::processJudgement() {

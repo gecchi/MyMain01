@@ -45,6 +45,7 @@ GgafDxSpriteActor::GgafDxSpriteActor(const char* prm_name,
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
+    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
     _far_rate = -1.0f;
 
     _align = ALIGN_CENTER;
