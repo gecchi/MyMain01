@@ -461,7 +461,7 @@ public:
                                                      int prm_RZ_init_local);
 
     /**
-     * 座標系(_X,_Y,_Z,_RX,_RY,_RZ )をローカル座標(土台からの相対座標)に変換 .
+     * 座標系(_X,_Y,_Z,_RX,_RY,_RZ )を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .
      */
     virtual void changeGeoLocal() {
         if (_is_local) {
@@ -486,8 +486,8 @@ public:
     /**
      * 座標系(_X,_Y,_Z,_RX,_RY,_RZ)を退避していた絶対座標に戻す .
      * ローカル座標の変更に伴う絶対座標の更新は、自動で<BR>
-     * processSettlementBehavior()<BR>
-     * で行われる作りになっている。<BR>
+     * processSettlementBehavior()で行われる作りになっている。<BR>
+     * processBehavior() の処理の最後で実行することを想定。<BR>
      * したがって、changeGeoFinal() で座標更新されるわけではないので注意。<BR>
      */
     virtual void changeGeoFinal() {

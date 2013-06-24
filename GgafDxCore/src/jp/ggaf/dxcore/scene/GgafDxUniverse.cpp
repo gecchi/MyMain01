@@ -92,12 +92,12 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
     GgafRepeatSeq::create(_seqkey_se_delay, 0, 8); //ズレSE再生フレーム
 }
 
-void GgafDxUniverse::registSe(GgafDxSe* prm_pSe,
-                              int prm_volume,
-                              float prm_pan,
-                              float prm_rate_frequency,
-                              int prm_delay,
-                              GgafDxGeometricActor* prm_pActor) {
+void GgafDxUniverse::registerSe(GgafDxSe* prm_pSe,
+                                int prm_volume,
+                                float prm_pan,
+                                float prm_rate_frequency,
+                                int prm_delay,
+                                GgafDxGeometricActor* prm_pActor) {
 //    int bpm = GgafDxBgmPerformer::_active_bgm_bpm;
     //ズレフレーム数計算
     //1分間は60*60=3600フレーム

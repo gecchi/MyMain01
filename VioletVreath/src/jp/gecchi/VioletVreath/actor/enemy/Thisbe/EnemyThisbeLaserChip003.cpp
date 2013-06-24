@@ -25,7 +25,7 @@ EnemyThisbeLaserChip003::EnemyThisbeLaserChip003(const char* prm_name) :
 }
 
 void EnemyThisbeLaserChip003::initialize() {
-    registHitAreaCube_AutoGenMidColli(20000);
+    registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true, false);
     setScaleR(5.0);
     setAlpha(0.9);

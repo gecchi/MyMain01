@@ -274,7 +274,7 @@ void LaserChip::onInactive() {
     _pLeader = nullptr;
 }
 
-void LaserChip::registHitAreaCube_AutoGenMidColli(int prm_edge_length) {
+void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     //下位レーザーチップでオーバーライトされている可能性あり
     _middle_colli_able = true;
     _hitarea_edge_length = prm_edge_length;

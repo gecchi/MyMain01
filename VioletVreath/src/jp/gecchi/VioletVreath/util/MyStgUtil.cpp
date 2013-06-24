@@ -2612,13 +2612,13 @@ GgafStatus* MyStgUtil::resetEnemyAidaStatus(GgafStatus* p) {
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
+	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
 	p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
 	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
 	p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられエフェクト種別
 	p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別
-	p->set(STAT_FormationDestroyedAddScorePoint, 1000 );  //編隊全滅時加算得点
+	p->set(STAT_FormationDestroyedAddScorePoint, 3000 );  //編隊全滅時加算得点
 	p->set(STAT_FormationDestroyedEffectKind, EF_EXPLO_AND_BONUS001);  //編隊全滅時エフェクト
 	p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
 	p->set(STAT_FormationDestroyedItemKind, ITEM_MP_MIDDLE);  //編隊全滅時アイテム種別

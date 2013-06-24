@@ -19,7 +19,7 @@ EnemySylviaEyeStraightLaserChip001::EnemySylviaEyeStraightLaserChip001(const cha
 
 void EnemySylviaEyeStraightLaserChip001::initialize() {
     _pKurokoA->setRzRyMvAng(0,0);
-    registHitAreaCube_AutoGenMidColli(300000);
+    registerHitAreaCube_AutoGenMidColli(300000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     //setScaleR(5.0);
     setScaleR(500.0);

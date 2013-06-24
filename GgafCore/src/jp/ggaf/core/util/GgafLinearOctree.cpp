@@ -59,7 +59,7 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
     _TRACE_("八分木レベル"<<_top_space_level<<"空間=" << _top_level_dX << "x" << _top_level_dY << "x" << _top_level_dZ);
 }
 
-void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
+void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
                                   int tX1 ,int tY1 ,int tZ1,
                                   int tX2 ,int tY2 ,int tZ2) {
 
@@ -197,7 +197,7 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
     if (index > _num_space-1) {
 
         _TRACE_(
-           "GgafLinearOctree::registElem() 空間オーバー !. \n"<<
+           "GgafLinearOctree::registerElem() 空間オーバー !. \n"<<
            "Root=("<<_root_X1<<","<<_root_Y1<<","<<_root_Z1<<")-("<<_root_X2<<","<<_root_Y2<<","<<_root_Z2<<")\n"<<
            "Elem=("<<tX1<<","<<tY1<<","<<tZ1<<")-("<<tX2<<","<<tY2<<","<<tZ2<<")\n"<<
            "_top_level_dX="<<_top_level_dX<<" _top_level_dY="<<_top_level_dY<<" _top_level_dZ="<<_top_level_dZ<<"\n"<<
@@ -225,7 +225,7 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
         }
     } else {
 #ifdef MY_DEBUG
-        throwGgafCriticalException("GgafLinearOctree::registElem() 登録しようとした引数要素は、他の空間に所属状態です。"<<
+        throwGgafCriticalException("GgafLinearOctree::registerElem() 登録しようとした引数要素は、他の空間に所属状態です。"<<
                                    "クリアがなされていないか、２重登録しています。現所属空間インデックス="<<(prm_pElem->_pSpace_current->_my_index)<<"  要素対象オブジェクト="<<(prm_pElem->_pObject));
 #endif
     }

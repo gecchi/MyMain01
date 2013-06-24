@@ -52,17 +52,14 @@ void EnemyPalisana::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_INIT: {
-            _TRACE_("EnemyPalisana::processBehavior() ["<<getName()<<"] PROG_INIT ‚«‚½");
             setHitAble(false);
             _pAFader->setAlpha(0);
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
-            _TRACE_("EnemyPalisana::processBehavior() "<<getName()<<" _X,_Y,_Z="<<_X<<","<<_Y<<","<<_Z<<"");
             break;
         }
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("EnemyPalisana::processBehavior() ["<<getName()<<"] PROG_ENTRY ‚«‚½");
                 _pAFader->fadeLinerUntil(0.7, 30);
             }
             if (_pProg->getFrameInProgress() == 20) {
@@ -73,7 +70,6 @@ void EnemyPalisana::processBehavior() {
         }
         case PROG_HATCH_OPEN: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("EnemyPalisana::processBehavior() ["<<getName()<<"] PROG_HATCH_OPEN ‚«‚½");
                 _pMorpher->morphLinerUntil(MPH_HATCH_OPEN,
                                            1.0, frame_of_morph_interval_);
             }
@@ -85,7 +81,6 @@ void EnemyPalisana::processBehavior() {
 
         case PROG_HATCH_OPEN_DONE: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("EnemyPalisana::processBehavior() ["<<getName()<<"] PROG_HATCH_OPEN_DONE ‚«‚½");
             }
             //‚¨‚µ‚Ü‚¢B
             break;
@@ -94,7 +89,6 @@ void EnemyPalisana::processBehavior() {
         //-----------------------------------------------------------------------
         case PROG_HATCH_CLOSE: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("EnemyPalisana::processBehavior() ["<<getName()<<"] PROG_HATCH_CLOSE ‚«‚½");
                 _pMorpher->morphLinerUntil(MPH_HATCH_OPEN,
                                            0.0, frame_of_morph_interval_);
             }
@@ -105,7 +99,6 @@ void EnemyPalisana::processBehavior() {
         }
         case PROG_LEAVE: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("EnemyPalisana::processBehavior() ["<<getName()<<"] PROG_LEAVE ‚«‚½");
                 setHitAble(false);
                 UTIL::activateLeaveEffectOf(this);
                 _pAFader->fadeLinerUntil(0.0, 30);

@@ -64,7 +64,7 @@ LPSTR GgafDxAllocHierarchy::copyStr(LPCSTR name) {
 }
 
 // メッシュデータ登録
-void GgafDxAllocHierarchy::registMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest)
+void GgafDxAllocHierarchy::registerMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest)
 {
     pDest->Type = pSrc->Type;   // メッシュタイプ
     pDest->pMesh = pSrc->pMesh;// メッシュ（unionなのでどれでも一緒）
@@ -72,7 +72,7 @@ void GgafDxAllocHierarchy::registMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA
 }
 
 // マテリアル登録
-void GgafDxAllocHierarchy::registMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXMATERIAL **ppDest)
+void GgafDxAllocHierarchy::registerMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXMATERIAL **ppDest)
 {
     // マテリアル配列の生成
     *ppDest = NEW D3DXMATERIAL[ num ];
@@ -86,7 +86,7 @@ void GgafDxAllocHierarchy::registMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D
 }
 
 // エフェクト登録
-void GgafDxAllocHierarchy::registEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTINSTANCE **ppDest)
+void GgafDxAllocHierarchy::registerEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTINSTANCE **ppDest)
 {
     *ppDest = NEW D3DXEFFECTINSTANCE;
     addDelList( NEW Deleter<D3DXEFFECTINSTANCE>(*ppDest) );
@@ -112,7 +112,7 @@ void GgafDxAllocHierarchy::registEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFE
 }
 
 // 隣接ポリゴン登録
-void GgafDxAllocHierarchy::registAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest)
+void GgafDxAllocHierarchy::registerAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest)
 {
     *Dest = NEW DWORD[ polynum * 3 ];   // 配列生成
     memcpy( *Dest, Src, polynum * 3 * sizeof(DWORD));// コピー
@@ -120,7 +120,7 @@ void GgafDxAllocHierarchy::registAdjacency(CONST DWORD *Src, DWORD polynum, DWOR
 }
 
 // スキン登録
-void GgafDxAllocHierarchy::registSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest) {
+void GgafDxAllocHierarchy::registerSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest) {
     if(!Src) return;   // スキンが無ければ何もしない
     *Dest = Src;// スキンをコピー
     addReleaseList( *Dest );// リリースリストに登録
@@ -155,20 +155,20 @@ HRESULT GgafDxAllocHierarchy::CreateMeshContainer(THIS_
     p->Name = copyStr( Name );
 
     // メッシュデータ登録
-    registMeshData( pMeshData, &p->MeshData );
+    registerMeshData( pMeshData, &p->MeshData );
 
     // マテリアル登録
     p->NumMaterials = NumMaterials;
-    registMaterial( pMaterials, NumMaterials, &p->pMaterials);
+    registerMaterial( pMaterials, NumMaterials, &p->pMaterials);
 
     // エフェクト登録
-    registEffect( pEffectInstances, &p->pEffects );
+    registerEffect( pEffectInstances, &p->pEffects );
 
     // 隣接ポリゴン登録
-    registAdjacency( pAdjacency, pMeshData->pMesh->GetNumFaces(), &p->pAdjacency );
+    registerAdjacency( pAdjacency, pMeshData->pMesh->GetNumFaces(), &p->pAdjacency );
 
     // スキン登録
-    registSkin( pSkinInfo, &p->pSkinInfo );
+    registerSkin( pSkinInfo, &p->pSkinInfo );
 
     *ppNewMeshContainer = p;
 

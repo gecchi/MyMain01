@@ -110,7 +110,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     }
 
 
-    P_UNIVERSE->registSe(_papSeConnection[prm_id]->peek(), vol, pan, rate_frequency, delay, _pActor); // + (GgafDxSe::VOLUME_RANGE / 6) ‚Í‰¹—Ê’êã‚°
+    P_UNIVERSE->registerSe(_papSeConnection[prm_id]->peek(), vol, pan, rate_frequency, delay, _pActor); // + (GgafDxSe::VOLUME_RANGE / 6) ‚Í‰¹—Ê’êã‚°
 
     _paBool_is_playing_3d[prm_id] = true;
     //^‚ñ’†‚©‚ç‚Ì‹——£

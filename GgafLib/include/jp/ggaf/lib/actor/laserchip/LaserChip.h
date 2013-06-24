@@ -10,7 +10,7 @@ namespace GgafLib {
  * processSettlementBehavior()内の処理により、
  * setHitAble(false); は意味をなしません。
  * 当たり判定を行いたくない場合、
- * registHitAreaCube_AutoGenMidColli() 等の当たり判定自体を作成しないで下さい。
+ * registerHitAreaCube_AutoGenMidColli() 等の当たり判定自体を作成しないで下さい。
  * @version 1.00
  * @since 2008/11/24
  * @author Masatoshi Tsuge
@@ -34,10 +34,10 @@ private:
 
     /** 自身を管理してるアクター発送者 */
     LaserChipDepository* _pDepo;
-    /** registHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さ */
+    /** registerHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さ */
     int _hitarea_edge_length;
     int _hitarea_edge_length_3;
-    /** registHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
+    /** registerHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
     int _harf_hitarea_edge_length;
 
 public:
@@ -93,7 +93,7 @@ public:
      * を行ったほうがパフォーマンスが良い。<BR>
      * @param prm_edge_length
      */
-    virtual void registHitAreaCube_AutoGenMidColli(int prm_edge_length);
+    virtual void registerHitAreaCube_AutoGenMidColli(int prm_edge_length);
 
 
     /**

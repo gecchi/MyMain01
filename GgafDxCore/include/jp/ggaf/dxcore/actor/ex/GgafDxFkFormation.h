@@ -59,7 +59,7 @@ public:
      * ここで追加するベースと同じ種別であるかどうかを気にする必要がない。
      * @param prm_pFkBase
      */
-    virtual void setFkBase(GgafDxGeometricActor* prm_pFkBase);
+    virtual void registerFormationFkBase(GgafDxGeometricActor* prm_pFkBase);
 
     virtual GgafDxGeometricActor* getFkBase() {
         return (GgafDxGeometricActor*)(getSubFirst());
@@ -89,13 +89,13 @@ public:
      * @param prm_RY_init_local 従属アクターのローカル(this)回転からのY軸回転値
      * @param prm_RZ_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      */
-    virtual void addFormationMemberAsFk(GgafDxGeometricActor* prm_pMember,
-                                        int prm_X_init_local,
-                                        int prm_Y_init_local,
-                                        int prm_Z_init_local,
-                                        int prm_RX_init_local,
-                                        int prm_RY_init_local,
-                                        int prm_RZ_init_local);
+    virtual void addFormationMember(GgafDxGeometricActor* prm_pMember,
+                                    int prm_X_init_local,
+                                    int prm_Y_init_local,
+                                    int prm_Z_init_local,
+                                    int prm_RX_init_local,
+                                    int prm_RY_init_local,
+                                    int prm_RZ_init_local);
 
     /**
      * 登録した編隊のメンバーを順番に取得します.

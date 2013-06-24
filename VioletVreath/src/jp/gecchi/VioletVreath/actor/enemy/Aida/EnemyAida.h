@@ -16,7 +16,9 @@ class EnemyAida : public GgafLib::DefaultMeshSetActor {
 public:
 
     enum {
-        PROG_MOVE01_1   ,
+        PROG_INIT ,
+        PROG_ENTRY,
+        PROG_MOVE01   ,
     };
 
     enum {
@@ -24,6 +26,7 @@ public:
         SE_EXPLOSION,
     };
 
+    GgafDxDrawableActor* pEntryEffect_;
 public:
     /**
      * コンストラクタ

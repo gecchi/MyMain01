@@ -14,7 +14,7 @@ using namespace VioletVreath;
 FormationAida001::FormationAida001(const char* prm_name) :
         FormationAida(prm_name) {
     _class_name = "FormationAida001";
-    setFkBase(NEW EnemyAidaBase001("Base"));
+    registerFormationFkBase(NEW EnemyAidaBase001("Base"));
 
     coord r = PX_C(100);
     for (angle angPos1 = 0; angPos1 < D360ANG;  angPos1 += (D_ANG(30))) {
@@ -22,7 +22,7 @@ FormationAida001::FormationAida001(const char* prm_name) :
         coord Y = ANG_SIN(angPos1) * r;
         coord Z = ANG_COS(angPos1) * r;
         EnemyAida* pAida = NEW EnemyAida("Aida01");
-        addFormationMemberAsFk(pAida,X,Y,Z,0,0,0);
+        addFormationMember(pAida,X,Y,Z,0,0,0);
     }
 }
 

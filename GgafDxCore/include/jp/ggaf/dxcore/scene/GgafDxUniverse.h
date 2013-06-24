@@ -95,12 +95,12 @@ public:
      */
     static int setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableActor* prm_pActor);
 
-    void registSe(GgafDxSe* prm_pSe,
-                  int prm_volume,
-                  float prm_pan,
-                  float prm_rate_frequency,
-                  int prm_delay,
-                  GgafDxGeometricActor* prm_pActor);
+    void registerSe(GgafDxSe* prm_pSe,
+                    int prm_volume,
+                    float prm_pan,
+                    float prm_rate_frequency,
+                    int prm_delay,
+                    GgafDxGeometricActor* prm_pActor);
 
 };
 

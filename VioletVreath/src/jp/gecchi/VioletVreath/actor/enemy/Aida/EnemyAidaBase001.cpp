@@ -13,8 +13,8 @@ EnemyAidaBase001::EnemyAidaBase001(const char* prm_name) :
 
 void EnemyAidaBase001::initialize() {
     EnemyAidaBase::initialize();
-    _pKurokoA->setFaceAngVelo(D_ANG(3), D_ANG(1), D0ANG );
-    _pKurokoA->setMvVelo(PX_C(1));
+    _pKurokoA->setFaceAngVelo(D_ANG(0.3), D_ANG(0.1), D0ANG );
+    _pKurokoA->setMvVelo(PX_C(0.1));
     _pKurokoA->setRzRyMvAng(D0ANG, D180ANG);
 }
 

@@ -86,22 +86,22 @@ protected:
     virtual D3DXMESHCONTAINER* createNewMeshContainer();
 
     // メッシュデータを登録
-    virtual void registMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest);
+    virtual void registerMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest);
 
     // リリースリストに登録
     virtual void addReleaseList( IUnknown *comptr);
 
     // マテリアル登録
-    virtual void registMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXMATERIAL **pDest);
+    virtual void registerMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXMATERIAL **pDest);
 
     // エフェクト登録
-    virtual void registEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTINSTANCE **ppDest);
+    virtual void registerEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTINSTANCE **ppDest);
 
     // 隣接ポリゴン登録
-    virtual void registAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest);
+    virtual void registerAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest);
 
     // スキン登録
-    virtual void registSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest);
+    virtual void registerSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest);
 };
 
 }

@@ -24,7 +24,7 @@ EnemyThisbeLaserChip001::EnemyThisbeLaserChip001(const char* prm_name) :
 }
 
 void EnemyThisbeLaserChip001::initialize() {
-//    registHitAreaCube_AutoGenMidColli(20000);
+//    registerHitAreaCube_AutoGenMidColli(20000);
     setScaleR(5.0);
     setAlpha(0.9);
     pNearestScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();

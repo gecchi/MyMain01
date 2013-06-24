@@ -13,7 +13,7 @@ GgafDxFkFormation::GgafDxFkFormation(const char* prm_name, frame prm_offset_fram
     _pIte = nullptr;
     _can_call_up = true;
 }
-void GgafDxFkFormation::setFkBase(GgafDxGeometricActor* prm_pFkBase) {
+void GgafDxFkFormation::registerFormationFkBase(GgafDxGeometricActor* prm_pFkBase) {
     if (_pSubFirst == nullptr) { //最初の１つ目
         //本フォーメーションオブジェクト自体の種別を確定
         _pStatus->set(STAT_DEFAULT_ACTOR_KIND,
@@ -30,22 +30,22 @@ void GgafDxFkFormation::setFkBase(GgafDxGeometricActor* prm_pFkBase) {
     GgafFormation::addSubLast(prm_pFkBase);
 }
 
-void GgafDxFkFormation::addFormationMemberAsFk(GgafDxGeometricActor* prm_pMember,
-                                               int prm_X_init_local,
-                                               int prm_Y_init_local,
-                                               int prm_Z_init_local,
-                                               int prm_RX_init_local,
-                                               int prm_RY_init_local,
-                                               int prm_RZ_init_local) {
+void GgafDxFkFormation::addFormationMember(GgafDxGeometricActor* prm_pMember,
+                                           int prm_X_init_local,
+                                           int prm_Y_init_local,
+                                           int prm_Z_init_local,
+                                           int prm_RX_init_local,
+                                           int prm_RY_init_local,
+                                           int prm_RZ_init_local) {
 
 #ifdef MY_DEBUG
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
-        throwGgafCriticalException("GgafDxFkFormation::addFormationMemberAsFk() : "<<
+        throwGgafCriticalException("GgafDxFkFormation::addFormationMember() : "<<
                                    "既に死にゆく定めのFormationです。サブに追加することはおかしいでしょう。this="<<getName());
     }
     if (getSubFirst() == nullptr) {
-        throwGgafCriticalException("GgafDxFkFormation::addFormationMemberAsFk() : "<<
+        throwGgafCriticalException("GgafDxFkFormation::addFormationMember() : "<<
                                    "FKベースアクターがいません。addFormationBase() してください。this="<<getName());
     }
 #endif
