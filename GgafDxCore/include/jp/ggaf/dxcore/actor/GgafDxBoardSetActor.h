@@ -65,21 +65,6 @@ private:
         return nullptr;
     }
 
-    /**
-     * 使用不可のため、privateでoverride
-     * @return
-     */
-    void changeGeoLocal() override {
-        throwGgafCriticalException("GgafDxBoardSetActor::changeGeoLocal() は使用不可です。");
-    }
-
-    /**
-     * 使用不可のため、privateでoverride
-     * @return
-     */
-    void changeGeoFinal() override {
-        throwGgafCriticalException("GgafDxBoardSetActor::changeGeoFinal() は使用不可です。");
-    }
     void rotateAs(GgafDxGeoElem* prm_pActor) override {
         throwGgafCriticalException("GgafDxBoardSetActor::rotateAs() は使用不可です。");
     }

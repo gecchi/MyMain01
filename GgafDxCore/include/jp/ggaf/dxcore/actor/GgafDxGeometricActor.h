@@ -116,28 +116,28 @@ public:
 
     //補足メモ
     //【_X, _Y, _Z の単位について】
-    //　座標値 _X, _Y, _Z は独自の単位である。
-    //　DirectX座標(float)系の値の１.0に相当する X, _Y, _Z座標値は、LEN_UNIT(=1000)倍のPX_UNIT(=10)倍の整数値である。
-    //　つまり10000倍。DirectX座標単位の１.0は、ゲーム画面上で10px相当の大きさになる（ようにカメラを引いている）。
-    //　例えば、_X = 5000 は、画面で初期カメラ位置で 5px の幅に見え、DirectX座標では0.5になる（ように設計している）。
-    //　_X,_Y,_Z     → ピクセル の変換。    ・・・ _X,_Y,_Z を LEN_UNIT(=1000)で割る。
-    //　DirectX座標  → ピクセル の変換。    ・・・ DirectX座標を、PX_UNIT(=10)を掛け算する。
-    //　_X,_Y,_Z     → DirectX座標 の変換。 ・・・ _X,_Y,_Z を LEN_UNIT*PX_UNIT(=10000)で割る。
-    //　実は、描画の直前に_X,_Y,_Z を入力として、 LEN_UNIT*PX_UNIT 除算し、ワールド変換行列の値に使用されている。
-    //　わざわざこんなことをしているのは、ゲーム中の座標計算は全て整数で行い、少しでも速度を上げたかったため。
-    //　昔(ｲﾂﾔﾈﾝ;)はよく使っていた手法と思うのだが、現在では 最適化されている float や double でもかなり速いので、
-    //　本当にこの設計でよかったのだろうか…、いや、速くなってると信じる。
+    //座標値 _X, _Y, _Z は独自の単位である。
+    //DirectX座標(float)系の値の１.0に相当する X, _Y, _Z座標値は、LEN_UNIT(=1000)倍のPX_UNIT(=10)倍の整数値である。
+    //つまり10000倍。DirectX座標単位の１.0は、ゲーム画面上で10px相当の大きさになる（ようにカメラを引いている）。
+    //例えば、_X = 5000 は、画面で初期カメラ位置で 5px の幅に見え、DirectX座標では0.5になる（ように設計している）。
+    //_X,_Y,_Z     → ピクセル の変換。    ・・・ _X,_Y,_Z を LEN_UNIT(=1000)で割る。
+    //DirectX座標  → ピクセル の変換。    ・・・ DirectX座標を、PX_UNIT(=10)を掛け算する。
+    //_X,_Y,_Z     → DirectX座標 の変換。 ・・・ _X,_Y,_Z を LEN_UNIT*PX_UNIT(=10000)で割る。
+    //実は、描画の直前に_X,_Y,_Z を入力として、 LEN_UNIT*PX_UNIT 除算し、ワールド変換行列の値に使用されている。
+    //わざわざこんなことをしているのは、ゲーム中の座標計算は全て整数で行い、少しでも速度を上げたかったため。
+    //昔(ｲﾂﾔﾈﾝ;)はよく使っていた手法と思うのだが、現在では 最適化されている float や double でもかなり速いので、
+    //本当にこの設計でよかったのだろうか…、いや、速くなってると信じる。
     //
     //【_RX, _RY, _RZ の単位について】
-    //　独自単位の「アングル値」を採る。
-    //　「アングル値」とは 0~3600000 の値で、見た目では 角度値(Degree)の 1000倍の精度の値である。
-    //　(但し、実際は内部では Degree の 10倍の精度である。3600方向の単位方向ベクトルテーブルと対応させる設計)
-    //　1度は1000、0.5度は500。直角の値は90000、水平は180000である。
-    //　中心角と同じく3時の方向を0とし、軸の正方向を向いて反時計回りにアングル値は増えるものとする。
+    //独自単位の「アングル値」を採る。
+    //「アングル値」とは 0~3600000 の値で、見た目では 角度値(Degree)の 1000倍の精度の値である。
+    //(但し、実際は内部では Degree の 10倍の精度である。3600方向の単位方向ベクトルテーブルと対応させる設計)
+    //1度は1000、0.5度は500。直角の値は90000、水平は180000である。
+    //中心角と同じく3時の方向を0とし、軸の正方向を向いて反時計回りにアングル値は増えるものとする。
     //
     //【_SX, _SY, _SZ の単位について】
-    //　1000が１倍のスケール意味する。したがってデフォルトは1000になっている。
-    //　描画の直前に 1000 で除算され、拡大縮小率に変換し使用する。
+    //値1000が1.0倍のスケール意味する。したがってデフォルトは1000になっている。
+    //描画の直前に 1000 で除算され、拡大縮小率に変換し使用する。
 
 
 public:
@@ -398,12 +398,12 @@ public:
      * 自身の内部ワールド変換(_matWorldRotMv) の逆行列を未計算なら計算し、計算済みならそのまま返す .
      * @return _matInvWorldRotMv
      */
-    D3DXMATRIX* getInvMatWorldRotMv() {
+    inline D3DXMATRIX* getInvMatWorldRotMv() {
         if (_was_calculated_matInvWorldRotMv) {
             return &_matInvWorldRotMv;
         } else {
             D3DXMatrixInverse(&_matInvWorldRotMv, nullptr, &_matWorldRotMv);
-            _was_calculated_matInvWorldRotMv = true;
+            _was_calculated_matInvWorldRotMv = true; //processSettlementBehavior()でリセットされる
             return &_matInvWorldRotMv;
         }
     }
@@ -463,7 +463,7 @@ public:
     /**
      * 座標系(_X,_Y,_Z,_RX,_RY,_RZ )を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .
      */
-    virtual void changeGeoLocal() {
+    inline void changeGeoLocal() {
         if (_is_local) {
             return;
         } else {
@@ -490,7 +490,7 @@ public:
      * processBehavior() の処理の最後で実行することを想定。<BR>
      * したがって、changeGeoFinal() で座標更新されるわけではないので注意。<BR>
      */
-    virtual void changeGeoFinal() {
+    inline void changeGeoFinal() {
         if (_is_local) {
             _X_local = _X;
             _Y_local = _Y;
@@ -515,7 +515,7 @@ public:
      * ワールド変換行列を計算する関数を定義 .
      * @param prm_pFunc 関数へのポインタ
      */
-    void defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeometricActor*, D3DXMATRIX&)) {
+    inline void defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeometricActor*, D3DXMATRIX&)) {
         _pFunc_calcRotMvWorldMatrix = prm_pFunc;
     }
 

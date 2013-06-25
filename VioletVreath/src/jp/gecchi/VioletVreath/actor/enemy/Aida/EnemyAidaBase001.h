@@ -13,7 +13,14 @@ namespace VioletVreath {
 class EnemyAidaBase001 : public EnemyAidaBase {
 
 public:
+    enum {
+        PROG_INIT ,
+        PROG_MOVE ,
+    };
+    GgafLib::SplineManufactureConnection* pSplManufConnection_;
+    GgafLib::SplineKurokoLeader* pKurokoLeader_;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name
@@ -21,6 +28,7 @@ public:
      */
     EnemyAidaBase001(const char* prm_name);
     void initialize() override;
+    void onActive() override;
     void processBehavior() override;
     virtual ~EnemyAidaBase001();
 };

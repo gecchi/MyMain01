@@ -36,15 +36,15 @@ void EnemyAida::initialize() {
 }
 
 void EnemyAida::onActive() {
+    pEntryEffect_ = nullptr;
     _pStatus->reset();
     _pProg->reset(PROG_INIT);
 }
 
 void EnemyAida::processBehavior() {
-    changeGeoLocal();
+    changeGeoLocal(); //ローカル座標系へ
 
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    MyShip* pMyShip = P_MYSHIP;
 
     switch (_pProg->get()) {
         case PROG_INIT: {
@@ -67,20 +67,18 @@ void EnemyAida::processBehavior() {
         }
         case PROG_MOVE01: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setMvVelo(1000);
-                _pKurokoA->setRzRyMvAngVelo(1000,2000);
             }
             //自機へ向ける
             GgafDxGeometricActor* pTargetActor = P_MYSHIP;
-            coord MvX = pTargetActor->_X - _X_final; //ここでの _X, _Y, _Z は絶対座標である
+            coord MvX = pTargetActor->_X - _X_final; //_X_finalは絶対座標
             coord MvY = pTargetActor->_Y - _Y_final;
             coord MvZ = pTargetActor->_Z - _Z_final;
-            //逆行列取得
-            D3DXMATRIX* pBaseInvMatRM = _pActor_Base->getInvMatWorldRotMv();
-            //ローカル座標でのターゲットとなる方向ベクトル計算
-            coord TvX = MvX*pBaseInvMatRM->_11 + MvY*pBaseInvMatRM->_21 + MvZ * pBaseInvMatRM->_31;
-            coord TvY = MvX*pBaseInvMatRM->_12 + MvY*pBaseInvMatRM->_22 + MvZ * pBaseInvMatRM->_32;
-            coord TvZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
+            //ベースまでの(回転×平行移動)行列の逆行列取得
+            D3DXMATRIX* pBaseInvMat = _pActor_Base->getInvMatWorldRotMv();
+            //ローカル座標で向いておくべき方向ベクトル計算
+            coord TvX = MvX*pBaseInvMat->_11 + MvY*pBaseInvMat->_21 + MvZ*pBaseInvMat->_31;
+            coord TvY = MvX*pBaseInvMat->_12 + MvY*pBaseInvMat->_22 + MvZ*pBaseInvMat->_32;
+            coord TvZ = MvX*pBaseInvMat->_13 + MvY*pBaseInvMat->_23 + MvZ*pBaseInvMat->_33;
 
             angle angRz_Target, angRy_Target;
             UTIL::convVectorToRzRy(TvX, TvY, TvZ, angRz_Target, angRy_Target); //RzRyに置き換える
@@ -90,11 +88,9 @@ void EnemyAida::processBehavior() {
     }
 
     _pAFader->behave();
-
-
     _pKurokoA->behave();
-    changeGeoFinal();
 
+    changeGeoFinal(); //絶対座標系へ
 }
 
 void EnemyAida::processJudgement() {

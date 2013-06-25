@@ -10,6 +10,7 @@ using namespace GgafDxCore;
 GgafDxCollisionArea::GgafDxCollisionArea(int prm_colli_part_num) : GgafObject() {
     if (prm_colli_part_num > 0) {
         _colli_part_num = prm_colli_part_num;
+
         _papColliPart = NEW GgafDxCollisionPart*[_colli_part_num];
         for (int i = 0; i < _colli_part_num; i++) {
             _papColliPart[i] = nullptr;
@@ -18,6 +19,7 @@ GgafDxCollisionArea::GgafDxCollisionArea(int prm_colli_part_num) : GgafObject() 
         throwGgafCriticalException("GgafDxCollisionArea::GgafDxCollisionArea —v‘f”‚ª•s³Bprm_colli_part_num="<<prm_colli_part_num);
     }
     _AABB_X1=_AABB_Y1=_AABB_Z1=_AABB_X2=_AABB_Y2=_AABB_Z2 = 0;
+
     _hit_colli_part_index = -1;
 }
 

@@ -64,22 +64,6 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
         return nullptr;
     }
 
-    /**
-     * 使用不可のため、privateでoverride
-     * @return
-     */
-    void changeGeoLocal() override {
-        throwGgafCriticalException("GgafDxBoardActor::changeGeoLocal() は使用不可です。");
-    }
-
-    /**
-     * 使用不可のため、privateでoverride
-     * @return
-     */
-    void changeGeoFinal() override {
-        throwGgafCriticalException("GgafDxBoardActor::changeGeoFinal() は使用不可です。");
-    }
-
     void rotateAs(GgafDxGeoElem* prm_pActor) override {
         throwGgafCriticalException("GgafDxBoardActor::rotateAs() は使用不可です。");
     }

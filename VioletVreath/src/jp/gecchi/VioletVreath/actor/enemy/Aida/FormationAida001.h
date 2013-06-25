@@ -11,6 +11,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class FormationAida001 : public FormationAida {
+
 public:
 
     FormationAida001(const char* prm_name);

@@ -62,7 +62,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         return;
     }
 
-    _was_calculated_matInvWorldRotMv = false;
+    _was_calculated_matInvWorldRotMv = false; //逆行列未計算にリセット
 
     if (_pActor_Base) {
         //土台あり時ローカル座標に一旦戻す
