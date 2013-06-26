@@ -76,7 +76,7 @@ GgafDxGod::GgafDxGod() : GgafGod() {
     _secondary_screen_x = 0;
     _secondary_screen_y = 0;
 
-
+    _can_wddm = true;//‚Æ‚è‚ ‚¦‚¸
 }
 
 

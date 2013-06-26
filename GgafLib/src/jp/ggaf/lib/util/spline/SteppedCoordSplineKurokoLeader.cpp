@@ -41,38 +41,42 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKurokoA* pr
     _COS_RyMv_begin = 0.0f;
 }
 
-void SteppedCoordSplineKurokoLeader::start(SplinTraceOption prm_option) {
+void SteppedCoordSplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
     if (_pSteppedSplManuf) {
         _was_started = true;
         _is_leading = true;
         _option = prm_option;
-        _leadning_fFrames = 0.0f;
-        _fFrame_of_next = -0.00001f;
-        _point_index = 0;
-        SplineLine* pSpl = _pSteppedSplManuf->_sp;
-        if (_option == RELATIVE_DIRECTION) {
-            _X_begin = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
-            _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
-            _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
-            GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
-            _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
-            _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
-            _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
-            _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
-        } else if (_option == RELATIVE_COORD) {
-            _X_begin = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
-            _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
-            _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
-        } else { //ABSOLUTE_COORD
-            _X_begin = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X;
-            _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y;
-            _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z;
-       }
+        _max_loop = prm_max_loop;
+        _cnt_loop = 1;
+        restart();
     } else {
         throwGgafCriticalException("SplineKurokoLeader::exec Manufacture‚ª‚ ‚è‚Ü‚¹‚ñB_pActor_target="<<_pActor_target->getName());
     }
 }
-
+void SteppedCoordSplineKurokoLeader::restart() {
+    _leadning_fFrames = 0.0f;
+    _fFrame_of_next = -0.00001f;
+    _point_index = 0;
+    SplineLine* pSpl = _pSteppedSplManuf->_sp;
+    if (_option == RELATIVE_DIRECTION) {
+        _X_begin = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
+        _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
+        _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
+        GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
+        _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
+        _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
+        _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
+        _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
+    } else if (_option == RELATIVE_COORD) {
+        _X_begin = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
+        _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
+        _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
+    } else { //ABSOLUTE_COORD
+        _X_begin = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X;
+        _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y;
+        _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z;
+   }
+}
 void SteppedCoordSplineKurokoLeader::behave() {
     //TODO:–¢À‘•I‘‚­ì‚ë‚¤
 }

@@ -35,6 +35,8 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _distance_to_begin = 0;
     _point_index = 0;
     _leading_frames = 0;
+    _cnt_loop = 0;
+    _max_loop = 1;
 }
 
 
@@ -66,12 +68,14 @@ void SplineKurokoLeader::adjustCoordOffset(coord prm_offset_X, coord prm_offset_
     _offset_Z = prm_offset_Z;
 }
 
-void SplineKurokoLeader::start(SplinTraceOption prm_option) {
+void SplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
     if (_pManufacture) {
         _was_started = true;
         _is_leading = true;
         _option = prm_option;
         _leading_frames = 0;
+        _max_loop = prm_max_loop;
+        _cnt_loop = 1;
         SplineKurokoLeader::getPointCoord(0, _X_begin, _Y_begin, _Z_begin);
         _distance_to_begin = UTIL::getDistance(
                                 _pActor_target->_X,
@@ -100,9 +104,25 @@ void SplineKurokoLeader::behave() {
         int point_index = _leading_frames;
         SplineLine* pSpl = _pManufacture->_sp;
         if ( point_index == pSpl->_rnum) {
-            //I—¹
-            _is_leading = false;
-            return;
+            if (_cnt_loop == _max_loop) {
+                //I—¹
+                _is_leading = false;
+                return;
+            } else {
+                _cnt_loop++;
+
+                _leading_frames = 0;
+                SplineKurokoLeader::getPointCoord(0, _X_begin, _Y_begin, _Z_begin);
+                _distance_to_begin = UTIL::getDistance(
+                                        _pActor_target->_X,
+                                        _pActor_target->_Y,
+                                        _pActor_target->_Z,
+                                        _X_begin,
+                                        _Y_begin,
+                                        _Z_begin
+                                     );
+            }
+
         }
         SplineKurokoLeader::getPointCoord(point_index, _pActor_target->_X, _pActor_target->_Y, _pActor_target->_Z);
         _leading_frames++;

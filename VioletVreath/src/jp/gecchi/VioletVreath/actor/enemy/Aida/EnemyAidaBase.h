@@ -13,7 +13,6 @@ namespace VioletVreath {
 class EnemyAidaBase : public GgafLib::DefaultGeometricActor {
 
 public:
-
     /**
      * コンストラクタ
      * @param prm_name
@@ -27,7 +26,6 @@ public:
     virtual void onInactive() override;
     virtual ~EnemyAidaBase();
 };
-
 }
 #endif /*ENEMYAIDABASE_H_*/
 

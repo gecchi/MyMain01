@@ -27,9 +27,13 @@ public:
      * @return
      */
     EnemyAidaBase001(const char* prm_name);
+
     void initialize() override;
+
     void onActive() override;
+
     void processBehavior() override;
+
     virtual ~EnemyAidaBase001();
 };
 

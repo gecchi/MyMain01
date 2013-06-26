@@ -39,6 +39,10 @@ public:
      * RELATIVE_DIRECTION : 始点を現座標とし、さらに現在の向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
      */
     SplinTraceOption _option;
+    /** [r] ループカウンタ */
+    int _cnt_loop;
+    /** [r] 設定ループ数。-1 で無限 */
+    int _max_loop;
 
     /** [r]始点X座標 */
     coord _X_begin;
@@ -116,9 +120,8 @@ public:
 
     /**
      * スプライン曲線の補完点を移動する先導開始 .
-     * @param prm_option オプション 下位実装拡張用
      */
-    virtual void start(SplinTraceOption prm_option = ABSOLUTE_COORD);
+    virtual void start(SplinTraceOption prm_option, int prm_max_loop = 1);
 
     /**
      * スプライン曲線の補完点を移動する先導をやめる（注：アクターが停止するわけではない） .

@@ -16,6 +16,8 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class FixedFrameSplineKurokoLeader : public SplineKurokoLeader {
+private:
+    void restart();
 
 public:
     /** [r]スプライン情報セット(splファイルの情報に相当) */
@@ -45,9 +47,13 @@ public:
                                  angvelo prm_angveloRzRyMv);
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
-     * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
+     * @param prm_option オプション ABSOLUTE_COORD:絶対座標移動
+     *                              RELATIVE_COORD:始点をActorの現座標とみなし、そこからの相対座標移動
+     *                              RELATIVE_DIRECTION:始点をActorの現座標とみなし、
+     *                                                 アクターの現在向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+     * @param prm_max_loop 繰り返し回数。0以下で無限ループ
      */
-    void start(SplinTraceOption prm_option = ABSOLUTE_COORD) override;
+    void start(SplinTraceOption prm_option, int prm_max_loop = 1) override;
 
     /**
      * 移動実行メソッド .

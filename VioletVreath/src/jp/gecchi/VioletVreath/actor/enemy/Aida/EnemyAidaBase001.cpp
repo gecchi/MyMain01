@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "EnemyAidaBase001.h"
+
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
@@ -33,27 +34,24 @@ void EnemyAidaBase001::onActive() {
 void EnemyAidaBase001::processBehavior() {
     EnemyAidaBase::processBehavior();
 
-
     switch (_pProg->get()) {
         case PROG_INIT: {
-            pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD);
+            pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD,3);
             _pProg->changeNext();
             break;
         }
 
         case PROG_MOVE: {
-            if (pKurokoLeader_->isFinished()) {
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD);
-            }
             break;
         }
-
     }
+
     pKurokoLeader_->behave();
     _pKurokoA->behave();
 }
 
 EnemyAidaBase001::~EnemyAidaBase001() {
+    GGAF_DELETE(pKurokoLeader_);
     pSplManufConnection_->close();
 }
 

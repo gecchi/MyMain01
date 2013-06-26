@@ -14,6 +14,8 @@ namespace GgafLib {
  */
 class SteppedCoordSplineKurokoLeader : public SplineKurokoLeader {
 
+    void restart();
+
 public:
     SteppedCoordSplineManufacture* _pSteppedSplManuf;
 
@@ -51,11 +53,7 @@ public:
                                     angvelo prm_angveloRzRyMv);
 
 
-    /**
-     * スプライン曲線利用のフレーム数指定移動プログラム開始
-     * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
-     */
-    void start(SplinTraceOption prm_option = ABSOLUTE_COORD) override;
+    void start(SplinTraceOption prm_option, int prm_max_loop = 1) override;
 
     /**
      * 毎フレームの振る舞いメソッド .

@@ -86,49 +86,54 @@ void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& 
     }
 }
 
-void FixedVelocitySplineKurokoLeader::start(SplinTraceOption prm_option) {
+void FixedVelocitySplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
     if (_pFixedVeloSplManuf) {
         _was_started = true;
         _is_leading = true;
         _option = prm_option;
-        _leadning_fFrames = 0.0f;
-        _fFrame_of_next = -0.00001f;
-        _point_index = -1;//最初は始点[0]に向かうので、始点前の-1になる。
-        SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
-        double P0X = _flip_X * pSpl->_X_compute[0] * _pFixedVeloSplManuf->_rate_X + _offset_X;
-        double P0Y = _flip_Y * pSpl->_Y_compute[0] * _pFixedVeloSplManuf->_rate_Y + _offset_Y;
-        double P0Z = _flip_Z * pSpl->_Z_compute[0] * _pFixedVeloSplManuf->_rate_Z + _offset_Z;
-        _X_begin = _pActor_target->_X;
-        _Y_begin = _pActor_target->_Y;
-        _Z_begin = _pActor_target->_Z;
-        if (_option == RELATIVE_DIRECTION) {
-            GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
-            _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
-            _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
-            _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
-            _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
-            _distance_to_begin = UTIL::getDistance(
-                                           0.0, 0.0, 0.0,
-                                           P0X, P0Y, P0Z
-                                      );
-        } else if (_option == RELATIVE_COORD) {
-            _distance_to_begin = UTIL::getDistance(
-                                           0.0, 0.0, 0.0,
-                                           P0X, P0Y, P0Z
-                                      );
-        } else { //ABSOLUTE_COORD
-            _distance_to_begin = UTIL::getDistance(
-                                    (double)(_pActor_target->_X),
-                                    (double)(_pActor_target->_Y),
-                                    (double)(_pActor_target->_Z),
-                                    P0X, P0Y, P0Z
-                                 );
-       }
+        _max_loop = prm_max_loop;
+        _cnt_loop = 1;
+        restart();
     } else {
-        throwGgafCriticalException("SplineKurokoLeader::exec Manufactureがありません。_pActor_target="<<_pActor_target->getName());
+        throwGgafCriticalException("FixedVelocitySplineKurokoLeader::start Manufactureがありません。_pActor_target="<<_pActor_target->getName());
     }
 }
+void FixedVelocitySplineKurokoLeader::restart() {
+    _leadning_fFrames = 0.0f;
+    _fFrame_of_next = -0.00001f;
+    _point_index = -1;//最初は始点[0]に向かうので、始点前の-1になる。
 
+    SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
+    double P0X = _flip_X * pSpl->_X_compute[0] * _pFixedVeloSplManuf->_rate_X + _offset_X;
+    double P0Y = _flip_Y * pSpl->_Y_compute[0] * _pFixedVeloSplManuf->_rate_Y + _offset_Y;
+    double P0Z = _flip_Z * pSpl->_Z_compute[0] * _pFixedVeloSplManuf->_rate_Z + _offset_Z;
+    _X_begin = _pActor_target->_X;
+    _Y_begin = _pActor_target->_Y;
+    _Z_begin = _pActor_target->_Z;
+    if (_option == RELATIVE_DIRECTION) {
+        GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
+        _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
+        _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
+        _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
+        _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
+        _distance_to_begin = UTIL::getDistance(
+                                       0.0, 0.0, 0.0,
+                                       P0X, P0Y, P0Z
+                                  );
+    } else if (_option == RELATIVE_COORD) {
+        _distance_to_begin = UTIL::getDistance(
+                                       0.0, 0.0, 0.0,
+                                       P0X, P0Y, P0Z
+                                  );
+    } else { //ABSOLUTE_COORD
+        _distance_to_begin = UTIL::getDistance(
+                                (double)(_pActor_target->_X),
+                                (double)(_pActor_target->_Y),
+                                (double)(_pActor_target->_Z),
+                                P0X, P0Y, P0Z
+                             );
+   }
+}
 void FixedVelocitySplineKurokoLeader::behave() {
     if (_is_leading) {
         GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
@@ -136,9 +141,15 @@ void FixedVelocitySplineKurokoLeader::behave() {
         if (_leadning_fFrames >= _fFrame_of_next) {
             _point_index++;
             if ( _point_index == _pFixedVeloSplManuf->_sp->_rnum) {
-                //終了
-                _is_leading = false;
-                return;
+                if (_cnt_loop == _max_loop) {
+                    //終了
+                    _is_leading = false;
+                    return;
+                } else {
+                    //ループ
+                    _cnt_loop++;
+                    restart();
+                }
             }
 
             coord X, Y, Z;

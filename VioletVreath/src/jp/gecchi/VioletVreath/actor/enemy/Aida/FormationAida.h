@@ -7,10 +7,11 @@ namespace VioletVreath {
 /**
  * 敵機アイーダ用フォーメーション基底 .
  * @version 1.00
- * @since 2011/06/28
+ * @since 2013/06/18
  * @author Masatoshi Tsuge
  */
 class FormationAida : public GgafLib::FkFormation {
+
 public:
     /**
      * コンストラクタ .

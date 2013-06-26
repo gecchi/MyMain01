@@ -14,11 +14,10 @@ namespace VioletVreath {
 class EnemyAida : public GgafLib::DefaultMeshSetActor {
 
 public:
-
     enum {
         PROG_INIT ,
         PROG_ENTRY,
-        PROG_MOVE01   ,
+        PROG_MOVE01,
     };
 
     enum {
@@ -27,6 +26,7 @@ public:
     };
 
     GgafDxDrawableActor* pEntryEffect_;
+
 public:
     /**
      * コンストラクタ
@@ -63,13 +63,11 @@ public:
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-
     void onInactive() override;
-
 
     virtual ~EnemyAida();
 };
 
 }
-#endif /*ENEMYHEBE_H_*/
+#endif /*ENEMYAIDA_H_*/
 

@@ -5,15 +5,14 @@
 namespace VioletVreath {
 
 /**
- * 敵機ヘーベ用フォーメーション001グループ .
+ * 敵機アイーダ用フォーメーション001 .
  * @version 1.00
- * @since 2011/06/28
+ * @since 2013/06/18
  * @author Masatoshi Tsuge
  */
 class FormationAida001 : public FormationAida {
 
 public:
-
     FormationAida001(const char* prm_name);
 
     void onCallUpAida(EnemyAida* pEnemyAida) override;
