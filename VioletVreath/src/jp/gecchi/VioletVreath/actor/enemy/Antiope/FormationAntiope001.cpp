@@ -18,8 +18,8 @@ FormationAntiope001::FormationAntiope001(const char* prm_name) :
     num_Antiope_ = 0;
     cnt_Antiope_ = 0;
     interval_frames_ = 0;
-    pDepoConnection_AntiopeP_ = connectToDepositoryManager("AntiopeP");
-    pDepoConnection_AntiopeN_ = connectToDepositoryManager("AntiopeN");
+    pDepoConnection_AntiopeP_ = connect_DepositoryManager("AntiopeP");
+    pDepoConnection_AntiopeN_ = connect_DepositoryManager("AntiopeN");
 
 }
 void FormationAntiope001::initialize() {

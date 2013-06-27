@@ -14,7 +14,7 @@ using namespace VioletVreath;
 FormationAdelheid001::FormationAdelheid001(const char* prm_name) :
         FormationAdelheid(prm_name) {
     _class_name = "FormationAdelheid001";
-    pSplManufConnection_ = connectToSplineManufactureManager("FormationAdelheid001");
+    pSplManufConnection_ = connect_SplineManufactureManager("FormationAdelheid001");
 }
 
 void FormationAdelheid001::onCallUpAdelheid(EnemyAdelheid* pEnemyAdelheid) {

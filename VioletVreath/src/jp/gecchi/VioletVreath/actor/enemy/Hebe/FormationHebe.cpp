@@ -17,11 +17,11 @@ FormationHebe::FormationHebe(const char* prm_name, const char* prm_spl_id)
    : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationHebe";
 
-    pConne_HebeDepo_ = connectToDepositoryManager("EnemyHebe4Formation");
-    setFormationMember(pConne_HebeDepo_->peek());
+    pConn_HebeDepo_ = connect_DepositoryManager("EnemyHebe4Formation");
+    setFormationMember(pConn_HebeDepo_->peek());
 
-    //pConne_ShotDepo_ = connectToDepositoryManager("Shot004"); //Hebeの弾;
-    pConne_ShotDepo_ = nullptr;
+    //pConn_ShotDepo_ = connect_DepositoryManager("Shot004"); //Hebeの弾;
+    pConn_ShotDepo_ = nullptr;
     updateRankParameter();
 }
 
@@ -43,7 +43,7 @@ void FormationHebe::processBehavior() {
         EnemyHebe* pHebe = (EnemyHebe*)callUpMember(RV_NumFormation_);
         if (pHebe) {
             SplineKurokoLeader* pKurokoLeader = getSplManuf()->createKurokoLeader(pHebe->_pKurokoA);
-            GgafActorDepository* pDepo_Shot = pConne_ShotDepo_ ? pConne_ShotDepo_->peek() : nullptr;
+            GgafActorDepository* pDepo_Shot = pConn_ShotDepo_ ? pConn_ShotDepo_->peek() : nullptr;
             pHebe->config(pKurokoLeader, pDepo_Shot, nullptr);
             pHebe->_pKurokoA->setMvVelo(RV_MvVelo_);
             onCallUpHebe(pHebe); //下位フォーメーションクラス個別実装の処理
@@ -56,9 +56,9 @@ void FormationHebe::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 FormationHebe::~FormationHebe() {
-    pConne_HebeDepo_->close();
-    if (pConne_ShotDepo_) {
-        pConne_ShotDepo_->close();
+    pConn_HebeDepo_->close();
+    if (pConn_ShotDepo_) {
+        pConn_ShotDepo_->close();
     }
 }
 

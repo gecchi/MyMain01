@@ -53,6 +53,7 @@ void SteppedCoordSplineKurokoLeader::start(SplinTraceOption prm_option, int prm_
         throwGgafCriticalException("SplineKurokoLeader::exec Manufacture‚ª‚ ‚è‚Ü‚¹‚ñB_pActor_target="<<_pActor_target->getName());
     }
 }
+
 void SteppedCoordSplineKurokoLeader::restart() {
     _leadning_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
@@ -77,8 +78,10 @@ void SteppedCoordSplineKurokoLeader::restart() {
         _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z;
    }
 }
+
 void SteppedCoordSplineKurokoLeader::behave() {
     //TODO:–¢À‘•I‘‚­ì‚ë‚¤
 }
+
 SteppedCoordSplineKurokoLeader::~SteppedCoordSplineKurokoLeader() {
 }

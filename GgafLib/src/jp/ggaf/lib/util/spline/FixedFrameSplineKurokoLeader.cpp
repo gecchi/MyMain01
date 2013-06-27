@@ -173,6 +173,7 @@ void FixedFrameSplineKurokoLeader::behave() {
                 //ループ
                 _cnt_loop++;
                 restart();
+                _point_index = (_leading_frames+_hosei_frames) / _pFixedFrameSplManuf->_fFrame_of_segment;
             }
         }
 
@@ -186,7 +187,7 @@ void FixedFrameSplineKurokoLeader::behave() {
                                           _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
 
             if (_point_index == 0) {
-                //現座標と視点が離れている。
+                //現座標と開始が離れている。
                 //誤差も仕方ないので _fFrame_of_segment で始点に移動する速度を付与
                 pKurokoA_target->setMvVelo((velo)(_distance_to_begin / _pFixedFrameSplManuf->_fFrame_of_segment));
             } else {

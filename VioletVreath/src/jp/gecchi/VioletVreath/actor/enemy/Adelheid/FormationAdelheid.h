@@ -26,9 +26,9 @@ public:
 
 
     /** アーデルハイド借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConne_AdelheidDepo_;
+    DepositoryConnection* pConn_AdelheidDepo_;
     /** アーデルハイドの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConne_ShotDepo_;
+    DepositoryConnection* pConn_ShotDepo_;
     /** 始点・終点の座標計算のためのダミー */
     EnemyAdelheid* pDummy_;
 

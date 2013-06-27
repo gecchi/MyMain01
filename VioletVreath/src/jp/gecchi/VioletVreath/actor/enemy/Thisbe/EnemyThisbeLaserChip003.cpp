@@ -17,7 +17,7 @@ using namespace VioletVreath;
 EnemyThisbeLaserChip003::EnemyThisbeLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "ThisbeLaserChip003", STATUS(EnemyThisbeLaserChip003)) {
     _class_name = "EnemyThisbeLaserChip003";
-    pSplManufConnection_ = connectToSplineManufactureManager("EnemyThisbeLaserChip003"); //ゴスパー曲線
+    pSplManufConnection_ = connect_SplineManufactureManager("EnemyThisbeLaserChip003"); //ゴスパー曲線
     pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     sp_index_ = 0;

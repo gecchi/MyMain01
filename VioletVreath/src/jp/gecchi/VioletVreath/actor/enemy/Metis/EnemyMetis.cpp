@@ -25,8 +25,8 @@ EnemyMetis::EnemyMetis(const char* prm_name) :
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 
-    pConne_ShotDepo_ = connectToDepositoryManager("Shot004");
-    pDepo_Shot_ = pConne_ShotDepo_->peek();
+    pConn_ShotDepo_ = connect_DepositoryManager("Shot004");
+    pDepo_Shot_ = pConn_ShotDepo_->peek();
 }
 
 void EnemyMetis::onCreateModel() {
@@ -92,6 +92,6 @@ void EnemyMetis::onInactive() {
 }
 
 EnemyMetis::~EnemyMetis() {
-    pConne_ShotDepo_->close();
+    pConn_ShotDepo_->close();
 }
 

@@ -47,6 +47,8 @@ public:
     int num_arm_part_;  //腕の節数（3以上）
     Arm* paArm_;
 
+    /** [r]入場エフェクト */
+    GgafDxCore::GgafDxDrawableActor* pEntryEffect_;
 public:
     /**
      * コンストラクタ

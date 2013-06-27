@@ -93,7 +93,8 @@ public:
 
     /**
      * SplineKurokoLeader オブジェクトの生成 .
-     * 設定した黒衣Aを、操作しますので注意して下さい。
+     * 設定した黒衣Aを、操作しますので注意して下さい。<br>
+     * 本メソッドで作成した SplineKurokoLeader は、呼び元で deleteする必要があります。<br>
      * @param prm_pKurokoA 対象のアクターの黒衣A
      * @return
      */

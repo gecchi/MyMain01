@@ -54,7 +54,7 @@ void SplineLine::compute(double prm_accuracy) {
     _Z_compute = NEW double[_rnum];
 
     int index = 0;
-    for (double t = 0.0; t <= _num_basepoint-1.0; t += prm_accuracy) {
+    for (double t = 0.0; t <= (_num_basepoint+0.000001) - 1.0; t += prm_accuracy) { //0.000001 ‚ÍÅŒã‚ð¬—§‚³‚¹‚é‚½‚ß
         _X_compute[index] = _xs.compute(t);
         _Y_compute[index] = _ys.compute(t);
         _Z_compute[index] = _zs.compute(t);

@@ -20,7 +20,7 @@ FormationThalia::FormationThalia(const char* prm_name) :
     interval_frames_ = RF_FormationThalia_LaunchInterval(G_RANK);    //各タリアの出現間隔(frame)
     velo_mv_         = RF_FormationThalia_MvVelo(G_RANK); //各タリアの移動速度
 
-    pDepoConnection_ = connectToDepositoryManager("Shot004");
+    pDepoConnection_ = connect_DepositoryManager("Shot004");
     //編隊作成
     papThalia_ = NEW EnemyThalia*[num_Thalia_];
     for (int i = 0; i < num_Thalia_; i++) {

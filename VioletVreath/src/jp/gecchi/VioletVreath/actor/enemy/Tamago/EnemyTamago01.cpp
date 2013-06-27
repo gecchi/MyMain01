@@ -31,7 +31,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pDepo_Shot_ = nullptr;
     pDepo_ShotEffect_ = nullptr;
 
-    pDepoConnection_ = connectToDepositoryManager("Shot001");
+    pDepoConnection_ = connect_DepositoryManager("Shot001");
     //pDepo_Shot_ = pDepoConnection_->peek();
 pDepo_Shot_ = nullptr;
     _pSeTx->set(0, "WAVE_EXPLOSION_001");

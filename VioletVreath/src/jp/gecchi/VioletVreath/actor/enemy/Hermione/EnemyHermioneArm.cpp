@@ -23,6 +23,7 @@ EnemyHermioneArm::EnemyHermioneArm(const char* prm_name, const char* prm_model, 
 
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //腕破壊
+    pEntryEffect_ = nullptr;
     useProgress(PROG_AIMING);
 }
 
@@ -45,7 +46,7 @@ void EnemyHermioneArm::processBehavior() {
             if (_pProg->isJustChanged()) {
                 //本体からFKとして追加された直後は、一度processSettlementBehavior()が実行されないと
                 //座標反映されない、したがって。１フレーム後のPROG_WAITINGでエントリエフェ実行行う事
-                UTIL::activateEntryEffectOf(this);
+                pEntryEffect_ = UTIL::activateEntryEffectOf(this);
             }
             break;
         }
@@ -151,6 +152,14 @@ void EnemyHermioneArm::processBehavior() {
 }
 
 void EnemyHermioneArm::processJudgement() {
+    if (pEntryEffect_) {
+        if (pEntryEffect_->onChangeToInactive()) {
+            pEntryEffect_ = nullptr;
+        } else {
+            pEntryEffect_->locateAs(this);
+        }
+    }
+
     if (_pActor_Base != nullptr && _pActor_Base->isActiveInTheTree()) {
     } else {
         //土台がなければ自分も死ぬ

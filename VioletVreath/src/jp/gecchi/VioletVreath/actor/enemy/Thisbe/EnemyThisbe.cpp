@@ -72,12 +72,12 @@ EnemyThisbe::EnemyThisbe(const char* prm_name) :
 
 
     //ホーミング(リポジトリ)------>
-//    pConne_LaserChipDepoStore_ = connectToDepositoryManager("EnemyThisbeLaserChip001DepoStore");
+//    pConn_LaserChipDepoStore_ = connect_DepositoryManager("EnemyThisbeLaserChip001DepoStore");
 //    pLaserChipDepo_ = nullptr;
     //<---------------------
 
     //リフレクション(リポジトリ)------>
-    pConne_LaserChipDepoStore_ = connectToDepositoryManager("EnemyThisbeLaserChip002DepoStore");
+    pConn_LaserChipDepoStore_ = connect_DepositoryManager("EnemyThisbeLaserChip002DepoStore");
     pLaserChipDepo_ = nullptr;
 
 
@@ -96,10 +96,10 @@ void EnemyThisbe::initialize() {
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliSphere(0, 40000);
 
-//    if (pConne_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
-//        _TRACE_("pConne_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
+//    if (pConn_LaserChipDepoStore_->chkFirstConnectionIs(this)) {
+//        _TRACE_("pConn_LaserChipDepoStore_は、ワシ("<<this<<")が育てたエヘン！")
 //        getPlatformScene()->getSceneDirector()->addSubGroup(
-//                pConne_LaserChipDepoStore_->peek()->extract()
+//                pConn_LaserChipDepoStore_->peek()->extract()
 //                );
 //    }
 }
@@ -139,7 +139,7 @@ void EnemyThisbe::processBehavior() {
 
         case PROG_FIRE: {
             if (_pProg->isJustChanged()) {
-                pLaserChipDepo_ = (LaserChipDepository*)(pConne_LaserChipDepoStore_->peek()->dispatch()); //レーザーセット一本借ります。
+                pLaserChipDepo_ = (LaserChipDepository*)(pConn_LaserChipDepoStore_->peek()->dispatch()); //レーザーセット一本借ります。
             }
             if (pLaserChipDepo_) {
                 LaserChip* pLaser = pLaserChipDepo_->dispatch();
@@ -205,6 +205,6 @@ void EnemyThisbe::onInactive() {
 
 EnemyThisbe::~EnemyThisbe() {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
-        pConne_LaserChipDepoStore_->close();
-    //pConne_RefractionEffectDepository_->close();
+        pConn_LaserChipDepoStore_->close();
+    //pConn_RefractionEffectDepository_->close();
 }

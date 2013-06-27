@@ -18,7 +18,7 @@ using namespace VioletVreath;
 EnemyThisbeLaserChip001::EnemyThisbeLaserChip001(const char* prm_name) :
         HomingLaserChip(prm_name, "ThisbeLaserChip001", STATUS(EnemyThisbeLaserChip001)) {
     _class_name = "EnemyThisbeLaserChip001";
-    pSplManufConnection_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
+    pSplManufConnection_ = connect_SplineManufactureManager("EnemyThisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
     pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
     pNearestScrollingScene_ = nullptr;
 }

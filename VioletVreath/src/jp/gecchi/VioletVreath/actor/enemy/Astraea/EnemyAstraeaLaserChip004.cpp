@@ -18,11 +18,11 @@ using namespace VioletVreath;
 EnemyAstraeaLaserChip004::EnemyAstraeaLaserChip004(const char* prm_name) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001", STATUS(EnemyAstraeaLaserChip004)) {
     _class_name = "EnemyAstraeaLaserChip004";
-    pSplManufConnection_ = connectToSplineManufactureManager("GURUGURU");
+    pSplManufConnection_ = connect_SplineManufactureManager("GURUGURU");
     pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
 //    if (pTexCon1_ == nullptr) {
-//        pTexCon1_ = connectToModelTextureManager("AstraeaLaserChip001.png");
-//        pTexCon2_ = connectToModelTextureManager("HesperiaLaserChip001.png");
+//        pTexCon1_ = connect_ModelTextureManager("AstraeaLaserChip001.png");
+//        pTexCon2_ = connect_ModelTextureManager("HesperiaLaserChip001.png");
 //        _pModel->setMaterialTexture(0, pTexCon1_);
 //
 //    }

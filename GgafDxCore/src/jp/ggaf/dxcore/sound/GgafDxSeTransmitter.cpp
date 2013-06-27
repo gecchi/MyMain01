@@ -58,7 +58,7 @@ void GgafDxSeTransmitter::set(int prm_id, const char* prm_se_key, int prm_cannel
         _TRACE_("GgafDxSeTransmitter::set() ＜警告＞ 既にID="<<prm_id<<" にはSE("<<(_papSeConnection[prm_id]->getIdStr())<<")が設定済みでした。資源接続を close 後、新しいSE("<<idstr<<")を上書きします。意図してますか？");
         _papSeConnection[prm_id]->close();
     }
-    _papSeConnection[prm_id] = connectToSeManager(idstr);
+    _papSeConnection[prm_id] = connect_SeManager(idstr);
 }
 
 

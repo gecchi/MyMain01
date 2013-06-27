@@ -93,13 +93,14 @@ void EnemyAdelheid::processBehavior() {
         //ゴールのパリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
             if (_pProg->isJustChanged()) {
-                //もう一回だけ同じスプライン移動する
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION);
+                //もう2回だけ同じスプライン移動する
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_DIRECTION, 2);
             }
             //processJudgement() で pKurokoLeader_->isFinished() 成立待ち
             break;
         }
         case PROG_AFTER_LEAD_MOVING: {
+            //もう2回だけ同じスプライン移動が終わった後の動き
             //isOutOfUniverse() 成立待ち
             break;
         }
@@ -184,7 +185,7 @@ void EnemyAdelheid::processJudgement() {
         //ゴールのパリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
             if (pKurokoLeader_->isFinished()) {
-                //もう一回のスプライン移動も終わった場合
+                //もう2回のスプライン移動も終わった場合
                 _pProg->change(PROG_AFTER_LEAD_MOVING);
             }
             break;

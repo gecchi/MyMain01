@@ -14,7 +14,7 @@ FormationHebe001::FormationHebe001(const char* prm_name) :
         FormationHebe(prm_name, "FormationHebe001") {
     _class_name = "FormationHebe001";
     //スプライン定義ファイルを読み込む
-    pSplManufConnection_ = connectToSplineManufactureManager("FormationHebe001");
+    pSplManufConnection_ = connect_SplineManufactureManager("FormationHebe001");
 }
 void FormationHebe001::onCallUpHebe(EnemyHebe* pEnemyHebe) {
 //    pEnemyHebe->pKurokoLeader_->adjustAxisRate(

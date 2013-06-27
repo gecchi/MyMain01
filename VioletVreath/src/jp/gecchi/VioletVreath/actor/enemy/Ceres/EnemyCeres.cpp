@@ -46,7 +46,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
         createGgafActorDepository_ = false;
     }
 
-    pSplLineConnection_ = connectToSplineLineManager("Spl_001");
+    pSplLineConnection_ = connect_SplineLineManager("Spl_001");
     pProgram_CeresMove_ = NEW FixedVelocitySplineKurokoLeader(_pKurokoA, pSplLineConnection_->peek(), 5000); //ˆÚ“®‘¬“xŒÅ’è
 
 //    pProgram_CeresMove_ = NEW FixedFrameSplineKurokoLeader(_pKurokoA, pSplLineConnection_->peek(), 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è

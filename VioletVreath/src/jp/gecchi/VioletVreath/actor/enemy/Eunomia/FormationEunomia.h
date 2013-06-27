@@ -16,7 +16,7 @@ public:
     /** エウノミア借り入れ元Depository資源への接続 */
     DepositoryConnection* pDepoConnection_Eunomia_;
     /** エウノミアの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* pConne_ShotDepo_;
+    DepositoryConnection* pConn_ShotDepo_;
     GgafCore::GgafActorDepository* pDepo_Shot_;
 
     /** スプライン定義資源への接続 */

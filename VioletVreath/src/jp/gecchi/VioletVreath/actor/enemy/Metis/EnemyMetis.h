@@ -18,7 +18,7 @@ public:
         SE_DAMAGED   ,
         SE_EXPLOSION ,
     };
-    DepositoryConnection* pConne_ShotDepo_;
+    DepositoryConnection* pConn_ShotDepo_;
     GgafCore::GgafActorDepository* pDepo_Shot_;
     int width_X_;
     int height_Z_;

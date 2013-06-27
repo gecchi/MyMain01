@@ -15,7 +15,7 @@ using namespace VioletVreath;
 EnemyAidaBase001::EnemyAidaBase001(const char* prm_name) :
         EnemyAidaBase(prm_name) {
 
-    pSplManufConnection_ = connectToSplineManufactureManager("EnemyAidaBase001");
+    pSplManufConnection_ = connect_SplineManufactureManager("EnemyAidaBase001");
     pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
     useProgress(PROG_MOVE);
 }
@@ -36,11 +36,10 @@ void EnemyAidaBase001::processBehavior() {
 
     switch (_pProg->get()) {
         case PROG_INIT: {
-            pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD,3);
+            pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD, 3);
             _pProg->changeNext();
             break;
         }
-
         case PROG_MOVE: {
             break;
         }
@@ -54,5 +53,4 @@ EnemyAidaBase001::~EnemyAidaBase001() {
     GGAF_DELETE(pKurokoLeader_);
     pSplManufConnection_->close();
 }
-
 

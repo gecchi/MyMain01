@@ -35,7 +35,7 @@ void GgafDxSeManager::updateVolume() {
     while(_is_connecting_resource) {
         Sleep(1);
     }
-    GgafDxSeConnection* pConne = (GgafDxSeConnection*)_pConne_first;
+    GgafDxSeConnection* pConne = (GgafDxSeConnection*)_pConn_first;
     while (pConne) {
         pConne->peek()->setVolume(GGAF_MAX_VOLUME);
         while(_is_connecting_resource) { //ŠÈˆÕ”r‘¼

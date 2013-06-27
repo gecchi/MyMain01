@@ -18,7 +18,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     _class_name = "FormationEunomia";
 
     //エウノミア編隊用デポジトリ
-    pDepoConnection_Eunomia_ = connectToDepositoryManager("EnemyEunomia4Formation");
+    pDepoConnection_Eunomia_ = connect_DepositoryManager("EnemyEunomia4Formation");
     setFormationMember(pDepoConnection_Eunomia_->peek());
 
     //スプライン定義ファイルを読み込む
@@ -26,10 +26,10 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
     for (int i = 0; i < 7; i++) {
         std::stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
-        papSplManufConnection_[i] = connectToSplineManufactureManager(spl_id.str().c_str());
+        papSplManufConnection_[i] = connect_SplineManufactureManager(spl_id.str().c_str());
     }
-    pConne_ShotDepo_ = connectToDepositoryManager("Shot004"); //Eunomiaの弾;
-    pDepo_Shot_ = pConne_ShotDepo_->peek();
+    pConn_ShotDepo_ = connect_DepositoryManager("Shot004"); //Eunomiaの弾;
+    pDepo_Shot_ = pConn_ShotDepo_->peek();
     updateRankParameter();
 
 }
@@ -98,7 +98,7 @@ FormationEunomia::~FormationEunomia() {
         papSplManufConnection_[i]->close();
     }
     GGAF_DELETEARR(papSplManufConnection_);
-    if (pConne_ShotDepo_) {
-        pConne_ShotDepo_->close();
+    if (pConn_ShotDepo_) {
+        pConn_ShotDepo_->close();
     }
 }

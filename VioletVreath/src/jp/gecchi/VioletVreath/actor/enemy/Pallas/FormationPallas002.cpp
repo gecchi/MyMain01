@@ -21,9 +21,9 @@ FormationPallas002::FormationPallas002(const char* prm_name) :
     interval_frames_ = RF_FormationPallas002_LaunchInterval(G_RANK);  //パラスの間隔(frame)
     velo_mv_         = RF_FormationPallas002_MvVelo(G_RANK); //速度
     //パラス編隊作成
-    pSplManufConnection_ = connectToSplineManufactureManager("Pallas02");
-//    pSplLineConnection_     = connectToSplineLineManager("Spl_Pallas01"); //スプライン定義
-    //pDepoConnection_ = connectToDepositoryManager("Shot002");
+    pSplManufConnection_ = connect_SplineManufactureManager("Pallas02");
+//    pSplLineConnection_     = connect_SplineLineManager("Spl_Pallas01"); //スプライン定義
+    //pDepoConnection_ = connect_DepositoryManager("Shot002");
     pDepoConnection_ = nullptr;
     papPallas_ = NEW EnemyPallas*[num_Pallas_];
     for (int i = 0; i < num_Pallas_; i++) {

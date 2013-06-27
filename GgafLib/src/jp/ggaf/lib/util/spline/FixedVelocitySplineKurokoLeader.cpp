@@ -149,6 +149,7 @@ void FixedVelocitySplineKurokoLeader::behave() {
                     //ÉãÅ[Év
                     _cnt_loop++;
                     restart();
+                    _point_index++;
                 }
             }
 

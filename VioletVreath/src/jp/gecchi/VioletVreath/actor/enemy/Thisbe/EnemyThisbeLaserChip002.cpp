@@ -21,7 +21,7 @@ frame EnemyThisbeLaserChip002::end_active_frame_ = INT_MAX;
 EnemyThisbeLaserChip002::EnemyThisbeLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "ThisbeLaserChip002", STATUS(EnemyThisbeLaserChip002)) {
     _class_name = "EnemyThisbeLaserChip002";
-    pSplManufConnection_ = connectToSplineManufactureManager("EnemyThisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
+    pSplManufConnection_ = connect_SplineManufactureManager("EnemyThisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
     pKurokoLeader_ = pSplManufConnection_->peek()->createKurokoLeader(_pKurokoA);
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pNearestScrollingScene_ = nullptr;

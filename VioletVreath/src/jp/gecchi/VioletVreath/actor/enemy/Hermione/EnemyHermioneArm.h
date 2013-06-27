@@ -27,6 +27,8 @@ public:
     angvelo aiming_ang_velo_;
     angle aiming_movable_limit_ang_;
 
+    /** [r]入場エフェクト */
+    GgafDxCore::GgafDxDrawableActor* pEntryEffect_;
 public:
     /**
      * コンストラクタ

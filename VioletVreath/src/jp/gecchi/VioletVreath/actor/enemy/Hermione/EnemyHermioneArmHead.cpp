@@ -16,7 +16,7 @@ using namespace VioletVreath;
 EnemyHermioneArmHead::EnemyHermioneArmHead(const char* prm_name) :
         EnemyHermioneArm(prm_name, "HermioneArmHead", STATUS(EnemyHermioneArmHead)) {
     _class_name = "EnemyHermioneArmHead";
-//    pDepoConnection_ = connectToDepositoryManager("Shot004"); //’e
+//    pDepoConnection_ = connect_DepositoryManager("Shot004"); //’e
 //    pDepo_Fired_ = pDepoConnection_->peek();
 }
 

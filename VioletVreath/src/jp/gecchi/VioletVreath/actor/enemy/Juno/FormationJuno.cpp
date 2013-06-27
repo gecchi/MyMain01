@@ -27,7 +27,7 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : DefaultGeometricActor(prm_name, nullptr) {
     _class_name = "FormationJuno";
-    pDepoConnection_ = connectToDepositoryManager("Shot004"); //Juno‚Ì’e
+    pDepoConnection_ = connect_DepositoryManager("Shot004"); //Juno‚Ì’e
 
     X1_app_ = prm_X1_app;
     Y1_app_ = prm_Y1_app;

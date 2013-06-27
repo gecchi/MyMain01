@@ -42,7 +42,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     pHoshiBoshi_ = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
     getSceneDirector()->addSubGroup(pHoshiBoshi_);
 
-    pSeConnection_exec_ = connectToSeManager("WAVE_EXECUTE");
+    pSeConnection_exec_ = connect_SeManager("WAVE_EXECUTE");
 
     //_pBgmPerformer->useBgm(1);
    // _pBgmPerformer->set(0, "OGG_BGM_DEMO");

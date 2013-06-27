@@ -20,8 +20,8 @@ FormationIris001::FormationIris001(const char* prm_name) : TreeFormation(prm_nam
     interval_frames_ = RF_FormationIris001_LaunchInterval(G_RANK);   //イリスの間隔(frame)
     velo_mv_         = RF_FormationIris001_MvVelo(G_RANK); //速度
     //イリス編隊作成
-    pSplLineConnection_ = connectToSplineLineManager("Spl_00201_"); //スプライン定義
-    pDepoConnection_ = connectToDepositoryManager("Shot001");
+    pSplLineConnection_ = connect_SplineLineManager("Spl_00201_"); //スプライン定義
+    pDepoConnection_ = connect_DepositoryManager("Shot001");
     for (int i = 0; i < num_Iris_; i++) {
         EnemyIris* pIris = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定

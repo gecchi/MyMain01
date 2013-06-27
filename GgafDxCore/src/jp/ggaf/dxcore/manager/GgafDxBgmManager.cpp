@@ -19,7 +19,7 @@ void GgafDxBgmManager::updateVolume() {
     while(_is_connecting_resource) {
         Sleep(1);
     }
-    GgafDxBgmConnection* pConne = (GgafDxBgmConnection*)_pConne_first;
+    GgafDxBgmConnection* pConne = (GgafDxBgmConnection*)_pConn_first;
     while (pConne) {
         pConne->peek()->setVolume(GGAF_MAX_VOLUME);
         while(_is_connecting_resource) { //ŠÈˆÕ”r‘¼

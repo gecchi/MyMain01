@@ -107,7 +107,7 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
     //    | ConA |                             | ConA |
     //    +------+                             +------+
 
-    CameraWorkerConnection* pCon = connectToCameraWorkerManager(prm_pID);
+    CameraWorkerConnection* pCon = connect_CameraWorkerManager(prm_pID);
     CameraWorker* pCamWorker = pCon->peek();
     if (pCamWorker != pActiveCamWorker_) {
         //Œ»Ý‚Ì CameraWork ‚ð”ñŠˆ“®‚Ö
@@ -148,7 +148,7 @@ CameraWorker* Universe::undoCameraWork() {
     //    +------+                       +------+
 
     //ƒXƒ^ƒbƒN‚‹‚çŽæ‚èo‚µ
-    CameraWorkerConnection* pConne_now = stack_CamWorkerConnection_.pop(); //pConne_now‚Íã}‚ÌConC‚ª•Ô‚é
+    CameraWorkerConnection* pConn_now = stack_CamWorkerConnection_.pop(); //pConn_now‚Íã}‚ÌConC‚ª•Ô‚é
     CameraWorkerConnection* pCon = stack_CamWorkerConnection_.getLast(); //pCon‚Íã}‚ÅŒ¾‚¤‚ÆConB‚ª•Ô‚é
     if (pCon) {
         CameraWorker* pCamWorker = pCon->peek();
@@ -165,7 +165,7 @@ CameraWorker* Universe::undoCameraWork() {
                 stack_CamWorkerConnection_.dump();
                 throwGgafCriticalException("Universe::undoCameraWork()  stack_CameraWorker_ ‚©‚ç pop() ‚µ‚·‚¬B");
             }
-            pConne_now->close();
+            pConn_now->close();
 //            _TRACE_("undoCameraWork end---");
 //            stack_CamWorkerConnection_.dump();
             return pActiveCamWorker_;
