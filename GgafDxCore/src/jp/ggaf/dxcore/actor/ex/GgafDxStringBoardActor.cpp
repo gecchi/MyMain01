@@ -36,22 +36,22 @@ void GgafDxStringBoardActor::onCreateModel() {
 
 void GgafDxStringBoardActor::update(coord X, coord Y, const char* prm_str) {
     update(prm_str);
-    locate(X, Y);
+    position(X, Y);
 }
 
 void GgafDxStringBoardActor::update(coord X, coord Y, char* prm_str) {
     update(prm_str);
-    locate(X, Y);
+    position(X, Y);
 }
 
 void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, const char* prm_str) {
     update(prm_str);
-    locate(X, Y, Z);
+    position(X, Y, Z);
 }
 
 void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, char* prm_str) {
     update(prm_str);
-    locate(X, Y, Z);
+    position(X, Y, Z);
 }
 
 void GgafDxStringBoardActor::update(const char* prm_str) {
@@ -120,24 +120,24 @@ void GgafDxStringBoardActor::update(char* prm_str) {
 void GgafDxStringBoardActor::update(coord X, coord Y, const char* prm_str, GgafDxAlign prm_align,
                                     GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(X, Y);
+    position(X, Y);
 }
 
 void GgafDxStringBoardActor::update(coord X, coord Y, char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(X, Y);
+    position(X, Y);
 }
 
 void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, const char* prm_str, GgafDxAlign prm_align,
                                     GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(X, Y, Z);
+    position(X, Y, Z);
 }
 
 void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, char* prm_str, GgafDxAlign prm_align,
                                     GgafDxValign prm_valign) {
     update(prm_str, prm_align, prm_valign);
-    locate(X, Y, Z);
+    position(X, Y, Z);
 }
 
 void GgafDxStringBoardActor::update(const char* prm_str, GgafDxAlign prm_align, GgafDxValign prm_valign) {

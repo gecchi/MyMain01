@@ -29,10 +29,10 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
     pHoshiBoshi_ = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
     getSceneDirector()->addSubGroup( pHoshiBoshi_);
     pMessage1_ = NEW LabelGecchi16Font("RankUpMsg1");
-    pMessage1_->locate(PX_C(400), PX_C(200));
+    pMessage1_->position(PX_C(400), PX_C(200));
     getSceneDirector()->addSubGroup(pMessage1_);
     pMessage2_ = NEW LabelGecchi16Font("RankUpMsg2");
-    pMessage2_->locate(PX_C(400), PX_C(220));
+    pMessage2_->position(PX_C(400), PX_C(220));
     getSceneDirector()->addSubGroup(pMessage2_);
 
     useProgress(RankUpStage::PROG_END);

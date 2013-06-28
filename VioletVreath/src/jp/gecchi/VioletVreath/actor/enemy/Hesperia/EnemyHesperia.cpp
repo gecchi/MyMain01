@@ -256,7 +256,7 @@ void EnemyHesperia::processBehavior() {
                         if (pLaserChip) {
                             p = &(paLocalPos_Laser_[i]);
                             //発射元座標に設定
-                            pLaserChip->locate(_X+p->_X, _Y+p->_Y, _Z+p->_Z);
+                            pLaserChip->position(_X+p->_X, _Y+p->_Y, _Z+p->_Z);
                             //最初の目標地点(折り返す地点)を設定
                             //シンバルロック付近を避けるためすこしズラス
                             if (dX_ < dZ_)  {

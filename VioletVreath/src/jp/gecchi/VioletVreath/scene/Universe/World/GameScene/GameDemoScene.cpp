@@ -101,7 +101,7 @@ void GameDemoScene::processBehavior() {
                             G_RANKING.getVal("SCORE"  , i).c_str(),
                             G_RANKING.getVal("REGDATE", i).c_str());
                     papLabel_Ranking_[i]->update(buf);
-                    papLabel_Ranking_[i]->locate(PX_C(400), PX_C(50+(i*22)));
+                    papLabel_Ranking_[i]->position(PX_C(400), PX_C(50+(i*22)));
                     papLabel_Ranking_[i]->_pAFader->setToBottom();
                     papLabel_Ranking_[i]->_pAFader->beat(25*60, 2*60, 20*60, 1*60, 1); //フェードイン・しばらくしてフェードアウト
                     papLabel_Ranking_[i]->activateDelay((i+1)*12); //上から順番にぼやーっと表示していく

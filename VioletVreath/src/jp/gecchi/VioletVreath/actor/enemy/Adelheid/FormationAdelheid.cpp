@@ -88,11 +88,11 @@ void FormationAdelheid::processBehavior() {
              pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-1, end_X, end_Y, end_Z);
              pDummy_->pKurokoLeader_->getPointCoord(spl_point_num-2, end_prev_X, end_prev_Y, end_prev_Z);
              //出現開始位置パリサナを配備
-             pPalisana_start->locateAs(pDummy_);
+             pPalisana_start->positionAs(pDummy_);
              pPalisana_start->_pKurokoA->setFaceAngTwd(next_X, next_Y, next_Z); //向きセット
              pPalisana_start->acitve_open(); //ハッチオープン
              //終了位置にパリサナを配備
-             pPalisana_goal->locate(end_X, end_Y, end_Z);
+             pPalisana_goal->position(end_X, end_Y, end_Z);
              pPalisana_goal->_pKurokoA->setFaceAngTwd(end_prev_X, end_prev_Y, end_prev_Z);
              pPalisana_goal->acitve_open((frame)(pDummy_->pKurokoLeader_->getTotalDistance() / RV_MvVelo_)); //ハッチオープン予約
 

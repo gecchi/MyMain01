@@ -52,8 +52,8 @@ void EnemyMassaliaBase::appearFragment(const char* prm_dp_name) {
     for (int i = 0; i < RF_EnemyMassalia_ShotWay(G_RANK); i++) {
         EnemyMassaliaBase* pFragment = (EnemyMassaliaBase*)(pDepoConn->peek()->dispatch());
         if (pFragment) {
-            pFragment->locateAs(this);
-            pFragment->_pKurokoA->followMvFrom(this->_pKurokoA);
+            pFragment->positionAs(this);
+            pFragment->_pKurokoA->takeoverMvFrom(this->_pKurokoA);
             pFragment->_pKurokoA->setMvVelo(pFragment->_pKurokoA->_veloMv/2); //半分のスピードへ
             pFragment->_pKurokoA->addRyMvAng(RND(D_ANG(-45), D_ANG(+45)));
             pFragment->_pKurokoA->addRzMvAng(RND(D_ANG(-45), D_ANG(+45)));

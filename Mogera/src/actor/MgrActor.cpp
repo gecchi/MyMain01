@@ -11,7 +11,7 @@ MgrActor::MgrActor(const char* prm_name) :
 
 void MgrActor::initialize() {
     //座標設定
-    locate(0, 0, 0); //(0,0,0) は画面の中心
+    position(0, 0, 0); //(0,0,0) は画面の中心
     //黒衣AにキャラのZ軸回転の角速度を設定(毎フレーム2度)
     _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(2));
 }

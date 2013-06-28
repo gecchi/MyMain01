@@ -165,7 +165,7 @@ void EnemyTamago01::processBehavior() {
                 if (pActor) {
                     pActor->_pKurokoA->relateMvFaceAng(true);
                     pActor->_pKurokoA->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
-                    pActor->locateAs(this);
+                    pActor->positionAs(this);
                 }
             }
             GGAF_DELETEARR(paAng_way);
@@ -173,7 +173,7 @@ void EnemyTamago01::processBehavior() {
             if (pDepo_ShotEffect_) {
                 pActor = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                 if (pActor) {
-                    pActor->locateAs(this);
+                    pActor->positionAs(this);
                 }
             }
         }
@@ -200,7 +200,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     _pSeTx->play3D(0);
     _TRACE_("HIT!!!");
     if (pExplo001) {
-        pExplo001->locateAs(this);
+        pExplo001->positionAs(this);
     }
 
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {

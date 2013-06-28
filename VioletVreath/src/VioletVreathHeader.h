@@ -363,6 +363,7 @@ class EffectCondensation001;
 class EffectLaserRefraction001;
 class EffectWormhole;
 class EffectWormhole001;
+class EffectEntry;
 class EffectEntry001;
 class EffectEntry002;
 class EffectEntry003;

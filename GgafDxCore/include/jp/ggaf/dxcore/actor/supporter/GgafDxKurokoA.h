@@ -1102,7 +1102,7 @@ public:
      * 他の GgafDxKurokoA オブジェクトを状態を自身に引継ぐ .
      * @param prm_pKurokoA 引継元
      */
-    void followMvFrom(GgafDxKurokoA* prm_pKurokoA);
+    void takeoverMvFrom(GgafDxKurokoA* prm_pKurokoA);
 
 
     /**

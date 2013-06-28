@@ -234,7 +234,7 @@ public:
      * @param Y
      * @param Z
      */
-    virtual void locate(coord X, coord Y, coord Z) {
+    virtual void position(coord X, coord Y, coord Z) {
         _X = X;
         _Y = Y;
         _Z = Z;
@@ -245,7 +245,7 @@ public:
      * @param X
      * @param Y
      */
-    virtual void locate(coord X, coord Y) {
+    virtual void position(coord X, coord Y) {
         _X = X;
         _Y = Y;
     }
@@ -352,7 +352,7 @@ public:
      * 座標(_X, _Y, _Z)をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void locateAs(GgafDxGeometricActor* prm_pActor) {
+    virtual void positionAs(GgafDxGeometricActor* prm_pActor) {
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;
@@ -362,7 +362,7 @@ public:
      * 座標(_X, _Y, _Z)をコピーして設定 .
      * @param prm_pGeoElem 座標オブジェクト
      */
-    virtual void locateAs(GgafDxGeoElem* prm_pGeoElem);
+    virtual void positionAs(GgafDxGeoElem* prm_pGeoElem);
 
 
     virtual void rotate(angle RX, angle RY, angle RZ) {
@@ -515,9 +515,7 @@ public:
      * ワールド変換行列を計算する関数を定義 .
      * @param prm_pFunc 関数へのポインタ
      */
-    inline void defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeometricActor*, D3DXMATRIX&)) {
-        _pFunc_calcRotMvWorldMatrix = prm_pFunc;
-    }
+    void defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeometricActor*, D3DXMATRIX&));
 
     /**
      * モデルの境界球半径の倍率設定。

@@ -36,8 +36,6 @@ public:
     GgafDxCore::GgafDxGeoElem hanging_pos_;
     /** [r]退出座標(フォーメーションオブジェクトが設定) */
     GgafDxCore::GgafDxGeoElem leave_pos_;
-    /** [r]入場エフェクト */
-    GgafDxCore::GgafDxDrawableActor* pEntryEffect_;
 public:
     /**
      * コンストラクタ

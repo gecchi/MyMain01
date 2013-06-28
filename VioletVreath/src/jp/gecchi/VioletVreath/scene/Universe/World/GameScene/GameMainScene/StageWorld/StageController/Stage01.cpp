@@ -41,7 +41,7 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
 
     //debug ---->
 //    EnemyThisbe* pTest = NEW EnemyThisbe("tst");
-//    pTest->locate(PX_C(0),PX_C(0), PX_C(100));
+//    pTest->position(PX_C(0),PX_C(0), PX_C(100));
 //    pTest->_pKurokoA->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
 //    pTest->_pKurokoA->behave();
 //    getSceneDirector()->addSubGroup(pTest);

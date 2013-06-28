@@ -59,7 +59,7 @@ public:
     frame _frame_between_refraction;
     /** [r]屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数(>= 1) */
     frame _frame_standstill_refraction;
-    /** [r]発射開始座標固定か否か(true:固定、呼び元のlocate等を上書きして、最初の[0]の座標に強制上書き/false:非固定。スクロールシーン配下等の場合は false が良い */
+    /** [r]発射開始座標固定か否か(true:固定、呼び元の座標等を上書きして、最初の[0]の座標に強制上書き/false:非固定。スクロールシーン配下等の場合は false が良い */
     bool _is_fix_begin_pos;
 
 public:

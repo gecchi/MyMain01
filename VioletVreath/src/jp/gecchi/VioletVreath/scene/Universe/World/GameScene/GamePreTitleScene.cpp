@@ -30,14 +30,14 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
 }
 void GamePreTitleScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
-    pTitleBoard_->locate(PX_C(100), PX_C(600));
+    pTitleBoard_->position(PX_C(100), PX_C(600));
     pLabel01_->update("");
     pLabel02_->update("");
     _pProg->change(GamePreTitleScene::PROG_INIT);
 //    //TEST
 //    for (int i = 0; i < 9; i++) {
 //        papSpriteLabel_[i]->update("ABC");
-//        papSpriteLabel_[i]->locate(PX_C(((i % 3) * 100) - 100), PX_C(((i / 3) * 20) - 20));
+//        papSpriteLabel_[i]->position(PX_C(((i % 3) * 100) - 100), PX_C(((i / 3) * 20) - 20));
 //    }
 //    papSpriteLabel_[0]->setAlign(ALIGN_LEFT, VALIGN_BOTTOM);
 //    papSpriteLabel_[1]->setAlign(ALIGN_CENTER, VALIGN_BOTTOM);

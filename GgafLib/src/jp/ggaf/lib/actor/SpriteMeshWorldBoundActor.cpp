@@ -36,7 +36,7 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
     //E‚W•ª–Ø“o˜^
     //E‹‘ä‚©‚ç‚Ì‹——£ŒvZ
     //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
-    locateAs(P_CAM);
+    positionAs(P_CAM);
     _fX = C_DX(_X);
     _fY = C_DX(_Y);
     _fZ = C_DX(_Z);

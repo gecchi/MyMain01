@@ -348,7 +348,11 @@ bool GgafDxGeometricActor::isOutOfUniverse() {
     return true;
 }
 
-void GgafDxGeometricActor::locateAs(GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxGeometricActor::defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeometricActor*, D3DXMATRIX&)) {
+    _pFunc_calcRotMvWorldMatrix = prm_pFunc;
+    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+}
+void GgafDxGeometricActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
     _X = prm_pGeoElem->_X;
     _Y = prm_pGeoElem->_Y;
     _Z = prm_pGeoElem->_Z;

@@ -25,9 +25,6 @@ public:
         SE_EXPLOSION,
     };
 
-    /** [r]入場エフェクト */
-    GgafDxCore::GgafDxDrawableActor* pEntryEffect_;
-
 public:
     /**
      * コンストラクタ

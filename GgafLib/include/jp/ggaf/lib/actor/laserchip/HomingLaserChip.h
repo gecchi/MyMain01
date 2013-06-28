@@ -36,7 +36,7 @@ public:
     angle _prev_RX;
     angle _prev_RY;
     angle _prev_RZ;
-    /** [r]発射開始座標固定か否か(true:固定、呼び元のlocate等を上書きして、最初の[0]の座標に強制上書き/false:非固定。スクロールシーン配下等の場合は false が良い */
+    /** [r]発射開始座標固定か否か(true:固定、呼び元の座標等を上書きして、最初の[0]の座標に強制上書き/false:非固定。スクロールシーン配下等の場合は false が良い */
     bool _is_fix_begin_pos;
 
 public:

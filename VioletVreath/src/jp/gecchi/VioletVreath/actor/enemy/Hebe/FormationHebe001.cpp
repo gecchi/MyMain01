@@ -25,7 +25,7 @@ void FormationHebe001::onCallUpHebe(EnemyHebe* pEnemyHebe) {
 //    pEnemyHebe->pKurokoLeader_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
 //    pEnemyHebe->pKurokoLeader_->adjustAxisYFlip();
 //    pEnemyHebe->pKurokoLeader_->setAbsoluteBeginCoord();
-    pEnemyHebe->locate(PX_C(300), PX_C(-300), PX_C(0));
+    pEnemyHebe->position(PX_C(300), PX_C(-300), PX_C(0));
     pEnemyHebe->_pKurokoA->setMvAngTwd(PX_C(300), PX_C(0), PX_C(0));
 }
 

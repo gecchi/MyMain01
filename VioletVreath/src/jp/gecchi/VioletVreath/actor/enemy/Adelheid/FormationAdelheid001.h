@@ -30,7 +30,7 @@ public:
      * @param RZ
      * @param RY
      */
-    void locate(coord X, coord Y, coord Z,
+    void position(coord X, coord Y, coord Z,
                         angle RZ, angle RY) {
         geoLocate_._X = X;
         geoLocate_._Y = Y;

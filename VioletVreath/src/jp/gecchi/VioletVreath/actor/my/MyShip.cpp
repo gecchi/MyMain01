@@ -241,7 +241,7 @@ MyShip::MyShip(const char* prm_name) :
 
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &vreath_);
-    pMagicMeter_->locate(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
+    pMagicMeter_->position(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
     addSubGroup(pMagicMeter_);
 
     r_blown_velo_attenuate_ = 0.8;
@@ -566,25 +566,25 @@ void MyShip::processJudgement() {
 //    if (GgafDxInput::isPushedDownKey(DIK_W)) {
 //        TestGuShot* pShot = (TestGuShot*)pDepo_TestGuShot_->dispatch();
 //        if (pShot) {
-//            pShot->locateAs(this);
+//            pShot->positionAs(this);
 //        }
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_E)) {
 //        TestChokiShot* pShot = (TestChokiShot*)pDepo_TestChokiShot_->dispatch();
 //        if (pShot) {
-//            pShot->locateAs(this);
+//            pShot->positionAs(this);
 //        }
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_R)) {
 //        TestPaShot* pShot = (TestPaShot*)pDepo_TestPaShot_->dispatch();
 //        if (pShot) {
-//            pShot->locateAs(this);
+//            pShot->positionAs(this);
 //        }
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_T)) {
 //        TestNomalShot* pShot = (TestNomalShot*)pDepo_TestNomalShot_->dispatch();
 //        if (pShot) {
-//            pShot->locateAs(this);
+//            pShot->positionAs(this);
 //        }
 //    }
     //<---- debug
@@ -657,7 +657,7 @@ void MyShip::processJudgement() {
             MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
             if (pShot) {
                 _pSeTx->play3D(SE_FIRE_SHOT);
-                pShot->locateAs(this);
+                pShot->positionAs(this);
             }
             if (frame_soft_rapidshot_ >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
                 //SOFT_RAPIDSHOT_NUM 発打ち終えたらソフト連射終了

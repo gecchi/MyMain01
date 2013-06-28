@@ -117,7 +117,7 @@ bool MyTorpedoController::fire() {
             X2 = X1*matRotZ._11 + Y1*matRotZ._21 + Z1*matRotZ._31;
             Y2 = X1*matRotZ._12 + Y1*matRotZ._22 + Z1*matRotZ._32;
             Z2 = X1*matRotZ._13 + Y1*matRotZ._23 + Z1*matRotZ._33;
-            papTorpedo_[i]->locate(pOrg_->_X + X2,
+            papTorpedo_[i]->position(pOrg_->_X + X2,
                                    pOrg_->_Y + Y2,
                                    pOrg_->_Z + Z2);
             if (target_num == 0) {

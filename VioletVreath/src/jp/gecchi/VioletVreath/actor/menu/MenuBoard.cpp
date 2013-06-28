@@ -86,7 +86,7 @@ void MenuBoard::rise(coord prm_target_X, coord prm_target_Y) {
 }
 
 void MenuBoard::riseSubMenu(int prm_index, coord prm_target_X, coord prm_target_Y) {
-    StringBoardMenu::getSubMenu(prm_index)->locate(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
+    StringBoardMenu::getSubMenu(prm_index)->position(prm_target_X, prm_target_Y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
     StringBoardMenu::riseSubMenu(prm_index);
 }
 
@@ -109,7 +109,7 @@ void MenuBoard::initialize() {
 
 void MenuBoard::onRise() {
     //スライドイントランジション
-    locate(target_X_ + slide_from_offset_X_,
+    position(target_X_ + slide_from_offset_X_,
            target_Y_ + slide_from_offset_Y_);
     _pKurokoA->setMvAngTwd(target_X_, target_Y_);
     _pKurokoA->slideMvByDT(0, UTIL::getDistance(_X, _Y, target_X_, target_Y_),
@@ -122,7 +122,7 @@ void MenuBoard::processBehavior() {
         //スライド中
     } else {
         //スライド終了時、目的の座標へ補正
-        locate(target_X_, target_Y_);
+        position(target_X_, target_Y_);
     }
 
     _pKurokoA->behave();

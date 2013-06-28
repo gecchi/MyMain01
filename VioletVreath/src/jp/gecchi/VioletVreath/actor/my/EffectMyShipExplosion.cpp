@@ -28,7 +28,7 @@ void EffectMyShipExplosion::initialize() {
 void EffectMyShipExplosion::onActive() {
     _pUvFlipper->setActivePtnToTop();
     _pUvFlipper->exec(FLIP_ORDER_NOLOOP, 20);
-    locateAs(P_MYSHIP);
+    positionAs(P_MYSHIP);
     _alpha = 0.99;
     _pScaler->setScale(8000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, 2000);
@@ -36,7 +36,7 @@ void EffectMyShipExplosion::onActive() {
 
 void EffectMyShipExplosion::processBehavior() {
     _alpha -= 0.01;
-    locateAs(P_MYSHIP);
+    positionAs(P_MYSHIP);
     _pUvFlipper->behave();
     _pKurokoA->behave();
     _pScaler->behave();

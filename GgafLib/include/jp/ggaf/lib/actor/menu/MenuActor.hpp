@@ -274,12 +274,12 @@ public:
         addItem(prm_pItem, 0, 0, 0);
     }
 
-    virtual void locateItem(int prm_index_of_item,
+    virtual void positionItem(int prm_index_of_item,
                             coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
 
-    virtual void locateItem(int prm_index_of_item,
+    virtual void positionItem(int prm_index_of_item,
                             coord prm_X_local, coord prm_Y_local) {
-        locateItem(prm_index_of_item, prm_X_local, prm_Y_local, 0);
+        positionItem(prm_index_of_item, prm_X_local, prm_Y_local, 0);
     }
 
 
@@ -315,12 +315,12 @@ public:
         addDisp(prm_pDisp, 0, 0, 0);
     }
 
-    virtual void locateDisp(int prm_index_of_disp,
+    virtual void positionDisp(int prm_index_of_disp,
                             coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
 
-    virtual void locateDisp(int prm_index_of_disp,
+    virtual void positionDisp(int prm_index_of_disp,
                             coord prm_X_local, coord prm_Y_local) {
-        locateItem(prm_index_of_disp, prm_X_local, prm_Y_local, 0);
+        positionItem(prm_index_of_disp, prm_X_local, prm_Y_local, 0);
     }
 
     /**
@@ -960,7 +960,7 @@ void MenuActor<T>::addItem(GgafDxCore::GgafDxDrawableActor* prm_pItem,
 }
 
 template<class T>
-void MenuActor<T>::locateItem(int prm_index_of_item,
+void MenuActor<T>::positionItem(int prm_index_of_item,
                               coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
     GgafDxCore::GgafDxDrawableActor* p = getItem(prm_index_of_item);
     p->_X_local = prm_X_local;
@@ -981,7 +981,7 @@ void MenuActor<T>::addDisp(GgafDxCore::GgafDxDrawableActor* prm_pDisp,
 }
 
 template<class T>
-void MenuActor<T>::locateDisp(int prm_index_of_item,
+void MenuActor<T>::positionDisp(int prm_index_of_item,
                               coord prm_X_local, coord prm_Y_local, coord prm_Z_local) {
     GgafDxCore::GgafDxDrawableActor* p = getItem(prm_index_of_item);
     p->_X_local = prm_X_local;
@@ -1274,7 +1274,7 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getDisp(int prm_index) {
 template<class T>
 void MenuActor<T>::selectNext() {
     if (_pCursorActor) {
-        _pCursorActor->locateAs(_lstItems.getCurrent());
+        _pCursorActor->positionAs(_lstItems.getCurrent());
     }
     _lstItems.next();
     moveCursor();
@@ -1285,7 +1285,7 @@ void MenuActor<T>::selectNext() {
 template<class T>
 void MenuActor<T>::selectPrev() {
     if (_pCursorActor) {
-        _pCursorActor->locateAs(_lstItems.getCurrent());
+        _pCursorActor->positionAs(_lstItems.getCurrent());
     }
     _lstItems.prev();
     moveCursor();
@@ -1298,7 +1298,7 @@ template<class T>
 void MenuActor<T>::selectExNext() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
         if (_pCursorActor) {
-            _pCursorActor->locateAs(_lstItems.getCurrent());
+            _pCursorActor->positionAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_EX_NEXT);
         moveCursor();
@@ -1313,7 +1313,7 @@ template<class T>
 void MenuActor<T>::selectExPrev() {
     if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
         if (_pCursorActor) {
-            _pCursorActor->locateAs(_lstItems.getCurrent());
+            _pCursorActor->positionAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_EX_PREV);
         moveCursor();
@@ -1328,7 +1328,7 @@ template<class T>
 void MenuActor<T>::selectCancel() {
     if (_lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         if (_pCursorActor) {
-            _pCursorActor->locateAs(_lstItems.getCurrent());
+            _pCursorActor->positionAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_TO_CANCEL);
         moveCursor();
@@ -1440,7 +1440,7 @@ void MenuActor<T>::riseMe() {
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
     for (int i = 0; i < _lstItems.length(); i++) {
         p = pElem->_pValue;
-        p->locate(T::_X + p->_X_local,
+        p->position(T::_X + p->_X_local,
                   T::_Y + p->_Y_local,
                   T::_Z + p->_Z_local);
         p->setAlpha(T::getAlpha());
@@ -1451,7 +1451,7 @@ void MenuActor<T>::riseMe() {
     pElem = _lstDispActors.getElemFirst();
     for (int i = 0; i < _lstDispActors.length(); i++) {
         p = pElem->_pValue;
-        p->locate(T::_X + p->_X_local,
+        p->position(T::_X + p->_X_local,
                   T::_Y + p->_Y_local,
                   T::_Z + p->_Z_local);
         p->setAlpha(T::getAlpha());
@@ -1520,7 +1520,7 @@ void MenuActor<T>::processBehavior() {
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxDrawableActor>::Elem* pElem = _lstItems.getElemFirst();
     for (int i = 0; i < _lstItems.length(); i++) {
         p = pElem->_pValue;
-        p->locate(T::_X + p->_X_local,
+        p->position(T::_X + p->_X_local,
                   T::_Y + p->_Y_local,
                   T::_Z + p->_Z_local);
         if (_with_sinking || _with_rising) {
@@ -1532,7 +1532,7 @@ void MenuActor<T>::processBehavior() {
     pElem = _lstDispActors.getElemFirst();
     for (int i = 0; i < _lstDispActors.length(); i++) {
         p = pElem->_pValue;
-        p->locate(T::_X + p->_X_local,
+        p->position(T::_X + p->_X_local,
                   T::_Y + p->_Y_local,
                   T::_Z + p->_Z_local);
         if (_with_sinking || _with_rising) {
@@ -1552,7 +1552,7 @@ void MenuActor<T>::processBehavior() {
             _Y_cursor_target_prev = pTargetItem->_Y;
             _Z_cursor_target_prev = pTargetItem->_Z;
         } else {
-            _pCursorActor->locate(pTargetItem->_X + _X_cursor_adjust,
+            _pCursorActor->position(pTargetItem->_X + _X_cursor_adjust,
                                   pTargetItem->_Y + _Y_cursor_adjust,
                                   pTargetItem->_Z + _Z_cursor_adjust );
         }
@@ -1571,7 +1571,7 @@ void MenuActor<T>::processBehavior() {
             pSupCursor->_Y_target_prev = pTargetItem->_Y;
             pSupCursor->_Z_target_prev = pTargetItem->_Z;
         } else {
-            pSupCursorActor->locate(pTargetItem->_X + pSupCursor->_X_adjust,
+            pSupCursorActor->position(pTargetItem->_X + pSupCursor->_X_adjust,
                                    pTargetItem->_Y + pSupCursor->_Y_adjust,
                                    pTargetItem->_Z + pSupCursor->_Z_adjust );
         }

@@ -103,7 +103,7 @@ void MyOptionStraightLaserChip001::processBehavior() {
     //根元からレーザー表示のため強敵に座標補正
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
-        locateAs(pOrg_);
+        positionAs(pOrg_);
 //        _tmpX = _X;
 //        _tmpY = _Y;
 //        _tmpZ = _Z;
@@ -157,7 +157,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //破壊されたエフェクト
             EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
             if (pExplo001) {
-                pExplo001->locateAs(this);
+                pExplo001->positionAs(this);
             }
             //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
@@ -178,7 +178,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         //破壊されたエフェクト
         EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->positionAs(this);
         }
         sayonara();
     }
@@ -193,7 +193,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //            //破壊されたエフェクト
 //            EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
 //            if (pExplo001) {
-//                pExplo001->locateAs(this);
+//                pExplo001->positionAs(this);
 //                pExplo001->activate();
 //            }
 //            sayonara();
@@ -206,7 +206,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //        //破壊されたエフェクト
 //        EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
 //        if (pExplo001) {
-//            pExplo001->locateAs(this);
+//            pExplo001->positionAs(this);
 //        }
 //        sayonara();
 //    }

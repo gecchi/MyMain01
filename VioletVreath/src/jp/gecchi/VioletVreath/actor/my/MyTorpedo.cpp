@@ -92,7 +92,7 @@ void MyTorpedo::processBehavior() {
         if (pTailEffectDepository_->_num_chip_active < length_TailEffect_) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)pTailEffectDepository_->dispatch();
             if (pTailEffect) {
-                pTailEffect->locate(begin_X_,begin_Y_,begin_Z_);
+                pTailEffect->position(begin_X_,begin_Y_,begin_Z_);
             }
         }
         //魚雷のムーブ
@@ -235,7 +235,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //爆風発生(TODO:爆風はデポジトリではなくて、絶対発生させるようにすること)
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)pOptionTorpedoCtrler_->pDepo_TorpedoBlast_->dispatch();
     if (pBlast) {
-        pBlast->locateAs(this);
+        pBlast->positionAs(this);
         pBlast->reset();
     }
 

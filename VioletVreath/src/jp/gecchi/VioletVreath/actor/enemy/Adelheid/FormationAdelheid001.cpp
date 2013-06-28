@@ -18,7 +18,7 @@ FormationAdelheid001::FormationAdelheid001(const char* prm_name) :
 }
 
 void FormationAdelheid001::onCallUpAdelheid(EnemyAdelheid* pEnemyAdelheid) {
-    pEnemyAdelheid->locateAs(&geoLocate_);
+    pEnemyAdelheid->positionAs(&geoLocate_);
     pEnemyAdelheid->_pKurokoA->setRzRyMvAng(geoLocate_._RZ, geoLocate_._RY);
 }
 

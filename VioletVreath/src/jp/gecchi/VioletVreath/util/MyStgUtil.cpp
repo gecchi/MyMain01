@@ -136,14 +136,20 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
         }
         case EF_EXPLOSION001: {
             pE = dispatchFromCommon(EffectExplosion001);
+            pE->positionAs(prm_pActor);
+            pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
             break;
         }
         case EF_EXPLOSION002: {
             pE = dispatchFromCommon(EffectExplosion002);
+            pE->positionAs(prm_pActor);
+            pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
             break;
         }
         case EF_EXPLOSION003: {
             pE = dispatchFromCommon(EffectExplosion003);
+            pE->positionAs(prm_pActor);
+            pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
             break;
         }
         default: {
@@ -155,8 +161,7 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
 
     if (pE) {
         //出現座標を設定
-        pE->locateAs(prm_pActor);
-        pE->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+
     }
     return pE;
 }
@@ -182,8 +187,8 @@ GgafDxDrawableActor* MyStgUtil::activateDamagedEffectOf(GgafDxGeometricActor* pr
 
     if (pE) {
         //出現座標を設定
-        pE->locateAs(prm_pActor);
-        pE->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+        pE->positionAs(prm_pActor);
+        pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
     }
     return pE;
 }
@@ -206,7 +211,7 @@ GgafDxDrawableActor* MyStgUtil::activateAttackShotOf(GgafDxGeometricActor* prm_p
     }
     if (pI) {
         //出現座標を設定
-        pI->locateAs(prm_pActor);
+        pI->positionAs(prm_pActor);
     }
     return pI;
 }
@@ -310,7 +315,7 @@ GgafDxDrawableActor* MyStgUtil::activateItemOf(GgafDxGeometricActor* prm_pActor)
     }
     if (pI) {
         //出現座標を設定
-        pI->locateAs(prm_pActor);
+        pI->positionAs(prm_pActor);
     }
     return pI;
 }
@@ -325,8 +330,8 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
         case EF_BONUS001: {
             //スコアが表示される消滅エフェクト
             SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
-            pLabel->locateAs(prm_pActor);
-            pLabel->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+            pLabel->positionAs(prm_pActor);
+            pLabel->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
             std::string s = XTOS(prm_pActor->_pStatus->get(STAT_AddDestroyScorePoint));
             pLabel->update(s.c_str()); //破壊時得点が表示される
             pE = pLabel;
@@ -341,8 +346,8 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
 
     if (pE) {
         //出現座標を設定
-        pE->locateAs(prm_pActor);
-        pE->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+        pE->positionAs(prm_pActor);
+        pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
     }
     return pE;
 }
@@ -357,7 +362,7 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
         case EF_ENTRY_SMALL001_LONG: {
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
-                pE->locateAs(prm_pActor);
+                pE->positionFollow(prm_pActor);
                 pE->config(30,120,60);
             }
             pRet = pE;
@@ -366,7 +371,7 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
         case EF_ENTRY_SMALL001_F30: {
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
-                pE->locateAs(prm_pActor);
+                pE->positionFollow(prm_pActor);
                 pE->config(15,1,15);
             }
             pRet = pE;
@@ -375,7 +380,7 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
         case EF_ENTRY_SMALL001_F60: {
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
-                pE->locateAs(prm_pActor);
+                pE->positionFollow(prm_pActor);
                 pE->config(30,1,30);
             }
             pRet = pE;
@@ -384,7 +389,7 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
         case EF_ENTRY_MIDDLE001: {
             EffectEntry002* pE = dispatchFromCommon(EffectEntry002);
             if (pE) {
-                pE->locateAs(prm_pActor);
+                pE->positionAs(prm_pActor);
 //                pE->config(30,1,30);
             }
             pRet = pE;
@@ -393,7 +398,7 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
         case EF_ENTRY_LARGE001: {
             EffectEntry003* pE = dispatchFromCommon(EffectEntry003);
             if (pE) {
-                pE->locateAs(prm_pActor);
+                pE->positionAs(prm_pActor);
 //                pE->config(30,1,30);
             }
             pRet = pE;
@@ -420,7 +425,7 @@ GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_
         case EF_LEAVE_SMALL001_F30: {
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
-                pE->locateAs(prm_pActor);
+                pE->positionFollow(prm_pActor);
                 pE->config(15,1,15);
             }
             pRet = pE;
@@ -429,7 +434,7 @@ GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_
         case EF_LEAVE_SMALL001_F60: {
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
-                pE->locateAs(prm_pActor);
+                pE->positionFollow(prm_pActor);
                 pE->config(30,1,30);
             }
             pRet = pE;
@@ -438,7 +443,7 @@ GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_
         case EF_LEAVE_MIDDLE001: {
             EffectEntry002* pE = dispatchFromCommon(EffectEntry002);
             if (pE) {
-                pE->locateAs(prm_pActor);
+                pE->positionFollow(prm_pActor);
             }
             pRet = pE;
             break;
@@ -446,7 +451,7 @@ GgafDxDrawableActor* MyStgUtil::activateLeaveEffectOf(GgafDxGeometricActor* prm_
         case EF_LEAVE_LARGE001: {
             EffectEntry003* pE = dispatchFromCommon(EffectEntry003);
             if (pE) {
-                pE->locateAs(prm_pActor);
+                pE->positionFollow(prm_pActor);
             }
             pRet = pE;
             break;
@@ -473,16 +478,16 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
         case EF_EXPLO_AND_BONUS001: {
             //1は通常のフォーメーションボーナススコア表示エフェクト
             SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
-            pLabel->locateAs(prm_pActor);
-            pLabel->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+            pLabel->positionAs(prm_pActor);
+            pLabel->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
             int addscore = prm_pActor->_pStatus->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点
             std::string s = XTOS(addscore);
             pLabel->update(s.c_str());
             pE = pLabel;
 
             EffectTurbo002* pTurbo002 = dispatchForceFromCommon(EffectTurbo002);
-            pTurbo002->locateAs(prm_pActor);
-            pTurbo002->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+            pTurbo002->positionAs(prm_pActor);
+            pTurbo002->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
             break;
         }
 //            case 2: {
@@ -502,8 +507,8 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDxGeometr
 
 //        if (pE) {
 //            //出現座標を設定
-//            pE->locateAs(prm_pActor);
-//            pE->_pKurokoA->followMvFrom(prm_pActor->_pKurokoA);
+//            pE->positionAs(prm_pActor);
+//            pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
 //        }
     return pE;
 }
@@ -531,7 +536,7 @@ GgafDxDrawableActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDxGeometric
     }
     if (pI) {
         //出現座標を設定
-        pI->locateAs(prm_pActor);
+        pI->positionAs(prm_pActor);
     }
     return pI;
 }
@@ -556,7 +561,7 @@ GgafDxDrawableActor* MyStgUtil::activateProperEffect01Of(GgafDxCore::GgafDxGeome
     }
     if (pE) {
         //出現座標を設定
-        pE->locateAs(prm_pActor);
+        pE->positionAs(prm_pActor);
     }
     return pE;
 
@@ -597,13 +602,14 @@ bool MyStgUtil::proceedEnemyHit(GgafDxDrawableActor* prm_this, GgafDxGeometricAc
     }
 }
 
-void MyStgUtil::proceedFormationDestroyAll(GgafDxDrawableActor* prm_pActor_last_destroyed) {
+GgafDxDrawableActor* MyStgUtil::proceedFormationDestroyAll(GgafDxDrawableActor* prm_pActor_last_destroyed) {
     //編隊全滅時ボーナス加算
     G_SCORE += prm_pActor_last_destroyed->_pStatus->get(STAT_FormationDestroyedAddScorePoint);
     //編隊全滅時エフェクト出現
-    UTIL::activateFormationDestroyedEffectOf(prm_pActor_last_destroyed);
+    GgafDxDrawableActor* pEffect = UTIL::activateFormationDestroyedEffectOf(prm_pActor_last_destroyed);
     //編隊全滅アイテム出現
     UTIL::activateFormationDestroyedItemOf(prm_pActor_last_destroyed);
+    return pEffect;
 }
 
 

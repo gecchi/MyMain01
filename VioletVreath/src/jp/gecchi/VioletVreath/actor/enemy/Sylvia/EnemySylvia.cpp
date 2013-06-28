@@ -114,7 +114,7 @@ void EnemySylvia::processBehavior() {
                     pPart = _pColliChecker->_pCollisionArea->_papColliPart[j];
                     pE = dispatchDelayFromCommon(EffectExplosion004, RND(1,10));
                     if (pE) {
-                        pE->locate(_X + pPart->_cx + RND(-r2_, +r2_),
+                        pE->position(_X + pPart->_cx + RND(-r2_, +r2_),
                                    _Y + pPart->_cy + RND(-r2_, +r2_),
                                    _Z + pPart->_cz + RND(-r2_, +r2_));
                     }
@@ -131,7 +131,7 @@ void EnemySylvia::processBehavior() {
                     pPart = _pColliChecker->_pCollisionArea->_papColliPart[j];
                     pE = dispatchFromCommon(EffectExplosion004);
                     if (pE) {
-                        pE->locate(_X + pPart->_cx,
+                        pE->position(_X + pPart->_cx,
                                    _Y + pPart->_cy,
                                    _Z + pPart->_cz);
                     }

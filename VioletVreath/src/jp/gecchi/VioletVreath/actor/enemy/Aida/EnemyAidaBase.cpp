@@ -9,8 +9,7 @@ using namespace VioletVreath;
 
 EnemyAidaBase::EnemyAidaBase(const char* prm_name) :
         DefaultGeometricActor(prm_name) {
-    _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv; //重要！
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //DefaultGeometricActorは必要！
 }
 
 void EnemyAidaBase::initialize() {

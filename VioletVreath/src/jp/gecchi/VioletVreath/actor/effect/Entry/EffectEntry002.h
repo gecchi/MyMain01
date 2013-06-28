@@ -1,6 +1,6 @@
 #ifndef EFFECTENTRANCE002_H_
 #define EFFECTENTRANCE002_H_
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Entry/EffectEntry.h"
 
 namespace VioletVreath {
 
@@ -10,7 +10,7 @@ namespace VioletVreath {
  * @since 2012/07/18
  * @author Masatoshi Tsuge
  */
-class EffectEntry002 : public GgafLib::DefaultMeshSetActor {
+class EffectEntry002 : public EffectEntry {
 
 public:
     EffectEntry002(const char* prm_name);
@@ -20,10 +20,6 @@ public:
     void processBehavior() override;
 
     void onActive() override;
-
-    void onInactive() override;
-
-    void processJudgement() override;
 
     virtual ~EffectEntry002();
 };

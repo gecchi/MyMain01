@@ -39,7 +39,7 @@ void EffectLockon001_Main::onActive() {
     _pSeTx->play3D(0); //ƒƒbƒNƒIƒ“SE
 
     if (pTarget_) {
-        locateAs(pTarget_);
+        positionAs(pTarget_);
         _pProg->reset(LOCKON001_PROG_FIRST_LOCK);
     } else {
         setAlpha(0.00);
@@ -65,7 +65,7 @@ void EffectLockon001_Main::processBehavior() {
                 if (ABS(pTarget_->_X-_X) <= PX_C(200) &&
                     ABS(pTarget_->_Y-_Y) <= PX_C(200) &&
                     ABS(pTarget_->_Z-_Z) <= PX_C(200)) {
-                    locateAs(pTarget_);
+                    positionAs(pTarget_);
                     _pKurokoA->setMvVelo(0);
                     _pKurokoA->_angveloFace[AXIS_Z] = 1000;
                 } else {

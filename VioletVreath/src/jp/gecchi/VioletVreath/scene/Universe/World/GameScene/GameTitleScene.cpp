@@ -55,7 +55,7 @@ void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
     pLabel01_->update("");
     pLabel02_->update("");
-    pTitleBoard_->locate(PX_C(100), PX_C(90));
+    pTitleBoard_->position(PX_C(100), PX_C(90));
     _pProg->reset(GameTitleScene::PROG_INIT);
 }
 

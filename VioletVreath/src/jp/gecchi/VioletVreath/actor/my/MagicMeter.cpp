@@ -181,12 +181,12 @@ void MagicMeter::load(std::stringstream& sts) {
 }
 
 void MagicMeter::initialize() {
-    pEnergyBar_->locate(_X, _Y + height_ + PX_C(16));
-    pCostDispBar_->locate(pEnergyBar_->_X, pEnergyBar_->_Y);
-    pVreathBar_->locate(_X, _Y + height_ + PX_C(16) + PX_C(16) );
-    pCostDispBar2_->locate(pVreathBar_->_X, pVreathBar_->_Y);
-    pDamageDispBar_->locate(pVreathBar_->_X, pVreathBar_->_Y);
-    pMagicMeterStatus_->locateAs(this);
+    pEnergyBar_->position(_X, _Y + height_ + PX_C(16));
+    pCostDispBar_->position(pEnergyBar_->_X, pEnergyBar_->_Y);
+    pVreathBar_->position(_X, _Y + height_ + PX_C(16) + PX_C(16) );
+    pCostDispBar2_->position(pVreathBar_->_X, pVreathBar_->_Y);
+    pDamageDispBar_->position(pVreathBar_->_X, pVreathBar_->_Y);
+    pMagicMeterStatus_->positionAs(this);
 
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
     Magic* pMagic;

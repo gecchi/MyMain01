@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "EffectEntry003.h"
+#include "EffectEntry001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
@@ -9,30 +9,30 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EffectEntry003::EffectEntry003(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "EffectEntry003", nullptr) {
-    _class_name = "EffectEntry003";
+EffectEntry001::EffectEntry001(const char* prm_name) :
+        EffectEntry(prm_name, "EffectEntry001") {
+    _class_name = "EffectEntry001";
     effectBlendOne();
-    setZEnable(false);
-    setZWriteEnable(false);
 }
 
-void EffectEntry003::initialize() {
+void EffectEntry001::initialize() {
+    EffectEntry::initialize();
     useProgress(PROG_OUT);
 }
 
-void EffectEntry003::onActive() {
-    setHitAble(false);
-    _pScaler->forceRange(1, 128000);
+void EffectEntry001::onActive() {
+    EffectEntry::onActive();
+    _pScaler->forceRange(1, 20000);
     _pScaler->setScaleToBottom();
     _pKurokoA->setFaceAngVelo(11000,5000,7000);
     _pProg->reset(PROG_INIT);
 }
 
-void EffectEntry003::processBehavior() {
+void EffectEntry001::processBehavior() {
+    EffectEntry::processBehavior();
     switch (_pProg->get()) {
         case PROG_INIT: {
-            _pScaler->scaleLinerTop(20);
+            _pScaler->scaleLinerTop(scale_in_frames_);
             _pProg->changeNext();
             break;
         }
@@ -45,8 +45,8 @@ void EffectEntry003::processBehavior() {
         }
 
         case PROG_STAY: {
-            if (_pProg->getFrameInProgress() >= 10) {
-                _pScaler->scaleLinerBottom(20);
+            if (_pProg->getFrameInProgress() >= duration_frames_) {
+                _pScaler->scaleLinerBottom(scale_in_frames_);
                 _pProg->changeNext();
             }
             break;
@@ -67,11 +67,12 @@ void EffectEntry003::processBehavior() {
     _pKurokoA->behave();
 }
 
-void EffectEntry003::processJudgement() {
+
+void EffectEntry001::config(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames) {
+    scale_in_frames_ = prm_scale_in_frames;
+    duration_frames_ = prm_duration_frames;
+    scale_out_frames_ = prm_scale_out_frames;
 }
 
-void EffectEntry003::onInactive() {
-}
-
-EffectEntry003::~EffectEntry003() {
+EffectEntry001::~EffectEntry001() {
 }

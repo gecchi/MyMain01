@@ -73,7 +73,7 @@ void Shot004::onHit(GgafActor* prm_pOtherActor) {
         //・・・ココに破壊されたエフェクト
         EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
         if (pExplo001) {
-            pExplo001->locateAs(this);
+            pExplo001->positionAs(this);
         }
         sayonara();
     }

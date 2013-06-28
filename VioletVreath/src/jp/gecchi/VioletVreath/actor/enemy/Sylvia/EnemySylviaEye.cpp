@@ -27,7 +27,7 @@ EnemySylviaEye::EnemySylviaEye(const char* prm_name, EnemySylvia* prm_pSylvia) :
     _class_name = "EnemySylviaEye";
     setScaleR(0.3*10);
     pSylvia_ = prm_pSylvia;
-    locateAs(pSylvia_);
+    positionAs(pSylvia_);
 
     pLaserChipDepo_ = NEW LaserChipDepository("DepoLaserChip");
     pLaserChipDepo_->config(60, 1, nullptr); //Thaliaは弾切れフレームを1にしないとパクパクしちゃいます。
@@ -71,7 +71,7 @@ void EnemySylviaEye::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pProg->reset(PROG_MOVE);
-    locateAs(pSylvia_);
+    positionAs(pSylvia_);
     rotateAs(pSylvia_);
     _pKurokoA->setRzRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z],
                                 pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
@@ -81,7 +81,7 @@ void EnemySylviaEye::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    locateAs(pSylvia_);
+    positionAs(pSylvia_);
     switch (_pProg->get()) {
         case PROG_MOVE: {
             break;
@@ -93,7 +93,7 @@ void EnemySylviaEye::processBehavior() {
             if (_pProg->getFrameInProgress() > 240) {
                 _pProg->changeNext();
             }
-            _pKurokoA->followMvFrom(pSylvia_->_pKurokoA);
+            _pKurokoA->takeoverMvFrom(pSylvia_->_pKurokoA);
             _pKurokoA->setRzRyMvAngVelo(pSylvia_->_pKurokoA->_angveloFace[AXIS_Z],
                                         pSylvia_->_pKurokoA->_angveloFace[AXIS_Y]);
             break;
@@ -115,7 +115,7 @@ void EnemySylviaEye::processBehavior() {
                 //_pKurokoA->turnMvAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
-            pEffect_->locateAs(this);
+            pEffect_->positionAs(this);
             if (pEffect_->onChangeToInactive()) {
                 _pProg->changeNext();
             }

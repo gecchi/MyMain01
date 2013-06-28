@@ -29,7 +29,7 @@ GgafDxDrawableActor* StgUtil::shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
         pActor_Shot = (GgafDxDrawableActor*)prm_pDepo_Shot->dispatch(n*prm_interval_frames+1);
         if (pActor_Shot) {
             dispatch_num++;
-            pActor_Shot->locate(prm_X + X,
+            pActor_Shot->position(prm_X + X,
                                 prm_Y + Y,
                                 prm_Z + Z);
             pActor_Shot->_pKurokoA->setRzRyMvAng(prm_RZ, prm_RY);
@@ -119,7 +119,7 @@ GgafDxDrawableActor* StgUtil::shotWay002(coord prm_X, coord prm_Y, coord prm_Z,
             pActor_Shot = (GgafDxDrawableActor*)prm_pDepo_Shot->dispatch(n*prm_interval_frames+1);
             if (pActor_Shot) {
                 dispatch_num++;
-                pActor_Shot->locate(prm_X + paGeo[i]._X,
+                pActor_Shot->position(prm_X + paGeo[i]._X,
                                     prm_Y + paGeo[i]._Y,
                                     prm_Z + paGeo[i]._Z);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(paGeo[i]._RZ, paGeo[i]._RY);
@@ -235,7 +235,7 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
                 }
                 if (pActor_Shot) {
                     dispatch_num++;
-                    pActor_Shot->locate(prm_X + papaGeo[i][j]._X,
+                    pActor_Shot->position(prm_X + papaGeo[i][j]._X,
                                         prm_Y + papaGeo[i][j]._Y,
                                         prm_Z + papaGeo[i][j]._Z);
                     pActor_Shot->_pKurokoA->setRzRyMvAng(papaGeo[i][j]._RZ, papaGeo[i][j]._RY);
@@ -324,7 +324,7 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_X, coord prm_Y, coord prm_Z,
             pActor_Shot = (GgafDxDrawableActor*)prm_pDepo_Shot->dispatch(n*prm_interval_frames+1);
             if (pActor_Shot) {
                 dispatch_num++;
-                pActor_Shot->locate(prm_X + paGeo[i]._X,
+                pActor_Shot->position(prm_X + paGeo[i]._X,
                                     prm_Y + paGeo[i]._Y,
                                     prm_Z + paGeo[i]._Z);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(paGeo[i]._RZ, paGeo[i]._RY);
@@ -399,7 +399,7 @@ GgafDxDrawableActor* StgUtil::shotWayGoldenAng(coord prm_X, coord prm_Y, coord p
             pActor_Shot = (GgafDxDrawableActor*)prm_pDepo_Shot->dispatch(n*prm_interval_frames+1);
             if (pActor_Shot) {
                 dispatch_num++;
-                pActor_Shot->locate(prm_X + paGeo[i]._X,
+                pActor_Shot->position(prm_X + paGeo[i]._X,
                                     prm_Y + paGeo[i]._Y,
                                     prm_Z + paGeo[i]._Z);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(paGeo[i]._RZ, paGeo[i]._RY);

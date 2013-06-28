@@ -219,10 +219,9 @@ public:
     /**
      * 編隊全破壊時の標準的な処理 .
      * @param prm_pActor_last_destroyed 編隊の最後に破壊されたアクターを渡す
+     * @return 編隊全滅時エフェクト
      */
-    static void proceedFormationDestroyAll(GgafDxCore::GgafDxDrawableActor* prm_pActor_last_destroyed);
-
-
+    static GgafDxCore::GgafDxDrawableActor* proceedFormationDestroyAll(GgafDxCore::GgafDxDrawableActor* prm_pActor_last_destroyed);
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コード変更は「ステータスCreater.xls」から行うこと。

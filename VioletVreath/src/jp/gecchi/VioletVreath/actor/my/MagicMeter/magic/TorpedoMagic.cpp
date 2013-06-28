@@ -39,7 +39,7 @@ TorpedoMagic::TorpedoMagic(const char* prm_name, AmountGraph* prm_pMP)
 }
 
 void TorpedoMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    pEffect_->locateAs(P_MYSHIP);
+    pEffect_->positionAs(P_MYSHIP);
     pEffect_->setAlpha(0.9);
     pEffect_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
     pEffect_->_pScaler->setScale(1000);
@@ -47,7 +47,7 @@ void TorpedoMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 }
 
 void TorpedoMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
-    pEffect_->locateAs(P_MYSHIP);
+    pEffect_->positionAs(P_MYSHIP);
     pEffect_->_pScaler->addScale(10);
 }
 

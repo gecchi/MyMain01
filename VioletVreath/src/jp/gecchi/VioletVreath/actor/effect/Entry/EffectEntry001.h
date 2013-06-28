@@ -1,6 +1,6 @@
 #ifndef EFFECTENTRANCE001_H_
 #define EFFECTENTRANCE001_H_
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Entry/EffectEntry.h"
 
 namespace VioletVreath {
 
@@ -10,7 +10,7 @@ namespace VioletVreath {
  * @since 2012/06/11
  * @author Masatoshi Tsuge
  */
-class EffectEntry001 : public GgafLib::DefaultMeshSetActor {
+class EffectEntry001 : public EffectEntry {
 
 public:
     frame scale_in_frames_;
@@ -31,10 +31,6 @@ public:
     void processBehavior() override;
 
     void onActive() override;
-
-    void onInactive() override;
-
-    void processJudgement() override;
 
     /**
      * エフェクトの発生、持続、消滅の時間を設定。.

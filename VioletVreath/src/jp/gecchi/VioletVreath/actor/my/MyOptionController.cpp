@@ -85,7 +85,7 @@ void MyOptionController::processBehavior() {
         if (pOption_->isActive()) {
             EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
             if (pTurbo002) {
-                pTurbo002->locateAs(pOption_);
+                pTurbo002->positionAs(pOption_);
             }
         }
     } else if (pVbPlay->isBeingPressed(VB_OPTION) && !pVbPlay->isBeingPressed(VB_TURBO)) {
@@ -113,7 +113,7 @@ void MyOptionController::processBehavior() {
         if (pOption_->isActive()) {
             EffectTurbo002* pTurbo002 = dispatchFromCommon(EffectTurbo002);
             if (pTurbo002) {
-                pTurbo002->locateAs(pOption_);
+                pTurbo002->positionAs(pOption_);
             }
         }
     }
@@ -153,17 +153,17 @@ void MyOptionController::processBehavior() {
                 //‚à‚Ç‚Á‚½I
                 _pKurokoB->setZeroVxyzMvVelo();
                 _pKurokoB->setZeroVxyzMvAcce();
-                locate(TX, TY, TZ);
+                position(TX, TY, TZ);
                 return_to_default_position_seq_ = false;
             }
 
         } else {
-            locate(TX, TY, TZ);
+            position(TX, TY, TZ);
         }
     }
 
 //    //ƒMƒYƒ‚
-//    pDirectionVector_->locateAs(this);
+//    pDirectionVector_->positionAs(this);
 //    pDirectionVector_->_pKurokoA->setRzRyMvAng(_pKurokoA->_angRzMv, _pKurokoA->_angRyMv);
 
     _pKurokoA->behave();

@@ -82,7 +82,7 @@ void FormationEunomia::processBehavior() {
             pEunomia = (EnemyEunomia*)pFollower;
             pShot = (GgafDxGeometricActor*)pDepo_Shot_->dispatch();
             if (pShot) {
-                pShot->locateAs(pEunomia);
+                pShot->positionAs(pEunomia);
                 pShot->_pKurokoA->setMvAngTwd(pMy);
                 pShot->_pKurokoA->setMvVelo(PX_C(10));
                 pShot->_pKurokoA->setMvAcce(0);

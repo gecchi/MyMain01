@@ -61,22 +61,22 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
     //キャンセルアイテム設定
     relateAllItemCancel(ITEM_CANCEL);
 
-    locateItem(ITEM_SCREEN_MODE     , PX_C(100), PX_C(100));
-    locateItem(ITEM_VIEW_NUM        , PX_C(100), PX_C(120));
-    locateItem(ITEM_VIEW_ASPECT_TYPE, PX_C(100), PX_C(140));
-    locateItem(ITEM_VIEW_POSITION   , PX_C(100), PX_C(160));
+    positionItem(ITEM_SCREEN_MODE     , PX_C(100), PX_C(100));
+    positionItem(ITEM_VIEW_NUM        , PX_C(100), PX_C(120));
+    positionItem(ITEM_VIEW_ASPECT_TYPE, PX_C(100), PX_C(140));
+    positionItem(ITEM_VIEW_POSITION   , PX_C(100), PX_C(160));
 
-    locateItem(ITEM_OK              , PX_C(50), PX_C(200));
-    locateItem(ITEM_CANCEL          , PX_C(150), PX_C(200));
+    positionItem(ITEM_OK              , PX_C(50), PX_C(200));
+    positionItem(ITEM_CANCEL          , PX_C(150), PX_C(200));
 
-    locateItem(ITEM_SCREEN_MODE_FULL_SCREEN , PX_C(400), PX_C(100));
-    locateItem(ITEM_SCREEN_MODE_WINDOW_MODE , PX_C(600), PX_C(100));
+    positionItem(ITEM_SCREEN_MODE_FULL_SCREEN , PX_C(400), PX_C(100));
+    positionItem(ITEM_SCREEN_MODE_WINDOW_MODE , PX_C(600), PX_C(100));
 
-    locateItem(ITEM_VIEW_NUM_SINGLE         , PX_C(400), PX_C(120));
-    locateItem(ITEM_VIEW_NUM_DUAL           , PX_C(600), PX_C(120));
+    positionItem(ITEM_VIEW_NUM_SINGLE         , PX_C(400), PX_C(120));
+    positionItem(ITEM_VIEW_NUM_DUAL           , PX_C(600), PX_C(120));
 
-    locateItem(ITEM_VIEW_ASPECT_TYPE_FIX    , PX_C(400), PX_C(140));
-    locateItem(ITEM_VIEW_ASPECT_TYPE_STRETCH, PX_C(600), PX_C(140));
+    positionItem(ITEM_VIEW_ASPECT_TYPE_FIX    , PX_C(400), PX_C(140));
+    positionItem(ITEM_VIEW_ASPECT_TYPE_STRETCH, PX_C(600), PX_C(140));
 
     pLabel_Msg_ = NEW LabelGecchi16Font("LABEL_MSG");
     pLabel_Msg_->update("PRESS ^ OR V TO SELECT, AND <- OR -> TO SETTING VALUE.", ALIGN_LEFT, VALIGN_MIDDLE);

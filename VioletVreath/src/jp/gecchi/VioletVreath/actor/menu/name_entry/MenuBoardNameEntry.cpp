@@ -134,7 +134,7 @@ bool MenuBoardNameEntry::condSelectrExPrev() {
 
 void MenuBoardNameEntry::selectNext() { //右の時
     if (_pCursorActor) {
-        _pCursorActor->locateAs(_lstItems.getCurrent());
+        _pCursorActor->positionAs(_lstItems.getCurrent());
     }
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
         //[OK]から右で進む場合、最下段(4段目)の一番右のアイテム("_")に進む
@@ -146,7 +146,7 @@ void MenuBoardNameEntry::selectNext() { //右の時
 }
 void MenuBoardNameEntry::selectPrev() { //左の時
     if (_pCursorActor) {
-        _pCursorActor->locateAs(_lstItems.getCurrent());
+        _pCursorActor->positionAs(_lstItems.getCurrent());
     }
     if (getSelectedIndex() == ITEM_INDEX_BS_) { //[BS]から左で戻る場合、
         int prev_item_index = getMvCursorHistoryIndex(1);
@@ -167,7 +167,7 @@ void MenuBoardNameEntry::selectPrev() { //左の時
 void MenuBoardNameEntry::selectExNext() { //下の時
     if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
         if (_pCursorActor) {
-            _pCursorActor->locateAs(_lstItems.getCurrent());
+            _pCursorActor->positionAs(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_EX_NEXT);
         moveCursor();
@@ -178,7 +178,7 @@ void MenuBoardNameEntry::selectExNext() { //下の時
 void MenuBoardNameEntry::selectExPrev() { //上の時
     if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
         if (_pCursorActor) {
-            _pCursorActor->locateAs(_lstItems.getCurrent());
+            _pCursorActor->positionAs(_lstItems.getCurrent());
         }
         if (getSelectedIndex() == ITEM_INDEX_OK_) { //OKから上で戻る場合、
             int prev_item_index = getMvCursorHistoryIndex(1);

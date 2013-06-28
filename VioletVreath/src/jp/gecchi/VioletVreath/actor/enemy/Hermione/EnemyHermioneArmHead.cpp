@@ -66,7 +66,7 @@ void EnemyHermioneArmHead::processBehavior() {
             UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                    Rz, Ry); //現在の最終的な向きを、RzRyで取得！
             pShot->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
-            pShot->locateAs(this);
+            pShot->positionAs(this);
             pShot->reset();
         }
     }

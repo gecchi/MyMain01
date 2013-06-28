@@ -44,13 +44,13 @@ void EnemySappho::processBehavior() {
     switch (_pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
-             locate(entry_pos_._X, entry_pos_._Y, entry_pos_._Z);
+             position(entry_pos_._X, entry_pos_._Y, entry_pos_._Z);
              _pAFader->setAlpha(0);
              _pKurokoA->setMvVelo(0);
              _pKurokoA->relateMvFaceAng(true);
              _pKurokoA->setMvAngTwd(&hanging_pos_);
              _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(3));
-             pEntryEffect_ = UTIL::activateEntryEffectOf(this);
+             UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
              break;
          }
@@ -169,14 +169,6 @@ void EnemySappho::processBehavior() {
 }
 
 void EnemySappho::processJudgement() {
-    if (pEntryEffect_) {
-        if (pEntryEffect_->onChangeToInactive()) {
-            pEntryEffect_ = nullptr;
-        } else {
-            pEntryEffect_->locateAs(this);
-        }
-    }
-
     if (isOutOfUniverse()) {
         sayonara();
     }

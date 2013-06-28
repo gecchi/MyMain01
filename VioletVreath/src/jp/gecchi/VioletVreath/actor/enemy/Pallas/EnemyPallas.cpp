@@ -95,7 +95,7 @@ void EnemyPallas::processBehavior() {
                 for (int i = 0; i < way; i++) {
                     pActor_Shot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
                     if (pActor_Shot) {
-                        pActor_Shot->locateAs(this);
+                        pActor_Shot->positionAs(this);
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAng_way[i], D90ANG);
                         pActor_Shot->activate();
                     }
@@ -105,7 +105,7 @@ void EnemyPallas::processBehavior() {
                 if (pDepo_ShotEffect_) {
                     GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)pDepo_ShotEffect_->dispatch();
                     if (pTestActor_Shot) {
-                        pTestActor_Shot->locateAs(this);
+                        pTestActor_Shot->positionAs(this);
                     }
                 }
             }

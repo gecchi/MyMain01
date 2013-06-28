@@ -53,7 +53,7 @@ void FormationAntiope001::processBehavior() {
 
             EnemyAntiopeP* pP = (EnemyAntiopeP*)pDepoConnection_AntiopeP_->peek()->dispatch();
             if (pP) {
-                pP->locateAs(&entry_pos);
+                pP->positionAs(&entry_pos);
                 pP->_pKurokoA->setMvAngTwd(&twd_pos_p);
                 pP->_pKurokoA->setFaceAngByMvAng();
                 pP->_pKurokoA->setMvVelo(0);
@@ -63,7 +63,7 @@ void FormationAntiope001::processBehavior() {
 
             EnemyAntiopeN* pN = (EnemyAntiopeN*)pDepoConnection_AntiopeN_->peek()->dispatch();
             if (pN) {
-                pN->locateAs(&entry_pos);
+                pN->positionAs(&entry_pos);
                 pN->_pKurokoA->setMvAngTwd(&twd_pos_p);
                 pN->_pKurokoA->reverseMvAng();
                 pN->_pKurokoA->setFaceAngByMvAng();

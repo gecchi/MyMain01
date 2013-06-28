@@ -83,12 +83,12 @@ void GgafDxBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) 
     _align = prm_align;
     _valign = prm_valign;
 }
-void GgafDxBoardActor::locateAs(GgafDxGeometricActor* prm_pActor) {
+void GgafDxBoardActor::positionAs(GgafDxGeometricActor* prm_pActor) {
     _X = prm_pActor->_X;
     _Y = prm_pActor->_Y;
 }
 
-void GgafDxBoardActor::locateAs(GgafDxGeoElem* prm_pGeoElem) {
+void GgafDxBoardActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
     _X = prm_pGeoElem->_X;
     _Y = prm_pGeoElem->_Y;
 }

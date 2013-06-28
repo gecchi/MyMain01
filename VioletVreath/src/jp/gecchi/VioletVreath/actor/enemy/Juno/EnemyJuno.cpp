@@ -85,7 +85,7 @@ void EnemyJuno::processBehavior() {
 //                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                if (pShot) {
 //                    shot_num_++;
-//                    pShot->locateAs(this);
+//                    pShot->positionAs(this);
 //                    pShot->_pKurokoA->relateMvFaceAng(true);
 //                    pShot->_pKurokoA->setMvAngTwd(P_MYSHIP);
 //                    pShot->reset();

@@ -395,7 +395,7 @@ void VvvWorld::processBehavior() {
             VvvCamera* pCam = P_CAM;
 
             GgafDxGeometricActor* p = pCam->getViewPoint();
-            pActor->locateAs(p);
+            pActor->positionAs(p);
         }
 
         if (!(file_name.find("cubemap") == std::string::npos &&
@@ -430,7 +430,7 @@ void VvvWorld::processBehavior() {
                     PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;
                     ((CubeMapMorphMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
                 }
-                pNewActor->locateAs(pCurrentActor);
+                pNewActor->positionAs(pCurrentActor);
                 pNewActor->rotateAs(pCurrentActor);
                 pNewActor->scaleAs(pCurrentActor);
                 getSceneDirector()->addSubGroup(pNewActor);

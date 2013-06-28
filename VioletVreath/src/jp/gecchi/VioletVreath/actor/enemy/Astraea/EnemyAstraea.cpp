@@ -196,7 +196,7 @@ void EnemyAstraea::processBehavior() {
                                 vY = p->X*matWorldRot._12 + p->Y*matWorldRot._22 + p->Z*matWorldRot._32;
                                 vZ = p->X*matWorldRot._13 + p->Y*matWorldRot._23 + p->Z*matWorldRot._33;
                                 UTIL::convVectorToRzRy(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
-                                pLaserChip->locate(_X+vX, _Y+vY, _Z+vZ);
+                                pLaserChip->position(_X+vX, _Y+vY, _Z+vZ);
                                 pLaserChip->_pKurokoA->setRzRyMvAng(Rz, Ry);
                                 pLaserChip->_pKurokoA->_angFace[AXIS_Z] = Rz;
                                 pLaserChip->_pKurokoA->_angFace[AXIS_Y] = Ry;

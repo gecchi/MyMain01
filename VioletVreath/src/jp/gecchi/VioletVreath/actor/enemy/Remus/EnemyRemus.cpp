@@ -112,7 +112,7 @@ void EnemyRemus::processBehavior() {
             if (is_firing_) {
                 LaserChip* pChip = pLaserChipDepo_->dispatch();
                 if (pChip) {
-                    pChip->locateAs(this);
+                    pChip->positionAs(this);
                     angle Rz, Ry;  //現在の最終的な向きを、RzRyで取得する
                     UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                            Rz, Ry); //現在の最終的な向きを、RzRyで取得！

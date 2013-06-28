@@ -169,7 +169,7 @@ void EnemyRomulus::processBehavior() {
                             UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                                    Rz, Ry); //現在の最終的な向きを、RzRyで取得！
                             pActor->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
-                            pActor->locateAs(this);
+                            pActor->positionAs(this);
                             pActor->reset();
                         }
                     }

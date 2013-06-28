@@ -144,7 +144,7 @@ void EnemyThisbe::processBehavior() {
             if (pLaserChipDepo_) {
                 LaserChip* pLaser = pLaserChipDepo_->dispatch();
                 if (pLaser) {
-                    pLaser->locateAs(this);
+                    pLaser->positionAs(this);
                     pLaser->_pKurokoA->setRzRyMvAng(_pKurokoA->_angFace[AXIS_Z], _pKurokoA->_angFace[AXIS_Y]);
                                        //レーザーのスプラインがRELATIVE_DIRECTIONのためMvAngの設定が必要。
                     if (pLaser->_pChip_front == nullptr) {

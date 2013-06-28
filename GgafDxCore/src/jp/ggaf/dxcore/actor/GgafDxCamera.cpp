@@ -77,7 +77,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     }
 
 
-    locate(0, 0, DX_C(_cameraZ));
+    position(0, 0, DX_C(_cameraZ));
     _pKurokoA->setMvAngTwd(0,0,0);
     _pKurokoA->setMvVelo(0);
     _pKurokoA->setRzMvAngVelo(0);
@@ -87,7 +87,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
     setHitAble(false);
 
     _pViewPoint = NEW GgafDxCameraViewPoint();
-    _pViewPoint->locate(0, 0, 0);
+    _pViewPoint->position(0, 0, 0);
 
     _X_buffer_left   = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2;
     _X_buffer_right  = PX_C(PROPERTY::GAME_BUFFER_WIDTH) / 2;
@@ -244,7 +244,7 @@ void GgafDxCamera::setViewPoint(coord prm_tX, coord prm_tY, coord prm_tZ) {
 }
 
 void GgafDxCamera::setViewPoint(GgafDxGeometricActor* prm_pActor) {
-    _pViewPoint->locateAs(prm_pActor);
+    _pViewPoint->positionAs(prm_pActor);
 }
 
 GgafDxCameraViewPoint* GgafDxCamera::getViewPoint() {

@@ -12,7 +12,7 @@ VvvGrid::VvvGrid(const char* prm_name) :
 
 void VvvGrid::initialize() {
     setAlpha(0.6);
-    locate(0,0,0);
+    position(0,0,0);
 }
 
 void VvvGrid::processBehavior() {

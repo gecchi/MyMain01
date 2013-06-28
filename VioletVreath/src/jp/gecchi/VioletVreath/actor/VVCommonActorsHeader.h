@@ -23,9 +23,10 @@
 #include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry002.h"
-#include "jp/gecchi/VioletVreath/actor/effect/EffectEntry003.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Entry/EffectEntry.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Entry/EffectEntry001.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Entry/EffectEntry002.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Entry/EffectEntry003.h"
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"
@@ -35,7 +36,6 @@
 #include "jp/gecchi/VioletVreath/actor/item/ScoreItem001.h"
 #include "jp/gecchi/VioletVreath/actor/item/VreathItem.h"
 #include "jp/gecchi/VioletVreath/actor/item/VreathItem001.h"
-
 
 #include "jp/gecchi/VioletVreath/actor/label/LabelFix16Font01.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"

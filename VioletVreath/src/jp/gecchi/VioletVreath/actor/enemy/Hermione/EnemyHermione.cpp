@@ -91,7 +91,6 @@ EnemyHermione::EnemyHermione(const char* prm_name) :
 
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pEntryEffect_ = nullptr;
     useProgress(PROG_MOVE);
 }
 
@@ -120,7 +119,7 @@ void EnemyHermione::processBehavior() {
             setHitAble(false);
             _pAFader->setAlpha(0);
             _pKurokoA->setMvVelo(0);
-            pEntryEffect_ = UTIL::activateEntryEffectOf(this);
+            UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
@@ -159,14 +158,6 @@ void EnemyHermione::processBehavior() {
 }
 
 void EnemyHermione::processJudgement() {
-    if (pEntryEffect_) {
-        if (pEntryEffect_->onChangeToInactive()) {
-            pEntryEffect_ = nullptr;
-        } else {
-            pEntryEffect_->locateAs(this);
-        }
-    }
-
     if (isOutOfUniverse()) {
         sayonara();
     }

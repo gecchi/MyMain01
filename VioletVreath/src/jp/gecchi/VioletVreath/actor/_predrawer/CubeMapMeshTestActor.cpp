@@ -27,7 +27,7 @@ void CubeMapMeshTestActor::onCreateModel() {
 void CubeMapMeshTestActor::initialize() {
     setHitAble(false);
 
-    locate(0,0,0);
+    position(0,0,0);
     setScaleR(0.2);
     _pKurokoA->setRzRyMvAng(0,0);
 }

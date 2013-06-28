@@ -22,7 +22,6 @@ EnemyAida::EnemyAida(const char* prm_name) :
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
     useProgress(PROG_MOVE01);
-    pEntryEffect_ = nullptr;
 }
 
 void EnemyAida::onCreateModel() {
@@ -36,7 +35,6 @@ void EnemyAida::initialize() {
 }
 
 void EnemyAida::onActive() {
-    pEntryEffect_ = nullptr;
     _pStatus->reset();
     _pProg->reset(PROG_INIT);
 }
@@ -51,7 +49,7 @@ void EnemyAida::processBehavior() {
             setHitAble(false);
             _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(4));
             _pAFader->setAlpha(0);
-            pEntryEffect_ = UTIL::activateEntryEffectOf(this);
+             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
@@ -94,13 +92,6 @@ void EnemyAida::processBehavior() {
 }
 
 void EnemyAida::processJudgement() {
-    if (pEntryEffect_) {
-        if (pEntryEffect_->onChangeToInactive()) {
-            pEntryEffect_ = nullptr;
-        } else {
-            pEntryEffect_->locateAs(this);
-        }
-    }
     if (isOutOfUniverse()) {
         sayonara();
     }

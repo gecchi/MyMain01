@@ -60,7 +60,7 @@ void Stage01PartController::processBehavior() {
 			case 300: {
 				FormationAida001* p = (FormationAida001*)obtainActorFromFactory(10000000);
 				getSceneDirector()->addSubGroup(p);
-				p->getFkBase()->locate(PX_C(800), 0, 0);
+				p->getFkBase()->position(PX_C(800), 0, 0);
 				orderActorToFactory(10000001, EnemyHermione, "EnemyHermione-6");
 				FormationSappho001a* pFSap = (FormationSappho001a*)obtainActorFromFactory(10000016);
 				getSceneDirector()->addSubGroup(pFSap);

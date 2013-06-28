@@ -550,7 +550,7 @@ void MyOption::processBehavior() {
 //        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)pLaserChipDepo_->dispatch();
         if (pLaserChip) {
 //            if (pLaserChipDepo_->_pEffectActor_Irradiate) {
-//                pLaserChipDepo_->_pEffectActor_Irradiate->locateAs(this);
+//                pLaserChipDepo_->_pEffectActor_Irradiate->positionAs(this);
 //            }
             //ストレート用
 //            pLaserChip->_pKurokoA->behave();
@@ -577,7 +577,7 @@ void MyOption::processBehavior() {
                                                  Q._z*max_velo_renge/r_max_acce);
             pLaserChip->_pKurokoB->behave();
 
-            pLaserChip->locateAs(this);
+            pLaserChip->positionAs(this);
             pLaserChip->_RZ = _RZ;
             pLaserChip->_RY = _RY;
             pLaserChip->pOrg_ = this;
@@ -596,7 +596,7 @@ void MyOption::processBehavior() {
         if (pShot) {
             GgafDxKurokoA* pShot_pKurokoA = pShot->_pKurokoA;
             _pSeTx->play3D(SE_FIRE_SHOT);
-            pShot->locateAs(this);
+            pShot->positionAs(this);
             pShot_pKurokoA->_angFace[AXIS_X] = _RX;
             pShot_pKurokoA->_angFace[AXIS_Z] = _RZ;
             pShot_pKurokoA->_angFace[AXIS_Y] = _RY;
