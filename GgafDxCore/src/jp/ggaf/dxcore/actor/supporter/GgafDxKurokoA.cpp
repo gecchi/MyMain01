@@ -426,9 +426,9 @@ void GgafDxKurokoA::behave() {
 
     }
     //Actorに反映
-    _pActor->_X += (int)(_vX * _veloMv);
-    _pActor->_Y += (int)(_vY * _veloMv);
-    _pActor->_Z += (int)(_vZ * _veloMv);
+    _pActor->_X += (coord)(_vX * _veloMv);
+    _pActor->_Y += (coord)(_vY * _veloMv);
+    _pActor->_Z += (coord)(_vZ * _veloMv);
 }
 
 void GgafDxKurokoA::setFaceAng(axis prm_axis, angle prm_angFace) {
@@ -1659,10 +1659,10 @@ void GgafDxKurokoA::turnMvAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
     angle out_angRz_Target;
     angle out_angRy_Target;
     UTIL::convVectorToRzRy(prm_tX - _pActor->_X,
-                     prm_tY - _pActor->_Y,
-                     prm_tZ - _pActor->_Z,
-                     out_angRz_Target,
-                     out_angRy_Target);
+                           prm_tY - _pActor->_Y,
+                           prm_tZ - _pActor->_Z,
+                           out_angRz_Target,
+                           out_angRy_Target);
     turnRzRyMvAngTo(out_angRz_Target, out_angRy_Target,
                     prm_angVelo, prm_angAcce,
                     prm_way, prm_optimize_ang);
@@ -1772,7 +1772,7 @@ GgafDxKurokoA::~GgafDxKurokoA() {
 // _angFace[AXIS_X], _angFace[AXIS_Y], _angFace[AXIS_Z] と一致する。
 // 本ライブラリでは、方向ベクトル(1, 0, 0) をキャラの「前方」と設定している。
 // Xファイルなどのメッシュモデルも、X軸の正の方向に向いているモノとする。また、モデル「上方向は」は（0, 1, 0)とする。
-// ワールド変換行列の回転行列の掛ける順番は、基本的に 「X軸回転行列 > Z軸回転行列 > Y軸回転行列 > 移動行列 > (拡大縮小) 」 とする。
+// ワールド変換行列の回転行列の掛ける順番は、基本的に 「X軸回転行列 > Z軸回転行列 > Y軸回転行列 > (拡大縮小) > 移動行列 」 とする。
 // (※  X軸 > Y軸 > Z軸 の順ではないよ！）
 // よって、X軸回転角は幾ら回転させようとも、キャラが向いている方向は変わらず、残りのZ軸回転角と、Y軸回転角でキャラが向いている方向を決定することとする。
 // X軸回転角はキャラのスピン、のこり２角（Z軸回転角・Y軸回転角）でキャラの「前方」方角がを決定するとした場合、

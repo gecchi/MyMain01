@@ -140,6 +140,7 @@ public:
             return true;
         }
     }
+
     /**
      * 片道等速フェーディング（持続フレーム数指定） .
      * 目標の強度へ一定速度でフェーディングする。
@@ -148,7 +149,6 @@ public:
      */
     void fadeLinerUntil(float prm_target_alpha, frame prm_spend_frame);
 
-
     /**
      * 片道等速フェーディング（強度速度指定） .
      * 目標の強度へ一定速度でフェーディングする（強度差分指定） .
@@ -156,7 +156,6 @@ public:
      * @param prm_velo_alpha 毎フレーム加算する強度差分(>0.0)。正の強度を指定する事。加算か減算かは自動判断する。
      */
     void fadeLinerStep(float prm_target_alpha, float prm_velo_alpha);
-
 
     /**
      * 片道加速フェーディング（強度速度・強度加速度指定） .
@@ -168,7 +167,6 @@ public:
      * @param prm_acce_alpha 強度加速度
      */
     void fadeAcceStep(float prm_target_alpha, float prm_velo_alpha, float prm_acce_alpha);
-
 
     /**
      * 反復等速フェーディング（フレーム数指定）

@@ -370,7 +370,6 @@ public:
      */
     void setMvAcceByD(coord prm_target_distance, velo prm_target_velo);
 
-
     /**
      * 移動加速度を、「目標到達速度」「費やす時間」により設定 .
      * <pre><code>
@@ -453,8 +452,8 @@ public:
      * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
     void setStopTargetRzMvAng(angle prm_angRzMv,
-                               int prm_way_allow = TURN_BOTH,
-                               angvelo prm_angveloAllowRyMv = D180ANG);
+                              int prm_way_allow = TURN_BOTH,
+                              angvelo prm_angveloAllowRyMv = D180ANG);
 
     void setRzMvAngVelo(angvelo prm_angveloRzMv);
 

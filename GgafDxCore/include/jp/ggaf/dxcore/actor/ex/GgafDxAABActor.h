@@ -16,8 +16,8 @@ class GgafDxAABActor : public GgafDxMeshActor {
 
 public:
     GgafDxAABActor(const char* prm_name,
-                    GgafCore::GgafStatus* prm_pStat,
-                    GgafDxChecker* prm_pChecker);
+                   GgafCore::GgafStatus* prm_pStat,
+                   GgafDxChecker* prm_pChecker);
 
     void drawBox(coord prm_x1, coord prm_y1, coord prm_z1, coord prm_x2, coord prm_y2, coord prm_z2);
 

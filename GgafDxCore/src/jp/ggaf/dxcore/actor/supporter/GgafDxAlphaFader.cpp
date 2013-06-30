@@ -38,7 +38,6 @@ void GgafDxAlphaFader::behave() {
         return;
     }
 
-
     if (_method == TARGET_ALPHAFADE_LINER) {
         _alpha += _velo_alpha;
         if (_velo_alpha > 0 && _target_alpha <= _alpha) {

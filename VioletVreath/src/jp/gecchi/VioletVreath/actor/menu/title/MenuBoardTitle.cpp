@@ -113,21 +113,6 @@ void MenuBoardTitle::processBehavior() {
         pItem->setAlpha(pItem->_pAFader->_top_alpha); //“_–Å‚ð’âŽ~
     }
 
-
-
-    if (GgafDxInput::isPushedDownKey(DIK_1)) {
-        selectItemBySupCursor(0, 0);
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_2)) {
-        selectItemBySupCursor(1, 0);
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_3)) {
-        selectItemBySupCursor(2, 0);
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_4)) {
-        selectItemBySupCursor(3, 0);
-    }
-
 }
 MenuBoardTitle::~MenuBoardTitle() {
 }

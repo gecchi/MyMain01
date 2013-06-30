@@ -71,7 +71,7 @@ public:
      * スケールを相対指定（全軸指定）
      * @param prm_scale_diff スケール値増分
      */
-    void addScale(int prm_scale_diff) {
+    inline void addScale(int prm_scale_diff) {
         for (int a = 0; a < 3; a++) {
             addScale((axis)a, prm_scale_diff);
         }
@@ -82,7 +82,7 @@ public:
      * @param prm_axis 軸
      * @param prm_scale_diff スケール値増分
      */
-    void addScale(axis prm_axis, int prm_scale_diff) {
+    inline void addScale(axis prm_axis, int prm_scale_diff) {
         setScale(prm_axis, _scale[prm_axis] + prm_scale_diff);
     }
 
@@ -90,7 +90,7 @@ public:
      * スケールを絶対指定（全軸指定）
      * @param prm_scale スケール値
      */
-    void setScale(int prm_scale) {
+    inline void setScale(int prm_scale) {
         for (int a = 0; a < 3; a++) {
             setScale((axis)a, prm_scale);
         }
@@ -101,7 +101,7 @@ public:
      * @param prm_axis 軸
      * @param prm_scale スケール値
      */
-    void setScale(axis prm_axis, int prm_scale) {
+    inline void setScale(axis prm_axis, int prm_scale) {
         if (_top_scale[prm_axis] < prm_scale) {
             _scale[prm_axis] = _top_scale[prm_axis];
         } else if (_bottom_scale[prm_axis] > prm_scale) {

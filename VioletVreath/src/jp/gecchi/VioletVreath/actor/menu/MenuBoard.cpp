@@ -47,6 +47,7 @@ bool MenuBoard::condDecision() {
         return false;
     }
 }
+
 bool MenuBoard::condCancel() {
     if (VB->isPushedDown(VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
@@ -57,18 +58,23 @@ bool MenuBoard::condCancel() {
         return false;
     }
 }
+
 bool MenuBoard::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
+
 bool MenuBoard::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
+
 bool MenuBoard::condSelectExNext() {
     return VB->isAutoRepeat(VB_UI_RIGHT);
 }
+
 bool MenuBoard::condSelectrExPrev() {
     return VB->isAutoRepeat(VB_UI_LEFT);
 }
+
 bool MenuBoard::condSelectCancel() {
     return isJustCancelled();
 }
@@ -100,7 +106,6 @@ void MenuBoard::moveCursor(bool prm_smooth) {
 void MenuBoard::onMoveCursor(int prm_from, int prm_to) {
 }
 
-
 void MenuBoard::onSelect(int prm_from, int prm_to) {
 }
 
@@ -110,7 +115,7 @@ void MenuBoard::initialize() {
 void MenuBoard::onRise() {
     //スライドイントランジション
     position(target_X_ + slide_from_offset_X_,
-           target_Y_ + slide_from_offset_Y_);
+             target_Y_ + slide_from_offset_Y_);
     _pKurokoA->setMvAngTwd(target_X_, target_Y_);
     _pKurokoA->slideMvByDT(0, UTIL::getDistance(_X, _Y, target_X_, target_Y_),
                            _fade_frames, 0.2, 0.3 );

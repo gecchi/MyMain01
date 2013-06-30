@@ -86,7 +86,7 @@ public:
      * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
      * @param prm_weight 重み
      */
-    void setWeight(int prm_target_mesh_no, float prm_weight) {
+    inline void setWeight(int prm_target_mesh_no, float prm_weight) {
         if (_top_weight[prm_target_mesh_no] < prm_weight) {
             _weight[prm_target_mesh_no] = _top_weight[prm_target_mesh_no];
         } else if (_bottom_weight[prm_target_mesh_no] > prm_weight) {
