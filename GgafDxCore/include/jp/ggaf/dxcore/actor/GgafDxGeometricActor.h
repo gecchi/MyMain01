@@ -512,8 +512,12 @@ public:
 
 
     /**
-     * ワールド変換行列を計算する関数を定義 .
-     * @param prm_pFunc 関数へのポインタ
+     * 本アクターが３Dの場合、 回転×移動のワールド変換行列を計算する関数を定義 .
+     * 拡大縮小はこのワールド変換行列の前に乗じられ、最終的な行列を完成させる。（拡大縮小×回転×移動）。<BR>
+     * 通常の描画可能なアクターは、GgafDxUtil::setWorldMatrix_RxRzRyMv() 等が設定済みのため
+     * 呼び出す必要がない。<BR>
+     * 描画されないアクターや、ビルボードを行いたい場合等の場合に必要と目論む。<BR>
+     * @param prm_pFunc 回転×移動の行列作成関数へのポインタ
      */
     void defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeometricActor*, D3DXMATRIX&));
 

@@ -37,9 +37,9 @@ void EnemyHebe::initialize() {
 }
 
 void EnemyHebe::config(
-        GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
-        GgafCore::GgafActorDepository* prm_pDepo_Shot,
-        GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
+        SplineKurokoLeader* prm_pKurokoLeader,
+        GgafActorDepository* prm_pDepo_Shot,
+        GgafActorDepository* prm_pDepo_ShotEffect
         ) {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
     pKurokoLeader_ = prm_pKurokoLeader;

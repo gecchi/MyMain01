@@ -77,7 +77,8 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     if (_pFunc_calcRotMvWorldMatrix) {
         //回転×移動のみ計算し _matWorldRotMv に保持
         (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
-        //スケールを考慮して、最終的な _matWorld を保持
+        //回転×移動 の前に スケールを考慮して、
+        //最終的な _matWorld  行列(拡大×回転×移動)を保持
         if (_SX != LEN_UNIT) {
             float Sx = SC_R(_SX);
             _matWorld._11 = Sx * _matWorldRotMv._11;

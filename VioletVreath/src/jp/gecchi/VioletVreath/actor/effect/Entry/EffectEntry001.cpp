@@ -67,7 +67,6 @@ void EffectEntry001::processBehavior() {
     _pKurokoA->behave();
 }
 
-
 void EffectEntry001::config(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames) {
     scale_in_frames_ = prm_scale_in_frames;
     duration_frames_ = prm_duration_frames;

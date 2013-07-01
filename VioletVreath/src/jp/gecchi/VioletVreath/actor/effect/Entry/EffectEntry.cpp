@@ -19,10 +19,10 @@ EffectEntry::EffectEntry(const char* prm_name, const char* prm_model) :
 }
 
 void EffectEntry::processJudgement() {
+    //TODO:シーンinactiveでの終了時 pTarget_ は残ってしまう
     if (pTarget_) {
         if (pTarget_->onChangeToInactive()) {
             pTarget_ = nullptr;
-            sayonara();
         } else {
             positionAs(pTarget_);
         }

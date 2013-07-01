@@ -32,6 +32,7 @@ void FormationHebe001::onCallUpHebe(EnemyHebe* pEnemyHebe) {
 void FormationHebe001::processBehavior() {
     FormationHebe::processBehavior();
 }
+
 SplineManufacture* FormationHebe001::getSplManuf() {
     return pSplManufConnection_->peek();
 }

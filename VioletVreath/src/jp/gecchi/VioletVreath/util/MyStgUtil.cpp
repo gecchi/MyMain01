@@ -135,21 +135,27 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
             break;
         }
         case EF_EXPLOSION001: {
-            pE = dispatchFromCommon(EffectExplosion001);
-            pE->positionAs(prm_pActor);
-            pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
+            pE = dispatchForceFromCommon(EffectExplosion001);
+            if (pE) {
+                pE->positionAs(prm_pActor);
+                pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
+            }
             break;
         }
         case EF_EXPLOSION002: {
-            pE = dispatchFromCommon(EffectExplosion002);
-            pE->positionAs(prm_pActor);
-            pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
+            pE = dispatchForceFromCommon(EffectExplosion002);
+            if (pE) {
+                pE->positionAs(prm_pActor);
+                pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
+            }
             break;
         }
         case EF_EXPLOSION003: {
-            pE = dispatchFromCommon(EffectExplosion003);
-            pE->positionAs(prm_pActor);
-            pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
+            pE = dispatchForceFromCommon(EffectExplosion003);
+            if (pE) {
+                pE->positionAs(prm_pActor);
+                pE->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
+            }
             break;
         }
         default: {
@@ -158,7 +164,6 @@ GgafDxDrawableActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* 
             break;
         }
     }
-
     if (pE) {
         //出現座標を設定
 
@@ -381,6 +386,26 @@ GgafDxDrawableActor* MyStgUtil::activateEntryEffectOf(GgafDxGeometricActor* prm_
             EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
             if (pE) {
                 pE->positionFollow(prm_pActor);
+                pE->config(30,1,30);
+            }
+            pRet = pE;
+            break;
+        }
+        case EF_ENTRY_SMALL001_STAY_F30: {
+            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+            if (pE) {
+                pE->pTarget_ = nullptr;//追従せずそこにとどまる
+                pE->positionAs(prm_pActor);
+                pE->config(15,1,15);
+            }
+            pRet = pE;
+            break;
+        }
+        case EF_ENTRY_SMALL001_STAY_F60: {
+            EffectEntry001* pE = dispatchFromCommon(EffectEntry001);
+            if (pE) {
+                pE->pTarget_ = nullptr;//追従せずそこにとどまる
+                pE->positionAs(prm_pActor);
                 pE->config(30,1,30);
             }
             pRet = pE;
@@ -2534,7 +2559,7 @@ GgafStatus* MyStgUtil::resetEnemyAntiopeStatus(GgafStatus* p) {
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 	p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
+	p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
 	p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
 	p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別
 	p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別

@@ -25,7 +25,6 @@ SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
     _class_name = "SpriteMeshWorldBoundActor";
     _pScaler = NEW GgafDxScaler(this);
     changeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_ScMv); //拡大×平行移動のみ
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);
 }
 
@@ -40,7 +39,7 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
     _fX = C_DX(_X);
     _fY = C_DX(_Y);
     _fZ = C_DX(_Z);
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ワールド変換
+    UTIL::setWorldMatrix_ScMv(this, _matWorld); //ワールド変換
 }
 //void SpriteMeshWorldBoundActor::processPreDraw() {
 //    //画面外判定無しに伴ない処理簡略化
