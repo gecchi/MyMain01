@@ -621,7 +621,7 @@ void MyOption::onInactive() {
     //ŒÂ•Ê‚ÉŒÄ‚Ño‚·
     pLockonCtrler_->onInactive();
     pTorpedoCtrler_->onInactive();
-    pLaserChipDepo_->reset();
+    //pLaserChipDepo_->reset();
 }
 
 void MyOption::onHit(GgafActor* prm_pOtherActor) {

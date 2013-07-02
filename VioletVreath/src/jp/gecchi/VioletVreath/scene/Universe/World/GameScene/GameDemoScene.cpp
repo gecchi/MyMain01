@@ -60,7 +60,7 @@ void GameDemoScene::processBehavior() {
         case GameDemoScene::PROG_INIT: {
             _TRACE_("GameDemoScene::processBehavior() Prog has Just Changed (to GameDemoScene::PROG_INIT)");
             addSubLast(P_STAGE_WORLD->extract());
-            P_STAGE_WORLD->reset();
+            P_STAGE_WORLD->resetTree();
             P_STAGE_WORLD->activateImmed();
             _pProg->change(GameDemoScene::PROG_DEMOPLAY);
             break;

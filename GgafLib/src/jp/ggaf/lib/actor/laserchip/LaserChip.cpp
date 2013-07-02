@@ -261,6 +261,10 @@ void LaserChip::onInactive() {
     //Á¸
     if (_pDepo) {
         _pDepo->_num_chip_active--;
+        if (_pDepo->_num_chip_active < 0) {
+            _pDepo->_num_chip_active = 0;
+            //GgafActorDepository::onReset() ‚É‚æ‚é onInactive() ‚ª‚ ‚é‚Ì‚ÅA•‰‚É‚È‚é‚ğ–Æ‚ê‚È‚¢
+        }
     }
     //‘OŒã‚ÌŒq‚ª‚è‚ğØ’f
     if (_pChip_front) {

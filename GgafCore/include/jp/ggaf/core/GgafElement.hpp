@@ -93,6 +93,10 @@ public:
     bool _was_paused_flg;
     /** [r]ノード生存フラグ */
     bool _can_live_flg;
+
+    /** [r] behave フラグ(_is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) */
+//    bool _is_behave_flg;
+
     /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
     bool _was_paused_flg_in_next_frame;
     /** [r]終了フラグ */
@@ -923,6 +927,7 @@ _is_active_flg(true),
 _is_active_in_the_tree_flg(true),
 _was_paused_flg(false),
 _can_live_flg(true),
+//_is_behave_flg(true),
 _was_paused_flg_in_next_frame(false),
 _will_end_after_flg(false),
 _frame_of_life_when_end(MAX_FRAME),
@@ -1012,6 +1017,7 @@ void GgafElement<T>::nextFrame() {
     //_is_active_in_the_tree_flg を更新
     updateActiveInTheTree();
 
+//    _is_behave_flg = _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg;
     if (!_was_paused_flg) {
         if (_is_active_in_the_tree_flg) {
             _frame_of_behaving++;
@@ -1068,7 +1074,7 @@ void GgafElement<T>::nextFrame() {
 
 template<class T>
 void GgafElement<T>::behave() {
-    if (_is_active_in_the_tree_flg && !_was_paused_flg && _can_live_flg) {
+    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg && !_was_paused_flg) {
         if (_was_initialize_flg) {
             processBehavior();    //ユーザー実装用
         }
@@ -1078,7 +1084,7 @@ void GgafElement<T>::behave() {
 
 template<class T>
 void GgafElement<T>::settleBehavior() {
-    if (_is_active_in_the_tree_flg && _can_live_flg) { //_was_paused_flg は忘れていません
+    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) { //_was_paused_flg は忘れていません
         if (_was_initialize_flg) {
             processSettlementBehavior(); //フレームワーク用
         }
@@ -1088,7 +1094,7 @@ void GgafElement<T>::settleBehavior() {
 
 template<class T>
 void GgafElement<T>::judge() {
-    if (_is_active_in_the_tree_flg && !_was_paused_flg &&  _can_live_flg) {
+    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg && !_was_paused_flg) {
         if (_was_initialize_flg) {
             processJudgement();    //ユーザー実装用
         }
@@ -1098,7 +1104,7 @@ void GgafElement<T>::judge() {
 
 template<class T>
 void GgafElement<T>::preDraw() {
-    if (_is_active_in_the_tree_flg && _can_live_flg) {
+    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             processPreDraw();
         }
@@ -1108,7 +1114,7 @@ void GgafElement<T>::preDraw() {
 
 template<class T>
 void GgafElement<T>::draw() {
-    if (_is_active_in_the_tree_flg && _can_live_flg) {
+    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             processDraw();
         }
@@ -1118,7 +1124,7 @@ void GgafElement<T>::draw() {
 
 template<class T>
 void GgafElement<T>::afterDraw() {
-    if (_is_active_in_the_tree_flg && _can_live_flg) {
+    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             processAfterDraw();
         }
@@ -1128,7 +1134,7 @@ void GgafElement<T>::afterDraw() {
 
 template<class T>
 void GgafElement<T>::doFinally() {
-    if (_is_active_in_the_tree_flg && !_was_paused_flg && _can_live_flg) {
+    if ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg && !_was_paused_flg) {
         if (_was_initialize_flg) {
             processFinal();
         }
@@ -1188,6 +1194,7 @@ template<class T>
 void GgafElement<T>::activateImmed() {
     if (_can_live_flg) {
         _is_active_flg = true;
+//        _is_behave_flg = _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg;
     }
 }
 
@@ -1325,6 +1332,7 @@ template<class T>
 void GgafElement<T>::inactivateImmed() {
     if (_can_live_flg) {
         _is_active_flg = false;
+//        _is_behave_flg = false;
     }
 }
 
@@ -1433,7 +1441,7 @@ bool GgafElement<T>::isActive() {
 }
 template<class T>
 bool GgafElement<T>::isActiveInTheTree() {
-    return (_can_live_flg && _is_active_in_the_tree_flg) ? true : false;
+    return ( _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) ? true : false;
 }
 
 template<class T>

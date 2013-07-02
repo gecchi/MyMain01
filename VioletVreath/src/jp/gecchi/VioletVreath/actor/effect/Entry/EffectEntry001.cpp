@@ -24,7 +24,8 @@ void EffectEntry001::onActive() {
     EffectEntry::onActive();
     _pScaler->forceRange(1, 20000);
     _pScaler->setScaleToBottom();
-    _pKurokoA->setFaceAngVelo(11000,5000,7000);
+    _pKurokoA->setFaceAng(D0ANG, D0ANG, D0ANG);
+    _pKurokoA->setFaceAngVelo(3000, 5000, 7000);
     _pProg->reset(PROG_INIT);
 }
 

@@ -43,6 +43,7 @@ int main(int argc, char *argv[]) {
     return GgafLibMain(argc, argv);
 }
 
+
 static VioletVreath::God* pGod = nullptr;
 
 /**
@@ -75,7 +76,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         return EXIT_FAILURE;
     }
 
-
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
 
     GgafCore::GgafRgb rgb = GgafCore::GgafRgb(PROPERTY::BORDER_COLOR);
@@ -95,7 +95,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
-
 
 
     //_CrtSetBreakAlloc(203659);
@@ -315,27 +314,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                     PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
                 }
             } else if(wParam == MY_IDM_VPOS_1) {
-            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 1);
+                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 1);
             } else if(wParam == MY_IDM_VPOS_2) {
-            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 2);
+                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 2);
             } else if(wParam == MY_IDM_VPOS_3) {
-            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 3);
+                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 3);
             } else if(wParam == MY_IDM_VPOS_4) {
-            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 4);
+                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 4);
             } else if(wParam == MY_IDM_VPOS_5) {
-            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 5);
+                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 5);
             } else if(wParam == MY_IDM_VPOS_6) {
-            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 6);
+                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 6);
             } else if(wParam == MY_IDM_VPOS_7) {
-            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 7);
+                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 7);
             } else if(wParam == MY_IDM_VPOS_8) {
-            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 8);
+                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 8);
             } else if(wParam == MY_IDM_VPOS_9) {
-            	GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 9);
+                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 9);
             } else if(wParam == MY_IDM_ASPECT_FIXED) {
-            	GgafDxCore::GgafDxGod::chengeViewAspect(true);
+                GgafDxCore::GgafDxGod::chengeViewAspect(true);
             } else if(wParam == MY_IDM_ASPECT_STRETCH) {
-            	GgafDxCore::GgafDxGod::chengeViewAspect(false);
+                GgafDxCore::GgafDxGod::chengeViewAspect(false);
             }
             break;
         default:

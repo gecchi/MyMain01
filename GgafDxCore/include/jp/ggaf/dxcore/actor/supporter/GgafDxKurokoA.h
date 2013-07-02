@@ -67,11 +67,24 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
 
 public:
     /**
-     * Actorの軸回転方角を設定。<BR>
+     * Actorの正面方角（軸単位）を設定。<BR>
      * @param   prm_axis    回転軸(AXIS_X / AXIS_Y / AXIS_Z)
      * @param   prm_angFace 方角のアングル値(-360,000～360,000)
      */
     void setFaceAng(axis prm_axis, angle prm_angFace);
+    /**
+     * Actorの正面方角を設定。<BR>
+     * @param prm_axis_X_angFace X軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_Y_angFace Y軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_Z_angFace Z軸方角のアングル値(-360,000～360,000)
+     */
+    void setFaceAng(angle prm_axis_X_angFace,
+                    angle prm_axis_Y_angFace,
+                    angle prm_axis_Z_angFace) {
+        setFaceAng(AXIS_X, prm_axis_X_angFace);
+        setFaceAng(AXIS_Y, prm_axis_Y_angFace);
+        setFaceAng(AXIS_Z, prm_axis_Z_angFace);
+    }
 
     void setFaceAngByMvAng() {
         setFaceAng(AXIS_Z, _angRzMv);

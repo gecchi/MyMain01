@@ -38,7 +38,10 @@ void GgafActorDepository::onReset() {
     }
     GgafActor* pActor = getSubFirst();
     while (true) {
-        pActor->inactivate();
+        if (pActor->isActive()) {
+            pActor->onInactive(); //TODO:EEE‚¿‚å‚Á‚Æ”Y‚Ý‚Ç‚±‚ë
+        }
+        pActor->inactivateImmed();
         if (pActor->isLast()) {
             break;
         } else {
