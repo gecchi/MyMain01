@@ -18,8 +18,7 @@ EffectEntry::EffectEntry(const char* prm_name, const char* prm_model) :
     pTarget_ = nullptr;
 }
 
-void EffectEntry::processJudgement() {
-    //TODO:シーンinactiveでの終了時 pTarget_ は残ってしまう
+void EffectEntry::processBehavior() {
     if (pTarget_) {
         if (pTarget_->onChangeToInactive()) {
             pTarget_ = nullptr;
@@ -31,6 +30,10 @@ void EffectEntry::processJudgement() {
         pTarget_ = nullptr;
         sayonara();
     }
+}
+
+void EffectEntry::processJudgement() {
+
     if (isOutOfUniverse()) {
         pTarget_ = nullptr;
         sayonara();

@@ -5,9 +5,9 @@
 namespace VioletVreath {
 
 /**
- * 登場エフェクト規程 .
+ * 登場エフェクト基底 .
  * @version 1.00
- * @since 2012/06/18
+ * @since 2013/06/28
  * @author Masatoshi Tsuge
  */
 class EffectEntry : public GgafLib::DefaultMeshSetActor {
@@ -18,7 +18,7 @@ public:
     EffectEntry(const char* prm_name, const char* prm_model);
 
     virtual void onInactive() override;
-
+    virtual void processBehavior() override;
     virtual void processJudgement() override;
 
     /**

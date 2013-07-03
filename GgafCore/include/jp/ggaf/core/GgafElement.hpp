@@ -94,9 +94,6 @@ public:
     /** [r]ノード生存フラグ */
     bool _can_live_flg;
 
-    /** [r] behave フラグ(_is_active_flg && _is_active_in_the_tree_flg && _can_live_flg) */
-//    bool _is_behave_flg;
-
     /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
     bool _was_paused_flg_in_next_frame;
     /** [r]終了フラグ */
@@ -927,7 +924,6 @@ _is_active_flg(true),
 _is_active_in_the_tree_flg(true),
 _was_paused_flg(false),
 _can_live_flg(true),
-//_is_behave_flg(true),
 _was_paused_flg_in_next_frame(false),
 _will_end_after_flg(false),
 _frame_of_life_when_end(MAX_FRAME),
@@ -1017,7 +1013,6 @@ void GgafElement<T>::nextFrame() {
     //_is_active_in_the_tree_flg を更新
     updateActiveInTheTree();
 
-//    _is_behave_flg = _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg;
     if (!_was_paused_flg) {
         if (_is_active_in_the_tree_flg) {
             _frame_of_behaving++;
@@ -1194,7 +1189,6 @@ template<class T>
 void GgafElement<T>::activateImmed() {
     if (_can_live_flg) {
         _is_active_flg = true;
-//        _is_behave_flg = _is_active_flg && _is_active_in_the_tree_flg && _can_live_flg;
     }
 }
 
@@ -1332,7 +1326,6 @@ template<class T>
 void GgafElement<T>::inactivateImmed() {
     if (_can_live_flg) {
         _is_active_flg = false;
-//        _is_behave_flg = false;
     }
 }
 

@@ -39,7 +39,11 @@ void GgafActorDepository::onReset() {
     GgafActor* pActor = getSubFirst();
     while (true) {
         if (pActor->isActive()) {
-            pActor->onInactive(); //TODO:・・・ちょっと悩みどころ
+            //TODO:・・・ちょっと悩みどころ
+            pActor->_on_change_to_inactive_flg = true;
+            pActor->onInactive();
+            pActor->_frame_of_life_when_inactivation = 0;
+            pActor->_will_inactivate_after_flg = false;
         }
         pActor->inactivateImmed();
         if (pActor->isLast()) {
