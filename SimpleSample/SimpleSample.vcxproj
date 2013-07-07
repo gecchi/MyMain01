@@ -146,7 +146,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
@@ -175,7 +175,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
