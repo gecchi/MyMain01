@@ -40,6 +40,5 @@ void EffectTorpedoMagic::processJudgement() {
 void EffectTorpedoMagic::onInactive() {
 }
 
-
 EffectTorpedoMagic::~EffectTorpedoMagic() {
 }

@@ -135,7 +135,6 @@ public:
     /** [r]レベルアップ中かどうか */
     bool is_working_;
 
-
     /** [r]飛びレベル差別魔法コスト情報 0差～MMETER_MAX_LEVEL差 */
     magic_point interest_cost_[MMETER_MAX_LEVEL+1];
     /** [r]飛びレベル差別詠唱時間情報 0差～MMETER_MAX_LEVEL差 */
@@ -143,9 +142,9 @@ public:
     /** [r]飛びレベル差別発動時間情報 0差～MMETER_MAX_LEVEL差 */
     magic_time  interest_time_of_invoking_[MMETER_MAX_LEVEL+1];
 
-
     progress temp_hold_status_;
     int temp_hold_new_level_;
+
 public:
 
     /**
@@ -239,7 +238,6 @@ public:
      */
     virtual void processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {};
 
-
     /**
      * 発動開始実行 .
      * @param prm_new_level
@@ -300,7 +298,6 @@ public:
      */
     virtual void processEffectFinish(int prm_justbefore_level) {};
 
-
     /**
      * そのレベルの魔法が詠唱実行できるか調べる
      * @param prm_new_level 詠唱するレベル
@@ -352,11 +349,9 @@ public:
      */
     magic_time calcTotalEffecTime(int prm_now_level, int prm_target_up_level);
 
-
     virtual ~Magic();
 };
 
 }
-
 
 #endif /*MAGIC_H_*/

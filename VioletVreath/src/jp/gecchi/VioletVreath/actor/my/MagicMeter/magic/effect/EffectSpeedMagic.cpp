@@ -40,6 +40,5 @@ void EffectSpeedMagic::processJudgement() {
 void EffectSpeedMagic::onInactive() {
 }
 
-
 EffectSpeedMagic::~EffectSpeedMagic() {
 }

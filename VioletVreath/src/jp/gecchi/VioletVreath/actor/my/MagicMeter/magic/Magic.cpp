@@ -69,7 +69,6 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
 }
 
 void Magic::init() {
-
 }
 
 void Magic::onReset() {
@@ -150,6 +149,7 @@ int Magic::chkCastAble(int prm_new_level) {
         }
     }
 }
+
 int Magic::cast(int prm_new_level) {
     int r = chkCastAble(prm_new_level);
     switch (r) {
@@ -245,7 +245,6 @@ int Magic::chkEffectAble(int prm_level) {
     }
 }
 
-
 int Magic::invoke(int prm_new_level) {
     int r = chkInvokeAble(prm_new_level);
     switch (r) {
@@ -279,6 +278,7 @@ int Magic::invoke(int prm_new_level) {
     }
     return r;
 }
+
 int Magic::effect(int prm_level) {
     int r = chkEffectAble(prm_level);
 

@@ -20,13 +20,10 @@ EffectMagic001::EffectMagic001(const char* prm_name)
 void EffectMagic001::initialize() {
 //    _pUvFlipper->setFlipPtnRange(0, 63);
     setHitAble(false);
-
 }
 
 void EffectMagic001::onActive() {
-    _pKurokoA->setFaceAngVelo(AXIS_X, PX_C(3));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, PX_C(5));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, PX_C(7));
+    _pKurokoA->setFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectMagic001::processBehavior() {

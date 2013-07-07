@@ -36,7 +36,6 @@ LockonMagic::LockonMagic(const char* prm_name, AmountGraph* prm_pMP)
     pEffect_ = NEW EffectLockonMagic("EffectLockonMagic");
     pEffect_->inactivateImmed();
     addSubGroup(pEffect_);
-
 }
 
 void LockonMagic::processCastBegin(int prm_now_level, int prm_new_level) {

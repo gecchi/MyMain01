@@ -40,6 +40,5 @@ void EffectSmileMagic001::processJudgement() {
 void EffectSmileMagic001::onInactive() {
 }
 
-
 EffectSmileMagic001::~EffectSmileMagic001() {
 }

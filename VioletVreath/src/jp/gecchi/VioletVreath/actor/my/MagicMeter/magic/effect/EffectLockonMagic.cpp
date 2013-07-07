@@ -40,6 +40,5 @@ void EffectLockonMagic::processJudgement() {
 void EffectLockonMagic::onInactive() {
 }
 
-
 EffectLockonMagic::~EffectLockonMagic() {
 }

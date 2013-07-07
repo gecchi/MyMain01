@@ -20,7 +20,6 @@ void MyVreath::processBehavior() {
 void MyVreath::processJudgement() {
 }
 
-
 void MyVreath::onHit(GgafActor* prm_pOtherActor) {
     sayonara();
 }
@@ -29,5 +28,5 @@ void MyVreath::onInactive() {
 }
 
 MyVreath::~MyVreath() {
-
 }
+

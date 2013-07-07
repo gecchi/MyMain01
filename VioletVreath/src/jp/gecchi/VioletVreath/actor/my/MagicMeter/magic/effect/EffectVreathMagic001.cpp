@@ -40,6 +40,5 @@ void EffectVreathMagic001::processJudgement() {
 void EffectVreathMagic001::onInactive() {
 }
 
-
 EffectVreathMagic001::~EffectVreathMagic001() {
 }
