@@ -86,10 +86,10 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     strcat(model_name, prm_model_type);
     strcat(model_name, "/");
     strcat(model_name, prm_model_id);
-    // prm_model_id   = "Ceres"
+    // prm_model_id   = "Eres"
     // prm_model_type = "X"
     // ‚Ìê‡Amodel_name ‚Æ‚µ‚Ä
-    // model_name     = "X/Ceres"
+    // model_name     = "X/Eres"
     // ‚Æ‚¢‚¤•¶š—ñ‚ğì¬B
 
     char* effelct_name = NEW char[51];

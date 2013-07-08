@@ -13,7 +13,7 @@ using namespace VioletVreath;
 CubeMapMorphMeshTestActor::CubeMapMorphMeshTestActor(const char* prm_name) :
         CubeMapMorphMeshActor(prm_name, "0/_chk_CubeMapMorphMeshTestModel", nullptr) {
     _class_name = "CubeMapMorphMeshTestActor";
-    setCubeMap("Sylvia_cubemap.dds", 0.1);
+    setCubeMap("Ratislavia_cubemap.dds", 0.1);
     setHitAble(false);
 }
 void CubeMapMorphMeshTestActor::onCreateModel() {

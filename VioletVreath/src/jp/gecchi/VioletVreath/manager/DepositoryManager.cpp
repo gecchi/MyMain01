@@ -85,15 +85,15 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
-    if (UTIL::strcmp_ascii("EnemyAstraeaLaserChip001DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip001DepoStore");
+    if (UTIL::strcmp_ascii("EnemyStraeaLaserChip001DepoStore", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 27; nLaser++) {
             std::string name1 = "LaserChipDepository["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
-                std::string name2 = "EnemyAstraeaLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
-                pLaserChipDepo->addSubLast(NEW EnemyAstraeaLaserChip001(name2.c_str()));
+                std::string name2 = "EnemyStraeaLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
+                pLaserChipDepo->addSubLast(NEW EnemyStraeaLaserChip001(name2.c_str()));
                 Sleep(1);
             }
             pResource->addSubLast(pLaserChipDepo);
@@ -103,16 +103,16 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
 
 
-    if (UTIL::strcmp_ascii("EnemyAstraeaLaserChip002DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip002DepoStore");
+    if (UTIL::strcmp_ascii("EnemyStraeaLaserChip002DepoStore", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip002DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        EnemyAstraeaLaserChip002* pChip;
+        EnemyStraeaLaserChip002* pChip;
         for (int nLaser = 0; nLaser < 27; nLaser++) {
             std::string name1 = "LaserChipDepository["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
-                std::string name2 = "EnemyAstraeaLaserChip002["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
-                pChip = NEW EnemyAstraeaLaserChip002(name2.c_str());
+                std::string name2 = "EnemyStraeaLaserChip002["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
+                pChip = NEW EnemyStraeaLaserChip002(name2.c_str());
                 pChip->config(30, 20, 8, true, nullptr);
 
                 pLaserChipDepo->addSubLast(pChip);
@@ -124,15 +124,15 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
 
-    if (UTIL::strcmp_ascii("EnemyAstraeaLaserChip003DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip001DepoStore");
+    if (UTIL::strcmp_ascii("EnemyStraeaLaserChip003DepoStore", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 30; nLaser++) {
             std::string name1 = "LaserChipDepository["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
-                std::string name2 = "EnemyAstraeaLaserChip003["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
-                pLaserChipDepo->addSubLast(NEW EnemyAstraeaLaserChip003(name2.c_str()));
+                std::string name2 = "EnemyStraeaLaserChip003["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
+                pLaserChipDepo->addSubLast(NEW EnemyStraeaLaserChip003(name2.c_str()));
                 Sleep(1);
             }
             pResource->addSubLast(pLaserChipDepo);
@@ -140,15 +140,15 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
-    if (UTIL::strcmp_ascii("EnemyAstraeaLaserChip004DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip004DepoStore");
+    if (UTIL::strcmp_ascii("EnemyStraeaLaserChip004DepoStore", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip004DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 30; nLaser++) {
             std::string name1 = "LaserChipDepository["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
-                std::string name2 = "EnemyAstraeaLaserChip004["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
-                pLaserChipDepo->addSubLast(NEW EnemyAstraeaLaserChip004(name2.c_str()));
+                std::string name2 = "EnemyStraeaLaserChip004["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
+                pLaserChipDepo->addSubLast(NEW EnemyStraeaLaserChip004(name2.c_str()));
                 Sleep(1);
             }
             pResource->addSubLast(pLaserChipDepo);
@@ -156,10 +156,10 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
-    if (UTIL::strcmp_ascii("EnemyEunomia4Formation", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("EnemyEunomiaDepo");
+    if (UTIL::strcmp_ascii("EnemyUnomia4Formation", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("EnemyUnomiaDepo");
         for (int i = 0; i < 800; i++) {
-            pResource->addSubLast(NEW EnemyEunomia("Eunomia"));
+            pResource->addSubLast(NEW EnemyUnomia("Unomia"));
             Sleep(1);
         }
 
@@ -171,35 +171,35 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 //        }
     }
 
-    if (UTIL::strcmp_ascii("Massalia", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_Massalia");
+    if (UTIL::strcmp_ascii("Assalia", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_Assalia");
         for (int i = 0; i < 200; i++) {
-            pResource->addSubLast(NEW EnemyMassalia("EnemyMassalia"));
+            pResource->addSubLast(NEW EnemyAssalia("EnemyAssalia"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
-    if (UTIL::strcmp_ascii("MassaliaFragment", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_MassaliaFragment");
+    if (UTIL::strcmp_ascii("AssaliaFragment", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_AssaliaFragment");
         for (int i = 0; i < 200; i++) {
-            pResource->addSubLast(NEW EnemyMassaliaFragment("EMF"));
+            pResource->addSubLast(NEW EnemyAssaliaFragment("EMF"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
-    if (UTIL::strcmp_ascii("MassaliaFragment2", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_MassaliaFragment2");
+    if (UTIL::strcmp_ascii("AssaliaFragment2", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_AssaliaFragment2");
         for (int i = 0; i < 300; i++) {
-            pResource->addSubLast(NEW EnemyMassaliaFragment2("EMF2"));
+            pResource->addSubLast(NEW EnemyAssaliaFragment2("EMF2"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
-    if (UTIL::strcmp_ascii("MassaliaFragment3", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_MassaliaFragment3");
+    if (UTIL::strcmp_ascii("AssaliaFragment3", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_AssaliaFragment3");
         for (int i = 0; i < 400; i++) {
-            pResource->addSubLast(NEW EnemyMassaliaFragment3("EMF3"));
+            pResource->addSubLast(NEW EnemyAssaliaFragment3("EMF3"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
@@ -207,25 +207,25 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
 
 
-    if (UTIL::strcmp_ascii("EnemyHebe4Formation", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_Hebe");
-        for (int i = 0; i < RF_FormationHebe_Num(2.0); i++) {
-            pResource->addSubLast(NEW EnemyHebe("EnemyMassalia"));
+    if (UTIL::strcmp_ascii("EnemyEbe4Formation", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_Ebe");
+        for (int i = 0; i < RF_FormationEbe_Num(2.0); i++) {
+            pResource->addSubLast(NEW EnemyEbe("EnemyAssalia"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
 
-    if (UTIL::strcmp_ascii("EnemyHesperiaLaserChip001DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyHesperiaLaserChip0014DepoStore");
+    if (UTIL::strcmp_ascii("EnemyEsperiaLaserChip001DepoStore", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepositoryStore("EnemyEsperiaLaserChip0014DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        for (int nLaser = 0; nLaser < RF_EnemyHesperia_ShotWay(1.0)*8; nLaser++) {
+        for (int nLaser = 0; nLaser < RF_EnemyEsperia_ShotWay(1.0)*8; nLaser++) {
             std::string name1 = "LaserChipDepo["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
-                std::string name2 = "EnemyHesperiaLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
-                pLaserChipDepo->addSubLast(NEW EnemyHesperiaLaserChip001(name2.c_str()));
+                std::string name2 = "EnemyEsperiaLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
+                pLaserChipDepo->addSubLast(NEW EnemyEsperiaLaserChip001(name2.c_str()));
                 Sleep(1);
             }
             pResource->addSubLast(pLaserChipDepo);
@@ -233,26 +233,26 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
-    if (UTIL::strcmp_ascii("Atalante", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Depo_AtalanteStock");
+    if (UTIL::strcmp_ascii("Talante", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Depo_TalanteStock");
         for (int i = 0; i < 2000; i++) {
-            std::string name = "EnemyAtalante("+XTOS(i)+")";
-            pResource->addSubLast(NEW EnemyAtalante(name.c_str()));
+            std::string name = "EnemyTalante("+XTOS(i)+")";
+            pResource->addSubLast(NEW EnemyTalante(name.c_str()));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
 
-    if (UTIL::strcmp_ascii("EnemyRemusLaserChip001DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyRemusLaserChip001DepoStore");
+    if (UTIL::strcmp_ascii("EnemyEmusLaserChip001DepoStore", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepositoryStore("EnemyEmusLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 20; nLaser++) { //２０本
             std::string name1 = "LaserChipDepo["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
             for (int nChip = 0; nChip < 100; nChip++) {
-                std::string name2 = "EnemyRemusLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
-                pLaserChipDepo->addSubLast(NEW EnemyRemusLaserChip001(name2.c_str()));
+                std::string name2 = "EnemyEmusLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
+                pLaserChipDepo->addSubLast(NEW EnemyEmusLaserChip001(name2.c_str()));
                 Sleep(1);
             }
             pResource->addSubLast(pLaserChipDepo);
@@ -261,15 +261,15 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
 
-    if (UTIL::strcmp_ascii("EnemyThisbeLaserChip001DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyRemusLaserChip001DepoStore");
+    if (UTIL::strcmp_ascii("EnemyHisbeLaserChip001DepoStore", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepositoryStore("EnemyEmusLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 3; nLaser++) { //２本
             std::string name2 = "LaserChipDepo["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name2.c_str());
             for (int nChip = 0; nChip < 300; nChip++) {
-                std::string name3 = "EnemyThisbeLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
-                EnemyThisbeLaserChip001* pChip = NEW EnemyThisbeLaserChip001(name3.c_str());
+                std::string name3 = "EnemyHisbeLaserChip001["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
+                EnemyHisbeLaserChip001* pChip = NEW EnemyHisbeLaserChip001(name3.c_str());
                 pChip->_is_fix_begin_pos = false;
                 pLaserChipDepo->addSubLast(pChip);
                 Sleep(1);
@@ -279,8 +279,8 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
-    if (UTIL::strcmp_ascii("EnemyThisbeLaserChip002DepoStore", prm_idstr) == 0) {
-        GgafActorDepository* pDepoEffect = NEW GgafActorDepository("ThisbeLaser");
+    if (UTIL::strcmp_ascii("EnemyHisbeLaserChip002DepoStore", prm_idstr) == 0) {
+        GgafActorDepository* pDepoEffect = NEW GgafActorDepository("HisbeLaser");
         EffectLaserRefraction001* pEffect;
         for (int i = 0; i < 200; i++) {
             std::string name = "EffectLaserRefraction001["+XTOS(i)+"]";
@@ -289,14 +289,14 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pDepoEffect);
 
-        pResource = NEW GgafActorDepositoryStore("EnemyRemusLaserChip002DepoStore");
+        pResource = NEW GgafActorDepositoryStore("EnemyEmusLaserChip002DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 40; nLaser++) { //4本
             std::string name1 = "LaserChipDepo["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
             for (int nChip = 0; nChip < 200; nChip++) {
-                std::string name2 = "EnemyThisbeLaserChip002["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
-                EnemyThisbeLaserChip002* pChip = NEW EnemyThisbeLaserChip002(name2.c_str());
+                std::string name2 = "EnemyHisbeLaserChip002["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
+                EnemyHisbeLaserChip002* pChip = NEW EnemyHisbeLaserChip002(name2.c_str());
                 int num_refraction = pChip->pKurokoLeader_->getPointNum();
                 pChip->config(num_refraction, 1, 1, false, pDepoEffect);
                 pLaserChipDepo->addSubLast(pChip);
@@ -328,17 +328,17 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
-    if (UTIL::strcmp_ascii("EnemyAdelheid4Formation", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Depo_AdelheidStock");
+    if (UTIL::strcmp_ascii("EnemyDelheid4Formation", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Depo_DelheidStock");
         for (int i = 0; i < 300; i++) {
-            std::string name = "EnemyAdelheid("+XTOS(i)+")";
-            pResource->addSubLast(NEW EnemyAdelheid(name.c_str()));
+            std::string name = "EnemyDelheid("+XTOS(i)+")";
+            pResource->addSubLast(NEW EnemyDelheid(name.c_str()));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
-    if (UTIL::strcmp_ascii("EnemyAdelheidShot", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_AdelheidShotStock");
+    if (UTIL::strcmp_ascii("EnemyDelheidShot", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("MgrDepo_DelheidShotStock");
         for (int i = 0; i < 400; i++) {
             pResource->addSubLast(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
@@ -347,7 +347,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
     if (UTIL::strcmp_ascii("RingShot", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_AdelheidShotStock");
+        pResource = NEW GgafActorDepository("MgrDepo_DelheidShotStock");
         for (int i = 0; i < 400; i++) {
             pResource->addSubLast(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
@@ -355,11 +355,11 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
-    //    pLaserChipDepo_ = NEW LaserChipDepository("ThisbeLaser");
-    //    pLaserChipDepo_->config(300, 1, nullptr); //Thisbeは弾切れフレームを1にしないとパクパクしちゃいます。
+    //    pLaserChipDepo_ = NEW LaserChipDepository("HisbeLaser");
+    //    pLaserChipDepo_->config(300, 1, nullptr); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
     //    for (int i = 0; i < 300; i++) { //レーザーストック
-    //        std::string name = "EnemyThisbeLaserChip001["+XTOS(i)+"]";
-    //        EnemyThisbeLaserChip001* pChip = NEW EnemyThisbeLaserChip001(name.c_str());
+    //        std::string name = "EnemyHisbeLaserChip001["+XTOS(i)+"]";
+    //        EnemyHisbeLaserChip001* pChip = NEW EnemyHisbeLaserChip001(name.c_str());
     //        pChip->_is_fix_begin_pos = false;
     //        pLaserChipDepo_->addSubLast(pChip);
     //    }

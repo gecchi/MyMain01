@@ -32,16 +32,16 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
 //    pTurboMeter001_->position(16 , PROPERTY::GAME_BUFFER_HEIGHT - 64);
 //    getSceneDirector()->addSubGroup(pTurboMeter001_);
 //
-//    orderActorToFactory(100000001, EnemyRomulus, "EnemyRomulus1");
-//    orderActorToFactory(100000002, EnemyRomulus, "EnemyRomulus2");
-//    orderActorToFactory(100000003, EnemyRomulus, "EnemyRomulus3");
-//    orderActorToFactory(100000004, EnemyRomulus, "EnemyRomulus4");
-//    orderActorToFactory(100000005, EnemyRomulus, "EnemyRomulus5");
-//    orderActorToFactory(100000006, EnemyRomulus, "EnemyRomulus6");
-//    orderActorToFactory(100000009, EnemyCirce, "EnemyCirce");
+//    orderActorToFactory(100000001, EnemyOmulus, "EnemyOmulus1");
+//    orderActorToFactory(100000002, EnemyOmulus, "EnemyOmulus2");
+//    orderActorToFactory(100000003, EnemyOmulus, "EnemyOmulus3");
+//    orderActorToFactory(100000004, EnemyOmulus, "EnemyOmulus4");
+//    orderActorToFactory(100000005, EnemyOmulus, "EnemyOmulus5");
+//    orderActorToFactory(100000006, EnemyOmulus, "EnemyOmulus6");
+//    orderActorToFactory(100000009, EnemyIrce, "EnemyIrce");
 
-//    orderActorToFactory(100000001, FormationJuno001, "FormationJuno001");
-//    orderActorToFactory(900000001, VarietySylvia001, "EnemySylvia001");
+//    orderActorToFactory(100000001, FormationGeria001, "FormationGeria001");
+//    orderActorToFactory(900000001, VarietyRatislavia001, "EnemyRatislavia001");
 }
 
 void TamagoScene::onReset() {
@@ -54,24 +54,24 @@ void TamagoScene::initialize() {
 
 void TamagoScene::processBehavior() {
 //    if (getActiveFrame() == 60) {
-//        VarietySylvia001* p = (VarietySylvia001*)obtainActorFromFactory(900000001);
+//        VarietyRatislavia001* p = (VarietyRatislavia001*)obtainActorFromFactory(900000001);
 //        getSceneDirector()->addSubGroup(p);
 //    }
 
 //    if (getActiveFrame() == 120) {
-//        FormationJuno001* p = (FormationJuno001*)obtainActorFromFactory(100000001);
+//        FormationGeria001* p = (FormationGeria001*)obtainActorFromFactory(100000001);
 //        getSceneDirector()->addSubGroup(p);
 //    }
 //    if (getActiveFrame() == 120) {
 //
-//        EnemyRomulus* p1 = (EnemyRomulus*)obtainActorFromFactory(100000001);
-//        EnemyRomulus* p2 = (EnemyRomulus*)obtainActorFromFactory(100000002);
-//        EnemyRomulus* p3 = (EnemyRomulus*)obtainActorFromFactory(100000003);
-//        EnemyRomulus* p4 = (EnemyRomulus*)obtainActorFromFactory(100000004);
-//        EnemyRomulus* p5 = (EnemyRomulus*)obtainActorFromFactory(100000005);
-//        EnemyRomulus* p6 = (EnemyRomulus*)obtainActorFromFactory(100000006);
+//        EnemyOmulus* p1 = (EnemyOmulus*)obtainActorFromFactory(100000001);
+//        EnemyOmulus* p2 = (EnemyOmulus*)obtainActorFromFactory(100000002);
+//        EnemyOmulus* p3 = (EnemyOmulus*)obtainActorFromFactory(100000003);
+//        EnemyOmulus* p4 = (EnemyOmulus*)obtainActorFromFactory(100000004);
+//        EnemyOmulus* p5 = (EnemyOmulus*)obtainActorFromFactory(100000005);
+//        EnemyOmulus* p6 = (EnemyOmulus*)obtainActorFromFactory(100000006);
 //
-//        EnemyCirce* p9 = (EnemyCirce*)obtainActorFromFactory(100000009);
+//        EnemyIrce* p9 = (EnemyIrce*)obtainActorFromFactory(100000009);
 //        p9->position(80000,50000,50000);
 //        p9->addSubGroupAsFk(p1,       0,       0,  300000, D0ANG, D270ANG,  D0ANG);
 //        p9->addSubGroupAsFk(p2,  300000,       0,       0, D0ANG, D0ANG,  D0ANG);

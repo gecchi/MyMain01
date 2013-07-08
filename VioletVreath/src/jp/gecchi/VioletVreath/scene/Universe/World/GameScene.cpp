@@ -195,7 +195,10 @@ void GameScene::processBehavior() {
                 if (was_paused_flg_GameMainScene_prev_frame_)  {
                     //現フレームポーズではない、かつ前フレームポーズの場合。
                     //ポーズ解除から最初のフレーム処理はココへ
-                    P_UNIVERSE->undoCameraWork();
+                    P_UNIVERSE->undoCameraWork();  
+                    //TODO:EVENT_GAMEMODE_DECIDE により、ここにきて、
+                    // 通常例外発生！ GgafException::GgafException src\jp\gecchi\VioletVreath\scene\Universe.cpp(181) : Universe::undoCameraWork()  stack_CameraWorker_ から pop() しすぎにも程がある
+
                 }
 
                 //通常進行時処理はココ

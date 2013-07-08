@@ -15,7 +15,7 @@ using namespace VioletVreath;
 
 Stage02_Climax::Stage02_Climax(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage02_Climax";
-    orderActorToFactory(11111111, EnemyAstraea, "STG1BOSS");
+    orderActorToFactory(11111111, EnemyStraea, "STG1BOSS");
     // gen01 end
     waiting_ = false;
 }
@@ -30,7 +30,7 @@ void Stage02_Climax::processBehavior() {
     }
 
     if (getActiveFrame() == 60) {
-        pBoss_ = (EnemyAstraea*)obtainActorFromFactory(11111111);
+        pBoss_ = (EnemyStraea*)obtainActorFromFactory(11111111);
         pBoss_->_Z = -1800000;
         pBoss_->_Y = -100000;
         getSceneDirector()->addSubGroup(pBoss_);

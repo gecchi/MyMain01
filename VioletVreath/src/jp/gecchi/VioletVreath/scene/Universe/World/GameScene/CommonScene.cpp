@@ -136,9 +136,9 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //    { //EnemyShot001
     //        pDepo_EnemyShots001_ = NEW GgafActorDepository("TAMAS001");
-    //        EnemyCeresShot001* pEnemyShot;
+    //        EnemyEresShot001* pEnemyShot;
     //        for (int i = 0; i < 36*7; i++) { //ストック256個
-    //            pEnemyShot = NEW EnemyCeresShot001("EnemyCeresShot001");
+    //            pEnemyShot = NEW EnemyEresShot001("EnemyEresShot001");
     //            pEnemyShot->inactivateTreeImmed(); //最初非表示
     //            pDepo_EnemyShots001_->addSubLast(pEnemyShot);
     //        }
@@ -162,15 +162,15 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 //    {
 //        pDepo_LaserChipDepository_ = NEW GgafActorDepository("LCDD");
 //        LaserChipDepository* pLaserChipDepo;
-//        EnemyAstraeaLaserChip002* pChip;
+//        EnemyStraeaLaserChip002* pChip;
 //        for (int nLaser = 0; nLaser < 27; nLaser++) {
 //            std::stringstream name;
 //            name <<  "LaserChipDepository["<<nLaser<<"]";
 //            pLaserChipDepo = NEW LaserChipDepository(name.str().c_str());
 //            for (int nChip = 0; nChip < 50; nChip++) {
 //                std::stringstream name;
-//                name <<  "EnemyAstraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
-//                pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
+//                name <<  "EnemyStraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
+//                pChip = NEW EnemyStraeaLaserChip002(name.str().c_str());
 //                pChip->inactivateImmed();
 //                pLaserChipDepo->addSubLast(pChip);
 //            }

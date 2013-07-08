@@ -2464,7 +2464,7 @@ void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel* prm_pBoardSet
 void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel* prm_pMeshSetModel) {
     TRACE3("GgafDxModelManager::restoreMeshSetModel(" << prm_pMeshSetModel->_model_name << ")");
     std::string xfile_name; //読み込むXファイル名
-    //"12/Ceres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
+    //"12/Eres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
     //TODO:数値３桁以上の時はだめ
     if (*(prm_pMeshSetModel->_model_name + 1) == '/') {
         xfile_name = getMeshFileName(std::string(prm_pMeshSetModel->_model_name + 2));

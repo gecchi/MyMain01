@@ -87,77 +87,77 @@ enum {
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
 // コード変更は「ランク定義Creater.xls」から行うこと。
 // gen01 start
-// エウノミア(EnemyEunomia) のランク式
-#define RF_EnemyEunomia_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
-// エウノミア編隊001(FormationEunomia001) のランク式
-#define RF_FormationEunomia001_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
-#define RF_FormationEunomia001_Num(X)  (20 + (X)*10)  //隊数
-#define RF_FormationEunomia001_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
-#define RF_FormationEunomia001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-// エウノミア編隊002(FormationEunomia002) のランク式
-#define RF_FormationEunomia002_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
-#define RF_FormationEunomia002_Num(X)  (20 + (X)*10)  //隊数
-#define RF_FormationEunomia002_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
-#define RF_FormationEunomia002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-// イリス(EnemyIris) のランク式
-#define RF_EnemyIris_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
-// イリス編隊001(FormationIris001) のランク式
-#define RF_FormationIris001_Num(X)  (7 + (X)*7)  //隊数
-#define RF_FormationIris001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RF_FormationIris001_MvVelo(X)  (16000+(X)*1600)  //移動速度
-// イリス編隊002(FormationIris002) のランク式
-#define RF_FormationIris002_Num(X)  (7 + (X)*7)  //隊数
-#define RF_FormationIris002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RF_FormationIris002_MvVelo(X)  (16000+(X)*1600)  //移動速度
-// パラス(EnemyPallas) のランク式
-#define RF_EnemyPallas_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
-// パラス編隊001(FormationPallas001) のランク式
-#define RF_FormationPallas001_Num(X)  (12+(X)*8)  //隊数
-#define RF_FormationPallas001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RF_FormationPallas001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-// パラス編隊002(FormationPallas002) のランク式
-#define RF_FormationPallas002_Num(X)  (12+(X)*8)  //隊数
-#define RF_FormationPallas002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RF_FormationPallas002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-// タエラ(EnemyThalia) のランク式
-#define RF_EnemyThalia_ShotWay(X)  (20+(X)*10)  //発射弾(Way)数
-// タエラ編隊(FormationThalia) のランク式
-#define RF_FormationThalia_Num(X)  (7+(X)*4)  //隊数
-#define RF_FormationThalia_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X)) *20))  //出現間隔
-#define RF_FormationThalia_MvVelo(X)  (14000+(X)*10000)  //移動速度
-// ロムルス(EnemyRomulus) のランク式
-#define RF_EnemyRomulus_ShotMvVelo(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射弾速度
-#define RF_EnemyRomulus_ShotInterval(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射弾間隔
+// ウーノミア(EnemyUnomia) のランク式
+#define RF_EnemyUnomia_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
+// ウーノミア編隊001(FormationUnomia001) のランク式
+#define RF_FormationUnomia001_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
+#define RF_FormationUnomia001_Num(X)  (20 + (X)*10)  //隊数
+#define RF_FormationUnomia001_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
+#define RF_FormationUnomia001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+// ウーノミア編隊002(FormationUnomia002) のランク式
+#define RF_FormationUnomia002_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
+#define RF_FormationUnomia002_Num(X)  (20 + (X)*10)  //隊数
+#define RF_FormationUnomia002_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
+#define RF_FormationUnomia002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+// リス(EnemyRis) のランク式
+#define RF_EnemyRis_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
+// リス編隊001(FormationRis001) のランク式
+#define RF_FormationRis001_Num(X)  (7 + (X)*7)  //隊数
+#define RF_FormationRis001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationRis001_MvVelo(X)  (16000+(X)*1600)  //移動速度
+// リス編隊002(FormationRis002) のランク式
+#define RF_FormationRis002_Num(X)  (7 + (X)*7)  //隊数
+#define RF_FormationRis002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationRis002_MvVelo(X)  (16000+(X)*1600)  //移動速度
+// アラス(EnemyAllas) のランク式
+#define RF_EnemyAllas_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
+// アラス編隊001(FormationAllas001) のランク式
+#define RF_FormationAllas001_Num(X)  (12+(X)*8)  //隊数
+#define RF_FormationAllas001_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationAllas001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+// アラス編隊002(FormationAllas002) のランク式
+#define RF_FormationAllas002_Num(X)  (12+(X)*8)  //隊数
+#define RF_FormationAllas002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationAllas002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+// タエラ(EnemyHalia) のランク式
+#define RF_EnemyHalia_ShotWay(X)  (20+(X)*10)  //発射弾(Way)数
+// タエラ編隊(FormationHalia) のランク式
+#define RF_FormationHalia_Num(X)  (7+(X)*4)  //隊数
+#define RF_FormationHalia_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X)) *20))  //出現間隔
+#define RF_FormationHalia_MvVelo(X)  (14000+(X)*10000)  //移動速度
+// オムルス(EnemyOmulus) のランク式
+#define RF_EnemyOmulus_ShotMvVelo(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射弾速度
+#define RF_EnemyOmulus_ShotInterval(X)  (10 + (10 - ((X)>1.0?1.0:(X)) * 10))  //発射弾間隔
 // 汎用ショット001(Shot001) のランク式
 #define RF_Shot001_MvVelo(X)  (5000+(X)*5000)  //移動速度
 #define RF_Shot001_AngVelo(X)  (6000+(X)*6000)  //角速度
 // 汎用ショット002(Shot002) のランク式
 #define RF_Shot002_MvVelo(X)  (8000+(X)*8000)  //移動速度
 #define RF_Shot002_AngVelo(X)  (1000+(X)*1000)  //角速度
-// マッサリア(EnemyMassalia) のランク式
-#define RF_EnemyMassalia_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
-// マッサリア断片(EnemyMassaliaFragment) のランク式
-// マッサリア断片の断片(EnemyMassaliaFragment2) のランク式
-// マッサリア断片の断片の断片(EnemyMassaliaFragment3) のランク式
-// マッサリア群(FormationMassalia) のランク式
-#define RF_FormationMassalia_LaunchInterval(X)  (10  + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RF_FormationMassalia_MvVelo(X)  (8000+(X)*8000)  //移動速度
-#define RF_FormationMassalia_DurationFrames(X)  (60*20)  //持続時間
-// ヘーベ編隊(FormationHebe) のランク式
-#define RF_FormationHebe_Num(X)  (12+(X)*8)  //隊数
-#define RF_FormationHebe_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RF_FormationHebe_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-#define RF_FormationHebe_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
-// ヘスペリア(EnemyHesperia) のランク式
-#define RF_EnemyHesperia_Density(X)  (90000 - (((X)>1.0?1.0:(X)) * 50000))  //密度
-#define RF_EnemyHesperia_ShotWay(X)  (7 + (((X)>1.0?1.0:(X)) * 4))  //発射弾(Way)数
-// サッフォー(EnemySappho) のランク式
-#define RF_EnemySappho_MvVelo(X)  (15000 + (X)*10000)  //移動速度
-#define RF_EnemySappho_ShotWay(X)  (2+(X)*4)  //発射弾(Way)数
-#define RF_EnemySappho_ShotMvVelo(X)  (1000+(X)*5000)  //発射弾速度
-// サッフォー編隊001(FormationSappho001) のランク式
-#define RF_FormationSappho001_Num(X)  (10+(X)*5)  //隊数
-#define RF_FormationSappho001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+// マッサリア(EnemyAssalia) のランク式
+#define RF_EnemyAssalia_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
+// マッサリア断片(EnemyAssaliaFragment) のランク式
+// マッサリア断片の断片(EnemyAssaliaFragment2) のランク式
+// マッサリア断片の断片の断片(EnemyAssaliaFragment3) のランク式
+// マッサリア群(FormationAssalia) のランク式
+#define RF_FormationAssalia_LaunchInterval(X)  (10  + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationAssalia_MvVelo(X)  (8000+(X)*8000)  //移動速度
+#define RF_FormationAssalia_DurationFrames(X)  (60*20)  //持続時間
+// エーベ編隊(FormationEbe) のランク式
+#define RF_FormationEbe_Num(X)  (12+(X)*8)  //隊数
+#define RF_FormationEbe_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationEbe_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RF_FormationEbe_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
+// エスペリア(EnemyEsperia) のランク式
+#define RF_EnemyEsperia_Density(X)  (90000 - (((X)>1.0?1.0:(X)) * 50000))  //密度
+#define RF_EnemyEsperia_ShotWay(X)  (7 + (((X)>1.0?1.0:(X)) * 4))  //発射弾(Way)数
+// アッポー(EnemyAppho) のランク式
+#define RF_EnemyAppho_MvVelo(X)  (15000 + (X)*10000)  //移動速度
+#define RF_EnemyAppho_ShotWay(X)  (2+(X)*4)  //発射弾(Way)数
+#define RF_EnemyAppho_ShotMvVelo(X)  (1000+(X)*5000)  //発射弾速度
+// アッポー編隊001(FormationAppho001) のランク式
+#define RF_FormationAppho001_Num(X)  (10+(X)*5)  //隊数
+#define RF_FormationAppho001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
 // アテンティオペ(EnemyAntiope) のランク式
 #define RF_EnemyAntiope_MvVelo(X)  (15000 + (X)*10000)  //移動速度
 #define RF_EnemyAntiope_ShotWay(X)  (2+(X)*4)  //発射弾(Way)数
@@ -165,10 +165,10 @@ enum {
 // アテンティオペ編隊001(FormationAntiope001) のランク式
 #define RF_FormationAntiope001_Num(X)  (300+(X)*300)  //隊数
 #define RF_FormationAntiope001_LaunchInterval(X)  (2 + (2 - ((X)>1.0?1.0:(X))*2))  //出現間隔
-// アーデルハイド編隊(FormationAdelheid) のランク式
-#define RF_FormationAdelheid_Num(X)  (30+(X)*10)  //隊数
-#define RF_FormationAdelheid_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-#define RF_FormationAdelheid_ShotWay(X)  (7+(X)*5)  //発射弾(Way)数
+// デルハイド編隊(FormationDelheid) のランク式
+#define RF_FormationDelheid_Num(X)  (30+(X)*10)  //隊数
+#define RF_FormationDelheid_MvVelo(X)  (10000 + (X)*10000)  //移動速度
+#define RF_FormationDelheid_ShotWay(X)  (7+(X)*5)  //発射弾(Way)数
 // 打ち返し弾共通(SHOT_RV) のランク式
 #define RF_SHOT_RV_ShotMvVelo(X)  (3000+((X)*5000))  //発射弾速度
 #define RF_SHOT_RV_ShotMvAcce(X)  (100+((X)*400))  //発射弾加速度
@@ -273,15 +273,15 @@ class DefaultCamWorker;
 class TestCamWorker;
 
 class GroundMeshActor;
-class Sylvia;
-class VarietySylvia001;
-class VarietySylvia002;
-class VarietySylvia003;
-class VarietySylvia004;
-class EnemySylvia;
-class EnemySylviaEye;
-class EnemySylviaEyeStraightLaserChip001;
-class EffectSylviaEye001;
+class Ratislavia;
+class VarietyRatislavia001;
+class VarietyRatislavia002;
+class VarietyRatislavia003;
+class VarietyRatislavia004;
+class EnemyRatislavia;
+class EnemyRatislaviaEye;
+class EnemyRatislaviaEyeStraightLaserChip001;
+class EffectRatislaviaEye001;
 
 
 class SingleLaser;
@@ -406,105 +406,105 @@ class GameGlobal;
 
 
 
-class EnemyCeres;
-class EnemyCeresShot001;
-class FormationCeres001;
-class FormationCeres002;
+class EnemyEres;
+class EnemyEresShot001;
+class FormationEres001;
+class FormationEres002;
 
-class EnemyPallas;
-class FormationPallas001;
-class FormationPallas001a;
-class FormationPallas001b;
-class FormationPallas001c;
-class FormationPallas001d;
-class FormationPallas002;
+class EnemyAllas;
+class FormationAllas001;
+class FormationAllas001a;
+class FormationAllas001b;
+class FormationAllas001c;
+class FormationAllas001d;
+class FormationAllas002;
 
-class EnemyEunomia;
-class FormationEunomia;
-class FormationEunomia001;
-class FormationEunomia001a;
-class FormationEunomia001b;
-class FormationEunomia002;
-class FormationEunomia002a;
-class FormationEunomia002b;
+class EnemyUnomia;
+class FormationUnomia;
+class FormationUnomia001;
+class FormationUnomia001a;
+class FormationUnomia001b;
+class FormationUnomia002;
+class FormationUnomia002a;
+class FormationUnomia002b;
 
-class EnemyJuno;
-class FormationJuno;
-class FormationJuno001;
+class EnemyGeria;
+class FormationGeria;
+class FormationGeria001;
 
-class EnemyMetis;
-class FormationMetis001;
-class EnemyAdrastea;
-class FormationAdrastea001;
+class EnemyEtis;
+class FormationEtis001;
+class EnemyDrastea;
+class FormationDrastea001;
 
-class EnemyAstraea;
-class EnemyAstraeaLaserChip001;
-class EnemyAstraeaLaserChip002;
-class EnemyAstraeaLaserChip003;
-class EnemyAstraeaLaserChip004;
+class EnemyStraea;
+class EnemyStraeaLaserChip001;
+class EnemyStraeaLaserChip002;
+class EnemyStraeaLaserChip003;
+class EnemyStraeaLaserChip004;
 
-class EnemyIris;
-class FormationIris001;
-class FormationIris002;
+class EnemyRis;
+class FormationRis001;
+class FormationRis002;
 
-class EnemyRomulus;
-class EnemyRemus;
-class EnemyRemusLaserChip001;
+class EnemyOmulus;
+class EnemyEmus;
+class EnemyEmusLaserChip001;
 
-class EnemyCirce;
+class EnemyIrce;
 
-class EnemyThalia;
-class FormationThalia;
+class EnemyHalia;
+class FormationHalia;
 
-class EnemyMassaliaBase;
-class EnemyMassalia;
-class EnemyMassaliaFragment;
-class EnemyMassaliaFragment2;
-class EnemyMassaliaFragment3;
-class FormationMassalia;
+class EnemyAssaliaBase;
+class EnemyAssalia;
+class EnemyAssaliaFragment;
+class EnemyAssaliaFragment2;
+class EnemyAssaliaFragment3;
+class FormationAssalia;
 
-class EnemyHebe;
-class FormationHebe;
-class FormationHebe001;
+class EnemyEbe;
+class FormationEbe;
+class FormationEbe001;
 
-class EnemyThisbe;
-class EnemyThisbe002;
-class EnemyThisbeLaserChip001;
-class EnemyThisbeLaserChip002;
-class EnemyThisbeLaserChip003;
+class EnemyHisbe;
+class EnemyHisbe002;
+class EnemyHisbeLaserChip001;
+class EnemyHisbeLaserChip002;
+class EnemyHisbeLaserChip003;
 
-class EnemyHesperia;
-class EnemyHesperiaLaserChip001;
+class EnemyEsperia;
+class EnemyEsperiaLaserChip001;
 
-class EnemyAtalante;
+class EnemyTalante;
 
-class EnemyHermione;
-class EnemyHermioneArm;
-class EnemyHermioneArmBody;
-class EnemyHermioneArmHead;
-class EnemyHermioneArmWeak;
+class EnemyErmione;
+class EnemyErmioneArm;
+class EnemyErmioneArmBody;
+class EnemyErmioneArmHead;
+class EnemyErmioneArmWeak;
 
-class EnemySappho;
-class FormationSappho001;
-class FormationSappho001a;
-class FormationSappho001b;
+class EnemyAppho;
+class FormationAppho001;
+class FormationAppho001a;
+class FormationAppho001b;
 
 class EnemyAntiope;
 class EnemyAntiopeP;
 class EnemyAntiopeN;
 class FormationAntiope001;
 
-class EnemyAdelheid;
-class FormationAdelheid;
-class FormationAdelheid001;
+class EnemyDelheid;
+class FormationDelheid;
+class FormationDelheid001;
 
-class EnemyPalisana;
+class EnemyAlisana;
 
-class EnemyAida;
-class EnemyAidaBase;
-class EnemyAidaBase001;
-class FormationAida;
-class FormationAida001;
+class EnemyIda;
+class EnemyIdaBase;
+class EnemyIdaBase001;
+class FormationIda;
+class FormationIda001;
 
 
 

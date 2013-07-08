@@ -865,7 +865,7 @@ GgafStatus* MyStgUtil::resetEnemyCurveLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyCeresStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyEresStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -893,7 +893,7 @@ GgafStatus* MyStgUtil::resetEnemyCeresStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyCeresShot001Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyEresShot001Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -921,7 +921,7 @@ GgafStatus* MyStgUtil::resetEnemyCeresShot001Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyAstraeaStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyStraeaStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -949,7 +949,7 @@ GgafStatus* MyStgUtil::resetEnemyAstraeaStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -977,7 +977,7 @@ GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip002Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip002Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1005,7 +1005,7 @@ GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip002Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip003Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip003Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1033,7 +1033,7 @@ GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip003Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip004Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip004Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1061,7 +1061,7 @@ GgafStatus* MyStgUtil::resetEnemyAstraeaLaserChip004Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyRomulusStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyOmulusStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -1089,7 +1089,7 @@ GgafStatus* MyStgUtil::resetEnemyRomulusStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyRemusStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyEmusStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -1117,7 +1117,7 @@ GgafStatus* MyStgUtil::resetEnemyRemusStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyRemusLaserChip001Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyEmusLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1145,7 +1145,7 @@ GgafStatus* MyStgUtil::resetEnemyRemusLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyMetisStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyEtisStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -1173,7 +1173,7 @@ GgafStatus* MyStgUtil::resetEnemyMetisStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_RV_GOLDEN_ANG_WAY);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyRisStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1201,7 +1201,7 @@ GgafStatus* MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyJunoStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyGeriaStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -1229,7 +1229,7 @@ GgafStatus* MyStgUtil::resetEnemyJunoStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyThaliaStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyHaliaStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -1341,7 +1341,7 @@ GgafStatus* MyStgUtil::resetEnemyTamago01Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyCirceStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyIrceStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -1425,7 +1425,7 @@ GgafStatus* MyStgUtil::resetShot004Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemySylviaStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyRatislaviaStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1509,7 +1509,7 @@ GgafStatus* MyStgUtil::resetWall001PrismStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyPallasStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyAllasStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1537,7 +1537,7 @@ GgafStatus* MyStgUtil::resetEnemyPallasStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyEunomiaStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyUnomiaStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1593,7 +1593,7 @@ GgafStatus* MyStgUtil::resetMyShot001Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyMassaliaStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyAssaliaStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -1621,7 +1621,7 @@ GgafStatus* MyStgUtil::resetEnemyMassaliaStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyMassaliaFragmentStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyAssaliaFragmentStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -1649,7 +1649,7 @@ GgafStatus* MyStgUtil::resetEnemyMassaliaFragmentStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyMassaliaFragment2Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyAssaliaFragment2Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -1677,7 +1677,7 @@ GgafStatus* MyStgUtil::resetEnemyMassaliaFragment2Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyMassaliaFragment3Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyAssaliaFragment3Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1845,7 +1845,7 @@ GgafStatus* MyStgUtil::resetVreathItem001Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyHebeStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyEbeStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -1873,7 +1873,7 @@ GgafStatus* MyStgUtil::resetEnemyHebeStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyThisbeStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyHisbeStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1901,7 +1901,7 @@ GgafStatus* MyStgUtil::resetEnemyThisbeStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyThisbe002Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyHisbe002Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1929,7 +1929,7 @@ GgafStatus* MyStgUtil::resetEnemyThisbe002Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip001Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyHisbeLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1957,7 +1957,7 @@ GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip002Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyHisbeLaserChip002Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -1985,7 +1985,7 @@ GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip002Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip003Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyHisbeLaserChip003Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -2013,7 +2013,7 @@ GgafStatus* MyStgUtil::resetEnemyThisbeLaserChip003Status(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyAdrasteaStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyDrasteaStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -2041,7 +2041,7 @@ GgafStatus* MyStgUtil::resetEnemyAdrasteaStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyAtalanteStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyTalanteStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -2069,7 +2069,7 @@ GgafStatus* MyStgUtil::resetEnemyAtalanteStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyHesperiaStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyEsperiaStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -2097,7 +2097,7 @@ GgafStatus* MyStgUtil::resetEnemyHesperiaStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyHesperiaLaserChip001Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyEsperiaLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -2349,7 +2349,7 @@ GgafStatus* MyStgUtil::resetTestNomalShotStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemySylviaEyeStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyRatislaviaEyeStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -2377,7 +2377,7 @@ GgafStatus* MyStgUtil::resetEnemySylviaEyeStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemySylviaEyeStraightLaserChip001Status(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyRatislaviaEyeStraightLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -2405,7 +2405,7 @@ GgafStatus* MyStgUtil::resetEnemySylviaEyeStraightLaserChip001Status(GgafStatus*
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyHermioneStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyErmioneStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -2433,7 +2433,7 @@ GgafStatus* MyStgUtil::resetEnemyHermioneStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyHermioneArmHeadStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyErmioneArmHeadStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -2461,7 +2461,7 @@ GgafStatus* MyStgUtil::resetEnemyHermioneArmHeadStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyHermioneArmBodyStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyErmioneArmBodyStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -2489,7 +2489,7 @@ GgafStatus* MyStgUtil::resetEnemyHermioneArmBodyStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyHermioneArmWeakStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyErmioneArmWeakStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -2517,7 +2517,7 @@ GgafStatus* MyStgUtil::resetEnemyHermioneArmWeakStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemySapphoStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyApphoStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -2573,7 +2573,7 @@ GgafStatus* MyStgUtil::resetEnemyAntiopeStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_RV_NOMAL001);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyAdelheidStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyDelheidStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -2601,7 +2601,7 @@ GgafStatus* MyStgUtil::resetEnemyAdelheidStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyPalisanaStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyAlisanaStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 0 );  //ロックオン可否
@@ -2629,7 +2629,7 @@ GgafStatus* MyStgUtil::resetEnemyPalisanaStatus(GgafStatus* p) {
 	p->set(STAT_RevengeShotKind, SHOT_NOTHING);  //打ち返し種別
 	return p;
 }
-GgafStatus* MyStgUtil::resetEnemyAidaStatus(GgafStatus* p) {
+GgafStatus* MyStgUtil::resetEnemyIdaStatus(GgafStatus* p) {
 	p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_THRU);  //種別(デフォルト)
 	p->set(STAT_Attribute , ATTRIBUTE_NOMAL);  //属性
 	p->set(STAT_LockonAble, 1 );  //ロックオン可否

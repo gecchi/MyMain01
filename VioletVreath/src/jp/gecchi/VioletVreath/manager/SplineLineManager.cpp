@@ -87,7 +87,7 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
         pResource = NEW SplineLine(p, 18, 0.2); //—±“x 0.2
     }
 
-    if (UTIL::strcmp_ascii("Spl_Pallas01", prm_idstr) == 0) {
+    if (UTIL::strcmp_ascii("Spl_Allas01", prm_idstr) == 0) {
         double p[][3] = { //     X  ,       Y ,       Z
                           { -1.724577 ,  0.000000 ,  0.000000 },
                           { -0.964337 , -0.088378 , -0.344892 },

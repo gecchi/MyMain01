@@ -818,7 +818,7 @@ public:
      *
      *     static void FormationXXX::order1(GgafCore::GgafActor* prm_pActor, void* p1, void* p2) {
      *         //個々のメンバー加速
-     *         EnemyXXX* pEnemyXXX = (EnemyAdelheid*)prm_pActor; //実装の型にキャスト
+     *         EnemyXXX* pEnemyXXX = (EnemyDelheid*)prm_pActor; //実装の型にキャスト
      *         int velo_mv = *((velo*)p1);                       //キャプチャ引数を元の型に戻す
      *         pEnemyXXX->_pKurokoA->setMvVelo(velo_mv);         //加速設定
      *     }
