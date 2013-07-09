@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2011/10/15
  * @author Masatoshi Tsuge
  */
-class EnemyAssaliaBase : public GgafLib::DefaultMeshSetActor {
+class EnemyEmiliaBase : public GgafLib::DefaultMeshSetActor {
 
 protected:
     void appearFragment(const char* prm_dp_name);
@@ -24,7 +24,7 @@ public:
     };
 
 public:
-    EnemyAssaliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    EnemyEmiliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
     virtual void onCreateModel() override;
 
@@ -41,7 +41,7 @@ public:
 
 
 
-    virtual ~EnemyAssaliaBase();
+    virtual ~EnemyEmiliaBase();
 };
 
 }

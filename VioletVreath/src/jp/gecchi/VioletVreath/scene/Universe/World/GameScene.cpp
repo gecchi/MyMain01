@@ -63,7 +63,6 @@ pStageWorld_(nullptr) {
 
     _pBgmPerformer->useBgm(1);
     _pBgmPerformer->set(0, "OGG_BGM_DEMO");
-
 }
 
 void GameScene::initialize() {
@@ -195,10 +194,7 @@ void GameScene::processBehavior() {
                 if (was_paused_flg_GameMainScene_prev_frame_)  {
                     //現フレームポーズではない、かつ前フレームポーズの場合。
                     //ポーズ解除から最初のフレーム処理はココへ
-                    P_UNIVERSE->undoCameraWork();  
-                    //TODO:EVENT_GAMEMODE_DECIDE により、ここにきて、
-                    // 通常例外発生！ GgafException::GgafException src\jp\gecchi\VioletVreath\scene\Universe.cpp(181) : Universe::undoCameraWork()  stack_CameraWorker_ から pop() しすぎにも程がある
-
+                    P_UNIVERSE->undoCameraWork();
                 }
 
                 //通常進行時処理はココ
@@ -236,7 +232,6 @@ void GameScene::processBehavior() {
                     _pProg->getGazedScene()->unpauseTree();//ポーズ解除！！
                 }
             }
-            was_paused_flg_GameMainScene_prev_frame_ = _pProg->getGazedScene()->wasPaused();
             //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
             break;
         }
@@ -277,6 +272,11 @@ void GameScene::processBehavior() {
 
         default:
             break;
+    }
+
+    DefaultScene* pGazed = _pProg->getGazedScene();
+    if (pGazed) {
+        was_paused_flg_GameMainScene_prev_frame_ = pGazed->wasPaused();
     }
 }
 

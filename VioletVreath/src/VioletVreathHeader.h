@@ -134,15 +134,15 @@ enum {
 // 汎用ショット002(Shot002) のランク式
 #define RF_Shot002_MvVelo(X)  (8000+(X)*8000)  //移動速度
 #define RF_Shot002_AngVelo(X)  (1000+(X)*1000)  //角速度
-// マッサリア(EnemyAssalia) のランク式
-#define RF_EnemyAssalia_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
-// マッサリア断片(EnemyAssaliaFragment) のランク式
-// マッサリア断片の断片(EnemyAssaliaFragment2) のランク式
-// マッサリア断片の断片の断片(EnemyAssaliaFragment3) のランク式
-// マッサリア群(FormationAssalia) のランク式
-#define RF_FormationAssalia_LaunchInterval(X)  (10  + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
-#define RF_FormationAssalia_MvVelo(X)  (8000+(X)*8000)  //移動速度
-#define RF_FormationAssalia_DurationFrames(X)  (60*20)  //持続時間
+// マッサリア(EnemyEmilia) のランク式
+#define RF_EnemyEmilia_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
+// マッサリア断片(EnemyEmiliaFragment) のランク式
+// マッサリア断片の断片(EnemyEmiliaFragment2) のランク式
+// マッサリア断片の断片の断片(EnemyEmiliaFragment3) のランク式
+// マッサリア群(FormationEmilia) のランク式
+#define RF_FormationEmilia_LaunchInterval(X)  (10  + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+#define RF_FormationEmilia_MvVelo(X)  (8000+(X)*8000)  //移動速度
+#define RF_FormationEmilia_DurationFrames(X)  (60*20)  //持続時間
 // エーベ編隊(FormationEbe) のランク式
 #define RF_FormationEbe_Num(X)  (12+(X)*8)  //隊数
 #define RF_FormationEbe_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
@@ -456,12 +456,12 @@ class EnemyIrce;
 class EnemyHalia;
 class FormationHalia;
 
-class EnemyAssaliaBase;
-class EnemyAssalia;
-class EnemyAssaliaFragment;
-class EnemyAssaliaFragment2;
-class EnemyAssaliaFragment3;
-class FormationAssalia;
+class EnemyEmiliaBase;
+class EnemyEmilia;
+class EnemyEmiliaFragment;
+class EnemyEmiliaFragment2;
+class EnemyEmiliaFragment3;
+class FormationEmilia;
 
 class EnemyEbe;
 class FormationEbe;

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "EnemyAssaliaFragment3.h"
+#include "EnemyEmiliaFragment3.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
@@ -11,14 +11,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EnemyAssaliaFragment3::EnemyAssaliaFragment3(const char* prm_name) :
-        EnemyAssaliaBase(prm_name, "Assalia", STATUS(EnemyAssaliaFragment3)) {
+EnemyEmiliaFragment3::EnemyEmiliaFragment3(const char* prm_name) :
+        EnemyEmiliaBase(prm_name, "Emilia", STATUS(EnemyEmiliaFragment3)) {
 }
 
-void EnemyAssaliaFragment3::onCreateModel() {
+void EnemyEmiliaFragment3::onCreateModel() {
 }
 
-void EnemyAssaliaFragment3::initialize() {
+void EnemyEmiliaFragment3::initialize() {
     setHitAble(true);
     setScaleR(0.04);
     _pColliChecker->makeCollision(1);
@@ -26,17 +26,17 @@ void EnemyAssaliaFragment3::initialize() {
     _pKurokoA->setFaceAngVelo(D_ANG(0), D_ANG(10), D_ANG(0));
 }
 
-void EnemyAssaliaFragment3::onActive() {
+void EnemyEmiliaFragment3::onActive() {
     //ステータスリセット
-    UTIL::resetEnemyAssaliaFragment3Status(_pStatus);
+    UTIL::resetEnemyEmiliaFragment3Status(_pStatus);
     setHitAble(true);
 }
 
 
-void EnemyAssaliaFragment3::onInactive() {
+void EnemyEmiliaFragment3::onInactive() {
     sayonara();
 }
-void EnemyAssaliaFragment3::processStaminaEnd(GgafDxGeometricActor* prm_pOther) {
+void EnemyEmiliaFragment3::processStaminaEnd(GgafDxGeometricActor* prm_pOther) {
     //自機側に撃たれて消滅の場合、
     if (prm_pOther->getKind() & KIND_MY) {
         //アイテム出現
@@ -44,5 +44,5 @@ void EnemyAssaliaFragment3::processStaminaEnd(GgafDxGeometricActor* prm_pOther) 
     }
 }
 
-EnemyAssaliaFragment3::~EnemyAssaliaFragment3() {
+EnemyEmiliaFragment3::~EnemyEmiliaFragment3() {
 }

@@ -297,13 +297,13 @@ public:
 	//自機ショット
 	static GgafCore::GgafStatus* resetMyShot001Status(GgafCore::GgafStatus* p);
 	//アッサリア
-	static GgafCore::GgafStatus* resetEnemyAssaliaStatus(GgafCore::GgafStatus* p);
+	static GgafCore::GgafStatus* resetEnemyEmiliaStatus(GgafCore::GgafStatus* p);
 	//アッサリア断片
-	static GgafCore::GgafStatus* resetEnemyAssaliaFragmentStatus(GgafCore::GgafStatus* p);
+	static GgafCore::GgafStatus* resetEnemyEmiliaFragmentStatus(GgafCore::GgafStatus* p);
 	//アッサリア断片の断片
-	static GgafCore::GgafStatus* resetEnemyAssaliaFragment2Status(GgafCore::GgafStatus* p);
+	static GgafCore::GgafStatus* resetEnemyEmiliaFragment2Status(GgafCore::GgafStatus* p);
 	//アッサリア断片の断片の断片
-	static GgafCore::GgafStatus* resetEnemyAssaliaFragment3Status(GgafCore::GgafStatus* p);
+	static GgafCore::GgafStatus* resetEnemyEmiliaFragment3Status(GgafCore::GgafStatus* p);
 	//オプション
 	static GgafCore::GgafStatus* resetMyOptionStatus(GgafCore::GgafStatus* p);
 	//MPアイテム

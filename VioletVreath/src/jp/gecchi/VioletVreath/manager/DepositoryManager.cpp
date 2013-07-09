@@ -171,35 +171,35 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 //        }
     }
 
-    if (UTIL::strcmp_ascii("Assalia", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_Assalia");
+    if (UTIL::strcmp_ascii("Emilia", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_Emilia");
         for (int i = 0; i < 200; i++) {
-            pResource->addSubLast(NEW EnemyAssalia("EnemyAssalia"));
+            pResource->addSubLast(NEW EnemyEmilia("EnemyEmilia"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
 
-    if (UTIL::strcmp_ascii("AssaliaFragment", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_AssaliaFragment");
+    if (UTIL::strcmp_ascii("EmiliaFragment", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_EmiliaFragment");
         for (int i = 0; i < 200; i++) {
-            pResource->addSubLast(NEW EnemyAssaliaFragment("EMF"));
+            pResource->addSubLast(NEW EnemyEmiliaFragment("EMF"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
-    if (UTIL::strcmp_ascii("AssaliaFragment2", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_AssaliaFragment2");
+    if (UTIL::strcmp_ascii("EmiliaFragment2", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_EmiliaFragment2");
         for (int i = 0; i < 300; i++) {
-            pResource->addSubLast(NEW EnemyAssaliaFragment2("EMF2"));
+            pResource->addSubLast(NEW EnemyEmiliaFragment2("EMF2"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
-    if (UTIL::strcmp_ascii("AssaliaFragment3", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_AssaliaFragment3");
+    if (UTIL::strcmp_ascii("EmiliaFragment3", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Deop_EmiliaFragment3");
         for (int i = 0; i < 400; i++) {
-            pResource->addSubLast(NEW EnemyAssaliaFragment3("EMF3"));
+            pResource->addSubLast(NEW EnemyEmiliaFragment3("EMF3"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
@@ -210,7 +210,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (UTIL::strcmp_ascii("EnemyEbe4Formation", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_Ebe");
         for (int i = 0; i < RF_FormationEbe_Num(2.0); i++) {
-            pResource->addSubLast(NEW EnemyEbe("EnemyAssalia"));
+            pResource->addSubLast(NEW EnemyEbe("EnemyEmilia"));
             Sleep(1);
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);

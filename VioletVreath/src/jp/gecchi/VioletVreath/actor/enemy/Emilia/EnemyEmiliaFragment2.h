@@ -1,6 +1,6 @@
 #ifndef ENEMYASSALIAFRAGMENT2_H_
 #define ENEMYASSALIAFRAGMENT2_H_
-#include "jp/gecchi/VioletVreath/actor/enemy/Assalia/EnemyAssaliaBase.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Emilia/EnemyEmiliaBase.h"
 
 namespace VioletVreath {
 
@@ -11,13 +11,13 @@ namespace VioletVreath {
  * @since 2012/01/16
  * @author Masatoshi Tsuge
  */
-class EnemyAssaliaFragment2 : public EnemyAssaliaBase {
+class EnemyEmiliaFragment2 : public EnemyEmiliaBase {
 
 protected:
     void processStaminaEnd(GgafDxCore::GgafDxGeometricActor* prm_pOther) override;
 
 public:
-    EnemyAssaliaFragment2(const char* prm_name);
+    EnemyEmiliaFragment2(const char* prm_name);
 
     void onCreateModel() override;
 
@@ -27,7 +27,7 @@ public:
 
     void onInactive() override;
 
-    virtual ~EnemyAssaliaFragment2();
+    virtual ~EnemyEmiliaFragment2();
 };
 
 }

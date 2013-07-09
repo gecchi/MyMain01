@@ -228,7 +228,7 @@ void Stage01_02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(40000025);
 				getSceneDirector()->addSubGroup(pEtis);
 				orderActorToFactory(40000040, EnemyEtis, "EnemyEtis-48");
-				orderActorToFactory(40000084, FormationAssalia, "FormationAssalia-49");
+				orderActorToFactory(40000084, FormationEmilia, "FormationEmilia-49");
 				break;
 			}
 			case 1660: {
@@ -354,8 +354,8 @@ void Stage01_02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)obtainActorFromFactory(40000040);
 				getSceneDirector()->addSubGroup(pEtis);
 				orderActorToFactory(40000055, EnemyEtis, "EnemyEtis-80");
-				FormationAssalia* pFormationAssalia = (FormationAssalia*)obtainActorFromFactory(40000084);
-				getSceneDirector()->addSubGroup(pFormationAssalia);
+				FormationEmilia* pFormationEmilia = (FormationEmilia*)obtainActorFromFactory(40000084);
+				getSceneDirector()->addSubGroup(pFormationEmilia);
 				break;
 			}
 			case 2560: {

@@ -48,6 +48,7 @@ public:
 
     /** コマ送りフラグ */
     bool is_frame_advance_;
+    /** １フレーム前、GameMainSceneが一時停止状態だったかどうか */
     bool was_paused_flg_GameMainScene_prev_frame_;
 
 public:

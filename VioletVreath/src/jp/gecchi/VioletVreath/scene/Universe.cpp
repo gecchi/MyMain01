@@ -96,7 +96,7 @@ void Universe::processJudgement() {
 }
 
 CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
-//    _TRACE_("switchCameraWork("<<prm_pID<<") begin---");
+    _TRACE_("Universe::switchCameraWork("<<prm_pID<<") ");
 //    stack_CamWorkerConnection_.dump();
     //    |      |                             |      |
     //    |      |                             +------+
@@ -110,6 +110,7 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
     CameraWorkerConnection* pCon = connect_CameraWorkerManager(prm_pID);
     CameraWorker* pCamWorker = pCon->peek();
     if (pCamWorker != pActiveCamWorker_) {
+        _TRACE_("現pActiveCamWorker_="<<pActiveCamWorker_->getName()<<" は一時非活動で待機");
         //現在の CameraWork を非活動へ
         pActiveCamWorker_->onSwitchToOtherCameraWork(); //コールバック
         pActiveCamWorker_->inactivate();
@@ -124,6 +125,7 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
         //スタックに積む
         stack_CamWorkerConnection_.push(pCon);
         pActiveCamWorker_ = pCamWorker;
+        _TRACE_("新pActiveCamWorker_="<<pActiveCamWorker_->getName()<<" は上書きで活動状態");
     } else {
 #ifdef MY_DEBUG
         stack_CamWorkerConnection_.dump();
@@ -136,7 +138,7 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
 }
 
 CameraWorker* Universe::undoCameraWork() {
-//    _TRACE_("undoCameraWork begin---");
+    _TRACE_("Universe::undoCameraWork()");
 //    stack_CamWorkerConnection_.dump();
     //    |      |                       |      |
     //    +------+                       |      |
@@ -154,6 +156,8 @@ CameraWorker* Universe::undoCameraWork() {
         CameraWorker* pCamWorker = pCon->peek();
         if (pCamWorker != pActiveCamWorker_) {
             //現在の CameraWork を非活動へ
+            _TRACE_("現pActiveCamWorker_="<<pActiveCamWorker_->getName()<<" はさいなら");
+
             pActiveCamWorker_->inactivate();
             pActiveCamWorker_->onUndoCameraWork();  //コールバック
             pActiveCamWorker_ = pCamWorker;
@@ -168,6 +172,7 @@ CameraWorker* Universe::undoCameraWork() {
             pConn_now->close();
 //            _TRACE_("undoCameraWork end---");
 //            stack_CamWorkerConnection_.dump();
+            _TRACE_("次スタックの pActiveCamWorker_="<<pActiveCamWorker_->getName()<<" がアクティブへ");
             return pActiveCamWorker_;
         } else {
 #ifdef MY_DEBUG
@@ -184,7 +189,7 @@ CameraWorker* Universe::undoCameraWork() {
 
 void Universe::resetCamWorker() {
     //DefaultCamWorkerまでキレイにする
-//    _TRACE_("resetCamWorker begin---");
+   _TRACE_("Universe::resetCamWorker()");
 //    stack_CamWorkerConnection_.dump();
     for (int i = 0; i < 30; i++) {
         if (stack_CamWorkerConnection_.p_ == 1) {

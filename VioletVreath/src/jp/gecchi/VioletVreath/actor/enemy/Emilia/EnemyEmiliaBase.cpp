@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "EnemyAssaliaBase.h"
+#include "EnemyEmiliaBase.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
@@ -11,28 +11,28 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EnemyAssaliaBase::EnemyAssaliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat) :
+EnemyEmiliaBase::EnemyEmiliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
 }
 
-void EnemyAssaliaBase::onCreateModel() {
+void EnemyEmiliaBase::onCreateModel() {
 }
 
-void EnemyAssaliaBase::processBehavior() {
+void EnemyEmiliaBase::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     _pKurokoA->behave();
 }
 
-void EnemyAssaliaBase::processJudgement() {
+void EnemyEmiliaBase::processJudgement() {
     if (isOutOfUniverse()) {
         sayonara();
     }
 }
 
-void EnemyAssaliaBase::onHit(GgafActor* prm_pOtherActor) {
+void EnemyEmiliaBase::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     bool was_destroyed = UTIL::proceedEnemyHit(this, pOther);
     if (was_destroyed) {
@@ -46,11 +46,11 @@ void EnemyAssaliaBase::onHit(GgafActor* prm_pOtherActor) {
     }
 }
 
-void EnemyAssaliaBase::appearFragment(const char* prm_dp_name) {
+void EnemyEmiliaBase::appearFragment(const char* prm_dp_name) {
     //断片出現
     DepositoryConnection* pDepoConn = connect_DepositoryManager(prm_dp_name);
-    for (int i = 0; i < RF_EnemyAssalia_ShotWay(G_RANK); i++) {
-        EnemyAssaliaBase* pFragment = (EnemyAssaliaBase*)(pDepoConn->peek()->dispatch());
+    for (int i = 0; i < RF_EnemyEmilia_ShotWay(G_RANK); i++) {
+        EnemyEmiliaBase* pFragment = (EnemyEmiliaBase*)(pDepoConn->peek()->dispatch());
         if (pFragment) {
             pFragment->positionAs(this);
             pFragment->_pKurokoA->takeoverMvFrom(this->_pKurokoA);
@@ -61,10 +61,10 @@ void EnemyAssaliaBase::appearFragment(const char* prm_dp_name) {
     }
     pDepoConn->close();
 }
-void EnemyAssaliaBase::onInactive() {
+void EnemyEmiliaBase::onInactive() {
     sayonara();
 }
 
 
-EnemyAssaliaBase::~EnemyAssaliaBase() {
+EnemyEmiliaBase::~EnemyEmiliaBase() {
 }

@@ -10,11 +10,11 @@ namespace VioletVreath {
  * @since 2012/01/12
  * @author Masatoshi Tsuge
  */
-class FormationAssalia : public GgafLib::DepositoryFormation {
+class FormationEmilia : public GgafLib::DepositoryFormation {
 
 public:
     /** マッサリア借り入れ元Depository資源への接続 */
-    DepositoryConnection* pDepoConnection_Assalia_;
+    DepositoryConnection* pDepoConnection_Emilia_;
     /** マッサリア断片借り入れ元Depository資源への接続 */
     DepositoryConnection* pDepoConnection_Fragment_;
     /** マッサリア断片の断片借り入れ元Depository資源への接続 */
@@ -32,7 +32,7 @@ public:
      * コンストラクタ .
      * @param prm_name
      */
-    FormationAssalia(const char* prm_name);
+    FormationEmilia(const char* prm_name);
 
     void updateRankParameter();
 
@@ -40,13 +40,13 @@ public:
 
     virtual void onActive() override;
 
-//    virtual void processOnActiveAssalia(EnemyAssalia* pEnemyAssalia, int col) = 0;
+//    virtual void processOnActiveEmilia(EnemyEmilia* pEnemyEmilia, int col) = 0;
 
     virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
 
-    virtual ~FormationAssalia();
+    virtual ~FormationEmilia();
 };
 
 }

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "EnemyAssaliaFragment.h"
+#include "EnemyEmiliaFragment.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
@@ -11,14 +11,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EnemyAssaliaFragment::EnemyAssaliaFragment(const char* prm_name) :
-        EnemyAssaliaBase(prm_name, "Assalia", STATUS(EnemyAssaliaFragment)) {
+EnemyEmiliaFragment::EnemyEmiliaFragment(const char* prm_name) :
+        EnemyEmiliaBase(prm_name, "Emilia", STATUS(EnemyEmiliaFragment)) {
 }
 
-void EnemyAssaliaFragment::onCreateModel() {
+void EnemyEmiliaFragment::onCreateModel() {
 }
 
-void EnemyAssaliaFragment::initialize() {
+void EnemyEmiliaFragment::initialize() {
     setHitAble(true);
     setScaleR(0.3);
     _pColliChecker->makeCollision(1);
@@ -26,18 +26,18 @@ void EnemyAssaliaFragment::initialize() {
     _pKurokoA->setFaceAngVelo(D_ANG(0), D_ANG(10), D_ANG(0));
 }
 
-void EnemyAssaliaFragment::onActive() {
+void EnemyEmiliaFragment::onActive() {
     //ステータスリセット
-    UTIL::resetEnemyAssaliaFragmentStatus(_pStatus);
+    UTIL::resetEnemyEmiliaFragmentStatus(_pStatus);
     setHitAble(true);
 }
 
-void EnemyAssaliaFragment::onInactive() {
+void EnemyEmiliaFragment::onInactive() {
     sayonara();
 }
-void EnemyAssaliaFragment::processStaminaEnd(GgafDxGeometricActor* prm_pOther) {
-    appearFragment("AssaliaFragment2");
+void EnemyEmiliaFragment::processStaminaEnd(GgafDxGeometricActor* prm_pOther) {
+    appearFragment("EmiliaFragment2");
 }
 
-EnemyAssaliaFragment::~EnemyAssaliaFragment() {
+EnemyEmiliaFragment::~EnemyEmiliaFragment() {
 }
