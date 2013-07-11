@@ -378,6 +378,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Talante\EnemyTalante.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\EnemyTamago01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\TamagoActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\EnemyThagoras.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\EnemyUnomia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001.cpp" />
@@ -699,6 +703,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Talante\EnemyTalante.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\EnemyTamago01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\TamagoActor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thagoras\enemythagoras.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thagoras\formationthagoras.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thagoras\formationthagoras001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thagoras\formationthagoras002.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\EnemyUnomia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001.h" />

@@ -506,7 +506,10 @@ class EnemyIdaBase001;
 class FormationIda;
 class FormationIda001;
 
-
+class EnemyThagoras;
+class FormationThagoras;
+class FormationThagoras001;
+class FormationThagoras002;
 
 //"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
 

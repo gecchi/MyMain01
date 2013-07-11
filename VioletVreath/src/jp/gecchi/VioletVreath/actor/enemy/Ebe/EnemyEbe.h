@@ -49,7 +49,6 @@ public:
      */
     void initialize() override;
 
-
     /**
      * エーベのがアクティブになった瞬間の処理 .
      */

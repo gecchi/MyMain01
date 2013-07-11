@@ -296,13 +296,13 @@ public:
 	static GgafCore::GgafStatus* resetEnemyUnomiaStatus(GgafCore::GgafStatus* p);
 	//自機ショット
 	static GgafCore::GgafStatus* resetMyShot001Status(GgafCore::GgafStatus* p);
-	//アッサリア
+	//エミリア
 	static GgafCore::GgafStatus* resetEnemyEmiliaStatus(GgafCore::GgafStatus* p);
-	//アッサリア断片
+	//エミリア断片
 	static GgafCore::GgafStatus* resetEnemyEmiliaFragmentStatus(GgafCore::GgafStatus* p);
-	//アッサリア断片の断片
+	//エミリア断片の断片
 	static GgafCore::GgafStatus* resetEnemyEmiliaFragment2Status(GgafCore::GgafStatus* p);
-	//アッサリア断片の断片の断片
+	//エミリア断片の断片の断片
 	static GgafCore::GgafStatus* resetEnemyEmiliaFragment3Status(GgafCore::GgafStatus* p);
 	//オプション
 	static GgafCore::GgafStatus* resetMyOptionStatus(GgafCore::GgafStatus* p);
@@ -372,6 +372,8 @@ public:
 	static GgafCore::GgafStatus* resetEnemyAlisanaStatus(GgafCore::GgafStatus* p);
 	//イーダ
 	static GgafCore::GgafStatus* resetEnemyIdaStatus(GgafCore::GgafStatus* p);
+	//タゴラス
+	static GgafCore::GgafStatus* resetEnemyThagorasStatus(GgafCore::GgafStatus* p);
     // gen01 end
 };
 
