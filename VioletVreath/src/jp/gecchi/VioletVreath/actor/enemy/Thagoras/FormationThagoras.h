@@ -15,13 +15,8 @@ class FormationThagoras : public GgafLib::TreeFormation {
 public:
     /** •Ò‘à”(RANK•Ï“®) */
     int num_Thagoras_;
-    /** •Ò‘àŠÔŠuƒtƒŒ[ƒ€(RANK•Ï“®) */
-    frame interval_frames_;
-
-    int cnt_call_up_;
-
 public:
-    FormationThagoras(const char* prm_name);
+    FormationThagoras(const char* prm_name, int prm_num_Thagoras);
 
     /**
      * •Ò‘à‚ğì¬ .
@@ -29,8 +24,6 @@ public:
     virtual void initialize() override;
 
     virtual void onActive() override;
-
-    virtual void onCallUpThagoras(EnemyThagoras* prm_pThagoras, int prm_index) = 0;
 
     virtual void processBehavior() override;
 

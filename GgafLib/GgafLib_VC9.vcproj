@@ -52,7 +52,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="false"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".\include;..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include"
+				AdditionalIncludeDirectories=".\include;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDxCore\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -131,7 +131,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories=".\include;..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include"
+				AdditionalIncludeDirectories=".\include;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDxCore\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
@@ -305,6 +305,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\lib\actor\FkFormation.cpp"
 				>
 			</File>
 			<File
@@ -606,7 +610,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\lib\actor\FkFormation.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\lib\scene\FormationTableScene.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\GgafLibCommonHeader.h"
 				>
 			</File>
 			<File

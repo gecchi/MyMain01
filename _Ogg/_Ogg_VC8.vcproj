@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="shift_jis"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
-	Name="CustomizeOgg_static"
+	Version="8.00"
+	Name="_Ogg"
 	ProjectGUID="{2FDEFA24-55E5-4955-8497-44085C92A5B1}"
-	RootNamespace="CustomizeOgg_static"
+	RootNamespace="_Ogg"
 	Keyword="ManagedCProj"
-	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -21,11 +20,8 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			UseOfMFC="0"
-			UseOfATL="0"
 			CharacterSet="2"
 			ManagedExtensions="0"
-			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -44,24 +40,16 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				UseUnicodeResponseFiles="false"
 				Optimization="0"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
+				InlineFunctionExpansion="0"
+				EnableIntrinsicFunctions="false"
 				FavorSizeOrSpeed="0"
 				OmitFramePointers="false"
-				EnableFiberSafeOptimizations="false"
-				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\CustomizeOgg_static\include"
+				EnableFiberSafeOptimizations="true"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="..\_Ogg\include"
 				PreprocessorDefinitions="WIN32;_DEBUG"
-				ExceptionHandling="1"
-				SmallerTypeCheck="false"
 				RuntimeLibrary="3"
-				StructMemberAlignment="0"
-				EnableFunctionLevelLinking="false"
-				EnableEnhancedInstructionSet="0"
-				FloatingPointModel="0"
-				FloatingPointExceptions="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -78,7 +66,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="&quot;..\debug&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -123,20 +110,20 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				UseUnicodeResponseFiles="false"
-				Optimization="2"
+				Optimization="3"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="..\CustomizeOgg_static\include"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="..\_Ogg\include"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="true"
-				EnableEnhancedInstructionSet="2"
-				FloatingPointModel="0"
+				FloatingPointModel="2"
 				UsePrecompiledHeader="0"
-				WarningLevel="0"
+				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
 				CompileAs="1"
@@ -152,7 +139,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\release"
 			/>
 			<Tool
 				Name="VCALinkTool"

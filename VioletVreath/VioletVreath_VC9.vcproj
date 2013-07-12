@@ -53,7 +53,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="false"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".\src;..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include;..\VioletVreath"
+				AdditionalIncludeDirectories=".\src;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include;..\VioletVreath"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -83,7 +83,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				UseLibraryDependencyInputs="false"
-				AdditionalDependencies="GgafCore.lib GgafDxCore.lib GgafLib.lib CustomizeOgg_static.lib CustomizeVorbis_static.lib shlwapi.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
+				AdditionalDependencies="GgafCore.lib GgafDxCore.lib GgafLib.lib _Ogg.lib _Vorbis.lib shlwapi.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\debug"
 				GenerateDebugInformation="true"
@@ -154,7 +154,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories=".\src;..\CustomizeOgg_static\include;..\CustomizeVorbis_static\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include;..\VioletVreath"
+				AdditionalIncludeDirectories=".\src;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include;..\VioletVreath"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
@@ -175,7 +175,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="GgafCore.lib GgafDxCore.lib GgafLib.lib CustomizeOgg_static.lib CustomizeVorbis_static.lib shlwapi.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
+				AdditionalDependencies="GgafCore.lib GgafDxCore.lib GgafLib.lib _Ogg.lib _Vorbis.lib shlwapi.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\release"
 				GenerateDebugInformation="false"
@@ -282,6 +282,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorScreenConfigMenu.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorSoundConfigMenu.cpp"
 				>
 			</File>
@@ -350,15 +354,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\Entry\EffectEntry.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry002.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\Entry\EffectEntry001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry003.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\Entry\EffectEntry002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\Entry\EffectEntry003.cpp"
 				>
 			</File>
 			<File
@@ -410,15 +418,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSmileMagic001.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EffectSylviaEye001.cpp"
 				>
 			</File>
 			<File
@@ -446,11 +454,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adelheid\EnemyAdelheid.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Alisana\EnemyAlisana.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\EnemyAdrastea.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\EnemyAllas.cpp"
 				>
 			</File>
 			<File
@@ -466,131 +474,171 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraea.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Appho\EnemyAppho.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Delheid\EnemyDelheid.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip002.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Drastea\EnemyDrastea.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip003.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ebe\EnemyEbe.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip004.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmilia.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Atalante\EnemyAtalante.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaBase.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeres.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeresShot001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Circe\EnemyCirce.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment3.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\EnemyEunomia.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmus.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hebe\EnemyHebe.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmusLaserChip001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermione.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eres\EnemyEres.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArm.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eres\EnemyEresShot001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmBody.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmione.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmHead.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArm.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmWeak.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmBody.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperia.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmHead.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperiaLaserChip001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmWeak.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Iris\EnemyIris.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Esperia\EnemyEsperia.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Juno\EnemyJuno.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Esperia\EnemyEsperiaLaserChip001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassalia.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Etis\EnemyEtis.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaBase.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Geria\EnemyGeria.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Halia\EnemyHalia.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment2.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbe.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment3.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbe002.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Metis\EnemyMetis.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Palisana\EnemyPalisana.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip002.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\EnemyPallas.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip003.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemus.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIda.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemusLaserChip001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIdaBase.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Romulus\EnemyRomulus.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIdaBase001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\EnemySappho.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Omulus\EnemyOmulus.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEye.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEyeStraightLaserChip001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ris\EnemyRis.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraea.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip003.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip004.cpp"
 				>
 			</File>
 			<File
@@ -598,15 +646,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylvia.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEye.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEyeStraightLaserChip001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Talante\EnemyTalante.cpp"
 				>
 			</File>
 			<File
@@ -614,27 +654,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thalia\EnemyThalia.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\EnemyThagoras.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe002.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip001.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip003.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\EnemyUnomia.cpp"
 				>
 			</File>
 			<File
@@ -646,15 +670,27 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adelheid\FormationAdelheid.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adelheid\FormationAdelheid001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001a.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\FormationAdrastea001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001b.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001c.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001d.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas002.cpp"
 				>
 			</File>
 			<File
@@ -662,111 +698,119 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\FormationCeres001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\FormationCeres002.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001a.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001b.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia001a.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia001b.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Drastea\FormationDrastea001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002a.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002b.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\FormationEmilia.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hebe\FormationHebe.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eres\FormationEres001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hebe\FormationHebe001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eres\FormationEres002.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Iris\FormationIris001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Etis\FormationEtis001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Iris\FormationIris002.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Juno\FormationJuno.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Juno\FormationJuno001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Halia\FormationHalia.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\FormationMassalia.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Metis\FormationMetis001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ris\FormationRis001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001a.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ris\FormationRis002.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001b.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001c.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001d.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras002.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas002.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001a.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001a.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001b.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001b.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thalia\FormationThalia.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002a.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002b.cpp"
 				>
 			</File>
 			<File
@@ -866,6 +910,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelMenuItemFont01.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelMenuTitleFont01.cpp"
 				>
 			</File>
@@ -962,11 +1010,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardScreenConfig.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.cpp"
 				>
 			</File>
 			<File
@@ -1274,6 +1330,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\SupCursorScreenConfigMenu.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Tamago\TamagoActor.cpp"
 				>
 			</File>
@@ -1358,19 +1418,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia001.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia001.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia002.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia002.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia003.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia003.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia004.cpp"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia004.cpp"
 				>
 			</File>
 			<File
@@ -1508,6 +1568,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorScreenConfigMenu.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\CursorSoundConfigMenu.h"
 				>
 			</File>
@@ -1576,15 +1640,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\Entry\EffectEntry.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry002.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\Entry\EffectEntry001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectEntry003.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\Entry\EffectEntry002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\Entry\EffectEntry003.h"
 				>
 			</File>
 			<File
@@ -1636,15 +1704,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSmileMagic001.h"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EffectSylviaEye001.h"
 				>
 			</File>
 			<File
@@ -1672,11 +1740,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adelheid\EnemyAdelheid.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Alisana\EnemyAlisana.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\EnemyAdrastea.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\EnemyAllas.h"
 				>
 			</File>
 			<File
@@ -1692,131 +1760,171 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraea.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Appho\EnemyAppho.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Delheid\EnemyDelheid.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip002.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Drastea\EnemyDrastea.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip003.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ebe\EnemyEbe.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Astraea\EnemyAstraeaLaserChip004.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmilia.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Atalante\EnemyAtalante.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaBase.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeres.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\EnemyCeresShot001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Circe\EnemyCirce.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment3.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\EnemyEunomia.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmus.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hebe\EnemyHebe.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmusLaserChip001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermione.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eres\EnemyEres.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArm.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eres\EnemyEresShot001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmBody.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmione.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmHead.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArm.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hermione\EnemyHermioneArmWeak.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmBody.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperia.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmHead.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hesperia\EnemyHesperiaLaserChip001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmWeak.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Iris\EnemyIris.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Esperia\EnemyEsperia.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Juno\EnemyJuno.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Esperia\EnemyEsperiaLaserChip001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassalia.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Etis\EnemyEtis.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaBase.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Geria\EnemyGeria.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Halia\EnemyHalia.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment2.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbe.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\EnemyMassaliaFragment3.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbe002.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Metis\EnemyMetis.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Palisana\EnemyPalisana.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip002.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\EnemyPallas.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip003.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemus.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIda.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Remus\EnemyRemusLaserChip001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIdaBase.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Romulus\EnemyRomulus.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIdaBase001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\EnemySappho.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Omulus\EnemyOmulus.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEye.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEyeStraightLaserChip001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ris\EnemyRis.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraea.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip003.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip004.h"
 				>
 			</File>
 			<File
@@ -1824,15 +1932,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylvia.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEye.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\EnemySylviaEyeStraightLaserChip001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Talante\EnemyTalante.h"
 				>
 			</File>
 			<File
@@ -1840,27 +1940,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thalia\EnemyThalia.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\EnemyThagoras.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbe002.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip001.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip002.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thisbe\EnemyThisbeLaserChip003.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\EnemyUnomia.h"
 				>
 			</File>
 			<File
@@ -1876,15 +1960,27 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adelheid\FormationAdelheid.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adelheid\FormationAdelheid001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001a.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Adrastea\FormationAdrastea001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001b.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001c.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001d.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas002.h"
 				>
 			</File>
 			<File
@@ -1892,111 +1988,119 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\FormationCeres001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ceres\FormationCeres002.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001a.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001b.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia001a.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia001b.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Drastea\FormationDrastea001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002a.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eunomia\FormationEunomia002b.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emilia\FormationEmilia.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hebe\FormationHebe.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eres\FormationEres001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Hebe\FormationHebe001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eres\FormationEres002.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Iris\FormationIris001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Etis\FormationEtis001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Iris\FormationIris002.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Juno\FormationJuno.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Juno\FormationJuno001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Halia\FormationHalia.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Massalia\FormationMassalia.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Metis\FormationMetis001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ris\FormationRis001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001a.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ris\FormationRis002.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001b.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001c.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas001d.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras002.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Pallas\FormationPallas002.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001a.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001a.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sappho\FormationSappho001b.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001b.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Thalia\FormationThalia.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002a.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002b.h"
 				>
 			</File>
 			<File
@@ -2096,6 +2200,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelMenuItemFont01.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelMenuTitleFont01.h"
 				>
 			</File>
@@ -2192,11 +2300,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardScreenConfig.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.h"
 				>
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.h"
 				>
 			</File>
 			<File
@@ -2488,6 +2604,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\config\SupCursorScreenConfigMenu.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Tamago\TamagoActor.h"
 				>
 			</File>
@@ -2572,19 +2692,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia001.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia001.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia002.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia002.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia003.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia003.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Sylvia\VarietySylvia004.h"
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia004.h"
 				>
 			</File>
 			<File

@@ -24,16 +24,12 @@ public:
         PROG_INIT   ,
         PROG_ENTRY  ,
         PROG_MOVE01 ,
-        PROG_MOVE02 ,
-        PROG_MOVE03 ,
-        PROG_MOVE04 ,
+        PROG_LEAVE ,
     };
-    /** [r]出現座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem entry_pos_;
-    /** [r]ウロウロする座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem hanging_pos_;
-    /** [r]退出座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem leave_pos_;
+
+    /** 移動スプラインプログラム */
+    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+
 public:
     /**
      * コンストラクタ

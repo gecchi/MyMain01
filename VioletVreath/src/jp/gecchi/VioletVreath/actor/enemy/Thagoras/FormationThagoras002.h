@@ -15,7 +15,6 @@ class FormationThagoras002 : public FormationThagoras {
 public:
     FormationThagoras002(const char* prm_name);
 
-    virtual void onCallUpThagoras(EnemyThagoras* prm_pThagoras, int prm_index) override;
 
     virtual ~FormationThagoras002();
 };

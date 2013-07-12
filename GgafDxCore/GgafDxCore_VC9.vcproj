@@ -52,7 +52,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="false"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include"
+				AdditionalIncludeDirectories=".\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -131,7 +131,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories=".\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include"
+				AdditionalIncludeDirectories=".\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
@@ -365,6 +365,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxEffectManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxFkFormation.cpp"
 				>
 			</File>
 			<File
@@ -855,6 +859,10 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxEffectManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxFkFormation.h"
 				>
 			</File>
 			<File

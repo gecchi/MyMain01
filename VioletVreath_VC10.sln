@@ -14,9 +14,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafLib", "GgafLib\GgafLib.
 		{3A06BBA2-2A59-4965-8095-3836E2A10840} = {3A06BBA2-2A59-4965-8095-3836E2A10840}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CustomizeOgg_static", "CustomizeOgg_static\CustomizeOgg_static.vcxproj", "{2FDEFA24-55E5-4955-8497-44085C92A5B1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Ogg", "_Ogg\_Ogg.vcxproj", "{2FDEFA24-55E5-4955-8497-44085C92A5B1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CustomizeVorbis_static", "CustomizeVorbis_static\CustomizeVorbis_static.vcxproj", "{3A06BBA2-2A59-4965-8095-3836E2A10840}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Vorbis", "_Vorbis\_Vorbis.vcxproj", "{3A06BBA2-2A59-4965-8095-3836E2A10840}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleSample", "SimpleSample\SimpleSample.vcxproj", "{7F532FE9-8CFA-43D4-B219-8B775DC4C243}"
 EndProject

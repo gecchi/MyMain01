@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>CustomizeVorbis_static</name>
+	<name>_Ogg</name>
 	<comment></comment>
 	<projects>
-		<project>CustomizeOgg_static</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -28,7 +27,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildLocation</key>
-					<value>${workspace_loc:/CustomizeVorbis_static/DebugCdt}</value>
+					<value>${workspace_loc:/_Ogg/DebugCdt}</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.contents</key>

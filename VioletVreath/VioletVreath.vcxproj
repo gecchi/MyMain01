@@ -107,7 +107,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -122,7 +122,7 @@
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;CustomizeOgg_static.lib;CustomizeVorbis_static.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -147,7 +147,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -162,7 +162,7 @@
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;CustomizeOgg_static.lib;CustomizeVorbis_static.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -184,7 +184,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -195,7 +195,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;CustomizeOgg_static.lib;CustomizeVorbis_static.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -221,7 +221,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\CustomizeVorbis_static\include;..\CustomizeOgg_static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -232,7 +232,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;CustomizeOgg_static.lib;CustomizeVorbis_static.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -646,12 +646,12 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\EnemyEbe.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe001.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\emilia\enemyemilia.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\emilia\enemyemiliabase.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\emilia\enemyemiliafragment.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\emilia\enemyemiliafragment2.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\emilia\enemyemiliafragment3.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\emilia\formationemilia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmilia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaBase.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment2.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment3.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\FormationEmilia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmus.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmusLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Eres\EnemyEres.h" />
@@ -703,10 +703,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Talante\EnemyTalante.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\EnemyTamago01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\TamagoActor.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thagoras\enemythagoras.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thagoras\formationthagoras.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thagoras\formationthagoras001.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\thagoras\formationthagoras002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\EnemyThagoras.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras002.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\EnemyUnomia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001.h" />
@@ -837,15 +837,15 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\StringBoardTestActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAABTestActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAAPrismTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\gameglobal.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\god.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerManager.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\manager\depositoryconnection.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\manager\depositorymanager.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\manager\splinelineconnection.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\manager\splinelinemanager.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\properties.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineLineConnection.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineLineManager.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Properties.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene.h" />
@@ -888,10 +888,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World\GameScene\TamagoScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Universe\World\PreDrawScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\util\queryranking.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\util\QueryRanking.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.h" />
-    <ClInclude Include="VioletVreath.h" />
     <ClInclude Include="src\VioletVreathHeader.h" />
+    <ClInclude Include="VioletVreath.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -902,11 +902,11 @@
     <ResourceCompile Include="VioletVreath.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomizeOgg_static\CustomizeOgg_static.vcxproj">
+    <ProjectReference Include="..\_Ogg\_Ogg.vcxproj">
       <Project>{2fdefa24-55e5-4955-8497-44085c92a5b1}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\CustomizeVorbis_static\CustomizeVorbis_static.vcxproj">
+    <ProjectReference Include="..\_Vorbis\_Vorbis.vcxproj">
       <Project>{3a06bba2-2a59-4965-8095-3836e2a10840}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
