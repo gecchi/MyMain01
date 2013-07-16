@@ -563,6 +563,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\QueryRanking.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\util\XpmHeader.cpp" />
     <ClCompile Include="src\VioletVreath.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -890,6 +891,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\QueryRanking.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\util\xpmheader.h" />
     <ClInclude Include="src\VioletVreathHeader.h" />
     <ClInclude Include="VioletVreath.h" />
     <ClInclude Include="stdafx.h" />

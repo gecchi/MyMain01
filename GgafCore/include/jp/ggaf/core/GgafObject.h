@@ -2,6 +2,9 @@
 #define GGAFOBJECT_H_
 namespace GgafCore {
 
+/** クラス種別 */
+typedef uint32_t classkind;
+
 /**
  * 基底クラス
  * @version 1.00

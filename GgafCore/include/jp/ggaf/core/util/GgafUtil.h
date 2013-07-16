@@ -27,6 +27,8 @@
 #define RND(__FROM__,__TO__) (GgafCore::GgafUtil::_rnd_int32_(__FROM__,__TO__))
 
 typedef std::map<std::string, std::string> GgafStrMap;
+/** ハッシュ数値 */
+typedef uint64_t hashval;
 
 #ifdef UTIL
     #undef UTIL

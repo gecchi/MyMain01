@@ -205,6 +205,7 @@
     <ClCompile Include="src\jp\ggaf\core\util\GgafQuery.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafRepeatSeq.cpp" />
     <ClCompile Include="src\jp\ggaf\core\scene\GgafScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafRgb.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafStasus.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\GgafTreeFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\core\scene\GgafUniverse.cpp" />

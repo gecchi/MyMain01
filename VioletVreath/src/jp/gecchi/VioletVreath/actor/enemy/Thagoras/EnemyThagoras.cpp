@@ -34,6 +34,7 @@ void EnemyThagoras::initialize() {
     _pColliChecker->setColliAAB_Cube(0, 40000);
     _pKurokoA->relateMvFaceAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 2000);
+    _pKurokoA->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyThagoras::onActive() {
@@ -46,15 +47,24 @@ void EnemyThagoras::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             _pAFader->setAlpha(0);
+            X_org_ = _X;
+            Y_org_ = _Y;
+            Z_org_ = _Z;
+            X_app_ = _X + RND(PX_C(-1600), PX_C(1600));
+            Y_app_ = _Y + RND(PX_C(-1600), PX_C(1600));
+            Z_app_ = _Z + RND(PX_C(-1600), PX_C(1600));
+            _X = X_app_;
+            _Y = Y_app_;
+            _Z = Z_app_;
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
         }
         case PROG_ENTRY: {
             if (_pProg->isJustChanged()) {
-                _pAFader->fadeLinerUntil(0.7, 30);
+                _pAFader->fadeLinerUntil(1.0, 30);
             }
-            if (_pProg->getFrameInProgress() == 20) {
+            if (_pProg->getFrameInProgress() == 10) {
                 setHitAble(true);
                 _pProg->changeNext();
             }
@@ -62,7 +72,13 @@ void EnemyThagoras::processBehavior() {
         }
         case PROG_MOVE01: {
             if (_pProg->isJustChanged()) {
+                _X = X_org_;
+                _Y = Y_org_;
+                _Z = Z_org_;
                 pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD);
+                _X = X_app_;
+                _Y = Y_app_;
+                _Z = Z_app_;
             }
             if (pKurokoLeader_->isFinished()) {
                 _pProg->changeNext();

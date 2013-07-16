@@ -17,18 +17,7 @@ class GgafRgb : public GgafObject {
 private :
     std::string _allowedChars;
 
-    bool isValid() {
-        if (_hex.length() != 6) {
-            return false;
-        } else {
-            if (_hex.find_first_not_of(_allowedChars) != _hex.npos) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-    }
-
+    bool isValid();
 public:
     /** [r/w] Red値(0～255) */
     size_t _R;
@@ -36,61 +25,50 @@ public:
     size_t _G;
     /** [r/w] Brue値(0～255) */
     size_t _B;
+    /** [r/w] Red値(0.0～1.0) */
+    float _r;
+    /** [r/w] Green値(0.0～1.0) */
+    float _g;
+    /** [r/w] Brue値(0.0～1.0 */
+    float _b;
     /** １６進文字列表現のRGB */
     std::string _hex;
-    /** _hex が妥当かどうか */
+    /** 色文字列が妥当かどうか */
     bool _is_valid;
+
+    static bool _is_init;
+    static std::map<std::string, std::string> _cname;
 
 public:
     /**
      * コンストラクタ .
      * 保持されるRGBは(0, 0, 0)
      */
-    GgafRgb() : GgafObject(),
-            _allowedChars("0123456789abcdefABCDEF#") , _R(0), _G(0), _B(0), _hex("000000"), _is_valid(true) {
-    }
+    GgafRgb();
 
     /**
      * コンストラクタ .
      * 引数の文字列をRGB値とします。
-     * @param prm_hex "#FFFFFF"形式の文字列 （"#"は省略可）
+     * @param prm_str_color "#FFFFFF"形式の文字列（"#"は省略可）、またはX11色名
      */
-    GgafRgb(std::string prm_hex) : GgafObject(),
-            _allowedChars("0123456789abcdefABCDEF#") , _R(0), _G(0), _B(0), _hex("000000"), _is_valid(true) {
-        set(prm_hex);
-    }
+    GgafRgb(std::string prm_str_color);
+
+    void init();
 
     /**
      * 引数の文字列をRGB値とし設定します .
-     * @param prm_hex "#FFFFFF"形式の文字列 （"#"は省略可）
+     * @param prm_hex "#FFFFFF"形式の文字列 （"#"は省略可）、またはX11色名
      */
-    void set(std::string prm_hex) {
-        _hex = prm_hex;
-        if (_hex[0] == '#') {
-            _hex.erase(_hex.begin());
-        }
-        _is_valid = isValid();
-        if (_is_valid) {
-            _R = UTIL::hex2dec(_hex.substr(0, 2));
-            _G = UTIL::hex2dec(_hex.substr(2, 2));
-            _B = UTIL::hex2dec(_hex.substr(4, 2));
-        } else {
-            throwGgafCriticalException("GgafRgb::set HEX値からRGBに変換出来ません。prm_hex="<<prm_hex);
-        }
-    }
+    void set(std::string prm_hex);
 
     /**
      * 内部保持RGB値を文字列で取得
      * @return "#FFFFFF"形式の文字列
      */
-    std::string toStr() {
-        std::ostringstream oss;
-        oss << "#" << UTIL::dec2hex(_R,2) <<
-                      UTIL::dec2hex(_G,2) <<
-                      UTIL::dec2hex(_B,2);
-        return oss.str();
-    }
+    std::string toStr();
 };
+
+
 
 }
 #endif /*GGAFRGB_H_*/

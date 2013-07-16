@@ -4,6 +4,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/EnemyThagoras.h"
+#include "jp/gecchi/VioletVreath/util/XpmHeader.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -12,170 +13,173 @@ using namespace VioletVreath;
 
 
 
-uint32_t FormationThagoras001::bitmap_[96] = {
-      0x0F,  // 0b00001111
-      0x3F,  // 0b00111111
-      0x7F,  // 0b01111111
-      0x70,  // 0b01110000
-      0x7F,  // 0b01111111
-      0x3F,  // 0b00111111
-      0x0F,  // 0b00001111
-      0x00,  // 0b00000000
-      0x00,  // 0b00000000
-      0x44,  // 0b01000100
-      0x7D,  // 0b01111101
-      0x7D,  // 0b01111101
-      0x7D,  // 0b01111101
-      0x40,  // 0b01000000
-      0x00,  // 0b00000000
-      0x00,  // 0b00000000
-      0x38,  // 0b00111000
-      0x7C,  // 0b01111100
-      0x7C,  // 0b01111100
-      0x44,  // 0b01000100
-      0x7C,  // 0b01111100
-      0x7C,  // 0b01111100
-      0x38,  // 0b00111000
-      0x00,  // 0b00000000
-      0x00,  // 0b00000000
-      0x41,  // 0b01000001
-      0x7F,  // 0b01111111
-      0x7F,  // 0b01111111
-      0x7F,  // 0b01111111
-      0x40,  // 0b01000000
-      0x00,  // 0b00000000
-      0x00,  // 0b00000000
-      0x38,  // 0b00111000
-      0x7C,  // 0b01111100
-      0x7C,  // 0b01111100
-      0x54,  // 0b01010100
-      0x5C,  // 0b01011100
-      0x5C,  // 0b01011100
-      0x18,  // 0b00011000
-      0x00,  // 0b00000000
-      0x04,  // 0b00000100
-      0x3F,  // 0b00111111
-      0x7F,  // 0b01111111
-      0x7F,  // 0b01111111
-      0x64,  // 0b01100100
-      0x64,  // 0b01100100
-      0x20,  // 0b00100000
-      0x00,  // 0b00000000
-      0x0F,  // 0b00001111
-      0x3F,  // 0b00111111
-      0x7F,  // 0b01111111
-      0x70,  // 0b01110000
-      0x7F,  // 0b01111111
-      0x3F,  // 0b00111111
-      0x0F,  // 0b00001111
-      0x00,  // 0b00000000
-      0x7C,  // 0b01111100
-      0x7C,  // 0b01111100
-      0x7C,  // 0b01111100
-      0x0C,  // 0b00001100
-      0x0C,  // 0b00001100
-      0x0C,  // 0b00001100
-      0x08,  // 0b00001000
-      0x00,  // 0b00000000
-      0x38,  // 0b00111000
-      0x7C,  // 0b01111100
-      0x7C,  // 0b01111100
-      0x54,  // 0b01010100
-      0x5C,  // 0b01011100
-      0x5C,  // 0b01011100
-      0x18,  // 0b00011000
-      0x00,  // 0b00000000
-      0x20,  // 0b00100000
-      0x74,  // 0b01110100
-      0x74,  // 0b01110100
-      0x54,  // 0b01010100
-      0x7C,  // 0b01111100
-      0x7C,  // 0b01111100
-      0x78,  // 0b01111000
-      0x00,  // 0b00000000
-      0x04,  // 0b00000100
-      0x3F,  // 0b00111111
-      0x7F,  // 0b01111111
-      0x7F,  // 0b01111111
-      0x64,  // 0b01100100
-      0x64,  // 0b01100100
-      0x20,  // 0b00100000
-      0x00,  // 0b00000000
-      0x7F,  // 0b01111111
-      0x7F,  // 0b01111111
-      0x7F,  // 0b01111111
-      0x04,  // 0b00000100
-      0x7C,  // 0b01111100
-      0x7C,  // 0b01111100
-      0x78,  // 0b01111000
-      0x00   // 0b00000000
-};
 
 
-char FormationThagoras001::pixmap_[8][9] = {
-    "00001111",
-    "00112223",
-    "01223333",
-    "01230000",
-    "01223333",
-    "00112223",
-    "00001111",
-    "00000000"
-};
+/* XPM */
+const char* FormationThagoras001::xpmFormationThagoras001_[] = {
+        /* columns rows colors chars-per-pixel */
+        "25 113 16 1 ",
+        "  c #07020C",
+        ". c #230437",
+        "X c #391053",
+        "o c #4C2B5D",
+        "O c #4E1871",
+        "+ c #563070",
+        "@ c #67447C",
+        "# c #725484",
+        "$ c #7E658C",
+        "% c #8C6DA0",
+        "& c #A38BB1",
+        "* c #B7A3C1",
+        "= c #CDBBD4",
+        "- c #D7CBE0",
+        "; c #EBE1F2",
+        ": c None",
+        /* pixels */
+        ":::::::::::::::::::   :::",
+        "::::::::::::::::::  .  ::",
+        ":::::::::::::::::: .o. ::",
+        "::::::::::::::::   XoX ::",
+        ":::::::::::::    .XooX ::",
+        ":::::::::::    XoooXo. ::",
+        "::::::::   ..O@@ooo.oX ::",
+        "::::::   .X@$:$#ooXXoX ::",
+        ":::   ..O%-=*:$@ooXOoX ::",
+        ":   .X@&;;;-*%@oX. .+. ::",
+        "  .o+#&=;;;*@X..   .oX ::",
+        " .oXo#&==&+X.   :: .oX ::",
+        "  XXo#:#OX.   ::::  +X ::",
+        ":  ..X@&%+..   ::: .+X ::",
+        ":::   .Xo&&#X.   : .oX ::",
+        ":::::   ..X#$#o..  .+. ::",
+        "::: ::::   .Xo@#@X..@X ::",
+        ":          . ..Xo@@oo. ::",
+        ": .+.. ....@. ...XOXoX ::",
+        ": Xo+##$%%&=X.o@@..XoX ::",
+        ": .Xo#&=;;;=#X@@#. .+X ::",
+        ": .oOXXXOoOoO.X+X. .+. ::",
+        ": .X. ... .        .oX ::",
+        ":   ..X++X.  :   : .oX ::",
+        ":: .o#&*--&o. :::: .oX ::",
+        ": .Xo@%&*=-=O  ::: .+. ::",
+        ": XXOXX.XXX#%. ::: .oX ::",
+        ": X+X     .X#. ::: .oX ::",
+        ": X@o.....X+#. ::: .oX ::",
+        ": .X@$%%&&=*o  ::: .+. ::",
+        ":  .O@&=;;*O. ::   .oX ::",
+        ":  .XXO+@OX        .+. ::",
+        ": .o...X...... .X+..+X ::",
+        ": Xo@@#$%%%%###@+#X.oX ::",
+        ": .Xo#&=-;;-&:##oo@.+X ::",
+        ": .oOXoOo+OoOOoXXXXXoX ::",
+        ": .X. ... .        .oX ::",
+        ":  ..XXooX.   :::: .oX ::",
+        ":  .o#&=--&O. :::: .oX ::",
+        ": .oo#%&&=**o  ::: .+X ::",
+        ": XXo+OXO%XO%. ::: .oX ::",
+        ": XXoX  X%XO#. ::: .+. ::",
+        ": .X@X. O*@%#. :::  +X ::",
+        ": .X+#..O;-&X  ::: .+X ::",
+        "::  Xo+.X%OX. :::: .oX ::",
+        "::  ..X.XXXXo.  :: .+. ::",
+        ": .Xo@@####%&#X  : .+X ::",
+        ": .oo#&=;;;-*:%o.  .oX ::",
+        ": XXoOo++@+@%OO+. .XoX ::",
+        ": .X@..   .+$.    .oo. ::",
+        ":  X+.     X+.   XXXoX ::",
+        "::     :::      XXoXX  ::",
+        ":::   :::::  :: Xo..  :::",
+        ":::::::::::::::     :::::",
+        "::::::::::::::::  :    ::",
+        "::::::::::::::::::  X. ::",
+        ":::::::::::::::::  .@. ::",
+        ":::::::::::::::   .ooX ::",
+        "::::::::::::   ..oX.oX ::",
+        ":::::::::   ..oo@ooXo. ::",
+        ":::::::   .Xo#$@ooo.oX ::",
+        ":::::  ..X$&&:$@ooXXoX ::",
+        "::   .X+&;;-*%$@oX.X+X ::",
+        "  ..X@%=;;;=&#O..  .+. ::",
+        " .Xoo#&-;;*@X.     .oX ::",
+        " .oXo$&&%O..   ::: .+X ::",
+        "   XX+%$OX.  ::::: .oX ::",
+        "::   .X@&&+..   :: .+. ::",
+        "::::   ..+%&#X.    .+X ::",
+        "::   ::   .X+$#@.. .oX ::",
+        ":  ..     ...XX+#@oooX ::",
+        ": .@X..X.XO%.  .XXooo. ::",
+        ": .o@$&*=--=O.    XXoX ::",
+        ": XXo@%&*-=*#  ::  XoX ::",
+        ": .oX....O%%X. ::: .oX ::",
+        ": .X    ..%-%. :::  +X ::",
+        ":        X=-%. ::: .oX ::",
+        ":::   ...X@#X  ::: .oX ::",
+        ":: .X+$&&%OX. :::: .oX ::",
+        ":  Xo#&=;;;%. :::: .+X ::",
+        ": Xoo@@o+%@%#. :::  +X ::",
+        ": XXoO..O%XO$. ::: .+. ::",
+        ": .XoX  O%XO$. ::: .oX ::",
+        ": .o++. O-=*o  ::: .+X ::",
+        ":  .O#+.X-&+. :::: .oX ::",
+        "::  .XX.XOX.  ::::  +X ::",
+        ":  .OOX.O#+X  :::: .oX ::",
+        ": .oo$%O#;;%. :::: .oX ::",
+        ": XXo+$&O@@%+  ::: .oX ::",
+        ": XoO.X@@X.O$. ::: .+. ::",
+        ": .O@XXX%XX+%. ::: .oX ::",
+        ": .+o$&*=-==%. ::: .+X ::",
+        ": XXo@%**==%X  ::: .oX ::",
+        ": Xo@X.X.X... :::: .o. ::",
+        ":  XO......XX.  :: .+X ::",
+        ":  XO++++@@#&@.  : .oX ::",
+        ": XXo$&=;;;-*:$O.  .oX ::",
+        ": XXoO@@###$%+++.  .+. ::",
+        ": .O+X. . .O%..    .+X ::",
+        ": .X@.    .O+.   . .oX ::",
+        ": .@O......XX...X@ .+X ::",
+        ": Xo@#$&&*&&%$$@@@X.+. ::",
+        ": .Xo@&*=-;*&$#@oo@X+X ::",
+        ": XOXXXXXO+&OXXXXXX.+X ::",
+        ": .X..  . X@$.     .+. ::",
+        ": .@X.....X%&. ::: .+X ::",
+        ": .o@$%&**==$. ::  XoX ::",
+        ": XXo@&*=-=$X  :  .Xo. ::",
+        ": .oXXXXXX..  :  .XooX ::",
+        ": ..         :: .oXXX. ::",
+        "::   :::::::::: XoX.   ::",
+        ":::::::::::::::  .   ::::",
+        ":::::::::::::::   :::::::"
+        };
 
-FormationThagoras001::FormationThagoras001(const char* prm_name) : FormationThagoras(prm_name, 339) {
+
+
+FormationThagoras001::FormationThagoras001(const char* prm_name) :
+        FormationThagoras(prm_name, FormationThagoras001::xpmFormationThagoras001_) {
     _class_name = "FormationThagoras001";
-    row_interval_frames_ = 6;
-    column_dY_ = PX_C(40);
-    cnt_call_up_line_ = 0;
-    apSplManufConn_[0] = connect_SplineManufactureManager("FormationThagoras001");
-    apSplManufConn_[1] = connect_SplineManufactureManager("FormationThagoras001");
-    apSplManufConn_[2] = connect_SplineManufactureManager("FormationThagoras001");
-    apSplManufConn_[3] = connect_SplineManufactureManager("FormationThagoras001");
-    apSplManufConn_[4] = connect_SplineManufactureManager("FormationThagoras001");
-    apSplManufConn_[5] = connect_SplineManufactureManager("FormationThagoras001");
-    apSplManufConn_[6] = connect_SplineManufactureManager("FormationThagoras001");
-    apSplManufConn_[7] = connect_SplineManufactureManager("FormationThagoras001");
+
+    papSplManufConn_ = NEW SplineManufactureConnection*[pXpmHd_->columns_];
+    for (int i = 0; i < pXpmHd_->columns_; i++) {
+        papSplManufConn_[i] = connect_SplineManufactureManager("FormationThagoras001");
+    }
 }
 
 void FormationThagoras001::processBehavior() {
     FormationThagoras::processBehavior();
+}
 
-    if (cnt_call_up_line_ < 8 && canCallUp() && getActiveFrame() % row_interval_frames_ == 0) {
-
-        for (int i = 0; i < 8; i++) {
-            if (FormationThagoras001::pixmap_[cnt_call_up_line_][i] != '0') {
-                EnemyThagoras* pThagoras = (EnemyThagoras*)callUpMember();
-                if (pThagoras) {
-                    pThagoras->position(entry_pos_._X,
-                                        entry_pos_._Y + (i*column_dY_),
-                                        entry_pos_._Z);
-                    pThagoras->pKurokoLeader_ = apSplManufConn_[i]->peek()->
-                            createKurokoLeader(pThagoras->_pKurokoA);
-                }
-                if (FormationThagoras001::pixmap_[cnt_call_up_line_][i] == '1') {
-                    pThagoras->setMaterialColor(1.0, 0.0, 0.0);
-                } else if (FormationThagoras001::pixmap_[cnt_call_up_line_][i] == '2') {
-                    pThagoras->setMaterialColor(0.0, 1.0, 0.0);
-                } else if (FormationThagoras001::pixmap_[cnt_call_up_line_][i] == '3') {
-                    pThagoras->setMaterialColor(0.0, 0.0, 1.0);
-                }
-
-            }
-        }
-        cnt_call_up_line_++;
-    }
+void FormationThagoras001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) {
+    EnemyThagoras* pThagoras = (EnemyThagoras*)prm_pActor;
+    pThagoras->position(entry_pos_._X                       ,
+                        entry_pos_._Y + (prm_col*PX_C(20))  ,
+                        entry_pos_._Z                       );
+    pThagoras->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
+            createKurokoLeader(pThagoras->_pKurokoA);
 }
 
 FormationThagoras001::~FormationThagoras001() {
-    apSplManufConn_[0]->close();
-    apSplManufConn_[1]->close();
-    apSplManufConn_[2]->close();
-    apSplManufConn_[3]->close();
-    apSplManufConn_[4]->close();
-    apSplManufConn_[5]->close();
-    apSplManufConn_[6]->close();
-    apSplManufConn_[7]->close();
+    for (int i = 0; i < pXpmHd_->columns_; i++) {
+        papSplManufConn_[i]->close();
+    }
 }
 
 

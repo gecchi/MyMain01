@@ -310,12 +310,8 @@
 //例えば効果音が１分かかるようなWAVEが一つでもあるならば、(60*60)を設定しなければならない。
 
 
-/** ハッシュ数値 */
-typedef uint64_t hashval;
 /** アクターの種類 */
 typedef uint32_t actorkind;
-/** クラス種別 */
-typedef uint32_t classkind;
 /** フレーム(アプリケーション時間) */
 typedef uint32_t frame;
 #define MAX_FRAME (UINT_MAX)

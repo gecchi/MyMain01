@@ -10,7 +10,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationThagoras002::FormationThagoras002(const char* prm_name) : FormationThagoras(prm_name,1) {
+FormationThagoras002::FormationThagoras002(const char* prm_name) : FormationThagoras(prm_name, nullptr) {
     _class_name = "FormationThagoras002";
 }
 

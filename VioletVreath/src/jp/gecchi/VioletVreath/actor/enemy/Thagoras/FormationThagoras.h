@@ -13,10 +13,14 @@ namespace VioletVreath {
 class FormationThagoras : public GgafLib::TreeFormation {
 
 public:
-    /** ï“ë‡êî(RANKïœìÆ) */
+    const char** xpm_;
+    XpmHeader* pXpmHd_;
     int num_Thagoras_;
+
+    int cnt_call_up_row_;
+    frame call_up_interval_;
 public:
-    FormationThagoras(const char* prm_name, int prm_num_Thagoras);
+    FormationThagoras(const char* prm_name, const char** prm_xpm);
 
     /**
      * ï“ë‡ÇçÏê¨ .
@@ -28,6 +32,8 @@ public:
     virtual void processBehavior() override;
 
     virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
+
+    virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) = 0;
 
     virtual ~FormationThagoras();
 };

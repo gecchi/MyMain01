@@ -591,6 +591,8 @@ class MenuBoardNameEntry;
 class CursorNameEntryMenu;
 class SupCursorScreenConfigMenu;
 
+class XpmHeader;
+
 }
 
 

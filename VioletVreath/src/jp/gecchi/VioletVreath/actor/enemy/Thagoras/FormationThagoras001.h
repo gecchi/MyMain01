@@ -14,19 +14,10 @@ namespace VioletVreath {
 class FormationThagoras001 : public FormationThagoras {
 
 public:
-    static uint32_t bitmap_[96];
+    static const char* xpmFormationThagoras001_[];
 
-    static char pixmap_[8][9];
+    GgafLib::SplineManufactureConnection** papSplManufConn_;
 
-    GgafLib::SplineManufactureConnection* apSplManufConn_[8];
-
-    /** 行間隔 */
-    frame row_interval_frames_;
-    /** 列間隔 */
-    coord column_dY_;
-
-
-    int cnt_call_up_line_;
 
     /** [r]出現座標(フォーメーションオブジェクトが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
@@ -34,6 +25,9 @@ public:
     FormationThagoras001(const char* prm_name);
 
     virtual void processBehavior() override;
+
+
+    virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) override;
 
     void position(coord X, coord Y, coord Z) {
         entry_pos_._X = X;

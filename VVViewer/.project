@@ -3,8 +3,8 @@
 	<name>VVViewer</name>
 	<comment></comment>
 	<projects>
-		<project>CustomizeOgg_static</project>
-		<project>CustomizeVorbis_static</project>
+		<project>_Ogg</project>
+		<project>_Vorbis</project>
 		<project>GgafCore</project>
 		<project>GgafDxCore</project>
 		<project>GgafLib</project>
