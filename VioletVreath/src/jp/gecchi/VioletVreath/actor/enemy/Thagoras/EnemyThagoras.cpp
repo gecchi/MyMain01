@@ -10,6 +10,8 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -40,6 +42,7 @@ void EnemyThagoras::initialize() {
 void EnemyThagoras::onActive() {
     _pStatus->reset();
     _pProg->reset(PROG_INIT);
+    pActor4Sc_ = ((FormationThagoras*)(getFormation()))->pActor4Sc_;
 }
 
 void EnemyThagoras::processBehavior() {
@@ -47,15 +50,6 @@ void EnemyThagoras::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             _pAFader->setAlpha(0);
-            X_org_ = _X;
-            Y_org_ = _Y;
-            Z_org_ = _Z;
-            X_app_ = _X + RND(PX_C(-1600), PX_C(1600));
-            Y_app_ = _Y + RND(PX_C(-1600), PX_C(1600));
-            Z_app_ = _Z + RND(PX_C(-1600), PX_C(1600));
-            _X = X_app_;
-            _Y = Y_app_;
-            _Z = Z_app_;
             UTIL::activateEntryEffectOf(this);
             _pProg->changeNext();
             break;
@@ -72,13 +66,7 @@ void EnemyThagoras::processBehavior() {
         }
         case PROG_MOVE01: {
             if (_pProg->isJustChanged()) {
-                _X = X_org_;
-                _Y = Y_org_;
-                _Z = Z_org_;
-                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD);
-                _X = X_app_;
-                _Y = Y_app_;
-                _Z = Z_app_;
+                pKurokoLeader_->start(SplineKurokoLeader::RELATIVE_COORD,2);
             }
             if (pKurokoLeader_->isFinished()) {
                 _pProg->changeNext();
@@ -104,6 +92,10 @@ void EnemyThagoras::processBehavior() {
     pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ðU‚é•‘‚¢
     _pAFader->behave();
     _pKurokoA->behave();
+
+    _SX = pActor4Sc_->_SX;
+    _SY = pActor4Sc_->_SY;
+    _SZ = pActor4Sc_->_SZ;
 }
 
 void EnemyThagoras::processJudgement() {

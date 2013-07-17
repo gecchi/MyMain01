@@ -16,9 +16,9 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _pManufacture = prm_pManufacture;
     _pActor_target = prm_pKurokoA->_pActor;
     _option = ABSOLUTE_COORD;
-    _X_begin = 0;
-    _Y_begin = 0;
-    _Z_begin = 0;
+    _X_start = 0;
+    _Y_start = 0;
+    _Z_start = 0;
     _offset_X = 0;
     _offset_Y = 0;
     _offset_Z = 0;
@@ -37,6 +37,7 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _leading_frames = 0;
     _cnt_loop = 0;
     _max_loop = 1;
+    _is_fix_start_pos = false;
 }
 
 
@@ -76,14 +77,14 @@ void SplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
         _leading_frames = 0;
         _max_loop = prm_max_loop;
         _cnt_loop = 1;
-        SplineKurokoLeader::getPointCoord(0, _X_begin, _Y_begin, _Z_begin);
+        SplineKurokoLeader::getPointCoord(0, _X_start, _Y_start, _Z_start);
         _distance_to_begin = UTIL::getDistance(
                                 _pActor_target->_X,
                                 _pActor_target->_Y,
                                 _pActor_target->_Z,
-                                _X_begin,
-                                _Y_begin,
-                                _Z_begin
+                                _X_start,
+                                _Y_start,
+                                _Z_start
                              );
     } else {
         throwGgafCriticalException("SplineKurokoLeader::exec ManufactureÇ™Ç†ÇËÇ‹ÇπÇÒÅB_pActor_target="<<_pActor_target->getName());
@@ -112,14 +113,14 @@ void SplineKurokoLeader::behave() {
                 _cnt_loop++;
 
                 _leading_frames = 0;
-                SplineKurokoLeader::getPointCoord(0, _X_begin, _Y_begin, _Z_begin);
+                SplineKurokoLeader::getPointCoord(0, _X_start, _Y_start, _Z_start);
                 _distance_to_begin = UTIL::getDistance(
                                         _pActor_target->_X,
                                         _pActor_target->_Y,
                                         _pActor_target->_Z,
-                                        _X_begin,
-                                        _Y_begin,
-                                        _Z_begin
+                                        _X_start,
+                                        _Y_start,
+                                        _Z_start
                                      );
             }
 

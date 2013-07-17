@@ -7,6 +7,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/util/XpmHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
 
 using namespace GgafCore;
@@ -20,7 +22,7 @@ FormationThagoras::FormationThagoras(const char* prm_name,
     _class_name = "FormationThagoras";
     xpm_ = prm_xpm;
     pXpmHd_ = NEW XpmHeader(xpm_);
-    num_Thagoras_ = pXpmHd_->columns_ * pXpmHd_->rows_;  //ï“ë‡êî
+    num_Thagoras_ = pXpmHd_->num_color_pixels_;  //ï“ë‡êî
 
     for (int i = 0; i < num_Thagoras_; i++) {
         std::string name = "Thagoras("+XTOS(i)+")";
@@ -28,9 +30,15 @@ FormationThagoras::FormationThagoras(const char* prm_name,
     }
 
     cnt_call_up_row_ = 0;
-    call_up_interval_ = 8;
+    call_up_interval_ = 20;
+
+    pActor4Sc_ = NEW DefaultGeometricActor("Actor4Sc");
+    pScaler_ = NEW GgafDxScaler(pActor4Sc_);
+
 }
 void FormationThagoras::initialize() {
+    pScaler_->forceRange(R_SC(1.0), R_SC(2.0));
+    pScaler_->beat(50, 10, 1, -1);
 }
 
 void FormationThagoras::onActive() {
@@ -53,6 +61,7 @@ void FormationThagoras::processBehavior() {
         }
         cnt_call_up_row_++;
     }
+    pScaler_->behave();
 }
 
 void FormationThagoras::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
@@ -60,5 +69,7 @@ void FormationThagoras::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 }
 
 FormationThagoras::~FormationThagoras() {
+    GGAF_DELETE(pScaler_);
+    GGAF_DELETE(pActor4Sc_);
     GGAF_DELETE(pXpmHd_);
 }

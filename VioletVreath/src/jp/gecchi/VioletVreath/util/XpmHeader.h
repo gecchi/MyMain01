@@ -21,6 +21,8 @@ public:
     int rows_;
     /** [r]色数 */
     int colors_;
+    /** [r]透明色では無いピクセルの数 */
+    int num_color_pixels_;
     /** [r]透明ピクセルの文字 */
     char c_px_non_;
     /** [r]ピクセル色の文字の配列 */

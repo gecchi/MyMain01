@@ -61,23 +61,32 @@ void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out
             _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
             _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
             _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
-            _X_begin = _pActor_target->_X;
-            _Y_begin = _pActor_target->_Y;
-            _Z_begin = _pActor_target->_Z;
+            if (!_is_fix_start_pos) {
+                _X_start = _pActor_target->_X;
+                _Y_start = _pActor_target->_Y;
+                _Z_start = _pActor_target->_Z;
+            }
         }
         //    平行移動 ＞ Z軸回転 ＞ Y軸回転
         //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
         //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
         //    | sinRy                                  , 0                    , cosRy                                   , 0 |
         //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-        out_X = ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) *  _COS_RyMv_begin + dz*_SIN_RyMv_begin) + _X_begin;
-        out_Y =  (dx*_SIN_RzMv_begin + dy* _COS_RzMv_begin)                                          + _Y_begin;
-        out_Z = ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) + _Z_begin;
+        out_X = ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) *  _COS_RyMv_begin + dz*_SIN_RyMv_begin) + _X_start;
+        out_Y =  (dx*_SIN_RzMv_begin + dy* _COS_RzMv_begin)                                          + _Y_start;
+        out_Z = ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) + _Z_start;
     } else if (_option == RELATIVE_COORD) {
         //相対座標ターゲット
-        out_X = dx + _X_begin;
-        out_Y = dy + _Y_begin;
-        out_Z = dz + _Z_begin;
+        if (_is_leading == false) {
+            if (!_is_fix_start_pos) {
+                _X_start = _pActor_target->_X;
+                _Y_start = _pActor_target->_Y;
+                _Z_start = _pActor_target->_Z;
+            }
+        }
+        out_X = dx + _X_start;
+        out_Y = dy + _Y_start;
+        out_Z = dz + _Z_start;
     } else { //RELATIVE_DIRECTION
         //絶対座標ターゲット
         out_X = dx;
@@ -107,9 +116,11 @@ void FixedFrameSplineKurokoLeader::restart() {
     double P0X = (_flip_X * pSpl->_X_compute[0] * _pFixedFrameSplManuf->_rate_X) + _offset_X;
     double P0Y = (_flip_Y * pSpl->_Y_compute[0] * _pFixedFrameSplManuf->_rate_Y) + _offset_Y;
     double P0Z = (_flip_Z * pSpl->_Z_compute[0] * _pFixedFrameSplManuf->_rate_Z) + _offset_Z;
-    _X_begin = _pActor_target->_X;
-    _Y_begin = _pActor_target->_Y;
-    _Z_begin = _pActor_target->_Z;
+    if (!_is_fix_start_pos) {
+        _X_start = _pActor_target->_X;
+        _Y_start = _pActor_target->_Y;
+        _Z_start = _pActor_target->_Z;
+    }
     if (_option == RELATIVE_DIRECTION) {
         _SIN_RzMv_begin = ANG_SIN(_pActor_target->_pKurokoA->_angRzMv);
         _COS_RzMv_begin = ANG_COS(_pActor_target->_pKurokoA->_angRzMv);

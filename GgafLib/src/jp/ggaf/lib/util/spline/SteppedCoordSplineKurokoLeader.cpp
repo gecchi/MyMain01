@@ -60,22 +60,28 @@ void SteppedCoordSplineKurokoLeader::restart() {
     _point_index = 0;
     SplineLine* pSpl = _pSteppedSplManuf->_sp;
     if (_option == RELATIVE_DIRECTION) {
-        _X_begin = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
-        _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
-        _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
+        if (!_is_fix_start_pos) {
+            _X_start = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
+            _Y_start = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
+            _Z_start = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
+        }
         GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
         _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
         _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
         _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
         _COS_RyMv_begin = ANG_COS(pKurokoA_target->_angRyMv);
     } else if (_option == RELATIVE_COORD) {
-        _X_begin = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
-        _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
-        _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
+        if (!_is_fix_start_pos) {
+            _X_start = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
+            _Y_start = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
+            _Z_start = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
+        }
     } else { //ABSOLUTE_COORD
-        _X_begin = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X;
-        _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y;
-        _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z;
+        if (!_is_fix_start_pos) {
+            _X_start = (_flip_X * pSpl->_X_compute[0] * _pSteppedSplManuf->_rate_X) + _offset_X;
+            _Y_start = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y;
+            _Z_start = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z;
+        }
    }
 }
 

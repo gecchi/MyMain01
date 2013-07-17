@@ -30,9 +30,7 @@ public:
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
 
-
-    coord X_org_,Y_org_,Z_org_;
-    coord X_app_,Y_app_,Z_app_;
+    GgafLib::DefaultGeometricActor* pActor4Sc_;
 public:
     /**
      * コンストラクタ

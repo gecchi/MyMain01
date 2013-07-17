@@ -55,7 +55,7 @@ void EnemyHisbeLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
     if (pNearestScrollingScene_ && pNearestScrollingScene_->_pFuncScrolling == WalledScene::scrollX) {
-        pKurokoLeader_->_X_begin -= pNearestScrollingScene_->getScrollSpeed();
+        pKurokoLeader_->_X_start -= pNearestScrollingScene_->getScrollSpeed();
     }
 
     if (getActiveFrame() == 2) {

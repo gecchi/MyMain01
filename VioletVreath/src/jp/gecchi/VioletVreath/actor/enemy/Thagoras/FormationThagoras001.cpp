@@ -5,14 +5,12 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/EnemyThagoras.h"
 #include "jp/gecchi/VioletVreath/util/XpmHeader.h"
+#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
-
-
-
 
 
 /* XPM */
@@ -152,7 +150,6 @@ const char* FormationThagoras001::xpmFormationThagoras001_[] = {
         };
 
 
-
 FormationThagoras001::FormationThagoras001(const char* prm_name) :
         FormationThagoras(prm_name, FormationThagoras001::xpmFormationThagoras001_) {
     _class_name = "FormationThagoras001";
@@ -169,115 +166,25 @@ void FormationThagoras001::processBehavior() {
 
 void FormationThagoras001::onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) {
     EnemyThagoras* pThagoras = (EnemyThagoras*)prm_pActor;
-    pThagoras->position(entry_pos_._X                       ,
-                        entry_pos_._Y + (prm_col*PX_C(20))  ,
-                        entry_pos_._Z                       );
-    pThagoras->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
-            createKurokoLeader(pThagoras->_pKurokoA);
+    if (pThagoras->pKurokoLeader_) {
+        throwGgafCriticalException("FormationThagoras001::onCallUp pThagoras->pKurokoLeader_Ç™ê›íËÇ≥ÇÍÇƒÇ‹Ç∑ÅBpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
+    } else {
+        pThagoras->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
+                                      createKurokoLeader(pThagoras->_pKurokoA);
+    }
+    pThagoras->pKurokoLeader_->fixStartPosition(entry_pos_._X                      ,
+                                                entry_pos_._Y + (prm_col*PX_C(30)) ,
+                                                entry_pos_._Z                       );
+
+    pThagoras->position( RND(PX_C(-2600), PX_C(2600)),
+                         RND(PX_C(-2600), PX_C(2600)),
+                         RND(PX_C(-2600), PX_C(2600)) );
 }
 
 FormationThagoras001::~FormationThagoras001() {
     for (int i = 0; i < pXpmHd_->columns_; i++) {
         papSplManufConn_[i]->close();
     }
+    GGAF_DELETEARR(papSplManufConn_);
 }
-
-
-
-// [0]        0   0   0   0   1   1   1   1       00001111    0x0F
-// [1]        0   0   1   1   1   1   1   1       00111111    0x3F
-// [2]        0   1   1   1   1   1   1   1       01111111    0x7F
-// [3]        0   1   1   1   0   0   0   0       01110000    0x70
-// [4]        0   1   1   1   1   1   1   1       01111111    0x7F
-// [5]        0   0   1   1   1   1   1   1       00111111    0x3F
-// [6]        0   0   0   0   1   1   1   1       00001111    0x0F
-// [7]        0   0   0   0   0   0   0   0       00000000    0x00
-// [8]        0   0   0   0   0   0   0   0       00000000    0x00
-// [9]        0   1   0   0   0   1   0   0       01000100    0x44
-//[10]        0   1   1   1   1   1   0   1       01111101    0x7D
-//[11]        0   1   1   1   1   1   0   1       01111101    0x7D
-//[12]        0   1   1   1   1   1   0   1       01111101    0x7D
-//[13]        0   1   0   0   0   0   0   0       01000000    0x40
-//[14]        0   0   0   0   0   0   0   0       00000000    0x00
-//[15]        0   0   0   0   0   0   0   0       00000000    0x00
-//[16]        0   0   1   1   1   0   0   0       00111000    0x38
-//[17]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[18]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[19]        0   1   0   0   0   1   0   0       01000100    0x44
-//[20]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[21]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[22]        0   0   1   1   1   0   0   0       00111000    0x38
-//[23]        0   0   0   0   0   0   0   0       00000000    0x00
-//[24]        0   0   0   0   0   0   0   0       00000000    0x00
-//[25]        0   1   0   0   0   0   0   1       01000001    0x41
-//[26]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[27]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[28]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[29]        0   1   0   0   0   0   0   0       01000000    0x40
-//[30]        0   0   0   0   0   0   0   0       00000000    0x00
-//[31]        0   0   0   0   0   0   0   0       00000000    0x00
-//[32]        0   0   1   1   1   0   0   0       00111000    0x38
-//[33]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[34]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[35]        0   1   0   1   0   1   0   0       01010100    0x54
-//[36]        0   1   0   1   1   1   0   0       01011100    0x5C
-//[37]        0   1   0   1   1   1   0   0       01011100    0x5C
-//[38]        0   0   0   1   1   0   0   0       00011000    0x18
-//[39]        0   0   0   0   0   0   0   0       00000000    0x00
-//[40]        0   0   0   0   0   1   0   0       00000100    0x04
-//[41]        0   0   1   1   1   1   1   1       00111111    0x3F
-//[42]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[43]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[44]        0   1   1   0   0   1   0   0       01100100    0x64
-//[45]        0   1   1   0   0   1   0   0       01100100    0x64
-//[46]        0   0   1   0   0   0   0   0       00100000    0x20
-//[47]        0   0   0   0   0   0   0   0       00000000    0x00
-//[48]        0   0   0   0   1   1   1   1       00001111    0xF
-//[49]        0   0   1   1   1   1   1   1       00111111    0x3F
-//[50]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[51]        0   1   1   1   0   0   0   0       01110000    0x70
-//[52]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[53]        0   0   1   1   1   1   1   1       00111111    0x3F
-//[54]        0   0   0   0   1   1   1   1       00001111    0xF
-//[55]        0   0   0   0   0   0   0   0       00000000    0x00
-//[56]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[57]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[58]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[59]        0   0   0   0   1   1   0   0       00001100    0x0C
-//[60]        0   0   0   0   1   1   0   0       00001100    0x0C
-//[61]        0   0   0   0   1   1   0   0       00001100    0x0C
-//[62]        0   0   0   0   1   0   0   0       00001000    0x08
-//[63]        0   0   0   0   0   0   0   0       00000000    0x00
-//[64]        0   0   1   1   1   0   0   0       00111000    0x38
-//[65]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[66]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[67]        0   1   0   1   0   1   0   0       01010100    0x54
-//[68]        0   1   0   1   1   1   0   0       01011100    0x5C
-//[69]        0   1   0   1   1   1   0   0       01011100    0x5C
-//[70]        0   0   0   1   1   0   0   0       00011000    0x18
-//[71]        0   0   0   0   0   0   0   0       00000000    0x00
-//[72]        0   0   1   0   0   0   0   0       00100000    0x20
-//[73]        0   1   1   1   0   1   0   0       01110100    0x74
-//[74]        0   1   1   1   0   1   0   0       01110100    0x74
-//[75]        0   1   0   1   0   1   0   0       01010100    0x54
-//[76]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[77]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[78]        0   1   1   1   1   0   0   0       01111000    0x78
-//[79]        0   0   0   0   0   0   0   0       00000000    0x00
-//[80]        0   0   0   0   0   1   0   0       00000100    0x04
-//[81]        0   0   1   1   1   1   1   1       00111111    0x3F
-//[82]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[83]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[84]        0   1   1   0   0   1   0   0       01100100    0x64
-//[85]        0   1   1   0   0   1   0   0       01100100    0x64
-//[86]        0   0   1   0   0   0   0   0       00100000    0x20
-//[87]        0   0   0   0   0   0   0   0       00000000    0x00
-//[88]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[89]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[90]        0   1   1   1   1   1   1   1       01111111    0x7F
-//[91]        0   0   0   0   0   1   0   0       00000100    0x04
-//[92]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[93]        0   1   1   1   1   1   0   0       01111100    0x7C
-//[94]        0   1   1   1   1   0   0   0       01111000    0x78
-//[95]        0   0   0   0   0   0   0   0       00000000    0x00
 

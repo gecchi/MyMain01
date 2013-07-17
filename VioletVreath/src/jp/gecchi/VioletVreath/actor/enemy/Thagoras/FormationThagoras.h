@@ -2,6 +2,8 @@
 #define FORMATIONTHAGORAS_H_
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+
 namespace VioletVreath {
 
 /**
@@ -19,6 +21,13 @@ public:
 
     int cnt_call_up_row_;
     frame call_up_interval_;
+
+    /** [r]出現座標(シーンが設定) */
+    GgafDxCore::GgafDxGeoElem entry_pos_;
+
+    GgafDxCore::GgafDxScaler* pScaler_;
+    GgafLib::DefaultGeometricActor* pActor4Sc_;
+
 public:
     FormationThagoras(const char* prm_name, const char** prm_xpm);
 
@@ -34,6 +43,18 @@ public:
     virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
 
     virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) = 0;
+
+    /**
+     * 出現座標を設定。
+     * @param X
+     * @param Y
+     * @param Z
+     */
+    void position(coord X, coord Y, coord Z) {
+        entry_pos_._X = X;
+        entry_pos_._Y = Y;
+        entry_pos_._Z = Z;
+    }
 
     virtual ~FormationThagoras();
 };

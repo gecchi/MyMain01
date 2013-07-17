@@ -34,6 +34,15 @@ XpmHeader::XpmHeader(const char** prm_xpm) : GgafObject() {
     }
     //
     pixels_ = &(prm_xpm[1+colors_+1 -1]);
+    num_color_pixels_ = 0;
+    for (int i = 0; i < rows_; i++) {
+        for (int j = 0; j < columns_; j++) {
+            if (pixels_[i][j] != c_px_non_) {
+                num_color_pixels_++;
+            }
+        }
+    }
+
 }
 XpmHeader::~XpmHeader(){
     for (int i = 0; i < colors_; i++) {

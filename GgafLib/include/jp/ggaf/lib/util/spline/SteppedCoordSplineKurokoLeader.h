@@ -7,7 +7,7 @@ namespace GgafLib {
 /**
  * スプライン曲線移動 .
  * 単純に、フレーム毎に順番に補完点座標へ移動。
- * TODO:テストせよ
+ * TODO:作成中！使えません！
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge

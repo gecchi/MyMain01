@@ -45,11 +45,11 @@ public:
     int _max_loop;
 
     /** [r]始点X座標 */
-    coord _X_begin;
+    coord _X_start;
     /** [r]始点Y座標 */
-    coord _Y_begin;
+    coord _Y_start;
     /** [r]始点Z座標 */
-    coord _Z_begin;
+    coord _Z_start;
 
     coord _offset_X;
     coord _offset_Y;
@@ -62,6 +62,8 @@ public:
     int _distance_to_begin;
     /** [r]現在向かっている最中の補完点(基準点も含む)の数 */
     int _point_index;
+    /** [r]始点座標を固定する。（固定しない場合は黒子Aのアクターの座標になる） */
+    bool _is_fix_start_pos;
 
 public:
     /**
@@ -219,6 +221,26 @@ public:
      */
     virtual void getPointCoord(int prm_index, coord &out_X, coord&out_Y, coord &out_Z);
 
+    /**
+     * スプラインの開始座標を引数の座標に固定（start()時に影響しない）。
+     * デフォルトの開始座標を固定しない場合は、<BR>
+     * 「スプライン開始座標＝start()時の黒子Aのアクターの座標」となる。<BR>
+     * 想定使用方法は、本メソッド実行で開始座標を設定した後、<BR>
+     * 実際の移動するアクターの座標は別の場所に設定して、スプライン移動を開始、<BR>
+     * そうするとスプライン曲線軌道に徐々に合流するような効果を演出することができる。<BR>
+     * @param prm_X
+     * @param prm_Y
+     * @param prm_Z
+     */
+    void fixStartPosition(coord prm_X, coord prm_Y, coord prm_Z) {
+        _is_fix_start_pos = true;
+        _X_start = prm_X;
+        _Y_start = prm_Y;
+        _Z_start = prm_Z;
+    }
+    void unfixStartPosition() {
+        _is_fix_start_pos = false;
+    }
     virtual ~SplineKurokoLeader();
 };
 

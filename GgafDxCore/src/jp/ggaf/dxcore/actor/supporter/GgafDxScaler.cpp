@@ -208,7 +208,12 @@ void GgafDxScaler::beat(axis prm_axis, frame prm_beat_target_frames, frame prm_a
     _beat_attack_frames[prm_axis] = prm_attack_frames;
     _beat_rest_frames[prm_axis] = prm_rest_frames;
     _beat_target_frames[prm_axis] = prm_beat_target_frames;
-    _beat_down_frames[prm_axis] = _beat_target_frames[prm_axis] - _beat_attack_frames[prm_axis] - _beat_rest_frames[prm_axis];
+    int down_frames = (int)(_beat_target_frames[prm_axis]) - (int)(_beat_attack_frames[prm_axis]) - (int)(_beat_rest_frames[prm_axis]);
+    if (down_frames <= 0) {
+        _beat_down_frames[prm_axis] = 1;
+    } else {
+        _beat_down_frames[prm_axis] = (frame)down_frames;
+    }
     _beat_frame_count[prm_axis] = 0;
 
     //最初のアタックまでのvelo

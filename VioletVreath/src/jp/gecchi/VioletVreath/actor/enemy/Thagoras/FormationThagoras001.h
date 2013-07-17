@@ -18,23 +18,12 @@ public:
 
     GgafLib::SplineManufactureConnection** papSplManufConn_;
 
-
-    /** [r]出現座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem entry_pos_;
-
     FormationThagoras001(const char* prm_name);
 
     virtual void processBehavior() override;
 
 
     virtual void onCallUp(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_row, int prm_col) override;
-
-    void position(coord X, coord Y, coord Z) {
-        entry_pos_._X = X;
-        entry_pos_._Y = Y;
-        entry_pos_._Z = Z;
-    }
-
 
     virtual ~FormationThagoras001();
 };
