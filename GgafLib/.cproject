@@ -188,6 +188,7 @@
 								<option id="gnu.cpp.link.option.paths.37354682" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/ReleaseCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/ReleaseCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/ReleaseCdt}&quot;"/>
 								</option>
