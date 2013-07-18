@@ -193,6 +193,7 @@
 									<listOptionValue builtIn="false" value="dsound"/>
 									<listOptionValue builtIn="false" value="winmm"/>
 								</option>
+								<option id="gnu.cpp.link.option.flags.1275508301" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value=" -Wl,--exclude-libs,libgcc_eh.a -static-libgcc -static-libstdc++ " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1706598104" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

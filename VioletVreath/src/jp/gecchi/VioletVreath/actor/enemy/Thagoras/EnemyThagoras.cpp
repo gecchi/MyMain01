@@ -92,7 +92,6 @@ void EnemyThagoras::processBehavior() {
     pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ðU‚é•‘‚¢
     _pAFader->behave();
     _pKurokoA->behave();
-
     _SX = pActor4Sc_->_SX;
     _SY = pActor4Sc_->_SY;
     _SZ = pActor4Sc_->_SZ;

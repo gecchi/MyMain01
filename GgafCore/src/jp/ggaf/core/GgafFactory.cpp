@@ -224,7 +224,8 @@ void* GgafFactory::obtain(uint32_t prm_id, GgafObject* prm_org) {
                 }
                 throwGgafCriticalException("GgafFactory::obtain Error! ＜工場長＞全部探しましたけど、そんな注文(prm_id="<<prm_id<<")は、ありません。\n "<<
                                            "oreder() と obtain() の対応が取れていません。oreder()漏れ、或いは同じ obtain() を２回以上してませんか？。\n"<<
-                                           "発注者(order呼び元)="<<name_orderer<<"("<<pOrder->_pOrderer<<")／受取人(obtain呼び元)="<<name_org<<"("<<prm_org<<")");
+                                           "情報：受取人(obtain呼び元)="<<name_org<<"("<<prm_org<<") でした。\n" <<
+                                           "（※ちなみに、現在工場の最終オーダーは、注文番号(_id="<<pOrder->_id<<")で、発注者(order呼び元)="<<name_orderer<<"("<<pOrder->_pOrderer<<") でした）");
             } else {
                 pOrder = pOrder->_pOrder_next;
             }
