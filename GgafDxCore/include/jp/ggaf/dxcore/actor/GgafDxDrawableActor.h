@@ -230,6 +230,12 @@ public:
     virtual void setMaterialColor(float r, float g, float b);
 
     /**
+     * 本アクターの描画時のマテリアルカラーを設定。 .
+     * @param prm_rgb
+     */
+    virtual void setMaterialColor(GgafCore::GgafRgb* prm_rgb);
+
+    /**
      * マテリアルカラーをモデル読み込み時の状態にリセット。
      */
     virtual void resetMaterialColor();

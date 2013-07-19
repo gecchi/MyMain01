@@ -105,7 +105,7 @@ void EnemyRatislavia::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _TRACE_("EnemyRatislavia::processBehavior() _pProg=PROG_EXPLOSION きたわ～");
             }
-            if (_pProg->getFrameInProgress() % 16 == 0) {
+            if (_pProg->getFrameInProgress() % 16U == 0) {
                 //沸々爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;

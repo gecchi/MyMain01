@@ -9,6 +9,8 @@
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -119,8 +121,16 @@ void GameMainScene::processBehavior() {
 
 void GameMainScene::onInactive() {
     if (P_STAGE_CTRLER->pStageMainCannel_) {
+        _TRACE_("GameMainScene::onInactive() P_STAGE_CTRLER->pStageMainCannel_("<<
+                P_STAGE_CTRLER->pStageMainCannel_->getName()<<") sayonara()");
         P_STAGE_CTRLER->pStageMainCannel_->sayonara();
         P_STAGE_CTRLER->pStageMainCannel_ = nullptr;
+    }
+    if (P_RANKUP_CONTROLLER->pNowRankUpStage_) {
+        _TRACE_("GameMainScene::onInactive() P_RANKUP_CONTROLLER->pNowRankUpStage_("<<
+                P_RANKUP_CONTROLLER->pNowRankUpStage_->getName()<<") sayonaraRankUpStages()");
+        P_RANKUP_CONTROLLER->sayonaraRankUpStages();
+        P_RANKUP_CONTROLLER->pNowRankUpStage_ = nullptr;
     }
 }
 

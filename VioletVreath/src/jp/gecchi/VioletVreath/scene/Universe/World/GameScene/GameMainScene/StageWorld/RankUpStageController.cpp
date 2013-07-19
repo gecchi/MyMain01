@@ -423,7 +423,19 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
         }
     }
 }
-
+void RankUpStageController::sayonaraRankUpStages() {
+    GgafScene* pRankUpStage = getSubFirst()->getPrev();//last
+    if (pRankUpStage) {
+        while (1) {
+            pRankUpStage->sayonara();
+            if (pRankUpStage == getSubFirst()) {
+                break;
+            } else {
+                pRankUpStage = pRankUpStage->getPrev();
+            }
+        }
+    }
+}
 RankUpStageController::~RankUpStageController() {
 }
 

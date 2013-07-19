@@ -11,7 +11,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include <stdio.h>
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
-
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -152,6 +153,13 @@ void GameDemoScene::onInactive() {
         P_STAGE_CTRLER->pStageMainCannel_ = nullptr;
     } else {
         //throwGgafCriticalException("GameDemoScene::onInactive() デモシーンのシーンが無い。あり得ないよ");
+    }
+
+    if (P_RANKUP_CONTROLLER->pNowRankUpStage_) {
+        _TRACE_("GameDemoScene::onInactive() P_RANKUP_CONTROLLER->pNowRankUpStage_("<<
+                P_RANKUP_CONTROLLER->pNowRankUpStage_->getName()<<") sayonaraRankUpStages()");
+        P_RANKUP_CONTROLLER->sayonaraRankUpStages();
+        P_RANKUP_CONTROLLER->pNowRankUpStage_ = nullptr;
     }
 }
 

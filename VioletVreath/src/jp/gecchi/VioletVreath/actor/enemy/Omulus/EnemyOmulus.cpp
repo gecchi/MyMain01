@@ -186,7 +186,7 @@ void EnemyOmulus::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    if (getActiveFrame() % 10 == 0                   && 1 == 2) {
+    if (getActiveFrame() % 10U == 0                   && 1 == 2) {
         //自機へ方向を向ける
         //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
         //

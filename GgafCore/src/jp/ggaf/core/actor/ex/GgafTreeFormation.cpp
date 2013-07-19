@@ -70,6 +70,10 @@ GgafActor* GgafTreeFormation::callUpMember() {
             _pIte = getSubFirst(); //‰‰ñ‚ÍƒTƒuæ“ª
         }
         _pIte->activate();
+        if (_pIte->getNext() == getSubFirst()) {
+            //ÅŒã‚Ì‚P‚Â
+            _can_call_up = false;
+        }
         return _pIte;
     } else {
         return nullptr;

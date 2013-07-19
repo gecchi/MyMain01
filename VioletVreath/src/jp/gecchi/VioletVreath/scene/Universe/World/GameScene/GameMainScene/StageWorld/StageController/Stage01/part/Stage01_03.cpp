@@ -55,8 +55,8 @@ void Stage01_03::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getActiveFrame() == _paFrame_NextEvent[_cnt_event]) {
-		switch (getActiveFrame()) {
+	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+		switch (getBehaveingFrame()) {
 			case 1: {
 				break;
 			}

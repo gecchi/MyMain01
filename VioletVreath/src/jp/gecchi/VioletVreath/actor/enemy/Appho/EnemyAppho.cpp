@@ -75,7 +75,7 @@ void EnemyAppho::processBehavior() {
                                         d, 0.2, 0.8);
              }
              //滞留ポイントまで移動中
-             if (_pProg->getFrameInProgress() % 32 == 0) {
+             if (_pProg->getFrameInProgress() % 32U == 0) {
                  //ちょくちょく自機を見つめる
                  _pKurokoA->turnFaceAngTwd(P_MYSHIP, D_ANG(0.5), 0,
                                            TURN_CLOSE_TO, true);
@@ -101,7 +101,7 @@ void EnemyAppho::processBehavior() {
                                            D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              //滞留中
-             if (_pProg->getFrameInProgress() % 16 == 0) {
+             if (_pProg->getFrameInProgress() % 16U == 0) {
                  //ちょくちょく自機を見つめる
                  _pKurokoA->turnFaceAngTwd(P_MYSHIP,
                                            D_ANG(1), 0, TURN_CLOSE_TO, true);
@@ -136,7 +136,7 @@ void EnemyAppho::processBehavior() {
                                          D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
                  _pKurokoA->setMvAcce(10);
              }
-             if (_pProg->getFrameInProgress() % 16 == 0) {
+             if (_pProg->getFrameInProgress() % 16U == 0) {
                  _pKurokoA->turnFaceAngTwd(P_MYSHIP,
                                            D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
@@ -153,7 +153,7 @@ void EnemyAppho::processBehavior() {
                                          D_ANG(1), 0, TURN_CLOSE_TO, false);
                  _pKurokoA->setMvAcce(100+(G_RANK*200));
              }
-             if (_pProg->getFrameInProgress() % 16 == 0) {
+             if (_pProg->getFrameInProgress() % 16U == 0) {
                  //ちょくちょく自機を見つめる
                  _pKurokoA->turnFaceAngTwd(P_MYSHIP,
                                            D_ANG(1), 0, TURN_CLOSE_TO, true);

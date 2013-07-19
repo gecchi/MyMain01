@@ -18,12 +18,12 @@ XpmHeader::XpmHeader(const char** prm_xpm) : GgafObject() {
     line0 >> columns_ >> rows_ >> colors_;
     for (int i = 0; i < colors_; i++) {
         char c = xpm_hd_[i + 1][0];
-        c_px.push_back(c); //  0123456789
-        if (xpm_hd_[i + 1][4] == '#') {
-            std::string strcolor = std::string(&(xpm_hd_[i + 1][4])); // "X c #E08000",
+        c_px.push_back(c);
+        if (xpm_hd_[i + 1][4] == '#') {                             //                   0123456789
+            std::string strcolor = std::string(&(xpm_hd_[i+1][4])); //"#"ˆÈ~‚ð•¶Žš—ñ‚Ö "X c #E08000",
             c_rgb_[c] = NEW GgafCore::GgafRgb(strcolor);
         } else {
-            std::string strcolor = std::string(&(xpm_hd_[i + 1][4])); // "X c None",“™
+            std::string strcolor = std::string(&(xpm_hd_[i+1][4]));
             if (strcolor == "None" || strcolor == "none") {
                 c_px_non_ = c;
                 c_rgb_[c] = NEW GgafCore::GgafRgb("#000000");
@@ -32,8 +32,10 @@ XpmHeader::XpmHeader(const char** prm_xpm) : GgafObject() {
             }
         }
     }
-    //
-    pixels_ = &(prm_xpm[1+colors_+1 -1]);
+    //pixels_‚Íƒwƒbƒ_[ˆÈ~‚Ì”z—ñ
+    pixels_ = &(prm_xpm[1+colors_+1 -1]);//+1       :Å‰‚Ì‚Ps–Ú‚ð”ò‚Î‚·ˆÓ–¡B
+                                         //colors_+1:c‚ÌŽŸ‚Ìs‚©‚ç‚¾‚æ‚Æ‚¢‚¤ˆÓB
+                                         //-1       :”z—ñ‚¾‚©‚ç“YŽš‚Í-1
     num_color_pixels_ = 0;
     for (int i = 0; i < rows_; i++) {
         for (int j = 0; j < columns_; j++) {
@@ -42,8 +44,8 @@ XpmHeader::XpmHeader(const char** prm_xpm) : GgafObject() {
             }
         }
     }
-
 }
+
 XpmHeader::~XpmHeader(){
     for (int i = 0; i < colors_; i++) {
         GgafCore::GgafRgb* pRgb = c_rgb_[c_px[i]];

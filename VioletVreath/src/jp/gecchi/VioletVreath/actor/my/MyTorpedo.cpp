@@ -130,7 +130,7 @@ void MyTorpedo::processBehavior() {
         //ムーブ２
         if (move_section_ == 2) {
             if (getActiveFrame() < 120) {
-                if (getActiveFrame() % 16 == 0) {
+                if (getActiveFrame() % 16U == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
                             pKurokoA->turnMvAngTwd(pTarget_,
@@ -161,7 +161,7 @@ void MyTorpedo::processBehavior() {
         //ムーブ３
         if (move_section_ == 3) {
             if (getActiveFrame() < 300) {
-                if (getActiveFrame() % 32 == 0) {
+                if (getActiveFrame() % 32U == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
                             pKurokoA->turnMvAngTwd(pTarget_,

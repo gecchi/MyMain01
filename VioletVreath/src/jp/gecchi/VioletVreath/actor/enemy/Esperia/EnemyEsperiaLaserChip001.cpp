@@ -99,7 +99,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
 
         case PROG_TURN2: {
             //‹üÜ•â³
-            if (_pProg->getFrameInProgress() % 8 == 0) {
+            if (_pProg->getFrameInProgress() % 8U == 0) {
                 _pKurokoA->turnMvAngTwd(tX2_, tY2_, tZ2_,
                                         D_ANG(5), 0,
                                         TURN_CLOSE_TO, true);
@@ -114,7 +114,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             if (_pProg->isJustChanged()) {
                 _pKurokoA->setMvVelo(_pKurokoA->_veloMv*2);
             }
-            if (_pProg->getFrameInProgress() % 16 == 0) {
+            if (_pProg->getFrameInProgress() % 16U == 0) {
                 _pKurokoA->turnMvAngTwd(tX2_, tY2_, tZ2_,
                                         100, 0,
                                         TURN_CLOSE_TO, true);

@@ -145,9 +145,9 @@ void EnemyTamago01::processBehavior() {
     if (iMovePatternNo_ == 3) {
 
     }
-    if (getBehaveingFrame() % 30 == 0) {
+    if (getBehaveingFrame() % 30U == 0) {
         _pKurokoA->turnMvAngTwd(P_MYSHIP,
-                                            2000,0,TURN_CLOSE_TO, false);
+                                2000,0,TURN_CLOSE_TO, false);
 
         if (pDepo_Shot_) {
             //•úËóƒVƒ‡ƒbƒg”­Ë

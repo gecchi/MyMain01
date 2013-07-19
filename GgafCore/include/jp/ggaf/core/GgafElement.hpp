@@ -611,10 +611,7 @@ public:
      * ① 同一フレーム内で、初めての呼び出しであるかチェック<BR>
      *   ・初めての呼び出しである。  → ②へ<BR>
      *   ・２回以上呼び出されている。→ 何もしないでreturn<BR>
-     * ② 次の内部フレームカウンタをリセット<BR>
-     *   ・getBehaveingFrame() を 0 にする。<BR>
-     *   ・getActiveFrame() を 0 にする。<BR>
-     * ③ 下位実装処理の onReset() をコールバックする。<BR>
+     * ② 下位実装処理の onReset() をコールバックする。<BR>
      * 補足:内部で initialize() 呼び出し直後に、１回だけ reset() は自動的に呼び出される。<BR>
      */
     virtual void reset();
@@ -1145,8 +1142,6 @@ void GgafElement<T>::reset() {
             _was_initialize_flg = true;
         }
         if (_is_already_reset == false) {
-            _frame_of_behaving = 0;
-            _frame_of_behaving_since_onActive = 0;
             onReset();
             _is_already_reset = true;
         }
@@ -1161,8 +1156,6 @@ void GgafElement<T>::resetTree() {
             _was_initialize_flg = true;
         }
         if (_is_already_reset == false) {
-            _frame_of_behaving = 0;
-            _frame_of_behaving_since_onActive = 0;
             onReset();
             _is_already_reset = true;
         }

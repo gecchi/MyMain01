@@ -90,18 +90,23 @@ GgafDxGeometricActor* GgafDxFkFormation::callUpMember() {
         return nullptr;
     }
     if (_can_call_up) {
+                                 //FkBase     -> GroupHead   ->Actor
+        GgafActor* pFirstActor = getSubFirst()->getSubFirst()->getSubFirst(); //今の先頭アクター
         if (_pIte) {
             _pIte = _pIte->getNext();
-                         //FkBase     -> GroupHead   ->Actor
-            if (_pIte == getSubFirst()->getSubFirst()->getSubFirst()) { //１周した
+            if (_pIte == pFirstActor) { //１周した
                 _can_call_up = false;
                 return nullptr;
             }
         } else {
-                  //FkBase       -> GroupHead   ->Actor
-            _pIte = getSubFirst()->getSubFirst()->getSubFirst();
+            //初回
+            _pIte = pFirstActor;
         }
         _pIte->activate();
+        if (_pIte->getNext() == pFirstActor) {
+            //次が今の先頭アクターなら、これ(_pIte)は最後の一つ
+            _can_call_up = false;
+        }
         return (GgafDxGeometricActor*)_pIte;
     } else {
         return nullptr;

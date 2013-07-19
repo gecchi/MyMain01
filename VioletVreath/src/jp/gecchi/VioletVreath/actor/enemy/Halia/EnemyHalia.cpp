@@ -110,7 +110,7 @@ void EnemyHalia::processBehavior() {
             break;
         }
         case PROG_IN_FIRE: {
-            if (getActiveFrame() % 16 == 0) {
+            if (getActiveFrame() % 16U == 0) {
                 _pKurokoA->turnMvAngTwd(P_MYSHIP,
                                         10, 0,
                                         TURN_CLOSE_TO, false);

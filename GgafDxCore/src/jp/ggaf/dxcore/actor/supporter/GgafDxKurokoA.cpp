@@ -226,7 +226,7 @@ void GgafDxKurokoA::behave() {
                 }
             } else if (_slide_mv_progress == 3) {
                 //減速中
-                if (_pActor->getBehaveingFrame() % 8 == 0) {
+                if (_pActor->getBehaveingFrame() % 8U == 0) {
                     //補正・補正・補正
                     setMvAcceByD(_slide_mv_target_distance - _slide_mv_mv_distance, _slide_mv_end_velo);
                 }
@@ -264,7 +264,7 @@ void GgafDxKurokoA::behave() {
                 }
             } else if (_slide_mv_progress == 3) {
                 //減速中
-                if (_pActor->getBehaveingFrame() % 8 == 0) {
+                if (_pActor->getBehaveingFrame() % 8U == 0) {
                     //補正・補正・補正
                     setMvAcceByT(_slide_mv_target_frames - _slide_mv_frame_of_spent, _slide_mv_end_velo);
                 }

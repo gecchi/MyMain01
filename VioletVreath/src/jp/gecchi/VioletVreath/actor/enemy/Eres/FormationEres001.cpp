@@ -20,7 +20,7 @@ void FormationEres001::initialize() {
 }
 
 void FormationEres001::processBehavior() {
-    if (canCallUp() && (getActiveFrame()-1) % 32 == 0) {
+    if (canCallUp() && (getActiveFrame()-1) % 32U == 0) {
         callUpMember();
     }
 }

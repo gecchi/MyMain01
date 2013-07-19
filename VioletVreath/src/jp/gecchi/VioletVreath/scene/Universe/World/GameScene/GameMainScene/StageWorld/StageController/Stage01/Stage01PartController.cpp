@@ -33,6 +33,7 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 2;
 	orderActorToFactory(10000000, FormationThagoras001, "FormationThagoras001-1");
+	orderActorToFactory(10000001, FormationThagoras002, "FormationThagoras002-2");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -45,15 +46,18 @@ void Stage01PartController::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getActiveFrame() == _paFrame_NextEvent[_cnt_event]) {
-		switch (getActiveFrame()) {
+	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+		switch (getBehaveingFrame()) {
 			case 1: {
 				break;
 			}
 			case 502: {
-				FormationThagoras001* pF = (FormationThagoras001*)obtainActorFromFactory(10000000);
-				getSceneDirector()->addSubGroup(pF);
-				pF->position(PX_C(-200), PX_C(  0), PX_C(500));
+				FormationThagoras001* pF1 = (FormationThagoras001*)obtainActorFromFactory(10000000);
+				getSceneDirector()->addSubGroup(pF1);
+				pF1->position(PX_C(-200), PX_C(  0), PX_C(500));
+				FormationThagoras002* pF2 = (FormationThagoras002*)obtainActorFromFactory(10000001);
+				getSceneDirector()->addSubGroup(pF2);
+				pF2->position(PX_C(-200), PX_C(  0), PX_C(530));
 				break;
 			}
 			default :

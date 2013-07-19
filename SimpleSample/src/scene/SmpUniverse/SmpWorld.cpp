@@ -15,7 +15,6 @@ SmpWorld::SmpWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 void SmpWorld::initialize() {
 }
 
-
 void SmpWorld::processBehavior() {
     //キャラをボタン入力で移動
     vb_.update(); //入力状況更新

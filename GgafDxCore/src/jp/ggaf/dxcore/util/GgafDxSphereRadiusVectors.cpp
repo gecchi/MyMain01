@@ -79,7 +79,7 @@ void GgafDxSphereRadiusVectors::getFaceAngClosely(uint32_t prm_x,
     }
 
     out_angFaceZ = top / (D90SANG+1);
-    out_angFaceY_rev = top % (D90SANG+1);
+    out_angFaceY_rev = top % ((unsigned int)(D90SANG+1));
 
 }
 

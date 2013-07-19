@@ -47,20 +47,25 @@ RankUp001::RankUp001(const char* prm_name) : RankUpStage(prm_name) {
 	orderActorToFactory(80000025, EnemyIrce, "EnemyIrce-26");
 	orderActorToFactory(80000026, EnemyIrce, "EnemyIrce-27");
     // gen01 end
+
+    _TRACE_("RankUp001::RankUp001 getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
 }
 
 void RankUp001::initialize() {
+        _TRACE_("RankUp001::initialize() getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
     RankUpStage::initialize();
 }
 
 void RankUp001::processBehavior() {
+    _TRACE_("RankUp001::processBehavior() getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
+
     RankUpStage::processBehavior();
 
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getActiveFrame() == _paFrame_NextEvent[_cnt_event]) {
-		switch (getActiveFrame()) {
+	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+		switch (getBehaveingFrame()) {
 			case 1: {
 				break;
 			}
@@ -288,6 +293,7 @@ void RankUp001::processBehavior() {
 }
 
 void RankUp001::processJudgement() {
+    _TRACE_("RankUp001::processJudgement() getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
 }
 
 
@@ -296,5 +302,5 @@ void RankUp001::onCatchEvent(hashval prm_no, void* prm_pSource) {
 
 
 RankUp001::~RankUp001() {
-
+        _TRACE_("RankUp001::~RankUp001() getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
 }

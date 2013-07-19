@@ -11,6 +11,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
+#include "jp/ggaf/core/util/GgafRgb.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -274,6 +275,10 @@ void GgafDxDrawableActor::setMaterialColor(float r, float g, float b) {
         _paMaterial[i].Ambient.b = b;
         _paMaterial[i].Diffuse.b = b;
     }
+}
+
+void GgafDxDrawableActor::setMaterialColor(GgafCore::GgafRgb* prm_rgb) {
+    setMaterialColor(prm_rgb->_r, prm_rgb->_g, prm_rgb->_b);
 }
 
 void GgafDxDrawableActor::resetMaterialColor() {

@@ -99,7 +99,7 @@ void PreDrawScene::initialize() {
 void PreDrawScene::processBehavior() {
     switch (_pProg->get()) {
         case PreDrawScene::PROG_INIT: {
-            if (_pProg->getFrameInProgress() % 20 == 0 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
+            if (_pProg->getFrameInProgress() % 20U == 0 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                 if (_id_ > order_id_end_-order_id_begin_) {
                     _pProg->changeNext();
                 } else {

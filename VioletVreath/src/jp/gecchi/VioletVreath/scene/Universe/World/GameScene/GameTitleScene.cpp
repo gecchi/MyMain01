@@ -138,7 +138,7 @@ void GameTitleScene::processBehavior() {
                 _pProg->change(GameTitleScene::PROG_FINISH); //タイトルシーン終了へ
             }
             //点滅
-            if (_pProg->getFrameInProgress() % 10 < 5 ) {
+            if (_pProg->getFrameInProgress() % 10U < 5 ) {
                 pLabel02_->update(PX_C(700), PX_C(200), "READY GO!");
             } else {
                 pLabel02_->update(PX_C(700), PX_C(200), "");

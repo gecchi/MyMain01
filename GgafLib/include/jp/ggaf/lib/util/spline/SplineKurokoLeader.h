@@ -238,6 +238,10 @@ public:
         _Y_start = prm_Y;
         _Z_start = prm_Z;
     }
+
+    /**
+     * スプラインの開始座標固定を解除する。
+     */
     void unfixStartPosition() {
         _is_fix_start_pos = false;
     }

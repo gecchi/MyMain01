@@ -36,7 +36,7 @@ void EnemyErmioneArmHead::initialize() {
 void EnemyErmioneArmHead::processBehavior() {
     EnemyErmioneArm::processBehavior();
 
-    if (getActiveFrame() % 10 == 0 &&
+    if (getActiveFrame() % 10U == 0 &&
         (_pProg->get() == PROG_NOTHING || _pProg->get() == PROG_AIMING)) { //èoåªä‘äu
         GgafDxDrawableActor* pShot = UTIL::activateAttackShotOf(this);
         if (pShot) {
