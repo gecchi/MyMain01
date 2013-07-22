@@ -16,13 +16,17 @@ FormationIda001::FormationIda001(const char* prm_name) :
     _class_name = "FormationIda001";
     registerFormationFkBase(NEW EnemyIdaBase001("Base"));
 
-    coord r = PX_C(100);
-    for (angle angPos1 = 0; angPos1 < D360ANG;  angPos1 += (D_ANG(30))) {
-        coord X = 0;
-        coord Y = ANG_SIN(angPos1) * r;
-        coord Z = ANG_COS(angPos1) * r;
-        EnemyIda* pIda = NEW EnemyIda("Ida01");
-        addFormationMember(pIda,X,Y,Z,0,0,0);
+    coord r = PX_C(150);
+    for (angle rx = D90ANG; rx <= D270ANG;  rx += (D_ANG(20))) {
+        coord Y = ANG_SIN(rx) * r;
+        coord r2 = ANG_COS(rx) * r;
+        for (angle ry = 0; ry < D360ANG;  ry += (D_ANG(20))) {
+            coord X = ANG_COS(ry) * r2;
+            coord Z = ANG_SIN(ry) * r2;
+            EnemyIda* pIda = NEW EnemyIda("Ida01");
+            addFormationMember(pIda,X,Y,Z,0,0,0);
+        }
+
     }
 }
 

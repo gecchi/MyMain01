@@ -28,7 +28,7 @@ public:
     HoshiBoshiRankUp* pHoshiBoshi_;
     LabelGecchi16Font* pMessage1_;
     LabelGecchi16Font* pMessage2_;
-
+    LabelGecchi16Font* pMessage3_;
 public:
     RankUpStage(const char* prm_name);
 

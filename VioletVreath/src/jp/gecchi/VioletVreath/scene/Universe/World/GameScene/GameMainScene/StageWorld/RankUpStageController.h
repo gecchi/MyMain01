@@ -33,10 +33,10 @@ public:
     char buf_[60];
     RankUpStage* apRankUpStage_[MAX_RANKUP_SCENE];
     RankUpStage* pNowRankUpStage_;
-
+    GgafDxCore::GgafDxSeConnection* pSeConn_RankUpStageExec_;
 public:
     RankUpStageController(const char* prm_name);
-    void execute();
+    void executeNext();
 
     void onReset() override;
     void ready(int prm_rank_level);

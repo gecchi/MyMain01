@@ -29,19 +29,28 @@ void StageWorld::onReset() {
     P_MYSHIP_SCENE->resetTree();
     P_MYSHIP_SCENE->activateImmed();
     addSubLast(P_MYSHIP_SCENE->extract()); //スローの影響を与えないために一つ上
+    pStageCtrler_->setRunFrameOnce(1); //スローなしに
 }
 
 void StageWorld::initialize() {
 }
 
 void StageWorld::processBehavior() {
-    //ランクアップシーン差し込み
 
-    if (VB_PLAY->isPushedDown(VB_BUTTON7)) {
-        _TRACE_("G_RANKUP_LEVEL？？？"<<G_RANKUP_LEVEL);
+    //debug ---->
+//#ifdef MY_DEBUG
+    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_P)) {
+        G_RANK += (1.0/100000.0);
+        _TRACE_("StageWorld::processBehavior() G_RANK="<<G_RANK<<"/G_RANK_DISP="<<G_RANK_DISP<<"");
+    }
+//#endif
+    //<---- debug
+    //ランクアップシーン差し込み
+    if (GameGlobal::updateRankUpLebel()) {
+        _TRACE_("G_RANKUP_LEVEL アップしました！！→"<<G_RANKUP_LEVEL<<" (G_RANK="<<G_RANK<<"/G_RANK_DISP="<<G_RANK_DISP<<")");
         if (can_rank_up_) {
-            G_RANKUP_LEVEL = G_RANKUP_LEVEL + 1;
-            pRankUpStageCtrler_->execute();
+            _TRACE_("ランクアップシーン差し込みします！");
+            pRankUpStageCtrler_->executeNext();
             _TRACE_("P_STAGE_CTRLER をスロー");
             pStageCtrler_->addRunFrameOnce(1); //スロー開始
         } else {

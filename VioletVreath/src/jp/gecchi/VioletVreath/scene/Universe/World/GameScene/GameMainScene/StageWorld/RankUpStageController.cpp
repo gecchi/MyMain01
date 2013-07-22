@@ -2,6 +2,8 @@
 #include "RankUpStageController.h"
 
 #include "jp/ggaf/core/GgafFactory.h"
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp001.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp002.h"
@@ -9,6 +11,8 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp100.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
+
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -25,10 +29,14 @@ RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScen
     for (int i = 0; i < MAX_RANKUP_SCENE; i ++) {
         apRankUpStage_[i] = nullptr;
     }
+
+    pSeConn_RankUpStageExec_ = connect_SeManager("WAVE_RANK_UP_STAGE_EXEC");
+
     useProgress(RankUpStageController::PROG_FINISH);
     ready(G_RANKUP_LEVEL + 1);
 }
-void RankUpStageController::execute() {
+void RankUpStageController::executeNext() {
+    pSeConn_RankUpStageExec_->peek()->play(); //ランクアップステージ開始SE！
     ready(G_RANKUP_LEVEL);     //これはパスされるはずであるが、念のため。
     ready(G_RANKUP_LEVEL + 1); //次のシーンを先行予約
     pNowRankUpStage_ = (RankUpStage*)obtainSceneFromFactory(ORDER_ID_RANKUP+G_RANKUP_LEVEL);
@@ -436,6 +444,8 @@ void RankUpStageController::sayonaraRankUpStages() {
         }
     }
 }
+
 RankUpStageController::~RankUpStageController() {
+    pSeConn_RankUpStageExec_->close();
 }
 

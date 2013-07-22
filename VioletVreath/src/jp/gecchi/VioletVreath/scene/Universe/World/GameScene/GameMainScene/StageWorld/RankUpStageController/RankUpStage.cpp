@@ -11,6 +11,7 @@
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundSpaceRankUp.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/GameGlobal.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -32,8 +33,12 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
     pMessage1_->position(PX_C(400), PX_C(200));
     getSceneDirector()->addSubGroup(pMessage1_);
     pMessage2_ = NEW LabelGecchi16Font("RankUpMsg2");
-    pMessage2_->position(PX_C(400), PX_C(220));
+    pMessage2_->position(PX_C(400), PX_C(230));
     getSceneDirector()->addSubGroup(pMessage2_);
+    pMessage3_ = NEW LabelGecchi16Font("RankUpMsg2");
+    pMessage3_->position(PX_C(400), PX_C(260));
+    getSceneDirector()->addSubGroup(pMessage3_);
+
 
     useProgress(RankUpStage::PROG_END);
 
@@ -50,8 +55,8 @@ void RankUpStage::initialize() {
     _pProg->reset(RankUpStage::PROG_INIT);
 }
 void RankUpStage::processBehavior() {
-    sprintf(buff,"%d/%d",hit_enemy_num_,all_hit_num_);
-    pMessage2_->update(buff);
+    sprintf(buff,"HIT/ALL %d/%d",hit_enemy_num_,all_hit_num_);
+    pMessage3_->update(buff);
     switch (_pProg->get()) {
         case RankUpStage::PROG_INIT: {
             _pProg->change(RankUpStage::PROG_BEGIN);
@@ -61,7 +66,9 @@ void RankUpStage::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
                 pMessage1_->update("RANKUPSTAGE::PROG_BEGIN");
-                pMessage1_->_pAFader->beat(120,30,30,30,-1);
+                std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;
+                pMessage2_->update(m.c_str());
+                pMessage2_->_pAFader->beat(120,30,30,30,-1);
                 _pBgmPerformer->play_fadein(0);
             }
 
@@ -91,14 +98,23 @@ void RankUpStage::processBehavior() {
         case RankUpStage::PROG_RESULT: {
             if (_pProg->isJustChanged()) {
                 pMessage1_->update("RANKUPSTAGE::PROG_RESULT");
+                pMessage2_->update("KEKKA HAPYOU!!!");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_RESULT !");
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] 結果 hit_enemy_num_="<<hit_enemy_num_<<" all_hit_num_="<<all_hit_num_);
             }
 
             //結果表示？
             if (_pProg->getFrameInProgress() == 320) {
-                pMessage2_->update("KEKKA HAPYOU!!!");
                 _pBgmPerformer->fadeout_stop(0);
+                if (all_hit_num_ == hit_enemy_num_) { //全滅させた！
+                    pMessage2_->update("PERFECT!!!!");
+                } else if (all_hit_num_/2 > hit_enemy_num_) {
+                    pMessage2_->update("VERY GOOD!!!!");
+                } else if (all_hit_num_/3 > hit_enemy_num_) {
+                    pMessage2_->update("GOOD!!!!");
+                } else {
+                    pMessage2_->update("HETAKUSO!!!!");
+                }
             }
 
             if (_pProg->getFrameInProgress() == 320+300) {
@@ -114,7 +130,7 @@ void RankUpStage::processBehavior() {
             }
 
             if (_pProg->getFrameInProgress() == 280) {
-                pMessage1_->update("BYBY!");
+                pMessage2_->update("BYBY!");
             }
 
             break;
@@ -122,7 +138,7 @@ void RankUpStage::processBehavior() {
         default:
             break;
     }
-    pMessage1_->_pAFader->behave();
+    pMessage2_->_pAFader->behave();
 
 }
 

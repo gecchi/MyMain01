@@ -4,6 +4,7 @@
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -136,6 +137,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
     _class_name = "LabelRankFont";
     tmp_rank_ = 0;
     setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
+    _pSeTx->set(SE_RANK_UP  , "WAVE_RANK_UP");
     useProgress(PROG_RANKUP);
 }
 
@@ -175,6 +177,7 @@ void LabelRankFont::processBehavior() {
 
         case PROG_RANKUP: {
             if (_pProg->isJustChanged()) {
+                _pSeTx->play(SE_RANK_UP);
                 _pModel->_pTexBlinker->beat(30, 15, 1, 3);
             }
             if (_pModel->_pTexBlinker->_method == NOBLINK) {

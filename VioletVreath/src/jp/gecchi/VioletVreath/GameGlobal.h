@@ -7,12 +7,15 @@
 #define G_RANK (VioletVreath::GameGlobal::rank_)
 /** 表示用ランク値 */
 #define G_RANK_DISP ((int)(G_RANK*100000))
-/** ランクアップレベル値 */
+/** ランクアップレベル値。StageWorld::processBehavior()でG_RANKに追従 */
 #define G_RANKUP_LEVEL (VioletVreath::GameGlobal::rank_up_level_)
 /** スコア */
 #define G_SCORE (VioletVreath::GameGlobal::score_)
 /** ランキングスコア */
 #define G_RANKING (VioletVreath::GameGlobal::qryRanking_)
+
+
+#define G_MAX_RANKUP_LEVEL (1230)
 
 namespace VioletVreath {
 
@@ -25,6 +28,9 @@ public:
     static double rank_;
     static int rank_up_level_;
     static QueryRanking qryRanking_;
+    static int prime_n_[];
+
+    static bool updateRankUpLebel();
 };
 
 }

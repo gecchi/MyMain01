@@ -591,6 +591,7 @@ void MyShip::processJudgement() {
 
 
     //debug ---->
+#ifdef MY_DEBUG
     if (GgafDxInput::isPushedDownKey(DIK_W)) {
         MyStraightLaserChip001::tex_no_ = 0;
     }
@@ -600,6 +601,7 @@ void MyShip::processJudgement() {
     if (GgafDxInput::isPushedDownKey(DIK_R)) {
         MyStraightLaserChip001::tex_no_ = 2;
     }
+#endif
     //<---- debug
 
 

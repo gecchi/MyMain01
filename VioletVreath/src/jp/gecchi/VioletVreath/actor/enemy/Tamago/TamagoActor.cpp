@@ -19,41 +19,41 @@ void TamagoActor::initialize() {
 }
 
 void TamagoActor::processBehavior() {
-    if (GgafDxInput::isPushedDownKey(DIK_0)) {
-        _pPuppeteer->play(LEFT_HAND,
-                            0,          //UINT   prm_performance_no,
-                            -1,         //double prm_loopnum,
-                            3.0,        //double prm_target_speed,
-                            0,          //frame  prm_shift_speed_frames,
-                            1.0,        //double prm_target_weight,
-                            0    );     //frame  prm_shift_weight_frames
-
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_9)) {
-        _pPuppeteer->exchangPerformance();
-        _pPuppeteer->play(LEFT_HAND,
-                            1,          //UINT   prm_performance_no,
-                            -1,         //double prm_loopnum,
-                            -10.0,      //double prm_target_speed,
-                            120,        //frame  prm_shift_speed_frames,
-                            1.0,        //double prm_target_weight,
-                            0    );     //frame  prm_shift_weight_frames
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_8)) {
-//        _pPuppeteer->play(1, 1.0, LOOP_MOTION_LINER);
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_7)) {
-//        _pPuppeteer->play(1, -1.0, LOOP_MOTION_LINER);
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_6)) {
-//        _pPuppeteer->exchangStick();
-    }
-
-    if (GgafDxInput::isPushedDownKey(DIK_E)) {
-    }
-
-    if (GgafDxInput::isPushedDownKey(DIK_R)) {
-    }
+//    if (GgafDxInput::isPushedDownKey(DIK_0)) {
+//        _pPuppeteer->play(LEFT_HAND,
+//                            0,          //UINT   prm_performance_no,
+//                            -1,         //double prm_loopnum,
+//                            3.0,        //double prm_target_speed,
+//                            0,          //frame  prm_shift_speed_frames,
+//                            1.0,        //double prm_target_weight,
+//                            0    );     //frame  prm_shift_weight_frames
+//
+//    }
+//    if (GgafDxInput::isPushedDownKey(DIK_9)) {
+//        _pPuppeteer->exchangPerformance();
+//        _pPuppeteer->play(LEFT_HAND,
+//                            1,          //UINT   prm_performance_no,
+//                            -1,         //double prm_loopnum,
+//                            -10.0,      //double prm_target_speed,
+//                            120,        //frame  prm_shift_speed_frames,
+//                            1.0,        //double prm_target_weight,
+//                            0    );     //frame  prm_shift_weight_frames
+//    }
+//    if (GgafDxInput::isPushedDownKey(DIK_8)) {
+////        _pPuppeteer->play(1, 1.0, LOOP_MOTION_LINER);
+//    }
+//    if (GgafDxInput::isPushedDownKey(DIK_7)) {
+////        _pPuppeteer->play(1, -1.0, LOOP_MOTION_LINER);
+//    }
+//    if (GgafDxInput::isPushedDownKey(DIK_6)) {
+////        _pPuppeteer->exchangStick();
+//    }
+//
+//    if (GgafDxInput::isPushedDownKey(DIK_E)) {
+//    }
+//
+//    if (GgafDxInput::isPushedDownKey(DIK_R)) {
+//    }
 
     _pPuppeteer->behave();
 

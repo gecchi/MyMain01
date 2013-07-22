@@ -46,19 +46,16 @@ RankUp001::RankUp001(const char* prm_name) : RankUpStage(prm_name) {
 	orderActorToFactory(80000024, EnemyIrce, "EnemyIrce-25");
 	orderActorToFactory(80000025, EnemyIrce, "EnemyIrce-26");
 	orderActorToFactory(80000026, EnemyIrce, "EnemyIrce-27");
+	orderActorToFactory(80000031, FormationThagoras001, "FormationThagoras001-28");
     // gen01 end
 
-    _TRACE_("RankUp001::RankUp001 getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
 }
 
 void RankUp001::initialize() {
-        _TRACE_("RankUp001::initialize() getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
     RankUpStage::initialize();
 }
 
 void RankUp001::processBehavior() {
-    _TRACE_("RankUp001::processBehavior() getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
-
     RankUpStage::processBehavior();
 
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
@@ -70,22 +67,26 @@ void RankUp001::processBehavior() {
 				break;
 			}
 			case 20: {
-				orderActorToFactory(80000027, EnemyIrce, "EnemyIrce-28");
+				orderActorToFactory(80000027, EnemyIrce, "EnemyIrce-29");
 				break;
 			}
 			case 80: {
-				orderActorToFactory(80000028, EnemyIrce, "EnemyIrce-29");
+				orderActorToFactory(80000028, EnemyIrce, "EnemyIrce-30");
 				break;
 			}
 			case 140: {
-				orderActorToFactory(80000029, EnemyIrce, "EnemyIrce-30");
+				orderActorToFactory(80000029, EnemyIrce, "EnemyIrce-31");
 				break;
 			}
 			case 200: {
 				EnemyIrce* p = (EnemyIrce*)obtainActorFromFactory(80000000);
 				getSceneDirector()->addSubGroup(p);
 				all_hit_num_ ++;
-				orderActorToFactory(80000030, EnemyIrce, "EnemyIrce-31");
+				orderActorToFactory(80000030, EnemyIrce, "EnemyIrce-32");
+				FormationThagoras001* pF1 = (FormationThagoras001*)obtainActorFromFactory(80000031);
+				getSceneDirector()->addSubGroup(pF1);
+				pF1->position(PX_C(-200), PX_C(  0), PX_C(500));
+				all_hit_num_ += pF1->num_Thagoras_;
 				break;
 			}
 			case 260: {
@@ -293,7 +294,7 @@ void RankUp001::processBehavior() {
 }
 
 void RankUp001::processJudgement() {
-    _TRACE_("RankUp001::processJudgement() getBehaveingFrame()="<<getBehaveingFrame()<<" _cnt_event="<<_cnt_event);
+    
 }
 
 

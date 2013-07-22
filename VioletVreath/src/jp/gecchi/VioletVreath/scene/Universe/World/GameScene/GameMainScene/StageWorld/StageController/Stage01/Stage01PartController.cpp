@@ -28,12 +28,12 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,502};
-	_paFrame_NextEvent = new frame[2];
+	frame f[] = {1,300,500};
+	_paFrame_NextEvent = new frame[3];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 2;
-	orderActorToFactory(10000000, FormationThagoras001, "FormationThagoras001-1");
-	orderActorToFactory(10000001, FormationThagoras002, "FormationThagoras002-2");
+	_event_num = 3;
+	orderActorToFactory(10000000, FormationIda001, "FormationIda001-1");
+	orderActorToFactory(10000001, FormationDelheid001, "FormationDelheid001-2");
     // gen01 end
     useProgress(Stage01PartController::PROG_FAINAL);
 }
@@ -51,19 +51,22 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 502: {
-				FormationThagoras001* pF1 = (FormationThagoras001*)obtainActorFromFactory(10000000);
-				getSceneDirector()->addSubGroup(pF1);
-				pF1->position(PX_C(-200), PX_C(  0), PX_C(500));
-				FormationThagoras002* pF2 = (FormationThagoras002*)obtainActorFromFactory(10000001);
-				getSceneDirector()->addSubGroup(pF2);
-				pF2->position(PX_C(-200), PX_C(  0), PX_C(530));
+			case 300: {
+				FormationIda001* p = (FormationIda001*)obtainActorFromFactory(10000000);
+				getSceneDirector()->addSubGroup(p);
+				p->getFkBase()->position(PX_C(800), 0, 0);
+				break;
+			}
+			case 500: {
+				FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(10000001);
+				getSceneDirector()->addSubGroup(pF);
+				pF->position(PX_C(200), PX_C(0), PX_C(0), D_ANG(10), D_ANG(0));
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 3-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

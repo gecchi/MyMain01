@@ -61,7 +61,9 @@ public:
         PROG_NOMALDISP,
         PROG_RANKUP   ,
     };
-
+    enum {
+        SE_RANK_UP  ,
+    };
     /** [r]ëOÉtÉåÅ[ÉÄÇÃG_RANK_DISP */
     int tmp_rank_;
 
