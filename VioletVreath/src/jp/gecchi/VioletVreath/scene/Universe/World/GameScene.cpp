@@ -281,7 +281,6 @@ void GameScene::processBehavior() {
 }
 
 void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
-
 //    switch (prm_no) {
 //        case EVENT_GOD_WILL_DIE:
 //

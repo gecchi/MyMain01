@@ -35,11 +35,11 @@ RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScen
     useProgress(RankUpStageController::PROG_FINISH);
     ready(G_RANKUP_LEVEL + 1);
 }
-void RankUpStageController::executeNext() {
+void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
     pSeConn_RankUpStageExec_->peek()->play(); //ランクアップステージ開始SE！
-    ready(G_RANKUP_LEVEL);     //これはパスされるはずであるが、念のため。
-    ready(G_RANKUP_LEVEL + 1); //次のシーンを先行予約
-    pNowRankUpStage_ = (RankUpStage*)obtainSceneFromFactory(ORDER_ID_RANKUP+G_RANKUP_LEVEL);
+    ready(prm_rank_up_level);     //これはパスされるはずであるが、念のため。
+    ready(prm_rank_up_level + 1); //次のシーンを先行予約
+    pNowRankUpStage_ = (RankUpStage*)obtainSceneFromFactory(ORDER_ID_RANKUP+prm_rank_up_level);
     _TRACE_("RankUpStageController::execute() pNowRankUpStage_="<<pNowRankUpStage_);
     GgafScene* pRankUpStage = getSubFirst();
     if (pRankUpStage) {
@@ -57,7 +57,7 @@ void RankUpStageController::executeNext() {
     addSubLast(pNowRankUpStage_);
     pNowRankUpStage_->fadeoutSceneWithBgm(0);
     pNowRankUpStage_->fadeinSceneTree(240);
-    apRankUpStage_[G_RANKUP_LEVEL-1] = pNowRankUpStage_;
+    apRankUpStage_[prm_rank_up_level-1] = pNowRankUpStage_;
     //スローダウン
 }
 
@@ -65,310 +65,310 @@ void RankUpStageController::onReset() {
     _pProg->reset(RankUpStageController::PROG_INIT);
 }
 
-void RankUpStageController::ready(int prm_rank_level) {
-    switch (prm_rank_level) {
+void RankUpStageController::ready(int prm_rank_up_level) {
+    switch (prm_rank_up_level) {
         case 1:
-            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp001, "RankUp001");
+            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp001, "RankUp001");
             break;
         case 2:
-            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp002, "RankUp002");
+            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp002, "RankUp002");
             break;
         case 3:
-            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp003, "RankUp003");
+            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp003, "RankUp003");
             break;
 //        case 4:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp004, "RankUp004");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp004, "RankUp004");
 //            break;
 //        case 5:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp005, "RankUp005");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp005, "RankUp005");
 //            break;
 //        case 6:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp006, "RankUp006");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp006, "RankUp006");
 //            break;
 //        case 7:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp007, "RankUp007");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp007, "RankUp007");
 //            break;
 //        case 8:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp008, "RankUp008");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp008, "RankUp008");
 //            break;
 //        case 9:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp009, "RankUp009");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp009, "RankUp009");
 //            break;
 //        case 10:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp010, "RankUp010");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp010, "RankUp010");
 //            break;
 //        case 11:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp011, "RankUp011");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp011, "RankUp011");
 //            break;
 //        case 12:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp012, "RankUp012");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp012, "RankUp012");
 //            break;
 //        case 13:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp013, "RankUp013");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp013, "RankUp013");
 //            break;
 //        case 14:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp014, "RankUp014");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp014, "RankUp014");
 //            break;
 //        case 15:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp015, "RankUp015");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp015, "RankUp015");
 //            break;
 //        case 16:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp016, "RankUp016");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp016, "RankUp016");
 //            break;
 //        case 17:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp017, "RankUp017");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp017, "RankUp017");
 //            break;
 //        case 18:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp018, "RankUp018");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp018, "RankUp018");
 //            break;
 //        case 19:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp019, "RankUp019");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp019, "RankUp019");
 //            break;
 //        case 20:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp020, "RankUp020");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp020, "RankUp020");
 //            break;
 //        case 21:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp021, "RankUp021");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp021, "RankUp021");
 //            break;
 //        case 22:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp022, "RankUp022");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp022, "RankUp022");
 //            break;
 //        case 23:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp023, "RankUp023");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp023, "RankUp023");
 //            break;
 //        case 24:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp024, "RankUp024");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp024, "RankUp024");
 //            break;
 //        case 25:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp025, "RankUp025");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp025, "RankUp025");
 //            break;
 //        case 26:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp026, "RankUp026");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp026, "RankUp026");
 //            break;
 //        case 27:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp027, "RankUp027");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp027, "RankUp027");
 //            break;
 //        case 28:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp028, "RankUp028");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp028, "RankUp028");
 //            break;
 //        case 29:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp029, "RankUp029");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp029, "RankUp029");
 //            break;
 //        case 30:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp030, "RankUp030");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp030, "RankUp030");
 //            break;
 //        case 31:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp031, "RankUp031");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp031, "RankUp031");
 //            break;
 //        case 32:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp032, "RankUp032");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp032, "RankUp032");
 //            break;
 //        case 33:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp033, "RankUp033");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp033, "RankUp033");
 //            break;
 //        case 34:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp034, "RankUp034");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp034, "RankUp034");
 //            break;
 //        case 35:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp035, "RankUp035");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp035, "RankUp035");
 //            break;
 //        case 36:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp036, "RankUp036");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp036, "RankUp036");
 //            break;
 //        case 37:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp037, "RankUp037");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp037, "RankUp037");
 //            break;
 //        case 38:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp038, "RankUp038");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp038, "RankUp038");
 //            break;
 //        case 39:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp039, "RankUp039");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp039, "RankUp039");
 //            break;
 //        case 40:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp040, "RankUp040");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp040, "RankUp040");
 //            break;
 //        case 41:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp041, "RankUp041");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp041, "RankUp041");
 //            break;
 //        case 42:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp042, "RankUp042");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp042, "RankUp042");
 //            break;
 //        case 43:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp043, "RankUp043");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp043, "RankUp043");
 //            break;
 //        case 44:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp044, "RankUp044");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp044, "RankUp044");
 //            break;
 //        case 45:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp045, "RankUp045");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp045, "RankUp045");
 //            break;
 //        case 46:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp046, "RankUp046");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp046, "RankUp046");
 //            break;
 //        case 47:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp047, "RankUp047");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp047, "RankUp047");
 //            break;
 //        case 48:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp048, "RankUp048");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp048, "RankUp048");
 //            break;
 //        case 49:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp049, "RankUp049");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp049, "RankUp049");
 //            break;
 //        case 50:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp050, "RankUp050");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp050, "RankUp050");
 //            break;
 //        case 51:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp051, "RankUp051");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp051, "RankUp051");
 //            break;
 //        case 52:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp052, "RankUp052");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp052, "RankUp052");
 //            break;
 //        case 53:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp053, "RankUp053");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp053, "RankUp053");
 //            break;
 //        case 54:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp054, "RankUp054");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp054, "RankUp054");
 //            break;
 //        case 55:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp055, "RankUp055");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp055, "RankUp055");
 //            break;
 //        case 56:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp056, "RankUp056");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp056, "RankUp056");
 //            break;
 //        case 57:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp057, "RankUp057");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp057, "RankUp057");
 //            break;
 //        case 58:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp058, "RankUp058");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp058, "RankUp058");
 //            break;
 //        case 59:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp059, "RankUp059");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp059, "RankUp059");
 //            break;
 //        case 60:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp060, "RankUp060");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp060, "RankUp060");
 //            break;
 //        case 61:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp061, "RankUp061");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp061, "RankUp061");
 //            break;
 //        case 62:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp062, "RankUp062");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp062, "RankUp062");
 //            break;
 //        case 63:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp063, "RankUp063");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp063, "RankUp063");
 //            break;
 //        case 64:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp064, "RankUp064");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp064, "RankUp064");
 //            break;
 //        case 65:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp065, "RankUp065");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp065, "RankUp065");
 //            break;
 //        case 66:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp066, "RankUp066");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp066, "RankUp066");
 //            break;
 //        case 67:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp067, "RankUp067");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp067, "RankUp067");
 //            break;
 //        case 68:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp068, "RankUp068");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp068, "RankUp068");
 //            break;
 //        case 69:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp069, "RankUp069");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp069, "RankUp069");
 //            break;
 //        case 70:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp070, "RankUp070");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp070, "RankUp070");
 //            break;
 //        case 71:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp071, "RankUp071");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp071, "RankUp071");
 //            break;
 //        case 72:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp072, "RankUp072");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp072, "RankUp072");
 //            break;
 //        case 73:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp073, "RankUp073");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp073, "RankUp073");
 //            break;
 //        case 74:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp074, "RankUp074");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp074, "RankUp074");
 //            break;
 //        case 75:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp075, "RankUp075");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp075, "RankUp075");
 //            break;
 //        case 76:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp076, "RankUp076");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp076, "RankUp076");
 //            break;
 //        case 77:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp077, "RankUp077");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp077, "RankUp077");
 //            break;
 //        case 78:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp078, "RankUp078");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp078, "RankUp078");
 //            break;
 //        case 79:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp079, "RankUp079");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp079, "RankUp079");
 //            break;
 //        case 80:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp080, "RankUp080");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp080, "RankUp080");
 //            break;
 //        case 81:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp081, "RankUp081");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp081, "RankUp081");
 //            break;
 //        case 82:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp082, "RankUp082");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp082, "RankUp082");
 //            break;
 //        case 83:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp083, "RankUp083");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp083, "RankUp083");
 //            break;
 //        case 84:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp084, "RankUp084");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp084, "RankUp084");
 //            break;
 //        case 85:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp085, "RankUp085");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp085, "RankUp085");
 //            break;
 //        case 86:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp086, "RankUp086");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp086, "RankUp086");
 //            break;
 //        case 87:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp087, "RankUp087");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp087, "RankUp087");
 //            break;
 //        case 88:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp088, "RankUp088");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp088, "RankUp088");
 //            break;
 //        case 89:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp089, "RankUp089");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp089, "RankUp089");
 //            break;
 //        case 90:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp090, "RankUp090");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp090, "RankUp090");
 //            break;
 //        case 91:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp091, "RankUp091");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp091, "RankUp091");
 //            break;
 //        case 92:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp092, "RankUp092");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp092, "RankUp092");
 //            break;
 //        case 93:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp093, "RankUp093");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp093, "RankUp093");
 //            break;
 //        case 94:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp094, "RankUp094");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp094, "RankUp094");
 //            break;
 //        case 95:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp095, "RankUp095");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp095, "RankUp095");
 //            break;
 //        case 96:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp096, "RankUp096");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp096, "RankUp096");
 //            break;
 //        case 97:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp097, "RankUp097");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp097, "RankUp097");
 //            break;
 //        case 98:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp098, "RankUp098");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp098, "RankUp098");
 //            break;
 //        case 99:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp099, "RankUp099");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp099, "RankUp099");
 //            break;
 //        case 100:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_level, RankUp100, "RankUp100");
+//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100, "RankUp100");
 //            break;
         default:
-            orderSceneToFactory(ORDER_ID_RANKUP+100, RankUp100, "RankUp100");
+            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100, "RankUp100");
             break;
     }
 }

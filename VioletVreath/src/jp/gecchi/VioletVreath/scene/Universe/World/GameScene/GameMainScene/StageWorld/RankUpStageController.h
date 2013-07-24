@@ -36,10 +36,10 @@ public:
     GgafDxCore::GgafDxSeConnection* pSeConn_RankUpStageExec_;
 public:
     RankUpStageController(const char* prm_name);
-    void executeNext();
+    void startRunkUpStage(int prm_rank_up_level);
 
     void onReset() override;
-    void ready(int prm_rank_level);
+    void ready(int prm_rank_up_level);
 
     void initialize() override;
     void processBehavior() override;

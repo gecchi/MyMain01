@@ -50,7 +50,7 @@ void StageWorld::processBehavior() {
         _TRACE_("G_RANKUP_LEVEL アップしました！！→"<<G_RANKUP_LEVEL<<" (G_RANK="<<G_RANK<<"/G_RANK_DISP="<<G_RANK_DISP<<")");
         if (can_rank_up_) {
             _TRACE_("ランクアップシーン差し込みします！");
-            pRankUpStageCtrler_->executeNext();
+            pRankUpStageCtrler_->startRunkUpStage(G_RANKUP_LEVEL);
             _TRACE_("P_STAGE_CTRLER をスロー");
             pStageCtrler_->addRunFrameOnce(1); //スロー開始
         } else {

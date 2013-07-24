@@ -83,11 +83,16 @@ void RankUpStage::processBehavior() {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_BEGIN !");
             }
 
-            if (_pProg->getFrameInProgress() >= _paFrame_NextEvent[_event_num-1]) {
-                if (all_hit_num_ == hit_enemy_num_) { //全滅させた！
+            if (_pProg->getFrameInProgress() > _paFrame_NextEvent[_event_num-1]) { //最後の敵機が出現以降
+                if (all_hit_num_ == hit_enemy_num_) {
+                    //全滅させた！即効結果画面へ
                     _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] 全滅させた！");
-                    _pProg->change(RankUpStage::PROG_RESULT); //即効結果画面へ
+                    _pProg->change(RankUpStage::PROG_RESULT);
                     pSeConnection_all_hit_->peek()->play(); //全滅時SE!
+                } else if (_pProg->getFrameInProgress() == _paFrame_NextEvent[_event_num-1]+1200) {
+                    //最後の敵機が出現以降最高２分で強制結果画面へ
+                    _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] 強制結果画面へ！");
+                    _pProg->change(RankUpStage::PROG_RESULT);
                 }
             }
 
@@ -106,11 +111,11 @@ void RankUpStage::processBehavior() {
             //結果表示？
             if (_pProg->getFrameInProgress() == 320) {
                 _pBgmPerformer->fadeout_stop(0);
-                if (all_hit_num_ == hit_enemy_num_) { //全滅させた！
+                if (all_hit_num_ <= hit_enemy_num_) { //全滅させた！
                     pMessage2_->update("PERFECT!!!!");
-                } else if (all_hit_num_/2 > hit_enemy_num_) {
+                } else if (all_hit_num_/2 <= hit_enemy_num_) {
                     pMessage2_->update("VERY GOOD!!!!");
-                } else if (all_hit_num_/3 > hit_enemy_num_) {
+                } else if (all_hit_num_/3 <= hit_enemy_num_) {
                     pMessage2_->update("GOOD!!!!");
                 } else {
                     pMessage2_->update("HETAKUSO!!!!");
@@ -127,10 +132,7 @@ void RankUpStage::processBehavior() {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RankUpStage::PROG_ENDになりますた！");
                 pMessage1_->update("RANKUPSTAGE::PROG_END");
                 throwEventUpperTree(EVENT_RANKUP_WAS_END);
-            }
-
-            if (_pProg->getFrameInProgress() == 280) {
-                pMessage2_->update("BYBY!");
+                pMessage2_->update("BYEBYE!");
             }
 
             break;
@@ -148,7 +150,6 @@ void RankUpStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
 void RankUpStage::onEnd() {
     _TRACE_("RankUpStage::onEnd() ["<<getName()<<"] throwEventUpperTree EVENT_RANKUP_ON_GARBAGED！");
     throwEventUpperTree(EVENT_RANKUP_ON_GARBAGED);
-
 }
 
 RankUpStage::~RankUpStage() {
