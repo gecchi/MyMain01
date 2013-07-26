@@ -1295,7 +1295,28 @@ void GgafDxUtil::setWorldMatrix_BxyzScMv(GgafDxGeometricActor* prm_pActor, D3DXM
 }
 
 
+void GgafDxUtil::setWorldMatrix_BxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
 
+    out_matWorld._11 = _pCam->_matView._11;
+    out_matWorld._12 = _pCam->_matView._21;
+    out_matWorld._13 = _pCam->_matView._31;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = _pCam->_matView._12;
+    out_matWorld._22 = _pCam->_matView._22;
+    out_matWorld._23 = _pCam->_matView._32;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = _pCam->_matView._13;
+    out_matWorld._32 = _pCam->_matView._23;
+    out_matWorld._33 = _pCam->_matView._33;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
+    out_matWorld._44 = 1.0f;
+}
 
 
 

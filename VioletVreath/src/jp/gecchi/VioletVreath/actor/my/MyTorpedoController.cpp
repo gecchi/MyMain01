@@ -79,57 +79,78 @@ void MyTorpedoController::onInactive() {
 }
 
 bool MyTorpedoController::fire() {
-    if (!in_firing_ && MyTorpedoController::torpedo_num_ > 0) {
-        //
-        //      :
-        //      :      ◎魚
-        //      :    ／
-        //      :  ／
-        //      :／
-        //     オ  θ … 成す角expanse        →前方
-        //      :＼
-        //      :  ＼
-        //      :    ＼
-        //      :      ◎魚
-        //      :
-        //
+    if (!in_firing_) {
         in_firing_ = true;
         int target_num = pLockonCtrler_->pRingTarget_->length(); //ロックオン中のターゲット数
         firing_num_ = MyTorpedoController::torpedo_num_; //target_num < 4 ? 4 : target_num;
-        static const angle expanse = D_ANG(90);       //発射照射範囲角度(上図の角θ)
-        static const angle expanse_rz = (D180ANG - expanse)/2;
-        angle ang_way = D0ANG;                        //放射状魚雷の一つ目の開始アングル 0=真下から,90=右から,180=上から
-        angle ang_way_offset = D360ANG / firing_num_; //放射状魚雷と魚雷の間のなすアングル
+
         static const coord r = PX_C(20);              //放射状魚雷出現時、オプションとの半径距離
-        D3DXMATRIX matRotZ; //現在のオプションの向きから90度下に向く回転行列
-        UTIL::setWorldMatrix_RzRy(UTIL::simplifyAng(pOrg_->_RZ - D90ANG), pOrg_->_RY,
-                                  matRotZ);
-        float vx, vy, vz;
-        coord X1,Y1,Z1, X2, Y2, Z2;
-        coord RZ,RY;
-        for (int i = 0; i < firing_num_; i++) {
-            UTIL::convRzRyToVector(expanse_rz, ang_way, vx, vy, vz);
-            X1 = vx * r;
-            Y1 = vy * r;
-            Z1 = vz * r;
-            //(X1,Y1,Z1) はオプションの頭の上のメガホン上の座標、
-            //これをRZを-90度回転させメガホンをオプションの前方に向ける→(X2,Y2,Z2)
-            X2 = X1*matRotZ._11 + Y1*matRotZ._21 + Z1*matRotZ._31;
-            Y2 = X1*matRotZ._12 + Y1*matRotZ._22 + Z1*matRotZ._32;
-            Z2 = X1*matRotZ._13 + Y1*matRotZ._23 + Z1*matRotZ._33;
-            papTorpedo_[i]->position(pOrg_->_X + X2,
-                                   pOrg_->_Y + Y2,
-                                   pOrg_->_Z + Z2);
+
+        if (MyTorpedoController::torpedo_num_ == 1) {
+            //魚雷発射可能数 が 1の場合のみ、特別に前方（レーザー発射方向）に発射
+            float vx, vy, vz;
+            UTIL::convRzRyToVector(pOrg_->_RZ, pOrg_->_RY, vx, vy, vz);
+            papTorpedo_[0]->position(pOrg_->_X + (vx * r),
+                                     pOrg_->_Y + (vy * r),
+                                     pOrg_->_Z + (vz * r));
             if (target_num == 0) {
-                papTorpedo_[i]->pTarget_ = nullptr;
+                papTorpedo_[0]->pTarget_ = nullptr;
             } else {
-                papTorpedo_[i]->pTarget_ = pLockonCtrler_->pRingTarget_->getNext(i);
+                papTorpedo_[0]->pTarget_ = pLockonCtrler_->pRingTarget_->getNext(0);
             }
-            UTIL::convVectorToRzRy(X2, Y2, Z2, RZ, RY);
-            papTorpedo_[i]->_pKurokoA->setRzRyMvAng(RZ, RY); //飛ぶ方向
-            papTorpedo_[i]->activate();
-            ang_way = UTIL::addAng(ang_way, ang_way_offset); //次の放射状の魚雷へ
+            papTorpedo_[0]->_pKurokoA->setRzRyMvAng(pOrg_->_RZ, pOrg_->_RY); //飛ぶ方向
+            papTorpedo_[0]->activate();
+
+        } else {
+            static const angle expanse = D_ANG(90);       //発射照射範囲角度(下図の角θ)
+            //
+            //      :
+            //      :      ◎魚
+            //      :    ／
+            //      :  ／
+            //      :／
+            //     オ  θ … 成す角expanse        →前方
+            //      :＼
+            //      :  ＼
+            //      :    ＼
+            //      :      ◎魚
+            //      :
+            //
+            static const angle expanse_rz = (D180ANG - expanse)/2;
+
+            angle ang_way = D0ANG;                        //放射状魚雷の一つ目の開始アングル 0=真下から,90=右から,180=上から
+            angle ang_way_offset = D360ANG / firing_num_; //放射状魚雷と魚雷の間のなすアングル
+            D3DXMATRIX matRotZ; //現在のオプションの向きから90度下に向く回転行列
+            UTIL::setWorldMatrix_RzRy(UTIL::simplifyAng(pOrg_->_RZ - D90ANG), pOrg_->_RY,
+                                      matRotZ);
+            float vx, vy, vz;
+            coord X1,Y1,Z1, X2, Y2, Z2;
+            coord RZ,RY;
+            for (int i = 0; i < firing_num_; i++) {
+                UTIL::convRzRyToVector(expanse_rz, ang_way, vx, vy, vz);
+                X1 = vx * r;
+                Y1 = vy * r;
+                Z1 = vz * r;
+                //(X1,Y1,Z1) はオプションの頭の上のメガホン上の座標、
+                //これをRZを-90度回転させメガホンをオプションの前方に向ける→(X2,Y2,Z2)
+                X2 = X1*matRotZ._11 + Y1*matRotZ._21 + Z1*matRotZ._31;
+                Y2 = X1*matRotZ._12 + Y1*matRotZ._22 + Z1*matRotZ._32;
+                Z2 = X1*matRotZ._13 + Y1*matRotZ._23 + Z1*matRotZ._33;
+                papTorpedo_[i]->position(pOrg_->_X + X2,
+                                         pOrg_->_Y + Y2,
+                                         pOrg_->_Z + Z2);
+                if (target_num == 0) {
+                    papTorpedo_[i]->pTarget_ = nullptr;
+                } else {
+                    papTorpedo_[i]->pTarget_ = pLockonCtrler_->pRingTarget_->getNext(i);
+                }
+                UTIL::convVectorToRzRy(X2, Y2, Z2, RZ, RY);
+                papTorpedo_[i]->_pKurokoA->setRzRyMvAng(RZ, RY); //飛ぶ方向
+                papTorpedo_[i]->activate();
+                ang_way = UTIL::addAng(ang_way, ang_way_offset); //次の放射状の魚雷へ
+            }
         }
+
         return true;
     } else {
         return false;

@@ -335,8 +335,7 @@ GgafDxDrawableActor* MyStgUtil::activateDestroyedEffectOf(GgafDxGeometricActor* 
         case EF_BONUS001: {
             //ƒXƒRƒA‚ª•\¦‚³‚ê‚éÁ–ÅƒGƒtƒFƒNƒg
             SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
-            pLabel->positionAs(prm_pActor);
-            pLabel->_pKurokoA->takeoverMvFrom(prm_pActor->_pKurokoA);
+            pLabel->onDispatched(prm_pActor); //‰Šúİ’è‚ªs‚í‚ê‚é
             std::string s = XTOS(prm_pActor->_pStatus->get(STAT_AddDestroyScorePoint));
             pLabel->update(s.c_str()); //”j‰ó“¾“_‚ª•\¦‚³‚ê‚é
             pE = pLabel;
@@ -872,8 +871,8 @@ GgafStatus* MyStgUtil::resetEnemyEresStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -900,8 +899,8 @@ GgafStatus* MyStgUtil::resetEnemyEresShot001Status(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 10 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -928,8 +927,8 @@ GgafStatus* MyStgUtil::resetEnemyStraeaStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 300 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 3000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -957,7 +956,7 @@ GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -985,7 +984,7 @@ GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip002Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1013,7 +1012,7 @@ GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip003Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1041,7 +1040,7 @@ GgafStatus* MyStgUtil::resetEnemyStraeaLaserChip004Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1068,8 +1067,8 @@ GgafStatus* MyStgUtil::resetEnemyOmulusStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 2000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1096,8 +1095,8 @@ GgafStatus* MyStgUtil::resetEnemyEmusStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 2000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1125,7 +1124,7 @@ GgafStatus* MyStgUtil::resetEnemyEmusLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1152,8 +1151,8 @@ GgafStatus* MyStgUtil::resetEnemyEtisStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 30000 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 20000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1180,8 +1179,8 @@ GgafStatus* MyStgUtil::resetEnemyRisStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 20 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1208,8 +1207,8 @@ GgafStatus* MyStgUtil::resetEnemyGeriaStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 20 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 1000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1236,8 +1235,8 @@ GgafStatus* MyStgUtil::resetEnemyHaliaStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 300 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 1000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1264,8 +1263,8 @@ GgafStatus* MyStgUtil::resetShot001Status(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 2 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.01000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1292,8 +1291,8 @@ GgafStatus* MyStgUtil::resetShot002Status(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 3 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.01000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1320,8 +1319,8 @@ GgafStatus* MyStgUtil::resetEnemyTamago01Status(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1348,8 +1347,8 @@ GgafStatus* MyStgUtil::resetEnemyIrceStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1516,8 +1515,8 @@ GgafStatus* MyStgUtil::resetEnemyAllasStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1544,8 +1543,8 @@ GgafStatus* MyStgUtil::resetEnemyUnomiaStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1600,8 +1599,8 @@ GgafStatus* MyStgUtil::resetEnemyEmiliaStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 1000 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 4000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1629,7 +1628,7 @@ GgafStatus* MyStgUtil::resetEnemyEmiliaFragmentStatus(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 2000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1657,7 +1656,7 @@ GgafStatus* MyStgUtil::resetEnemyEmiliaFragment2Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 1000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1685,7 +1684,7 @@ GgafStatus* MyStgUtil::resetEnemyEmiliaFragment3Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1740,7 +1739,7 @@ GgafStatus* MyStgUtil::resetMagicPointItem001Status(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 500 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
 	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 0 );  //‘Ì—Í
 	p->set(STAT_Attack, 0 );  //UŒ‚—Í
@@ -1768,7 +1767,7 @@ GgafStatus* MyStgUtil::resetMagicPointItem002Status(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 500 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
 	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 0 );  //‘Ì—Í
 	p->set(STAT_Attack, 0 );  //UŒ‚—Í
@@ -1796,7 +1795,7 @@ GgafStatus* MyStgUtil::resetScoreItem001Status(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 500 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
 	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 0 );  //‘Ì—Í
 	p->set(STAT_Attack, 0 );  //UŒ‚—Í
@@ -1824,7 +1823,7 @@ GgafStatus* MyStgUtil::resetVreathItem001Status(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 500 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
 	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 0 );  //‘Ì—Í
 	p->set(STAT_Attack, 0 );  //UŒ‚—Í
@@ -1852,8 +1851,8 @@ GgafStatus* MyStgUtil::resetEnemyEbeStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 10000 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1880,8 +1879,8 @@ GgafStatus* MyStgUtil::resetEnemyHisbeStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1908,8 +1907,8 @@ GgafStatus* MyStgUtil::resetEnemyHisbe002Status(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1937,7 +1936,7 @@ GgafStatus* MyStgUtil::resetEnemyHisbeLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1965,7 +1964,7 @@ GgafStatus* MyStgUtil::resetEnemyHisbeLaserChip002Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -1993,7 +1992,7 @@ GgafStatus* MyStgUtil::resetEnemyHisbeLaserChip003Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2020,8 +2019,8 @@ GgafStatus* MyStgUtil::resetEnemyDrasteaStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 30000 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 20000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2048,8 +2047,8 @@ GgafStatus* MyStgUtil::resetEnemyTalanteStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2076,8 +2075,8 @@ GgafStatus* MyStgUtil::resetEnemyEsperiaStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 1000 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 3000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2105,7 +2104,7 @@ GgafStatus* MyStgUtil::resetEnemyEsperiaLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2132,8 +2131,8 @@ GgafStatus* MyStgUtil::resetTestGuStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 30000 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 1000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2160,8 +2159,8 @@ GgafStatus* MyStgUtil::resetTestChokiStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 30000 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 1000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2188,8 +2187,8 @@ GgafStatus* MyStgUtil::resetTestPaStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 30000 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 1000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2216,8 +2215,8 @@ GgafStatus* MyStgUtil::resetTestNomalStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 30000 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 1000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2356,8 +2355,8 @@ GgafStatus* MyStgUtil::resetEnemyRatislaviaEyeStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 2000 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 3000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2412,8 +2411,8 @@ GgafStatus* MyStgUtil::resetEnemyErmioneStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 5000 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 4000 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2440,8 +2439,8 @@ GgafStatus* MyStgUtil::resetEnemyErmioneArmHeadStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 0 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 9999999 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2469,7 +2468,7 @@ GgafStatus* MyStgUtil::resetEnemyErmioneArmBodyStatus(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 9999999 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2497,7 +2496,7 @@ GgafStatus* MyStgUtil::resetEnemyErmioneArmWeakStatus(GgafStatus* p) {
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 400 );  //‘Ì—Í
 	p->set(STAT_Attack, 100 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2524,8 +2523,8 @@ GgafStatus* MyStgUtil::resetEnemyApphoStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2552,8 +2551,8 @@ GgafStatus* MyStgUtil::resetEnemyAntiopeStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.00100 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2580,8 +2579,8 @@ GgafStatus* MyStgUtil::resetEnemyDelheidStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 1000 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2608,8 +2607,8 @@ GgafStatus* MyStgUtil::resetEnemyAlisanaStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 0 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 1000 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2636,8 +2635,8 @@ GgafStatus* MyStgUtil::resetEnemyIdaStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 100 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 10 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 1 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 10000 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
@@ -2664,8 +2663,8 @@ GgafStatus* MyStgUtil::resetEnemyThagorasStatus(GgafStatus* p) {
 	p->set(STAT_AddDestroyScorePoint, 300 );  //”j‰ó‰ÁZ“¾“_
 	p->set(STAT_AddDamagedScorePoint, 0 );  //ƒ_ƒ[ƒW‰ÁZ“¾“_
 	p->set(STAT_FlushAble, 0 );  //ƒ_ƒ[ƒWƒtƒ‰ƒbƒVƒ…—v”Û
-	p->set(STAT_AddRankPoint, 0.10000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
-	p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+	p->set(STAT_AddRankPoint, 0.00001 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
+	p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
 	p->set(STAT_Attack, 99 );  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦

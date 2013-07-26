@@ -11,6 +11,13 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class SpriteLabelBonus001 : public GgafLib::StringSpriteActor {
+public:
+    enum {
+        PROG_INIT   ,
+        PROG_MOVE01 ,
+        PROG_MOVE02 ,
+        PROG_LEAVE ,
+    };
 
 public:
     SpriteLabelBonus001(const char* prm_name);
@@ -19,9 +26,13 @@ public:
 
     virtual void initialize() override;
 
-    virtual void onActive() override;
-
     virtual void processBehavior() override;
+    /**
+     * デポジトリから取得された時のコールバック .
+     * SpriteLabelBonus001 の活動を開始サせるには本メソッドを呼び出してください。
+     * @param prm_pOrgActor
+     */
+    void onDispatched(GgafDxCore::GgafDxGeometricActor* prm_pOrgActor);
 
     virtual ~SpriteLabelBonus001();
 

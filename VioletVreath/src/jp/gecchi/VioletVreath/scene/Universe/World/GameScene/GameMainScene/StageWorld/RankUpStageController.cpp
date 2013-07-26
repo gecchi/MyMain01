@@ -46,7 +46,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
         //他のランクアップ中
         //既存ランクアップシーンをスローにする
         while (1) {
-            pRankUpStage->addRunFrameOnce(1);
+            pRankUpStage->addRunFrameOnce(3);
             if (pRankUpStage->isLast()) {
                 break;
             } else {

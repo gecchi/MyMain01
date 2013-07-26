@@ -5,18 +5,20 @@
 namespace GgafDxCore {
 
 /**
- * とりあえずクォータニオンクラス .
- * TODO:もっと汎用化
+ * とりあえず四元数(クォータニオン)クラス .
  * @version 1.00
  * @since 2009/04/07
  * @author Masatoshi Tsuge
  */
 class GgafDxQuaternion : public GgafCore::GgafObject {
 public:
-    /** 虚部 */
+    /** スカラー部 */
     float   _t;
+    /** 虚部 i */
     float   _x;
+    /** 虚部 j */
     float   _y;
+    /** 虚部 k */
     float   _z;
 
 public:
@@ -41,6 +43,14 @@ public:
         _y = prm_y;
         _z = prm_z;
     }
+
+    /**
+     * ハミルトン積 .
+     * @param t2
+     * @param x2
+     * @param y2
+     * @param z2
+     */
     inline void mul(float t2, float x2, float y2, float z2) {
         float t1 = _t;
         float x1 = _x;

@@ -24,12 +24,16 @@ public:
     static bool is_init_;
     /** スコア */
     static int score_;
-    /** ランク（0.0 ～ 1.0。 1.0がMAXランクとする) */
+    /** ランク値（0.0 ～ 1.0。 1.0がMAXランクとする) */
     static double rank_;
+
     static int rank_up_level_;
     static QueryRanking qryRanking_;
     static int prime_n_[];
-
+    /**
+     * G_RANKを参照し、G_RANKUP_LEVELを加算します。
+     * @return true:G_RANKUP_LEVELを加算した /false:G_RANKUP_LEVELは変化なし
+     */
     static bool updateRankUpLebel();
 };
 

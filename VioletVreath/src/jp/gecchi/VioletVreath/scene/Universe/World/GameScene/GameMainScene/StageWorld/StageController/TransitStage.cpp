@@ -58,6 +58,8 @@ void TransitStage::processBehavior() {
                 _TRACE_("TransitStage::processBehavior() 直後 STAGE="<<teansit_stage_<<"→?");
             }
 
+            //始まって少し猶予
+
             if (_pProg->getFrameInProgress() == 180) { //通過ステージ開始
                 _pProg->change(Stage::PROG_PLAYING);
             }
@@ -73,7 +75,7 @@ void TransitStage::processBehavior() {
 //                pMessage_->inactivateDelay(240);
             }
 
-            processBehaviorProgPlaying();
+            processBehaviorProgPlaying();  //次ステージ選択
 
             break;
         }

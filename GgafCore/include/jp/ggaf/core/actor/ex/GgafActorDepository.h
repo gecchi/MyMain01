@@ -129,12 +129,13 @@ public:
      * 取り出し後、アクターに active() を実行しても、そのアクターが既に
      * isActiveInTheTree() → true の状態もありうるため、onActive() コールバックは
      * 呼ばれない可能性がある。<BR>
-     * 強制的にonActive() コールバックを呼び出したい場合に次のようなコードに
+     * 無理やりにonActive() コールバックを呼び出したい場合に次のようなコードに
      * しなければいけないかも知れない。
      * <pre><code>
      * GgafMainActor* pActor = pDepository->dispatchForce();
      * if (pActor->isActiveInTheTree()) {
      *     pActor->inactivateImmed();
+     *     pActor->_frame_of_behaving_since_onActive = 1;
      *     pActor->onActive();
      * }
      * pActor->active();

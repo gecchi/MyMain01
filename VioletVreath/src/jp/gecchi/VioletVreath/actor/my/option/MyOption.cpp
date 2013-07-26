@@ -515,26 +515,30 @@ void MyOption::processBehavior() {
 
 
     //‰ù’†“d“”‚ÌÆŽËŠp‚ªL‚ª‚é‚æ‚¤‚È‰ñ“]iQuaternion‚ÅŽÀŒ»j
+    //ƒƒƒ‚„
+    //‚ ‚éÀ•W(x, y, z)‚É‚¨‚¢‚ÄA‰ñ“]‚ÌŽ²‚ª(ƒ¿, ƒÀ, ƒÁ)‚ÅAƒÆ‰ñ‚·‰ñ“]‚µ‚½‚ ‚Æ‚ÌÀ•W‚ð‹‚ß‚éB
+    //P,Q,R ‚ðŽlŒ³”iƒxƒNƒgƒ‹•\Œ»j‚Æ‚¨‚­A
+    //P = (0; x, y, z)
+    //Q = (cos(ƒÆ/2);  ƒ¿ sin(ƒÆ/2),  ƒÀ sin(ƒÆ/2),  ƒÁ sin(ƒÆ/2))
+    //R = (cos(ƒÆ/2); -ƒ¿ sin(ƒÆ/2), -ƒÀ sin(ƒÆ/2), -ƒÁ sin(ƒÆ/2))
+    //‚Æ‚µ‚½ŽžAƒnƒ~ƒ‹ƒgƒ“Ï
+    //R P Q = (0; “š‚¦)
+    //‚ª“š‚¦‚Æ‚È‚é
+
+    //‚ ‚éÀ•W(x, y, z)•ûŒüƒxƒNƒgƒ‹(pOptionCtrler_pKurokoA->_vX,pOptionCtrler_pKurokoA->_vY,pOptionCtrler_pKurokoA->_vZ)
+    //‰ñ“]Ž²  (ƒ¿, ƒÀ, ƒÁ)=(vX_axis, vY_axis, vZ_axis) A
+    //‰ñ“]ŠpƒÆ= angExpanse_
     float vX_axis = cosRY*cosRZ*pKurokoA->_vX + cosRY*-sinRZ*pKurokoA->_vY + sinRY*pKurokoA->_vZ;
     float vY_axis = sinRZ*pKurokoA->_vX + cosRZ*pKurokoA->_vY;
     float vZ_axis = -sinRY*cosRZ*pKurokoA->_vX + -sinRY*-sinRZ*pKurokoA->_vY + cosRY*pKurokoA->_vZ;
     float sinHalf = ANG_SIN(angExpanse_/2); //angExpanse_=‰ñ“]‚³‚¹‚½‚¢Šp“x
     float cosHalf = ANG_COS(angExpanse_/2);
 
-    //ŒvŽZ
-    //‚ ‚éÀ•W(x, y, z)‚É‚¨‚¢‚ÄA‰ñ“]‚ÌŽ²‚ª(ƒ¿, ƒÀ, ƒÁ)‚ÅAƒÆ‰ñ‚·‰ñ“]
-    //P = (0; x, y, z)
-    //Q = (cos(ƒÆ/2); ƒ¿ sin(ƒÆ/2), ƒÀ sin(ƒÆ/2), ƒÁ sin(ƒÆ/2))
-    //R = (cos(ƒÆ/2); -ƒ¿ sin(ƒÆ/2), -ƒÀ sin(ƒÆ/2), -ƒÁ sin(ƒÆ/2))
-    //
-    //R P Q = (0; “š‚¦)
-    //
-    //‰ñ“]Ž² ‚Í(vX_axis, vY_axis, vZ_axis) ‰ñ“]Šp‚Í angExpanse_
     GgafDxQuaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf); //R
-//    Q.set(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-    Q.mul(0, pOptionCtrler_pKurokoA->_vX,
-             pOptionCtrler_pKurokoA->_vY,
-             pOptionCtrler_pKurokoA->_vZ); //R*P ‰ñ“]Ž²‚ªŒ»Ý‚Ìis•ûŒüƒxƒNƒgƒ‹‚Æ‚È‚é
+    Q.mul(0,
+          pOptionCtrler_pKurokoA->_vX,
+          pOptionCtrler_pKurokoA->_vY,
+          pOptionCtrler_pKurokoA->_vZ); //R*P ‰ñ“]Ž²‚ªŒ»Ý‚Ìis•ûŒüƒxƒNƒgƒ‹‚Æ‚È‚é
     Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
     //ZŽ²‰ñ“]AYŽ²‰ñ“]Šp“x‚ðŒvŽZ
@@ -597,9 +601,7 @@ void MyOption::processBehavior() {
             GgafDxKurokoA* pShot_pKurokoA = pShot->_pKurokoA;
             _pSeTx->play3D(SE_FIRE_SHOT);
             pShot->positionAs(this);
-            pShot_pKurokoA->_angFace[AXIS_X] = _RX;
-            pShot_pKurokoA->_angFace[AXIS_Z] = _RZ;
-            pShot_pKurokoA->_angFace[AXIS_Y] = _RY;
+            pShot_pKurokoA->setFaceAng(_RX, _RY, _RZ);
             pShot_pKurokoA->setRzRyMvAng(_RZ, _RY);
         }
     }

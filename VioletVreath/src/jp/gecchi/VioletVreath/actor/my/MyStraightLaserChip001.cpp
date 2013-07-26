@@ -68,7 +68,6 @@ void MyStraightLaserChip001::onActive() {
         if (_pChip_front == nullptr) {
             //先端チップ
             lockon_st_ = 1;
-            updateTex();
         } else {
             //先端以外
             lockon_st_ = ((MyStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
@@ -77,7 +76,6 @@ void MyStraightLaserChip001::onActive() {
         if (_pChip_front == nullptr) {
             //先端チップ
             lockon_st_ = 0;
-            updateTex();
         } else {
             //先端以外
             lockon_st_ = ((MyStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
@@ -169,9 +167,10 @@ void MyStraightLaserChip001::onInactive() {
     lockon_st_ = 0;
 }
 
-void MyStraightLaserChip001::updateTex() {
+void MyStraightLaserChip001::chengeTex(int prm_tex_no) {
     if (pModel_) {
-        pModel_->swapTopTextureOrder(aaTextureName[tex_no_]);
+        MyStraightLaserChip001::tex_no_ = prm_tex_no;
+        pModel_->swapTopTextureOrder(aaTextureName[prm_tex_no]);
     }
 }
 

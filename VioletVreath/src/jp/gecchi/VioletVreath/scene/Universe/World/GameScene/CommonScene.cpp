@@ -87,7 +87,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //汎用出現エフェクト EffectEntry001
     {
         P_COMMON_DEPO(EffectEntry001) = NEW GgafActorDepository("CommonDepo_EffectEntry001");
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 200; i++) {
             std::string name = "EffectEntry001("+XTOS(i)+")";
             P_COMMON_DEPO(EffectEntry001)->addSubLast(NEW EffectEntry001(name.c_str()));
         }
@@ -116,7 +116,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //ボーナスポイント表示エフェクト
     {
         P_COMMON_DEPO(SpriteLabelBonus001) = NEW GgafActorDepository("CommonDepo_SpriteLabelBonus001");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 40; i++) {
             std::string name = "SpriteLabelBonus001("+XTOS(i)+")";
             P_COMMON_DEPO(SpriteLabelBonus001)->addSubLast(NEW SpriteLabelBonus001(name.c_str()));
         }
@@ -126,7 +126,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //汎用ショット
     {
         P_COMMON_DEPO(Shot004) = NEW GgafActorDepository("CommonDepo_Shot004");
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 800; i++) {
             std::string name = "Shot004("+XTOS(i)+")";
             P_COMMON_DEPO(Shot004)->addSubLast(NEW Shot004(name.c_str()));
         }

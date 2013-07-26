@@ -52,7 +52,7 @@ void GgafDxModel::swapTopTextureOrder(const char* prm_texture0) {
     for (DWORD i = 0; i < _num_materials; i++) {
         if (UTIL::strcmp_ascii(_papTextureConnection[i]->peek()->getName(), prm_texture0) == 0) {
             if (i == 0) {
-                return;
+                return; //swap•s—v‚·‚Å‚ÉTop
             } else {
                 idx = i;
                 break;

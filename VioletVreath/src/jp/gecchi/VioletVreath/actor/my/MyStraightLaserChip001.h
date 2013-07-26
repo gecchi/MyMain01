@@ -33,8 +33,11 @@ public:
     void onInactive() override;
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-
-    static void updateTex();
+    /**
+     * レーザーのテクスチャを変える
+     * @param prm_tex_no
+     */
+    static void chengeTex(int prm_tex_no);
 
     virtual ~MyStraightLaserChip001();
 

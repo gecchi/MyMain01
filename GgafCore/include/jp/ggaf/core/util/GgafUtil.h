@@ -195,27 +195,44 @@ public:
 //        }
     }
 
-    /**
-     * 簡易ハッシュ .
-     * 文字列 を、さも一意のような64bit数値に変換。
-     * 完全ではない。
-     * @param str 文字列
-     * @return ハッシュ値
-     */
+//    static inline const hashval easy_hash(const char* str) {
+//        hashval hash = 5381;
+//        char c;
+//        while ((c = *str++) > 0) { //strの\0までループ （演算子 "==" と間違えていません）
+//            hash = ((hash << 5) + hash) + c; // hash * 33 + c  33倍してます
+//        }
+//        return hash;
+//    }
+//
+//    static inline const hashval easy_hash(char* str) {
+//        hashval hash = 5381;
+//        char c;
+//        while ((c = *str++) > 0) { //strの\0までループ （演算子 "==" と間違えていません）
+//            hash = ((hash << 5) + hash) + c; // hash * 33 + c  33倍してます
+//        }
+//        return hash;
+//    }
+
+
+
     static inline const hashval easy_hash(const char* str) {
-        hashval hash = 5381;
+        //APHash
+        hashval hash = 0xAAAAAAAA;
         char c;
-        while ((c = *str++) > 0) { //strの\0までループ （演算子 "==" と間違えていません）
-            hash = ((hash << 5) + hash) + c; // hash * 33 + c  33倍してます
+        for (std::size_t i = 0; (c = *str++) > 0; i++) {
+            hash ^= ((i & 1) == 0) ? (  (hash <<  7) ^ c * (hash >> 3)) :
+                                     (~((hash << 11) + (c ^ (hash >> 5))));
         }
         return hash;
     }
 
     static inline const hashval easy_hash(char* str) {
-        hashval hash = 5381;
+        //APHash
+        hashval hash = 0xAAAAAAAA;
         char c;
-        while ((c = *str++) > 0) { //strの\0までループ （演算子 "==" と間違えていません）
-            hash = ((hash << 5) + hash) + c; // hash * 33 + c  33倍してます
+        for (std::size_t i = 0; (c = *str++) > 0; i++) {
+            hash ^= ((i & 1) == 0) ? (  (hash <<  7) ^ c * (hash >> 3)) :
+                                     (~((hash << 11) + (c ^ (hash >> 5))));
         }
         return hash;
     }

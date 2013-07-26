@@ -593,13 +593,13 @@ void MyShip::processJudgement() {
     //debug ---->
 #ifdef MY_DEBUG
     if (GgafDxInput::isPushedDownKey(DIK_W)) {
-        MyStraightLaserChip001::tex_no_ = 0;
+        MyStraightLaserChip001::chengeTex(0);
     }
     if (GgafDxInput::isPushedDownKey(DIK_E)) {
-        MyStraightLaserChip001::tex_no_ = 1;
+        MyStraightLaserChip001::chengeTex(1);
     }
     if (GgafDxInput::isPushedDownKey(DIK_R)) {
-        MyStraightLaserChip001::tex_no_ = 2;
+        MyStraightLaserChip001::chengeTex(2);
     }
 #endif
     //<---- debug
