@@ -134,10 +134,8 @@ void MyShipScene::processBehavior() {
                 pMyShip_->activate();
                 MyShipDivingCamWorker* pCamWorker =
                         (MyShipDivingCamWorker*)P_UNIVERSE->switchCameraWork("MyShipDivingCamWorker");
-                pCamWorker->setMoveTargetCam(-1000000, 1000000, -1000000);
-                pCamWorker->lockCamVp(pMyShip_);
             }
-            pMyShip_->_X += 30000;
+            pMyShip_->_X += PX_C(30); //30000;
             if (pMyShip_->_X > 0) {
                 pMyShip_->_X = 0;
                 pMyShip_->is_diving_ = false;

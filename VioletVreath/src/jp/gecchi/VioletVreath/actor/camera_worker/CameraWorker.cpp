@@ -27,6 +27,7 @@ CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, nullp
     move_target_X_VP_ =  0;
     move_target_Y_VP_ =  0;
     move_target_Z_VP_ =  0;
+    frame_of_behaving_since_onSwitch_ = 0;
     //注意：Cameraはまだ生成されていないためここでP_CAMは使用不可
 }
 
@@ -65,6 +66,7 @@ void CameraWorker::onSwitchCameraWork() {
     setMoveTargetCamVpBy(pCam->_pViewPoint);
     angXY_nowCamUp_ = UTIL::getAngle2D(pCam->_pVecCamUp->x, pCam->_pVecCamUp->y);
     move_target_XY_CAM_UP_ = angXY_nowCamUp_;
+    //frame_of_behaving_since_onSwitch_ = 0; は Universe::switchCameraWork() が行う。
 }
 
 void CameraWorker::onUndoCameraWork() {
@@ -80,7 +82,7 @@ void CameraWorker::onCameBackFromOtherCameraWork() {
 void CameraWorker::processBehavior() {
 
     //DefaultCameraWorker::processBehavior();
-
+    frame_of_behaving_since_onSwitch_++;
     //初期カメラ移動範囲制限
 //    float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
     Camera* pCam = P_CAM;

@@ -156,8 +156,7 @@ void GameDemoScene::onInactive() {
     }
 
     if (P_RANKUP_CONTROLLER->pNowRankUpStage_) {
-        _TRACE_("GameDemoScene::onInactive() P_RANKUP_CONTROLLER->pNowRankUpStage_("<<
-                P_RANKUP_CONTROLLER->pNowRankUpStage_->getName()<<") sayonaraRankUpStages()");
+        _TRACE_("GameDemoScene::onInactive() P_RANKUP_CONTROLLER->sayonaraRankUpStages()");
         P_RANKUP_CONTROLLER->sayonaraRankUpStages();
         P_RANKUP_CONTROLLER->pNowRankUpStage_ = nullptr;
     }

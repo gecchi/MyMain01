@@ -14,8 +14,6 @@ public:
 
     static int tex_no_;
     static GgafDxCore::GgafDxModel* pModel_;
-
-    /** テクスチャ名 */
     static char aaTextureName[3][51];
 
 public:

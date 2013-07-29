@@ -127,8 +127,7 @@ void GameMainScene::onInactive() {
         P_STAGE_CTRLER->pStageMainCannel_ = nullptr;
     }
     if (P_RANKUP_CONTROLLER->pNowRankUpStage_) {
-        _TRACE_("GameMainScene::onInactive() P_RANKUP_CONTROLLER->pNowRankUpStage_("<<
-                P_RANKUP_CONTROLLER->pNowRankUpStage_->getName()<<") sayonaraRankUpStages()");
+        _TRACE_("GameMainScene::onInactive() P_RANKUP_CONTROLLER->sayonaraRankUpStages()");
         P_RANKUP_CONTROLLER->sayonaraRankUpStages();
         P_RANKUP_CONTROLLER->pNowRankUpStage_ = nullptr;
     }

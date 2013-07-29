@@ -186,9 +186,32 @@ Frame Plane03 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "MyOptionWateringLaserChip001.png";
+     "MyStraightLaserChip001-1.png";
     }
    }
+  
+  Material {
+    0.588235;0.588235;0.588235;1.000000;;
+    0.100000;
+    0.900000;0.900000;0.900000;;
+    0.000000;0.000000;0.000000;;
+
+    TextureFilename {
+     "MyStraightLaserChip001-2.png";
+    }
+   }
+  
+  Material {
+    0.588235;0.588235;0.588235;1.000000;;
+    0.100000;
+    0.900000;0.900000;0.900000;;
+    0.000000;0.000000;0.000000;;
+
+    TextureFilename {
+     "MyStraightLaserChip001-3.png";
+    }
+   }
+
   }
  }
 }

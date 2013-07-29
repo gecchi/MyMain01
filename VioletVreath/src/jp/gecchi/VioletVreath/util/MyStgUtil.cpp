@@ -8,6 +8,7 @@
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionWateringLaserChip001.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -678,7 +679,7 @@ GgafStatus* MyStgUtil::resetMyOptionWateringLaserChip001Status(GgafStatus* p) {
 	p->set(STAT_AddRankPoint, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒN
 	p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 	p->set(STAT_Stamina, 100 );  //‘Ì—Í
-	p->set(STAT_Attack, 105 );  //UŒ‚—Í
+	p->set(STAT_Attack, (int)(105+((MyOptionWateringLaserChip001::tex_no_*0.5)*100)));  //UŒ‚—Í
 	p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 	p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
 	p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦

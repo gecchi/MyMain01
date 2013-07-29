@@ -37,6 +37,8 @@ public:
     /** 等速でブレないスピード */
     velo burenai_speed_;
 
+    frame frame_of_behaving_since_onSwitch_;
+
 public:
     CameraWorker(const char* prm_name);
 
@@ -74,6 +76,10 @@ public:
     void lockCamVp(GgafDxCore::GgafDxGeometricActor* pTarget);
 
     void unlockCamVp();
+
+    inline frame getSwitchedFrame() {
+        return frame_of_behaving_since_onSwitch_;
+    }
     virtual ~CameraWorker(); //デストラクタ
 };
 

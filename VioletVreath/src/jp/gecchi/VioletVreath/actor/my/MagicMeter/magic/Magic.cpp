@@ -476,6 +476,7 @@ void Magic::processBehavior() {
                         //MP枯渇？
                         if (pMP_->get() <= 0) {
                             //MP枯渇による持続終了時
+                            _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP枯渇による持続終了、全レベルリセット");
                             pMP_->set(0);
                             for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
                                  lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0

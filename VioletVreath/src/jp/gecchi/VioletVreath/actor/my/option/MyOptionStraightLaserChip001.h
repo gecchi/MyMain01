@@ -4,6 +4,9 @@
 
 namespace VioletVreath {
 
+/**
+ * åªç›ñ¢égóp
+ */
 class MyOptionStraightLaserChip001 : public GgafLib::StraightLaserChip {
 
 public:

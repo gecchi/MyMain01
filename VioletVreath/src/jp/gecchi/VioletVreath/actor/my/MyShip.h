@@ -73,9 +73,10 @@ public:
     };
 
     enum {
-        SE_DAMAGED   ,
-        SE_FIRE_LASER,
-        SE_FIRE_SHOT,
+        SE_DAMAGED     ,
+        SE_TURBO       ,
+        SE_FIRE_LASER  ,
+        SE_FIRE_SHOT   ,
         SE_FIRE_TORPEDO,
     };
 
@@ -276,8 +277,12 @@ public:
     bool is_being_soft_rapidshot_;
     /** ショットしたフレームのみ true になる */
     bool just_shot_;
-    /** レーザー発射かどうか */
+    /** レーザー発射中かどうか */
     bool is_shooting_laser_;
+
+    /** レーザー発射可能かどうか */
+    bool can_shoot_laser_;
+
     /** SHOTボタン押しっぱなし経過フレーム数（レーザー発射開始判定のため） */
     frame frame_shot_pressed_;
 

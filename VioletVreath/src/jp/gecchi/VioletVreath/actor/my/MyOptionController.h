@@ -42,6 +42,11 @@ public:
     angvelo angVelo_Turn_;
     int renge_;
 
+    enum {
+        SE_RESTORE  ,
+        SE_FREE  ,
+    };
+
 public:
     MyOptionController(const char* prm_name, int prm_no);
 

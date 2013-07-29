@@ -1,8 +1,11 @@
 #include "stdafx.h"
 #include "LaserMagic.h"
+
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectLaserMagic.h"
+#include "jp/gecchi/VioletVreath/actor/my/option/MyOptionWateringLaserChip001.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
 using namespace GgafCore;
@@ -25,7 +28,6 @@ LaserMagic::LaserMagic(const char* prm_name, AmountGraph* prm_pMP)
     lvinfo_[2].pno_ = 108;
     lvinfo_[1].pno_ = 116;
     lvinfo_[0].pno_ = 124;
-
 
     pEffect_ = NEW EffectLaserMagic("EffectLaserMagic");
     pEffect_->inactivateImmed();
@@ -63,7 +65,14 @@ void LaserMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int p
 
 int LaserMagic::effect(int prm_level) {
     int r = Magic::effect(prm_level);
-    MyStraightLaserChip001::chengeTex(prm_level);
+    if (prm_level > 0) {
+        P_MYSHIP->can_shoot_laser_ = true;
+        MyStraightLaserChip001::chengeTex(prm_level-1);
+        MyOptionWateringLaserChip001::chengeTex(prm_level-1);
+    } else {
+        P_MYSHIP->can_shoot_laser_ = false;
+    }
+
     return r;
 }
 

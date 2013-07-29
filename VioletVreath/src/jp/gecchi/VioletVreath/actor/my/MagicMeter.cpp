@@ -205,7 +205,14 @@ void MagicMeter::onReset() {
         papLvTargetCursor_[i]->moveTo(pMagic->level_);
         papLvHilightCursor_[i]->moveTo(pMagic->level_);
         papLvCastingMarkCursor_[i]->moveTo(0);
+
+        paFloat_rr_[i] = 0.0f;
+        paFloat_velo_rr_[i] = 0.0f;
     }
+    //主メーターカーソル
+    lstMagic_.current(0);
+    int active_idx = lstMagic_.getCurrentIndex();
+    pMagicCursor_->moveTo(active_idx);
 }
 void MagicMeter::onActive() {
 }

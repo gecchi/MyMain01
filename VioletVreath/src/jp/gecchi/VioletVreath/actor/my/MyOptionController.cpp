@@ -9,6 +9,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -49,6 +50,9 @@ MyOptionController::MyOptionController(const char* prm_name, int prm_no) :
     for (int i = 0; i < max_option_num_*o2o_; i++) {
         pRing_OptCtrlGeoHistory_->addLast(NEW GgafDxGeoElem(this));
     }
+
+    _pSeTx->set(SE_RESTORE, "WAVE_MY_OPTION_RESTORE_001");
+    _pSeTx->set(SE_FREE,    "WAVE_MY_OPTION_FREE_001");
 }
 
 void MyOptionController::initialize() {

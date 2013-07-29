@@ -32,10 +32,16 @@ public:
     /** [r/w]速度に対する加速度の割合（この値を大きくすると、カーブが緩くなる） */
     int r_max_acce_;
 
+    static int tex_no_;
+    static GgafDxCore::GgafDxModel* pModel_;
+    static char aaTextureName[3][51];
+
 public:
     MyOptionWateringLaserChip001(const char* prm_name);
 
     void initialize() override;
+
+    void onCreateModel() override;
 
     void onActive() override;
 
@@ -46,6 +52,12 @@ public:
     void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+
+    /**
+     * レーザーのテクスチャを変える
+     * @param prm_tex_no
+     */
+    static void chengeTex(int prm_tex_no);
 
     virtual ~MyOptionWateringLaserChip001();
 

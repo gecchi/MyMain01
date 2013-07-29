@@ -79,7 +79,7 @@ void MyTorpedoController::onInactive() {
 }
 
 bool MyTorpedoController::fire() {
-    if (!in_firing_) {
+    if (!in_firing_ && MyTorpedoController::torpedo_num_ > 0) {
         in_firing_ = true;
         int target_num = pLockonCtrler_->pRingTarget_->length(); //ロックオン中のターゲット数
         firing_num_ = MyTorpedoController::torpedo_num_; //target_num < 4 ? 4 : target_num;

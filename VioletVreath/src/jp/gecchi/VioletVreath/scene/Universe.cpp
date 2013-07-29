@@ -116,6 +116,7 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
         pActiveCamWorker_->inactivate();
         //パラメータの CameraWork を活動へ
         pCamWorker->activate();
+        pCamWorker->frame_of_behaving_since_onSwitch_ = 0; //switch後フレームカウンタリセット
         pCamWorker->onSwitchCameraWork(); //コールバック
         if (getSceneDirector()->getSubFirst()->getSub(pCamWorker)) {
             //２回目以降の

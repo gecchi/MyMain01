@@ -1,19 +1,30 @@
 #include "stdafx.h"
 #include "MyOptionWateringLaserChip001.h"
 
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/actor/my/option/MyOption.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoB.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
+#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+#include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+
+
+GgafDxCore::GgafDxModel* MyOptionWateringLaserChip001::pModel_  = nullptr;
+char MyOptionWateringLaserChip001::aaTextureName[3][51];
+int MyOptionWateringLaserChip001::tex_no_ = 0;
+
 
 MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name) :
         WateringLaserChip(prm_name, "MyOptionWateringLaserChip001", STATUS(MyOptionWateringLaserChip001)) {
@@ -33,6 +44,16 @@ void MyOptionWateringLaserChip001::initialize() {
     setHitAble(true);
     setScaleR(6.0);
     setAlpha(0.99);
+}
+
+void MyOptionWateringLaserChip001::onCreateModel() {
+    if (_pModel->_num_materials != 3) {
+        throwGgafCriticalException("MyOptionWateringLaserChip001::onCreateModel() MyOptionWateringLaserChip001モデルは、マテリアが３つ必要です。");
+    }
+    pModel_ = _pModel;
+    for (DWORD i = 0; i < _pModel->_num_materials; i ++) {
+        strcpy(aaTextureName[i], _pModel->_papTextureConnection[i]->peek()->getName());
+    }
 }
 
 void MyOptionWateringLaserChip001::onActive() {
@@ -260,6 +281,12 @@ void MyOptionWateringLaserChip001::onInactive() {
     lockon_st_ = 0;
 }
 
+void MyOptionWateringLaserChip001::chengeTex(int prm_tex_no) {
+    if (pModel_) {
+        MyOptionWateringLaserChip001::tex_no_ = prm_tex_no;
+        pModel_->swapTopTextureOrder(aaTextureName[prm_tex_no]);
+    }
+}
 MyOptionWateringLaserChip001::~MyOptionWateringLaserChip001() {
 }
 

@@ -104,7 +104,6 @@ MyOption::MyOption(const char* prm_name, uint32_t prm_no, MyOptionController* pr
     //フォトンコントローラー
     pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
     addSubGroup(pTorpedoCtrler_);
-
     _pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
     _pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
     _pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");

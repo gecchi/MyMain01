@@ -210,6 +210,7 @@ MyShip::MyShip(const char* prm_name) :
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
     _pSeTx->set(SE_DAMAGED, "WAVE_MY_DAMAGED_001");
+    _pSeTx->set(SE_TURBO, "WAVE_MY_TURBO_001");
     _pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_001");
     _pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_001");
     _pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_001");
@@ -221,6 +222,7 @@ MyShip::MyShip(const char* prm_name) :
     is_being_soft_rapidshot_ = false;
     just_shot_ = false;
     is_shooting_laser_ = false;
+    can_shoot_laser_ = false;
     frame_shot_pressed_ = 0;
 
     can_control_ = true;
@@ -293,6 +295,7 @@ void MyShip::onReset() {
     is_being_soft_rapidshot_ = false;
     just_shot_ = false;
     is_shooting_laser_ = false;
+    can_shoot_laser_ = false;
     frame_shot_pressed_ = 0;
     _X = _Y = _Z = 0;
     way_ = WAY_NONE;
@@ -428,6 +431,7 @@ void MyShip::processBehavior() {
     if (pVbPlay->isPushedDown(VB_TURBO)) {
         UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
         (this->*paFuncTurbo[way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
+        _pSeTx->play3D(SE_TURBO);
     } else {
         //Notターボ開始時
         if (pVbPlay->isBeingPressed(VB_TURBO)) {
@@ -616,8 +620,10 @@ void MyShip::processJudgement() {
     is_shooting_laser_ = false;
     if (pVbPlay->isBeingPressed(VB_SHOT1)) {
         frame_shot_pressed_ ++;
-        if (frame_shot_pressed_ > 30) { //30フレーム押しっぱなしでレーザーへ
-            is_shooting_laser_ = true;
+        if (can_shoot_laser_) {
+            if (frame_shot_pressed_ > 30) { //30フレーム押しっぱなしでレーザーへ
+                is_shooting_laser_ = true;
+            }
         }
     } else {
         frame_shot_pressed_ = 0;
