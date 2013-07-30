@@ -546,6 +546,7 @@ class Formation001;
 
 class Planet001;
 class Planet001Atmosphere;
+class Horizon001;
 
 class CubeMapMeshTestActor;
 class CubeMapMeshSetTestActor;

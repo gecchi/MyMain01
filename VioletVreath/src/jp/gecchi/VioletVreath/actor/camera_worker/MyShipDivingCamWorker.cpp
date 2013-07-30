@@ -15,8 +15,9 @@ void MyShipDivingCamWorker::initialize() {
 
 void MyShipDivingCamWorker::onSwitchCameraWork() {
     CameraWorker::onSwitchCameraWork();
-    setMoveTargetCam(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z);
-    setMoveTargetCamVp(P_MYSHIP->_X + PX_C(100), P_MYSHIP->_Y, P_MYSHIP->_Z);
+    MyShip* pMyShip = P_MYSHIP;
+    setMoveTargetCam(-PX_C(300), pMyShip->_Y, pMyShip->_Z);
+    setMoveTargetCamVpBy(pMyShip);
 }
 void MyShipDivingCamWorker::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;

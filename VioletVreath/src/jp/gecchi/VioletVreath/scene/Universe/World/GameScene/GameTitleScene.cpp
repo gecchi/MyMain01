@@ -74,7 +74,6 @@ void GameTitleScene::initialize() {
 }
 
 void GameTitleScene::processBehavior() {
-
     switch (_pProg->getFromProgOnChange()) {
         default: {
             break;

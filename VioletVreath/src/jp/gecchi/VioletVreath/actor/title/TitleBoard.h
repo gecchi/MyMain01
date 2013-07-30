@@ -1,6 +1,6 @@
 #ifndef TITLEBOARD_H_
 #define TITLEBOARD_H_
-#include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
 
 namespace VioletVreath {
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2010/11/15
  * @author Masatoshi Tsuge
  */
-class TitleBoard : public GgafLib::DefaultBoardSetActor {
+class TitleBoard : public GgafLib::DefaultBoardActor {
 
 public:
     TitleBoard(const char* prm_name);

@@ -269,6 +269,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\PauseCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\TestCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera_worker\VamSysCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.cpp" />
@@ -595,6 +596,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera_worker\PauseCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera_worker\TestCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera_worker\VamSysCamWorker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\chikei\horizon\horizon001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.h" />

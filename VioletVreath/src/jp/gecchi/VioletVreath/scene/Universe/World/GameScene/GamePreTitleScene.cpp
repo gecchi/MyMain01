@@ -19,7 +19,7 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
     getSceneDirector()->addSubGroup(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
     getSceneDirector()->addSubGroup(pLabel02_);
-    pTitleBoard_ = NEW TitleBoard("TitleBoard");
+    pTitleBoard_ = NEW TitleBoard("TitleBoard4Pre");
     getSceneDirector()->addSubGroup(pTitleBoard_);
 
 //    papSpriteLabel_ = NEW SpriteLabelTest*[9];

@@ -96,6 +96,7 @@ void GameScene::onActive() {
 }
 
 void GameScene::processBehavior() {
+
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
     if (VB->isPushedDown(VB_UI_DEBUG)) {
@@ -278,6 +279,7 @@ void GameScene::processBehavior() {
     if (pGazed) {
         was_paused_flg_GameMainScene_prev_frame_ = pGazed->wasPaused();
     }
+
 }
 
 void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {

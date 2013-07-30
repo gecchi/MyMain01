@@ -124,6 +124,33 @@ public:
      */
     DefaultScene* getScene(progress prm_progress);
 
+    /**
+     * 進捗番号を変更し、changeDelay は無かったことにする .
+     * 但し、直後には反映されず update() 時に反映される。
+     * PROGRESS_NOTHING(-1) は設定不可。
+     * reset(progress) と使い分けること。
+     * @param prm_progress 進捗番号(0～)
+     */
+    virtual void change(progress prm_progress) override;
+
+    /**
+     * 進捗番号を無し PROGRESS_NOTHING(-1) に変更し、changeDelay は無かったことにする .
+     * 但し、直後には反映されず update() 時に反映される。
+     */
+    virtual void changeNothing() override;
+
+    /**
+     * 進捗番号を+1し、changeDelay は無かったことにする .
+     * 但し、直後には反映されず update() 時に反映される。
+     * change(_progress+1) と同じ意味である。
+     */
+    virtual void changeNext() override;
+
+    /**
+     * 進捗番号の変更予約をする。 .
+     * @param prm_progress 予約進捗番号(0～)
+     * @param prm_delay 遅延フレーム
+     */
     virtual void changeDelay(progress prm_progress, frame prm_delay);
     virtual void update() override;
 

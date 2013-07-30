@@ -17,6 +17,8 @@ public:
     HoshiBoshi001* pHoshiBoshi_;
 
     Planet001* pPlanet_;
+    Horizon001* pHorizon_;
+
     LabelGecchi16Font* pMessage_;
 
 public:

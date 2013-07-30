@@ -10,6 +10,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
+#include "jp/gecchi/VioletVreath/actor/chikei/Horizon/Horizon001.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -36,8 +37,8 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
 
     pPlanet_ = NEW Planet001("Planet001");
     getSceneDirector()->addSubGroup(KIND_EFFECT, pPlanet_);
-
-
+    pHorizon_ = NEW Horizon001("Horizon001");
+    getSceneDirector()->addSubGroup(KIND_CHIKEI, pHorizon_);
 
     //debug ---->
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");

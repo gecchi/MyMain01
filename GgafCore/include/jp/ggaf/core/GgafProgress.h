@@ -98,21 +98,21 @@ public:
      * reset(progress) と使い分けること。
      * @param prm_progress 進捗番号(0～)
      */
-    void change(progress prm_progress);
+    virtual void change(progress prm_progress);
 
 
     /**
      * 進捗番号を無し PROGRESS_NOTHING(-1) に変更 .
      * 但し、直後には反映されず update() 時に反映される。
      */
-    void changeNothing();
+    virtual void changeNothing();
 
     /**
      * 進捗番号を+1する .
      * 但し、直後には反映されず update() 時に反映される。
      * change(_progress+1) と同じ意味である。
      */
-    void changeNext();
+    virtual void changeNext();
 
     /**
      * 進捗番号が切り替わった直後なのかどうかを判定。 .
