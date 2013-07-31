@@ -35,6 +35,7 @@ GgafDxBoardModel::GgafDxBoardModel(char* prm_model_name) :
 
 HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
     TRACE4("GgafDxBoardModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象Actor
     GgafDxBoardActor* pTargetActor = (GgafDxBoardActor*)prm_pActor_Target;
     //対象BoardActorのエフェクトラッパ
@@ -46,9 +47,9 @@ HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_d
     pTargetActor->_pUvFlipper->getUV(u,v);
     HRESULT hr;
     if (GgafDxModelManager::_pModelLastDraw != this) {
-        GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
-        GgafDxGod::_pID3DDevice9->SetFVF(GgafDxBoardModel::FVF);
-        GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
+        pDevice->SetFVF(GgafDxBoardModel::FVF);
+        pDevice->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
 
         hr = pID3DXEffect->SetFloat(pBoardEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -102,7 +103,7 @@ HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_d
         checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw() CommitChanges() に失敗しました。");
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name<<"("<<pBoardEffect<<")");
-    GgafDxGod::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+    pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
     //前回描画モデル保持
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_Active = pBoardEffect;

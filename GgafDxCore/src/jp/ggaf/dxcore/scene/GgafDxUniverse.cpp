@@ -142,7 +142,7 @@ void GgafDxUniverse::draw() {
     GgafDxGod::_pEffectManager->setParamPerFrameAll();
 
     //段階レンダリング描画
-    IDirect3DDevice9* pID3DDevice9 = GgafDxGod::_pID3DDevice9;
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     GgafDxScene* pScene;
     for (int i = MAX_DRAW_DEPTH_LEVEL; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorFirstList_DrawDepthLevel[i];
@@ -161,30 +161,30 @@ void GgafDxUniverse::draw() {
 
             //半透明要素ありの場合カリングを一時OFF
             if (_pActor_DrawActive->_alpha < 1.0f) {
-                pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+                pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
             }
             //Zバッファを考慮無効設定
             if (!_pActor_DrawActive->_zenable) {
-                pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+                pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
             }
             // Zバッファ書き込み不可設定
             if (!_pActor_DrawActive->_zwriteenable) {
-                pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+                pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
             }
 
             _pActor_DrawActive->processDraw(); //描画！！！
 
             //カリング有りに戻す
             if (_pActor_DrawActive->_alpha < 1.0f) {
-                pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+                pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
             }
             //Zバッファを考慮無効設定
             if (!_pActor_DrawActive->_zenable) {
-                pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+                pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
             }
             // Zバッファ書き込み不可設定
             if (!_pActor_DrawActive->_zwriteenable) {
-                pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+                pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
             }
 
             _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;

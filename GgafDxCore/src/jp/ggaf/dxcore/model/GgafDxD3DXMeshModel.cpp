@@ -27,7 +27,7 @@ GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptio
 
 HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
     TRACE4("GgafDxD3DXMeshModel::draw("<<prm_pActor_Target->getName()<<")");
-
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
     GgafDxD3DXMeshActor* pTargetActor = (GgafDxD3DXMeshActor*)prm_pActor_Target;
     //対象MeshActorのエフェクトラッパ
@@ -35,18 +35,18 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pMeshEffect->_pID3DXEffect;
 
-    GgafDxGod::_pID3DDevice9->SetFVF(GgafDxD3DXMeshActor::FVF);
+    pDevice->SetFVF(GgafDxD3DXMeshActor::FVF);
     HRESULT hr;
 
     for (DWORD i = 0; i < _num_materials; i++) {
         if (GgafDxModelManager::_pModelLastDraw != this || _num_materials != 1) {
             if (_papTextureConnection[i]) {
                 //テクスチャのセット
-                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[i]->peek()->_pIDirect3DBaseTexture9);
+                pDevice->SetTexture(0, _papTextureConnection[i]->peek()->_pIDirect3DBaseTexture9);
             } else {
                 _TRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
-                GgafDxGod::_pID3DDevice9->SetTexture(0, nullptr);
+                pDevice->SetTexture(0, nullptr);
             }
             //マテリアルのセット
             hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[i].Diffuse), sizeof(D3DCOLORVALUE) );
@@ -122,9 +122,9 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
 //            hr = _pID3DXMesh->DrawSubset(i); //なんて便利なメソッド！
 //        } else {
 //            //拡大縮小がなされているため、カメラ空間にトランスフォームされた後で頂点法線の正規化するように設定（負荷高）
-//            GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
+//            pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
 //            hr = _pID3DXMesh->DrawSubset(i); //なんて便利なメソッド！
-//            GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
+//            pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
 //        }
 
 

@@ -44,6 +44,7 @@ GgafDxMeshModel::GgafDxMeshModel(char* prm_model_name) : GgafDxModel(prm_model_n
 
 //描画
 HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
     //GgafDxMeshActor* pTargetActor = (GgafDxMeshActor*)prm_pActor_Target;
     GgafDxDrawableActor* pTargetActor = prm_pActor_Target;
@@ -56,9 +57,9 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
     UINT material_no;
     if (GgafDxModelManager::_pModelLastDraw != this) {
         //頂点バッファとインデックスバッファを設定
-        GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertex_unit);
-        GgafDxGod::_pID3DDevice9->SetFVF(GgafDxMeshModel::FVF);
-        GgafDxGod::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertex_unit);
+        pDevice->SetFVF(GgafDxMeshModel::FVF);
+        pDevice->SetIndices(_pIDirect3DIndexBuffer9);
 
         hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -77,11 +78,11 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
         if (GgafDxModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
             if (_papTextureConnection[material_no]) {
                 //テクスチャをs0レジスタにセット
-                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
+                pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
             } else {
                 _TRACE_("GgafDxMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
-                GgafDxGod::_pID3DDevice9->SetTexture(0, nullptr);
+                pDevice->SetTexture(0, nullptr);
             }
         }
         hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
@@ -130,19 +131,19 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() CommitChanges() に失敗しました。");
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
-        GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                       idxparam.BaseVertexIndex,
-                                                       idxparam.MinIndex,
-                                                       idxparam.NumVertices,
-                                                       idxparam.StartIndex,
-                                                       idxparam.PrimitiveCount);
+        pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                      idxparam.BaseVertexIndex,
+                                      idxparam.MinIndex,
+                                      idxparam.NumVertices,
+                                      idxparam.StartIndex,
+                                      idxparam.PrimitiveCount);
         if (_numPass >= 2) { //２パス目以降が存在
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() １パス目 EndPass() に失敗しました。");
             for (UINT pass = 1; pass < _numPass; pass++) {
                 hr = pID3DXEffect->BeginPass(pass);
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
-                GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                                idxparam.BaseVertexIndex,
                                                                idxparam.MinIndex,
                                                                idxparam.NumVertices,

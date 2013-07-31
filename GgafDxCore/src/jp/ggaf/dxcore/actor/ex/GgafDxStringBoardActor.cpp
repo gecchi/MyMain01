@@ -15,7 +15,7 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
         GgafDxBoardSetActor(prm_name, prm_model, "StringBoardEffect", "StringBoardTechnique") {
 
     _class_name = "GgafDxStringBoardActor";
-    _chr_ptn_zero = ' ';
+    _chr_ptn_zero = (int)(' '); //GgafDxUvFlipper の パターン0番の文字。
     _len = 0;
     _buf = NEW char[1024];
     _buf[0] = '\0';
@@ -55,9 +55,6 @@ void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, char* prm_str) {
 }
 
 void GgafDxStringBoardActor::update(const char* prm_str) {
-    if (prm_str == _draw_string) {
-        return;
-    }
     _len = strlen(prm_str);
 #ifdef MY_DEBUG
     if (_len+1 > 1024 - 1) {
@@ -82,7 +79,7 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
             throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName());
         }
 #endif
-        _aWidth_line_px[nn] += _aWidthPx[(unsigned char)(_draw_string[i])];
+        _aWidth_line_px[nn] += _aWidthPx[(int)(_draw_string[i])];
     }
     _nn = nn;
 }
@@ -112,7 +109,7 @@ void GgafDxStringBoardActor::update(char* prm_str) {
             throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName());
         }
 #endif
-        _aWidth_line_px[nn] += _aWidthPx[(unsigned char)(_draw_string[i])];
+        _aWidth_line_px[nn] += _aWidthPx[(int)(_draw_string[i])];
     }
     _nn = nn;
 }
@@ -222,7 +219,7 @@ void GgafDxStringBoardActor::processDraw() {
                 pattno = _draw_string[pos] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
-            int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[pos])]) / 2);
+            int w = ((_chr_width_px - _aWidthPx[(int)(_draw_string[pos])]) / 2);
             x = x_tmp - w;
             x_tmp = x + _chr_width_px - w;
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[draw_set_cnt], float(x));
@@ -270,8 +267,8 @@ void GgafDxStringBoardActor::processDraw() {
                 pattno = _draw_string[pos] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
-            int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[pos])]) / 2);
-            x = x_tmp - (w + _aWidthPx[(unsigned char)(_draw_string[pos])]);
+            int w = ((_chr_width_px - _aWidthPx[(int)(_draw_string[pos])]) / 2);
+            x = x_tmp - (w + _aWidthPx[(int)(_draw_string[pos])]);
             x_tmp = x + w;
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_transformed_X[draw_set_cnt], float(x));
             checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_ah_transformed_X) に失敗しました。");

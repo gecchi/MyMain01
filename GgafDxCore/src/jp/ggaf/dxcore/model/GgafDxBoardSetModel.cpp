@@ -56,6 +56,7 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
         _TRACE_("GgafDxBoardSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象Actor
     GgafDxBoardSetActor* pTargetActor = (GgafDxBoardSetActor*)prm_pActor_Target;
     //対象BoardSetActorのエフェクトラッパ
@@ -66,10 +67,10 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
     HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
     if (GgafDxModelManager::_pModelLastDraw != this) {
-        GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
-        GgafDxGod::_pID3DDevice9->SetFVF(GgafDxBoardSetModel::FVF);
-        GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
-        GgafDxGod::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
+        pDevice->SetFVF(GgafDxBoardSetModel::FVF);
+        pDevice->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetIndices(_pIDirect3DIndexBuffer9);
 
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxBoardSetActor::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -119,12 +120,12 @@ HRESULT GgafDxBoardSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int pr
     }
     TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
     INDEXPARAM& idxparam = _paIndexParam[prm_draw_set_num-1];
-    GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                   idxparam.BaseVertexIndex,
-                                                   idxparam.MinIndex,
-                                                   idxparam.NumVertices,
-                                                   idxparam.StartIndex,
-                                                   idxparam.PrimitiveCount);
+    pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                  idxparam.BaseVertexIndex,
+                                  idxparam.MinIndex,
+                                  idxparam.NumVertices,
+                                  idxparam.StartIndex,
+                                  idxparam.PrimitiveCount);
 
     //前回描画モデル保持
     GgafDxModelManager::_pModelLastDraw = this;

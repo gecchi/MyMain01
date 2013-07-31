@@ -57,6 +57,7 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
         throwGgafCriticalException("GgafDxSpriteSetModel::draw() "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     //対象Actor
     GgafDxSpriteSetActor* pTargetActor = (GgafDxSpriteSetActor*)prm_pActor_Target;
     //対象SpriteSetActorのエフェクトラッパ
@@ -67,10 +68,10 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
     static HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
     if (GgafDxModelManager::_pModelLastDraw  != this) {
-        GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
-        GgafDxGod::_pID3DDevice9->SetFVF(GgafDxSpriteSetModel::FVF);
-        GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
-        GgafDxGod::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
+        pDevice->SetFVF(GgafDxSpriteSetModel::FVF);
+        pDevice->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetIndices(_pIDirect3DIndexBuffer9);
 
         hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -119,12 +120,12 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name);
     INDEXPARAM& idxparam = _paIndexParam[prm_draw_set_num - 1];
-    GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                   idxparam.BaseVertexIndex,
-                                                   idxparam.MinIndex,
-                                                   idxparam.NumVertices,
-                                                   idxparam.StartIndex,
-                                                   idxparam.PrimitiveCount);
+    pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                  idxparam.BaseVertexIndex,
+                                  idxparam.MinIndex,
+                                  idxparam.NumVertices,
+                                  idxparam.StartIndex,
+                                  idxparam.PrimitiveCount);
     if (_numPass >= 2) { //２パス目以降が存在
         hr = pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() １パス目 EndPass() に失敗しました。");
@@ -132,12 +133,12 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
         for (UINT pass = 1; pass < _numPass; pass++) {
             hr = pID3DXEffect->BeginPass(pass);
             checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
-            GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                           idxparam.BaseVertexIndex,
-                                                           idxparam.MinIndex,
-                                                           idxparam.NumVertices,
-                                                           idxparam.StartIndex,
-                                                           idxparam.PrimitiveCount);
+            pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                          idxparam.BaseVertexIndex,
+                                          idxparam.MinIndex,
+                                          idxparam.NumVertices,
+                                          idxparam.StartIndex,
+                                          idxparam.PrimitiveCount);
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() "<<pass+1<<"パス目 EndPass() に失敗しました。");
         }

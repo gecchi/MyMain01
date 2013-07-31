@@ -35,6 +35,7 @@ GgafDxPointSpriteModel::GgafDxPointSpriteModel(char* prm_model_name) : GgafDxMod
 
 //ï`âÊ
 HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     TRACE4("GgafDxPointSpriteModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
 
     //ëŒè€Actor
@@ -47,9 +48,9 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
     //ç°âÒï`âÊÇÃUV
     HRESULT hr;
     if (GgafDxModelManager::_pModelLastDraw != this) {
-        GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
-        GgafDxGod::_pID3DDevice9->SetFVF(GgafDxPointSpriteModel::FVF);
-        GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
+        pDevice->SetFVF(GgafDxPointSpriteModel::FVF);
+        pDevice->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
 
         hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::draw() SetFloat(_h_tex_blink_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -101,7 +102,7 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int
         checkDxException(hr, D3D_OK, "GgafDxPointSpriteModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name);
-    GgafDxGod::_pID3DDevice9->DrawPrimitive(D3DPT_POINTLIST, 0, _vertices_num);
+    pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _vertices_num);
 
     //ëOâÒï`âÊÉÇÉfÉãï€éù
     GgafDxModelManager::_pModelLastDraw = this;

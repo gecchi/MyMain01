@@ -348,6 +348,7 @@ class EffectSpeedMagic;
 class EffectTorpedoMagic;
 class EffectLockonMagic;
 class EffectLaserMagic;
+class EffectOptionMagic001;
 class EffectVreathMagic001;
 class EffectSmileMagic001;
 

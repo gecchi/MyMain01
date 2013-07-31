@@ -9,6 +9,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectOptionMagic001.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -39,38 +40,50 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
 
     papEffect_ = NEW GgafDxDrawableActor*[max_level_];
     for (int i = 0; i < max_level_; i++) {
-        papEffect_[i] = NEW EffectMagic001("EF");
+        papEffect_[i] = NEW EffectOptionMagic001("EF");
         papEffect_[i]->inactivateImmed();
         addSubGroup(papEffect_[i]);
     }
     r_effect_ = 1.0;
 }
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
+    MyShip* pMyShip = P_MYSHIP;
     angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
     UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
     for (int i = 0; i < max_level_; i++) {
-        papEffect_[i]->inactivateImmed();
+        if (papEffect_[i]->isActive()) {
+            if (i+1 > prm_new_level) {
+                papEffect_[i]->inactivateImmed();
+                papEffect_[i]->positionAs(pMyShip);
+            }
+        } else {
+            papEffect_[i]->inactivateImmed();
+            papEffect_[i]->positionAs(pMyShip);
+        }
     }
     GgafDxDrawableActor* pEffect;
+    velo rvelo = PX_C(30);
     for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
         pEffect = papEffect_[lv-1];
-        pEffect->positionAs(P_MYSHIP);
-        pEffect->_pKurokoA->setRzRyMvAng(paAng_way[n], D90ANG);
-        pEffect->_pKurokoA->setMvVelo(2000);
-        pEffect->_pKurokoA->setMvAcce(-5);
+        pEffect->_pKurokoB->resetMv();
+        pEffect->_pKurokoB->setVxyzMvVelo(0, ANG_SIN(paAng_way[n])*rvelo, ANG_COS(paAng_way[n])*rvelo);
+        pEffect->_pKurokoB->execGravitationMvSequenceTwd(pMyShip,
+                                                         rvelo, 100, 1);
         pEffect->setAlpha(0.9);
         pEffect->setScaleR(2.0f);
         pEffect->activate();
     }
+
+
     GGAF_DELETEARR(paAng_way);
     r_effect_ = 1.0;
 }
 
 void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
-    r_effect_ += 0.02;
-    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-        papEffect_[lv-1]->setScaleR(r_effect_);
-    }
+//    r_effect_ += 0.02;
+//    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
+//        papEffect_[lv-1]->setScaleR(r_effect_);
+//    }
 }
 
 void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
@@ -86,13 +99,11 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     r_effect_ = 1;
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
         MyOptionController* p = P_MYSHIP_SCENE->papOptionCtrler_[lv-1];
-        papEffect_[lv-1]->_pKurokoA->setMvVelo(0);
-        papEffect_[lv-1]->_pKurokoA->setMvAcce(0);
         papEffect_[lv-1]->_pKurokoB->execGravitationMvSequenceTwd(
                                          p->_X + p->pOption_->Xorg_,
                                          p->_Y + p->pOption_->Yorg_,
                                          p->_Z + p->pOption_->Zorg_,
-                                         20000, 1000, 50000
+                                         20000, 300, 50000
                                      );
     }
 }

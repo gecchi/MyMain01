@@ -262,6 +262,7 @@ void GameScene::processBehavior() {
                     pSubScene = it->second;
                     if (pSubScene) {
                         pSubScene->fadeoutSceneWithBgmTree(FADE_FRAMES);
+                        pSubScene->inactivateDelay(FADE_FRAMES);
                     }
                 }
             }

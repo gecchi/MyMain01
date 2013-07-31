@@ -64,6 +64,7 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(char* prm_model_name) : GgafDxModel(p
 }
 
 HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     TRACE4("GgafDxMorphMeshModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
 
     //対象アクター
@@ -77,13 +78,13 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
     UINT material_no;
     //頂点バッファ設定
     if (GgafDxModelManager::_pModelLastDraw != this) {
-        GgafDxGod::_pID3DDevice9->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //頂点フォーマット
-        GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertex_unit_primary);
+        pDevice->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //頂点フォーマット
+        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertex_unit_primary);
         for (int i = 1; i <= _morph_target_num; i++) {
-            GgafDxGod::_pID3DDevice9->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertex_unit_morph);
+            pDevice->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertex_unit_morph);
         }
         //インデックスバッファ設定
-        GgafDxGod::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+        pDevice->SetIndices(_pIDirect3DIndexBuffer9);
 
         hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxMorphMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -101,11 +102,11 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
         if (GgafDxModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
             if (_papTextureConnection[material_no]) {
                 //テクスチャをs0レジスタにセット
-                GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
+                pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
             } else {
                 _TRACE_("GgafDxMorphMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
-                GgafDxGod::_pID3DDevice9->SetTexture(0, nullptr);
+                pDevice->SetTexture(0, nullptr);
             }
         }
         hr = pID3DXEffect->SetValue(pMorphMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
@@ -159,12 +160,12 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
         }
 
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
-        GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                        _paIndexParam[i].BaseVertexIndex,
-                                                        _paIndexParam[i].MinIndex,
-                                                        _paIndexParam[i].NumVertices,
-                                                        _paIndexParam[i].StartIndex,
-                                                        _paIndexParam[i].PrimitiveCount);
+        pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                      _paIndexParam[i].BaseVertexIndex,
+                                      _paIndexParam[i].MinIndex,
+                                      _paIndexParam[i].NumVertices,
+                                      _paIndexParam[i].StartIndex,
+                                      _paIndexParam[i].PrimitiveCount);
         GgafGod::_num_actor_drawing++;
     }
     GgafDxModelManager::_pModelLastDraw = this;

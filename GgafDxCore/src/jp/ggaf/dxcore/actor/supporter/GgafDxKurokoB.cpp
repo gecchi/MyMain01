@@ -60,7 +60,7 @@ GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) :
 
 void GgafDxKurokoB::behave() {
     if(_gravitation_mv_seq_flg) {
-        int dX, dY, dZ;
+        coord dX, dY, dZ;
         double rdX,rdY,rdZ;
         if (_gravitation_mv_seq_pActor_target) {
             dX = _gravitation_mv_seq_pActor_target->_X - _pActor->_X;
@@ -71,51 +71,70 @@ void GgafDxKurokoB::behave() {
             dY = _gravitation_mv_seq_target_Y - _pActor->_Y;
             dZ = _gravitation_mv_seq_target_Z - _pActor->_Z;
         }
-
-        int dmax = MAX3(ABS(dX), ABS(dY), ABS(dZ));
+        coord dX_abs = ABS(dX);
+        coord dY_abs = ABS(dY);
+        coord dZ_abs = ABS(dZ);
+        coord dmax = MAX3(dX_abs, dY_abs, dZ_abs);//‹——£ŠÈˆÕŒvŽZ
         if (dmax > _gravitation_mv_seq_max_velo) {
             double rr = 1.0*_gravitation_mv_seq_max_velo / dmax;
             dX *= rr;
             dY *= rr;
             dZ *= rr;
         }
+//        acce X_acce = _gravitation_mv_seq_acce * (1.0*dX_abs / dmax);
+//        acce Y_acce = _gravitation_mv_seq_acce * (1.0*dY_abs / dmax);
+//        acce Z_acce = _gravitation_mv_seq_acce * (1.0*dZ_abs / dmax);
 
+
+        double r_acce = 1.7*_gravitation_mv_seq_acce / dmax;
+        acce X_acce = r_acce * dX_abs;
+        acce Y_acce = r_acce * dY_abs;
+        acce Z_acce = r_acce * dZ_abs;
+        if (X_acce > _gravitation_mv_seq_acce) {
+            X_acce = _gravitation_mv_seq_acce;
+        }
+        if (Y_acce > _gravitation_mv_seq_acce) {
+            Y_acce = _gravitation_mv_seq_acce;
+        }
+        if (Z_acce > _gravitation_mv_seq_acce) {
+            Z_acce = _gravitation_mv_seq_acce;
+        }
         velo last_veloVxMv = _veloVxMv;
         velo new_veloVxMv = _gravitation_mv_seq_max_velo * (dX * 1.0 / _gravitation_mv_seq_stop_renge);
-        if (last_veloVxMv - _gravitation_mv_seq_acce <= new_veloVxMv &&
-                                                        new_veloVxMv <= last_veloVxMv + _gravitation_mv_seq_acce) {
+        if (last_veloVxMv - X_acce <= new_veloVxMv &&
+                                      new_veloVxMv <= last_veloVxMv + X_acce) {
             _veloVxMv = new_veloVxMv;
         } else {
-            if (last_veloVxMv - _gravitation_mv_seq_acce > new_veloVxMv) {
-                _veloVxMv = last_veloVxMv - _gravitation_mv_seq_acce;
-            } else if (new_veloVxMv > last_veloVxMv + _gravitation_mv_seq_acce) {
-                _veloVxMv = last_veloVxMv + _gravitation_mv_seq_acce;
+            if (last_veloVxMv - X_acce > new_veloVxMv) {
+                _veloVxMv = last_veloVxMv - X_acce;
+            } else if (new_veloVxMv > last_veloVxMv + X_acce) {
+                _veloVxMv = last_veloVxMv + X_acce;
             }
         }
 
         velo last_veloVyMv = _veloVyMv;
         velo new_veloVyMv = _gravitation_mv_seq_max_velo * (dY * 1.0 / _gravitation_mv_seq_stop_renge);
-        if (last_veloVyMv - _gravitation_mv_seq_acce <= new_veloVyMv &&
-                                                        new_veloVyMv <= last_veloVyMv + _gravitation_mv_seq_acce) {
+        if (last_veloVyMv - Y_acce <= new_veloVyMv &&
+                                      new_veloVyMv <= last_veloVyMv + Y_acce) {
             _veloVyMv = new_veloVyMv;
         } else {
-            if (last_veloVyMv - _gravitation_mv_seq_acce > new_veloVyMv) {
-                _veloVyMv = last_veloVyMv - _gravitation_mv_seq_acce;
-            } else if (new_veloVyMv > last_veloVyMv + _gravitation_mv_seq_acce) {
-                _veloVyMv = last_veloVyMv + _gravitation_mv_seq_acce;
+            if (last_veloVyMv - Y_acce > new_veloVyMv) {
+                _veloVyMv = last_veloVyMv - Y_acce;
+            } else if (new_veloVyMv > last_veloVyMv + Y_acce) {
+                _veloVyMv = last_veloVyMv + Y_acce;
             }
         }
 
         velo last_veloVzMv = _veloVzMv;
         velo new_veloVzMv = _gravitation_mv_seq_max_velo * (dZ * 1.0 / _gravitation_mv_seq_stop_renge);
-        if (last_veloVzMv - _gravitation_mv_seq_acce <= new_veloVzMv &&
-                                                        new_veloVzMv <= last_veloVzMv + _gravitation_mv_seq_acce) {
+        if (last_veloVzMv - Z_acce <= new_veloVzMv &&
+                                      new_veloVzMv <= last_veloVzMv + Z_acce) {
             _veloVzMv = new_veloVzMv;
         } else {
-            if (last_veloVzMv - _gravitation_mv_seq_acce > new_veloVzMv) {
-                _veloVzMv = last_veloVzMv - _gravitation_mv_seq_acce;
-            } else if (new_veloVzMv > last_veloVzMv + _gravitation_mv_seq_acce) {
-                _veloVzMv = last_veloVzMv + _gravitation_mv_seq_acce;
+            if (last_veloVzMv - Z_acce > new_veloVzMv) {
+                _veloVzMv = last_veloVzMv - Z_acce;
+            } else if (new_veloVzMv > last_veloVzMv + Z_acce) {
+                _veloVzMv = last_veloVzMv + Z_acce;
             }
         }
     }
@@ -499,6 +518,8 @@ void GgafDxKurokoB::resetMv() {
     _acceVzMv = 0;
     _acceTopVzMv = PX_C(256);
     _acceBottomVzMv = -PX_C(256);
+
+    _gravitation_mv_seq_flg = false;
 }
 
 GgafDxKurokoB::~GgafDxKurokoB() {

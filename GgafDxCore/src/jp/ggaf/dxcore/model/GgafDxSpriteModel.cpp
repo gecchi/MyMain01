@@ -35,8 +35,8 @@ GgafDxSpriteModel::GgafDxSpriteModel(char* prm_model_name) : GgafDxModel(prm_mod
 
 //描画
 HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num) {
+    IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     TRACE4("GgafDxSpriteModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-
     //対象Actor
     GgafDxSpriteActor* pTargetActor = (GgafDxSpriteActor*)prm_pActor_Target;
     //対象SpriteActorのエフェクトラッパ
@@ -49,9 +49,9 @@ HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_
     pTargetActor->_pUvFlipper->getUV(u,v);
     HRESULT hr;
     if (GgafDxModelManager::_pModelLastDraw != this) {
-        GgafDxGod::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
-        GgafDxGod::_pID3DDevice9->SetFVF(GgafDxSpriteModel::FVF);
-        GgafDxGod::_pID3DDevice9->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
+        pDevice->SetFVF(GgafDxSpriteModel::FVF);
+        pDevice->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
 
         hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -101,7 +101,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_
         checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() CommitChanges() に失敗しました。");
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
-    GgafDxGod::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+    pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
     if (_numPass >= 2) { //２パス目以降が存在
         hr = pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() １パス目 EndPass() に失敗しました。");
@@ -109,7 +109,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_
         for (UINT pass = 1; pass < _numPass; pass++) {
             hr = pID3DXEffect->BeginPass(pass);
             checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
-            GgafDxGod::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+            pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() "<<pass+1<<"パス目 EndPass() に失敗しました。");
         }
