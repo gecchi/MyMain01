@@ -108,4 +108,6 @@
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
+#include "jp/ggaf/lib/scene/FormationTableScene.h"
+
 #endif /*VVENEMYSHEADER_H_*/

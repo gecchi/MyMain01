@@ -280,11 +280,11 @@ void RankUp001::processBehavior() {
     switch (_pProg->get()) {
         case RankUpStage::PROG_PLAYING: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("RankUp001::processBehavior() RankUpStage::PROG_PLAYING Ç…Ç»ÇËÇ‹Ç∑ÇΩÅI");
+                _TRACE_("RankUp001::processBehavior() RankUpStage::PROG_PLAYING Ç…Ç»ÇËÇ‹Ç∑ÇΩÅI getBehaveingFrame()="<<getBehaveingFrame());
             }
 
             if (_pProg->getFrameInProgress() == _paFrame_NextEvent[_event_num-1]+600) {
-                _TRACE_("RankUp001::processBehavior() RankUpStage::PROG_PLAYING Ç®ÇÌÇ¡ÇΩ");
+                _TRACE_("RankUp001::processBehavior() RankUpStage::PROG_PLAYING Ç®ÇÌÇ¡ÇΩÅB _pProg->getFrameInProgress()="<<_pProg->getFrameInProgress());
                 _pProg->change(RankUpStage::PROG_RESULT); //RankUpStageÇÃã§í èàóùÇ÷
             }
             break;
@@ -294,9 +294,7 @@ void RankUp001::processBehavior() {
 }
 
 void RankUp001::processJudgement() {
-    
 }
-
 
 void RankUp001::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }

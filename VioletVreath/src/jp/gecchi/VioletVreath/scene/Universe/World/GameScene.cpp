@@ -28,7 +28,7 @@ using namespace VioletVreath;
 
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
 pCommonScene_(nullptr),
-pMyShip_Scene(nullptr),
+pMyShip_Scene_(nullptr),
 pStageWorld_(nullptr) {
 
     _class_name = "GameScene";
@@ -36,9 +36,9 @@ pStageWorld_(nullptr) {
     pCommonScene_ = NEW CommonScene("Common");
     pCommonScene_->inactivateImmed();
     addSubLast(pCommonScene_);
-    pMyShip_Scene = NEW MyShipScene("MyShipScene");
-    pMyShip_Scene->inactivateImmed();
-    addSubLast(pMyShip_Scene);
+    pMyShip_Scene_ = NEW MyShipScene("MyShipScene");
+    pMyShip_Scene_->inactivateImmed();
+    addSubLast(pMyShip_Scene_);
     pStageWorld_ = new StageWorld("StageWorld");
     pStageWorld_->inactivateImmed();
     addSubLast(pStageWorld_);
@@ -70,10 +70,8 @@ void GameScene::initialize() {
 }
 
 void GameScene::onReset() {
-
     VB_UI->clear();
     P_GOD->setVB(VB_UI);
-
     DefaultScene* pSubScene;
     for (ProgSceneMap::const_iterator it = _pProg->_mapProg2Scene.begin(); it != _pProg->_mapProg2Scene.end(); it++) {
         pSubScene = it->second;
@@ -84,11 +82,9 @@ void GameScene::onReset() {
         }
     }
     P_UNIVERSE->resetCamWorker();
-
     G_RANK = 0.0;
     G_RANKUP_LEVEL = 0;
     G_SCORE = 0;
-
     _pProg->reset(GameScene::PROG_INIT);
 }
 

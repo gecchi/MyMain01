@@ -73,7 +73,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
     double DX = C_PX(pCam->_X - _pActor->_X);
     double DY = C_PX(pCam->_Y - _pActor->_Y);
     double DZ = C_PX(pCam->_Z - _pActor->_Z);
-    double d = GgafUtil::sqrt_fast(DX*DX + DY*DY + DZ*DZ); //dはピクセル
+    double d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル
     int vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->_zf)*0.6) )) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
                                                                                           // 値を減らすと、遠くても音量がより大きくなる。
     if (VOLUME_MAX_3D < vol) {
@@ -161,7 +161,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                         //そこで GGAF_SAYONARA_DELAY が重要になっている
 
                         //リアルタイムの音量を計算
-                        double d = GgafUtil::sqrt_fast(DX*DX + DY*DY + DZ*DZ); //dはピクセル
+                        double d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル
                         vol =  VOLUME_MIN_3D + ((1.0 - (d / (DX_PX(pCam->_zf)*0.6) )) * VOLUME_RANGE_3D); //0.6 は調整補正
 
                         if (VOLUME_MAX_3D < vol) {

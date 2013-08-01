@@ -16,16 +16,16 @@ using namespace VioletVreath;
 
 StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageWorld";
-
     can_rank_up_ = true;
     pStageCtrler_ = NEW StageController("StageController");
     addSubLast(pStageCtrler_);
     pRankUpStageCtrler_ = NEW RankUpStageController("RankUpStageController");
     addSubLast(pRankUpStageCtrler_);
-
 }
 
 void StageWorld::onReset() {
+    _TRACE_("StageWorld::onReset() ");
+    _TRACE_("MyShipScene ‚ðAƒXƒ[‚Ì‰e‹¿‚ð—^‚¦‚È‚¢‚½‚ß‚Éˆê‚Âã‚Éˆø‚«ã‚°‚Ü‚· addSubLast(P_MYSHIP_SCENE->extract()); ");
     P_MYSHIP_SCENE->resetTree();
     P_MYSHIP_SCENE->activateImmed();
     addSubLast(P_MYSHIP_SCENE->extract()); //ƒXƒ[‚Ì‰e‹¿‚ð—^‚¦‚È‚¢‚½‚ß‚Éˆê‚Âã
@@ -40,7 +40,7 @@ void StageWorld::processBehavior() {
     //debug ---->
 //#ifdef MY_DEBUG
     if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_P)) {
-        G_RANK += (1.0/100000.0);
+        G_RANK += (1.0/G_RANK_R);
         _TRACE_("StageWorld::processBehavior() G_RANK="<<G_RANK<<"/G_RANK_DISP="<<G_RANK_DISP<<"");
     }
 //#endif
@@ -70,10 +70,5 @@ void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 StageWorld::~StageWorld() {
-    //_TRACE_("StageWorld::~StageWorld() pStageCtrler_="<<pStageCtrler_<<" ");
-    //_TRACE_("StageWorld::~StageWorld() pStageCtrler_->pStageMainCannel_="<<pStageCtrler_->pStageMainCannel_<<"");
-    if (pStageCtrler_->pStageMainCannel_) {
-        pStageCtrler_->pStageMainCannel_->sayonara();
-        pStageCtrler_->pStageMainCannel_ = nullptr;
-    }
+    _TRACE_("StageWorld::~StageWorld() ");
 }

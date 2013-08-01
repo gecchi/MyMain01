@@ -100,8 +100,6 @@ void Stage01::processBehavior() {
             if (_pProg->getFrameInProgress() == 300) {
                 throwEventUpperTree(EVENT_STG01_WAS_END);
             }
-
-
             break;
         }
         default:
@@ -116,7 +114,7 @@ void Stage01::processJudgement() {
 
 void Stage01::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_CTRLER_WAS_END ) {
-        _TRACE_("Stage01::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PROG_ENDへ");
+        _TRACE_("Stage01::onCatchEvent() EVENT_STG01_CTRLER_WAS_END をキャッチ。ステータスをStage::PROG_ENDへ");
         pScene_StagePartCtrler_->sayonara(60*60);
         _pProg->change(Stage::PROG_END);
     } else {

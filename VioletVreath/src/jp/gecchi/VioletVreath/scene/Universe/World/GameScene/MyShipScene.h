@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/camera_worker/VamSysCamWorker.h"
 
 #ifdef P_GAME_SCENE
-    #define P_MYSHIP_SCENE (P_GAME_SCENE->pMyShip_Scene)
+    #define P_MYSHIP_SCENE (P_GAME_SCENE->pMyShip_Scene_)
     #define P_MYSHIP (P_MYSHIP_SCENE->pMyShip_)
     #define P_VAM (P_MYSHIP_SCENE->pVamSysCamWorker_)
 #else

@@ -21,7 +21,7 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpe
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
     pOptionTorpedoCtrler_ = prm_pOptionTorpedoController;
-    length_TailEffect_ = 4;
+    length_TailEffect_ = 8;
     begin_X_ = _X;
     begin_Y_ = _Y;
     begin_Z_ = _Z;
@@ -61,9 +61,16 @@ void MyTorpedo::onActive() {
     _pScaler->setScale(100);
     _pScaler->scaleLinerStep(7000, 500);
     pKurokoA->setFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
-    pKurokoA->forceMvVeloRange(4000, 80000);
-    pKurokoA->setMvVelo(20000);
-    pKurokoA->setMvAcce(-500); //最初減速
+    if (pTarget_) {
+        pKurokoA->forceMvVeloRange(4000, 100000);
+        pKurokoA->setMvVelo(20000);
+        pKurokoA->setMvAcce(-600); //最初減速
+    } else {
+        pKurokoA->forceMvVeloRange(4000, 70000);
+        pKurokoA->setMvVelo(20000);
+        pKurokoA->setMvAcce(-500); //最初減速
+    }
+
     pKurokoA->forceRzRyMvAngVeloRange(-40000, 40000);
     pKurokoA->setRzRyMvAngVelo(0);
     pKurokoA->setRzRyMvAngAcce(0);
@@ -133,9 +140,11 @@ void MyTorpedo::processBehavior() {
                 if (getActiveFrame() % 16U == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
+
                             pKurokoA->turnMvAngTwd(pTarget_,
                                                    1000, 200,
                                                    TURN_CLOSE_TO, false);
+
                         } else {
                             //まっすぐ
                             pKurokoA->setRzRyMvAngVelo(0);
@@ -146,10 +155,6 @@ void MyTorpedo::processBehavior() {
                                     pOptionTorpedoCtrler_->pOrg_->_RZ, pOptionTorpedoCtrler_->pOrg_->_RY,
                                     1000, 200,
                                     TURN_CLOSE_TO, false);
-//                            _pKurokoA->turnMvAngTwd(
-//                                        GgafDxUniverse::_X_gone_right, _Y, _Z,
-//                                        1000, 200,
-//                                        TURN_CLOSE_TO, false);
                     }
                 } else {
                    //
@@ -161,12 +166,36 @@ void MyTorpedo::processBehavior() {
         //ムーブ３
         if (move_section_ == 3) {
             if (getActiveFrame() < 300) {
-                if (getActiveFrame() % 32U == 0) {
+                if (getActiveFrame() % 16U == 0) {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
-                            pKurokoA->turnMvAngTwd(pTarget_,
-                                                   300, 0,
-                                                   TURN_CLOSE_TO, false);
+
+
+//                            pKurokoA->turnMvAngTwd(pTarget_,
+//                                                   500, 0,
+//                                                   TURN_CLOSE_TO, false);
+
+
+
+                            //カクカクっと反射っぽく
+                            angle out_angRz_Target;
+                            angle out_angRy_Target;
+                            angle out_d_angRz;
+                            angle out_d_angRy;
+                            UTIL::convVectorToRzRy(pTarget_->_X - _X,
+                                                   pTarget_->_Y - _Y,
+                                                   pTarget_->_Z - _Z,
+                                                   out_angRz_Target,
+                                                   out_angRy_Target);
+                            out_d_angRz = pKurokoA->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
+                            out_d_angRy = pKurokoA->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
+                            pKurokoA->addRzMvAng(SGN(out_d_angRz)*30000);
+                            pKurokoA->addRyMvAng(SGN(out_d_angRy)*30000);
+
+
+
+
+
                         } else {
                             //まっすぐ
                             pKurokoA->setRzRyMvAngVelo(0);

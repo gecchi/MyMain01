@@ -5,8 +5,11 @@
 
 /** ランク (0.0 ～ 1.0) */
 #define G_RANK (VioletVreath::GameGlobal::rank_)
+/** ランク→表示用ランクレート */
+#define G_RANK_R (1000.0)
 /** 表示用ランク値 */
-#define G_RANK_DISP ((int)(G_RANK*100000))
+#define G_RANK_DISP ((int)(G_RANK*G_RANK_R))
+
 /** ランクアップレベル値。StageWorld::processBehavior()でG_RANKに追従 */
 #define G_RANKUP_LEVEL (VioletVreath::GameGlobal::rank_up_level_)
 /** スコア */

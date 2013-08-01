@@ -62,28 +62,27 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         }
     }
     GgafDxDrawableActor* pEffect;
-    velo rvelo = PX_C(30);
+    velo rvelo = PX_C(10);
     for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
         pEffect = papEffect_[lv-1];
         pEffect->_pKurokoB->resetMv();
-        pEffect->_pKurokoB->setVxyzMvVelo(0, ANG_SIN(paAng_way[n])*rvelo, ANG_COS(paAng_way[n])*rvelo);
+        pEffect->_pKurokoB->setVxyzMvVelo(-rvelo, ANG_SIN(paAng_way[n])*rvelo, ANG_COS(paAng_way[n])*rvelo);
         pEffect->_pKurokoB->execGravitationMvSequenceTwd(pMyShip,
-                                                         rvelo, 100, 1);
+                                                         rvelo, 200, 1);
         pEffect->setAlpha(0.9);
         pEffect->setScaleR(2.0f);
         pEffect->activate();
     }
-
 
     GGAF_DELETEARR(paAng_way);
     r_effect_ = 1.0;
 }
 
 void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
-//    r_effect_ += 0.02;
-//    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-//        papEffect_[lv-1]->setScaleR(r_effect_);
-//    }
+    r_effect_ += 0.02;
+    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
+        papEffect_[lv-1]->setScaleR(r_effect_);
+    }
 }
 
 void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
