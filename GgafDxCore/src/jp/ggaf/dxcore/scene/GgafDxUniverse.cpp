@@ -16,6 +16,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/GgafDxProperties.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -36,14 +37,14 @@ coord GgafDxUniverse::_Z_gone_near  = 0;
 
 GgafDxUniverse::SeArray::SeArray() {
     _p = 0;
-    for (int i = 0; i < MAX_SE_AT_ONCE; i++) {
+    for (int i = 0; i < PROPERTY::MAX_SE_AT_ONCE; i++) {
         _apSe[i] = nullptr;
         _apActor[i] = nullptr;
     }
 }
 
 void GgafDxUniverse::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, GgafDxGeometricActor* prm_pActor) {
-    if (_p < MAX_SE_AT_ONCE) {
+    if (_p < PROPERTY::MAX_SE_AT_ONCE) {
         _apSe[_p] = prm_pSe;
         _rate_frequency[_p] = prm_rate_frequency;
         _volume[_p] = prm_volume;
@@ -51,6 +52,12 @@ void GgafDxUniverse::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_p
         _apActor[_p] = prm_pActor;
         _p++;
     }
+#ifdef MY_DEBUG
+    else {
+        _TRACE_("GgafDxUniverse::SeArray::add() SEがあぶれて無視されました。"<<
+                "発声元="<<prm_pActor->getName()<<"("<<prm_pActor<<") SE="<<prm_pSe->_wave_key<<"("<<prm_pSe->_wave_file_name<<")");
+    }
+#endif
 }
 
 void GgafDxUniverse::SeArray::play(int index) {
@@ -86,7 +93,7 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
     _TRACE_("Gone=X ("<<_X_gone_left<<" ~ "<<_X_gone_right<<") Y("<<_Y_gone_bottom<<" ~ "<<_Y_gone_top<<") Z("<<_Z_gone_far<<" ~ "<<_Z_gone_near<<")");
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
-    for (int i = 0; i < MAX_SE_DELAY; i++) { //GGAF_SAYONARA_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
+    for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_SAYONARA_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
     GgafRepeatSeq::create(_seqkey_se_delay, 0, 8); //ズレSE再生フレーム
@@ -144,50 +151,51 @@ void GgafDxUniverse::draw() {
     //段階レンダリング描画
     IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
     GgafDxScene* pScene;
+    GgafDxDrawableActor* pDrawActor;
     for (int i = MAX_DRAW_DEPTH_LEVEL; i >= 0; i--) {
-        _pActor_DrawActive = _apAlphaActorFirstList_DrawDepthLevel[i];
-        while (_pActor_DrawActive) {
+        pDrawActor = _pActor_DrawActive = _apAlphaActorFirstList_DrawDepthLevel[i];
+        while (pDrawActor) {
 #ifdef MY_DEBUG
-            if (_pActor_DrawActive->getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
+            if (pDrawActor->getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
                 //OK
             } else {
-                throwGgafCriticalException("GgafDxUniverse::draw() err2. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName());
+                throwGgafCriticalException("GgafDxUniverse::draw() err2. _pActor_DrawActive["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName());
             }
 #endif
             //各所属シーンのαカーテンを設定する。
-            pScene = (GgafDxScene*)_pActor_DrawActive->getPlatformScene();
-            _pActor_DrawActive->_pEffect->_pID3DXEffect->SetFloat(
-                    _pActor_DrawActive->_pEffect->_h_alpha_master, pScene->_master_alpha);
+            pScene = (GgafDxScene*)pDrawActor->getPlatformScene();
+            pDrawActor->_pEffect->_pID3DXEffect->SetFloat(
+                    pDrawActor->_pEffect->_h_alpha_master, pScene->_master_alpha);
 
             //半透明要素ありの場合カリングを一時OFF
-            if (_pActor_DrawActive->_alpha < 1.0f) {
+            if (pDrawActor->_alpha < 1.0f) {
                 pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
             }
             //Zバッファを考慮無効設定
-            if (!_pActor_DrawActive->_zenable) {
+            if (!pDrawActor->_zenable) {
                 pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
             }
             // Zバッファ書き込み不可設定
-            if (!_pActor_DrawActive->_zwriteenable) {
+            if (!pDrawActor->_zwriteenable) {
                 pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
             }
 
-            _pActor_DrawActive->processDraw(); //描画！！！
+            pDrawActor->processDraw(); //描画！！！
 
             //カリング有りに戻す
-            if (_pActor_DrawActive->_alpha < 1.0f) {
+            if (pDrawActor->_alpha < 1.0f) {
                 pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
             }
             //Zバッファを考慮無効設定
-            if (!_pActor_DrawActive->_zenable) {
+            if (!pDrawActor->_zenable) {
                 pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
             }
             // Zバッファ書き込み不可設定
-            if (!_pActor_DrawActive->_zwriteenable) {
+            if (!pDrawActor->_zwriteenable) {
                 pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
             }
 
-            _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
+            pDrawActor = _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
         _apAlphaActorFirstList_DrawDepthLevel[i] = nullptr; //次回のためにリセット
         _apAlphaActorLastList_DrawDepthLevel[i] = nullptr;

@@ -42,6 +42,8 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpe
     setZWriteEnable(false);  //Zバッファは書き込み無し
     pTarget_ = nullptr;
     useProgress(10);
+
+    _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_TORPEDO");
 }
 
 void MyTorpedo::initialize() {
@@ -67,7 +69,7 @@ void MyTorpedo::onActive() {
         pKurokoA->setMvAcce(-600); //最初減速
     } else {
         pKurokoA->forceMvVeloRange(4000, 70000);
-        pKurokoA->setMvVelo(20000);
+        pKurokoA->setMvVelo(10000);
         pKurokoA->setMvAcce(-500); //最初減速
     }
 
@@ -170,31 +172,24 @@ void MyTorpedo::processBehavior() {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
 
+                            pKurokoA->turnMvAngTwd(pTarget_,
+                                                   500, 0,
+                                                   TURN_CLOSE_TO, false);
 
-//                            pKurokoA->turnMvAngTwd(pTarget_,
-//                                                   500, 0,
-//                                                   TURN_CLOSE_TO, false);
-
-
-
-                            //カクカクっと反射っぽく
-                            angle out_angRz_Target;
-                            angle out_angRy_Target;
-                            angle out_d_angRz;
-                            angle out_d_angRy;
-                            UTIL::convVectorToRzRy(pTarget_->_X - _X,
-                                                   pTarget_->_Y - _Y,
-                                                   pTarget_->_Z - _Z,
-                                                   out_angRz_Target,
-                                                   out_angRy_Target);
-                            out_d_angRz = pKurokoA->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
-                            out_d_angRy = pKurokoA->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
-                            pKurokoA->addRzMvAng(SGN(out_d_angRz)*30000);
-                            pKurokoA->addRyMvAng(SGN(out_d_angRy)*30000);
-
-
-
-
+//                            //カクカクっと反射っぽく
+//                            angle out_angRz_Target;
+//                            angle out_angRy_Target;
+//                            angle out_d_angRz;
+//                            angle out_d_angRy;
+//                            UTIL::convVectorToRzRy(pTarget_->_X - _X,
+//                                                   pTarget_->_Y - _Y,
+//                                                   pTarget_->_Z - _Z,
+//                                                   out_angRz_Target,
+//                                                   out_angRy_Target);
+//                            out_d_angRz = pKurokoA->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
+//                            out_d_angRy = pKurokoA->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
+//                            pKurokoA->addRzMvAng(SGN(out_d_angRz)*30000);
+//                            pKurokoA->addRyMvAng(SGN(out_d_angRy)*30000);
 
                         } else {
                             //まっすぐ
@@ -245,7 +240,6 @@ void MyTorpedo::processJudgement() {
 void MyTorpedo::onInactive() {
 }
 
-
 void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ヒット時通貫はしません
@@ -261,13 +255,11 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //自身のinactive()はprocessBehavior()で行われ
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 
-    //爆風発生(TODO:爆風はデポジトリではなくて、絶対発生させるようにすること)
-    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)pOptionTorpedoCtrler_->pDepo_TorpedoBlast_->dispatch();
-    if (pBlast) {
-        pBlast->positionAs(this);
-        pBlast->reset();
-    }
-
+    //爆風発生
+    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)(pOptionTorpedoCtrler_->pDepo_TorpedoBlast_->dispatchForce());
+    _pSeTx->play3D(SE_EXPLOSION);
+    pBlast->reset();
+    pBlast->positionAs(this);
 }
 
 MyTorpedo::~MyTorpedo() {

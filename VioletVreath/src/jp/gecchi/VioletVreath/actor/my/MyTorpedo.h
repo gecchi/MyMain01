@@ -17,6 +17,9 @@ namespace VioletVreath {
 class MyTorpedo : public GgafLib::DefaultMeshSetActor {
 
 public:
+    enum {
+        SE_EXPLOSION,
+    };
     /** [r]親アクターとなる魚雷コンローラー */
     MyTorpedoController* pOptionTorpedoCtrler_;
     /** [r]魚雷の移動軌跡エフェクトの数 */

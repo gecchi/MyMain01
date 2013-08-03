@@ -107,6 +107,7 @@ void GgafDxEffectManager::restoreAll() {
     TRACE3("GgafDxEffectManager::restoreAll() end<--");
 }
 void GgafDxEffectManager::setParamPerFrameAll() {
+    //’Êí•`‰æŽž‚PƒtƒŒ[ƒ€‚É‚P‰ñAGgafDxUniverse::draw()‚Å•`‰æ‘O‚ÉŒÄ‚Î‚ê‚éB
     GgafResourceConnection<GgafDxEffect>* pCurrent = _pConn_first;
     while (pCurrent) {
         pCurrent->peek()->setParamPerFrame();

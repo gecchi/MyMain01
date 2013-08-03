@@ -25,6 +25,9 @@ class GgafDxSe : public GgafCore::GgafObject {
 public:
     /** [r]サウンドバッファ */
     LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;
+
+    char* _wave_key;
+
     /** [r]waveファイル名 */
     std::string _wave_file_name;
     /** [r]元の周波数 */
@@ -32,6 +35,7 @@ public:
     /** [r]SEを最後に発生したアクター */
     GgafDxGeometricActor* _pActor_LastPlayed;
 
+    bool _can_looping;
 public:
     /**
      * コンストラクタ
@@ -81,6 +85,8 @@ public:
      */
     virtual void play();
 
+    virtual void stop();
+
     /**
      * SEが再生中か調べる .
      * @return
@@ -101,6 +107,11 @@ public:
      * @param prm_pan パン(left:-1.0 ～ center:0 ～ right:1.0)
      */
     void setPan(float prm_pan);
+
+
+    void setLooping(bool prm_can_looping) {
+        _can_looping = prm_can_looping;
+    }
 
     /**
      * 周波数の率を変更 .

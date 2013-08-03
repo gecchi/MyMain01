@@ -82,6 +82,10 @@ public:
     static int BGM_VOLUME;
     /** [r/w] SoundEffect ボリューム(0～100) */
     static int SE_VOLUME;
+    /** [r/w] SE最大同時発声数(1～64) */
+    static int MAX_SE_AT_ONCE;
+    /** [r/w] SE発声～解放までの、最低現必要なフレーム数 */
+    static int MAX_SE_DELAY;
 
     /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_SKIN_XXX_MESH;

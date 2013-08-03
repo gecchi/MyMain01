@@ -55,6 +55,9 @@ std::string GgafDxProperties::BG_COLOR = "#000000";
 int GgafDxProperties::MASTER_VOLUME = 80;
 int GgafDxProperties::BGM_VOLUME = 80;
 int GgafDxProperties::SE_VOLUME = 80;
+int GgafDxProperties::MAX_SE_AT_ONCE = 16;
+int GgafDxProperties::MAX_SE_DELAY = 240;
+
 std::string GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH = "mesh";
 std::string GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_SPRITE = "sprite";
 std::string GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE = "texture";
@@ -223,6 +226,12 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     if (GgafProperties::isExistKey("SE_VOLUME")) {
         GgafDxProperties::SE_VOLUME = getInt("SE_VOLUME");
     }
+    if (GgafProperties::isExistKey("MAX_SE_AT_ONCE")) {
+        GgafDxProperties::SE_VOLUME = getInt("MAX_SE_AT_ONCE");
+    }
+    if (GgafProperties::isExistKey("MAX_SE_DELAY")) {
+        GgafDxProperties::SE_VOLUME = getInt("MAX_SE_DELAY");
+    }
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MESH")) {
         GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH = getStr("DIRNAME_RESOURCE_SKIN_XXX_MESH");
     }
@@ -382,6 +391,8 @@ void GgafDxProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafDxProperties::MASTER_VOLUME=" << GgafDxProperties::MASTER_VOLUME);
     _TRACE_("GgafDxProperties::BGM_VOLUME=" << GgafDxProperties::BGM_VOLUME);
     _TRACE_("GgafDxProperties::SE_VOLUME=" << GgafDxProperties::SE_VOLUME);
+    _TRACE_("GgafDxProperties::MAX_SE_AT_ONCE=" << GgafDxProperties::MAX_SE_AT_ONCE);
+    _TRACE_("GgafDxProperties::MAX_SE_DELAY=" << GgafDxProperties::MAX_SE_DELAY);
     _TRACE_("GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH=" << GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_MESH);
     _TRACE_("GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_SPRITE=" << GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_SPRITE);
     _TRACE_("GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE=" << GgafDxProperties::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE);

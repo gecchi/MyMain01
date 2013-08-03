@@ -78,9 +78,6 @@
 //#define MAX_DRAW_DEPTH_LEVEL 1000
 #define MAX_DRAW_DEPTH_LEVEL 500
 #define DRAW_DEPTH_LEVEL_WORLDBOUND (MAX_DRAW_DEPTH_LEVEL)
-#define MAX_SE_AT_ONCE 15
-#define MAX_SE_DELAY 240
-
 
 //シェーダー2.0の限界のモーフターゲットは6個だった
 #define MAX_MORPH_TARGET 6

@@ -94,17 +94,14 @@ public:
      * 接続カウンタは増えません<BR>
      * @return 資源へのポインタ
      */
-    virtual T* peek();
-
-    /**
-     * 初めてのコネクションならばtrue .
-     * @return
-     */
+    inline T* peek() {
+        return _pResource;
+    }
 
     /**
      * 引数のポインタのオブジェクトが、初めてのコネクションオブジェクトかどうか調べる。 .
      * @param prm_this 調べるオブジェクト。thisを渡して下さい。
-     * @return true:初めてconnectした(=resourceを new した）オブジェクトである。/fale:そうではない。
+     * @return true:初めてconnectした(=resourceを new した）オブジェクトである。/false:そうではない。
      */
     bool chkFirstConnectionIs(void* prm_this);
 
@@ -113,8 +110,6 @@ public:
      * @return 資源(Resource)への接続数
      */
     int getNumConnection();
-
-
 
     /**
      * 資源接続を解除 .
@@ -153,10 +148,6 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
     strcpy(_idstr, prm_idstr);
 }
 
-template<class T>
-T* GgafResourceConnection<T>::peek() {
-    return _pResource;
-}
 template<class T>
 int GgafResourceConnection<T>::getNumConnection() {
     return _num_connection;

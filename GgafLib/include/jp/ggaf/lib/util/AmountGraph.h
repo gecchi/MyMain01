@@ -47,10 +47,11 @@ public:
     void config(pixcoord prm_max_val_px, int prm_max_val) {
         _max_val_px = prm_max_val_px;
         _max_val = prm_max_val;
-        _rate_val = 1.0* _max_val_px / _max_val;
+        _rate_val = 1.0 * _max_val_px / _max_val;
     }
+
     /**
-     *      * メーターの目盛りを定義 .
+     * メーターの目盛りを定義 .
      * @param prm_max_val_px  メーター値が100%時の幅ピクセル
      * @param prm_max_val     メーター値が100%とする実際の値(メーター値)
      * @param prm_pInt_target_value メーター値変数のポインタ(int*)を設定
@@ -58,7 +59,7 @@ public:
     void config(pixcoord prm_max_val_px, int prm_max_val, int* prm_pInt_target_value) {
         _max_val_px = prm_max_val_px;
         _max_val = prm_max_val;
-        _rate_val = 1.0* _max_val_px / _max_val;
+        _rate_val = 1.0 * _max_val_px / _max_val;
         if (_is_new) {
             GGAF_DELETE(_pInt_val);
             _is_new = false;

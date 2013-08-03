@@ -40,11 +40,11 @@ public:
     class SeArray {
     public:
         int _p;
-        GgafDxSe* _apSe[MAX_SE_AT_ONCE];
-        int _volume[MAX_SE_AT_ONCE];
-        float _pan[MAX_SE_AT_ONCE];
-        float _rate_frequency[MAX_SE_AT_ONCE];
-        GgafDxGeometricActor* _apActor[MAX_SE_AT_ONCE];
+        GgafDxSe* _apSe[64];
+        int _volume[64];
+        float _pan[64];
+        float _rate_frequency[64];
+        GgafDxGeometricActor* _apActor[64];
         SeArray();
 
         void add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_rate_frequency, GgafDxGeometricActor* prm_pActor);

@@ -68,7 +68,7 @@ void GgafDxSeTransmitter::play(int prm_id) {
         throwGgafCriticalException("GgafDxSeTransmitter::play() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(_se_num-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·Bprm_id="<<prm_id);
     }
 #endif
-    _papSeConnection[prm_id]->peek()->play(GGAF_MAX_VOLUME, 0.0);
+    _papSeConnection[prm_id]->peek()->play();
 }
 
 GgafDxSe* GgafDxSeTransmitter::get(int prm_id) {

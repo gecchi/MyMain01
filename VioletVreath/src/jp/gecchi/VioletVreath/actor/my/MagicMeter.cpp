@@ -27,6 +27,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterStatus.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/VreathBar.h"
 #include "jp/gecchi/VioletVreath/God.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -143,7 +144,10 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     _pSeTx->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "WAVE_MM_EXECUTE_CANCEL_LEVELDOWN_MAGIC");  //（詠唱キャンセルして）レベルダウン実行時
     _pSeTx->set(SE_CANT_INVOKE_MAGIC             , "WAVE_MM_CANT_INVOKE_MAGIC");  //詠唱完了時、MPが足りないため発動できない場合
     _pSeTx->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
-
+    pSeTx4Cast_ = NEW GgafDxSeTransmitterForActor(this);
+    for (int i = 0; i < magic_num; i++) {
+        pSeTx4Cast_->set(i, "WAVE_MM_CASTING", i); //チャンネル明示指定
+    }
     alpha_velo_ = -0.01f;
 }
 
@@ -208,6 +212,8 @@ void MagicMeter::onReset() {
 
         paFloat_rr_[i] = 0.0f;
         paFloat_velo_rr_[i] = 0.0f;
+
+        pSeTx4Cast_->get(i)->stop();
     }
     //主メーターカーソル
     lstMagic_.current(0);
@@ -345,6 +351,9 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 case MAGIC_CAST_OK_LEVELUP: {
+                    pSeTx4Cast_->get(active_idx)->setLooping(true);
+                    pSeTx4Cast_->play(active_idx);
+
                     _pSeTx->play(SE_EXECUTE_LEVELUP_MAGIC);
                     papLvTargetCursor_[active_idx]->blink(); //ピカピカ！
                     //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
@@ -361,6 +370,9 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 case MAGIC_CAST_OK_CANCEL_AND_LEVELUP: {
+                    pSeTx4Cast_->get(active_idx)->setLooping(true);
+                    pSeTx4Cast_->play(active_idx);
+
                     _pSeTx->play(SE_EXECUTE_CANCEL_LEVELUP_MAGIC);
                     papLvTargetCursor_[active_idx]->blink(); //ピカピカ！
                     //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
@@ -471,6 +483,15 @@ void MagicMeter::processBehavior() {
 //            papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
             papLvCastingMarkCursor_[m]->markOnEffect(pMagic->level_);
             papLvHilightCursor_[m]->moveSmoothTo(pMagic->level_);
+        }
+
+        //詠唱中のSE
+        GgafDxSe* pSe = pSeTx4Cast_->get(m);
+        if (pMagicProg->get() == Magic::STATE_CASTING) {
+            float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
+            pSe->setFrequencyRate(1.0f + (f*3.0f));
+        } else if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {
+            pSe->stop();
         }
     }
 
@@ -592,4 +613,5 @@ MagicMeter::~MagicMeter() {
     GGAF_DELETEARR(papLvCastingMarkCursor_);
     GGAF_DELETEARR(paFloat_rr_);
     GGAF_DELETEARR(paFloat_velo_rr_);
+    GGAF_DELETE(pSeTx4Cast_);
 }

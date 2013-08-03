@@ -28,14 +28,14 @@ void MyTorpedoBlast::initialize() {
 }
 
 void MyTorpedoBlast::onReset() {
+    //MyTorpedoでreset()が実行される。
+    //MyTorpedoBlastは、dispatchForceされるので、
+    //onInactive() onActive()での実装を避ける
     _pStatus->reset();
     _pColliChecker->setColliSphere(0, PX_C(10));
     _pKurokoA->setMvVelo(0);
     _pScaler->setScale(R_SC(1));
     _pScaler->forceRange(R_SC(1), R_SC(400));
-}
-
-void MyTorpedoBlast::onActive() {
     _pScaler->beat(120, 120/2, 0, 1); //1回膨らんでしぼむ
 }
 
@@ -50,9 +50,6 @@ void MyTorpedoBlast::processBehavior() {
 }
 
 void MyTorpedoBlast::processJudgement() {
-}
-
-void MyTorpedoBlast::onInactive() {
 }
 
 void MyTorpedoBlast::onHit(GgafActor* prm_pOtherActor) {

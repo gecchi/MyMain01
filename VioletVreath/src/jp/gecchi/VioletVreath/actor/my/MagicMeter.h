@@ -100,6 +100,8 @@ public:
 
     std::stringstream st_[10];
 
+    /** [r]詠唱時効果音発生管理オブジェクト2 */
+    GgafDxCore::GgafDxSeTransmitterForActor* pSeTx4Cast_;
 public:
     MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShip, GgafLib::AmountGraph* prm_pVreath_MyShip);
 

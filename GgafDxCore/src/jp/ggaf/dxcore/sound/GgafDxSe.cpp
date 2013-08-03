@@ -15,6 +15,8 @@ GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
     if (GgafDxSound::_pIDirectSound8 == nullptr) {
         throwGgafCriticalException("GgafDxSe::GgafDxSe("<<prm_wave_key<<") DirectSound が、まだ初期化されていません。");
     }
+    _wave_key = NEW char[80];
+    strcpy(_wave_key, prm_wave_key);
 
     _wave_file_name = (*GgafProperties::_pMapProperties)[prm_wave_key];
     std::string full_wave_file_name = getWaveFileName(_wave_file_name);
@@ -49,6 +51,7 @@ GgafDxSe::GgafDxSe(char* prm_wave_key) : GgafObject() {
     checkDxException(hr, D3D_OK, "GgafDxSe::GgafDxSe("<<prm_wave_key<<") GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
     _pActor_LastPlayed = nullptr;
+    _can_looping = false;
     _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<_id);
 }
 
@@ -132,12 +135,27 @@ void GgafDxSe::play(int prm_volume, float prm_pan, float prm_frequency) {
     HRESULT hr;
     hr = _pIDirectSoundBuffer->SetCurrentPosition(0); //バッファ頭だし
     checkDxException(hr, DS_OK, "GgafDxSe::play() SetCurrentPosition(0) が失敗しました。");
-    hr = _pIDirectSoundBuffer->Play(0, 0, 0x00000000);
-    checkDxException(hr, DS_OK, "GgafDxSe::play() Play(0, 0, 0x00000000) が失敗しました。");
+    if (_can_looping) {
+        hr = _pIDirectSoundBuffer->Play(0, 0, DSBPLAY_LOOPING);
+        checkDxException(hr, DS_OK, "GgafDxSe::play() Play(0, 0, DSBPLAY_LOOPING) が失敗しました。");
+    } else {
+        hr = _pIDirectSoundBuffer->Play(0, 0, 0x00000000);
+        checkDxException(hr, DS_OK, "GgafDxSe::play() Play(0, 0, 0x00000000) が失敗しました。");
+    }
 }
+
 void GgafDxSe::play() {
     play(GGAF_MAX_VOLUME, 0.0f);
 }
+
+void GgafDxSe::stop() {
+    HRESULT hr;
+    hr = _pIDirectSoundBuffer->Stop();
+    checkDxException(hr, DS_OK, "GgafDxSe::stop() Stop() が失敗しました。");
+    hr = _pIDirectSoundBuffer->SetCurrentPosition(0); //バッファ頭だし
+    checkDxException(hr, DS_OK, "GgafDxSe::stop() SetCurrentPosition(0) が失敗しました。");
+}
+
 void GgafDxSe::setVolume(int prm_volume) {
     int db = GgafDxSound::aDbVolume[(int)(prm_volume * GgafDxSound::_app_master_volume_rate * GgafDxSound::_se_master_volume_rate)];
     HRESULT hr = _pIDirectSoundBuffer->SetVolume(db);
@@ -179,6 +197,7 @@ bool GgafDxSe::isPlaying() {
 }
 
 GgafDxSe::~GgafDxSe() {
-    _TRACE_("GgafDxSe::~GgafDxSe() _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<_id);
+    _TRACE_("GgafDxSe::~GgafDxSe() _wave_key="<<_wave_key<<" _wave_file_name="<<_wave_file_name<<" this="<<this);
+    GGAF_DELETEARR_NULLABLE(_wave_key);
     GGAF_RELEASE(_pIDirectSoundBuffer);
 }
