@@ -102,6 +102,7 @@ public:
 
     /** [r]詠唱時効果音発生管理オブジェクト2 */
     GgafDxCore::GgafDxSeTransmitterForActor* pSeTx4Cast_;
+    GgafDxCore::GgafDxSeTransmitterForActor* pSeTx4Invoke_;
 public:
     MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShip, GgafLib::AmountGraph* prm_pVreath_MyShip);
 

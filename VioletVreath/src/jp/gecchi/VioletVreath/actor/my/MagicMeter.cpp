@@ -145,8 +145,10 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     _pSeTx->set(SE_CANT_INVOKE_MAGIC             , "WAVE_MM_CANT_INVOKE_MAGIC");  //詠唱完了時、MPが足りないため発動できない場合
     _pSeTx->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
     pSeTx4Cast_ = NEW GgafDxSeTransmitterForActor(this);
+    pSeTx4Invoke_ = NEW GgafDxSeTransmitterForActor(this);
     for (int i = 0; i < magic_num; i++) {
         pSeTx4Cast_->set(i, "WAVE_MM_CASTING", i); //チャンネル明示指定
+        pSeTx4Invoke_->set(i, "WAVE_MM_INVOKING", i); //チャンネル明示指定
     }
     alpha_velo_ = -0.01f;
 }
@@ -423,7 +425,11 @@ void MagicMeter::processBehavior() {
         }
 
         //レベルアップINVOKING時
+        GgafDxSe* pSeInvoke = pSeTx4Invoke_->get(m);
         if (pMagicProg->isJustChangedTo(Magic::STATE_INVOKE_BEGIN)) {
+            pSeInvoke->setLooping(true);
+            pSeTx4Invoke_->play(m);
+
             papLvTargetCursor_[m]->dispDisable();
             papLvHilightCursor_[m]->dispDisable();
             if (papLvTargetCursor_[m]->point_lv_ == pMagic->level_) {
@@ -434,6 +440,15 @@ void MagicMeter::processBehavior() {
             papLvHilightCursor_[m]->moveSmoothTo(pMagic->new_level_, (frame)(pMagic->interest_time_of_invoking_[pMagic->new_level_-pMagic->level_]));
             papLvCastingMarkCursor_[m]->markOnInvoke(pMagic->new_level_);
         }
+
+        //INVOKING中のSE
+        if (pMagicProg->get() == Magic::STATE_INVOKING) {
+            float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
+            pSeInvoke->setFrequencyRate(1.0f + (f*3.0f));
+        } else if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
+            pSeInvoke->stop();
+        }
+
         //レベルアップINVOKING完了時
         if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
             papLvTargetCursor_[m]->dispEnable();
@@ -486,13 +501,15 @@ void MagicMeter::processBehavior() {
         }
 
         //詠唱中のSE
-        GgafDxSe* pSe = pSeTx4Cast_->get(m);
+        GgafDxSe* pSe1 = pSeTx4Cast_->get(m);
         if (pMagicProg->get() == Magic::STATE_CASTING) {
             float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
-            pSe->setFrequencyRate(1.0f + (f*3.0f));
+            pSe1->setFrequencyRate(1.0f + (f*3.0f));
         } else if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {
-            pSe->stop();
+            pSe1->stop();
         }
+
+
     }
 
 //    //debug -------------->
@@ -614,4 +631,5 @@ MagicMeter::~MagicMeter() {
     GGAF_DELETEARR(paFloat_rr_);
     GGAF_DELETEARR(paFloat_velo_rr_);
     GGAF_DELETE(pSeTx4Cast_);
+    GGAF_DELETE(pSeTx4Invoke_);
 }
