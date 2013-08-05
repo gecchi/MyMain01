@@ -71,6 +71,24 @@ void GgafDxSeTransmitter::play(int prm_id) {
     _papSeConnection[prm_id]->peek()->play();
 }
 
+void GgafDxSeTransmitter::stop(int prm_id) {
+#ifdef MY_DEBUG
+    if (prm_id < 0 || prm_id >= _se_num) {
+        throwGgafCriticalException("GgafDxSeTransmitter::stop() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。prm_id="<<prm_id);
+    }
+#endif
+    _papSeConnection[prm_id]->peek()->stop();
+}
+
+void GgafDxSeTransmitter::setLooping(int prm_id, bool prm_can_looping) {
+#ifdef MY_DEBUG
+    if (prm_id < 0 || prm_id >= _se_num) {
+        throwGgafCriticalException("GgafDxSeTransmitter::setLooping() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。prm_id="<<prm_id);
+    }
+#endif
+    _papSeConnection[prm_id]->peek()->setLooping(prm_can_looping);
+}
+
 GgafDxSe* GgafDxSeTransmitter::get(int prm_id) {
 #ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _se_num) {

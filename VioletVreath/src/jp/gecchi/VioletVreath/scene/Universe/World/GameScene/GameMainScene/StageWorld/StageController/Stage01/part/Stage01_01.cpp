@@ -22,7 +22,7 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
 	_paFrame_NextEvent = new frame[34];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 34;
-	
+
 	orderActorToFactory(30000001, FormationAllas001a, "FormationAllas001a-1");
 	orderActorToFactory(30000002, FormationAllas001b, "FormationAllas001b-2");
 	orderActorToFactory(30000003, FormationAllas001c, "FormationAllas001c-3");
@@ -103,6 +103,7 @@ void Stage01_01::processBehavior() {
 				VarietyRatislavia002* pRatislavia = (VarietyRatislavia002*)obtainActorFromFactory(30000030);
 				getSceneDirector()->addSubGroup(pRatislavia);
 				FormationAppho001b* pF = (FormationAppho001b*)obtainActorFromFactory(30000039);
+
 				getSceneDirector()->addSubGroup(pF);
 				break;
 			}

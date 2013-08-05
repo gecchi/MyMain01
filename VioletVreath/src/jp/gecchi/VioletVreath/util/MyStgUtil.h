@@ -374,6 +374,8 @@ public:
 	static GgafCore::GgafStatus* resetEnemyIdaStatus(GgafCore::GgafStatus* p);
 	//タゴラス
 	static GgafCore::GgafStatus* resetEnemyThagorasStatus(GgafCore::GgafStatus* p);
+	//オルトゥナ
+	static GgafCore::GgafStatus* resetEnemyOrtunaStatus(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

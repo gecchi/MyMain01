@@ -50,6 +50,14 @@ public:
     virtual void play(int prm_id);
 
     /**
+     * Ä¶’â~ .
+     * @param prm_id  SE‚ÌID ( 0 ` SE”-1 )
+     */
+    virtual void stop(int prm_id);
+
+    virtual void setLooping(int prm_id, bool prm_can_looping);
+
+    /**
      * GgafDxSe ‚ğæ“¾B
      * @param prm_id SE‚ÌID ( 0 ` SE”-1 )
      */

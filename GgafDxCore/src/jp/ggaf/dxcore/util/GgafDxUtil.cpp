@@ -604,10 +604,10 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
                                   angle& out_angRY) {
 
     convVectorToRzRy(vx,
-               vy,
-               vz,
-               out_angRZ,
-               out_angRY );
+                     vy,
+                     vz,
+                     out_angRZ,
+                     out_angRY );
 
     convRzRyToVector(out_angRZ,
                      out_angRY,

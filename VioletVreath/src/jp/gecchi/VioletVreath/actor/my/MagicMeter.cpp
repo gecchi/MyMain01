@@ -148,7 +148,9 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     pSeTx4Invoke_ = NEW GgafDxSeTransmitterForActor(this);
     for (int i = 0; i < magic_num; i++) {
         pSeTx4Cast_->set(i, "WAVE_MM_CASTING", i); //チャンネル明示指定
+        pSeTx4Cast_->setLooping(i, true);
         pSeTx4Invoke_->set(i, "WAVE_MM_INVOKING", i); //チャンネル明示指定
+        pSeTx4Invoke_->setLooping(i, true);
     }
     alpha_velo_ = -0.01f;
 }
@@ -215,7 +217,8 @@ void MagicMeter::onReset() {
         paFloat_rr_[i] = 0.0f;
         paFloat_velo_rr_[i] = 0.0f;
 
-        pSeTx4Cast_->get(i)->stop();
+        pSeTx4Cast_->stop(i);
+        pSeTx4Invoke_->stop(i);
     }
     //主メーターカーソル
     lstMagic_.current(0);
@@ -353,7 +356,6 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 case MAGIC_CAST_OK_LEVELUP: {
-                    pSeTx4Cast_->get(active_idx)->setLooping(true);
                     pSeTx4Cast_->play(active_idx);
 
                     _pSeTx->play(SE_EXECUTE_LEVELUP_MAGIC);
@@ -372,7 +374,6 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 case MAGIC_CAST_OK_CANCEL_AND_LEVELUP: {
-                    pSeTx4Cast_->get(active_idx)->setLooping(true);
                     pSeTx4Cast_->play(active_idx);
 
                     _pSeTx->play(SE_EXECUTE_CANCEL_LEVELUP_MAGIC);
@@ -403,9 +404,9 @@ void MagicMeter::processBehavior() {
 
     addAlpha(alpha_velo_);
     if (getAlpha() < 0.2f) {
-        setAlpha(0.2f);
+        setAlpha(0.2f); //非アクティブ時のうっすら表示
     } else if (getAlpha() > 1.0f) {
-        setAlpha(1.0f);
+        setAlpha(1.0f); //アクティブ時のハッキリ表示
     }
     //毎フレームの各魔法表示についての処理
     GgafProgress* pMagicProg = nullptr;
@@ -424,10 +425,9 @@ void MagicMeter::processBehavior() {
             paFloat_velo_rr_[m] = 0.0f;
         }
 
-        //レベルアップINVOKING時
-        GgafDxSe* pSeInvoke = pSeTx4Invoke_->get(m);
-        if (pMagicProg->isJustChangedTo(Magic::STATE_INVOKE_BEGIN)) {
-            pSeInvoke->setLooping(true);
+        //INVOKING開始時
+        if (pMagicProg->isJustChangedTo(Magic::STATE_INVOKING)) {
+
             pSeTx4Invoke_->play(m);
 
             papLvTargetCursor_[m]->dispDisable();
@@ -440,25 +440,23 @@ void MagicMeter::processBehavior() {
             papLvHilightCursor_[m]->moveSmoothTo(pMagic->new_level_, (frame)(pMagic->interest_time_of_invoking_[pMagic->new_level_-pMagic->level_]));
             papLvCastingMarkCursor_[m]->markOnInvoke(pMagic->new_level_);
         }
-
-        //INVOKING中のSE
+        //INVOKING中
         if (pMagicProg->get() == Magic::STATE_INVOKING) {
             float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
-            pSeInvoke->setFrequencyRate(1.0f + (f*3.0f));
-        } else if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
-            pSeInvoke->stop();
+            pSeTx4Invoke_->get(m)->setFrequencyRate(1.0f + (f*3.0f));
         }
-
-        //レベルアップINVOKING完了時
+        //INVOKING完
         if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
+            pSeTx4Invoke_->stop(m);
             papLvTargetCursor_[m]->dispEnable();
             papLvHilightCursor_[m]->dispEnable();
             papLvHilightCursor_[m]->blink();
         }
 
-        if (pMagicProg->isJustChangedTo(Magic::STATE_EFFECT_BEGIN)) {
+        //EFFECTING開始時
+        if (pMagicProg->isJustChangedTo(Magic::STATE_EFFECTING)) {
             if (pMagic->last_level_ < pMagic->level_) {
-                //レベルアップEFFECT_BEGEINだったならば
+                //レベルアップSTATE_EFFECTINGだったならば
 //                papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
                 papLvCastingMarkCursor_[m]->markOnEffect(pMagic->level_);
             } else {
@@ -500,13 +498,14 @@ void MagicMeter::processBehavior() {
             papLvHilightCursor_[m]->moveSmoothTo(pMagic->level_);
         }
 
-        //詠唱中のSE
-        GgafDxSe* pSe1 = pSeTx4Cast_->get(m);
+        //詠唱中
         if (pMagicProg->get() == Magic::STATE_CASTING) {
             float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
-            pSe1->setFrequencyRate(1.0f + (f*3.0f));
-        } else if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {
-            pSe1->stop();
+            pSeTx4Cast_->get(m)->setFrequencyRate(1.0f + (f*3.0f));
+        }
+        //詠唱完
+        if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {
+            pSeTx4Cast_->stop(m);
         }
 
 

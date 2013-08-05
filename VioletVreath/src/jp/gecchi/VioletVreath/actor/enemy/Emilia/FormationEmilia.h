@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * マッサリア群 .
+ * エミリア群 .
  * @version 1.00
  * @since 2012/01/12
  * @author Masatoshi Tsuge
@@ -13,13 +13,13 @@ namespace VioletVreath {
 class FormationEmilia : public GgafLib::DepositoryFormation {
 
 public:
-    /** マッサリア借り入れ元Depository資源への接続 */
+    /** エミリア借り入れ元Depository資源への接続 */
     DepositoryConnection* pDepoConnection_Emilia_;
-    /** マッサリア断片借り入れ元Depository資源への接続 */
+    /** エミリア断片借り入れ元Depository資源への接続 */
     DepositoryConnection* pDepoConnection_Fragment_;
-    /** マッサリア断片の断片借り入れ元Depository資源への接続 */
+    /** エミリア断片の断片借り入れ元Depository資源への接続 */
     DepositoryConnection* pDepoConnection_Fragment_2_;
-    /** マッサリア断片の断片借り入れ元Depository資源への接続 */
+    /** エミリア断片の断片借り入れ元Depository資源への接続 */
     DepositoryConnection* pDepoConnection_Fragment_3_;
 
     /** 編隊メンバーの出現間隔フレーム(RANK変動) */

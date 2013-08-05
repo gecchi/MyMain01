@@ -87,14 +87,14 @@ enum {
 // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
 // コード変更は「ランク定義Creater.xls」から行うこと。
 // gen01 start
-// ウーノミア(EnemyUnomia) のランク式
+// ウノミア(EnemyUnomia) のランク式
 #define RF_EnemyUnomia_ShotWay(X)  (10+(X)*10)  //発射弾(Way)数
-// ウーノミア編隊001(FormationUnomia001) のランク式
+// ウノミア編隊001(FormationUnomia001) のランク式
 #define RF_FormationUnomia001_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
 #define RF_FormationUnomia001_Num(X)  (20 + (X)*10)  //隊数
 #define RF_FormationUnomia001_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
 #define RF_FormationUnomia001_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-// ウーノミア編隊002(FormationUnomia002) のランク式
+// ウノミア編隊002(FormationUnomia002) のランク式
 #define RF_FormationUnomia002_Col(X)  (5 + ((X)>1.0?1.0:(X))*2)  //列数
 #define RF_FormationUnomia002_Num(X)  (20 + (X)*10)  //隊数
 #define RF_FormationUnomia002_LaunchInterval(X)  (2  + (10 - ((X)>1.0?1.0:(X))*10))  //出現間隔
@@ -119,9 +119,9 @@ enum {
 #define RF_FormationAllas002_Num(X)  (12+(X)*8)  //隊数
 #define RF_FormationAllas002_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
 #define RF_FormationAllas002_MvVelo(X)  (10000 + (X)*10000)  //移動速度
-// タエラ(EnemyHalia) のランク式
+// ハリア(EnemyHalia) のランク式
 #define RF_EnemyHalia_ShotWay(X)  (20+(X)*10)  //発射弾(Way)数
-// タエラ編隊(FormationHalia) のランク式
+// ハリア編隊(FormationHalia) のランク式
 #define RF_FormationHalia_Num(X)  (7+(X)*4)  //隊数
 #define RF_FormationHalia_LaunchInterval(X)  (5 + (20 - ((X)>1.0?1.0:(X)) *20))  //出現間隔
 #define RF_FormationHalia_MvVelo(X)  (14000+(X)*10000)  //移動速度
@@ -134,12 +134,12 @@ enum {
 // 汎用ショット002(Shot002) のランク式
 #define RF_Shot002_MvVelo(X)  (8000+(X)*8000)  //移動速度
 #define RF_Shot002_AngVelo(X)  (1000+(X)*1000)  //角速度
-// マッサリア(EnemyEmilia) のランク式
+// エミリア(EnemyEmilia) のランク式
 #define RF_EnemyEmilia_ShotWay(X)  (4+(X)*4)  //発射弾(Way)数
-// マッサリア断片(EnemyEmiliaFragment) のランク式
-// マッサリア断片の断片(EnemyEmiliaFragment2) のランク式
-// マッサリア断片の断片の断片(EnemyEmiliaFragment3) のランク式
-// マッサリア群(FormationEmilia) のランク式
+// エミリア断片(EnemyEmiliaFragment) のランク式
+// エミリア断片の断片(EnemyEmiliaFragment2) のランク式
+// エミリア断片の断片の断片(EnemyEmiliaFragment3) のランク式
+// エミリア群(FormationEmilia) のランク式
 #define RF_FormationEmilia_LaunchInterval(X)  (10  + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
 #define RF_FormationEmilia_MvVelo(X)  (8000+(X)*8000)  //移動速度
 #define RF_FormationEmilia_DurationFrames(X)  (60*20)  //持続時間
@@ -151,11 +151,11 @@ enum {
 // エスペリア(EnemyEsperia) のランク式
 #define RF_EnemyEsperia_Density(X)  (90000 - (((X)>1.0?1.0:(X)) * 50000))  //密度
 #define RF_EnemyEsperia_ShotWay(X)  (7 + (((X)>1.0?1.0:(X)) * 4))  //発射弾(Way)数
-// アッポー(EnemyAppho) のランク式
+// アッフォー(EnemyAppho) のランク式
 #define RF_EnemyAppho_MvVelo(X)  (15000 + (X)*10000)  //移動速度
 #define RF_EnemyAppho_ShotWay(X)  (2+(X)*4)  //発射弾(Way)数
 #define RF_EnemyAppho_ShotMvVelo(X)  (1000+(X)*5000)  //発射弾速度
-// アッポー編隊001(FormationAppho001) のランク式
+// アッフォー編隊001(FormationAppho001) のランク式
 #define RF_FormationAppho001_Num(X)  (10+(X)*5)  //隊数
 #define RF_FormationAppho001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
 // アテンティオペ(EnemyAntiope) のランク式
@@ -176,6 +176,13 @@ enum {
 #define RF_SHOT_RV_NOMAL001_Density(X)  (D_ANG(15)-((X)*D_ANG(5)))  //密度
 #define RF_SHOT_RV_NOMAL001_ShotWay(X)  (3+(2*((X)*2)))  //発射弾(Way)数
 #define RF_SHOT_RV_NOMAL001_ShotSetNum(X)  (1+((X)*3))  //発射弾(Way)弾のセット数
+// オルトゥナ(EnemyOrtuna) のランク式
+#define RF_EnemyOrtuna_MvVelo(X)  (15000 + (X)*10000)  //移動速度
+#define RF_EnemyOrtuna_ShotWay(X)  (2+(X)*4)  //発射弾(Way)数
+#define RF_EnemyOrtuna_ShotMvVelo(X)  (1000+(X)*5000)  //発射弾速度
+// オルトゥナ編隊001(FormationOrtuna001) のランク式
+#define RF_FormationOrtuna001_Num(X)  (10+(X)*5)  //隊数
+#define RF_FormationOrtuna001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
 // gen02 end
 
 //1/√2
@@ -450,6 +457,12 @@ class FormationRis001;
 class FormationRis002;
 
 class EnemyOmulus;
+
+class EnemyOrtuna;
+class FormationOrtuna001;
+class FormationOrtuna001a;
+class FormationOrtuna001b;
+
 class EnemyEmus;
 class EnemyEmusLaserChip001;
 

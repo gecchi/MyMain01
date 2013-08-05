@@ -5,7 +5,7 @@
 namespace VioletVreath {
 
 /**
- * マッサリア断片の断片  .
+ * エミリア断片の断片  .
  * 隕石の断片の断片
  * @version 1.00
  * @since 2012/01/16

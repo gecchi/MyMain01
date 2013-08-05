@@ -61,11 +61,8 @@ class Magic : public GgafCore::GgafMainActor {
 public:
     enum {
         STATE_NOTHING = 1,
-        STATE_CAST_BEGIN,
         STATE_CASTING    ,
-        STATE_INVOKE_BEGIN,
         STATE_INVOKING   ,
-        STATE_EFFECT_BEGIN  ,
         STATE_EFFECTING  ,
         STATE_ABANDONING ,
     };

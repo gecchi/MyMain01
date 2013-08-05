@@ -360,6 +360,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Omulus\EnemyOmulus.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\EnemyOrtuna.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001a.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEye.cpp" />
@@ -689,6 +693,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Omulus\EnemyOmulus.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\EnemyOrtuna.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001a.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEye.h" />

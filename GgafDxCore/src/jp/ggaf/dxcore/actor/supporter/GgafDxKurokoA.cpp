@@ -671,7 +671,7 @@ void GgafDxKurokoA::setMvAcce(int prm_acceMove) {
     _accMv = prm_acceMove;
 }
 
-void GgafDxKurokoA::setMvAcceToStop(coord prm_target_distance) {
+frame GgafDxKurokoA::setMvAcceToStop(coord prm_target_distance) {
     // a = -(Vo^2) / 2D
     double acc = -(1.0*_veloMv*_veloMv) / (2.0*prm_target_distance);
     if (acc > 0.0) {
@@ -680,7 +680,7 @@ void GgafDxKurokoA::setMvAcceToStop(coord prm_target_distance) {
         acc -= 0.5;
     }
     _accMv = acc;
-    //(frame)((2.0*prm_target_distance) / _veloMv); //使用フレーム数
+    return (frame)((2.0*prm_target_distance) / _veloMv); //使用フレーム数
 }
 void GgafDxKurokoA::setMvAcceByT(int prm_target_frames, velo prm_target_velo) {
     //a = (Vt-Vo) / Te
@@ -692,7 +692,7 @@ void GgafDxKurokoA::setMvAcceByT(int prm_target_frames, velo prm_target_velo) {
     }
     _accMv = acc;
 }
-void GgafDxKurokoA::setMvAcceByD(coord prm_target_distance, velo prm_target_velo) {
+frame GgafDxKurokoA::setMvAcceByD(coord prm_target_distance, velo prm_target_velo) {
     // a = (Vt^2 - Vo^2) / 2D
     double acc = ((1.0f*prm_target_velo*prm_target_velo) - (1.0*_veloMv*_veloMv)) / (2.0*prm_target_distance);
     if (acc > 0.0) {
@@ -701,7 +701,7 @@ void GgafDxKurokoA::setMvAcceByD(coord prm_target_distance, velo prm_target_velo
         acc -= 0.5;
     }
     _accMv = acc;
-    //(frame)((1.0*prm_target_velo - _veloMv) / _accMv); //使用フレーム数
+    return (frame)((1.0*prm_target_velo - _veloMv) / _accMv); //使用フレーム数
 
     // 【補足】
     // Vo <= 0  かつ  Vt <= 0 場合、あるいは  Vo >= 0  かつ  Vt >= 0  場合は、D(目標距離)が上記式で問題ない。

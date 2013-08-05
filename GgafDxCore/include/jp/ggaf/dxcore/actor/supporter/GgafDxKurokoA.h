@@ -345,8 +345,9 @@ public:
      * 上図のような状態を想定し、引数の距離(D)から、加速度(a)を計算し設定している。<BR>
      * 停止までのフレーム(Te) は 距離(D) により変化するため指定不可。<BR>
      * @param prm_target_distance 停止時移動距離(D)
+     * @return 必要な時間(フレーム)、参考値。
      */
-    void setMvAcceToStop(coord prm_target_distance);
+    frame setMvAcceToStop(coord prm_target_distance);
 
     /**
      * 移動加速度を、「目標到達速度」「移動距離(達するまでに費やす距離)」により設定 .
@@ -380,8 +381,9 @@ public:
      * 捕捉：setMvAcceByD(0, D) は setMvAcceToStop(D) と同じである
      * @param prm_target_distance  目標到達速度に達するまでに費やす距離(D)
      * @param prm_target_velo 目標到達速度(Vt)
+     * @return 必要な時間(フレーム)、参考値。
      */
-    void setMvAcceByD(coord prm_target_distance, velo prm_target_velo);
+    frame setMvAcceByD(coord prm_target_distance, velo prm_target_velo);
 
     /**
      * 移動加速度を、「目標到達速度」「費やす時間」により設定 .

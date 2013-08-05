@@ -77,16 +77,16 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     addSubMenu(NEW MenuBoardConfig("config"));
 }
 bool MenuBoardPause::condSelectNext() {
-    return VB->isAutoRepeat(VB_UI_DOWN);
+    return VB->isAutoRepeat(VB_UI_DOWN) ? true : false;
 }
 bool MenuBoardPause::condSelectPrev() {
-    return VB->isAutoRepeat(VB_UI_UP);
+    return VB->isAutoRepeat(VB_UI_UP) ? true : false;
 }
 bool MenuBoardPause::condSelectExNext() {
-    return VB->isAutoRepeat(VB_UI_RIGHT);
+    return VB->isAutoRepeat(VB_UI_RIGHT) ? true : false;
 }
 bool MenuBoardPause::condSelectrExPrev() {
-    return VB->isAutoRepeat(VB_UI_LEFT);
+    return VB->isAutoRepeat(VB_UI_LEFT) ? true : false;
 }
 
 void MenuBoardPause::processBehavior() {

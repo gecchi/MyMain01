@@ -119,9 +119,9 @@ void Magic::load(std::stringstream& sts) {
 }
 
 int Magic::chkCastAble(int prm_new_level) {
-    if (_pProg->get() == STATE_INVOKING || _pProg->get() == STATE_INVOKE_BEGIN) {
+    if (_pProg->get() == STATE_INVOKING) {
         return MAGIC_CAST_NG_INVOKING_NOW; //発動中のため実行不可
-    } else if (_pProg->get() == STATE_CASTING || _pProg->get() == STATE_CAST_BEGIN) {
+    } else if (_pProg->get() == STATE_CASTING) {
         //他のレベルを詠唱中に詠唱再実行
         if (level_ > prm_new_level) {
             return MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN; //再詠唱レベルダウンOK
@@ -180,7 +180,7 @@ int Magic::cast(int prm_new_level) {
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_CAST_OK_LEVELUP!");
             is_working_ = true;
             new_level_ = prm_new_level;
-            _pProg->change(STATE_CAST_BEGIN);
+            _pProg->change(STATE_CASTING);
             break;
         }
         case MAGIC_CAST_OK_LEVELDOWN: {
@@ -196,7 +196,7 @@ int Magic::cast(int prm_new_level) {
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_CAST_OK_CANCEL_AND_LEVELUP!");
             is_working_ = true;
             new_level_ = prm_new_level;
-            _pProg->change(STATE_CAST_BEGIN);
+            _pProg->change(STATE_CASTING);
             break;
         }
         case MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN: {
@@ -212,7 +212,7 @@ int Magic::cast(int prm_new_level) {
 }
 
 int Magic::chkInvokeAble(int prm_new_level) {
-    if (_pProg->get() == STATE_INVOKING || _pProg->get() == STATE_INVOKE_BEGIN) {
+    if (_pProg->get() == STATE_INVOKING) {
         //発動中のため実行不可
         return MAGIC_INVOKE_NG_INVOKING_NOW;
     } else {
@@ -261,7 +261,7 @@ int Magic::invoke(int prm_new_level) {
         case MAGIC_INVOKE_OK_LEVELUP: {
             _TRACE_("Magic::invoke("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_INVOKE_OK_LEVELUP!");
             new_level_ = prm_new_level;
-            _pProg->change(STATE_INVOKE_BEGIN);
+            _pProg->change(STATE_INVOKING);
             break;
         }
         case MAGIC_INVOKE_OK_LEVELDOWN: {
@@ -301,7 +301,7 @@ int Magic::effect(int prm_level) {
             //レベル更新
             last_level_ = level_;
             level_ = prm_level;
-            _pProg->change(STATE_EFFECT_BEGIN);
+            _pProg->change(STATE_EFFECTING);
             break;
         }
         case MAGIC_EFFECT_OK_LEVELDOWN: {
@@ -310,7 +310,7 @@ int Magic::effect(int prm_level) {
             //レベル更新
             last_level_ = level_;
             level_ = prm_level;
-            _pProg->change(STATE_EFFECT_BEGIN);
+            _pProg->change(STATE_EFFECTING);
             break;
         }
     }
@@ -326,6 +326,7 @@ void Magic::cancel() {
 void Magic::processBehavior() {
     prev_frame_level_ = level_;
     if (is_working_) {
+        //_TRACE_("Magic::processBehavior() F="<<getBehaveingFrame()<<" begin _pProg->get()="<<_pProg->get());
 
         switch (_pProg->get()) {
             /////////////////////////////////////// 待機
@@ -333,17 +334,15 @@ void Magic::processBehavior() {
                 break;
             }
 
-            /////////////////////////////////////// 詠唱開始
-            case STATE_CAST_BEGIN: {
-                //詠唱終了時間を計算
-                time_of_next_state_ = interest_time_of_casting_[new_level_- level_];
-                _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_CAST_BEGIN new_level_="<<new_level_<<" level_="<<level_<<" time_of_next_state_="<<time_of_next_state_<<"");
-                processCastBegin(level_, new_level_);  //コールバック
-                _pProg->change(STATE_CASTING);
-                //↓ fall down ↓
-            }
             /////////////////////////////////////// 詠唱中
             case STATE_CASTING: {
+                if (_pProg->isJustChanged()) { //詠唱開始
+                    //詠唱終了時間を計算
+                    time_of_next_state_ = interest_time_of_casting_[new_level_- level_];
+                    _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_CASTING begin new_level_="<<new_level_<<" level_="<<level_<<" time_of_next_state_="<<time_of_next_state_<<"");
+                    processCastBegin(level_, new_level_);  //コールバック
+                }
+                //詠唱中処理
                 processCastingBehavior(level_, new_level_); //コールバック
                 if (_pProg->getFrameInProgress() >= time_of_next_state_) {
                     _TRACE_("Magic::processBehavior() ["<<getName()<<"] 詠唱完！");
@@ -355,19 +354,16 @@ void Magic::processBehavior() {
                 }
                 break;
             }
-            /////////////////////////////////////// 発動開始
-            case STATE_INVOKE_BEGIN : {
-                //発動終了時間設定
-                time_of_next_state_ = interest_time_of_invoking_[new_level_- level_];
-                _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_INVOKE_BEGIN new_level_="<<new_level_<<" level_="<<level_<<" time_of_next_state_="<<time_of_next_state_<<"");
-                processInvokeBegin(level_, new_level_);     //コールバック
-
-                _pProg->change(STATE_INVOKING);
-                //↓ fall down ↓
-            }
 
             /////////////////////////////////////// 発動中
             case STATE_INVOKING: {
+                if (_pProg->isJustChanged()) { //発動開始
+                    //発動終了時間設定
+                    time_of_next_state_ = interest_time_of_invoking_[new_level_- level_];
+                    _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_INVOKING begin new_level_="<<new_level_<<" level_="<<level_<<" time_of_next_state_="<<time_of_next_state_<<"");
+                    processInvokeBegin(level_, new_level_);     //コールバック
+                }
+                //発動中処理
                 processInvokingBehavior(level_, new_level_);  //コールバック
                 if (_pProg->getFrameInProgress() >= time_of_next_state_) {
                     _TRACE_("Magic::processBehavior() ["<<getName()<<"] 発動完！");
@@ -380,54 +376,54 @@ void Magic::processBehavior() {
                 break;
             }
             /////////////////////////////////////// 持続開始
-            case STATE_EFFECT_BEGIN: {
-                _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_EFFECT_BEGIN");
-
-                //MP消費計算
-                if (last_level_ < level_) {
-                    _TRACE_("Magic::processBehavior() ["<<getName()<<"] レベルアップだった。last_level_="<<last_level_<<" level_="<<level_);
-                    //レベルアップだった場合
-                    //飛び越された間のレベルは停止して効果持続終了残り時間を満タンを設定
-                    for (int lv = last_level_+1; lv <= level_-1; lv++) {
-                        lvinfo_[lv].remainingtime_of_effect_ = lvinfo_[lv].time_of_effect_; //持続時間を満タン
-                    }
-                    pMP_->dec(interest_cost_[level_-last_level_]); //MP消費
-                } else if (last_level_ > level_) {
-                    _TRACE_("Magic::processBehavior() ["<<getName()<<"] レベルダウンだった。last_level_="<<last_level_<<" level_="<<level_);
-                    //レベルダウンだった場合
-                    if (keep_cost_base_ == 0) { //維持コストがかからない魔法の場合は
-                        if (lvinfo_[last_level_].time_of_effect_ > 0) {
-                            //MP還元
-                            pMP_->inc(calcReduceMp(last_level_, level_));
+            case STATE_EFFECTING: {
+                if (_pProg->isJustChanged()) { //持続開始
+                    _TRACE_("Magic::processBehavior() ["<<getName()<<"] STATE_EFFECTING begin");
+                    //MP消費計算
+                    if (last_level_ < level_) {
+                        _TRACE_("Magic::processBehavior() ["<<getName()<<"] レベルアップだった。last_level_="<<last_level_<<" level_="<<level_);
+                        //レベルアップだった場合
+                        //飛び越された間のレベルは停止して効果持続終了残り時間を満タンを設定
+                        for (int lv = last_level_+1; lv <= level_-1; lv++) {
+                            lvinfo_[lv].remainingtime_of_effect_ = lvinfo_[lv].time_of_effect_; //持続時間を満タン
                         }
+                        pMP_->dec(interest_cost_[level_-last_level_]); //MP消費
+                    } else if (last_level_ > level_) {
+                        _TRACE_("Magic::processBehavior() ["<<getName()<<"] レベルダウンだった。last_level_="<<last_level_<<" level_="<<level_);
+                        //レベルダウンだった場合
+                        if (keep_cost_base_ == 0) { //維持コストがかからない魔法の場合は
+                            if (lvinfo_[last_level_].time_of_effect_ > 0) {
+                                //MP還元
+                                pMP_->inc(calcReduceMp(last_level_, level_));
+                            }
+                        }
+
+                        //飛び越された間のレベルは停止して効果持続終了残り時間をリセットを設定
+                        for (int lv = level_+1 ; lv <= last_level_-1; lv++) {
+                            lvinfo_[lv].remainingtime_of_effect_ = 0; //果持続終了残り時間を0
+                        }
+                    } else {
                     }
 
-                    //飛び越された間のレベルは停止して効果持続終了残り時間をリセットを設定
-                    for (int lv = level_+1 ; lv <= last_level_-1; lv++) {
-                        lvinfo_[lv].remainingtime_of_effect_ = 0; //果持続終了残り時間を0
+                    if (level_ == 0) {
+                        _TRACE_("Magic::processBehavior() ["<<getName()<<"] (0レベル指定)による魔法終了。last_level_="<<last_level_<<" level_="<<level_);
+                        _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+                        break;
                     }
-                } else {
+
+                    //今回の新たなレベルを設定
+                    if (last_level_ < level_) {
+                        //レベルアップだった場合
+                        lvinfo_[level_].remainingtime_of_effect_ = lvinfo_[level_].time_of_effect_; //今回持続時間を満タン
+                    } else if (last_level_ > level_) {
+                        //レベルダウンだった場合、今回持続時間は前回の続き
+                    } else {
+                    }
+                    //効果持続開始
+                    processEffectBegin(last_level_, level_); //コールバック
                 }
 
-
-                if (level_ == 0) {
-                    _TRACE_("Magic::processBehavior() ["<<getName()<<"] (0レベル指定)による魔法終了。last_level_="<<last_level_<<" level_="<<level_);
-                    _pProg->change(STATE_NOTHING); //レベルダウン(0レベル指定)による魔法終了
-                    break;
-                }
-
-                //今回の新たなレベルを設定
-                if (last_level_ < level_) {
-                    //レベルアップだった場合
-                    lvinfo_[level_].remainingtime_of_effect_ = lvinfo_[level_].time_of_effect_; //今回持続時間を満タン
-                } else if (last_level_ > level_) {
-                    //レベルダウンだった場合、今回持続時間は前回の続き
-                } else {
-                }
-                //効果持続開始
-                processEffectBegin(last_level_, level_); //コールバック
-
-                _pProg->change(STATE_EFFECTING);
+                //持続中処理
                 break;
             }
 
@@ -520,6 +516,7 @@ void Magic::processBehavior() {
             }
 
         }
+        //_TRACE_("Magic::processBehavior() F="<<getBehaveingFrame()<<" after _pProg->get()="<<_pProg->get());
     }
 
 }
