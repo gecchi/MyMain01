@@ -18,9 +18,9 @@ DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const c
                              "DefaultMeshEffect",
                              "DefaultMeshTechnique",
                              prm_pStat,
-                             NEW CollisionChecker3D(this) ) {
+                             NEW CollisionChecker3D(this) ),
+_pScaler(new GgafDxScaler(this)) {
     _class_name = "DefaultDynaD3DXMeshActor";
-    _pScaler = NEW GgafDxScaler(this);
     _pColliChecker = (CollisionChecker3D*)_pChecker;
 }
 
@@ -31,5 +31,5 @@ void DefaultDynaD3DXMeshActor::drawHitArea() {
 
 DefaultDynaD3DXMeshActor::~DefaultDynaD3DXMeshActor() {
     GGAF_DELETE(_pColliChecker);
-    GGAF_DELETE(_pScaler);
+    delete _pScaler;
 }

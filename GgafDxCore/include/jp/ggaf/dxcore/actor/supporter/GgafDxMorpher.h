@@ -84,7 +84,7 @@ public:
     /**
      * モーフターゲットの重みを直接指定 .
      * @param prm_target_mesh_no モーフターゲットメッシュNO(1～)
-     * @param prm_weight 重み
+     * @param prm_weight 重み 重み0.0～1.0。それ以上も可能
      */
     inline void setWeight(int prm_target_mesh_no, float prm_weight) {
         if (_top_weight[prm_target_mesh_no] < prm_weight) {
@@ -95,6 +95,12 @@ public:
             _weight[prm_target_mesh_no] = prm_weight;
         }
     }
+
+    /**
+     * 全モーフターゲットの重みを直接指定
+     * @param prm_target_mesh_no 重み0.0～1.0。それ以上も可能
+     */
+    void setWeight(float prm_weight);
 
     /**
      * モーフターゲットの重みを加算(負で減算) .

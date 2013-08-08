@@ -22,7 +22,7 @@ public:
     /** [r/w]モーフターゲットの重み(0.0 ～ 1.0) */
     float _weight[MAX_MORPH_TARGET+1]; //[0]は未使用、[1]～[6]がモーフターゲット1～6の重み
     /** モーフィング支援オブジェクト */
-    GgafDxCore::GgafDxMorpher* _pMorpher;
+    GgafDxCore::GgafDxMorpher* const _pMorpher;
 
 public:
     /**

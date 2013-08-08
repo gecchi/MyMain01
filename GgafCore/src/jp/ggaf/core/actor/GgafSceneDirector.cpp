@@ -11,16 +11,17 @@ using namespace GgafCore;
 GgafSceneDirector::GgafSceneDirector(GgafScene* prm_pScene_platform) : GgafActor(prm_pScene_platform->getName(), nullptr) {
     _obj_class |= Obj_GgafSceneDirector;
     _class_name = "GgafSceneDirector";
-
     _pScene_platform = prm_pScene_platform;
     setHitAble(false);
 }
+
 void GgafSceneDirector::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
     GgafScene* s = getPlatformScene();
     if (s) {
         s->throwEventUpperTree(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる
     }
 }
+
 void GgafSceneDirector::remove() {
     throwGgafCriticalException("[GgafSceneDirector::remove] Error! GgafSceneDirectorはremove()によって削除は行えません！");
 }
@@ -45,13 +46,8 @@ GgafGroupHead* GgafSceneDirector::addSubGroup(actorkind prm_kind, GgafMainActor*
 }
 
 GgafGroupHead* GgafSceneDirector::addSubGroup(GgafMainActor* prm_pMainActor) {
-    //_pStatus->get() はint 型だが、例え負の数になっていたとしても、ビットの情報に影響はない
-    //したがって actorkind へキャストしても問題ない。
-    //TODO:64bitCPUの場合これは危ない。あとで考える・・・。
     return addSubGroup(prm_pMainActor->_pStatus->getUint(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
 }
-
-
 
 GgafGroupHead* GgafSceneDirector::searchSubGroupHead(actorkind prm_kind) {
     if (_pSubFirst == nullptr) {

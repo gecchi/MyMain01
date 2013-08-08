@@ -66,9 +66,13 @@ void WateringLaserChip::processSettlementBehavior() {
             //_X,_Y,_Z ‚É‚Í‚Ü‚¾•Ï‚È’l‚ª“ü‚Á‚Ä‚¢‚éB
 
             //’†ŠÔÀ•W‚ÉÄÝ’è
-            _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3; //int‚ÌŠ„‚èŽZ‚¾‚µ‚Ü‚Ÿ‚¢‚¢‚©
-            _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
-            _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
+//            _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3; //int‚ÌŠ„‚èŽZ‚¾‚µ‚Ü‚Ÿ‚¢‚¢‚©
+//            _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
+//            _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
+
+            _X = ((pF->_tmpX + pB->_tmpX)/2 + _tmpX)/2;
+            _Y = ((pF->_tmpY + pB->_tmpY)/2 + _tmpY)/2;
+            _Z = ((pF->_tmpZ + pB->_tmpZ)/2 + _tmpZ)/2;
         }
         LaserChip::processSettlementBehavior();
     }

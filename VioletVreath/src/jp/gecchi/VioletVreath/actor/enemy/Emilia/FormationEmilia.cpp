@@ -18,8 +18,6 @@ FormationEmilia::FormationEmilia(const char* prm_name)
     pDepoConnection_Fragment_ = connect_DepositoryManager("EmiliaFragment");
     pDepoConnection_Fragment_2_ = connect_DepositoryManager("EmiliaFragment2");
     pDepoConnection_Fragment_3_ = connect_DepositoryManager("EmiliaFragment3");
-
-
     setFormationMember(pDepoConnection_Emilia_->peek());
 }
 

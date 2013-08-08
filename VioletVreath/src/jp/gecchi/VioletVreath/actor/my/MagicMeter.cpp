@@ -144,6 +144,7 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     _pSeTx->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "WAVE_MM_EXECUTE_CANCEL_LEVELDOWN_MAGIC");  //（詠唱キャンセルして）レベルダウン実行時
     _pSeTx->set(SE_CANT_INVOKE_MAGIC             , "WAVE_MM_CANT_INVOKE_MAGIC");  //詠唱完了時、MPが足りないため発動できない場合
     _pSeTx->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
+
     pSeTx4Cast_ = NEW GgafDxSeTransmitterForActor(this);
     pSeTx4Invoke_ = NEW GgafDxSeTransmitterForActor(this);
     for (int i = 0; i < magic_num; i++) {

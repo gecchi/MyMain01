@@ -24,7 +24,8 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
                                          const char* prm_technique,
                                          GgafStatus* prm_pStat,
                                          GgafDxChecker* prm_pChecker) :
-  GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker) {
+  GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker),
+_pAFader(new GgafDxAlphaFader(this)) {
     _obj_class |= Obj_GgafDxDrawableActor;
     _class_name = "GgafDxDrawableActor";
 
@@ -50,7 +51,6 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _alpha = 1.0f;
-    _pAFader = NEW GgafDxAlphaFader(this);
     //Å‘å‹——£’¸“_
     _bounding_sphere_radius = _pModel->_bounding_sphere_radius;
     _now_drawdepth = 0;
@@ -68,7 +68,8 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
                                          const char* prm_technique,
                                          GgafStatus* prm_pStat,
                                          GgafDxChecker* prm_pChecker) :
-  GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker) {
+  GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker),
+  _pAFader(new GgafDxAlphaFader(this)) {
 
     _class_name = "GgafDxDrawableActor";
 
@@ -117,7 +118,6 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _alpha = 1.0f;
-    _pAFader = NEW GgafDxAlphaFader(this);
     //Å‘å‹——£’¸“_
     _bounding_sphere_radius = _pModel->_bounding_sphere_radius;
 
@@ -339,7 +339,7 @@ void GgafDxDrawableActor::effectDefault() {
 }
 
 GgafDxDrawableActor::~GgafDxDrawableActor() {
-    GGAF_DELETE(_pAFader);
+    delete _pAFader;
     GGAF_DELETEARR(_technique);
     GGAF_DELETEARR(_temp_technique);
     GGAF_DELETEARR(_paMaterial);

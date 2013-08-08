@@ -17,10 +17,10 @@ DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_mod
                        "DefaultSpriteEffect",
                        "DefaultSpriteTechnique",
                        prm_pStat,
-                       NEW CollisionChecker3D(this) ) {
+                       NEW CollisionChecker3D(this) ),
+_pScaler(new GgafDxScaler(this)) {
     _class_name = "DefaultSpriteActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
-    _pScaler = NEW GgafDxScaler(this);
     setZWriteEnable(false);
 }
 
@@ -30,5 +30,5 @@ void DefaultSpriteActor::drawHitArea() {
 
 DefaultSpriteActor::~DefaultSpriteActor() {
     GGAF_DELETE(_pColliChecker);
-    GGAF_DELETE(_pScaler);
+    delete _pScaler;
 }

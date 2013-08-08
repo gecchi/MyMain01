@@ -12,7 +12,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA_target) :
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* const prm_pKurokoA_target) :
         SplineKurokoLeader(prm_pManufacture, prm_pKurokoA_target) {
     _pSteppedSplManuf = (SteppedCoordSplineManufacture*)prm_pManufacture;
     _leadning_fFrames = 0.0f;
@@ -24,7 +24,7 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture
     _COS_RyMv_begin = 0.0f;
 }
 
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKurokoA* prm_pKurokoA_target,
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKurokoA* const prm_pKurokoA_target,
                                                                  SplineLine* prmpSpl,
                                                                  angvelo prm_angveloRzRyMv):
         SplineKurokoLeader(nullptr, prm_pKurokoA_target) { //nullptr‚Å“n‚·Ž–‚É‚æ‚èA_is_created_pManufacture ‚ª false‚É‚È‚é
@@ -65,7 +65,7 @@ void SteppedCoordSplineKurokoLeader::restart() {
             _Y_start = (_flip_Y * pSpl->_Y_compute[0] * _pSteppedSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
             _Z_start = (_flip_Z * pSpl->_Z_compute[0] * _pSteppedSplManuf->_rate_Z) + _offset_Z - _pActor_target->_Z;
         }
-        GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
+        GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
         _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
         _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
         _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);

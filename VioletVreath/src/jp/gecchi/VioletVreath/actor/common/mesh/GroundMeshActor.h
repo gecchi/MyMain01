@@ -12,7 +12,7 @@ namespace VioletVreath {
 class GroundMeshActor : public GgafDxCore::GgafDxMeshActor {
 
 public:
-    GgafDxCore::GgafDxScaler* _pScaler;
+    GgafDxCore::GgafDxScaler* const _pScaler;
 
     frame offset_frames_;
 

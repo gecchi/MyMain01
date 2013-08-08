@@ -50,7 +50,7 @@ public:
     /** [r]テクスチャ資源コネクション配列 */
     GgafDxTextureConnection** _papTextureConnection;
     /** [r]点滅操作支援オブジェクト */
-    GgafDxTextureBlinker* _pTexBlinker;
+    GgafDxTextureBlinker* const _pTexBlinker;
     /** [r]GgafDxTextureBlinker専用カウンター */
     frame _blinker_frames;
 

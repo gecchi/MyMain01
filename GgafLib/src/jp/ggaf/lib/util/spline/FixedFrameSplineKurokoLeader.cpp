@@ -12,7 +12,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA_target) :
+FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* const prm_pKurokoA_target) :
         SplineKurokoLeader(prm_pManufacture, prm_pKurokoA_target) {
     _pFixedFrameSplManuf = (FixedFrameSplineManufacture*)prm_pManufacture;
     _SIN_RzMv_begin = 0;
@@ -23,7 +23,7 @@ FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* pr
     _prev_point_index = -1;
     _hosei_frames = 0;
 }
-FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKurokoA* prm_pKurokoA_target,
+FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKurokoA* const prm_pKurokoA_target,
                                                            SplineLine* prmpSpl,
                                                            frame prm_spent_frame,
                                                            angvelo prm_angveloRzRyMv):
@@ -56,7 +56,7 @@ void FixedFrameSplineKurokoLeader::getPointCoord(int prm_point_index, coord &out
     //次の補間点（or制御点)に移動方角を向ける
     if (_option == RELATIVE_DIRECTION) {
         if (_is_leading == false) {
-            GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
+            GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
             _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
             _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
             _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
@@ -172,7 +172,7 @@ void FixedFrameSplineKurokoLeader::restart() {
 
 void FixedFrameSplineKurokoLeader::behave() {
     if (_is_leading) {
-        GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
+        GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
         //現在の点INDEX
         _point_index = (_leading_frames+_hosei_frames) / _pFixedFrameSplManuf->_fFrame_of_segment;
         if ( _point_index == _pFixedFrameSplManuf->_sp->_rnum) {

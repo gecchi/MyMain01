@@ -113,6 +113,12 @@ void GgafDxMorpher::behave() {
     }
 }
 
+void GgafDxMorpher::setWeight(float prm_weight) {
+    for (int i = 1; i <= _pActor->_pMorphMeshModel->_morph_target_num; i++) {
+        setWeight(i, prm_weight);
+    }
+}
+
 void GgafDxMorpher::morphLinerUntil(int prm_target_mesh_no, float prm_target_weight, frame prm_spend_frame) {
     if (ZEROf_EQ(prm_target_weight - _weight[prm_target_mesh_no])) {
         //既にターゲットと同じ重み

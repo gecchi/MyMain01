@@ -49,13 +49,13 @@ public:
     /** [r/w]ワールドZ軸方向スケール(_SZ : 倍率 = 1000 : 1.0倍) */
     scale _SZ;
     /** [r]黒衣A */
-    GgafDxKurokoA* _pKurokoA;
+    GgafDxKurokoA* const _pKurokoA;
     /** [r]黒衣B */
-    GgafDxKurokoB* _pKurokoB;
+    GgafDxKurokoB* const _pKurokoB;
     /** [r]チェッカー */
     GgafDxChecker* _pChecker;
     /** [r]効果音発生管理オブジェクト */
-    GgafDxSeTransmitterForActor* _pSeTx;
+    GgafDxSeTransmitterForActor* const _pSeTx;
 
     /** [r]境界球の半径(DirectXの単位)。画面外判定に使用される */
     dxcoord _bounding_sphere_radius;

@@ -10,7 +10,7 @@ namespace GgafCore {
  * GgafActorDepositoryStore は、サブの登録デポジトリ(GgafActorDepository) の 登録アクター(GgafActor)が、
  * 全員暇にしているデポジトリを優先的に dispatch() します。
  * つまり、dispatch() で得られるオブジェクトが デポジトリ(GgafActorDepository)になります。
- * 簡単に言うとデポジトリのデポジトリです。<BR>
+ * 要はデポジトリのデポジトリです。<BR>
  * 【注意】<BR>
  * processFinal() で、サブデポジトリの登録メンバー全てが非活動ならば、そのサブデポジトリを非活動にする。<BR>
  * といういう処理がある。<BR>

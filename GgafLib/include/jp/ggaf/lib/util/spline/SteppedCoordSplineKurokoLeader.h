@@ -38,7 +38,7 @@ public:
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
      * @param prm_pKurokoA 対象のアクターの黒衣A
      */
-    SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
+    SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* const prm_pKurokoA);
 
     /**
      * コンストラクタ .
@@ -48,7 +48,7 @@ public:
      * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    SteppedCoordSplineKurokoLeader(GgafDxCore::GgafDxKurokoA* prm_pKurokoA,
+    SteppedCoordSplineKurokoLeader(GgafDxCore::GgafDxKurokoA* const prm_pKurokoA,
                                     SplineLine* prm_sp,
                                     angvelo prm_angveloRzRyMv);
 

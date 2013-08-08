@@ -9,7 +9,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject() {
+GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject(),
+_pTexBlinker(new GgafDxTextureBlinker(this)) {
     TRACE3("GgafDxModel::GgafDxModel(" << prm_model_name << ")");
     _id = GgafDxModelManager::getNextId();
     _model_name = NEW char[51];
@@ -21,7 +22,6 @@ GgafDxModel::GgafDxModel(char* prm_model_name) : GgafObject() {
     _power_blink = -1.0f;
     _blink_threshold = 1.1f;
     _blinker_frames = 0;
-    _pTexBlinker = NEW GgafDxTextureBlinker(this);
     _is_init_model = false;
     _set_num = 1; //ƒfƒtƒHƒ‹ƒgÅ‘å“¯•`‰æ”‚P
     _specular = 0.0f;
@@ -75,6 +75,6 @@ GgafDxModel::~GgafDxModel() {
     _TRACE_("GgafDxModel::~GgafDxModel() " << _model_name << " ");
     GGAF_DELETEARR_NULLABLE(_model_name);
     GGAF_DELETEARR_NULLABLE(_paMaterial_default);
-    GGAF_DELETE(_pTexBlinker);
+    delete _pTexBlinker;
 }
 

@@ -98,7 +98,7 @@ public:
      * @param prm_pKurokoA 対象のアクターの黒衣A
      * @return
      */
-    virtual SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) = 0;
+    virtual SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKurokoA* const prm_pKurokoA) = 0;
 
 
     virtual ~SplineManufacture();

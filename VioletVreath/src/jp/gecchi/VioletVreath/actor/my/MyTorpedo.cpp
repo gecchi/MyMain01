@@ -56,7 +56,7 @@ void MyTorpedo::onReset() {
 }
 
 void MyTorpedo::onActive() {
-    GgafDxKurokoA* pKurokoA = _pKurokoA;
+    GgafDxKurokoA* const pKurokoA = _pKurokoA;
     _pStatus->reset();
     setAlpha(0.3);
     _SX = _SY = _SZ = 100;
@@ -86,7 +86,7 @@ void MyTorpedo::onActive() {
 }
 
 void MyTorpedo::processBehavior() {
-    GgafDxKurokoA* pKurokoA = _pKurokoA;
+    GgafDxKurokoA* const pKurokoA = _pKurokoA;
     if (_pProg->get() == MyTorpedo_RELEASE) {
         if (pTailEffectDepository_->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合

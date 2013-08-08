@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<?fileVersion 4.0.0?>
+
+<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="cdt.managedbuild.config.gnu.mingw.exe.debug.210050762">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.mingw.exe.debug.210050762" moduleId="org.eclipse.cdt.core.settings" name="DebugCdt">
@@ -290,6 +292,128 @@
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.2114002915.1887722809.1279789245">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.2114002915.1887722809.1279789245" moduleId="org.eclipse.cdt.core.settings" name="GprofCdt">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GNU_ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="exe" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.2114002915.1887722809.1279789245" name="GprofCdt" parent="cdt.managedbuild.config.gnu.cygwin.exe.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="">
+					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.2114002915.1887722809.1279789245." name="/" resourcePath="">
+						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.base.1632141712" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE;org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="cdt.managedbuild.target.gnu.platform.mingw.base.1010975106" name="デバッグ・プラットフォーム" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>
+							<builder buildPath="${workspace_loc:/VioletVreath/DebugCdt}" id="org.eclipse.cdt.build.core.internal.builder.1369867425" keepEnvironmentInBuildfile="false" name="CDT 内部ビルダー" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.mingw.base.1040809719" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.base">
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1968474965" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.1309472065" name="GCC アーカイバー" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
+							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.1557696505" name="GCC C++ コンパイラー" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base">
+								<option id="gnu.cpp.compiler.option.include.paths.351180497" name="インクルード・パス (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/lib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
+								</option>
+								<option id="gnu.cpp.compiler.option.other.other.1062959447" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="  -c -fmessage-length=0 -s -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=c++11 " valueType="string"/>
+								<option id="gnu.cpp.compiler.option.optimization.level.1883605725" name="最適化レベル" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.more" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.debugging.level.435510440" name="デバッグ・レベル" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.warnings.nowarn.1117821662" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.1486987731" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="BUILD_MINGW"/>
+									<listOptionValue builtIn="false" value="WINVER=0x0501"/>
+									<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
+								</option>
+								<option id="gnu.cpp.compiler.option.warnings.syntax.253422269" name="構文のみ検査 (-fsyntax-only)" superClass="gnu.cpp.compiler.option.warnings.syntax" value="false" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.warnings.allwarn.575568596" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.debugging.gprof.229257526" name="gprof 情報の生成 (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof" value="true" valueType="boolean"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1253654474" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.2026510954" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
+								<option id="gnu.c.compiler.option.include.paths.1402288515" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/lib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
+								</option>
+								<option id="gnu.c.compiler.option.misc.other.264214235" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++11 " valueType="string"/>
+								<option id="gnu.c.compiler.option.optimization.level.8410824" name="最適化レベル" superClass="gnu.c.compiler.option.optimization.level" value="gnu.c.optimization.level.more" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.debugging.level.1118836143" name="デバッグ・レベル" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.default" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.warnings.allwarn.266648729" name="すべての警告 (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.warnings.nowarn.1385409232" name="すべての警告を禁止 (-w)" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.debugging.gprof.1513270163" name="gprof 情報の生成 (-pg)" superClass="gnu.c.compiler.option.debugging.gprof" value="true" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1182563264" name="定義済みのシンボル (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="WINVER=0x0501"/>
+									<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.211819042" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1217863527" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
+							<tool errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.758576522" name="MinGW C++ リンカー" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
+								<option id="gnu.cpp.link.option.libs.1813880840" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="GgafLib"/>
+									<listOptionValue builtIn="false" value="Shlwapi"/>
+									<listOptionValue builtIn="false" value="GgafDxCore"/>
+									<listOptionValue builtIn="false" value="GgafCore"/>
+									<listOptionValue builtIn="false" value="dxguid"/>
+									<listOptionValue builtIn="false" value="dinput"/>
+									<listOptionValue builtIn="false" value="dinput8"/>
+									<listOptionValue builtIn="false" value="d3d9"/>
+									<listOptionValue builtIn="false" value="d3dx9"/>
+									<listOptionValue builtIn="false" value="uuid"/>
+									<listOptionValue builtIn="false" value="_Vorbis"/>
+									<listOptionValue builtIn="false" value="_Ogg"/>
+									<listOptionValue builtIn="false" value="dsound"/>
+									<listOptionValue builtIn="false" value="winmm"/>
+								</option>
+								<option id="gnu.cpp.link.option.paths.1486363222" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/GprofCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/GprofCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/GprofCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/GprofCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/GprofCdt}&quot;"/>
+								</option>
+								<option id="gnu.cpp.link.option.flags.441904613" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++11 -static-libgcc -static-libstdc++ -g -pg " valueType="string"/>
+								<option id="gnu.cpp.link.option.userobjs.2052437874" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs"/>
+								<option id="gnu.cpp.link.option.other.2116605651" name="その他のオプション (-Xlinker [option])" superClass="gnu.cpp.link.option.other" valueType="stringList"/>
+								<option id="gnu.cpp.link.option.debugging.gprof.2079959319" name="gprof 情報の生成 (-pg)" superClass="gnu.cpp.link.option.debugging.gprof" value="true" valueType="boolean"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1451370323" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings">
+				<doc-comment-owner id="org.eclipse.cdt.ui.doxygen">
+					<path value=""/>
+				</doc-comment-owner>
+			</storageModule>
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">

@@ -61,7 +61,6 @@ GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) :
 void GgafDxKurokoB::behave() {
     if(_gravitation_mv_seq_flg) {
         coord dX, dY, dZ;
-        double rdX,rdY,rdZ;
         if (_gravitation_mv_seq_pActor_target) {
             dX = _gravitation_mv_seq_pActor_target->_X - _pActor->_X;
             dY = _gravitation_mv_seq_pActor_target->_Y - _pActor->_Y;
@@ -444,7 +443,7 @@ void GgafDxKurokoB::execGravitationMvSequenceTwd(GgafDxGeometricActor* prm_pActo
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void GgafDxKurokoB::takeoverMvFrom(GgafDxKurokoB* prm_pKurokoB) {
+void GgafDxKurokoB::takeoverMvFrom(GgafDxKurokoB* const prm_pKurokoB) {
 
     // XŽ²•ûŒüˆÚ“®‘¬“x
     _veloVxMv = prm_pKurokoB->_veloVxMv;

@@ -11,6 +11,11 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
+			<name>org.python.pydev.PyDevBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.rubypeople.rdt.core.rubybuilder</name>
 			<arguments>
 			</arguments>
@@ -83,5 +88,6 @@
 		<nature>org.eclipse.cdt.core.cnature</nature>
 		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 		<nature>org.rubypeople.rdt.core.rubynature</nature>
+		<nature>org.python.pydev.pythonNature</nature>
 	</natures>
 </projectDescription>

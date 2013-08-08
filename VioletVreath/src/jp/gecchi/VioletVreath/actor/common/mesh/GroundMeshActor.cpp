@@ -22,12 +22,12 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, Gg
                      "GroundMeshEffect",
                      "GroundMeshTechnique",
                      prm_pStat,
-                     NEW CollisionChecker3D(this) ) {
+                     NEW CollisionChecker3D(this) ),
+_pScaler(new GgafDxScaler(this)) {
 
     _class_name = "GroundMeshActor";
     offset_frames_ = 0;
     _pColliChecker = (CollisionChecker3D*)_pChecker;
-    _pScaler = NEW GgafDxScaler(this);
 
 //    if (pMeshModel_->paVtxBuffer_org_[0].nx == 0 &&
 //        pMeshModel_->paVtxBuffer_org_[0].ny == 0 &&
@@ -76,5 +76,5 @@ void GroundMeshActor::drawHitArea() {
 
 GroundMeshActor::~GroundMeshActor() {
     GGAF_DELETE(_pColliChecker);
-    GGAF_DELETE(_pScaler);
+    delete _pScaler;
 }

@@ -52,6 +52,7 @@ void EnemyOrtuna::processBehavior() {
              _pKurokoA->setMvAngTwd(&hanging_pos_);
              velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
              _pKurokoA->setFaceAngVelo(AXIS_X, mv_velo); //‚®‚é‚®‚é`
+             _pMorpher->setWeight(0.0);
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
              break;
@@ -92,7 +93,8 @@ void EnemyOrtuna::processBehavior() {
                  //•ûŒü“]Š·
                  //‚ä‚Á‚­‚èŽ©‹@‚Ì•û‚ÖŒü‚©‚¹‚é
                  _pKurokoA->turnMvAngTwd(P_MYSHIP,
-                                           D_ANG(3), 0, TURN_CLOSE_TO, true);
+                                         D_ANG(3), 0, TURN_CLOSE_TO, true);
+                 _pMorpher->morphLinerUntil(MPH_OPEN, 1.0, 60);
              }
              //‘Ø—¯’†
              if (_pProg->getFrameInProgress() % 16U == 0) {
@@ -103,7 +105,7 @@ void EnemyOrtuna::processBehavior() {
                  }
              }
 
-             if (_pProg->getFrameInProgress() == 180) {
+             if (_pProg->getFrameInProgress() == 60) {
                  //Ž©‹@‚Ì•û‚ÉŒü‚¢‚½‚ç“G’e”­ŽËI
                  int shot_num = RF_EnemyOrtuna_ShotWay(G_RANK); //’e”Aƒ‰ƒ“ƒN•Ï“®
                  velo shot_velo = RF_EnemyOrtuna_ShotMvVelo(G_RANK); //’e‘¬Aƒ‰ƒ“ƒN•Ï“®
@@ -118,7 +120,7 @@ void EnemyOrtuna::processBehavior() {
                      }
                  }
              }
-             if (_pProg->getFrameInProgress() == 240) {
+             if (_pProg->getFrameInProgress() == 60) {
                  _pProg->changeNext();
              }
              break;
@@ -127,6 +129,7 @@ void EnemyOrtuna::processBehavior() {
          case PROG_MOVE03: {
              //‚³‚æ‚È‚ç`
              if (_pProg->isJustChanged()) {
+                 _pKurokoA->setMvVelo(PX_C(4));
                  _pKurokoA->setMvAcce(100);
              }
              break;

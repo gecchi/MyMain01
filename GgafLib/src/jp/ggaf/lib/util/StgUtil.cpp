@@ -30,8 +30,8 @@ GgafDxDrawableActor* StgUtil::shotWay001(coord prm_X, coord prm_Y, coord prm_Z,
         if (pActor_Shot) {
             dispatch_num++;
             pActor_Shot->position(prm_X + X,
-                                prm_Y + Y,
-                                prm_Z + Z);
+                                  prm_Y + Y,
+                                  prm_Z + Z);
             pActor_Shot->_pKurokoA->setRzRyMvAng(prm_RZ, prm_RY);
             pActor_Shot->_pKurokoA->setMvVelo(now_velo);
             pActor_Shot->_pKurokoA->setMvAcce(now_acce);
@@ -68,9 +68,9 @@ GgafDxDrawableActor* StgUtil::shotWay001(coord prm_from_X, coord prm_from_Y, coo
                                          void (*pFunc_CallBackDispatched)(GgafDxDrawableActor*, int, int)) {
     angle RZ,RY;
     GgafDxUtil::convVectorToRzRy(prm_to_X - prm_from_X,
-                           prm_to_Y - prm_from_Y,
-                           prm_to_Z - prm_from_Z,
-                           RZ, RY);
+                                 prm_to_Y - prm_from_Y,
+                                 prm_to_Z - prm_from_Z,
+                                 RZ, RY);
     return shotWay001(prm_from_X, prm_from_Y, prm_from_Z,
                       RZ, RY,
                       prm_pDepo_Shot,
@@ -120,8 +120,8 @@ GgafDxDrawableActor* StgUtil::shotWay002(coord prm_X, coord prm_Y, coord prm_Z,
             if (pActor_Shot) {
                 dispatch_num++;
                 pActor_Shot->position(prm_X + paGeo[i]._X,
-                                    prm_Y + paGeo[i]._Y,
-                                    prm_Z + paGeo[i]._Z);
+                                      prm_Y + paGeo[i]._Y,
+                                      prm_Z + paGeo[i]._Z);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(paGeo[i]._RZ, paGeo[i]._RY);
                 pActor_Shot->_pKurokoA->setMvVelo(now_velo);
                 pActor_Shot->_pKurokoA->setMvAcce(now_acce);
@@ -200,7 +200,7 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
                 papaGeo[i][j]._Y = X*matWorldRot._12 + Y*matWorldRot._22 + Z*matWorldRot._32;
                 papaGeo[i][j]._Z = X*matWorldRot._13 + Y*matWorldRot._23 + Z*matWorldRot._33;
                 GgafDxUtil::convVectorToRzRy(papaGeo[i][j]._X , papaGeo[i][j]._Y, papaGeo[i][j]._Z,
-                                       papaGeo[i][j]._RZ, papaGeo[i][j]._RY);
+                                             papaGeo[i][j]._RZ, papaGeo[i][j]._RY);
             }
         }
     }
@@ -236,8 +236,8 @@ GgafDxDrawableActor* StgUtil::shotWay003(coord prm_X, coord prm_Y, coord prm_Z,
                 if (pActor_Shot) {
                     dispatch_num++;
                     pActor_Shot->position(prm_X + papaGeo[i][j]._X,
-                                        prm_Y + papaGeo[i][j]._Y,
-                                        prm_Z + papaGeo[i][j]._Z);
+                                          prm_Y + papaGeo[i][j]._Y,
+                                          prm_Z + papaGeo[i][j]._Z);
                     pActor_Shot->_pKurokoA->setRzRyMvAng(papaGeo[i][j]._RZ, papaGeo[i][j]._RY);
                     pActor_Shot->_pKurokoA->setMvVelo(now_velo);
                     pActor_Shot->_pKurokoA->setMvAcce(now_acce);
@@ -313,7 +313,7 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_X, coord prm_Y, coord prm_Z,
         paGeo[i]._Y = X*matWorldRot._12 + Y*matWorldRot._22 + Z*matWorldRot._32;
         paGeo[i]._Z = X*matWorldRot._13 + Y*matWorldRot._23 + Z*matWorldRot._33;
         GgafDxUtil::convVectorToRzRy(paGeo[i]._X , paGeo[i]._Y, paGeo[i]._Z,
-                               paGeo[i]._RZ, paGeo[i]._RY);
+                                     paGeo[i]._RZ, paGeo[i]._RY);
     }
     GgafDxDrawableActor* pActor_Shot = nullptr;
     velo now_velo = prm_velo_first;
@@ -325,8 +325,8 @@ GgafDxDrawableActor* StgUtil::shotWay004(coord prm_X, coord prm_Y, coord prm_Z,
             if (pActor_Shot) {
                 dispatch_num++;
                 pActor_Shot->position(prm_X + paGeo[i]._X,
-                                    prm_Y + paGeo[i]._Y,
-                                    prm_Z + paGeo[i]._Z);
+                                      prm_Y + paGeo[i]._Y,
+                                      prm_Z + paGeo[i]._Z);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(paGeo[i]._RZ, paGeo[i]._RY);
                 pActor_Shot->_pKurokoA->setMvVelo(now_velo);
                 pActor_Shot->_pKurokoA->setMvAcce(now_acce);
@@ -387,7 +387,7 @@ GgafDxDrawableActor* StgUtil::shotWayGoldenAng(coord prm_X, coord prm_Y, coord p
         paGeo[i]._Y = X*matWorldRot._12 + Y*matWorldRot._22 + Z*matWorldRot._32;
         paGeo[i]._Z = X*matWorldRot._13 + Y*matWorldRot._23 + Z*matWorldRot._33;
         GgafDxUtil::convVectorToRzRy(paGeo[i]._X , paGeo[i]._Y, paGeo[i]._Z,
-                               paGeo[i]._RZ, paGeo[i]._RY);
+                                     paGeo[i]._RZ, paGeo[i]._RY);
         expanse_rz -= (prm_inc_expanse_angle/2);
     }
     GgafDxDrawableActor* pActor_Shot = nullptr;
@@ -400,8 +400,8 @@ GgafDxDrawableActor* StgUtil::shotWayGoldenAng(coord prm_X, coord prm_Y, coord p
             if (pActor_Shot) {
                 dispatch_num++;
                 pActor_Shot->position(prm_X + paGeo[i]._X,
-                                    prm_Y + paGeo[i]._Y,
-                                    prm_Z + paGeo[i]._Z);
+                                      prm_Y + paGeo[i]._Y,
+                                      prm_Z + paGeo[i]._Z);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(paGeo[i]._RZ, paGeo[i]._RY);
                 pActor_Shot->_pKurokoA->setMvVelo(now_velo);
                 pActor_Shot->_pKurokoA->setMvAcce(now_acce);

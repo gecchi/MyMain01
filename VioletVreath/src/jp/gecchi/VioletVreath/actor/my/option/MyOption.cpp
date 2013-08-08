@@ -241,7 +241,7 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
 void MyOption::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
     VirtualButton* pVbPlay = VB_PLAY;
-    GgafDxKurokoA* pKurokoA = _pKurokoA;
+    GgafDxKurokoA* const pKurokoA = _pKurokoA;
     //処理メイン
     _X = Xorg_;
     _Y = Yorg_;
@@ -502,7 +502,7 @@ void MyOption::processBehavior() {
     //しかしまだ色々と回転したいため。あとは普通に計算（力技）で、座標回転、向き回転を行なう。
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
-    GgafDxKurokoA* pOptionCtrler_pKurokoA = pOptionCtrler_->_pKurokoA;
+    GgafDxKurokoA* const pOptionCtrler_pKurokoA = pOptionCtrler_->_pKurokoA;
     float sinRZ = ANG_SIN(pOptionCtrler_pKurokoA->_angFace[AXIS_Z]);
     float cosRZ = ANG_COS(pOptionCtrler_pKurokoA->_angFace[AXIS_Z]);
     float sinRY = ANG_SIN(pOptionCtrler_pKurokoA->_angFace[AXIS_Y]);
@@ -597,7 +597,7 @@ void MyOption::processBehavior() {
     if (pMyShip->just_shot_) {
         MyShot001* pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
         if (pShot) {
-            GgafDxKurokoA* pShot_pKurokoA = pShot->_pKurokoA;
+            GgafDxKurokoA* const pShot_pKurokoA = pShot->_pKurokoA;
             _pSeTx->play3D(SE_FIRE_SHOT);
             pShot->positionAs(this);
             pShot_pKurokoA->setFaceAng(_RX, _RY, _RZ);

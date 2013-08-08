@@ -7,11 +7,12 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxScene::GgafDxScene(const char* prm_name) : GgafMainScene(prm_name) {
+GgafDxScene::GgafDxScene(const char* prm_name) : GgafMainScene(prm_name),
+_pAlphaCurtain(new GgafDxAlphaCurtain(this)),
+_pBgmPerformer(new GgafDxBgmPerformerForScene(this)) {
     _obj_class |= Obj_GgafDxScene;
     _class_name = "GgafDxScene";
-    _pAlphaCurtain = NEW GgafDxAlphaCurtain(this);
-    _pBgmPerformer = NEW GgafDxBgmPerformerForScene(this);
+
     _master_alpha = 1.0f;
 }
 
@@ -152,6 +153,6 @@ void GgafDxScene::fadeoutSceneWithBgmTree(int prm_frame_fade) {
 }
 
 GgafDxScene::~GgafDxScene() {
-    GGAF_DELETE(_pAlphaCurtain);
-    GGAF_DELETE(_pBgmPerformer);
+    delete _pAlphaCurtain;
+    delete _pBgmPerformer;
 }

@@ -255,6 +255,7 @@ void GgafDxStringSpriteActor::processDraw() {
         float u, v;
         int pattno = 0;
         int draw_set_cnt = 0;
+        int w;
         while (true) {
             if (pos == -1) {
                 if (draw_set_cnt > 0) {
@@ -273,7 +274,7 @@ void GgafDxStringSpriteActor::processDraw() {
                 pattno = _draw_string[pos] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
-            int w = ((_chr_width_px - _aWidthPx[(int)(_draw_string[pos])]) / 2);
+            w = ((_chr_width_px - _aWidthPx[(int)(_draw_string[pos])]) / 2);
             dx = dx_tmp - (w + _aWidthPx[(int)(_draw_string[pos])]);
             dx_tmp = dx + w;
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_X[draw_set_cnt], PX_DX(dx));

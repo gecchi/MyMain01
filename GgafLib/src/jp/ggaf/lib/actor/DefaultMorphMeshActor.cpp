@@ -17,11 +17,11 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
                           "DefaultMorphMeshEffect",
                           "DefaultMorphMeshTechnique",
                           prm_pStat,
-                          NEW CollisionChecker3D(this) ) {
+                          NEW CollisionChecker3D(this) ),
+_pScaler(new GgafDxScaler(this)) {
 
     _class_name = "DefaultMorphMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
-    _pScaler = NEW GgafDxScaler(this);
 }
 
 void DefaultMorphMeshActor::drawHitArea() {
@@ -31,5 +31,5 @@ void DefaultMorphMeshActor::drawHitArea() {
 
 DefaultMorphMeshActor::~DefaultMorphMeshActor() {
     GGAF_DELETE(_pColliChecker);
-    GGAF_DELETE(_pScaler);
+    delete _pScaler;
 }

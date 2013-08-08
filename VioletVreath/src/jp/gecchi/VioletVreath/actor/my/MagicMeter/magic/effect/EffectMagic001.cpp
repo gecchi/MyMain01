@@ -14,10 +14,10 @@ EffectMagic001::EffectMagic001(const char* prm_name)
     effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
-    setAlpha(0.9);
 }
 
 void EffectMagic001::initialize() {
+    setAlpha(0.9);
 //    _pUvFlipper->setFlipPtnRange(0, 63);
     setHitAble(false);
 }

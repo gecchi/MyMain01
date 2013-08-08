@@ -25,7 +25,7 @@ GgafMainActor* GgafMainActor::extract() {
 
 void GgafMainActor::updateActiveInTheTree() {
 #ifdef MY_DEBUG
-    if (getParent()) {
+    if (_pParent) {
     } else {
         throwGgafCriticalException("GgafMainActor::updateActiveInTheTree() _is_active_in_the_tree_flg XV‚Å‚«‚Ü‚¹‚ñB name="<<getName()<<" this="<<this);
     }

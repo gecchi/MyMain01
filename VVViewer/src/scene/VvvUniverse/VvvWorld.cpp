@@ -312,7 +312,7 @@ void VvvWorld::processBehavior() {
         if (pActor->instanceOf(Obj_GgafDxMorphMeshActor)) {
             GgafDxMorphMeshActor* pMorphMeshActor = dynamic_cast<GgafDxMorphMeshActor*>(pActor);
             if (pMorphMeshActor) {
-                GgafDxMorpher* pMorpher = pMorphMeshActor->_pMorpher;
+                GgafDxMorpher* const pMorpher = pMorphMeshActor->_pMorpher;
                 for (int i = 1; i <= pMorphMeshActor->_pMorphMeshModel->_morph_target_num; i++) {
                     if (GgafDxInput::isBeingPressedKey(DIK_1 + (i-1))) {
                         pMorpher->addWeight(i, 0.01);

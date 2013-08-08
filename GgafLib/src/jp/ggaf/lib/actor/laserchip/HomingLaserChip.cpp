@@ -116,8 +116,8 @@ void HomingLaserChip::onInactive() {
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
         //計算速度を稼ぐ
         if (_pChip_behind && _pChip_front) {
-            GgafDxKurokoA* pChip_behind_pKurokoA = _pChip_behind->_pKurokoA;
-            GgafDxKurokoA* pChip_front_pKurokoA = _pChip_front->_pKurokoA;
+            GgafDxKurokoA* const pChip_behind_pKurokoA = _pChip_behind->_pKurokoA;
+            GgafDxKurokoA* const pChip_front_pKurokoA = _pChip_front->_pKurokoA;
             pChip_behind_pKurokoA->_vX = pChip_front_pKurokoA->_vX;
             pChip_behind_pKurokoA->_vY = pChip_front_pKurokoA->_vY;
             pChip_behind_pKurokoA->_vZ = pChip_front_pKurokoA->_vZ;
@@ -129,7 +129,7 @@ void HomingLaserChip::onInactive() {
         }
     } else if (_chip_kind == 4) {
         if (_pChip_behind) {
-            GgafDxKurokoA* pChip_behind_pKurokoA = _pChip_behind->_pKurokoA;
+            GgafDxKurokoA* const pChip_behind_pKurokoA = _pChip_behind->_pKurokoA;
             pChip_behind_pKurokoA->_vX = _pKurokoA->_vX;
             pChip_behind_pKurokoA->_vY = _pKurokoA->_vY;
             pChip_behind_pKurokoA->_vZ = _pKurokoA->_vZ;

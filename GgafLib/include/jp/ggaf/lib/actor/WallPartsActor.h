@@ -41,7 +41,7 @@ public:
     coord _wall_width;
 //    /** [r]壁ブロック移動スピード(値は正、但し移動方向はX軸負の方向) */
 //    int _scroll_speed;
-    GgafDxCore::GgafDxScaler* _pScaler;
+    GgafDxCore::GgafDxScaler* const _pScaler;
     GgafLib::CollisionChecker3D* _pColliChecker;
     /** [r]外壁シーン */
     WalledSectionScene* _pWalledSectionScene;

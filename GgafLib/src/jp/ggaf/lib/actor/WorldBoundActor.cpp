@@ -16,11 +16,11 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
                               "WorldBoundEffect",
                               "WorldBoundTechnique",
                               nullptr,
-                              nullptr) {
+                              nullptr),
+_pScaler(new GgafDxScaler(this)) {
 
     _class_name = "WorldBoundActor";
     _offset_frames = 0;
-    _pScaler = NEW GgafDxScaler(this);
     setSpecialDrawDepth(DRAW_DEPTH_LEVEL_WORLDBOUND);
 
     setZEnable(false);        //Zバッファは考慮無し
@@ -61,5 +61,5 @@ void WorldBoundActor::processSettlementBehavior() {
 //}
 
 WorldBoundActor::~WorldBoundActor() {
-    GGAF_DELETE(_pScaler);
+    delete _pScaler;
 }

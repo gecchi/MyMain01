@@ -22,6 +22,7 @@ EffectTorpedoMagic::EffectTorpedoMagic(const char* prm_name) :
 }
 
 void EffectTorpedoMagic::initialize() {
+    setAlpha(0.9);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
 }
 

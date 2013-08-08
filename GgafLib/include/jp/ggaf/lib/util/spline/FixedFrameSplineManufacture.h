@@ -68,7 +68,7 @@ public:
      * @param prm_pKurokoA スプライン移動させる対象アクター
      * @return SplineKurokoLeaderオブジェクト
      */
-    SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKurokoA* prm_pKurokoA) override;
+    SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKurokoA* const prm_pKurokoA) override;
 
     virtual ~FixedFrameSplineManufacture();
 };

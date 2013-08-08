@@ -63,7 +63,7 @@ public:
     /** [r/w]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
     int _specal_drawdepth;
     /** [r]フィードインフェードアウト支援 */
-    GgafDxAlphaFader* _pAFader;
+    GgafDxAlphaFader* const _pAFader;
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
 

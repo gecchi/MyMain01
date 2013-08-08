@@ -147,11 +147,11 @@ void CollisionChecker3D::updateHitArea() {
         //‚W•ª–Ø‚É“o˜^I
         _pElem->_kindbit = pActor->getMyGroupHead()->_kind;
         _pLinearOctree->registerElem(_pElem, pActor->_X + pCollisionArea->_AABB_X1,
-                                           pActor->_Y + pCollisionArea->_AABB_Y1,
-                                           pActor->_Z + pCollisionArea->_AABB_Z1,
-                                           pActor->_X + pCollisionArea->_AABB_X2,
-                                           pActor->_Y + pCollisionArea->_AABB_Y2,
-                                           pActor->_Z + pCollisionArea->_AABB_Z2);
+                                             pActor->_Y + pCollisionArea->_AABB_Y1,
+                                             pActor->_Z + pCollisionArea->_AABB_Z1,
+                                             pActor->_X + pCollisionArea->_AABB_X2,
+                                             pActor->_Y + pCollisionArea->_AABB_Y2,
+                                             pActor->_Z + pCollisionArea->_AABB_Z2);
 
     }
 }

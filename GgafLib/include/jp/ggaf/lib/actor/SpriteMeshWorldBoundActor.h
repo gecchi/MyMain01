@@ -14,7 +14,7 @@ class SpriteMeshWorldBoundActor : public GgafDxCore::GgafDxSpriteMeshActor {
 
 public:
     /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* _pScaler;
+    GgafDxCore::GgafDxScaler* const _pScaler;
 
 public:
     SpriteMeshWorldBoundActor(const char* prm_name,

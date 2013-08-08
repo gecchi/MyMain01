@@ -30,7 +30,7 @@ public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker3D* _pColliChecker;
     /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* _pScaler;
+    GgafDxCore::GgafDxScaler* const _pScaler;
 
 public:
     DefaultSpriteSetActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat=nullptr);

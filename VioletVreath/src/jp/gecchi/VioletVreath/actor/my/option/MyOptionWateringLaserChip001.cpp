@@ -148,7 +148,7 @@ void MyOptionWateringLaserChip001::moveChip(int tX, int tY, int tZ) {
     //
     // vVP ‚ª“®‚«‚½‚¢•ûŒüBvVP‚ğ‹‚ß‚éI
 
-    GgafDxKurokoB* pKurokoB = _pKurokoB;
+    GgafDxKurokoB* const pKurokoB = _pKurokoB;
     //©¨“I
     int vTx = tX - _X;
     int vTy = tY - _Y;

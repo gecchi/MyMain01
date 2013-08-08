@@ -66,7 +66,7 @@ public:
      * 強度を相対指定 .
      * @param prm_alpha_diff 強度値増分
      */
-    void addAlpha(float prm_alpha_diff) {
+    inline void addAlpha(float prm_alpha_diff) {
         addAlpha(prm_alpha_diff);
     }
 
@@ -74,7 +74,7 @@ public:
      * 強度を絶対指定
      * @param prm_alpha 強度値
      */
-    void setAlpha(float prm_alpha) {
+    inline void setAlpha(float prm_alpha) {
         if (_top_alpha < prm_alpha) {
             _alpha = _top_alpha;
         } else if (_bottom_alpha > prm_alpha) {
@@ -89,7 +89,7 @@ public:
      * @param prm_alpha1 強度値1
      * @param prm_alpha2 強度値2
      */
-    void forceRange(float prm_alpha1, float prm_alpha2) {
+    inline void forceRange(float prm_alpha1, float prm_alpha2) {
         if (prm_alpha1 < prm_alpha2) {
             _bottom_alpha = prm_alpha1;
             _top_alpha = prm_alpha2;
@@ -104,28 +104,24 @@ public:
      * 本オブジェクト(GgafDxAlphaFader)によって変化さえる前の
      * 初期の大きさに戻す。
      */
-    void setToBottom() {
+    inline void setToBottom() {
         _alpha = _bottom_alpha;
     }
 
-    void setToTop() {
+    inline void setToTop() {
         _alpha = _top_alpha;
     }
 
     /**
      * フェーディングを停止させる。
      */
-    void stopImmed() {
+    inline void stopImmed() {
         _method = NO_ALPHAFADE;
     }
 
     /**
      * 状態をリセットする .
-     * 例えば beat() 中、途中で元に戻したい場合等に使用する。
-     * 内部的には、次のように実行するだけです。
-     * stopImmed()
-     * setToTop()
-     * _pActor->setAlpha(_alpha);
+     * 注意：但し、内部アルファ値は変更されません。
      */
     void reset();
 
@@ -133,7 +129,7 @@ public:
      * 現在フェーディング中かどうか .
      * @return
      */
-    bool isFading() {
+    inline bool isFading() {
         if (_method == NO_ALPHAFADE) {
             return false;
         } else {

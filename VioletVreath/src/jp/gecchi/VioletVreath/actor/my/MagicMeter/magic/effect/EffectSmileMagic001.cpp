@@ -22,6 +22,7 @@ EffectSmileMagic001::EffectSmileMagic001(const char* prm_name) :
 }
 
 void EffectSmileMagic001::initialize() {
+    setAlpha(0.9);
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
 }
 

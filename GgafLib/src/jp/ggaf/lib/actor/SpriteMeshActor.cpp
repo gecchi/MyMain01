@@ -15,11 +15,11 @@ SpriteMeshActor::SpriteMeshActor(const char* prm_name, const char* prm_model, Gg
     GgafDxSpriteMeshActor(prm_name,
                           prm_model,
                           prm_pStat,
-                          NEW CollisionChecker3D(this) ) {
+                          NEW CollisionChecker3D(this) ),
+_pScaler(new GgafDxScaler(this)) {
 
     _class_name = "SpriteMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
-    _pScaler = NEW GgafDxScaler(this);
 }
 
 void SpriteMeshActor::drawHitArea() {
@@ -28,5 +28,5 @@ void SpriteMeshActor::drawHitArea() {
 
 SpriteMeshActor::~SpriteMeshActor() {
     GGAF_DELETE(_pColliChecker);
-    GGAF_DELETE(_pScaler);
+    delete _pScaler;
 }

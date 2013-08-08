@@ -63,7 +63,7 @@ void GgafGroupHead::setSceneDirector(GgafSceneDirector* prm_pSceneDirector) {
 
 void GgafGroupHead::updateActiveInTheTree() {
 #ifdef MY_DEBUG
-    if (getParent()) {
+    if (_pParent) {
     } else {
         throwGgafCriticalException("GgafGroupHead::updateActiveInTheTree() _is_active_in_the_tree_flg çXêVÇ≈Ç´Ç‹ÇπÇÒÅB name="<<getName()<<" this="<<this);
     }

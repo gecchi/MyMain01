@@ -18,8 +18,7 @@ class EnemyOrtuna : public GgafLib::DefaultMorphMeshActor {
 public:
 
     enum {
-        MORPH_CLOSE ,
-        MORPH_OPEN ,
+        MPH_OPEN = 1,
     };
 
 

@@ -9,7 +9,6 @@ GgafCurtain::GgafCurtain(float prm_curtain_length) : GgafObject() {
     _state = OPENED;
     _opening_velocity = 0.0f;
     _closing_velocity = 0.0f;
-
 }
 
 void GgafCurtain::open(float prm_opening_velocity) {
@@ -34,9 +33,7 @@ void GgafCurtain::close() {
     processCloseDone();
 }
 
-
 void GgafCurtain::behave() {
-
     if (_state == OPEN) {
         processOpenBegin();
         _state = OPENING;
@@ -63,8 +60,8 @@ void GgafCurtain::behave() {
             processClosing();
         }
     }
-
 }
+
 GgafCurtain::~GgafCurtain() {
 }
 

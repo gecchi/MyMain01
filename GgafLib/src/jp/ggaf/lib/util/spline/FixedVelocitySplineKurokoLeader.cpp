@@ -12,7 +12,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA_target) :
+FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* const prm_pKurokoA_target) :
         SplineKurokoLeader(prm_pManufacture, prm_pKurokoA_target) {
     _pFixedVeloSplManuf = (FixedVelocitySplineManufacture*)prm_pManufacture;
     _leadning_fFrames = 0.0f;
@@ -24,7 +24,7 @@ FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufactu
     _COS_RyMv_begin = 0.0f;
 }
 
-FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(GgafDxKurokoA* prm_pKurokoA_target,
+FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(GgafDxKurokoA* const prm_pKurokoA_target,
                                                                  SplineLine* prmpSpl,
                                                                  angvelo prm_angveloRzRyMv):
         SplineKurokoLeader(nullptr, prm_pKurokoA_target) { //nullptr‚Å“n‚·Ž–‚É‚æ‚èA_is_created_pManufacture ‚ª false‚É‚È‚é
@@ -55,7 +55,7 @@ void FixedVelocitySplineKurokoLeader::getPointCoord(int prm_point_index, coord& 
     double dz = _flip_Z*pSpl->_Z_compute[prm_point_index]*_pFixedVeloSplManuf->_rate_Z + _offset_Z;
     if (_option == RELATIVE_DIRECTION) {
         if (_is_leading == false) {
-            GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
+            GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
             _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
             _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
             _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
@@ -122,7 +122,7 @@ void FixedVelocitySplineKurokoLeader::restart() {
         _Z_start = _pActor_target->_Z;
     }
     if (_option == RELATIVE_DIRECTION) {
-        GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
+        GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
         _SIN_RzMv_begin = ANG_SIN(pKurokoA_target->_angRzMv);
         _COS_RzMv_begin = ANG_COS(pKurokoA_target->_angRzMv);
         _SIN_RyMv_begin = ANG_SIN(pKurokoA_target->_angRyMv);
@@ -147,7 +147,7 @@ void FixedVelocitySplineKurokoLeader::restart() {
 }
 void FixedVelocitySplineKurokoLeader::behave() {
     if (_is_leading) {
-        GgafDxKurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
+        GgafDxKurokoA* const pKurokoA_target = _pActor_target->_pKurokoA;
         //•Ï‚í‚è–Ú
         if (_leadning_fFrames >= _fFrame_of_next) {
             _point_index++;

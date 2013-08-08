@@ -8,7 +8,7 @@ GgafDxAlphaFader::GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor) :
     GgafObject() {
     _pActor = prm_pActor;
 
-    _alpha = _pActor->getAlpha();
+    _alpha = 1.0f;
     _velo_alpha = 0.0f;
     _acce_alpha = 0.0f;
     _target_alpha = 1.0f;
@@ -27,18 +27,31 @@ GgafDxAlphaFader::GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor) :
 }
 
 void GgafDxAlphaFader::reset() {
-    stopImmed();
-    setToTop();
-    _pActor->setAlpha(_alpha);
+    _velo_alpha = 0.0f;
+    _acce_alpha = 0.0f;
+    _target_alpha = 1.0f;
+    _top_alpha = 1.0f;
+    _bottom_alpha = 0.0f;
+    _one_way_cnt = 0;
+    _beat_attack_frames = 0;
+    _beat_duration_frames = 0;
+    _beat_rest_frames = 0;
+    _beat_target_frames = 0;
+    _beat_down_frames = 0;
+    _beat_frame_count = 0;
+    _beat_progres = 0;
+    _stop_one_way_num = -1;
+    _method = NO_ALPHAFADE;
 }
 
 void GgafDxAlphaFader::behave() {
-    if (_method == NO_ALPHAFADE) {
+    GgafDxAlphaFadingMethod method = _method;
+    if (method == NO_ALPHAFADE) {
         _pActor->setAlpha(_alpha);
         return;
     }
 
-    if (_method == TARGET_ALPHAFADE_LINER) {
+    if (method == TARGET_ALPHAFADE_LINER) {
         _alpha += _velo_alpha;
         if (_velo_alpha > 0 && _target_alpha <= _alpha) {
             _alpha = _target_alpha;
@@ -47,7 +60,7 @@ void GgafDxAlphaFader::behave() {
             _alpha = _target_alpha;
             _method = NO_ALPHAFADE;
         }
-    } else if (_method == TARGET_ALPHAFADE_ACCELERATION) {
+    } else if (method == TARGET_ALPHAFADE_ACCELERATION) {
         _alpha += _velo_alpha;
         if (_acce_alpha > 0 && _target_alpha <= _alpha) {
             _alpha = _target_alpha;
@@ -57,7 +70,7 @@ void GgafDxAlphaFader::behave() {
             _method = NO_ALPHAFADE;
         }
         _velo_alpha += _acce_alpha;
-    } else if (_method == BEAT_ALPHAFADE_LINER) {
+    } else if (method == BEAT_ALPHAFADE_LINER) {
         _alpha += _velo_alpha;
         if (_top_alpha <= _alpha) {
             _alpha = _top_alpha;
@@ -74,7 +87,7 @@ void GgafDxAlphaFader::behave() {
                 _method = NO_ALPHAFADE;
             }
         }
-    } else if (_method == BEAT_ALPHAFADE_TRIANGLEWAVE) {
+    } else if (method == BEAT_ALPHAFADE_TRIANGLEWAVE) {
         _beat_frame_count++;
         if (_beat_progres == 0) { //開始～アタックまで
             _alpha += _velo_alpha;

@@ -20,10 +20,10 @@ SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
         GgafDxSpriteMeshActor(prm_name,
                                prm_model,
                                prm_pStat,
-                               nullptr) {
+                               nullptr),
+_pScaler(new GgafDxScaler(this)) {
 
     _class_name = "SpriteMeshWorldBoundActor";
-    _pScaler = NEW GgafDxScaler(this);
     changeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);
 }
@@ -55,5 +55,5 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
 //}
 
 SpriteMeshWorldBoundActor::~SpriteMeshWorldBoundActor() {
-    GGAF_DELETE(_pScaler);
+    delete _pScaler;
 }

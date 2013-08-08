@@ -17,10 +17,11 @@ DefaultPointSpriteActor::DefaultPointSpriteActor(const char* prm_name, const cha
                             "DefaultPointSpriteEffect",
                             "DefaultPointSpriteTechnique",
                             prm_pStat,
-                            NEW CollisionChecker3D(this) ) {
+                            NEW CollisionChecker3D(this) ),
+_pScaler(new GgafDxScaler(this)) {
+
     _class_name = "DefaultPointSpriteActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
-    _pScaler = NEW GgafDxScaler(this);
 }
 
 void DefaultPointSpriteActor::drawHitArea() {
@@ -29,5 +30,5 @@ void DefaultPointSpriteActor::drawHitArea() {
 
 DefaultPointSpriteActor::~DefaultPointSpriteActor() {
     GGAF_DELETE(_pColliChecker);
-    GGAF_DELETE(_pScaler);
+    delete _pScaler;
 }

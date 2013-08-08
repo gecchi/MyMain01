@@ -160,8 +160,8 @@ public:
      * @param Y2 V
      * @param Z2 V
      */
-    virtual void setRootSpace(int X1 ,int Y1 ,int Z1 ,
-                              int X2 ,int Y2 ,int Z2);
+    virtual void setRootSpace(int X1, int Y1, int Z1,
+                              int X2, int Y2, int Z2);
 
     /**
      * —v‘f‚ğ”ª•ª–Ø‹óŠÔ‚É“o˜^‚·‚é
@@ -175,8 +175,8 @@ public:
      * @param tZ2 V
      */
     virtual void registerElem(GgafLinearOctreeElem* prm_pElem,
-                            int tX1 ,int tY1 ,int tZ1 ,
-                            int tX2 ,int tY2 ,int tZ2);
+                              int tX1, int tY1, int tZ1,
+                              int tX2, int tY2, int tZ2);
 
     /**
      * ”ª•ª–Ø‹óŠÔ‚É“o˜^‚³‚ê‚Ä‚¢‚é‘S—v‘f‚ğÁ‹‚·‚éi–¢Š‘®ó‘Ô‚É‚·‚éj.

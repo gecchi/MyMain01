@@ -81,8 +81,8 @@ void VamSysCamWorker::processBehavior() {
     GgafDxCamera* pCam = P_CAM;
     GgafDxGeometricActor* pVP = pCam->_pViewPoint;
     MyOptionController* pOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_[0];
-    GgafDxKurokoB* pCamKurokoB = pCam->_pKurokoB;
-    GgafDxKurokoB* pVpKurokoB = pVP->_pKurokoB;
+    GgafDxKurokoB* const pCamKurokoB = pCam->_pKurokoB;
+    GgafDxKurokoB* const pVpKurokoB = pVP->_pKurokoB;
 
     //ƒJƒƒ‰ˆÊ’u”Ô†‚ğŒˆ’èˆ—
     is_cam_pos_option_back_ = false;

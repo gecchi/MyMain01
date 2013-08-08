@@ -16,6 +16,9 @@ XpmHeader::XpmHeader(const char** prm_xpm) : GgafObject() {
     xpm_hd_ = prm_xpm;
     std::istringstream line0(xpm_hd_[0]); //"16 491 5 1 "
     line0 >> columns_ >> rows_ >> colors_;
+    if (line0.fail()) {
+        throwGgafCriticalException("XpmHeader::XpmHeader 不正なヘッダデータです line0=["<<line0<<"]");
+    }
     for (int i = 0; i < colors_; i++) {
         char c = xpm_hd_[i + 1][0];
         c_px.push_back(c);
@@ -28,12 +31,12 @@ XpmHeader::XpmHeader(const char** prm_xpm) : GgafObject() {
                 c_px_non_ = c;
                 c_rgb_[c] = NEW GgafCore::GgafRgb("#000000");
             } else {
-                c_rgb_[c] = NEW GgafCore::GgafRgb(strcolor); //エラーの可能性が大
+                c_rgb_[c] = NEW GgafCore::GgafRgb(strcolor);
             }
         }
     }
     //pixels_はヘッダー以降の配列
-    pixels_ = &(prm_xpm[1+colors_+1 -1]);//+1       :最初の１行目を飛ばす意味。
+    pixels_ = &(prm_xpm[1+colors_+1 -1]);//1+       :最初の１行目を飛ばす意味。("16 491 5 1 ", )
                                          //colors_+1:…の次の行からだよという意。
                                          //-1       :配列だから添字は-1
     num_color_pixels_ = 0;

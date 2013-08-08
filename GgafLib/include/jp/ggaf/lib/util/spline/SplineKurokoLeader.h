@@ -71,7 +71,7 @@ public:
      * @param prm_pManufacture
      * @param prm_pKurokoA
      */
-    SplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* prm_pKurokoA);
+    SplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKurokoA* const prm_pKurokoA);
 
     /**
      * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに加算(平行移動)し、補正します .

@@ -36,9 +36,9 @@ private :
 
 public :
     /** [r]αカーテン */
-    GgafDxAlphaCurtain* _pAlphaCurtain;
+    GgafDxAlphaCurtain* const _pAlphaCurtain;
     /** [r]BGM演奏者 */
-    GgafDxBgmPerformerForScene* _pBgmPerformer;
+    GgafDxBgmPerformerForScene* const _pBgmPerformer;
     /** [r]シーンのα */
     float _master_alpha;
 

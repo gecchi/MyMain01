@@ -25,12 +25,12 @@ GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
                                                                    "M",
                                                                    prm_technique,
                                                                    prm_pStat,
-                                                                   prm_pChecker) {
+                                                                   prm_pChecker),
+_pMorpher(new GgafDxMorpher(this)) {
     _obj_class |= Obj_GgafDxMorphMeshActor;
     _class_name = "GgafDxMorphMeshActor";
     _pMorphMeshModel = (GgafDxMorphMeshModel*)_pModel;
     _pMorphMeshEffect = (GgafDxMorphMeshEffect*)_pEffect;
-    _pMorpher = NEW GgafDxMorpher(this);
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
     //èdÇ›èâä˙âª
@@ -56,12 +56,12 @@ GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
                                                                    prm_effect_type,
                                                                    prm_technique,
                                                                    prm_pStat,
-                                                                   prm_pChecker) {
+                                                                   prm_pChecker),
+_pMorpher(new GgafDxMorpher(this)) {
     _obj_class |= Obj_GgafDxMorphMeshActor;
     _class_name = "GgafDxMorphMeshActor";
     _pMorphMeshModel = (GgafDxMorphMeshModel*)_pModel;
     _pMorphMeshEffect = (GgafDxMorphMeshEffect*)_pEffect;
-    _pMorpher = NEW GgafDxMorpher(this);
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
     //èdÇ›èâä˙âª
@@ -110,5 +110,5 @@ int GgafDxMorphMeshActor::getMorphTergetNum() {
 }
 
 GgafDxMorphMeshActor::~GgafDxMorphMeshActor() {
-    GGAF_DELETE(_pMorpher);
+    delete _pMorpher;
 }

@@ -41,7 +41,7 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) : GgafObject() {
     _pRegElemFirst = nullptr;
 }
 
-void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int Z2) {
+void GgafLinearOctree::setRootSpace(int X1, int Y1, int Z1, int X2, int Y2, int Z2) {
     _root_X1 = X1;
     _root_Y1 = Y1;
     _root_Z1 = Z1;
@@ -60,8 +60,8 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
 }
 
 void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
-                                  int tX1 ,int tY1 ,int tZ1,
-                                  int tX2 ,int tY2 ,int tZ2) {
+                                    int tX1, int tY1, int tZ1,
+                                    int tX2, int tY2, int tZ2) {
 
     //はみ出る場合は補正
     if (tX1 <= _root_X1)  { tX1 = _root_X1+1; }
@@ -83,17 +83,17 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
 
     //BOXの左下手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
     uint32_t minnum_in_toplevel = getMortonOrderNumFromXYZindex(
-                                  (uint32_t)((tX1 - _root_X1) * _r_top_level_dX),
-                                  (uint32_t)((tY1 - _root_Y1) * _r_top_level_dY),
-                                  (uint32_t)((tZ1 - _root_Z1) * _r_top_level_dZ)
-                                );
+                                    (uint32_t)((tX1 - _root_X1) * _r_top_level_dX),
+                                    (uint32_t)((tY1 - _root_Y1) * _r_top_level_dY),
+                                    (uint32_t)((tZ1 - _root_Z1) * _r_top_level_dZ)
+                                  );
 
     //BOXの右上奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
     uint32_t maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
-                                  (uint32_t)((tX2 - _root_X1) * _r_top_level_dX),
-                                  (uint32_t)((tY2 - _root_Y1) * _r_top_level_dY),
-                                  (uint32_t)((tZ2 - _root_Z1) * _r_top_level_dZ)
-                                );                 //↑_root_X2,_root_Y2,_root_Z2 と間違えていません。
+                                    (uint32_t)((tX2 - _root_X1) * _r_top_level_dX),
+                                    (uint32_t)((tY2 - _root_Y1) * _r_top_level_dY),
+                                    (uint32_t)((tZ2 - _root_Z1) * _r_top_level_dZ)
+                                  );                 //↑_root_X2,_root_Y2,_root_Z2 と間違えていません。
 
 
     //引数のBOXは、どのレベルの空間に所属しているのか取得

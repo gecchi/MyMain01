@@ -11,7 +11,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* prm_pKurokoA) :
+SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKurokoA* const prm_pKurokoA) :
         GgafObject() {
     _pManufacture = prm_pManufacture;
     _pActor_target = prm_pKurokoA->_pActor;

@@ -1696,7 +1696,7 @@ void GgafDxKurokoA::turnRyMvAngTo(angle prm_angRy_Target,
     setStopTargetRyMvAng(prm_angRy_Target);
 }
 
-void GgafDxKurokoA::takeoverMvFrom(GgafDxKurokoA* prm_pKurokoA) {
+void GgafDxKurokoA::takeoverMvFrom(GgafDxKurokoA* const prm_pKurokoA) {
     // キャラの移動方角単位ベクトル
     _vX = prm_pKurokoA->_vX;
     _vY = prm_pKurokoA->_vY;

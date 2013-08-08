@@ -45,6 +45,9 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
                 iss >> p[n][0];
                 iss >> p[n][1];
                 iss >> p[n][2];
+                if (iss.fail()) {
+                    throwGgafCriticalException("SplineSource::SplineSource [BASEPOINT]不正な数値データです line=["<<line<<"]");
+                }
                 n++;
                 if (n >= MaxSplineSize) {
                     throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" ポイントが"<<MaxSplineSize<<"を超えました。");
@@ -58,6 +61,9 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
                 std::istringstream iss(line);
                 iss >> _accuracy;
+                if (iss.fail()) {
+                    throwGgafCriticalException("SplineSource::SplineSource [ACCURACY]不正な数値データです line=["<<line<<"]");
+                }
             }
         }
     }

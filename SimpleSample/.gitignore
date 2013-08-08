@@ -11,3 +11,8 @@ SimpleSample.exe
 /SimpleSample.aps
 *.rep
 back.properties
+/gprofA_result.txt
+/gprofq_result.txt
+/gprofp_result.txt
+/gprofdot_result.png
+/gmon.out
