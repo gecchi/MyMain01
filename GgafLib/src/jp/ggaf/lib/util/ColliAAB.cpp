@@ -74,9 +74,9 @@ void ColliAAB::set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, b
 }
 
 void ColliAAB::rotateRxRzRy(angle rX, angle rY, angle rZ) {
-    s_ang s_RX = rX / SANG_RATE;
-    s_ang s_RY = rY / SANG_RATE;
-    s_ang s_RZ  =rZ / SANG_RATE;
+    s_ang s_RX = rX * (1.0 / SANG_RATE);
+    s_ang s_RY = rY * (1.0 / SANG_RATE);
+    s_ang s_RZ  =rZ * (1.0 / SANG_RATE);
     //“–‚½‚è”»’è—ÌˆæŽ²‰ñ“]
     coord wk_cx = _base_cx;
     coord wk_cy = _base_cy;

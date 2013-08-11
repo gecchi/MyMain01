@@ -186,7 +186,8 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                                 rate_frequency = 0.9;
                             } else {
                                 //”wŒã0px ` 800px
-                                rate_frequency = 1.0 - (0.1 * (_pActor->_dest_from_vppln_front / PX_DX(800)));
+//                                rate_frequency = 1.0 - (0.1 * (_pActor->_dest_from_vppln_front / PX_DX(800)));
+                                rate_frequency = 1.0 - (0.1 * (_pActor->_dest_from_vppln_front * (1.0 / PX_DX(800))));
                             }
                         }
                     }

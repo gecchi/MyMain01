@@ -386,6 +386,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLaserMagic.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.cpp"
 				>
 			</File>
@@ -415,6 +419,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectOptionMagic001.cpp"
 				>
 			</File>
 			<File
@@ -606,6 +614,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\EnemyOrtuna.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.cpp"
 				>
 			</File>
@@ -766,6 +778,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001a.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ris\FormationRis001.cpp"
 				>
 			</File>
@@ -859,6 +883,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.cpp"
 				>
 			</File>
 			<File
@@ -1501,6 +1529,10 @@
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\util\XpmHeader.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="ヘッダー ファイル"
@@ -1672,6 +1704,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLaserMagic.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.h"
 				>
 			</File>
@@ -1701,6 +1737,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectOptionMagic001.h"
 				>
 			</File>
 			<File
@@ -1892,6 +1932,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\EnemyOrtuna.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.h"
 				>
 			</File>
@@ -2056,6 +2100,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001a.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ris\FormationRis001.h"
 				>
 			</File>
@@ -2149,6 +2205,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.h"
 				>
 			</File>
 			<File
@@ -2781,6 +2841,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\util\XpmHeader.h"
 				>
 			</File>
 		</Filter>

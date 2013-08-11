@@ -34,6 +34,8 @@ class MagicMeter : public GgafLib::DefaultBoardSetActor {
         SE_EXECUTE_CANCEL_LEVELUP_MAGIC   ,
         SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC ,
         SE_CANT_INVOKE_MAGIC       ,
+        SE_EFFECT_MAGIC    ,
+        SE_NOTICE_LEVELDOWN_MAGIC,
         SE_BAD_OPERATION   ,
     };
 public:
@@ -100,9 +102,13 @@ public:
 
     std::stringstream st_[10];
 
-    /** [r]詠唱時効果音発生管理オブジェクト2 */
+    /** [r]詠唱中効果音発生管理 */
     GgafDxCore::GgafDxSeTransmitterForActor* pSeTx4Cast_;
+    /** [r]発動中効果音発生管理 */
     GgafDxCore::GgafDxSeTransmitterForActor* pSeTx4Invoke_;
+    /** 予告発生の残り時間を設定 */
+    frame fraeme_of_notice_remaind_;
+
 public:
     MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShip, GgafLib::AmountGraph* prm_pVreath_MyShip);
 

@@ -658,24 +658,24 @@ void GgafDxUtil::convRzRyToVector(angle prm_angRZ,
     s_ang rZ, rY_rev;
 
     if (0 <= prm_angRZ && prm_angRZ < D90ANG) {
-        rZ = (prm_angRZ - D0ANG) / SANG_RATE;
+        rZ = (prm_angRZ - D0ANG) * (1.0 / SANG_RATE);
         if (0 <= prm_angRY && prm_angRY < D90ANG) { //‘æŒÜÛŒÀ
-            rY_rev = prm_angRY / SANG_RATE;
+            rY_rev = prm_angRY * (1.0 / SANG_RATE);
             Xsign = 1;
             Ysign = 1;
             Zsign = -1;
         } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //‘æ˜ZÛŒÀ
-            rY_rev = (D180ANG - prm_angRY) / SANG_RATE;
+            rY_rev = (D180ANG - prm_angRY) * (1.0 / SANG_RATE);
             Xsign = -1;
             Ysign = 1;
             Zsign = -1;
         } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //‘æ“ñÛŒÀ
-            rY_rev = (prm_angRY - D180ANG) / SANG_RATE;
+            rY_rev = (prm_angRY - D180ANG) * (1.0 / SANG_RATE);
             Xsign = -1;
             Ysign = 1;
             Zsign = 1;
         } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //‘æˆêÛŒÀ
-            rY_rev = (D360ANG - prm_angRY) / SANG_RATE;
+            rY_rev = (D360ANG - prm_angRY) * (1.0 / SANG_RATE);
             Xsign = 1;
             Ysign = 1;
             Zsign = 1;
@@ -683,25 +683,25 @@ void GgafDxUtil::convRzRyToVector(angle prm_angRZ,
             throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(1) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
         }
     } else if (D90ANG <= prm_angRZ && prm_angRZ < D180ANG) {
-        rZ = (D180ANG - prm_angRZ) / SANG_RATE;
+        rZ = (D180ANG - prm_angRZ) * (1.0 / SANG_RATE);
 
         if (0 <= prm_angRY && prm_angRY < D90ANG) { //‘æ“ñÛŒÀ
-            rY_rev = prm_angRY / SANG_RATE;
+            rY_rev = prm_angRY * (1.0 / SANG_RATE);
             Xsign = -1;
             Ysign = 1;
             Zsign = 1;
         } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //‘æˆêÛŒÀ
-            rY_rev = (D180ANG - prm_angRY) / SANG_RATE;
+            rY_rev = (D180ANG - prm_angRY) * (1.0 / SANG_RATE);
             Xsign = 1;
             Ysign = 1;
             Zsign = 1;
         } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //‘æŒÜÛŒÀ
-            rY_rev = (prm_angRY - D180ANG) / SANG_RATE;
+            rY_rev = (prm_angRY - D180ANG) * (1.0 / SANG_RATE);
             Xsign = 1;
             Ysign = 1;
             Zsign = -1;
         } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //‘æ˜ZÛŒÀ
-            rY_rev = (D360ANG - prm_angRY) / SANG_RATE;
+            rY_rev = (D360ANG - prm_angRY) * (1.0 / SANG_RATE);
             Xsign = -1;
             Ysign = 1;
             Zsign = -1;
@@ -710,24 +710,24 @@ void GgafDxUtil::convRzRyToVector(angle prm_angRZ,
         }
 
     } else if (D180ANG <= prm_angRZ && prm_angRZ < D270ANG) {
-        rZ = (prm_angRZ - D180ANG) / SANG_RATE;
+        rZ = (prm_angRZ - D180ANG) * (1.0 / SANG_RATE);
         if (0 <= prm_angRY && prm_angRY < D90ANG) { //‘æŽOÛŒÀ
-            rY_rev = prm_angRY / SANG_RATE;
+            rY_rev = prm_angRY * (1.0 / SANG_RATE);
             Xsign = -1;
             Ysign = -1;
             Zsign = 1;
         } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //‘æŽlÛŒÀ
-            rY_rev = (D180ANG - prm_angRY) / SANG_RATE;
+            rY_rev = (D180ANG - prm_angRY) * (1.0 / SANG_RATE);
             Xsign = 1;
             Ysign = -1;
             Zsign = 1;
         } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //‘æ”ªÛŒÀ
-            rY_rev = (prm_angRY - D180ANG) / SANG_RATE;
+            rY_rev = (prm_angRY - D180ANG) * (1.0 / SANG_RATE);
             Xsign = 1;
             Ysign = -1;
             Zsign = -1;
         } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //‘æŽµÛŒÀ
-            rY_rev = (D360ANG - prm_angRY) / SANG_RATE;
+            rY_rev = (D360ANG - prm_angRY) * (1.0 / SANG_RATE);
             Xsign = -1;
             Ysign = -1;
             Zsign = -1;
@@ -735,24 +735,24 @@ void GgafDxUtil::convRzRyToVector(angle prm_angRZ,
             throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(3) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
         }
     } else if (D270ANG <= prm_angRZ && prm_angRZ <= D360ANG) {
-        rZ = (D360ANG - prm_angRZ) / SANG_RATE;
+        rZ = (D360ANG - prm_angRZ) * (1.0 / SANG_RATE);
         if (0 <= prm_angRY && prm_angRY < D90ANG) { //‘æ”ªÛŒÀ
-            rY_rev = prm_angRY / SANG_RATE;
+            rY_rev = prm_angRY * (1.0 / SANG_RATE);
             Xsign = 1;
             Ysign = -1;
             Zsign = -1;
         } else if (D90ANG <= prm_angRY && prm_angRY < D180ANG) { //‘æŽµÛŒÀ
-            rY_rev = (D180ANG - prm_angRY) / SANG_RATE;
+            rY_rev = (D180ANG - prm_angRY) * (1.0 / SANG_RATE);
             Xsign = -1;
             Ysign = -1;
             Zsign = -1;
         } else if (D180ANG <= prm_angRY && prm_angRY < D270ANG) { //‘æŽOÛŒÀ
-            rY_rev = (prm_angRY - D180ANG) / SANG_RATE;
+            rY_rev = (prm_angRY - D180ANG) * (1.0 / SANG_RATE);
             Xsign = -1;
             Ysign = -1;
             Zsign = 1;
         } else if (D270ANG <= prm_angRY && prm_angRY <= D360ANG) { //‘æŽlÛŒÀ
-            rY_rev = (D360ANG - prm_angRY) / SANG_RATE;
+            rY_rev = (D360ANG - prm_angRY) * (1.0 / SANG_RATE);
             Xsign = 1;
             Ysign = -1;
             Zsign = 1;
@@ -764,9 +764,9 @@ void GgafDxUtil::convRzRyToVector(angle prm_angRZ,
     }
     uint32_t vx, vy, vz;
     _srv.getVectorClosely(rY_rev, rZ, vx, vy, vz);
-    out_nvx = Xsign * (int)vx / 1000000.0;
-    out_nvy = Ysign * (int)vy / 1000000.0;
-    out_nvz = Zsign * (int)vz / 1000000.0;
+    out_nvx = Xsign * (int)vx * (1.0 / 1000000.0);
+    out_nvy = Ysign * (int)vy * (1.0 / 1000000.0);
+    out_nvz = Zsign * (int)vz * (1.0 / 1000000.0);
 }
 
 

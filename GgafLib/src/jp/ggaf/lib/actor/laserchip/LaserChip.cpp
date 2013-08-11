@@ -101,37 +101,6 @@ void LaserChip::onActive() {
 
 void LaserChip::processSettlementBehavior() {
     LaserChip* pChip_front = _pChip_front;
-    //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
-    //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
-    if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
-        if (pChip_front) {
-            int dX = pChip_front->_X - _X;
-            int dY = pChip_front->_Y - _Y;
-            int dZ = pChip_front->_Z - _Z;
-            if (ABS(dX) >= _hitarea_edge_length_3 ||
-                ABS(dY) >= _hitarea_edge_length_3 ||
-                ABS(dZ) >= _hitarea_edge_length_3) {
-                //自身と前方チップの中間に当たり判定を作り出す
-                int cX = dX / 2;
-                int cY = dY / 2;
-                int cZ = dZ / 2;
-                _pColliChecker->setColliAAB(
-                              1,
-                              cX - _harf_hitarea_edge_length,
-                              cY - _harf_hitarea_edge_length,
-                              cZ - _harf_hitarea_edge_length,
-                              cX + _harf_hitarea_edge_length,
-                              cY + _harf_hitarea_edge_length,
-                              cZ + _harf_hitarea_edge_length
-                              );
-                _pColliChecker->enable(1);
-            } else {
-            }
-        } else {
-            _pColliChecker->disable(1);
-        }
-    }
-
 
     //レーザーチップ種別 設定。
     //シェーダーのパラメータとなります。
@@ -180,6 +149,54 @@ void LaserChip::processSettlementBehavior() {
         }
         setHitAble(false);
     }
+
+
+    //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
+    if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
+        if (_chip_kind == 2) {
+            coord dX = pChip_front->_X - _X;
+            coord dY = pChip_front->_Y - _Y;
+            coord dZ = pChip_front->_Z - _Z;
+            coord abs_dX = ABS(dX);
+            coord abs_dY = ABS(dY);
+            coord abs_dZ = ABS(dZ);
+ 
+
+            if (abs_dX < _hitarea_edge_length &&
+                abs_dY < _hitarea_edge_length &&
+                abs_dZ < _hitarea_edge_length) {
+                //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
+                setHitAble(false);
+            } else {
+                setHitAble(true);
+                if (abs_dX >= _hitarea_edge_length_3 ||
+                    abs_dY >= _hitarea_edge_length_3 ||
+                    abs_dZ >= _hitarea_edge_length_3) {
+                    //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
+                    //自身と前方チップの中間に当たり判定を作り出す
+                    int cX = dX / 2;
+                    int cY = dY / 2;
+                    int cZ = dZ / 2;
+                    _pColliChecker->setColliAAB(
+                                  1,
+                                  cX - _harf_hitarea_edge_length,
+                                  cY - _harf_hitarea_edge_length,
+                                  cZ - _harf_hitarea_edge_length,
+                                  cX + _harf_hitarea_edge_length,
+                                  cY + _harf_hitarea_edge_length,
+                                  cZ + _harf_hitarea_edge_length
+                                  );
+                    _pColliChecker->enable(1);
+                } else {
+                    _pColliChecker->disable(1);
+                }
+            }
+        } else {
+            _pColliChecker->disable(1);
+        }
+    }
+
+
     if (isOutOfUniverse()) {
         sayonara();
     }

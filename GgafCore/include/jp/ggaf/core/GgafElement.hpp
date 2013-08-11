@@ -40,8 +40,8 @@ private:
      * @param pFunc 再帰呼び出しするメソッド
      */
     inline void callRecursive(void (GgafElement<T>::*pFunc)()) {
-        if (GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafNode<T>::_pSubFirst;
+        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        if (pElementTemp) {
             while(true) {
                 (pElementTemp->*pFunc)(); //実行
                 if (pElementTemp->_is_last_flg) {
@@ -59,8 +59,8 @@ private:
      * @param prm_frame pFuncの引数であるframe
      */
     inline void callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame) {
-        if (GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafNode<T>::_pSubFirst;
+        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        if (pElementTemp) {
             while(true) {
                 (pElementTemp->*pFunc)(prm_frame); //実行
                 if (pElementTemp->_is_last_flg) {
@@ -1035,22 +1035,26 @@ void GgafElement<T>::nextFrame() {
     }
 
     //配下のnextFrame()実行
-    if (GgafNode<T>::_pSubFirst) {
-        T* pElementTemp = GgafNode<T>::_pSubFirst;
+    T* pElement = GgafNode<T>::_pSubFirst;
+    if (pElement) {
         while(true) {
-            if (pElementTemp->_is_last_flg) {
-                pElementTemp->nextFrame();
-                if (pElementTemp->_can_live_flg == false) {
-                    pElementTemp->onEnd();
-                    GgafGarbageBox::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
+            if (pElement->_is_last_flg) {
+                //末尾
+                pElement->nextFrame();
+                if (pElement->_can_live_flg == false) {
+                    pElement->onEnd();
+                    GgafGarbageBox::_pGarbageBox->add(pElement); //ゴミ箱へ
                 }
                 break;
             } else {
-                pElementTemp = pElementTemp->_pNext;
-                pElementTemp->_pPrev->nextFrame();
-                if (pElementTemp->_pPrev->_can_live_flg == false) {
-                    ((T*)(pElementTemp->_pPrev))->onEnd();
-                    GgafGarbageBox::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
+                //中間
+                pElement->nextFrame();
+                if (pElement->_can_live_flg == false) {
+                    pElement->onEnd();
+                    pElement = pElement->_pNext; //一個進ませて退避させてから
+                    GgafGarbageBox::_pGarbageBox->add(pElement->_pPrev); //一個前をゴミ箱へ(連結が切れる)
+                } else {
+                    pElement = pElement->_pNext;
                 }
             }
         }

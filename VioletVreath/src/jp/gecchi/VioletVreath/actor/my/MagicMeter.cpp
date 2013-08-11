@@ -143,16 +143,19 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     _pSeTx->set(SE_EXECUTE_CANCEL_LEVELUP_MAGIC  , "WAVE_MM_EXECUTE_CANCEL_LEVELUP_MAGIC");  //（詠唱キャンセルして）レベルアップ実行時
     _pSeTx->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "WAVE_MM_EXECUTE_CANCEL_LEVELDOWN_MAGIC");  //（詠唱キャンセルして）レベルダウン実行時
     _pSeTx->set(SE_CANT_INVOKE_MAGIC             , "WAVE_MM_CANT_INVOKE_MAGIC");  //詠唱完了時、MPが足りないため発動できない場合
+    _pSeTx->set(SE_EFFECT_MAGIC                  , "WAVE_MM_EFFECT_MAGIC");  //発動が完了し、効果発生時
+    _pSeTx->set(SE_NOTICE_LEVELDOWN_MAGIC        , "WAVE_MM_NOTICE_LEVELDOWN_MAGIC");  //レベルダウン発生予告
     _pSeTx->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
 
     pSeTx4Cast_ = NEW GgafDxSeTransmitterForActor(this);
     pSeTx4Invoke_ = NEW GgafDxSeTransmitterForActor(this);
     for (int i = 0; i < magic_num; i++) {
-        pSeTx4Cast_->set(i, "WAVE_MM_CASTING", i); //チャンネル明示指定
+        pSeTx4Cast_->set(i, "WAVE_MM_CASTING", i); //詠唱中SE。チャンネル明示指定
         pSeTx4Cast_->setLooping(i, true);
-        pSeTx4Invoke_->set(i, "WAVE_MM_INVOKING", i); //チャンネル明示指定
+        pSeTx4Invoke_->set(i, "WAVE_MM_INVOKING", i); //発動中SE。チャンネル明示指定
         pSeTx4Invoke_->setLooping(i, true);
     }
+    fraeme_of_notice_remaind_ = 60*5;//残り僅か警告発生の残り時間
     alpha_velo_ = -0.01f;
 }
 
@@ -412,9 +415,11 @@ void MagicMeter::processBehavior() {
     //毎フレームの各魔法表示についての処理
     GgafProgress* pMagicProg = nullptr;
     Magic* pMagic = nullptr;
+    int pMagic_level;
     for (int m = 0; m < lstMagic_.length(); m++) {
         pMagic = lstMagic_.getFromFirst(m);
         pMagicProg = pMagic->_pProg;
+        pMagic_level = pMagic->level_;
 
         paFloat_rr_[m] += paFloat_velo_rr_[m];
         if (paFloat_rr_[m] < 0.0f) {
@@ -433,18 +438,18 @@ void MagicMeter::processBehavior() {
 
             papLvTargetCursor_[m]->dispDisable();
             papLvHilightCursor_[m]->dispDisable();
-            if (papLvTargetCursor_[m]->point_lv_ == pMagic->level_) {
+            if (papLvTargetCursor_[m]->point_lv_ == pMagic_level) {
                 //現レベルを指している場合
                 //新しいレベルにこっそり動かしてあげる。
                 papLvTargetCursor_[m]->moveSmoothTo(pMagic->new_level_);
             }
-            papLvHilightCursor_[m]->moveSmoothTo(pMagic->new_level_, (frame)(pMagic->interest_time_of_invoking_[pMagic->new_level_-pMagic->level_]));
+            papLvHilightCursor_[m]->moveSmoothTo(pMagic->new_level_, (frame)(pMagic->interest_time_of_invoking_[pMagic->new_level_ - pMagic_level]));
             papLvCastingMarkCursor_[m]->markOnInvoke(pMagic->new_level_);
         }
         //INVOKING中
         if (pMagicProg->get() == Magic::STATE_INVOKING) {
             float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
-            pSeTx4Invoke_->get(m)->setFrequencyRate(1.0f + (f*3.0f));
+            pSeTx4Invoke_->get(m)->setFrequencyRate(1.0f + (f*3.0f));//音程を上げる
         }
         //INVOKING完
         if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
@@ -458,8 +463,8 @@ void MagicMeter::processBehavior() {
         if (pMagicProg->isJustChangedTo(Magic::STATE_EFFECTING)) {
             if (pMagic->last_level_ < pMagic->level_) {
                 //レベルアップSTATE_EFFECTINGだったならば
-//                papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
-                papLvCastingMarkCursor_[m]->markOnEffect(pMagic->level_);
+                _pSeTx->play(SE_EFFECT_MAGIC);
+                papLvCastingMarkCursor_[m]->markOnEffect(pMagic_level);
             } else {
                 //レベルダウンEFFECT_BEGEINだったならば
                 //markOnLevelDownCast() した直後である。
@@ -468,11 +473,12 @@ void MagicMeter::processBehavior() {
         }
 
         //満期レベルダウン時
-        if (pMagic->prev_frame_level_ != pMagic->level_ && pMagic->prev_frame_level_ > pMagic->level_) {
+        if (pMagic->prev_frame_level_ != pMagic_level && pMagic->prev_frame_level_ > pMagic_level) {
+            _pSeTx->play(SE_EXECUTE_LEVELDOWN_MAGIC);
             if (papLvTargetCursor_[m]->point_lv_ == pMagic->prev_frame_level_) {
-                papLvTargetCursor_[m]->moveSmoothTo(pMagic->level_);
+                papLvTargetCursor_[m]->moveSmoothTo(pMagic_level);
             }
-            papLvHilightCursor_[m]->moveSmoothTo(pMagic->level_);
+            papLvHilightCursor_[m]->moveSmoothTo(pMagic_level);
             papLvHilightCursor_[m]->blink();
         }
 
@@ -495,8 +501,8 @@ void MagicMeter::processBehavior() {
             // pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING) の判定となる
             //このタイミングで
 //            papLvCastingMarkCursor_[m]->markOff(); //マークオフ！
-            papLvCastingMarkCursor_[m]->markOnEffect(pMagic->level_);
-            papLvHilightCursor_[m]->moveSmoothTo(pMagic->level_);
+            papLvCastingMarkCursor_[m]->markOnEffect(pMagic_level);
+            papLvHilightCursor_[m]->moveSmoothTo(pMagic_level);
         }
 
         //詠唱中
@@ -508,6 +514,12 @@ void MagicMeter::processBehavior() {
         if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {
             pSeTx4Cast_->stop(m);
         }
+
+        //もうすぐレベルダウン警告
+        if (pMagic->lvinfo_[pMagic_level].remainingtime_of_effect_ == fraeme_of_notice_remaind_) {
+            _pSeTx->play(SE_NOTICE_LEVELDOWN_MAGIC);
+        }
+
 
 
     }
@@ -538,6 +550,7 @@ void MagicMeter::processDraw() {
     //[====]が１つの大きさ [====][====][====]
     MagicList::Elem* pElem = lstMagic_.getElemFirst();
     Magic* pMagic;
+    int pMagic_level;
     int len_magics = lstMagic_.length();
     int n = 0;
     float u,v;
@@ -547,6 +560,7 @@ void MagicMeter::processDraw() {
     float alpha = getAlpha();
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
+        pMagic_level = pMagic->level_;
         n = 0;
         float wx = width_px_*i;
         //マジックメーター背景
@@ -558,7 +572,11 @@ void MagicMeter::processDraw() {
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[n], alpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
-        _pUvFlipper->getUV(0, u, v);
+        if (pMagic_level > 0 && pMagic->lvinfo_[pMagic_level].remainingtime_of_effect_ <= fraeme_of_notice_remaind_) {
+            _pUvFlipper->getUV(1, u, v); //パターン1は赤背景、残り時間がやばい事を示す
+        } else {
+            _pUvFlipper->getUV(0, u, v); //パターン0は通常背景
+        }
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_u[n], u);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetU_) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_v[n], v);
@@ -574,7 +592,7 @@ void MagicMeter::processDraw() {
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_depth_Z) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[n], alpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ah_alpha) に失敗しました。");
-        _pUvFlipper->getUV(pMagic->lvinfo_[pMagic->level_].pno_, u, v);
+        _pUvFlipper->getUV(pMagic->lvinfo_[pMagic_level].pno_, u, v);
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_u[n], u);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(hOffsetU_) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_v[n], v);

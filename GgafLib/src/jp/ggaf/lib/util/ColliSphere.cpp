@@ -58,9 +58,9 @@ void ColliSphere::rotateRxRzRy(angle rX, angle rY, angle rZ) {
     s_ang s_RX, s_RY, s_RZ;
     int wk_cx, wk_cy, wk_cz;
     //“–‚½‚è”»’è—ÌˆæŽ²‰ñ“]
-    s_RX = rX / SANG_RATE;
-    s_RY = rY / SANG_RATE;
-    s_RZ = rZ / SANG_RATE;
+    s_RX = rX * (1.0 / SANG_RATE);
+    s_RY = rY * (1.0 / SANG_RATE);
+    s_RZ = rZ * (1.0 / SANG_RATE);
     wk_cx = _base_cx;
     wk_cy = _base_cy;
     wk_cz = _base_cz;

@@ -10,10 +10,10 @@ using namespace GgafCore;
 
 GgafStrMap* GgafProperties::_pMapProperties = nullptr;
 
-uint32_t GgafProperties::MAX_SKIP_FRAME = 12;
+uint32_t GgafProperties::MAX_SKIP_FRAME = 20;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN1 = 350;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN2 = 500;
-float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 50.0f;
+float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 45.0f;
 std::string GgafProperties::DIR_RESOURCE = "./";
 std::string GgafProperties::DIRNAME_RESOURCE_SKIN = ".";
 std::string GgafProperties::DIRNAME_RESOURCE_SKIN_DEFAULT = ".";

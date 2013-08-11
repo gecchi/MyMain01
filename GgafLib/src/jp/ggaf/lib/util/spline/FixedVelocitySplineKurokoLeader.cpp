@@ -185,7 +185,8 @@ void FixedVelocitySplineKurokoLeader::behave() {
         //キャラの速度が1000ならば、_leadning_fFrames ++;
         //キャラの速度が2000ならば  _leadning_fFrames += 2.0;
         //キャラの速度が500ならば、 _leadning_fFrames += 0.5
-        _leadning_fFrames += (1.0*pKurokoA_target->_veloMv / LEN_UNIT);
+//        _leadning_fFrames += (1.0*pKurokoA_target->_veloMv / LEN_UNIT);
+        _leadning_fFrames += (pKurokoA_target->_veloMv * (1.0 / LEN_UNIT));
     }
 }
 
