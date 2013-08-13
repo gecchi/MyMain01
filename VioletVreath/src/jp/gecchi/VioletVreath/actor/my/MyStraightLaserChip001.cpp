@@ -31,6 +31,15 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
     _veloMv = 100000;
     pOrg_ = nullptr;
     lockon_st_ = 0;
+    if (!MyStraightLaserChip001::pModel_) {
+        if (_pModel->_num_materials != 3) {
+            throwGgafCriticalException("MyStraightLaserChip001::onCreateModel() MyStraightLaserChip001モデルは、マテリアが３つ必要です。");
+        }
+        for (DWORD i = 0; i < _pModel->_num_materials; i ++) {
+            strcpy(MyStraightLaserChip001::aaTextureName[i], _pModel->_papTextureConnection[i]->peek()->getName());
+        }
+        MyStraightLaserChip001::pModel_ = _pModel;
+    }
 }
 
 void MyStraightLaserChip001::initialize() {
@@ -46,13 +55,6 @@ void MyStraightLaserChip001::initialize() {
 }
 
 void MyStraightLaserChip001::onCreateModel() {
-    if (_pModel->_num_materials != 3) {
-        throwGgafCriticalException("MyStraightLaserChip001::onCreateModel() MyStraightLaserChip001モデルは、マテリアが３つ必要です。");
-    }
-    pModel_ = _pModel;
-    for (DWORD i = 0; i < _pModel->_num_materials; i ++) {
-        strcpy(aaTextureName[i], _pModel->_papTextureConnection[i]->peek()->getName());
-    }
 }
 
 
@@ -168,13 +170,14 @@ void MyStraightLaserChip001::onInactive() {
 }
 
 void MyStraightLaserChip001::chengeTex(int prm_tex_no) {
-    if (pModel_) {
+    if (MyStraightLaserChip001::pModel_) {
         MyStraightLaserChip001::tex_no_ = prm_tex_no;
-        pModel_->swapTopTextureOrder(aaTextureName[prm_tex_no]);
+        MyStraightLaserChip001::pModel_->swapTopTextureOrder(aaTextureName[prm_tex_no]);
     }
 }
 
 MyStraightLaserChip001::~MyStraightLaserChip001() {
+    MyStraightLaserChip001::pModel_ = nullptr;
 }
 
 

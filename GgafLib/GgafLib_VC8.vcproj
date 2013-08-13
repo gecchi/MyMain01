@@ -48,7 +48,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDxCore\include"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)\include&quot;;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDxCore\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
@@ -120,7 +120,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDxCore\include"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)\include&quot;;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDxCore\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -298,6 +298,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\lib\actor\FkFormation.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\lib\scene\FormationTableScene.cpp"
 				>
 			</File>
@@ -315,10 +319,6 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\lib\actor\laserchip\LaserChipDepository.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\jp\ggaf\lib\actor\laserchip\LaserChipDepositoryStore.cpp"
 				>
 			</File>
 			<File
@@ -618,15 +618,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\jp\ggaf\lib\actor\FkFormation.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\jp\ggaf\lib\scene\FormationTableScene.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\GgafLibEntry.h"
+				RelativePath=".\include\GgafLibCommonHeader.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\GgafLibHeader.h"
+				RelativePath=".\include\GgafLibEntry.h"
 				>
 			</File>
 			<File
@@ -643,10 +647,6 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\lib\actor\laserchip\LaserChipDepository.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\lib\actor\laserchip\LaserChipDepositoryStore.h"
 				>
 			</File>
 			<File

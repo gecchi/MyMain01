@@ -36,6 +36,15 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     max_acce_renge_ = 0;
     max_velo_renge_ = 160000; //この値を大きくすると、最高速度が早くなる。
     r_max_acce_ = 20; //この値を大きくすると、カーブが緩くなる
+    if (!MyOptionWateringLaserChip001::pModel_) {
+        if (_pModel->_num_materials != 3) {
+            throwGgafCriticalException("MyOptionWateringLaserChip001::onCreateModel() MyOptionWateringLaserChip001モデルは、マテリアが３つ必要です。");
+        }
+        for (DWORD i = 0; i < _pModel->_num_materials; i ++) {
+            strcpy(MyOptionWateringLaserChip001::aaTextureName[i], _pModel->_papTextureConnection[i]->peek()->getName());
+        }
+        MyOptionWateringLaserChip001::pModel_ = _pModel;
+    }
 }
 
 void MyOptionWateringLaserChip001::initialize() {
@@ -47,13 +56,7 @@ void MyOptionWateringLaserChip001::initialize() {
 }
 
 void MyOptionWateringLaserChip001::onCreateModel() {
-    if (_pModel->_num_materials != 3) {
-        throwGgafCriticalException("MyOptionWateringLaserChip001::onCreateModel() MyOptionWateringLaserChip001モデルは、マテリアが３つ必要です。");
-    }
-    pModel_ = _pModel;
-    for (DWORD i = 0; i < _pModel->_num_materials; i ++) {
-        strcpy(aaTextureName[i], _pModel->_papTextureConnection[i]->peek()->getName());
-    }
+
 }
 
 void MyOptionWateringLaserChip001::onActive() {
@@ -282,11 +285,13 @@ void MyOptionWateringLaserChip001::onInactive() {
 }
 
 void MyOptionWateringLaserChip001::chengeTex(int prm_tex_no) {
-    if (pModel_) {
+    if (MyOptionWateringLaserChip001::pModel_) {
         MyOptionWateringLaserChip001::tex_no_ = prm_tex_no;
-        pModel_->swapTopTextureOrder(aaTextureName[prm_tex_no]);
+        MyOptionWateringLaserChip001::pModel_->swapTopTextureOrder(aaTextureName[prm_tex_no]);
     }
 }
+
 MyOptionWateringLaserChip001::~MyOptionWateringLaserChip001() {
+    MyOptionWateringLaserChip001::pModel_ = nullptr;
 }
 

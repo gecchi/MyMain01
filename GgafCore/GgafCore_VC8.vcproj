@@ -48,6 +48,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
@@ -119,6 +120,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -293,6 +295,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\core\util\GgafRgb.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\core\scene\GgafScene.cpp"
 				>
 			</File>
@@ -391,10 +397,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\util\GgafDynamicVariable.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\core\GgafElement.hpp"
 				>
 			</File>
@@ -436,10 +438,6 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\core\util\GgafLinkedListRing.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\core\GgafLinkedListRing.hpp"
 				>
 			</File>
 			<File
@@ -487,14 +485,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\core\GgafResourceConnection.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\include\jp\ggaf\core\GgafResourceManager.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\core\util\GgafResourceManager.hpp"
 				>
 			</File>
@@ -537,10 +527,6 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
-		<File
-			RelativePath=".\ClassDiagram1.cd"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
