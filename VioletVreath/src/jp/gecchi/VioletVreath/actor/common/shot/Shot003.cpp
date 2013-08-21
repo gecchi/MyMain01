@@ -22,7 +22,7 @@ void Shot003::initialize() {
     setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
     effectBlendOne(); //‰ÁŽZ‡¬
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    _pColliChecker->setColliAAB_Cube(0, PX_C(16));
 }
 
 void Shot003::onActive() {

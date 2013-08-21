@@ -912,7 +912,14 @@ public:
      * @param prm_set_num         撃つ放射WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度減衰率(< 1.0)、或いは増幅率(>1.0)
-     * @param pFunc_CallBackDispatched
+     * @param pFunc_CallBackDispatched デポジトリ(prm_pDepo_Shot)から dispatch() されて、
+     *                                 移動方向、初期速度、加速度が設定された後にコールバックされる関数を設定。
+     *                                 引数には次の値が引き渡される。
+     *                                 void f(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index)
+     *                                 prm_pActor         dispatch()された弾のアクター
+     *                                 prm_dispatch_num   何回目の dispatch() の弾か  (1～)
+     *                                 prm_set_index      放射WAY弾何セット目であるか (0～)
+     *                                 prm_way_index      何WAY目の弾であるか         (0～)
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDxCore::GgafDxDrawableActor* shotWay004(coord prm_X, coord prm_Y, coord prm_Z,
@@ -933,13 +940,20 @@ public:
      * @param prm_pDepo_Shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
      * @param prm_radial_way_num  １セット放射Way数
-     * @param prm_expanse_angle   放射弾の照射角(0 ～ D180ANG。懐中電灯の光の広がり角のようなイメージ。小さいと弾の間隔が狭い)
+     * @param prm_expanse_angle   放射弾の照射中心角(0 ～ D180ANG。懐中電灯の光の広がりの成す角のようなイメージ。小さいと弾の間隔が狭い)
      * @param prm_velo_first      初弾セットのショット初期速度
      * @param prm_acce            初弾セットのショット初期加速度
      * @param prm_set_num         撃つ放射WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度・加速度の減衰率(> 1.0)、或いは増幅率(>1.0)
-     * @param pFunc_CallBackDispatched
+     * @param pFunc_CallBackDispatched デポジトリ(prm_pDepo_Shot)から dispatch() されて、
+     *                                 移動方向、初期速度、加速度が設定された後にコールバックされる関数を設定。
+     *                                 引数には次の値が引き渡される。
+     *                                 void f(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index)
+     *                                 prm_pActor         dispatch()された弾のアクター
+     *                                 prm_dispatch_num   何回目の dispatch() の弾か  (1～)
+     *                                 prm_set_index      放射WAY弾何セット目であるか (0～)
+     *                                 prm_way_index      何WAY目の弾であるか         (0～)
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDxCore::GgafDxDrawableActor* shotWay004(GgafDxCore::GgafDxGeometricActor* prm_pFrom,

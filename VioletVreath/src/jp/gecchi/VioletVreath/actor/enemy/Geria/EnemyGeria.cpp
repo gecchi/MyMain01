@@ -7,6 +7,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -16,8 +17,6 @@ using namespace VioletVreath;
 EnemyGeria::EnemyGeria(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Geria", STATUS(EnemyGeria)) {
     _class_name = "EnemyGeria";
-    pDepo_ShotEffect_ = nullptr;
-    pDepo_Shot_ = nullptr;
     iMovePatternNo_ = 0;
     max_shots_ = 1;
     shot_num_ = 0;
@@ -67,21 +66,20 @@ void EnemyGeria::processBehavior() {
             _pKurokoA->turnRxSpinAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE);
         } else if (getActiveFrame() == frame_when_shot_ + 60) {
             MyShip* pM = P_MYSHIP;
-            if (pDepo_Shot_) {
-                GgafDxGeometricActor* pFirst =
-                  UTIL::shotWay001(_X, _Y, _Z,
-                                   pM->_X, pM->_Y, pM->_Z,
-                                   pDepo_Shot_,
-                                   PX_C(10),
-                                   10000, 100,
-                                   3, 5, 0.9,
-                                   EnemyGeria::callbackDispatched);
-                if (pFirst) {
-                    shot_num_++;
-                    do_Shot_ = false;
-                    effectFlush(2); //フラッシュ
-                    _pSeTx->play3D(SE_FIRE);
-                }
+            GgafDxGeometricActor* pFirst =
+              UTIL::shotWay001(_X, _Y, _Z,
+                               pM->_X, pM->_Y, pM->_Z,
+                               getCommonDepository(Shot004),
+                               PX_C(10),
+                               10000, 100,
+                               3, 5, 0.9,
+                               EnemyGeria::callbackDispatched);
+            if (pFirst) {
+                shot_num_++;
+                do_Shot_ = false;
+                effectFlush(2); //フラッシュ
+                _pSeTx->play3D(SE_FIRE);
+            }
 //                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)pDepo_Shot_->dispatch();
 //                if (pShot) {
 //                    shot_num_++;
@@ -94,11 +92,7 @@ void EnemyGeria::processBehavior() {
 //                    _pSeTx->play3D(1);
 //                }
 
-                //ショット発射エフェクト
-                if (pDepo_ShotEffect_) {
-                }
-                _pKurokoA->setMvVelo(velo_mv_begin_); //再加速
-            }
+            _pKurokoA->setMvVelo(velo_mv_begin_); //再加速
         }
     } else {
         if (can_Shot_) {

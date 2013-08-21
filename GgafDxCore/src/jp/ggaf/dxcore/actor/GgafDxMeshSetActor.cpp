@@ -83,6 +83,7 @@ void GgafDxMeshSetActor::processDraw() {
     HRESULT hr;
     GgafDxDrawableActor* pDrawActor = this;
     GgafDxMeshSetActor* pMeshSetActor = nullptr;
+    int model_set_num = _pMeshSetModel->_set_num;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
@@ -99,7 +100,7 @@ void GgafDxMeshSetActor::processDraw() {
                 //１枚テクスチャで頑張れば問題ない・・・という方針。マテリアル色で色分けしたい場合は GgafDxMeshActor を使うしかない。
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
                 draw_set_num++;
-                if (draw_set_num >= _pMeshSetModel->_set_num) {
+                if (draw_set_num >= model_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;

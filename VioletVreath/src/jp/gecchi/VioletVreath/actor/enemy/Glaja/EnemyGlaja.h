@@ -1,5 +1,5 @@
-#ifndef ENEMYORTUNA_H_
-#define ENEMYORTUNA_H_
+#ifndef ENEMYGLAJA_H_
+#define ENEMYGLAJA_H_
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
@@ -7,21 +7,20 @@
 namespace VioletVreath {
 
 /**
- * 敵機オルトゥナ .
- * ビューポイント２面水面からワラワラ出る魚雑魚みたいなんに
+ * 敵機グラヤ(作成中！) .
+ * 中型機にしようか。
+ * ポイっと缶々をなげて、ビシっと槍弾に変化して飛んでいく。
  * @version 1.00
- * @since 2013/08/05
+ * @since 2013/08/19
  * @author Masatoshi Tsuge
  */
-class EnemyOrtuna : public GgafLib::DefaultMorphMeshActor {
+class EnemyGlaja : public GgafLib::DefaultMorphMeshActor {
 
 public:
 
     enum {
         MPH_OPEN = 1,
     };
-
-
 
     enum {
         SE_EXPLOSION ,
@@ -32,57 +31,56 @@ public:
         PROG_ENTRY  ,
         PROG_MOVE01 ,
         PROG_MOVE02 ,
-        PROG_MOVE03 ,
+        PROG_OPEN ,
+        PROG_FIRE ,
+        PROG_CLOSE ,
     };
-    /** [r]出現座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem entry_pos_;
-    /** [r]折り返し座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem hanging_pos_;
-
-    frame hanging_pos_frames_;
+    DepositoryConnection* pConn_Shot_;
+    GgafDxCore::GgafDxGeoElem next_pos_;
+    int num_fire_;
 public:
     /**
      * コンストラクタ
      * @param prm_name
      * @return
      */
-    EnemyOrtuna(const char* prm_name);
+    EnemyGlaja(const char* prm_name);
 
     void onCreateModel() override;
 
     /**
-     * アッポーの初期処理（インスタンス生成後保証）
+     * グラヤの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 
     /**
-     * アッポーのがアクティブになった瞬間の処理 .
+     * グラヤのがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 
     /**
-     * アッポーの振る舞い .
+     * グラヤの振る舞い .
      */
     void processBehavior() override;
 
     /**
-     * アッポーの振る舞い後の判定処理 .
+     * グラヤの振る舞い後の判定処理 .
      */
     void processJudgement() override;
 
     /**
-     * アッポーの衝突時処理 .
+     * グラヤの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-
     void onInactive() override;
 
+    static void onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index);
 
-    virtual ~EnemyOrtuna();
+    virtual ~EnemyGlaja();
 };
 
 }
-#endif /*ENEMYAPPHO_H_*/
+#endif /*ENEMYGLAJA_H_*/
 

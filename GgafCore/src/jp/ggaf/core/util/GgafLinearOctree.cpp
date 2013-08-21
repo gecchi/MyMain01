@@ -236,16 +236,10 @@ void GgafLinearOctree::registerElem(GgafLinearOctreeElem* prm_pElem,
 }
 
 void GgafLinearOctree::clearElem() {
-    if (_pRegElemFirst == nullptr) {
-        return;
-    }
     GgafLinearOctreeElem* pElem = _pRegElemFirst;
-    while(true) {
+    while(pElem) {
         pElem->clear();
-        pElem = pElem -> _pRegLinkNext;
-        if (pElem == nullptr) {
-            break;
-        }
+        pElem = pElem->_pRegLinkNext;
     }
     _pRegElemFirst = nullptr;
 }

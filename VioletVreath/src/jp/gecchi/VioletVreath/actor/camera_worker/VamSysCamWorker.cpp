@@ -38,7 +38,7 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
 }
 void VamSysCamWorker::initialize() {
     GgafDxCamera* pCam = P_CAM;
-    GgafDxGeometricActor* pVP = pCam->_pViewPoint;
+    GgafDxGeometricActor* pVP = pCam->getViewPoint();
 
     //‰ŠúƒJƒƒ‰ZˆÊ’u
     dZ_camera_init_ = -DX_C(pCam->_cameraZ_org);
@@ -50,12 +50,6 @@ void VamSysCamWorker::initialize() {
     correction_height_ = 0;//(PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT/2)/4;
 
     pos_camera_ = VAM_POS_RIGHT;
-
-//    pCam->_X = 0;
-//    pCam->_Y = 0;
-//    pCam->_Z = 0;
-//    pCam->setViewPoint(0,0,0);
-//    pCamKurokoB->setMvAngTwd(0,0,0);
 
     cam_velo_renge_ = 30000;
     pCam->_pKurokoB->forceVxyzMvVeloRange(-cam_velo_renge_, cam_velo_renge_);
@@ -79,7 +73,7 @@ void VamSysCamWorker::processBehavior() {
     }
 
     GgafDxCamera* pCam = P_CAM;
-    GgafDxGeometricActor* pVP = pCam->_pViewPoint;
+    GgafDxGeometricActor* pVP = pCam->getViewPoint();
     MyOptionController* pOptCtrler = P_MYSHIP_SCENE->papOptionCtrler_[0];
     GgafDxKurokoB* const pCamKurokoB = pCam->_pKurokoB;
     GgafDxKurokoB* const pVpKurokoB = pVP->_pKurokoB;

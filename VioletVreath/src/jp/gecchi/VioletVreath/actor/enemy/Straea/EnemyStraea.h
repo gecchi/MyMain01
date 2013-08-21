@@ -51,7 +51,6 @@ public:
 
     GgafLib::LaserChipDepository*** papapLaserChipDepo_;
 
-    DepositoryConnection* pConn_ShotDepo_;
     DepositoryConnection* pConn_ShotDepo2_;
     DepositoryConnection* pConn_ShotDepo3_;
 

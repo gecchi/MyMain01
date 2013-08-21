@@ -346,6 +346,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\EnemyGeria.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Glaja\EnemyGlaja.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Glaja\EnemyGlajaLance001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Halia\EnemyHalia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Halia\FormationHalia.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbe.cpp" />
@@ -679,6 +681,8 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\EnemyGeria.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Glaja\EnemyGlaja.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Glaja\EnemyGlajaLance001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Halia\EnemyHalia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Halia\FormationHalia.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbe.h" />

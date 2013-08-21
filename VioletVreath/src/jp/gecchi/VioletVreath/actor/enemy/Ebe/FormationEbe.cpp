@@ -20,7 +20,6 @@ FormationEbe::FormationEbe(const char* prm_name, const char* prm_spl_id)
     pConn_EbeDepo_ = connect_DepositoryManager("EnemyEbe4Formation");
     setFormationMember(pConn_EbeDepo_->peek());
 
-    //pConn_ShotDepo_ = connect_DepositoryManager("Shot004"); //Ebe‚Ì’e;
     pConn_ShotDepo_ = nullptr;
     updateRankParameter();
 }

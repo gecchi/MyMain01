@@ -1,12 +1,12 @@
-#ifndef GGAFDXMVTRANSPORTER_H_
-#define GGAFDXMVTRANSPORTER_H_
+#ifndef GGAFDXKUROKOB_H_
+#define GGAFDXKUROKOB_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
 
 /**
- * 黒衣B(黒衣B)  .
- * 黒衣Bは舞台には見えないですが、演者(アクター)を持ち上げ、「平行移動」を行わせる世話人です。<BR>
+ * 黒衣B .
+ * 黒衣Bは我々の目には触れませんが、演者(アクター)を持ち上げ、「平行移動」を行わせる世話人です。<BR>
  * 「平行移動」に特化しており、黒衣Aの「方向移動」「向きの回転」とは専門分野が違います。<BR>
  * 黒衣Aと黒衣Bが協力すれば、かなり複雑な動きを演者に行わせることができます。
  * 演者一人につき、黒衣Bが標準で一人付属しています。<BR>
@@ -297,7 +297,6 @@ public:
      */
     void takeoverMvFrom(GgafDxKurokoB* const prm_pKurokoB);
 
-
     void resetMv();
 
     /**
@@ -311,5 +310,5 @@ public:
 };
 
 }
-#endif /*GGAFDXMVTRANSPORTER_H_*/
+#endif /*GGAFDXKUROKOB_H_*/
 

@@ -62,7 +62,8 @@ public:
         EF_LEAVE_SMALL001_F30,
         EF_LEAVE_MIDDLE001,
         EF_LEAVE_LARGE001,
-        EF_EXPLOSION001 ,
+        EF_EXPLOSION001,
+        EF_EXPLOSION001_STAY,
         EF_EXPLOSION002,
         EF_EXPLOSION003,
         EF_BONUS001,
@@ -376,6 +377,10 @@ public:
 	static GgafCore::GgafStatus* resetEnemyThagorasStatus(GgafCore::GgafStatus* p);
 	//オルトゥナ
 	static GgafCore::GgafStatus* resetEnemyOrtunaStatus(GgafCore::GgafStatus* p);
+	//グラヤ
+	static GgafCore::GgafStatus* resetEnemyGlajaStatus(GgafCore::GgafStatus* p);
+	//グラヤ槍弾
+	static GgafCore::GgafStatus* resetEnemyGlajaLance001Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

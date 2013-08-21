@@ -48,15 +48,16 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         }
         P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
     }
-
-    if (UTIL::strcmp_ascii("Shot004", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_Shot004Stock");
-        for (int i = 0; i < 1000; i++) {
-            pResource->addSubLast(NEW Shot004("Shot004"));
-            Sleep(1);
-        }
-        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
-    }
+//Commonへ移動
+//TODO:他の汎用ショット関連もCommonへ移動
+//    if (UTIL::strcmp_ascii("Shot004", prm_idstr) == 0) {
+//        pResource = NEW GgafActorDepository("MgrDepo_Shot004Stock");
+//        for (int i = 0; i < 1000; i++) {
+//            pResource->addSubLast(NEW Shot004("Shot004"));
+//            Sleep(1);
+//        }
+//        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
+//    }
 
     if (UTIL::strcmp_ascii("Shot004Blue", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_Shot004BlueStock");
@@ -365,6 +366,16 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     //    }
     //    addSubGroup(pLaserChipDepo_);
 
+
+    if (UTIL::strcmp_ascii("GlajaLance001", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("Depo_EnemyGlajaLance001");
+        for (int i = 0; i < 40; i++) {
+            std::string name = "GlajaLance001("+XTOS(i)+")";
+            pResource->addSubLast(NEW EnemyGlajaLance001(name.c_str()));
+            Sleep(1);
+        }
+        P_COMMON_SCENE->getSceneDirector()->addSubGroup(pResource);
+    }
 
     if (pResource == nullptr) {
         throwGgafCriticalException("DepositoryManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。Depositoryが作成できません。");

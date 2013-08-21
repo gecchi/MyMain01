@@ -54,6 +54,7 @@ void GgafDxSpriteSetActor::processDraw() {
 
     GgafDxDrawableActor* pDrawActor = this;
     GgafDxSpriteSetActor* pSpriteSetActor = nullptr;
+    int model_set_num = _pSpriteSetModel->_set_num;
     float u,v;
     while (true) {
         if (pDrawActor)  {
@@ -86,7 +87,7 @@ void GgafDxSpriteSetActor::processDraw() {
                 checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::processDraw SetFloat(_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
                 draw_set_num++;
-                if (draw_set_num >= _pSpriteSetModel->_set_num) {
+                if (draw_set_num >= model_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;

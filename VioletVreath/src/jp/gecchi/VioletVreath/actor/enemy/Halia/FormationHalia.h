@@ -21,7 +21,6 @@ public:
     /** ˆÚ“®‘¬“x(RANK•Ï“®) */
     velo velo_mv_;
 
-    DepositoryConnection* pDepoConnection_;
 
 public:
     FormationHalia(const char* prm_name);

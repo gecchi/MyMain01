@@ -160,7 +160,7 @@ void LaserChip::processSettlementBehavior() {
             coord abs_dX = ABS(dX);
             coord abs_dY = ABS(dY);
             coord abs_dZ = ABS(dZ);
- 
+
 
             if (abs_dX < _hitarea_edge_length &&
                 abs_dY < _hitarea_edge_length &&
@@ -226,6 +226,8 @@ void LaserChip::processDraw() {
     //Šî–{ƒ‚ƒfƒ‹’¸“_”
     GgafDxDrawableActor* pDrawActor = this;
     LaserChip* pLaserChip = nullptr;
+    int model_set_num = _pMeshSetModel->_set_num;
+
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
@@ -253,7 +255,7 @@ void LaserChip::processDraw() {
                 }
 
                 draw_set_num++;
-                if (draw_set_num >= _pMeshSetModel->_set_num) {
+                if (draw_set_num >= model_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;

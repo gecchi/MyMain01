@@ -98,7 +98,7 @@ void God::initVB() {
 }
 
 GgafUniverse* God::createUniverse() {
-    Camera* pCamera = NEW Camera("CAMERA");    //FovXéãñÏäp80ìxÅAê[Ç≥Å~GAME_SPACE_DEPTH
+    Camera* pCamera = NEW Camera("CAMERA");
     Universe* pUniverse = NEW Universe("MYUNIVERSE", pCamera);
     return (GgafUniverse*)pUniverse;
 }

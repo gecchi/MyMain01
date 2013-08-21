@@ -131,14 +131,11 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     _hash_technique = UTIL::easy_hash(prm_technique) + UTIL::easy_hash(_pModel->getName());
 }
 
-
-
 void GgafDxDrawableActor::processPreDraw() {
     if (_pModel->_is_init_model == false) {
         onCreateModel(); //ƒ‚ƒfƒ‹ì¬‚Ì‰Šúˆ—
         _pModel->_is_init_model = true;
     }
-
     _pNext_TheSameDrawDepthLevel = nullptr;
     //TODO:—vŒŸØ
     if (isActiveInTheTree()) { //isActiveInTheTree() ‚Å”»’è‚·‚é‚ÆA

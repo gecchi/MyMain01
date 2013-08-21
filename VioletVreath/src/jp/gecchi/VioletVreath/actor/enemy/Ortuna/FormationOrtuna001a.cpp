@@ -23,7 +23,7 @@ void FormationOrtuna001a::onCallUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index
     coord Z = pMyShip->_Z + RND(-PX_C(d),PX_C(d));
     prm_pOrtuna->entry_pos_.set( X, Y, Z);
 
-    coord R = PX_C(200);
+    static coord R = PX_C(200);
     coord ang = UTIL::getAngle2D(Z - pMyShip->_Z, Y - pMyShip->_Y);
     prm_pOrtuna->hanging_pos_.set( X,
                                    Y + (ANG_SIN(ang) * R),

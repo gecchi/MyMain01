@@ -200,11 +200,12 @@ void Universe::resetCamWorker() {
             pCon->close();
         }
     }
-    P_CAM->setDefaultPosition();
+    Camera* pCam = P_CAM;
+    pCam->setDefaultPosition();
     pActiveCamWorker_ = stack_CamWorkerConnection_.getLast()->peek();
-    pActiveCamWorker_->setMoveTargetCamBy(P_CAM);
-    pActiveCamWorker_->setMoveTargetCamVpBy(P_CAM->_pViewPoint);
-    pActiveCamWorker_->angXY_nowCamUp_ = UTIL::getAngle2D((double)(P_CAM->_pVecCamUp->x), (double)(P_CAM->_pVecCamUp->y));
+    pActiveCamWorker_->setMoveTargetCamBy(pCam);
+    pActiveCamWorker_->setMoveTargetCamVpBy(pCam->getViewPoint());
+    pActiveCamWorker_->angXY_nowCamUp_ = UTIL::getAngle2D((double)(pCam->_pVecCamUp->x), (double)(pCam->_pVecCamUp->y));
     pActiveCamWorker_->move_target_XY_CAM_UP_ = pActiveCamWorker_->angXY_nowCamUp_;
     pActiveCamWorker_->activate();
 //    _TRACE_("resetCamWorker end---");

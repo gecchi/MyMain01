@@ -12,6 +12,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -71,7 +72,6 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
     _pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_FIRE);
-    pConn_ShotDepo_  = connect_DepositoryManager("Shot004");
     pConn_ShotDepo2_ = connect_DepositoryManager("Shot004Yellow");
     pConn_ShotDepo3_ = connect_DepositoryManager("Shot004Blue");
 }
@@ -296,7 +296,7 @@ void EnemyStraea::onHit(GgafActor* prm_pOtherActor) {
         _pSeTx->play3D(SE_EXPLOSION);
         //‘Å‚¿•Ô‚µ
         UTIL::shotWay003(this,
-                         pConn_ShotDepo_->peek() , red_dot,
+                         getCommonDepository(Shot004) , red_dot,
                          pConn_ShotDepo2_->peek(), yellow_dot,
                          pConn_ShotDepo3_->peek(), blue_dot,
                          PX_C(20),
@@ -326,7 +326,6 @@ void EnemyStraea::onInactive() {
 EnemyStraea::~EnemyStraea() {
     pConn_RefractionEffectDepository_->close();
     pConn_LaserChipDepoStore_->close();
-    pConn_ShotDepo_->close();
     pConn_ShotDepo2_->close();
     pConn_ShotDepo3_->close();
     for (int i = 0; i < laser_way_; i++) {

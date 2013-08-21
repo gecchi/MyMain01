@@ -101,7 +101,7 @@ public:
      * 視野角と表示深さを設定する。
      * 視野角によって、カメラの初期Z位置が決定する。
      * このカメラの初期Z位置は、原点付近でDirctXの長さ1（のオブジェクト）を
-     * 画面上10ピクセルで表示する位置へカメラを引くように自動計算される。（_cameraZ_orgに保持)
+     * 画面上10ピクセル相当で表示する位置へカメラを引くように自動計算される。（_cameraZ_orgに保持)
      * この原点から、初期のカメラZ位置までを1.0として、表示範囲の深さの倍数を引数 prm_dep で設定する。
      * prm_dep=1.0とした場合。表示範囲は 原点を中心とし、半径を初期カメラZ位置の距離の球となる。
      * また、表示範囲＋αが、アクター達のゲーム内での可動範囲となるように設計しているため、カメラの初期設定値は
@@ -109,8 +109,8 @@ public:
      * 通常視野角を狭めればズームアップの効果が得られるが、本ライブラリでは、
      * 上記の初期Z位置までカメラを自動で引くため、視野角を変更してもアクターの表示の大きさは画面上変わらない。
      * ただし視野角を狭くすれば、初期のカメラを引く距離も伸びることになり、結果として
-     * 表示範囲を拡大する効果をえることができる。
-     * 逆に視野角が広ければ、カメラの初期Z位置は原点に近くなり、実は表示範囲は狭くなる。
+     * 世界の表示範囲を拡大する効果をえることができる。
+     * 逆に視野角が広ければ、カメラの初期Z位置は原点に近くなり、実は世界の表示範囲は狭くなる。
      *
      * @param prm_name 名前(デバックで表示。何でもよい)
      * @param prm_rad_fovX 左右の視野角（ラジアン）
@@ -145,21 +145,7 @@ public:
 
     virtual void setDefaultPosition();
 
-    /**
-     * カメラの注視点を設定 .
-     * @param prm_tX 注視点X座標
-     * @param prm_tY 注視点Y座標
-     * @param prm_tZ 注視点Z座標
-     */
-    virtual void setViewPoint(coord prm_tX, coord prm_tY, coord prm_tZ);
-
     virtual GgafDxCameraViewPoint* getViewPoint();
-    /**
-     * カメラの注視点を設定 .
-     * 引数のアクターのXYZ座標(_X, _Y, _Z)がsetViewPointされるだけです。
-     * @param prm_pActor 注視するアクター
-     */
-    virtual void setViewPoint(GgafDxGeometricActor* prm_pActor);
 
     bool isMoving();
 

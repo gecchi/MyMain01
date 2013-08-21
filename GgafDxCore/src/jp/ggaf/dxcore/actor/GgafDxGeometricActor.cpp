@@ -220,10 +220,12 @@ void GgafDxGeometricActor::processSettlementBehavior() {
 
     //８分木登録
     if (_pChecker) {
-        if (_can_hit_out_of_view == false && isOutOfView()) {
-            //視野外当たり判定無効の場合は登録しない
-        } else if (_can_hit_flg) {
-            _pChecker->updateHitArea();
+        if (_can_hit_flg) {
+            if (_can_hit_out_of_view == false && isOutOfView()) {
+                //視野外当たり判定無効の場合は登録しない
+            } else  {
+                _pChecker->updateHitArea();
+            }
         }
     }
 }
@@ -262,6 +264,7 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;
 }
+
 GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(GgafDxGeometricActor* prm_pGeoActor,
                                                      coord prm_X_init_local,
                                                      coord prm_Y_init_local,
@@ -282,8 +285,10 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(GgafDxGeometricActor* prm_p
 bool GgafDxGeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
     if (_can_hit_flg && prm_pOtherActor->_can_hit_flg) {
         //&& prm_pOtherActor->instanceOf(Obj_GgafDxGeometricActor)) { 当たり判定があるのでGgafDxGeometricActor以上と判断
-        //_can_hit_flg && prm_pOtherActor->_can_hit_flg のチェックはここでももう一度チェックが必要。（８分木登録前にもチェックしてる）
-        //なぜならば、２重ヒットしないため、onHit(GgafActor*) 処理中で setHitAble(false) を行う場合がある為。
+        //_can_hit_flg && prm_pOtherActor->_can_hit_flg のチェックは８分木登録前にもチェックしてるが
+        //ここでももう一度チェックするほうがより良い。
+        //なぜならば、無駄なヒットチェックを行わないため、onHit(GgafActor*) 処理中で setHitAble(false) が行われ、
+        //２重ヒットチェック防止を行っているかもしれないから。
         if (_pChecker) {
             return _pChecker->isHit(((GgafDxGeometricActor*)prm_pOtherActor)->_pChecker);
         }
@@ -352,6 +357,7 @@ void GgafDxGeometricActor::defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDxGeomet
     _pFunc_calcRotMvWorldMatrix = prm_pFunc;
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
 }
+
 void GgafDxGeometricActor::positionAs(GgafDxGeoElem* prm_pGeoElem) {
     _X = prm_pGeoElem->_X;
     _Y = prm_pGeoElem->_Y;

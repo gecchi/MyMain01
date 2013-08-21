@@ -28,9 +28,6 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
     veloTopMv_ = 20000;
     iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
-    pDepo_Shot_ = nullptr;
-    pDepo_ShotEffect_ = nullptr;
-
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     pLaserChipDepo_->config(60, 1, nullptr); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemyStraightLaserChip001* pChip;

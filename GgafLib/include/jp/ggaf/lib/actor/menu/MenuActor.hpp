@@ -1349,8 +1349,7 @@ void MenuActor<T>::moveCursor(bool prm_smooth) {
                                     pTargetItem->_Y + _Y_cursor_adjust,
                                     pTargetItem->_Z + _Z_cursor_adjust
                                 );
-            _pCursorActor->_pKurokoA->setMvVelo(0);
-            _pCursorActor->_pKurokoA->setMvAcce(0);
+            _pCursorActor->_pKurokoA->stopMv();
             _pCursorActor->_pKurokoA->slideMvByDT(
                                      0,
                                      UTIL::getDistance(
@@ -1368,8 +1367,7 @@ void MenuActor<T>::moveCursor(bool prm_smooth) {
             _Z_cursor_target_prev = pTargetItem->_Z;
         } else {
             _pCursorActor->_pKurokoA->stopSlidingMv();
-            _pCursorActor->_pKurokoA->setMvVelo(0);
-            _pCursorActor->_pKurokoA->setMvAcce(0);
+            _pCursorActor->_pKurokoA->stopMv();
             _pCursorActor->_X = pTargetItem->_X + _X_cursor_adjust;
             _pCursorActor->_Y = pTargetItem->_Y + _Y_cursor_adjust;
             _pCursorActor->_Z = pTargetItem->_Z + _Z_cursor_adjust;
@@ -1392,8 +1390,7 @@ void MenuActor<T>::moveSupCursor(int prm_supcur_no, bool prm_smooth) {
                                     pTargetItem->_Y + pSupCursor->_Y_adjust,
                                     pTargetItem->_Z + pSupCursor->_Z_adjust
                                 );
-            pSupCursorActor->_pKurokoA->setMvVelo(0);
-            pSupCursorActor->_pKurokoA->setMvAcce(0);
+            pSupCursorActor->_pKurokoA->stopMv();
             pSupCursorActor->_pKurokoA->slideMvByDT(
                                      0,
                                      UTIL::getDistance(
@@ -1411,8 +1408,7 @@ void MenuActor<T>::moveSupCursor(int prm_supcur_no, bool prm_smooth) {
             pSupCursor->_Z_target_prev = pTargetItem->_Z;
         } else {
             pSupCursorActor->_pKurokoA->stopSlidingMv();
-            pSupCursorActor->_pKurokoA->setMvVelo(0);
-            pSupCursorActor->_pKurokoA->setMvAcce(0);
+            pSupCursorActor->_pKurokoA->stopMv();
             pSupCursorActor->_X = pTargetItem->_X + pSupCursor->_X_adjust;
             pSupCursorActor->_Y = pTargetItem->_Y + pSupCursor->_Y_adjust;
             pSupCursorActor->_Z = pTargetItem->_Z + pSupCursor->_Z_adjust;

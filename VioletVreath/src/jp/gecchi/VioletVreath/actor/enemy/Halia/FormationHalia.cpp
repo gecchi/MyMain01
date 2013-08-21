@@ -7,6 +7,7 @@
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -20,14 +21,12 @@ FormationHalia::FormationHalia(const char* prm_name) :
     interval_frames_ = RF_FormationHalia_LaunchInterval(G_RANK);    //各ハリアの出現間隔(frame)
     velo_mv_         = RF_FormationHalia_MvVelo(G_RANK); //各ハリアの移動速度
 
-    pDepoConnection_ = connect_DepositoryManager("Shot004");
     //編隊作成
     papHalia_ = NEW EnemyHalia*[num_Halia_];
     for (int i = 0; i < num_Halia_; i++) {
         papHalia_[i] = NEW EnemyHalia("Halia01");
         //スプライン移動プログラム設定
         papHalia_[i]->setSplineKurokoLeader(nullptr);
-        papHalia_[i]->setDepository_Shot(pDepoConnection_->peek()); //弾設定
         addFormationMember(papHalia_[i]);
     }
 }
@@ -51,6 +50,5 @@ void FormationHalia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
 
 
 FormationHalia::~FormationHalia() {
-    pDepoConnection_->close();
     GGAF_DELETEARR(papHalia_);
 }

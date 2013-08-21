@@ -73,9 +73,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
                 _zn,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
                 _zf              //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
         );
-
     }
-
 
     position(0, 0, DX_C(_cameraZ));
     _pKurokoA->setMvAngTwd(0,0,0);
@@ -167,7 +165,6 @@ void GgafDxCamera::processBehavior() {
         //  → D3DXPlaneDotNormal()
         //-------------------------------------------------
 
-
          // 上 ( F左上、N左上、N右上 )
         D3DXPlaneNormalize(
             &_plnTop,
@@ -200,18 +197,21 @@ void GgafDxCamera::processBehavior() {
         );
 
         // 中心垂直面 （ボリュームパンで使用）
-        _vecVerticalCenter[0] = D3DXVECTOR3( (_vecFar[1].x + _vecFar[0].x)/2.0f,
-                                             (_vecFar[1].y + _vecFar[0].y)/2.0f,
-                                             (_vecFar[1].z + _vecFar[0].z)/2.0f
-                                           );
-        _vecVerticalCenter[1] = D3DXVECTOR3( (_vecNear[3].x + _vecNear[2].x)/2.0f,
-                                             (_vecNear[3].y + _vecNear[2].y)/2.0f,
-                                             (_vecNear[3].z + _vecNear[2].z)/2.0f
-                                           );
-        _vecVerticalCenter[2] = D3DXVECTOR3( (_vecNear[1].x + _vecNear[0].x)/2.0f,
-                                             (_vecNear[1].y + _vecNear[0].y)/2.0f,
-                                             (_vecNear[1].z + _vecNear[0].z)/2.0f
-                                           );
+        _vecVerticalCenter[0] = D3DXVECTOR3(
+                                  (_vecFar[1].x + _vecFar[0].x)/2.0f,
+                                  (_vecFar[1].y + _vecFar[0].y)/2.0f,
+                                  (_vecFar[1].z + _vecFar[0].z)/2.0f
+                                );
+        _vecVerticalCenter[1] = D3DXVECTOR3(
+                                  (_vecNear[3].x + _vecNear[2].x)/2.0f,
+                                  (_vecNear[3].y + _vecNear[2].y)/2.0f,
+                                  (_vecNear[3].z + _vecNear[2].z)/2.0f
+                                );
+        _vecVerticalCenter[2] = D3DXVECTOR3(
+                                  (_vecNear[1].x + _vecNear[0].x)/2.0f,
+                                  (_vecNear[1].y + _vecNear[0].y)/2.0f,
+                                  (_vecNear[1].z + _vecNear[0].z)/2.0f
+                                );
         D3DXPlaneNormalize(
             &_plnVerticalCenter,
             D3DXPlaneFromPoints(&_plnVerticalCenter, &(_vecVerticalCenter[0]),
@@ -235,16 +235,6 @@ void GgafDxCamera::processJudgement() {
     _pVecCamLookatPoint->y = C_DX(_pViewPoint->_Y);
     _pVecCamLookatPoint->z = C_DX(_pViewPoint->_Z);
     D3DXMatrixLookAtLH(&_matView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
-}
-
-void GgafDxCamera::setViewPoint(coord prm_tX, coord prm_tY, coord prm_tZ) {
-    _pViewPoint->_X = prm_tX;
-    _pViewPoint->_Y = prm_tY;
-    _pViewPoint->_Z = prm_tZ;
-}
-
-void GgafDxCamera::setViewPoint(GgafDxGeometricActor* prm_pActor) {
-    _pViewPoint->positionAs(prm_pActor);
 }
 
 GgafDxCameraViewPoint* GgafDxCamera::getViewPoint() {

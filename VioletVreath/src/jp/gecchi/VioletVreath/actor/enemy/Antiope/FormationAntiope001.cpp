@@ -56,8 +56,7 @@ void FormationAntiope001::processBehavior() {
                 pP->positionAs(&entry_pos);
                 pP->_pKurokoA->setMvAngTwd(&twd_pos_p);
                 pP->_pKurokoA->setFaceAngByMvAng();
-                pP->_pKurokoA->setMvVelo(0);
-                pP->_pKurokoA->setMvAcce(0);
+                pP->_pKurokoA->stopMv();
                 pP->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
             }
 
@@ -67,8 +66,7 @@ void FormationAntiope001::processBehavior() {
                 pN->_pKurokoA->setMvAngTwd(&twd_pos_p);
                 pN->_pKurokoA->reverseMvAng();
                 pN->_pKurokoA->setFaceAngByMvAng();
-                pN->_pKurokoA->setMvVelo(0);
-                pN->_pKurokoA->setMvAcce(0);
+                pN->_pKurokoA->stopMv();
                 pN->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
             }
             cnt_Antiope_++;

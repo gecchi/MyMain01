@@ -27,7 +27,6 @@ FormationGeria::FormationGeria(
             int prm_nGeriaStock,
             int prm_frame_app_interval) : DefaultGeometricActor(prm_name, nullptr) {
     _class_name = "FormationGeria";
-    pDepoConnection_ = connect_DepositoryManager("Shot004"); //Geria‚Ì’e
 
     X1_app_ = prm_X1_app;
     Y1_app_ = prm_Y1_app;
@@ -51,7 +50,6 @@ FormationGeria::FormationGeria(
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());
-        pEnemyGeria->setDepository_Shot(pDepoConnection_->peek()); //’eÝ’è
         pEnemyGeria->_pKurokoA->relateMvFaceAng(true);
         pEnemyGeria->_pKurokoA->setMvVelo(prm_veloMv_Geria);
         pEnemyGeria->_pKurokoA->setRzRyMvAng(prm_angRzMv_GeriaMv, prm_angRyMv_GeriaMv);
@@ -80,5 +78,4 @@ void FormationGeria::processBehavior() {
 }
 
 FormationGeria::~FormationGeria() {
-    pDepoConnection_->close();
 }

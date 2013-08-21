@@ -24,7 +24,7 @@ Shot004::Shot004(const char* prm_name) :
 void Shot004::initialize() {
     setHitAble(false);
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    _pColliChecker->setColliAAB_Cube(0, PX_C(16));
 }
 void Shot004::onReset() {
     setScaleR(3.0);
@@ -68,13 +68,8 @@ void Shot004::processJudgement() {
 void Shot004::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 //    //・・・ココにヒットされたエフェクト
-    if (MyStgUtil::calcEnemyStamina(this, pOther) <= 0) {
-        //破壊された場合
-        //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
-        if (pExplo001) {
-            pExplo001->positionAs(this);
-        }
+    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
+        UTIL::activateExplosionEffectOf(this); //爆発エフェクト
         sayonara();
     }
 }

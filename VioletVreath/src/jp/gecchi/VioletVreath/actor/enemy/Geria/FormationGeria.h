@@ -11,7 +11,6 @@ namespace VioletVreath {
 class FormationGeria : public GgafLib::DefaultGeometricActor {
     /** ゲリアストック */
     GgafCore::GgafActorDepository* pDepo_EnemyGeria_;
-    DepositoryConnection* pDepoConnection_;
 
 public:
     /** 出現範囲幅BOX */

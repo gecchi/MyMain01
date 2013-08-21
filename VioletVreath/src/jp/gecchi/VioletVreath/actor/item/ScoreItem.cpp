@@ -95,8 +95,7 @@ void ScoreItem::processBehavior() {
                                      _pKurokoA->_vZ*_pKurokoA->_veloMv);
             _pKurokoB->execGravitationMvSequenceTwd(pMyShip,
                                                     PX_C(20), 200, PX_C(100));
-            _pKurokoA->setMvVelo(0);
-            _pKurokoA->setMvAcce(0);
+            _pKurokoA->stopMv();
         }
 
         //‚©‚ÂŽ©‹@‹ß•Ó‚É“ž’BH

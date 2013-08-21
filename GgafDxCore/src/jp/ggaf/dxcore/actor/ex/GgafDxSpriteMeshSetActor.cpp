@@ -44,6 +44,7 @@ void GgafDxSpriteMeshSetActor::processDraw() {
     HRESULT hr;
     GgafDxDrawableActor* pDrawActor = this;
     GgafDxSpriteMeshSetActor* pSpriteMeshSetActor = nullptr;
+    int model_set_num = _pMeshSetModel->_set_num;
     float u = 0;
     float v = 0;
     while (true) {
@@ -87,7 +88,7 @@ void GgafDxSpriteMeshSetActor::processDraw() {
 
 
                 draw_set_num++;
-                if (draw_set_num >= _pMeshSetModel->_set_num) {
+                if (draw_set_num >= model_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;

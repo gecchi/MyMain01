@@ -7,6 +7,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/EnemyUnomia.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/CommonScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -28,8 +29,7 @@ FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_spl_id)
         spl_id << prm_spl_id << "_" << i;  //ƒ—á„"FormationUnomia001_0"
         papSplManufConnection_[i] = connect_SplineManufactureManager(spl_id.str().c_str());
     }
-    pConn_ShotDepo_ = connect_DepositoryManager("Shot004"); //Unomia‚Ì’e;
-    pDepo_Shot_ = pConn_ShotDepo_->peek();
+    pDepo_Shot_ = getCommonDepository(Shot004);
     updateRankParameter();
 
 }
@@ -98,7 +98,4 @@ FormationUnomia::~FormationUnomia() {
         papSplManufConnection_[i]->close();
     }
     GGAF_DELETEARR(papSplManufConnection_);
-    if (pConn_ShotDepo_) {
-        pConn_ShotDepo_->close();
-    }
 }

@@ -70,12 +70,14 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
 
 void SingleLaser::processDraw() {
     int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
-                       //連続しているカウント数。同一描画深度は一度に描画する。
+                          //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     //基本モデル頂点数
     GgafDxDrawableActor* pDrawActor = this;
     SingleLaser* pSingleLaserChip = nullptr;
+    int model_Set_num = _pMeshSetModel->_set_num;
+
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
@@ -85,7 +87,7 @@ void SingleLaser::processDraw() {
                 checkDxException(hr, D3D_OK, "GgafDxMeshSetActor::processDraw() SetMatrix(g_matWorld) _pMeshSetEffect="<<_pMeshSetEffect->getName() << " pDrawActor->_matWorld="<<pDrawActor->_matWorld<<" pDrawActor="<<pDrawActor->getName()<<" draw_set_num="<<draw_set_num<<" に失敗しました。");
 
                 draw_set_num++;
-                if (draw_set_num >= _pMeshSetModel->_set_num) {
+                if (draw_set_num >= model_Set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;

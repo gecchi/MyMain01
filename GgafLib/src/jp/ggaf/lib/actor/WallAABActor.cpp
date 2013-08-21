@@ -86,6 +86,7 @@ void WallAABActor::processDraw() {
     }
     GgafDxDrawableActor* pDrawActor = this;
     WallPartsActor* pWallPartsActor = nullptr;
+    int model_set_num = _pMeshSetModel->_set_num;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
@@ -114,7 +115,7 @@ void WallAABActor::processDraw() {
 //                _TRACE_("------------");
 
                 draw_set_num++;
-                if (draw_set_num >= _pMeshSetModel->_set_num) {
+                if (draw_set_num >= model_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;

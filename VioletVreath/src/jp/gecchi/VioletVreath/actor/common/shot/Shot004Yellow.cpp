@@ -25,7 +25,7 @@ void Shot004Yellow::initialize() {
 
     setHitAble(false);
     _pColliChecker->makeCollision(1);
-    _pColliChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    _pColliChecker->setColliAAB_Cube(0, PX_C(16));
 }
 void Shot004Yellow::onReset() {
     setScaleR(3.0);
@@ -70,12 +70,7 @@ void Shot004Yellow::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 //    //・・・ココにヒットされたエフェクト
     if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-        //破壊された場合
-        //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = dispatchFromCommon(EffectExplosion001);
-        if (pExplo001) {
-            pExplo001->positionAs(this);
-        }
+        UTIL::activateExplosionEffectOf(this); //爆発エフェクト
         sayonara();
     }
 }

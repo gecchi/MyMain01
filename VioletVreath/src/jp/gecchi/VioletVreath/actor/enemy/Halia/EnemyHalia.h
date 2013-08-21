@@ -15,10 +15,6 @@ class EnemyHalia : public GgafLib::DefaultMorphMeshActor {
 //class EnemyHalia : public GgafLib::CubeMapMorphMeshActor {
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
-    /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_Shot_;
-    /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_ShotEffect_;
 
     /** 原点から初期カメラZ位置の距離 */
     int dZ_camera_init_;
@@ -84,29 +80,12 @@ public:
     void onInactive() override;
 
     /**
-     * 発射弾Depository設定 .
-     * initialize() までに設定して下さい。
-     * @param prm_pDepo
-     */
-    void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
-        pDepo_Shot_ = prm_pDepo;
-    }
-
-    /**
      * スプライン移動設定 .
      * initialize() までに設定して下さい。
      * @param prm_pKurokoLeader
      */
     void setSplineKurokoLeader(GgafLib::SplineKurokoLeader* prm_pKurokoLeader) {
         pKurokoLeader_ = prm_pKurokoLeader;
-    }
-
-    /**
-     * ショット発射効果エフェクト設定 .
-     * @param prm_pDepo
-     */
-    void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
-        pDepo_ShotEffect_ = prm_pDepo;
     }
 
     virtual ~EnemyHalia();

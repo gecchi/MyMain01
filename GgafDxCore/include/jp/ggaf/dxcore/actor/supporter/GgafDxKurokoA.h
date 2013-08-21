@@ -1,5 +1,5 @@
-#ifndef GGAFDXMVNAVIGATOR_H_
-#define GGAFDXMVNAVIGATOR_H_
+#ifndef GGAFDXKUROKOA_H_
+#define GGAFDXKUROKOA_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
@@ -9,10 +9,10 @@ namespace GgafDxCore {
 
 /**
  * 黒衣A .
- * 黒衣Aは舞台には見えないですが、演者(アクター)を持ち上げ、「方向移動」「向きの回転」を行わせる世話人です。<BR>
- * 演者は自らの意思で動作せずとも、黒衣Aのおかげで舞台を飛び回まわることもできます。<BR>
- * 基本的な移動動作は黒衣Aでほとんどカバーできます。<BR>
- * 演者(アクター)自身も協力して移動・回転を行うと、黒衣Aが対応できないより複雑な移動動作も可能でしょう。<BR>
+ * 黒衣Aは我々の目には触れませんが、演者(アクター)を持ち上げ、「移動」「向きの回転」を行わせる世話人です。<BR>
+ * 演者(アクター)は自らの意思で動作せずとも、黒衣Aのおかげで舞台を飛び回まわることができます。<BR>
+ * 基本的な動作は黒衣Aでほとんどカバーできてしまいます。そのお蔭で、演者は自身の演技に集中できるのです。<BR>
+ * もちろん演者自身も協力して移動・回転を行うと、黒衣Aだけでは出来ない、より複雑な移動動作も可能でしょう。<BR>
  * 演者一人につき、黒衣Aが標準で一人付属しています。<BR>
  * <BR>
  * それはさて置き、つまりは座標計算支援（共通化）クラスです。<BR>
@@ -90,6 +90,9 @@ public:
         setFaceAng(AXIS_Z, _angRzMv);
         setFaceAng(AXIS_Y, _angRyMv);
     }
+    void setMvAngByFaceAng() {
+        setRzRyMvAng(_angFace[AXIS_Z], _angFace[AXIS_Y]);
+    }
     /**
      * Actorの自身の座標から対象座標点に向いた方向に、Z軸回転方角とY軸回転方角を設定<BR>
      * @param prm_tX 対象点X座標
@@ -106,19 +109,15 @@ public:
      * 引数である加算（減算）する軸回転方角は、軸回転角角速度の上限と下限の間の範囲に限ります。<BR>
      * つまり、引数の有効な範囲は以下の通りとなります。<BR>
      *
-     *   _iBottom_RotVeloAngle ≦ 引数の回転軸方角値の増分 ≦ _angveloTopRot  です。<BR>
+     *   _angveloBottomFace[prm_axis] ≦ 引数の回転軸方角値の増分 ≦ _angveloTopFace[prm_axis]  です。<BR>
      *
      * もし加算（減算）後、範囲外になった場合、直近の範囲内の値に強制的に抑えられます。<BR>
-     * 【補足：】<BR>
-     * デフォルトの回転加速度の上限と下限（_iBottom_RotVeloAngle、_angveloTopRot) は<BR>
-     *
-     *  -360000 , 360000<BR>
-     *
-     *  です。
+     * 【補足】<BR>
+     * デフォルトの回転加速度の上限と下限は、 -360000 , 360000です。
      *  <BR>
      *
      * @param   prm_axis    回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-     * @param   prm_angDistance 回転軸方角値の増分アングル値(範囲：_iBottom_RotVeloAngle ～ _angveloTopRot)
+     * @param   prm_angDistance 回転軸方角値の増分アングル値
      */
     void addFaceAng(axis prm_axis, angle prm_angDistance);
 
@@ -322,10 +321,10 @@ public:
      * <pre><code>
      *
      *    速度(v)
-     *     ^       a:減加速度
-     *     |       D:移動距離（停止に費やす距離）
-     *     |      Vo:現時点の速度
-     *   Vo|      Te:停止するフレーム
+     *     ^       a:減加速度（_accMv に設定される）
+     *     |       D:停止までの移動距離（引数）
+     *     |      V0:現時点の速度（= 現在の _veloMv が使用される）
+     *   V0|      Te:停止するフレーム （戻り値）
      *     |＼
      *     |  ＼
      *     |    ＼ 斜辺の傾きa
@@ -334,18 +333,11 @@ public:
      *   --+----------＼-----> 時間(t)
      *   0 |          Te
      *
-     *    D = (1/2) Vo Te  ・・・①
-     *    a = -Vo / Te     ・・・②
-     *    ①より
-     *    Te = 2D / Vo
-     *    これを②へ代入
-     *    a = -Vo / (2D / Vo)
-     *    ∴ a = -(Vo^2) / 2D
      * </code></pre>
-     * 上図のような状態を想定し、引数の距離(D)から、加速度(a)を計算し設定している。<BR>
+     * 上図のような状態を想定し、引数の距離(D)から、加速度(a)を計算し _accMv 設定している。<BR>
      * 停止までのフレーム(Te) は 距離(D) により変化するため指定不可。<BR>
      * @param prm_target_distance 停止時移動距離(D)
-     * @return 必要な時間(フレーム)、参考値。
+     * @return 必要な時間フレーム(Te)。参考値にどうぞ。
      */
     frame setMvAcceToStop(coord prm_target_distance);
 
@@ -354,34 +346,28 @@ public:
      * <pre><code>
      *
      *    速度(v)
-     *     ^        a:加速度
-     *     |        D:移動距離（目標到達速度に達するまでに費やす距離）
-     *     |       Vo:現時点の速度
-     *     |       Vt:目標到達速度
-     *     |       Te:目標到達速度に達した時の時間（フレーム数）
+     *     ^        a:加速度（_accMv に設定される）
+     *     |        D:移動距離（引数）
+     *     |       V0:現時点の速度（= 現在の _veloMv が使用される）
+     *     |       Vt:目標到達速度（引数）
+     *     |       Te:目標到達速度に達した時の時間（戻り値）
      *   Vt|........
      *     |      ／|
      *     |    ／  |
      *     |  ／    |   斜辺の傾きa
      *     |／      |
-     *   Vo|    D   |
+     *   V0|    D   |
      *     |        |
      *   --+--------+---> 時間(t)
      *   0 |        Te
      *
-     *    D = (1/2) (Vo + Vt) Te   ・・・①
-     *    a = (Vt - Vo) / Te         ・・・②
-     *    ①より Te = (Vt - Vo) / a
-     *    これを②へ代入
-     *    D = (Vt^2 - Vo^2) / 2a
-     *    ∴ a = (Vt^2 - Vo^2) / 2D
      * </code></pre>
-     * 上図のような状態を想定し、目標到達速度(Vt)と、移動距離(D)から、加速度(a)を計算し設定している。<BR>
+     * 上図のような状態を想定し、目標到達速度(Vt)と、移動距離(D)から、加速度(a)を計算し _accMv に設定している。<BR>
      * 目標到達まで必要なフレーム(Te) はパラメータにより変化するため指定不可。<BR>
      * 捕捉：setMvAcceByD(0, D) は setMvAcceToStop(D) と同じである
      * @param prm_target_distance  目標到達速度に達するまでに費やす距離(D)
      * @param prm_target_velo 目標到達速度(Vt)
-     * @return 必要な時間(フレーム)、参考値。
+     * @return 必要な時間フレーム(Te)。参考値にどうぞ。
      */
     frame setMvAcceByD(coord prm_target_distance, velo prm_target_velo);
 
@@ -390,30 +376,30 @@ public:
      * <pre><code>
      *
      *    速度(v)
-     *     ^        a:加速度
-     *     |        D:移動距離
-     *     |       Vo:現時点の速度
-     *     |       Vt:目標到達速度
-     *     |       Te:目標到達速度に達した時の時間（フレーム数）
+     *     ^        a:加速度（_accMv に設定される)
+     *     |        D:移動距離 （戻り値）
+     *     |       V0:現時点の速度（= 現在の _veloMv が使用される）
+     *     |       Vt:目標到達速度（引数）
+     *     |       Te:目標到達速度に達した時の時間（引数）
      *   Vt|........
      *     |      ／|
      *     |    ／  |
      *     |  ／    |   斜辺の傾きa
      *     |／      |
-     *   Vo|    D   |
+     *   V0|    D   |
      *     |        |
      *   --+--------+---> 時間(tフレーム)
      *   0 |        Te
      *
-     *    a = (Vt-Vo) / Te
-     *    Dは無視
+     *    a = (Vt-V0) / Te
      * </code></pre>
      * 上図のような状態を想定し、目標到達速度(Vt)と、その到達時間(Te) から、加速度(a)を計算し設定している。<BR>
      * 移動距離(D)は、パラメータにより変化するため指定不可。<BR>
      * @param prm_target_frames 費やす時間(Te)
      * @param prm_target_velo  目標到達速度(Vt)
+     * @return 移動距離(D)
      */
-    void setMvAcceByT(int prm_target_frames, velo prm_target_velo);
+    coord setMvAcceByT(frame prm_target_frames, velo prm_target_velo);
 
     /**
      * Actorの移動方角（Z軸回転）を設定。<BR>
@@ -444,10 +430,7 @@ public:
      * 本メソッド毎フレーム実行することでXY平面の円運動が可能になります。<BR>
      * 引数の移動方角（Z軸回転）が、数直線上の 0 に、より近い値を加算し続けた場合は、緩やかなカーブ描きながら向転換することを意味します。<BR>
      * 逆に、引数の移動方角（Z軸回転）が、0 から、より離れた値を加算し続けた場合は、より鋭角的なカーブ描きながら向転換することを意味します。<BR>
-     * デフォルトのZ軸移動加速度の上限と下限（_angveloRzBottomMv、_angveloRzTopMv) は<BR>
-     *
-     *  -360000 , 360000<BR>
-     *
+     * デフォルトのZ軸移動加速度の上限と下限（_angveloRzBottomMv、_angveloRzTopMv) は  -360000 , 360000<BR>
      * となっています。これは瞬時に（1フレームで）どんな移動方角（Z軸回転）にも向きを変えれることを意味します。<BR>
      *
      * @param   prm_angDistance 移動方角（Z軸回転）増分(範囲：_angveloRzBottomMv ～ _angveloRzTopMv)
@@ -714,8 +697,8 @@ public:
         );
     }
     inline void turnFaceAngTwd(GgafDxGeoElem* prm_pGeoElem,
-                        angvelo prm_angVelo, angacce prm_angAcce,
-                        int prm_way, bool prm_optimize_ang) {
+                               angvelo prm_angVelo, angacce prm_angAcce,
+                               int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(
                 prm_pGeoElem->_X,
                 prm_pGeoElem->_Y,
@@ -735,8 +718,8 @@ public:
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void turnRzFaceAngTo(angle prm_angRz_Target,
-                        angvelo prm_angVelo, angacce prm_angAcce,
-                        int prm_way);
+                         angvelo prm_angVelo, angacce prm_angAcce,
+                         int prm_way);
 
     /**
      * 軸回転方角(Y軸)を目標にターゲットするシークエンスを実行 .
@@ -807,8 +790,8 @@ public:
                       int prm_way, bool prm_optimize_ang);
 
     void keepOnTurningFaceAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
-                            angvelo prm_angVelo, angacce prm_angAcce,
-                            int prm_way, bool prm_optimize_ang) {
+                                 angvelo prm_angVelo, angacce prm_angAcce,
+                                 int prm_way, bool prm_optimize_ang) {
         turnFaceAngTwd(prm_tX, prm_tY, prm_tZ,
                        prm_angVelo,  prm_angAcce,
                        prm_way, prm_optimize_ang );
@@ -825,8 +808,8 @@ public:
 
 
     void keepOnTurningFaceAngTwd(GgafDxGeometricActor* prm_pActor_Target,
-                            angvelo prm_angVelo, angacce prm_angAcce,
-                            int prm_way, bool prm_optimize_ang) {
+                                 angvelo prm_angVelo, angacce prm_angAcce,
+                                 int prm_way, bool prm_optimize_ang) {
         keepOnTurningFaceAngTwd(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
@@ -853,8 +836,8 @@ public:
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     inline void turnMvAngTwd(GgafDxGeometricActor* prm_pActor_Target,
-                      angvelo prm_angVelo, angacce prm_angAcce,
-                      int prm_way, bool prm_optimize_ang) {
+                             angvelo prm_angVelo, angacce prm_angAcce,
+                             int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
@@ -867,8 +850,8 @@ public:
     }
 
     inline void turnMvAngTwd(GgafDxGeoElem* prm_pGeoElem,
-                      angvelo prm_angVelo, angacce prm_angAcce,
-                      int prm_way, bool prm_optimize_ang) {
+                             angvelo prm_angVelo, angacce prm_angAcce,
+                             int prm_way, bool prm_optimize_ang) {
         turnMvAngTwd(
                 prm_pGeoElem->_X,
                 prm_pGeoElem->_Y,
@@ -970,7 +953,7 @@ public:
      *    速度(v)
      *     ^
      *     |
-     *     |                         Vo:現時点の速度
+     *     |                         V0:現時点の速度
      *     |                         Ve:最終速度
      *     |                          D:目標移動距離
      *   Vt|....___________          Te:目標時間（フレーム数）
@@ -978,7 +961,7 @@ public:
      *   Ve|../.:.........:..＼      p2:減速を開始時刻となるような、Teに対する割合(0.0～1.0)
      *     | /  :         :    |     Vt:距離・時間から導きだされるトップスピード
      *     |/   :         :    |
-     *   Vo|    :    D    :    |
+     *   V0|    :    D    :    |
      *     |    :         :    |
      *   --+----+---------+----+-----> 時間(t:フレーム)
      *   0 |  p1*Te     p2*Te  Te
@@ -1008,7 +991,7 @@ public:
      * <pre>
      *    速度(v)
      *     ^
-     *     |                         Vo:現時点の速度
+     *     |                         V0:現時点の速度
      *     |                         Vt:トップスピード
      *     |                         Ve:最終速度
      *     |         D=d1+d2+d3       D:目標移動距離(D=d1+d2+d3)
@@ -1017,7 +1000,7 @@ public:
      *   Ve|../.|.........|..＼      p2:減速を開始距離となるような、距離(D)に対する割合
      *     | /  |         |    |         つまり d1+d2 = D*p2 となるような p2 (0.0～1.0)
      *     |/   |         |    |     Te:費やされる必要時間（フレーム数）
-     *   Vo| d1 |    d2   | d3 |
+     *   V0| d1 |    d2   | d3 |
      *     |    |         |    |
      *   --+----+---------+----+-----> 時間(t:フレーム)
      *   0 |                  Te
@@ -1031,7 +1014,7 @@ public:
      * @param prm_target_distance 目標直線移動距離(D)
      * @param prm_p1 トップスピードに達する距離となるような、距離(D)に対する割合。(d1 = D*prm_p1)
      * @param prm_p2 減速を開始距離となるような、距離(D)に対する割合 (d1+d2 = D*p2)
-     * @param prm_endacc_flg
+     * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideMvByVD(velo prm_top_velo, velo prm_end_velo,
                      coord prm_target_distance, float prm_p1, float prm_p2,
@@ -1050,7 +1033,7 @@ public:
      *    速度(v)
      *     ^
      *     |
-     *     |                         Vo:現時点の速度
+     *     |                         V0:現時点の速度
      *     |                         Vt:トップスピード
      *     |                         Ve:最終速度
      *   Vt|....___________          Te:到達目標時間（フレーム数）
@@ -1058,7 +1041,7 @@ public:
      *   Ve|../.:.........:..＼      p2:減速を開始時刻となるような、Teに対する割合(0.0～1.0)
      *     | /  :         :    |      D:必要な移動距離
      *     |/   :         :    |
-     *   Vo|    :    D    :    |
+     *   V0|    :    D    :    |
      *     |    :         :    |
      *   --+----+---------+----+-----> 時間(t:フレーム)
      *   0 |  p1*Te     p2*Te  Te
@@ -1118,6 +1101,13 @@ public:
      */
     void takeoverMvFrom(GgafDxKurokoA* const prm_pKurokoA);
 
+    /**
+     * 移動を停止します。
+     */
+    void stopMv() {
+        setMvAcce(0);
+        setMvVelo(0);
+    }
 
     /**
      * 黒衣Aが振る舞う .
@@ -1130,5 +1120,5 @@ public:
 };
 
 }
-#endif /*GGAFDXMVNAVIGATOR_H_*/
+#endif /*GGAFDXKUROKOA_H_*/
 

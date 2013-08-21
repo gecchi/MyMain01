@@ -83,16 +83,14 @@ void MagicLvCursor::processAfterDraw() {
 
 void MagicLvCursor::moveTo(int prm_lv) {
     _pKurokoA->_slide_mv_flg = false;
-    _pKurokoA->setMvVelo(0);
-    _pKurokoA->setMvAcce(0);
+    _pKurokoA->stopMv();
     point_lv_ = prm_lv;
     _X = tX_ = pMagicMeter_->_X + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     _Y = tY_ = pMagicMeter_->_Y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
 }
 
 void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_p1, float prm_p2) {
-    _pKurokoA->setMvVelo(0);
-    _pKurokoA->setMvAcce(0);
+    _pKurokoA->stopMv();
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。
     point_lv_ = prm_lv;

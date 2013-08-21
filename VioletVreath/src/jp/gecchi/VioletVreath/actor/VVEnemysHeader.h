@@ -104,11 +104,14 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ida/FormationIda.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ida/FormationIda001.h"
 
-
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/EnemyThagoras.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras002.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlaja.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlajaLance001.h"
+//"VioletVreathHeader.h"‚Ö‚Ì’Ç‹L‚à–Y‚ê‚¸‚É
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 

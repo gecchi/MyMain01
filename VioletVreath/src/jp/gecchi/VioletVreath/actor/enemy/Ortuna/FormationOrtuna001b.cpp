@@ -15,17 +15,22 @@ FormationOrtuna001b::FormationOrtuna001b(const char* prm_name) : FormationOrtuna
 }
 
 void FormationOrtuna001b::onCallUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) {
-    MyShip* pMyShip = P_MYSHIP;
+    if (prm_index == 0) {
+        //初CallUp、基点をセット
+        MyShip* pMyShip = P_MYSHIP;
+        position(pMyShip->_X+PX_C(200), pMyShip->_Y, pMyShip->_Z);
+    }
     angle ang = (prm_index * D360ANG) / num_Ortuna_;
 
-    coord R1 = PX_C(50);
-    coord X = pMyShip->_X+PX_C(200);
-    coord Y = pMyShip->_Y;
-    coord Z = pMyShip->_Z;
+    //メンバーは自機前方のYZ平面円周上に整列
+    static coord R1 = PX_C(50); //初期配置の半径
+    coord X = pos_._X;
+    coord Y = pos_._Y;
+    coord Z = pos_._Z;
     prm_pOrtuna->entry_pos_.set(X,
                                 Y + (ANG_SIN(ang) * R1),
                                 Z + (ANG_COS(ang) * R1));
-    coord R2 = PX_C(200);
+    static coord R2 = PX_C(200); //折り返し地点半径
     prm_pOrtuna->hanging_pos_.set( X,
                                    Y + (ANG_SIN(ang) * R2),
                                    Z + (ANG_COS(ang) * R2));

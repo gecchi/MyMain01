@@ -183,6 +183,9 @@ enum {
 // オルトゥナ編隊001(FormationOrtuna001) のランク式
 #define RF_FormationOrtuna001_Num(X)  (10+(X)*5)  //隊数
 #define RF_FormationOrtuna001_LaunchInterval(X)  (3 + (20 - ((X)>1.0?1.0:(X))*20))  //出現間隔
+// グラヤ(EnemyGlaja) のランク式
+#define RF_EnemyGlaja_MvVelo(X)  (15000 + (X)*10000)  //移動速度
+#define RF_EnemyGlaja_ShotWay(X)  (16+(X)*16)  //発射弾(Way)数
 // gen02 end
 
 //1/√2
@@ -526,6 +529,8 @@ class FormationThagoras;
 class FormationThagoras001;
 class FormationThagoras002;
 
+class EnemyGlaja;
+class EnemyGlajaLance001;
 //"VVEnemysHeader.h" もわすれるな～
 
 class DepositoryConnection;

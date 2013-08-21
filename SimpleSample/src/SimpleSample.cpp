@@ -26,7 +26,6 @@ int main(int argc, char *argv[]) {
     return GgafLibMain(argc, argv); //直後に、この様に呼び出して下さい。
 }
 
-
 /**
  * MSVC のエントリポイント
  */
@@ -35,14 +34,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
     //プロパティファイル読込み
     GgafLib::GgafLibProperties::load(".\\config.properties");
-
-    //ウィンドウ作成
-    HWND hWnd1, hWnd2;
-    //ゲームループ
-    MSG msg;
+    //神の誕生
     SmpGod* pGod = new SmpGod();
+    //メイン処理
+    MSG msg;
+    HWND hWnd1, hWnd2; //HWNDは２つ用意します。
     try {
-        //神の誕生
+        //ウィンドウ作成
         pGod->createWindow(WndProc,
                            "SimpleSample[1]", "SimpleSample[2]",
                            hWnd1, hWnd2); //HWNDが代入されます(戻り値)
@@ -80,5 +78,4 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     }
     return (int)msg.wParam;
 }
-
 

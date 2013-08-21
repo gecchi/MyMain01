@@ -43,6 +43,7 @@ void GgafDxCubeMapMeshSetActor::processDraw() {
     //基本モデル頂点数
     GgafDxDrawableActor* pDrawActor = this;
     GgafDxCubeMapMeshSetActor* pCubeMapMeshSetActor = nullptr;
+    int model_set_num = _pCubeMapMeshSetModel->_set_num;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {
@@ -54,7 +55,7 @@ void GgafDxCubeMapMeshSetActor::processDraw() {
                     hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[draw_set_num], &(pCubeMapMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                     checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
                     draw_set_num++;
-                    if (draw_set_num >= _pCubeMapMeshSetModel->_set_num) {
+                    if (draw_set_num >= model_set_num) {
                         break;
                     }
                     pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;

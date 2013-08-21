@@ -14,12 +14,12 @@ FormationOrtuna001::FormationOrtuna001(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationOrtuna001";
     num_Ortuna_      = RF_FormationOrtuna001_Num(G_RANK);    //編隊数
-    interval_frames_ = RF_FormationOrtuna001_LaunchInterval(G_RANK);  //アラスの間隔(frame)
+    interval_frames_ = RF_FormationOrtuna001_LaunchInterval(G_RANK);  //オルトゥナの間隔(frame)
     for (int i = 0; i < num_Ortuna_; i++) {
         std::string name = "Ortuna("+XTOS(i)+")";
         addFormationMember(NEW EnemyOrtuna(name.c_str()));
     }
-    cnt_call_up_ = 0;
+    index_call_up_ = 0;
 }
 
 void FormationOrtuna001::initialize() {
@@ -32,8 +32,8 @@ void FormationOrtuna001::processBehavior() {
     if (canCallUp() && getActiveFrame() % interval_frames_ == 0) {
         EnemyOrtuna* pOrtuna = (EnemyOrtuna*)callUpMember();
         if (pOrtuna) {
-            onCallUpOrtuna(pOrtuna, cnt_call_up_);  //コールバック
-            cnt_call_up_++;
+            onCallUpOrtuna(pOrtuna, index_call_up_);  //コールバック
+            index_call_up_++;
         }
     }
 }

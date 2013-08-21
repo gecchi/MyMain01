@@ -42,8 +42,7 @@ void EnemyAntiope::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              _pAFader->setAlpha(0);
-             _pKurokoA->setMvVelo(0);
-             _pKurokoA->setMvAcce(0);
+             _pKurokoA->stopMv();
              _pKurokoA->setFaceAngVelo(AXIS_X, D_ANG(10));
              _pKurokoB->setZeroVxyzMvVelo();
              UTIL::activateEntryEffectOf(this);
@@ -69,8 +68,7 @@ void EnemyAntiope::processBehavior() {
              }
 
              if (_pKurokoA->_veloMv <= (-30000 + 1000)) {
-                 _pKurokoA->setMvVelo(0);
-                 _pKurokoA->setMvAcce(0);
+                 _pKurokoA->stopMv();
                  _pKurokoB->setZeroVxyzMvVelo();
                  _pProg->changeNext();
              }

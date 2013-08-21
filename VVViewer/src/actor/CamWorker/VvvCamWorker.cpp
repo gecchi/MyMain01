@@ -45,7 +45,7 @@ void VvvCamWorker::initialize() {
 void VvvCamWorker::processBehavior() {
 
     GgafDxCamera* pCam = P_CAM;
-    GgafDxGeometricActor* pVP = P_CAM->_pViewPoint;
+    GgafDxGeometricActor* pVP = pCam->getViewPoint();
     GgafDxInput::updateMouseState();
 
     long mx,my,mz,mdx,mdy,mdz;

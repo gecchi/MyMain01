@@ -118,6 +118,7 @@ void WallAAPrismActor::processDraw() {
     }
     GgafDxDrawableActor* pDrawActor = this;
     WallPartsActor* pWallPartsActor = nullptr;
+    int model_set_num = _pMeshSetModel->_set_num;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
@@ -127,7 +128,7 @@ void WallAAPrismActor::processDraw() {
                 hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[draw_set_num], &(pWallPartsActor->_matWorld));
                 checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 draw_set_num++;
-                if (draw_set_num >= _pMeshSetModel->_set_num) {
+                if (draw_set_num >= model_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;

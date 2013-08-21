@@ -30,6 +30,25 @@ GgafDxScaler::GgafDxScaler(GgafDxGeometricActor* prm_pActor) :
     }
 }
 
+void GgafDxScaler::reset() {
+    for (int ax = 0; ax < 3; ax++) {
+        _scale[ax] = LEN_UNIT;
+        _velo_scale[ax] = 0;
+        _acce_scale[ax] = 0;
+        _target_scale[ax] = LEN_UNIT;
+        _top_scale[ax] = INT_MAX;
+        _bottom_scale[ax] = 1;
+        _one_way_cnt[ax] = 0;
+        _beat_attack_frames[ax] = 0;
+        _beat_rest_frames[ax] = 0;
+        _beat_target_frames[ax] = 0;
+        _beat_down_frames[ax] = 0;
+        _beat_frame_count[ax] = 0;
+        _beat_progres[ax] = 0;
+        _stop_one_way_num[ax] = -1;
+        _method[ax] = NOSCALE;
+    }
+}
 void GgafDxScaler::behave() {
     GgafDxScalingMethod method;
     for (int ax = 0; ax < 3; ax++) {

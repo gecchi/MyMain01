@@ -1,6 +1,7 @@
 #ifndef FORMATIONORTUNA001B_H_
 #define FORMATIONORTUNA001B_H_
 #include "jp/gecchi/VioletVreath/actor/enemy/Ortuna/FormationOrtuna001.h"
+#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 
 namespace VioletVreath {
 
@@ -13,7 +14,24 @@ namespace VioletVreath {
 class FormationOrtuna001b : public FormationOrtuna001 {
 
 public:
+    /** フォーメーション基点座標 */
+    GgafDxCore::GgafDxGeoElem pos_;
+
+public:
     FormationOrtuna001b(const char* prm_name);
+
+    /**
+     * 基点座標セット。
+     * onCallUpOrtuna() の初回時一回実行される
+     * @param X
+     * @param Y
+     * @param Z
+     */
+    void position(coord X, coord Y, coord Z) {
+        pos_._X = X;
+        pos_._Y = Y;
+        pos_._Z = Z;
+    }
 
     virtual void onCallUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) override;
 

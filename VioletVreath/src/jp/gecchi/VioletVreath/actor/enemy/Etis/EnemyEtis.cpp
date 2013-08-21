@@ -24,9 +24,6 @@ EnemyEtis::EnemyEtis(const char* prm_name) :
     depth_Y_ = 36*2*LEN_UNIT;
     _pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     _pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
-
-    pConn_ShotDepo_ = connect_DepositoryManager("Shot004");
-    pDepo_Shot_ = pConn_ShotDepo_->peek();
 }
 
 void EnemyEtis::onCreateModel() {
@@ -53,11 +50,11 @@ void EnemyEtis::onActive() {
     _pKurokoA->setMvVelo(0);
     _pKurokoB->setVxMvVelo(-3000);
     _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
-    static coord appearances_renge_Z = (MyShip::lim_Z_left_ - MyShip::lim_Z_right_) * 3;
-    static coord appearances_renge_Y = (MyShip::lim_Y_top_ - MyShip::lim_Y_bottom_) * 3;
+    static coord renge_Y = (MyShip::lim_Y_top_ - MyShip::lim_Y_bottom_) * 3;
+    static coord renge_Z = (MyShip::lim_Z_left_ - MyShip::lim_Z_right_) * 3;
     _X = GgafDxUniverse::_X_gone_right - 1000;
-    _Y = RND(-(appearances_renge_Y/2) , +(appearances_renge_Y/2));
-    _Z = RND(-(appearances_renge_Z/2) , +(appearances_renge_Z/2));
+    _Y = RND(-(renge_Y/2) , +(renge_Y/2));
+    _Z = RND(-(renge_Z/2) , +(renge_Z/2));
     setHitAble(true);
 }
 
@@ -92,6 +89,5 @@ void EnemyEtis::onInactive() {
 }
 
 EnemyEtis::~EnemyEtis() {
-    pConn_ShotDepo_->close();
 }
 

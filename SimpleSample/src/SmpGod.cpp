@@ -13,7 +13,7 @@ SmpGod::SmpGod() :
 GgafCore::GgafUniverse* SmpGod::createUniverse() {
     //この世の作成のサンプル
     SmpCamera* pCam = new SmpCamera("SIMPLE_CAMERA");                  //カメラ作成し、
-    SmpUniverse* pUniverse = new SmpUniverse("SIMPLE_UNIVERSE", pCam); //この世を生成。
+    SmpUniverse* pUniverse = new SmpUniverse("SIMPLE_UNIVERSE", pCam); //カメラを引数にこの世を生成。
     return pUniverse;
 }
 
