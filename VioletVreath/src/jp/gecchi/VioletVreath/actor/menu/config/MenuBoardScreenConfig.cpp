@@ -147,7 +147,7 @@ void MenuBoardScreenConfig::processBehavior() {
             if (getSelectedIndexOnSupCursor(SUPCUR_SCREEN_MODE) == ITEM_SCREEN_MODE_FULL_SCREEN) {
                 PROPERTY::setValue("FULL_SCREEN", true);
             } else {
-            	PROPERTY::setValue("FULL_SCREEN", false);
+                PROPERTY::setValue("FULL_SCREEN", false);
             }
             if (getSelectedIndexOnSupCursor(SUPCUR_VIEW_NUM) == ITEM_VIEW_NUM_DUAL) {
                 PROPERTY::setValue("DUAL_VIEW", true);
@@ -155,12 +155,22 @@ void MenuBoardScreenConfig::processBehavior() {
                 PROPERTY::setValue("DUAL_VIEW", false);
             }
             if (getSelectedIndexOnSupCursor(SUPCUR_VIEW_ASPECT) == ITEM_VIEW_ASPECT_TYPE_FIX) {
-            	PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", true);
+                PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", true);
             } else {
-            	PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", false);
+                PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", false);
             }
+
+            //FULL_SCREEN、DUAL_VIEWは、アプリ実行中に変更できない。 現在値を保持
+            bool tmp_FULL_SCREEN = PROPERTY::FULL_SCREEN;
+            bool tmp_DUAL_VIEW   = PROPERTY::DUAL_VIEW;
+
             PROPERTY::save(VV_CONFIG_FILE); //プロパティ保存
             PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
+
+            //戻す。再起動後に反映される
+            PROPERTY::FULL_SCREEN = tmp_FULL_SCREEN;
+            PROPERTY::DUAL_VIEW = tmp_DUAL_VIEW;
+
             //実行中アプリへも即時反映 TODO:
             GgafDxCore::GgafDxGod::chengeViewAspect(PROPERTY::FIXED_GAME_VIEW_ASPECT);
 
@@ -172,7 +182,6 @@ void MenuBoardScreenConfig::processBehavior() {
 
         }
     }
-
 
     if (selected_index == ITEM_SCREEN_MODE) {
         if (pVB->isPushedDown(VB_UI_LEFT)) {

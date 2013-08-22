@@ -186,7 +186,7 @@ public:
      *         PROGRESS_NOTHING：現在進捗が無し PROGRESS_NOTHING(-1) で、次フレームに進捗番号が変更される予定である。
      *         0～             ：次フレームに進捗番号が変更される予定であるので、現在の進捗番号を返す。
      */
-    progress getProgWhenWillChange();
+    progress getProgWhenProgWillChange();
 
     /**
      * 進捗番号が次フレームに変更される予定ならば、その変更される進捗番号を取得する .
@@ -196,7 +196,7 @@ public:
      *         PROGRESS_NOTHING：次フレームに進捗無し PROGRESS_NOTHING(-1) となる予定である。
      *         0～             ：次フレームに進捗番号が変更される予定であるので、その新しい進捗番号を返す。
      */
-    progress getToProgWhenWillChange();
+    progress getToProgWhenProgWillChange();
 
     /**
      * 時間に伴って進捗を更新 .

@@ -17,7 +17,7 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_s
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
     _point_index = 0;
-    _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
+    _veloMvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
     _paFrame_need_at = NEW float[_sp->_rnum];
 }
 
@@ -30,7 +30,7 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
     _point_index = 0;
-    _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
+    _veloMvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
     _paFrame_need_at = NEW float[_sp->_rnum];
 }
 

@@ -125,7 +125,7 @@ progress GgafProgress::getFromProgOnChange() {
     }
 }
 
-progress GgafProgress::getProgWhenWillChange() {
+progress GgafProgress::getProgWhenProgWillChange() {
     if (_progress != _progress_next) {
         return _progress;
     } else {
@@ -133,7 +133,7 @@ progress GgafProgress::getProgWhenWillChange() {
     }
 }
 
-progress GgafProgress::getToProgWhenWillChange() {
+progress GgafProgress::getToProgWhenProgWillChange() {
     if (_progress != _progress_next) {
         return _progress_next;
     } else {

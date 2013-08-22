@@ -319,6 +319,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Drastea\EnemyDrastea.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Drastea\FormationDrastea001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Duna\EnemyDuna.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\EnemyEbe.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe001.cpp" />
@@ -654,6 +655,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Drastea\EnemyDrastea.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Drastea\FormationDrastea001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\duna\enemyduna.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\EnemyEbe.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe001.h" />

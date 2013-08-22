@@ -12,10 +12,10 @@ GgafDxScaler::GgafDxScaler(GgafDxGeometricActor* prm_pActor) :
     _pActor = prm_pActor;
 
     for (int ax = 0; ax < 3; ax++) {
-        _scale[ax] = LEN_UNIT;
+        _scale[ax] = R_SC(1.0);
         _velo_scale[ax] = 0;
         _acce_scale[ax] = 0;
-        _target_scale[ax] = LEN_UNIT;
+        _target_scale[ax] = R_SC(1.0);
         _top_scale[ax] = INT_MAX;
         _bottom_scale[ax] = 1;
         _one_way_cnt[ax] = 0;
@@ -32,10 +32,10 @@ GgafDxScaler::GgafDxScaler(GgafDxGeometricActor* prm_pActor) :
 
 void GgafDxScaler::reset() {
     for (int ax = 0; ax < 3; ax++) {
-        _scale[ax] = LEN_UNIT;
+        _scale[ax] = R_SC(1.0);;
         _velo_scale[ax] = 0;
         _acce_scale[ax] = 0;
-        _target_scale[ax] = LEN_UNIT;
+        _target_scale[ax] = R_SC(1.0);;
         _top_scale[ax] = INT_MAX;
         _bottom_scale[ax] = 1;
         _one_way_cnt[ax] = 0;

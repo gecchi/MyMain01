@@ -66,7 +66,7 @@ void EnemyGeria::processBehavior() {
             _pKurokoA->turnRxSpinAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE);
         } else if (getActiveFrame() == frame_when_shot_ + 60) {
             MyShip* pM = P_MYSHIP;
-            GgafDxGeometricActor* pFirst =
+            GgafDxGeometricActor* pLast =
               UTIL::shotWay001(_X, _Y, _Z,
                                pM->_X, pM->_Y, pM->_Z,
                                getCommonDepository(Shot004),
@@ -74,7 +74,7 @@ void EnemyGeria::processBehavior() {
                                10000, 100,
                                3, 5, 0.9,
                                EnemyGeria::callbackDispatched);
-            if (pFirst) {
+            if (pLast) {
                 shot_num_++;
                 do_Shot_ = false;
                 effectFlush(2); //ƒtƒ‰ƒbƒVƒ…

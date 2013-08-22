@@ -119,12 +119,12 @@ void GgafDxUniverse::registerSe(GgafDxSe* prm_pSe,
 
     //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
 
-    _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal(_seqkey_se_delay)))->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency, prm_pActor);
+    _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal(_seqkey_se_delay)))->
+                     add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency, prm_pActor);
     //_pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
 }
 
 void GgafDxUniverse::processSettlementBehavior() {
-
     GgafUniverse::processSettlementBehavior();
     //SEを鳴らす
     SeArray* pSeArray = _pRing_pSeArray->next(); //一つ進めてSE配列取得
@@ -134,7 +134,6 @@ void GgafDxUniverse::processSettlementBehavior() {
         }
         pSeArray->_p = 0; //リセット
     }
-
     GgafRepeatSeq::setMax(_seqkey_se_delay); //次のnextValで0を返す為
 }
 

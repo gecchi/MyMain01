@@ -186,6 +186,8 @@ enum {
 // グラヤ(EnemyGlaja) のランク式
 #define RF_EnemyGlaja_MvVelo(X)  (15000 + (X)*10000)  //移動速度
 #define RF_EnemyGlaja_ShotWay(X)  (16+(X)*16)  //発射弾(Way)数
+// ドゥーナ(EnemyDuna) のランク式
+#define RF_EnemyDuna_MvVelo(X)  (10000 + (X)*20000)  //移動速度
 // gen02 end
 
 //1/√2
@@ -531,6 +533,8 @@ class FormationThagoras002;
 
 class EnemyGlaja;
 class EnemyGlajaLance001;
+
+class EnemyDuna;
 //"VVEnemysHeader.h" もわすれるな～
 
 class DepositoryConnection;

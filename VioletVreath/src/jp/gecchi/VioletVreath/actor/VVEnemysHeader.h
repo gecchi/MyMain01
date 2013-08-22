@@ -111,6 +111,8 @@
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlaja.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlajaLance001.h"
+
+#include "jp/gecchi/VioletVreath/actor/enemy/Duna/EnemyDuna.h"
 //"VioletVreathHeader.h"‚Ö‚Ì’Ç‹L‚à–Y‚ê‚¸‚É
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"

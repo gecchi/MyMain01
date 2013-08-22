@@ -51,7 +51,7 @@ void EnemyGlaja::processBehavior() {
              setHitAble(false);
              _pAFader->setAlpha(0);
              _pKurokoA->keepOnTurningFaceAngTwd(pMyShip,
-                                                D_ANG(1), 0, TURN_CLOSE_TO,false);
+                                                D_ANG(2), 0, TURN_CLOSE_TO, false);
              _pMorpher->setWeight(0.0);
              UTIL::activateEntryEffectOf(this);
              _pProg->changeNext();
@@ -77,9 +77,10 @@ void EnemyGlaja::processBehavior() {
                            ); //次の移動目標座標
                  //スィーっとnext_pos_へ移動
                  _pKurokoA->setMvAngTwd(&next_pos_);
-                 velo mv_velo = RF_EnemyGlaja_MvVelo(G_RANK);
-                 coord d = UTIL::getDistance(this, &next_pos_);
-                 _pKurokoA->slideMvByVD(mv_velo, 100, d, 0.1, 0.5, true);
+                 velo Vt = RF_EnemyGlaja_MvVelo(G_RANK);
+                 velo Ve = 100;
+                 coord D = UTIL::getDistance(this, &next_pos_);
+                 _pKurokoA->slideMvByVD(Vt, Ve, D, 0.1, 0.5, true);
              }
 
              if (_pKurokoA->isJustFinishSlidingMv()) {
@@ -164,7 +165,6 @@ void EnemyGlaja::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyGlaja::onInactive() {
-    sayonara();
 }
 
 void EnemyGlaja::onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index) {

@@ -381,6 +381,8 @@ public:
 	static GgafCore::GgafStatus* resetEnemyGlajaStatus(GgafCore::GgafStatus* p);
 	//グラヤ槍弾
 	static GgafCore::GgafStatus* resetEnemyGlajaLance001Status(GgafCore::GgafStatus* p);
+	//ドゥーナ
+	static GgafCore::GgafStatus* resetEnemyDunaStatus(GgafCore::GgafStatus* p);
     // gen01 end
 };
 
