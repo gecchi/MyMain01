@@ -8,7 +8,8 @@
 #define MY_IDM_RESET_WINDOW_SIZE  10
 #define MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE  11
 #define MY_IDM_SAVE               12
-#define MY_IDM_ABOUT              13
+#define MY_IDM_REBOOT             13
+#define MY_IDM_ABOUT              14
 #define MY_IDM_VPOS_1             21
 #define MY_IDM_VPOS_2             22
 #define MY_IDM_VPOS_3             23
@@ -27,6 +28,8 @@ HINSTANCE hInst; // 現在のインターフェイス
 TCHAR szTitle[MAX_LOADSTRING]; // タイトル バーのテキスト
 TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
 HWND hWnd1, hWnd2;
+/** 起動コマンドライン */
+LPTSTR cmdline;
 // このコード モジュールに含まれる関数の宣言を転送します:
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -51,6 +54,8 @@ static VioletVreath::God* pGod = nullptr;
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+    cmdline = GetCommandLine();
+
     std::set_unexpected(myUnexpectedHandler);
     std::set_terminate(myTerminateHandler);
 
@@ -171,6 +176,29 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     #endif
 #endif
 
+                    if (VioletVreath::God::g_should_reboot_) {
+                        Sleep(2000);
+                        PROCESS_INFORMATION pi;
+                        STARTUPINFO si;
+                        ZeroMemory(&si,sizeof(si));
+                        si.cb=sizeof(si);
+                        //再起動
+                        BOOL r = CreateProcess(
+                                    NULL,    //LPCTSTR lpApplicationName,                 // 実行可能モジュールの名前
+                                    cmdline, //LPTSTR lpCommandLine,                      // コマンドラインの文字列
+                                    NULL,    //LPSECURITY_ATTRIBUTES lpProcessAttributes, // セキュリティ記述子
+                                    NULL,    //LPSECURITY_ATTRIBUTES lpThreadAttributes,  // セキュリティ記述子
+                                    FALSE,   //BOOL bInheritHandles,                      // ハンドルの継承オプション
+                                    0,       //DWORD dwCreationFlags,                     // 作成のフラグ
+                                    NULL,    //LPVOID lpEnvironment,                      // 新しい環境ブロック
+                                    NULL,    //LPCTSTR lpCurrentDirectory,                // カレントディレクトリの名前
+                                    &si, //LPSTARTUPINFO lpStartupInfo,               // スタートアップ情報
+                                    &pi  //LPPROCESS_INFORMATION lpProcessInformation // プロセス情報
+                        );
+                        if (r == 0) {
+                            MessageBox(nullptr, "Cannot Reboot!","orz", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);
+                        }
+                    }
                     return EXIT_SUCCESS;
                 }
                 ::TranslateMessage(&msg);
@@ -313,6 +341,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                     PROPERTY::save(VV_CONFIG_FILE); //プロパティ保存
                     PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
                 }
+            } else if(wParam == MY_IDM_REBOOT) {
+                //再起動実行
+                int ret = MessageBox(nullptr, "Quit and Reboot. Are You Sure ?", "VioletVreath", MB_OKCANCEL|MB_SETFOREGROUND);
+                if (ret == IDOK) {
+                    VioletVreath::God::g_should_reboot_ = true;
+                    PostQuitMessage(0);
+                }
             } else if(wParam == MY_IDM_VPOS_1) {
                 GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 1);
             } else if(wParam == MY_IDM_VPOS_2) {
@@ -374,15 +409,17 @@ BOOL CustmizeSysMenu(HWND hWnd)
     InsertMenu(menu_aspect, 1, MF_STRING | MF_BYPOSITION, MY_IDM_ASPECT_STRETCH, "Stretch");
 
     HMENU hMenu = GetSystemMenu(hWnd, FALSE);
-    InsertMenu(hMenu, 5, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
-    InsertMenu(hMenu, 6, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE    , "Reset window size of beginning.");
-    InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE , "Reset window size of Dot by Dot.");
-    InsertMenu(hMenu, 8, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect.");
-    InsertMenu(hMenu, 9, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position.");
-    InsertMenu(hMenu, 10, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
-    InsertMenu(hMenu, 11, MF_BYPOSITION | MF_STRING, MY_IDM_SAVE ,"Save window size and view.");
-    InsertMenu(hMenu, 12, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
-    InsertMenu(hMenu, 13, MF_BYPOSITION | MF_STRING, MY_IDM_ABOUT, "About");
+    int i;
+    i=5; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE, "Reset window size of beginning.");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_DOT_BY_DOT_WINDOW_SIZE , "Reset window size of Dot by Dot.");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect.");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position.");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_SAVE ,"Save window size and view.");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_REBOOT ,"Quit and Reboot...");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_ABOUT, "About");
 
     //システムメニューを作成
     DrawMenuBar(hWnd);

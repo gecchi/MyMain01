@@ -1556,6 +1556,8 @@ void GgafDxKurokoA::turnRzRyFaceAngTo(angle prm_angRz_Target, angle prm_angRy_Ta
 
     setStopTargetFaceAng(AXIS_Z, prm_angRz_Target);
     setStopTargetFaceAng(AXIS_Y, prm_angRy_Target);
+    _taget_face_ang_alltime_pActor = nullptr;
+    _taget_face_ang_alltime_flg = false;
 }
 
 void GgafDxKurokoA::turnFaceAngTwd(coord prm_tX, coord prm_tY, coord prm_tZ,
@@ -1585,7 +1587,8 @@ void GgafDxKurokoA::turnRzFaceAngTo(angle prm_angRz_Target,
         setFaceAngAcce(AXIS_Z, -prm_angAcce);
     }
     setStopTargetFaceAng(AXIS_Z, prm_angRz_Target);
-
+    _taget_face_ang_alltime_pActor = nullptr;
+    _taget_face_ang_alltime_flg = false;
 }
 
 void GgafDxKurokoA::turnRyFaceAngTo(angle prm_angRy_Target,
@@ -1599,6 +1602,8 @@ void GgafDxKurokoA::turnRyFaceAngTo(angle prm_angRy_Target,
         setFaceAngAcce(AXIS_Y, -prm_angAcce);
     }
     setStopTargetFaceAng(AXIS_Y, prm_angRy_Target);
+    _taget_face_ang_alltime_pActor = nullptr;
+    _taget_face_ang_alltime_flg = false;
 }
 
 void GgafDxKurokoA::turnRxSpinAngTo(angle prm_angRx_Target,

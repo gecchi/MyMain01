@@ -8,10 +8,9 @@ namespace VioletVreath {
 
 /**
  * 敵機ドゥーナ(作成中！) .
- * 中型機にしようか。
- * ポイっと缶々をなげて、ビシっと槍弾に変化して飛んでいく。
+ * ムーンクレスタのコールドアイのような動きに挑戦ッ！！。
  * @version 1.00
- * @since 2013/08/19
+ * @since 2013/08/22
  * @author Masatoshi Tsuge
  */
 class EnemyDuna : public GgafLib::DefaultMorphMeshActor {
@@ -31,16 +30,17 @@ public:
         PROG_ENTRY_EFFECT,
         PROG_ENTRY_MOVE01,
         PROG_ENTRY_MOVE02,
-        PROG_MOVE_LARGE_UP_SEMIARC_CW  ,
-        PROG_MOVE_LARGE_UP_SEMIARC_CCW,
-        PROG_MOVE_LARGE_DOWN_SEMIARC_CW  ,
-        PROG_MOVE_LARGE_DOWN_SEMIARC_CCW,
-        PROG_MOVE_SMALL_UP_SEMIARC_CW  ,
-        PROG_MOVE_SMALL_UP_SEMIARC_CCW,
-        PROG_MOVE_SMALL_DOWN_SEMIARC_CW  ,
-        PROG_MOVE_SMALL_DOWN_SEMIARC_CCW,
+        PROG_MOVE_ORDER_LARGE_SEMIARC_CW,
+        PROG_MOVE_ORDER_LARGE_SEMIARC_CCW,
+        PROG_MOVE_REV_LARGE_SEMIARC_CW,
+        PROG_MOVE_REV_LARGE_SEMIARC_CCW,
+        PROG_MOVE_ORDER_SMALL_SEMIARC_CW,
+        PROG_MOVE_ORDER_SMALL_SEMIARC_CCW,
+        PROG_MOVE_REV_SMALL_SEMIARC_CW,
+        PROG_MOVE_REV_SMALL_SEMIARC_CCW,
         PROG_CLOSE ,
     };
+
     GgafDxCore::GgafDxGeoElem next_pos_;
     int num_fire_;
     int nprog_;
@@ -83,7 +83,14 @@ public:
     void onInactive() override;
 
     static void onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index);
-
+    static progress getProgressProbability(int p1, progress prog1,
+                                           int p2, progress prog2,
+                                           int p3, progress prog3,
+                                           int p4, progress prog4,
+                                           int p5, progress prog5,
+                                           int p6, progress prog6,
+                                           int p7, progress prog7,
+                                           int p8, progress prog8);
     virtual ~EnemyDuna();
 };
 

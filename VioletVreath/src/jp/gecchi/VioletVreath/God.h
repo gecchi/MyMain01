@@ -62,7 +62,7 @@ public:
     static GgafLib::VirtualButton* pVbtn_UI_;
     static GgafLib::VirtualButton* pVbtn_active_;
     static GgafLib::VirtualButton* pVbtn_active_next_frame_;
-
+    static bool g_should_reboot_;
 public:
     /**
      * コンストラクタ .

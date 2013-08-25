@@ -66,10 +66,13 @@ bool MenuBoardTitle::condSelectrExPrev() {
 }
 
 void MenuBoardTitle::onSelect(int prm_from, int prm_to) {
-    //非選択項目は点滅させない
+
     if (prm_from > -1) {
+        //非選択項目は点滅させない
+        //で、ちょっと暗く
         getItem(prm_from)->_pAFader->reset();
-        getItem(prm_from)->_pAFader->setAlpha(1.0);
+        getItem(prm_from)->_pAFader->setAlpha(0.6);
+        getItem(prm_from)->_pAFader->behave();
     }
     //選択項目を点滅
     if (prm_to > -1) {

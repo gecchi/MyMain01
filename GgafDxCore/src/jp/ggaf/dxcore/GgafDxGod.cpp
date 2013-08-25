@@ -122,10 +122,12 @@ void GgafDxGod::chengeViewPos(HWND prm_pHWnd, int pos) {
             PROPERTY::DUAL_VIEW_DRAW_POSITION2 = pos;
         }
     } else {
-        PROPERTY::SINGLE_VIEW_DRAW_POSITION = pos;
+        if (prm_pHWnd ==  GgafDxGod::_pHWndPrimary) {
+            PROPERTY::SINGLE_VIEW_DRAW_POSITION = pos;
+        }
     }
     if (GgafDxCore::GgafDxGod::_can_be) {
-        if (!PROPERTY::FULL_SCREEN) {
+        if (!PROPERTY::FULL_SCREEN && prm_pHWnd) {
             GgafDxCore::GgafDxGod::_adjustGameScreen = true;
             GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = prm_pHWnd;
         }

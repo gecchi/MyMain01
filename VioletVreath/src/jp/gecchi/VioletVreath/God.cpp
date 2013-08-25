@@ -18,7 +18,7 @@ VirtualButton* God::pVbtn_PLAY_ = nullptr;
 VirtualButton* God::pVbtn_UI_ = nullptr;
 VirtualButton* God::pVbtn_active_ = nullptr;
 VirtualButton* God::pVbtn_active_next_frame_ = nullptr;
-
+bool God::g_should_reboot_ = false;
 
 God::God() :
       DefaultGod() {

@@ -35,7 +35,7 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
           "BACK TO GAME",   //0
           "CONFIG",         //1
           "BACK TO TITLE",  //2
-          "QUIT",           //3
+          "REBOOT",         //3
 
           "DUMMY1",         //4
           "DUMMY2",         //5
@@ -45,9 +45,9 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
           "DUMMY5",         //8
           "DUMMY6",         //9
           "DUMMY7",         //10
-          "HOGEHOGE"        //11
+          "QUIT_GAME"       //11
     };
-    for (int i = ITEM_BACK_TO_GAME; i <= ITEM_HOGEHOGE; i++) {
+    for (int i = ITEM_BACK_TO_GAME; i <= ITEM_QUIT_GAME; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
         addItem(pLabel, PX_C(100+((i/4)*200)), PX_C(100+((i%4)*30)));
@@ -58,10 +58,10 @@ MenuBoardPause::MenuBoardPause(const char* prm_name) :
     addDisp(pLabel_Title, PX_C(100), PX_C(20));
 
     //特別なメニューカーソルオーダーを構築
-    relateItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1, ITEM_DUMMY5  , ITEM_CONFIG       );
-    relateItemExNext(ITEM_CONFIG       , ITEM_DUMMY2, ITEM_DUMMY6  , ITEM_BACK_TO_TITLE);
-    relateItemExNext(ITEM_BACK_TO_TITLE, ITEM_DUMMY3, ITEM_DUMMY7  , ITEM_QUIT_GAME    );
-    relateItemExNext(ITEM_QUIT_GAME    , ITEM_DUMMY4, ITEM_HOGEHOGE, ITEM_BACK_TO_GAME );
+    relateItemExNext(ITEM_BACK_TO_GAME , ITEM_DUMMY1, ITEM_DUMMY5   , ITEM_CONFIG       );
+    relateItemExNext(ITEM_CONFIG       , ITEM_DUMMY2, ITEM_DUMMY6   , ITEM_BACK_TO_TITLE);
+    relateItemExNext(ITEM_BACK_TO_TITLE, ITEM_DUMMY3, ITEM_DUMMY7   , ITEM_REBOOT    );
+    relateItemExNext(ITEM_REBOOT       , ITEM_DUMMY4, ITEM_QUIT_GAME, ITEM_BACK_TO_GAME );
     relateAllItemCancel(ITEM_BACK_TO_GAME);
 
     //メニューカーソルを設定
@@ -102,7 +102,19 @@ void MenuBoardPause::processBehavior() {
         } else if (pSubConfirm->isJustDecidedCancel()) {
             sinkCurrentSubMenu();
         }
-    } if (selected == ITEM_BACK_TO_TITLE) {
+    }
+
+    if (selected == ITEM_REBOOT) { //自身のメニューが"ITEM_REBOOT"を指している場合
+        MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
+        if (pSubConfirm->isJustDecidedOk()) {
+            VioletVreath::God::g_should_reboot_ = true; //再起動フラグセット
+            PostQuitMessage(0);
+        } else if (pSubConfirm->isJustDecidedCancel()) {
+            sinkCurrentSubMenu();
+        }
+    }
+
+    if (selected == ITEM_BACK_TO_TITLE) {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu(0);
         if (pSubConfirm->isJustDecidedOk()) {
             sinkCurrentSubMenu();
@@ -122,6 +134,8 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int 
     } else if (prm_item_index == ITEM_CONFIG) {
         riseSubMenu(1, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y - PX_C(50)); //コンフィグメニュー起動
     } else if (prm_item_index == ITEM_BACK_TO_TITLE) {
+        riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //確認メニュー起動
+    } else if (prm_item_index == ITEM_REBOOT) {
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //確認メニュー起動
     } else if (prm_item_index == ITEM_QUIT_GAME) {
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y + PX_C(50)); //確認メニュー起動

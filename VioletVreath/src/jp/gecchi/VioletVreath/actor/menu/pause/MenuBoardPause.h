@@ -18,7 +18,7 @@ public:
         ITEM_BACK_TO_GAME = 0 ,
         ITEM_CONFIG,
         ITEM_BACK_TO_TITLE,
-        ITEM_QUIT_GAME,
+        ITEM_REBOOT,
 
         ITEM_DUMMY1,
         ITEM_DUMMY2,
@@ -28,7 +28,7 @@ public:
         ITEM_DUMMY5,
         ITEM_DUMMY6,
         ITEM_DUMMY7,
-        ITEM_HOGEHOGE
+        ITEM_QUIT_GAME
     };
 
 public:

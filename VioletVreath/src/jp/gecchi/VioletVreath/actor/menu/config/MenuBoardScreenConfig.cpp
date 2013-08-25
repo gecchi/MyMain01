@@ -40,8 +40,8 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
 
     //メニューアイテム（選択可）設定
     const char* apItemStr[] = {
-          "SCREEN MODE",
-          "SCREEN NUM",
+          "SCREEN MODE (*)",
+          "SCREEN NUM (*)",
           "GAME VIEW ASPECT TYPE",
           "GAME VIEW POSITION",
           "OK & SAVE",
@@ -62,29 +62,34 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
     relateAllItemCancel(ITEM_CANCEL);
 
     positionItem(ITEM_SCREEN_MODE     , PX_C(100), PX_C(100));
-    positionItem(ITEM_VIEW_NUM        , PX_C(100), PX_C(120));
-    positionItem(ITEM_VIEW_ASPECT_TYPE, PX_C(100), PX_C(140));
-    positionItem(ITEM_VIEW_POSITION   , PX_C(100), PX_C(160));
+    positionItem(ITEM_VIEW_NUM        , PX_C(100), PX_C(140));
+    positionItem(ITEM_VIEW_ASPECT_TYPE, PX_C(100), PX_C(180));
+    positionItem(ITEM_VIEW_POSITION   , PX_C(100), PX_C(220));
 
-    positionItem(ITEM_OK              , PX_C(50), PX_C(200));
-    positionItem(ITEM_CANCEL          , PX_C(150), PX_C(200));
+    positionItem(ITEM_OK              , PX_C(50), PX_C(280));
+    positionItem(ITEM_CANCEL          , PX_C(200), PX_C(280));
 
     positionItem(ITEM_SCREEN_MODE_FULL_SCREEN , PX_C(400), PX_C(100));
     positionItem(ITEM_SCREEN_MODE_WINDOW_MODE , PX_C(600), PX_C(100));
 
-    positionItem(ITEM_VIEW_NUM_SINGLE         , PX_C(400), PX_C(120));
-    positionItem(ITEM_VIEW_NUM_DUAL           , PX_C(600), PX_C(120));
+    positionItem(ITEM_VIEW_NUM_SINGLE         , PX_C(400), PX_C(140));
+    positionItem(ITEM_VIEW_NUM_DUAL           , PX_C(600), PX_C(140));
 
-    positionItem(ITEM_VIEW_ASPECT_TYPE_FIX    , PX_C(400), PX_C(140));
-    positionItem(ITEM_VIEW_ASPECT_TYPE_STRETCH, PX_C(600), PX_C(140));
+    positionItem(ITEM_VIEW_ASPECT_TYPE_FIX    , PX_C(400), PX_C(180));
+    positionItem(ITEM_VIEW_ASPECT_TYPE_STRETCH, PX_C(600), PX_C(180));
+
+
+    LabelGecchi16Font* m1 = NEW LabelGecchi16Font("FIX_MSG");
+    m1->update("(*) NEED REBOOT .", ALIGN_LEFT, VALIGN_MIDDLE);
+    addDisp(m1, PX_C(10), PX_C(420));
 
     pLabel_Msg_ = NEW LabelGecchi16Font("LABEL_MSG");
     pLabel_Msg_->update("PRESS ^ OR V TO SELECT, AND <- OR -> TO SETTING VALUE.", ALIGN_LEFT, VALIGN_MIDDLE);
-    addDisp(pLabel_Msg_, PX_C(10), PX_C(300));
+    addDisp(pLabel_Msg_, PX_C(10), PX_C(400));
 
     //メインメニューカーソルを設定
     CursorScreenConfigMenu* pCursor = NEW CursorScreenConfigMenu("MainCursor");
-    pCursor->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    pCursor->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
     setMainCursor(pCursor);
 
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
