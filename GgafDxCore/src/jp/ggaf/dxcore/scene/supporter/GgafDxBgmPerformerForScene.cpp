@@ -42,12 +42,22 @@ void GgafDxBgmPerformerForScene::play_fadein_f(int prm_id, frame prm_frame) {
     fadein_f(prm_id, prm_frame);
 }
 void GgafDxBgmPerformerForScene::fadeout_f(int prm_id, frame prm_frame) {
-    fade(prm_id, prm_frame, GGAF_MIN_VOLUME);
-    _paBool_is_fadeout_stop[prm_id] = false;
+    if (_papBgmConnection[prm_id]->peek()->isPlaying()) {
+        fade(prm_id, prm_frame, GGAF_MIN_VOLUME);
+        _paBool_is_fadeout_stop[prm_id] = false;
+    } else {
+        _TRACE_("＜警告＞GgafDxBgmPerformerForScene::fadeout_f("<<prm_id<<", "<<prm_frame<<") は、"<<
+                "再生されていないので、フェードアウトを無視しました。file_name="<<_papBgmConnection[prm_id]->peek()->_ogg_file_name);
+    }
 }
 void GgafDxBgmPerformerForScene::fadeout_stop_f(int prm_id, frame prm_frame) {
-    fade(prm_id, prm_frame, GGAF_MIN_VOLUME);
-    _paBool_is_fadeout_stop[prm_id] = true;
+    if (_papBgmConnection[prm_id]->peek()->isPlaying()) {
+        fade(prm_id, prm_frame, GGAF_MIN_VOLUME);
+        _paBool_is_fadeout_stop[prm_id] = true;
+    } else {
+        _TRACE_("＜警告＞GgafDxBgmPerformerForScene::fadeout_stop_f("<<prm_id<<", "<<prm_frame<<") は、"<<
+                "再生されていないので、フェードアウトを無視しました。file_name="<<_papBgmConnection[prm_id]->peek()->_ogg_file_name);
+    }
 }
 
 void GgafDxBgmPerformerForScene::play(int prm_id, int prm_volume, bool prm_is_loop) {

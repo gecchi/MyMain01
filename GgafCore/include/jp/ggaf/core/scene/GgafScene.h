@@ -181,8 +181,8 @@ public:
     virtual void sayonara(frame prm_offset_frames = 60);
 
     /**
-     * 自ツリーを末端から開放する。 .
-     * @param prm_num_cleaning 開放インスタンス数
+     * 配下ノードを末端から開放する。 .
+     * @param prm_num_cleaning 開放インスタンス数(但し、シーンは１つずつしかclean()出来ない事とする)
      */
     virtual void clean(int prm_num_cleaning) override;
 

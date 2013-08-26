@@ -68,6 +68,9 @@ public:
     //! 再生中のスレッドを停止
     void terminateThread();
 
+    //! 再生中のスレッドを停止
+    void terminateThreadWait();
+
     //! バッファを初期化する
     bool initializeBuffer();
 

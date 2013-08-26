@@ -58,18 +58,18 @@ void GgafDxSpriteActor::processDraw() {
     if (_align == ALIGN_CENTER) {
         //do nothing
     } else if (_align == ALIGN_LEFT) {
-        _matWorld._41 += PX_C(_pSpriteModel->_fSize_SpriteModelWidthPx/2);
+        _matWorld._41 += PX_C(_pSpriteModel->_fSize_SpriteModelWidthPx*0.5f);
     } else {
         //ALIGN_RIGHT
-        _matWorld._41 -= PX_C(_pSpriteModel->_fSize_SpriteModelWidthPx/2);
+        _matWorld._41 -= PX_C(_pSpriteModel->_fSize_SpriteModelWidthPx*0.5f);
     }
     if (_valign == VALIGN_MIDDLE) {
         //do nothing
     } else if (_valign == VALIGN_TOP) {
-        _matWorld._42 -= PX_C(_pSpriteModel->_fSize_SpriteModelHeightPx/2);
+        _matWorld._42 -= PX_C(_pSpriteModel->_fSize_SpriteModelHeightPx*0.5f);
     } else {
         //VALIGN_BOTTOM
-        _matWorld._42 += PX_C(_pSpriteModel->_fSize_SpriteModelHeightPx/2);
+        _matWorld._42 += PX_C(_pSpriteModel->_fSize_SpriteModelHeightPx*0.5f);
     }
 //    hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matView, &P_CAM->_matView );
 //    checkDxException(hr, D3D_OK, "GgafDxMeshActor::GgafDxMeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

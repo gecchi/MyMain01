@@ -198,19 +198,19 @@ void GgafDxCamera::processBehavior() {
 
         // 中心垂直面 （ボリュームパンで使用）
         _vecVerticalCenter[0] = D3DXVECTOR3(
-                                  (_vecFar[1].x + _vecFar[0].x)/2.0f,
-                                  (_vecFar[1].y + _vecFar[0].y)/2.0f,
-                                  (_vecFar[1].z + _vecFar[0].z)/2.0f
+                                  (_vecFar[1].x + _vecFar[0].x)*0.5f,
+                                  (_vecFar[1].y + _vecFar[0].y)*0.5f,
+                                  (_vecFar[1].z + _vecFar[0].z)*0.5f
                                 );
         _vecVerticalCenter[1] = D3DXVECTOR3(
-                                  (_vecNear[3].x + _vecNear[2].x)/2.0f,
-                                  (_vecNear[3].y + _vecNear[2].y)/2.0f,
-                                  (_vecNear[3].z + _vecNear[2].z)/2.0f
+                                  (_vecNear[3].x + _vecNear[2].x)*0.5f,
+                                  (_vecNear[3].y + _vecNear[2].y)*0.5f,
+                                  (_vecNear[3].z + _vecNear[2].z)*0.5f
                                 );
         _vecVerticalCenter[2] = D3DXVECTOR3(
-                                  (_vecNear[1].x + _vecNear[0].x)/2.0f,
-                                  (_vecNear[1].y + _vecNear[0].y)/2.0f,
-                                  (_vecNear[1].z + _vecNear[0].z)/2.0f
+                                  (_vecNear[1].x + _vecNear[0].x)*0.5f,
+                                  (_vecNear[1].y + _vecNear[0].y)*0.5f,
+                                  (_vecNear[1].z + _vecNear[0].z)*0.5f
                                 );
         D3DXPlaneNormalize(
             &_plnVerticalCenter,

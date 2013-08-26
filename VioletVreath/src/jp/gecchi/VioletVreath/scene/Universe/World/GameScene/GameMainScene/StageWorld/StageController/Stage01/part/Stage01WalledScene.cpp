@@ -76,11 +76,11 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,200,1000,2000,2200,3200,4000,4200,5000,5200,6000,6200,7000,8000,30000};
-	_paFrame_NextEvent = new frame[15];
+	frame f[] = {1,200,1000,2000,2200,3200,4000,5000,5200,6200,7000,8000,30000};
+	_paFrame_NextEvent = new frame[13];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 15;
-	orderActorToFactory(20000006, FormationHalia, "FormationHalia-1");
+	_event_num = 13;
+	orderActorToFactory(20000004, FormationHalia, "FormationHalia-1");
     // gen01 end
 }
 
@@ -106,60 +106,48 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 200: {
-				orderActorToFactory(20000004, FormationUnomia001a, "FormationUnomia001a-2");
+				orderActorToFactory(20000003, FormationUnomia001a, "FormationUnomia001a-2");
 				break;
 			}
 			case 1000: {
-				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(20000006);
+				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(20000004);
 				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
 			case 2000: {
-				FormationUnomia001a* pFormationUnomia = (FormationUnomia001a*)obtainActorFromFactory(20000004);
+				FormationUnomia001a* pFormationUnomia = (FormationUnomia001a*)obtainActorFromFactory(20000003);
 				getSceneDirector()->addSubGroup(pFormationUnomia);
 				break;
 			}
 			case 2200: {
-				orderActorToFactory(20000007, FormationHalia, "FormationHalia-3");
+				orderActorToFactory(20000005, FormationHalia, "FormationHalia-3");
 				break;
 			}
 			case 3200: {
 				orderActorToFactory(20000000, EnemyEsperia, "EnemyEsperia-4");
-				orderActorToFactory(20000003, VarietyRatislavia003, "VarietyRatislavia003-5");
 				break;
 			}
 			case 4000: {
-				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(20000007);
+				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(20000005);
 				getSceneDirector()->addSubGroup(pF);
-				break;
-			}
-			case 4200: {
-				orderActorToFactory(20000005, FormationUnomia001b, "FormationUnomia001b-6");
 				break;
 			}
 			case 5000: {
 				EnemyEsperia* p = (EnemyEsperia*)obtainActorFromFactory(20000000);
 				getSceneDirector()->addSubGroup(p);
-				VarietyRatislavia003* pRatislaviaB = (VarietyRatislavia003*)obtainActorFromFactory(20000003);
-				getSceneDirector()->addSubGroup(pRatislaviaB);
 				break;
 			}
 			case 5200: {
-				orderActorToFactory(20000008, FormationHalia, "FormationHalia-7");
-				break;
-			}
-			case 6000: {
-				FormationUnomia001b* pFormationUnomia = (FormationUnomia001b*)obtainActorFromFactory(20000005);
-				getSceneDirector()->addSubGroup(pFormationUnomia);
+				orderActorToFactory(20000006, FormationHalia, "FormationHalia-5");
 				break;
 			}
 			case 6200: {
-				orderActorToFactory(20000001, EnemyEsperia, "EnemyEsperia-8");
-				orderActorToFactory(20000002, VarietyRatislavia002, "VarietyRatislavia002-9");
+				orderActorToFactory(20000001, EnemyEsperia, "EnemyEsperia-6");
+				orderActorToFactory(20000002, VarietyRatislavia002, "VarietyRatislavia002-7");
 				break;
 			}
 			case 7000: {
-				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(20000008);
+				FormationHalia* pF = (FormationHalia*)obtainActorFromFactory(20000006);
 				getSceneDirector()->addSubGroup(pF);
 				break;
 			}
@@ -177,7 +165,7 @@ void Stage01WalledScene::processBehavior() {
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 15-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 13-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

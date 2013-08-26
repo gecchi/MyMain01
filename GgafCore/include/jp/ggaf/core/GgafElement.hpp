@@ -139,7 +139,7 @@ public:
     virtual ~GgafElement();
 
     /**
-     * 掃除(実行対象：自ツリー全て) .
+     * 掃除(実行対象：配下ノード全て、自分自身はdeleteされません) .
      * 神が処理時間に余裕がでたとき等に、神が呼びだす。<BR>
      * 配下ノードの中にノード生存フラグ(_can_live_flg)が false になっているノードがあれば
      * prm_num_cleaning 個だけ delete する。<BR>
@@ -1492,6 +1492,9 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
             if (pElementTemp->_can_live_flg == false) {
                 GGAF_DELETE(pElementTemp);
                 GgafGarbageBox::_cnt_cleaned++;
+                if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
+                    break;
+                }
             }
             break;
         } else {
@@ -1507,6 +1510,9 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
             if (pWk->_can_live_flg == false) {
                 GGAF_DELETE(pWk);
                 GgafGarbageBox::_cnt_cleaned++;
+                if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
+                    break;
+                }
             }
         }
     }

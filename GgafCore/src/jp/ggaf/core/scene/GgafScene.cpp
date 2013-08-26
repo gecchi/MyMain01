@@ -277,7 +277,7 @@ void GgafScene::clean(int prm_num_cleaning) {
             GGAF_DELETE(_pSceneDirector);
         }
     } else {
-        GgafElement<GgafScene>::clean(prm_num_cleaning);
+        GgafElement<GgafScene>::clean(1); //シーンは１つずつしかclean()出来ない事とする。
     }
 }
 
