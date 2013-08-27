@@ -174,9 +174,9 @@ public:
      * @param tY2 〃
      * @param tZ2 〃
      */
-    virtual void registerElem(GgafLinearOctreeElem* prm_pElem,
-                              int tX1, int tY1, int tZ1,
-                              int tX2, int tY2, int tZ2);
+    void registerElem(GgafLinearOctreeElem* prm_pElem,
+                      int tX1, int tY1, int tZ1,
+                      int tX2, int tY2, int tZ2);
 
     /**
      * 八分木空間に登録されている全要素を消去する（未所属状態にする）.
@@ -184,7 +184,7 @@ public:
      * registerElem() <BR>
      * により八分木へ再度要素登録が可能となる。
      */
-    virtual void clearElem();
+    void clearElem();
 
     /**
      * 同一Level空間の八分木モートン順序の通し空間番号取得 .

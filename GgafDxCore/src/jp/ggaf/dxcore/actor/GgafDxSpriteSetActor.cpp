@@ -99,7 +99,7 @@ void GgafDxSpriteSetActor::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pSpriteSetActor; //描画セットの最後アクターをセット
-    _pSpriteSetModel->draw(this, draw_set_num);
+    _pSpriteSetModel->GgafDxSpriteSetModel::draw(this, draw_set_num);
 }
 
 void GgafDxSpriteSetActor::setAlpha(float prm_alpha) {

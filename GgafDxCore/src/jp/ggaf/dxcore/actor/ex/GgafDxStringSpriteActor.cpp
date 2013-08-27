@@ -210,7 +210,7 @@ void GgafDxStringSpriteActor::processDraw() {
         while (true) {
             if (_draw_string[pos] == '\0') {
                 if (draw_set_cnt > 0) {
-                    pSpriteSetModel->draw(this, draw_set_cnt);
+                    pSpriteSetModel->GgafDxSpriteSetModel::draw(this, draw_set_cnt);
                 }
                 break; //‚¨‚µ‚Ü‚¢
             } else if (_draw_string[pos] == '\n') {

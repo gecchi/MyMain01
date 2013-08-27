@@ -45,7 +45,7 @@ void GgafDxSpriteMeshActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_offset_u) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_offset_v, v);
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetMatrix(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    _pMeshModel->draw(this);
+    _pMeshModel->GgafDxMeshModel::draw(this);
 }
 
 GgafDxSpriteMeshActor::~GgafDxSpriteMeshActor() {

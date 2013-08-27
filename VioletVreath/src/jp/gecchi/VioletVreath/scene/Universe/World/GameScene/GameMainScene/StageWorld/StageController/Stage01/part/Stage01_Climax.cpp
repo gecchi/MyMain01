@@ -34,13 +34,11 @@ void Stage01_Climax::processBehavior() {
         return;
     }
     if (getBehaveingFrame() == 1) {
-        _TRACE_("シーン="<<getName()<<"、のBGM[0]="<<_pBgmPerformer->_papBgmConnection[0]->peek()->_ogg_file_name<<" を、フェードイン。");
-        _TRACE_("その前に、兄弟シーンのBGMを全てフェードアウト！");
-         StagePartController* pStagePartController = (StagePartController*)(getParent());
-         pStagePartController->fadeout_stop_AllPartSceneBgm(); //兄弟シーンのBGMを全てフェードアウト
-         _pBgmPerformer->play_fadein(0);
-     }
-
+        //兄弟シーンのBGMを全てフェードアウトし、自分のシーンBGMをフェードイン
+        StagePartController* pStagePartController = (StagePartController*)(getParent());
+        pStagePartController->fadeout_stop_AllPartSceneBgm();
+        _pBgmPerformer->play_fadein(0);
+    }
 
     if (getBehaveingFrame() == 60) {
         pBoss_ = (EnemyStraea*)obtainActorFromFactory(11111111);
@@ -50,8 +48,8 @@ void Stage01_Climax::processBehavior() {
     }
 
     if (getBehaveingFrame() > 60) {
-        if (pBoss_->isDisappear()) {
-            //isDisappear()になりっ放しをなんとかする
+        if (pBoss_->onChangeToInactive()) {
+            _pBgmPerformer->fadeout_stop(0);
             _TRACE_("Stage01_Climax::processBehavior() EVENT_STG01_CLIMAX_WAS_BROKEN!!!!");
             throwEventUpperTree(EVENT_STG01_CLIMAX_WAS_BROKEN);
             waiting_ = true;

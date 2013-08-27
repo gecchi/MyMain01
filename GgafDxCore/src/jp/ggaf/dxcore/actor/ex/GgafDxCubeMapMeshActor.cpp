@@ -47,7 +47,7 @@ void GgafDxCubeMapMeshActor::processDraw() {
         //TODO:毎回逆行列をここで計算すれば良い、が、少しでもはやくするためにgetInvMatWorldRotMv()で代用。
         //getInvMatWorldRotMv() なので、拡大縮小が考慮されてない。軸ごとに拡大率が違う場合、バンプマップはちょっとおかしくなる。
     }
-    _pCubeMapMeshModel->draw(this);
+    ((GgafDxMeshModel*)_pCubeMapMeshModel)->GgafDxMeshModel::draw(this);
 }
 
 GgafDxCubeMapMeshActor::~GgafDxCubeMapMeshActor() {

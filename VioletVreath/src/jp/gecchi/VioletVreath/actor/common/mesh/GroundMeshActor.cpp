@@ -59,8 +59,7 @@ void GroundMeshActor::processDraw() {
 //    // Zバッファ書き込み不可
 //    GgafDxGod::pID3DDevice9_->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 //    GgafDxGod::pID3DDevice9_->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //カリングOFF
-    _pMeshModel->draw(this);
-
+    _pMeshModel->GgafDxMeshModel::draw(this);
 //    // Zバッファを有効に
 //    GgafDxGod::pID3DDevice9_->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
 //    // Zバッファ書き込み可

@@ -535,7 +535,7 @@ public:
      * ‚Æ‚¢‚¤ˆÓ–¡‚Å‚ ‚éB<BR>
      * @param prm_rate Šg‘å—¦
      */
-    virtual void setBoundingSphereRadiusRate(FLOAT prm_rate) {
+    inline void setBoundingSphereRadiusRate(FLOAT prm_rate) {
         _rate_of_bounding_sphere_radius = prm_rate;
     }
 

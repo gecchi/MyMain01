@@ -403,15 +403,13 @@ void Stage01_02::processBehavior() {
 
 
     if (getBehaveingFrame() == 1) {
-        _TRACE_("シーン="<<getName()<<"、のBGM[0]="<<_pBgmPerformer->_papBgmConnection[0]->peek()->_ogg_file_name<<" を、フェードイン。");
-        _TRACE_("その前に、兄弟シーンのBGMを全てフェードアウト！");
+        //兄弟シーンのBGMを全てフェードアウトし、自分のシーンBGMをフェードイン
         StagePartController* pStagePartController = (StagePartController*)(getParent());
-        pStagePartController->fadeout_stop_AllPartSceneBgm(); //兄弟シーンのBGMを全てフェードアウト
+        pStagePartController->fadeout_stop_AllPartSceneBgm();
         _pBgmPerformer->play_fadein(0);
     }
-
-    //シーン終了のイベントを通知
     if (getBehaveingFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
+        _pBgmPerformer->fadeout_stop(0);
         throwEventUpperTree(EVENT_STG01_02_WAS_BROKEN);
     }
 }

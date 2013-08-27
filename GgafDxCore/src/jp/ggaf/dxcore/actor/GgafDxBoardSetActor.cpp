@@ -111,7 +111,7 @@ void GgafDxBoardSetActor::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pBoardSetActor; //描画セットの最後アクターをセット
-    _pBoardSetModel->draw(this, draw_set_num);
+    _pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_num);
 }
 
 void GgafDxBoardSetActor::positionAs(GgafDxGeometricActor* prm_pActor) {

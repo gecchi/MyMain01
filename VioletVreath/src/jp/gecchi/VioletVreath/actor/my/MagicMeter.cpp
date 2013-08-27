@@ -629,7 +629,7 @@ void MagicMeter::processDraw() {
                 n++;
             }
         }
-        _pBoardSetModel->draw(this, n);
+        _pBoardSetModel->GgafDxBoardSetModel::draw(this, n);
         pElem = pElem->_pNext;
     }
 }

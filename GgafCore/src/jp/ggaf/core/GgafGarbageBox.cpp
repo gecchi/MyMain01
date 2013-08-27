@@ -58,9 +58,6 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
     _pDisusedScene->addSubFirst(prm_pScene->extract()); //addSubFirstです！addSubLastに非ず
     _TRACE_("ゴミ箱(Scene) GgafGarbageBox::add("<<prm_pScene<<"["<<prm_pScene->getName()<<"])");
     GgafGarbageBox::_wait = false;
-    if (UTIL::strcmp_ascii(prm_pScene->_name,"Stage01PartController") == 0) {
-        _TRACE_("Stage01PartControllerゴミ箱きたー");
-    }
 }
 
 void GgafGarbageBox::clean(int prm_num_cleaning) {

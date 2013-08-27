@@ -78,33 +78,39 @@ void PCMPlayer::terminateThread() {
         bool end = false;
         int wait = 0;
         while (!end) {
-            if (wait > 10 * 100) {
-                //1秒待っても駄目な場合は警告を出して強制終了
-                _TRACE_("＜警告＞ PCMPlayer::terminateThread() 失敗しました。原因不明。頻発する場合は調査が必要！！");
+            if (wait > 1) {
+            //if (wait > 100) {
+                _TRACE_("＜警告＞ PCMPlayer::terminateThread() 未完。正しくスレッドが終了することを願ってBREAK (T_T)");
                 break;
             }
-            DWORD flag = WaitForSingleObject((HANDLE)(int64_t )_hnd_thread, 10);
+            DWORD flag = WaitForSingleObject((HANDLE)(int64_t )_hnd_thread, 2);
             switch (flag) {
                 case WAIT_OBJECT_0:
                     // スレッドが終わった
                     end = true;
+                    _TRACE_("PCMPlayer::terminateThread() WAIT_OBJECT_0 Done! WaitForSingleObject");
                     break;
                 case WAIT_TIMEOUT:
                     wait++;
                     _is_terminate = true;
                     // まだ終了していないので待機
+                    _TRACE_("PCMPlayer::terminateThread() WAIT_TIMEOUT... WaitForSingleObject");
                     break;
                 case WAIT_FAILED:
                     // 失敗しているようです
                     end = true;
+                    _TRACE_("PCMPlayer::terminateThread() WAIT_FAILED Done! WaitForSingleObject");
                     break;
             }
-            //Sleep(1);
+            if (!end) {
+                _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject flag="<<flag<<" waiting="<<wait<<"");
+                Sleep(1);
+            }
         }
         _is_terminate = false;
         _hnd_thread = 0;
     } else {
-        _TRACE_("PCMPlayer::terminateThread() スレッドはありません。多分。this=" << this << "/_is_terminate=" << _is_terminate);
+        _TRACE_("PCMPlayer::terminateThread() 以前に既に実行済み。多分。this=" << this << "/_is_terminate=" << _is_terminate);
     }
 }
 
@@ -192,7 +198,7 @@ bool PCMPlayer::initializeBuffer() {
         //追記：クリティカルセクションで囲むように修正してから、長い期間安定している。
 
         if (SUCCEEDED(hr)) {
-            _pPCMDecoder->getSegment((char*)AP1, AB1, 0, 0); //← ココでも極稀に落ちる！（昔は）
+            _pPCMDecoder->getSegment((char*)AP1, AB1, 0, 0); //← ココでも極稀に落ちる！昔は。（今は長い期間安定している）
             hr = _pDSBuffer->Unlock(AP1, AB1, AP2, AB2);
             checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Unlock に失敗しました。");
             break;
@@ -207,7 +213,7 @@ bool PCMPlayer::initializeBuffer() {
                 continue; //もう一回頑張る
             } else {
                 //あきらめる
-                _TRACE_("PCMPlayer::initializeBuffer() もうLockをあきらめて解放します。ごめんなさい；");
+                _TRACE_("PCMPlayer::initializeBuffer() もうLockをあきらめて解放します。いいんかそれで");
                 clear();
              ___EndSynchronized2;
                 return false;

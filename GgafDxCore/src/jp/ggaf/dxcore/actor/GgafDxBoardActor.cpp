@@ -76,7 +76,7 @@ void GgafDxBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sx) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, float(SC_R(_SY)));
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sy) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    _pBoardModel->draw(this);
+    _pBoardModel->GgafDxBoardModel::draw(this);
 }
 
 void GgafDxBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {

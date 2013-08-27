@@ -70,7 +70,7 @@ void GgafDxCubeMapMeshSetActor::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pCubeMapMeshSetActor; //描画セットの最後アクターをセット
-    _pCubeMapMeshSetModel->draw(this, draw_set_num);
+    ((GgafDxMeshSetModel*)_pCubeMapMeshSetModel)->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 
 GgafDxCubeMapMeshSetActor::~GgafDxCubeMapMeshSetActor() {

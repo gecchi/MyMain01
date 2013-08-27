@@ -112,7 +112,7 @@ void GgafDxMeshSetActor::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pMeshSetActor; //描画セットの最後アクターをセット
-    _pMeshSetModel->draw(this, draw_set_num);
+    ((GgafDxMeshSetModel*)_pMeshSetModel)->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 
 GgafDxMeshSetActor::~GgafDxMeshSetActor() {

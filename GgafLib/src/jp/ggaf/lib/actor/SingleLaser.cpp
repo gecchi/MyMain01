@@ -99,7 +99,7 @@ void SingleLaser::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pSingleLaserChip; //描画セットの最後アクターをセット
-    _pMeshSetModel->draw(this, draw_set_num);
+    _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 
 void SingleLaser::drawHitArea() {

@@ -197,12 +197,12 @@ void GgafDxStringBoardActor::processDraw() {
         while (true) {
             if (_draw_string[pos] == '\0') {
                 if (draw_set_cnt > 0) {
-                    pBoardSetModel->draw(this, draw_set_cnt);
+                    pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_cnt);
                 }
                 break; //おしまい
             } else if (_draw_string[pos] == '\n') {
                 if (draw_set_cnt > 0) {
-                    pBoardSetModel->draw(this, draw_set_cnt);//改行はそこまで一度描画(Y座標を配列保持してないため)
+                    pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_cnt);//改行はそこまで一度描画(Y座標を配列保持してないため)
                 }
                 draw_set_cnt = 0;
 
@@ -231,7 +231,7 @@ void GgafDxStringBoardActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_v) に失敗しました。");
             draw_set_cnt++;
             if (draw_set_cnt == pBoardSetModel->_set_num) {
-                pBoardSetModel->draw(this, draw_set_cnt);
+                pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_cnt);
                 draw_set_cnt = 0;
             }
             pos++;
@@ -247,12 +247,12 @@ void GgafDxStringBoardActor::processDraw() {
         while (true) {
             if (pos == -1) {
                 if (draw_set_cnt > 0) {
-                    pBoardSetModel->draw(this, draw_set_cnt);
+                    pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_cnt);
                 }
                 break;
             } else if (_draw_string[pos] == '\n') {
                 if (draw_set_cnt > 0) {
-                    pBoardSetModel->draw(this, draw_set_cnt); //改行はそこまで一度描画(Y座標を配列保持してないため)
+                    pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_cnt); //改行はそこまで一度描画(Y座標を配列保持してないため)
                 }
                 draw_set_cnt = 0;
 
@@ -280,7 +280,7 @@ void GgafDxStringBoardActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDxStringBoardActor::processDraw() SetFloat(_h_offset_v) に失敗しました。");
             draw_set_cnt++;
             if (draw_set_cnt == pBoardSetModel->_set_num) {
-                pBoardSetModel->draw(this, draw_set_cnt);
+                pBoardSetModel->GgafDxBoardSetModel::draw(this, draw_set_cnt);
                 draw_set_cnt = 0;
             }
 

@@ -80,7 +80,7 @@ void GgafDxSpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDxSpriteActor::processDraw SetFloat(_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_h_far_rate, _far_rate );
     checkDxException(hr, D3D_OK, "GgafDxMeshActor::processDraw() SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    _pSpriteModel->draw(this);
+    _pSpriteModel->GgafDxSpriteModel::draw(this);
 }
 
 void GgafDxSpriteActor::setAlpha(float prm_alpha) {

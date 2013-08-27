@@ -39,7 +39,7 @@ public:
     /**
      * 全当たり判定要素含む最外域の軸平行境界直方体を再計算 .
      */
-    virtual void updateAABB();
+    void updateAABB();
 
     virtual ~GgafDxCollisionArea();
 };

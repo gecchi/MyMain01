@@ -538,11 +538,11 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
 
     angle rotZ, rotY_rev;
     if (0 <= prj_rXZ && prj_rXZ <= D45ANG) {
-        rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100)][(int)(prj_rXZ/100)];
-        rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100)][(int)(prj_rXZ/100)];
+        rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
+        rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
     } else if (D45ANG <= prj_rXZ && prj_rXZ <= D90ANG) {
-        rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY/100)][(int)(prj_rZX/100)];
-        rotY_rev = D90ANG - PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100)][(int)(prj_rZX/100)];
+        rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
+        rotY_rev = D90ANG - PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
     } else {
         throwGgafCriticalException("GgafDxUtil::getRzRyAng ”ÍˆÍ‚ª”j’]‚µ‚Ä‚Ü‚·Bprj_rXZ="<<prj_rXZ<<" ˆø”:"<<vx<<","<<vy<<","<<vz);
     }

@@ -140,7 +140,7 @@ void WallAAPrismActor::processDraw() {
         }
     }
     GgafDxUniverse::_pActor_DrawActive = pWallPartsActor; //描画セットの最後アクターをセット
-    _pMeshSetModel->draw(this, draw_set_num);
+    _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
 }
 
 

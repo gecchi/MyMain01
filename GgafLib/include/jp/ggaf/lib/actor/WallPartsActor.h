@@ -54,7 +54,7 @@ public:
               GgafCore::GgafStatus* prm_pStat=nullptr
               );
 
-    virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor);
+    virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
 
     virtual void onCreateModel() override {
     }

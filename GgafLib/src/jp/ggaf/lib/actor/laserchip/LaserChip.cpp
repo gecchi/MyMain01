@@ -268,7 +268,7 @@ void LaserChip::processDraw() {
     }
     GgafDxUniverse::_pActor_DrawActive = pLaserChip; //描画セットの最後アクターをセット
     if (draw_set_num > 0) { //描画されない可能性があるためこの判定が必要
-        _pMeshSetModel->draw(this, draw_set_num);
+        _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
     }
 }
 
