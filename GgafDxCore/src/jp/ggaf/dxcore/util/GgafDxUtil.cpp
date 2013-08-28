@@ -342,23 +342,23 @@ void GgafDxUtil::getWayAngle2D(int prm_vx_Center,
 }
 
 void GgafDxUtil::getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle) {
-    int angstart = addAng(prm_angCenter, ((prm_nWay - 1) * prm_angClearance) / -2);
+    int angstart = GgafDxUtil::addAng(prm_angCenter, ((prm_nWay - 1) * prm_angClearance) / -2);
 
     for (int i = 0; i < prm_nWay; i++) {
-        out_paAngle[i] = addAng(angstart, prm_angClearance * i);
+        out_paAngle[i] = GgafDxUtil::addAng(angstart, prm_angClearance * i);
     }
 }
 
 void GgafDxUtil::getRadialAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle) {
     for (int i = 0; i < prm_nWay; i++) {
-        out_paAngle[i] = addAng(prm_angStart, (angle)(1.0f * D360ANG / prm_nWay * i));
+        out_paAngle[i] = GgafDxUtil::addAng(prm_angStart, (angle)(1.0f * D360ANG / prm_nWay * i));
     }
 }
 
 void GgafDxUtil::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle& out_Rz) {
     float vx,vy,vz;
-    convRzRyToVector(prm_Rz, prm_Ry , vx, vy, vz);
-    convVectorToRzRy(vx, vz, -1.0f*vy, out_Ry, out_Rz ); //-‚X‚O“xXŽ²‰ñ“]RzRy“ü‚ê‘Ö‚¦
+    GgafDxUtil::convRzRyToVector(prm_Rz, prm_Ry , vx, vy, vz);
+    GgafDxUtil::convVectorToRzRy(vx, vz, -1.0f*vy, out_Ry, out_Rz ); //-‚X‚O“xXŽ²‰ñ“]RzRy“ü‚ê‘Ö‚¦
     out_Rz = D360ANG-out_Rz; //YŽ²‚ðZŽ²l‚¦‚é‚½‚ßA³•‰‚ª•Ï‚í‚é‹t‰ñ“]360‚©‚çˆø‚­
 }
 
@@ -519,7 +519,7 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
                                   angle& out_angRZ,
                                   angle& out_angRY ) {
     if (vz == 0) {
-        out_angRZ = getAngle2D(vx, vy);
+        out_angRZ = GgafDxUtil::getAngle2D(vx, vy);
         out_angRY = 0;
         return;
     }
@@ -531,18 +531,18 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
     vy = (vy == 0 ? 1 : vy);
     vz = (vz == 0 ? 1 : vz);
 
-    angle prj_rXY = getAngle2D(ABS(vx), ABS(vy)); //Rz
-    angle prj_rXZ = getAngle2D(ABS(vx), ABS(vz));
-    angle prj_rZY = getAngle2D(ABS(vz), ABS(vy)); //Rz
-    angle prj_rZX = getAngle2D(ABS(vz), ABS(vx));
+    angle prj_rXY = GgafDxUtil::getAngle2D(ABS(vx), ABS(vy)); //Rz
+    angle prj_rXZ = GgafDxUtil::getAngle2D(ABS(vx), ABS(vz));
+    angle prj_rZY = GgafDxUtil::getAngle2D(ABS(vz), ABS(vy)); //Rz
+    angle prj_rZX = GgafDxUtil::getAngle2D(ABS(vz), ABS(vx));
 
     angle rotZ, rotY_rev;
     if (0 <= prj_rXZ && prj_rXZ <= D45ANG) {
-        rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
-        rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
+        rotZ = GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
+        rotY_rev = GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
     } else if (D45ANG <= prj_rXZ && prj_rXZ <= D90ANG) {
-        rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
-        rotY_rev = D90ANG - PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
+        rotZ = GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
+        rotY_rev = D90ANG - GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
     } else {
         throwGgafCriticalException("GgafDxUtil::getRzRyAng ”ÍˆÍ‚ª”j’]‚µ‚Ä‚Ü‚·Bprj_rXZ="<<prj_rXZ<<" ˆø”:"<<vx<<","<<vy<<","<<vz);
     }
@@ -603,17 +603,11 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
                                   angle& out_angRZ,
                                   angle& out_angRY) {
 
-    convVectorToRzRy(vx,
-                     vy,
-                     vz,
-                     out_angRZ,
-                     out_angRY );
+    GgafDxUtil::convVectorToRzRy(vx, vy, vz,
+                                 out_angRZ, out_angRY );
 
-    convRzRyToVector(out_angRZ,
-                     out_angRY,
-                     out_nvx,
-                     out_nvy,
-                     out_nvz);
+    GgafDxUtil::convRzRyToVector(out_angRZ, out_angRY,
+                                 out_nvx, out_nvy, out_nvz);
 
 }
 
@@ -763,7 +757,7 @@ void GgafDxUtil::convRzRyToVector(angle prm_angRZ,
         throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(5) prm_angRZ="<<prm_angRZ<<" prm_angRY="<<prm_angRY);
     }
     uint32_t vx, vy, vz;
-    _srv.getVectorClosely(rY_rev, rZ, vx, vy, vz);
+    GgafDxUtil::_srv.getVectorClosely(rY_rev, rZ, vx, vy, vz);
     out_nvx = Xsign * (int)vx * (1.0 / 1000000.0);
     out_nvy = Ysign * (int)vy * (1.0 / 1000000.0);
     out_nvz = Zsign * (int)vz * (1.0 / 1000000.0);
@@ -1393,41 +1387,6 @@ void GgafDxUtil::mulWorldMatrix_ScRxRzRyMv(GgafDxGeometricActor* prm_pActor, D3D
 }
 
 
-void GgafDxUtil::setWorldMatrix_RxRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //World•ÏŠ·
-    //XŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ YŽ²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ðÝ’è<BR>
-    //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
-    // | cosRz*cosRy                        , sinRz       , cosRz*-sinRy                        , 0 |
-    // | (cosRx*-sinRz*cosRy + sinRx*sinRy) , cosRx*cosRz , (cosRx*-sinRz*-sinRy + sinRx*cosRy) , 0 |
-    // | (-sinRx*-sinRz*cosRy + cosRx*sinRy), -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy), 0 |
-    // | dx                                 , dy          , dz                                  , 1 |
-    float sinRx = ANG_SIN(prm_pActor->_RX);
-    float cosRx = ANG_COS(prm_pActor->_RX);
-    float sinRy = ANG_SIN(prm_pActor->_RY);
-    float cosRy = ANG_COS(prm_pActor->_RY);
-    float sinRz = ANG_SIN(prm_pActor->_RZ);
-    float cosRz = ANG_COS(prm_pActor->_RZ);
-
-    out_matWorld._11 = cosRz*cosRy;
-    out_matWorld._12 = sinRz;
-    out_matWorld._13 = cosRz*-sinRy;
-    out_matWorld._14 = 0.0f;
-
-    out_matWorld._21 = (cosRx*-sinRz*cosRy + sinRx*sinRy);
-    out_matWorld._22 = cosRx*cosRz;
-    out_matWorld._23 = (cosRx*-sinRz*-sinRy + sinRx*cosRy);
-    out_matWorld._24 = 0.0f;
-
-    out_matWorld._31 = (-sinRx*-sinRz*cosRy + cosRx*sinRy);
-    out_matWorld._32 = -sinRx*cosRz;
-    out_matWorld._33 = (-sinRx*-sinRz*-sinRy + cosRx*cosRy);
-    out_matWorld._34 = 0.0f;
-
-    out_matWorld._41 = prm_pActor->_fX;
-    out_matWorld._42 = prm_pActor->_fY;
-    out_matWorld._43 = prm_pActor->_fZ;
-    out_matWorld._44 = 1.0f;
-}
 
 void GgafDxUtil::setWorldMatrix_RzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     D3DXMATRIX& matView = _pCam->_matView;

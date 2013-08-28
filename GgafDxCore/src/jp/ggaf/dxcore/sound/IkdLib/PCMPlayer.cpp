@@ -78,8 +78,8 @@ void PCMPlayer::terminateThread() {
         bool end = false;
         int wait = 0;
         while (!end) {
-            if (wait > 1) {
-            //if (wait > 100) {
+            //if (wait > 1) {
+            if (wait > 1000) {
                 _TRACE_("＜警告＞ PCMPlayer::terminateThread() 未完。正しくスレッドが終了することを願ってBREAK (T_T)");
                 break;
             }
@@ -104,7 +104,7 @@ void PCMPlayer::terminateThread() {
             }
             if (!end) {
                 _TRACE_("PCMPlayer::terminateThread() WaitForSingleObject flag="<<flag<<" waiting="<<wait<<"");
-                Sleep(1);
+                Sleep(2);
             }
         }
         _is_terminate = false;

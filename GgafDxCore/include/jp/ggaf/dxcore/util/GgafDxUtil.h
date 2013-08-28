@@ -771,13 +771,48 @@ public:
 
     static void mulWorldMatrix_RzRyScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& inout_matWorld);
 
-    static void setWorldMatrix_RxRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
     static void setWorldMatrix_RzBxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     static void setWorldMatrix_BxyzMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     static void setWorldMatrix_ScMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
+    inline static void setWorldMatrix_RxRzRyMv(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+        //Å‚à‚æ‚­—˜—p‚·‚éWorld•ÏŠ·
+        //X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
+        //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
+        // | cosRz*cosRy                        , sinRz       , cosRz*-sinRy                        , 0 |
+        // | (cosRx*-sinRz*cosRy + sinRx*sinRy) , cosRx*cosRz , (cosRx*-sinRz*-sinRy + sinRx*cosRy) , 0 |
+        // | (-sinRx*-sinRz*cosRy + cosRx*sinRy), -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy), 0 |
+        // | dx                                 , dy          , dz                                  , 1 |
+        float sinRx = ANG_SIN(prm_pActor->_RX);
+        float cosRx = ANG_COS(prm_pActor->_RX);
+        float sinRy = ANG_SIN(prm_pActor->_RY);
+        float cosRy = ANG_COS(prm_pActor->_RY);
+        float sinRz = ANG_SIN(prm_pActor->_RZ);
+        float cosRz = ANG_COS(prm_pActor->_RZ);
+
+        out_matWorld._11 = cosRz*cosRy;
+        out_matWorld._12 = sinRz;
+        out_matWorld._13 = cosRz*-sinRy;
+        out_matWorld._14 = 0.0f;
+
+        out_matWorld._21 = (cosRx*-sinRz*cosRy + sinRx*sinRy);
+        out_matWorld._22 = cosRx*cosRz;
+        out_matWorld._23 = (cosRx*-sinRz*-sinRy + sinRx*cosRy);
+        out_matWorld._24 = 0.0f;
+
+        out_matWorld._31 = (-sinRx*-sinRz*cosRy + cosRx*sinRy);
+        out_matWorld._32 = -sinRx*cosRz;
+        out_matWorld._33 = (-sinRx*-sinRz*-sinRy + cosRx*cosRy);
+        out_matWorld._34 = 0.0f;
+
+        out_matWorld._41 = prm_pActor->_fX;
+        out_matWorld._42 = prm_pActor->_fY;
+        out_matWorld._43 = prm_pActor->_fZ;
+        out_matWorld._44 = 1.0f;
+    }
 };
 
 }
