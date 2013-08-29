@@ -94,9 +94,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     static HRGN hRgn1,hRgn2;
     switch (message) {
         case WM_CREATE: {
-            hRgn1 = CreateRoundRectRgn( 0, 0, 290, 240, 30, 30);
-            hRgn2 = CreateRoundRectRgn(70, 130, 350, 300, 60, 60);
-            CombineRgn(hRgn1, hRgn1, hRgn2, 3); // fnCombineMode = 3 _
+//            hRgn1 = CreateRoundRectRgn( 0, 0, 290, 240, 30, 30);
+//            hRgn2 = CreateRoundRectRgn(70, 130, 350, 300, 60, 60);
+//            CombineRgn(hRgn1, hRgn1, hRgn2, 3); // fnCombineMode = 3 _
             //hRound = CreateEllipticRgn(0, 0, 350,350);
             SetWindowRgn(hWnd, hRgn1, 1 );
             break;

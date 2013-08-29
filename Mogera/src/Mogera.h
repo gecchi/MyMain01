@@ -19,6 +19,7 @@ class MgrUniverse;
 class MgrWorld;
 class MgrCamera;
 class MgrActor;
+class TestActor;
 }
 
 #endif /*SIMPLEMOGERA_H_*/

@@ -1929,8 +1929,9 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
             hr = GgafDxGod::_pID3DDevice9->Present(nullptr, nullptr, _pHWndSecondary, nullptr);
         }
         if (::GetClientRect(prm_pHWnd, &rect)) {
-            LONG width = rect.right;
+            LONG width= rect.right;
             LONG height = rect.bottom;
+
             LONG fix_width, fix_height;
             int pos1, pos2;
             if (PROPERTY::DUAL_VIEW) {
@@ -1944,11 +1945,16 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
             if (PROPERTY::VIEW_AS_RENDER_TARGET_BUFFER_SIZE) {
                 //ウィンドウモード時・RENDER_TARGET_BUFFERサイズ表示
                 if (PROPERTY::DUAL_VIEW) {
-                    fix_width  = PROPERTY::RENDER_TARGET_BUFFER_WIDTH * PROPERTY::VIEW1_WIDTH_RATIO / 2.0;
-                    fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT * PROPERTY::VIEW1_HEIGHT_RATIO;
+                    if (prm_pHWnd == _pHWndPrimary) {
+                        fix_width  = (PROPERTY::RENDER_TARGET_BUFFER_WIDTH + (width - PROPERTY::DUAL_VIEW_WINDOW1_WIDTH)) * PROPERTY::VIEW1_WIDTH_RATIO / 2.0;
+                        fix_height = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT + (height - PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT)) * PROPERTY::VIEW1_HEIGHT_RATIO;
+                    } else {
+                        fix_width  = (PROPERTY::RENDER_TARGET_BUFFER_WIDTH + (width - PROPERTY::DUAL_VIEW_WINDOW2_WIDTH)) * PROPERTY::VIEW2_WIDTH_RATIO / 2.0;
+                        fix_height = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT + (height - PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT)) * PROPERTY::VIEW2_HEIGHT_RATIO;
+                    }
                 } else {
-                    fix_width  = PROPERTY::RENDER_TARGET_BUFFER_WIDTH * PROPERTY::VIEW1_WIDTH_RATIO;
-                    fix_height = PROPERTY::RENDER_TARGET_BUFFER_HEIGHT * PROPERTY::VIEW1_HEIGHT_RATIO;
+                    fix_width  = (PROPERTY::RENDER_TARGET_BUFFER_WIDTH  + (width - PROPERTY::SINGLE_VIEW_WINDOW_WIDTH)) * PROPERTY::VIEW1_WIDTH_RATIO;
+                    fix_height = (PROPERTY::RENDER_TARGET_BUFFER_HEIGHT + (height - PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT)) * PROPERTY::VIEW1_HEIGHT_RATIO;
                 }
                 if (prm_pHWnd == _pHWndPrimary) {
                     _aRect_Present[0].left   = (width / 2.0) - (fix_width / 2.0);
