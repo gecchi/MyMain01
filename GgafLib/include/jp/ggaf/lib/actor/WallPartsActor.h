@@ -1,5 +1,5 @@
-#ifndef WALLPARTSACTOR_H_
-#define WALLPARTSACTOR_H_
+#ifndef GGAFLIB_WALLPARTSACTOR_H_
+#define GGAFLIB_WALLPARTSACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
 
 #define FACE_A_IDX 5
@@ -96,4 +96,4 @@ public:
 };
 
 }
-#endif /*WALLPARTSACTOR_H_*/
+#endif /*GGAFLIB_WALLPARTSACTOR_H_*/

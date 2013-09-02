@@ -1,5 +1,5 @@
-#ifndef GGAFFORMATION_H_
-#define GGAFFORMATION_H_
+#ifndef GGAFCORE_GGAFFORMATION_H_
+#define GGAFCORE_GGAFFORMATION_H_
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 
 #define FORMATION_END_DELAY (30*60)
@@ -73,4 +73,4 @@ public:
 };
 
 }
-#endif /*GGAFFORMATION_H_*/
+#endif /*GGAFCORE_GGAFFORMATION_H_*/

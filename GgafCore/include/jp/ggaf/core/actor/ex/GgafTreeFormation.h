@@ -1,5 +1,5 @@
-#ifndef GGAFTREEFORMATION_H_
-#define GGAFTREEFORMATION_H_
+#ifndef GGAFCORE_GGAFTREEFORMATION_H_
+#define GGAFCORE_GGAFTREEFORMATION_H_
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"
 
 namespace GgafCore {
@@ -96,4 +96,4 @@ public:
 };
 
 }
-#endif /*GGAFTREEFORMATION_H_*/
+#endif /*GGAFCORE_GGAFTREEFORMATION_H_*/

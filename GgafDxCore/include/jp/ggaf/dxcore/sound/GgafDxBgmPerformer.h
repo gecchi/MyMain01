@@ -1,5 +1,5 @@
-#ifndef GGAFDXBGMPERFORMER_H_
-#define GGAFDXBGMPERFORMER_H_
+#ifndef GGAFDXCORE_GGAFDXBGMPERFORMER_H_
+#define GGAFDXCORE_GGAFDXBGMPERFORMER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -106,4 +106,4 @@ public:
 };
 
 }
-#endif /*GGAFDXBGMPERFORMER_H_*/
+#endif /*GGAFDXCORE_GGAFDXBGMPERFORMER_H_*/

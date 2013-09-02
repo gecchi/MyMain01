@@ -1,5 +1,5 @@
-#ifndef GGAFDXCAMERAVIEWPOINT_H_
-#define GGAFDXCAMERAVIEWPOINT_H_
+#ifndef GGAFDXCORE_GGAFDXCAMERAVIEWPOINT_H_
+#define GGAFDXCORE_GGAFDXCAMERAVIEWPOINT_H_
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 namespace GgafDxCore {
@@ -50,4 +50,4 @@ public:
 };
 
 }
-#endif /*GGAFDXCAMERAVIEWPOINT_H_*/
+#endif /*GGAFDXCORE_GGAFDXCAMERAVIEWPOINT_H_*/

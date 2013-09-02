@@ -1,5 +1,5 @@
-#ifndef GGAFQUERY_H_
-#define GGAFQUERY_H_
+#ifndef GGAFCORE_GGAFQUERY_H_
+#define GGAFCORE_GGAFQUERY_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>
@@ -220,4 +220,4 @@ public:
 };
 
 }
-#endif /*GGAFQUERY_H_*/
+#endif /*GGAFCORE_GGAFQUERY_H_*/

@@ -1,5 +1,5 @@
-#ifndef GGAFSCENEDIRECTOR_H_
-#define GGAFSCENEDIRECTOR_H_
+#ifndef GGAFCORE_GGAFSCENEDIRECTOR_H_
+#define GGAFCORE_GGAFSCENEDIRECTOR_H_
 #include "jp/ggaf/core/actor/GgafActor.h"
 
 namespace GgafCore {

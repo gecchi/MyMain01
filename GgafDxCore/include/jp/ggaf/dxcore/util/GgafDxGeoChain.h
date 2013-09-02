@@ -1,5 +1,5 @@
-#ifndef GGAFDXGEOCHAIN_H_
-#define GGAFDXGEOCHAIN_H_
+#ifndef GGAFDXCORE_GGAFDXGEOCHAIN_H_
+#define GGAFDXCORE_GGAFDXGEOCHAIN_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
@@ -57,4 +57,4 @@ namespace GgafDxCore {
 //
 //};
 }
-#endif /*GGAFDXGEOCHAIN_H_*/
+#endif /*GGAFDXCORE_GGAFDXGEOCHAIN_H_*/

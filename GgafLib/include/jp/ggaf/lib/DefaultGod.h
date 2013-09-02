@@ -1,5 +1,5 @@
-#ifndef DEFAULTGOD_H_
-#define DEFAULTGOD_H_
+#ifndef GGAFLIB_DEFAULTGOD_H_
+#define GGAFLIB_DEFAULTGOD_H_
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 
 #include "jp/ggaf/lib/manager/SplineSourceManager.h"
@@ -30,4 +30,4 @@ public:
 };
 
 }
-#endif /*DEFAULTGOD_H_*/
+#endif /*GGAFLIB_DEFAULTGOD_H_*/

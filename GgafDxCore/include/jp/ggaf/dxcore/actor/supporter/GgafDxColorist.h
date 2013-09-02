@@ -1,5 +1,5 @@
-#ifndef GGAFDXCOLORIST_H_
-#define GGAFDXCOLORIST_H_
+#ifndef GGAFDXCORE_GGAFDXCOLORIST_H_
+#define GGAFDXCORE_GGAFDXCOLORIST_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -304,5 +304,5 @@ public:
 };
 
 }
-#endif /*GGAFDXCOLORIST_H_*/
+#endif /*GGAFDXCORE_GGAFDXCOLORIST_H_*/
 

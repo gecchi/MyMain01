@@ -1,5 +1,5 @@
-#ifndef DEFAULTD3DXANIMESHACTOR_H_
-#define DEFAULTD3DXANIMESHACTOR_H_
+#ifndef GGAFLIB_DEFAULTD3DXANIMESHACTOR_H_
+#define GGAFLIB_DEFAULTD3DXANIMESHACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxD3DXAniMeshActor.h"
 
 namespace GgafLib {
@@ -61,4 +61,4 @@ public:
 };
 
 }
-#endif /*DEFAULTD3DXANIMESHACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTD3DXANIMESHACTOR_H_*/

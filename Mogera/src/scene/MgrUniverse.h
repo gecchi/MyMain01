@@ -3,8 +3,9 @@
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
 
 #include "actor/MgrCamera.h"
-
-#ifdef P_UNIVERSE
+#ifdef P_GOD
+    #undef P_UNIVERSE
+    #define P_UNIVERSE ((Mogera::MgrUniverse*)(P_GOD->_pUniverse))
     #ifdef P_CAM
         #undef P_CAM
     #endif
@@ -23,6 +24,9 @@ namespace Mogera {
  * @author Masatoshi Tsuge
  */
 class MgrUniverse : public GgafLib::DefaultUniverse {
+
+public:
+    MgrWorld* pWorld_;
 
 public:
     /**

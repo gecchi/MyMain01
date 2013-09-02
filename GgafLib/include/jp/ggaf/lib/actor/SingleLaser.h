@@ -1,5 +1,5 @@
-#ifndef SINGLELASER_H_
-#define SINGLELASER_H_
+#ifndef GGAFLIB_SINGLELASER_H_
+#define GGAFLIB_SINGLELASER_H_
 #include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
 
 namespace GgafLib {
@@ -37,5 +37,5 @@ public:
 };
 
 }
-#endif /*SINGLELASER_H_*/
+#endif /*GGAFLIB_SINGLELASER_H_*/
 

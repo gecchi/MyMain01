@@ -1,5 +1,5 @@
-#ifndef GGAFDXSPRITESETMODEL_H_
-#define GGAFDXSPRITESETMODEL_H_
+#ifndef GGAFDXCORE_GGAFDXSPRITESETMODEL_H_
+#define GGAFDXCORE_GGAFDXSPRITESETMODEL_H_
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
 namespace GgafDxCore {
@@ -72,4 +72,4 @@ public:
 };
 
 }
-#endif /*GGAFDXSPRITESETMODEL_H_*/
+#endif /*GGAFDXCORE_GGAFDXSPRITESETMODEL_H_*/

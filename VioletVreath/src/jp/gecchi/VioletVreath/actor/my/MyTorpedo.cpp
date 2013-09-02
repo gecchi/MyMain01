@@ -26,10 +26,10 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pOptionTorpe
     begin_Y_ = _Y;
     begin_Z_ = _Z;
 
-    pTailEffectDepository_ = NEW LaserChipDepository("DP_TailEffect");
+    pTailEffectDepository_ = NEW LaserChipDepository("Depo_TorpedoTailEffect");
     pTailEffectDepository_->config(length_TailEffect_, 0, nullptr);
     for (int i = 0; i < length_TailEffect_; i++) {
-        std::string name = std::string(pOptionTorpedoCtrler_->getName())+"'s Tail("+XTOS(i)+")";
+        std::string name = std::string(getName())+"'s Tail("+XTOS(i)+")";
         MyTorpedoTail* pChip = NEW MyTorpedoTail(name.c_str(), this);
 
         pChip->inactivateImmed();

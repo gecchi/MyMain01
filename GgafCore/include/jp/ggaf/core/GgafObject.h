@@ -1,5 +1,5 @@
-#ifndef GGAFOBJECT_H_
-#define GGAFOBJECT_H_
+#ifndef GGAFCORE_GGAFOBJECT_H_
+#define GGAFCORE_GGAFOBJECT_H_
 namespace GgafCore {
 
 /** ƒNƒ‰ƒXŽí•Ê */
@@ -46,4 +46,4 @@ public:
 };
 
 }
-#endif /*GGAFOBJECT_H_*/
+#endif /*GGAFCORE_GGAFOBJECT_H_*/

@@ -1,5 +1,5 @@
-#ifndef DEFAULTSPRITESETACTOR_H_
-#define DEFAULTSPRITESETACTOR_H_
+#ifndef GGAFLIB_DEFAULTSPRITESETACTOR_H_
+#define GGAFLIB_DEFAULTSPRITESETACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxSpriteSetActor.h"
 
 namespace GgafLib {
@@ -60,4 +60,4 @@ public:
 };
 
 }
-#endif /*DEFAULTSPRITESETACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTSPRITESETACTOR_H_*/

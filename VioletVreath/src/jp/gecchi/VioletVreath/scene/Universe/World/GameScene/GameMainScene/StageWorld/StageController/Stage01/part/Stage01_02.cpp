@@ -9,6 +9,7 @@
 #include "../Stage01PartController.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage/StagePartController.h"
 #include "jp/ggaf/dxcore/manager/GgafDxBgmConnection.h"
+#include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -402,7 +403,7 @@ void Stage01_02::processBehavior() {
     // gen02 end
 
 
-    if (getBehaveingFrame() == 1) {
+    if (getBehaveingFrame() == 1 && P_GAME_SCENE->_pProg->get() == GameScene::PROG_MAIN) {
         //兄弟シーンのBGMを全てフェードアウトし、自分のシーンBGMをフェードイン
         StagePartController* pStagePartController = (StagePartController*)(getParent());
         pStagePartController->fadeout_stop_AllPartSceneBgm();

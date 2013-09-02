@@ -1,5 +1,5 @@
-#ifndef GGAFACTORDEPOSITORY_H_
-#define GGAFACTORDEPOSITORY_H_
+#ifndef GGAFCORE_GGAFACTORDEPOSITORY_H_
+#define GGAFCORE_GGAFACTORDEPOSITORY_H_
 #include "jp/ggaf/core/actor/ex/GgafDummyActor.h"
 
 namespace GgafCore {
@@ -166,4 +166,4 @@ public:
 };
 
 }
-#endif /*GGAFACTORDEPOSITORY_H_*/
+#endif /*GGAFCORE_GGAFACTORDEPOSITORY_H_*/

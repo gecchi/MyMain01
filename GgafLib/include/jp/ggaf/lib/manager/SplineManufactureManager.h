@@ -1,5 +1,5 @@
-#ifndef SPLINEMANUFACTUREMANAGER_H_
-#define SPLINEMANUFACTUREMANAGER_H_
+#ifndef GGAFLIB_SPLINEMANUFACTUREMANAGER_H_
+#define GGAFLIB_SPLINEMANUFACTUREMANAGER_H_
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 namespace GgafLib {
@@ -28,4 +28,4 @@ public:
 };
 
 }
-#endif /*SPLINEMANUFACTUREMANAGER_H_*/
+#endif /*GGAFLIB_SPLINEMANUFACTUREMANAGER_H_*/

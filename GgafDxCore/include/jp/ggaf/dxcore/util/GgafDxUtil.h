@@ -1,5 +1,5 @@
-#ifndef GGAFDXUTIL_H_
-#define GGAFDXUTIL_H_
+#ifndef GGAFDXCORE_GGAFDXUTIL_H_
+#define GGAFDXCORE_GGAFDXUTIL_H_
 #include "jp/ggaf/core/util/GgafUtil.h"
 
 #include <math.h>
@@ -816,5 +816,5 @@ public:
 };
 
 }
-#endif /*GGAFDXUTIL_H_*/
+#endif /*GGAFDXCORE_GGAFDXUTIL_H_*/
 

@@ -1,5 +1,5 @@
-#ifndef SPLINEPROGRAMCONNECTION_H_
-#define SPLINEPROGRAMCONNECTION_H_
+#ifndef GGAFLIB_SPLINEPROGRAMCONNECTION_H_
+#define GGAFLIB_SPLINEPROGRAMCONNECTION_H_
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
@@ -29,4 +29,4 @@ public:
 };
 
 }
-#endif /*SPLINEPROGRAMCONNECTION_H_*/
+#endif /*GGAFLIB_SPLINEPROGRAMCONNECTION_H_*/

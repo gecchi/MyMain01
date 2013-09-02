@@ -1,5 +1,5 @@
-#ifndef DEFAULTSCENE_H_
-#define DEFAULTSCENE_H_
+#ifndef GGAFLIB_DEFAULTSCENE_H_
+#define GGAFLIB_DEFAULTSCENE_H_
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 
 #include "jp/ggaf/lib/util/SceneProgress.h"
@@ -108,4 +108,4 @@ public:
 };
 
 }
-#endif /*DEFAULTSCENE_H_*/
+#endif /*GGAFLIB_DEFAULTSCENE_H_*/

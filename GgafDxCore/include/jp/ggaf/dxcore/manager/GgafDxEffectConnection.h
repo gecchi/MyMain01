@@ -1,5 +1,5 @@
-#ifndef GGAFDXEFFECTCONNECTION_H_
-#define GGAFDXEFFECTCONNECTION_H_
+#ifndef GGAFDXCORE_GGAFDXEFFECTCONNECTION_H_
+#define GGAFDXCORE_GGAFDXEFFECTCONNECTION_H_
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
@@ -36,4 +36,4 @@ public:
 };
 
 }
-#endif /*GGAFDXEFFECTCONNECTION_H_*/
+#endif /*GGAFDXCORE_GGAFDXEFFECTCONNECTION_H_*/

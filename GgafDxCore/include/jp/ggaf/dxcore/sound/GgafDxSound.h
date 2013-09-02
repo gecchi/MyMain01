@@ -1,5 +1,5 @@
-#ifndef GGAFDXSOUND_H_
-#define GGAFDXSOUND_H_
+#ifndef GGAFDXCORE_GGAFDXSOUND_H_
+#define GGAFDXCORE_GGAFDXSOUND_H_
 #include <sstream>
 //ª#include <dsound.h> ‚æ‚èæ‚É–³‚¢‚ÆAout__ ‚â‚ç‚ª sal.h ‚É‚æ‚è‰˜õ‚³‚ê‚é‚½‚ß
 #ifdef __GNUG__
@@ -111,4 +111,4 @@ public:
 };
 
 }
-#endif /*GGAFDXSOUND_H_*/
+#endif /*GGAFDXCORE_GGAFDXSOUND_H_*/

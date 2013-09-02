@@ -1,5 +1,5 @@
-#ifndef GGAFGROUPHEAD_H_
-#define GGAFGROUPHEAD_H_
+#ifndef GGAFCORE_GGAFGROUPHEAD_H_
+#define GGAFCORE_GGAFGROUPHEAD_H_
 #include "jp/ggaf/core/actor/GgafActor.h"
 
 namespace GgafCore {
@@ -116,4 +116,4 @@ public:
 };
 
 }
-#endif /*GGAFGROUPHEADACTOR_H_*/
+#endif /*GGAFCORE_GGAFGROUPHEADACTOR_H_*/

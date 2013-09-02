@@ -1,5 +1,5 @@
-#ifndef GGAFDXEFFECTMANAGER_H_
-#define GGAFDXEFFECTMANAGER_H_
+#ifndef GGAFDXCORE_GGAFDXEFFECTMANAGER_H_
+#define GGAFDXCORE_GGAFDXEFFECTMANAGER_H_
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
@@ -65,4 +65,4 @@ public:
 };
 
 }
-#endif /*GGAFDXEFFECTMANAGER_H_*/
+#endif /*GGAFDXCORE_GGAFDXEFFECTMANAGER_H_*/

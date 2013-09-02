@@ -1,5 +1,5 @@
-#ifndef GGAFDXTEXTURE_H_
-#define GGAFDXTEXTURE_H_
+#ifndef GGAFDXCORE_GGAFDXTEXTURE_H_
+#define GGAFDXCORE_GGAFDXTEXTURE_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>
@@ -52,4 +52,4 @@ public:
 };
 
 }
-#endif /*GGAFDXEFFECT_H_*/
+#endif /*GGAFDXCORE_GGAFDXEFFECT_H_*/

@@ -1,5 +1,5 @@
-#ifndef GGAFDXAAPRISMACTOR_H_
-#define GGAFDXAAPRISMACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXAAPRISMACTOR_H_
+#define GGAFDXCORE_GGAFDXAAPRISMACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
 
 namespace GgafDxCore {
@@ -42,7 +42,7 @@ public:
 };
 
 }
-#endif /*GGAFDXBOXACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXBOXACTOR_H_*/
 
 //補足
 //プリズム位置(pos_prism)を、表す定数(GgafDxCommonHeader.hで定義)は以下のような命名がなされている。

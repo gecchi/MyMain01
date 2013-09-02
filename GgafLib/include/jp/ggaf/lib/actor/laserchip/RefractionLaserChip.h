@@ -1,5 +1,5 @@
-#ifndef REFRACTIONLASERCHIP_H_
-#define REFRACTIONLASERCHIP_H_
+#ifndef GGAFLIB_REFRACTIONLASERCHIP_H_
+#define GGAFLIB_REFRACTIONLASERCHIP_H_
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
 namespace GgafLib {
@@ -128,5 +128,5 @@ public:
 };
 
 }
-#endif /*HOMINGLASERCHIP_H_*/
+#endif /*GGAFLIB_HOMINGLASERCHIP_H_*/
 

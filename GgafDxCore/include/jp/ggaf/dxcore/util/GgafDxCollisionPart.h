@@ -1,5 +1,5 @@
-#ifndef GGAFDXCOLLISIONPART_H_
-#define GGAFDXCOLLISIONPART_H_
+#ifndef GGAFDXCORE_GGAFDXCOLLISIONPART_H_
+#define GGAFDXCORE_GGAFDXCOLLISIONPART_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -77,4 +77,4 @@ public:
 };
 
 }
-#endif /*GGAFDXCOLLISIONPART_H_*/
+#endif /*GGAFDXCORE_GGAFDXCOLLISIONPART_H_*/

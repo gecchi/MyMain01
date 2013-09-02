@@ -14,6 +14,7 @@
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/scene/Universe.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -72,17 +73,25 @@ papOptionCtrler_(nullptr) {
     //z_ = 0.9999999f;
 
     zanki_ = 0;
+    pLabelZanki_ = NEW LabelGecchi16Font("zankdisp");
+    getSceneDirector()->addSubGroup(pLabelZanki_);
+
     useProgress(PROG_END);
 
 }
 
 void MyShipScene::initialize() {
+    pLabelZanki_->position(0,20);
+    pLabelZanki_->update("");
     _TRACE_("MyShipScene initialize()");
 }
 
 void MyShipScene::onReset() {
     _TRACE_("MyShipScene onReset()");
-    zanki_ = 1;
+    zanki_ = 3;
+    std::string z(zanki_, '*');
+    pLabelZanki_->update(z.c_str());
+
     pMyShip_->resetTree();
     for (int i = 0; i < MyOptionController::max_option_num_; i ++) {
         papOptionCtrler_[i]->resetTree();
@@ -162,6 +171,8 @@ void MyShipScene::processBehavior() {
                     papOptionCtrler_[i]->is_free_from_myship_mode_ = true;
                 }
                 zanki_ -= 1;
+                std::string z(zanki_, '*');
+                pLabelZanki_->update(z.c_str());
             }
             if (_pProg->getFrameInProgress() == 120) {
                 fadeoutScene(120);

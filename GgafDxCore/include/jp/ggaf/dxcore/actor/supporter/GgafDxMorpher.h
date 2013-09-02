@@ -1,5 +1,5 @@
-#ifndef GGAFDXMORPHER_H_
-#define GGAFDXMORPHER_H_
+#ifndef GGAFDXCORE_GGAFDXMORPHER_H_
+#define GGAFDXCORE_GGAFDXMORPHER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -225,5 +225,5 @@ public:
 };
 
 }
-#endif /*GGAFDXMORPHER_H_*/
+#endif /*GGAFDXCORE_GGAFDXMORPHER_H_*/
 

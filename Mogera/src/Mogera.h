@@ -20,6 +20,8 @@ class MgrWorld;
 class MgrCamera;
 class MgrActor;
 class TestActor;
+class Teki001;
+class Mikata001;
 }
 
 #endif /*SIMPLEMOGERA_H_*/

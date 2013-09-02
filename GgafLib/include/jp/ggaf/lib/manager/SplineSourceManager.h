@@ -1,5 +1,5 @@
-#ifndef SPLINEPROGRAMMANAGER_H_
-#define SPLINEPROGRAMMANAGER_H_
+#ifndef GGAFLIB_SPLINEPROGRAMMANAGER_H_
+#define GGAFLIB_SPLINEPROGRAMMANAGER_H_
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 namespace GgafLib {
@@ -36,4 +36,4 @@ public:
 };
 
 }
-#endif /*SPLINEPROGRAMMANAGER_H_*/
+#endif /*GGAFLIB_SPLINEPROGRAMMANAGER_H_*/

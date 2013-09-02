@@ -13,3 +13,4 @@ SimpleSample.exe
 back.properties
 /ReleaseCdt
 /ReleaseCdt_x64
+/gmon.out

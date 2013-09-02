@@ -1,5 +1,5 @@
-#ifndef DEFAULTMESHSETACTOR_H_
-#define DEFAULTMESHSETACTOR_H_
+#ifndef GGAFLIB_DEFAULTMESHSETACTOR_H_
+#define GGAFLIB_DEFAULTMESHSETACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
 
 namespace GgafLib {
@@ -59,4 +59,4 @@ public:
 };
 
 }
-#endif /*DEFAULTMESHSETACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTMESHSETACTOR_H_*/

@@ -1,5 +1,5 @@
-#ifndef GGAFDXSPRITEACTORD_H_
-#define GGAFDXSPRITEACTORD_H_
+#ifndef GGAFDXCORE_GGAFDXSPRITEACTORD_H_
+#define GGAFDXCORE_GGAFDXSPRITEACTORD_H_
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 
 namespace GgafDxCore {
@@ -78,4 +78,4 @@ public:
 };
 
 }
-#endif /*GGAFDXSPRITEACTORD_H_*/
+#endif /*GGAFDXCORE_GGAFDXSPRITEACTORD_H_*/

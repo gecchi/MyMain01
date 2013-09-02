@@ -1,5 +1,5 @@
-#ifndef GGAFDXMODELMANAGER_H_
-#define GGAFDXMODELMANAGER_H_
+#ifndef GGAFDXCORE_GGAFDXMODELMANAGER_H_
+#define GGAFDXCORE_GGAFDXMODELMANAGER_H_
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -220,4 +220,4 @@ public:
 };
 
 }
-#endif /*GGAFDXMODELMANAGER_H_*/
+#endif /*GGAFDXCORE_GGAFDXMODELMANAGER_H_*/

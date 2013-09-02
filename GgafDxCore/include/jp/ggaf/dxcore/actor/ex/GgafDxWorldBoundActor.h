@@ -1,5 +1,5 @@
-#ifndef GGAFDXWORLDBOUNDACTOR_H_
-#define GGAFDXWORLDBOUNDACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXWORLDBOUNDACTOR_H_
+#define GGAFDXCORE_GGAFDXWORLDBOUNDACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 #include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
 
@@ -46,4 +46,4 @@ public:
 };
 
 }
-#endif /*GGAFDXCUBEMAPMORPHMESHACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXCUBEMAPMORPHMESHACTOR_H_*/

@@ -1,5 +1,5 @@
-#ifndef GGAFDXCUBEMAPMESHACTOR_H_
-#define GGAFDXCUBEMAPMESHACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXCUBEMAPMESHACTOR_H_
+#define GGAFDXCORE_GGAFDXCUBEMAPMESHACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
 #include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
 
@@ -48,4 +48,4 @@ public:
 };
 
 }
-#endif /*GGAFDXCUBEMAPMESHACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXCUBEMAPMESHACTOR_H_*/

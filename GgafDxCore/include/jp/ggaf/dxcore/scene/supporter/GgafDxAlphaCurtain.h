@@ -1,5 +1,5 @@
-#ifndef GGAFDXALPHACURTAIN_H_
-#define GGAFDXALPHACURTAIN_H_
+#ifndef GGAFDXCORE_GGAFDXALPHACURTAIN_H_
+#define GGAFDXCORE_GGAFDXALPHACURTAIN_H_
 #include "jp/ggaf/core/util/GgafCurtain.h"
 
 namespace GgafDxCore {
@@ -50,5 +50,5 @@ public:
 };
 
 }
-#endif /*GGAFDXALPHACURTAIN_H_*/
+#endif /*GGAFDXCORE_GGAFDXALPHACURTAIN_H_*/
 

@@ -1,5 +1,5 @@
-#ifndef LINEAROCTREEACTORELEM_H_
-#define LINEAROCTREEACTORELEM_H_
+#ifndef GGAFLIB_LINEAROCTREEACTORELEM_H_
+#define GGAFLIB_LINEAROCTREEACTORELEM_H_
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 
 namespace GgafLib {
@@ -23,5 +23,5 @@ public:
 };
 
 }
-#endif /*LINEAROCTREEACTORELEM_H_*/
+#endif /*GGAFLIB_LINEAROCTREEACTORELEM_H_*/
 

@@ -1,5 +1,5 @@
-#ifndef FKFORMATION_H_
-#define FKFORMATION_H_
+#ifndef GGAFLIB_FKFORMATION_H_
+#define GGAFLIB_FKFORMATION_H_
 #include "jp/ggaf/dxcore/actor/ex/GgafDxFkFormation.h"
 
 namespace GgafLib {
@@ -35,4 +35,4 @@ public:
 };
 
 }
-#endif /*FKFORMATION_H_*/
+#endif /*GGAFLIB_FKFORMATION_H_*/

@@ -1,5 +1,5 @@
-#ifndef HOMINGLASERCHIP_H_
-#define HOMINGLASERCHIP_H_
+#ifndef GGAFLIB_HOMINGLASERCHIP_H_
+#define GGAFLIB_HOMINGLASERCHIP_H_
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
 namespace GgafLib {
@@ -86,5 +86,5 @@ public:
 };
 
 }
-#endif /*HOMINGLASERCHIP_H_*/
+#endif /*GGAFLIB_HOMINGLASERCHIP_H_*/
 

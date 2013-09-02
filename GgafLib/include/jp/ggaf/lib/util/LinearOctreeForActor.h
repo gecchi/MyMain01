@@ -1,5 +1,5 @@
-#ifndef LINEAROCTREEFORACTOR_H_
-#define LINEAROCTREEFORACTOR_H_
+#ifndef GGAFLIB_LINEAROCTREEFORACTOR_H_
+#define GGAFLIB_LINEAROCTREEFORACTOR_H_
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 
 namespace GgafLib {
@@ -126,5 +126,5 @@ public:
 
 
 }
-#endif /*LINEAROCTREEFORACTOR_H_*/
+#endif /*GGAFLIB_LINEAROCTREEFORACTOR_H_*/
 

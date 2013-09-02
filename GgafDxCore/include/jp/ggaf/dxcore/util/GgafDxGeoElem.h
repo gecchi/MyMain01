@@ -1,5 +1,5 @@
-#ifndef GGAFDXGEOELEM_H_
-#define GGAFDXGEOELEM_H_
+#ifndef GGAFDXCORE_GGAFDXGEOELEM_H_
+#define GGAFDXCORE_GGAFDXGEOELEM_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
@@ -43,4 +43,4 @@ public:
 };
 
 }
-#endif /*GGAFDXGEOELEM_H_*/
+#endif /*GGAFDXCORE_GGAFDXGEOELEM_H_*/

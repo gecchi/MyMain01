@@ -1,5 +1,5 @@
-#ifndef GGAFDXTEXTURECONNECTION_H_
-#define GGAFDXTEXTURECONNECTION_H_
+#ifndef GGAFDXCORE_GGAFDXTEXTURECONNECTION_H_
+#define GGAFDXCORE_GGAFDXTEXTURECONNECTION_H_
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
@@ -29,4 +29,4 @@ public:
 };
 
 }
-#endif /*GGAFDXTEXTURECONNECTION_H_*/
+#endif /*GGAFDXCORE_GGAFDXTEXTURECONNECTION_H_*/

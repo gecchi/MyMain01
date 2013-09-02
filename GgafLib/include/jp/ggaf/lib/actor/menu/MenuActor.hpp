@@ -1,5 +1,5 @@
-#ifndef MENUACTOR_H_
-#define MENUACTOR_H_
+#ifndef GGAFLIB_MENUACTOR_H_
+#define GGAFLIB_MENUACTOR_H_
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
@@ -1696,4 +1696,4 @@ typedef GgafLib::MenuActor<GgafLib::StringBoardActor> StringBoardMenu;
 typedef GgafLib::MenuActor<GgafLib::StringSpriteActor> StringSpriteMenu;
 
 }
-#endif /*MENUACTOR_H_*/
+#endif /*GGAFLIB_MENUACTOR_H_*/

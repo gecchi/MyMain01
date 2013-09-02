@@ -1,5 +1,5 @@
-#ifndef GGAFORDER_H_
-#define GGAFORDER_H_
+#ifndef GGAFCORE_GGAFORDER_H_
+#define GGAFCORE_GGAFORDER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafCore {
@@ -50,4 +50,4 @@ public:
 };
 
 }
-#endif /*GGAFORDER_H_*/
+#endif /*GGAFCORE_GGAFORDER_H_*/

@@ -1,5 +1,5 @@
-#ifndef COLLIAABACTOR_H_
-#define COLLIAABACTOR_H_
+#ifndef GGAFLIB_COLLIAABACTOR_H_
+#define GGAFLIB_COLLIAABACTOR_H_
 #include "jp/ggaf/dxcore/actor/ex/GgafDxAABActor.h"
 
 namespace GgafLib {
@@ -50,4 +50,4 @@ public:
 };
 
 }
-#endif /*COLLIAABACTOR_H_*/
+#endif /*GGAFLIB_COLLIAABACTOR_H_*/

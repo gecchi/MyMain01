@@ -1,5 +1,5 @@
-#ifndef DEPOSITORYFORMATION_H_
-#define DEPOSITORYFORMATION_H_
+#ifndef GGAFLIB_DEPOSITORYFORMATION_H_
+#define GGAFLIB_DEPOSITORYFORMATION_H_
 #include "jp/ggaf/core/actor/ex/GgafDepositoryFormation.h"
 
 namespace GgafLib {
@@ -36,4 +36,4 @@ public:
 };
 
 }
-#endif /*DEPOSITORYFORMATION_H_*/
+#endif /*GGAFLIB_DEPOSITORYFORMATION_H_*/

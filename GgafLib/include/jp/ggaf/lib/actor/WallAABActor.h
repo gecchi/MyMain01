@@ -1,5 +1,5 @@
-#ifndef WALLAABACTOR_H_
-#define WALLAABACTOR_H_
+#ifndef GGAFLIB_WALLAABACTOR_H_
+#define GGAFLIB_WALLAABACTOR_H_
 #include "jp/ggaf/lib/actor/WallPartsActor.h"
 
 namespace GgafLib {
@@ -29,4 +29,4 @@ public:
 };
 
 }
-#endif /*WALLAABACTOR_H_*/
+#endif /*GGAFLIB_WALLAABACTOR_H_*/

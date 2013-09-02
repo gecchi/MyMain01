@@ -1,5 +1,5 @@
-#ifndef GGAFGARBAGEBOX_H_
-#define GGAFGARBAGEBOX_H_
+#ifndef GGAFCORE_GGAFGARBAGEBOX_H_
+#define GGAFCORE_GGAFGARBAGEBOX_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafCore {
@@ -63,4 +63,4 @@ public:
 };
 
 }
-#endif /*GGAFGARBAGEBOX_H_*/
+#endif /*GGAFCORE_GGAFGARBAGEBOX_H_*/

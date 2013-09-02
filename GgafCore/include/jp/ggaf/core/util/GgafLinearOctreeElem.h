@@ -1,5 +1,5 @@
-#ifndef GGAFLINEAROCTREEELEM_H_
-#define GGAFLINEAROCTREEELEM_H_
+#ifndef GGAFCORE_GGAFLINEAROCTREEELEM_H_
+#define GGAFCORE_GGAFLINEAROCTREEELEM_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafCore {
@@ -58,5 +58,5 @@ public:
 };
 
 }
-#endif /*GGAFLINEAROCTREEELEM_H_*/
+#endif /*GGAFCORE_GGAFLINEAROCTREEELEM_H_*/
 

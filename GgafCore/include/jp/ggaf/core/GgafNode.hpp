@@ -1,5 +1,5 @@
-#ifndef GGAFNODE_H_
-#define GGAFNODE_H_
+#ifndef GGAFCORE_GGAFNODE_H_
+#define GGAFCORE_GGAFNODE_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <cstring>
@@ -719,4 +719,4 @@ GgafNode<T>::~GgafNode() {
 }
 
 }
-#endif /*GGAFNODE_H_*/
+#endif /*GGAFCORE_GGAFNODE_H_*/

@@ -1,5 +1,5 @@
-#ifndef TREEFORMATION_H_
-#define TREEFORMATION_H_
+#ifndef GGAFLIB_TREEFORMATION_H_
+#define GGAFLIB_TREEFORMATION_H_
 #include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
 
 namespace GgafLib {
@@ -36,4 +36,4 @@ public:
 };
 
 }
-#endif /*TREEFORMATION_H_*/
+#endif /*GGAFLIB_TREEFORMATION_H_*/

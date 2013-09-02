@@ -1,5 +1,5 @@
-#ifndef GGAFLINKEDLISTRING_H_
-#define GGAFLINKEDLISTRING_H_
+#ifndef GGAFCORE_GGAFLINKEDLISTRING_H_
+#define GGAFCORE_GGAFLINKEDLISTRING_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "GgafCommonHeader.h"
@@ -1291,4 +1291,4 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
 }
 
 }
-#endif /*GGAFLINKEDLISTRING_H_*/
+#endif /*GGAFCORE_GGAFLINKEDLISTRING_H_*/

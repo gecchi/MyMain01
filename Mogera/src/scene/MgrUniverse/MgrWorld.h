@@ -3,7 +3,6 @@
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "scene/MgrUniverse.h"
-#include "jp/ggaf/lib/util/VirtualButton.h"
 
 namespace Mogera {
 
@@ -26,10 +25,10 @@ class MgrWorld : public GgafLib::DefaultScene {
 
 public:
     /** 入力受付 */
-    GgafLib::VirtualButton vb_;
+    GgafLib::VirtualButton* vb_;
     /** テストキャラ */
-    MgrActor* pActor_;
-
+    Teki001* pTeki_;
+    Mikata001* pMikata_;
     /**
      * コンストラクタ .
      * @param prm_name 名称
@@ -45,7 +44,7 @@ public:
      * 世界シーンの振る舞い処理 .
      */
     void processBehavior() override;
-
+    void processJudgement() override;
     virtual ~MgrWorld();
 };
 

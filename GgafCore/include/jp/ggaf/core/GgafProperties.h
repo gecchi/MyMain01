@@ -1,5 +1,5 @@
-#ifndef GGAFPROPERTIES_H_
-#define GGAFPROPERTIES_H_
+#ifndef GGAFCORE_GGAFPROPERTIES_H_
+#define GGAFCORE_GGAFPROPERTIES_H_
 #include "jp/ggaf/core/util/GgafUtil.h"
 
 #include "jp/ggaf/core/util/GgafRgb.h"
@@ -149,5 +149,5 @@ public:
 };
 
 }
-#endif /*GGAFPROPERTIES_H_*/
+#endif /*GGAFCORE_GGAFPROPERTIES_H_*/
 

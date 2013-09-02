@@ -1,5 +1,5 @@
-#ifndef VBREPLAYRECORDER_H_
-#define VBREPLAYRECORDER_H_
+#ifndef GGAFLIB_VBREPLAYRECORDER_H_
+#define GGAFLIB_VBREPLAYRECORDER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"
@@ -108,4 +108,4 @@ public:
 };
 
 }
-#endif /*FONTSPRITESTRING_H_*/
+#endif /*GGAFLIB_FONTSPRITESTRING_H_*/

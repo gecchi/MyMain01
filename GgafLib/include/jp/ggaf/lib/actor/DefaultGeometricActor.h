@@ -1,5 +1,5 @@
-#ifndef DEFAULTGEOMETRICACTOR_H_
-#define DEFAULTGEOMETRICACTOR_H_
+#ifndef GGAFLIB_DEFAULTGEOMETRICACTOR_H_
+#define GGAFLIB_DEFAULTGEOMETRICACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 namespace GgafLib {
@@ -36,4 +36,4 @@ public:
 };
 
 }
-#endif /*DEFAULTGEOMETRICACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTGEOMETRICACTOR_H_*/

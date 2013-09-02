@@ -1,5 +1,5 @@
-#ifndef GGAFDXWORLDMATSTACK_H_
-#define GGAFDXWORLDMATSTACK_H_
+#ifndef GGAFDXCORE_GGAFDXWORLDMATSTACK_H_
+#define GGAFDXCORE_GGAFDXWORLDMATSTACK_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <list>
@@ -28,4 +28,4 @@ protected:
 
 }
 
-#endif /*GGAFDXWORLDMATSTACK_H_*/
+#endif /*GGAFDXCORE_GGAFDXWORLDMATSTACK_H_*/

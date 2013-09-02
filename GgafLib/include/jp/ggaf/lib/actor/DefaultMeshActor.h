@@ -1,5 +1,5 @@
-#ifndef DEFAULTMESHACTOR_H_
-#define DEFAULTMESHACTOR_H_
+#ifndef GGAFLIB_DEFAULTMESHACTOR_H_
+#define GGAFLIB_DEFAULTMESHACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
 
 namespace GgafLib {
@@ -65,4 +65,4 @@ public:
 };
 
 }
-#endif /*DEFAULTMESHACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTMESHACTOR_H_*/

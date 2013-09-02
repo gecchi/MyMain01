@@ -1,5 +1,5 @@
-#ifndef GGAFDXBOARDACTORD_H_
-#define GGAFDXBOARDACTORD_H_
+#ifndef GGAFDXCORE_GGAFDXBOARDACTORD_H_
+#define GGAFDXCORE_GGAFDXBOARDACTORD_H_
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 
 namespace GgafDxCore {
@@ -129,4 +129,4 @@ public:
 };
 
 }
-#endif /*GGAFDXBOARDACTORD_H_*/
+#endif /*GGAFDXCORE_GGAFDXBOARDACTORD_H_*/

@@ -1,5 +1,5 @@
-#ifndef GGAFDXGOD_H_
-#define GGAFDXGOD_H_
+#ifndef GGAFDXCORE_GGAFDXGOD_H_
+#define GGAFDXCORE_GGAFDXGOD_H_
 #include "jp/ggaf/core/GgafGod.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
@@ -238,4 +238,4 @@ public:
 };
 
 }
-#endif /*GGAFDXGOD_H_*/
+#endif /*GGAFDXCORE_GGAFDXGOD_H_*/

@@ -1,5 +1,5 @@
-#ifndef GGAFRGB_H_
-#define GGAFRGB_H_
+#ifndef GGAFCORE_GGAFRGB_H_
+#define GGAFCORE_GGAFRGB_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
@@ -71,4 +71,4 @@ public:
 
 
 }
-#endif /*GGAFRGB_H_*/
+#endif /*GGAFCORE_GGAFRGB_H_*/

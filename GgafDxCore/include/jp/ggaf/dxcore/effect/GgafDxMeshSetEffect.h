@@ -1,5 +1,5 @@
-#ifndef GGAFDXMESHSETEFFECT_H_
-#define GGAFDXMESHSETEFFECT_H_
+#ifndef GGAFDXCORE_GGAFDXMESHSETEFFECT_H_
+#define GGAFDXCORE_GGAFDXMESHSETEFFECT_H_
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 
 namespace GgafDxCore {
@@ -45,4 +45,4 @@ public:
 };
 
 }
-#endif /*GGAFDXMESHSETEFFECT_H_*/
+#endif /*GGAFDXCORE_GGAFDXMESHSETEFFECT_H_*/

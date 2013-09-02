@@ -1,5 +1,5 @@
-#ifndef GGAFDXCUBEMAPMESHEFFECT_H_
-#define GGAFDXCUBEMAPMESHEFFECT_H_
+#ifndef GGAFDXCORE_GGAFDXCUBEMAPMESHEFFECT_H_
+#define GGAFDXCORE_GGAFDXCUBEMAPMESHEFFECT_H_
 #include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
 
 namespace GgafDxCore {
@@ -24,4 +24,4 @@ public:
 };
 
 }
-#endif /*GGAFDXCUBEMAPMESHEFFECT_H_*/
+#endif /*GGAFDXCORE_GGAFDXCUBEMAPMESHEFFECT_H_*/

@@ -1,5 +1,5 @@
-#ifndef GGAFDXSEREFLECTOR_H_
-#define GGAFDXSEREFLECTOR_H_
+#ifndef GGAFDXCORE_GGAFDXSEREFLECTOR_H_
+#define GGAFDXCORE_GGAFDXSEREFLECTOR_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -70,4 +70,4 @@ public:
 };
 
 }
-#endif /*GGAFDXSEREFLECTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXSEREFLECTOR_H_*/

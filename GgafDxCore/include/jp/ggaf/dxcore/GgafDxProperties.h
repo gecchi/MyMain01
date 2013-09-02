@@ -1,5 +1,5 @@
-#ifndef GGAFDXPROPERTIES_H_
-#define GGAFDXPROPERTIES_H_
+#ifndef GGAFDXCORE_GGAFDXPROPERTIES_H_
+#define GGAFDXCORE_GGAFDXPROPERTIES_H_
 #include "jp/ggaf/core/GgafProperties.h"
 
 #ifdef PROPERTY
@@ -149,5 +149,5 @@ public:
 };
 
 }
-#endif /*GGAFDXPROPERTIES_H_*/
+#endif /*GGAFDXCORE_GGAFDXPROPERTIES_H_*/
 

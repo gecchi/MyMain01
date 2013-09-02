@@ -1,5 +1,5 @@
-#ifndef GGAFPROGRESS_H_
-#define GGAFPROGRESS_H_
+#ifndef GGAFCORE_GGAFPROGRESS_H_
+#define GGAFCORE_GGAFPROGRESS_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #define PROGRESS_NOTHING (-1)
@@ -208,4 +208,4 @@ public:
 };
 
 }
-#endif /*GGAFPROGRESS_H_*/
+#endif /*GGAFCORE_GGAFPROGRESS_H_*/

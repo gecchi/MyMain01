@@ -1,5 +1,5 @@
-#ifndef GGAFDXFKFORMATION_H_
-#define GGAFDXFKFORMATION_H_
+#ifndef GGAFDXCORE_GGAFDXFKFORMATION_H_
+#define GGAFDXCORE_GGAFDXFKFORMATION_H_
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"
 
 namespace GgafDxCore {
@@ -131,4 +131,4 @@ public:
 };
 
 }
-#endif /*GGAFDXFKFORMATION_H_*/
+#endif /*GGAFDXCORE_GGAFDXFKFORMATION_H_*/

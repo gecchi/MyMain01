@@ -1,5 +1,5 @@
-#ifndef GGAFDXCAMERAACTOR_H_
-#define GGAFDXCAMERAACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXCAMERAACTOR_H_
+#define GGAFDXCORE_GGAFDXCAMERAACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 namespace GgafDxCore {
@@ -153,4 +153,4 @@ public:
 };
 
 }
-#endif /*GGAFDXCAMERAACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXCAMERAACTOR_H_*/

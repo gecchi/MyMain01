@@ -1,5 +1,5 @@
-#ifndef GGAFDXBOARDSETMODEL_H_
-#define GGAFDXBOARDSETMODEL_H_
+#ifndef GGAFDXCORE_GGAFDXBOARDSETMODEL_H_
+#define GGAFDXCORE_GGAFDXBOARDSETMODEL_H_
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
 namespace GgafDxCore {
@@ -72,4 +72,4 @@ public:
 };
 
 }
-#endif /*GGAFDXBOARDSETMODEL_H_*/
+#endif /*GGAFDXCORE_GGAFDXBOARDSETMODEL_H_*/

@@ -1,5 +1,5 @@
-#ifndef STGUTIL_H_
-#define STGUTIL_H_
+#ifndef GGAFLIB_STGUTIL_H_
+#define GGAFLIB_STGUTIL_H_
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 #include "jp/ggaf/lib/util/ColliAAB.h"
@@ -1029,4 +1029,4 @@ public:
 };
 
 }
-#endif /*STGUTIL_H_*/
+#endif /*GGAFLIB_STGUTIL_H_*/

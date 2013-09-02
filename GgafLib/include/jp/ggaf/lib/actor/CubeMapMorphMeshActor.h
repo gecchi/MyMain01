@@ -1,5 +1,5 @@
-#ifndef CUBEMAPMORPHMESHACTOR_H_
-#define CUBEMAPMORPHMESHACTOR_H_
+#ifndef GGAFLIB_CUBEMAPMORPHMESHACTOR_H_
+#define GGAFLIB_CUBEMAPMORPHMESHACTOR_H_
 #include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMorphMeshActor.h"
 
 namespace GgafLib {
@@ -56,4 +56,4 @@ public:
 };
 
 }
-#endif /*CUBEMAPMORPHMESHACTOR_H_*/
+#endif /*GGAFLIB_CUBEMAPMORPHMESHACTOR_H_*/

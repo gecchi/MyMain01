@@ -1,5 +1,5 @@
-#ifndef GGAFGOD_H_
-#define GGAFGOD_H_
+#ifndef GGAFCORE_GGAFGOD_H_
+#define GGAFCORE_GGAFGOD_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <windows.h>
@@ -163,4 +163,4 @@ public:
 };
 
 }
-#endif /*GGAFGOD_H_*/
+#endif /*GGAFCORE_GGAFGOD_H_*/

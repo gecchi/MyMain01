@@ -1,5 +1,5 @@
-#ifndef COLLISPHEREACTOR_H_
-#define COLLISPHEREACTOR_H_
+#ifndef GGAFLIB_COLLISPHEREACTOR_H_
+#define GGAFLIB_COLLISPHEREACTOR_H_
 #include "jp/ggaf/dxcore/actor/ex/GgafDxSphereActor.h"
 
 namespace GgafLib {
@@ -51,4 +51,4 @@ public:
 };
 
 }
-#endif /*COLLISPHEREACTOR_H_*/
+#endif /*GGAFLIB_COLLISPHEREACTOR_H_*/

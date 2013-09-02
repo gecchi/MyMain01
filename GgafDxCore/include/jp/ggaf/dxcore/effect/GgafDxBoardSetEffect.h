@@ -1,5 +1,5 @@
-#ifndef GGAFDXBOARDSETEFFECT_H_
-#define GGAFDXBOARDSETEFFECT_H_
+#ifndef GGAFDXCORE_GGAFDXBOARDSETEFFECT_H_
+#define GGAFDXCORE_GGAFDXBOARDSETEFFECT_H_
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 
 namespace GgafDxCore {
@@ -43,4 +43,4 @@ public:
 };
 
 }
-#endif /*GGAFDXBOARDSETEFFECT_H_*/
+#endif /*GGAFDXCORE_GGAFDXBOARDSETEFFECT_H_*/

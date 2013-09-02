@@ -1,5 +1,5 @@
-#ifndef GGAFDXSPRITESETACTOR_H_
-#define GGAFDXSPRITESETACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXSPRITESETACTOR_H_
+#define GGAFDXCORE_GGAFDXSPRITESETACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 
 namespace GgafDxCore {
@@ -64,4 +64,4 @@ public:
 };
 
 }
-#endif /*GGAFDXSPRITESETACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXSPRITESETACTOR_H_*/

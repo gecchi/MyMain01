@@ -1,5 +1,5 @@
-#ifndef GGAFDXBOXACTOR_H_
-#define GGAFDXBOXACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXBOXACTOR_H_
+#define GGAFDXCORE_GGAFDXBOXACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
 
 namespace GgafDxCore {
@@ -25,4 +25,4 @@ public:
 };
 
 }
-#endif /*GGAFDXBOXACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXBOXACTOR_H_*/

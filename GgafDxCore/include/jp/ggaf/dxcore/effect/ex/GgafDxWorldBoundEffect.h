@@ -1,5 +1,5 @@
-#ifndef GGAFDXWORLDEFFECT_H_
-#define GGAFDXWORLDEFFECT_H_
+#ifndef GGAFDXCORE_GGAFDXWORLDEFFECT_H_
+#define GGAFDXCORE_GGAFDXWORLDEFFECT_H_
 #include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
 
 namespace GgafDxCore {
@@ -20,4 +20,4 @@ public:
 };
 
 }
-#endif /*GGAFDXWORLDEFFECT_H_*/
+#endif /*GGAFDXCORE_GGAFDXWORLDEFFECT_H_*/

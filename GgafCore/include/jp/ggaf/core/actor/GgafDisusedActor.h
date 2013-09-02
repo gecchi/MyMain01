@@ -1,5 +1,5 @@
-#ifndef GGAFDISUSEDACTOR_H_
-#define GGAFDISUSEDACTOR_H_
+#ifndef GGAFCORE_GGAFDISUSEDACTOR_H_
+#define GGAFCORE_GGAFDISUSEDACTOR_H_
 #include "jp/ggaf/core/actor/GgafActor.h"
 
 namespace GgafCore {
@@ -55,4 +55,4 @@ public:
 };
 
 }
-#endif /*GGAFDISUSEDACTOR_H_*/
+#endif /*GGAFCORE_GGAFDISUSEDACTOR_H_*/

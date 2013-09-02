@@ -1,5 +1,5 @@
-#ifndef GGAFDXMESHACTOR_H_
-#define GGAFDXMESHACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXMESHACTOR_H_
+#define GGAFDXCORE_GGAFDXMESHACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 #include "jp/ggaf/dxcore/actor/interface/GgafDxIBumpMapActor.h"
 
@@ -93,4 +93,4 @@ public:
 };
 
 }
-#endif /*GGAFDXMESHACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXMESHACTOR_H_*/

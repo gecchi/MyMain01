@@ -1,5 +1,5 @@
-#ifndef GGAFDXCHECKER_H_
-#define GGAFDXCHECKER_H_
+#ifndef GGAFDXCORE_GGAFDXCHECKER_H_
+#define GGAFDXCORE_GGAFDXCHECKER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -74,5 +74,5 @@ public:
 };
 
 }
-#endif /*GGAFDXCHECKER_H_*/
+#endif /*GGAFDXCORE_GGAFDXCHECKER_H_*/
 

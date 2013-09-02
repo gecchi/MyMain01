@@ -1,5 +1,5 @@
-#ifndef DEFAULTUNIVERSE_H_
-#define DEFAULTUNIVERSE_H_
+#ifndef GGAFLIB_DEFAULTUNIVERSE_H_
+#define GGAFLIB_DEFAULTUNIVERSE_H_
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
 #include "jp/ggaf/lib/DefaultGod.h"
@@ -39,4 +39,4 @@ public:
 };
 
 }
-#endif /*DEFAULTUNIVERSE_H_*/
+#endif /*GGAFLIB_DEFAULTUNIVERSE_H_*/

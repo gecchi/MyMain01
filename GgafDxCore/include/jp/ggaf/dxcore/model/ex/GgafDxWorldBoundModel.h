@@ -1,5 +1,5 @@
-#ifndef GGAFDXWORLDMODEL_H_
-#define GGAFDXWORLDMODEL_H_
+#ifndef GGAFDXCORE_GGAFDXWORLDMODEL_H_
+#define GGAFDXCORE_GGAFDXWORLDMODEL_H_
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
 
 namespace GgafDxCore {
@@ -26,5 +26,5 @@ public:
 };
 
 }
-#endif /*GGAFDXWORLDMODEL_H_*/
+#endif /*GGAFDXCORE_GGAFDXWORLDMODEL_H_*/
 

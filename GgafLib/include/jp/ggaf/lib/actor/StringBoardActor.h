@@ -1,5 +1,5 @@
-#ifndef STRINGBOARDACTOR_H_
-#define STRINGBOARDACTOR_H_
+#ifndef GGAFLIB_STRINGBOARDACTOR_H_
+#define GGAFLIB_STRINGBOARDACTOR_H_
 #include "jp/ggaf/dxcore/actor/ex/GgafDxStringBoardActor.h"
 
 namespace GgafLib {
@@ -42,4 +42,4 @@ public:
 };
 
 }
-#endif /*STRINGBOARDACTOR_H_*/
+#endif /*GGAFLIB_STRINGBOARDACTOR_H_*/

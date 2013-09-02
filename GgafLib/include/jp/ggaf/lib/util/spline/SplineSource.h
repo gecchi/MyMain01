@@ -1,5 +1,5 @@
-#ifndef SPLINESOURCE_H_
-#define SPLINESOURCE_H_
+#ifndef GGAFLIB_SPLINESOURCE_H_
+#define GGAFLIB_SPLINESOURCE_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>
@@ -30,4 +30,4 @@ public:
 };
 
 }
-#endif /*SPLINESOURCE_H_*/
+#endif /*GGAFLIB_SPLINESOURCE_H_*/

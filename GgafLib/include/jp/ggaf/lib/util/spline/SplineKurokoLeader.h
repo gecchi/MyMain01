@@ -1,5 +1,5 @@
-#ifndef SPLINEKUROKOLEADER_H_
-#define SPLINEKUROKOLEADER_H_
+#ifndef GGAFLIB_SPLINEKUROKOLEADER_H_
+#define GGAFLIB_SPLINEKUROKOLEADER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafLib {
@@ -249,4 +249,4 @@ public:
 };
 
 }
-#endif /*SPLINEKUROKOLEADER_H_*/
+#endif /*GGAFLIB_SPLINEKUROKOLEADER_H_*/

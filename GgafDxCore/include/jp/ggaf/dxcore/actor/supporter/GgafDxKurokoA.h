@@ -1,5 +1,5 @@
-#ifndef GGAFDXKUROKOA_H_
-#define GGAFDXKUROKOA_H_
+#ifndef GGAFDXCORE_GGAFDXKUROKOA_H_
+#define GGAFDXCORE_GGAFDXKUROKOA_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
@@ -1120,5 +1120,5 @@ public:
 };
 
 }
-#endif /*GGAFDXKUROKOA_H_*/
+#endif /*GGAFDXCORE_GGAFDXKUROKOA_H_*/
 

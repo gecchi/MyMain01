@@ -1,5 +1,5 @@
-#ifndef COLLIAAPOS_PRISM_H_
-#define COLLIAAPOS_PRISM_H_
+#ifndef GGAFLIB_COLLIAAPOS_PRISM_H_
+#define GGAFLIB_COLLIAAPOS_PRISM_H_
 #include "jp/ggaf/lib/util/ColliAAB.h"
 
 namespace GgafLib {
@@ -34,4 +34,4 @@ public:
 };
 
 }
-#endif /*COLIAAB_H_*/
+#endif /*GGAFLIB_COLIAAB_H_*/

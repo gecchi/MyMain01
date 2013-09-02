@@ -1,5 +1,5 @@
-#ifndef GGAFRESOURCEMANAGER_H_
-#define GGAFRESOURCEMANAGER_H_
+#ifndef GGAFCORE_GGAFRESOURCEMANAGER_H_
+#define GGAFCORE_GGAFRESOURCEMANAGER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
@@ -352,4 +352,4 @@ GgafResourceManager<T>::~GgafResourceManager() {
 }
 
 }
-#endif /*GGAFRESOURCEMANAGER_H_*/
+#endif /*GGAFCORE_GGAFRESOURCEMANAGER_H_*/

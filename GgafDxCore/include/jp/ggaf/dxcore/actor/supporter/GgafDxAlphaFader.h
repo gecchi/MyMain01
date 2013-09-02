@@ -1,5 +1,5 @@
-#ifndef GGAFDXALPHAFADER_H_
-#define GGAFDXALPHAFADER_H_
+#ifndef GGAFDXCORE_GGAFDXALPHAFADER_H_
+#define GGAFDXCORE_GGAFDXALPHAFADER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
@@ -218,5 +218,5 @@ public:
 };
 
 }
-#endif /*GGAFDXALPHAFADER_H_*/
+#endif /*GGAFDXCORE_GGAFDXALPHAFADER_H_*/
 

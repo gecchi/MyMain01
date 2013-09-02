@@ -1,5 +1,5 @@
-#ifndef GGAFDXUNIVERSE_H_
-#define GGAFDXUNIVERSE_H_
+#ifndef GGAFDXCORE_GGAFDXUNIVERSE_H_
+#define GGAFDXCORE_GGAFDXUNIVERSE_H_
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
@@ -105,4 +105,4 @@ public:
 };
 
 }
-#endif /*GGAFDXUNIVERSE_H_*/
+#endif /*GGAFDXCORE_GGAFDXUNIVERSE_H_*/

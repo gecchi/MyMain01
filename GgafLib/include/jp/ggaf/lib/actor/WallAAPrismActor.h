@@ -1,5 +1,5 @@
-#ifndef WALLAAPRISMACTOR_H_
-#define WALLAAPRISMACTOR_H_
+#ifndef GGAFLIB_WALLAAPRISMACTOR_H_
+#define GGAFLIB_WALLAAPRISMACTOR_H_
 #include "jp/ggaf/lib/actor/WallPartsActor.h"
 
 namespace GgafLib {
@@ -35,4 +35,4 @@ public:
 };
 
 }
-#endif /*WALLAAPRISMACTOR_H_*/
+#endif /*GGAFLIB_WALLAAPRISMACTOR_H_*/

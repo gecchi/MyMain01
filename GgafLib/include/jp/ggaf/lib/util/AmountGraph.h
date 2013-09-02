@@ -1,5 +1,5 @@
-#ifndef AMOUNTGRAPH_H_
-#define AMOUNTGRAPH_H_
+#ifndef GGAFLIB_AMOUNTGRAPH_H_
+#define GGAFLIB_AMOUNTGRAPH_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafLib {
@@ -116,5 +116,5 @@ public:
 };
 
 }
-#endif /*AMOUNTGRAPH_H_*/
+#endif /*GGAFLIB_AMOUNTGRAPH_H_*/
 

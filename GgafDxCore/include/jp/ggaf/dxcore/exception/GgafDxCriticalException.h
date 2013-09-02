@@ -1,5 +1,5 @@
-#ifndef GGAFDXCRITICALEXCEPTION_H_
-#define GGAFDXCRITICALEXCEPTION_H_
+#ifndef GGAFDXCORE_GGAFDXCRITICALEXCEPTION_H_
+#define GGAFDXCORE_GGAFDXCRITICALEXCEPTION_H_
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 
 #include <windows.h>
@@ -46,4 +46,4 @@ public:
 
 
 }
-#endif /*GGAFDXCRITICALEXCEPTION_H_*/
+#endif /*GGAFDXCORE_GGAFDXCRITICALEXCEPTION_H_*/

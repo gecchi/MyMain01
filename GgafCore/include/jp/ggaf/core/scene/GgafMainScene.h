@@ -1,5 +1,5 @@
-#ifndef GGAFMAINSCENE_H_
-#define GGAFMAINSCENE_H_
+#ifndef GGAFCORE_GGAFMAINSCENE_H_
+#define GGAFCORE_GGAFMAINSCENE_H_
 #include "jp/ggaf/core/scene/GgafScene.h"
 
 namespace GgafCore {
@@ -26,4 +26,4 @@ public:
 };
 
 }
-#endif /*GGAFMAINSCENE_H_*/
+#endif /*GGAFCORE_GGAFMAINSCENE_H_*/

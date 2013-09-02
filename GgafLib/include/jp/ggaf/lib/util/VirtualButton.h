@@ -1,5 +1,5 @@
-#ifndef VIRTUALBUTTON_H_
-#define VIRTUALBUTTON_H_
+#ifndef GGAFLIB_VIRTUALBUTTON_H_
+#define GGAFLIB_VIRTUALBUTTON_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>
@@ -395,4 +395,4 @@ public:
 };
 
 }
-#endif /*VIRTUALBUTTON_H_*/
+#endif /*GGAFLIB_VIRTUALBUTTON_H_*/

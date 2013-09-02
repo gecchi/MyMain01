@@ -1,5 +1,5 @@
-#ifndef GGAFDXSTRINGSPRITEACTOR_H_
-#define GGAFDXSTRINGSPRITEACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXSTRINGSPRITEACTOR_H_
+#define GGAFDXCORE_GGAFDXSTRINGSPRITEACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxSpriteSetActor.h"
 
 namespace GgafDxCore {
@@ -188,4 +188,4 @@ public:
 };
 
 }
-#endif /*GGAFDXSTRINGSPRITEACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXSTRINGSPRITEACTOR_H_*/

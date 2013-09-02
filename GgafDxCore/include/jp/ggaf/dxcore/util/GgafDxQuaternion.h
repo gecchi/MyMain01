@@ -1,5 +1,5 @@
-#ifndef GGAFDXQUATERNION_H_
-#define GGAFDXQUATERNION_H_
+#ifndef GGAFDXCORE_GGAFDXQUATERNION_H_
+#define GGAFDXCORE_GGAFDXQUATERNION_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -65,5 +65,5 @@ public:
 };
 
 }
-#endif /*GGAFDXQUATERNION_H_*/
+#endif /*GGAFDXCORE_GGAFDXQUATERNION_H_*/
 

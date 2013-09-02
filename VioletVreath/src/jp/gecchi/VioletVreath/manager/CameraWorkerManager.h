@@ -27,4 +27,4 @@ public:
 };
 
 }
-#endif /*GGAFDXBGMMANAGER_H_*/
+#endif /*CAMERAWORKERMANAGER_H_*/

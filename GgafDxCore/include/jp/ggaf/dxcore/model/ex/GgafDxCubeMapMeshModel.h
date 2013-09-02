@@ -1,5 +1,5 @@
-#ifndef GGAFDXCUBEMAPMESHMODEL_H_
-#define GGAFDXCUBEMAPMESHMODEL_H_
+#ifndef GGAFDXCORE_GGAFDXCUBEMAPMESHMODEL_H_
+#define GGAFDXCORE_GGAFDXCUBEMAPMESHMODEL_H_
 #include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
 
 namespace GgafDxCore {
@@ -24,5 +24,5 @@ public:
 };
 
 }
-#endif /*GGAFDXCUBEMAPMESHMODEL_H_*/
+#endif /*GGAFDXCORE_GGAFDXCUBEMAPMESHMODEL_H_*/
 

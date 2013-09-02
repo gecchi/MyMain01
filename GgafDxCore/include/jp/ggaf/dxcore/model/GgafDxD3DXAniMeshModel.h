@@ -1,5 +1,5 @@
-#ifndef GGAFDXD3DXANIMESHMODEL_H_
-#define GGAFDXD3DXANIMESHMODEL_H_
+#ifndef GGAFDXCORE_GGAFDXD3DXANIMESHMODEL_H_
+#define GGAFDXCORE_GGAFDXD3DXANIMESHMODEL_H_
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxWorldMatStack.h"
@@ -62,4 +62,4 @@ public:
 };
 
 }
-#endif /*GGAFDXD3DXANIMESHMODEL_H_*/
+#endif /*GGAFDXCORE_GGAFDXD3DXANIMESHMODEL_H_*/

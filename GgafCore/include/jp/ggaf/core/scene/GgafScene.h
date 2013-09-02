@@ -1,5 +1,5 @@
-#ifndef GGAFSCENE_H_
-#define GGAFSCENE_H_
+#ifndef GGAFCORE_GGAFSCENE_H_
+#define GGAFCORE_GGAFSCENE_H_
 #include "jp/ggaf/core/GgafElement.hpp"
 
 namespace GgafCore {
@@ -211,4 +211,4 @@ public:
 };
 
 }
-#endif /*GGAFSCENE_H_*/
+#endif /*GGAFCORE_GGAFSCENE_H_*/

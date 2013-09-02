@@ -1,5 +1,5 @@
-#ifndef GGAFDXMODEL_H_
-#define GGAFDXMODEL_H_
+#ifndef GGAFDXCORE_GGAFDXMODEL_H_
+#define GGAFDXCORE_GGAFDXMODEL_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <d3d9.h>
@@ -133,4 +133,4 @@ public:
 };
 
 }
-#endif /*GGAFDXMODEL_H_*/
+#endif /*GGAFDXCORE_GGAFDXMODEL_H_*/

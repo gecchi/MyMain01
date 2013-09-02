@@ -1,5 +1,5 @@
-#ifndef STRINGSPRITEACTOR_H_
-#define STRINGSPRITEACTOR_H_
+#ifndef GGAFLIB_STRINGSPRITEACTOR_H_
+#define GGAFLIB_STRINGSPRITEACTOR_H_
 #include "jp/ggaf/dxcore/actor/ex/GgafDxStringSpriteActor.h"
 
 namespace GgafLib {
@@ -42,4 +42,4 @@ public:
 };
 
 }
-#endif /*STRINGSPRITEACTOR_H_*/
+#endif /*GGAFLIB_STRINGSPRITEACTOR_H_*/

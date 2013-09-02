@@ -1,5 +1,5 @@
-#ifndef GGAFDXEFFECT_H_
-#define GGAFDXEFFECT_H_
+#ifndef GGAFDXCORE_GGAFDXEFFECT_H_
+#define GGAFDXCORE_GGAFDXEFFECT_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <d3dx9.h>
@@ -57,4 +57,4 @@ public:
 };
 
 }
-#endif /*GGAFDXEFFECT_H_*/
+#endif /*GGAFDXCORE_GGAFDXEFFECT_H_*/

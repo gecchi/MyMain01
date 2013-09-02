@@ -1,5 +1,5 @@
-#ifndef WORLDBOUNDACTOR_H_
-#define WORLDBOUNDACTOR_H_
+#ifndef GGAFLIB_WORLDBOUNDACTOR_H_
+#define GGAFLIB_WORLDBOUNDACTOR_H_
 #include "jp/ggaf/dxcore/actor/ex/GgafDxWorldBoundActor.h"
 
 namespace GgafLib {
@@ -53,4 +53,4 @@ public:
 };
 
 }
-#endif /*WORLDBOUNDACTOR_H_*/
+#endif /*GGAFLIB_WORLDBOUNDACTOR_H_*/

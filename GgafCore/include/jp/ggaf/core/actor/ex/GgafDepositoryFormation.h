@@ -1,5 +1,5 @@
-#ifndef GGAFDEPOSITORYFORMATION_H_
-#define GGAFDEPOSITORYFORMATION_H_
+#ifndef GGAFCORE_GGAFDEPOSITORYFORMATION_H_
+#define GGAFCORE_GGAFDEPOSITORYFORMATION_H_
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
@@ -107,4 +107,4 @@ public:
 };
 
 }
-#endif /*GGAFDEPOSITORYFORMATION_H_*/
+#endif /*GGAFCORE_GGAFDEPOSITORYFORMATION_H_*/

@@ -1,5 +1,5 @@
-#ifndef DEFAULTBOARDACTOR_H_
-#define DEFAULTBOARDACTOR_H_
+#ifndef GGAFLIB_DEFAULTBOARDACTOR_H_
+#define GGAFLIB_DEFAULTBOARDACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxBoardActor.h"
 
 namespace GgafLib {
@@ -59,4 +59,4 @@ public:
 };
 
 }
-#endif /*DEFAULTBOARDACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTBOARDACTOR_H_*/

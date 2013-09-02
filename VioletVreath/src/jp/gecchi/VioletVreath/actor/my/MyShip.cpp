@@ -210,6 +210,7 @@ MyShip::MyShip(const char* prm_name) :
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
     _pSeTx->set(SE_DAMAGED, "WAVE_MY_DAMAGED_001");
+    _pSeTx->set(SE_EXPLOSION, "WAVE_MY_SE_EXPLOSION_001");
     _pSeTx->set(SE_TURBO, "WAVE_MY_TURBO_001");
     _pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_001");
     _pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_001");
@@ -236,8 +237,8 @@ MyShip::MyShip(const char* prm_name) :
     stc_ = VB_NEUTRAL_STC;
     is_just_change_way_ = true;
 
-    mp_.config(600, 100000); //値 100000 で表示は600pxとする。
-    mp_.set(100000);         //初期値は100000
+    mp_.config(600, 10000); //値 100000 で表示は600pxとする。
+    mp_.set(10000);         //初期値は10000
     //vreath_ は mp_ のメーターの長さ(px)にあわす。実値を _pStatus のSTAT_Stamina値を参照するように設定。
     vreath_.config(mp_._max_val_px, _pStatus->get(STAT_Stamina), &(_pStatus->_paValue[STAT_Stamina]._int_val));
 
@@ -302,7 +303,7 @@ void MyShip::onReset() {
     prev_way_ = WAY_NONE;
     way_switch_.reset();
     _pStatus->reset();
-    mp_.set(10000000);         //初期値は100000
+    mp_.set(10000);         //初期値は100000
 }
 
 void MyShip::onActive() {
@@ -595,25 +596,32 @@ void MyShip::processJudgement() {
 
 
     //debug ---->
-#ifdef MY_DEBUG
-    if (GgafDxInput::isPushedDownKey(DIK_W)) {
-        MyStraightLaserChip001::chengeTex(0);
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_E)) {
-        MyStraightLaserChip001::chengeTex(1);
-    }
-    if (GgafDxInput::isPushedDownKey(DIK_R)) {
-        MyStraightLaserChip001::chengeTex(2);
-    }
-#endif
+//#ifdef MY_DEBUG
+//    if (GgafDxInput::isPushedDownKey(DIK_W)) {
+//        MyStraightLaserChip001::chengeTex(0);
+//    }
+//    if (GgafDxInput::isPushedDownKey(DIK_E)) {
+//        MyStraightLaserChip001::chengeTex(1);
+//    }
+//    if (GgafDxInput::isPushedDownKey(DIK_R)) {
+//        MyStraightLaserChip001::chengeTex(2);
+//    }
+//#endif
     //<---- debug
 
 
     //自機消滅テスト
-    if (pVbPlay->isBeingPressed(VB_BUTTON8)) {
-        _TRACE_("自機消滅テスト");
+//    if (pVbPlay->isBeingPressed(VB_BUTTON8)) {
+//        _TRACE_("自機消滅テスト");
+//        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
+//    }
+    //息切れで自機消滅
+    if (vreath_.get() <= 0) {
+        _pSeTx->play3D(SE_EXPLOSION);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
+        //can_control_=falseになるはず
     }
+
 
 
     //ショット関連処理

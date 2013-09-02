@@ -43,8 +43,10 @@ public:
     EffectMyShipExplosion* pEffectMyShipExplosion_;
     /** VAMSYSTEM カメラワーク */
     VamSysCamWorker* pVamSysCamWorker_;
-
+    /** 残機表示 */
+    LabelGecchi16Font* pLabelZanki_;
     int zanki_;
+
 
 public:
     MyShipScene(const char* prm_name);

@@ -1,5 +1,5 @@
-#ifndef COLIAAB_H_
-#define COLIAAB_H_
+#ifndef GGAFLIB_COLIAAB_H_
+#define GGAFLIB_COLIAAB_H_
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 
 namespace GgafLib {
@@ -36,4 +36,4 @@ public:
 };
 
 }
-#endif /*COLIAAB_H_*/
+#endif /*GGAFLIB_COLIAAB_H_*/

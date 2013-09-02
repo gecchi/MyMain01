@@ -1,5 +1,5 @@
-#ifndef GGAFDXMODELCONNECTION_H_
-#define GGAFDXMODELCONNECTION_H_
+#ifndef GGAFDXCORE_GGAFDXMODELCONNECTION_H_
+#define GGAFDXCORE_GGAFDXMODELCONNECTION_H_
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -29,4 +29,4 @@ public:
 };
 
 }
-#endif /*GGAFDXMODELCONNECTION_H_*/
+#endif /*GGAFDXCORE_GGAFDXMODELCONNECTION_H_*/

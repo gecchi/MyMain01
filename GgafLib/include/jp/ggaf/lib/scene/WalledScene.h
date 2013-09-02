@@ -1,5 +1,5 @@
-#ifndef WALLEDSCENE_H_
-#define WALLEDSCENE_H_
+#ifndef GGAFLIB_WALLEDSCENE_H_
+#define GGAFLIB_WALLEDSCENE_H_
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
@@ -97,4 +97,4 @@ public:
 };
 
 }
-#endif /*WALLEDSCENE_H_*/
+#endif /*GGAFLIB_WALLEDSCENE_H_*/

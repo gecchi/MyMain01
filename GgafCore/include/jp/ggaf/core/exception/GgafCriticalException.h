@@ -1,5 +1,5 @@
-#ifndef GGAFCRITICALEXCEPTION_H_
-#define GGAFCRITICALEXCEPTION_H_
+#ifndef GGAFCORE_GGAFCRITICALEXCEPTION_H_
+#define GGAFCORE_GGAFCRITICALEXCEPTION_H_
 #include "jp/ggaf/core/exception/GgafException.h"
 #include <sstream>
 
@@ -25,4 +25,4 @@ public:
 };
 
 }
-#endif /*GGAFCRITICALEXCEPTION_H_*/
+#endif /*GGAFCORE_GGAFCRITICALEXCEPTION_H_*/

@@ -1,5 +1,5 @@
-#ifndef GGAFACTOR_H_
-#define GGAFACTOR_H_
+#ifndef GGAFCORE_GGAFACTOR_H_
+#define GGAFCORE_GGAFACTOR_H_
 #include "jp/ggaf/core/GgafElement.hpp"
 
 #include "jp/ggaf/core/util/GgafStatus.h"
@@ -249,4 +249,4 @@ public:
 };
 
 }
-#endif /*GGAFACTOR_H_*/
+#endif /*GGAFCORE_GGAFACTOR_H_*/

@@ -1,5 +1,5 @@
-#ifndef CURVELASERCHIP_H_
-#define CURVELASERCHIP_H_
+#ifndef GGAFLIB_CURVELASERCHIP_H_
+#define GGAFLIB_CURVELASERCHIP_H_
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
 namespace GgafLib {
@@ -54,5 +54,5 @@ public:
 };
 
 }
-#endif /*CURVELASERCHIP_H_*/
+#endif /*GGAFLIB_CURVELASERCHIP_H_*/
 

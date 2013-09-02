@@ -1,5 +1,5 @@
-#ifndef SPLINEMANUFACTURE_H_
-#define SPLINEMANUFACTURE_H_
+#ifndef GGAFLIB_SPLINEMANUFACTURE_H_
+#define GGAFLIB_SPLINEMANUFACTURE_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>
@@ -105,4 +105,4 @@ public:
 };
 
 }
-#endif /*SPLINEMANUFACTURE_H_*/
+#endif /*GGAFLIB_SPLINEMANUFACTURE_H_*/

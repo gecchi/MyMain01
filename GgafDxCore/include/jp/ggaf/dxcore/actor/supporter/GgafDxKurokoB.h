@@ -1,5 +1,5 @@
-#ifndef GGAFDXKUROKOB_H_
-#define GGAFDXKUROKOB_H_
+#ifndef GGAFDXCORE_GGAFDXKUROKOB_H_
+#define GGAFDXCORE_GGAFDXKUROKOB_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -310,5 +310,5 @@ public:
 };
 
 }
-#endif /*GGAFDXKUROKOB_H_*/
+#endif /*GGAFDXCORE_GGAFDXKUROKOB_H_*/
 

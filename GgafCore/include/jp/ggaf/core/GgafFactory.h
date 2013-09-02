@@ -1,5 +1,5 @@
-#ifndef GGAFGACTORY_H_
-#define GGAFGACTORY_H_
+#ifndef GGAFCORE_GGAFGACTORY_H_
+#define GGAFCORE_GGAFGACTORY_H_
 #include <limits.h>
 
 namespace GgafCore {
@@ -224,4 +224,4 @@ public:
 #define createInFactory2(CLASS, NAME, MODEL) (GgafCore::GgafFactory::makeObject<CLASS>(GgafCore::GgafFactory::create2, this, (void*)(NAME),(void*)(MODEL),(void*)(nullptr),this))
 
 }
-#endif /*GGAFGACTORY_H_*/
+#endif /*GGAFCORE_GGAFGACTORY_H_*/

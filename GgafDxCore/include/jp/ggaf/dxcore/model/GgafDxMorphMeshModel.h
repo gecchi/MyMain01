@@ -1,5 +1,5 @@
-#ifndef GGAFDXMORPHMESHMODEL_H_
-#define GGAFDXMORPHMESHMODEL_H_
+#ifndef GGAFDXCORE_GGAFDXMORPHMESHMODEL_H_
+#define GGAFDXCORE_GGAFDXMORPHMESHMODEL_H_
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
 namespace GgafDxCore {
@@ -133,4 +133,4 @@ public:
 };
 
 }
-#endif /*GGAFDXMORPHMESHMODEL_H_*/
+#endif /*GGAFDXCORE_GGAFDXMORPHMESHMODEL_H_*/

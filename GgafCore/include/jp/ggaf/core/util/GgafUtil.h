@@ -1,5 +1,5 @@
-#ifndef GGAFUTIL_H_
-#define GGAFUTIL_H_
+#ifndef GGAFCORE_GGAFUTIL_H_
+#define GGAFCORE_GGAFUTIL_H_
 
 #include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
 #include <map>
@@ -360,7 +360,7 @@ public:
 };
 
 }
-#endif /*GGAFUTIL_H_*/
+#endif /*GGAFCORE_GGAFUTIL_H_*/
 
 //printf("01  [%s]\n", UTIL::getFileBaseNameWithoutExt("c:\\cview_gamen_all.pdf").c_str());
 //printf("02  [%s]\n", UTIL::getFileBaseNameWithoutExt("c:\\cview_gamen.all.pdf").c_str());

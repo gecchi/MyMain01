@@ -1,5 +1,5 @@
-#ifndef GGAFDXTEXTUREMANAGER_H_
-#define GGAFDXTEXTUREMANAGER_H_
+#ifndef GGAFDXCORE_GGAFDXTEXTUREMANAGER_H_
+#define GGAFDXCORE_GGAFDXTEXTUREMANAGER_H_
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
@@ -35,4 +35,4 @@ public:
 };
 
 }
-#endif /*GGAFDXTEXTUREMANAGER_H_*/
+#endif /*GGAFDXCORE_GGAFDXTEXTUREMANAGER_H_*/

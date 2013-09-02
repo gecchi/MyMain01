@@ -1,5 +1,5 @@
-#ifndef SPLINELINE_H_
-#define SPLINELINE_H_
+#ifndef GGAFLIB_SPLINELINE_H_
+#define GGAFLIB_SPLINELINE_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <math.h>
@@ -158,5 +158,5 @@ public:
 };
 
 }
-#endif /*SPLINELINE_H_*/
+#endif /*GGAFLIB_SPLINELINE_H_*/
 

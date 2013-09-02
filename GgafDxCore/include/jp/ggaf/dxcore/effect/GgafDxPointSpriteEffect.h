@@ -1,5 +1,5 @@
-#ifndef GGAFDXPOINTSPRITEEFFECT_H_
-#define GGAFDXPOINTSPRITEEFFECT_H_
+#ifndef GGAFDXCORE_GGAFDXPOINTSPRITEEFFECT_H_
+#define GGAFDXCORE_GGAFDXPOINTSPRITEEFFECT_H_
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 
 namespace GgafDxCore {
@@ -45,4 +45,4 @@ public:
 };
 
 }
-#endif /*GGAFDXPOINTSPRITEEFFECT_H_*/
+#endif /*GGAFDXCORE_GGAFDXPOINTSPRITEEFFECT_H_*/

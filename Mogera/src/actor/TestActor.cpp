@@ -6,7 +6,7 @@
 using namespace Mogera;
 
 TestActor::TestActor(const char* prm_name) :
-        GgafLib::DefaultSpriteActor(prm_name, "Ichimatsu") {
+        GgafLib::DefaultBoardActor(prm_name, "Ichimatsu") {
 }
 
 void TestActor::initialize() {

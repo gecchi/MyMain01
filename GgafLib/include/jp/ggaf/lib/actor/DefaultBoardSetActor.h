@@ -1,5 +1,5 @@
-#ifndef DEFAULTBOARDSETACTOR_H_
-#define DEFAULTBOARDSETACTOR_H_
+#ifndef GGAFLIB_DEFAULTBOARDSETACTOR_H_
+#define GGAFLIB_DEFAULTBOARDSETACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxBoardSetActor.h"
 
 namespace GgafLib {
@@ -61,4 +61,4 @@ public:
 };
 
 }
-#endif /*DEFAULTBOARDSETACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTBOARDSETACTOR_H_*/

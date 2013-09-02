@@ -74,6 +74,7 @@ public:
 
     enum {
         SE_DAMAGED     ,
+        SE_EXPLOSION   ,
         SE_TURBO       ,
         SE_FIRE_LASER  ,
         SE_FIRE_SHOT   ,

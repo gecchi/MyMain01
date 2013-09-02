@@ -1,5 +1,5 @@
-#ifndef GGAFDXSPRITEMESHACTOR_H_
-#define GGAFDXSPRITEMESHACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXSPRITEMESHACTOR_H_
+#define GGAFDXCORE_GGAFDXSPRITEMESHACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
 
 namespace GgafDxCore {
@@ -39,4 +39,4 @@ public:
 };
 
 }
-#endif /*GGAFDXSPRITEMESHACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXSPRITEMESHACTOR_H_*/

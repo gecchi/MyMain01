@@ -1,5 +1,5 @@
-#ifndef GGAFRESOURCECONNECTION_H_
-#define GGAFRESOURCECONNECTION_H_
+#ifndef GGAFCORE_GGAFRESOURCECONNECTION_H_
+#define GGAFCORE_GGAFRESOURCECONNECTION_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <cstring>
@@ -269,4 +269,4 @@ int GgafResourceConnection<T>::close() {
 
 }
 
-#endif /*GGAFRESOURCECONNECTION_H_*/
+#endif /*GGAFCORE_GGAFRESOURCECONNECTION_H_*/

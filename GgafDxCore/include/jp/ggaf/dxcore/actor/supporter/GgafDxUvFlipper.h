@@ -1,5 +1,5 @@
-#ifndef GGAFDXUVFLIPPER_H_
-#define GGAFDXUVFLIPPER_H_
+#ifndef GGAFDXCORE_GGAFDXUVFLIPPER_H_
+#define GGAFDXCORE_GGAFDXUVFLIPPER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -288,4 +288,4 @@ public:
 };
 
 }
-#endif /*GGAFDXSPRITEMESHACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXSPRITEMESHACTOR_H_*/

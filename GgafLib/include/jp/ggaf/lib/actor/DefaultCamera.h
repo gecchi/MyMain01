@@ -1,5 +1,5 @@
-#ifndef DEFAULTCAMERA_H_
-#define DEFAULTCAMERA_H_
+#ifndef GGAFLIB_DEFAULTCAMERA_H_
+#define GGAFLIB_DEFAULTCAMERA_H_
 #include "jp/ggaf/dxcore/actor/GgafDxCamera.h"
 
 namespace GgafLib {
@@ -21,4 +21,4 @@ public:
 };
 
 }
-#endif /*DEFAULTCAMERA_H_*/
+#endif /*GGAFLIB_DEFAULTCAMERA_H_*/

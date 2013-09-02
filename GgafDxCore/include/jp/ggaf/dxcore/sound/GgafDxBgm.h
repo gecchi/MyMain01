@@ -1,5 +1,5 @@
-#ifndef GGAFDXBGM_H_
-#define GGAFDXBGM_H_
+#ifndef GGAFDXCORE_GGAFDXBGM_H_
+#define GGAFDXCORE_GGAFDXBGM_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>
@@ -113,4 +113,4 @@ public:
 };
 
 }
-#endif /*GGAFDXBGM_H_*/
+#endif /*GGAFDXCORE_GGAFDXBGM_H_*/

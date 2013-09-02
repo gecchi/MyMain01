@@ -1,5 +1,5 @@
-#ifndef SCENEPROGRESS_H_
-#define SCENEPROGRESS_H_
+#ifndef GGAFLIB_SCENEPROGRESS_H_
+#define GGAFLIB_SCENEPROGRESS_H_
 #include "jp/ggaf/core/GgafProgress.h"
 
 #include <map>
@@ -161,4 +161,4 @@ public:
 };
 
 }
-#endif /*SCENEPROGRESS_H_*/
+#endif /*GGAFLIB_SCENEPROGRESS_H_*/

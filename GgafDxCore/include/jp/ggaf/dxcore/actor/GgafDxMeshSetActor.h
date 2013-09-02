@@ -1,5 +1,5 @@
-#ifndef GGAFDXMESHSETACTOR_H_
-#define GGAFDXMESHSETACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXMESHSETACTOR_H_
+#define GGAFDXCORE_GGAFDXMESHSETACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 
 namespace GgafDxCore {
@@ -84,4 +84,4 @@ public:
 };
 
 }
-#endif /*GGAFDXMESHSETACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXMESHSETACTOR_H_*/

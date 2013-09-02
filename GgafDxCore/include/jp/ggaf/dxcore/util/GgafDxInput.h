@@ -1,5 +1,5 @@
-#ifndef GGAFDXINPUT_H_
-#define GGAFDXINPUT_H_
+#ifndef GGAFDXCORE_GGAFDXINPUT_H_
+#define GGAFDXCORE_GGAFDXINPUT_H_
 
 #include <dinput.h>
 
@@ -234,4 +234,4 @@ public:
 };
 
 }
-#endif /*GGAFDXINPUT_H_*/
+#endif /*GGAFDXCORE_GGAFDXINPUT_H_*/

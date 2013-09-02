@@ -1,5 +1,5 @@
-#ifndef GGAFDXBGMCONNECTION_H_
-#define GGAFDXBGMCONNECTION_H_
+#ifndef GGAFDXCORE_GGAFDXBGMCONNECTION_H_
+#define GGAFDXCORE_GGAFDXBGMCONNECTION_H_
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 
 #include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
@@ -29,4 +29,4 @@ public:
 };
 
 }
-#endif /*GGAFDXBGMCONNECTION_H_*/
+#endif /*GGAFDXCORE_GGAFDXBGMCONNECTION_H_*/

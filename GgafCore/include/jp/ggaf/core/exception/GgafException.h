@@ -1,5 +1,5 @@
-#ifndef GGAFEXCEPTION_H_
-#define GGAFEXCEPTION_H_
+#ifndef GGAFCORE_GGAFEXCEPTION_H_
+#define GGAFCORE_GGAFEXCEPTION_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <string>
@@ -24,4 +24,4 @@ public:
 };
 
 }
-#endif /*GGAFEXCEPTION_H_*/
+#endif /*GGAFCORE_GGAFEXCEPTION_H_*/

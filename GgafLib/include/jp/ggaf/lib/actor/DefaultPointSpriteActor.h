@@ -1,5 +1,5 @@
-#ifndef DEFAULTPOINTSPRITEACTOR_H_
-#define DEFAULTPOINTSPRITEACTOR_H_
+#ifndef GGAFLIB_DEFAULTPOINTSPRITEACTOR_H_
+#define GGAFLIB_DEFAULTPOINTSPRITEACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxPointSpriteActor.h"
 
 namespace GgafLib {
@@ -60,4 +60,4 @@ public:
 };
 
 }
-#endif /*DEFAULTPOINTSPRITEACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTPOINTSPRITEACTOR_H_*/

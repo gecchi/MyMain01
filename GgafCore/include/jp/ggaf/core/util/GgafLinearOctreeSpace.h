@@ -1,5 +1,5 @@
-#ifndef GGAFLINEAROCTREESPACE_H_
-#define GGAFLINEAROCTREESPACE_H_
+#ifndef GGAFCORE_GGAFLINEAROCTREESPACE_H_
+#define GGAFCORE_GGAFLINEAROCTREESPACE_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafCore {
@@ -41,5 +41,5 @@ public:
 
 
 }
-#endif /*GGAFLINEAROCTREESPACE_H_*/
+#endif /*GGAFCORE_GGAFLINEAROCTREESPACE_H_*/
 

@@ -1,5 +1,5 @@
-#ifndef STRAIGHTLASERCHIP_H_
-#define STRAIGHTLASERCHIP_H_
+#ifndef GGAFLIB_STRAIGHTLASERCHIP_H_
+#define GGAFLIB_STRAIGHTLASERCHIP_H_
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
@@ -124,5 +124,5 @@ public:
 };
 
 }
-#endif /*STRAIGHTLASERCHIP_H_*/
+#endif /*GGAFLIB_STRAIGHTLASERCHIP_H_*/
 

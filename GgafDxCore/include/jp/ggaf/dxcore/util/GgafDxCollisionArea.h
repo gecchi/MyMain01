@@ -1,5 +1,5 @@
-#ifndef GGAFDXCOLLISIONAREA_H_
-#define GGAFDXCOLLISIONAREA_H_
+#ifndef GGAFDXCORE_GGAFDXCOLLISIONAREA_H_
+#define GGAFDXCORE_GGAFDXCOLLISIONAREA_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -45,4 +45,4 @@ public:
 };
 
 }
-#endif /*GGAFDXHITAREA_H_*/
+#endif /*GGAFDXCORE_GGAFDXHITAREA_H_*/

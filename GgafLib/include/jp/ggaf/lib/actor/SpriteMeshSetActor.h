@@ -1,5 +1,5 @@
-#ifndef SPRITEMESHSETACTOR_H_
-#define SPRITEMESHSETACTOR_H_
+#ifndef GGAFLIB_SPRITEMESHSETACTOR_H_
+#define GGAFLIB_SPRITEMESHSETACTOR_H_
 #include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshSetActor.h"
 
 namespace GgafLib {
@@ -60,4 +60,4 @@ public:
 };
 
 }
-#endif /*SPRITEMESHSETACTOR_H_*/
+#endif /*GGAFLIB_SPRITEMESHSETACTOR_H_*/

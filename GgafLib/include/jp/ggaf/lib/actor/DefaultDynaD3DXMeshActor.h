@@ -1,5 +1,5 @@
-#ifndef DEFAULTDYNAD3DXMESHACTOR_H_
-#define DEFAULTDYNAD3DXMESHACTOR_H_
+#ifndef GGAFLIB_DEFAULTDYNAD3DXMESHACTOR_H_
+#define GGAFLIB_DEFAULTDYNAD3DXMESHACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxDynaD3DXMeshActor.h"
 
 namespace GgafLib {
@@ -46,4 +46,4 @@ public:
 };
 
 }
-#endif /*DEFAULTDYNAD3DXMESHACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTDYNAD3DXMESHACTOR_H_*/

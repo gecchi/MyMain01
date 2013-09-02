@@ -1,5 +1,5 @@
-#ifndef GGAFLOGGER_H_
-#define GGAFLOGGER_H_
+#ifndef GGAFCORE_GGAFLOGGER_H_
+#define GGAFCORE_GGAFLOGGER_H_
 #include <sstream>
 
 namespace GgafCore {
@@ -18,4 +18,4 @@ public:
 };
 
 }
-#endif /*GGAFLOGGER_H_*/
+#endif /*GGAFCORE_GGAFLOGGER_H_*/

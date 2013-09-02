@@ -1,5 +1,5 @@
-#ifndef GGAFDXGEOMETRICACTOR_H_
-#define GGAFDXGEOMETRICACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXGEOMETRICACTOR_H_
+#define GGAFDXCORE_GGAFDXGEOMETRICACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxBaseActor.h"
 
 #include <D3dx9math.h>
@@ -559,4 +559,4 @@ public:
 };
 
 }
-#endif /*GGAFDXGEOMETRICACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXGEOMETRICACTOR_H_*/

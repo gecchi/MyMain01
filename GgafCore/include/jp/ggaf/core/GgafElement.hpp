@@ -1,5 +1,5 @@
-#ifndef GGAFELEMENT_H_
-#define GGAFELEMENT_H_
+#ifndef GGAFCORE_GGAFELEMENT_H_
+#define GGAFCORE_GGAFELEMENT_H_
 #include "jp/ggaf/core/GgafNode.hpp"
 
 #include "jp/ggaf/core/GgafProgress.h"
@@ -1590,4 +1590,4 @@ GgafElement<T>::~GgafElement() {
 }
 
 }
-#endif /*GGAFELEMENT_H_*/
+#endif /*GGAFCORE_GGAFELEMENT_H_*/

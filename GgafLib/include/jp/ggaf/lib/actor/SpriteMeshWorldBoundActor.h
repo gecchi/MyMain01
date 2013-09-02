@@ -1,5 +1,5 @@
-#ifndef SPRITEMESHWORLDBOUNDACTOR_H_
-#define SPRITEMESHWORLDBOUNDACTOR_H_
+#ifndef GGAFLIB_SPRITEMESHWORLDBOUNDACTOR_H_
+#define GGAFLIB_SPRITEMESHWORLDBOUNDACTOR_H_
 #include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshActor.h"
 
 namespace GgafLib {
@@ -51,4 +51,4 @@ public:
 };
 
 }
-#endif /*WORLDBOUNDACTOR_H_*/
+#endif /*GGAFLIB_WORLDBOUNDACTOR_H_*/

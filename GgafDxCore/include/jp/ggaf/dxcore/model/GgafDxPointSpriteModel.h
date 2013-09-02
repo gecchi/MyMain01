@@ -1,5 +1,5 @@
-#ifndef GGAFDXPOINTSPRITEMODEL_H_
-#define GGAFDXPOINTSPRITEMODEL_H_
+#ifndef GGAFDXCORE_GGAFDXPOINTSPRITEMODEL_H_
+#define GGAFDXCORE_GGAFDXPOINTSPRITEMODEL_H_
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
 namespace GgafDxCore {
@@ -64,4 +64,4 @@ public:
 };
 
 }
-#endif /*GGAFDXPOINTSPRITEMODEL_H_*/
+#endif /*GGAFDXCORE_GGAFDXPOINTSPRITEMODEL_H_*/

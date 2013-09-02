@@ -1,5 +1,5 @@
-#ifndef GGAFDXAGAINSTWAY_H_
-#define GGAFDXAGAINSTWAY_H_
+#ifndef GGAFDXCORE_GGAFDXAGAINSTWAY_H_
+#define GGAFDXCORE_GGAFDXAGAINSTWAY_H_
 namespace GgafDxCore {
 //çÏÇÎÇ§Ç©ñ¿Ç¢íÜ2011/12/12
 //
@@ -46,5 +46,5 @@ class GgafDxAgainstWay {
 
 };
 }
-#endif /*GGAFDXAGAINSTWAY_H_*/
+#endif /*GGAFDXCORE_GGAFDXAGAINSTWAY_H_*/
 

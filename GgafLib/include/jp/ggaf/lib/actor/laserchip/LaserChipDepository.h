@@ -1,5 +1,5 @@
-#ifndef LASERCHIPDEPOSITORY_H_
-#define LASERCHIPDEPOSITORY_H_
+#ifndef GGAFLIB_LASERCHIPDEPOSITORY_H_
+#define GGAFLIB_LASERCHIPDEPOSITORY_H_
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
@@ -112,4 +112,4 @@ public:
 };
 
 }
-#endif /*LASERCHIPDEPOSITORY_H_*/
+#endif /*GGAFLIB_LASERCHIPDEPOSITORY_H_*/

@@ -1,5 +1,5 @@
-#ifndef GGAFSTATUS_H_
-#define GGAFSTATUS_H_
+#ifndef GGAFCORE_GGAFSTATUS_H_
+#define GGAFCORE_GGAFSTATUS_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
@@ -166,5 +166,5 @@ public:
 };
 
 }
-#endif /*GGAFSTATUS_H_*/
+#endif /*GGAFCORE_GGAFSTATUS_H_*/
 

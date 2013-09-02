@@ -1,5 +1,5 @@
-#ifndef GGAFDXTEXTUREBLINKER_H_
-#define GGAFDXTEXTUREBLINKER_H_
+#ifndef GGAFDXCORE_GGAFDXTEXTUREBLINKER_H_
+#define GGAFDXCORE_GGAFDXTEXTUREBLINKER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -208,5 +208,5 @@ public:
 };
 
 }
-#endif /*GGAFDXTEXTUREBLINKER_H_*/
+#endif /*GGAFDXCORE_GGAFDXTEXTUREBLINKER_H_*/
 

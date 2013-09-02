@@ -1,5 +1,5 @@
-#ifndef GGAFDXSCALER_H_
-#define GGAFDXSCALER_H_
+#ifndef GGAFDXCORE_GGAFDXSCALER_H_
+#define GGAFDXCORE_GGAFDXSCALER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafDxCore {
@@ -340,5 +340,5 @@ public:
 };
 
 }
-#endif /*GGAFDXSCALER_H_*/
+#endif /*GGAFDXCORE_GGAFDXSCALER_H_*/
 

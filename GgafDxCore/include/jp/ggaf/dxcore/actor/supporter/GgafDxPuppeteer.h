@@ -1,5 +1,5 @@
-#ifndef GGAFDXPUPPETEER_H_
-#define GGAFDXPUPPETEER_H_
+#ifndef GGAFDXCORE_GGAFDXPUPPETEER_H_
+#define GGAFDXCORE_GGAFDXPUPPETEER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <d3dx9.h>
@@ -147,4 +147,4 @@ public:
 };
 
 }
-#endif /*GGAFDXPUPPETEER_H_*/
+#endif /*GGAFDXCORE_GGAFDXPUPPETEER_H_*/

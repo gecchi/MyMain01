@@ -1,5 +1,5 @@
-#ifndef DEFAULTCUBEMAPMESHACTOR_H_
-#define DEFAULTCUBEMAPMESHACTOR_H_
+#ifndef GGAFLIB_DEFAULTCUBEMAPMESHACTOR_H_
+#define GGAFLIB_DEFAULTCUBEMAPMESHACTOR_H_
 #include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMeshActor.h"
 
 namespace GgafLib {
@@ -57,4 +57,4 @@ public:
 };
 
 }
-#endif /*DEFAULTCUBEMAPMESHACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTCUBEMAPMESHACTOR_H_*/

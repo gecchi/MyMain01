@@ -1,5 +1,5 @@
-#ifndef GGAFDXD3DXANIMESHACTOR_H_
-#define GGAFDXD3DXANIMESHACTOR_H_
+#ifndef GGAFDXCORE_GGAFDXD3DXANIMESHACTOR_H_
+#define GGAFDXCORE_GGAFDXD3DXANIMESHACTOR_H_
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
 
 namespace GgafDxCore {
@@ -53,4 +53,4 @@ public:
 };
 
 }
-#endif /*GGAFDXD3DXANIMESHACTOR_H_*/
+#endif /*GGAFDXCORE_GGAFDXD3DXANIMESHACTOR_H_*/

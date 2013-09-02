@@ -12,8 +12,8 @@ MgrGod::MgrGod() :
 
 GgafCore::GgafUniverse* MgrGod::createUniverse() {
     //この世の作成のサンプル
-    MgrCamera* pCam = new MgrCamera("MOGERA_CAMERA");                  //カメラ作成し、
-    MgrUniverse* pUniverse = new MgrUniverse("MOGERA_UNIVERSE", pCam); //この世を生成。
+    MgrCamera* pCam = NEW MgrCamera("MOGERA_CAMERA");                  //カメラ作成し、
+    MgrUniverse* pUniverse = NEW MgrUniverse("MOGERA_UNIVERSE", pCam); //この世を生成。
     return pUniverse;
 }
 

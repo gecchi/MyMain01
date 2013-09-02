@@ -1,5 +1,5 @@
-#ifndef GGAFCURTAIN_H_
-#define GGAFCURTAIN_H_
+#ifndef GGAFCORE_GGAFCURTAIN_H_
+#define GGAFCORE_GGAFCURTAIN_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafCore {
@@ -138,4 +138,4 @@ public:
 };
 
 }
-#endif /*GGAFCURTAIN_H_*/
+#endif /*GGAFCORE_GGAFCURTAIN_H_*/

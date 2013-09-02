@@ -1,5 +1,5 @@
-#ifndef GGAFREPEATSEQ_H_
-#define GGAFREPEATSEQ_H_
+#ifndef GGAFCORE_GGAFREPEATSEQ_H_
+#define GGAFCORE_GGAFREPEATSEQ_H_
 #include <map>
 #include <string>
 
@@ -52,4 +52,4 @@ public:
 };
 
 }
-#endif /*GGAFREPEATSEQ_H_*/
+#endif /*GGAFCORE_GGAFREPEATSEQ_H_*/

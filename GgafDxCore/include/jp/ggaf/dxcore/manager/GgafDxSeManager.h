@@ -1,5 +1,5 @@
-#ifndef GGAFDXSEMANAGER_H_
-#define GGAFDXSEMANAGER_H_
+#ifndef GGAFDXCORE_GGAFDXSEMANAGER_H_
+#define GGAFDXCORE_GGAFDXSEMANAGER_H_
 #include "jp/ggaf/core/util/GgafResourceManager.hpp"
 
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"
@@ -33,4 +33,4 @@ public:
 };
 
 }
-#endif /*GGAFDXSEMANAGER_H_*/
+#endif /*GGAFDXCORE_GGAFDXSEMANAGER_H_*/
