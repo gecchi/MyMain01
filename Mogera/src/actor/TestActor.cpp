@@ -12,6 +12,7 @@ TestActor::TestActor(const char* prm_name) :
 void TestActor::initialize() {
     //À•Wİ’è
     position(0, 0, 0); //(0,0,0) ‚Í‰æ–Ê‚Ì’†S
+    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);
 }
 
 void TestActor::processBehavior() {

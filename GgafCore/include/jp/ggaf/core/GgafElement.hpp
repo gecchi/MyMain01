@@ -768,7 +768,7 @@ public:
      * 他のノードの状態変化を知りたい時のために、本メソッドを準備しました。<BR>
      * @return  bool true:非活動から活動状態切り替わった／false:切り替わっていない
      */
-    virtual bool onChangeToActive();
+    inline bool onChangeToActive();
 
     /**
      * 自ノードが活動状態から非活動に切り替わったかどうか調べる .
@@ -777,13 +777,13 @@ public:
      * 他のノードの状態変化を知りたい時のために、本メソッドを準備しました。<BR>
      * @return  bool true:活動状態から非活動に切り替わった／false:切り替わっていない
      */
-    virtual bool onChangeToInactive();
+    inline bool onChangeToInactive();
 
     /**
      * 生存可能状態か調べる
      * @return  bool true:生存可能状態／false:生存不可状態
      */
-    virtual bool canLive() {
+    inline bool canLive() {
         return _can_live_flg;
     }
 
@@ -792,7 +792,7 @@ public:
      * 自身フラグの状態で活動中かどうか判断
      * @return  bool true:活動中／false:非活動中
      */
-    virtual bool isActive();
+    inline bool isActive();
 
     /**
      * 自ツリーで活動中かどうか判断 <BR>
@@ -800,20 +800,20 @@ public:
      * 自身は活動出来ない。それも考慮した上で、本当に活動中かどうか判定を行う。
      * @return true:自ツリーで活動中／false:自ツリーで非活動中
      */
-    virtual bool isActiveInTheTree();
+    inline bool isActiveInTheTree();
 
     /**
      * 一時停止状態かどうか判断
      * @return true:一時停止状態／false:一時停止状態では無い
      */
-    virtual bool wasPaused();
+    inline bool wasPaused();
 
     /**
      * 終了宣言したかどうか .
      * end(frame) が実行済みかどうか調べます。
      * @return true:終了宣言済み／false:まだ終了宣言されていない
      */
-    virtual bool wasDeclaredEnd();
+    inline bool wasDeclaredEnd();
 
     /**
      * 振る舞い状態時に加算されるフレーム数を取得する .

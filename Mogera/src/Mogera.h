@@ -22,6 +22,8 @@ class MgrActor;
 class TestActor;
 class Teki001;
 class Mikata001;
+class MgrUtil;
+
 }
 
 #endif /*SIMPLEMOGERA_H_*/

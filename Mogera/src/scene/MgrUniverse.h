@@ -44,7 +44,7 @@ public:
     /**
      * u‚±‚Ì¢v‚ÌU‚é•‘‚¢ˆ— .
      */
-    void processBehavior() override {}
+    void processBehavior() override;
 
     virtual ~MgrUniverse();
 };

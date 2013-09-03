@@ -99,7 +99,8 @@ public:
 
     /**
      * 八分木所属の「アクター種別Aグループ 対 アクター種別Bグループ」を行う  .
-     * アプリ側は本メソッドを呼ぶだけでよい。
+     * アプリ側は本メソッドを呼ぶだけでよい。<BR>
+     * ただし executeAllHitChk は processJudgement() で呼ぶ必要あり。<BR>
      * @param prm_groupA アクター種別Aグループ
      * @param prm_groupB アクター種別Bグループ
      */

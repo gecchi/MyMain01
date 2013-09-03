@@ -11,6 +11,7 @@
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "actor/Teki001.h"
 #include "actor/Mikata001.h"
+#include "util/MgrUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -21,17 +22,18 @@ using namespace Mogera;
 #define MGR_TEKI 2
 
 MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
+
+    getSceneDirector()->addSubGroup(NEW TestActor("haikei"));
+
     pTeki_ = NEW Teki001("Teki001");
     getSceneDirector()->addSubGroup(MGR_TEKI, pTeki_);
 
     pMikata_ = NEW Mikata001("Mikata001");
     getSceneDirector()->addSubGroup(MGR_MIKATA, pMikata_) ;
 
-    getSceneDirector()->addSubGroup(NEW TestActor("haikei"));
-
     LabelGecchi16Font* pMsg = NEW LabelGecchi16Font("Msg");
     pMsg->update("HELLO!");
-    pMsg->position(0,0);
+    pMsg->position(LT_X,LT_Y);
     getSceneDirector()->addSubGroup(pMsg);
     VirtualButton::_keyboardmap.BUTTON1 = DIK_SPACE; //ボタン１=スペースキー とする。
     VirtualButton::_keyboardmap.UI_DEBUG = DIK_Q;
