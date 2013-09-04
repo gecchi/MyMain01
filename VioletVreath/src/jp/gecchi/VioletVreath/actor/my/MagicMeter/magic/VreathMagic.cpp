@@ -20,7 +20,7 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
             60        , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60        , 0.9,   //基本発動時間   , 飛びレベル時の rate
             60*60*3   , 0.3,   //基本持続時間   , ＋１レベル毎の持続時間の乗率
-            4         , 2.0    //基本維持コスト , ＋１レベル毎の維持コストの乗率
+            1         , 2.0    //基本維持コスト , ＋１レベル毎の維持コストの乗率
         ) {
 
     //左列選択可能状態、右列選択不可状態
@@ -60,13 +60,13 @@ VreathMagic::VreathMagic(const char* prm_name, AmountGraph* prm_pMP)
         aInt_total_vreath_[i]       = 0;
         r_add_vreath_[i]            = 0.0;
     }
-
+    //１回の呼吸時間テーブル
     beat_time_[0] = 0.0;
     beat_time_[1] = 180;
-    beat_time_[2] = beat_time_[1]/2;
-    beat_time_[3] = beat_time_[2]/2;
-    beat_time_[4] = beat_time_[3]/2;
-    beat_time_[5] = beat_time_[4]/2;
+    beat_time_[2] = beat_time_[1]/2; //だんだん
+    beat_time_[3] = beat_time_[2]/2; //呼吸が
+    beat_time_[4] = beat_time_[3]/2; //早く
+    beat_time_[5] = beat_time_[4]/2; //なる！
 //    beat_time_[6] = beat_time_[5]/2;
 //    beat_time_[7] = beat_time_[6]/2;
 

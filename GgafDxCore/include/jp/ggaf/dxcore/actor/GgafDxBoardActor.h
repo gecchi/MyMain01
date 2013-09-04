@@ -64,18 +64,19 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
         return nullptr;
     }
 
-    void rotateAs(GgafDxGeoElem* prm_pActor) override {
-        throwGgafCriticalException("GgafDxBoardActor::rotateAs() は使用不可です。");
-    }
-
-    void rotateAs(GgafDxGeometricActor* prm_pActor) override {
-        throwGgafCriticalException("GgafDxBoardActor::rotateAs() は使用不可です。");
-    }
-
-
-    void addScale(scale dS) override {
-        throwGgafCriticalException("GgafDxBoardActor::addScale() は使用不可です。");
-    }
+    //Z軸回転だけOKにした
+//    void rotateAs(GgafDxGeoElem* prm_pActor) override {
+//        throwGgafCriticalException("GgafDxBoardActor::rotateAs() は使用不可です。");
+//    }
+//
+//    void rotateAs(GgafDxGeometricActor* prm_pActor) override {
+//        throwGgafCriticalException("GgafDxBoardActor::rotateAs() は使用不可です。");
+//    }
+//
+//
+//    void addScale(scale dS) override {
+//        throwGgafCriticalException("GgafDxBoardActor::addScale() は使用不可です。");
+//    }
 
 public:
     /** [r]モデルオブジェクトへのポインタ */

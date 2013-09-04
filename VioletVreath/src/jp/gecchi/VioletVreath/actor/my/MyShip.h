@@ -23,8 +23,13 @@ namespace VioletVreath {
 /** ƒ\ƒtƒg˜AŽËŠÔŠu */
 #define SOFT_RAPIDSHOT_INTERVAL 4
 
-#define MY_SHIP_VREATH_COST (500)
+//#define MY_SHIP_VREATH_COST (500)
 //–³ŒÄ‹zŽž 1000000/500/60 = –ñ33.3•b‚ÅŽ€‚Ê
+
+#define MY_SHIP_VREATH_COST (5)
+//–³ŒÄ‹zŽž 10000/5/60 = –ñ33.3•b‚ÅŽ€‚Ê
+
+
 /**
  * Ž©‹@ƒNƒ‰ƒX
  * @version 1.00

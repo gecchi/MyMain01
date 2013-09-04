@@ -81,7 +81,7 @@ papOptionCtrler_(nullptr) {
 }
 
 void MyShipScene::initialize() {
-    pLabelZanki_->position(0,20);
+    pLabelZanki_->position(0, PX_C(20));
     pLabelZanki_->update("");
     _TRACE_("MyShipScene initialize()");
 }

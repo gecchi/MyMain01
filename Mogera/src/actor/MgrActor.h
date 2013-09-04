@@ -1,6 +1,6 @@
 #ifndef MGRACTOR_H_
 #define MGRACTOR_H_
-#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
 namespace Mogera {
 
@@ -10,7 +10,7 @@ namespace Mogera {
  * @since 2011/02/16
  * @author Masatoshi Tsuge
  */
-class MgrActor : public GgafLib::DefaultMeshActor {
+class MgrActor : public GgafLib::DefaultBoardActor {
 
 public:
     /**

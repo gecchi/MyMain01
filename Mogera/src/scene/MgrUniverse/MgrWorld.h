@@ -26,9 +26,11 @@ class MgrWorld : public GgafLib::DefaultScene {
 public:
     /** 入力受付 */
     GgafLib::VirtualButton* vb_;
+    TestActor* pBack_;
     /** テストキャラ */
     Teki001* pTeki_;
     Mikata001* pMikata_;
+
     /**
      * コンストラクタ .
      * @param prm_name 名称

@@ -2,21 +2,22 @@
 #include "actor/TestActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
+#include "util/MgrUtil.h"
 
 using namespace Mogera;
 
 TestActor::TestActor(const char* prm_name) :
-        GgafLib::DefaultBoardActor(prm_name, "Ichimatsu") {
+        GgafLib::DefaultBoardActor(prm_name, "Grid") {
 }
 
 void TestActor::initialize() {
-    //座標設定
-    position(0, 0, 0); //(0,0,0) は画面の中心
-    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);
+    position(C_X, C_Y);
+    setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+//    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(1));
 }
 
 void TestActor::processBehavior() {
-    _pKurokoA->behave(); //黒衣Aを活動させる（Z軸回転する）
+//    _pKurokoA->behave(); //黒衣Aを活動させる（Z軸回転する）
 }
 
 TestActor::~TestActor() {

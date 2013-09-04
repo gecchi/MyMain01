@@ -24,9 +24,12 @@ MgrUniverse::MgrUniverse(const char* prm_name, MgrCamera* prm_pCam) :
     _pLinearOctree->setRootSpace(_X_gone_left  ,_Y_gone_bottom, _Z_gone_near ,
                                  _X_gone_right ,_Y_gone_top   , _Z_gone_far   );
     UTIL::left_top_X_ = PROPERTY::DUAL_VIEW ? PX_C(P_GOD->_aRect_HarfRenderTargetBuffer[0].left) :
-                                                      PX_C(P_GOD->_rectRenderTargetBuffer.left);
+                                              PX_C(P_GOD->_rectRenderTargetBuffer.left);
     UTIL::left_top_Y_ = PROPERTY::DUAL_VIEW ? PX_C(P_GOD->_aRect_HarfRenderTargetBuffer[0].top) :
                                                       PX_C(P_GOD->_rectRenderTargetBuffer.top);
+    UTIL::center_X_ = PX_C(PROPERTY::RENDER_TARGET_BUFFER_WIDTH / 2);
+    UTIL::center_Y_ = PX_C(PROPERTY::RENDER_TARGET_BUFFER_HEIGHT / 2);
+
 
     _TRACE_("çƒê›íË Gone=X ("<<_X_gone_left<<" ~ "<<_X_gone_right<<") Y("<<_Y_gone_bottom<<" ~ "<<_Y_gone_top<<") Z("<<_Z_gone_near<<" ~ "<<_Z_gone_far<<")");
 }

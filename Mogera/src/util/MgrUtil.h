@@ -9,6 +9,8 @@
 
 #define LT_X (Mogera::MgrUtil::left_top_X_)
 #define LT_Y (Mogera::MgrUtil::left_top_Y_)
+#define C_X (Mogera::MgrUtil::center_X_)
+#define C_Y (Mogera::MgrUtil::center_Y_)
 
 namespace Mogera {
 
@@ -23,7 +25,8 @@ class MgrUtil : public GgafLib::StgUtil {
 public:
     static coord left_top_X_;
     static coord left_top_Y_;
-
+    static coord center_X_;
+    static coord center_Y_;
 };
 
 }

@@ -24,9 +24,14 @@ GgafDxBoardEffect::GgafDxBoardEffect(char* prm_effect_name) : GgafDxEffect(prm_e
     _h_offset_v = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v" );
     _hTransformedX = _pID3DXEffect->GetParameterByName( nullptr, "g_transformed_X" );
     _hTransformedY = _pID3DXEffect->GetParameterByName( nullptr, "g_transformed_Y" );
+
+    _h_rot_center_X = _pID3DXEffect->GetParameterByName( nullptr, "g_rot_center_X" );
+    _h_rot_center_Y = _pID3DXEffect->GetParameterByName( nullptr, "g_rot_center_Y" );
+
     _hDepthZ = _pID3DXEffect->GetParameterByName( nullptr, "g_depth_Z" );
     _hSx = _pID3DXEffect->GetParameterByName( nullptr, "g_sx" );
     _hSy = _pID3DXEffect->GetParameterByName( nullptr, "g_sy" );
+    _h_Rz = _pID3DXEffect->GetParameterByName( nullptr, "g_rz" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
 }

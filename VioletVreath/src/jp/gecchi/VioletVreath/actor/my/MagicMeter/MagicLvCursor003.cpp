@@ -6,6 +6,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -67,6 +68,8 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     _pScaler->setScale(10000);
     _pScaler->scaleLinerUntil(1000, 20);
+    _pKurokoA->setFaceAng(AXIS_Z, D180ANG);
+    _pKurokoA->turnRzFaceAngTo(0, D180ANG/20, 0, TURN_COUNTERCLOCKWISE);
 }
 
 void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {

@@ -139,7 +139,7 @@ typedef GgafDxAxis axis;
 /** 度数法角度→アプリのアングル値 変換 */
 #define D_ANG(X) ((angle)((X) * 1000))
 ///** アプリのアングル値→ラジアン 変換 */
-//#define ANG_RAD(X) (GgafDxCore::GgafDxUtil::RAD[(X) / SANG_RATE])
+#define ANG_RAD(X) (GgafDxCore::GgafDxUtil::RAD[(X) / SANG_RATE])
 /** アプリのアングル値→正弦 変換 */
 #define ANG_SIN(X) (GgafDxCore::GgafDxUtil::SIN[(int)((X) * (1.0 / SANG_RATE))])
 /** アプリのアングル値→余弦 変換 */
