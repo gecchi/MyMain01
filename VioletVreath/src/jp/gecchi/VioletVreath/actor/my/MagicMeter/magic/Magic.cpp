@@ -124,10 +124,10 @@ int Magic::chkCastAble(int prm_new_level) {
     } else if (_pProg->get() == STATE_CASTING) {
         //他のレベルを詠唱中に詠唱再実行
         if (level_ > prm_new_level) {
-            return MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN; //再詠唱レベルダウンOK
+            return MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN; //詠唱キャンセルレベルダウンOK
         } else if (level_ < prm_new_level) {
             if (interest_cost_[prm_new_level-level_] < pMP_->get()) {
-                return MAGIC_CAST_OK_CANCEL_AND_LEVELUP; //再詠唱レベルアップOK
+                return MAGIC_CAST_OK_CANCEL_AND_LEVELUP; //詠唱キャンセル再詠唱レベルアップOK
             } else {
                 return MAGIC_CAST_NG_MP_IS_SHORT; //MPが足りないため、再詠唱レベルアップ不可
             }
@@ -196,7 +196,7 @@ int Magic::cast(int prm_new_level) {
             _TRACE_("Magic::cast("<<prm_new_level<<") ["<<getName()<<"] 判定→MAGIC_CAST_OK_CANCEL_AND_LEVELUP!");
             is_working_ = true;
             new_level_ = prm_new_level;
-            _pProg->change(STATE_CASTING);
+            _pProg->change(STATE_RE_CASTING);
             break;
         }
         case MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN: {
@@ -310,7 +310,7 @@ int Magic::effect(int prm_level) {
             //レベル更新
             last_level_ = level_;
             level_ = prm_level;
-            _pProg->change(STATE_EFFECTING);
+            _pProg->change(STATE_RE_EFFECTING); //現在 STATE_EFFECTING のため
             break;
         }
     }
@@ -334,6 +334,11 @@ void Magic::processBehavior() {
                 break;
             }
 
+            /////////////////////////////////////// 詠唱中キャンセル再詠唱
+            case STATE_RE_CASTING: {
+                _pProg->change(STATE_CASTING);
+                break;
+            }
             /////////////////////////////////////// 詠唱中
             case STATE_CASTING: {
                 if (_pProg->isJustChanged()) { //詠唱開始
@@ -375,6 +380,12 @@ void Magic::processBehavior() {
                 }
                 break;
             }
+
+            /////////////////////////////////////// 持続中、強制レベルダウン再持続開始
+            case STATE_RE_EFFECTING: {
+                _pProg->change(STATE_EFFECTING);
+                break;
+            }
             /////////////////////////////////////// 持続開始
             case STATE_EFFECTING: {
                 if (_pProg->isJustChanged()) { //持続開始
@@ -394,7 +405,9 @@ void Magic::processBehavior() {
                         if (keep_cost_base_ == 0) { //維持コストがかからない魔法の場合は
                             if (lvinfo_[last_level_].time_of_effect_ > 0) {
                                 //MP還元
-                                pMP_->inc(calcReduceMp(last_level_, level_));
+                                magic_point rmp = calcReduceMp(last_level_, level_);
+                                _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP還元="<<rmp);
+                                pMP_->inc(rmp);
                             }
                         }
 

@@ -554,6 +554,7 @@ class Item;
 class MagicPointItem;
 class MagicPointItem001;
 class MagicPointItem002;
+class MagicPointItem003;
 class ScoreItem;
 class ScoreItem001;
 class VreathItem;

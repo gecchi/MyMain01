@@ -20,23 +20,26 @@
 //
 //#define NULL __null
 //
-//となっている。__null は埋め込み定数のようであり、64bit環境で sizeof は自動的に8バイトになる、そんなやつだと考えている。
-//__null は GCC 独特の物と勝手に思っていたのだが、sal.h になんと __null がなんか別のものに #define 定義されているぽいのを発見した。
+//となっている。で、 __null の定義はどこにもない。いろいろ実験した結果、__null は埋め込み定数のようである。
+//64bit環境で sizeof は自動的に8バイトになる、__null は GCC 独特のものだと考えている。
+//だがしかし、sal.h になんと __null がなんか別のものに #define 定義されているぽいのを発見した。
 //そして案の定、DirectXヘッダの dsound.h 内で、__null の記述がある。(↓例)
 //
 //extern HRESULT WINAPI DirectSoundCreate(__in_opt LPCGUID pcGuidDevice, __deref_out LPDIRECTSOUND *ppDS, __null LPUNKNOWN pUnkOuter);
 //
-//つまり __null は、GCC では埋め込み定数。VC ではマクロという別の扱いになっているのだ。の～って感じ。GCCの時にコンパイルできん。
+//つまり __null は、GCC では埋め込み定数。VC ではマクロという別の扱いになっているのだ。あ～って感じ。GCCの時にコンパイルできん。
 //で、調べていくうちに、GCCでコンパイル時、 dsound.h 内では
 //「__null  → 何もない。という定義状態でたぶん問題ない」
-//と思ったので、GCCの場合のみ #include <dsound.h> の前後に
+//と思ったので、GCCの場合のみ #include <dsound.h> の前後にプリプロセッサで
 //
 //#ifdef __GNUG__
 //    #define __null
 //#endif
-//#include <dsound.h>
+//#include <dsound.h>  //←sal.h を include する
 //#ifdef __GNUG__
 //    #undef __null
+//    #undef __in
+//    #undef __out
 //#endif
 //
 //という対処を行なっている。
@@ -52,8 +55,10 @@
 //すこし奇妙な気分だが、たぶん __null は特別な定数であって、マクロでは無いから今はこうなるんだと思われる！
 //__null を内部使用しているDirectXヘッダファイル等があれば、そのヘッダの前後に上記対策を付与しなくてはならない。が、
 //幸い、私の影響範囲は dsound.h のみで大丈夫そうだった。
+//#undef __in と #undef __out は、GCC ヘッダコードで、ローカル変数名で __in , __out という名前が使用されている箇所が
+//あるためだ。無効にしておかないと怒られる。
 //
-//よし・・・、コンパイルが通ったっと・・・
+//よし・・・、コンパイルが通ったっと・・・、なんとも不細工である。
 //TODO:しばらくこれでいいのじゃないかなぁ～！！ ＼(T_T)／
 //TODO:最近 mingw-w64 のライブラリヘッダに、独自の"sal.h"が加わった・・・。毎回消すか、どうしようか。
 

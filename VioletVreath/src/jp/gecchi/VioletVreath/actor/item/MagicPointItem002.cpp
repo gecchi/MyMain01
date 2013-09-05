@@ -19,7 +19,7 @@ void MagicPointItem002::initialize() {
 }
 void MagicPointItem002::onActive() {
     MagicPointItem::onActive();
-    _SX = _SY = _SZ = 5000; //BIG!
+    setScaleR(6.0); //BIG!
 }
 
 MagicPointItem002::~MagicPointItem002() {

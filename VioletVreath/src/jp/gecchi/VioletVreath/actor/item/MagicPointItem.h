@@ -21,6 +21,10 @@ public:
         PROG_ABSORB     , //‹z’…’†(‹z’…Ï)ó‘Ô
     };
 
+    enum {
+        SE_GET_ITEM ,
+    };
+
 public:
     MagicPointItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 

@@ -30,7 +30,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     setHitAble(true, false); //画面外当たり判定は無効
     _pColliChecker->makeCollision(1);
     _pColliChecker->setColliAAB_Cube(0, 400000);
-    _pSeTx->set(0, "WAVE_GET_ITEM_001");
+    _pSeTx->set(SE_GET_ITEM, "WAVE_GET_ITEM_001");
 }
 
 void MagicPointItem::initialize() {
@@ -93,14 +93,14 @@ void MagicPointItem::processBehavior() {
                                      _pKurokoA->_vY*_pKurokoA->_veloMv,
                                      _pKurokoA->_vZ*_pKurokoA->_veloMv);
             _pKurokoB->execGravitationMvSequenceTwd(pMyShip,
-                                                    PX_C(20), 200, PX_C(100));
+                                                    PX_C(40), 150, PX_C(100));
             _pKurokoA->stopMv();
         }
 
         //かつ自機近辺に到達？
-        if (ABS(pMyShip->_X - _X) < 20000 &&
-            ABS(pMyShip->_Y - _Y) < 20000 &&
-            ABS(pMyShip->_Z - _Z) < 20000 )
+        if (ABS(pMyShip->_X - _X) < PX_C(20) &&
+            ABS(pMyShip->_Y - _Y) < PX_C(20) &&
+            ABS(pMyShip->_Z - _Z) < PX_C(20) )
         {
             kDX_ = pMyShip->_X - _X;
             kDY_ = pMyShip->_Y - _Y;
@@ -121,15 +121,14 @@ void MagicPointItem::processBehavior() {
         _X = pMyShip->_X + kDX_;
         _Y = pMyShip->_Y + kDY_;
         _Z = pMyShip->_Z + kDZ_;
-        _SX -= 100;
-        _SY -= 100;
-        _SZ -= 100;
-        if (_SX < 5) {
-            _pSeTx->play(0);
+        addScale(-100);
+        pMyShip->mp_.inc(6); //ここ調整！
+
+        if (_SX < 100) {
+            _pSeTx->play(SE_GET_ITEM);
             _pProg->changeNothing();
             sayonara(); //終了
         }
-        pMyShip->mp_.inc(1);
     }
     _pKurokoA->behave();
     _pKurokoB->behave();

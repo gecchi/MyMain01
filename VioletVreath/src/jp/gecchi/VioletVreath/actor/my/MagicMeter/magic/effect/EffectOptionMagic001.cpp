@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectOptionMagic001::EffectOptionMagic001(const char* prm_name)
-               : DefaultMeshSetActor(prm_name, "EffectMagic001", nullptr) {
+               : DefaultMeshSetActor(prm_name, "EffectOptionMagic001", nullptr) {
     _class_name = "EffectOptionMagic001";
     effectBlendOne(); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り

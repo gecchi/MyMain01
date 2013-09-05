@@ -1,15 +1,17 @@
 #ifndef GGAFDXCORE_GGAFDXSOUND_H_
 #define GGAFDXCORE_GGAFDXSOUND_H_
 #include <sstream>
-//↑#include <dsound.h> より先に無いと、out__ やらが sal.h により汚染されるため
+
 #ifdef __GNUG__
-    //dsound.h 内で、__null 定数を使用したコードあるため
     #define __null
 #endif
-#include <dsound.h>
+#include <dsound.h>  //←sal.h を include する
 #ifdef __GNUG__
     #undef __null
+    #undef __in
+    #undef __out
 #endif
+
 #include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
 
 /**

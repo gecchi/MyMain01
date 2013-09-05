@@ -272,7 +272,7 @@ Frame _83I83u83W83F83N83g02 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "MagicPointItem001.png";
+     "MagicPointItem003.png";
     }
    }
   }

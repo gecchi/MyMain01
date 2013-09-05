@@ -15,8 +15,8 @@ TractorMagic::TractorMagic(const char* prm_name, AmountGraph* prm_pMP)
                 100*4   , 0.9,   //基本魔法コスト , 飛びレベル時の rate
                 1       , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
                 1       , 0.9,   //基本発動時間   , 飛びレベル時の rate
-                120*10  , 1.0,   //基本持続時間   , ＋１レベル毎の持続時間の乗率
-                1.01    , 1.2    //基本維持コスト , ＋１レベル毎の維持コストの乗率
+                120*10  , 1.2,   //基本持続時間   , ＋１レベル毎の持続時間の乗率
+                1       , 1.1    //基本維持コスト , ＋１レベル毎の維持コストの乗率
             ) {
 
     //数値の意味は VreathMagic.cpp のコメント参照
@@ -45,7 +45,7 @@ void TractorMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 void TractorMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
 }
 void TractorMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
-    P_MYSHIP->effectFlush(6); //フラッシュ
+    P_MYSHIP->effectFlush(30); //フラッシュ
 }
 
 int TractorMagic::effect(int prm_level) {

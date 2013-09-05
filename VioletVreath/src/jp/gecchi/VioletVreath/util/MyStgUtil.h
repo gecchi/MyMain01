@@ -76,6 +76,7 @@ public:
         ITEM_NOTHING,
         ITEM_MP_SMALL,
         ITEM_MP_MIDDLE,
+        ITEM_MP_LARGE,
     };
 
     enum ShotKind {
@@ -307,10 +308,12 @@ public:
 	static GgafCore::GgafStatus* resetEnemyEmiliaFragment3Status(GgafCore::GgafStatus* p);
 	//オプション
 	static GgafCore::GgafStatus* resetMyOptionStatus(GgafCore::GgafStatus* p);
-	//MPアイテム
+	//MPアイテム小
 	static GgafCore::GgafStatus* resetMagicPointItem001Status(GgafCore::GgafStatus* p);
-	//編隊全滅MPアイテム
+	//MPアイテム中
 	static GgafCore::GgafStatus* resetMagicPointItem002Status(GgafCore::GgafStatus* p);
+	//MPアイテム大
+	static GgafCore::GgafStatus* resetMagicPointItem003Status(GgafCore::GgafStatus* p);
 	//スコアアイテム
 	static GgafCore::GgafStatus* resetScoreItem001Status(GgafCore::GgafStatus* p);
 	//Vreathアイテム

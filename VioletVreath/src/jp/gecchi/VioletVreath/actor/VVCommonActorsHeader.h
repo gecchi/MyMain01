@@ -32,6 +32,7 @@
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem001.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem002.h"
+#include "jp/gecchi/VioletVreath/actor/item/MagicPointItem003.h"
 #include "jp/gecchi/VioletVreath/actor/item/ScoreItem.h"
 #include "jp/gecchi/VioletVreath/actor/item/ScoreItem001.h"
 #include "jp/gecchi/VioletVreath/actor/item/VreathItem.h"

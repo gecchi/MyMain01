@@ -25,8 +25,8 @@ GgafDxBoardEffect::GgafDxBoardEffect(char* prm_effect_name) : GgafDxEffect(prm_e
     _hTransformedX = _pID3DXEffect->GetParameterByName( nullptr, "g_transformed_X" );
     _hTransformedY = _pID3DXEffect->GetParameterByName( nullptr, "g_transformed_Y" );
 
-    _h_rot_center_X = _pID3DXEffect->GetParameterByName( nullptr, "g_rot_center_X" );
-    _h_rot_center_Y = _pID3DXEffect->GetParameterByName( nullptr, "g_rot_center_Y" );
+    _h_local_left_top_X = _pID3DXEffect->GetParameterByName( nullptr, "g_local_left_top_X" );
+    _h_local_left_top_Y = _pID3DXEffect->GetParameterByName( nullptr, "g_local_left_top_Y" );
 
     _hDepthZ = _pID3DXEffect->GetParameterByName( nullptr, "g_depth_Z" );
     _hSx = _pID3DXEffect->GetParameterByName( nullptr, "g_sx" );

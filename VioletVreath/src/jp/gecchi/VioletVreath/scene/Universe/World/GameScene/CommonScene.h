@@ -43,10 +43,12 @@ public:
     GgafCore::GgafActorDepository* P_COMMON_DEPO(EffectExplosion004);
     /** ターボエフェクト用、常備デポジトリ */
     GgafCore::GgafActorDepository* P_COMMON_DEPO(EffectTurbo002);
-    /** アイテムオブジェクトその１用、常備デポジトリ */
+    /** アイテムオブジェクト小、常備デポジトリ */
     GgafCore::GgafActorDepository* P_COMMON_DEPO(MagicPointItem001);
-    /** アイテムオブジェクトその１用、常備デポジトリ */
+    /** アイテムオブジェクト中、常備デポジトリ */
     GgafCore::GgafActorDepository* P_COMMON_DEPO(MagicPointItem002);
+    /** アイテムオブジェクト大、常備デポジトリ */
+    GgafCore::GgafActorDepository* P_COMMON_DEPO(MagicPointItem003);
 
     /** 汎用出現エフェクトその１用、常備デポジトリ */
     GgafCore::GgafActorDepository* P_COMMON_DEPO(EffectEntry001);

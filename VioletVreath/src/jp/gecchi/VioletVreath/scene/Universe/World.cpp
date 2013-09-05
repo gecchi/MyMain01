@@ -16,6 +16,7 @@
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/PreDrawScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene.h"
+#include "Version.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -47,11 +48,12 @@ void World::initialize() {
     _TRACE_("World::initialize()");
     pixcoord cx = PROPERTY::GAME_BUFFER_WIDTH/2;
     pixcoord cy = PROPERTY::GAME_BUFFER_HEIGHT/2;
-
+    std::ostringstream os;
+    os << "[ VIOLET VREATH ]\n" << VERSION << "\n" << "PLEASE WAIT A MOMENT ...";
     pLabel_title_ = createInFactory(LabelGecchi16Font, "STR01");
     getSceneDirector()->addSubGroup(pLabel_title_);
     pLabel_title_->update(PX_C(cx), PX_C(cy/2),
-                          "[ VIOLET VREATH ]\nPLEASE WAIT A MOMENT ...",
+                          os.str().c_str(),
                           ALIGN_CENTER, VALIGN_MIDDLE);
 
 #ifdef MY_DEBUG
