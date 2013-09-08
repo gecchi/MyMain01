@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
+#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 

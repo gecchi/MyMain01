@@ -6,7 +6,7 @@
                           //main関数 WinMain関数 ウィンドウプロシージャは
                           //１つのファイルに記述します。
 #include "MgrGod.h"
-
+#include <scrnsave.h>
 using namespace Mogera;
 
 

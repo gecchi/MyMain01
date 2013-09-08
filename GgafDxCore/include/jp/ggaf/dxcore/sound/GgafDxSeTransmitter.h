@@ -35,7 +35,7 @@ public:
 
     /**
      * SEの設定を行う .
-     * 但し、SEの再生時間は GGAF_SAYONARA_DELAY+(最大距離遅延) フレーム以内でなければいけない。
+     * 但し、SEの再生時間は GGAF_END_DELAY+(最大距離遅延) フレーム以内でなければいけない。
      * 上書き再設定可能。
      * @param prm_id SEのID ( 0 ～ SE数-1 )
      * @param prm_se_key SE定義名(プロパティファイルのキー)

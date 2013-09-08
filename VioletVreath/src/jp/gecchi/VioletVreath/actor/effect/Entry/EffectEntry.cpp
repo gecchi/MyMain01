@@ -26,7 +26,7 @@ void EffectEntry::processBehavior() {
             positionAs(pTarget_);
         }
     }
-    if (getActiveFrame() >= GGAF_SAYONARA_DELAY) {
+    if (getActiveFrame() >= GGAF_END_DELAY) {
         pTarget_ = nullptr;
         sayonara();
     }

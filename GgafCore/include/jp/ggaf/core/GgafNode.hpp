@@ -151,11 +151,6 @@ public:
     }
 
     /**
-     * ノード名問い合わせ
-     */
-    //	virtual bool isNamed(const char* prm_name);
-
-    /**
      * １つ上の親ノードを設定する。
      * @param	prm_pParent	親ノード
      */

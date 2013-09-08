@@ -2,8 +2,6 @@
 #define GGAFDXCORE_GGAFDXALPHAFADER_H_
 #include "jp/ggaf/core/GgafObject.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
-
 namespace GgafDxCore {
 
 /**
@@ -67,7 +65,7 @@ public:
      * @param prm_alpha_diff 強度値増分
      */
     inline void addAlpha(float prm_alpha_diff) {
-        addAlpha(prm_alpha_diff);
+        setAlpha(_alpha+prm_alpha_diff);
     }
 
     /**
@@ -193,8 +191,8 @@ public:
      * ② アタックまでのフレーム数<BR>
      * ③ 持続フレーム数<BR>
      * ④ 休憩フレーム数<BR>
-     * ⑤ 強度上限(_top_alpha[色要素] 配列が保持)<BR>
-     * ⑥ 強度下限(_bottom_alpha[色要素] 配列が保持)<BR>
+     * ⑤ 強度上限(_top_alpha、保持するαの強度上限)<BR>
+     * ⑥ 強度下限(_bottom_alpha、保持するαの強度下限)<BR>
      * @param prm_beat_target_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数
      * @param prm_duration_frames 上図で③のフレーム数

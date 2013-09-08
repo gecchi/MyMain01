@@ -87,8 +87,8 @@ public:
      * <pre>
      * ＜例＞
      *
-     *   setRotation(0, 0, 1.0/5, 1.0/4, 3, 10);
-     *   setActivePtn(5);
+     *   _pUvFlipper->setRotation(0, 0, 1.0/5, 1.0/4, 3, 10);
+     *   _pUvFlipper->setActivePtn(5);
      *
      * を実行時のパターン概念図
      *
@@ -111,7 +111,7 @@ public:
      *
      * (※"!" は現在アクティブなパターン番号)
      *
-     * ０～９はパターン番号と呼ぶこととする。
+     * ０～９はパターン番号と呼ぶこととする。(prm_num_of_max_patterns で番号数が決まる)
      * パターン番号の並び順は左上から右へ、改行して再び右への順で固定。
      * 但し、基準となる左上の座標、改行までのパターン数は設定が可能。
      * 描画時、頂点バッファの各頂点のUV座標に、
@@ -119,7 +119,7 @@ public:
      * 上の図の例では、パターン番号5がアクティブなのでこの状態で
      *
      *   float u, v;
-     *   getUV(u, v);
+     *   _pUvFlipper->getUV(u, v);
      *
      * を実行するとパターン番号5番の左上のUV座標の
      *
@@ -249,6 +249,11 @@ public:
      */
     void setFlipPtnRange(int prm_top, int prm_bottom);
 
+    /**
+     * FLIP_CUSTOMIZED_LOOP、FLIP_CUSTOMIZED_NOLOOP時のパターン順を定義。TODO:未テスト。 .
+     * @param prm_aPtnOffset
+     * @param prm_num
+     */
     void customizePtnOrder(int prm_aPtnOffset[], int prm_num);
 
     /**
@@ -272,12 +277,12 @@ public:
      * 【例２】
      * setActivePtn(5);
      * setFlipPtnRange(0,3);
-     * exec(FLIP_ORDER_LOOP); とした場合、
+     * exec(FLIP_REVERSE_LOOP); とした場合、
      * パターン番号: 5,4,3,2,1,0,3,2,1,0,3,2,1,0,...
      *
      * </pre>
-     * @param prm_method アニメーション方法定数
-     * @param prm_interval アニメーション間隔フレーム（default=1)
+     * @param prm_method フリップ順の方法
+     * @param prm_interval フリップ間隔フレーム（default=1)
      */
     void exec(GgafDxUvFlippingMethod prm_method, int prm_interval = 1);
 

@@ -93,7 +93,7 @@ GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) 
     _TRACE_("Gone=X ("<<_X_gone_left<<" ~ "<<_X_gone_right<<") Y("<<_Y_gone_bottom<<" ~ "<<_Y_gone_top<<") Z("<<_Z_gone_near<<" ~ "<<_Z_gone_far<<")");
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
-    for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_SAYONARA_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
+    for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
     GgafRepeatSeq::create(_seqkey_se_delay, 0, 8); //ズレSE再生フレーム

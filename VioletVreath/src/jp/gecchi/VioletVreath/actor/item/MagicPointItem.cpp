@@ -93,7 +93,7 @@ void MagicPointItem::processBehavior() {
                                      _pKurokoA->_vY*_pKurokoA->_veloMv,
                                      _pKurokoA->_vZ*_pKurokoA->_veloMv);
             _pKurokoB->execGravitationMvSequenceTwd(pMyShip,
-                                                    PX_C(40), 150, PX_C(100));
+                                                    PX_C(50), 200, PX_C(200));
             _pKurokoA->stopMv();
         }
 
@@ -122,7 +122,7 @@ void MagicPointItem::processBehavior() {
         _Y = pMyShip->_Y + kDY_;
         _Z = pMyShip->_Z + kDZ_;
         addScale(-100);
-        pMyShip->mp_.inc(6); //В▒В▒Т▓РоБI
+        pMyShip->mp_.inc(12); //В▒В▒Т▓РоБI
 
         if (_SX < 100) {
             _pSeTx->play(SE_GET_ITEM);

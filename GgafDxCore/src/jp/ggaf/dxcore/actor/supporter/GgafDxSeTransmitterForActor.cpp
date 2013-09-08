@@ -158,7 +158,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
 
                         //備忘録
                         //例えば消滅時の爆発だった場合、_pActor->_X みたいに、消滅後も値を参照したい。
-                        //そこで GGAF_SAYONARA_DELAY が重要になっている
+                        //そこで GGAF_END_DELAY が重要になっている
 
                         //リアルタイムの音量を計算
                         double d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル

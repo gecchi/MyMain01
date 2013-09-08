@@ -712,7 +712,7 @@ public:
     /**
      * ゴミ箱に放り込まれる直前に呼び出されるコールバック .
      * end(frame) 実行後、ゴミ箱(GgafGarbageBox) に取り込まれる直前に呼び出される。<BR>
-     * 最速で、end(frame) で指定したフレーム + GGAF_SAYONARA_DELAY 後に発生する。<BR>
+     * 最速で、end(frame) で指定したフレーム + GGAF_END_DELAY 後に発生する。<BR>
      * 処理がもたつくと、それ以上の先のフレームで発生する。<BR>
      * 直前に処理が必要な場合は、オーバーライドして実装可能。<BR>
      */
@@ -1402,15 +1402,15 @@ template<class T>
 void GgafElement<T>::end(frame prm_offset_frames) {
     if (_will_end_after_flg) {
         //既にend()実行済みの場合、より早くend()するならば有効とする
-        if (_frame_of_life_when_end < _frame_of_life + prm_offset_frames + GGAF_SAYONARA_DELAY) {
+        if (_frame_of_life_when_end < _frame_of_life + prm_offset_frames + GGAF_END_DELAY) {
             //今回指定の方が遅いフレーム指定であるため無視する。
             return;
         }
     }
     _will_end_after_flg = true;
-    _frame_of_life_when_end = _frame_of_life + prm_offset_frames + GGAF_SAYONARA_DELAY;
+    _frame_of_life_when_end = _frame_of_life + prm_offset_frames + GGAF_END_DELAY;
     inactivateDelay(prm_offset_frames);
-    //指定フレーム時には、まずinactivateが行われ、+GGAF_SAYONARA_DELAY フレーム後 _can_live_flg = falseになる。
+    //指定フレーム時には、まずinactivateが行われ、+GGAF_END_DELAY フレーム後 _can_live_flg = falseになる。
     //onEnd()は _can_live_flg = false 時発生
     if (GgafNode<T>::_pSubFirst) {
         T* pElementTemp = GgafNode<T>::_pSubFirst;

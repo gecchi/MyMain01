@@ -1026,6 +1026,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\MagicPointItem003.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp"
 				>
 			</File>
@@ -2357,6 +2361,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\MagicPointItem002.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\MagicPointItem003.h"
 				>
 			</File>
 			<File

@@ -15,7 +15,7 @@ SmileMagic::SmileMagic(const char* prm_name, AmountGraph* prm_pMP)
     : Magic(prm_name, prm_pMP,
             5,                 //max_level
             100       , 1.0,   //基本魔法コスト , 飛びレベル時の rate
-            12        , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
+            60        , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60        , 0.9,   //基本発動時間   , 飛びレベル時の rate
             0         , 0.0,   //基本持続時間   , ＋１レベル毎の持続時間の乗率
             0         , 0.0    //基本維持コスト , ＋１レベル毎の維持コストの乗率
@@ -40,24 +40,31 @@ SmileMagic::SmileMagic(const char* prm_name, AmountGraph* prm_pMP)
 void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     pMoji_->positionAs(P_MYSHIP);
     pMoji_->setAlpha(0.9);
-    pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
-    pMoji_->_pKurokoA->setFaceAngVelo(AXIS_X, 200);
-    pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Y, 300);
+    //ニコニコビーム発射
+    std::string s = "";
+    for (int i = 0; i < prm_new_level; i++) {
+        s += "(^_^)SMILE!\n";
+    }
+    pMoji_->update(s.c_str());
+    pMoji_->_pKurokoA->setFaceAng(0,0,0);
+    pMoji_->_pKurokoA->setFaceAngVelo(0,0,0);
     pMoji_->activate();
 }
 void SmileMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     pMoji_->_X += 1000;
     pMoji_->_Y += 1000;
+    pMoji_->_pKurokoA->behave();
 }
 void SmileMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm_result_invoke) {
 }
 
 
 void SmileMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
-    pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Z, 3000);
+    pMoji_->_pKurokoA->setFaceAngVelo(AXIS_Z, 5000);
 }
 
 void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
+    pMoji_->_pKurokoA->behave();
 }
 
 void SmileMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
@@ -66,12 +73,6 @@ void SmileMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int p
 
 int SmileMagic::effect(int prm_level) {
     int r = Magic::effect(prm_level);
-    //ニコニコビーム発射
-    std::string s = "";
-    for (int i = 0; i < prm_level; i++) {
-        s += "(^_^)SMILE!\n";
-    }
-    pMoji_->update(s.c_str());
     return r;
 }
 
