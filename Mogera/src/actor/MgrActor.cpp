@@ -19,7 +19,7 @@ MgrActor::MgrActor(const char* prm_name) :
 void MgrActor::initialize() {
     _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(1));
     _pScaler->forceRange(500, 3000);
-    _pScaler->beat(120, 60, 5,-1);
+    _pScaler->beat(120, 60, 5, -1);
 }
 
 void MgrActor::processBehavior() {

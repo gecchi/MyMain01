@@ -85,14 +85,7 @@ public:
     GgafDxBoardEffect* _pBoardEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
-    /** [r]幅(px) */
-    pixcoord _width_px;
-    /** [r]高さ(px) */
-    pixcoord _height_px;
-    /** [r]幅(px)の半分 */
-    pixcoord _harf_width_px;
-    /** [r]高さ(px)の半分 */
-    pixcoord _harf_height_px;
+
     GgafDxAlign _align;
     GgafDxValign _valign;
 

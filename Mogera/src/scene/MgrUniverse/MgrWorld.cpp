@@ -40,9 +40,6 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pMgrActor3->setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
     getSceneDirector()->addSubGroup(pMgrActor3);
 
-
-
-
     pTeki_ = NEW Teki001("Teki001");
     getSceneDirector()->addSubGroup(MGR_TEKI, pTeki_);
 

@@ -14,8 +14,8 @@ float g_offset_u; //テクスチャU座標増分
 float g_offset_v; //テクスチャV座標増分
 float g_transformed_X; //アラインメント未考慮、変換済みX座標(px) 
 float g_transformed_Y; //アラインメント未考慮、変換済みY座標(px) 
-float g_local_left_top_X;  //アラインメント＆拡大縮小適用済、ローカル左上変換済みX座標(px)
-float g_local_left_top_Y;  //アラインメント＆拡大縮小適用済、ローカル左上変換済みY座標(px)
+float g_local_left_top_X;  //ローカル左上変換済みX座標(px)
+float g_local_left_top_Y;  //ローカル左上変換済みY座標(px)
 float g_depth_Z; //深度Z (0 ～ +1)
 float g_game_buffer_width; //画面幅(px)
 float g_game_buffer_height; //画面高さ(px)
@@ -46,15 +46,15 @@ OUT_VS GgafDxVS_DefaultBoard(
     OUT_VS out_vs = (OUT_VS)0;
     if (g_rz == 0.0f) {
         //X座標Y座標をを -1 ～ +1 に押し込める。
-        out_vs.posModel_Proj.x = - 1 + ( (2*((prm_posModel_Local.x * g_sx) + g_local_left_top_X + g_transformed_X) - 1) / g_game_buffer_width);
-        out_vs.posModel_Proj.y =   1 - ( (2*((prm_posModel_Local.y * g_sy) + g_local_left_top_Y + g_transformed_Y) - 1) / g_game_buffer_height);
+        out_vs.posModel_Proj.x = - 1 + ( (2*( ((prm_posModel_Local.x + g_local_left_top_X)*g_sx) + g_transformed_X) - 1) / g_game_buffer_width);
+        out_vs.posModel_Proj.y =   1 - ( (2*( ((prm_posModel_Local.y + g_local_left_top_Y)*g_sy) + g_transformed_Y) - 1) / g_game_buffer_height);
     } else {
         //回転考慮
-        float lx = (prm_posModel_Local.x * g_sx) + g_local_left_top_X;
-        float ly = (prm_posModel_Local.y * g_sy) + g_local_left_top_Y;
+        float lx = (prm_posModel_Local.x + g_local_left_top_X) * g_sx;
+        float ly = (prm_posModel_Local.y + g_local_left_top_Y) * g_sy;
         //X座標Y座標をを -1 ～ +1 に押し込める。
-        out_vs.posModel_Proj.x = - 1 + ( (2*((lx * cos(g_rz) - ly * sin(g_rz))                  + g_transformed_X) - 1) / g_game_buffer_width);
-        out_vs.posModel_Proj.y =   1 - ( (2*((lx * sin(g_rz) + ly * cos(g_rz))                  + g_transformed_Y) - 1) / g_game_buffer_height);
+        out_vs.posModel_Proj.x = - 1 + ( (2*( (lx * cos(g_rz) - ly * sin(g_rz))                  + g_transformed_X) - 1) / g_game_buffer_width);
+        out_vs.posModel_Proj.y =   1 - ( (2*( (lx * sin(g_rz) + ly * cos(g_rz))                  + g_transformed_Y) - 1) / g_game_buffer_height);
     }
     out_vs.posModel_Proj.z = g_depth_Z;
     out_vs.posModel_Proj.w = 1.0;
