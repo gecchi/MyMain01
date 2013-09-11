@@ -16,16 +16,6 @@ public:
 
     void initialize() override;
 
-    void onReset() override;
-
-    void onActive() override;
-
-    void processBehavior() override;
-
-    void processJudgement() override;
-
-    void onInactive() override;
-
     void addVal(double prm_val);
 
 

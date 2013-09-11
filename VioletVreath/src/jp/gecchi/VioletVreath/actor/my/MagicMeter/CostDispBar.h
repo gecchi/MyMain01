@@ -9,7 +9,7 @@ class CostDispBar : public GraphBar {
 public:
     /** “à—e—Ê */
     GraphBar* pSourceBar_;
-    GgafLib::AmountGraph* pCostValue_;
+//    GgafLib::AmountGraph* pCostValue_;
 
 public:
     /**

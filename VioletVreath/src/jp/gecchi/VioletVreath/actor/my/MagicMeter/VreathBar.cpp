@@ -12,29 +12,10 @@ using namespace VioletVreath;
 VreathBar::VreathBar(const char* prm_name, AmountGraph* prm_pAmount)
       : GraphBar(prm_name, "TurboMeter", prm_pAmount) {
     _class_name = "VreathBar";
-    pAmount_ = prm_pAmount;
 }
 
 void VreathBar::initialize() {
-    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
-}
-
-void VreathBar::onReset() {
-    _SX = R_SC(pAmount_->getPx() * rate_org_width_); //横方向に倍率で伸ばす
-}
-
-void VreathBar::onActive() {
-}
-
-void VreathBar::processBehavior() {
-    _SX = R_SC(pAmount_->getPx() * rate_org_width_); //横方向に倍率で伸ばす
-    _pUvFlipper->behave();
-}
-
-void VreathBar::processJudgement() {
-}
-
-void VreathBar::onInactive() {
+//    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
 }
 
 VreathBar::~VreathBar() {

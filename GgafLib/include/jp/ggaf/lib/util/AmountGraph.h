@@ -21,7 +21,7 @@ public:
     int* _pInt_val;
     /** [r]100%のメーターの長さ(px) */
     pixcoord _max_val_px;
-    /** [r]現在のメーター値の割合 */
+    /** [r]メーター値とピクセルの割合、 */
     double _rate_val;
 
     bool _is_new;

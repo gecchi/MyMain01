@@ -12,6 +12,8 @@
 #include "jp/ggaf/lib/util/LinearOctreeForActor.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "util/MgrUtil.h"
+#include "jp/ggaf/lib/util/AmountGraph.h"
+#include "actor/TestBar.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -26,19 +28,17 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pBack_->position(C_X, C_Y);
     getSceneDirector()->addSubGroup(pBack_);
 
-    MgrActor* pMgrActor1 = NEW MgrActor("TEST1");
-    pMgrActor1->position(C_X, C_Y);
-    getSceneDirector()->addSubGroup(pMgrActor1);
+//    MgrActor* pMgrActor1 = NEW MgrActor("TEST1");
+//    pMgrActor1->position(C_X, C_Y);
+//    getSceneDirector()->addSubGroup(pMgrActor1);
 
-    MgrActor* pMgrActor2 = NEW MgrActor("TEST2");
-    pMgrActor2->position(C_X, C_Y);
-    pMgrActor2->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    getSceneDirector()->addSubGroup(pMgrActor2);
 
-    MgrActor* pMgrActor3 = NEW MgrActor("TEST3");
-    pMgrActor3->position(C_X, C_Y);
-    pMgrActor3->setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
-    getSceneDirector()->addSubGroup(pMgrActor3);
+    pBarVal_ = NEW AmountGraph();
+    pBarVal_->config(200, 200);
+    pBarVal_->set(200);
+    TestBar* pTestBar = NEW TestBar("TEST1",pBarVal_);
+    pTestBar->position(C_X, C_Y);
+    getSceneDirector()->addSubGroup(pTestBar);
 
     pTeki_ = NEW Teki001("Teki001");
     getSceneDirector()->addSubGroup(MGR_TEKI, pTeki_);
@@ -63,7 +63,14 @@ void MgrWorld::initialize() {
 void MgrWorld::processBehavior() {
     //キャラをボタン入力で移動
     vb_->update(); //入力状況更新
-
+    if (vb_->isBeingPressed(VB_RIGHT)) {
+        pBarVal_->inc(2);
+        _TRACE_("+ pBarVal_="<<pBarVal_->get()<<"");
+    }
+    if (vb_->isBeingPressed(VB_LEFT)) {
+        pBarVal_->inc(-2);
+        _TRACE_("- pBarVal_="<<pBarVal_->get()<<"");
+    }
     //ワイヤフレーム表示切替
     if (vb_->isPushedDown(VB_UI_DEBUG)) {
         if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
@@ -82,4 +89,7 @@ void MgrWorld::processJudgement() {
 }
 
 MgrWorld::~MgrWorld() {
+    GGAF_DELETE(pBarVal_);
 }
+
+

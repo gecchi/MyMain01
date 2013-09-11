@@ -17,9 +17,7 @@ public:
     GgafLib::AmountGraph* pAmount_;
     /** â°ïùÉsÉNÉZÉã */
     pixcoord org_width_;
-
     double rate_org_width_;
-
 public:
     /**
      *
@@ -28,6 +26,8 @@ public:
      */
     GraphBar(const char* prm_name, const char* prm_model, GgafLib::AmountGraph* prm_pAmount);
 
+    void processBehavior() override;
+    void processDraw() override;
     virtual ~GraphBar();
 };
 

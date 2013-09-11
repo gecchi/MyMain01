@@ -64,6 +64,7 @@ class StringSpriteActor;
 class WallPartsActor;
 class WallAABctor;
 class WallAAPrismActor;
+class GraphBarActor;
 
 class SpriteMeshWorldBoundActor;
 class WorldBoundActor;

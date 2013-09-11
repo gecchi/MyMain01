@@ -14,7 +14,7 @@ CostDispBar::CostDispBar(const char* prm_name, GraphBar* prm_pSourceBar, AmountG
       : GraphBar(prm_name, "CostDispBar", prm_pCostValue) {
     _class_name = "CostDispBar";
     pSourceBar_ = prm_pSourceBar;
-    pCostValue_ = prm_pCostValue;
+//    pCostValue_ = prm_pCostValue;
 }
 
 void CostDispBar::initialize() {
@@ -23,20 +23,20 @@ void CostDispBar::initialize() {
 }
 
 void CostDispBar::onReset() {
-    setScaleR(pCostValue_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+//    setScaleR(pCostValue_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
 }
 
 void CostDispBar::onActive() {
 }
 
 void CostDispBar::processBehavior() {
-    if ( pCostValue_->getPx() > 0) {
+    if ( pAmount_->getPx() > 0) {
         //³‚Ì’l‚ÍƒRƒXƒg—L‚è‚ğ•\‚·Båƒ[ƒ^[‚ÌíŒ¸’l‚ğÔ‚Å¦‚·‚æ‚¤‚É‚·‚éB
-        _pUvFlipper->setActivePtn(0);
-        pixcoord px = pSourceBar_->pAmount_->getPx() - pCostValue_->getPx();
+        _pUvFlipper->setActivePtn(0);//Ô
+        pixcoord px = pSourceBar_->pAmount_->getPx() - pAmount_->getPx();
         if (px > 0) {
             _X = pSourceBar_->_X +  PX_C(px);
-            setScaleR(pCostValue_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+            setScaleR(pAmount_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
         } else {
             //Œ³ƒ[ƒ^[‚©‚ç‚Í‚Í‚İo‚È‚¢‚æ‚¤‚É‚·‚é
             _X = pSourceBar_->_X;
@@ -46,7 +46,7 @@ void CostDispBar::processBehavior() {
         //•‰‚Ì’l‚ÍƒRƒXƒg‚ªƒ}ƒCƒiƒXA‚Â‚Ü‚èŒ³‚Ì’l‚ª‘‚¦‚éBåƒ[ƒ^[‚Ì‘•ª’l‚ğÂ‚Å¦‚·‚æ‚¤‚É‚·‚éB
         _pUvFlipper->setActivePtn(1);
         _X = pSourceBar_->_X + PX_C(pSourceBar_->pAmount_->getPx());
-        setScaleR(-1.0 * pCostValue_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+        setScaleR(-1.0 * pAmount_->getPx() * rate_org_width_, 1.0); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
     }
     _pUvFlipper->behave();
 }

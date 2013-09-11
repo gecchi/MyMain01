@@ -31,6 +31,7 @@ public:
     Teki001* pTeki_;
     Mikata001* pMikata_;
 
+    GgafLib::AmountGraph* pBarVal_;
     /**
      * コンストラクタ .
      * @param prm_name 名称
