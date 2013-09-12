@@ -1,12 +1,10 @@
-#ifndef TESTBAR_H_
-#define TESTBAR_H_
+#ifndef MPBAR_H_
+#define MPBAR_H_
 #include "jp/ggaf/lib/actor/GraphBarActor.h"
 
-using GgafLib::GraphBarActor;
+namespace VioletVreath {
 
-namespace Mogera {
-
-class TestBar : public GraphBarActor {
+class MpBar : public GgafLib::GraphBarActor {
 
 public:
     /**
@@ -14,16 +12,16 @@ public:
      * @param prm_name
      * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
      */
-    TestBar(const char* prm_name);
+    MpBar(const char* prm_name);
 
     void initialize() override;
 
     void addVal(double prm_val);
 
 
-    virtual ~TestBar();
+    virtual ~MpBar();
 };
 
 }
-#endif /*TESTBAR_H_*/
+#endif /*MPBAR_H_*/
 

@@ -15,7 +15,7 @@ class SmileMagic : public Magic {
     SpriteLabelTest* pMoji_;
 
 public:
-    SmileMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
+    SmileMagic(const char* prm_name, GgafLib::PxQuantity* prm_pMP);
 
     virtual void processCastBegin(int prm_now_level, int prm_new_level) override;
     virtual void processCastingBehavior(int prm_now_level, int prm_new_level) override;

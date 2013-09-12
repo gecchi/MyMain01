@@ -12,7 +12,7 @@
 #include "jp/ggaf/lib/util/LinearOctreeForActor.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "util/MgrUtil.h"
-#include "jp/ggaf/lib/util/AmountGraph.h"
+#include "jp/ggaf/lib/util/PxQuantity.h"
 #include "actor/TestBar.h"
 
 using namespace GgafCore;
@@ -28,18 +28,19 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pBack_->position(C_X, C_Y);
     getSceneDirector()->addSubGroup(pBack_);
 
-//    MgrActor* pMgrActor1 = NEW MgrActor("TEST1");
-//    pMgrActor1->position(C_X, C_Y);
-//    getSceneDirector()->addSubGroup(pMgrActor1);
+    pMgrActor1_ = NEW MgrActor("TEST1");
+    pMgrActor1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    pMgrActor1_->position(C_X, C_Y);
+    getSceneDirector()->addSubGroup(pMgrActor1_);
+//    pBarVal_ = NEW PxQuantity();
+//    pBarVal_->graduate(200, 200);
+//    pBarVal_->set(200);
 
-
-    pBarVal_ = NEW AmountGraph();
-    pBarVal_->config(200, 200);
-    pBarVal_->set(200);
-    TestBar* pTestBar = NEW TestBar("TEST1",pBarVal_);
-    pTestBar->position(C_X, C_Y);
-    getSceneDirector()->addSubGroup(pTestBar);
-
+    pTestBar_ = NEW TestBar("TEST1");
+    pTestBar_->graduatePx(200, 200);
+    pTestBar_->setValue(200);
+    pTestBar_->position(C_X, C_Y);
+    getSceneDirector()->addSubGroup(pTestBar_);
     pTeki_ = NEW Teki001("Teki001");
     getSceneDirector()->addSubGroup(MGR_TEKI, pTeki_);
 
@@ -60,16 +61,17 @@ void MgrWorld::initialize() {
     pMikata_->position(0, PX_C(-240));
 }
 
+
 void MgrWorld::processBehavior() {
     //キャラをボタン入力で移動
     vb_->update(); //入力状況更新
     if (vb_->isBeingPressed(VB_RIGHT)) {
-        pBarVal_->inc(2);
-        _TRACE_("+ pBarVal_="<<pBarVal_->get()<<"");
+        pTestBar_->incValue(2);
+        pMgrActor1_->_SX += 30;
     }
     if (vb_->isBeingPressed(VB_LEFT)) {
-        pBarVal_->inc(-2);
-        _TRACE_("- pBarVal_="<<pBarVal_->get()<<"");
+        pTestBar_->incValue(-2);
+        pMgrActor1_->_SX -= 30;
     }
     //ワイヤフレーム表示切替
     if (vb_->isPushedDown(VB_UI_DEBUG)) {
@@ -89,7 +91,6 @@ void MgrWorld::processJudgement() {
 }
 
 MgrWorld::~MgrWorld() {
-    GGAF_DELETE(pBarVal_);
+//    GGAF_DELETE(pBarVal_);
 }
-
 

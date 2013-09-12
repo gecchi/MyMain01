@@ -2,24 +2,21 @@
 #include "CostDispBar.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/lib/util/AmountGraph.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+#include "jp/ggaf/lib/util/PxQuantity.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-CostDispBar::CostDispBar(const char* prm_name, GraphBar* prm_pSourceBar, AmountGraph* prm_pCostValue)
-      : GraphBar(prm_name, "CostDispBar", prm_pCostValue) {
+CostDispBar::CostDispBar(const char* prm_name, GraphBarActor* prm_pTargetSourceBar)
+      : GraphBarActor(prm_name, "CostDispBar") {
     _class_name = "CostDispBar";
-    pSourceBar_ = prm_pSourceBar;
-//    pCostValue_ = prm_pCostValue;
+    pSourceBar_ = prm_pTargetSourceBar;
 }
 
 void CostDispBar::initialize() {
-    _pUvFlipper->exec(NOT_ANIMATED); //アニメ順序
-    setAlpha(0.7);
+    setAlpha(0.7); //負の値も使う
 }
 
 void CostDispBar::onReset() {
@@ -27,28 +24,37 @@ void CostDispBar::onReset() {
 }
 
 void CostDispBar::onActive() {
+    _SX = pSourceBar_->_SX;
 }
 
 void CostDispBar::processBehavior() {
-    if ( pAmount_->getPx() > 0) {
-        //正の値はコスト有りを表す。主メーターの削減値を赤で示すようにする。
-        _pUvFlipper->setActivePtn(0);//赤
-        pixcoord px = pSourceBar_->pAmount_->getPx() - pAmount_->getPx();
-        if (px > 0) {
-            _X = pSourceBar_->_X +  PX_C(px);
-            setScaleR(pAmount_->getPx() * rate_org_width_, 1.0); //横方向に倍率で伸ばす
-        } else {
-            //元メーターからははみ出ないようにする
-            _X = pSourceBar_->_X;
-            _SX = pSourceBar_->_SX;
-        }
-    } else {
-        //負の値はコストがマイナス、つまり元の値が増える。主メーターの増分値を青で示すようにする。
-        _pUvFlipper->setActivePtn(1);
-        _X = pSourceBar_->_X + PX_C(pSourceBar_->pAmount_->getPx());
-        setScaleR(-1.0 * pAmount_->getPx() * rate_org_width_, 1.0); //横方向に倍率で伸ばす
+    _X = pSourceBar_->_X + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
+    if (getValue() > 0) {
+        //正の値は主メーターの増分値を青で示すようにする。
+        _pUvFlipper->setActivePtn(0);//青
+    } else if (getValue() < 0) {
+        //負の値は主メーターの削減値を赤で示すようにする。
+        _pUvFlipper->setActivePtn(4);//赤
     }
-    _pUvFlipper->behave();
+//    if ( pPxQuantity_->getPx() > 0) {
+//        //正の値はコスト有りを表す。主メーターの削減値を赤で示すようにする。
+//        _pUvFlipper->setActivePtn(0);//赤
+//        pixcoord px = pSourceBar_->pPxQuantity_->getPx() - pPxQuantity_->getPx();
+//        if (px > 0) {
+//            _X = pSourceBar_->_X +  PX_C(px);
+//            setScaleR(pPxQuantity_->getPx() * rate_org_width_, 1.0); //横方向に倍率で伸ばす
+//        } else {
+//            //元メーターからははみ出ないようにする
+//            _X = pSourceBar_->_X;
+//            _SX = pSourceBar_->_SX;
+//        }
+//    } else {
+//        //負の値はコストがマイナス、つまり元の値が増える。主メーターの増分値を青で示すようにする。
+//        _pUvFlipper->setActivePtn(1);
+//        _X = pSourceBar_->_X + PX_C(pSourceBar_->pPxQuantity_->getPx());
+//        setScaleR(-1.0 * pPxQuantity_->getPx() * rate_org_width_, 1.0); //横方向に倍率で伸ばす
+//    }
+//    _pUvFlipper->behave();
 }
 
 

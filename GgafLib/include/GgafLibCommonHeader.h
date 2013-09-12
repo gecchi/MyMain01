@@ -27,7 +27,7 @@ class DefaultCamera;
 class StgUtil;
 class VirtualButton;
 class VBReplayRecorder;
-class AmountGraph;
+class PxQuantity;
 
 class DefaultScene;
 class SceneProgress;

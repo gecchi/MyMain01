@@ -14,7 +14,7 @@ class GraphBar : public GgafLib::DefaultBoardActor {
 
 public:
     /** 内容量 */
-    GgafLib::AmountGraph* pAmount_;
+    GgafLib::PxQuantity* pPxQuantity_;
     /** 横幅ピクセル */
     pixcoord org_width_;
     double rate_org_width_;
@@ -22,9 +22,9 @@ public:
     /**
      *
      * @param prm_name
-     * @param prm_pAmount config済みの AmountGraphオブジェクトの参照
+     * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
      */
-    GraphBar(const char* prm_name, const char* prm_model, GgafLib::AmountGraph* prm_pAmount);
+    GraphBar(const char* prm_name, const char* prm_model, GgafLib::PxQuantity* prm_pPxQuantity);
 
     void processBehavior() override;
     void processDraw() override;

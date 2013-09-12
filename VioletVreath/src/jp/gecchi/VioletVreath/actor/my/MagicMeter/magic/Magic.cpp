@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Magic.h"
 
-#include "jp/ggaf/lib/util/AmountGraph.h"
+#include "jp/ggaf/lib/util/PxQuantity.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
+Magic::Magic(const char*  prm_name, PxQuantity* prm_pMP,
              int          prm_max_level,
              magic_point  prm_cost_base            , double prm_r_cost             ,
              magic_time   prm_time_of_casting_base , double prm_r_time_of_casting  ,

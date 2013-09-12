@@ -13,7 +13,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-TorpedoMagic::TorpedoMagic(const char* prm_name, AmountGraph* prm_pMP)
+TorpedoMagic::TorpedoMagic(const char* prm_name, PxQuantity* prm_pMP)
     : Magic(prm_name, prm_pMP,
             MyTorpedoController::max_torpedo_num_,   //max_level
             1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate

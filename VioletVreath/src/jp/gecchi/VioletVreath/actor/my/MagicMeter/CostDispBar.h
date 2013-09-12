@@ -1,23 +1,23 @@
 #ifndef COSTDISPBAR_H_
 #define COSTDISPBAR_H_
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+#include "jp/ggaf/lib/actor/GraphBarActor.h"
 
 namespace VioletVreath {
 
-class CostDispBar : public GraphBar {
+class CostDispBar : public GgafLib::GraphBarActor {
 
 public:
     /** 内容量 */
-    GraphBar* pSourceBar_;
-//    GgafLib::AmountGraph* pCostValue_;
+    GgafLib::GraphBarActor* pSourceBar_;
+//    GgafLib::PxQuantity* pCostValue_;
 
 public:
     /**
      *
      * @param prm_name
-     * @param prm_pAmount config済みの AmountGraphオブジェクトの参照
+     * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
      */
-    CostDispBar(const char* prm_name, GraphBar* prm_pTargetBar, GgafLib::AmountGraph* prm_pCostDisp);
+    CostDispBar(const char* prm_name, GgafLib::GraphBarActor* prm_pTargetSourceBar);
 
     void initialize() override;
 

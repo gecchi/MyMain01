@@ -1,22 +1,23 @@
 #include "stdafx.h"
-#include "VreathBar.h"
+#include "MpBar.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/lib/util/PxQuantity.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-VreathBar::VreathBar(const char* prm_name)
+MpBar::MpBar(const char* prm_name)
       : GraphBarActor(prm_name, "TurboMeter") {
-    _class_name = "VreathBar";
+    _class_name = "MpBar";
 }
 
-void VreathBar::initialize() {
+void MpBar::initialize() {
 //    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
 }
 
-VreathBar::~VreathBar() {
-}
 
+MpBar::~MpBar() {
+}

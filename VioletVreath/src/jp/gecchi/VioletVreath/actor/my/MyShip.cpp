@@ -237,10 +237,14 @@ MyShip::MyShip(const char* prm_name) :
     stc_ = VB_NEUTRAL_STC;
     is_just_change_way_ = true;
 
-    mp_.config(600, 30000); //値 100000 で表示は600pxとする。
-    mp_.set(30000);         //初期値は10000
-    //vreath_ は mp_ のメーターの長さ(px)にあわす。実値を _pStatus のSTAT_Stamina値を参照するように設定。
-    vreath_.config(mp_._max_val_px, _pStatus->get(STAT_Stamina), &(_pStatus->_paValue[STAT_Stamina]._int_val));
+    //MP初期値
+    mp_.set(30000); //変更時onReset()も忘れるな
+    //mp_を変えると、内部参照する MpBar の表示が連動して変わる
+
+    //Vreathは実値を _pStatus のSTAT_Stamina値を参照するように設定。
+    vreath_.link( &(_pStatus->_paValue[STAT_Stamina]._int_val) );
+    //STAT_Staminaが減れば、vreath_ が変化し、それを内部参照する VreathBar の表示が連動して変わる
+
 
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &vreath_);
@@ -302,8 +306,9 @@ void MyShip::onReset() {
     way_ = WAY_NONE;
     prev_way_ = WAY_NONE;
     way_switch_.reset();
-    _pStatus->reset();
+
     mp_.set(30000);         //初期値は30000
+    _pStatus->reset();
 }
 
 void MyShip::onActive() {

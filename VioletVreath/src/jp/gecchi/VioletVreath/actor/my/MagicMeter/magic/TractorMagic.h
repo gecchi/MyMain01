@@ -15,7 +15,7 @@ public:
     /** TractorMagicŒø‰Ê‘±’†‚Ítrue */
     bool is_tracting_;
 
-    TractorMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
+    TractorMagic(const char* prm_name, GgafLib::PxQuantity* prm_pMP);
 
     virtual void processCastBegin(int prm_now_level, int prm_new_level) override;
     virtual void processCastingBehavior(int prm_now_level, int prm_new_level) override;

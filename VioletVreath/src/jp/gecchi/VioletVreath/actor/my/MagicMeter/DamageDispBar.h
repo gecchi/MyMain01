@@ -20,9 +20,9 @@ public:
     /**
      *
      * @param prm_name
-     * @param prm_pAmount config済みの AmountGraphオブジェクトの参照
+     * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
      */
-    DamageDispBar(const char* prm_name, GraphBar* prm_pTargetBar, GgafLib::AmountGraph* prm_pDamageDisp);
+    DamageDispBar(const char* prm_name, GraphBar* prm_pTargetBar, GgafLib::PxQuantity* prm_pDamageDisp);
 
     void initialize() override;
 

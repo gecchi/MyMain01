@@ -12,7 +12,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-SpeedMagic::SpeedMagic(const char* prm_name, AmountGraph* prm_pMP)
+SpeedMagic::SpeedMagic(const char* prm_name, PxQuantity* prm_pMP)
     : Magic(prm_name, prm_pMP,
             5,          //max_level
             1000      , 0.9,   //基本魔法コスト , 飛びレベル時の rate

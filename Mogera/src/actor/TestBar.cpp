@@ -2,16 +2,17 @@
 #include "TestBar.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/lib/util/AmountGraph.h"
+#include "jp/ggaf/lib/util/PxQuantity.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace Mogera;
 
-TestBar::TestBar(const char* prm_name, AmountGraph* prm_pAmount)
-      : GraphBarActor(prm_name, "TestBar", prm_pAmount) {
+TestBar::TestBar(const char* prm_name)
+      : GraphBarActor(prm_name, "TestBar") {
     _class_name = "TestBar";
+    setAlpha(0.8);
 }
 
 void TestBar::initialize() {

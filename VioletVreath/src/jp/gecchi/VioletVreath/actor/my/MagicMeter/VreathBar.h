@@ -1,6 +1,8 @@
 #ifndef VREATHBAR_H_
 #define VREATHBAR_H_
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+#include "jp/ggaf/lib/actor/GraphBarActor.h"
+
+using GgafLib::GraphBarActor;
 
 namespace VioletVreath {
 
@@ -10,19 +12,17 @@ namespace VioletVreath {
  * @since 2012/05/11
  * @author Masatoshi Tsuge
  */
-class VreathBar :  public GraphBar {
+class VreathBar :  public GraphBarActor {
 
 public:
     /**
      *
      * @param prm_name
-     * @param prm_pAmount config済みの AmountGraphオブジェクトの参照
+     * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
      */
-    VreathBar(const char* prm_name, GgafLib::AmountGraph* prm_pAmount);
+    VreathBar(const char* prm_name);
 
     void initialize() override;
-
-    void addVal(double prm_val);
 
     virtual ~VreathBar();
 };

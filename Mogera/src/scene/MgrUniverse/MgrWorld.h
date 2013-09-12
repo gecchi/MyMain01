@@ -27,11 +27,12 @@ public:
     /** 入力受付 */
     GgafLib::VirtualButton* vb_;
     TestActor* pBack_;
+    MgrActor* pMgrActor1_;
     /** テストキャラ */
     Teki001* pTeki_;
     Mikata001* pMikata_;
-
-    GgafLib::AmountGraph* pBarVal_;
+    TestBar* pTestBar_;
+//    GgafLib::PxQuantity* pBarVal_;
     /**
      * コンストラクタ .
      * @param prm_name 名称
@@ -47,9 +48,12 @@ public:
      * 世界シーンの振る舞い処理 .
      */
     void processBehavior() override;
+
     void processJudgement() override;
+
     virtual ~MgrWorld();
 };
 
 }
+
 #endif /*MGRWORLD_H_*/

@@ -108,7 +108,6 @@ HRESULT GgafDxBoardModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_d
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxEffectManager::_pEffect_Active = pBoardEffect;
     GgafDxDrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
-    //前回描画UV座標（へのポインタ）を保存
     GgafGod::_num_actor_drawing++;
     return D3D_OK;
 

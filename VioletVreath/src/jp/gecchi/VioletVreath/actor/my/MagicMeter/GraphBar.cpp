@@ -3,7 +3,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
-#include "jp/ggaf/lib/util/AmountGraph.h"
+#include "jp/ggaf/lib/util/PxQuantity.h"
 #include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 
@@ -12,21 +12,21 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-GraphBar::GraphBar(const char* prm_name, const char* prm_model, AmountGraph* prm_pAmount)
+GraphBar::GraphBar(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQuantity)
       : DefaultBoardActor(prm_name, prm_model) {
     _class_name = "GraphBar";
-    pAmount_ = prm_pAmount;
+    pPxQuantity_ = prm_pPxQuantity;
     org_width_ = _pBoardModel->_fSize_BoardModelWidthPx;
     rate_org_width_ = 1.0 / org_width_;
 }
 
 void GraphBar::processBehavior() {
-//    _SX = R_SC(pAmount_->getPx() * rate_org_width_); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
+//    _SX = R_SC(pPxQuantity_->getPx() * rate_org_width_); //‰¡•ûŒü‚É”{—¦‚ÅL‚Î‚·
     _pUvFlipper->behave();
 }
 
 void GraphBar::processDraw() {
-    float bar_width = (float)(pAmount_->getPx());
+    float bar_width = (float)(pPxQuantity_->getPx());
     if (bar_width <= 0.0f) {
         return;
     }

@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "jp/ggaf/lib/util/AmountGraph.h"
+#include "jp/ggaf/lib/util/PxQuantity.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-//AmountGraph::AmountGraph(float prm_max_val_px, float prm_max_val) : GgafObject() {
+//PxQuantity::PxQuantity(float prm_max_val_px, float prm_max_val) : GgafObject() {
 //    _max_val_px = prm_max_val_px;
 //    _max_val = prm_max_val;
 //    _val = 0.0f;
@@ -16,5 +16,5 @@ using namespace GgafLib;
 
 
 
-//AmountGraph::~AmountGraph() {
+//PxQuantity::~PxQuantity() {
 //}

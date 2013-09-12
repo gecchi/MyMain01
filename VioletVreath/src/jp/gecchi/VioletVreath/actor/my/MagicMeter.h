@@ -48,29 +48,25 @@ public:
     VreathMagic*  pVreathMagic_;
     SmileMagic*   pSmileMagic_;
 
-    /** 自機のMP */
-    GgafLib::AmountGraph* pMP_MyShip_;
-    /** MPのCOST分表示用 */
-    GgafLib::AmountGraph cost_disp_mp_;
-    /** 自機のVreath */
-    GgafLib::AmountGraph* pVreath_MyShip_;
-    /** VreathのCOST分表示用 */
-    GgafLib::AmountGraph cost_disp_vreath;
-    /** Vreathのダメージ分表示用 */
-    GgafLib::AmountGraph damage_disp_vreath;
+//    /** 自機のMP */
+//    GgafLib::PxQuantity* pMP_MyShip_;
+//    /** 自機のVreath */
+//    GgafLib::PxQuantity* pVreath_MyShip_;
+//    /** Vreathのダメージ分表示用 */
+//    GgafLib::PxQuantity damage_disp_vreath;
 
     /** 残魔法効果持続時間表示 */
     MagicMeterStatus* pMagicMeterStatus_;
-    /** エネルギーバー */
-    EnergyBar* pEnergyBar_;
+    /** エネルーバー */
+    MpBar* pMpBar_;
     /** コスト表示バー */
-    CostDispBar* pCostDispBar_;
-    /** ヴレスギーバー */
+    CostDispBar* pMpCostDispBar_;
+    /** ヴレスーバー */
     VreathBar* pVreathBar_;
     /** コスト表示バー */
-    CostDispBar* pCostDispBar2_;
-    /** ダメージ表示バー */
-    DamageDispBar* pDamageDispBar_;
+    CostDispBar* pVreathCostDispBar_;
+//    /** ダメージ表示バー */
+//    DamageDispBar* pDamageDispBar_;
 
     /** 魔法リスト */
     MagicList lstMagic_;
@@ -110,7 +106,7 @@ public:
     frame fraeme_of_notice_remaind_;
 
 public:
-    MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShip, GgafLib::AmountGraph* prm_pVreath_MyShip);
+    MagicMeter(const char* prm_name, GgafLib::PxQuantity* prm_pMP_MyShip, GgafLib::PxQuantity* prm_pVreath_MyShip);
 
     void saveStatus(int prm_saveno);
 

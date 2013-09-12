@@ -10,7 +10,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/CostDispBar.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/EnergyBar.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MpBar.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LockonMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
@@ -35,7 +35,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShip, GgafLib::AmountGraph* prm_pVreath_MyShip)
+MagicMeter::MagicMeter(const char* prm_name, GgafLib::PxQuantity* prm_pMP_MyShip, GgafLib::PxQuantity* prm_pVreath_MyShip)
       : DefaultBoardSetActor(prm_name, "MagicMeter") {
     _class_name = "MagicMeter";
     width_px_ = _pBoardSetModel->_fSize_BoardSetModelWidthPx;
@@ -43,23 +43,23 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
     width_ = PX_C(width_px_);
     height_ = PX_C(height_px_);
 
-    pMP_MyShip_ = prm_pMP_MyShip;
-    cost_disp_mp_.config(pMP_MyShip_->_max_val_px, pMP_MyShip_->_max_val);
-    cost_disp_mp_.set(0);
-    pVreath_MyShip_ = prm_pVreath_MyShip;
-    cost_disp_vreath.config(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
-    cost_disp_vreath.set(0);
-    damage_disp_vreath.config(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
-    damage_disp_vreath.set(0);
+//    pMP_MyShip_ = prm_pMP_MyShip;
+//    cost_disp_mp_.graduate(pMP_MyShip_->_max_val_px, pMP_MyShip_->_max_val);
+//    cost_disp_mp_.set(0);
+//    pVreath_MyShip_ = prm_pVreath_MyShip;
+//    cost_disp_vreath.graduate(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
+//    cost_disp_vreath.set(0);
+//    damage_disp_vreath.graduate(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
+//    damage_disp_vreath.set(0);
 
-    pTractorMagic_ = NEW TractorMagic("TRACTOR", pMP_MyShip_);
-    pSpeedMagic_   = NEW SpeedMagic("SPEED", pMP_MyShip_);
-    pLockonMagic_  = NEW LockonMagic("LOCKON", pMP_MyShip_);
-    pTorpedoMagic_ = NEW TorpedoMagic("TORPEDO", pMP_MyShip_);
-    pLaserMagic_   = NEW LaserMagic("LASER", pMP_MyShip_);
-    pOptionMagic_  = NEW OptionMagic("OPTION", pMP_MyShip_);
-    pVreathMagic_  = NEW VreathMagic("VREATH", pMP_MyShip_);
-    pSmileMagic_   = NEW SmileMagic("SMILE", pMP_MyShip_); //即効魔法
+    pTractorMagic_ = NEW TractorMagic("TRACTOR", prm_pMP_MyShip);
+    pSpeedMagic_   = NEW SpeedMagic("SPEED", prm_pMP_MyShip);
+    pLockonMagic_  = NEW LockonMagic("LOCKON", prm_pMP_MyShip);
+    pTorpedoMagic_ = NEW TorpedoMagic("TORPEDO", prm_pMP_MyShip);
+    pLaserMagic_   = NEW LaserMagic("LASER", prm_pMP_MyShip);
+    pOptionMagic_  = NEW OptionMagic("OPTION", prm_pMP_MyShip);
+    pVreathMagic_  = NEW VreathMagic("VREATH", prm_pMP_MyShip);
+    pSmileMagic_   = NEW SmileMagic("SMILE", prm_pMP_MyShip); //即効魔法
     lstMagic_.addLast(pTractorMagic_);
     lstMagic_.addLast(pSpeedMagic_  );
     lstMagic_.addLast(pLockonMagic_ );
@@ -108,21 +108,27 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::AmountGraph* prm_pMP_MyShi
 
 
     //エネルギーバー設置
-    pEnergyBar_ = NEW EnergyBar("EnergyBar", pMP_MyShip_);
-    addSubGroup(pEnergyBar_);
+    pMpBar_ = NEW MpBar("MpBar");
+    pMpBar_->graduatePx(600, pMpBar_->getValue()); //現在値で画面表示は600pxとする。
+    pMpBar_->linkPxQuantity(prm_pMP_MyShip);
+    addSubGroup(pMpBar_);
     //Vreathバー設置
-    pVreathBar_ = NEW VreathBar("VreathBar", pVreath_MyShip_);
+    pVreathBar_ = NEW VreathBar("VreathBar");
+    pVreathBar_->graduatePx(600, pVreathBar_->getValue()); //現在値で画面表示は600pxとする。
+    pVreathBar_->linkPxQuantity(prm_pVreath_MyShip);
     addSubGroup(pVreathBar_);
 
     //エネルギーバーのコスト表示バー
-    pCostDispBar_ = NEW CostDispBar("CostDispBar", pEnergyBar_, &cost_disp_mp_);
-    addSubGroup(pCostDispBar_);
+    pMpCostDispBar_ = NEW CostDispBar("CostDispBar", pMpBar_);
+    pMpCostDispBar_->graduatePx(600, pMpBar_->getValue()); //上と合わせる事
+    addSubGroup(pMpCostDispBar_);
     //Vreathバーコスト表示バー
-    pCostDispBar2_ = NEW CostDispBar("CostDispBar2", pVreathBar_, &cost_disp_vreath);
-    addSubGroup(pCostDispBar2_);
-    //Vreathバーダメージ表示バー
-    pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_, &damage_disp_vreath);
-    addSubGroup(pDamageDispBar_);
+    pVreathCostDispBar_ = NEW CostDispBar("CostDispBar2", pVreathBar_);
+    pVreathCostDispBar_->graduatePx(600, pVreathBar_->getValue());  //上と合わせる事
+    addSubGroup(pVreathCostDispBar_);
+//    //Vreathバーダメージ表示バー
+//    pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_, &damage_disp_vreath);
+//    addSubGroup(pDamageDispBar_);
 
 
     //残魔法効果持続時間表示
@@ -170,7 +176,7 @@ void MagicMeter::saveStatus(int prm_saveno) {
 }
 
 void MagicMeter::save(std::stringstream& sts) {
-    sts << pMP_MyShip_->get() << " ";
+    sts << pMpBar_->getValue() << " ";
     Magic* pOrgMagic = lstMagic_.getCurrent();
     int len_magics = lstMagic_.length();
     for (int i = 0; i < len_magics; i++) {
@@ -182,7 +188,7 @@ void MagicMeter::save(std::stringstream& sts) {
 void MagicMeter::load(std::stringstream& sts) {
     int mp;
     sts >> mp;
-    pMP_MyShip_->set(mp);
+    pMpBar_->setValue(mp);
 
     Magic* pOrgMagic = lstMagic_.getCurrent();
     int len_magics = lstMagic_.length();
@@ -193,11 +199,11 @@ void MagicMeter::load(std::stringstream& sts) {
 }
 
 void MagicMeter::initialize() {
-    pEnergyBar_->position(_X, _Y + height_ + PX_C(16));
-    pCostDispBar_->position(pEnergyBar_->_X, pEnergyBar_->_Y);
+    pMpBar_->position(_X, _Y + height_ + PX_C(16));
+    pMpCostDispBar_->position(pMpBar_->_X, pMpBar_->_Y);
     pVreathBar_->position(_X, _Y + height_ + PX_C(16) + PX_C(16) );
-    pCostDispBar2_->position(pVreathBar_->_X, pVreathBar_->_Y);
-    pDamageDispBar_->position(pVreathBar_->_X, pVreathBar_->_Y);
+    pVreathCostDispBar_->position(pVreathBar_->_X, pVreathBar_->_Y);
+//    pDamageDispBar_->position(pVreathBar_->_X, pVreathBar_->_Y);
     pMagicMeterStatus_->positionAs(this);
 
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
@@ -246,9 +252,16 @@ void MagicMeter::processBehavior() {
 
         if (pVbPlay->isAutoRepeat(VB_RIGHT)) {    //「→」押下時
             //レベル表示
-            if (papLvTargetCursor_[active_idx]->point_lv_ != papLvCastingMarkCursor_[active_idx]->point_lv_) {
-                _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
-                papLvTargetCursor_[active_idx]->moveSmoothTo(papLvCastingMarkCursor_[active_idx]->point_lv_); //実行されなかった為、レベルカーソルもアクティブレベルに戻す
+            if (active_prg == Magic::STATE_CASTING) {
+                if (papLvTargetCursor_[active_idx]->point_lv_ != papLvCastingMarkCursor_[active_idx]->point_lv_) {
+                    _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                    papLvTargetCursor_[active_idx]->moveSmoothTo(papLvCastingMarkCursor_[active_idx]->point_lv_); //レベルカーソルを詠唱先レベルに戻す
+                }
+            } else {
+                if (papLvTargetCursor_[active_idx]->point_lv_ != papLvHilightCursor_[active_idx]->point_lv_) {
+                    _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                    papLvTargetCursor_[active_idx]->moveSmoothTo(papLvHilightCursor_[active_idx]->point_lv_); //レベルカーソルをアクティブレベルに戻す
+                }
             }
             rollClose(active_idx); //現在ロールクローズ
 
@@ -263,9 +276,16 @@ void MagicMeter::processBehavior() {
 
         } else if (pVbPlay->isAutoRepeat(VB_LEFT)) { //「←」押下時
             //レベル表示
-            if (papLvTargetCursor_[active_idx]->point_lv_ != papLvCastingMarkCursor_[active_idx]->point_lv_) {
-                _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
-                papLvTargetCursor_[active_idx]->moveSmoothTo(papLvCastingMarkCursor_[active_idx]->point_lv_); //実行されなかった為、レベルカーソルもアクティブレベルに戻す
+            if (active_prg == Magic::STATE_CASTING) {
+                if (papLvTargetCursor_[active_idx]->point_lv_ != papLvCastingMarkCursor_[active_idx]->point_lv_) {
+                    _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                    papLvTargetCursor_[active_idx]->moveSmoothTo(papLvCastingMarkCursor_[active_idx]->point_lv_); //レベルカーソルを詠唱先レベルに戻す
+                }
+            } else {
+                if (papLvTargetCursor_[active_idx]->point_lv_ != papLvHilightCursor_[active_idx]->point_lv_) {
+                    _pSeTx->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
+                    papLvTargetCursor_[active_idx]->moveSmoothTo(papLvHilightCursor_[active_idx]->point_lv_); //レベルカーソルをアクティブレベルに戻す
+                }
             }
             rollClose(active_idx); //現在ロールクローズ
 
@@ -292,24 +312,26 @@ void MagicMeter::processBehavior() {
         } else {
 
         }
-        //コストバー
+        //MPコストバー
         if (paFloat_rr_[active_idx] > 0.01f) {
             if (papLvTargetCursor_[active_idx]->point_lv_ == pActiveMagic->level_) {
                 //カーソルがより現在と同じレベルを指している場合
-                cost_disp_mp_.set(0);
+                pMpCostDispBar_->setValue(0);
             } else if (papLvTargetCursor_[active_idx]->point_lv_ > pActiveMagic->level_) {
                 //カーソルが現在より高いレベルを指している場合
-                cost_disp_mp_.set(
-                  pActiveMagic->interest_cost_[papLvTargetCursor_[active_idx]->point_lv_ - pActiveMagic->level_]
+                //負の赤の表示
+                pMpCostDispBar_->setValue(
+                  -1*pActiveMagic->interest_cost_[papLvTargetCursor_[active_idx]->point_lv_ - pActiveMagic->level_]
                 );
             } else {
                 //カーソルが現在より低いレベルを指している場合
-                cost_disp_mp_.set(
-                    -1*pActiveMagic->calcReduceMp(pActiveMagic->level_,  papLvTargetCursor_[active_idx]->point_lv_)
+                //正の青の表示
+                pMpCostDispBar_->setValue(
+                  pActiveMagic->calcReduceMp(pActiveMagic->level_,  papLvTargetCursor_[active_idx]->point_lv_)
                 );
             }
         } else {
-            cost_disp_mp_.set(0);
+            pMpCostDispBar_->setValue(0);
         }
 
         //Vreathバー
@@ -318,21 +340,22 @@ void MagicMeter::processBehavior() {
             if (paFloat_rr_[active_idx] > 0.01f) {
                 if (papLvTargetCursor_[active_idx]->point_lv_ == pVM->level_) {
                     //カーソルがより現在と同じレベルを指している場合
-                    cost_disp_vreath.set(0);
+                    pVreathCostDispBar_->setValue(0);
                 } else if (papLvTargetCursor_[active_idx]->point_lv_ > pVM->level_) {
                     //カーソルが現在より高いレベルを指している場合
-                    cost_disp_vreath.set(
-                            (int)(-1 * pVM->calcTotalVreath(pActiveMagic->level_,  papLvTargetCursor_[active_idx]->point_lv_))
+                    //正の青の表示
+                    pVreathCostDispBar_->setValue(
+                            (int)(pVM->calcTotalVreath(pActiveMagic->level_,  papLvTargetCursor_[active_idx]->point_lv_))
                     );
                 } else {
                     //カーソルが現在より低いレベルを指している場合
-                    cost_disp_vreath.set(0);
+                    pVreathCostDispBar_->setValue(0);
                 }
             } else {
-                cost_disp_vreath.set(0);
+                pVreathCostDispBar_->setValue(0);
             }
         } else {
-            cost_disp_vreath.set(0);
+            pVreathCostDispBar_->setValue(0);
         }
 
         //「決定」時
@@ -402,8 +425,8 @@ void MagicMeter::processBehavior() {
         if (pVbPlay->isReleasedUp(VB_POWERUP)) {
             rollClose(lstMagic_.getCurrentIndex());
         }
-        cost_disp_mp_.set(0);
-        cost_disp_vreath.set(0);
+        pMpCostDispBar_->setValue(0);
+        pVreathCostDispBar_->setValue(0);
     }
 
     addAlpha(alpha_velo_);
@@ -415,11 +438,12 @@ void MagicMeter::processBehavior() {
     //毎フレームの各魔法表示についての処理
     GgafProgress* pMagicProg = nullptr;
     Magic* pMagic = nullptr;
-    int pMagic_level;
+    int pMagic_level, pMagic_new_level;
     for (int m = 0; m < lstMagic_.length(); m++) {
         pMagic = lstMagic_.getFromFirst(m);
         pMagicProg = pMagic->_pProg;
         pMagic_level = pMagic->level_;
+        pMagic_new_level = pMagic->new_level_;
 
         paFloat_rr_[m] += paFloat_velo_rr_[m];
         if (paFloat_rr_[m] < 0.0f) {
@@ -433,23 +457,33 @@ void MagicMeter::processBehavior() {
 
         //INVOKING開始時
         if (pMagicProg->isJustChangedTo(Magic::STATE_INVOKING)) {
-
-            pSeTx4Invoke_->play(m);
-
+            if (pMagic_new_level > pMagic_level) {
+                //レベルアップ時
+                pSeTx4Invoke_->play(m);
+            }
             papLvTargetCursor_[m]->dispDisable();
             papLvHilightCursor_[m]->dispDisable();
             if (papLvTargetCursor_[m]->point_lv_ == pMagic_level) {
-                //現レベルを指している場合
+                //カーソルが現レベルを指している場合に限り
                 //新しいレベルにこっそり動かしてあげる。
-                papLvTargetCursor_[m]->moveSmoothTo(pMagic->new_level_);
+                papLvTargetCursor_[m]->moveSmoothTo(pMagic_new_level);
             }
-            papLvHilightCursor_[m]->moveSmoothTo(pMagic->new_level_, (frame)(pMagic->interest_time_of_invoking_[pMagic->new_level_ - pMagic_level]));
-            papLvCastingMarkCursor_[m]->markOnInvoke(pMagic->new_level_);
+            if (pMagic_new_level > pMagic_level) {
+                //レベルアップ時
+                papLvHilightCursor_[m]->moveSmoothTo(pMagic_new_level, (frame)(pMagic->interest_time_of_invoking_[pMagic_new_level - pMagic_level]));
+            } else {
+                //レベルダウン時
+                papLvHilightCursor_[m]->moveSmoothTo(pMagic_new_level, 1); //即効で動く
+            }
+            papLvCastingMarkCursor_[m]->markOnInvoke(pMagic_new_level);
         }
         //INVOKING中
         if (pMagicProg->get() == Magic::STATE_INVOKING) {
-            float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
-            pSeTx4Invoke_->get(m)->setFrequencyRate(1.0f + (f*3.0f));//音程を上げる
+            if (pMagic->new_level_ > pMagic_level) {
+                //レベルアップ時
+                float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
+                pSeTx4Invoke_->get(m)->setFrequencyRate(1.0f + (f*3.0f));//音程を上げる
+            }
         }
         //INVOKING完
         if (pMagicProg->isJustChangedFrom(Magic::STATE_INVOKING)) {
@@ -507,8 +541,11 @@ void MagicMeter::processBehavior() {
 
         //詠唱中
         if (pMagicProg->get() == Magic::STATE_CASTING) {
-            float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
-            pSeTx4Cast_->get(m)->setFrequencyRate(1.0f + (f*3.0f));
+            if (pMagic->new_level_ > pMagic_level) {
+                //レベルアップなら音程アップ
+                float f = ((float)(pMagicProg->getFrameInProgress())) / ((float)(pMagic->time_of_next_state_));
+                pSeTx4Cast_->get(m)->setFrequencyRate(1.0f + (f*3.0f));
+            }
         }
         //詠唱完
         if (pMagicProg->isJustChangedFrom(Magic::STATE_CASTING)) {

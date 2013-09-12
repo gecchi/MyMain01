@@ -1,18 +1,18 @@
-#ifndef GGAFLIB_AMOUNTGRAPH_H_
-#define GGAFLIB_AMOUNTGRAPH_H_
+#ifndef GGAFLIB_PXQUANTITY_H_
+#define GGAFLIB_PXQUANTITY_H_
 #include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafLib {
 
 /**
- * 数量バー部品 .
+ * ピクセル数量 .
  * 実値とピクセル値と、その割合を保持。
  * 実値を操作（計算）し、結果をピクセル値を得る。
  * @version 1.00
  * @since 2011/02/02
  * @author Masatoshi Tsuge
  */
-class AmountGraph : public GgafCore::GgafObject {
+class PxQuantity : public GgafCore::GgafObject {
 
 public:
     /** [r]100%のメーター値(≠0) */
@@ -31,7 +31,7 @@ public:
      * コンストラクタ .
      * @return
      */
-    AmountGraph() : GgafCore::GgafObject() {
+    PxQuantity() : GgafCore::GgafObject() {
         _max_val_px = 100;
         _max_val = 100;
         _rate_val = 1.0;
@@ -44,22 +44,18 @@ public:
      * @param prm_max_val_px  メーター値が100%時の幅ピクセル
      * @param prm_max_val     メーター値が100%とする実際の値(メーター値)
      */
-    void config(pixcoord prm_max_val_px, int prm_max_val) {
+    void graduate(pixcoord prm_max_val_px, int prm_max_val) {
         _max_val_px = prm_max_val_px;
         _max_val = prm_max_val;
         _rate_val = 1.0 * _max_val_px / _max_val;
     }
 
+
     /**
-     * メーターの目盛りを定義 .
-     * @param prm_max_val_px  メーター値が100%時の幅ピクセル
-     * @param prm_max_val     メーター値が100%とする実際の値(メーター値)
+     * 連動させる値の変数を設定 .
      * @param prm_pInt_target_value メーター値変数のポインタ(int*)を設定
      */
-    void config(pixcoord prm_max_val_px, int prm_max_val, int* prm_pInt_target_value) {
-        _max_val_px = prm_max_val_px;
-        _max_val = prm_max_val;
-        _rate_val = 1.0 * _max_val_px / _max_val;
+    void link(int* prm_pInt_target_value) {
         if (_is_new) {
             GGAF_DELETE(_pInt_val);
             _is_new = false;
@@ -108,7 +104,7 @@ public:
         *_pInt_val -= prm_val;
     }
 
-    virtual ~AmountGraph() {
+    virtual ~PxQuantity() {
         if (_is_new) {
             GGAF_DELETE(_pInt_val);
         }
@@ -116,5 +112,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_AMOUNTGRAPH_H_*/
+#endif /*GGAFLIB_PXQUANTITY_H_*/
 

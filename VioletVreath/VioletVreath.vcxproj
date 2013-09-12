@@ -450,7 +450,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\EnergyBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\GraphBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor001.cpp" />
@@ -475,6 +474,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionController.cpp" />
@@ -787,7 +787,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\EnergyBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\GraphBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor001.h" />
@@ -812,6 +811,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\magicmeter\mpbar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyOptionController.h" />
