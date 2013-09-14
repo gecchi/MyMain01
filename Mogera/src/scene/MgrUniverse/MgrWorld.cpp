@@ -35,10 +35,13 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 //    pBarVal_ = NEW PxQuantity();
 //    pBarVal_->graduate(200, 200);
 //    pBarVal_->set(200);
-
+    mp_ = 100;
+    qtyMp_.link(&mp_);
     pTestBar_ = NEW TestBar("TEST1");
-    pTestBar_->graduatePx(200, 200);
-    pTestBar_->setValue(200);
+    pTestBar_->setValign(VALIGN_MIDDLE);
+    pTestBar_->linkPxQuantity(&qtyMp_);
+    pTestBar_->graduatePxQty(200, 200);
+//    pTestBar_->setQty(200);
     pTestBar_->position(C_X, C_Y);
     getSceneDirector()->addSubGroup(pTestBar_);
     pTeki_ = NEW Teki001("Teki001");
@@ -66,11 +69,13 @@ void MgrWorld::processBehavior() {
     //キャラをボタン入力で移動
     vb_->update(); //入力状況更新
     if (vb_->isBeingPressed(VB_RIGHT)) {
-        pTestBar_->incValue(2);
+        mp_ += 2;
+//        pTestBar_->incQty(2);
         pMgrActor1_->_SX += 30;
     }
     if (vb_->isBeingPressed(VB_LEFT)) {
-        pTestBar_->incValue(-2);
+        mp_ -= 2;
+//        pTestBar_->incQty(-2);
         pMgrActor1_->_SX -= 30;
     }
     //ワイヤフレーム表示切替

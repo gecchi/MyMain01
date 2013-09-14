@@ -25,7 +25,7 @@ public:
     int aInt_total_vreath_[MMETER_MAX_LEVEL+1];
 
 public:
-    VreathMagic(const char* prm_name, GgafLib::PxQuantity* prm_pMP);
+    VreathMagic(const char* prm_name, int* prm_pMP);
 
     virtual void processCastBegin(int prm_now_level, int prm_new_level) override;
     virtual void processCastingBehavior(int prm_now_level, int prm_new_level) override;

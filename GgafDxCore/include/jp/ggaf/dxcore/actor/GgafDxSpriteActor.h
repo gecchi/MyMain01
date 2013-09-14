@@ -17,15 +17,16 @@ class GgafDxSpriteActor : public GgafDxDrawableActor {
 
 public:
     /** [r]モデル資源 */
-    GgafDxSpriteModel* _pSpriteModel;
+    GgafDxSpriteModel* const _pSpriteModel;
     /** [r]エフェクト資源 */
-    GgafDxSpriteEffect* _pSpriteEffect;
+    GgafDxSpriteEffect* const _pSpriteEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
-    GgafDxUvFlipper* _pUvFlipper;
+    GgafDxUvFlipper* const _pUvFlipper;
 
     float _far_rate;
 
     GgafDxAlign _align;
+
     GgafDxValign _valign;
 
 public:
@@ -74,7 +75,9 @@ public:
      */
     virtual void addAlpha(float prm_alpha) override;
 
-    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign = VALIGN_MIDDLE);
+    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
+    virtual void setAlign(GgafDxAlign prm_align);
+    virtual void setValign(GgafDxValign prm_valign);
 };
 
 }

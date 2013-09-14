@@ -95,11 +95,11 @@ private:
 
 public:
     /** [r]モデルオブジェクトへのポインタ */
-    GgafDxBoardSetModel* _pBoardSetModel;
+    GgafDxBoardSetModel* const _pBoardSetModel;
     /** [r]エフェクト */
-    GgafDxBoardSetEffect* _pBoardSetEffect;
+    GgafDxBoardSetEffect* const _pBoardSetEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
-    GgafDxUvFlipper* _pUvFlipper;
+    GgafDxUvFlipper* const _pUvFlipper;
     /** [r]幅(px) */
     pixcoord _width_px;
     /** [r]高さ(px) */
@@ -129,7 +129,9 @@ public:
 
     virtual void positionAs(GgafDxGeoElem* prm_pGeoElem) override;
 
-    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign = VALIGN_TOP);
+    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
+    virtual void setAlign(GgafDxAlign prm_align);
+    virtual void setValign(GgafDxValign prm_valign);
 };
 
 }

@@ -13,7 +13,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-LaserMagic::LaserMagic(const char* prm_name, PxQuantity* prm_pMP)
+LaserMagic::LaserMagic(const char* prm_name, int* prm_pMP)
     : Magic(prm_name, prm_pMP,
             3,          //max_level
             1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate

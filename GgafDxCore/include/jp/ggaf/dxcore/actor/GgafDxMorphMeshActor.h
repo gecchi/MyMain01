@@ -16,9 +16,9 @@ class GgafDxMorphMeshActor : public GgafDxDrawableActor {
 
 public:
     /** [r]モデル資源 */
-    GgafDxMorphMeshModel* _pMorphMeshModel;
+    GgafDxMorphMeshModel* const _pMorphMeshModel;
     /** [r]エフェクト資源 */
-    GgafDxMorphMeshEffect* _pMorphMeshEffect;
+    GgafDxMorphMeshEffect* const _pMorphMeshEffect;
     /** [r/w]モーフターゲットの重み(0.0 ～ 1.0) */
     float _weight[MAX_MORPH_TARGET+1]; //[0]は未使用、[1]～[6]がモーフターゲット1～6の重み
     /** モーフィング支援オブジェクト */

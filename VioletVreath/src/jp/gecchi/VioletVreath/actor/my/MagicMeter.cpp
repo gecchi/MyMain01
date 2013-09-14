@@ -35,7 +35,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-MagicMeter::MagicMeter(const char* prm_name, GgafLib::PxQuantity* prm_pMP_MyShip, GgafLib::PxQuantity* prm_pVreath_MyShip)
+MagicMeter::MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVreath_MyShip)
       : DefaultBoardSetActor(prm_name, "MagicMeter") {
     _class_name = "MagicMeter";
     width_px_ = _pBoardSetModel->_fSize_BoardSetModelWidthPx;
@@ -109,26 +109,27 @@ MagicMeter::MagicMeter(const char* prm_name, GgafLib::PxQuantity* prm_pMP_MyShip
 
     //エネルギーバー設置
     pMpBar_ = NEW MpBar("MpBar");
-    pMpBar_->graduatePx(600, pMpBar_->getValue()); //現在値で画面表示は600pxとする。
-    pMpBar_->linkPxQuantity(prm_pMP_MyShip);
+    pMpBar_->_pPxQuantity->link(prm_pMP_MyShip);
+    pMpBar_->graduatePxQty(600, pMpBar_->getQty()); //現在値で画面表示は600pxとする。
     addSubGroup(pMpBar_);
     //Vreathバー設置
     pVreathBar_ = NEW VreathBar("VreathBar");
-    pVreathBar_->graduatePx(600, pVreathBar_->getValue()); //現在値で画面表示は600pxとする。
-    pVreathBar_->linkPxQuantity(prm_pVreath_MyShip);
+    pVreathBar_->_pPxQuantity->link(prm_pVreath_MyShip);
+    pVreathBar_->graduatePxQty(600, pVreathBar_->getQty()); //現在値で画面表示は600pxとする。
     addSubGroup(pVreathBar_);
 
     //エネルギーバーのコスト表示バー
     pMpCostDispBar_ = NEW CostDispBar("CostDispBar", pMpBar_);
-    pMpCostDispBar_->graduatePx(600, pMpBar_->getValue()); //上と合わせる事
+    pMpCostDispBar_->graduatePxQty(600, pMpBar_->getQty()); //上と合わせる事
     addSubGroup(pMpCostDispBar_);
-    //Vreathバーコスト表示バー
+    //Vreathバー、コスト表示バー
     pVreathCostDispBar_ = NEW CostDispBar("CostDispBar2", pVreathBar_);
-    pVreathCostDispBar_->graduatePx(600, pVreathBar_->getValue());  //上と合わせる事
+    pVreathCostDispBar_->graduatePxQty(600, pVreathBar_->getQty());  //上と合わせる事
     addSubGroup(pVreathCostDispBar_);
-//    //Vreathバーダメージ表示バー
-//    pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_, &damage_disp_vreath);
-//    addSubGroup(pDamageDispBar_);
+    //Vreathバー、ダメージ表示バー
+    pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_);
+    pDamageDispBar_->graduatePxQty(600, pVreathBar_->getQty());  //上と合わせる事
+    addSubGroup(pDamageDispBar_);
 
 
     //残魔法効果持続時間表示
@@ -176,7 +177,7 @@ void MagicMeter::saveStatus(int prm_saveno) {
 }
 
 void MagicMeter::save(std::stringstream& sts) {
-    sts << pMpBar_->getValue() << " ";
+    sts << pMpBar_->getQty() << " ";
     Magic* pOrgMagic = lstMagic_.getCurrent();
     int len_magics = lstMagic_.length();
     for (int i = 0; i < len_magics; i++) {
@@ -188,7 +189,7 @@ void MagicMeter::save(std::stringstream& sts) {
 void MagicMeter::load(std::stringstream& sts) {
     int mp;
     sts >> mp;
-    pMpBar_->setValue(mp);
+    pMpBar_->setQty(mp);
 
     Magic* pOrgMagic = lstMagic_.getCurrent();
     int len_magics = lstMagic_.length();
@@ -200,10 +201,7 @@ void MagicMeter::load(std::stringstream& sts) {
 
 void MagicMeter::initialize() {
     pMpBar_->position(_X, _Y + height_ + PX_C(16));
-    pMpCostDispBar_->position(pMpBar_->_X, pMpBar_->_Y);
     pVreathBar_->position(_X, _Y + height_ + PX_C(16) + PX_C(16) );
-    pVreathCostDispBar_->position(pVreathBar_->_X, pVreathBar_->_Y);
-//    pDamageDispBar_->position(pVreathBar_->_X, pVreathBar_->_Y);
     pMagicMeterStatus_->positionAs(this);
 
     _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //アニメ順序
@@ -316,22 +314,22 @@ void MagicMeter::processBehavior() {
         if (paFloat_rr_[active_idx] > 0.01f) {
             if (papLvTargetCursor_[active_idx]->point_lv_ == pActiveMagic->level_) {
                 //カーソルがより現在と同じレベルを指している場合
-                pMpCostDispBar_->setValue(0);
+                pMpCostDispBar_->setQty(0);
             } else if (papLvTargetCursor_[active_idx]->point_lv_ > pActiveMagic->level_) {
                 //カーソルが現在より高いレベルを指している場合
                 //負の赤の表示
-                pMpCostDispBar_->setValue(
+                pMpCostDispBar_->setQty(
                   -1*pActiveMagic->interest_cost_[papLvTargetCursor_[active_idx]->point_lv_ - pActiveMagic->level_]
                 );
             } else {
                 //カーソルが現在より低いレベルを指している場合
                 //正の青の表示
-                pMpCostDispBar_->setValue(
+                pMpCostDispBar_->setQty(
                   pActiveMagic->calcReduceMp(pActiveMagic->level_,  papLvTargetCursor_[active_idx]->point_lv_)
                 );
             }
         } else {
-            pMpCostDispBar_->setValue(0);
+            pMpCostDispBar_->setQty(0);
         }
 
         //Vreathバー
@@ -340,22 +338,22 @@ void MagicMeter::processBehavior() {
             if (paFloat_rr_[active_idx] > 0.01f) {
                 if (papLvTargetCursor_[active_idx]->point_lv_ == pVM->level_) {
                     //カーソルがより現在と同じレベルを指している場合
-                    pVreathCostDispBar_->setValue(0);
+                    pVreathCostDispBar_->setQty(0);
                 } else if (papLvTargetCursor_[active_idx]->point_lv_ > pVM->level_) {
                     //カーソルが現在より高いレベルを指している場合
                     //正の青の表示
-                    pVreathCostDispBar_->setValue(
+                    pVreathCostDispBar_->setQty(
                             (int)(pVM->calcTotalVreath(pActiveMagic->level_,  papLvTargetCursor_[active_idx]->point_lv_))
                     );
                 } else {
                     //カーソルが現在より低いレベルを指している場合
-                    pVreathCostDispBar_->setValue(0);
+                    pVreathCostDispBar_->setQty(0);
                 }
             } else {
-                pVreathCostDispBar_->setValue(0);
+                pVreathCostDispBar_->setQty(0);
             }
         } else {
-            pVreathCostDispBar_->setValue(0);
+            pVreathCostDispBar_->setQty(0);
         }
 
         //「決定」時
@@ -425,8 +423,8 @@ void MagicMeter::processBehavior() {
         if (pVbPlay->isReleasedUp(VB_POWERUP)) {
             rollClose(lstMagic_.getCurrentIndex());
         }
-        pMpCostDispBar_->setValue(0);
-        pVreathCostDispBar_->setValue(0);
+        pMpCostDispBar_->setQty(0);
+        pVreathCostDispBar_->setQty(0);
     }
 
     addAlpha(alpha_velo_);

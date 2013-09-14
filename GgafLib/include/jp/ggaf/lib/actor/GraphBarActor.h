@@ -34,7 +34,8 @@ public:
 
     void linkPxQuantity(PxQuantity* prm_pPxQuantity);
 
-    inline void graduatePx(pixcoord prm_max_val_px, int prm_max_val) {
+
+    inline void graduatePxQty(pixcoord prm_max_val_px, int prm_max_val) {
         _pPxQuantity->graduate(prm_max_val_px, prm_max_val);
     }
 
@@ -42,14 +43,14 @@ public:
      * メーター値を設定 .
      * @param prm_val メーター値
      */
-    inline void setValue(int prm_val) {
+    inline void setQty(int prm_val) {
         _pPxQuantity->set(prm_val);
     }
 
     /**
      * メーター値を取得 .
      */
-    inline int getValue() {
+    inline int getQty() {
         return _pPxQuantity->get();
     }
 
@@ -61,7 +62,7 @@ public:
      * 設定すると、現在のメーターの長さ(_val_px) も更新される
      * @param prm_val メーター加算値
      */
-    inline void incValue(int prm_val) {
+    inline void incQty(int prm_val) {
         _pPxQuantity->inc(prm_val);
     }
 
@@ -70,7 +71,7 @@ public:
      * 設定すると、現在のメーターの長さ(_val_px) も更新される
      * @param prm_val メーター加算値
      */
-    inline void decValue(int prm_val) {
+    inline void decQty(int prm_val) {
         _pPxQuantity->dec(prm_val);
     }
     void processBehavior() override;

@@ -36,6 +36,7 @@ public:
         _max_val = 100;
         _rate_val = 1.0;
         _pInt_val = NEW int;
+        *_pInt_val = 0;
         _is_new = true;
     }
 

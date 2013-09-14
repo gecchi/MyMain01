@@ -21,6 +21,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -238,16 +239,16 @@ MyShip::MyShip(const char* prm_name) :
     is_just_change_way_ = true;
 
     //MP初期値
-    mp_.set(30000); //変更時onReset()も忘れるな
+    mp_ = 30000; //変更時onReset()も忘れるな
     //mp_を変えると、内部参照する MpBar の表示が連動して変わる
 
     //Vreathは実値を _pStatus のSTAT_Stamina値を参照するように設定。
-    vreath_.link( &(_pStatus->_paValue[STAT_Stamina]._int_val) );
+//    vreath_.link( &(_pStatus->_paValue[STAT_Stamina]._int_val) );
     //STAT_Staminaが減れば、vreath_ が変化し、それを内部参照する VreathBar の表示が連動して変わる
 
 
     //魔法メーター設置
-    pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &vreath_);
+    pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &(_pStatus->_paValue[STAT_Stamina]._int_val) );
     pMagicMeter_->position(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
     addSubGroup(pMagicMeter_);
 
@@ -307,7 +308,7 @@ void MyShip::onReset() {
     prev_way_ = WAY_NONE;
     way_switch_.reset();
 
-    mp_.set(30000);         //初期値は30000
+    mp_ = 30000;         //初期値は30000
     _pStatus->reset();
 }
 
@@ -559,9 +560,8 @@ void MyShip::processBehavior() {
                                                        _Z - _Z_local);
     }
 
-    //呼吸
-    vreath_.dec(MY_SHIP_VREATH_COST);
-//    _pStatus->get(STAT_Stamina);
+    //毎フレームの呼吸の消費
+    _pStatus->minus(STAT_Stamina, MY_SHIP_VREATH_COST);
 }
 
 void MyShip::processJudgement() {
@@ -621,7 +621,7 @@ void MyShip::processJudgement() {
 //        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
 //    }
     //息切れで自機消滅
-    if (vreath_.get() <= 0) {
+    if (_pStatus->get(STAT_Stamina) <= 0) {
         _pSeTx->play3D(SE_EXPLOSION);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
         //can_control_=falseになるはず
@@ -730,9 +730,13 @@ void MyShip::processJudgement() {
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
-
+    int vreath = _pStatus->get(STAT_Stamina);
     if (UTIL::calcMyStamina(this, pOther) <= 0) {
         //ここに消滅エフェクト
+    }
+    int damage = vreath - _pStatus->get(STAT_Stamina);
+    if (damage > 0){
+        pMagicMeter_->pDamageDispBar_->addDamage(damage);
     }
 
     //壁の場合特別な処理

@@ -230,6 +230,8 @@ public:
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コード変更は「ステータスCreater.xls」から行うこと。
     // gen01 start
+	//自機
+	static GgafCore::GgafStatus* resetMyShipStatus(GgafCore::GgafStatus* p);
 	//自機レーザー
 	static GgafCore::GgafStatus* resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
 	//オプションカーブレーザー
@@ -240,8 +242,6 @@ public:
 	static GgafCore::GgafStatus* resetMyTorpedoStatus(GgafCore::GgafStatus* p);
 	//トゥピード爆風
 	static GgafCore::GgafStatus* resetMyTorpedoBlastStatus(GgafCore::GgafStatus* p);
-	//自機
-	static GgafCore::GgafStatus* resetMyShipStatus(GgafCore::GgafStatus* p);
 	//敵ストレートレーザー001
 	static GgafCore::GgafStatus* resetEnemyStraightLaserChip001Status(GgafCore::GgafStatus* p);
 	//敵カーブレーザー001

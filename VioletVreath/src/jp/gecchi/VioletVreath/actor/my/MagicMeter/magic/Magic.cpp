@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 
-Magic::Magic(const char*  prm_name, PxQuantity* prm_pMP,
+Magic::Magic(const char*  prm_name, int* prm_pMP,
              int          prm_max_level,
              magic_point  prm_cost_base            , double prm_r_cost             ,
              magic_time   prm_time_of_casting_base , double prm_r_time_of_casting  ,
@@ -126,7 +126,7 @@ int Magic::chkCastAble(int prm_new_level) {
         if (level_ > prm_new_level) {
             return MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN; //詠唱キャンセルレベルダウンOK
         } else if (level_ < prm_new_level) {
-            if (interest_cost_[prm_new_level-level_] < pMP_->get()) {
+            if (interest_cost_[prm_new_level-level_] < *pMP_) {
                 return MAGIC_CAST_OK_CANCEL_AND_LEVELUP; //詠唱キャンセル再詠唱レベルアップOK
             } else {
                 return MAGIC_CAST_NG_MP_IS_SHORT; //MPが足りないため、再詠唱レベルアップ不可
@@ -139,7 +139,7 @@ int Magic::chkCastAble(int prm_new_level) {
         if (level_ > prm_new_level) {
             return MAGIC_CAST_OK_LEVELDOWN; //詠唱レベルダウンOK
         } else if (level_ < prm_new_level) {
-            if (interest_cost_[prm_new_level-level_] < pMP_->get()) {
+            if (interest_cost_[prm_new_level-level_] < *pMP_) {
                 return MAGIC_CAST_OK_LEVELUP; //詠唱レベルアップOK
             } else {
                 return MAGIC_CAST_NG_MP_IS_SHORT; //MPが足りないため、再詠唱レベルアップ不可
@@ -219,7 +219,7 @@ int Magic::chkInvokeAble(int prm_new_level) {
         if (level_ > prm_new_level) {
             return MAGIC_INVOKE_OK_LEVELDOWN;
         } else if (level_ < prm_new_level) {
-            if (interest_cost_[prm_new_level-level_] < pMP_->get()) {
+            if (interest_cost_[prm_new_level-level_] < *pMP_) {
                 return MAGIC_INVOKE_OK_LEVELUP;
             } else {
                 return MAGIC_INVOKE_NG_MP_IS_SHORT;
@@ -234,7 +234,7 @@ int Magic::chkEffectAble(int prm_level) {
     if (level_ > prm_level) {
         return MAGIC_EFFECT_OK_LEVELDOWN;
     } else if (level_ < prm_level) {
-        if (interest_cost_[prm_level-level_] < pMP_->get()) {
+        if (interest_cost_[prm_level-level_] < *pMP_) {
             return MAGIC_EFFECT_OK_LEVELUP;
         } else {
             return MAGIC_EFFECT_NG_MP_IS_SHORT;
@@ -398,7 +398,7 @@ void Magic::processBehavior() {
                         for (int lv = last_level_+1; lv <= level_-1; lv++) {
                             lvinfo_[lv].remainingtime_of_effect_ = lvinfo_[lv].time_of_effect_; //持続時間を満タン
                         }
-                        pMP_->dec(interest_cost_[level_-last_level_]); //MP消費
+                        *pMP_ -= interest_cost_[level_-last_level_]; //MP消費
                     } else if (last_level_ > level_) {
                         _TRACE_("Magic::processBehavior() ["<<getName()<<"] レベルダウンだった。last_level_="<<last_level_<<" level_="<<level_);
                         //レベルダウンだった場合
@@ -407,7 +407,7 @@ void Magic::processBehavior() {
                                 //MP還元
                                 magic_point rmp = calcReduceMp(last_level_, level_);
                                 _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP還元="<<rmp);
-                                pMP_->inc(rmp);
+                                *pMP_ += rmp;
                             }
                         }
 
@@ -481,12 +481,12 @@ void Magic::processBehavior() {
 
                     if (keep_cost_base_ != 0) {
                         //維持コストがかかる場合の処理
-                        pMP_->inc(-1*lvinfo_[level_].keep_cost_); //維持コスト減少
+                        *pMP_ += -1*lvinfo_[level_].keep_cost_; //維持コスト減少
                         //MP枯渇？
-                        if (pMP_->get() <= 0) {
+                        if (*pMP_ <= 0) {
                             //MP枯渇による持続終了時
                             _TRACE_("Magic::processBehavior() ["<<getName()<<"] MP枯渇による持続終了、全レベルリセット");
-                            pMP_->set(0);
+                            *pMP_ = 0;
                             for (int lv = 1; lv <= level_; lv++) { //全レベルリセットを設定
                                  lvinfo_[lv].remainingtime_of_effect_ = 0; //効果持続終了残り時間を0
                             }

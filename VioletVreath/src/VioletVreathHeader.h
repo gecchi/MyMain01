@@ -340,7 +340,6 @@ class MagicLvCursor;
 class MagicLvCursor001;
 class MagicLvCursor002;
 class MagicLvCursor003;
-class GraphBar;
 class MpBar;
 class CostDispBar;
 class VreathBar;

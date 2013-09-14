@@ -122,7 +122,7 @@ void MagicPointItem::processBehavior() {
         _Y = pMyShip->_Y + kDY_;
         _Z = pMyShip->_Z + kDZ_;
         addScale(-100);
-        pMyShip->mp_.inc(12); //В▒В▒Т▓РоБI
+        pMyShip->mp_ += 12; //В▒В▒Т▓РоБI
 
         if (_SX < 100) {
             _pSeTx->play(SE_GET_ITEM);

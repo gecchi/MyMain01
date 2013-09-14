@@ -24,11 +24,11 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
                                                                "x",
                                                                prm_technique,
                                                                prm_pStat,
-                                                               prm_pChecker) {
+                                                               prm_pChecker),
+_pMeshSetModel((GgafDxMeshSetModel*)_pModel),
+_pMeshSetEffect((GgafDxMeshSetEffect*)_pEffect) {
     _obj_class |= Obj_GgafDxMeshSetActor;
     _class_name = "GgafDxMeshSetActor";
-    _pMeshSetModel = (GgafDxMeshSetModel*)_pModel;
-    _pMeshSetEffect = (GgafDxMeshSetEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
 }
@@ -49,11 +49,12 @@ GgafDxMeshSetActor::GgafDxMeshSetActor(const char* prm_name,
                                                                prm_effect_type,
                                                                prm_technique,
                                                                prm_pStat,
-                                                               prm_pChecker) {
+                                                               prm_pChecker),
+_pMeshSetModel((GgafDxMeshSetModel*)_pModel),
+_pMeshSetEffect((GgafDxMeshSetEffect*)_pEffect) {
+
     _obj_class |= Obj_GgafDxMeshSetActor;
     _class_name = "GgafDxMeshSetActor";
-    _pMeshSetModel = (GgafDxMeshSetModel*)_pModel;
-    _pMeshSetEffect = (GgafDxMeshSetEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
 }

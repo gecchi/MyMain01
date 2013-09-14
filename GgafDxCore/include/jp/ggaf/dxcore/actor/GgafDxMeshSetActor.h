@@ -16,9 +16,9 @@ class GgafDxMeshSetActor : public GgafDxDrawableActor {
 
 public:
     /** [r]モデル資源 */
-    GgafDxMeshSetModel* _pMeshSetModel;
+    GgafDxMeshSetModel* const _pMeshSetModel;
     /** [r]エフェクト資源 */
-    GgafDxMeshSetEffect* _pMeshSetEffect;
+    GgafDxMeshSetEffect* const _pMeshSetEffect;
 
 public:
     /**

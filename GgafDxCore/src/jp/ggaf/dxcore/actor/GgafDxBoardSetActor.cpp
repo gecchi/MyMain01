@@ -23,13 +23,13 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
                                                                  "b",
                                                                  prm_technique,
                                                                  nullptr,
-                                                                 nullptr) {
+                                                                 nullptr) ,
+_pBoardSetModel((GgafDxBoardSetModel*)_pModel),
+_pBoardSetEffect((GgafDxBoardSetEffect*)_pEffect),
+_pUvFlipper(NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureConnection[0]->peek())) {
+
     _obj_class |= Obj_GgafDxBoardSetActor;
     _class_name = "GgafDxBoardSetActor";
-
-    _pBoardSetModel = (GgafDxBoardSetModel*)_pModel;
-    _pBoardSetEffect = (GgafDxBoardSetEffect*)_pEffect;
-    _pUvFlipper = NEW GgafDxUvFlipper(_pBoardSetModel->_papTextureConnection[0]->peek());
     _pUvFlipper->setRotation(_pBoardSetModel->_col_texture_split,
                              _pBoardSetModel->_row_texture_split
                             );
@@ -129,6 +129,14 @@ void GgafDxBoardSetActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valig
     _valign = prm_valign;
 }
 
+void GgafDxBoardSetActor::setAlign(GgafDxAlign prm_align) {
+    _align = prm_align;
+}
+
+void GgafDxBoardSetActor::setValign(GgafDxValign prm_valign) {
+    _valign = prm_valign;
+}
+
 GgafDxBoardSetActor::~GgafDxBoardSetActor() {
-    GGAF_DELETE(_pUvFlipper);
+    delete _pUvFlipper;
 }

@@ -21,16 +21,15 @@ GgafDxBoardActor::GgafDxBoardActor(const char* prm_name,
                                                            "B",
                                                            prm_technique,
                                                            nullptr,
-                                                           nullptr) {
+                                                           nullptr) ,
+_pBoardModel((GgafDxBoardModel*)_pModel),
+_pBoardEffect((GgafDxBoardEffect*)_pEffect) ,
+_pUvFlipper(NEW GgafDxUvFlipper(_pBoardModel->_papTextureConnection[0]->peek())) {
+
     _obj_class |= Obj_GgafDxBoardActor;
     _class_name = "GgafDxBoardActor";
-
-    _pBoardModel = (GgafDxBoardModel*)_pModel;
-    _pBoardEffect = (GgafDxBoardEffect*)_pEffect;
-    _pUvFlipper = NEW GgafDxUvFlipper(_pBoardModel->_papTextureConnection[0]->peek());
     _pUvFlipper->setRotation(_pBoardModel->_col_texture_split,
-                             _pBoardModel->_row_texture_split
-                            );
+                             _pBoardModel->_row_texture_split );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
     _align = ALIGN_LEFT;
@@ -87,6 +86,13 @@ void GgafDxBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) 
     _align = prm_align;
     _valign = prm_valign;
 }
+void GgafDxBoardActor::setAlign(GgafDxAlign prm_align) {
+    _align = prm_align;
+}
+void GgafDxBoardActor::setValign(GgafDxValign prm_valign) {
+    _valign = prm_valign;
+}
+
 void GgafDxBoardActor::positionAs(GgafDxGeometricActor* prm_pActor) {
     _X = prm_pActor->_X;
     _Y = prm_pActor->_Y;
@@ -130,5 +136,5 @@ void GgafDxBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z
 }
 
 GgafDxBoardActor::~GgafDxBoardActor() {
-    GGAF_DELETE(_pUvFlipper);
+    delete _pUvFlipper;
 }

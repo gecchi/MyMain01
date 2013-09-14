@@ -9,7 +9,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-TractorMagic::TractorMagic(const char* prm_name, PxQuantity* prm_pMP)
+TractorMagic::TractorMagic(const char* prm_name, int* prm_pMP)
         : Magic(prm_name, prm_pMP,
                 2,          //max_level
                 100*4   , 0.9,   //基本魔法コスト , 飛びレベル時の rate

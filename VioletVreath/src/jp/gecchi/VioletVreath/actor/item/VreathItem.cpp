@@ -8,6 +8,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
+#include "jp/ggaf/core/util/GgafStatus.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -127,7 +128,7 @@ void VreathItem::processBehavior() {
             _pProg->changeNothing();
             sayonara(); //I—¹
         }
-        pMyShip->vreath_.inc(1);
+        pMyShip->_pStatus->plus(STAT_Stamina, 1);
     }
     _pKurokoA->behave();
     _pKurokoB->behave();

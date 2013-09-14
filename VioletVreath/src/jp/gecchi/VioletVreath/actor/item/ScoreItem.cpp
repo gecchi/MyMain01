@@ -130,7 +130,7 @@ void ScoreItem::processBehavior() {
             _pProg->changeNothing();
             sayonara(); //I—¹
         }
-        pMyShip->mp_.inc(1);
+        G_SCORE += 100;
     }
     _pKurokoA->behave();
     _pKurokoB->behave();

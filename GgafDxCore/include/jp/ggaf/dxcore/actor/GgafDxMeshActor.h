@@ -17,9 +17,9 @@ class GgafDxMeshActor : public GgafDxDrawableActor, public GgafDxIBumpMapActor {
 
 public:
     /** [r]モデル資源 */
-    GgafDxMeshModel* _pMeshModel;
+    GgafDxMeshModel* const _pMeshModel;
     /** [r]エフェクト資源 */
-    GgafDxMeshEffect* _pMeshEffect;
+    GgafDxMeshEffect* const _pMeshEffect;
 
     float _far_rate;
 

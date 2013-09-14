@@ -309,9 +309,7 @@ public:
     double r_blown_velo_attenuate_;
 
     /** MP */
-    GgafLib::PxQuantity mp_;
-    /** Vreath */
-    GgafLib::PxQuantity vreath_;
+    int mp_;
 
     int invincible_frames_;
 

@@ -65,8 +65,8 @@ public:
     VreathBar* pVreathBar_;
     /** コスト表示バー */
     CostDispBar* pVreathCostDispBar_;
-//    /** ダメージ表示バー */
-//    DamageDispBar* pDamageDispBar_;
+    /** ダメージ表示バー */
+    DamageDispBar* pDamageDispBar_;
 
     /** 魔法リスト */
     MagicList lstMagic_;
@@ -106,7 +106,7 @@ public:
     frame fraeme_of_notice_remaind_;
 
 public:
-    MagicMeter(const char* prm_name, GgafLib::PxQuantity* prm_pMP_MyShip, GgafLib::PxQuantity* prm_pVreath_MyShip);
+    MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVreath_MyShip);
 
     void saveStatus(int prm_saveno);
 

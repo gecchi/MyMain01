@@ -3,6 +3,8 @@
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "scene/MgrUniverse.h"
+#include "jp/ggaf/lib/util/PxQuantity.h"
+
 
 namespace Mogera {
 
@@ -32,6 +34,9 @@ public:
     Teki001* pTeki_;
     Mikata001* pMikata_;
     TestBar* pTestBar_;
+
+    GgafLib::PxQuantity qMp_;
+    int mp_;
 //    GgafLib::PxQuantity* pBarVal_;
     /**
      * コンストラクタ .

@@ -16,7 +16,7 @@ public:
     GgafDxCore::GgafDxDrawableActor** papEffect_;
     float r_effect_;
 //    int old_level_;
-    OptionMagic(const char* prm_name, GgafLib::PxQuantity* prm_pMP);
+    OptionMagic(const char* prm_name, int* prm_pMP);
 
     virtual void processCastBegin(int prm_now_level, int prm_new_level) override;
     virtual void processCastingBehavior(int prm_now_level, int prm_new_level)override;

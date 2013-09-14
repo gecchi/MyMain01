@@ -11,7 +11,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-SmileMagic::SmileMagic(const char* prm_name, PxQuantity* prm_pMP)
+SmileMagic::SmileMagic(const char* prm_name, int* prm_pMP)
     : Magic(prm_name, prm_pMP,
             5,                 //max_level
             100       , 1.0,   //基本魔法コスト , 飛びレベル時の rate

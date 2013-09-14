@@ -20,21 +20,25 @@ void CostDispBar::initialize() {
 }
 
 void CostDispBar::onReset() {
-//    setScaleR(pCostValue_->getPx() * rate_org_width_, 1.0); //横方向に倍率で伸ばす
+    positionAs(pSourceBar_);
+    _SX = pSourceBar_->_SX;
+    setQty(0);
 }
 
 void CostDispBar::onActive() {
+    positionAs(pSourceBar_);
     _SX = pSourceBar_->_SX;
+    setQty(0);
 }
 
 void CostDispBar::processBehavior() {
     _X = pSourceBar_->_X + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
-    if (getValue() > 0) {
+    if (getQty() > 0) {
         //正の値は主メーターの増分値を青で示すようにする。
-        _pUvFlipper->setActivePtn(0);//青
-    } else if (getValue() < 0) {
+        _pUvFlipper->setActivePtn(4);//青
+    } else if (getQty() < 0) {
         //負の値は主メーターの削減値を赤で示すようにする。
-        _pUvFlipper->setActivePtn(4);//赤
+        _pUvFlipper->setActivePtn(0);//赤
     }
 //    if ( pPxQuantity_->getPx() > 0) {
 //        //正の値はコスト有りを表す。主メーターの削減値を赤で示すようにする。

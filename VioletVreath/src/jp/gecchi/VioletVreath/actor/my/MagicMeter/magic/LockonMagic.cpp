@@ -13,7 +13,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-LockonMagic::LockonMagic(const char* prm_name, PxQuantity* prm_pMP)
+LockonMagic::LockonMagic(const char* prm_name, int* prm_pMP)
     : Magic(prm_name, prm_pMP,
             MyLockonController::max_lockon_num_,               //max_level
             1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate

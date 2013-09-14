@@ -9,7 +9,7 @@ namespace GgafDxCore {
  * GgafDxTransformedActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
  * テクスチャの１ピクセルをそのまま１ドットで表示したい時に使用。<BR>
  * 2D擬似スプライト的な機能を想定したアクター。<BR>
- * 回転機能なし、拡大縮小機能機能あり。<BR>
+ * 回転機能(Z軸回転のみ)、拡大縮小機能機能あり。<BR>
  * @version 1.00
  * @since 2008/02/27
  * @author Masatoshi Tsuge
@@ -64,27 +64,13 @@ class GgafDxBoardActor : public GgafDxDrawableActor {
         return nullptr;
     }
 
-    //Z軸回転だけOKにした
-//    void rotateAs(GgafDxGeoElem* prm_pActor) override {
-//        throwGgafCriticalException("GgafDxBoardActor::rotateAs() は使用不可です。");
-//    }
-//
-//    void rotateAs(GgafDxGeometricActor* prm_pActor) override {
-//        throwGgafCriticalException("GgafDxBoardActor::rotateAs() は使用不可です。");
-//    }
-//
-//
-//    void addScale(scale dS) override {
-//        throwGgafCriticalException("GgafDxBoardActor::addScale() は使用不可です。");
-//    }
-
 public:
     /** [r]モデルオブジェクトへのポインタ */
-    GgafDxBoardModel* _pBoardModel;
+    GgafDxBoardModel* const _pBoardModel;
     /** [r]エフェクト */
-    GgafDxBoardEffect* _pBoardEffect;
+    GgafDxBoardEffect* const _pBoardEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
-    GgafDxUvFlipper* _pUvFlipper;
+    GgafDxUvFlipper* const _pUvFlipper;
 
     GgafDxAlign _align;
     GgafDxValign _valign;
@@ -109,7 +95,9 @@ public:
 
     virtual ~GgafDxBoardActor(); //デストラクタ
 
-    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign = VALIGN_TOP);
+    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
+    virtual void setAlign(GgafDxAlign prm_align);
+    virtual void setValign(GgafDxValign prm_valign);
 
     virtual void positionAs(GgafDxGeometricActor* prm_pActor) override;
     virtual void positionAs(GgafDxGeoElem* prm_pGeoElem) override;

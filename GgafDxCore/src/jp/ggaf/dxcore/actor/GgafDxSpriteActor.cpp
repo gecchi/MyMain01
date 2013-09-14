@@ -26,21 +26,15 @@ GgafDxSpriteActor::GgafDxSpriteActor(const char* prm_name,
                                                              "S",
                                                              prm_technique,
                                                              prm_pStat,
-                                                             prm_pChecker) {
+                                                             prm_pChecker),
+_pSpriteModel( (GgafDxSpriteModel*)_pModel),
+_pSpriteEffect( (GgafDxSpriteEffect*)_pEffect),
+_pUvFlipper(NEW GgafDxUvFlipper(_pSpriteModel->_papTextureConnection[0]->peek())) {
+
     _obj_class |= Obj_GgafDxSpriteActor;
     _class_name = "GgafDxSpriteActor";
-
-    _pSpriteModel = (GgafDxSpriteModel*)_pModel;
-    _pSpriteEffect = (GgafDxSpriteEffect*)_pEffect;
-//    _pUvFlipper = NEW GgafDxUvFlipper(this);
-//    _pUvFlipper->setFlipPtnRange(0, _pSpriteModel->_pattno_uvflip_Max);
-//    _pUvFlipper->setActivePtn(0);
-//    _pUvFlipper->exec(NOT_ANIMATED, 1);
-    GgafDxTexture* pTexture = _pSpriteModel->_papTextureConnection[0]->peek();
-    _pUvFlipper = NEW GgafDxUvFlipper(pTexture);
     _pUvFlipper->setRotation(_pSpriteModel->_col_texture_split,
-                             _pSpriteModel->_row_texture_split
-                            );
+                             _pSpriteModel->_row_texture_split );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
@@ -101,6 +95,15 @@ void GgafDxSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign)
     _align = prm_align;
     _valign = prm_valign;
 }
+
+void GgafDxSpriteActor::setAlign(GgafDxAlign prm_align) {
+    _align = prm_align;
+}
+
+void GgafDxSpriteActor::setValign(GgafDxValign prm_valign) {
+    _valign = prm_valign;
+}
+
 GgafDxSpriteActor::~GgafDxSpriteActor() {
-    GGAF_DELETE(_pUvFlipper);
+    delete _pUvFlipper;
 }

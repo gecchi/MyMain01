@@ -102,8 +102,8 @@ public:
     /** [r]１フレーム前のレベル */
     int prev_frame_level_;
 
-    /** [r]マジックポイント数量バー */
-    GgafLib::PxQuantity* pMP_;
+    /** [r]マジックポイント */
+    int* pMP_;
     /** [r]各レベルの情報 0～MMETER_MAX_LEVEL */
     LevelInfo lvinfo_[MMETER_MAX_LEVEL+1];
 
@@ -182,7 +182,7 @@ public:
      *                                 レベル4のとき prm_keep_cost_base * 1.2 * 1.2 * 1.2  という維持コストが設定される)
      * @return
      */
-    Magic(const char* prm_name, GgafLib::PxQuantity* prm_pMP,
+    Magic(const char* prm_name, int* prm_pMP,
           int prm_max_level,
           magic_point prm_cost_base            , double prm_r_cost,
           magic_time  prm_time_of_casting_base , double prm_r_time_of_casting,

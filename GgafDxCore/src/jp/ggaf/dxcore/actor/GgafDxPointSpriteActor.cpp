@@ -26,24 +26,22 @@ GgafDxPointSpriteActor::GgafDxPointSpriteActor(const char* prm_name,
                                                                        "P",
                                                                        prm_technique,
                                                                        prm_pStat,
-                                                                       prm_pChecker) {
+                                                                       prm_pChecker),
+_pPointSpriteModel((GgafDxPointSpriteModel*)_pModel),
+_pPointSpriteEffect((GgafDxPointSpriteEffect*)_pEffect),
+_pUvFlipper(NEW GgafDxUvFlipper(_pPointSpriteModel->_papTextureConnection[0]->peek())) {
+
     _obj_class |= Obj_GgafDxPointSpriteActor;
     _class_name = "GgafDxPointSpriteActor";
-    _pPointSpriteModel = (GgafDxPointSpriteModel*)_pModel;
-    _pPointSpriteEffect = (GgafDxPointSpriteEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = UTIL::setWorldMatrix_RxRzRyMv;
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
-
-    GgafDxTexture* pTexture = _pPointSpriteModel->_papTextureConnection[0]->peek();
-    _pUvFlipper = NEW GgafDxUvFlipper(pTexture);
     _pUvFlipper->setRotation(_pPointSpriteModel->_texture_split_rowcol,
-                             _pPointSpriteModel->_texture_split_rowcol);
+                             _pPointSpriteModel->_texture_split_rowcol );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
     setZEnable(false);
     setZWriteEnable(false);
 }
-
 
 void GgafDxPointSpriteActor::setAlpha(float prm_alpha) {
     _alpha = prm_alpha;
@@ -77,5 +75,5 @@ void GgafDxPointSpriteActor::processDraw() {
 }
 
 GgafDxPointSpriteActor::~GgafDxPointSpriteActor() {
-    GGAF_DELETE(_pUvFlipper);
+    delete _pUvFlipper;
 }

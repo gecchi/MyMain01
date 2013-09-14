@@ -1,28 +1,22 @@
 #ifndef DAMAGEDISPBARH_
 #define DAMAGEDISPBARH_
-#include "jp/gecchi/VioletVreath/actor/my/MagicMeter/GraphBar.h"
+#include "jp/ggaf/lib/actor/GraphBarActor.h"
 
 namespace VioletVreath {
 
-#define DISP_DELAY 180
-
-class DamageDispBar : public GraphBar {
+class DamageDispBar : public GgafLib::GraphBarActor {
 
 public:
     /** 内容量 */
-    GraphBar* pSourceBar_;
-
-    int aInt_my_ship_stamina_history_[DISP_DELAY];
-    int aInt_my_ship_damage_history_[DISP_DELAY];
-    int p_;
-
+    GgafLib::GraphBarActor* pSourceBar_;
+    frame damege_disp_timer_;
 public:
     /**
      *
      * @param prm_name
      * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
      */
-    DamageDispBar(const char* prm_name, GraphBar* prm_pTargetBar, GgafLib::PxQuantity* prm_pDamageDisp);
+    DamageDispBar(const char* prm_name, GgafLib::GraphBarActor* prm_pTargetSourceBar);
 
     void initialize() override;
 
@@ -36,7 +30,7 @@ public:
 
     void onInactive() override;
 
-    void addDamageVal(int prm_val);
+    void addDamage(int prm_val);
 
 
     virtual ~DamageDispBar();
