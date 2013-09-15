@@ -382,7 +382,6 @@ void MagicMeter::processBehavior() {
                 }
                 case MAGIC_CAST_OK_LEVELUP: {
                     pSeTx4Cast_->play(active_idx);
-
                     _pSeTx->play(SE_EXECUTE_LEVELUP_MAGIC);
                     papLvTargetCursor_[active_idx]->blink(); //ピカピカ！
                     //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
@@ -399,12 +398,17 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 case MAGIC_CAST_OK_CANCEL_AND_LEVELUP: {
-                    pSeTx4Cast_->play(active_idx);
-
-                    _pSeTx->play(SE_EXECUTE_CANCEL_LEVELUP_MAGIC);
-                    papLvTargetCursor_[active_idx]->blink(); //ピカピカ！
-                    //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
-                    papLvCastingMarkCursor_[active_idx]->markOnLevelUpCast(pActiveMagic->new_level_);
+                    if ( papLvCastingMarkCursor_[active_idx]->point_lv_ ==  papLvTargetCursor_[active_idx]->point_lv_) {
+                        //現在詠唱中のレベルで再度押下
+                        //なにもしない
+                        _TRACE_("同じ");
+                    } else {
+                        pSeTx4Cast_->play(active_idx);
+                        _pSeTx->play(SE_EXECUTE_CANCEL_LEVELUP_MAGIC);
+                        papLvTargetCursor_[active_idx]->blink(); //ピカピカ！
+                        //LEVELUP 時は既にpActiveMagic->new_level_ がアップ予定レベル
+                        papLvCastingMarkCursor_[active_idx]->markOnLevelUpCast(pActiveMagic->new_level_);
+                    }
                     break;
                 }
                 case MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN: {

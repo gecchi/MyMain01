@@ -74,7 +74,6 @@ public:
     inline void decQty(int prm_val) {
         _pPxQuantity->dec(prm_val);
     }
-    void processBehavior() override;
     void processDraw() override;
     virtual ~GraphBarActor();
 };

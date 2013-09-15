@@ -3,6 +3,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/lib/util/PxQuantity.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -17,9 +18,13 @@ TestBar::TestBar(const char* prm_name)
 
 void TestBar::initialize() {
     setScaleR(2.0);
+//    _pKurokoA->setFaceAngVelo(AXIS_Z, D_ANG(1));
 //    _pUvFlipper->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
 }
-
+void TestBar::processBehavior() {
+    _pKurokoA->behave();
+//    _pUvFlipper->behave();
+}
 TestBar::~TestBar() {
 }
 

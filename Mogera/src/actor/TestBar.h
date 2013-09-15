@@ -17,7 +17,7 @@ public:
     TestBar(const char* prm_name);
 
     void initialize() override;
-
+    void processBehavior() override;
     void addVal(double prm_val);
 
 

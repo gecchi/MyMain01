@@ -6,6 +6,8 @@
 #include "jp/ggaf/lib/util/PxQuantity.h"
 #include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -43,11 +45,6 @@ void GraphBarActor::linkPxQuantity(PxQuantity* prm_pPxQuantity) {
     _is_new_PxQuantity = false;
 }
 
-void GraphBarActor::processBehavior() {
-//    _SX = R_SC(_pPxQuantity->getPx() * rate_org_width_); //横方向に倍率で伸ばす
-    _pUvFlipper->behave();
-}
-
 void GraphBarActor::processDraw() {
     float bar_width = (float)(_pPxQuantity->getPx());
     if (bar_width == 0.0f) { //I know == float
@@ -69,8 +66,11 @@ void GraphBarActor::processDraw() {
     } else { //VALIGN_TOP
         hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_local_left_top_Y, 0.0f);
     }
-
     checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_local_left_top_Y) に失敗しました。");
+
+//    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, 0.0f);
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, ANG_RAD(_RZ));
+    checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_Rz) に失敗しました。");
     if (bar_width > 0.0f) {
         if (bar_width > _chip_width*2) {
             // <=> の真ん中 = を表示
@@ -92,8 +92,6 @@ void GraphBarActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sx) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_SY));
             checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sy) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, 0.0f);
-            checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_Rz) に失敗しました。");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             // <=> の左部品 < を表示
@@ -133,8 +131,6 @@ void GraphBarActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sx) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_SY));
             checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sy) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, 0.0f);
-            checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_Rz) に失敗しました。");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             // <=> の右部品 > を表示
@@ -167,8 +163,6 @@ void GraphBarActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sx) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_SY));
             checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sy) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, 0.0f);
-            checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_Rz) に失敗しました。");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
             // <=> の左部品 < を反転表示して右部品 > を表示
@@ -208,8 +202,6 @@ void GraphBarActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sx) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, SC_R(_SY));
             checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_sy) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_Rz, 0.0f);
-            checkDxException(hr, D3D_OK, "GgafDxBoardModel::draw SetFloat(_h_Rz) に失敗しました。");
             _pBoardModel->GgafDxBoardModel::draw(this);
 
 

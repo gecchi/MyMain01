@@ -35,7 +35,7 @@ public:
     Mikata001* pMikata_;
     TestBar* pTestBar_;
 
-    GgafLib::PxQuantity qMp_;
+    GgafLib::PxQuantity qtyMp_;
     int mp_;
 //    GgafLib::PxQuantity* pBarVal_;
     /**
