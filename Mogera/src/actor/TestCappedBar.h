@@ -1,10 +1,10 @@
-#ifndef TESTBAR_H_
-#define TESTBAR_H_
-#include "jp/ggaf/lib/actor/GraphBarActor.h"
+#ifndef TESTCAPPEDBAR_H_
+#define TESTCAPPEDBAR_H_
+#include "jp/ggaf/lib/actor/GraphCappedBarActor.h"
 
 namespace Mogera {
 
-class TestBar : public GgafLib::GraphBarActor {
+class TestCappedBar : public GgafLib::GraphCappedBarActor {
 
 public:
     /**
@@ -12,15 +12,15 @@ public:
      * @param prm_name
      * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
      */
-    TestBar(const char* prm_name);
+    TestCappedBar(const char* prm_name);
 
     void initialize() override;
     void processBehavior() override;
     void addVal(double prm_val);
 
-    virtual ~TestBar();
+    virtual ~TestCappedBar();
 };
 
 }
-#endif /*TESTBAR_H_*/
+#endif /*TESTCAPPEDBAR_H_*/
 

@@ -21,11 +21,6 @@ private:
     /** [r]一時テクニック終了フレーム */
     frame _frame_of_behaving_temp_technique_end;
 
-    /** [r]モデル資源接続 */
-    GgafDxModelConnection* _pModelCon;
-    /** [r]エフェクト資源接続 */
-    GgafDxEffectConnection* _pEffectCon;
-
 
     /**
      * draw()の使用禁止 .
@@ -54,18 +49,23 @@ public:
     hashval _hash_technique;
     /** [r/w]現在のマテリアル別カラー */
     D3DMATERIAL9* _paMaterial;
-    /** [r]モデル資源 */
-    GgafDxModel* _pModel;
-    /** [r]エフェクト資源 */
-    GgafDxEffect* _pEffect;
+
     /** [r/w]現在の描画深度 */
     int _now_drawdepth;
     /** [r/w]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
     int _specal_drawdepth;
-    /** [r]フィードインフェードアウト支援 */
-    GgafDxAlphaFader* const _pAFader;
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
+    /** [r]フィードインフェードアウト支援 */
+    GgafDxAlphaFader* const _pAFader;
+    /** [r]モデル資源接続 */
+    GgafDxModelConnection* const _pModelCon;
+    /** [r]モデル資源 */
+    GgafDxModel* const _pModel;
+    /** [r]エフェクト資源接続 */
+    GgafDxEffectConnection* const _pEffectCon;
+    /** [r]エフェクト資源 */
+    GgafDxEffect* const _pEffect;
 
 public:
     /**

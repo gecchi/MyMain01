@@ -25,7 +25,16 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
                                          GgafStatus* prm_pStat,
                                          GgafDxChecker* prm_pChecker) :
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker),
-_pAFader(new GgafDxAlphaFader(this)) {
+_pAFader(new GgafDxAlphaFader(this)) ,
+_pModelCon((GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(
+                  std::string(prm_model).c_str(),
+                  this)),
+_pModel((GgafDxModel*)_pModelCon->peek()),
+_pEffectCon((GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(
+                  std::string(prm_effect).c_str(),
+                  this)),
+_pEffect((GgafDxEffect*)_pEffectCon->peek()) {
+
     _obj_class |= Obj_GgafDxDrawableActor;
     _class_name = "GgafDxDrawableActor";
 
@@ -39,12 +48,12 @@ _pAFader(new GgafDxAlphaFader(this)) {
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
     _pNext_TheSameDrawDepthLevel = nullptr;
-    //モデル取得connectModelManager
-    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model, this);
-    _pModel = (GgafDxModel*)_pModelCon->peek();
-    //エフェクト取得
-    _pEffectCon = (GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(prm_effect, this);
-    _pEffect = (GgafDxEffect*)_pEffectCon->peek();
+//    //モデル取得connectModelManager
+//    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(prm_model, this);
+//    _pModel = (GgafDxModel*)_pModelCon->peek();
+//    //エフェクト取得
+//    _pEffectCon = (GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(prm_effect, this);
+//    _pEffect = (GgafDxEffect*)_pEffectCon->peek();
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
     for (DWORD i = 0; i < _pModel->_num_materials; i++){
@@ -69,7 +78,16 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
                                          GgafStatus* prm_pStat,
                                          GgafDxChecker* prm_pChecker) :
   GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker),
-  _pAFader(new GgafDxAlphaFader(this)) {
+_pAFader(new GgafDxAlphaFader(this)) ,
+_pModelCon((GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(
+                    (std::string(prm_model_type) + std::string("/") + std::string(prm_model_id)).c_str(),
+                    this)),
+_pModel((GgafDxModel*)_pModelCon->peek()),
+_pEffectCon((GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(
+                    (std::string(prm_effect_type) + std::string("/") + std::string(prm_effect_id)).c_str(),
+                    this)),
+_pEffect((GgafDxEffect*)_pEffectCon->peek())
+          {
 
     _class_name = "GgafDxDrawableActor";
 
@@ -83,35 +101,30 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
 
-    char* model_name = NEW char[51];
-    model_name[0] = '\0';
-    strcat(model_name, prm_model_type);
-    strcat(model_name, "/");
-    strcat(model_name, prm_model_id);
-    // prm_model_id   = "Eres"
-    // prm_model_type = "X"
-    // の場合、model_name として
-    // model_name     = "X/Eres"
-    // という文字列を作成。
-
-    char* effelct_name = NEW char[51];
-    effelct_name[0] = '\0';
-    strcat(effelct_name, prm_effect_type);
-    strcat(effelct_name, "/");
-    strcat(effelct_name, prm_effect_id);
-    // prm_effect_id   = "DefaultMeshEffect"
-    // prm_effect_type = "X"
-    // の場合、effelct_name として
-    // effelct_name     = "X/DefaultMeshEffect"
-    // という文字列を作成。
+//    char* model_name = NEW char[51];
+//    model_name[0] = '\0';
+//    strcat(model_name, prm_model_type);
+//    strcat(model_name, "/");
+//    strcat(model_name, prm_model_id);
+//    // prm_model_id   = "Eres"
+//    // prm_model_type = "X"
+//    // の場合、model_name として
+//    // model_name     = "X/Eres"
+//    // という文字列を作成。
+//
+//    char* effelct_name = NEW char[51];
+//    effelct_name[0] = '\0';
+//    strcat(effelct_name, prm_effect_type);
+//    strcat(effelct_name, "/");
+//    strcat(effelct_name, prm_effect_id);
+//    // prm_effect_id   = "DefaultMeshEffect"
+//    // prm_effect_type = "X"
+//    // の場合、effelct_name として
+//    // effelct_name     = "X/DefaultMeshEffect"
+//    // という文字列を作成。
 
     _pNext_TheSameDrawDepthLevel = nullptr;
-    //モデル取得
-    _pModelCon = (GgafDxModelConnection*)GgafDxGod::_pModelManager->connect(model_name, this);
-    _pModel = (GgafDxModel*)_pModelCon->peek();
-    //エフェクト取得
-    _pEffectCon = (GgafDxEffectConnection*)GgafDxGod::_pEffectManager->connect(effelct_name, this);
-    _pEffect = (GgafDxEffect*)_pEffectCon->peek();
+
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
     for (DWORD i = 0; i < _pModel->_num_materials; i++){
@@ -121,8 +134,8 @@ GgafDxDrawableActor::GgafDxDrawableActor(const char* prm_name,
     //最大距離頂点
     _bounding_sphere_radius = _pModel->_bounding_sphere_radius;
 
-    GGAF_DELETEARR(model_name);
-    GGAF_DELETEARR(effelct_name);
+//    GGAF_DELETEARR(model_name);
+//    GGAF_DELETEARR(effelct_name);
 
     _now_drawdepth = 0;
     _specal_drawdepth = -1;

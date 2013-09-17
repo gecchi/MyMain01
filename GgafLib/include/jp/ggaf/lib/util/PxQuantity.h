@@ -16,11 +16,11 @@ class PxQuantity : public GgafCore::GgafObject {
 
 public:
     /** [r]100%のメーター値(≠0) */
-    int _max_val;
+    int _val;
     /** [r]現在のメーター値のポインタ */
     int* _pInt_val;
     /** [r]100%のメーターの長さ(px) */
-    pixcoord _max_val_px;
+    pixcoord _val_px;
     /** [r]メーター値とピクセルの割合、 */
     double _rate_val;
 
@@ -32,8 +32,8 @@ public:
      * @return
      */
     PxQuantity() : GgafCore::GgafObject() {
-        _max_val_px = 100;
-        _max_val = 100;
+        _val_px = 100;
+        _val = 100;
         _rate_val = 1.0;
         _pInt_val = NEW int;
         *_pInt_val = 0;
@@ -42,13 +42,13 @@ public:
 
     /**
      * メーターの目盛りを定義 .
-     * @param prm_max_val_px  メーター値が100%時の幅ピクセル
-     * @param prm_max_val     メーター値が100%とする実際の値(メーター値)
+     * @param prm_val    メーター値
+     * @param prm_val_px メーター値の時の幅ピクセル
      */
-    void graduate(pixcoord prm_max_val_px, int prm_max_val) {
-        _max_val_px = prm_max_val_px;
-        _max_val = prm_max_val;
-        _rate_val = 1.0 * _max_val_px / _max_val;
+    void graduate(int prm_val, pixcoord prm_val_px) {
+        _val_px = prm_val_px;
+        _val = prm_val;
+        _rate_val = 1.0 * _val_px / _val;
     }
 
 
@@ -89,7 +89,6 @@ public:
 
     /**
      * メーター値を加算 .
-     * 設定すると、現在のメーターの長さ(_val_px) も更新される
      * @param prm_val メーター加算値
      */
     inline void inc(int prm_val) {
@@ -98,7 +97,6 @@ public:
 
     /**
      * メーター値を減算 .
-     * 設定すると、現在のメーターの長さ(_val_px) も更新される
      * @param prm_val メーター加算値
      */
     inline void dec(int prm_val) {

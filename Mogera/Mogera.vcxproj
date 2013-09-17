@@ -203,6 +203,7 @@
     <ClInclude Include="src\actor\Teki001.h" />
     <ClInclude Include="src\actor\TestActor.h" />
     <ClInclude Include="src\actor\testbar.h" />
+    <ClInclude Include="src\actor\testcappedbar.h" />
     <ClInclude Include="src\scene\MgrUniverse.h" />
     <ClInclude Include="src\scene\MgrUniverse\MgrWorld.h" />
     <ClInclude Include="src\Mogera.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="src\actor\Teki001.cpp" />
     <ClCompile Include="src\actor\TestActor.cpp" />
     <ClCompile Include="src\actor\TestBar.cpp" />
+    <ClCompile Include="src\actor\TestCappedBar.cpp" />
     <ClCompile Include="src\scene\MgrUniverse.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>

@@ -14,6 +14,7 @@
 #include "util/MgrUtil.h"
 #include "jp/ggaf/lib/util/PxQuantity.h"
 #include "actor/TestBar.h"
+#include "actor/TestCappedBar.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -32,18 +33,22 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pMgrActor1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     pMgrActor1_->position(C_X, C_Y);
     getSceneDirector()->addSubGroup(pMgrActor1_);
-//    pBarVal_ = NEW PxQuantity();
-//    pBarVal_->graduate(200, 200);
-//    pBarVal_->set(200);
     mp_ = 100;
     qtyMp_.link(&mp_);
     pTestBar_ = NEW TestBar("TEST1");
     pTestBar_->setValign(VALIGN_MIDDLE);
     pTestBar_->linkPxQuantity(&qtyMp_);
-    pTestBar_->graduatePxQty(200, 200);
-//    pTestBar_->setQty(200);
+    pTestBar_->graduate(-200, 200, 200);
     pTestBar_->position(C_X, C_Y);
     getSceneDirector()->addSubGroup(pTestBar_);
+
+    TestCappedBar* pBar_ = NEW TestCappedBar("TEST1");
+    pBar_->setValign(VALIGN_MIDDLE);
+    pBar_->linkPxQuantity(&qtyMp_);
+    pBar_->graduate(-200, 200, 200);
+    pBar_->position(C_X, C_Y+PX_C(100));
+    getSceneDirector()->addSubGroup(pBar_);
+
     pTeki_ = NEW Teki001("Teki001");
     getSceneDirector()->addSubGroup(MGR_TEKI, pTeki_);
 
@@ -64,18 +69,15 @@ void MgrWorld::initialize() {
     pMikata_->position(0, PX_C(-240));
 }
 
-
 void MgrWorld::processBehavior() {
     //キャラをボタン入力で移動
     vb_->update(); //入力状況更新
     if (vb_->isBeingPressed(VB_RIGHT)) {
         mp_ += 2;
-//        pTestBar_->incQty(2);
         pMgrActor1_->_SX += 30;
     }
     if (vb_->isBeingPressed(VB_LEFT)) {
         mp_ -= 2;
-//        pTestBar_->incQty(-2);
         pMgrActor1_->_SX -= 30;
     }
     //ワイヤフレーム表示切替

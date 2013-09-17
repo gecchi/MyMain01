@@ -43,15 +43,6 @@ MagicMeter::MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVrea
     width_ = PX_C(width_px_);
     height_ = PX_C(height_px_);
 
-//    pMP_MyShip_ = prm_pMP_MyShip;
-//    cost_disp_mp_.graduate(pMP_MyShip_->_max_val_px, pMP_MyShip_->_max_val);
-//    cost_disp_mp_.set(0);
-//    pVreath_MyShip_ = prm_pVreath_MyShip;
-//    cost_disp_vreath.graduate(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
-//    cost_disp_vreath.set(0);
-//    damage_disp_vreath.graduate(pVreath_MyShip_->_max_val_px, pVreath_MyShip_->_max_val);
-//    damage_disp_vreath.set(0);
-
     pTractorMagic_ = NEW TractorMagic("TRACTOR", prm_pMP_MyShip);
     pSpeedMagic_   = NEW SpeedMagic("SPEED", prm_pMP_MyShip);
     pLockonMagic_  = NEW LockonMagic("LOCKON", prm_pMP_MyShip);
@@ -106,29 +97,28 @@ MagicMeter::MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVrea
         addSubGroup(papLvTargetCursor_[i]); //メータ補助カーソル
     }
 
-
     //エネルギーバー設置
     pMpBar_ = NEW MpBar("MpBar");
     pMpBar_->_pPxQuantity->link(prm_pMP_MyShip);
-    pMpBar_->graduatePxQty(600, pMpBar_->getQty()); //現在値で画面表示は600pxとする。
+    pMpBar_->graduate(0, (*prm_pMP_MyShip), 600); //現在値で画面表示は600pxとする。
     addSubGroup(pMpBar_);
     //Vreathバー設置
     pVreathBar_ = NEW VreathBar("VreathBar");
     pVreathBar_->_pPxQuantity->link(prm_pVreath_MyShip);
-    pVreathBar_->graduatePxQty(600, pVreathBar_->getQty()); //現在値で画面表示は600pxとする。
+    pVreathBar_->graduate(0, (*prm_pVreath_MyShip), 600); //現在値で画面表示は600pxとする。
     addSubGroup(pVreathBar_);
 
     //エネルギーバーのコスト表示バー
     pMpCostDispBar_ = NEW CostDispBar("CostDispBar", pMpBar_);
-    pMpCostDispBar_->graduatePxQty(600, pMpBar_->getQty()); //上と合わせる事
+    pMpCostDispBar_->graduate(-1*(*prm_pMP_MyShip), (*prm_pMP_MyShip), 600); //上と合わせる事
     addSubGroup(pMpCostDispBar_);
     //Vreathバー、コスト表示バー
     pVreathCostDispBar_ = NEW CostDispBar("CostDispBar2", pVreathBar_);
-    pVreathCostDispBar_->graduatePxQty(600, pVreathBar_->getQty());  //上と合わせる事
+    pVreathCostDispBar_->graduate(-1*(*prm_pVreath_MyShip), (*prm_pVreath_MyShip), 600);  //上と合わせる事
     addSubGroup(pVreathCostDispBar_);
     //Vreathバー、ダメージ表示バー
     pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_);
-    pDamageDispBar_->graduatePxQty(600, pVreathBar_->getQty());  //上と合わせる事
+    pDamageDispBar_->graduate(-1*(*prm_pVreath_MyShip), (*prm_pVreath_MyShip), 600);  //上と合わせる事
     addSubGroup(pDamageDispBar_);
 
 
@@ -228,10 +218,10 @@ void MagicMeter::onReset() {
         pSeTx4Cast_->stop(i);
         pSeTx4Invoke_->stop(i);
     }
-    //主メーターカーソル
-    lstMagic_.current(0);
-    int active_idx = lstMagic_.getCurrentIndex();
-    pMagicCursor_->moveTo(active_idx);
+    pMpCostDispBar_->setQty(0);
+    pVreathCostDispBar_->setQty(0);
+    pDamageDispBar_->setQty(0);
+
 }
 void MagicMeter::onActive() {
 }
