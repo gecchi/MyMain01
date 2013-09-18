@@ -38,7 +38,7 @@ _rate_org_chip_width(1.0 / _chip_width)
     _max_val = INT_MAX;
 }
 
-void GraphBarActor::linkPxQuantity(PxQuantity* prm_pPxQuantity) {
+void GraphBarActor::linkQty(PxQuantity* prm_pPxQuantity) {
     if (_pPxQuantity) {
         if (_is_new_PxQuantity) {
             GGAF_DELETE(_pPxQuantity);

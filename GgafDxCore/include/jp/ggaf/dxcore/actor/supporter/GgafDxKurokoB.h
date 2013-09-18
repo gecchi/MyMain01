@@ -23,7 +23,7 @@ class GgafDxKurokoB : public GgafCore::GgafObject {
 
 public:
     /** [r]対象アクター */
-    GgafDxGeometricActor* _pActor;
+    GgafDxGeometricActor* const _pActor;
     /** [r/w]X軸方向移動速度 */
     velo _veloVxMv;
     /** [r/w]X軸方向移動速度上限 */

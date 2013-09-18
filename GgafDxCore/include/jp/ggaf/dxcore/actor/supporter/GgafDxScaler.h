@@ -28,7 +28,7 @@ class GgafDxScaler : public GgafCore::GgafObject {
 
 public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** [r]対象アクター */
-    GgafDxGeometricActor* _pActor;
+    GgafDxGeometricActor* const _pActor;
     /** [r/w]各軸のスケール(1000 で 1倍) */
     int _scale[3]; //[0]:X軸、[1]:Y軸、[2]:Z軸。以降同様に  [3]・・・X軸、Y軸、Z軸の意
     /** [r/w]各軸の目標のスケール */

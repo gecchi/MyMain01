@@ -15,28 +15,24 @@ Magic::Magic(const char*  prm_name, int* prm_pMP,
              magic_time   prm_time_of_casting_base , double prm_r_time_of_casting  ,
              magic_time   prm_time_of_invoking_base, double prm_r_time_of_invoking ,
              magic_time   prm_time_of_effect_base  , double prm_r_each_lv_time_of_effecting,
-             magic_point  prm_keep_cost_base       , double prm_r_each_lv_keep_cost) : GgafMainActor(prm_name, nullptr) {
-//    GgafDxGeometricActor* prm_pCaster,
-//     GgafDxGeometricActor* prm_pReceiver) : GgafDxBoardSetActor(prm_name, "magic") {
-    pMP_ = prm_pMP;
+             magic_point  prm_keep_cost_base       , double prm_r_each_lv_keep_cost) : GgafMainActor(prm_name, nullptr),
+pMP_(prm_pMP),
+cost_base_(prm_cost_base),
+time_of_casting_base_(prm_time_of_casting_base),
+time_of_invoking_base_(prm_time_of_invoking_base),
+time_of_effect_base_(prm_time_of_effect_base),
+keep_cost_base_(prm_keep_cost_base),
+r_cost_(prm_r_cost),
+r_time_of_casting_(prm_r_time_of_casting),
+r_time_of_invoking_(prm_r_time_of_invoking),
+r_each_lv_time_of_effecting_(prm_r_each_lv_time_of_effecting),
+r_keep_cost_(prm_r_each_lv_keep_cost) {
+
+    max_level_  = prm_max_level;
     new_level_  = 0;
     last_level_ = 0;
     level_      = 0;
     prev_frame_level_ = level_;
-    max_level_               = prm_max_level;
-    cost_base_               = prm_cost_base;
-    time_of_casting_base_    = prm_time_of_casting_base;
-    time_of_invoking_base_   = prm_time_of_invoking_base;
-    time_of_effect_base_     = prm_time_of_effect_base;
-    keep_cost_base_          = prm_keep_cost_base;
-
-    r_cost_              = prm_r_cost;
-    r_time_of_casting_   = prm_r_time_of_casting;
-    r_time_of_invoking_  = prm_r_time_of_invoking;
-
-    r_each_lv_time_of_effecting_ = prm_r_each_lv_time_of_effecting;
-    r_keep_cost_                 = prm_r_each_lv_keep_cost;
-
 
     //îÚÇ—ÉåÉxÉãç∑ï èÓïÒÇê›íË
     interest_cost_[0] = 0;

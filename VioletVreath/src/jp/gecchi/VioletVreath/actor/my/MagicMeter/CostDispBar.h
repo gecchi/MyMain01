@@ -12,10 +12,11 @@ public:
 //    GgafLib::PxQuantity* pCostValue_;
 
 public:
+
     /**
      *
      * @param prm_name
-     * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
+     * @param prm_pTargetSourceBar 表示元バー
      */
     CostDispBar(const char* prm_name, GgafLib::GraphBarActor* prm_pTargetSourceBar);
 

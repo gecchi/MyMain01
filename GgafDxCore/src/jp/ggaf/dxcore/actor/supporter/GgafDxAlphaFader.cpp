@@ -6,9 +6,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxAlphaFader::GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor) :
-    GgafObject() {
-    _pActor = prm_pActor;
+GgafDxAlphaFader::GgafDxAlphaFader(GgafDxDrawableActor* prm_pActor) : GgafObject(),
+_pActor(prm_pActor) {
 
     _alpha = 1.0f;
     _velo_alpha = 0.0f;

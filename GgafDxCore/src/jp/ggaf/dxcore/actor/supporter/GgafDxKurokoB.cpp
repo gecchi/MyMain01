@@ -10,9 +10,8 @@ using namespace GgafDxCore;
 // 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_X,_Y,_Z)にそれぞれの移動増分が
 // 加算される。
 
-GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) :
-    GgafObject() {
-    _pActor = prm_pActor;
+GgafDxKurokoB::GgafDxKurokoB(GgafDxGeometricActor* prm_pActor) : GgafObject(),
+_pActor(prm_pActor) {
 
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMv = 0;

@@ -6,6 +6,10 @@ namespace VioletVreath {
 
 /**
  * ストラエア .
+ * 機雷。
+ * @version 1.00
+ * @since 2009/04/23
+ * @author Masatoshi Tsuge
  */
 class EnemyStraea : public GgafLib::DefaultMeshActor {
 

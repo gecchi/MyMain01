@@ -30,30 +30,32 @@ void MagicMeterStatus::processDraw() {
     MagicMeter* pMM = pMagicMeter_;
     MagicList::Elem* pElem = pMM->lstMagic_.getElemFirst();
     Magic* pMagic;
-    int len_magics = pMM->lstMagic_.length();
-    coord mm_w = PX_C(pMM->width_px_);
-    coord mm_h = PX_C(pMM->height_px_);
-    float alpha1 = pMM->getAlpha()*4; //メータよりちょっと濃い目に表示
+    const int len_magics = pMM->lstMagic_.length();
+    const coord mm_w = PX_C(pMM->width_px_);
+    const coord mm_h = PX_C(pMM->height_px_);
+    const float alpha1 = pMM->getAlpha()*4; //メータよりちょっと濃い目に表示
+    const coord mm_X = pMM->_X;
+    const coord mm_Y = pMM->_Y;
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
         //各メーター下段表示（現在のレベルの残時間表示）
         if (pMagic->level_ > 0) {
             setAlpha(alpha1);
-            _X = pMM->_X + mm_w*i;
-            _Y = pMM->_Y + mm_h;
-            sprintf(aBuf_, "%06d", (pMagic->lvinfo_[pMagic->level_].remainingtime_of_effect_)/60);
+            _X = mm_X + mm_w*i;
+            _Y = mm_Y + mm_h;
+            sprintf(aBuf_, "%06d", (int)((pMagic->lvinfo_[pMagic->level_].remainingtime_of_effect_)*(1.0/60.0)));
             update(aBuf_);
             StringBoardActor::processDraw();
         }
 
-        _X = pMM->_X + mm_w*(i+1); //i+1 は右隣に表示
+        _X = mm_X + mm_w*(i+1); //i+1 は右隣に表示
         //各マジックレベル要素
         float rr = pMM->paFloat_rr_[i];
         if (rr > 0.1) {
             for (int j = 1; j <= pMagic->level_; j++) {
                 setAlpha(rr);
-                _Y = pMM->_Y - (mm_h*(j+1)*rr); //j+1 の +1 は最下段が nothing の為
-                sprintf(aBuf_, "%06d", (pMagic->lvinfo_[j].remainingtime_of_effect_)/60);
+                _Y = mm_Y - (mm_h*(j+1)*rr); //j+1 の +1 は最下段が nothing の為
+                sprintf(aBuf_, "%06d", (int)((pMagic->lvinfo_[j].remainingtime_of_effect_)*(1.0/60.0)));
                 update(aBuf_);
                 StringBoardActor::processDraw();
             }

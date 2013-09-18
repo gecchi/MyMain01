@@ -17,7 +17,7 @@ class GgafDxAlphaFader : public GgafCore::GgafObject {
 
 public:
     /** [r]対象アクター */
-    GgafDxDrawableActor* _pActor;
+    GgafDxDrawableActor* const _pActor;
 
     /** [r/w]αの強度(0:透明～1.0:不透明) */
     float _alpha;

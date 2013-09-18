@@ -27,7 +27,7 @@ public:
     };
 
     /** [r]アニメパターンテクスチャ */
-    GgafDxTexture* _pTexture;
+    GgafDxTexture* const _pTexture;
     /** [r/w]アニメパターン0番の左上基準U座標(0.0～1.0) */
     float _base_u;
     /** [r/w]アニメパターン0番の左上基準V座標(0.0～1.0) */

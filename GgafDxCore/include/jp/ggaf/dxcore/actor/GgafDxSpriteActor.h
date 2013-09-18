@@ -41,11 +41,11 @@ public:
      * @return
      */
     GgafDxSpriteActor(const char* prm_name,
-                       const char* prm_model_id,
-                       const char* prm_effect_id,
-                       const char* prm_technique,
-                       GgafCore::GgafStatus* prm_pStat,
-                       GgafDxChecker* prm_pChecker );
+                      const char* prm_model_id,
+                      const char* prm_effect_id,
+                      const char* prm_technique,
+                      GgafCore::GgafStatus* prm_pStat,
+                      GgafDxChecker* prm_pChecker );
 
     virtual void processDraw() override;
 

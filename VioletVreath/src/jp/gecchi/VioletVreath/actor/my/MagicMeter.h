@@ -88,13 +88,13 @@ public:
     float alpha_velo_;
 
     /** 魔法メーター１つの横幅(px) */
-    float width_px_;
+    const float width_px_;
     /** 魔法メーター１つの高さ(px) */
-    float height_px_;
+    const float height_px_;
     /** 魔法メーター１つの横幅 */
-    coord width_;
+    const coord width_;
     /** 魔法メーター１つの高さ */
-    coord height_;
+    const coord height_;
 
     std::stringstream st_[10];
 

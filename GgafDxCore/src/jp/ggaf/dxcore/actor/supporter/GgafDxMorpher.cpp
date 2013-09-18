@@ -7,9 +7,9 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxMorpher::GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor) :
-    GgafObject() {
-    _pActor = prm_pActor;
+GgafDxMorpher::GgafDxMorpher(GgafDxMorphMeshActor* prm_pActor) : GgafObject(),
+_pActor(prm_pActor) {
+
     reset();
 }
 

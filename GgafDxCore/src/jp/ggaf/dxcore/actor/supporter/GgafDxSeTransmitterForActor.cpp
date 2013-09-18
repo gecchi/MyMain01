@@ -14,9 +14,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxSeTransmitterForActor::GgafDxSeTransmitterForActor(GgafDxGeometricActor* prm_pActor) :
-        GgafDxSeTransmitter() {
-    _pActor = prm_pActor;
+GgafDxSeTransmitterForActor::GgafDxSeTransmitterForActor(GgafDxGeometricActor* prm_pActor) : GgafDxSeTransmitter() ,
+_pActor(prm_pActor) {
     _paBool_is_playing_3d = nullptr;
 }
 

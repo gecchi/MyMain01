@@ -29,7 +29,8 @@ namespace VioletVreath {
 #define MY_SHIP_VREATH_COST (5)
 //–³ŒÄ‹zŽž 10000/5/60 = –ñ33.3•b‚ÅŽ€‚Ê
 
-
+#define MY_SHIP_MAX_MP (30000)
+#define MY_SHIP_START_MP (MY_SHIP_MAX_MP/2)
 /**
  * Ž©‹@ƒNƒ‰ƒX
  * @version 1.00

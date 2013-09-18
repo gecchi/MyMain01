@@ -239,13 +239,12 @@ MyShip::MyShip(const char* prm_name) :
     is_just_change_way_ = true;
 
     //MP初期値
-    mp_ = 30000; //変更時onReset()も忘れるな
+    mp_ = MY_SHIP_START_MP;
     //mp_を変えると、内部参照する MpBar の表示が連動して変わる
 
     //Vreathは実値を _pStatus のSTAT_Stamina値を参照するように設定。
 //    vreath_.link( &(_pStatus->_paValue[STAT_Stamina]._int_val) );
     //STAT_Staminaが減れば、vreath_ が変化し、それを内部参照する VreathBar の表示が連動して変わる
-
 
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &(_pStatus->_paValue[STAT_Stamina]._int_val) );
@@ -308,7 +307,7 @@ void MyShip::onReset() {
     prev_way_ = WAY_NONE;
     way_switch_.reset();
 
-    mp_ = 30000;         //初期値は30000
+    mp_ = MY_SHIP_START_MP;
     _pStatus->reset();
 }
 
@@ -329,8 +328,15 @@ void MyShip::onInactive() {
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
     int pos_camera = P_VAM->pos_camera_;
+
     if (!can_control_) {
         return;
+    }
+
+    //息切れ
+    if (_pStatus->get(STAT_Stamina) < 0) {
+        _pStatus->set(STAT_Stamina, 0);
+        return; //操作不可
     }
 
     //VAMSystemの実装
@@ -555,9 +561,9 @@ void MyShip::processBehavior() {
         _Y_local += (_Y - pGeoMyShipPrev->_Y);
         _Z_local += (_Z - pGeoMyShipPrev->_Z);
     } else {
-        pRing_MyShipGeoHistory4OptCtrler_->next()->set(_X - _X_local ,
-                                                       _Y - _Y_local ,
-                                                       _Z - _Z_local);
+        pRing_MyShipGeoHistory4OptCtrler_->next()->set(_X - _X_local,
+                                                       _Y - _Y_local,
+                                                       _Z - _Z_local );
     }
 
     //毎フレームの呼吸の消費
@@ -620,12 +626,6 @@ void MyShip::processJudgement() {
 //        _TRACE_("自機消滅テスト");
 //        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
 //    }
-    //息切れで自機消滅
-    if (_pStatus->get(STAT_Stamina) <= 0) {
-        _pSeTx->play3D(SE_EXPLOSION);
-        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
-        //can_control_=falseになるはず
-    }
 
 
 
@@ -721,10 +721,6 @@ void MyShip::processJudgement() {
 ////        }
 //    }
 
-    if (_pStatus->get(STAT_Stamina) < 0) {
-        _pStatus->set(STAT_Stamina, 0);
-    }
-
 }
 
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
@@ -732,7 +728,8 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
     int vreath = _pStatus->get(STAT_Stamina);
     if (UTIL::calcMyStamina(this, pOther) <= 0) {
-        //ここに消滅エフェクト
+        _pSeTx->play3D(SE_EXPLOSION);
+        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
     int damage = vreath - _pStatus->get(STAT_Stamina);
     if (damage > 0){

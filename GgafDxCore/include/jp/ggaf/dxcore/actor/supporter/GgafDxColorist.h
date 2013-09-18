@@ -20,7 +20,7 @@ class GgafDxColorist : public GgafCore::GgafObject {
 
 public:
     /** 対象アクター */
-    GgafDxDrawableActor* _pActor;
+    GgafDxDrawableActor* const _pActor;
 
     /** 各色要素の強度(1000 で 1倍) */
     int _color[4]; //[0]:R色要素、[1]:G色要素、[2]:B色要素

@@ -6,9 +6,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxColorist::GgafDxColorist(GgafDxDrawableActor* prm_pActor) :
-    GgafObject() {
-    _pActor = prm_pActor;
+GgafDxColorist::GgafDxColorist(GgafDxDrawableActor* prm_pActor) : GgafObject(),
+_pActor(prm_pActor) {
 
     for (int c = 0; c < 4; c++) {
         _color[c] = LEN_UNIT;

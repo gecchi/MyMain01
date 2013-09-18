@@ -7,8 +7,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxUvFlipper::GgafDxUvFlipper(GgafDxTexture* prm_pTexture) : GgafObject() {
-    _pTexture = prm_pTexture;
+GgafDxUvFlipper::GgafDxUvFlipper(GgafDxTexture* prm_pTexture) : GgafObject(),
+_pTexture(prm_pTexture) {
     _pattno_uvflip_top = 0;
     _pattno_uvflip_max = 0;
     _pattno_uvflip_bottom = 0;

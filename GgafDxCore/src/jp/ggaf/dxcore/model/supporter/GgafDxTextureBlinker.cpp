@@ -7,9 +7,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxTextureBlinker::GgafDxTextureBlinker(GgafDxModel* prm_pModel) :
-    GgafObject() {
-    _pModel = prm_pModel;
+GgafDxTextureBlinker::GgafDxTextureBlinker(GgafDxModel* prm_pModel) : GgafObject(),
+_pModel(prm_pModel) {
     _power_blink = 1.0f;
     _velo_power_blink = 0.0f;
     _acce_power_blink = 0.0f;

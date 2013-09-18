@@ -21,7 +21,7 @@ class GgafDxTextureBlinker : public GgafCore::GgafObject {
 
 public:
     /** 対象アクター */
-    GgafDxModel* _pModel;
+    GgafDxModel* const _pModel;
 
     /** 色強度(0.0 ～ 100.0) */
     float _power_blink;

@@ -46,13 +46,12 @@ typedef frame magic_time;
  *   b) 詠唱：魔法詠唱開始→詠唱中→詠唱終了 (詠唱は途中でキャンセル可)  <BR>
  *   c) 発動：魔法発動開始→魔法中→魔法終了 (発動になるとキャンセル不可) <BR>
  *   d) 持続：魔法効果持続開始(コスト発生・効果発生) →効果持続中→果持続終了（魔法のレベルダウン）<BR>
- * ・魔法の種類には、即効性魔法、効果持続魔法 の２種類があります。
- *   さらに効果持続性魔法には、効果持続時間に維持コスト有り、維持コスト無しの２種類があります。<BR>
+ * ・魔法の種類には、「即効性魔法」、「効果持続性魔法」 の２種類があります。
  *   1)「即効性魔法」は 「d) 持続」のプロセスが無い魔法であり、レベルアップ・ダウンという概念が存在しません。<BR>
- *   2)「効果持続性魔法」は「d) 持続」中に設定された効果持続時間を超えると自動でレベルダウン(－１)します。<BR>
- *      2-a)「維持コスト有」は さらに「d) 持続」中にMPを消費します。もし、途中でMPが0になってしまった場合、
- *           強制的にレベル０にレベルダウンします。<BR>
- *      2-b)「維持コスト無」は 「d) 持続」中にMPを消費しません。途中でMPが0でもレベルダウンは起こりません。
+ *   2)「効果持続性魔法」は、「d) 持続」中、MP消費する「維持コスト有り」、MP消費しない「維持コスト無し」の２種類があります。
+ *      また、予め設定された効果持続時間を超えると自動でレベルダウン(－１)します。<BR>
+ *      2-a)「維持コスト有」は 「d) 持続」中にMPを消費し、もし途中でMPが0になってしまった場合、強制的にレベル0にまでレベルダウンします。<BR>
+ *      2-b)「維持コスト無」は 「d) 持続」中にMPを消費しません。途中でMPが0でもレベルダウンは起こりません。（効果持続時間切れのみで起こる）<BR>
  * @version 1.00
  * @since 2009/05/19
  * @author Masatoshi Tsuge
@@ -91,7 +90,11 @@ public:
     };
 
 public:
-    /** [r]最高上限レベル */
+
+    /** [r]マジックポイント */
+    int* const pMP_;
+
+    /** [r]現在の最高上限レベル */
     int max_level_;
     /** [r]現在のレベル(現在効果持続しているレベル、発動終了→効果持続開始のタイミングで切り替わる) */
     int level_;
@@ -102,32 +105,30 @@ public:
     /** [r]１フレーム前のレベル */
     int prev_frame_level_;
 
-    /** [r]マジックポイント */
-    int* pMP_;
-    /** [r]各レベルの情報 0～MMETER_MAX_LEVEL */
-    LevelInfo lvinfo_[MMETER_MAX_LEVEL+1];
-
     /** [r]本魔法発動に必要なコストの基本単位 */
-    magic_point cost_base_;
+    const magic_point cost_base_;
     /** [r]本魔法詠唱開始 ～ 魔法詠唱終了の基本単位時間  */
-    magic_time time_of_casting_base_;
+    const magic_time time_of_casting_base_;
     /** [r]本魔法発動開始 ～ 魔法発動終了の基本単位時間 */
-    magic_time time_of_invoking_base_;
+    const magic_time time_of_invoking_base_;
     /** [r]本魔法効果持続開始 ～ 魔法効果持続終了の基本単位時間  */
-    magic_time time_of_effect_base_;
+    const magic_time time_of_effect_base_;
     /** [r]本魔法効果持続中コストの基本単位  */
-    magic_point keep_cost_base_;
+    const magic_point keep_cost_base_;
 
     /** [r]飛びレベル時の魔法コスト削減割合(0.0～1.0) */
-    double r_cost_;
+    const double r_cost_;
     /** [r]飛びレベル時の詠唱時間削減割合(0.0～1.0) */
-    double r_time_of_casting_;
+    const double r_time_of_casting_;
     /** [r]飛びレベル時の発動時間削減割合(0.0～1.0) */
-    double r_time_of_invoking_;
+    const double r_time_of_invoking_;
     /** [r]各レベル毎の効果持続時間削減割合(0.0～1.0) */
-    double r_each_lv_time_of_effecting_;
+    const double r_each_lv_time_of_effecting_;
     /** [r]各レベル毎の維持コスト増加割合 (1.0～ )*/
-    double r_keep_cost_;
+    const double r_keep_cost_;
+
+    /** [r]各レベルの情報 0～MMETER_MAX_LEVEL */
+    LevelInfo lvinfo_[MMETER_MAX_LEVEL+1];
 
     /** [r]次の進捗状態になる為に必要なフレーム数(を一時保持) */
     magic_time time_of_next_state_;
@@ -151,7 +152,7 @@ public:
      * 飛びレベルとはレベル差が１より大きい(レベル差２以上)を指す。
      * @param prm_name 魔法名
      * @param prm_pMP マジックポイントの数量バー
-     * @param prm_max_level 本魔法の最高レベル 1～MMETER_MAX_LEVEL
+     * @param prm_max_level 本魔法の初期最高レベル 1～MMETER_MAX_LEVEL
      * @param prm_cost_base              基本魔法コスト
      * @param prm_r_cost                 飛びレベル時の魔法コスト削減割合 0.0～1.0
      *                                   (【例】1.0:飛びレベルでも割引無し、

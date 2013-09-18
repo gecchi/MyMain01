@@ -30,7 +30,7 @@ class GgafDxKurokoA : public GgafCore::GgafObject {
 
 public:
     /** [r]対象アクター */
-    GgafDxGeometricActor* _pActor;
+    GgafDxGeometricActor* const _pActor;
 
 public:
     /**

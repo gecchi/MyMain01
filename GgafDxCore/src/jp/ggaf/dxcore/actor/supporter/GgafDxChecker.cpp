@@ -8,14 +8,9 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxChecker::GgafDxChecker(GgafDxGeometricActor* prm_pActor) :
-    GgafObject() {
+GgafDxChecker::GgafDxChecker(GgafDxGeometricActor* prm_pActor) : GgafObject(),
+_pActor(prm_pActor) {
     _pCollisionArea = nullptr;
-    _pActor = prm_pActor;
-//    _blown_sgn_vX = 0;
-//    _blown_sgn_vY = 0;
-//    _blown_sgn_vZ = 0;
-//    _is_blown = false;
 }
 
 void GgafDxChecker::makeCollision(int prm_colli_part_num) {

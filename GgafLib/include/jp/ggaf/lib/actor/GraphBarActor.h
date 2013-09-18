@@ -37,17 +37,24 @@ public:
      * 内部のバーの値を保持する PxQuantity を置き換える .
      * @param prm_pPxQuantity
      */
-    void linkPxQuantity(PxQuantity* prm_pPxQuantity);
+    void linkQty(PxQuantity* prm_pPxQuantity);
 
     /**
      * バーの値に対するピクセル値を設定 .
      * @param prm_max_val バーの値の最大値
      * @param prm_max_val_px    バーの値の最大値に対する画面のピクセル値
      */
-    inline void graduate(int prm_min_val, int prm_max_val, pixcoord prm_max_val_px ) {
+
+    /**
+     * バーの値に対するピクセルの目盛りを付ける。
+     * @param prm_min_val バー最小値を設定（これ以下の値はセットできなくなる）
+     * @param prm_max_val バー最大値を設定（これ以上の値はセットできなくなる）
+     * @param prm_px_from_min_to_max 最小値～最大値の画面上のピクセル幅を設定
+     */
+    inline void graduate(int prm_min_val, int prm_max_val, pixcoord prm_px_from_min_to_max ) {
         _min_val = prm_min_val;
         _max_val = prm_max_val;
-        _pPxQuantity->graduate(prm_max_val, prm_max_val_px);
+        _pPxQuantity->graduate(prm_max_val - prm_min_val, prm_px_from_min_to_max);
     }
 
     /**

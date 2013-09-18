@@ -1,20 +1,20 @@
 #include "stdafx.h"
 #include "MgrWorld.h"
 
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/LinearOctreeForActor.h"
+#include "jp/ggaf/lib/util/PxQuantity.h"
+#include "jp/ggaf/lib/util/VirtualButton.h"
 #include "actor/LabelGecchi16Font.h"
 #include "actor/MgrActor.h"
 #include "actor/Mikata001.h"
 #include "actor/Teki001.h"
 #include "actor/TestActor.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
-#include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
-#include "jp/ggaf/lib/util/LinearOctreeForActor.h"
-#include "jp/ggaf/lib/util/VirtualButton.h"
-#include "util/MgrUtil.h"
-#include "jp/ggaf/lib/util/PxQuantity.h"
 #include "actor/TestBar.h"
 #include "actor/TestCappedBar.h"
+#include "util/MgrUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -37,15 +37,15 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     qtyMp_.link(&mp_);
     pTestBar_ = NEW TestBar("TEST1");
     pTestBar_->setValign(VALIGN_MIDDLE);
-    pTestBar_->linkPxQuantity(&qtyMp_);
-    pTestBar_->graduate(-200, 200, 200);
+    pTestBar_->linkQty(&qtyMp_);
+    pTestBar_->graduate(-200, 200, 400);
     pTestBar_->position(C_X, C_Y);
     getSceneDirector()->addSubGroup(pTestBar_);
 
     TestCappedBar* pBar_ = NEW TestCappedBar("TEST1");
     pBar_->setValign(VALIGN_MIDDLE);
-    pBar_->linkPxQuantity(&qtyMp_);
-    pBar_->graduate(-200, 200, 200);
+    pBar_->linkQty(&qtyMp_);
+    pBar_->graduate(-200, 200, 400);
     pBar_->position(C_X, C_Y+PX_C(100));
     getSceneDirector()->addSubGroup(pBar_);
 

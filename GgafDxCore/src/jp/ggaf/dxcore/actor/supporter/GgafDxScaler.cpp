@@ -7,9 +7,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxScaler::GgafDxScaler(GgafDxGeometricActor* prm_pActor) :
-    GgafObject() {
-    _pActor = prm_pActor;
+GgafDxScaler::GgafDxScaler(GgafDxGeometricActor* prm_pActor) : GgafObject(),
+_pActor(prm_pActor) {
 
     for (int ax = 0; ax < 3; ax++) {
         _scale[ax] = R_SC(1.0);

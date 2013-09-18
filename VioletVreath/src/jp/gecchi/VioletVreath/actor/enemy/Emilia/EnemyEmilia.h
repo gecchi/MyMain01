@@ -6,7 +6,7 @@ namespace VioletVreath {
 
 /**
  * エミリア  .
- * 隕石群の隕石（旧エミリア）
+ * 隕石群の隕石
  * @version 1.00
  * @since 2011/10/15
  * @author Masatoshi Tsuge

@@ -132,13 +132,14 @@ void MyShipScene::processBehavior() {
 
                 //VreathMagicをデフォルトでレベル１に設定
                 MagicMeter* pMM = pMyShip_->pMagicMeter_;
-                int idx = pMM->lstMagic_.indexOf(pMyShip_->pMagicMeter_->pVreathMagic_);
+                int idx = pMM->lstMagic_.indexOf(pMM->pVreathMagic_);
                 if (idx >= 0) {
                     pMM->pVreathMagic_->effect(1);
                     pMM->papLvTargetCursor_[idx]->moveSmoothTo(1); //カーソル
                     pMM->papLvHilightCursor_[idx]->moveSmoothTo(1); //カーソル
+                } else {
+                    throwGgafCriticalException("VreathMagicがありません。");
                 }
-
 
                 pMyShip_->_X = Universe::_X_gone_left + 1000;
                 pMyShip_->can_control_ = true;
@@ -185,7 +186,7 @@ void MyShipScene::processBehavior() {
                    _pProg->changeNothing();
                    inactivate();
                 } else {
-                   throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
+                   throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);//←現在未使用
                    _pProg->change(MyShipScene::PROG_BEGIN);
                 }
             }

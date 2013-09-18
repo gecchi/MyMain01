@@ -19,7 +19,7 @@ class GgafDxMorpher : public GgafCore::GgafObject {
 
 public:
     /** [r]対象アクター */
-    GgafDxMorphMeshActor* _pActor;
+    GgafDxMorphMeshActor* const _pActor;
     /** [r/w]各モーフターゲットの重み(0.0 ～ 1.0) */
     float _weight[MAX_MORPH_TARGET+1];
     /** [r/w]各モーフターゲットへ設定された目標の重み(0.0 ～ 1.0) */

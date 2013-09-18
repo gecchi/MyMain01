@@ -87,22 +87,6 @@ public:
         return (pixcoord)((*_pInt_val) * _rate_val);
     }
 
-    /**
-     * メーター値を加算 .
-     * @param prm_val メーター加算値
-     */
-    inline void inc(int prm_val) {
-        *_pInt_val += prm_val;
-    }
-
-    /**
-     * メーター値を減算 .
-     * @param prm_val メーター加算値
-     */
-    inline void dec(int prm_val) {
-        *_pInt_val -= prm_val;
-    }
-
     virtual ~PxQuantity() {
         if (_is_new) {
             GGAF_DELETE(_pInt_val);

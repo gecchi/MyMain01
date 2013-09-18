@@ -7,9 +7,9 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) :
-    GgafObject() {
-    _pActor = prm_pActor;
+GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) : GgafObject(),
+_pActor(prm_pActor) {
+
     for (int i = 0; i < 3; i++) { // i=0:XŽ²A1:YŽ²A2:ZŽ² ‚ð•\‚·
         //³–Ê•ûŠp
         _angFace[i] = 0; //0 angle ‚Í ‚RŽž‚Ì•ûŠp‚ðŒü‚¢‚Ä‚¢‚é

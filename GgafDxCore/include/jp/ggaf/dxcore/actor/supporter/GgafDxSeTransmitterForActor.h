@@ -30,7 +30,7 @@ public:
     /** [r/w]各SE（配列）は、擬似３D再生かどうかを保持 */
     bool* _paBool_is_playing_3d;
     /** [r]SE発生元アクター */
-    GgafDxGeometricActor* _pActor;
+    GgafDxGeometricActor* const _pActor;
 
 public:
     /**

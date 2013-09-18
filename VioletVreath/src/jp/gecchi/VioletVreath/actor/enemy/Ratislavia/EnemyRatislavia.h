@@ -9,7 +9,7 @@ HASHVAL(RATISLAVIA_EXPLOSION);
 
 /**
  * ラティスラヴィア .
- * 最初に作った地形ラティスラヴィア
+ * 最初に作った地形（旧トーラス）
  * @version 1.00
  * @since 2010/05/08
  * @author Masatoshi Tsuge

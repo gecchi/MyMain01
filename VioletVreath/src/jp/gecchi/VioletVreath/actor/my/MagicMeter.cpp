@@ -36,14 +36,14 @@ using namespace VioletVreath;
 
 
 MagicMeter::MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVreath_MyShip)
-      : DefaultBoardSetActor(prm_name, "MagicMeter") {
-    _class_name = "MagicMeter";
-    width_px_ = _pBoardSetModel->_fSize_BoardSetModelWidthPx;
-    height_px_ = _pBoardSetModel->_fSize_BoardSetModelHeightPx;
-    width_ = PX_C(width_px_);
-    height_ = PX_C(height_px_);
+      : DefaultBoardSetActor(prm_name, "MagicMeter"),
+width_px_(_pBoardSetModel->_fSize_BoardSetModelWidthPx),
+height_px_(_pBoardSetModel->_fSize_BoardSetModelHeightPx),
+width_(PX_C(width_px_)),
+height_(PX_C(height_px_)) {
 
-    pTractorMagic_ = NEW TractorMagic("TRACTOR", prm_pMP_MyShip);
+    _class_name = "MagicMeter";
+    pTractorMagic_ = NEW TractorMagic("TRACTOR", prm_pMP_MyShip); //維持コスト有り
     pSpeedMagic_   = NEW SpeedMagic("SPEED", prm_pMP_MyShip);
     pLockonMagic_  = NEW LockonMagic("LOCKON", prm_pMP_MyShip);
     pTorpedoMagic_ = NEW TorpedoMagic("TORPEDO", prm_pMP_MyShip);
@@ -97,28 +97,31 @@ MagicMeter::MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVrea
         addSubGroup(papLvTargetCursor_[i]); //メータ補助カーソル
     }
 
-    //エネルギーバー設置
+    pixcoord mp_px = 800;
+    int vreath_val = *prm_pVreath_MyShip; //最初が満タンだからこれを使用
+    pixcoord vreath_px = mp_px;
+    //MPバー設置
     pMpBar_ = NEW MpBar("MpBar");
     pMpBar_->_pPxQuantity->link(prm_pMP_MyShip);
-    pMpBar_->graduate(0, (*prm_pMP_MyShip), 600); //現在値で画面表示は600pxとする。
+    pMpBar_->graduate(0, MY_SHIP_MAX_MP, mp_px); //現在値で画面表示は600pxとする。
     addSubGroup(pMpBar_);
     //Vreathバー設置
     pVreathBar_ = NEW VreathBar("VreathBar");
     pVreathBar_->_pPxQuantity->link(prm_pVreath_MyShip);
-    pVreathBar_->graduate(0, (*prm_pVreath_MyShip), 600); //現在値で画面表示は600pxとする。
+    pVreathBar_->graduate(0, vreath_val, vreath_px); //現在値で画面表示は600pxとする。
     addSubGroup(pVreathBar_);
 
     //エネルギーバーのコスト表示バー
     pMpCostDispBar_ = NEW CostDispBar("CostDispBar", pMpBar_);
-    pMpCostDispBar_->graduate(-1*(*prm_pMP_MyShip), (*prm_pMP_MyShip), 600); //上と合わせる事
+    pMpCostDispBar_->graduate(-MY_SHIP_MAX_MP, +MY_SHIP_MAX_MP, mp_px*2);
     addSubGroup(pMpCostDispBar_);
     //Vreathバー、コスト表示バー
     pVreathCostDispBar_ = NEW CostDispBar("CostDispBar2", pVreathBar_);
-    pVreathCostDispBar_->graduate(-1*(*prm_pVreath_MyShip), (*prm_pVreath_MyShip), 600);  //上と合わせる事
+    pVreathCostDispBar_->graduate(-vreath_val, +vreath_val, vreath_px*2);
     addSubGroup(pVreathCostDispBar_);
     //Vreathバー、ダメージ表示バー
     pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_);
-    pDamageDispBar_->graduate(-1*(*prm_pVreath_MyShip), (*prm_pVreath_MyShip), 600);  //上と合わせる事
+    pDamageDispBar_->graduate(-vreath_val, +vreath_val, vreath_px*2);
     addSubGroup(pDamageDispBar_);
 
 
@@ -572,7 +575,7 @@ void MagicMeter::onInactive() {
 }
 
 void MagicMeter::processDraw() {
-    GgafDxBoardSetEffect* pBoardSetEffect = _pBoardSetEffect;
+    GgafDxBoardSetEffect* const pBoardSetEffect = _pBoardSetEffect;
     ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
     //パワーメーター
