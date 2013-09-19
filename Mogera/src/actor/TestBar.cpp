@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "TestBar.h"
 
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/lib/util/PxQuantity.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

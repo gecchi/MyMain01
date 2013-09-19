@@ -9,7 +9,22 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
+CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name),
+
+P_COMMON_DEPO(EffectExplosion001) (NEW GgafActorDepository("CommonDepo_Explosion001") ),
+P_COMMON_DEPO(EffectExplosion002) ( NEW GgafActorDepository("CommonDepo_Explosion002") ),
+P_COMMON_DEPO(EffectExplosion003) ( NEW GgafActorDepository("CommonDepo_Explosion003") ),
+P_COMMON_DEPO(EffectExplosion004) ( NEW GgafActorDepository("CommonDepo_Explosion004") ),
+P_COMMON_DEPO(MagicPointItem001) ( NEW GgafActorDepository("CommonDepo_MagicPointItem001") ),
+P_COMMON_DEPO(MagicPointItem002) ( NEW GgafActorDepository("CommonDepo_MagicPointItem002") ),
+P_COMMON_DEPO(MagicPointItem003) ( NEW GgafActorDepository("CommonDepo_MagicPointItem003") ),
+P_COMMON_DEPO(EffectTurbo002) ( NEW GgafActorDepository("CommonDepo_EffectTurbo002") ),
+P_COMMON_DEPO(EffectEntry001) ( NEW GgafActorDepository("CommonDepo_EffectEntry001") ),
+P_COMMON_DEPO(EffectEntry002) ( NEW GgafActorDepository("CommonDepo_EffectEntry002") ),
+P_COMMON_DEPO(EffectEntry003) ( NEW GgafActorDepository("CommonDepo_EffectEntry003") ),
+P_COMMON_DEPO(SpriteLabelBonus001) ( NEW GgafActorDepository("CommonDepo_SpriteLabelBonus001") ),
+P_COMMON_DEPO(Shot004) ( NEW GgafActorDepository("CommonDepo_Shot004") )
+{
     _class_name = "CommonScene";
 
     //全シーンに渡って常時使用な汎用的なアクター類は
@@ -17,7 +32,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //汎用爆発エフェクト EffectExplosion001
     {
-        P_COMMON_DEPO(EffectExplosion001) = NEW GgafActorDepository("CommonDepo_Explosion001");
+//        P_COMMON_DEPO(EffectExplosion001) = NEW GgafActorDepository("CommonDepo_Explosion001");
         for (int i = 0; i < 300; i++) {
             std::string name = "EffectExplosion001("+XTOS(i)+")";
             P_COMMON_DEPO(EffectExplosion001)->addSubLast(NEW EffectExplosion001(name.c_str()));
@@ -27,7 +42,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //汎用爆発エフェクト EffectExplosion002
     {
-        P_COMMON_DEPO(EffectExplosion002) = NEW GgafActorDepository("CommonDepo_Explosion002");
         for (int i = 0; i < 100; i++) {
             std::string name = "EffectExplosion002("+XTOS(i)+")";
             P_COMMON_DEPO(EffectExplosion002)->addSubLast(NEW EffectExplosion002(name.c_str()));
@@ -36,7 +50,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     }
     //汎用爆発エフェクト EffectExplosion003
     {
-        P_COMMON_DEPO(EffectExplosion003) = NEW GgafActorDepository("CommonDepo_Explosion003");
         for (int i = 0; i < 10; i++) {
             std::string name = "EffectExplosion003("+XTOS(i)+")";
             P_COMMON_DEPO(EffectExplosion003)->addSubLast(NEW EffectExplosion003(name.c_str()));
@@ -46,7 +59,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //汎用爆発エフェクト大 EffectExplosion004
     {
-        P_COMMON_DEPO(EffectExplosion004) = NEW GgafActorDepository("CommonDepo_Explosion004");
         for (int i = 0; i < 100; i++) {
             std::string name = "EffectExplosion004("+XTOS(i)+")";
             P_COMMON_DEPO(EffectExplosion004)->addSubLast(NEW EffectExplosion004(name.c_str()));
@@ -56,7 +68,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //アイテム小
     { //P_COMMON_DEPO(MagicPointItem001)
-        P_COMMON_DEPO(MagicPointItem001) = NEW GgafActorDepository("CommonDepo_MagicPointItem001");
         for (int i = 0; i < 400; i++) {
             std::string name = "MagicPointItem001("+XTOS(i)+")";
             P_COMMON_DEPO(MagicPointItem001)->addSubLast(NEW MagicPointItem001(name.c_str()));
@@ -66,7 +77,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //アイテム中
     { //P_COMMON_DEPO(MagicPointItem002)
-        P_COMMON_DEPO(MagicPointItem002) = NEW GgafActorDepository("CommonDepo_MagicPointItem002");
         for (int i = 0; i < 30; i++) {
             std::string name = "MagicPointItem002("+XTOS(i)+")";
             P_COMMON_DEPO(MagicPointItem002)->addSubLast(NEW MagicPointItem002(name.c_str()));
@@ -76,7 +86,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //アイテム大
     { //P_COMMON_DEPO(MagicPointItem003)
-        P_COMMON_DEPO(MagicPointItem003) = NEW GgafActorDepository("CommonDepo_MagicPointItem003");
         for (int i = 0; i < 10; i++) {
             std::string name = "MagicPointItem003("+XTOS(i)+")";
             P_COMMON_DEPO(MagicPointItem003)->addSubLast(NEW MagicPointItem003(name.c_str()));
@@ -85,7 +94,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     }
 
     { //Effect EffectTurbo002 ターボ噴射
-        P_COMMON_DEPO(EffectTurbo002) = NEW GgafActorDepository("CommonDepo_EffectTurbo002");
         for (int i = 0; i < 10; i++) {
             std::string name = "EffectTurbo002("+XTOS(i)+")";
             P_COMMON_DEPO(EffectTurbo002)->addSubLast(NEW EffectTurbo002(name.c_str()));
@@ -96,7 +104,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //汎用出現エフェクト EffectEntry001
     {
-        P_COMMON_DEPO(EffectEntry001) = NEW GgafActorDepository("CommonDepo_EffectEntry001");
         for (int i = 0; i < 200; i++) {
             std::string name = "EffectEntry001("+XTOS(i)+")";
             P_COMMON_DEPO(EffectEntry001)->addSubLast(NEW EffectEntry001(name.c_str()));
@@ -106,7 +113,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //汎用出現エフェクト EffectEntry002
     {
-        P_COMMON_DEPO(EffectEntry002) = NEW GgafActorDepository("CommonDepo_EffectEntry002");
         for (int i = 0; i < 30; i++) {
             std::string name = "EffectEntry002("+XTOS(i)+")";
             P_COMMON_DEPO(EffectEntry002)->addSubLast(NEW EffectEntry002(name.c_str()));
@@ -115,7 +121,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     }
     //汎用出現エフェクト EffectEntry003
     {
-        P_COMMON_DEPO(EffectEntry003) = NEW GgafActorDepository("CommonDepo_EffectEntry003");
         for (int i = 0; i < 30; i++) {
             std::string name = "EffectEntry003("+XTOS(i)+")";
             P_COMMON_DEPO(EffectEntry003)->addSubLast(NEW EffectEntry003(name.c_str()));
@@ -125,7 +130,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //ボーナスポイント表示エフェクト
     {
-        P_COMMON_DEPO(SpriteLabelBonus001) = NEW GgafActorDepository("CommonDepo_SpriteLabelBonus001");
         for (int i = 0; i < 40; i++) {
             std::string name = "SpriteLabelBonus001("+XTOS(i)+")";
             P_COMMON_DEPO(SpriteLabelBonus001)->addSubLast(NEW SpriteLabelBonus001(name.c_str()));
@@ -135,7 +139,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     //汎用ショット
     {
-        P_COMMON_DEPO(Shot004) = NEW GgafActorDepository("CommonDepo_Shot004");
         for (int i = 0; i < 800; i++) {
             std::string name = "Shot004("+XTOS(i)+")";
             P_COMMON_DEPO(Shot004)->addSubLast(NEW Shot004(name.c_str()));
