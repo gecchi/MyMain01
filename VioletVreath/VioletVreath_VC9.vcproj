@@ -690,10 +690,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\EnergyBar.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001.cpp"
 				>
 			</File>
@@ -890,10 +886,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\GraphBar.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.cpp"
 				>
 			</File>
@@ -1067,6 +1059,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.cpp"
 				>
 			</File>
 			<File
@@ -2024,10 +2020,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\EnergyBar.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\template\Formation001.hpp"
 				>
 			</File>
@@ -2228,10 +2220,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\GraphBar.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.h"
 				>
 			</File>
@@ -2405,6 +2393,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.h"
 				>
 			</File>
 			<File

@@ -2,8 +2,6 @@
 #define CURSORCONFIRMMENU_H_
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
-
-
 namespace VioletVreath {
 
 /**

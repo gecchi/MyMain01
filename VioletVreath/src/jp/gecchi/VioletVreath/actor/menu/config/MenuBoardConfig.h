@@ -2,7 +2,6 @@
 #define MENUBOARDCONFIG_H_
 #include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
 
-
 namespace VioletVreath {
 
 /**

@@ -26,7 +26,6 @@ public:
     int ITEM_INDEX_OK_;
     int ITEM_INDEX_CANCEL_;
 
-
     struct VBProperty {
         LabelFix16Font01* pKey;
         LabelFix16Font01* pJoy;

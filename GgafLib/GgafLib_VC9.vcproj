@@ -178,10 +178,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\jp\ggaf\lib\util\AmountGraph.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\jp\ggaf\lib\util\ColliAAB.cpp"
 				>
 			</File>
@@ -318,6 +314,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jp\ggaf\lib\actor\GraphBarActor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\lib\actor\GraphCappedBarActor.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\jp\ggaf\lib\actor\laserchip\HomingLaserChip.cpp"
 				>
 			</File>
@@ -331,6 +335,10 @@
 			</File>
 			<File
 				RelativePath=".\src\jp\ggaf\lib\util\LinearOctreeForActor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jp\ggaf\lib\util\PxQuantity.cpp"
 				>
 			</File>
 			<File
@@ -480,10 +488,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\util\AmountGraph.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\jp\ggaf\lib\util\ColliAAB.h"
 				>
 			</File>
@@ -624,11 +628,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\GgafLibHeader.h"
+				RelativePath=".\include\jp\ggaf\lib\GgafLibProperties.h"
 				>
 			</File>
 			<File
-				RelativePath=".\include\jp\ggaf\lib\GgafLibProperties.h"
+				RelativePath=".\include\jp\ggaf\lib\actor\GraphBarActor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\lib\actor\GraphCappedBarActor.h"
 				>
 			</File>
 			<File
@@ -653,6 +661,10 @@
 			</File>
 			<File
 				RelativePath=".\include\jp\ggaf\lib\actor\menu\MenuActor.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\include\jp\ggaf\lib\util\PxQuantity.h"
 				>
 			</File>
 			<File
