@@ -12,6 +12,7 @@ using namespace VioletVreath;
 CursorNameEntryMenu::CursorNameEntryMenu(const char* prm_name) : DefaultBoardActor(prm_name, "Cursor001") {
     _class_name = "CursorNameEntryMenu";
 }
+
 void CursorNameEntryMenu::initialize() {
     _pUvFlipper->exec(FLIP_OSCILLATE_LOOP, 10);
 }

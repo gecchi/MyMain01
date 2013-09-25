@@ -11,6 +11,7 @@
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController.h"
 #include "jp/gecchi/VioletVreath/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelScoreFont.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -24,19 +25,19 @@ using namespace VioletVreath;
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameMainScene";
 
-    pLabelG_SCORE = NEW LabelGecchi16Font("SCORE");
+    pLabelG_SCORE = NEW LabelScoreFont("SCORE");
     pLabelG_SCORE->setAlign(ALIGN_RIGHT, VALIGN_TOP);
     pLabelG_SCORE->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(1));
     getSceneDirector()->addSubGroup(pLabelG_SCORE);
 
     pLabelG_RANK = NEW LabelGecchi16Font("RANK");
     pLabelG_RANK->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-    pLabelG_RANK->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(20));
+    pLabelG_RANK->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(30));
     getSceneDirector()->addSubGroup(pLabelG_RANK);
 
     pLabel_STAMINA_ = NEW LabelGecchi16Font("STAMINA");
     pLabel_STAMINA_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-    pLabel_STAMINA_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(40));
+    pLabel_STAMINA_->position(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(50));
     getSceneDirector()->addSubGroup(pLabel_STAMINA_);
 
     pLabel_JIKI_X_ = NEW LabelGecchi8Font("JIKI_X");
@@ -67,7 +68,8 @@ void GameMainScene::initialize() {
 void GameMainScene::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
     //SCORE•\Ž¦
-    sprintf(buf_, "SCORE %07u", G_SCORE);
+    //sprintf(buf_, "SCORE %07u", G_SCORE);
+    sprintf(buf_, "%07u", G_SCORE);
     pLabelG_SCORE->update(buf_);
     sprintf(buf_, "RANK %.7f", G_RANK);
     pLabelG_RANK->update(buf_);

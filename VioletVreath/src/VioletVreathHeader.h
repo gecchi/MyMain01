@@ -402,6 +402,8 @@ class LabelMenuTitleFont01;
 class LabelMenuItemFont01;
 class LabelRankFont;
 class LabelRankingFont;
+class LabelScoreFont;
+
 class SpriteLabelTest;
 class SpriteLabelGecchi32Font;
 class SpriteLabelBonus001;

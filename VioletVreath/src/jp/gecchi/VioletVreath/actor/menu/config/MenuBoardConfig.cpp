@@ -31,7 +31,6 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
            ")***********+\n"
            ")***********+\n"
            "-.........../");
-
     //メニューアイテム（選択可）設定
     const char* apItemStr[] = {
           "KEY CONFIG",
@@ -61,11 +60,17 @@ MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
 
     addSubMenu(NEW MenuBoardKeyConfig("key_config"));       //0番
     addSubMenu(NEW MenuBoardSoundConfig("sound_config"));   //1番
-    addSubMenu(NEW MenuBoardScreenConfig("screen_config"));   //2番
+    addSubMenu(NEW MenuBoardScreenConfig("screen_config")); //2番
 }
+
+void MenuBoardConfig::onActive() {
+    _TRACE_("MenuBoardConfig::onActive()!");
+}
+
 bool MenuBoardConfig::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
 }
+
 bool MenuBoardConfig::condSelectPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
@@ -73,6 +78,10 @@ bool MenuBoardConfig::condSelectPrev() {
 void MenuBoardConfig::onRise() {
     selectItem(ITEM_KEY_CONFIG); //カーソルの初期選択アイテムを設定
     MenuBoard::onRise();
+}
+
+void MenuBoardConfig::onRiseDone() {
+    _TRACE_("MenuBoardConfig::onRiseDone()!");
 }
 
 void MenuBoardConfig::processBehavior() {
@@ -90,7 +99,12 @@ void MenuBoardConfig::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int
         riseSubMenu(2,  PX_C(50), PX_C(10)); //screen configメニュー起動
     }
 }
+
 void MenuBoardConfig::onCancel(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
+}
+
+void MenuBoardConfig::onSinkDone() {
+    _TRACE_("MenuBoardConfig::onSinkDone()!");
 }
 
 MenuBoardConfig::~MenuBoardConfig() {

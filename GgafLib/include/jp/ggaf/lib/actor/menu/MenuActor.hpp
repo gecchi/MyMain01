@@ -741,6 +741,12 @@ public:
     virtual void processRising();
 
     /**
+     * メニュー表示完了時のコールバック .
+     * 必要に応じてオーバーライドしてください。<BR>
+     */
+    virtual void onRiseDone();
+
+    /**
      * 状態フラグ更新を追加のためオーバーライド .
      * 内部で T::nextFrame(); もコールしています。
      */
@@ -818,6 +824,13 @@ public:
      * を実行してください。<BR>
      */
     virtual void processSinking();
+
+    /**
+     * メニューを消去完了時のコールバック .
+     * processSinking()中、_with_sinking = false; になった瞬間にコールされます。
+     * 必要に応じてオーバーライドしてください。<BR>
+     */
+    virtual void onSinkDone();
 
     /**
      * サブメニューを追加する。
@@ -1473,8 +1486,14 @@ void MenuActor<T>::processRising() {
     if (T::getAlpha() >= 1.0) {
         T::setAlpha(1.0);
         _with_rising = false;
+        onRiseDone();
     }
 }
+
+template<class T>
+void MenuActor<T>::onRiseDone() {
+}
+
 
 template<class T>
 void MenuActor<T>::processBehavior() {
@@ -1620,7 +1639,12 @@ void MenuActor<T>::processSinking() {
         T::setAlpha(0.0);
         _with_sinking = false;
         T::inactivateTree();
+        onSinkDone(); //コールバック
     }
+}
+
+template<class T>
+void MenuActor<T>::onSinkDone() {
 }
 
 template<class T>

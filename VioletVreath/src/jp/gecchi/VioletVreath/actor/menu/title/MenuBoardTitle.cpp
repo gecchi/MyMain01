@@ -34,6 +34,8 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     for (int i = ITEM_GAME_START; i <= ITEM_QUIT; i++) {
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
+        pLabel->_pAFader->setAlpha(0.7);
+        pLabel->_pAFader->behave();
         addItem(pLabel, PX_C(100), PX_C(40+(i*18)));
     }
     //キャンセル押下時移動先アイテム
@@ -66,12 +68,11 @@ bool MenuBoardTitle::condSelectrExPrev() {
 }
 
 void MenuBoardTitle::onSelect(int prm_from, int prm_to) {
-
     if (prm_from > -1) {
         //非選択項目は点滅させない
         //で、ちょっと暗く
         getItem(prm_from)->_pAFader->reset();
-        getItem(prm_from)->_pAFader->setAlpha(0.6);
+        getItem(prm_from)->_pAFader->setAlpha(0.7);
         getItem(prm_from)->_pAFader->behave();
     }
     //選択項目を点滅

@@ -72,7 +72,7 @@ void MyStraightLaserChip001::onActive() {
             lockon_st_ = 1;
         } else {
             //先端以外
-            lockon_st_ = ((MyStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
+            lockon_st_ = ((MyStraightLaserChip001*)_pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
         if (_pChip_front == nullptr) {
@@ -80,7 +80,7 @@ void MyStraightLaserChip001::onActive() {
             lockon_st_ = 0;
         } else {
             //先端以外
-            lockon_st_ = ((MyStraightLaserChip001*) _pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
+            lockon_st_ = ((MyStraightLaserChip001*)_pChip_front)->lockon_st_;//一つ前のロックオン情報を引き継ぐ
         }
     }
 }
