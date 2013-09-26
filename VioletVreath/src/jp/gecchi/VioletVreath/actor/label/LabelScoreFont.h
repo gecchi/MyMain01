@@ -14,13 +14,15 @@ class LabelScoreFont : public GgafLib::StringBoardActor {
 public:
     static int blur_no_[600];
     static int bn_;
+    int* bk_draw_string_;
     int num_pno_;
 public:
     LabelScoreFont(const char* prm_name);
 
     void processBehavior() override;
 
-    void processDraw() override;
+    void processPreDraw() override;
+    void processAfterDraw() override;
 
     virtual ~LabelScoreFont();
 

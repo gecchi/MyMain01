@@ -102,7 +102,14 @@ void NameEntryScene::processBehavior() {
                                                                  TURN_COUNTERCLOCKWISE, false);//急いで正常姿勢へ
                 pLabelInputedName_->_pKurokoA->turnRxSpinAngTo(D0ANG, 8000, 0, TURN_COUNTERCLOCKWISE);
                 //ここでハイスコア更新処理
-                inputed_name_ = std::string(pLabelInputedName_->_draw_string); //入力文字
+                char* cstr = NEW char[pLabelInputedName_->_len + 1];
+                for (int i = 0; i < pLabelInputedName_->_len; i++) {
+                    cstr[i] = pLabelInputedName_->_draw_string[i];
+                };
+                cstr[pLabelInputedName_->_len] = '\0';
+
+                inputed_name_ = std::string(cstr); //入力文字
+                GGAF_DELETEARR(cstr);
                 G_RANKING.addRow(inputed_name_, G_SCORE);
                 G_RANKING.sort();
                 G_RANKING.save();

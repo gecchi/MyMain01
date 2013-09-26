@@ -11,14 +11,16 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
+#define GgafDxStringSpriteActor_MAX_LEN (256)
+
 GgafDxStringSpriteActor::GgafDxStringSpriteActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
         GgafDxSpriteSetActor(prm_name, prm_model, "StringSpriteEffect", "StringSpriteTechnique", prm_pStat, nullptr) {
 
     _class_name = "GgafDxStringSpriteActor";
     _chr_ptn_zero = (int)(' ');
     _len = 0;
-    _buf = NEW char[1024];
-    _buf[0] = '\0';
+    _buf = NEW int[GgafDxStringSpriteActor_MAX_LEN];
+    _buf[0] = (int)('\0');
     _draw_string = _buf;
     //デフォルトの１文字の幅(px)設定
     for (int i = 0; i < 256; i++) {
@@ -57,8 +59,9 @@ void GgafDxStringSpriteActor::update(coord X, coord Y, coord Z, char* prm_str) {
 void GgafDxStringSpriteActor::update(const char* prm_str) {
     _len = strlen(prm_str);
 #ifdef MY_DEBUG
-    if (_len+1 > 1024 - 1) {
-        throwGgafCriticalException("GgafDxStringSpriteActor::update 引数文字列数が範囲外です。name="<<getName());
+    if (_len+1 > GgafDxStringSpriteActor_MAX_LEN - 1) {
+        throwGgafCriticalException("GgafDxStringSpriteActor::update 引数文字列数が範囲外です。name="<<getName()<<
+                                   " 上限文字数="<<GgafDxStringSpriteActor_MAX_LEN<<" prm_str="<<prm_str);
     }
 #endif
     _draw_string = _buf;
@@ -83,10 +86,10 @@ void GgafDxStringSpriteActor::update(const char* prm_str) {
         }
 #ifdef MY_DEBUG
         if (nn > 256) {
-            throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName());
+            throwGgafCriticalException("GgafDxStringBoardActor::update 文字列の改行数が256個を超えました。name="<<getName()<<" prm_str="<<prm_str);
         }
 #endif
-        _aWidth_line_px[nn] += _aWidthPx[(int)(_draw_string[i])];
+        _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];
     }
     _nn = nn;
     if (max_len_px > _chr_width_px) {
@@ -97,8 +100,9 @@ void GgafDxStringSpriteActor::update(const char* prm_str) {
 void GgafDxStringSpriteActor::update(char* prm_str) {
     _len = strlen(prm_str);
 #ifdef MY_DEBUG
-    if (_len+1 > 1024 - 1) {
-        throwGgafCriticalException("GgafDxStringSpriteActor::update 引数文字列数が範囲外です。name="<<getName());
+    if (_len+1 > GgafDxStringSpriteActor_MAX_LEN - 1) {
+        throwGgafCriticalException("GgafDxStringSpriteActor::update 引数文字列数が範囲外です。name="<<getName()<<
+                                   " 上限文字数="<<GgafDxStringSpriteActor_MAX_LEN<<" prm_str="<<prm_str);
     }
 #endif
     _draw_string = _buf;
@@ -123,10 +127,10 @@ void GgafDxStringSpriteActor::update(char* prm_str) {
         }
 #ifdef MY_DEBUG
         if (nn > 256) {
-            throwGgafCriticalException("GgafDxStringSpriteActor::update 文字列の改行数が256個を超えました。name="<<getName());
+            throwGgafCriticalException("GgafDxStringSpriteActor::update 文字列の改行数が256個を超えました。name="<<getName()<<" prm_str="<<prm_str);
         }
 #endif
-        _aWidth_line_px[nn] += _aWidthPx[(int)(_draw_string[i])];
+        _aWidth_line_px[nn] += _aWidthPx[_draw_string[i]];
     }
     _nn = nn;
     if (max_len_px > _chr_width_px) {
@@ -202,23 +206,23 @@ void GgafDxStringSpriteActor::processDraw() {
         int nnn = 0; // num of \n now
         int pos = 0;
         pixcoord dx = (_align == ALIGN_CENTER ? -_aWidth_line_px[nnn] / 2 : 0) +
-                        (_aWidthPx[(int)(_draw_string[pos])] / 2);
+                        (_aWidthPx[_draw_string[pos]] / 2);
         pixcoord dx_tmp = dx;
         float u, v;
         int pattno = 0;
         int draw_set_cnt = 0;
         while (true) {
-            if (_draw_string[pos] == '\0') {
+            if (_draw_string[pos] == (int)('\0')) {
                 if (draw_set_cnt > 0) {
                     pSpriteSetModel->GgafDxSpriteSetModel::draw(this, draw_set_cnt);
                 }
                 break; //おしまい
-            } else if (_draw_string[pos] == '\n') {
+            } else if (_draw_string[pos] == (int)('\n')) {
                 nnn++;
                 pos++;
 
                 dx = (_align == ALIGN_CENTER ? -_aWidth_line_px[nnn] / 2 : 0) +
-                        (_aWidthPx[(int)(_draw_string[pos])] / 2);
+                        (_aWidthPx[_draw_string[pos]] / 2);
                 dx_tmp = dx;
                 dy -= _chr_height_px;
 
@@ -227,7 +231,7 @@ void GgafDxStringSpriteActor::processDraw() {
                 pattno = _draw_string[pos] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
-            int w = ((_chr_width_px - _aWidthPx[(int)(_draw_string[pos])]) / 2);
+            int w = ((_chr_width_px - _aWidthPx[_draw_string[pos]]) / 2);
             dx = dx_tmp - w;
             dx_tmp = dx + _chr_width_px - w;
 
@@ -262,7 +266,7 @@ void GgafDxStringSpriteActor::processDraw() {
                     pSpriteSetModel->draw(this, draw_set_cnt);
                 }
                 break;
-            } else if (_draw_string[pos] == '\n') {
+            } else if (_draw_string[pos] == (int)('\n')) {
                 pos--;
 
                 dx = +1*(_aWidthPx[(int)(_draw_string[pos])] / 2);
@@ -274,8 +278,8 @@ void GgafDxStringSpriteActor::processDraw() {
                 pattno = _draw_string[pos] - _chr_ptn_zero; //通常文字列
             }
             //プロポーショナルな幅計算
-            w = ((_chr_width_px - _aWidthPx[(int)(_draw_string[pos])]) / 2);
-            dx = dx_tmp - (w + _aWidthPx[(int)(_draw_string[pos])]);
+            w = ((_chr_width_px - _aWidthPx[_draw_string[pos]]) / 2);
+            dx = dx_tmp - (w + _aWidthPx[_draw_string[pos]]);
             dx_tmp = dx + w;
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_X[draw_set_cnt], PX_DX(dx));
             checkDxException(hr, D3D_OK, "GgafDxStringSpriteActor::processDraw() SetFloat(_ah_X) に失敗しました。");

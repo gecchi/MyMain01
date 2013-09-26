@@ -221,7 +221,7 @@ void MenuBoardNameEntry::processBehavior() {
 
     //カーソル文字表示
     int item_index = getSelectedIndex();
-    int len = strlen(pLabelInputedName_->_draw_string);
+    int len = pLabelInputedName_->_len;
     if (0 <= item_index && item_index <= (input_item_num_-1)) {
         if (len >= QUERYRANKING_NAME_LEN) {
             //10文字以上の場合カーソル文字表示無し
@@ -246,13 +246,15 @@ void MenuBoardNameEntry::processBehavior() {
 void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, int prm_item_index) {
     //決定（振る舞い）の処理
     int item_index = getSelectedIndex();
-    int len = strlen(pLabelInputedName_->_draw_string);
+    int len = pLabelInputedName_->_len;
     if (prm_item_index == ITEM_INDEX_BS_) {
         //[BS]で決定（振る舞い）の処理
         if (len > 0) {
             //１文字除去する。
-            std::string s = std::string(pLabelInputedName_->_draw_string);
-            pLabelInputedName_->update(s.substr(0, s.length()-1).c_str());
+            char cstr[QUERYRANKING_NAME_LEN+1];
+            pLabelInputedName_->getDrawString(cstr);
+            cstr[len-1] = '\0';
+            pLabelInputedName_->update(cstr);
         } else {
             //除去する文字はもう無い
         }
@@ -262,12 +264,14 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxDrawableActor* prm_pItem, 
         riseSubMenu(0, getSelectedItem()->_X + PX_C(50), getSelectedItem()->_Y);
     } else {
         //その他アイテム（入力文字）で決定（振る舞い）の処理
-        //文字入力する
         if (len >= QUERYRANKING_NAME_LEN) {
             //10文字以上の場合
             //何もしない
         } else {
-            std::string s = std::string(pLabelInputedName_->_draw_string) + std::string(apInputItemStr_[item_index]);
+            //文字入力する
+            char cstr[QUERYRANKING_NAME_LEN+1];
+            pLabelInputedName_->getDrawString(cstr);
+            std::string s = std::string(cstr) + std::string(apInputItemStr_[item_index]);
             pLabelInputedName_->update(s.c_str());
         }
     }

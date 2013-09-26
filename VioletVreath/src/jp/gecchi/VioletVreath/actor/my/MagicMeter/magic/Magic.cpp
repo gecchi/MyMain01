@@ -38,7 +38,12 @@ r_keep_cost_(prm_r_each_lv_keep_cost) {
     interest_cost_[0] = 0;
     interest_time_of_casting_[0] = 0;
     interest_time_of_invoking_[0] = 0;
-    for (int i = 1; i <= max_level_; i++) {
+
+    interest_cost_[1] = cost_base_;
+    interest_time_of_casting_[1] = time_of_casting_base_;
+    interest_time_of_invoking_[1] = time_of_invoking_base_;
+
+    for (int i = 2; i <= max_level_; i++) {
         interest_cost_[i]             = (cost_base_ * i) * r_cost_;
         interest_time_of_casting_[i]  = (time_of_casting_base_ * i) * r_time_of_casting_;
         interest_time_of_invoking_[i] = (time_of_invoking_base_ * i) * r_time_of_invoking_;
@@ -122,7 +127,7 @@ int Magic::chkCastAble(int prm_new_level) {
         if (level_ > prm_new_level) {
             return MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN; //詠唱キャンセルレベルダウンOK
         } else if (level_ < prm_new_level) {
-            if (interest_cost_[prm_new_level-level_] < *pMP_) {
+            if (interest_cost_[prm_new_level-level_] <= *pMP_) {
                 return MAGIC_CAST_OK_CANCEL_AND_LEVELUP; //詠唱キャンセル再詠唱レベルアップOK
             } else {
                 return MAGIC_CAST_NG_MP_IS_SHORT; //MPが足りないため、再詠唱レベルアップ不可
@@ -135,7 +140,7 @@ int Magic::chkCastAble(int prm_new_level) {
         if (level_ > prm_new_level) {
             return MAGIC_CAST_OK_LEVELDOWN; //詠唱レベルダウンOK
         } else if (level_ < prm_new_level) {
-            if (interest_cost_[prm_new_level-level_] < *pMP_) {
+            if (interest_cost_[prm_new_level-level_] <= *pMP_) {
                 return MAGIC_CAST_OK_LEVELUP; //詠唱レベルアップOK
             } else {
                 return MAGIC_CAST_NG_MP_IS_SHORT; //MPが足りないため、再詠唱レベルアップ不可
@@ -215,7 +220,7 @@ int Magic::chkInvokeAble(int prm_new_level) {
         if (level_ > prm_new_level) {
             return MAGIC_INVOKE_OK_LEVELDOWN;
         } else if (level_ < prm_new_level) {
-            if (interest_cost_[prm_new_level-level_] < *pMP_) {
+            if (interest_cost_[prm_new_level-level_] <= *pMP_) {
                 return MAGIC_INVOKE_OK_LEVELUP;
             } else {
                 return MAGIC_INVOKE_NG_MP_IS_SHORT;
@@ -230,7 +235,7 @@ int Magic::chkEffectAble(int prm_level) {
     if (level_ > prm_level) {
         return MAGIC_EFFECT_OK_LEVELDOWN;
     } else if (level_ < prm_level) {
-        if (interest_cost_[prm_level-level_] < *pMP_) {
+        if (interest_cost_[prm_level-level_] <= *pMP_) {
             return MAGIC_EFFECT_OK_LEVELUP;
         } else {
             return MAGIC_EFFECT_NG_MP_IS_SHORT;
@@ -395,6 +400,9 @@ void Magic::processBehavior() {
                             lvinfo_[lv].remainingtime_of_effect_ = lvinfo_[lv].time_of_effect_; //持続時間を満タン
                         }
                         *pMP_ -= interest_cost_[level_-last_level_]; //MP消費
+                        if (*pMP_ < 0) {
+                            *pMP_ = 0;
+                        }
                     } else if (last_level_ > level_) {
                         _TRACE_("Magic::processBehavior() ["<<getName()<<"] レベルダウンだった。last_level_="<<last_level_<<" level_="<<level_);
                         //レベルダウンだった場合

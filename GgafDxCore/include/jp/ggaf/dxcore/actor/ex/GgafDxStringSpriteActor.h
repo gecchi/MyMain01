@@ -40,9 +40,9 @@ public:
     /** [r/w]パターン番号0とする文字 */
     int _chr_ptn_zero;
     /** [r]描画文字列 */
-    char* _draw_string;
-    /** [r]文字バッファ(1024固定) */
-    char* _buf;
+    int* _draw_string;
+    /** [r]文字バッファ(256固定) */
+    int* _buf;
     /** [r]文字列長 */
     int _len;
     /** [r/w]ベースの１文字幅(px) */
@@ -182,6 +182,13 @@ public:
     virtual void update(char* prm_str,
                         GgafDxAlign prm_align,
                         GgafDxValign prm_valign);
+
+    inline void getDrawString(char* out_paCh) {
+        for (int i = 0; i < _len; i++) {
+            out_paCh[i] = _draw_string[i];
+        }
+        out_paCh[_len] = '\0';
+    }
 
     virtual ~GgafDxStringSpriteActor();
 
