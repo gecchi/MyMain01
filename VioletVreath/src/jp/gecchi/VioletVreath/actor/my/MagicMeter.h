@@ -72,18 +72,18 @@ public:
     MagicList lstMagic_;
 
     /** メータ主カーソル */
-    MagicMeterCursor001* pMagicCursor_;
+    MagicMeterCursor001* pMainCur_;
     /** 各魔法(配列)のレベルのカーソル */
-    MagicLvCursor001** papLvTargetCursor_;
+    MagicLvCursor001** papLvTgtMvCur_;
     /** 各魔法(配列)の現レベル強調表示用カーソル */
-    MagicLvCursor002** papLvHilightCursor_;
+    MagicLvCursor002** papLvNowCur_;
     /** 各魔法(配列)の詠唱中レベル強調表示用カーソル */
-    MagicLvCursor003** papLvCastingMarkCursor_;
+    MagicLvCursor003** papLvCastingCur_;
 
     /** [r]現在の各魔法(配列)のロールアップ表示状態(0.0:閉じている ～ 1.0:開いている) */
-    float* paFloat_rr_;
+    float* r_roll_;
     /** [r/w]各魔法(配列)のロールアップの速さ */
-    float* paFloat_velo_rr_;
+    float* r_roll_velo_;
 
     float alpha_velo_;
 

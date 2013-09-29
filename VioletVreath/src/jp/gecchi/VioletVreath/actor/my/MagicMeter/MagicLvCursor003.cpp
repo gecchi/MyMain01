@@ -44,7 +44,7 @@ void MagicLvCursor003::processPreDraw() {
     //MagicLvCursor::processPreDraw(); 及び、MagicLvCursor::processAfterDraw() の処理を変更したら、
     //ここも変更せよ。
     tmp_Y_ = _Y; //退避
-    _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->paFloat_rr_[magic_index_]));
+    _Y += (1.0 * pMagicMeter_->height_ * (point_lv_+1) * (1.0 - pMagicMeter_->r_roll_[magic_index_]));
     DefaultBoardActor::processPreDraw();
 }
 

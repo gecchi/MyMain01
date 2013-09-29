@@ -8,36 +8,42 @@ namespace GgafLib {
 /**
  * 数量バー（単純長方形） .
  * @version 1.00
- * @since 2012/09/17
+ * @since 2013/09/17
  * @author Masatoshi Tsuge
  */
 class GraphBarActor : public DefaultBoardActor {
 
-public:
-    /** 横幅ピクセル */
+protected:
+    /** [r]コンストラクタでPxQuantity をnewした場合 true */
+    bool _is_new_PxQuantity;
+    /** [r]モデルチップ横幅ピクセル */
     const float _chip_width;
+    /** [r] 1.0 / _chip_width の値。計算用 */
     const float _rate_org_chip_width;
 
-    /** 内容量 */
-    PxQuantity* _pPxQuantity;
+public:
+    /** [r]数量バー内容値 */
+    PxQuantity* _pPxQty;
+    /** [r]数量バー最大値 */
     int _min_val;
+    /** [r]数量バー最小値 */
     int _max_val;
-    bool _is_new_PxQuantity;
+
 public:
     /**
      *
      * @param prm_name
-     * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
+     * @param prm_pPxQty config済みの PxQuantityオブジェクトの参照
      */
-    GraphBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQuantity);
+    GraphBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQty);
 
     GraphBarActor(const char* prm_name, const char* prm_model);
 
     /**
      * 内部のバーの値を保持する PxQuantity を置き換える .
-     * @param prm_pPxQuantity
+     * @param prm_pPxQty
      */
-    void linkQty(PxQuantity* prm_pPxQuantity);
+    void linkQty(PxQuantity* prm_pPxQty);
 
     /**
      * バーの値に対するピクセル値を設定 .
@@ -54,7 +60,7 @@ public:
     inline void graduate(int prm_min_val, int prm_max_val, pixcoord prm_px_from_min_to_max ) {
         _min_val = prm_min_val;
         _max_val = prm_max_val;
-        _pPxQuantity->graduate(prm_max_val - prm_min_val, prm_px_from_min_to_max);
+        _pPxQty->graduate(prm_max_val - prm_min_val, prm_px_from_min_to_max);
     }
 
     /**
@@ -63,11 +69,11 @@ public:
      */
     inline void setQty(int prm_val) {
         if (_max_val < prm_val) {
-            _pPxQuantity->set(_max_val);
+            _pPxQty->set(_max_val);
         } else if (_min_val > prm_val) {
-            _pPxQuantity->set(_min_val);
+            _pPxQty->set(_min_val);
         } else {
-            _pPxQuantity->set(prm_val);
+            _pPxQty->set(prm_val);
         }
     }
 
@@ -76,7 +82,7 @@ public:
      * @return バーの値
      */
     inline int getQty() {
-        return _pPxQuantity->get();
+        return _pPxQty->get();
     }
 
     /**
@@ -84,7 +90,7 @@ public:
      * @return ピクセル値
      */
     inline pixcoord getBarPx() {
-        return _pPxQuantity->getPx();
+        return _pPxQty->getPx();
     }
 
     /**
@@ -92,7 +98,7 @@ public:
      * @param prm_val バーの加算値
      */
     inline void incQty(int prm_val) {
-        setQty(_pPxQuantity->get() + prm_val);
+        setQty(_pPxQty->get() + prm_val);
     }
 
     /**
@@ -100,7 +106,7 @@ public:
      * @param prm_val バーの減算値
      */
     inline void decQty(int prm_val) {
-        setQty(_pPxQuantity->get() - prm_val);
+        setQty(_pPxQty->get() - prm_val);
     }
 
     void processDraw() override;

@@ -58,7 +58,7 @@ void MagicLvCursor::processPreDraw() {
     //カーソル関連は
     //少し早めに薄くなる（消える）ようにした
     //基本は_pAFader、描画時のみロール同期の半透明を考慮
-    float rr = pMagicMeter_->paFloat_rr_[magic_index_];
+    float rr = pMagicMeter_->r_roll_[magic_index_];
     float alpha_r = rr * 2 - 1.0f;
     if (alpha_r < 0.0f) {
         alpha_r = 0.0f;

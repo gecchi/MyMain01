@@ -12,14 +12,12 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQuantity)
+GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQty)
       : DefaultBoardActor(prm_name, prm_model) ,
-
 _chip_width(_pBoardModel->_fSize_BoardModelWidthPx),
-_rate_org_chip_width(1.0 / _chip_width)
-{
+_rate_org_chip_width(1.0 / _chip_width) {
     _class_name = "GraphBarActor";
-    _pPxQuantity = prm_pPxQuantity;
+    _pPxQty = prm_pPxQty;
     _is_new_PxQuantity = false;
     _min_val = INT_MIN;
     _max_val = INT_MAX;
@@ -27,30 +25,28 @@ _rate_org_chip_width(1.0 / _chip_width)
 
 GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model)
       : DefaultBoardActor(prm_name, prm_model) ,
-
 _chip_width(_pBoardModel->_fSize_BoardModelWidthPx),
-_rate_org_chip_width(1.0 / _chip_width)
-{
+_rate_org_chip_width(1.0 / _chip_width) {
     _class_name = "GraphBarActor";
-    _pPxQuantity = NEW PxQuantity();
+    _pPxQty = NEW PxQuantity();
     _is_new_PxQuantity = true;
     _min_val = INT_MIN;
     _max_val = INT_MAX;
 }
 
-void GraphBarActor::linkQty(PxQuantity* prm_pPxQuantity) {
-    if (_pPxQuantity) {
+void GraphBarActor::linkQty(PxQuantity* prm_pPxQty) {
+    if (_pPxQty) {
         if (_is_new_PxQuantity) {
-            GGAF_DELETE(_pPxQuantity);
+            GGAF_DELETE(_pPxQty);
         }
     }
-    _pPxQuantity = prm_pPxQuantity;
+    _pPxQty = prm_pPxQty;
     _is_new_PxQuantity = false;
 }
 
 void GraphBarActor::processDraw() {
-    float bar_width = (float)(_pPxQuantity->getPx());
-    if (bar_width == 0.0f) { //I know float
+    float bar_width = (float)(_pPxQty->getPx());
+    if (bar_width == 0.0f) { //I know float ==
         return;
     }
     ID3DXEffect* pID3DXEffect = _pBoardEffect->_pID3DXEffect;
@@ -92,6 +88,6 @@ void GraphBarActor::processDraw() {
 
 GraphBarActor::~GraphBarActor() {
     if (_is_new_PxQuantity) {
-        GGAF_DELETE(_pPxQuantity);
+        GGAF_DELETE(_pPxQty);
     }
 }

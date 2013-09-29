@@ -2,7 +2,6 @@
 #define VREATHBAR_H_
 #include "jp/ggaf/lib/actor/GraphCappedBarActor.h"
 
-
 namespace VioletVreath {
 
 /**
@@ -17,7 +16,7 @@ public:
     /**
      *
      * @param prm_name
-     * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
+     * @param prm_pPxQty config済みの PxQuantityオブジェクトの参照
      */
     VreathBar(const char* prm_name);
 

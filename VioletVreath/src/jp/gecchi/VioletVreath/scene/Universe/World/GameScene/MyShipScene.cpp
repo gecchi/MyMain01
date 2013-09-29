@@ -134,10 +134,10 @@ void MyShipScene::processBehavior() {
                 MagicMeter* pMM = pMyShip_->pMagicMeter_;
                 int idx = pMM->lstMagic_.indexOf(pMM->pVreathMagic_);
                 if (idx >= 0) {
-                    pMyShip_->mp_ += pMM->pVreathMagic_->interest_cost_[1]; //VreathMagicレベル１分のMP増やす。
+                    pMyShip_->mp_ += pMM->pVreathMagic_->level_up_cost_[0][1]; //VreathMagicレベル１分のMP増やす。
                     pMM->pVreathMagic_->effect(1);
-                    pMM->papLvTargetCursor_[idx]->moveSmoothTo(1); //カーソル
-                    pMM->papLvHilightCursor_[idx]->moveSmoothTo(1); //カーソル
+                    pMM->papLvTgtMvCur_[idx]->moveSmoothTo(1); //カーソル
+                    pMM->papLvNowCur_[idx]->moveSmoothTo(1); //カーソル
                 } else {
                     throwGgafCriticalException("VreathMagicがありません。");
                 }

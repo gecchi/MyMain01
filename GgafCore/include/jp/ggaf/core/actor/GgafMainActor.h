@@ -62,7 +62,7 @@ public:
 
     /**
      * シーン監督取得。 .
-     * @return 監督 ／ いない場合 nullptr
+     * @return 所属シーン監督の監督。(いない場合 この世(Universe)の監督)
      */
     virtual GgafSceneDirector* getSceneDirector();
 

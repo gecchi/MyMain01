@@ -50,7 +50,7 @@ void MagicMeterStatus::processDraw() {
 
         _X = mm_X + mm_w*(i+1); //i+1 は右隣に表示
         //各マジックレベル要素
-        float rr = pMM->paFloat_rr_[i];
+        float rr = pMM->r_roll_[i];
         if (rr > 0.1) {
             for (int j = 1; j <= pMagic->level_; j++) {
                 setAlpha(rr);

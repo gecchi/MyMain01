@@ -10,7 +10,7 @@ public:
     /**
      *
      * @param prm_name
-     * @param prm_pPxQuantity config済みの PxQuantityオブジェクトの参照
+     * @param prm_pPxQty config済みの PxQuantityオブジェクトの参照
      */
     MpBar(const char* prm_name);
 

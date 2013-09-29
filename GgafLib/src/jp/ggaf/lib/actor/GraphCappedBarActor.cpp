@@ -12,8 +12,8 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-GraphCappedBarActor::GraphCappedBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQuantity)
-      : GraphBarActor(prm_name, prm_model, prm_pPxQuantity) {
+GraphCappedBarActor::GraphCappedBarActor(const char* prm_name, const char* prm_model, PxQuantity* prm_pPxQty)
+      : GraphBarActor(prm_name, prm_model, prm_pPxQty) {
     _class_name = "GraphCappedBarActor";
 }
 
@@ -23,8 +23,8 @@ GraphCappedBarActor::GraphCappedBarActor(const char* prm_name, const char* prm_m
 }
 
 void GraphCappedBarActor::processDraw() {
-    float bar_width = (float)(_pPxQuantity->getPx());
-    if (bar_width == 0.0f) { //I know float
+    float bar_width = (float)(_pPxQty->getPx());
+    if (bar_width == 0.0f) { //I know float ==
         return;
     }
     ID3DXEffect* pID3DXEffect = _pBoardEffect->_pID3DXEffect;
@@ -192,6 +192,6 @@ void GraphCappedBarActor::processDraw() {
 
 GraphCappedBarActor::~GraphCappedBarActor() {
     if (_is_new_PxQuantity) {
-        GGAF_DELETE(_pPxQuantity);
+        GGAF_DELETE(_pPxQty);
     }
 }

@@ -18,12 +18,12 @@ using namespace VioletVreath;
 
 OptionMagic::OptionMagic(const char* prm_name, int* prm_pMP)
     : Magic(prm_name, prm_pMP,
-            9,               //max_level
-            10000   , 0.9,   //基本魔法コスト , 飛びレベル時の rate
-            60*2    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
-            60*0.8  , 0.9,   //基本発動時間   , 飛びレベル時の rate
-            60*60*3 , 1.0,   //基本持続時間   , ＋１レベル毎の持続時間の乗率
-            0.0     , 0.0    //基本維持コスト , ＋１レベル毎の維持コストの乗率
+            9,                    //max_level
+            10000   , 1.15, 0.95, //基本魔法コスト, ＋１レベル毎のコスト増加率  , 飛びレベル時のコスト削減率
+            60*2    , 1.12, 0.95, //基本詠唱時間  , ＋１レベル毎の詠唱時間増加率, 飛びレベル時の詠唱時間削減率
+            60*0.8  , 1.1 , 0.95, //基本発動時間  , ＋１レベル毎の発動時間増加率, 飛びレベル時の発動時間削減率
+            60*60*3 , 0.9,        //基本持続時間  , ＋１レベル毎の持続時間の乗率
+            0.0     , 0.0         //基本維持コスト, ＋１レベル毎の維持コストの乗率
            ) {
 
     //数値の意味は VreathMagic.cpp のコメント参照
@@ -66,7 +66,10 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
         pEffect = papEffect_[lv-1];
         pEffect->_pKurokoB->resetMv();
-        pEffect->_pKurokoB->setVxyzMvVelo(-rvelo, ANG_SIN(paAng_way[n])*rvelo, ANG_COS(paAng_way[n])*rvelo);
+        pEffect->_pKurokoB->setVxyzMvVelo(-rvelo,
+                                          (ANG_SIN(paAng_way[n])+RND(-D_ANG(5),-D_ANG(5)))*(rvelo-RND(PX_C(0),PX_C(5))),
+                                          (ANG_COS(paAng_way[n])+RND(-D_ANG(5),-D_ANG(5)))*(rvelo-RND(PX_C(0),PX_C(5)))
+                                         );
         pEffect->_pKurokoB->execGravitationMvSequenceTwd(pMyShip,
                                                          rvelo, 200, 1);
         pEffect->setAlpha(0.9);
@@ -102,7 +105,7 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
                                          p->_X + p->pOption_->Xorg_,
                                          p->_Y + p->pOption_->Yorg_,
                                          p->_Z + p->pOption_->Zorg_,
-                                         20000, 300, 50000
+                                         20000, 300, 200000
                                      );
     }
 }

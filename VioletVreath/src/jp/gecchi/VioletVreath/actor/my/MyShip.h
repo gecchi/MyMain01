@@ -14,7 +14,7 @@ namespace VioletVreath {
 #define MAX_LEVEL_MOVE_SPEED 5
 #define MIN_LEVEL_MOVE_SPEED 0
 //Ternary numeral -1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ
-#define TN(X,Y,Z) (((3*3)*(X+1)) + ((3)*(Y+1)) + (Z+1))
+#define TN(X,Y,Z) (((3*3)*((X)+1)) + (3*((Y)+1)) + ((Z)+1))
 
 #define EQ_OPTION 1
 #define EQ_MAX_OPTION 0
@@ -26,11 +26,14 @@ namespace VioletVreath {
 //#define MY_SHIP_VREATH_COST (500)
 //無呼吸時 1000000/500/60 = 約33.3秒で死ぬ
 
+/** 毎フレーム減るVreath */
 #define MY_SHIP_VREATH_COST (5)
 //無呼吸時 10000/5/60 = 約33.3秒で死ぬ
 
-#define MY_SHIP_MAX_MP (30000)
-#define MY_SHIP_START_MP (0)
+/** 最大MP */
+#define MY_SHIP_MAX_MP (1000000)
+/** 初期MP */
+#define MY_SHIP_START_MP (1000000)
 /**
  * 自機クラス
  * @version 1.00
