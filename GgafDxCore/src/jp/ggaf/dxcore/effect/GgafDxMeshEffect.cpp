@@ -39,6 +39,7 @@ GgafDxMeshEffect::GgafDxMeshEffect(char* prm_effect_name) : GgafDxEffect(prm_eff
     _h_specular_power = _pID3DXEffect->GetParameterByName( nullptr, "g_specular_power" );
     _h_posCam = _pID3DXEffect->GetParameterByName( nullptr, "g_posCam_World" );
     _h_far_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
+//    _h_colFog = _pID3DXEffect->GetParameterByName( nullptr, "g_colFog" );
 }
 
 void GgafDxMeshEffect::setParamPerFrame() {
@@ -46,6 +47,8 @@ void GgafDxMeshEffect::setParamPerFrame() {
     checkDxException(hr, D3D_OK, "GgafDxMeshEffect::setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB_effect_name="<<_effect_name);
     hr = _pID3DXEffect->SetValue(_h_posCam, P_CAM->_pVecCamFromPoint, sizeof(D3DXVECTOR3) );
     checkDxException(hr, D3D_OK, "GgafDxMeshEffect::setParamPerFrame SetValue(_h_posCam) Ç…é∏îsÇµÇ‹ÇµÇΩÅB_effect_name="<<_effect_name);
+//    hr = _pID3DXEffect->SetValue(_h_colFog, &(P_UNIVERSE->_colFog), sizeof(D3DCOLORVALUE) );
+//    checkDxException(hr, D3D_OK, "GgafDxMeshEffect::setParamPerFrame SetValue(_h_colFog) Ç…é∏îsÇµÇ‹ÇµÇΩÅB_effect_name="<<_effect_name);
 }
 
 GgafDxMeshEffect::~GgafDxMeshEffect() {

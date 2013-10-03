@@ -2,6 +2,8 @@
 #include "jp/ggaf/core/GgafProgress.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/core/util/GgafUtil.h"
+#include <stdarg.h>
 
 using namespace GgafCore;
 
@@ -60,6 +62,63 @@ void GgafProgress::change(progress prm_progress) {
 #endif
     _progress_next = prm_progress;
 }
+
+void GgafProgress::changeProbability(uint32_t prm_p1, progress prm_progress1, ...) {
+    uint32_t r = (uint32_t)(RND(1,100));
+    if (prm_p1 >= r) {
+        change(prm_progress1);
+        return;
+    }
+    uint32_t p_sum = (uint32_t)prm_p1;
+    va_list args;
+    va_start(args, prm_progress1);
+    while(p_sum < 100) {
+        p_sum += va_arg(args, uint32_t);
+#ifdef MY_DEBUG
+        if (p_sum > 100) {
+            throwGgafCriticalException("GgafProgress::changeProbability p_sum="<<p_sum<<" 確率の合計がぴったり100になりません。（va_argで変な場所を読み込んだかも）");
+            return;
+         }
+#endif
+        progress prog = va_arg(args, progress);
+        if (p_sum >= r) {
+            change(prog);
+            return;
+        }
+    }
+    va_end(args);
+#ifdef MY_DEBUG
+    if (p_sum != 100) {
+        throwGgafCriticalException("GgafProgress::changeProbability p_sum="<<p_sum<<" 確率の合計がぴったり100になりません。");
+    }
+#endif
+}
+
+//void GgafProgress::changeProbability(uint32_t prm_p1, progress prm_progress1, ...) {
+//    uint32_t r = (uint32_t)(RND(1,100));
+//    if (prm_p1 <= r) {
+//        change(prm_progress1);
+//        return;
+//    }
+//    uint32_t p_sum = (uint32_t)prm_p1;
+//
+//    va_list args;
+//    va_start(args, prm_progress1);
+//    while(p_sum < 100) {
+//        p_sum += va_arg(args, uint32_t);
+//        progress prog = va_arg(args, progress);
+//        if (p_sum <= r) {
+//            change(prog);
+//            return;
+//        }
+//    }
+//    va_end(args);
+//#ifdef MY_DEBUG
+//    if (p_sum != 100) {
+//        throwGgafCriticalException("GgafProgress::changeProbability 合計が100%になってない。");
+//    }
+//#endif
+//}
 
 void GgafProgress::changeNothing() {
     _progress_next = PROGRESS_NOTHING;

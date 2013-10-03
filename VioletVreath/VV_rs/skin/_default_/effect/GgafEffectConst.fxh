@@ -7,3 +7,4 @@
 #endif 
 
 #define FLUSH_COLOR float4(7.0, 7.0, 7.0, 7.0)
+#define POWER_OF_LIGHT_AMBIENT (0.4f)

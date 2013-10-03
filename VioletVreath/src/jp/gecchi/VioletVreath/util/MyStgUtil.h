@@ -386,6 +386,10 @@ public:
 	static GgafCore::GgafStatus* resetEnemyGlajaLance001Status(GgafCore::GgafStatus* p);
 	//ドゥーナ
 	static GgafCore::GgafStatus* resetEnemyDunaStatus(GgafCore::GgafStatus* p);
+	//オーツァルティア
+	static GgafCore::GgafStatus* resetEnemyOzartiaStatus(GgafCore::GgafStatus* p);
+	//オーツァルティアショット０１(壁ブロック)
+	static GgafCore::GgafStatus* resetEnemyOzartiaShot01Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

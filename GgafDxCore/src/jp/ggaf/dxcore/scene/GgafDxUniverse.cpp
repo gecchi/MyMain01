@@ -71,6 +71,12 @@ void GgafDxUniverse::SeArray::play(int index) {
 GgafDxUniverse::GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera) : GgafUniverse(prm_name) {
     _obj_class |= Obj_GgafDxUniverse;
     _class_name = "GgafDxUniverse";
+//TODO:ƒtƒHƒO‚¢‚Â‚©
+//    _colFog.r = 0.0;
+//    _colFog.g = 0.0;
+//    _colFog.b = 0.0;
+//    _colFog.a = 1.0;
+
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL+1; i++) {
         _apAlphaActorFirstList_DrawDepthLevel[i] = nullptr;
         _apAlphaActorLastList_DrawDepthLevel[i] = nullptr;

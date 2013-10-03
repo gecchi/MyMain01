@@ -83,14 +83,7 @@ public:
     void onInactive() override;
 
     static void onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index);
-    static progress getProgressProbability(int p1, progress prog1,
-                                           int p2, progress prog2,
-                                           int p3, progress prog3,
-                                           int p4, progress prog4,
-                                           int p5, progress prog5,
-                                           int p6, progress prog6,
-                                           int p7, progress prog7,
-                                           int p8, progress prog8);
+
     virtual ~EnemyDuna();
 };
 

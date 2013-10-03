@@ -100,6 +100,37 @@ public:
      */
     virtual void change(progress prm_progress);
 
+    /**
+     * 進捗番号を確率別で変更 .
+     * 【記入例】<br>
+     * <code>
+     * _pProg->changeProbability(
+     *              60, PROG_MOVE01,
+     *               0, PROG_MOVE02,
+     *              20, PROG_MOVE03,
+     *               0, PROG_MOVE04,
+     *              15, PROG_MOVE05,
+     *              10, PROG_MOVE06,
+     *               5, PROG_MOVE07,
+     *               0, PROG_MOVE08
+     *         );
+     * </code>
+     * 【上記の意味】<br>
+     * 60% の確率で進捗番号を PROG_MOVE01 に変更、<br>
+     *  0% の確率で進捗番号を PROG_MOVE02 に変更、<br>
+     * 20% の確率で進捗番号を PROG_MOVE03 に変更、<br>
+     *  0% の確率で進捗番号を PROG_MOVE04 に変更、<br>
+     * 15% の確率で進捗番号を PROG_MOVE05 に変更、<br>
+     * 10% の確率で進捗番号を PROG_MOVE06 に変更、<br>
+     *  5% の確率で進捗番号を PROG_MOVE07 に変更、<br>
+     *  0% の確率で進捗番号を PROG_MOVE08 に変更、<br>
+     * <br>
+     * 確率（百分率）部分の合計が必ず 100 になる必要があります。<br>
+     * （※内部的に確率の値が100になるまで引数を読み込みます、注意して使用して！）<br>
+     * @param prm_p1 確率その１
+     * @param prm_v1 その確率で変更する進捗番号その１(0～)
+     */
+    void changeProbability(uint32_t prm_p1, progress prm_v1, ...);
 
     /**
      * 進捗番号を無し PROGRESS_NOTHING(-1) に変更 .

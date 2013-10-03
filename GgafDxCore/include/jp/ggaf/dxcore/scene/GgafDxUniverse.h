@@ -79,6 +79,9 @@ public:
     static coord _Z_gone_near;
     static std::string _seqkey_se_delay;
 
+//    D3DCOLORVALUE _colFog;
+
+
 public:
     GgafDxUniverse(const char* prm_name, GgafDxCamera* prm_pCamera);
 

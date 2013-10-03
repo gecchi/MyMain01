@@ -53,6 +53,10 @@ float g_alpha_master;
 float g_zf;
 /** -1.0 or 0.999 。遠くでも表示を強制したい場合に0.999 が代入される。*/
 float g_far_rate;
+
+//float4 g_colFog;
+
+
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
 /** 法線マップテクスチャのサンプラー(s2 レジスタにセットされたテクスチャを使う) */
@@ -121,8 +125,13 @@ OUT_VS GgafDxVS_DefaultMesh(
         }
     } else {
         //αフォグ
-        if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        if (out_vs.posModel_Proj.z > 0.666f*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
             out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
+//            float r_fog = (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);    //r_fogはg_zfで丁度0.0になる。それより奥は負の数
+//            if (1.0f < r_fog) {
+//                out_vs.color.rgb = out_vs.color.rgb * (g_colFog.rgb * (1.0-r_fog));
+//                out_vs.color.a = out_vs.color.a * (g_colFog.a + r_fog);
+//            }
         }
     }
     //マスターα

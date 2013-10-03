@@ -101,17 +101,16 @@ void EnemyDuna::processBehavior() {
              }
              if (!_pKurokoA->isTurningMvAng() && !_pKurokoA->isTurningFaceAng()) {
                  _pKurokoA->relateMvFaceAng(true);
-                 progress next = EnemyDuna::getProgressProbability(
-                                      0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,
-                                    250, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW,
-                                    250, PROG_MOVE_REV_LARGE_SEMIARC_CW,
-                                      0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,
-                                      0, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,
-                                    250, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW,
-                                    250, PROG_MOVE_REV_SMALL_SEMIARC_CW,
-                                      0, PROG_MOVE_REV_SMALL_SEMIARC_CCW
-                                 );
-                 _pProg->change(next);
+                 _pProg->changeProbability(
+                              0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,
+                             25, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW,
+                             25, PROG_MOVE_REV_LARGE_SEMIARC_CW,
+                              0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,
+                              0, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,
+                             25, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW,
+                             25, PROG_MOVE_REV_SMALL_SEMIARC_CW,
+                              0, PROG_MOVE_REV_SMALL_SEMIARC_CCW
+                         );
              }
              break;
          }
@@ -154,17 +153,16 @@ void EnemyDuna::processBehavior() {
              }
              if (!_pKurokoA->isTurningMvAng()) {
                  //á@ÇÃéüÇÃìÆçÏ
-                 progress next = EnemyDuna::getProgressProbability(
-                                       0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
-                                     100, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
-                                     150, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
-                                     150, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
-                                 );
-                 _pProg->change(next);
+                 _pProg->changeProbability(
+                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
+                              10, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
+                              15, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
+                              15, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
+                         );
              }
              break;
          }
@@ -177,17 +175,16 @@ void EnemyDuna::processBehavior() {
              }
              if (!_pKurokoA->isTurningMvAng()) {
                  //áAÇÃéüÇÃìÆçÏ
-                 progress next = EnemyDuna::getProgressProbability(
-                                     100, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
-                                       0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
-                                     150, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
-                                     150, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
-                                 );
-                 _pProg->change(next);
+                 _pProg->changeProbability(
+                              10, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
+                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
+                              15, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
+                              15, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
+                         );
              }
              break;
          }
@@ -206,17 +203,16 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
                  //áBÇÃéüÇÃìÆçÏ
-                 progress next = EnemyDuna::getProgressProbability(
-                                       0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
-                                     100, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
-                                     150, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
-                                     150, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
-                                 );
-                 _pProg->change(next);
+                 _pProg->changeProbability(
+                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
+                              10, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
+                              15, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
+                              15, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
+                         );
              }
              break;
          }
@@ -235,17 +231,16 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
                  //áCÇÃéüÇÃìÆçÏ
-                 progress next = EnemyDuna::getProgressProbability(
-                                     100, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
-                                       0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
-                                     150, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
-                                     150, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
-                                 );
-                 _pProg->change(next);
+                 _pProg->changeProbability(
+                              10, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
+                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
+                              15, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
+                              15, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
+                         );
              }
              break;
          }
@@ -261,17 +256,16 @@ void EnemyDuna::processBehavior() {
              }
              if (!_pKurokoA->isTurningMvAng()) {
                  //áDÇÃéüÇÃìÆçÏ
-                 progress next = EnemyDuna::getProgressProbability(
-                                       0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
-                                     400, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
-                                     300, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
-                                       0, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
-                                       0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
-                                       0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
-                                 );
-                 _pProg->change(next);
+                 _pProg->changeProbability(
+                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
+                              40, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
+                              30, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
+                               0, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
+                               0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
+                               0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
+                         );
              }
              break;
          }
@@ -284,17 +278,16 @@ void EnemyDuna::processBehavior() {
              }
              if (!_pKurokoA->isTurningMvAng()) {
                  //áEÇÃéüÇÃìÆçÏ
-                 progress next = EnemyDuna::getProgressProbability(
-                                     400, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
-                                       0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
-                                     300, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
-                                       0, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
-                                       0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
-                                       0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
-                                 );
-                 _pProg->change(next);
+                 _pProg->changeProbability(
+                              40, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
+                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
+                              30, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
+                               0, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
+                               0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
+                               0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
+                         );
              }
              break;
          }
@@ -313,17 +306,16 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
                  //áFÇÃéüÇÃìÆçÏ
-                 progress next = EnemyDuna::getProgressProbability(
-                                       0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
-                                     400, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
-                                     300, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
-                                       0, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
-                                       0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
-                                       0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
-                                 );
-                 _pProg->change(next);
+                 _pProg->changeProbability(
+                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
+                              40, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
+                              30, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
+                               0, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
+                               0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
+                               0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
+                         );
              }
              break;
          }
@@ -342,17 +334,16 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !_pKurokoA->isTurningMvAng()) {
                  //áGÇÃéüÇÃìÆçÏ
-                 progress next = EnemyDuna::getProgressProbability(
-                                     400, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
-                                       0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
-                                     300, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
-                                       0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
-                                     300, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
-                                       0, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
-                                       0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
-                                       0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
-                                 );
-                 _pProg->change(next);
+                 _pProg->changeProbability(
+                              40, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  á@
+                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  áA
+                              30, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  áB
+                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  áC
+                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  áD
+                               0, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  áE
+                               0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  áF
+                               0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  áG
+                         );
              }
              break;
          }
@@ -388,36 +379,6 @@ void EnemyDuna::onInactive() {
 
 void EnemyDuna::onDispatchedShot(GgafDxCore::GgafDxDrawableActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index) {
     prm_pActor->activateDelay(prm_way_index*5 + 1); //activate è„èëÇ´ÅBnum_fire_*5 ÇÃ 5 Ç∆ìØÇ∂ílÇ…Ç∑ÇÈÇ±Ç∆
-}
-
-progress EnemyDuna::getProgressProbability(int p1, progress prog1,
-                                           int p2, progress prog2,
-                                           int p3, progress prog3,
-                                           int p4, progress prog4,
-                                           int p5, progress prog5,
-                                           int p6, progress prog6,
-                                           int p7, progress prog7,
-                                           int p8, progress prog8) {
-    int r = RND(1,1000);
-    if (r <= p1) {
-        return prog1;
-    } else if ( p1 < r && r <= (p1+p2) ) {
-        return prog2;
-    } else if ( (p1+p2) < r && r <= (p1+p2+p3) ) {
-        return prog3;
-    } else if ( (p1+p2+p3) < r && r <= (p1+p2+p3+p4) ) {
-        return prog4;
-    } else if ( (p1+p2+p3+p4) < r && r <= (p1+p2+p3+p4+p5) ) {
-        return prog5;
-    } else if ( (p1+p2+p3+p4+p5) < r && r <= (p1+p2+p3+p4+p5+p6) ) {
-        return prog6;
-    } else if ( (p1+p2+p3+p4+p5+p6) < r && r <= (p1+p2+p3+p4+p5+p6+p7) ) {
-        return prog7;
-    } else if ( (p1+p2+p3+p4+p5+p6+p7) < r && r <= (p1+p2+p3+p4+p5+p6+p7+p8) ) {
-        return prog8;
-    } else {
-        throwGgafCriticalException("getProgressProbability r="<<r<<"Ç≈òRÇÍÇ‹ÇµÇΩÅBà¯êîÇÃämó¶ÇÃçáåvÇ 100 Ç…ÇµÇƒâ∫Ç≥Ç¢ÅB");
-    }
 }
 
 EnemyDuna::~EnemyDuna() {

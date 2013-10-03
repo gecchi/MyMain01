@@ -190,7 +190,7 @@ public:
     float _velo_alpha_fade;
     /** [r]サブメニューのリスト */
     GgafCore::GgafLinkedListRing<MenuActor<T>> _lstSubMenu;
-    /** [r]サブメニューのリスト */
+    /** [r]サブカーソルのリスト */
     GgafCore::GgafLinkedListRing<SupCursor> _lstSupCursor;
 
 public:
@@ -316,10 +316,10 @@ public:
     }
 
     virtual void positionDisp(int prm_index_of_disp,
-                            coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
+                              coord prm_X_local, coord prm_Y_local, coord prm_Z_local);
 
     virtual void positionDisp(int prm_index_of_disp,
-                            coord prm_X_local, coord prm_Y_local) {
+                              coord prm_X_local, coord prm_Y_local) {
         positionItem(prm_index_of_disp, prm_X_local, prm_Y_local, 0);
     }
 
@@ -1132,8 +1132,6 @@ GgafDxCore::GgafDxDrawableActor* MenuActor<T>::selectItemBySupCursor(int prm_sup
     }
 }
 
-
-
 template<class T>
 int MenuActor<T>::selectItem(GgafDxCore::GgafDxDrawableActor* prm_item) {
     int index = _lstItems.indexOf(prm_item);
@@ -1201,7 +1199,6 @@ void MenuActor<T>::addSupCursor(GgafDxCore::GgafDxDrawableActor* prm_pCursorActo
     selectItemBySupCursor(0, _lstSupCursor.length()-1);
 }
 
-
 template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getCursor() {
     return _pCursorActor;
@@ -1221,7 +1218,6 @@ template<class T>
 int MenuActor<T>::getSelectedIndexOnSupCursor(int prm_supcur_no) {
     return _lstSupCursor.getFromFirst(prm_supcur_no)->_select_index;
 }
-
 
 template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getSelectedItem() {
@@ -1246,6 +1242,7 @@ int MenuActor<T>::getOnDecidedIndex() {
         return -1;
     }
 }
+
 template<class T>
 GgafDxCore::GgafDxDrawableActor* MenuActor<T>::getOnDecidedItem() {
     if (_is_just_decided) {
@@ -1358,23 +1355,22 @@ void MenuActor<T>::moveCursor(bool prm_smooth) {
         GgafDxCore::GgafDxDrawableActor* pTargetItem = _lstItems.getCurrent();
         if (prm_smooth) {
             _pCursorActor->_pKurokoA->setMvAngTwd(
-                                    pTargetItem->_X + _X_cursor_adjust,
-                                    pTargetItem->_Y + _Y_cursor_adjust,
-                                    pTargetItem->_Z + _Z_cursor_adjust
-                                );
+                                        pTargetItem->_X + _X_cursor_adjust,
+                                        pTargetItem->_Y + _Y_cursor_adjust,
+                                        pTargetItem->_Z + _Z_cursor_adjust
+                                      );
             _pCursorActor->_pKurokoA->stopMv();
             _pCursorActor->_pKurokoA->slideMvByDT(
-                                     0,
-                                     UTIL::getDistance(
-                                             _pCursorActor->_X,
-                                             _pCursorActor->_Y,
-                                             _pCursorActor->_Z,
-                                             pTargetItem->_X + _X_cursor_adjust,
-                                             pTargetItem->_Y + _Y_cursor_adjust,
-                                             pTargetItem->_Z + _Z_cursor_adjust),
-                                     _cursor_move_frames,
-                                     _cursor_move_p1, _cursor_move_p2
-                                 );
+                                        0,
+                                        UTIL::getDistance(_pCursorActor->_X,
+                                                          _pCursorActor->_Y,
+                                                          _pCursorActor->_Z,
+                                                          pTargetItem->_X + _X_cursor_adjust,
+                                                          pTargetItem->_Y + _Y_cursor_adjust,
+                                                          pTargetItem->_Z + _Z_cursor_adjust ),
+                                        _cursor_move_frames,
+                                        _cursor_move_p1, _cursor_move_p2
+                                      );
             _X_cursor_target_prev = pTargetItem->_X;
             _Y_cursor_target_prev = pTargetItem->_Y;
             _Z_cursor_target_prev = pTargetItem->_Z;
@@ -1405,17 +1401,16 @@ void MenuActor<T>::moveSupCursor(int prm_supcur_no, bool prm_smooth) {
                                 );
             pSupCursorActor->_pKurokoA->stopMv();
             pSupCursorActor->_pKurokoA->slideMvByDT(
-                                     0,
-                                     UTIL::getDistance(
-                                             pSupCursorActor->_X,
-                                             pSupCursorActor->_Y,
-                                             pSupCursorActor->_Z,
-                                             pTargetItem->_X + pSupCursor->_X_adjust,
-                                             pTargetItem->_Y + pSupCursor->_Y_adjust,
-                                             pTargetItem->_Z + pSupCursor->_Z_adjust),
-                                             pSupCursor->_move_frames,
-                                             pSupCursor->_move_p1, pSupCursor->_move_p2
-                                 );
+                                          0,
+                                          UTIL::getDistance(pSupCursorActor->_X,
+                                                            pSupCursorActor->_Y,
+                                                            pSupCursorActor->_Z,
+                                                            pTargetItem->_X + pSupCursor->_X_adjust,
+                                                            pTargetItem->_Y + pSupCursor->_Y_adjust,
+                                                            pTargetItem->_Z + pSupCursor->_Z_adjust ),
+                                          pSupCursor->_move_frames,
+                                          pSupCursor->_move_p1, pSupCursor->_move_p2
+                                        );
             pSupCursor->_X_target_prev = pTargetItem->_X;
             pSupCursor->_Y_target_prev = pTargetItem->_Y;
             pSupCursor->_Z_target_prev = pTargetItem->_Z;
@@ -1461,8 +1456,8 @@ void MenuActor<T>::riseMe() {
     for (int i = 0; i < _lstDispActors.length(); i++) {
         p = pElem->_pValue;
         p->position(T::_X + p->_X_local,
-                  T::_Y + p->_Y_local,
-                  T::_Z + p->_Z_local);
+                    T::_Y + p->_Y_local,
+                    T::_Z + p->_Z_local);
         p->setAlpha(T::getAlpha());
         p->activate();
         pElem = pElem->_pNext;
@@ -1536,8 +1531,8 @@ void MenuActor<T>::processBehavior() {
     for (int i = 0; i < _lstItems.length(); i++) {
         p = pElem->_pValue;
         p->position(T::_X + p->_X_local,
-                  T::_Y + p->_Y_local,
-                  T::_Z + p->_Z_local);
+                    T::_Y + p->_Y_local,
+                    T::_Z + p->_Z_local);
         if (_with_sinking || _with_rising) {
             p->setAlpha(T::getAlpha());
         }
@@ -1548,8 +1543,8 @@ void MenuActor<T>::processBehavior() {
     for (int i = 0; i < _lstDispActors.length(); i++) {
         p = pElem->_pValue;
         p->position(T::_X + p->_X_local,
-                  T::_Y + p->_Y_local,
-                  T::_Z + p->_Z_local);
+                    T::_Y + p->_Y_local,
+                    T::_Z + p->_Z_local);
         if (_with_sinking || _with_rising) {
             p->setAlpha(T::getAlpha());
         }
@@ -1568,8 +1563,8 @@ void MenuActor<T>::processBehavior() {
             _Z_cursor_target_prev = pTargetItem->_Z;
         } else {
             _pCursorActor->position(pTargetItem->_X + _X_cursor_adjust,
-                                  pTargetItem->_Y + _Y_cursor_adjust,
-                                  pTargetItem->_Z + _Z_cursor_adjust );
+                                    pTargetItem->_Y + _Y_cursor_adjust,
+                                    pTargetItem->_Z + _Z_cursor_adjust );
         }
         _pCursorActor->setAlpha(T::getAlpha());
     }
@@ -1587,8 +1582,8 @@ void MenuActor<T>::processBehavior() {
             pSupCursor->_Z_target_prev = pTargetItem->_Z;
         } else {
             pSupCursorActor->position(pTargetItem->_X + pSupCursor->_X_adjust,
-                                   pTargetItem->_Y + pSupCursor->_Y_adjust,
-                                   pTargetItem->_Z + pSupCursor->_Z_adjust );
+                                      pTargetItem->_Y + pSupCursor->_Y_adjust,
+                                      pTargetItem->_Z + pSupCursor->_Z_adjust );
         }
         pSupCursorActor->setAlpha(T::getAlpha());
 

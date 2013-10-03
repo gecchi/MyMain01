@@ -796,26 +796,26 @@ void GgafDxModelManager::setMaterial(Frm::Mesh* in_pMeshesFront,
 }
 
 void GgafDxModelManager::setDefaultMaterial(D3DMATERIAL9* out_pD3DMATERIAL9) {
-    out_pD3DMATERIAL9->Diffuse.r = 0.4f;
-    out_pD3DMATERIAL9->Diffuse.g = 0.4f;
-    out_pD3DMATERIAL9->Diffuse.b = 0.4f;
-    out_pD3DMATERIAL9->Diffuse.a = 1.000000f;
+    out_pD3DMATERIAL9->Diffuse.r = 1.0f;
+    out_pD3DMATERIAL9->Diffuse.g = 1.0f;
+    out_pD3DMATERIAL9->Diffuse.b = 1.0f;
+    out_pD3DMATERIAL9->Diffuse.a = 1.0f;
 
-    out_pD3DMATERIAL9->Ambient.r = 0.4f;
-    out_pD3DMATERIAL9->Ambient.g = 0.4f;
-    out_pD3DMATERIAL9->Ambient.b = 0.4f;
-    out_pD3DMATERIAL9->Ambient.a = 1.000000f;
+    out_pD3DMATERIAL9->Ambient.r = 1.0f;
+    out_pD3DMATERIAL9->Ambient.g = 1.0f;
+    out_pD3DMATERIAL9->Ambient.b = 1.0f;
+    out_pD3DMATERIAL9->Ambient.a = 1.0f;
 
-    out_pD3DMATERIAL9->Ambient.r = 0.4f;
-    out_pD3DMATERIAL9->Ambient.g = 0.4f;
-    out_pD3DMATERIAL9->Ambient.b = 0.4f;
-    out_pD3DMATERIAL9->Ambient.a = 1.000000f;
+    out_pD3DMATERIAL9->Specular.r = 1.0f;
+    out_pD3DMATERIAL9->Specular.g = 1.0f;
+    out_pD3DMATERIAL9->Specular.b = 1.0f;
+    out_pD3DMATERIAL9->Specular.a = 1.0f;
     out_pD3DMATERIAL9->Power = 0.0f;
 
-    out_pD3DMATERIAL9->Ambient.r = 0.4f;
-    out_pD3DMATERIAL9->Ambient.g = 0.4f;
-    out_pD3DMATERIAL9->Ambient.b = 0.4f;
-    out_pD3DMATERIAL9->Emissive.a = 1.000000f;
+    out_pD3DMATERIAL9->Emissive.r = 1.0f;
+    out_pD3DMATERIAL9->Emissive.g = 1.0f;
+    out_pD3DMATERIAL9->Emissive.b = 1.0f;
+    out_pD3DMATERIAL9->Emissive.a = 1.0f;
 }
 
 void GgafDxModelManager::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,

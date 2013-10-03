@@ -536,6 +536,8 @@ class EnemyGlaja;
 class EnemyGlajaLance001;
 
 class EnemyDuna;
+
+class EnemyOzartia;
 //"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
 
 class DepositoryConnection;
